@@ -1,3 +1,53 @@
-<p>
-  login works!
-</p>
+<div class="container">	
+    <div class="row form_container">	
+    	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 padding_none">
+    		<!-- login left -->
+            <div class="login_left">
+    			<div class="logo">
+					<h1><a ng-href="#/" href="#/"><img src="http://dev.greenroom6.com/resources/img/logo.png" alt=""></a></h1>
+				</div><!-- logo end div -->
+				<div class="discription_area">
+    				<h1>Lorem Ipsium</h1>
+    				<p>	
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit
+						sed do eiusmod tempor incididunt ut labore et dolore
+						magna aliqua. Ut enim ad minim veniam
+    				</p>	
+    			</div>
+    			<div class="create_acc">
+    				<p>Don't have an account? <a href="#registration">Sign up Here</a></p>
+    			</div>
+    		</div>
+            <!-- login left end -->
+    	</div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 padding_none">
+            <form class="login_right ng-pristine ng-invalid ng-invalid-required" [formGroup]="loginForm" (ngSubmit)="submitForm(loginForm.value)" >
+            <h2>Login</h2>
+
+            <!-- validation comments display -->
+            <span style="display: none;"> Username and password is incorrect </span>
+            <!-- validation comments display end -->
+            <label>
+            	<input type="text" name="email"  placeholder="Email-id" [formControl]="loginForm.controls['email']" >
+        	</label>
+
+            <label  class="ng-hide" *ngIf="loginForm.controls['email'].hasError('required') && loginForm.controls['email'].touched" >
+            	<p style="color: red">* Username is required.</p>
+            </label>
+
+            <label>
+            	<input ng-model="userLogin.password" type="password" placeholder="Password"  [formControl]="loginForm.controls['password']" >
+        	</label>
+            <label  class="ng-hide" *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched" >
+            	<p style="color: red">* Password is required.</p>
+        	</label>
+            <label><a href="#forgot-password"><p>Forget password ?</p></a></label>
+
+            <label>
+            	<input type="submit" name="" style="height: auto;" value="Login" [disabled]="!loginForm.valid" >&nbsp;<!-- ngIf: checkingCredentials -->
+        	</label>
+            <!-- ngIf: errors -->
+            </form><!-- login right end -->
+        </div>
+    </div>
+</div>
