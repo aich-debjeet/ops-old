@@ -25,7 +25,7 @@
             <h2>Login</h2>
 
             <!-- validation comments display -->
-            <span style="display: none;"> Username and password is incorrect </span>
+            <span *ngIf="!petTag.success" > Username and password is incorrect </span>
             <!-- validation comments display end -->
             <label>
             	<input type="text" name="email"  placeholder="Email-id" [formControl]="loginForm.controls['email']" >
@@ -46,6 +46,7 @@
             <label>
             	<input type="submit" name="" style="height: auto;" value="Login" [disabled]="!loginForm.valid" >&nbsp;<!-- ngIf: checkingCredentials -->
         	</label>
+            
             <!-- ngIf: errors -->
             </form><!-- login right end -->
         </div>
