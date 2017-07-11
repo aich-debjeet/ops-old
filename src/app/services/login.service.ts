@@ -17,8 +17,7 @@ export class LoginService {
                 if (user && user.access_token) {
                     localStorage.setItem('currentUser', JSON.stringify(user));
                 }
-
-                // this.router.navigate([this.returnUrl]);
+                this.router.navigate(['/home']);
             });
     }
 

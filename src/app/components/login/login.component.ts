@@ -23,12 +23,18 @@ export class LoginComponent implements OnInit {
   petTag: Login;
 
 	loginForm : FormGroup;
+  // public token: string;
 
   constructor(fb: FormBuilder, private store: Store<Login>) { 
   	this.loginForm = fb.group({
       'email' : [null, Validators.required],
       'password': [null, Validators.required],
     })
+
+    //login Check
+     // set token if saved in local storage
+      // var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      // this.token = currentUser && currentUser.token;
 
     this.tagState$ = store.select('loginTags');
     // this.tagState$.subscribe(v => console.log(v));
