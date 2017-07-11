@@ -1,13 +1,5 @@
+<app-navbar></app-navbar>
 
-  <h1>
-    Welcome to {{title}}!!
-  </h1>
- <nav>
-    <a routerLink="/login" routerLinkActive="active">login</a>
-    <a routerLink="/home" routerLinkActive="active">home</a>
-  </nav>
-
-
-<button
-        class="btn btn-lg btn-primary"
-        (click)="auth.logout()">Log Out</button>
+<div class="container">
+	<button class="btn btn-lg btn-primary" (click)="auth.logout()">Log Out</button>
+</div>
