@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { Login } from '../../models/login.model';
+import { Login, userTag, initialTag } from '../../models/login.model';
 
 //Action
 import { authActions } from '../../actions/auth.action'
@@ -11,6 +11,13 @@ import { authActions } from '../../actions/auth.action'
 //rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+
+export class Hero {
+  success : boolean 
+}
+
+const HEROES: Hero = 
+  { success : false  };
 
 @Component({
   selector: 'app-login',
@@ -21,9 +28,10 @@ export class LoginComponent implements OnInit {
 
   tagState$: Observable<Login>;
   private tagStateSubscription: Subscription;
-  petTag: Login;
+  petTag = initialTag;
 
 	loginForm : FormGroup;
+  // value = initialTag;
   // public token: string;
 
   constructor(fb: FormBuilder, private store: Store<Login>, private router: Router) { 
@@ -46,6 +54,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    console.log(this.petTag);
+
      var user = JSON.parse(localStorage.getItem('currentUser'));
      if (user && user.access_token) {
        this.router.navigate(['/home']);

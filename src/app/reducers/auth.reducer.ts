@@ -1,10 +1,10 @@
 import { ActionReducer, Action } from '@ngrx/store';
-import { Login } from '../models/login.model';
+import { Login, initialTag } from '../models/login.model';
 
 import { authActions } from '../actions/auth.action';
 
 
-export const LoginReducer: ActionReducer<Login[]> = (state: Login[] = [], {payload, type}: Action) =>  {
+export const LoginReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 	switch (type) {
 		case authActions.USER_LOGIN:
 			console.log(payload);
