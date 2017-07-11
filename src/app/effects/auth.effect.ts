@@ -10,21 +10,21 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
 
-import { LoginService } from '../services/login.service';
-import { LoginActions } from '../actions/login.action';
+import { AuthService } from '../services/auth.service';
+import { authActions } from '../actions/auth.action';
 
 @Injectable()
 export class LoginEffect {
 
-  constructor(private actions$: Actions, private loginService: LoginService) { }
+  constructor(private actions$: Actions, private loginService: AuthService) { }
 
   @Effect()
   loadGallery$ = this.actions$
-      .ofType(LoginActions.USER_LOGIN)
+      .ofType(authActions.USER_LOGIN)
       .map(toPayload)
       .switchMap((payload) => this.loginService.login(payload)
-        .map(res => ({ type: LoginActions.USER_LOGIN_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: LoginActions.USER_LOGIN_FAILED, payload: res }))
+        .map(res => ({ type: authActions.USER_LOGIN_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: authActions.USER_LOGIN_FAILED, payload: res }))
       );
 
 }

@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { Login } from '../models/login.model';
 
-export class LoginActions {
+export class authActions {
   static USER_LOGIN = 'USER_LOGIN';
   static USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
   static USER_LOGIN_FAILED = 'USER_LOGIN_FAILED';
@@ -13,7 +13,7 @@ export class LoginActions {
 
   userLogin(value: Login): Action {
     return {
-      type: LoginActions.USER_LOGIN,
+      type: authActions.USER_LOGIN,
       payload: {
         value
       }
@@ -22,7 +22,7 @@ export class LoginActions {
 
   userLoginSuccess(value: Login): Action {
     return {
-      type: LoginActions.USER_LOGIN_SUCCESS,
+      type: authActions.USER_LOGIN_SUCCESS,
       payload: {
         value
       }
@@ -31,7 +31,7 @@ export class LoginActions {
 
   userLoginFailed(error: any): Action {
     return {
-      type: LoginActions.USER_LOGIN_FAILED,
+      type: authActions.USER_LOGIN_FAILED,
       payload: error
     };
   }
