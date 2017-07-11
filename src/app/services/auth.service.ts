@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
 @Injectable()
-export class LoginService {
+export class AuthService {
 
   constructor(private http: Http, private router: Router) { }
 
@@ -21,4 +21,9 @@ export class LoginService {
             });
     }
 
+    logout() {
+        // remove user from local storage to log user out
+        localStorage.removeItem('currentUser');
+        this.router.navigate(['/login']);
+    }
 }

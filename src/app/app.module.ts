@@ -5,7 +5,9 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { LoginGuard } from './guard/login.guard';
+
+//Guard
+import { AuthGuard } from './guard/auth.guard';
 
 // components
 import { AppComponent } from './app.component';
@@ -16,13 +18,13 @@ import { HomeComponent } from './components/home/home.component';
 import { routes } from './app.routing';
 
 // Reducers
-import{LoginReducer} from './reducers/login.reducer';
+import{LoginReducer} from './reducers/auth.reducer';
 
 // Effects
-import { LoginEffect } from './effects/login.effect';
+import { LoginEffect } from './effects/auth.effect';
 
 //Services
-import { LoginService } from './services/login.service';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -40,7 +42,7 @@ import { LoginService } from './services/login.service';
     RouterModule.forRoot(routes),
     EffectsModule.run(LoginEffect)
   ],
-  providers: [LoginService, LoginGuard],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

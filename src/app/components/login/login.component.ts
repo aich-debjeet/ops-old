@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import { Login } from '../../models/login.model';
 
 //Action
-import { LoginActions } from '../../actions/login.action'
+import { authActions } from '../../actions/auth.action'
 
 //rx
 import { Observable } from 'rxjs/Observable';
@@ -25,16 +26,11 @@ export class LoginComponent implements OnInit {
 	loginForm : FormGroup;
   // public token: string;
 
-  constructor(fb: FormBuilder, private store: Store<Login>) { 
+  constructor(fb: FormBuilder, private store: Store<Login>, private router: Router) { 
   	this.loginForm = fb.group({
       'email' : [null, Validators.required],
       'password': [null, Validators.required],
     })
-
-    //login Check
-     // set token if saved in local storage
-      // var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      // this.token = currentUser && currentUser.token;
 
     this.tagState$ = store.select('loginTags');
     // this.tagState$.subscribe(v => console.log(v));
@@ -50,6 +46,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+     var user = JSON.parse(localStorage.getItem('currentUser'));
+     if (user && user.access_token) {
+       this.router.navigate(['/home']);
+     }
+      // this.token = currentUser && currentUser.token;
   }
 
   submitForm(value: any){
@@ -61,7 +62,7 @@ export class LoginComponent implements OnInit {
       'grant_type' : 'password'
     }
 
-    this.store.dispatch({ type: LoginActions.USER_LOGIN, payload: form});
+    this.store.dispatch({ type: authActions.USER_LOGIN, payload: form});
   	// console.log(value);
   }
 
