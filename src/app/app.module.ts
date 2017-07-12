@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-//Guard
+// Guard
 import { AuthGuard } from './guard/auth.guard';
 
 // components
@@ -19,17 +19,32 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { routes } from './app.routing';
 
 // Reducers
-import{LoginReducer} from './reducers/auth.reducer';
+import { LoginReducer } from './reducers/auth.reducer';
 
 // Effects
 import { LoginEffect } from './effects/auth.effect';
 
-//Services
+// Services
 import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileBioComponent } from './components/profile-bio/profile-bio.component';
+import { MessageComponent } from './components/message/message.component';
+import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
+import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { OpportunityComponent } from './components/opportunity/opportunity.component';
+import { JobsComponent } from './components/jobs/jobs.component';
+import { JobDetailsComponent } from './components/job-details/job-details.component';
+import { EventsComponent } from './components/events/events.component';
+import { SearchComponent } from './components/search/search.component';
 import { AccountTypeComponent } from './components/account-type/account-type.component';
 import { RegisterInterestComponent } from './components/register-interest/register-interest.component';
 import { SettingsComponent } from './components/settings/settings.component';
+
 
 
 
@@ -40,6 +55,20 @@ import { SettingsComponent } from './components/settings/settings.component';
     HomeComponent,
     NavbarComponent,
     RegistrationComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    ProfileComponent,
+    ProfileBioComponent,
+    MessageComponent,
+    SpotfeedComponent,
+    SpotfeedPremiumComponent,
+    NotificationComponent,
+    PortfolioComponent,
+    OpportunityComponent,
+    JobsComponent,
+    JobDetailsComponent,
+    EventsComponent,
+    SearchComponent,
     AccountTypeComponent,
     RegisterInterestComponent,
     SettingsComponent

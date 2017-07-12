@@ -3,21 +3,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { Login, userTag, initialTag } from '../../models/login.model';
+import { Login, UserTag, initialTag } from '../../models/login.model';
 
-//Action
-import { authActions } from '../../actions/auth.action'
+// Action
+import { AuthActions } from '../../actions/auth.action'
 
-//rx
+// rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-
-export class Hero {
-  success : boolean 
-}
-
-const HEROES: Hero = 
-  { success : false  };
 
 @Component({
   selector: 'app-login',
@@ -29,13 +22,10 @@ export class LoginComponent implements OnInit {
   tagState$: Observable<Login>;
   private tagStateSubscription: Subscription;
   petTag = initialTag;
+  loginForm: FormGroup;
 
-	loginForm : FormGroup;
-  // value = initialTag;
-  // public token: string;
-
-  constructor(fb: FormBuilder, private store: Store<Login>, private router: Router) { 
-  	this.loginForm = fb.group({
+  constructor(fb: FormBuilder, private store: Store<Login>, private router: Router) {
+    this.loginForm = fb.group({
       'email' : [null, Validators.required],
       'password': [null, Validators.required],
     })
@@ -57,15 +47,14 @@ export class LoginComponent implements OnInit {
 
     console.log(this.petTag);
 
-     var user = JSON.parse(localStorage.getItem('currentUser'));
+     const user = JSON.parse(localStorage.getItem('currentUser'));
      if (user && user.access_token) {
        this.router.navigate(['/home']);
      }
-      // this.token = currentUser && currentUser.token;
   }
 
-  submitForm(value: any){
-    let form = {
+  submitForm(value: any) {
+    const form =  {
       'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
       'client_secret': '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',
       'username' : value.email,
@@ -73,7 +62,7 @@ export class LoginComponent implements OnInit {
       'grant_type' : 'password'
     }
 
-    this.store.dispatch({ type: authActions.USER_LOGIN, payload: form});
+    this.store.dispatch({ type: AuthActions.USER_LOGIN, payload: form});
   	// console.log(value);
   }
 
