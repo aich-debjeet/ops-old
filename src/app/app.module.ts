@@ -30,6 +30,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileBioComponent } from './components/profile-bio/profile-bio.component';
+import { MessageComponent } from './components/message/message.component';
+import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 
 
 
@@ -42,7 +45,10 @@ import { ProfileComponent } from './components/profile/profile.component';
     RegistrationComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    ProfileBioComponent,
+    MessageComponent,
+    SpotfeedComponent
   ],
   imports: [
     BrowserModule,
