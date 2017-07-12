@@ -29,6 +29,7 @@ import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AccountTypeComponent } from './components/account-type/account-type.component';
 import { RegisterInterestComponent } from './components/register-interest/register-interest.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 
 
@@ -40,7 +41,8 @@ import { RegisterInterestComponent } from './components/register-interest/regist
     NavbarComponent,
     RegistrationComponent,
     AccountTypeComponent,
-    RegisterInterestComponent
+    RegisterInterestComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

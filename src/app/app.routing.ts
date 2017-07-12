@@ -7,6 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AccountTypeComponent } from './components/account-type/account-type.component';
 import { RegisterInterestComponent } from './components/register-interest/register-interest.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 //Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -17,6 +18,7 @@ export const routes: Routes =[
  { path: 'registration', component: RegistrationComponent },
  { path: 'acccount-type', component: AccountTypeComponent },
  { path: 'register-interest', component: RegisterInterestComponent },
+ { path: 'settings', component: SettingsComponent },
 
  // otherwise redirect to home
   { path: '**', redirectTo: '' }

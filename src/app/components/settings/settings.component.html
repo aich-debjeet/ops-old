@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
+              <div class="bhoechie-tab-menu">
+                <div class="list-group">
+                  <a ng-click="settingType='connection'" class="list-group-item curs-point active" ng-class="{'active':settingType=='connection'}">
+                    Connection
+                  </a>
+                  <a ng-click="settingType='message'" class="list-group-item curs-point" ng-class="{'active':settingType=='message'}">
+                    Message
+                  </a>
+                  <a ng-click="settingType='profile'" class="list-group-item curs-point" ng-class="{'active':settingType=='profile'}">
+                    Profile
+                  </a>
+                  <a ng-click="settingType='changepassword'" class="list-group-item curs-point" ng-class="{'active':settingType=='changepassword'}">
+                    Change Password
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
+              <div class="bhoechie-tab">
+                <!-- connection section -->
+                <!-- ngIf: settingType=='connection' --><div ng-if="settingType=='connection'" class="bhoechie-tab-content ng-scope active" ng-class="{'active':settingType=='connection'}">
+                    <div class="row">
+                      <ul class="settings_connection">
+                        <li>
+                          Receive connection requests without email?
+                          <label>
+                              <input ng-model="connection.allowWithoutEmail" class="ng-pristine ng-untouched ng-valid ng-not-empty" type="checkbox"><span></span>
+                              <!-- <input type="checkbox"> -->
+                          </label>
+                        </li>
+                        <li>
+                          Follow even if connection rejected?
+                          <label>
+                              <input ng-model="connection.followIfRejected" class="ng-pristine ng-untouched ng-valid ng-empty" type="checkbox"><span></span>
+                          </label>
+                        </li>
+                        <li>
+                          Show connections to everyone?
+                          <label>
+                             <input ng-model="connection.showConnectionsToEveryone" class="ng-pristine ng-untouched ng-valid ng-not-empty" type="checkbox"> <span></span>
+                          </label>
+                        </li>
+
+
+                      </ul><!-- net_req -->
+                  </div>
+                </div><!-- end ngIf: settingType=='connection' -->
+                <!-- message section -->
+                <!-- ngIf: settingType=='message' -->
+
+                <!-- profile  -->
+                <!-- ngIf: settingType=='profile' -->
+
+                <!-- change password search -->
+                <!-- ngIf: settingType=='changepassword' -->
+              </div>
+              <div class="button_container">
+                <button class="btn_sub">Deactivate</button>
+                <button class="btn_sub" ng-click="connectionSettings();">Submit</button>
+              </div>
+            </div>
+        </div>
+  </div>
+</div>
