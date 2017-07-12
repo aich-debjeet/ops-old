@@ -1,20 +1,16 @@
 export class Login {
-
  completed: string[];
- loading: boolean = false;
- success: boolean = true;
-
+ loading = false;
+ success = true;
 }
 
-
-
-export class userTag {
-  success : boolean 
+export class UserTag {
+  success: boolean
 }
 
 export const initialTag: Login = {
-completed: [],
- loading:  false,
+  completed: [],
+  loading:  false,
   success: true
 };
 

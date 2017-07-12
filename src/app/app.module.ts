@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-//Guard
+// Guard
 import { AuthGuard } from './guard/auth.guard';
 
 // components
@@ -18,12 +18,12 @@ import { HomeComponent } from './components/home/home.component';
 import { routes } from './app.routing';
 
 // Reducers
-import{LoginReducer} from './reducers/auth.reducer';
+import { LoginReducer } from './reducers/auth.reducer';
 
 // Effects
 import { LoginEffect } from './effects/auth.effect';
 
-//Services
+// Services
 import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
