@@ -20,10 +20,10 @@ import { JobDetailsComponent } from './components/job-details/job-details.compon
 import { EventsComponent } from './components/events/events.component';
 import { SearchComponent } from './components/search/search.component';
 
-//Guard
+// Guard
 import { AuthGuard } from './guard/auth.guard';
 
-export const routes: Routes =[
+export const routes: Routes = [
  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
  { path: 'login', component: LoginComponent },
  { path: 'registration', component: RegistrationComponent },
