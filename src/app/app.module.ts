@@ -33,6 +33,14 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileBioComponent } from './components/profile-bio/profile-bio.component';
 import { MessageComponent } from './components/message/message.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
+import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { OpportunityComponent } from './components/opportunity/opportunity.component';
+import { JobsComponent } from './components/jobs/jobs.component';
+import { JobDetailsComponent } from './components/job-details/job-details.component';
+import { EventsComponent } from './components/events/events.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 
@@ -48,7 +56,15 @@ import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
     ProfileComponent,
     ProfileBioComponent,
     MessageComponent,
-    SpotfeedComponent
+    SpotfeedComponent,
+    SpotfeedPremiumComponent,
+    NotificationComponent,
+    PortfolioComponent,
+    OpportunityComponent,
+    JobsComponent,
+    JobDetailsComponent,
+    EventsComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
