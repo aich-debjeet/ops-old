@@ -27,6 +27,7 @@ import { LoginEffect } from './effects/auth.effect';
 //Services
 import { AuthService } from './services/auth.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { AccTypeComponent } from './components/acc-type/acc-type.component';
 
 
 
@@ -36,7 +37,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     LoginComponent,
     HomeComponent,
     NavbarComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    AccTypeComponent
   ],
   imports: [
     BrowserModule,
