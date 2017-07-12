@@ -17,7 +17,6 @@ export class LoginEffect {
     private actions$: Actions,
     private loginService: AuthService
   ) {}
-  
   @Effect()
   loadGallery$ = this.actions$
     .ofType(AuthActions.USER_LOGIN)
