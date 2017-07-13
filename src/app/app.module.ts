@@ -29,7 +29,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { ProfileBioComponent } from './components/profile-bio/profile-bio.component';
 import { MessageComponent } from './components/message/message.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
@@ -40,7 +39,6 @@ import { JobsComponent } from './components/jobs/jobs.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
 import { EventsComponent } from './components/events/events.component';
 import { SearchComponent } from './components/search/search.component';
-import { AccountTypeComponent } from './components/account-type/account-type.component';
 import { SettingsComponent } from './components/settings/settings.component';
 
 
@@ -55,7 +53,6 @@ import { SettingsComponent } from './components/settings/settings.component';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     ProfileComponent,
-    ProfileBioComponent,
     MessageComponent,
     SpotfeedComponent,
     SpotfeedPremiumComponent,
@@ -66,7 +63,6 @@ import { SettingsComponent } from './components/settings/settings.component';
     JobDetailsComponent,
     EventsComponent,
     SearchComponent,
-    AccountTypeComponent,
     SettingsComponent
   ],
   imports: [
