@@ -13,7 +13,6 @@ import { AuthGuard } from './guard/auth.guard';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
-import { RegistrationComponent } from './components/registration/registration.component';
 
 // Routes
 import { routes } from './app.routing';
@@ -42,7 +41,6 @@ import { JobDetailsComponent } from './components/job-details/job-details.compon
 import { EventsComponent } from './components/events/events.component';
 import { SearchComponent } from './components/search/search.component';
 import { AccountTypeComponent } from './components/account-type/account-type.component';
-import { RegisterInterestComponent } from './components/register-interest/register-interest.component';
 import { SettingsComponent } from './components/settings/settings.component';
 
 
@@ -54,7 +52,6 @@ import { SettingsComponent } from './components/settings/settings.component';
     LoginComponent,
     HomeComponent,
     NavbarComponent,
-    RegistrationComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
     ProfileComponent,
@@ -70,7 +67,6 @@ import { SettingsComponent } from './components/settings/settings.component';
     EventsComponent,
     SearchComponent,
     AccountTypeComponent,
-    RegisterInterestComponent,
     SettingsComponent
   ],
   imports: [

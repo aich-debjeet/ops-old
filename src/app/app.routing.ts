@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
-import { RegistrationComponent } from './components/registration/registration.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -20,7 +19,6 @@ import { JobDetailsComponent } from './components/job-details/job-details.compon
 import { EventsComponent } from './components/events/events.component';
 import { SearchComponent } from './components/search/search.component';
 import { AccountTypeComponent } from './components/account-type/account-type.component';
-import { RegisterInterestComponent } from './components/register-interest/register-interest.component';
 import { SettingsComponent } from './components/settings/settings.component';
 
 // Guard
@@ -44,8 +42,6 @@ export const routes: Routes = [
  { path: 'job-details', component: JobDetailsComponent },
  { path: 'events', component: EventsComponent },
  { path: 'search', component: SearchComponent },
- { path: 'acccount-type', component: AccountTypeComponent },
- { path: 'register-interest', component: RegisterInterestComponent },
  { path: 'settings', component: SettingsComponent },
  // otherwise redirect to home
   { path: '**', redirectTo: '' }
