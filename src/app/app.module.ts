@@ -41,6 +41,7 @@ import { EventsComponent } from './components/events/events.component';
 import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { RegistrationBasicComponent } from './components/registration-basic/registration-basic.component';
+import { RegistrationWelcomeComponent } from './components/registration-welcome/registration-welcome.component';
 
 
 
@@ -65,7 +66,8 @@ import { RegistrationBasicComponent } from './components/registration-basic/regi
     EventsComponent,
     SearchComponent,
     SettingsComponent,
-    RegistrationBasicComponent
+    RegistrationBasicComponent,
+    RegistrationWelcomeComponent
   ],
   imports: [
     BrowserModule,

@@ -19,6 +19,7 @@ import { EventsComponent } from './components/events/events.component';
 import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { RegistrationBasicComponent } from './components/registration-basic/registration-basic.component';
+import { RegistrationWelcomeComponent } from './components/registration-welcome/registration-welcome.component';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -41,6 +42,7 @@ export const routes: Routes = [
  { path: 'search', component: SearchComponent },
  { path: 'settings', component: SettingsComponent },
  { path: 'registration-basic', component: RegistrationBasicComponent },
+ { path: 'registration-welcome', component: RegistrationWelcomeComponent },
  // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];
