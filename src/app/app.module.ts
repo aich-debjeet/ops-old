@@ -40,6 +40,7 @@ import { JobDetailsComponent } from './components/job-details/job-details.compon
 import { EventsComponent } from './components/events/events.component';
 import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { RegistrationBasicComponent } from './components/registration-basic/registration-basic.component';
 
 
 
@@ -63,7 +64,8 @@ import { SettingsComponent } from './components/settings/settings.component';
     JobDetailsComponent,
     EventsComponent,
     SearchComponent,
-    SettingsComponent
+    SettingsComponent,
+    RegistrationBasicComponent
   ],
   imports: [
     BrowserModule,
