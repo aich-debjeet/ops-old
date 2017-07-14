@@ -40,6 +40,8 @@ import { JobDetailsComponent } from './components/job-details/job-details.compon
 import { EventsComponent } from './components/events/events.component';
 import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { RegistrationProfileComponent } from './components/registration-profile/registration-profile.component';
+import { RegistrationAddSkillComponent } from './components/registration-add-skill/registration-add-skill.component';
 
 
 
@@ -63,7 +65,9 @@ import { SettingsComponent } from './components/settings/settings.component';
     JobDetailsComponent,
     EventsComponent,
     SearchComponent,
-    SettingsComponent
+    SettingsComponent,
+    RegistrationProfileComponent,
+    RegistrationAddSkillComponent
   ],
   imports: [
     BrowserModule,
