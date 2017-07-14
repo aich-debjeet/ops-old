@@ -1,0 +1,187 @@
+<section class="reg_steps">
+        <div class="container">
+
+            <!-- registraion middle container -->
+            <div class="row reg_middle_container">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 reg_left_section">
+                    <!-- progress bar -->
+                    <div class="row reg_progress_bar">
+                        <div class="col-xs-4 reg_progress_bar_step active">
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <div class="bs-wizard-dot">
+                            </div>
+                        </div>
+                        <div class="col-xs-4 reg_progress_bar_step disabled">
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <div class="bs-wizard-dot"></div>
+                        </div>
+                        <div class="col-xs-4 reg_progress_bar_step disabled">
+                            <div class="progress">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <div class="bs-wizard-dot"></div>
+                        </div>
+                    </div>
+                    <!-- //progress bar -->
+                    <div class="reg_step1_form">
+                        <form [formGroup]="regFormBasic" (ngSubmit) = "submitForm(regFormBasic.value)">
+                            <div class="row">
+                                <div class="col-md-9 col-sm-9">
+                                    <div class="form_group">
+                                        <input class="form_input" type="text" name="name" [formControl]="regFormBasic.controls['name']">
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label>Name</label>
+                                    </div>
+                                    <div class="form_group">
+                                        <input class="form_input" type="text" name="username" [formControl]="regFormBasic.controls['username']">
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label>Username</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="reg_add_photo row">
+                                        <label id="test" for="upload-photo">Photo</label>
+                                        <input type="file" name="photo" id="upload-photo" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form_group reg_gender" style="margin-bottom: 10px;">
+                                <label>
+                                    <strong>Gender</strong>
+                                    <label class="gender_single">
+                                        <input type="radio" id="gender"><span></span>Male</label>
+                                    <label class="gender_single">
+                                        <input type="radio" id="gender"><span></span>Female</label>
+                                    <label class="gender_single">
+                                        <input type="radio" id="gender"><span></span>Others</label>
+                                </label>
+                            </div>
+
+                            <div class="form_group">
+                                <input class="form_input" type="text" name="dob" [formControl]="regFormBasic.controls['dob']">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Date of Birth</label>
+                            </div>
+                            <div class="form_group">
+                                <input class="form_input" type="text" name="email" [formControl]="regFormBasic.controls['email']">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Email</label>
+                            </div>
+                            <div class="form_group">
+                                <input class="form_input" type="text" name="number" [formControl]="regFormBasic.controls['number']">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Phone Number</label>
+                            </div>
+                            <div class="form_group">
+                                <input class="form_input" type="password" name="password" [formControl]="regFormBasic.controls['password']">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Password</label>
+                            </div>
+                            <div class="form_group">
+                                <input class="form_input" type="password" name="confirm_password" [formControl]="regFormBasic.controls['confirm_password']">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Confirm Password</label>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" name="button" class="button_tranparent_red" data-toggle="modal" data-target="#otpModal" [disabled]="!regFormBasic.valid" >Sign Up</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 reg_right_section">
+                    <div class="reg_right_section_text">
+
+                        <div class="reg_steps_logo">
+                            <a href="index.html">
+                                <img src="img/logo.png" alt="One Page Spotlight">
+                            </a>
+                        </div>
+
+                        <h3 class="text-center"><strong>Create Your Account</strong></h3>
+                        <div class="reg_graph">
+                            <div class="reg_circle"></div>
+                            <div class="reg_rectangle"></div>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                        <p>Already have an account? <a href="#">Login Here</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- //registraion middle container -->
+        </div>
+    </section>
+
+
+    <!-- otp popup code -->
+    <div class="modal fade" id="otpModal" role="dialog" >
+        <div class="modal-dialog modal-md">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="border: none;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center"><img src="img/logo_black.png"></h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 text-center reg_step1_otp">
+                        <h5>Enter the 4 digit OTP that you recieived<br> in your phone or email.</h5>
+                        <p>
+                        <a href="#">Resend OTP</a>
+                                <form action="">
+                                    <div class="form_group">
+                                        <input class="form_input" type="text" required="">
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label>Enter OTP</label>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="button_tranparent_red" data-toggle="modal" data-target="#thankyouModal">Validate OTP</a>
+                                    </div>
+                                </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- //otp popup code -->
+
+    <!-- thankyou popup code -->
+    <div class="modal fade" id="thankyouModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="border: none;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center">
+                        <img src="img/logo_black.png">
+                    </h4>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 text-center reg_thanks">
+                        <h3>Thank you for Signing up.</h3>
+                        <p>Select your interest to get started.<p>
+                        <div class="text-center">
+                            <a class="button_tranparent_red" href="reg_step_2.html">Next</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- //thankyou popup code -->
