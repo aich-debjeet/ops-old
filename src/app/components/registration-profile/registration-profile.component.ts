@@ -1,6 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { Store } from '@ngrx/store';
+import { Login, UserTag, initialTag, RegisterProfile } from '../../models/auth.model';
+
+// Action
+import { AuthActions } from '../../actions/auth.action'
+
+// rx
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
 @Component({
   selector: 'app-registration-profile',
   templateUrl: './registration-profile.component.html',
@@ -10,9 +20,11 @@ export class RegistrationProfileComponent implements OnInit {
 
   rForm: FormGroup;
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: FormBuilder, private store: Store<RegisterProfile>) {
     this.rForm = fb.group({
-      'artCheckbox' : [null, Validators.required],
+      'artCheckbox1' : [null],
+      'artCheckbox2' : [null],
+      'artCheckbox3' : [null],
       'study': [null, Validators.required],
     })
   }
@@ -20,6 +32,7 @@ export class RegistrationProfileComponent implements OnInit {
 
   addPost(value: any) {
       console.log(value);
+      this.store.dispatch({ type: AuthActions.USER_REGISTER_PROFILE, payload: value});
   }
 
 }

@@ -15,15 +15,24 @@ import { AuthActions } from '../actions/auth.action';
 export class LoginEffect {
   constructor(
     private actions$: Actions,
-    private loginService: AuthService
+    private authService: AuthService
   ) {}
   @Effect()
   loadGallery$ = this.actions$
     .ofType(AuthActions.USER_LOGIN)
     .map(toPayload)
-    .switchMap((payload) => this.loginService.login(payload)
+    .switchMap((payload) => this.authService.login(payload)
       .map(res => ({ type: AuthActions.USER_LOGIN_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: AuthActions.USER_LOGIN_FAILED, payload: res }))
+    );
+
+  @Effect()
+  registerProfile$ = this.actions$
+    .ofType(AuthActions.USER_REGISTER_PROFILE)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.registerProfile(payload)
+      .map(res => ({ type: AuthActions.USER_REGISTER_PROFILE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.USER_REGISTER_PROFILE_FAILED, payload: res }))
     );
 
 }

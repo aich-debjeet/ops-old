@@ -20,6 +20,16 @@ export class AuthService {
             });
     }
 
+    registerProfile(req: any) {
+        return this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/user', req)
+            .map((response: Response) => {
+                const user = response.json();
+                console.log(user);
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                this.router.navigate(['/home']);
+            });
+    }
+
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');

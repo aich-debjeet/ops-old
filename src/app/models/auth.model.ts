@@ -4,6 +4,12 @@ export class Login {
  success = true;
 }
 
+export class RegisterProfile {
+ completed: string[];
+ loading = false;
+ success = true;
+}
+
 export class UserTag {
   success: boolean
 }
