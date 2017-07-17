@@ -18,10 +18,10 @@ import { HomeComponent } from './components/home/home.component';
 import { routes } from './app.routing';
 
 // Reducers
-import { LoginReducer } from './reducers/auth.reducer';
+import { AuthReducer } from './reducers/auth.reducer';
 
 // Effects
-import { LoginEffect } from './effects/auth.effect';
+import { AuthEffect } from './effects/auth.effect';
 
 // Services
 import { AuthService } from './services/auth.service';
@@ -78,9 +78,9 @@ import { RegistrationWelcomeComponent } from './components/registration-welcome/
     ReactiveFormsModule,
     FormsModule,
     HttpModule,
-    StoreModule.provideStore({ loginTags: LoginReducer }),
+    StoreModule.provideStore({ loginTags: AuthReducer }),
     RouterModule.forRoot(routes),
-    EffectsModule.run(LoginEffect)
+    EffectsModule.run(AuthEffect)
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

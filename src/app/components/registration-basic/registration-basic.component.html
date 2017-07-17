@@ -138,22 +138,21 @@
                         <h5>Enter the 4 digit OTP that you recieived<br> in your phone or email.</h5>
                         <p>
                         <a href="#">Resend OTP</a>
-                                <form action="">
-                                    <div class="form_group">
-                                        <input class="form_input" type="text" required="">
-                                        <span class="form_highlight"></span>
-                                        <span class="form_bar"></span>
-                                        <label>Enter OTP</label>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="button_tranparent_red" data-toggle="modal" data-target="#thankyouModal">Validate OTP</a>
-                                    </div>
-                                </form>
+                        <form [formGroup]="otpForm" (ngSubmit) = "submitOtp(otpForm.value)">
+                            <div class="form_group">
+                                <input class="form_input" type="text" name="otp" [formControl]="otpForm.controls['otp']">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Enter OTP</label>
+                            </div>
+                            <div class="text-center">
+                                <!-- <a class="button_tranparent_red" data-toggle="modal" data-target="#thankyouModal" [disabled]="!otpForm.valid">Validate OTP</a> -->
+                                <button class="button_tranparent_red" data-toggle="modal" data-target="#thankyouModal" [disabled]="!otpForm.valid">Validate OTP</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
     <!-- //otp popup code -->
@@ -175,7 +174,7 @@
                         <h3>Thank you for Signing up.</h3>
                         <p>Select your interest to get started.<p>
                         <div class="text-center">
-                            <a class="button_tranparent_red" href="reg_step_2.html">Next</a>
+                            <a class="button_tranparent_red" href="/registration-welcome">Next</a>
                         </div>
                     </div>
                 </div>

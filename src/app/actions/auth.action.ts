@@ -1,7 +1,8 @@
 import { Action } from '@ngrx/store';
-import { Login, RegisterProfile } from '../models/auth.model';
+import { Login, Register, RegisterProfile } from '../models/auth.model';
 
 export class AuthActions {
+
   static USER_LOGIN = 'USER_LOGIN';
   static USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
   static USER_LOGIN_FAILED = 'USER_LOGIN_FAILED';
@@ -9,6 +10,14 @@ export class AuthActions {
   static USER_REGISTER_PROFILE = 'USER_REGISTER_PROFILE';
   static USER_REGISTER_PROFILE_SUCCESS = 'USER_REGISTER_PROFILE_SUCCESS';
   static USER_REGISTER_PROFILE_FAILED = 'USER_REGISTER_PROFILE_FAILED';
+
+  static USER_REGISTRATION = 'USER_REGISTRATION';
+  static USER_REGISTRATION_SUCCESS = 'USER_REGISTRATION_SUCCESS';
+  static USER_REGISTRATION_FAILED = 'USER_REGISTRATION_FAILED';
+
+  static OTP_CHECK = 'OTP_CHECK';
+  static OTP_CHECK_SUCCESS = 'OTP_CHECK_SUCCESS';
+  static OTP_CHECK_FAILED = 'OTP_CHECK_FAILED';
 
 
   // ===================================
@@ -41,6 +50,33 @@ export class AuthActions {
   }
 
 
+  userRegister(value: Register): Action {
+    return {
+      type: AuthActions.USER_REGISTRATION,
+      payload: {
+        value
+      }
+    };
+  }
+
+
+  userRegistrationSuccess(value: Register): Action {
+    return {
+      type: AuthActions.USER_REGISTRATION_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
+
+
+  userRegistrationFailed(error: any): Action {
+    return {
+      type: AuthActions.USER_REGISTRATION_FAILED,
+      payload: error
+    };
+  }
+
   userRegisterProfile(value: RegisterProfile): Action {
     return {
       type: AuthActions.USER_REGISTER_PROFILE,
@@ -49,6 +85,7 @@ export class AuthActions {
       }
     };
   }
+
 
   userRegisterProfileSuccess(value: RegisterProfile): Action {
     return {
@@ -59,6 +96,7 @@ export class AuthActions {
     };
   }
 
+
   userRegisterProfileFailed(error: any): Action {
     return {
       type: AuthActions.USER_REGISTER_PROFILE_FAILED,
@@ -66,6 +104,31 @@ export class AuthActions {
     };
   }
 
+  /* OTP check */
+  otpCheck(value): Action {
+    return {
+      type: AuthActions.OTP_CHECK,
+      payload: {
+        value
+      }
+    };
+  }
 
+  otpCheckSuccess(value: Login): Action {
+    return {
+      type: AuthActions.OTP_CHECK_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  otpCheckFailed(error: any): Action {
+    return {
+      type: AuthActions.OTP_CHECK_FAILED,
+      payload: error
+    };
+  }
+  /* OTP check */
 
 }
