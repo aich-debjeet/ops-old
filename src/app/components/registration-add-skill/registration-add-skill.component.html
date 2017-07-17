@@ -1,0 +1,338 @@
+<section class="reg_steps">
+    <div class="container">
+        <!-- registraion middle container -->
+        <div class="row reg_middle_container">
+
+            <!-- left section -->
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 reg_left_section">
+                <!-- progress bar -->
+                <div class="row reg_progress_bar">
+                    <div class="col-xs-4 reg_progress_bar_step complete">
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <div class="bs-wizard-dot">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 reg_progress_bar_step complete">
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <div class="bs-wizard-dot">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 reg_progress_bar_step active">
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <div class="bs-wizard-dot"></div>
+                    </div>
+                </div>
+                <!-- //progress bar -->
+
+                <div class="reg_step3">
+                    <form action="" [formGroup]="rForm "  (ngSubmit)="addSkill(rForm.value)">
+                        <div class="form_group">
+                            <input class="form_input" type="text" required="" formControlName="profession">
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label>Profession</label>
+                        </div>
+                        <div class="form_group">
+                            <input class="form_input" type="text" required="" formControlName="searchskills">
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label>Search Skills</label>
+                        </div>
+                    </form>
+
+
+
+                    <!-- Select Interest -->
+                    <div class="row reg_select_interest" id="ops_scrollbar">
+                        <a href="reg_step_3_add_skills.html">
+                            <div class="col-md-4 col-sm-4 col-xs-12 reg_interest">
+                                <div class="margin_0 reg_interest_box">
+                                    <div class="reg_interest_box_img">
+                                        <img src="img/interest.jpg">
+                                    </div>
+                                    <div class="reg_interest_box_name_active">
+                                        <p>Jazz</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="col-md-4 col-sm-4 col-xs-12 reg_interest">
+                            <div class="margin_0 reg_interest_box">
+                                <div class="reg_interest_box_img">
+                                    <img src="img/interest.jpg">
+                                </div>
+                                <div class="reg_interest_box_name">
+                                    <p>Accoustic</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 reg_interest">
+                            <div class="margin_0 reg_interest_box">
+                                <div class="reg_interest_box_img">
+                                    <img src="img/interest.jpg">
+                                </div>
+                                <div class="reg_interest_box_name">
+                                    <p>Instruments</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 reg_interest">
+                            <div class="reg_interest_box">
+                                <div class="reg_interest_box_img">
+                                    <img src="img/interest.jpg">
+                                </div>
+                                <div class="reg_interest_box_name">
+                                    <p>Hindustani</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 reg_interest">
+                            <div class="reg_interest_box">
+                                <div class="reg_interest_box_img">
+                                    <img src="img/interest.jpg">
+                                </div>
+                                <div class="reg_interest_box_name">
+                                    <p>R&B</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 reg_interest">
+                            <div class="reg_interest_box">
+                                <div class="reg_interest_box_img">
+                                    <img src="img/interest.jpg">
+                                </div>
+                                <div class="reg_interest_box_name">
+                                    <p>Alternative</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 reg_interest">
+                            <div class="reg_interest_box">
+                                <div class="reg_interest_box_img">
+                                    <img src="img/interest.jpg">
+                                </div>
+                                <div class="reg_interest_box_name">
+                                    <p>Rap</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 reg_interest">
+                            <div class="reg_interest_box">
+                                <div class="reg_interest_box_img">
+                                    <img src="img/interest.jpg">
+                                </div>
+                                <div class="reg_interest_box_name">
+                                    <p>Hip Hop</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 reg_interest">
+                            <div class="reg_interest_box">
+                                <div class="reg_interest_box_img">
+                                    <img src="img/interest.jpg">
+                                </div>
+                                <div class="reg_interest_box_name">
+                                    <p>Dj</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 reg_interest">
+                            <div class="reg_interest_box">
+                                <div class="reg_interest_box_img">
+                                    <img src="img/interest.jpg">
+                                </div>
+                                <div class="reg_interest_box_name">
+                                    <p>Jazz</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 reg_interest">
+                            <div class="reg_interest_box">
+                                <div class="reg_interest_box_img">
+                                    <img src="img/interest.jpg">
+                                </div>
+                                <div class="reg_interest_box_name">
+                                    <p>Alternative</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12 reg_interest">
+                            <div class="reg_interest_box">
+                                <div class="reg_interest_box_img">
+                                    <img src="img/interest.jpg">
+                                </div>
+                                <div class="reg_interest_box_name">
+                                    <p>Dj</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //Select Interest -->
+
+                </div>
+            </div>
+            <!-- //left section -->
+
+            <!-- Registration Right Section -->
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 reg_add_skills">
+                <div class="reg_add_skills_contant" id="ops_scrollbar">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>Add your skill</h3>
+                            <button type="button" class="btn btn-sm btn-labeled btn-primary">
+                                <span class="btn-label">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                </span> Skill
+                            </button>
+                            <button type="button" class="btn btn-sm btn-labeled btn-primary">
+                                <span class="btn-label">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                </span> Skill
+                            </button>
+                            <button type="button" class="btn btn-sm btn-labeled btn-primary">
+                                <span class="btn-label">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                </span> Skill
+                            </button>
+                            <button type="button" class="btn btn-sm btn-labeled btn-danger">
+                                <span class="btn-label">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                </span> Skill
+                            </button>
+                            <button type="button" class="btn btn-sm btn-labeled btn-primary">
+                                <span class="btn-label">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                </span> Skill
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <!-- Registration Right Section -->
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 reg_right_section" *ngIf="false">
+                        <div class="reg_right_section_text">
+
+                            <div class="reg_steps_logo">
+                                <a href="index.html">
+                                    <img src="img/logo.png" alt="One Page Spotlight">
+                                </a>
+                            </div>
+
+                            <h3 class="text-center"><strong>Select Your Profile Type</strong></h3>
+                            <div class="reg_graph">
+                                <div class="reg_circle"></div>
+                                <div class="reg_rectangle"></div>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                        </div>
+                    </div>
+                    <!-- registration right section -->
+
+                    <!-- artist to follow -->
+                    <div class="row">
+                        <div class="col-md-12 reg_add_skills_sec">
+                            <h3>Artist to follow</h3>
+                            <div class="row">
+                                <div class="col-md-4 text-center">
+                                    <div class="reg_skills_img">
+                                        <img src="img/artist.jpg" class="img-circle">
+                                    </div>
+                                    <h4>Garrett Palmer</h4>
+                                    <h5>Profession</h5>
+                                    <button type="button" class="btn btn-sm btn-labeled btn-primary">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Follow
+                                    </button>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <div class="reg_skills_img">
+                                        <img src="img/artist.jpg" class="img-circle">
+                                    </div>
+                                    <h4>Garrett Palmer</h4>
+                                    <h5>Profession</h5>
+                                    <button type="button" class="btn btn-sm btn-labeled btn-danger">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Following
+                                    </button>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <div class="reg_skills_img">
+                                        <img src="img/artist.jpg" class="img-circle">
+                                    </div>
+                                    <h4>Garrett Palmer</h4>
+                                    <h5>Profession</h5>
+                                    <button type="button" class="btn btn-sm btn-labeled btn-primary">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Follow
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 reg_add_skills_sec">
+                                    <h3>Channels to follow</h3>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="reg_add_skills_channel">
+                                                <div class="reg_channel_img">
+                                                    <img src="img/channel.jpg">
+                                                </div>
+                                                <div class="reg_channel_contant">
+                                                    <h3>Channel Name</h3>
+                                                    <div class="reg_channel_contant_img">
+                                                        <img src="img/artist.jpg" class="img-circle img-responsive">
+                                                    </div>
+                                                    <h4>Name of Creator</h4>
+                                                </div>
+                                                <hr>
+                                                <div class="reg_channel_contant">
+                                                    <button type="button" class="btn btn-sm btn-labeled btn-primary">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i> Follow
+                                                    </button>
+                                                    <p class="pull-right">10K followers</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="reg_add_skills_channel">
+                                                <div class="reg_channel_img">
+                                                    <img src="img/channel.jpg">
+                                                </div>
+                                                <div class="reg_channel_contant">
+                                                    <h3>Channel Name</h3>
+                                                    <div class="reg_channel_contant_img">
+                                                        <img src="img/artist.jpg" class="img-circle img-responsive">
+                                                    </div>
+                                                    <h4>Name of Creator</h4>
+                                                </div>
+                                                <hr>
+                                                <div class="reg_channel_contant">
+                                                    <button type="button" class="btn btn-sm btn-labeled btn-danger">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i> Following
+                                                    </button>
+                                                    <p class="pull-right">10K followers</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <a class="button_tranparent_red" href="reg_step_welcome.html">Finish</a>
+                </div>
+            </div>
+            <!-- registration right section -->
+        </div>
+        <!-- //registraion middle container -->
+    </div>
+</section>
