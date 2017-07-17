@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { Login, UserTag, initialTag } from '../../models/login.model';
+import { Login, UserTag, initialTag } from '../../models/auth.model';
 
 // Action
 import { AuthActions } from '../../actions/auth.action'
