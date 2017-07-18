@@ -21,7 +21,7 @@ export class AuthActions {
 
 
   // ===================================
-  //  USER
+  //  USER LOGIN
   // -----------------------------------
 
   userLogin(value: Login): Action {
@@ -49,6 +49,9 @@ export class AuthActions {
     };
   }
 
+  // ===================================
+  //  USER REGISTRATION
+  // -----------------------------------
 
   userRegister(value: Register): Action {
     return {
@@ -104,7 +107,10 @@ export class AuthActions {
     };
   }
 
-  /* OTP check */
+  // ===================================
+  //  USER OTP VALIDATION
+  // -----------------------------------
+  
   otpCheck(value): Action {
     return {
       type: AuthActions.OTP_CHECK,
