@@ -30,6 +30,11 @@ export class LoginComponent implements OnInit {
       'password': [null, Validators.required],
     })
 
+     this.loginForm = fb.group({
+      'email' : ['k.salsabeel@gmail.com', Validators.required],
+      'password': ['thanalvc', Validators.required],
+    })
+
     this.tagState$ = store.select('loginTags');
     // this.tagState$.subscribe(v => console.log(v));
 

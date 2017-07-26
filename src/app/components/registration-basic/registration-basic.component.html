@@ -37,12 +37,17 @@
                                         <span class="form_bar"></span>
                                         <label>Name</label>
                                     </div>
+                                    <div class="user_exisit" [ngClass]="{'user_exisit': petTag.user_unique, 'no_user_exisit': !petTag.user_unique }"  >
+                                        <span>{{ petTag.completed.STATUS }}</span>
+                                        {{petTag.user_unique}}
+                                    </div>
                                     <div class="form_group">
-                                        <input class="form_input" type="text" name="username" [formControl]="regFormBasic.controls['username']">
+                                        <input class="form_input" type="text" name="username" (ngModelChange)="userExisitCheck($event)" [formControl]="regFormBasic.controls['username']">
                                         <span class="form_highlight"></span>
                                         <span class="form_bar"></span>
                                         <label>Username</label>
                                     </div>
+                                    
                                 </div>
                                 <div class="col-md-3 col-sm-3">
                                     <div class="reg_add_photo row">
@@ -64,7 +69,7 @@
                             </div>
 
                             <div class="form_group">
-                                <input class="form_input" type="text" name="dob" [formControl]="regFormBasic.controls['dob']">
+                                <input class="form_input" type="text" name="dob" [formControl]="regFormBasic.controls['dob']" mask="39/19/9999" placeholder="DD/MM/YY" >
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Date of Birth</label>
