@@ -51,5 +51,14 @@ export class AuthEffect {
       .map(res => ({ type: AuthActions.OTP_CHECK_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: AuthActions.OTP_CHECK_FAILED, payload: res }))
     );
+  
+  @Effect()
+  checkExistUser$ = this.actions$
+    .ofType(AuthActions.USER_EXISTS_CHECK)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.userExists(payload)
+      .map(res => ({ type: AuthActions.USER_EXISTS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.USER_EXISTS_FAILED, payload: res }))
+    );
 
 }

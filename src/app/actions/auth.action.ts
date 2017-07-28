@@ -19,6 +19,9 @@ export class AuthActions {
   static OTP_CHECK_SUCCESS = 'OTP_CHECK_SUCCESS';
   static OTP_CHECK_FAILED = 'OTP_CHECK_FAILED';
 
+  static USER_EXISTS_CHECK = 'USER_EXISTS_CHECK';
+  static USER_EXISTS_SUCCESS = 'USER_EXISTS_SUCCESS';
+  static USER_EXISTS_FAILED = 'USER_EXISTS_FAILED';
 
   // ===================================
   //  USER LOGIN
@@ -110,7 +113,7 @@ export class AuthActions {
   // ===================================
   //  USER OTP VALIDATION
   // -----------------------------------
-  
+
   otpCheck(value): Action {
     return {
       type: AuthActions.OTP_CHECK,
@@ -135,6 +138,36 @@ export class AuthActions {
       payload: error
     };
   }
-  /* OTP check */
+  
+  // ===================================
+  //  USER EXSIST CHECK
+  // -----------------------------------
+
+  userExsistCheck(value): Action {
+    return {
+      type: AuthActions.USER_EXISTS_CHECK,
+      payload: {
+        value
+      }
+    };
+  }
+
+  userExsistSuccess(value): Action {
+    return {
+      type: AuthActions.USER_EXISTS_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  userExsistFailed(value): Action {
+    return {
+      type: AuthActions.USER_EXISTS_FAILED,
+      payload: {
+        value
+      }
+    };
+  }
 
 }

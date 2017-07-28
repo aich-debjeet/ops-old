@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthService {
+    private apiLink: string = environment.API_ENDPOINT; 
+
     constructor(private http: Http, private router: Router) { }
 
-    login(req: any) {
-        return this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/oauth2/token', req)
+    login(req: any) { 
+        return this.http.post(`${this.apiLink}/portal/auth/oauth2/token`, req)
             .map((response: Response) => {
                 const user = response.json();
-                console.log(user);
                 if (user && user.access_token) {
                     localStorage.setItem('currentUser', JSON.stringify(user));
                 }
@@ -21,7 +23,7 @@ export class AuthService {
     }
 
     register(req: any) {
-        return this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/user', req)
+        return this.http.post(`${this.apiLink}/portal/auth/user`, req)
             .map((response: Response) => {
                 const user = response.json();
                 console.log(user);
@@ -32,7 +34,7 @@ export class AuthService {
     }
 
     registerProfile(req: any) {
-        return this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/user', req)
+        return this.http.post(`${this.apiLink}/portal/auth/user`, req)
             .map((response: Response) => {
                 const user = response.json();
                 console.log(user);
@@ -42,13 +44,18 @@ export class AuthService {
     }
 
     checkOtp(req: any) {
-        return this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/otp-check', req)
+        return this.http.post(`${this.apiLink}/portal/otp-check`, req)
             .map((response: Response) => {
                 const result = response.json();
                 console.log(result);
                 localStorage.setItem('otpStatus', JSON.stringify(result));
                 this.router.navigate(['/registration/select-profile']);
             });
+    }
+
+    userExists(username: string) {
+        return this.http.get(this.apiLink +'/portal/auth/'+username+'/username')
+            .map((data: Response) => data.json());
     }
 
     logout() {

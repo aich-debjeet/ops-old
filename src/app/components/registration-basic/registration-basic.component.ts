@@ -43,7 +43,7 @@ export class RegistrationBasicComponent implements OnInit {
     this.regFormBasic = fb.group({
       'name' : ['name', Validators.required],
       'username' : ['username', Validators.required],
-      'dob' : ['01-01-2017', Validators.required],
+      'dob' : ['', Validators.required],
       'email' : ['name@mail.com', Validators.required],
       'number' : [9898989898, Validators.required],
       'password' : ['pass', Validators.required],
@@ -56,8 +56,8 @@ export class RegistrationBasicComponent implements OnInit {
       'otp' : ['otp', Validators.required]
     })
 
-    this.tagState$ = store.select('registerTags');
-    // this.tagState$.subscribe(v => console.log(v));
+    this.tagState$ = store.select('loginTags');
+    this.tagState$.subscribe(v => console.log(v));
 
     this.tagState$.subscribe((state) => {
     this.petTag = state;
@@ -92,6 +92,18 @@ export class RegistrationBasicComponent implements OnInit {
     }
 
     this.store.dispatch({ type: AuthActions.OTP_CHECK, payload: otp});
+  }
+
+  // Exisit User check
+  userExisitCheck(value){
+    if(value.length >= 4){
+      console.log(value)
+      this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
+    }
+    else{
+      console.log('its working');
+      this.petTag.user_unique = false;
+    }
   }
 
 }
