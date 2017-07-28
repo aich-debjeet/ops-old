@@ -45,6 +45,14 @@ import { RegistrationAddSkillComponent } from './components/registration-add-ski
 import { RegistrationBasicComponent } from './components/registration-basic/registration-basic.component';
 import { RegistrationWelcomeComponent } from './components/registration-welcome/registration-welcome.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardPrimaryNavbarComponent } from './components/dashboard/dashboard-primary-navbar/dashboard-primary-navbar.component';
+import { DashboardProfileCoverComponent } from './components/dashboard/dashboard-profile-cover/dashboard-profile-cover.component';
+import { DashboardSecondaryNavbarComponent } from './components/dashboard/dashboard-secondary-navbar/dashboard-secondary-navbar.component';
+import { DashboardWidgetCalendarComponent } from './components/dashboard/dashboard-widget-calendar/dashboard-widget-calendar.component';
+import { DashboardWidgetEventsComponent } from './components/dashboard/dashboard-widget-events/dashboard-widget-events.component';
+import { DashboardWidgetProjectsComponent } from './components/dashboard/dashboard-widget-projects/dashboard-widget-projects.component';
+import { DashboardWidgetCommunitiesComponent } from './components/dashboard/dashboard-widget-communities/dashboard-widget-communities.component';
+import { DashboardWidgetOpportunitiesComponent } from './components/dashboard/dashboard-widget-opportunities/dashboard-widget-opportunities.component';
 
 
 
@@ -73,7 +81,15 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     RegistrationAddSkillComponent,
     RegistrationBasicComponent,
     RegistrationWelcomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    DashboardPrimaryNavbarComponent,
+    DashboardProfileCoverComponent,
+    DashboardSecondaryNavbarComponent,
+    DashboardWidgetCalendarComponent,
+    DashboardWidgetEventsComponent,
+    DashboardWidgetProjectsComponent,
+    DashboardWidgetCommunitiesComponent,
+    DashboardWidgetOpportunitiesComponent
   ],
   imports: [
     BrowserModule,
