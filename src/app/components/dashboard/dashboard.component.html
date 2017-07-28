@@ -1,49 +1,17 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-    <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav top-nav-left">
-        <li class="active"><a href="javascript:void(0)">Home</a></li>
-        <li><a href="javascript:void(0)">Explore</a></li>
-        <li><a href="javascript:void(0)">Opportunity</a></li>
-        <li><a href="javascript:void(0)">Events</a></li>
-        <li><a href="javascript:void(0)">Learn</a></li>
-        <li><a href="javascript:void(0)">Resources</a></li>
-      </ul>
-      <ul class="nav navbar-nav top-nav-right">
-        <li><a href="javascript:void(0)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
-        <li class="active"><a href="javascript:void(0)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div>
-</nav>
+<!-- primary navigation -->
+<app-dashboard-primary-navbar></app-dashboard-primary-navbar>
+<!-- primary navigation -->
 
+  <!-- main container -->
   <div class="container">
 
-    <div class="fb-profile">
-        <img align="left" class="fb-image-lg" src="http://via.placeholder.com/850x280" alt="Profile image example"/>
-        <img align="left" class="fb-image-profile thumbnail" src="https://www.smsinger.com/images/profile-picture.jpg" alt="Profile image example"/>
-        <div class="fb-profile-text">
-            <h1>Eli Macy</h1>
-            <p>Girls just wanna go fun.</p>
-        </div>
-    </div>
+    <!-- profile cover/slider -->
+    <app-dashboard-profile-cover></app-dashboard-profile-cover>
+    <!-- profile cover/slider -->
 
-    <nav class="navbar navbar-inverse">
-        <div id="navbar" >
-          <ul class="nav navbar-nav top-nav-left">
-            <li class="active"><a href="javascript:void(0)">About</a></li>
-            <li><a href="javascript:void(0)">Portfolio</a></li>
-            <li><a href="javascript:void(0)">Partner</a></li>
-            <li><a href="javascript:void(0)">Network</a></li>
-            <li><a href="javascript:void(0)">Projects</a></li>
-            <li><a href="javascript:void(0)">Communities</a></li>
-          </ul>
-          <ul class="nav navbar-nav top-nav-right">
-            <li><a href="javascript:void(0)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></li>
-            <li class="active"><a href="javascript:void(0)"><span class="glyphicon glyphicon-share" aria-hidden="true"></span></a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-    </nav>
+    <!-- secondary navigation -->
+    <app-dashboard-secondary-navbar></app-dashboard-secondary-navbar>
+    <!-- secondary navigation -->
 
     <div class="row">
       <div class="col-sm-4">
@@ -91,82 +59,53 @@
 
         <div class="row">
 
-          <div id="calendar">
-
-            <div class="month">
-              <ul>
-                <li class="prev">&#10094;</li>
-                <li class="next">&#10095;</li>
-                <li style="text-align:center">
-                  August<br>
-                  <span style="font-size:18px">2016</span>
-                </li>
-              </ul>
-            </div>
-
-            <ul class="weekdays">
-              <li>Mo</li>
-              <li>Tu</li>
-              <li>We</li>
-              <li>Th</li>
-              <li>Fr</li>
-              <li>Sa</li>
-              <li>Su</li>
-            </ul>
-
-            <ul class="days">
-              <li>1</li>
-              <li>2</li>
-              <li>3</li>
-              <li>4</li>
-              <li>5</li>
-              <li>6</li>
-              <li>7</li>
-              <li>8</li>
-              <li>9</li>
-              <li><span class="active">10</span></li>
-              <li>11</li>
-              <li>12</li>
-              <li>13</li>
-              <li>14</li>
-              <li>15</li>
-              <li>16</li>
-              <li>17</li>
-              <li>18</li>
-              <li>19</li>
-              <li>20</li>
-              <li>21</li>
-              <li>22</li>
-              <li>23</li>
-              <li>24</li>
-              <li>25</li>
-              <li>26</li>
-              <li>27</li>
-              <li>28</li>
-              <li>29</li>
-              <li>30</li>
-              <li>31</li>
-            </ul>
-
-          </div>
+          <!-- calendar widget -->
+          <app-dashboard-widget-calendar></app-dashboard-widget-calendar>
+          <!-- calendar widget -->
 
         </div>
+
+        <hr>
 
         <div class="row">
 
-          <div class="card">
-
-             <p><strong>attending events</strong></p>
-
-             <div class="card-block">
-               <p class="card-text">name of the event</p>
-               <p class="card-text">location</p>
-               <p class="card-text"><small class="text-muted">Location</small></p>
-             </div>
-
-          </div>
+          <!-- events widget -->
+          <app-dashboard-widget-events></app-dashboard-widget-events>
+          <!-- events widget -->
 
         </div>
+
+        <hr>
+
+        <div class="row">
+
+          <!-- projects widget -->
+          <app-dashboard-widget-projects></app-dashboard-widget-projects>
+          <!-- projects widget -->
+
+        </div>
+
+        <hr>
+
+        <div class="row">
+
+          <!-- communities widget -->
+          <app-dashboard-widget-communities></app-dashboard-widget-communities>
+          <!-- communities widget -->
+
+        </div>
+
+        <hr>
+
+        <div class="row">
+
+          <!-- opportunities widget -->
+          <app-dashboard-widget-opportunities></app-dashboard-widget-opportunities>
+          <!-- opportunities widget -->
+
+        </div>
+
+        <hr>
 
       </div>
 
@@ -501,4 +440,5 @@
 
     </div>
 
-  </div> <!-- /container -->
+  </div>
+  <!-- main container -->
