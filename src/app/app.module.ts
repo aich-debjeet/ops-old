@@ -53,6 +53,7 @@ import { DashboardWidgetEventsComponent } from './components/dashboard/dashboard
 import { DashboardWidgetProjectsComponent } from './components/dashboard/dashboard-widget-projects/dashboard-widget-projects.component';
 import { DashboardWidgetCommunitiesComponent } from './components/dashboard/dashboard-widget-communities/dashboard-widget-communities.component';
 import { DashboardWidgetOpportunitiesComponent } from './components/dashboard/dashboard-widget-opportunities/dashboard-widget-opportunities.component';
+import { NavigationComponent } from './shared/navigation/navigation.component';
 
 
 
@@ -89,7 +90,8 @@ import { DashboardWidgetOpportunitiesComponent } from './components/dashboard/da
     DashboardWidgetEventsComponent,
     DashboardWidgetProjectsComponent,
     DashboardWidgetCommunitiesComponent,
-    DashboardWidgetOpportunitiesComponent
+    DashboardWidgetOpportunitiesComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
