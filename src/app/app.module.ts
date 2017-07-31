@@ -45,7 +45,6 @@ import { RegistrationAddSkillComponent } from './components/registration-add-ski
 import { RegistrationBasicComponent } from './components/registration-basic/registration-basic.component';
 import { RegistrationWelcomeComponent } from './components/registration-welcome/registration-welcome.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { DashboardPrimaryNavbarComponent } from './components/dashboard/dashboard-primary-navbar/dashboard-primary-navbar.component';
 import { DashboardProfileCoverComponent } from './components/dashboard/dashboard-profile-cover/dashboard-profile-cover.component';
 import { DashboardSecondaryNavbarComponent } from './components/dashboard/dashboard-secondary-navbar/dashboard-secondary-navbar.component';
 import { DashboardWidgetCalendarComponent } from './components/dashboard/dashboard-widget-calendar/dashboard-widget-calendar.component';
@@ -83,7 +82,6 @@ import { NavigationComponent } from './shared/navigation/navigation.component';
     RegistrationBasicComponent,
     RegistrationWelcomeComponent,
     DashboardComponent,
-    DashboardPrimaryNavbarComponent,
     DashboardProfileCoverComponent,
     DashboardSecondaryNavbarComponent,
     DashboardWidgetCalendarComponent,
