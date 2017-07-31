@@ -8,24 +8,8 @@ import { Component } from '@angular/core';
 export class DashboardComponent {
 
   cards: any = [];
-  quickAccess: any = [];
 
   constructor() {
-
-    // initial cards
-    this.quickAccess = [{
-      title: 'Card title',
-      subTitle: 'Card subtitle',
-      link: 'Card link',
-    }, {
-      title: 'Card title',
-      subTitle: 'Card subtitle',
-      link: 'Card link',
-    }, {
-      title: 'Card title',
-      subTitle: 'Card subtitle',
-      link: 'Card link',
-    }];
 
     // initial cards
     this.cards = [{
