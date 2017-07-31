@@ -174,7 +174,34 @@
 
             <div class="row">
 
-              <div class="col-sm-4">
+              <div class="col-sm-4" *ngFor="let card of cards" >
+
+                <div class="card" >
+
+                  <div class="row">
+                    <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+                  </div>
+
+                  <div class="card-block">
+                    <h4 class="card-title"><strong>{{ card.title }}</strong></h4>
+                    <p class="card-text">{{ card.descirption }}</p>
+                  </div>
+
+                  <div class="card-block">
+                    <a href="{{ card.linkRight }}" class="card-link">Card link</a>
+                    <a href="{{ card.linkRight }}" class="card-link">Another link</a>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <!-- <div class="col-sm-4">
 
                 <div class="card" >
 
@@ -226,212 +253,9 @@
 
                 </div>
 
-              </div>
-
-              <div class="col-sm-4">
-
-                <div class="card" >
-
-                  <div class="row">
-                    <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="card-block">
-                    <h4 class="card-title"><strong>Card title</strong></h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-
-                  <div class="card-block">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                  </div>
-
-                </div>
-
-              </div>
+              </div> -->
 
             </div>
-
-            <hr>
-
-            <div class="row">
-
-              <div class="col-sm-4">
-
-                <div class="card" >
-
-                  <div class="row">
-                    <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="card-block">
-                    <h4 class="card-title"><strong>Card title</strong></h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-
-                  <div class="card-block">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div class="col-sm-4">
-
-                <div class="card" >
-
-                  <div class="row">
-                    <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="card-block">
-                    <h4 class="card-title"><strong>Card title</strong></h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-
-                  <div class="card-block">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div class="col-sm-4">
-
-                <div class="card" >
-
-                  <div class="row">
-                    <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="card-block">
-                    <h4 class="card-title"><strong>Card title</strong></h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-
-                  <div class="card-block">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-            <hr>
-
-            <div class="row">
-
-              <div class="col-sm-4">
-
-                <div class="card" >
-
-                  <div class="row">
-                    <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="card-block">
-                    <h4 class="card-title"><strong>Card title</strong></h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-
-                  <div class="card-block">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div class="col-sm-4">
-
-                <div class="card" >
-
-                  <div class="row">
-                    <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="card-block">
-                    <h4 class="card-title"><strong>Card title</strong></h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-
-                  <div class="card-block">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div class="col-sm-4">
-
-                <div class="card" >
-
-                  <div class="row">
-                    <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="card-block">
-                    <h4 class="card-title"><strong>Card title</strong></h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-
-                  <div class="card-block">
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-            <hr>
 
           </div>
 
