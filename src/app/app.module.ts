@@ -54,6 +54,7 @@ import { DashboardWidgetCommunitiesComponent } from './components/dashboard/dash
 import { DashboardWidgetOpportunitiesComponent } from './components/dashboard/dashboard-widget-opportunities/dashboard-widget-opportunities.component';
 import { NavigationComponent } from './shared/navigation/navigation.component';
 import { QuickAccessComponent } from './shared/quick-access/quick-access.component';
+import { PopularArtistsComponent } from './shared/popular-artists/popular-artists.component';
 
 
 
@@ -91,7 +92,8 @@ import { QuickAccessComponent } from './shared/quick-access/quick-access.compone
     DashboardWidgetCommunitiesComponent,
     DashboardWidgetOpportunitiesComponent,
     NavigationComponent,
-    QuickAccessComponent
+    QuickAccessComponent,
+    PopularArtistsComponent
   ],
   imports: [
     BrowserModule,

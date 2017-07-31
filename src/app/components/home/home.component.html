@@ -1,5 +1,111 @@
-<app-navbar></app-navbar>
+<!-- <app-navbar></app-navbar>
 
 <div class="container">
 	<button class="btn btn-lg btn-primary" (click)="auth.logout()">Log Out</button>
-</div>
+</div> -->
+
+<!-- primary navigation -->
+<!-- <app-dashboard-primary-navbar></app-dashboard-primary-navbar> -->
+<app-navigation></app-navigation>
+<!-- primary navigation -->
+
+  <!-- main container -->
+  <div class="container">
+
+		<hr>
+
+    <div class="row">
+
+      <div class="col-sm-9">
+
+        <div class="row">
+
+          <div class="col-sm-12">
+
+            <!-- quick access widget -->
+            <app-quick-access></app-quick-access>
+            <!-- quick access widget -->
+
+          </div>
+
+        </div>
+
+        <hr>
+
+        <div class="row">
+
+          <div class="col-sm-12">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <p><strong>channels</strong></p>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+
+              <div class="col-sm-4" *ngFor="let card of cards; let i = index;" >
+
+                <div class="card" >
+
+                  <div class="row">
+                    <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+                  </div>
+
+                  <div class="card-block">
+                    <h4 class="card-title"><strong>#{{ i }} {{ card.title }}</strong></h4>
+                    <p class="card-text">{{ card.descirption }}</p>
+                  </div>
+
+                  <div class="card-block">
+                    <a href="{{ card.linkRight }}" class="card-link">Card link</a>
+                    <a href="{{ card.linkRight }}" class="card-link">Another link</a>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+			<div class="col-sm-3">
+
+        <div class="row">
+
+          <!-- communities widget -->
+          <app-dashboard-widget-communities></app-dashboard-widget-communities>
+          <!-- communities widget -->
+
+        </div>
+
+        <hr>
+
+        <div class="row">
+
+          <!-- popular artists -->
+					<app-popular-artists></app-popular-artists>
+          <!-- popular artists -->
+
+        </div>
+
+        <hr>
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- main container -->
