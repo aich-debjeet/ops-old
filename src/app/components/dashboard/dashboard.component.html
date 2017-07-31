@@ -125,7 +125,18 @@
             <hr>
 
             <div class="row">
-                <div class="col-sm-4">
+
+                <div class="col-sm-4" *ngFor="let item of quickAccess; let i = index;">
+                  <div class="card">
+                    <div class="card-block">
+                      <h4 class="card-title">#{{ i }} {{ item.title }}</h4>
+                      <h6 class="card-subtitle mb-2 text-muted">{{ item.subTitle }}</h6>
+                      <a href="#" class="card-link">{{ item.link }}</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="col-sm-4">
                   <div class="card">
                     <div class="card-block">
                       <h4 class="card-title">Card title</h4>
@@ -142,16 +153,7 @@
                       <a href="#" class="card-link">Card link</a>
                     </div>
                   </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-block">
-                      <h4 class="card-title">Card title</h4>
-                      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                      <a href="#" class="card-link">Card link</a>
-                    </div>
-                  </div>
-                </div>
+                </div> -->
             </div>
 
           </div>
@@ -174,7 +176,7 @@
 
             <div class="row">
 
-              <div class="col-sm-4" *ngFor="let card of cards" >
+              <div class="col-sm-4" *ngFor="let card of cards; let i = index;" >
 
                 <div class="card" >
 
@@ -188,7 +190,7 @@
                   </div>
 
                   <div class="card-block">
-                    <h4 class="card-title"><strong>{{ card.title }}</strong></h4>
+                    <h4 class="card-title"><strong>#{{ i }} {{ card.title }}</strong></h4>
                     <p class="card-text">{{ card.descirption }}</p>
                   </div>
 
