@@ -22,6 +22,7 @@ import { RegistrationProfileComponent } from './components/registration-profile/
 import { RegistrationAddSkillComponent } from './components/registration-add-skill/registration-add-skill.component';
 import { RegistrationBasicComponent } from './components/registration-basic/registration-basic.component';
 import { RegistrationWelcomeComponent } from './components/registration-welcome/registration-welcome.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -47,6 +48,7 @@ export const routes: Routes = [
  { path: 'registration/addskill', component: RegistrationAddSkillComponent },
  { path: 'registration-basic', component: RegistrationBasicComponent },
  { path: 'registration-welcome', component: RegistrationWelcomeComponent },
+ { path: 'dashboard', component: DashboardComponent },
  // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

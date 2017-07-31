@@ -1,0 +1,11 @@
+.top-nav-right {
+  float: right;
+}
+
+.top-nav-left {
+  float: left;
+}
+
+ul.nav li a {
+  font-size: 12px;
+}

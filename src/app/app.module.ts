@@ -44,6 +44,16 @@ import { RegistrationProfileComponent } from './components/registration-profile/
 import { RegistrationAddSkillComponent } from './components/registration-add-skill/registration-add-skill.component';
 import { RegistrationBasicComponent } from './components/registration-basic/registration-basic.component';
 import { RegistrationWelcomeComponent } from './components/registration-welcome/registration-welcome.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardProfileCoverComponent } from './components/dashboard/dashboard-profile-cover/dashboard-profile-cover.component';
+import { DashboardSecondaryNavbarComponent } from './components/dashboard/dashboard-secondary-navbar/dashboard-secondary-navbar.component';
+import { DashboardWidgetCalendarComponent } from './components/dashboard/dashboard-widget-calendar/dashboard-widget-calendar.component';
+import { DashboardWidgetEventsComponent } from './components/dashboard/dashboard-widget-events/dashboard-widget-events.component';
+import { DashboardWidgetProjectsComponent } from './components/dashboard/dashboard-widget-projects/dashboard-widget-projects.component';
+import { DashboardWidgetCommunitiesComponent } from './components/dashboard/dashboard-widget-communities/dashboard-widget-communities.component';
+import { DashboardWidgetOpportunitiesComponent } from './components/dashboard/dashboard-widget-opportunities/dashboard-widget-opportunities.component';
+import { NavigationComponent } from './shared/navigation/navigation.component';
+import { QuickAccessComponent } from './shared/quick-access/quick-access.component';
 
 
 
@@ -71,7 +81,17 @@ import { RegistrationWelcomeComponent } from './components/registration-welcome/
     RegistrationProfileComponent,
     RegistrationAddSkillComponent,
     RegistrationBasicComponent,
-    RegistrationWelcomeComponent
+    RegistrationWelcomeComponent,
+    DashboardComponent,
+    DashboardProfileCoverComponent,
+    DashboardSecondaryNavbarComponent,
+    DashboardWidgetCalendarComponent,
+    DashboardWidgetEventsComponent,
+    DashboardWidgetProjectsComponent,
+    DashboardWidgetCommunitiesComponent,
+    DashboardWidgetOpportunitiesComponent,
+    NavigationComponent,
+    QuickAccessComponent
   ],
   imports: [
     BrowserModule,
