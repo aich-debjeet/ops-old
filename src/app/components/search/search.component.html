@@ -1,3 +1,44 @@
-<p>
-  search works!
-</p>
+<div class="reg_step3">
+  <div class="form_group">
+        <input class="form_input" type="text" [(ngModel)]="searchCardText" (focusout)="search()" >
+        <span class="form_highlight"></span>
+        <span class="form_bar"></span>
+        <label>Search</label>
+    </div>
+</div>
+
+<hr>
+
+        <div class="row prof_feed_container">
+          <ul id="tags">
+            <li *ngFor="let tag of searchTags">{{ tag.name }}</li>
+          </ul>
+        </div>
+
+<hr>
+<div class="col-md-12 col-sm-12 col-xs-12">
+            <ul id="tabs" class="search_tabs">
+                <li class="tab-link current" >Post</li>
+                <li class="tab-link" >Spotfeed</li>
+                <li class="tab-link" >People</li>
+                <li class="tab-link" >Collaborate</li>
+                <li class="tab-link" >Jobs</li>
+                <li class="tab-link" >Events</li>
+            </ul>
+        </div>
+
+<hr>
+<div class="row">
+  <div class="col-sm-3" *ngFor="let item of cards">
+    <div class="card">
+      <div class="card-block">
+        <h4 class="card-title">{{ item.title }}</h4>
+        <p class="card-text">{{ item.cardText }}</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+      <img class="card-img-bottom" src="{{ item.image }}" alt="Card image cap">
+    </div>
+  </div>
+</div>
+
+<hr>
