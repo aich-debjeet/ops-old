@@ -13,6 +13,8 @@ export class Register {
  user_unique = false
 }
 
+export class SearchCards{}
+
 export class RegisterProfile {
  completed: string[];
  loading = false;
@@ -46,4 +48,3 @@ export const initialTag: Login = {
 //   REDIRECT: 'http://localhost:4200/callback',
 //   SCOPE: 'openid'
 // };
-

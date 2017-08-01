@@ -23,6 +23,10 @@ export class AuthActions {
   static USER_EXISTS_SUCCESS = 'USER_EXISTS_SUCCESS';
   static USER_EXISTS_FAILED = 'USER_EXISTS_FAILED';
 
+  static SEARCH_CARDS = 'SEARCH_CARDS';
+  static SEARCH_CARDS_SUCCESS = 'SEARCH_CARDS_SUCCESS';
+  static SEARCH_CARDS_FAILED = 'SEARCH_CARDS_FAILED';
+
   // ===================================
   //  USER LOGIN
   // -----------------------------------
@@ -138,7 +142,7 @@ export class AuthActions {
       payload: error
     };
   }
-  
+
   // ===================================
   //  USER EXSIST CHECK
   // -----------------------------------
@@ -169,5 +173,34 @@ export class AuthActions {
       }
     };
   }
+//==========================================================
+//SearchCards
+//===========================================================
+
+SEARCH_CARDS(value: Login): Action {
+  return {
+    type: AuthActions.SEARCH_CARDS,
+    payload: {
+      value
+    }
+  };
+}
+
+SEARCH_CARDS_SUCCESS(value: Login): Action {
+  return {
+    type: AuthActions.SEARCH_CARDS_SUCCESS,
+    payload: {
+      value
+    }
+  };
+}
+
+SEARCH_CARDS_FAILED(error: any): Action {
+  return {
+    type: AuthActions.SEARCH_CARDS_FAILED,
+    payload: error
+  };
+}
+
 
 }
