@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-sm-12">
+    <p><strong>nearest events</strong></p>
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
+
+  <div class="col-sm-12" *ngFor="let item of events">
+    <div class="card">
+      <div class="card-block">
+        <h4 class="card-title">{{ item.name }}</h4>
+        <h6 class="card-subtitle mb-2 text-muted">{{ item.dateTime }}</h6>
+        <a href="#" class="card-link">{{ item.location }}</a>
+      </div>
+    </div>
+
+    <br>
+
+  </div>
+
+</div>
