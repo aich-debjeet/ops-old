@@ -5,11 +5,29 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './popular-artists.component.html',
   styleUrls: ['./popular-artists.component.css']
 })
-export class PopularArtistsComponent implements OnInit {
+export class PopularArtistsComponent {
 
-  constructor() { }
+  popularArtists: any = [];
 
-  ngOnInit() {
+  constructor() {
+
+    this.popularArtists = [{
+      id: 1,
+      name: 'Fname Lname',
+      username: 'fnam_lname',
+      profileImage: 'https://via.placeholder.com/200x200',
+    }, {
+      id: 2,
+      name: 'Fname Lname',
+      username: 'fnam_lname',
+      profileImage: 'https://via.placeholder.com/200x200',
+    }, {
+      id: 3,
+      name: 'Fname Lname',
+      username: 'fnam_lname',
+      profileImage: 'https://via.placeholder.com/200x200',
+    }];
+
   }
 
 }

@@ -1,9 +1,9 @@
-<div class="col-sm-12">
+<div class="col-sm-12" *ngFor="let artist of popularArtists">
   <div class="col-sm-4">
-    <img style="width: 100%;" src="https://via.placeholder.com/200x200" alt="">
+    <img style="width: 100%;" src="{{ artist.profileImage }}" alt="">
   </div>
   <div class="col-sm-8">
-    <h2>Name</h2>
-    <p>@username</p>
+    <p>{{ artist.name }}</p>
+    <p>@{{ artist.username }}</p>
   </div>
 </div>
