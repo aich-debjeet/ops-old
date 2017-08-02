@@ -1,0 +1,188 @@
+<section class="reg_steps">
+    <div class="container">
+        <!-- registraion middle container -->
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 reg_left_section">
+                <div class="reg_step1">
+                    <!-- progress bar -->
+                    <div class="reg_progress_bar">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6  progress_bar_default">
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 progress_bar_default">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="progress_dot_active"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="progress_dot_default default_dot_center"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="progress_dot_default progress_dot_right"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //progress bar -->
+                    <form [formGroup]="regFormBasic" (ngSubmit) = "submitForm(regFormBasic.value)">
+                        <div class="row">
+                            <div class="col-md-9 col-sm-9">
+                                <div class="form_group">
+                                    <input class="form_input" type="text" [formControl]="regFormBasic.controls['name']" required>
+                                    <span class="form_highlight"></span>
+                                    <span class="form_bar"></span>
+                                    <label>Name</label>
+                                </div>
+                                <div class="user_exisit" [ngClass]="{'user_exisit': petTag.user_unique, 'no_user_exisit': !petTag.user_unique }"  >
+                                    <span>{{ petTag.completed.STATUS }}</span>
+                                    {{petTag.user_unique}}
+                                </div>
+                                <div class="form_group">
+                                    <input class="form_input" type="text" (ngModelChange)="userExisitCheck($event)" [formControl]="regFormBasic.controls['username']" required>
+                                    <span class="form_highlight"></span>
+                                    <span class="form_bar_alert"></span>
+                                    <label>Username</label>
+                                    <p class="error_alert">This username is already exists</p>
+                                    <ul class="username_error">
+                                        <li>username1</li>
+                                        <li>username2</li>
+                                        <li>username3</li>
+                                        <li>username4</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
+                                <div class="reg_add_photo row">
+                                    <label id="test" for="upload-photo">Add Photo</label>
+                                    <input type="file" name="photo" id="upload-photo" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form_group">
+                                    <input class="form_input" type="text" [formControl]="regFormBasic.controls['dob']" mask="39/19/9999" placeholder="DD/MM/YY">
+                                    <span class="form_highlight"></span>
+                                    <span class="form_bar"></span>
+                                    <label>Date of Birth</label>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="form_group ops_radio_sm">
+                                    <label>
+                                        <strong>Gender</strong>
+                                        <label class="gender_single">
+                                            <input type="radio" name="demo"><span></span>M
+                                        </label>
+                                        <label class="gender_single">
+                                            <input type="radio" name="demo"><span></span>F
+                                        </label>
+                                        <label class="gender_single">
+                                            <input type="radio" name="demo"><span></span>O
+                                        </label>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <input class="form_input" type="text" [formControl]="regFormBasic.controls['email']">
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label>Email</label>
+                        </div>
+                        <div class="form_group">
+                            <span id="phone" type="tel"></span>
+                            <input class="form_input" type="text" [formControl]="regFormBasic.controls['number']" required style="padding-left: 40px;">
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label style="padding-left: 40px;">Phone Number</label>
+                        </div>
+                        <div class="form_group">
+                            <input class="form_input" type="password" [formControl]="regFormBasic.controls['password']" required>
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label>Password</label>
+                        </div>
+                        <div class="form_group">
+                            <input class="form_input" type="password" [formControl]="regFormBasic.controls['confirm_password']" required>
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label>Confirm Password</label>
+                        </div><br>
+                        <div class="text-center">
+                            <a class="btn btn-default btn-sm" [routerLink]="['/reg/profile']" data-toggle="modal" data-target="#otpModal">Sign Up</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <app-registration-block [rightCom]="rightCom"></app-registration-block>
+        </div>
+        <!-- //registraion middle container -->
+    </div>
+</section>
+
+
+
+
+
+
+<!-- otp popup code -->
+<div class="modal fade" id="otpModal" role="dialog" >
+    <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border: none;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center"><img src="img/logo_black.png"></h4>
+            </div>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 text-center reg_step1_otp">
+                    <h5>Enter the 4 digit OTP that you recieived<br> in your phone or email.</h5>
+                    <p>
+                    <a href="#">Resend OTP</a>
+                    <form [formGroup]="otpForm" (ngSubmit) = "submitOtp(otpForm.value)">
+                        <div class="form_group">
+                            <input class="form_input" type="text" name="otp" [formControl]="otpForm.controls['otp']">
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label>Enter OTP</label>
+                        </div>
+                        <div class="text-center">
+                            <!-- <a class="button_tranparent_red" data-toggle="modal" data-target="#thankyouModal" [disabled]="!otpForm.valid">Validate OTP</a> -->
+                            <button class="button_tranparent_red" data-toggle="modal" data-target="#thankyouModal" [disabled]="!otpForm.valid">Validate OTP</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //otp popup code -->
+
+<!-- thankyou popup code -->
+<div class="modal fade" id="thankyouModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border: none;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center">
+                    <img src="img/logo_black.png">
+                </h4>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 text-center reg_thanks">
+                    <h3>Thank you for Signing up.</h3>
+                    <p>Select your interest to get started.<p>
+                    <div class="text-center">
+                        <a class="button_tranparent_red" href="/registration-welcome">Next</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<!-- //thankyou popup code -->
+

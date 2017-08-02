@@ -1,0 +1,64 @@
+
+.top_section{
+//   background: url('../img/home_top_bg.png') no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  height: 100%;
+  padding-bottom: 70px;
+}
+.top_banner {
+    width: 80%;
+    margin: 0 auto;
+}
+.top_banner_heading {
+    line-height: 65px;
+    margin-bottom: 25px;
+    color: $white;
+    font-weight: 300;
+    font-size: 48px;
+}
+.top_banner_button{
+  margin-top: 30px;
+}
+.top_banner_video{
+  border-radius: 10px;
+    margin: 8% 0 -25% 0;
+}
+
+
+
+
+
+
+.button_tranparent {
+    padding: 5px 15px;
+    border-radius: 5px;
+    text-transform: capitalize;
+    font-weight: bold;
+    display: inline-block;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+}
+.button_tranparent:hover {
+    background-color: #FF7B84;
+    color: #ffffff;
+    border: 1px solid #FF7B84;
+}
+.button_white {
+    padding: 5px 15px;
+    border-radius: 5px;
+    text-transform: capitalize;
+    display: inline-block;
+    font-weight: bold;
+    color: #FF7B84;
+    background-color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+}
+.button_white:hover{
+  background-color:$theme_red;
+  color: $white;
+}

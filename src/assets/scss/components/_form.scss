@@ -1,0 +1,125 @@
+/* form */
+.form_group        { 
+  position:relative; 
+  margin-bottom: 18px;
+}
+.form_input{
+  font-size:14px;
+  padding:10px 10px 5px 0px;
+  display:block;
+  width:100%;
+  border:none;
+  color: #000000;
+  border-bottom:1px solid #c1c1c1;
+}
+.form_input:focus{
+  outline:none;
+}
+label          {
+  color:#c1c1c1; 
+  font-size:14px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  top:10px;
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+
+.form_input:focus ~ label, .form_input:valid ~ label    {
+  top:-10px;
+  font-size:12px;
+  color: #c1c1c1;
+}
+
+.form_bar{
+  position:relative;
+  display:block;
+  &:before, &:after   {
+    content:'';
+    height:2px; 
+    width:0;
+    bottom:1px; 
+    position:absolute;
+    background: #888; 
+    transition:0.2s ease all; 
+    -moz-transition:0.2s ease all; 
+    -webkit-transition:0.2s ease all;
+  }
+  &:before {
+    left:50%;
+  }
+  &:after {
+    right:50%; 
+  }
+}
+/* active state */
+.form_input:focus ~ .form_bar:before, .form_input:focus ~ .form_bar:after {
+  width:50%;
+}
+
+.form_bar_alert{
+  position:relative;
+  display:block;
+  &:before, &:after   {
+    content:'';
+    height:2px; 
+    width:0;
+    bottom:1px; 
+    position:absolute;
+    background: $theme_red; 
+    transition:0.2s ease all; 
+    -moz-transition:0.2s ease all; 
+    -webkit-transition:0.2s ease all;
+  }
+  &:before {
+    left:50%;
+  }
+  &:after {
+    right:50%; 
+  }
+}
+/* active state */
+.form_input:focus ~ .form_bar_alert:before, .form_input:focus ~ .form_bar_alert:after {
+  width:50%;
+}
+
+
+/* active state */
+.form_input:focus ~ .form_highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+  from { background:#5264AE; }
+  to  { width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+  from { background:#5264AE; }
+  to  { width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+  from { background:#5264AE; }
+  to  { width:0; background:transparent; }
+}
+
+
+$transition: all 0.3s;
+$shadow-L1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+$shadow-L2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+$shadow-L3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+.error_alert{
+  color: $theme_red;
+  font-size: 12px;
+}
+.username_error li{
+  color: $theme_red;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold; 
+}

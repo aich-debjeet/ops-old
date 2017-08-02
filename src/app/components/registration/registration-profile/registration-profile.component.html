@@ -1,0 +1,89 @@
+<section class="reg_steps">
+        <div class="container">
+            <!-- registraion middle container -->
+            <div class="row reg_middle_container">
+                <!-- left section -->
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 reg_left_section">
+                    <div class="reg_step2">
+                        <!-- progress bar -->
+                        <div class="reg_progress_bar">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 progress_bar_active">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 progress_bar_default">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    <div class="progress_dot_active_tick"></div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    <div class="progress_dot_active active_dot_center"></div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                    <div class="progress_dot_default progress_dot_right"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //progress bar -->
+                        <div class="row">
+                            <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <label class="step2_selection col-md-12">
+                                            <input type="checkbox" value="performing artist" formControlName="artCheckbox1">
+                                            <div class="reg_profile_types">
+                                                <div class="reg_step2_box">
+                                                    <h3>Performing artist</h3>
+                                                    <hr>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="step2_selection col-md-12">
+                                            <input type="checkbox" value="It Performing Artist" formControlName="artCheckbox2">
+                                            <div class="reg_profile_types">
+                                                <div class="reg_step2_box">
+                                                    <h3>Non Performing artist</h3>
+                                                    <hr>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="step2_selection col-md-12">
+                                            <input type="checkbox" value="Art Lover" formControlName="artCheckbox3">
+                                            <div class="reg_profile_types">
+                                                <div class="reg_step2_box">
+                                                    <h3>Art Lover</h3>
+                                                    <hr>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="ops_checkbox_lg">
+                                            <label class="col-md-12 are_you_student">
+                                                <input type="checkbox" value="Are you study" formControlName="study"><span></span> Are you student?
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="text-center col-md-12">
+                                            <a [routerLink]="['/reg/addskill']" class="btn btn-default btn-sm">Next</a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- //left section -->
+                <app-registration-block [rightCom]="rightCom"></app-registration-block>
+            </div>
+            <!-- //registraion middle container -->
+        </div>
+    </section>

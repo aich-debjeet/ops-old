@@ -1,0 +1,501 @@
+/* ------------------------- Registration css --------------------------- */
+.reg_steps{
+    background: #f1f1f1;
+    min-height: 100vh;
+    padding: 10px 0px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.reg_middle_container{
+  border-radius: 5px;
+  background-color: $white;
+  -webkit-box-shadow: 0 1px 12.5px 0 rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: 0 1px 12.5px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 12.5px 0 rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  position: relative;
+}
+// left section
+.reg_left_section{
+  background-color: $white;
+  height: 614px;
+  padding: 2% 8%;
+  @include mq($from: mobile, $until: tablet) {
+        height: 720px;
+    }
+}
+// right section
+.reg_right_section{
+   background-image: $theme_gradient; /* Old browsers */
+   background-image: $theme_gradient2; /*Safari5.1+ */
+  padding:40px;
+  height: 614px;
+  h2{
+    margin: 7% 0;
+  }
+  .right_container{
+    margin-top:5%;
+  }
+  .reg_steps_logo{
+    text-align: center;
+  }
+  p{
+    padding-top:8%;
+    clear: both;
+    text-align: center;
+    line-height: 26px;
+  }
+  p a{
+    color: $white;
+    font-weight: bold;
+  }
+}
+// Right section graph
+.reg_graph{
+  width: 170px;
+  margin: 0 auto;
+  margin-top: 40px;
+  .reg_circle{
+    width: 130px;
+    height: 130px;
+    @include border-radius(50%);
+    background-color: $white;
+  }
+  .reg_rectangle{
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.57);
+    float: right;
+    margin-top: -47%;
+  }
+}
+/* --------------------------- Registration Step 1 ---------------------------- */
+.reg_step1{
+  // add photo
+  .reg_add_photo{
+    width: 99px;
+    height: 99px;
+    text-align: center;
+    background-color: #e5e5e5;
+    color: $white;
+    padding: 0;
+    border-radius:5px;
+    @include mq($from: mobile, $until: tablet) {
+        width: 250px;
+        margin-bottom: 15px;
+    }
+  }
+  .reg_add_photo label{
+    color: #fff;
+    cursor: pointer;
+    width: 88%;
+    line-height: 99px;
+    left: 0;
+    top: 0;
+    width: 99px;
+  }
+  .reg_add_photo input[type=file]#upload-photo{
+    opacity: 0;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 99px;
+    cursor: pointer;
+  }
+  // gender
+  .ops_radio_sm{
+  .gender_single {
+    margin: 0px;
+    padding: 0px 7px;
+    color: #c1c1c1;
+    font-size: 14px;
+    }
+    strong {
+      font-size: 14px;
+      color: #c1c1c1;
+      font-weight: 500;
+      margin-right: 10px;
+    }
+    label{
+      position: static;
+      text-align: center;
+      margin-bottom: 0px;
+      margin-top: 15px;
+      pointer-events: auto;
+    }
+  }
+}
+/* --------------------- Registration step 1 otp -------------------------- */
+.reg_step1_otp{
+  .modal-lg{
+    width: 850px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 90%;
+    }
+  }
+  .modal-dialog{
+    margin: 6% auto;
+  }
+  h5{
+    color: #333333;
+    line-height: 26px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  a{
+    color: #ff7b84;
+    font-size: 16px;
+  }
+  form {
+    width: 70%;
+    margin: 0 auto;
+    padding: 10% 0;
+    span{
+      color: $theme_red;
+      font-size: 14px;
+      float: right;
+      margin-top: -22px;
+    }
+  }
+  .modal-title{
+    padding: 5% 0;
+  }
+  .btn {
+    margin-top: 20px;
+  }
+  p{
+    margin-top: 5%;
+  }
+}
+/* ------------------ Registration step 1 thankyou -------------------------- */
+.reg_thankyou{
+  .modal-lg{
+    width: 850px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 90%;
+    }
+  }
+  .modal-dialog{
+    margin: 6% auto;
+  }
+  .modal-title{
+    padding: 5% 0;
+  }
+  h3{
+    font-weight: 800;
+    font-size: 36px;
+    color: #333333;
+    clear: both;
+    margin-top: 7%;
+  }
+  p{
+    color: #333;
+    margin: 5%;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .btn{
+    margin: 4% 0 18%;
+  }
+}
+/* ----------------------- Registration Step 2 --------------------- */
+.reg_step2{
+  .reg_step2_box {
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: solid 2px #e4e4e4;
+    padding: 15px 30px;
+    cursor: pointer;
+    text-align: left;
+  }
+  .reg_step2_box:hover {
+    //border: solid 2px #ff7b84;
+    box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
+  }
+  .are_you_student{
+    font-size: 18px;
+    color: #333;
+    margin-top: 10px;
+  }
+  h3{
+    color: #333;
+    font-size: 18px;
+  }
+  hr{
+    margin: 12px 0 10px 0;
+  }
+  p{
+    color: #333;
+    font-size: 14px;
+  }
+  label{
+    text-align: center;
+    margin-bottom: 15px;
+    clear: both;
+    width: 100%;
+    pointer-events: auto;
+  }
+  input[type="checkbox"] {
+    display: none;
+  }
+  input[type="checkbox"]:checked + span {
+    color: #ffffff;
+  }
+  input[type="checkbox"] + .reg_profile_types {
+    display: inline-block;
+    position: relative;
+    -webkit-appearance: none;
+  }
+  input[type="checkbox"]:checked + .reg_profile_types:after {
+    border: 2px solid #ff7b84;
+    box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
+    border-radius: 5px;
+    content: " ";
+    left: 0;
+    top: 0;
+    color: #000000;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+  }
+}
+
+
+/* ------------------------ Registration Step 3 ---------------------- */
+.reg_step3{
+  p{
+  line-height: 110px;
+  text-align: center;
+  }
+  form{
+    i{
+      color: $theme_gray;
+      font-size: 14px;
+      float: right;
+      margin-top: -22px;
+    }
+  }
+  .close_tag{
+      margin-top: -30px;
+    span{
+    font-size: 8px;
+    color: $white;
+    }
+  }
+  .reg_interest{
+    padding:0 5px;
+    .reg_interest_box{
+      background: #555;
+      width: 110px;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      height: 110px;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 20px;
+      overflow: hidden;
+      position: relative;
+      margin: 10px auto;
+      @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+      }
+      @include mq($from: $mobile_lg, $until: $tablet) {
+        width: 100%;
+      }
+      .reg_interest_box_img{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
+      .reg_interest_box_img img{
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+      }
+      .reg_interest_box_name{
+        width: 100%;
+        position: absolute;
+        color: #ffffff;
+        background: rgba(30,11,43,0.76);
+        height: 110px;
+      }
+      .reg_interest_box_name_active{
+        width: 100%;
+        position: absolute;
+        color: #ffffff;
+        background: rgba(255,123,132,0.71);
+        height: 110px;
+        p{
+          line-height: 72px;
+          font-weight: 700;
+        }
+        .mark_check{
+          .fa{
+              border: 2px solid #ffffff;
+              font-size: 10px;
+              border-radius: 50%;
+              padding: 3px;
+          }
+        }
+      }
+    }
+  }
+}
+/* ----------------- Registration Step 3 add skills --------------------- */
+.reg_add_skills{
+  background-color: #ffffff;
+  height: 620px;
+  border-left: 1px solid #e6e6e6;
+  .finish_btn{
+    margin-top: 20px
+  }
+  .reg_add_skills_contant{
+    margin: 10% 7% 0 10%;
+    height: 500px;
+    overflow: hidden;
+    overflow-y: scroll;
+    .fa{
+      font-size: 10px;
+      font-weight: inherit;
+    }
+    .reg_add_your_skills .btn{
+      margin-right: 8px;
+    }
+    .faicon{
+        font-size: 24px !important;
+        color: $theme_gray;
+        padding: 0 4px;
+      }
+    .reg_add_skills_sec, .reg_add_your_skills{
+      margin-top: 5%;
+      padding-right:5%;
+      h3{
+        color: #000000;
+        font-weight: normal;
+        font-size: 18px;
+        padding-bottom: 4%;
+      }
+      h4{
+        font-size: 16px;
+        color: #333333;
+        margin: 10px 0;
+      }
+      h5{
+        font-size: 14px;
+        color: #c1c1c1;
+        margin-bottom: 10px;
+      }
+      .reg_skills_img img{
+        width: 70%;
+      }
+      .reg_add_skills_channel{
+        border: solid 1px #e9e9e9;
+        border-radius: 5px;
+        float: left;
+        .reg_channel_img img{
+          width: 100%;
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+        }
+        hr{
+          width: 100%;
+          margin: 0;
+          clear: both !important;
+        }
+        .reg_channel_contant{
+          padding:10px;
+          width: 100%;
+          float: left;
+          h3{
+            font-weight: bold;
+          }
+          h4{
+            font-size: 14px;
+            padding-left: 10px;
+            float: left;
+            width: 80%;
+          }
+          p{
+            color: #c1c1c1;
+            font-size: 12px;
+            line-height: 30px;
+          }
+          .reg_channel_contant_img{
+            width: 20%;
+            float: left;
+          }
+          .reg_channel_follow{
+            width: 100%;
+            border: 1px solid #333;
+          }
+        }
+      }
+    }
+  }
+}
+/* Scrollbar for Registration Step 3  */
+.reg_select_interest{
+  width: 430px;
+  height: 420px;
+  overflow-y: scroll;
+  margin-top: 30px;
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 110%;
+    }
+    @include mq($from: $mobile_lg, $until: $tablet) {
+        width: 110%;
+    }
+
+}
+#ops_scrollbar::-webkit-scrollbar-track{
+  background-color: #e5e5e5;
+  border-radius: 50px;
+
+}
+#ops_scrollbar::-webkit-scrollbar{
+  width: 10px;
+  border-radius: 50px;
+  background-color: #e5e5e5;
+}
+#ops_scrollbar::-webkit-scrollbar-thumb{
+  background-color: #c1c1c1;
+  border-radius: 50px;
+}
+/* // Scrollbar for Registration Step 3  */
+/* ------------------ Registration process welcome ---------------------  */
+.reg_steps_welcome {
+  .welcome_left_section{
+    margin: 30% 18%;
+  }
+  p{
+    font-size: 14px;
+    color: #333333;
+    text-align: center;
+    padding: 15% 0;
+    line-height: 24px;
+  }
+  label {
+    text-align: center;
+    clear: both;
+    width: 100%;
+    cursor: pointer;
+    font-size: 28px;
+    color: #333;
+  }
+}
+.reg_welcome_right_section {
+  h3{
+    margin-top: 12%
+  }
+  h4{
+    margin: 5% 0;
+    font-size: 18px;
+    text-align: center;
+  }
+}
+/* ------------------ //registration process welcome ---------------------  */

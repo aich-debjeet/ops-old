@@ -1,0 +1,185 @@
+<section class="reg_steps">
+    <div class="container">
+        <!-- registraion middle container -->
+        <div class="row reg_middle_container">
+            <!-- left section -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 reg_left_section">
+                <div class="reg_step3">
+                        <!-- progress bar -->
+                    <div class="reg_progress_bar">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 progress_bar_active">
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 progress_bar_active">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="progress_dot_active_tick"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
+                                <div class="progress_dot_active_tick active_tick_dot_center"></div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                <div class="progress_dot_active progress_dot_right"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //progress bar -->
+                    <form [formGroup]="rForm "  (ngSubmit)="addSkill(rForm.value)">
+                        <div class="form_group">
+                            <input class="form_input" type="text" required="" formControlName="profession">
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label>Search Skills</label>
+                            <span><i class="fa fa-search" aria-hidden="true"></i></span>
+                        </div>
+                    </form>
+                    <!-- Select Interest -->
+                    <div class="row reg_select_interest" id="ops_scrollbar">
+                        <a  *ngFor="let skill of skills">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 reg_interest">
+                                <div class="margin_t_0 reg_interest_box">
+                                    <div class="reg_interest_box_img">
+                                        <img src="{{skill.background}}">
+                                    </div>
+                                    <div class="reg_interest_box_name">
+                                        <p>{{skill.name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- //Select Interest -->
+
+                </div>
+            </div>
+            <!-- //left section -->
+
+            <!-- Registration Right Section -->
+            <app-registration-block *ngIf="false" [rightCom]="rightCom"></app-registration-block>
+
+            <!-- Registration Right Section -->
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 reg_add_skills">
+                    <div class="reg_add_skills_contant" id="ops_scrollbar">
+                        <!-- artist to follow -->
+                        <div class="row">
+                            <div class="col-md-12 reg_add_skills_sec margin_t_0">
+                                <div class="row">
+                                    <h3 class="col-md-9">Artist to follow</h3>
+                                    <div class="col-md-3">
+                                        <p class="pull-right">
+                                            <a href="">
+                                                <i class="fa fa-angle-left faicon" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="">
+                                                <i class="fa fa-angle-right faicon" aria-hidden="true"></i>
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 text-center"   *ngFor="let artist of artistFollow; let i=index" >
+                                        <div *ngIf="i<3">
+                                            <div class="reg_skills_img">
+                                                <img src="{{artist.coverImage}}" class="img-circle">
+                                            </div>
+                                            <h4>{{artist.name}}</h4>
+                                            <h5>Profession</h5>
+
+                                            <!--Not Following-->
+                                            <button type="button" class="btn btn-xs btn-normal btn-plus" (click)="myEvent($event)">
+                                                <span class="btn-label-follow">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                                </span> Follow
+                                            </button>
+
+                                            <!--Following-->
+                                            <button type="button" class="btn btn-xs btn-primary btn-plus">
+                                                <span class="btn-label-follow">
+                                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                                </span> Following
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 reg_add_skills_sec">
+                                        <div class="row">
+                                    <h3 class="col-md-9">Channels to follow</h3>
+                                    <div class="col-md-3">
+                                        <p class="pull-right">
+                                            <a href="">
+                                                <i class="fa fa-angle-left faicon" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="">
+                                                <i class="fa fa-angle-right faicon" aria-hidden="true"></i>
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="reg_add_skills_channel">
+                                                    <div class="reg_channel_img">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/e6502eb0a89408a7d1bdd25e4e6393d9e57afb1e/f32e4/img/channel.jpg">
+                                                    </div>
+                                                    <div class="reg_channel_contant">
+                                                        <h3>Channel Name</h3>
+                                                        <div class="reg_channel_contant_img">
+                                                            <img src="http://d33wubrfki0l68.cloudfront.net/026bcbb2a3f5a8e30d2ff33c75465c8911668cc9/4e7c8/img/artist.jpg" class="img-circle img-responsive">
+                                                        </div>
+                                                        <h4>Name of Creator1</h4>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="reg_channel_contant">
+                                                        <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                                            <span class="btn-label-follow">
+                                                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                                            </span> Follow
+                                                        </button>
+                                                        <p class="pull-right">10K followers</p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="reg_add_skills_channel">
+                                                    <div class="reg_channel_img">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/e6502eb0a89408a7d1bdd25e4e6393d9e57afb1e/f32e4/img/channel.jpg">
+                                                    </div>
+                                                    <div class="reg_channel_contant">
+                                                        <h3>Channel Name</h3>
+                                                        <div class="reg_channel_contant_img">
+                                                            <img src="http://d33wubrfki0l68.cloudfront.net/026bcbb2a3f5a8e30d2ff33c75465c8911668cc9/4e7c8/img/artist.jpg" class="img-circle img-responsive">
+                                                        </div>
+                                                        <h4>Name of Creator2</h4>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="reg_channel_contant">
+                                                        <button type="button" class="btn btn-xs btn-primary btn-plus">
+                                                            <span class="btn-label-follow">
+                                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                            </span> Following
+                                                        </button>
+                                                        <p class="pull-right">10K followers</p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <a href="reg_step_welcome.html" class="btn btn-default btn-md finish_btn">Finish</a>
+                    </div>
+                </div>
+                <!-- registration right section -->
+            <!-- registration right section -->
+
+        </div>
+        <!-- //registraion middle container -->
+    </div>
+</section>

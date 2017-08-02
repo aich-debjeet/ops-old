@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
+
+// bootstrap fonts
+$icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
+
+// Vendors */
+@import '~sass-mq/_mq.scss';
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import '~themify-icons/themify-icons/_themify-icons.scss';
+@import "~font-awesome/css/font-awesome.css";
+// /* Helpers */
+@import '/assets/scss/helpers/_variables.scss';
+@import '/assets/scss/helpers/_functions.scss';
+@import '/assets/scss/helpers/_mixins.scss';
+
+// /* Components scss */
+@import '/assets/scss/components/_buttons.scss';
+@import '/assets/scss/components/_form.scss';
+@import '/assets/scss/components/_progress-bar.scss';
+@import '/assets/scss/components/_flag.scss';
+
+// /* Base scss */
+@import '/assets/scss/base/_reset.scss';
+@import '/assets/scss/base/_base.scss';
+@import '/assets/scss/base/_color.scss';
+@import '/assets/scss/base/_typography.scss';
+
+
+
+/* Layouts scss */
+@import '/assets/scss/layouts/_header.scss';
+@import '/assets/scss/layouts/_footer.scss';
+
+// /* Themes scss */
+@import '/assets/scss/themes/_ops-theme.scss';
+
+/* ------------------------- Registration css --------------------------- */
+.reg_steps{
+    background: #f1f1f1;
+    min-height: 100vh;
+    padding: 10px 0px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.reg_middle_container{
+  border-radius: 5px;
+  background-color: $white;
+  -webkit-box-shadow: 0 1px 12.5px 0 rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: 0 1px 12.5px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 12.5px 0 rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  position: relative;
+}
+// left section
+.reg_left_section{
+  background-color: $white;
+  height: 614px;
+  padding: 2% 8%!important;
+  @include mq($from: mobile, $until: tablet) {
+        height: 720px;
+    }
+}
+// right section
+.reg_right_section{
+   background-image: $theme_gradient; /* Old browsers */
+   background-image: $theme_gradient2; /*Safari5.1+ */
+   color: #fff;
+  padding:40px;
+  height: 614px;
+  h2{
+    margin: 7% 0;
+  }
+  .right_container{
+    margin-top:5%;
+  }
+  .reg_steps_logo{
+    text-align: center;
+  }
+  p{
+    padding-top:8%;
+    clear: both;
+    text-align: center;
+    line-height: 26px;
+  }
+  p a{
+    color: $white;
+    font-weight: bold;
+  }
+}
+// Right section graph
+.reg_graph{
+  width: 170px;
+  margin: 0 auto;
+  margin-top: 40px;
+  .reg_circle{
+    width: 130px;
+    height: 130px;
+    @include border-radius(50%);
+    background-color: $white;
+  }
+  .reg_rectangle{
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.57);
+    float: right;
+    margin-top: -47%;
+  }
+}

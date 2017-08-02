@@ -1,0 +1,63 @@
+/* registration progress bar*/
+.reg_progress_bar{
+  margin: 9% 0;
+  .progress_bar_default{
+    background-color: $gray_color;
+    height: 2px;
+  }
+  .progress_bar_active{
+    background-color: $theme_red;
+    height: 2px;
+  }
+  .progress_dot_default{
+    width: 11px;
+    height: 11px;
+    background-color: $white;
+    border-radius: 50%;
+    margin-top:-7px; 
+    border: 2px solid $gray_color;
+  }
+  .progress_dot_active{
+    width: 17px;
+    height: 17px;
+    background-color: $theme_red;
+    border-radius: 50%;
+    margin-top:-10px; 
+  }
+  .progress_dot_active_tick{
+    margin-top: -14px;
+    color: #fff;
+  }
+  .progress_dot_active_tick:after{
+    width: 10px;
+    height: 10px;
+    background-color: #ff7b84;
+    border-radius: 50%;
+    font-family: FontAwesome;
+    content: "\f00c";
+    font-size: 10px;
+    padding: 4px;
+  }
+  .default_dot_center{
+    margin: -6% auto 0;
+     @include mq($from: $mobile_sm, $until: $tablet) {
+        margin: -9% auto 0;
+    }
+  }
+  .active_dot_center{
+    margin: -9% auto 0;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        margin: -12% auto 0;
+    }
+  }
+  .active_tick_dot_center{
+    margin: -13% auto 0;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        margin: -20% auto 0;
+    }
+  }
+  .progress_dot_right{
+    float: right;
+  }
+}
+/* ///prgress bar */

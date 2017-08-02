@@ -1,0 +1,250 @@
+/* -------------------- One Page Spotlight buttons ---------------------*/
+
+/* --------------------------- Button Size ---------------------------- */
+.btn-sm {
+  padding: 7px 18px!important;
+  font-size: 14px!important;
+  line-height: 1.0!important;
+  border-radius: 5px!important;
+  font-weight: 800!important;
+}
+.btn-md {
+  padding: 4px 20px!important;
+  font-size: 18px!important;
+  line-height: 1.5!important;
+  border-radius: 5px!important;
+  font-weight: 800!important;
+}
+/* ------------------------------ Button ------------------------------ */
+.btn-plus{
+  padding: 0px 10px 0px 6px;
+}
+.btn-label-skill {
+    position: relative;
+    left: -6px;
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 3px 0 0 3px;
+}
+.btn-label-follow {
+    position: relative;
+    left: -6px;
+    display: inline-block;
+    padding: 1px 0px 1px 10px;
+    border-radius: 3px 0 0 3px;
+}
+.btn-label-tag {
+    position: relative;
+    left: 0;
+    display: inline-block;
+    padding: 0px 0px 0px 5px;
+    border-radius: 3px 0 0 3px;
+    i{
+      font-size: 8px;
+      padding-left: 5px;
+    }
+}
+/* --------------------------- Default Button ------------------------- */
+.btn-default {
+  color: $theme_red!important;
+  background-color: $white!important;
+  border-color: $theme_red!important;
+  &:focus{
+    color: $white;
+    background-color: $theme_red_dark!important;
+    border-color: $theme_red_dark!important;
+    outline:0px !important;
+  }
+  &:hover{
+    color: $white!important;
+    background-color: $theme_red!important;
+    border-color: $theme_red!important;
+  }
+  &:active{
+    color: $white;
+    background-color: $theme_red_dark;
+    border-color: $theme_red_dark;
+    outline:0px !important;
+      &:hover{
+        color: $white;
+      background-color: $theme_red_dark;
+      border-color: $theme_red_dark;
+      }
+      &:focus{
+        color: $white;
+      background-color: $theme_red_dark;
+      border-color: $theme_red_dark;
+      }
+  }
+}
+/* --------------------------- Primary Button ------------------------- */
+.btn-primary {
+  color: $white;
+  background-color: $theme_red;
+  border-color: $theme_red;
+  &:focus{
+    color: $white;
+    background-color: $theme_red_dark;
+    border-color: $theme_red_dark;
+    outline:0px !important;
+  }
+  &:hover{
+    color: $white;
+    background-color: $theme_red_dark;
+    border-color: $theme_red_dark;
+  }
+  &:active{
+    color: $white;
+    background-color: $theme_red_dark;
+    border-color: $theme_red_dark;
+    outline:0px !important;
+      &:hover{
+        color: $white;
+      background-color: $theme_red_dark;
+      border-color: $theme_red_dark;
+      }
+      &:focus{
+        color: $white;
+      background-color: $theme_red_dark;
+      border-color: $theme_red_dark;
+      }
+  }
+}
+/* --------------------------- Basic Button ------------------------- */
+.btn-basic {
+  color: $white;
+  background-color: $basic_color;
+  border-color: $basic_color;
+  &:focus{
+    color: $white;
+    background-color: $theme_red;
+    border-color: $theme_red;
+    outline:0px !important;
+  }
+  &:hover{
+    color: $white;
+    background-color: $theme_red;
+    border-color: $theme_red;
+  }
+  &:active{
+    color: $white;
+    background-color: $theme_red_dark;
+    border-color: $theme_red_dark;
+    outline:0px !important;
+      &:hover{
+        color: $white;
+      background-color: $theme_red_dark;
+      border-color: $theme_red_dark;
+      }
+      &:focus{
+        color: $white;
+      background-color: $theme_red_dark;
+      border-color: $theme_red_dark;
+      }
+  }
+}
+/* --------------------------- Normal Button ------------------------- */
+.btn-normal {
+  color: $white;
+  background-color: $theme_gray;
+  border-color: $theme_gray;
+  &:focus{
+    color: $white;
+    background-color: $basic_color;
+    border-color: $basic_color;
+    outline:0px !important;
+  }
+  &:hover{
+    color: $white;
+    background-color: $basic_color;
+    border-color: $basic_color;
+  }
+  &:active{
+    color: $white;
+    background-color: $basic_color;
+    border-color: $basic_color;
+    outline:0px !important;
+      &:hover{
+        color: $white;
+        background-color: $basic_color;
+        border-color: $basic_color;
+      }
+      &:focus{
+        color: $white;
+        background-color: $basic_color;
+        border-color: $basic_color;
+      }
+  }
+}
+/* ------------------------------- Radio ------------------------------ */
+.ops_radio_sm{
+  input[type="radio"] {
+    display: none;
+  }
+  label{
+    position: static;
+    text-align: center;
+    pointer-events: auto;
+  }
+  input[type="radio"] + span {
+    border: 2px solid #c1c1c1;
+    border-radius: 50px;
+    display: inline-block;
+    float: left;
+    margin-right: 7px;
+    position: relative;
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    margin-top: 3px;
+  }
+  input[type="radio"]:checked + span:after {
+    background: #ff7b84;
+    position: absolute;
+    border-radius: 50px;
+    left: -2px;
+    top: -2px;
+    width: 15px;
+    height: 15px;
+    font-family: FontAwesome;
+    content: "\f10c";
+    color: #ffffff;
+    font-size: 12px;
+  }
+}
+/* --------------------------- checkbox ---------------------------- */
+.ops_checkbox_lg{
+  input[type="checkbox"] {
+    display: none;
+  }
+  label{
+    position: static;
+    text-align: center;
+    pointer-events: auto;
+  }
+  input[type="checkbox"] + span {
+    border: 1px solid #c1c1c1;
+    border-radius: 50px;
+    display: inline-block;
+    margin: 5px 7px -3px 0px;
+    position: relative;
+    -webkit-appearance: none;
+    width: 25px;
+    height: 25px;
+  }
+  input[type="checkbox"]:checked + span:after {
+    color: #ff7b84;
+    border: 1px solid #ff7b84;
+    border-radius: 50px;
+    left: -1px;
+    position: absolute;
+    top: -1px;
+    width: 25px;
+    height: 25px;
+    font-family: FontAwesome;
+    content: "\f00c";
+    font-size: 18px;
+  }
+}
+/* // */
