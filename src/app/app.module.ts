@@ -41,7 +41,29 @@ import { JobDetailsComponent } from './components/job-details/job-details.compon
 import { EventsComponent } from './components/events/events.component';
 import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
+<<<<<<< HEAD
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
+=======
+import { RegistrationProfileComponent } from './components/registration-profile/registration-profile.component';
+import { RegistrationAddSkillComponent } from './components/registration-add-skill/registration-add-skill.component';
+import { RegistrationBasicComponent } from './components/registration-basic/registration-basic.component';
+import { RegistrationWelcomeComponent } from './components/registration-welcome/registration-welcome.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardProfileCoverComponent } from './components/dashboard/dashboard-profile-cover/dashboard-profile-cover.component';
+import { DashboardSecondaryNavbarComponent } from './components/dashboard/dashboard-secondary-navbar/dashboard-secondary-navbar.component';
+import { DashboardWidgetCalendarComponent } from './components/dashboard/dashboard-widget-calendar/dashboard-widget-calendar.component';
+import { DashboardWidgetEventsComponent } from './components/dashboard/dashboard-widget-events/dashboard-widget-events.component';
+import { DashboardWidgetProjectsComponent } from './components/dashboard/dashboard-widget-projects/dashboard-widget-projects.component';
+import { DashboardWidgetCommunitiesComponent } from './components/dashboard/dashboard-widget-communities/dashboard-widget-communities.component';
+import { DashboardWidgetOpportunitiesComponent } from './components/dashboard/dashboard-widget-opportunities/dashboard-widget-opportunities.component';
+import { NavigationComponent } from './shared/navigation/navigation.component';
+import { QuickAccessComponent } from './shared/quick-access/quick-access.component';
+import { PopularArtistsComponent } from './shared/popular-artists/popular-artists.component';
+import { NearestEventsComponent } from './shared/nearest-events/nearest-events.component';
+import { OpportunitiesComponent } from './shared/opportunities/opportunities.component';
+import { ExploreComponent } from './components/explore/explore.component';
+import { ChannelListComponent } from './components/channel-list/channel-list.component';
+>>>>>>> c9428036f394bf0a8926bf998302f9c9c99f01ae
 
 
 
@@ -66,7 +88,29 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
     EventsComponent,
     SearchComponent,
     SettingsComponent,
+<<<<<<< HEAD
     LogoutHomeComponent
+=======
+    RegistrationProfileComponent,
+    RegistrationAddSkillComponent,
+    RegistrationBasicComponent,
+    RegistrationWelcomeComponent,
+    DashboardComponent,
+    DashboardProfileCoverComponent,
+    DashboardSecondaryNavbarComponent,
+    DashboardWidgetCalendarComponent,
+    DashboardWidgetEventsComponent,
+    DashboardWidgetProjectsComponent,
+    DashboardWidgetCommunitiesComponent,
+    DashboardWidgetOpportunitiesComponent,
+    NavigationComponent,
+    QuickAccessComponent,
+    PopularArtistsComponent,
+    NearestEventsComponent,
+    OpportunitiesComponent,
+    ExploreComponent,
+    ChannelListComponent
+>>>>>>> c9428036f394bf0a8926bf998302f9c9c99f01ae
   ],
   imports: [
     BrowserModule,

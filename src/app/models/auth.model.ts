@@ -13,6 +13,8 @@ export class Register {
  user_unique = false
 }
 
+export class SearchCards{}
+
 export class RegisterProfile {
  completed: string[];
  loading = false;

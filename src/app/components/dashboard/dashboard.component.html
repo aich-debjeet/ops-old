@@ -1,0 +1,235 @@
+<!-- primary navigation -->
+<!-- <app-dashboard-primary-navbar></app-dashboard-primary-navbar> -->
+<app-navigation></app-navigation>
+<!-- primary navigation -->
+
+  <!-- main container -->
+  <div class="container">
+
+    <!-- profile cover/slider -->
+    <app-dashboard-profile-cover></app-dashboard-profile-cover>
+    <!-- profile cover/slider -->
+
+    <!-- secondary navigation -->
+    <app-dashboard-secondary-navbar></app-dashboard-secondary-navbar>
+    <!-- secondary navigation -->
+
+    <div class="row">
+      <div class="col-sm-4">
+        <!-- <p><span>896 posts</span>&nbsp;&nbsp;&nbsp;<span>896 channels</span></p>
+        <div class="row">
+          <div class="col-sm-4">120 followers</div>
+          <div class="col-sm-4">120 followings</div>
+          <div class="col-sm-4">120 spots</div>
+        </div> -->
+        <div class="card">
+          <img class="card-img-top" style="width: 100%;" src="https://via.placeholder.com/318x180" alt="Card image cap">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-sm-4">120 followers</div>
+              <div class="col-sm-4">120 followings</div>
+              <div class="col-sm-4">120 spots</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <p><strong>Bio</strong></p>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</p>
+      </div>
+      <div class="col-sm-4">
+        <p><strong>Skills</strong></p>
+        <p>
+          <span class="label label-default">tag</span>
+          <span class="label label-default">tag</span>
+          <span class="label label-default">tag</span>
+          <span class="label label-default">tag</span>
+          <span class="label label-default">tag</span>
+          <span class="label label-default">tag</span>
+          <span class="label label-default">tag</span>
+          <span class="label label-default">tag</span>
+        </p>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+
+      <div class="col-sm-3">
+
+        <div class="row">
+
+          <!-- calendar widget -->
+          <app-dashboard-widget-calendar></app-dashboard-widget-calendar>
+          <!-- calendar widget -->
+
+        </div>
+
+        <hr>
+
+        <div class="row">
+
+          <!-- events widget -->
+          <app-dashboard-widget-events></app-dashboard-widget-events>
+          <!-- events widget -->
+
+        </div>
+
+        <hr>
+
+        <div class="row">
+
+          <!-- projects widget -->
+          <app-dashboard-widget-projects></app-dashboard-widget-projects>
+          <!-- projects widget -->
+
+        </div>
+
+        <hr>
+
+        <div class="row">
+
+          <!-- communities widget -->
+          <app-dashboard-widget-communities></app-dashboard-widget-communities>
+          <!-- communities widget -->
+
+        </div>
+
+        <hr>
+
+        <div class="row">
+
+          <!-- opportunities widget -->
+          <app-dashboard-widget-opportunities></app-dashboard-widget-opportunities>
+          <!-- opportunities widget -->
+
+        </div>
+
+        <hr>
+
+      </div>
+
+      <div class="col-sm-9">
+
+        <div class="row">
+
+          <div class="col-sm-12">
+
+            <!-- quick access widget -->
+            <app-quick-access></app-quick-access>
+            <!-- quick access widget -->
+
+          </div>
+
+        </div>
+
+        <hr>
+
+        <div class="row">
+
+          <div class="col-sm-12">
+
+            <div class="row">
+              <div class="col-sm-12">
+                <p><strong>channels</strong></p>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+
+              <div class="col-sm-4" *ngFor="let card of cards; let i = index;" >
+
+                <div class="card" >
+
+                  <div class="row">
+                    <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+                  </div>
+
+                  <div class="card-block">
+                    <h4 class="card-title"><strong>#{{ i }} {{ card.title }}</strong></h4>
+                    <p class="card-text">{{ card.descirption }}</p>
+                  </div>
+
+                  <div class="card-block">
+                    <a href="{{ card.linkRight }}" class="card-link">Card link</a>
+                    <a href="{{ card.linkRight }}" class="card-link">Another link</a>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <!-- <div class="col-sm-4">
+
+                <div class="card" >
+
+                  <div class="row">
+                    <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+                  </div>
+
+                  <div class="card-block">
+                    <h4 class="card-title"><strong>Card title</strong></h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+
+                  <div class="card-block">
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="col-sm-4">
+
+                <div class="card" >
+
+                  <div class="row">
+                    <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+                  </div>
+
+                  <div class="card-block">
+                    <h4 class="card-title"><strong>Card title</strong></h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+
+                  <div class="card-block">
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                  </div>
+
+                </div>
+
+              </div> -->
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- main container -->

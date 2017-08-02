@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-sm-12">
+    <p><strong>quick access</strong></p>
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
+  
+  <div class="col-sm-4" *ngFor="let item of quickAccess; let i = index;">
+    <div class="card">
+      <div class="card-block">
+        <h4 class="card-title">#{{ i }} {{ item.title }}</h4>
+        <h6 class="card-subtitle mb-2 text-muted">{{ item.subTitle }}</h6>
+        <a href="#" class="card-link">{{ item.link }}</a>
+      </div>
+    </div>
+  </div>
+
+</div>

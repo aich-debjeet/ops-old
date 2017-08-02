@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
-export class HomeComponent {
+export class DashboardComponent {
 
   cards: any = [];
 

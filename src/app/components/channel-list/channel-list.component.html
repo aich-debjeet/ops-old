@@ -1,0 +1,105 @@
+<app-navigation></app-navigation>
+<div class="grey-container">
+
+  <div class="row">
+
+    <div class="col-sm-12">
+
+      <br>
+      <h6 class="text-center" >Find channels</h6>
+      <br>
+
+      <div class="tags">
+        <span class="label label-default">TAGS</span>
+        <span class="label label-default">TAGS</span>
+        <span class="label label-default">TAGS</span>
+        <span class="label label-default">TAGS</span>
+        <span class="label label-default">TAGS</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="container relative">
+
+  <div class="row search-wrapper">
+
+    <div class="col-sm-10 col-sm-offset-1 dark-gery">
+
+      <div class="col-sm-4 col-sm-offset-4  dark-gery text-center">
+        <span><a href="javascript:void(0)">Popular</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="javascript:void(0)">Recent</a></span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+      <p><a href="javascript:void(0)">Clear All</a></p>
+      <br>
+
+    <div class="col-sm-10 col-sm-offset-1">
+
+      <div class="col-sm-4">
+
+        <input type="text" name="searchName"  placeholder="Search Name" >
+
+      </div>
+
+      <div class="col-sm-4">
+
+        <input type="text" name="tags"  placeholder="Tags" >
+
+      </div>
+
+      <div class="col-sm-4">
+
+        <input type="text" name="mostViewed"  placeholder="Most Viewed" >
+
+      </div>
+
+    </div>
+  </div>
+
+    <!-- <div class="col-sm-10 col-sm-offset-1">
+      <p style="background-color:red" >test</p>
+    </div>
+
+    <div class="col-sm-10 col-sm-offset-1">
+      <p style="background-color:red" >test</p>
+    </div> -->
+
+</div>
+
+<div class="row">
+  <br>
+  <div class="col-sm-4" *ngFor="let channel of channels; let i = index;" >
+
+    <div class="card" >
+
+      <div class="row">
+        <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+        <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+      </div>
+
+      <div class="card-block">
+        <h4 class="card-title"><strong>#{{ i }} {{ channel.title }}</strong></h4>
+        <p class="card-text">{{ channel.descirption }}</p>
+      </div>
+
+      <div class="card-block">
+        <a href="{{ channel.linkRight }}" class="card-link">Card link</a>
+        <a href="{{ channel.linkRight }}" class="card-link">Another link</a>
+      </div>
+
+    </div>
+
+  </div>
+</div>
