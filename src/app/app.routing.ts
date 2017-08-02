@@ -34,13 +34,8 @@ import { ChannelListComponent } from './components/channel-list/channel-list.com
 import { AuthGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
-<<<<<<< HEAD
  { path: '', component: LogoutHomeComponent },
  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-=======
- { path: 'home', component: HomeComponent},
- //{ path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
->>>>>>> c9428036f394bf0a8926bf998302f9c9c99f01ae
  { path: 'login', component: LoginComponent },
  { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },
  { path: 'forgot-password', component: ForgotPasswordComponent },
