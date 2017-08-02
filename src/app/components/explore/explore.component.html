@@ -1,0 +1,104 @@
+<!-- <app-navigation></app-navigation>
+<hr>
+<ul>
+  <li><a class="active" href="#home">Recommendation</a></li>
+  <li><a href="#news">Channel</a></li>
+  <li><a href="#contact">Spotfeed</a></li>
+  <li><a href="#about">Artist</a></li>
+</ul> -->
+
+<!-- primary navigation -->
+<!-- <app-dashboard-primary-navbar></app-dashboard-primary-navbar> -->
+<app-navigation></app-navigation>
+<!-- primary navigation -->
+
+  <!-- main container -->
+  <div class="container">
+
+    <ul>
+      <li><a class="active" href="#recommendation">Recommendation</a></li>
+      <li><a class="active" href="#channel">Channel</a></li>
+      <li><a class="active" href="#spotfeed">Spotfeed</a></li>
+      <li><a class="active" href="#artist">Artist</a></li>
+    </ul>
+    <br>
+
+
+    <!-- secondary navigation
+    <app-dashboard-secondary-navbar></app-dashboard-secondary-navbar>
+     secondary navigation -->
+     <div class="row">
+       <div class="col-sm-3" *ngFor="let item of cards">
+         <div class="card">
+           <img class="card-img-top" src="{{ item.image }}" alt="Card image cap">
+           <div class="card-block">
+             <p class="card-text"><strong>{{ item.cardText1 }}</strong></p>
+             <p class="card-text">{{ item.cardText }}</p>
+           </div>
+         </div>
+       </div>
+     </div>
+
+<div class="row">
+  <p>
+    <span>Artist to follow</span>
+    <span class="align-right"><a href=" " style="float:right">See More</a></span>
+  </p>
+</div>
+
+<br>
+<!--Card-->
+
+<div class="row artists">
+  <div class="col-sm-3" *ngFor="let item of cardsArtist">
+    <div class="card">
+      <img src="{{ item.image }}" alt="Card image cap">
+      <div class="card-block">
+        <h4 class="card-title">{{ item.title }}</h4>
+        <p><i class="fa fa-quote-left"></i> {{ item.faFaQuoteLeft }}</p>
+        <a href="#" class="btn btn-primary">{{item.btnBtnPrimary}}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<div class="row">
+  <p>
+    <span>Channels to follow</span>
+    <span class="align-right"><a href=" " style="float:right">See More</a></span>
+  </p>
+</div>
+
+<div class="row">
+  <div class="col-sm-4" *ngFor="let channel of channels; let i = index;" >
+
+    <div class="card" >
+
+      <div class="row">
+        <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+        <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+      </div>
+
+      <div class="card-block">
+        <h4 class="card-title"><strong>#{{ i }} {{ channel.title }}</strong></h4>
+        <p class="card-text">{{ channel.descirption }}</p>
+      </div>
+
+      <div class="card-block">
+        <a href="{{ channel.linkRight }}" class="card-link">Card link</a>
+        <a href="{{ channel.linkRight }}" class="card-link">Another link</a>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</div>
+<!-- main container -->

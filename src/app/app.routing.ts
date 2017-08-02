@@ -23,6 +23,7 @@ import { RegistrationAddSkillComponent } from './components/registration-add-ski
 import { RegistrationBasicComponent } from './components/registration-basic/registration-basic.component';
 import { RegistrationWelcomeComponent } from './components/registration-welcome/registration-welcome.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ExploreComponent } from './components/explore/explore.component';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -50,6 +51,7 @@ export const routes: Routes = [
  { path: 'registration-basic', component: RegistrationBasicComponent },
  { path: 'registration-welcome', component: RegistrationWelcomeComponent },
  { path: 'dashboard', component: DashboardComponent },
+ { path: 'explore', component: ExploreComponent },
  // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];
