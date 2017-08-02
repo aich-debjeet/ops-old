@@ -18,17 +18,10 @@ import { JobDetailsComponent } from './components/job-details/job-details.compon
 import { EventsComponent } from './components/events/events.component';
 import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
-<<<<<<< HEAD
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
-=======
-import { RegistrationProfileComponent } from './components/registration-profile/registration-profile.component';
-import { RegistrationAddSkillComponent } from './components/registration-add-skill/registration-add-skill.component';
-import { RegistrationBasicComponent } from './components/registration-basic/registration-basic.component';
-import { RegistrationWelcomeComponent } from './components/registration-welcome/registration-welcome.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
->>>>>>> c9428036f394bf0a8926bf998302f9c9c99f01ae
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -52,16 +45,9 @@ export const routes: Routes = [
  { path: 'events', component: EventsComponent },
  { path: 'search', component: SearchComponent },
  { path: 'settings', component: SettingsComponent },
-<<<<<<< HEAD
-=======
- { path: 'registration/profile', component: RegistrationProfileComponent },
- { path: 'registration/addskill', component: RegistrationAddSkillComponent },
- { path: 'registration-basic', component: RegistrationBasicComponent },
- { path: 'registration-welcome', component: RegistrationWelcomeComponent },
  { path: 'dashboard', component: DashboardComponent },
  { path: 'explore', component: ExploreComponent },
  { path: 'channel', component: ChannelListComponent },
->>>>>>> c9428036f394bf0a8926bf998302f9c9c99f01ae
  // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];
