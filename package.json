@@ -24,9 +24,12 @@
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^2.0.4",
     "@ngrx/store": "^2.2.3",
-    "bootstrap": "^3.3.7",
+    "bootstrap-sass": "^3.3.7",
     "core-js": "^2.4.1",
+    "font-awesome": "^4.7.0",
     "rxjs": "^5.1.0",
+    "sass-mq": "^3.3.2",
+    "themify-icons": "^1.0.0",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
