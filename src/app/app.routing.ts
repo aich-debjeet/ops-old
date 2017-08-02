@@ -24,6 +24,7 @@ import { RegistrationBasicComponent } from './components/registration-basic/regi
 import { RegistrationWelcomeComponent } from './components/registration-welcome/registration-welcome.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ExploreComponent } from './components/explore/explore.component';
+import { ChannelListComponent } from './components/channel-list/channel-list.component';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -52,6 +53,7 @@ export const routes: Routes = [
  { path: 'registration-welcome', component: RegistrationWelcomeComponent },
  { path: 'dashboard', component: DashboardComponent },
  { path: 'explore', component: ExploreComponent },
+ { path: 'channel', component: ChannelListComponent },
  // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

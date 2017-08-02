@@ -58,6 +58,7 @@ import { PopularArtistsComponent } from './shared/popular-artists/popular-artist
 import { NearestEventsComponent } from './shared/nearest-events/nearest-events.component';
 import { OpportunitiesComponent } from './shared/opportunities/opportunities.component';
 import { ExploreComponent } from './components/explore/explore.component';
+import { ChannelListComponent } from './components/channel-list/channel-list.component';
 
 
 
@@ -99,7 +100,8 @@ import { ExploreComponent } from './components/explore/explore.component';
     PopularArtistsComponent,
     NearestEventsComponent,
     OpportunitiesComponent,
-    ExploreComponent
+    ExploreComponent,
+    ChannelListComponent
   ],
   imports: [
     BrowserModule,
