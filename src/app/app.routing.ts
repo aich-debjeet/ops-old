@@ -28,7 +28,8 @@ import { AuthGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
  { path: '', component: LogoutHomeComponent },
- { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+ { path: 'home', component: HomeComponent },
+//  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
  { path: 'login', component: LoginComponent },
  { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },
  { path: 'forgot-password', component: ForgotPasswordComponent },
