@@ -20,12 +20,15 @@ import { routes } from './app.routing';
 
 // Reducers
 import { AuthReducer } from './reducers/auth.reducer';
+import { HomeReducer } from './reducers/home.reducer';
 
 // Effects
 import { AuthEffect } from './effects/auth.effect';
+import { HomeEffect } from './effects/home.effect';
 
 // Services
 import { AuthService } from './services/auth.service';
+import { ApiService } from './services/api.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
@@ -105,9 +108,10 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
     HttpModule,
     StoreModule.provideStore({ loginTags: AuthReducer }),
     RouterModule.forRoot(routes),
-    EffectsModule.run(AuthEffect)
+    EffectsModule.run(AuthEffect),
+    EffectsModule.run(HomeEffect)
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
