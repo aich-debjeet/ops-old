@@ -38,13 +38,15 @@ export class RegistrationProfileComponent implements OnInit {
       'study': [null, Validators.required],
     })
   }
-  ngOnInit() { 
-    this.rightCom = { 
-      mainTitle: 'Select your profile type', 
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod long-and vitality, so that the labor expended. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod long-and vitality, so that the labor expended.',
-      loginLink: true
-    };
-  }
+ngOnInit() {
+  this.rightCom = {
+    mainTitle: 'Select your profile type',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,'
+    + ' sed do eiusmod long-and vitality, so that the labor expended. Lorem ipsum dolor sit amet,'
+    + ' consectetur adipiscing elit, sed do eiusmod long-and vitality, so that the labor expended.',
+    loginLink: true
+  };
+}
 
   addPost(value: any) {
       console.log(value);
