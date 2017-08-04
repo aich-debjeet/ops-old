@@ -1,18 +1,58 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-    <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav top-nav-left">
-        <li class="active"><a href="javascript:void(0)">Home</a></li>
-        <li><a href="javascript:void(0)">Explore</a></li>
-        <li><a href="javascript:void(0)">Opportunity</a></li>
-        <li><a href="javascript:void(0)">Events</a></li>
-        <li><a href="javascript:void(0)">Learn</a></li>
-        <li><a href="javascript:void(0)">Resources</a></li>
-      </ul>
-      <ul class="nav navbar-nav top-nav-right">
-        <li><a href="javascript:void(0)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
-        <li class="active"><a href="javascript:void(0)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div>
-</nav>
+<header class="opsheader">
+   <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+         <!-- Brand and toggle get grouped for better mobile display -->
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img src="/assets/img/ops_icon.png"></a>
+         </div>
+         <!-- Collect the nav links, forms, and other content for toggling -->
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+               <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+               <li><a routerLink="/explore" routerLinkActive="active">Explore</a></li>
+               <li><a routerLink="/opportunity" routerLinkActive="active">Oppurtunity</a></li>
+               <li><a href="#">Events</a></li>
+               <li><a href="#">Learn</a></li>
+               <li><a href="#">Resources</a></li>
+               <li><a href="#">Commmunities</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right nav_right">
+               <li><a href="#"><img src="/assets/img/svg/ico_add.svg"></a></li>
+               <li><a href="#"><img src="/assets/img/svg/ico_search.svg"></a></li>
+               <li><a href="#"><img src="/assets/img/svg/ico_notification.svg"></a></li>
+               <li><a href="#"><img src="/assets/img/svg/ico_message.svg"></a></li>
+               <li class="dropdown opsheader-paddingt6">
+                  <a href="#" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <img src="/assets/img/avatar.jpg" class="img-responsive"> <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                     <li>
+                        <ul class="list-inline head_drop_thumb">
+                           <li class="list-inline-item"><img src="/assets/img/avatar.jpg" class="img-responsive"></li>
+                           <li class="list-inline-item">
+                              <h4>Tobias Van Schneider</h4>
+                              <p>@tobias</p>
+                           </li>
+                        </ul>
+                     </li>
+                     <li role="separator" class="divider"></li>
+                     <li><a href="#">Organisation</a></li>
+                     <li><a href="#">Settings</a></li>
+                     <li role="separator" class="divider"></li>
+                     <li><a href="#">About One Page Spotlight</a></li>
+                     <li role="separator" class="divider"></li>
+                     <li><a href="#">Signout</a></li>
+                  </ul>
+               </li>
+            </ul>
+         </div>
+         <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+   </nav>
+</header>
