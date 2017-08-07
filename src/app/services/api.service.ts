@@ -67,4 +67,20 @@ export class ApiService {
   }
   /* ------------------------- pin/unpin channel ------------------------- */
 
+  /* ------------------------- get logged in users profile ------------------------- */
+  getLoggedInProfile() {
+    let headers = new Headers();
+    let reqOptions = new RequestOptions({ headers: headers });
+
+    headers.append('Authorization', this.accessToken);
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.get(`${this.apiLink}/portal/loggedInProfile`, reqOptions)
+        .map((response: Response) => {
+            const userProfile = response.json();
+            console.log(userProfile);
+        });
+  }
+  /* ------------------------- get logged in users profile ------------------------- */
+
 }
