@@ -21,10 +21,12 @@ import { routes } from './app.routing';
 // Reducers
 import { AuthReducer } from './reducers/auth.reducer';
 import { HomeReducer } from './reducers/home.reducer';
+import { SharedReducer } from './reducers/shared.reducer';
 
 // Effects
 import { AuthEffect } from './effects/auth.effect';
 import { HomeEffect } from './effects/home.effect';
+import { SharedEffect } from './effects/shared.effect';
 
 // Services
 import { AuthService } from './services/auth.service';
@@ -109,7 +111,8 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
     StoreModule.provideStore({ loginTags: AuthReducer }),
     RouterModule.forRoot(routes),
     EffectsModule.run(AuthEffect),
-    EffectsModule.run(HomeEffect)
+    EffectsModule.run(HomeEffect),
+    EffectsModule.run(SharedEffect)
   ],
   providers: [AuthService, AuthGuard, ApiService],
   bootstrap: [AppComponent]
