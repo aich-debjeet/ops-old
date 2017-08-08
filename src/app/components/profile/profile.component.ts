@@ -15,12 +15,8 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-profile',
-  //templateUrl: './profile.component.html',
-  template: `
-  <p>{{ userProfile | json }}</p>
-  <p>{{ userMedia | json }}</p>
-  `,
-  styleUrls: ['./profile.component.css']
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
 
