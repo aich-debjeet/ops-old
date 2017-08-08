@@ -19,9 +19,18 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class ProfileComponent {
 
+  tagState$: Observable<UserProfile>;
   userId: number = 12;
+  bioTag:any;
 
   constructor(private store: Store<UserProfile>) {
+    this.tagState$ = store.select('profileTags');
+    // this.tagState$.subscribe(v => console.log(v));
+
+    this.tagState$.subscribe((state) => {
+      this.bioTag = state;
+      console.log(state);
+    });
 
     // loading logged in user profile
     this.getLoggedInProfile();
@@ -34,6 +43,16 @@ export class ProfileComponent {
 
     this.store.dispatch({
       type: ProfileActions.LOAD_USER_PROFILE
+    });
+
+  }
+
+  getUserMedia() {
+
+    console.log('loading logged in users media');
+
+    this.store.dispatch({
+      type: ProfileActions.LOAD_USER_MEDIA
     });
 
   }

@@ -8,9 +8,17 @@ export class ProfileActions {
   static LOAD_USER_PROFILE_FAILED = 'LOAD_USER_PROFILE_FAILED';
   /* -------------------------------- load logged in users profile -------------------------------- */
 
-  /* -------------------------------- PIN channel methods -------------------------------- */
+  /* -------------------------------- load logged in users media -------------------------------- */
+  static LOAD_USER_MEDIA = 'LOAD_USER_MEDIA';
+  static LOAD_USER_MEDIA_SUCCESS = 'LOAD_USER_MEDIA_SUCCESS';
+  static LOAD_USER_MEDIA_FAILED = 'LOAD_USER_MEDIA_FAILED';
+  /* -------------------------------- load logged in users media -------------------------------- */
+
+
+
+  /* -------------------------------- get logged in users profile -------------------------------- */
   getUserProfile(): Action {
-    console.log('home action: PIN_CHANNEL triggred');
+    console.log('home action: LOAD_USER_PROFILE triggred');
     return {
       type: ProfileActions.LOAD_USER_PROFILE
     };
@@ -29,6 +37,29 @@ export class ProfileActions {
       payload: error
     };
   }
-  /* -------------------------------- PIN channel methods -------------------------------- */
+  /* -------------------------------- get logged in users profile -------------------------------- */
+
+  /* -------------------------------- get logged in users media -------------------------------- */
+  getUserMedia(): Action {
+    console.log('home action: PIN_CHANNEL triggred');
+    return {
+      type: ProfileActions.LOAD_USER_MEDIA
+    };
+  }
+
+  getUserMediaSuccess(value): Action {
+    return {
+      type: ProfileActions.LOAD_USER_MEDIA_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  getUserMediaFailed(error: any): Action {
+    return {
+      type: ProfileActions.LOAD_USER_MEDIA_FAILED,
+      payload: error
+    };
+  }
+  /* -------------------------------- get logged in users media -------------------------------- */
 
 }

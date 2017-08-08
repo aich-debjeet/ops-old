@@ -76,10 +76,7 @@ export class ApiService {
     headers.append('Content-Type', 'application/json');
 
     return this.http.get(`${this.apiLink}/portal/loggedInProfile`, reqOptions)
-        .map((response: Response) => {
-            const userProfile = response.json();
-            console.log(userProfile);
-        });
+        .map((data: Response) => data.json());
   }
   /* ------------------------- get logged in users profile ------------------------- */
 
