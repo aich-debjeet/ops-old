@@ -3,6 +3,7 @@ import { ApiService } from '../../services/api.service';
 
 import { Store } from '@ngrx/store';
 import { UserProfile } from '../../models/user-profile.model';
+import { UserMedia } from '../../models/user-media.model';
 
 // action
 import { ProfileActions } from '../../actions/profile.action';
@@ -14,47 +15,60 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-profile',
-  templateUrl: './profile.component.html',
+  //templateUrl: './profile.component.html',
+  template: `
+  <p>{{ userProfile | json }}</p>
+  <p>{{ userMedia | json }}</p>
+  `,
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
 
-  tagState$: Observable<UserProfile>;
+  userProfile$: Observable<UserProfile>;
+  userMedia$: Observable<UserMedia>;
   userId: number = 12;
-  bioTag:any;
+  userProfile; userMedia;
 
-  constructor(private store: Store<UserProfile>) {
-    this.tagState$ = store.select('profileTags');
-    // this.tagState$.subscribe(v => console.log(v));
+  mediaLoadMoreParams = {
+    offset: -10,
+    limit: 10,
+    mediaType: "image"
+  };
 
-    this.tagState$.subscribe((state) => {
-      this.bioTag = state;
-      console.log(state);
+  constructor(private profileStore: Store<UserProfile>, private mediaStore: Store<UserMedia>) {
+
+    this.userProfile$ = this.profileStore.select('profileTags');
+
+    this.userProfile$.subscribe((state) => {
+      this.userProfile = state;
     });
 
-    // loading logged in user profile
-    this.getLoggedInProfile();
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_PROFILE });
 
-  }
-
-  getLoggedInProfile() {
-
-    console.log('loading logged in user');
-
-    this.store.dispatch({
-      type: ProfileActions.LOAD_USER_PROFILE
-    });
+    this.loadMoreMedia();
 
   }
 
   getUserMedia() {
 
-    console.log('loading logged in users media');
+    this.mediaLoadMoreParams.offset = this.mediaLoadMoreParams.offset + this.mediaLoadMoreParams.limit;
+    console.log(this.mediaLoadMoreParams);
 
-    this.store.dispatch({
-      type: ProfileActions.LOAD_USER_MEDIA
+    this.userMedia$ = this.mediaStore.select('userMediaTags');
+
+    this.userMedia$.subscribe((state) => {
+      this.userMedia = state;
     });
 
+    this.mediaStore.dispatch({
+      type: ProfileActions.LOAD_USER_MEDIA,
+      payload: this.mediaLoadMoreParams
+    });
+
+  }
+
+  loadMoreMedia() {
+    this.getUserMedia();
   }
 
 }

@@ -110,7 +110,7 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
     ReactiveFormsModule,
     FormsModule,
     HttpModule,
-    StoreModule.provideStore({ loginTags: AuthReducer, profileTags: ProfileReducer }),
+    StoreModule.provideStore({ loginTags: AuthReducer, profileTags: ProfileReducer, userMediaTags: ProfileReducer}),
     RouterModule.forRoot(routes),
     EffectsModule.run(AuthEffect),
     EffectsModule.run(HomeEffect),

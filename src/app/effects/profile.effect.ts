@@ -27,4 +27,13 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.LOAD_USER_PROFILE_FAILED, payload: res }))
     );
 
+  @Effect()
+  loadUserMedia$ = this.actions$
+    .ofType(ProfileActions.LOAD_USER_MEDIA)
+    .map(toPayload)
+    .switchMap((payload) => this.apiService.getLoggedInUsersMedia(payload)
+      .map(res => ({ type: ProfileActions.LOAD_USER_MEDIA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.LOAD_USER_MEDIA_FAILED, payload: res }))
+    );
+
 }

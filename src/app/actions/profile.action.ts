@@ -18,7 +18,7 @@ export class ProfileActions {
 
   /* -------------------------------- get logged in users profile -------------------------------- */
   getUserProfile(): Action {
-    console.log('home action: LOAD_USER_PROFILE triggred');
+    //console.log('home action: LOAD_USER_PROFILE triggred');
     return {
       type: ProfileActions.LOAD_USER_PROFILE
     };
@@ -40,10 +40,11 @@ export class ProfileActions {
   /* -------------------------------- get logged in users profile -------------------------------- */
 
   /* -------------------------------- get logged in users media -------------------------------- */
-  getUserMedia(): Action {
-    console.log('home action: PIN_CHANNEL triggred');
+  getUserMedia(value): Action {
+    //console.log('home action: LOAD_USER_MEDIA triggred');
     return {
-      type: ProfileActions.LOAD_USER_MEDIA
+      type: ProfileActions.LOAD_USER_MEDIA,
+      payload: { value }
     };
   }
 
