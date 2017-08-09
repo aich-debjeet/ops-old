@@ -22,11 +22,13 @@ import { routes } from './app.routing';
 import { AuthReducer } from './reducers/auth.reducer';
 import { HomeReducer } from './reducers/home.reducer';
 import { SharedReducer } from './reducers/shared.reducer';
+import { ProfileReducer } from './reducers/profile.reducer';
 
 // Effects
 import { AuthEffect } from './effects/auth.effect';
 import { HomeEffect } from './effects/home.effect';
 import { SharedEffect } from './effects/shared.effect';
+import { ProfileEffect } from './effects/profile.effect';
 
 // Services
 import { AuthService } from './services/auth.service';
@@ -108,11 +110,12 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
     ReactiveFormsModule,
     FormsModule,
     HttpModule,
-    StoreModule.provideStore({ loginTags: AuthReducer }),
+    StoreModule.provideStore({ loginTags: AuthReducer, profileTags: ProfileReducer, userMediaTags: ProfileReducer}),
     RouterModule.forRoot(routes),
     EffectsModule.run(AuthEffect),
     EffectsModule.run(HomeEffect),
-    EffectsModule.run(SharedEffect)
+    EffectsModule.run(SharedEffect),
+    EffectsModule.run(ProfileEffect)
   ],
   providers: [AuthService, AuthGuard, ApiService],
   bootstrap: [AppComponent]

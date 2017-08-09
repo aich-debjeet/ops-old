@@ -26,7 +26,7 @@ export class ApiService {
     return this.http.post(`${this.apiLink}/portal/network/spotfeed/search`, req, reqOptions)
         .map((response: Response) => {
             const channelsArr = response.json();
-            console.log(channelsArr);
+            //console.log(channelsArr);
         });
   }
   /* ------------------------- load channels ------------------------- */
@@ -45,7 +45,7 @@ export class ApiService {
 
     return this.http.put(`${this.apiLink}/portal/network/spotfeed/pinspotfeed/pin`, reqBody, reqOptions)
         .map((response: Response) => {
-            console.log(response.json());
+            //console.log(response.json());
         });
   }
 
@@ -62,9 +62,38 @@ export class ApiService {
 
     return this.http.put(`${this.apiLink}/portal/network/spotfeed/unpinspotfeed/unpin`, reqBody, reqOptions)
         .map((response: Response) => {
-            console.log(response.json());
+            //console.log(response.json());
         });
   }
   /* ------------------------- pin/unpin channel ------------------------- */
+
+  /* ------------------------- get logged in users profile ------------------------- */
+  getLoggedInProfile() {
+    let headers = new Headers();
+    let reqOptions = new RequestOptions({ headers: headers });
+
+    headers.append('Authorization', this.accessToken);
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.get(`${this.apiLink}/portal/loggedInProfile`, reqOptions)
+        .map((data: Response) => data.json());
+  }
+  /* ------------------------- get logged in users profile ------------------------- */
+
+  /* ------------------------- get logged in users media ------------------------- */
+  getLoggedInUsersMedia(req: any) {
+    let headers = new Headers();
+    let reqOptions = new RequestOptions({ headers: headers });
+    let reqBody = JSON.stringify(req);
+
+    console.log('api req params: '+reqBody);
+
+    headers.append('Authorization', this.accessToken);
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.put(`${this.apiLink}/portal/cdn/media/filter`, reqBody, reqOptions)
+        .map((data: Response) => data.json());
+  }
+  /* ------------------------- get logged in users media ------------------------- */
 
 }
