@@ -31,6 +31,8 @@ export class ProfileComponent {
     mediaType: "image"
   };
 
+  tempSkills = ['web', 'web design', 'ui/ux', 'technology', 'typography', 'branding', 'art'];
+
   constructor(private profileStore: Store<UserProfile>, private mediaStore: Store<UserMedia>) {
 
     this.userProfile$ = this.profileStore.select('profileTags');

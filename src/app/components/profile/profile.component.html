@@ -6,8 +6,8 @@
          <div class="col-md-6 pro__img">
             <img src="img/avatar.jpg" class="img-responsive img-circle">
             <div class="pro__name">
-               <h2>Tobias Van Schneider</h2>
-               <p>@tobias</p>
+               <h2>{{ userProfile.completed.name }}</h2>
+               <p>@{{ userProfile.completed.extra.username }}</p>
             </div>
          </div>
          <div class="col-md-6"></div>
@@ -46,11 +46,11 @@
             <div class="col-md-4 text-center pro__count">
                <div class="row">
                   <div class="col-md-4 pro__followers">
-                     <h3>12K</h3>
+                     <h3>{{ userProfile.completed.followersCount }}</h3>
                      <p>Followers</p>
                   </div>
                   <div class="col-md-4 pro__following">
-                     <h3>22K</h3>
+                     <h3>{{ userProfile.completed.followingCount }}</h3>
                      <p>Following</p>
                   </div>
                   <div class="col-md-4 pro__spots">
@@ -68,17 +68,11 @@
             </div>
             <div class="col-md-4 pro_bio">
                <h3>BIO</h3>
-               <p>Hi! My name is Tobias, I am creative geek from Prague. I enjoy creating eye candy solutions for web and mobile apps. Contact me at tobias@domain.com</p>
+               <p>{{ userProfile.completed.description }}</p>
             </div>
             <div class="col-md-4 pro_skills">
                <h3>SKILLS</h3>
-               <button type="button" class="btn btn-default btn-xs">web</button>
-               <button type="button" class="btn btn-default btn-xs">webdesign</button>
-               <button type="button" class="btn btn-default btn-xs">ui/ux</button>
-               <button type="button" class="btn btn-default btn-xs">typography</button>
-               <button type="button" class="btn btn-default btn-xs">branding</button>
-               <button type="button" class="btn btn-default btn-xs">art</button>
-               <button type="button" class="btn btn-default btn-xs">art direction</button>
+               <button *ngFor="let skill of tempSkills" type="button" class="btn btn-default btn-xs">{{ skill }}</button>
             </div>
          </div>
       </div>
