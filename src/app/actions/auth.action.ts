@@ -27,6 +27,76 @@ export class AuthActions {
   static SEARCH_CARDS_SUCCESS = 'SEARCH_CARDS_SUCCESS';
   static SEARCH_CARDS_FAILED = 'SEARCH_CARDS_FAILED';
 
+  // Type Of Artist
+  static LOAD_ARTIST = 'LOAD_ARTIST';
+  static LOAD_ARTIST_SUCCESS = 'LOAD_ARTIST_SUCCESS';
+
+  // Post user Artist Type
+  static USER_ARTIST_TYPE = 'USER_ARTIST_TYPE';
+  static USER_ARTIST_TYPE_SUCCESS = 'USER_ARTIST_TYPE_SUCCESS';
+
+  // Post Artist Follow
+  static USER_ARTIST_FOLLOW = 'USER_ARTIST_FOLLOW';
+  static USER_ARTIST_FOLLOW_SUCCESS = 'USER_ARTIST_FOLLOW_SUCCESS';
+
+  // ===================================
+  //  POST USER ARTIST TYPE
+  // -----------------------------------
+    artistFollowAction(value): Action {
+      return {
+        type: AuthActions.USER_ARTIST_FOLLOW,
+        payload: {
+          value
+        }
+      };
+    }
+
+    artistFollowSuccessAction(value): Action {
+      return {
+        type: AuthActions.USER_ARTIST_FOLLOW_SUCCESS,
+        payload: {
+          value
+        }
+      };
+    }
+  // ===================================
+  //  POST USER ARTIST TYPE
+  // -----------------------------------
+    userArtistAction(value): Action {
+      return {
+        type: AuthActions.USER_LOGIN,
+        payload: {
+          value
+        }
+      };
+    }
+
+    userArtistSuccessAction(value): Action {
+      return {
+        type: AuthActions.USER_LOGIN_SUCCESS,
+        payload: {
+          value
+        }
+      };
+    }
+  // ===================================
+  //  LOAD ARTIST
+  // -----------------------------------
+
+    loadArtistAction(): Action {
+      return {
+        type: AuthActions.LOAD_ARTIST
+      };
+    }
+
+    loadArtistSuccesAction(value): Action {
+      return {
+        type: AuthActions.LOAD_ARTIST_SUCCESS,
+        payload: {
+          value
+        }
+      };
+    }
   // ===================================
   //  USER LOGIN
   // -----------------------------------

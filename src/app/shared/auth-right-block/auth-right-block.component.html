@@ -1,0 +1,17 @@
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 reg_right_section">
+    <div class="right_container">
+        <div class="reg_steps_logo">
+            <a href="index.html">
+                <img src="/assets/img/logo.png" alt="One Page Spotlight">
+            </a>
+        </div>
+        <h2 class="text-center">{{rightCom.mainTitle}}</h2>
+        <h4>{{rightCom.secondHead}}</h4>
+        <div class="reg_graph">
+            <div class="reg_circle"></div>
+            <div class="reg_rectangle"></div>
+        </div>
+        <p>{{rightCom.description}}</p>
+        <p *ngIf="rightCom.loginLink">Don't have an account ? <a routerLink="{{rightCom.button_link}}" >{{rightCom.button_text}}</a></p>
+    </div>
+</div>

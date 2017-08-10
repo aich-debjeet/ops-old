@@ -1,274 +1,269 @@
-<section class="prof_header_slider demo_wrapper ng-scope" ng-init="init()">
-	<article prof-header-slider="" class="demo_block">
-		<div class="sy-box"><div class="sy-slides-wrap"><div class="sy-slides-crop"><ul id="demo1" class="sy-list">
-		</ul></div><div class="sy-caption-wrap"><div class="sy-caption" style="display: none;"></div></div><div class="sy-filler ready" style="padding-top: 31.881%;"></div></div></div>
-        <button class="action  dropdown-toggle" type="button" data-toggle="dropdown">
-            <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 72 63"><title>Camera</title><circle cx="36" cy="36" r="9" style="fill:#9f9e9e"></circle><path d="M1079.83,90h-18a9,9,0,0,0-9-9h-18a9,9,0,0,0-9,9h-18v54h72V90Zm-24.41,41.32c-18.31,12-37.9-7.6-25.9-25.9a9.5,9.5,0,0,1,2.73-2.73c18.31-12,37.9,7.6,25.9,25.9A9.5,9.5,0,0,1,1055.42,131.32Z" transform="translate(-1007.83 -81)" style="fill:#9f9e9e"></path></svg>
-        </button>
-            <ul class="prof_action-drop_cover dropdown-menu" style="left: inherit;">
-                <li><a class="curs-point" ng-click="editProfile('coverImage',profile)">Upload Image</a></li>
-                <li><a href="">Choose from Photos</a></li>
-                <li style="border:none;"><a href="#">Paste a link</a></li>
-            </ul>
-	</article>
-</section>
-
-<section class="obj-prof_block white_bg ng-scope">
-	<div class="container">
-		<div class="col-md-3 col-sm-4 col-xs-12 prof_pic pad_none">
-            <div class="prof_pic_block_container">
-
-                <!-- ngIf: selectedProfileMenu=='default' --><div class="col-md-12 col-sm-12 col-xs-8 pad_none prof_info_container ng-scope" ng-if="selectedProfileMenu=='default'">
-					<div class="prof_follow">
-						<div class="col-md-6 col-sm-6 col-xs-6 pad_none">
-							<a href="">
-								<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 123.25 77.35"><title>Followers</title><path d="M751.87,838.1a19.43,19.43,0,1,1,19.42-19.43A19.45,19.45,0,0,1,751.87,838.1Zm0-30.85a11.43,11.43,0,1,0,11.42,11.42A11.44,11.44,0,0,0,751.87,807.25Z" transform="translate(-690.11 -788.61)" style="fill:#c1c1c1"></path><path d="M787.12,866h-8a27.25,27.25,0,0,0-54.5,0h-8A35.25,35.25,0,0,1,787.12,866Z" transform="translate(-690.11 -788.61)" style="fill:#c1c1c1"></path><path d="M751.87,838.1a19.43,19.43,0,1,1,19.42-19.43A19.45,19.45,0,0,1,751.87,838.1Zm0-30.85a11.43,11.43,0,1,0,11.42,11.42A11.44,11.44,0,0,0,751.87,807.25Z" transform="translate(-690.11 -788.61)" style="fill:#c1c1c1"></path><path d="M787.12,866h-8a27.25,27.25,0,0,0-54.5,0h-8A35.25,35.25,0,0,1,787.12,866Z" transform="translate(-690.11 -788.61)" style="fill:#c1c1c1"></path><path d="M778.11,820.07c-0.84,0-1.67,0-2.5.1a23.62,23.62,0,0,1-2.06,8.29,27.22,27.22,0,0,1,31.81,26.86h8A35.29,35.29,0,0,0,778.11,820.07Z" transform="translate(-690.11 -788.61)" style="fill:#c1c1c1"></path><path d="M778.11,788.61A19.42,19.42,0,0,0,762,797.16a23.91,23.91,0,0,1,6.55,4.59,11.43,11.43,0,1,1,7.07,17.44,23.66,23.66,0,0,1-1.51,7.86A19.42,19.42,0,1,0,778.11,788.61Z" transform="translate(-690.11 -788.61)" style="fill:#c1c1c1"></path><path d="M725.36,820.07c0.84,0,1.67,0,2.5.1a23.62,23.62,0,0,0,2.06,8.29,27.22,27.22,0,0,0-31.81,26.86h-8A35.29,35.29,0,0,1,725.36,820.07Z" transform="translate(-690.11 -788.61)" style="fill:#c1c1c1"></path><path d="M725.36,788.61a19.42,19.42,0,0,1,16.08,8.54,23.91,23.91,0,0,0-6.55,4.59,11.43,11.43,0,1,0-7.07,17.44,23.66,23.66,0,0,0,1.51,7.86A19.42,19.42,0,1,1,725.36,788.61Z" transform="translate(-690.11 -788.61)" style="fill:#c1c1c1"></path></svg>
-								<label><!-- ngIf: profile.followersCount==0 --><span ng-if="profile.followersCount==0" class="ng-scope">0</span><!-- end ngIf: profile.followersCount==0 --><!-- ngIf: profile.followersCount>0 --><br>Followers</label>
-							</a>
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6 pad_none">
-							<a href="">
-
-								<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 96.75 77.35"><title>Following</title><path d="M749.86,982a19.43,19.43,0,1,1,19.42-19.43A19.45,19.45,0,0,1,749.86,982Zm0-30.85a11.43,11.43,0,1,0,11.42,11.42A11.44,11.44,0,0,0,749.86,951.11Z" transform="translate(-714.61 -932.47)" style="fill:#c1c1c1"></path><path d="M785.11,1009.82h-8a27.25,27.25,0,1,0-54.5,0h-8A35.25,35.25,0,1,1,785.11,1009.82Z" transform="translate(-714.61 -932.47)" style="fill:#c1c1c1"></path><path d="M749.86,982a19.43,19.43,0,1,1,19.42-19.43A19.45,19.45,0,0,1,749.86,982Zm0-30.85a11.43,11.43,0,1,0,11.42,11.42A11.44,11.44,0,0,0,749.86,951.11Z" transform="translate(-714.61 -932.47)" style="fill:#c1c1c1"></path><path d="M785.11,1009.82h-8a27.25,27.25,0,1,0-54.5,0h-8A35.25,35.25,0,1,1,785.11,1009.82Z" transform="translate(-714.61 -932.47)" style="fill:#c1c1c1"></path><path d="M776.11,963.93c-0.84,0-1.67,0-2.5.1a23.62,23.62,0,0,1-2.06,8.29,27.22,27.22,0,0,1,31.81,26.86h8A35.29,35.29,0,0,0,776.11,963.93Z" transform="translate(-714.61 -932.47)" style="fill:#c1c1c1"></path><path d="M776.11,932.47A19.42,19.42,0,0,0,760,941a23.91,23.91,0,0,1,6.55,4.59A11.43,11.43,0,1,1,773.65,963a23.66,23.66,0,0,1-1.51,7.86A19.42,19.42,0,1,0,776.11,932.47Z" transform="translate(-714.61 -932.47)" style="fill:#c1c1c1"></path></svg>
-								<label><!-- ngIf: profile.followingCount==0 --><span ng-if="profile.followingCount==0" class="ng-scope">0</span><!-- end ngIf: profile.followingCount==0 --><!-- ngIf: profile.followingCount>0 --><br>Following</label>
-							</a>
-						</div>
-					</div><!-- prof follow end -->
-				</div><!-- end ngIf: selectedProfileMenu=='default' --><!-- prof_info_container end -->
-				<!-- ngIf: selectedProfileMenu=='default' --><div class="col-md-12 col-sm-12 col-xs-12 prof_description ng-scope" ng-if="selectedProfileMenu=='default'">
-					<!-- ngIf: profile.summary!='' -->
-                    <!-- ngIf: profile.summary=='' --><p ng-if="profile.summary==''" class="ng-scope">
-
-                    </p><!-- end ngIf: profile.summary=='' -->
-				</div><!-- end ngIf: selectedProfileMenu=='default' --><!-- prof_description end -->
-			</div><!-- prof pic block container end-->
-		</div><!-- pro pic end -->
-		<div class="col-md-9 col-sm-8 col-xs-12 prof_detail_container pad_none">
-			<div class="row">
-                <div ng-class="{prof_user_name:selectedProfileMenu=='default',prof_user_name_about:selectedProfileMenu!='default'}" class="prof_user_name">
-                    <span ng-class="{prof_name_head:selectedProfileMenu=='default',prof_name_head_about:selectedProfileMenu!='default'}" class="prof_name_head">
-                        <a class="curs-point" ng-click="selectedProfileMenu = 'default'"><h3 class="ng-binding">
-                            Debjeet Aich
-                        </h3></a>
-                        <!-- ngRepeat: acc_type in accountType | limitTo:accountType.length-1 --><!-- ngIf: accountType --><p ng-if="accountType" ng-repeat="acc_type in accountType | limitTo:accountType.length-1" class="ng-scope">
-                        	<a style="color: white" class="ng-binding">Artist&nbsp;</a>
-                        	<a style="color: white" class="ng-binding">Fan</a>
-                        </p><!-- end ngIf: accountType --><!-- end ngRepeat: acc_type in accountType | limitTo:accountType.length-1 -->
-
-                    </span>
-                </div><!-- name row end -->
+<section>
+   <div class="prohead" [ngStyle]="{'background': 'url(' + userProfile.completed.coverImage + ')'}" >
+   </div>
+   <div class="container pro-block">
+      <div class="row">
+         <div class="col-md-6 pro__img">
+            <img src="http://d206s58i653k1q.cloudfront.net/{{ userProfile.completed.profileImage }}" class="img-responsive img-circle">
+            <div class="pro__name">
+               <h2>{{ userProfile.completed.name }}</h2>
+               <p>@{{ userProfile.completed.extra.username }}</p>
             </div>
-			<div class="row prof_menu_container">
-				<ul class="prof_menu">
-					<li>
-						<a href="" ng-click="openmessage(profileId);">
-							<span class="prof_menu_ico">
-								<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 71.83 59.31"><title>Message</title><path d="M1188,372.83H1152v59.31h71.83V372.83H1188Zm26.58,11.83v38.49h-53.17V384.66L1188,402.45Z" transform="translate(-1152.04 -372.83)"></path></svg>
-							</span>
-							<span class="prof_menu_txt">Message</span>
-						</a>
-					</li>
-					<li>
-						<a class="curs-point" ng-click="selectedProfileMenu='network'" ng-class="{'selected-profile-menu':selectedProfileMenu=='network'}">
-							<span class="prof_menu_ico">
-								<svg ng-class="{'selected-profile-menu-subitems':selectedProfileMenu=='network'}" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 72.35 70.9"><title>Network</title><path d="M1210.89,807.61a13.74,13.74,0,0,0-12.43,7.93l-11.48-4c0-.51.08-1,0.08-1.55a17.39,17.39,0,1,0-17.39,17.39c0.26,0,.51,0,0.77,0l9.13,18a11.32,11.32,0,1,0,18.5.63l10.14-11.19A13.74,13.74,0,1,0,1210.89,807.61ZM1159.05,810a10.61,10.61,0,1,1,10.61,10.61A10.62,10.62,0,0,1,1159.05,810Zm29.54,46.74a4.55,4.55,0,1,1,4.55-4.55A4.55,4.55,0,0,1,1188.6,856.74Zm4.24-15a11.24,11.24,0,0,0-7.69-.29l-8-15.76a17.48,17.48,0,0,0,7.89-7.6l12.13,4.22a13.7,13.7,0,0,0,4.7,9.44Zm18-13.39a7,7,0,1,1,7-7A7,7,0,0,1,1210.89,828.32Z" transform="translate(-1152.28 -792.61)"></path></svg>
-							</span>
-							 <span class="prof_menu_txt" ng-class="{'selected-profile-menu-subitems':selectedProfileMenu=='network'}">Network</span>
-						</a>
-					</li>
-					<li>
-						<a class="curs-point" ng-click="selectedProfileMenu='portfolio'" ng-class="{'selected-profile-menu':selectedProfileMenu=='portfolio'}">
-							<span class="prof_menu_ico prof_menu_portfolio">
-								<svg ng-class="{'selected-profile-menu-subitems':selectedProfileMenu=='portfolio'}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 71.5 83.7" style="enable-background:new 0 0 71.5 83.7;" xml:space="preserve">
-								<title>Portfolio</title>
-								<g>
-									<path d="M0,83.6V21.2L53.5,0v62.3L0,83.6z M8,26.7v45.1l37.5-14.9V11.8L8,26.7z"></path>
-								</g>
-								<g>
-									<polygon points="71.5,83.7 0,83.7 0,26 8,26 8,75.7 63.5,75.7 63.5,30 49.5,30 49.5,22 71.5,22  "></polygon>
-								</g>
-								</svg>
-							</span>
-							<span ng-class="{'selected-profile-menu-subitems':selectedProfileMenu=='portfolio'}" class="prof_menu_txt">Portfolio</span>
-						</a>
-					</li>
-					<li>
-						<a class="curs-point" ng-click="selectedProfileMenu='about'" ng-class="{'selected-profile-menu':selectedProfileMenu=='about'}">
-							<span class="prof_menu_ico">
-								<svg ng-class="{'selected-profile-menu-subitems':selectedProfileMenu=='about'}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 69 69" style="enable-background:new 0 0 69 69;" xml:space="preserve">
-								<title>About</title>
-								<g>
-									<path d="M34.5,69C15.5,69,0,53.5,0,34.5C0,15.5,15.5,0,34.5,0S69,15.5,69,34.5C69,53.5,53.5,69,34.5,69z M34.5,8   C19.9,8,8,19.9,8,34.5C8,49.1,19.9,61,34.5,61S61,49.1,61,34.5C61,19.9,49.1,8,34.5,8z"></path>
-								</g>
-								<g>
-									<rect x="30.5" y="31.5" width="8" height="21.5"></rect>
-								</g>
-								<g>
-									<rect x="30.7" y="17.5" width="8" height="7.5"></rect>
-								</g>
-								</svg>
-							</span>
-							<span ng-class="{'selected-profile-menu-subitems': selectedProfileMenu=='about'}" class="prof_menu_txt">About</span>
-						</a>
-					</li>
-					<li>
-						<a class="curs-point" ng-click="selectedProfileMenu='bookmark'" ng-class="{'selected-profile-menu':selectedProfileMenu=='bookmark'}">
-							<span class="prof_menu_ico">
-								<svg ng-class="{'selected-profile-menu-subitems':selectedProfileMenu=='bookmark'}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 69.7 83" style="enable-background:new 0 0 69.7 83;" xml:space="preserve">
-
-								<title>Bookmark</title>
-								<g>
-									<path d="M69.6,83L34.8,48.2L0,83V0h69.6V83z M34.8,36.9l26.8,26.8V8H8v55.7L34.8,36.9z"></path>
-								</g>
-								</svg>
-							</span>
-							<span ng-class="{'selected-profile-menu-subitems':selectedProfileMenu=='bookmark'}" class="prof_menu_txt">Bookmark</span>
-						</a>
-					</li>
-					<li>
-						<a href="" data-toggle="dropdown" ng-init="initShare()">
-							<span class="prof_menu_ico">
-								<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 72.81 71.39"><title>Share</title><path d="M1059.6,952.33l-2,.75-2.09,1-1.08.53c-0.36.19-.7,0.42-1.06,0.63l-2.15,1.32a40.49,40.49,0,0,0-4.07,3.27,40,40,0,0,0-3.67,3.84,39.15,39.15,0,0,0-5.23,8.76l-0.8,2.23c-0.12.36-.26,0.71-0.37,1.07l-0.27,1.08-0.51,2-0.28,1.94c-0.07.62-.2,1.2-0.22,1.78l-0.07,1.62-0.06,1.41,0.07,1.18,0.14,2.23,0.36-2.21,0.19-1.16,0.36-1.32,0.4-1.48c0.13-.52.38-1,0.58-1.6l0.66-1.72,0.89-1.75,0.46-.9c0.17-.3.37-0.59,0.55-0.88l1.14-1.79a34.69,34.69,0,0,1,2.83-3.38,34.24,34.24,0,0,1,3.28-3,33.31,33.31,0,0,1,7.43-4.23l1.87-.62c0.3-.1.6-0.21,0.9-0.29l0.9-.2,1.71-.39,1.62-.19c0.52,0,1-.16,1.47-0.15l1.34,0,1.16,0,1,0.09,1.71,0.14v14.76L1089,956.34,1068.65,936v14.27l-2.45.35-1.35.21-1.57.39-1.77.45C1060.89,951.83,1060.26,952.11,1059.6,952.33Z" transform="translate(-1016.16 -936.01)"></path><path d="M1079.48,977.18a28.27,28.27,0,1,1-16.84-31.43V938a35.56,35.56,0,1,0,24.64,33.84c0-.79,0-1.58-0.09-2.36Z" transform="translate(-1016.16 -936.01)"></path></svg>
-							</span>
-							<span class="prof_menu_txt">Share</span>
-						</a>
-                        <ul class="dropdown-menu" style="padding: 5px 5px;top:55px;margin-left:74%;">
-                                <!--<li style="cursor: pointer;list-style-type: none;color:black;" ng-click="postFeedShare('0','Profile',profile)"><img src="resources/img/shareicons/public.png" style="padding: 3px 6px;width:62%;">Public</li><br>
-                                <li style="cursor: pointer;list-style-type: none;color:black;" ng-click="postFeedShare('1','Profile',profile)"><img src="resources/img/shareicons/fan.png" style="padding: 3px 6px;width:62%;">Fans</li><br>
-                                <li style="cursor: pointer;list-style-type: none;color:black;" ng-click="postFeedShare('2','Profile',profile)"><img src="resources/img/shareicons/onlyme.png" style="padding: 3px 6px;width:62%;">Only-me</li><br>
-                                -->
-                                <li>
-                                    <ul class="list-inline" style="margin: 0;padding: 5px 0;">
-                                        <li><span class="st_facebook_large" displaytext="Facebook" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(&quot;http://w.sharethis.com/images/2017/facebook_32.png&quot;);"></span></span></span></li>
-                                        <li><span class="st_twitter_large" displaytext="Tweet" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(&quot;http://w.sharethis.com/images/2017/twitter_32.png&quot;);"></span></span></span></li>
-                                        <li><span class="st_googleplus_large" displaytext="Google +" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(&quot;http://w.sharethis.com/images/2017/googleplus_32.png&quot;);"></span></span></span></li>
-                                        <li><span class="st_pinterest_large" displaytext="Pinterest" st_processed="yes"><span style="text-decoration:none;color:#000000;display:inline-block;cursor:pointer;" class="stButton"><span class="stLarge" style="background-image: url(&quot;http://w.sharethis.com/images/2017/pinterest_32.png&quot;);"></span></span></span></li>
-                                    </ul>
-                                </li>
-                            </ul>
-					</li>
-				</ul><!-- prof men end -->
-			</div><!-- prof_menu_container end -->
-
-			<!-- ngIf: selectedProfileMenu=='default' --><div class="row prof_feed_container ng-scope" ng-if="selectedProfileMenu=='default'">
-				<ul class="feed_links">
-					<!-- ngRepeat: industry in industryListData -->
-				</ul>
-			</div><!-- end ngIf: selectedProfileMenu=='default' --><!-- prof_feed_container end -->
-			<!-- ngIf: selectedProfileMenu=='default' --><div class="row prof_topfeed ng-scope" ng-if="selectedProfileMenu=='default'">
-				<p>Top Feed</p>
-				<!-- ngIf: topSpotfeeds.length>0 --><div profile-topfeed-slide="" class="topfeed_container regular topfeed_slide ng-scope slick-initialized slick-slider slick-dotted" style="background-color: white;" ng-if="topSpotfeeds.length>0" role="toolbar"><button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" role="button" style="display: inline-block;">Previous</button>
-
-					<!-- ngRepeat: sf in topSpotfeeds|limitTo:9 --><!-- end ngRepeat: sf in topSpotfeeds|limitTo:9 --><!-- end ngRepeat: sf in topSpotfeeds|limitTo:9 --><!-- end ngRepeat: sf in topSpotfeeds|limitTo:9 --><!-- end ngRepeat: sf in topSpotfeeds|limitTo:9 --><!-- end ngRepeat: sf in topSpotfeeds|limitTo:9 --><!-- end ngRepeat: sf in topSpotfeeds|limitTo:9 --><!-- end ngRepeat: sf in topSpotfeeds|limitTo:9 --><!-- end ngRepeat: sf in topSpotfeeds|limitTo:9 --><!-- end ngRepeat: sf in topSpotfeeds|limitTo:9 -->
-				<div aria-live="polite" class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 2464px; transform: translate3d(-462px, 0px, 0px);" role="listbox"><a ng-repeat="sf in topSpotfeeds|limitTo:9" class="ng-scope slick-slide slick-cloned" style="width: 118px;" data-slick-index="-3" aria-hidden="true" tabindex="-1">
-						<span class="notification_black ng-binding">
-
-						</span>
-						<div class="topfeed_circle digital">
-							<h4 class="ng-binding">Just test</h4>
-						</div>
-					</a><a ng-repeat="sf in topSpotfeeds|limitTo:9" class="ng-scope slick-slide slick-cloned" style="width: 118px;" data-slick-index="-2" aria-hidden="true" tabindex="-1">
-						<span class="notification_black ng-binding">
-
-						</span>
-						<div class="topfeed_circle digital">
-							<h4 class="ng-binding">^$^$@$^%@$%$ AG</h4>
-						</div>
-					</a><a ng-repeat="sf in topSpotfeeds|limitTo:9" class="ng-scope slick-slide slick-cloned" style="width: 118px;" data-slick-index="-1" aria-hidden="true" tabindex="-1">
-						<span class="notification_black ng-binding">
-
-						</span>
-						<div class="topfeed_circle digital">
-							<h4 class="ng-binding">MyChannel</h4>
-						</div>
-					</a><a class="curs-point slick-slide slick-current slick-active" ng-click="postInfo('spotfeed')" style="width: 118px;" data-slick-index="0" aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide00">
-						<div class="topfeed_circle_add">
-							<h4>+</h4>
-						</div>
-					</a><a ng-repeat="sf in topSpotfeeds|limitTo:9" class="ng-scope slick-slide slick-active" style="width: 118px;" data-slick-index="1" aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide01">
-						<span class="notification_black ng-binding">
-							0
-						</span>
-						<div class="topfeed_circle digital">
-							<h4 class="ng-binding">Audio article i</h4>
-						</div>
-					</a><a ng-repeat="sf in topSpotfeeds|limitTo:9" class="ng-scope slick-slide slick-active" style="width: 118px;" data-slick-index="2" aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide02">
-						<span class="notification_black ng-binding">
-							0
-						</span>
-						<div class="topfeed_circle digital">
-							<h4 class="ng-binding">Audio, article,</h4>
-						</div>
-					</a><a ng-repeat="sf in topSpotfeeds|limitTo:9" class="ng-scope slick-slide" style="width: 118px;" data-slick-index="3" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide03">
-						<span class="notification_black ng-binding">
-							0
-						</span>
-						<div class="topfeed_circle digital">
-							<h4 class="ng-binding">Audio article i</h4>
-						</div>
-					</a><a ng-repeat="sf in topSpotfeeds|limitTo:9" class="ng-scope slick-slide" style="width: 118px;" data-slick-index="4" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide04">
-						<span class="notification_black ng-binding">
-							0
-						</span>
-						<div class="topfeed_circle digital">
-							<h4 class="ng-binding">Image and video</h4>
-						</div>
-					</a><a ng-repeat="sf in topSpotfeeds|limitTo:9" class="ng-scope slick-slide" style="width: 118px;" data-slick-index="5" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide05">
-						<span class="notification_black ng-binding">
-							0
-						</span>
-						<div class="topfeed_circle digital">
-							<h4 class="ng-binding">Audio, Article,</h4>
-						</div>
-					</a><a ng-repeat="sf in topSpotfeeds|limitTo:9" class="ng-scope slick-slide" style="width: 118px;" data-slick-index="6" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide06">
-						<span class="notification_black ng-binding">
-							0
-						</span>
-						<div class="topfeed_circle digital">
-							<h4 class="ng-binding">Bangalore habba</h4>
-						</div>
-					</a><a ng-repeat="sf in topSpotfeeds|limitTo:9" class="ng-scope slick-slide" style="width: 118px;" data-slick-index="7" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide07">
-						<span class="notification_black ng-binding">
-							0
-						</span>
-						<div class="topfeed_circle digital">
-							<h4 class="ng-binding">Just test</h4>
-						</div>
-					</a><a ng-repeat="sf in topSpotfeeds|limitTo:9" class="ng-scope slick-slide" style="width: 118px;" data-slick-index="8" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide08">
-						<span class="notification_black ng-binding">
-							0
-						</span>
-						<div class="topfeed_circle digital">
-							<h4 class="ng-binding">^$^$@$^%@$%$ AG</h4>
-						</div>
-					</a><a ng-repeat="sf in topSpotfeeds|limitTo:9" class="ng-scope slick-slide" style="width: 118px;" data-slick-index="9" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide09">
-						<span class="notification_black ng-binding">
-							0
-						</span>
-						<div class="topfeed_circle digital">
-							<h4 class="ng-binding">MyChannel</h4>
-						</div>
-					</a><a class="curs-point slick-slide slick-cloned" ng-click="postInfo('spotfeed')" style="width: 118px;" data-slick-index="10" aria-hidden="true" tabindex="-1">
-						<div class="topfeed_circle_add">
-							<h4>+</h4>
-						</div>
-					</a><a ng-repeat="sf in topSpotfeeds|limitTo:9" class="ng-scope slick-slide slick-cloned" style="width: 118px;" data-slick-index="11" aria-hidden="true" tabindex="-1">
-						<span class="notification_black ng-binding">
-
-						</span>
-						<div class="topfeed_circle digital">
-							<h4 class="ng-binding">Audio article i</h4>
-						</div>
-					</a><a ng-repeat="sf in topSpotfeeds|limitTo:9" class="ng-scope slick-slide slick-cloned" style="width: 118px;" data-slick-index="12" aria-hidden="true" tabindex="-1">
-						<span class="notification_black ng-binding">
-
-						</span>
-						<div class="topfeed_circle digital">
-							<h4 class="ng-binding">Audio, article,</h4>
-						</div>
-					</a></div></div><button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" role="button" style="display: inline-block;">Next</button><ul class="slick-dots" style="" role="tablist"><li class="slick-active" aria-hidden="false" role="presentation" aria-selected="true" aria-controls="navigation00" id="slick-slide00"><button type="button" data-role="none" role="button" tabindex="0">1</button></li><li aria-hidden="true" role="presentation" aria-selected="false" aria-controls="navigation01" id="slick-slide01"><button type="button" data-role="none" role="button" tabindex="0">2</button></li><li aria-hidden="true" role="presentation" aria-selected="false" aria-controls="navigation02" id="slick-slide02"><button type="button" data-role="none" role="button" tabindex="0">3</button></li><li aria-hidden="true" role="presentation" aria-selected="false" aria-controls="navigation03" id="slick-slide03"><button type="button" data-role="none" role="button" tabindex="0">4</button></li></ul></div><!-- end ngIf: topSpotfeeds.length>0 -->
-			</div><!-- end ngIf: selectedProfileMenu=='default' --><!-- prof topfeed end -->
-
-		</div><!-- prof_detail_container end-->
-	</div>
+         </div>
+         <div class="col-md-6"></div>
+      </div>
+      <div class="row pro__detail">
+         <div class="col-md-6 col-md-offset-3 text-center">
+            <ul class="list-inline pro_nav_list">
+               <li class="list-line-item">
+                  <a href="">about</a>
+               </li>
+               <li class="list-line-item">
+                  <a href="">portfolio</a>
+               </li>
+               <li class="list-line-item">
+                  <a href="">planner</a>
+               </li>
+               <li class="list-line-item">
+                  <a href="">project</a>
+               </li>
+            </ul>
+         </div>
+         <div class="col-md-3">
+            <ul class="list-inline pro_nav_icon">
+               <li class="list-line-item">
+                  <a href="#"><img src="/assets/img/svg/ico_options.svg"></a>
+               </li>
+               <li class="list-line-item">
+                  <a href="#"><img src="/assets/img/svg/ico_share.svg"></a>
+               </li>
+               <li class="list-line-item">
+                  <a href="#"><img src="/assets/img/svg/ico_message.svg"></a>
+               </li>
+            </ul>
+         </div>
+         <div class="col-md-12 pro__detail__container">
+            <div class="col-md-4 text-center pro__count">
+               <div class="row">
+                  <div class="col-md-4 pro__followers">
+                     <h3>{{ userProfile.completed.followersCount }}</h3>
+                     <p>Followers</p>
+                  </div>
+                  <div class="col-md-4 pro__following">
+                     <h3>{{ userProfile.completed.followingCount }}</h3>
+                     <p>Following</p>
+                  </div>
+                  <div class="col-md-4 pro__spots">
+                     <h3>1.2M</h3>
+                     <p>Spots</p>
+                  </div>
+                  <div class="col-md-8 pro__spotscore">
+                     <button type="button" class="btn btn-normal btn-sm">Spotscore Comming Soon</button>
+                  </div>
+                  <div class="col-md-4 pro__postchannels">
+                     <h4>560 <small>Post</small></h4>
+                     <h4>34 <small>Channels</small></h4>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-4 pro_bio">
+               <h3>BIO</h3>
+               <p>{{ userProfile.completed.description }}</p>
+            </div>
+            <div class="col-md-4 pro_skills">
+               <h3>SKILLS</h3>
+               <button *ngFor="let skill of tempSkills" type="button" class="btn btn-default btn-xs">{{ skill }}</button>
+            </div>
+         </div>
+      </div>
+      <!--- ---------------------------- section ----------------------------- -->
+      <div class="row pro_feed">
+         <!-- left feed -->
+         <div class="col-md-3 pro_feed-left">
+            <div class="row">
+               <!-- calender -->
+               <div class="col-md-12 pro_calender">
+                  <div class="row pro_canlender-head">
+                     <h3>YOUR CALENDER</h3>
+                     <button type="button" class="btn btn-primary btn-xs">ADD PLAN</button>
+                  </div>
+                  <h4 class="text-center">JULY, 2017</h4>
+                  <ul class="list-inline pro_canlender-date">
+                     <li class="list-inline-item active">14</li>
+                     <li class="list-inline-item">15</li>
+                     <li class="list-inline-item"><span class="upcoming">16</span></li>
+                     <li class="list-inline-item"><span class="upcoming">17</span></li>
+                     <li class="list-inline-item">18</li>
+                     <li class="list-inline-item">19</li>
+                  </ul>
+                  <div class="alert alert-danger">
+                     <strong>10:10 AM</strong><br> Metting with Mike Creative Mint
+                  </div>
+                  <div class="alert alert-danger">
+                     <strong>11:10 AM - 1: 30 PM</strong><br> Metting with stebe Aovi
+                  </div>
+                  <p class="see_more">SEE MORE</p>
+               </div>
+               <!-- attend event -->
+               <div class="col-md-12 attend_event">
+                  <div class="row attend_event-head">
+                     <h3>attending event</h3>
+                     <p class="see_more">see more</p>
+                  </div>
+                  <div class="row attend_cont">
+                     <div class="col-md-4">
+                        <img src="/assets/img/event.jpg" class="img-responsive">
+                     </div>
+                     <div class="col-md-8">
+                        <h3 class="feed-heading">DJ Night By DJ Tiesto</h3>
+                        <h4 class="feed-heading">12, JUL</h4>
+                        <p class="feed-sub-heading">Mohegan Sun Arena</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 attend_event">
+                  <div class="row attend_event-head">
+                     <h3>project</h3>
+                     <p class="see_more">see more</p>
+                  </div>
+                  <div class="row attend_cont">
+                     <div class="col-md-4">
+                        <img src="/assets/img/event.jpg" class="img-responsive">
+                     </div>
+                     <div class="col-md-8">
+                        <h3 class="feed-heading">Semplice- Designers portfolio system</h3>
+                        <p class="feed-sub-heading">23 Collaborators</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 attend_event">
+                  <div class="row attend_event-head">
+                     <h3>Communities</h3>
+                     <p class="see_more">see more</p>
+                  </div>
+                  <div class="row attend_cont">
+                     <div class="col-md-4">
+                        <img src="/assets/img/event.jpg" class="img-responsive">
+                     </div>
+                     <div class="col-md-8">
+                        <h3 class="feed-heading">DJ Night By DJ Tiesto</h3>
+                        <h4 class="feed-heading">12, JUL</h4>
+                        <div class="feed_thumb">
+                           <span class="feedfirst_thumb"><img src="/assets/img/opro.png" class="img-responsive"></span>
+                           <span class="feedsecond_thumb"><img src="/assets/img/avatar2.jpg" class="img-responsive"></span>
+                           <span class="feedthird_thumb"><img src="/assets/img/avatar.jpg" class="img-responsive"></span>
+                        </div>
+                        <p class="feed-sub-heading">+ 23 Members</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- //left feed -->
+         <!-- right feed -->
+         <div class="col-md-9 pro_feed-right">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="quick_access">
+                     <h2 class="feed-heading">
+                        Quick Access
+                     </h2>
+                     <ul class="list-inline">
+                        <li class="list-inline-item">
+                           <div class="quick_access_img">
+                              <img src="/assets/img/quick2.jpg">
+                           </div>
+                           <div class="quick_access_text">
+                              <p class="quick_access_text_name">Events</p>
+                              <p class="quick_access_text_post">10 Post</p>
+                           </div>
+                        </li>
+                        <li class="list-inline-item">
+                           <div class="quick_access_img">
+                              <img src="/assets/img/quick3.jpg">
+                           </div>
+                           <div class="quick_access_text">
+                              <p class="quick_access_text_name">Opportunity</p>
+                              <p class="quick_access_text_post">05 Post</p>
+                           </div>
+                        </li>
+                        <li class="list-inline-item">
+                           <div class="quick_access_img">
+                              <img src="/assets/img/quick2.jpg">
+                           </div>
+                           <div class="quick_access_text">
+                              <p class="quick_access_text_name">My Media</p>
+                              <p class="quick_access_text_post">12 Post</p>
+                           </div>
+                        </li>
+                        <li class="list-inline-item">
+                           <div class="quick_access_img">
+                              <img src="/assets/img/quick3.jpg">
+                           </div>
+                           <div class="quick_access_text">
+                              <p class="quick_access_text_name">Web Design</p>
+                              <p class="quick_access_text_post">14 Post</p>
+                           </div>
+                        </li>
+                        <li class="list-inline-item">
+                           <div class="quick_access_img">
+                              <img src="/assets/img/quick2.jpg">
+                           </div>
+                           <div class="quick_access_text">
+                              <p class="quick_access_text_name">UI/UX</p>
+                              <p class="quick_access_text_post">13 Post</p>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="pro_channel">
+                     <ul class="list-inline feed-heading">
+                        <li class="list-inline-item">Channels</li>
+                        <li class="list-inline-item">Post</li>
+                        <li class="list-inline-item">Spotfeed</li>
+                     </ul>
+                     <div class="row pro_channel2">
+                        <!-- channel block -->
+                        <div class="col-md-4 pro_channel_card" *ngFor="let media of userMedia" >
+                           <div class="col-md-12 pro_channel_block">
+                              <div class="row">
+                                 <div class="col-md-12 pro_channel_img1">
+                                    <img src="/assets/img/pro_block.jpg" class="img-responsive">
+                                 </div>
+                                 <div class="col-md-6 pro_channel_img2">
+                                    <img src="/assets/img/pro_block2.jpg" class="img-responsive">
+                                 </div>
+                                 <div class="col-md-6 pro_channel_img3">
+                                    <img src="/assets/img/pro_block3.jpg" class="img-responsive">
+                                 </div>
+                                 <div class="col-md-12 pro_channel_cont">
+                                    <div class="pro_channel_name">
+                                       <h3 class="feed-heading float-left">{{ media.spotfeedName }}</h3>
+                                       <span><img class="float-right" src="/assets/img/svg/ico_options.svg"></span>
+                                    </div>
+                                    <div class="pro_channel-thumb">
+                                       <img src="{{ media.ownerImage }}">
+                                       <p>{{ media.ownerName }}</p>
+                                    </div>
+                                    <div class="pro_channel_count">
+                                       <span><img src="/assets/img/svg/ico_follower.svg"> {{ media.followersCount }}</span>
+                                       <span><img src="/assets/img/svg/ico_follower.svg"> {{ media.mediaCount }}</span>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- // channel block -->
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- //right feed -->
+      </div>
+   </div>
 </section>

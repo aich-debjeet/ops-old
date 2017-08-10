@@ -13,6 +13,13 @@ export class Register {
  user_unique = false
 }
 
+export class authModel {
+ completed: string[];
+ loading = false;
+ success = true;
+ user_unique = false
+}
+
 export class SearchCards{}
 
 export class RegisterProfile {
@@ -21,6 +28,16 @@ export class RegisterProfile {
  success = true;
  user_unique: false
 }
+
+export interface RightBlockTag {
+  mainTitle: string;
+  secondHead: string;
+  description: string;
+  loginLink: Boolean;
+  button_text: string;
+  button_link: string;
+}
+
 
 export class UserTag {
   success: boolean
@@ -37,6 +54,19 @@ export class RegValue {
   mainTitle: string;
   description: string;
   loginLink: Boolean;
+  button_text: string;
+  button_link: string;
 }
 
+export class ArtistFollow {
+    name: string; 
+    coverImage: string;
+    is_follow: boolean;
+}
+
+export const initialArtistFollow: ArtistFollow = {
+    name: null,
+    coverImage: null,
+    is_follow: true,
+}
 

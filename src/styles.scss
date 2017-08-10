@@ -7,16 +7,11 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 @import '~sass-mq/_mq.scss';
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
+
 // /* Helpers */
 @import '/assets/scss/helpers/_variables.scss';
 @import '/assets/scss/helpers/_functions.scss';
 @import '/assets/scss/helpers/_mixins.scss';
-
-// /* Components scss */
-@import '/assets/scss/components/_buttons.scss';
-@import '/assets/scss/components/_form.scss';
-@import '/assets/scss/components/_progress-bar.scss';
-@import '/assets/scss/components/_flag.scss';
 
 // /* Base scss */
 @import '/assets/scss/base/_reset.scss';
@@ -24,6 +19,11 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 @import '/assets/scss/base/_color.scss';
 @import '/assets/scss/base/_typography.scss';
 
+// /* Components scss */
+@import '/assets/scss/components/_buttons.scss';
+@import '/assets/scss/components/_form.scss';
+@import '/assets/scss/components/_progress-bar.scss';
+@import '/assets/scss/components/_flag.scss';
 
 
 /* Layouts scss */
