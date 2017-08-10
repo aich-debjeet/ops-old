@@ -71,14 +71,9 @@ export class RegistrationAddSkillComponent implements OnInit {
     });
 
     this.http = http;
-        this.headers = new Headers();
-        this.headers.append('Content-Type', 'application/json');
-
-    
-  
-
-
-  }
+    this.headers = new Headers();
+    this.headers.append('Content-Type', 'application/json');
+}
 
   // tripLikeState() {
   //   if (!this.trip) return 'inactive';
@@ -88,7 +83,9 @@ export class RegistrationAddSkillComponent implements OnInit {
   ngOnInit() {
     this.rightCom = { 
       mainTitle: 'Select your profile type', 
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod long-and vitality, so that the labor expended. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,' +
+      ' sed do eiusmod long-and vitality, so that the labor expended. Lorem ipsum dolor sit amet,' +
+      ' consectetur adipiscing elit, sed do eiusmod long-and vitality, so that the labor expended.',
       loginLink: true,
       button_text: 'Sign Up',
       button_link: '/home'
@@ -98,16 +95,16 @@ export class RegistrationAddSkillComponent implements OnInit {
     // this.artistList();
   }
 
-  myEvent(event) {
-    console.log(event);
-    console.log(event.target.id );
-    console.log(event.currentTarget);
-  }
+myEvent(event) {
+  console.log(event);
+  console.log(event.target.id );
+  console.log(event.currentTarget);
+}
 
-  skillList(){
-    this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/profiletype')
+skillList() {
+  this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/profiletype')
         // Call map on the response observable to get the parsed people object
-        .map(res => res.json())
+      .map(res => res.json())
         // Subscribe to the observable to get the parsed people object and attach it to the
         // component
         .subscribe(skills => this.skills = skills);

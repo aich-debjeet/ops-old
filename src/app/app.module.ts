@@ -20,15 +20,22 @@ import { routes } from './app.routing';
 
 // Reducers
 import { AuthReducer } from './reducers/auth.reducer';
+import { HomeReducer } from './reducers/home.reducer';
+import { SharedReducer } from './reducers/shared.reducer';
+import { ProfileReducer } from './reducers/profile.reducer';
 
 // Effects
 import { AuthEffect } from './effects/auth.effect';
+import { HomeEffect } from './effects/home.effect';
+import { SharedEffect } from './effects/shared.effect';
+import { ProfileEffect } from './effects/profile.effect';
 
 // Services
 import { AuthService } from './services/auth.service';
 
 import { SharedModule } from './shared/shared.module';
 
+import { ApiService } from './services/api.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -105,11 +112,14 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
     SharedModule,
     FormsModule,
     HttpModule,
-    StoreModule.provideStore({ loginTags: AuthReducer }),
+    StoreModule.provideStore({ loginTags: AuthReducer, profileTags: ProfileReducer, userMediaTags: ProfileReducer}),
     RouterModule.forRoot(routes),
-    EffectsModule.run(AuthEffect)
+    EffectsModule.run(AuthEffect),
+    EffectsModule.run(HomeEffect),
+    EffectsModule.run(SharedEffect),
+    EffectsModule.run(ProfileEffect)
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

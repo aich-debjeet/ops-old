@@ -1,3 +1,136 @@
-<p>
-  events works!
-</p>
+<!--<div class="card">
+  <div class="card-block">
+    <h4 class="card-title">Card title</h4>
+    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
+-->
+
+<!--<div ng-controller="CarouselDemoCtrl">
+  <div style="height: 305px">
+    <carousel interval="myInterval" no-wrap="noWrapSlides">
+      <slide ng-repeat="slide in slides" active="slide.active">
+        <img ng-src="{{slide.image}}" style="margin:auto;">
+        <div class="carousel-caption">
+          <h4>Slide {{$index}}</h4>
+          <p>{{slide.text}}</p>
+        </div>
+      </slide>
+    </carousel>
+  </div>-->
+
+<app-navigation></app-navigation>
+  <br>
+  <br>
+  <br>
+<div class="container" style="color:black">
+  <div class="row">
+
+       <div class="col-sm-4" *ngFor="let item of topCards">
+        <div class="card top-cards">
+          <div class="card-block">
+              <h3 class="card-title">{{item.name}}</h3>
+              <br>
+              <br>
+                 <p class="card-text">{{item.text}}</p>
+                 <br>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p>{{item.dateNumber}}</p>
+                        <p>{{item.dateMoYr}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                       <p><span class="{{item.marker}}" aria-hidden="true"></span>&nbsp; {{ item.textFirst }} <br>{{item.textSecnd}}</p>
+                    </div>
+                </div>
+          </div>
+        </div>
+      </div>
+   </div>
+      <nav class="navbar navbar-inverse">
+          <div id="navbar" >
+            <ul class="nav navbar-nav top-nav-left">
+              <li class="active"><a href="javascript:void(0)">Recommendations</a></li>
+              <li><a href="javascript:void(0)">Attending</a></li>
+              <li><a href="javascript:void(0)">Created</a></li>
+            </ul>
+            <ul class="nav navbar-nav top-nav-right">
+              <li><a href="javascript:void(0)"><span class="fa fa-filter" aria-hidden="true"></span>&nbsp;&nbsp;Additional Filter</a></li>
+              <li class="active"><a href="javascript:void(0)">Add Event</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+      </nav>
+  </div>
+
+<br>
+
+<div class="container">
+  <nav class="navbar navbar-toggleable-md navbar-light bg-faded ">
+    <div class="row text-center">
+      <div class="col-sm-1">
+          <a class="nav-item nav-link active" href="#">All</a>
+      </div>
+      <div class="col-sm-1">
+          <a class="nav-item nav-link active" href="#">Comedy</a>
+      </div>
+      <div class="col-sm-1">
+          <a class="nav-item nav-link active" href="#">Conference & Workshops</a>
+      </div>
+      <div class="col-sm-1">
+          <a class="nav-item nav-link active" href="#">Exicition & Performances</a>
+      </div>
+      <div class="col-sm-1">
+          <a class="nav-item nav-link active" href="#">Food & Drink</a>
+      </div>
+      <div class="col-sm-1">
+          <a class="nav-item nav-link active" href="#">Music</a>
+      </div>
+      <div class="col-sm-1">
+          <a class="nav-item nav-link active" href="#">Travel & Activities</a>
+      </div>
+      <div class="col-sm-1">
+          <a class="nav-item nav-link active" href="#">Conference</a>
+      </div>
+      <div class="col-sm-1">
+          <a class="nav-item nav-link active" href="#">Talks</a>
+      </div>
+      <div class="col-sm-1">
+          <a class="nav-item nav-link active" href="#">Workshops</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="row">
+     <div class="col-sm-3" *ngFor="let item of bottomCards" >
+         <div class="cards">
+            <img class="card-img-top" style="width: 100%;" src="https://via.placeholder.com/318x180" alt="Card image cap">
+              <div class="card-block">
+                <div class="row">
+                  <div class="col-sm-6">
+                     <p style="color:black">{{ item.name }}</p>
+                     <p style="color:black"><strong>{{ item.dateNumber }}</strong></p>
+                     <p style="color:black">{{ item.dateMoYr }}</p>
+                     <br>
+                     <p style="color:black"><span class="{{item.marker}}" style="color:black" aria-hidden="true"></span>&nbsp;Accenture Indiranagar,<br>&nbsp;&nbsp;&nbsp;&nbsp;Bengalure</p>
+                 </div>
+                   <div class="col-sm-6">
+                     <p style="color:black"><strong>{{ item.textFirst }}</strong></p>
+                     <p style="color:black"><strong>{{ item.textSecnd }}</strong></p>
+                   </div>
+               </div>
+                   <hr>
+                   <div class="row">
+                     <div class="col-sm-3" style="color:black"><i class="{{ item.paperClip }}" aria-hidden="true"></i></div>
+                     <div class="col-sm-3" style="color:black"><i class="{{ item.circle }}" aria-hidden="true"></i></div>
+                     <div class="col-sm-3" style="color:black"><i class="{{ item.share }}" aria-hidden="true"></i></div>
+                     <div class="col-sm-3" style="color:black"><a href="">{{ item.display }}</a></div>
+                   </div>
+              </div>
+        </div>
+     </div>
+   </div>
+
+</div>

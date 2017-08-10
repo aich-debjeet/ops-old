@@ -55,7 +55,9 @@ export class RegistrationProfileComponent implements OnInit {
     this.store.dispatch({ type: AuthActions.LOAD_ARTIST});
     this.rightCom = { 
       mainTitle: 'Select your profile type', 
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod long-and vitality, so that the labor expended. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,'
+      + ' sed do eiusmod long-and vitality, so that the labor expended. Lorem ipsum dolor sit amet,'
+      + ' consectetur adipiscing elit, sed do eiusmod long-and vitality, so that the labor expended.',
       loginLink: true,
       button_text: 'Sign Up',
       button_link: '/home'
