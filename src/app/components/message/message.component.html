@@ -1,3 +1,552 @@
-<p>
-  message works!
-</p>
+<header class="opsheader">
+   <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+         <!-- Brand and toggle get grouped for better mobile display -->
+             <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><img src="/assets/img/ops_icon.png"></a>
+             </div>
+             <!-- Collect the nav links, forms, and other content for toggling -->
+             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                   <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+                   <li><a routerLink="/explore" routerLinkActive="active">Explore</a></li>
+                   <li><a routerLink="/opportunity" routerLinkActive="active">Oppurtunity</a></li>
+                   <li><a href="#">Events</a></li>
+                   <li><a href="#">Learn</a></li>
+                   <li><a href="#">Resources</a></li>
+                   <li><a href="#">Commmunities</a></li>
+               </ul>
+               <ul class="nav navbar-nav navbar-right nav_right">
+                   <li><a href="#"><img src="/assets/img/svg/ico_add.svg"></a></li>
+                   <li><a href="#"><img src="/assets/img/svg/ico_search.svg"></a></li>
+                   <li><a href="#"><img src="/assets/img/svg/ico_notification.svg"></a></li>
+                   <li><a href="#"><img src="/assets/img/svg/ico_message.svg"></a></li>
+                   <li class="dropdown opsheader-paddingt6" [ngClass]="{'open': navOpen}" >
+                      <a href="#" (click)="toggleNav($event)" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                      <img src="/assets/img/avatar.jpg" class="img-responsive"> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                     <li>
+                        <ul class="list-inline head_drop_thumb">
+                           <li class="list-inline-item"><img src="/assets/img/avatar.jpg" class="img-responsive"></li>
+                           <li class="list-inline-item">
+                              <h4 style="color:black">Tobias Van Schneider</h4>
+                              <p style="color:black">@tobias</p>
+                           </li>
+                        </ul>
+                     </li>
+                     <li role="separator" class="divider"></li>
+                     <li><a href="#">Organisation</a></li>
+                     <li><a href="#">Settings</a></li>
+                     <li role="separator" class="divider"></li>
+                     <li><a href="#">About One Page Spotlight</a></li>
+                     <li role="separator" class="divider"></li>
+                     <li><a href="#">Signout</a></li>
+                  </ul>
+                  </li>
+               </ul>
+            </div>
+         <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+   </nav>
+</header>
+
+<main class="container-fulid outer_container">
+        <section class="messages_block">
+            <div class="container">
+        <!-- registraion middle container -->
+                <div class="row messages_block_container">
+            <!-- left section -->
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 msg_left" id="ops_scrollbar">
+                          <ul class="msg_name_list">
+                              <li class="with_border_bottom">
+                                  <ul class="list-inline">
+                                      <li class="list-inline-item">
+                                          <div class="msg_inbox_name">
+                                              <img src="http://d33wubrfki0l68.cloudfront.net/76ed74fccecee890e141d5153bcdd50aecf49d4e/12ba3/img/svg/ico_message.svg">
+                                               <span>INBOX</span>
+                                          </div>
+                                       </li>
+                                      <li class="list-inline-item float_right">
+                                         <a href="javascript:void(0)" (click)="composeDisplayToggle()" class="btn btn-xs btn-primary btn-plus">
+                                          <span class="btn-label-follow">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                              </span>COMPOSE
+                                         </a>
+                                       </li>
+                                   </ul>
+                               </li>
+                           </ul>
+                          <ul class="msg_name_list msg_search_block">
+                              <li class="with_border_bottom">
+                                  <ul class="list-inline">
+                                      <li class="list-inline-item">
+                                        <div class="msg_inbox_name">
+                                            <img src="http://d33wubrfki0l68.cloudfront.net/043fb4a81b1c9c482ba2e4984a1c11e6ebebd360/ef03e/img/svg/ico_search.svg">
+                                        </div>
+                                      </li>
+                                      <li class="list-inline-item search_input">
+                                        <form>
+                                          <div class="form_group">
+                                            <input class="form_input" type="text" required="">
+                                              <label>Search</label>
+                                          </div>
+                                        </form>
+                                      </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="ops_checkbox_xs">
+                              <form>
+                                <ul class="msg_name_list msg_select_action">
+                                    <li class="with_border_bottom">
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item msg_online float_left">
+                                                <label>
+                                                    <input type="checkbox" name="checkbox_dot"><span></span> &nbsp; Select All
+                                                </label>
+                                            </li>
+                                            <li class="list-inline-item">
+                                        <!-- <div class="msg_friend_name">Select All</div> -->
+                                            </li>
+                                            <li class="list-inline-item pull-right">
+                                              <div class="pull-right msg_action dropdown">
+                                                  <a class="dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></a>
+                                                    <ul class="dropdown-menu">
+                                                      <li class="with_border_bottom">
+                                                        <a href="#">
+                                                          <img src="http://d33wubrfki0l68.cloudfront.net/a40290e467bdff5fbbfc9f8649bc2198726a859a/1d016/img/svg/ico_archive.svg">
+                                                            <span>Archive</span>
+                                                        </a>
+                                                      </li>
+                                                          <li>
+                                                            <a href="#">
+                                                                <img src="http://d33wubrfki0l68.cloudfront.net/b3dd9a5fe04c6921b6c04fd3d4647f713a92b32c/a4a4a/img/svg/ico_delete.svg">
+                                                                  <span>Delete</span>
+                                                            </a>
+                                                          </li>
+                                                    </ul>
+                                               </div>
+                                              </li>
+                                            </ul>
+                                          </li>
+                                        </ul>
+
+                                            <a href="javascript:void(0)" (click)="messageDisplayToggle()">
+                                                <ul class="msg_name_list msg_unread fill_grey">
+                                                    <li class="with_border_bottom">
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item msg_online float_left">
+                                                                <label>
+                                                                    <input type="checkbox" name="checkbox_dot"><span></span>
+                                                                </label>
+                                                            </li>
+                                                            <li class="list-inline-item msg_avatar float_left">
+                                                                <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <div class="msg_friend_name">Cecilia Matthews</div>
+                                                                <div class="msg_friend_text">Motivation letter for work</div>
+                                                            </li>
+                                                            <li class="list-inline-item pull-right">
+                                                                <div class="pull-right msg_time">12:08 PM</div>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </a>
+                                              <ul class="msg_name_list msg_unread fill_grey">
+                                                  <li class="with_border_bottom">
+                                                      <ul class="list-inline">
+                                                          <li class="list-inline-item msg_online float_left">
+                                                              <label>
+                                                                  <input type="checkbox" name="checkbox_dot"><span></span>
+                                                              </label>
+                                                          </li>
+                                                          <li class="list-inline-item msg_avatar float_left">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                          </li>
+                                                          <li class="list-inline-item">
+                                                              <div class="msg_friend_name">Cecilia Matthews</div>
+                                                              <div class="msg_friend_text">Motivation letter for work </div>
+                                                          </li>
+                                                          <li class="list-inline-item pull-right">
+                                                              <div class="pull-right msg_time">9:22 PM</div>
+                                                          </li>
+                                                      </ul>
+                                                  </li>
+                                              </ul>
+                                              <ul class="msg_name_list">
+                                                  <li class="with_border_bottom">
+                                                      <ul class="list-inline">
+                                                          <li class="list-inline-item msg_online float_left">
+                                                              <label>
+                                                                  <input type="checkbox" name="checkbox_dot"><span></span>
+                                                              </label>
+                                                          </li>
+                                                          <li class="list-inline-item msg_avatar float_left">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                          </li>
+                                                          <li class="list-inline-item">
+                                                              <div class="msg_friend_name">Cecilia Matthews</div>
+                                                              <div class="msg_friend_text">Motivation letter for work</div>
+                                                          </li>
+                                                          <li class="list-inline-item pull-right">
+                                                              <div class="pull-right msg_time">May 12, 2016</div>
+                                                          </li>
+                                                      </ul>
+                                                  </li>
+                                              </ul>
+                                              <ul class="msg_name_list">
+                                                  <li class="with_border_bottom">
+                                                      <ul class="list-inline">
+                                                          <li class="list-inline-item msg_online float_left">
+                                                              <label>
+                                                                  <input type="checkbox" name="checkbox_dot"><span></span>
+                                                              </label>
+                                                          </li>
+                                                          <li class="list-inline-item msg_avatar float_left">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                          </li>
+                                                          <li class="list-inline-item">
+                                                              <div class="msg_friend_name">Cecilia Matthews</div>
+                                                              <div class="msg_friend_text">Motivation letter for work</div>
+                                                          </li>
+                                                          <li class="list-inline-item pull-right">
+                                                              <div class="pull-right msg_time">May 10, 2016</div>
+                                                          </li>
+                                                      </ul>
+                                                  </li>
+                                              </ul>
+                                              <ul class="msg_name_list">
+                                                  <li class="with_border_bottom">
+                                                      <ul class="list-inline">
+                                                          <li class="list-inline-item msg_online float_left">
+                                                              <label>
+                                                                  <input type="checkbox" name="checkbox_dot"><span></span>
+                                                              </label>
+                                                          </li>
+                                                          <li class="list-inline-item msg_avatar float_left">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                          </li>
+                                                          <li class="list-inline-item">
+                                                              <div class="msg_friend_name">Cecilia Matthews</div>
+                                                              <div class="msg_friend_text">Motivation letter for work</div>
+                                                          </li>
+                                                          <li class="list-inline-item pull-right">
+                                                              <div class="pull-right msg_time">May 09, 2016</div>
+                                                          </li>
+                                                      </ul>
+                                                  </li>
+                                              </ul>
+                                              <ul class="msg_name_list">
+                                                  <li class="with_border_bottom">
+                                                      <ul class="list-inline">
+                                                          <li class="list-inline-item msg_online float_left">
+                                                              <label>
+                                                                  <input type="checkbox" name="checkbox_dot"><span></span>
+                                                              </label>
+                                                          </li>
+                                                          <li class="list-inline-item msg_avatar float_left">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                          </li>
+                                                          <li class="list-inline-item">
+                                                              <div class="msg_friend_name">Cecilia Matthews</div>
+                                                              <div class="msg_friend_text">Motivation letter for work</div>
+                                                          </li>
+                                                          <li class="list-inline-item pull-right">
+                                                              <div class="pull-right msg_time">May 08, 2016</div>
+                                                          </li>
+                                                      </ul>
+                                                  </li>
+                                              </ul>
+                                              <ul class="msg_name_list">
+                                                  <li class="with_border_bottom">
+                                                      <ul class="list-inline">
+                                                          <li class="list-inline-item msg_online float_left">
+                                                              <label>
+                                                                  <input type="checkbox" name="checkbox_dot"><span></span>
+                                                              </label>
+                                                          </li>
+                                                          <li class="list-inline-item msg_avatar float_left">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                          </li>
+                                                          <li class="list-inline-item">
+                                                              <div class="msg_friend_name">Cecilia Matthews</div>
+                                                              <div class="msg_friend_text">Motivation letter for work </div>
+                                                          </li>
+                                                          <li class="list-inline-item pull-right">
+                                                              <div class="pull-right msg_time">May 07, 2016</div>
+                                                          </li>
+                                                      </ul>
+                                                  </li>
+                                              </ul>
+                                              <ul class="msg_name_list">
+                                                  <li class="with_border_bottom">
+                                                      <ul class="list-inline">
+                                                          <li class="list-inline-item msg_online float_left">
+                                                              <label>
+                                                                  <input type="checkbox" name="checkbox_dot"><span></span>
+                                                              </label>
+                                                          </li>
+                                                          <li class="list-inline-item msg_avatar float_left">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                          </li>
+                                                          <li class="list-inline-item">
+                                                              <div class="msg_friend_name">Cecilia Matthews</div>
+                                                              <div class="msg_friend_text">Motivation letter for work </div>
+                                                          </li>
+                                                          <li class="list-inline-item pull-right">
+                                                              <div class="pull-right msg_time">May 06, 2016</div>
+                                                          </li>
+                                                      </ul>
+                                                  </li>
+                                              </ul>
+                                        </form>
+                                  </div>
+                              </div>
+
+                              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 msg_right" id="ops_scrollbar">
+
+                                  <div class="msg_no_message text-center" *ngIf="!composeMessageOpen && !messageDisplayOpen">No Message Selected</div>
+
+      <!--compose part-->
+                                      <div class=" composeMesage" *ngIf="composeMessageOpen">
+                                            <ul class="msg_to_list list_style_none">
+                                                <li class="with_border_bottom">
+                                                    <ul class="list-inline">
+                                                        <li class="list-inline-item">
+                                                            <div class="msg_to_name">
+                                                                <span>To:</span>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-inline-item msg_to_input">
+                                                            <form>
+                                                                <div class="form_group">
+                                                                    <input class="form_input" type="text" required="">
+                                                                </div>
+
+                                                        </form></li>
+                                                        <li class="list-inline-item float_right msg_setting">
+                                                            <div class="dropdown pull-right">
+                                                                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                                                                    <img src="http://d33wubrfki0l68.cloudfront.net/e1ae931fc2148b30f66cf8d95f11b45cdc071dbd/e831d/img/svg/ico_settings.svg" class="msg_setting_icon">
+                                                                </a>
+                                                                <ul class="dropdown-menu">
+                                                                    <li class="with_border_bottom">
+                                                                        <a href="#">
+                                                                            <img src="http://d33wubrfki0l68.cloudfront.net/a40290e467bdff5fbbfc9f8649bc2198726a859a/1d016/img/svg/ico_archive.svg">
+                                                                            <span>Archive</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">
+                                                                            <img src="http://d33wubrfki0l68.cloudfront.net/b3dd9a5fe04c6921b6c04fd3d4647f713a92b32c/a4a4a/img/svg/ico_delete.svg">
+                                                                            <span>Delete</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                            <!-- message footer input section --->
+                                            <div class="col-md-12 msg_footer_input">
+                                                <ul class="msg_to_list list_style_none">
+                                                    <li class="with_border_bottom">
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item avatar_msg_input float_left">
+                                                                <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive padding_0">
+                                                            </li>
+                                                            <li class="list-inline-item msg_to_input">
+
+                                                                    <div class="form_group">
+                                                                        <input class="form_input" type="text" required="">
+                                                                        <span class="form_highlight"></span>
+                                                                        <span class="form_bar"></span>
+                                                                        <label>Name of the feild</label>
+                                                                    </div>
+
+                                                            </li>
+                                                            <li class="list-inline-item float_right">
+                                                                <button type="button" class="btn btn-primary btn-xs">SEND</button>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                          </div>
+
+<!--message display part-->
+                                       <div class="messageDisplay" *ngIf="messageDisplayOpen">
+                                            <ul class="msg_to_list list_style_none">
+                                                <li class="with_border_bottom">
+                                                    <ul class="list-inline">
+                                                        <li class="list-inline-item">
+                                                            <div class="msg_with">
+                                                                Message with <strong>Cecilia Matthews</strong>
+                                                            </div>
+                                                        </li>
+                                                        <li class="list-inline-item float_right msg_setting">
+                                                            <div class="dropdown pull-right">
+                                                                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                                                                    <img src="http://d33wubrfki0l68.cloudfront.net/e1ae931fc2148b30f66cf8d95f11b45cdc071dbd/e831d/img/svg/ico_settings.svg" class="msg_setting_icon">
+                                                                </a>
+                                                                <ul class="dropdown-menu">
+                                                                    <li class="with_border_bottom">
+                                                                        <a href="#">
+                                                                            <img src="http://d33wubrfki0l68.cloudfront.net/a40290e467bdff5fbbfc9f8649bc2198726a859a/1d016/img/svg/ico_archive.svg">
+                                                                            <span>Archive</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">
+                                                                            <img src="http://d33wubrfki0l68.cloudfront.net/b3dd9a5fe04c6921b6c04fd3d4647f713a92b32c/a4a4a/img/svg/ico_delete.svg">
+                                                                            <span>Delete</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                            <!-- message container -->
+                                            <div class="msg_container_block" id="ops_scrollbar">
+                                                <div class="msg_container">
+                                                    <div class="col-md-12">
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item avatar_msg_input float_left">
+                                                                <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                            </li>
+                                                            <li class="list-inline-item msg_cont_block">
+                                                                <p>
+                                                                    Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="msg_container">
+                                                    <div class="col-md-12">
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item avatar_msg_input float_right">
+                                                                <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                            </li>
+                                                            <li class="list-inline-item msg_cont_block2">
+                                                                <p>
+                                                                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="msg_container">
+                                                    <div class="col-md-12">
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item avatar_msg_input float_left">
+                                                                <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                            </li>
+                                                            <li class="list-inline-item msg_cont_block">
+                                                                <p>
+                                                                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="msg_container">
+                                                    <div class="col-md-12">
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item avatar_msg_input float_right">
+                                                                <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                            </li>
+                                                            <li class="list-inline-item msg_cont_block2">
+                                                                <p>
+                                                                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="msg_container">
+                                                    <div class="col-md-12">
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item avatar_msg_input float_left">
+                                                                <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                            </li>
+                                                            <li class="list-inline-item msg_cont_block">
+                                                                <p>
+                                                                    use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="msg_container">
+                                                    <div class="col-md-12">
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item avatar_msg_input float_right">
+                                                                <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                            </li>
+                                                            <li class="list-inline-item msg_cont_block2">
+                                                                <p>
+                                                                    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
+                                                                </p>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- message footer input section --->
+                                            <div class="col-md-12 msg_footer_input">
+                                                <ul class="msg_to_list list_style_none">
+                                                    <li class="with_border_bottom">
+                                                        <ul class="list-inline">
+                                                            <li class="list-inline-item avatar_msg_input float_left">
+                                                                <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive padding_0">
+                                                            </li>
+                                                            <li class="list-inline-item msg_to_input">
+                                                                <form>
+                                                                    <div class="form_group">
+                                                                        <input class="form_input" type="text" required="">
+                                                                        <span class="form_highlight"></span>
+                                                                        <span class="form_bar"></span>
+                                                                        <label>Name of the feild</label>
+                                                                    </div>
+                                                                </form>
+                                                            </li>
+                                                            <li class="list-inline-item float_right">
+                                                                <button type="button" class="btn btn-primary btn-xs">SEND</button>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                       </div>
+
+                              </div><!--ops scrollbar-->
+
+                    </div><!--row messages_block_container ends-->
+
+
+
+              </div><!--container-->
+
+</section>
+
+    </main>
+    <footer>
+    <div class="container">
+      <p>© Copyright 2017 One Page Spotlight</p>
+    </div>
+    </footer>
