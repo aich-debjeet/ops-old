@@ -7,12 +7,20 @@ import { SharedModule } from '../../shared/shared.module';
 // Component
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
+import { HomeChannelComponent } from './home-channel/home-channel.component';
+import { HomeSpotfeedComponent } from './home-spotfeed/home-spotfeed.component';
+import { HomeRightBlockComponent } from './home-right-block/home-right-block.component';
 
 const routes: Routes= [
-    // { path: '', redirectTo:'password_reset' , pathMatch: 'full' },
-    // { path: 'password_reset', component: ForgotPasswordComponent },
-     { path: '', component:HomeComponent , pathMatch: 'full' },
-
+  {
+    path: '',
+    component: HomeComponent,
+    children: [
+      { path: '', component: HomeChannelComponent},
+      { path: 'spotfeed', component: HomeSpotfeedComponent},
+      { path: 'channel', component: HomeChannelComponent}
+    ]
+  }
 ]
 
 @NgModule({
@@ -23,6 +31,9 @@ const routes: Routes= [
   ],
   declarations: [
     HomeComponent,
+    HomeChannelComponent,
+    HomeSpotfeedComponent,
+    HomeRightBlockComponent,
   ]
   
 })

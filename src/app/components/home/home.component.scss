@@ -268,3 +268,28 @@
     height: 350px;
   }
 }
+
+//quick access
+.quick_access {
+    .feed-heading {
+        margin: 8px;
+    }
+   
+}
+
+.feed-heading {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333333;
+    text-align: left;
+    padding: 3px 0;
+    text-transform: uppercase;
+//     @include mq($from: $tablet, $until: $desktop_sm) {
+//               font-size: 10px;
+// }
+}
+
+.pro_channel2 {
+    width: 100%;
+    margin: 6px;
+}
