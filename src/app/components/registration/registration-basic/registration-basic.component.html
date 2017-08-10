@@ -23,31 +23,27 @@
                         </div>
                     </div>
                     <!-- //progress bar -->
-                    <form [formGroup]="regFormBasic" (ngSubmit) = "submitForm(regFormBasic.value)">
+                    <form [formGroup]="regFormBasic" (ngSubmit) = "submitForm(regFormBasic.value)" #myform="ngForm">
                         <div class="row">
                             <div class="col-md-9 col-sm-9">
                                 <div class="form_group">
-                                    <input class="form_input" type="text" [formControl]="regFormBasic.controls['name']" required>
+                                    <input class="form_input" type="text" novalidate formControlName="name" required>
                                     <span class="form_highlight"></span>
                                     <span class="form_bar"></span>
                                     <label>Name</label>
-                                </div>
-                                <div class="user_exisit" [ngClass]="{'user_exisit': petTag.user_unique, 'no_user_exisit': !petTag.user_unique }"  >
-                                    <span>{{ petTag.completed.STATUS }}</span>
-                                    {{petTag.user_unique}}
+                                    <p class="error_alert" *ngIf="regFormBasic.get('name').hasError('required') && myform.submitted">Name is required</p>
                                 </div>
                                 <div class="form_group">
-                                    <input class="form_input" type="text" (ngModelChange)="userExisitCheck($event)" [formControl]="regFormBasic.controls['username']" required>
+                                    <input class="form_input" type="text" (ngModelChange)="userExisitCheck($event)" formControlName="username" required>
                                     <span class="form_highlight"></span>
                                     <span class="form_bar_alert"></span>
                                     <label>Username</label>
-                                    <p class="error_alert">This username is already exists</p>
-                                    <ul class="username_error">
-                                        <li>username1</li>
-                                        <li>username2</li>
-                                        <li>username3</li>
-                                        <li>username4</li>
-                                    </ul>
+                                    <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace">White Space Not Allowed</p>
+                                    <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && myform.submitted">Username is required</p>
+                                        <p class="error_alert" *ngIf="petTag.user_unique">This username is already taken</p>
+                                        <ul class="username_error" *ngIf="petTag.user_unique">
+                                            <li  *ngFor="let username of petTag.completed.Suggested">{{username}}</li>
+                                        </ul>
                                 </div>
                             </div>
                             <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
@@ -60,10 +56,11 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="form_group">
-                                    <input class="form_input" type="text" [formControl]="regFormBasic.controls['dob']" mask="39/19/9999" placeholder="DD/MM/YY">
+                                    <input class="form_input" type="text" [textMask]="{mask: dateMask}" formControlName="dob" placeholder="DD/MM/YY">
                                     <span class="form_highlight"></span>
                                     <span class="form_bar"></span>
                                     <label>Date of Birth</label>
+                                    <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.required && myform.submitted">DOB is required</p>
                                 </div>
                             </div>
                             <div class="col-md-7">
@@ -71,118 +68,54 @@
                                     <label>
                                         <strong>Gender</strong>
                                         <label class="gender_single">
-                                            <input type="radio" name="demo"><span></span>M
+                                            <input type="radio" value="M" name="gender" formControlName="gender"><span></span>M
                                         </label>
                                         <label class="gender_single">
-                                            <input type="radio" name="demo"><span></span>F
+                                            <input type="radio" value="F" name="gender" formControlName="gender"><span></span>F
                                         </label>
                                         <label class="gender_single">
-                                            <input type="radio" name="demo"><span></span>O
+                                            <input type="radio" value="O" name="gender" formControlName="gender"><span></span>O
                                         </label>
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="form_group">
-                            <input class="form_input" type="text" [formControl]="regFormBasic.controls['email']">
+                            <input class="form_input" type="text" formControlName="email">
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>Email</label>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.email && regFormBasic.controls['email'].errors?.email ">Email is not valid</p>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.required && myform.submitted">Email is required</p>
                         </div>
                         <div class="form_group">
                             <span id="phone" type="tel"></span>
-                            <input class="form_input" type="text" [formControl]="regFormBasic.controls['number']" required style="padding-left: 40px;">
+                            <input class="form_input" type="text" formControlName="phone" required style="padding-left: 40px;">
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label style="padding-left: 40px;">Phone Number</label>
                         </div>
                         <div class="form_group">
-                            <input class="form_input" type="password" [formControl]="regFormBasic.controls['password']" required>
+                            <input class="form_input" type="password" formControlName="password" required>
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>Password</label>
                         </div>
                         <div class="form_group">
-                            <input class="form_input" type="password" [formControl]="regFormBasic.controls['confirm_password']" required>
+                            <input class="form_input" type="password" formControlName="confirmpassword" required>
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>Confirm Password</label>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.MatchPassword">Password not match</p>
                         </div><br>
                         <div class="text-center">
-                            <a class="btn btn-default btn-sm" [routerLink]="['/reg/profile']" data-toggle="modal" data-target="#otpModal">Sign Up</a>
+                            <app-button [className]="'btn-default btn-sm'" [type]="'submit'">Sign Up</app-button>
                         </div>
                     </form>
                 </div>
             </div>
-            <app-registration-block [rightCom]="rightCom"></app-registration-block>
+            <auth-right-block [rightCom]="rightCom"></auth-right-block>
         </div>
         <!-- //registraion middle container -->
     </div>
 </section>
-
-
-
-
-
-
-<!-- otp popup code -->
-<div class="modal fade" id="otpModal" role="dialog" >
-    <div class="modal-dialog modal-md">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header" style="border: none;">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title text-center"><img src="img/logo_black.png"></h4>
-            </div>
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1 text-center reg_step1_otp">
-                    <h5>Enter the 4 digit OTP that you recieived<br> in your phone or email.</h5>
-                    <p>
-                    <a href="#">Resend OTP</a>
-                    <form [formGroup]="otpForm" (ngSubmit) = "submitOtp(otpForm.value)">
-                        <div class="form_group">
-                            <input class="form_input" type="text" name="otp" [formControl]="otpForm.controls['otp']">
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label>Enter OTP</label>
-                        </div>
-                        <div class="text-center">
-                            <!-- <a class="button_tranparent_red" data-toggle="modal" data-target="#thankyouModal" [disabled]="!otpForm.valid">Validate OTP</a> -->
-                            <button class="button_tranparent_red" data-toggle="modal" data-target="#thankyouModal" [disabled]="!otpForm.valid">Validate OTP</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- //otp popup code -->
-
-<!-- thankyou popup code -->
-<div class="modal fade" id="thankyouModal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header" style="border: none;">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title text-center">
-                    <img src="img/logo_black.png">
-                </h4>
-            </div>
-
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1 text-center reg_thanks">
-                    <h3>Thank you for Signing up.</h3>
-                    <p>Select your interest to get started.<p>
-                    <div class="text-center">
-                        <a class="button_tranparent_red" href="/registration-welcome">Next</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</div>
-<!-- //thankyou popup code -->
-

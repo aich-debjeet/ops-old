@@ -1,0 +1,27 @@
+/* ------------------ Registration process welcome ---------------------  */
+
+.reg_steps_welcome {
+    .welcome_left_section {
+        margin: 30% 18%;
+    }
+    p {
+        font-size: 14px;
+        color: #333333;
+        text-align: center;
+        padding: 15% 0;
+        line-height: 24px;
+    }
+    label {
+        text-align: center;
+        clear: both;
+        width: 100%;
+        cursor: pointer;
+        font-size: 28px;
+        color: #333;
+    }
+
+    h3 {
+        margin-top: 12%
+    }
+}
+

@@ -2,8 +2,27 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../environments/environment';
+import { ArtistFollow, initialArtistFollow } from '../models/auth.model';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
+
+export class Post {
+  title:string;
+  content:string;
+  img:string;
+
+  // Copy constructor.
+  constructor(obj: Object) {
+    this.title = obj['title'];
+    this.content = obj['content'];
+    this.img = obj['img'] || 'test';
+  }
+
+  // New static method.
+  static fromJSONArray(array: Array<Object>): Post[] {
+    return array.map(obj => new Post(obj));
+  }
+}
 
 @Injectable()
 export class AuthService {
@@ -53,9 +72,20 @@ export class AuthService {
             });
     }
 
+    loadArtistType() {
+        return this.http.get(this.apiLink +'/portal/auth/accounttype/individual')
+            .map((data: Response) => data.json());
+    }
+
     userExists(username: string) {
         return this.http.get(this.apiLink +'/portal/auth/'+username+'/username')
             .map((data: Response) => data.json());
+    }
+
+    emailUserExists(email: string) {
+        console.log(email);
+        // return this.http.get(this.apiLink +'/portal/auth/'+email+'/email')
+        //     .map((data: Response) => data.json());
     }
 
     logout() {
@@ -63,4 +93,12 @@ export class AuthService {
         localStorage.removeItem('currentUser');
         this.router.navigate(['/login']);
     }
+
+    getArtistFollow(value) {
+        let headers = new Headers({ 'Content-Type': 'application/json'}); 
+        return this.http.put(this.apiLink +'/portal/searchprofiles', JSON.stringify(value), { headers: headers })
+            .map((data) => data.json());
+    }
+
+    
 }

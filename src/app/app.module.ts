@@ -26,8 +26,10 @@ import { AuthEffect } from './effects/auth.effect';
 
 // Services
 import { AuthService } from './services/auth.service';
+
+import { SharedModule } from './shared/shared.module';
+
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MessageComponent } from './components/message/message.component';
@@ -67,7 +69,6 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
     LoginComponent,
     HomeComponent,
     NavbarComponent,
-    ForgotPasswordComponent,
     ResetPasswordComponent,
     ProfileComponent,
     MessageComponent,
@@ -96,11 +97,12 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
     OpportunitiesComponent,
     ExploreComponent,
     ChannelListComponent,
-    LogoutHomeComponent
+    LogoutHomeComponent,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    SharedModule,
     FormsModule,
     HttpModule,
     StoreModule.provideStore({ loginTags: AuthReducer }),

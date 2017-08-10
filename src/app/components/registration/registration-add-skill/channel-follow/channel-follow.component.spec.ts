@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegistrationBlockComponent } from './registration-block.component';
+import { ChannelFollowComponent } from './channel-follow.component';
 
-describe('RegistrationBlockComponent', () => {
-  let component: RegistrationBlockComponent;
-  let fixture: ComponentFixture<RegistrationBlockComponent>;
+describe('ChannelFollowComponent', () => {
+  let component: ChannelFollowComponent;
+  let fixture: ComponentFixture<ChannelFollowComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegistrationBlockComponent ]
+      declarations: [ ChannelFollowComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegistrationBlockComponent);
+    fixture = TestBed.createComponent(ChannelFollowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

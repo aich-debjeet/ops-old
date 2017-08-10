@@ -1,6 +1,6 @@
 /* form */
-.form_group        { 
-  position:relative; 
+.form_group        {
+  position:relative;
   margin-bottom: 18px;
 }
 .form_input{
@@ -16,14 +16,14 @@
   outline:none;
 }
 label          {
-  color:#c1c1c1; 
+  color:#333333;
   font-size:14px;
   font-weight:normal;
   position:absolute;
   pointer-events:none;
   top:10px;
-  transition:0.2s ease all; 
-  -moz-transition:0.2s ease all; 
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
   -webkit-transition:0.2s ease all;
 }
 
@@ -38,20 +38,20 @@ label          {
   display:block;
   &:before, &:after   {
     content:'';
-    height:2px; 
+    height:2px;
     width:0;
-    bottom:1px; 
+    bottom:1px;
     position:absolute;
-    background: #888; 
-    transition:0.2s ease all; 
-    -moz-transition:0.2s ease all; 
+    background: #888;
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
     -webkit-transition:0.2s ease all;
   }
   &:before {
     left:50%;
   }
   &:after {
-    right:50%; 
+    right:50%;
   }
 }
 /* active state */
@@ -64,20 +64,20 @@ label          {
   display:block;
   &:before, &:after   {
     content:'';
-    height:2px; 
+    height:2px;
     width:0;
-    bottom:1px; 
+    bottom:1px;
     position:absolute;
-    background: $theme_red; 
-    transition:0.2s ease all; 
-    -moz-transition:0.2s ease all; 
+    background: $theme_red;
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
     -webkit-transition:0.2s ease all;
   }
   &:before {
     left:50%;
   }
   &:after {
-    right:50%; 
+    right:50%;
   }
 }
 /* active state */
@@ -116,10 +116,11 @@ $shadow-L3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 .error_alert{
   color: $theme_red;
   font-size: 12px;
+  font-weight: 600;
 }
 .username_error li{
   color: $theme_red;
   display: inline-block;
   font-size: 12px;
-  font-weight: bold; 
+  font-weight: bold;
 }

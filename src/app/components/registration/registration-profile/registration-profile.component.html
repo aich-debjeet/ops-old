@@ -25,54 +25,33 @@
                         </div>
                         <!-- //progress bar -->
                         <div class="row">
-                            <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
+                            <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)" >
                                 <div class="col-md-12">
-                                    <div class="row">
+                                    <div class="row" *ngFor="let artist of artistType.completed; let i=index">
                                         <label class="step2_selection col-md-12">
-                                            <input type="checkbox" value="performing artist" formControlName="artCheckbox1">
+                                            <input type="checkbox" value="{{artist.name}}" (change)="onChange(artist.name, artist.typeName, $event.target.checked)">
                                             <div class="reg_profile_types">
                                                 <div class="reg_step2_box">
-                                                    <h3>Performing artist</h3>
+                                                    <h3>{{artist.name}}</h3>
                                                     <hr>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                                    <p>{{artist.description}}</p>
                                                 </div>
                                             </div>
                                         </label>
                                     </div>
-                                    <div class="row">
-                                        <label class="step2_selection col-md-12">
-                                            <input type="checkbox" value="It Performing Artist" formControlName="artCheckbox2">
-                                            <div class="reg_profile_types">
-                                                <div class="reg_step2_box">
-                                                    <h3>Non Performing artist</h3>
-                                                    <hr>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                                                </div>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="row">
-                                        <label class="step2_selection col-md-12">
-                                            <input type="checkbox" value="Art Lover" formControlName="artCheckbox3">
-                                            <div class="reg_profile_types">
-                                                <div class="reg_step2_box">
-                                                    <h3>Art Lover</h3>
-                                                    <hr>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                                                </div>
-                                            </div>
-                                        </label>
-                                    </div>
+                                    
                                     <div class="row">
                                         <div class="ops_checkbox_lg">
                                             <label class="col-md-12 are_you_student">
-                                                <input type="checkbox" value="Are you study" formControlName="study"><span></span> Are you student?
+                                                <input type="checkbox" value="Are you study" formControlName="is_student"><span></span> Are you student?
                                             </label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <label class="text-center col-md-12">
-                                            <a [routerLink]="['/reg/addskill']" class="btn btn-default btn-sm">Next</a>
+                                            <app-button [className]="'btn-default btn-sm'" [type]="'submit'">Next</app-button>
+                                            <!--<input type="submit" class="btn btn-default">-->
+                                            <!--<a [routerLink]="['/reg/addskill']" class="btn btn-default btn-sm">Next</a>-->
                                         </label>
                                     </div>
                                 </div>
@@ -82,7 +61,7 @@
                     </div>
                 </div>
                 <!-- //left section -->
-                <app-registration-block [rightCom]="rightCom"></app-registration-block>
+                <auth-right-block [rightCom]="rightCom"></auth-right-block>
             </div>
             <!-- //registraion middle container -->
         </div>

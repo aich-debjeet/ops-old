@@ -7,12 +7,12 @@ export class RegValue {
 }
 
 @Component({
-  selector: 'app-registration-block',
-  templateUrl: './registration-block.component.html',
-  styleUrls: ['./registration-block.component.css']
+  selector: 'auth-right-block',
+  templateUrl: './auth-right-block.component.html',
+  styleUrls: ['./auth-right-block.component.scss']
 })
 
-export class RegistrationBlockComponent implements OnInit {
+export class AuthRightBlockComponent implements OnInit {
 
   @Input() rightCom: RegValue;
   constructor() { }
