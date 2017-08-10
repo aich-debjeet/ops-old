@@ -1,137 +1,828 @@
-<!-- <app-navbar></app-navbar>
-
-<div class="container">
-	<button class="btn btn-lg btn-primary" (click)="auth.logout()">Log Out</button>
-</div> -->
-
-<!-- primary navigation -->
-<!-- <app-dashboard-primary-navbar></app-dashboard-primary-navbar> -->
 <app-navigation></app-navigation>
 <!-- primary navigation -->
 
-  <!-- main container -->
-  <div class="container">
+<section>
+    <div class="container">
+        <div class="row home_feed">
+            <!-- left home feed -->
+            <div class="col-md-9 col-sm-9">
+                <div class="row">
+                    <div class="col-md-12 col-md-12 padding-l6">
+                        <div class="quick_access home_quick">
+                            <h2 class="feed-heading">
+                                Quick Access <a href=""><img src="img/svg/ico_options.svg" class="right_options"></a>
+                             </h2>
+                            <ul class="list-inline quick_section">
+                                <a href="">
+                                    <li class="list-inline-item">
+                                        <div class="quick_access_img">
+                                            <img src="img/quick2.jpg">
+                                        </div>
+                                        <div class="quick_access_text">
+                                            <p class="quick_access_text_name">Events</p>
+                                            <p class="quick_access_text_post">10 Post</p>
+                                        </div>
+                                    </li>
+                                </a>
+                                <li class="list-inline-item">
+                                    <div class="quick_access_img">
+                                        <img src="img/quick3.jpg">
+                                    </div>
+                                    <div class="quick_access_text">
+                                        <p class="quick_access_text_name">Opportunity</p>
+                                        <p class="quick_access_text_post">05 Post</p>
+                                    </div>
+                                </li>
+                                <li class="list-inline-item">
+                                    <div class="quick_access_img">
+                                        <img src="img/quick2.jpg">
+                                    </div>
+                                    <div class="quick_access_text">
+                                        <p class="quick_access_text_name">My Media</p>
+                                        <p class="quick_access_text_post">12 Post</p>
+                                    </div>
+                                </li>
+                                <li class="list-inline-item">
+                                    <div class="quick_access_img">
+                                        <img src="img/quick3.jpg">
+                                    </div>
+                                    <div class="quick_access_text">
+                                        <p class="quick_access_text_name">Web Design</p>
+                                        <p class="quick_access_text_post">14 Post</p>
+                                    </div>
+                                </li>
+                                <li class="list-inline-item">
+                                    <div class="quick_access_img">
+                                        <img src="img/quick2.jpg">
+                                    </div>
+                                    <div class="quick_access_text">
+                                        <p class="quick_access_text_name">UI/UX</p>
+                                        <p class="quick_access_text_post">13 Post</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- artist to follow -->
+                <!-- <div class="row home_artist_follow">
+                    <div class="col-md-12 col-sm-12 padding-l6">
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Artist to follow <span><a href="">See More</a></span>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="panel20 text-center">
+                                        <figure class="reg_skills_img reg-avatar">
+                                            <img src="img/artist.jpg">
+                                        </figure>
+                                        <h3>Mike Creative Mint</h3>
+                                        <p>Visual Art</p>
+                                        <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                            <span class="btn-label-follow">
+                                          <i class="fa fa-plus" aria-hidden="true"></i>
+                                      </span> Follow
+                                        </button>
+                                    </div>
+                                    <div class="panel20 text-center">
+                                        <figure class="reg_skills_img reg-avatar">
+                                            <img src="img/opro.png">
+                                        </figure>
+                                        <h3>Opro Creative</h3>
+                                        <p>Visual Art</p>
+                                        <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                            <span class="btn-label-follow">
+                                          <i class="fa fa-plus" aria-hidden="true"></i>
+                                      </span> Follow
+                                        </button>
+                                    </div>
+                                    <div class="panel20 text-center">
+                                        <figure class="reg_skills_img reg-avatar">
+                                            <img src="img/artist.jpg">
+                                        </figure>
+                                        <h3>Mike Creative Mint</h3>
+                                        <p>Visual Art</p>
+                                        <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                            <span class="btn-label-follow">
+                                          <i class="fa fa-plus" aria-hidden="true"></i>
+                                      </span> Follow
+                                        </button>
+                                    </div>
+                                    <div class="panel20 text-center">
+                                        <figure class="reg_skills_img reg-avatar">
+                                            <img src="img/avatar2.jpg">
+                                        </figure>
+                                        <h3>Mike Mint</h3>
+                                        <p>Visual Art</p>
+                                        <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                            <span class="btn-label-follow">
+                                          <i class="fa fa-plus" aria-hidden="true"></i>
+                                      </span> Follow
+                                        </button>
+                                    </div>
+                                    <div class="panel20 text-center">
+                                        <figure class="reg_skills_img reg-avatar">
+                                            <img src="img/artist.jpg">
+                                        </figure>
+                                        <h3>Mike Creative Mint</h3>
+                                        <p>Visual Art</p>
+                                        <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                            <span class="btn-label-follow">
+                                          <i class="fa fa-plus" aria-hidden="true"></i>
+                                      </span> Follow
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
 
-		<hr>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="home_tabs">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#home_feed">feed</a></li>
+                                <li><a data-toggle="tab" href="#home_channel">Channel</a></li>
+                                <li><a data-toggle="tab" href="#home_spotfeed">Spotfeed</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <!-- home feed -->
+                                <div id="home_feed" class="tab-pane fade in active">
+                                    <div class="row pro_channel2">
+                                        <!-- first column -->
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <!-- feed block -->
+                                                <div class="col-md-12 col-sm-6 pro_channel_card">
+                                                    <div class="col-md-12 col-sm-12 feed_block">
+                                                        <div class="row">
+                                                            <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                                <figure class="feed-avatar">
+                                                                    <img src="img/art_color.jpg" class="img-responsive" />
+                                                                </figure>
+                                                                <div class="feed_article"><img src="img/svg/ico_article.svg"></div>
+                                                            </div>
+                                                            <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                                <div class="pro_channel_name">
+                                                                    <h3 class="feed-heading float-left">When The Morning Dawns</h3>
+                                                                    <span><img class="float-right" src="img/svg/ico_options.svg"></span>
+                                                                </div>
+                                                                <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
+                                                                <div class="pro_channel-thumb">
+                                                                    <img src="img/avatar.jpg">
+                                                                    <p>James Sims</p>
+                                                                    <div class="small-txt">Cafe and Colors</div>
+                                                                </div>
+                                                                <div class="pro_channel_count">
+                                                                    <span><img src="img/svg/ico_lik.svg"><div class="like_count">705</div></span>
+                                                                    <span><img src="img/svg/ico_comment.svg"> <div class="like_count">12</div></span>
+                                                                    <div class="pull-right">
+                                                                        <span><img src="img/svg/ico_addtochannel.svg"></span>
+                                                                        <span><img src="img/svg/ico_share-02.svg"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- // feed block -->
+                                                <!-- feed block -->
+                                                <div class="col-md-12 col-sm-6 pro_channel_card">
+                                                    <div class="col-md-12 col-sm-12 feed_block">
+                                                        <div class="row">
+                                                            <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                                <figure class="feed-avatar">
+                                                                    <img src="img/chri.jpg" class="img-responsive" />
+                                                                </figure>
+                                                                <div class="feed_article"><img src="img/svg/ico_video.svg"></div>
+                                                            </div>
+                                                            <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                                <div class="pro_channel_name">
+                                                                    <h3 class="feed-heading float-left">When The Morning Dawns</h3>
+                                                                    <span><img class="float-right" src="img/svg/ico_options.svg"></span>
+                                                                </div>
+                                                                <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
+                                                                <div class="pro_channel-thumb">
+                                                                    <img src="img/avatar.jpg">
+                                                                    <p>James Sims</p>
+                                                                    <div class="small-txt">Cafe and Colors</div>
+                                                                </div>
+                                                                <div class="pro_channel_count">
+                                                                    <span><img src="img/svg/ico_lik.svg"> <div class="like_count">855</div></span>
+                                                                    <span><img src="img/svg/ico_comment.svg"> <div class="like_count">105</div></span>
+                                                                    <div class="pull-right">
+                                                                        <span><img src="img/svg/ico_addtochannel.svg"></span>
+                                                                        <span><img src="img/svg/ico_share-02.svg"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- // feed block -->
+                                            </div>
+                                        </div>
+                                        <!-- //first column -->
+                                        <!-- first column -->
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <!-- feed block -->
+                                                <div class="col-md-12 col-sm-6 pro_channel_card">
+                                                    <div class="col-md-12 col-sm-12 feed_block">
+                                                        <div class="row">
+                                                            <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                                <figure class="feed-avatar">
+                                                                    <img src="img/pro_block3.jpg" class="img-responsive" />
+                                                                </figure>
+                                                                <div class="feed_article"><img src="img/svg/ico_audio.svg"></div>
+                                                            </div>
+                                                            <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                                <div class="pro_channel_name">
+                                                                    <h3 class="feed-heading float-left">When The Morning Dawns</h3>
+                                                                    <span><img class="float-right" src="img/svg/ico_options.svg"></span>
+                                                                </div>
+                                                                <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
+                                                                <div class="pro_channel-thumb">
+                                                                    <img src="img/avatar.jpg">
+                                                                    <p>James Sims</p>
+                                                                    <div class="small-txt">Cafe and Colors</div>
+                                                                </div>
+                                                                <div class="pro_channel_count">
+                                                                    <span><img src="img/svg/ico_lik.svg"> <div class="like_count">963</div></span>
+                                                                    <span><img src="img/svg/ico_comment.svg"> <div class="like_count">75</div></span>
+                                                                    <div class="pull-right">
+                                                                        <span><img src="img/svg/ico_addtochannel.svg"></span>
+                                                                        <span><img src="img/svg/ico_share-02.svg"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- // feed block -->
+                                                <!-- feed block -->
+                                                <div class="col-md-12 col-sm-6 pro_channel_card">
+                                                    <div class="col-md-12 col-sm-12 feed_block">
+                                                        <div class="row">
+                                                            <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                                <figure class="feed-avatar">
+                                                                    <img src="img/picse.jpg" class="img-responsive" />
+                                                                </figure>
+                                                                <div class="feed_article"><img src="img/svg/ico_audio.svg"></div>
+                                                            </div>
+                                                            <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                                <div class="pro_channel_name">
+                                                                    <h3 class="feed-heading float-left">When The Morning Dawns</h3>
+                                                                    <span><img class="float-right" src="img/svg/ico_options.svg"></span>
+                                                                </div>
+                                                                <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
+                                                                <div class="pro_channel-thumb">
+                                                                    <img src="img/avatar.jpg">
+                                                                    <p>James Sims</p>
+                                                                    <div class="small-txt">Cafe and Colors</div>
+                                                                </div>
+                                                                <div class="pro_channel_count">
+                                                                    <span><img src="img/svg/ico_lik.svg"> <div class="like_count">75</div></span>
+                                                                    <span><img src="img/svg/ico_comment.svg"> <div class="like_count">70</div></span>
+                                                                    <div class="pull-right">
+                                                                        <span><img src="img/svg/ico_addtochannel.svg"></span>
+                                                                        <span><img src="img/svg/ico_share-02.svg"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- // feed block -->
+                                            </div>
+                                        </div>
+                                        <!-- //first column -->
+                                        <!-- first column -->
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <!-- feed block -->
+                                                <div class="col-md-12 col-sm-6 pro_channel_card">
+                                                    <div class="col-md-12 col-sm-12 feed_block">
+                                                        <div class="row">
+                                                            <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                                <figure class="feed-avatar">
+                                                                    <img src="img/pro_block.jpg" class="img-responsive" />
+                                                                </figure>
+                                                                <div class="feed_article"><img src="img/svg/ico_audio.svg"></div>
+                                                            </div>
+                                                            <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                                <div class="pro_channel_name">
+                                                                    <h3 class="feed-heading float-left">When The Morning Dawns</h3>
+                                                                    <span><img class="float-right" src="img/svg/ico_options.svg"></span>
+                                                                </div>
+                                                                <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
+                                                                <div class="pro_channel-thumb">
+                                                                    <img src="img/avatar.jpg">
+                                                                    <p>James Sims</p>
+                                                                    <div class="small-txt">Cafe and Colors</div>
+                                                                </div>
+                                                                <div class="pro_channel_count">
+                                                                    <span><img src="img/svg/ico_lik.svg"> <div class="like_count">55</div></span>
+                                                                    <span><img src="img/svg/ico_comment.svg"> <div class="like_count">15</div></span>
+                                                                    <div class="pull-right">
+                                                                        <span><img src="img/svg/ico_addtochannel.svg"></span>
+                                                                        <span><img src="img/svg/ico_share-02.svg"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- // feed block -->
+                                            </div>
+                                        </div>
+                                        <!-- //first column -->
 
-    <div class="row">
+                                        <!-- feed block -->
+                                        <div class="col-md-4 col-sm-6 pro_channel_card">
+                                            <div class="col-md-12 col-sm-12 feed_block">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                        <figure class="feed-avatar">
+                                                            <img src="img/quick3.jpg" class="img-responsive" />
+                                                        </figure>
+                                                        <div class="feed_article"><img src="img/svg/ico_audio.svg"></div>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                        <div class="pro_channel_name">
+                                                            <h3 class="feed-heading float-left">When The Morning Dawns</h3>
+                                                            <span><img class="float-right" src="img/svg/ico_options.svg"></span>
+                                                        </div>
+                                                        <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
+                                                        <div class="pro_channel-thumb">
+                                                            <img src="img/avatar.jpg">
+                                                            <p>James Sims</p>
+                                                            <div class="small-txt">Cafe and Colors</div>
+                                                        </div>
+                                                        <div class="pro_channel_count">
+                                                            <span><img src="img/svg/ico_lik.svg"> <div class="like_count">45</div></span>
+                                                            <span><img src="img/svg/ico_comment.svg"> <div class="like_count">93</div></span>
+                                                            <div class="pull-right">
+                                                                <span><img src="img/svg/ico_addtochannel.svg"></span>
+                                                                <span><img src="img/svg/ico_share-02.svg"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- // feed block -->
 
-      <div class="col-sm-9">
+                                    </div>
+                                </div>
+                                <!-- // home feed -->
+                                <!-- home channel -->
+                                <div id="home_channel" class="tab-pane fade">
+                                    <div class="row pro_channel2">
+                                        <!-- channel block -->
+                                        <div class="col-md-4 col-sm-6 pro_channel_card">
+                                            <div class="col-md-12 col-sm-12 pro_channel_block">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                        <figure class="channel-avatar-full">
+                                                            <img src="img/pro_block.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 pro_channel_img2">
+                                                        <figure class="channel-avatar-helf">
+                                                            <img src="img/pro_block2.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 pro_channel_img3">
+                                                        <figure class="channel-avatar-helf">
+                                                            <img src="img/pro_block3.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                        <div class="pro_channel_name">
+                                                            <h3 class="feed-heading float-left">Motorhome Or Trailer</h3>
+                                                            <span><img class="float-right" src="img/svg/ico_options.svg"></span>
+                                                        </div>
+                                                        <div class="pro_channel-thumb">
+                                                            <img src="img/avatar.jpg">
+                                                            <p>Tobias Van Schneider</p>
+                                                        </div>
+                                                        <div class="pro_channel_count">
+                                                            <span><img src="img/svg/ico_follower.svg"> 705</span>
+                                                            <span><img src="img/svg/ico_follower.svg"> 705</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- // channel block -->
+                                        <!-- channel block -->
+                                        <div class="col-md-4 col-sm-6 pro_channel_card">
+                                            <div class="col-md-12 col-sm-12 pro_channel_block">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                        <figure class="channel-avatar-full">
+                                                            <img src="img/pro_block.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 pro_channel_img2">
+                                                        <figure class="channel-avatar-helf">
+                                                            <img src="img/pro_block2.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 pro_channel_img3">
+                                                        <figure class="channel-avatar-helf">
+                                                            <img src="img/pro_block3.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                        <div class="pro_channel_name">
+                                                            <h3 class="feed-heading float-left">How to Fly A Private Jet on Your Next Trip</h3>
+                                                            <span><img class="float-right" src="img/svg/ico_options.svg"></span>
+                                                        </div>
+                                                        <div class="pro_channel-thumb">
+                                                            <img src="img/avatar.jpg">
+                                                            <p>Tobias Van Schneider</p>
+                                                        </div>
+                                                        <div class="pro_channel_count">
+                                                            <span><img src="img/svg/ico_follower.svg"> 705</span>
+                                                            <span><img src="img/svg/ico_follower.svg"> 705</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- // channel block -->
+                                        <!-- channel block -->
+                                        <div class="col-md-4 col-sm-6 pro_channel_card">
+                                            <div class="col-md-12 col-sm-12 pro_channel_block">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                        <figure class="channel-avatar-full">
+                                                            <img src="img/pro_block.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 pro_channel_img2">
+                                                        <figure class="channel-avatar-helf">
+                                                            <img src="img/pro_block2.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 pro_channel_img3">
+                                                        <figure class="channel-avatar-helf">
+                                                            <img src="img/pro_block3.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                        <div class="pro_channel_name">
+                                                            <h3 class="feed-heading float-left">Motorhome Or Trailer</h3>
+                                                            <span><img class="float-right" src="img/svg/ico_options.svg"></span>
+                                                        </div>
+                                                        <div class="pro_channel-thumb">
+                                                            <img src="img/avatar.jpg">
+                                                            <p>Tobias Van Schneider</p>
+                                                        </div>
+                                                        <div class="pro_channel_count">
+                                                            <span><img src="img/svg/ico_follower.svg"> 705</span>
+                                                            <span><img src="img/svg/ico_follower.svg"> 705</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- // channel block -->
 
-        <div class="row">
+                                        <!-- channel block -->
+                                        <div class="col-md-4 col-sm-6 pro_channel_card">
+                                            <div class="col-md-12 col-sm-12 pro_channel_block">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                        <figure class="channel-avatar-full">
+                                                            <img src="img/pro_block.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 pro_channel_img2">
+                                                        <figure class="channel-avatar-helf">
+                                                            <img src="img/pro_block2.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 pro_channel_img3">
+                                                        <figure class="channel-avatar-helf">
+                                                            <img src="img/pro_block3.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                        <div class="pro_channel_name">
+                                                            <h3 class="feed-heading float-left">Motorhome Or Trailer</h3>
+                                                            <span><img class="float-right" src="img/svg/ico_options.svg"></span>
+                                                        </div>
+                                                        <div class="pro_channel-thumb">
+                                                            <img src="img/avatar.jpg">
+                                                            <p>Tobias Van Schneider</p>
+                                                        </div>
+                                                        <div class="pro_channel_count">
+                                                            <span><img src="img/svg/ico_follower.svg"> 705</span>
+                                                            <span><img src="img/svg/ico_follower.svg"> 705</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- // channel block -->
+                                        <!-- channel block -->
+                                        <div class="col-md-4 col-sm-6 pro_channel_card">
+                                            <div class="col-md-12 col-sm-12 pro_channel_block">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                        <figure class="channel-avatar-full">
+                                                            <img src="img/pro_block.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 pro_channel_img2">
+                                                        <figure class="channel-avatar-helf">
+                                                            <img src="img/pro_block2.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 pro_channel_img3">
+                                                        <figure class="channel-avatar-helf">
+                                                            <img src="img/pro_block3.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                        <div class="pro_channel_name">
+                                                            <h3 class="feed-heading float-left">Virginia Travel For Kids </h3>
+                                                            <span><img class="float-right" src="img/svg/ico_options.svg"></span>
+                                                        </div>
+                                                        <div class="pro_channel-thumb">
+                                                            <img src="img/avatar.jpg">
+                                                            <p>Tobias Van Schneider</p>
+                                                        </div>
+                                                        <div class="pro_channel_count">
+                                                            <span><img src="img/svg/ico_follower.svg"> 705</span>
+                                                            <span><img src="img/svg/ico_follower.svg"> 705</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- // channel block -->
+                                        <!-- channel block -->
+                                        <div class="col-md-4 col-sm-6 pro_channel_card">
+                                            <div class="col-md-12 pro_channel_block">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                        <figure class="channel-avatar-full">
+                                                            <img src="img/pro_block.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 pro_channel_img2">
+                                                        <figure class="channel-avatar-helf">
+                                                            <img src="img/pro_block2.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6 pro_channel_img3">
+                                                        <figure class="channel-avatar-helf">
+                                                            <img src="img/pro_block3.jpg" />
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                        <div class="pro_channel_name">
+                                                            <h3 class="feed-heading float-left">Travelagent India</h3>
+                                                            <span><img class="float-right" src="img/svg/ico_options.svg"></span>
+                                                        </div>
+                                                        <div class="pro_channel-thumb">
+                                                            <img src="img/avatar.jpg">
+                                                            <p>Tobias Van Schneider</p>
+                                                        </div>
+                                                        <div class="pro_channel_count">
+                                                            <span><img src="img/svg/ico_follower.svg"> 705</span>
+                                                            <span><img src="img/svg/ico_follower.svg"> 705</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- // channel block -->
+                                    </div>
+                                </div>
+                                <!-- // home channel -->
+                                <!-- home spotfeed -->
+                                <div id="home_spotfeed" class="tab-pane fade">
+                                    <!-- spotfeed section -->
+                                    <div class="row pro_channel2 ops_spotfeed">
+                                        <div class="col-md-4 col-sm-6 pro_channel_card">
+                                            <div class="col-md-12 col-sm-12 pro_channel_block">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                        <figure class="avatar_spotfeed">
+                                                            <img src="img/quick3.jpg">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                        <div class="pro_channel_name">
+                                                            <div class="ops_heading">Hypnosis Myth Reality</div>
+                                                            <div class="ops_subheading">Living in the now use it to Enrich your life</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6 pro_channel_card">
+                                            <div class="col-md-12 col-sm-12 pro_channel_block">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                        <figure class="avatar_spotfeed">
+                                                            <img src="img/quick2.jpg">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                        <div class="pro_channel_name">
+                                                            <div class="ops_heading">Its A Habbit</div>
+                                                            <div class="ops_subheading">Fire Up Your Motivation</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6 pro_channel_card">
+                                            <div class="col-md-12 col-sm-12 pro_channel_block">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                        <figure class="avatar_spotfeed">
+                                                            <img src="img/quick3.jpg">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                        <div class="pro_channel_name">
+                                                            <div class="ops_heading">Do Your Think Motivational</div>
+                                                            <div class="ops_subheading">Effective Ways to quit</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6 pro_channel_card">
+                                            <div class="col-md-12 col-sm-12 pro_channel_block">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                        <figure class="avatar_spotfeed">
+                                                            <img src="img/quick2.jpg">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                        <div class="pro_channel_name">
+                                                            <div class="ops_heading">Motivate Yourself</div>
+                                                            <div class="ops_subheading">Fire Up Your Motivation</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6 pro_channel_card">
+                                            <div class="col-md-12 col-sm-12 pro_channel_block">
+                                                <div class="row">
+                                                    <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                        <figure class="avatar_spotfeed">
+                                                            <img src="img/quick3.jpg">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                        <div class="pro_channel_name">
+                                                            <div class="ops_heading">Harness The Power of Words In</div>
+                                                            <div class="ops_subheading">Fire Up Your Motivation</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- //spotfeed section -->
+                                </div>
+                                <!-- //home spotfeed -->
+                            </div>
 
-          <div class="col-sm-12">
-
-            <!-- quick access widget -->
-            <app-quick-access></app-quick-access>
-            <!-- quick access widget -->
-
-          </div>
-
-        </div>
-
-        <hr>
-
-        <div class="row">
-
-          <div class="col-sm-12">
-
-            <div class="row">
-              <div class="col-sm-12">
-                <p><strong>channels</strong></p>
-              </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <!-- //left home feed -->
+            <!-- right home feed -->
+            <div class="col-md-3 col-sm-3">
+                <div class="row">
+                    <!-- communities -->
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                COMMUNITIES <span><a href="">See More</a></span>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row sm_panel_body">
+                                    <div class="col-md-4 col-sm-12 sm_panel_left">
+                                        <figure class="avatar_community2">
+                                            <img src="img/event.jpg" class="img-responsive">
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-8 col-sm-12 sm_panel_right">
+                                        <h3>UI Designer Club, Bangalore</h3>
+                                        <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                            <span class="btn-label-follow">
+                                          <i class="fa fa-plus" aria-hidden="true"></i>
+                                      </span> JOIN
+                                        </button>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row sm_panel_body">
+                                    <div class="col-md-4 col-sm-12 sm_panel_left">
+                                        <figure class="avatar_community2">
+                                            <img src="img/event.jpg" class="img-responsive">
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-8 col-sm-12 sm_panel_right">
+                                        <h3>Color and Font Future Design</h3>
+                                        <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                            <span class="btn-label-follow">
+                                          <i class="fa fa-plus" aria-hidden="true"></i>
+                                      </span> JOIN
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
 
-            <hr>
-
-            <div class="row">
-
-              <div class="col-sm-4" *ngFor="let card of cards; let i = index;" >
-
-                <div class="card" >
-
-                  <div class="row">
-                    <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                    <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-                  </div>
-
-                  <div class="card-block">
-                    <h4 class="card-title"><strong>#{{ i }} {{ card.title }}</strong></h4>
-                    <p class="card-text">{{ card.descirption }}</p>
-                  </div>
-
-                  <div class="card-block">
-                    <a href="{{ card.linkRight }}" class="card-link">Card link</a>
-                    <a href="{{ card.linkRight }}" class="card-link">Another link</a>
-                  </div>
+                    <!-- nearest event -->
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Nearest Events <span><a href="">See More</a></span>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row sm_panel_body">
+                                    <div class="col-md-12 padding_012">
+                                        <figure class="avatar_near_event">
+                                            <img src="img/art_color.jpg" class="img-responsive">
+                                        </figure>
+                                        <h3 class="ops_heading">Dj Night BY DJ Khaled</h3>
+                                        <p class="ops_subheading">12, Jul, 2017</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row sm_panel_body">
+                                    <div class="col-md-12 padding_012">
+                                        <figure class="avatar_near_event">
+                                            <img src="img/art_color.jpg" class="img-responsive">
+                                        </figure>
+                                        <h3 class="ops_heading">Dj Night BY DJ Khaled</h3>
+                                        <p class="ops_subheading">12, Jul, 2017</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- opportunities -->
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                opportunities <span><a href="">See More</a></span>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row sm_panel_body">
+                                    <div class="col-md-4 sm_panel_left">
+                                        <figure class="avatar_community2">
+                                            <img src="img/event.jpg" class="img-responsive">
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-8 sm_panel_right">
+                                        <h3>Senior Art Designer</h3>
+                                        <p class="ops_subheading">Flypay</p>
+                                        <button type="button" class="btn btn-default btn-xs">APPLY</button>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row sm_panel_body">
+                                    <div class="col-md-4 sm_panel_left">
+                                        <figure class="avatar_community2">
+                                            <img src="img/event.jpg" class="img-responsive">
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-8 sm_panel_right">
+                                        <h3>UX/UI Designer</h3>
+                                        <p class="ops_subheading">Headout</p>
+                                        <button type="button" class="btn btn-default btn-xs">APPLY</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
-
-              </div>
-
             </div>
-
-          </div>
-
+            <!-- //right home feed -->
         </div>
-
-      </div>
-
-			<div class="col-sm-3">
-
-        <div class="row">
-
-          <!-- communities widget -->
-          <app-dashboard-widget-communities></app-dashboard-widget-communities>
-          <!-- communities widget -->
-
-        </div>
-
-        <hr>
-
-        <div class="row">
-
-          <!-- popular artists -->
-					<app-popular-artists></app-popular-artists>
-          <!-- popular artists -->
-
-        </div>
-
-        <hr>
-
-        <div class="row">
-
-          <!-- nearest events -->
-          <app-nearest-events></app-nearest-events>
-          <!-- nearest events -->
-
-        </div>
-
-        <hr>
-
-        <div class="row">
-
-          <!-- opportunities -->
-          <app-opportunities></app-opportunities>
-          <!-- opportunities -->
-
-        </div>
-
-        <hr>
-
-      </div>
-
     </div>
-
-    <!-- temp buttons -->
-    <button (click)="getChannels()" >load more</button>
-    <button (click)="pinChannel('k-5982154b-7c72-457f-914f-92d8484f0384')" >pin channel</button>
-    <button (click)="unpinChannel('k-5982154b-7c72-457f-914f-92d8484f0384')" >unpin channel</button>
-    <!-- temp buttons -->
-
-  </div>
-  <!-- main container -->
+</section>

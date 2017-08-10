@@ -13,7 +13,6 @@ import { AuthGuard } from './guard/auth.guard';
 // components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
 
 // Routes
 import { routes } from './app.routing';
@@ -36,7 +35,6 @@ import { AuthService } from './services/auth.service';
 import { SharedModule } from './shared/shared.module';
 
 import { ApiService } from './services/api.service';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MessageComponent } from './components/message/message.component';
@@ -58,8 +56,6 @@ import { DashboardWidgetEventsComponent } from './components/dashboard/dashboard
 import { DashboardWidgetProjectsComponent } from './components/dashboard/dashboard-widget-projects/dashboard-widget-projects.component';
 import { DashboardWidgetCommunitiesComponent } from './components/dashboard/dashboard-widget-communities/dashboard-widget-communities.component';
 import { DashboardWidgetOpportunitiesComponent } from './components/dashboard/dashboard-widget-opportunities/dashboard-widget-opportunities.component';
-import { NavigationComponent } from './shared/navigation/navigation.component';
-import { QuickAccessComponent } from './shared/quick-access/quick-access.component';
 import { PopularArtistsComponent } from './shared/popular-artists/popular-artists.component';
 import { NearestEventsComponent } from './shared/nearest-events/nearest-events.component';
 import { OpportunitiesComponent } from './shared/opportunities/opportunities.component';
@@ -74,8 +70,6 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent,
-    NavbarComponent,
     ResetPasswordComponent,
     ProfileComponent,
     MessageComponent,
@@ -97,8 +91,6 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
     DashboardWidgetProjectsComponent,
     DashboardWidgetCommunitiesComponent,
     DashboardWidgetOpportunitiesComponent,
-    NavigationComponent,
-    QuickAccessComponent,
     PopularArtistsComponent,
     NearestEventsComponent,
     OpportunitiesComponent,
