@@ -11,7 +11,7 @@ export class ApiService {
   private apiLink: string = environment.API_ENDPOINT;
 
   // temp access token
-  accessToken: string = "Bearer yf_52170ae2-1af2-4f44-9755-925f59156225";
+  accessToken: string = "Bearer rf_6941df37-273d-47ee-a79f-48f9024b524b";
 
   constructor(private http: Http, private router: Router) { }
 

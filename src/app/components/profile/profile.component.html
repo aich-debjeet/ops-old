@@ -1,10 +1,10 @@
 <section>
-   <div class="prohead">
+   <div class="prohead" [ngStyle]="{'background': 'url(' + userProfile.completed.coverImage + ')'}" >
    </div>
    <div class="container pro-block">
       <div class="row">
          <div class="col-md-6 pro__img">
-            <img src="img/avatar.jpg" class="img-responsive img-circle">
+            <img src="http://d206s58i653k1q.cloudfront.net/{{ userProfile.completed.profileImage }}" class="img-responsive img-circle">
             <div class="pro__name">
                <h2>{{ userProfile.completed.name }}</h2>
                <p>@{{ userProfile.completed.extra.username }}</p>
@@ -32,13 +32,13 @@
          <div class="col-md-3">
             <ul class="list-inline pro_nav_icon">
                <li class="list-line-item">
-                  <a href="#"><img src="img/svg/ico_options.svg"></a>
+                  <a href="#"><img src="/assets/img/svg/ico_options.svg"></a>
                </li>
                <li class="list-line-item">
-                  <a href="#"><img src="img/svg/ico_share.svg"></a>
+                  <a href="#"><img src="/assets/img/svg/ico_share.svg"></a>
                </li>
                <li class="list-line-item">
-                  <a href="#"><img src="img/svg/ico_message.svg"></a>
+                  <a href="#"><img src="/assets/img/svg/ico_message.svg"></a>
                </li>
             </ul>
          </div>
@@ -112,7 +112,7 @@
                   </div>
                   <div class="row attend_cont">
                      <div class="col-md-4">
-                        <img src="img/event.jpg" class="img-responsive">
+                        <img src="/assets/img/event.jpg" class="img-responsive">
                      </div>
                      <div class="col-md-8">
                         <h3 class="feed-heading">DJ Night By DJ Tiesto</h3>
@@ -128,7 +128,7 @@
                   </div>
                   <div class="row attend_cont">
                      <div class="col-md-4">
-                        <img src="img/event.jpg" class="img-responsive">
+                        <img src="/assets/img/event.jpg" class="img-responsive">
                      </div>
                      <div class="col-md-8">
                         <h3 class="feed-heading">Semplice- Designers portfolio system</h3>
@@ -143,15 +143,15 @@
                   </div>
                   <div class="row attend_cont">
                      <div class="col-md-4">
-                        <img src="img/event.jpg" class="img-responsive">
+                        <img src="/assets/img/event.jpg" class="img-responsive">
                      </div>
                      <div class="col-md-8">
                         <h3 class="feed-heading">DJ Night By DJ Tiesto</h3>
                         <h4 class="feed-heading">12, JUL</h4>
                         <div class="feed_thumb">
-                           <span class="feedfirst_thumb"><img src="img/opro.png" class="img-responsive"></span>
-                           <span class="feedsecond_thumb"><img src="img/avatar2.jpg" class="img-responsive"></span>
-                           <span class="feedthird_thumb"><img src="img/avatar.jpg" class="img-responsive"></span>
+                           <span class="feedfirst_thumb"><img src="/assets/img/opro.png" class="img-responsive"></span>
+                           <span class="feedsecond_thumb"><img src="/assets/img/avatar2.jpg" class="img-responsive"></span>
+                           <span class="feedthird_thumb"><img src="/assets/img/avatar.jpg" class="img-responsive"></span>
                         </div>
                         <p class="feed-sub-heading">+ 23 Members</p>
                      </div>
@@ -171,7 +171,7 @@
                      <ul class="list-inline">
                         <li class="list-inline-item">
                            <div class="quick_access_img">
-                              <img src="img/quick2.jpg">
+                              <img src="/assets/img/quick2.jpg">
                            </div>
                            <div class="quick_access_text">
                               <p class="quick_access_text_name">Events</p>
@@ -180,7 +180,7 @@
                         </li>
                         <li class="list-inline-item">
                            <div class="quick_access_img">
-                              <img src="img/quick3.jpg">
+                              <img src="/assets/img/quick3.jpg">
                            </div>
                            <div class="quick_access_text">
                               <p class="quick_access_text_name">Opportunity</p>
@@ -189,7 +189,7 @@
                         </li>
                         <li class="list-inline-item">
                            <div class="quick_access_img">
-                              <img src="img/quick2.jpg">
+                              <img src="/assets/img/quick2.jpg">
                            </div>
                            <div class="quick_access_text">
                               <p class="quick_access_text_name">My Media</p>
@@ -198,7 +198,7 @@
                         </li>
                         <li class="list-inline-item">
                            <div class="quick_access_img">
-                              <img src="img/quick3.jpg">
+                              <img src="/assets/img/quick3.jpg">
                            </div>
                            <div class="quick_access_text">
                               <p class="quick_access_text_name">Web Design</p>
@@ -207,7 +207,7 @@
                         </li>
                         <li class="list-inline-item">
                            <div class="quick_access_img">
-                              <img src="img/quick2.jpg">
+                              <img src="/assets/img/quick2.jpg">
                            </div>
                            <div class="quick_access_text">
                               <p class="quick_access_text_name">UI/UX</p>
@@ -228,254 +228,36 @@
                      </ul>
                      <div class="row pro_channel2">
                         <!-- channel block -->
-                        <div class="col-md-4 pro_channel_card">
+                        <div class="col-md-4 pro_channel_card" *ngFor="let media of userMedia" >
                            <div class="col-md-12 pro_channel_block">
                               <div class="row">
                                  <div class="col-md-12 pro_channel_img1">
-                                    <img src="img/pro_block.jpg" class="img-responsive">
+                                    <img src="/assets/img/pro_block.jpg" class="img-responsive">
                                  </div>
                                  <div class="col-md-6 pro_channel_img2">
-                                    <img src="img/pro_block2.jpg" class="img-responsive">
+                                    <img src="/assets/img/pro_block2.jpg" class="img-responsive">
                                  </div>
                                  <div class="col-md-6 pro_channel_img3">
-                                    <img src="img/pro_block3.jpg" class="img-responsive">
+                                    <img src="/assets/img/pro_block3.jpg" class="img-responsive">
                                  </div>
                                  <div class="col-md-12 pro_channel_cont">
                                     <div class="pro_channel_name">
-                                       <h3 class="feed-heading float-left">Motorhome Or Trailer</h3>
-                                       <span><img class="float-right" src="img/svg/ico_options.svg"></span>
+                                       <h3 class="feed-heading float-left">{{ media.spotfeedName }}</h3>
+                                       <span><img class="float-right" src="/assets/img/svg/ico_options.svg"></span>
                                     </div>
                                     <div class="pro_channel-thumb">
-                                       <img src="img/avatar.jpg">
-                                       <p>Tobias Van Schneider</p>
+                                       <img src="{{ media.ownerImage }}">
+                                       <p>{{ media.ownerName }}</p>
                                     </div>
                                     <div class="pro_channel_count">
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
+                                       <span><img src="/assets/img/svg/ico_follower.svg"> {{ media.followersCount }}</span>
+                                       <span><img src="/assets/img/svg/ico_follower.svg"> {{ media.mediaCount }}</span>
                                     </div>
                                  </div>
                               </div>
                            </div>
                         </div>
                         <!-- // channel block -->
-                        <!-- channel block -->
-                        <div class="col-md-4 pro_channel_card">
-                           <div class="col-md-12 pro_channel_block">
-                              <div class="row">
-                                 <div class="col-md-12 pro_channel_img1">
-                                    <img src="img/pro_block.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-6 pro_channel_img2">
-                                    <img src="img/pro_block2.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-6 pro_channel_img3">
-                                    <img src="img/pro_block3.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-12 pro_channel_cont">
-                                    <div class="pro_channel_name">
-                                       <h3 class="feed-heading float-left">Motorhome Or Trailer</h3>
-                                       <span><img class="float-right" src="img/svg/ico_options.svg"></span>
-                                    </div>
-                                    <div class="pro_channel-thumb">
-                                       <img src="img/avatar.jpg">
-                                       <p>Tobias Van Schneider</p>
-                                    </div>
-                                    <div class="pro_channel_count">
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <!-- // channel block -->
-                        <!-- channel block -->
-                        <div class="col-md-4 pro_channel_card">
-                           <div class="col-md-12 pro_channel_block">
-                              <div class="row">
-                                 <div class="col-md-12 pro_channel_img1">
-                                    <img src="img/pro_block.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-6 pro_channel_img2">
-                                    <img src="img/pro_block2.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-6 pro_channel_img3">
-                                    <img src="img/pro_block3.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-12 pro_channel_cont">
-                                    <div class="pro_channel_name">
-                                       <h3 class="feed-heading float-left">Motorhome Or Trailer</h3>
-                                       <span><img class="float-right" src="img/svg/ico_options.svg"></span>
-                                    </div>
-                                    <div class="pro_channel-thumb">
-                                       <img src="img/avatar.jpg">
-                                       <p>Tobias Van Schneider</p>
-                                    </div>
-                                    <div class="pro_channel_count">
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <!-- // channel block -->
-                        <!-- channel block -->
-                        <div class="col-md-4 pro_channel_card">
-                           <div class="col-md-12 pro_channel_block">
-                              <div class="row">
-                                 <div class="col-md-12 pro_channel_img1">
-                                    <img src="img/pro_block.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-6 pro_channel_img2">
-                                    <img src="img/pro_block2.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-6 pro_channel_img3">
-                                    <img src="img/pro_block3.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-12 pro_channel_cont">
-                                    <div class="pro_channel_name">
-                                       <h3 class="feed-heading float-left">Motorhome Or Trailer</h3>
-                                       <span><img class="float-right" src="img/svg/ico_options.svg"></span>
-                                    </div>
-                                    <div class="pro_channel-thumb">
-                                       <img src="img/avatar.jpg">
-                                       <p>Tobias Van Schneider</p>
-                                    </div>
-                                    <div class="pro_channel_count">
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <!-- // channel block -->
-                        <!-- channel block -->
-                        <div class="col-md-4 pro_channel_card">
-                           <div class="col-md-12 pro_channel_block">
-                              <div class="row">
-                                 <div class="col-md-12 pro_channel_img1">
-                                    <img src="img/pro_block.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-6 pro_channel_img2">
-                                    <img src="img/pro_block2.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-6 pro_channel_img3">
-                                    <img src="img/pro_block3.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-12 pro_channel_cont">
-                                    <div class="pro_channel_name">
-                                       <h3 class="feed-heading float-left">Motorhome Or Trailer</h3>
-                                       <span><img class="float-right" src="img/svg/ico_options.svg"></span>
-                                    </div>
-                                    <div class="pro_channel-thumb">
-                                       <img src="img/avatar.jpg">
-                                       <p>Tobias Van Schneider</p>
-                                    </div>
-                                    <div class="pro_channel_count">
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <!-- // channel block -->
-                        <!-- channel block -->
-                        <div class="col-md-4 pro_channel_card">
-                           <div class="col-md-12 pro_channel_block">
-                              <div class="row">
-                                 <div class="col-md-12 pro_channel_img1">
-                                    <img src="img/pro_block.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-6 pro_channel_img2">
-                                    <img src="img/pro_block2.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-6 pro_channel_img3">
-                                    <img src="img/pro_block3.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-12 pro_channel_cont">
-                                    <div class="pro_channel_name">
-                                       <h3 class="feed-heading float-left">Motorhome Or Trailer</h3>
-                                       <span><img class="float-right" src="img/svg/ico_options.svg"></span>
-                                    </div>
-                                    <div class="pro_channel-thumb">
-                                       <img src="img/avatar.jpg">
-                                       <p>Tobias Van Schneider</p>
-                                    </div>
-                                    <div class="pro_channel_count">
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <!-- // channel block -->
-                        <!-- channel block -->
-                        <div class="col-md-4 pro_channel_card">
-                           <div class="col-md-12 pro_channel_block">
-                              <div class="row">
-                                 <div class="col-md-12 pro_channel_img1">
-                                    <img src="img/pro_block.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-6 pro_channel_img2">
-                                    <img src="img/pro_block2.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-6 pro_channel_img3">
-                                    <img src="img/pro_block3.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-12 pro_channel_cont">
-                                    <div class="pro_channel_name">
-                                       <h3 class="feed-heading float-left">Motorhome Or Trailer</h3>
-                                       <span><img class="float-right" src="img/svg/ico_options.svg"></span>
-                                    </div>
-                                    <div class="pro_channel-thumb">
-                                       <img src="img/avatar.jpg">
-                                       <p>Tobias Van Schneider</p>
-                                    </div>
-                                    <div class="pro_channel_count">
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <!-- // channel block -->
-                        <!-- channel block -->
-                        <div class="col-md-4 pro_channel_card">
-                           <div class="col-md-12 pro_channel_block">
-                              <div class="row">
-                                 <div class="col-md-12 pro_channel_img1">
-                                    <img src="img/pro_block.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-6 pro_channel_img2">
-                                    <img src="img/pro_block2.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-6 pro_channel_img3">
-                                    <img src="img/pro_block3.jpg" class="img-responsive">
-                                 </div>
-                                 <div class="col-md-12 pro_channel_cont">
-                                    <div class="pro_channel_name">
-                                       <h3 class="feed-heading float-left">Motorhome Or Trailer</h3>
-                                       <span><img class="float-right" src="img/svg/ico_options.svg"></span>
-                                    </div>
-                                    <div class="pro_channel-thumb">
-                                       <img src="img/avatar.jpg">
-                                       <p>Tobias Van Schneider</p>
-                                    </div>
-                                    <div class="pro_channel_count">
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
-                                       <span><img src="img/svg/ico_follower.svg"> 705</span>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <!-- // channel block -->
-
                      </div>
                   </div>
                </div>

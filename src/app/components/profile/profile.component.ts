@@ -31,7 +31,7 @@ export class ProfileComponent {
     mediaType: "image"
   };
 
-  tempSkills = ['web', 'web design', 'ui/ux', 'technology', 'typography', 'branding', 'art'];
+  //tempSkills = ['web', 'web design', 'ui/ux', 'technology', 'typography', 'branding', 'art'];
 
   constructor(private profileStore: Store<UserProfile>, private mediaStore: Store<UserMedia>) {
 
@@ -39,6 +39,7 @@ export class ProfileComponent {
 
     this.userProfile$.subscribe((state) => {
       this.userProfile = state;
+      console.log(this.userProfile);
     });
 
     this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_PROFILE });
@@ -49,19 +50,52 @@ export class ProfileComponent {
 
   getUserMedia() {
 
-    this.mediaLoadMoreParams.offset = this.mediaLoadMoreParams.offset + this.mediaLoadMoreParams.limit;
-    console.log(this.mediaLoadMoreParams);
+    // dummy response
+    this.userMedia = [{
+      "spotfeedId": "p-77fcbe2d-fc89-472b-ad9f-5d8e0a38b534",
+      "spotfeedImage": "",
+      "media": [ {}, {}],
+      "spotfeedName": "My First Feed",
+      "ownerName": "Yaswanth",
+      "ownerImage": "http://d206s58i653k1q.cloudfront.net/images/R_75C6D906_ED50_4DE4_A355_D919FE92A2E0YASWANTHMDH_GMAIL_COM/6addd27f-6967-4b84-b07b-5ec4cb4368e8.jpeg",
+      "followersCount": 1321,
+      "isFollowing": false,
+      "mediaCount":25
+    }, {
+      "spotfeedId": "p-77fcbe2d-fc89-472b-ad9f-5d8e0a38b534",
+      "spotfeedImage": "",
+      "media": [ {}, {}, {} ],
+      "spotfeedName": "My Feed test",
+      "ownerName": "Abhijeet",
+      "ownerImage": "http://d206s58i653k1q.cloudfront.net/images/R_75C6D906_ED50_4DE4_A355_D919FE92A2E0YASWANTHMDH_GMAIL_COM/6addd27f-6967-4b84-b07b-5ec4cb4368e8.jpeg",
+      "followersCount": 3213,
+      "isFollowing": false,
+      "mediaCount":32
+    }, {
+      "spotfeedId": "p-77fcbe2d-fc89-472b-ad9f-5d8e0a38b534",
+      "spotfeedImage": "",
+      "media": [ {} ],
+      "spotfeedName": "My Feed",
+      "ownerName": "Manoj",
+      "ownerImage": "http://d206s58i653k1q.cloudfront.net/images/R_75C6D906_ED50_4DE4_A355_D919FE92A2E0YASWANTHMDH_GMAIL_COM/6addd27f-6967-4b84-b07b-5ec4cb4368e8.jpeg",
+      "followersCount": 984,
+      "isFollowing": false,
+      "mediaCount":103
+    }];
 
-    this.userMedia$ = this.mediaStore.select('userMediaTags');
-
-    this.userMedia$.subscribe((state) => {
-      this.userMedia = state;
-    });
-
-    this.mediaStore.dispatch({
-      type: ProfileActions.LOAD_USER_MEDIA,
-      payload: this.mediaLoadMoreParams
-    });
+    // this.mediaLoadMoreParams.offset = this.mediaLoadMoreParams.offset + this.mediaLoadMoreParams.limit;
+    // console.log(this.mediaLoadMoreParams);
+    //
+    // this.userMedia$ = this.mediaStore.select('userMediaTags');
+    //
+    // this.userMedia$.subscribe((state) => {
+    //   this.userMedia = state;
+    // });
+    //
+    // this.mediaStore.dispatch({
+    //   type: ProfileActions.LOAD_USER_MEDIA,
+    //   payload: this.mediaLoadMoreParams
+    // });
 
   }
 
