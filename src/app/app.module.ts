@@ -114,7 +114,12 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
     SharedModule,
     FormsModule,
     HttpModule,
-    StoreModule.provideStore({ loginTags: AuthReducer, profileTags: ProfileReducer, userMediaTags: ProfileReducer}),
+    StoreModule.provideStore({
+      loginTags: AuthReducer,
+      profileTags: ProfileReducer,
+      userMediaTags: ProfileReducer,
+      sentMessagesTags: MessageReducer,
+      receivedMessagesTags: MessageReducer}),
     RouterModule.forRoot(routes),
     EffectsModule.run(AuthEffect),
     EffectsModule.run(HomeEffect),

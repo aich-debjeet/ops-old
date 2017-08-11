@@ -21,12 +21,21 @@ export class MessageEffect {
   }
 
   @Effect()
-  messages$ = this.actions$
-    .ofType(MessageActions.LOAD_MESSAGES)
+  sentMessages$ = this.actions$
+    .ofType(MessageActions.LOAD_SENT_MESSAGES)
     .map(toPayload)
-    .switchMap((payload) => this.apiService.getLoggedInUsersMessages()
-      .map(res => ({ type: MessageActions.LOAD_MESSAGES_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: MessageActions.LOAD_MESSAGES_FAILED, payload: res }))
+    .switchMap((payload) => this.apiService.getAllMessages('sent')
+      .map(res => ({ type: MessageActions.LOAD_SENT_MESSAGES_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.LOAD_SENT_MESSAGES_FAILED, payload: res }))
+    );
+
+  @Effect()
+  receivedMessages$ = this.actions$
+    .ofType(MessageActions.LOAD_RECEIVED_MESSAGES)
+    .map(toPayload)
+    .switchMap((payload) => this.apiService.getAllMessages('received')
+      .map(res => ({ type: MessageActions.LOAD_RECEIVED_MESSAGES_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.LOAD_RECEIVED_MESSAGES_FAILED, payload: res }))
     );
 
 }

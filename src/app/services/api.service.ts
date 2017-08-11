@@ -13,6 +13,9 @@ export class ApiService {
   // temp access token
   accessToken: string = "Bearer rf_6941df37-273d-47ee-a79f-48f9024b524b";
 
+  // temp userHandle
+  userHandle = 'J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM';
+
   constructor(private http: Http, private router: Router) { }
 
   /* ------------------------- load channels ------------------------- */
@@ -97,19 +100,15 @@ export class ApiService {
   /* ------------------------- get logged in users media ------------------------- */
 
   /* ------------------------- get logged in users messages ------------------------- */
-  getLoggedInUsersMessages() {
+  getAllMessages(param: string) {
     let headers = new Headers();
     let reqOptions = new RequestOptions({ headers: headers });
-    let userHandle = 'J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM';
 
     headers.append('Authorization', this.accessToken);
     headers.append('Content-Type', 'application/json');
 
-    return this.http.get(`${this.apiLink}/portal/message/sent/`+userHandle, reqOptions)
-        .map((data: Response) => {
-          data = data.json();
-          console.log(data);
-        });
+    return this.http.get(`${this.apiLink}/portal/message/`+param+'/'+this.userHandle, reqOptions)
+        .map((data: Response) => { data = data.json() });
   }
   /* ------------------------- get logged in users messages ------------------------- */
 

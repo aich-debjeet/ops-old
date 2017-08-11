@@ -8,23 +8,34 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
 
   switch (type) {
 
-    case MessageActions.LOAD_MESSAGES:
-      console.log('loading channels');
-      console.log(payload);
+    case MessageActions.LOAD_SENT_MESSAGES:
       return Object.assign({}, state, {
         success: true
       });
 
-    case MessageActions.LOAD_MESSAGES_SUCCESS:
-      console.log('loading channels success');
-      console.log(payload);
+    case MessageActions.LOAD_SENT_MESSAGES_SUCCESS:
       return Object.assign({}, state, {
         completed: payload,
         success: true
       });
 
-    case MessageActions.LOAD_MESSAGES_FAILED:
-      console.log('loading channels failed');
+    case MessageActions.LOAD_SENT_MESSAGES_FAILED:
+      return Object.assign({}, state, {
+        success: false
+      });
+
+    case MessageActions.LOAD_RECEIVED_MESSAGES:
+      return Object.assign({}, state, {
+        success: true
+      });
+
+    case MessageActions.LOAD_RECEIVED_MESSAGES_SUCCESS:
+      return Object.assign({}, state, {
+        completed: payload,
+        success: true
+      });
+
+    case MessageActions.LOAD_RECEIVED_MESSAGES_FAILED:
       return Object.assign({}, state, {
         success: false
       });
