@@ -96,4 +96,21 @@ export class ApiService {
   }
   /* ------------------------- get logged in users media ------------------------- */
 
+  /* ------------------------- get logged in users messages ------------------------- */
+  getLoggedInUsersMessages() {
+    let headers = new Headers();
+    let reqOptions = new RequestOptions({ headers: headers });
+    let userHandle = 'J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM';
+
+    headers.append('Authorization', this.accessToken);
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.get(`${this.apiLink}/portal/message/sent/`+userHandle, reqOptions)
+        .map((data: Response) => {
+          data = data.json();
+          console.log(data);
+        });
+  }
+  /* ------------------------- get logged in users messages ------------------------- */
+
 }

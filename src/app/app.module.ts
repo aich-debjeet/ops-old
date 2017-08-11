@@ -23,12 +23,14 @@ import { AuthReducer } from './reducers/auth.reducer';
 import { HomeReducer } from './reducers/home.reducer';
 import { SharedReducer } from './reducers/shared.reducer';
 import { ProfileReducer } from './reducers/profile.reducer';
+import { MessageReducer } from './reducers/messages.reducer';
 
 // Effects
 import { AuthEffect } from './effects/auth.effect';
 import { HomeEffect } from './effects/home.effect';
 import { SharedEffect } from './effects/shared.effect';
 import { ProfileEffect } from './effects/profile.effect';
+import { MessageEffect } from './effects/message.effects';
 
 // Services
 import { AuthService } from './services/auth.service';
@@ -117,7 +119,8 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
     EffectsModule.run(AuthEffect),
     EffectsModule.run(HomeEffect),
     EffectsModule.run(SharedEffect),
-    EffectsModule.run(ProfileEffect)
+    EffectsModule.run(ProfileEffect),
+    EffectsModule.run(MessageEffect)
   ],
   providers: [AuthService, AuthGuard, ApiService],
   bootstrap: [AppComponent]
