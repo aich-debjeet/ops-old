@@ -112,4 +112,23 @@ export class ApiService {
   }
   /* ------------------------- get logged in users messages ------------------------- */
 
+  /* ------------------------- user search ------------------------- */
+  userSearch() {
+    let headers = new Headers();
+    let reqOptions = new RequestOptions({ headers: headers });
+    let reqBody = JSON.stringify({
+      "isHuman": "1",
+      "limit": 10,
+      "offset": 0
+    });
+
+    headers.append('Authorization', this.accessToken);
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.put(`${this.apiLink}/portal/searchprofiles`, reqBody, reqOptions)
+        .map((data: Response) => { data = data.json() });
+
+  }
+  /* ------------------------- user search ------------------------- */
+
 }

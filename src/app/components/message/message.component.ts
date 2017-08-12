@@ -4,9 +4,11 @@ import { Store } from '@ngrx/store';
 import _ from "lodash";
 import { Message } from "../../models/message.model";
 import { UserMessages } from '../../models/user-messages.model';
+import { UserSearch } from '../../models/user-search.model';
 
 // actions
 import { MessageActions } from '../../actions/message.action'
+import { UserSearchActions } from '../../actions/user-search.action'
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -19,9 +21,13 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class MessageComponent {
 
+  userSearch$: Observable<UserSearch>;
+  userSearch;
+
   sentMessages$: Observable<UserMessages>;
-  receivedMessages$: Observable<UserMessages>;
   sentMessages;
+
+  receivedMessages$: Observable<UserMessages>;
   receivedMessages;
 
   selectedView: string = '';
@@ -37,6 +43,18 @@ export class MessageComponent {
     // group messages
     //this.groupMessages();
 
+    /* search user */
+    this.userSearch$ = this.store.select('userSearchTags');
+
+    this.userSearch$.subscribe((state) => {
+      this.userSearch = state;
+    });
+
+    // dispatch search user
+    this.store.dispatch({ type: UserSearchActions.USER_SEARCH });
+    /* search user */
+
+    /* sent/received messages */
     this.sentMessages$ = this.store.select('sentMessagesTags');
     this.receivedMessages$ = this.store.select('receivedMessagesTags');
 
@@ -51,6 +69,7 @@ export class MessageComponent {
     // dispatch load messages
     this.store.dispatch({ type: MessageActions.LOAD_SENT_MESSAGES });
     this.store.dispatch({ type: MessageActions.LOAD_RECEIVED_MESSAGES });
+    /* sent/received messages */
 
   }
 
