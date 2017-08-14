@@ -270,7 +270,7 @@
                                     <li class="list-inline-item msg_to_input">
                                         <form>
                                             <div class="form_group">
-                                                <input class="form_input" type="text" name="userSearchTerm" (keypress)="userSearch()">
+                                                <input class="form_input" type="text" name="searchUserTerm" [(ngModel)]="searchUserTerm" (keyup)="searchUser()" required >
                                             </div>
                                         </form>
                                     </li>
@@ -307,14 +307,14 @@
                                         </li>
                                         <li class="list-inline-item msg_to_input">
                                             <div class="form_group">
-                                                <input class="form_input" type="text" required="">
+                                                <input class="form_input" type="text" required="" [(ngModel)]="messageToSend" name="message_term" >
                                                 <span class="form_highlight"></span>
                                                 <span class="form_bar"></span>
                                                 <label>Name of the feild</label>
                                             </div>
                                         </li>
                                         <li class="list-inline-item float_right">
-                                            <button type="button" class="btn btn-primary btn-xs">SEND</button>
+                                            <button type="button" class="btn btn-primary btn-xs" (click)="sendMessage()" >SEND</button>
                                         </li>
                                     </ul>
                                 </li>

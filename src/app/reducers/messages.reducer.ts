@@ -40,6 +40,22 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
         success: false
       });
 
+    case MessageActions.SEND_MESSAGE:
+      return Object.assign({}, state, {
+        success: true
+      });
+
+    case MessageActions.SEND_MESSAGE_SUCCESS:
+      return Object.assign({}, state, {
+        completed: payload,
+        success: true
+      });
+
+    case MessageActions.SEND_MESSAGE_FAILED:
+      return Object.assign({}, state, {
+        success: false
+      });
+
     default:
       return state;
 

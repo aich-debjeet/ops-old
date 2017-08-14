@@ -11,6 +11,10 @@ export class MessageActions {
   static LOAD_RECEIVED_MESSAGES_SUCCESS = 'LOAD_RECEIVED_MESSAGES_SUCCESS';
   static LOAD_RECEIVED_MESSAGES_FAILED = 'LOAD_RECEIVED_MESSAGES_FAILED';
 
+  static SEND_MESSAGE = 'SEND_MESSAGE';
+  static SEND_MESSAGE_SUCCESS = 'SEND_MESSAGE_SUCCESS';
+  static SEND_MESSAGE_FAILED = 'SEND_MESSAGE_FAILED';
+
   /* -------------------------------- load sent messages -------------------------------- */
   loadSentMessages(value): Action {
     console.log('LOAD_SENT_MESSAGES action triggred');
@@ -62,5 +66,31 @@ export class MessageActions {
     };
   }
   /* -------------------------------- load received messages -------------------------------- */
+
+  /* -------------------------------- send message -------------------------------- */
+  sendMessage(value): Action {
+    console.log('SEND_MESSAGE action triggred');
+    return {
+      type: MessageActions.SEND_MESSAGE,
+      payload: { value }
+    };
+  }
+
+  sendMessageSuccess(value): Action {
+    console.log('SEND_MESSAGE_SUCCESS action triggred');
+    return {
+      type: MessageActions.SEND_MESSAGE_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  sendMessageFailed(error: any): Action {
+    console.log('SEND_MESSAGE_FAILED action triggred');
+    return {
+      type: MessageActions.SEND_MESSAGE_FAILED,
+      payload: error
+    };
+  }
+  /* -------------------------------- send message -------------------------------- */
 
 }

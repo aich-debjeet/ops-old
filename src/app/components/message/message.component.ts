@@ -30,6 +30,9 @@ export class MessageComponent {
   receivedMessages$: Observable<UserMessages>;
   receivedMessages;
 
+  private searchUserTerm;
+  private messageToSend;
+
   loggedInUserHandle = 'J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM';
 
   // var to store all processed messages
@@ -41,23 +44,52 @@ export class MessageComponent {
 
   constructor(private store: Store<Message>) {
 
-    this.sentMessages = this.getAllSentMessages().messages.sent;
-    this.receivedMessages = this.getAllReceivedMessages().messages.received;
+    // this.sentMessages = this.getAllSentMessages().messages.sent;
+    // this.receivedMessages = this.getAllReceivedMessages().messages.received;
+    //
+    // this.sentMessages = this.markSentOrReceived(this.sentMessages, 'sent');
+    // this.receivedMessages = this.markSentOrReceived(this.receivedMessages, 'received');
+    //
+    // // console.log(this.sentMessages);
+    // // console.log(this.receivedMessages);
+    //
+    // var self = this;
+    //
+    // // merging sent and received messages
+    // this.mergeMessages(function() {
+    //
+    //   // group messages
+    //   self.groupMessages();
+    //
+    // });
 
-    this.sentMessages = this.markSentOrReceived(this.sentMessages, 'sent');
-    this.receivedMessages = this.markSentOrReceived(this.receivedMessages, 'received');
+  }
 
-    // console.log(this.sentMessages);
-    // console.log(this.receivedMessages);
+  // search user
+  searchUser() {
+    console.log('user search: '+this.searchUserTerm);
+    if(this.searchUserTerm.length > 2) {
+      // trigger search method
+      this.store.dispatch({ type: UserSearchActions.USER_SEARCH, payload: this.searchUserTerm });
+    }
+  }
 
-    var self = this;
+  // send message
+  sendMessage() {
 
-    // merging sent and received messages
-    this.mergeMessages(function() {
+    console.log('send message');
 
-      // group messages
-      self.groupMessages();
+    var toUserHandle = 'J_47578AB2_AB1F_4B56_BB23_A0BFB26EFCE2DEEPASHREE_AEIONE_GMAIL_COM';
 
+    console.log('sending: '+this.messageToSend+' to: '+toUserHandle);
+    // trigger send message method
+    this.store.dispatch({
+      type: MessageActions.SEND_MESSAGE,
+      payload: {
+        subject :this.messageToSend,
+        content :this.messageToSend,
+        to: toUserHandle
+      }
     });
 
   }
