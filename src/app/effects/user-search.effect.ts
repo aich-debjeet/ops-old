@@ -17,11 +17,11 @@ export class UserSearchEffect {
     private actions$: Actions,
     private apiService: ApiService
   ) {
-    console.log('message effects');
+    console.log('user search effects');
   }
 
   @Effect()
-  sentMessages$ = this.actions$
+  searchedUsers$ = this.actions$
     .ofType(UserSearchActions.USER_SEARCH)
     .map(toPayload)
     .switchMap((payload) => this.apiService.userSearch()

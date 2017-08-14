@@ -30,88 +30,171 @@ export class MessageComponent {
   receivedMessages$: Observable<UserMessages>;
   receivedMessages;
 
+  // var to store all processed messages
+  groupedMessages = [];
+
   selectedView: string = '';
   userHandle: string = '';
 
   constructor(private store: Store<Message>) {
 
-    // this.sentMessages = this.getAllSentMessages().messages.sent;
-    // this.receivedMessages = this.getAllReceivedMessages().messages.received;
+    this.sentMessages = this.getAllSentMessages().messages.sent;
+    this.receivedMessages = this.getAllReceivedMessages().messages.received;
     // console.log(this.sentMessages);
     // console.log(this.receivedMessages);
 
     // group messages
-    //this.groupMessages();
+    this.groupMessages();
 
-    /* search user */
-    this.userSearch$ = this.store.select('userSearchTags');
+    // /* search user */
+    // this.userSearch$ = this.store.select('userSearchTags');
+    //
+    // this.userSearch$.subscribe((state) => {
+    //   this.userSearch = state;
+    // });
+    //
+    // // dispatch search user
+    // this.store.dispatch({ type: UserSearchActions.USER_SEARCH });
+    // /* search user */
+    //
+    // /* sent/received messages */
+    // this.sentMessages$ = this.store.select('sentMessagesTags');
+    // this.receivedMessages$ = this.store.select('receivedMessagesTags');
+    //
+    // this.sentMessages$.subscribe((state) => {
+    //   this.sentMessages = state;
+    // });
+    //
+    // this.receivedMessages$.subscribe((state) => {
+    //   this.receivedMessages = state;
+    // });
+    //
+    // // dispatch load messages
+    // this.store.dispatch({ type: MessageActions.LOAD_SENT_MESSAGES });
+    // this.store.dispatch({ type: MessageActions.LOAD_RECEIVED_MESSAGES });
+    // /* sent/received messages */
 
-    this.userSearch$.subscribe((state) => {
-      this.userSearch = state;
-    });
+  }
 
-    // dispatch search user
-    this.store.dispatch({ type: UserSearchActions.USER_SEARCH });
-    /* search user */
+  // function to return messages usign the usr handle
+  getReceivedMessagesByUserHanlde(userHandle: string, callback) {
+    var messages = [];
 
-    /* sent/received messages */
-    this.sentMessages$ = this.store.select('sentMessagesTags');
-    this.receivedMessages$ = this.store.select('receivedMessagesTags');
-
-    this.sentMessages$.subscribe((state) => {
-      this.sentMessages = state;
-    });
-
-    this.receivedMessages$.subscribe((state) => {
-      this.receivedMessages = state;
-    });
-
-    // dispatch load messages
-    this.store.dispatch({ type: MessageActions.LOAD_SENT_MESSAGES });
-    this.store.dispatch({ type: MessageActions.LOAD_RECEIVED_MESSAGES });
-    /* sent/received messages */
-
+    setTimeout(function() {
+      callback(messages);
+    }, 5000);
   }
 
   groupMessages() {
 
-    // prepare messages to display
-    //console.log('start grouping messages: '+this.messages);
+    // loop through all sent messages
+    this.sentMessages.forEach((sentMessage, index) => {
 
-    let groupedMessages = [];
-
-    let totalLength = this.sentMessages.length;
-    console.log('totalLength: '+totalLength);
-
-    // grouping the messages by userHandle
-    this.sentMessages.forEach(function(message, index) {
-
-      //groupedMessages[message.to] = message;
-
-      // checking if user already exist in group array, if yes then append new message
-      if(groupedMessages.hasOwnProperty(message.to)) {
+      // checking if user already exist in group array, if yes then append new sentMessage
+      if(this.groupedMessages.hasOwnProperty(sentMessage.to)) {
 
         //console.log('found');
-        // appending the new message to existing users array
-        groupedMessages[message.to].push(message);
+        // appending the new sentMessage to existing users array
+        this.groupedMessages[sentMessage.to].push({
+          type: 'sent',
+          message: sentMessage
+        });
 
-      } else { // else add user and message to the new array
+      } else { // else add user and sentMessage to the new array
 
         //console.log('not found');
-        // making a placeholder array for next users messages
-        groupedMessages[message.to] = [];
-        groupedMessages[message.to].push(message);
+        // making a placeholder array for next users sentMessages
+        this.groupedMessages[sentMessage.to] = [];
+        this.groupedMessages[sentMessage.to].push({
+          type: 'sent',
+          message: sentMessage
+        });
 
       }
 
-      if(totalLength == index+1) {
-        console.log('finished: '+index);
-        console.log(groupedMessages);
+      // unset stored message
+      //this.sentMessages.splice(index, 1);
+
+      // get all received mesage from current user in loop
+      this.getReceivedMessagesByUserHanlde(sentMessage.to, function(currentUsersReceivedMessages) {
+        console.log('wait');
+      });
+
+      // checking if looped through all elements in the sent messages array
+      if(this.sentMessages.length == index + 1) {
+        console.log('grouped: ');
+        console.log(this.groupedMessages);
+        console.log('sent: ');
+        console.log(this.sentMessages);
+        console.log('received: ');
+        console.log(this.receivedMessages);
+      } else {
+        //console.log('next sent message');
       }
+
+      // // private var to hold single conversation
+      // var singleConversation = {
+      //   loggedInUser: sentMessage.by,
+      //   userHandle: sentMessage.to,
+      //   messages: []
+      // };
+      //
+      // console.log(singleConversation);
+
+      // // private array to hold all messages in the conversation from selected handle
+      // var singleConversationAllMessages = [];
+      //
+      // console.log(sentMessage);
+      //
+      // // collect all sent messages from logged in user to the current user in the loop
+      // var allSentMessages = [];
+      //
+      // // collect all received messages from current user in the loop
+      // var allReceivedMessages = [];
 
     });
 
   }
+
+  // groupMessages() {
+  //
+  //   // prepare messages to display
+  //   //console.log('start grouping messages: '+this.messages);
+  //
+  //   let groupedMessages = [];
+  //
+  //   let totalLength = this.sentMessages.length;
+  //   console.log('totalLength: '+totalLength);
+  //
+  //   // grouping the messages by userHandle
+  //   this.sentMessages.forEach(function(message, index) {
+  //
+  //     //groupedMessages[message.to] = message;
+  //
+  //     // checking if user already exist in group array, if yes then append new message
+  //     if(groupedMessages.hasOwnProperty(message.to)) {
+  //
+  //       //console.log('found');
+  //       // appending the new message to existing users array
+  //       groupedMessages[message.to].push(message);
+  //
+  //     } else { // else add user and message to the new array
+  //
+  //       //console.log('not found');
+  //       // making a placeholder array for next users messages
+  //       groupedMessages[message.to] = [];
+  //       groupedMessages[message.to].push(message);
+  //
+  //     }
+  //
+  //     if(totalLength == index+1) {
+  //       console.log('finished: '+index);
+  //       console.log(groupedMessages);
+  //     }
+  //
+  //   });
+  //
+  // }
 
   // user action to toogle views
   toggleView(tab: any, userHandle: any) {
