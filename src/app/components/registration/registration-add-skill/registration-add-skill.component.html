@@ -85,7 +85,7 @@
                                             <h4>{{artist.name}}</h4>
                                             <h5>Profession</h5>
 
-                                            <app-button (click)="toggleFollowBtn(i)" [className]="'btn-xs btn-normal btn-plus'">{{artist.isFollowing == true ? "Following" :  "Follow"}}</app-button>
+                                            <app-button (click)="toggleFollowBtn(i)" [className]="('btn-xs btn-primary ' + (artist.isFollowing == true ? 'btn-following' : 'btn-follow'))">{{artist.isFollowing == true ? "Following" :  "Follow"}}</app-button>
                                         </div>
                                     </div>
                                 </div>

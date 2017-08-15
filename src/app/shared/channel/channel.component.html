@@ -30,11 +30,7 @@
           <div class="channel_count">
             <span><img src="/assets/img/svg/ico_follower.svg"> {{channelData.followersCount}}</span>
             <span><img src="/assets/img/svg/ico_post.svg">{{channelData.mediaCount}}</span>
-            <a href="" class="btn btn-xs btn-primary btn-plus channel_follow">
-              <span class="btn-label-follow">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-              </span> FOLLOW
-            </a>
+            <app-button (click)="toggleFollowBtn(i)" [className]="'btn-xs btn-primary btn-following'">Following</app-button>
           </div>
         </div>
     </div>
