@@ -42,7 +42,7 @@
                                     <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && myform.submitted">Username is required</p>
                                         <p class="error_alert" *ngIf="petTag.user_unique">This username is already taken</p>
                                         <ul class="username_error" *ngIf="petTag.user_unique">
-                                            <li  *ngFor="let username of petTag.completed.Suggested">{{username}}</li>
+                                            <li  *ngFor="let username of Suggested">{{username}}</li>
                                         </ul>
                                 </div>
                             </div>

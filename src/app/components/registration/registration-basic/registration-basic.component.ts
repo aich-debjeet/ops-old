@@ -53,10 +53,10 @@ export class RegistrationBasicComponent implements OnInit {
   tagState$: Observable<Register>;
   private tagStateSubscription: Subscription;
   petTag = initialTag;
-
+  Suggested: String[];
   modals: any;
 
-  public dateMask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
+  public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public regFormBasic: FormGroup;
   public otpForm: FormGroup;
   // public otpForm: FormGroup;
@@ -171,12 +171,27 @@ export class RegistrationBasicComponent implements OnInit {
 
   // User user exists
   userExisitCheck(value) {
+    console.log('check');
     if (value.length >= 4) {
-      this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
+      // this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
+      this.userExists(value);
     }else {
       this.petTag.user_unique = false;
     }
   }
+
+  //user validation
+  userExists(username: string) {
+        return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/'+username+'/username')
+            .map((data: Response) => data.json())
+            .subscribe(data => {
+              if(data.code == 0){
+                this.petTag.user_unique = true;
+                this.Suggested = data.Suggested;
+              }
+              console.log(data)
+            });
+    }
 
   // OTP Validation
   otpSubmit(value){
@@ -250,7 +265,7 @@ export class RegistrationBasicComponent implements OnInit {
         'name': 'Artist',
         'typeName': 'individual'
         }],
-      'dateOfBirth': '2016-09-29T05:00:00',
+      'dateOfBirth': value.dob+'T05:00:00',
       }
     }
     

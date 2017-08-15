@@ -144,13 +144,14 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
 
     case AuthActions.USER_EXISTS_CHECK:
+      console.log('user Done');
       return Object.assign({}, state, {
         success: false
       });
 
     case AuthActions.USER_EXISTS_SUCCESS:
     // console.log('user Exists Done');
-    //   console.log(payload.code);
+    console.log(payload);
       if (payload.code === 0) {
         return Object.assign({}, state, {
           completed: payload,
