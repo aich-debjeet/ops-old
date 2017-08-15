@@ -12,6 +12,8 @@ import { SharedActions } from '../../actions/shared.action';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -19,6 +21,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class HomeComponent {
 
+  
   channelList$: Observable<Channel>;
   cards: any = [];
 
@@ -32,13 +35,14 @@ export class HomeComponent {
   pinChannel(id: string /* channel id */) {
     console.log('home component: pinChannel() dispatched for channel: '+id);
 
-    this.store.dispatch({
-      type: SharedActions.PIN_CHANNEL,
-      payload: {
-        spotfeedHandle: id,
-        profileHandle: this.userProfileHandle
-      }
-    });
+
+    // this.store.dispatch({
+    //   type: SharedActions.PIN_CHANNEL,
+    //   payload: {
+    //     spotfeedHandle: id,
+    //     profileHandle: this.userProfileHandle
+    //   }
+    // });
 
   }
 

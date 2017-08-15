@@ -18,6 +18,8 @@
     }
     .reg_steps_logo {
         text-align: center;
+        margin: 0px auto;
+        width: 140px;
     }
     p {
         padding-top: 8%;
@@ -29,18 +31,31 @@
         color: $white;
         font-weight: bold;
     }
-    h4 {
-        margin: 5% 0;
-        font-size: 18px;
-        text-align: center;
-    }
 }
 
 // Right section graph
+.reg_graph_illustration{
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 16px;
+   img{
+    width: 100%;
+   }
+}
+// critic page right only
+.reg_graph_illustration_welcome{
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 16px;
+   img{
+    width: 100%;
+   }
+}
+
 .reg_graph {
-    width: 170px;
-    margin: 0 auto;
-    margin-top: 40px;
+  width: 170px;
+  margin: 0 auto;
+  margin-top: 40px;
     .reg_circle {
         width: 130px;
         height: 130px;

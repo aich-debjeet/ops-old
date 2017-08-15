@@ -7,6 +7,8 @@ import { QuickAccessComponent } from './quick-access/quick-access.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ChannelComponent } from './channel/channel.component';
 import { SpotfeedCardComponent } from './spotfeed-card/spotfeed-card.component';
+import { FooterComponent } from './footer/footer.component';
+import { PostCardComponent } from './post-card/post-card.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +20,9 @@ import { SpotfeedCardComponent } from './spotfeed-card/spotfeed-card.component';
     QuickAccessComponent,
     NavigationComponent,
     ChannelComponent,
-    SpotfeedCardComponent
+    SpotfeedCardComponent,
+    FooterComponent,
+    PostCardComponent
   ],
   exports: [
      AuthRightBlockComponent, 
@@ -26,7 +30,9 @@ import { SpotfeedCardComponent } from './spotfeed-card/spotfeed-card.component';
      QuickAccessComponent,
      NavigationComponent,
      ChannelComponent,
-     SpotfeedCardComponent
+     SpotfeedCardComponent,
+     FooterComponent,
+     PostCardComponent
   ]
 
 })

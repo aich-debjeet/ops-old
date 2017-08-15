@@ -25,12 +25,14 @@ export class RegistrationWelcomeComponent implements OnInit {
 
   ngOnInit() {
     this.rightCom = { 
-      mainTitle: 'Welcome',
-      secondHead:'Are you a Critic?', 
-      description: '',
+      mainTitle: 'Welcome', 
+      secondHead: '',
+      description: 'Select specific skill sets that you possess. Can click on as many options as you like there are no restrictions .',
       loginLink: false,
-      button_text: 'Sign Up',
-      button_link: '/home'
+      button_text: 'Login',
+      button_link: '/login',
+      page: false,
+      img: 'http://d33wubrfki0l68.cloudfront.net/61f96ccf1172c7d2fa2aa275426486d5463fba68/fd218/img/reg_critic_illustration.png'
     };
   }
 

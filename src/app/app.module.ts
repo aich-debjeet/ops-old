@@ -36,7 +36,6 @@ import { SharedModule } from './shared/shared.module';
 
 import { ApiService } from './services/api.service';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { MessageComponent } from './components/message/message.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
@@ -71,7 +70,6 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
     AppComponent,
     LoginComponent,
     ResetPasswordComponent,
-    ProfileComponent,
     MessageComponent,
     SpotfeedComponent,
     SpotfeedPremiumComponent,

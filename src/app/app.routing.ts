@@ -33,7 +33,7 @@ export const routes: Routes = [
  { path: 'account', loadChildren: './components/forgot-password/forgot-password.module#ForgotPasswordModule'},
  { path: 'home', loadChildren: './components/home/home.module#HomeModule'},
  { path: 'reset-password', component: ResetPasswordComponent },
- { path: 'profile', component: ProfileComponent },
+ { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule' },
  { path: 'message', component: MessageComponent },
  { path: 'spotfeed', component: SpotfeedComponent },
  { path: 'spotfeed-premium', component: SpotfeedPremiumComponent },

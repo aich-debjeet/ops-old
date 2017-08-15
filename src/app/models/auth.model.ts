@@ -13,6 +13,8 @@ export class Register {
  user_unique = false
 }
 
+
+
 export class authModel {
  completed: string[];
  loading = false;
@@ -36,6 +38,8 @@ export interface RightBlockTag {
   loginLink: Boolean;
   button_text: string;
   button_link: string;
+  page: boolean;
+  img: string;
 }
 
 
@@ -49,6 +53,27 @@ export const initialTag: Login = {
   success: true,
   user_unique: false
 };
+
+export class Follow {
+ completed: ArtistFollows[];
+ loading = false;
+ success = true;
+ user_unique= false;
+
+}
+export class ArtistFollows {
+  isFollowing: boolean;
+}
+
+export const artistFollowTag: Follow = {
+  completed: [
+    // isFollowing: true,
+  ],
+  loading:  false,
+  success: true,
+  user_unique: false
+};
+
 
 export class RegValue {
   mainTitle: string;

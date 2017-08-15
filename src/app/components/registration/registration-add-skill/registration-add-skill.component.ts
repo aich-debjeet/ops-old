@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
-import { RegValue, ArtistFollow } from '../../../models/auth.model';
+import { RegValue, ArtistFollow, RightBlockTag, initialTag, Login, artistFollowTag, Follow } from '../../../models/auth.model';
 import { SearchFilterPipe } from '../../../pipes/search.pipe'
 
 // Action
@@ -21,14 +21,63 @@ export class Channel {
 }
 
 
-const CHANNEL: Channel[] = [
-  { follow: true, handle_name:'Name1', owner_name: 'Mr. Nice', conver_image:'http://d33wubrfki0l68.cloudfront.net/e6502eb0a89408a7d1bdd25e4e6393d9e57afb1e/f32e4/img/channel.jpg', owner_image:'http://d33wubrfki0l68.cloudfront.net/e6502eb0a89408a7d1bdd25e4e6393d9e57afb1e/f32e4/img/channel.jpg', followers: '10 followers' },
-  { follow: false, handle_name:'Name1', owner_name: 'Mr. Nice', conver_image:'http://d33wubrfki0l68.cloudfront.net/e6502eb0a89408a7d1bdd25e4e6393d9e57afb1e/f32e4/img/channel.jpg', owner_image:'http://d33wubrfki0l68.cloudfront.net/e6502eb0a89408a7d1bdd25e4e6393d9e57afb1e/f32e4/img/channel.jpg', followers: '10 followers'},
-  { follow: false, handle_name:'Name1', owner_name: 'Mr. Nice', conver_image:'http://d33wubrfki0l68.cloudfront.net/e6502eb0a89408a7d1bdd25e4e6393d9e57afb1e/f32e4/img/channel.jpg', owner_image:'http://d33wubrfki0l68.cloudfront.net/e6502eb0a89408a7d1bdd25e4e6393d9e57afb1e/f32e4/img/channel.jpg', followers: '10 followers' },
-  { follow: true, handle_name:'Name1', owner_name: 'Mr. Nice', conver_image:'http://d33wubrfki0l68.cloudfront.net/e6502eb0a89408a7d1bdd25e4e6393d9e57afb1e/f32e4/img/channel.jpg', owner_image:'http://d33wubrfki0l68.cloudfront.net/e6502eb0a89408a7d1bdd25e4e6393d9e57afb1e/f32e4/img/channel.jpg' ,followers: '10 followers'},
-  { follow: false, handle_name:'Name1', owner_name: 'Mr. Nice', conver_image:'http://d33wubrfki0l68.cloudfront.net/e6502eb0a89408a7d1bdd25e4e6393d9e57afb1e/f32e4/img/channel.jpg', owner_image:'http://d33wubrfki0l68.cloudfront.net/e6502eb0a89408a7d1bdd25e4e6393d9e57afb1e/f32e4/img/channel.jpg', followers: '10 followers' },
-  { follow: false, handle_name:'Name1', owner_name: 'Mr. Nice', conver_image:'http://d33wubrfki0l68.cloudfront.net/e6502eb0a89408a7d1bdd25e4e6393d9e57afb1e/f32e4/img/channel.jpg', owner_image:'http://d33wubrfki0l68.cloudfront.net/e6502eb0a89408a7d1bdd25e4e6393d9e57afb1e/f32e4/img/channel.jpg', followers: '10 followers' },
+const CHANNEL = [
+  {
+        "spotfeedId": "z_449fdf3b-9502-4793-a56e-bbc79229f949",
+        "spotfeedImage": "",
+        "media": [
+            {
+                "mediaId": "z_25519804-2462-453f-a8fa-9781a58aa0bb",
+                "repoPath": "images/T_24450973_EEC8_4273_BFA7_9F7B45DB08A7YASWANTH_RAJA_AEIONE_COM/c1a82787-98db-493d-95e3-37f245327f91.png",
+                "mediaType": "image"
+            }
+        ],
+        "spotfeedName": "santhosh android",
+        "ownerHandle": "M_8549FF0B_5861_483F_A051_87AB7E867DABSACHIN_NAGALGAWE_SCRIPTUIT_COM",
+        "ownerName": "Milind Soman",
+        "ownerImage": "http://d206s58i653k1q.cloudfront.net/images/M_8549FF0B_5861_483F_A051_87AB7E867DABSACHIN_NAGALGAWE_SCRIPTUIT_COM/1c3c1a9a-de96-4862-94b5-4cbc0b697610.jpeg",
+        "followersCount": 0,
+        "mediaCount": 1,
+        "isFollowing": false
+    },
+    {
+        "spotfeedId": "s-87b939b9-5d33-4d7f-a047-23241964434c",
+        "spotfeedImage": "",
+        "media": [
+            {
+                "mediaId": "s_8a6a173c-82fa-4807-a1d8-e53f57ade526",
+                "repoPath": "images/T_24450973_EEC8_4273_BFA7_9F7B45DB08A7YASWANTH_RAJA_AEIONE_COM/c1a82787-98db-493d-95e3-37f245327f91.png",
+                "mediaType": "image"
+            }
+        ],
+        "spotfeedName": "santhosh android",
+        "ownerHandle": "M_8549FF0B_5861_483F_A051_87AB7E867DABSACHIN_NAGALGAWE_SCRIPTUIT_COM",
+        "ownerName": "Milind Soman",
+        "ownerImage": "http://d206s58i653k1q.cloudfront.net/images/M_8549FF0B_5861_483F_A051_87AB7E867DABSACHIN_NAGALGAWE_SCRIPTUIT_COM/1c3c1a9a-de96-4862-94b5-4cbc0b697610.jpeg",
+        "followersCount": 0,
+        "mediaCount": 1,
+        "isFollowing": false
+    },
+    {
+        "spotfeedId": "o-9a7ee435-ea9c-4445-b1e6-02fde3336e79",
+        "spotfeedImage": "",
+        "media": [
+            {
+                "mediaId": "e_cbc9b8c0-0fde-4fec-b804-12522c8a813e",
+                "repoPath": "images/T_24450973_EEC8_4273_BFA7_9F7B45DB08A7YASWANTH_RAJA_AEIONE_COM/c1a82787-98db-493d-95e3-37f245327f91.png",
+                "mediaType": "image"
+            }
+        ],
+        "spotfeedName": "santhosh android",
+        "ownerHandle": "M_8549FF0B_5861_483F_A051_87AB7E867DABSACHIN_NAGALGAWE_SCRIPTUIT_COM",
+        "ownerName": "Milind Soman",
+        "ownerImage": "http://d206s58i653k1q.cloudfront.net/images/M_8549FF0B_5861_483F_A051_87AB7E867DABSACHIN_NAGALGAWE_SCRIPTUIT_COM/1c3c1a9a-de96-4862-94b5-4cbc0b697610.jpeg",
+        "followersCount": 0,
+        "mediaCount": 1,
+        "isFollowing": false
+    }
 ];
+
 
 
 
@@ -45,23 +94,24 @@ export class RegistrationAddSkillComponent implements OnInit {
   channelList = CHANNEL;
   is_skill_open = false;
 
-  tagState$: Observable<ArtistFollow>;
+  tagState$: Observable<Follow>;
   private tagStateSubscription: Subscription;
-  artistFollowList: ArtistFollow;
+  artistFollowList = artistFollowTag;
 
   rForm: FormGroup;
-  rightCom: RegValue;
+  rightCom: RightBlockTag;
   skills: any;
   artistFollow: any;
   private headers: Headers;
 
-  constructor(fb: FormBuilder,private http: Http, private store: Store<ArtistFollow>) {
+  constructor(fb: FormBuilder,private http: Http, private store: Store<Login>) {
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-        this.artistFollowList = state;
-
-         console.log(this.artistFollowList);
+        console.log(state);
+          this.artistFollowList = state;
+        // console.log(state);
+        //  console.log(this.artistFollowList);
         // this.done = !!(this.petTag.shape && this.petTag.text);
       });
 
@@ -82,13 +132,14 @@ export class RegistrationAddSkillComponent implements OnInit {
 
   ngOnInit() {
     this.rightCom = { 
-      mainTitle: 'Select your profile type', 
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,' +
-      ' sed do eiusmod long-and vitality, so that the labor expended. Lorem ipsum dolor sit amet,' +
-      ' consectetur adipiscing elit, sed do eiusmod long-and vitality, so that the labor expended.',
-      loginLink: true,
-      button_text: 'Sign Up',
-      button_link: '/home'
+      mainTitle: 'Add Your Interest', 
+      secondHead: '',
+      description: 'Select specific skill sets that you possess. Can click on as many options as you like there are no restrictions .',
+      loginLink: false,
+      button_text: 'Login',
+      button_link: '/login',
+      page: true,
+      img: ''
     };
 
     this.skillList();
@@ -102,12 +153,10 @@ myEvent(event) {
 }
 
 skillList() {
-  this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/profiletype')
-        // Call map on the response observable to get the parsed people object
+  // this.store.dispatch({ type: AuthActions.LOAD_SKILL});
+  this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/industry')
       .map(res => res.json())
-        // Subscribe to the observable to get the parsed people object and attach it to the
-        // component
-        .subscribe(skills => this.skills = skills);
+      .subscribe(skills => this.skills = skills);
   }
 
   onChange(value){
@@ -117,18 +166,20 @@ skillList() {
   artistList(code: string){
     this.is_skill_open = true;
     let val = {
-      "isHuman":"1",
-      "profileTypeCodeList":[code]
+      // "industryCodeList":["DANCE"]
+       "industryCodeList":[code]
     };
     this.store.dispatch({ type: AuthActions.USER_ARTIST_FOLLOW, payload: val});
+  }
+  isFoo:boolean = false;
+
+  toggleFollowBtn(i){
     
-    // let headers = new Headers({ 'Content-Type': 'application/json'}); 
-    // this.http.put('http://devservices.greenroom6.com:9000/api/1.0/portal/searchprofiles', JSON.stringify(val), { headers: headers })
-    //         .map((res: Response) => res.json())
-    //         .subscribe(skills => {
-    //           this.artistFollow = skills;
-    //           console.log(skills);
-    //         });
+    console.log(i);
+   let ss = this.artistFollowList.completed[i].isFollowing
+        console.log(ss);
+
+     return  this.artistFollowList.completed[i].isFollowing == true?  this.artistFollowList.completed[i].isFollowing = false :  this.artistFollowList.completed[i].isFollowing = true
   }
 
   addSkill(value: any) {
