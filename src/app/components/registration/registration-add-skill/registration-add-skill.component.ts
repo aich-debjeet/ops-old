@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { RegValue, ArtistFollow, RightBlockTag, initialTag, Login, artistFollowTag, Follow } from '../../../models/auth.model';
 import { SearchFilterPipe } from '../../../pipes/search.pipe'
+import { environment } from './../../../../environments/environment';
 
 // Action
 import { AuthActions } from '../../../actions/auth.action'  
@@ -89,9 +91,10 @@ const CHANNEL = [
   styleUrls: ['./registration-add-skill.component.scss']
 })
 export class RegistrationAddSkillComponent implements OnInit {
+   private apiLink: string = environment.API_ENDPOINT; 
+   private image_base_url: string = environment.API_IMAGE; 
 
-
-  channelList = CHANNEL;
+  channelList: any;
   is_skill_open = false;
 
   tagState$: Observable<Follow>;
@@ -104,16 +107,18 @@ export class RegistrationAddSkillComponent implements OnInit {
   artistFollow: any;
   private headers: Headers;
 
-  constructor(fb: FormBuilder,private http: Http, private store: Store<Login>) {
+  description: string;
+  title:string;
+  searchPlaceholder:string;
+
+
+  constructor(fb: FormBuilder,private http: Http,private router: Router, private store: Store<Login>) {
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-        console.log(state);
-          this.artistFollowList = state;
-        // console.log(state);
-        //  console.log(this.artistFollowList);
-        // this.done = !!(this.petTag.shape && this.petTag.text);
-      });
+      console.log(state);
+      this.artistFollowList = state;
+    });
 
     this.rForm = fb.group({
       'profession' : [null, Validators.required],
@@ -123,40 +128,49 @@ export class RegistrationAddSkillComponent implements OnInit {
     this.http = http;
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
-}
-
-  // tripLikeState() {
-  //   if (!this.trip) return 'inactive';
-  //   return this.trip.is_liked_by_current_user ? 'active' : 'inactive';
-  // }
+  }
 
   ngOnInit() {
+
+    var userType = JSON.parse(localStorage.getItem('userType'));
+    for (var v in userType)   {  
+      if(userType[v].name == 'Performing Artist' || userType[v].name == 'Non Performing artist'){
+        this.description = 'Select specific skill sets that you possess. You can click on as many options as you like.',
+        this.title = 'Add Your Skills',
+        this.searchPlaceholder = 'Search Skills'
+      }
+      else{
+        this.description = 'Immerse yourself in arts and entertainment based on interests of your choice.',
+        this.title = 'Follow Your Interest',
+        this.searchPlaceholder = 'Search Interest'
+      }
+      console.log(userType[v].name)
+    }  
+    console.log(userType)
+
     this.rightCom = { 
-      mainTitle: 'Add Your Interest', 
+      mainTitle: this.title, 
       secondHead: '',
-      description: 'Select specific skill sets that you possess. Can click on as many options as you like there are no restrictions .',
+      description: this.description,
       loginLink: false,
       button_text: 'Login',
       button_link: '/login',
-      page: true,
-      img: ''
+      page: false,
+      img: 'http://d33wubrfki0l68.cloudfront.net/198702237b77cd4ad2209fd65cbeed2191783e66/d7533/img/reg_add_skill_illustration.png'
     };
 
     this.skillList();
-    // this.artistList();
   }
 
-myEvent(event) {
-  console.log(event);
-  console.log(event.target.id );
-  console.log(event.currentTarget);
-}
+  ngOnDestroy() {
 
-skillList() {
-  // this.store.dispatch({ type: AuthActions.LOAD_SKILL});
-  this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/industry')
-      .map(res => res.json())
-      .subscribe(skills => this.skills = skills);
+  }
+
+  skillList() {
+    // this.store.dispatch({ type: AuthActions.LOAD_SKILL});
+    this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/industry')
+        .map(res => res.json())
+        .subscribe(skills => this.skills = skills);
   }
 
   onChange(value){
@@ -164,26 +178,91 @@ skillList() {
   }
 
   artistList(code: string){
-    this.is_skill_open = true;
+    //Temp disable this function
+    // this.is_skill_open = true;
     let val = {
-      // "industryCodeList":["DANCE"]
        "industryCodeList":[code]
     };
     this.store.dispatch({ type: AuthActions.USER_ARTIST_FOLLOW, payload: val});
+    this.getChannels(code)
   }
-  isFoo:boolean = false;
 
-  toggleFollowBtn(i){
-    
-    console.log(i);
-   let ss = this.artistFollowList.completed[i].isFollowing
-        console.log(ss);
+  
+  
 
-     return  this.artistFollowList.completed[i].isFollowing == true?  this.artistFollowList.completed[i].isFollowing = false :  this.artistFollowList.completed[i].isFollowing = true
+  toggleFollowBtn(i, handle){
+    const value =  { 
+      'followedHandle': handle
+    }
+
+    if(this.artistFollowList.completed[i].isFollowing == true){
+      this.artistUnfollowing(value)
+      this.artistFollowList.completed[i].isFollowing = false
+    }
+    else{
+      
+      this.artistFollowing(value);
+      this.artistFollowList.completed[i].isFollowing = true
+      // this.store.dispatch({ type: AuthActions.ARTIST_FOLLOW, payload: value});
+      // 
+    }
+
   }
+
+  // Its Temp Code It need to change
+  artistFollowing(req: any) {
+      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      var token = currentUser.access_token; // your token
+
+      let headers = new Headers({ 'Content-Type': 'application/json'}); 
+      headers.append('Authorization','Bearer '+token)
+
+      return this.http.put(this.apiLink +'/portal/network/following/start', JSON.stringify(req), { headers: headers })
+          .map((data) => data.json())
+          .subscribe(data => {console.log(data)});
+  }
+
+  // Its Temp Code It need to change
+  artistUnfollowing(req: any) {
+      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      var token = currentUser.access_token; // your token
+
+      let headers = new Headers({ 'Content-Type': 'application/json'}); 
+      headers.append('Authorization','Bearer '+token)
+
+      return this.http.put(this.apiLink +'/portal/network/following/stop', JSON.stringify(req), { headers: headers })
+          .map((data) => data.json())
+          .subscribe(data => data);
+  }
+
+  //Its Temp code to change
+  getChannels(code) {
+    console.log('get channel');
+    const value =  { 
+      "offset": 0,
+      "limit": 10,
+      "industryList":[code],
+      "superType":"channel"
+    }
+    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      var token = currentUser.access_token; // your token
+
+      let headers = new Headers({ 'Content-Type': 'application/json'}); 
+      headers.append('Authorization','Bearer '+token)
+
+    return this.http.post(`${this.apiLink}/portal/network/spotfeed/search`, value,  { headers: headers })
+        .map((data) => data.json())
+        .subscribe(data => {this.channelList = data, console.log(data)});
+  }
+
 
   addSkill(value: any) {
       console.log(value);
+      
+  }
+
+  submit(){
+    this.router.navigateByUrl("/reg/welcome") 
   }
 
   onClose(value) {

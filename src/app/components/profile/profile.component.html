@@ -6,17 +6,18 @@
    <div class="container pro-block">
       <div class="row">
          <div class="col-md-6 col-sm-12 pro__img">
-            <img src="/assets/img/avatar2.jpg" class="img-responsive img-circle">
+            <img src="{{userProfile.completed.profileImage}}" class="img-responsive img-circle">
             <div class="pro__name2">
-               <h2>Zane Lowe</h2>
-               <p>@zanelowe</p>
-               <button type="button" class="btn btn-xs btn-primary btn-plus">
+               <h2> {{userProfile.completed.name}}</h2>
+              
+               <p>@{{userProfile.completed.extra?.username}}</p>
+               <!--<button type="button" class="btn btn-xs btn-primary btn-plus">
                   <span class="btn-label-follow">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                   </span> FOLLOW
               </button>
               <button type="button" class="btn btn-normal2 btn-xs"> NETWORK </button>
-              <button type="button" class="btn btn-normal2 btn-xs"> DONATE </button>
+              <button type="button" class="btn btn-normal2 btn-xs"> DONATE </button>-->
             </div>
          </div>
          <div class="col-md-6"></div>
@@ -25,13 +26,13 @@
          <div class="col-md-9 col-sm-9">
             <ul class="list-inline pro_nav_list">
                <li class="list-line-item">
-                  <a href="about.html">about</a>
+                  <a href="#">about</a>
                </li>
                <li class="list-line-item">
-                  <a href="">portfolio</a>
+                  <a href="#">portfolio</a>
                </li>
                <li class="list-line-item">
-                  <a href="">planner</a>
+                  <a href>planner</a>
                </li>
                <li class="list-line-item">
                   <a href="">Network</a>

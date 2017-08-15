@@ -1,10 +1,10 @@
 import { ActionReducer, Action } from '@ngrx/store';
-import { Channel } from '../models/home.model';
+import { initialTag, ProfileModal } from '../models/profile.model';
 
 import { ProfileActions } from '../actions/profile.action';
 
 
-export const ProfileReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
+export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
   switch (type) {
 
@@ -12,14 +12,14 @@ export const ProfileReducer: ActionReducer<any> = (state, {payload, type}: Actio
     /* ------------------------ user profile ------------------------ */
     case ProfileActions.LOAD_USER_PROFILE:
       console.log('profile reducer: loading logged in users profile');
-      console.log(payload);
+      // console.log(payload);
       return Object.assign({}, state, {
         success: true
       });
 
     case ProfileActions.LOAD_USER_PROFILE_SUCCESS:
       console.log('profile reducer: loading logged in users profile success');
-      console.log(payload);
+      // console.log(payload);
       return Object.assign({}, state, {
         completed: payload,
         success: true

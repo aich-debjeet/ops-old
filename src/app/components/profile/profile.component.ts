@@ -1,4 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { Http, Headers, Response } from '@angular/http';
+import { Store } from '@ngrx/store';
+import { ProfileModal, initialTag } from '../../models/profile.model';
+import { UserMedia } from '../../models/user-media.model';
+
+// action
+import { ProfileActions } from '../../actions/profile.action';
+import { SharedActions } from '../../actions/shared.action';
+
+// rx
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-profile',
@@ -6,11 +18,49 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  test:string;
+  
+  // profileData:any;
+  // profileData: any;
+  tagState$: Observable<ProfileModal>;
+  private tagStateSubscription: Subscription;
+  userProfile = initialTag ;
 
-  constructor() { }
+  constructor(
+    private http: Http,
+    private profileStore: Store<ProfileModal>
+  ) { 
+    this.tagState$ = this.profileStore.select('profileTags');
+    // this.test = 'salabeel';
+    this.tagState$.subscribe((state) => {
+      this.userProfile = state;
+      console.log(state);
+      
+    });
+
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_PROFILE });
+
+  }
 
   ngOnInit() {
+    console.log(this.userProfile);
+    // this.profile()
   }
+
+  // profile() {
+  //   var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  //   var token = currentUser.access_token; // your token
+
+  //   let headers = new Headers({ 'Content-Type': 'application/json'}); 
+  //   headers.append('Authorization','Bearer '+token);
+
+  //   this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/loggedInProfile',{ headers: headers })
+  //        .map(res => res.json())
+  //       .subscribe(data => this.profileData = data );
+
+  //       console.log(this.profileData);
+  // }
+  
 
 }
 
@@ -18,17 +68,9 @@ export class ProfileComponent implements OnInit {
 // import { Component } from '@angular/core';
 // import { ApiService } from '../../services/api.service';
 
-// import { Store } from '@ngrx/store';
-// import { UserProfile } from '../../models/user-profile.model';
-// import { UserMedia } from '../../models/user-media.model';
 
-// // action
-// import { ProfileActions } from '../../actions/profile.action';
-// import { SharedActions } from '../../actions/shared.action';
 
-// // rx
-// import { Observable } from 'rxjs/Observable';
-// import { Subscription } from 'rxjs/Subscription';
+
 
 // @Component({
 //   selector: 'app-profile',

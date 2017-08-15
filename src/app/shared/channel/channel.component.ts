@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { environment } from './../../../environments/environment';
 
 @Component({
   selector: 'app-channel',
@@ -8,10 +9,18 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ChannelComponent implements OnInit {
   @Input() className: string;
   @Input() channelData;
+  @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
+  //Its for admin spefic edit option
+  @Input() type: boolean;
+  private image_base_url: string = environment.API_IMAGE; 
   constructor() { }
 
   ngOnInit() {
     
+  }
+
+  handleClick(event: any) {
+    this.onClick.emit(event);
   }
 
 }

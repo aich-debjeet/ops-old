@@ -35,6 +35,14 @@ export class AuthEffect {
     );
 
   @Effect()
+  registrationProfile$ = this.actions$
+    .ofType(AuthActions.USER_REGISTRATION_WELCOME)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.registerWelcome(payload)
+      .map(res => ({ type: AuthActions.USER_REGISTRATION_WELCOME_SUCCESS, payload: res }))
+    );
+
+  @Effect()
   loadGallery$ = this.actions$
     .ofType(AuthActions.USER_LOGIN)
     .map(toPayload)
@@ -58,6 +66,14 @@ export class AuthEffect {
     .switchMap((payload) => this.authService.registerProfile(payload)
       .map(res => ({ type: AuthActions.USER_REGISTRATION_PROFILE_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: AuthActions.USER_REGISTRATION_PROFILE_FAILED, payload: res }))
+    );
+
+  @Effect()
+  artistFollowing$ = this.actions$
+    .ofType(AuthActions.ARTIST_FOLLOW)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.registerProfile(payload)
+      .map(res => ({ type: AuthActions.ARTIST_FOLLOW_SUCCESS, payload: res }))
     );
 
   @Effect()

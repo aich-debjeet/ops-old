@@ -51,9 +51,8 @@
         position: absolute;
       }
       .reg_interest_box_img img{
-        width: 100%;
-        max-width: 100%;
-        height: auto;
+        width: auto;
+        height: 100%;
       }
       .reg_interest_box_name{
         width: 100%;
@@ -88,6 +87,9 @@
 .reg_add_skills{
   background-color: #ffffff;
   height: 620px;
+  .text-center{
+    margin-top: 20px;
+  }
   border-left: 1px solid #e6e6e6;
   .finish_btn{
     margin-top: 20px
@@ -140,7 +142,7 @@
 /* Scrollbar for Registration Step 3  */
 .reg_select_interest{
   width: 430px;
-  height: 420px;
+  height: 350px;
   overflow-y: scroll;
   margin-top: 30px;
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
@@ -164,4 +166,10 @@
 #ops_scrollbar::-webkit-scrollbar-thumb{
   background-color: #c1c1c1;
   border-radius: 50px;
+}
+
+.reg_left_section{
+  .text-center.submit-button{
+    margin-top: 20px;
+  }
 }

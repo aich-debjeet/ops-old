@@ -69,13 +69,13 @@ export class ApiService {
 
   /* ------------------------- get logged in users profile ------------------------- */
   getLoggedInProfile() {
-    let headers = new Headers();
-    let reqOptions = new RequestOptions({ headers: headers });
+    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    var token = currentUser.access_token; // your token
 
-    headers.append('Authorization', this.accessToken);
-    headers.append('Content-Type', 'application/json');
+    let headers = new Headers({ 'Content-Type': 'application/json'}); 
+    headers.append('Authorization','Bearer '+token);
 
-    return this.http.get(`${this.apiLink}/portal/loggedInProfile`, reqOptions)
+    return this.http.get(`${this.apiLink}/portal/loggedInProfile`, { headers: headers })
         .map((data: Response) => data.json());
   }
   /* ------------------------- get logged in users profile ------------------------- */

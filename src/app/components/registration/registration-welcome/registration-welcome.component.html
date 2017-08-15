@@ -25,28 +25,29 @@
                     </div>
                     <!-- //progress bar -->
                     <div class="welcome_left_section">
-                        <div class="row">
-                            <div class="ops_checkbox_lg">
-                                <form>
+                        <form [formGroup]="wForm" (ngSubmit)="submit(wForm.value)" >
+                            <div class="row">
+                                <div class="ops_checkbox_lg">
+
                                     <label class="col-md-12">
-                                        <input type="checkbox"><span></span> I am a Critic
+                                        <input type="checkbox" formControlName="isCritic"><span></span> I am a Critic
                                     </label>
-                                </form>
+                                </div>
+
+
                             </div>
+                            <p>
+                            Critic has a special feature to rate and review artists across disciplines .If you want to be a critic select the above option.
+                            -However before we enable this feature we will reach out to you to validate your profile 
+                            </p>
+                            <p class="text-grey reg_small_text">
+                            Not mandatory can skip this option and click on profile to complete registration process. 
 
-
-                        </div>
-                    <p>
-                    Critic has a special feature to rate and review artists across disciplines .If you want to be a critic select the above option.
-                    -However before we enable this feature we will reach out to you to validate your profile 
-                    </p>
-                    <p class="text-grey reg_small_text">
-                    Not mandatory can skip this option and click on profile to complete registration process. 
-
-                    </p>
-                    <div class="row text-center">
-                        <app-button [className]="'btn-default btn-sm'" [type]="'submit'">Go to Profile</app-button>
-                    </div>
+                            </p>
+                            <div class="row text-center">
+                                <app-button [className]="'btn-default btn-sm'" [type]="'submit'">Go to Profile</app-button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

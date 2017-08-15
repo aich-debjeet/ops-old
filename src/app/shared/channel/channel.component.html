@@ -3,23 +3,23 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 ops_channel_top">
         <figure class="channel_avatar_full">
-           <img src="{{channelData.media[0].repoPath}}">
+           <img src="{{image_base_url + channelData.media[0].repoPath}}">
         </figure>
       </div>
       <div class="col-md-6 col-sm-6 ops_channel_bottom1">
         <figure class="channel_avatar_helf">
-          <img src="{{channelData?.media[1]?.repoPath}}">
+          <img src="{{image_base_url + channelData?.media[1]?.repoPath}}">
         </figure>
       </div>
       <div class="col-md-6 col-sm-6 ops_channel_bottom2">
         <figure class="channel_avatar_helf">
-          <img src="{{channelData.media[2]?.repoPath}}">
+          <img src="{{image_base_url + channelData.media[2]?.repoPath}}">
         </figure>
       </div>
         <div class="col-md-12 col-sm-12 pro_channel_cont">
           <div class="channel_name">
             <h3 class="channel_heading float-left">{{channelData.spotfeedName}}</h3>
-            <span>
+            <span *ngIf="type">
               <a href="#"><img class="float-right" src="/assets/img/svg/ico_options.svg"></a>
             </span>
           </div>
