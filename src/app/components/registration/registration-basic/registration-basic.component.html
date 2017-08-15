@@ -140,9 +140,9 @@
                     <p class="text-center">
                         <a (click)="modalService.open('edit')">Resend OTP</a>
                     </p>
-                    <form action="">
+                    <form [formGroup]="otpForm" (ngSubmit) = "otpSubmit(otpForm.value)">
                         <div class="form_group">
-                            <input class="form_input" type="text" required="">
+                            <input class="form_input" type="text"  formControlName="otpNumber" required>
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>Enter OTP</label>

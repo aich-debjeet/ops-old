@@ -57,6 +57,7 @@ export class RegistrationBasicComponent implements OnInit {
 
   public dateMask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
   public regFormBasic: FormGroup;
+  public otpForm: FormGroup;
   // public otpForm: FormGroup;
   // public user;
   constructor(
@@ -159,6 +160,11 @@ export class RegistrationBasicComponent implements OnInit {
     }, {
       validator: formValidation.MatchPassword
     })
+
+    // OTP Form Builder
+    this.otpForm = this.fb.group({
+      'otpNumber' : ['', Validators.required],
+    })
   }
 
   // Exisit User check
@@ -168,6 +174,20 @@ export class RegistrationBasicComponent implements OnInit {
     }else {
       this.petTag.user_unique = false;
     }
+  }
+
+  // OTP Validation
+  otpSubmit(value){
+    console.log(this.otpForm.valid);
+    console.log(this.regFormBasic.value.phone);
+    const number =this.regFormBasic.value.phone;
+    this.optValidate(number, value.otpNumber)
+  }
+
+  optValidate(number, otp) {
+    this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/activate/profile/'+ number +'/'+ otp)
+        .map(res => res.json())
+        .subscribe(data => {console.log(data)});
   }
 
   submitForm(value) {
