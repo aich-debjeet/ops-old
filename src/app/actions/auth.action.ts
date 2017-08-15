@@ -7,13 +7,18 @@ export class AuthActions {
   static USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
   static USER_LOGIN_FAILED = 'USER_LOGIN_FAILED';
 
-  static USER_REGISTER_PROFILE = 'USER_REGISTER_PROFILE';
-  static USER_REGISTER_PROFILE_SUCCESS = 'USER_REGISTER_PROFILE_SUCCESS';
-  static USER_REGISTER_PROFILE_FAILED = 'USER_REGISTER_PROFILE_FAILED';
 
-  static USER_REGISTRATION = 'USER_REGISTRATION';
-  static USER_REGISTRATION_SUCCESS = 'USER_REGISTRATION_SUCCESS';
-  static USER_REGISTRATION_FAILED = 'USER_REGISTRATION_FAILED';
+
+
+  // Reg Step 1
+  static USER_REGISTRATION_BASIC = 'USER_REGISTRATION_BASIC';
+  static USER_REGISTRATION_BASIC_SUCCESS = 'USER_REGISTRATION_BASIC_SUCCESS';
+  static USER_REGISTRATION_BASIC_FAILED = 'USER_REGISTRATION_BASIC_FAILED';
+
+  // Reg Step 2
+  static USER_REGISTRATION_PROFILE = 'USER_REGISTRATION_PROFILE';
+  static USER_REGISTRATION_PROFILE_SUCCESS = 'USER_REGISTRATION_PROFILE_SUCCESS';
+  static USER_REGISTRATION_PROFILE_FAILED = 'USER_REGISTRATION_PROFILE_FAILED';
 
   static OTP_CHECK = 'OTP_CHECK';
   static OTP_CHECK_SUCCESS = 'OTP_CHECK_SUCCESS';
@@ -27,6 +32,10 @@ export class AuthActions {
   static SEARCH_CARDS_SUCCESS = 'SEARCH_CARDS_SUCCESS';
   static SEARCH_CARDS_FAILED = 'SEARCH_CARDS_FAILED';
 
+  // Get all skill step3
+  static LOAD_SKILL = 'LOAD_SKILL';
+  static LOAD_SKILL_SUCCESS = 'LOAD_SKILL_SUCCESS';
+
   // Type Of Artist
   static LOAD_ARTIST = 'LOAD_ARTIST';
   static LOAD_ARTIST_SUCCESS = 'LOAD_ARTIST_SUCCESS';
@@ -38,6 +47,25 @@ export class AuthActions {
   // Post Artist Follow
   static USER_ARTIST_FOLLOW = 'USER_ARTIST_FOLLOW';
   static USER_ARTIST_FOLLOW_SUCCESS = 'USER_ARTIST_FOLLOW_SUCCESS';
+
+   // ===================================
+  //  Get all skill step3
+  // -----------------------------------
+
+    loadSkillAction(): Action {
+      return {
+        type: AuthActions.LOAD_SKILL
+      };
+    }
+
+    loadSkillSuccesAction(value): Action {
+      return {
+        type: AuthActions.LOAD_SKILL_SUCCESS,
+        payload: {
+          value
+        }
+      };
+    }
 
   // ===================================
   //  POST USER ARTIST TYPE
@@ -127,12 +155,12 @@ export class AuthActions {
   }
 
   // ===================================
-  //  USER REGISTRATION
+  //  USER REGISTRATION STEP-1
   // -----------------------------------
 
-  userRegister(value: Register): Action {
+  userRegisterBasic(value: Register): Action {
     return {
-      type: AuthActions.USER_REGISTRATION,
+      type: AuthActions.USER_REGISTRATION_BASIC,
       payload: {
         value
       }
@@ -140,9 +168,9 @@ export class AuthActions {
   }
 
 
-  userRegistrationSuccess(value: Register): Action {
+  userRegistrationBasicSuccess(value: Register): Action {
     return {
-      type: AuthActions.USER_REGISTRATION_SUCCESS,
+      type: AuthActions.USER_REGISTRATION_BASIC_SUCCESS,
       payload: {
         value
       }
@@ -150,16 +178,20 @@ export class AuthActions {
   }
 
 
-  userRegistrationFailed(error: any): Action {
+  userRegistrationBasicFailed(error: any): Action {
     return {
-      type: AuthActions.USER_REGISTRATION_FAILED,
+      type: AuthActions.USER_REGISTRATION_BASIC_FAILED,
       payload: error
     };
   }
 
-  userRegisterProfile(value: RegisterProfile): Action {
+  // ===================================
+  //  USER REGISTRATION STEP-2
+  // -----------------------------------
+
+  userRegisterProfile(value: any): Action {
     return {
-      type: AuthActions.USER_REGISTER_PROFILE,
+      type: AuthActions.USER_REGISTRATION_PROFILE,
       payload: {
         value
       }
@@ -167,9 +199,9 @@ export class AuthActions {
   }
 
 
-  userRegisterProfileSuccess(value: RegisterProfile): Action {
+  userRegisterProfileSuccess(value: any): Action {
     return {
-      type: AuthActions.USER_REGISTER_PROFILE_SUCCESS,
+      type: AuthActions.USER_REGISTRATION_PROFILE_SUCCESS,
       payload: {
         value
       }
@@ -179,7 +211,7 @@ export class AuthActions {
 
   userRegisterProfileFailed(error: any): Action {
     return {
-      type: AuthActions.USER_REGISTER_PROFILE_FAILED,
+      type: AuthActions.USER_REGISTRATION_PROFILE_FAILED,
       payload: error
     };
   }

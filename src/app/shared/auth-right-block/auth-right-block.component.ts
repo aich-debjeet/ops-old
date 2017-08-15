@@ -1,10 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-export class RegValue {
-  mainTitle: string;
-  description: string;
-  loginLink: Boolean;
-}
+
 
 @Component({
   selector: 'auth-right-block',
@@ -14,7 +10,7 @@ export class RegValue {
 
 export class AuthRightBlockComponent implements OnInit {
 
-  @Input() rightCom: RegValue;
+  @Input() rightCom;
   constructor() { }
 
   ngOnInit() {

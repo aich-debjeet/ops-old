@@ -1,0 +1,295 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_functions.scss';
+@import './src/assets/scss/helpers/_mixins.scss';
+@import '~sass-mq/_mq.scss';
+
+
+// home page style ------------------------------------------------------
+.home_feed {
+    margin-top: 32px;
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        margin-top: 64px;
+    }
+}
+
+.right_options {
+    width: 12px;
+    float: right;
+}
+
+.padding-l6 {
+    padding-left: 6px;
+}
+
+.home_quick {
+    ul li {
+        margin: 8px;
+    }
+}
+
+.quick_section {
+    // a:hover{
+    //   background-color: rgba(102, 45, 145, 0.89);
+    //   box-shadow: 0 16px 29px 0 rgba(102, 45, 145, 0.69);
+    // }
+}
+
+// artist follow
+.home_artist_follow {
+    margin-top: 16px;
+}
+
+// panel style
+.panel20 {
+    width: 20%;
+    float: left;
+    padding: 4px;
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        width: 33%;
+    }
+    h3 {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        color: #333333;
+        padding-top: 8px;
+    }
+    p {
+        font-size: 12px;
+        font-weight: bold;
+        color: #979797;
+        padding: 8px 0;
+    }
+}
+
+// tabs
+.home_tabs {
+    margin-top: 8px;
+    .nav-tabs > li > a {
+        font-size: 14px;
+        font-weight: bold;
+        text-align: left;
+        color: #979797;
+        background: transparent;
+        border: none;
+        text-transform: uppercase;
+    }
+    .nav-tabs li .active a {
+        color: #000000;
+    }
+    .nav-tabs > li.active > a,
+    .nav-tabs > li.active > a:hover,
+    .nav-tabs > li.active > a:focus {
+        color: #000000;
+        background-color: transparent;
+        border: none;
+        border-bottom-color: transparent;
+        cursor: default;
+    }
+    .nav > li > a {
+        position: relative;
+        display: block;
+        padding: 10px 15px 10px 0;
+    }
+    .nav-tabs {
+        border-bottom: none;
+    }
+    #home_channel, #home_feed, #home_spotfeed {
+        margin-left: -19px;
+    }
+}
+
+// home feed right style --------------------
+.sm_panel_body {
+    .padding_012 {
+        padding: 0 22px;
+        @include mq($from: $tablet, $until: $desktop_sm) {}
+        .ops_heading {
+            padding: 10px 0;
+        }
+    }
+    .sm_panel_left {
+        img {
+            border-radius: 3px;
+            @include mq($from: $tablet, $until: $desktop_sm) {
+                margin-left: 0;
+            }
+        }
+    }
+    .sm_panel_right {
+        line-height: 34px;
+        padding-left: 0px;
+        @include mq($from: $tablet, $until: $desktop_sm) {
+            text-align: center;
+        }
+        h3 {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333333;
+            line-height: 18px;
+        }
+        .btn-label-follow {
+            padding: 2px 0px 2px 10px;
+        }
+    }
+    .btn-default {
+        color: #c1c1c1;
+        background-color: #ffffff;
+        border-color: #c1c1c1;
+    }
+    p {
+        line-height: 18px;
+    }
+}
+
+.avatar_near_event {
+    width: 100%;
+    height: 126px;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 2.5;
+    border-radius: 3px;
+    border: 0.2px solid #f8f8f8;
+    background-color: #f8f8f8;
+    // margin-left: 9px;
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        height: 78px;
+    }
+}
+
+.avatar_community2 {
+    width: 100%;
+    height: 68px;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 2.5;
+    border-radius: 3px;
+    border: 0.2px solid #f8f8f8;
+    background-color: #f8f8f8;
+}
+
+// feed -------------------------------------------
+.feed-avatar {
+    width: 100%;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 2.5;
+    border-radius: 3px;
+    border: 0.2px solid #f8f8f8;
+    background-color: #f8f8f8;
+    img {
+        width: 100%;
+    }
+}
+
+.feed_block {
+    //margin: 0 10px;
+    height: auto;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+    .pro_channel_img1 {
+        padding: 0px;
+        img {
+            border-radius: 5px;
+        }
+    }
+    .pro_channel_name {
+        height: 0px;
+    }
+    .extra-padding {
+        padding: 0 15px 15px;
+    }
+    p {
+        color: #000 !important;
+    }
+    .small-txt {
+        font-size: 12px;
+        font-weight: 600;
+        color: #979797;
+        margin-left: 35px;
+        margin-top: -8px;
+    }
+    .pro_channel_count span {
+        color: #333333;
+    }
+    .feed_article {
+        position: absolute;
+        top: 0px;
+        padding: 10px;
+        img {
+            width: 20px;
+            box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
+        }
+    }
+    .pro_channel_count {
+        img {
+            float: left;
+            padding-top: 2px;
+        }
+        .like_count {
+            float: left;
+            margin-left: 8px;
+        }
+    }
+}
+// spotfeed ------------------------------------
+.avatar_spotfeed {
+    width: 100%;
+    height: 265px;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    background: #f8f8f8;
+    img {
+      width: 100%;
+    }
+}
+.ops_spotfeed {
+  .pro_channel_name {
+    line-height: 28px;
+  }
+  .pro_channel_block {
+    height: 350px;
+  }
+}
+
+//quick access
+.quick_access {
+    .feed-heading {
+        margin: 8px;
+    }
+   
+}
+
+.feed-heading {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333333;
+    text-align: left;
+    padding: 3px 0;
+    text-transform: uppercase;
+//     @include mq($from: $tablet, $until: $desktop_sm) {
+//               font-size: 10px;
+// }
+}
+
+.pro_channel2 {
+    width: 100%;
+    margin: 6px;
+}

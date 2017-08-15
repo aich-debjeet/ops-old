@@ -1,14 +1,12 @@
-/* ------------------ Registration process welcome ---------------------  */
-
 .reg_steps_welcome {
     .welcome_left_section {
-        margin: 30% 18%;
+        margin: 30% 3%;
     }
     p {
         font-size: 14px;
         color: #333333;
         text-align: center;
-        padding: 15% 0;
+        padding: 15% 0 5%;
         line-height: 24px;
     }
     label {
@@ -19,9 +17,26 @@
         font-size: 28px;
         color: #333;
     }
+}
 
+.reg_welcome_right_section {
     h3 {
         margin-top: 12%
     }
+    h4 {
+        margin: 5% 0;
+        font-size: 18px;
+        text-align: center;
+    }
 }
 
+// critic page left bottom text
+
+.reg_small_text{
+    font-size: 12px!important;
+    padding:0px 0px 5%!important;
+}
+
+.text-grey{
+    color: #979797!important;
+}

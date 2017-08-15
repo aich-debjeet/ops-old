@@ -1,0 +1,168 @@
+// ------------------------ channel card style -------------------------------
+.ops_channel_card {
+    padding: 0 8px;
+    margin: 8px 0;
+    .ops_channel_block {
+        //margin: 0 10px;
+        height: 390px;
+        border-radius: 5px;
+        background-color: #ffffff;
+        box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+        .ops_channel_top {
+            padding: 0px;
+            img {
+                border-radius: 5px;
+            }
+        }
+        .ops_channel_bottom1 {
+            padding: 4px 2px 0 0;
+        }
+        .ops_channel_bottom2 {
+            padding: 4px 0 0 2px;
+        }
+    }
+    .pro_channel_cont {
+        //margin: 15px 0;
+        padding: 0px;
+        span {
+            width: 5%;
+            display: inline-block;
+            img {
+                width: 14px;
+            }
+        }
+        .feed-heading {
+            width: 95%;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1.36;
+            text-align: left;
+            margin: 0;
+            padding: 0;
+        }
+        p {
+            float: right;
+            width: 20%;
+        }
+        .channel_name {
+            height: 50px;
+            margin: 15px;
+            .channel_heading {
+              width: 95%;
+              font-size: 14px;
+              font-weight: bold;
+              line-height: 1.36;
+              text-align: left;
+              margin: 0;
+              padding: 0;
+              color: #333333;
+            }
+        }
+        .channel-thumb {
+            border-bottom: solid 1px #efefef;
+            padding: 0 10px 10px 15px;
+          img {
+            width: 23px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+        }
+        p {
+            font-size: 14px;
+            font-weight: 600;
+            text-align: left;
+            color: #979797;
+            width: 85%;
+        }
+        }
+        .channel_count {
+        font-size: 12px;
+        font-weight: bold;
+        text-align: left;
+        color: #333333;
+        padding: 15px;
+        span {
+        margin: 0 5px;
+        width: 20%;
+    }
+    }
+        .pro_channel-thumb {
+            border-bottom: solid 1px #efefef;
+            padding: 0 10px 10px 15px;
+            img {
+                width: 23px;
+                border-radius: 50%;
+                background-color: #ffffff;
+                box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+            }
+            p {
+                font-size: 14px;
+                font-weight: 600;
+                text-align: left;
+                color: #979797;
+                width: 85%;
+            }
+        }
+        .pro_channel_count {
+            img {
+                width: 14px;
+            }
+            span {
+                margin: 0 5px;
+                width: 20%;
+            }
+            font-size: 12px;
+            font-weight: bold;
+            text-align: left;
+            color: #333333;
+            padding: 15px;
+        }
+    }
+    .channel_avatar_full {
+        width: 100%;
+        height: 113px;
+        display: inline-block;
+        vertical-align: middle;
+        overflow: hidden;
+        position: relative;
+        box-sizing: border-box;
+        img {
+          width: 100%;
+          border-radius: 5px;
+        }
+    }
+    .channel_avatar_helf {
+        width: 100%;
+        height: 104px;
+        display: inline-block;
+        vertical-align: middle;
+        overflow: hidden;
+        position: relative;
+        box-sizing: border-box;
+        background: #f8f8f8;
+        img {
+          width: 100%;
+        }
+    }
+}
+// small channel card (registratio page)
+.ops_channel_card_sm {
+      padding: 0 4px;
+  .ops_channel_block {
+        height: 324px;
+  }
+  .channel_avatar_full {
+    height: 94px;
+  }
+  .channel_avatar_helf {
+    height: 84px;
+  }
+  .pro_channel_cont {
+    .channel_name {
+      height: 32px;
+    }
+    .channel_count {
+          padding: 8px;
+    }
+  }
+}

@@ -17,7 +17,14 @@ export class AuthEffect {
     private authService: AuthService
   ) {}
 
-  
+  @Effect()
+  getAllSkillType$ = this.actions$
+    .ofType(AuthActions.LOAD_SKILL)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.getAllSkill()
+      .map(res => ({ type: AuthActions.LOAD_SKILL_SUCCESS, payload: res }))
+    );
+
 
   @Effect()
   userArtistType$ = this.actions$
@@ -46,20 +53,20 @@ export class AuthEffect {
 
   @Effect()
   registerProfile$ = this.actions$
-    .ofType(AuthActions.USER_REGISTER_PROFILE)
+    .ofType(AuthActions.USER_REGISTRATION_PROFILE)
     .map(toPayload)
     .switchMap((payload) => this.authService.registerProfile(payload)
-      .map(res => ({ type: AuthActions.USER_REGISTER_PROFILE_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: AuthActions.USER_REGISTER_PROFILE_FAILED, payload: res }))
+      .map(res => ({ type: AuthActions.USER_REGISTRATION_PROFILE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.USER_REGISTRATION_PROFILE_FAILED, payload: res }))
     );
 
   @Effect()
-  loadAccountForm$ = this.actions$
-    .ofType(AuthActions.USER_REGISTRATION)
+  registerBasic$ = this.actions$
+    .ofType(AuthActions.USER_REGISTRATION_BASIC)
     .map(toPayload)
-    .switchMap((payload) => this.authService.register(payload)
-      .map(res => ({ type: AuthActions.USER_REGISTRATION_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: AuthActions.USER_REGISTRATION_FAILED, payload: res }))
+    .switchMap((payload) => this.authService.registerStepBasic(payload)
+      .map(res => ({ type: AuthActions.USER_REGISTRATION_BASIC_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.USER_REGISTRATION_BASIC_FAILED, payload: res }))
     );
 
   @Effect()

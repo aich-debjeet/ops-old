@@ -2,16 +2,22 @@
     <div class="right_container">
         <div class="reg_steps_logo">
             <a href="index.html">
-                <img src="/assets/img/logo.png" alt="One Page Spotlight">
+                <img src="/assets/img/logo_white.svg" alt="One Page Spotlight">
             </a>
         </div>
         <h2 class="text-center">{{rightCom.mainTitle}}</h2>
-        <h4>{{rightCom.secondHead}}</h4>
-        <div class="reg_graph">
-            <div class="reg_circle"></div>
-            <div class="reg_rectangle"></div>
+        <div *ngIf="rightCom.page">
+            <h4>{{rightCom.secondHead}}</h4>
+            <div class="reg_graph">
+                <div class="reg_circle"></div>
+                <div class="reg_rectangle"></div>
+            </div>
+        </div>
+        <div class="reg_graph_illustration">
+            <img src="{{rightCom.img}}" alt="">
         </div>
         <p>{{rightCom.description}}</p>
-        <p *ngIf="rightCom.loginLink">Don't have an account ? <a routerLink="{{rightCom.button_link}}" >{{rightCom.button_text}}</a></p>
+        <p *ngIf="rightCom.loginLink && rightCom.button_text == 'Login'">Already a member? <a routerLink="{{rightCom.button_link}}" >{{rightCom.button_text}}</a></p>
+         <p *ngIf="rightCom.loginLink && rightCom.button_text == 'Sign Up'">Don't have an account ? <a routerLink="{{rightCom.button_link}}" >{{rightCom.button_text}}</a></p>
     </div>
 </div>
