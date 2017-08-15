@@ -11,7 +11,10 @@ export class ApiService {
   private apiLink: string = environment.API_ENDPOINT;
 
   // temp access token
-  accessToken: string = "Bearer rf_6941df37-273d-47ee-a79f-48f9024b524b";
+  accessToken: string = "Bearer fd_8cc8f8bc-f33f-41f9-b3a2-7084ea1ac610";
+
+  // temp userHandle
+  userHandle = 'J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM';
 
   constructor(private http: Http, private router: Router) { }
 
@@ -95,5 +98,50 @@ export class ApiService {
         .map((data: Response) => data.json());
   }
   /* ------------------------- get logged in users media ------------------------- */
+
+  /* ------------------------- get logged in users messages ------------------------- */
+  getAllMessages(param: string) {
+    let headers = new Headers();
+    let reqOptions = new RequestOptions({ headers: headers });
+
+    headers.append('Authorization', this.accessToken);
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.get(`${this.apiLink}/portal/message/`+param+'/'+this.userHandle, reqOptions)
+        .map((data: Response) => { data = data.json() });
+  }
+  /* ------------------------- get logged in users messages ------------------------- */
+
+  /* ------------------------- user search ------------------------- */
+  userSearch() {
+    let headers = new Headers();
+    let reqOptions = new RequestOptions({ headers: headers });
+    let reqBody = JSON.stringify({
+      "isHuman": "1",
+      "limit": 10,
+      "offset": 0
+    });
+
+    headers.append('Authorization', this.accessToken);
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.put(`${this.apiLink}/portal/searchprofiles`, reqBody, reqOptions)
+        .map((data: Response) => { data = data.json() });
+
+  }
+  /* ------------------------- user search ------------------------- */
+
+  /* ------------------------- send message ------------------------- */
+  sendMessage(req: any) {
+    let headers = new Headers();
+    let reqOptions = new RequestOptions({ headers: headers });
+
+    headers.append('Authorization', this.accessToken);
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post(`${this.apiLink}/portal/message`, req, reqOptions)
+        .map((data: Response) => { data = data.json() });
+  }
+  /* ------------------------- send message ------------------------- */
 
 }

@@ -9,13 +9,16 @@ import { ChannelComponent } from './channel/channel.component';
 import { SpotfeedCardComponent } from './spotfeed-card/spotfeed-card.component';
 import { FooterComponent } from './footer/footer.component';
 import { PostCardComponent } from './post-card/post-card.component';
+import { ModalComponent } from './modal/modal.component';
+
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
   ],
-  declarations: [ 
-    AuthRightBlockComponent, 
+  declarations: [
+    ModalComponent,
+    AuthRightBlockComponent,
     AppButtonComponent,
     QuickAccessComponent,
     NavigationComponent,
@@ -25,14 +28,15 @@ import { PostCardComponent } from './post-card/post-card.component';
     PostCardComponent
   ],
   exports: [
-     AuthRightBlockComponent, 
-     AppButtonComponent,
-     QuickAccessComponent,
-     NavigationComponent,
-     ChannelComponent,
-     SpotfeedCardComponent,
-     FooterComponent,
-     PostCardComponent
+    AuthRightBlockComponent,
+    AppButtonComponent,
+    QuickAccessComponent,
+    NavigationComponent,
+    ChannelComponent,
+    SpotfeedCardComponent,
+    FooterComponent,
+    PostCardComponent,
+    ModalComponent
   ]
 
 })
