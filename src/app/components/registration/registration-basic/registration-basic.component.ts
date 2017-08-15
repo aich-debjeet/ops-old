@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import * as $ from 'jquery';
 
@@ -66,6 +67,7 @@ export class RegistrationBasicComponent implements OnInit {
     private element: ElementRef,
     private databaseValidator: DatabaseValidator,
     private http: Http,
+    private router: Router,
     public modalService: ModalService
     ) {
     this.tagState$ = store.select('loginTags');
@@ -178,8 +180,6 @@ export class RegistrationBasicComponent implements OnInit {
 
   // OTP Validation
   otpSubmit(value){
-    console.log(this.otpForm.valid);
-    console.log(this.regFormBasic.value.phone);
     const number =this.regFormBasic.value.phone;
     this.optValidate(number, value.otpNumber)
   }
@@ -196,7 +196,6 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   otpLogin() { 
-    console.log('otp login');
     const form =  {
         'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
         'client_secret': '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',
@@ -205,14 +204,16 @@ export class RegistrationBasicComponent implements OnInit {
         'grant_type' : 'password'
       }
       console.log(form);
-      return this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/oauth2/token', form)
-        .map((response: Response) => {
-            const user = response.json();
-            console.log(user);
+      this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/login/profile', form)
+        .map(res => res.json())
+        .subscribe(data => {
+          const user = data;
             if (user && user.access_token) {
                 localStorage.setItem('currentUser', JSON.stringify(user));
-            }
+                this.router.navigate(['/reg/profile']);
+            }        
         });
+
   }
 
   resendOtp(){
@@ -253,10 +254,19 @@ export class RegistrationBasicComponent implements OnInit {
       'dateOfBirth': '2016-09-29T05:00:00',
       }
     }
-    this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
+    
     // console.log(form);
-    // console.log(this.regFormBasic);
+    console.log(this.regFormBasic.valid);
     if (this.regFormBasic.valid === true) {
+      this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
+      this.tagState$.subscribe(
+        data => { 
+          console.log(data.success);
+          if(data.success == true){ 
+            this.router.navigateByUrl("/reg/addskill") 
+          }
+        }
+      )
       console.log(value);
     }
   }
