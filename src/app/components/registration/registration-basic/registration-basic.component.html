@@ -112,6 +112,9 @@
                             <label>Confirm Password</label>
                             <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.MatchPassword">Password not match</p>
                         </div><br>
+                        <p class="text-grey privacy-policy">
+                            By signing up, you agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>, including Cookie Use. Others will be able to find you by email or phone number if provided.
+                        </p>
                         <div class="text-center">
                             <app-button [className]="'btn-default btn-sm'" [type]="'submit'">Sign Up</app-button>
                         </div>
@@ -145,6 +148,7 @@
                             <label>Enter OTP</label>
                             <span>{{ countDown | async }}</span>
                         </div>
+                        
                         <div class="text-center">
                             <app-button [className]="'btn btn-default btn-sm'" [type]="'submit'">Validate OTP</app-button>
                         </div>
