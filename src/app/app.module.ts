@@ -22,12 +22,16 @@ import { AuthReducer } from './reducers/auth.reducer';
 import { HomeReducer } from './reducers/home.reducer';
 import { SharedReducer } from './reducers/shared.reducer';
 import { ProfileReducer } from './reducers/profile.reducer';
+import { MessageReducer } from './reducers/messages.reducer';
+import { UserSearchReducer } from './reducers/user-search.reducer';
 
 // Effects
 import { AuthEffect } from './effects/auth.effect';
 import { HomeEffect } from './effects/home.effect';
 import { SharedEffect } from './effects/shared.effect';
 import { ProfileEffect } from './effects/profile.effect';
+import { MessageEffect } from './effects/message.effects';
+import { UserSearchEffect } from './effects/user-search.effect';
 
 // Services
 import { AuthService } from './services/auth.service';
@@ -102,12 +106,20 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
     SharedModule,
     FormsModule,
     HttpModule,
-    StoreModule.provideStore({ loginTags: AuthReducer, profileTags: ProfileReducer, userMediaTags: ProfileReducer}),
+    StoreModule.provideStore({
+      loginTags: AuthReducer,
+      profileTags: ProfileReducer,
+      userMediaTags: ProfileReducer,
+      sentMessagesTags: MessageReducer,
+      userSearchTags: UserSearchReducer,
+      receivedMessagesTags: MessageReducer}),
     RouterModule.forRoot(routes),
     EffectsModule.run(AuthEffect),
     EffectsModule.run(HomeEffect),
     EffectsModule.run(SharedEffect),
-    EffectsModule.run(ProfileEffect)
+    EffectsModule.run(ProfileEffect),
+    EffectsModule.run(MessageEffect),
+    EffectsModule.run(UserSearchEffect)
   ],
   providers: [AuthService, AuthGuard, ApiService],
   bootstrap: [AppComponent]
