@@ -141,7 +141,8 @@
         box-sizing: border-box;
         background: #f8f8f8;
         img {
-          width: 100%;
+          width: auto;
+          height: 100%;
         }
     }
 }

@@ -72,6 +72,29 @@ export class AuthService {
             // });
     }
 
+    registerWelcome(req: any) {
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        var token = currentUser.access_token; // your token
+
+        let headers = new Headers({ 'Content-Type': 'application/json'}); 
+        headers.append('Authorization','Bearer '+token)
+
+        return this.http.put(this.apiLink +'/portal/auth/user/update', JSON.stringify(req), { headers: headers })
+            .map((data) => data.json());
+
+    }
+
+    artistFollowing(req: any) {
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        var token = currentUser.access_token; // your token
+
+        let headers = new Headers({ 'Content-Type': 'application/json'}); 
+        headers.append('Authorization','Bearer '+token)
+
+        return this.http.put(this.apiLink +'/portal/network/following/start', JSON.stringify(req), { headers: headers })
+            .map((data) => data.json());
+    }
+
     checkOtp(req: any) {
         return this.http.post(`${this.apiLink}/portal/otp-check`, req)
             .map((response: Response) => {
@@ -120,7 +143,7 @@ export class AuthService {
         let headers = new Headers({ 'Content-Type': 'application/json'}); 
         headers.append('Authorization','Bearer '+token);
 
-        return this.http.put(this.apiLink +'/portal/searchprofiles/Industry', JSON.stringify(value), { headers: headers })
+        return this.http.put(this.apiLink +'/portal/searchprofiles/Industry', value, { headers: headers })
             .map((data) => data.json());
     }
 

@@ -1,0 +1,139 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_functions.scss';
+@import './src/assets/scss/helpers/_mixins.scss';
+@import '~sass-mq/_mq.scss';
+// landing page style ------------------------------------------------
+.landing_top {
+    background: linear-gradient(135.82deg, #F7D022 0%, #E56E86 26.1%, #662D91 100%);
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    margin-top: -2%;
+    // padding-bottom: 70px;
+    .landing_header_button {
+        padding: 32px 0;
+    }
+    .landing_logo {
+        img {
+            width: 466px;
+        }
+    }
+    .landing_top_block {
+        margin: 48px 0 134px;
+        .landing_slider {
+            .slider_heading {
+                color: #FFFFFF;
+                font-family: "Open Sans";
+                font-size: 40px;
+                font-weight: bold;
+                line-height: 57px;
+                margin-top: 32px;
+            }
+            .slider_text {
+                color: #FFFFFF;
+                font-family: "Open Sans";
+                font-size: 16px;
+                line-height: 29px;
+                margin: 16px 0;
+            }
+        }
+        .btn {
+          margin-top: 8px;
+        }
+        .landing_top_art {
+          img {
+            width: 385px;
+            margin-left: 52px;
+          }
+            .landing_art_text {
+                color: #FFFFFF;
+                font-family: "Open Sans";
+                font-size: 22px;
+                font-weight: bold;
+                line-height: 24px;
+                text-align: center;
+                margin-top: 24px;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+.landing_for_artist {
+    padding: 58px 0;
+    .landing_text {
+        margin: 16px 0;
+    }
+    .artist_feature {
+        margin-top: 48px;
+    }
+    .btn-default {
+        background-color: transparent;
+        &:hover {
+            color: $theme_red;
+        }
+        &:active {
+            color: $white;
+        }
+    }
+}
+
+.landing_art_lovers {
+    margin: 58px 24px 58px 0;
+    .landing_text {
+        margin: 24px 0;
+    }
+}
+
+.landing_org {
+    margin: 58px 24px 58px 58px;
+    .landing_text {
+        margin: 24px 0;
+    }
+    .btn-default {
+        background-color: transparent;
+        &:hover {
+            color: $theme_red;
+        }
+        &:active {
+            color: $white;
+        }
+    }
+}
+.landing_heading {
+  color: #64467B;
+  font-family: "Open Sans";
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 38px;
+}
+.landing_text {
+  color: #9682A6;
+  font-family: "Open Sans";
+  font-size: 18px;
+  line-height: 29px;
+}
+.landing_title {
+  color: #662D91;
+  font-family: "Open Sans";
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+}
+.btn-login {
+    color: #fff;
+    background-color: transparent;
+    border-color: #fff;
+    text-transform: uppercase;
+}
+
+.btn-signup {
+    color: #ff7b84;
+    background-color: #fff;
+    border-color: #fff;
+    text-transform: uppercase;
+}
+
+.main{
+    margin-top: 0%!important;
+}

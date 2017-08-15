@@ -40,13 +40,62 @@ export class AuthActions {
   static LOAD_ARTIST = 'LOAD_ARTIST';
   static LOAD_ARTIST_SUCCESS = 'LOAD_ARTIST_SUCCESS';
 
+  // Type Of Artist
+  static ARTIST_FOLLOW = 'LOAD_ARTIST';
+  static ARTIST_FOLLOW_SUCCESS = 'LOAD_ARTIST_SUCCESS';
+
   // Post user Artist Type
   static USER_ARTIST_TYPE = 'USER_ARTIST_TYPE';
   static USER_ARTIST_TYPE_SUCCESS = 'USER_ARTIST_TYPE_SUCCESS';
+  // welcome screen
+  static USER_REGISTRATION_WELCOME = 'USER_REGISTRATION_WELCOME';
+  static USER_REGISTRATION_WELCOME_SUCCESS = 'USER_REGISTRATION_WELCOME_SUCCESS';
 
   // Post Artist Follow
   static USER_ARTIST_FOLLOW = 'USER_ARTIST_FOLLOW';
   static USER_ARTIST_FOLLOW_SUCCESS = 'USER_ARTIST_FOLLOW_SUCCESS';
+
+   // ===================================
+  //  Get all skill step3
+  // -----------------------------------
+    artistFollowingAction(value): Action {
+      return {
+        type: AuthActions.ARTIST_FOLLOW,
+        payload: {
+          value
+        }
+      };
+    }
+
+    artistFollowingSuccessAction(value): Action {
+      return {
+        type: AuthActions.ARTIST_FOLLOW_SUCCESS,
+        payload: {
+          value
+        }
+      };
+    }
+
+    // ===================================
+  //  Get all skill step3
+  // -----------------------------------
+    registrationWelcomeAction(value): Action {
+      return {
+        type: AuthActions.USER_REGISTRATION_WELCOME,
+        payload: {
+          value
+        }
+      };
+    }
+
+    registrationWelcomeSuccessAction(value): Action {
+      return {
+        type: AuthActions.USER_REGISTRATION_WELCOME_SUCCESS,
+        payload: {
+          value
+        }
+      };
+    }
 
    // ===================================
   //  Get all skill step3

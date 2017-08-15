@@ -47,7 +47,7 @@ export class RegistrationProfileComponent implements OnInit {
     this.rightCom = { 
       mainTitle: 'Select Your Profile Type', 
       secondHead: '',
-      description: 'Selecting a profile type will help us help you better. Each profile type has different fields of selection catering to specific needs. Depending on your interests kindly pick a profile type that suits you best.',
+      description: 'Select specific skill sets that you possess. You can click on as many options as you like.',
       loginLink: false,
       button_text: 'Login',
       button_link: '/login',
@@ -65,6 +65,7 @@ export class RegistrationProfileComponent implements OnInit {
           "isStudent":value.is_student
         }
       }
+      localStorage.setItem('userType', JSON.stringify(value.artistList));
       this.store.dispatch({ type: AuthActions.USER_REGISTRATION_PROFILE, payload: form});
 
       this.tagState$.subscribe(
@@ -76,14 +77,16 @@ export class RegistrationProfileComponent implements OnInit {
   }
 
   onChange(value:string, type:string, isChecked: boolean) {
+    console.log('on change');
     const checkboxFormArray = <FormArray>this.rForm.controls.artistList;
-
+    
     if(isChecked) {
       checkboxFormArray.push(new FormControl({name: value, typeName: type}));
     } else {
       let index = checkboxFormArray.controls.findIndex(x => x.value == value)
       checkboxFormArray.removeAt(index);
     }
+    
   }
 
 }

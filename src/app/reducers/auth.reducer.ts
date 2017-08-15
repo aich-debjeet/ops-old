@@ -6,13 +6,27 @@ import { AuthActions } from '../actions/auth.action';
 
 export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
   switch (type) {
+    case AuthActions.USER_REGISTRATION_WELCOME:
+      return Object.assign({}, state, {
+        success: true
+      });
+
+    case AuthActions.USER_REGISTRATION_WELCOME_SUCCESS:
+      console.log(payload);
+      return Object.assign({}, state, {
+        completed: payload,
+        success: true
+      });
+      
     case AuthActions.USER_ARTIST_FOLLOW:
      console.log(payload);
       return Object.assign({}, state, {
         success: true
       });
+      
 
     case AuthActions.USER_ARTIST_FOLLOW_SUCCESS:
+    console.log('user artist sucess');
       console.log(payload);
       if (payload.length > 0) {
         return Object.assign({}, state, {
@@ -153,6 +167,23 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         });
       }
 
+<<<<<<< HEAD
+    case AuthActions.ARTIST_FOLLOW:
+      console.log(payload);
+      return Object.assign({}, state, {
+        success: true
+      });
+
+    case AuthActions.ARTIST_FOLLOW_SUCCESS:
+      console.log('otp sucess');
+      return Object.assign({}, state, {
+        completed: payload,
+        success: true
+      });
+
+      
+=======
+>>>>>>> 8a1eddca167a4f378138de9347d995b713428ca9
 
     default:
       return state;

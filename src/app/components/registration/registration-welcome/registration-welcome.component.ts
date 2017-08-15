@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { RegValue, RightBlockTag } from '../../../models/auth.model';
+import { RegValue, RightBlockTag, authModel } from '../../../models/auth.model';
 
 // Action
 import { AuthActions } from '../../../actions/auth.action'
@@ -19,9 +20,21 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./registration-welcome.component.scss']
 })
 export class RegistrationWelcomeComponent implements OnInit {
-
+  wForm: FormGroup;
   rightCom: RightBlockTag;
-  constructor() { }
+  tagState$: Observable<authModel>;
+  private tagStateSubscription: Subscription;
+
+  constructor(
+    private router: Router,
+    fb: FormBuilder,
+    private store: Store<authModel>
+  ) { 
+    this.tagState$ = store.select('loginTags');
+    this.wForm = fb.group({
+      'isCritic': false,
+    })
+  }
 
   ngOnInit() {
     this.rightCom = { 
@@ -34,6 +47,24 @@ export class RegistrationWelcomeComponent implements OnInit {
       page: false,
       img: 'http://d33wubrfki0l68.cloudfront.net/61f96ccf1172c7d2fa2aa275426486d5463fba68/fd218/img/reg_critic_illustration.png'
     };
+  }
+
+  submit(value){
+    console.log(value);
+    const form =  { 
+        "other":{
+          "isCritic" : value.iscritic
+        }
+      }
+    this.store.dispatch({ type: AuthActions.USER_REGISTRATION_WELCOME, payload: form});
+
+    this.tagState$.subscribe(
+      data => { 
+        console.log(data.success);
+        if(data.success == true){ this.router.navigateByUrl("/profile") }
+      }
+    )
+    
   }
 
 }

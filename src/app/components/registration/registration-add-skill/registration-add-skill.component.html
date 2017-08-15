@@ -29,7 +29,7 @@
                             <input class="form_input" type="text" required="" formControlName="profession" [(ngModel)]="search">
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
-                            <label>Search Skills</label>
+                            <label>{{searchPlaceholder}}</label>
                             <span><i class="fa fa-search" aria-hidden="true"></i></span>
                         </div>
                     </form>
@@ -47,6 +47,9 @@
                                 </div>
                             </div>
                         </a>
+                    </div>
+                    <div class="row text-center submit-button ">
+                        <app-button [className]="'btn-default btn-md finish_btn'" (click)="submit()" [type]="'submit'">Finish</app-button>
                     </div>
                     <!-- //Select Interest -->
 
@@ -85,7 +88,7 @@
                                             <h4>{{artist.name}}</h4>
                                             <h5>Profession</h5>
 
-                                            <app-button (click)="toggleFollowBtn(i)" [className]="('btn-xs btn-primary ' + (artist.isFollowing == true ? 'btn-following' : 'btn-follow'))">{{artist.isFollowing == true ? "Following" :  "Follow"}}</app-button>
+                                            <app-button (click)="toggleFollowBtn(i, artist.handle)" [className]="('btn-xs btn-primary ' + (artist.isFollowing == true ? 'btn-following' : 'btn-follow'))">{{artist.isFollowing == true ? "Following" :  "Follow"}}</app-button>
                                         </div>
                                     </div>
                                 </div>
@@ -108,7 +111,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <app-channel *ngFor="let channel of channelList" [className]="'col-md-6 col-sm-6 ops_channel_card ops_channel_card_sm'" [channelData]="channel"></app-channel>
+                                            <app-channel *ngFor="let channel of channelList" [className]="'col-md-6 col-sm-6 ops_channel_card ops_channel_card_sm'" [channelData]="channel" (click)="handle($event)"></app-channel>
                                         </div>
                                     </div>
                                 </div>  
@@ -116,7 +119,7 @@
                         </div>
                     </div>
                     <div class="row text-center">
-                        <app-button [className]="'btn-default btn-md finish_btn'" [type]="'submit'">Finish</app-button>
+                        <app-button [className]="'btn-default btn-md finish_btn'" (click)="submit()" [type]="'submit'">Finish</app-button>
                     </div>
                 </div>
                 <!-- registration right section -->
