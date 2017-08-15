@@ -147,7 +147,7 @@ export class RegistrationBasicComponent implements OnInit {
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
       'gender': ['M', Validators.required],
-      'phone' : [9898989890, [
+      'phone' : [8050473500, [
         Validators.required,
         Validators.minLength(4)
         ],
@@ -187,7 +187,41 @@ export class RegistrationBasicComponent implements OnInit {
   optValidate(number, otp) {
     this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/activate/profile/'+ number +'/'+ otp)
         .map(res => res.json())
-        .subscribe(data => {console.log(data)});
+        .subscribe(data => {
+          console.log(data)
+          if(data.SUCCESS == 'Activated your account'){
+            this.otpLogin()
+          }
+        });
+  }
+
+  otpLogin() { 
+    console.log('otp login');
+    const form =  {
+        'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
+        'client_secret': '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',
+        'username' : this.regFormBasic.value.phone.toString(),
+        'password' : this.otpForm.value.otpNumber,
+        'grant_type' : 'password'
+      }
+      console.log(form);
+      return this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/oauth2/token', form)
+        .map((response: Response) => {
+            const user = response.json();
+            console.log(user);
+            if (user && user.access_token) {
+                localStorage.setItem('currentUser', JSON.stringify(user));
+            }
+        });
+  }
+
+  resendOtp(){
+    const number = this.regFormBasic.value.phone;
+    return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/resendotp/'+ number )
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log(data)
+        });
   }
 
   submitForm(value) {
