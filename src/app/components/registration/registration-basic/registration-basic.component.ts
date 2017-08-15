@@ -36,6 +36,9 @@ export class RegValue {
   styleUrls: ['./registration-basic.component.scss']
 })
 export class RegistrationBasicComponent implements OnInit {
+
+  isPhotoAdded: boolean = false;
+
   rightCom: RightBlockTag;
   tagState$: Observable<Register>;
   private tagStateSubscription: Subscription;
@@ -46,14 +49,14 @@ export class RegistrationBasicComponent implements OnInit {
   // public otpForm: FormGroup;
   // public user;
   constructor(
-    private fb: FormBuilder, 
-    private store: Store<Register>, 
+    private fb: FormBuilder,
+    private store: Store<Register>,
     private element: ElementRef,
-    private databaseValidator: DatabaseValidator, 
+    private databaseValidator: DatabaseValidator,
     private http: Http
-    ) { 
+    ) {
 
-    
+
     // this.otpForm = fb.group({
     //   'otp' : ['otp', Validators.required]
     // })
@@ -66,11 +69,14 @@ export class RegistrationBasicComponent implements OnInit {
     });
   }
 
-  
+
   ngOnInit() {
+
+  console.log('photo: '+this.isPhotoAdded);
+
     this.buildForm();
-    this.rightCom = { 
-      mainTitle: 'Create Your Account', 
+    this.rightCom = {
+      mainTitle: 'Create Your Account',
       secondHead: '',
       description: 'Welcome to the one page spot light family where we are committed to grow'+' together in the world of art. An otp number will be sent to your email or'+' phone after registration for account confirmation.',
       loginLink: true,
@@ -93,12 +99,29 @@ export class RegistrationBasicComponent implements OnInit {
   fileEvent(event) {
       let fileList: FileList = event.target.files;
       if(fileList.length > 0) {
+
+        var parent = this;
+
+          /* profile image preview */
+          var reader = new FileReader();
+          var image = this.element.nativeElement.querySelector('#preview');
+          reader.onload = function (e : any) {
+            var src = e.target.result;
+            image.src = src;
+            parent.isPhotoAdded = true;
+          }
+          reader.readAsDataURL(event.target.files[0]);
+          /* profile image preview */
+
           let file: File = fileList[0];
 
           let formData:FormData = new FormData();
           formData.append('file', file.name);
           let headers = new Headers();
           /** No need to include Content-Type in Angular 4 */
+
+          console.log(file);
+
           headers.append('Accept', 'application/json');
           headers.append('handle','profileImage');
           this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/upload', file, { headers: headers })
@@ -106,17 +129,17 @@ export class RegistrationBasicComponent implements OnInit {
             .subscribe(data => {console.log(data)});
       }
     }
-  
+
 
   buildForm(): void {
     this.regFormBasic = this.fb.group({
       'name' : ['', [Validators.required]],
       'username' : ['',[Validators.required,formValidation.NoWhitespaceValidator]],
       'dob' : ['', Validators.required],
-      'email' : ['', [ 
+      'email' : ['', [
         Validators.required,
         Validators.min(1),
-        Validators.email        
+        Validators.email
         ],
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
@@ -134,7 +157,7 @@ export class RegistrationBasicComponent implements OnInit {
     },{
       validator: formValidation.MatchPassword
     })
-    
+
   }
 
   // Exisit User check
@@ -150,9 +173,9 @@ export class RegistrationBasicComponent implements OnInit {
   submitForm(value){
     document.getElementById("myModa").click();
 
-    // document.getElementById("#otpModal2").modal('show');   
+    // document.getElementById("#otpModal2").modal('show');
     console.log(value);
-    const form =  { 
+    const form =  {
       "name": {
       "firstName": value.name
       },
@@ -180,13 +203,12 @@ export class RegistrationBasicComponent implements OnInit {
     console.log(form);
       console.log(this.regFormBasic);
     if(this.regFormBasic.valid == true){
-      
+
       console.log(value);
 
-      
-    }   
+
+    }
   }
 
 
 }
-
