@@ -48,8 +48,9 @@
                             </div>
                             <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
                                 <div class="reg_add_photo row">
-                                    <label id="test" for="upload-photo">Add Photo</label>
-                                    <input type="file" name="photo" (change)="fileEvent($event)" id="upload-photo" />
+                                    <img src="" alt="" id="preview">
+                                    <label id="test" for="upload-photo" [ngClass]="{'hide-element': isPhotoAdded}" >Add Photo</label>
+                                    <input type="file" name="photo" [ngClass]="{'hide-element': isPhotoAdded}" (change)="fileEvent($event)" id="upload-photo" />
                                 </div>
                             </div>
                         </div>

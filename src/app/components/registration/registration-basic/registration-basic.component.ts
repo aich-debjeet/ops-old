@@ -45,6 +45,9 @@ export class RegistrationBasicComponent implements OnInit {
   countDown;
   counter = 5;
   showOTP = false;
+
+  isPhotoAdded: boolean = false;
+
   rightCom: RightBlockTag;
   tagState$: Observable<Register>;
   private tagStateSubscription: Subscription;
@@ -77,6 +80,9 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    console.log('photo: ' + this.isPhotoAdded);
+
     this.buildForm();
     this.rightCom = {
       mainTitle: 'Create Your Account',
@@ -92,28 +98,46 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   fileEvent(event) {
-    const fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
-        const file: File = fileList[0];
+      let fileList: FileList = event.target.files;
+      if(fileList.length > 0) {
 
-        const formData: FormData = new FormData();
+        var parent = this;
+
+        /* profile image preview */
+        var reader = new FileReader();
+        var image = this.element.nativeElement.querySelector('#preview');
+        reader.onload = function (e : any) {
+          var src = e.target.result;
+          image.src = src;
+          parent.isPhotoAdded = true;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+        /* profile image preview */
+
+        let file: File = fileList[0];
+
+        let formData:FormData = new FormData();
         formData.append('file', file.name);
-        const headers = new Headers();
+        let headers = new Headers();
         /** No need to include Content-Type in Angular 4 */
+
+        console.log(file);
+
         headers.append('Accept', 'application/json');
-        headers.append('handle', 'profileImage');
+        headers.append('handle','profileImage');
         this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/upload', file, { headers: headers })
           .map(res => res.json())
           .subscribe(data => {console.log(data)});
+      }
     }
-  }
+
 
   buildForm(): void {
     this.regFormBasic = this.fb.group({
-      'name' : ['Muneef Hameed', [Validators.required]],
-      'username' : ['muneefvc31231', [Validators.required, formValidation.NoWhitespaceValidator]],
-      'dob' : ['11/11/1988', Validators.required],
-      'email' : ['mnnef@munef.in', [
+      'name' : ['', [Validators.required]],
+      'username' : ['',[Validators.required,formValidation.NoWhitespaceValidator]],
+      'dob' : ['', Validators.required],
+      'email' : ['', [
         Validators.required,
         Validators.min(1),
         Validators.email

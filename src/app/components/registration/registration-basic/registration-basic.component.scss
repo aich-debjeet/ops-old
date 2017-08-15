@@ -4,14 +4,7 @@
 @import '~sass-mq/_mq.scss';
 
 /* --------------------------- Registration Step 1 ---------------------------- */
-
-.hidden{
-  // display: none;
-}
-
-.otp__modal{
-
-}
+.otp__modal { }
 .reg_step1{
   // add photo
   .reg_add_photo{
@@ -146,4 +139,18 @@
   img{
     width: 138px;
   }
+}
+
+img#preview {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.opacity0 {
+  opacity: 0;
+}
+
+.hide-element {
+  display: none !important;
 }
