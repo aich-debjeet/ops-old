@@ -149,14 +149,14 @@ export class RegistrationBasicComponent implements OnInit {
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
       'gender': ['M', Validators.required],
-      'phone' : [8050473500, [
+      'phone' : ['', [
         Validators.required,
         Validators.minLength(4)
         ],
         this.databaseValidator.checkMobile.bind(this.databaseValidator)
       ],
-      'password' : ['thanalvc', Validators.required],
-      'confirmpassword' : ['thanalvc', Validators.required],
+      'password' : ['', Validators.required],
+      'confirmpassword' : ['', Validators.required],
       // 'photo' : [null, Validators.required],
       // 'gender' : [null, Validators.required],
     }, {
