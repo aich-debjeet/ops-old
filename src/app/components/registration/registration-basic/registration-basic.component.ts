@@ -169,7 +169,7 @@ export class RegistrationBasicComponent implements OnInit {
     })
   }
 
-  // Exisit User check
+  // User user exists
   userExisitCheck(value) {
     if (value.length >= 4) {
       this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
@@ -226,8 +226,7 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   submitForm(value) {
-    this.startTimer();
-    this.modalService.open('hoplaModal');
+
 
     // Form
     const form =  {
