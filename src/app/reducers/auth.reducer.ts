@@ -17,13 +17,11 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         completed: payload,
         success: true
       });
-      
     case AuthActions.USER_ARTIST_FOLLOW:
      console.log(payload);
       return Object.assign({}, state, {
         success: true
       });
-      
 
     case AuthActions.USER_ARTIST_FOLLOW_SUCCESS:
     console.log('user artist sucess');
@@ -167,7 +165,6 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         });
       }
 
-<<<<<<< HEAD
     case AuthActions.ARTIST_FOLLOW:
       console.log(payload);
       return Object.assign({}, state, {
@@ -180,10 +177,6 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         completed: payload,
         success: true
       });
-
-      
-=======
->>>>>>> 8a1eddca167a4f378138de9347d995b713428ca9
 
     default:
       return state;
