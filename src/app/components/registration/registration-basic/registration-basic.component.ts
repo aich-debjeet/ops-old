@@ -189,13 +189,13 @@ export class RegistrationBasicComponent implements OnInit {
         .map(res => res.json())
         .subscribe(data => {
           console.log(data)
-          if(data.SUCCESS == 'Activated your account'){
+          if (data.SUCCESS === 'Activated your account') {
             this.otpLogin()
           }
         });
   }
 
-  otpLogin() { 
+  otpLogin() {
     console.log('otp login');
     const form =  {
         'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
@@ -208,25 +208,22 @@ export class RegistrationBasicComponent implements OnInit {
       return this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/oauth2/token', form)
         .map((response: Response) => {
             const user = response.json();
-            console.log(user);
             if (user && user.access_token) {
                 localStorage.setItem('currentUser', JSON.stringify(user));
             }
         });
   }
 
-  resendOtp(){
+  resendOtp() {
     const number = this.regFormBasic.value.phone;
-    return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/resendotp/'+ number )
-        .map(res => res.json())
-        .subscribe(data => {
-          console.log(data)
-        });
+    return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/resendotp/' + number )
+      .map(res => res.json())
+      .subscribe(data => {
+        console.log(data)
+      });
   }
 
   submitForm(value) {
-
-
     // Form
     const form =  {
       'name': {
