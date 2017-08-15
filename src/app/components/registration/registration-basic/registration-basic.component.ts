@@ -167,7 +167,7 @@ export class RegistrationBasicComponent implements OnInit {
     })
   }
 
-  // Exisit User check
+  // User user exists
   userExisitCheck(value) {
     if (value.length >= 4) {
       this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
@@ -191,8 +191,7 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   submitForm(value) {
-    this.startTimer();
-    this.modalService.open('hoplaModal');
+
 
     // Form
     const form =  {
@@ -219,11 +218,14 @@ export class RegistrationBasicComponent implements OnInit {
       'dateOfBirth': '2016-09-29T05:00:00',
       }
     }
-    this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
+
     // console.log(form);
     // console.log(this.regFormBasic);
     if (this.regFormBasic.valid === true) {
-      console.log(value);
+      //
+      this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
+      this.startTimer();
+      this.modalService.open('hoplaModal');
     }
   }
 }

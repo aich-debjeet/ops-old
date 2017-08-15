@@ -148,7 +148,7 @@
                             <label>Enter OTP</label>
                             <span>{{ countDown | async }}</span>
                         </div>
-                        
+
                         <div class="text-center">
                             <app-button [className]="'btn btn-default btn-sm'" [type]="'submit'">Validate OTP</app-button>
                         </div>
@@ -162,10 +162,18 @@
 </app-modal>
 
 
-<app-modal [modalTitle]="'Success'" [blocking]='false' modalId='success'>
-  <h4>x</h4>
+<app-modal [modalTitle]="'Success'" [blocking]='false' modalId='otp_success'>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 text-center">
+        <h3>Thank you for joining us</h3>
+        <p>select your profile type and get started</p>
+        <div class="text-center">
+            <a href="/reg_step_2" class="btn btn-default btn-sm">Next</a>
+        </div>
+    </div>
+  </div>
 </app-modal>
 
 <app-modal [modalTitle]="'Success'" [blocking]='false' modalId='edit'>
-  <h4>Edit</h4>
+
 </app-modal>
