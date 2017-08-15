@@ -43,10 +43,10 @@ export class RegValue {
 export class RegistrationBasicComponent implements OnInit {
   modalId = 'hoplaModal';
   countDown;
-  counter = 5;
+  counter = 60;
   showOTP = false;
 
-  isPhotoAdded: boolean = false;
+  isPhotoAdded: boolean;
 
   rightCom: RightBlockTag;
   tagState$: Observable<Register>;
@@ -71,6 +71,7 @@ export class RegistrationBasicComponent implements OnInit {
     this.tagState$.subscribe((state) => {
         this.petTag = state;
     });
+    this.isPhotoAdded = false;
   }
 
   startTimer() {
@@ -98,33 +99,33 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   fileEvent(event) {
-      let fileList: FileList = event.target.files;
-      if(fileList.length > 0) {
+      const fileList: FileList = event.target.files;
+      if (fileList.length > 0) {
 
-        var parent = this;
+        const parent = this;
 
         /* profile image preview */
-        var reader = new FileReader();
-        var image = this.element.nativeElement.querySelector('#preview');
-        reader.onload = function (e : any) {
-          var src = e.target.result;
+        const reader = new FileReader();
+        const image = this.element.nativeElement.querySelector('#preview');
+        reader.onload = function (e: any) {
+          const src = e.target.result;
           image.src = src;
           parent.isPhotoAdded = true;
         }
         reader.readAsDataURL(event.target.files[0]);
         /* profile image preview */
 
-        let file: File = fileList[0];
+        const file: File = fileList[0];
 
-        let formData:FormData = new FormData();
+        const formData: FormData = new FormData();
         formData.append('file', file.name);
-        let headers = new Headers();
+        const headers = new Headers();
         /** No need to include Content-Type in Angular 4 */
 
         console.log(file);
 
         headers.append('Accept', 'application/json');
-        headers.append('handle','profileImage');
+        headers.append('handle', 'profileImage');
         this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/upload', file, { headers: headers })
           .map(res => res.json())
           .subscribe(data => {console.log(data)});
@@ -135,7 +136,7 @@ export class RegistrationBasicComponent implements OnInit {
   buildForm(): void {
     this.regFormBasic = this.fb.group({
       'name' : ['', [Validators.required]],
-      'username' : ['',[Validators.required,formValidation.NoWhitespaceValidator]],
+      'username' : ['', [Validators.required, formValidation.NoWhitespaceValidator]],
       'dob' : ['', Validators.required],
       'email' : ['', [
         Validators.required,
