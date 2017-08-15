@@ -1,9 +1,10 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
-import * as $ from 'jquery';
-// import { Credentials, S3 } from 'aws-sdk';
 
+import * as $ from 'jquery';
+
+import { ModalService } from '../../../shared/modal/modal.component.service';
 
 // require('aws-sdk/dist/aws-sdk');
 import { Store } from '@ngrx/store';
@@ -20,6 +21,9 @@ import { AuthActions } from '../../../actions/auth.action'
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/observable/timer'
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/take'
 
 export class RegValue {
   mainTitle: string;
@@ -32,47 +36,53 @@ export class RegValue {
 @Component({
   selector: 'app-registration-basic',
   templateUrl: './registration-basic.component.html',
-  providers: [DatabaseValidator],
+  providers: [DatabaseValidator, ModalService],
   styleUrls: ['./registration-basic.component.scss']
 })
+
 export class RegistrationBasicComponent implements OnInit {
+  modalId = 'hoplaModal';
+  countDown;
+  counter = 5;
+  showOTP = false;
   rightCom: RightBlockTag;
   tagState$: Observable<Register>;
   private tagStateSubscription: Subscription;
   petTag = initialTag;
+
+  modals: any;
 
   public dateMask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
   public regFormBasic: FormGroup;
   // public otpForm: FormGroup;
   // public user;
   constructor(
-    private fb: FormBuilder, 
-    private store: Store<Register>, 
+    private fb: FormBuilder,
+    private store: Store<Register>,
     private element: ElementRef,
-    private databaseValidator: DatabaseValidator, 
-    private http: Http
-    ) { 
-
-    
-    // this.otpForm = fb.group({
-    //   'otp' : ['otp', Validators.required]
-    // })
-
+    private databaseValidator: DatabaseValidator,
+    private http: Http,
+    public modalService: ModalService
+    ) {
     this.tagState$ = store.select('loginTags');
-
     this.tagState$.subscribe((state) => {
-        console.log(state);
         this.petTag = state;
     });
   }
 
-  
+  startTimer() {
+    this.countDown = Observable.timer(0, 1000)
+      .take(this.counter)
+      .map(() => --this.counter);
+  }
+
   ngOnInit() {
     this.buildForm();
-    this.rightCom = { 
-      mainTitle: 'Create Your Account', 
+    this.rightCom = {
+      mainTitle: 'Create Your Account',
       secondHead: '',
-      description: 'Welcome to the one page spot light family where we are committed to grow'+' together in the world of art. An otp number will be sent to your email or'+' phone after registration for account confirmation.',
+      description: 'Welcome to the one page spot light family where we are committed to grow together in the world of art' +
+                   'An otp number will be sent to your email or phone after registration for account confirmation.',
       loginLink: true,
       button_text: 'Login',
       button_link: '/login',
@@ -81,112 +91,94 @@ export class RegistrationBasicComponent implements OnInit {
     };
   }
 
-  // fileEvent(event){
-  //   var files = event.srcElement.files[0].name;
-  //   console.log(files);
-  //   this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/upload?handle=profileImage', files)
-  //       .map(res => res.json())
-  //       .subscribe(data => {console.log(data)});
-
-  // }
-
   fileEvent(event) {
-      let fileList: FileList = event.target.files;
-      if(fileList.length > 0) {
-          let file: File = fileList[0];
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+        const file: File = fileList[0];
 
-          let formData:FormData = new FormData();
-          formData.append('file', file.name);
-          let headers = new Headers();
-          /** No need to include Content-Type in Angular 4 */
-          headers.append('Accept', 'application/json');
-          headers.append('handle','profileImage');
-          this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/upload', file, { headers: headers })
-            .map(res => res.json())
-            .subscribe(data => {console.log(data)});
-      }
+        const formData: FormData = new FormData();
+        formData.append('file', file.name);
+        const headers = new Headers();
+        /** No need to include Content-Type in Angular 4 */
+        headers.append('Accept', 'application/json');
+        headers.append('handle', 'profileImage');
+        this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/upload', file, { headers: headers })
+          .map(res => res.json())
+          .subscribe(data => {console.log(data)});
     }
-  
+  }
 
   buildForm(): void {
     this.regFormBasic = this.fb.group({
-      'name' : ['', [Validators.required]],
-      'username' : ['',[Validators.required,formValidation.NoWhitespaceValidator]],
-      'dob' : ['', Validators.required],
-      'email' : ['', [ 
+      'name' : ['Muneef Hameed', [Validators.required]],
+      'username' : ['muneefvc31231', [Validators.required, formValidation.NoWhitespaceValidator]],
+      'dob' : ['11/11/1988', Validators.required],
+      'email' : ['mnnef@munef.in', [
         Validators.required,
         Validators.min(1),
-        Validators.email        
+        Validators.email
         ],
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
       'gender': ['M', Validators.required],
-      'phone' : [9898989898, [
+      'phone' : [9898989890, [
         Validators.required,
         Validators.minLength(4)
         ],
         this.databaseValidator.checkMobile.bind(this.databaseValidator)
       ],
-       'password' : ['', Validators.required],
-      'confirmpassword' : ['', Validators.required],
+      'password' : ['thanalvc', Validators.required],
+      'confirmpassword' : ['thanalvc', Validators.required],
       // 'photo' : [null, Validators.required],
       // 'gender' : [null, Validators.required],
-    },{
+    }, {
       validator: formValidation.MatchPassword
     })
-    
   }
 
   // Exisit User check
-  userExisitCheck(value){
-    if(value.length >= 4){
+  userExisitCheck(value) {
+    if (value.length >= 4) {
       this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
-    }
-    else{
+    }else {
       this.petTag.user_unique = false;
     }
   }
 
-  submitForm(value){
-    document.getElementById("myModa").click();
+  submitForm(value) {
+    this.startTimer();
+    this.modalService.open('hoplaModal');
 
-    // document.getElementById("#otpModal2").modal('show');   
-    console.log(value);
-    const form =  { 
-      "name": {
-      "firstName": value.name
+    // Form
+    const form =  {
+      'name': {
+      'firstName': value.name
       },
-      "username": value.username,
-      "profileImage": "http://cloudfront.dgaydgauygda.net/Images/file.jpg",
-      "gender": value.gender,
-      "email": value.email,
-      "password": value.password,
-      "isAgent": false,
-      "location": "",
-      "contact": {
-        "contactNumber": value.phone.toString(),
-        "countryCode": "+91"
+      'username': value.username,
+      'profileImage': 'http://cloudfront.dgaydgauygda.net/Images/file.jpg',
+      'gender': value.gender,
+      'email': value.email,
+      'password': value.password,
+      'isAgent': false,
+      'location': '',
+      'contact': {
+        'contactNumber': value.phone.toString(),
+        'countryCode': '+91'
       },
-      "other": {
-        "completionStatus": 1,
-        "accountType": [{
-        "name": "Artist",
-        "typeName": "individual"
+      'other': {
+        'completionStatus': 1,
+        'accountType': [{
+        'name': 'Artist',
+        'typeName': 'individual'
         }],
-      "dateOfBirth":"2016-09-29T05:00:00",
+      'dateOfBirth': '2016-09-29T05:00:00',
       }
     }
     this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
-    console.log(form);
-      console.log(this.regFormBasic);
-    if(this.regFormBasic.valid == true){
-      
+    // console.log(form);
+    // console.log(this.regFormBasic);
+    if (this.regFormBasic.valid === true) {
       console.log(value);
-
-      
-    }   
+    }
   }
-
-
 }
-

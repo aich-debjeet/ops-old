@@ -37,6 +37,7 @@ import { UserSearchEffect } from './effects/user-search.effect';
 import { AuthService } from './services/auth.service';
 
 import { SharedModule } from './shared/shared.module';
+// import { ModalModule } from './modal/modal.component.module';
 
 import { ApiService } from './services/api.service';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
@@ -66,8 +67,7 @@ import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
 
-
-
+import { reducer } from './app.reducer';
 
 @NgModule({
   declarations: [
@@ -106,13 +106,7 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
     SharedModule,
     FormsModule,
     HttpModule,
-    StoreModule.provideStore({
-      loginTags: AuthReducer,
-      profileTags: ProfileReducer,
-      userMediaTags: ProfileReducer,
-      sentMessagesTags: MessageReducer,
-      userSearchTags: UserSearchReducer,
-      receivedMessagesTags: MessageReducer}),
+    StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
     EffectsModule.run(AuthEffect),
     EffectsModule.run(HomeEffect),

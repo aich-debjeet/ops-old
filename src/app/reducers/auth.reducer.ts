@@ -20,8 +20,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
           is_data: true,
           success: true
         });
-      }
-      else{
+      }else {
         return Object.assign({}, state, {
           success: true,
           is_data: false
@@ -68,7 +67,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_LOGIN_FAILED:
       console.log('login Faild');
-      var error = JSON.parse(payload._body);
+      const error = JSON.parse(payload._body);
       return Object.assign({}, state, {
         success: false,
         error_description: error.error_description
@@ -140,21 +139,20 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.USER_EXISTS_SUCCESS:
     // console.log('user Exists Done');
     //   console.log(payload.code);
-      if(payload.code == 0){
+      if (payload.code === 0) {
         return Object.assign({}, state, {
           completed: payload,
           success: false,
           user_unique: true
         });
-      }
-      else{
+      }else {
         return Object.assign({}, state, {
           completed: payload,
           success: false,
           user_unique: false
         });
       }
-      
+
 
     default:
       return state;

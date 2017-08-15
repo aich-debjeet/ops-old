@@ -49,5 +49,5 @@ export const routes: Routes = [
  { path: 'explore', component: ExploreComponent },
  { path: 'channel', component: ChannelListComponent },
  // otherwise redirect to home
-  { path: '**', redirectTo: '' }
+ { path: '**', redirectTo: '' }
 ];
