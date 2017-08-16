@@ -106,14 +106,7 @@ import { reducer } from './app.reducer';
     SharedModule,
     FormsModule,
     HttpModule,
-    StoreModule.provideStore({
-      loginTags: AuthReducer,
-      profileTags: ProfileReducer,
-      userMediaTags: ProfileReducer,
-      sentMessagesTags: MessageReducer,
-      userSearchTags: UserSearchReducer,
-      receivedMessagesTags: MessageReducer
-    }),
+    StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
     EffectsModule.run(AuthEffect),
     EffectsModule.run(HomeEffect),
