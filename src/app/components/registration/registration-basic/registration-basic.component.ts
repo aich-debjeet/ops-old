@@ -46,7 +46,6 @@ export class RegistrationBasicComponent implements OnInit {
   countDown;
   counter = 60;
   showOTP = false;
-
   isPhotoAdded: boolean;
 
   rightCom: RightBlockTag;
@@ -59,8 +58,7 @@ export class RegistrationBasicComponent implements OnInit {
   public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public regFormBasic: FormGroup;
   public otpForm: FormGroup;
-  // public otpForm: FormGroup;
-  // public user;
+
   constructor(
     private fb: FormBuilder,
     private store: Store<Register>,
