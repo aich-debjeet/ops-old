@@ -138,10 +138,10 @@ export class RegistrationBasicComponent implements OnInit {
 
   buildForm(): void {
     this.regFormBasic = this.fb.group({
-      'name' : ['', [Validators.required]],
-      'username' : ['', [Validators.required, formValidation.NoWhitespaceValidator]],
-      'dob' : ['', Validators.required],
-      'email' : ['', [
+      'name' : ['sabeel', [Validators.required]],
+      'username' : ['sabeel', [Validators.required, formValidation.NoWhitespaceValidator]],
+      'dob' : ['1999-09-12', Validators.required],
+      'email' : ['shhd@gmail.com', [
         Validators.required,
         Validators.min(1),
         Validators.email
@@ -149,14 +149,14 @@ export class RegistrationBasicComponent implements OnInit {
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
       'gender': ['M', Validators.required],
-      'phone' : ['', [
+      'phone' : ['8863133333', [
         Validators.required,
         Validators.minLength(4)
         ],
         this.databaseValidator.checkMobile.bind(this.databaseValidator)
       ],
-      'password' : ['', Validators.required],
-      'confirmpassword' : ['', Validators.required],
+      'password' : ['123456', Validators.required],
+      'confirmpassword' : ['123456', Validators.required],
       // 'photo' : [null, Validators.required],
       // 'gender' : [null, Validators.required],
     }, {
@@ -188,6 +188,9 @@ export class RegistrationBasicComponent implements OnInit {
               if(data.code == 0){
                 this.petTag.user_unique = true;
                 this.Suggested = data.Suggested;
+              }
+              else{
+                this.petTag.user_unique = false;
               }
               console.log(data)
             });
@@ -264,20 +267,23 @@ export class RegistrationBasicComponent implements OnInit {
         'accountType': [{
         'name': 'Artist',
         'typeName': 'individual'
-        }],
-      'dateOfBirth': value.dob+'T05:00:00',
+      }],
+      "dateOfBirth":"1994-04-28T05:00:00"
+      // 'dateOfBirth': value.dob+'T05:00:00',
       }
     }
     
-    // console.log(form);
+    console.log(form);
+    
     console.log(this.regFormBasic.valid);
     if (this.regFormBasic.valid === true) {
+      console.log('Entered Value');
       this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
       this.tagState$.subscribe(
         data => { 
-          console.log(data.success);
+          console.log('local storage');
+          console.log(data);
           if(data.success == true){ 
-            this.router.navigateByUrl("/reg/addskill") 
           }
         }
       )
