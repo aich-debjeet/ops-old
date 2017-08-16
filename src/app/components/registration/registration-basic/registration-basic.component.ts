@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import * as $ from 'jquery';
 
@@ -52,10 +53,10 @@ export class RegistrationBasicComponent implements OnInit {
   tagState$: Observable<Register>;
   private tagStateSubscription: Subscription;
   petTag = initialTag;
-
+  Suggested: String[];
   modals: any;
 
-  public dateMask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
+  public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public regFormBasic: FormGroup;
   public otpForm: FormGroup;
   // public otpForm: FormGroup;
@@ -66,6 +67,7 @@ export class RegistrationBasicComponent implements OnInit {
     private element: ElementRef,
     private databaseValidator: DatabaseValidator,
     private http: Http,
+    private router: Router,
     public modalService: ModalService
     ) {
     this.tagState$ = store.select('loginTags');
@@ -147,14 +149,14 @@ export class RegistrationBasicComponent implements OnInit {
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
       'gender': ['M', Validators.required],
-      'phone' : [8050473500, [
+      'phone' : ['', [
         Validators.required,
         Validators.minLength(4)
         ],
         this.databaseValidator.checkMobile.bind(this.databaseValidator)
       ],
-      'password' : ['thanalvc', Validators.required],
-      'confirmpassword' : ['thanalvc', Validators.required],
+      'password' : ['', Validators.required],
+      'confirmpassword' : ['', Validators.required],
       // 'photo' : [null, Validators.required],
       // 'gender' : [null, Validators.required],
     }, {
@@ -169,17 +171,30 @@ export class RegistrationBasicComponent implements OnInit {
 
   // User user exists
   userExisitCheck(value) {
+    console.log('check');
     if (value.length >= 4) {
-      this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
+      // this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
+      this.userExists(value);
     }else {
       this.petTag.user_unique = false;
     }
   }
 
+  // User Validation
+  userExists(username: string) {
+        return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/'+username+'/username')
+            .map((data: Response) => data.json())
+            .subscribe(data => {
+              if(data.code == 0){
+                this.petTag.user_unique = true;
+                this.Suggested = data.Suggested;
+              }
+              console.log(data)
+            });
+    }
+
   // OTP Validation
   otpSubmit(value){
-    console.log(this.otpForm.valid);
-    console.log(this.regFormBasic.value.phone);
     const number =this.regFormBasic.value.phone;
     this.optValidate(number, value.otpNumber)
   }
@@ -196,22 +211,23 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   otpLogin() {
-    console.log('otp login');
     const form =  {
-        'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
-        'client_secret': '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',
-        'username' : this.regFormBasic.value.phone.toString(),
-        'password' : this.otpForm.value.otpNumber,
-        'grant_type' : 'password'
-      }
-      console.log(form);
-      return this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/oauth2/token', form)
-        .map((response: Response) => {
-            const user = response.json();
-            if (user && user.access_token) {
-                localStorage.setItem('currentUser', JSON.stringify(user));
-            }
-        });
+      'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
+      'client_secret': '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',
+      'username' : this.regFormBasic.value.phone.toString(),
+      'password' : this.otpForm.value.otpNumber,
+      'grant_type' : 'password'
+    }
+
+    this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/login/profile', form)
+      .map(res => res.json())
+      .subscribe(data => {
+        const user = data;
+          if (user && user.access_token) {
+              localStorage.setItem('currentUser', JSON.stringify(user));
+              this.router.navigate(['/reg/profile']);
+          }
+      });
   }
 
   resendOtp() {
@@ -246,17 +262,23 @@ export class RegistrationBasicComponent implements OnInit {
         'name': 'Artist',
         'typeName': 'individual'
         }],
-      'dateOfBirth': '2016-09-29T05:00:00',
+      'dateOfBirth': value.dob+'T05:00:00',
       }
     }
 
     // console.log(form);
-    // console.log(this.regFormBasic);
+    console.log(this.regFormBasic.valid);
     if (this.regFormBasic.valid === true) {
-      //
       this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
-      this.startTimer();
-      this.modalService.open('hoplaModal');
+      this.tagState$.subscribe(
+        data => {
+          console.log(data.success);
+          if(data.success == true){
+            this.router.navigateByUrl("/reg/addskill")
+          }
+        }
+      )
+      console.log(value);
     }
   }
 }
