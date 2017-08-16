@@ -22,20 +22,20 @@
 							<p class="error_alert" *ngIf="loginForm.controls['password'].errors?.required && myform.submitted">Password is required</p>
 						</div>
 						<div class="row">
-							<div class="col-md-6">
-							<div class="form_group ops_radio_sm">
-									<label>
-										<label class="gender_single">
-											<input type="checkbox" name="demo"><span></span>Stay sign in
-										</label>
-									</label>
-								</div>
-							</div>
-							<div class="col-md-6">
-							<p class="login_forgot"><a routerLink="/account/password_reset">Forget Password?</a></p>
-							</div>
-						</div>
-						<div class="text-center">
+                <div class="col-md-6 hide">
+                  <div class="form_group ops_radio_sm">
+                    <label>
+                      <label class="gender_single">
+                          <input type="checkbox" name="demo"><span></span>Stay signed in
+                      </label>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6 col-md-offset-6">
+                  <p class="login_forgot"><a href="/login_forgot_password">Forget Password?</a></p>
+                </div>
+            </div>
+						<div class="text-center margin_tb_16">
 							<app-button [className]="'btn-primary btn-xm'" [type]="'submit'">LOG IN</app-button>
 						</div>
 					</form>
