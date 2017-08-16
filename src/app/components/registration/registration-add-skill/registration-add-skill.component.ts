@@ -249,7 +249,7 @@ export class RegistrationAddSkillComponent implements OnInit {
       // searching for the skill in skills array
       var skillMeta = this.getSkill(skillCode);
 
-      console.log(skillMeta);
+      //console.log(skillMeta);
 
       //adding skill to the selection array
       this.selectedSkills.push({
@@ -261,7 +261,7 @@ export class RegistrationAddSkillComponent implements OnInit {
     }
 
     //console.log('selected: ');
-    console.log(this.skills);
+    //console.log(this.skills);
 
   }
 
