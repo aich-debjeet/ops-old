@@ -181,7 +181,7 @@ export class RegistrationAddSkillComponent implements OnInit {
             this.skills.forEach(function(element, index) {
               those.skills[index]['isSelected'] = false;
             });
-            //console.log(this.skills);
+            console.log(this.skills);
         });
   }
 
@@ -220,8 +220,6 @@ export class RegistrationAddSkillComponent implements OnInit {
     // if skill exist then remove it from selection array
     if(isSelected !== undefined) {
 
-      // mark it not selected in UI
-
       // searching for the skill in skills array
       var skillMeta = this.getSkill(skillCode);
 
@@ -230,9 +228,23 @@ export class RegistrationAddSkillComponent implements OnInit {
         return skill.code !== skillCode;
       });
 
+      // mark it not selected in UI
+      this.skills = this.skills.filter(function(skill) {
+        if(skill.code == skillCode) {
+          skill.isSelected = false;
+        }
+        return skill;
+      });
+
     } else {
 
       // mark it selected in UI
+      this.skills = this.skills.filter(function(skill) {
+        if(skill.code == skillCode) {
+          skill.isSelected = true;
+        }
+        return skill;
+      });
 
       // searching for the skill in skills array
       var skillMeta = this.getSkill(skillCode);
@@ -248,8 +260,8 @@ export class RegistrationAddSkillComponent implements OnInit {
 
     }
 
-    console.log('selected: ');
-    console.log(this.selectedSkills);
+    //console.log('selected: ');
+    console.log(this.skills);
 
   }
 
