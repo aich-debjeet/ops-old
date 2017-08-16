@@ -180,7 +180,7 @@ export class RegistrationBasicComponent implements OnInit {
     }
   }
 
-  //user validation
+  // User Validation
   userExists(username: string) {
         return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/'+username+'/username')
             .map((data: Response) => data.json())
@@ -207,45 +207,46 @@ export class RegistrationBasicComponent implements OnInit {
         .map(res => res.json())
         .subscribe(data => {
           console.log(data)
-          if(data.SUCCESS == 'Activated your account'){
+          if (data.SUCCESS === 'Activated your account') {
             this.otpLogin()
           }
         });
   }
 
-  otpLogin() { 
+  otpLogin() {
     const form =  {
-        'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
-        'client_secret': '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',
-        'username' : this.regFormBasic.value.phone.toString(),
-        'password' : this.otpForm.value.otpNumber,
-        'grant_type' : 'password'
-      }
-      console.log(form);
-      this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/login/profile', form)
-        .map(res => res.json())
-        .subscribe(data => {
-          const user = data;
-            if (user && user.access_token) {
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                this.router.navigate(['/reg/profile']);
-            }        
-        });
+      'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
+      'client_secret': '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',
+      'username' : this.regFormBasic.value.phone.toString(),
+      'password' : this.otpForm.value.otpNumber,
+      'grant_type' : 'password'
+    }
 
+    this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/login/profile', form)
+      .map(res => res.json())
+      .subscribe(data => {
+        const user = data;
+          if (user && user.access_token) {
+              localStorage.setItem('currentUser', JSON.stringify(user));
+              this.router.navigate(['/reg/profile']);
+          }
+      });
   }
 
-  resendOtp(){
+  reverseDate(string) {
+    return string.split('-').reverse().join('-');
+  }
+
+  resendOtp() {
     const number = this.regFormBasic.value.phone;
-    return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/resendotp/'+ number )
-        .map(res => res.json())
-        .subscribe(data => {
-          console.log(data)
-        });
+    return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/resendotp/' + number )
+      .map(res => res.json())
+      .subscribe(data => {
+        console.log(data)
+      });
   }
 
   submitForm(value) {
-
-
     // Form
     const form =  {
       'name': {
@@ -265,17 +266,14 @@ export class RegistrationBasicComponent implements OnInit {
       'other': {
         'completionStatus': 1,
         'accountType': [{
-        'name': 'Artist',
-        'typeName': 'individual'
-      }],
-      "dateOfBirth":"1994-04-28T05:00:00"
-      // 'dateOfBirth': value.dob+'T05:00:00',
+          'name': 'Artist',
+          'typeName': 'individual'
+          }],
+        'dateOfBirth': this.reverseDate(value.dob) + 'T05:00:00',
       }
     }
-    
-    console.log(form);
-    
-    console.log(this.regFormBasic.valid);
+    //
+
     if (this.regFormBasic.valid === true) {
       console.log('Entered Value');
       this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
