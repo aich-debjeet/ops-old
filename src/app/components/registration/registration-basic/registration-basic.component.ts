@@ -72,6 +72,7 @@ export class RegistrationBasicComponent implements OnInit {
     ) {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
+      console.log(state);
         this.petTag = state;
     });
     this.isPhotoAdded = false;
@@ -139,9 +140,9 @@ export class RegistrationBasicComponent implements OnInit {
   buildForm(): void {
     this.regFormBasic = this.fb.group({
       'name' : ['sabeel', [Validators.required]],
-      'username' : ['sabeel', [Validators.required, formValidation.NoWhitespaceValidator]],
-      'dob' : ['1999-09-12', Validators.required],
-      'email' : ['shhd@gmail.com', [
+      'username' : ['sabeel' + this.rand(), [Validators.required, formValidation.NoWhitespaceValidator]],
+      'dob' : ['12-09-1992', Validators.required],
+      'email' : ['shhd' + this.rand() + '@gmail.com', [
         Validators.required,
         Validators.min(1),
         Validators.email
@@ -149,7 +150,7 @@ export class RegistrationBasicComponent implements OnInit {
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
       'gender': ['M', Validators.required],
-      'phone' : ['8863133333', [
+      'phone' : ['88631' + this.rand(), [
         Validators.required,
         Validators.minLength(4)
         ],
@@ -246,6 +247,10 @@ export class RegistrationBasicComponent implements OnInit {
       });
   }
 
+  rand(){
+    return Math.random();
+  }
+
   submitForm(value) {
     // Form
     const form =  {
@@ -255,7 +260,7 @@ export class RegistrationBasicComponent implements OnInit {
       'username': value.username,
       'profileImage': 'http://cloudfront.dgaydgauygda.net/Images/file.jpg',
       'gender': value.gender,
-      'email': value.email,
+      'email':  value.email,
       'password': value.password,
       'isAgent': false,
       'location': '',
@@ -277,14 +282,18 @@ export class RegistrationBasicComponent implements OnInit {
     if (this.regFormBasic.valid === true) {
       console.log('Entered Value');
       this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
-      this.tagState$.subscribe(
-        data => { 
-          console.log('local storage');
-          console.log(data);
-          if(data.success == true){ 
-          }
-        }
-      )
+      this.modalService.open('hoplaModal');
+      // this.tagState$.subscribe(
+      //   data => { 
+      //     // if (data.Code === 1) {
+
+      //     // }
+      //     // console.log('local storage');
+      //     console.log(data);
+      //     if(data.success == true){ 
+      //     }
+      //   }
+      // )
       console.log(value);
     }
   }

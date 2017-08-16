@@ -37,7 +37,7 @@ export class AuthService {
                 if (user && user.access_token) {
                     localStorage.setItem('currentUser', JSON.stringify(user));
                 }
-                this.router.navigate(['/home']);
+                this.router.navigate(['/profile']);
             });
     }
 
