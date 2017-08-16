@@ -230,6 +230,10 @@ export class RegistrationBasicComponent implements OnInit {
       });
   }
 
+  reverseDate(string) {
+    return string.split('-').reverse().join('-');
+  }
+
   resendOtp() {
     const number = this.regFormBasic.value.phone;
     return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/resendotp/' + number )
@@ -259,22 +263,21 @@ export class RegistrationBasicComponent implements OnInit {
       'other': {
         'completionStatus': 1,
         'accountType': [{
-        'name': 'Artist',
-        'typeName': 'individual'
-        }],
-      'dateOfBirth': value.dob+'T05:00:00',
+          'name': 'Artist',
+          'typeName': 'individual'
+          }],
+        'dateOfBirth': this.reverseDate(value.dob) + 'T05:00:00',
       }
     }
+    //
 
-    // console.log(form);
-    console.log(this.regFormBasic.valid);
     if (this.regFormBasic.valid === true) {
       this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
       this.tagState$.subscribe(
         data => {
           console.log(data.success);
-          if(data.success == true){
-            this.router.navigateByUrl("/reg/addskill")
+          if (data.success === true) {
+            this.router.navigateByUrl('/reg/addskill')
           }
         }
       )
