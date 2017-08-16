@@ -6,10 +6,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as $ from 'jquery';
 
 import { ModalService } from '../../../shared/modal/modal.component.service';
-
+// initialBasicRegTag: BasicRegTag 
 // require('aws-sdk/dist/aws-sdk');
 import { Store } from '@ngrx/store';
-import { Register, UserTag, initialTag, RightBlockTag } from '../../../models/auth.model';
+import { Register, UserTag, initialTag, RightBlockTag, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
 import { AuthRightBlockComponent } from '../../../shared/auth-right-block/auth-right-block.component';
 
 // helper
@@ -49,9 +49,9 @@ export class RegistrationBasicComponent implements OnInit {
   isPhotoAdded: boolean;
 
   rightCom: RightBlockTag;
-  tagState$: Observable<Register>;
+  tagState$: Observable<BasicRegTag>;
   private tagStateSubscription: Subscription;
-  petTag = initialTag;
+  petTag = initialBasicRegTag;
   Suggested: String[];
   modals: any;
 
@@ -61,7 +61,7 @@ export class RegistrationBasicComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<Register>,
+    private store: Store<BasicRegTag>,
     private element: ElementRef,
     private databaseValidator: DatabaseValidator,
     private http: Http,
@@ -192,7 +192,9 @@ export class RegistrationBasicComponent implements OnInit {
                 this.petTag.user_unique = false;
               }
               console.log(data)
-            });
+            },
+            // err => console.log(err)
+            );
     }
 
   // OTP Validation
@@ -280,18 +282,15 @@ export class RegistrationBasicComponent implements OnInit {
     if (this.regFormBasic.valid === true) {
       console.log('Entered Value');
       this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
-      this.modalService.open('hoplaModal');
-      // this.tagState$.subscribe(
-      //   data => { 
-      //     // if (data.Code === 1) {
+      this.tagState$.subscribe(
+        data => { 
+          const resp = data.completed;
+          if(resp["Code"] === 1){
+            this.modalService.open('hoplaModal');
+          }
 
-      //     // }
-      //     // console.log('local storage');
-      //     console.log(data);
-      //     if(data.success == true){ 
-      //     }
-      //   }
-      // )
+        }
+      )
       console.log(value);
     }
   }
