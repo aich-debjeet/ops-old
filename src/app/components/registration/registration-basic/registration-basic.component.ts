@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as $ from 'jquery';
 
 import { ModalService } from '../../../shared/modal/modal.component.service';
-// initialBasicRegTag: BasicRegTag 
+// initialBasicRegTag: BasicRegTag
 // require('aws-sdk/dist/aws-sdk');
 import { Store } from '@ngrx/store';
 import { Register, UserTag, initialTag, RightBlockTag, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
@@ -137,10 +137,10 @@ export class RegistrationBasicComponent implements OnInit {
 
   buildForm(): void {
     this.regFormBasic = this.fb.group({
-      'name' : ['sabeel', [Validators.required]],
-      'username' : ['sabeel' + this.rand(), [Validators.required, formValidation.NoWhitespaceValidator]],
-      'dob' : ['12-09-1992', Validators.required],
-      'email' : ['shhd' + this.rand() + '@gmail.com', [
+      'name' : ['', [Validators.required]],
+      'username' : ['', [Validators.required, formValidation.NoWhitespaceValidator]],
+      'dob' : ['', Validators.required],
+      'email' : ['', [
         Validators.required,
         Validators.min(1),
         Validators.email
@@ -148,14 +148,14 @@ export class RegistrationBasicComponent implements OnInit {
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
       'gender': ['M', Validators.required],
-      'phone' : ['88631' + this.rand(), [
+      'phone' : ['', [
         Validators.required,
         Validators.minLength(4)
         ],
         this.databaseValidator.checkMobile.bind(this.databaseValidator)
       ],
-      'password' : ['123456', Validators.required],
-      'confirmpassword' : ['123456', Validators.required],
+      'password' : ['', Validators.required],
+      'confirmpassword' : ['', Validators.required],
       // 'photo' : [null, Validators.required],
       // 'gender' : [null, Validators.required],
     }, {
@@ -283,7 +283,7 @@ export class RegistrationBasicComponent implements OnInit {
       console.log('Entered Value');
       this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
       this.tagState$.subscribe(
-        data => { 
+        data => {
           const resp = data.completed;
           if(resp["Code"] === 1){
             this.modalService.open('hoplaModal');
