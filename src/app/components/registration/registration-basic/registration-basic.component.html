@@ -42,7 +42,7 @@
                                     <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && myform.submitted">Username is required</p>
                                         <p class="error_alert" *ngIf="petTag.user_unique">This username is already taken</p>
                                         <ul class="username_error" *ngIf="petTag.user_unique">
-                                            <li  *ngFor="let username of petTag.completed.Suggested">{{username}}</li>
+                                            <li  *ngFor="let username of Suggested">{{username}}</li>
                                         </ul>
                                 </div>
                             </div>
@@ -131,14 +131,13 @@
       <div class="">
         <div class="">
             <div class="modal-header" style="border: none;">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title text-center"><img width="120px" src="/assets/img/logo_black.svg"></h4>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
                     <h5 class="text-center">Enter the 4 digit opt that you have received <br> by email or phone </h5>
                     <p class="text-center">
-                        <a (click)="modalService.open('edit')">Resend OTP</a>
+                        <a (click)="resendOtp()">Resend OTP</a>
                     </p>
                     <form [formGroup]="otpForm" (ngSubmit) = "otpSubmit(otpForm.value)">
                         <div class="form_group">
@@ -148,7 +147,7 @@
                             <label>Enter OTP</label>
                             <span>{{ countDown | async }}</span>
                         </div>
-                        
+
                         <div class="text-center">
                             <app-button [className]="'btn btn-default btn-sm'" [type]="'submit'">Validate OTP</app-button>
                         </div>
@@ -162,10 +161,14 @@
 </app-modal>
 
 
-<app-modal [modalTitle]="'Success'" [blocking]='false' modalId='success'>
-  <h4>x</h4>
-</app-modal>
-
-<app-modal [modalTitle]="'Success'" [blocking]='false' modalId='edit'>
-  <h4>Edit</h4>
+<app-modal [modalTitle]="'Success'" [blocking]='false' modalId='otp_success'>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 text-center">
+        <h3>Thank you for joining us</h3>
+        <p>select your profile type and get started</p>
+        <div class="text-center">
+            <a href="/reg_step_2" class="btn btn-default btn-sm">Next</a>
+        </div>
+    </div>
+  </div>
 </app-modal>

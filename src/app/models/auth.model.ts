@@ -65,6 +65,8 @@ export class ArtistFollows {
   isFollowing: boolean;
 }
 
+
+
 export const artistFollowTag: Follow = {
   completed: [
     // isFollowing: true,
@@ -95,3 +97,22 @@ export const initialArtistFollow: ArtistFollow = {
     is_follow: true,
 }
 
+
+export class RegCode {
+  Code: number;
+}
+
+
+export class BasicRegTag {
+  completed: RegCode[];
+  loading = false;
+  success = true;
+  user_unique= false;
+}
+
+export const initialBasicRegTag: BasicRegTag = {
+  completed: [],
+  loading: false,
+  success: true,
+  user_unique: false,
+}
