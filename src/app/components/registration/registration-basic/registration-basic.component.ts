@@ -90,8 +90,8 @@ export class RegistrationBasicComponent implements OnInit {
     this.rightCom = {
       mainTitle: 'Create Your Account',
       secondHead: '',
-      description: 'Welcome to the one page spot light family where we are committed to grow together in the world of art' +
-                   'An otp number will be sent to your email or phone after registration for account confirmation.',
+      //description: 'Welcome to the one page spot light family where we are committed to grow together in the world of art' + 'An otp number will be sent to your email or phone after registration for account confirmation.',
+      description: 'Welcome to One Page Spotlight family where we are committed to grow together.'+' An OTP number will be sent to your email or phone number after registration for account verification.',
       loginLink: true,
       button_text: 'Login',
       button_link: '/login',
