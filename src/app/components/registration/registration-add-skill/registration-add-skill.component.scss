@@ -135,7 +135,7 @@
         height: 70px;
         object-fit: cover;
       }
-      
+
     }
   }
 }
@@ -171,5 +171,11 @@
 .reg_left_section{
   .text-center.submit-button{
     margin-top: 20px;
+  }
+  .reg_select_interest {
+    width: 410px;
+  }
+  .reg_interest_box_name_active p {
+    line-height: 110px !important;
   }
 }

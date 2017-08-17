@@ -25,7 +25,7 @@
                     <!-- //progress bar -->
                     <form [formGroup]="regFormBasic" (ngSubmit) = "submitForm(regFormBasic.value)" #myform="ngForm">
                         <div class="row">
-                            <div class="col-md-9 col-sm-9">
+                            <div class="col-md-12 col-sm-12">
                                 <div class="form_group">
                                     <input class="form_input" type="text" novalidate formControlName="name" required>
                                     <span class="form_highlight"></span>
@@ -46,7 +46,7 @@
                                         </ul>
                                 </div>
                             </div>
-                            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
+                            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 hide">
                                 <div class="reg_add_photo row">
                                     <img src="" alt="" id="preview">
                                     <label id="test" for="upload-photo" [ngClass]="{'hide-element': isPhotoAdded}" >Add Photo</label>
