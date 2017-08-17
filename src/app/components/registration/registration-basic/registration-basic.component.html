@@ -25,7 +25,7 @@
                     <!-- //progress bar -->
                     <form [formGroup]="regFormBasic" (ngSubmit) = "submitForm(regFormBasic.value)" #myform="ngForm">
                         <div class="row">
-                            <div class="col-md-9 col-sm-9">
+                            <div class="col-md-12 col-sm-12">
                                 <div class="form_group">
                                     <input class="form_input" type="text" novalidate formControlName="name" required>
                                     <span class="form_highlight"></span>
@@ -42,11 +42,11 @@
                                     <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && myform.submitted">Username is required</p>
                                         <p class="error_alert" *ngIf="petTag.user_unique">This username is already taken</p>
                                         <ul class="username_error" *ngIf="petTag.user_unique">
-                                            <li  *ngFor="let username of petTag.completed.Suggested">{{username}}</li>
+                                            <li  *ngFor="let username of Suggested">{{username}}</li>
                                         </ul>
                                 </div>
                             </div>
-                            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 ">
+                            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 hide">
                                 <div class="reg_add_photo row">
                                     <img src="" alt="" id="preview">
                                     <label id="test" for="upload-photo" [ngClass]="{'hide-element': isPhotoAdded}" >Add Photo</label>
@@ -112,6 +112,9 @@
                             <label>Confirm Password</label>
                             <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.MatchPassword">Password not match</p>
                         </div><br>
+                        <p class="text-grey privacy-policy">
+                            By signing up, you agree to our <a href="#">Terms of Service</a>, <a href="#">Privacy Policy</a> and use of cookies.
+                        </p>
                         <div class="text-center">
                             <app-button [className]="'btn-default btn-sm'" [type]="'submit'">Sign Up</app-button>
                         </div>
@@ -128,23 +131,23 @@
       <div class="">
         <div class="">
             <div class="modal-header" style="border: none;">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title text-center"><img width="120px" src="/assets/img/logo_black.svg"></h4>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
                     <h5 class="text-center">Enter the 4 digit opt that you have received <br> by email or phone </h5>
                     <p class="text-center">
-                        <a (click)="modalService.open('edit')">Resend OTP</a>
+                        <a (click)="resendOtp()">Resend OTP</a>
                     </p>
-                    <form action="">
+                    <form [formGroup]="otpForm" (ngSubmit) = "otpSubmit(otpForm.value)">
                         <div class="form_group">
-                            <input class="form_input" type="text" required="">
+                            <input class="form_input" type="text"  formControlName="otpNumber" required>
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>Enter OTP</label>
                             <span>{{ countDown | async }}</span>
                         </div>
+
                         <div class="text-center">
                             <app-button [className]="'btn btn-default btn-sm'" [type]="'submit'">Validate OTP</app-button>
                         </div>
@@ -158,10 +161,14 @@
 </app-modal>
 
 
-<app-modal [modalTitle]="'Success'" [blocking]='false' modalId='success'>
-  <h4>x</h4>
-</app-modal>
-
-<app-modal [modalTitle]="'Success'" [blocking]='false' modalId='edit'>
-  <h4>Edit</h4>
+<app-modal [modalTitle]="'Success'" [blocking]='false' modalId='otp_success'>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 text-center">
+        <h3>Thank you for joining us</h3>
+        <p>select your profile type and get started</p>
+        <div class="text-center">
+            <a href="/reg_step_2" class="btn btn-default btn-sm">Next</a>
+        </div>
+    </div>
+  </div>
 </app-modal>

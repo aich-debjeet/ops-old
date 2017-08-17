@@ -88,12 +88,14 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_REGISTRATION_BASIC:
       console.log(payload);
+      console.log('registration started');
       return Object.assign({}, state, {
         success: true
       });
 
     case AuthActions.USER_REGISTRATION_BASIC_SUCCESS:
       console.log('registration sucess');
+      console.log(payload);
       return Object.assign({}, state, {
         completed: payload,
         success: true
@@ -101,8 +103,10 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_REGISTRATION_BASIC_FAILED:
       console.log('registration Faild');
+      console.log(payload);
       return Object.assign({}, state, {
-        success: false
+        success: false,
+        completed: payload
       });
 
     case AuthActions.USER_REGISTRATION_PROFILE:
@@ -144,13 +148,14 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
 
     case AuthActions.USER_EXISTS_CHECK:
+      console.log('user Done');
       return Object.assign({}, state, {
         success: false
       });
 
     case AuthActions.USER_EXISTS_SUCCESS:
     // console.log('user Exists Done');
-    //   console.log(payload.code);
+    console.log(payload);
       if (payload.code === 0) {
         return Object.assign({}, state, {
           completed: payload,

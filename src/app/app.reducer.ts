@@ -15,14 +15,9 @@ const reducers = {
   userSearchTags: UserSearchReducer,
   receivedMessagesTags: MessageReducer
 }
-/**
- *
- *
- * @export
- * @param {*} state
- * @param {*} action
- * @returns
- */
-export function reducer() {
-  return reducers;
+
+const productionReducer = combineReducers(reducers);
+
+export function reducer(state: any, action: any) {
+  return productionReducer(state, action);
 }

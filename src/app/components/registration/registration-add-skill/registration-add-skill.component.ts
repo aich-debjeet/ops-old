@@ -7,8 +7,10 @@ import { RegValue, ArtistFollow, RightBlockTag, initialTag, Login, artistFollowT
 import { SearchFilterPipe } from '../../../pipes/search.pipe'
 import { environment } from './../../../../environments/environment';
 
+import _ from "lodash";
+
 // Action
-import { AuthActions } from '../../../actions/auth.action'  
+import { AuthActions } from '../../../actions/auth.action'
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -91,8 +93,8 @@ const CHANNEL = [
   styleUrls: ['./registration-add-skill.component.scss']
 })
 export class RegistrationAddSkillComponent implements OnInit {
-   private apiLink: string = environment.API_ENDPOINT; 
-   private image_base_url: string = environment.API_IMAGE; 
+   private apiLink: string = environment.API_ENDPOINT;
+   private image_base_url: string = environment.API_IMAGE;
 
   channelList: any;
   is_skill_open = false;
@@ -111,6 +113,8 @@ export class RegistrationAddSkillComponent implements OnInit {
   title:string;
   searchPlaceholder:string;
 
+  selectedSkills = [];
+  addSkillResponse;
 
   constructor(fb: FormBuilder,private http: Http,private router: Router, private store: Store<Login>) {
 
@@ -133,7 +137,7 @@ export class RegistrationAddSkillComponent implements OnInit {
   ngOnInit() {
 
     var userType = JSON.parse(localStorage.getItem('userType'));
-    for (var v in userType)   {  
+    for (var v in userType)   {
       if(userType[v].name == 'Performing Artist' || userType[v].name == 'Non Performing artist'){
         this.description = 'Select specific skill sets that you possess. You can click on as many options as you like.',
         this.title = 'Add Your Skills',
@@ -145,11 +149,11 @@ export class RegistrationAddSkillComponent implements OnInit {
         this.searchPlaceholder = 'Search Interest'
       }
       console.log(userType[v].name)
-    }  
+    }
     console.log(userType)
 
-    this.rightCom = { 
-      mainTitle: this.title, 
+    this.rightCom = {
+      mainTitle: this.title,
       secondHead: '',
       description: this.description,
       loginLink: false,
@@ -170,7 +174,15 @@ export class RegistrationAddSkillComponent implements OnInit {
     // this.store.dispatch({ type: AuthActions.LOAD_SKILL});
     this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/industry')
         .map(res => res.json())
-        .subscribe(skills => this.skills = skills);
+        //.subscribe(skills => this.skills = skills);
+        .subscribe((skills) => {
+            this.skills = skills;
+            var those = this;
+            this.skills.forEach(function(element, index) {
+              those.skills[index]['isSelected'] = false;
+            });
+            console.log(this.skills);
+        });
   }
 
   onChange(value){
@@ -187,11 +199,74 @@ export class RegistrationAddSkillComponent implements OnInit {
     this.getChannels(code)
   }
 
-  
-  
+  // find and return the skill from skills array using the skill code
+  getSkill(skillCode) {
+
+    return _.find(this.skills, function(s) { return s.code == skillCode; });
+
+  }
+
+  // select/deselect skills
+  toggleSelectSkill(skillCode: string) {
+
+    console.log('skill toggle: '+skillCode);
+
+    // check if skill already selected
+    var isSelected = _.find(this.selectedSkills, function(s) { return s.code == skillCode; });
+
+    console.log('is selected: ');
+    console.log(isSelected);
+
+    // if skill exist then remove it from selection array
+    if(isSelected !== undefined) {
+
+      // searching for the skill in skills array
+      var skillMeta = this.getSkill(skillCode);
+
+      // removing skill from selected skills array
+      this.selectedSkills = this.selectedSkills.filter(function(skill) {
+        return skill.code !== skillCode;
+      });
+
+      // mark it not selected in UI
+      this.skills = this.skills.filter(function(skill) {
+        if(skill.code == skillCode) {
+          skill.isSelected = false;
+        }
+        return skill;
+      });
+
+    } else {
+
+      // mark it selected in UI
+      this.skills = this.skills.filter(function(skill) {
+        if(skill.code == skillCode) {
+          skill.isSelected = true;
+        }
+        return skill;
+      });
+
+      // searching for the skill in skills array
+      var skillMeta = this.getSkill(skillCode);
+
+      //console.log(skillMeta);
+
+      //adding skill to the selection array
+      this.selectedSkills.push({
+        "name": skillMeta.name,
+        "code": skillMeta.code,
+        "active": true
+      });
+
+    }
+
+    //console.log('selected: ');
+    //console.log(this.skills);
+
+  }
 
   toggleFollowBtn(i, handle){
-    const value =  { 
+    const value =  {
       'followedHandle': handle
     }
 
@@ -200,11 +275,11 @@ export class RegistrationAddSkillComponent implements OnInit {
       this.artistFollowList.completed[i].isFollowing = false
     }
     else{
-      
+
       this.artistFollowing(value);
       this.artistFollowList.completed[i].isFollowing = true
       // this.store.dispatch({ type: AuthActions.ARTIST_FOLLOW, payload: value});
-      // 
+      //
     }
 
   }
@@ -214,7 +289,7 @@ export class RegistrationAddSkillComponent implements OnInit {
       var currentUser = JSON.parse(localStorage.getItem('currentUser'));
       var token = currentUser.access_token; // your token
 
-      let headers = new Headers({ 'Content-Type': 'application/json'}); 
+      let headers = new Headers({ 'Content-Type': 'application/json'});
       headers.append('Authorization','Bearer '+token)
 
       return this.http.put(this.apiLink +'/portal/network/following/start', JSON.stringify(req), { headers: headers })
@@ -227,7 +302,7 @@ export class RegistrationAddSkillComponent implements OnInit {
       var currentUser = JSON.parse(localStorage.getItem('currentUser'));
       var token = currentUser.access_token; // your token
 
-      let headers = new Headers({ 'Content-Type': 'application/json'}); 
+      let headers = new Headers({ 'Content-Type': 'application/json'});
       headers.append('Authorization','Bearer '+token)
 
       return this.http.put(this.apiLink +'/portal/network/following/stop', JSON.stringify(req), { headers: headers })
@@ -238,7 +313,7 @@ export class RegistrationAddSkillComponent implements OnInit {
   //Its Temp code to change
   getChannels(code) {
     console.log('get channel');
-    const value =  { 
+    const value =  {
       "offset": 0,
       "limit": 10,
       "industryList":[code],
@@ -247,7 +322,7 @@ export class RegistrationAddSkillComponent implements OnInit {
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
       var token = currentUser.access_token; // your token
 
-      let headers = new Headers({ 'Content-Type': 'application/json'}); 
+      let headers = new Headers({ 'Content-Type': 'application/json'});
       headers.append('Authorization','Bearer '+token)
 
     return this.http.post(`${this.apiLink}/portal/network/spotfeed/search`, value,  { headers: headers })
@@ -258,11 +333,37 @@ export class RegistrationAddSkillComponent implements OnInit {
 
   addSkill(value: any) {
       console.log(value);
-      
   }
 
-  submit(){
-    this.router.navigateByUrl("/reg/welcome") 
+  submitSkills(){
+
+    // console.log('submitting');
+    // console.log(this.selectedSkills);
+
+    let skillsToSubmit = {
+      "industryList": this.selectedSkills
+    }
+
+    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    var token = currentUser.access_token; // your token
+
+    let headers = new Headers({ 'Content-Type': 'application/json'});
+    headers.append('Authorization','Bearer '+token);;
+
+    console.log(JSON.stringify(skillsToSubmit));
+
+    return this.http.put(`${this.apiLink}/portal/profile/updateProfile`, skillsToSubmit,  { headers: headers })
+        .map((data) => data.json())
+        .subscribe(data => {
+          this.addSkillResponse = data, console.log(data);
+          this.router.navigateByUrl("/reg/welcome");
+        });
+
+    //this.router.navigateByUrl("/reg/welcome");
+    // if(this.addSkillResponse) {
+    //
+    // }
+
   }
 
   onClose(value) {

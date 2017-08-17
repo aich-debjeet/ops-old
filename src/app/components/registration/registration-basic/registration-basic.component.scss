@@ -37,6 +37,7 @@
     height: 100%;
     width: 99px;
     cursor: pointer;
+    top: 0;
   }
   // gender
   .ops_radio_sm{
@@ -153,4 +154,14 @@ img#preview {
 
 .hide-element {
   display: none !important;
+}
+
+.privacy-policy {
+    font-size: 10px;
+    padding-bottom: 16px;
+    text-align: center;
+}
+
+.text-grey {
+    color: #979797!important;
 }
