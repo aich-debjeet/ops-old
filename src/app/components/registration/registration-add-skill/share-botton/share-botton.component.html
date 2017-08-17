@@ -1,0 +1,8 @@
+<div class="reg_channel_contant" *ngFor="let channel of trip; let i=index">
+    <button type="button" class="btn btn-xs btn-primary btn-plus" (click)="toggleFollowBtn(i)">
+        <span class="btn-label-follow">
+            <i class="fa fa-check" aria-hidden="true"></i>
+        </span> {{channel.follow == true ? "Follow" : "Following"}}
+    </button>
+    <p class="pull-right">{{channel.followers}}</p>
+</div>

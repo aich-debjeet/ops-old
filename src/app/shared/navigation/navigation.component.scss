@@ -1,0 +1,101 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_functions.scss';
+@import './src/assets/scss/helpers/_mixins.scss';
+@import '~sass-mq/_mq.scss';
+
+/* landing page */
+.lheader {
+width: 100%;
+padding-top: 25px;
+display: block;
+min-height: 80px;
+}
+.lheader_logo {
+width: 158px;
+float: left;
+overflow: hidden;
+}
+.lheader_login_button {
+width: 92px;
+float: right;
+overflow: hidden;
+}
+// --------------------------- header ----------------------------------------
+// ops header style
+// .opsheader {
+// }
+.opsheader-paddingt6{
+margin-top: -6px;
+img {
+width: 32px !important;
+border: 1px solid #979797;
+border-radius: 50%;
+}
+}
+.opsheader-lineheight30{
+line-height: 30px !important;
+}
+//bootstrap overwrited style
+.navbar-default {
+background-color: $white;
+border-color: #e7e7e7;
+}
+.navbar-brand > img {
+width: 40px;
+}
+.navbar-brand {
+padding: 5px 15px;
+}
+.navbar-default .navbar-nav > li > a {
+color: $text-gray;
+font-size: 12px;
+text-transform: uppercase;
+font-weight: bold;
+padding-top: 16px;
+padding-bottom: 0px;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+color: $theme_black;
+background-color: $white;
+}
+.nav > li > a > img {
+width: 15px;
+float: left;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+background-color: $white;
+}
+.nav_right > li > a {
+padding: 10px;
+line-height: 22px;
+font-size: 14px !important;
+}
+.head_drop_thumb{
+padding: 10px 15px;
+h4{
+font-size: 14px;
+font-weight: bold;
+text-align: left;
+color: #333333;
+}
+p{
+font-size: 13px;
+text-align: left;
+color: #c1c1c1;
+}
+}
+.dropdown-menu > li > a {
+font-size: 12px;
+text-align: left;
+color: #979797;
+padding: 10px 20px;
+&:hover{
+color: $black;
+background-color: $white;
+}
+}
+.navbar-nav > li > .dropdown-menu{
+width: 235px;
+margin-top: 8px;
+box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.23);
+}

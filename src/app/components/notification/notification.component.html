@@ -1,0 +1,1498 @@
+<header class="opsheader">
+   <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+         <!-- Brand and toggle get grouped for better mobile display -->
+             <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><img src="/assets/img/ops_icon.png"></a>
+             </div>
+             <!-- Collect the nav links, forms, and other content for toggling -->
+             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                   <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+                   <li><a routerLink="/explore" routerLinkActive="active">Explore</a></li>
+                   <li><a routerLink="/opportunity" routerLinkActive="active">Oppurtunity</a></li>
+                   <li><a href="#">Events</a></li>
+                   <li><a href="#">Learn</a></li>
+                   <li><a href="#">Resources</a></li>
+                   <li><a href="#">Commmunities</a></li>
+               </ul>
+               <ul class="nav navbar-nav navbar-right nav_right">
+                   <li><a href="#"><img src="http://d33wubrfki0l68.cloudfront.net/7538b5a93366a32d3ad51219480985962fa71a00/b69ba/img/svg/ico_add.svg"></a></li>
+                   <li *ngIf="!searchBarDisplay"><a href="javascript:void(0)" (click)= "searchBar()"><img src="http://d33wubrfki0l68.cloudfront.net/89a41955b9f69180f74b70688003e1573d06acbe/0dc7b/img/svg/ico_search.svg"></a></li>
+                   <li class="dropdown opsheader-notification open" >
+                                           <a href="#" (click)="toggleNav2($event)" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                               <img src="http://d33wubrfki0l68.cloudfront.net/2910d3d7ded4814772afd8039cf6e6b9ddd6e46a/816a7/img/svg/ico_notification.svg" class="img-responsive"></a>
+                                           <ul class="dropdown-menu messsage_dropdown" *ngIf="notificationOpen">
+                                               <li class="with_border_bottom">
+                                                   <ul class="list-inline head_drop_thumb">
+                                                       <li class="list-inline-item header_ym">
+                                                           <a href="/notification">Your Notification</a>
+                                                       </li>
+                                                       <li class="list-inline-item pull-right header_compose">
+                                                           <a href="">Mark all ad unread</a>
+                                                       </li>
+                                                   </ul>
+                                               </li>
+                                               <li class="with_border_bottom fill_grey">
+                                                   <ul class="list-inline head_drop_thumb">
+                                                       <li class="list-inline-item float_left">
+                                                           <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                       </li>
+                                                       <li class="list-inline-item noti_cont">
+                                                           <div class="head_msg_name">Tommy Russel</div>
+                                                           <div class="head_msg_short">8 others spotted your post</div>
+                                                       </li>
+                                                       <li class="list-inline-item noti_cont_time">
+                                                           <div class="msg_time">
+                                                               <img src="http://d33wubrfki0l68.cloudfront.net/8d58c78cd26eb1d103bb24ec6c1d786a0964b8b4/63aa4/img/svg/ico_spot.svg" class="img-responsive">
+                                                               <p>10:08 PM</p>
+                                                           </div>
+                                                       </li>
+                                                   </ul>
+                                               </li>
+                                               <li class="with_border_bottom fill_grey">
+                                                   <ul class="list-inline head_drop_thumb">
+                                                       <li class="list-inline-item float_left">
+                                                           <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                       </li>
+                                                       <li class="list-inline-item noti_cont">
+                                                           <div class="head_msg_name">Tommy Russel</div>
+                                                           <div class="head_msg_short">8 others spotted your post</div>
+                                                       </li>
+                                                       <li class="list-inline-item noti_cont_time">
+                                                           <div class="msg_time">
+                                                               <img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg" class="img-responsive">
+                                                               <p>10:08 PM</p>
+                                                           </div>
+                                                       </li>
+                                                   </ul>
+                                               </li>
+                                               <li class="with_border_bottom">
+                                                   <ul class="list-inline head_drop_thumb">
+                                                       <li class="list-inline-item float_left">
+                                                           <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                       </li>
+                                                       <li class="list-inline-item noti_cont">
+                                                           <div class="head_msg_name">Tommy Russel</div>
+                                                           <div class="head_msg_short">8 others spotted your post</div>
+                                                       </li>
+                                                       <li class="list-inline-item noti_cont_time">
+                                                           <div class="msg_time">
+                                                               <img src="http://d33wubrfki0l68.cloudfront.net/757d12023ec2c0c7c0649d1ed1334031990ffe92/cbaf2/img/svg/ico_addtochannel.svg" class="img-responsive">
+                                                               <p>10:08 PM</p>
+                                                           </div>
+                                                       </li>
+                                                   </ul>
+                                               </li>
+                                               <li class="with_border_bottom">
+                                                   <ul class="list-inline head_drop_thumb">
+                                                       <li class="list-inline-item float_left">
+                                                           <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                       </li>
+                                                       <li class="list-inline-item noti_cont">
+                                                           <div class="head_msg_name">Tommy Russel</div>
+                                                           <div class="head_msg_short">8 others spotted your post</div>
+                                                       </li>
+                                                       <li class="list-inline-item noti_cont_time">
+                                                           <div class="msg_time">
+                                                               <img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg" class="img-responsive">
+                                                               <p>10:08 PM</p>
+                                                           </div>
+                                                       </li>
+                                                   </ul>
+                                               </li>
+                                               <li>
+                                                   <ul class="list-inline head_drop_thumb text-center">
+                                                       <li class="list-inline-item">
+                                                           <a href="/notification" class="msg_viewall">view all</a>
+                                                       </li>
+                                                   </ul>
+                                               </li>
+                                           </ul>
+                                       </li>
+                   <li class="dropdown opsheader-message open" >
+                                           <a href="#" (click)="toggleNav1($event)" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                               <img src="http://d33wubrfki0l68.cloudfront.net/7cca3fc5f04ad13b86dd120dba1eff04dfc7cc6e/6252c/img/svg/ico_message.svg" class="img-responsive"></a>
+                                           <ul class="dropdown-menu messsage_dropdown" *ngIf="messageIconOpen">
+                                               <li class="with_border_bottom">
+                                                   <ul class="list-inline head_drop_thumb">
+                                                       <li class="list-inline-item header_ym">
+                                                           <a href="/message">Your Messages</a>
+                                                       </li>
+                                                       <li class="list-inline-item pull-right header_compose">
+                                                           <a href="/message">Compose</a>
+                                                       </li>
+                                                   </ul>
+                                               </li>
+                                               <li class="with_border_bottom fill_grey">
+                                                   <ul class="list-inline head_drop_thumb">
+                                                       <li class="list-inline-item float_left">
+                                                           <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                       </li>
+                                                       <li class="list-inline-item">
+                                                           <div class="head_msg_name">Tommy Russel</div>
+                                                           <div class="head_msg_short">Do Dreams Serve As A Premonition</div>
+                                                       </li>
+                                                       <li class="list-inline-item pull-right">
+                                                           <div class="pull-right msg_time">10:08 PM</div>
+                                                       </li>
+                                                   </ul>
+                                               </li>
+                                               <li class="with_border_bottom fill_grey">
+                                                   <ul class="list-inline head_drop_thumb">
+                                                       <li class="list-inline-item float_left">
+                                                           <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                       </li>
+                                                       <li class="list-inline-item">
+                                                           <div class="head_msg_name">Janie Glover</div>
+                                                           <div class="head_msg_short">Motivate Yourself</div>
+                                                       </li>
+                                                       <li class="list-inline-item pull-right">
+                                                           <div class="pull-right msg_time">10:02 PM</div>
+                                                       </li>
+                                                   </ul>
+                                               </li>
+                                               <li class="with_border_bottom">
+                                                   <ul class="list-inline head_drop_thumb">
+                                                       <li class="list-inline-item float_left">
+                                                           <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                       </li>
+                                                       <li class="list-inline-item">
+                                                           <div class="head_msg_name">Cecilia Matthews</div>
+                                                           <div class="head_msg_short">Motivation letter for work abroad</div>
+                                                       </li>
+                                                       <li class="list-inline-item pull-right">
+                                                           <div class="pull-right msg_time">09:24 PM</div>
+                                                       </li>
+                                                   </ul>
+                                               </li>
+                                               <li class="with_border_bottom">
+                                                   <ul class="list-inline head_drop_thumb">
+                                                       <li class="list-inline-item float_left">
+                                                           <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                                       </li>
+                                                       <li class="list-inline-item">
+                                                           <div class="head_msg_name">Ethel Andrews</div>
+                                                           <div class="head_msg_short">Roar with confidence</div>
+                                                       </li>
+                                                       <li class="list-inline-item pull-right">
+                                                           <div class="pull-right msg_time">08:16 PM</div>
+                                                       </li>
+                                                   </ul>
+                                               </li>
+                                               <li>
+                                                   <ul class="list-inline head_drop_thumb text-center">
+                                                       <li class="list-inline-item">
+                                                           <a href="/messages" class="msg_viewall">view all</a>
+                                                       </li>
+                                                   </ul>
+                                               </li>
+                                           </ul>
+                                       </li>
+                   <li class="dropdown opsheader-paddingt6 open">
+                      <a href="#" (click)="toggleNav($event)" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img src="/assets/img/avatar.jpg" class="img-responsive"> <span class="caret"></span></a>
+                        <ul class="dropdown-menu" *ngIf="dropDownOpen">
+                         <li>
+                          <ul class="list-inline head_drop_thumb">
+                            <li class="list-inline-item"><img src="/assets/img/avatar.jpg" class="img-responsive"></li>
+                            <li class="list-inline-item">
+                              <h4 style="color:black">Tobias Van Schneider</h4>
+                              <p style="color:black">@tobias</p>
+                           </li>
+                        </ul>
+                     </li>
+                     <li role="separator" class="divider"></li>
+                     <li><a href="#">Organisation</a></li>
+                     <li><a href="#">Settings</a></li>
+                     <li role="separator" class="divider"></li>
+                     <li><a href="#">About One Page Spotlight</a></li>
+                     <li role="separator" class="divider"></li>
+                     <li><a href="#">Signout</a></li>
+                  </ul>
+                  </li>
+               </ul>
+            </div>
+         <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container-fluid -->
+   </nav>
+</header>
+
+<div class="ops_search" id="search-popup" style="display: block; overflow-y: scroll;" *ngIf="searchBarDisplay">
+    <p class="search_close">
+        <a href="javascript:void(0)" (click)="searchBar()"><img src="http://d33wubrfki0l68.cloudfront.net/62eb03868e2435dd8f10598c37ef95c827a91134/081a5/img/svg/ico_close.svg" alt=""></a>
+    </p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 search_top_input">
+                <div class="form_group">
+                    <input class="form_input" type="text" required="">
+                    <label>Search</label>
+                    <p class="search_top_icon"><img src="http://d33wubrfki0l68.cloudfront.net/89a41955b9f69180f74b70688003e1573d06acbe/0dc7b/img/svg/ico_search.svg"></p>
+                </div>
+            </div>
+            <div class="col-md-12 home_tabs">
+                <ul class="nav nav-tabs">
+                    <li><a data-toggle="tab" href="#search_post" aria-expanded="true">Post</a></li>
+                    <li><a data-toggle="tab" href="#search_channel" aria-expanded="false">Channel</a></li>
+                    <li><a data-toggle="tab" href="#search_spotfeed" aria-expanded="false">Spotfeed</a></li>-
+                    <li><a data-toggle="tab" href="#search_people" aria-expanded="false">people</a></li>-
+                    <li><a data-toggle="tab" href="#search_community" aria-expanded="false">community</a></li>
+                </ul>
+                <div class="tab-content">
+                  <!-- search post -->
+                          <div id="search_post" class="tab-pane fade">
+                              <div class="row pro_channel2">
+                                  <!-- first column -->
+                                  <div class="col-md-3">
+                                      <div class="row">
+                                          <!-- feed block -->
+                                          <div class="col-md-12 col-sm-6 pro_channel_card">
+                                              <div class="col-md-12 col-sm-12 feed_block">
+                                                  <div class="row">
+                                                      <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                          <figure class="feed-avatar">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/338649e262dccbc7aa62661a21311a612e5dc06f/553cd/img/art_color.jpg" class="img-responsive">
+                                                          </figure>
+                                                          <div class="feed_article"><img src="http://d33wubrfki0l68.cloudfront.net/e5b96f17017b9ad8c368f0f068d618155c530c80/7a041/img/svg/ico_article.svg"></div>
+                                                      </div>
+                                                      <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                          <div class="pro_channel_name">
+                                                              <h3 class="feed-heading float-left">When The Morning Dawns</h3>
+                                                              <span><img class="float-right" src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg"></span>
+                                                          </div>
+                                                          <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
+                                                          <div class="pro_channel-thumb">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                                              <p>James Sims</p>
+                                                              <div class="small-txt">Cafe and Colors</div>
+                                                          </div>
+                                                          <div class="pro_channel_count">
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg"><div class="like_count">705</div></span>
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg"> <div class="like_count">12</div></span>
+                                                              <div class="pull-right">
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/757d12023ec2c0c7c0649d1ed1334031990ffe92/cbaf2/img/svg/ico_addtochannel.svg"></span>
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/5ca05db3ef5c4aadb2b4d445eb205bbe59ca0abd/4634c/img/svg/ico_share-02.svg"></span>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <!-- // feed block -->
+                                          <!-- feed block -->
+                                          <div class="col-md-12 col-sm-6 pro_channel_card">
+                                              <div class="col-md-12 col-sm-12 feed_block">
+                                                  <div class="row">
+                                                      <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                          <figure class="feed-avatar">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/ae67bf87d66549b2bbf9c8332030674d23bc0a11/71f2e/img/chri.jpg" class="img-responsive">
+                                                          </figure>
+                                                          <div class="feed_article"><img src="http://d33wubrfki0l68.cloudfront.net/3a2bd172303ef7e3c027c394491547072e05ded1/e62d8/img/svg/ico_video.svg"></div>
+                                                      </div>
+                                                      <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                          <div class="pro_channel_name">
+                                                              <h3 class="feed-heading float-left">When The Morning Dawns</h3>
+                                                              <span><img class="float-right" src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg"></span>
+                                                          </div>
+                                                          <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
+                                                          <div class="pro_channel-thumb">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                                              <p>James Sims</p>
+                                                              <div class="small-txt">Cafe and Colors</div>
+                                                          </div>
+                                                          <div class="pro_channel_count">
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg"> <div class="like_count">855</div></span>
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg"> <div class="like_count">105</div></span>
+                                                              <div class="pull-right">
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/757d12023ec2c0c7c0649d1ed1334031990ffe92/cbaf2/img/svg/ico_addtochannel.svg"></span>
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/5ca05db3ef5c4aadb2b4d445eb205bbe59ca0abd/4634c/img/svg/ico_share-02.svg"></span>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <!-- // feed block -->
+                                      </div>
+                                  </div>
+                                  <!-- //first column -->
+                                  <!-- first column -->
+                                  <div class="col-md-3">
+                                      <div class="row">
+                                          <!-- feed block -->
+                                          <div class="col-md-12 col-sm-6 pro_channel_card">
+                                              <div class="col-md-12 col-sm-12 feed_block">
+                                                  <div class="row">
+                                                      <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                          <figure class="feed-avatar">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/3984714548314b19ce931d48747ed07a67ee270f/5a822/img/pro_block3.jpg" class="img-responsive">
+                                                          </figure>
+                                                          <div class="feed_article"><img src="http://d33wubrfki0l68.cloudfront.net/e1be2bb30da2bb2395387a1087b90ba4f14665fa/b2409/img/svg/ico_audio.svg"></div>
+                                                      </div>
+                                                      <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                          <div class="pro_channel_name">
+                                                              <h3 class="feed-heading float-left">When The Morning Dawns</h3>
+                                                              <span><img class="float-right" src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg"></span>
+                                                          </div>
+                                                          <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
+                                                          <div class="pro_channel-thumb">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                                              <p>James Sims</p>
+                                                              <div class="small-txt">Cafe and Colors</div>
+                                                          </div>
+                                                          <div class="pro_channel_count">
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg"> <div class="like_count">963</div></span>
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg"> <div class="like_count">75</div></span>
+                                                              <div class="pull-right">
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/757d12023ec2c0c7c0649d1ed1334031990ffe92/cbaf2/img/svg/ico_addtochannel.svg"></span>
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/5ca05db3ef5c4aadb2b4d445eb205bbe59ca0abd/4634c/img/svg/ico_share-02.svg"></span>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <!-- // feed block -->
+                                          <!-- feed block -->
+                                          <div class="col-md-12 col-sm-6 pro_channel_card">
+                                              <div class="col-md-12 col-sm-12 feed_block">
+                                                  <div class="row">
+                                                      <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                          <figure class="feed-avatar">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/85abec6d6940f922553e7f8c127f0c3bf98a751f/037e0/img/picse.jpg" class="img-responsive">
+                                                          </figure>
+                                                          <div class="feed_article"><img src="http://d33wubrfki0l68.cloudfront.net/e1be2bb30da2bb2395387a1087b90ba4f14665fa/b2409/img/svg/ico_audio.svg"></div>
+                                                      </div>
+                                                      <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                          <div class="pro_channel_name">
+                                                              <h3 class="feed-heading float-left">When The Morning Dawns</h3>
+                                                              <span><img class="float-right" src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg"></span>
+                                                          </div>
+                                                          <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
+                                                          <div class="pro_channel-thumb">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                                              <p>James Sims</p>
+                                                              <div class="small-txt">Cafe and Colors</div>
+                                                          </div>
+                                                          <div class="pro_channel_count">
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg"> <div class="like_count">75</div></span>
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg"> <div class="like_count">70</div></span>
+                                                              <div class="pull-right">
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/757d12023ec2c0c7c0649d1ed1334031990ffe92/cbaf2/img/svg/ico_addtochannel.svg"></span>
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/5ca05db3ef5c4aadb2b4d445eb205bbe59ca0abd/4634c/img/svg/ico_share-02.svg"></span>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <!-- // feed block -->
+                                      </div>
+                                  </div>
+                                  <!-- //first column -->
+                                  <!-- first column -->
+                                  <div class="col-md-3">
+                                      <div class="row">
+                                          <!-- feed block -->
+                                          <div class="col-md-12 col-sm-6 pro_channel_card">
+                                              <div class="col-md-12 col-sm-12 feed_block">
+                                                  <div class="row">
+                                                      <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                          <figure class="feed-avatar">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/7fd567143564b477f3e7970607ecea5c8e78ce49/aa880/img/pro_block.jpg" class="img-responsive">
+                                                          </figure>
+                                                          <div class="feed_article"><img src="http://d33wubrfki0l68.cloudfront.net/e1be2bb30da2bb2395387a1087b90ba4f14665fa/b2409/img/svg/ico_audio.svg"></div>
+                                                      </div>
+                                                      <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                          <div class="pro_channel_name">
+                                                              <h3 class="feed-heading float-left">When The Morning Dawns</h3>
+                                                              <span><img class="float-right" src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg"></span>
+                                                          </div>
+                                                          <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
+                                                          <div class="pro_channel-thumb">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                                              <p>James Sims</p>
+                                                              <div class="small-txt">Cafe and Colors</div>
+                                                          </div>
+                                                          <div class="pro_channel_count">
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg"> <div class="like_count">55</div></span>
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg"> <div class="like_count">15</div></span>
+                                                              <div class="pull-right">
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/757d12023ec2c0c7c0649d1ed1334031990ffe92/cbaf2/img/svg/ico_addtochannel.svg"></span>
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/5ca05db3ef5c4aadb2b4d445eb205bbe59ca0abd/4634c/img/svg/ico_share-02.svg"></span>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <!-- // feed block -->
+                                          <!-- feed block -->
+                                          <div class="col-md-12 col-sm-6 pro_channel_card">
+                                              <div class="col-md-12 col-sm-12 feed_block">
+                                                  <div class="row">
+                                                      <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                          <figure class="feed-avatar">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/ae67bf87d66549b2bbf9c8332030674d23bc0a11/71f2e/img/chri.jpg" class="img-responsive">
+                                                          </figure>
+                                                          <div class="feed_article"><img src="http://d33wubrfki0l68.cloudfront.net/3a2bd172303ef7e3c027c394491547072e05ded1/e62d8/img/svg/ico_video.svg"></div>
+                                                      </div>
+                                                      <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                          <div class="pro_channel_name">
+                                                              <h3 class="feed-heading float-left">When The Morning Dawns</h3>
+                                                              <span><img class="float-right" src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg"></span>
+                                                          </div>
+                                                          <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
+                                                          <div class="pro_channel-thumb">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                                              <p>James Sims</p>
+                                                              <div class="small-txt">Cafe and Colors</div>
+                                                          </div>
+                                                          <div class="pro_channel_count">
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg"> <div class="like_count">855</div></span>
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg"> <div class="like_count">105</div></span>
+                                                              <div class="pull-right">
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/757d12023ec2c0c7c0649d1ed1334031990ffe92/cbaf2/img/svg/ico_addtochannel.svg"></span>
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/5ca05db3ef5c4aadb2b4d445eb205bbe59ca0abd/4634c/img/svg/ico_share-02.svg"></span>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <!-- // feed block -->
+                                      </div>
+                                  </div>
+                                  <!-- //first column -->
+                                  <!-- first column -->
+                                  <div class="col-md-3">
+                                      <div class="row">
+                                          <!-- feed block -->
+                                          <div class="col-md-12 col-sm-6 pro_channel_card">
+                                              <div class="col-md-12 col-sm-12 feed_block">
+                                                  <div class="row">
+                                                      <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                          <figure class="feed-avatar">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/7fd567143564b477f3e7970607ecea5c8e78ce49/aa880/img/pro_block.jpg" class="img-responsive">
+                                                          </figure>
+                                                          <div class="feed_article"><img src="http://d33wubrfki0l68.cloudfront.net/e1be2bb30da2bb2395387a1087b90ba4f14665fa/b2409/img/svg/ico_audio.svg"></div>
+                                                      </div>
+                                                      <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                          <div class="pro_channel_name">
+                                                              <h3 class="feed-heading float-left">When The Morning Dawns</h3>
+                                                              <span><img class="float-right" src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg"></span>
+                                                          </div>
+                                                          <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
+                                                          <div class="pro_channel-thumb">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                                              <p>James Sims</p>
+                                                              <div class="small-txt">Cafe and Colors</div>
+                                                          </div>
+                                                          <div class="pro_channel_count">
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg"> <div class="like_count">55</div></span>
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg"> <div class="like_count">15</div></span>
+                                                              <div class="pull-right">
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/757d12023ec2c0c7c0649d1ed1334031990ffe92/cbaf2/img/svg/ico_addtochannel.svg"></span>
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/5ca05db3ef5c4aadb2b4d445eb205bbe59ca0abd/4634c/img/svg/ico_share-02.svg"></span>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <!-- // feed block -->
+                                          <!-- feed block -->
+                                          <div class="col-md-12 col-sm-6 pro_channel_card">
+                                              <div class="col-md-12 col-sm-12 feed_block">
+                                                  <div class="row">
+                                                      <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                          <figure class="feed-avatar">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/ae67bf87d66549b2bbf9c8332030674d23bc0a11/71f2e/img/chri.jpg" class="img-responsive">
+                                                          </figure>
+                                                          <div class="feed_article"><img src="http://d33wubrfki0l68.cloudfront.net/3a2bd172303ef7e3c027c394491547072e05ded1/e62d8/img/svg/ico_video.svg"></div>
+                                                      </div>
+                                                      <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                          <div class="pro_channel_name">
+                                                              <h3 class="feed-heading float-left">When The Morning Dawns</h3>
+                                                              <span><img class="float-right" src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg"></span>
+                                                          </div>
+                                                          <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
+                                                          <div class="pro_channel-thumb">
+                                                              <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                                              <p>James Sims</p>
+                                                              <div class="small-txt">Cafe and Colors</div>
+                                                          </div>
+                                                          <div class="pro_channel_count">
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg"> <div class="like_count">855</div></span>
+                                                              <span><img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg"> <div class="like_count">105</div></span>
+                                                              <div class="pull-right">
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/757d12023ec2c0c7c0649d1ed1334031990ffe92/cbaf2/img/svg/ico_addtochannel.svg"></span>
+                                                                  <span><img src="http://d33wubrfki0l68.cloudfront.net/5ca05db3ef5c4aadb2b4d445eb205bbe59ca0abd/4634c/img/svg/ico_share-02.svg"></span>
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <!-- // feed block -->
+                                      </div>
+                                  </div>
+                                  <!-- //first column -->
+
+                              </div>
+                          </div>
+                    <!-- //search post -->
+                    <!-- search channel -->
+                          <div id="search_channel" class="tab-pane fade">
+                                <div class="row pro_channel2">
+                                    <!-- channel block -->
+                                    <div class="col-md-3 col-sm-6 pro_channel_card">
+                                        <div class="col-md-12 col-sm-12 pro_channel_block">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                    <figure class="channel-avatar-full">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/7fd567143564b477f3e7970607ecea5c8e78ce49/aa880/img/pro_block.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 pro_channel_img2">
+                                                    <figure class="channel-avatar-helf">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/d8d9acb1672cc63b0a2f2f13cb36a5c3b0bcec43/56c37/img/pro_block2.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 pro_channel_img3">
+                                                    <figure class="channel-avatar-helf">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/3984714548314b19ce931d48747ed07a67ee270f/5a822/img/pro_block3.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                    <div class="pro_channel_name">
+                                                        <h3 class="feed-heading float-left">Motorhome Or Trailer</h3>
+                                                        <span><img class="float-right" src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg"></span>
+                                                    </div>
+                                                    <div class="pro_channel-thumb">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                                        <p>Tobias Van Schneider</p>
+                                                    </div>
+                                                    <div class="pro_channel_count">
+                                                        <span><img src="http://d33wubrfki0l68.cloudfront.net/c9bb1a30b0b84032c801210afaaae13b1cd96a98/d7688/img/svg/ico_follower.svg"> 705</span>
+                                                        <span><img src="http://d33wubrfki0l68.cloudfront.net/e8c41238203ecdb8679aab763b1a2114edcb9549/41270/img/svg/ico_post.svg"> 705</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- // channel block -->
+                                    <!-- channel block -->
+                                    <div class="col-md-3 col-sm-6 pro_channel_card">
+                                        <div class="col-md-12 col-sm-12 pro_channel_block">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                    <figure class="channel-avatar-full">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/7fd567143564b477f3e7970607ecea5c8e78ce49/aa880/img/pro_block.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 pro_channel_img2">
+                                                    <figure class="channel-avatar-helf">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/d8d9acb1672cc63b0a2f2f13cb36a5c3b0bcec43/56c37/img/pro_block2.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 pro_channel_img3">
+                                                    <figure class="channel-avatar-helf">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/3984714548314b19ce931d48747ed07a67ee270f/5a822/img/pro_block3.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                    <div class="pro_channel_name">
+                                                        <h3 class="feed-heading float-left">How to Fly A Private Jet on Your Next Trip</h3>
+                                                        <span><img class="float-right" src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg"></span>
+                                                    </div>
+                                                    <div class="pro_channel-thumb">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                                        <p>Tobias Van Schneider</p>
+                                                    </div>
+                                                    <div class="pro_channel_count">
+                                                        <span><img src="http://d33wubrfki0l68.cloudfront.net/c9bb1a30b0b84032c801210afaaae13b1cd96a98/d7688/img/svg/ico_follower.svg"> 705</span>
+                                                        <span><img src="http://d33wubrfki0l68.cloudfront.net/e8c41238203ecdb8679aab763b1a2114edcb9549/41270/img/svg/ico_post.svg"> 705</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- // channel block -->
+                                    <!-- channel block -->
+                                    <div class="col-md-3 col-sm-6 pro_channel_card">
+                                        <div class="col-md-12 col-sm-12 pro_channel_block">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                    <figure class="channel-avatar-full">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/7fd567143564b477f3e7970607ecea5c8e78ce49/aa880/img/pro_block.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 pro_channel_img2">
+                                                    <figure class="channel-avatar-helf">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/d8d9acb1672cc63b0a2f2f13cb36a5c3b0bcec43/56c37/img/pro_block2.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 pro_channel_img3">
+                                                    <figure class="channel-avatar-helf">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/3984714548314b19ce931d48747ed07a67ee270f/5a822/img/pro_block3.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                    <div class="pro_channel_name">
+                                                        <h3 class="feed-heading float-left">Motorhome Or Trailer</h3>
+                                                        <span><img class="float-right" src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg"></span>
+                                                    </div>
+                                                    <div class="pro_channel-thumb">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                                        <p>Tobias Van Schneider</p>
+                                                    </div>
+                                                    <div class="pro_channel_count">
+                                                        <span><img src="http://d33wubrfki0l68.cloudfront.net/c9bb1a30b0b84032c801210afaaae13b1cd96a98/d7688/img/svg/ico_follower.svg"> 705</span>
+                                                        <span><img src="http://d33wubrfki0l68.cloudfront.net/e8c41238203ecdb8679aab763b1a2114edcb9549/41270/img/svg/ico_post.svg"> 705</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- // channel block -->
+
+                                    <!-- channel block -->
+                                    <div class="col-md-3 col-sm-6 pro_channel_card">
+                                        <div class="col-md-12 col-sm-12 pro_channel_block">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                    <figure class="channel-avatar-full">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/7fd567143564b477f3e7970607ecea5c8e78ce49/aa880/img/pro_block.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 pro_channel_img2">
+                                                    <figure class="channel-avatar-helf">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/d8d9acb1672cc63b0a2f2f13cb36a5c3b0bcec43/56c37/img/pro_block2.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 pro_channel_img3">
+                                                    <figure class="channel-avatar-helf">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/3984714548314b19ce931d48747ed07a67ee270f/5a822/img/pro_block3.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                    <div class="pro_channel_name">
+                                                        <h3 class="feed-heading float-left">Motorhome Or Trailer</h3>
+                                                        <span><img class="float-right" src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg"></span>
+                                                    </div>
+                                                    <div class="pro_channel-thumb">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                                        <p>Tobias Van Schneider</p>
+                                                    </div>
+                                                    <div class="pro_channel_count">
+                                                        <span><img src="http://d33wubrfki0l68.cloudfront.net/c9bb1a30b0b84032c801210afaaae13b1cd96a98/d7688/img/svg/ico_follower.svg"> 705</span>
+                                                        <span><img src="http://d33wubrfki0l68.cloudfront.net/e8c41238203ecdb8679aab763b1a2114edcb9549/41270/img/svg/ico_post.svg"> 705</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- // channel block -->
+                                    <!-- channel block -->
+                                    <div class="col-md-3 col-sm-6 pro_channel_card">
+                                        <div class="col-md-12 col-sm-12 pro_channel_block">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                    <figure class="channel-avatar-full">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/7fd567143564b477f3e7970607ecea5c8e78ce49/aa880/img/pro_block.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 pro_channel_img2">
+                                                    <figure class="channel-avatar-helf">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/d8d9acb1672cc63b0a2f2f13cb36a5c3b0bcec43/56c37/img/pro_block2.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 pro_channel_img3">
+                                                    <figure class="channel-avatar-helf">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/3984714548314b19ce931d48747ed07a67ee270f/5a822/img/pro_block3.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                    <div class="pro_channel_name">
+                                                        <h3 class="feed-heading float-left">Virginia Travel For Kids </h3>
+                                                        <span><img class="float-right" src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg"></span>
+                                                    </div>
+                                                    <div class="pro_channel-thumb">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                                        <p>Tobias Van Schneider</p>
+                                                    </div>
+                                                    <div class="pro_channel_count">
+                                                        <span><img src="http://d33wubrfki0l68.cloudfront.net/c9bb1a30b0b84032c801210afaaae13b1cd96a98/d7688/img/svg/ico_follower.svg"> 705</span>
+                                                        <span><img src="http://d33wubrfki0l68.cloudfront.net/e8c41238203ecdb8679aab763b1a2114edcb9549/41270/img/svg/ico_post.svg"> 705</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- // channel block -->
+                                    <!-- channel block -->
+                                    <div class="col-md-3 col-sm-6 pro_channel_card">
+                                        <div class="col-md-12 pro_channel_block">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                    <figure class="channel-avatar-full">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/7fd567143564b477f3e7970607ecea5c8e78ce49/aa880/img/pro_block.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 pro_channel_img2">
+                                                    <figure class="channel-avatar-helf">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/d8d9acb1672cc63b0a2f2f13cb36a5c3b0bcec43/56c37/img/pro_block2.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 pro_channel_img3">
+                                                    <figure class="channel-avatar-helf">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/3984714548314b19ce931d48747ed07a67ee270f/5a822/img/pro_block3.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                    <div class="pro_channel_name">
+                                                        <h3 class="feed-heading float-left">Travelagent India</h3>
+                                                        <span><img class="float-right" src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg"></span>
+                                                    </div>
+                                                    <div class="pro_channel-thumb">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                                        <p>Tobias Van Schneider</p>
+                                                    </div>
+                                                    <div class="pro_channel_count">
+                                                        <span><img src="http://d33wubrfki0l68.cloudfront.net/c9bb1a30b0b84032c801210afaaae13b1cd96a98/d7688/img/svg/ico_follower.svg"> 705</span>
+                                                        <span><img src="http://d33wubrfki0l68.cloudfront.net/e8c41238203ecdb8679aab763b1a2114edcb9549/41270/img/svg/ico_post.svg"> 705</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- // channel block -->
+                                </div>
+                            </div>
+                    <!-- //search channel -->
+                    <!-- search spotfeed -->
+                    <div id="search_spotfeed" class="tab-pane fade">
+                                <!-- spotfeed section -->
+                                <div class="row pro_channel2 ops_spotfeed">
+                                    <div class="col-md-3 col-sm-6 pro_channel_card">
+                                        <div class="col-md-12 col-sm-12 pro_channel_block">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                    <figure class="avatar_spotfeed">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/d08d535352cb8c464aa5067068463f50021afef3/4c789/img/art1.png">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                    <div class="pro_channel_name">
+                                                        <div class="ops_heading">Hypnosis Myth Reality</div>
+                                                        <div class="ops_subheading">Living in the now use it to Enrich your life</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 pro_channel_card">
+                                        <div class="col-md-12 col-sm-12 pro_channel_block">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                    <figure class="avatar_spotfeed">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/190653d23994f9313ce24924b0194f897a6a2c9a/4e751/img/art2.png">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                    <div class="pro_channel_name">
+                                                        <div class="ops_heading">Its A Habbit</div>
+                                                        <div class="ops_subheading">Fire Up Your Motivation</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 pro_channel_card">
+                                        <div class="col-md-12 col-sm-12 pro_channel_block">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                    <figure class="avatar_spotfeed">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/74f8fa385142c4b959b36677386ed0da66414012/cb3c5/img/art3.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                    <div class="pro_channel_name">
+                                                        <div class="ops_heading">Do Your Think Motivational</div>
+                                                        <div class="ops_subheading">Effective Ways to quit</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 pro_channel_card">
+                                        <div class="col-md-12 col-sm-12 pro_channel_block">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                    <figure class="avatar_spotfeed">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/d08d535352cb8c464aa5067068463f50021afef3/4c789/img/art1.png">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                    <div class="pro_channel_name">
+                                                        <div class="ops_heading">Motivate Yourself</div>
+                                                        <div class="ops_subheading">Fire Up Your Motivation</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 pro_channel_card">
+                                        <div class="col-md-12 col-sm-12 pro_channel_block">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                    <figure class="avatar_spotfeed">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/50f6d44b4e55b63e14e89550368030222359e822/8e4da/img/art4.png">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                    <div class="pro_channel_name">
+                                                        <div class="ops_heading">Harness The Power of Words In</div>
+                                                        <div class="ops_subheading">Fire Up Your Motivation</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 pro_channel_card">
+                                        <div class="col-md-12 col-sm-12 pro_channel_block">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                    <figure class="avatar_spotfeed">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/190653d23994f9313ce24924b0194f897a6a2c9a/4e751/img/art2.png">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                    <div class="pro_channel_name">
+                                                        <div class="ops_heading">Harness The Power of Words In</div>
+                                                        <div class="ops_subheading">Fire Up Your Motivation</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- //spotfeed section -->
+                            </div>
+                    <!-- //search spotfeed -->
+                    <div id="search_people" class="tab-pane fade">
+                      <div class="row home_artist_follow ops_search_people">
+                  <div class="col-md-12 col-sm-12 padding-l6">
+                      <div class="panel-group">
+                          <div class="panel panel-default">
+                              <div class="panel-body">
+                                  <div class="panel20 text-center">
+                                      <figure class="reg_skills_img reg-avatar">
+                                          <img src="http://d33wubrfki0l68.cloudfront.net/026bcbb2a3f5a8e30d2ff33c75465c8911668cc9/4e7c8/img/artist.jpg">
+                                      </figure>
+                                      <h3>Mike Creative Mint</h3>
+                                      <p>Visual Art</p>
+                                      <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                          <span class="btn-label-follow">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span> Follow
+                                      </button>
+                                  </div>
+                                  <div class="panel20 text-center">
+                                      <figure class="reg_skills_img reg-avatar">
+                                          <img src="http://d33wubrfki0l68.cloudfront.net/f95ab4145735ba7a5840faf3f7e91deab3c572fd/9f033/img/opro.png">
+                                      </figure>
+                                      <h3>Opro Creative</h3>
+                                      <p>Visual Art</p>
+                                      <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                          <span class="btn-label-follow">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span> Follow
+                                      </button>
+                                  </div>
+                                  <div class="panel20 text-center">
+                                      <figure class="reg_skills_img reg-avatar">
+                                          <img src="http://d33wubrfki0l68.cloudfront.net/026bcbb2a3f5a8e30d2ff33c75465c8911668cc9/4e7c8/img/artist.jpg">
+                                      </figure>
+                                      <h3>Mike Creative Mint</h3>
+                                      <p>Visual Art</p>
+                                      <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                          <span class="btn-label-follow">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span> Follow
+                                      </button>
+                                  </div>
+                                  <div class="panel20 text-center">
+                                      <figure class="reg_skills_img reg-avatar">
+                                          <img src="http://d33wubrfki0l68.cloudfront.net/d5f8dd00ece4e0f2c090e776a8e6d31134503f7f/2432c/img/avatar2.jpg">
+                                      </figure>
+                                      <h3>Mike Mint</h3>
+                                      <p>Visual Art</p>
+                                      <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                          <span class="btn-label-follow">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span> Follow
+                                      </button>
+                                  </div>
+                                  <div class="panel20 text-center">
+                                      <figure class="reg_skills_img reg-avatar">
+                                          <img src="http://d33wubrfki0l68.cloudfront.net/026bcbb2a3f5a8e30d2ff33c75465c8911668cc9/4e7c8/img/artist.jpg">
+                                      </figure>
+                                      <h3>Mike Creative Mint</h3>
+                                      <p>Visual Art</p>
+                                      <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                          <span class="btn-label-follow">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span> Follow
+                                      </button>
+                                  </div>
+                                  <div class="panel20 text-center">
+                                      <figure class="reg_skills_img reg-avatar">
+                                          <img src="http://d33wubrfki0l68.cloudfront.net/026bcbb2a3f5a8e30d2ff33c75465c8911668cc9/4e7c8/img/artist.jpg">
+                                      </figure>
+                                      <h3>Mike Creative Mint</h3>
+                                      <p>Visual Art</p>
+                                      <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                          <span class="btn-label-follow">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span> Follow
+                                      </button>
+                                  </div>
+                                  <div class="panel20 text-center">
+                                      <figure class="reg_skills_img reg-avatar">
+                                          <img src="http://d33wubrfki0l68.cloudfront.net/026bcbb2a3f5a8e30d2ff33c75465c8911668cc9/4e7c8/img/artist.jpg">
+                                      </figure>
+                                      <h3>Mike Creative Mint</h3>
+                                      <p>Visual Art</p>
+                                      <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                          <span class="btn-label-follow">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span> Follow
+                                      </button>
+                                  </div>
+                                  <div class="panel20 text-center">
+                                      <figure class="reg_skills_img reg-avatar">
+                                          <img src="http://d33wubrfki0l68.cloudfront.net/026bcbb2a3f5a8e30d2ff33c75465c8911668cc9/4e7c8/img/artist.jpg">
+                                      </figure>
+                                      <h3>Mike Creative Mint</h3>
+                                      <p>Visual Art</p>
+                                      <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                          <span class="btn-label-follow">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span> Follow
+                                      </button>
+                                  </div>
+                                  <div class="panel20 text-center">
+                                      <figure class="reg_skills_img reg-avatar">
+                                          <img src="http://d33wubrfki0l68.cloudfront.net/026bcbb2a3f5a8e30d2ff33c75465c8911668cc9/4e7c8/img/artist.jpg">
+                                      </figure>
+                                      <h3>Mike Creative Mint</h3>
+                                      <p>Visual Art</p>
+                                      <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                          <span class="btn-label-follow">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span> Follow
+                                      </button>
+                                  </div>
+                                  <div class="panel20 text-center">
+                                      <figure class="reg_skills_img reg-avatar">
+                                          <img src="http://d33wubrfki0l68.cloudfront.net/026bcbb2a3f5a8e30d2ff33c75465c8911668cc9/4e7c8/img/artist.jpg">
+                                      </figure>
+                                      <h3>Mike Creative Mint</h3>
+                                      <p>Visual Art</p>
+                                      <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                          <span class="btn-label-follow">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span> Follow
+                                      </button>
+                                  </div>
+                                  <div class="panel20 text-center">
+                                      <figure class="reg_skills_img reg-avatar">
+                                          <img src="http://d33wubrfki0l68.cloudfront.net/026bcbb2a3f5a8e30d2ff33c75465c8911668cc9/4e7c8/img/artist.jpg">
+                                      </figure>
+                                      <h3>Mike Creative Mint</h3>
+                                      <p>Visual Art</p>
+                                      <button type="button" class="btn btn-xs btn-normal btn-plus">
+                                          <span class="btn-label-follow">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </span> Follow
+                                      </button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+                    </div>
+                    <!-- search communnity -->
+                    <div id="search_community" class="tab-pane fade">
+                      <div class="row pro_channel2 ops_spotfeed ops_community">
+                        <div class="col-md-3 col-sm-6 pro_channel_card">
+                              <div class="col-md-12 col-sm-12 pro_channel_block">
+                                  <div class="row">
+                                      <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                          <figure class="avatar_spotfeed">
+                                              <img src="http://d33wubrfki0l68.cloudfront.net/a4ad69d317551d24c67bda3a1ed38c6e740ba123/d7eb6/img/quick3.jpg">
+                                          </figure>
+                                      </div>
+                                      <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                          <div class="pro_channel_name">
+                                              <div class="ops_heading">How Great Is The Strength Of Your Belief</div>
+                                          </div>
+                                          <div class="overlap_thumb">
+                                             <span class="over1_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/f95ab4145735ba7a5840faf3f7e91deab3c572fd/9f033/img/opro.png"></span>
+                                             <span class="over2_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/d5f8dd00ece4e0f2c090e776a8e6d31134503f7f/2432c/img/avatar2.jpg"></span>
+                                             <span class="over3_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg"></span>
+                                             <h5 class="overlap_thumb_text">+ 23 Members</h5>
+                                             <button type="button" class="btn btn-default btn-xs">JOINED</button>
+                                          </div>
+
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-3 col-sm-6 pro_channel_card">
+                                <div class="col-md-12 col-sm-12 pro_channel_block">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                            <figure class="avatar_spotfeed">
+                                                <img src="http://d33wubrfki0l68.cloudfront.net/a4ad69d317551d24c67bda3a1ed38c6e740ba123/d7eb6/img/quick3.jpg">
+                                            </figure>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                            <div class="pro_channel_name">
+                                                <div class="ops_heading">How Great Is The Strength Of Your Belief</div>
+                                            </div>
+                                            <div class="overlap_thumb">
+                                               <span class="over1_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/f95ab4145735ba7a5840faf3f7e91deab3c572fd/9f033/img/opro.png"></span>
+                                               <span class="over2_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/d5f8dd00ece4e0f2c090e776a8e6d31134503f7f/2432c/img/avatar2.jpg"></span>
+                                               <span class="over3_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg"></span>
+                                               <h5 class="overlap_thumb_text">+ 23 Members</h5>
+                                               <button type="button" class="btn btn-default btn-xs">JOINED</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 pro_channel_card">
+                                  <div class="col-md-12 col-sm-12 pro_channel_block">
+                                      <div class="row">
+                                          <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                              <figure class="avatar_spotfeed">
+                                                  <img src="http://d33wubrfki0l68.cloudfront.net/a4ad69d317551d24c67bda3a1ed38c6e740ba123/d7eb6/img/quick3.jpg">
+                                              </figure>
+                                          </div>
+                                          <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                              <div class="pro_channel_name">
+                                                  <div class="ops_heading">How Great Is The Strength Of Your Belief</div>
+                                              </div>
+                                              <div class="overlap_thumb">
+                                                 <span class="over1_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/f95ab4145735ba7a5840faf3f7e91deab3c572fd/9f033/img/opro.png"></span>
+                                                 <span class="over2_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/d5f8dd00ece4e0f2c090e776a8e6d31134503f7f/2432c/img/avatar2.jpg"></span>
+                                                 <span class="over3_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg"></span>
+                                                 <h5 class="overlap_thumb_text">+ 23 Members</h5>
+                                                 <button type="button" class="btn btn-default btn-xs">JOINED</button>
+                                              </div>
+
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-3 col-sm-6 pro_channel_card">
+                                    <div class="col-md-12 col-sm-12 pro_channel_block">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                <figure class="avatar_spotfeed">
+                                                    <img src="http://d33wubrfki0l68.cloudfront.net/a4ad69d317551d24c67bda3a1ed38c6e740ba123/d7eb6/img/quick3.jpg">
+                                                </figure>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                <div class="pro_channel_name">
+                                                    <div class="ops_heading">How Great Is The Strength Of Your Belief</div>
+                                                </div>
+                                                <div class="overlap_thumb">
+                                                   <span class="over1_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/f95ab4145735ba7a5840faf3f7e91deab3c572fd/9f033/img/opro.png"></span>
+                                                   <span class="over2_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/d5f8dd00ece4e0f2c090e776a8e6d31134503f7f/2432c/img/avatar2.jpg"></span>
+                                                   <span class="over3_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg"></span>
+                                                   <h5 class="overlap_thumb_text">+ 23 Members</h5>
+                                                   <button type="button" class="btn btn-default btn-xs">JOINED</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 pro_channel_card">
+                                      <div class="col-md-12 col-sm-12 pro_channel_block">
+                                          <div class="row">
+                                              <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                  <figure class="avatar_spotfeed">
+                                                      <img src="http://d33wubrfki0l68.cloudfront.net/a4ad69d317551d24c67bda3a1ed38c6e740ba123/d7eb6/img/quick3.jpg">
+                                                  </figure>
+                                              </div>
+                                              <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                  <div class="pro_channel_name">
+                                                      <div class="ops_heading">How Great Is The Strength Of Your Belief</div>
+                                                  </div>
+                                                  <div class="overlap_thumb">
+                                                     <span class="over1_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/f95ab4145735ba7a5840faf3f7e91deab3c572fd/9f033/img/opro.png"></span>
+                                                     <span class="over2_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/d5f8dd00ece4e0f2c090e776a8e6d31134503f7f/2432c/img/avatar2.jpg"></span>
+                                                     <span class="over3_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg"></span>
+                                                     <h5 class="overlap_thumb_text">+ 23 Members</h5>
+                                                     <button type="button" class="btn btn-default btn-xs">JOINED</button>
+                                                  </div>
+
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-3 col-sm-6 pro_channel_card">
+                                        <div class="col-md-12 col-sm-12 pro_channel_block">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12 pro_channel_img1">
+                                                    <figure class="avatar_spotfeed">
+                                                        <img src="http://d33wubrfki0l68.cloudfront.net/a4ad69d317551d24c67bda3a1ed38c6e740ba123/d7eb6/img/quick3.jpg">
+                                                    </figure>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                                    <div class="pro_channel_name">
+                                                        <div class="ops_heading">How Great Is The Strength Of Your Belief</div>
+                                                    </div>
+                                                    <div class="overlap_thumb">
+                                                       <span class="over1_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/f95ab4145735ba7a5840faf3f7e91deab3c572fd/9f033/img/opro.png"></span>
+                                                       <span class="over2_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/d5f8dd00ece4e0f2c090e776a8e6d31134503f7f/2432c/img/avatar2.jpg"></span>
+                                                       <span class="over3_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg"></span>
+                                                       <h5 class="overlap_thumb_text">+ 23 Members</h5>
+                                                       <button type="button" class="btn btn-default btn-xs">JOINED</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                      </div>
+                    </div>
+                    <!-- //search community -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<main class="container-fulid outer_container">
+            <section class="notification_block">
+        <div class="container">
+            <!-- registraion middle container -->
+            <div class="row notification_block_container">
+                <!-- left section -->
+                <div class="col-md-8 noti_block">
+                  <div class="noti_left" id="ops_scrollbar">
+                  <ul class="noti_details">
+                     <li class="with_border_bottom">
+                        <ul class="list-inline">
+                           <li class="list-inline-item header_ym">
+                              <a href="">Your Notification</a>
+                           </li>
+                           <li class="list-inline-item pull-right header_compose">
+                              <a href="">Mark all as read</a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="with_border_bottom fill_grey">
+                        <ul class="list-inline">
+                           <li class="list-inline-item float_left noti_avatar">
+                             <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                           </li>
+                           <li class="list-inline-item noti_cont">
+                              <div class="head_msg_name">Tommy Russel</div>
+                              <div class="head_msg_short">8 others spotted your post</div>
+                              <div class="noti_cont_footer">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/8d58c78cd26eb1d103bb24ec6c1d786a0964b8b4/63aa4/img/svg/ico_spot.svg" class="noti_cont_footer_img"><span>10:08 PM</span>
+                              </div>
+                           </li>
+                           <li class="list-inline-item noti_cont_time">
+                             <div class="msg_time">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="img-responsive">
+                             </div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="with_border_bottom fill_grey">
+                        <ul class="list-inline">
+                           <li class="list-inline-item float_left noti_avatar">
+                             <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                           </li>
+                           <li class="list-inline-item noti_cont">
+                              <div class="head_msg_name">Estern Richardson</div>
+                              <div class="head_msg_short">added your post to</div>
+                                <div class="head_msg_name">Paper Works</div>
+                              <div class="noti_cont_footer">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/757d12023ec2c0c7c0649d1ed1334031990ffe92/cbaf2/img/svg/ico_addtochannel.svg" class="noti_cont_footer_img"><span>10:08 PM</span>
+                              </div>
+                           </li>
+                           <li class="list-inline-item noti_cont_time">
+                             <div class="msg_time">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="img-responsive">
+                             </div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="with_border_bottom">
+                        <ul class="list-inline">
+                           <li class="list-inline-item float_left noti_avatar">
+                             <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                           </li>
+                           <li class="list-inline-item noti_cont">
+                              <div class="head_msg_name">Tommy Russel</div>
+                              <div class="head_msg_short">8 others spotted your post</div>
+                              <div class="noti_cont_footer">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/8d58c78cd26eb1d103bb24ec6c1d786a0964b8b4/63aa4/img/svg/ico_spot.svg" class="noti_cont_footer_img"><span>10:08 PM</span>
+                              </div>
+                           </li>
+                           <li class="list-inline-item noti_cont_time">
+                             <div class="msg_time">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="img-responsive">
+                             </div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="with_border_bottom">
+                        <ul class="list-inline">
+                           <li class="list-inline-item float_left noti_avatar">
+                             <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                           </li>
+                           <li class="list-inline-item noti_cont">
+                              <div class="head_msg_name">Tommy Russel</div>
+                              <div class="head_msg_short">8 others comment on your post</div>
+                              <div class="noti_cont_footer">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg" class="noti_cont_footer_img"><span>10:08 PM</span>
+                              </div>
+                           </li>
+                           <li class="list-inline-item noti_cont_time">
+                             <div class="msg_time">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="img-responsive">
+                             </div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="with_border_bottom">
+                        <ul class="list-inline">
+                           <li class="list-inline-item float_left noti_avatar">
+                             <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                           </li>
+                           <li class="list-inline-item noti_cont">
+                              <div class="head_msg_name">Tommy Russel</div>
+                              <div class="head_msg_short">8 others spotted your post</div>
+                              <div class="noti_cont_footer">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/757d12023ec2c0c7c0649d1ed1334031990ffe92/cbaf2/img/svg/ico_addtochannel.svg" class="noti_cont_footer_img"><span>10:08 PM</span>
+                              </div>
+                           </li>
+                           <li class="list-inline-item noti_cont_time">
+                             <div class="msg_time">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="img-responsive">
+                             </div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="with_border_bottom">
+                        <ul class="list-inline">
+                           <li class="list-inline-item float_left noti_avatar">
+                             <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                           </li>
+                           <li class="list-inline-item noti_cont">
+                              <div class="head_msg_name">Tommy Russel</div>
+                              <div class="head_msg_short">8 others spotted your post</div>
+                              <div class="noti_cont_footer">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg" class="noti_cont_footer_img"><span>10:08 PM</span>
+                              </div>
+                           </li>
+                           <li class="list-inline-item noti_cont_time">
+                             <div class="msg_time">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="img-responsive">
+                             </div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="with_border_bottom">
+                        <ul class="list-inline">
+                           <li class="list-inline-item float_left noti_avatar">
+                             <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                           </li>
+                           <li class="list-inline-item noti_cont">
+                              <div class="head_msg_name">Tommy Russel</div>
+                              <div class="head_msg_short">8 others spotted your post</div>
+                              <div class="noti_cont_footer">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/8d58c78cd26eb1d103bb24ec6c1d786a0964b8b4/63aa4/img/svg/ico_spot.svg" class="noti_cont_footer_img"><span>10:08 PM</span>
+                              </div>
+                           </li>
+                           <li class="list-inline-item noti_cont_time">
+                             <div class="msg_time">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="img-responsive">
+                             </div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="with_border_bottom">
+                        <ul class="list-inline">
+                           <li class="list-inline-item float_left noti_avatar">
+                             <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                           </li>
+                           <li class="list-inline-item noti_cont">
+                              <div class="head_msg_name">Tommy Russel</div>
+                              <div class="head_msg_short">8 others spotted your post</div>
+                              <div class="noti_cont_footer">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg" class="noti_cont_footer_img"><span>10:08 PM</span>
+                              </div>
+                           </li>
+                           <li class="list-inline-item noti_cont_time">
+                             <div class="msg_time">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="img-responsive">
+                             </div>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+                </div>
+                </div>
+                <!-- right section -->
+                <div class="col-md-4 noti_right noti_block" id="ops_scrollbar">
+                  <div class="noti_left" id="ops_scrollbar">
+                  <ul class="noti_details">
+                     <li class="with_border_bottom">
+                        <ul class="list-inline">
+                           <li class="list-inline-item header_ym">
+                              <a href="">ACTIVITIES</a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="with_border_bottom">
+                        <ul class="list-inline activities_pad">
+                           <li class="list-inline-item float_left noti_avatar">
+                             <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                           </li>
+                           <li class="list-inline-item noti_cont">
+                              <div class="head_msg_name">Estern Richardson</div>
+                              <div class="head_msg_short">spotted </div>
+                              <div class="head_msg_name">3 posts</div>
+                              <div class="noti_cont_footer">
+                                <span>10:08 PM</span>
+                              </div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="with_border_bottom">
+                        <ul class="list-inline activities_pad">
+                           <li class="list-inline-item float_left noti_avatar">
+                             <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                           </li>
+                           <li class="list-inline-item noti_cont">
+                              <div class="head_msg_name">Estern Richardson</div>
+                              <div class="head_msg_short">commented on a </div>
+                              <div class="head_msg_name">posts</div>
+                              <div class="noti_cont_footer">
+                                <span>10:08 PM</span>
+                              </div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="with_border_bottom">
+                        <ul class="list-inline activities_pad">
+                           <li class="list-inline-item float_left noti_avatar">
+                             <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                           </li>
+                           <li class="list-inline-item noti_cont">
+                              <div class="head_msg_name">Estern Richardson</div>
+                              <div class="head_msg_short">created a </div>
+                              <div class="head_msg_name">Channel</div>
+                              <div class="noti_cont_footer">
+                                <span>10:08 PM</span>
+                              </div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="with_border_bottom">
+                        <ul class="list-inline activities_pad">
+                           <li class="list-inline-item float_left noti_avatar">
+                             <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                           </li>
+                           <li class="list-inline-item noti_cont">
+                              <div class="head_msg_name">Estern Richardson</div>
+                              <div class="head_msg_short">created a </div>
+                              <div class="head_msg_name">Event</div>
+                              <div class="noti_cont_footer">
+                                <span>10:08 PM</span>
+                              </div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="with_border_bottom">
+                        <ul class="list-inline activities_pad">
+                           <li class="list-inline-item float_left noti_avatar">
+                             <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                           </li>
+                           <li class="list-inline-item noti_cont">
+                              <div class="head_msg_name">Estern Richardson</div>
+                              <div class="head_msg_short">spotted </div>
+                              <div class="head_msg_name">3 posts</div>
+                              <div class="noti_cont_footer">
+                                <span>10:08 PM</span>
+                              </div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="with_border_bottom">
+                        <ul class="list-inline activities_pad">
+                           <li class="list-inline-item float_left noti_avatar">
+                             <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                           </li>
+                           <li class="list-inline-item noti_cont">
+                              <div class="head_msg_name">Estern Richardson</div>
+                              <div class="head_msg_short">commented a </div>
+                              <div class="head_msg_name">Posts</div>
+                              <div class="noti_cont_footer">
+                                <span>10:08 PM</span>
+                              </div>
+                           </li>
+                        </ul>
+                     </li>
+                     <li class="with_border_bottom">
+                        <ul class="list-inline activities_pad">
+                           <li class="list-inline-item float_left noti_avatar">
+                             <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                           </li>
+                           <li class="list-inline-item noti_cont">
+                              <div class="head_msg_name">Estern Richardson</div>
+                              <div class="head_msg_short">spotted </div>
+                              <div class="head_msg_name">3 posts</div>
+                              <div class="noti_cont_footer">
+                                <span>10:08 PM</span>
+                              </div>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+                </div>
+                </div>
+            </div>
+            <!-- //registraion middle container -->
+        </div>
+    </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+          <p>© Copyright 2017 One Page Spotlight</p>
+        </div>
+    </footer>

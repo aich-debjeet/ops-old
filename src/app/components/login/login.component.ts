@@ -1,40 +1,43 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { Login } from '../../models/login.model';
+import { Login, UserTag, initialTag } from '../../models/auth.model';
 
-//Action
-import { LoginActions } from '../../actions/login.action'
+// Action
+import { AuthActions } from '../../actions/auth.action'
 
-//rx
+// rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+
+export class RegValue {
+  mainTitle: string;
+  description: string;
+  loginLink: Boolean;
+  button_text: string;
+  button_link: string;
+}
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-  tagState$: Observable<Login>;
   private tagStateSubscription: Subscription;
-  petTag: Login;
+  tagState$: Observable<Login>;
+  rightCom: RegValue;
+  petTag = initialTag;
+  loginForm: FormGroup;
 
-	loginForm : FormGroup;
-  // public token: string;
+  constructor(fb: FormBuilder, private store: Store<Login>, private router: Router) {
 
-  constructor(fb: FormBuilder, private store: Store<Login>) { 
-  	this.loginForm = fb.group({
+     this.loginForm = fb.group({
       'email' : [null, Validators.required],
-      'password': [null, Validators.required],
+      'password': ['', Validators.required],
     })
-
-    //login Check
-     // set token if saved in local storage
-      // var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      // this.token = currentUser && currentUser.token;
 
     this.tagState$ = store.select('loginTags');
     // this.tagState$.subscribe(v => console.log(v));
@@ -50,19 +53,39 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    //
+    this.rightCom = { 
+      mainTitle: 'Select your profile type', 
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod long-and vitality, so that the labor expended. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      loginLink: true,
+      button_text: 'Sign Up',
+      button_link: '/home'
+    };
+
+    console.log(this.petTag);
+
+     const user = JSON.parse(localStorage.getItem('currentUser'));
+     if (user && user.access_token) {
+       this.router.navigate(['/profile']);
+     }
   }
 
-  submitForm(value: any){
-    let form = {
-      'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
-      'client_secret': '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',
-      'username' : value.email,
-      'password' : value.password,
-      'grant_type' : 'password'
-    }
+  submitForm(value: any) {
 
-    this.store.dispatch({ type: LoginActions.USER_LOGIN, payload: form});
-  	// console.log(value);
+    if(this.loginForm.valid == true){
+      console.log(value);
+      const form =  {
+        'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
+        'client_secret': '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',
+        'username' : value.email,
+        'password' : value.password,
+        'grant_type' : 'password'
+      }
+
+      this.store.dispatch({ type: AuthActions.USER_LOGIN, payload: form});
+      // console.log(value);
+    }
   }
 
 

@@ -1,0 +1,16 @@
+<button (click)="handleClick($event)" type="{{type || 'button'}}" class="btn {{className}}">
+    <span class="btn-label-follow">
+    <img src="/assets/img/svg/ico_plus_white.svg">
+    </span>
+    <ng-content></ng-content>
+</button>
+
+<!--<button type="button" class="btn btn-xs btn-primary btn-follow">
+    <span class="btn-label-follow">
+    <img src="/assets/img/svg/ico_plus_white.svg">
+    </span> <ng-content></ng-content>
+</button>-->
+
+<!--<button type="button" class="btn btn-xs btn-primary btn-following">
+    <ng-content></ng-content>
+</button>-->

@@ -1,0 +1,38 @@
+<div class="{{className}}">
+  <div class="col-md-12 col-sm-12 ops_channel_block">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 ops_channel_top">
+        <figure class="channel_avatar_full">
+           <img src="{{image_base_url + channelData.media[0].repoPath}}">
+        </figure>
+      </div>
+      <div class="col-md-6 col-sm-6 ops_channel_bottom1">
+        <figure class="channel_avatar_helf">
+          <img src="{{image_base_url + channelData?.media[1]?.repoPath}}">
+        </figure>
+      </div>
+      <div class="col-md-6 col-sm-6 ops_channel_bottom2">
+        <figure class="channel_avatar_helf">
+          <img src="{{image_base_url + channelData.media[2]?.repoPath}}">
+        </figure>
+      </div>
+        <div class="col-md-12 col-sm-12 pro_channel_cont">
+          <div class="channel_name">
+            <h3 class="channel_heading float-left">{{channelData.spotfeedName}}</h3>
+            <span *ngIf="type">
+              <a href="#"><img class="float-right" src="/assets/img/svg/ico_options.svg"></a>
+            </span>
+          </div>
+          <div class="channel-thumb">
+              <img src="{{channelData.ownerImage}}">
+              <p>{{channelData.ownerName}}</p>
+          </div>
+          <div class="channel_count">
+            <span><img src="/assets/img/svg/ico_follower.svg"> {{channelData.followersCount}}</span>
+            <span><img src="/assets/img/svg/ico_post.svg">{{channelData.mediaCount}}</span>
+            <app-button (click)="toggleFollowBtn(i)" [className]="'btn-xs btn-primary btn-following'">Following</app-button>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

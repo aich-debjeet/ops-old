@@ -1,0 +1,53 @@
+.outer_container{
+  margin-top: 3.5%;
+  @include mq($from: $desktop_lg, $until: $desktop_imac) {
+      margin-top: 2%
+  }
+}
+
+.ops_heading{
+  font-size: 14px;
+    font-weight: bold;
+    color: #333333;
+}
+.ops_heading12{
+    font-size: 12px;
+    font-weight: bold;
+    color: #333333;
+}
+.ops_subheading{
+  font-size: 12px;
+    font-weight: 600;
+    color: #979797;
+}
+.margin_tb_16 {
+  margin: 16px 0;
+}
+.with_border {
+  border: solid 1px rgba(0, 0, 0, 0.1);
+}
+.with_border_right {
+  border-right: solid 1px rgba(0, 0, 0, 0.1);
+}
+.with_border_left {
+  border-left: solid 1px rgba(0, 0, 0, 0.1);
+}
+.with_border_bottom {
+  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+}
+.text-black {
+  color: #000000;
+}
+.float_left {
+  float: left;
+}
+.float_right {
+  float: right;
+}
+.fill_grey {
+    background-color: rgba(102, 45, 145, 0.05);
+}
+.list_style_none {
+  list-style-type: none;
+}
+

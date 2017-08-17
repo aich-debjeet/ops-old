@@ -1,0 +1,156 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_functions.scss';
+@import './src/assets/scss/helpers/_mixins.scss';
+@import '~sass-mq/_mq.scss';
+
+/* --------------------------- Registration Step 1 ---------------------------- */
+.otp__modal { }
+.reg_step1{
+  // add photo
+  .reg_add_photo{
+    width: 99px;
+    height: 99px;
+    text-align: center;
+    background-color: #e5e5e5;
+    color: $white;
+    padding: 0;
+    border-radius:5px;
+    @include mq($from: mobile, $until: tablet) {
+        width: 250px;
+        margin-bottom: 15px;
+    }
+  }
+  .reg_add_photo label{
+    color: #fff;
+    cursor: pointer;
+    width: 88%;
+    line-height: 99px;
+    left: 0;
+    top: 0;
+    width: 99px;
+  }
+  .reg_add_photo input[type=file]#upload-photo{
+    opacity: 0;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 99px;
+    cursor: pointer;
+  }
+  // gender
+  .ops_radio_sm{
+  .gender_single {
+    margin: 0px;
+    padding: 0px 7px;
+    color: #c1c1c1;
+    font-size: 14px;
+    }
+    strong {
+      font-size: 14px;
+      color: #c1c1c1;
+      font-weight: 500;
+      margin-right: 10px;
+    }
+    label{
+      position: static;
+      text-align: center;
+      margin-bottom: 0px;
+      margin-top: 15px;
+      pointer-events: auto;
+    }
+  }
+}
+/* --------------------- Registration step 1 otp -------------------------- */
+.reg_step1_otp{
+  .modal-lg{
+    width: 850px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 90%;
+    }
+  }
+  .modal-dialog{
+    margin: 6% auto;
+  }
+  h5{
+    color: #333333;
+    line-height: 26px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  a{
+    color: #ff7b84;
+    font-size: 16px;
+  }
+  form {
+    width: 70%;
+    margin: 0 auto;
+    padding: 10% 0;
+    span{
+      color: $theme_red;
+      font-size: 14px;
+      float: right;
+      margin-top: -22px;
+    }
+  }
+  .modal-title{
+    padding: 5% 0;
+  }
+  .btn {
+    margin-top: 20px;
+  }
+  p{
+    margin-top: 5%;
+  }
+}
+/* ------------------ Registration step 1 thankyou -------------------------- */
+.reg_thankyou{
+  .modal-lg{
+    width: 850px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 90%;
+    }
+  }
+  .modal-dialog{
+    margin: 6% auto;
+  }
+  .modal-title{
+    padding: 5% 0;
+  }
+  h3{
+    font-weight: 800;
+    font-size: 36px;
+    color: #333333;
+    clear: both;
+    margin-top: 7%;
+  }
+  p{
+    color: #333;
+    margin: 5%;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .btn{
+    margin: 4% 0 18%;
+  }
+}
+
+.modal{
+  img{
+    width: 138px;
+  }
+}
+
+img#preview {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.opacity0 {
+  opacity: 0;
+}
+
+.hide-element {
+  display: none !important;
+}

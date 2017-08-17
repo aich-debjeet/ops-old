@@ -1,0 +1,373 @@
+@import './src/assets/scss/helpers/_variables.scss';
+/* --------------------------- Button Size ---------------------------- */
+
+.btn-xs {
+    padding: 1px 7px;
+    font-size: 11px;
+    line-height: 1.8;
+    border-radius: 3px;
+}
+
+.btn-sm {
+    padding: 6px 18px;
+    font-size: 14px;
+    line-height: 1.0;
+    border-radius: 3px;
+    font-weight: 800;
+}
+
+.btn-md {
+    padding: 4px 20px;
+    font-size: 18px;
+    line-height: 1.5;
+    border-radius: 3px;
+    font-weight: 800;
+}
+
+
+/* ------------------------------ Button ------------------------------ */
+
+.btn-plus {
+    padding: 0px 11px 0px 6px;
+    font-weight: 500;
+    font-size: 12px;
+    background-color: #5C5B5B !important;
+    p {
+        display: -webkit-inline-box;
+        vertical-align: top;
+        margin-top: 7px;
+        font-size: 12px;
+    }
+    &:hover {
+        background: #5C5B5B !important;
+        border-color: #5C5B5B !important;
+        .btn-label-skill {
+            background: none;
+        }
+    }
+}
+.btn-plus-slected {
+    padding: 0px 11px 0px 6px;
+    font-weight: 500;
+    font-size: 12px;
+    background-color: none;
+    p {
+        display: -webkit-inline-box;
+        vertical-align: top;
+        margin-top: 7px;
+        font-size: 12px;
+    }
+    &:hover {
+        background: #5C5B5B !important;
+        border-color: #5C5B5B !important;
+        .btn-label-skill {
+            background: none;
+        }
+    }
+}
+.btn-tag-close {
+    padding: 0px 7px 0px 3px;
+    font-weight: 500;
+    font-size: 12px;
+    border-radius: 5px;
+    &:hover {
+        background: #5C5B5B !important;
+        border-color: #5C5B5B !important;
+        .btn-label-skill {
+            background: none;
+        }
+    }
+    .btn-label-tag {
+      img {
+        width: 11px;
+        margin-top: 0px;
+        vertical-align: middle;
+            margin-left: 6px;
+      }
+    }
+}
+.btn-follow {
+    padding: 0px 9px 0px 1px;
+    font-weight: 500;
+    font-size: 12px;
+    border-radius: 3px;
+    .btn-label-follow {
+      img {
+        width: 11px !important;
+        margin-top: 0px;
+        vertical-align: middle;
+        margin-left: 6px;
+        height: auto;
+        box-shadow: none;
+        border: none;
+      }
+    }
+}
+.btn-following {
+    padding: 0px 4px 0 7px;
+    font-weight: 500;
+    font-size: 12px;
+    border-radius: 3px;
+}
+.btn-label-skill {
+    position: relative;
+    left: -6px;
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 3px 0 0 3px;
+    img {
+        width: 13px;
+        padding-top: 2px;
+    }
+}
+
+.btn-label-follow {
+    position: relative;
+    left: -6px;
+    display: inline-block;
+    padding: 1px 0px 1px 10px;
+    border-radius: 3px 0 0 3px;
+}
+.btn-label-tag {
+    position: relative;
+    left: 0;
+    display: inline-block;
+    padding: 0px 0px 0px 5px;
+    border-radius: 3px 0 0 3px;
+    i {
+        font-size: 8px;
+        padding-left: 5px;
+    }
+}
+
+
+/* --------------------------- Default Button ------------------------- */
+
+.btn-default {
+    color: $theme_red;
+    background-color: $white;
+    border-color: $theme_red;
+    &:focus {
+        color: $white;
+        background-color: $theme_red_dark;
+        border-color: $theme_red_dark;
+        outline: 0px !important;
+    }
+    &:hover {
+        color: $white;
+        background-color: $theme_red;
+        border-color: $theme_red;
+    }
+    &:active {
+        color: $white;
+        background-color: $theme_red_dark;
+        border-color: $theme_red_dark;
+        outline: 0px !important;
+        &:hover {
+            color: $white;
+            background-color: $theme_red_dark;
+            border-color: $theme_red_dark;
+        }
+        &:focus {
+            color: $white;
+            background-color: $theme_red_dark;
+            border-color: $theme_red_dark;
+        }
+    }
+}
+
+
+/* --------------------------- Primary Button ------------------------- */
+
+.btn-primary {
+    color: $white;
+    background-color: $theme_red;
+    border-color: $theme_red;
+    &:focus {
+        color: $white;
+        background-color: $theme_red_dark;
+        border-color: $theme_red_dark;
+        outline: 0px !important;
+    }
+    &:hover {
+        color: $white;
+        background-color: $theme_red_dark;
+        border-color: $theme_red_dark;
+    }
+    &:active {
+        color: $white;
+        background-color: $theme_red_dark;
+        border-color: $theme_red_dark;
+        outline: 0px !important;
+        &:hover {
+            color: $white;
+            background-color: $theme_red_dark;
+            border-color: $theme_red_dark;
+        }
+        &:focus {
+            color: $white;
+            background-color: $theme_red_dark;
+            border-color: $theme_red_dark;
+        }
+    }
+}
+
+
+/* --------------------------- Basic Button ------------------------- */
+
+.btn-basic {
+    color: $white;
+    background-color: $basic_color;
+    border-color: $basic_color;
+    &:focus {
+        color: $white;
+        background-color: $theme_red;
+        border-color: $theme_red;
+        outline: 0px !important;
+    }
+    &:hover {
+        color: $white;
+        background-color: $theme_red;
+        border-color: $theme_red;
+    }
+    &:active {
+        color: $white;
+        background-color: $theme_red_dark;
+        border-color: $theme_red_dark;
+        outline: 0px !important;
+        &:hover {
+            color: $white;
+            background-color: $theme_red_dark;
+            border-color: $theme_red_dark;
+        }
+        &:focus {
+            color: $white;
+            background-color: $theme_red_dark;
+            border-color: $theme_red_dark;
+        }
+    }
+}
+
+
+/* --------------------------- Basic Button ------------------------- */
+
+.btn-tag {
+    color: #333;
+    background-color: $white;
+    border-color: $white;
+    font-weight: normal;
+    border-radius: 3px;
+    border: 1px solid rgba(102,45,145,0.1);
+    font-size: 10px;
+    padding: 6px 7px;
+    &:focus {
+      color: $theme_red;
+      background-color: $white;
+      border: 1px solid rgba(102,45,145,0.1);
+        outline: 0px !important;
+    }
+    &:hover {
+        color: $theme_red;
+        background-color: $white;
+        border: 1px solid rgba(102,45,145,0.1);
+    }
+    &:active {
+        color: $theme_red;
+        background-color: $white;
+        border: 1px solid rgba(102,45,145,0.1);
+        outline: 0px !important;
+        &:hover {
+          color: $theme_red;
+          background-color: $white;
+          border: 1px solid rgba(102,45,145,0.1)
+        }
+        &:focus {
+          color: $theme_red;
+          background-color: $white;
+          border: 1px solid rgba(102,45,145,0.1)
+        }
+    }
+}
+
+
+/* --------------------------- Normal Button ------------------------- */
+
+.btn-normal2 {
+    color: $theme_gray;
+    background-color: $white;
+    border-color: $theme_gray;
+    &:focus {
+        color: $white;
+        background-color: $basic_color;
+        border-color: $basic_color;
+        outline: 0px !important;
+    }
+    &:hover {
+        color: $white;
+        background-color: $basic_color;
+        border-color: $basic_color;
+    }
+    &:active {
+        color: $white;
+        background-color: $basic_color;
+        border-color: $basic_color;
+        outline: 0px !important;
+        &:hover {
+            color: $white;
+            background-color: $basic_color;
+            border-color: $basic_color;
+        }
+        &:focus {
+            color: $white;
+            background-color: $basic_color;
+            border-color: $basic_color;
+        }
+    }
+}
+
+
+/* --------------------------- Normal Button ------------------------- */
+
+.btn-normal {
+    color: $white;
+    background-color: $theme_gray;
+    border-color: $theme_gray;
+    &:focus {
+        color: $white;
+        background-color: $basic_color;
+        border-color: $basic_color;
+        outline: 0px !important;
+    }
+    &:hover {
+        color: $white;
+        background-color: $basic_color;
+        border-color: $basic_color;
+    }
+    &:active {
+        color: $white;
+        background-color: $basic_color;
+        border-color: $basic_color;
+        outline: 0px !important;
+        &:hover {
+            color: $white;
+            background-color: $basic_color;
+            border-color: $basic_color;
+        }
+        &:focus {
+            color: $white;
+            background-color: $basic_color;
+            border-color: $basic_color;
+        }
+    }
+}
+
+.btn-label-follow{
+  display: none;
+}
+
+.btn-follow{
+  .btn-label-follow{
+    display: inline-block;
+  }
+}
