@@ -12,7 +12,7 @@ import { AuthRightBlockComponent } from '../../../shared/auth-right-block/auth-r
 
 // helper
 import { passwordConfirmation } from '../../../helpers/password.validator';
-import { formValidation, DatabaseValidator } from '../../../helpers/formValidator';
+import { FormValidation, DatabaseValidator } from '../../../helpers/form.validator';
 
 // Action
 import { AuthActions } from '../../../actions/auth.action'
