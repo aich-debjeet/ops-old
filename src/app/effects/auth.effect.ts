@@ -12,10 +12,14 @@ import { AuthActions } from '../actions/auth.action';
 
 @Injectable()
 export class AuthEffect {
-  constructor(
-    private actions$: Actions,
-    private authService: AuthService
-  ) {}
+
+  @Effect()
+  saveSkillType$ = this.actions$
+    .ofType(AuthActions.SAVE_SKILL)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.saveSkill(payload)
+      .map(res => ({ type: AuthActions.SAVE_SKILL_SUCCESS, payload: res }))
+    );
 
   @Effect()
   getAllSkillType$ = this.actions$
@@ -23,6 +27,14 @@ export class AuthEffect {
     .map(toPayload)
     .switchMap((payload) => this.authService.getAllSkill()
       .map(res => ({ type: AuthActions.LOAD_SKILL_SUCCESS, payload: res }))
+    );
+
+  @Effect()
+  searchAllSkillType$ = this.actions$
+    .ofType(AuthActions.SEARCH_SKILL)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.searchAllSkill(payload)
+      .map(res => ({ type: AuthActions.SEARCH_SKILL_SUCCESS, payload: res }))
     );
 
 
@@ -51,8 +63,8 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.USER_LOGIN_FAILED, payload: res }))
     );
 
-    @Effect()
-    loadArtist$ = this.actions$
+  @Effect()
+  loadArtist$ = this.actions$
       .ofType(AuthActions.LOAD_ARTIST)
       .map(toPayload)
       .switchMap((payload) => this.authService.loadArtistType()
@@ -93,7 +105,7 @@ export class AuthEffect {
       .map(res => ({ type: AuthActions.OTP_CHECK_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: AuthActions.OTP_CHECK_FAILED, payload: res }))
     );
-  
+
   @Effect()
   checkExistUser$ = this.actions$
     .ofType(AuthActions.USER_EXISTS_CHECK)
@@ -103,4 +115,8 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.USER_EXISTS_FAILED, payload: res }))
     );
 
+  constructor(
+      private actions$: Actions,
+      private authService: AuthService
+    ) {}
 }

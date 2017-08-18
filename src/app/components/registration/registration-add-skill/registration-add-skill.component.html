@@ -26,7 +26,7 @@
                     <!-- //progress bar -->
                     <form [formGroup]="rForm "  (ngSubmit)="addSkill(rForm.value)">
                         <div class="form_group">
-                            <input class="form_input" type="text" required="" formControlName="profession" [(ngModel)]="search">
+                            <input class="form_input" type="text" formControlName="profession" [(ngModel)]="search" (ngModelChange)="onChange($event)">
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>{{searchPlaceholder}}</label>
@@ -35,7 +35,7 @@
                     </form>
                     <!-- Select Interest -->
                     <div class="row reg_select_interest" id="ops_scrollbar">
-                        <a *ngFor="let skill of skills | searchfilter: search" >
+                        <a *ngFor="let skill of followpage.skills" >
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 reg_interest" (click)="toggleSelectSkill(skill.code)">
                                 <div class="margin_t_0 reg_interest_box">
                                     <div class="reg_interest_box_img">
@@ -52,6 +52,9 @@
                                 </div>
                             </div>
                         </a>
+                        <div *ngIf='followpage.skills && followpage.skills.length === 0'>
+                          <a class="adder" (click)="addNewSkill(search)">Add <span class="adder__name">{{search}}?</span></a>
+                        </div>
                     </div>
                     <div class="row text-center submit-button ">
                         <app-button [className]="'btn-default btn-md finish_btn'" (click)="submitSkills()" [type]="'submit'">Finish</app-button>
@@ -84,7 +87,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="row" *ngIf="artistFollowList?.is_data" >
+                                <div class="row" *ngIf="followpage?.is_data" >
                                     <div class="col-md-4 text-center"   *ngFor="let artist of artistFollowList.completed; let i=index" >
                                         <div *ngIf="i<3">
                                             <div class="reg_skills_img">
@@ -97,7 +100,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div *ngIf="!artistFollowList?.is_data">
+                                <div *ngIf="!followpage?.is_data">
                                    <h4> No Data </h4>
                                 </div>
                                 <div class="row">

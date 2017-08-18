@@ -3,7 +3,6 @@ export class Login {
  loading = false;
  success = true;
  user_unique= false;
-
 }
 
 export class Register {
@@ -13,16 +12,14 @@ export class Register {
  user_unique = false
 }
 
-
-
-export class authModel {
+export class AuthModel {
  completed: string[];
  loading = false;
  success = true;
  user_unique = false
 }
 
-export class SearchCards{}
+export class SearchCards {}
 
 export class RegisterProfile {
  completed: string[];
@@ -42,7 +39,6 @@ export interface RightBlockTag {
   img: string;
 }
 
-
 export class UserTag {
   success: boolean
 }
@@ -58,14 +54,12 @@ export class Follow {
  completed: ArtistFollows[];
  loading = false;
  success = true;
- user_unique= false;
-
+ user_unique = false;
+ skills?: String[];
 }
 export class ArtistFollows {
   isFollowing: boolean;
 }
-
-
 
 export const artistFollowTag: Follow = {
   completed: [
@@ -76,7 +70,6 @@ export const artistFollowTag: Follow = {
   user_unique: false
 };
 
-
 export class RegValue {
   mainTitle: string;
   description: string;
@@ -86,22 +79,20 @@ export class RegValue {
 }
 
 export class ArtistFollow {
-    name: string; 
-    coverImage: string;
-    is_follow: boolean;
+  name: string;
+  coverImage: string;
+  is_follow: boolean;
 }
 
 export const initialArtistFollow: ArtistFollow = {
-    name: null,
-    coverImage: null,
-    is_follow: true,
+  name: null,
+  coverImage: null,
+  is_follow: true,
 }
-
 
 export class RegCode {
   Code: number;
 }
-
 
 export class BasicRegTag {
   completed: RegCode[];

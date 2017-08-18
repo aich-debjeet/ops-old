@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { RegValue, RightBlockTag, authModel } from '../../../models/auth.model';
+import { RegValue, RightBlockTag, AuthModel } from '../../../models/auth.model';
 
 // Action
 import { AuthActions } from '../../../actions/auth.action'
@@ -22,14 +22,14 @@ import { Subscription } from 'rxjs/Subscription';
 export class RegistrationWelcomeComponent implements OnInit {
   wForm: FormGroup;
   rightCom: RightBlockTag;
-  tagState$: Observable<authModel>;
+  tagState$: Observable<AuthModel>;
   private tagStateSubscription: Subscription;
 
   constructor(
     private router: Router,
     fb: FormBuilder,
-    private store: Store<authModel>
-  ) { 
+    private store: Store<AuthModel>
+  ) {
     this.tagState$ = store.select('loginTags');
     this.wForm = fb.group({
       'isCritic': false,
@@ -37,8 +37,8 @@ export class RegistrationWelcomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.rightCom = { 
-      mainTitle: 'Welcome', 
+    this.rightCom = {
+      mainTitle: 'Welcome',
       secondHead: '',
       description: 'Select specific skill sets that you possess. Can click on as many options as you like there are no restrictions .',
       loginLink: false,
@@ -51,20 +51,22 @@ export class RegistrationWelcomeComponent implements OnInit {
 
   submit(value){
     console.log(value);
-    const form =  { 
-        "other":{
-          "isCritic" : value.iscritic
+    const form =  {
+        'other':{
+          'isCritic' : value.iscritic
         }
       }
     this.store.dispatch({ type: AuthActions.USER_REGISTRATION_WELCOME, payload: form});
 
     this.tagState$.subscribe(
-      data => { 
+      data => {
         console.log(data.success);
-        if(data.success == true){ this.router.navigateByUrl("/profile") }
+        if (data.success === true) {
+          this.router.navigateByUrl('/profile')
+        }
       }
     )
-    
+
   }
 
 }
