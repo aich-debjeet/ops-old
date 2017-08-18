@@ -7,9 +7,6 @@ export class AuthActions {
   static USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
   static USER_LOGIN_FAILED = 'USER_LOGIN_FAILED';
 
-
-
-
   // Reg Step 1
   static USER_REGISTRATION_BASIC = 'USER_REGISTRATION_BASIC';
   static USER_REGISTRATION_BASIC_SUCCESS = 'USER_REGISTRATION_BASIC_SUCCESS';
@@ -33,8 +30,14 @@ export class AuthActions {
   static SEARCH_CARDS_FAILED = 'SEARCH_CARDS_FAILED';
 
   // Get all skill step3
+  static SAVE_SKILL = 'SAVE_SKILL';
+  static SAVE_SKILL_SUCCESS = 'SAVE_SKILL_SUCCESS';
+
   static LOAD_SKILL = 'LOAD_SKILL';
   static LOAD_SKILL_SUCCESS = 'LOAD_SKILL_SUCCESS';
+
+  static SEARCH_SKILL = 'SEARCH_SKILL';
+  static SEARCH_SKILL_SUCCESS = 'SEARCH_SKILL_SUCCESS';
 
   // Type Of Artist
   static LOAD_ARTIST = 'LOAD_ARTIST';
@@ -113,6 +116,34 @@ export class AuthActions {
         payload: {
           value
         }
+      };
+    }
+
+    searchSkillAction(): Action {
+      return {
+        type: AuthActions.SEARCH_SKILL
+      };
+    }
+
+    searchSkillSuccesAction(value): Action {
+      return {
+        type: AuthActions.SEARCH_SKILL_SUCCESS,
+        payload: {
+          value
+        }
+      };
+    }
+
+    saveSkillAction(value): Action {
+      return {
+        type: AuthActions.SAVE_SKILL,
+        payload: { value }
+      };
+    }
+
+    saveSkillSuccessAction(): Action {
+      return {
+        type: AuthActions.SAVE_SKILL_SUCCESS
       };
     }
 

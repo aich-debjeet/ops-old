@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@ang
 
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { Register, UserTag, initialTag, authModel, RightBlockTag } from '../../../models/auth.model';
+import { Register, UserTag, initialTag, AuthModel, RightBlockTag } from '../../../models/auth.model';
 
 
 // Action
@@ -24,11 +24,11 @@ export class RegistrationProfileComponent implements OnInit {
   rForm: FormGroup;
   rightCom: RightBlockTag;
 
-  tagState$: Observable<authModel>;
+  tagState$: Observable<AuthModel>;
   private tagStateSubscription: Subscription;
   artistType = initialTag;
-  
-  constructor(fb: FormBuilder, private store: Store<authModel>, private router: Router) {
+
+  constructor(fb: FormBuilder, private store: Store<AuthModel>, private router: Router) {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
         this.artistType = state;
@@ -42,10 +42,10 @@ export class RegistrationProfileComponent implements OnInit {
       'is_student': [false, Validators.required],
     })
   }
-  ngOnInit() { 
+  ngOnInit() {
     this.store.dispatch({ type: AuthActions.LOAD_ARTIST});
-    this.rightCom = { 
-      mainTitle: 'Select Your Profile Type', 
+    this.rightCom = {
+      mainTitle: 'Select Your Profile Type',
       secondHead: '',
       description: 'Select specific skill sets that you possess. You can click on as many options as you like.',
       loginLink: false,
@@ -58,7 +58,7 @@ export class RegistrationProfileComponent implements OnInit {
 
   addPost(value: any) {
       console.log(value);
-      const form =  { 
+      const form =  {
         "other":{
           "completionStatus" : 2,
           "accountType" : value.artistList,
@@ -69,24 +69,23 @@ export class RegistrationProfileComponent implements OnInit {
       this.store.dispatch({ type: AuthActions.USER_REGISTRATION_PROFILE, payload: form});
 
       this.tagState$.subscribe(
-      data => { 
+      data => {
         console.log(data.success);
         if(data.success == true){ this.router.navigateByUrl("/reg/addskill") }
       }
     )
   }
 
-  onChange(value:string, type:string, isChecked: boolean) {
+  onChange(value: string, type: string, isChecked: boolean) {
     console.log('on change');
     const checkboxFormArray = <FormArray>this.rForm.controls.artistList;
-    
-    if(isChecked) {
+
+    if (isChecked) {
       checkboxFormArray.push(new FormControl({name: value, typeName: type}));
     } else {
       let index = checkboxFormArray.controls.findIndex(x => x.value == value)
       checkboxFormArray.removeAt(index);
     }
-    
-  }
 
+  }
 }

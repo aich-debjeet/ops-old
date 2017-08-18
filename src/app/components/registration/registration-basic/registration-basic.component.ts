@@ -6,8 +6,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as $ from 'jquery';
 
 import { ModalService } from '../../../shared/modal/modal.component.service';
-// initialBasicRegTag: BasicRegTag
-// require('aws-sdk/dist/aws-sdk');
 import { Store } from '@ngrx/store';
 import { Register, UserTag, initialTag, RightBlockTag, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
 import { AuthRightBlockComponent } from '../../../shared/auth-right-block/auth-right-block.component';
@@ -90,8 +88,8 @@ export class RegistrationBasicComponent implements OnInit {
     this.rightCom = {
       mainTitle: 'Create Your Account',
       secondHead: '',
-      //description: 'Welcome to the one page spot light family where we are committed to grow together in the world of art' + 'An otp number will be sent to your email or phone after registration for account confirmation.',
-      description: 'Welcome to One Page Spotlight family where we are committed to grow together.'+' An OTP number will be sent to your email or phone number after registration for account verification.',
+      description: 'Welcome to One Page Spotlight family where we are committed to grow together.'
+        + ' An OTP number will be sent to your email or phone number after registration for account verification.',
       loginLink: true,
       button_text: 'Login',
       button_link: '/login',
@@ -181,14 +179,13 @@ export class RegistrationBasicComponent implements OnInit {
 
   // User Validation
   userExists(username: string) {
-        return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/'+username+'/username')
+        return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/' + username + '/username')
             .map((data: Response) => data.json())
             .subscribe(data => {
-              if(data.code == 0){
+              if (data.code === 0) {
                 this.petTag.user_unique = true;
                 this.Suggested = data.Suggested;
-              }
-              else{
+              }else {
                 this.petTag.user_unique = false;
               }
               console.log(data)
@@ -198,13 +195,13 @@ export class RegistrationBasicComponent implements OnInit {
     }
 
   // OTP Validation
-  otpSubmit(value){
-    const number =this.regFormBasic.value.phone;
+  otpSubmit(value) {
+    const number = this.regFormBasic.value.phone;
     this.optValidate(number, value.otpNumber)
   }
 
   optValidate(number, otp) {
-    this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/activate/profile/'+ number +'/'+ otp)
+    this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/activate/profile/' + number + '/' + otp)
         .map(res => res.json())
         .subscribe(data => {
           console.log(data)
@@ -247,7 +244,7 @@ export class RegistrationBasicComponent implements OnInit {
       });
   }
 
-  rand(){
+  rand() {
     return Math.random();
   }
 
@@ -285,7 +282,7 @@ export class RegistrationBasicComponent implements OnInit {
       this.tagState$.subscribe(
         data => {
           const resp = data.completed;
-          if(resp["Code"] === 1){
+          if (resp['Code'] === 1) {
             this.modalService.open('hoplaModal');
           }
 

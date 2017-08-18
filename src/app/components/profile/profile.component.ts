@@ -18,8 +18,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  test:string;
-  
+  test: string;
   // profileData:any;
   // profileData: any;
   tagState$: Observable<ProfileModal>;
@@ -29,13 +28,11 @@ export class ProfileComponent implements OnInit {
   constructor(
     private http: Http,
     private profileStore: Store<ProfileModal>
-  ) { 
+  ) {
     this.tagState$ = this.profileStore.select('profileTags');
     // this.test = 'salabeel';
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      console.log(state);
-      
     });
 
     this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_PROFILE });
@@ -43,15 +40,14 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.userProfile);
-    // this.profile()
+
   }
 
   // profile() {
   //   var currentUser = JSON.parse(localStorage.getItem('currentUser'));
   //   var token = currentUser.access_token; // your token
 
-  //   let headers = new Headers({ 'Content-Type': 'application/json'}); 
+  //   let headers = new Headers({ 'Content-Type': 'application/json'});
   //   headers.append('Authorization','Bearer '+token);
 
   //   this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/loggedInProfile',{ headers: headers })
@@ -60,7 +56,7 @@ export class ProfileComponent implements OnInit {
 
   //       console.log(this.profileData);
   // }
-  
+
 
 }
 

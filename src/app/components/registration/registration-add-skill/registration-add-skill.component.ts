@@ -7,7 +7,7 @@ import { RegValue, ArtistFollow, RightBlockTag, initialTag, Login, artistFollowT
 import { SearchFilterPipe } from '../../../pipes/search.pipe'
 import { environment } from './../../../../environments/environment';
 
-import _ from "lodash";
+import { find as _find } from 'lodash/find';
 
 // Action
 import { AuthActions } from '../../../actions/auth.action'
@@ -20,72 +20,9 @@ export class Channel {
   owner_name: string;
   handle_name: string;
   conver_image: string;
-  owner_image:string;
-  followers:string;
+  owner_image: string;
+  followers: string;
 }
-
-
-const CHANNEL = [
-  {
-        "spotfeedId": "z_449fdf3b-9502-4793-a56e-bbc79229f949",
-        "spotfeedImage": "",
-        "media": [
-            {
-                "mediaId": "z_25519804-2462-453f-a8fa-9781a58aa0bb",
-                "repoPath": "images/T_24450973_EEC8_4273_BFA7_9F7B45DB08A7YASWANTH_RAJA_AEIONE_COM/c1a82787-98db-493d-95e3-37f245327f91.png",
-                "mediaType": "image"
-            }
-        ],
-        "spotfeedName": "santhosh android",
-        "ownerHandle": "M_8549FF0B_5861_483F_A051_87AB7E867DABSACHIN_NAGALGAWE_SCRIPTUIT_COM",
-        "ownerName": "Milind Soman",
-        "ownerImage": "http://d206s58i653k1q.cloudfront.net/images/M_8549FF0B_5861_483F_A051_87AB7E867DABSACHIN_NAGALGAWE_SCRIPTUIT_COM/1c3c1a9a-de96-4862-94b5-4cbc0b697610.jpeg",
-        "followersCount": 0,
-        "mediaCount": 1,
-        "isFollowing": false
-    },
-    {
-        "spotfeedId": "s-87b939b9-5d33-4d7f-a047-23241964434c",
-        "spotfeedImage": "",
-        "media": [
-            {
-                "mediaId": "s_8a6a173c-82fa-4807-a1d8-e53f57ade526",
-                "repoPath": "images/T_24450973_EEC8_4273_BFA7_9F7B45DB08A7YASWANTH_RAJA_AEIONE_COM/c1a82787-98db-493d-95e3-37f245327f91.png",
-                "mediaType": "image"
-            }
-        ],
-        "spotfeedName": "santhosh android",
-        "ownerHandle": "M_8549FF0B_5861_483F_A051_87AB7E867DABSACHIN_NAGALGAWE_SCRIPTUIT_COM",
-        "ownerName": "Milind Soman",
-        "ownerImage": "http://d206s58i653k1q.cloudfront.net/images/M_8549FF0B_5861_483F_A051_87AB7E867DABSACHIN_NAGALGAWE_SCRIPTUIT_COM/1c3c1a9a-de96-4862-94b5-4cbc0b697610.jpeg",
-        "followersCount": 0,
-        "mediaCount": 1,
-        "isFollowing": false
-    },
-    {
-        "spotfeedId": "o-9a7ee435-ea9c-4445-b1e6-02fde3336e79",
-        "spotfeedImage": "",
-        "media": [
-            {
-                "mediaId": "e_cbc9b8c0-0fde-4fec-b804-12522c8a813e",
-                "repoPath": "images/T_24450973_EEC8_4273_BFA7_9F7B45DB08A7YASWANTH_RAJA_AEIONE_COM/c1a82787-98db-493d-95e3-37f245327f91.png",
-                "mediaType": "image"
-            }
-        ],
-        "spotfeedName": "santhosh android",
-        "ownerHandle": "M_8549FF0B_5861_483F_A051_87AB7E867DABSACHIN_NAGALGAWE_SCRIPTUIT_COM",
-        "ownerName": "Milind Soman",
-        "ownerImage": "http://d206s58i653k1q.cloudfront.net/images/M_8549FF0B_5861_483F_A051_87AB7E867DABSACHIN_NAGALGAWE_SCRIPTUIT_COM/1c3c1a9a-de96-4862-94b5-4cbc0b697610.jpeg",
-        "followersCount": 0,
-        "mediaCount": 1,
-        "isFollowing": false
-    }
-];
-
-
-
-
-
 
 @Component({
   selector: 'app-registration-add-skill',
@@ -93,35 +30,33 @@ const CHANNEL = [
   styleUrls: ['./registration-add-skill.component.scss']
 })
 export class RegistrationAddSkillComponent implements OnInit {
-   private apiLink: string = environment.API_ENDPOINT;
-   private image_base_url: string = environment.API_IMAGE;
+  private apiLink: string = environment.API_ENDPOINT;
+  private image_base_url: string = environment.API_IMAGE;
 
   channelList: any;
-  is_skill_open = false;
-
+  is_skill_open: false;
   tagState$: Observable<Follow>;
   private tagStateSubscription: Subscription;
-  artistFollowList = artistFollowTag;
-
+  private headers: Headers;
   rForm: FormGroup;
   rightCom: RightBlockTag;
+  // @TODO cleanup unwanted vars - @muneef
+  artistFollowList = artistFollowTag;
   skills: any;
   artistFollow: any;
-  private headers: Headers;
-
+  followpage: any;
   description: string;
-  title:string;
-  searchPlaceholder:string;
-
+  title: string;
+  searchPlaceholder: string;
   selectedSkills = [];
   addSkillResponse;
+  search: String;
 
-  constructor(fb: FormBuilder,private http: Http,private router: Router, private store: Store<Login>) {
+  constructor(fb: FormBuilder, private http: Http, private router: Router, private store: Store<Login>) {
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-      console.log(state);
-      this.artistFollowList = state;
+      this.followpage = state;
     });
 
     this.rForm = fb.group({
@@ -132,25 +67,25 @@ export class RegistrationAddSkillComponent implements OnInit {
     this.http = http;
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
+    this.search = '';
   }
 
   ngOnInit() {
 
-    var userType = JSON.parse(localStorage.getItem('userType'));
-    for (var v in userType)   {
-      if(userType[v].name == 'Performing Artist' || userType[v].name == 'Non Performing artist'){
+    const userType = JSON.parse(localStorage.getItem('userType'));
+    // Needs work here
+    for (var v in userType) {
+      if(userType[v].name === 'Performing Artist' || userType[v].name === 'Non Performing artist'){
         this.description = 'Select specific skill sets that you possess. You can click on as many options as you like.',
         this.title = 'Add Your Skills',
         this.searchPlaceholder = 'Search Skills'
-      }
-      else{
+      }else {
         this.description = 'Immerse yourself in arts and entertainment based on interests of your choice.',
         this.title = 'Follow Your Interest',
         this.searchPlaceholder = 'Search Interest'
       }
       console.log(userType[v].name)
     }
-    console.log(userType)
 
     this.rightCom = {
       mainTitle: this.title,
@@ -165,63 +100,65 @@ export class RegistrationAddSkillComponent implements OnInit {
 
     this.skillList();
   }
-
-  ngOnDestroy() {
-
-  }
-
+  /**
+   * Load List of Skills (High Level)
+   */
   skillList() {
-    // this.store.dispatch({ type: AuthActions.LOAD_SKILL});
-    this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/industry')
-        .map(res => res.json())
-        //.subscribe(skills => this.skills = skills);
-        .subscribe((skills) => {
-            this.skills = skills;
-            var those = this;
-            this.skills.forEach(function(element, index) {
-              those.skills[index]['isSelected'] = false;
-            });
-            console.log(this.skills);
-        });
+    this.store.dispatch({ type: AuthActions.LOAD_SKILL});
   }
 
-  onChange(value){
-    console.log(value);
+  /**
+   * Search input handler
+   * @param query
+   */
+  onChange(query) {
+    if (query || query !== '') {
+      this.searchSkill(query);
+    }else {
+      this.skillList();
+    }
   }
 
-  artistList(code: string){
-    //Temp disable this function
-    // this.is_skill_open = true;
-    let val = {
-       "industryCodeList":[code]
+  artistList(code: string) {
+    const indList = {
+       'industryCodeList': [code]
     };
-    this.store.dispatch({ type: AuthActions.USER_ARTIST_FOLLOW, payload: val});
+    this.store.dispatch({ type: AuthActions.USER_ARTIST_FOLLOW, payload: indList });
     this.getChannels(code)
+  }
+
+  /**
+   * Search Skills ( Second Level)
+   * @param q
+   */
+  searchSkill(q: string) {
+    this.store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: q });
   }
 
   // find and return the skill from skills array using the skill code
   getSkill(skillCode) {
+    return _find(this.skills, function(s) { return s.code === skillCode; });
+  }
 
-    return _.find(this.skills, function(s) { return s.code == skillCode; });
-
+  addNewSkill(name) {
+    if (name !== '') {
+      this.store.dispatch({ type: AuthActions.SAVE_SKILL, payload: name });
+    }
   }
 
   // select/deselect skills
   toggleSelectSkill(skillCode: string) {
 
-    console.log('skill toggle: '+skillCode);
-
     // check if skill already selected
-    var isSelected = _.find(this.selectedSkills, function(s) { return s.code == skillCode; });
-
-    console.log('is selected: ');
-    console.log(isSelected);
+    const isSelected = _find(this.selectedSkills, function(s) {
+      return s.code === skillCode;
+    });
 
     // if skill exist then remove it from selection array
-    if(isSelected !== undefined) {
+    if (isSelected !== undefined) {
 
       // searching for the skill in skills array
-      var skillMeta = this.getSkill(skillCode);
+      const skillMeta = this.getSkill(skillCode);
 
       // removing skill from selected skills array
       this.selectedSkills = this.selectedSkills.filter(function(skill) {
@@ -230,7 +167,7 @@ export class RegistrationAddSkillComponent implements OnInit {
 
       // mark it not selected in UI
       this.skills = this.skills.filter(function(skill) {
-        if(skill.code == skillCode) {
+        if (skill.code === skillCode) {
           skill.isSelected = false;
         }
         return skill;
@@ -240,77 +177,69 @@ export class RegistrationAddSkillComponent implements OnInit {
 
       // mark it selected in UI
       this.skills = this.skills.filter(function(skill) {
-        if(skill.code == skillCode) {
+        if (skill.code === skillCode) {
           skill.isSelected = true;
         }
         return skill;
       });
 
       // searching for the skill in skills array
-      var skillMeta = this.getSkill(skillCode);
+      const skillMeta = this.getSkill(skillCode);
 
-      //console.log(skillMeta);
-
-      //adding skill to the selection array
+      // Adding skill to the selection array
       this.selectedSkills.push({
-        "name": skillMeta.name,
-        "code": skillMeta.code,
-        "active": true
+        'name': skillMeta.name,
+        'code': skillMeta.code,
+        'active': true
       });
-
     }
-
-    //console.log('selected: ');
-    //console.log(this.skills);
-
   }
 
-  toggleFollowBtn(i, handle){
+  toggleFollowBtn(i, handle) {
     const value =  {
       'followedHandle': handle
     }
 
-    if(this.artistFollowList.completed[i].isFollowing == true){
+    if (this.followpage.completed[i].isFollowing === true) {
       this.artistUnfollowing(value)
-      this.artistFollowList.completed[i].isFollowing = false
-    }
-    else{
+      this.followpage.completed[i].isFollowing = false
+    } else {
 
       this.artistFollowing(value);
-      this.artistFollowList.completed[i].isFollowing = true
-      // this.store.dispatch({ type: AuthActions.ARTIST_FOLLOW, payload: value});
-      //
+      this.followpage.completed[i].isFollowing = true
     }
-
   }
 
-  // Its Temp Code It need to change
+  // @TODO
+  // To be removed
   artistFollowing(req: any) {
-      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      var token = currentUser.access_token; // your token
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      const token = currentUser.access_token; // your token
 
       let headers = new Headers({ 'Content-Type': 'application/json'});
-      headers.append('Authorization','Bearer '+token)
+      headers.append('Authorization', 'Bearer ' + token)
 
-      return this.http.put(this.apiLink +'/portal/network/following/start', JSON.stringify(req), { headers: headers })
+      return this.http.put(this.apiLink + '/portal/network/following/start', JSON.stringify(req), { headers: headers })
           .map((data) => data.json())
           .subscribe(data => {console.log(data)});
   }
 
-  // Its Temp Code It need to change
+  // @TODO
+  // To be removed
   artistUnfollowing(req: any) {
       var currentUser = JSON.parse(localStorage.getItem('currentUser'));
       var token = currentUser.access_token; // your token
 
       let headers = new Headers({ 'Content-Type': 'application/json'});
-      headers.append('Authorization','Bearer '+token)
+      headers.append('Authorization', 'Bearer ' + token)
 
-      return this.http.put(this.apiLink +'/portal/network/following/stop', JSON.stringify(req), { headers: headers })
+      return this.http.put(this.apiLink + '/portal/network/following/stop', JSON.stringify(req), { headers: headers })
           .map((data) => data.json())
           .subscribe(data => data);
   }
 
-  //Its Temp code to change
+  // @TODO
+  // To be removed
   getChannels(code) {
     console.log('get channel');
     const value =  {
@@ -323,7 +252,7 @@ export class RegistrationAddSkillComponent implements OnInit {
       var token = currentUser.access_token; // your token
 
       let headers = new Headers({ 'Content-Type': 'application/json'});
-      headers.append('Authorization','Bearer '+token)
+      headers.append('Authorization', 'Bearer ' + token)
 
     return this.http.post(`${this.apiLink}/portal/network/spotfeed/search`, value,  { headers: headers })
         .map((data) => data.json())
@@ -335,41 +264,28 @@ export class RegistrationAddSkillComponent implements OnInit {
       console.log(value);
   }
 
-  submitSkills(){
-
-    // console.log('submitting');
-    // console.log(this.selectedSkills);
+  submitSkills() {
 
     let skillsToSubmit = {
-      "industryList": this.selectedSkills
+      'industryList': this.selectedSkills
     }
 
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    var token = currentUser.access_token; // your token
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const token = currentUser.access_token; // your token
 
     let headers = new Headers({ 'Content-Type': 'application/json'});
-    headers.append('Authorization','Bearer '+token);;
-
-    console.log(JSON.stringify(skillsToSubmit));
+    headers.append('Authorization', 'Bearer ' + token);
 
     return this.http.put(`${this.apiLink}/portal/profile/updateProfile`, skillsToSubmit,  { headers: headers })
         .map((data) => data.json())
         .subscribe(data => {
           this.addSkillResponse = data, console.log(data);
-          this.router.navigateByUrl("/reg/welcome");
+          this.router.navigateByUrl('/reg/welcome');
         });
-
-    //this.router.navigateByUrl("/reg/welcome");
-    // if(this.addSkillResponse) {
-    //
-    // }
-
   }
 
   onClose(value) {
     console.log('close binid');
     console.log(value);
   }
-
-
 }
