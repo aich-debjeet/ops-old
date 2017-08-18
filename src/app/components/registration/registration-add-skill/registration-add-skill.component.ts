@@ -7,7 +7,7 @@ import { RegValue, ArtistFollow, RightBlockTag, initialTag, Login, artistFollowT
 import { SearchFilterPipe } from '../../../pipes/search.pipe'
 import { environment } from './../../../../environments/environment';
 
-import { find as _find } from 'lodash/find';
+import _ from 'lodash';
 
 // Action
 import { AuthActions } from '../../../actions/auth.action'
@@ -137,7 +137,7 @@ export class RegistrationAddSkillComponent implements OnInit {
 
   // find and return the skill from skills array using the skill code
   getSkill(skillCode) {
-    return _find(this.skills, function(s) { return s.code === skillCode; });
+    return _.find(this.followpage.skills, function(s) { return s.code === skillCode; });
   }
 
   addNewSkill(name) {
@@ -149,8 +149,10 @@ export class RegistrationAddSkillComponent implements OnInit {
   // select/deselect skills
   toggleSelectSkill(skillCode: string) {
 
+    console.log('QUEUING' + skillCode);
+
     // check if skill already selected
-    const isSelected = _find(this.selectedSkills, function(s) {
+    const isSelected = _.find(this.selectedSkills, function(s) {
       return s.code === skillCode;
     });
 
@@ -166,7 +168,7 @@ export class RegistrationAddSkillComponent implements OnInit {
       });
 
       // mark it not selected in UI
-      this.skills = this.skills.filter(function(skill) {
+      this.followpage.skills = this.followpage.skills.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = false;
         }
@@ -176,7 +178,7 @@ export class RegistrationAddSkillComponent implements OnInit {
     } else {
 
       // mark it selected in UI
-      this.skills = this.skills.filter(function(skill) {
+      this.followpage.skills = this.followpage.skills.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = true;
         }
@@ -185,6 +187,7 @@ export class RegistrationAddSkillComponent implements OnInit {
 
       // searching for the skill in skills array
       const skillMeta = this.getSkill(skillCode);
+      console.log('VIEWING ' + skillMeta);
 
       // Adding skill to the selection array
       this.selectedSkills.push({
@@ -227,8 +230,8 @@ export class RegistrationAddSkillComponent implements OnInit {
   // @TODO
   // To be removed
   artistUnfollowing(req: any) {
-      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      var token = currentUser.access_token; // your token
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      const token = currentUser.access_token; // your token
 
       let headers = new Headers({ 'Content-Type': 'application/json'});
       headers.append('Authorization', 'Bearer ' + token)
@@ -241,18 +244,18 @@ export class RegistrationAddSkillComponent implements OnInit {
   // @TODO
   // To be removed
   getChannels(code) {
-    console.log('get channel');
-    const value =  {
-      "offset": 0,
-      "limit": 10,
-      "industryList":[code],
-      "superType":"channel"
-    }
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      var token = currentUser.access_token; // your token
 
-      let headers = new Headers({ 'Content-Type': 'application/json'});
-      headers.append('Authorization', 'Bearer ' + token)
+    const value =  {
+      'offset': 0,
+      'limit': 10,
+      'industryList': [code],
+      'superType': 'channel'
+    }
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const token = currentUser.access_token; // your token
+
+    let headers = new Headers({ 'Content-Type': 'application/json'});
+    headers.append('Authorization', 'Bearer ' + token)
 
     return this.http.post(`${this.apiLink}/portal/network/spotfeed/search`, value,  { headers: headers })
         .map((data) => data.json())
