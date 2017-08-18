@@ -13,6 +13,7 @@ import { AuthRightBlockComponent } from '../../../shared/auth-right-block/auth-r
 // helper
 import { passwordConfirmation } from '../../../helpers/password.validator';
 import { FormValidation, DatabaseValidator } from '../../../helpers/form.validator';
+import {  } from '../../../helpers/birth-date.validator';
 
 // Action
 import { AuthActions } from '../../../actions/auth.action'
@@ -136,7 +137,7 @@ export class RegistrationBasicComponent implements OnInit {
   buildForm(): void {
     this.regFormBasic = this.fb.group({
       'name' : ['', [Validators.required]],
-      'username' : ['', [Validators.required, formValidation.NoWhitespaceValidator]],
+      'username' : ['', [Validators.required, FormValidation.noWhitespaceValidator]],
       'dob' : ['', Validators.required],
       'email' : ['', [
         Validators.required,
@@ -157,7 +158,7 @@ export class RegistrationBasicComponent implements OnInit {
       // 'photo' : [null, Validators.required],
       // 'gender' : [null, Validators.required],
     }, {
-      validator: formValidation.MatchPassword
+      validator: FormValidation.matchPassword
     })
 
     // OTP Form Builder
