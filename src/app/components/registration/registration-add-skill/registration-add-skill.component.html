@@ -26,7 +26,7 @@
                     <!-- //progress bar -->
                     <form [formGroup]="rForm "  (ngSubmit)="addSkill(rForm.value)">
                         <div class="form_group">
-                            <input class="form_input" type="text" formControlName="profession" [(ngModel)]="search" (ngModelChange)="onChange($event)">
+                            <input class="form_input" type="text" formControlName="profession" [(ngModel)]="search" (ngModelChange)="onSearchChange($event)">
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>{{searchPlaceholder}}</label>
@@ -35,6 +35,9 @@
                     </form>
                     <!-- Select Interest -->
                     <div class="row reg_select_interest" id="ops_scrollbar">
+                        <div *ngIf="followpage.skills_loaded===false">
+                          <span>Loading ..</span>
+                        </div>
                         <a *ngFor="let skill of followpage.skills" >
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 reg_interest" (click)="toggleSelectSkill(skill.code)">
                                 <div class="margin_t_0 reg_interest_box">

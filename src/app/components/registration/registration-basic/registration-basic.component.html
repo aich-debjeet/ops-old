@@ -125,7 +125,8 @@
         </div>
     </div>
 </section>
-<app-modal [modalTitle]="'Some title'" [blocking]='false' [modalId]='modalId'>
+
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='otpModal'>
   <div name="otp" class="otp__modal">
     <div class="x reg_step1_otp" id="otpModal2" role="dialog">
       <div class="">
@@ -161,7 +162,7 @@
 </app-modal>
 
 
-<app-modal [modalTitle]="'Success'" [blocking]='false' modalId='otp_success'>
+<app-modal [modalTitle]="'Success'" [blocking]='false' modalId='otpSuccess'>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 text-center">
         <h3>Thank you for joining us</h3>

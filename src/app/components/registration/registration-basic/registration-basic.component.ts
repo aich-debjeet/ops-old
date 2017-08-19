@@ -40,10 +40,8 @@ export class RegValue {
 })
 
 export class RegistrationBasicComponent implements OnInit {
-  modalId = 'hoplaModal';
   countDown;
   counter = 60;
-  showOTP = false;
   isPhotoAdded: boolean;
 
   rightCom: RightBlockTag;
@@ -73,7 +71,9 @@ export class RegistrationBasicComponent implements OnInit {
     });
     this.isPhotoAdded = false;
   }
-
+  /**
+   * Count down once OTP is send, Resend option is show afterwards
+   */
   startTimer() {
     this.countDown = Observable.timer(0, 1000)
       .take(this.counter)
@@ -81,8 +81,6 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    console.log('photo: ' + this.isPhotoAdded);
 
     this.buildForm();
     this.rightCom = {
@@ -97,6 +95,11 @@ export class RegistrationBasicComponent implements OnInit {
       img: 'http://d33wubrfki0l68.cloudfront.net/2e71b712243279d510245bad8c3e48eeab00690d/7f58a/img/registration_signup_illustration.png'
     };
   }
+
+  /**
+   * Fild Handler for profile Image
+   * @param event
+   */
 
   fileEvent(event) {
       const fileList: FileList = event.target.files;
@@ -113,7 +116,7 @@ export class RegistrationBasicComponent implements OnInit {
           parent.isPhotoAdded = true;
         }
         reader.readAsDataURL(event.target.files[0]);
-        /* profile image preview */
+        /* Profile image preview */
 
         const file: File = fileList[0];
 
@@ -121,8 +124,6 @@ export class RegistrationBasicComponent implements OnInit {
         formData.append('file', file.name);
         const headers = new Headers();
         /** No need to include Content-Type in Angular 4 */
-
-        console.log(file);
 
         headers.append('Accept', 'application/json');
         headers.append('handle', 'profileImage');
@@ -179,19 +180,19 @@ export class RegistrationBasicComponent implements OnInit {
 
   // User Validation
   userExists(username: string) {
-        return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/' + username + '/username')
-            .map((data: Response) => data.json())
-            .subscribe(data => {
-              if (data.code === 0) {
-                this.petTag.user_unique = true;
-                this.Suggested = data.Suggested;
-              }else {
-                this.petTag.user_unique = false;
-              }
-              console.log(data)
-            },
-            // err => console.log(err)
-            );
+    return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/' + username + '/username')
+        .map((data: Response) => data.json())
+        .subscribe(data => {
+          if (data.code === 0) {
+            this.petTag.user_unique = true;
+            this.Suggested = data.Suggested;
+          }else {
+            this.petTag.user_unique = false;
+          }
+          console.log(data)
+        },
+        // err => console.log(err)
+        );
     }
 
   // OTP Validation
@@ -244,10 +245,6 @@ export class RegistrationBasicComponent implements OnInit {
       });
   }
 
-  rand() {
-    return Math.random();
-  }
-
   submitForm(value) {
     // Form
     const form =  {
@@ -283,12 +280,10 @@ export class RegistrationBasicComponent implements OnInit {
         data => {
           const resp = data.completed;
           if (resp['Code'] === 1) {
-            this.modalService.open('hoplaModal');
+            this.modalService.open('otpModal');
           }
-
         }
       )
-      console.log(value);
     }
   }
 }
