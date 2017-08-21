@@ -42,7 +42,9 @@
                                     <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && myform.submitted">Username is required</p>
                                         <p class="error_alert" *ngIf="petTag.user_unique">This username is already taken</p>
                                         <ul class="username_error" *ngIf="petTag.user_unique">
-                                            <li  *ngFor="let username of Suggested">{{username}}</li>
+                                            <li *ngFor="let username of Suggested; let isLast=last">
+                                                <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)" >{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
+                                            </li>
                                         </ul>
                                 </div>
                             </div>
@@ -57,11 +59,14 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="form_group">
-                                    <input class="form_input" type="text" [textMask]="{mask: dateMask}" formControlName="dob" placeholder="DD/MM/YY">
+                                    <input class="form_input" type="text" [textMask]="{mask: dateMask}" formControlName="dob" placeholder="DD-MM-YYYY">
                                     <span class="form_highlight"></span>
                                     <span class="form_bar"></span>
                                     <label>Date of Birth</label>
                                     <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.required && myform.submitted">DOB is required</p>
+                                    <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
+                                    <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isUnderAge">Date of Birth should be above 13</p>
+                                    <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isOverAge">Date of Birth should be below 100</p>
                                 </div>
                             </div>
                             <div class="col-md-7">

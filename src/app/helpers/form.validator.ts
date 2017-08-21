@@ -8,16 +8,14 @@ import { Http, Headers, Response } from '@angular/http';
 @Injectable()
 export class DatabaseValidator {
 
-  constructor(private authService:AuthService) {}
+  constructor(private authService: AuthService) {}
 
     checkEmail(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
         setTimeout(() => {
             this.authService.emailUser(control.value).subscribe( data => {
-                
-
-                if(data.SUCCESS.code == 1){
-                    resolve({ 'isEmailUnique': true }); 
+                if (data.SUCCESS.code === 1) {
+                    resolve({ 'isEmailUnique': true });
                 }
                 resolve(null);
                 });
@@ -30,8 +28,8 @@ export class DatabaseValidator {
         const q = new Promise((resolve, reject) => {
         setTimeout(() => {
             this.authService.mobilelUser(control.value).subscribe( data => {
-                if(data.SUCCESS.code == 1){
-                    resolve({ 'isMobileUnique': true }); 
+                if (data.SUCCESS.code === 1) {
+                    resolve({ 'isMobileUnique': true });
                 }
                 resolve(null);
                 });
@@ -44,22 +42,22 @@ export class DatabaseValidator {
 
 // Match password
 @Injectable()
-export class formValidation {
+export class FormValidation {
 
-    static MatchPassword(AC: AbstractControl) {
-       let password = AC.get('password').value; // to get value in input tag
-       let confirmPassword = AC.get('confirmpassword').value; // to get value in input tag
-        if(password != confirmPassword) {
+    static matchPassword(AC: AbstractControl) {
+       const password = AC.get('password').value; // to get value in input tag
+       const confirmPassword = AC.get('confirmpassword').value; // to get value in input tag
+        if (password !== confirmPassword) {
             AC.get('confirmpassword').setErrors( {MatchPassword: true} )
         } else {
             return null
         }
     }
 
-    static NoWhitespaceValidator (control: AbstractControl) {
-        let value = control.value;
-        let isWhitespace =  value.indexOf(' ') >= 0;
-        return isWhitespace ? { whitespace: true } : null 
+    static noWhitespaceValidator (control: AbstractControl) {
+        const value = control.value;
+        const isWhitespace =  value.indexOf(' ') >= 0;
+        return isWhitespace ? { whitespace: true } : null
     }
 }
 
