@@ -64,7 +64,7 @@ export class RegistrationBasicComponent implements OnInit {
     ) {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-      console.log(state);
+      // console.log(state);
         this.petTag = state;
     });
     this.isPhotoAdded = false;
@@ -77,14 +77,14 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   useThisUsername(selectUsername: string) {
-    console.log(selectUsername);
+    // console.log(selectUsername);
     // this.username = selectUsername;
     this.regFormBasic.controls['username'].setValue(selectUsername);
   }
 
   ngOnInit() {
 
-    console.log('photo: ' + this.isPhotoAdded);
+    // console.log('photo: ' + this.isPhotoAdded);
 
     this.buildForm();
     this.rightCom = {
@@ -124,7 +124,7 @@ export class RegistrationBasicComponent implements OnInit {
         const headers = new Headers();
         /** No need to include Content-Type in Angular 4 */
 
-        console.log(file);
+        // console.log(file);
 
         headers.append('Accept', 'application/json');
         headers.append('handle', 'profileImage');
@@ -145,12 +145,12 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   /**
-   * Chekcing for the valid age input on register form
+   * Checking for the valid age input on register form
    * @param control: Form birth date input
    */
   validAge(control: AbstractControl) {
     if (control.value.indexOf('_') !== -1 || control.value === '') {
-      console.log('incomplete date');
+      // console.log('incomplete date');
       return;
     }
 
@@ -160,11 +160,11 @@ export class RegistrationBasicComponent implements OnInit {
     const month = dateArr[1];
     const year = dateArr[2];
 
-    console.log('day: ' + day + 'month: ' + month + 'year: ' + year);
+    // console.log('day: ' + day + 'month: ' + month + 'year: ' + year);
     // const bd = new Date(month+' '+day+' '+year);
     const bdStr = month + ' ' + day + ' ' + year;
     const age = this.calculateAge(new Date(bdStr));
-    console.log('age: ' + age);
+    // console.log('age: ' + age);
     if (isNaN(age)) {
       return { invalidDOB: true }
     }
@@ -178,12 +178,12 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   /**
-   * Chekcing for the valid email input on register form
+   * Checking for the valid email input on register form
    * @param control: Form email input
    */
   validEmail(control: AbstractControl) {
     if (control.value === '') {
-      console.log('empty email');
+      // console.log('empty email');
       return;
     }
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -192,25 +192,39 @@ export class RegistrationBasicComponent implements OnInit {
     }
     return null;
   }
-
+  /**
+   * Checking for the password strength on register form
+   * @param control: Form password input
+   */
   passwordStrength(control: AbstractControl) {
     if (control.value === '') {
-      console.log('empty pass');
       return;
-    } else {
-      console.log('pass: ' + control.value);
     }
     // const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,20}$/;
     // const passwordRegex = /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/;
-    const passwordRegex = /^[0-9-]*[0-9]$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6,20}$/;
     if (!passwordRegex.test(control.value)) {
-      console.log('weak pass: ' + control.value);
+      // console.log('weak pass: ' + control.value);
       return { isWeakPassword: true };
-    } else {
-      console.log('strong pass: ' + control.value);
-      return { isWeakPassword: false };
     }
-    // return null;
+    return null;
+  }
+
+  /**
+   * Checking for the password if matches with the confirm password on register form
+   * @param control: Form confirm password input
+   */
+  passwordMatchCheck(control: AbstractControl) {
+    // console.log(control.value);
+    if (control.value === '') {
+      return;
+    }
+    const pass = this.regFormBasic.controls['password'].value;
+    // console.log('pass: ' + pass);
+    if (control.value !== pass) {
+      return { passwordDoesNotMatch: true };
+    }
+    return null;
   }
 
   buildForm(): void {
@@ -241,11 +255,14 @@ export class RegistrationBasicComponent implements OnInit {
         Validators.required,
         this.passwordStrength.bind(this)
       ]],
-      'confirmpassword' : ['', Validators.required],
+      'confirmpassword' : ['', [
+        Validators.required,
+        this.passwordMatchCheck.bind(this)
+      ]],
       // 'photo' : [null, Validators.required],
       // 'gender' : [null, Validators.required],
     }, {
-      validator: FormValidation.matchPassword
+      // validator: FormValidation.matchPassword
     })
 
     // OTP Form Builder
@@ -367,7 +384,7 @@ export class RegistrationBasicComponent implements OnInit {
     //
 
     if (this.regFormBasic.valid === true) {
-      console.log('Entered Value');
+      // console.log('Entered Value');
       this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
       this.tagState$.subscribe(
         data => {
@@ -377,7 +394,7 @@ export class RegistrationBasicComponent implements OnInit {
           }
         }
       )
-      console.log(value);
+      // console.log(value);
     }
   }
 }
