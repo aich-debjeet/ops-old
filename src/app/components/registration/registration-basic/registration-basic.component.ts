@@ -78,6 +78,12 @@ export class RegistrationBasicComponent implements OnInit {
       .map(() => --this.counter);
   }
 
+  useThisUsername(selectUsername: string) {
+    console.log(selectUsername);
+    // this.username = selectUsername;
+    this.regFormBasic.controls['username'].setValue(selectUsername);
+  }
+
   ngOnInit() {
 
     console.log('photo: ' + this.isPhotoAdded);
