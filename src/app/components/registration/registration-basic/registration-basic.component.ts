@@ -3,8 +3,6 @@ import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from
 import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import * as $ from 'jquery';
-
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { Register, UserTag, initialTag, RightBlockTag, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
@@ -13,7 +11,6 @@ import { AuthRightBlockComponent } from '../../../shared/auth-right-block/auth-r
 // helper
 import { passwordConfirmation } from '../../../helpers/password.validator';
 import { FormValidation, DatabaseValidator } from '../../../helpers/form.validator';
-import { BirthDateValidator } from '../../../helpers/birth-date.validator';
 
 // Action
 import { AuthActions } from '../../../actions/auth.action'
@@ -231,6 +228,8 @@ export class RegistrationBasicComponent implements OnInit {
             .subscribe(data => {
               if (data.code === 0) {
                 this.petTag.user_unique = true;
+                // const suggestedStr = data.Suggested.join(', ').replace(/\s+$/, ', ');
+                // console.log(suggestedStr);
                 this.Suggested = data.Suggested;
               }else {
                 this.petTag.user_unique = false;
