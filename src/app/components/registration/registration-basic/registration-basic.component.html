@@ -1,131 +1,137 @@
 <section class="reg_steps">
-    <div class="container">
-        <!-- registraion middle container -->
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 reg_left_section">
-                <div class="reg_step1">
-                    <!-- progress bar -->
-                    <div class="reg_progress_bar">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6  progress_bar_default">
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 progress_bar_default">
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="progress_dot_active"></div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="progress_dot_default default_dot_center"></div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="progress_dot_default progress_dot_right"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- //progress bar -->
-                    <form [formGroup]="regFormBasic" (ngSubmit) = "submitForm(regFormBasic.value)" #myform="ngForm">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12">
-                                <div class="form_group">
-                                    <input class="form_input" type="text" novalidate formControlName="name" required>
-                                    <span class="form_highlight"></span>
-                                    <span class="form_bar"></span>
-                                    <label>Name</label>
-                                    <p class="error_alert" *ngIf="regFormBasic.get('name').hasError('required') && myform.submitted">Name is required</p>
-                                </div>
-                                <div class="form_group">
-                                    <input class="form_input" type="text" (ngModelChange)="userExisitCheck($event)" formControlName="username" required>
-                                    <span class="form_highlight"></span>
-                                    <span class="form_bar_alert"></span>
-                                    <label>Username</label>
-                                    <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace">White Space Not Allowed</p>
-                                    <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && myform.submitted">Username is required</p>
-                                        <p class="error_alert" *ngIf="petTag.user_unique">This username is already taken</p>
-                                        <ul class="username_error" *ngIf="petTag.user_unique">
-                                            <li  *ngFor="let username of Suggested">{{username}}</li>
-                                        </ul>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 hide">
-                                <div class="reg_add_photo row">
-                                    <img src="" alt="" id="preview">
-                                    <label id="test" for="upload-photo" [ngClass]="{'hide-element': isPhotoAdded}" >Add Photo</label>
-                                    <input type="file" name="photo" [ngClass]="{'hide-element': isPhotoAdded}" (change)="fileEvent($event)" id="upload-photo" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form_group">
-                                    <input class="form_input" type="text" [textMask]="{mask: dateMask}" formControlName="dob" placeholder="DD/MM/YY">
-                                    <span class="form_highlight"></span>
-                                    <span class="form_bar"></span>
-                                    <label>Date of Birth</label>
-                                    <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.required && myform.submitted">DOB is required</p>
-                                </div>
-                            </div>
-                            <div class="col-md-7">
-                                <div class="form_group ops_radio_sm">
-                                    <label>
-                                        <strong>Gender</strong>
-                                        <label class="gender_single">
-                                            <input type="radio" value="M" name="gender" formControlName="gender"><span></span>M
-                                        </label>
-                                        <label class="gender_single">
-                                            <input type="radio" value="F" name="gender" formControlName="gender"><span></span>F
-                                        </label>
-                                        <label class="gender_single">
-                                            <input type="radio" value="O" name="gender" formControlName="gender"><span></span>O
-                                        </label>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form_group">
-                            <input class="form_input" type="text" formControlName="email" required>
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label>Email</label>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isEmailUnique ">A user with this email is already registered</p>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.email && regFormBasic.controls['email'].touched">Email is not valid</p>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.required && myform.submitted">Email is required</p>
-                        </div>
-                        <div class="form_group">
-                            <span id="phone" type="tel"></span>
-                            <input class="form_input" type="number" formControlName="phone" required style="padding-left: 40px;">
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label style="padding-left: 40px;">Phone Number</label>
+  <div class="container">
+      <!-- registraion middle container -->
+      <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 reg_left_section">
+              <div class="reg_step1">
+                  <!-- progress bar -->
+                  <div class="reg_progress_bar">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6  progress_bar_default">
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 progress_bar_default">
+                      </div>
+                      <div class="row">
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                              <div class="progress_dot_active"></div>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                              <div class="progress_dot_default default_dot_center"></div>
+                          </div>
+                          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                              <div class="progress_dot_default progress_dot_right"></div>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- //progress bar -->
+                  <form [formGroup]="regFormBasic" (ngSubmit) = "submitForm(regFormBasic.value)" #myform="ngForm">
+                      <div class="row">
+                          <div class="col-md-12 col-sm-12">
+                              <div class="form_group">
+                                  <input class="form_input" type="text" novalidate formControlName="name" required>
+                                  <span class="form_highlight"></span>
+                                  <span class="form_bar"></span>
+                                  <label>Name</label>
+                                  <p class="error_alert" *ngIf="regFormBasic.get('name').hasError('required') && myform.submitted">Name is required</p>
+                              </div>
+                              <div class="form_group">
+                                  <input class="form_input" type="text" (ngModelChange)="userExisitCheck($event)" formControlName="username" required>
+                                  <span class="form_highlight"></span>
+                                  <span class="form_bar_alert"></span>
+                                  <label>Username</label>
+                                  <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace">White Space Not Allowed</p>
+                                  <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && myform.submitted">Username is required</p>
+                                      <p class="error_alert" *ngIf="petTag.user_unique">This username is already taken</p>
+                                      <ul class="username_error" *ngIf="petTag.user_unique">
+                                          <li *ngFor="let username of Suggested; let isLast=last">
+                                              <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)" >{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
+                                          </li>
+                                      </ul>
+                              </div>
+                          </div>
+                          <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 hide">
+                              <div class="reg_add_photo row">
+                                  <img src="" alt="" id="preview">
+                                  <label id="test" for="upload-photo" [ngClass]="{'hide-element': isPhotoAdded}" >Add Photo</label>
+                                  <input type="file" name="photo" [ngClass]="{'hide-element': isPhotoAdded}" (change)="fileEvent($event)" id="upload-photo" />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-5">
+                              <div class="form_group">
+                                  <input class="form_input" type="text" [textMask]="{mask: dateMask}" formControlName="dob" placeholder="DD-MM-YYYY">
+                                  <span class="form_highlight"></span>
+                                  <span class="form_bar"></span>
+                                  <label>Date of Birth</label>
+                                  <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.required && myform.submitted">DOB is required</p>
+                                  <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
+                                  <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isUnderAge">You should be above 13</p>
+                                  <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isOverAge">You should be below 100</p>
+                              </div>
+                          </div>
+                          <div class="col-md-7">
+                              <div class="form_group ops_radio_sm">
+                                  <label>
+                                      <strong>Gender</strong>
+                                      <label class="gender_single">
+                                          <input type="radio" value="M" name="gender" formControlName="gender"><span></span>M
+                                      </label>
+                                      <label class="gender_single">
+                                          <input type="radio" value="F" name="gender" formControlName="gender"><span></span>F
+                                      </label>
+                                      <label class="gender_single">
+                                          <input type="radio" value="O" name="gender" formControlName="gender"><span></span>O
+                                      </label>
+                                  </label>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form_group">
+                          <input class="form_input" type="text" formControlName="email" required [pattern]="emailPattern" >
+                          <span class="form_highlight"></span>
+                          <span class="form_bar"></span>
+                          <label>Email</label>
+                          <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isEmailUnique ">A user with this email is already registered</p>
+                          <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.email && regFormBasic.controls['email'].touched">Email is not valid</p>
+                          <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isInvalidEmail">Email is not valid</p>
+                          <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.required && myform.submitted">Email is required</p>
+                      </div>
+                      <div class="form_group">
+                          <span id="phone" type="tel"></span>
+                          <input class="form_input" type="number" formControlName="phone" required style="padding-left: 40px;">
+                          <span class="form_highlight"></span>
+                          <span class="form_bar"></span>
+                          <label style="padding-left: 40px;">Phone Number</label>
 
-                            <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">Someone has already registed with this number</p>
-                        </div>
-                        <div class="form_group">
-                            <input class="form_input" type="password" formControlName="password" required>
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label>Password</label>
-                        </div>
-                        <div class="form_group">
-                            <input class="form_input" type="password" formControlName="confirmpassword" required>
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label>Confirm Password</label>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.MatchPassword">Password not match</p>
-                        </div><br>
-                        <p class="text-grey privacy-policy">
-                            By signing up, you agree to our <a href="#">Terms of Service</a>, <a href="#">Privacy Policy</a> and use of cookies.
-                        </p>
-                        <div class="text-center">
-                            <app-button [className]="'btn-default btn-sm'" [type]="'submit'">Sign Up</app-button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <auth-right-block [rightCom]="rightCom"></auth-right-block>
-        </div>
-    </div>
+                          <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">Someone has already registed with this number</p>
+                      </div>
+                      <div class="form_group">
+                          <input class="form_input" type="password" formControlName="password" required>
+                          <span class="form_highlight"></span>
+                          <span class="form_bar"></span>
+                          <label>Password</label>
+                      </div>
+                      <div class="form_group">
+                          <input class="form_input" type="password" formControlName="confirmpassword" required>
+                          <span class="form_highlight"></span>
+                          <span class="form_bar"></span>
+                          <label>Confirm Password</label>
+                          <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.MatchPassword">Password not match</p>
+                      </div><br>
+                      <p class="text-grey privacy-policy">
+                          By signing up, you agree to our <a href="#">Terms of Service</a>, <a href="#">Privacy Policy</a> and use of cookies.
+                      </p>
+                      <div class="text-center">
+                          <app-button [className]="'btn-default btn-sm'" [type]="'submit'">Sign Up</app-button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+          <auth-right-block [rightCom]="rightCom"></auth-right-block>
+      </div>
+  </div>
 </section>
-<app-modal [modalTitle]="'Some title'" [blocking]='false' [modalId]='modalId'>
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='otpWindow'>
   <div name="otp" class="otp__modal">
     <div class="x reg_step1_otp" id="otpModal2" role="dialog">
       <div class="">
@@ -161,7 +167,7 @@
 </app-modal>
 
 
-<app-modal [modalTitle]="'Success'" [blocking]='false' modalId='otp_success'>
+<app-modal [modalTitle]="'Success'" [blocking]='false' modalId='otpSuccess'>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 text-center">
         <h3>Thank you for joining us</h3>

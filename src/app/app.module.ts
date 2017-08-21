@@ -66,6 +66,7 @@ import { OpportunitiesComponent } from './shared/opportunities/opportunities.com
 import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
+//import { SearchIconComponent } from './components/search-icon/search-icon.component';
 
 import { reducer } from './app.reducer';
 
@@ -99,6 +100,7 @@ import { reducer } from './app.reducer';
     ExploreComponent,
     ChannelListComponent,
     LogoutHomeComponent,
+    //SearchIconComponent,
   ],
   imports: [
     BrowserModule,

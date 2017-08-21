@@ -5,7 +5,7 @@
             <!-- left section -->
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 reg_left_section">
                 <div class="reg_step3">
-                        <!-- progress bar -->
+                    <!-- progress bar -->
                     <div class="reg_progress_bar">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 progress_bar_active">
                         </div>
@@ -26,15 +26,29 @@
                     <!-- //progress bar -->
                     <form [formGroup]="rForm "  (ngSubmit)="addSkill(rForm.value)">
                         <div class="form_group">
-                            <input class="form_input" type="text" formControlName="profession" [(ngModel)]="search" (ngModelChange)="onChange($event)">
+                            <input class="form_input" type="text" formControlName="profession" [(ngModel)]="search" (ngModelChange)="onSearchChange($event)">
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>{{searchPlaceholder}}</label>
                             <span><i class="fa fa-search" aria-hidden="true"></i></span>
                         </div>
                     </form>
+
+                    <div class="selList">
+                      <span *ngFor="let skill of selectedSkills" >
+                          <a type="button" class="btn btn-xs btn-primary btn-tag-close">
+                              <span class="btn-label-tag" (click)="toggleSelectSkill(skill.code)">
+                                {{skill.name}} <img src="http://d33wubrfki0l68.cloudfront.net/4bfecd878a6e9fec4f1edef66625ef13f7b4cdb0/32216/img/svg/ico_close-white.svg">
+                              </span>
+                            </a>
+                      </span>
+                    </div>
+
                     <!-- Select Interest -->
                     <div class="row reg_select_interest" id="ops_scrollbar">
+                        <div *ngIf="followpage.skills_loaded===false">
+                          <span>Loading ..</span>
+                        </div>
                         <a *ngFor="let skill of followpage.skills" >
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 reg_interest" (click)="toggleSelectSkill(skill.code)">
                                 <div class="margin_t_0 reg_interest_box">

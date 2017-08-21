@@ -44,6 +44,7 @@ export class RegistrationProfileComponent implements OnInit {
   }
   ngOnInit() {
     this.store.dispatch({ type: AuthActions.LOAD_ARTIST});
+
     this.rightCom = {
       mainTitle: 'Select Your Profile Type',
       secondHead: '',

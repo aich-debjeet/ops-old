@@ -1,0 +1,36 @@
+<!---
+layout: fullscreen
+title: 'One Page Spotlight'
+permalink: /search.html
+--->
+
+
+<div class="ops_search" id="search-popup">
+    <p class="search_close">
+        <a href="javascript:void(0)"><img src="/assets/img/svg/ico_close.svg" alt=""></a>
+    </p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 search_top_input">
+
+                <div class="form_group">
+                    <input class="form_input" type="text" required="" >
+                    <label>Search</label>
+                    <p class="search_top_icon"><img src="assets/img/svg/ico_search.svg"></p>
+                </div>
+
+            </div>
+            <div class="col-md-12 home_tabs">
+                <ul class="nav nav-tabs">
+                    <li><a data-toggle="tab" [routerLink]="['search_all']" aria-expanded="true" >All</a></li>
+                    <li><a data-toggle="tab" [routerLink]="['search_post']" aria-expanded="true">Post</a></li>
+                    <li><a data-toggle="tab" [routerLink]="['search_channel']" aria-expanded="false">Channel</a></li>
+                    <li><a data-toggle="tab" [routerLink]="['search_spotfeed']" aria-expanded="false">Spotfeed</a></li>-
+                    <li><a data-toggle="tab" [routerLink]="['search_people']" aria-expanded="false">people</a></li>-
+                    <li><a data-toggle="tab" [routerLink]="['search_community']" aria-expanded="false">community</a></li>
+                </ul>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

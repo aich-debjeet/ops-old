@@ -5,6 +5,53 @@
 
 /* ------------------------ Registration Step 3 ---------------------- */
 
+.selList{
+  color: #000;
+  // span{
+  //   display: inline-block;
+  //   margin-right: 13px;
+  //   border: solid 1px #eee;
+  //   padding: 3px 11px;
+  //   margin-bottom: 9px;
+  //   border-radius: 23px;
+  // }
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #ff7b84;
+  border-color: #ff7b84;
+}
+
+.btn-label-tag {
+  position: relative;
+  left: 0;
+  display: inline-block;
+  padding: 0 0 0 5px;
+  border-radius: 3px 0 0 3px;
+}
+
+.btn-tag-close .btn-label-tag img {
+  width: 11px;
+  margin-top: 0;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+.btn-tag-close {
+  padding: 0 7px 0 3px;
+  font-weight: 500;
+  font-size: 12px;
+  border-radius: 5px;
+}
+.btn-label-tag {
+  position: relative;
+  left: 0;
+  display: inline-block;
+  padding: 0 0 0 5px;
+  border-radius: 3px 0 0 3px;
+}
+
 .adder {
   border: solid 1px;
   padding: 9px 19px;

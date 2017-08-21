@@ -21,6 +21,7 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
+//import { SearchIconComponent } from './components/search-icon/search-icon.component';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -48,6 +49,7 @@ export const routes: Routes = [
  { path: 'dashboard', component: DashboardComponent },
  { path: 'explore', component: ExploreComponent },
  { path: 'channel', component: ChannelListComponent },
+ { path: 'searchIcon', loadChildren:'./components/search-icon/search-icon.module#SearchIconModule' },
  // otherwise redirect to home
  { path: '**', redirectTo: '' }
 ];
