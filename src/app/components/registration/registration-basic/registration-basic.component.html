@@ -65,8 +65,8 @@
                                   <label>Date of Birth</label>
                                   <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.required && myform.submitted">DOB is required</p>
                                   <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
-                                  <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isUnderAge">Date of Birth should be above 13</p>
-                                  <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isOverAge">Date of Birth should be below 100</p>
+                                  <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isUnderAge">You should be above 13</p>
+                                  <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isOverAge">You should be below 100</p>
                               </div>
                           </div>
                           <div class="col-md-7">
@@ -87,12 +87,13 @@
                           </div>
                       </div>
                       <div class="form_group">
-                          <input class="form_input" type="text" formControlName="email" required>
+                          <input class="form_input" type="text" formControlName="email" required [pattern]="emailPattern" >
                           <span class="form_highlight"></span>
                           <span class="form_bar"></span>
                           <label>Email</label>
                           <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isEmailUnique ">A user with this email is already registered</p>
                           <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.email && regFormBasic.controls['email'].touched">Email is not valid</p>
+                          <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isInvalidEmail">Email is not valid</p>
                           <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.required && myform.submitted">Email is required</p>
                       </div>
                       <div class="form_group">

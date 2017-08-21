@@ -177,6 +177,22 @@ export class RegistrationBasicComponent implements OnInit {
     return null;
   }
 
+  /**
+   * Chekcing for the valid email input on register form
+   * @param control: Form email input
+   */
+  validEmail(control: AbstractControl) {
+    if (control.value === '') {
+      console.log('empty email');
+      return;
+    }
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!emailRegex.test(control.value)) {
+      return { isInvalidEmail: true };
+    }
+    return null;
+  }
+
   buildForm(): void {
     this.regFormBasic = this.fb.group({
       'name' : ['', [Validators.required]],
@@ -189,7 +205,8 @@ export class RegistrationBasicComponent implements OnInit {
       'email' : ['', [
         Validators.required,
         Validators.min(1),
-        Validators.email
+        // Validators.email
+        this.validEmail.bind(this)
         ],
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
