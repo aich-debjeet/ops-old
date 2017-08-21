@@ -3,17 +3,15 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
 import { RegValue, ArtistFollow, RightBlockTag, initialTag, Login, artistFollowTag, Follow } from '../../../models/auth.model';
 import { SearchFilterPipe } from '../../../pipes/search.pipe'
 import { environment } from './../../../../environments/environment';
-
-import _ from 'lodash';
-
-// Action
 import { AuthActions } from '../../../actions/auth.action'
 
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import _ from 'lodash';
 
 export class Channel {
   follow: boolean;
@@ -29,6 +27,7 @@ export class Channel {
   templateUrl: './registration-add-skill.component.html',
   styleUrls: ['./registration-add-skill.component.scss']
 })
+
 export class RegistrationAddSkillComponent implements OnInit {
   private apiLink: string = environment.API_ENDPOINT;
   private image_base_url: string = environment.API_IMAGE;
@@ -70,24 +69,26 @@ export class RegistrationAddSkillComponent implements OnInit {
     this.search = '';
   }
 
-  ngOnInit() {
-
+  /**
+   * Change messaging based on user type selected on the previous screen
+   */
+  getUserStrings() {
     const userType = JSON.parse(localStorage.getItem('userType'));
-    // Needs work here
-    for (var v in userType) {
-      if(userType[v].name === 'Performing Artist' || userType[v].name === 'Non Performing artist'){
-        this.description = 'Select specific skill sets that you possess. You can click on as many options as you like.',
-        this.title = 'Add Your Skills',
-        this.searchPlaceholder = 'Search Skills'
-      }else {
-        this.description = 'Immerse yourself in arts and entertainment based on interests of your choice.',
-        this.title = 'Follow Your Interest',
-        this.searchPlaceholder = 'Search Interest'
+    for (const obj in userType) {
+      if (obj) {
+        if (userType[obj].name === 'Performing Artist' || userType[obj].name === 'Non Performing artist') {
+          this.description = 'Select specific skill sets that you possess. You can click on as many options as you like.',
+          this.title = 'Add Your Skills',
+          this.searchPlaceholder = 'Search Skills'
+        } else {
+          this.description = 'Immerse yourself in arts and entertainment based on interests of your choice.',
+          this.title = 'Follow Your Interest',
+          this.searchPlaceholder = 'Search Interest'
+        }
       }
-      console.log(userType[v].name)
     }
-
-    this.rightCom = {
+    // Build strings
+    return {
       mainTitle: this.title,
       secondHead: '',
       description: this.description,
@@ -97,21 +98,21 @@ export class RegistrationAddSkillComponent implements OnInit {
       page: false,
       img: 'http://d33wubrfki0l68.cloudfront.net/198702237b77cd4ad2209fd65cbeed2191783e66/d7533/img/reg_add_skill_illustration.png'
     };
+  }
 
+  ngOnInit() {
+    // Change messaging based on user type selected on the previous screen
+    this.rightCom = this.getUserStrings();
+
+    // Load Initial set of Skills
     this.skillList();
   }
-  /**
-   * Load List of Skills (High Level)
-   */
-  skillList() {
-    this.store.dispatch({ type: AuthActions.LOAD_SKILL});
-  }
 
   /**
-   * Search input handler
+   * Skill Search input handler
    * @param query
    */
-  onChange(query) {
+  onSearchChange(query) {
     if (query || query !== '') {
       this.searchSkill(query);
     }else {
@@ -119,13 +120,25 @@ export class RegistrationAddSkillComponent implements OnInit {
     }
   }
 
+  /**
+   * Load list of Artists to follow
+   * @param code
+   */
+
   artistList(code: string) {
     const indList = {
        'industryCodeList': [code]
     };
     this.store.dispatch({ type: AuthActions.USER_ARTIST_FOLLOW, payload: indList });
-    this.getChannels(code)
   }
+
+  /**
+   * Load List of Skills (High Level)
+   */
+  skillList() {
+    this.store.dispatch({ type: AuthActions.LOAD_SKILL});
+  }
+
 
   /**
    * Search Skills ( Second Level)
@@ -135,39 +148,45 @@ export class RegistrationAddSkillComponent implements OnInit {
     this.store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: q });
   }
 
-  // find and return the skill from skills array using the skill code
-  getSkill(skillCode) {
-    return _.find(this.followpage.skills, function(s) { return s.code === skillCode; });
+  /**
+   * Find Skill from API Skill List
+   * @param skillCode
+   */
+  findSkill(skillCode) {
+    return _.find(this.followpage.skills, function(s) {
+      return s.code === skillCode;
+    });
   }
 
+  /**
+   * Add New Skill
+   * @param name
+   */
   addNewSkill(name) {
     if (name !== '') {
       this.store.dispatch({ type: AuthActions.SAVE_SKILL, payload: name });
     }
   }
 
-  // select/deselect skills
+  /**
+   * Handle Skill selection
+   * @param skillCode
+   */
   toggleSelectSkill(skillCode: string) {
-
-    console.log('QUEUING' + skillCode);
-
-    // check if skill already selected
+    // Check if skill is already selected
     const isSelected = _.find(this.selectedSkills, function(s) {
       return s.code === skillCode;
     });
 
-    // if skill exist then remove it from selection array
+    // If skill exist then remove it from selection array
     if (isSelected !== undefined) {
-
-      // searching for the skill in skills array
-      const skillMeta = this.getSkill(skillCode);
-
-      // removing skill from selected skills array
+      // Searching for the skill in skills array
+      const skillMeta = this.findSkill(skillCode);
+      // Removing skill from selected skills array
       this.selectedSkills = this.selectedSkills.filter(function(skill) {
         return skill.code !== skillCode;
       });
-
-      // mark it not selected in UI
+      // Mark it not selected in UI
       this.followpage.skills = this.followpage.skills.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = false;
@@ -176,8 +195,7 @@ export class RegistrationAddSkillComponent implements OnInit {
       });
 
     } else {
-
-      // mark it selected in UI
+      // Mark it selected in UI
       this.followpage.skills = this.followpage.skills.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = true;
@@ -185,9 +203,8 @@ export class RegistrationAddSkillComponent implements OnInit {
         return skill;
       });
 
-      // searching for the skill in skills array
-      const skillMeta = this.getSkill(skillCode);
-      console.log('VIEWING ' + skillMeta);
+      // Searching for the skill in skills array
+      const skillMeta = this.findSkill(skillCode);
 
       // Adding skill to the selection array
       this.selectedSkills.push({
@@ -196,99 +213,5 @@ export class RegistrationAddSkillComponent implements OnInit {
         'active': true
       });
     }
-  }
-
-  toggleFollowBtn(i, handle) {
-    const value =  {
-      'followedHandle': handle
-    }
-
-    if (this.followpage.completed[i].isFollowing === true) {
-      this.artistUnfollowing(value)
-      this.followpage.completed[i].isFollowing = false
-    } else {
-
-      this.artistFollowing(value);
-      this.followpage.completed[i].isFollowing = true
-    }
-  }
-
-  // @TODO
-  // To be removed
-  artistFollowing(req: any) {
-      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      const token = currentUser.access_token; // your token
-
-      let headers = new Headers({ 'Content-Type': 'application/json'});
-      headers.append('Authorization', 'Bearer ' + token)
-
-      return this.http.put(this.apiLink + '/portal/network/following/start', JSON.stringify(req), { headers: headers })
-          .map((data) => data.json())
-          .subscribe(data => {console.log(data)});
-  }
-
-  // @TODO
-  // To be removed
-  artistUnfollowing(req: any) {
-      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      const token = currentUser.access_token; // your token
-
-      let headers = new Headers({ 'Content-Type': 'application/json'});
-      headers.append('Authorization', 'Bearer ' + token)
-
-      return this.http.put(this.apiLink + '/portal/network/following/stop', JSON.stringify(req), { headers: headers })
-          .map((data) => data.json())
-          .subscribe(data => data);
-  }
-
-  // @TODO
-  // To be removed
-  getChannels(code) {
-
-    const value =  {
-      'offset': 0,
-      'limit': 10,
-      'industryList': [code],
-      'superType': 'channel'
-    }
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const token = currentUser.access_token; // your token
-
-    let headers = new Headers({ 'Content-Type': 'application/json'});
-    headers.append('Authorization', 'Bearer ' + token)
-
-    return this.http.post(`${this.apiLink}/portal/network/spotfeed/search`, value,  { headers: headers })
-        .map((data) => data.json())
-        .subscribe(data => {this.channelList = data, console.log(data)});
-  }
-
-
-  addSkill(value: any) {
-      console.log(value);
-  }
-
-  submitSkills() {
-
-    let skillsToSubmit = {
-      'industryList': this.selectedSkills
-    }
-
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const token = currentUser.access_token; // your token
-
-    let headers = new Headers({ 'Content-Type': 'application/json'});
-    headers.append('Authorization', 'Bearer ' + token);
-
-    return this.http.put(`${this.apiLink}/portal/profile/updateProfile`, skillsToSubmit,  { headers: headers })
-        .map((data) => data.json())
-        .subscribe(data => {
-          this.addSkillResponse = data, console.log(data);
-          this.router.navigateByUrl('/reg/welcome');
-        });
-  }
-
-  onClose(value) {
-    console.log('close binid');
-    console.log(value);
   }
 }

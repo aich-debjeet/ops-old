@@ -38,10 +38,8 @@ export class RegValue {
 })
 
 export class RegistrationBasicComponent implements OnInit {
-  modalId = 'hoplaModal';
   countDown;
   counter = 60;
-  showOTP = false;
   isPhotoAdded: boolean;
 
   rightCom: RightBlockTag;
@@ -135,7 +133,7 @@ export class RegistrationBasicComponent implements OnInit {
           .subscribe(data => {console.log(data)});
       }
     }
-  
+
   /**
    * Calculating the age using the date of birth
    * @param birthday: Birth dat object
@@ -145,7 +143,7 @@ export class RegistrationBasicComponent implements OnInit {
     const ageDate = new Date(ageDifMs); // miliseconds from epoch
     return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
-  
+
   /**
    * Chekcing for the valid age input on register form
    * @param control: Form birth date input
@@ -335,9 +333,8 @@ export class RegistrationBasicComponent implements OnInit {
         data => {
           const resp = data.completed;
           if (resp['Code'] === 1) {
-            this.modalService.open('hoplaModal');
+            this.modalService.open('otpWindow');
           }
-
         }
       )
       console.log(value);
