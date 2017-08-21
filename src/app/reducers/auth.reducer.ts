@@ -24,8 +24,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
 
     case AuthActions.USER_ARTIST_FOLLOW_SUCCESS:
-    console.log('user artist sucess');
-      console.log(payload);
+
       if (payload.length > 0) {
         return Object.assign({}, state, {
           completed: payload,
@@ -39,6 +38,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         });
       }
 
+
     case AuthActions.LOAD_ARTIST:
       return Object.assign({}, state, {
         success: true
@@ -51,27 +51,46 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         success: true
       });
 
-    case AuthActions.LOAD_SKILL:
-      console.log('Load Skill');
+    case AuthActions.SAVE_SKILL:
       return Object.assign({}, state, {
-        success: true
+        skill_saved: false
+      });
+
+    case AuthActions.SAVE_SKILL_SUCCESS:
+      return Object.assign({}, state, {
+        skill_saved: true
+      });
+
+    case AuthActions.LOAD_SKILL:
+      return Object.assign({}, state, {
+        success: false
+      });
+
+    case AuthActions.SEARCH_SKILL:
+      return Object.assign({}, state, {
+        skills: [],
+        skills_loaded: false
+      });
+
+    case AuthActions.SEARCH_SKILL_SUCCESS:
+      return Object.assign({}, state, {
+        skills: payload,
+        skills_loaded: true
       });
 
     case AuthActions.LOAD_SKILL_SUCCESS:
-      // console.log(payload);
       return Object.assign({}, state, {
         completed: payload,
+        skills: payload,
         success: true
       });
 
     case AuthActions.USER_LOGIN:
-      console.log(payload);
       return Object.assign({}, state, {
         success: true
       });
 
     case AuthActions.USER_LOGIN_SUCCESS:
-      console.log(payload);
       return Object.assign({}, state, {
         completed: payload,
         success: true
@@ -88,12 +107,14 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_REGISTRATION_BASIC:
       console.log(payload);
+      console.log('registration started');
       return Object.assign({}, state, {
         success: true
       });
 
     case AuthActions.USER_REGISTRATION_BASIC_SUCCESS:
       console.log('registration sucess');
+      console.log(payload);
       return Object.assign({}, state, {
         completed: payload,
         success: true
@@ -101,8 +122,10 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_REGISTRATION_BASIC_FAILED:
       console.log('registration Faild');
+      console.log(payload);
       return Object.assign({}, state, {
-        success: false
+        success: false,
+        completed: payload
       });
 
     case AuthActions.USER_REGISTRATION_PROFILE:
@@ -144,13 +167,14 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
 
     case AuthActions.USER_EXISTS_CHECK:
+      console.log('user Done');
       return Object.assign({}, state, {
         success: false
       });
 
     case AuthActions.USER_EXISTS_SUCCESS:
     // console.log('user Exists Done');
-    //   console.log(payload.code);
+    console.log(payload);
       if (payload.code === 0) {
         return Object.assign({}, state, {
           completed: payload,

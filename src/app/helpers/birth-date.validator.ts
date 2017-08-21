@@ -1,59 +1,28 @@
-// import {FormControl} from '@angular/forms';
-// import {LocalDate} from 'js-joda';
 
+import { AbstractControl, FormArray, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-// export interface BirthDateValidatorOptions {
-//   minYearsOld?: number;
-//   maxYearsOld?: number;
-// }
+function individualsAgeValidator(allowUnderageIndividuals): ValidatorFn {
+  return (c: AbstractControl): ValidationErrors | null => {
+    let individual18OrOverExists: boolean;
 
+    if (allowUnderageIndividuals) {
+      return null;
+    }
 
-// export function birthDateValidator (options: BirthDateValidatorOptions) {
+    const individualsArray = c as FormArray;
 
-//   const validator = new BirthDateValidator(options);
+    individualsArray.controls.forEach(individual => {
+      const age = +individual.value.age;
 
-//   return function validateBirthDate (control: FormControl) {
-//     return validator.validate(control.value);
-//   }
+      if (age && +age >= 18) {
+        individual18OrOverExists = true;
+      }
+    });
 
-// }
+    return !individual18OrOverExists ? { individualArrayValidatorError: true } : null;
+  };
+};
 
-
-// export class BirthDateValidator {
-
-//   private currentDate = LocalDate.now();
-
-
-//   constructor (private options: BirthDateValidatorOptions) {
-//   }
-
-
-//   validate (value: LocalDate): any {
-
-//     if (!value) {
-//       return null;
-//     }
-
-//     const yearsOld = Math.floor(
-//       value.until(this.currentDate).toTotalMonths() / 12
-//     );
-
-//     const errors: any = {};
-
-//     if (this.options.minYearsOld > 0 && yearsOld < this.options.minYearsOld) {
-//       errors.birthDateMinYearsOld = {
-//         minYearsOld: this.options.minYearsOld
-//       };
-//     }
-
-//     if (this.options.maxYearsOld > 0 && yearsOld > this.options.maxYearsOld) {
-//       errors.birthDateMaxYearsOld = {
-//         maxYearsOld: this.options.maxYearsOld
-//       };
-//     }
-
-//     return Object.keys(errors).length > 0 ? errors : null;
-
-//   }
-
-// }
+export const INDIVIDUALS_VALIDATOR = {
+  individualsAgeValidator: individualsAgeValidator
+}

@@ -4,6 +4,19 @@
 @import '~sass-mq/_mq.scss';
 
 /* ------------------------ Registration Step 3 ---------------------- */
+
+.adder {
+  border: solid 1px;
+  padding: 9px 19px;
+  display: inline-block;
+  border-radius: 2px;
+  color: #656c98;
+  margin-left: 15px;
+}
+.adder__name{
+  font-weight: bold;
+}
+
 .reg_step3{
   p{
   line-height: 110px;
