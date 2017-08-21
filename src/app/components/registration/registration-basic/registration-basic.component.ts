@@ -193,6 +193,26 @@ export class RegistrationBasicComponent implements OnInit {
     return null;
   }
 
+  passwordStrength(control: AbstractControl) {
+    if (control.value === '') {
+      console.log('empty pass');
+      return;
+    } else {
+      console.log('pass: ' + control.value);
+    }
+    // const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,20}$/;
+    // const passwordRegex = /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/;
+    const passwordRegex = /^[0-9-]*[0-9]$/;
+    if (!passwordRegex.test(control.value)) {
+      console.log('weak pass: ' + control.value);
+      return { isWeakPassword: true };
+    } else {
+      console.log('strong pass: ' + control.value);
+      return { isWeakPassword: false };
+    }
+    // return null;
+  }
+
   buildForm(): void {
     this.regFormBasic = this.fb.group({
       'name' : ['', [Validators.required]],
@@ -217,7 +237,10 @@ export class RegistrationBasicComponent implements OnInit {
         ],
         this.databaseValidator.checkMobile.bind(this.databaseValidator)
       ],
-      'password' : ['', Validators.required],
+      'password' : ['', [
+        Validators.required,
+        this.passwordStrength.bind(this)
+      ]],
       'confirmpassword' : ['', Validators.required],
       // 'photo' : [null, Validators.required],
       // 'gender' : [null, Validators.required],

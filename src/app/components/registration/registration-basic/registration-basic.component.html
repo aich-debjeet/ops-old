@@ -110,13 +110,14 @@
                           <span class="form_highlight"></span>
                           <span class="form_bar"></span>
                           <label>Password</label>
+                          <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Weak password! Please use special chars, numbers and capital letters</p>
                       </div>
                       <div class="form_group">
                           <input class="form_input" type="password" formControlName="confirmpassword" required>
                           <span class="form_highlight"></span>
                           <span class="form_bar"></span>
                           <label>Confirm Password</label>
-                          <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.MatchPassword">Password not match</p>
+                          <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.matchPassword">Password not match</p>
                       </div><br>
                       <p class="text-grey privacy-policy">
                           By signing up, you agree to our <a href="#">Terms of Service</a>, <a href="#">Privacy Policy</a> and use of cookies.
