@@ -1,22 +1,28 @@
-import { FormControl, AbstractControl} from '@angular/forms';
-import { Injectable } from '@angular/core';
 
-@Injectable()
-export class BirthDateValidator {
+import { AbstractControl, FormArray, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-    static validateAge(AC: AbstractControl) {
+function individualsAgeValidator(allowUnderageIndividuals): ValidatorFn {
+  return (c: AbstractControl): ValidationErrors | null => {
+    let individual18OrOverExists: boolean;
 
-      const dob = AC.get('dob').value;
-      console.log(dob);
-      const age = 12;
-      let isValidAge;
-
-        if (age >= 13) {
-          isValidAge = true;
-        } else {
-          isValidAge = false;
-        }
-
-        return isValidAge ? { validAge: true } : null;
+    if (allowUnderageIndividuals) {
+      return null;
     }
+
+    const individualsArray = c as FormArray;
+
+    individualsArray.controls.forEach(individual => {
+      const age = +individual.value.age;
+
+      if (age && +age >= 18) {
+        individual18OrOverExists = true;
+      }
+    });
+
+    return !individual18OrOverExists ? { individualArrayValidatorError: true } : null;
+  };
+};
+
+export const INDIVIDUALS_VALIDATOR = {
+  individualsAgeValidator: individualsAgeValidator
 }

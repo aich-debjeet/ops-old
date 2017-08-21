@@ -132,13 +132,49 @@ export class RegistrationBasicComponent implements OnInit {
           .subscribe(data => {console.log(data)});
       }
     }
+  
+  /**
+   * Calculating the age using the date of birth
+   * @param birthday: Birth dat object
+   */
+  calculateAge(birthday) { // birthday is a date
+    const ageDifMs = Date.now() - birthday.getTime();
+    const ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  }
+  
+  /**
+   * Chekcing for the valid age input on register form
+   * @param control: Form birth date input
+   */
+  validAge(control: AbstractControl) {
+    if (control.value.indexOf('_') !== -1) {
+      console.log('incomplete date');
+      return;
+    }
 
+    const dateArr =  control.value.split('-');
+
+    const day = dateArr[0];
+    const month = dateArr[1];
+    const year = dateArr[2];
+
+    console.log('day: ' + day + 'month: ' + month + 'year: ' + year);
+    // const bd = new Date(month+' '+day+' '+year);
+    const bdStr = month + ' ' + day + ' ' + year;
+    const age = this.calculateAge(new Date(bdStr));
+    return (age <= 13 || age >= 100) ? { ageInvalid: true } : null;
+  }
 
   buildForm(): void {
     this.regFormBasic = this.fb.group({
       'name' : ['', [Validators.required]],
       'username' : ['', [Validators.required, FormValidation.noWhitespaceValidator]],
-      'dob' : ['', Validators.required, BirthDateValidator.validateAge],
+      // 'dob' : ['', Validators.required, BirthDateValidator.individualsAgeValidator],
+      'dob' : ['', [
+        Validators.required,
+        this.validAge.bind(this)
+      ]],
       'email' : ['', [
         Validators.required,
         Validators.min(1),
