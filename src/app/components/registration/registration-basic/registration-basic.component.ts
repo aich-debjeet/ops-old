@@ -148,7 +148,7 @@ export class RegistrationBasicComponent implements OnInit {
    * @param control: Form birth date input
    */
   validAge(control: AbstractControl) {
-    if (control.value.indexOf('_') !== -1) {
+    if (control.value.indexOf('_') !== -1 || control.value === '') {
       console.log('incomplete date');
       return;
     }
@@ -163,7 +163,17 @@ export class RegistrationBasicComponent implements OnInit {
     // const bd = new Date(month+' '+day+' '+year);
     const bdStr = month + ' ' + day + ' ' + year;
     const age = this.calculateAge(new Date(bdStr));
-    return (age <= 13 || age >= 100) ? { ageInvalid: true } : null;
+    console.log('age: ' + age);
+    if (isNaN(age)) {
+      return { invalidDOB: true }
+    }
+
+    if (age <= 13) {
+      return { isUnderAge: true };
+    } else if (age >= 100) {
+      return { isOverAge: true };
+    }
+    return null;
   }
 
   buildForm(): void {

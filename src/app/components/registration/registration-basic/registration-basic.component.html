@@ -62,7 +62,9 @@
                                     <span class="form_bar"></span>
                                     <label>Date of Birth</label>
                                     <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.required && myform.submitted">DOB is required</p>
-                                    <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.ageInvalid">Invalid Age</p>
+                                    <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
+                                    <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isUnderAge">Date of Birth should be above 13</p>
+                                    <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isOverAge">Date of Birth should be below 100</p>
                                 </div>
                             </div>
                             <div class="col-md-7">
