@@ -1,4 +1,4 @@
 <div class=" pro_channel2 row">
-  <app-channel *ngIf="false"></app-channel>
-  <p class="empty-value">No Channels</p>
+  <app-channel *ngFor="let channel of profileChannel.channelEntity; let i = index" [className]="'col-md-4 col-sm-6'" [channelData]="channel" (click)="toggleFollowBtn(i)" ></app-channel>
+  <!--<p class="empty-value">No Channels</p>-->
 </div>

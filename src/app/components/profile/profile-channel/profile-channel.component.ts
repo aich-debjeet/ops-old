@@ -21,7 +21,7 @@ export class ProfileChannelComponent implements OnInit {
 
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
-  aboutWork = initialTag ;
+  profileChannel = initialTag ;
 
   constructor(
     private http: Http,
@@ -30,11 +30,15 @@ export class ProfileChannelComponent implements OnInit {
     this.tagState$ = this.profileStore.select('profileTags');
     // this.test = 'salabeel';
     this.tagState$.subscribe((state) => {
-      this.aboutWork = state;
+      this.profileChannel = state;
     });
 
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL });
 
+  }
+
+  toggleFollowBtn(i) {
+    console.log(i);
   }
 
   ngOnInit() {

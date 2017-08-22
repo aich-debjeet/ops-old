@@ -624,7 +624,9 @@ width: 100%;
   }
 }
 
-
+.nav-tabs .active{
+    color: #000000!important;
+}
 // tabs
 .home_tabs {
     margin-top: 8px;
@@ -637,12 +639,12 @@ width: 100%;
         border: none;
         text-transform: uppercase;
     }
-    .nav-tabs li .active a {
+    .nav-tabs  a.active {
         color: #000000;
     }
-    .nav-tabs > li.active > a,
-    .nav-tabs > li.active > a:hover,
-    .nav-tabs > li.active > a:focus {
+    .nav-tabs > a.active,
+    .nav-tabs > a.active:hover,
+    .nav-tabs > a.active:focus {
         color: #000000;
         background-color: transparent;
         border: none;

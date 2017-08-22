@@ -28,6 +28,7 @@ const routes: Routes = [
         path: 'user',
         component: ProfileBlockComponent,
         children: [
+          { path: '', component: ProfileChannelComponent },
           { path: 'channel', component: ProfileChannelComponent },
           { path: 'post', component: ProfilePostComponent },
         ]

@@ -110,7 +110,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       console.log('current user channel sucess');
       console.log(payload);
       return Object.assign({}, state, {
-        mediaEntity: payload,
+        channelEntity: payload,
         success: true
       });
 
