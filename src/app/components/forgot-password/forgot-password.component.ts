@@ -31,18 +31,24 @@ export class ForgotPasswordComponent {
     // this.tagState$.subscribe(v => console.log(v));
     this.tagState$.subscribe((state) => {
       this.petTag = state;
-      console.log(state);
+      console.log('new state: ');
+      console.log(this.petTag);
     });
   }
   submitForm(value: any) {
-    console.log(value);
+    // console.log(value);
     if (this.forgotPass.valid === true) {
-      console.log(value);
       const form = {
         'forgetPasswordtype': 'userCheck',
         'value': value.identity
       }
-      this.store.dispatch({ type: AuthActions.FP_USER_EXISTS_CHECK, payload: form});
+      this.store.dispatch({ type: AuthActions.FP_USER_EXISTS, payload: form});
+      this.tagState$.subscribe(
+        resp => {
+          console.log('response: ');
+          console.log(resp.completed);
+        }
+      )
       // console.log(value);
     }
   }

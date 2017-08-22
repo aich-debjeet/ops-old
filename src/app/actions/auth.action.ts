@@ -25,7 +25,7 @@ export class AuthActions {
   static USER_EXISTS_SUCCESS = 'USER_EXISTS_SUCCESS';
   static USER_EXISTS_FAILED = 'USER_EXISTS_FAILED';
 
-  static FP_USER_EXISTS_CHECK = 'FP_USER_EXISTS_CHECK';
+  static FP_USER_EXISTS = 'FP_USER_EXISTS';
   static FP_USER_EXISTS_SUCCESS = 'FP_USER_EXISTS_SUCCESS';
   static FP_USER_EXISTS_FAILED = 'FP_USER_EXISTS_FAILED';
 
@@ -334,7 +334,7 @@ export class AuthActions {
   // -----------------------------------
   fpUserExsistCheck(value): Action {
     return {
-      type: AuthActions.FP_USER_EXISTS_CHECK,
+      type: AuthActions.FP_USER_EXISTS,
       payload: {
         value
       }

@@ -117,7 +117,7 @@ export class AuthEffect {
 
   @Effect()
   fpCheckExistUser$ = this.actions$
-    .ofType(AuthActions.FP_USER_EXISTS_CHECK)
+    .ofType(AuthActions.FP_USER_EXISTS)
     .map(toPayload)
     .switchMap((payload) => this.authService.fpUserExists(payload)
       .map(res => ({ type: AuthActions.FP_USER_EXISTS_SUCCESS, payload: res }))
