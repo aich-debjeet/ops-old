@@ -7,54 +7,119 @@ import { ProfileActions } from '../actions/profile.action';
 export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
   switch (type) {
-
-
-    /* ------------------------ user profile ------------------------ */
-    case ProfileActions.LOAD_USER_PROFILE:
-      console.log('profile reducer: loading logged in users profile');
-      // console.log(payload);
+    /**
+     * Load Current User Profile
+     */
+    case ProfileActions.LOAD_CURRENT_USER_PROFILE:
       return Object.assign({}, state, {
         success: true
       });
 
-    case ProfileActions.LOAD_USER_PROFILE_SUCCESS:
-      console.log('profile reducer: loading logged in users profile success');
-      // console.log(payload);
+    case ProfileActions.LOAD_CURRENT_USER_PROFILE_SUCCESS:
+      console.log(payload);
       return Object.assign({}, state, {
-        completed: payload,
+        profileUser: payload,
         success: true
       });
 
-    case ProfileActions.LOAD_USER_PROFILE_FAILED:
-      console.log('profile reducer: loading logged in users profile failed');
+    case ProfileActions.LOAD_CURRENT_USER_PROFILE_FAILED:
       return Object.assign({}, state, {
         success: false
       });
-    /* ------------------------ user profile ------------------------ */
+
+    /**
+     * Load Current User Profile Details
+     */
+    case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS:
+      return Object.assign({}, state, {
+        success: true
+      });
+
+    case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_SUCCESS:
+      console.log('deatail');
+      console.log(payload);
+      return Object.assign({}, state, {
+        profileDetails: payload,
+        success: true
+      });
+
+    case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_FAILED:
+      return Object.assign({}, state, {
+        success: false
+      });
+
+    /**
+     * Load Current User Profile
+     */
+    case ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS:
+      // console.log('current user Quick Access');
+      return Object.assign({}, state, {
+        success: true
+      });
+
+    case ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS_SUCCESS:
+      // console.log('current user Quick Access success');
+      // console.log(payload);
+      return Object.assign({}, state, {
+        userQuickAccess: payload,
+        success: true
+      });
+
+    case ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS_FAILED:
+      // console.log('current user Quick Access failed');
+      return Object.assign({}, state, {
+        success: false
+      });
 
 
-    /* ------------------------ user media ------------------------ */
+    /**
+     * Get User Media Post
+     */
     case ProfileActions.LOAD_USER_MEDIA:
-      console.log('load user media reducer: loading logged in users media');
+      console.log('user media load');
       console.log(payload);
       return Object.assign({}, state, {
         success: true
       });
 
     case ProfileActions.LOAD_USER_MEDIA_SUCCESS:
-      console.log('load user media reducer: loading logged in users media success');
+      console.log('user media load sucess');
       console.log(payload);
       return Object.assign({}, state, {
-        completed: payload,
+        mediaEntity: payload,
         success: true
       });
 
     case ProfileActions.LOAD_USER_MEDIA_FAILED:
-      console.log('load user media reducer: loading logged in users media failed');
+      console.log('user media failed');
       return Object.assign({}, state, {
         success: false
       });
-    /* ------------------------ user media ------------------------ */
+
+    /**
+     * Get current User channel of profile
+     */
+    case ProfileActions.LOAD_CURRENT_USER_CHANNEL:
+      console.log('current user channel start');
+      console.log(payload);
+      return Object.assign({}, state, {
+        success: true
+      });
+
+    case ProfileActions.LOAD_CURRENT_USER_CHANNEL_SUCCESS:
+      console.log('current user channel sucess');
+      console.log(payload);
+      return Object.assign({}, state, {
+        mediaEntity: payload,
+        success: true
+      });
+
+    case ProfileActions.LOAD_CURRENT_USER_CHANNEL_FAILED:
+      console.log('current user channel failed');
+      return Object.assign({}, state, {
+        success: false
+      });
+
 
     default:
       return state;
@@ -62,3 +127,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
   }
 
 }
+
+
+export const currentUserProfile = (state: ProfileModal) => state.completed;

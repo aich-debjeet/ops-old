@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="row about_overview">
+    <div class="col-md-12 col-sm-12 padding_0">
+      <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Overview
+          </div>
+          <div class="panel-body">
+            <div class="col-md-4 col-sm-4 overview_section with_border_right">
+              <div class="row sm_panel_body">
+                <div class="col-md-2 sm_panel_left">
+                  <figure class="avatar_overview">
+                    <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
+                  </figure>
+                </div>
+                <div class="col-md-8 sm_panel_right">
+                  <h3><span>Working as </span>UI/UX Designer <span>at</span> Spotify</h3>
+                  <p>From July, 2016</p>
+                </div>
+              </div>
+
+              <div class="row sm_panel_body">
+                <div class="col-md-2 sm_panel_left">
+                  <figure class="avatar_overview">
+                    <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
+                  </figure>
+                </div>
+                <div class="col-md-8 sm_panel_right">
+                  <h3><span>Studies at </span>Design Institute of San Disk</h3>
+                  <p>July, 2016</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 overview_section with_border_right">
+              <div class="row sm_panel_body">
+                <div class="col-md-2 sm_panel_left">
+                  <figure class="avatar_overview">
+                    <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
+                  </figure>
+                </div>
+                <div class="col-md-8 sm_panel_right">
+                  <h3><span>Awarded for </span>Best UI Developer <span>by</span> Awwwards</h3>
+                  <p>May, 2016</p>
+                </div>
+              </div>
+
+              <div class="row sm_panel_body">
+                <div class="col-md-2 sm_panel_left">
+                  <figure class="avatar_overview">
+                    <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
+                  </figure>
+                </div>
+                <div class="col-md-8 sm_panel_right">
+                  <h3><span>Awarded for </span>Best Dressed Men <span>by</span> Gala Awards</h3>
+                  <p>July, 2016</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 overview_section">
+              <div class="row sm_panel_body">
+                <div class="col-md-8 sm_panel_right">
+                  <h3 class="margin_tb_16"><span *ngIf="userProfile.profileDetails?.extra.address.city !== ''">Live in </span>{{ userProfile.profileDetails?.extra.address.city }}, {{ userProfile.profileDetails?.extra.address.country }}</h3>
+                  <h3 class="margin_tb_16" *ngIf="userProfile.profileDetails?.contact.website !== ''">{{ userProfile.profileDetails?.contact.website }}</h3>
+                  <h3 class="margin_tb_16" *ngIf="userProfile.profileDetails?.contact.mobile !== ''">{{ userProfile.profileDetails?.contact.mobile }}</h3>
+                  <h3 class="margin_tb_16" *ngIf="userProfile.profileDetails?.email !== ''">{{ userProfile.profileDetails?.email }}</h3>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- --------------------------- bio work award education ---------------------- -->
+  <div class="row">
+    <div class="col-md-12 col-sm-12 padding_0">
+      <div class="panel-group">
+        <div class="panel panel-default ops_about">
+          <div class="panel-heading home_tabs">
+            <ul class="nav nav-tabs">
+              <li><a [routerLink]="['bio']" routerLinkActive="active">bio</a></li>
+              <li><a [routerLink]="['work']" routerLinkActive="active">work</a></li>
+              <li><a [routerLink]="['awards']" routerLinkActive="active">awards</a></li>
+              <li><a [routerLink]="['education']" routerLinkActive="active">education</a></li>
+            </ul>
+          </div>
+           <router-outlet></router-outlet>
+        </div>
+      </div>

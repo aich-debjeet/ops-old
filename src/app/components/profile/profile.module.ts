@@ -6,15 +6,44 @@ import { SharedModule } from '../../shared/shared.module';
 import { ProfileComponent } from './profile.component';
 import { ProfileChannelComponent } from './profile-channel/profile-channel.component';
 import { ProfilePostComponent } from './profile-post/profile-post.component';
+import { ProfileSliderComponent } from './profile-slider/profile-slider.component';
+import { ProfileBlockComponent } from './profile-block/profile-block.component';
+import { ProfileAboutComponent } from './profile-about/profile-about.component';
+import { AboutBioComponent } from './about-bio/about-bio.component';
+import { AboutWorkComponent } from './about-work/about-work.component';
+import { AboutAwardsComponent } from './about-awards/about-awards.component';
+import { AboutEducationComponent } from './about-education/about-education.component';
 
-const routes: Routes= [
+const routes: Routes = [
   {
     path: '',
     component: ProfileComponent,
     children: [
-      { path: '', component: ProfileChannelComponent },
-      { path: 'channel', component: ProfileChannelComponent},
-      { path: 'post', component: ProfilePostComponent}
+      {
+        path: '',
+        redirectTo: 'user',
+        pathMatch: 'full'
+      },
+      {
+        path: 'user',
+        component: ProfileBlockComponent,
+        children: [
+          { path: 'channel', component: ProfileChannelComponent },
+          { path: 'post', component: ProfilePostComponent },
+        ]
+      },
+      {
+        path: 'about',
+        component: ProfileAboutComponent,
+        children: [
+          { path: '', component: AboutBioComponent },
+          { path: 'bio', component: AboutBioComponent },
+          { path: 'work', component: AboutWorkComponent },
+          { path: 'awards', component: AboutAwardsComponent },
+          { path: 'education', component: AboutEducationComponent }
+        ]
+      },
+      //  { path: '', component: ProfileBlockComponent }
     ]
   }
 ]
@@ -28,7 +57,14 @@ const routes: Routes= [
   declarations: [
     ProfileComponent,
     ProfileChannelComponent,
-    ProfilePostComponent
+    ProfilePostComponent,
+    ProfileSliderComponent,
+    ProfileBlockComponent,
+    ProfileAboutComponent,
+    AboutBioComponent,
+    AboutWorkComponent,
+    AboutAwardsComponent,
+    AboutEducationComponent
   ]
 })
 export class ProfileModule { }

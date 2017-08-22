@@ -1,0 +1,254 @@
+<div class="panel-body padding_0">
+  <div class="tab-content">
+    <!-- bio -->
+    <div id="about_bio" class="tab-pane fade active in">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="about_padding24">
+            <div class="ops_heading12">About Me</div>
+            <div class="ops_subheading">
+              {{ (userProfile.profileDetails?.aboutMe !== "") ? userProfile.profileDetails?.aboutMe : "n/a" }}
+              </div>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td class="ops_heading12">Gender</td>
+                  <td class="ops_subheading">{{ (userProfile.profileDetails?.physical.gender !== "") ? userProfile.profileDetails?.physical.gender : "n/a" }}</td>
+                </tr>
+                <tr>
+                  <td class="ops_heading12">Address Line 1</td>
+                  <td class="ops_subheading">{{ (userProfile.profileDetails?.extra.address.line1 !== "") ? userProfile.profileDetails?.extra.address.line1 : "n/a" }}</td>
+                </tr>
+                <tr>
+                  <tr>
+                    <td class="ops_heading12">Address Line 2</td>
+                    <td class="ops_subheading">{{ (userProfile.profileDetails?.extra.address.line2 !== "") ? userProfile.profileDetails?.extra.address.line2 : "n/a" }}</td>
+                  </tr>
+                  <tr>
+                    <td class="ops_heading12">City</td>
+                    <td class="ops_subheading">{{ (userProfile.profileDetails?.extra.address.city !== "") ? userProfile.profileDetails?.extra.address.city : "n/a" }}</td>
+                  </tr>
+                  <tr>
+                    <td class="ops_heading12">Country</td>
+                    <td class="ops_subheading">{{ (userProfile.profileDetails?.extra.address.country !== "") ? userProfile.profileDetails?.extra.address.country : "n/a" }}</td>
+                  </tr>
+                  <tr>
+                    <td class="ops_heading12">Postal Code</td>
+                    <td class="ops_subheading">{{ (userProfile.profileDetails?.extra.address.postalCode !== "") ? userProfile.profileDetails?.extra.address.postalCode : "n/a" }}</td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6 about_padding24 with_border_left">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td class="ops_heading12">birth day</td>
+                <td class="ops_subheading">{{ (userProfile.profileDetails?.physical.dateOfBirth !== "") ? (userProfile.profileDetails?.physical.dateOfBirth | date:'dd, MMMM, y') : "n/a" }}</td>
+              </tr>
+              <tr>
+                <td class="ops_heading12">height</td>
+                <td class="ops_subheading">{{ (userProfile.profileDetails?.physical.height !== 0 || userProfile.profileDetails?.physical.height ) ? userProfile.profileDetails?.physical.height  : "n/a" }}</td>
+              </tr>
+              <tr>
+                <tr>
+                  <td class="ops_heading12">weight</td>
+                  <td class="ops_subheading">{{ (userProfile.profileDetails?.physical.weight !== 0) ? userProfile.profileDetails?.physical.weight  : "n/a" }}</td>
+                </tr>
+                <tr>
+                  <td class="ops_heading12">Language known</td>
+                  <td class="ops_subheading"><span *ngFor="let lang of userProfile.profileDetails?.languages">{{ lang }},</span></td>
+                </tr>
+                <tr>
+                  <td class="ops_heading12">Ethinicity</td>
+                  <td class="ops_subheading">{{ (userProfile.profileDetails?.physical.ethnicity !== "") ? userProfile.profileDetails?.physical.ethnicity  : "n/a" }}</td>
+                </tr>
+                <tr>
+                  <td class="ops_heading12">complexion</td>
+                  <td class="ops_subheading">{{ (userProfile.profileDetails?.physical.complexion !== "") ? userProfile.profileDetails?.physical.complexion  : "n/a" }}</td>
+                </tr>
+                <tr>
+                  <td class="ops_heading12">Phone</td>
+                  <td class="ops_subheading">{{ (userProfile.profileDetails?.contact.mobile !== "" ) ? userProfile.profileDetails?.contact.mobile  : "n/a" }}</td>
+                </tr>
+                <tr>
+                  <td class="ops_heading12">mail</td>
+                  <td class="ops_subheading">{{ (userProfile.profileDetails?.email !== "" ) ? userProfile.profileDetails?.email : "n/a" }}</td>
+                </tr>
+                <tr>
+                  <td class="ops_heading12">website</td>
+                  <td class="ops_subheading">{{ (userProfile.profileDetails?.contact.website !== "" ) ? userProfile.profileDetails?.contact.website : "n/a" }}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- //bio -->
+    <!-- work -->
+    <div id="about_work" class="tab-pane fade">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 overview_section">
+          <div class="row sm_panel_body">
+            <div class="col-md-2 sm_panel_left">
+              <a href="">
+                <div class="add_plus">+</div>
+              </a>
+            </div>
+            <div class="col-md-8 sm_panel_right">
+              <h3 class="padd_t12">Add work details</h3>
+            </div>
+          </div>
+
+          <div class="row sm_panel_body">
+            <div class="col-md-2 sm_panel_left">
+              <figure class="avatar_overview">
+                <img src="img/event.jpg" class="img-responsive">
+              </figure>
+            </div>
+            <div class="col-md-8 sm_panel_right">
+              <h3>UI/UX Designer <span> at </span>Max Design</h3>
+              <p>From July, 2016</p>
+            </div>
+          </div>
+
+          <div class="row sm_panel_body">
+            <div class="col-md-2 sm_panel_left">
+              <figure class="avatar_overview">
+                <img src="img/event.jpg" class="img-responsive">
+              </figure>
+            </div>
+            <div class="col-md-8 sm_panel_right">
+              <h3>Product Designer<span> at </span> San Disk</h3>
+              <p>July, 2016 to August 2016</p>
+            </div>
+          </div>
+
+          <div class="row sm_panel_body">
+            <div class="col-md-2 sm_panel_left">
+              <figure class="avatar_overview">
+                <img src="img/event.jpg" class="img-responsive">
+              </figure>
+            </div>
+            <div class="col-md-8 sm_panel_right">
+              <h3>Founder<span> at </span>Authentic weather</h3>
+              <p>From July, 2016</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- //work -->
+    <!-- awards -->
+    <div id="about_awards" class="tab-pane fade">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 overview_section">
+          <div class="row sm_panel_body">
+            <div class="col-md-2 sm_panel_left">
+              <a href="">
+                <div class="add_plus">+</div>
+              </a>
+            </div>
+            <div class="col-md-8 sm_panel_right">
+              <h3 class="padd_t12">Add awards details</h3>
+            </div>
+          </div>
+
+          <div class="row sm_panel_body">
+            <div class="col-md-2 sm_panel_left">
+              <figure class="avatar_overview">
+                <img src="img/event.jpg" class="img-responsive">
+              </figure>
+            </div>
+            <div class="col-md-8 sm_panel_right">
+              <h3>Best UI Designer <span> by </span>Awwwards</h3>
+              <p>July, 2016</p>
+            </div>
+          </div>
+
+          <div class="row sm_panel_body">
+            <div class="col-md-2 sm_panel_left">
+              <figure class="avatar_overview">
+                <img src="img/event.jpg" class="img-responsive">
+              </figure>
+            </div>
+            <div class="col-md-8 sm_panel_right">
+              <h3>Best Dressed Men<span> by </span> Gala Awards</h3>
+              <p>August 2016</p>
+            </div>
+          </div>
+
+          <div class="row sm_panel_body">
+            <div class="col-md-2 sm_panel_left">
+              <figure class="avatar_overview">
+                <img src="img/event.jpg" class="img-responsive">
+              </figure>
+            </div>
+            <div class="col-md-8 sm_panel_right">
+              <h3>Best UI/UX Designer<span> by </span> Google Awards</h3>
+              <p>August 2016</p>
+            </div>
+          </div>
+        </div>
+        <!-- //awards -->
+
+      </div>
+    </div>
+    <!-- education -->
+    <div id="about_education" class="tab-pane fade">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 overview_section">
+          <div class="row sm_panel_body">
+            <div class="col-md-2 sm_panel_left">
+              <a href="">
+                <div class="add_plus">+</div>
+              </a>
+            </div>
+            <div class="col-md-8 sm_panel_right">
+              <h3 class="padd_t12">Add education details</h3>
+            </div>
+          </div>
+
+          <div class="row sm_panel_body">
+            <div class="col-md-2 sm_panel_left">
+              <figure class="avatar_overview">
+                <img src="img/event.jpg" class="img-responsive">
+              </figure>
+            </div>
+            <div class="col-md-8 sm_panel_right">
+              <h3><span> Studied at </span> Design Institute of San Disk</h3>
+              <p>July, 2016</p>
+            </div>
+          </div>
+
+          <div class="row sm_panel_body">
+            <div class="col-md-2 sm_panel_left">
+              <figure class="avatar_overview">
+                <img src="img/event.jpg" class="img-responsive">
+              </figure>
+            </div>
+            <div class="col-md-8 sm_panel_right">
+              <h3><span> Studied at </span> Delhi Design Institute</h3>
+              <p>May, 2016</p>
+            </div>
+          </div>
+
+          <div class="row sm_panel_body">
+            <div class="col-md-2 sm_panel_left">
+              <figure class="avatar_overview">
+                <img src="img/event.jpg" class="img-responsive">
+              </figure>
+            </div>
+            <div class="col-md-8 sm_panel_right">
+              <h3><span> Studied at </span> Bangalore Design Institute</h3>
+              <p>May, 2016</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- //education -->
+  </div>
+</div>
