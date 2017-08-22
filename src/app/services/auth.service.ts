@@ -133,6 +133,11 @@ export class AuthService {
             .map((data: Response) => data.json());
     }
 
+    fpUserExists(reqData: any) {
+        return this.http.post(this.apiLink + '/portal/auth/forgotPassword/post', reqData)
+            .map((data: Response) => data.json());
+    }
+
     emailUser(email: string) {
         return this.http.get(this.apiLink + '/portal/auth/' + email + '/email')
             .map((data: Response) => data.json());

@@ -39,6 +39,12 @@ export interface RightBlockTag {
   img: string;
 }
 
+export class UserCheckTag {
+  completed: string[];
+  loading = false;
+  success = true;
+}
+
 export class UserTag {
   success: boolean
 }
