@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import { Login, UserTag, initialTag } from '../../models/auth.model';
+import { Login, UserTag, initialTag, RightBlockTag } from '../../models/auth.model';
 
 // Action
 import { AuthActions } from '../../actions/auth.action'
@@ -11,14 +11,6 @@ import { AuthActions } from '../../actions/auth.action'
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-
-export class RegValue {
-  mainTitle: string;
-  description: string;
-  loginLink: Boolean;
-  button_text: string;
-  button_link: string;
-}
 
 @Component({
   selector: 'app-login',
@@ -28,7 +20,7 @@ export class RegValue {
 export class LoginComponent implements OnInit {
   private tagStateSubscription: Subscription;
   tagState$: Observable<Login>;
-  rightCom: RegValue;
+  rightCom: RightBlockTag;
   petTag = initialTag;
   loginForm: FormGroup;
 
@@ -53,28 +45,26 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    //
-    this.rightCom = { 
-      mainTitle: 'Select your profile type', 
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod long-and vitality, so that the labor expended. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    this.rightCom = {
+      mainTitle: 'Log in to your account',
+      secondHead: '',
+      description: '',
       loginLink: true,
       button_text: 'Sign Up',
-      button_link: '/home'
+      button_link: '/reg',
+      page: false,
+      img: 'http://d33wubrfki0l68.cloudfront.net/ea59992e07375eec923510dbbab1cbd94a16acc2/261fd/img/login_illustration.png'
     };
 
-    console.log(this.petTag);
-
-     const user = JSON.parse(localStorage.getItem('currentUser'));
-     if (user && user.access_token) {
-       this.router.navigate(['/profile']);
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if (user && user.access_token) {
+      this.router.navigate(['/profile']);
      }
   }
 
   submitForm(value: any) {
 
-    if(this.loginForm.valid == true){
-      console.log(value);
+    if ( this.loginForm.valid === true ) {
       const form =  {
         'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
         'client_secret': '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',
@@ -84,7 +74,6 @@ export class LoginComponent implements OnInit {
       }
 
       this.store.dispatch({ type: AuthActions.USER_LOGIN, payload: form});
-      // console.log(value);
     }
   }
 
