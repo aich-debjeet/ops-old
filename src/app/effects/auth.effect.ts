@@ -115,6 +115,15 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.USER_EXISTS_FAILED, payload: res }))
     );
 
+  @Effect()
+  fpCheckExistUser$ = this.actions$
+    .ofType(AuthActions.FP_USER_EXISTS)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.fpUserExists(payload)
+      .map(res => ({ type: AuthActions.FP_USER_EXISTS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.FP_USER_EXISTS_FAILED, payload: res }))
+    );
+
   constructor(
       private actions$: Actions,
       private authService: AuthService

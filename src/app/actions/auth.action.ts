@@ -25,6 +25,10 @@ export class AuthActions {
   static USER_EXISTS_SUCCESS = 'USER_EXISTS_SUCCESS';
   static USER_EXISTS_FAILED = 'USER_EXISTS_FAILED';
 
+  static FP_USER_EXISTS = 'FP_USER_EXISTS';
+  static FP_USER_EXISTS_SUCCESS = 'FP_USER_EXISTS_SUCCESS';
+  static FP_USER_EXISTS_FAILED = 'FP_USER_EXISTS_FAILED';
+
   static SEARCH_CARDS = 'SEARCH_CARDS';
   static SEARCH_CARDS_SUCCESS = 'SEARCH_CARDS_SUCCESS';
   static SEARCH_CARDS_FAILED = 'SEARCH_CARDS_FAILED';
@@ -322,6 +326,36 @@ export class AuthActions {
     return {
       type: AuthActions.OTP_CHECK_FAILED,
       payload: error
+    };
+  }
+
+  // ===================================
+  //  USER EXSIST CHECK for Forgot Password
+  // -----------------------------------
+  fpUserExsistCheck(value): Action {
+    return {
+      type: AuthActions.FP_USER_EXISTS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpUserExsistSuccess(value): Action {
+    return {
+      type: AuthActions.FP_USER_EXISTS_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpUserExsistFailed(value): Action {
+    return {
+      type: AuthActions.FP_USER_EXISTS_FAILED,
+      payload: {
+        value
+      }
     };
   }
 
