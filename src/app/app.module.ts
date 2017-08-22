@@ -34,6 +34,8 @@ import { MessageEffect } from './effects/message.effects';
 import { UserSearchEffect } from './effects/user-search.effect';
 
 // Services
+import { ServicesModule } from './services/services.module';
+import { TokenService } from './helpers/token.service';
 import { AuthService } from './services/auth.service';
 
 import { SharedModule } from './shared/shared.module';
@@ -68,6 +70,7 @@ import { ChannelListComponent } from './components/channel-list/channel-list.com
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
 
 import { reducer } from './app.reducer';
+import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.component';
 
 @NgModule({
   declarations: [
@@ -99,12 +102,14 @@ import { reducer } from './app.reducer';
     ExploreComponent,
     ChannelListComponent,
     LogoutHomeComponent,
+    ProfileSliderComponent,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     SharedModule,
     FormsModule,
+    ServicesModule,
     HttpModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
@@ -115,7 +120,7 @@ import { reducer } from './app.reducer';
     EffectsModule.run(MessageEffect),
     EffectsModule.run(UserSearchEffect)
   ],
-  providers: [AuthService, AuthGuard, ApiService],
+  providers: [AuthService, AuthGuard, ApiService, TokenService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

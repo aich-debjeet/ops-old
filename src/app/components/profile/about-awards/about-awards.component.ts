@@ -11,29 +11,28 @@ import { SharedActions } from '../../../actions/shared.action';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-
 @Component({
-  selector: 'app-profile-post',
-  templateUrl: './profile-post.component.html',
-  styleUrls: ['./profile-post.component.scss']
+  selector: 'app-about-awards',
+  templateUrl: './about-awards.component.html',
+  styleUrls: ['./about-awards.component.scss']
 })
-export class ProfilePostComponent implements OnInit {
+export class AboutAwardsComponent implements OnInit {
 
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
-  userMedia = initialTag ;
+  aboutWork = initialTag ;
 
   constructor(
     private http: Http,
     private profileStore: Store<ProfileModal>
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
-
+    // this.test = 'salabeel';
     this.tagState$.subscribe((state) => {
-      this.userMedia = state;
+      this.aboutWork = state;
     });
 
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_MEDIA });
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
 
   }
 

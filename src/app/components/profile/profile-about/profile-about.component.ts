@@ -13,15 +13,15 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-profile-post',
-  templateUrl: './profile-post.component.html',
-  styleUrls: ['./profile-post.component.scss']
+  selector: 'app-profile-about',
+  templateUrl: './profile-about.component.html',
+  styleUrls: ['./profile-about.component.scss']
 })
-export class ProfilePostComponent implements OnInit {
+export class ProfileAboutComponent implements OnInit {
 
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
-  userMedia = initialTag ;
+  userProfile = initialTag ;
 
   constructor(
     private http: Http,
@@ -30,10 +30,10 @@ export class ProfilePostComponent implements OnInit {
     this.tagState$ = this.profileStore.select('profileTags');
 
     this.tagState$.subscribe((state) => {
-      this.userMedia = state;
+      this.userProfile = state;
     });
 
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_MEDIA });
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
 
   }
 
