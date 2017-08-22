@@ -156,14 +156,21 @@ export class AuthService {
       const skill = {
         'name': skillObj,
         'code': skillObj.toUpperCase(),
-        'relatedIndustries': [],
-        'isApproved': true,
-        'active': true
+        'industry' : [
+          {
+            'name' : 'Uncategorized',
+            'code' : 'UNCATEGORIZED',
+            'isApproved' : true,
+            'active' : true
+          }
+        ],
+        'proficiencyScale' : 101.0,
+        'industryOrProfileType' : 'profileType',
+        'isApproved' : true,
+        'active' : true
       }
 
-      console.log(skill);
-
-      return this.http.post(this.apiLink + '/admin/industry', skill, { headers: headers })
+      return this.http.post(this.apiLink + '/admin/profiletype', skill, { headers: headers })
         .map((data: Response) => data.json());
     }
 
@@ -174,8 +181,8 @@ export class AuthService {
     }
 
     searchAllSkill(q: string) {
-      return this.http.get(this.apiLink + '/portal/profiletype/search/' + q)
-        .map((data: Response) => data.json().SUCCESS);
+      return this.http.get(this.apiLink + '/portal/tree/' + q)
+        .map((data: Response) => data.json());
     }
 
     logout() {

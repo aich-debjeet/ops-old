@@ -1,0 +1,23 @@
+<div class="tab-content">
+<div id="search_people" class="tab-pane fade in active">
+    <div class="row home_artist_follow ops_search_people">
+      <div class="col-md-12">
+          <div class="row">
+              <div class="col-md-12 ops_artist_follow" >
+                  <div class="panel20 text-center" *ngFor="let item of cards">
+                      <figure class="avatar_artist_follow">
+                          <img src="{{ item.image }}">
+                      </figure>
+                      <div class="ops_heading">{{item.heading}}</div>
+                      <p class="ops_heading12">{{item.heading12}}</p>
+                      <button type="button" class="btn btn-xs btn-normal btn-follow">
+                          <span class="btn-label-follow">
+                          <img src="{{ item.iconImage }}">
+                        </span> {{item.button}} </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

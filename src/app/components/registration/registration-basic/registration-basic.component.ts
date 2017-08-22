@@ -3,8 +3,6 @@ import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from
 import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import * as $ from 'jquery';
-
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { Register, UserTag, initialTag, RightBlockTag, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
@@ -12,7 +10,7 @@ import { AuthRightBlockComponent } from '../../../shared/auth-right-block/auth-r
 
 // helper
 import { passwordConfirmation } from '../../../helpers/password.validator';
-import { formValidation, DatabaseValidator } from '../../../helpers/formValidator';
+import { FormValidation, DatabaseValidator } from '../../../helpers/form.validator';
 
 // Action
 import { AuthActions } from '../../../actions/auth.action'
@@ -40,10 +38,8 @@ export class RegValue {
 })
 
 export class RegistrationBasicComponent implements OnInit {
-  modalId = 'hoplaModal';
   countDown;
   counter = 60;
-  showOTP = false;
   isPhotoAdded: boolean;
 
   rightCom: RightBlockTag;
@@ -68,7 +64,7 @@ export class RegistrationBasicComponent implements OnInit {
     ) {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-      console.log(state);
+      // console.log(state);
         this.petTag = state;
     });
     this.isPhotoAdded = false;
@@ -80,9 +76,15 @@ export class RegistrationBasicComponent implements OnInit {
       .map(() => --this.counter);
   }
 
+  useThisUsername(selectUsername: string) {
+    // console.log(selectUsername);
+    // this.username = selectUsername;
+    this.regFormBasic.controls['username'].setValue(selectUsername);
+  }
+
   ngOnInit() {
 
-    console.log('photo: ' + this.isPhotoAdded);
+    // console.log('photo: ' + this.isPhotoAdded);
 
     this.buildForm();
     this.rightCom = {
@@ -122,7 +124,7 @@ export class RegistrationBasicComponent implements OnInit {
         const headers = new Headers();
         /** No need to include Content-Type in Angular 4 */
 
-        console.log(file);
+        // console.log(file);
 
         headers.append('Accept', 'application/json');
         headers.append('handle', 'profileImage');
@@ -132,16 +134,113 @@ export class RegistrationBasicComponent implements OnInit {
       }
     }
 
+  /**
+   * Calculating the age using the date of birth
+   * @param birthday: Birth dat object
+   */
+  calculateAge(birthday) { // birthday is a date
+    const ageDifMs = Date.now() - birthday.getTime();
+    const ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  }
+
+  /**
+   * Checking for the valid age input on register form
+   * @param control: Form birth date input
+   */
+  validAge(control: AbstractControl) {
+    if (control.value.indexOf('_') !== -1 || control.value === '') {
+      // console.log('incomplete date');
+      return;
+    }
+
+    const dateArr =  control.value.split('-');
+
+    const day = dateArr[0];
+    const month = dateArr[1];
+    const year = dateArr[2];
+
+    // console.log('day: ' + day + 'month: ' + month + 'year: ' + year);
+    // const bd = new Date(month+' '+day+' '+year);
+    const bdStr = month + ' ' + day + ' ' + year;
+    const age = this.calculateAge(new Date(bdStr));
+    // console.log('age: ' + age);
+    if (isNaN(age)) {
+      return { invalidDOB: true }
+    }
+
+    if (age <= 13) {
+      return { isUnderAge: true };
+    } else if (age >= 100) {
+      return { isOverAge: true };
+    }
+    return null;
+  }
+
+  /**
+   * Checking for the valid email input on register form
+   * @param control: Form email input
+   */
+  validEmail(control: AbstractControl) {
+    if (control.value === '') {
+      // console.log('empty email');
+      return;
+    }
+    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!emailRegex.test(control.value)) {
+      return { isInvalidEmail: true };
+    }
+    return null;
+  }
+  /**
+   * Checking for the password strength on register form
+   * @param control: Form password input
+   */
+  passwordStrength(control: AbstractControl) {
+    if (control.value === '') {
+      return;
+    }
+    // const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,20}$/;
+    // const passwordRegex = /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6,20}$/;
+    if (!passwordRegex.test(control.value)) {
+      // console.log('weak pass: ' + control.value);
+      return { isWeakPassword: true };
+    }
+    return null;
+  }
+
+  /**
+   * Checking for the password if matches with the confirm password on register form
+   * @param control: Form confirm password input
+   */
+  passwordMatchCheck(control: AbstractControl) {
+    // console.log(control.value);
+    if (control.value === '') {
+      return;
+    }
+    const pass = this.regFormBasic.controls['password'].value;
+    // console.log('pass: ' + pass);
+    if (control.value !== pass) {
+      return { passwordDoesNotMatch: true };
+    }
+    return null;
+  }
 
   buildForm(): void {
     this.regFormBasic = this.fb.group({
       'name' : ['', [Validators.required]],
-      'username' : ['', [Validators.required, formValidation.NoWhitespaceValidator]],
-      'dob' : ['', Validators.required],
+      'username' : ['', [Validators.required, FormValidation.noWhitespaceValidator]],
+      // 'dob' : ['', Validators.required, BirthDateValidator.individualsAgeValidator],
+      'dob' : ['', [
+        Validators.required,
+        this.validAge.bind(this)
+      ]],
       'email' : ['', [
         Validators.required,
         Validators.min(1),
-        Validators.email
+        // Validators.email
+        this.validEmail.bind(this)
         ],
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
@@ -152,12 +251,18 @@ export class RegistrationBasicComponent implements OnInit {
         ],
         this.databaseValidator.checkMobile.bind(this.databaseValidator)
       ],
-      'password' : ['', Validators.required],
-      'confirmpassword' : ['', Validators.required],
+      'password' : ['', [
+        Validators.required,
+        this.passwordStrength.bind(this)
+      ]],
+      'confirmpassword' : ['', [
+        Validators.required,
+        this.passwordMatchCheck.bind(this)
+      ]],
       // 'photo' : [null, Validators.required],
       // 'gender' : [null, Validators.required],
     }, {
-      validator: formValidation.MatchPassword
+      // validator: FormValidation.matchPassword
     })
 
     // OTP Form Builder
@@ -184,6 +289,8 @@ export class RegistrationBasicComponent implements OnInit {
             .subscribe(data => {
               if (data.code === 0) {
                 this.petTag.user_unique = true;
+                // const suggestedStr = data.Suggested.join(', ').replace(/\s+$/, ', ');
+                // console.log(suggestedStr);
                 this.Suggested = data.Suggested;
               }else {
                 this.petTag.user_unique = false;
@@ -277,18 +384,17 @@ export class RegistrationBasicComponent implements OnInit {
     //
 
     if (this.regFormBasic.valid === true) {
-      console.log('Entered Value');
+      // console.log('Entered Value');
       this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
       this.tagState$.subscribe(
         data => {
           const resp = data.completed;
           if (resp['Code'] === 1) {
-            this.modalService.open('hoplaModal');
+            this.modalService.open('otpWindow');
           }
-
         }
       )
-      console.log(value);
+      // console.log(value);
     }
   }
 }
