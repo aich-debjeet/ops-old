@@ -13,28 +13,26 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-profile-post',
-  templateUrl: './profile-post.component.html',
-  styleUrls: ['./profile-post.component.scss']
+  selector: 'app-about-education',
+  templateUrl: './about-education.component.html',
+  styleUrls: ['./about-education.component.scss']
 })
-export class ProfilePostComponent implements OnInit {
+export class AboutEducationComponent implements OnInit {
 
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
-  userMedia = initialTag ;
+  aboutWork = initialTag ;
 
   constructor(
     private http: Http,
     private profileStore: Store<ProfileModal>
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
-
     this.tagState$.subscribe((state) => {
-      this.userMedia = state;
+      this.aboutWork = state;
     });
 
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_MEDIA });
-
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
   }
 
   ngOnInit() {
