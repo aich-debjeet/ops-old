@@ -28,6 +28,11 @@
   text-transform: capitalize;
   padding: 7px 15px;
   margin-bottom: 8px;
+  &:hover {
+    color: #ff7b84;
+    background-color: #fff;
+    border: 1px solid #ff7b84;
+  }
 }
 
 .btn-reg_tag-active {
