@@ -50,21 +50,7 @@
                           <span>Loading ..</span>
                         </div>
                         <a *ngFor="let skill of followpage.skills" >
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 reg_interest" (click)="toggleSelectSkill(skill.code)">
-                                <div class="margin_t_0 reg_interest_box">
-                                    <div class="reg_interest_box_img">
-                                        <img src="{{skill.background}}">
-                                    </div>
-                                    <!-- <div class="reg_interest_box_name" [ngClass]="{'reg_interest_box_name_active': skill.isSelected }" > -->
-                                    <!-- <div class="reg_interest_box_name" [ngClass]="{'reg_interest_box_name_active': skill.isSelected}" > -->
-                                    <div class="reg_interest_box_name" [ngClass]="skill.isSelected?'reg_interest_box_name_active':''" >
-                                        <p>{{skill.name }}</p>
-                                         <!-- <div class="text-center mark_check">
-                                           <img src="/assets/img/svg/ico-tick-white.svg">
-                                         </div> -->
-                                    </div>
-                                </div>
-                            </div>
+                            <a type="button" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" class="btn btn-reg_tag">{{skill.name}}</a>
                         </a>
                         <div *ngIf='followpage.skills && followpage.skills.length === 0'>
                           <a class="adder" (click)="addNewSkill(search)">Add <span class="adder__name">{{search}}?</span></a>
