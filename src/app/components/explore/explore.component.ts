@@ -3,38 +3,63 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',
-  styleUrls: ['./explore.component.css']
+  styleUrls: ['./explore.component.scss']
 })
 export class ExploreComponent implements OnInit {
-cards: any=[];
-channels: any=[];
-cardsArtist: any=[];
+spotfeeds: any= [];
+channels: any= [];
+artistFollow: any= [];
   constructor() {
-    this.cards = [
-      {"id":1,"title":"Card Title 1","image":"http://via.placeholder.com/350x150","cardText":"Some quick example text to build on the card title","cardText1":"Popular","selected":false},
-      {"id":2,"title":"Card Title 2","image":"http://via.placeholder.com/350x150","cardText":"Some quick example text to build on the card title","cardText1":"Stuff picked by u","selected":false},
-      {"id":3,"title":"Card Title 3","image":"http://via.placeholder.com/350x150","cardText":"Some quick example text to build on the card title","cardText1":"Featured Collectrion","selected":false},
-      {"id":4,"title":"Card Title 4","image":"http://via.placeholder.com/350x150","cardText":"Some quick example text to build on the card title","cardText1":"Contemporary Art","selected":false},
+    this.spotfeeds = [
+      {'image': '/assets/img/art1.png', 'heading': 'Hypnosis Myth Reality', 'subheading': 'Living in the now' +
+      ' use it to Enrich your life', 'selected': false},
+      {'image': '/assets/img/art2.png', 'heading': 'Its A Habbit', 'subheading': 'Fire Up Your Motivation', 'selected': false},
+      {'image': '/assets/img/art3.jpg', 'heading': 'Do Your Think Motivational', 'subheading': 'Effective Ways to quit', 'selected': false},
+      {'image': '/assets/img/art4.png', 'heading': 'Motivate Yourself', 'subheading': 'Fire Up Your Motivation', 'selected': false},
       ];
 
-    this.cardsArtist = [
-      {"id":1,"title":"Anna Doe","image":"https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg","btnBtnPrimary":"Follow","faFaQuoteLeft":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, adipisci","selected":false},
-      {"id":2,"title":"Leo Webster","image":"https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg","btnBtnPrimary":"Follow","faFaQuoteLeft":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, adipisci","selected":false},
-      {"id":3,"title":"Ethan Munoz","image":"https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg","btnBtnPrimary":"Follow","faFaQuoteLeft":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, adipisci","selected":false},
-      {"id":4,"title":"Bret Barber","image":"https://mdbootstrap.com/img/Photos/Avatars/img%20%2810%29.jpg","btnBtnPrimary":"Follow","faFaQuoteLeft":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, adipisci","selected":false},
-    ];
+    this.artistFollow = [
+    {'button': 'FOLLOW', 'iconImage': '/assets/img/svg/ico_plus_white.svg', 'image': '/assets/img/' +
+    'avatar2.jpg', 'heading': 'Eljah Fletcher', 'heading12': '@Elijah', 'selected': false},
+    {'button': 'FOLLOWING', 'iconImage': '', 'image': '/assets/img/' +
+    'avatar2.jpg', 'heading': 'Eljah Fletcher', 'heading12': '@Elijah', 'selected': false},
+    {'button': 'FOLLOW', 'iconImage': '/assets/img/svg/ico_plus_white.svg', 'image': '/assets/img/' +
+    'avatar2.jpg', 'heading': 'Eljah Fletcher', 'heading12': '@Elijah', 'selected': false},
+    {'button': 'FOLLOW', 'iconImage': '/assets/img/svg/ico_plus_white.svg', 'image': '/assets/img/' +
+    'avatar2.jpg', 'heading': 'Eljah Fletcher', 'heading12': '@Elijah', 'selected': false},
+    {'button': 'FOLLOW', 'iconImage': '/assets/img/svg/ico_plus_white.svg', 'image': '/assets/img/' +
+    'avatar2.jpg', 'heading': 'Eljah Fletcher', 'heading12': '@Elijah', 'selected': false},
+  ];
 
     this.channels = [
-      { title: 'title 1', descirption: 'descirption 1', linkRight: 'http://right.com', linkLeft: 'http://right.com'},
-      { title: 'title 2', descirption: 'descirption 2', linkRight: 'http://right.com', linkLeft: 'http://right.com'},
-      { title: 'title 3', descirption: 'descirption 3', linkRight: 'http://right.com', linkLeft: 'http://right.com'},
-      { title: 'title 4', descirption: 'descirption 4', linkRight: 'http://right.com', linkLeft: 'http://right.com'},
-      { title: 'title 5', descirption: 'descirption 5', linkRight: 'http://right.com', linkLeft: 'http://right.com'},
+      { 'image1': '/assets/img/pro_block.jpg', 'image2': '/assets/img/pro_block2.jpg',
+      'image3': '/assets/img/pro_block3.jpg', 'channelName': 'Motorhome Or Trailer',
+      'channelThumb': 'Tobias Van Schneider', 'thumbImage': '/assets/img/avatar.jpg',
+      'followersCount': '705', 'followersImage': '/assets/img/svg/ico_follower.svg',
+      'postCount': '705', 'postImage': '/assets/img/svg/ico_post.svg', 'button': 'FOLLOW',
+      'plusImage': '/assets/img/svg/ico_plus_white.svg', 'selected': false},
+      { 'image1': '/assets/img/pro_block.jpg', 'image2': '/assets/img/pro_block2.jpg',
+      'image3': '/assets/img/pro_block3.jpg', 'channelName': 'Motorhome Or Trailer',
+      'channelThumb': 'Tobias Van Schneider', 'thumbImage': '/assets/img/avatar.jpg',
+      'followersCount': '705', 'followersImage': '/assets/img/svg/ico_follower.svg',
+      'postCount': '705', 'postImage': '/assets/img/svg/ico_post.svg', 'button': 'FOLLOW',
+      'plusImage': '/assets/img/svg/ico_plus_white.svg', 'selected': false},
+      { 'image1': '/assets/img/pro_block.jpg', 'image2': '/assets/img/pro_block2.jpg',
+      'image3': '/assets/img/pro_block3.jpg', 'channelName': 'Motorhome Or Trailer',
+      'channelThumb': 'Tobias Van Schneider', 'thumbImage': '/assets/img/avatar.jpg',
+      'followersCount': '705', 'followersImage': '/assets/img/svg/ico_follower.svg',
+      'postCount': '705', 'postImage': '/assets/img/svg/ico_post.svg', 'button': 'FOLLOW',
+      'plusImage': '/assets/img/svg/ico_plus_white.svg', 'selected': false},
+      { 'image1': '/assets/img/pro_block.jpg', 'image2': '/assets/img/pro_block2.jpg',
+      'image3': '/assets/img/pro_block3.jpg', 'channelName': 'Motorhome Or Trailer',
+      'channelThumb': 'Tobias Van Schneider', 'thumbImage': '/assets/img/avatar.jpg',
+      'followersCount': '705', 'followersImage': '/assets/img/svg/ico_follower.svg',
+      'postCount': '705', 'postImage': '/assets/img/svg/ico_post.svg', 'button': 'FOLLOW',
+      'plusImage': '/assets/img/svg/ico_plus_white.svg', 'selected': false},
     ];
 
-   }
-
-  ngOnInit() {
   }
+
+  ngOnInit() {}
 
 }

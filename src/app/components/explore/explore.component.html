@@ -13,92 +13,215 @@
 <!-- primary navigation -->
 
   <!-- main container -->
-  <div class="container">
-
-    <ul>
-      <li><a class="active" href="#recommendation">Recommendation</a></li>
-      <li><a class="active" href="#channel">Channel</a></li>
-      <li><a class="active" href="#spotfeed">Spotfeed</a></li>
-      <li><a class="active" href="#artist">Artist</a></li>
-    </ul>
-    <br>
-
-
-    <!-- secondary navigation
-    <app-dashboard-secondary-navbar></app-dashboard-secondary-navbar>
-     secondary navigation -->
+  <div class="container ops_explore">
      <div class="row">
-       <div class="col-sm-3" *ngFor="let item of cards">
-         <div class="card">
-           <img class="card-img-top" src="{{ item.image }}" alt="Card image cap">
-           <div class="card-block">
-             <p class="card-text"><strong>{{ item.cardText1 }}</strong></p>
-             <p class="card-text">{{ item.cardText }}</p>
+       <ul class="list-inline ops_explore_head">
+           <li class="list-inline-item ops_heading text_uppercase">Spotfeeds</li>
+           <li class="list-inline-item ops_heading2 text_uppercase pull-right"><a href="">See more</a></li>
+       </ul>
+
+       <div class="col-md-12">
+           <div class="row ops_spotfeed">
+               <div class="col-md-3 col-sm-6 pro_channel_card" *ngFor="let item of spotfeeds">
+                   <div class="col-md-12 col-sm-12 pro_channel_block">
+                       <div class="row">
+                           <div class="col-md-12 col-sm-12 pro_channel_img1">
+                               <figure class="avatar_spotfeed">
+                                   <img src="{{item.image}}">
+                               </figure>
+                           </div>
+                           <div class="col-md-12 col-sm-12 pro_channel_cont">
+                               <div class="pro_channel_name">
+                                   <div class="ops_heading">{{item.heading}}</div>
+                                   <div class="ops_subheading">{{item.subheading}}</div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+          <!--     <div class="col-md-3 col-sm-6 pro_channel_card">
+                   <div class="col-md-12 col-sm-12 pro_channel_block">
+                       <div class="row">
+                           <div class="col-md-12 col-sm-12 pro_channel_img1">
+                               <figure class="avatar_spotfeed">
+                                   <img src="/assets/img/art2.png">
+                               </figure>
+                           </div>
+                           <div class="col-md-12 col-sm-12 pro_channel_cont">
+                               <div class="pro_channel_name">
+                                   <div class="ops_heading">Its A Habbit</div>
+                                   <div class="ops_subheading">Fire Up Your Motivation</div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <div class="col-md-3 col-sm-6 pro_channel_card">
+                   <div class="col-md-12 col-sm-12 pro_channel_block">
+                       <div class="row">
+                           <div class="col-md-12 col-sm-12 pro_channel_img1">
+                               <figure class="avatar_spotfeed">
+                                   <img src="/assets/img/art3.jpg">
+                               </figure>
+                           </div>
+                           <div class="col-md-12 col-sm-12 pro_channel_cont">
+                               <div class="pro_channel_name">
+                                   <div class="ops_heading">Do Your Think Motivational</div>
+                                   <div class="ops_subheading">Effective Ways to quit</div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <div class="col-md-3 col-sm-6 pro_channel_card">
+                   <div class="col-md-12 col-sm-12 pro_channel_block">
+                       <div class="row">
+                           <div class="col-md-12 col-sm-12 pro_channel_img1">
+                               <figure class="avatar_spotfeed">
+                                   <img src="/assets/img/art4.png">
+                               </figure>
+                           </div>
+                           <div class="col-md-12 col-sm-12 pro_channel_cont">
+                               <div class="pro_channel_name">
+                                   <div class="ops_heading">Motivate Yourself</div>
+                                   <div class="ops_subheading">Fire Up Your Motivation</div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+-->
            </div>
-         </div>
        </div>
      </div>
 
 <div class="row">
-  <p>
-    <span>Artist to follow</span>
-    <span class="align-right"><a href=" " style="float:right">See More</a></span>
-  </p>
-</div>
-
-<br>
-<!--Card-->
-
-<div class="row artists">
-  <div class="col-sm-3" *ngFor="let item of cardsArtist">
-    <div class="card">
-      <img src="{{ item.image }}" alt="Card image cap">
-      <div class="card-block">
-        <h4 class="card-title">{{ item.title }}</h4>
-        <p><i class="fa fa-quote-left"></i> {{ item.faFaQuoteLeft }}</p>
-        <a href="#" class="btn btn-primary">{{item.btnBtnPrimary}}</a>
-      </div>
+  <ul class="list-inline ops_explore_head">
+      <li class="list-inline-item ops_heading text_uppercase">Artist to Follow</li>
+      <li class="list-inline-item ops_heading2 text_uppercase pull-right"><a href="">See more</a></li>
+  </ul>
+  <div class="col-md-12">
+      <div class="row">
+            <div class="col-md-12 ops_artist_follow">
+                <div class="panel20 text-center"  *ngFor="let item of artistFollow">
+                  <figure class="avatar_artist_follow">
+                      <img src="{{item.image}}">
+                  </figure>
+                  <div class="ops_heading">{{item.heading}}</div>
+                  <p class="ops_heading12">{{item.heading12}}</p>
+                  <button type="button" class="btn btn-xs btn-normal btn-follow">
+                      <span class="btn-label-follow">
+                      <img src="{{item.iconImage}}">
+                    </span> {{item.button}}
+                  </button>
+              </div>
+              <!--
+                <div class="panel20 text-center">
+                  <figure class="avatar_artist_follow">
+                      <img src="/assets/img/avatar2.jpg">
+                  </figure>
+                  <div class="ops_heading">Eljah Fletcher</div>
+                  <p class="ops_heading12">@Elijah</p>
+                  <button type="button" class="btn btn-xs btn-basic btn-following">
+                                          <span class="btn-label-follow"> FOLLOWING
+                    </span></button>
+              </div>
+                <div class="panel20 text-center">
+                  <figure class="avatar_artist_follow">
+                      <img src="/assets/img/avatar2.jpg">
+                  </figure>
+                  <div class="ops_heading">Eljah Fletcher</div>
+                  <p class="ops_heading12">@Elijah</p>
+                  <button type="button" class="btn btn-xs btn-normal btn-follow">
+                      <span class="btn-label-follow">
+                        <img src="/assets/img/svg/ico_plus_white.svg">
+                      </span> FOLLOW
+                  </button>
+              </div>
+                <div class="panel20 text-center">
+                  <figure class="avatar_artist_follow">
+                      <img src="/assets/img/avatar2.jpg">
+                  </figure>
+                  <div class="ops_heading">Eljah Fletcher</div>
+                  <p class="ops_heading12">@Elijah</p>
+                  <button type="button" class="btn btn-xs btn-normal btn-follow">
+                      <span class="btn-label-follow">
+                        <img src="/assets/img/svg/ico_plus_white.svg">
+                      </span> FOLLOW
+                  </button>
+              </div>
+                <div class="panel20 text-center">
+                  <figure class="avatar_artist_follow">
+                      <img src="/assets/img/avatar2.jpg">
+                  </figure>
+                  <div class="ops_heading">Eljah Fletcher</div>
+                  <p class="ops_heading12">@Elijah</p>
+                  <button type="button" class="btn btn-xs btn-normal btn-follow">
+                      <span class="btn-label-follow">
+                          <img src="/assets/img/svg/ico_plus_white.svg">
+                        </span> FOLLOW
+                  </button>
+              </div>
+-->
+            </div>
+        </div>
     </div>
   </div>
-</div>
-
-<br>
 
 <div class="row">
-  <p>
-    <span>Channels to follow</span>
-    <span class="align-right"><a href=" " style="float:right">See More</a></span>
-  </p>
-</div>
-
-<div class="row">
-  <div class="col-sm-4" *ngFor="let channel of channels; let i = index;" >
-
-    <div class="card" >
-
-      <div class="row">
-        <div class="col-sm-12"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
+      <ul class="list-inline ops_explore_head">
+          <li class="list-inline-item ops_heading text_uppercase">Channel to Follow</li>
+          <li class="list-inline-item ops_heading2 text_uppercase pull-right"><a href="">See more</a></li>
+      </ul>
+      <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 ops_channel_card" *ngFor="let item of channels">
+                    <div class="col-md-12 col-sm-12 ops_channel_block">
+                      <div class="row">
+                            <div class="col-md-12 col-sm-12 ops_channel_top">
+                                <figure class="channel_avatar_full">
+                                    <img src="{{item.image1}}">
+                                </figure>
+                            </div>
+                            <div class="col-md-6 col-sm-6 ops_channel_bottom1">
+                                <figure class="channel_avatar_helf">
+                                    <img src="{{item.image2}}">
+                                </figure>
+                            </div>
+                            <div class="col-md-6 col-sm-6 ops_channel_bottom2">
+                                <figure class="channel_avatar_helf">
+                                    <img src="{{item.image3}}">
+                                </figure>
+                            </div>
+                            <div class="col-md-12 col-sm-12 pro_channel_cont">
+                                <div class="channel_name">
+                                    <h3 class="channel_heading float-left">{{item.channelName}}</h3>
+                                </div>
+                                <div class="channel-thumb">
+                                    <img src="{{item.thumbImage}}">
+                                    <p>{{item.channelThumb}}</p>
+                                </div>
+                                <div class="channel_count">
+                                    <span><img src="{{item.followersImage}}"> {{item.followersCount}}</span>
+                                    <span><img src="{{item.postImage}}"> {{item.postCount}}</span>
+                                    <a href="" class="btn btn-xs btn-primary btn-follow pull-right">
+                                        <span class="btn-label-follow">
+                                          <img src="{{item.plusImage}}">
+                                      </span> {{item.button}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
       </div>
-
-      <div class="row">
-        <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-        <div class="col-sm-6"><img class="card-img-top" style="width:100%" src="http://via.placeholder.com/640x360" alt="Card image cap"></div>
-      </div>
-
-      <div class="card-block">
-        <h4 class="card-title"><strong>#{{ i }} {{ channel.title }}</strong></h4>
-        <p class="card-text">{{ channel.descirption }}</p>
-      </div>
-
-      <div class="card-block">
-        <a href="{{ channel.linkRight }}" class="card-link">Card link</a>
-        <a href="{{ channel.linkRight }}" class="card-link">Another link</a>
-      </div>
-
-    </div>
-
-  </div>
 </div>
 
 </div>
 <!-- main container -->
+<footer>
+<div class="container">
+  <p>© Copyright 2017 One Page Spotlight</p>
+</div>
+</footer>
