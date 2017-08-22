@@ -92,8 +92,6 @@ import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.
     DashboardWidgetCalendarComponent,
     DashboardWidgetEventsComponent,
     DashboardWidgetProjectsComponent,
-    DashboardWidgetCommunitiesComponent,
-    DashboardWidgetOpportunitiesComponent,
     PopularArtistsComponent,
     NearestEventsComponent,
     OpportunitiesComponent,
