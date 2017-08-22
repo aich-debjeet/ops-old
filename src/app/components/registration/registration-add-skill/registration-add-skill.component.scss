@@ -17,6 +17,33 @@
   // }
 }
 
+.btn-reg_tag {
+  color: #333;
+  font-size: 16px;
+  background-color: #fff;
+  border: 1px solid #c1c1c1;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: center;
+  text-transform: capitalize;
+  padding: 7px 15px;
+  margin-bottom: 8px;
+}
+
+.btn-reg_tag-active {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: center;
+  text-transform: capitalize;
+  padding: 7px 15px;
+  color: #ff7b84;
+  background-color: #ffeeef;
+  border: 1px solid #ff7b84;
+  outline: 0!important;
+  margin-bottom: 8px;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #ff7b84;
