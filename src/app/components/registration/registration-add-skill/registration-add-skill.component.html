@@ -5,7 +5,7 @@
             <!-- left section -->
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 reg_left_section">
                 <div class="reg_step3">
-                        <!-- progress bar -->
+                    <!-- progress bar -->
                     <div class="reg_progress_bar">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 progress_bar_active">
                         </div>
@@ -33,27 +33,24 @@
                             <span><i class="fa fa-search" aria-hidden="true"></i></span>
                         </div>
                     </form>
+
+                    <div class="selList">
+                      <span *ngFor="let skill of selectedSkills" >
+                          <a type="button" class="btn btn-xs btn-primary btn-tag-close">
+                              <span class="btn-label-tag" (click)="toggleSelectSkill(skill.code)">
+                                {{skill.name}} <img src="http://d33wubrfki0l68.cloudfront.net/4bfecd878a6e9fec4f1edef66625ef13f7b4cdb0/32216/img/svg/ico_close-white.svg">
+                              </span>
+                            </a>
+                      </span>
+                    </div>
+
                     <!-- Select Interest -->
                     <div class="row reg_select_interest" id="ops_scrollbar">
                         <div *ngIf="followpage.skills_loaded===false">
                           <span>Loading ..</span>
                         </div>
                         <a *ngFor="let skill of followpage.skills" >
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 reg_interest" (click)="toggleSelectSkill(skill.code)">
-                                <div class="margin_t_0 reg_interest_box">
-                                    <div class="reg_interest_box_img">
-                                        <img src="{{skill.background}}">
-                                    </div>
-                                    <!-- <div class="reg_interest_box_name" [ngClass]="{'reg_interest_box_name_active': skill.isSelected }" > -->
-                                    <!-- <div class="reg_interest_box_name" [ngClass]="{'reg_interest_box_name_active': skill.isSelected}" > -->
-                                    <div class="reg_interest_box_name" [ngClass]="skill.isSelected?'reg_interest_box_name_active':''" >
-                                        <p>{{skill.name }}</p>
-                                         <!-- <div class="text-center mark_check">
-                                           <img src="/assets/img/svg/ico-tick-white.svg">
-                                         </div> -->
-                                    </div>
-                                </div>
-                            </div>
+                            <a type="button" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" class="btn btn-reg_tag">{{skill.name}}</a>
                         </a>
                         <div *ngIf='followpage.skills && followpage.skills.length === 0'>
                           <a class="adder" (click)="addNewSkill(search)">Add <span class="adder__name">{{search}}?</span></a>

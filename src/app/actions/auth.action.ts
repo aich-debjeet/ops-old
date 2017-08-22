@@ -44,8 +44,8 @@ export class AuthActions {
   static LOAD_ARTIST_SUCCESS = 'LOAD_ARTIST_SUCCESS';
 
   // Type Of Artist
-  static ARTIST_FOLLOW = 'LOAD_ARTIST';
-  static ARTIST_FOLLOW_SUCCESS = 'LOAD_ARTIST_SUCCESS';
+  static ARTIST_FOLLOW = 'ARTIST_FOLLOW';
+  static ARTIST_FOLLOW_SUCCESS = 'ARTIST_FOLLOW_SUCCESS';
 
   // Post user Artist Type
   static USER_ARTIST_TYPE = 'USER_ARTIST_TYPE';

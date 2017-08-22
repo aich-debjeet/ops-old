@@ -58,21 +58,27 @@ export class RegistrationProfileComponent implements OnInit {
   }
 
   addPost(value: any) {
-      console.log(value);
+      console.log('posting...');
+
       const form =  {
-        "other":{
-          "completionStatus" : 2,
-          "accountType" : value.artistList,
-          "isStudent":value.is_student
+        'other': {
+          'completionStatus' : 2,
+          'accountType' : value.artistList,
+          'isStudent': value.is_student
         }
       }
+
+      console.log(form);
+
       localStorage.setItem('userType', JSON.stringify(value.artistList));
       this.store.dispatch({ type: AuthActions.USER_REGISTRATION_PROFILE, payload: form});
 
       this.tagState$.subscribe(
       data => {
         console.log(data.success);
-        if(data.success == true){ this.router.navigateByUrl("/reg/addskill") }
+        if (data.success === true) {
+          this.router.navigateByUrl('/reg/addskill')
+        }
       }
     )
   }
