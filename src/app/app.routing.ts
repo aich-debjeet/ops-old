@@ -49,7 +49,7 @@ export const routes: Routes = [
  { path: 'dashboard', component: DashboardComponent },
  { path: 'explore', component: ExploreComponent },
  { path: 'channel', component: ChannelListComponent },
- { path: 'searchIcon', loadChildren:'./components/search-icon/search-icon.module#SearchIconModule' },
+ { path: 'searchIcon', loadChildren: './components/search-icon/search-icon.module#SearchIconModule' },
  // otherwise redirect to home
  { path: '**', redirectTo: '' }
 ];

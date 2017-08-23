@@ -1,0 +1,92 @@
+<div class="prohead2" style="background-image: url(/assets/img/profile_timeline2.jpg)">
+</div>
+<div class="container pro-block">
+  <div class="row">
+      <div class="col-md-6 col-sm-12 pro__img">
+        <img src="{{ userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
+        <div class="pro__name2">
+            <h2><a routerLink="/profile" > {{ userProfile.profileUser?.name }} </a></h2>
+          
+            <p>@{{ userProfile.profileUser?.userName }}</p>
+            <!--<button type="button" class="btn btn-xs btn-primary btn-plus">
+              <span class="btn-label-follow">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </span> FOLLOW
+          </button>
+          <button type="button" class="btn btn-normal2 btn-xs"> NETWORK </button>
+          <button type="button" class="btn btn-normal2 btn-xs"> DONATE </button>-->
+        </div>
+      </div>
+      <div class="col-md-6"></div>
+  </div>
+  <div class="row pro__detail">
+      <div class="col-md-9 col-sm-9">
+        <ul class="list-inline pro_nav_list">
+            <li class="list-line-item">
+              <a [routerLink]="['about']" >About</a>
+            </li>
+            <li class="list-line-item">
+              <a href="#">portfolio</a>
+            </li>
+            <li class="list-line-item">
+              <a href>planner</a>
+            </li>
+            <li class="list-line-item">
+              <a href="">Network</a>
+            </li>
+            <li class="list-line-item">
+              <a href="">project</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col-md-3 col-sm-3">
+        <ul class="list-inline pro_nav_icon">
+            <li class="list-line-item">
+              <a href="#"><img src="/assets/img/svg/ico_options.svg"></a>
+            </li>
+            <li class="list-line-item">
+              <a href="#"><img src="/assets/img/svg/ico_share.svg"></a>
+            </li>
+            <li class="list-line-item">
+              <a href="#"><img src="/assets/img/svg/ico_message.svg"></a>
+            </li>
+        </ul>
+      </div>
+      <div class="col-md-12 col-sm-12 pro__detail__container">
+        <div class="col-md-4 col-sm-4 text-center pro__count">
+            <div class="row">
+              <div class="col-md-4 col-sm-4 pro__followers">
+                  <h3>{{ userProfile.profileUser?.followersCount }}</h3>
+                  <p>Followers</p>
+              </div>
+              <div class="col-md-4 col-sm-4 pro__following">
+                  <h3>{{ userProfile.profileUser?.followingCount }}</h3>
+                  <p>Following</p>
+              </div>
+              <div class="col-md-4 col-sm-4 pro__spots">
+                  <h3>{{ userProfile.profileUser?.spotsCount }}</h3>
+                  <p>Spots</p>
+              </div>
+              <div class="col-md-8 col-sm-8 pro__spotscore">
+                  Spotscore Comming Soon
+              </div>
+              <div class="col-md-4 col-sm-8 pro__postchannels">
+                  <h4>{{ userProfile.profileUser?.postCount }} <small>Post</small></h4>
+                  <h4>{{ userProfile.profileUser?.channelCount }} <small>Channels</small></h4>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 pro_bio">
+            <h3>BIO</h3>
+            <p>{{ userProfile.profileUser?.bio }}</p>
+
+        </div>
+        <div class="col-md-4 col-sm-4 pro_skills">
+            <h3>SKILLS</h3>
+            
+            <button *ngFor="let skill of userProfile.profileUser?.skills" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
+        </div>
+      </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

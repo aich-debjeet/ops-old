@@ -96,13 +96,13 @@
                           <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isInvalidEmail">Email is not valid</p>
                           <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.required && myform.submitted">Email is required</p>
                       </div>
-                      <div class="form_group">
+                      <div class="form_group phone__selector">
                           <span id="phone" type="tel"></span>
-                          <input class="form_input" type="number" formControlName="phone" required style="padding-left: 40px;">
+                          <input class="form_input" type="number" formControlName="phone" required style="padding-left: 60px;">
                           <span class="form_highlight"></span>
                           <span class="form_bar"></span>
-                          <label style="padding-left: 40px;">Phone Number</label>
-
+                          <label style="padding-left: 60px;">Phone Number</label>
+                          <app-country-selector></app-country-selector>
                           <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">Someone has already registed with this number</p>
                       </div>
                       <div class="form_group">

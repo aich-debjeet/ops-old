@@ -1,38 +1,38 @@
-<div class="{{className}}">
+<div class="{{className}} ops_channel_card">
   <div class="col-md-12 col-sm-12 ops_channel_block">
-    <div class="row">
-      <div class="col-md-12 col-sm-12 ops_channel_top">
-        <figure class="channel_avatar_full">
-           <img src="{{image_base_url + channelData.media[0].repoPath}}">
-        </figure>
-      </div>
-      <div class="col-md-6 col-sm-6 ops_channel_bottom1">
-        <figure class="channel_avatar_helf">
-          <img src="{{image_base_url + channelData?.media[1]?.repoPath}}">
-        </figure>
-      </div>
-      <div class="col-md-6 col-sm-6 ops_channel_bottom2">
-        <figure class="channel_avatar_helf">
-          <img src="{{image_base_url + channelData.media[2]?.repoPath}}">
-        </figure>
-      </div>
-        <div class="col-md-12 col-sm-12 pro_channel_cont">
-          <div class="channel_name">
-            <h3 class="channel_heading float-left">{{channelData.spotfeedName}}</h3>
-            <span *ngIf="type">
-              <a href="#"><img class="float-right" src="/assets/img/svg/ico_options.svg"></a>
-            </span>
+      <div class="row">
+          <div class="col-md-12 col-sm-12 ops_channel_top">
+              <figure class="channel_avatar_full">
+                  <img src="http://d33wubrfki0l68.cloudfront.net/7fd567143564b477f3e7970607ecea5c8e78ce49/aa880/img/pro_block.jpg">
+              </figure>
           </div>
-          <div class="channel-thumb">
-              <img src="{{channelData.ownerImage}}">
-              <p>{{channelData.ownerName}}</p>
+          <div class="col-md-6 col-sm-6 ops_channel_bottom1">
+              <figure class="channel_avatar_helf">
+                  <img src="http://d33wubrfki0l68.cloudfront.net/d8d9acb1672cc63b0a2f2f13cb36a5c3b0bcec43/56c37/img/pro_block2.jpg">
+              </figure>
           </div>
-          <div class="channel_count">
-            <span><img src="/assets/img/svg/ico_follower.svg"> {{channelData.followersCount}}</span>
-            <span><img src="/assets/img/svg/ico_post.svg">{{channelData.mediaCount}}</span>
-            <app-button (click)="toggleFollowBtn(i)" [className]="'btn-xs btn-primary btn-following'">Following</app-button>
+          <div class="col-md-6 col-sm-6 ops_channel_bottom2">
+              <figure class="channel_avatar_helf">
+                  <img src="http://d33wubrfki0l68.cloudfront.net/3984714548314b19ce931d48747ed07a67ee270f/5a822/img/pro_block3.jpg">
+              </figure>
           </div>
-        </div>
-    </div>
+          <div class="col-md-12 col-sm-12 pro_channel_cont">
+              <div class="channel_name">
+                  <h3 class="channel_heading float-left">{{channelData?.spotfeedName}}</h3>
+                  <span>
+                <a href="#"><img class="float-right" src="/assets/img/svg/ico_options.svg"></a>
+              </span>
+              </div>
+              <div class="channel-thumb">
+                  <img src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                  <p>{{channelData?.ownerName}}</p>
+              </div>
+              <div class="channel_count">
+                  <span><img src="/assets/img/svg/ico_follower.svg"> {{channelData?.followersCount}}</span>
+                  <span><img src="/assets/img/svg/ico_post.svg">{{channelData?.mediaCount}}</span>
+                  <!--<app-button (click)="toggleFollowBtn(i)" [className]="'btn-xs btn-primary btn-following'">Following</app-button>-->
+              </div>
+          </div>
+      </div>
   </div>
 </div>

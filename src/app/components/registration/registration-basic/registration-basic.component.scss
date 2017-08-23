@@ -169,3 +169,11 @@ img#preview {
 span.suggestions {
   cursor: pointer;
 }
+
+.phone__selector{
+  &:after{
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
