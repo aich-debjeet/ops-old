@@ -7,6 +7,7 @@ import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { Register, UserTag, initialTag, RightBlockTag, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
 import { AuthRightBlockComponent } from '../../../shared/auth-right-block/auth-right-block.component';
+import { CountrySelectorComponent } from '../../../shared/country-selector/country-selector.component';
 
 // helper
 import { passwordConfirmation } from '../../../helpers/password.validator';

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthRightBlockComponent } from './auth-right-block/auth-right-block.component';
@@ -10,11 +11,13 @@ import { SpotfeedCardComponent } from './spotfeed-card/spotfeed-card.component';
 import { FooterComponent } from './footer/footer.component';
 import { PostCardComponent } from './post-card/post-card.component';
 import { ModalComponent } from './modal/modal.component';
+import { CountrySelectorComponent } from './country-selector/country-selector.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule
   ],
   declarations: [
     ModalComponent,
@@ -25,7 +28,8 @@ import { ModalComponent } from './modal/modal.component';
     ChannelComponent,
     SpotfeedCardComponent,
     FooterComponent,
-    PostCardComponent
+    PostCardComponent,
+    CountrySelectorComponent
   ],
   exports: [
     AuthRightBlockComponent,
@@ -36,7 +40,8 @@ import { ModalComponent } from './modal/modal.component';
     SpotfeedCardComponent,
     FooterComponent,
     PostCardComponent,
-    ModalComponent
+    ModalComponent,
+    CountrySelectorComponent
   ]
 
 })
