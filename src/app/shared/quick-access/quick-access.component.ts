@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-quick-access',
@@ -7,25 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuickAccessComponent {
 
-  quickAccess: any = [];
+  @Input() quickAccessData;
+  @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() {
-
-    // initial cards
-    this.quickAccess = [{
-      title: 'Card title',
-      subTitle: 'Card subtitle',
-      link: 'Card link',
-    }, {
-      title: 'Card title',
-      subTitle: 'Card subtitle',
-      link: 'Card link',
-    }, {
-      title: 'Card title',
-      subTitle: 'Card subtitle',
-      link: 'Card link',
-    }];
-
-  }
+  constructor() { }
 
 }
