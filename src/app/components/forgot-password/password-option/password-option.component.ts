@@ -56,17 +56,22 @@ export class PasswordOptionComponent {
       form.forgetPasswordtype = 'forgetPasswordLink';
       form.cType = 'phone';
       form.value = this.forgotP.fp_user_input;
+
+      this.store.dispatch({ type: AuthActions.FP_RESET_TYPE_PHONE, payload: form });
+
     } else if (value.typePassword === 'mail') {
       // preparing req params
       form.forgetPasswordtype = 'forgetPasswordLink';
       form.cType = 'email';
       form.value = this.forgotP.fp_user_input;
+
+      this.store.dispatch({ type: AuthActions.FP_RESET_TYPE_EMAIL, payload: form });
     }
 
     // console.log('payload send: ');
     // console.log(form);
 
-    this.store.dispatch({ type: AuthActions.FP_RESET_TYPE, payload: form });
+    // this.store.dispatch({ type: AuthActions.FP_RESET_TYPE, payload: form });
 
   }
 

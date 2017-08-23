@@ -29,9 +29,13 @@ export class AuthActions {
   static FP_USER_EXISTS_SUCCESS = 'FP_USER_EXISTS_SUCCESS';
   static FP_USER_EXISTS_FAILED = 'FP_USER_EXISTS_FAILED';
 
-  static FP_RESET_TYPE = 'FP_RESET_TYPE';
-  static FP_RESET_TYPE_SUCCESS = 'FP_RESET_TYPE_SUCCESS';
-  static FP_RESET_TYPE_FAILED = 'FP_RESET_TYPE_FAILED';
+  static FP_RESET_TYPE_PHONE = 'FP_RESET_TYPE_PHONE';
+  static FP_RESET_TYPE_PHONE_SUCCESS = 'FP_RESET_TYPE_PHONE_SUCCESS';
+  static FP_RESET_TYPE_PHONE_FAILED = 'FP_RESET_TYPE_PHONE_FAILED';
+
+  static FP_RESET_TYPE_EMAIL = 'FP_RESET_TYPE_EMAIL';
+  static FP_RESET_TYPE_EMAIL_SUCCESS = 'FP_RESET_TYPE_EMAIL_SUCCESS';
+  static FP_RESET_TYPE_EMAIL_FAILED = 'FP_RESET_TYPE_EMAIL_FAILED';
 
   static SEARCH_CARDS = 'SEARCH_CARDS';
   static SEARCH_CARDS_SUCCESS = 'SEARCH_CARDS_SUCCESS';
@@ -395,35 +399,65 @@ export class AuthActions {
   }
 
   // ===================================
-  //  FP RESET SELECT TYPE
+  //  FP RESET TYPE PHONE
   // -----------------------------------
-
-  fpResetPassType(value): Action {
+  fpResetTypePhone(value): Action {
     return {
-      type: AuthActions.FP_RESET_TYPE,
+      type: AuthActions.FP_RESET_TYPE_PHONE,
       payload: {
         value
       }
     };
   }
 
-  fpResetPassTypeSuccess(value): Action {
+  fpResetTypePhoneSuccess(value): Action {
     return {
-      type: AuthActions.FP_RESET_TYPE_SUCCESS,
+      type: AuthActions.FP_RESET_TYPE_PHONE_SUCCESS,
       payload: {
         value
       }
     };
   }
 
-  fpResetPassTypeFailed(value): Action {
+  fpResetTypePhoneFailed(value): Action {
     return {
-      type: AuthActions.FP_RESET_TYPE_FAILED,
+      type: AuthActions.FP_RESET_TYPE_PHONE_FAILED,
       payload: {
         value
       }
     };
-  } 
+  }
+
+  // ===================================
+  //  FP RESET TYPE EMAIL
+  // -----------------------------------
+  fpResetTypeEmail(value): Action {
+    return {
+      type: AuthActions.FP_RESET_TYPE_EMAIL,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpResetTypeEmailSuccess(value): Action {
+    return {
+      type: AuthActions.FP_RESET_TYPE_EMAIL_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpResetTypeEmailFailed(value): Action {
+    return {
+      type: AuthActions.FP_RESET_TYPE_EMAIL_FAILED,
+      payload: {
+        value
+      }
+    };
+  }
+
 //==========================================================
 //SearchCards
 //===========================================================

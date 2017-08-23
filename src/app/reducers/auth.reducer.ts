@@ -230,27 +230,45 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         fp_user_exists: false
       });
 
-    case AuthActions.FP_RESET_TYPE:
-      // console.log('FP_RESET_TYPE');
-      // console.log(payload);
+    /* reset pass with phone */
+    case AuthActions.FP_RESET_TYPE_PHONE:
       return Object.assign({}, state, {
         fp_user_input: payload.value
       });
 
-    case AuthActions.FP_RESET_TYPE_SUCCESS:
+    case AuthActions.FP_RESET_TYPE_PHONE_SUCCESS:
       // assign success values
-      let res = [];
-      console.log('FP_RESET_TYPE_SUCCESS');
-      console.log(payload);
-      if (payload['SUCCESS']) { res = payload['SUCCESS']; }
+      let resPhone = [];
+      if (payload['SUCCESS']) { resPhone = payload['SUCCESS']; }
       return Object.assign({}, state, {
         fp_user_input: payload.value
       });
 
-    case AuthActions.FP_RESET_TYPE_FAILED:
+    case AuthActions.FP_RESET_TYPE_PHONE_FAILED:
       return Object.assign({}, state, {
         fp_user_input: payload.value
       });
+    /* reset pass with phone */
+
+    /* reset pass with email */
+    case AuthActions.FP_RESET_TYPE_EMAIL:
+    return Object.assign({}, state, {
+      fp_user_input: payload.value
+    });
+
+  case AuthActions.FP_RESET_TYPE_EMAIL_SUCCESS:
+    // assign success values
+    let resEmail = [];
+    if (payload['SUCCESS']) { resEmail = payload['SUCCESS']; }
+    return Object.assign({}, state, {
+      fp_user_input: payload.value
+    });
+
+  case AuthActions.FP_RESET_TYPE_EMAIL_FAILED:
+    return Object.assign({}, state, {
+      fp_user_input: payload.value
+    });
+  /* reset pass with email */
 
     default:
       return state;

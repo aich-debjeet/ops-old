@@ -212,9 +212,15 @@ export class AuthService {
             .map((data) => data.json());
     }
 
-  fpResetType(req: any) {
-    const headers = new Headers({ 'Content-Type': 'application/json'});
-    return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: headers })
-      .map((data: Response) => data.json());
-  }
+    fpResetTypePhone(req: any) {
+        const headers = new Headers({ 'Content-Type': 'application/json'});
+        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: headers })
+        .map((data: Response) => data.json());
+    }
+
+    fpResetTypeEmail(req: any) {
+        const headers = new Headers({ 'Content-Type': 'application/json'});
+        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: headers })
+        .map((data: Response) => data.json());
+    }
 }

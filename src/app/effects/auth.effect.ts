@@ -134,23 +134,37 @@ export class AuthEffect {
     .ofType(AuthActions.FP_USER_EXISTS_SUCCESS)
     .map(() => this.router.navigateByUrl('/account/send_password_reset' ));
 
+  /* reset with phone */
   @Effect()
-  fpResetType$ = this.actions$
-    .ofType(AuthActions.FP_RESET_TYPE)
+  fpResetTypePhone$ = this.actions$
+    .ofType(AuthActions.FP_RESET_TYPE_PHONE)
     .map(toPayload)
-    .switchMap((payload) => this.authService.fpResetType(payload)
-      .map(res => ({ type: AuthActions.FP_RESET_TYPE_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: AuthActions.FP_RESET_TYPE_FAILED, payload: res }))
+    .switchMap((payload) => this.authService.fpResetTypePhone(payload)
+      .map(res => ({ type: AuthActions.FP_RESET_TYPE_PHONE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.FP_RESET_TYPE_PHONE_FAILED, payload: res }))
     );
 
   @Effect()
-  fpResetTypeSuccess$ = this.actions$
-    .ofType(AuthActions.FP_RESET_TYPE_SUCCESS)
-    .map((response) => {
-      console.log('reset success response: ');
-      console.log(response);
-    })
-    // .map(() => this.router.navigateByUrl('/account/' ));
+  fpResetTypePhoneSuccess$ = this.actions$
+    .ofType(AuthActions.FP_RESET_TYPE_PHONE_SUCCESS)
+    .map(() => this.router.navigateByUrl('/account/confirm_pin_rest' ));
+  /* reset with phone */
+
+  /* reset with email */
+  @Effect()
+  fpResetTypeEmail$ = this.actions$
+    .ofType(AuthActions.FP_RESET_TYPE_EMAIL)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.fpResetTypeEmail(payload)
+      .map(res => ({ type: AuthActions.FP_RESET_TYPE_EMAIL_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.FP_RESET_TYPE_EMAIL_FAILED, payload: res }))
+    );
+
+  @Effect()
+  fpResetTypeEmailSuccess$ = this.actions$
+    .ofType(AuthActions.FP_RESET_TYPE_EMAIL_SUCCESS)
+    .map(() => this.router.navigateByUrl('/account/reset_mail_send' ));
+  /* reset with email */
 
   constructor(
       private actions$: Actions,
