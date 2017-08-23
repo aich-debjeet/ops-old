@@ -133,9 +133,14 @@ export class AuthService {
             .map((data: Response) => data.json());
     }
 
+    /**
+     * Check if User Exists
+     * @param reqData
+     */
+
     fpUserExists(reqData: any) {
-        return this.http.post(this.apiLink + '/portal/auth/forgotPassword/post', reqData)
-            .map((data: Response) => data.json());
+      return this.http.post(this.apiLink + '/portal/auth/forgotPassword/post', reqData)
+          .map((data: Response) => data.json());
     }
 
     emailUser(email: string) {

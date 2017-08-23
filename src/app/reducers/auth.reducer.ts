@@ -202,28 +202,23 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         success: true
       });
 
+    // Forgot Password
     case AuthActions.FP_USER_EXISTS:
       return Object.assign({}, state, {
-        fp_user_exists: false,
-        success: true
+        fp_user_exists: false
       });
 
     case AuthActions.FP_USER_EXISTS_SUCCESS:
-      console.log('test success: ')
-      console.log(payload)
-
       return Object.assign({}, state, {
         fp_user_exists: true,
-        completed: payload,
-        success: true
+        fp_user_options: payload
       });
 
     case AuthActions.FP_USER_EXISTS_FAILED:
-      console.log('test failed: ')
-      console.log(payload)
+      // console.log('test failed: ')
+      // console.log(payload)
       return Object.assign({}, state, {
-        fp_user_exists: false,
-        success: false
+        fp_user_exists: false
       });
 
     default:
