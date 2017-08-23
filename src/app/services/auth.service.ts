@@ -223,4 +223,10 @@ export class AuthService {
         return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: headers })
         .map((data: Response) => data.json());
     }
+
+    fpSubmitOtp(req: any) {
+        const headers = new Headers({ 'Content-Type': 'application/json'});
+        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: headers })
+        .map((data: Response) => data.json());
+    }
 }

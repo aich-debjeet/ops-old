@@ -21,6 +21,10 @@ export class AuthActions {
   static OTP_CHECK_SUCCESS = 'OTP_CHECK_SUCCESS';
   static OTP_CHECK_FAILED = 'OTP_CHECK_FAILED';
 
+  static FP_SUBMIT_OTP = 'FP_SUBMIT_OTP';
+  static FP_SUBMIT_OTP_SUCCESS = 'FP_SUBMIT_OTP_SUCCESS';
+  static FP_SUBMIT_OTP_FAILED = 'FP_SUBMIT_OTP_FAILED';
+
   static USER_EXISTS_CHECK = 'USER_EXISTS_CHECK';
   static USER_EXISTS_SUCCESS = 'USER_EXISTS_SUCCESS';
   static USER_EXISTS_FAILED = 'USER_EXISTS_FAILED';
@@ -458,34 +462,63 @@ export class AuthActions {
     };
   }
 
-//==========================================================
-//SearchCards
-//===========================================================
+  // ==========================================================
+  // SearchCards
+  // ===========================================================
 
-SEARCH_CARDS(value: Login): Action {
-  return {
-    type: AuthActions.SEARCH_CARDS,
-    payload: {
-      value
-    }
-  };
-}
+  SEARCH_CARDS(value: Login): Action {
+    return {
+      type: AuthActions.SEARCH_CARDS,
+      payload: {
+        value
+      }
+    };
+  }
 
-SEARCH_CARDS_SUCCESS(value: Login): Action {
-  return {
-    type: AuthActions.SEARCH_CARDS_SUCCESS,
-    payload: {
-      value
-    }
-  };
-}
+  SEARCH_CARDS_SUCCESS(value: Login): Action {
+    return {
+      type: AuthActions.SEARCH_CARDS_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
 
-SEARCH_CARDS_FAILED(error: any): Action {
-  return {
-    type: AuthActions.SEARCH_CARDS_FAILED,
-    payload: error
-  };
-}
+  SEARCH_CARDS_FAILED(error: any): Action {
+    return {
+      type: AuthActions.SEARCH_CARDS_FAILED,
+      payload: error
+    };
+  }
 
+  // ===================================
+  //  FP SUBMIT OTP
+  // -----------------------------------
+  fpSubmitOtp(value): Action {
+    return {
+      type: AuthActions.FP_SUBMIT_OTP,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpSubmitOtpSuccess(value): Action {
+    return {
+      type: AuthActions.FP_SUBMIT_OTP_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpSubmitOtpFailed(value): Action {
+    return {
+      type: AuthActions.FP_SUBMIT_OTP_FAILED,
+      payload: {
+        value
+      }
+    };
+  }
 
 }

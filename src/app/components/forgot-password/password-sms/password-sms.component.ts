@@ -5,6 +5,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Login, initialTag } from '../../../models/auth.model';
 
+// Action
+import { AuthActions } from '../../../actions/auth.action'
+
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -16,19 +19,47 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class PasswordSmsComponent {
 
+  otpForm: FormGroup;
   tagState$: Observable<Login>;
   forgotP = initialTag;
 
   constructor(private fb: FormBuilder, private store: Store<Login>,  private router: Router) {
 
+    this.otpForm = fb.group({
+      'otpToSubmit': ['', Validators.required],
+    })
+
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       this.forgotP = state;
+      console.log('initial state: ');
+      console.log(this.forgotP);
       // send back to forgot page landing directly on this page
       if (!this.forgotP.fp_user_options) {
         this.router.navigate(['account/password_reset']);
       }
     });
   }
+
+  submitForm(value: any) {
+    console.log(value);
+
+    const form = {
+      'forgetPasswordtype': '',
+      'value': '',
+      'cType': 'phone',
+      'otp': ''
+    }
+
+    // preparing req params
+    form.forgetPasswordtype = 'validateOTP';
+    form.cType = 'phone';
+    form.value = this.forgotP.fp_user_input;
+    form.otp = value.otpToSubmit;
+
+    this.store.dispatch({ type: AuthActions.FP_SUBMIT_OTP, payload: form });
+
+  }
+
 
 }

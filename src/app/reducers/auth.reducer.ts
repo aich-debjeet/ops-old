@@ -241,12 +241,12 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       let resPhone = [];
       if (payload['SUCCESS']) { resPhone = payload['SUCCESS']; }
       return Object.assign({}, state, {
-        fp_user_input: payload.value
+        reset_phone_response: payload.value
       });
 
     case AuthActions.FP_RESET_TYPE_PHONE_FAILED:
       return Object.assign({}, state, {
-        fp_user_input: payload.value
+        status: 'failed'
       });
     /* reset pass with phone */
 
@@ -261,12 +261,12 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     let resEmail = [];
     if (payload['SUCCESS']) { resEmail = payload['SUCCESS']; }
     return Object.assign({}, state, {
-      fp_user_input: payload.value
+      reset_email_response: payload.value
     });
 
   case AuthActions.FP_RESET_TYPE_EMAIL_FAILED:
     return Object.assign({}, state, {
-      fp_user_input: payload.value
+      status: 'failed'
     });
   /* reset pass with email */
 

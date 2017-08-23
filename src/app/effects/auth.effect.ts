@@ -166,6 +166,22 @@ export class AuthEffect {
     .map(() => this.router.navigateByUrl('/account/reset_mail_send' ));
   /* reset with email */
 
+  /* otp submit */
+  @Effect()
+  fpSubmitOtp$ = this.actions$
+    .ofType(AuthActions.FP_SUBMIT_OTP)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.fpSubmitOtp(payload)
+      .map(res => ({ type: AuthActions.FP_SUBMIT_OTP_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.FP_SUBMIT_OTP_FAILED, payload: res }))
+    );
+
+  @Effect()
+  fpSubmitOtpSuccess$ = this.actions$
+    .ofType(AuthActions.FP_SUBMIT_OTP_SUCCESS)
+    .map(() => this.router.navigateByUrl('/account/reset_mail_send' ));
+  /* otp submit */
+
   constructor(
       private actions$: Actions,
       private authService: AuthService,
