@@ -139,14 +139,9 @@ export class AuthEffect {
     .ofType(AuthActions.FP_RESET_TYPE)
     .map(toPayload)
     .switchMap((payload) => this.authService.fpResetType(payload)
-      // .map(res => {
-      //   console.log('FP_RESET_TYPE success resp: ');
-      //   console.log(res);
-      // })
       .map(res => ({ type: AuthActions.FP_RESET_TYPE_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: AuthActions.FP_RESET_TYPE_FAILED, payload: res }))
     );
-    // .map(() => this.router.navigateByUrl('/account/login_check_mail' ));
 
   @Effect()
   fpResetTypeSuccess$ = this.actions$

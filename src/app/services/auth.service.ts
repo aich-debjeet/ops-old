@@ -213,11 +213,8 @@ export class AuthService {
     }
 
   fpResetType(req: any) {
-    const headers = new Headers();
-    const reqOptions = new RequestOptions({ headers: headers });
-    headers.append('Content-Type', 'application/json');
-
-    return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, reqOptions)
-      .map((data: Response) => { data = data.json() });
+    const headers = new Headers({ 'Content-Type': 'application/json'});
+    return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: headers })
+      .map((data: Response) => data.json());
   }
 }
