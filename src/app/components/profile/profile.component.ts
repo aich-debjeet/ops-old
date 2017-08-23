@@ -35,7 +35,8 @@ export class ProfileComponent implements OnInit {
       this.userProfile = state;
     });
 
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_PROFILE });
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
 
   }
 

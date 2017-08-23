@@ -70,17 +70,7 @@ export class ApiService {
   }
   /* ------------------------- pin/unpin channel ------------------------- */
 
-  /* ------------------------- get logged in users profile ------------------------- */
-  getLoggedInProfile() {
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    var token = currentUser.access_token; // your token
-
-    let headers = new Headers({ 'Content-Type': 'application/json'}); 
-    headers.append('Authorization','Bearer '+token);
-
-    return this.http.get(`${this.apiLink}/portal/loggedInProfile`, { headers: headers })
-        .map((data: Response) => data.json());
-  }
+  
   /* ------------------------- get logged in users profile ------------------------- */
 
   /* ------------------------- get logged in users media ------------------------- */

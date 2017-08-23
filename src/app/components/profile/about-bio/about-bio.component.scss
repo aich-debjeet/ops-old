@@ -1,0 +1,71 @@
+
+
+// about section -------------------------------------------
+    .panel-heading {
+        padding: 0px 16px;
+    }
+    .about_padding24 {
+        padding: 32px;
+    }
+    .ops_heading12 {
+        text-transform: uppercase;
+    }
+    .ops_subheading {
+        margin: 16px 0;
+    }
+    #about_bio {
+        .table > tbody > tr > th,
+        .table > tbody > tr > td {
+            border-top: none;
+            padding: 16px 0;
+        }
+        .table > tbody > tr {
+            .ops_subheading {
+                color: #333333;
+            }
+        }
+    }
+    #about_work,
+    #about_awards,
+    #about_education {
+        padding: 16px 32px;
+        .overview_section {
+            .sm_panel_body {
+                padding: 16px 0;
+                .add_plus {
+                    width: 50px;
+                    height: 50px;
+                    border: solid 1px #e5e5e5;
+                    border-radius: 3px;
+                    color: #333;
+                    font-size: 32px;
+                    text-align: center;
+                }
+                .sm_panel_right {
+                    .padd_t12 {
+                        padding-top: 12px;
+                    }
+                    p {
+                        font-size: 14px;
+                        text-align: left;
+                        color: #979797;
+                        padding-top: 10px;
+                    }
+                }
+            }
+        }
+    }
+    .home_tabs {
+        .nav > li > a {
+            padding: 15px 2px;
+            margin: 0 16px;
+        }
+        .nav-tabs > li.active > a,
+        .nav-tabs > li.active > a:hover,
+        .nav-tabs > li.active > a:focus {
+            color: #ff7b84;
+            background-color: transparent;
+            border-bottom: solid 3px #ff7b84;
+            cursor: default;
+        }
+    }

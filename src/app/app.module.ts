@@ -34,6 +34,8 @@ import { MessageEffect } from './effects/message.effects';
 import { UserSearchEffect } from './effects/user-search.effect';
 
 // Services
+import { ServicesModule } from './services/services.module';
+import { TokenService } from './helpers/token.service';
 import { AuthService } from './services/auth.service';
 
 import { SharedModule } from './shared/shared.module';
@@ -58,17 +60,15 @@ import { DashboardSecondaryNavbarComponent } from './components/dashboard/dashbo
 import { DashboardWidgetCalendarComponent } from './components/dashboard/dashboard-widget-calendar/dashboard-widget-calendar.component';
 import { DashboardWidgetEventsComponent } from './components/dashboard/dashboard-widget-events/dashboard-widget-events.component';
 import { DashboardWidgetProjectsComponent } from './components/dashboard/dashboard-widget-projects/dashboard-widget-projects.component';
-import { DashboardWidgetCommunitiesComponent } from './components/dashboard/dashboard-widget-communities/dashboard-widget-communities.component';
-import { DashboardWidgetOpportunitiesComponent } from './components/dashboard/dashboard-widget-opportunities/dashboard-widget-opportunities.component';
 import { PopularArtistsComponent } from './shared/popular-artists/popular-artists.component';
 import { NearestEventsComponent } from './shared/nearest-events/nearest-events.component';
 import { OpportunitiesComponent } from './shared/opportunities/opportunities.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
-//import { SearchIconComponent } from './components/search-icon/search-icon.component';
 
 import { reducer } from './app.reducer';
+import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.component';
 
 @NgModule({
   declarations: [
@@ -92,21 +92,20 @@ import { reducer } from './app.reducer';
     DashboardWidgetCalendarComponent,
     DashboardWidgetEventsComponent,
     DashboardWidgetProjectsComponent,
-    DashboardWidgetCommunitiesComponent,
-    DashboardWidgetOpportunitiesComponent,
     PopularArtistsComponent,
     NearestEventsComponent,
     OpportunitiesComponent,
     ExploreComponent,
     ChannelListComponent,
     LogoutHomeComponent,
-    //SearchIconComponent,
+    ProfileSliderComponent,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     SharedModule,
     FormsModule,
+    ServicesModule,
     HttpModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
@@ -117,7 +116,7 @@ import { reducer } from './app.reducer';
     EffectsModule.run(MessageEffect),
     EffectsModule.run(UserSearchEffect)
   ],
-  providers: [AuthService, AuthGuard, ApiService],
+  providers: [AuthService, AuthGuard, ApiService, TokenService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

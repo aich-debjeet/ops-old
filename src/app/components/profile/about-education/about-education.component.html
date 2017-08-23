@@ -1,0 +1,29 @@
+<div id="about_education">
+  <div class="row">
+      <div class="col-md-6 col-sm-6 overview_section">
+          <div class="row sm_panel_body">
+              <div class="col-md-2 sm_panel_left">
+                  <a href="">
+                      <div class="add_plus">+</div>
+                  </a>
+              </div>
+              <div class="col-md-8 sm_panel_right">
+                  <h3 class="padd_t12">Add education details</h3>
+              </div>
+          </div>
+
+          <div class="row sm_panel_body" *ngFor="let work of aboutWork.profileDetails?.extra.awards">
+              <div class="col-md-2 sm_panel_left">
+                  <figure class="avatar_overview">
+                      <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
+                  </figure>
+              </div>
+              <div class="col-md-8 sm_panel_right">
+                  <h3>{{ work.role }}<span> at </span> {{ work.organizationName }}</h3>
+                  <p>From {{ work.from | date:'MMMM, y'}}</p>
+              </div>
+          </div>
+      </div>
+
+  </div>
+</div>
