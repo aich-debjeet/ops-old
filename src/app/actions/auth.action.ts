@@ -41,6 +41,10 @@ export class AuthActions {
   static FP_RESET_TYPE_EMAIL_SUCCESS = 'FP_RESET_TYPE_EMAIL_SUCCESS';
   static FP_RESET_TYPE_EMAIL_FAILED = 'FP_RESET_TYPE_EMAIL_FAILED';
 
+  static FP_CREATE_PASS = 'FP_CREATE_PASS';
+  static FP_CREATE_PASS_SUCCESS = 'FP_CREATE_PASS_SUCCESS';
+  static FP_CREATE_PASS_FAILED = 'FP_CREATE_PASS_FAILED';
+
   static SEARCH_CARDS = 'SEARCH_CARDS';
   static SEARCH_CARDS_SUCCESS = 'SEARCH_CARDS_SUCCESS';
   static SEARCH_CARDS_FAILED = 'SEARCH_CARDS_FAILED';
@@ -515,6 +519,36 @@ export class AuthActions {
   fpSubmitOtpFailed(value): Action {
     return {
       type: AuthActions.FP_SUBMIT_OTP_FAILED,
+      payload: {
+        value
+      }
+    };
+  }
+
+    // ===================================
+  //  FP CREATE PASS
+  // -----------------------------------
+  fpCreatePass(value): Action {
+    return {
+      type: AuthActions.FP_CREATE_PASS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpCreatePassSuccess(value): Action {
+    return {
+      type: AuthActions.FP_CREATE_PASS_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpCreatePassFailed(value): Action {
+    return {
+      type: AuthActions.FP_CREATE_PASS_FAILED,
       payload: {
         value
       }

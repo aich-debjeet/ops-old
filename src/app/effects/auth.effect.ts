@@ -179,7 +179,7 @@ export class AuthEffect {
   @Effect()
   fpSubmitOtpSuccess$ = this.actions$
     .ofType(AuthActions.FP_SUBMIT_OTP_SUCCESS)
-    .map(() => this.router.navigateByUrl('/account/reset_mail_send' ));
+    .map(() => this.router.navigateByUrl('/account/password_create' ));
   /* otp submit */
 
   constructor(

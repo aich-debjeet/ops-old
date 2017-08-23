@@ -7,10 +7,12 @@ import { ForgotPasswordComponent } from './forgot-password.component';
 import { PasswordOptionComponent } from './password-option/password-option.component';
 import { PasswordMailComponent } from './password-mail/password-mail.component';
 import { PasswordSmsComponent } from './password-sms/password-sms.component';
+import { PasswordCreateComponent } from './password-create/password-create.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'password_reset' , pathMatch: 'full' },
     { path: 'password_reset', component: ForgotPasswordComponent },
+    { path: 'password_create', component: PasswordCreateComponent },
     { path: 'send_password_reset', component: PasswordOptionComponent },
     { path: 'reset_mail_send', component: PasswordMailComponent },
     { path: 'confirm_pin_rest', component: PasswordSmsComponent }
@@ -27,6 +29,6 @@ const routes: Routes = [
   declarations: [
     ForgotPasswordComponent,
     PasswordOptionComponent,
-    PasswordMailComponent, PasswordSmsComponent]
+    PasswordMailComponent, PasswordSmsComponent, PasswordCreateComponent]
 })
 export class ForgotPasswordModule { }
