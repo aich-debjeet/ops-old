@@ -2,7 +2,8 @@ export class Login {
  completed: string[];
  loading = false;
  success = true;
- user_unique= false;
+ user_unique = false;
+ fp_user_exists?: false
 }
 
 export class Register {
@@ -53,7 +54,8 @@ export const initialTag: Login = {
   completed: [],
   loading:  false,
   success: true,
-  user_unique: false
+  user_unique: false,
+  fp_user_exists: false
 };
 
 export class Follow {

@@ -5,7 +5,11 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/operator/ignoreElements';
+
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
 import { AuthActions } from '../actions/auth.action';
@@ -124,8 +128,16 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.FP_USER_EXISTS_FAILED, payload: res }))
     );
 
+  @Effect()
+  forgotOTPPage$ = this.actions$
+    .ofType(AuthActions.FP_USER_EXISTS_SUCCESS)
+    .do(action => {
+      this.router.navigateByUrl('/account/send_password_reset')
+    });
+
   constructor(
       private actions$: Actions,
-      private authService: AuthService
+      private authService: AuthService,
+      private router: Router
     ) {}
 }

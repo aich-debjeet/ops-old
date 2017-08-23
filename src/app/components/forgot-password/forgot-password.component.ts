@@ -20,37 +20,26 @@ import { Login, initialTag } from '../../models/auth.model';
 export class ForgotPasswordComponent {
   forgotPass: FormGroup;
   tagState$: Observable<Login>;
-  petTag = initialTag;
+  forgotP = initialTag;
 
   constructor(fb: FormBuilder, private store: Store<Login>, private router: Router, private route: ActivatedRoute) {
-    console.log('ForgotPasswordModule');
+
     this.forgotPass = fb.group({
       identity: ['', Validators.required]
     });
     this.tagState$ = store.select('loginTags');
-    // this.tagState$.subscribe(v => console.log(v));
     this.tagState$.subscribe((state) => {
-      this.petTag = state;
-      console.log('new state: ');
-      console.log(this.petTag);
+      this.forgotP = state;
     });
   }
-  submitForm(value: any) {
-    // console.log(value);
-    if (this.forgotPass.valid === true) {
-      const form = {
-        'forgetPasswordtype': 'userCheck',
-        'value': value.identity
-      }
-      this.store.dispatch({ type: AuthActions.FP_USER_EXISTS, payload: form});
-      this.tagState$.subscribe(
-        resp => {
-          console.log('response: ');
-          console.log(resp.completed);
-        }
-      )
-      // console.log(value);
-    }
-  }
 
+  //
+  submitForm(value: any) {
+    const form = {
+      'forgetPasswordtype': 'userCheck',
+      'value': value.identity
+    }
+
+    this.store.dispatch({ type: AuthActions.FP_USER_EXISTS, payload: form });
+  }
 }

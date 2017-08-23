@@ -332,7 +332,7 @@ export class AuthActions {
   // ===================================
   //  USER EXSIST CHECK for Forgot Password
   // -----------------------------------
-  fpUserExsistCheck(value): Action {
+  fpUserExistCheck(value): Action {
     return {
       type: AuthActions.FP_USER_EXISTS,
       payload: {
@@ -341,7 +341,7 @@ export class AuthActions {
     };
   }
 
-  fpUserExsistSuccess(value): Action {
+  fpUserExistSuccess(value): Action {
     return {
       type: AuthActions.FP_USER_EXISTS_SUCCESS,
       payload: {
@@ -350,7 +350,7 @@ export class AuthActions {
     };
   }
 
-  fpUserExsistFailed(value): Action {
+  fpUserExistFailed(value): Action {
     return {
       type: AuthActions.FP_USER_EXISTS_FAILED,
       payload: {
