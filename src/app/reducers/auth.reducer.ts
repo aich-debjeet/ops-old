@@ -204,14 +204,23 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     // Forgot Password
     case AuthActions.FP_USER_EXISTS:
+      console.log('user exist: ');
+      console.log(payload);
       return Object.assign({}, state, {
-        fp_user_exists: false
+        fp_user_exists: false,
+        fp_user_input: payload.value
       });
 
     case AuthActions.FP_USER_EXISTS_SUCCESS:
+      // assign success values
+      let result = [];
+      if (payload['SUCCESS']) {
+        result = payload['SUCCESS'];
+      }
+
       return Object.assign({}, state, {
         fp_user_exists: true,
-        fp_user_options: payload
+        fp_user_options: result
       });
 
     case AuthActions.FP_USER_EXISTS_FAILED:
@@ -219,6 +228,28 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       // console.log(payload)
       return Object.assign({}, state, {
         fp_user_exists: false
+      });
+
+    case AuthActions.FP_RESET_TYPE:
+      // console.log('FP_RESET_TYPE');
+      // console.log(payload);
+      return Object.assign({}, state, {
+        fp_user_input: payload.value
+      });
+
+    case AuthActions.FP_RESET_TYPE_SUCCESS:
+      // assign success values
+      let res = [];
+      console.log('FP_RESET_TYPE_SUCCESS');
+      console.log(payload);
+      if (payload['SUCCESS']) { res = payload['SUCCESS']; }
+      return Object.assign({}, state, {
+        fp_user_input: payload.value
+      });
+
+    case AuthActions.FP_RESET_TYPE_FAILED:
+      return Object.assign({}, state, {
+        fp_user_input: payload.value
       });
 
     default:

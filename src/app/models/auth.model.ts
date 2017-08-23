@@ -3,7 +3,9 @@ export class Login {
  loading = false;
  success = true;
  user_unique = false;
- fp_user_exists?: false
+ fp_user_exists?: false;
+ fp_user_options?: any;
+ fp_user_input?: any;
 }
 
 export class Register {

@@ -29,6 +29,10 @@ export class AuthActions {
   static FP_USER_EXISTS_SUCCESS = 'FP_USER_EXISTS_SUCCESS';
   static FP_USER_EXISTS_FAILED = 'FP_USER_EXISTS_FAILED';
 
+  static FP_RESET_TYPE = 'FP_RESET_TYPE';
+  static FP_RESET_TYPE_SUCCESS = 'FP_RESET_TYPE_SUCCESS';
+  static FP_RESET_TYPE_FAILED = 'FP_RESET_TYPE_FAILED';
+
   static SEARCH_CARDS = 'SEARCH_CARDS';
   static SEARCH_CARDS_SUCCESS = 'SEARCH_CARDS_SUCCESS';
   static SEARCH_CARDS_FAILED = 'SEARCH_CARDS_FAILED';
@@ -389,6 +393,37 @@ export class AuthActions {
       }
     };
   }
+
+  // ===================================
+  //  FP RESET SELECT TYPE
+  // -----------------------------------
+
+  fpResetPassType(value): Action {
+    return {
+      type: AuthActions.FP_RESET_TYPE,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpResetPassTypeSuccess(value): Action {
+    return {
+      type: AuthActions.FP_RESET_TYPE_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpResetPassTypeFailed(value): Action {
+    return {
+      type: AuthActions.FP_RESET_TYPE_FAILED,
+      payload: {
+        value
+      }
+    };
+  } 
 //==========================================================
 //SearchCards
 //===========================================================

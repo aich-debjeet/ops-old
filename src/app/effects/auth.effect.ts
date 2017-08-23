@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/operator/ignoreElements';
+import 'rxjs/add/operator/mapTo';
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -131,9 +132,30 @@ export class AuthEffect {
   @Effect()
   forgotOTPPage$ = this.actions$
     .ofType(AuthActions.FP_USER_EXISTS_SUCCESS)
-    .do(action => {
-      this.router.navigateByUrl('/account/send_password_reset')
-    });
+    .map(() => this.router.navigateByUrl('/account/send_password_reset' ));
+
+  @Effect()
+  fpResetType$ = this.actions$
+    .ofType(AuthActions.FP_RESET_TYPE)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.fpResetType(payload)
+      // .map(res => {
+      //   console.log('FP_RESET_TYPE success resp: ');
+      //   console.log(res);
+      // })
+      .map(res => ({ type: AuthActions.FP_RESET_TYPE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.FP_RESET_TYPE_FAILED, payload: res }))
+    );
+    // .map(() => this.router.navigateByUrl('/account/login_check_mail' ));
+
+  @Effect()
+  fpResetTypeSuccess$ = this.actions$
+    .ofType(AuthActions.FP_RESET_TYPE_SUCCESS)
+    .map((response) => {
+      console.log('reset success response: ');
+      console.log(response);
+    })
+    // .map(() => this.router.navigateByUrl('/account/' ));
 
   constructor(
       private actions$: Actions,

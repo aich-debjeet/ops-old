@@ -24,6 +24,10 @@ export class PasswordSmsComponent {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       this.forgotP = state;
+      // send back to forgot page landing directly on this page
+      if (!this.forgotP.fp_user_options) {
+        this.router.navigate(['account/password_reset']);
+      }
     });
   }
 

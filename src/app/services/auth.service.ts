@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../environments/environment';
 import { ArtistFollow, initialArtistFollow } from '../models/auth.model';
@@ -211,4 +211,13 @@ export class AuthService {
         return this.http.put(this.apiLink + '/portal/searchprofiles/Industry', value, { headers: headers })
             .map((data) => data.json());
     }
+
+  fpResetType(req: any) {
+    const headers = new Headers();
+    const reqOptions = new RequestOptions({ headers: headers });
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, reqOptions)
+      .map((data: Response) => { data = data.json() });
+  }
 }

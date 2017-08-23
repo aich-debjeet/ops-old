@@ -33,7 +33,7 @@ export class ForgotPasswordComponent {
     });
   }
 
-  //
+  // submit the identity
   submitForm(value: any) {
     const form = {
       'forgetPasswordtype': 'userCheck',
