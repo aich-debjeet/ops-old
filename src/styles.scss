@@ -104,3 +104,79 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
     margin-top: -47%;
   }
 }
+
+/** Selector **/
+
+@import url(https://joshuajohnson.co.uk/Choices/assets/styles/css/choices.min.css?version=3.0.2);
+
+.cs-icon-input{
+  float: left;
+  padding: 8px;
+}
+.choices{
+  /* width: 70px !important; */
+  float: left;
+  font-family: arial;
+}
+
+.choices[data-type*=select-one]:after {
+  content: "";
+  height: 0;
+  width: 0;
+  border-style: solid;
+  border-color: #cabcbc transparent transparent transparent;
+  border-width: 5px;
+  position: absolute;
+  right: 7px;
+  top: 13px;
+  margin-top: 0;
+  pointer-events: none;
+}
+
+.choices__inner {
+  /* display: inline-block; */
+  vertical-align: top;
+  width: 100%;
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  font-size: 14px;
+  min-height: 44px;
+  overflow: hidden;
+}
+.cc-code,
+.hh{
+  display: none;
+}
+.is-open .hh,
+.is-open .cc-code{
+  display: block;
+}
+
+.choices__list--dropdown.is-active {
+    display: block;
+    width: 300px;
+}
+.choices__inner{
+  padding: 0;
+}
+
+.choices__list.choices__list--dropdown.is-active .hh {
+    display: block;
+    font-weight: 100;
+    color: #777;
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+
+.choices__list--dropdown{
+  color: #000;
+  font-family: 'open sans', sans-serif;
+}
+
+app-country-selector {
+  margin-top: -29px;
+  display: block;
+  margin-bottom: 30px;
+}
