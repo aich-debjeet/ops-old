@@ -210,6 +210,24 @@ export class AuthEffect {
       // console.log(response);
     });
 
+  @Effect()
+  userSubmitSkills$ = this.actions$
+    .ofType(AuthActions.USER_SUBMIT_SKILLS)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.saveSelectedSkills(payload)
+      .map(res => ({ type: AuthActions.USER_SUBMIT_SKILLS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.USER_SUBMIT_SKILLS_FAILED, payload: res }))
+    );
+
+  @Effect()
+  userSubmitSkillsSuccess$ = this.actions$
+    .ofType(AuthActions.USER_SUBMIT_SKILLS_SUCCESS)
+    .map((response) => {
+      if (response.payload.SUCCESS !== null || response.payload.SUCCESS !== undefined) {
+        this.router.navigateByUrl('/profile');
+      }
+    })
+
   constructor(
       private actions$: Actions,
       private authService: AuthService,

@@ -69,6 +69,7 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
 
 import { reducer } from './app.reducer';
 import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.
     ChannelListComponent,
     LogoutHomeComponent,
     ProfileSliderComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

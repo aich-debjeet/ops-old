@@ -184,6 +184,24 @@ export class AuthService {
         .map((data: Response) => data.json());
     }
 
+    /**
+     * Add a save Skills
+     * @param skills array all skills
+     */
+    saveSelectedSkills(skillsArr) {
+        console.log(skillsArr);
+        // Headers
+        const token = this.getToken();
+        let headers = new Headers({ 'Content-Type': 'application/json'});
+        headers.append('Authorization', 'Bearer ' + token);
+
+        // Object
+        const skills = { profileTypeList: skillsArr }
+
+        return this.http.put(this.apiLink + '/portal/profile/updateProfile', skills, { headers: headers })
+          .map((data: Response) => data.json());
+      }
+
     getAllSkill() {
       console.log('loading all the skills');
       return this.http.get(this.apiLink + '/portal/industry')
