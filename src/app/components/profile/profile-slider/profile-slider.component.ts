@@ -41,4 +41,11 @@ export class ProfileSliderComponent implements OnInit {
   ngOnInit() {
 
   }
+
+  /**
+   * Profile Page Edit
+   */
+  profileEdit() {
+    console.log('effect log');
+  }
 }
