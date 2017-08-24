@@ -4,6 +4,7 @@ import { SharedReducer } from './reducers/shared.reducer';
 import { ProfileReducer } from './reducers/profile.reducer';
 import { MessageReducer } from './reducers/messages.reducer';
 import { UserSearchReducer } from './reducers/user-search.reducer';
+import { MediaReducer } from './reducers/media.reducer';
 
 import { combineReducers, ActionReducer } from '@ngrx/store';
 
@@ -13,7 +14,8 @@ const reducers = {
   userMediaTags: ProfileReducer,
   sentMessagesTags: MessageReducer,
   userSearchTags: UserSearchReducer,
-  receivedMessagesTags: MessageReducer
+  receivedMessagesTags: MessageReducer,
+  mediaStore: MediaReducer
 }
 
 const productionReducer = combineReducers(reducers);

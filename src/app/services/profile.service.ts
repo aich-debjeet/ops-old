@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../environments/environment';
 import { TokenService } from '../helpers/token.service';
 
-
 @Injectable()
 export class ProfileService {
 

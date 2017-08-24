@@ -129,8 +129,8 @@ export class AuthService {
     }
 
     userExists(username: string) {
-        return this.http.get(this.apiLink + '/portal/auth/' + username + '/username')
-            .map((data: Response) => data.json());
+      return this.http.get(this.apiLink + '/portal/auth/' + username + '/username')
+        .map((data: Response) => data.json());
     }
 
     emailUser(email: string) {
