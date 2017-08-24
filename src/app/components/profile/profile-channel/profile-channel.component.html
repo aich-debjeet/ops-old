@@ -1,4 +1,8 @@
 <div class=" pro_channel2 row">
-  <app-channel *ngFor="let channel of profileChannel.channelEntity; let i = index" [className]="'col-md-4 col-sm-6'" [channelData]="channel" (click)="toggleFollowBtn(i)" ></app-channel>
+  <masonry>
+      <masonry-brick class="col-md-4 col-sm-6" *ngFor="let channel of profileChannel.channelEntity; let i = index">
+        <app-channel [className]="''" [channelData]="channel" (click)="toggleFollowBtn(i)" ></app-channel>
+      </masonry-brick>
+  </masonry>
   <!--<p class="empty-value">No Channels</p>-->
 </div>

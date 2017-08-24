@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { MasonryModule } from 'angular2-masonry';
 
 import { SharedModule } from '../../shared/shared.module';
 import { ProfileComponent } from './profile.component';
@@ -53,7 +54,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MasonryModule
   ],
   declarations: [
     ProfileComponent,
