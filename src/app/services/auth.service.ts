@@ -229,4 +229,16 @@ export class AuthService {
         return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: headers })
         .map((data: Response) => data.json());
     }
+
+    fpCreatePass(req: any) {
+        // console.log('req body');
+        // console.log(req);
+        const reqBody = {
+            password: req.password,
+            token: req.activationCode
+        }
+        const headers = new Headers({ 'Content-Type': 'application/json'});
+        return this.http.put(`${this.apiLink}/portal/auth/user/change/` + req.identity, reqBody, { headers: headers })
+        .map((data: Response) => data.json());
+    }
 }

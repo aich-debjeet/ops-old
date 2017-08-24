@@ -256,22 +256,41 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       fp_user_input: payload.value
     });
 
-  case AuthActions.FP_RESET_TYPE_EMAIL_SUCCESS:
-    // assign success values
-    let resEmail = [];
-    if (payload['SUCCESS']) { resEmail = payload['SUCCESS']; }
-    return Object.assign({}, state, {
-      reset_email_response: payload.value
-    });
+    case AuthActions.FP_RESET_TYPE_EMAIL_SUCCESS:
+      // assign success values
+      let resEmail = [];
+      if (payload['SUCCESS']) { resEmail = payload['SUCCESS']; }
+      return Object.assign({}, state, {
+        reset_email_response: payload.value
+      });
 
-  case AuthActions.FP_RESET_TYPE_EMAIL_FAILED:
-    return Object.assign({}, state, {
-      status: 'failed'
-    });
-  /* reset pass with email */
+    case AuthActions.FP_RESET_TYPE_EMAIL_FAILED:
+      return Object.assign({}, state, {
+        status: 'failed'
+      });
+    /* reset pass with email */
+
+    case AuthActions.FP_CREATE_PASS:
+      return Object.assign({}, state, {
+        success: false
+      });
+
+    case AuthActions.FP_CREATE_PASS_SUCCESS:
+      // console.log('FP_CREATE_PASS_SUCCESS');
+      return Object.assign({}, state, {
+        fpCrPassSuccess: payload,
+        success: true
+      });
+
+    case AuthActions.FP_CREATE_PASS_FAILED:
+    // console.log('FP_CREATE_PASS_FAILED');
+      return Object.assign({}, state, {
+        success: false
+      });
 
     default:
       return state;
+
   }
 }
 

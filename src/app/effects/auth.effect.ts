@@ -163,7 +163,7 @@ export class AuthEffect {
   @Effect()
   fpResetTypeEmailSuccess$ = this.actions$
     .ofType(AuthActions.FP_RESET_TYPE_EMAIL_SUCCESS)
-    .map(() => this.router.navigateByUrl('/account/reset_mail_send' ));
+    .map(() => this.router.navigateByUrl('/account/reset_mail_send'));
   /* reset with email */
 
   /* otp submit */
@@ -179,8 +179,36 @@ export class AuthEffect {
   @Effect()
   fpSubmitOtpSuccess$ = this.actions$
     .ofType(AuthActions.FP_SUBMIT_OTP_SUCCESS)
-    .map(() => this.router.navigateByUrl('/account/password_create' ));
+    .map((action) => this.router.navigateByUrl('/account/password_create' + ';activation_code=' + action.payload.SUCCESS.activationCode));
   /* otp submit */
+
+  @Effect()
+  fpCreatePass$ = this.actions$
+    .ofType(AuthActions.FP_CREATE_PASS)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.fpCreatePass(payload)
+      .map(res => ({ type: AuthActions.FP_CREATE_PASS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.FP_CREATE_PASS_FAILED, payload: res }))
+    );
+
+  @Effect()
+  fpCreatePassSuccess$ = this.actions$
+    .ofType(AuthActions.FP_CREATE_PASS_SUCCESS)
+    .map((response) => {
+      console.log('FP_CREATE_PASS_SUCCESS');
+      console.log(response);
+      if (response.payload.SUCCESS !== null || response.payload.SUCCESS !== undefined) {
+        this.router.navigateByUrl('/login');
+      }
+    });
+
+  @Effect()
+  fpCreatePassFailed$ = this.actions$
+    .ofType(AuthActions.FP_CREATE_PASS_FAILED)
+    .map((response) => {
+      // console.log('crps response ERROR');
+      // console.log(response);
+    });
 
   constructor(
       private actions$: Actions,

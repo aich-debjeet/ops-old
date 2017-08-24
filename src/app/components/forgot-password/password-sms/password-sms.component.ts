@@ -23,7 +23,7 @@ export class PasswordSmsComponent {
   tagState$: Observable<Login>;
   forgotP = initialTag;
 
-  constructor(private fb: FormBuilder, private store: Store<Login>,  private router: Router) {
+  constructor(private fb: FormBuilder, private store: Store<Login>,  private router: Router, private activatedRoute: ActivatedRoute) {
 
     this.otpForm = fb.group({
       'otpToSubmit': ['', Validators.required],

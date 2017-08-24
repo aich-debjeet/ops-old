@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import { Login, initialTag } from '../../../models/auth.model';
@@ -17,13 +17,15 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './password-create.component.html',
   styleUrls: ['./password-create.component.scss']
 })
-export class PasswordCreateComponent {
+export class PasswordCreateComponent implements OnInit {
+
+  activationCode: string;
 
   createPass: FormGroup;
   tagState$: Observable<Login>;
   forgotP = initialTag;
 
-  constructor(private fb: FormBuilder, private store: Store<Login>,  private router: Router) {
+  constructor(private fb: FormBuilder, private store: Store<Login>,  private router: Router, private activatedRoute: ActivatedRoute) {
 
     this.createPass = fb.group({
       'password': ['', Validators.required],
@@ -42,15 +44,22 @@ export class PasswordCreateComponent {
     });
   }
 
-  submitForm(value: any) {
-    console.log(value);
+  // get activation code from url
+  ngOnInit() {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.activationCode = params.activation_code;
+    });
+  }
 
+  submitForm(value: any) {
+    // console.log(value);
     const form = {
-      password: value.password 
+      password: value.password,
+      activationCode: this.activationCode,
+      identity: this.forgotP.fp_user_input
     };
 
     this.store.dispatch({ type: AuthActions.FP_CREATE_PASS, payload: form });
-
   }
 
 }
