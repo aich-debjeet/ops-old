@@ -195,8 +195,8 @@ export class AuthEffect {
   fpCreatePassSuccess$ = this.actions$
     .ofType(AuthActions.FP_CREATE_PASS_SUCCESS)
     .map((response) => {
-      console.log('FP_CREATE_PASS_SUCCESS');
-      console.log(response);
+      // console.log('FP_CREATE_PASS_SUCCESS');
+      // console.log(response);
       if (response.payload.SUCCESS !== null || response.payload.SUCCESS !== undefined) {
         this.router.navigateByUrl('/login');
       }
