@@ -34,7 +34,7 @@ export class ProfileChannelComponent implements OnInit {
       this.profileChannel = state;
     });
 
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL });
+    
 
   }
 
@@ -43,6 +43,7 @@ export class ProfileChannelComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL });
   }
 
 }
