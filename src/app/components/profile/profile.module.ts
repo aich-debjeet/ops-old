@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import {ImageCropperComponent} from 'ng2-img-cropper';
 
 import { SharedModule } from '../../shared/shared.module';
 import { ProfileComponent } from './profile.component';
@@ -65,6 +66,7 @@ const routes: Routes = [
     AboutBioComponent,
     AboutWorkComponent,
     AboutAwardsComponent,
+    ImageCropperComponent,
     AboutEducationComponent
   ]
 })

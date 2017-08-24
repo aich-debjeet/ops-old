@@ -11,6 +11,7 @@ import { SharedActions } from '../../../actions/shared.action';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
 @Component({
   selector: 'app-profile-slider',
@@ -18,7 +19,9 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./profile-slider.component.scss']
 })
 export class ProfileSliderComponent implements OnInit {
-
+  changingImage: boolean;
+  data: any;
+  cropperSettings: CropperSettings;
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
   userProfile = initialTag ;
@@ -27,6 +30,16 @@ export class ProfileSliderComponent implements OnInit {
     private http: Http,
     private profileStore: Store<ProfileModal>
   ) {
+    this.cropperSettings = new CropperSettings();
+    this.cropperSettings.width = 100;
+    this.cropperSettings.height = 100;
+    this.cropperSettings.croppedWidth = 100;
+    this.cropperSettings.croppedHeight = 100;
+    this.cropperSettings.canvasWidth = 400;
+    this.cropperSettings.canvasHeight = 300;
+    this.cropperSettings.rounded = true;
+    this.data = {};
+
     this.tagState$ = this.profileStore.select('profileTags');
     // this.test = 'salabeel';
     this.tagState$.subscribe((state) => {
@@ -36,6 +49,13 @@ export class ProfileSliderComponent implements OnInit {
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
 
+  }
+
+  changingImageClick() {
+    this.changingImage = true;
+  }
+  saveImageClick() {
+    this.changingImage = false;
   }
 
   ngOnInit() {

@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class PasswordOptionComponent implements OnInit {
   resetForm: FormGroup;
-  constructor(private fb: FormBuilder, private router: Router) { 
+  constructor(private fb: FormBuilder, private router: Router) {
     this.resetForm = fb.group({
       'typePassword': ['mail', Validators.required],
     })
@@ -17,7 +17,7 @@ export class PasswordOptionComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   submitForm(value) {
@@ -27,7 +27,7 @@ export class PasswordOptionComponent implements OnInit {
     }else{
       this.router.navigate(['account/confirm_pin_rest']);
     }
-    
+
   }
 
 }
