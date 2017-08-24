@@ -39,6 +39,7 @@ import { TokenService } from './helpers/token.service';
 import { AuthService } from './services/auth.service';
 
 import { SharedModule } from './shared/shared.module';
+import { TAB_COMPONENTS  } from './shared/tabs/tabset';
 // import { ModalModule } from './modal/modal.component.module';
 
 import { ApiService } from './services/api.service';
@@ -69,6 +70,8 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
 
 import { reducer } from './app.reducer';
 import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.component';
+import { MediaComponent } from './components/media/media.component';
+
 
 @NgModule({
   declarations: [
@@ -99,6 +102,8 @@ import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.
     ChannelListComponent,
     LogoutHomeComponent,
     ProfileSliderComponent,
+    MediaComponent,
+    TAB_COMPONENTS
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { UserMedia } from '../../../models/user-media.model';
-
+import { ModalService } from '../../../shared/modal/modal.component.service';
 // action
 import { ProfileActions } from '../../../actions/profile.action';
 import { SharedActions } from '../../../actions/shared.action';
@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-profile-slider',
   templateUrl: './profile-slider.component.html',
+  providers: [ModalService],
   styleUrls: ['./profile-slider.component.scss']
 })
 export class ProfileSliderComponent implements OnInit {
@@ -25,6 +26,7 @@ export class ProfileSliderComponent implements OnInit {
 
   constructor(
     private http: Http,
+    public modalService: ModalService,
     private profileStore: Store<ProfileModal>
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
@@ -36,6 +38,11 @@ export class ProfileSliderComponent implements OnInit {
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
 
+  }
+
+  profileEdit() {
+    console.log('modal cliked');
+    this.modalService.open('profileEditWindow');
   }
 
   ngOnInit() {

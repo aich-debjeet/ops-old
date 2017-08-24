@@ -50,6 +50,9 @@
             <li class="list-line-item">
               <a href="#"><img src="/assets/img/svg/ico_message.svg"></a>
             </li>
+            <li class="list-line-item">
+              <a (click)="profileEdit()"><img src="/assets/img/svg/ico_edit.svg"></a>
+            </li>
         </ul>
       </div>
       <div class="col-md-12 col-sm-12 pro__detail__container">
@@ -90,3 +93,473 @@
   </div>
 </div>
 <router-outlet></router-outlet>
+
+
+
+<!-- edit profile pop -->
+
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow'>
+    <div class="modal-dialog modal-md " id="">
+        <div class="modal-content edit-profile_main">
+            <!-- <div class="modal-header" style="border: none;">
+                <button type="button" class="close" data-dismiss="modal"></button>
+            </div> -->
+            <div class="edit-profile_head">
+                <div class="col-md-6 padding_none">
+                    <h2>Edit Profile</h2>
+                </div>
+                <div class="col-md-6 padding_none text-right">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-sm">Save</button>
+                </div>
+            </div>
+            <!-- edit profile head end -->
+
+            <div class="edit-profile_sec_block">
+                <div class="edit-profile_sec_head" data-toggle="collapse " data-target="#basic_info">
+                    <h3 class="edit-profile_subtitle">Basic Info</h3>
+                    <div class="edit-profile_iconbox">
+                        <img src="img/svg/ico-arrow-down.svg" alt="">
+                    </div>
+                </div>
+                <!-- edit profile sec head -->
+                <div id="basic_info" class="edit-profile_content_block show" style="display: none;">
+                    <div class="editarea">
+                        <div class="form_group">
+                            <input class="form_input" required="" type="text" value="Bijoy n Devasia">
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label>Name</label>
+                        </div>
+                        <div class="form_group">
+                            <textarea class="form_input form_textarea" name="">Hi! My name is Tobias, I am creative geek from Prague. I enjoy creating eye candy solutions for web and mobile apps. Contact me at tobias@domain.com</textarea>
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label>Bio</label>
+                        </div>
+                        <div class="form_group">
+                            <input class="form_input" required="" type="text" value="tobias">
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label>Username</label>
+                        </div>
+                        <div class="form_group">
+                            <input class="form_input" required="" type="text">
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label>Skills</label>
+                            <button type="button" class="btn btn-tag btn-sm">TAGS</button>
+                        </div>
+                        <div class="form_group">
+                            <input class="form_input" type="text" required="" value="">
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label>Date of birth</label>
+                        </div>
+                        <div class="form_group">
+                            <input class="form_input" required="" type="text" value="Bangalore, India">
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label>Location</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- edit profile content block end -->
+            </div>
+            <!-- basic info end -->
+
+            <div class="edit-profile_sec_block">
+                <div class="edit-profile_sec_head" data-toggle="collapse" data-target="#contact_info">
+                    <h3 class="edit-profile_subtitle">Contact Info</h3>
+                    <div class="edit-profile_iconbox">
+                        <img src="img/svg/ico-arrow-down.svg" alt="">
+                    </div>
+                </div>
+                <!-- edit profile sec head -->
+                <div id="contact_info" class="edit-profile_content_block" style="display: none;">
+                    <div class="editarea">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form_group">
+                                    <input class="form_input" required="" type="email" value="tobias@vanschneider.com">
+                                    <span class="form_highlight"></span>
+                                    <span class="form_bar"></span>
+                                    <label>Email</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form_group">
+                                    <select class="form-control" id="sel1">
+                                        <option>Public</option>
+                                        <option>Private</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form_group">
+                                    <span id="phone" type="tel"></span>
+                                    <input class="form_input" type="text" value="+91 9895 095 605" required style="padding-left: 40px;">
+                                    <span class="form_highlight"></span>
+                                    <span class="form_bar"></span>
+                                    <label style="padding-left: 40px;">Phone Number</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form_group">
+                                    <select class="form-control" id="sel1">
+                                        <option>Public</option>
+                                        <option>Private</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form_group">
+                                    <input class="form_input" required="" type="text" value="vanschneider.com">
+                                    <span class="form_highlight"></span>
+                                    <span class="form_bar"></span>
+                                    <label>Website</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form_group">
+                                    <select class="form-control" id="sel1">
+                                        <option>Public</option>
+                                        <option>Private</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- edit profile content block end -->
+            </div>
+            <!-- contact info end -->
+
+            <div class="edit-profile_sec_block">
+                <div class="edit-profile_sec_head" data-toggle="collapse" data-target="#work">
+                    <h3 class="edit-profile_subtitle">Work</h3>
+                    <div class="edit-profile_iconbox">
+                        <img src="img/svg/ico-arrow-down.svg" alt="">
+                    </div>
+                </div>
+                <!-- edit profile sec head -->
+                <div id="work" class="edit-profile_content_block" style="display: none;">
+                    <div class="edit-profile_add_sec">
+                        <a href="#" data-toggle="collapse" data-target="#add_workplace">
+                            <div class="profile_add_ico">
+                                <div class="add_media_plus_ico">
+                                    <img src="img/svg/ico_add-grey.svg" alt="">
+                                </div>
+                            </div>
+                            <div class="profile_add_title">
+                                <h3>Add Workplace</h3>
+                            </div>
+                        </a>
+                        <div id="add_workplace" class="profile_add_det" style="display: none;">
+                            <div class="editarea">
+                                <div class="editarea_leftbar">
+                                    <div class="add_workplace_logo">
+                                        <input type="file" name="photo" id="upload-photo">
+                                        <div class="add_media_plus_ico">
+                                            <img src="img/svg/ico_add-grey.svg" alt="">
+                                        </div>
+                                    </div>
+                                    <span class="add_logo_txt">Add Photo</span>
+                                </div>
+                                <!-- left bar end -->
+                                <div class="editarea_rightbar">
+                                    <div class="form_group">
+                                        <input class="form_input" required="" type="text" value="">
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label>Company</label>
+                                    </div>
+                                    <div class="form_group">
+                                        <input class="form_input" required="" type="text" value="">
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label>Position</label>
+                                    </div>
+                                    <div class="add_workplace_time_period">
+                                        <h4>Time Period</h4>
+                                        <div class="form_group">
+                                            <input class="form_input" type="text" required="" value="">
+                                            <span class="form_highlight"></span>
+                                            <span class="form_bar"></span>
+                                            <label>from</label>
+                                        </div>
+                                        <div class="form_group">
+                                            <input class="form_input" type="text" required="" value="">
+                                            <span class="form_highlight"></span>
+                                            <span class="form_bar"></span>
+                                            <label>To</label>
+                                        </div>
+                                    </div>
+                                    <div class="ops_radio_sm">
+                                        <div class="form_group ops_radio_sm">
+                                            <label>
+                                                <label class="gender_single">
+                                                    <input type="checkbox" name="demo"><span></span>Currently working here
+                                                </label>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- right bar end -->
+                                <div class="bottom_actions">
+                                    <div class="form_group">
+                                        <select class="form-control" id="sel1">
+                                            <option>Public</option>
+                                            <option>Private</option>
+                                        </select>
+                                    </div>
+                                    <div class="action_btn">
+                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-default btn-sm">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- edit profile add section end -->
+                    <div class="editarea">
+                        <div class="profile_workplaces_block">
+                            <div class="workplace_iogo">
+                                <img src="img/feature_icon.png" alt="">
+                            </div>
+                            <div class="workplace_name">
+                                <p>Working as <strong>UI/UX Designer</strong> at <strong>spotify</strong></p>
+                                <span class="workplace_date">From july 2016</span>
+                            </div>
+                            <div class="workplace_edit_remove_ico">
+                                <a href="#" class="edit_remove_ico"><img src="img/svg/ico_edit.svg" alt=""></a>
+                                <a href="#" class="edit_remove_ico"><img src="img/svg/ico_delete.svg"></a>
+                            </div>
+                        </div>
+                        <!-- profile workplace block 1 end -->
+
+                        <div class="profile_workplaces_block">
+                            <div class="workplace_iogo">
+                                <img src="img/feature_icon.png" alt="">
+                            </div>
+                            <div class="workplace_name">
+                                <p>Working as <strong>UI/UX Designer</strong> at <strong>spotify</strong></p>
+                                <span class="workplace_date">From july 2016</span>
+                            </div>
+                            <div class="workplace_edit_remove_ico">
+                                <a href="#" class="edit_remove_ico"><img src="img/svg/ico_edit.svg" alt=""></a>
+                                <a href="#" class="edit_remove_ico"><img src="img/svg/ico_delete.svg"></a>
+                            </div>
+                        </div>
+                        <!-- profile workplace block 2 end -->
+                    </div>
+
+                </div>
+                <!-- edit profile content block end -->
+            </div>
+            <!-- work info end -->
+
+            <div class="edit-profile_sec_block">
+                <div class="edit-profile_sec_head" data-toggle="collapse" data-target="#Education">
+                    <h3 class="edit-profile_subtitle">Education</h3>
+                    <div class="edit-profile_iconbox">
+                        <img src="img/svg/ico-arrow-down.svg" alt="">
+                    </div>
+                </div>
+                <!-- edit profile sec head -->
+                <div id="Education" class="edit-profile_content_block" style="display: none;">
+                    <div class="edit-profile_add_sec">
+                        <a href="#" data-toggle="collapse" data-target="#add_education">
+                            <div class="profile_add_ico">
+                                <div class="add_media_plus_ico">
+                                    <img src="img/svg/ico_add-grey.svg" alt="">
+                                </div>
+                            </div>
+                            <div class="profile_add_title">
+                                <h3>Add Education</h3>
+                            </div>
+                        </a>
+                        <div id="add_education" class="profile_add_det" style="display: none;">
+                            <div class="editarea">
+                                <div class="editarea_leftbar">
+                                    <div class="add_workplace_logo">
+                                        <input type="file" name="photo" id="upload-photo">
+                                        <div class="add_media_plus_ico">
+                                            <img src="img/svg/ico_add-grey.svg" alt="">
+                                        </div>
+                                    </div>
+                                    <span class="add_logo_txt">Add Photo</span>
+                                </div>
+                                <!-- left bar end -->
+                                <div class="editarea_rightbar">
+                                    <div class="form_group">
+                                        <input class="form_input" required="" type="text" value="">
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label>Institute</label>
+                                    </div>
+                                    <div class="form_group">
+                                        <input class="form_input" required="" type="text" value="">
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label>Course</label>
+                                    </div>
+                                    <div class="add_workplace_time_period">
+                                        <h4>Time Period</h4>
+                                        <div class="form_group">
+                                            <input class="form_input" type="text" required="" value="">
+                                            <span class="form_highlight"></span>
+                                            <span class="form_bar"></span>
+                                            <label>from</label>
+                                        </div>
+                                        <div class="form_group">
+                                            <input class="form_input" type="text" required="" value="">
+                                            <span class="form_highlight"></span>
+                                            <span class="form_bar"></span>
+                                            <label>To</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- right bar end -->
+                                <div class="bottom_actions">
+                                    <div class="form_group">
+                                        <select class="form-control" id="sel1">
+                                            <option>Public</option>
+                                            <option>Private</option>
+                                        </select>
+                                    </div>
+                                    <div class="action_btn">
+                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-default btn-sm">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- edit profile add section end -->
+                    <div class="editarea">
+                        <div class="profile_workplaces_block">
+                            <div class="workplace_iogo">
+                                <img src="img/feature_icon.png" alt="">
+                            </div>
+                            <div class="workplace_name">
+                                <p>Studied at <strong>Design Institute of San Diego</strong></p>
+                                <span class="workplace_date">july, 2016</span>
+                            </div>
+                            <div class="workplace_edit_remove_ico">
+                                <a href="#" class="edit_remove_ico"><img src="img/svg/ico_edit.svg" alt=""></a>
+                                <a href="#" class="edit_remove_ico"><img src="img/svg/ico_delete.svg"></a>
+                            </div>
+                        </div>
+                        <!-- profile workplace block 1 end -->
+
+                    </div>
+
+                </div>
+                <!-- edit profile content block end -->
+            </div>
+            <!-- education info end -->
+
+            <div class="edit-profile_sec_block">
+                <div class="edit-profile_sec_head" data-toggle="collapse" data-target="#awards">
+                    <h3 class="edit-profile_subtitle">Awards</h3>
+                    <div class="edit-profile_iconbox">
+                        <img src="img/svg/ico-arrow-down.svg" alt="">
+                    </div>
+                </div>
+                <!-- edit profile sec head -->
+                <div id="awards" class="edit-profile_content_block" style="display: none;">
+                    <div class="edit-profile_add_sec">
+                        <a href="#" data-toggle="collapse" data-target="#add_award">
+                            <div class="profile_add_ico">
+                                <div class="add_media_plus_ico">
+                                    <img src="img/svg/ico_add-grey.svg" alt="">
+                                </div>
+                            </div>
+                            <div class="profile_add_title">
+                                <h3>Add Education</h3>
+                            </div>
+                        </a>
+                        <div id="add_award" class="profile_add_det" style="display: none;">
+                            <div class="editarea">
+                                <div class="editarea_leftbar">
+                                    <div class="add_workplace_logo">
+                                        <input type="file" name="photo" id="upload-photo">
+                                        <div class="add_media_plus_ico">
+                                            <img src="img/svg/ico_add-grey.svg" alt="">
+                                        </div>
+                                    </div>
+                                    <span class="add_logo_txt">Add Photo</span>
+                                </div>
+                                <!-- left bar end -->
+                                <div class="editarea_rightbar">
+                                    <div class="form_group">
+                                        <input class="form_input" required="" type="text" value="">
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label>Award</label>
+                                    </div>
+                                    <div class="form_group">
+                                        <input class="form_input" required="" type="text" value="">
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label>Organization</label>
+                                    </div>
+                                    <div class="add_workplace_time_period">
+                                        <h4>Time Period</h4>
+                                        <div class="form_group">
+                                            <input class="form_input" type="text" required="" value="">
+                                            <span class="form_highlight"></span>
+                                            <span class="form_bar"></span>
+                                            <label>date of award</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- right bar end -->
+                                <div class="bottom_actions">
+                                    <div class="form_group">
+                                        <select class="form-control" id="sel1">
+                                            <option>Public</option>
+                                            <option>Private</option>
+                                        </select>
+                                    </div>
+                                    <div class="action_btn">
+                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-default btn-sm">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- edit profile add section end -->
+                    <div class="editarea">
+                        <div class="profile_workplaces_block">
+                            <div class="workplace_iogo">
+                                <img src="img/feature_icon.png" alt="">
+                            </div>
+                            <div class="workplace_name">
+                                <p>Awarded for <strong>Best UI Designer by</strong><strong>Awwwards</strong></p>
+                                <span class="workplace_date">july, 2016</span>
+                            </div>
+                            <div class="workplace_edit_remove_ico">
+                                <a href="#" class="edit_remove_ico"><img src="img/svg/ico_edit.svg" alt=""></a>
+                                <a href="#" class="edit_remove_ico"><img src="img/svg/ico_delete.svg"></a>
+                            </div>
+                        </div>
+                        <!-- profile workplace block 1 end -->
+
+                    </div>
+
+                </div>
+                <!-- edit profile content block end -->
+            </div>
+            <!-- awards info end -->
+
+        </div>
+    </div>
+</app-modal>

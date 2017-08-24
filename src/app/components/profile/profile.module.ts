@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
+
 import { SharedModule } from '../../shared/shared.module';
 import { ProfileComponent } from './profile.component';
 import { ProfileChannelComponent } from './profile-channel/profile-channel.component';
@@ -13,6 +14,7 @@ import { AboutBioComponent } from './about-bio/about-bio.component';
 import { AboutWorkComponent } from './about-work/about-work.component';
 import { AboutAwardsComponent } from './about-awards/about-awards.component';
 import { AboutEducationComponent } from './about-education/about-education.component';
+
 
 const routes: Routes = [
   {
