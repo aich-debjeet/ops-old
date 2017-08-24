@@ -69,6 +69,10 @@ export class RegistrationAddSkillComponent implements OnInit {
     this.search = '';
   }
 
+  submitSkills() {
+    this.store.dispatch({ type: AuthActions.USER_SUBMIT_SKILLS, payload: this.selectedSkills });
+  }
+
   /**
    * Change messaging based on user type selected on the previous screen
    */

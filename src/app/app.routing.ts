@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 // components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
+import { LogoutComponent } from './components/logout/logout.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -29,6 +30,7 @@ import { AuthGuard } from './guard/auth.guard';
 export const routes: Routes = [
  { path: '', component: LogoutHomeComponent },
 //  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+ { path: 'logout', component: LogoutComponent },
  { path: 'login', component: LoginComponent },
  { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },
  { path: 'account', loadChildren: './components/forgot-password/forgot-password.module#ForgotPasswordModule'},
