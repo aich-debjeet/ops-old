@@ -21,9 +21,29 @@ export class AuthActions {
   static OTP_CHECK_SUCCESS = 'OTP_CHECK_SUCCESS';
   static OTP_CHECK_FAILED = 'OTP_CHECK_FAILED';
 
+  static FP_SUBMIT_OTP = 'FP_SUBMIT_OTP';
+  static FP_SUBMIT_OTP_SUCCESS = 'FP_SUBMIT_OTP_SUCCESS';
+  static FP_SUBMIT_OTP_FAILED = 'FP_SUBMIT_OTP_FAILED';
+
   static USER_EXISTS_CHECK = 'USER_EXISTS_CHECK';
   static USER_EXISTS_SUCCESS = 'USER_EXISTS_SUCCESS';
   static USER_EXISTS_FAILED = 'USER_EXISTS_FAILED';
+
+  static FP_USER_EXISTS = 'FP_USER_EXISTS';
+  static FP_USER_EXISTS_SUCCESS = 'FP_USER_EXISTS_SUCCESS';
+  static FP_USER_EXISTS_FAILED = 'FP_USER_EXISTS_FAILED';
+
+  static FP_RESET_TYPE_PHONE = 'FP_RESET_TYPE_PHONE';
+  static FP_RESET_TYPE_PHONE_SUCCESS = 'FP_RESET_TYPE_PHONE_SUCCESS';
+  static FP_RESET_TYPE_PHONE_FAILED = 'FP_RESET_TYPE_PHONE_FAILED';
+
+  static FP_RESET_TYPE_EMAIL = 'FP_RESET_TYPE_EMAIL';
+  static FP_RESET_TYPE_EMAIL_SUCCESS = 'FP_RESET_TYPE_EMAIL_SUCCESS';
+  static FP_RESET_TYPE_EMAIL_FAILED = 'FP_RESET_TYPE_EMAIL_FAILED';
+
+  static FP_CREATE_PASS = 'FP_CREATE_PASS';
+  static FP_CREATE_PASS_SUCCESS = 'FP_CREATE_PASS_SUCCESS';
+  static FP_CREATE_PASS_FAILED = 'FP_CREATE_PASS_FAILED';
 
   static SEARCH_CARDS = 'SEARCH_CARDS';
   static SEARCH_CARDS_SUCCESS = 'SEARCH_CARDS_SUCCESS';
@@ -326,6 +346,36 @@ export class AuthActions {
   }
 
   // ===================================
+  //  USER EXSIST CHECK for Forgot Password
+  // -----------------------------------
+  fpUserExistCheck(value): Action {
+    return {
+      type: AuthActions.FP_USER_EXISTS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpUserExistSuccess(value): Action {
+    return {
+      type: AuthActions.FP_USER_EXISTS_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpUserExistFailed(value): Action {
+    return {
+      type: AuthActions.FP_USER_EXISTS_FAILED,
+      payload: {
+        value
+      }
+    };
+  }
+
+  // ===================================
   //  USER EXSIST CHECK
   // -----------------------------------
 
@@ -355,34 +405,154 @@ export class AuthActions {
       }
     };
   }
-//==========================================================
-//SearchCards
-//===========================================================
 
-SEARCH_CARDS(value: Login): Action {
-  return {
-    type: AuthActions.SEARCH_CARDS,
-    payload: {
-      value
-    }
-  };
-}
+  // ===================================
+  //  FP RESET TYPE PHONE
+  // -----------------------------------
+  fpResetTypePhone(value): Action {
+    return {
+      type: AuthActions.FP_RESET_TYPE_PHONE,
+      payload: {
+        value
+      }
+    };
+  }
 
-SEARCH_CARDS_SUCCESS(value: Login): Action {
-  return {
-    type: AuthActions.SEARCH_CARDS_SUCCESS,
-    payload: {
-      value
-    }
-  };
-}
+  fpResetTypePhoneSuccess(value): Action {
+    return {
+      type: AuthActions.FP_RESET_TYPE_PHONE_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
 
-SEARCH_CARDS_FAILED(error: any): Action {
-  return {
-    type: AuthActions.SEARCH_CARDS_FAILED,
-    payload: error
-  };
-}
+  fpResetTypePhoneFailed(value): Action {
+    return {
+      type: AuthActions.FP_RESET_TYPE_PHONE_FAILED,
+      payload: {
+        value
+      }
+    };
+  }
 
+  // ===================================
+  //  FP RESET TYPE EMAIL
+  // -----------------------------------
+  fpResetTypeEmail(value): Action {
+    return {
+      type: AuthActions.FP_RESET_TYPE_EMAIL,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpResetTypeEmailSuccess(value): Action {
+    return {
+      type: AuthActions.FP_RESET_TYPE_EMAIL_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpResetTypeEmailFailed(value): Action {
+    return {
+      type: AuthActions.FP_RESET_TYPE_EMAIL_FAILED,
+      payload: {
+        value
+      }
+    };
+  }
+
+  // ==========================================================
+  // SearchCards
+  // ===========================================================
+
+  SEARCH_CARDS(value: Login): Action {
+    return {
+      type: AuthActions.SEARCH_CARDS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  SEARCH_CARDS_SUCCESS(value: Login): Action {
+    return {
+      type: AuthActions.SEARCH_CARDS_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  SEARCH_CARDS_FAILED(error: any): Action {
+    return {
+      type: AuthActions.SEARCH_CARDS_FAILED,
+      payload: error
+    };
+  }
+
+  // ===================================
+  //  FP SUBMIT OTP
+  // -----------------------------------
+  fpSubmitOtp(value): Action {
+    return {
+      type: AuthActions.FP_SUBMIT_OTP,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpSubmitOtpSuccess(value): Action {
+    return {
+      type: AuthActions.FP_SUBMIT_OTP_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpSubmitOtpFailed(value): Action {
+    return {
+      type: AuthActions.FP_SUBMIT_OTP_FAILED,
+      payload: {
+        value
+      }
+    };
+  }
+
+    // ===================================
+  //  FP CREATE PASS
+  // -----------------------------------
+  fpCreatePass(value): Action {
+    return {
+      type: AuthActions.FP_CREATE_PASS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpCreatePassSuccess(value): Action {
+    return {
+      type: AuthActions.FP_CREATE_PASS_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  fpCreatePassFailed(value): Action {
+    return {
+      type: AuthActions.FP_CREATE_PASS_FAILED,
+      payload: {
+        value
+      }
+    };
+  }
 
 }

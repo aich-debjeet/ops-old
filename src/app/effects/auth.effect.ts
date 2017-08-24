@@ -5,7 +5,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/operator/ignoreElements';
+import 'rxjs/add/operator/mapTo';
+
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
 import { AuthActions } from '../actions/auth.action';
@@ -115,8 +120,99 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.USER_EXISTS_FAILED, payload: res }))
     );
 
+  @Effect()
+  fpCheckExistUser$ = this.actions$
+    .ofType(AuthActions.FP_USER_EXISTS)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.fpUserExists(payload)
+      .map(res => ({ type: AuthActions.FP_USER_EXISTS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.FP_USER_EXISTS_FAILED, payload: res }))
+    );
+
+  @Effect()
+  forgotOTPPage$ = this.actions$
+    .ofType(AuthActions.FP_USER_EXISTS_SUCCESS)
+    .map(() => this.router.navigateByUrl('/account/send_password_reset' ));
+
+  /* reset with phone */
+  @Effect()
+  fpResetTypePhone$ = this.actions$
+    .ofType(AuthActions.FP_RESET_TYPE_PHONE)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.fpResetTypePhone(payload)
+      .map(res => ({ type: AuthActions.FP_RESET_TYPE_PHONE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.FP_RESET_TYPE_PHONE_FAILED, payload: res }))
+    );
+
+  @Effect()
+  fpResetTypePhoneSuccess$ = this.actions$
+    .ofType(AuthActions.FP_RESET_TYPE_PHONE_SUCCESS)
+    .map(() => this.router.navigateByUrl('/account/confirm_pin_rest' ));
+  /* reset with phone */
+
+  /* reset with email */
+  @Effect()
+  fpResetTypeEmail$ = this.actions$
+    .ofType(AuthActions.FP_RESET_TYPE_EMAIL)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.fpResetTypeEmail(payload)
+      .map(res => ({ type: AuthActions.FP_RESET_TYPE_EMAIL_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.FP_RESET_TYPE_EMAIL_FAILED, payload: res }))
+    );
+
+  @Effect()
+  fpResetTypeEmailSuccess$ = this.actions$
+    .ofType(AuthActions.FP_RESET_TYPE_EMAIL_SUCCESS)
+    .map(() => this.router.navigateByUrl('/account/reset_mail_send'));
+  /* reset with email */
+
+  /* otp submit */
+  @Effect()
+  fpSubmitOtp$ = this.actions$
+    .ofType(AuthActions.FP_SUBMIT_OTP)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.fpSubmitOtp(payload)
+      .map(res => ({ type: AuthActions.FP_SUBMIT_OTP_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.FP_SUBMIT_OTP_FAILED, payload: res }))
+    );
+
+  @Effect()
+  fpSubmitOtpSuccess$ = this.actions$
+    .ofType(AuthActions.FP_SUBMIT_OTP_SUCCESS)
+    .map((action) => this.router.navigateByUrl('/account/password_create' + ';activation_code=' + action.payload.SUCCESS.activationCode));
+  /* otp submit */
+
+  @Effect()
+  fpCreatePass$ = this.actions$
+    .ofType(AuthActions.FP_CREATE_PASS)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.fpCreatePass(payload)
+      .map(res => ({ type: AuthActions.FP_CREATE_PASS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.FP_CREATE_PASS_FAILED, payload: res }))
+    );
+
+  @Effect()
+  fpCreatePassSuccess$ = this.actions$
+    .ofType(AuthActions.FP_CREATE_PASS_SUCCESS)
+    .map((response) => {
+      // console.log('FP_CREATE_PASS_SUCCESS');
+      // console.log(response);
+      if (response.payload.SUCCESS !== null || response.payload.SUCCESS !== undefined) {
+        this.router.navigateByUrl('/login');
+      }
+    });
+
+  @Effect()
+  fpCreatePassFailed$ = this.actions$
+    .ofType(AuthActions.FP_CREATE_PASS_FAILED)
+    .map((response) => {
+      // console.log('crps response ERROR');
+      // console.log(response);
+    });
+
   constructor(
       private actions$: Actions,
-      private authService: AuthService
+      private authService: AuthService,
+      private router: Router
     ) {}
 }

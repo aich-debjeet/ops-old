@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import { Login, initialTag } from '../../../models/auth.model';
@@ -13,20 +13,23 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-password-sms',
-  templateUrl: './password-sms.component.html',
-  styleUrls: ['./password-sms.component.scss']
+  selector: 'app-password-create',
+  templateUrl: './password-create.component.html',
+  styleUrls: ['./password-create.component.scss']
 })
-export class PasswordSmsComponent {
+export class PasswordCreateComponent implements OnInit {
 
-  otpForm: FormGroup;
+  activationCode: string;
+
+  createPass: FormGroup;
   tagState$: Observable<Login>;
   forgotP = initialTag;
 
   constructor(private fb: FormBuilder, private store: Store<Login>,  private router: Router, private activatedRoute: ActivatedRoute) {
 
-    this.otpForm = fb.group({
-      'otpToSubmit': ['', Validators.required],
+    this.createPass = fb.group({
+      'password': ['', Validators.required],
+      'confirmPassword': ['', Validators.required],
     })
 
     this.tagState$ = store.select('loginTags');
@@ -36,30 +39,27 @@ export class PasswordSmsComponent {
       console.log(this.forgotP);
       // send back to forgot page landing directly on this page
       if (!this.forgotP.fp_user_options) {
-        this.router.navigate(['account/password_reset']);
+        // this.router.navigate(['account/password_reset']);
       }
     });
   }
 
-  submitForm(value: any) {
-    console.log(value);
-
-    const form = {
-      'forgetPasswordtype': '',
-      'value': '',
-      'cType': 'phone',
-      'otp': ''
-    }
-
-    // preparing req params
-    form.forgetPasswordtype = 'validateOTP';
-    form.cType = 'phone';
-    form.value = this.forgotP.fp_user_input;
-    form.otp = value.otpToSubmit;
-
-    this.store.dispatch({ type: AuthActions.FP_SUBMIT_OTP, payload: form });
-
+  // get activation code from url
+  ngOnInit() {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.activationCode = params.activation_code;
+    });
   }
 
+  submitForm(value: any) {
+    // console.log(value);
+    const form = {
+      password: value.password,
+      activationCode: this.activationCode,
+      identity: this.forgotP.fp_user_input
+    };
+
+    this.store.dispatch({ type: AuthActions.FP_CREATE_PASS, payload: form });
+  }
 
 }
