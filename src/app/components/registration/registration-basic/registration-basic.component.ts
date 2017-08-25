@@ -42,6 +42,7 @@ export class RegistrationBasicComponent implements OnInit {
   countDown;
   counter = 60;
   isPhotoAdded: boolean;
+  passwordShow = false;
 
   rightCom: RightBlockTag;
   tagState$: Observable<BasicRegTag>;
@@ -53,6 +54,14 @@ export class RegistrationBasicComponent implements OnInit {
   public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public regFormBasic: FormGroup;
   public otpForm: FormGroup;
+
+  passwordShowToggle() {
+    if (this.passwordShow === true) {
+      this.passwordShow = false;
+    } else {
+      this.passwordShow = true;
+    }
+  }
 
   constructor(
     private fb: FormBuilder,
