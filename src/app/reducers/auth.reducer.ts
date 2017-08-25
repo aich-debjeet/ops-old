@@ -304,6 +304,22 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         userSkillsSaveSuccess: false
       });
 
+    case AuthActions.FP_GET_USERDATA:
+      return Object.assign({}, state, {
+        fpGetUserDataSuccess: false
+      });
+
+    case AuthActions.FP_GET_USERDATA_SUCCESS:
+      return Object.assign({}, state, {
+        fpGetUserData: payload,
+        fpGetUserDataSuccess: true
+      });
+
+    case AuthActions.FP_GET_USERDATA_FAILED:
+      return Object.assign({}, state, {
+        fpGetUserDataSuccess: false
+      });
+
     default:
       return state;
 
