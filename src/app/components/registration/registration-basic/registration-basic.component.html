@@ -105,8 +105,11 @@
                           <app-country-selector></app-country-selector>
                           <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">Someone has already registed with this number</p>
                       </div>
-                      <div class="form_group">
-                          <input class="form_input" type="password" formControlName="password" required>
+                      <div class="form_group pos-rel">
+                            <button class="password-toggle pos-abs" type="button" (click)="passwordShowToggle()" title="{{ passwordShow ? 'Hide Password' : 'Show Password' }}" >
+                                <span class="fa {{ passwordShow ? 'fa-eye' : 'fa-eye-slash' }}"></span>
+                            </button>
+                          <input class="form_input" type="{{ passwordShow ? 'text' : 'password' }}" formControlName="password" required>
                           <span class="form_highlight"></span>
                           <span class="form_bar"></span>
                           <label>Password</label>
@@ -142,7 +145,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
-                    <h5 class="text-center">Enter the 6 digit opt that you have received <br> by email or phone </h5>
+                    <h5 class="text-center">Enter the 6 digit otp that you have received <br> by email or phone </h5>
                     <p class="text-center">
                         <a (click)="resendOtp()">Resend OTP</a>
                     </p>
