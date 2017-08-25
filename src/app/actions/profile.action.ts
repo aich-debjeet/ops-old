@@ -38,6 +38,13 @@ export class ProfileActions {
   static LOAD_USER_MEDIA_FAILED = 'LOAD_USER_MEDIA_FAILED';
 
   /**
+   * Load image to database
+   */
+   static LOAD_PROFILE_IMAGE = 'LOAD_PROFILE_IMAGE ';
+   static LOAD_PROFILE_IMAGE_SUCCESS = 'LOAD_PROFILE_IMAGE_SUCCESS';
+   static LOAD_PROFILE_IMAGE_FAILED = 'LOAD_PROFILE_IMAGE_FAILED';
+
+  /**
    * Load Current user profile
    */
   getUserProfile(): Action {
@@ -88,7 +95,7 @@ export class ProfileActions {
    */
   getCurrentQuickAccess(): Action {
     return {
-      type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS
+      type: ProfileActions.LOAD_PROFILE_IMAGE
     };
   }
 
@@ -156,5 +163,26 @@ export class ProfileActions {
       payload: error
     };
   }
-}
+  /**
+   * Load image to database
+   */
+  sendProfileImage(): Action {
+    return {
+      type: ProfileActions.LOAD_PROFILE_IMAGE,
+    };
+  }
 
+  sendProfileImageSuccess(value): Action {
+    return {
+      type: ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  sendProfileImageFailed(error: any): Action {
+    return {
+      type: ProfileActions.LOAD_PROFILE_IMAGE_FAILED,
+      payload: error
+    };
+  }
+}

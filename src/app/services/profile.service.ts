@@ -67,4 +67,44 @@ export class ProfileService {
       .map((data: Response) => data.json());
   }
 
+  dataURItoBlob(dataURI: any) {
+    // convert base64/URLEncoded data component to raw binary data held in a string
+    let byteString;
+    if (dataURI.split(',')[0].indexOf('base64') >= 0) {
+      byteString = atob(dataURI.split(',')[1]);
+    } else {
+      byteString = decodeURI(dataURI.split(',')[1]);
+    }
+
+    // separate out the mime component
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to a typed array
+    const ia = new Uint8Array(byteString.length);
+    for (let i = 0; i < byteString.length; i ++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ia], {type: mimeString});
 }
+  /**
+   *  Load image to database
+   */
+  uploadProfileImage(value) {
+     console.log('uploadProfileImage');
+     console.log(value.profileHandle);
+
+    // const headers = this.tokenService.getAuthHeader();
+
+     const fileData = new FormData();
+     fileData.append('file', this.dataURItoBlob(value.image[0]));
+
+    // fileData.append('file', value.image[0]);
+    // console.log(value.image[0]);
+    return this.http.post(`${this.apiLink}portal/cdn/media/upload?handle=J_47578AB2_AB1F_4B56_BB23_A0BFB26EFCE2DEEPASHREE_AEIONE_GMAIL_COM`, fileData /* , { headers: headers } */)
+        .map((data: Response) => data.json());
+  }
+
+}
+
+// J_6494D893_44ED_4C7C_9CF4_1903C2014498VIJILIN_KV_AEIONE_COM

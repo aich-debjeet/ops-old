@@ -72,6 +72,19 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL_FAILED, payload: res }))
     );
 
+    /**
+     *  Load image to database
+     */
+    @Effect()
+    loadProfileImage$ = this.actions$
+      .ofType(ProfileActions.LOAD_PROFILE_IMAGE)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.uploadProfileImage(payload)
+        .map(res => ({ type: ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.LOAD_PROFILE_IMAGE_FAILED, payload: res }))
+      );
+
+
   constructor(
     private actions$: Actions,
     private profileService: ProfileService

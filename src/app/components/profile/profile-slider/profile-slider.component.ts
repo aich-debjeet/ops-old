@@ -26,6 +26,8 @@ export class ProfileSliderComponent implements OnInit {
   private tagStateSubscription: Subscription;
   userProfile = initialTag ;
 
+  userProfileHandle = 'J_47578AB2_AB1F_4B56_BB23_A0BFB26EFCE2DEEPASHREE_AEIONE_GMAIL_COM';
+
   constructor(
     private http: Http,
     private profileStore: Store<ProfileModal>
@@ -55,6 +57,15 @@ export class ProfileSliderComponent implements OnInit {
     this.changingImage = true;
   }
   saveImageClick() {
+    if (this.data && this.data.image) {
+      const data = {
+        profileHandle: this.userProfileHandle,
+        image: this.data.image.split((/,(.+)/)[1])
+      }
+      // console.log(data);
+      // return;
+       this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: data });
+    }
     this.changingImage = false;
   }
 
