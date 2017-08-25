@@ -6,6 +6,7 @@ export class Login {
  fp_user_exists?: false;
  fp_user_options?: any;
  fp_user_input?: any;
+ fp_userdata_resp?: any;
 }
 
 export class Register {
@@ -57,7 +58,8 @@ export const initialTag: Login = {
   loading:  false,
   success: true,
   user_unique: false,
-  fp_user_exists: false
+  fp_user_exists: false,
+  fp_userdata_resp: []
 };
 
 export class Follow {
