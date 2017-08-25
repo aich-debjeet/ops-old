@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Http, Headers, Response } from '@angular/http';
 
 import { Store } from '@ngrx/store';
 import { Login, initialTag } from '../../../models/auth.model';
@@ -20,12 +21,16 @@ import { Subscription } from 'rxjs/Subscription';
 export class PasswordCreateComponent implements OnInit {
 
   activationCode: string;
-
   createPass: FormGroup;
   tagState$: Observable<Login>;
   forgotP = initialTag;
 
-  constructor(private fb: FormBuilder, private store: Store<Login>,  private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<Login>,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private http: Http) {
 
     this.createPass = fb.group({
       'password': ['', Validators.required],
@@ -37,11 +42,20 @@ export class PasswordCreateComponent implements OnInit {
       this.forgotP = state;
       console.log('initial state: ');
       console.log(this.forgotP);
-      // send back to forgot page landing directly on this page
-      if (!this.forgotP.fp_user_options) {
-        // this.router.navigate(['account/password_reset']);
-      }
     });
+  }
+
+  fpGetUserdata() {
+    console.log('req activation code: ' + this.activationCode);
+    return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/resetPasswordToken/' + this.activationCode)
+    .map((data: Response) => data.json())
+    .subscribe(data => {
+      this.forgotP.fp_userdata_resp = data;
+      this.forgotP.fp_user_input = data.SUCCESS.username;
+      console.log(data);
+    },
+    // err => console.log(err)
+    );
   }
 
   // get activation code from url
@@ -49,6 +63,11 @@ export class PasswordCreateComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.activationCode = params.activation_code;
     });
+    // send back to forgot page landing directly on this page
+    if (!this.forgotP.fp_user_options) {
+      // this.router.navigate(['account/password_reset']);
+      this.fpGetUserdata();
+    }
   }
 
   submitForm(value: any) {
