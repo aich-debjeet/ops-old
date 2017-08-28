@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './profile-channel.component.html',
   styleUrls: ['./profile-channel.component.scss']
 })
+
 export class ProfileChannelComponent implements OnInit {
 
   tagState$: Observable<ProfileModal>;
@@ -33,7 +34,8 @@ export class ProfileChannelComponent implements OnInit {
       this.profileChannel = state;
     });
 
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL });
+    const handle = localStorage.getItem('currentUserID');
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
 
   }
 

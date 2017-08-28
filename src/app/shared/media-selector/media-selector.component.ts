@@ -2,12 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import MediaPlayer from 'app/models/mediaplayer.model';
 
 import { NgModel } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
 import { NgxfUploaderService, UploadEvent, UploadStatus, FileError } from 'ngxf-uploader';
+import { Store } from '@ngrx/store';
 
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
+import { ProfileModal, initialTag } from '../../models/profile.model';
+
+// action
+import { ProfileActions } from '../../actions/profile.action';
+import { SharedActions } from '../../actions/shared.action';
+
+import FilesHelper from '../../helpers/fileUtils';
+
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/from';
 
 const base = 'http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/upload/multiple';
@@ -36,12 +46,16 @@ export class MediaSelectorComponent {
   handle: string;
   token: string;
 
+  tagState$: Observable<ProfileModal>;
+  private tagStateSubscription: Subscription;
+  profileChannel = initialTag ;
+
   constructor(
     private Upload: NgxfUploaderService,
     private fb: FormBuilder,
+    private profileStore: Store<ProfileModal>,
     private http: Http) {
-    // Init Channels
-    this.searchChannels();
+
     // Create Channel Form
     this.createChannelForm();
     // Media Info
@@ -50,6 +64,14 @@ export class MediaSelectorComponent {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.handle = localStorage.getItem('currentUserID');
     this.token = currentUser.access_token; // your token
+
+    this.tagState$ = this.profileStore.select('profileTags');
+    // this.test = 'salabeel';
+    this.tagState$.subscribe((state) => {
+      this.profileChannel = state;
+    });
+
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: this.handle });
   }
 
   /**
@@ -98,7 +120,11 @@ export class MediaSelectorComponent {
         active: true,
         createdBy: this.handle,
         createdDate: '2017-08-23T09:50:12.48',
-        lastUpdatedDate: '2017-08-23T09:50:12.48'
+        lastUpdatedDate: '2017-08-23T09:50:12.48',
+        count : {
+          likes: [], shares: [], spots: [],
+          channel: chosenChannel.spotfeedId
+        }
     }];
 
     this.postMediaToChannel(chosenChannel.spotfeedId, media);
@@ -131,13 +157,15 @@ export class MediaSelectorComponent {
    */
   createChannel(value: any) {
 
+    const accessVal = parseInt(value.privacy, 0);
+
     if ( this.channelForm.valid === true ) {
       const channelObj = {
         name: value.title,
         access: value.privacy,
         description: value.desc,
         superType: 'channel',
-        accessSettings : { access : value.privacy },
+        accessSettings : { access : accessVal },
         owner: this.handle,
         industryList: [ 'DANCE'] /** @TODO - To be removed! */
       }
@@ -198,14 +226,13 @@ export class MediaSelectorComponent {
     const headers = new Headers();
     const reqOptions = new RequestOptions({ headers: headers });
 
-    headers.append('Authorization', 'Bearer ' + this.handle);
+    headers.append('Authorization', 'Bearer ' + this.token);
     headers.append('Content-Type', 'application/json');
 
     return this.http.post(`http://devservices.greenroom6.com:9000/api/1.0/portal/network/spotfeed/search`, req, reqOptions)
       .map((data: Response) => data.json())
       .subscribe(data => {
         this.channels = data;
-        console.log(data)
       });
   }
 
@@ -247,13 +274,8 @@ export class MediaSelectorComponent {
   /**
    * File Extension checker
    */
-  fileType(filename: string) {
-    const fileType = (/[.]/.exec(filename)) ? /[^.]+$/.exec(filename) : undefined;
-    if (fileType && fileType[0]) {
-      return fileType[0];
-    }else {
-      return false;
-    }
+  checkFileType(fileName: string, fileType: string) {
+    return FilesHelper.fileType(fileName, fileType);
   }
 
   /**

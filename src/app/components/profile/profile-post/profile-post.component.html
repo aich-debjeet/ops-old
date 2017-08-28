@@ -1,3 +1,13 @@
 <div class="row">
   <app-post-card *ngFor="let userMedia of userMedia.mediaEntity?.SUCCESS" [mediaData]="userMedia"></app-post-card>
+  <div *ngIf="!userMedia.user_posts_loaded">
+      <div class="msg__error">
+        <h1>Could not load user media</h1>
+      </div>
+  </div>
+  <div *ngIf="userMedia.user_posts_loading">
+      <div class="msg__loading">
+        <div class="loader">Loading...</div>
+      </div>
+  </div>
 </div>

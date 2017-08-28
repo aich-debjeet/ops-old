@@ -81,14 +81,9 @@ label {
 }
 
 .btn{
-  background-color: blue !important;
   color: #fff;
-  border: 0;
-  border-radius: 3px;
-  padding: 0.5rem 1rem;
-  margin-top: 10px;
-  font-weight: bold;
-  font-size: 1rem;
+  background-color: #c1c1c1;
+  border-color: #c1c1c1;
 }
 
 
@@ -120,4 +115,74 @@ label {
   float: left;
   position: relative;
   border-radius: 3px;
+}
+
+.media_info textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 1px #c1c1c1 solid;
+    font-weight: 600;
+    color: #000;
+}
+
+.media_content_report select{
+    box-shadow: none;
+    padding: 0 0;
+    border: none;
+    border-bottom: 1px solid #c1c1c1;
+    border-radius: 0;
+    height: 24px;
+    font-weight: 600;
+}
+
+.ops_radio_sm label {
+  position: static;
+  text-align: center;
+  pointer-events: auto;
+  font-weight: 600;
+  font-size: 12px;
+  color: #000;
+}
+
+.channel-list-show_img {
+  width: 49px;
+  height: 49px;
+  border-radius: 3px;
+  overflow: hidden;
+  float: left;
+}
+
+.ops_radio_sm input[type=checkbox]+span {
+  border: 2px solid #c1c1c1;
+  border-radius: 50px;
+  display: inline-block;
+  float: left;
+  margin-right: 7px;
+  position: relative;
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  margin-top: 1px;
+}
+
+.add_media_info {
+  border-left: 1px rgba(102,45,145,.1) solid;
+  height: 578px;
+  padding: none!important;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.ops_radio_sm input[type=checkbox] {
+  display: none;
+}
+
+.list-item{
+  list-style-type: none;
+  display: inline-block;
+  margin: 0;
+}
+
+.media-selector{
+  color: #000;
 }

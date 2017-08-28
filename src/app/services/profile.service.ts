@@ -59,7 +59,8 @@ export class ProfileService {
     const body = {
       'offset': 0,
       'limit': 10,
-      'superType': 'channel'
+      'superType': 'channel',
+      'owner': value
     }
 
     return this.http.post(this.apiLink + '/portal/network/spotfeed/search', body, { headers: headers })

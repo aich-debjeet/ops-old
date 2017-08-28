@@ -79,6 +79,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       console.log('user media load');
       console.log(payload);
       return Object.assign({}, state, {
+        user_posts_loading: true,
         user_posts_loaded: false
       });
 
@@ -88,37 +89,40 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         mediaEntity: payload,
         user_posts_loaded: true,
+        user_posts_loading: false,
         user_posts: payload
       });
 
     case ProfileActions.LOAD_USER_MEDIA_FAILED:
       console.log('user media failed');
       return Object.assign({}, state, {
-        user_posts_loaded: false
+        user_posts_loaded: false,
+        user_posts_loading: false
       });
 
     /**
      * Get current User channel of profile
      */
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL:
-      console.log('current user channel start');
-      console.log(payload);
       return Object.assign({}, state, {
-        success: true
+        success: true,
+        user_channels_loading: true,
+        user_channels_loaded: false
       });
 
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL_SUCCESS:
-      console.log('current user channel sucess');
-      console.log(payload);
       return Object.assign({}, state, {
         channelEntity: payload,
-        success: true
+        success: true,
+        user_channels_loaded: true,
+        user_channels_loading: false
       });
 
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL_FAILED:
-      console.log('current user channel failed');
       return Object.assign({}, state, {
-        success: false
+        success: false,
+        user_channels_loading: false,
+        user_channels_loaded: false
       });
 
 
