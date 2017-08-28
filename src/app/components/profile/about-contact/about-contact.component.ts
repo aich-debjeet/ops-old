@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
-import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
-
+import { UserMedia } from '../../../models/user-media.model';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -14,15 +13,14 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-profile-channel',
-  templateUrl: './profile-channel.component.html',
-  styleUrls: ['./profile-channel.component.scss']
+  selector: 'app-about-contact',
+  templateUrl: './about-contact.component.html',
+  styleUrls: ['./about-contact.component.scss']
 })
-export class ProfileChannelComponent implements OnInit {
-
+export class AboutContactComponent implements OnInit {
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
-  profileChannel = initialTag ;
+  contactWork = initialTag ;
 
   constructor(
     private http: Http,
@@ -30,16 +28,13 @@ export class ProfileChannelComponent implements OnInit {
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
-      this.profileChannel = state;
+      this.contactWork = state;
     });
-  }
 
-  toggleFollowBtn(i) {
-    console.log(i);
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
   }
 
   ngOnInit() {
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL });
   }
 
 }
