@@ -29,13 +29,9 @@ export class ProfileChannelComponent implements OnInit {
     private profileStore: Store<ProfileModal>
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
-    // this.test = 'salabeel';
     this.tagState$.subscribe((state) => {
       this.profileChannel = state;
     });
-
-    
-
   }
 
   toggleFollowBtn(i) {
