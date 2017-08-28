@@ -44,6 +44,13 @@ export class ProfileActions {
    static LOAD_PROFILE_IMAGE_SUCCESS = 'LOAD_PROFILE_IMAGE_SUCCESS';
    static LOAD_PROFILE_IMAGE_FAILED = 'LOAD_PROFILE_IMAGE_FAILED';
 
+   /**
+    * Save image to profile UI
+    */
+    static SAVE_PROFILE_IMAGE = 'SAVE_PROFILE_IMAGE ';
+    static SAVE_PROFILE_IMAGE_SUCCESS = 'SAVE_PROFILE_IMAGE_SUCCESS';
+    static SAVE_PROFILE_IMAGE_FAILED = 'SAVE_PROFILE_IMAGE_FAILED';
+
   /**
    * Load Current user profile
    */
@@ -182,6 +189,29 @@ export class ProfileActions {
   sendProfileImageFailed(error: any): Action {
     return {
       type: ProfileActions.LOAD_PROFILE_IMAGE_FAILED,
+      payload: error
+    };
+  }
+
+  /**
+   * SAVE image to Profile UI
+   */
+  saveProfileImage(): Action {
+    return {
+      type: ProfileActions.SAVE_PROFILE_IMAGE,
+    };
+  }
+
+  saveProfileImageSuccess(value): Action {
+    return {
+      type: ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  saveProfileImageFailed(error: any): Action {
+    return {
+      type: ProfileActions.SAVE_PROFILE_IMAGE_FAILED,
       payload: error
     };
   }

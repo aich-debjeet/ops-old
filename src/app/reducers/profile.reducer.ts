@@ -69,6 +69,28 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
           success: false
         });
 
+        /**
+         * Save image to ProfileUI
+         */
+        case ProfileActions.SAVE_PROFILE_IMAGE:
+          return Object.assign({}, state, {
+            success: true
+          });
+
+        case ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS:
+          console.log('Save to ui')
+          console.log(payload);
+          return Object.assign({}, state, {
+            profileImage: payload,
+            success: true
+          });
+
+        case ProfileActions.SAVE_PROFILE_IMAGE_FAILED:
+          return Object.assign({}, state, {
+            success: false
+          });
+
+
     /**
      * Load Current User Profile
      */

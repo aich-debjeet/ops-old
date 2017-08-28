@@ -93,16 +93,49 @@ export class ProfileService {
   uploadProfileImage(value) {
      console.log('uploadProfileImage');
      console.log(value.profileHandle);
-
-    // const headers = this.tokenService.getAuthHeader();
+    //  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    //  const token = currentUser.access_token; // your token
+    //  const headers = new Headers({ 'Content-Type': 'application/json'});
+    //  headers.append('Authorization', 'Bearer ' + token);
+    // // const headers = this.tokenService.getAuthHeader();
 
      const fileData = new FormData();
      fileData.append('file', this.dataURItoBlob(value.image[0]));
 
     // fileData.append('file', value.image[0]);
     // console.log(value.image[0]);
-    return this.http.post(`${this.apiLink}portal/cdn/media/upload?handle=J_47578AB2_AB1F_4B56_BB23_A0BFB26EFCE2DEEPASHREE_AEIONE_GMAIL_COM`, fileData /* , { headers: headers } */)
-        .map((data: Response) => data.json());
+    return this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/upload?handle=J_47578AB2_AB1F_4B56_BB23_A0BFB26EFCE2DEEPASHREE_AEIONE_GMAIL_COM', fileData /* , { headers: headers } */)
+         .map((data: Response) => data.json());
+        // .map((data: Response) => {
+        //   data = data.json();
+        //   console.log(JSON.stringify(data));
+        //   // const newData = {
+        //   //   'profileImage' : data.
+        //   // };
+
+      //   return this.http.put('http://devservices.greenroom6.com:9000/api/1.0/portal/profile/updateProfile', JSON.stringify(data), { headers: headers })
+      //   .map((res: Response) => {
+      //     data.json()
+      //   console.log(JSON.stringify(res));
+      // });
+
+        // });
+  }
+
+  saveProfileImage(value) {
+    console.log(value);
+  //  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  //  const token = currentUser.access_token; // your token
+  //  const headers = new Headers({ 'Content-Type': 'application/json'});
+  //  headers.append('Authorization', 'Bearer ' + token);
+   const headers = this.tokenService.getAuthHeader();
+   const val = {
+     'fileName' : JSON.stringify(value.fileName),
+     'repoPath' : JSON.stringify(value.repoPath)
+   }
+
+    return this.http.put('http://devservices.greenroom6.com:9000/api/1.0/portal/profile/updateProfile', val.repoPath , { headers: headers })
+       .map((res: Response) => res.json());
   }
 
 }
