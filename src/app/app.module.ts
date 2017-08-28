@@ -71,6 +71,7 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
 import { reducer } from './app.reducer';
 import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.component';
 import { MasonryComponent } from './components/masonry/masonry.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +103,7 @@ import { MasonryComponent } from './components/masonry/masonry.component';
     LogoutHomeComponent,
     ProfileSliderComponent,
     MasonryComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

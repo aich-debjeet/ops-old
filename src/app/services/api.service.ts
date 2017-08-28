@@ -134,4 +134,9 @@ export class ApiService {
   }
   /* ------------------------- send message ------------------------- */
 
+  // fbGetUserdata(activationCode: string) {
+  //   return this.http.get(`${this.apiLink}/portal/message/`+param+'/'+this.userHandle, reqOptions)
+  //   .map((data: Response) => { data = data.json() });
+  // }
+
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../environments/environment';
 import { ArtistFollow, initialArtistFollow } from '../models/auth.model';
@@ -133,6 +133,16 @@ export class AuthService {
             .map((data: Response) => data.json());
     }
 
+    /**
+     * Check if User Exists
+     * @param reqData
+     */
+
+    fpUserExists(reqData: any) {
+      return this.http.post(this.apiLink + '/portal/auth/forgotPassword/post', reqData)
+          .map((data: Response) => data.json());
+    }
+
     emailUser(email: string) {
         return this.http.get(this.apiLink + '/portal/auth/' + email + '/email')
             .map((data: Response) => data.json());
@@ -174,6 +184,24 @@ export class AuthService {
         .map((data: Response) => data.json());
     }
 
+    /**
+     * Add a save Skills
+     * @param skills array all skills
+     */
+    saveSelectedSkills(skillsArr) {
+        console.log(skillsArr);
+        // Headers
+        const token = this.getToken();
+        let headers = new Headers({ 'Content-Type': 'application/json'});
+        headers.append('Authorization', 'Bearer ' + token);
+
+        // Object
+        const skills = { profileTypeList: skillsArr }
+
+        return this.http.put(this.apiLink + '/portal/profile/updateProfile', skills, { headers: headers })
+          .map((data: Response) => data.json());
+      }
+
     getAllSkill() {
       console.log('loading all the skills');
       return this.http.get(this.apiLink + '/portal/industry')
@@ -200,5 +228,35 @@ export class AuthService {
 
         return this.http.put(this.apiLink + '/portal/searchprofiles/Industry', value, { headers: headers })
             .map((data) => data.json());
+    }
+
+    fpResetTypePhone(req: any) {
+        const headers = new Headers({ 'Content-Type': 'application/json'});
+        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: headers })
+        .map((data: Response) => data.json());
+    }
+
+    fpResetTypeEmail(req: any) {
+        const headers = new Headers({ 'Content-Type': 'application/json'});
+        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: headers })
+        .map((data: Response) => data.json());
+    }
+
+    fpSubmitOtp(req: any) {
+        const headers = new Headers({ 'Content-Type': 'application/json'});
+        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: headers })
+        .map((data: Response) => data.json());
+    }
+
+    fpCreatePass(req: any) {
+        // console.log('req body');
+        // console.log(req);
+        const reqBody = {
+            password: req.password,
+            token: req.activationCode
+        }
+        const headers = new Headers({ 'Content-Type': 'application/json'});
+        return this.http.put(`${this.apiLink}/portal/auth/user/change/` + req.identity, reqBody, { headers: headers })
+        .map((data: Response) => data.json());
     }
 }

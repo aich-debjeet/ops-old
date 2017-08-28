@@ -28,7 +28,7 @@
     "angular2-text-mask": "^8.0.3",
     "aws-sdk": "^2.97.0",
     "bootstrap-sass": "^3.3.7",
-    "choices.js": "3.0.2",
+    "choices.js": "^3.0.2",
     "core-js": "^2.4.1",
     "jquery": "^3.2.1",
     "js-joda": "^1.5.4",

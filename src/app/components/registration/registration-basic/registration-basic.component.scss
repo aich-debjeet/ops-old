@@ -177,3 +177,24 @@ span.suggestions {
     clear: both;
   }
 }
+
+.reg_left_section {
+  overflow-y: auto;
+}
+
+.password-toggle {
+  background: none;
+  border: none;
+  color: black;
+  top: 5px;
+  right: 0;
+  outline: none;
+}
+
+.pos-rel {
+  position: relative;
+}
+
+.pos-abs {
+  position: absolute;
+}

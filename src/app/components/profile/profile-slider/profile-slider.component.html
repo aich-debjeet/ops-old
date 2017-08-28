@@ -3,7 +3,8 @@
 <div class="container pro-block">
   <div class="row">
       <div class="col-md-6 col-sm-12 pro__img">
-        <img src="{{ userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
+        <!-- <img *ngIf="userProfile.profileUser?.profileImage.length > 0; else elseProfileImage" src="{{ userProfile.profileUser?.profileImage }}" class="img-responsive img-circle"> -->
+        <img #elseProfileImage src="/assets/img/avatar.jpg" class="img-responsive img-circle">
         <div class="pro__name2">
             <h2><a routerLink="/profile" > {{ userProfile.profileUser?.name }} </a></h2>
           
