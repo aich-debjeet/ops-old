@@ -102,6 +102,14 @@ export class AboutAwardsComponent implements OnInit {
   }
 
   /**
+   * Edit Current Work of user
+   */
+  editCurrentWork(id) {
+    // console.log(id);
+    // this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
+  }
+
+  /**
    * Close work add form
    */
   awardFormClose() {

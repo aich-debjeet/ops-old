@@ -105,6 +105,14 @@ export class AboutEducationComponent implements OnInit {
   }
 
   /**
+   * Edit Current Work of user
+   */
+  editCurrentEducation(id) {
+    // console.log(id);
+    // this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_EDUCATION, payload: id});
+  }
+
+  /**
    * Close work add form
    */
   educationFormClose() {

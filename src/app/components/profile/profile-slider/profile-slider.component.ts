@@ -57,10 +57,8 @@ export class ProfileSliderComponent implements OnInit {
    * Profile Page Edit
    */
   profileEdit() {
-    console.log('effect log');
-    this.modalService.open('profileEditWindow');
-    console.log(this.userProfile.profileUser['name']);
 
+    this.modalService.open('profileEditWindow');
     const date = this.datepipe.transform(this.userProfile.profileDetails['physical'].dateOfBirth, 'dd-MM-yyyy');
 
     this.profileForm.setValue({

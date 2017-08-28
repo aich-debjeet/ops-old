@@ -24,7 +24,7 @@
                         <p>From {{ work.from | date:'MMMM, y'}}</p>
                     </div>
                     <div class="workplace_edit_remove_ico ">
-                        <a href="#" class="edit_remove_ico"><img src="http://d33wubrfki0l68.cloudfront.net/8acba050eb7fc142849496e9d39c31e6ec848ebc/3b55c/img/svg/ico_edit.svg" alt=""></a>
+                        <a (click) = "editCurrentEducation(work.id)" class="edit_remove_ico"><img src="http://d33wubrfki0l68.cloudfront.net/8acba050eb7fc142849496e9d39c31e6ec848ebc/3b55c/img/svg/ico_edit.svg" alt=""></a>
                         <a (click) = "deleteCurrentEducation(work.id)" class="edit_remove_ico"><img src="http://d33wubrfki0l68.cloudfront.net/b3dd9a5fe04c6921b6c04fd3d4647f713a92b32c/a4a4a/img/svg/ico_delete.svg"></a>
                     </div>
               </div>

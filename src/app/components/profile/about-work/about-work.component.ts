@@ -106,6 +106,9 @@ export class AboutWorkComponent implements OnInit {
     this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
   }
 
+  editCurrentWork(id) {
+
+  }
   /**
    * Close work add form
    */
