@@ -71,6 +71,7 @@
     }
     #about_work,
     #about_awards,
+    #about_contact,
     #about_education {
         padding: 16px 32px;
         .overview_section {
@@ -98,6 +99,32 @@
                 }
             }
         }
+        .contact_section{
+            .contact_info_block{
+                width: 100%;
+                margin:12px 0px;
+                float: left;
+                .contact_ico{
+                    width: 24px;
+                    height: 24px;
+                    float: left;
+                    margin-right: 16px;
+                    text-align: center;
+                }
+                .contact_info{
+                    float: left;
+                    p{
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: $theme_black;
+                        padding: 3px 0px;
+                        span{
+                            font-weight: 700;
+                        }
+                    }
+                }
+            }
+        }
     }
     .home_tabs {
         .nav > li > a {
@@ -113,8 +140,6 @@
             cursor: default;
         }
     }
-
-
 
 // Edit profile styles start
 .edit-profile_main{
@@ -454,18 +479,4 @@
 	  opacity: 1;
 	  display: block;
 	}
-}
-
-.work-group{
-    float: left;
-}
-.workplace_edit_remove_ico{
-    float: right;
-    width: 70px;
-    .edit_remove_ico{
-        width: 16px;
-        height: 16px;
-        float: right;
-        margin: 8px;
-    }
 }
