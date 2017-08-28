@@ -44,6 +44,10 @@ export class PasswordSmsComponent {
   submitForm(value: any) {
     console.log(value);
 
+    if (value.otpToSubmit === '') {
+      return;
+    }
+
     const form = {
       'forgetPasswordtype': '',
       'value': '',

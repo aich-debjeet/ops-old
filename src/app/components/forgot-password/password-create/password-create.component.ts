@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Http, Headers, Response } from '@angular/http';
 
@@ -24,6 +24,7 @@ export class PasswordCreateComponent implements OnInit {
   createPass: FormGroup;
   tagState$: Observable<Login>;
   forgotP = initialTag;
+  passwordShow = false;
 
   constructor(
     private fb: FormBuilder,
@@ -33,8 +34,14 @@ export class PasswordCreateComponent implements OnInit {
     private http: Http) {
 
     this.createPass = fb.group({
-      'password': ['', Validators.required],
-      'confirmPassword': ['', Validators.required],
+      'password' : ['', [
+        Validators.required,
+        this.passwordStrength.bind(this)
+      ]],
+      'confirmpassword' : ['', [
+        Validators.required,
+        this.passwordMatchCheck.bind(this)
+      ]]
     })
 
     this.tagState$ = store.select('loginTags');
@@ -71,14 +78,60 @@ export class PasswordCreateComponent implements OnInit {
   }
 
   submitForm(value: any) {
-    // console.log(value);
-    const form = {
-      password: value.password,
-      activationCode: this.activationCode,
-      identity: this.forgotP.fp_user_input
-    };
 
-    this.store.dispatch({ type: AuthActions.FP_CREATE_PASS, payload: form });
+    if (this.createPass.valid === true) {
+      // console.log(value);
+      const form = {
+        password: value.password,
+        activationCode: this.activationCode,
+        identity: this.forgotP.fp_user_input
+      };
+
+      this.store.dispatch({ type: AuthActions.FP_CREATE_PASS, payload: form });
+    }
+  }
+
+  /**
+   * Checking for the password strength on register form
+   * @param control: Form password input
+   */
+  passwordStrength(control: AbstractControl) {
+    if (control.value === '') {
+      return;
+    }
+    // const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,20}$/;
+    // const passwordRegex = /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6,20}$/;
+    if (!passwordRegex.test(control.value)) {
+      // console.log('weak pass: ' + control.value);
+      return { isWeakPassword: true };
+    }
+    return null;
+  }
+
+  /**
+   * Checking for the password if matches with the confirm password on register form
+   * @param control: Form confirm password input
+   */
+  passwordMatchCheck(control: AbstractControl) {
+    // console.log(control.value);
+    if (control.value === '') {
+      return;
+    }
+    const pass = this.createPass.controls['password'].value;
+    // console.log('pass: ' + pass);
+    if (control.value !== pass) {
+      return { passwordDoesNotMatch: true };
+    }
+    return null;
+  }
+
+  passwordShowToggle() {
+    if (this.passwordShow === true) {
+      this.passwordShow = false;
+    } else {
+      this.passwordShow = true;
+    }
   }
 
 }

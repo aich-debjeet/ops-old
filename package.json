@@ -24,6 +24,7 @@
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^2.0.4",
     "@ngrx/store": "^2.2.3",
+    "angular2-masonry": "^0.4.0",
     "angular2-text-mask": "^8.0.3",
     "aws-sdk": "^2.97.0",
     "bootstrap-sass": "^3.3.7",

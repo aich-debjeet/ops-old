@@ -35,6 +35,11 @@ export class ForgotPasswordComponent {
 
   // submit the identity
   submitForm(value: any) {
+
+    if (value.identity === '') {
+      return;
+    }
+
     const form = {
       'forgetPasswordtype': 'userCheck',
       'value': value.identity
