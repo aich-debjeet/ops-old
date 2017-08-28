@@ -23,7 +23,7 @@ export class MediaService {
   postMedia(req: any) {
     // Headers
     const headers = this.tokenService.getAuthHeader();
-    const handle = '?handle=J_6494D893_44ED_4C7C_9CF4_1903C2014498VIJILIN_KV_AEIONE_COM';
+    const handle = '?handle=G_432743CB_0155_42A2_AC1F_6148C750B3D9MUNEEF_AURUT_COM';
 
     return this.http.post(`${this.apiLink}/portal/cdn/media/upload/multiple` + handle, req, { headers: headers } )
       .map((data) => data.json());

@@ -1,0 +1,123 @@
+label {
+  padding-bottom: 0.5rem;
+  display: inline-block;
+  padding-top: 0.5rem;
+  font-weight: bold;
+}
+
+.block{
+  border: 2px dotted #ecf3f2;
+  padding: 1rem 2rem;
+  border-radius: 3px;
+  padding-bottom: 3em;
+  margin-top: 2rem;
+  color: #eee !important;
+  padding-top: 3rem;
+  position: relative;
+}
+.clicker{
+  color: blue;
+  border-bottom: solid 2px blue;
+}
+
+.uploader ul li {
+  border: solid 1px #999;
+  width: auto;
+  height: 200px;
+  float: left;
+  margin-right: 12px;
+  border-radius: 2px;
+}
+.uploader ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+
+.uploader img {
+  width: auto;
+  height: 100%;
+}
+
+.uploader video {
+  width: auto;
+  height: 100%;
+}
+
+.sider{
+  width: 30%;
+  float: right;
+}
+
+.sider li{
+  list-style: none;
+  padding-bottom: 1rem;
+  border-bottom: solid 1px #eee;
+}
+
+.saveBtn{
+  border: solid 1px blue;
+  padding: 3px;
+  border-radius: 3px;
+  color: blue;
+}
+
+.channelCreate{
+  text-align: left;
+}
+
+.overlayStatus{
+  color: #0b540b;
+  font-size: 2.5rem !important;
+  position: absolute;
+  background-color: #94f194;
+  left: 0;
+  right: 0;
+  top: 0;
+  text-align: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.btn{
+  background-color: blue !important;
+  color: #fff;
+  border: 0;
+  border-radius: 3px;
+  padding: 0.5rem 1rem;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+
+.media_info,
+.media_content_report{
+  list-style: none;
+  border-bottom: 1px rgba(102,45,145,.1) solid;
+  padding: 32px;
+}
+
+
+.ops_add-post .add-post_container .add_media_more_inner .add_media_info ul li .form_group textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px #c1c1c1 solid;
+  font-weight: 600;
+  color: #000;
+}
+
+.add_media_info__form{
+  text-align: left;
+}
+
+
+.add_media_container {
+  width: 174px;
+  height: 174px;
+  overflow: hidden;
+  float: left;
+  position: relative;
+  border-radius: 3px;
+}

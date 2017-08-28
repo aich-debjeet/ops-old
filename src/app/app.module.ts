@@ -75,8 +75,13 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
 import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.component';
 
 // Media
-import { MediaComponent } from './components/media/media.component';
+import { MediaComponent } from './shared/media/media.component';
+import { MediaSelectorComponent } from './shared/media-selector/media-selector.component';
 
+import {VgCoreModule} from 'videogular2/core';
+import {VgControlsModule} from 'videogular2/controls';
+import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+import {VgBufferingModule} from 'videogular2/buffering';
 
 @NgModule({
   declarations: [
@@ -106,9 +111,7 @@ import { MediaComponent } from './components/media/media.component';
     ExploreComponent,
     ChannelListComponent,
     LogoutHomeComponent,
-    ProfileSliderComponent,
-    MediaComponent,
-    TAB_COMPONENTS
+    ProfileSliderComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +128,12 @@ import { MediaComponent } from './components/media/media.component';
     EffectsModule.run(ProfileEffect),
     EffectsModule.run(MessageEffect),
     EffectsModule.run(UserSearchEffect),
-    EffectsModule.run(MediaEffect)
+    EffectsModule.run(MediaEffect),
+    // Video
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   providers: [AuthService, AuthGuard, ApiService, TokenService, MediaService],
   bootstrap: [AppComponent]

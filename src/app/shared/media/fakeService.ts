@@ -4,17 +4,17 @@ import { Http, RequestOptionsArgs, Headers } from '@angular/http';
 @Injectable()
 export class FileUploadService {
 
-    baseUrl = 'http://localhost:3001';
+    baseUrl = 'http://devservices.greenroom6.com:9000/api/1.0/portal';
 
     constructor(private _http: Http) { }
 
-    upload(formData) {
-        const url = `${this.baseUrl}/photos/upload`;
+    upload(formData, user) {
+        const url = `${this.baseUrl}/cdn/media/upload/multiple?handle=${user}` ;
         return this._http.post(url, formData)
             .map(x => x.json())
             .map((x: any[]) => x
                 .map(item => Object
-                    .assign({}, item, { url: `${this.baseUrl}/images/${item.id}` }))
+                  .assign({}, item, { url: `${this.baseUrl}/images/${item.id}` }))
             );
     }
 }

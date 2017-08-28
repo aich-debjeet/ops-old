@@ -3,20 +3,24 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
 
+.Media__content{
+  background-color: #fff;
+}
  // ops tab
-    tabset section{
-        float: none!important;
-        display: inline-block!important;
-        zoom: 1!important;
-        a{
-            font-size: 14px;
-            color: #000;
-            padding:0px 16px;
-            &:hover{
-                color: #FF7B84;
-            }
+tabset section{
+    float: none!important;
+    display: inline-block!important;
+    zoom: 1!important;
+    a{
+        font-size: 14px;
+        color: #000;
+        padding:0px 16px;
+        &:hover{
+            color: #FF7B84;
         }
     }
+}
+
 .ops_add-post {
     // background-color: rgba(243, 245, 247, 0.95);
     // position: fixed;
@@ -169,7 +173,7 @@
                         border-radius: 0px;
                         height: 24px;
                     }
-                    
+
                 }
             }
             .add-post_status{
@@ -483,7 +487,7 @@
                             top: 16px;
                             right: 16px;
                             width: 19px;
-                            height: 19px;   
+                            height: 19px;
                         }
                         &:hover{
                             .add_media_delet{
@@ -502,7 +506,7 @@
                             top: 16px;
                             left: 16px;
                             width: 24px;
-                            height: 24px;      
+                            height: 24px;
                         }
                     }
                     .add_media_plus{
@@ -622,12 +626,12 @@
                             line-height: 17px;
                         }
                         .ops_radio_sm input[type="checkbox"] {
-                            display: none; 
+                            display: none;
                         }
                         .ops_radio_sm label {
                             position: static;
                             text-align: center;
-                            pointer-events: auto; 
+                            pointer-events: auto;
                             font-weight: 600;
                             font-size: 12px;
                             color: #000;
@@ -642,7 +646,7 @@
                             -webkit-appearance: none;
                             width: 15px;
                             height: 15px;
-                            margin-top: 1px; 
+                            margin-top: 1px;
                         }
                         .ops_radio_sm input[type="checkbox"]:checked + span:after {
                             background: #ff7b84;
@@ -959,7 +963,7 @@
                                     overflow: hidden;
                                     border-radius: 3px;
                                     .thumb_img{
-                                    
+
                                     }
                                 }
                                 .add_media_plus{
@@ -1038,7 +1042,7 @@
                 .add_blog_img{
                     width:32px;
                     height: 32px;
-                    margin: 0px auto; 
+                    margin: 0px auto;
                     img{
                         width: 100%;
                     }

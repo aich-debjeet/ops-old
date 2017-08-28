@@ -66,4 +66,8 @@ export class ProfileService {
       .map((data: Response) => data.json());
   }
 
+  /**
+   * Apparently here
+   */
+
 }

@@ -23,12 +23,12 @@
                <li><a href="#">Commmunities</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right nav_right">
-               <li><a href="#"><img src="/assets/img/svg/ico_add.svg"></a></li>
+               <li><a (click)="addMedia()"><img src="/assets/img/svg/ico_add.svg"></a></li>
                <li><a href="#"><img src="/assets/img/svg/ico_search.svg"></a></li>
                <li><a href="#"><img src="/assets/img/svg/ico_notification.svg"></a></li>
                <li><a href="#"><img src="/assets/img/svg/ico_message.svg"></a></li>
-               <li class="dropdown opsheader-paddingt6">
-                  <a href="#" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+               <li class="dropdown opsheader-paddingt6" [ngClass]="showMenu ? 'open' : ''">
+                  <a (click)="toggleMenu()" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <img src="/assets/img/avatar.jpg" class="img-responsive"> <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                      <li>
@@ -41,12 +41,12 @@
                         </ul>
                      </li>
                      <li role="separator" class="divider"></li>
-                     <li><a href="#">Organisation</a></li>
-                     <li><a href="#">Settings</a></li>
+                     <li><a routerLink="/account/organization">Organisation</a></li>
+                     <li><a routerLink="/account/settings">Settings</a></li>
                      <li role="separator" class="divider"></li>
-                     <li><a href="#">About One Page Spotlight</a></li>
+                     <li><a routerLink="/about">About One Page Spotlight</a></li>
                      <li role="separator" class="divider"></li>
-                     <li><a href="#">Signout</a></li>
+                     <li><a routerLink="/signout">Signout</a></li>
                   </ul>
                </li>
             </ul>
@@ -56,3 +56,9 @@
       <!-- /.container-fluid -->
    </nav>
 </header>
+
+
+
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='AddMedia' class="media__modal" size="large">
+  <app-media></app-media>
+</app-modal>

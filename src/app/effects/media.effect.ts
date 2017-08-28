@@ -14,6 +14,18 @@ import { MediaActions } from '../actions/media.action';
 export class MediaEffect {
 
   /**
+   * Media Upload
+   */
+  @Effect()
+  uploadMedia$ = this.actions$
+    .ofType(MediaActions.MEDIA_UPLOAD)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.postMedia(payload)
+      .map(res => ({ type: MediaActions.MEDIA_UPLOAD_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MediaActions.MEDIA_UPLOAD_FAILED, payload: res }))
+    );
+
+  /**
    * Post Status
    */
   @Effect()

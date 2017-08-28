@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TAB_COMPONENTS  } from '../../shared/tabs/tabset';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TAB_COMPONENTS  } from '../tabs/tabset';
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 import { Http, Headers, Response } from '@angular/http';
 
@@ -34,11 +34,12 @@ export class MediaComponent implements OnInit {
   uploadError;
   currentStatus: number;
   uploadFieldName = 'photos';
+  files: any[];
+  showChannelList: boolean;
 
-  readonly STATUS_INITIAL = 0;
-  readonly STATUS_SAVING = 1;
-  readonly STATUS_SUCCESS = 2;
-  readonly STATUS_FAILED = 3;
+  // temp
+  token: string;
+  handle: string;
 
   constructor(
     private fb: FormBuilder,
@@ -47,7 +48,11 @@ export class MediaComponent implements OnInit {
 
       // Forms
       this.createStatusForm();
-      this.createMediaForm();
+      // this.createMediaForm();
+
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      this.handle = localStorage.getItem('currentUserID');
+      this.token = currentUser.access_token; // your token
 
       // Reducer Store
       this.mediaState$ = store.select('mediaStore');
@@ -58,54 +63,67 @@ export class MediaComponent implements OnInit {
       this.reset(); // set initial state
     }
 
-  filesChange(fieldName: string, fileList: FileList) {
-    // handle file changes
-    const formData = new FormData();
+  /**
+   * Show/Hide Channel Dropdown List
+   */
+  toggleChannelList() {
+    this.showChannelList = !this.showChannelList;
+  }
 
+  /**
+   * File Watcher
+   * @param fieldName
+   * @param fileList
+   */
+  filesChange(fieldName: string, fileList: FileList) {
     if (!fileList.length) {
       return;
     }
 
+    const fd = new FormData();
+
     Array
       .from(Array(fileList.length).keys())
-      .map(x => {
-        formData.append(fieldName, fileList[x], fileList[x].name);
+      .map( x => {
+        fd.append(fieldName, fileList[x], fileList[x].name);
       });
 
-    // save it
-    this.save(formData);
+    // // Save it
+    // for (let pair of fd.entries()) {
+    //   console.log(pair[0] + ', ' + pair[1]);
+    // }
+
+    this.save(fd);
   }
 
+  /**
+   * Init Media Upload state
+   */
+
   reset() {
-    this.currentStatus = this.STATUS_INITIAL;
+    // this.currentStatus = this.STATUS_INITIAL;
     this.uploadedFiles = [];
     this.uploadError = null;
   }
 
+  /**
+   * Save Medias
+   * @param formData
+   */
   save(formData: FormData) {
-    // upload data to the server
-    this.currentStatus = this.STATUS_SAVING;
-    // console.log(formData);
-
-    this.mediaService.upload(formData)
-      .take(1)
-      .subscribe(x => {
-        this.uploadedFiles = [].concat(x);
-        this.currentStatus = this.STATUS_SUCCESS;
-      }, err => {
-        this.uploadError = err;
-        this.currentStatus = this.STATUS_FAILED;
-      })
+    // Upload data to the server
+    // this.currentStatus = this.STATUS_SAVING;
+    console.log(formData);
+    this.store.dispatch({ type: MediaActions.MEDIA_UPLOAD, payload: formData });
   }
 
   /**
    * Media Uploader Form
    */
-  submitForm(value: any) {
-    if ( this.mediaForm.valid === true ) {
-
+  submitStatusForm(value: any) {
+    if ( this.statusForm.valid === true ) {
       const postStatus = {
-        owner: 'G_432743CB_0155_42A2_AC1F_6148C750B3D9MUNEEF_AURUT_COM',
+        owner: this.handle,
         feed_type: 'status',
         title: '',
         description: value.status,

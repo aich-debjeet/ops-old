@@ -21,8 +21,6 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
-import { MediaComponent } from './components/media/media.component';
-//import { SearchIconComponent } from './components/search-icon/search-icon.component';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -31,7 +29,6 @@ export const routes: Routes = [
  { path: '', component: LogoutHomeComponent },
 //  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
  { path: 'login', component: LoginComponent },
- { path: 'media', component: MediaComponent },
  { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },
  { path: 'account', loadChildren: './components/forgot-password/forgot-password.module#ForgotPasswordModule'},
  { path: 'home', loadChildren: './components/home/home.module#HomeModule'},

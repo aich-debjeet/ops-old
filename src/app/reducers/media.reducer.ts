@@ -10,6 +10,19 @@ export const MediaReducer: ActionReducer<any> = (state = initialTag, {payload, t
         success: true
       });
 
+    case MediaActions.MEDIA_UPLOAD:
+      return Object.assign({}, state, {
+        uploaded: false,
+        uploading: true
+      });
+
+    case MediaActions.MEDIA_UPLOAD_SUCCESS:
+      return Object.assign({}, state, {
+        uploaded: true,
+        uploading: true,
+        uploaded_files: payload
+      });
+
     default:
       return state;
   }

@@ -58,8 +58,8 @@ export class LoginComponent implements OnInit {
 
     const user = JSON.parse(localStorage.getItem('currentUser'));
     if (user && user.access_token) {
-      this.router.navigate(['/profile']);
-     }
+      this.store.dispatch({ type: AuthActions.USER_AUTHENTICATED, payload: ''});
+    }
   }
 
   submitForm(value: any) {

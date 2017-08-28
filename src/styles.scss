@@ -104,3 +104,34 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
     margin-top: -47%;
   }
 }
+
+
+vg-scrub-bar {
+  height: 3px !important;
+  bottom: 0 !important;
+}
+
+.modal__large{
+  .nav-tabs{
+    border-bottom: none;
+  }
+  .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+    color:#ff7b84!important;
+    background-color: transparent;
+    border: 0;
+    border-bottom-color: transparent;
+    cursor: default;
+  }
+
+  .nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 0;
+    border-radius: 4px 4px 0 0;
+    color: #000;
+  }
+}
+
+.media-selector{
+  background-color: #fff;
+}

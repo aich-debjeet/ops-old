@@ -99,3 +99,12 @@ width: 235px;
 margin-top: 8px;
 box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.23);
 }
+
+.AddMedia{
+  color: #000;
+}
+
+app-modal.media__modal .ng-modal {
+  width: 80%;
+  left: 10%;
+}

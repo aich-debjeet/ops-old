@@ -7,7 +7,7 @@
             <tab title="Status">
               <div class="tab-content add-post_container">
                 <!-- add status  -->
-                <form [formGroup]="statusForm" novalidate (ngSubmit) = "submitForm(statusForm.value)" #myform="ngForm">
+                <form [formGroup]="statusForm" novalidate (ngSubmit) = "submitStatusForm(statusForm.value)" #myform="ngForm">
                   <div id="add_status" class="tab-pane fade active in add_status_inner com_in_middle">
                     <ul class="middle_block">
                         <li class="with_border_bottom">
@@ -45,10 +45,10 @@
                                     </div>
                                 </li>
                                 <li class="dropdown add-post_status_dropdown open">
-                                    <a href="#" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <a (click)="toggleChannelList()" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                         Status<span class="caret"></span>
                                     </a>
-                                    <ul class="dropdown-menu add-post_choosechannel">
+                                    <ul *ngIf="showChannelList" class="dropdown-menu add-post_choosechannel">
                                         <span class="txt-3 with_border_bottom">Choose channel</span>
                                         <span class="createchannel with_border_bottom">
                                             <div class="createchannel_ico">
@@ -142,48 +142,7 @@
               </div>
             </tab>
             <tab title="Media">
-              <div>
-                  <div class="container">
-                      <!--UPLOAD-->
-                      <form #f="ngForm" enctype="multipart/form-data" novalidate
-                        *ngIf="currentStatus === STATUS_INITIAL || currentStatus === STATUS_SAVING">
-                        <h1>Upload images</h1>
-                        <div class="dropbox">
-                          <input type="file" multiple
-                            [name]="uploadFieldName" (change)="filesChange($event.target.name, $event.target.files)"
-                            [disabled]="currentStatus === STATUS_SAVING" accept="image/*" #photos>
-                          <p *ngIf="currentStatus === STATUS_INITIAL">
-                            Drag your file(s) here to begin<br>
-                            or click to browse
-                          </p>
-                          <p *ngIf="currentStatus === STATUS_SAVING">
-                            Uploading {{ photos.files.length }} files...
-                          </p>
-                        </div>
-                      </form>
-                      <!--SUCCESS-->
-                      <div class="margin-20" *ngIf="currentStatus === STATUS_SUCCESS">
-                        <h2>Uploaded {{ uploadedFiles.length }} file(s) successfully.</h2>
-                        <p>
-                          <a href="javascript:void(0)" (click)="reset()">Upload again</a>
-                        </p>
-                        <ul class="list-unstyled">
-                          <li *ngFor="let item of uploadedFiles">
-                            <img [src]="item.url" class="img-responsive img-thumbnail"
-                              [alt]="item.originalName">
-                          </li>
-                        </ul>
-                      </div>
-                      <!--FAILED-->
-                      <div class="margin-20" *ngIf="currentStatus === STATUS_FAILED">
-                        <h2>Uploaded failed.</h2>
-                        <p>
-                          <a href="javascript:void(0)" (click)="reset()">Try again</a>
-                        </p>
-                        <pre>{{ uploadError | json }}</pre>
-                      </div>
-                    </div>
-              </div>
+              <app-media-selector class="Media__content"></app-media-selector>
             </tab>
             <tab title="Blog">
               Blog Here

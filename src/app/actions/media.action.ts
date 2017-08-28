@@ -25,4 +25,17 @@ export class MediaActions {
     };
   }
 
+  /**
+   * Upload Media
+   * @param value
+   */
+  uploadMedia(value): Action {
+    return {
+      type: MediaActions.MEDIA_UPLOAD,
+      payload: {
+        value
+      }
+    };
+  }
+
 }

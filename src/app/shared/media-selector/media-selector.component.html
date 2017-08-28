@@ -1,0 +1,229 @@
+<div class="media-selector">
+  <div class="col-md-8 padding_none">
+      <span class="overlayStatus" *ngIf="status >1 && status <100">
+        {{ status }}%
+      </span>
+
+        <div class="block"
+          (ngxf-drop)="uploadFileList($event)"
+          drop-class="drop"
+          multiple
+          [ngxf-validate]="{ size: { min: 10, max:10000000 } }">
+            <label class="upload-button">
+            <input type="file"
+              (ngxf-select)="uploadFile($event)"
+              [ngxf-validate]="{ size: { min: 50000, max:1000000 } }">
+          </label>
+
+          <label class="upload-button">
+            <input type="file" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.mp4">
+            Drag drop files here
+          </label>
+        </div>
+
+        <ul>
+          <li *ngFor="let q of queue">
+            {{ q.name}}
+          </li>
+          <li *ngFor="let file of uploaded">
+            <div *ngIf="FilUtils.fileType(file.fileName)==='mp4'" class="add_media_container">
+              <app-videplayer (click)="fileDetails(file)" id="video_3x" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file.repoPath }}"></app-videplayer>
+            </div>
+            <div *ngIf="FilUtils.fileType(file.fileName)==='png'" class="add_media_container">
+              <img (click)="fileDetails(file)" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file.repoPath }}"/>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+      <!-- *ngIf="editingFile" -->
+      <div class="col-md-4 add_media_info padding_none">
+        <form [formGroup]="mediaForm" novalidate #mediaform="ngForm" class="add_media_info__form">
+          <ul class="media_info">
+            <li>
+              <div class="form_group">
+                <input formControlName="title" class="form_input" required="" type="text">
+                <span class="form_highlight"></span>
+                <span class="form_bar"></span>
+                <label>Title</label>
+              </div>
+            </li>
+            <li>
+              <div class="form_group">
+                <textarea formControlName="desc" name="comment" rows="2" placeholder="Description"></textarea>
+              </div>
+            </li>
+            <li>
+              <div class="form_group">
+                <input class="form_input" required="" type="text">
+                <span class="form_highlight"></span>
+                <span class="form_bar"></span>
+                <label>Tags</label>
+              </div>
+            </li>
+          </ul>
+          <ul class="media_content_report">
+              <li>
+                <div class="form_group">
+                  <select formControlName="privacy" class="form-control" id="sel1">
+                      <option value="0">Public</option>
+                      <option value="1">Private</option>
+                  </select>
+                </div>
+              </li>
+              <li>
+                <div class="form_group">
+                  <select formControlName="copyright" class="form-control" id="sel1">
+                    <option value="1">Copyright and License type</option>
+                    <option value="2">CC: Attribution Share Alike</option>
+                    <option value="3">CC: Attribution Non-Derivative</option>
+                    <option value="4">CC: Attribution-NonCommercial</option>
+                    <option value="5">CC: Attribution-NonCommercial-ShareAlike</option>
+                    <option value="6">CC: Attribution-NonCommercial-NoDerivs No License</option>
+                  </select>
+                </div>
+              </li>
+              <li class="ops_radio_sm">
+                <div class="form_group ops_radio_sm">
+                  <label>
+                    <label class="gender_single">
+                      <input formControlName="isAdult" type="checkbox" name="demo"><span></span>This media contain adult content
+                    </label>
+                  </label>
+                </div>
+              </li>
+          </ul>
+
+          <div id="choose_channel_details" style="">
+              <ul class="add-post_choosechannel">
+                  <span class="createchannel with_border_bottom">
+                      <div class="createchannel_ico">
+                          <img src="http://d33wubrfki0l68.cloudfront.net/ecd156ec380d4f55a1b0b797ccdef45d2fca54df/494c4/img/svg/ico_create-plus.svg">
+                      </div>
+                      Create channel
+                      <div class="o-block_2 o-create_channel">
+
+                              <ul>
+                                  <li class="channel_title">
+                                      <div class="form_group">
+                                          <input class="form_input" required="" type="text">
+                                          <span class="form_highlight"></span>
+                                          <span class="form_bar"></span>
+                                          <label>Title</label>
+                                      </div>
+                                  </li>
+                                  <li class="list-inline-item discussion_post_topic">
+                                      <div class="form_group">
+                                          <select class="form-control" id="sel1">
+                                              <option>Public</option>
+                                              <option>Branding</option>
+                                              <option>UI/UX</option>
+                                              <option>Photography</option>
+                                          </select>
+                                      </div>
+                                  </li>
+                                  <li class="create_btn">
+                                      <button type="button" class="btn btn-normal btn-sm ">Create</button>
+                                  </li>
+                              </ul>
+
+                      </div>
+                  </span>
+                  <div class="o-block_1">
+                      <ul class="msg_name_list msg_search_block">
+                          <li class="">
+                              <ul class="list-inline with_border_bottom">
+                                  <li class="list-inline-item">
+                                      <div class="msg_inbox_name">
+                                          <img src="https://d33wubrfki0l68.cloudfront.net/89a41955b9f69180f74b70688003e1573d06acbe/0dc7b/img/svg/ico_search.svg">
+                                      </div>
+                                  </li>
+                                  <li class="list-inline-item search_input">
+                                      <form>
+                                          <div class="form_group">
+                                              <input class="form_input " type="text" required="">
+                                              <label>Search</label>
+                                          </div>
+                                      </form>
+                                  </li>
+                              </ul>
+                          </li>
+                      </ul>
+                      <!-- search end -->
+
+                      <div *ngFor="let channel of channels" class="channel-list-show with_border_bottom">
+                          <div class="channel-list-show_img ">
+                              <figure class="channel-list-show_img">
+                                  <a href=""><img src="https://d33wubrfki0l68.cloudfront.net/a4ad69d317551d24c67bda3a1ed38c6e740ba123/d7eb6/img/quick3.jpg"></a>
+                              </figure>
+                          </div>
+                          <div class="channel-list-show_txt">
+                              <p>{{channel.spotfeedName}} </p>
+                          </div>
+                          <div class="channel-list-show_btn">
+                              <a (click)="chooseChannel(channel)" type="button" class="btn btn-normal btn-sm">Select</a>
+                          </div>
+                      </div>
+
+                      <!-- channel-list-show_block -->
+                  </div>
+                  <div class="o-block_2 o-create_channel" style="display: none;">
+                      <form>
+                          <ul>
+                              <li class="channel_title">
+                                  <div class="form_group">
+                                      <input class="form_input" required="" type="text">
+                                      <span class="form_highlight"></span>
+                                      <span class="form_bar"></span>
+                                      <label>Title</label>
+                                  </div>
+                              </li>
+                              <li class="list-inline-item discussion_post_topic">
+                                  <div class="form_group">
+                                      <select class="form-control" id="sel1">
+                                          <option>Public</option>
+                                          <option>Branding</option>
+                                          <option>UI/UX</option>
+                                          <option>Photography</option>
+                                      </select>
+                                  </div>
+                              </li>
+                              <li class="create_btn">
+                                  <button type="button" class="btn btn-normal btn-sm">Create</button>
+                              </li>
+                          </ul>
+                      </form>
+                  </div>
+                  <!-- o-block_2 end -->
+              </ul>
+              <div class="choose_channel_post_btn">
+                  <button type="button" class="btn btn-primary btn-sm">Post</button>
+              </div>
+          </div>
+          <div class="channels">
+            <h2>Channels</h2>
+            <ul>
+              <li *ngFor="let channel of channels">{{channel.spotfeedName}} <a class="clicker" (click)="chooseChannel(channel)">Select</a></li>
+            </ul>
+            <a (click)="makeChannel()">Add New Channel</a>
+          </div>
+        </form>
+        <button class="btn btn-primary btn-sm" (click)="mediaInfoUpdate(mediaForm.value)">Post</button>
+  </div>
+
+  <div class="channelCreate" *ngIf="addChannel">
+    <form [formGroup]="channelForm" novalidate #myform="ngForm">
+      <label for="title">Title</label><br>
+      <input type="text" formControlName="title" name="title"> <br>
+      <label for="desc">Description</label><br>
+      <textarea formControlName="desc" name="desc" id="" cols="30" rows="10"></textarea><br>
+      <label for="access">Privacy</label><br>
+      <select formControlName="privacy" class="form-control" name="access"><br>
+          <option value="0">Public</option>
+          <option value="1">Private</option>
+      </select>
+      <br>
+      <button class="btn" type="submit" (click)="createChannel(channelForm.value)">Create Channel</button>
+    </form>
+  </div>
+</div>

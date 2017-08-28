@@ -49,26 +49,32 @@ export class AuthService {
     }
 
     login(req: any) {
-        return this.http.post(`${this.apiLink}/portal/auth/oauth2/token`, req)
-            .map((response: Response) => {
-                const user = response.json();
-                if (user && user.access_token) {
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                }
-                this.router.navigate(['/profile']);
-            });
+      return this.http.post(`${this.apiLink}/portal/auth/oauth2/token`, req)
+          .map((response: Response) => {
+              const user = response.json();
+              if (user && user.access_token) {
+                  localStorage.setItem('currentUser', JSON.stringify(user));
+              }
+              this.router.navigate(['/profile']);
+          });
+    }
+
+    validateToken() {
+      const headers = this.getAuthHeader();
+      const req = {};
+      return this.http.get(`${this.apiLink}/portal/auth/loggedUser`, { headers: headers })
+      .map((response: Response) => {
+          const user = response.json();
+          if (user.profileId) {
+            localStorage.setItem('currentUserID', user.profileId);
+          }
+          this.router.navigate(['/profile']);
+      });
     }
 
     registerStepBasic(req: any) {
         return this.http.post(`${this.apiLink}/portal/auth/user`, req)
             .map((data: Response) => data.json());
-            // .map((response: Response) => {
-            //     const user = response.json();
-            //     // console.log(user);
-
-            //     // localStorage.setItem('registerUser', JSON.stringify(user));
-            //     // this.router.navigate(['/registration/add-skill']);
-            // });
     }
 
     registerProfile(req: any) {
