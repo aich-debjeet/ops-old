@@ -38,20 +38,26 @@
                <li><a href="#"><img src="/assets/img/svg/ico_message.svg"></a></li>
                <li class="dropdown opsheader-paddingt6">
                   <a  href="javascript:void(0)" (click)="toggleNav('profile')" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+               <li><a (click)="addMedia()"><img src="/assets/img/svg/ico_add.svg"></a></li>
+               <li><a href="#"><img src="/assets/img/svg/ico_search.svg"></a></li>
+               <li><a href="#"><img src="/assets/img/svg/ico_notification.svg"></a></li>
+               <li><a href="#"><img src="/assets/img/svg/ico_message.svg"></a></li>
+               <li class="dropdown opsheader-paddingt6" [ngClass]="showMenu ? 'open' : ''">
+                  <a (click)="toggleMenu()" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <img src="/assets/img/avatar.jpg" class="img-responsive"> <span class="caret"></span></a>
                   <ul class="dropdown-menu" [ngClass]="{'open': this.topNav['profile'].open }">
                      <li>
                         <ul class="list-inline head_drop_thumb">
                            <li class="list-inline-item"><img src="/assets/img/avatar.jpg" class="img-responsive"></li>
                            <li class="list-inline-item">
-                              <h4>Tobias Van Schneider</h4>
-                              <p>@tobias</p>
+                              <h4>{{ userProfile.profileUser?.name }} </h4>
+                              <p>@{{ userProfile.profileUser?.userName }}</p>
                            </li>
                         </ul>
                      </li>
                      <li role="separator" class="divider"></li>
-                     <li><a routerLink="/organisation">Organisation</a></li>
-                     <li><a routerLink="/settings">Settings</a></li>
+                     <li><a routerLink="/account/organization">Organisation</a></li>
+                     <li><a routerLink="/account/settings">Settings</a></li>
                      <li role="separator" class="divider"></li>
                      <li><a routerLink="/about">About One Page Spotlight</a></li>
                      <li role="separator" class="divider"></li>
@@ -66,6 +72,7 @@
    </nav>
 </header>
 
+<<<<<<< HEAD
 <!-- popups -->
 <div class="ops_search hide" id="search-popup" [ngClass]="{'open': this.topNav['search'].open }">
     <p class="search_close">
@@ -1615,3 +1622,10 @@
     </div>
 </div>
 <!-- popups -->
+=======
+
+
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='AddMedia' class="media__modal" size="large">
+  <app-media></app-media>
+</app-modal>
+>>>>>>> feature/tab-component
