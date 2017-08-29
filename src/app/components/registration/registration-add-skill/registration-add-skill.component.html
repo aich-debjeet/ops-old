@@ -1,140 +1,79 @@
-<section class="reg_steps">
+<header class="opsheader">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><img src="/assets/img/ops_icon.png"></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="signup_next">
+                <app-button [className]="'btn btn-network btn-sm'" [type]="'submit'">CONTINUE</app-button>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+</header>
+<section class="container-fluid skills_section">
     <div class="container">
-        <!-- registraion middle container -->
-        <div class="row reg_middle_container">
-            <!-- left section -->
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 reg_left_section">
-                <div class="reg_step3">
-                    <!-- progress bar -->
-                    <div class="reg_progress_bar">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 progress_bar_active">
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 progress_bar_active">
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="progress_dot_active_tick"></div>
+        <div class="row">
+            <h1 class="add-your-skills">Add your skills</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-6 padding_none with_border_right">
+                <!-- add skill block start -->
+                <ul class="add_skill_block">
+                    <li *ngFor="let industry of skillSelectionPage.industries">
+                        <a href="javascript:void(0)" (click)="selectCategory(industry.code)" [ngClass]="industry.isSelected?'btn btn-reg_tag-active':''" class="btn btn-reg_tag">
+                            <span class="skill_list_container">
+                                <span class="skills_list_bg_img">
+                                    <figure><img src="{{industry.background}}" alt=""></figure>
+                                </span>
+                                <span class="skills_name"><p>{{industry.name}}</p></span>
+                            </span>
+                        </a>
+                    </li><!-- skill block end -->
+                </ul><!-- add_skill_block end -->
+            </div>
+            <div class="col-md-6 padding_none">
+                <div class="o-search-block">
+                    <form [formGroup]="rForm">
+                        <div class="search_container">
+                            <div class="form_group">
+                                <input class="form_input" type="text" formControlName="profession" [(ngModel)]="search" (ngModelChange)="onSearchChange($event)">
+                                <label>Search</label>
+                                <p class="search_top_icon"><img src="/assets/img/svg/ico_search.svg"></p>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center">
-                                <div class="progress_dot_active_tick active_tick_dot_center"></div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <div class="progress_dot_active progress_dot_right"></div>
-                            </div>
                         </div>
-                    </div>
-                    <!-- //progress bar -->
-                    <form [formGroup]="rForm "  (ngSubmit)="addSkill(rForm.value)">
-                        <div class="form_group">
-                            <input class="form_input" type="text" formControlName="profession" [(ngModel)]="search" (ngModelChange)="onSearchChange($event)">
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label>{{searchPlaceholder}}</label>
-                            <span><i class="fa fa-search" aria-hidden="true"></i></span>
+                        <div class="selected_skill">
+                            <button *ngFor="let skill of selectedSkills" type="button" class="btn btn-xs btn-primary btn-tag-close">
+                                <span class="btn-label-tag" (click)="toggleSelectSkill(skill.code)">
+                                    {{skill.name}} <img src="http://d33wubrfki0l68.cloudfront.net/4bfecd878a6e9fec4f1edef66625ef13f7b4cdb0/32216/img/svg/ico_close-white.svg">
+                                </span>
+                            </button>
+                        </div>
+                        <div class="selected_tags">
+                            <div *ngIf="skillSelectionPage.skills_loaded===false">
+                                <span class="loading">Loading...</span>
+                            </div>
+                            <div *ngFor="let skill of skillSelectionPage.skills" >
+                                <button type="button" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" class="btn btn-reg_tag">
+                                    {{skill.name}}
+                                </button>
+                            </div>
+                            <div *ngIf='skillSelectionPage.skills_loaded===true && skillSelectionPage.skills && skillSelectionPage.skills.length === 0'>
+                                <a class="adder" (click)="addNewSkill(search)">Add <span class="adder__name">{{search}}?</span></a>
+                            </div>
                         </div>
                     </form>
-
-                    <div class="selList">
-                      <span *ngFor="let skill of selectedSkills" >
-                          <a type="button" class="btn btn-xs btn-primary btn-tag-close">
-                              <span class="btn-label-tag" (click)="toggleSelectSkill(skill.code)">
-                                {{skill.name}} <img src="http://d33wubrfki0l68.cloudfront.net/4bfecd878a6e9fec4f1edef66625ef13f7b4cdb0/32216/img/svg/ico_close-white.svg">
-                              </span>
-                            </a>
-                      </span>
-                    </div>
-
-                    <!-- Select Interest -->
-                    <div class="row reg_select_interest" id="ops_scrollbar">
-                        <div *ngIf="followpage.skills_loaded===false">
-                          <span>Loading ..</span>
-                        </div>
-                        <a *ngFor="let skill of followpage.skills" >
-                            <a type="button" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" class="btn btn-reg_tag">{{skill.name}}</a>
-                        </a>
-                        <div *ngIf='followpage.skills && followpage.skills.length === 0'>
-                          <a class="adder" (click)="addNewSkill(search)">Add <span class="adder__name">{{search}}?</span></a>
-                        </div>
-                    </div>
-                    <div class="row text-center submit-button ">
-                        <app-button [className]="'btn-default btn-md finish_btn'" (click)="submitSkills()" [type]="'submit'">Finish</app-button>
-                    </div>
-                    <!-- //Select Interest -->
-
-                </div>
+                </div><!-- o-search-block end -->
             </div>
-            <!-- //left section -->
-
-            <!-- Registration Right Section -->
-            <auth-right-block *ngIf="!is_skill_open" [rightCom]="rightCom"></auth-right-block>
-
-            <!-- Registration Right Section -->
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 reg_add_skills"   *ngIf="is_skill_open">
-                    <div class="reg_add_skills_contant" id="ops_scrollbar">
-                        <!-- artist to follow -->
-                        <div class="row">
-                            <div class="col-md-12 reg_add_skills_sec margin_t_0">
-                                <div class="row">
-                                    <h3 class="col-md-9">Artist to follow</h3>
-                                    <div class="col-md-3">
-                                        <p class="pull-right">
-                                            <a href="">
-                                                <i class="fa fa-angle-left faicon" aria-hidden="true"></i>
-                                            </a>
-                                            <a href="">
-                                                <i class="fa fa-angle-right faicon" aria-hidden="true"></i>
-                                            </a>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row" *ngIf="followpage?.is_data" >
-                                    <div class="col-md-4 text-center"   *ngFor="let artist of artistFollowList.completed; let i=index" >
-                                        <div *ngIf="i<3">
-                                            <div class="reg_skills_img">
-                                                <img src="{{artist.profileImage}}" class="img-circle">
-                                            </div>
-                                            <h4>{{artist.name}}</h4>
-                                            <h5>Profession</h5>
-
-                                            <app-button (click)="toggleFollowBtn(i, artist.handle)" [className]="('btn-xs btn-primary ' + (artist.isFollowing == true ? 'btn-following' : 'btn-follow'))">{{artist.isFollowing == true ? "Following" :  "Follow"}}</app-button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div *ngIf="!followpage?.is_data">
-                                   <h4> No Data </h4>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12 reg_add_skills_sec">
-                                        <div class="row">
-                                            <h3 class="col-md-9">Channels to follow</h3>
-                                            <div class="col-md-3">
-                                                <p class="pull-right">
-                                                    <a href="">
-                                                        <i class="fa fa-angle-left faicon" aria-hidden="true"></i>
-                                                    </a>
-                                                    <a href="">
-                                                        <i class="fa fa-angle-right faicon" aria-hidden="true"></i>
-                                                    </a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <app-channel *ngFor="let channel of channelList" [className]="'col-md-6 col-sm-6 ops_channel_card ops_channel_card_sm'" [channelData]="channel" (click)="handle($event)"></app-channel>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row text-center">
-                        <app-button [className]="'btn-default btn-md finish_btn'" (click)="submit()" [type]="'submit'">Finish</app-button>
-                    </div>
-                </div>
-                <!-- registration right section -->
-            <!-- registration right section -->
-
         </div>
-        <!-- //registraion middle container -->
     </div>
-
 </section>

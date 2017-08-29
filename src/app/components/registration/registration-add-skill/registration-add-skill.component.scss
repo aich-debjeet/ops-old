@@ -3,271 +3,201 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
 
-/* ------------------------ Registration Step 3 ---------------------- */
-
-.selList{
-  color: #000;
-  // span{
-  //   display: inline-block;
-  //   margin-right: 13px;
-  //   border: solid 1px #eee;
-  //   padding: 3px 11px;
-  //   margin-bottom: 9px;
-  //   border-radius: 23px;
-  // }
+/* --------------------------- registrtion step 3 ---------------------------- */
+.skills_section {
+    // padding-top: 60px;
+    height: 88vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    .add-your-skills {
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .add_skill_block {
+        list-style: none;
+        li {
+            list-style-type: none;
+            float: left;
+            a {
+                display: block;
+                .skill_list_container {
+                    width: 170px;
+                    height: 90px;
+                    margin: 8px;
+                    background: #979797;
+                    float: left;
+                    border-radius: 3px;
+                    position: relative;
+                    .skills_list_bg_img {
+                        position: absolute;
+                        top: 0px;
+                        left: 0px;
+                        width: 100%;
+                        height: 90px;
+                        overflow: hidden;
+                        border-radius: 3px;
+                        img {
+                            width: 100%;
+                        }
+                    }
+                    .skills_name {
+                        position: absolute;
+                        width: 100%;
+                        height: 90px;
+                        top: 0px;
+                        left: 0px;
+                        text-align: center;
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+                        background-color: rgba(0, 0, 0, 0.6);
+                        border-radius: 3px;
+                        p {
+                            font-size: 14px;
+                            font-weight: 700;
+                            color: $white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    a.selected .skills_name {
+        background-color: rgba(255, 123, 132, 0.83)!important;
+    }
+    .o-search-block {
+        padding-left: 32px;
+        .search_container {
+            width: 100%;
+            .form_input {
+                background: none;
+            }
+            label {
+                color: #979797;
+                font-size: 14px;
+            }
+            .search_top_icon img {
+                width: 16px;
+                float: right;
+                margin-top: -25px;
+            }
+            .form_input:focus,
+            .search_top_close_icon {
+                display: block!important;
+                outline: none;
+            }
+            .search_top_close_icon {
+                display: none;
+                img {
+                    width: 16px;
+                    float: right;
+                    margin-top: -25px;
+                }
+            }
+        }
+        .selected_skill {
+            .btn-primary {
+                margin-bottom: 8px;
+            }
+            margin: 16px 0px;
+            .btn-tag-close {
+                padding: 8px 16px;
+                font-weight: 500;
+                font-size: 14px;
+                border-radius: 3px;
+                margin-right: 8px;
+                &:hover {
+                    background: #FF7B84 !important;
+                    border-color: #FF7B84 !important;
+                    .btn-label-skill {
+                        background: none;
+                    }
+                }
+                .btn-label-tag {
+                    img {
+                        width: 11px;
+                        margin-top: 0px;
+                        vertical-align: middle;
+                        margin-left: 6px;
+                    }
+                }
+            }
+        }
+        .selected_tags {
+            .btn-reg_tag {
+                color: #333333;
+                font-size: 14px;
+                font-weight: 500;
+                margin-bottom: 8px;
+                margin-right: 8px;
+            }
+        }
+    }
 }
 
-.btn-reg_tag {
-  color: #333;
-  font-size: 16px;
-  background-color: #fff;
-  border: 1px solid #c1c1c1;
-  font-weight: 700;
-  line-height: 22px;
-  text-align: center;
-  text-transform: capitalize;
-  padding: 7px 15px;
-  margin-bottom: 8px;
-  &:hover {
-    color: #ff7b84;
-    background-color: #fff;
-    border: 1px solid #ff7b84;
+// --- signup-header -----------------------------------
+.signup_next {
+  .btn-network {
+      margin-top: 12px;
+      float: right;
+      color: #c1c1c1;
+      background-color: #fff;
+      border-color: #c1c1c1;
+      text-transform: uppercase;
   }
 }
 
-.btn-reg_tag-active {
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 22px;
+.navbar-brand {
+  color: #777;
+  float: left;
+  padding: 5px 15px;
+  font-size: 18px;
+  line-height: 20px;
+  height: 50px;
+  img {
+      width: 40px;
+  }
+}
+
+.navbar-default {
+  background-color: #fff;
+  border-color: #e7e7e7;
+}
+
+.navbar-fixed-top {
+  top: 0;
+  border-width: 0 0 1px;
+}
+
+container {
+  width: 750px;
+}
+
+.are_you_student {
+  width: 180px;
   text-align: center;
-  text-transform: capitalize;
-  padding: 7px 15px;
-  color: #ff7b84;
-  background-color: #ffeeef;
-  border: 1px solid #ff7b84;
-  outline: 0!important;
-  margin-bottom: 8px;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #ff7b84;
-  border-color: #ff7b84;
+    color: #fff;
+    background-color: #ff7b84;
+    border-color: #ff7b84;
 }
 
-.btn-label-tag {
-  position: relative;
-  left: 0;
-  display: inline-block;
-  padding: 0 0 0 5px;
-  border-radius: 3px 0 0 3px;
+a.adder {
+    border: solid 1px;
+    padding: 9px 19px;
+    display: inline-block;
+    border-radius: 2px;
+    color: #656c98;
+    margin-left: 15px;
+    cursor: pointer;
 }
 
-.btn-tag-close .btn-label-tag img {
-  width: 11px;
-  margin-top: 0;
-  vertical-align: middle;
-  margin-left: 6px;
-}
-
-.btn-tag-close {
-  padding: 0 7px 0 3px;
-  font-weight: 500;
-  font-size: 12px;
-  border-radius: 5px;
-}
-.btn-label-tag {
-  position: relative;
-  left: 0;
-  display: inline-block;
-  padding: 0 0 0 5px;
-  border-radius: 3px 0 0 3px;
-}
-
-.adder {
-  border: solid 1px;
-  padding: 9px 19px;
-  display: inline-block;
-  border-radius: 2px;
-  color: #656c98;
-  margin-left: 15px;
-}
-.adder__name{
-  font-weight: bold;
-}
-
-.reg_step3{
-  p{
-  line-height: 110px;
-  text-align: center;
-  }
-  form{
-    i{
-      color: $theme_gray;
-      font-size: 14px;
-      float: right;
-      margin-top: -22px;
-    }
-  }
-  .close_tag{
-      margin-top: -30px;
-    span{
-    font-size: 8px;
-    color: $white;
-    }
-  }
-  .reg_interest{
-    padding:0 5px;
-    .reg_interest_box{
-      background: #555;
-      width: 110px;
-      border-radius: 5px;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      height: 110px;
-      justify-content: space-around;
-      align-items: center;
-      margin-top: 20px;
-      overflow: hidden;
-      position: relative;
-      margin: 10px auto;
-      @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        width: 100%;
-      }
-      @include mq($from: $mobile_lg, $until: $tablet) {
-        width: 100%;
-      }
-      .reg_interest_box_img{
-        width: 100%;
-        height: 100%;
-        position: absolute;
-      }
-      .reg_interest_box_img img{
-        width: auto;
-        height: 100%;
-      }
-      .reg_interest_box_name{
-        width: 100%;
-        position: absolute;
-        color: #ffffff;
-        background: rgba(30,11,43,0.76);
-        height: 110px;
-      }
-      .reg_interest_box_name_active{
-        width: 100%;
-        position: absolute;
-        color: #ffffff;
-        background: rgba(255,123,132,0.71);
-        height: 110px;
-        p{
-          line-height: 72px;
-          font-weight: 700;
-        }
-        .mark_check{
-          .fa{
-              border: 2px solid #ffffff;
-              font-size: 10px;
-              border-radius: 50%;
-              padding: 3px;
-          }
-        }
-      }
-    }
-  }
-}
-/* ----------------- Registration Step 3 add skills --------------------- */
-.reg_add_skills{
-  background-color: #ffffff;
-  height: 620px;
-  .text-center{
-    margin-top: 20px;
-  }
-  border-left: 1px solid #e6e6e6;
-  .finish_btn{
-    margin-top: 20px
-  }
-  .reg_add_skills_contant{
-    margin: 10% 7% 0 10%;
-    height: 500px;
-    overflow: hidden;
-    overflow-y: scroll;
-    .fa{
-      font-size: 10px;
-      font-weight: inherit;
-    }
-    .reg_add_your_skills .btn{
-      margin-right: 8px;
-    }
-    .faicon{
-        font-size: 24px !important;
-        color: $theme_gray;
-        padding: 0 4px;
-      }
-    .reg_add_skills_sec, .reg_add_your_skills{
-      margin-top: 5%;
-      padding-right:5%;
-      h3{
-        color: #000000;
-        font-weight: normal;
-        font-size: 18px;
-        padding-bottom: 4%;
-      }
-      h4{
-        font-size: 16px;
-        color: #333333;
-        margin: 10px 0;
-      }
-      h5{
-        font-size: 14px;
-        color: #c1c1c1;
-        margin-bottom: 10px;
-      }
-      .reg_skills_img img{
-        width: 70px;
-        height: 70px;
-        object-fit: cover;
-      }
-
-    }
-  }
-}
-/* Scrollbar for Registration Step 3  */
-.reg_select_interest{
-  width: 430px;
-  height: 350px;
-  overflow-y: scroll;
-  margin-top: 30px;
-  @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        width: 110%;
-    }
-    @include mq($from: $mobile_lg, $until: $tablet) {
-        width: 110%;
-    }
-
-}
-#ops_scrollbar::-webkit-scrollbar-track{
-  background-color: #e5e5e5;
-  border-radius: 50px;
-
-}
-#ops_scrollbar::-webkit-scrollbar{
-  width: 10px;
-  border-radius: 50px;
-  background-color: #e5e5e5;
-}
-#ops_scrollbar::-webkit-scrollbar-thumb{
-  background-color: #c1c1c1;
-  border-radius: 50px;
-}
-
-.reg_left_section{
-  .text-center.submit-button{
-    margin-top: 20px;
-  }
-  .reg_select_interest {
-    width: 410px;
-  }
-  .reg_interest_box_name_active p {
-    line-height: 110px !important;
-  }
+.loading {
+    color: #000;
 }
