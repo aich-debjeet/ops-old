@@ -33,20 +33,23 @@
                      <li><a href="javascript:void(0)" (click)="createCommunity()" >Create Community</a></li>
                    </ul>
                  </li>
-                <li><a (click)="addMedia()"><img src="/assets/img/svg/ico_add.svg"></a></li>
+                <li><a (click)="addMedia()"><img src="/assets/img/svg/ico_create-post.svg"></a></li>
                 <li><a href="javascript:void(0)" (click)="toggleNav('search')"><img src="/assets/img/svg/ico_search.svg"></a></li>
                 <li><a href="javascript:void(0)" (click)="toggleNav('notification')"><img src="/assets/img/svg/ico_notification.svg"></a></li>
-                <li><a href="#"><img src="/assets/img/svg/ico_message.svg"></a></li>
+                <li><a href="javascript:void(0)" ><img src="/assets/img/svg/ico_message.svg"></a></li>
                 <li class="dropdown opsheader-paddingt6">
-                   <a  href="javascript:void(0)" (click)="toggleNav('profile')" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                   <img src="/assets/img/avatar.jpg" class="img-responsive"> <span class="caret"></span></a>
-                   <ul class="dropdown-menu" [ngClass]="{'open': this.topNav['profile'].open }">
+                  <a  href="javascript:void(0)" (click)="toggleNav('profile')" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img src="/assets/img/avatar.jpg" class="img-responsive"> <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" [ngClass]="{'open': this.topNav['profile'].open }">
                       <li>
                          <ul class="list-inline head_drop_thumb">
-                            <li class="list-inline-item"><img src="/assets/img/avatar.jpg" class="img-responsive"></li>
                             <li class="list-inline-item">
-                                <h4>{{ userProfile.profileUser?.name }} </h4>
-                                <p>@{{ userProfile.profileUser?.userName }}</p>
+                              <img src="/assets/img/avatar.jpg" class="img-responsive">
+                            </li>
+                            <li class="list-inline-item">
+                              <h4>{{ userProfile.profileUser?.name }} </h4>
+                              <p>@{{ userProfile.profileUser?.userName }}</p>
                             </li>
                          </ul>
                       </li>
