@@ -18,7 +18,8 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './profile-channel.component.html',
   styleUrls: ['./profile-channel.component.scss']
 })
-export class ProfileChannelComponent implements OnInit {
+
+export class ProfileChannelComponent {
 
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
@@ -32,14 +33,14 @@ export class ProfileChannelComponent implements OnInit {
     this.tagState$.subscribe((state) => {
       this.profileChannel = state;
     });
+
+    const handle = localStorage.getItem('currentUserID');
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
+
   }
 
   toggleFollowBtn(i) {
     console.log(i);
-  }
-
-  ngOnInit() {
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL });
   }
 
 }

@@ -2,7 +2,6 @@
 </div>
 <div class="container pro-block">
     <div class="row">
-
         <div class="col-md-6 col-sm-12 pro__img" *ngIf="changingImage">
             <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
             <!--<div class="prof_img_block">
@@ -61,6 +60,7 @@
 
             <div class="col-md-6"></div>
         </div>
+        <div class="col-md-6"></div>
     </div>
     <div class="row pro__detail">
         <div class="col-md-9 col-sm-9">
@@ -129,156 +129,159 @@
             </div>
             <div class="col-md-4 col-sm-4 pro_skills">
                 <h3>SKILLS</h3>
+
                 <button *ngFor="let skill of userProfile.profileUser?.skills" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
             </div>
         </div>
     </div>
-    <router-outlet></router-outlet>
-    <!-- edit profile pop -->
-
-    <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow'>
-        <div>
-            <form [formGroup]="profileForm">
-                <div class="edit-profile_main">
-                    <!-- <div class="modal-header" style="border: none;">
-                        <button type="button" class="close" data-dismiss="modal"></button>
-                        </div> -->
-                    <div class="edit-profile_head">
-                        <div class="col-md-6 padding_none">
-                            <h2>Edit Profile</h2>
-                        </div>
-                        <div class="col-md-6 padding_none text-right">
-                            <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="profileFormClose()">Close</app-button>
-                            <app-button [className]="'btn btn-primary btn-sm'" [type]="'button'" (click)="profileFormSubmit(profileForm.value)">Save</app-button>
-                        </div>
-                    </div>
-                    <!-- edit profile head end -->
-
-                    <div class="edit-profile_sec_block">
-                        <div class="edit-profile_sec_head" data-toggle="collapse " data-target="#basic_info">
-                            <h3 class="edit-profile_subtitle">Basic Info</h3>
-                            <div class="edit-profile_iconbox">
-                                <img src="/assets/img/svg/ico-arrow-down.svg" alt="">
-                            </div>
-                        </div>
-                        <!-- edit profile sec head -->
-                        <div id="basic_info" class="edit-profile_content_block show" style="display: none;">
-                            <div class="editarea">
-                                <div class="form_group">
-                                    <input class="form_input" required="" type="text" formControlName="name">
-                                    <span class="form_highlight"></span>
-                                    <span class="form_bar"></span>
-                                    <label>Name</label>
-                                </div>
-                                <div class="form_group">
-                                    <textarea class="form_input form_textarea" name="" formControlName="bio"></textarea>
-                                    <span class="form_highlight"></span>
-                                    <span class="form_bar"></span>
-                                    <label>Bio</label>
-                                </div>
-                                <div class="form_group">
-                                    <input class="form_input" required="" type="text" formControlName="username">
-                                    <span class="form_highlight"></span>
-                                    <span class="form_bar"></span>
-                                    <label>Username</label>
-                                </div>
-                                <div class="form_group">
-                                    <input class="form_input" required="" type="text">
-                                    <span class="form_highlight"></span>
-                                    <span class="form_bar"></span>
-                                    <label>Skills</label>
-                                    <button type="button" class="btn btn-tag btn-sm">TAGS</button>
-                                </div>
-                                <div class="form_group">
-                                    <input class="form_input" type="text" required="" formControlName="dob">
-                                    <span class="form_highlight"></span>
-                                    <span class="form_bar"></span>
-                                    <label>Date of birth</label>
-                                </div>
-                                <div class="form_group">
-                                    <input class="form_input" required="" type="text" value="Bangalore, India">
-                                    <span class="form_highlight"></span>
-                                    <span class="form_bar"></span>
-                                    <label>Location</label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- edit profile content block end -->
-                    </div>
-                    <!-- basic info end -->
-
-                    <div class="edit-profile_sec_block">
-                        <div class="edit-profile_sec_head" data-toggle="collapse" data-target="#contact_info">
-                            <h3 class="edit-profile_subtitle">Contact Info</h3>
-                            <div class="edit-profile_iconbox">
-                                <img src="/assets/img/svg/ico-arrow-down.svg" alt="">
-                            </div>
-                        </div>
-                        <!-- edit profile sec head -->
-                        <div id="contact_info" class="edit-profile_content_block show" style="display: none;">
-                            <div class="editarea">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="form_group">
-                                            <input class="form_input" required="" type="email" formControlName="email">
-                                            <span class="form_highlight"></span>
-                                            <span class="form_bar"></span>
-                                            <label>Email</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form_group">
-                                            <select class="form-control" id="sel1">
-                                                <option>Public</option>
-                                                <option>Private</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="form_group">
-                                            <span id="phone" type="tel"></span>
-                                            <input class="form_input" type="text" formControlName="number" required style="padding-left: 40px;">
-                                            <span class="form_highlight"></span>
-                                            <span class="form_bar"></span>
-                                            <label style="padding-left: 40px;">Phone Number</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form_group">
-                                            <select class="form-control" id="sel1">
-                                                <option>Public</option>
-                                                <option>Private</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="form_group">
-                                            <input class="form_input" required="" type="text" formControlName="website">
-                                            <span class="form_highlight"></span>
-                                            <span class="form_bar"></span>
-                                            <label>Website</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form_group">
-                                            <select class="form-control" id="sel1">
-                                                <option>Public</option>
-                                                <option>Private</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- edit profile content block end -->
-                    </div>
-                    <!-- contact info end -->
-                </div>
-            </form>
-        </div>
-    </app-modal>
 </div>
+<router-outlet></router-outlet>
+
+
+<!-- edit profile pop -->
+
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow'>
+    <div>
+        <form [formGroup]="profileForm">
+            <div class="edit-profile_main">
+                <!-- <div class="modal-header" style="border: none;">
+                <button type="button" class="close" data-dismiss="modal"></button>
+            </div> -->
+                <div class="edit-profile_head">
+                    <div class="col-md-6 padding_none">
+                        <h2>Edit Profile</h2>
+                    </div>
+                    <div class="col-md-6 padding_none text-right">
+                        <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="profileFormClose()">Close</app-button>
+                        <app-button [className]="'btn btn-primary btn-sm'" [type]="'button'" (click)="profileFormSubmit(profileForm.value)">Save</app-button>
+                    </div>
+                </div>
+                <!-- edit profile head end -->
+
+                <div class="edit-profile_sec_block">
+                    <div class="edit-profile_sec_head" data-toggle="collapse " data-target="#basic_info">
+                        <h3 class="edit-profile_subtitle">Basic Info</h3>
+                        <div class="edit-profile_iconbox">
+                            <img src="/assets/img/svg/ico-arrow-down.svg" alt="">
+                        </div>
+                    </div>
+                    <!-- edit profile sec head -->
+                    <div id="basic_info" class="edit-profile_content_block show" style="display: none;">
+                        <div class="editarea">
+                            <div class="form_group">
+                                <input class="form_input" required="" type="text" formControlName="name">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Name</label>
+                            </div>
+                            <div class="form_group">
+                                <textarea class="form_input form_textarea" name="" formControlName="bio"></textarea>
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Bio</label>
+                            </div>
+                            <div class="form_group">
+                                <input class="form_input" required="" type="text" formControlName="username">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Username</label>
+                            </div>
+                            <div class="form_group">
+                                <input class="form_input" required="" type="text">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Skills</label>
+                                <button type="button" class="btn btn-tag btn-sm">TAGS</button>
+                            </div>
+                            <div class="form_group">
+                                <input class="form_input" type="text" required="" formControlName="dob">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Date of birth</label>
+                            </div>
+                            <div class="form_group">
+                                <input class="form_input" required="" type="text" value="Bangalore, India">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Location</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- edit profile content block end -->
+                </div>
+                <!-- basic info end -->
+
+                <div class="edit-profile_sec_block">
+                    <div class="edit-profile_sec_head" data-toggle="collapse" data-target="#contact_info">
+                        <h3 class="edit-profile_subtitle">Contact Info</h3>
+                        <div class="edit-profile_iconbox">
+                            <img src="/assets/img/svg/ico-arrow-down.svg" alt="">
+                        </div>
+                    </div>
+                    <!-- edit profile sec head -->
+                    <div id="contact_info" class="edit-profile_content_block show" style="display: none;">
+                        <div class="editarea">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form_group">
+                                        <input class="form_input" required="" type="email" formControlName="email">
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label>Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form_group">
+                                        <select class="form-control" id="sel1">
+                                        <option>Public</option>
+                                        <option>Private</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form_group">
+                                        <span id="phone" type="tel"></span>
+                                        <input class="form_input" type="text" formControlName="number" required style="padding-left: 40px;">
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label style="padding-left: 40px;">Phone Number</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form_group">
+                                        <select class="form-control" id="sel1">
+                                        <option>Public</option>
+                                        <option>Private</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form_group">
+                                        <input class="form_input" required="" type="text" formControlName="website">
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label>Website</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form_group">
+                                        <select class="form-control" id="sel1">
+                                        <option>Public</option>
+                                        <option>Private</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- edit profile content block end -->
+                </div>
+                <!-- contact info end -->
+            </div>
+        </form>
+    </div>
+</app-modal>

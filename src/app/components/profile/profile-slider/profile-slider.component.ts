@@ -87,7 +87,7 @@ export class ProfileSliderComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    //
   }
 
   /**
@@ -105,8 +105,7 @@ export class ProfileSliderComponent implements OnInit {
       number: this.userProfile.profileDetails['contact'].mobile.mobile,
       email: this.userProfile.profileDetails['email'],
       website: this.userProfile.profileDetails['contact'].website,
-      dob: date,
-
+      dob: date
     });
   }
 

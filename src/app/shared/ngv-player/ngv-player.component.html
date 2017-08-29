@@ -1,0 +1,8 @@
+<div *ngIf="config" class="Video">
+  <h4>Video</h4>
+  <video id="video_{{idx}}" class="vjs video-js vjs-sublime-skin"
+    controls preload="none" [poster]="config.poster"
+    data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>
+    <source src="{{ 'http://d206s58i653k1q.cloudfront.net/' + config.repoPath }}"/>
+  </video>
+</div>

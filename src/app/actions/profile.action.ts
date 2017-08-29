@@ -66,11 +66,32 @@ export class ProfileActions {
   static EDIT_USER_WORK_FAILED = 'EDIT_USER_WORK_FAILED';
 
   /**
+   * Get current work and award
+   */
+  static GET_USER_WORK = 'GET_USER_WORK';
+  static GET_USER_WORK_SUCCESS = 'GET_USER_WORK_SUCCESS';
+  static GET_USER_WORK_FAILED = 'GET_USER_WORK_FAILED';
+
+  /**
+   * Update current work and award
+   */
+  static UPDATE_USER_WORK = 'UPDATE_USER_WORK';
+  static UPDATE_USER_WORK_SUCCESS = 'UPDATE_USER_WORK_SUCCESS';
+  static UPDATE_USER_WORK_FAILED = 'UPDATE_USER_WORK_FAILED';
+
+  /**
    * Delete user Education
    */
   static DELETE_USER_EDUCATION = 'DELETE_USER_EDUCATION';
   static DELETE_USER_EDUCATION_SUCCESS = 'DELETE_USER_EDUCATION_SUCCESS';
   static DELETE_USER_EDUCATION_FAILED = 'DELETE_USER_EDUCATION_FAILED';
+
+  /**
+   * Update current Education
+   */
+  static UPDATE_USER_EDUCATION = 'UPDATE_USER_EDUCATION';
+  static UPDATE_USER_EDUCATION_SUCCESS = 'UPDATE_USER_EDUCATION_SUCCESS';
+  static UPDATE_USER_EDUCATION_FAILED = 'UPDATE_USER_EDUCATION_FAILED';
 
   /**
    * Add user Education
@@ -100,6 +121,12 @@ export class ProfileActions {
   static SAVE_PROFILE_IMAGE_SUCCESS = 'SAVE_PROFILE_IMAGE_SUCCESS';
   static SAVE_PROFILE_IMAGE_FAILED = 'SAVE_PROFILE_IMAGE_FAILED';
 
+  /**
+   * Save New Channel
+   */
+  static CHANNEL_SAVE = 'CHANNEL_SAVE';
+  static CHANNEL_SAVE_SUCCESS = 'CHANNEL_SAVE_SUCCESS';
+  static CHANNEL_SAVE_FAILED = 'CHANNEL_SAVE_FAILED';
 
   /**
    * Load Current user profile
@@ -321,7 +348,57 @@ export class ProfileActions {
     };
   }
 
- /**
+  /**
+   * Update User Work
+   * @param value
+   */
+  updateUserWork(value): Action {
+    return {
+      type: ProfileActions.UPDATE_USER_WORK,
+      payload: { value }
+    };
+  }
+
+  updateUserWorkSuccess(value): Action {
+    return {
+      type: ProfileActions.UPDATE_USER_WORK_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  updateUserWorkFailed(error: any): Action {
+    return {
+      type: ProfileActions.UPDATE_USER_WORK_FAILED,
+      payload: error
+    };
+  }
+
+  /**
+   * Update User Education
+   * @param value
+   */
+  updateUserEducation(value): Action {
+    return {
+      type: ProfileActions.UPDATE_USER_EDUCATION,
+      payload: { value }
+    };
+  }
+
+  updateUserEducationSuccess(value): Action {
+    return {
+      type: ProfileActions.UPDATE_USER_EDUCATION_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  updateUserEducationFailed(error: any): Action {
+    return {
+      type: ProfileActions.UPDATE_USER_EDUCATION_FAILED,
+      payload: error
+    };
+  }
+
+  /**
    * Load image to database
    */
   sendProfileImage(): Action {
@@ -343,29 +420,27 @@ export class ProfileActions {
       payload: error
     };
   }
-    /**
-     * SAVE image to ProfileUI
-     */
-    saveProfileImage(): Action {
-      return {
-      type: ProfileActions.SAVE_PROFILE_IMAGE,
-      };
-    }
 
-    saveProfileImageSuccess(value): Action {
-      return {
-        type: ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS,
-        payload: { value }
-      };
-    }
+  /**
+   * SAVE image to ProfileUI
+   */
+  saveProfileImage(): Action {
+    return {
+    type: ProfileActions.SAVE_PROFILE_IMAGE,
+    };
+  }
 
-    saveProfileImageFailed(error: any): Action {
-      return {
-        type: ProfileActions.SAVE_PROFILE_IMAGE_FAILED,
-        payload: error
-      };
-    }
+  saveProfileImageSuccess(value): Action {
+    return {
+      type: ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS,
+      payload: { value }
+    };
+  }
 
-
-
+  saveProfileImageFailed(error: any): Action {
+    return {
+      type: ProfileActions.SAVE_PROFILE_IMAGE_FAILED,
+      payload: error
+    };
+  }
 }

@@ -4,6 +4,9 @@ import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 
+// import { TabComponent } from '../../../shared/tab/tab.component';
+// import { TabsComponent } from '../../../shared/tabs/tabs.component';
+
 // action
 import { ProfileActions } from '../../../actions/profile.action';
 import { SharedActions } from '../../../actions/shared.action';
