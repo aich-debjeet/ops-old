@@ -38,6 +38,13 @@ export class ProfileActions {
   static LOAD_USER_MEDIA_FAILED = 'LOAD_USER_MEDIA_FAILED';
 
   /**
+   * Save New Channel
+   */
+  static CHANNEL_SAVE = 'CHANNEL_SAVE';
+  static CHANNEL_SAVE_SUCCESS = 'CHANNEL_SAVE_SUCCESS';
+  static CHANNEL_SAVE_FAILED = 'CHANNEL_SAVE_FAILED';
+
+  /**
    * Load Current user profile
    */
   getUserProfile(): Action {

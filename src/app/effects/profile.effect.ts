@@ -72,6 +72,18 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL_FAILED, payload: res }))
     );
 
+    /**
+   * Get current user channel profile
+   */
+  @Effect()
+  saveUserChannel$ = this.actions$
+    .ofType(ProfileActions.CHANNEL_SAVE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.createChannel(payload)
+      .map(res => ({ type: ProfileActions.CHANNEL_SAVE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.CHANNEL_SAVE_FAILED, payload: res }))
+    );
+
   constructor(
     private actions$: Actions,
     private profileService: ProfileService

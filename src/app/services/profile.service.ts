@@ -68,6 +68,14 @@ export class ProfileService {
   }
 
   /**
+   * Create a channel
+   */
+  createChannel(req) {
+    const headers = this.tokenService.getAuthHeader();
+    return this.http.post(`http://devservices.greenroom6.com:9000/api/1.0/portal/network/spotfeed`, req, { headers: headers })
+      .map((data: Response) => data.json());
+  }
+  /**
    * Apparently here
    */
 

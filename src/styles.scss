@@ -113,7 +113,12 @@ vg-scrub-bar {
 
 .modal__large{
   .nav-tabs{
+    font-size: 14px;
     border-bottom: none;
+    width: 30%;
+    margin: auto;
+    min-width: 300px;
+    text-align: center;
   }
   .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
     color:#ff7b84!important;
@@ -121,6 +126,7 @@ vg-scrub-bar {
     border: 0;
     border-bottom-color: transparent;
     cursor: default;
+
   }
 
   .nav-tabs > li > a {
@@ -129,12 +135,15 @@ vg-scrub-bar {
     border: 0;
     border-radius: 4px 4px 0 0;
     color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
   }
 }
 
 .media-selector{
   background-color: #fff;
   padding: 0.5rem 1rem;
+  padding-top: 0;
   border-radius: 3px;
   &:after{
     content: '';

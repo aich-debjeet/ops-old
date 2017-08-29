@@ -20,19 +20,25 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/from';
 
+export class Selection {
+  fileName: string;
+  repoPath: string;
+  type: string;
+}
+
 const base = 'http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/upload/multiple';
 
 @Component({
   selector: 'app-media-selector',
   templateUrl: './media-selector.component.html',
-  styleUrls: ['./media-selector.component.css']
+  styleUrls: ['./media-selector.component.scss']
 })
 
 export class MediaSelectorComponent {
   process: number[] = [];
   fileData: File;
   uploaded: any[];
-  editingFile: any;
+  editingFile: Selection;
   apiLink: 'http://devservices.greenroom6.com:9000/api/1.0';
   channels: any[];
   chosenChannel: any;
@@ -41,6 +47,7 @@ export class MediaSelectorComponent {
   addChannel: boolean;
   status: number;
   queue: any;
+  hasFiles: boolean;
 
   // temp
   handle: string;
@@ -55,6 +62,10 @@ export class MediaSelectorComponent {
     private fb: FormBuilder,
     private profileStore: Store<ProfileModal>,
     private http: Http) {
+
+    this.hasFiles = false;
+    this.editingFile = new Selection;
+    this.chosenChannel = [];
 
     // Create Channel Form
     this.createChannelForm();
@@ -96,6 +107,13 @@ export class MediaSelectorComponent {
       copyright: [0, Validators.required ],
       isAdult: [0]
     })
+  }
+  /**
+   * Media Upload Multiple
+   */
+  mediaInfoUpdateAll(value: any) {
+    console.log(value);
+    console.log(this.uploaded);
   }
 
   /**
@@ -185,18 +203,7 @@ export class MediaSelectorComponent {
    * Save Channel
    */
   saveChannel(req: any) {
-    const headers = new Headers();
-    const reqOptions = new RequestOptions({ headers: headers });
-
-    headers.append('Authorization', 'Bearer ' + this.token);
-    headers.append('Content-Type', 'application/json');
-
-    return this.http.post(`http://devservices.greenroom6.com:9000/api/1.0/portal/network/spotfeed`, req, reqOptions)
-      .map((data: Response) => data.json())
-      .subscribe(data => {
-        // Refresh Channels list
-        this.searchChannels();
-      });
+    this.profileStore.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: req });
   }
 
   /**
@@ -245,30 +252,20 @@ export class MediaSelectorComponent {
     this.chosenChannel = channel;
   }
 
-  // non-multiple, return File
-  uploadFile(file: File | FileError): void {
-    if (!(file instanceof File)) {
-      this.alertError(file);
-      return;
+  /**
+   * Helper classes
+   * @param file
+   */
+  isChosenChannel(channel: any) {
+    if (this.chosenChannel === null && this.chosenChannel.length < 1 ) {
+      return false;
+    }else {
+      if (this.chosenChannel.spotfeedId === channel.spotfeedId) {
+        return true;
+      } else {
+        return false;
+      }
     }
-
-    this.Upload.upload({
-      url: base + this.handle,
-      files: file,
-      process: true
-    }).subscribe(
-      (event: UploadEvent) => {
-        if (event.data) {
-          this.uploaded = event.data['SUCCESS'];
-          console.log(event.data['SUCCESS']);
-        }
-      },
-      (err) => {
-        console.log(err);
-      },
-      () => {
-        console.log('complete');
-      });
   }
 
   /**
@@ -279,11 +276,57 @@ export class MediaSelectorComponent {
   }
 
   /**
+   * Selected Class builder
+   * @param fileName
+   */
+  isSelectedFile(fileName) {
+    if (this.editingFile.fileName !== null) {
+      const selectedFile = this.editingFile.fileName;
+      if (fileName === selectedFile) {
+        return true;
+      }else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  /**
    * File Details
    */
 
   fileDetails(file) {
+    console.log('Clicked this file');
+    console.log(file);
+
     this.editingFile = file;
+    const fileType = this.getFileType(file.fileName)
+    const leFile: Selection = {
+      fileName: file.fileName,
+      repoPath: file.repoPath,
+      type: fileType
+    };
+
+    console.log(fileType);
+    this.editingFile = leFile;
+  }
+
+  /**
+   * Identify Group
+   * @param files
+   */
+  getFileType(fileName: string) {
+    const isImage = this.checkFileType(fileName, 'Image');
+    const isVideo = this.checkFileType(fileName, 'Video');
+
+    if (isImage) {
+      return 'Image';
+    }
+
+    if (isVideo) {
+      return 'Video';
+    }
   }
 
   // multiple, return  File[]
@@ -295,6 +338,9 @@ export class MediaSelectorComponent {
 
     const filesList = [];
 
+    if (files.length > 0) {
+      this.hasFiles = true
+    }
     // this.queue = files;
 
     this.Upload.upload({

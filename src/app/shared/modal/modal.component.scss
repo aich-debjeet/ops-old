@@ -65,6 +65,9 @@
 .modal__large{
   display: block;
   overflow-y: scroll;
+  &.closed{
+    display: none;
+  }
   .ng-modal-overlay{
     background-color:rgba(243,245,247,.95);
     z-index: 2000;
@@ -73,6 +76,9 @@
     background-color: transparent;
     box-shadow: none;
     z-index: 2500;
+    top: 0.1rem;
   }
 }
+
+
 

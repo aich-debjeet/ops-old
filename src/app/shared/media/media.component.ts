@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { TAB_COMPONENTS  } from '../tabs/tabset';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 
@@ -14,6 +14,9 @@ import { Store } from '@ngrx/store';
 
 import { FileUploadService } from './fakeService';
 
+import * as MediumEditor from 'medium-editor';
+// Blog
+
 @Component({
   selector: 'app-media',
   templateUrl: './media.component.html',
@@ -21,7 +24,7 @@ import { FileUploadService } from './fakeService';
   styleUrls: ['./media.component.scss']
 })
 
-export class MediaComponent implements OnInit {
+export class MediaComponent implements OnInit, AfterViewInit {
   statusForm: FormGroup;
   mediaForm: FormGroup;
 
@@ -41,11 +44,16 @@ export class MediaComponent implements OnInit {
   token: string;
   handle: string;
 
+  textVar: string;
+  placeholderVar: string;
+
   constructor(
     private fb: FormBuilder,
     private mediaService: FileUploadService,
     private store: Store<Media> ) {
-
+      // Vars
+      this.textVar = 'title';
+      this.placeholderVar = 'Write something';
       // Forms
       this.createStatusForm();
       // this.createMediaForm();
@@ -62,6 +70,10 @@ export class MediaComponent implements OnInit {
 
       this.reset(); // set initial state
     }
+
+  ngAfterViewInit() {
+    //
+  }
 
   /**
    * Show/Hide Channel Dropdown List

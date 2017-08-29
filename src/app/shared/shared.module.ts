@@ -36,6 +36,7 @@ import { VgOverlayPlayModule } from 'videogular2/overlay-play';
 import { VgBufferingModule } from 'videogular2/buffering';
 
 import { VideplayerComponent } from './videplayer/videplayer.component';
+import { BlogeditorComponent } from './blogeditor/blogeditor.component';
 
 @NgModule({
   imports: [
@@ -66,7 +67,8 @@ import { VideplayerComponent } from './videplayer/videplayer.component';
     MediaSelectorComponent,
     VideplayerComponent,
     MediaComponent,
-    TAB_COMPONENTS
+    TAB_COMPONENTS,
+    BlogeditorComponent
   ],
   exports: [
     AuthRightBlockComponent,
@@ -82,7 +84,8 @@ import { VideplayerComponent } from './videplayer/videplayer.component';
     MediaSelectorComponent,
     VideplayerComponent,
     MediaComponent,
-    TAB_COMPONENTS
+    TAB_COMPONENTS,
+    BlogeditorComponent
   ]
 
 })

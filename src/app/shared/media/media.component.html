@@ -19,120 +19,11 @@
                               </li>
                           </ul>
                         </li>
-                        <li class="with_border_bottom">
+                        <li class="with_border_bottom" style="height: 60px;">
                             <ul class="list-inline discussion_post">
-                                <!-- <li class="list-inline-item discussion_post_options">
-                                    <a href="">
-                                        <img src="https://d33wubrfki0l68.cloudfront.net/466c57196563c733f1a8a410b11525cac8b6eceb/7aee1/img/svg/ico_o_image.svg" class="img-responsive">
-                                    </a>
-                                </li>
-                                <li class="list-inline-item discussion_post_options">
-                                    <a href="">
-                                        <img src="https://d33wubrfki0l68.cloudfront.net/8869e6f2e46a2f222d00698d882812b96fb1f1a2/d320c/img/svg/ico_o_video.svg" class="img-responsive">
-                                    </a>
-                                </li>
-                                <li class="list-inline-item discussion_post_options">
-                                    <a href="">
-                                        <img src="https://d33wubrfki0l68.cloudfront.net/9c47d9b0b124e3b62cb149cb50886bff5e4f2463/35058/img/svg/ico_o_audio.svg" class="img-responsive">
-                                    </a>
-                                </li> -->
-                                <li class="list-inline-item discussion_post_topic">
-                                    <div class="form_group">
-                                        <select class="form-control" id="sel1" formControlName="privacy">
-                                            <option value="pubilc" selected>Public</option>
-                                            <option value="private">Private</option>
-                                        </select>
-                                    </div>
-                                </li>
-                                <li class="dropdown add-post_status_dropdown open">
-                                    <a (click)="toggleChannelList()" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        Status<span class="caret"></span>
-                                    </a>
-                                    <ul *ngIf="showChannelList" class="dropdown-menu add-post_choosechannel">
-                                        <span class="txt-3 with_border_bottom">Choose channel</span>
-                                        <span class="createchannel with_border_bottom">
-                                            <div class="createchannel_ico">
-                                                <img src="img/svg/ico_create-plus.svg">
-                                            </div>
-                                            Create channel
-                                        </span>
-                                        <div class="o-block_1">
-                                            <ul class="msg_name_list msg_search_block">
-                                                <li class="">
-                                                    <ul class="list-inline with_border_bottom">
-                                                        <li class="list-inline-item">
-                                                            <div class="msg_inbox_name">
-                                                                <img src="https://d33wubrfki0l68.cloudfront.net/89a41955b9f69180f74b70688003e1573d06acbe/0dc7b/img/svg/ico_search.svg">
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-inline-item search_input">
-                                                            <form>
-                                                                <div class="form_group">
-                                                                    <input class="form_input " type="text" required="">
-                                                                    <label>Search</label>
-                                                                </div>
-                                                            </form>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                            <!-- search end -->
-                                            <div class="channel-list-show">
-                                                <div class="channel-list-show_img with_border_bottom">
-                                                    <figure class="channel-list-show_img">
-                                                        <a href=""><img src="https://d33wubrfki0l68.cloudfront.net/a4ad69d317551d24c67bda3a1ed38c6e740ba123/d7eb6/img/quick3.jpg"></a>
-                                                    </figure>
-                                                </div>
-                                                <div class="channel-list-show_txt">
-                                                    <p>Control Your Own Le...</p>
-                                                </div>
-                                            </div>
-                                            <!-- channel-list-show_block -->
-                                            <div class="channel-list-show">
-                                                <div class="channel-list-show_img with_border_bottom">
-                                                    <figure class="channel-list-show_img">
-                                                        <a href=""><img src="https://d33wubrfki0l68.cloudfront.net/a4ad69d317551d24c67bda3a1ed38c6e740ba123/d7eb6/img/quick3.jpg"></a>
-                                                    </figure>
-                                                </div>
-                                                <div class="channel-list-show_txt">
-                                                    <p>Control Your Own Le...</p>
-                                                </div>
-                                            </div>
-                                            <!-- channel-list-show_block -->
-                                        </div>
-                                        <!-- o-block_1 end -->
-                                        <div class="o-block_2 o-create_channel">
-                                            <form>
-                                                <ul>
-                                                    <li class="channel_title">
-                                                        <div class="form_group">
-                                                            <input class="form_input" required="" type="text">
-                                                            <span class="form_highlight"></span>
-                                                            <span class="form_bar"></span>
-                                                            <label>Title</label>
-                                                        </div>
-                                                    </li>
-                                                    <li class="list-inline-item discussion_post_topic">
-                                                        <div class="form_group">
-                                                            <select class="form-control" id="sel1">
-                                                                <option>Public</option>
-                                                                <option>Branding</option>
-                                                                <option>UI/UX</option>
-                                                                <option>Photography</option>
-                                                            </select>
-                                                        </div>
-                                                    </li>
-                                                    <li class="create_btn">
-                                                        <button type="button" class="btn btn-normal btn-sm ">Create</button>
-                                                    </li>
-                                                </ul>
-                                            </form>
-                                        </div>
-                                        <!-- o-block_2 end -->
-                                    </ul>
-                                </li>
+
                                 <li class="list-inline-item float_right">
-                                    <button type="submit" class="btn btn-normal btn-sm ">Post</button>
+                                    <a href="" class="btn btn-sm btn-primary"> POST </a>
                                 </li>
                             </ul>
                         </li>
@@ -145,7 +36,7 @@
               <app-media-selector class="Media__content"></app-media-selector>
             </tab>
             <tab title="Blog">
-              Blog Here
+                <app-blogeditor></app-blogeditor>
             </tab>
           </tabset>
         </div>
