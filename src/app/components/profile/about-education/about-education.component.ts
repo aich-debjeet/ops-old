@@ -28,6 +28,7 @@ export class AboutEducationComponent implements OnInit {
   aboutWork = initialTag ;
   public educationForm: FormGroup;
   private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  private editFormPopup: boolean;
 
   constructor(
     private http: Http,
@@ -54,6 +55,7 @@ export class AboutEducationComponent implements OnInit {
    * Add Work User
    */
   addEducationUser() {
+    this.editFormPopup = false;
     this.modalService.open('userEducationkAdd');
   }
 
@@ -74,7 +76,8 @@ export class AboutEducationComponent implements OnInit {
       'course' : ['' , [Validators.required]],
       'from' : ['' , [Validators.required]],
       'to' : ['' , [Validators.required]],
-      'publicWork': '0'
+      'publicWork': '0',
+      'id': ''
     })
   }
 
@@ -82,16 +85,28 @@ export class AboutEducationComponent implements OnInit {
    * Add Work form submit
    */
   educationSubmit(value) {
-
+    console.log('sss');
     if ( this.educationForm.valid === true ) {
-      const body = {
-        'institute': value.institute,
-        'name': value.course,
-        'from': this.reverseDate(value.from) + 'T05:00:00',
-        'to': this.reverseDate(value.to) + 'T05:00:00',
+      if (this.editFormPopup === false) {
+        const body = {
+          'institute': value.institute,
+          'name': value.course,
+          'from': this.reverseDate(value.from) + 'T05:00:00',
+          'to': this.reverseDate(value.to) + 'T05:00:00',
+        }
+        this.modalService.close('userEducationkAdd');
+        this.profileStore.dispatch({ type: ProfileActions.ADD_USER_EDUCATION, payload: body});
+      } else {
+        const body = {
+          'institute': value.institute,
+          'name': value.course,
+          'from': this.reverseDate(value.from) + 'T05:00:00',
+          'to': this.reverseDate(value.to) + 'T05:00:00',
+          'id': value.id
+        }
+        this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_EDUCATION, payload: body});
+        this.modalService.close('userEducationkAdd');
       }
-      this.modalService.close('userEducationkAdd');
-      this.profileStore.dispatch({ type: ProfileActions.ADD_USER_EDUCATION, payload: body});
     }
 
   }
@@ -107,9 +122,17 @@ export class AboutEducationComponent implements OnInit {
   /**
    * Edit Current Work of user
    */
-  editCurrentEducation(id) {
-    // console.log(id);
-    // this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_EDUCATION, payload: id});
+  editCurrentEducation(data) {
+    console.log(data);
+    this.editFormPopup = true;
+    this.educationForm.patchValue({
+      institute: data.institute,
+      course: data.name,
+      from: this.datepipe.transform(data.from, 'dd-MM-yyyy'),
+      to: this.datepipe.transform(data.to, 'dd-MM-yyyy'),
+      id: data.id
+    });
+    this.modalService.open('userEducationkAdd');
   }
 
   /**

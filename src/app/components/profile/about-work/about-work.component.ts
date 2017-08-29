@@ -28,6 +28,7 @@ export class AboutWorkComponent implements OnInit {
   aboutWork = initialTag ;
   public workForm: FormGroup;
   private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  private editFormPopup: boolean;
 
   constructor(
     private http: Http,
@@ -54,6 +55,7 @@ export class AboutWorkComponent implements OnInit {
    * Add Work User
    */
   addWorkUser() {
+    this.editFormPopup = false;
     this.modalService.open('userWorkAdd');
   }
 
@@ -75,6 +77,7 @@ export class AboutWorkComponent implements OnInit {
       'from' : ['' , [Validators.required]],
       'to' : ['' , [Validators.required]],
       'currentWork' : '',
+      'id' : '',
       'publicWork': '0'
     })
   }
@@ -84,17 +87,34 @@ export class AboutWorkComponent implements OnInit {
    */
   workFormSubmit(value) {
     if ( this.workForm.valid === true ) {
-      const body = {
-        'role': value.position,
-        'organizationName': value.company,
-        'workOrAward': 'work',
-        'from': this.reverseDate(value.from) + 'T05:00:00',
-        'to': this.reverseDate(value.to) + 'T05:00:00',
-        'currentlyWith': true,
-        'access': 0
+      if (this.editFormPopup === false) {
+        const body = {
+          'role': value.position,
+          'organizationName': value.company,
+          'workOrAward': 'work',
+          'from': this.reverseDate(value.from) + 'T05:00:00',
+          'to': this.reverseDate(value.to) + 'T05:00:00',
+          'currentlyWith': Boolean(value.currentWork),
+          'access': Number(value.publicWork)
+        }
+        this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
+        this.modalService.close('userWorkAdd');
+      } else {
+        const body = {
+          'role': value.position,
+          'organizationName': value.company,
+          'workOrAward': 'work',
+          'from': this.reverseDate(value.from) + 'T05:00:00',
+          'to': this.reverseDate(value.to) + 'T05:00:00',
+          'currentlyWith': value.currentWork,
+          'access': value.publicWork,
+          'id': value.id,
+        }
+        this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
+        this.modalService.close('userWorkAdd');
       }
-      this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
-      this.modalService.close('userWorkAdd');
+      this.workForm.reset();
+      this.buildEditForm()
     }
   }
 
@@ -106,13 +126,47 @@ export class AboutWorkComponent implements OnInit {
     this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
   }
 
-  editCurrentWork(id) {
-
+  /**
+   * Edit Work Popup
+   */
+  editCurrentWork(data) {
+    console.log('editform');
+    console.log(data);
+    this.editFormPopup = true;
+    this.workForm.patchValue({
+      company: data.organizationName,
+      position: data.role,
+      from: this.datepipe.transform(data.from, 'dd-MM-yyyy'),
+      to: this.datepipe.transform(data.to, 'dd-MM-yyyy'),
+      currentWork: data.currentlyWith,
+      publicWork: data.access,
+      id: data.id
+    });
+    this.modalService.open('userWorkAdd');
   }
+
   /**
    * Close work add form
    */
   workFormClose() {
     this.modalService.close('userWorkAdd');
+    this.workForm.reset();
+    this.buildEditForm()
   }
+
+  /**
+   * Reset Form
+   */
+  reset() {
+    this.workForm.patchValue({
+      company: '',
+      position: '',
+      from: '',
+      to: '',
+      currentWork: false,
+      publicWork: 0,
+      id: ''
+    });
+  }
+
 }

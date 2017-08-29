@@ -28,11 +28,13 @@ export class AboutAwardsComponent implements OnInit {
   aboutWork = initialTag ;
   public awardForm: FormGroup;
   private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  private editFormPopup: boolean;
 
   constructor(
     private http: Http,
     public modalService: ModalService,
     private fb: FormBuilder,
+    private datepipe: DatePipe,
     private profileStore: Store<ProfileModal>
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
@@ -54,6 +56,7 @@ export class AboutAwardsComponent implements OnInit {
    * Add Award User
    */
   openPopupAwardForm() {
+    this.editFormPopup = false;
     this.modalService.open('addAwardPopup');
   }
 
@@ -73,6 +76,7 @@ export class AboutAwardsComponent implements OnInit {
       'award' : ['' , [Validators.required]],
       'organization' : ['' , [Validators.required]],
       'timeperiod' : ['' , [Validators.required]],
+      'id': ''
     })
   }
 
@@ -91,6 +95,31 @@ export class AboutAwardsComponent implements OnInit {
       this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
       this.modalService.close('addAwardPopup');
     }
+
+    if ( this.awardForm.valid === true ) {
+      if (this.editFormPopup === false) {
+        const body = {
+          'role': value.award,
+          'organizationName': value.organization,
+          'workOrAward': 'awards',
+          'from': this.reverseDate(value.timeperiod) + 'T05:00:00',
+          'access': 0
+        }
+        this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
+        this.modalService.close('addAwardPopup');
+      } else {
+        const body = {
+          'role': value.award,
+          'organizationName': value.organization,
+          'workOrAward': 'awards',
+          'from': this.reverseDate(value.timeperiod) + 'T05:00:00',
+          'access': 0,
+          'id': value.id,
+        }
+        this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
+        this.modalService.close('addAwardPopup');
+      }
+    }
   }
 
   /**
@@ -104,9 +133,17 @@ export class AboutAwardsComponent implements OnInit {
   /**
    * Edit Current Work of user
    */
-  editCurrentWork(id) {
-    // console.log(id);
-    // this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
+  editCurrentWork(data) {
+    this.editFormPopup = true;
+    this.awardForm.patchValue({
+      role: data.role,
+      organizationName: data.organizationName,
+      workOrAward: 'awards',
+      from: this.reverseDate(data.from) + 'T05:00:00',
+      access: 0,
+      id: data.id
+    });
+    this.modalService.open('userWorkAdd');
   }
 
   /**

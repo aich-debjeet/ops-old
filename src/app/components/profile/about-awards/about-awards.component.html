@@ -45,7 +45,8 @@
                     </div>
                     <div class="col-md-6 padding_none text-right">
                     <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click) = "awardFormClose()">Cancel</app-button>
-                    <app-button [className]="'btn btn-primary btn-sm'" [type]="'submit'">Add</app-button>
+                    <app-button *ngIf="!editFormPopup" [className]="'btn btn-primary btn-sm'" [type]="'submit'">Add</app-button>
+                    <app-button *ngIf="editFormPopup" [className]="'btn btn-primary btn-sm'" [type]="'submit'">Update</app-button>
                     </div>
                 </div>
                 <!-- edit profile head end -->
@@ -70,6 +71,7 @@
                                     <!-- left bar end -->
                                     <div class="editarea_rightbar">
                                         <div class="form_group">
+                                            <input class="form_input"  type="hidden" formControlName="id">
                                             <input class="form_input"  type="text" formControlName="award" required>
                                             <span class="form_highlight"></span>
                                             <span class="form_bar"></span>

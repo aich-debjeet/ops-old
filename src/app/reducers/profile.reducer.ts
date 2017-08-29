@@ -184,6 +184,26 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     /**
+     * Get current work and award
+     */
+    case ProfileActions.GET_USER_WORK:
+      return Object.assign({}, state, {
+        success: true
+      });
+
+    case ProfileActions.GET_USER_WORK_SUCCESS:
+    console.log('GET_USER_WORK_SUCCESS');
+      return Object.assign({}, state, {
+        editWork: payload,
+        editWorksuccess: true
+      });
+
+    case ProfileActions.GET_USER_WORK_FAILED:
+      return Object.assign({}, state, {
+        success: false
+      });
+
+    /**
      * Delete User Profile
      */
     case ProfileActions.DELETE_USER_WORK:

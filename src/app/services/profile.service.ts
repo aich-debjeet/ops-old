@@ -87,11 +87,29 @@ export class ProfileService {
   }
 
   /**
-   * Edit User Work
+   * Update User Work
    */
-  editUserWork(body) {
+  updateUserWork(body) {
     const headers = this.tokenService.getAuthHeader();
     return this.http.put(this.apiLink + '/portal/profile/update/workandAwards', body, { headers: headers })
+      .map((data: Response) => data.json());
+  }
+
+  /**
+   * Update User Education
+   */
+  updateUserEducation(body) {
+    const headers = this.tokenService.getAuthHeader();
+    return this.http.put(this.apiLink + '/portal/profile/update/qualification/course', body, { headers: headers })
+      .map((data: Response) => data.json());
+  }
+
+  /**
+   * Get Current Work and Award
+   */
+  getCurrentWork(id) {
+    const headers = this.tokenService.getAuthHeader();
+    return this.http.get(this.apiLink + '/portal/profile/get/workandAwards/' + id, { headers: headers })
       .map((data: Response) => data.json());
   }
 
