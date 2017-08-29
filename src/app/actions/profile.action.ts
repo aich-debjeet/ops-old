@@ -108,6 +108,13 @@ export class ProfileActions {
   static EDIT_USER_EDUCATION_FAILED = 'EDIT_USER_EDUCATION_FAILED';
 
   /**
+   * * Save New Channel
+   */
+  static CHANNEL_SAVE = 'CHANNEL_SAVE';
+  static CHANNEL_SAVE_SUCCESS = 'CHANNEL_SAVE_SUCCESS';
+  static CHANNEL_SAVE_FAILED = 'CHANNEL_SAVE_FAILED';
+
+  /**
    * Load Current user profile
    */
   getUserProfile(): Action {

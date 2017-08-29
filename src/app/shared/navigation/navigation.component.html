@@ -1,70 +1,74 @@
 <header class="opsheader">
-   <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-         <!-- Brand and toggle get grouped for better mobile display -->
-         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/"><img src="/assets/img/ops_icon.png"></a>
-         </div>
-         <!-- Collect the nav links, forms, and other content for toggling -->
-         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-               <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
-               <li><a routerLink="/explore" routerLinkActive="active">Explore</a></li>
-               <li><a routerLink="/opportunity" routerLinkActive="active">Oppurtunity</a></li>
-               <li><a routerLink="/events" routerLinkActive="active">Events</a></li>
-               <li><a routerLink="/learn" routerLinkActive="active">Learn</a></li>
-               <li><a routerLink="/resources" routerLinkActive="active">Resources</a></li>
-               <li><a routerLink="/communities" routerLinkActive="active">Commmunities</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right nav_right">
-               <li>
-                  <a href="javascript:void(0)" (click)="toggleNav('channel')">
-                    <img src="/assets/img/svg/ico_add.svg">
-                  </a>
-                  <ul class="dropdown-menu create_drop" [ngClass]="{'open': this.topNav['channel'].open }">
-                    <li><a href="javascript:void(0)" (click)="createChannel()" >Create Channel</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="javascript:void(0)" (click)="createCommunity()" >Create Community</a></li>
-                  </ul>
-                </li>
-               <li><a href="javascript:void(0)" (click)="toggleNav('search')"><img src="/assets/img/svg/ico_search.svg"></a></li>
-               <li><a href="javascript:void(0)" (click)="toggleNav('notification')"><img src="/assets/img/svg/ico_notification.svg"></a></li>
-               <li><a href="#"><img src="/assets/img/svg/ico_message.svg"></a></li>
-               <li class="dropdown opsheader-paddingt6">
+    <nav class="navbar navbar-default navbar-fixed-top">
+       <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+             <span class="sr-only">Toggle navigation</span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             </button>
+             <a class="navbar-brand" href="/"><img src="/assets/img/ops_icon.png"></a>
+          </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+             <ul class="nav navbar-nav">
+                <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+                <li><a routerLink="/explore" routerLinkActive="active">Explore</a></li>
+                <li><a routerLink="/opportunity" routerLinkActive="active">Oppurtunity</a></li>
+                <li><a routerLink="/events" routerLinkActive="active">Events</a></li>
+                <li><a routerLink="/learn" routerLinkActive="active">Learn</a></li>
+                <li><a routerLink="/resources" routerLinkActive="active">Resources</a></li>
+                <li><a routerLink="/communities" routerLinkActive="active">Commmunities</a></li>
+             </ul>
+             <ul class="nav navbar-nav navbar-right nav_right">
+                <li>
+                   <a href="javascript:void(0)" (click)="toggleNav('channel')">
+                     <img src="/assets/img/svg/ico_add.svg">
+                   </a>
+                   <ul class="dropdown-menu create_drop" [ngClass]="{'open': this.topNav['channel'].open }">
+                     <li><a href="javascript:void(0)" (click)="createChannel()" >Create Channel</a></li>
+                     <li role="separator" class="divider"></li>
+                     <li><a href="javascript:void(0)" (click)="createCommunity()" >Create Community</a></li>
+                   </ul>
+                 </li>
+                <li><a (click)="addMedia()"><img src="/assets/img/svg/ico_create-post.svg"></a></li>
+                <li><a href="javascript:void(0)" (click)="toggleNav('search')"><img src="/assets/img/svg/ico_search.svg"></a></li>
+                <li><a href="javascript:void(0)" (click)="toggleNav('notification')"><img src="/assets/img/svg/ico_notification.svg"></a></li>
+                <li><a href="javascript:void(0)" ><img src="/assets/img/svg/ico_message.svg"></a></li>
+                <li class="dropdown opsheader-paddingt6">
                   <a  href="javascript:void(0)" (click)="toggleNav('profile')" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <img src="/assets/img/avatar.jpg" class="img-responsive"> <span class="caret"></span></a>
+                    <img src="/assets/img/avatar.jpg" class="img-responsive"> <span class="caret"></span>
+                  </a>
                   <ul class="dropdown-menu" [ngClass]="{'open': this.topNav['profile'].open }">
-                     <li>
-                        <ul class="list-inline head_drop_thumb">
-                           <li class="list-inline-item"><img src="/assets/img/avatar.jpg" class="img-responsive"></li>
-                           <li class="list-inline-item">
-                              <h4>Tobias Van Schneider</h4>
-                              <p>@tobias</p>
-                           </li>
-                        </ul>
-                     </li>
-                     <li role="separator" class="divider"></li>
-                     <li><a routerLink="/organisation">Organisation</a></li>
-                     <li><a routerLink="/settings">Settings</a></li>
-                     <li role="separator" class="divider"></li>
-                     <li><a routerLink="/about">About One Page Spotlight</a></li>
-                     <li role="separator" class="divider"></li>
-                     <li><a routerLink="/logout">Signout</a></li>
-                  </ul>
-               </li>
-            </ul>
-         </div>
-         <!-- /.navbar-collapse -->
-      </div>
-      <!-- /.container-fluid -->
-   </nav>
-</header>
+                      <li>
+                         <ul class="list-inline head_drop_thumb">
+                            <li class="list-inline-item">
+                              <img src="/assets/img/avatar.jpg" class="img-responsive">
+                            </li>
+                            <li class="list-inline-item">
+                              <h4>{{ userProfile.profileUser?.name }} </h4>
+                              <p>@{{ userProfile.profileUser?.userName }}</p>
+                            </li>
+                         </ul>
+                      </li>
+                      <li role="separator" class="divider"></li>
+                      <li><a routerLink="/organisation">Organisation</a></li>
+                      <li><a routerLink="/settings">Settings</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a routerLink="/about">About One Page Spotlight</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a routerLink="/logout">Signout</a></li>
+                   </ul>
+                </li>
+             </ul>
+          </div>
+          <!-- /.navbar-collapse -->
+       </div>
+       <!-- /.container-fluid -->
+    </nav>
+ </header>
 
 <!-- popups -->
 <div class="ops_search hide" id="search-popup" [ngClass]="{'open': this.topNav['search'].open }">
@@ -1615,3 +1619,8 @@
     </div>
 </div>
 <!-- popups -->
+
+
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='AddMedia' class="media__modal" size="large">
+  <app-media></app-media>
+</app-modal>

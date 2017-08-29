@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../environments/environment';
 import { TokenService } from '../helpers/token.service';
 
-
 @Injectable()
 export class ProfileService {
 
@@ -60,7 +59,8 @@ export class ProfileService {
     const body = {
       'offset': 0,
       'limit': 10,
-      'superType': 'channel'
+      'superType': 'channel',
+      'owner': value
     }
 
     return this.http.post(this.apiLink + '/portal/network/spotfeed/search', body, { headers: headers })
@@ -142,23 +142,13 @@ export class ProfileService {
       .map((data: Response) => data.json());
   }
 
-  // /**
-  //  * Edit User Work
-  //  */
-  // editUserWork(body) {
-  //   const headers = this.tokenService.getAuthHeader();
-  //   return this.http.put(this.apiLink + '/portal/profile/update/workandAwards', body, { headers: headers })
-  //     .map((data: Response) => data.json());
-  // }
-
-  // /**
-  //  * Delete User Work
-  //  */
-  // deleteUserWork(id) {
-  //   const headers = this.tokenService.getAuthHeader();
-  //   // tslint:disable-next-line:max-line-length
-  //   return this.http.delete(this.apiLink + '/portal/profile/delete/workandAwards/' + id, { headers: headers })
-  //     .map((data: Response) => data.json());
-  // }
+  /**
+   * Create a channel
+   */
+  createChannel(req) {
+    const headers = this.tokenService.getAuthHeader();
+    return this.http.post(`http://devservices.greenroom6.com:9000/api/1.0/portal/network/spotfeed`, req, { headers: headers })
+      .map((data: Response) => data.json());
+  }
 
 }

@@ -7,7 +7,7 @@
         <img #elseProfileImage src="/assets/img/avatar.jpg" class="img-responsive img-circle">
         <div class="pro__name2">
             <h2><a routerLink="/profile" > {{ userProfile.profileUser?.name }} </a></h2>
-          
+
             <p>@{{ userProfile.profileUser?.userName }}</p>
             <!--<button type="button" class="btn btn-xs btn-primary btn-plus">
               <span class="btn-label-follow">
@@ -87,7 +87,7 @@
         </div>
         <div class="col-md-4 col-sm-4 pro_skills">
             <h3>SKILLS</h3>
-            
+
             <button *ngFor="let skill of userProfile.profileUser?.skills" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
         </div>
       </div>

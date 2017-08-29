@@ -711,7 +711,7 @@ width: 100%;
 				width: 40px;
 				transform: rotate(-180deg);
 				transition: transform .4s;
-				
+
 			}
 			.closed {
 				transform: rotate(0deg);
@@ -758,9 +758,9 @@ width: 100%;
 					padding:16px 32px;
 					float: left;
 					.profile_add_ico{
-						height: 50px;	
-						width: 50px;	
-						border: 3px solid #D4D4D5;	
+						height: 50px;
+						width: 50px;
+						border: 3px solid #D4D4D5;
 						border-radius: 3px;
 						margin: 0px;
 						display: flex;
@@ -791,9 +791,9 @@ width: 100%;
 						padding:16px;
 						float: left;
 						h3{
-							color: #979797;	
-							font-size: 16px;	
-							font-weight: 700;	
+							color: #979797;
+							font-size: 16px;
+							font-weight: 700;
 							line-height: 22px;
 						}
 					}
@@ -808,9 +808,9 @@ width: 100%;
 						width: 60px;
 						float: left;
 						.add_workplace_logo{
-							height: 50px;	
-							width: 50px;	
-							border: 3px solid #D4D4D5;	
+							height: 50px;
+							width: 50px;
+							border: 3px solid #D4D4D5;
 							border-radius: 3px;
 							margin: 0px;
 							display: flex;
@@ -872,12 +872,12 @@ width: 100%;
                             line-height: 17px;
                         }
                         .ops_radio_sm input[type="checkbox"] {
-                            display: none; 
+                            display: none;
                         }
                         .ops_radio_sm label {
                             position: static;
                             text-align: center;
-                            pointer-events: auto; 
+                            pointer-events: auto;
                             font-weight: 600;
                             font-size: 12px;
                             color: #000;
@@ -892,7 +892,7 @@ width: 100%;
                             -webkit-appearance: none;
                             width: 15px;
                             height: 15px;
-                            margin-top: 1px; 
+                            margin-top: 1px;
                         }
                         .ops_radio_sm input[type="checkbox"]:checked + span:after {
                             background: #ff7b84;
@@ -1002,9 +1002,9 @@ width: 100%;
 	  opacity: 1;
 	  display: block;
 	}
-    input[type="text"]:disabled, label{
-        top: -10px;
-        font-size: 12px;
-        color: #c1c1c1;
-    }
+  input[type="text"]:disabled, label{
+      top: -10px;
+      font-size: 12px;
+      color: #c1c1c1;
+  }
 }
