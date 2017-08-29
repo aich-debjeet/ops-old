@@ -16,6 +16,7 @@ import { LoginComponent } from './components/login/login.component';
 
 // Routes
 import { routes } from './app.routing';
+import { MasonryModule } from 'angular2-masonry';
 
 // Reducers
 import { AuthReducer } from './reducers/auth.reducer';
@@ -69,6 +70,8 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
 
 import { reducer } from './app.reducer';
 import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.component';
+import { MasonryComponent } from './components/masonry/masonry.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +102,8 @@ import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.
     ChannelListComponent,
     LogoutHomeComponent,
     ProfileSliderComponent,
+    MasonryComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,6 +112,7 @@ import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.
     FormsModule,
     ServicesModule,
     HttpModule,
+    MasonryModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
     EffectsModule.run(AuthEffect),

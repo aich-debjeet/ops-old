@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 import { ForgotPasswordComponent } from './forgot-password.component';
 import { PasswordOptionComponent } from './password-option/password-option.component';
 import { PasswordMailComponent } from './password-mail/password-mail.component';
 import { PasswordSmsComponent } from './password-sms/password-sms.component';
+import { PasswordCreateComponent } from './password-create/password-create.component';
 
-const routes: Routes= [
-    { path: '', redirectTo:'password_reset' , pathMatch: 'full' },
+const routes: Routes = [
+    { path: '', redirectTo: 'password_reset' , pathMatch: 'full' },
     { path: 'password_reset', component: ForgotPasswordComponent },
+    { path: 'password_create', component: PasswordCreateComponent },
     { path: 'send_password_reset', component: PasswordOptionComponent },
     { path: 'reset_mail_send', component: PasswordMailComponent },
-    { path: 'confirm_pin_rest', component: PasswordSmsComponent }    
+    { path: 'confirm_pin_rest', component: PasswordSmsComponent }
 ]
 
 @NgModule({
@@ -25,8 +27,8 @@ const routes: Routes= [
     RouterModule.forChild(routes)
   ],
   declarations: [
-    ForgotPasswordComponent, 
-    PasswordOptionComponent, 
-    PasswordMailComponent, PasswordSmsComponent]
+    ForgotPasswordComponent,
+    PasswordOptionComponent,
+    PasswordMailComponent, PasswordSmsComponent, PasswordCreateComponent]
 })
 export class ForgotPasswordModule { }

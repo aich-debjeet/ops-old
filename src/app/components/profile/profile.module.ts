@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import {ImageCropperComponent} from 'ng2-img-cropper';
+import { MasonryModule } from 'angular2-masonry';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { SharedModule } from '../../shared/shared.module';
 import { ProfileComponent } from './profile.component';
@@ -14,6 +17,7 @@ import { AboutBioComponent } from './about-bio/about-bio.component';
 import { AboutWorkComponent } from './about-work/about-work.component';
 import { AboutAwardsComponent } from './about-awards/about-awards.component';
 import { AboutEducationComponent } from './about-education/about-education.component';
+import { AboutContactComponent } from './about-contact/about-contact.component';
 
 const routes: Routes = [
   {
@@ -42,7 +46,8 @@ const routes: Routes = [
           { path: 'bio', component: AboutBioComponent },
           { path: 'work', component: AboutWorkComponent },
           { path: 'awards', component: AboutAwardsComponent },
-          { path: 'education', component: AboutEducationComponent }
+          { path: 'education', component: AboutEducationComponent },
+          { path: 'contact', component: AboutContactComponent }
         ]
       },
       //  { path: '', component: ProfileBlockComponent }
@@ -54,7 +59,11 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MasonryModule,
+    ReactiveFormsModule,
+    FormsModule,
+    TextMaskModule
   ],
   declarations: [
     ProfileComponent,
@@ -67,7 +76,8 @@ const routes: Routes = [
     AboutWorkComponent,
     AboutAwardsComponent,
     ImageCropperComponent,
-    AboutEducationComponent
+    AboutEducationComponent,
+    AboutContactComponent
   ]
 })
 export class ProfileModule { }

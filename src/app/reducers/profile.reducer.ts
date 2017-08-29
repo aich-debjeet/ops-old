@@ -163,6 +163,87 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         success: false
       });
 
+    /**
+     * Get user Profile update
+     */
+    case ProfileActions.LOAD_PROFILE_UPDATE:
+      console.log('current user channel start');
+      console.log(payload);
+      return Object.assign({}, state, {
+        success: true
+      });
+
+    case ProfileActions.LOAD_PROFILE_UPDATE_SUCCESS:
+      console.log('current user channel sucess');
+      console.log(payload);
+      return Object.assign({}, state, {
+        profileUpdate: payload,
+        profileUpdateSuccess: true
+      });
+
+    case ProfileActions.LOAD_PROFILE_UPDATE_FAILED:
+      console.log('current user channel failed');
+      return Object.assign({}, state, {
+        profileUpdateSuccess: false
+      });
+
+
+    /**
+     * Add User Profile
+     */
+    case ProfileActions.ADD_USER_WORK:
+      return Object.assign({}, state, {
+        success: true
+      });
+
+    case ProfileActions.ADD_USER_WORK_SUCCESS:
+      return Object.assign({}, state, {
+        userProfileAdd: payload,
+        success: true
+      });
+
+    case ProfileActions.ADD_USER_WORK_FAILED:
+      return Object.assign({}, state, {
+        success: false
+      });
+
+    /**
+     * Edit User Profile
+     */
+    case ProfileActions.EDIT_USER_WORK:
+      return Object.assign({}, state, {
+        success: true
+      });
+
+    case ProfileActions.EDIT_USER_WORK_SUCCESS:
+      return Object.assign({}, state, {
+        userProfileEdit: payload,
+        success: true
+      });
+
+    case ProfileActions.EDIT_USER_WORK_FAILED:
+      return Object.assign({}, state, {
+        success: false
+      });
+
+    /**
+     * Delete User Profile
+     */
+    case ProfileActions.DELETE_USER_WORK:
+      return Object.assign({}, state, {
+        success: true
+      });
+
+    case ProfileActions.DELETE_USER_WORK_SUCCESS:
+      return Object.assign({}, state, {
+        userProfileDelete: payload,
+        success: true
+      });
+
+    case ProfileActions.DELETE_USER_WORK_FAILED:
+      return Object.assign({}, state, {
+        success: false
+      });
 
     default:
       return state;

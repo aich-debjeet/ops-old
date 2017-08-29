@@ -202,8 +202,127 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         success: true
       });
 
+    // Forgot Password
+    case AuthActions.FP_USER_EXISTS:
+      console.log('user exist: ');
+      console.log(payload);
+      return Object.assign({}, state, {
+        fp_user_exists: false,
+        fp_user_input: payload.value
+      });
+
+    case AuthActions.FP_USER_EXISTS_SUCCESS:
+      // assign success values
+      let result = [];
+      if (payload['SUCCESS']) {
+        result = payload['SUCCESS'];
+      }
+
+      return Object.assign({}, state, {
+        fp_user_exists: true,
+        fp_user_options: result
+      });
+
+    case AuthActions.FP_USER_EXISTS_FAILED:
+      // console.log('test failed: ')
+      // console.log(payload)
+      return Object.assign({}, state, {
+        fp_user_exists: false
+      });
+
+    /* reset pass with phone */
+    case AuthActions.FP_RESET_TYPE_PHONE:
+      return Object.assign({}, state, {
+        fp_user_input: payload.value
+      });
+
+    case AuthActions.FP_RESET_TYPE_PHONE_SUCCESS:
+      // assign success values
+      let resPhone = [];
+      if (payload['SUCCESS']) { resPhone = payload['SUCCESS']; }
+      return Object.assign({}, state, {
+        reset_phone_response: payload.value
+      });
+
+    case AuthActions.FP_RESET_TYPE_PHONE_FAILED:
+      return Object.assign({}, state, {
+        status: 'failed'
+      });
+    /* reset pass with phone */
+
+    /* reset pass with email */
+    case AuthActions.FP_RESET_TYPE_EMAIL:
+    return Object.assign({}, state, {
+      fp_user_input: payload.value
+    });
+
+    case AuthActions.FP_RESET_TYPE_EMAIL_SUCCESS:
+      // assign success values
+      let resEmail = [];
+      if (payload['SUCCESS']) { resEmail = payload['SUCCESS']; }
+      return Object.assign({}, state, {
+        reset_email_response: payload.value
+      });
+
+    case AuthActions.FP_RESET_TYPE_EMAIL_FAILED:
+      return Object.assign({}, state, {
+        status: 'failed'
+      });
+    /* reset pass with email */
+
+    case AuthActions.FP_CREATE_PASS:
+      return Object.assign({}, state, {
+        success: false
+      });
+
+    case AuthActions.FP_CREATE_PASS_SUCCESS:
+      // console.log('FP_CREATE_PASS_SUCCESS');
+      return Object.assign({}, state, {
+        fpCrPassSuccess: payload,
+        success: true
+      });
+
+    case AuthActions.FP_CREATE_PASS_FAILED:
+    // console.log('FP_CREATE_PASS_FAILED');
+      return Object.assign({}, state, {
+        success: false
+      });
+
+    case AuthActions.USER_SUBMIT_SKILLS:
+      return Object.assign({}, state, {
+        userSkillsSaveSuccess: false
+      });
+
+    case AuthActions.USER_SUBMIT_SKILLS_SUCCESS:
+      return Object.assign({}, state, {
+        userSkillsSaved: payload,
+        userSkillsSaveSuccess: true
+      });
+
+    case AuthActions.USER_SUBMIT_SKILLS_FAILED:
+      return Object.assign({}, state, {
+        userSkillsSaveSuccess: false
+      });
+
+    case AuthActions.FP_GET_USERDATA:
+      return Object.assign({}, state, {
+        fpGetUserDataSuccess: false
+      });
+
+    case AuthActions.FP_GET_USERDATA_SUCCESS:
+      return Object.assign({}, state, {
+        fpGetUserData: payload,
+        fpGetUserDataSuccess: true
+      });
+
+    case AuthActions.FP_GET_USERDATA_FAILED:
+      return Object.assign({}, state, {
+        fpGetUserDataSuccess: false
+      });
+
     default:
       return state;
+
   }
 }
 

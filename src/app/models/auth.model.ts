@@ -2,7 +2,11 @@ export class Login {
  completed: string[];
  loading = false;
  success = true;
- user_unique= false;
+ user_unique = false;
+ fp_user_exists?: false;
+ fp_user_options?: any;
+ fp_user_input?: any;
+ fp_userdata_resp?: any;
 }
 
 export class Register {
@@ -39,6 +43,12 @@ export interface RightBlockTag {
   img: string;
 }
 
+export class UserCheckTag {
+  completed: string[];
+  loading = false;
+  success = true;
+}
+
 export class UserTag {
   success: boolean
 }
@@ -47,7 +57,9 @@ export const initialTag: Login = {
   completed: [],
   loading:  false,
   success: true,
-  user_unique: false
+  user_unique: false,
+  fp_user_exists: false,
+  fp_userdata_resp: []
 };
 
 export class Follow {

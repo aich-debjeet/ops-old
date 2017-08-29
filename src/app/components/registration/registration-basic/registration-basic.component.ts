@@ -42,6 +42,7 @@ export class RegistrationBasicComponent implements OnInit {
   countDown;
   counter = 60;
   isPhotoAdded: boolean;
+  passwordShow = false;
 
   rightCom: RightBlockTag;
   tagState$: Observable<BasicRegTag>;
@@ -53,6 +54,14 @@ export class RegistrationBasicComponent implements OnInit {
   public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public regFormBasic: FormGroup;
   public otpForm: FormGroup;
+
+  passwordShowToggle() {
+    if (this.passwordShow === true) {
+      this.passwordShow = false;
+    } else {
+      this.passwordShow = true;
+    }
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -140,6 +149,7 @@ export class RegistrationBasicComponent implements OnInit {
    * @param birthday: Birth dat object
    */
   calculateAge(birthday) { // birthday is a date
+    // console.log('birthday: ' + birthday);
     const ageDifMs = Date.now() - birthday.getTime();
     const ageDate = new Date(ageDifMs); // miliseconds from epoch
     return Math.abs(ageDate.getUTCFullYear() - 1970);
@@ -161,14 +171,35 @@ export class RegistrationBasicComponent implements OnInit {
     const month = dateArr[1];
     const year = dateArr[2];
 
+    // check for valid day number
+    if (parseInt(day, 10) > 31) {
+      return { invalidDOB: true }
+    }
+
+    // check for valid month number
+    if (parseInt(month, 10) > 12) {
+      return { invalidDOB: true }
+    }
+
+    // check if year is not greater that current
+    if (new Date().getUTCFullYear() < year) {
+      return { invalidDOB: true }
+    }
+
+    // if (isNaN(age)) {
+    //   return { invalidDOB: true }
+    // }
+    return;
+
+    /*
+
     // console.log('day: ' + day + 'month: ' + month + 'year: ' + year);
     // const bd = new Date(month+' '+day+' '+year);
     const bdStr = month + ' ' + day + ' ' + year;
-    const age = this.calculateAge(new Date(bdStr));
+    // console.log('bdStr: ' + bdStr);
+    const birthDate = new Date(year, month, day);
+    const age = this.calculateAge(birthDate);
     // console.log('age: ' + age);
-    if (isNaN(age)) {
-      return { invalidDOB: true }
-    }
 
     if (age <= 13) {
       return { isUnderAge: true };
@@ -176,6 +207,7 @@ export class RegistrationBasicComponent implements OnInit {
       return { isOverAge: true };
     }
     return null;
+    */
   }
 
   /**

@@ -93,6 +93,10 @@ export class ProfileService {
   uploadProfileImage(value) {
      console.log('uploadProfileImage');
      console.log(value.profileHandle);
+     // console.log(value.image[0]);
+     const data = value.image[0];
+     const imageType = (data.substring("data:image/".length, data.indexOf(";base64")));
+    // console.log(imageType);
     //  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     //  const token = currentUser.access_token; // your token
     //  const headers = new Headers({ 'Content-Type': 'application/json'});
@@ -100,7 +104,7 @@ export class ProfileService {
     // // const headers = this.tokenService.getAuthHeader();
 
      const fileData = new FormData();
-     fileData.append('file', this.dataURItoBlob(value.image[0]));
+     fileData.append('file', this.dataURItoBlob(value.image[0]), 'profile.' + imageType );
 
     // fileData.append('file', value.image[0]);
     // console.log(value.image[0]);
@@ -124,19 +128,94 @@ export class ProfileService {
 
   saveProfileImage(value) {
     console.log(value);
-  //  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  //  const token = currentUser.access_token; // your token
-  //  const headers = new Headers({ 'Content-Type': 'application/json'});
-  //  headers.append('Authorization', 'Bearer ' + token);
-   const headers = this.tokenService.getAuthHeader();
+    console.log('its comming');
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const token = currentUser.access_token; // your token
+    const headers = new Headers({ 'Content-Type': 'application/json'});
+    headers.append('Authorization', 'Bearer ' + token);
+  // const headers = this.tokenService.getAuthHeader();
    const val = {
-     'fileName' : JSON.stringify(value.fileName),
-     'repoPath' : JSON.stringify(value.repoPath)
-   }
+     'profileImage' : value['SUCCESS'].repoPath
+    }
 
-    return this.http.put('http://devservices.greenroom6.com:9000/api/1.0/portal/profile/updateProfile', val.repoPath , { headers: headers })
+    return this.http.put('http://devservices.greenroom6.com:9000/api/1.0/portal/profile/updateProfile', val , { headers: headers })
        .map((res: Response) => res.json());
   }
+  /**
+   * Current LoggedIn Channel profile.
+   */
+  userProfileUpdate(body) {
+    const headers = this.tokenService.getAuthHeader();
+
+    return this.http.put(this.apiLink + '/portal/profile/updateProfile', body, { headers: headers })
+      .map((data) => data.json());
+  }
+
+  /**
+   * Add User Work
+   */
+  addUserWork(body) {
+    const headers = this.tokenService.getAuthHeader();
+    return this.http.post(this.apiLink + '/portal/profile/add/workandAwards', body, { headers: headers })
+      .map((data: Response) => data.json());
+  }
+
+  /**
+   * Edit User Work
+   */
+  editUserWork(body) {
+    const headers = this.tokenService.getAuthHeader();
+    return this.http.put(this.apiLink + '/portal/profile/update/workandAwards', body, { headers: headers })
+      .map((data: Response) => data.json());
+  }
+
+  /**
+   * Delete User Work
+   */
+  deleteUserWork(id) {
+    const headers = this.tokenService.getAuthHeader();
+    // tslint:disable-next-line:max-line-length
+    return this.http.delete(this.apiLink + '/portal/profile/delete/workandAwards/' + id, { headers: headers })
+      .map((data: Response) => data.json());
+  }
+
+  /**
+   * Add User Education
+   */
+  addUserEducation(body) {
+    const headers = this.tokenService.getAuthHeader();
+    return this.http.post(this.apiLink + '/portal/profile/add/qualification/course', body, { headers: headers })
+      .map((data: Response) => data.json());
+  }
+
+  /**
+   * Delete User Education
+   */
+  deleteUserEducation(id) {
+    const headers = this.tokenService.getAuthHeader();
+    // tslint:disable-next-line:max-line-length
+    return this.http.delete(this.apiLink + '/portal/profile/delete/qualification/course/' + id, { headers: headers })
+      .map((data: Response) => data.json());
+  }
+
+  // /**
+  //  * Edit User Work
+  //  */
+  // editUserWork(body) {
+  //   const headers = this.tokenService.getAuthHeader();
+  //   return this.http.put(this.apiLink + '/portal/profile/update/workandAwards', body, { headers: headers })
+  //     .map((data: Response) => data.json());
+  // }
+
+  // /**
+  //  * Delete User Work
+  //  */
+  // deleteUserWork(id) {
+  //   const headers = this.tokenService.getAuthHeader();
+  //   // tslint:disable-next-line:max-line-length
+  //   return this.http.delete(this.apiLink + '/portal/profile/delete/workandAwards/' + id, { headers: headers })
+  //     .map((data: Response) => data.json());
+  // }
 
 }
 

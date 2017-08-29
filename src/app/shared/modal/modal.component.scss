@@ -18,16 +18,27 @@
 }
 
 .ng-modal {
-  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .22), 0 17px 20px 0 rgba(0, 0, 0, .12);
-  background-color: white;
-  left: calc(50% - 300px);
-  max-height: calc(100% - 10em);
+  // box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .22), 0 17px 20px 0 rgba(0, 0, 0, .12);
+  // background-color: white;
+  // left: calc(50% - 300px);
+  // max-height: calc(100% - 10em);
+  // overflow-y: auto;
+  // position: fixed;
+  // top: 5em;
+  // width: 600px;
+  // z-index: 1100;
+  // transition: all .5s ease;
+
+
+  height: 100%;
+  width: 100%;
   overflow-y: auto;
   position: fixed;
-  top: 5em;
-  width: 600px;
-  z-index: 1100;
+  top: 0em;
+  left: 0em;
+  z-index: 133100;
   transition: all .5s ease;
+  padding-top: 5em;
 
   .title {
     background-color: red;

@@ -8,14 +8,14 @@
 					<form [formGroup]="loginForm" novalidate (submit)="submitForm(loginForm.value)"  #myform="ngForm">
 						<p class="error_alert text-center" *ngIf="petTag?.error_description">{{petTag?.error_description}}</p>
 						<div class="form_group">
-							<input class="form_input" type="text" formControlName="email">
+							<input class="form_input" type="text" formControlName="email" required>
 							<span class="form_highlight"></span>
 							<span class="form_bar"></span>
 							<label>Username</label>
 							<p class="error_alert" *ngIf="loginForm.controls['email'].errors?.required && myform.submitted">Username is required</p>
 						</div>
 						<div class="form_group">
-							<input class="form_input" type="password" formControlName="password">
+							<input class="form_input" type="password" formControlName="password" required>
 							<span class="form_highlight"></span>
 							<span class="form_bar"></span>
 							<label>Password</label>
@@ -32,7 +32,7 @@
                   </div>
                 </div>
                 <div class="col-md-6 col-md-offset-6">
-                  <p class="login_forgot"><a routerLink="/account">Forget Password?</a></p>
+                  <p class="login_forgot"><a routerLink="/account/password_reset">Forget Password?</a></p>
                 </div>
             </div>
 						<div class="text-center margin_tb_16">

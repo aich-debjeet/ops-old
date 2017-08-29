@@ -4,7 +4,11 @@
 @import '~sass-mq/_mq.scss';
 
 /* --------------------------- Registration Step 1 ---------------------------- */
-.otp__modal { }
+.otp__modal { 
+    background: #fff;
+    width: 850px;
+    margin: 0 auto;
+}
 .reg_step1{
   // add photo
   .reg_add_photo{
@@ -176,4 +180,25 @@ span.suggestions {
     display: table;
     clear: both;
   }
+}
+
+.reg_left_section {
+  overflow-y: auto;
+}
+
+.password-toggle {
+  background: none;
+  border: none;
+  color: black;
+  top: 5px;
+  right: 0;
+  outline: none;
+}
+
+.pos-rel {
+  position: relative;
+}
+
+.pos-abs {
+  position: absolute;
 }
