@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -44,7 +43,6 @@ import { BlogeditorComponent } from './blogeditor/blogeditor.component';
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule,
     HttpModule,
     FormsModule,
     ReactiveFormsModule,

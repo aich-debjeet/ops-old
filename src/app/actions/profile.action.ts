@@ -85,7 +85,9 @@ export class ProfileActions {
   static EDIT_USER_EDUCATION = 'EDIT_USER_EDUCATION';
   static EDIT_USER_EDUCATION_SUCCESS = 'EDIT_USER_EDUCATION_SUCCESS';
   static EDIT_USER_EDUCATION_FAILED = 'EDIT_USER_EDUCATION_FAILED';
-   * Save New Channel
+
+  /**
+   * * Save New Channel
    */
   static CHANNEL_SAVE = 'CHANNEL_SAVE';
   static CHANNEL_SAVE_SUCCESS = 'CHANNEL_SAVE_SUCCESS';

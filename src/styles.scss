@@ -55,25 +55,19 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
   height: 614px;
   padding: 2% 8%!important;
   @include mq($from: mobile, $until: tablet) {
-        height: 720px;
-    }
+    height: 720px;
+  }
 }
 // right section
-.reg_right_section{
-   background-image: $theme_gradient; /* Old browsers */
-   background-image: $theme_gradient2; /*Safari5.1+ */
-   color: #fff;
+.reg_right_section {
+  background-image: $theme_gradient; /* Old browsers */
+  background-image: $theme_gradient2; /*Safari5.1+ */
+  color: #fff;
   padding:40px;
   height: 614px;
-  h2{
-    margin: 7% 0;
-  }
-  .right_container{
-    margin-top:5%;
-  }
-  .reg_steps_logo{
-    text-align: center;
-  }
+  h2 { margin: 7% 0; }
+  .right_container { margin-top:5%;  }
+  .reg_steps_logo { text-align: center; }
   p{
     padding-top:8%;
     clear: both;
@@ -85,6 +79,7 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
     font-weight: bold;
   }
 }
+
 // Right section graph
 .reg_graph{
   width: 170px;
@@ -105,7 +100,6 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
   }
 }
 
-<<<<<<< HEAD
 /** Selector **/
 
 @import url(https://joshuajohnson.co.uk/Choices/assets/styles/css/choices.min.css?version=3.0.2);
@@ -156,19 +150,19 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 }
 
 .choices__list--dropdown.is-active {
-    display: block;
-    width: 300px;
+  display: block;
+  width: 300px;
 }
 .choices__inner{
   padding: 0;
 }
 
 .choices__list.choices__list--dropdown.is-active .hh {
-    display: block;
-    font-weight: 100;
-    color: #777;
-    font-size: 12px;
-    padding-bottom: 5px;
+  display: block;
+  font-weight: 100;
+  color: #777;
+  font-size: 12px;
+  padding-bottom: 5px;
 }
 
 .choices__list--dropdown{
@@ -180,8 +174,7 @@ app-country-selector {
   margin-top: -29px;
   display: block;
   margin-bottom: 30px;
-=======
-
+}
 vg-scrub-bar {
   height: 3px !important;
   bottom: 0 !important;
@@ -236,10 +229,6 @@ vg-scrub-bar {
   color: #651212;
 }
 
-.msg__loading{
-
-}
-
 .loader,
 .loader:before,
 .loader:after {
@@ -277,6 +266,7 @@ vg-scrub-bar {
 .loader:after {
   left: 2.5em;
 }
+
 @-webkit-keyframes load7 {
   0%,
   80%,
@@ -296,5 +286,4 @@ vg-scrub-bar {
   40% {
     box-shadow: 0 2.5em 0 0;
   }
->>>>>>> feature/tab-component
 }
