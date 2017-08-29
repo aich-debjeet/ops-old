@@ -1,49 +1,49 @@
-<header class="opsheader">
-    <nav class="navbar navbar-default navbar-fixed-top">
+<form [formGroup]="rForm" >
+    <header class="opsheader">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="/assets/img/ops_icon.png"></a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="signup_next">
+                    <app-button [className]="'btn btn-network btn-sm'" [type]="'submit'" (click)="saveSkills()" >CONTINUE</app-button>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+    </header>
+    <section class="container-fluid skills_section">
         <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><img src="/assets/img/ops_icon.png"></a>
+            <div class="row">
+                <h1 class="add-your-skills">Add your skills</h1>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="signup_next">
-                <app-button [className]="'btn btn-network btn-sm'" [type]="'submit'">CONTINUE</app-button>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-</header>
-<section class="container-fluid skills_section">
-    <div class="container">
-        <div class="row">
-            <h1 class="add-your-skills">Add your skills</h1>
-        </div>
-        <div class="row">
-            <div class="col-md-6 padding_none with_border_right">
-                <!-- add skill block start -->
-                <ul class="add_skill_block">
-                    <li *ngFor="let industry of skillSelectionPage.industries">
-                        <a href="javascript:void(0)" (click)="selectCategory(industry.code)" [ngClass]="industry.isSelected?'btn btn-reg_tag-active':''" class="btn btn-reg_tag">
-                            <span class="skill_list_container">
-                                <span class="skills_list_bg_img">
-                                    <figure><img src="{{industry.background}}" alt=""></figure>
+            <div class="row">
+                <div class="col-md-6 padding_none with_border_right">
+                    <!-- add skill block start -->
+                    <ul class="add_skill_block">
+                        <li *ngFor="let industry of skillSelectionPage.industries">
+                            <a href="javascript:void(0)" (click)="selectCategory(industry.code)" [ngClass]="industry.isSelected?'btn btn-reg_tag-active':''" class="btn btn-reg_tag">
+                                <span class="skill_list_container">
+                                    <span class="skills_list_bg_img">
+                                        <figure><img src="{{industry.background}}" alt=""></figure>
+                                    </span>
+                                    <span class="skills_name"><p>{{industry.name}}</p></span>
                                 </span>
-                                <span class="skills_name"><p>{{industry.name}}</p></span>
-                            </span>
-                        </a>
-                    </li><!-- skill block end -->
-                </ul><!-- add_skill_block end -->
-            </div>
-            <div class="col-md-6 padding_none">
-                <div class="o-search-block">
-                    <form [formGroup]="rForm">
+                            </a>
+                        </li><!-- skill block end -->
+                    </ul><!-- add_skill_block end -->
+                </div>
+                <div class="col-md-6 padding_none">
+                    <div class="o-search-block">
                         <div class="search_container">
                             <div class="form_group">
                                 <input class="form_input" type="text" formControlName="profession" [(ngModel)]="search" (ngModelChange)="onSearchChange($event)">
@@ -62,18 +62,18 @@
                             <div *ngIf="skillSelectionPage.skills_loaded===false">
                                 <span class="loading">Loading...</span>
                             </div>
-                            <div *ngFor="let skill of skillSelectionPage.skills" >
+                            <span *ngFor="let skill of skillSelectionPage.skills" >
                                 <button type="button" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" class="btn btn-reg_tag">
                                     {{skill.name}}
                                 </button>
-                            </div>
+                            </span>
                             <div *ngIf='skillSelectionPage.skills_loaded===true && skillSelectionPage.skills && skillSelectionPage.skills.length === 0'>
                                 <a class="adder" (click)="addNewSkill(search)">Add <span class="adder__name">{{search}}?</span></a>
                             </div>
                         </div>
-                    </form>
-                </div><!-- o-search-block end -->
+                    </div><!-- o-search-block end -->
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</form>
