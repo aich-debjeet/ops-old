@@ -85,18 +85,6 @@ export class AboutAwardsComponent implements OnInit {
    */
   awardFormSubmit(value) {
     if ( this.awardForm.valid === true ) {
-      const body = {
-        'role': value.award,
-        'organizationName': value.organization,
-        'workOrAward': 'awards',
-        'from': this.reverseDate(value.timeperiod) + 'T05:00:00',
-        'access': 0
-      }
-      this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
-      this.modalService.close('addAwardPopup');
-    }
-
-    if ( this.awardForm.valid === true ) {
       if (this.editFormPopup === false) {
         const body = {
           'role': value.award,
@@ -125,7 +113,7 @@ export class AboutAwardsComponent implements OnInit {
   /**
    * Delete Current Work of user
    */
-  deleteCurrentWork(id) {
+  deleteCurrentAward(id) {
     console.log(id);
     this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
   }
@@ -133,17 +121,16 @@ export class AboutAwardsComponent implements OnInit {
   /**
    * Edit Current Work of user
    */
-  editCurrentWork(data) {
+  editCurrentAward(data) {
+    console.log(data);
     this.editFormPopup = true;
     this.awardForm.patchValue({
-      role: data.role,
-      organizationName: data.organizationName,
-      workOrAward: 'awards',
-      from: this.reverseDate(data.from) + 'T05:00:00',
-      access: 0,
+      award: data.role,
+      organization: data.organizationName,
+      timeperiod: this.datepipe.transform(data.from, 'dd-MM-yyyy'),
       id: data.id
     });
-    this.modalService.open('userWorkAdd');
+    this.modalService.open('addAwardPopup');
   }
 
   /**
