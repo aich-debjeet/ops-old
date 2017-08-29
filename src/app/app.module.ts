@@ -85,6 +85,7 @@ import {VgCoreModule} from 'videogular2/core';
 import {VgControlsModule} from 'videogular2/controls';
 import {VgOverlayPlayModule} from 'videogular2/overlay-play';
 import {VgBufferingModule} from 'videogular2/buffering';
+import { ChannelInnerComponent } from './components/channel-inner/channel-inner.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,8 @@ import {VgBufferingModule} from 'videogular2/buffering';
     ProfileSliderComponent,
     MasonryComponent,
     LogoutComponent,
-    ProfileSliderComponent
+    ProfileSliderComponent,
+    ChannelInnerComponent
   ],
   imports: [
     BrowserModule,
