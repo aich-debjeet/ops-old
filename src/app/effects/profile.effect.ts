@@ -298,6 +298,31 @@ export class ProfileEffect {
     .ofType(ProfileActions.ADD_USER_EDUCATION_SUCCESS)
     .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS }))
 
+/**
+ *  Load image to database
+ */
+  @Effect()
+  loadProfileImage$ = this.actions$
+    .ofType(ProfileActions.LOAD_PROFILE_IMAGE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.uploadProfileImage(payload)
+      .map(res => ({ type: ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.LOAD_PROFILE_IMAGE_FAILED, payload: res }))
+    );
+
+/**
+ *  Save image to ProfileUI
+ */
+   @Effect()
+   loadProfileImageSuccess$ = this.actions$
+   .ofType(ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS)
+   .map(toPayload)
+   .switchMap((payload) => this.profileService.saveProfileImage(payload)
+     .map(res => ({ type: ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS, payload: res }))
+     .catch((res) => Observable.of({ type: ProfileActions.SAVE_PROFILE_IMAGE_FAILED, payload: res }))
+    );
+
+
     /**
    * Get current user channel profile
    */

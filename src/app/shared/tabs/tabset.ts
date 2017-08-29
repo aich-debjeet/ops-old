@@ -7,7 +7,7 @@ import {
   EventEmitter
 } from '@angular/core';
 
-import { Tab } from './Tab';
+import { Tab } from './tab';
 
 @Component({
   selector: 'tabset',
