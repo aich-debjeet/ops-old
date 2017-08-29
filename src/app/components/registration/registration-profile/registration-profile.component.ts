@@ -26,12 +26,41 @@ export class RegistrationProfileComponent implements OnInit {
 
   tagState$: Observable<AuthModel>;
   private tagStateSubscription: Subscription;
-  artistType = initialTag;
+  // artistType = initialTag;
+  artistType = [];
 
   constructor(fb: FormBuilder, private store: Store<AuthModel>, private router: Router) {
+
+    this.artistType = [{
+      name: 'Makers',
+      image: '/assets/img/step2a.jpg',
+      typeName: 'individual',
+      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+    }, {
+      name: 'Doers',
+      image: '/assets/img/step2b.jpg',
+      typeName: 'individual',
+      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+    }, {
+      name: 'Enablers',
+      image: '/assets/img/step2c.jpg',
+      typeName: 'individual',
+      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+    }, {
+      name: 'Tech Power',
+      image: '/assets/img/step2d.jpg',
+      typeName: 'individual',
+      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+    }, {
+      name: 'Art Lovers',
+      image: '/assets/img/step2e.jpg',
+      typeName: 'individual',
+      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+    }];
+
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-        this.artistType = state;
+        //this.artistType = state;
 
         //  console.log(state);
         // this.done = !!(this.petTag.shape && this.petTag.text);

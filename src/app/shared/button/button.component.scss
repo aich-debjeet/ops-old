@@ -1,4 +1,5 @@
 @import './src/assets/scss/helpers/_variables.scss';
+
 /* --------------------------- Button Size ---------------------------- */
 
 .btn-xs {
@@ -9,20 +10,19 @@
 }
 
 .btn-sm {
-    // padding: 6px 18px;
-    padding: 11px 18px;
+    padding: 6px 18px;
     font-size: 14px;
     line-height: 1.0;
     border-radius: 3px;
-    font-weight: 800;
+    font-weight: 700;
 }
 
 .btn-md {
-    padding: 4px 20px;
+    padding: 3px 16px;
     font-size: 18px;
     line-height: 1.5;
     border-radius: 3px;
-    font-weight: 800;
+    font-weight: 700;
 }
 
 
@@ -70,7 +70,7 @@
     padding: 0px 7px 0px 3px;
     font-weight: 500;
     font-size: 12px;
-    border-radius: 5px;
+    border-radius: 3px;
     &:hover {
         background: #5C5B5B !important;
         border-color: #5C5B5B !important;
@@ -105,7 +105,7 @@
     }
 }
 .btn-following {
-    padding: 0px 4px 0 7px;
+    // padding: 0px 4px 0 7px;
     font-weight: 500;
     font-size: 12px;
     border-radius: 3px;
@@ -174,6 +174,194 @@
             color: $white;
             background-color: $theme_red_dark;
             border-color: $theme_red_dark;
+        }
+    }
+}
+
+/* --------------------------- login Button ------------------------- */
+
+.btn-login {
+    color: $white;
+    background-color: transparent;
+    border-color: $white;
+    text-transform: uppercase;
+    &:focus {
+      color: $theme_red;
+      background-color: $white;
+      border-color: $white;
+        outline: 0px !important;
+    }
+    &:hover {
+        color: $theme_red;
+        background-color: $white;
+        border-color: $white;
+    }
+    &:active {
+      color: $theme_red_dark;
+      background-color: $white;
+      border-color: $white;
+        outline: 0px !important;
+        &:hover {
+          color: $theme_red_dark;
+          background-color: $white;
+          border-color: $white;
+        }
+        &:focus {
+          color: $theme_red_dark;
+          background-color: $white;
+          border-color: $white;
+        }
+    }
+}
+
+/* --------------------------- network Button ------------------------- */
+
+.btn-network {
+    color: $theme_gray;
+    background-color: $white;
+    border-color: $theme_gray;
+    text-transform: uppercase;
+    &:focus {
+      color: $theme_red;
+      background-color: $white;
+      border-color: $white;
+        outline: 0px !important;
+    }
+    &:hover {
+        color: $theme_red;
+        background-color: $white;
+        border-color: $theme_red;
+    }
+    &:active {
+      color: $theme_red_dark;
+      background-color: $white;
+      border-color: $white;
+        outline: 0px !important;
+        &:hover {
+          color: $theme_red_dark;
+          background-color: $white;
+          border-color: $white;
+        }
+        &:focus {
+          color: $theme_red_dark;
+          background-color: $white;
+          border-color: $white;
+        }
+    }
+}
+
+
+/* --------------------------- Registration tag ------------------------- */
+
+.btn-reg_tag {
+    color: #333333;
+    font-size: 16px;
+    background-color: $white;
+    border: 1px solid #C1C1C1;
+    font-weight: bold;
+    line-height: 22px;
+    text-align: center;
+    text-transform: capitalize;
+    padding: 7px 15px;
+    &:focus {
+      color: $theme_red;
+        background-color: $white;
+        border: 1px solid $theme_red;
+      outline: 0px !important;
+    }
+    &:hover {
+        color: $theme_red;
+        background-color: $white;
+        border: 1px solid $theme_red;
+    }
+    &:active {
+        color: $theme_red;
+        background-color: #FFEEEF;
+        border: 1px solid $theme_red;
+        outline: 0px !important;
+        &:hover {
+            color: $theme_red;
+            background-color: #FFEEEF;
+            border: 1px solid $theme_red;
+        }
+        &:focus {
+            color: $theme_red;
+            background-color: #FFEEEF;
+            border: 1px solid $theme_red;
+        }
+    }
+}
+.btn-reg_tag-active {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 22px;
+    text-align: center;
+    text-transform: capitalize;
+    padding: 7px 15px;
+    color: $theme_red;
+    background-color: #FFEEEF;
+    border: 1px solid $theme_red;
+    outline: 0px !important;
+    &:hover {
+        color: $theme_red;
+        background-color: #FFEEEF;
+        border: 1px solid $theme_red;
+    }
+    &:focus {
+            color: $theme_red;
+            background-color: #FFEEEF;
+            border: 1px solid $theme_red;
+    }
+    &:active {
+        color: $theme_red;
+        background-color: #FFEEEF;
+        border: 1px solid $theme_red;
+        outline: 0px !important;
+        &:hover {
+            color: $theme_red;
+            background-color: #FFEEEF;
+            border: 1px solid $theme_red;
+        }
+        &:focus {
+            color: $theme_red;
+            background-color: #FFEEEF;
+            border: 1px solid $theme_red;
+        }
+    }
+}
+
+/* --------------------------- sign up Button ------------------------- */
+
+.btn-signup {
+    color: $theme_red;
+    background-color: $white;
+    border-color: $white;
+    text-transform: uppercase;
+    &:focus {
+      color: $theme_red_dark;
+      background-color: $white;
+      border-color: $white;
+        outline: 0px !important;
+    }
+    &:hover {
+      color: $theme_red_dark;
+      background-color: $white;
+      border-color: $white;
+    }
+    &:active {
+      color: $theme_red_dark;
+      background-color: $white;
+      border-color: $white;
+        outline: 0px !important;
+        &:hover {
+          color: $theme_red_dark;
+          background-color: $white;
+          border-color: $white;
+        }
+        &:focus {
+          color: $theme_red_dark;
+          background-color: $white;
+          border-color: $white;
         }
     }
 }
@@ -292,7 +480,7 @@
 }
 
 
-/* --------------------------- Normal Button ------------------------- */
+/* --------------------------- Normal2 Button ------------------------- */
 
 .btn-normal2 {
     color: $theme_gray;
@@ -342,8 +530,8 @@
     }
     &:hover {
         color: $white;
-        background-color: $basic_color;
-        border-color: $basic_color;
+        background-color: #979797;
+        background-color: #979797;
     }
     &:active {
         color: $white;
@@ -361,14 +549,4 @@
             border-color: $basic_color;
         }
     }
-}
-
-.btn-label-follow{
-  display: none;
-}
-
-.btn-follow{
-  .btn-label-follow{
-    display: inline-block;
-  }
 }
