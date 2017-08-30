@@ -12,7 +12,7 @@
 }
 .container-fluid {
   .container {
-    padding-bottom: 64px;
+    padding-bottom: 100px;
   }
 }
 .ops_radio_sm input[type=radio]+span {
@@ -27,7 +27,6 @@
 .ops_signup {
   background-color: #ffffff;
   padding-top: 64px;
-  height: 100vh;
   .ops_signup_left {
       padding: 0 48px;
       .ops_heading {
@@ -199,4 +198,9 @@ span.suggestions {
 
 .pos-abs {
   position: absolute;
+}
+
+.pwd-cls {
+  margin-top: 20px;
+  clear: both;
 }

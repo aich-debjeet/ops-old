@@ -43,6 +43,7 @@ export class RegistrationAddSkillComponent implements OnInit {
   skillSelectionPage: any;
   selectedSkills = [];
   search: String;
+  activateSubmitBtn = false;
 
   constructor(fb: FormBuilder, private http: Http, private router: Router, private store: Store<Login>) {
 
@@ -129,12 +130,12 @@ export class RegistrationAddSkillComponent implements OnInit {
    */
   toggleSelectSkill(skillCode: string) {
     // Check if skill is already selected
-    const isSelected = _.find(this.selectedSkills, function(s) {
+    const selectedSkill = _.find(this.selectedSkills, function(s) {
       return s.code === skillCode;
     });
 
     // If skill exist then remove it from selection array
-    if (isSelected !== undefined) {
+    if (selectedSkill !== undefined) {
       // Searching for the skill in skills array
       const skillMeta = this.findSkill(skillCode);
       // Removing skill from selected skills array
@@ -169,5 +170,11 @@ export class RegistrationAddSkillComponent implements OnInit {
       });
     }
     // console.log(this.selectedSkills);
+
+    if (this.selectedSkills.length > 0) {
+      this.activateSubmitBtn = true;
+    } else {
+      this.activateSubmitBtn = false;
+    }
   }
 }

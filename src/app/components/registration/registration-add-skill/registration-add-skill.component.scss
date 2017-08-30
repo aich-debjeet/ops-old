@@ -141,13 +141,30 @@
 
 // --- signup-header -----------------------------------
 .signup_next {
+    .active-btn {
+        color: #ff7b84 !important;
+        background-color: #fff !important;
+        border-color: #ff7b84 !important;
+    }
   .btn-network {
-      margin-top: 12px;
-      float: right;
-      color: #c1c1c1;
-      background-color: #fff;
-      border-color: #c1c1c1;
-      text-transform: uppercase;
+    color: #c1c1c1;
+    background-color: #fff;
+    border-color: #c1c1c1;
+    text-transform: uppercase;
+    margin-top: 12px;
+    float: right;
+    &:hover {
+        color: #ff7b84;
+        background-color: #fff;
+        border-color: #ff7b84;
+    }
+  }
+  .btn-sm {
+    padding: 6px 18px;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 3px;
+    font-weight: 700;
   }
 }
 
@@ -196,4 +213,12 @@ a.adder {
 
 .loading {
     color: #000;
+}
+
+.ptop100 {
+    padding-top: 100px;
+}
+
+.skills_section a.activeIndustry .skills_name {
+    background-color: rgba(255,123,132,.83)!important;
 }

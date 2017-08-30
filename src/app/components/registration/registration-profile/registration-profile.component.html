@@ -15,7 +15,7 @@
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="signup_next">
-                    <app-button [className]="'btn btn-network btn-sm'" [type]="'submit'">CONTINUE</app-button>
+                    <button [className]="'btn btn-network btn-sm'" [type]="'submit'" [disabled]="!activateSubmitBtn" [ngClass]="{'active-btn': activateSubmitBtn}" >CONTINUE</button>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>

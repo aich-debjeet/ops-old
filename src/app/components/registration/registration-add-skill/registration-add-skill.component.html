@@ -14,7 +14,7 @@
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="signup_next">
-                    <app-button [className]="'btn btn-network btn-sm'" [type]="'submit'" (click)="saveSkills()" >CONTINUE</app-button>
+                    <button [className]="'btn btn-network btn-sm'" [type]="'submit'" (click)="saveSkills()" [disabled]="!activateSubmitBtn" [ngClass]="{'active-btn': activateSubmitBtn}" >CONTINUE</button>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>
@@ -23,7 +23,7 @@
     </header>
     <section class="container-fluid skills_section">
         <div class="container">
-            <div class="row">
+            <div class="row ptop100">
                 <h1 class="add-your-skills">Add your skills</h1>
             </div>
             <div class="row">
@@ -31,7 +31,7 @@
                     <!-- add skill block start -->
                     <ul class="add_skill_block">
                         <li *ngFor="let industry of skillSelectionPage.industries">
-                            <a href="javascript:void(0)" (click)="selectCategory(industry.code)" [ngClass]="industry.isSelected?'btn btn-reg_tag-active':''" class="btn btn-reg_tag">
+                            <a href="javascript:void(0)" (click)="selectCategory(industry.code)" [ngClass]="industry.isSelected?'activeIndustry':''" >
                                 <span class="skill_list_container">
                                     <span class="skills_list_bg_img">
                                         <figure><img src="{{industry.background}}" alt=""></figure>

@@ -88,7 +88,7 @@
                         <app-country-selector></app-country-selector>
                         <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">Someone has already registed with this number</p>
                     </div>
-                    <div class="form_group">
+                    <div class="form_group pwd-cls">
                         <button class="password-toggle pos-abs" type="button" (click)="passwordShowToggle()" title="{{ passwordShow ? 'Hide Password' : 'Show Password' }}" >
                             <span class="fa {{ passwordShow ? 'fa-eye' : 'fa-eye-slash' }}"></span>
                         </button>

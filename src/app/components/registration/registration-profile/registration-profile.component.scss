@@ -9,8 +9,11 @@
 }
 .ops_signup2 {
   background-color: #f1f1f1;
-  padding-top: 64px;
+  padding-top: 100px;
   .ops_signup_step2 {
+    label {
+        cursor: pointer;
+    }
     .step2_heading {
         color: #333333;
         font-size: 18px;
@@ -107,13 +110,30 @@
 
 // --- signup-header -----------------------------------
 .signup_next {
+    .active-btn {
+        color: #ff7b84 !important;
+        background-color: #fff !important;
+        border-color: #ff7b84 !important;
+    }
     .btn-network {
-        margin-top: 12px;
-        float: right;
         color: #c1c1c1;
         background-color: #fff;
         border-color: #c1c1c1;
         text-transform: uppercase;
+        margin-top: 12px;
+        float: right;
+        &:hover {
+            color: #ff7b84;
+            background-color: #fff;
+            border-color: #ff7b84;
+        }
+    }
+    .btn-sm {
+        padding: 6px 18px;
+        font-size: 14px;
+        line-height: 1;
+        border-radius: 3px;
+        font-weight: 700;
     }
 }
 
@@ -146,4 +166,10 @@ container {
 .are_you_student {
     width: 180px;
     text-align: center;
+}
+
+.are_you_student {
+    display: block;
+    margin: auto;
+    cursor: pointer;
 }

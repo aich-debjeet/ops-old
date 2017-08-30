@@ -28,6 +28,7 @@ export class RegistrationProfileComponent implements OnInit {
   private tagStateSubscription: Subscription;
   // artistType = initialTag;
   artistType = [];
+  activateSubmitBtn = false;
 
   constructor(fb: FormBuilder, private store: Store<AuthModel>, private router: Router) {
 
@@ -113,14 +114,21 @@ export class RegistrationProfileComponent implements OnInit {
   }
 
   onChange(value: string, type: string, isChecked: boolean) {
-    console.log('on change');
     const checkboxFormArray = <FormArray>this.rForm.controls.artistList;
 
     if (isChecked) {
       checkboxFormArray.push(new FormControl({name: value, typeName: type}));
     } else {
-      let index = checkboxFormArray.controls.findIndex(x => x.value == value)
+      const index = checkboxFormArray.controls.findIndex(x => x.value === value)
       checkboxFormArray.removeAt(index);
+    }
+
+    if (checkboxFormArray.controls !== undefined) {
+      if (checkboxFormArray.controls.length > 0) {
+        this.activateSubmitBtn = true;
+      } else {
+        this.activateSubmitBtn = false;
+      }
     }
 
   }
