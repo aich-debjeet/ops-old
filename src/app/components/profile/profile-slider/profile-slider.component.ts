@@ -38,7 +38,6 @@ export class ProfileSliderComponent implements OnInit {
     this.tagState$ = this.profileStore.select('profileTags');
     // this.test = 'salabeel';
     this.tagState$.subscribe((state) => {
-      console.log(state);
       this.userProfile = state;
     });
 
@@ -99,7 +98,7 @@ export class ProfileSliderComponent implements OnInit {
    * Edit Form Submit
    */
   profileFormSubmit(value) {
-    console.log(value);
+
     const form =  {
       'extras': {
         'association': {

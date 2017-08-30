@@ -133,6 +133,9 @@ export class MediaComponent implements OnInit, AfterViewInit {
    * Media Uploader Form
    */
   submitStatusForm(value: any) {
+
+    console.log(value);
+
     if ( this.statusForm.valid === true ) {
       const postStatus = {
         owner: this.handle,
@@ -160,6 +163,7 @@ export class MediaComponent implements OnInit, AfterViewInit {
    * @param req
    */
   postStatus(req: any) {
+    console.log(req);
     this.store.dispatch({ type: MediaActions.STATUS_SAVE, payload: req });
   }
 
@@ -173,7 +177,7 @@ export class MediaComponent implements OnInit, AfterViewInit {
   createStatusForm() {
     this.statusForm = this.fb.group({
       status : ['', Validators.required ],
-      privacy: ['', Validators.required ]
+      privacy: [ 0 ]
     })
   }
 

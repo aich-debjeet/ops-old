@@ -189,7 +189,9 @@ vg-scrub-bar {
     min-width: 300px;
     text-align: center;
   }
-  .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+  .nav-tabs > li.active > a,
+  .nav-tabs > li.active > a:hover,
+  .nav-tabs > li.active > a:focus{
     color:#ff7b84!important;
     background-color: transparent;
     border: 0;
@@ -286,4 +288,43 @@ vg-scrub-bar {
   40% {
     box-shadow: 0 2.5em 0 0;
   }
+}
+
+.blog__textarea,
+.c-input {
+  color: #444;
+  padding-left: 2rem;
+  text-align: left;
+}
+
+.c-textarea textarea {
+  border: 0;
+  float: none;
+  width: 100%;
+  color: #999;
+}
+
+#medium-editor-toolbar-1 {
+  z-index: 4000;
+}
+
+#medium-editor-toolbar-actions1 {
+  color: #444;
+  box-shadow: 1px 1px 3px #eee;
+  border: solid 1px #eee;
+  border-radius: 2px;
+}
+
+.medium-editor-toolbar li button {
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  font-size: 14px;
+  line-height: 1.33;
+  margin: 0;
+  padding: 15px;
+  text-decoration: none;
+  border: 0;
+  background-color: #fff;
+  box-shadow: none;
 }

@@ -107,67 +107,7 @@
                 </div>
               </li>
           </ul>
-
-          <div id="choose_channel_details" style="">
-              <div class="add-post_choosechannel">
-                <span class="createchannel with_border_bottom">
-                    <span class="createchannel with_border_bottom">
-                      <div (click)="makeChannel()">
-                        <div class="createchannel_ico">
-                          <img src="http://d33wubrfki0l68.cloudfront.net/ecd156ec380d4f55a1b0b797ccdef45d2fca54df/494c4/img/svg/ico_create-plus.svg">
-                        </div>Create Channel
-                      </div>
-                      <div *ngIf="addChannel" class="o-block_2 o-create_channel">
-                        <form [formGroup]="channelForm" novalidate #myform="ngForm">
-                            <ul class="channel__form">
-                                <li class="channel_title">
-                                  <div class="form_group">
-                                      <input formControlName="title" class="form_input" required="" type="text">
-                                      <span class="form_highlight"></span>
-                                      <span class="form_bar"></span>
-                                      <label>Title</label>
-                                  </div>
-                                </li>
-                                <li class="channel_title">
-                                  <div class="form_group">
-                                      <textarea formControlName="desc" name="desc" id="" cols="30" rows="10"></textarea>
-                                      <span class="form_highlight"></span>
-                                      <span class="form_bar"></span>
-                                      <label>Description</label>
-                                  </div>
-                                </li>
-                                <li class="list-inline-item discussion_post_topic">
-                                  <div class="form_group">
-                                    <select formControlName="privacy" class="form-control" name="access"><br>
-                                      <option value="0">Public</option>
-                                      <option value="1">Private</option>
-                                    </select>
-                                  </div>
-                                </li>
-                                <li class="create_btn">
-                                    <button class="btn btn-normal btn-sm" type="submit" (click)="createChannel(channelForm.value)">Create Channel</button>
-                                </li>
-                            </ul>
-                          </form>
-                      </div>
-                    </span>
-                  </span>
-                  <div *ngFor="let channel of profileChannel.channelEntity; let i = index" class="channel-list-show with_border_bottom">
-                    <div class="channel-list-show_img ">
-                      <figure class="channel-list-show_img">
-                          <a href=""><img width="42" src="https://d33wubrfki0l68.cloudfront.net/a4ad69d317551d24c67bda3a1ed38c6e740ba123/d7eb6/img/quick3.jpg"></a>
-                      </figure>
-                    </div>
-                    <div class="channel-list-show_txt">
-                        <p>{{ channel.spotfeedName}}</p>
-                    </div>
-                    <div class="channel-list-show_btn" [ngClass]="{ 'sel': isChosenChannel(channel) === true }">
-                        <a (click)="chooseChannel(channel)" type="button" class="btn btn-normal btn-sm">Select</a>
-                    </div>
-                </div>
-              </div>
-          </div>
-    </form>
-    <button class="btn btn-primary btn-sm btn-save" (click)="mediaInfoUpdate(mediaForm.value)">Post</button>
-    <button class="btn btn-primary btn-sm btn-save" (click)="mediaInfoUpdateAll(mediaForm.value)">Post</button>
-</div>
+        </form>
+        <button class="btn btn-primary btn-sm btn-save" (click)="mediaInfoUpdate(mediaForm.value)">Post</button>
+        <button class="btn btn-primary btn-sm btn-save" (click)="mediaInfoUpdateAll(mediaForm.value)">Post</button>
+      </div>

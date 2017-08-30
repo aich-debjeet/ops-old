@@ -47,7 +47,6 @@ import { ApiService } from './services/api.service';
 import { SharedModule } from './shared/shared.module';
 import { TAB_COMPONENTS  } from './shared/tabs/tabset';
 
-
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { MessageComponent } from './components/message/message.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
@@ -66,25 +65,27 @@ import { DashboardSecondaryNavbarComponent } from './components/dashboard/dashbo
 import { DashboardWidgetCalendarComponent } from './components/dashboard/dashboard-widget-calendar/dashboard-widget-calendar.component';
 import { DashboardWidgetEventsComponent } from './components/dashboard/dashboard-widget-events/dashboard-widget-events.component';
 import { DashboardWidgetProjectsComponent } from './components/dashboard/dashboard-widget-projects/dashboard-widget-projects.component';
-import { PopularArtistsComponent } from './shared/popular-artists/popular-artists.component';
-import { NearestEventsComponent } from './shared/nearest-events/nearest-events.component';
-import { OpportunitiesComponent } from './shared/opportunities/opportunities.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
-
-import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.component';
 import { MasonryComponent } from './components/masonry/masonry.component';
 import { LogoutComponent } from './components/logout/logout.component';
 
-// Media
+// ?
+import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.component'; /** Delete ? */
+
+// Shared Stuffs!
 import { MediaComponent } from './shared/media/media.component';
 import { MediaSelectorComponent } from './shared/media-selector/media-selector.component';
+import { PopularArtistsComponent } from './shared/popular-artists/popular-artists.component';
+import { NearestEventsComponent } from './shared/nearest-events/nearest-events.component';
+import { OpportunitiesComponent } from './shared/opportunities/opportunities.component';
 
-import {VgCoreModule} from 'videogular2/core';
-import {VgControlsModule} from 'videogular2/controls';
-import {VgOverlayPlayModule} from 'videogular2/overlay-play';
-import {VgBufferingModule} from 'videogular2/buffering';
+// Vide Player
+import { VgCoreModule } from 'videogular2/core';
+import { VgControlsModule } from 'videogular2/controls';
+import { VgOverlayPlayModule } from 'videogular2/overlay-play';
+import { VgBufferingModule } from 'videogular2/buffering';
 
 @NgModule({
   declarations: [

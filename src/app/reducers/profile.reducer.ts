@@ -16,7 +16,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_SUCCESS:
-      console.log(payload);
       return Object.assign({}, state, {
         profileUser: payload,
         success: true
@@ -36,8 +35,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_SUCCESS:
-      console.log('deatail');
-      console.log(payload);
       return Object.assign({}, state, {
         profileDetails: payload,
         success: true
@@ -76,8 +73,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get User Media Post
      */
     case ProfileActions.LOAD_USER_MEDIA:
-      console.log('user media load');
-      console.log(payload);
       return Object.assign({}, state, {
         user_posts_loading: true,
         user_posts_loaded: false
@@ -146,22 +141,17 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get user Profile update
      */
     case ProfileActions.LOAD_PROFILE_UPDATE:
-      console.log('current user channel start');
-      console.log(payload);
       return Object.assign({}, state, {
         success: true
       });
 
     case ProfileActions.LOAD_PROFILE_UPDATE_SUCCESS:
-      console.log('current user channel sucess');
-      console.log(payload);
       return Object.assign({}, state, {
         profileUpdate: payload,
         profileUpdateSuccess: true
       });
 
     case ProfileActions.LOAD_PROFILE_UPDATE_FAILED:
-      console.log('current user channel failed');
       return Object.assign({}, state, {
         profileUpdateSuccess: false
       });
@@ -214,7 +204,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.GET_USER_WORK_SUCCESS:
-    console.log('GET_USER_WORK_SUCCESS');
       return Object.assign({}, state, {
         editWork: payload,
         editWorksuccess: true
