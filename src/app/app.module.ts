@@ -20,15 +20,18 @@ import { MasonryModule } from 'angular2-masonry';
 
 // Reducers
 import { AuthReducer } from './reducers/auth.reducer';
+import { MediaReducer } from './reducers/media.reducer';
 import { HomeReducer } from './reducers/home.reducer';
 import { SharedReducer } from './reducers/shared.reducer';
 import { ProfileReducer } from './reducers/profile.reducer';
 import { MessageReducer } from './reducers/messages.reducer';
 import { UserSearchReducer } from './reducers/user-search.reducer';
+import { reducer } from './app.reducer';
 
 // Effects
 import { AuthEffect } from './effects/auth.effect';
 import { HomeEffect } from './effects/home.effect';
+import { MediaEffect } from './effects/media.effect';
 import { SharedEffect } from './effects/shared.effect';
 import { ProfileEffect } from './effects/profile.effect';
 import { MessageEffect } from './effects/message.effects';
@@ -38,11 +41,13 @@ import { UserSearchEffect } from './effects/user-search.effect';
 import { ServicesModule } from './services/services.module';
 import { TokenService } from './helpers/token.service';
 import { AuthService } from './services/auth.service';
+import { MediaService } from './services/media.service';
+import { ApiService } from './services/api.service';
 
 import { SharedModule } from './shared/shared.module';
-// import { ModalModule } from './modal/modal.component.module';
+import { TAB_COMPONENTS  } from './shared/tabs/tabset';
 
-import { ApiService } from './services/api.service';
+
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { MessageComponent } from './components/message/message.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
@@ -68,10 +73,19 @@ import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
 
-import { reducer } from './app.reducer';
 import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.component';
 import { MasonryComponent } from './components/masonry/masonry.component';
 import { LogoutComponent } from './components/logout/logout.component';
+
+// Media
+import { MediaComponent } from './shared/media/media.component';
+import { MediaSelectorComponent } from './shared/media-selector/media-selector.component';
+
+import {VgCoreModule} from 'videogular2/core';
+import {VgControlsModule} from 'videogular2/controls';
+import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+import {VgBufferingModule} from 'videogular2/buffering';
+import { ChannelInnerComponent } from './components/channel-inner/channel-inner.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +118,8 @@ import { LogoutComponent } from './components/logout/logout.component';
     ProfileSliderComponent,
     MasonryComponent,
     LogoutComponent,
+    ProfileSliderComponent,
+    ChannelInnerComponent
   ],
   imports: [
     BrowserModule,
@@ -120,9 +136,15 @@ import { LogoutComponent } from './components/logout/logout.component';
     EffectsModule.run(SharedEffect),
     EffectsModule.run(ProfileEffect),
     EffectsModule.run(MessageEffect),
-    EffectsModule.run(UserSearchEffect)
+    EffectsModule.run(UserSearchEffect),
+    EffectsModule.run(MediaEffect),
+    // Video
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
-  providers: [AuthService, AuthGuard, ApiService, TokenService],
+  providers: [AuthService, AuthGuard, ApiService, TokenService, MediaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -17,6 +17,14 @@ import { AuthActions } from '../actions/auth.action';
 
 @Injectable()
 export class AuthEffect {
+  @Effect()
+  authenticateToken$ = this.actions$
+    .ofType(AuthActions.USER_AUTHENTICATED)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.validateToken()
+      .map(res => ({ type: AuthActions.USER_AUTHENTICATED_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.USER_AUTHENTICATED_FAILED, payload: res }))
+    );
 
   @Effect()
   saveSkillType$ = this.actions$

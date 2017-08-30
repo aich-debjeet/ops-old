@@ -86,6 +86,13 @@ export class AuthActions {
   static USER_ARTIST_FOLLOW = 'USER_ARTIST_FOLLOW';
   static USER_ARTIST_FOLLOW_SUCCESS = 'USER_ARTIST_FOLLOW_SUCCESS';
 
+
+  // Check if user is already authenticated
+  static USER_AUTHENTICATED = 'USER_AUTHENTICATED';
+  static USER_AUTHENTICATED_SUCCESS = 'USER_AUTHENTICATED_SUCCESS';
+  static USER_AUTHENTICATED_FAILED = 'USER_AUTHENTICATED_FAILED';
+
+
    // ===================================
   //  Get all skill step3
   // -----------------------------------

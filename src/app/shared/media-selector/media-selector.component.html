@@ -1,0 +1,173 @@
+<span class="overlayStatus" *ngIf="status >1 && status <100">
+  {{ status }}%
+</span>
+<div class="media-selector" [ngClass]="{'not__filled': hasFiles === false }">
+  <div class="col-md-8 padding_none file__viewer">
+      <ul class="file__list">
+        <li *ngFor="let file of uploaded" class="file__item">
+          <div *ngIf="checkFileType(file.fileName, 'Video')" class="add_media_container" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }">
+            <app-videplayer (click)="fileDetails(file)" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file.repoPath }}"></app-videplayer>
+            <div class="add_media_delet">
+                <img src="http://d33wubrfki0l68.cloudfront.net/2b2a108565b4b23215301528183f77ffc0c04a24/f7395/img/svg/ico_create-close.svg">
+            </div>
+          </div>
+          <div *ngIf="checkFileType(file.fileName, 'Image')" class="add_media_container" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }">
+            <div class="add_media_img">
+              <img (click)="fileDetails(file)" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file.repoPath }}"/>
+            </div>
+            <div class="add_media_delet">
+                <img src="http://d33wubrfki0l68.cloudfront.net/2b2a108565b4b23215301528183f77ffc0c04a24/f7395/img/svg/ico_create-close.svg">
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="dragZone" class="block" (ngxf-drop)="uploadFileList($event)" drop-class="drop" multiple [ngxf-validate]="{ size: { min: 10, max:10000000 } }">
+          <div class="add_media_inner">
+              <div class="select_media_ico">
+                  <img width="100" src="http://d33wubrfki0l68.cloudfront.net/1c31dc8ee913450e1062a90675f43527198ff78d/a6d0c/img/svg/media_add.svg" alt="">
+              </div>
+              <div class="dropZone2">
+                <label class="upload-button hidden">
+                  <input type="file" (ngxf-select)="uploadFile($event)" [ngxf-validate]="{ size: { min: 50000, max:1000000 } }">
+                </label>
+
+                <label class="upload-button">
+                  <input type="file" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.mp4">Select Media
+                </label>
+              </div>
+              <div class="select_media_info">
+                  <p>Upload or drag &amp; drop images, videos and audios</p>
+              </div>
+              <div class="select_media_format">
+                  <p>You can upload jpg, png, mp4, wav, avi, mp3, aac, wma</p>
+              </div>
+          </div>
+      </div>
+    </div>
+      <!-- *ngIf="editingFile" -->
+      <div class="col-md-4 add_media_info padding_none file__editor">
+        <form [formGroup]="mediaForm" novalidate #mediaform="ngForm" class="add_media_info__form">
+          <ul class="media_info">
+            <li>
+              <div class="form_group">
+                <input formControlName="title" class="form_input" required="" type="text">
+                <span class="form_highlight"></span>
+                <span class="form_bar"></span>
+                <label>Title</label>
+              </div>
+            </li>
+            <li>
+              <div class="form_group">
+                <textarea formControlName="desc" name="comment" rows="2" placeholder="Description"></textarea>
+              </div>
+            </li>
+            <li>
+              <div class="form_group">
+                <input class="form_input" required="" type="text">
+                <span class="form_highlight"></span>
+                <span class="form_bar"></span>
+                <label>Tags</label>
+              </div>
+            </li>
+            <li>
+              <div class="form_group" *ngIf="editingFile.type=== 'Video'">
+                  <input type="file" (ngxf-select)="uploadFile($event)" [ngxf-validate]="{ size: { min: 50000, max:1000000 } }">
+              </div>
+            </li>
+          </ul>
+          <ul class="media_content_report">
+              <li>
+                <div class="form_group">
+                  <select formControlName="privacy" class="form-control" id="sel1">
+                      <option value="0">Public</option>
+                      <option value="1">Private</option>
+                  </select>
+                </div>
+              </li>
+              <li>
+                <div class="form_group">
+                  <select formControlName="copyright" class="form-control" id="sel1">
+                    <option value="1">Copyright and License type</option>
+                    <option value="2">CC: Attribution Share Alike</option>
+                    <option value="3">CC: Attribution Non-Derivative</option>
+                    <option value="4">CC: Attribution-NonCommercial</option>
+                    <option value="5">CC: Attribution-NonCommercial-ShareAlike</option>
+                    <option value="6">CC: Attribution-NonCommercial-NoDerivs No License</option>
+                  </select>
+                </div>
+              </li>
+              <li class="ops_radio_sm">
+                <div class="form_group ops_radio_sm">
+                  <label>
+                    <label class="gender_single">
+                      <input formControlName="isAdult" type="checkbox" name="demo"><span></span>This media contain adult content
+                    </label>
+                  </label>
+                </div>
+              </li>
+          </ul>
+
+          <div id="choose_channel_details" style="">
+              <div class="add-post_choosechannel">
+                <span class="createchannel with_border_bottom">
+                    <span class="createchannel with_border_bottom">
+                      <div (click)="makeChannel()">
+                        <div class="createchannel_ico">
+                          <img src="http://d33wubrfki0l68.cloudfront.net/ecd156ec380d4f55a1b0b797ccdef45d2fca54df/494c4/img/svg/ico_create-plus.svg">
+                        </div>Create Channel
+                      </div>
+                      <div *ngIf="addChannel" class="o-block_2 o-create_channel">
+                        <form [formGroup]="channelForm" novalidate #myform="ngForm">
+                            <ul class="channel__form">
+                                <li class="channel_title">
+                                  <div class="form_group">
+                                      <input formControlName="title" class="form_input" required="" type="text">
+                                      <span class="form_highlight"></span>
+                                      <span class="form_bar"></span>
+                                      <label>Title</label>
+                                  </div>
+                                </li>
+                                <li class="channel_title">
+                                  <div class="form_group">
+                                      <textarea formControlName="desc" name="desc" id="" cols="30" rows="10"></textarea>
+                                      <span class="form_highlight"></span>
+                                      <span class="form_bar"></span>
+                                      <label>Description</label>
+                                  </div>
+                                </li>
+                                <li class="list-inline-item discussion_post_topic">
+                                  <div class="form_group">
+                                    <select formControlName="privacy" class="form-control" name="access"><br>
+                                      <option value="0">Public</option>
+                                      <option value="1">Private</option>
+                                    </select>
+                                  </div>
+                                </li>
+                                <li class="create_btn">
+                                    <button class="btn btn-normal btn-sm" type="submit" (click)="createChannel(channelForm.value)">Create Channel</button>
+                                </li>
+                            </ul>
+                          </form>
+                      </div>
+                    </span>
+                  </span>
+                  <div *ngFor="let channel of profileChannel.channelEntity; let i = index" class="channel-list-show with_border_bottom">
+                    <div class="channel-list-show_img ">
+                      <figure class="channel-list-show_img">
+                          <a href=""><img width="42" src="https://d33wubrfki0l68.cloudfront.net/a4ad69d317551d24c67bda3a1ed38c6e740ba123/d7eb6/img/quick3.jpg"></a>
+                      </figure>
+                    </div>
+                    <div class="channel-list-show_txt">
+                        <p>{{ channel.spotfeedName}}</p>
+                    </div>
+                    <div class="channel-list-show_btn" [ngClass]="{ 'sel': isChosenChannel(channel) === true }">
+                        <a (click)="chooseChannel(channel)" type="button" class="btn btn-normal btn-sm">Select</a>
+                    </div>
+                </div>
+              </div>
+          </div>
+    </form>
+    <button class="btn btn-primary btn-sm btn-save" (click)="mediaInfoUpdate(mediaForm.value)">Post</button>
+    <button class="btn btn-primary btn-sm btn-save" (click)="mediaInfoUpdateAll(mediaForm.value)">Post</button>
+</div>

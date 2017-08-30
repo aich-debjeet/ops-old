@@ -464,3 +464,11 @@ overflow-y: scroll;
   }
 }
 /* ------------------------- messages css --------------------------- */
+.AddMedia{
+  color: #000;
+}
+
+app-modal.media__modal .ng-modal {
+  width: 80%;
+  left: 10%;
+}

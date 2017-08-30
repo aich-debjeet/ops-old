@@ -1,0 +1,44 @@
+<!-- add media pop up -->
+
+<div class="ops_add-post" id="add_media_pop">
+    <div class="container">
+        <div class="row">
+          <tabset>
+            <tab title="Status">
+              <div class="tab-content add-post_container">
+                <!-- add status  -->
+                <form [formGroup]="statusForm" novalidate (ngSubmit) = "submitStatusForm(statusForm.value)" #myform="ngForm">
+                  <div id="add_status" class="tab-pane fade active in add_status_inner com_in_middle">
+                    <ul class="middle_block">
+                        <li class="with_border_bottom">
+                          <ul class="list-inline">
+                              <li class="list-inline-item discussion_input">
+                                  <div class="form_group">
+                                      <textarea formControlName="status" name="comment" rows="2" placeholder="Update your Status"></textarea>
+                                  </div>
+                              </li>
+                          </ul>
+                        </li>
+                        <li class="with_border_bottom" style="height: 60px;">
+                            <ul class="list-inline discussion_post">
+
+                                <li class="list-inline-item float_right">
+                                    <a href="" class="btn btn-sm btn-primary"> POST </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                  </div>
+                </form>
+              </div>
+            </tab>
+            <tab title="Media">
+              <app-media-selector class="Media__content"></app-media-selector>
+            </tab>
+            <tab title="Blog">
+                <app-blogeditor></app-blogeditor>
+            </tab>
+          </tabset>
+        </div>
+    </div>
+</div>
