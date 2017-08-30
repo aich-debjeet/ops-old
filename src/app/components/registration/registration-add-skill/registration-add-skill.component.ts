@@ -40,22 +40,16 @@ export class RegistrationAddSkillComponent implements OnInit {
   rForm: FormGroup;
   rightCom: RightBlockTag;
   // @TODO cleanup unwanted vars - @muneef
-  artistFollowList = artistFollowTag;
-  skills: any;
-  artistFollow: any;
-  followpage: any;
-  description: string;
-  title: string;
-  searchPlaceholder: string;
+  skillSelectionPage: any;
   selectedSkills = [];
-  addSkillResponse;
   search: String;
+  activateSubmitBtn = false;
 
   constructor(fb: FormBuilder, private http: Http, private router: Router, private store: Store<Login>) {
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-      this.followpage = state;
+      this.skillSelectionPage = state;
     });
 
     this.rForm = fb.group({
@@ -73,43 +67,16 @@ export class RegistrationAddSkillComponent implements OnInit {
     this.store.dispatch({ type: AuthActions.USER_SUBMIT_SKILLS, payload: this.selectedSkills });
   }
 
-  /**
-   * Change messaging based on user type selected on the previous screen
-   */
-  getUserStrings() {
-    const userType = JSON.parse(localStorage.getItem('userType'));
-    for (const obj in userType) {
-      if (obj) {
-        if (userType[obj].name === 'Performing Artist' || userType[obj].name === 'Non Performing artist') {
-          this.description = 'Select specific skill sets that you possess. You can click on as many options as you like.',
-          this.title = 'Add Your Skills',
-          this.searchPlaceholder = 'Search Skills'
-        } else {
-          this.description = 'Immerse yourself in arts and entertainment based on interests of your choice.',
-          this.title = 'Follow Your Interest',
-          this.searchPlaceholder = 'Search Interest'
-        }
-      }
-    }
-    // Build strings
-    return {
-      mainTitle: this.title,
-      secondHead: '',
-      description: this.description,
-      loginLink: false,
-      button_text: 'Login',
-      button_link: '/login',
-      page: false,
-      img: 'http://d33wubrfki0l68.cloudfront.net/198702237b77cd4ad2209fd65cbeed2191783e66/d7533/img/reg_add_skill_illustration.png'
-    };
+  ngOnInit() {
+    // Load industries
+    this.industriesList();
   }
 
-  ngOnInit() {
-    // Change messaging based on user type selected on the previous screen
-    this.rightCom = this.getUserStrings();
-
-    // Load Initial set of Skills
-    this.skillList();
+  /**
+   * Save skills if all selected
+   */
+  saveSkills() {
+    this.store.dispatch({ type: AuthActions.USER_SUBMIT_SKILLS, payload: this.selectedSkills });
   }
 
   /**
@@ -117,39 +84,24 @@ export class RegistrationAddSkillComponent implements OnInit {
    * @param query
    */
   onSearchChange(query) {
+    console.log('searching: ' + query);
     if (query || query !== '') {
-      this.searchSkill(query);
-    }else {
-      this.skillList();
+      this.store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
     }
-  }
-
-  /**
-   * Load list of Artists to follow
-   * @param code
-   */
-
-  artistList(code: string) {
-    const indList = {
-       'industryCodeList': [code]
-    };
-    this.store.dispatch({ type: AuthActions.USER_ARTIST_FOLLOW, payload: indList });
   }
 
   /**
    * Load List of Skills (High Level)
    */
-  skillList() {
-    this.store.dispatch({ type: AuthActions.LOAD_SKILL});
+  industriesList() {
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
   }
 
-
   /**
-   * Search Skills ( Second Level)
-   * @param q
+   * selecting category to load respective result
    */
-  searchSkill(q: string) {
-    this.store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: q });
+  selectCategory(category) {
+    this.search = category.toLowerCase();
   }
 
   /**
@@ -157,7 +109,7 @@ export class RegistrationAddSkillComponent implements OnInit {
    * @param skillCode
    */
   findSkill(skillCode) {
-    return _.find(this.followpage.skills, function(s) {
+    return _.find(this.skillSelectionPage.skills, function(s) {
       return s.code === skillCode;
     });
   }
@@ -178,12 +130,12 @@ export class RegistrationAddSkillComponent implements OnInit {
    */
   toggleSelectSkill(skillCode: string) {
     // Check if skill is already selected
-    const isSelected = _.find(this.selectedSkills, function(s) {
+    const selectedSkill = _.find(this.selectedSkills, function(s) {
       return s.code === skillCode;
     });
 
     // If skill exist then remove it from selection array
-    if (isSelected !== undefined) {
+    if (selectedSkill !== undefined) {
       // Searching for the skill in skills array
       const skillMeta = this.findSkill(skillCode);
       // Removing skill from selected skills array
@@ -191,7 +143,7 @@ export class RegistrationAddSkillComponent implements OnInit {
         return skill.code !== skillCode;
       });
       // Mark it not selected in UI
-      this.followpage.skills = this.followpage.skills.filter(function(skill) {
+      this.skillSelectionPage.skills = this.skillSelectionPage.skills.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = false;
         }
@@ -200,7 +152,7 @@ export class RegistrationAddSkillComponent implements OnInit {
 
     } else {
       // Mark it selected in UI
-      this.followpage.skills = this.followpage.skills.filter(function(skill) {
+      this.skillSelectionPage.skills = this.skillSelectionPage.skills.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = true;
         }
@@ -216,6 +168,13 @@ export class RegistrationAddSkillComponent implements OnInit {
         'code': skillMeta.code,
         'active': true
       });
+    }
+    // console.log(this.selectedSkills);
+
+    if (this.selectedSkills.length > 0) {
+      this.activateSubmitBtn = true;
+    } else {
+      this.activateSubmitBtn = false;
     }
   }
 }

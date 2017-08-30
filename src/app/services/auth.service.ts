@@ -208,7 +208,7 @@ export class AuthService {
           .map((data: Response) => data.json());
       }
 
-    getAllSkill() {
+    getAllIndustries() {
       console.log('loading all the skills');
       return this.http.get(this.apiLink + '/portal/industry')
         .map((data: Response) => data.json());
