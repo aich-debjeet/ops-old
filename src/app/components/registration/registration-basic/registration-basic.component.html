@@ -60,7 +60,7 @@
                         </label>
                     </div>
                     <div class="form_group">
-                        <input class="form_input" type="text" formControlName="dob" placeholder="DD-MM-YYYY">
+                        <input class="form_input" type="text" formControlName="dob" [textMask]="{mask: dateMask}" placeholder="DD-MM-YYYY">
                         <span class="form_highlight"></span>
                         <span class="form_bar"></span>
                         <label>Date of Birth</label>
