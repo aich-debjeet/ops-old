@@ -26,12 +26,42 @@ export class RegistrationProfileComponent implements OnInit {
 
   tagState$: Observable<AuthModel>;
   private tagStateSubscription: Subscription;
-  artistType = initialTag;
+  // artistType = initialTag;
+  artistType = [];
+  activateSubmitBtn = false;
 
   constructor(fb: FormBuilder, private store: Store<AuthModel>, private router: Router) {
+
+    this.artistType = [{
+      name: 'Makers',
+      image: '/assets/img/step2a.jpg',
+      typeName: 'individual',
+      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+    }, {
+      name: 'Doers',
+      image: '/assets/img/step2b.jpg',
+      typeName: 'individual',
+      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+    }, {
+      name: 'Enablers',
+      image: '/assets/img/step2c.jpg',
+      typeName: 'individual',
+      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+    }, {
+      name: 'Tech Power',
+      image: '/assets/img/step2d.jpg',
+      typeName: 'individual',
+      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+    }, {
+      name: 'Art Lovers',
+      image: '/assets/img/step2e.jpg',
+      typeName: 'individual',
+      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+    }];
+
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-        this.artistType = state;
+        //this.artistType = state;
 
         //  console.log(state);
         // this.done = !!(this.petTag.shape && this.petTag.text);
@@ -84,14 +114,21 @@ export class RegistrationProfileComponent implements OnInit {
   }
 
   onChange(value: string, type: string, isChecked: boolean) {
-    console.log('on change');
     const checkboxFormArray = <FormArray>this.rForm.controls.artistList;
 
     if (isChecked) {
       checkboxFormArray.push(new FormControl({name: value, typeName: type}));
     } else {
-      let index = checkboxFormArray.controls.findIndex(x => x.value == value)
+      const index = checkboxFormArray.controls.findIndex(x => x.value === value)
       checkboxFormArray.removeAt(index);
+    }
+
+    if (checkboxFormArray.controls !== undefined) {
+      if (checkboxFormArray.controls.length > 0) {
+        this.activateSubmitBtn = true;
+      } else {
+        this.activateSubmitBtn = false;
+      }
     }
 
   }

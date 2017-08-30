@@ -68,6 +68,7 @@ export class Follow {
  success = true;
  user_unique = false;
  skills?: String[];
+ industries?: String[];
 }
 export class ArtistFollows {
   isFollowing: boolean;

@@ -61,8 +61,8 @@ export class AuthActions {
   static SAVE_SKILL = 'SAVE_SKILL';
   static SAVE_SKILL_SUCCESS = 'SAVE_SKILL_SUCCESS';
 
-  static LOAD_SKILL = 'LOAD_SKILL';
-  static LOAD_SKILL_SUCCESS = 'LOAD_SKILL_SUCCESS';
+  static LOAD_INDUSTRIES = 'LOAD_INDUSTRIES';
+  static LOAD_INDUSTRIES_SUCCESS = 'LOAD_INDUSTRIES_SUCCESS';
 
   static SEARCH_SKILL = 'SEARCH_SKILL';
   static SEARCH_SKILL_SUCCESS = 'SEARCH_SKILL_SUCCESS';
@@ -135,19 +135,18 @@ export class AuthActions {
       };
     }
 
-   // ===================================
-  //  Get all skill step3
-  // -----------------------------------
-
-    loadSkillAction(): Action {
+    // ===================================
+    //  Get all industries
+    // -----------------------------------
+    loadIndustriesAction(): Action {
       return {
-        type: AuthActions.LOAD_SKILL
+        type: AuthActions.LOAD_INDUSTRIES
       };
     }
 
-    loadSkillSuccesAction(value): Action {
+    loadIndustriesSuccesAction(value): Action {
       return {
-        type: AuthActions.LOAD_SKILL_SUCCESS,
+        type: AuthActions.LOAD_INDUSTRIES_SUCCESS,
         payload: {
           value
         }
