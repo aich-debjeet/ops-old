@@ -26,6 +26,10 @@ export class ModalComponent implements OnInit {
   // @HostListener('keyup') onMouseEnter(event) {
   //   this.keyup(event);
   // }
+  @HostListener('document:keyup', ['$event'])
+  onKeyUp(ev: KeyboardEvent) {
+    this.keyup(ev);
+  }
 
   constructor(private modalService: ModalService) {
   }
@@ -38,9 +42,9 @@ export class ModalComponent implements OnInit {
     this.modalService.close(this.modalId, checkBlocking);
   }
 
-  // private keyup(event: KeyboardEvent): void {
-  //   if (event.keyCode === 27) {
-  //     this.modalService.close(this.modalId, true);
-  //   }
-  // }
+  private keyup(event: KeyboardEvent): void {
+    if (event.keyCode === 27) {
+      this.modalService.close(this.modalId, true);
+    }
+  }
 }

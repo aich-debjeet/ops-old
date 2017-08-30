@@ -40,4 +40,32 @@ export class MediaService {
     return this.http.post(`${this.apiLink}/portal/network/feed`, req, { headers: headers } )
       .map((data) => data.json());
   }
+
+  /**
+   * Get channel detail
+   */
+  getSingleChannel(id) {
+    const headers = this.tokenService.getAuthHeader();
+    return this.http.get(this.apiLink + '/portal/network/spotfeed/id/' + id, { headers: headers })
+      .map((data: Response) => data.json());
+  }
+
+  /**
+   * Get Meida Deatils
+   */
+  getMediaDeatails(id) {
+    const headers = this.tokenService.getAuthHeader();
+    return this.http.get(this.apiLink + '/portal/cdn/media/mediaDetails/' + id, { headers: headers })
+      .map((data: Response) => data.json());
+  }
+
+  /**
+   * Post Comment
+   * @param req
+   */
+  postComment(body) {
+    const headers = this.tokenService.getAuthHeader();
+    return this.http.post(`${this.apiLink}/portal/cdn/comment/` + body.parent, body, { headers: headers } )
+      .map((data) => data.json());
+  }
 }

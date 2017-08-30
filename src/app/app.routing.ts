@@ -35,7 +35,7 @@ export const routes: Routes = [
 { path: 'mas', component: MasonryComponent },
  { path: 'logout', component: LogoutComponent },
  { path: 'login', component: LoginComponent },
- { path: 'channel-inner', component: ChannelInnerComponent },
+ { path: 'channel/:id', component: ChannelInnerComponent },
  { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },
  { path: 'account', loadChildren: './components/forgot-password/forgot-password.module#ForgotPasswordModule'},
  { path: 'home', loadChildren: './components/home/home.module#HomeModule'},

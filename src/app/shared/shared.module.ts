@@ -38,6 +38,7 @@ import { VgBufferingModule } from 'videogular2/buffering';
 
 import { VideplayerComponent } from './videplayer/videplayer.component';
 import { BlogeditorComponent } from './blogeditor/blogeditor.component';
+import { MediaPopupComponent } from './media-popup/media-popup.component';
 
 @NgModule({
   imports: [
@@ -70,7 +71,8 @@ import { BlogeditorComponent } from './blogeditor/blogeditor.component';
     VideplayerComponent,
     MediaComponent,
     TAB_COMPONENTS,
-    BlogeditorComponent
+    BlogeditorComponent,
+    MediaPopupComponent
   ],
   exports: [
     AuthRightBlockComponent,
@@ -88,7 +90,8 @@ import { BlogeditorComponent } from './blogeditor/blogeditor.component';
     VideplayerComponent,
     MediaComponent,
     TAB_COMPONENTS,
-    BlogeditorComponent
+    BlogeditorComponent,
+    MediaPopupComponent
   ]
 
 })

@@ -128,6 +128,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL_SUCCESS:
+    console.log(payload);
       return Object.assign({}, state, {
         channelEntity: payload,
         success: true,
@@ -153,8 +154,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_PROFILE_UPDATE_SUCCESS:
-      console.log('current user channel sucess');
-      console.log(payload);
+      // console.log('current user channel sucess');
+      // console.log(payload);
       return Object.assign({}, state, {
         profileUpdate: payload,
         profileUpdateSuccess: true
