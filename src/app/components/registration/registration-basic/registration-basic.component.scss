@@ -234,7 +234,7 @@ span.suggestions {
   margin-top: 3px;
 }
 
-.ops_radio_sm input[type=radio]+span:after {
+.ops_radio_sm input[type=radio]:checked+span:after {
   background: #ff7b84;
   position: absolute;
   border-radius: 50px;
