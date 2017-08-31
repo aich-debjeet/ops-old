@@ -66,8 +66,9 @@ export class AuthService {
       .map((response: Response) => {
           const user = response.json();
           if (user.profileId) {
-            localStorage.setItem('currentUserID', user.profileId);
+            console.log(user.profileId);
           }
+          localStorage.setItem('currentUserID', user.profileId);
           this.router.navigate(['/profile']);
       });
     }
