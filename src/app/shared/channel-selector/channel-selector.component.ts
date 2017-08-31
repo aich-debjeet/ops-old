@@ -16,7 +16,7 @@ import { ProfileActions } from '../../actions/profile.action';
   styleUrls: ['./channel-selector.component.scss']
 })
 
-export class ChannelSelectorComponent implements OnInit {
+export class ChannelSelectorComponent {
   addChannel: boolean;
   chosenChannel: any;
   tagState$: Observable<ProfileModal>;
@@ -26,22 +26,26 @@ export class ChannelSelectorComponent implements OnInit {
   handle: string;
   token: string;
   isChosen: boolean;
+
   constructor( private fb: FormBuilder, private profileStore: Store<ProfileModal>) {
 
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
       this.handle = localStorage.getItem('currentUserID');
       this.token = currentUser.access_token; // your token
 
+      this.createChannelForm();
+      this.chosenChannel = null;
       this.tagState$ = this.profileStore.select('profileTags');
-      // this.test = 'salabeel';
+
       this.tagState$.subscribe((state) => {
         this.profileChannel = state;
-        // Only dispatch if the state is empty
-        this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: this.handle });
+        if (this.handle) {
+          console.log(this.handle);
+          this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: this.handle });
+        }else {
+          console.log('no handle');
+        }
       });
-  }
-
-  ngOnInit() {
   }
 
   /**

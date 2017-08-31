@@ -54,8 +54,8 @@ export class AuthService {
               const user = response.json();
               if (user && user.access_token) {
                   localStorage.setItem('currentUser', JSON.stringify(user));
+                  this.router.navigate(['/profile']);
               }
-              this.router.navigate(['/profile']);
           });
     }
 

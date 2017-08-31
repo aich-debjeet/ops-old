@@ -14,7 +14,6 @@ import { ModalComponent } from './modal/modal.component';
 import { CountrySelectorComponent } from './country-selector/country-selector.component';
 
 // Media
-import { NgvPlayerComponent } from './ngv-player/ngv-player.component';
 import { MediaSelectorComponent } from './media-selector/media-selector.component';
 import { ChannelSelectorComponent } from './channel-selector/channel-selector.component';
 
@@ -68,7 +67,6 @@ import { BlogeditorComponent } from './blogeditor/blogeditor.component';
     FooterComponent,
     PostCardComponent,
     CountrySelectorComponent,
-    NgvPlayerComponent,
     MediaSelectorComponent,
     VideplayerComponent,
     MediaComponent,
@@ -88,7 +86,6 @@ import { BlogeditorComponent } from './blogeditor/blogeditor.component';
     PostCardComponent,
     ModalComponent,
     CountrySelectorComponent,
-    NgvPlayerComponent,
     MediaSelectorComponent,
     VideplayerComponent,
     MediaComponent,

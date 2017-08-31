@@ -12,11 +12,6 @@
     "typeRoots": [
       "node_modules/@types"
     ],
-    "paths": {
-      "medium-editor-insert-plugin": [
-        "node_modules/medium-editor-insert-plugin"
-      ]
-    },
     "lib": [
       "es2016",
       "dom"
