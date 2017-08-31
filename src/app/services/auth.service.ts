@@ -81,19 +81,11 @@ export class AuthService {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         const token = currentUser.access_token; // your token
 
-        let headers = new Headers({ 'Content-Type': 'application/json'});
+        const headers = new Headers({ 'Content-Type': 'application/json'});
         headers.append('Authorization', 'Bearer ' + token)
 
         return this.http.put(this.apiLink + '/portal/auth/user/update', JSON.stringify(req), { headers: headers })
             .map((data) => data.json());
-        // return this.http.post(`${this.apiLink}/portal/auth/user`, req)
-        //     .map((data: Response) => data.json());
-            // .map((response: Response) => {
-            //     const user = response.json();
-            //     console.log(user);
-            //     localStorage.setItem('registerProfile', JSON.stringify(user));
-            //     this.router.navigate(['/registration/welcome']);
-            // });
     }
 
     registerWelcome(req: any) {
