@@ -4,18 +4,21 @@ export class ProfileModal {
   loading: false;
   success: true;
   profileUser?: string[];
+  editWork?: string[];
   profileDetails?: string[];
   profileUpdateSuccess?: boolean
+  editWorksuccess?: boolean;
+  channelEntity?: any;
 }
 
 export class ProfileForm {
   name: string
 }
 
-
 export const initialTag: ProfileModal = {
   completed: [],
   loading:  false,
   success: true,
-  profileUser: []
+  profileUser: [],
+  channelEntity: false
 };

@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import {ImageCropperComponent} from 'ng2-img-cropper';
 import { MasonryModule } from 'angular2-masonry';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
+
 
 import { SharedModule } from '../../shared/shared.module';
 import { ProfileComponent } from './profile.component';
@@ -17,6 +19,7 @@ import { AboutWorkComponent } from './about-work/about-work.component';
 import { AboutAwardsComponent } from './about-awards/about-awards.component';
 import { AboutEducationComponent } from './about-education/about-education.component';
 import { AboutContactComponent } from './about-contact/about-contact.component';
+
 
 const routes: Routes = [
   {
@@ -74,6 +77,7 @@ const routes: Routes = [
     AboutBioComponent,
     AboutWorkComponent,
     AboutAwardsComponent,
+    ImageCropperComponent,
     AboutEducationComponent,
     AboutContactComponent
   ]

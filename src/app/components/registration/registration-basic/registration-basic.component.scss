@@ -3,65 +3,66 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
 
-/* --------------------------- Registration Step 1 ---------------------------- */
-.otp__modal { }
-.reg_step1{
-  // add photo
-  .reg_add_photo{
-    width: 99px;
-    height: 99px;
-    text-align: center;
-    background-color: #e5e5e5;
-    color: $white;
-    padding: 0;
-    border-radius:5px;
-    @include mq($from: mobile, $until: tablet) {
-        width: 250px;
-        margin-bottom: 15px;
-    }
-  }
-  .reg_add_photo label{
-    color: #fff;
-    cursor: pointer;
-    width: 88%;
-    line-height: 99px;
-    left: 0;
-    top: 0;
-    width: 99px;
-  }
-  .reg_add_photo input[type=file]#upload-photo{
-    opacity: 0;
-    display: block;
-    position: absolute;
-    z-index: 1;
-    height: 100%;
-    width: 99px;
-    cursor: pointer;
-    top: 0;
-  }
-  // gender
-  .ops_radio_sm{
-  .gender_single {
-    margin: 0px;
-    padding: 0px 7px;
-    color: #c1c1c1;
-    font-size: 14px;
-    }
-    strong {
-      font-size: 14px;
-      color: #c1c1c1;
-      font-weight: 500;
-      margin-right: 10px;
-    }
-    label{
-      position: static;
-      text-align: center;
-      margin-bottom: 0px;
-      margin-top: 15px;
-      pointer-events: auto;
-    }
+/* --------------------------- registrtion step 1 ---------------------------- */
+.terms-wrapper {
+  background: #fff;
+  // width: 80vw;
+  // margin: auto;
+  color: #000;
+}
+.container-fluid {
+  .container {
+    padding-bottom: 100px;
   }
 }
+.ops_radio_sm input[type=radio]+span {
+  margin-right: 0;
+}
+.width100 {
+  width: 100%;
+}
+.text-theme {
+  color: #ff7b84 !important;
+}
+.ops_signup {
+  background-color: #ffffff;
+  padding-top: 64px;
+  .ops_signup_left {
+      padding: 0 48px;
+      .ops_heading {
+          margin: 16px 0;
+      }
+      .signup_already {
+          margin-top: 26%;
+      }
+  }
+  .ops_signup_right {
+      padding: 0 64px;
+      .ops_h1 {
+          font-weight: 600;
+          margin-bottom: 24px;
+      }
+      .ops_radio_sm {
+          margin-top: 16px;
+      }
+      .signup_gender {
+          width: auto;
+          padding-left: 0px;
+      }
+      .btn-primary {
+          padding: 11px 18px;
+      }
+      .signup_privacy {
+          p {
+              font-size: 12px;
+              display: inline-block;
+              margin-top: 12px;
+          }
+      }
+  }
+}
+/* --------------------------- registrtion step 1 ---------------------------- */
+
 /* --------------------- Registration step 1 otp -------------------------- */
 .reg_step1_otp{
   .modal-lg{
@@ -197,4 +198,9 @@ span.suggestions {
 
 .pos-abs {
   position: absolute;
+}
+
+.pwd-cls {
+  margin-top: 20px;
+  clear: both;
 }

@@ -1,97 +1,139 @@
 <div class="prohead2" style="background-image: url(/assets/img/profile_timeline2.jpg)">
 </div>
 <div class="container pro-block">
-  <div class="row">
-      <div class="col-md-6 col-sm-12 pro__img">
-        <!-- <img *ngIf="userProfile.profileUser?.profileImage.length > 0; else elseProfileImage" src="{{ userProfile.profileUser?.profileImage }}" class="img-responsive img-circle"> -->
-        <img #elseProfileImage src="/assets/img/avatar.jpg" class="img-responsive img-circle">
-        <div class="pro__name2">
-            <h2><a routerLink="/profile" > {{ userProfile.profileUser?.name }} </a></h2>
-          
-            <p>@{{ userProfile.profileUser?.userName }}</p>
-            <!--<button type="button" class="btn btn-xs btn-primary btn-plus">
-              <span class="btn-label-follow">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-              </span> FOLLOW
-          </button>
-          <button type="button" class="btn btn-normal2 btn-xs"> NETWORK </button>
-          <button type="button" class="btn btn-normal2 btn-xs"> DONATE </button>-->
+    <div class="row">
+        <div class="col-md-6 col-sm-12 pro__img" *ngIf="changingImage">
+            <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
+            <!--<div class="prof_img_block">
+            <img src="{{ userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
+            -->
+            <span class="upload_prof_img">
+            <button class="dropdown-toggle btn btn-basic btn-sm" data-toggle="dropdown" aria-expanded="true" alt="" (click)="saveImageClick()">save </button>
+            </span>
+            <!--</div><!-- profile img block end -->
         </div>
-      </div>
-      <div class="col-md-6"></div>
-  </div>
-  <div class="row pro__detail">
-      <div class="col-md-9 col-sm-9">
-        <ul class="list-inline pro_nav_list">
-            <li class="list-line-item">
-              <a [routerLink]="['about']" >About</a>
-            </li>
-            <li class="list-line-item">
-              <a [routerLink]="['about']" >portfolio</a>
-            </li>
-            <li class="list-line-item">
-              <a [routerLink]="['about']" >planner</a>
-            </li>
-            <li class="list-line-item">
-              <a [routerLink]="['about']" >Network</a>
-            </li>
-            <li class="list-line-item">
-              <a [routerLink]="['about']" >project</a>
-            </li>
-        </ul>
-      </div>
-      <div class="col-md-3 col-sm-3">
-        <ul class="list-inline pro_nav_icon">
-            <li class="list-line-item">
-              <a href="#"><img src="/assets/img/svg/ico_options.svg"></a>
-            </li>
-            <li class="list-line-item">
-              <a href="#"><img src="/assets/img/svg/ico_share.svg"></a>
-            </li>
-            <li class="list-line-item">
-              <a href="#"><img src="/assets/img/svg/ico_message.svg"></a>
-            </li>
-            <li class="list-line-item">
-              <a (click)="profileEdit()"><img src="/assets/img/svg/ico_edit.svg"></a>
-            </li>
-        </ul>
-      </div>
-      <div class="col-md-12 col-sm-12 pro__detail__container">
-        <div class="col-md-4 col-sm-4 text-center pro__count">
-            <div class="row">
-              <div class="col-md-4 col-sm-4 pro__followers">
-                  <h3>{{ userProfile.profileUser?.followersCount }}</h3>
-                  <p>Followers</p>
-              </div>
-              <div class="col-md-4 col-sm-4 pro__following">
-                  <h3>{{ userProfile.profileUser?.followingCount }}</h3>
-                  <p>Following</p>
-              </div>
-              <div class="col-md-4 col-sm-4 pro__spots">
-                  <h3>{{ userProfile.profileUser?.spotsCount }}</h3>
-                  <p>Spots</p>
-              </div>
-              <div class="col-md-8 col-sm-8 pro__spotscore">
-                  Spotscore Comming Soon
-              </div>
-              <div class="col-md-4 col-sm-8 pro__postchannels">
-                  <h4>{{ userProfile.profileUser?.postCount }} <small>Post</small></h4>
-                  <h4>{{ userProfile.profileUser?.channelCount }} <small>Channels</small></h4>
-              </div>
+
+        <div class="col-md-6 col-sm-12 pro__img" *ngIf="!changingImage">
+            <div class="prof_img_block">
+                <img src="{{ data && data.image ? data.image : baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
+                <span class="upload_prof_img">
+
+                        <button class="dropdown-toggle btn btn-basic btn-sm" data-toggle="dropdown" aria-expanded="true" alt="" (click)="changingImageClick()">change </button>
+                        <!--
+                          <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                              <img src="img/svg/ico_edit_white.svg" alt="">
+                          </a>
+                          <ul class="dropdown-menu prof_change_drop">
+                              <li>
+                                <button type="button" (click)="changingImageClick()">change</button>
+                                <a href="#">
+                                      Upload Profile image
+
+                              </li>
+                          </ul>
+                        -->
+                </span>
+            </div>
+            <!-- profile img block end -->
+
+            <!--
+                    <div class="col-md-6 col-sm-12 pro__img">
+                        <!-- <img *ngIf="userProfile.profileUser?.profileImage.length > 0; else elseProfileImage" src="{{ userProfile.profileUser?.profileImage }}" class="img-responsive img-circle"> -->
+            <!-- <img #elseProfileImage src="/assets/img/avatar.jpg" class="img-responsive img-circle"> -->
+            <div class="pro__name2">
+                <h2><a routerLink="/profile"> {{ userProfile.profileUser?.name }} </a></h2>
+                <p>@{{ userProfile.profileUser?.userName }}</p>
+
+                <!--
+                            <button type="button" class="btn btn-xs btn-primary btn-plus">
+                            <span class="btn-label-follow">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            </span> FOLLOW
+                            </button>
+                            <button type="button" class="btn btn-normal2 btn-xs"> NETWORK </button>
+                            <button type="button" class="btn btn-normal2 btn-xs"> DONATE </button>
+                            -->
+
+            </div>
+            <!--</div>-->
+
+
+            <div class="col-md-6"></div>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+    <div class="row pro__detail">
+        <div class="col-md-9 col-sm-9">
+            <ul class="list-inline pro_nav_list">
+                <li class="list-line-item">
+                    <a [routerLink]="['about']">About</a>
+                </li>
+                <li class="list-line-item">
+                    <a [routerLink]="['about']">portfolio</a>
+                </li>
+                <li class="list-line-item">
+                    <a [routerLink]="['about']">planner</a>
+                </li>
+                <li class="list-line-item">
+                    <a [routerLink]="['about']">Network</a>
+                </li>
+                <li class="list-line-item">
+                    <a [routerLink]="['about']">project</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3 col-sm-3">
+            <ul class="list-inline pro_nav_icon">
+                <li class="list-line-item">
+                    <a href="#"><img src="/assets/img/svg/ico_options.svg"></a>
+                </li>
+                <li class="list-line-item">
+                    <a href="#"><img src="/assets/img/svg/ico_share.svg"></a>
+                </li>
+                <li class="list-line-item">
+                    <a href="#"><img src="/assets/img/svg/ico_message.svg"></a>
+                </li>
+                <li class="list-line-item">
+                    <a (click)="profileEdit()"><img src="/assets/img/svg/ico_edit.svg"></a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12 col-sm-12 pro__detail__container">
+            <div class="col-md-4 col-sm-4 text-center pro__count">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 pro__followers">
+                        <h3>{{ userProfile.profileUser?.followersCount }}</h3>
+                        <p>Followers</p>
+                    </div>
+                    <div class="col-md-4 col-sm-4 pro__following">
+                        <h3>{{ userProfile.profileUser?.followingCount }}</h3>
+                        <p>Following</p>
+                    </div>
+                    <div class="col-md-4 col-sm-4 pro__spots">
+                        <h3>{{ userProfile.profileUser?.spotsCount }}</h3>
+                        <p>Spots</p>
+                    </div>
+                    <div class="col-md-8 col-sm-8 pro__spotscore">
+                        Spotscore Comming Soon
+                    </div>
+                    <div class="col-md-4 col-sm-8 pro__postchannels">
+                        <h4>{{ userProfile.profileUser?.postCount }} <small>Post</small></h4>
+                        <h4>{{ userProfile.profileUser?.channelCount }} <small>Channels</small></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 pro_bio">
+                <h3>BIO</h3>
+                <p>{{ userProfile.profileUser?.bio }}</p>
+
+            </div>
+            <div class="col-md-4 col-sm-4 pro_skills">
+                <h3>SKILLS</h3>
+
+                <button *ngFor="let skill of userProfile.profileUser?.skills" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
             </div>
         </div>
-        <div class="col-md-4 col-sm-4 pro_bio">
-            <h3>BIO</h3>
-            <p>{{ userProfile.profileUser?.bio }}</p>
-
-        </div>
-        <div class="col-md-4 col-sm-4 pro_skills">
-            <h3>SKILLS</h3>
-            
-            <button *ngFor="let skill of userProfile.profileUser?.skills" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
-        </div>
-      </div>
-  </div>
+    </div>
 </div>
 <router-outlet></router-outlet>
 
@@ -99,148 +141,147 @@
 <!-- edit profile pop -->
 
 <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow'>
-    <div >
-      <form [formGroup]="profileForm" >
-        <div class="edit-profile_main">
-            <!-- <div class="modal-header" style="border: none;">
+    <div>
+        <form [formGroup]="profileForm">
+            <div class="edit-profile_main">
+                <!-- <div class="modal-header" style="border: none;">
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div> -->
-            <div class="edit-profile_head">
-                <div class="col-md-6 padding_none">
-                    <h2>Edit Profile</h2>
+                <div class="edit-profile_head">
+                    <div class="col-md-6 padding_none">
+                        <h2>Edit Profile</h2>
+                    </div>
+                    <div class="col-md-6 padding_none text-right">
+                        <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="profileFormClose()">Close</app-button>
+                        <app-button [className]="'btn btn-primary btn-sm'" [type]="'button'" (click)="profileFormSubmit(profileForm.value)">Save</app-button>
+                    </div>
                 </div>
-                <div class="col-md-6 padding_none text-right">
-                  <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click) = "profileFormClose()">Close</app-button>
-                  <app-button [className]="'btn btn-primary btn-sm'" [type]="'button'" (click) = "profileFormSubmit(profileForm.value)">Save</app-button>
-                </div>
-            </div>
-            <!-- edit profile head end -->
+                <!-- edit profile head end -->
 
-            <div class="edit-profile_sec_block">
-                <div class="edit-profile_sec_head" data-toggle="collapse " data-target="#basic_info">
-                    <h3 class="edit-profile_subtitle">Basic Info</h3>
-                    <div class="edit-profile_iconbox">
-                        <img src="/assets/img/svg/ico-arrow-down.svg" alt="">
-                    </div>
-                </div>
-                <!-- edit profile sec head -->
-                <div id="basic_info" class="edit-profile_content_block show" style="display: none;">
-                    <div class="editarea">
-                        <div class="form_group">
-                            <input class="form_input" required="" type="text" formControlName="name" >
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label>Name</label>
-                        </div>
-                        <div class="form_group">
-                            <textarea class="form_input form_textarea" name="" formControlName="bio"></textarea>
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label>Bio</label>
-                        </div>
-                        <div class="form_group">
-                            <input class="form_input" required="" type="text" formControlName="username">
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label>Username</label>
-                        </div>
-                        <div class="form_group">
-                            <input class="form_input" required="" type="text" >
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label>Skills</label>
-                            <button type="button" class="btn btn-tag btn-sm">TAGS</button>
-                        </div>
-                        <div class="form_group">
-                            <input class="form_input" type="text" required="" formControlName="dob">
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label>Date of birth</label>
-                        </div>
-                        <div class="form_group">
-                            <input class="form_input" required="" type="text" value="Bangalore, India">
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label>Location</label>
+                <div class="edit-profile_sec_block">
+                    <div class="edit-profile_sec_head" data-toggle="collapse " data-target="#basic_info">
+                        <h3 class="edit-profile_subtitle">Basic Info</h3>
+                        <div class="edit-profile_iconbox">
+                            <img src="/assets/img/svg/ico-arrow-down.svg" alt="">
                         </div>
                     </div>
+                    <!-- edit profile sec head -->
+                    <div id="basic_info" class="edit-profile_content_block show" style="display: none;">
+                        <div class="editarea">
+                            <div class="form_group">
+                                <input class="form_input" required="" type="text" formControlName="name">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Name</label>
+                            </div>
+                            <div class="form_group">
+                                <textarea class="form_input form_textarea" name="" formControlName="bio"></textarea>
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Bio</label>
+                            </div>
+                            <div class="form_group">
+                                <input class="form_input" required="" type="text" formControlName="username">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Username</label>
+                            </div>
+                            <div class="form_group">
+                                <input class="form_input" required="" type="text">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Skills</label>
+                                <button type="button" class="btn btn-tag btn-sm">TAGS</button>
+                            </div>
+                            <div class="form_group">
+                                <input class="form_input" type="text" required="" formControlName="dob">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Date of birth</label>
+                            </div>
+                            <div class="form_group">
+                                <input class="form_input" required="" type="text" value="Bangalore, India">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Location</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- edit profile content block end -->
                 </div>
-                <!-- edit profile content block end -->
-            </div>
-            <!-- basic info end -->
+                <!-- basic info end -->
 
-            <div class="edit-profile_sec_block">
-                <div class="edit-profile_sec_head" data-toggle="collapse" data-target="#contact_info">
-                    <h3 class="edit-profile_subtitle">Contact Info</h3>
-                    <div class="edit-profile_iconbox">
-                        <img src="/assets/img/svg/ico-arrow-down.svg" alt="">
-                    </div>
-                </div>
-                <!-- edit profile sec head -->
-                <div id="contact_info" class="edit-profile_content_block show" style="display: none;">
-                    <div class="editarea">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form_group">
-                                    <input class="form_input" required="" type="email" formControlName="email">
-                                    <span class="form_highlight"></span>
-                                    <span class="form_bar"></span>
-                                    <label>Email</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form_group">
-                                    <select class="form-control" id="sel1">
-                                        <option>Public</option>
-                                        <option>Private</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form_group">
-                                    <span id="phone" type="tel"></span>
-                                    <input class="form_input" type="text" formControlName="number" required style="padding-left: 40px;">
-                                    <span class="form_highlight"></span>
-                                    <span class="form_bar"></span>
-                                    <label style="padding-left: 40px;">Phone Number</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form_group">
-                                    <select class="form-control" id="sel1">
-                                        <option>Public</option>
-                                        <option>Private</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form_group">
-                                    <input class="form_input" required="" type="text" formControlName="website">
-                                    <span class="form_highlight"></span>
-                                    <span class="form_bar"></span>
-                                    <label>Website</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form_group">
-                                    <select class="form-control" id="sel1">
-                                        <option>Public</option>
-                                        <option>Private</option>
-                                    </select>
-                                </div>
-                            </div>
+                <div class="edit-profile_sec_block">
+                    <div class="edit-profile_sec_head" data-toggle="collapse" data-target="#contact_info">
+                        <h3 class="edit-profile_subtitle">Contact Info</h3>
+                        <div class="edit-profile_iconbox">
+                            <img src="/assets/img/svg/ico-arrow-down.svg" alt="">
                         </div>
                     </div>
+                    <!-- edit profile sec head -->
+                    <div id="contact_info" class="edit-profile_content_block show" style="display: none;">
+                        <div class="editarea">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form_group">
+                                        <input class="form_input" required="" type="email" formControlName="email">
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label>Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form_group">
+                                        <select class="form-control" id="sel1">
+                                        <option>Public</option>
+                                        <option>Private</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form_group">
+                                        <span id="phone" type="tel"></span>
+                                        <input class="form_input" type="text" formControlName="number" required style="padding-left: 40px;">
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label style="padding-left: 40px;">Phone Number</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form_group">
+                                        <select class="form-control" id="sel1">
+                                        <option>Public</option>
+                                        <option>Private</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form_group">
+                                        <input class="form_input" required="" type="text" formControlName="website">
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label>Website</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form_group">
+                                        <select class="form-control" id="sel1">
+                                        <option>Public</option>
+                                        <option>Private</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- edit profile content block end -->
                 </div>
-                <!-- edit profile content block end -->
+                <!-- contact info end -->
             </div>
-            <!-- contact info end -->
-        </div>
-      </form>
+        </form>
     </div>
 </app-modal>
-

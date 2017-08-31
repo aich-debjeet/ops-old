@@ -1,11 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { environment } from './../../../environments/environment';
 
+import FilesHelper from '../../helpers/fileUtils';
+
 @Component({
   selector: 'app-channel',
   templateUrl: './channel.component.html',
   styleUrls: ['./channel.component.scss']
 })
+
 export class ChannelComponent implements OnInit {
   @Input() className: string;
   @Input() channelData;
@@ -14,7 +17,9 @@ export class ChannelComponent implements OnInit {
   // Its for admin spefic edit option
   @Input() type: boolean;
   private image_base_url: string = environment.API_IMAGE;
-  constructor() { }
+  constructor() {
+    //
+  }
 
   ngOnInit() {
   }
@@ -23,5 +28,8 @@ export class ChannelComponent implements OnInit {
     this.onClick.emit(i);
   }
 
+  checkFileType(fileName: string, fileType: string) {
+    return FilesHelper.fileType(fileName, fileType);
+  }
 
 }

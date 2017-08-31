@@ -55,25 +55,19 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
   height: 614px;
   padding: 2% 8%!important;
   @include mq($from: mobile, $until: tablet) {
-        height: 720px;
-    }
+    height: 720px;
+  }
 }
 // right section
-.reg_right_section{
-   background-image: $theme_gradient; /* Old browsers */
-   background-image: $theme_gradient2; /*Safari5.1+ */
-   color: #fff;
+.reg_right_section {
+  background-image: $theme_gradient; /* Old browsers */
+  background-image: $theme_gradient2; /*Safari5.1+ */
+  color: #fff;
   padding:40px;
   height: 614px;
-  h2{
-    margin: 7% 0;
-  }
-  .right_container{
-    margin-top:5%;
-  }
-  .reg_steps_logo{
-    text-align: center;
-  }
+  h2 { margin: 7% 0; }
+  .right_container { margin-top:5%;  }
+  .reg_steps_logo { text-align: center; }
   p{
     padding-top:8%;
     clear: both;
@@ -85,6 +79,7 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
     font-weight: bold;
   }
 }
+
 // Right section graph
 .reg_graph{
   width: 170px;
@@ -106,8 +101,6 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 }
 
 /** Selector **/
-
-@import url(https://joshuajohnson.co.uk/Choices/assets/styles/css/choices.min.css?version=3.0.2);
 
 .cs-icon-input{
   float: left;
@@ -155,19 +148,19 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 }
 
 .choices__list--dropdown.is-active {
-    display: block;
-    width: 300px;
+  display: block;
+  width: 300px;
 }
 .choices__inner{
   padding: 0;
 }
 
 .choices__list.choices__list--dropdown.is-active .hh {
-    display: block;
-    font-weight: 100;
-    color: #777;
-    font-size: 12px;
-    padding-bottom: 5px;
+  display: block;
+  font-weight: 100;
+  color: #777;
+  font-size: 12px;
+  padding-bottom: 5px;
 }
 
 .choices__list--dropdown{
@@ -179,4 +172,156 @@ app-country-selector {
   margin-top: -29px;
   display: block;
   margin-bottom: 30px;
+}
+vg-scrub-bar {
+  height: 3px !important;
+  bottom: 0 !important;
+}
+
+.modal__large{
+  .nav-tabs{
+    font-size: 14px;
+    border-bottom: none;
+    width: 30%;
+    margin: auto;
+    min-width: 300px;
+    text-align: center;
+  }
+  .nav-tabs > li.active > a,
+  .nav-tabs > li.active > a:hover,
+  .nav-tabs > li.active > a:focus{
+    color:#ff7b84!important;
+    background-color: transparent;
+    border: 0;
+    border-bottom-color: transparent;
+    cursor: default;
+
+  }
+
+  .nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 0;
+    border-radius: 4px 4px 0 0;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.media-selector{
+  background-color: #fff;
+  padding: 0.5rem 1rem;
+  padding-top: 0;
+  border-radius: 3px;
+  &:after{
+    content: '';
+    clear: both;
+    display: table;
+  }
+}
+
+.msg__error{
+  background-color: #F4ACAC;
+  padding: 1rem;
+  margin-left: 1.25rem;
+  border-radius: 3px;
+  color: #651212;
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #69318a;
+  font-size: 10px;
+  margin: 80px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -2.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 2.5em;
+}
+
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 1.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 1.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
+.blog__textarea,
+.c-input {
+  color: #444;
+  text-align: left;
+}
+
+.c-textarea textarea {
+  border: 0;
+  float: none;
+  width: 100%;
+  color: #999;
+}
+
+#medium-editor-toolbar-1 {
+  z-index: 4000;
+}
+
+#medium-editor-toolbar-actions1 {
+  color: #444;
+  box-shadow: 1px 1px 3px #eee;
+  border: solid 1px #eee;
+  border-radius: 2px;
+}
+
+.medium-editor-toolbar li button {
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  font-size: 14px;
+  line-height: 1.33;
+  margin: 0;
+  padding: 15px;
+  text-decoration: none;
+  border: 0;
+  background-color: #fff;
+  box-shadow: none;
 }

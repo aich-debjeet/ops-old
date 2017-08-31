@@ -12,7 +12,7 @@
               </div>
           </div>
 
-          <div class="row sm_panel_body" *ngFor="let work of aboutWork.profileDetails?.extra.awards">
+          <div class="row sm_panel_body" *ngFor="let award of aboutWork.profileDetails?.extra.awards">
                 <div class="col-md-2 sm_panel_left">
                     <figure class="avatar_overview">
                         <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
@@ -20,12 +20,12 @@
                 </div>
                 <div class="col-md-8 sm_panel_right">
                     <div class="work-group">
-                        <h3>{{ work.role }}<span> at </span> {{ work.organizationName }}</h3>
-                        <p>From {{ work.from | date:'MMMM, y'}}</p>
+                        <h3>{{ award.role }}<span> at </span> {{ award.organizationName }}</h3>
+                        <p>From {{ award.from | date:'MMMM, y'}}</p>
                     </div>
                     <div class="workplace_edit_remove_ico ">
-                        <a href="#" class="edit_remove_ico"><img src="http://d33wubrfki0l68.cloudfront.net/8acba050eb7fc142849496e9d39c31e6ec848ebc/3b55c/img/svg/ico_edit.svg" alt=""></a>
-                        <a (click) = "deleteCurrentWork(work.id)" class="edit_remove_ico"><img src="http://d33wubrfki0l68.cloudfront.net/b3dd9a5fe04c6921b6c04fd3d4647f713a92b32c/a4a4a/img/svg/ico_delete.svg"></a>
+                        <a (click) = "editCurrentAward(award)" class="edit_remove_ico"><img src="http://d33wubrfki0l68.cloudfront.net/8acba050eb7fc142849496e9d39c31e6ec848ebc/3b55c/img/svg/ico_edit.svg" alt=""></a>
+                        <a (click) = "deleteCurrentAward(award.id)" class="edit_remove_ico"><img src="http://d33wubrfki0l68.cloudfront.net/b3dd9a5fe04c6921b6c04fd3d4647f713a92b32c/a4a4a/img/svg/ico_delete.svg"></a>
                     </div>
                 </div>
           </div>
@@ -41,11 +41,12 @@
             <div class="edit-profile_main">
                 <div class="edit-profile_head">
                     <div class="col-md-6 padding_none">
-                        <h2>Add Award</h2>
+                        <h2>Award</h2>
                     </div>
                     <div class="col-md-6 padding_none text-right">
                     <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click) = "awardFormClose()">Cancel</app-button>
-                    <app-button [className]="'btn btn-primary btn-sm'" [type]="'submit'">Add</app-button>
+                    <app-button *ngIf="!editFormPopup" [className]="'btn btn-primary btn-sm'" [type]="'submit'">Add</app-button>
+                    <app-button *ngIf="editFormPopup" [className]="'btn btn-primary btn-sm'" [type]="'submit'">Update</app-button>
                     </div>
                 </div>
                 <!-- edit profile head end -->
@@ -70,6 +71,7 @@
                                     <!-- left bar end -->
                                     <div class="editarea_rightbar">
                                         <div class="form_group">
+                                            <input class="form_input"  type="hidden" formControlName="id">
                                             <input class="form_input"  type="text" formControlName="award" required>
                                             <span class="form_highlight"></span>
                                             <span class="form_bar"></span>

@@ -1,3 +1,21 @@
 <div class="row">
-  <app-post-card *ngFor="let userMedia of userMedia.mediaEntity?.SUCCESS" [mediaData]="userMedia"></app-post-card>
+  <div *ngIf="userMedia.user_posts_loading">
+    <div class="msg__loading">
+      <div class="loader">Loading...</div>
+    </div>
+  </div>
+  <masonry>
+    <masonry-brick class="col-md-4 col-sm-6" *ngFor="let userMedia of userMedia.mediaEntity?.SUCCESS; let i = index">
+        <app-post-card (onClick)="editPopup(userMedia.id)" [mediaData]="userMedia"></app-post-card>
+    </masonry-brick>
+  </masonry>
 </div>
+
+<app-modal [modalTitle]="''" [blocking]='false' modalId='mediaPopup'>
+  <!--<div >
+    <div class="msg__loading">
+      <div class="loader">Loading...</div>
+    </div>
+  </div>-->
+  <app-media-popup (onComment)="submitComment($event)" [data]="mediaDetails?.media_detail"></app-media-popup>
+</app-modal>

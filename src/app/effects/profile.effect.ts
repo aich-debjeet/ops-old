@@ -53,7 +53,10 @@ export class ProfileEffect {
     .map(toPayload)
     .switchMap((payload) => this.profileService.getLoggedInProfileDetails()
       .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_FAILED, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
     );
 
   /**
@@ -65,7 +68,10 @@ export class ProfileEffect {
     .map(toPayload)
     .switchMap((payload) => this.profileService.getLoggedInMedia(payload)
       .map(res => ({ type: ProfileActions.LOAD_USER_MEDIA_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: ProfileActions.LOAD_USER_MEDIA_FAILED, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.LOAD_USER_MEDIA_FAILED,
+        payload: { errorStatus: res.status }
+      }))
     );
 
   /**
@@ -77,7 +83,10 @@ export class ProfileEffect {
     .map(toPayload)
     .switchMap((payload) => this.profileService.getLoggedInChannel(payload)
       .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL_FAILED, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.LOAD_CURRENT_USER_CHANNEL_FAILED,
+        payload: { errorStatus: res.status }
+      }))
     );
 
   /**
@@ -89,7 +98,10 @@ export class ProfileEffect {
     .map(toPayload)
     .switchMap((payload) => this.profileService.userProfileUpdate(payload)
       .map(res => ({ type: ProfileActions.LOAD_PROFILE_UPDATE_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: ProfileActions.LOAD_PROFILE_UPDATE_FAILED, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.LOAD_PROFILE_UPDATE_FAILED,
+        payload: { errorStatus: res.status }
+      }))
     );
 
   /**
@@ -104,17 +116,49 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.ADD_USER_WORK_FAILED, payload: res }))
     );
 
+  // /**
+  //  * Edit Current user work
+  //  */
+  // @Effect()
+  // editUserWork$ = this.actions$
+  //   .ofType(ProfileActions.EDIT_USER_WORK)
+  //   .map(toPayload)
+  //   .switchMap((payload) => this.profileService.editUserWork(payload)
+  //     .map(res => ({ type: ProfileActions.EDIT_USER_WORK_SUCCESS, payload: res }))
+  //     .catch((res) => Observable.of({ type: ProfileActions.EDIT_USER_WORK_FAILED, payload: res }))
+  //   );
+
   /**
-   * Edit Current user work
+   * Get Current work and award
    */
   @Effect()
-  editUserWork$ = this.actions$
-    .ofType(ProfileActions.EDIT_USER_WORK)
+  getCurrentWork$ = this.actions$
+    .ofType(ProfileActions.GET_USER_WORK)
     .map(toPayload)
-    .switchMap((payload) => this.profileService.editUserWork(payload)
-      .map(res => ({ type: ProfileActions.EDIT_USER_WORK_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: ProfileActions.EDIT_USER_WORK_FAILED, payload: res }))
+    .switchMap((payload) => this.profileService.getCurrentWork(payload)
+      .map(res => ({ type: ProfileActions.GET_USER_WORK_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.GET_USER_WORK_FAILED, payload: res }))
     );
+
+  /**
+   * Update Current work and award
+   */
+  @Effect()
+  updateCurrentWork$ = this.actions$
+    .ofType(ProfileActions.UPDATE_USER_WORK)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.updateUserWork(payload)
+      .map(res => ({ type: ProfileActions.UPDATE_USER_WORK_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.UPDATE_USER_WORK_FAILED, payload: res }))
+    );
+
+  /**
+   * User Work Update Success
+   */
+  @Effect()
+  userWorkUpdateSuccess$ = this.actions$
+    .ofType(ProfileActions.UPDATE_USER_WORK_SUCCESS)
+    .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS  }))
 
   /**
    * Delete Current user work
@@ -153,16 +197,37 @@ export class ProfileEffect {
     );
 
   /**
-   * Edit Current user Award
+   * Update Current Education
    */
   @Effect()
-  editUserAward$ = this.actions$
-    .ofType(ProfileActions.EDIT_USER_WORK)
+  updateCurrentEducation$ = this.actions$
+    .ofType(ProfileActions.UPDATE_USER_EDUCATION)
     .map(toPayload)
-    .switchMap((payload) => this.profileService.editUserWork(payload)
-      .map(res => ({ type: ProfileActions.EDIT_USER_WORK_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: ProfileActions.EDIT_USER_WORK_FAILED, payload: res }))
+    .switchMap((payload) => this.profileService.updateUserEducation(payload)
+      .map(res => ({ type: ProfileActions.UPDATE_USER_EDUCATION_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.UPDATE_USER_EDUCATION_FAILED, payload: res }))
     );
+
+  /**
+   * User Work Update Success
+   */
+  @Effect()
+  userEducationUpdateSuccess$ = this.actions$
+    .ofType(ProfileActions.UPDATE_USER_EDUCATION_SUCCESS)
+    .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS  }))
+
+
+  // /**
+  //  * Edit Current user Award
+  //  */
+  // @Effect()
+  // editUserAward$ = this.actions$
+  //   .ofType(ProfileActions.EDIT_USER_WORK)
+  //   .map(toPayload)
+  //   .switchMap((payload) => this.profileService.editUserWork(payload)
+  //     .map(res => ({ type: ProfileActions.EDIT_USER_WORK_SUCCESS, payload: res }))
+  //     .catch((res) => Observable.of({ type: ProfileActions.EDIT_USER_WORK_FAILED, payload: res }))
+  //   );
 
   /**
    * Delete Current user Award
@@ -232,6 +297,43 @@ export class ProfileEffect {
   userEducationAddSuccess$ = this.actions$
     .ofType(ProfileActions.ADD_USER_EDUCATION_SUCCESS)
     .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS }))
+
+/**
+ *  Load image to database
+ */
+  @Effect()
+  loadProfileImage$ = this.actions$
+    .ofType(ProfileActions.LOAD_PROFILE_IMAGE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.uploadProfileImage(payload)
+      .map(res => ({ type: ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.LOAD_PROFILE_IMAGE_FAILED, payload: res }))
+    );
+
+/**
+ *  Save image to ProfileUI
+ */
+   @Effect()
+   loadProfileImageSuccess$ = this.actions$
+   .ofType(ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS)
+   .map(toPayload)
+   .switchMap((payload) => this.profileService.saveProfileImage(payload)
+     .map(res => ({ type: ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS, payload: res }))
+     .catch((res) => Observable.of({ type: ProfileActions.SAVE_PROFILE_IMAGE_FAILED, payload: res }))
+    );
+
+
+    /**
+   * Get current user channel profile
+   */
+  @Effect()
+  saveUserChannel$ = this.actions$
+    .ofType(ProfileActions.CHANNEL_SAVE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.createChannel(payload)
+      .map(res => ({ type: ProfileActions.CHANNEL_SAVE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.CHANNEL_SAVE_FAILED, payload: res }))
+    );
 
   constructor(
     private actions$: Actions,

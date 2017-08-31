@@ -12,6 +12,7 @@ $theme_red_dark:  	#f0616b;
 $black_color: 		#000000;
 $basic_color : 		#5c5b5b;
 $gray_color:		#e5e5e5;
+$green:             #68dd7c;
 
 $desktop_imac: 	2600px;
 $desktop_lg: 	1400px;
@@ -20,5 +21,142 @@ $tablet:		768px;
 $mobile_lg: 	480px;
 $mobile_sm: 	320px;
 
+// new breakpoint
+$break2600 : 2600px; // imac
+$break2240 : 2240px;
+$break1824 : 1824px;
+$break1440 : 1440px; // macbook pro
+$break1366 : 1366px; // smart laptop
+$break1280 : 1280px; //macbook air
+$break1024 : 1024px; //ipad, most netbook
+$break960 : 960px;
+$break800 : 800px;
+$break768 : 768px; //ipad
+$break640 : 640px; // iphone
+$break480 : 480px; //Meizu M8, google nexus
+$break320 : 320px; //iphone, 3G, 3GS
+
+
 // new variables
 $text_gray : #979797;
+
+
+
+
+
+/*
+font-size  ---------------------------------------------
+$text-1
+$text-2
+$text-3
+$text-4
+$text-5
+$text-6
+
+line-height ----------------------------------------------
+$line-height-1
+$line-height-2
+$line-height-3
+
+font-style ---------------------------------------------
+$sans - font-family
+$regular - regular font-weight
+$bold - bold font-weight
+$font_100 - 100 font-wight
+$font_300 - 300 font-wight
+$font_500 - 500 font-wight
+
+background color --------------------------------------------------
+$fill-red
+$fill-red-lighter
+$fill-pink
+$fill-blue
+$fill-yellow
+$fill-yellow-lighter
+$fill-green
+$fill-green-lighter
+$fill-orange
+$fill-promoted-orange
+$fill-gray-lighter
+$fill-gray
+$fill-gray-darker
+$fill-white
+
+$fill-facebook
+$fill-twitter
+$fill-google
+$fill-linkedin
+$fill-pinterest
+$fill-tumblr
+$fill-youtube
+$fill-instagram
+$fill-vine
+$fill-snapchat
+
+text color --------------------------------------------------------------------
+$text-white
+$text-gray
+$text-gray-lighter
+$text-gray-lightest
+$text-red
+$text-pink
+$text-orange
+$text-promoted-orange
+$text-green
+$text-blue
+
+$text-facebook
+$text-twitter
+$text-google
+$text-linkedin
+$text-pinterest
+$text-tumblr
+$text-youtube
+$text-instagram
+
+Spacing ----------------------------------------------------------------------
+$margin-t0
+$margin-r0
+$margin-b0
+$margin-l0
+$margin0
+
+$padding-t0
+$padding-r0
+$padding-b0
+$padding-l0
+$padding
+
+z-index ------------------------------------------------------------------------
+$z1
+$z2
+$z3
+$z4
+
+Borders ------------------------------------------------------------------------
+$border
+$border-lighter
+$border-radius
+
+
+
+
+ */
+
+
+
+
+
+// minima theme code for demo
+//$base-font-family: 'Open Sans', sans-serif !default;
+//$base-font-size:   13px !default;
+//$base-font-weight: 400 !default;
+//$small-font-size:  $base-font-size * 0.875 !default;
+//$base-line-height: 1.5 !default;
+//
+// $spacing-unit:     30px !default;
+//
+// // Width of the content area
+// $content-width:    800px !default;
+// $on-palm:          600px !default;
+// $on-laptop:        800px !default;

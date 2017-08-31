@@ -5,7 +5,7 @@
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 1000;
+  z-index: 1500;
 }
 
 .closed {
@@ -64,3 +64,32 @@
     padding: 1.2em;
   }
 }
+
+/* Large */
+.ng-modal.large {
+  width: 80%;
+  left: 10%;
+  border-radius: 4px;
+  max-height: 100%;
+}
+
+.modal__large{
+  display: block;
+  overflow-y: scroll;
+  &.closed{
+    display: none;
+  }
+  .ng-modal-overlay{
+    background-color:rgba(243,245,247,.95);
+    z-index: 2000;
+  }
+  .ng-modal.large{
+    background-color: transparent;
+    box-shadow: none;
+    z-index: 2500;
+    top: 0.1rem;
+  }
+}
+
+
+
