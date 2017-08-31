@@ -393,6 +393,10 @@ export class RegistrationBasicComponent implements OnInit {
     return Math.random();
   }
 
+  closeTerms() {
+    this.modalService.open('termsAndConditions');
+  }
+
   submitForm(value) {
     // Form
     const form =  {
