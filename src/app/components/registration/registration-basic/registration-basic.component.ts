@@ -80,6 +80,11 @@ export class RegistrationBasicComponent implements OnInit {
     this.isPhotoAdded = false;
   }
 
+  // showing terms
+  showTerms() {
+    this.modalService.open('termsAndConditions');
+  }
+
   startTimer() {
     this.countDown = Observable.timer(0, 1000)
       .take(this.counter)

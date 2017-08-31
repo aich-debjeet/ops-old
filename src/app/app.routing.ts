@@ -25,6 +25,7 @@ import { ChannelListComponent } from './components/channel-list/channel-list.com
 // import { SearchIconComponent } from './components/search-icon/search-icon.component';
 import { MasonryComponent } from './components/masonry/masonry.component';
 import { BlogeditorComponent } from './shared/blogeditor/blogeditor.component';
+import { ChannelInnerComponent } from './components/channel-inner/channel-inner.component';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -35,6 +36,7 @@ export const routes: Routes = [
 { path: 'mas', component: MasonryComponent },
  { path: 'logout', component: LogoutComponent },
  { path: 'login', component: LoginComponent },
+ { path: 'channel/:id', component: ChannelInnerComponent },
  { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },
  { path: 'account', loadChildren: './components/forgot-password/forgot-password.module#ForgotPasswordModule'},
  { path: 'home', loadChildren: './components/home/home.module#HomeModule'},

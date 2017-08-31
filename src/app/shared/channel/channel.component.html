@@ -2,15 +2,19 @@
   <div class="col-md-12 col-sm-12 ops_channel_block">
     <div class="row">
       <div class="col-md-12 col-sm-12 ops_channel_top">
-        <div *ngFor="let item of channelData?.media | slice:0:3; let i=index" class="channel_avatar_full sec__{{ i}}">
-          <img *ngIf="checkFileType(item.repoPath, 'Image')" src="{{ 'http://d206s58i653k1q.cloudfront.net/'  + item.repoPath }}">
-          <app-videplayer *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}"></app-videplayer>
-        </div>
+        <a [routerLink]="['/channel', channelData?.spotfeedId]">
+          <div *ngFor="let item of channelData?.media | slice:0:3; let i=index" class="channel_avatar_full sec__{{ i}}">
+            <img *ngIf="checkFileType(item.repoPath, 'Image')" src="{{ 'http://d206s58i653k1q.cloudfront.net/'  + item.repoPath }}">
+            <app-videplayer *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}"></app-videplayer>
+          </div>
+        </a>
       </div>
 
       <div class="col-md-12 col-sm-12 pro_channel_cont">
           <div class="channel_name">
+            <a [routerLink]="['/channel', channelData?.spotfeedId]">
               <h3 class="channel_heading float-left">{{channelData?.spotfeedName}}</h3>
+            </a>
               <span>
             <a ><img class="float-right" src="/assets/img/svg/ico_options.svg"></a>
           </span>

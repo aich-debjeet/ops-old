@@ -41,7 +41,7 @@ export class MediaSelectorComponent {
   editingFile: Selection;
   apiLink: 'http://devservices.greenroom6.com:9000/api/1.0';
   channels: any[];
-  chosenChannel: any;
+  chosenChannel: any = 0;
   channelForm: FormGroup;
   mediaForm: FormGroup;
   addChannel: boolean;
@@ -65,7 +65,8 @@ export class MediaSelectorComponent {
 
     this.hasFiles = false;
     this.editingFile = new Selection;
-    this.chosenChannel = [];
+
+    this.chosenChannel = 0;
 
     // Create Channel Form
     this.createChannelForm();
@@ -257,7 +258,7 @@ export class MediaSelectorComponent {
    * @param file
    */
   isChosenChannel(channel: any) {
-    if (this.chosenChannel === null && this.chosenChannel.length < 1 ) {
+    if (this.chosenChannel === 0) {
       return false;
     }else {
       if (this.chosenChannel.spotfeedId === channel.spotfeedId) {
@@ -290,6 +291,13 @@ export class MediaSelectorComponent {
     } else {
       return false;
     }
+  }
+
+  /**
+   * on Channel Selection
+   */
+  onChannelSelection(channel: any) {
+    this.chooseChannel = channel;
   }
 
   /**

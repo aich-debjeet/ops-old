@@ -35,11 +35,11 @@ export class AuthEffect {
     );
 
   @Effect()
-  getAllSkillType$ = this.actions$
-    .ofType(AuthActions.LOAD_SKILL)
+  getAllIndustries$ = this.actions$
+    .ofType(AuthActions.LOAD_INDUSTRIES)
     .map(toPayload)
-    .switchMap((payload) => this.authService.getAllSkill()
-      .map(res => ({ type: AuthActions.LOAD_SKILL_SUCCESS, payload: res }))
+    .switchMap((payload) => this.authService.getAllIndustries()
+      .map(res => ({ type: AuthActions.LOAD_INDUSTRIES_SUCCESS, payload: res }))
     );
 
   @Effect()

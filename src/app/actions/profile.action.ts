@@ -108,7 +108,21 @@ export class ProfileActions {
   static EDIT_USER_EDUCATION_FAILED = 'EDIT_USER_EDUCATION_FAILED';
 
   /**
-   * * Save New Channel
+   * Load image to database
+   */
+  static LOAD_PROFILE_IMAGE = 'LOAD_PROFILE_IMAGE ';
+  static LOAD_PROFILE_IMAGE_SUCCESS = 'LOAD_PROFILE_IMAGE_SUCCESS';
+  static LOAD_PROFILE_IMAGE_FAILED = 'LOAD_PROFILE_IMAGE_FAILED';
+
+  /**
+   * save image to ProfileUI
+   */
+  static SAVE_PROFILE_IMAGE = 'SAVE_PROFILE_IMAGE ';
+  static SAVE_PROFILE_IMAGE_SUCCESS = 'SAVE_PROFILE_IMAGE_SUCCESS';
+  static SAVE_PROFILE_IMAGE_FAILED = 'SAVE_PROFILE_IMAGE_FAILED';
+
+  /**
+   * Save New Channel
    */
   static CHANNEL_SAVE = 'CHANNEL_SAVE';
   static CHANNEL_SAVE_SUCCESS = 'CHANNEL_SAVE_SUCCESS';
@@ -383,5 +397,50 @@ export class ProfileActions {
       payload: error
     };
   }
-}
 
+  /**
+   * Load image to database
+   */
+  sendProfileImage(): Action {
+    return {
+      type: ProfileActions.LOAD_PROFILE_IMAGE,
+    };
+  }
+
+  sendProfileImageSuccess(value): Action {
+    return {
+      type: ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  sendProfileImageFailed(error: any): Action {
+    return {
+      type: ProfileActions.LOAD_PROFILE_IMAGE_FAILED,
+      payload: error
+    };
+  }
+
+  /**
+   * SAVE image to ProfileUI
+   */
+  saveProfileImage(): Action {
+    return {
+    type: ProfileActions.SAVE_PROFILE_IMAGE,
+    };
+  }
+
+  saveProfileImageSuccess(value): Action {
+    return {
+      type: ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  saveProfileImageFailed(error: any): Action {
+    return {
+      type: ProfileActions.SAVE_PROFILE_IMAGE_FAILED,
+      payload: error
+    };
+  }
+}

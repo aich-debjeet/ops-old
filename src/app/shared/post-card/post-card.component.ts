@@ -21,6 +21,10 @@ export class PostCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  handleClick(event: any) {
+    this.onClick.emit(event);
+  }
+
   checkFileType(fileName: string, fileType: string) {
     return FilesHelper.fileType(fileName, fileType);
   }

@@ -23,11 +23,12 @@ export class ModalComponent implements OnInit {
   @Input() size: string;
   isOpen = false;
 
-  @HostListener('keyup') onMouseEnter(event) {
-    this.keyup(event);
+  constructor(private modalService: ModalService) {
   }
 
-  constructor(private modalService: ModalService) {
+  @HostListener('document:keyup', ['$event'])
+  onKeyUp(ev: KeyboardEvent) {
+    this.keyup(ev);
   }
 
   ngOnInit() {

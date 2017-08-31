@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Output, OnInit, EventEmitter} from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { Observable } from 'rxjs/Observable';
@@ -26,6 +26,7 @@ export class ChannelSelectorComponent {
   handle: string;
   token: string;
   isChosen: boolean;
+  @Output() onSelection: EventEmitter<any> = new EventEmitter();
 
   constructor( private fb: FormBuilder, private profileStore: Store<ProfileModal>) {
 
@@ -55,6 +56,7 @@ export class ChannelSelectorComponent {
 
   chooseChannel(channel: any) {
     this.chosenChannel = channel;
+    this.onSelection.emit(channel);
   }
 
   /**
@@ -101,15 +103,16 @@ export class ChannelSelectorComponent {
    * @param file
    */
   isChosenChannel(channel: any) {
-    if (this.chosenChannel === null && this.chosenChannel.length < 1 ) {
-      return false;
-    }else {
-      if (this.chosenChannel.spotfeedId === channel.spotfeedId) {
-        return true;
-      } else {
-        return false;
-      }
-    }
+    return false;
+    // if (this.chosenChannel === null && this.chosenChannel.length < 1 ) {
+    //   return false;
+    // }else {
+    //   if (this.chosenChannel.spotfeedId === channel.spotfeedId) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // }
   }
 
 }

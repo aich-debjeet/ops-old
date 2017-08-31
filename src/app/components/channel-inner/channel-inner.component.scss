@@ -1,0 +1,227 @@
+.outer_header{
+    margin-top: 5%;
+}
+
+// --------------- channel inner style start
+.channel_inner {
+    margin-top: 88px;
+    .spot_in_head {
+        margin: 24px 0;
+    }
+    .channel_inner_type {
+        color: #979797;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 19px;
+        margin: 12px 0;
+        float: left;
+        width: 100%;
+        .public_channel{
+            float: left;
+            margin-right: 16px;
+        }
+        .pro_nav_icon {
+            float: left;
+            position: relative;
+            li {
+                float: right;
+                padding: 0px 8px;
+            }
+            .report_block_drop{
+                right: 8px;
+                left: auto;
+                top: 16px;
+                li{
+                    width: 100%;
+                    padding:0px;
+                    a{
+                        font-weight: 600;
+                        font-size: 14px;
+                        color: #333333;
+                    }
+                }
+            }
+        }
+    }
+    .pro_channel_card {
+        padding: 0 8px;
+        margin: 0;
+    }
+    .channel_inner_block {
+        width: auto;
+        margin: 24px -8px;
+    }
+    .spot_in_follow {
+        color: #333333;
+        font-size: 16px;
+        // font-weight: bold;
+        line-height: 22px;
+        display: inline;
+        margin: 0 16px;
+    }
+    .spot_in_icons {
+        margin-top: 16px;
+        .overlap_thumb .over1_thumb img,
+        .overlap_thumb .over2_thumb img,
+        .overlap_thumb .over3_thumb img {
+            height: 49px;
+            width: 49px;
+            border: 1px solid #FFFFFF;
+            border-radius: 50%;
+        }
+        .overlap_thumb span {
+            width: 8%;
+            display: inline-block;
+            float: right;
+        }
+    }
+}
+
+.avatar_spot_in {
+    width: 100%;
+    height: 49px;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    img {
+        width: 100%;
+        border-radius: 50%;
+        background-color: #f8f8f8;
+    }
+}
+
+.pro_nav_icon img {
+    float: right;
+    color: #c1c1c1;
+    width: 16px;
+}
+
+.channe__media{
+    padding: 10px
+}
+
+// edit channel styles
+#edit_channel_container{
+	width: 500px;
+	margin:50px auto;
+}
+.edit-channel_main{
+	width: 500px !important;
+    height: 100%;
+    background: #fff;
+    border-radius: 3px;
+    margin: 0px auto;
+    display: inline-block;
+	.edit-channel_head{
+		width: 100%;
+		float: left;
+    	padding: 16px 32px;
+		border-bottom: 1px solid rgba(102,45,145,0.1);
+		h2{
+			font-size: 16px;
+			font-weight: 700;
+			text-transform: uppercase;
+			color: #333333;
+			padding:8px 0px;
+		}
+	}
+	.edit_channel_footer{
+		width: 100%;
+		float: left;
+    	padding: 16px 32px;
+		border-bottom: 1px solid rgba(102,45,145,0.1);
+	}
+	.edit-channel_sec_block {
+	  	cursor: pointer;
+	  	border-bottom: 1px solid #eee;
+	  	width: 100%;
+	  	background-color: white;
+	  	text-align: center;
+	  	float: left;
+		.edit-channel_content_block{
+			font-weight: 200;
+			color: #1d1d1b;
+			text-align: left;
+			line-height: 1.5;
+			transition: opacity .7s;
+			transition: .25s;
+			background: #fff;
+			.editarea{
+				padding:16px 32px;
+				.form_group{
+					margin-bottom: 24px;
+					.form_input {
+						color: #333333;
+					    font-weight: 600;
+					    background: transparent;
+					}
+					input[type="text"]:disabled, label{
+					    top: -10px;
+					    font-size: 12px;
+					    color: #c1c1c1;
+					}
+					.form_textarea{
+						min-height: 105px;
+						&:focus{
+							outline: none;
+						}
+					}
+					.form-control{
+						border:none;
+						border-bottom:1px solid #c1c1c1;
+						box-shadow:none;
+						border-radius:0px;
+						font-weight: 600;
+						margin-top: 3px;
+						background: transparent;
+						padding:6px 0px;
+					}
+				}
+			}
+			.search_result_block{
+				width: 100%;
+				.result_list_main{
+					width: 100%;
+					min-height: 50px;
+					.result_pro_img{
+						width: 25px;
+						height: 25px;
+						float: left;
+						border-radius: 100%;
+						overflow: hidden;
+						img{
+							width: 100%;
+						}
+					}
+					.result_name{
+						width: 60%;
+					    float: left;
+					    padding: 5px;
+					    margin-left: 8px;
+						p{
+							font-size: 12px;
+							font-weight: 700;
+							color: #333;
+						}
+					}
+					.remove_btn{
+						float: right;
+					}
+				}
+			}
+		}
+	}
+}
+
+.not_found{
+    margin-top: 20%;
+    text-align: center;
+    color: #333;
+    display: none;
+}
+
+.not_found__add{
+    display: block
+}

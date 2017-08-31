@@ -3,10 +3,12 @@
     <div class="col-md-12 col-sm-12 feed_block">
         <div class="row">
             <div class="col-md-12 col-sm-12 pro_channel_img1">
-                <figure class="feed-avatar">
-                    <app-videplayer *ngIf="checkFileType(mediaData?.repopath, 'Video')" src="{{ imageLink + mediaData?.repopath }}"></app-videplayer>
-                    <img *ngIf="checkFileType(mediaData?.repopath, 'Image')" src="{{ imageLink + mediaData?.repopath }}" class="img-responsive">
-                </figure>
+                <a (click)="handleClick($event)">
+                    <figure class="feed-avatar">
+                        <app-videplayer *ngIf="checkFileType(mediaData?.repopath, 'Video')" src="{{ imageLink + mediaData?.repopath }}"></app-videplayer>
+                        <img *ngIf="checkFileType(mediaData?.repopath, 'Image')" src="{{ imageLink + mediaData?.repopath }}" class="img-responsive">
+                    </figure>
+                </a>
                 <div class="feed_article" *ngIf="checkFileType(mediaData?.repopath, 'Image')"><img src="http://d33wubrfki0l68.cloudfront.net/e71f0fc9a8055ea597b62c0c1b3c9c94b2e5f2bc/ab7ce/img/svg/ico_media_img.svg"></div>
                 <div class="feed_article" *ngIf="mediaData?.mtype === 'audio'"><img src="/assets/img/svg/ico_audio.svg"></div>
                 <div class="feed_article" *ngIf="checkFileType(mediaData?.repopath, 'Video')"><img src="/assets/img/svg/ico_video.svg"></div>
