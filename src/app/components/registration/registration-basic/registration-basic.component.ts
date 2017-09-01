@@ -172,8 +172,8 @@ export class RegistrationBasicComponent implements OnInit {
 
     const dateArr =  control.value.split('-');
 
-    const day = dateArr[0];
-    const month = dateArr[1];
+    const day = dateArr[1];
+    const month = dateArr[0];
     const year = dateArr[2];
 
     // check for valid day number
@@ -191,20 +191,9 @@ export class RegistrationBasicComponent implements OnInit {
       return { invalidDOB: true }
     }
 
-    // if (isNaN(age)) {
-    //   return { invalidDOB: true }
-    // }
-    return;
-
-    /*
-
-    // console.log('day: ' + day + 'month: ' + month + 'year: ' + year);
-    // const bd = new Date(month+' '+day+' '+year);
-    const bdStr = month + ' ' + day + ' ' + year;
-    // console.log('bdStr: ' + bdStr);
     const birthDate = new Date(year, month, day);
     const age = this.calculateAge(birthDate);
-    // console.log('age: ' + age);
+    console.log('age: ' + age);
 
     if (age <= 13) {
       return { isUnderAge: true };
@@ -212,7 +201,6 @@ export class RegistrationBasicComponent implements OnInit {
       return { isOverAge: true };
     }
     return null;
-    */
   }
 
   /**
