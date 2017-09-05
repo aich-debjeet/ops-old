@@ -28,7 +28,7 @@
                      <img src="/assets/img/svg/ico_add.svg">
                    </a>
                    <ul class="dropdown-menu create_drop" [ngClass]="{'open': this.topNav['channel'].open }">
-                     <li><a href="javascript:void(0)" (click)="createChannel()" >Create Channel</a></li>
+                     <li><a (click)="createChannel()" >Create Channel</a></li>
                      <li role="separator" class="divider"></li>
                      <li><a href="javascript:void(0)" (click)="createCommunity()" >Create Community</a></li>
                    </ul>
@@ -1623,4 +1623,8 @@
 
 <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='AddMedia' class="media__modal" size="large">
   <app-media></app-media>
+</app-modal>
+
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='CreateChannel' class="media__modal" size="large">
+    <app-create-channel></app-create-channel>
 </app-modal>

@@ -45,6 +45,20 @@ export class NavigationComponent implements OnInit {
   addMedia() {
     this.modalService.open('AddMedia');
   }
+
+  /**
+   * Create channel
+   */
+  createChannel() {
+    this.modalService.open('CreateChannel');
+  }
+
+  /**
+   * Create a community
+   */
+  createCommunity() {
+    //
+  }
   /**
    * Show/Hide Menu
    */

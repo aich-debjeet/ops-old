@@ -41,6 +41,7 @@ import { VgBufferingModule } from 'videogular2/buffering';
 import { VideplayerComponent } from './videplayer/videplayer.component';
 import { BlogeditorComponent } from './blogeditor/blogeditor.component';
 import { MediaPopupComponent } from './media-popup/media-popup.component';
+import { CreateChannelComponent } from './create-channel/create-channel.component';
 
 @NgModule({
   imports: [
@@ -75,7 +76,8 @@ import { MediaPopupComponent } from './media-popup/media-popup.component';
     BlogeditorComponent,
     MediumEditorComponent,
     ChannelSelectorComponent,
-    MediaPopupComponent
+    MediaPopupComponent,
+    CreateChannelComponent
   ],
   exports: [
     AuthRightBlockComponent,
