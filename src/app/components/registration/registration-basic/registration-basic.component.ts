@@ -172,8 +172,8 @@ export class RegistrationBasicComponent implements OnInit {
 
     const dateArr =  control.value.split('-');
 
-    const day = dateArr[1];
-    const month = dateArr[0];
+    const day = dateArr[0];
+    const month = dateArr[1];
     const year = dateArr[2];
 
     // check for valid day number
@@ -270,7 +270,7 @@ export class RegistrationBasicComponent implements OnInit {
         ],
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
-      'gender': ['M', Validators.required],
+      'gender': ['', Validators.required],
       'phone' : ['', [
         Validators.required,
         Validators.minLength(4)

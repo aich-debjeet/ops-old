@@ -215,7 +215,7 @@ export class AuthService {
     }
 
     searchAllSkill(q: string) {
-      return this.http.get(this.apiLink + '/portal/tree/' + q)
+      return this.http.get(this.apiLink + '/portal/tree/' + q + '/0/100')
         .map((data: Response) => data.json());
     }
 

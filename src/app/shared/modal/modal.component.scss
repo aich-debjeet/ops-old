@@ -94,6 +94,15 @@
 
 
 .modal__terms{
+  .close-btn{
+    cursor: pointer;
+    top: 50px;
+    right: 80px;
+    position: fixed;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+  }
   color: #000;
   display: block;
   overflow-y: scroll;

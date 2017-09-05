@@ -74,7 +74,7 @@
                             </label>
                         </div> -->
                         <div class="form_group">
-                            <input class="form_input" type="text" formControlName="dob" [textMask]="{mask: dateMask}" placeholder="MM-DD-YYYY">
+                            <input class="form_input" type="text" formControlName="dob" [textMask]="{mask: dateMask}" placeholder="DD-MM-YYYY">
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>Date of Birth</label>
@@ -110,6 +110,7 @@
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>Password</label>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.required && myform.submitted">Password is required</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Weak password! Please use special chars, numbers and capital letters</p>
                         </div>
                         <div class="form_group">
@@ -117,6 +118,7 @@
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>Confirm Password</label>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.required && myform.submitted">Confirm password is required</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password not match</p>
                         </div>
                         <div class="signup_privacy">
@@ -394,11 +396,11 @@
     <!-- Terms Modal -->
     
     <!-- OTP Modal -->
-    <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='otpWindow'>
+    <app-modal [modalTitle]="'OTP'" [blocking]='false' modalId='otpWindow' class="otp__modal" size="small">
       <div name="otp" class="otp__modal">
         <div class="x reg_step1_otp" id="otpModal2" role="dialog">
-          <div class="">
-            <div class="">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
                 <div class="modal-header" style="border: none;">
                     <h4 class="modal-title text-center"><img width="120px" src="/assets/img/logo_black.svg"></h4>
                 </div>

@@ -7,6 +7,56 @@
     color: #ff7b84!important;
 }
 
+.width100 {
+    width: 100%;
+}
+
+.reg_step1_otp {
+    .modal-lg {
+        width: 850px;
+        @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            width: 90%;
+        }
+    }
+    .modal-dialog {
+        margin: 6% auto;
+    }
+    h5 {
+        color: #333333;
+        line-height: 26px;
+        font-size: 18px;
+        font-weight: 500;
+    }
+    a {
+        color: #ff7b84;
+        font-size: 16px;
+    }
+    form {
+        width: 70%;
+        margin: 0 auto;
+        padding: 10% 0;
+        span {
+            color: $theme_red;
+            font-size: 14px;
+            float: right;
+            margin-top: -22px;
+        }
+    }
+    .modal-title {
+        padding: 5% 0;
+    }
+    .btn {
+        margin-top: 20px;
+    }
+    p {
+        margin-top: 5%;
+    }
+}
+
+.ptop0 {
+    padding-top: 0 !important;
+}
+
 /* --------------------- registrationi -------------------------------- */
    
     // step 1 -------------------

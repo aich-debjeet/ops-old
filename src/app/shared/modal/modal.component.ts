@@ -8,6 +8,7 @@ import { ModalService } from './modal.component.service';
       <div [ngClass]="('modal__' + size + ' ' + (!isOpen ? 'closed' : ''))">
         <div class="ng-modal-overlay" (click)="close(true)"></div>
         <div [ngClass]="size" class="ng-modal">
+          <span class="right-align" title="close" (click)="close(true)"><i class="material-icons md-24 close-btn">X</i></span>
           <div class="body">
             <ng-content></ng-content>
           </div>
