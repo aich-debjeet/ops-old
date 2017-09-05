@@ -11,7 +11,7 @@ import { SearchFilterPipe } from '../../../pipes/search.pipe'
 import { environment } from './../../../../environments/environment';
 import { AuthActions } from '../../../actions/auth.action'
 
-import _ from 'lodash';
+import { find as _find } from 'lodash';
 
 export class Channel {
   follow: boolean;
@@ -109,7 +109,7 @@ export class RegistrationAddSkillComponent implements OnInit {
    * @param skillCode
    */
   findSkill(skillCode) {
-    return _.find(this.skillSelectionPage.skills, function(s) {
+    return _find(this.skillSelectionPage.skills, function(s: any) {
       return s.code === skillCode;
     });
   }
@@ -130,7 +130,7 @@ export class RegistrationAddSkillComponent implements OnInit {
    */
   toggleSelectSkill(skillCode: string) {
     // Check if skill is already selected
-    const selectedSkill = _.find(this.selectedSkills, function(s) {
+    const selectedSkill = _find(this.selectedSkills, function(s) {
       return s.code === skillCode;
     });
 

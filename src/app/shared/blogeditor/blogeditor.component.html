@@ -71,7 +71,7 @@
         </ul>
         <div class="media_create_channel_container">
             <div class="media_create_channel">
-                <app-channel-selector></app-channel-selector>
+                <app-channel-selector (onSelection)="onChannelSelection($event)"></app-channel-selector>
             </div>
 
             <div id="choose_channel_details" style="display: none;">

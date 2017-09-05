@@ -1010,3 +1010,34 @@
         color: #c1c1c1;
     }
 }
+
+
+.upload_prof_img {
+  width: 153px;
+  left: 15px;
+  position: absolute;
+  padding-left: 15px;
+  height: auto;
+  bottom: 0;
+  top: 0;
+  .upload-btn{ display: none; }
+  &:hover{
+    .upload-btn{
+      display: inline-block;
+    }
+  }
+  img {
+    width: 100%;
+    background: 0 0;
+    height: 100%;
+    border: none;
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    overflow: hidden;
+    cursor: pointer;
+    filter: drop-shadow(0 0 3px #222);
+  }
+}

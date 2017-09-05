@@ -40,12 +40,10 @@ export class ChannelSelectorComponent {
 
       this.tagState$.subscribe((state) => {
         this.profileChannel = state;
-        if (this.handle) {
-          console.log(this.handle);
-          this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: this.handle });
-        }else {
-          console.log('no handle');
-        }
+        // if (this.handle) {
+        //   // console.log(this.handle);
+        //   // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: this.handle });
+        // }
       });
   }
 

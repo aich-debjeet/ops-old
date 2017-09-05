@@ -12,10 +12,5 @@
 </div>
 
 <app-modal [modalTitle]="''" [blocking]='false' modalId='mediaPopup'>
-  <!--<div >
-    <div class="msg__loading">
-      <div class="loader">Loading...</div>
-    </div>
-  </div>-->
   <app-media-popup (onComment)="submitComment($event)" [data]="mediaDetails?.media_detail"></app-media-popup>
 </app-modal>

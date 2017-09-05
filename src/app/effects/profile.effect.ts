@@ -217,9 +217,9 @@ export class ProfileEffect {
     .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS  }))
 
 
-  // /**
-  //  * Edit Current user Award
-  //  */
+  /**
+   * Edit Current user Award
+   */
   // @Effect()
   // editUserAward$ = this.actions$
   //   .ofType(ProfileActions.EDIT_USER_WORK)
@@ -244,14 +244,14 @@ export class ProfileEffect {
   /**
    * 401 error
    */
-  @Effect() errorStatus401$ = this.actions$
-    .map(action => action.payload)
-    .filter(payload => payload && payload.errorStatus === 401)
-    .switchMap(payload => {
-        localStorage.removeItem('currentUser');
-        this.router.navigate(['/login']);
-        return Observable.empty();
-    });
+  // @Effect() errorStatus401$ = this.actions$
+  //   .map(action => action.payload)
+  //   .filter(payload => payload && payload.errorStatus === 401)
+  //   .switchMap(payload => {
+  //       localStorage.removeItem('currentUser');
+  //       this.router.navigate(['/login']);
+  //       return Observable.empty();
+  //   });
 
   /**
    * User Work Delete Success

@@ -1,39 +1,38 @@
 <div class="prohead2" style="background-image: url(/assets/img/profile_timeline2.jpg)">
+
 </div>
 <div class="container pro-block">
     <div class="row">
-        <div class="col-md-6 col-sm-12 pro__img" *ngIf="changingImage">
-            <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
-            <!--<div class="prof_img_block">
-            <img src="{{ userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
-            -->
-            <span class="upload_prof_img">
+        <app-modal [modalTitle]="'Change Profile Image'" [blocking]='false' modalId='ChangeProfile' class="media__modal" size="tiny">
+          <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
+          <span class="upload_prof_img">
             <button class="dropdown-toggle btn btn-basic btn-sm" data-toggle="dropdown" aria-expanded="true" alt="" (click)="saveImageClick()">save </button>
-            </span>
-            <!--</div><!-- profile img block end -->
+          </span>
+        </app-modal>
+        <div class="col-md-6 col-sm-12 pro__img" *ngIf="changingImage">
+          <span>Changin Image</span>
         </div>
 
         <div class="col-md-6 col-sm-12 pro__img" *ngIf="!changingImage">
-            <div class="prof_img_block">
-                <img src="{{ data && data.image ? data.image : baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
-                <span class="upload_prof_img">
-
-                        <button class="dropdown-toggle btn btn-basic btn-sm" data-toggle="dropdown" aria-expanded="true" alt="" (click)="changingImageClick()">change </button>
-                        <!--
-                          <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                              <img src="img/svg/ico_edit_white.svg" alt="">
-                          </a>
-                          <ul class="dropdown-menu prof_change_drop">
-                              <li>
-                                <button type="button" (click)="changingImageClick()">change</button>
-                                <a href="#">
-                                      Upload Profile image
-
-                              </li>
-                          </ul>
-                        -->
-                </span>
-            </div>
+          <div class="prof_img_block">
+            <img src="{{ data && data.image ? data.image : baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
+            <span class="upload_prof_img">
+              <a class="dropdown-toggle btn btn-basic btn-sm upload-btn" data-toggle="dropdown" aria-expanded="true" alt="" (click)="changingImageClick()">
+                <img src="http://d33wubrfki0l68.cloudfront.net/191393ff3b0564270e49e5a1548ca1384ba44571/2bd8e/img/svg/ico_edit_white.svg"/>
+              </a>
+              <!--
+              <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                  <img src="img/svg/ico_edit_white.svg" alt="">
+              </a>
+              <ul class="dropdown-menu prof_change_drop">
+                  <li>
+                    <button type="button" (click)="changingImageClick()">change</button>
+                    <a href="#">Upload Profile image</a>
+                  </li>
+              </ul>
+            -->
+            </span>
+          </div>
             <!-- profile img block end -->
 
             <!--

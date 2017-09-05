@@ -71,7 +71,6 @@ export class ProfilePostComponent implements OnInit {
         'parent': this.mediaDetails['media_detail'].id
       }
       this.mediaStore.dispatch({ type: MediaActions.POST_COMMENT, payload: body});
-      console.log(body)
     }
   }
 

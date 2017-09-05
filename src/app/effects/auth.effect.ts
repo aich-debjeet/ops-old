@@ -203,20 +203,18 @@ export class AuthEffect {
   fpCreatePassSuccess$ = this.actions$
     .ofType(AuthActions.FP_CREATE_PASS_SUCCESS)
     .map((response) => {
-      // console.log('FP_CREATE_PASS_SUCCESS');
-      // console.log(response);
       if (response.payload.SUCCESS !== null || response.payload.SUCCESS !== undefined) {
         this.router.navigateByUrl('/login');
       }
     });
 
-  @Effect()
-  fpCreatePassFailed$ = this.actions$
-    .ofType(AuthActions.FP_CREATE_PASS_FAILED)
-    .map((response) => {
-      // console.log('crps response ERROR');
-      // console.log(response);
-    });
+  // @Effect()
+  // fpCreatePassFailed$ = this.actions$
+  //   .ofType(AuthActions.FP_CREATE_PASS_FAILED)
+  //   .map((response) => {
+  //     // console.log('crps response ERROR');
+  //     // console.log(response);
+  //   });
 
   @Effect()
   userSubmitSkills$ = this.actions$

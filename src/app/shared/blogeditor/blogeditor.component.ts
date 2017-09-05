@@ -7,7 +7,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 })
 
 export class BlogeditorComponent {
-
+  chosenChannel: any = 0;
   constructor() { }
 
   getConfig() {
@@ -20,4 +20,10 @@ export class BlogeditorComponent {
     return config;
   }
 
+  /**
+   * on Channel Selection
+   */
+  onChannelSelection(channel: any) {
+    this.chosenChannel = channel;
+  }
 }

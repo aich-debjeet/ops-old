@@ -13,13 +13,6 @@ import { HomeActions } from '../actions/home.action';
 @Injectable()
 export class HomeEffect {
 
-  constructor(
-    private actions$: Actions,
-    private apiService: ApiService
-  ) {
-    console.log('home effects');
-  }
-
   @Effect()
   loadChannels$ = this.actions$
     .ofType(HomeActions.LOAD_CHANNELS)
@@ -29,4 +22,8 @@ export class HomeEffect {
       .catch((res) => Observable.of({ type: HomeActions.LOAD_CHANNELS_FAILED, payload: res }))
     );
 
+    constructor(
+    private actions$: Actions,
+    private apiService: ApiService
+  ) {}
 }

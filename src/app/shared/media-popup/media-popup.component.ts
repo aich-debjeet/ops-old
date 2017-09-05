@@ -19,6 +19,7 @@ export class MediaPopupComponent implements OnInit {
     console.log('popup media');
     console.log(this.data)
   }
+
   keyDownFunction() {
     if (this.message !== null || this.message !== ' ') {
       this.onComment.emit(this.message);

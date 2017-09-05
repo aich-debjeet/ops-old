@@ -70,6 +70,7 @@ export class ProfileSliderComponent implements OnInit {
 
   changingImageClick() {
     this.changingImage = true;
+    this.modalService.open('ChangeProfile');
   }
   saveImageClick() {
     if (this.data && this.data.image) {

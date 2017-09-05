@@ -36,7 +36,6 @@ export class ProfileChannelComponent {
 
     const handle = localStorage.getItem('currentUserID');
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
-
   }
 
   toggleFollowBtn(i) {
