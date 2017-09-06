@@ -209,6 +209,38 @@ vg-scrub-bar {
   }
 }
 
+/** Tiny Theme - Modal **/
+.btn-primary{
+  color: #fff;
+  background-color: #ff7b84;
+  border-color: #ff7b84;
+}
+
+.modal__tiny {
+  .body {
+    background-color: #fff;
+    color: #000;
+    border-radius: 4px;
+  }
+}
+
+.modal__media .ng-modal {
+  padding-top: 0 !important;
+}
+
+.ng-modal.tiny {
+  width: 30% !important;
+  margin-left: auto;
+  margin-right: auto;
+  right: 0;
+  left: 0;
+}
+
+.ng2-imgcrop canvas {
+  margin-top: 1rem;
+  width: 100%;
+}
+
 .media-selector{
   background-color: #fff;
   padding: 0.5rem 1rem;

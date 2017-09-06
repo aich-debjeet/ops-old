@@ -32,16 +32,10 @@ export class LoginComponent implements OnInit {
     })
 
     this.tagState$ = store.select('loginTags');
-    // this.tagState$.subscribe(v => console.log(v));
 
     this.tagState$.subscribe((state) => {
-    this.petTag = state;
-
-        console.log(state);
-        // this.done = !!(this.petTag.shape && this.petTag.text);
-      });
-
-
+      this.petTag = state;
+    });
   }
 
   ngOnInit() {

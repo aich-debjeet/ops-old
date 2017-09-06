@@ -12,14 +12,6 @@ import { SharedActions } from '../actions/shared.action';
 
 @Injectable()
 export class SharedEffect {
-
-  constructor(
-    private actions$: Actions,
-    private apiService: ApiService
-  ) {
-    console.log('shared effects');
-  }
-
   @Effect()
   pinChannel$ = this.actions$
     .ofType(SharedActions.PIN_CHANNEL)
@@ -38,4 +30,8 @@ export class SharedEffect {
       .catch((res) => Observable.of({ type: SharedActions.UNPIN_CHANNEL_FAILED, payload: res }))
     );
 
+    constructor(
+    private actions$: Actions,
+    private apiService: ApiService
+  ) {}
 }

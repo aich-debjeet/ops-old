@@ -39,13 +39,11 @@ export class MediaComponent implements OnInit, AfterViewInit {
   uploadFieldName = 'photos';
   files: any[];
   showChannelList: boolean;
-
-  // temp
   token: string;
   handle: string;
-
   textVar: string;
   placeholderVar: string;
+  page_message: string;
 
   constructor(
     private fb: FormBuilder,

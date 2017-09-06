@@ -6,6 +6,7 @@ import { ProfileModal, initialTag } from '../../models/profile.model';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-navigation',
@@ -23,7 +24,7 @@ export class NavigationComponent implements OnInit {
     message: { open: false },
     profile: { open: false }
   };
-
+  baseUrl: string;
   showMenu: boolean;
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
@@ -32,6 +33,7 @@ export class NavigationComponent implements OnInit {
     private profileStore: Store<ProfileModal>,
     public modalService: ModalService,
   ) {
+    this.baseUrl = environment.API_IMAGE;
     this.tagState$ = this.profileStore.select('profileTags');
     // this.test = 'salabeel';
     this.tagState$.subscribe((state) => {

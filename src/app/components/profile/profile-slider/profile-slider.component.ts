@@ -8,6 +8,8 @@ import { ModalService } from '../../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
+import { TokenService } from '../../../helpers/token.service';
+
 // action
 import { ProfileActions } from '../../../actions/profile.action';
 import { SharedActions } from '../../../actions/shared.action';
@@ -33,13 +35,12 @@ export class ProfileSliderComponent implements OnInit {
   public profileForm: FormGroup;
   baseUrl: string;
 
-  userProfileHandle = 'J_47578AB2_AB1F_4B56_BB23_A0BFB26EFCE2DEEPASHREE_AEIONE_GMAIL_COM';
-
   constructor(
     private http: Http,
     public modalService: ModalService,
     private fb: FormBuilder,
     public datepipe: DatePipe,
+    public tokenService: TokenService,
     private profileStore: Store<ProfileModal>
   ) {
 
@@ -72,18 +73,23 @@ export class ProfileSliderComponent implements OnInit {
     this.changingImage = true;
     this.modalService.open('ChangeProfile');
   }
+  /**
+   * Attach image url to Profile
+   */
   saveImageClick() {
     if (this.data && this.data.image) {
       const data = {
-        profileHandle: this.userProfileHandle,
+        profileHandle: this.tokenService.getHandle(),
         image: this.data.image.split((/,(.+)/)[1])
       }
-      // console.log(data);
-      // return;
-       this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: data });
-        this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-      }
-    this.changingImage = false;
+      this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: data });
+      this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+      this.changingImage = false;
+    }
+  }
+
+  isClosed(event) {
+    this.changingImage = event;
   }
 
   ngOnInit() {

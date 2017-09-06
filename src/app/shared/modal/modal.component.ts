@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
 import { ModalService } from './modal.component.service';
 
 @Component({
@@ -21,6 +21,7 @@ export class ModalComponent implements OnInit {
   @Input() modalTitle: string;
   @Input() blocking = false;
   @Input() size: string;
+  @Output() onClose: EventEmitter<any> = new EventEmitter();
   isOpen = false;
 
   constructor(private modalService: ModalService) {
@@ -37,11 +38,13 @@ export class ModalComponent implements OnInit {
 
   close(checkBlocking = false): void {
     this.modalService.close(this.modalId, checkBlocking);
+    this.onClose.emit(false);
   }
 
   private keyup(event: KeyboardEvent): void {
     if (event.keyCode === 27) {
       this.modalService.close(this.modalId, true);
+      this.onClose.emit(false);
     }
   }
 }

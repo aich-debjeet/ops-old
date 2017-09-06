@@ -88,57 +88,42 @@ export class ProfileService {
     return new Blob([ia], {type: mimeString});
 }
   /**
-   *  Load image to database
+   *  Update profile Image to CDN
    */
   uploadProfileImage(value) {
-     console.log('uploadProfileImage');
-     console.log(value.profileHandle);
-     // console.log(value.image[0]);
-     const data = value.image[0];
-     const imageType = (data.substring("data:image/".length, data.indexOf(";base64")));
-    // console.log(imageType);
-    //  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    //  const token = currentUser.access_token; // your token
-    //  const headers = new Headers({ 'Content-Type': 'application/json'});
-    //  headers.append('Authorization', 'Bearer ' + token);
-    // // const headers = this.tokenService.getAuthHeader();
+    const handle = this.tokenService.getHandle();
+    const data = value.image[0];
+    const imageType = (data.substring('data:image/'.length, data.indexOf(';base64')));
+    console.log(imageType);
+    const fileData = new FormData();
 
-     const fileData = new FormData();
-     fileData.append('file', this.dataURItoBlob(value.image[0]), 'profile.' + imageType );
+    /**
+     * @ISSUE
+     * # Problem Statement
+     * When a user uploads an image with an existing file name in the system,
+     * the response from CDN upload endpoint is giving the very previous image as response on success.
+     */
 
-    // fileData.append('file', value.image[0]);
-    // console.log(value.image[0]);
-    return this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/upload?handle=J_47578AB2_AB1F_4B56_BB23_A0BFB26EFCE2DEEPASHREE_AEIONE_GMAIL_COM', fileData /* , { headers: headers } */)
-         .map((data: Response) => data.json());
-        // .map((data: Response) => {
-        //   data = data.json();
-        //   console.log(JSON.stringify(data));
-        //   // const newData = {
-        //   //   'profileImage' : data.
-        //   // };
+    const randm = Math.random().toString(36).slice(2);
 
-      //   return this.http.put('http://devservices.greenroom6.com:9000/api/1.0/portal/profile/updateProfile', JSON.stringify(data), { headers: headers })
-      //   .map((res: Response) => {
-      //     data.json()
-      //   console.log(JSON.stringify(res));
-      // });
-
-        // });
+    const fileName = 'profile_' + randm + '.' + imageType;
+    fileData.append('file', this.dataURItoBlob(data), fileName );
+    return this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/upload?handle=' + handle , fileData /* , { headers: headers } */)
+         .map((resp: Response) => resp.json());
   }
 
-  saveProfileImage(value) {
-    console.log(value);
-    console.log('its comming');
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const token = currentUser.access_token; // your token
-    const headers = new Headers({ 'Content-Type': 'application/json'});
-    headers.append('Authorization', 'Bearer ' + token);
-  // const headers = this.tokenService.getAuthHeader();
-   const val = {
-     'profileImage' : value['SUCCESS'].repoPath
+  /**
+   * Update profile value with CDN path
+   * @param imagePath
+   */
+
+   saveProfileImage(imagePath) {
+    const headers = this.tokenService.getAuthHeader();
+    const profileImage = {
+     'profileImage' : imagePath['SUCCESS'].repoPath
     }
 
-    return this.http.put('http://devservices.greenroom6.com:9000/api/1.0/portal/profile/updateProfile', val , { headers: headers })
+    return this.http.put('http://devservices.greenroom6.com:9000/api/1.0/portal/profile/updateProfile', profileImage , { headers: headers })
        .map((res: Response) => res.json());
   }
   /**
@@ -146,7 +131,6 @@ export class ProfileService {
    */
   userProfileUpdate(body) {
     const headers = this.tokenService.getAuthHeader();
-
     return this.http.put(this.apiLink + '/portal/profile/updateProfile', body, { headers: headers })
       .map((data) => data.json());
   }

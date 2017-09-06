@@ -1,14 +1,17 @@
 import { Component, EventEmitter, Input, Output, OnInit, HostListener } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { DatePipe } from '@angular/common';
+import FilesHelper from '../../helpers/fileUtils';
+
 @Component({
   selector: 'app-media-popup',
   templateUrl: './media-popup.component.html',
   styleUrls: ['./media-popup.component.scss'],
   providers: [DatePipe]
 })
+
 export class MediaPopupComponent implements OnInit {
-  private imageLink: string = environment.API_IMAGE;
+  imageLink: string = environment.API_IMAGE;
   @Input() data;
   @Output() onComment: EventEmitter<any> = new EventEmitter<any>();
   message: string;
@@ -25,6 +28,10 @@ export class MediaPopupComponent implements OnInit {
       this.onComment.emit(this.message);
       this.message = null;
     }
+  }
+
+  checkFileType(fileName: string, fileType: string) {
+    return FilesHelper.fileType(fileName, fileType);
   }
 
 }

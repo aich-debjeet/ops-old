@@ -7,6 +7,17 @@ export class TokenService {
 
   constructor(private router: Router) { }
   /**
+   * Get Handle
+   */
+  getHandle() {
+    const currentUserToken = localStorage.getItem('currentUserID');
+    if (currentUserToken == null) {
+      return false;
+    }else {
+      return currentUserToken;
+    }
+  }
+  /**
    * Get Token from LocalStorage
    */
   getToken() {

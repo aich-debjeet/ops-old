@@ -8,7 +8,8 @@
                     <div class="col-md-8 col-sm-8 media_left with_border_right">
                         <div class="media_img_block">
                             <figure class="avatar_media_img">
-                                <img src="{{ imageLink + data?.repopath}}">
+                                <app-videplayer *ngIf="checkFileType(data?.repopath, 'Video')" src="{{ imageLink + data?.repopath }}"></app-videplayer>
+                                <img *ngIf="checkFileType(data?.repopath, 'Image')" src="{{ imageLink + data?.repopath }}" class="img-responsive">
                             </figure>
                         </div>
                     </div>
@@ -19,12 +20,12 @@
                                     <ul class="list-inline">
                                         <li class="list-inline-item float-left">
                                             <figure class="avatar_media_user">
-                                                <img src="{{ data?.ownerImage }}">
+                                                <img src="{{ imageLink + data?.ownerImage }}">
                                             </figure>
                                         </li>
                                         <li class="list-inline-item float-left">
                                             <div class="media_name">{{ data?.ownerName }}</div>
-                                            <div class="media_sub_head">{{ data?.channelName }} <span class="media_time">{{ data?.createdDate | date: 'hh:mm a dd MMM, yy'}}</span></div>
+                                            <div routerLink="channels/x" class="media_sub_head">{{ data?.channelName }} <span class="media_time">{{ data?.createdDate | date: 'hh:mm a dd MMM, yy'}}</span></div>
                                         </li>
                                         <li class="list-inline-item media_user_icons">
                                             <a ><img src="img/svg/ico_edit.svg"></a>
@@ -36,7 +37,7 @@
                                                         <a href="#" data-toggle="modal" data-target="#reportmodal">Report</a>
                                                     </li>
                                                 </ul>
-                                            
+
                                         </li>
                                     </ul>
                                 </li>

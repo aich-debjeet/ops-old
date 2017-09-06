@@ -6,7 +6,17 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
   switch (type) {
     case MediaActions.STATUS_SAVE:
       return Object.assign({}, state, {
-        success: true
+        status_saved: false
+      });
+    case MediaActions.STATUS_SAVE_SUCCESS:
+      return Object.assign({}, state, {
+        status_saved: true
+      });
+
+    case MediaActions.STATUS_SAVE_FAILED:
+      return Object.assign({}, state, {
+        status_saved: false,
+        status_error: payload
       });
 
     case MediaActions.MEDIA_UPLOAD:

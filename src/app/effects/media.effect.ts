@@ -34,6 +34,10 @@ export class MediaEffect {
     .map(toPayload)
     .switchMap((payload) => this.mediaService.postStatus(payload)
       .map(res => ({ type: MediaActions.STATUS_SAVE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.STATUS_SAVE_FAILED,
+        payload: { errorStatus: res.status }
+      }))
     );
 
   /**

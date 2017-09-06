@@ -45,7 +45,6 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
 
     case AuthActions.LOAD_ARTIST_SUCCESS:
-      console.log(payload);
       return Object.assign({}, state, {
         completed: payload,
         success: true
@@ -87,12 +86,14 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_LOGIN:
       return Object.assign({}, state, {
-        success: true
+        success: true,
+        login_completed: false
       });
 
     case AuthActions.USER_LOGIN_SUCCESS:
       return Object.assign({}, state, {
         completed: payload,
+        login_completed: true,
         success: true
       });
 
@@ -101,6 +102,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       const error = JSON.parse(payload._body);
       return Object.assign({}, state, {
         success: false,
+        login_completed: false,
         error_description: error.error_description
       });
 
@@ -173,8 +175,6 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
 
     case AuthActions.USER_EXISTS_SUCCESS:
-    // console.log('user Exists Done');
-    console.log(payload);
       if (payload.code === 0) {
         return Object.assign({}, state, {
           completed: payload,

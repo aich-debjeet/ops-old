@@ -11,6 +11,6 @@
   </masonry>
 </div>
 
-<app-modal [modalTitle]="''" [blocking]='false' modalId='mediaPopup'>
+<app-modal [modalTitle]="''" [blocking]='false' modalId='mediaPopup' size="media">
   <app-media-popup (onComment)="submitComment($event)" [data]="mediaDetails?.media_detail"></app-media-popup>
 </app-modal>

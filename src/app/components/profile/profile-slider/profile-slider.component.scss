@@ -1011,7 +1011,6 @@
     }
 }
 
-
 .upload_prof_img {
   width: 153px;
   left: 15px;
@@ -1040,4 +1039,12 @@
     cursor: pointer;
     filter: drop-shadow(0 0 3px #222);
   }
+}
+
+.upload_prof_img.u-clear{
+  position: relative;
+  margin-top: 10px;
+  display: inline-block;
+  left: 0;
+  padding-left: 0;
 }

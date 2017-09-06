@@ -3,10 +3,10 @@
 </div>
 <div class="container pro-block">
     <div class="row">
-        <app-modal [modalTitle]="'Change Profile Image'" [blocking]='false' modalId='ChangeProfile' class="media__modal" size="tiny">
+        <app-modal [modalTitle]="'Change Profile Image'" (onClose)="isClosed($event)" [blocking]='false' modalId='ChangeProfile' class="media__modal" size="tiny">
           <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
-          <span class="upload_prof_img">
-            <button class="dropdown-toggle btn btn-basic btn-sm" data-toggle="dropdown" aria-expanded="true" alt="" (click)="saveImageClick()">save </button>
+          <span class="upload_prof_img u-clear">
+            <button class="btn btn-primary" data-toggle="dropdown" aria-expanded="true" alt="" (click)="saveImageClick()">Save Image</button>
           </span>
         </app-modal>
         <div class="col-md-6 col-sm-12 pro__img" *ngIf="changingImage">
