@@ -191,20 +191,9 @@ export class RegistrationBasicComponent implements OnInit {
       return { invalidDOB: true }
     }
 
-    // if (isNaN(age)) {
-    //   return { invalidDOB: true }
-    // }
-    return;
-
-    /*
-
-    // console.log('day: ' + day + 'month: ' + month + 'year: ' + year);
-    // const bd = new Date(month+' '+day+' '+year);
-    const bdStr = month + ' ' + day + ' ' + year;
-    // console.log('bdStr: ' + bdStr);
     const birthDate = new Date(year, month, day);
     const age = this.calculateAge(birthDate);
-    // console.log('age: ' + age);
+    console.log('age: ' + age);
 
     if (age <= 13) {
       return { isUnderAge: true };
@@ -212,7 +201,6 @@ export class RegistrationBasicComponent implements OnInit {
       return { isOverAge: true };
     }
     return null;
-    */
   }
 
   /**
@@ -282,7 +270,7 @@ export class RegistrationBasicComponent implements OnInit {
         ],
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
-      'gender': ['M', Validators.required],
+      'gender': ['', Validators.required],
       'phone' : ['', [
         Validators.required,
         Validators.minLength(4)
@@ -391,6 +379,10 @@ export class RegistrationBasicComponent implements OnInit {
 
   rand() {
     return Math.random();
+  }
+
+  closeTerms() {
+    this.modalService.open('termsAndConditions');
   }
 
   submitForm(value) {

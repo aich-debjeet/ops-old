@@ -94,3 +94,38 @@
 
 
 
+.modal__terms{
+  .close-btn{
+    cursor: pointer;
+    top: 50px;
+    right: 80px;
+    position: fixed;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  color: #000;
+  display: block;
+  overflow-y: scroll;
+  &.closed{
+    display: none;
+  }
+  .ng-modal-overlay{
+    background-color:rgba(243,245,247,.95);
+    z-index: 2000;
+  }
+  .ng-modal.large{
+    background-color: transparent;
+    box-shadow: none;
+    z-index: 2500;
+    top: 0.1rem;
+  }
+  .body {
+    width: 80vw;
+    margin: auto;
+    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+    background: #fff;
+    border-radius: 6px;
+  }
+}

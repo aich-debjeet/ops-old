@@ -1,49 +1,42 @@
-<section class="reg_steps">
-	<div class="container">
-		<!-- registraion middle container -->
-		<div class="row reg_middle_container">
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 reg_left_section">
-				<div class="ops_login">
-					<!-- login -->
-					<form [formGroup]="loginForm" novalidate (submit)="submitForm(loginForm.value)"  #myform="ngForm">
-						<p class="error_alert text-center" *ngIf="petTag?.error_description">{{petTag?.error_description}}</p>
-						<div class="form_group">
-							<input class="form_input" type="text" formControlName="email" required>
-							<span class="form_highlight"></span>
-							<span class="form_bar"></span>
-							<label>Username</label>
-							<p class="error_alert" *ngIf="loginForm.controls['email'].errors?.required && myform.submitted">Username is required</p>
-						</div>
-						<div class="form_group">
-							<input class="form_input" type="password" formControlName="password" required>
-							<span class="form_highlight"></span>
-							<span class="form_bar"></span>
-							<label>Password</label>
-							<p class="error_alert" *ngIf="loginForm.controls['password'].errors?.required && myform.submitted">Password is required</p>
-						</div>
-						<div class="row">
-                <div class="col-md-6 hide">
-                  <div class="form_group ops_radio_sm">
-                    <label>
-                      <label class="gender_single">
-                          <input type="checkbox" name="demo"><span></span>Stay signed in
-                      </label>
-                    </label>
-                  </div>
-                </div>
-                <div class="col-md-6 col-md-offset-6">
-                  <p class="login_forgot"><a routerLink="/account/password_reset">Forget Password?</a></p>
+<section class="container-fluid ops_signup ops_signin">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 ops_signup_left">
+                <img src="/assets/img/login_illustration.png" alt="">
+                <div class="ops_heading text-center">
+                    Don't have an account ? <a routerLink="/reg/information" class="text-theme">Sign up</a>
                 </div>
             </div>
-						<div class="text-center margin_tb_16">
-							<app-button [className]="'btn-primary btn-xm'" [type]="'submit'">LOG IN</app-button>
-						</div>
-					</form>
-				</div>
-			</div>
-			<!--zz-->
-			<auth-right-block [rightCom]="rightCom"></auth-right-block>
-		</div>
-		<!-- //registraion middle container -->
-	</div>
+            <div class="col-md-6 ops_signup_right">
+                <div class="ops_h1">Log in to your account</div>
+                <form [formGroup]="loginForm" novalidate (submit)="submitForm(loginForm.value)"  #myform="ngForm">
+                        <p class="error_alert text-center" *ngIf="petTag?.error_description">{{petTag?.error_description}}</p>
+                        <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="form_group">
+                                <input class="form_input" type="text" formControlName="email" required>
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Username/ Phone Number/ Email</label>
+                                <p class="error_alert" *ngIf="loginForm.controls['email'].errors?.required && myform.submitted">Username is required</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_group margin_tb_16">
+                        <input class="form_input" type="password" formControlName="password" required>
+                        <span class="form_highlight"></span>
+                        <span class="form_bar"></span>
+                        <label>Password</label>
+                        <p class="error_alert" *ngIf="loginForm.controls['password'].errors?.required && myform.submitted">Password is required</p>
+                    </div>
+                    <div class="signup_privacy">
+                        <p class="text-grey">
+                            <a routerLink="/account/password_reset" class="text-theme">Forgot Password ?</a>
+                        </p>
+						<button type="button" [className]="'btn btn-primary btn-sm pull-right margin_t_16'" [type]="'submit'">LOG IN</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </section>

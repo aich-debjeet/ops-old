@@ -178,6 +178,12 @@ vg-scrub-bar {
   bottom: 0 !important;
 }
 
+.otp__modal {
+  .ng-modal.small {
+    padding-top: 0;
+  }
+}
+
 .modal__large{
   .nav-tabs{
     font-size: 14px;

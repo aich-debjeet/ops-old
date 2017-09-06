@@ -3,185 +3,340 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
 
-/* --------------------------- registrtion step 1 ---------------------------- */
-.terms-wrapper {
-  background: #fff;
-  // width: 80vw;
-  // margin: auto;
-  color: #000;
-}
-.container-fluid {
-  .container {
-    padding-bottom: 100px;
-  }
-}
-.ops_radio_sm input[type=radio]+span {
-  margin-right: 0;
-}
-.width100 {
-  width: 100%;
-}
 .text-theme {
-  color: #ff7b84 !important;
+    color: #ff7b84!important;
 }
-.ops_signup {
-  background-color: #ffffff;
-  padding-top: 64px;
-  .ops_signup_left {
-      padding: 0 48px;
-      .ops_heading {
-          margin: 16px 0;
+
+.width100 {
+    width: 100%;
+}
+
+.reg_step1_otp {
+    .modal-lg {
+        width: 850px;
+        @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            width: 90%;
+        }
+    }
+    .modal-dialog {
+        margin: 6% auto;
+    }
+    h5 {
+        color: #333333;
+        line-height: 26px;
+        font-size: 18px;
+        font-weight: 500;
+    }
+    a {
+        color: #ff7b84;
+        font-size: 16px;
+    }
+    form {
+        width: 70%;
+        margin: 0 auto;
+        padding: 10% 0;
+        span {
+            color: $theme_red;
+            font-size: 14px;
+            float: right;
+            margin-top: -22px;
+        }
+    }
+    .modal-title {
+        padding: 5% 0;
+    }
+    .btn {
+        margin-top: 20px;
+    }
+    p {
+        margin-top: 5%;
+    }
+}
+
+.ptop0 {
+    padding-top: 0 !important;
+}
+
+/* --------------------- registrationi -------------------------------- */
+   
+    // step 1 -------------------
+    .ops_signup {
+      background-color: #ffffff;
+      // padding-top: 64px;
+      height: 100vh;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+      .ops_signup_left {
+          padding: 0 48px;
+          .ops_heading {
+              margin: 16px 0;
+          }
+          .signup_already {
+              margin-top: 26%;
+          }
       }
-      .signup_already {
-          margin-top: 26%;
-      }
-  }
-  .ops_signup_right {
-      padding: 0 64px;
-      .ops_h1 {
-          font-weight: 600;
-          margin-bottom: 24px;
-      }
-      .ops_radio_sm {
-          margin-top: 16px;
-      }
-      .signup_gender {
-          width: auto;
-          padding-left: 0px;
-      }
-      .btn-primary {
-          padding: 11px 18px;
-      }
-      .signup_privacy {
-          p {
-              font-size: 12px;
-              display: inline-block;
-              margin-top: 12px;
+      .ops_signup_right {
+          padding: 0 80px;
+          .ops_h1 {
+              font-weight: 600;
+              margin-bottom: 24px;
+          }
+          .ops_radio_sm {
+              margin-top: 16px;
+          }
+          .signup_gender {
+              width: auto;
+              padding-left: 0px;
+          }
+          .btn-primary {
+              padding: 11px 18px;
+          }
+          .signup_privacy {
+              p {
+                  font-size: 12px;
+                  display: inline-block;
+                  margin-top: 12px;
+              }
           }
       }
   }
-}
-/* --------------------------- registrtion step 1 ---------------------------- */
-
-/* --------------------- Registration step 1 otp -------------------------- */
-.reg_step1_otp{
-  .modal-lg{
-    width: 850px;
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        width: 90%;
-    }
+  
+  // step 2 ----------------------
+  .ops_signup2 {
+      background-color: #f1f1f1;
+      // padding-top: 64px;
+      height: 88vh;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      .ops_signup_step2 {
+          .step2_heading {
+              color: #333333;
+              font-size: 18px;
+              font-weight: 600;
+              line-height: 24px;
+              text-align: center;
+              margin: 16px 0;
+          }
+          .step2_txt {
+              color: #979797;
+              font-size: 12px;
+              line-height: 23px;
+              text-align: center;
+              margin: 0 24px 24px
+          }
+          .step2_selection {
+              width: 18%;
+              float: left;
+              margin: 0 10px;
+              background: #f8f8f8;
+              box-shadow: 0 0 4px 0 rgba(102, 45, 145, 0.18);
+              background-color: #FFFFFF;
+              border-radius: 3px;
+          }
+          .step2_main_heading {
+              color: #333333;
+              font-size: 24px;
+              font-weight: 600;
+              line-height: 33px;
+          }
+          .step2_main_heading2 {
+              color: #979797;
+              font-size: 14px;
+              line-height: 19px;
+              text-align: center;
+              margin: 16px 0 32px;
+          }
+          .ops_checkbox_lg {
+              margin: 24px 0;
+              label {
+                  color: #333333;
+                  font-size: 16px;
+                  font-weight: 600;
+                  &:hover {
+                      box-shadow: none;
+                  }
+                  span {
+                      float: left;
+                  }
+                  p {
+                      color: #333333;
+                      font-size: 16px;
+                      font-weight: 600;
+                      display: inline-block;
+                      line-height: 36px;
+                  }
+              }
+          }
+          label {
+              text-align: center;
+              pointer-events: auto;
+              position: static;
+              &:hover {
+                  box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
+                  border-radius: 3px;
+              }
+          }
+          input[type="checkbox"] {
+              display: none;
+          }
+          input[type="checkbox"]:checked + span {
+              color: #ffffff;
+          }
+          input[type="checkbox"] + .reg_profile_types {
+              display: inline-block;
+              position: relative;
+              -webkit-appearance: none;
+          }
+          input[type="checkbox"]:checked + .reg_profile_types:after {
+              border: 2px solid #ff7b84;
+              box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
+              border-radius: 3px;
+              content: " ";
+              left: 0;
+              top: 0;
+              color: #000000;
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              cursor: pointer;
+          }
+      }
   }
-  .modal-dialog{
-    margin: 6% auto;
+  
+  // step 3 add skills ---------------------
+  .skills_section {
+      // padding-top: 60px;
+      height: 88vh;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      .add-your-skills {
+          font-size: 24px;
+          font-weight: 600;
+          color: #333;
+          text-align: center;
+          margin-bottom: 40px;
+      }
+      .add_skill_block {
+          list-style: none;
+          li {
+              list-style-type: none;
+              float: left;
+              a {
+                  display: block;
+                  .skill_list_container {
+                      width: 170px;
+                      height: 90px;
+                      margin: 8px;
+                      background: #979797;
+                      float: left;
+                      border-radius: 3px;
+                      position: relative;
+                      .skills_list_bg_img {
+                          position: absolute;
+                          top: 0px;
+                          left: 0px;
+                          width: 100%;
+                          height: 90px;
+                          overflow: hidden;
+                          border-radius: 3px;
+                          img {
+                              width: 100%;
+                          }
+                      }
+                      .skills_name {
+                          position: absolute;
+                          width: 100%;
+                          height: 90px;
+                          top: 0px;
+                          left: 0px;
+                          text-align: center;
+                          display: flex;
+                          justify-content: center;
+                          flex-direction: column;
+                          background-color: rgba(0, 0, 0, 0.6);
+                          border-radius: 3px;
+                          p {
+                              font-size: 14px;
+                              font-weight: 700;
+                              color: $white;
+                          }
+                      }
+                  }
+              }
+          }
+      }
+      a.selected .skills_name {
+          background-color: rgba(255, 123, 132, 0.83)!important;
+      }
+      .o-search-block {
+          padding-left: 32px;
+          .search_container {
+              width: 100%;
+              .form_input {
+                  background: none;
+              }
+              label {
+                  color: #979797;
+                  font-size: 14px;
+              }
+              .search_top_icon img {
+                  width: 16px;
+                  float: right;
+                  margin-top: -25px;
+              }
+              // .form_input:focus,
+              // .search_top_close_icon {
+              //     display: block!important;
+              //     outline: none;
+              // }
+              // .search_top_close_icon {
+              //     display: none;
+              //     img {
+              //         width: 16px;
+              //         float: right;
+              //         margin-top: -25px;
+              //     }
+              // }
+          }
+          .selected_skill {
+              margin: 16px 0px;
+              .btn-tag-close {
+                  padding: 8px 16px;
+                  font-weight: 500;
+                  font-size: 14px;
+                  border-radius: 3px;
+                  margin-right: 8px;
+                  &:hover {
+                      background: #FF7B84 !important;
+                      border-color: #FF7B84 !important;
+                      .btn-label-skill {
+                          background: none;
+                      }
+                  }
+                  .btn-label-tag {
+                      img {
+                          width: 11px;
+                          margin-top: 0px;
+                          vertical-align: middle;
+                          margin-left: 6px;
+                      }
+                  }
+              }
+          }
+          .selected_tags {
+              .btn-reg_tag {
+                  color: #333333;
+                  font-size: 14px;
+                  font-weight: 500;
+                  margin-bottom: 8px;
+                  margin-right: 8px;
+              }
+          }
+      }
   }
-  h5{
-    color: #333333;
-    line-height: 26px;
-    font-size: 18px;
-    font-weight: 500;
-  }
-  a{
-    color: #ff7b84;
-    font-size: 16px;
-  }
-  form {
-    width: 70%;
-    margin: 0 auto;
-    padding: 10% 0;
-    span{
-      color: $theme_red;
-      font-size: 14px;
-      float: right;
-      margin-top: -22px;
-    }
-  }
-  .modal-title{
-    padding: 5% 0;
-  }
-  .btn {
-    margin-top: 20px;
-  }
-  p{
-    margin-top: 5%;
-  }
-}
-/* ------------------ Registration step 1 thankyou -------------------------- */
-.reg_thankyou{
-  .modal-lg{
-    width: 850px;
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        width: 90%;
-    }
-  }
-  .modal-dialog{
-    margin: 6% auto;
-  }
-  .modal-title{
-    padding: 5% 0;
-  }
-  h3{
-    font-weight: 800;
-    font-size: 36px;
-    color: #333333;
-    clear: both;
-    margin-top: 7%;
-  }
-  p{
-    color: #333;
-    margin: 5%;
-    font-size: 18px;
-    font-weight: 700;
-  }
-  .btn{
-    margin: 4% 0 18%;
-  }
-}
-
-.modal{
-  img{
-    width: 138px;
-  }
-}
-
-img#preview {
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
-
-.opacity0 {
-  opacity: 0;
-}
-
-.hide-element {
-  display: none !important;
-}
-
-.privacy-policy {
-    font-size: 10px;
-    padding-bottom: 16px;
-    text-align: center;
-}
-
-.text-grey {
-    color: #979797!important;
-}
-
-span.suggestions {
-  cursor: pointer;
-}
-
-.phone__selector{
-  &:after{
-    content: '';
-    display: table;
-    clear: both;
-  }
-}
-
-.reg_left_section {
-  overflow-y: auto;
-}
 
 .password-toggle {
   background: none;
@@ -203,4 +358,53 @@ span.suggestions {
 .pwd-cls {
   margin-top: 20px;
   clear: both;
+}
+
+.ops_radio_sm input[type=radio]+span {
+  border: 2px solid #c1c1c1;
+  border-radius: 50px;
+  display: inline-block;
+  float: left;
+  margin-right: 7px;
+  position: relative;
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  margin-top: 3px;
+}
+
+.ops_radio_sm input[type=radio]:checked+span:after {
+  background: #ff7b84;
+  position: absolute;
+  border-radius: 50px;
+  left: -2px;
+  top: -2px;
+  width: 15px;
+  height: 15px;
+  font-family: FontAwesome;
+  content: "\f10c";
+  color: #fff;
+  font-size: 12px;
+}
+.ops_radio_sm label {
+  position: static;
+  text-align: center;
+  pointer-events: auto;
+}
+
+.ops_radio_sm input[type=radio] {
+  display: none;
+}
+
+.gender-wrapper {
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 20px;
+  // label {
+  //   float: left;
+  // }
+}
+
+.mtop0 {
+  margin-top: 0 !important;
 }
