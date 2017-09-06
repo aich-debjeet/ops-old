@@ -5,7 +5,7 @@
     </div>
   </div>
   <masonry>
-    <masonry-brick class="col-md-4 col-sm-6" *ngFor="let userMedia of userMedia.mediaEntity?.SUCCESS; let i = index">
+    <masonry-brick class="col-md-4 col-sm-6 c-card" *ngFor="let userMedia of userMedia.mediaEntity?.SUCCESS; let i = index">
         <app-post-card (onClick)="editPopup(userMedia.id)" [mediaData]="userMedia"></app-post-card>
     </masonry-brick>
   </masonry>
