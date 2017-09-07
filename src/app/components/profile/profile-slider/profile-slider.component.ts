@@ -62,7 +62,6 @@ export class ProfileSliderComponent implements OnInit {
     // this.test = 'salabeel';
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      console.log(state);
     });
 
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
@@ -76,6 +75,28 @@ export class ProfileSliderComponent implements OnInit {
     this.changingImage = true;
     this.modalService.open('ChangeProfile');
   }
+
+  /**
+   * Present Profile Cover Image
+   */
+  profileImageStyle(user: any) {
+    console.log(user);
+    const img = user.profileUser.coverImageList;
+    let coverImageURL;
+    if (img == null || img === '') {
+      coverImageURL = 'https://dl.dropboxusercontent.com/content_link/2X7ZfUULj6yEB3Lae345IgX23QuaapF23uf0ayijh5SlHrHVBKYrKZXQfPemdFCh/file';
+    } else {
+      coverImageURL = this.baseUrl + img;
+    }
+    const resp = {
+      'background-image': 'url(' + coverImageURL + ')',
+      'background-size': 'cover'
+    }
+
+    console.log(resp);
+    return resp;
+  }
+
   /**
    * Attach image url to Profile
    */

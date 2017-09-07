@@ -1,4 +1,4 @@
-<div class="prohead2" [ngStyle]="{'background-image':'url(' + baseUrl + userProfile.profileUser.coverImageList + ')', 'background-size': 'cover'}">
+<div class="prohead2" [ngStyle]="profileImageStyle(userProfile)">
   <div class="container u-rel">
       <app-modal [modalTitle]="'Change Profile Image'" (onClose)="isClosed($event)" [blocking]='false' modalId='ChangeCover' class="media__modal" size="tiny">
           <input #profileImage type="file" name="profile_image"/>
