@@ -133,7 +133,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_USER_MEDIA:
       return Object.assign({}, state, {
         user_posts_loading: true,
-        user_posts_loaded: false
+        user_posts_loaded: false,
+        user_posts: []
       });
 
     case ProfileActions.LOAD_USER_MEDIA_SUCCESS:

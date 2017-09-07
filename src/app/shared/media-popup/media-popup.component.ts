@@ -22,12 +22,14 @@ export class MediaPopupComponent {
   imageLink: string = environment.API_IMAGE;
   @Input() data;
   @Input() comment;
+  @Input() profileImage;
   @Output() onComment: EventEmitter<any> = new EventEmitter<any>();
   message: string;
   spot: boolean;
   private mediaStateSubscription: Subscription;
   mediaState$: Observable<Media>;
   mediaStore = initialMedia;
+  private isDisplay = true;
   constructor(
     private store: Store<Media>
   ) {
@@ -63,4 +65,17 @@ export class MediaPopupComponent {
     return FilesHelper.fileType(fileName, fileType);
   }
 
+  beginEdit(el: HTMLElement): void {
+    this.isDisplay = false;
+
+    setTimeout(() => {
+        el.focus();
+    }, 100);
+  }
+
+  editDone(newText: string): void {
+      this.isDisplay = true;
+      // this.text = newText;
+      // this.edit.emit(this.text);
+  }
 }

@@ -55,6 +55,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
     console.log(payload);
       return Object.assign({}, state, {
         media_detail_loading: true,
+        media_detail: []
       });
 
     case MediaActions.MEDIA_DETAILS_SUCCESS:
@@ -68,6 +69,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       return Object.assign({}, state, {
         media_detail_loading: false,
         media_detail_failed: true,
+        media_detail: []
       });
 
     // Fetch Media comment
@@ -76,6 +78,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       return Object.assign({}, state, {
         media_comment_loading: true,
         media_post_success: false,
+        media_comment: []
       });
 
     case MediaActions.MEDIA_COMMENT_FETCH_SUCCESS:
@@ -91,6 +94,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       return Object.assign({}, state, {
         media_comment_loading: false,
         media_comment_failed: true,
+        media_comment: []
       });
 
     // Media comment success

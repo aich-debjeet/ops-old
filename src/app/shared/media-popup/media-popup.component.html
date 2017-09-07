@@ -77,7 +77,7 @@
                                     <ul class="list-inline">
                                         <li class="list-inline-item float_left">
                                             <figure class="avatar_media_user2">
-                                                <img src="img/avatar.jpg">
+                                                <img src="{{ imageLink + profileImage?.profileImage }}">
                                             </figure>
                                         </li>
                                         <li class="list-inline-item msg_to_input">
@@ -93,7 +93,7 @@
                             </ul>
                         </div>
                         <div class="media_comments_section" id="ops_scrollbar">
-                        <div class="media_img_comments with_border_bottom" *ngFor="let comment of comment">
+                        <div class="media_img_comments with_border_bottom" *ngFor="let comment of comment; let i = index;">
                             <ul class="list-inline">
                                 <li class="list-inline-item float_left">
                                 <figure class="avatar_media_user2">
@@ -105,12 +105,18 @@
                                 </li>
                                 <li class="list-inline-item pull-right padding_0">
                                     <div class="comm_post_time">{{ comment.createdDate | date: 'hh:mm a' }}<span>
-                                        <a href=""><img src="img/svg/ico_options.svg"></a></span>
+                                        <a (click)="beginEdit(editText)"><img src="/assets/img/svg/ico_options.svg"></a></span>
                                     </div>
                                 </li>
                             </ul>
                             <ul class="list-inline media_comments_block">
                                 <li class="list-inline-item">{{ comment.comment }}</li>
+                                <span [hidden]="isDisplay">
+                                    <input #editText type="text"
+                                        [value]="text" (keyup.enter)="editDone(editText.value)">
+                                    <i class="icon icon-floppy color-primary" title="Save"
+                                        (click)="editDone(editText.value)"></i>
+                                </span>
                             </ul>
                         </div>
                         </div>
