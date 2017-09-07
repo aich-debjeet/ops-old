@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Media, initialMedia  } from '../../../models/media.model';
-import { OrderPipe } from '../../../pipes/order.pipe'
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
