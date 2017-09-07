@@ -17,9 +17,8 @@ export class MediaPopupComponent implements OnInit {
   @Input() profileImage;
   @Output() onComment: EventEmitter<any> = new EventEmitter<any>();
   message: string;
+  private isDisplay = true;
 
-order = 'createdDate';
-ascending = true;
   constructor() { }
 
   ngOnInit() {
@@ -37,5 +36,19 @@ ascending = true;
   checkFileType(fileName: string, fileType: string) {
     return FilesHelper.fileType(fileName, fileType);
   }
+
+  beginEdit(el: HTMLElement): void {
+        this.isDisplay = false;
+
+        setTimeout(() => {
+            el.focus();
+        }, 100);
+    }
+
+    editDone(newText: string): void {
+        this.isDisplay = true;
+        // this.text = newText;
+        // this.edit.emit(this.text);
+    }
 
 }
