@@ -60,6 +60,15 @@ export class MediaService {
   }
 
   /**
+   * Media comment fetch
+   */
+  fetchMediaComment(id) {
+    const headers = this.tokenService.getAuthHeader();
+    return this.http.get(this.apiLink + '/portal/cdn/comment/' + id, { headers: headers })
+      .map((data: Response) => data.json());
+  }
+
+  /**
    * Post Comment
    * @param req
    */

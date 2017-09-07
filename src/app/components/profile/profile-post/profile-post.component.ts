@@ -43,7 +43,6 @@ export class ProfilePostComponent implements OnInit {
     });
 
     this.mediaState$.subscribe((state) => {
-      console.log(state);
       this.mediaDetails = state;
     });
 
@@ -57,6 +56,7 @@ export class ProfilePostComponent implements OnInit {
 
   editPopup(id) {
     this.mediaStore.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id});
+    this.mediaStore.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
     this.modalService.open('mediaPopup');
   }
 
@@ -71,6 +71,14 @@ export class ProfilePostComponent implements OnInit {
         'parent': this.mediaDetails['media_detail'].id
       }
       this.mediaStore.dispatch({ type: MediaActions.POST_COMMENT, payload: body});
+      // this.mediaState$.subscribe(
+      //   data => {
+      //     console.log(data.media_post_success);
+      //     if (data. media_post_success === true) {
+      //       this.mediaStore.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: this.mediaDetails['media_detail'].id });
+      //     }
+      //   }
+      // )
     }
   }
 

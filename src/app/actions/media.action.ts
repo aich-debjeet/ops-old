@@ -27,6 +27,11 @@ export class MediaActions {
   static POST_COMMENT_SUCCESS = 'POST_COMMENT_SUCCESS';
   static POST_COMMENT_FAILED = 'POST_COMMENT_FAILED';
 
+  // Comment Fetch
+  static MEDIA_COMMENT_FETCH = 'MEDIA_COMMENT_FETCH';
+  static MEDIA_COMMENT_FETCH_SUCCESS = 'MEDIA_COMMENT_FETCH_SUCCESS';
+  static MEDIA_COMMENT_FETCH_FAILED = 'MEDIA_COMMENT_FETCH_FAILED';
+
 
   /**
    * Upload status
@@ -82,4 +87,37 @@ export class MediaActions {
     };
   }
 
+  // ===================================
+  //  Fetch media comment
+  // -----------------------------------
+  // mediaCommentFetchAction(value): Action {
+  //   return {
+  //     type: MediaActions.MEDIA_COMMENT_FETCH,
+  //     payload: {
+  //       value
+  //     }
+  //   };
+  // }
+
+  // mediaCommentFetchSuccessAction(value): Action {
+  //   return {
+  //     type: MediaActions.MEDIA_COMMENT_FETCH,
+  //     payload: {
+  //       value
+  //     }
+  //   };
+  // }
+
+}
+
+export class MediaCommentFetchAction implements Action {
+  type = MediaActions.MEDIA_COMMENT_FETCH;
+
+  constructor(public payload: string) { };
+}
+
+export class MediaCommentFetchSuccessAction implements Action {
+   type = MediaActions.MEDIA_COMMENT_FETCH_SUCCESS;
+
+  constructor(public payload: Comment[]) { };
 }
