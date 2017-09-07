@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -140,6 +141,7 @@ import { ChannelInnerComponent } from './components/channel-inner/channel-inner.
     EffectsModule.run(UserSearchEffect),
     EffectsModule.run(MediaEffect),
     // Video
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,

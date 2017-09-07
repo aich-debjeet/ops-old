@@ -93,18 +93,18 @@
                             </ul>
                         </div>
                         <div class="media_comments_section" id="ops_scrollbar">
-                        <div class="media_img_comments with_border_bottom" *ngFor="let comment of data?.mediaComments">
+                        <div class="media_img_comments with_border_bottom" *ngFor="let comment of comment">
                             <ul class="list-inline">
                                 <li class="list-inline-item float_left">
                                 <figure class="avatar_media_user2">
-                                    <img src="{{ comment.ownerImage }}">
+                                    <img src="{{ imageLink + comment.ownerImage }}">
                                 </figure>
                                 </li>
                                 <li class="list-inline-item">
                                     <div class="head_name">{{ comment.ownerName }}</div>
                                 </li>
                                 <li class="list-inline-item pull-right padding_0">
-                                    <div class="comm_post_time">10:09 PM <span>
+                                    <div class="comm_post_time">{{ comment.createdDate | date: 'hh:mm a' }}<span>
                                         <a href=""><img src="img/svg/ico_options.svg"></a></span>
                                     </div>
                                 </li>

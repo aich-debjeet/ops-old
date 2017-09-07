@@ -70,6 +70,38 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         media_detail_failed: true,
       });
 
+    // Fetch Media comment
+    case MediaActions.MEDIA_COMMENT_FETCH:
+    console.log(state);
+      return Object.assign({}, state, {
+        media_comment_loading: true,
+        media_post_success: false,
+      });
+
+    case MediaActions.MEDIA_COMMENT_FETCH_SUCCESS:
+      console.log('comment loading');
+      console.log(payload);
+      return Object.assign({}, state, {
+        media_comment_loading: false,
+        media_post_success: false,
+        media_comment: payload
+      });
+
+    case MediaActions.MEDIA_COMMENT_FETCH_FAILED:
+      return Object.assign({}, state, {
+        media_comment_loading: false,
+        media_comment_failed: true,
+      });
+
+    // Media comment success
+    case MediaActions.POST_COMMENT_SUCCESS:
+      console.log('comment loading');
+      return Object.assign({}, state, {
+        media_post_success: true
+      });
+
+
+
     default:
       return state;
   }

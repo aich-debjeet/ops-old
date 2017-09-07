@@ -13,6 +13,7 @@ import FilesHelper from '../../helpers/fileUtils';
 export class MediaPopupComponent implements OnInit {
   imageLink: string = environment.API_IMAGE;
   @Input() data;
+  @Input() comment;
   @Output() onComment: EventEmitter<any> = new EventEmitter<any>();
   message: string;
 
