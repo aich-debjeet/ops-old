@@ -77,4 +77,22 @@ export class MediaService {
     return this.http.post(`${this.apiLink}/portal/cdn/comment/` + body.parent, body, { headers: headers } )
       .map((data) => data.json());
   }
+
+  /**
+   * Spot a Media
+   */
+  spotMedia(mediaId: string) {
+    const headers = this.tokenService.getAuthHeader();
+    return this.http.get(`${this.apiLink}/portal/cdn/media/spot/` + mediaId, { headers: headers } )
+      .map((data) => data.json());
+  }
+
+  /**
+   * Reverse Spot a Media
+   */
+  unSpotMedia(mediaId: string) {
+    const headers = this.tokenService.getAuthHeader();
+    return this.http.get(`${this.apiLink}/portal/cdn/media/unSpot/` + mediaId, { headers: headers } )
+      .map((data) => data.json());
+  }
 }

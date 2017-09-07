@@ -3,6 +3,14 @@ import { environment } from './../../../environments/environment';
 import { DatePipe } from '@angular/common';
 import FilesHelper from '../../helpers/fileUtils';
 
+// Action
+import { MediaActions } from '../../actions/media.action';
+import { initialMedia, Media } from '../../models/media.model';
+// rx
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
+
 @Component({
   selector: 'app-media-popup',
   templateUrl: './media-popup.component.html',
@@ -10,24 +18,44 @@ import FilesHelper from '../../helpers/fileUtils';
   providers: [DatePipe]
 })
 
-export class MediaPopupComponent implements OnInit {
+export class MediaPopupComponent {
   imageLink: string = environment.API_IMAGE;
   @Input() data;
   @Input() comment;
   @Output() onComment: EventEmitter<any> = new EventEmitter<any>();
   message: string;
-
-  constructor() { }
-
-  ngOnInit() {
-    console.log('popup media');
-    console.log(this.data)
+  spot: boolean;
+  private mediaStateSubscription: Subscription;
+  mediaState$: Observable<Media>;
+  mediaStore = initialMedia;
+  constructor(
+    private store: Store<Media>
+  ) {
+    this.mediaState$ = store.select('mediaStore');
+    this.mediaState$.subscribe((state) => {
+      this.mediaStore = state;
+      this.spot = false;
+    });
   }
 
   keyDownFunction() {
     if (this.message !== null || this.message !== ' ') {
       this.onComment.emit(this.message);
       this.message = null;
+    }
+  }
+
+  /**
+   * Spot a Media
+   * @param mediaId
+   */
+  spotMedia(mediaId: string) {
+    this.spot = !this.spot;
+
+    if (this.spot === true) {
+      this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: mediaId });
+    }else {
+      this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: mediaId });
     }
   }
 

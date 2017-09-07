@@ -112,6 +112,36 @@ export class MediaEffect {
       return ({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: comment_id })
     })
 
+  /**
+   * Spot a Media
+   */
+  @Effect()
+    spotMedia$ = this.actions$
+      .ofType(MediaActions.MEDIA_SPOT)
+      .map(toPayload)
+      .switchMap((payload) => this.mediaService.spotMedia(payload)
+        .map(res => ({ type: MediaActions.MEDIA_SPOT_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({
+          type: MediaActions.MEDIA_SPOT_FAILED,
+          payload: { errorStatus: res.status }
+        }))
+      );
+
+  /**
+   * Un Spot a Media
+   */
+  @Effect()
+  upSpotMedia$ = this.actions$
+    .ofType(MediaActions.MEDIA_UNSPOT)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.unSpotMedia(payload)
+      .map(res => ({ type: MediaActions.MEDIA_SPOT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.MEDIA_SPOT_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
   constructor(
       private actions$: Actions,
       private store$: Store<Media>,

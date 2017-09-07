@@ -32,6 +32,13 @@ export class MediaActions {
   static MEDIA_COMMENT_FETCH_SUCCESS = 'MEDIA_COMMENT_FETCH_SUCCESS';
   static MEDIA_COMMENT_FETCH_FAILED = 'MEDIA_COMMENT_FETCH_FAILED';
 
+  // Spot
+  static MEDIA_SPOT = 'MEDIA_SPOT';
+  static MEDIA_SPOT_SUCCESS = 'MEDIA_SPOT_SUCCESS';
+  static MEDIA_SPOT_FAILED = 'MEDIA_SPOT_FAILED';
+
+  // Unspot
+  static MEDIA_UNSPOT = 'MEDIA_SPOT';
 
   /**
    * Upload status
@@ -107,6 +114,20 @@ export class MediaActions {
   //     }
   //   };
   // }
+
+  /**
+   * Spot a media
+   * @param media Media ID
+   * @param channelId  Spotfeed ID
+   */
+  spotMedia(media: string): Action {
+    return {
+      type: MediaActions.MEDIA_SPOT,
+      payload: {
+        media
+      }
+    };
+  }
 
 }
 

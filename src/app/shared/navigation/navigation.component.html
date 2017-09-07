@@ -23,19 +23,19 @@
                 <li><a routerLink="/communities" routerLinkActive="active">Commmunities</a></li>
              </ul>
              <ul class="nav navbar-nav navbar-right nav_right">
-                <li>
-                   <a href="javascript:void(0)" (click)="toggleNav('channel')">
-                     <img src="/assets/img/svg/ico_add.svg">
-                   </a>
-                   <ul class="dropdown-menu create_drop" [ngClass]="{'open': this.topNav['channel'].open }">
-                     <li><a (click)="createChannel()" >Create Channel</a></li>
-                     <li role="separator" class="divider"></li>
-                     <li><a href="javascript:void(0)" (click)="createCommunity()" >Create Community</a></li>
-                   </ul>
-                 </li>
                 <li><a (click)="addMedia()"><img src="/assets/img/svg/ico_create-post.svg"></a></li>
-                <li><a href="javascript:void(0)" (click)="toggleNav('search')"><img src="/assets/img/svg/ico_search.svg"></a></li>
-                <li><a href="javascript:void(0)" (click)="toggleNav('notification')"><img src="/assets/img/svg/ico_notification.svg"></a></li>
+                <li>
+                  <a href="javascript:void(0)" (click)="toggleNav('channel')">
+                    <img src="/assets/img/svg/ico_add.svg">
+                  </a>
+                  <ul class="dropdown-menu create_drop" [ngClass]="{'open': this.topNav['channel'].open }">
+                    <li><a (click)="createChannel()" >Create Channel</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="javascript:void(0)" (click)="createCommunity()" >Create Community</a></li>
+                  </ul>
+                </li>
+                <li><a (click)="toggleNav('search')"><img src="/assets/img/svg/ico_search.svg"></a></li>
+                <li><a (click)="toggleNav('notification')"><img src="/assets/img/svg/ico_notification.svg"></a></li>
                 <li><a href="javascript:void(0)" ><img src="/assets/img/svg/ico_message.svg"></a></li>
                 <li class="dropdown opsheader-paddingt6">
                   <a  href="javascript:void(0)" (click)="toggleNav('profile')" class="dropdown-toggle opsheader-lineheight30" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

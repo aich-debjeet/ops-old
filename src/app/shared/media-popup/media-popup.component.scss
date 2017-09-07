@@ -164,7 +164,7 @@
     }
 }
 
-//user name avatar 
+//user name avatar
 .avatar_media_user {
     width: 33px;
     height: 33px;
@@ -182,7 +182,7 @@
     }
 }
 
-//user name avatar 
+//user name avatar
 .avatar_media_user2 {
     width: 25px;
     height: 25px;
@@ -257,16 +257,16 @@
        font-weight: bold;
        line-height: 24px;
        color: #333333;
-       margin: 16px 0; 
+       margin: 16px 0;
     }
     .article_details {
        font-size: 14px;
        font-weight: normal;
        line-height: 24px;
        color: #333333;
-       margin: 16px 0; 
+       margin: 16px 0;
     }
-    
+
     }
 }
 
@@ -564,4 +564,12 @@ overflow-y: scroll;
                 padding-top: 3px;
             }
   }
+}
+
+li.list-inline-item a img {
+  margin-left: 5px;
+}
+
+li.list-inline-item a {
+  display: inline-block;
 }
