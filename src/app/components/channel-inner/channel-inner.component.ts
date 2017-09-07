@@ -7,6 +7,8 @@ import { ModalService } from '../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
+import { environment } from '../../../environments/environment';
+
 // action
 import { MediaActions } from '../../actions/media.action';
 import { SharedActions } from '../../actions/shared.action';
@@ -27,6 +29,7 @@ export class ChannelInnerComponent implements OnInit {
   public editForm: FormGroup;
   channel = initialMedia ;
   channelId: string;
+  imageLink: string = environment.API_IMAGE;
 
   constructor(
     private http: Http,

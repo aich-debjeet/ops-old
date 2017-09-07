@@ -44,7 +44,7 @@
             </ul>
             <div class="col-sm-12 spot_in_icons">
                 <div class="overlap_thumb">
-                    <span class="over1_thumb" *ngFor="let media of (tagState$ | async).channel_detail?.media; let i=index"><img *ngIf="i<3" src="{{ media.ownerImage }}"></span>
+                    <span class="over1_thumb" *ngFor="let media of (tagState$ | async).channel_detail?.media | slice:0:3 ; let i=index"><img src="{{ imageLink + media.ownerImage }}"></span>
                 </div>
             </div>
         </div>
