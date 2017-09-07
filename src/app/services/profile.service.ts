@@ -209,4 +209,31 @@ export class ProfileService {
       .map((data: Response) => data.json());
   }
 
+  /**
+   * Upload Image to CDN
+   */
+  uploadImage(value: any) {
+    if (value.files && value.files[0]) {
+      let formData = new FormData();
+      formData.append('file', value.files[0]);
+      const handle = this.tokenService.getHandle();
+      return this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/upload?handle=' + handle , formData /* , { headers: headers } */)
+           .map((resp: Response) => resp.json());
+    }
+  }
+
+  /**
+   * Attach Image to Cover
+   */
+  attachCoverImage(imageResp) {
+    const headers = this.tokenService.getAuthHeader();
+    const profileImage = {
+      'extras' : {
+        'coverImage' : imageResp['SUCCESS'].repoPath
+      }
+    }
+
+    return this.http.put('http://devservices.greenroom6.com:9000/api/1.0/portal/profile/updateProfile', profileImage , { headers: headers })
+        .map((res: Response) => res.json());
+  }
 }

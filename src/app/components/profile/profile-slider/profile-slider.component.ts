@@ -1,5 +1,5 @@
 import { environment } from '../../../../environments/environment.prod';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
@@ -34,6 +34,8 @@ export class ProfileSliderComponent implements OnInit {
   userProfile = initialTag ;
   public profileForm: FormGroup;
   baseUrl: string;
+  coverImage: string;
+  @ViewChild('profileImage') fileInput;
 
   constructor(
     private http: Http,
@@ -60,6 +62,7 @@ export class ProfileSliderComponent implements OnInit {
     // this.test = 'salabeel';
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
+      console.log(state);
     });
 
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
@@ -113,6 +116,20 @@ export class ProfileSliderComponent implements OnInit {
       website: this.userProfile.profileDetails['contact'].website,
       dob: date
     });
+  }
+
+  /**
+   * Close a modal window
+   * @param id modal ID
+   */
+  modalCloser(id: string, state: boolean ) {
+    if (id != null && state === false) {
+      this.modalService.close(id);
+    }
+
+    if (id != null && state === true) {
+      this.modalService.open(id);
+    }
   }
 
   /**
@@ -190,5 +207,26 @@ export class ProfileSliderComponent implements OnInit {
 
     })
     const nameValue = this.userProfile.profileUser['name'];
+  }
+  /**
+   * Upload Cover image
+   */
+  uploadCoverImage() {
+    this.upload();
+  }
+
+  /**
+   * File Handler
+   */
+  upload() {
+    const fileBrowser = this.fileInput.nativeElement;
+    this.profileStore.dispatch({ type: ProfileActions.PROFILE_COVER_UPDATE, payload: fileBrowser });
+  }
+  /**
+   * Toggle Coer Image upload modal
+   */
+  showCoverImageUploader() {
+    this.modalCloser('ChangeCover', true);
+    console.log('Showing Coer Image Uploader');
   }
 }

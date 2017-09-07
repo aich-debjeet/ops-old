@@ -1011,6 +1011,33 @@
     }
 }
 
+.u-rel{
+  position: relative;
+}
+
+.prohead2{
+  &:hover{
+    .upload_cover_img img { display: block; }
+  }
+}
+.upload_cover_img{
+  img {
+    display: none;
+    width: 100%;
+    background: 0 0;
+    height: 100%;
+    border: none;
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    top: 80px;
+    right: 0;
+    overflow: hidden;
+    cursor: pointer;
+    filter: drop-shadow(0 0 3px #222);
+  }
+}
+
 .upload_prof_img {
   width: 153px;
   left: 15px;

@@ -202,5 +202,198 @@
                 text-align: right;
             }
         }
-    }  
-} 
+    }
+}
+
+
+.createchannel{
+  background-color: #fff;
+  &:after {
+    content: '';
+    float: none;
+    display: table;
+  }
+}
+
+// channer inner page -- add channel style ------------------------------------------
+.modal_add_channel {
+  .modal-lg {
+      width: 800px;
+      margin-top: 68px;
+      .modal-content {
+          border-radius: 3px;
+          .modal-header {
+              padding: 24px 32px;
+              border-bottom: 1px solid rgba(102, 45, 145, 0.1);
+              .modal-title {
+                  color: #333333;
+                  font-size: 14px;
+                  font-weight: bold;
+                  line-height: 26px;
+                  text-transform: uppercase;
+              }
+              .close {
+                  img {
+                      width: 16px;
+                  }
+              }
+          }
+          .modal-footer {
+              padding: 24px 32px;
+              border-top: 1px solid rgba(102, 45, 145, 0.1);
+              .channel_success_msg {
+                  color: #FF7B84;
+                  font-size: 14px;
+                  line-height: 19px;
+                  display: inline;
+                  float: left;
+              }
+          }
+          .modal-body {
+              margin: 0px;
+              padding: 0px;
+              .add_channel_left {
+                  width: 50%;
+                  float: left;
+                  .channel_left_top {
+                      padding: 24px 32px;
+                      .left_top_block {
+                          width: 65%;
+                          color: #333333;
+                          font-size: 14px;
+                          font-weight: bold;
+                          line-height: 19px;
+                      }
+                  }
+                  .left_bottom_block {
+                      padding: 24px 32px;
+                      .channel_close {
+                          color: #333333;
+                          font-size: 14px;
+                          font-weight: bold;
+                          line-height: 19px;
+                          position: relative;
+                          margin-bottom: 16px;
+                          img {
+                              width: 24px;
+                          }
+                          .channel_close_txt {
+                              display: inline;
+                              position: absolute;
+                              margin: 4px 0 0 14px;
+                          }
+                      }
+                      .form-control {
+                          width: 100%;
+                          border-radius: 0px;
+                          border: none;
+                          border-bottom: 1px solid #c1c1c1;
+                          box-shadow: none;
+                          padding: 8px 0px;
+                          font-weight: 500;
+                      }
+                      .add_channel_btn {
+                          width: 50%;
+                          .btn {
+                              padding: 3px 12px;
+                              text-transform: uppercase;
+                              font-weight: 700;
+                          }
+                      }
+                  }
+              }
+              .add_channel_right {
+                  width: 50%;
+                  float: left;
+                  border-left: 1px solid rgba(102, 45, 145, 0.1);
+                  .choose_channel {
+                      li > ul {
+                          width: 100%;
+                          padding: 16px 24px;
+                          color: #333333;
+                          font-size: 14px;
+                          font-weight: bold;
+                          line-height: 19px;
+                          display: inline-flex;
+                      }
+                      .choose_channel_cont {
+                          width: 65%;
+                          float: left;
+                          line-height: 44px;
+                          padding-left: 16px;
+                      }
+                      .choose_channel_btn {
+                          line-height: 40px;
+                          .btn-primary {
+                              padding: 6px 12px;
+                              font-size: 12px;
+                          }
+                      }
+                  }
+              }
+          }
+      }
+  }
+  .avatar_choose_channel {
+      width: 40px;
+      height: 40px;
+      display: inline-block;
+      vertical-align: middle;
+      overflow: hidden;
+      position: relative;
+      box-sizing: border-box;
+      text-align: center;
+      line-height: 2.5;
+      border-radius: 3px;
+      background-color: #f8f8f8;
+      padding: 0px;
+      img {
+          width: 100%;
+      }
+  }
+  .avatar_add_channel {
+      width: 97px;
+      height: 78px;
+      display: inline-block;
+      vertical-align: middle;
+      overflow: hidden;
+      position: relative;
+      box-sizing: border-box;
+      text-align: center;
+      line-height: 2.5;
+      border-radius: 3px;
+      background-color: #f8f8f8;
+      img {
+          width: 100%;
+      }
+  }
+}
+
+.channel_search_box {
+  ul {
+      padding: 10px 24px !important;
+      img {
+          width: 14px !important;
+          float: left !important;
+          margin-top: 12px;
+      }
+      .form_input:focus ~ label,
+      .form_input:valid ~ label {
+          display: none;
+      }
+      .form_group {
+          margin-bottom: 0px;
+      }
+      .search_input {
+          width: 90%;
+      }
+      .form_group .form_input {
+          border-bottom: none;
+      }
+      label {
+          font-size: 14px;
+          font-weight: bold;
+          text-align: left;
+      }
+  }
+}

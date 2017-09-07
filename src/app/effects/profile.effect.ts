@@ -298,6 +298,30 @@ export class ProfileEffect {
     .ofType(ProfileActions.ADD_USER_EDUCATION_SUCCESS)
     .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS }))
 
+  /**
+   * Save Cover Image
+   */
+
+   @Effect()
+    saveCoverImage$ = this.actions$
+      .ofType(ProfileActions.PROFILE_COVER_UPDATE)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.uploadImage(payload)
+        .map(res => ({ type: ProfileActions.PROFILE_COVER_UPDATE_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.PROFILE_COVER_UPDATE_FAILED, payload: res }))
+      );
+
+  /**
+   *  Save image to ProfileUI
+   */
+     @Effect()
+     saveCoverImageSuccess$ = this.actions$
+     .ofType(ProfileActions.PROFILE_COVER_UPDATE_SUCCESS)
+     .map(toPayload)
+     .switchMap((payload) => this.profileService.attachCoverImage(payload)
+       .map(res => ({ type: 'BLAH', payload: res }))
+       .catch((res) => Observable.of({ type: 'BLAH_1', payload: res }))
+      );
 /**
  *  Load image to database
  */

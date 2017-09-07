@@ -13,9 +13,11 @@ import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 import { FileUploadService } from '../media/fakeService';
+import { ProfileModal, initialTag } from '../../models/profile.model';
+import { ProfileActions } from '../../actions/profile.action';
 
-import * as MediumEditor from 'medium-editor';
 // Blog
+import { TokenService } from '../../helpers/token.service';
 
 @Component({
   selector: 'app-create-channel',
@@ -25,52 +27,68 @@ import * as MediumEditor from 'medium-editor';
 })
 
 export class CreateChannelComponent {
+  typeSelected: boolean;
+  channelForm: FormGroup;
+  tagState$: Observable<ProfileModal>;
+  private tagStateSubscription: Subscription;
+  profileChannel = initialTag ;
+  handle: string;
 
-  // statusForm: FormGroup;
-  // mediaForm: FormGroup;
+  constructor(
+    private fb: FormBuilder,
+    private mediaService: FileUploadService,
+    private tokenService: TokenService,
+    private store: Store<Media> ) {
+      this.createChannelForm();
+      this.typeSelected = false;
+      this.handle = '';
+      if (this.handle !== '') {
+        this.handle = this.tokenService.getHandle();
+      }
+      this.tagState$ = this.store.select('profileTags');
+      this.tagState$.subscribe((state) => {
+        this.profileChannel = state;
+      });
+    }
 
-  // private mediaStateSubscription: Subscription;
-  // mediaState$: Observable<Media>;
-  // mediaStore = initialMedia;
-  // // @ViewChild('medias') fileInput;
 
-  // uploadedFiles = [];
-  // uploadError;
-  // currentStatus: number;
-  // uploadFieldName = 'photos';
-  // files: any[];
-  // showChannelList: boolean;
+  showCreatechannelform() {
+    this.typeSelected = true;
+  }
 
-  // // temp
-  // token: string;
-  // handle: string;
+  /**
+   * Status Form
+   */
+  createChannelForm() {
+    this.channelForm = this.fb.group({
+      title: ['New Channel', Validators.required ],
+      type: ['', Validators.required ],
+      desc: ['Soem rand desc', Validators.required ],
+      privacy: [0, Validators.required ],
+      openess: [0]
+    })
+  }
 
-  // textVar: string;
-  // placeholderVar: string;
+  /**
+   * Form Builder
+   */
+  createChannel(value: any) {
+    const accessVal = parseInt(value.privacy, 0);
 
-  // constructor(
-  //   private fb: FormBuilder,
-  //   private mediaService: FileUploadService,
-  //   private store: Store<Media> ) {
-  //     // Vars
-  //     this.textVar = 'title';
-  //     this.placeholderVar = 'Write something';
-  //     // Forms
-  //     this.createStatusForm();
-  //     // this.createMediaForm();
+    if ( this.channelForm.valid === true ) {
+      const channelObj = {
+        name: value.title,
+        access: value.privacy,
+        description: value.desc,
+        superType: 'channel',
+        accessSettings : { access : accessVal },
+        owner: this.tokenService.getHandle(),
+        industryList: [ value.type ] /** @TODO - To be removed! */
+      }
 
-  //     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  //     this.handle = localStorage.getItem('currentUserID');
-  //     this.token = currentUser.access_token; // your token
-
-  //     // Reducer Store
-  //     this.mediaState$ = store.select('mediaStore');
-  //     this.mediaState$.subscribe((state) => {
-  //       this.mediaStore = state;
-  //     });
-
-  //     this.reset(); // set initial state
-  //   }
+      this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
+    }
+  }
 
   // ngAfterViewInit() {
   //   //

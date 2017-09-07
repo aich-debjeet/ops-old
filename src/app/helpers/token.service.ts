@@ -12,7 +12,7 @@ export class TokenService {
   getHandle() {
     const currentUserToken = localStorage.getItem('currentUserID');
     if (currentUserToken == null) {
-      return false;
+      return '';
     }else {
       return currentUserToken;
     }

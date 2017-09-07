@@ -7,6 +7,23 @@ import { ProfileActions } from '../actions/profile.action';
 export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
   switch (type) {
+
+    case ProfileActions.PROFILE_COVER_UPDATE:
+      return Object.assign({}, state, {
+        cover_updating: true
+      });
+
+    case ProfileActions.PROFILE_COVER_UPDATE_SUCCESS:
+      return Object.assign({}, state, {
+        cover_updating: false,
+        cover_updated: true,
+      });
+
+    case ProfileActions.PROFILE_COVER_UPDATE_FAILED:
+      return Object.assign({}, state, {
+        cover_updating: false,
+        cover_updated: false,
+      });
     /**
      * Load Current User Profile
      */
