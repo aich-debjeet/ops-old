@@ -14,14 +14,17 @@ export class MediaPopupComponent implements OnInit {
   imageLink: string = environment.API_IMAGE;
   @Input() data;
   @Input() comment;
+  @Input() profileImage;
   @Output() onComment: EventEmitter<any> = new EventEmitter<any>();
   message: string;
 
+order = 'createdDate';
+ascending = true;
   constructor() { }
 
   ngOnInit() {
     console.log('popup media');
-    console.log(this.data)
+    console.log(this.profileImage)
   }
 
   keyDownFunction() {

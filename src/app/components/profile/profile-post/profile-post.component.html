@@ -12,5 +12,5 @@
 </div>
 
 <app-modal [modalTitle]="''" [blocking]='false' modalId='mediaPopup' size="media">
-  <app-media-popup (onComment)="submitComment($event)" [data]="mediaDetails?.media_detail" [comment]="mediaDetails?.media_comment"></app-media-popup>
+  <app-media-popup (onComment)="submitComment($event)" [data]="mediaDetails?.media_detail" [profileImage]="userMedia?.profileUser" [comment]="mediaDetails?.media_comment"></app-media-popup>
 </app-modal>
