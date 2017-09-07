@@ -310,22 +310,18 @@ export class RegistrationBasicComponent implements OnInit {
 
   // User Validation
   userExists(username: string) {
-        return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/' + username + '/username')
-            .map((data: Response) => data.json())
-            .subscribe(data => {
-              if (data.code === 0) {
-                this.petTag.user_unique = true;
-                // const suggestedStr = data.Suggested.join(', ').replace(/\s+$/, ', ');
-                // console.log(suggestedStr);
-                this.Suggested = data.Suggested;
-              }else {
-                this.petTag.user_unique = false;
-              }
-              console.log(data)
-            },
-            // err => console.log(err)
-            );
-    }
+    return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/' + username + '/username')
+      .map((data: Response) => data.json())
+      .subscribe(data => {
+        if (data.code === 0) {
+          this.petTag.user_unique = true;
+          this.Suggested = data.Suggested;
+        }else {
+          this.petTag.user_unique = false;
+        }
+        console.log(data)
+      });
+  }
 
   // OTP Validation
   otpSubmit(value) {
@@ -385,6 +381,10 @@ export class RegistrationBasicComponent implements OnInit {
     this.modalService.open('termsAndConditions');
   }
 
+  /**
+   * Submit Form
+   * @param value
+   */
   submitForm(value) {
     // Form
     const form =  {
@@ -392,7 +392,7 @@ export class RegistrationBasicComponent implements OnInit {
       'firstName': value.name
       },
       'username': value.username,
-      'profileImage': 'http://cloudfront.dgaydgauygda.net/Images/file.jpg',
+      'profileImage': '',
       'gender': value.gender,
       'email':  value.email,
       'password': value.password,
@@ -411,10 +411,8 @@ export class RegistrationBasicComponent implements OnInit {
         'dateOfBirth': this.reverseDate(value.dob) + 'T05:00:00',
       }
     }
-    //
 
     if (this.regFormBasic.valid === true) {
-      // console.log('Entered Value');
       this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
       this.tagState$.subscribe(
         data => {
@@ -424,7 +422,6 @@ export class RegistrationBasicComponent implements OnInit {
           }
         }
       )
-      // console.log(value);
     }
   }
 }

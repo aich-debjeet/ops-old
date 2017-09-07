@@ -120,7 +120,9 @@ export class ProfileSliderComponent implements OnInit {
    * @param string
    */
   reverseDate(string) {
-    return string.split('-').reverse().join('-');
+    if (string != null) {
+      return string.split('-').reverse().join('-');
+    }
   }
 
   /**
@@ -169,8 +171,8 @@ export class ProfileSliderComponent implements OnInit {
       // 'email': 'Email Address'
     }
 
-       this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
-       this.modalService.close('profileEditWindow');
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+    this.modalService.close('profileEditWindow');
   }
 
   /**

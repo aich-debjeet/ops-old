@@ -6,9 +6,7 @@
     box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
     .pro_channel_img1 {
         padding: 0px;
-        img {
-            border-radius: 5px;
-        }
+        img { border-radius: 5px 5px 0 0; }
     }
     .pro_channel_name {
         height: 0px;

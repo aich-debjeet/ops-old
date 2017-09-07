@@ -46,33 +46,17 @@
                             <label class="width100">
                                 <label class="col-md-2 signup_gender">Gender</label>
                                 <label class="col-md-3 gender_single">
-                                    <input type="radio" name="demo" checked><span></span>Male
+                                    <input type="radio" value="M" name="gender" formControlName="gender"><span></span>Male
                                 </label>
                                 <label class="col-md-3 gender_single">
-                                    <input type="radio" name="demo"><span></span>Female
+                                    <input type="radio" value="F" name="gender" formControlName="gender"><span></span>Female
                                 </label>
                                 <label class="col-md-3 gender_single">
-                                    <input type="radio" name="demo"><span></span>Others
+                                    <input type="radio" value="O" name="gender" formControlName="gender"><span></span>Others
                                 </label>
                             </label>
                         </div>
-                        <!-- <div class="form_group ops_radio_sm mtop0">
-                            <label>
-                                <label class="col-md-2 signup_gender">Gender</label>
-                                <label class="col-md-3 gender_single">
-                                    <input type="radio" value="M" name="gender" formControlName="gender">
-                                    <span></span>Male
-                                </label>
-                                <label class="col-md-3 gender_single">
-                                    <input type="radio" value="F" name="gender" formControlName="gender">
-                                    <span></span>Female
-                                </label>
-                                <label class="col-md-3 gender_single">
-                                    <input type="radio" value="O" name="gender" formControlName="gender">
-                                    <span></span>Others
-                                </label>
-                            </label>
-                        </div> -->
+
                         <div class="form_group">
                             <input class="form_input" type="text" formControlName="dob" [textMask]="{mask: dateMask}" placeholder="DD-MM-YYYY">
                             <span class="form_highlight"></span>
@@ -131,14 +115,14 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Terms Modal -->
     <app-modal [modalTitle]="'Terms'" [blocking]='false' modalId='termsAndConditions' class="media__modal" size="terms">
         <!-- term and condition pop up -->
         <div class="terms-wrapper">
             <div class="terms_txt">
                 <!-- <h2>Terms and Conditions</h2> -->
-        
+
                 <h3>One Page Spotlight</h3>
                 <h2>Privacy Policy</h2>
                 <p>Updated: 14th August, 2017</p>
@@ -211,7 +195,7 @@
                 <p>
                     <strong>Usage Log Files </strong>
                     <br> Log file information is automatically reported by your browser each time you make a request to access (i.e., visit) a web page or app. It can also be provided when the content of the webpage or app is downloaded to your browser or device. When you use our Service, our servers automatically record certain log file information, including your web request, Internet Protocol ("IP") address, browser type, referring / exit pages and URLs, number of clicks and how you interact with links on the Service, domain names, landing pages, pages viewed, and other such information. We may also collect similar information from emails sent to our Users which then help us track which emails are opened and which links are clicked by recipients. The information allows for more accurate reporting and improvement of the Service.
-        
+
                 </p>
                 <br>
                 <p>
@@ -224,7 +208,7 @@
                     <br> Metadata is usually technical data that is associated with User Content. For example, Metadata can describe how, when and by whom a piece of User Content was collected and how that content is formatted. Users can add or may have Metadata added to their User Content including a hashtag (e.g., to mark keywords when you post a video), geotag (e.g., to mark your location to a photo), comments or other data. This makes your User Content more searchable by others and more interactive. If you geotag your photo or tag your photo using other's APIs then, your latitude and longitude will be stored with the photo and searchable (e.g., through a location or map feature) if your photo is made public by you in accordance with your privacy settings.
                 </p>
                 <br>
-        
+
                 <h2>HOW WE USE INFORMATION THAT WE COLLECT</h2>
                 <br>
                 <p>
@@ -238,7 +222,7 @@
                 <br>
                 <p>
                     We also may share your information as well as information from tools like cookies, log files, and device identifiers and location data, with third-party organizations that help us provide the Service to you ("Service Providers"). Our Service Providers will be given access to your information as is reasonably necessary to provide the Service under reasonable confidentiality terms.
-        
+
                 </p>
                 <br>
                 <p>
@@ -274,7 +258,7 @@
                     <span class="sub_head">for analytics</span>
                     <br>
                     <br> We may use your information to produce aggregate insights that do not identify you. For example we may use your data to generate statistics about our users, their profession and skills or industry, the number of ad impressions served or clicked on, or the demographic distribution of visitors to our site.
-        
+
                 </p>
                 <br>
                 <p>
@@ -294,35 +278,35 @@
                 <br>
                 <p>
                     <strong>Posts, Likes, Follows, Comments, Messages: </strong> Our Services allow viewing and sharing information including through posts, follows, likes and comments. When you share a post (e.g., create a Channel/Spotfeed), the default (which you can change) is to share it publicly. Others who are not your connections will be able to find (including through search engines) and see your post. When you like, comment on or share another’s post, others will see it, including the person who initiated the post. In a Channel/Spotfeed, posts are visible to others following the Channel/Spotfeed. Your following a Channel/Spotfeed is public and part of your profile unless you change the default settings. When you follow a person or organization, you are visible to others and that “profile owner” as a follower. We provide aggregate insights about the followers and viewers to the respective profile owners. We let senders know when you act on their message, subject to your settings where applicable.
-        
+
                 </p>
                 <br>
                 <p>
                     <span class="sub_head">through others’ Services</span>
                     <br>
                     <br> Subject to your privacy settings, information on your profile may appear in services of others like search engine results. If you were to share links to your profile and content on One Page Spotlight in other social media or anywhere online, others are likely to look-up the same. We are not responsible for the practices employed by any websites or services linked to or from our Service, including the information or content contained within them. Please remember that when you use a link to go from our Service to another website or service, our Privacy Policy does not apply to those third-party websites or services. Your browsing and interaction on any third-party website or service, including those that have a link on our website, are subject to that third party's own rules and policies. In addition, we are not responsible and do not have control over any third-parties that you authorize to access your User Content. If you are using a third-party website or service and you allow them to access your User Content you do so at your own risk.
-        
+
                 </p>
                 <br>
                 <p>
                     <span class="sub_head">to third party service providers</span>
                     <br>
                     <br> We use others to help us provide our Services (e.g., maintenance, analysis, audit, payments, fraud detection, marketing and development). They will have access to your information as reasonably necessary to perform these tasks on our behalf and are obligated to not to disclose or use it for other purposes.
-        
+
                 </p>
                 <br>
                 <p>
                     <span class="sub_head">for legal disclosures & law enforcement</span>
                     <br>
                     <br> We may access, preserve and share your information in response to a legal request (like a search warrant, court order or subpoena) if we have a good faith belief that the law requires us to do so. This may include responding to legal requests from jurisdictions outside of the United States where we have a good faith belief that the response is required by law in that jurisdiction, affects users in that jurisdiction, and is consistent with internationally recognized standards. We may also access, preserve and share information when we have a good faith belief it is necessary to: detect, prevent and address fraud and other illegal activity; to protect ourselves, you and others, including as part of investigations; and to prevent death or imminent bodily harm. Information we receive about you may be accessed, processed and retained for an extended period of time when it is the subject of a legal request or obligation, governmental investigation, or investigations concerning possible violations of our terms or policies, or otherwise to prevent harm.
-        
+
                 </p>
                 <br>
                 <p>
                     <span class="sub_head">in case of change in management control</span>
                     <br>
                     <br> If we sell or otherwise transfer part or the whole of One Page Spotlight or our assets to another organization (e.g., in the course of a transaction like a merger, acquisition, bankruptcy, dissolution, liquidation), your information such as name and email address, User Content and any other information collected through the Service may be among the items sold or transferred. You will continue to own your User Content. The buyer or transferee will have to honor the commitments we have made in this Privacy Policy.
-        
+
                 </p>
                 <br>
                 <h2>YOUR CHOICES ABOUT YOUR INFORMATION</h2>
@@ -330,21 +314,21 @@
                     <span class="sub_head">you control your data</span>
                     <br>
                     <br> Access and change information in your profile at any time, you can choose whether your profile available to search engines, or choose whether others can find your One Page Spotlight account using your email address/contact number. You can login and update your privacy settings anytime. Unsubscribe from email communications from us by clicking on the "unsubscribe link" provided in such communications. You cannot opt out of Service-related communications (e.g., account verification, purchase and billing confirmations and reminders, changes/updates to features of the Service, technical and security notices).
-        
+
                 </p>
                 <br>
                 <p>
                     <span class="sub_head">your spotfeeds & spotscore</span>
                     <br>
                     <br> Create or control who can access each of your Spotfeeds/Channels. Public Spotfeeds/Channels are visible to all. For Public Spotfeeds/Channels, any members may choose to make the contents available for viewing and sharing to anyone else. If you choose to mark a Spotfeed/Channel as ‘Private’, they are visible to you by default and those specific members or your list of followers with whom you have shared the content. For Private Spotfeeds/Channels, members or followers with whom you have shared the Spotfeed/Channel will be unable to share the content with anyone else. However please remember that another member or follower may just take an image from the Spotfeed/Channel and email it to their friends. You have the choice of who can see your Spotscore. You may decide to keep the Spotscore private (viewable only to you) or provide limited access (to specific members and followers only) or make it public (viewable by all). For more information on Spotscore please click here.
-        
+
                 </p>
                 <br>
                 <p>
                     <span class="sub_head">account closure & data retention </span>
                     <br>
                     <br> If you choose to close your One Page Spotlight account or if your account is deactivated or terminated, your personal data will generally stop being visible to others on our Services within 24 hours. We delete closed account information within 30 days of account closure (or a commercially reasonable time). However, we will retain your personal information if reasonably necessary to comply with our legal obligations (including law enforcement requests), meet regulatory requirements, resolve disputes, maintain security, prevent fraud, spam and abuse, enforce our User Agreement, or fulfil your request to “unsubscribe” from further messages from us. We will retain de-personalized information after your account has been closed. Information you have shared with others (e.g., through messages, likes, updates or group posts) will remain visible after you closed your account or deleted the information from your own profile or mailbox, and we do not control data that other members copied out of our Services. Your profile may continue to be displayed in the services of others (e.g., search engine results) until they refresh their cache.
-        
+
                 </p>
                 <br>
                 <h2>OUR POLICY ON CHILDREN’S INFORMATION</h2>
@@ -354,7 +338,7 @@
                         <br>
                         <p>
                             We recognize the need to provide further privacy protections with respect to personal information we may collect from or about children on our sites and applications. Some of the features or content on our sites and applications are age-gated so that they are not available for use by children, and we do not knowingly collect personal information from children in connection with those features. COPPA requires that we inform parents and legal guardians about how we collect, use, and disclose personal information from children under 13 years of age.
-        
+
                         </p>
                         <br>
                         <h2>DATA TRANSFER</h2>
@@ -375,7 +359,7 @@
                             Please do your part to help us. You are responsible for maintaining the secrecy of your unique password and account information.
                         </p>
                         <br>
-        
+
                         <h2>CHANGES TO PRIVACY POLICY</h2>
                         <br>
                         <p>
@@ -388,13 +372,13 @@
                             If you have any questions about this Privacy Policy or the Service, please find the appropriate support channel in the Help Center at which to contact us.
                         </p>
                         <br>
-        
+
             </div>
         </div>
         <!-- // term and conditoins -->
     </app-modal>
     <!-- Terms Modal -->
-    
+
     <!-- OTP Modal -->
     <app-modal [modalTitle]="'OTP'" [blocking]='false' modalId='otpWindow' class="otp__modal" size="small">
       <div name="otp" class="otp__modal">
@@ -418,7 +402,7 @@
                                 <label>Enter OTP</label>
                                 <span>{{ countDown | async }}</span>
                             </div>
-    
+
                             <div class="text-center">
                                 <app-button [className]="'btn btn-default btn-sm'" [type]="'submit'">Validate OTP</app-button>
                             </div>
@@ -431,7 +415,7 @@
       </div>
     </app-modal>
     <!-- OTP Modal -->
-    
+
     <!-- OTP Confirm Modal -->
     <app-modal [modalTitle]="'Success'" [blocking]='false' modalId='otpSuccess'>
       <div class="row">
@@ -445,4 +429,3 @@
       </div>
     </app-modal>
     <!-- OTP Confirm Modal -->
-    

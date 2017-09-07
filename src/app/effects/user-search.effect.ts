@@ -12,14 +12,6 @@ import { UserSearchActions } from '../actions/user-search.action';
 
 @Injectable()
 export class UserSearchEffect {
-
-  constructor(
-    private actions$: Actions,
-    private apiService: ApiService
-  ) {
-    console.log('user search effects');
-  }
-
   @Effect()
   searchedUsers$ = this.actions$
     .ofType(UserSearchActions.USER_SEARCH)
@@ -29,4 +21,10 @@ export class UserSearchEffect {
       .catch((res) => Observable.of({ type: UserSearchActions.USER_SEARCH_FAILED, payload: res }))
     );
 
+    constructor(
+    private actions$: Actions,
+    private apiService: ApiService
+  ) {
+    console.log('user search effects');
+  }
 }
