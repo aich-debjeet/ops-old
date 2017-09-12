@@ -182,7 +182,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL_SUCCESS:
-    console.log(payload);
       return Object.assign({}, state, {
         channelEntity: payload,
         success: true,

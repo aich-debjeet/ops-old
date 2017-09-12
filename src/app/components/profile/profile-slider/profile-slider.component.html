@@ -133,13 +133,16 @@
             </div>
             <div class="col-md-4 col-sm-4 pro_bio">
                 <h3>BIO</h3>
+                <button *ngIf="userProfile.profileUser?.bio == ''" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button>
                 <p>{{ userProfile.profileUser?.bio }}</p>
 
             </div>
             <div class="col-md-4 col-sm-4 pro_skills">
                 <h3>SKILLS</h3>
-
-                <button *ngFor="let skill of userProfile.profileUser?.skills" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
+                <button *ngIf="userProfile.profileUser?.skills == ''" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
+                <button *ngFor="let skill of userProfile.profileUser?.skills | slice:0:8" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
+                <button type="button" *ngIf="userProfile.profileUser?.skills?.length > 7" (click)="skillPopup()" class="btn btn-default btn-xs">More...</button>
+                
             </div>
         </div>
     </div>
@@ -151,7 +154,7 @@
 
 <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow'>
     <div>
-        <form [formGroup]="profileForm">
+        <form [formGroup]="profileForm" novalidate #myform="ngForm" (submit)= "profileFormSubmit(profileForm.value)">
             <div class="edit-profile_main">
                 <!-- <div class="modal-header" style="border: none;">
                 <button type="button" class="close" data-dismiss="modal"></button>
@@ -162,7 +165,7 @@
                     </div>
                     <div class="col-md-6 padding_none text-right">
                         <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="profileFormClose()">Close</app-button>
-                        <app-button [className]="'btn btn-primary btn-sm'" [type]="'button'" (click)="profileFormSubmit(profileForm.value)">Save</app-button>
+                        <app-button [className]="'btn btn-primary btn-sm'" [type]="'submit'" >Save</app-button>
                     </div>
                 </div>
                 <!-- edit profile head end -->
@@ -182,31 +185,62 @@
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Name</label>
+                                <p class="error_alert" *ngIf="profileForm.controls['name'].errors?.required && myform.submitted">Name is required</p>
                             </div>
                             <div class="form_group">
                                 <textarea class="form_input form_textarea" name="" formControlName="bio"></textarea>
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Bio</label>
+                                <p class="error_alert" *ngIf="profileForm.controls['bio'].errors?.required && myform.submitted">Bio is required</p>
                             </div>
                             <div class="form_group">
                                 <input class="form_input" required="" type="text" formControlName="username">
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Username</label>
+                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.required && myform.submitted">Username is required</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.whitespace">White Space Not Allowed</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.minlength">Username must be min length 4</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
                             </div>
                             <div class="form_group">
-                                <input class="form_input" required="" type="text">
+                                <input class="form_input" type="text" [ngModel]="mymodel" formControlName="skill" (ngModelChange)="onSearchChange($event)" placeholder="Search skill">
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Skills</label>
-                                <button type="button" class="btn btn-tag btn-sm">TAGS</button>
+                
+                                <div class="selected_skill">
+                                    <button *ngFor="let skill of selectedSkills" (click)="toggleSelectSkill(skill.code)" type="button" class="btn btn-tag btn-primary btn-sm btn-skill">
+                                        <span >
+                                            {{skill.name}} 
+                                        </span>
+                                        
+                                    </button>
+                                </div>
+                                <div class="selected_tags">
+                                    <div *ngIf="findSkill.skills_loaded===false">
+                                        <span class="loading">Loading...</span>
+                                    </div>
+                                    <span *ngFor="let skill of findSkill.skills" >
+                                        <button type="button" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" class="btn btn-tag btn-sm">
+                                            {{skill.name}}
+                                        </button>
+                                    </span>
+                                    <!--<div *ngIf='skillSelectionPage.skills_loaded===true && skillSelectionPage.skills && skillSelectionPage.skills.length === 0'>
+                                        <a class="adder" (click)="addNewSkill(search)">Add <span class="adder__name">{{search}}?</span></a>
+                                    </div>-->
+                                </div>
                             </div>
                             <div class="form_group">
-                                <input class="form_input" type="text" required="" formControlName="dob">
+                                <input class="form_input" type="text" required [textMask]="{mask: dateMask}" formControlName="dob">
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Date of birth</label>
+                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.required && myform.submitted">Date of Brith is required</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.isUnderAge">You should be above 13</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.isOverAge">You should be below 100</p>
                             </div>
                             <div class="form_group">
                                 <input class="form_input" required="" type="text" value="Bangalore, India">
@@ -237,13 +271,15 @@
                                         <span class="form_highlight"></span>
                                         <span class="form_bar"></span>
                                         <label>Email</label>
+                                        <p class="error_alert" *ngIf="profileForm.controls['email'].errors?.isEmailUnique">A user with this email is already registered</p>
+                                        <p class="error_alert" *ngIf="profileForm.controls['email'].errors?.required && myform.submitted">Email is required</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form_group">
-                                        <select class="form-control" id="sel1">
-                                        <option>Public</option>
-                                        <option>Private</option>
+                                        <select class="form-control" formControlName="emailPrivacy" id="sel1">
+                                        <option value="0">Public</option>
+                                        <option value="1">Private</option>
                                     </select>
                                     </div>
                                 </div>
@@ -252,17 +288,19 @@
                                 <div class="col-md-8">
                                     <div class="form_group">
                                         <span id="phone" type="tel"></span>
-                                        <input class="form_input" type="text" formControlName="number" required style="padding-left: 40px;">
+                                        <input class="form_input" type="text" formControlName="number" required style="padding-left: 50px;">
                                         <span class="form_highlight"></span>
                                         <span class="form_bar"></span>
-                                        <label style="padding-left: 40px;">Phone Number</label>
+                                        <label>Phone Number</label>
+                                        <app-country-selector></app-country-selector>
+                                        <p class="error_alert" *ngIf="profileForm.controls['number'].errors?.required && myform.submitted">Mobile number is required</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form_group">
-                                        <select class="form-control" id="sel1">
-                                        <option>Public</option>
-                                        <option>Private</option>
+                                        <select class="form-control" formControlName="mobilePrivacy" id="sel1">
+                                        <option value="0">Public</option>
+                                        <option value="1">Private</option>
                                     </select>
                                     </div>
                                 </div>
@@ -270,7 +308,7 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form_group">
-                                        <input class="form_input" required="" type="text" formControlName="website">
+                                        <input class="form_input"  type="text" formControlName="website">
                                         <span class="form_highlight"></span>
                                         <span class="form_bar"></span>
                                         <label>Website</label>
@@ -278,9 +316,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form_group">
-                                        <select class="form-control" id="sel1">
-                                        <option>Public</option>
-                                        <option>Private</option>
+                                        <select class="form-control" formControlName="websitePrivacy" id="sel1">
+                                        <option value="0">Public</option>
+                                        <option value="1">Private</option>
                                     </select>
                                     </div>
                                 </div>
@@ -292,5 +330,13 @@
                 <!-- contact info end -->
             </div>
         </form>
+    </div>
+</app-modal>
+
+<!--Skill more -->
+
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='skillMoreWindow'>
+    <div class="popup__window">
+        <button *ngFor="let skill of userProfile.profileUser?.skills" type="button" class="btn btn-default btn-xs btn-skill">{{ skill.name }}</button>
     </div>
 </app-modal>
