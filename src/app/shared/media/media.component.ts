@@ -121,9 +121,6 @@ export class MediaComponent implements OnInit, AfterViewInit {
    * @param formData
    */
   save(formData: FormData) {
-    // Upload data to the server
-    // this.currentStatus = this.STATUS_SAVING;
-    console.log(formData);
     this.store.dispatch({ type: MediaActions.MEDIA_UPLOAD, payload: formData });
   }
 
@@ -131,8 +128,6 @@ export class MediaComponent implements OnInit, AfterViewInit {
    * Media Uploader Form
    */
   submitStatusForm(value: any) {
-
-    console.log(value);
 
     if ( this.statusForm.valid === true ) {
       const postStatus = {
