@@ -43,7 +43,7 @@ export class AboutWorkComponent implements OnInit {
       this.aboutWork = state;
     });
 
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+    // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
     this.buildEditForm();
 
   }

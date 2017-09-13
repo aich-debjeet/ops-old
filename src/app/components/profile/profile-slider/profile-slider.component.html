@@ -1,5 +1,5 @@
-<div class="prohead2" [ngStyle]="profileImageStyle(userProfile)">
-  <div class="container u-rel">
+<div *ngIf="profileObject !== null" class="prohead2" [ngStyle]="profileImageStyle(profileObject)">
+  <div class="container u-rel" *ngIf="isOtherProfile === false">
       <app-modal [modalTitle]="'Change Profile Image'" (onClose)="isClosed($event)" [blocking]='false' modalId='ChangeCover' class="media__modal" size="tiny">
           <input #profileImage type="file" name="profile_image"/>
           <button (click)="uploadCoverImage()">Save</button>
@@ -11,7 +11,7 @@
     </span>
   </div>
 </div>
-<div class="container pro-block">
+<div class="container pro-block" *ngIf="profileObject !== null">
     <div class="row">
         <app-modal [modalTitle]="'Change Profile Image'" (onClose)="isClosed($event)" [blocking]='false' modalId='ChangeProfile' class="media__modal" size="tiny">
           <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
@@ -25,22 +25,11 @@
 
         <div class="col-md-6 col-sm-12 pro__img" *ngIf="!changingImage">
           <div class="prof_img_block">
-            <img src="{{ data && data.image ? data.image : baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
+            <img src="{{ data && data.image ? data.image : baseUrl + profileObject?.image?.profile }}" class="img-responsive img-circle">
             <span class="upload_prof_img">
               <a class="dropdown-toggle btn btn-basic btn-sm upload-btn" data-toggle="dropdown" aria-expanded="true" alt="" (click)="changingImageClick()">
                 <img src="http://d33wubrfki0l68.cloudfront.net/191393ff3b0564270e49e5a1548ca1384ba44571/2bd8e/img/svg/ico_edit_white.svg"/>
               </a>
-              <!--
-              <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                  <img src="img/svg/ico_edit_white.svg" alt="">
-              </a>
-              <ul class="dropdown-menu prof_change_drop">
-                  <li>
-                    <button type="button" (click)="changingImageClick()">change</button>
-                    <a href="#">Upload Profile image</a>
-                  </li>
-              </ul>
-            -->
             </span>
           </div>
             <!-- profile img block end -->
@@ -50,24 +39,19 @@
                         <!-- <img *ngIf="userProfile.profileUser?.profileImage.length > 0; else elseProfileImage" src="{{ userProfile.profileUser?.profileImage }}" class="img-responsive img-circle"> -->
             <!-- <img #elseProfileImage src="/assets/img/avatar.jpg" class="img-responsive img-circle"> -->
             <div class="pro__name2">
-                <h2><a routerLink="/profile"> {{ userProfile.profileUser?.name }} </a></h2>
-                <p>@{{ userProfile.profileUser?.userName }}</p>
-
-                <!--
-                            <button type="button" class="btn btn-xs btn-primary btn-plus">
-                            <span class="btn-label-follow">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                            </span> FOLLOW
-                            </button>
-                            <button type="button" class="btn btn-normal2 btn-xs"> NETWORK </button>
-                            <button type="button" class="btn btn-normal2 btn-xs"> DONATE </button>
-                            -->
-
+              <h2><a routerLink="/profile"> {{ profileObject?.name }} </a></h2>
+              <p>{{ '@' + profileObject?.userHandle }}</p>
+              <div *ngIf="isOtherProfile === true">
+                <button type="button" class="btn btn-xs btn-primary btn-plus" (click)="followUser(profileObject)">
+                  <span class="btn-label-follow">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </span> FOLLOW
+                </button>
+                <button type="button" class="btn btn-normal2 btn-xs"> NETWORK </button>
+                <button type="button" class="btn btn-normal2 btn-xs"> DONATE </button>
+              </div>
             </div>
-            <!--</div>-->
-
-
-            <div class="col-md-6"></div>
+          <div class="col-md-6"></div>
         </div>
         <div class="col-md-6"></div>
     </div>
@@ -89,6 +73,10 @@
                 <li class="list-line-item">
                     <a [routerLink]="['about']">project</a>
                 </li>
+
+                <li class="list-line-item">
+                  <a routerLink="/profile/u/salsabeel/user/">Profile</a>
+              </li>
             </ul>
         </div>
         <div class="col-md-3 col-sm-3">
@@ -102,7 +90,7 @@
                 <li class="list-line-item">
                     <a href="#"><img src="/assets/img/svg/ico_message.svg"></a>
                 </li>
-                <li class="list-line-item">
+                <li class="list-line-item" *ngIf="isOtherProfile === false">
                     <a (click)="profileEdit()"><img src="/assets/img/svg/ico_edit.svg"></a>
                 </li>
             </ul>
@@ -111,44 +99,40 @@
             <div class="col-md-4 col-sm-4 text-center pro__count">
                 <div class="row">
                     <div class="col-md-4 col-sm-4 pro__followers">
-                        <h3>{{ userProfile.profileUser?.followersCount }}</h3>
+                        <h3>{{ profileObject?.follwerCount }}</h3>
                         <p>Followers</p>
                     </div>
                     <div class="col-md-4 col-sm-4 pro__following">
-                        <h3>{{ userProfile.profileUser?.followingCount }}</h3>
+                        <h3>{{ profileObject?.followingCount }}</h3>
                         <p>Following</p>
                     </div>
                     <div class="col-md-4 col-sm-4 pro__spots">
-                        <h3>{{ userProfile.profileUser?.spotsCount }}</h3>
+                        <h3>{{ profileObject?.spotCount }}</h3>
                         <p>Spots</p>
                     </div>
                     <div class="col-md-8 col-sm-8 pro__spotscore">
-                        Spotscore Comming Soon
+                        Spotscore Coming Soon
                     </div>
                     <div class="col-md-4 col-sm-8 pro__postchannels">
-                        <h4>{{ userProfile.profileUser?.postCount }} <small>Post</small></h4>
-                        <h4>{{ userProfile.profileUser?.channelCount }} <small>Channels</small></h4>
+                        <h4>{{ profileObject?.postCount }} <small>Post</small></h4>
+                        <h4>{{ profileObject?.channelCount }} <small>Channels</small></h4>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4 pro_bio">
                 <h3>BIO</h3>
-                <p>{{ userProfile.profileUser?.bio }}</p>
+                <p>{{ profileObject?.userBio }}</p>
 
             </div>
             <div class="col-md-4 col-sm-4 pro_skills">
                 <h3>SKILLS</h3>
-
                 <button *ngFor="let skill of userProfile.profileUser?.skills" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
             </div>
         </div>
     </div>
 </div>
+
 <router-outlet></router-outlet>
-
-
-<!-- edit profile pop -->
-
 <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow'>
     <div>
         <form [formGroup]="profileForm">
@@ -292,5 +276,4 @@
                 <!-- contact info end -->
             </div>
         </form>
-    </div>
-</app-modal>
+    </div></app-modal>

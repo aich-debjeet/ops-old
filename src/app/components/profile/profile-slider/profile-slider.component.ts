@@ -1,5 +1,5 @@
 import { environment } from '../../../../environments/environment.prod';
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, Input, ViewChild} from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
@@ -7,11 +7,13 @@ import { UserMedia } from '../../../models/user-media.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { TokenService } from '../../../helpers/token.service';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
+import { ProfileCard } from '../../../models/profile.model';
 import { SharedActions } from '../../../actions/shared.action';
 
 // rx
@@ -25,7 +27,13 @@ import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
   providers: [ModalService, DatePipe],
   styleUrls: ['./profile-slider.component.scss']
 })
+
 export class ProfileSliderComponent implements OnInit {
+  @ViewChild('profileImage') fileInput;
+  @Input() profileData: any;
+  @Input() isOtherProfile: any;
+  @Input() userName: string;
+  @Input() profileObject: ProfileCard;
   changingImage: boolean;
   data: any;
   cropperSettings: CropperSettings;
@@ -35,19 +43,22 @@ export class ProfileSliderComponent implements OnInit {
   public profileForm: FormGroup;
   baseUrl: string;
   coverImage: string;
-  @ViewChild('profileImage') fileInput;
+  router: any;
+  // profileObject: ProfileCard;
+
+  hasFollowed: boolean;
 
   constructor(
     private http: Http,
     public modalService: ModalService,
     private fb: FormBuilder,
     public datepipe: DatePipe,
+    private _router: Router,
     public tokenService: TokenService,
     private profileStore: Store<ProfileModal>
   ) {
 
     this.baseUrl = environment.API_IMAGE;
-
     this.cropperSettings = new CropperSettings();
     this.cropperSettings.width = 100;
     this.cropperSettings.height = 100;
@@ -67,8 +78,17 @@ export class ProfileSliderComponent implements OnInit {
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+
     this.buildEditForm();
 
+    this.router = _router;
+
+  }
+  /**
+   * Init
+   */
+  ngOnInit() {
+    // console.log( 'Is Other: ' + this.isOtherProfile );
   }
 
   changingImageClick() {
@@ -79,21 +99,24 @@ export class ProfileSliderComponent implements OnInit {
   /**
    * Present Profile Cover Image
    */
-  profileImageStyle(user: any) {
-    console.log(user);
-    const img = user.profileUser.coverImageList;
-    let coverImageURL;
-    if (img == null || img === '') {
-      coverImageURL = 'https://dl.dropboxusercontent.com/content_link/2X7ZfUULj6yEB3Lae345IgX23QuaapF23uf0ayijh5SlHrHVBKYrKZXQfPemdFCh/file';
-    } else {
-      coverImageURL = this.baseUrl + img;
+  profileImageStyle(profile: any) {
+    if (profile == null) {
+      return false;
     }
+
+    let coverImageURL;
+    if (!profile.image.cover || profile.image.cover === '') {
+      coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
+    } else {
+      coverImageURL = this.baseUrl + profile.image.cover;
+    }
+    // coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
+
     const resp = {
       'background-image': 'url(' + coverImageURL + ')',
       'background-size': 'cover'
     }
 
-    console.log(resp);
     return resp;
   }
 
@@ -116,8 +139,13 @@ export class ProfileSliderComponent implements OnInit {
     this.changingImage = event;
   }
 
-  ngOnInit() {
-    //
+  /**
+   * Follow current Profile
+   * @param profile
+   */
+  followUser(profile: any) {
+    const handle = profile.userDetails.handle;
+    this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle });
   }
 
   /**
@@ -174,8 +202,7 @@ export class ProfileSliderComponent implements OnInit {
    * Add current user Work
    */
   deleteAddWork(id) {
-    this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
-    // console.log(value);
+    this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id });
   }
 
   /**
@@ -226,7 +253,7 @@ export class ProfileSliderComponent implements OnInit {
       'website' : '',
       'dob' : ['' , [Validators.required]],
 
-    })
+    });
     const nameValue = this.userProfile.profileUser['name'];
   }
   /**
@@ -248,6 +275,5 @@ export class ProfileSliderComponent implements OnInit {
    */
   showCoverImageUploader() {
     this.modalCloser('ChangeCover', true);
-    console.log('Showing Coer Image Uploader');
   }
 }

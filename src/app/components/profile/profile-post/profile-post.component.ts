@@ -39,17 +39,12 @@ export class ProfilePostComponent implements OnInit {
     this.mediaState$ = this._store.select('mediaStore');
 
     this.tagState$.subscribe((state) => {
-      console.log(state);
       this.userMedia = state;
     });
 
     this.mediaState$.subscribe((state) => {
       this.mediaDetails = state;
     });
-
-
-    this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA });
-
   }
 
   ngOnInit() {

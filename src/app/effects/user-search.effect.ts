@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
-import { ApiService } from '../services/api.service';
+import { GeneralService } from '../services/api.service';
 import { UserSearchActions } from '../actions/user-search.action';
 
 @Injectable()
@@ -23,8 +23,8 @@ export class UserSearchEffect {
 
     constructor(
     private actions$: Actions,
-    private apiService: ApiService
+    private apiService: GeneralService
   ) {
-    console.log('user search effects');
+    //
   }
 }

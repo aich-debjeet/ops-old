@@ -7,6 +7,7 @@ import { UserSearchReducer } from './reducers/user-search.reducer';
 import { MediaReducer } from './reducers/media.reducer';
 
 import { combineReducers, ActionReducer } from '@ngrx/store';
+// import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 const reducers = {
   loginTags: AuthReducer,

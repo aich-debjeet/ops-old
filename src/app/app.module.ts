@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+// import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -41,9 +42,10 @@ import { UserSearchEffect } from './effects/user-search.effect';
 // Services
 import { ServicesModule } from './services/services.module';
 import { TokenService } from './helpers/token.service';
+import { ApiService } from './helpers/api.service';
 import { AuthService } from './services/auth.service';
 import { MediaService } from './services/media.service';
-import { ApiService } from './services/api.service';
+import { GeneralService } from './services/api.service';
 
 import { SharedModule } from './shared/shared.module';
 import { TAB_COMPONENTS  } from './shared/tabs/tabset';
@@ -88,6 +90,7 @@ import { VgControlsModule } from 'videogular2/controls';
 import { VgOverlayPlayModule } from 'videogular2/overlay-play';
 import { VgBufferingModule } from 'videogular2/buffering';
 import { ChannelInnerComponent } from './components/channel-inner/channel-inner.component';
+import { UserOtherComponent } from './components/user-other/user-other.component';
 
 @NgModule({
   declarations: [
@@ -121,7 +124,8 @@ import { ChannelInnerComponent } from './components/channel-inner/channel-inner.
     MasonryComponent,
     LogoutComponent,
     ProfileSliderComponent,
-    ChannelInnerComponent
+    ChannelInnerComponent,
+    UserOtherComponent
   ],
   imports: [
     BrowserModule,
@@ -133,6 +137,7 @@ import { ChannelInnerComponent } from './components/channel-inner/channel-inner.
     MasonryModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
+    // StoreRouterConnectingModule,
     EffectsModule.run(AuthEffect),
     EffectsModule.run(HomeEffect),
     EffectsModule.run(SharedEffect),
@@ -147,7 +152,9 @@ import { ChannelInnerComponent } from './components/channel-inner/channel-inner.
     VgOverlayPlayModule,
     VgBufferingModule
   ],
-  providers: [AuthService, AuthGuard, ApiService, TokenService, MediaService],
+  providers: [
+    AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

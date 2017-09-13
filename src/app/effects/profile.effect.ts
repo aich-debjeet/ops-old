@@ -347,7 +347,7 @@ export class ProfileEffect {
     );
 
 
-    /**
+  /**
    * Get current user channel profile
    */
   @Effect()
@@ -357,6 +357,42 @@ export class ProfileEffect {
     .switchMap((payload) => this.profileService.createChannel(payload)
       .map(res => ({ type: ProfileActions.CHANNEL_SAVE_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.CHANNEL_SAVE_FAILED, payload: res }))
+    );
+
+  /**
+   * Get current user channel profile
+   */
+  @Effect()
+  loadProfile$ = this.actions$
+    .ofType(ProfileActions.PROFILE_LOAD)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.loadProfileByUsername(payload)
+      .map(res => ({ type: ProfileActions.PROFILE_LOAD_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.PROFILE_LOAD_FAILED, payload: res }))
+    );
+
+  /**
+   * Get user channels
+   */
+  @Effect()
+  loadChannel$ = this.actions$
+    .ofType(ProfileActions.LOAD_USER_CHANNEL)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getUserChannel(payload)
+      .map(res => ({ type: ProfileActions.LOAD_USER_CHANNEL_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.LOAD_USER_CHANNEL_FAILED, payload: res }))
+    );
+
+  /**
+   * Get user channels
+   */
+  @Effect()
+  followProfile$ = this.actions$
+    .ofType(ProfileActions.PROFILE_FOLLOW)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.followUser(payload)
+      .map(res => ({ type: ProfileActions.PROFILE_FOLLOW_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.PROFILE_FOLLOW_FAILED, payload: res }))
     );
 
   constructor(

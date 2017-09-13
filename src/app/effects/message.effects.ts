@@ -7,19 +7,11 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
-import { ApiService } from '../services/api.service';
+import { GeneralService } from '../services/api.service';
 import { MessageActions } from '../actions/message.action';
 
 @Injectable()
 export class MessageEffect {
-
-  constructor(
-    private actions$: Actions,
-    private apiService: ApiService
-  ) {
-    console.log('message effects');
-  }
-
   @Effect()
   sentMessages$ = this.actions$
     .ofType(MessageActions.LOAD_SENT_MESSAGES)
@@ -47,4 +39,8 @@ export class MessageEffect {
       .catch((res) => Observable.of({ type: MessageActions.SEND_MESSAGE_FAILED, payload: res }))
     );
 
+    constructor(
+    private actions$: Actions,
+    private apiService: GeneralService
+  ) {}
 }
