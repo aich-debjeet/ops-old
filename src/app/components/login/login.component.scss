@@ -7,8 +7,15 @@
     color: #ff7b84!important;
 }
 
+.sticky{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
 /* --------------------- registrationi -------------------------------- */
-   
+
     // step 1 -------------------
     .ops_signup {
       background-color: #ffffff;
@@ -51,7 +58,7 @@
           }
       }
   }
-  
+
   // step 2 ----------------------
   .ops_signup2 {
       background-color: #f1f1f1;
@@ -154,7 +161,7 @@
           }
       }
   }
-  
+
   // step 3 add skills ---------------------
   .skills_section {
       // padding-top: 60px;
@@ -354,5 +361,5 @@
     .ops_h1 {
         margin-bottom: 48px;
     }
-  } 
+  }
 }

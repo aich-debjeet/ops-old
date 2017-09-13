@@ -35,8 +35,6 @@ import { AuthGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
  { path: '', component: LogoutHomeComponent },
-//  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
- { path: 'mas', component: MasonryComponent },
  { path: 'logout', component: LogoutComponent },
  { path: 'login', component: LoginComponent },
  { path: 'learn', component: LearnComponent },

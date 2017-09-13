@@ -1,5 +1,5 @@
 import { environment } from '../../../../environments/environment.prod';
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, Input, ViewChild} from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
@@ -7,6 +7,7 @@ import { UserMedia } from '../../../models/user-media.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 // helper
 import { TokenService } from '../../../helpers/token.service';
@@ -16,6 +17,8 @@ import { FormValidation, ProfileUpdateValidator } from '../../../helpers/form.va
 import { ProfileActions } from '../../../actions/profile.action';
 import { AuthActions } from '../../../actions/auth.action';
 import { SharedActions } from '../../../actions/shared.action';
+
+import { ProfileCard } from '../../../models/profile.model';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -30,7 +33,13 @@ import { find as _find, forEach as _forEach  } from 'lodash';
   providers: [ModalService, DatePipe, ProfileUpdateValidator],
   styleUrls: ['./profile-slider.component.scss']
 })
+
 export class ProfileSliderComponent implements OnInit {
+  @ViewChild('profileImage') fileInput;
+  @Input() profileData: any;
+  @Input() isOtherProfile: any;
+  @Input() userName: string;
+  @Input() profileObject: ProfileCard;
   changingImage: boolean;
   data: any;
   cropperSettings: CropperSettings;
@@ -47,8 +56,10 @@ export class ProfileSliderComponent implements OnInit {
   selectedSkills = [];
   search: String;
   activateSubmitBtn = false;
+  router: any;
+  // profileObject: ProfileCard;
 
-  @ViewChild('profileImage') fileInput;
+  hasFollowed: boolean;
 
   constructor(
     private http: Http,
@@ -56,12 +67,12 @@ export class ProfileSliderComponent implements OnInit {
     private fb: FormBuilder,
     private profileUpdateValidator: ProfileUpdateValidator,
     public datepipe: DatePipe,
+    private _router: Router,
     public tokenService: TokenService,
     private profileStore: Store<ProfileModal>
   ) {
 
     this.baseUrl = environment.API_IMAGE;
-
     this.cropperSettings = new CropperSettings();
     this.cropperSettings.width = 100;
     this.cropperSettings.height = 100;
@@ -83,10 +94,9 @@ export class ProfileSliderComponent implements OnInit {
       this.findSkill = state;
     });
 
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
     this.buildEditForm();
+
+    this.router = _router;
 
   }
 
@@ -95,24 +105,33 @@ export class ProfileSliderComponent implements OnInit {
     this.modalService.open('ChangeProfile');
   }
 
+  ngOnInit() {
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+  }
+
   /**
    * Present Profile Cover Image
    */
-  profileImageStyle(user: any) {
-    console.log(user);
-    const img = user.profileUser.coverImageList;
-    let coverImageURL;
-    if (img == null || img === '') {
-      coverImageURL = 'https://dl.dropboxusercontent.com/content_link/2X7ZfUULj6yEB3Lae345IgX23QuaapF23uf0ayijh5SlHrHVBKYrKZXQfPemdFCh/file';
-    } else {
-      coverImageURL = this.baseUrl + img;
+  profileImageStyle(profile: any) {
+    if (profile == null) {
+      return false;
     }
+
+    let coverImageURL;
+    if (!profile.image.cover || profile.image.cover === '') {
+      coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
+    } else {
+      coverImageURL = this.baseUrl + profile.image.cover;
+    }
+    // coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
+
     const resp = {
       'background-image': 'url(' + coverImageURL + ')',
       'background-size': 'cover'
     }
 
-    console.log(resp);
     return resp;
   }
 
@@ -134,8 +153,13 @@ export class ProfileSliderComponent implements OnInit {
   isClosed(event) {
     this.changingImage = event;
   }
-
-  ngOnInit() {
+  /**
+   * Follow current Profile
+   * @param profile
+   */
+  followUser(profile: any) {
+    const handle = profile.userDetails.handle;
+    this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle });
   }
 
   /**
@@ -195,8 +219,7 @@ export class ProfileSliderComponent implements OnInit {
    * Add current user Work
    */
   deleteAddWork(id) {
-    this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
-    // console.log(value);
+    this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id });
   }
 
   /**
@@ -262,7 +285,7 @@ export class ProfileSliderComponent implements OnInit {
       'websitePrivacy' : '0',
       'dob' : ['' , [Validators.required], this.profileUpdateValidator.validAge.bind(this.profileUpdateValidator)],
 
-    })
+    });
     const nameValue = this.userProfile.profileUser['name'];
   }
 
@@ -303,7 +326,6 @@ export class ProfileSliderComponent implements OnInit {
    */
   showCoverImageUploader() {
     this.modalCloser('ChangeCover', true);
-    console.log('Showing Coer Image Uploader');
   }
 
   /**
@@ -407,3 +429,4 @@ export class ProfileSliderComponent implements OnInit {
   }
 
 }
+

@@ -6,15 +6,11 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
 @Injectable()
-export class ApiService {
+export class GeneralService {
 
   private apiLink: string = environment.API_ENDPOINT;
-
-  // temp access token
-  accessToken: string = "Bearer fd_8cc8f8bc-f33f-41f9-b3a2-7084ea1ac610";
-
-  // temp userHandle
-  userHandle = 'J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM';
+  accessToken: string;
+  userHandle: string;
 
   constructor(private http: Http, private router: Router) { }
 
@@ -29,7 +25,6 @@ export class ApiService {
     return this.http.post(`${this.apiLink}/portal/network/spotfeed/search`, req, reqOptions)
         .map((response: Response) => {
             const channelsArr = response.json();
-            //console.log(channelsArr);
         });
   }
   /* ------------------------- load channels ------------------------- */
@@ -70,7 +65,7 @@ export class ApiService {
   }
   /* ------------------------- pin/unpin channel ------------------------- */
 
-  
+
   /* ------------------------- get logged in users profile ------------------------- */
 
   /* ------------------------- get logged in users media ------------------------- */

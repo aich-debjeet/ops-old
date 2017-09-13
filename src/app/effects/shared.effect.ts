@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
-import { ApiService } from '../services/api.service';
+import { GeneralService } from '../services/api.service';
 import { SharedActions } from '../actions/shared.action';
 
 @Injectable()
@@ -32,6 +32,6 @@ export class SharedEffect {
 
     constructor(
     private actions$: Actions,
-    private apiService: ApiService
+    private apiService: GeneralService
   ) {}
 }

@@ -4,8 +4,27 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class TokenService {
-
   constructor(private router: Router) { }
+
+  /**
+   * Check if the router is for other profile or current profile
+   * @param router
+   */
+  profileType(router: any) {
+    let activeUser, isCurrentUser = false;
+    const path = router.currentUrlTree.root.children.primary
+    if (path.segments.length > 2) {
+      activeUser = path.segments[2].path;
+      isCurrentUser = false;
+    }else {
+      isCurrentUser = true;
+    }
+
+    return {
+      activeUser: activeUser,
+      isCurrentUser: isCurrentUser
+    }
+  }
   /**
    * Get Handle
    */

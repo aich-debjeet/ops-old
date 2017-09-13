@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ApiService } from '../../services/api.service';
 
 import { Store } from '@ngrx/store';
 import { Channel } from '../../models/home.model';
@@ -21,7 +20,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class HomeComponent {
 
-  
+
   channelList$: Observable<Channel>;
   cards: any = [];
 
@@ -30,11 +29,10 @@ export class HomeComponent {
     limit: 10
   };
 
-  userProfileHandle = "J_47578AB2_AB1F_4B56_BB23_A0BFB26EFCE2DEEPASHREE_AEIONE_GMAIL_COM";
+  userProfileHandle: string;
 
   pinChannel(id: string /* channel id */) {
-    console.log('home component: pinChannel() dispatched for channel: '+id);
-
+    console.log('home component: pinChannel() dispatched for channel: ' + id);
 
     // this.store.dispatch({
     //   type: SharedActions.PIN_CHANNEL,
@@ -47,7 +45,7 @@ export class HomeComponent {
   }
 
   unpinChannel(id: string /* channel id */) {
-    console.log('home component: unpinChannel() dispatched for channel: '+id);
+    console.log('home component: unpinChannel() dispatched for channel: ' + id);
 
     this.store.dispatch({
       type: SharedActions.UNPIN_CHANNEL,
@@ -76,52 +74,8 @@ export class HomeComponent {
   }
 
   constructor(private store: Store<Channel>) {
-
     this.getChannels();
-
-    // initial cards
-    this.cards = [{
-      title: 'title 1',
-      image: 'http://via.placeholder.com/640x360',
-      descirption: '1 Some quick example text to build on the card title and make up the bulk of the card\'s content.',
-      links: [
-        { linkRight: 'http://testlink-right.com' },
-        { linkLeft: 'http://testlink-left.com' }
-      ]
-    }, {
-      title: 'title 2',
-      image: 'http://via.placeholder.com/640x360',
-      descirption: '2 Some quick example text to build on the card title and make up the bulk of the card\'s content.',
-      links: [
-        { linkRight: 'http://testlink-right.com' },
-        { linkLeft: 'http://testlink-left.com' }
-      ]
-    }, {
-      title: 'title 3',
-      image: 'http://via.placeholder.com/640x360',
-      descirption: '3 Some quick example text to build on the card title and make up the bulk of the card\'s content.',
-      links: [
-        { linkRight: 'http://testlink-right.com' },
-        { linkLeft: 'http://testlink-left.com' }
-      ]
-    }, {
-      title: 'title 4',
-      image: 'http://via.placeholder.com/640x360',
-      descirption: '4 Some quick example text to build on the card title and make up the bulk of the card\'s content.',
-      links: [
-        { linkRight: 'http://testlink-right.com' },
-        { linkLeft: 'http://testlink-left.com' }
-      ]
-    }, {
-      title: 'title 5',
-      image: 'http://via.placeholder.com/640x360',
-      descirption: '5 Some quick example text to build on the card title and make up the bulk of the card\'s content.',
-      links: [
-        { linkRight: 'http://testlink-right.com' },
-        { linkLeft: 'http://testlink-left.com' }
-      ]
-    }];
-
+    this.cards = [];
   }
 
 }
