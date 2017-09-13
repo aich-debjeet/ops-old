@@ -43,6 +43,9 @@ import { BlogeditorComponent } from './blogeditor/blogeditor.component';
 import { MediaPopupComponent } from './media-popup/media-popup.component';
 import { CreateChannelComponent } from './create-channel/create-channel.component';
 import { ComingSoonComponent } from './coming-soon/coming-soon.component';
+import { DropdownDirective } from './dropdown/dropdown.directive';
+import { DropdownNotClosableZoneDirective } from './dropdown/dropdown-not-closable-zone.directive';
+import { DropdownOpenDirective } from './dropdown/dropdown-open.directive';
 
 @NgModule({
   imports: [
@@ -79,7 +82,10 @@ import { ComingSoonComponent } from './coming-soon/coming-soon.component';
     ChannelSelectorComponent,
     MediaPopupComponent,
     CreateChannelComponent,
-    ComingSoonComponent
+    ComingSoonComponent,
+    DropdownDirective,
+    DropdownNotClosableZoneDirective,
+    DropdownOpenDirective
   ],
   exports: [
     AuthRightBlockComponent,
@@ -100,7 +106,10 @@ import { ComingSoonComponent } from './coming-soon/coming-soon.component';
     MediumEditorComponent,
     ChannelSelectorComponent,
     MediaPopupComponent,
-    ComingSoonComponent
+    ComingSoonComponent,
+    DropdownDirective,
+    DropdownNotClosableZoneDirective,
+    DropdownOpenDirective
   ]
 
 })

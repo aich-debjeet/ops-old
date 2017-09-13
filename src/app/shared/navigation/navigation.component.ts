@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Directive, OnInit, HostListener, Renderer, ElementRef, HostBinding } from '@angular/core';
 import { ModalService } from '../modal/modal.component.service';
-
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../models/profile.model';
+
+// action
+import { ProfileActions } from '../../actions/profile.action';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -16,6 +18,7 @@ import { environment } from '../../../environments/environment.prod';
 })
 
 export class NavigationComponent implements OnInit {
+
   topNav = {
     status: { open: false },
     channel: { open: false },
@@ -24,21 +27,29 @@ export class NavigationComponent implements OnInit {
     message: { open: false },
     profile: { open: false }
   };
+
   baseUrl: string;
   showMenu: boolean;
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
   userProfile = initialTag ;
+
   constructor(
-    private profileStore: Store<ProfileModal>,
+    private store: Store<ProfileModal>,
     public modalService: ModalService,
+    private el: ElementRef,
+    private renderer: Renderer
   ) {
+
+
     this.baseUrl = environment.API_IMAGE;
-    this.tagState$ = this.profileStore.select('profileTags');
-    // this.test = 'salabeel';
+    this.tagState$ = this.store.select('profileTags');
+
     this.tagState$.subscribe((state) => {
+      console.log(state);
       this.userProfile = state;
     });
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
   }
 
   /**
@@ -61,23 +72,10 @@ export class NavigationComponent implements OnInit {
   createCommunity() {
     //
   }
-  /**
-   * Show/Hide Menu
-   */
-  toggleMenu() {
-    this.showMenu = !this.showMenu;
-  }
 
   ngOnInit() {
   }
 
-  toggleNav(elem: string) {
-    console.log(this.topNav[elem]);
-    if (this.topNav[elem].open === true) {
-      this.topNav[elem].open = false;
-    } else {
-      this.topNav[elem].open = true;
-    }
-  }
 
 }
+
