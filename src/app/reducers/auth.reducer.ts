@@ -118,11 +118,10 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
 
     case AuthActions.USER_REGISTRATION_BASIC_SUCCESS:
-      console.log('registration sucess');
-      console.log(payload);
       return Object.assign({}, state, {
         completed: payload,
-        success: true
+        success: true,
+        user_token: payload.access_token
       });
 
     case AuthActions.USER_REGISTRATION_BASIC_FAILED:
