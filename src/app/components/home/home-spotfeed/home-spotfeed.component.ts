@@ -20,7 +20,8 @@ export class HomeSpotfeedComponent implements OnInit {
 
   tagState$: Observable<UserSpotfeeds>;
   private tagStateSubscription: Subscription;
-  userSpotfeeds;
+  userState;
+  spotfeeds;
 
   constructor(
     private http: Http,
@@ -29,7 +30,8 @@ export class HomeSpotfeedComponent implements OnInit {
 
     this.tagState$ = this.store.select('profileTags');
     this.tagState$.subscribe((state) => {
-      this.userSpotfeeds = state;
+      this.userState = state;
+      this.spotfeeds = this.userState.channelEntity;
     });
 
     const reqBody = {

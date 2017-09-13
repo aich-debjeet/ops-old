@@ -1,16 +1,16 @@
 <div class="c-spotfeed">
   <div class="c-spotfeed-block margin_none">
       <div class="c-spotfeed-block__item">
-          <div class="c-spotfeed-item__single">
+          <a class="c-spotfeed-item__single" [routerLink]="['/spotfeed', spotfeedData.spotfeedId]">
               <div class="c-spotfeed-single__media">
-                  <img src="img/channel.jpg" alt="">
+                  <img src="{{ spotfeedData.spotfeedImage }}" src="" alt="">
               </div>
               <div class="c-spotfeed-single__content">
                   <div class="c-spotfeed-content__heading">
-                      <h3 class="c-spotfeed-heading--style">All</h3>
+                      <h3 class="c-spotfeed-heading--style">{{ spotfeedData.spotfeedName }}</h3>
                   </div>
               </div>
-          </div>
+            </a>
       </div>
   </div>
 </div><!-- c-spotfeed end -->

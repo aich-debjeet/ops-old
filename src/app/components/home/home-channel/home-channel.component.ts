@@ -23,6 +23,7 @@ export class HomeChannelComponent {
 
   tagState$: Observable<UserChannel>;
   private tagStateSubscription: Subscription;
+  userState;
   userChannels;
 
   constructor(
@@ -31,9 +32,9 @@ export class HomeChannelComponent {
   ) {
 
     this.tagState$ = this.store.select('profileTags');
-    // this.test = 'salabeel';
     this.tagState$.subscribe((state) => {
-      this.userChannels = state;
+      this.userState = state;
+      this.userChannels = this.userState.channelEntity;
     });
 
     const reqBody = {
