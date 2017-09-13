@@ -3,36 +3,20 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
-  styleUrls: ['./events.component.css']
+  styleUrls: ['./events.component.scss']
 })
-export class EventsComponent {
+export class EventsComponent implements OnInit {
+  comingsoon: any;
+  constructor() {}
 
-  bottomCards: any=[];
-  topCards: any=[];
-
-  constructor() {
-    // this.bottomCards[
-    //   {},{},{},{},{},{},{},{},
-    //
-    // ];
-
-    this.bottomCards = [
-      { name:'Performance', dateNumber: '25', dateMoYr: 'July,2017', textFirst: 'TEDxBangalore', textSecnd: 'Unbreakable-2017', paperClip: 'fa fa-paperclip', circle: 'fa fa-circle-o', share: 'fa fa-share-alt', display:'view', marker: 'fa fa-map-marker fa-lg' },
-      { name:'Performance', dateNumber: '25', dateMoYr: 'July,2017', textFirst: 'TEDxBangalore', textSecnd: 'Unbreakable-2017', paperClip: 'fa fa-paperclip', circle: 'fa fa-circle-o', share: 'fa fa-share-alt', display:'view', marker: 'fa fa-map-marker fa-lg' },
-      { name:'Performance', dateNumber: '25', dateMoYr: 'July,2017', textFirst: 'TEDxBangalore', textSecnd: 'Unbreakable-2017', paperClip: 'fa fa-paperclip', circle: 'fa fa-circle-o', share: 'fa fa-share-alt', display:'view', marker: 'fa fa-map-marker fa-lg' },
-      { name:'Performance', dateNumber: '25', dateMoYr: 'July,2017', textFirst: 'TEDxBangalore', textSecnd: 'Unbreakable-2017', paperClip: 'fa fa-paperclip', circle: 'fa fa-circle-o', share: 'fa fa-share-alt', display:'view', marker: 'fa fa-map-marker fa-lg' },
-      { name:'Performance', dateNumber: '25', dateMoYr: 'July,2017', textFirst: 'TEDxBangalore', textSecnd: 'Unbreakable-2017', paperClip: 'fa fa-paperclip', circle: 'fa fa-circle-o', share: 'fa fa-share-alt', display:'view', marker: 'fa fa-map-marker fa-lg' },
-      { name:'Performance', dateNumber: '25', dateMoYr: 'July,2017', textFirst: 'TEDxBangalore', textSecnd: 'Unbreakable-2017', paperClip: 'fa fa-paperclip', circle: 'fa fa-circle-o', share: 'fa fa-share-alt', display:'view', marker: 'fa fa-map-marker fa-lg' },
-      { name:'Performance', dateNumber: '25', dateMoYr: 'July,2017', textFirst: 'TEDxBangalore', textSecnd: 'Unbreakable-2017', paperClip: 'fa fa-paperclip', circle: 'fa fa-circle-o', share: 'fa fa-share-alt', display:'view', marker: 'fa fa-map-marker fa-lg' },
-      { name:'Performance', dateNumber: '25', dateMoYr: 'July,2017', textFirst: 'TEDxBangalore', textSecnd: 'Unbreakable-2017', paperClip: 'fa fa-paperclip', circle: 'fa fa-circle-o', share: 'fa fa-share-alt', display:'view', marker: 'fa fa-map-marker fa-lg' },
-    ];
-
-    this.topCards = [
-      { name:'Lust for Life-Album Launch', dateNumber: '25', dateMoYr: 'July,2017', textFirst: 'Accenture, Indiranagar', textSecnd: 'Bengaluru',text:'12 k people going', marker: 'fa fa-map-marker fa-lg'},
-      { name:'Lust for Life-Album Launch', dateNumber: '25', dateMoYr: 'July,2017', textFirst: 'Accenture, Indiranagar', textSecnd: 'Bengaluru',text:'12 k people going', marker: 'fa fa-map-marker fa-lg'},
-      { name:'Lust for Life-Album Launch', dateNumber: '25', dateMoYr: 'July,2017', textFirst: 'Accenture, Indiranagar', textSecnd: 'Bengaluru',text:'12 k people going', marker: 'fa fa-map-marker fa-lg'},
-
-    ];
+  ngOnInit() {
+    this.comingsoon = {
+      mainTitle: 'Events will be Coming Soon.',
+      description: 'Our folks are still arranging the chairs right now. Please wait outside while we set this up. <br> <br> Feel free to browse through our other pages.',
+      buttonLink: '/home',
+      buttonText: 'Go to Home',
+      img: 'http://d33wubrfki0l68.cloudfront.net/7fa8ea0b364101d93091e6a21e6c3639c993416d/3027b/img/svg/404/events_img.svg'
+    };
   }
 
 }

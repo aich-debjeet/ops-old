@@ -47,6 +47,7 @@ $pad-scale-4: 32px;
 
 .icon__holder {
   padding-bottom: $pad-scale-1;
+  text-align: left;
 }
 
 .form__select{
@@ -57,4 +58,31 @@ $pad-scale-4: 32px;
   border-radius: 0;
   height: 24px;
   font-weight: 600;
+}
+
+.channel-list-show{
+  margin-left: 16px;
+  color: #444;
+  text-align: left;
+  &_img{
+    display: inline-block;
+  }
+  &_txt {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 16px;
+    margin-left: 16px;
+  }
+  &_btn {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 16px;
+    margin-left: 16px;
+    float: right;
+  }
+}
+
+.sel .btn-sm {
+  color: #7d987f;
+  border: solid 1px #b7efbb;
 }

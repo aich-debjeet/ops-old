@@ -6,10 +6,12 @@
           <tabset>
             <tab title="Status">
               <div class="tab-content add-post_container">
-                <!-- add status  -->
                 <form [formGroup]="statusForm" novalidate (ngSubmit) = "submitStatusForm(statusForm.value)" #myform="ngForm">
                   <div id="add_status" class="tab-pane fade active in add_status_inner com_in_middle">
                     <ul class="middle_block">
+                        <li class="msg_block" *ngIf="mediaStore.status_saved">
+                          <p>Your status has been posted successfully</p>
+                        </li>
                         <li class="with_border_bottom">
                           <ul class="list-inline">
                               <li class="list-inline-item discussion_input">

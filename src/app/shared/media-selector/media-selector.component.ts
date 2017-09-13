@@ -142,7 +142,7 @@ export class MediaSelectorComponent {
         lastUpdatedDate: '2017-08-23T09:50:12.48',
         count : {
           likes: [], shares: [], spots: [],
-          channel: chosenChannel.spotfeedId
+          channel: this.chosenChannel.spotfeedId
         }
     }];
 
@@ -298,6 +298,7 @@ export class MediaSelectorComponent {
    */
   onChannelSelection(channel: any) {
     this.chooseChannel = channel;
+    this.chosenChannel = channel;
   }
 
   /**

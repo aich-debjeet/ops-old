@@ -45,7 +45,6 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
 
     case AuthActions.LOAD_ARTIST_SUCCESS:
-      console.log(payload);
       return Object.assign({}, state, {
         completed: payload,
         success: true
@@ -87,13 +86,17 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_LOGIN:
       return Object.assign({}, state, {
-        success: true
+        success: false,
+        login_completed: false,
+        page_loading: true,
       });
 
     case AuthActions.USER_LOGIN_SUCCESS:
       return Object.assign({}, state, {
         completed: payload,
-        success: true
+        login_completed: true,
+        success: true,
+        page_loading: false,
       });
 
     case AuthActions.USER_LOGIN_FAILED:
@@ -101,7 +104,9 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       const error = JSON.parse(payload._body);
       return Object.assign({}, state, {
         success: false,
-        error_description: error.error_description
+        login_completed: false,
+        error_description: error.error_description,
+        page_loading: false
       });
 
 
@@ -173,8 +178,6 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
 
     case AuthActions.USER_EXISTS_SUCCESS:
-    // console.log('user Exists Done');
-    console.log(payload);
       if (payload.code === 0) {
         return Object.assign({}, state, {
           completed: payload,
@@ -318,6 +321,23 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.FP_GET_USERDATA_FAILED:
       return Object.assign({}, state, {
         fpGetUserDataSuccess: false
+      });
+
+    /**
+     * Check with existing auth credentials if Authetincated
+     */
+
+    case AuthActions.USER_AUTHENTICATED:
+      return Object.assign({}, state, {
+        page_loading: true
+      });
+    case AuthActions.USER_AUTHENTICATED_SUCCESS:
+      return Object.assign({}, state, {
+        page_loading: false
+      });
+    case AuthActions.USER_AUTHENTICATED_FAILED:
+      return Object.assign({}, state, {
+        page_loading: false
       });
 
     default:

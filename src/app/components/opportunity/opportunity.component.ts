@@ -1,43 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-opportunity',
   templateUrl: './opportunity.component.html',
-  styleUrls: ['./opportunity.component.css']
+  styleUrls: ['./opportunity.component.scss']
 })
-export class OpportunityComponent {
+export class OpportunityComponent implements OnInit {
+  comingsoon: any;
+  constructor() { }
 
-  jobs: any = [];
-
-  constructor() {
-
-    // initial cards
-    this.jobs = [{
-      position: 'creative director',
-      experience: '2-4',
-      location: 'mumbai'
-    }, {
-      position: 'designer',
-      experience: '0-1',
-      location: 'bangalore'
-    }, {
-      position: 'jr web developer',
-      experience: '0-1',
-      location: 'delhi'
-    }, {
-      position: 'full stack developer',
-      experience: '2-4',
-      location: 'kolkata'
-    }, {
-      position: 'sr tech manager',
-      experience: '5-10',
-      location: 'banglaore'
-    }, {
-      position: 'test',
-      experience: 'test',
-      location: 'test'
-    }];
-
+  ngOnInit() {
+    this.comingsoon = {
+      mainTitle: 'Opportunities will be Coming Soon.',
+      description: 'Sorry. We are on the way. Traffic these days, I tell you! Feel free to browse through our other pages.',
+      buttonLink: '/home',
+      buttonText: 'Go to Home',
+      img: 'http://d33wubrfki0l68.cloudfront.net/bd74fa7300db348698a9c798b806975d0040d7b6/5259e/img/svg/404/opportunity_image.svg'
+    };
   }
-
 }

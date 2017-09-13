@@ -6,7 +6,17 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
   switch (type) {
     case MediaActions.STATUS_SAVE:
       return Object.assign({}, state, {
-        success: true
+        status_saved: false
+      });
+    case MediaActions.STATUS_SAVE_SUCCESS:
+      return Object.assign({}, state, {
+        status_saved: true
+      });
+
+    case MediaActions.STATUS_SAVE_FAILED:
+      return Object.assign({}, state, {
+        status_saved: false,
+        status_error: payload
       });
 
     case MediaActions.MEDIA_UPLOAD:
@@ -45,6 +55,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
     console.log(payload);
       return Object.assign({}, state, {
         media_detail_loading: true,
+        media_detail: []
       });
 
     case MediaActions.MEDIA_DETAILS_SUCCESS:
@@ -58,7 +69,42 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       return Object.assign({}, state, {
         media_detail_loading: false,
         media_detail_failed: true,
+        media_detail: []
       });
+
+    // Fetch Media comment
+    case MediaActions.MEDIA_COMMENT_FETCH:
+    console.log(state);
+      return Object.assign({}, state, {
+        media_comment_loading: true,
+        media_post_success: false,
+        media_comment: []
+      });
+
+    case MediaActions.MEDIA_COMMENT_FETCH_SUCCESS:
+      console.log('comment loading');
+      console.log(payload);
+      return Object.assign({}, state, {
+        media_comment_loading: false,
+        media_post_success: false,
+        media_comment: payload
+      });
+
+    case MediaActions.MEDIA_COMMENT_FETCH_FAILED:
+      return Object.assign({}, state, {
+        media_comment_loading: false,
+        media_comment_failed: true,
+        media_comment: []
+      });
+
+    // Media comment success
+    case MediaActions.POST_COMMENT_SUCCESS:
+      console.log('comment loading');
+      return Object.assign({}, state, {
+        media_post_success: true
+      });
+
+
 
     default:
       return state;

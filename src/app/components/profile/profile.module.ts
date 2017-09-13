@@ -6,7 +6,6 @@ import { MasonryModule } from 'angular2-masonry';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 
-
 import { SharedModule } from '../../shared/shared.module';
 import { ProfileComponent } from './profile.component';
 import { ProfileChannelComponent } from './profile-channel/profile-channel.component';
@@ -20,40 +19,47 @@ import { AboutAwardsComponent } from './about-awards/about-awards.component';
 import { AboutEducationComponent } from './about-education/about-education.component';
 import { AboutContactComponent } from './about-contact/about-contact.component';
 
+import { ProfileHelper } from '../../helpers/profile.helper';
+
+const childRoutes = [
+  {
+    path: '',
+    redirectTo: 'user',
+    pathMatch: 'full'
+  },
+  {
+    path: 'user',
+    component: ProfileBlockComponent,
+    children: [
+      { path: '', component: ProfileChannelComponent },
+      { path: 'channel', component: ProfileChannelComponent },
+      { path: 'post', component: ProfilePostComponent },
+    ]
+  },
+  {
+    path: 'about',
+    component: ProfileAboutComponent,
+    children: [
+      { path: '', component: AboutBioComponent },
+      { path: 'bio', component: AboutBioComponent },
+      { path: 'work', component: AboutWorkComponent },
+      { path: 'awards', component: AboutAwardsComponent },
+      { path: 'education', component: AboutEducationComponent },
+      { path: 'contact', component: AboutContactComponent }
+    ]
+  },
+];
 
 const routes: Routes = [
   {
     path: '',
     component: ProfileComponent,
-    children: [
-      {
-        path: '',
-        redirectTo: 'user',
-        pathMatch: 'full'
-      },
-      {
-        path: 'user',
-        component: ProfileBlockComponent,
-        children: [
-          { path: '', component: ProfileChannelComponent },
-          { path: 'channel', component: ProfileChannelComponent },
-          { path: 'post', component: ProfilePostComponent },
-        ]
-      },
-      {
-        path: 'about',
-        component: ProfileAboutComponent,
-        children: [
-          { path: '', component: AboutBioComponent },
-          { path: 'bio', component: AboutBioComponent },
-          { path: 'work', component: AboutWorkComponent },
-          { path: 'awards', component: AboutAwardsComponent },
-          { path: 'education', component: AboutEducationComponent },
-          { path: 'contact', component: AboutContactComponent }
-        ]
-      },
-      //  { path: '', component: ProfileBlockComponent }
-    ]
+    children: childRoutes,
+  },
+  {
+    path: 'u/:id',
+    component: ProfileComponent,
+    children: childRoutes,
   }
 ]
 

@@ -1,8 +1,6 @@
 import { Component, Renderer } from '@angular/core';
 import { Store } from '@ngrx/store';
-
-import _ from "lodash";
-import { Message } from "../../models/message.model";
+import { Message } from '../../models/message.model';
 import { UserMessages } from '../../models/user-messages.model';
 import { UserSearch } from '../../models/user-search.model';
 
@@ -39,8 +37,8 @@ export class MessageComponent {
   groupedMessages = [];
   mergedMessages = [];
 
-  selectedView: string = '';
-  userHandle: string = '';
+  selectedView = '';
+  userHandle = '';
 
   constructor(private store: Store<Message>) {
 
@@ -68,7 +66,7 @@ export class MessageComponent {
   // search user
   searchUser() {
     console.log('user search: '+this.searchUserTerm);
-    if(this.searchUserTerm.length > 2) {
+    if (this.searchUserTerm.length > 2) {
       // trigger search method
       this.store.dispatch({ type: UserSearchActions.USER_SEARCH, payload: this.searchUserTerm });
     }
@@ -79,15 +77,15 @@ export class MessageComponent {
 
     console.log('send message');
 
-    var toUserHandle = 'J_47578AB2_AB1F_4B56_BB23_A0BFB26EFCE2DEEPASHREE_AEIONE_GMAIL_COM';
+    const toUserHandle = 'J_47578AB2_AB1F_4B56_BB23_A0BFB26EFCE2DEEPASHREE_AEIONE_GMAIL_COM';
 
-    console.log('sending: '+this.messageToSend+' to: '+toUserHandle);
+    console.log('sending: ' + this.messageToSend + ' to: ' + toUserHandle);
     // trigger send message method
     this.store.dispatch({
       type: MessageActions.SEND_MESSAGE,
       payload: {
-        subject :this.messageToSend,
-        content :this.messageToSend,
+        subject: this.messageToSend,
+        content: this.messageToSend,
         to: toUserHandle
       }
     });

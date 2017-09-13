@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit {
   private tagStateSubscription: Subscription;
   tagState$: Observable<Login>;
@@ -32,16 +33,10 @@ export class LoginComponent implements OnInit {
     })
 
     this.tagState$ = store.select('loginTags');
-    // this.tagState$.subscribe(v => console.log(v));
 
     this.tagState$.subscribe((state) => {
-    this.petTag = state;
-
-        console.log(state);
-        // this.done = !!(this.petTag.shape && this.petTag.text);
-      });
-
-
+      this.petTag = state;
+    });
   }
 
   ngOnInit() {

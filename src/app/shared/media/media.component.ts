@@ -39,13 +39,11 @@ export class MediaComponent implements OnInit, AfterViewInit {
   uploadFieldName = 'photos';
   files: any[];
   showChannelList: boolean;
-
-  // temp
   token: string;
   handle: string;
-
   textVar: string;
   placeholderVar: string;
+  page_message: string;
 
   constructor(
     private fb: FormBuilder,
@@ -123,9 +121,6 @@ export class MediaComponent implements OnInit, AfterViewInit {
    * @param formData
    */
   save(formData: FormData) {
-    // Upload data to the server
-    // this.currentStatus = this.STATUS_SAVING;
-    console.log(formData);
     this.store.dispatch({ type: MediaActions.MEDIA_UPLOAD, payload: formData });
   }
 
@@ -133,8 +128,6 @@ export class MediaComponent implements OnInit, AfterViewInit {
    * Media Uploader Form
    */
   submitStatusForm(value: any) {
-
-    console.log(value);
 
     if ( this.statusForm.valid === true ) {
       const postStatus = {
@@ -168,7 +161,7 @@ export class MediaComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log('Initiated');
+    //
   }
 
   /**

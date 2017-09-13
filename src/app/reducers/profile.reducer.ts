@@ -7,6 +7,23 @@ import { ProfileActions } from '../actions/profile.action';
 export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
   switch (type) {
+
+    case ProfileActions.PROFILE_COVER_UPDATE:
+      return Object.assign({}, state, {
+        cover_updating: true
+      });
+
+    case ProfileActions.PROFILE_COVER_UPDATE_SUCCESS:
+      return Object.assign({}, state, {
+        cover_updating: false,
+        cover_updated: true,
+      });
+
+    case ProfileActions.PROFILE_COVER_UPDATE_FAILED:
+      return Object.assign({}, state, {
+        cover_updating: false,
+        cover_updated: false,
+      });
     /**
      * Load Current User Profile
      */
@@ -37,7 +54,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_SUCCESS:
       return Object.assign({}, state, {
         profileDetails: payload,
-        success: true
+        success: true,
+        profile_loaded: true
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_FAILED:
@@ -54,8 +72,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         });
 
       case ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS:
-        console.log('image uploading')
-        console.log(payload);
         return Object.assign({}, state, {
           profileImage: payload,
           success: true
@@ -66,26 +82,24 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
           success: false
         });
 
-        /**
-         * Save image to ProfileUI
-         */
-        case ProfileActions.SAVE_PROFILE_IMAGE:
-          return Object.assign({}, state, {
-            success: true
-          });
+      /**
+       * Save image to ProfileUI
+       */
+      case ProfileActions.SAVE_PROFILE_IMAGE:
+        return Object.assign({}, state, {
+          success: true
+        });
 
-        case ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS:
-          console.log('Save to ui')
-          console.log(payload);
-          return Object.assign({}, state, {
-            profileImage: payload,
-            success: true
-          });
+      case ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS:
+        return Object.assign({}, state, {
+          profileImage: payload,
+          success: true
+        });
 
-        case ProfileActions.SAVE_PROFILE_IMAGE_FAILED:
-          return Object.assign({}, state, {
-            success: false
-          });
+      case ProfileActions.SAVE_PROFILE_IMAGE_FAILED:
+        return Object.assign({}, state, {
+          success: false
+        });
 
 
     /**
@@ -118,7 +132,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_USER_MEDIA:
       return Object.assign({}, state, {
         user_posts_loading: true,
-        user_posts_loaded: false
+        user_posts_loaded: false,
+        user_posts: []
       });
 
     case ProfileActions.LOAD_USER_MEDIA_SUCCESS:
@@ -166,9 +181,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL_SUCCESS:
-    console.log(payload);
       return Object.assign({}, state, {
-        channelEntity: payload,
+        user_channel: payload,
         success: true,
         user_channels_loaded: true,
         user_channels_loading: false
@@ -179,6 +193,28 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         success: false,
         user_channels_loading: false,
         user_channels_loaded: false
+      });
+
+    /**
+     * Get current User channel of profile
+     */
+    case ProfileActions.LOAD_USER_CHANNEL:
+      return Object.assign({}, state, {
+        other_channels_loading: true,
+        other_channels_loaded: false
+      });
+
+    case ProfileActions.LOAD_USER_CHANNEL_SUCCESS:
+      return Object.assign({}, state, {
+        other_channel: payload,
+        other_channels_loading: false,
+        other_channels_loaded: true
+      });
+
+    case ProfileActions.LOAD_USER_CHANNEL_FAILED:
+      return Object.assign({}, state, {
+        other_channels_loading: false,
+        other_channels_loaded: false
       });
 
     /**
@@ -277,12 +313,51 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         success: false
       });
 
+    /**
+     * Load a Profile
+     */
+    case ProfileActions.PROFILE_LOAD:
+      return Object.assign({}, state, {
+        profile_other: [],
+        profile_other_loading: true
+      });
+
+    case ProfileActions.PROFILE_LOAD_SUCCESS:
+      return Object.assign({}, state, {
+        profile_other_loading: false,
+        profile_other_loaded: true,
+        profile_other: payload
+      });
+
+    case ProfileActions.PROFILE_LOAD_FAILED:
+      return Object.assign({}, state, {
+        profile_other: [],
+        profile_other_loading: false,
+        profile_other_loaded: false
+      });
+
+    /**
+     * Follow Profile
+     */
+    case ProfileActions.PROFILE_FOLLOW:
+      return Object.assign({}, state, {
+        profile_other_followed: false
+      });
+
+    case ProfileActions.PROFILE_FOLLOW_SUCCESS:
+      return Object.assign({}, state, {
+        profile_other_followed: true
+      });
+
+    case ProfileActions.PROFILE_FOLLOW_FAILED:
+      return Object.assign({}, state, {
+        profile_other_followed: false
+      });
+
     default:
       return state;
-
   }
 
 }
-
 
 export const currentUserProfile = (state: ProfileModal) => state.completed;

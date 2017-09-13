@@ -7,18 +7,11 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
-import { ApiService } from '../services/api.service';
+import { GeneralService } from '../services/api.service';
 import { HomeActions } from '../actions/home.action';
 
 @Injectable()
 export class HomeEffect {
-
-  constructor(
-    private actions$: Actions,
-    private apiService: ApiService
-  ) {
-    console.log('home effects');
-  }
 
   @Effect()
   loadChannels$ = this.actions$
@@ -29,4 +22,8 @@ export class HomeEffect {
       .catch((res) => Observable.of({ type: HomeActions.LOAD_CHANNELS_FAILED, payload: res }))
     );
 
+    constructor(
+    private actions$: Actions,
+    private apiService: GeneralService
+  ) {}
 }

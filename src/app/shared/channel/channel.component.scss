@@ -184,3 +184,19 @@ figure.channel_avatar_full video {
 app-button{
     float: right;
 }
+
+.sec__1, .sec__2 {
+  width: 50% !important;
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+
+.channel_avatar_full.sec__1,
+.channel_avatar_full.sec__2{
+  img, video {
+    border-radius: 0 !important;
+    height: 100%;
+    width: auto !important;
+  }
+}

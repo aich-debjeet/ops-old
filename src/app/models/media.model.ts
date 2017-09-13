@@ -3,6 +3,7 @@ export class Media {
   status_success = false;
   status_uploading = false;
   channel_detail?: ChanneDetails[];
+  media_post_success? = false
 }
 
 export const initialMedia: Media = {

@@ -5,28 +5,31 @@ import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 
+import { ApiService } from '../helpers/api.service';
 import { TokenService } from '../helpers/token.service';
 
 @Injectable()
 export class MediaService {
-
+  handle: string;
+  headers: any;
   private apiLink: string = environment.API_ENDPOINT;
+
   constructor(
     private http: Http,
     private router: Router,
-    private tokenService: TokenService) {}
+    private api: ApiService,
+    private tokenService: TokenService) {
+      this.headers = this.api.getHeaders();
+      this.handle = this.api.getHandle();
+    }
 
   /**
    * Post multiple media
    * @param req
    */
   postMedia(req: any) {
-    // Headers
-    const headers = this.tokenService.getAuthHeader();
-    const handle = '?handle=G_432743CB_0155_42A2_AC1F_6148C750B3D9MUNEEF_AURUT_COM';
-
-    return this.http.post(`${this.apiLink}/portal/cdn/media/upload/multiple` + handle, req, { headers: headers } )
-      .map((data) => data.json());
+    const path = '/portal/cdn/media/upload/multiple?handle=' + this.api.getHandle();
+    return this.api.post(path, req);
   }
 
   /**
@@ -34,38 +37,54 @@ export class MediaService {
    * @param req
    */
   postStatus(req: any) {
-    // Headers
-    const headers = this.tokenService.getAuthHeader();
-
-    return this.http.post(`${this.apiLink}/portal/network/feed`, req, { headers: headers } )
-      .map((data) => data.json());
+    return this.api.post('/portal/network/feed/', req);
   }
 
   /**
    * Get channel detail
+   * @param mediaId Channel ID
    */
-  getSingleChannel(id) {
-    const headers = this.tokenService.getAuthHeader();
-    return this.http.get(this.apiLink + '/portal/network/spotfeed/id/' + id, { headers: headers })
-      .map((data: Response) => data.json());
+  getSingleChannel(mediaId: string) {
+    return this.api.get('/portal/network/spotfeed/id/', mediaId);
   }
 
   /**
    * Get Meida Deatils
+   * @param mediaId Channel ID
    */
-  getMediaDeatails(id) {
-    const headers = this.tokenService.getAuthHeader();
-    return this.http.get(this.apiLink + '/portal/cdn/media/mediaDetails/' + id, { headers: headers })
-      .map((data: Response) => data.json());
+  getMediaDeatails(mediaId: string) {
+    return this.api.get('/portal/cdn/media/mediaDetails/', mediaId);
+  }
+
+  /**
+   * Media comment fetch
+   * @param mediaId Channel ID
+   */
+  fetchMediaComment(mediaId: string) {
+    return this.api.get('/portal/cdn/comment/', mediaId);
   }
 
   /**
    * Post Comment
    * @param req
    */
-  postComment(body) {
-    const headers = this.tokenService.getAuthHeader();
-    return this.http.post(`${this.apiLink}/portal/cdn/comment/` + body.parent, body, { headers: headers } )
-      .map((data) => data.json());
+  postComment(body: any) {
+    return this.api.post( '/portal/cdn/comment/' + body.parent, body);
+  }
+
+  /**
+   * Spot a Media
+   * @param mediaId Channel ID
+   */
+  spotMedia(mediaId: string) {
+    return this.api.get('/portal/cdn/media/spot/', mediaId);
+  }
+
+  /**
+   * Reverse Spot a Media
+   * @param mediaId Channel ID
+   */
+  unSpotMedia(mediaId: string) {
+    return this.api.get('/portal/cdn/media/unSpot/', mediaId);
   }
 }

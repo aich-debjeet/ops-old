@@ -56,10 +56,6 @@ export class CountrySelectorComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // formatLocal() {
-
-  // }
-
   ngAfterViewInit() {
     const el = 'choices-countries';
     this.selector = new Choices(document.getElementById(el), {
@@ -72,7 +68,7 @@ export class CountrySelectorComponent implements OnInit, AfterViewInit {
         return {
           item: function(data) {
 
-            console.log(data);
+            // console.log(data);
 
             return strToEl('\
               <div\

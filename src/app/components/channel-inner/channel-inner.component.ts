@@ -3,9 +3,12 @@ import { Http, Headers, Response } from '@angular/http';
 import {ActivatedRoute} from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Media, initialMedia  } from '../../models/media.model';
+
 import { ModalService } from '../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+
+import { environment } from '../../../environments/environment';
 
 // action
 import { MediaActions } from '../../actions/media.action';
@@ -23,28 +26,31 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class ChannelInnerComponent implements OnInit {
   tagState$: Observable<Media>;
+  userState$: Observable<Media>;
   private tagStateSubscription: Subscription;
   public editForm: FormGroup;
   channel = initialMedia ;
   channelId: string;
+  imageLink: string = environment.API_IMAGE;
 
   constructor(
     private http: Http,
-    private channelStore: Store<Media>,
+    private _store: Store<Media>,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private modalService: ModalService
   ) {
     this.channelId = route.snapshot.params['id'];
-    this.tagState$ = this.channelStore.select('mediaStore');
+    this.tagState$ = this._store.select('mediaStore');
+    this.userState$ = this._store.select('profileTags');
     this.tagState$.subscribe((state) => {
       console.log(state);
       this.channel = state;
     });
-    this.channelStore.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+    this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
     this.buildEditForm();
   }
-  // 'b_53f49036-15dd-407c-9c31-db09abe742d0'
+
   ngOnInit() {
   }
 
@@ -74,6 +80,18 @@ export class ChannelInnerComponent implements OnInit {
   closePopup() {
     console.log('close form');
     this.modalService.close('editform');
+  }
+
+  // Media Popup
+  mediaOpenPopup(id) {
+    console.log(id);
+    this._store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id});
+    this._store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
+    this.modalService.open('mediaPopup');
+  }
+
+  mediaClosePopup() {
+    this.modalService.close('mediaPopup');
   }
 
 }

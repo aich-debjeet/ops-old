@@ -27,6 +27,18 @@ export class MediaActions {
   static POST_COMMENT_SUCCESS = 'POST_COMMENT_SUCCESS';
   static POST_COMMENT_FAILED = 'POST_COMMENT_FAILED';
 
+  // Comment Fetch
+  static MEDIA_COMMENT_FETCH = 'MEDIA_COMMENT_FETCH';
+  static MEDIA_COMMENT_FETCH_SUCCESS = 'MEDIA_COMMENT_FETCH_SUCCESS';
+  static MEDIA_COMMENT_FETCH_FAILED = 'MEDIA_COMMENT_FETCH_FAILED';
+
+  // Spot
+  static MEDIA_SPOT = 'MEDIA_SPOT';
+  static MEDIA_SPOT_SUCCESS = 'MEDIA_SPOT_SUCCESS';
+  static MEDIA_SPOT_FAILED = 'MEDIA_SPOT_FAILED';
+
+  // Unspot
+  static MEDIA_UNSPOT = 'MEDIA_SPOT';
 
   /**
    * Upload status
@@ -82,4 +94,51 @@ export class MediaActions {
     };
   }
 
+  // ===================================
+  //  Fetch media comment
+  // -----------------------------------
+  // mediaCommentFetchAction(value): Action {
+  //   return {
+  //     type: MediaActions.MEDIA_COMMENT_FETCH,
+  //     payload: {
+  //       value
+  //     }
+  //   };
+  // }
+
+  // mediaCommentFetchSuccessAction(value): Action {
+  //   return {
+  //     type: MediaActions.MEDIA_COMMENT_FETCH,
+  //     payload: {
+  //       value
+  //     }
+  //   };
+  // }
+
+  /**
+   * Spot a media
+   * @param media Media ID
+   * @param channelId  Spotfeed ID
+   */
+  spotMedia(media: string): Action {
+    return {
+      type: MediaActions.MEDIA_SPOT,
+      payload: {
+        media
+      }
+    };
+  }
+
+}
+
+export class MediaCommentFetchAction implements Action {
+  type = MediaActions.MEDIA_COMMENT_FETCH;
+
+  constructor(public payload: string) { };
+}
+
+export class MediaCommentFetchSuccessAction implements Action {
+   type = MediaActions.MEDIA_COMMENT_FETCH_SUCCESS;
+
+  constructor(public payload: Comment[]) { };
 }

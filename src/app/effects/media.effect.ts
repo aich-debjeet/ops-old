@@ -6,9 +6,13 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/withLatestFrom';
 
 import { MediaService } from '../services/media.service';
 import { MediaActions } from '../actions/media.action';
+// import * as MediaActions from '../actions/media.action';
+
+import { Media, initialMedia  } from '../models/media.model';
 
 @Injectable()
 export class MediaEffect {
@@ -34,6 +38,10 @@ export class MediaEffect {
     .map(toPayload)
     .switchMap((payload) => this.mediaService.postStatus(payload)
       .map(res => ({ type: MediaActions.STATUS_SAVE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.STATUS_SAVE_FAILED,
+        payload: { errorStatus: res.status }
+      }))
     );
 
   /**
@@ -82,15 +90,61 @@ export class MediaEffect {
     );
 
   /**
-   * Post Comment Sucsess
+   * Media Comment Fetch
    */
-  // @Effect()
-  // postCommentSuccess$ = this.actions$
-  //   .ofType(MediaActions.POST_COMMENT_SUCCESS)
-  //   .map(res => ({ type: MediaActions.MEDIA_DETAILS }))
+  @Effect()
+  mediaCommentFetch$ = this.actions$
+    .ofType(MediaActions.MEDIA_COMMENT_FETCH)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.fetchMediaComment(payload)
+      .map(res => ({ type: MediaActions.MEDIA_COMMENT_FETCH_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.MEDIA_COMMENT_FETCH_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  @Effect()
+  saveCommentSuccess$ = this.actions$
+    .ofType(MediaActions.POST_COMMENT_SUCCESS)
+    .withLatestFrom(this.store$.select('mediaStore'), (payload, state) => {
+      const comment_id = state['media_detail'].id;
+      return ({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: comment_id })
+    })
+
+  /**
+   * Spot a Media
+   */
+  @Effect()
+    spotMedia$ = this.actions$
+      .ofType(MediaActions.MEDIA_SPOT)
+      .map(toPayload)
+      .switchMap((payload) => this.mediaService.spotMedia(payload)
+        .map(res => ({ type: MediaActions.MEDIA_SPOT_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({
+          type: MediaActions.MEDIA_SPOT_FAILED,
+          payload: { errorStatus: res.status }
+        }))
+      );
+
+  /**
+   * Un Spot a Media
+   */
+  @Effect()
+  upSpotMedia$ = this.actions$
+    .ofType(MediaActions.MEDIA_UNSPOT)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.unSpotMedia(payload)
+      .map(res => ({ type: MediaActions.MEDIA_SPOT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.MEDIA_SPOT_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
 
   constructor(
       private actions$: Actions,
+      private store$: Store<Media>,
       private mediaService: MediaService
     ) {}
 }

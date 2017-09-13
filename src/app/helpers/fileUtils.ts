@@ -2,7 +2,7 @@
  * File utitlities
  */
 import {Injectable} from '@angular/core';
-import _find from 'lodash/find';
+import { find as _find } from 'lodash';
 
 export default class FilesHelper {
   /**
