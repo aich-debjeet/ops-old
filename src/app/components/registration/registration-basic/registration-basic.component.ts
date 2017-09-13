@@ -12,6 +12,7 @@ import { CountrySelectorComponent } from '../../../shared/country-selector/count
 // helper
 import { passwordConfirmation } from '../../../helpers/password.validator';
 import { FormValidation, DatabaseValidator } from '../../../helpers/form.validator';
+import { TokenService } from '../../../helpers/token.service';
 
 // Action
 import { AuthActions } from '../../../actions/auth.action'
@@ -54,6 +55,7 @@ export class RegistrationBasicComponent implements OnInit {
   public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public regFormBasic: FormGroup;
   public otpForm: FormGroup;
+  public newNumberForm: FormGroup;
 
   passwordShowToggle() {
     if (this.passwordShow === true) {
@@ -70,7 +72,8 @@ export class RegistrationBasicComponent implements OnInit {
     private databaseValidator: DatabaseValidator,
     private http: Http,
     private router: Router,
-    public modalService: ModalService
+    public modalService: ModalService,
+    public tokenService: TokenService
     ) {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
@@ -255,14 +258,14 @@ export class RegistrationBasicComponent implements OnInit {
 
   buildForm(): void {
     this.regFormBasic = this.fb.group({
-      'name' : ['', [Validators.required]],
-      'username' : ['', [Validators.required, FormValidation.noWhitespaceValidator]],
+      'name' : ['Abhijeet Salunkhe', [Validators.required]],
+      'username' : ['abhijeet', [Validators.required, FormValidation.noWhitespaceValidator]],
       // 'dob' : ['', Validators.required, BirthDateValidator.individualsAgeValidator],
-      'dob' : ['', [
+      'dob' : ['18-12-1991', [
         Validators.required,
         this.validAge.bind(this)
       ]],
-      'email' : ['', [
+      'email' : ['abhijeet.salunkhe@aeione.com', [
         Validators.required,
         Validators.min(1),
         // Validators.email
@@ -270,14 +273,14 @@ export class RegistrationBasicComponent implements OnInit {
         ],
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
-      'gender': ['', Validators.required],
-      'phone' : ['', [
+      'gender': ['M', Validators.required],
+      'phone' : ['9867884320', [
         Validators.required,
         Validators.minLength(4)
         ],
         this.databaseValidator.checkMobile.bind(this.databaseValidator)
       ],
-      'password' : ['', [
+      'password' : ['Admin@123', [
         Validators.required,
         this.passwordStrength.bind(this)
       ]],
@@ -294,6 +297,16 @@ export class RegistrationBasicComponent implements OnInit {
     // OTP Form Builder
     this.otpForm = this.fb.group({
       'otpNumber' : ['', Validators.required],
+    })
+
+    // OTP new number
+    this.newNumberForm = this.fb.group({
+      'newNumber' : ['', [
+        Validators.required,
+        Validators.minLength(4)
+        ],
+        this.databaseValidator.checkMobile.bind(this.databaseValidator)
+      ]
     })
   }
 
@@ -325,7 +338,12 @@ export class RegistrationBasicComponent implements OnInit {
 
   // OTP Validation
   otpSubmit(value) {
-    const number = this.regFormBasic.value.phone;
+    let number = null;
+    if (this.newNumberForm.value.newNumber !== undefined && this.newNumberForm.value.newNumber.length > 5) {
+      number = this.newNumberForm.value.newNumber;
+    } else {
+      number = this.regFormBasic.value.phone;
+    }
     this.optValidate(number, value.otpNumber)
   }
 
@@ -341,10 +359,17 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   otpLogin() {
+    let number = null;
+    if (this.newNumberForm.value.newNumber !== undefined && this.newNumberForm.value.newNumber.length > 5) {
+      number = this.newNumberForm.value.newNumber;
+    } else {
+      number = this.regFormBasic.value.phone;
+    }
+
     const form =  {
       'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
       'client_secret': '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',
-      'username' : this.regFormBasic.value.phone.toString(),
+      'username' : number.toString(),
       'password' : this.otpForm.value.otpNumber,
       'grant_type' : 'password'
     }
@@ -373,12 +398,43 @@ export class RegistrationBasicComponent implements OnInit {
       });
   }
 
+  resendOtpOnNewNumber() {
+    const reqBody = {
+      contact: {
+        contactNumber: this.newNumberForm.value.newNumber
+      }
+    }
+
+    const token = localStorage.getItem('access_token');
+    const reqHeaders = new Headers({ 'Content-Type': 'application/json'});
+    reqHeaders.append('Authorization', 'Bearer ' + token);
+
+    return this.http.put('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/user/update', reqBody, { headers: reqHeaders })
+      .map(res => res.json())
+      .subscribe(data => {
+        console.log(data)
+        if (data.SUCCESS === 'Successfully updated user information.') {
+          this.modalService.close('otpChangeNumber');
+          this.modalService.open('otpWindow');
+        }
+      });
+  }
+
   rand() {
     return Math.random();
   }
 
   closeTerms() {
     this.modalService.open('termsAndConditions');
+  }
+
+  /**
+   * Submit new number for OTP
+   */
+  submitNewNumber(value) {
+    const form = {
+
+    }
   }
 
   /**
@@ -416,6 +472,10 @@ export class RegistrationBasicComponent implements OnInit {
       this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
       this.tagState$.subscribe(
         data => {
+          // console.log('token: ' + data.completed['access_Token']);
+          if (data && data.completed['access_Token']) {
+              localStorage.setItem('access_token', data.completed['access_Token']);
+          }
           const resp = data.completed;
           if (resp['Code'] === 1) {
             this.modalService.open('otpWindow');
@@ -423,5 +483,10 @@ export class RegistrationBasicComponent implements OnInit {
         }
       )
     }
+  }
+
+  otpNotRecieved() {
+    this.modalService.close('otpWindow');
+    this.modalService.open('otpChangeNumber');
   }
 }
