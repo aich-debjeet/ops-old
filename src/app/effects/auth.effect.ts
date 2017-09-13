@@ -206,6 +206,7 @@ export class AuthEffect {
       if (response.payload.SUCCESS !== null || response.payload.SUCCESS !== undefined) {
         this.router.navigateByUrl('/login');
       }
+      return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
     });
 
   // @Effect()
@@ -228,11 +229,18 @@ export class AuthEffect {
   @Effect()
   userSubmitSkillsSuccess$ = this.actions$
     .ofType(AuthActions.USER_SUBMIT_SKILLS_SUCCESS)
-    .map((response) => {
-      if (response.payload.SUCCESS !== null || response.payload.SUCCESS !== undefined) {
-        this.router.navigateByUrl('/profile');
-      }
-    })
+    .mergeMap(reachedThreshold => {
+      this.router.navigateByUrl('/profile');
+      return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
+    });
+
+    // .map((response) => {
+    //   if (response.payload.SUCCESS !== null || response.payload.SUCCESS !== undefined) {
+    //     console.log('done!');
+    //     this.router.navigateByUrl('/profile');
+    //   }
+    //   return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
+    // })
 
   constructor(
       private actions$: Actions,

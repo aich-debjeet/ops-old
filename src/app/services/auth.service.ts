@@ -67,11 +67,11 @@ export class AuthService {
     }
 
     registerProfile(req: any) {
-      return this.api.put('/portal/auth/user/update/', JSON.stringify(req) );
+      return this.api.put('/portal/auth/user/update', JSON.stringify(req) );
     }
 
     registerWelcome(req: any) {
-      return this.api.put('/portal/auth/user/update/', JSON.stringify(req));
+      return this.api.put('/portal/auth/user/update', JSON.stringify(req));
     }
 
     artistFollowing(req: any) {
@@ -141,10 +141,27 @@ export class AuthService {
     }
 
     /**
+     * Store user handle
+     */
+    setUserHandle(handle: string) {
+      // remove user from local storage to log user out
+      localStorage.setItem('currentUserID', handle);
+    }
+
+    /**
+     * Go to user profile page
+     */
+    goToProfile() {
+      console.log('going to profile');
+      this.router.navigateByUrl('/profile');
+    }
+    /**
      * Add a save Skills
      * @param skills array all skills
      */
     saveSelectedSkills(skillsArr) {
+
+      console.log(this.headers);
         // Object
         const skills = { profileTypeList: skillsArr }
         return this.http.put(this.apiLink + '/portal/profile/updateProfile', skills, { headers: this.headers })
