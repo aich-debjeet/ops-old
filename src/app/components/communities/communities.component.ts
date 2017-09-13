@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-explore',
-  templateUrl: './explore.component.html',
-  styleUrls: ['./explore.component.scss']
+  selector: 'app-communities',
+  templateUrl: './communities.component.html',
+  styleUrls: ['./communities.component.scss']
 })
-export class ExploreComponent implements OnInit {
+export class CommunitiesComponent implements OnInit {
+
   comingsoon: any;
   constructor() {}
 
   ngOnInit() {
     this.comingsoon = {
-      mainTitle: 'Explore will be Coming Soon.',
+      mainTitle: 'Communities will be Coming Soon.',
       description: 'Our folks are still arranging the chairs right now. Please wait outside while we set this up. <br> <br> Feel free to browse through our other pages.',
       buttonLink: '/home',
       buttonText: 'Go to Home',

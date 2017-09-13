@@ -1,11 +1,13 @@
-footer {
+footer{
 	background: white;
 	color: #555;
 	text-align: center;
 	padding: 10px 0;
-	// margin-top: 20px;
+	// margin-top: 16px;
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
 }
-
-footer p {
+footer p{
 	font-weight: bold;
 }

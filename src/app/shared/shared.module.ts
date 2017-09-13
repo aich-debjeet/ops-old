@@ -42,6 +42,7 @@ import { VideplayerComponent } from './videplayer/videplayer.component';
 import { BlogeditorComponent } from './blogeditor/blogeditor.component';
 import { MediaPopupComponent } from './media-popup/media-popup.component';
 import { CreateChannelComponent } from './create-channel/create-channel.component';
+import { ComingSoonComponent } from './coming-soon/coming-soon.component';
 
 @NgModule({
   imports: [
@@ -77,7 +78,8 @@ import { CreateChannelComponent } from './create-channel/create-channel.componen
     MediumEditorComponent,
     ChannelSelectorComponent,
     MediaPopupComponent,
-    CreateChannelComponent
+    CreateChannelComponent,
+    ComingSoonComponent
   ],
   exports: [
     AuthRightBlockComponent,
@@ -97,7 +99,8 @@ import { CreateChannelComponent } from './create-channel/create-channel.componen
     BlogeditorComponent,
     MediumEditorComponent,
     ChannelSelectorComponent,
-    MediaPopupComponent
+    MediaPopupComponent,
+    ComingSoonComponent
   ]
 
 })

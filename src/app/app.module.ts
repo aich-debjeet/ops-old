@@ -60,12 +60,6 @@ import { JobDetailsComponent } from './components/job-details/job-details.compon
 import { EventsComponent } from './components/events/events.component';
 import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { DashboardProfileCoverComponent } from './components/dashboard/dashboard-profile-cover/dashboard-profile-cover.component';
-import { DashboardSecondaryNavbarComponent } from './components/dashboard/dashboard-secondary-navbar/dashboard-secondary-navbar.component';
-import { DashboardWidgetCalendarComponent } from './components/dashboard/dashboard-widget-calendar/dashboard-widget-calendar.component';
-import { DashboardWidgetEventsComponent } from './components/dashboard/dashboard-widget-events/dashboard-widget-events.component';
-import { DashboardWidgetProjectsComponent } from './components/dashboard/dashboard-widget-projects/dashboard-widget-projects.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
@@ -88,6 +82,10 @@ import { VgControlsModule } from 'videogular2/controls';
 import { VgOverlayPlayModule } from 'videogular2/overlay-play';
 import { VgBufferingModule } from 'videogular2/buffering';
 import { ChannelInnerComponent } from './components/channel-inner/channel-inner.component';
+import { LearnComponent } from './components/learn/learn.component';
+import { ResourceComponent } from './components/resource/resource.component';
+import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
+import { CommunitiesComponent } from './components/communities/communities.component';
 
 @NgModule({
   declarations: [
@@ -105,12 +103,6 @@ import { ChannelInnerComponent } from './components/channel-inner/channel-inner.
     EventsComponent,
     SearchComponent,
     SettingsComponent,
-    DashboardComponent,
-    DashboardProfileCoverComponent,
-    DashboardSecondaryNavbarComponent,
-    DashboardWidgetCalendarComponent,
-    DashboardWidgetEventsComponent,
-    DashboardWidgetProjectsComponent,
     PopularArtistsComponent,
     NearestEventsComponent,
     OpportunitiesComponent,
@@ -121,7 +113,11 @@ import { ChannelInnerComponent } from './components/channel-inner/channel-inner.
     MasonryComponent,
     LogoutComponent,
     ProfileSliderComponent,
-    ChannelInnerComponent
+    ChannelInnerComponent,
+    LearnComponent,
+    ResourceComponent,
+    NotFoundPageComponent,
+    CommunitiesComponent
   ],
   imports: [
     BrowserModule,
