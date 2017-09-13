@@ -121,7 +121,7 @@
             </div>
             <div class="col-md-4 col-sm-4 pro_bio">
                 <h3>BIO</h3>
-                <button *ngIf="profileObject?.userBio == ''" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button>
+                <button *ngIf="profileObject?.userBio == '' && isOtherProfile === false" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button>
                 <p>{{ profileObject?.userBio }}</p>
 
             </div>
