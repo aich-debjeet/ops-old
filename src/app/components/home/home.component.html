@@ -1,7 +1,7 @@
 <app-navigation></app-navigation>
 <!-- primary navigation -->
 <section>
-    <div class="container">
+    <div class="container home_feed_container">
         <div class="row home_feed">
             <!-- left home feed -->
             <div class="col-md-9 col-sm-9">
@@ -11,7 +11,7 @@
                             <h2 class="feed-heading">
                                 Quick Access <a href><img src="/assets/img/svg/ico_options.svg" class="right_options"></a>
                              </h2>
-                            <app-quick-access></app-quick-access>
+                            <!-- <app-quick-access></app-quick-access> -->
                         </div>
                     </div>
                 </div>
@@ -20,8 +20,8 @@
                     <div class="col-md-12 col-sm-12">
                         <div class="home_tabs">
                             <ul class="nav nav-tabs">
-                                <li><a [routerLink]="['channel']" >Channel</a></li>
                                 <li><a [routerLink]="['spotfeed']">Spotfeed</a></li>
+                                <li><a [routerLink]="['channel']" >Channel</a></li>
                             </ul>
                             <router-outlet></router-outlet>
                         </div>
