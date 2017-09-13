@@ -161,7 +161,7 @@ export class MediaComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log('Initiated');
+    //
   }
 
   /**

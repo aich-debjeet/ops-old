@@ -31,6 +31,13 @@ export class ProfileActions {
   static LOAD_CURRENT_USER_CHANNEL_FAILED = 'LOAD_CURRENT_USER_CHANNEL_FAILED';
 
   /**
+   * Load logged in users Channel
+   */
+  static LOAD_USER_CHANNEL = 'LOAD_USER_CHANNEL';
+  static LOAD_USER_CHANNEL_SUCCESS = 'LOAD_USER_CHANNEL_SUCCESS';
+  static LOAD_USER_CHANNEL_FAILED = 'LOAD_USER_CHANNEL_FAILED';
+
+  /**
    * Load logged in users media
    */
   static LOAD_USER_MEDIA = 'LOAD_USER_MEDIA';
@@ -134,6 +141,20 @@ export class ProfileActions {
   static CHANNEL_SAVE = 'CHANNEL_SAVE';
   static CHANNEL_SAVE_SUCCESS = 'CHANNEL_SAVE_SUCCESS';
   static CHANNEL_SAVE_FAILED = 'CHANNEL_SAVE_FAILED';
+
+  /**
+   * Load a Profile
+   */
+  static PROFILE_LOAD = 'PROFILE_LOAD';
+  static PROFILE_LOAD_SUCCESS = 'PROFILE_LOAD_SUCCESS';
+  static PROFILE_LOAD_FAILED = 'PROFILE_LOAD_FAILED';
+
+  /**
+   * Follow a profile
+   */
+  static PROFILE_FOLLOW = 'PROFILE_FOLLOW';
+  static PROFILE_FOLLOW_SUCCESS = 'PROFILE_FOLLOW_SUCCESS';
+  static PROFILE_FOLLOW_FAILED = 'PROFILE_FOLLOW_FAILED';
 
   /**
    * Load Current user profile
@@ -251,6 +272,31 @@ export class ProfileActions {
   getUserChannelFailed(error: any): Action {
     return {
       type: ProfileActions.LOAD_CURRENT_USER_CHANNEL_FAILED,
+      payload: error
+    };
+  }
+
+  /**
+   * Get logged in users Channel
+   * @param value
+   */
+  getOtherUserChannel(value): Action {
+    return {
+      type: ProfileActions.LOAD_USER_CHANNEL,
+      payload: { value }
+    };
+  }
+
+  getOtherUserChannelSuccess(value): Action {
+    return {
+      type: ProfileActions.LOAD_USER_CHANNEL_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  getOtherUserChannelFailed(error: any): Action {
+    return {
+      type: ProfileActions.LOAD_USER_CHANNEL_FAILED,
       payload: error
     };
   }

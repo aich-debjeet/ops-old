@@ -86,15 +86,17 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_LOGIN:
       return Object.assign({}, state, {
-        success: true,
-        login_completed: false
+        success: false,
+        login_completed: false,
+        page_loading: true,
       });
 
     case AuthActions.USER_LOGIN_SUCCESS:
       return Object.assign({}, state, {
         completed: payload,
         login_completed: true,
-        success: true
+        success: true,
+        page_loading: false,
       });
 
     case AuthActions.USER_LOGIN_FAILED:
@@ -103,7 +105,8 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       return Object.assign({}, state, {
         success: false,
         login_completed: false,
-        error_description: error.error_description
+        error_description: error.error_description,
+        page_loading: false
       });
 
 
@@ -318,6 +321,23 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.FP_GET_USERDATA_FAILED:
       return Object.assign({}, state, {
         fpGetUserDataSuccess: false
+      });
+
+    /**
+     * Check with existing auth credentials if Authetincated
+     */
+
+    case AuthActions.USER_AUTHENTICATED:
+      return Object.assign({}, state, {
+        page_loading: true
+      });
+    case AuthActions.USER_AUTHENTICATED_SUCCESS:
+      return Object.assign({}, state, {
+        page_loading: false
+      });
+    case AuthActions.USER_AUTHENTICATED_FAILED:
+      return Object.assign({}, state, {
+        page_loading: false
       });
 
     default:

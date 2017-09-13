@@ -1,12 +1,11 @@
 <div class="container">
-  <!--- ---------------------------- section ----------------------------- -->
   <div class="row pro_feed">
       <!-- left feed -->
       <div class="col-md-3 col-sm-3 pro_feed-left">
         <div class="row">
             <!-- calender -->
             <div class="col-md-12 col-sm-12 pro_calender">
-                
+
                 <div class="row pro_canlender-head">
                     <h3>YOUR CALENDAR</h3>
                     <!--<button type="button" class="btn btn-normal btn-xs">PLANNER</button>-->
@@ -47,7 +46,7 @@
                         <h4 class="feed-heading">12, JUL</h4>
                         <p class="feed-sub-heading">Mohegan Sun Arena</p>
                     </div>
-                </div> 
+                </div>
               </div>
                <div class="coming_soon_txt">Coming Soon</div>
             </div>
@@ -85,7 +84,7 @@
                         <div class="feed_thumb">
                             <span class="feedfirst_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/f95ab4145735ba7a5840faf3f7e91deab3c572fd/9f033/img/opro.png" class="img-responsive"></span>
                             <span class="feedfirst_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/f95ab4145735ba7a5840faf3f7e91deab3c572fd/9f033/img/opro.png" class="img-responsive"></span>
-                            <span class="feedfirst_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/f95ab4145735ba7a5840faf3f7e91deab3c572fd/9f033/img/opro.png" class="img-responsive"></span>                          
+                            <span class="feedfirst_thumb"><img src="http://d33wubrfki0l68.cloudfront.net/f95ab4145735ba7a5840faf3f7e91deab3c572fd/9f033/img/opro.png" class="img-responsive"></span>
                         </div>
                         <p class="feed-sub-heading">+ 23 Members</p>
                     </div>
@@ -98,7 +97,7 @@
       <!-- //left feed -->
       <!-- right feed -->
       <div class="col-md-9 col-sm-9 pro_feed-right">
-        <div class="row">
+        <div class="row" *ngIf="isCurrentUser===true">
             <div class="col-md-12 col-sm-12">
               <div class="quick_access">
                   <h2 class="feed-heading">
@@ -106,7 +105,7 @@
                   </h2>
                   <app-quick-access *ngFor="let quickAccess of userQuickAccess.userQuickAccess; let i = index" [quickAccessData]="quickAccess"></app-quick-access>
               </div>
-            </div>            
+            </div>
         </div>
         <!-- tabs -->
         <div class="row">
