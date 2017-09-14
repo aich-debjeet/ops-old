@@ -140,7 +140,10 @@ export class AuthEffect {
   @Effect()
   forgotOTPPage$ = this.actions$
     .ofType(AuthActions.FP_USER_EXISTS_SUCCESS)
-    .map(() => this.router.navigateByUrl('/account/send_password_reset' ));
+    .mergeMap(reachedThreshold => {
+      this.router.navigateByUrl('/account/send_password_reset');
+      return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
+    });
 
   /* reset with phone */
   @Effect()
@@ -155,7 +158,10 @@ export class AuthEffect {
   @Effect()
   fpResetTypePhoneSuccess$ = this.actions$
     .ofType(AuthActions.FP_RESET_TYPE_PHONE_SUCCESS)
-    .map(() => this.router.navigateByUrl('/account/confirm_pin_rest' ));
+    .mergeMap(reachedThreshold => {
+      this.router.navigateByUrl('/account/confirm_pin_rest' );
+      return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
+    });
   /* reset with phone */
 
   /* reset with email */
@@ -171,7 +177,10 @@ export class AuthEffect {
   @Effect()
   fpResetTypeEmailSuccess$ = this.actions$
     .ofType(AuthActions.FP_RESET_TYPE_EMAIL_SUCCESS)
-    .map(() => this.router.navigateByUrl('/account/reset_mail_send'));
+    .mergeMap(reachedThreshold => {
+      this.router.navigateByUrl('/account/reset_mail_send');
+      return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
+    });
   /* reset with email */
 
   /* otp submit */
@@ -187,9 +196,12 @@ export class AuthEffect {
   @Effect()
   fpSubmitOtpSuccess$ = this.actions$
     .ofType(AuthActions.FP_SUBMIT_OTP_SUCCESS)
-    .map((action) => this.router.navigateByUrl('/account/password_create' + ';activation_code=' + action.payload.SUCCESS.activationCode));
-  /* otp submit */
+    .mergeMap(reachedThreshold => {
+      this.router.navigateByUrl('/account/password_create' + '?activation_code=' + reachedThreshold.payload.SUCCESS.activationCode);
+      return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
+    });
 
+  /* otp submit */
   @Effect()
   fpCreatePass$ = this.actions$
     .ofType(AuthActions.FP_CREATE_PASS)
@@ -199,15 +211,25 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.FP_CREATE_PASS_FAILED, payload: res }))
     );
 
+  // @Effect()
+  // fpCreatePassSuccess$ = this.actions$
+  //   .ofType(AuthActions.FP_CREATE_PASS_SUCCESS)
+  //   .map((response) => {
+  //     if (response.payload.SUCCESS !== null || response.payload.SUCCESS !== undefined) {
+  //       this.router.navigateByUrl('/login');
+  //     }
+  //     return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
+  //   });
+
+  // Get forget user number
   @Effect()
-  fpCreatePassSuccess$ = this.actions$
-    .ofType(AuthActions.FP_CREATE_PASS_SUCCESS)
-    .map((response) => {
-      if (response.payload.SUCCESS !== null || response.payload.SUCCESS !== undefined) {
-        this.router.navigateByUrl('/login');
-      }
-      return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
-    });
+  fpGetUserData$ = this.actions$
+    .ofType(AuthActions.FP_GET_USER_EMAIL)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.fpGetUserdata(payload)
+      .map(res => ({ type: AuthActions.FP_GET_USER_EMAIL_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.FP_GET_USER_EMAIL_FAILED, payload: res }))
+    );
 
   // @Effect()
   // fpCreatePassFailed$ = this.actions$

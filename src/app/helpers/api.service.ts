@@ -21,14 +21,14 @@ export class ApiService {
    * Logged in user token headers
    */
   getHeaders() {
-    return this.headers;
+    return this.tokenService.getAuthHeader();
   }
 
   /**
    * Logged in user handle
    */
   getHandle() {
-    return this.handle;
+    return this.tokenService.getHandle();
   }
   /**
    * Build ID path, conditionally
