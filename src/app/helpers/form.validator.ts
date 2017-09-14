@@ -180,5 +180,38 @@ export class FormValidation {
         const isWhitespace =  value.indexOf(' ') >= 0;
         return isWhitespace ? { whitespace: true } : null
     }
+
+    /**
+     * Checking for the password strength on register form
+     * @param control: Form password input
+     */
+    static passwordStrength(control: AbstractControl) {
+        if (control.value === '') {
+            return;
+        }
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6,20}$/;
+        if (!passwordRegex.test(control.value)) {
+            return { isWeakPassword: true };
+        }
+        return null;
+    }
+
+    /**
+     * Checking for the password if matches with the confirm password on register form
+     * @param control: Form confirm password input
+     */
+    static passwordMatchCheck (control: AbstractControl) {
+        // console.log(control.value);
+        if (control.value === '') {
+        return;
+    }
+    console.log();
+        const pass = control.get('password').value;
+        // console.log('pass: ' + pass);
+        if (control.value !== pass) {
+        return { passwordDoesNotMatch: true };
+        }
+        return null;
+    }
 }
 

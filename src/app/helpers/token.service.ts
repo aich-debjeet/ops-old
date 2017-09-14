@@ -44,7 +44,7 @@ export class TokenService {
 
     // redirect user to the login page if access_token is not available
     if (currentUser === null || currentUser.access_token === null) {
-      this.router.navigate(['login']);
+      // this.router.navigate(['login']);
       return false;
     }
 
