@@ -286,6 +286,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.FP_CREATE_PASS_FAILED:
     // console.log('FP_CREATE_PASS_FAILED');
       return Object.assign({}, state, {
+        fb_pass_create_failed: true,
         success: false
       });
 
