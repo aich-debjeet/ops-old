@@ -24,6 +24,7 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 @import '/assets/scss/components/_form.scss';
 @import '/assets/scss/components/_progress-bar.scss';
 @import '/assets/scss/components/_flag.scss';
+@import '/assets/scss/components/_radio-checkbox.scss';
 
 
 
@@ -362,4 +363,8 @@ vg-scrub-bar {
   border: 0;
   background-color: #fff;
   box-shadow: none;
+}
+
+.main_ht_fix{
+  margin-top: -2%;
 }

@@ -31,8 +31,7 @@ export class PasswordOptionComponent {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       this.forgotP = state;
-      console.log('state: ');
-      console.log(this.forgotP);
+
       // send back to forgot page landing directly on this page
       if (!this.forgotP.fp_user_options) {
         this.router.navigate(['account/password_reset']);
@@ -67,11 +66,6 @@ export class PasswordOptionComponent {
 
       this.store.dispatch({ type: AuthActions.FP_RESET_TYPE_EMAIL, payload: form });
     }
-
-    // console.log('payload send: ');
-    // console.log(form);
-
-    // this.store.dispatch({ type: AuthActions.FP_RESET_TYPE, payload: form });
 
   }
 
