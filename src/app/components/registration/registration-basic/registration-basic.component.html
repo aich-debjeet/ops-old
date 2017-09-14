@@ -394,7 +394,7 @@
                         <p class="text-center">
                             <a class="pointer" (click)="resendOtp()">Resend OTP</a>
                         </p>
-                        <form [formGroup]="otpForm" (ngSubmit) = "otpSubmit(otpForm.value)">
+                        <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #myform="ngForm" >
                             <div class="form_group">
                                 <input class="form_input" type="text"  formControlName="otpNumber" required>
                                 <span class="form_highlight"></span>
@@ -402,6 +402,7 @@
                                 <label>Enter OTP</label>
                                 <span>{{ countDown | async }}</span>
                             </div>
+                            <p class="error_alert text-center" *ngIf="otpForm.controls['otpNumber'].errors?.invalid && myform.submitted">Please enter your 6 digit OTP number</p>
                             <p class="text-center">
                                 <a class="pointer" (click)="otpNotRecieved()">Didn't get your OTP?</a>
                             </p>
@@ -465,5 +466,33 @@
             </div>
           </div>
         </div>
-      </app-modal>
-      <!-- OTP change number -->
+    </app-modal>
+    <!-- OTP change number -->
+
+    <!-- Thank you Modal -->
+    <app-modal [modalTitle]="'OTP'" [blocking]='false' modalId='thankyouModal' class="otp__modal" size="small">
+        <div name="otp" class="otp__modal">
+          <div class="x reg_step1_otp" id="otpModal2" role="dialog">
+            <div class="modal-dialog modal-lg reg_thankyou" id="modal-test-1" style="">
+                <div class="modal-content">
+                    <div class="modal-header" style="border: none;">
+                        <button type="button" class="close" data-dismiss="modal"></button>
+                        <h4 class="modal-title text-center"><img src="https://d33wubrfki0l68.cloudfront.net/0532c099d59ca6db3235d5463c57edbed77345bd/072ec/img/logo_black.png"></h4>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 text-center">
+                                <h3>Thank you for joining us</h3>
+                                <p>Select your profile type and get started</p>
+                                <div class="text-center">
+                                    <a (click)="gotoRegProfile()" class="btn btn-default btn-sm">Next</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </app-modal>
+    <!-- Thank you Modal -->
