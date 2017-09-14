@@ -206,8 +206,6 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     // Forgot Password
     case AuthActions.FP_USER_EXISTS:
-      console.log('user exist: ');
-      console.log(payload);
       return Object.assign({}, state, {
         fp_user_exists: false,
         fp_user_input: payload.value
@@ -221,7 +219,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       }
 
       return Object.assign({}, state, {
-        fp_user_exists: true,
+        fp_user_exists: false,
         fp_user_options: result
       });
 
@@ -229,7 +227,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       // console.log('test failed: ')
       // console.log(payload)
       return Object.assign({}, state, {
-        fp_user_exists: false
+        fp_user_exists: true
       });
 
     /* reset pass with phone */
@@ -274,13 +272,14 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.FP_CREATE_PASS:
       return Object.assign({}, state, {
-        success: false
+        success: false,
       });
 
     case AuthActions.FP_CREATE_PASS_SUCCESS:
       // console.log('FP_CREATE_PASS_SUCCESS');
       return Object.assign({}, state, {
         fpCrPassSuccess: payload,
+        fb_pass_create_scs: true,
         success: true
       });
 
@@ -338,6 +337,31 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       return Object.assign({}, state, {
         page_loading: false
       });
+
+
+    /**
+     * Get forget user data form active code
+     */
+    case AuthActions.FP_GET_USER_EMAIL:
+      return Object.assign({}, state, {
+        fp_userdata_loading: true
+      });
+    case AuthActions.FP_GET_USER_EMAIL_SUCCESS:
+      return Object.assign({}, state, {
+        fp_userdata_resp: payload.SUCCESS,
+        fp_user_input: payload.SUCCESS.username,
+        fp_userdata_loading: false
+      });
+    case AuthActions.FP_GET_USER_EMAIL_FAILED:
+      return Object.assign({}, state, {
+        fp_userdata_loading_failed: true
+      });
+
+    // OTP Failed
+    case AuthActions.FP_SUBMIT_OTP_FAILED:
+      return Object.assign({}, state, {
+          fp_sumit_otp_failed: true
+        });
 
     default:
       return state;

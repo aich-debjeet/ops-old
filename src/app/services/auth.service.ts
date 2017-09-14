@@ -216,4 +216,11 @@ export class AuthService {
         return this.http.put(`${this.apiLink}/portal/auth/user/change/` + req.identity, reqBody, { headers: this.headers })
         .map((data: Response) => data.json());
     }
+
+    // Get data forget user
+    fpGetUserdata(activationCode) {
+      const headers = new Headers({ 'Content-Type': 'application/json'});
+      return this.http.get(`${this.apiLink}/portal/auth/resetPasswordToken/` + activationCode, { headers: this.headers })
+      .map((data: Response) => data.json());
+    }
 }
