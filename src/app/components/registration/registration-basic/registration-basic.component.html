@@ -1,4 +1,4 @@
-<section class="container-fluid ops_signup">
+<section class="container-fluid ops_signup main_ht_fix">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 ops_signup_left">
@@ -46,7 +46,7 @@
                             <label class="width100">
                                 <label class="col-md-2 signup_gender">Gender</label>
                                 <label class="col-md-3 gender_single">
-                                    <input type="radio" value="M" name="gender" formControlName="gender"><span></span>Male
+                                    <input type="radio" value="M" name="gender" formControlName="gender" [checked]="true"><span></span>Male
                                 </label>
                                 <label class="col-md-3 gender_single">
                                     <input type="radio" value="F" name="gender" formControlName="gender"><span></span>Female
@@ -392,9 +392,9 @@
                     <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
                         <h5 class="text-center">Enter the 6 digit otp that you have received <br> by email or phone </h5>
                         <p class="text-center">
-                            <a (click)="resendOtp()">Resend OTP</a>
+                            <a class="pointer" (click)="resendOtp()">Resend OTP</a>
                         </p>
-                        <form [formGroup]="otpForm" (ngSubmit) = "otpSubmit(otpForm.value)">
+                        <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #myform="ngForm" >
                             <div class="form_group">
                                 <input class="form_input" type="text"  formControlName="otpNumber" required>
                                 <span class="form_highlight"></span>
@@ -402,9 +402,12 @@
                                 <label>Enter OTP</label>
                                 <span>{{ countDown | async }}</span>
                             </div>
-
+                            <p class="error_alert text-center" *ngIf="otpForm.controls['otpNumber'].errors?.invalid && myform.submitted">Please enter your 6 digit OTP number</p>
+                            <p class="text-center">
+                                <a class="pointer" (click)="otpNotRecieved()">Didn't get your OTP?</a>
+                            </p>
                             <div class="text-center">
-                                <app-button [className]="'btn btn-default btn-sm'" [type]="'submit'">Validate OTP</app-button>
+                                <button [className]="'btn btn-default btn-sm'" [type]="'submit'">Validate OTP</button>
                             </div>
                         </form>
                     </div>
@@ -429,3 +432,67 @@
       </div>
     </app-modal>
     <!-- OTP Confirm Modal -->
+
+    <!-- OTP change number -->
+    <app-modal [modalTitle]="'OTP change number'" [blocking]='false' modalId='otpChangeNumber' class="otp__modal" size="small">
+        <div name="otp" class="otp__modal">
+          <div class="x reg_step1_otp reg_thankyou" id="otpModal3" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header" style="border: none;">
+                        <button type="button" class="close" data-dismiss="modal"></button>
+                        <h4 class="modal-title text-center"><img src="https://d33wubrfki0l68.cloudfront.net/0532c099d59ca6db3235d5463c57edbed77345bd/072ec/img/logo_black.png"></h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                            <h5 class="text-center">Update your phone number</h5>
+                            <form [formGroup]="newNumberForm" (ngSubmit)="resendOtpOnNewNumber()">
+                                <div class="form_group">
+                                    <input class="form_input" type="text" formControlName="newNumber" required="">
+                                    <span class="form_highlight"></span>
+                                    <span class="form_bar"></span>
+                                    <label>Phone Number</label>
+                                </div>
+                                <p class="error_alert text-center" *ngIf="newNumberForm.controls['newNumber'].errors?.isMobileUnique">
+                                    Phone number already exist
+                                </p>
+                                <div class="text-center">
+                                    <button class="btn btn-default btn-sm" data-toggle="modal" [type]="submit" >Resend OTP</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </app-modal>
+    <!-- OTP change number -->
+
+    <!-- Thank you Modal -->
+    <app-modal [modalTitle]="'OTP'" [blocking]='false' modalId='thankyouModal' class="otp__modal" size="small">
+        <div name="otp" class="otp__modal">
+          <div class="x reg_step1_otp" id="otpModal2" role="dialog">
+            <div class="modal-dialog modal-lg reg_thankyou" id="modal-test-1" style="">
+                <div class="modal-content">
+                    <div class="modal-header" style="border: none;">
+                        <button type="button" class="close" data-dismiss="modal"></button>
+                        <h4 class="modal-title text-center"><img src="https://d33wubrfki0l68.cloudfront.net/0532c099d59ca6db3235d5463c57edbed77345bd/072ec/img/logo_black.png"></h4>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 text-center">
+                                <h3>Thank you for joining us</h3>
+                                <p>Select your profile type and get started</p>
+                                <div class="text-center">
+                                    <a (click)="gotoRegProfile()" class="btn btn-default btn-sm">Next</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </app-modal>
+    <!-- Thank you Modal -->

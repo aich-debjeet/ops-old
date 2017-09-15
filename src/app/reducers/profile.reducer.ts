@@ -54,7 +54,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_SUCCESS:
       return Object.assign({}, state, {
         profileDetails: payload,
-        success: true
+        success: true,
+        profile_loaded: true
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_FAILED:
@@ -71,8 +72,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         });
 
       case ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS:
-        console.log('image uploading')
-        console.log(payload);
         return Object.assign({}, state, {
           profileImage: payload,
           success: true
@@ -182,9 +181,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL_SUCCESS:
-    console.log(payload);
       return Object.assign({}, state, {
-        channelEntity: payload,
+        user_channel: payload,
         success: true,
         user_channels_loaded: true,
         user_channels_loading: false
@@ -195,6 +193,28 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         success: false,
         user_channels_loading: false,
         user_channels_loaded: false
+      });
+
+    /**
+     * Get current User channel of profile
+     */
+    case ProfileActions.LOAD_USER_CHANNEL:
+      return Object.assign({}, state, {
+        other_channels_loading: true,
+        other_channels_loaded: false
+      });
+
+    case ProfileActions.LOAD_USER_CHANNEL_SUCCESS:
+      return Object.assign({}, state, {
+        other_channel: payload,
+        other_channels_loading: false,
+        other_channels_loaded: true
+      });
+
+    case ProfileActions.LOAD_USER_CHANNEL_FAILED:
+      return Object.assign({}, state, {
+        other_channels_loading: false,
+        other_channels_loaded: false
       });
 
     /**
@@ -293,12 +313,51 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         success: false
       });
 
+    /**
+     * Load a Profile
+     */
+    case ProfileActions.PROFILE_LOAD:
+      return Object.assign({}, state, {
+        profile_other: [],
+        profile_other_loading: true
+      });
+
+    case ProfileActions.PROFILE_LOAD_SUCCESS:
+      return Object.assign({}, state, {
+        profile_other_loading: false,
+        profile_other_loaded: true,
+        profile_other: payload
+      });
+
+    case ProfileActions.PROFILE_LOAD_FAILED:
+      return Object.assign({}, state, {
+        profile_other: [],
+        profile_other_loading: false,
+        profile_other_loaded: false
+      });
+
+    /**
+     * Follow Profile
+     */
+    case ProfileActions.PROFILE_FOLLOW:
+      return Object.assign({}, state, {
+        profile_other_followed: false
+      });
+
+    case ProfileActions.PROFILE_FOLLOW_SUCCESS:
+      return Object.assign({}, state, {
+        profile_other_followed: true
+      });
+
+    case ProfileActions.PROFILE_FOLLOW_FAILED:
+      return Object.assign({}, state, {
+        profile_other_followed: false
+      });
+
     default:
       return state;
-
   }
 
 }
-
 
 export const currentUserProfile = (state: ProfileModal) => state.completed;

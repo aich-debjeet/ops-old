@@ -6,60 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./explore.component.scss']
 })
 export class ExploreComponent implements OnInit {
-spotfeeds: any= [];
-channels: any= [];
-artistFollow: any= [];
-  constructor() {
-    this.spotfeeds = [
-      {'image': '/assets/img/art1.png', 'heading': 'Hypnosis Myth Reality', 'subheading': 'Living in the now' +
-      ' use it to Enrich your life', 'selected': false},
-      {'image': '/assets/img/art2.png', 'heading': 'Its A Habbit', 'subheading': 'Fire Up Your Motivation', 'selected': false},
-      {'image': '/assets/img/art3.jpg', 'heading': 'Do Your Think Motivational', 'subheading': 'Effective Ways to quit', 'selected': false},
-      {'image': '/assets/img/art4.png', 'heading': 'Motivate Yourself', 'subheading': 'Fire Up Your Motivation', 'selected': false},
-      ];
+  comingsoon: any;
+  constructor() {}
 
-    this.artistFollow = [
-    {'button': 'FOLLOW', 'iconImage': '/assets/img/svg/ico_plus_white.svg', 'image': '/assets/img/' +
-    'avatar2.jpg', 'heading': 'Eljah Fletcher', 'heading12': '@Elijah', 'selected': false},
-    {'button': 'FOLLOWING', 'iconImage': '', 'image': '/assets/img/' +
-    'avatar2.jpg', 'heading': 'Eljah Fletcher', 'heading12': '@Elijah', 'selected': false},
-    {'button': 'FOLLOW', 'iconImage': '/assets/img/svg/ico_plus_white.svg', 'image': '/assets/img/' +
-    'avatar2.jpg', 'heading': 'Eljah Fletcher', 'heading12': '@Elijah', 'selected': false},
-    {'button': 'FOLLOW', 'iconImage': '/assets/img/svg/ico_plus_white.svg', 'image': '/assets/img/' +
-    'avatar2.jpg', 'heading': 'Eljah Fletcher', 'heading12': '@Elijah', 'selected': false},
-    {'button': 'FOLLOW', 'iconImage': '/assets/img/svg/ico_plus_white.svg', 'image': '/assets/img/' +
-    'avatar2.jpg', 'heading': 'Eljah Fletcher', 'heading12': '@Elijah', 'selected': false},
-  ];
-
-    this.channels = [
-      { 'image1': '/assets/img/pro_block.jpg', 'image2': '/assets/img/pro_block2.jpg',
-      'image3': '/assets/img/pro_block3.jpg', 'channelName': 'Motorhome Or Trailer',
-      'channelThumb': 'Tobias Van Schneider', 'thumbImage': '/assets/img/avatar.jpg',
-      'followersCount': '705', 'followersImage': '/assets/img/svg/ico_follower.svg',
-      'postCount': '705', 'postImage': '/assets/img/svg/ico_post.svg', 'button': 'FOLLOW',
-      'plusImage': '/assets/img/svg/ico_plus_white.svg', 'selected': false},
-      { 'image1': '/assets/img/pro_block.jpg', 'image2': '/assets/img/pro_block2.jpg',
-      'image3': '/assets/img/pro_block3.jpg', 'channelName': 'Motorhome Or Trailer',
-      'channelThumb': 'Tobias Van Schneider', 'thumbImage': '/assets/img/avatar.jpg',
-      'followersCount': '705', 'followersImage': '/assets/img/svg/ico_follower.svg',
-      'postCount': '705', 'postImage': '/assets/img/svg/ico_post.svg', 'button': 'FOLLOW',
-      'plusImage': '/assets/img/svg/ico_plus_white.svg', 'selected': false},
-      { 'image1': '/assets/img/pro_block.jpg', 'image2': '/assets/img/pro_block2.jpg',
-      'image3': '/assets/img/pro_block3.jpg', 'channelName': 'Motorhome Or Trailer',
-      'channelThumb': 'Tobias Van Schneider', 'thumbImage': '/assets/img/avatar.jpg',
-      'followersCount': '705', 'followersImage': '/assets/img/svg/ico_follower.svg',
-      'postCount': '705', 'postImage': '/assets/img/svg/ico_post.svg', 'button': 'FOLLOW',
-      'plusImage': '/assets/img/svg/ico_plus_white.svg', 'selected': false},
-      { 'image1': '/assets/img/pro_block.jpg', 'image2': '/assets/img/pro_block2.jpg',
-      'image3': '/assets/img/pro_block3.jpg', 'channelName': 'Motorhome Or Trailer',
-      'channelThumb': 'Tobias Van Schneider', 'thumbImage': '/assets/img/avatar.jpg',
-      'followersCount': '705', 'followersImage': '/assets/img/svg/ico_follower.svg',
-      'postCount': '705', 'postImage': '/assets/img/svg/ico_post.svg', 'button': 'FOLLOW',
-      'plusImage': '/assets/img/svg/ico_plus_white.svg', 'selected': false},
-    ];
-
+  ngOnInit() {
+    this.comingsoon = {
+      mainTitle: 'Explore will be Coming Soon.',
+      description: 'Our folks are still arranging the chairs right now. Please wait outside while we set this up. <br> <br> Feel free to browse through our other pages.',
+      buttonLink: '/home',
+      buttonText: 'Go to Home',
+      img: 'http://d33wubrfki0l68.cloudfront.net/7fa8ea0b364101d93091e6a21e6c3639c993416d/3027b/img/svg/404/events_img.svg'
+    };
   }
-
-  ngOnInit() {}
 
 }

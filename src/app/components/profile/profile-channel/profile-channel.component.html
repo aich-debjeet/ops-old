@@ -1,11 +1,11 @@
-<div class=" pro_channel2 row">
-  <div *ngIf="profileChannel.user_channels_loading">
+<div class=" pro_channel2 row" *ngIf="channels">
+  <div *ngIf="channels.user_channels_loading">
       <div class="msg__loading">
         <div class="loader">Loading...</div>
       </div>
   </div>
   <masonry>
-      <masonry-brick class="col-md-4 col-sm-6 c-card" *ngFor="let channel of profileChannel.channelEntity; let i = index">
+      <masonry-brick class="col-md-4 col-sm-6 c-card" *ngFor="let channel of channels; let i = index">
           <app-channel [channelData]="channel" (click)="toggleFollowBtn(i)" ></app-channel>
       </masonry-brick>
   </masonry>

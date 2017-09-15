@@ -10,12 +10,12 @@
                     <p>Lives in <span>{{ contactWork.profileDetails?.extra.address.city }}, {{ contactWork.profileDetails?.extra.address.country }}</span></p>
                 </div>
             </div>
-            <div class="contact_info_block" *ngIf="contactWork.profileDetails?.contact.website !== ''">
+            <div class="contact_info_block" *ngIf="contactWork.profileDetails?.contact.website.website !== ''">
                 <div class="contact_ico">
                     <img src="http://d33wubrfki0l68.cloudfront.net/ef42655aef0ed58ba37f2e9b34ea54fe7e1fd569/d7419/img/svg/ico_web.svg" alt="">
                 </div>
                 <div class="contact_info">
-                    <p><span>{{ contactWork.profileDetails?.contact.website }}</span></p>
+                    <p><span>{{ contactWork.profileDetails?.contact.website.website }}</span></p>
                 </div>
             </div>
             <div class="contact_info_block" *ngIf="contactWork.profileDetails?.contact.mobile.mobile">

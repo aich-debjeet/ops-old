@@ -1,4 +1,10 @@
-<section class="container-fluid ops_signup ops_signin">
+<div *ngIf="petTag.page_loading === true">
+  <div class="sticky">
+    <div class="loader">Loading...</div>
+  </div>
+</div>
+
+<section class="container-fluid ops_signup ops_signin main_ht_fix">
     <div class="container">
         <div class="row">
             <div class="col-md-6 ops_signup_left">
@@ -33,7 +39,7 @@
                         <p class="text-grey">
                             <a routerLink="/account/password_reset" class="text-theme">Forgot Password ?</a>
                         </p>
-						<button type="button" [className]="'btn btn-primary btn-sm pull-right margin_t_16'" [type]="'submit'">LOG IN</button>
+						            <button type="button" [className]="'btn btn-primary btn-sm pull-right margin_t_16'" [type]="'submit'">LOG IN</button>
                     </div>
                 </form>
             </div>

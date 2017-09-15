@@ -23,7 +23,12 @@ export class PasswordSmsComponent {
   tagState$: Observable<Login>;
   forgotP = initialTag;
 
-  constructor(private fb: FormBuilder, private store: Store<Login>,  private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<Login>,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+    ) {
 
     this.otpForm = fb.group({
       'otpToSubmit': ['', Validators.required],
@@ -32,8 +37,7 @@ export class PasswordSmsComponent {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       this.forgotP = state;
-      console.log('initial state: ');
-      console.log(this.forgotP);
+
       // send back to forgot page landing directly on this page
       if (!this.forgotP.fp_user_options) {
         this.router.navigate(['account/password_reset']);
@@ -42,8 +46,6 @@ export class PasswordSmsComponent {
   }
 
   submitForm(value: any) {
-    console.log(value);
-
     if (value.otpToSubmit === '') {
       return;
     }

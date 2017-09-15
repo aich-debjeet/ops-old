@@ -23,7 +23,6 @@ export class ForgotPasswordComponent {
   forgotP = initialTag;
 
   constructor(fb: FormBuilder, private store: Store<Login>, private router: Router, private route: ActivatedRoute) {
-
     this.forgotPass = fb.group({
       identity: ['', Validators.required]
     });

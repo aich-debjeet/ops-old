@@ -19,23 +19,25 @@ import { EventsComponent } from './components/events/events.component';
 import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
 // import { SearchIconComponent } from './components/search-icon/search-icon.component';
 import { MasonryComponent } from './components/masonry/masonry.component';
 import { BlogeditorComponent } from './shared/blogeditor/blogeditor.component';
 import { ChannelInnerComponent } from './components/channel-inner/channel-inner.component';
+import { LearnComponent } from './components/learn/learn.component';
+import { ResourceComponent } from './components/resource/resource.component';
+import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
+import { CommunitiesComponent } from './components/communities/communities.component';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
  { path: '', component: LogoutHomeComponent },
-//  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-{ path: 'mas', component: MasonryComponent },
  { path: 'logout', component: LogoutComponent },
  { path: 'login', component: LoginComponent },
+ { path: 'learn', component: LearnComponent },
  { path: 'channel/:id', component: ChannelInnerComponent },
  { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },
  { path: 'account', loadChildren: './components/forgot-password/forgot-password.module#ForgotPasswordModule'},
@@ -53,11 +55,12 @@ export const routes: Routes = [
  { path: 'events', component: EventsComponent },
  { path: 'search', component: SearchComponent },
  { path: 'settings', component: SettingsComponent },
- { path: 'dashboard', component: DashboardComponent },
  { path: 'explore', component: ExploreComponent },
  { path: 'channel', component: ChannelListComponent },
  { path: 'work', component: BlogeditorComponent },
+ { path: 'resources', component: ResourceComponent },
+ { path: 'communities', component: CommunitiesComponent },
  { path: 'searchIcon', loadChildren: './components/search-icon/search-icon.module#SearchIconModule' },
- // otherwise redirect to home
- { path: '**', redirectTo: '' }
+ { path: 'page-not-found', component: NotFoundPageComponent },
+ { path: '**', redirectTo: 'page-not-found' }
 ];

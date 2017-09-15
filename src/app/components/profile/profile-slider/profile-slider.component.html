@@ -1,5 +1,5 @@
-<div class="prohead2" [ngStyle]="profileImageStyle(userProfile)">
-  <div class="container u-rel">
+<div *ngIf="profileObject !== null" class="prohead2" [ngStyle]="profileImageStyle(profileObject)">
+  <div class="container u-rel" *ngIf="isOtherProfile === false">
       <app-modal [modalTitle]="'Change Profile Image'" (onClose)="isClosed($event)" [blocking]='false' modalId='ChangeCover' class="media__modal" size="tiny">
           <input #profileImage type="file" name="profile_image"/>
           <button (click)="uploadCoverImage()">Save</button>
@@ -11,7 +11,7 @@
     </span>
   </div>
 </div>
-<div class="container pro-block">
+<div class="container pro-block" *ngIf="profileObject !== null">
     <div class="row">
         <app-modal [modalTitle]="'Change Profile Image'" (onClose)="isClosed($event)" [blocking]='false' modalId='ChangeProfile' class="media__modal" size="tiny">
           <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
@@ -25,22 +25,11 @@
 
         <div class="col-md-6 col-sm-12 pro__img" *ngIf="!changingImage">
           <div class="prof_img_block">
-            <img src="{{ data && data.image ? data.image : baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
+            <img src="{{ data && data.image ? data.image : baseUrl + profileObject?.image?.profile }}" class="img-responsive img-circle">
             <span class="upload_prof_img">
               <a class="dropdown-toggle btn btn-basic btn-sm upload-btn" data-toggle="dropdown" aria-expanded="true" alt="" (click)="changingImageClick()">
                 <img src="http://d33wubrfki0l68.cloudfront.net/191393ff3b0564270e49e5a1548ca1384ba44571/2bd8e/img/svg/ico_edit_white.svg"/>
               </a>
-              <!--
-              <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                  <img src="img/svg/ico_edit_white.svg" alt="">
-              </a>
-              <ul class="dropdown-menu prof_change_drop">
-                  <li>
-                    <button type="button" (click)="changingImageClick()">change</button>
-                    <a href="#">Upload Profile image</a>
-                  </li>
-              </ul>
-            -->
             </span>
           </div>
             <!-- profile img block end -->
@@ -50,24 +39,19 @@
                         <!-- <img *ngIf="userProfile.profileUser?.profileImage.length > 0; else elseProfileImage" src="{{ userProfile.profileUser?.profileImage }}" class="img-responsive img-circle"> -->
             <!-- <img #elseProfileImage src="/assets/img/avatar.jpg" class="img-responsive img-circle"> -->
             <div class="pro__name2">
-                <h2><a routerLink="/profile"> {{ userProfile.profileUser?.name }} </a></h2>
-                <p>@{{ userProfile.profileUser?.userName }}</p>
-
-                <!--
-                            <button type="button" class="btn btn-xs btn-primary btn-plus">
-                            <span class="btn-label-follow">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                            </span> FOLLOW
-                            </button>
-                            <button type="button" class="btn btn-normal2 btn-xs"> NETWORK </button>
-                            <button type="button" class="btn btn-normal2 btn-xs"> DONATE </button>
-                            -->
-
+              <h2><a routerLink="/profile"> {{ profileObject?.name }} </a></h2>
+              <p>{{ '@' + profileObject?.userHandle }}</p>
+              <div *ngIf="isOtherProfile === true">
+                <button type="button" class="btn btn-xs btn-primary btn-plus" (click)="followUser(profileObject)">
+                  <span class="btn-label-follow">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </span> FOLLOW
+                </button>
+                <button type="button" class="btn btn-normal2 btn-xs"> NETWORK </button>
+                <button type="button" class="btn btn-normal2 btn-xs"> DONATE </button>
+              </div>
             </div>
-            <!--</div>-->
-
-
-            <div class="col-md-6"></div>
+          <div class="col-md-6"></div>
         </div>
         <div class="col-md-6"></div>
     </div>
@@ -89,6 +73,10 @@
                 <li class="list-line-item">
                     <a [routerLink]="['about']">project</a>
                 </li>
+
+                <li class="list-line-item">
+                  <a routerLink="/profile/u/salsabeel/user/">Profile</a>
+              </li>
             </ul>
         </div>
         <div class="col-md-3 col-sm-3">
@@ -102,7 +90,7 @@
                 <li class="list-line-item">
                     <a href="#"><img src="/assets/img/svg/ico_message.svg"></a>
                 </li>
-                <li class="list-line-item">
+                <li class="list-line-item" *ngIf="isOtherProfile === false">
                     <a (click)="profileEdit()"><img src="/assets/img/svg/ico_edit.svg"></a>
                 </li>
             </ul>
@@ -111,47 +99,47 @@
             <div class="col-md-4 col-sm-4 text-center pro__count">
                 <div class="row">
                     <div class="col-md-4 col-sm-4 pro__followers">
-                        <h3>{{ userProfile.profileUser?.followersCount }}</h3>
+                        <h3>{{ profileObject?.follwerCount }}</h3>
                         <p>Followers</p>
                     </div>
                     <div class="col-md-4 col-sm-4 pro__following">
-                        <h3>{{ userProfile.profileUser?.followingCount }}</h3>
+                        <h3>{{ profileObject?.followingCount }}</h3>
                         <p>Following</p>
                     </div>
                     <div class="col-md-4 col-sm-4 pro__spots">
-                        <h3>{{ userProfile.profileUser?.spotsCount }}</h3>
+                        <h3>{{ profileObject?.spotCount }}</h3>
                         <p>Spots</p>
                     </div>
                     <div class="col-md-8 col-sm-8 pro__spotscore">
-                        Spotscore Comming Soon
+                        Spotscore Coming Soon
                     </div>
                     <div class="col-md-4 col-sm-8 pro__postchannels">
-                        <h4>{{ userProfile.profileUser?.postCount }} <small>Post</small></h4>
-                        <h4>{{ userProfile.profileUser?.channelCount }} <small>Channels</small></h4>
+                        <h4>{{ profileObject?.postCount }} <small>Post</small></h4>
+                        <h4>{{ profileObject?.channelCount }} <small>Channels</small></h4>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4 pro_bio">
                 <h3>BIO</h3>
-                <p>{{ userProfile.profileUser?.bio }}</p>
+                <button *ngIf="profileObject?.userBio == '' && isOtherProfile === false" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button>
+                <p>{{ profileObject?.userBio }}</p>
 
             </div>
             <div class="col-md-4 col-sm-4 pro_skills">
                 <h3>SKILLS</h3>
-
-                <button *ngFor="let skill of userProfile.profileUser?.skills" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
+                <button *ngIf="profileObject?.userDetails?.skills == ''" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
+                <button *ngFor="let skill of profileObject?.userDetails?.skills | slice:0:8" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
+                <button type="button" *ngIf="profileObject?.userDetails?.skills?.length > 7" (click)="skillPopup()" class="btn btn-default btn-xs">More...</button>
+                <button *ngFor="let skill of profileObject?.userDetails?.skills" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
             </div>
         </div>
     </div>
 </div>
+
 <router-outlet></router-outlet>
-
-
-<!-- edit profile pop -->
-
 <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow'>
     <div>
-        <form [formGroup]="profileForm">
+        <form [formGroup]="profileForm" novalidate #myform="ngForm" (submit)= "profileFormSubmit(profileForm.value)">
             <div class="edit-profile_main">
                 <!-- <div class="modal-header" style="border: none;">
                 <button type="button" class="close" data-dismiss="modal"></button>
@@ -162,7 +150,7 @@
                     </div>
                     <div class="col-md-6 padding_none text-right">
                         <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="profileFormClose()">Close</app-button>
-                        <app-button [className]="'btn btn-primary btn-sm'" [type]="'button'" (click)="profileFormSubmit(profileForm.value)">Save</app-button>
+                        <app-button [className]="'btn btn-primary btn-sm'" [type]="'submit'" >Save</app-button>
                     </div>
                 </div>
                 <!-- edit profile head end -->
@@ -182,31 +170,62 @@
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Name</label>
+                                <p class="error_alert" *ngIf="profileForm.controls['name'].errors?.required && myform.submitted">Name is required</p>
                             </div>
                             <div class="form_group">
                                 <textarea class="form_input form_textarea" name="" formControlName="bio"></textarea>
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Bio</label>
+                                <p class="error_alert" *ngIf="profileForm.controls['bio'].errors?.required && myform.submitted">Bio is required</p>
                             </div>
                             <div class="form_group">
                                 <input class="form_input" required="" type="text" formControlName="username">
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Username</label>
+                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.required && myform.submitted">Username is required</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.whitespace">White Space Not Allowed</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.minlength">Username must be min length 4</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
                             </div>
                             <div class="form_group">
-                                <input class="form_input" required="" type="text">
+                                <input class="form_input" type="text" [ngModel]="mymodel" formControlName="skill" (ngModelChange)="onSearchChange($event)" placeholder="Search skill">
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Skills</label>
-                                <button type="button" class="btn btn-tag btn-sm">TAGS</button>
+
+                                <div class="selected_skill">
+                                    <button *ngFor="let skill of selectedSkills" (click)="toggleSelectSkill(skill.code)" type="button" class="btn btn-tag btn-primary btn-sm btn-skill">
+                                        <span >
+                                            {{skill.name}}
+                                        </span>
+
+                                    </button>
+                                </div>
+                                <div class="selected_tags">
+                                    <div *ngIf="findSkill.skills_loaded===false">
+                                        <span class="loading">Loading...</span>
+                                    </div>
+                                    <span *ngFor="let skill of findSkill.skills" >
+                                        <button type="button" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" class="btn btn-tag btn-sm">
+                                            {{skill.name}}
+                                        </button>
+                                    </span>
+                                    <!--<div *ngIf='skillSelectionPage.skills_loaded===true && skillSelectionPage.skills && skillSelectionPage.skills.length === 0'>
+                                        <a class="adder" (click)="addNewSkill(search)">Add <span class="adder__name">{{search}}?</span></a>
+                                    </div>-->
+                                </div>
                             </div>
                             <div class="form_group">
-                                <input class="form_input" type="text" required="" formControlName="dob">
+                                <input class="form_input" type="text" required [textMask]="{mask: dateMask}" formControlName="dob">
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Date of birth</label>
+                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.required && myform.submitted">Date of Brith is required</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.isUnderAge">You should be above 13</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.isOverAge">You should be below 100</p>
                             </div>
                             <div class="form_group">
                                 <input class="form_input" required="" type="text" value="Bangalore, India">
@@ -237,13 +256,15 @@
                                         <span class="form_highlight"></span>
                                         <span class="form_bar"></span>
                                         <label>Email</label>
+                                        <p class="error_alert" *ngIf="profileForm.controls['email'].errors?.isEmailUnique">A user with this email is already registered</p>
+                                        <p class="error_alert" *ngIf="profileForm.controls['email'].errors?.required && myform.submitted">Email is required</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form_group">
-                                        <select class="form-control" id="sel1">
-                                        <option>Public</option>
-                                        <option>Private</option>
+                                        <select class="form-control" formControlName="emailPrivacy" id="sel1">
+                                        <option value="0">Public</option>
+                                        <option value="1">Private</option>
                                     </select>
                                     </div>
                                 </div>
@@ -252,17 +273,19 @@
                                 <div class="col-md-8">
                                     <div class="form_group">
                                         <span id="phone" type="tel"></span>
-                                        <input class="form_input" type="text" formControlName="number" required style="padding-left: 40px;">
+                                        <input class="form_input" type="text" formControlName="number" required style="padding-left: 50px;">
                                         <span class="form_highlight"></span>
                                         <span class="form_bar"></span>
-                                        <label style="padding-left: 40px;">Phone Number</label>
+                                        <label>Phone Number</label>
+                                        <app-country-selector></app-country-selector>
+                                        <p class="error_alert" *ngIf="profileForm.controls['number'].errors?.required && myform.submitted">Mobile number is required</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form_group">
-                                        <select class="form-control" id="sel1">
-                                        <option>Public</option>
-                                        <option>Private</option>
+                                        <select class="form-control" formControlName="mobilePrivacy" id="sel1">
+                                        <option value="0">Public</option>
+                                        <option value="1">Private</option>
                                     </select>
                                     </div>
                                 </div>
@@ -270,7 +293,7 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form_group">
-                                        <input class="form_input" required="" type="text" formControlName="website">
+                                        <input class="form_input"  type="text" formControlName="website">
                                         <span class="form_highlight"></span>
                                         <span class="form_bar"></span>
                                         <label>Website</label>
@@ -278,9 +301,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form_group">
-                                        <select class="form-control" id="sel1">
-                                        <option>Public</option>
-                                        <option>Private</option>
+                                        <select class="form-control" formControlName="websitePrivacy" id="sel1">
+                                        <option value="0">Public</option>
+                                        <option value="1">Private</option>
                                     </select>
                                     </div>
                                 </div>
@@ -292,5 +315,13 @@
                 <!-- contact info end -->
             </div>
         </form>
+    </div>
+</app-modal>
+
+<!--Skill more -->
+
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='skillMoreWindow'>
+    <div class="popup__window">
+        <button *ngFor="let skill of profileObject?.userDetails.skills" type="button" class="btn btn-default btn-xs btn-skill">{{ skill.name }}</button>
     </div>
 </app-modal>

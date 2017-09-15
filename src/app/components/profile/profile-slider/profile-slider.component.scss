@@ -1075,3 +1075,34 @@
   left: 0;
   padding-left: 0;
 }
+
+.btn-skill{
+    margin-right: 5px;
+}
+
+.btn-add{
+    border: none!important;
+    margin-top: 5px!important;
+    padding: 5px 0px;
+    color: #979797!important;
+    font-size: 12px;
+    &:hover{
+        background: none
+    }
+    &:active{
+        background: none
+    }
+    &:focus{
+        background: none
+    }
+}
+
+.popup__window{
+    width: 505px !important;
+    height: 100%;
+    background: #fff;
+    border-radius: 3px;
+    margin: 0px auto;
+    min-height: 250px;
+    padding: 15px;
+}

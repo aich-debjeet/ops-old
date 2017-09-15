@@ -1,0 +1,103 @@
+/* -------------------- One Page Spotlight Radio and checkbox ---------------------*/
+
+/* ------------------------------- Radio ------------------------------ */
+.ops_radio_sm{
+  input[type="radio"] {
+    display: none;
+  }
+  label{
+    position: static;
+    text-align: center;
+    pointer-events: auto;
+  }
+  input[type="radio"] + span {
+    border: 2px solid #c1c1c1;
+    border-radius: 50px;
+    display: inline-block;
+    float: left;
+    margin-right: 7px;
+    position: relative;
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    margin-top: 3px;
+  }
+  input[type="radio"]:checked + span:after {
+    background: #ff7b84;
+    position: absolute;
+    border-radius: 50px;
+    left: -2px;
+    top: -2px;
+    width: 15px;
+    height: 15px;
+    font-family: FontAwesome;
+    content: "\f10c";
+    color: #ffffff;
+    font-size: 12px;
+  }
+}
+/* --------------------------- checkbox ---------------------------- */
+.ops_checkbox_lg{
+  input[type="checkbox"] {
+    display: none;
+  }
+  label{
+    position: static;
+    text-align: center;
+    pointer-events: auto;
+  }
+  input[type="checkbox"] + span {
+    border: 1px solid #c1c1c1;
+    border-radius: 50px;
+    display: inline-block;
+    margin: 5px 7px -3px 0px;
+    position: relative;
+    -webkit-appearance: none;
+    width: 25px;
+    height: 25px;
+  }
+  input[type="checkbox"]:checked + span:after {
+    color: #ff7b84;
+    border: 1px solid #ff7b84;
+    border-radius: 50px;
+    left: -1px;
+    position: absolute;
+    top: -1px;
+    width: 25px;
+    height: 25px;
+    font-family: FontAwesome;
+    content: "\f00c";
+    font-size: 18px;
+  }
+}
+/* --------------------------- checkbox ---------------------------- */
+.ops_checkbox_xs{
+  input[type="checkbox"] {
+    display: none;
+  }
+  label{
+    position: static;
+    text-align: center;
+    pointer-events: auto;
+  }
+  input[type="checkbox"] + span {
+    background-color: #d4d4d5;
+    border-radius: 50px;
+    display: inline-block;
+    // margin: 5px 7px -3px 0px;
+    position: relative;
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+  }
+  input[type="checkbox"]:checked + span:after {
+    background-color: #a8a8a8;
+    border-radius: 50px;
+    left: 0px;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    content: "";
+  }
+}
+/* // */

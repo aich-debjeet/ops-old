@@ -5,6 +5,7 @@ import { environment } from './../../environments/environment';
 import { ArtistFollow, initialArtistFollow } from '../models/auth.model';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
+import { ApiService } from '../helpers/api.service';
 
 export class Post {
   title: string;
@@ -27,42 +28,30 @@ export class Post {
 @Injectable()
 export class AuthService {
     private apiLink: string = environment.API_ENDPOINT;
-
-    constructor(private http: Http, private router: Router) { }
-    /**
-     * Get Token from LocalStorage
-     */
-    getToken() {
-      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      const token = currentUser.access_token; // your token
-      return token;
-    }
-
-    /**
-     * Build Autherization Header based on token
-     */
-    getAuthHeader() {
-      const token = this.getToken();
-      const headers = new Headers({ 'Content-Type': 'application/json'});
-      headers.append('Authorization', 'Bearer ' + token);
-      return headers;
-    }
+    private handle: string;
+    private headers: any;
+    constructor(
+      private http: Http,
+      private api: ApiService,
+      private router: Router) {
+        this.handle = this.api.getHandle();
+        this.headers = this.api.getHeaders();
+      }
 
     login(req: any) {
       return this.http.post(`${this.apiLink}/portal/auth/oauth2/token`, req)
-          .map((response: Response) => {
-              const user = response.json();
-              if (user && user.access_token) {
-                  localStorage.setItem('currentUser', JSON.stringify(user));
-                  this.router.navigate(['/profile']);
-              }
-          });
+        .map((response: Response) => {
+          const user = response.json();
+          if (user && user.access_token) {
+              localStorage.setItem('currentUser', JSON.stringify(user));
+              this.router.navigate(['/profile']);
+          }
+        });
     }
 
     validateToken() {
-      const headers = this.getAuthHeader();
       const req = {};
-      return this.http.get(`${this.apiLink}/portal/auth/loggedUser`, { headers: headers })
+      return this.http.get(`${this.apiLink}/portal/auth/loggedUser`, { headers: this.headers })
       .map((response: Response) => {
           const user = response.json();
           if (user.profileId) {
@@ -74,62 +63,32 @@ export class AuthService {
     }
 
     registerStepBasic(req: any) {
-        return this.http.post(`${this.apiLink}/portal/auth/user`, req)
-            .map((data: Response) => data.json());
+      return this.api.post('/portal/auth/user', req);
     }
 
     registerProfile(req: any) {
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        const token = currentUser.access_token; // your token
-
-        const headers = new Headers({ 'Content-Type': 'application/json'});
-        headers.append('Authorization', 'Bearer ' + token)
-
-        return this.http.put(this.apiLink + '/portal/auth/user/update', JSON.stringify(req), { headers: headers })
-            .map((data) => data.json());
+      return this.api.put('/portal/auth/user/update', JSON.stringify(req) );
     }
 
     registerWelcome(req: any) {
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        var token = currentUser.access_token; // your token
-
-        let headers = new Headers({ 'Content-Type': 'application/json'});
-        headers.append('Authorization', 'Bearer ' + token)
-
-        return this.http.put(this.apiLink + '/portal/auth/user/update', JSON.stringify(req), { headers: headers })
-            .map((data) => data.json());
-
+      return this.api.put('/portal/auth/user/update', JSON.stringify(req));
     }
 
     artistFollowing(req: any) {
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        var token = currentUser.access_token; // your token
-
-        let headers = new Headers({ 'Content-Type': 'application/json'});
-        headers.append('Authorization', 'Bearer ' + token)
-
-        return this.http.put(this.apiLink + '/portal/network/following/start', JSON.stringify(req), { headers: headers })
-            .map((data) => data.json());
+      return this.api.put('/portal/network/following/start', JSON.stringify(req));
     }
 
     checkOtp(req: any) {
-        return this.http.post(`${this.apiLink}/portal/otp-check`, req)
-            .map((response: Response) => {
-                const result = response.json();
-                console.log(result);
-                localStorage.setItem('otpStatus', JSON.stringify(result));
-                this.router.navigate(['/registration/select-profile']);
-            });
+      return this.http.post(`${this.apiLink}/portal/otp-check`, req)
+        .map((response: Response) => {
+            const result = response.json();
+            localStorage.setItem('otpStatus', JSON.stringify(result));
+            this.router.navigate(['/registration/select-profile']);
+        });
     }
 
     loadArtistType() {
-        return this.http.get(this.apiLink + '/portal/auth/accounttype/individual')
-            .map((data: Response) => data.json());
-    }
-
-    userExists(username: string) {
-      return this.http.get(this.apiLink + '/portal/auth/' + username + '/username')
-        .map((data: Response) => data.json());
+      return this.api.get('/portal/auth/accounttype/individual/', '');
     }
 
     /**
@@ -138,29 +97,28 @@ export class AuthService {
      */
 
     fpUserExists(reqData: any) {
-      return this.http.post(this.apiLink + '/portal/auth/forgotPassword/post', reqData)
-          .map((data: Response) => data.json());
+      return this.api.post('/portal/auth/forgotPassword/post', reqData);
+    }
+
+    userExists(username: string) {
+      const path = '/portal/auth/' + username + '/username';
+      return this.api.get(path, '');
     }
 
     emailUser(email: string) {
-        return this.http.get(this.apiLink + '/portal/auth/' + email + '/email')
-            .map((data: Response) => data.json());
+      const path = '/portal/auth/' + email + '/email';
+      return this.api.get(path, '');
     }
 
     mobilelUser(number: string) {
-        return this.http.get(this.apiLink + '/portal/auth/' + number + '/contact')
-            .map((data: Response) => data.json());
+      const path = '/portal/auth/' + number + '/contact';
+      return this.api.get(path, '');
     }
     /**
      * Add a new Skill
      * @param skillObj  New Skilll Name
      */
     saveSkill(skillObj) {
-      // Headers
-      const token = this.getToken();
-      let headers = new Headers({ 'Content-Type': 'application/json'});
-      headers.append('Authorization', 'Bearer ' + token);
-
       // Object
       const skill = {
         'name': skillObj,
@@ -179,37 +137,43 @@ export class AuthService {
         'active' : true
       }
 
-      return this.http.post(this.apiLink + '/admin/profiletype', skill, { headers: headers })
-        .map((data: Response) => data.json());
+      return this.api.post('/admin/profiletype', skill );
     }
 
+    /**
+     * Store user handle
+     */
+    setUserHandle(handle: string) {
+      // remove user from local storage to log user out
+      localStorage.setItem('currentUserID', handle);
+    }
+
+    /**
+     * Go to user profile page
+     */
+    goToProfile() {
+      console.log('going to profile');
+      this.router.navigateByUrl('/profile');
+    }
     /**
      * Add a save Skills
      * @param skills array all skills
      */
     saveSelectedSkills(skillsArr) {
-        console.log(skillsArr);
-        // Headers
-        const token = this.getToken();
-        let headers = new Headers({ 'Content-Type': 'application/json'});
-        headers.append('Authorization', 'Bearer ' + token);
 
+      console.log(this.headers);
         // Object
         const skills = { profileTypeList: skillsArr }
-
-        return this.http.put(this.apiLink + '/portal/profile/updateProfile', skills, { headers: headers })
+        return this.http.put(this.apiLink + '/portal/profile/updateProfile', skills, { headers: this.headers })
           .map((data: Response) => data.json());
       }
 
     getAllIndustries() {
-      console.log('loading all the skills');
-      return this.http.get(this.apiLink + '/portal/industry')
-        .map((data: Response) => data.json());
+      return this.api.get('/portal/industry', '');
     }
 
-    searchAllSkill(q: string) {
-      return this.http.get(this.apiLink + '/portal/tree/' + q + '/0/100')
-        .map((data: Response) => data.json());
+    searchAllSkill(query: string) {
+      return this.api.get('/portal/tree/' + query + '/0/100');
     }
 
     logout() {
@@ -219,31 +183,25 @@ export class AuthService {
     }
 
     getArtistFollow(value) {
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        var token = currentUser.access_token; // your token
-
-        let headers = new Headers({ 'Content-Type': 'application/json'});
-        headers.append('Authorization', 'Bearer ' + token);
-
-        return this.http.put(this.apiLink + '/portal/searchprofiles/Industry', value, { headers: headers })
-            .map((data) => data.json());
+      return this.http.put(this.apiLink + '/portal/searchprofiles/Industry', value, { headers: this.headers })
+          .map((data) => data.json());
     }
 
     fpResetTypePhone(req: any) {
         const headers = new Headers({ 'Content-Type': 'application/json'});
-        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: headers })
+        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
         .map((data: Response) => data.json());
     }
 
     fpResetTypeEmail(req: any) {
         const headers = new Headers({ 'Content-Type': 'application/json'});
-        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: headers })
+        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
         .map((data: Response) => data.json());
     }
 
     fpSubmitOtp(req: any) {
         const headers = new Headers({ 'Content-Type': 'application/json'});
-        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: headers })
+        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
         .map((data: Response) => data.json());
     }
 
@@ -255,7 +213,14 @@ export class AuthService {
             token: req.activationCode
         }
         const headers = new Headers({ 'Content-Type': 'application/json'});
-        return this.http.put(`${this.apiLink}/portal/auth/user/change/` + req.identity, reqBody, { headers: headers })
+        return this.http.put(`${this.apiLink}/portal/auth/user/change/` + req.identity, reqBody, { headers: this.headers })
         .map((data: Response) => data.json());
+    }
+
+    // Get data forget user
+    fpGetUserdata(activationCode) {
+      const headers = new Headers({ 'Content-Type': 'application/json'});
+      return this.http.get(`${this.apiLink}/portal/auth/resetPasswordToken/` + activationCode, { headers: this.headers })
+      .map((data: Response) => data.json());
     }
 }
