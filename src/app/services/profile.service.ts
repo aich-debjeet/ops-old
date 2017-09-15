@@ -261,4 +261,8 @@ export class ProfileService {
       return true;
     }
   }
+
+  getSingleSpotfeed(spotfeedId: string) {
+    return this.api.get('/portal/cdn/spotfeed/inner/' + spotfeedId + '/0/2');
+  }
 }

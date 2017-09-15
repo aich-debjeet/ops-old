@@ -10,6 +10,13 @@ export class ProfileActions {
   static LOAD_CURRENT_USER_PROFILE_FAILED = 'LOAD_CURRENT_USER_PROFILE_FAILED';
 
   /**
+   * Load spotfeed details
+   */
+  static GET_SPOTFEED_DETAILS = 'GET_SPOTFEED_DETAILS';
+  static GET_SPOTFEED_DETAILS_SUCCESS = 'GET_SPOTFEED_DETAILS_SUCCESS';
+  static GET_SPOTFEED_DETAILS_FAILED = 'GET_SPOTFEED_DETAILS_FAILED';
+
+  /**
    * Load logged in users Quick Access
    */
   static LOAD_CURRENT_USER_QUICK_ACCESS = 'LOAD_CURRENT_USER_QUICK_ACCESS';
@@ -527,4 +534,33 @@ export class ProfileActions {
       payload: error
     };
   }
+
+  /**
+   * Get spotfeed details
+   */
+  getSpotfeedDetails(value): Action {
+    return {
+      type: ProfileActions.GET_SPOTFEED_DETAILS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  getSpotfeedDetailsSuccess(value): Action {
+    return {
+      type: ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  getSpotfeedDetailsFailed(error: any): Action {
+    return {
+      type: ProfileActions.GET_SPOTFEED_DETAILS_FAILED,
+      payload: error
+    };
+  }
+
 }

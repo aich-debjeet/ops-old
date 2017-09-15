@@ -411,6 +411,21 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.PROFILE_FOLLOW_FAILED, payload: res }))
     );
 
+  /**
+   * Get spotfeed detail
+   */
+  @Effect()
+  getSpotfeedDetail$ = this.actions$
+    .ofType(ProfileActions.GET_SPOTFEED_DETAILS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getSingleSpotfeed(payload)
+      .map(res => ({ type: ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.GET_SPOTFEED_DETAILS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
   constructor(
     private actions$: Actions,
     private router: Router,

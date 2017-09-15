@@ -45,7 +45,7 @@ export const routes: Routes = [
  { path: 'reset-password', component: ResetPasswordComponent },
  { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule' },
  { path: 'message', component: MessageComponent },
- { path: 'spotfeed', component: SpotfeedComponent },
+ { path: 'spotfeed/:id', component: SpotfeedComponent },
  { path: 'spotfeed-premium', component: SpotfeedPremiumComponent },
  { path: 'notification', component: NotificationComponent },
  { path: 'portfolio', component: PortfolioComponent },

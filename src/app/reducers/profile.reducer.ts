@@ -379,6 +379,24 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         profile_other_followed: false
       });
 
+    // Get single spotfeed details
+    case ProfileActions.GET_SPOTFEED_DETAILS:
+      return Object.assign({}, state, {
+        success: true,
+        spotfeed_loading: false,
+      });
+
+    case ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS:
+      return Object.assign({}, state, {
+        spotfeed_loading: true,
+        spotfeed_detail: payload
+      });
+
+    case ProfileActions.GET_SPOTFEED_DETAILS_FAILED:
+      return Object.assign({}, state, {
+        success: false
+      });
+
     default:
       return state;
   }

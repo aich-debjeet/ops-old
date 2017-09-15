@@ -65,3 +65,8 @@ export class ProfileCard {
   follwerCount: number;
   spotCount: number;
 }
+
+export class Spotfeed {
+  spotfeed_detail?: any[];
+  spotfeed_loading: false;
+}
