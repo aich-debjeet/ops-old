@@ -70,7 +70,7 @@ export class AboutBioComponent implements OnInit {
         },
         'physical': {
           'height': parseFloat(value.height),
-          'weight': parseFloat(value.height),
+          'weight': parseFloat(value.weight),
           'ethnicity' : value.ethnicity,
           'complexion' : value.complexion,
           'gender': value.gender
