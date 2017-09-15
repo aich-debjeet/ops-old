@@ -13,7 +13,7 @@ import { SharedActions } from '../../../actions/shared.action';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { TAB_COMPONENTS  } from '../../../shared/tabs/tabset';
+import { TabComponents  } from '../../../shared/tabs/tabset';
 
 @Component({
   selector: 'app-profile-block',

@@ -2,21 +2,22 @@ import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angula
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 import { Http, Headers, Response } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // Action
-import { MediaActions } from '../../actions/media.action';
-import { initialMedia, Media } from '../../models/media.model';
+import { MediaActions } from '../../../actions/media.action';
+import { initialMedia, Media } from '../../../models/media.model';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 // import { FileUploadService } from '../media/fakeService';
-import { ProfileModal, initialTag } from '../../models/profile.model';
-import { ProfileActions } from '../../actions/profile.action';
+import { ProfileModal, initialTag } from '../../../models/profile.model';
+import { ProfileActions } from '../../../actions/profile.action';
 
 // Blog
-import { TokenService } from '../../helpers/token.service';
+import { TokenService } from '../../../helpers/token.service';
 
 @Component({
   selector: 'app-create-channel',
@@ -35,6 +36,8 @@ export class CreateChannelComponent {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
     private tokenService: TokenService,
     private store: Store<Media> ) {
       this.createChannelForm();
@@ -114,5 +117,13 @@ export class CreateChannelComponent {
     }
   }
 
+  /**
+   * Close
+   */
+  doClose() {
+    this.router.navigate(['.', { outlets: { media: null } }], {
+      relativeTo: this.route.parent
+    });
+  }
 }
 

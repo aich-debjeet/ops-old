@@ -26,7 +26,7 @@
         <div class="col-md-6 col-sm-12 pro__img" *ngIf="!changingImage">
           <div class="prof_img_block">
             <img src="{{ data && data.image ? data.image : baseUrl + profileObject?.image?.profile }}" class="img-responsive img-circle">
-            <span class="upload_prof_img">
+            <span class="upload_prof_img" *ngIf="isOtherProfile === false">
               <a class="dropdown-toggle btn btn-basic btn-sm upload-btn" data-toggle="dropdown" aria-expanded="true" alt="" (click)="changingImageClick()">
                 <img src="http://d33wubrfki0l68.cloudfront.net/191393ff3b0564270e49e5a1548ca1384ba44571/2bd8e/img/svg/ico_edit_white.svg"/>
               </a>
@@ -137,7 +137,7 @@
 </div>
 
 <router-outlet></router-outlet>
-<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow'>
+<app-modal [modalTitle]="'Some title'" [open]="false" [blocking]='false' modalId='profileEditWindow'>
     <div>
         <form [formGroup]="profileForm" novalidate #myform="ngForm" (submit)= "profileFormSubmit(profileForm.value)">
             <div class="edit-profile_main">
@@ -320,7 +320,7 @@
 
 <!--Skill more -->
 
-<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='skillMoreWindow'>
+<app-modal [modalTitle]="'Some title'" [open]="false" [blocking]='false' modalId='skillMoreWindow'>
     <div class="popup__window">
         <button *ngFor="let skill of profileObject?.userDetails.skills" type="button" class="btn btn-default btn-xs btn-skill">{{ skill.name }}</button>
     </div>

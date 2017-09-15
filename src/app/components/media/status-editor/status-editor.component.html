@@ -1,0 +1,19 @@
+<div class="c-status">
+  <form [formGroup]="statusForm" novalidate (ngSubmit) = "submitStatusForm(statusForm.value)" #myform="ngForm">
+    <div class="c-status__content">
+      <div class="middle_block">
+          <div class="msg_block" *ngIf="mediaStore.status_saved">
+            <p>Your status has been posted successfully</p>
+          </div>
+          <div class="c-status__block">
+              <textarea class="form___textarea" formControlName="status" name="comment" rows="2" placeholder="Update your Status"></textarea>
+          </div>
+          <div class="c-status__block">
+            <span class="u-right">
+              <a (click)="submitStatusForm(statusForm.value)" class="btn__primary">Post</a>
+            </span>
+          </div>
+      </div>
+    </div>
+  </form>
+</div>

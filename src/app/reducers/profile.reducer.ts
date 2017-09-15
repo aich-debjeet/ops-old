@@ -29,18 +29,20 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.LOAD_CURRENT_USER_PROFILE:
       return Object.assign({}, state, {
-        success: true
+        success: true,
+        profile_loaded: false
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_SUCCESS:
       return Object.assign({}, state, {
         profileUser: payload,
-        success: true
+        profile_loaded: true
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_FAILED:
       return Object.assign({}, state, {
-        success: false
+        success: false,
+        profile_loaded: false
       });
 
     /**
@@ -48,7 +50,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS:
       return Object.assign({}, state, {
-        success: true
+        success: true,
+        profile_loaded: false
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_SUCCESS:
@@ -60,7 +63,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_FAILED:
       return Object.assign({}, state, {
-        success: false
+        success: false,
+        profile_loaded: false
       });
 
       /**
@@ -137,11 +141,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_USER_MEDIA_SUCCESS:
+
+      const posts = payload['SUCCESS'] || [];
+
       return Object.assign({}, state, {
         mediaEntity: payload,
         user_posts_loaded: true,
         user_posts_loading: false,
-        user_posts: payload
+        user_posts: posts
       });
 
     case ProfileActions.LOAD_USER_MEDIA_FAILED:
@@ -175,7 +182,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL:
       return Object.assign({}, state, {
-        success: true,
+        // success: true,
         user_channels_loading: true,
         user_channels_loaded: false
       });
@@ -183,14 +190,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL_SUCCESS:
       return Object.assign({}, state, {
         user_channel: payload,
-        success: true,
         user_channels_loaded: true,
         user_channels_loading: false
       });
 
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL_FAILED:
       return Object.assign({}, state, {
-        success: false,
         user_channels_loading: false,
         user_channels_loaded: false
       });

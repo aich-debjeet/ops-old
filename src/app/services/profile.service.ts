@@ -49,10 +49,11 @@ export class ProfileService {
   /**
    * Current LoggedIn Channel profile.
    */
-  getLoggedInChannel(value: string, page: number = 0) {
+  getLoggedInChannel(value: string, page: number = 1) {
     const perPage = 10;
+    const offset = page === 1 ? 0 : page * perPage;
     const body = {
-      'offset': page * perPage,
+      'offset': offset,
       'limit': perPage,
       'superType': 'channel',
       'owner': value
@@ -253,5 +254,21 @@ export class ProfileService {
     } else {
       return true;
     }
+  }
+
+  /**
+   * Pagination Helper
+   */
+  pagination(page: number = 1, perPage: number = 20) {
+    const p = page === 1 ? 0 : page * perPage;
+    return `${p}/${perPage}`;
+  }
+
+  /**
+   * Get User media
+   */
+  getUserMedia(handle: string, page: number = 1) {
+    const params = handle + '/' + this.pagination(page);
+    return this.api.get('/portal/cdn/media/otherProfile/', params);
   }
 }

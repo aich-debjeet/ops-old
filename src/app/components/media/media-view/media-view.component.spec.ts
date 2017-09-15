@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProfileSliderComponent } from './profile-slider.component';
+import { MediaViewComponent } from './media-view.component';
 
-describe('ProfileSliderComponent', () => {
-  let component: ProfileSliderComponent;
-  let fixture: ComponentFixture<ProfileSliderComponent>;
+describe('MediaViewComponent', () => {
+  let component: MediaViewComponent;
+  let fixture: ComponentFixture<MediaViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProfileSliderComponent ]
+      declarations: [ MediaViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProfileSliderComponent);
+    fixture = TestBed.createComponent(MediaViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

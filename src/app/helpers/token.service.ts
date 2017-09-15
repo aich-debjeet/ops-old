@@ -41,14 +41,14 @@ export class TokenService {
    */
   getToken() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
+    let token;
     // redirect user to the login page if access_token is not available
     if (currentUser === null || currentUser.access_token === null) {
       // this.router.navigate(['login']);
       return false;
     }
 
-    const token = currentUser.access_token; // your token
+    token = currentUser.access_token; // your token
     return token;
   }
 
@@ -57,6 +57,7 @@ export class TokenService {
    */
   getAuthHeader() {
     const token = this.getToken();
+    // console.log(token);
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', 'Bearer ' + token);
     return headers;
