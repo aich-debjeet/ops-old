@@ -38,11 +38,18 @@ export class ModalComponent implements OnInit {
     this.keyup(ev);
   }
 
+  openMe() {
+    // if (this.open === true) {
+    //   console.log('start as open');
+    //   this.modalService.open(this.modalId);
+    // } else {
+    //   console.log('start  as closed');
+    // }
+  }
+
   ngOnInit() {
     this.modalService.registerModal(this);
-    if (this.open === true) {
-      this.modalService.open(this.modalId);
-    }
+    this.openMe();
   }
 
   close(checkBlocking = false): void {

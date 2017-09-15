@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
+// Pipes
+import { OrderByPipe } from './pipes/order.pipe';
 // Guard
 import { AuthGuard } from './guard/auth.guard';
 
@@ -76,6 +78,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 // Shared Stuffs!
 // import { MediaComponent } from './shared/media/media.component';
 // import { MediaSelectorComponent } from './shared/media-selector/media-selector.component';
+
 import { PopularArtistsComponent } from './shared/popular-artists/popular-artists.component';
 import { NearestEventsComponent } from './shared/nearest-events/nearest-events.component';
 import { OpportunitiesComponent } from './shared/opportunities/opportunities.component';
@@ -123,7 +126,7 @@ import { CommunitiesComponent } from './components/communities/communities.compo
     ResourceComponent,
     NotFoundPageComponent,
     CommunitiesComponent,
-    // MediaComponent
+    OrderByPipe
   ],
   imports: [
     SharedModule,

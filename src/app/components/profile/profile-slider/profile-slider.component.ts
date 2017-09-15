@@ -23,7 +23,7 @@ import { ProfileCard } from '../../../models/profile.model';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
+import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 
 import { find as _find, forEach as _forEach  } from 'lodash';
 
