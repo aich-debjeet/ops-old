@@ -122,15 +122,14 @@
             <div class="col-md-4 col-sm-4 pro_bio">
                 <h3>BIO</h3>
                 <button *ngIf="profileObject?.userBio == '' && isOtherProfile === false" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button>
-                <p>{{ profileObject?.userBio }}</p>
+                <p>{{ profileObject?.userBio | slice:0:220}}</p>
 
             </div>
             <div class="col-md-4 col-sm-4 pro_skills">
                 <h3>SKILLS</h3>
-                <button *ngIf="profileObject?.userDetails?.skills == ''" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
-                <button *ngFor="let skill of profileObject?.userDetails?.skills | slice:0:8" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
-                <button type="button" *ngIf="profileObject?.userDetails?.skills?.length > 7" (click)="skillPopup()" class="btn btn-default btn-xs">More...</button>
-                <button *ngFor="let skill of profileObject?.userDetails?.skills" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
+                <button *ngIf="profileObject?.userSkill == ''" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
+                <button *ngFor="let skill of profileObject?.userSkill | slice:0:8" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
+                <button type="button" *ngIf="profileObject?.userSkill?.length > 7" (click)="skillPopup()" class="btn btn-default btn-xs">More...</button>
             </div>
         </div>
     </div>
@@ -227,12 +226,6 @@
                                 <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.isUnderAge">You should be above 13</p>
                                 <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.isOverAge">You should be below 100</p>
                             </div>
-                            <div class="form_group">
-                                <input class="form_input" required="" type="text" value="Bangalore, India">
-                                <span class="form_highlight"></span>
-                                <span class="form_bar"></span>
-                                <label>Location</label>
-                            </div>
                         </div>
                     </div>
                     <!-- edit profile content block end -->
@@ -322,6 +315,6 @@
 
 <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='skillMoreWindow'>
     <div class="popup__window">
-        <button *ngFor="let skill of profileObject?.userDetails.skills" type="button" class="btn btn-default btn-xs btn-skill">{{ skill.name }}</button>
+        <button *ngFor="let skill of profileObject?.userSkill" type="button" class="btn btn-default btn-xs btn-skill">{{ skill.name }}</button>
     </div>
 </app-modal>

@@ -1,71 +1,486 @@
-
+@import './src/assets/scss/helpers/_variables.scss';
+.about-edit{
+    color: #ff7b84;
+    font-size: 14px;
+    font-weight: 600;
+    vertical-align: super;
+    margin-bottom: 24px;
+    float: left;
+    width: 100%;
+    &:hover{
+        color: $theme_red;
+    }
+    &:focus{
+        color: $theme_red;
+        outline: none;
+    }
+}
+.about-edit-ico{
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-right: 8px;
+}
 
 // about section -------------------------------------------
-    .panel-heading {
-        padding: 0px 16px;
+.panel-heading {
+    padding: 0px 16px;
+}
+.about_padding24 {
+    padding: 32px;
+}
+.ops_heading12 {
+    text-transform: uppercase;
+}
+.ops_subheading {
+    margin: 16px 0;
+}
+#about_bio {
+    .table > tbody > tr > th,
+    .table > tbody > tr > td {
+        border-top: none;
+        padding: 16px 0;
     }
-    .about_padding24 {
-        padding: 32px;
-    }
-    .ops_heading12 {
-        text-transform: uppercase;
-    }
-    .ops_subheading {
-        margin: 16px 0;
-    }
-    #about_bio {
-        .table > tbody > tr > th,
-        .table > tbody > tr > td {
-            border-top: none;
-            padding: 16px 0;
+    .table > tbody > tr {
+        .ops_subheading {
+            color: #333333;
         }
-        .table > tbody > tr {
-            .ops_subheading {
-                color: #333333;
+    }
+}
+#about_work,
+#about_awards,
+#about_education {
+    padding: 16px 32px;
+    .overview_section {
+        .sm_panel_body {
+            padding: 16px 0;
+            .add_plus {
+                width: 50px;
+                height: 50px;
+                border: solid 1px #e5e5e5;
+                border-radius: 3px;
+                color: #333;
+                font-size: 32px;
+                text-align: center;
+            }
+            .sm_panel_right {
+                .padd_t12 {
+                    padding-top: 12px;
+                }
+                p {
+                    font-size: 14px;
+                    text-align: left;
+                    color: #979797;
+                    padding-top: 10px;
+                }
             }
         }
     }
-    #about_work,
-    #about_awards,
-    #about_education {
+}
+.home_tabs {
+    .nav > li > a {
+        padding: 15px 2px;
+        margin: 0 16px;
+    }
+    .nav-tabs > li.active > a,
+    .nav-tabs > li.active > a:hover,
+    .nav-tabs > li.active > a:focus {
+        color: #ff7b84;
+        background-color: transparent;
+        border-bottom: solid 3px #ff7b84;
+        cursor: default;
+    }
+}
+
+// about edit
+
+.about-edit{
+    color: #ff7b84;
+    font-size: 14px;
+    font-weight: 600;
+    vertical-align: super;
+    margin-bottom: 24px;
+    float: left;
+    width: 100%;
+    &:hover{
+        color: $theme_red;
+    }
+    &:focus{
+        color: $theme_red;
+        outline: none;
+    }
+}
+.about-edit-ico{
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-right: 8px;
+}
+
+// edit about pop style
+
+.edit-profile-form{
+    padding: 32px;
+    display: -webkit-box;
+    .form_group {
+        position: relative;
+        margin-bottom: 24px;
+    }
+}
+.edit-about-gender{
+    width: 75%;
+    float: left;
+}
+.edit-profile__gender-container{
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 24px;
+}
+
+// Edit profile styles start
+.edit-profile_main {
+    width: 500px !important;
+    height: 100%;
+    background: #fff;
+    border-radius: 3px;
+    margin: 0px auto;
+    .edit-profile-form{
+        .editarea{
+            width: 100%!important;
+        }
+    }
+    .edit-profile_head {
+        width: 100%;
+        float: left;
         padding: 16px 32px;
-        .overview_section {
-            .sm_panel_body {
-                padding: 16px 0;
-                .add_plus {
+        border-bottom: 1px solid rgba(102, 45, 145, 0.1);
+        h2 {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #333333;
+            padding: 8px 0px;
+        }
+    }
+    .edit-profile_sec_block {
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+        width: 100%;
+        background-color: white;
+        text-align: center;
+        .edit-profile_sec_head {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 32px;
+            border-bottom: 1px solid rgba(102, 45, 145, 0.1);
+            margin-bottom: 0px 0px 24px;
+            h3.edit-profile_subtitle {
+                text-align: left;
+                color: #333;
+                font-weight: 700;
+                font-size: 14px;
+                text-transform: uppercase;
+            }
+            .edit-profile_iconbox {
+                position: relative;
+                width: 40px;
+                transform: rotate(-180deg);
+                transition: transform .4s;
+            }
+            .closed {
+                transform: rotate(0deg);
+            }
+        }
+        
+        .edit-profile_content_block {
+            font-weight: 200;
+            color: #1d1d1b;
+            text-align: left;
+            line-height: 1.5;
+            transition: opacity .7s;
+            transition: .25s;
+            background: #F3F5F7;
+            .editarea {
+                padding: 16px 32px;
+                .form_group {
+                    margin-bottom: 24px;
+                    .form_input {
+                        color: #333333;
+                        font-weight: 600;
+                        background: transparent;
+                    }
+                    .form_textarea {
+                        min-height: 80px;
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+                    .form-control {
+                        border: none;
+                        border-bottom: 1px solid #c1c1c1;
+                        box-shadow: none;
+                        border-radius: 0px;
+                        font-weight: 600;
+                        margin-top: 3px;
+                        background: transparent;
+                    }
+                }
+            }
+            .edit-profile_add_sec {
+                width: 100%;
+                a {
+                    width: 100%;
+                    padding: 16px 32px;
+                    float: left;
+                    .profile_add_ico {
+                        height: 50px;
+                        width: 50px;
+                        border: 3px solid #D4D4D5;
+                        border-radius: 3px;
+                        margin: 0px;
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+                        text-align: center;
+                        float: left;
+                        input {
+                            width: 100%;
+                            height: 172px;
+                            opacity: 0;
+                            display: block;
+                            position: absolute;
+                            z-index: 1;
+                            cursor: pointer;
+                        }
+                        .add_media_plus_ico {
+                            width: 100%;
+                            text-align: center;
+                            img {
+                                width: 28px;
+                                height: 28px
+                            }
+                        }
+                    }
+                    .profile_add_title {
+                        display: inline-block;
+                        padding: 16px;
+                        float: left;
+                        h3 {
+                            color: #979797;
+                            font-size: 16px;
+                            font-weight: 700;
+                            line-height: 22px;
+                        }
+                    }
+                }
+                .profile_add_det {
+                    background: #fff;
+                    transition: opacity .7s;
+                    transition: .25s;
+                    float: left;
+                    width: 100%;
+                    .editarea_leftbar {
+                        width: 60px;
+                        float: left;
+                        .add_workplace_logo {
+                            height: 50px;
+                            width: 50px;
+                            border: 3px solid #D4D4D5;
+                            border-radius: 3px;
+                            margin: 0px;
+                            display: flex;
+                            justify-content: center;
+                            flex-direction: column;
+                            text-align: center;
+                            float: left;
+                            input {
+                                width: 50px;
+                                height: 50px;
+                                opacity: 0;
+                                display: block;
+                                position: absolute;
+                                z-index: 1;
+                                cursor: pointer;
+                            }
+                            .add_media_plus_ico {
+                                width: 100%;
+                                text-align: center;
+                                img {
+                                    width: 14px;
+                                    height: 32px
+                                }
+                            }
+                        }
+                        .add_logo_txt {
+                            font-size: 11px;
+                            color: #979797;
+                            font-weight: 600;
+                        }
+                    }
+                    .editarea_rightbar {
+                        width: 80%;
+                        float: left;
+                        padding-left: 8px;
+                        .form_group {
+                            margin-bottom: 24px;
+                            .form_input {
+                                color: #333333;
+                                font-weight: 600;
+                                background: none;
+                            }
+                            label {
+                                font-weight: 600;
+                            }
+                        }
+                        .add_workplace_time_period {
+                            width: 100%;
+                            h4 {
+                                font-size: 14px;
+                                color: #333;
+                                font-weight: 600;
+                                margin-bottom: 10px;
+                            }
+                        }
+                        .ops_radio_sm label {
+                            color: #979797;
+                            font-size: 12px;
+                            line-height: 17px;
+                        }
+                        .ops_radio_sm input[type="checkbox"] {
+                            display: none;
+                        }
+                        .ops_radio_sm label {
+                            position: static;
+                            text-align: center;
+                            pointer-events: auto;
+                            font-weight: 600;
+                            font-size: 12px;
+                            color: #000;
+                        }
+                        .ops_radio_sm input[type="checkbox"]+span {
+                            border: 2px solid #c1c1c1;
+                            border-radius: 50px;
+                            display: inline-block;
+                            float: left;
+                            margin-right: 7px;
+                            position: relative;
+                            -webkit-appearance: none;
+                            width: 15px;
+                            height: 15px;
+                            margin-top: 1px;
+                        }
+                        .ops_radio_sm input[type="checkbox"]:checked+span:after {
+                            background: #ff7b84;
+                            position: absolute;
+                            border-radius: 50px;
+                            left: -2px;
+                            top: -2px;
+                            width: 15px;
+                            height: 15px;
+                            font-family: FontAwesome;
+                            content: "\f10c";
+                            color: #ffffff;
+                            font-size: 12px;
+                            padding-left: 1px;
+                        }
+                    }
+                    .bottom_actions {
+                        float: left;
+                        .form_group {
+                            width: 80px;
+                            float: left;
+                            .form-control {
+                                border: none;
+                                border-bottom: 1px solid #c1c1c1;
+                                box-shadow: none;
+                                border-radius: 0px;
+                                font-weight: 600;
+                                margin-top: 3px;
+                                width: 80px;
+                                padding-left: 0px;
+                                background: none;
+                            }
+                        }
+                        .action_btn {
+                            width: 250px;
+                            float: left;
+                            padding: 8px;
+                        }
+                    }
+                }
+            }
+            .profile_workplaces_block {
+                width: 100%;
+                margin-top: 32px;
+                display: inline-block;
+                .workplace_iogo {
                     width: 50px;
                     height: 50px;
-                    border: solid 1px #e5e5e5;
-                    border-radius: 3px;
-                    color: #333;
-                    font-size: 32px;
-                    text-align: center;
-                }
-                .sm_panel_right {
-                    .padd_t12 {
-                        padding-top: 12px;
+                    border: 1px solid #D4D4D5;
+                    float: left;
+                    background: #ccc;
+                    overflow: hidden;
+                    img {
+                        width: 100%;
                     }
+                }
+                .workplace_name {
+                    width: 250px;
+                    float: left;
+                    padding-left: 16px;
                     p {
                         font-size: 14px;
-                        text-align: left;
+                        color: #333;
+                        font-weight: 600;
+                        line-height: 19px;
+                        strong {
+                            color: #000;
+                            font-weight: 700;
+                        }
+                    }
+                    .workplace_date {
+                        font-size: 12px;
                         color: #979797;
-                        padding-top: 10px;
+                        font-weight: 600;
+                    }
+                }
+                .workplace_edit_remove_ico {
+                    float: right;
+                    width: 70px;
+                    .edit_remove_ico {
+                        width: 16px;
+                        height: 16px;
+                        float: right;
+                        margin: 8px;
                     }
                 }
             }
         }
-    }
-    .home_tabs {
-        .nav > li > a {
-            padding: 15px 2px;
-            margin: 0 16px;
-        }
-        .nav-tabs > li.active > a,
-        .nav-tabs > li.active > a:hover,
-        .nav-tabs > li.active > a:focus {
-            color: #ff7b84;
-            background-color: transparent;
-            border-bottom: solid 3px #ff7b84;
-            cursor: default;
+        .in {
+            display: block!important;
+            transition: .25s;
         }
     }
+    p.text {
+        font-weight: 200;
+        color: #1d1d1b;
+        display: none;
+        padding: 0 16px;
+        text-align: left;
+        line-height: 1.5;
+        opacity: 0;
+        transition: opacity .7s;
+    }
+    p.text.open {
+        opacity: 1;
+        display: block;
+    }
+    input[type="text"]:disabled,
+    label {
+        top: -10px;
+        font-size: 12px;
+        color: #c1c1c1;
+    }
+}

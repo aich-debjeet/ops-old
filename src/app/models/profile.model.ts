@@ -54,6 +54,7 @@ export class ProfileCard {
   };
   userHandle: string;
   userBio: any;
+  userSkill: any;
   userDetails: any; // All Other Datas
   followingCount: number;
   follwerCount: number;

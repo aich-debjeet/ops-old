@@ -33,30 +33,35 @@ export class RegistrationProfileComponent implements OnInit {
   constructor(fb: FormBuilder, private store: Store<AuthModel>, private router: Router) {
 
     this.artistType = [{
-      name: 'Makers',
+      name: 'Talent',
       image: '/assets/img/step2a.jpg',
       typeName: 'individual',
-      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+      description: 'Eg. Performing arts, movement arts, audio arts, visual arts, fine arts, applied arts.'
     }, {
-      name: 'Doers',
+      name: 'Stagecrafters',
       image: '/assets/img/step2b.jpg',
       typeName: 'individual',
-      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+      description: 'Eg. Sound Engineer, Light Engineer, Wardrobe supervisor.'
     }, {
-      name: 'Enablers',
+      name: 'Techies',
       image: '/assets/img/step2c.jpg',
       typeName: 'individual',
-      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+      description: 'Eg. VR, Game Programmers, Software Developers, Editors.'
     }, {
-      name: 'Tech Power',
+      name: 'Corporates',
       image: '/assets/img/step2d.jpg',
       typeName: 'individual',
-      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+      description: 'Eg. Theatre Manger, Account Mangaer, Marketing, Legal, Finance & Accounting.'
     }, {
-      name: 'Art Lovers',
+      name: 'Teachers',
       image: '/assets/img/step2e.jpg',
       typeName: 'individual',
-      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+      description: 'Eg. Trainers, Coaches, Mentors, Guides.'
+    }, {
+      name: 'Art Lovers',
+      image: '/assets/img/step2f.jpg',
+      typeName: 'individual',
+      description: 'Eg. Followers of art forms & artists, entertainment seekers, connoisseurs.'
     }];
 
     this.tagState$ = store.select('loginTags');
