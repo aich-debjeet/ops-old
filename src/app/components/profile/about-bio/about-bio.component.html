@@ -99,7 +99,7 @@
     <!-- edit bio pop -->
   <div class="" id="edit_bio_pop" >
     <div class="modal-dialog modal-md " id="">
-       <form [formGroup]="bioForm" novalidate #myform="ngForm" (submit)= "bioFormSubmit(profileForm.value)">
+       <form [formGroup]="bioForm" novalidate #myform="ngForm" (submit)= "bioFormSubmit(bioForm.value)">
         <div class="modal-content edit-profile_main">
             <!-- <div class="modal-header" style="border: none;">
                 <button type="button" class="close" data-dismiss="modal"></button>
@@ -117,10 +117,10 @@
             <div class="edit-profile-form">
                 <div class="editarea">
                     <div class="form_group">
-                        <input class="form_input" required="" type="text" value="Bijoy n Devasia">
+                        <textarea class="form_input form_textarea" name="" formControlName="about_me"></textarea>
                         <span class="form_highlight"></span>
                         <span class="form_bar"></span>
-                        <label>Birth day</label>
+                        <label>About Me</label>
                     </div>
                     <div class="edit-profile__gender-container">
                         <span class="ops_heading12 float_left">Gender</span>
