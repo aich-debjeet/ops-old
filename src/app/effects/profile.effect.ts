@@ -75,6 +75,22 @@ export class ProfileEffect {
     );
 
   /**
+   * Get home page spotfeed
+   */
+  @Effect()
+  loadHomePageSpotfeeds$ = this.actions$
+    .ofType(ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getHomePageSpotfeeds()
+      .map(res => ({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+
+  /**
    * Get current user channel profile
    */
   @Effect()

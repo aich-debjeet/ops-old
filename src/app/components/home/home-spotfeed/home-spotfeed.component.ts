@@ -21,7 +21,8 @@ export class HomeSpotfeedComponent implements OnInit {
   tagState$: Observable<UserSpotfeeds>;
   private tagStateSubscription: Subscription;
   userState;
-  spotfeeds;
+  spotfeeds: any = [];
+  baseUrl: String;
 
   constructor(
     private http: Http,
@@ -31,14 +32,10 @@ export class HomeSpotfeedComponent implements OnInit {
     this.tagState$ = this.store.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.userState = state;
-      this.spotfeeds = this.userState.channelEntity;
+      this.spotfeeds = this.userState.home_spotfeeds.SUCCESS;
     });
 
-    const reqBody = {
-      superType: 'spotfeed'
-    };
-
-    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: reqBody });
+    this.store.dispatch({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS });
   }
 
   ngOnInit() {

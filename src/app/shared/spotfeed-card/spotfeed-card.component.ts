@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-spotfeed-card',
@@ -6,9 +7,12 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./spotfeed-card.component.scss']
 })
 export class SpotfeedCardComponent implements OnInit {
+  baseUrl: string;
 
   @Input() spotfeedData;
-  constructor() { }
+  constructor() {
+    this.baseUrl = environment.API_IMAGE;
+  }
 
   ngOnInit() {
     // console.log(this.spotfeedData);

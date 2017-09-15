@@ -21,6 +21,9 @@ export class ProfileModal {
   user_channel: any;
   user_channels_loading: boolean;
   user_channels_loaded: boolean;
+  home_spotfeeds: any;
+  home_spotfeeds_loading: boolean;
+  home_spotfeeds_loaded: boolean;
 }
 
 export class ProfileForm {
@@ -44,6 +47,9 @@ export const initialTag: ProfileModal = {
   user_channel: [],
   user_channels_loading: false,
   user_channels_loaded: false,
+  home_spotfeeds: [],
+  home_spotfeeds_loading: false,
+  home_spotfeeds_loaded: false,
 };
 
 export class ProfileCard {

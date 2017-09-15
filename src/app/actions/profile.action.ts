@@ -24,6 +24,13 @@ export class ProfileActions {
   static LOAD_CURRENT_USER_PROFILE_DETAILS_FAILED = 'LOAD_CURRENT_USER_PROFILE_DETAILS_FAILED';
 
   /**
+   * Load home page spotfeeds
+   */
+  static LOAD_HOME_PAGE_SPOTFEEDS = 'LOAD_HOME_PAGE_SPOTFEEDS';
+  static LOAD_HOME_PAGE_SPOTFEEDS_SUCCESS = 'LOAD_HOME_PAGE_SPOTFEEDS_SUCCESS';
+  static LOAD_HOME_PAGE_SPOTFEEDS_FAILED = 'LOAD_HOME_PAGE_SPOTFEEDS_FAILED';
+
+  /**
    * Load logged in users Channel
    */
   static LOAD_CURRENT_USER_CHANNEL = 'LOAD_CURRENT_USER_CHANNEL';
@@ -247,6 +254,30 @@ export class ProfileActions {
   getUserMediaFailed(error: any): Action {
     return {
       type: ProfileActions.LOAD_USER_MEDIA_FAILED,
+      payload: error
+    };
+  }
+
+  /**
+   * Get home page spotfeeds
+   * @param value
+   */
+  getHomePageSpotfeeds(value): Action {
+    return {
+      type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS
+    };
+  }
+
+  getHomePageSpotfeedsSuccess(value): Action {
+    return {
+      type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  getHomePageSpotfeedsFailed(error: any): Action {
+    return {
+      type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS_FAILED,
       payload: error
     };
   }

@@ -47,6 +47,13 @@ export class ProfileService {
   }
 
   /**
+   * Get home page spotfeeds
+   */
+  getHomePageSpotfeeds() {
+      return this.api.get('/portal/cdn/spotfeed', '');
+  }
+
+  /**
    * Current LoggedIn Channel profile.
    */
   getLoggedInChannel(value: string, page: number = 0) {

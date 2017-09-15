@@ -19,6 +19,8 @@
 	flex-flow: row wrap;  
 	-webkit-flex-flow: row wrap;
 	margin: 0px 15px 15px 0;
+	display: inline-block;
+	float: left;
 }
 .c-spotfeed-block__item{// spotfeed for full width section
 	float: left;
@@ -37,6 +39,8 @@
 	transition:.25s;
 	overflow: hidden;
 	position: relative;
+	display: inline-block;
+	float: left;
 	&:hover{
 		background-color: rgba(102,45,145,0.9);	
 		box-shadow: 0 7px 20px 0 rgba(255,123,132,0.62);
