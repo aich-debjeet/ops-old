@@ -50,6 +50,8 @@ export class RegistrationAddSkillComponent implements OnInit {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       this.skillSelectionPage = state;
+      // console.log('this.skillSelectionPage.skills');
+      // console.log(this.skillSelectionPage.skills);
     });
 
     this.rForm = fb.group({
@@ -120,6 +122,11 @@ export class RegistrationAddSkillComponent implements OnInit {
    */
   addNewSkill(name) {
     if (name !== '') {
+      this.skillSelectionPage.skills.push({
+        'name': name,
+        'code': name.toUpperCase()
+      });
+      this.toggleSelectSkill(name.toUpperCase());
       this.store.dispatch({ type: AuthActions.SAVE_SKILL, payload: name });
     }
   }

@@ -88,6 +88,11 @@ export class RegistrationBasicComponent implements OnInit {
     this.modalService.open('termsAndConditions');
   }
 
+  // showing thank you popup
+  showThankyou() {
+    this.modalService.open('thankyouModal');
+  }
+
   startTimer() {
     this.countDown = Observable.timer(0, 1000)
       .take(this.counter)
@@ -148,7 +153,9 @@ export class RegistrationBasicComponent implements OnInit {
         headers.append('handle', 'profileImage');
         this.http.post('http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/upload', file, { headers: headers })
           .map(res => res.json())
-          .subscribe(data => {console.log(data)});
+          .subscribe(data => {
+            // console.log(data)
+          });
       }
     }
 
@@ -196,7 +203,7 @@ export class RegistrationBasicComponent implements OnInit {
 
     const birthDate = new Date(year, month, day);
     const age = this.calculateAge(birthDate);
-    console.log('age: ' + age);
+    // console.log('age: ' + age);
 
     if (age <= 13) {
       return { isUnderAge: true };
@@ -235,6 +242,16 @@ export class RegistrationBasicComponent implements OnInit {
     if (!passwordRegex.test(control.value)) {
       // console.log('weak pass: ' + control.value);
       return { isWeakPassword: true };
+    }
+    return null;
+  }
+
+  /**
+   * checking for valid otp length
+   */
+  validOtp(control: AbstractControl) {
+    if (control.value === '' || control.value.length !== 6) {
+      return { invalid: true };
     }
     return null;
   }
@@ -296,14 +313,17 @@ export class RegistrationBasicComponent implements OnInit {
 
     // OTP Form Builder
     this.otpForm = this.fb.group({
-      'otpNumber' : ['', Validators.required],
+      'otpNumber': ['', [
+          this.validOtp.bind(this)
+        ],
+      ]
     })
 
     // OTP new number
     this.newNumberForm = this.fb.group({
-      'newNumber' : ['', [
-        Validators.required,
-        Validators.minLength(4)
+      'newNumber': ['', [
+          Validators.required,
+          Validators.minLength(4)
         ],
         this.databaseValidator.checkMobile.bind(this.databaseValidator)
       ]
@@ -312,7 +332,7 @@ export class RegistrationBasicComponent implements OnInit {
 
   // User user exists
   userExisitCheck(value) {
-    console.log('check');
+    // console.log('check');
     if (value.length >= 4) {
       // this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
       this.userExists(value);
@@ -332,26 +352,29 @@ export class RegistrationBasicComponent implements OnInit {
         }else {
           this.petTag.user_unique = false;
         }
-        console.log(data)
+        // console.log(data)
       });
   }
 
   // OTP Validation
   otpSubmit(value) {
-    let number = null;
-    if (this.newNumberForm.value.newNumber !== undefined && this.newNumberForm.value.newNumber.length > 5) {
-      number = this.newNumberForm.value.newNumber;
-    } else {
-      number = this.regFormBasic.value.phone;
+    if (this.otpForm.valid === true) {
+      // console.log('submit otp');
+      let number = null;
+      if (this.newNumberForm.value.newNumber !== undefined && this.newNumberForm.value.newNumber.length > 5) {
+        number = this.newNumberForm.value.newNumber;
+      } else {
+        number = this.regFormBasic.value.phone;
+      }
+      this.otpValidate(number, value.otpNumber);
     }
-    this.optValidate(number, value.otpNumber)
   }
 
-  optValidate(number, otp) {
+  otpValidate(number, otp) {
     this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/activate/profile/' + number + '/' + otp)
         .map(res => res.json())
         .subscribe(data => {
-          console.log(data)
+          // console.log(data)
           if (data.SUCCESS === 'Activated your account') {
             this.otpLogin()
           }
@@ -380,9 +403,17 @@ export class RegistrationBasicComponent implements OnInit {
         const user = data;
           if (user && user.access_token) {
               localStorage.setItem('currentUser', JSON.stringify(user));
-              this.router.navigate(['/reg/profile']);
+              // show thank you popup
+              this.modalService.close('otpWindow');
+              this.modalService.open('thankyouModal');
+              // this.router.navigate(['/reg/profile']);
           }
       });
+  }
+
+  // reg next step
+  gotoRegProfile() {
+    this.router.navigate(['/reg/profile']);
   }
 
   reverseDate(string) {
@@ -394,7 +425,7 @@ export class RegistrationBasicComponent implements OnInit {
     return this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/resendotp/' + number )
       .map(res => res.json())
       .subscribe(data => {
-        console.log(data)
+        // console.log(data)
       });
   }
 
@@ -412,7 +443,7 @@ export class RegistrationBasicComponent implements OnInit {
     return this.http.put('http://devservices.greenroom6.com:9000/api/1.0/portal/auth/user/update', reqBody, { headers: reqHeaders })
       .map(res => res.json())
       .subscribe(data => {
-        console.log(data)
+        // console.log(data)
         if (data.SUCCESS === 'Successfully updated user information.') {
           this.modalService.close('otpChangeNumber');
           this.modalService.open('otpWindow');
