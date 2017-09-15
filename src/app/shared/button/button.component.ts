@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class AppButtonComponent {
   @Input() className: string;
   @Input() type: string;
+  @Input() follow: boolean = false;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
 
   handleClick(event: any) {
