@@ -45,6 +45,79 @@ export class DatabaseValidator {
         });
         return q;
     }
+
+    // User already Exsist check on DB
+    userNameValidation(control: AbstractControl) {
+        const q = new Promise((resolve, reject) => {
+            // check current email for user
+            if (control.value.length >= 4) {
+                setTimeout(() => {
+                    this.authService.userExists(control.value).subscribe( data => {
+                        if (data.code === 0) {
+                            resolve({ 'isUsernameUnique': true });
+                        }
+                        resolve(null);
+                        });
+                }, 500);
+            }
+        });
+        return q;
+    }
+
+    /**
+     * Checking for the valid age input on register form
+     * @param control: Form birth date input
+     */
+    validAge(control: AbstractControl) {
+        const q = new Promise((resolve, reject) => {
+            // if (control.value.indexOf('_') !== -1 || control.value === '') {
+            // // console.log('incomplete date');
+            // return resolve(null);
+            // }
+
+            const dateArr =  control.value.split('-');
+
+            const day = dateArr[0];
+            const month = dateArr[1];
+            const year = dateArr[2];
+
+            // check for valid day number
+            if (parseInt(day, 10) > 31) {
+                resolve({ 'invalidDOB': true });
+            }
+
+            // check for valid month number
+            if (parseInt(month, 10) > 12) {
+                resolve({ 'invalidDOB': true });
+            }
+
+            // check if year is not greater that current
+            if (new Date().getUTCFullYear() < year) {
+                resolve({ 'invalidDOB': true });
+            }
+
+            const birthDate = new Date(year, month, day);
+            const age = this.calculateAge(birthDate);
+
+            if (age <= 13) {
+                resolve({ 'isUnderAge': true });
+            } else if (age >= 100) {
+                resolve({ 'isOverAge': true });
+            }
+            resolve(null);
+        });
+        return q;
+    }
+
+    /**
+     * Calculating the age using the date of birth
+     * @param birthday: Birth dat object
+     */
+    calculateAge(birthday) {
+        const ageDifMs = Date.now() - birthday.getTime();
+        const ageDate = new Date(ageDifMs); // miliseconds from epoch
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    }
 }
 
 // Update Profile validation
@@ -201,15 +274,38 @@ export class FormValidation {
      * @param control: Form confirm password input
      */
     static passwordMatchCheck (control: AbstractControl) {
-        // console.log(control.value);
         if (control.value === '') {
-        return;
-    }
-    console.log();
+            return;
+        }
         const pass = control.get('password').value;
-        // console.log('pass: ' + pass);
         if (control.value !== pass) {
         return { passwordDoesNotMatch: true };
+        }
+        return null;
+    }
+
+    /**
+     * Checking for the valid email input on register form
+     * @param control: Form email input
+     */
+    static validEmail(control: AbstractControl) {
+        if (control.value === '') {
+        // console.log('empty email');
+        return;
+        }
+        const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!emailRegex.test(control.value)) {
+        return { isInvalidEmail: true };
+        }
+        return null;
+    }
+
+    /**
+     * checking for valid otp length
+     */
+    static validOtp(control: AbstractControl) {
+        if (control.value === '' || control.value.length !== 6) {
+        return { invalid: true };
         }
         return null;
     }
