@@ -11,11 +11,11 @@ export class ExploreComponent implements OnInit {
 
   ngOnInit() {
     this.comingsoon = {
-      mainTitle: 'Explore will be Coming Soon.',
-      description: 'Our folks are still arranging the chairs right now. Please wait outside while we set this up. <br> <br> Feel free to browse through our other pages.',
+      mainTitle: 'Explore Coming Soon.',
+      description: 'Our Explorers are working up the map. Feel free to browse through our other pages',
       buttonLink: '/home',
       buttonText: 'Go to Home',
-      img: 'http://d33wubrfki0l68.cloudfront.net/7fa8ea0b364101d93091e6a21e6c3639c993416d/3027b/img/svg/404/events_img.svg'
+      img: 'https://d33wubrfki0l68.cloudfront.net/aa7151c6bd31e22c19fee9e6753360fe77abcb99/7b1df/img/svg/404/explore_coming_soon_02.png'
     };
   }
 

@@ -110,6 +110,7 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.USER_REGISTRATION_BASIC_FAILED, payload: res }))
     );
 
+
   @Effect()
   checkOtp$ = this.actions$
     .ofType(AuthActions.OTP_CHECK)
@@ -231,14 +232,6 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.FP_GET_USER_EMAIL_FAILED, payload: res }))
     );
 
-  // @Effect()
-  // fpCreatePassFailed$ = this.actions$
-  //   .ofType(AuthActions.FP_CREATE_PASS_FAILED)
-  //   .map((response) => {
-  //     // console.log('crps response ERROR');
-  //     // console.log(response);
-  //   });
-
   @Effect()
   userSubmitSkills$ = this.actions$
     .ofType(AuthActions.USER_SUBMIT_SKILLS)
@@ -263,6 +256,46 @@ export class AuthEffect {
     //   }
     //   return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
     // })
+
+  /* Reg otp submit */
+  @Effect()
+  regSubmitOtp$ = this.actions$
+    .ofType(AuthActions.OTP_SUBMIT)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.regSubmitOtp(payload)
+      .map(res => ({ type: AuthActions.OTP_SUBMIT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.OTP_SUBMIT_FAILED, payload: res }))
+    );
+
+  /* OTP Throug login */
+  @Effect()
+  otpLogin$ = this.actions$
+    .ofType(AuthActions.OTP_LOGIN_SUBMIT)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.otpLogin(payload)
+      .map(res => ({ type: AuthActions.OTP_LOGIN_SUBMIT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.OTP_LOGIN_SUBMIT_FAILED, payload: res }))
+    );
+
+  /* OTP resend */
+  @Effect()
+  otpResend$ = this.actions$
+    .ofType(AuthActions.OTP_RESEND_SUBMIT)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.otpResend(payload)
+      .map(res => ({ type: AuthActions.OTP_RESEND_SUBMIT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.OTP_RESEND_SUBMIT_FAILED, payload: res }))
+    );
+  
+  /* OTP Number Change */
+  @Effect()
+  otpNumberChange$ = this.actions$
+    .ofType(AuthActions.OTP_NUMBER_CHANGE)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.otpChangeNumber(payload)
+      .map(res => ({ type: AuthActions.OTP_NUMBER_CHANGE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.OTP_NUMBER_CHANGE_FAILED, payload: res }))
+    );
 
   constructor(
       private actions$: Actions,
