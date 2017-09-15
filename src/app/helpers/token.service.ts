@@ -41,6 +41,7 @@ export class TokenService {
    */
   getToken() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    // console.log(currentUser);
 
     // redirect user to the login page if access_token is not available
     if (currentUser === null || currentUser.access_token === null) {
