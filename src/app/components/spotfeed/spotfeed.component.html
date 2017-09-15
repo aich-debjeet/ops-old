@@ -3,17 +3,14 @@
         <!---  section  -->
         <div class="row">
             <div class="col-md-3">
-                <img src="/assets/img/art3.jpg" class="img-responsive img-rounded img-thumbnail">
+                <img src="{{ baseUrl + spotfeedDetails.SUCCESS.spotfeedImage }}" class="img-responsive img-rounded img-thumbnail">
             </div>
             <div class="col-md-6">
-                <div class="ops_h1">Golden Collection : Dance</div>
-                <div class="ops_heading2 spot_in_toptext">Business at present had creatively generated effective advertising campaigns in the form of audio visual media that includes the television, radio and the print media that cover the newspaper and campaign</div>
-                <a href="" class="btn btn-tag btn-sm">web</a>
-                <a href="" class="btn btn-tag btn-sm">ui/ux</a>
-                <a href="" class="btn btn-tag btn-sm">typo</a>
-                <a href="" class="btn btn-tag btn-sm">webdesign</a>
-                <a href="" class="btn btn-tag btn-sm">web</a>
-                <a href="" class="btn btn-tag btn-sm">branding</a>
+                <div class="ops_h1">{{ spotfeedDetails.SUCCESS.spotfeedName }}</div>
+                <div class="ops_heading2 spot_in_toptext">
+                    {{ spotfeedDetails.SUCCESS.spotfeedDescription }}
+                </div>
+                <a href="" class="btn btn-tag btn-sm" *ngFor="let tag of spotfeedDetails.SUCCESS.spotfeedTags" >{{ tag }}</a>
             </div>
             <div class="col-md-3"></div>
         </div>
@@ -24,134 +21,22 @@
           </ul>
           <div class="col-md-12 padding_none ops_artist_follow myBlock">
             <!-- ---------- card ---------- -->
-            <div class="col-md-2 ">
-
+            <div class="col-md-2 " *ngFor="let artist of spotfeedDetails.SUCCESS.spotfeedProfiles" >
                 <div class="c-card c-card--artist">
                     <div class="c-artist__avatar">
-                      <img src="/assets/img/avatar.jpg" class="c-artist__img">
+                        <img *ngIf="artist.image; else default_profile_image" src="{{ baseUrl + artist.image }}" class="c-artist__img">
+                        <ng-template #default_profile_image>
+                            <img src="/assets/img/avatar.jpg" class="c-artist__img">
+                        </ng-template>
                     </div>
-                    <div class="c-artist__name margin_t_16">
-                      Eljah Fletcher
-                    </div>
+                    <div class="c-artist__name margin_t_16">{{ artist.name }}</div>
                     <div class="c-artist__username">
-                      @Elijah
+                        @{{ artist.username }}
                     </div>
                     <div class="c-artist--btn">
                       <button type="button" class="btn btn-xs btn-basic btn-following">
                         <span class="btn-label-follow"> FOLLOWING </span>
                       </button>
-                    </div>
-                </div>
-            </div>
-            <!-- ---------- //card ---------- -->
-
-            <!-- ---------- card ---------- -->
-            <div class="col-md-2">
-
-                <div class="c-card c-card--artist">
-                    <div class="c-artist__avatar">
-                      <img src="/assets/img/avatar.jpg" class="c-artist__img">
-                    </div>
-                    <div class="c-artist__name margin_t_16">
-                      Eljah Fletcher
-                    </div>
-                    <div class="c-artist__username">
-                      @Elijah
-                    </div>
-                    <div class="c-artist--btn">
-                      <button type="button" class="btn btn-xs btn-normal btn-follow">
-                            <span class="btn-label-follow">
-                              <img src="/assets/img/svg/ico_plus_white.svg">
-                            </span> FOLLOW
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- ---------- //card ---------- -->
-            <!-- ---------- card ---------- -->
-            <div class="col-md-2">
-
-                <div class="c-card c-card--artist">
-                    <div class="c-artist__avatar">
-                      <img src="/assets/img/avatar.jpg" class="c-artist__img">
-                    </div>
-                    <div class="c-artist__name margin_t_16">
-                      Eljah Fletcher
-                    </div>
-                    <div class="c-artist__username">
-                      @Elijah
-                    </div>
-                    <div class="c-artist--btn">
-                      <button type="button" class="btn btn-xs btn-basic btn-following">
-                        <span class="btn-label-follow"> FOLLOWING </span>
-                      </button>
-                    </div>
-                </div>
-            </div>
-            <!-- ---------- //card ---------- -->
-            <!-- ---------- card ---------- -->
-            <div class="col-md-2">
-
-                <div class="c-card c-card--artist">
-                    <div class="c-artist__avatar">
-                      <img src="/assets/img/avatar.jpg" class="c-artist__img">
-                    </div>
-                    <div class="c-artist__name margin_t_16">
-                      Eljah Fletcher
-                    </div>
-                    <div class="c-artist__username">
-                      @Elijah
-                    </div>
-                    <div class="c-artist--btn">
-                      <button type="button" class="btn btn-xs btn-normal btn-follow">
-                            <span class="btn-label-follow">
-                              <img src="/assets/img/svg/ico_plus_white.svg">
-                            </span> FOLLOW
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- ---------- //card ---------- -->
-            <!-- ---------- card ---------- -->
-            <div class="col-md-2">
-
-                <div class="c-card c-card--artist">
-                    <div class="c-artist__avatar">
-                      <img src="/assets/img/avatar.jpg" class="c-artist__img">
-                    </div>
-                    <div class="c-artist__name margin_t_16">
-                      Eljah Fletcher
-                    </div>
-                    <div class="c-artist__username">
-                      @Elijah
-                    </div>
-                    <div class="c-artist--btn">
-                      <button type="button" class="btn btn-xs btn-basic btn-following">
-                          <span class="btn-label-follow"> FOLLOWING </span>
-                      </button>
-                    </div>
-                </div>
-            </div>
-            <!-- ---------- //card ---------- -->
-            <!-- ---------- card ---------- -->
-            <div class="col-md-2">
-
-                <div class="c-card c-card--artist">
-                    <div class="c-artist__avatar">
-                      <img src="/assets/img/avatar.jpg" class="c-artist__img">
-                    </div>
-                    <div class="c-artist__name margin_t_16">
-                      Eljah Fletcher
-                    </div>
-                    <div class="c-artist__username">
-                      @Elijah
-                    </div>
-                    <div class="c-artist--btn">
-                      <button type="button" class="btn btn-xs btn-normal btn-follow">
-                            <span class="btn-label-follow">
-                              <img src="/assets/img/svg/ico_plus_white.svg">
-                            </span> FOLLOW
-                        </button>
                     </div>
                 </div>
             </div>
