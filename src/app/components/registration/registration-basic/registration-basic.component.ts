@@ -122,17 +122,17 @@ export class RegistrationBasicComponent implements OnInit {
   // Init Reg Form
   buildForm(): void {
     this.regFormBasic = this.fb.group({
-      'name' : ['salsabeel', [Validators.required]],
-      'username' : ['sabeel012', [
+      'name' : ['', [Validators.required]],
+      'username' : ['', [
         Validators.required,
         FormValidation.noWhitespaceValidator
         ],
         this.databaseValidator.userNameValidation.bind(this.databaseValidator)
       ],
-      'dob' : ['18-07-1991', [Validators.required],
+      'dob' : ['', [Validators.required],
         this.databaseValidator.validAge.bind(this.databaseValidator)
       ],
-      'email' : ['k.salsabeel@gmail.com', [
+      'email' : ['', [
         Validators.required,
         Validators.min(1),
         // Validators.email
@@ -141,13 +141,13 @@ export class RegistrationBasicComponent implements OnInit {
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
       'gender': ['M', Validators.required],
-      'phone' : ['8861322767', [
+      'phone' : ['', [
         Validators.required,
         Validators.minLength(4)
         ],
         this.databaseValidator.checkMobile.bind(this.databaseValidator)
       ],
-      'password' : ['Admin@123', [
+      'password' : ['', [
         Validators.required,
         FormValidation.passwordStrength.bind(this)
       ]],

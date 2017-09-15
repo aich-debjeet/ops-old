@@ -61,7 +61,7 @@ export class MediaService {
    * @param mediaId Channel ID
    */
   fetchMediaComment(mediaId: string) {
-    return this.api.get('/portal/cdn/comment/' + mediaId + '/0/20');
+    return this.api.get('/portal/cdn/comment/' + mediaId);
   }
 
   /**
