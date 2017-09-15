@@ -68,9 +68,6 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
 import { MasonryComponent } from './components/masonry/masonry.component';
 import { LogoutComponent } from './components/logout/logout.component';
 
-// ?
-import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.component'; /** Delete ? */
-
 // Shared Stuffs!
 import { MediaComponent } from './shared/media/media.component';
 import { MediaSelectorComponent } from './shared/media-selector/media-selector.component';
@@ -111,10 +108,8 @@ import { CommunitiesComponent } from './components/communities/communities.compo
     ExploreComponent,
     ChannelListComponent,
     LogoutHomeComponent,
-    ProfileSliderComponent,
     MasonryComponent,
     LogoutComponent,
-    ProfileSliderComponent,
     ChannelInnerComponent,
     LearnComponent,
     ResourceComponent,

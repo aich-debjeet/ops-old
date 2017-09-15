@@ -78,6 +78,7 @@ export class RegistrationAddSkillComponent implements OnInit {
    * Save skills if all selected
    */
   saveSkills() {
+    console.log(this.selectedSkills);
     this.store.dispatch({ type: AuthActions.USER_SUBMIT_SKILLS, payload: this.selectedSkills });
   }
 

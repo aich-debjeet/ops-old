@@ -113,6 +113,7 @@ export class BasicRegTag {
   success = true;
   user_unique= false;
   access_Token?: String;
+  user_basic_reg_succs?: boolean
 }
 
 export const initialBasicRegTag: BasicRegTag = {

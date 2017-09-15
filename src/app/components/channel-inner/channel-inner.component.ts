@@ -84,7 +84,6 @@ export class ChannelInnerComponent implements OnInit {
 
   // Media Popup
   mediaOpenPopup(id) {
-    console.log(id);
     this._store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id});
     this._store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
     this.modalService.open('mediaPopup');
@@ -92,6 +91,14 @@ export class ChannelInnerComponent implements OnInit {
 
   mediaClosePopup() {
     this.modalService.close('mediaPopup');
+  }
+
+  submitComment(comment) {
+    const send = {
+      'content': comment,
+      'parent': this.channel['media_detail'].id
+    }
+    this._store.dispatch({ type: MediaActions.POST_COMMENT, payload: send});
   }
 
 }

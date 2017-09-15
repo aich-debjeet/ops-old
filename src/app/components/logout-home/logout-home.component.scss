@@ -2,39 +2,38 @@
 @import './src/assets/scss/helpers/_functions.scss';
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
-// landing page style ------------------------------------------------
 .landing_top {
-    background: linear-gradient(135.82deg, #F7D022 0%, #E56E86 26.1%, #662D91 100%);
+     background: linear-gradient(135.82deg, #F7D022 0%, #E56E86 26.1%, #662D91 100%);
+    // background: url(../img/landing/bg.svg);
     background-size: cover;
     background-position: center;
-    height: 100vh;
-    margin-top: -2%;
+     min-height: 100vh;
+    height: 100%;
     // padding-bottom: 70px;
     .landing_header_button {
         padding: 32px 0;
     }
     .landing_logo {
         img {
-            width: 466px;
+            width: 305px;
         }
     }
     .landing_top_block {
-        margin: 48px 0 134px;
+        margin: 90px 0 134px;
         .landing_slider {
             .slider_heading {
-                color: #FFFFFF;
-                font-family: "Open Sans";
-                font-size: 40px;
-                font-weight: bold;
-                line-height: 57px;
+                color: #64467B;
+                font-size: 35px;
+                font-weight: 600;
+                line-height: 44px;
                 margin-top: 32px;
             }
             .slider_text {
-                color: #FFFFFF;
-                font-family: "Open Sans";
-                font-size: 16px;
-                line-height: 29px;
+                color: #64467B;
+                font-size: 14px;
+                line-height: 24px;
                 margin: 16px 0;
+                font-weight: normal;
             }
         }
         .btn {
@@ -47,7 +46,6 @@
           }
             .landing_art_text {
                 color: #FFFFFF;
-                font-family: "Open Sans";
                 font-size: 22px;
                 font-weight: bold;
                 line-height: 24px;
@@ -60,9 +58,11 @@
 }
 
 .landing_for_artist {
-    padding: 58px 0;
+    // padding: 58px 0;
+        margin: 60px 0px 96px 0px;
     .landing_text {
         margin: 16px 0;
+        padding-right: 16px;
     }
     .artist_feature {
         margin-top: 48px;
@@ -102,34 +102,223 @@
 }
 .landing_heading {
   color: #64467B;
-  font-family: "Open Sans";
   font-size: 28px;
   font-weight: bold;
   line-height: 38px;
 }
 .landing_text {
   color: #9682A6;
-  font-family: "Open Sans";
-  font-size: 18px;
-  line-height: 29px;
+  font-size: 15px;
+  line-height: 25px;
 }
 .landing_title {
   color: #662D91;
-  font-family: "Open Sans";
   font-size: 18px;
   font-weight: 600;
   line-height: 24px;
 }
-.btn-login {
-    color: #fff;
-    background-color: transparent;
-    border-color: #fff;
-    text-transform: uppercase;
+.landing_heading--margin{
+    margin-top: 80px;
 }
 
-.btn-signup {
-    color: #ff7b84;
-    background-color: #fff;
-    border-color: #fff;
-    text-transform: uppercase;
+
+
+// .top_section {
+//     background: url('../img/home_top_bg.png') no-repeat;
+//     background-size: cover;
+//     background-position: center;
+//     min-height: 100vh;
+//     height: 100%;
+//     padding-bottom: 70px;
+// }
+//
+// .top_banner {
+//     width: 80%;
+//     margin: 0 auto;
+// }
+//
+// .top_banner_heading {
+//     line-height: 65px;
+//     margin-bottom: 25px;
+//     color: #ffffff;
+//     font-weight: 300;
+//     font-size: 48px;
+// }
+//
+// .top_banner_button {
+//     margin-top: 30px;
+// }
+//
+// .top_banner_video {
+//     border-radius: 10px;
+//     margin: 8% 0 -25% 0;
+// }
+//
+// .button_tranparent {
+//     padding: 5px 15px;
+//     border-radius: 5px;
+//     text-transform: capitalize;
+//     font-weight: bold;
+//     display: inline-block;
+//     border: 1px solid #ffffff;
+//     color: #ffffff;
+//     font-size: 14px;
+//     cursor: pointer;
+// }
+//
+// .button_tranparent:hover {
+//     background-color: #FF7B84;
+//     color: #ffffff;
+//     border: 1px solid #FF7B84;
+// }
+//
+// .button_white {
+//     padding: 5px 15px;
+//     border-radius: 5px;
+//     text-transform: capitalize;
+//     display: inline-block;
+//     font-weight: bold;
+//     color: #FF7B84;
+//     background-color: #ffffff;
+//     font-size: 14px;
+//     cursor: pointer;
+// }
+//
+// .button_white:hover {
+//     background-color: #ff7b84;
+//     color: #ffffff;
+// }
+
+
+
+// landing page new styles
+
+.login_btn{
+    background: transparent;
+    margin-left: 24px;
+}
+.o-block{
+    background: #fff;
+    height: 152px;
+    width: 152px;
+    border-radius: 50%;
+    padding: 22px;
+    overflow: hidden;
+    -webkit-box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
+    -moz-box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
+    box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
+    transition:.25s;
+    &:hover{
+        transform: scale(1.1, 1.1);
+        margin-top: -5px;
+    }
+}
+.o-block--img{
+    width: 100%;
+}
+.o-block-title{
+    font-size: 16px;
+    font-weight: 600;
+    color:#64467B;
+    margin-top: 16px;
+    text-align: center;
+}
+
+// organization
+.white_block{
+    background: #fff;
+}
+.o-box-block{
+    width: 100%;
+    box-shadow: 0 8px 7px 0 rgba(102,45,145,0.07);
+    background: #fff;
+    margin-top: -100px;
+    float: left;
+    border-radius: 10px;
+}
+.organization_padd{
+    padding: 70px 60px;
+}
+.organization-img{
+    overflow: hidden;
+    width: 400px;
+    padding-top: 50px;
+    img{
+        width: 100%;
+        margin-bottom: -10px;
+    }
+}
+
+// product section
+.product-heading{
+    margin-bottom: 44px;
+}
+.o-product{
+    width: 100%;
+    min-height: 200px;
+}
+.o-product_media{
+    width: 77px;
+    height: 77px;
+    float: left;
+    box-shadow: 0 6px 15px 0 rgba(102,45,145,0.2);
+    border-radius: 50%;
+    overflow: hidden;
+    img{
+        width: 100%;
+    }
+}
+.o-product_det{
+    width: 71%;
+    float: left;
+    margin-left: 24px;
+}
+.o-product-det__title{
+    font-size: 18px;
+    color: #64467B;
+    font-weight: 600;
+}
+.o-product-det__txt{
+    font-size:14px;
+    color: #64467B;
+    font-weight: normal;
+    margin-top: 8px;
+    line-height: 22px;
+}
+.view_btn{
+    margin-bottom: 80px;
+}
+
+// footer
+
+.footer{
+    background-color: #F5F5F5;
+    padding: 24px 0px;
+}
+.f-menu{
+    list-style: none;
+    margin:0px;
+    padding: 0px;
+}
+.f-menu__list{
+    list-style-type: none;
+    display: inline-block;
+}
+.f-menu__link{
+    font-size: 14px;
+    color: #979797;
+    font-weight: normal;
+    padding-right: 16px;
+    &:hover{
+        color: #979797;
+    }
+    &:focus{
+        color: #979797;
+    }
+}
+.f-copy-txt{
+    font-size: 14px;
+    color: #979797;
+    font-weight: normal;
+    text-align: right;
 }
