@@ -27,7 +27,7 @@ export default class FilesHelper {
     // List of Image files
     const ImageList = ['jpg', 'jpeg', 'png'];
     const VideoList = ['mp4', 'webm'];
-    const AudioList = ['mp3'];
+    const AudioList = ['mp3', 'ogg'];
 
     const fileType = (/[.]/.exec(filename)) ? /[^.]+$/.exec(filename) : undefined;
     if (fileType && fileType[0]) {
@@ -40,6 +40,11 @@ export default class FilesHelper {
       // Check if it falls to image
       if (fileGroup === 'Video') {
         return this.checkGroup(VideoList, fileExt);
+      }
+
+      // Check if it falls to Audio
+      if (fileGroup === 'Audio') {
+        return this.checkGroup(AudioList, fileExt);
       }
 
       // Chekc if it

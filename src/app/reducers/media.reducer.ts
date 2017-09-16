@@ -104,7 +104,32 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         media_post_success: true
       });
 
+    /**
+     * Get User Media Post
+     */
+    case MediaActions.LOAD_USER_MEDIA:
+      console.log('loading');
+      return Object.assign({}, state, {
+        user_posts_loading: true,
+        user_posts_loaded: false,
+        user_posts: []
+      });
 
+    case MediaActions.LOAD_USER_MEDIA_SUCCESS:
+      console.log('loaded');
+      return Object.assign({}, state, {
+        mediaEntity: payload,
+        user_posts_loaded: true,
+        user_posts_loading: false,
+        user_posts: payload
+      });
+
+    case MediaActions.LOAD_USER_MEDIA_FAILED:
+
+      return Object.assign({}, state, {
+        user_posts_loaded: false,
+        user_posts_loading: false
+      });
 
     default:
       return state;

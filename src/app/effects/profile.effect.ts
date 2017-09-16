@@ -66,7 +66,7 @@ export class ProfileEffect {
   loadUserMedia$ = this.actions$
     .ofType(ProfileActions.LOAD_USER_MEDIA)
     .map(toPayload)
-    .switchMap((payload) => this.profileService.getLoggedInMedia(payload)
+    .switchMap((payload) => this.profileService.getUserMedia(payload)
       .map(res => ({ type: ProfileActions.LOAD_USER_MEDIA_SUCCESS, payload: res }))
       .catch((res) => Observable.of({
         type: ProfileActions.LOAD_USER_MEDIA_FAILED,

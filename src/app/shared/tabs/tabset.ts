@@ -4,13 +4,14 @@ import {
   Output,
   ContentChildren,
   HostListener,
-  EventEmitter
+  EventEmitter,
+  AfterContentInit
 } from '@angular/core';
 
 import { Tab } from './tab';
 
 @Component({
-  selector: 'tabset',
+  selector: 'app-tabset',
   template: `
     <section class="tab-set">
       <ul
@@ -31,7 +32,8 @@ import { Tab } from './tab';
     </section>
   `
 })
-export class Tabset {
+
+export class TabsetComponent implements AfterContentInit {
 
   @Input() vertical;
   @Output() onSelect = new EventEmitter();
@@ -41,9 +43,9 @@ export class Tabset {
     const tabs = this.tabs.toArray();
     const actives = this.tabs.filter(t => { return t.active });
 
-    if(actives.length > 1) {
+    if (actives.length > 1) {
       console.error(`Multiple active tabs set 'active'`);
-    } else if(!actives.length && tabs.length) {
+    } else if (!actives.length && tabs.length) {
       tabs[0].active = true;
     }
   }
@@ -59,7 +61,7 @@ export class Tabset {
 
 }
 
-export const TAB_COMPONENTS = [
-  Tabset,
+export const TabComponents = [
+  TabsetComponent,
   Tab
 ];

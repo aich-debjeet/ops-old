@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import MediaPlayer from 'app/models/mediaplayer.model';
 
 import { NgModel } from '@angular/forms';
@@ -8,22 +8,21 @@ import { Store } from '@ngrx/store';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { ProfileModal, initialTag } from '../../models/profile.model';
+import { ProfileModal, initialTag } from '../../../models/profile.model';
+import { ProfileActions } from '../../../actions/profile.action';
+import { SharedActions } from '../../../actions/shared.action';
+import FilesHelper from '../../.../../../helpers/fileUtils';
 
-// action
-import { ProfileActions } from '../../actions/profile.action';
-import { SharedActions } from '../../actions/shared.action';
-
-import FilesHelper from '../../helpers/fileUtils';
+import { remove as _remove } from 'lodash';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/from';
 
-export class Selection {
+export class UploadItem {
   fileName: string;
   repoPath: string;
-  type: string;
+  type?: string;
 }
 
 const base = 'http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/upload/multiple';
@@ -34,11 +33,13 @@ const base = 'http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/up
   styleUrls: ['./media-selector.component.scss']
 })
 
-export class MediaSelectorComponent {
+export class MediaSelectorComponent implements OnInit {
+  @Input() userChannels;
   process: number[] = [];
   fileData: File;
   uploaded: any[];
-  editingFile: Selection;
+  uploadedFiles: any;
+  editingFile: UploadItem;
   apiLink: 'http://devservices.greenroom6.com:9000/api/1.0';
   channels: any[];
   chosenChannel: any = 0;
@@ -48,7 +49,7 @@ export class MediaSelectorComponent {
   status: number;
   queue: any;
   hasFiles: boolean;
-
+  files: any;
   // temp
   handle: string;
   token: string;
@@ -56,6 +57,7 @@ export class MediaSelectorComponent {
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
   profileChannel = initialTag ;
+  channeList: any;
 
   constructor(
     private Upload: NgxfUploaderService,
@@ -64,26 +66,35 @@ export class MediaSelectorComponent {
     private http: Http) {
 
     this.hasFiles = false;
-    this.editingFile = new Selection;
+    this.editingFile = new UploadItem;
+    this.uploadedFiles = [];
+    this.uploaded = [];
 
     this.chosenChannel = 0;
 
-    // Create Channel Form
-    this.createChannelForm();
-    // Media Info
-    this.createMediaForm();
+    // If there's input assign, other wise, reload channel list
+    if (this.userChannels) {
+      this.channeList = this.userChannels;
+    }
 
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.handle = localStorage.getItem('currentUserID');
-    this.token = currentUser.access_token; // your token
+    this.createChannelForm(); // Create Channel Form
+    this.createMediaForm(); // Media Info
 
     this.tagState$ = this.profileStore.select('profileTags');
     // this.test = 'salabeel';
     this.tagState$.subscribe((state) => {
       this.profileChannel = state;
+      if (!this.userChannels) {
+        this.channeList = this.profileChannel.user_channel;
+      }
     });
+  }
 
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: this.handle });
+  ngOnInit() {
+    // If there's input assign, other wise, reload channel list
+    if (!this.userChannels || !this.channeList) {
+      this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: this.handle });
+    }
   }
 
   /**
@@ -91,8 +102,8 @@ export class MediaSelectorComponent {
    */
   createChannelForm() {
     this.channelForm = this.fb.group({
-      title: ['New Channel', Validators.required ],
-      desc: ['Soem rand desc', Validators.required ],
+      title: ['', Validators.required ],
+      desc: ['', Validators.required ],
       privacy: [0, Validators.required ]
     })
   }
@@ -306,12 +317,12 @@ export class MediaSelectorComponent {
    */
 
   fileDetails(file) {
-    console.log('Clicked this file');
+    console.log('Selected this file');
     console.log(file);
 
     this.editingFile = file;
     const fileType = this.getFileType(file.fileName)
-    const leFile: Selection = {
+    const leFile: UploadItem = {
       fileName: file.fileName,
       repoPath: file.repoPath,
       type: fileType
@@ -328,13 +339,18 @@ export class MediaSelectorComponent {
   getFileType(fileName: string) {
     const isImage = this.checkFileType(fileName, 'Image');
     const isVideo = this.checkFileType(fileName, 'Video');
+    const isAudio = this.checkFileType(fileName, 'Audio');
 
     if (isImage) {
-      return 'Image';
+      return 'image';
     }
 
     if (isVideo) {
-      return 'Video';
+      return 'video';
+    }
+
+    if (isAudio) {
+      return 'audio';
     }
   }
 
@@ -349,8 +365,8 @@ export class MediaSelectorComponent {
 
     if (files.length > 0) {
       this.hasFiles = true
+      this.files = files;
     }
-    // this.queue = files;
 
     this.Upload.upload({
       url: base,
@@ -365,6 +381,8 @@ export class MediaSelectorComponent {
         }else {
           if (event.data) {
             this.uploaded = event.data['SUCCESS'];
+            console.log(this.uploaded);
+            // this.uploadedFiles.push(event.data['SUCCESS'])
           }
         }
       },
@@ -374,6 +392,16 @@ export class MediaSelectorComponent {
       () => {
         console.log('complete');
       });
+  }
+
+  /**
+   * Remove a file from list
+   * @param file
+   */
+  removeFile(file: any) {
+    this.uploaded = _remove(this.uploaded, function(n){
+      return n.fileName !== file.fileName;
+    });
   }
 
   // Do something you want when file error occur.

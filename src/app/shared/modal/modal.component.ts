@@ -4,6 +4,7 @@ import { ModalService } from './modal.component.service';
 @Component({
     selector: 'app-modal',
     styleUrls: ['./modal.component.scss'],
+    providers: [ ModalService ],
     template: `
       <div [ngClass]="('modal__' + size + ' ' + (!isOpen ? 'closed' : ''))">
         <div class="ng-modal-overlay" (click)="close(true)"></div>
@@ -20,6 +21,7 @@ import { ModalService } from './modal.component.service';
 })
 
 export class ModalComponent implements OnInit {
+  @Input() open: boolean;
   @Input() modalId: string;
   @Input() modalTitle: string;
   @Input() blocking = false;
@@ -28,6 +30,7 @@ export class ModalComponent implements OnInit {
   isOpen = false;
 
   constructor(private modalService: ModalService) {
+    //
   }
 
   @HostListener('document:keyup', ['$event'])
@@ -35,8 +38,18 @@ export class ModalComponent implements OnInit {
     this.keyup(ev);
   }
 
+  openMe() {
+    // if (this.open === true) {
+    //   console.log('start as open');
+    //   this.modalService.open(this.modalId);
+    // } else {
+    //   console.log('start  as closed');
+    // }
+  }
+
   ngOnInit() {
     this.modalService.registerModal(this);
+    this.openMe();
   }
 
   close(checkBlocking = false): void {

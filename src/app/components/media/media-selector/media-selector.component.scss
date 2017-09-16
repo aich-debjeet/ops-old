@@ -176,7 +176,7 @@ label.upload-button {
 
 
 .add_media_container {
-  width: 174px;
+  // width: 174px;
   height: 174px;
   overflow: hidden;
   float: left;
@@ -350,8 +350,13 @@ label.upload-button {
 }
 
 .add_media_img {
-  width: 174px;
-  overflow: hidden;
+  width: auto;
+  height: 174px;
+}
+
+.file__item {
+  margin-right: 8px;
+  display: inline-block;
 }
 
 .media_info{
@@ -1589,12 +1594,17 @@ label.upload-button {
 }
 
 .add_media_container.selected {
-  opacity: 0.5;
-  border: solid 6px #18a074;
+  opacity: 0.85;
+  border: solid 1px #9BBEB3;
 }
 
 
 .channel-list-show_btn.sel .btn-sm {
   background-color: green;
   border: solid 1px green;
+}
+
+
+.add_media_inner {
+  text-align: center;
 }

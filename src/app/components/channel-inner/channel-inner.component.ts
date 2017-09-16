@@ -38,17 +38,15 @@ export class ChannelInnerComponent implements OnInit {
     private _store: Store<Media>,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private modalService: ModalService
-  ) {
-    this.channelId = route.snapshot.params['id'];
-    this.tagState$ = this._store.select('mediaStore');
-    this.userState$ = this._store.select('profileTags');
-    this.tagState$.subscribe((state) => {
-      console.log(state);
-      this.channel = state;
-    });
-    this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-    this.buildEditForm();
+    private modalService: ModalService) {
+      this.channelId = route.snapshot.params['id'];
+      this.tagState$ = this._store.select('mediaStore');
+      this.userState$ = this._store.select('profileTags');
+      this.tagState$.subscribe((state) => {
+        this.channel = state;
+      });
+      this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+      this.buildEditForm();
   }
 
   ngOnInit() {

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { environment } from './../../../environments/environment';
+import { Router } from '@angular/router';
 
 import FilesHelper from '../../helpers/fileUtils';
 
@@ -17,7 +18,9 @@ export class PostCardComponent implements OnInit {
 
   private imageLink: string = environment.API_IMAGE;
 
-  constructor() {
+  constructor(
+    private router: Router,
+  ) {
     this.dotMenuState = false;
   }
 
@@ -32,8 +35,8 @@ export class PostCardComponent implements OnInit {
     console.log('Deleting this Channenl');
   }
 
-  handleClick(event: any) {
-    this.onClick.emit(event);
+  handleClick(id) {
+    this.router.navigateByUrl('/media/' + id);
   }
 
   checkFileType(fileName: string, fileType: string) {

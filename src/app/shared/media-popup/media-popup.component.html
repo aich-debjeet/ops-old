@@ -10,6 +10,7 @@
                             <figure class="avatar_media_img">
                                 <app-videplayer *ngIf="checkFileType(data?.repopath, 'Video')" src="{{ imageLink + data?.repopath }}"></app-videplayer>
                                 <img *ngIf="checkFileType(data?.repopath, 'Image')" src="{{ imageLink + data?.repopath }}" class="img-responsive">
+                                <app-audioplayer *ngIf="checkFileType(data?.repopath, 'Audio')" src="{{ imageLink + data?.repopath }}"></app-audioplayer>
                             </figure>
                         </div>
                     </div>

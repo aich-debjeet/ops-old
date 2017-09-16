@@ -1,6 +1,7 @@
 <span class="overlayStatus" *ngIf="status >1 && status <100">
   {{ status }}%
 </span>
+
 <div class="media-selector" [ngClass]="{'not__filled': hasFiles === false }">
   <div class="col-md-8 padding_none file__viewer">
     <ul class="file__list">
@@ -15,6 +16,12 @@
           <div class="add_media_img">
             <img (click)="fileDetails(file)" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file.repoPath }}"/>
           </div>
+          <div class="add_media_delet" (click)="removeFile(file)">
+              <img src="http://d33wubrfki0l68.cloudfront.net/2b2a108565b4b23215301528183f77ffc0c04a24/f7395/img/svg/ico_create-close.svg">
+          </div>
+        </div>
+        <div *ngIf="checkFileType(file.fileName, 'Audio')" class="add_media_container" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }">
+          <app-audioplayer (click)="fileDetails(file)" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file.repoPath }}"></app-audioplayer>
           <div class="add_media_delet">
               <img src="http://d33wubrfki0l68.cloudfront.net/2b2a108565b4b23215301528183f77ffc0c04a24/f7395/img/svg/ico_create-close.svg">
           </div>
@@ -50,7 +57,7 @@
       <ul class="media_info">
         <li>
           <div class="form_group">
-            <input formControlName="title" class="form_input" required="" type="text">
+            <input formControlName="title" class="form_input" required="" type="text" placeholder="Channel Name">
             <span class="form_highlight"></span>
             <span class="form_bar"></span>
             <label>Title</label>
@@ -107,6 +114,6 @@
         </li>
       </ul>
     </form>
-    <app-channel-selector (onSelection)="onChannelSelection($event)"></app-channel-selector>
+    <app-channel-selector [userChannels]="channeList" (onSelection)="onChannelSelection($event)"></app-channel-selector>
     <button class="btn btn-primary btn-sm btn-save" (click)="mediaInfoUpdate(mediaForm.value)">Post</button>
   </div>

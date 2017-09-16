@@ -10,6 +10,8 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { environment } from '../../../environments/environment';
 
+import { MediaComponent } from '../../components/media/media.component';
+
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -48,6 +50,7 @@ export class NavigationComponent implements OnInit {
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
     });
+
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
   }
 
