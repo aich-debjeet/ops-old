@@ -1,4 +1,4 @@
-<app-modal [modalTitle]="'Some title'" [open]="true" [blocking]='false' modalId='ViewMedia' class="media__modal" size="large">
+<app-modal [modalTitle]="'Some title'" [open]="true" [blocking]='false' modalId='ViewMedia' class="media__modal" size="large" (onClose)="doClose($event)">
     <a (click)="doClose()">Close</a>
     <div class="container create_channel_main">
     <div class="row">

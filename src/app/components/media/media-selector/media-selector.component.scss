@@ -108,24 +108,34 @@ label.upload-button {
   color: blue;
 }
 
-.channelCreate{
+.channelCreate {
   text-align: left;
 }
 
-.overlayStatus{
-  color: #0b540b;
-  font-size: 18px !important;
+/*
+ *   OVERLAY
+ *   +++++++
+ */
+
+.Overlay{
   position: fixed;
   background-color: #c5f5c5;
   left: 0;
   right: 0;
   top: 0;
-  text-align: center;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  z-index: 10000;
-  font-weight: bold;
+  &__status {
+    color: #0b540b;
+    font-size: 18px !important;
+    text-align: center;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    z-index: 10000;
+    font-weight: bold;
+  }
 }
+
+/*   +++++++   */
+
 
 .btn{
   color: #fff;

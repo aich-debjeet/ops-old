@@ -183,7 +183,7 @@ export class MediaComponent implements OnInit, AfterViewInit {
   /**
    * Close
    */
-  doClose() {
+  doClose(bool: boolean = false) {
     this.router.navigate(['.', { outlets: { media: null } }], {
       relativeTo: this.route.parent
     });

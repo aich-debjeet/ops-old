@@ -33,6 +33,7 @@ export class MediaViewComponent {
   sub: any;
   data: any;
   spot: boolean;
+  spotCount: number;
   message: boolean;
   constructor(
     private fb: FormBuilder,
@@ -40,10 +41,12 @@ export class MediaViewComponent {
     private route: ActivatedRoute,
     private store: Store<Media>
   ) {
+    this.spot = false;
     this.mediaState$ = store.select('mediaStore');
     this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
       this.data = this.mediaStore.media_detail;
+      this.spotCount = this.mediaStore.media_detail.spotsCount;
     });
 
     this.loadMedia();
@@ -78,7 +81,7 @@ export class MediaViewComponent {
    */
   spotMedia(mediaId: string) {
     this.spot = !this.spot;
-
+    this.spotCount++;
     if (this.spot === true) {
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: mediaId });
     }else {

@@ -42,10 +42,10 @@
               <h2><a routerLink="/profile"> {{ profileObject?.name }} </a></h2>
               <p>{{ '@' + profileObject?.userHandle }}</p>
               <div *ngIf="isOtherProfile === true">
-                <button type="button" class="btn btn-xs btn-primary btn-plus" (click)="followUser(profileObject)">
+                <button type="button" class="btn btn-xs btn-primary btn-plus" (click)="followUser(profileObject)" [ngClass]="{ 'btn-follow': !isfollowing, 'btn-unfollow': isfollowing }">
                   <span class="btn-label-follow">
                     <i class="fa fa-plus" aria-hidden="true"></i>
-                  </span> FOLLOW
+                  </span>{{ isfollowing ? 'Unfollow' : 'Follow' }}
                 </button>
                 <button type="button" class="btn btn-normal2 btn-xs"> NETWORK </button>
                 <button type="button" class="btn btn-normal2 btn-xs"> DONATE </button>

@@ -395,6 +395,18 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.PROFILE_FOLLOW_FAILED, payload: res }))
     );
 
+    /**
+   * Get user channels
+   */
+  @Effect()
+  postMediaChannel$ = this.actions$
+    .ofType(ProfileActions.POST_CHANNEL_MEDIA)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.postMediaToChannel(payload)
+      .map(res => ({ type: ProfileActions.POST_CHANNEL_MEDIA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.POST_CHANNEL_MEDIA_FAILED, payload: res }))
+    );
+
   constructor(
     private actions$: Actions,
     private router: Router,

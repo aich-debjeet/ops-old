@@ -39,12 +39,12 @@ export class ModalComponent implements OnInit {
   }
 
   openMe() {
-    // if (this.open === true) {
-    //   console.log('start as open');
-    //   this.modalService.open(this.modalId);
-    // } else {
-    //   console.log('start  as closed');
-    // }
+    if (this.open === true) {
+      console.log('start as open');
+      this.modalService.open(this.modalId);
+    } else {
+      console.log('start  as closed');
+    }
   }
 
   ngOnInit() {
@@ -59,8 +59,12 @@ export class ModalComponent implements OnInit {
 
   private keyup(event: KeyboardEvent): void {
     if (event.keyCode === 27) {
-      this.modalService.close(this.modalId, true);
-      this.onClose.emit(false);
+      if (this.open === true) {
+        this.onClose.emit(false);
+      } else {
+        this.modalService.close(this.modalId, true);
+        this.onClose.emit(false);
+      }
     }
   }
 }

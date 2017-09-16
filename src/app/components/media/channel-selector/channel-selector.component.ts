@@ -62,16 +62,15 @@ export class ChannelSelectorComponent implements OnInit {
    * @param file
    */
   isChosenChannel(channel: any) {
-    return false;
-    // if (this.chosenChannel === null && this.chosenChannel.length < 1 ) {
-    //   return false;
-    // }else {
-    //   if (this.chosenChannel.spotfeedId === channel.spotfeedId) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // }
+    if (this.chosenChannel === null) {
+      return false;
+    }else {
+      if (this.chosenChannel.spotfeedId === channel.spotfeedId) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 
 }

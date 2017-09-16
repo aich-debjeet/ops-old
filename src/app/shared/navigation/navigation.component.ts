@@ -10,8 +10,6 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { environment } from '../../../environments/environment';
 
-import { MediaComponent } from '../../components/media/media.component';
-
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',

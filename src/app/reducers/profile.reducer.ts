@@ -358,6 +358,26 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         profile_other_followed: false
       });
+    /**
+     * Post Media to Channel
+     */
+    case ProfileActions.POST_CHANNEL_MEDIA:
+      return Object.assign({}, state, {
+        media_channel_posting: true,
+        media_channel_posted: false
+      });
+
+    case ProfileActions.POST_CHANNEL_MEDIA_SUCCESS:
+      return Object.assign({}, state, {
+        media_channel_posting: false,
+        media_channel_posted: true
+      });
+
+    case ProfileActions.POST_CHANNEL_MEDIA_FAILED:
+      return Object.assign({}, state, {
+        media_channel_posting: false,
+        media_channel_posted: false
+      });
 
     default:
       return state;

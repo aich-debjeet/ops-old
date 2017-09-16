@@ -271,4 +271,14 @@ export class ProfileService {
     const params = handle + '/' + this.pagination(page);
     return this.api.get('/portal/cdn/media/otherProfile/', params);
   }
+
+  /**
+   * Post to Media
+   */
+  postMediaToChannel(payload: any) {
+    console.log('SERVICE__PROFILE', payload);
+    const channelId = payload.channelId;
+    const req = payload.req;
+    return this.api.put('/portal/network/spotfeed/' + channelId, req);
+  }
 }

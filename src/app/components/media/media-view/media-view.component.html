@@ -58,8 +58,11 @@
                           <div class="media_like_count">
                               <ul class="list-inline">
                                   <li class="list-inline-item">
-                                      <a (click)="spotMedia(data?.id)"><img src="/assets/img/svg/ico_lik.svg"></a>
-                                      <div class="like_count">{{ data?.spotsCount }}</div>
+                                      <a (click)="spotMedia(data?.id)" class="spot__btn">
+                                        <img *ngIf="spot===false" src="/assets/img/svg/ico_lik.svg">
+                                        <img *ngIf="spot===true" src="http://d33wubrfki0l68.cloudfront.net/8d58c78cd26eb1d103bb24ec6c1d786a0964b8b4/63aa4/img/svg/ico_spot.svg" width="14px">
+                                      </a>
+                                      <div class="like_count">{{ spotCount }}</div>
                                   </li>
                                   <li class="list-inline-item">
                                       <a href=""><img src="/assets/img/svg/ico_comment.svg"></a>

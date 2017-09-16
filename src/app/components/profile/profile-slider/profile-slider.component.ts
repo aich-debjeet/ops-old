@@ -57,6 +57,7 @@ export class ProfileSliderComponent implements OnInit {
   search: String;
   activateSubmitBtn = false;
   router: any;
+  isfollowing: boolean;
   // profileObject: ProfileCard;
 
   hasFollowed: boolean;
@@ -159,6 +160,7 @@ export class ProfileSliderComponent implements OnInit {
    */
   followUser(profile: any) {
     const handle = profile.userDetails.handle;
+    this.isfollowing = !this.isfollowing;
     this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle });
   }
 

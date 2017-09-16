@@ -1,6 +1,15 @@
-<span class="overlayStatus" *ngIf="status >1 && status <100">
-  {{ status }}%
-</span>
+<div class="Overlay">
+  <span class="Overlay__status" *ngIf="status >1 && status <100">
+    Uploading {{ status }}%
+  </span>
+  <span class="Overlay__status" *ngIf="postSuccess === true">
+    Upload successful!
+  </span>
+
+  <span class="Overlay__status" *ngIf="postSuccessActive === true">
+    Saved to Channel ...
+  </span>
+</div>
 
 <div class="media-selector" [ngClass]="{'not__filled': hasFiles === false }">
   <div class="col-md-8 padding_none file__viewer">
@@ -35,7 +44,7 @@
           </div>
           <div class="dropZone2">
             <label class="upload-button hidden">
-              <input type="file" (ngxf-select)="uploadFile($event)" [ngxf-validate]="{ size: { min: 50000, max:1000000 } }">
+              <input type="file" (ngxf-select)="uploadFileList($event)" [ngxf-validate]="{ size: { min: 50000, max:1000000 } }">
             </label>
 
             <label class="upload-button">
@@ -115,5 +124,5 @@
       </ul>
     </form>
     <app-channel-selector [userChannels]="channeList" (onSelection)="onChannelSelection($event)"></app-channel-selector>
-    <button class="btn btn-primary btn-sm btn-save" (click)="mediaInfoUpdate(mediaForm.value)">Post</button>
+    <button disable="true" class="btn btn-primary btn-sm btn-save" (click)="mediaInfoUpdate(mediaForm.value)">Post</button>
   </div>

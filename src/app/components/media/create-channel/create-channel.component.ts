@@ -125,5 +125,9 @@ export class CreateChannelComponent {
       relativeTo: this.route.parent
     });
   }
+
+  isClosed(event) {
+    this.doClose();
+  }
 }
 

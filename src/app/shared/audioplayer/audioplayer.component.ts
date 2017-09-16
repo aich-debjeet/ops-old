@@ -9,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class AudioPlayerComponent implements OnInit {
   @Input() src: string;
   constructor() {
-    //
+    console.log(this.src);
   }
 
   ngOnInit() {
