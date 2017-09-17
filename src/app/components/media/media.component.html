@@ -1,6 +1,6 @@
 <!-- add media pop up -->
 <!-- <app-navigation></app-navigation> -->
-<app-modal [modalTitle]="'Some title'" [open]="true" [blocking]='false' modalId='ViewMedia' class="media__modal" size="large" (onClose)="doClose($event)">
+<app-modal [modalTitle]="'Some title'" [closeHidden]="true" [open]="true" [blocking]='false' modalId='ViewMedia' class="media__modal" size="large" (onClose)="doClose($event)">
   <div class="ops_add-post" id="add_media_pop">
     <div class="AddPost__links">
       <a (click)="doClose()" class="btn__close">

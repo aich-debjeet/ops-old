@@ -15,7 +15,7 @@ import FilesHelper from '../../.../../../helpers/fileUtils';
 
 import { TokenService } from '../../../helpers/token.service';
 
-import { remove as _remove } from 'lodash';
+import { remove as _remove, merge as _merge } from 'lodash';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -40,7 +40,7 @@ export class MediaSelectorComponent implements OnInit {
   process: number[] = [];
   fileData: File;
   uploaded: any[];
-  uploadedFiles: any;
+  uploadedFiles: UploadItem[];
   editingFile: UploadItem;
   apiLink: 'http://devservices.greenroom6.com:9000/api/1.0';
   channels: any[];
@@ -76,8 +76,9 @@ export class MediaSelectorComponent implements OnInit {
 
     this.hasFiles = false;
     this.editingFile = new UploadItem;
-    this.uploadedFiles = [];
+    // this.uploadedFiles = [];
     this.uploaded = [];
+    this.uploadedFiles = [];
 
     this.chosenChannel = 0;
 
@@ -98,7 +99,7 @@ export class MediaSelectorComponent implements OnInit {
     this.token = this.api.getToken();
     this.handle = '';
 
-    console.log(' MEDIA_SELECTOR { CONSTRUCTOR } : TOKEN ', this.token );
+    // console.log(' MEDIA_SELECTOR { CONSTRUCTOR } : TOKEN ', this.token );
 
     this.tagState$ = this.profileStore.select('profileTags');
     // this.test = 'salabeel';
@@ -116,13 +117,13 @@ export class MediaSelectorComponent implements OnInit {
       }
 
       if (!this.userChannels && this.profileChannel.user_channel.length > 0) {
-        console.log('user channels there', this.profileChannel.user_channel );
+        // console.log('user channels there', this.profileChannel.user_channel );
         this.channeList = this.profileChannel.user_channel;
       }
 
       if (this.userChannels) {
         this.channeList = this.userChannels;
-        console.log( 'user channels passsed', this.userChannels );
+        // console.log( 'user channels passsed', this.userChannels );
       }
     });
   }
@@ -151,8 +152,8 @@ export class MediaSelectorComponent implements OnInit {
    */
   createMediaForm() {
     this.mediaForm = this.fb.group({
-      title: ['Sample Title', Validators.required ],
-      desc: ['Sample Description', Validators.required ],
+      title: ['', Validators.required ],
+      desc: ['', Validators.required ],
       privacy: [0, Validators.required ],
       copyright: [0, Validators.required ],
       isAdult: [0]
@@ -230,8 +231,6 @@ export class MediaSelectorComponent implements OnInit {
       req: { media: req }
     };
 
-    console.log('POST', payload);
-
     this.profileStore.dispatch({ type: ProfileActions.POST_CHANNEL_MEDIA, payload: payload })
   }
 
@@ -243,7 +242,6 @@ export class MediaSelectorComponent implements OnInit {
     const accessVal = parseInt(value.privacy, 0);
 
     if ( this.channelForm.valid === true ) {
-      console.log(' CREATE CHANNEL FORM ', this.handle);
       const channelObj = {
         name: value.title,
         access: value.privacy,
@@ -296,17 +294,17 @@ export class MediaSelectorComponent implements OnInit {
    * @param req
    */
   getChannels(req: any) {
-    const headers = new Headers();
-    const reqOptions = new RequestOptions({ headers: headers });
+    // const headers = new Headers();
+    // const reqOptions = new RequestOptions({ headers: headers });
 
-    headers.append('Authorization', 'Bearer ' + this.token);
-    headers.append('Content-Type', 'application/json');
+    // headers.append('Authorization', 'Bearer ' + this.token);
+    // headers.append('Content-Type', 'application/json');
 
-    return this.http.post(`http://devservices.greenroom6.com:9000/api/1.0/portal/network/spotfeed/search`, req, reqOptions)
-      .map((data: Response) => data.json())
-      .subscribe(data => {
-        this.channels = data;
-      });
+    // return this.http.post(`http://devservices.greenroom6.com:9000/api/1.0/portal/network/spotfeed/search`, req, reqOptions)
+    //   .map((data: Response) => data.json())
+    //   .subscribe(data => {
+    //     this.channels = data;
+    //   });
   }
 
   /**
@@ -370,19 +368,21 @@ export class MediaSelectorComponent implements OnInit {
    */
 
   fileDetails(file) {
-    console.log('Selected this file');
-    console.log(file);
+    console.log('SELECTED FILE', file);
+    this.editingFile = this.formatFile(file);
+  }
 
-    this.editingFile = file;
+  /**
+   * Format File to Model
+   */
+  formatFile(file: any) {
     const fileType = this.getFileType(file.fileName)
     const leFile: UploadItem = {
       fileName: file.fileName,
       repoPath: file.repoPath,
       type: fileType
     };
-
-    console.log(fileType);
-    this.editingFile = leFile;
+    return leFile;
   }
 
   /**
@@ -430,6 +430,8 @@ export class MediaSelectorComponent implements OnInit {
       if ( this.profileChannel.profile_loaded === true && this.uploadStatus < 1 ) {
         this.uploadStatus = 2;
         this.uploadFile(files, this.token, userHandle)
+      } else {
+        console.log('ERROR', 'Entho');
       }
     });
   }
@@ -453,14 +455,22 @@ export class MediaSelectorComponent implements OnInit {
     }).subscribe(
       (event: UploadEvent) => {
         if (event.status === UploadStatus.Uploading) {
-          console.log('Doing ', userHandle);
           this.status = event.percent;
         }else {
           console.log('Finished ', userHandle);
           if (event.data) {
+
             // @TODO__URGENT Make list appendable for files
-            this.uploaded = event.data['SUCCESS'];
-            console.log(' UPLOAD FILE : FILE, HANDLE ', [this.uploaded, this.handle] );
+            const latestUploaded = event.data['SUCCESS'];
+            this.addToUploads(latestUploaded);
+            // const allMedia = _merge(this.uploaded, latestUploaded);
+            // this.uploaded = latestUploaded;
+            // // this.uploadedFiles.push(latestUploaded);
+            // console.log(' ALL ', allMedia);
+            // console.log(' CURRENT ', latestUploaded);
+            // console.log(' UPLOAD FILE : FILE, HANDLE ', [this.uploaded, this.handle] );
+
+            this.uploadStatus = 0;
           }
         }
       },
@@ -470,6 +480,16 @@ export class MediaSelectorComponent implements OnInit {
       () => {
         console.log(' UPLOAD : COMPLETE ', userHandle);
       });
+  }
+
+  /**
+   * Push to Upload List
+   */
+  addToUploads(uploads: any) {
+    for (let file of uploads) {
+      const thisFile = this.formatFile(file);
+      this.uploadedFiles.push(thisFile);
+    }
   }
 
   /**

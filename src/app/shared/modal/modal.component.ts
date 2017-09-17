@@ -10,7 +10,7 @@ import { ModalService } from './modal.component.service';
         <div class="ng-modal-overlay" (click)="close(true)"></div>
         <div [ngClass]="size" class="ng-modal">
           <div class="body">
-            <span class="right-align" title="close" (click)="close(true)">
+            <span *ngIf="closeHidden === false" class="right-align" title="close" (click)="close(true)">
               <img class="pointer" width="24" src="http://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg"/>
             </span>
             <ng-content></ng-content>
@@ -26,6 +26,7 @@ export class ModalComponent implements OnInit {
   @Input() modalTitle: string;
   @Input() blocking = false;
   @Input() size: string;
+  @Input() closeHidden = false;
   @Output() onClose: EventEmitter<any> = new EventEmitter();
   isOpen = false;
 

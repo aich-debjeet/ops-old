@@ -14,7 +14,7 @@
 <div class="media-selector" [ngClass]="{'not__filled': hasFiles === false }">
   <div class="col-md-8 padding_none file__viewer">
     <ul class="file__list">
-      <li *ngFor="let file of uploaded" class="file__item">
+      <li *ngFor="let file of uploadedFiles" class="file__item">
         <div *ngIf="checkFileType(file.fileName, 'Video')" class="add_media_container" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }">
           <app-videplayer (click)="fileDetails(file)" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file.repoPath }}"></app-videplayer>
           <div class="add_media_delet">
