@@ -107,7 +107,6 @@ export class ProfileChannelComponent implements OnInit {
    * Load current user profile data
    */
   loadCurrentProfile(state: any) {
-    // console.log(this.profileChannel.user_channel_loaded);
     const isChannelReady = this.profileChannel.user_channels_loaded;
     const isProfileReady = this.profileChannel.profile_loaded;
 

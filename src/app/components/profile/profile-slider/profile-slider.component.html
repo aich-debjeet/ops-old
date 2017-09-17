@@ -138,8 +138,8 @@
 
 <router-outlet></router-outlet>
 
-<app-modal [modalTitle]="'Some title'" [open]="false" [blocking]='false' modalId='profileEditWindow'>
-    <div>
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow' *ngIf="!isOtherProfile"></app-modal>
+    <div >
         <form [formGroup]="profileForm" novalidate #myform="ngForm" (submit)= "profileFormSubmit(profileForm.value)">
             <div class="edit-profile_main">
                 <!-- <div class="modal-header" style="border: none;">
