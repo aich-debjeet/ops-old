@@ -1017,9 +1017,16 @@
 
 .prohead2{
   &:hover{
-    .upload_cover_img img { display: block; }
+    .upload_cover_img{
+      .upload-btn {
+        background-color: transparent !important;
+        border-color: transparent !important;
+      }
+      img { display: block; }
+    }
   }
 }
+
 .upload_cover_img{
   img {
     display: none;
@@ -1050,6 +1057,8 @@
   &:hover{
     .upload-btn{
       display: inline-block;
+      background-color: transparent !important;
+      border-color: transparent !important;
     }
   }
   img {

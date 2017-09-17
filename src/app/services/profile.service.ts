@@ -110,6 +110,7 @@ export class ProfileService {
     const fileName = 'profile_' + randm + '.' + imageType;
 
     fileData.append('file', this.dataURItoBlob(data), fileName );
+    // console.log('FILIZED', fileData);
     return fileData;
   }
 
@@ -138,6 +139,8 @@ export class ProfileService {
    */
   uploadProfileImage(formData: any) {
     const fileData = this.buildImageForm(formData);
+    console.log('FILE', fileData);
+    console.log('FORM', formData);
     return this.uploadImage(fileData);
   }
 
