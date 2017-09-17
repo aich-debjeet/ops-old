@@ -358,6 +358,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         profile_other_followed: false
       });
+
+    /**
+     * Current user Profile
+     */
+    case ProfileActions.CURRENT_PROFILE_USER:
+      return Object.assign({}, state, {
+        current_user_profile: payload
+      });
+
     /**
      * Post Media to Channel
      */

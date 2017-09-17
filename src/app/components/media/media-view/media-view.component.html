@@ -1,4 +1,4 @@
-<app-modal [modalTitle]="'Some title'" [open]="true" [blocking]='false' modalId='ViewMedia' class="media__modal" size="large" (onClose)="doClose($event)">
+<app-modal [modalTitle]="'Some title'" [open]="true" [blocking]='false' (onClose)="doClose($event)"  modalId='ViewMedia' class="media__modal" size="large">
   <div id="imgModal" class=" media_modal">
       <div class="modal-dialog modal-lg">
           <!-- Modal content-->
@@ -64,7 +64,7 @@
                                       <div class="like_count">{{ spotCount }}</div>
                                   </li>
                                   <li class="list-inline-item">
-                                      <a href=""><img src="/assets/img/svg/ico_comment.svg"></a>
+                                      <a ><img src="/assets/img/svg/ico_comment.svg"></a>
                                       <div class="like_count">{{ data?.commentsCount }}</div>
                                   </li>
                                   <li class="list-inline-item pull-right">
@@ -86,7 +86,7 @@
                                           </li>
                                           <li class="list-inline-item msg_to_input">
                                               <div class="form_group">
-                                                  <input class="form_input" type="text" [(ngModel)]="message" required="" (keyup.enter)="keyDownFunction()">
+                                                  <input class="form_input" type="text" [(ngModel)]="messageText" required="" (keyup.enter)="keyDownFunction(data?.id)">
                                                   <span class="form_highlight"></span>
                                                   <span class="form_bar"></span>
                                                   <label>Comment Here</label>
@@ -115,12 +115,12 @@
                               </ul>
                               <ul class="list-inline media_comments_block">
                                   <li class="list-inline-item">{{ comment.comment }}</li>
-                                  <span [hidden]="isDisplay">
+                                  <!--<span [hidden]="isDisplay">
                                       <input #editText type="text"
                                           [value]="text" (keyup.enter)="editDone(editText.value)">
                                       <i class="icon icon-floppy color-primary" title="Save"
                                           (click)="editDone(editText.value)"></i>
-                                  </span>
+                                  </span>-->
                               </ul>
                           </div>
                           </div>

@@ -9,6 +9,7 @@ export class Media {
   user_posts_loaded: boolean;
   user_posts_loading: boolean;
   media_detail: any;
+  media_comment?: any;
   channel_loading: boolean;
 }
 

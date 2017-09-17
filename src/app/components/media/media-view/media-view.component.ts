@@ -1,11 +1,13 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, AfterViewInit, Output } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../../../environments/environment';
+import { ModalService } from '../../../shared/modal/modal.component.service';
 
 import FilesHelper from '../../../helpers/fileUtils';
 import { ModalService } from '../../../shared/modal/modal.component.service';
+
 
 // Action
 import { MediaActions } from '../../../actions/media.action';
@@ -27,6 +29,9 @@ export class MediaViewComponent {
   imageLink: string = environment.API_IMAGE;
   chosenChannel: any = 0;
   @Input() userChannels;
+  @Input() profileImage;
+  @Output() onComment: EventEmitter<any> = new EventEmitter<any>();
+  messageText: string;
   statusForm: FormGroup;
   private mediaStateSubscription: Subscription;
   mediaState$: Observable<Media>;
@@ -34,6 +39,7 @@ export class MediaViewComponent {
   mediaId: string;
   sub: any;
   data: any;
+  comment: any;
   spot: boolean;
   spotCount: number;
   message: boolean;
@@ -49,6 +55,9 @@ export class MediaViewComponent {
       this.mediaStore = state;
       this.data = this.mediaStore.media_detail;
       this.spotCount = this.mediaStore.media_detail.spotsCount;
+      this.comment = this.mediaStore.media_comment
+
+      console.log(state);
     });
 
     this.loadMedia();
@@ -65,17 +74,27 @@ export class MediaViewComponent {
     this.sub = this.route.params.subscribe(params => {
       console.log(params);
       if (!this.checkEmpty(params)) {
-        this.store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: params['id']})
+        this.store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: params['id']});
+        // comment fetch
+        this.store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: params['id']});
       }
     });
   }
 
-  // keyDownFunction() {
-  //   if (this.message !== null || this.message !== ' ') {
-  //     this.onComment.emit(this.message);
-  //     this.message = null;
-  //   }
-  // }
+  keyDownFunction(mediaId: string) {
+    console.log(mediaId);
+    if (this.messageText !== null || this.messageText !== ' ') {
+      this.onComment.emit(this.message);
+      const send = {
+        'content': this.messageText,
+        'parent': mediaId
+      }
+      this.store.dispatch({ type: MediaActions.POST_COMMENT, payload: send});
+
+      this.messageText = null;
+    }
+  }
+
 
   /**
    * Spot a Media
@@ -100,6 +119,7 @@ export class MediaViewComponent {
    * Close
    */
   doClose() {
+    console.log('do close');
     this.router.navigate(['.', { outlets: { media: null } }], {
       relativeTo: this.route.parent
     });

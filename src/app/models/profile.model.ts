@@ -28,6 +28,7 @@ export class ProfileModal {
   media_channel_posted: boolean;
   channel_saved: boolean;
   profiles: any;
+  current_user_profile?: any;
 }
 
 export class ProfileForm {
