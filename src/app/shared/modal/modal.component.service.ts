@@ -20,10 +20,7 @@ export class ModalService {
 
   open(modalId: string): void {
     const modal = this.findModal(modalId);
-    console.log('OPEN', modal);
-
     if (modal) {
-      console.log('Made it open');
       modal.isOpen = true;
     }
   }
@@ -41,7 +38,6 @@ export class ModalService {
   }
 
   private findModal(modalId: string): ModalComponent {
-    console.log(this.modals.length);
     for (const modal of this.modals) {
       if (modal.modalId === modalId) {
         return modal;

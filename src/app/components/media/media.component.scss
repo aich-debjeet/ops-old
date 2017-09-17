@@ -1098,7 +1098,7 @@ tabset section{
 .btn-primary {
   color: #fff;
   background-color: #ff7b84;
-  border-color: #ff7b84;
+  border-color: #F79EA5;
 }
 
 
@@ -1133,4 +1133,9 @@ tabset section{
   border: none;
   text-transform: uppercase;
   margin-right: 16px;
+  &.active{
+    color: #FF7B84 !important;
+  }
 }
+
+//

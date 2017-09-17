@@ -47,7 +47,6 @@ export class ModalComponent implements OnInit {
 
   openMe() {
     if (this.open === true) {
-      console.log('Forced Open!');
       this.modalService.open(this.modalId);
       this.isOpen = true;
       this.open = true;

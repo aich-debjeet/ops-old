@@ -36,17 +36,21 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
     case MediaActions.GET_CHANNEL_DETAILS:
       return Object.assign({}, state, {
         success: true,
-        channel_loading: false,
+        channel_loading: true,
+        channel_loaded: false,
       });
 
     case MediaActions.GET_CHANNEL_DETAILS_SUCCESS:
       return Object.assign({}, state, {
-        channel_loading: true,
+        channel_loading: false,
+        channel_loaded: true,
         channel_detail: payload
       });
 
     case MediaActions.GET_CHANNEL_DETAILS_FAILED:
       return Object.assign({}, state, {
+        channel_loading: false,
+        channel_loaded: false,
         success: false
       });
 

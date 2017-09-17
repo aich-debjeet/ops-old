@@ -33,6 +33,7 @@ export class CreateChannelComponent {
   profileChannel = initialTag ;
   channelType: number;
   handle: string;
+  channelSaved = false;
 
   constructor(
     private fb: FormBuilder,
@@ -42,13 +43,17 @@ export class CreateChannelComponent {
     private store: Store<Media> ) {
       this.createChannelForm();
       this.typeSelected = false;
+      this.channelSaved = false;
+
       this.handle = '';
       if (this.handle !== '') {
         this.handle = this.tokenService.getHandle();
       }
+
       this.tagState$ = this.store.select('profileTags');
       this.tagState$.subscribe((state) => {
         this.profileChannel = state;
+        this.channelSaved = this.profileChannel.channel_saved;
       });
     }
 
@@ -101,16 +106,16 @@ export class CreateChannelComponent {
    * Form Builder
    */
   createChannel(value: any) {
-
-    if ( this.channelForm.valid === true ) {
+    const userHandle = this.profileChannel.profileUser.handle || '';
+    if ( this.channelForm.valid === true && userHandle !== '' ) {
       const channelObj = {
         name: value.title,
         access: Number(value.privacy),
         description: value.desc,
         superType: 'channel',
         accessSettings : { access : Number(value.privacy) },
-        owner: this.tokenService.getHandle(),
-        industryList: [ value.type ] /** @TODO - To be removed! */
+        owner: userHandle,
+        industryList: [ value.type ]
       }
 
       this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
@@ -120,14 +125,10 @@ export class CreateChannelComponent {
   /**
    * Close
    */
-  doClose() {
+  doClose(input: any) {
     this.router.navigate(['.', { outlets: { media: null } }], {
       relativeTo: this.route.parent
     });
-  }
-
-  isClosed(event) {
-    this.doClose();
   }
 }
 

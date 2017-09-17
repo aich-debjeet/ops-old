@@ -59,21 +59,10 @@ export class AboutImageComponent implements OnInit {
     this.cropperSettings.canvasHeight = 300;
     this.cropperSettings.rounded = true;
     this.data = {};
-
-    // this.tagState$.subscribe((state) => {
-    //   this.stateProfile = state;
-    //   if (this.stateProfile.profile_other_loaded === true) {
-    //     this.ownProfile = false;
-    //     this.userProfile = this.stateProfile.profile_other;
-    //   }else {
-    //     this.ownProfile = true;
-    //     this.userProfile = this.stateProfile.profileDetails;
-    //   }
-    // });
   }
 
   ngOnInit() {
-    // this.bioFormIinit()
+    //
   }
 
   /**

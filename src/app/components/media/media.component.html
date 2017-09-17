@@ -6,9 +6,11 @@
       <a (click)="doClose()" class="btn__close">
         <img class="btn__img" src="http://d33wubrfki0l68.cloudfront.net/62eb03868e2435dd8f10598c37ef95c827a91134/081a5/img/svg/ico_close.svg"/>
       </a>
-      <a class="AddPost__link" [routerLink]="['status']">Status</a>
-      <a class="AddPost__link" [routerLink]="['media']">Media</a>
-      <a class="AddPost__link" [routerLink]="['blog']">Blog</a>
+      <ul class="nav nav-tabs">
+        <li><a class="AddPost__link" [routerLink]="['status']" routerLinkActive="active">Status</a></li>
+        <li><a class="AddPost__link" [routerLink]="['media']" routerLinkActive="active">Media</a></li>
+        <li><a class="AddPost__link" [routerLink]="['blog']" routerLinkActive="active">Blog</a></li>
+      </ul>
     </div>
     <div class="AddPost__content">
       <router-outlet></router-outlet>
