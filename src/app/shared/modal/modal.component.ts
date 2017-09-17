@@ -6,7 +6,7 @@ import { ModalService } from './modal.component.service';
     styleUrls: ['./modal.component.scss'],
     providers: [ ModalService ],
     template: `
-      <div [ngClass]="('modal__' + size + ' ' + (!isOpen ? 'closed' : ''))">
+      <div [ngClass]="('modal__' + size + ' ' + (!isOpen ? 'closed' : '' ))">
         <div class="ng-modal-overlay" (click)="close(true)"></div>
         <div [ngClass]="size" class="ng-modal">
           <div class="body">
@@ -28,10 +28,16 @@ export class ModalComponent implements OnInit {
   @Input() size: string;
   @Input() closeHidden = false;
   @Output() onClose: EventEmitter<any> = new EventEmitter();
-  isOpen = false;
+  isOpen: boolean;
 
   constructor(private modalService: ModalService) {
-    this.isOpen = this.open || false
+    let openValue = false;
+    if (this.open === undefined) {
+      openValue = false;
+    }
+
+    this.open = openValue;
+    this.isOpen = openValue;
   }
 
   @HostListener('document:keyup', ['$event'])

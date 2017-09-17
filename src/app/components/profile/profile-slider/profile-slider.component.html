@@ -1,9 +1,5 @@
 <div *ngIf="profileObject !== null" class="prohead2" [ngStyle]="profileImageStyle(profileObject)">
   <div class="container u-rel" *ngIf="isOtherProfile === false">
-      <app-modal [modalTitle]="'Change Profile Image'" (onClose)="isClosed($event)" [blocking]='false' modalId='ChangeCover' class="media__modal" size="tiny">
-          <input #profileImage type="file" name="profile_image"/>
-          <button (click)="uploadCoverImage()">Save</button>
-      </app-modal>
       <span class="upload_cover_img">
         <a (click)="showCoverImageUploader()" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
           <img src="http://d33wubrfki0l68.cloudfront.net/191393ff3b0564270e49e5a1548ca1384ba44571/2bd8e/img/svg/ico_edit_white.svg" alt="">
@@ -13,13 +9,6 @@
 </div>
 <div class="container pro-block" *ngIf="profileObject !== null">
     <div class="row">
-        <app-modal open="false" [modalTitle]="'Change Profile Image'" [open]="false" (onClose)="isClosed($event)" [blocking]='false' modalId='ChangeProfile' class="media__modal" size="tiny">
-          <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
-          <span class="upload_prof_img u-clear">
-            <button class="btn btn-primary" data-toggle="dropdown" aria-expanded="true" alt="" (click)="saveImageClick()">Save Image</button>
-          </span>
-        </app-modal>
-
         <div class="col-md-6 col-sm-12 pro__img" *ngIf="changingImage">
 
         </div>
@@ -28,7 +17,7 @@
           <div class="prof_img_block">
             <img src="{{ data && data.image ? data.image : baseUrl + profileObject?.image?.profile }}" class="img-responsive img-circle">
             <span class="upload_prof_img" *ngIf="isOtherProfile === false">
-              <a class="dropdown-toggle btn btn-basic btn-sm upload-btn" data-toggle="dropdown" aria-expanded="true" alt="" (click)="changingImageClick()">
+              <a class="dropdown-toggle btn btn-basic btn-sm upload-btn" data-toggle="dropdown" aria-expanded="true" alt="" routerLink="/profile/about/image">
                 <img src="http://d33wubrfki0l68.cloudfront.net/191393ff3b0564270e49e5a1548ca1384ba44571/2bd8e/img/svg/ico_edit_white.svg"/>
               </a>
             </span>
@@ -74,6 +63,10 @@
                 <li class="list-line-item">
                     <a [routerLink]="['about']">project</a>
                 </li>
+
+                <li class="list-line-item">
+                  <a [routerLink]="['image']">Edit</a>
+              </li>
 
                 <li class="list-line-item">
                   <a routerLink="/profile/u/salsabeel/user/">Profile</a>
@@ -137,6 +130,11 @@
 </div>
 
 <router-outlet></router-outlet>
+
+<app-modal [modalTitle]="'Change Profile Image'" (onClose)="isClosed($event)" [blocking]='false' modalId='ChangeCover' class="media__modal" size="tiny">
+  <input #profileImage type="file" name="profile_image"/>
+  <button (click)="uploadCoverImage()">Save</button>
+</app-modal>
 
 <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow' *ngIf="!isOtherProfile">
     <div >

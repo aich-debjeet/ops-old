@@ -11,19 +11,19 @@ export class ModalService {
 
   registerModal(newModal: ModalComponent): void {
     const modal = this.findModal(newModal.modalId);
-
     // Delete existing to replace the modal
     if (modal) {
       this.modals.splice(this.modals.indexOf(modal));
     }
-
     this.modals.push(newModal);
   }
 
   open(modalId: string): void {
     const modal = this.findModal(modalId);
+    console.log('OPEN', modal);
 
     if (modal) {
+      console.log('Made it open');
       modal.isOpen = true;
     }
   }
@@ -41,6 +41,7 @@ export class ModalService {
   }
 
   private findModal(modalId: string): ModalComponent {
+    console.log(this.modals.length);
     for (const modal of this.modals) {
       if (modal.modalId === modalId) {
         return modal;

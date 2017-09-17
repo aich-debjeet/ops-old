@@ -23,7 +23,6 @@ import { ProfileCard } from '../../../models/profile.model';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 
 import { find as _find, forEach as _forEach  } from 'lodash';
 
@@ -35,14 +34,12 @@ import { find as _find, forEach as _forEach  } from 'lodash';
 })
 
 export class ProfileSliderComponent implements OnInit {
-  @ViewChild('profileImage') fileInput;
+  // @ViewChild('profileImage') fileInput;
   @Input() profileData: any;
   @Input() isOtherProfile: any;
   @Input() userName: string;
   @Input() profileObject: ProfileCard;
   changingImage: boolean;
-  data: any;
-  cropperSettings: CropperSettings;
   tagState$: Observable<ProfileModal>;
   skillState$: Observable<any>;
   private tagStateSubscription: Subscription;
@@ -74,15 +71,6 @@ export class ProfileSliderComponent implements OnInit {
   ) {
 
     this.baseUrl = environment.API_IMAGE;
-    this.cropperSettings = new CropperSettings();
-    this.cropperSettings.width = 100;
-    this.cropperSettings.height = 100;
-    this.cropperSettings.croppedWidth = 100;
-    this.cropperSettings.croppedHeight = 100;
-    this.cropperSettings.canvasWidth = 400;
-    this.cropperSettings.canvasHeight = 300;
-    this.cropperSettings.rounded = true;
-    this.data = {};
 
     this.tagState$ = this.profileStore.select('profileTags');
     this.skillState$ = this.profileStore.select('loginTags');
@@ -101,15 +89,19 @@ export class ProfileSliderComponent implements OnInit {
 
   }
 
-  changingImageClick() {
-    this.changingImage = true;
-    this.modalService.open('ChangeProfile');
-  }
+  // changingImageClick() {
+  //   this.changingImage = true;
+  //   this.modalService.open('ChangeProfile');
+  // }
 
   ngOnInit() {
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+  }
+
+  modalInit() {
+    this.modalService.open('ChangeProfile');
   }
 
   /**
@@ -134,21 +126,6 @@ export class ProfileSliderComponent implements OnInit {
     }
 
     return resp;
-  }
-
-  /**
-   * Attach image url to Profile
-   */
-  saveImageClick() {
-    if (this.data && this.data.image) {
-      const data = {
-        profileHandle: this.tokenService.getHandle(),
-        image: this.data.image.split((/,(.+)/)[1])
-      }
-      this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: data });
-      this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-      this.changingImage = false;
-    }
   }
 
   isClosed(event) {
@@ -313,15 +290,7 @@ export class ProfileSliderComponent implements OnInit {
    * Upload Cover image
    */
   uploadCoverImage() {
-    this.upload();
-  }
-
-  /**
-   * File Handler
-   */
-  upload() {
-    const fileBrowser = this.fileInput.nativeElement;
-    this.profileStore.dispatch({ type: ProfileActions.PROFILE_COVER_UPDATE, payload: fileBrowser });
+    // this.upload();
   }
   /**
    * Toggle Coer Image upload modal
