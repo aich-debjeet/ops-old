@@ -3,6 +3,7 @@ import { TabComponents  } from '../../shared/tabs/tabset';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 import { Http, Headers, Response } from '@angular/http';
+import { ModalService } from '../../shared/modal/modal.component.service';
 
 // Action
 import { MediaActions } from '../../actions/media.action';
@@ -23,7 +24,7 @@ import * as MediumEditor from 'medium-editor';
 @Component({
   selector: 'app-media',
   templateUrl: './media.component.html',
-  providers: [ TabComponents, FileUploadService],
+  providers: [ TabComponents, FileUploadService, ModalService],
   styleUrls: ['./media.component.scss']
 })
 

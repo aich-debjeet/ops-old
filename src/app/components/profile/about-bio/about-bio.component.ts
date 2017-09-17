@@ -28,6 +28,7 @@ export class AboutBioComponent implements OnInit {
   stateProfile = initialTag;
   userProfile: any;
   ownProfile: boolean;
+  changingImage: boolean;
 
   constructor(
     private _http: Http,
@@ -54,7 +55,10 @@ export class AboutBioComponent implements OnInit {
     this.bioFormIinit()
   }
 
-
+  isClosed(event) {
+    this.changingImage = event;
+    console.log(event);
+  }
 
 
   openPopup() {
