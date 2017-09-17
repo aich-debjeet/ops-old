@@ -12,12 +12,11 @@ export class CommunitiesComponent implements OnInit {
 
   ngOnInit() {
     this.comingsoon = {
-      mainTitle: 'Communities will be Coming Soon.',
-      description: 'Our folks are still arranging the chairs right now. Please wait outside while we set this up. <br> <br> Feel free to browse through our other pages.',
+      mainTitle: 'Communities Coming Soon.',
+      description: 'We can\'t find John Doe! We can\'t start without him now, can we? We\'ll back as soon as we find him. Feel free to browse through our other pages.',
       buttonLink: '/home',
       buttonText: 'Go to Home',
-      img: 'http://d33wubrfki0l68.cloudfront.net/7fa8ea0b364101d93091e6a21e6c3639c993416d/3027b/img/svg/404/events_img.svg'
+      img: 'http://d33wubrfki0l68.cloudfront.net/2a115820a1270ca0fd7016179883918dbf09e21f/83879/img/svg/404/communitiescomingsoon2.png'
     };
   }
-
 }
