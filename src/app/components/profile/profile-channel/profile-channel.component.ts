@@ -114,7 +114,7 @@ export class ProfileChannelComponent implements OnInit {
     // Check if the other profile is loaded; also make sure the activated route is not current user
     if ( isChannelReady === false && isProfileReady === true) {
 
-      const profile = this.profileChannel.profileDetails;
+      const profile = this.profileChannel.profileUser;
       this.counter++;
       // const handleID = this.profileChannel.profileDetails.handle;
       if (this.counter < 10) {
