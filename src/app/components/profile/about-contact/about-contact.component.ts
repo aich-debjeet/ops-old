@@ -31,7 +31,7 @@ export class AboutContactComponent implements OnInit {
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.stateProfile = state;
-      if (this.stateProfile.profile_other_loaded === true) {
+      if (this.stateProfile.current_user_profile && this.stateProfile.profile_other_loaded === true) {
         this.ownProfile = false;
         this.userProfile = this.stateProfile.profile_other;
       }else {
