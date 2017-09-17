@@ -145,6 +145,7 @@ export class ProfileSliderComponent implements OnInit {
    * Profile Page Edit
    */
   profileEdit() {
+    console.log('profile edit');
     this.loadSkill();
     this.modalService.open('profileEditWindow');
     const date = this.datepipe.transform(this.userProfile.profileDetails['physical'].dateOfBirth, 'dd-MM-yyyy');

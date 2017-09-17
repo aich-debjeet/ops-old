@@ -3,9 +3,10 @@ import { ModalComponent } from './modal.component';
 
 @Injectable()
 export class ModalService {
-  private modals: Array<ModalComponent>;
+  modals: Array<ModalComponent>;
 
   constructor() {
+    console.log('Modal service');
     this.modals = [];
   }
 
@@ -19,6 +20,7 @@ export class ModalService {
   }
 
   open(modalId: string): void {
+    console.log(modalId);
     const modal = this.findModal(modalId);
     console.log('OPEN', modal);
 
@@ -42,6 +44,7 @@ export class ModalService {
 
   private findModal(modalId: string): ModalComponent {
     console.log(this.modals.length);
+    console.log(this.modals);
     for (const modal of this.modals) {
       if (modal.modalId === modalId) {
         return modal;

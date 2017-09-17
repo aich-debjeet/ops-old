@@ -95,12 +95,12 @@
   </div>
 </div>
 
-<app-modal [blocking]='false' modalId='bioEdit' *ngIf="ownProfile">
+<app-modal [blocking]='false' modalId='bioEdit' *ngIf="ownProfile" (onClose)="isClosed($event)" [closeHidden]="false" size="tiny__form">
     <!-- edit bio pop -->
-  <div class="" id="edit_bio_pop" >
-    <div class="modal-dialog modal-md " id="">
+  <div id="edit_bio_pop" >
+    <div id="">
        <form [formGroup]="bioForm" novalidate #myform="ngForm" (submit)= "bioFormSubmit(bioForm.value)">
-        <div class="modal-content edit-profile_main">
+        <div class="edit-profile_main">
             <!-- <div class="modal-header" style="border: none;">
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div> -->

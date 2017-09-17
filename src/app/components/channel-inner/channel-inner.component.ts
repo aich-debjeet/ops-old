@@ -72,7 +72,8 @@ export class ChannelInnerComponent implements OnInit {
       access: '',
       industry: ''
     });
-    this.modalService.open('editform');
+    // Temp hide
+    // this.modalService.open('editform');
   }
 
   closePopup() {
@@ -84,7 +85,7 @@ export class ChannelInnerComponent implements OnInit {
   mediaOpenPopup(id) {
     this._store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id});
     this._store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
-    this.modalService.open('mediaPopup');
+    // this.modalService.open('mediaPopup');
   }
 
   mediaClosePopup() {

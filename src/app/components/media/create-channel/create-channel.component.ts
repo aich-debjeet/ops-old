@@ -4,6 +4,8 @@ import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { ModalService } from '../../../shared/modal/modal.component.service';
+
 // Action
 import { MediaActions } from '../../../actions/media.action';
 import { initialMedia, Media } from '../../../models/media.model';
@@ -22,6 +24,7 @@ import { TokenService } from '../../../helpers/token.service';
 @Component({
   selector: 'app-create-channel',
   templateUrl: './create-channel.component.html',
+  providers: [ModalService],
   styleUrls: ['./create-channel.component.scss']
 })
 
