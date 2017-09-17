@@ -1,0 +1,6 @@
+<app-modal [modalTitle]="'Change Profile Image'" [closeHidden]="true" (onClose)="isClosed($event)" [blocking]='false' [open]="true" modalId='ChangeProfile' class="media__modal" size="tiny">
+  <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+  <span class="upload_prof_img u-clear">
+    <button class="btn btn-primary" data-toggle="dropdown" aria-expanded="true" alt="" (click)="saveImageClick()">Save Image</button>
+  </span>
+</app-modal>
