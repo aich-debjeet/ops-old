@@ -81,10 +81,11 @@ export class MediaViewComponent {
    */
   spotMedia(mediaId: string) {
     this.spot = !this.spot;
-    this.spotCount++;
     if (this.spot === true) {
+      this.spotCount++;
       this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: mediaId });
     }else {
+      this.spotCount--;
       this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: mediaId });
     }
   }

@@ -66,11 +66,7 @@ export class MediaComponent implements OnInit, AfterViewInit {
       // this.createMediaForm();
 
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      this.handle = 'Z_95E0C34B_4D10_4F1D_B77B_C6178AC85CF8MUNEEF_MUNEEF_IN'; // localStorage.getItem('currentUserID');
-      this.tempChannel = 'g-8b97a287-6de0-4a8e-acf8-2b1cb8624cfe';
       this.token = currentUser.access_token; // your token
-
-      const tempUser = 'Z_95E0C34B_4D10_4F1D_B77B_C6178AC85CF8MUNEEF_MUNEEF_IN';
 
       // Reducer Store
       this.mediaState$ = this.store.select('mediaStore');
@@ -86,7 +82,8 @@ export class MediaComponent implements OnInit, AfterViewInit {
         this.profileStore = state;
         if (this.channelLoaded === false && this.profileStore.user_channel.length < 1 && this.profileStore.user_channels_loaded === false) {
           this.channelLoaded = true;
-          this.loadChannels(this.handle);
+          const userHandle = this.profileStore.profileUser.handle;
+          this.loadChannels(userHandle);
         }
         // If its loaded assign to the variables
         if (this.profileStore.user_channel.length > 0 ) {
