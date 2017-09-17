@@ -168,6 +168,57 @@ export class MediaSelectorComponent implements OnInit {
   }
 
   /**
+   * Post all medias at once
+   * @param formValue
+   */
+  postAllMedia(formValue: any) {
+    // Stop submittion if not ready with needed data;
+    if (this.submitEnabled < 1 ) {
+      // console.log('FORM', 'Form disabled, All required datas not loaded yet');
+      return false;
+    }
+
+    if (this.profileChannel.profile_loaded === true ) {
+      this.handle = this.profileChannel.profileUser.handle;
+    }
+    // 1. Get choosen file
+    const chosenFile = this.editingFile;
+    const chosenChannel = this.chosenChannel;
+
+    const mediaType = this.getFileType(this.editingFile.fileName);
+    const postTime = this.currentTime();
+
+    const multipleMedias = [];
+    for (let file of this.uploadedFiles) {
+      if (file) {
+        const files = {
+          fileName: file.fileName,
+          repoPath: file.repoPath,
+          mtype: mediaType,
+          contentType: mediaType,
+          title: formValue.title,
+          description: formValue.desc,
+          active: true,
+          createdBy: this.handle,
+          createdDate: postTime,
+          lastUpdatedDate: postTime,
+          count : {
+            likes: [], shares: [], spots: [],
+            channel: this.chosenChannel.spotfeedId
+          }
+        };
+        multipleMedias.push(files);
+      }
+    }
+
+    // const mediaObj = {
+    //   media: multipleMedias
+    // };
+
+    this.postMediaToChannel(chosenChannel.spotfeedId, multipleMedias);
+  }
+
+  /**
    * Media Info Update
    */
   mediaInfoUpdate(value: any) {

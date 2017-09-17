@@ -31,7 +31,7 @@ export class ModalComponent implements OnInit {
   isOpen = false;
 
   constructor(private modalService: ModalService) {
-    //
+    this.isOpen = this.open || false
   }
 
   @HostListener('document:keyup', ['$event'])
@@ -41,10 +41,10 @@ export class ModalComponent implements OnInit {
 
   openMe() {
     if (this.open === true) {
-      console.log('start as open');
+      console.log('Forced Open!');
       this.modalService.open(this.modalId);
-    } else {
-      console.log('start  as closed');
+      this.isOpen = true;
+      this.open = true;
     }
   }
 

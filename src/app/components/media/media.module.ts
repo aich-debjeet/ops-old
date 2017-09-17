@@ -25,11 +25,21 @@ import 'rxjs/add/observable/throw';
 import { NgxfUploaderModule } from 'ngxf-uploader';
 
 const routes: Routes = [
+  // {
+  //   path: '',
+  //   redirectTo: 'media',
+  //   pathMatch: 'full'
+  // },
   {
     path: 'post',
     component: MediaComponent,
     outlet: 'media',
     children: [
+      {
+        path: '',
+        redirectTo: 'media',
+        pathMatch: 'full'
+      },
       {
         path: 'status',
         component: StatusEditorComponent

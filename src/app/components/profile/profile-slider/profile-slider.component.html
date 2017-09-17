@@ -13,17 +13,18 @@
 </div>
 <div class="container pro-block" *ngIf="profileObject !== null">
     <div class="row">
-        <app-modal [modalTitle]="'Change Profile Image'" [open]="false" (onClose)="isClosed($event)" [blocking]='false' modalId='ChangeProfile' class="media__modal" size="tiny">
+        <app-modal open="false" [modalTitle]="'Change Profile Image'" [open]="false" (onClose)="isClosed($event)" [blocking]='false' modalId='ChangeProfile' class="media__modal" size="tiny">
           <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
           <span class="upload_prof_img u-clear">
             <button class="btn btn-primary" data-toggle="dropdown" aria-expanded="true" alt="" (click)="saveImageClick()">Save Image</button>
           </span>
         </app-modal>
+
         <div class="col-md-6 col-sm-12 pro__img" *ngIf="changingImage">
-          <span>Changin Image</span>
+
         </div>
 
-        <div class="col-md-6 col-sm-12 pro__img" *ngIf="!changingImage">
+        <div class="col-md-6 col-sm-12 pro__img">
           <div class="prof_img_block">
             <img src="{{ data && data.image ? data.image : baseUrl + profileObject?.image?.profile }}" class="img-responsive img-circle">
             <span class="upload_prof_img" *ngIf="isOtherProfile === false">
@@ -136,6 +137,7 @@
 </div>
 
 <router-outlet></router-outlet>
+
 <app-modal [modalTitle]="'Some title'" [open]="false" [blocking]='false' modalId='profileEditWindow'>
     <div>
         <form [formGroup]="profileForm" novalidate #myform="ngForm" (submit)= "profileFormSubmit(profileForm.value)">

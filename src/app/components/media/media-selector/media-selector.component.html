@@ -125,4 +125,5 @@
     </form>
     <app-channel-selector [userChannels]="channeList" (onSelection)="onChannelSelection($event)"></app-channel-selector>
     <button disable="true" class="btn btn-primary btn-sm btn-save" (click)="mediaInfoUpdate(mediaForm.value)">Post</button>
+    <button disable="true" class="btn btn-primary btn-sm btn-save" (click)="postAllMedia(mediaForm.value)">Post All</button>
   </div>
