@@ -10,6 +10,8 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
+import { ProfileModal, initialTag } from '../../../models/profile.model';
+
 @Component({
   selector: 'app-status-editor',
   templateUrl: './status-editor.component.html',
@@ -23,6 +25,13 @@ export class StatusEditorComponent {
   private mediaStateSubscription: Subscription;
   mediaState$: Observable<Media>;
   mediaStore = initialMedia;
+  profileStore = initialTag;
+
+  profileState$: Observable<ProfileModal>;
+  private tagStateSubscription: Subscription;
+  profileChannel = initialTag ;
+  statusSaved: boolean;
+
   constructor(
     private fb: FormBuilder,
     private store: Store<Media>
@@ -30,8 +39,15 @@ export class StatusEditorComponent {
     this.createStatusForm();
     // Reducer Store
     this.mediaState$ = store.select('mediaStore');
+    this.profileState$ = store.select('profileTags');
+    // Profile
+    this.profileState$.subscribe((state) => {
+      this.profileStore = state;
+    });
+    // Media
     this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
+      this.statusSaved = this.mediaStore.status_saved;
     });
   }
   /**
@@ -45,9 +61,11 @@ export class StatusEditorComponent {
    * Status Form
    */
   submitStatusForm(value: any) {
-    if ( this.statusForm.valid === true ) {
+    const userHandle = this.profileStore.profileUser.handle || '';
+
+    if ( this.statusForm.valid === true && userHandle !== '') {
       const postStatus = {
-        owner: '',
+        owner: userHandle,
         feed_type: 'status',
         title: '',
         description: value.status,

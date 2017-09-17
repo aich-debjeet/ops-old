@@ -1,4 +1,5 @@
 export class Media {
+  status_saved: boolean;
   status_uploaded = false;
   status_success = false;
   status_uploading = false;
@@ -8,16 +9,19 @@ export class Media {
   user_posts_loaded: boolean;
   user_posts_loading: boolean;
   media_detail: any;
+  channel_loading: boolean;
 }
 
 export const initialMedia: Media = {
+  status_saved: false,
   status_uploaded:  false,
   status_success: false,
   status_uploading: false,
   user_posts: [],
   user_posts_loaded: false,
   user_posts_loading: false,
-  media_detail: []
+  media_detail: [],
+  channel_loading: false
 };
 
 // export class MediaFile {

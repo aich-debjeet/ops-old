@@ -6,7 +6,6 @@ export class ModalService {
   modals: Array<ModalComponent>;
 
   constructor() {
-    console.log('Modal service');
     this.modals = [];
   }
 
@@ -20,12 +19,8 @@ export class ModalService {
   }
 
   open(modalId: string): void {
-    console.log(modalId);
     const modal = this.findModal(modalId);
-    console.log('OPEN', modal);
-
     if (modal) {
-      console.log('Made it open');
       modal.isOpen = true;
     }
   }
@@ -43,8 +38,6 @@ export class ModalService {
   }
 
   private findModal(modalId: string): ModalComponent {
-    console.log(this.modals.length);
-    console.log(this.modals);
     for (const modal of this.modals) {
       if (modal.modalId === modalId) {
         return modal;

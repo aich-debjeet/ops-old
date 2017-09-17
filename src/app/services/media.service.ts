@@ -37,7 +37,7 @@ export class MediaService {
    * @param req
    */
   postStatus(req: any) {
-    return this.api.post('/portal/network/feed/', req);
+    return this.api.post('/portal/network/feed', req);
   }
 
   /**

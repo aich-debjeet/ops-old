@@ -1,4 +1,7 @@
 <div class="c-status">
+  <div *ngIf="statusSaved === true" class="message">
+    Status updated succesfully!
+  </div>
   <form [formGroup]="statusForm" novalidate (ngSubmit) = "submitStatusForm(statusForm.value)" #myform="ngForm">
     <div class="c-status__content">
       <div class="middle_block">

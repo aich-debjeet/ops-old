@@ -32,7 +32,7 @@ export class ChannelInnerComponent implements OnInit {
   channel = initialMedia ;
   channelId: string;
   imageLink: string = environment.API_IMAGE;
-
+  pageLoading: boolean;
   constructor(
     private http: Http,
     private _store: Store<Media>,
@@ -40,10 +40,14 @@ export class ChannelInnerComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: ModalService) {
       this.channelId = route.snapshot.params['id'];
+
+      this.pageLoading = false;
+
       this.tagState$ = this._store.select('mediaStore');
       this.userState$ = this._store.select('profileTags');
       this.tagState$.subscribe((state) => {
         this.channel = state;
+        this.pageLoading = this.channel.channel_loading;
       });
       this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
       this.buildEditForm();

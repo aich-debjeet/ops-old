@@ -84,10 +84,10 @@ export class ProfileService {
       byteString = decodeURI(dataURI.split(',')[1]);
     }
 
-    // separate out the mime component
+    // Seperate out the MIME component
     const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
 
-    // write the bytes of the string to a typed array
+    // Write the bytes of the string to a typed array
     const ia = new Uint8Array(byteString.length);
     for (let i = 0; i < byteString.length; i ++) {
         ia[i] = byteString.charCodeAt(i);
@@ -100,20 +100,21 @@ export class ProfileService {
    * Upload Image
    * @param ImageObj
    */
-  buildImageForm(formData: any) {
-    const data = formData.image[0];
-    const imageType = (data.substring('data:image/'.length, data.indexOf(';base64')));
-    const fileData = new FormData();
+  buildImageForm(formValue: any) {
+    // let fileData:FormData = new FormData();
+    const frmData = new FormData();
+    // Check if image is present
+    if (formValue.image && formValue.image[0]) {
+      const imageData = formValue.image[0];
+      const imageType = (imageData.substring('data:image/'.length, imageData.indexOf(';base64')));
+      // Create random file name
+      const randm = Math.random().toString(36).slice(2);
+      const fileName = 'prof_' + randm + '.' + imageType;
 
-    // Create random file name
-    const randm = Math.random().toString(36).slice(2);
-    const fileName = 'profile_' + randm + '.' + imageType;
-
-    fileData.append('file', this.dataURItoBlob(data), fileName );
-    // console.log('FILIZED', fileData);
-    return fileData;
+      frmData.append('file', this.dataURItoBlob(imageData), fileName );
+      return frmData;
+    }
   }
-
    /**
    * Upload Image to CDN
    */
@@ -137,10 +138,8 @@ export class ProfileService {
    * When a user uploads an image with an existing file name in the system,
    * the response from CDN upload endpoint is giving the very previous image as response on success.
    */
-  uploadProfileImage(formData: any) {
-    const fileData = this.buildImageForm(formData);
-    console.log('FILE', fileData);
-    console.log('FORM', formData);
+  uploadProfileImage(formValue: any) {
+    const fileData = this.buildImageForm(formValue);
     return this.uploadImage(fileData);
   }
 

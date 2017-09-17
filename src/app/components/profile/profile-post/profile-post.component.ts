@@ -34,6 +34,7 @@ export class ProfilePostComponent implements OnInit {
   handle: string;
   counter: number;
   posts: any;
+  isEmpty: boolean;
   constructor(
     private http: Http,
     private _router: Router,
@@ -44,6 +45,7 @@ export class ProfilePostComponent implements OnInit {
     this.tagState$ = this._store.select('profileTags');
     // this.mediaState$ = this._store.select('mediaStore');
     this.counter = 0;
+    this.posts = [];
     this.tagState$.subscribe((state) => {
       this.userMedia = state;
       this.userFlag(state);
@@ -153,6 +155,11 @@ export class ProfilePostComponent implements OnInit {
     // Assign channel data to general list
     if ( isChannelReady === true ) {
       this.posts = this.userMedia.user_posts;
+      if (this.posts.length > 0 ) {
+        this.isEmpty = false;
+      } else {
+        this.isEmpty = true;
+      }
     }
   }
 

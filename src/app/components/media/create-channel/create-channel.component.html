@@ -76,6 +76,9 @@
                   </span>
               </div><!-- create channel head -->
               <div class="create_channel__content">
+                <div *ngIf="channelSaved === true" class="message">
+                  Status updated succesfully!
+                </div>
                 <form [formGroup]="channelForm" novalidate #myform="ngForm">
                   <div class="create_channel_form">
                       <div class="form_group">
