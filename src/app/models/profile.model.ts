@@ -27,6 +27,7 @@ export class ProfileModal {
   media_channel_posting: boolean;
   media_channel_posted: boolean;
   channel_saved: boolean;
+  profiles: any;
 }
 
 export class ProfileForm {
@@ -61,6 +62,7 @@ export const initialTag: ProfileModal = {
   media_channel_posting: false,
   media_channel_posted: false,
   channel_saved: false,
+  profiles: []
 };
 
 export class ProfileCard {

@@ -3,7 +3,6 @@ import { initialTag, ProfileModal } from '../models/profile.model';
 
 import { ProfileActions } from '../actions/profile.action';
 
-
 export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
   switch (type) {
@@ -324,14 +323,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.PROFILE_LOAD:
       return Object.assign({}, state, {
         profile_other: [],
-        profile_other_loading: true
+        profile_other_loading: true,
       });
 
     case ProfileActions.PROFILE_LOAD_SUCCESS:
       return Object.assign({}, state, {
         profile_other_loading: false,
         profile_other_loaded: true,
-        profile_other: payload
+        profile_other: payload,
+        profiles: [...state.profiles, payload],
       });
 
     case ProfileActions.PROFILE_LOAD_FAILED:

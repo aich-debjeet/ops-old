@@ -1,5 +1,4 @@
-<app-modal [modalTitle]="'Some title'" [open]="true" [blocking]='false' modalId='ViewMedia' class="media__modal" size="large">
-  <a (click)="doClose()">Close</a>
+<app-modal [modalTitle]="'Some title'" [open]="true" [blocking]='false' modalId='ViewMedia' class="media__modal" size="large" (onClose)="doClose($event)">
   <div id="imgModal" class=" media_modal">
       <div class="modal-dialog modal-lg">
           <!-- Modal content-->

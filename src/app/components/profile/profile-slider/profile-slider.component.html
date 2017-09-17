@@ -1,4 +1,4 @@
-<div *ngIf="profileObject !== null" class="prohead2" [ngStyle]="profileImageStyle(profileObject)">
+<div *ngIf="profileObject !== null" class="prohead2" [ngStyle]="coverImageStyle(profileObject)">
   <div class="container u-rel" *ngIf="isOtherProfile === false">
       <span class="upload_cover_img">
         <a (click)="showCoverImageUploader()" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -15,7 +15,8 @@
 
         <div class="col-md-6 col-sm-12 pro__img">
           <div class="prof_img_block">
-            <img src="{{ data && data.image ? data.image : baseUrl + profileObject?.image?.profile }}" class="img-responsive img-circle">
+            {{ profileImage }}
+            <img [src]="profileImage" class="img-responsive img-circle">
             <span class="upload_prof_img" *ngIf="isOtherProfile === false">
               <a class="dropdown-toggle btn btn-basic btn-sm upload-btn" data-toggle="dropdown" aria-expanded="true" alt="" routerLink="/profile/about/image">
                 <img src="http://d33wubrfki0l68.cloudfront.net/191393ff3b0564270e49e5a1548ca1384ba44571/2bd8e/img/svg/ico_edit_white.svg"/>

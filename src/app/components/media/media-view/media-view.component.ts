@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../../../environments/environment';
 
 import FilesHelper from '../../../helpers/fileUtils';
+import { ModalService } from '../../../shared/modal/modal.component.service';
 
 // Action
 import { MediaActions } from '../../../actions/media.action';
@@ -18,6 +19,7 @@ import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-media-view',
   templateUrl: './media-view.component.html',
+  providers: [ ModalService ],
   styleUrls: ['./media-view.component.scss']
 })
 

@@ -49,7 +49,7 @@ export class ProfileSliderComponent implements OnInit {
   baseUrl: string;
   private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   coverImage: string;
-
+  profileImage: string;
   selectedSkills = [];
   search: String;
   activateSubmitBtn = false;
@@ -74,9 +74,11 @@ export class ProfileSliderComponent implements OnInit {
 
     this.tagState$ = this.profileStore.select('profileTags');
     this.skillState$ = this.profileStore.select('loginTags');
+    this.profileImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
+      this.profileImageDefault();
     });
 
     this.skillState$.subscribe((state) => {
@@ -107,7 +109,7 @@ export class ProfileSliderComponent implements OnInit {
   /**
    * Present Profile Cover Image
    */
-  profileImageStyle(profile: any) {
+  coverImageStyle(profile: any) {
     if (profile == null) {
       return false;
     }
@@ -126,6 +128,22 @@ export class ProfileSliderComponent implements OnInit {
     }
 
     return resp;
+  }
+
+  /**
+   * Present Profile Cover Image
+   */
+  profileImageDefault() {
+    let profileImageURL = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+    const profile = this.profileObject;
+    if (profile) {
+      if (profile.image && profile.image.profile !== '') {
+        profileImageURL = this.baseUrl + profile.image.profile;
+      }
+      // Profile
+      this.profileImage = profileImageURL;
+    }
+    return profileImageURL;
   }
 
   isClosed(event) {
