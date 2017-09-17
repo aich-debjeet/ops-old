@@ -77,7 +77,7 @@
                 }
         }
         label {
-            height: 290px;
+            height: 316px;
             text-align: center;
             pointer-events: auto;
             position: static;
@@ -96,7 +96,7 @@
             display: inline-block;
             position: relative;
             -webkit-appearance: none;
-            height: 290px;
+            height: 316px;
             cursor: pointer;
         }
         input[type="checkbox"]:checked + .reg_profile_types:after {
@@ -113,6 +113,9 @@
             cursor: pointer;
         }
     }
+}
+.margin_t_16 {
+    margin-top: 16px;
 }
 .active-btn {
     color: #ff7b84 !important;

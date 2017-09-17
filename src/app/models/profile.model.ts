@@ -3,7 +3,7 @@ export class ProfileModal {
   completed: string[];
   loading: false;
   success: true;
-  profileUser?: string[];
+  profileUser?: any;
   editWork?: string[];
   profileDetails?: any;
   profileUpdateSuccess?: boolean
@@ -21,9 +21,12 @@ export class ProfileModal {
   user_channel: any;
   user_channels_loading: boolean;
   user_channels_loaded: boolean;
-  home_spotfeeds: any;
-  home_spotfeeds_loading: boolean;
-  home_spotfeeds_loaded: boolean;
+  user_posts: any;
+  user_posts_loading: boolean;
+  user_posts_loaded: boolean;
+  media_channel_posting: boolean;
+  media_channel_posted: boolean;
+  channel_saved: boolean;
 }
 
 export class ProfileForm {
@@ -38,18 +41,32 @@ export const initialTag: ProfileModal = {
   profileUser: [],
   channelEntity: false,
   profile_loaded: false,
+  // Profile Other
   profile_other: [],
   profile_other_loading: false,
   profile_other_loaded: false,
+  // Other User Channels
   other_channel: [],
   other_channels_loading: false,
   other_channels_loaded: false,
+  // User Channels
   user_channel: [],
   user_channels_loading: false,
   user_channels_loaded: false,
+<<<<<<< HEAD
   home_spotfeeds: [],
   home_spotfeeds_loading: false,
   home_spotfeeds_loaded: false,
+=======
+  // User Posts
+  user_posts: [],
+  user_posts_loading: false,
+  user_posts_loaded: false,
+  // Post Media to Channel
+  media_channel_posting: false,
+  media_channel_posted: false,
+  channel_saved: false,
+>>>>>>> c9b50d6c6b908d119100df5e8830dd0364aa11b4
 };
 
 export class ProfileCard {
@@ -60,6 +77,7 @@ export class ProfileCard {
   };
   userHandle: string;
   userBio: any;
+  userSkill: any;
   userDetails: any; // All Other Datas
   followingCount: number;
   follwerCount: number;

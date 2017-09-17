@@ -43,7 +43,6 @@ export class ProfileComponent implements OnInit {
     this.tagState$ = this.profileStore.select('profileTags');
     this.router = this.route;
     this.isCurrentUser = false;
-
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
       this.current_user_value = this.checkUserType(this.userProfile);

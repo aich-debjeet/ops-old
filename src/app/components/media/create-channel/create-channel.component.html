@@ -1,0 +1,157 @@
+<app-modal [modalTitle]="'Some title'" [open]="true" [blocking]='false' modalId='ViewMedia' class="media__modal" size="large" (onClose)="doClose($event)">
+    <a (click)="doClose()">Close</a>
+    <div class="container create_channel_main">
+    <div class="row">
+        <div class="create_channel_container" *ngIf="typeSelected === false">
+            <div class="create_channel__head with_border_bottom">
+              <h3 class="heading_3 text-black capitalize">Create Channel</h3>
+            </div>
+            <div class="create_channel__content">
+                <h2 class="heading_2">What is your channel about?</h2>
+                <ul>
+                    <li>
+                        <a (click)="showCreatechannelform(0)">
+                            <div class="channel_ico">
+                                <img src="http://d33wubrfki0l68.cloudfront.net/f2366be80960584f4c4d6529f4ba75f75bed14d6/c563f/img/illu-all@4x.png" alt="">
+                            </div>
+                            <div class="channel_title_and_short_det">
+                                <h3>A collection of all media type</h3>
+                                <p>Make a collection of Photo,Audio,Video and Blog</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="showCreatechannelform(1)">
+                            <div class="channel_ico">
+                              <img src="http://d33wubrfki0l68.cloudfront.net/526f4cd5b68d0ce27bed7c31650349673cdf9734/7391d/img/illu-image@4x.png" alt="">
+                          </div>
+                          <div class="channel_title_and_short_det">
+                              <h3>Photo Album</h3>
+                              <p>Make an album of images</p>
+                          </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="showCreatechannelform(2)">
+                          <div class="channel_ico">
+                              <img src="http://d33wubrfki0l68.cloudfront.net/9cfe36b2330d254d9d98a07c35906e5472c8fdc3/7bb7b/img/illu-audio@4x.png" alt="">
+                          </div>
+                          <div class="channel_title_and_short_det">
+                              <h3>Audio Playlist</h3>
+                              <p>Create a playlist of your favourite Audio, Podcast etc.</p>
+                          </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="showCreatechannelform(3)">
+                            <div class="channel_ico">
+                              <img src="http://d33wubrfki0l68.cloudfront.net/f554c7b812b555afa0a28e574e41334b4f308f31/82e90/img/illu-video@4x.png" alt="">
+                          </div>
+                          <div class="channel_title_and_short_det">
+                              <h3>video Library</h3>
+                              <p>Make a library of videos</p>
+                          </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="showCreatechannelform(4)">
+                          <div class="channel_ico">
+                              <img src="http://d33wubrfki0l68.cloudfront.net/623255b3fa225e1f096363dfad79e63bc5c7bdac/377c3/img/illu-blog@4x.png" alt="">
+                          </div>
+                          <div class="channel_title_and_short_det">
+                              <h3>Publications</h3>
+                              <p>Make a collection of Blogs</p>
+                          </div>
+                        </a>
+                    </li>
+                </ul>
+            </div><!-- create channel content end -->
+        </div><!-- create channel container end -->
+        <div class="" *ngIf="typeSelected === true">
+          <div class="create_channel_container">
+              <div class="create_channel__head with_border_bottom">
+                  <h3 class="heading_3 text-black capitalize">Create Channel</h3>
+                  <span class="search_close">
+                      <a href="javascript:hideCreatechannelform()"><img src="http://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
+                  </span>
+              </div><!-- create channel head -->
+              <div class="create_channel__content">
+                <div *ngIf="channelSaved === true" class="message">
+                  Status updated succesfully!
+                </div>
+                <form [formGroup]="channelForm" novalidate #myform="ngForm">
+                  <div class="create_channel_form">
+                      <div class="form_group">
+                          <input formControlName="title" class="form_input" required="" type="text">
+                          <span class="form_highlight"></span>
+                          <span class="form_bar"></span>
+                          <label>Title</label>
+                      </div>
+                      <div class="form_group">
+                          <textarea class="form_textarea" formControlName="desc" name="" placeholder="About your Channel"></textarea>
+                          <span class="form_highlight"></span>
+                          <span class="form_bar"></span>
+                          <!-- <label>About Channel</label> -->
+                      </div>
+                      <div class="form_group">
+                          <input class="form_input" required="" type="text">
+                          <span class="form_highlight"></span>
+                          <span class="form_bar"></span>
+                          <label>Tags</label>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-4">
+                              <div class="form_group">
+                                  <select formControlName="type" class="form-control" id="sel1">
+                                      <option value="">Industry</option>
+                                      <option value="DANCE">Dance</option>
+                                      <option value="MUSIC">Music</option>
+                                      <option value="THEATRE">Theatre</option>
+                                      <option value="CINEMA">Cinema</option>
+                                      <option value="GRAPHICS">Graphics</option>
+                                      <option value="FASHION">Fashion</option>
+                                      <option value="TELEVISION">Television.</option>
+                                      <option value="FINE_ARTS">Fine Arts</option>
+                                      <option value="PHOTOGRAPHY">Photography</option>
+                                      <option value="PRODUCTION">Production</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="col-md-4">
+                              <div class="form_group">
+                                  <select formControlName="privacy" class="form-control" id="sel1">
+                                      <option value="0">Public</option>
+                                      <option value="1">Private</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="col-md-4">
+                              <div class="ops_radio_sm">
+                                  <label class="col-md-6">
+                                      <input formControlName="openess" type="radio"><span></span>Open
+                                  </label>
+                                  <label class="col-md-6">
+                                      <input formControlName="openess" type="radio"><span></span>Close
+                                  </label>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="form_group">
+                          <input class="form_input" type="text" required="">
+                          <span class="form_highlight"></span>
+                          <span class="form_bar"></span>
+                          <label>Add peoples</label>
+                          <span><i class="fa fa-search" aria-hidden="true"></i></span>
+                      </div>
+                  </div>
+                  <div class="create_channel_btn with_border_top">
+                      <button class="btn btn-normal btn-sm" type="submit" (click)="createChannel(channelForm.value)">Create</button>
+                  </div>
+                </form>
+              </div><!-- create channel content end -->
+          </div>
+        </div>
+    </div>
+</div>
+</app-modal>

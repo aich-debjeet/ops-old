@@ -5,12 +5,14 @@
     </div>
   </div>
   <masonry>
-    <masonry-brick class="col-md-4 col-sm-6 c-card" *ngFor="let userMedia of userMedia.mediaEntity?.SUCCESS; let i = index">
-        <app-post-card (onClick)="editPopup(userMedia.id)" [mediaData]="userMedia"></app-post-card>
+    <masonry-brick class="col-md-4 col-sm-6 c-card" *ngFor="let userMedia of posts; let i = index">
+      <app-post-card [mediaData]="userMedia"></app-post-card>
     </masonry-brick>
   </masonry>
 </div>
 
-<app-modal [modalTitle]="''" [blocking]='false' modalId='mediaPopup' size="media">
-  <app-media-popup (onComment)="submitComment($event)" [data]="mediaDetails?.media_detail" [profileImage]="userMedia?.profileUser" [comment]="mediaDetails?.media_comment"></app-media-popup>
-</app-modal>
+<div *ngIf="posts.length < 1" class="empty__state">
+  <h4>You have no medias</h4>
+  <p>You have not added any posts, click below to create your first Channel!</p>
+  <a class="btn-add" [routerLink]="['', { outlets: { media : ['post', 'media'] } } ]">Post media</a>
+</div>

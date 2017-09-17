@@ -170,6 +170,9 @@
   </form>
 </app-modal>
 
-<app-modal  [blocking]='false' modalId='mediaPopup' size="media">
-  <app-media-popup (onComment)="submitComment($event)" [data]="channel?.media_detail" [profileImage]="(userState$ | async).profileUser" [comment]="channel?.media_comment"></app-media-popup>
-</app-modal>
+
+<div *ngIf="pageLoading === true">
+  <div class="sticky">
+    <div class="loader">Loading...</div>
+  </div>
+</div>

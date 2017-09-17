@@ -1,6 +1,6 @@
 <button (click)="handleClick($event)" type="{{type || 'button'}}" class="btn {{className}}">
-    <span class="btn-label-follow">
-    <img src="/assets/img/svg/ico_plus_white.svg">
+    <span class="btn-label-follow" *ngIf="follow">
+        <img src="/assets/img/svg/ico_plus_white.svg">
     </span>
     <ng-content></ng-content>
 </button>

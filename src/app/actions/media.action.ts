@@ -40,6 +40,11 @@ export class MediaActions {
   // Unspot
   static MEDIA_UNSPOT = 'MEDIA_SPOT';
 
+  // Load user Media
+  static LOAD_USER_MEDIA = '[USER]LOAD_USER_MEDIA';
+  static LOAD_USER_MEDIA_SUCCESS = '[USER]LOAD_USER_MEDIA_SUCCESS';
+  static LOAD_USER_MEDIA_FAILED = '[USER]LOAD_USER_MEDIA_FAILED';
+
   /**
    * Upload status
    * @param value

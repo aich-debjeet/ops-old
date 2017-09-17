@@ -66,7 +66,7 @@ export class ProfileEffect {
   loadUserMedia$ = this.actions$
     .ofType(ProfileActions.LOAD_USER_MEDIA)
     .map(toPayload)
-    .switchMap((payload) => this.profileService.getLoggedInMedia(payload)
+    .switchMap((payload) => this.profileService.getUserMedia(payload)
       .map(res => ({ type: ProfileActions.LOAD_USER_MEDIA_SUCCESS, payload: res }))
       .catch((res) => Observable.of({
         type: ProfileActions.LOAD_USER_MEDIA_FAILED,
@@ -411,19 +411,16 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.PROFILE_FOLLOW_FAILED, payload: res }))
     );
 
-  /**
-   * Get spotfeed detail
+    /**
+   * Get user channels
    */
   @Effect()
-  getSpotfeedDetail$ = this.actions$
-    .ofType(ProfileActions.GET_SPOTFEED_DETAILS)
+  postMediaChannel$ = this.actions$
+    .ofType(ProfileActions.POST_CHANNEL_MEDIA)
     .map(toPayload)
-    .switchMap((payload) => this.profileService.getSingleSpotfeed(payload)
-      .map(res => ({ type: ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({
-        type: ProfileActions.GET_SPOTFEED_DETAILS_FAILED,
-        payload: { errorStatus: res.status }
-      }))
+    .switchMap((payload) => this.profileService.postMediaToChannel(payload)
+      .map(res => ({ type: ProfileActions.POST_CHANNEL_MEDIA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.POST_CHANNEL_MEDIA_FAILED, payload: res }))
     );
 
   constructor(

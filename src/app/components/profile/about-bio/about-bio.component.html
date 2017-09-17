@@ -5,36 +5,42 @@
       <div class="row">
         <div class="col-md-6">
           <div class="about_padding24">
+            <a (click)="openPopup()" class="about-edit" *ngIf="ownProfile">
+                <span class="about-edit-ico">
+                    <img src="http://d33wubrfki0l68.cloudfront.net/f59445fae5cd6afccbcb9f1f677a4383643bd1de/3ef81/img/svg/edit-red.svg" alt="">
+                </span>
+                Edit Bio Details
+            </a>
             <div class="ops_heading12">About Me</div>
             <div class="ops_subheading">
-              {{ (userProfile.profileDetails?.aboutMe !== "") ? userProfile.profileDetails?.aboutMe : "n/a" }}
+              {{ (userProfile?.aboutMe !== "") ? userProfile?.aboutMe : "n/a" }}
               </div>
             <table class="table">
               <tbody>
                 <tr>
                   <td class="ops_heading12">Gender</td>
-                  <td class="ops_subheading">{{ (userProfile.profileDetails?.physical.gender !== "") ? userProfile.profileDetails?.physical.gender : "n/a" }}</td>
+                  <td class="ops_subheading">{{ (userProfile?.physical?.gender !== "") ? userProfile?.physical?.gender : "n/a" }}</td>
                 </tr>
                 <tr>
                   <td class="ops_heading12">Address Line 1</td>
-                  <td class="ops_subheading">{{ (userProfile.profileDetails?.extra.address.line1 !== "") ? userProfile.profileDetails?.extra.address.line1 : "n/a" }}</td>
+                  <td class="ops_subheading">{{ (userProfile?.extra?.address?.line1 !== "") ? userProfile?.extra?.address?.line1 : "n/a" }}</td>
                 </tr>
                 <tr>
                   <tr>
                     <td class="ops_heading12">Address Line 2</td>
-                    <td class="ops_subheading">{{ (userProfile.profileDetails?.extra.address.line2 !== "") ? userProfile.profileDetails?.extra.address.line2 : "n/a" }}</td>
+                    <td class="ops_subheading">{{ (userProfile?.extra?.address?.line2 !== "") ? userProfile?.extra?.address?.line2 : "n/a" }}</td>
                   </tr>
                   <tr>
                     <td class="ops_heading12">City</td>
-                    <td class="ops_subheading">{{ (userProfile.profileDetails?.extra.address.city !== "") ? userProfile.profileDetails?.extra.address.city : "n/a" }}</td>
+                    <td class="ops_subheading">{{ (userProfile?.extra?.address?.city !== "") ? userProfile?.extra?.address?.city : "n/a" }}</td>
                   </tr>
                   <tr>
                     <td class="ops_heading12">Country</td>
-                    <td class="ops_subheading">{{ (userProfile.profileDetails?.extra.address.country !== "") ? userProfile.profileDetails?.extra.address.country : "n/a" }}</td>
+                    <td class="ops_subheading">{{ (userProfile?.extra?.address?.country !== "") ? userProfile?.extra?.address?.country : "n/a" }}</td>
                   </tr>
                   <tr>
                     <td class="ops_heading12">Postal Code</td>
-                    <td class="ops_subheading">{{ (userProfile.profileDetails?.extra.address.postalCode !== "") ? userProfile.profileDetails?.extra.address.postalCode : "n/a" }}</td>
+                    <td class="ops_subheading">{{ (userProfile?.extra?.address?.postalCode !== "") ? userProfile?.extra?.address?.postalCode : "n/a" }}</td>
                   </tr>
               </tbody>
             </table>
@@ -45,40 +51,40 @@
             <tbody>
               <tr>
                 <td class="ops_heading12">birth day</td>
-                <td class="ops_subheading">{{ (userProfile.profileDetails?.physical.dateOfBirth !== "") ? (userProfile.profileDetails?.physical.dateOfBirth | date:'dd, MMMM, y') : "n/a" }}</td>
+                <td class="ops_subheading">{{ (userProfile?.physical?.dateOfBirth !== "") ? (userProfile?.physical?.dateOfBirth | date:'dd, MMMM, y') : "n/a" }}</td>
               </tr>
               <tr>
                 <td class="ops_heading12">height</td>
-                <td class="ops_subheading">{{ (userProfile.profileDetails?.physical.height !== 0 || userProfile.profileDetails?.physical.height ) ? userProfile.profileDetails?.physical.height  : "n/a" }}</td>
+                <td class="ops_subheading">{{ (userProfile?.physical?.height !== 0 || userProfile?.physical?.height ) ? userProfile?.physical?.height  : "n/a" }}</td>
               </tr>
               <tr>
                 <tr>
                   <td class="ops_heading12">weight</td>
-                  <td class="ops_subheading">{{ (userProfile.profileDetails?.physical.weight !== 0) ? userProfile.profileDetails?.physical.weight  : "n/a" }}</td>
+                  <td class="ops_subheading">{{ (userProfile?.physical?.weight !== 0) ? userProfile?.physical?.weight  : "n/a" }}</td>
                 </tr>
                 <tr>
                   <td class="ops_heading12">Language known</td>
-                  <td class="ops_subheading"><span *ngFor="let lang of userProfile.profileDetails?.languages">{{ lang }},</span></td>
+                  <td class="ops_subheading"><span *ngFor="let lang of userProfile?.languages">{{ lang }},</span></td>
                 </tr>
                 <tr>
                   <td class="ops_heading12">Ethinicity</td>
-                  <td class="ops_subheading">{{ (userProfile.profileDetails?.physical.ethnicity !== "") ? userProfile.profileDetails?.physical.ethnicity  : "n/a" }}</td>
+                  <td class="ops_subheading">{{ (userProfile?.physical?.ethnicity !== "") ? userProfile?.physical?.ethnicity  : "n/a" }}</td>
                 </tr>
                 <tr>
                   <td class="ops_heading12">complexion</td>
-                  <td class="ops_subheading">{{ (userProfile.profileDetails?.physical.complexion !== "") ? userProfile.profileDetails?.physical.complexion  : "n/a" }}</td>
+                  <td class="ops_subheading">{{ (userProfile?.physical?.complexion !== "") ? userProfile?.physical?.complexion  : "n/a" }}</td>
                 </tr>
                 <tr>
                   <td class="ops_heading12">Phone</td>
-                  <td class="ops_subheading">{{ (userProfile.profileDetails?.contact.mobile.mobile !== "" ) ? userProfile.profileDetails?.contact.mobile.mobile  : "n/a" }}</td>
+                  <td class="ops_subheading">{{ (userProfile?.contact?.mobile?.mobile !== "" ) ? userProfile?.contact?.mobile?.mobile  : "n/a" }}</td>
                 </tr>
                 <tr>
                   <td class="ops_heading12">mail</td>
-                  <td class="ops_subheading">{{ (userProfile.profileDetails?.email !== "" ) ? userProfile.profileDetails?.email : "n/a" }}</td>
+                  <td class="ops_subheading">{{ (userProfile?.email !== "" ) ? userProfile?.email : "n/a" }}</td>
                 </tr>
                 <tr>
                   <td class="ops_heading12">website</td>
-                  <td class="ops_subheading">{{ (userProfile.profileDetails?.contact.website !== "" ) ? userProfile.profileDetails?.contact.website.website : "n/a" }}</td>
+                  <td class="ops_subheading">{{ (userProfile?.contact?.website !== "" ) ? userProfile?.contact?.website?.website : "n/a" }}</td>
                 </tr>
             </tbody>
           </table>
@@ -88,3 +94,120 @@
     <!-- //bio -->
   </div>
 </div>
+
+<app-modal [blocking]='false' modalId='bioEdit' *ngIf="ownProfile">
+    <!-- edit bio pop -->
+  <div class="" id="edit_bio_pop" >
+    <div class="modal-dialog modal-md " id="">
+       <form [formGroup]="bioForm" novalidate #myform="ngForm" (submit)= "bioFormSubmit(bioForm.value)">
+        <div class="modal-content edit-profile_main">
+            <!-- <div class="modal-header" style="border: none;">
+                <button type="button" class="close" data-dismiss="modal"></button>
+            </div> -->
+            <div class="edit-profile_head" >
+                <div class="col-md-6 padding_none">
+                    <h2>Edit About</h2>
+                </div>
+                <div class="col-md-6 padding_none text-right">
+                  <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="editFormClose()">Close</app-button>
+                  <app-button [className]="'btn btn-primary btn-sm'" [type]="'submit'" >Save</app-button>
+                </div>
+            </div><!-- edit profile head end -->
+
+            <div class="edit-profile-form">
+                <div class="editarea">
+                    <div class="form_group">
+                        <textarea class="form_input form_textarea" name="" formControlName="about_me"></textarea>
+                        <span class="form_highlight"></span>
+                        <span class="form_bar"></span>
+                        <label>About Me</label>
+                    </div>
+                    <div class="edit-profile__gender-container">
+                        <span class="ops_heading12 float_left">Gender</span>
+                        <div class="edit-about-gender ops_radio_sm">
+                            <div class="ops_radio_sm">
+                                <label class="col-md-4">
+                                    <input type="radio" value="M" formControlName="gender"><span></span>Male
+                                </label>
+                                <label class="col-md-4">
+                                    <input type="radio" value="F" formControlName="gender"><span></span>Female
+                                </label>
+                                <label class="col-md-4">
+                                    <input type="radio" value="O" formControlName="gender"><span></span>Others
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_group">
+                        <input class="form_input" type="text" formControlName="address_one">
+                        <span class="form_highlight"></span>
+                        <span class="form_bar"></span>
+                        <label>Address Line 1</label>
+                    </div>
+                    <div class="form_group">
+                        <input class="form_input" type="text" formControlName="address_two">
+                        <span class="form_highlight"></span>
+                        <span class="form_bar"></span>
+                        <label>Address Line 2</label>
+                    </div>
+                    <div class="form_group">
+                        <input class="form_input" type="text" formControlName="city">
+                        <span class="form_highlight"></span>
+                        <span class="form_bar"></span>
+                        <label>City</label>
+                    </div>
+                    <div class="form_group">
+                        <input class="form_input" type="text" formControlName="country">
+                        <span class="form_highlight"></span>
+                        <span class="form_bar"></span>
+                        <label>Country</label>
+                    </div>
+                    <div class="form_group">
+                        <input class="form_input" formControlName="pin_code">
+                        <span class="form_highlight"></span>
+                        <span class="form_bar"></span>
+                        <label>Postal Code</label>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form_group">
+                                <input class="form_input" type="text" formControlName="height">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Height</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form_group">
+                                <input class="form_input" type="text" formControlName="weight">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Weight</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_group">
+                        <input class="form_input" type="text" formControlName="lang">
+                        <span class="form_highlight"></span>
+                        <span class="form_bar"></span>
+                        <label>Language Known</label>
+                    </div>
+                    <div class="form_group">
+                        <input class="form_input" type="text" formControlName="ethnicity">
+                        <span class="form_highlight"></span>
+                        <span class="form_bar"></span>
+                        <label>Ethnicity</label>
+                    </div>
+                    <div class="form_group">
+                        <input class="form_input" type="text" formControlName="complexion">
+                        <span class="form_highlight"></span>
+                        <span class="form_bar"></span>
+                        <label>Complexion</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+       </form>
+    </div>
+  </div>
+</app-modal>

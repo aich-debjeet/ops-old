@@ -111,23 +111,24 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
 
     case AuthActions.USER_REGISTRATION_BASIC:
-      // console.log(payload);
-      // console.log('registration started');
       return Object.assign({}, state, {
-        success: true
+        success: true,
+        user_basic_reg_succs: false,
       });
 
     case AuthActions.USER_REGISTRATION_BASIC_SUCCESS:
       return Object.assign({}, state, {
         completed: payload,
+        user_basic_reg_succs: true,
         success: true,
-        user_token: payload.access_token
+        user_token: payload.access_Token
       });
 
     case AuthActions.USER_REGISTRATION_BASIC_FAILED:
       // console.log('registration Faild');
       // console.log(payload);
       return Object.assign({}, state, {
+        user_basic_reg_succs: false,
         success: false,
         completed: payload
       });
@@ -179,7 +180,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.USER_EXISTS_SUCCESS:
       if (payload.code === 0) {
         return Object.assign({}, state, {
-          completed: payload,
+          user_exsist: payload.Suggested,
           success: false,
           user_unique: true
         });
@@ -288,6 +289,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.FP_CREATE_PASS_FAILED:
     // console.log('FP_CREATE_PASS_FAILED');
       return Object.assign({}, state, {
+        fb_pass_create_failed: true,
         success: false
       });
 
@@ -357,6 +359,38 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.FP_GET_USER_EMAIL_FAILED:
       return Object.assign({}, state, {
         fp_userdata_loading_failed: true
+      });
+
+    /**
+     * Reg OTP Submit
+     */
+    case AuthActions.OTP_SUBMIT:
+      return Object.assign({}, state, {
+        user_otp_success: false
+      });
+    case AuthActions.OTP_SUBMIT_SUCCESS:
+      return Object.assign({}, state, {
+        user_otp_success: true
+      });
+    case AuthActions.OTP_SUBMIT_FAILED:
+      return Object.assign({}, state, {
+        user_otp_failed: true
+      });
+
+    /**
+     * Reg OTP Number Change
+     */
+    case AuthActions.OTP_NUMBER_CHANGE:
+      return Object.assign({}, state, {
+        user_number_cng_success: false
+      });
+    case AuthActions.OTP_NUMBER_CHANGE_SUCCESS:
+      return Object.assign({}, state, {
+        user_number_cng_success: true
+      });
+    case AuthActions.OTP_NUMBER_CHANGE_SUCCESS:
+      return Object.assign({}, state, {
+        user_number_cng_failed: true
       });
 
     // OTP Failed

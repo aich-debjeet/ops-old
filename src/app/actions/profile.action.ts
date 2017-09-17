@@ -171,6 +171,13 @@ export class ProfileActions {
   static PROFILE_FOLLOW_FAILED = 'PROFILE_FOLLOW_FAILED';
 
   /**
+   * Post Media to Channel
+   */
+  static POST_CHANNEL_MEDIA = 'POST_CHANNEL_MEDIA';
+  static POST_CHANNEL_MEDIA_SUCCESS = 'POST_CHANNEL_MEDIA_SUCCESS';
+  static POST_CHANNEL_MEDIA_FAILED = 'POST_CHANNEL_MEDIA_FAILED';
+
+  /**
    * Load Current user profile
    */
   getUserProfile(): Action {

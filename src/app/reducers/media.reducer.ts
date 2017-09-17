@@ -36,17 +36,21 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
     case MediaActions.GET_CHANNEL_DETAILS:
       return Object.assign({}, state, {
         success: true,
-        channel_loading: false,
+        channel_loading: true,
+        channel_loaded: false,
       });
 
     case MediaActions.GET_CHANNEL_DETAILS_SUCCESS:
       return Object.assign({}, state, {
-        channel_loading: true,
+        channel_loading: false,
+        channel_loaded: true,
         channel_detail: payload
       });
 
     case MediaActions.GET_CHANNEL_DETAILS_FAILED:
       return Object.assign({}, state, {
+        channel_loading: false,
+        channel_loaded: false,
         success: false
       });
 
@@ -104,7 +108,32 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         media_post_success: true
       });
 
+    /**
+     * Get User Media Post
+     */
+    case MediaActions.LOAD_USER_MEDIA:
+      console.log('loading');
+      return Object.assign({}, state, {
+        user_posts_loading: true,
+        user_posts_loaded: false,
+        user_posts: []
+      });
 
+    case MediaActions.LOAD_USER_MEDIA_SUCCESS:
+      console.log('loaded');
+      return Object.assign({}, state, {
+        mediaEntity: payload,
+        user_posts_loaded: true,
+        user_posts_loading: false,
+        user_posts: payload
+      });
+
+    case MediaActions.LOAD_USER_MEDIA_FAILED:
+
+      return Object.assign({}, state, {
+        user_posts_loaded: false,
+        user_posts_loading: false
+      });
 
     default:
       return state;
