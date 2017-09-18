@@ -1,5 +1,4 @@
-<app-modal [modalTitle]="'Some title'" [open]="true" [blocking]='false' modalId='ViewMedia' class="media__modal" size="large" (onClose)="doClose($event)">
-    <a (click)="doClose()">Close</a>
+<app-modal [modalTitle]="'Some title'" [open]="true" [blocking]='false' modalId='CreateChannel' class="media__modal" size="large" (onClose)="doClose($event)">
     <div class="container create_channel_main">
     <div class="row">
         <div class="create_channel_container" *ngIf="typeSelected === false">
@@ -71,7 +70,7 @@
           <div class="create_channel_container">
               <div class="create_channel__head with_border_bottom">
                   <h3 class="heading_3 text-black capitalize">Create Channel</h3>
-                  <span class="search_close">
+                  <span class="search_close" (click)="doClose()">
                       <a href="javascript:hideCreatechannelform()"><img src="http://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
                   </span>
               </div><!-- create channel head -->
@@ -128,10 +127,10 @@
                           <div class="col-md-4">
                               <div class="ops_radio_sm">
                                   <label class="col-md-6">
-                                      <input formControlName="openess" type="radio"><span></span>Open
+                                      <input formControlName="openess" type="radio" value="0"><span></span>Open
                                   </label>
                                   <label class="col-md-6">
-                                      <input formControlName="openess" type="radio"><span></span>Close
+                                      <input formControlName="openess" type="radio" value="1"><span></span>Close
                                   </label>
                               </div>
                           </div>

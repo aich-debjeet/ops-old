@@ -28,6 +28,7 @@ export class AboutBioComponent implements OnInit {
   stateProfile = initialTag;
   userProfile: any;
   ownProfile: boolean;
+  changingImage: boolean;
 
   constructor(
     private _http: Http,
@@ -40,7 +41,8 @@ export class AboutBioComponent implements OnInit {
 
     this.tagState$.subscribe((state) => {
       this.stateProfile = state;
-      if (this.stateProfile.profile_other_loaded === true) {
+      console.log(state);
+      if (this.stateProfile.current_user_profile && this.stateProfile.profile_other_loaded === true) {
         this.ownProfile = false;
         this.userProfile = this.stateProfile.profile_other;
       }else {
@@ -54,7 +56,10 @@ export class AboutBioComponent implements OnInit {
     this.bioFormIinit()
   }
 
-
+  isClosed(event) {
+    this.changingImage = event;
+    console.log(event);
+  }
 
 
   openPopup() {

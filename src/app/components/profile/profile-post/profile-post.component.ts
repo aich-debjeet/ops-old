@@ -50,43 +50,10 @@ export class ProfilePostComponent implements OnInit {
       this.userMedia = state;
       this.userFlag(state);
     });
-
-    // this.mediaState$.subscribe((state) => {
-    //   this.mediaDetails = state;
-    //   this.userFlag(this.mediaDetails);
-    // });
   }
 
   ngOnInit() {
   }
-
-  // editPopup(id) {
-  //   this._store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id});
-  //   this._store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
-  //   this.modalService.open('mediaPopup');
-  // }
-
-  // closePopup() {
-  //   this.modalService.close('mediaPopup');
-  // }
-
-  // submitComment(value) {
-  //   if (value !== undefined &&  value !== null && value !== ' ') {
-  //     const body = {
-  //       'content': value,
-  //       'parent': this.mediaDetails['media_detail'].id
-  //     }
-  //     this._store.dispatch({ type: MediaActions.POST_COMMENT, payload: body});
-  //     // this.mediaState$.subscribe(
-  //     //   data => {
-  //     //     console.log(data.media_post_success);
-  //     //     if (data. media_post_success === true) {
-  //     //       this.mediaStore.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: this.mediaDetails['media_detail'].id });
-  //     //     }
-  //     //   }
-  //     // )
-  //   }
-  // }
 
   /**
    * Check Profile state
@@ -99,6 +66,10 @@ export class ProfilePostComponent implements OnInit {
     });
   }
 
+  /**
+   * Check if object is empty
+   * @param obj
+   */
   checkEmpty(obj: Object) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
   }
@@ -122,18 +93,33 @@ export class ProfilePostComponent implements OnInit {
    * Load Other Profile Related Data
    */
   loadOtherProfile(isOwn: boolean = false) {
-    const isChannelReady = this.userMedia.user_posts_loaded;
     let isProfileReady;
+    let isChannelReady;
+    let shouldLoad = false;
     // Check
     if (isOwn) {
       isProfileReady = this.userMedia.profile_loaded;
+      isChannelReady = this.userMedia.user_posts_loaded;
       // handleID = this.userMedia.profileDetails.handle;
     } else {
       isProfileReady = this.userMedia.profile_other_loaded;
-      // handleID = this.userMedia.profile_other.handle;
+      isChannelReady = (this.userName === this.userMedia.profile_other['extra']['username']);
     }
 
-    // X
+    // If loaded posts and the profile are different
+    if ( isProfileReady && isChannelReady ) {
+      // get current handle
+      const mHandleID = this.userMedia.profileDetails.handle;
+      if (this.userMedia.user_posts.length > 0 ) {
+        let handleA = this.userMedia.user_posts[0].ownerHandle || '';
+        let handleB = mHandleID;
+        if (handleA !== handleB) {
+          shouldLoad = true;
+          console.log('This should reload');
+        }
+      }
+    }
+
     // console.log('Posts', isChannelReady, 'Profile', isProfileReady);
 
     // Check if the other profile is loaded; also make sure the activated route is not current user

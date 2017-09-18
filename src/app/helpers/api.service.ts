@@ -27,6 +27,13 @@ export class ApiService {
   }
 
   /**
+   * Logged in user token headers
+   */
+  getFileHeaders() {
+    return this.tokenService.getPlainHeader();
+  }
+
+  /**
    * Logged in user handle
    */
   getHandle() {
@@ -67,6 +74,15 @@ export class ApiService {
    */
   post(path: string, body: any) {
     const head = this.getHeaders();
+    return this.http.post(this.apiLink + path, body, { headers: head })
+      .map((data: Response) => data.json());
+  }
+
+  /**
+   * POST Function
+   */
+  postFile(path: string, body: any) {
+    const head = this.getFileHeaders();
     return this.http.post(this.apiLink + path, body, { headers: head })
       .map((data: Response) => data.json());
   }

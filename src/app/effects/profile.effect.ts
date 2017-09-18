@@ -322,7 +322,7 @@ export class ProfileEffect {
     saveCoverImage$ = this.actions$
       .ofType(ProfileActions.PROFILE_COVER_UPDATE)
       .map(toPayload)
-      .switchMap((payload) => this.profileService.uploadImage(payload)
+      .switchMap((payload) => this.profileService.coverImageUploader(payload)
         .map(res => ({ type: ProfileActions.PROFILE_COVER_UPDATE_SUCCESS, payload: res }))
         .catch((res) => Observable.of({ type: ProfileActions.PROFILE_COVER_UPDATE_FAILED, payload: res }))
       );

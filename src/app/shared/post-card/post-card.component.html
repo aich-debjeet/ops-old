@@ -8,7 +8,7 @@
             <figure class="feed-avatar">
                 <app-videplayer *ngIf="checkFileType(mediaData?.repopath, 'Video')" src="{{ imageLink + mediaData?.repopath }}"></app-videplayer>
                 <img *ngIf="checkFileType(mediaData?.repopath, 'Image')" src="{{ imageLink + mediaData?.repopath }}" class="img-responsive">
-                <app-audioplayer *ngIf="checkFileType(mediaData?.repopath, 'Audio')" src="{{ imageLink + mediaData?.repopath }}"></app-audioplayer>
+                <app-audioplayer class="audio" *ngIf="checkFileType(mediaData?.repopath, 'Audio')" src="{{ imageLink + mediaData?.repopath }}" type="simple"></app-audioplayer>
             </figure>
         </a>
         <div class="feed_article" *ngIf="checkFileType(mediaData?.repopath, 'Image')"><img src="http://d33wubrfki0l68.cloudfront.net/e71f0fc9a8055ea597b62c0c1b3c9c94b2e5f2bc/ab7ce/img/svg/ico_media_img.svg"></div>
@@ -27,7 +27,7 @@
         </div>
         <div class="ops_subheading extra-padding" *ngIf="mediaData?.mtype!='status'">{{ mediaData?.description }} </div>
         <div class="pro_channel-thumb">
-            <img src="{{ 'http://d206s58i653k1q.cloudfront.net/' +  mediaData?.ownerImage }}">
+            <img [src]="userImage">
             <p>{{ mediaData?.ownerName }}</p>
             <a *ngIf="mediaData?.channelId" routerLink="{{ '/channel/' + mediaData?.channelId }}" class="small-txt" >{{ mediaData?.channelName }}</a>
         </div>

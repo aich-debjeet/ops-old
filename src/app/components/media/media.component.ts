@@ -3,6 +3,7 @@ import { TabComponents  } from '../../shared/tabs/tabset';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 import { Http, Headers, Response } from '@angular/http';
+import { ModalService } from '../../shared/modal/modal.component.service';
 
 // Action
 import { MediaActions } from '../../actions/media.action';
@@ -23,7 +24,7 @@ import * as MediumEditor from 'medium-editor';
 @Component({
   selector: 'app-media',
   templateUrl: './media.component.html',
-  providers: [ TabComponents, FileUploadService],
+  providers: [ TabComponents, FileUploadService, ModalService],
   styleUrls: ['./media.component.scss']
 })
 
@@ -66,11 +67,7 @@ export class MediaComponent implements OnInit, AfterViewInit {
       // this.createMediaForm();
 
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      this.handle = 'Z_95E0C34B_4D10_4F1D_B77B_C6178AC85CF8MUNEEF_MUNEEF_IN'; // localStorage.getItem('currentUserID');
-      this.tempChannel = 'g-8b97a287-6de0-4a8e-acf8-2b1cb8624cfe';
       this.token = currentUser.access_token; // your token
-
-      const tempUser = 'Z_95E0C34B_4D10_4F1D_B77B_C6178AC85CF8MUNEEF_MUNEEF_IN';
 
       // Reducer Store
       this.mediaState$ = this.store.select('mediaStore');
@@ -86,10 +83,13 @@ export class MediaComponent implements OnInit, AfterViewInit {
         this.profileStore = state;
         if (this.channelLoaded === false && this.profileStore.user_channel.length < 1 && this.profileStore.user_channels_loaded === false) {
           this.channelLoaded = true;
-          this.loadChannels(this.handle);
+          const userHandle = this.profileStore.profileUser.handle;
+          console.log('im making it');
+          this.loadChannels(userHandle);
         }
         // If its loaded assign to the variables
-        if (this.profileStore.user_channel.length > 0 ) {
+        if ( this.channelLoaded === false && this.profileStore.user_channels_loaded === true ) {
+          console.log('i passed');
           this.userChannels = this.profileStore.user_channel;
         }
       });
@@ -102,7 +102,9 @@ export class MediaComponent implements OnInit, AfterViewInit {
   }
 
   loadChannels(handle: string) {
-    this.profStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
+    if (handle !== '') {
+      this.profStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
+    }
   }
 
   /**

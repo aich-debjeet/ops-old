@@ -178,6 +178,12 @@ export class ProfileActions {
   static POST_CHANNEL_MEDIA_FAILED = 'POST_CHANNEL_MEDIA_FAILED';
 
   /**
+   * Who is Current user profile
+   */
+  static CURRENT_PROFILE_USER = 'CURRENT_PROFILE_USER';
+  static CURRENT_PROFILE_USER_SUCCESS = 'CURRENT_PROFILE_USER_SUCCESS';
+
+  /**
    * Load Current user profile
    */
   getUserProfile(): Action {

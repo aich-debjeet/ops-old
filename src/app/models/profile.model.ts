@@ -27,6 +27,8 @@ export class ProfileModal {
   media_channel_posting: boolean;
   media_channel_posted: boolean;
   channel_saved: boolean;
+  profiles: any;
+  current_user_profile?: any;
 }
 
 export class ProfileForm {
@@ -53,11 +55,6 @@ export const initialTag: ProfileModal = {
   user_channel: [],
   user_channels_loading: false,
   user_channels_loaded: false,
-<<<<<<< HEAD
-  home_spotfeeds: [],
-  home_spotfeeds_loading: false,
-  home_spotfeeds_loaded: false,
-=======
   // User Posts
   user_posts: [],
   user_posts_loading: false,
@@ -66,7 +63,7 @@ export const initialTag: ProfileModal = {
   media_channel_posting: false,
   media_channel_posted: false,
   channel_saved: false,
->>>>>>> c9b50d6c6b908d119100df5e8830dd0364aa11b4
+  profiles: []
 };
 
 export class ProfileCard {

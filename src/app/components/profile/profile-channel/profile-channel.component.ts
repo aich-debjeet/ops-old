@@ -45,7 +45,6 @@ export class ProfileChannelComponent implements OnInit {
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.profileChannel = state;
-      // Load Other Profile Actions
       this.userFlag(state);
     });
   }
@@ -136,6 +135,8 @@ export class ProfileChannelComponent implements OnInit {
 
   toggleFollowBtn(i) {
     // console.log(i);
+
+    // Follow dispatches to happen here
   }
 
   ngOnInit(): void {

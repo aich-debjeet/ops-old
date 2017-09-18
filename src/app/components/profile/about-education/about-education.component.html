@@ -35,7 +35,7 @@
   </div>
 </div>
 
-<app-modal [modalTitle]="''" [blocking]='false' modalId='userEducationkAdd' *ngIf="ownProfile">
+<app-modal [modalTitle]="''" [blocking]='false' modalId='userEducationkAdd' *ngIf="ownProfile" size="tiny__form">
     
         <form [formGroup]="educationForm" novalidate #myform="ngForm" (submit)= "educationSubmit(educationForm.value)">
             <div class="edit-profile_main">

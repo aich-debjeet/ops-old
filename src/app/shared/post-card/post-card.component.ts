@@ -16,6 +16,8 @@ export class PostCardComponent implements OnInit {
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   dotMenuState: boolean;
 
+  userImage: string;
+
   private imageLink: string = environment.API_IMAGE;
 
   constructor(
@@ -25,6 +27,12 @@ export class PostCardComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!this.mediaData.ownerImage) {
+      console.log('not there');
+      this.userImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+    } else {
+      this.userImage = this.imageLink + this.mediaData.ownerImage;
+    }
   }
 
   /**

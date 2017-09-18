@@ -3,7 +3,7 @@ import { ModalComponent } from './modal.component';
 
 @Injectable()
 export class ModalService {
-  private modals: Array<ModalComponent>;
+  modals: Array<ModalComponent>;
 
   constructor() {
     this.modals = [];

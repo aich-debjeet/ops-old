@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../environments/environment';
 import { TokenService } from '../helpers/token.service';
@@ -109,7 +109,7 @@ export class ProfileService {
    */
   buildImageForm(formValue: any) {
     // let fileData:FormData = new FormData();
-    const frmData = new FormData();
+    let data = new FormData();
     // Check if image is present
     if (formValue.image && formValue.image[0]) {
       const imageData = formValue.image[0];
@@ -117,16 +117,23 @@ export class ProfileService {
       // Create random file name
       const randm = Math.random().toString(36).slice(2);
       const fileName = 'prof_' + randm + '.' + imageType;
-
-      frmData.append('file', this.dataURItoBlob(imageData), fileName );
-      return frmData;
+      data.append('file', this.dataURItoBlob(imageData), fileName );
+      return data;
     }
   }
    /**
    * Upload Image to CDN
    */
-  uploadImage(value: any) {
-    return this.api.post('/portal/cdn/media/upload?handle=' + this.handle, value);
+  uploadImage(value: any, handle: string = '') {
+    return this.api.postFile('/portal/cdn/media/upload?handle=' + handle, value);
+  }
+
+  /**
+   * Cover Image Uploader
+   */
+  coverImageUploader(payload: any) {
+    const Files = this.imageHandler(payload.image);
+    return this.uploadImage(Files, payload.handle);
   }
 
   /**
@@ -147,7 +154,7 @@ export class ProfileService {
    */
   uploadProfileImage(formValue: any) {
     const fileData = this.buildImageForm(formValue);
-    return this.uploadImage(fileData);
+    return this.uploadImage(fileData, formValue.handle);
   }
 
   /**
