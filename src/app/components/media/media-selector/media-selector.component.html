@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div class="media-selector" [ngClass]="{'not__filled': hasFiles === false }">
+<div class="media-selector" [ngClass]="{'not__filledx': hasFiles === false }">
   <div class="col-md-8 padding_none file__viewer">
     <ul class="file__list">
       <li *ngFor="let file of uploadedFiles" class="file__item">
@@ -129,6 +129,14 @@
         </li>
       </ul>
     </form>
+    <pre>
+
+    </pre>
     <app-channel-selector [userChannels]="channeList" (onSelection)="onChannelSelection($event)"></app-channel-selector>
     <button disable="true" class="btn btn-primary btn-sm btn-save" (click)="mediaInfoUpdate(mediaForm.value)">Post</button>
+    <button disable="true" class="btn btn-primary btn-sm btn-save" (click)="postAllMedia(mediaForm.value)">Post All</button>
+    <label>
+      Post all media
+      <input type="radio" value="0"><span></span>Post to All
+    </label>
   </div>

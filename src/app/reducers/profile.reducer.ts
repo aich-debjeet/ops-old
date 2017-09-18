@@ -3,6 +3,13 @@ import { initialTag, ProfileModal } from '../models/profile.model';
 
 import { ProfileActions } from '../actions/profile.action';
 
+export interface State {
+  user_channel: any,
+  user_channels_loaded: boolean,
+  user_channels_loading: boolean,
+  profileUser: any
+};
+
 export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
   switch (type) {

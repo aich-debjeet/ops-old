@@ -52,6 +52,8 @@ export class MediaComponent implements OnInit, AfterViewInit {
   tempChannel: string;
   channelLoaded: boolean;
 
+  userHandle$: Observable<string>;
+
   constructor(
     private fb: FormBuilder,
     private mediaService: FileUploadService,
@@ -76,23 +78,20 @@ export class MediaComponent implements OnInit, AfterViewInit {
       });
 
       this.channelLoaded = false;
-
+      this.userHandle$ = this.store.select('profileTags');
       // Profile
-      this.profileState$ = profStore.select('profileTags');
-      this.profileState$.subscribe((state) => {
-        this.profileStore = state;
-        if (this.channelLoaded === false && this.profileStore.user_channel.length < 1 && this.profileStore.user_channels_loaded === false) {
-          this.channelLoaded = true;
-          const userHandle = this.profileStore.profileUser.handle;
-          console.log('im making it');
-          this.loadChannels(userHandle);
-        }
-        // If its loaded assign to the variables
-        if ( this.channelLoaded === false && this.profileStore.user_channels_loaded === true ) {
-          console.log('i passed');
-          this.userChannels = this.profileStore.user_channel;
-        }
-      });
+      // this.profileState$ = profStore.select('profileTags');
+      // this.profileState$.subscribe((state) => {
+
+      //   this.profileStore = state;
+      //   const userHandle = this.profileStore.profileUser.handle;
+
+      //   if (userHandle) {
+      //     if (this.profileStore.user_channel.length < 1) {
+      //       console.log('LENGHT < 0');
+      //     }
+      //   }
+      // });
 
       this.reset(); // set initial state
     }
@@ -102,8 +101,10 @@ export class MediaComponent implements OnInit, AfterViewInit {
   }
 
   loadChannels(handle: string) {
-    if (handle !== '') {
+    if (handle) {
       this.profStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
+    } else {
+      console.log('NO HANDLE', handle);
     }
   }
 

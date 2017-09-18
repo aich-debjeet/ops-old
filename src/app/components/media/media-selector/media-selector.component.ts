@@ -15,6 +15,8 @@ import FilesHelper from '../../.../../../helpers/fileUtils';
 
 import { TokenService } from '../../../helpers/token.service';
 
+import * as fromRoot from '../../../../app/app.reducer';
+
 import { remove as _remove, merge as _merge, uniqBy as _uniqBy } from 'lodash';
 
 import { Observable } from 'rxjs/Observable';
@@ -68,66 +70,77 @@ export class MediaSelectorComponent implements OnInit {
   profileChannel = initialTag ;
   channeList: any;
 
+  myChannels$: Observable<any>;
+  myProfile$: Observable<any>;
+  myProfileData: any;
+
   constructor(
     private Upload: NgxfUploaderService,
     private fb: FormBuilder,
     private api: TokenService,
     private profileStore: Store<ProfileModal>,
+    private _store: Store<fromRoot.State>,
     private http: Http) {
 
-    this.hasFiles = false;
-    this.editingFile = new UploadItem;
-    // this.uploadedFiles = [];
-    this.uploaded = [];
-    this.uploadedFiles = [];
-    this.formMessages = [];
+      this.hasFiles = false;
+      this.editingFile = new UploadItem;
+      // this.uploadedFiles = [];
+      this.uploaded = [];
+      this.uploadedFiles = [];
+      this.formMessages = [];
 
-    this.chosenChannel = 0;
+      this.chosenChannel = 0;
 
-    // If there's input assign, other wise, reload channel list
-    if (this.userChannels) {
-      this.channeList = this.userChannels;
-    }
-
-    // X
-    this.postSuccess = false;
-    this.postSuccessActive = false;
-
-    this.createChannelForm(); // Create Channel Form
-    this.createMediaForm(); // Media Info
-
-    this.uploadStatus = 0;
-    this.submitEnabled = 0;
-    this.token = this.api.getToken();
-    this.handle = '';
-
-    // console.log(' MEDIA_SELECTOR { CONSTRUCTOR } : TOKEN ', this.token );
-
-    this.tagState$ = this.profileStore.select('profileTags');
-    // this.test = 'salabeel';
-    this.tagState$.subscribe((state) => {
-      this.profileChannel = state;
-      this.checkPostFlag(this.profileChannel);
-
-      // Post states
-      this.postSuccess = this.profileChannel.media_channel_posted;
-      this.postSuccessActive = this.profileChannel.media_channel_posting;
-
-      if (this.profileChannel.profile_loaded === true ) {
-        this.handle = this.profileChannel.profileUser.handle;
-        this.submitEnabled = 1;
-      }
-
-      if (!this.userChannels && this.profileChannel.user_channel.length > 0) {
-        // console.log('user channels there', this.profileChannel.user_channel );
-        this.channeList = this.profileChannel.user_channel;
-      }
-
+      // If there's input assign, other wise, reload channel list
       if (this.userChannels) {
         this.channeList = this.userChannels;
-        // console.log( 'user channels passsed', this.userChannels );
       }
-    });
+
+      // X
+      this.postSuccess = false;
+      this.postSuccessActive = false;
+
+      this.createChannelForm(); // Create Channel Form
+      this.createMediaForm(); // Media Info
+
+      this.uploadStatus = 0;
+      this.submitEnabled = 0;
+      this.token = this.api.getToken();
+      this.handle = '';
+
+      // Subs
+      this.myChannels$ = _store.select(fromRoot.getMyChannel);
+      // this.myProfile$ = _store.select(fromRoot.getMyProfile);
+
+      this.myProfile$ = _store.select('profileTags').take(3);
+
+      // console.log(' MEDIA_SELECTOR { CONSTRUCTOR } : TOKEN ', this.token );
+
+      this.tagState$ = this.profileStore.select('profileTags');
+      // this.test = 'salabeel';
+      this.tagState$.subscribe((state) => {
+        this.profileChannel = state;
+        // this.checkPostFlag(this.profileChannel);
+
+        // Post states
+        this.postSuccess = this.profileChannel.media_channel_posted;
+        this.postSuccessActive = this.profileChannel.media_channel_posting;
+
+        if (this.profileChannel.profile_loaded === true ) {
+          this.handle = this.profileChannel.profileUser.handle;
+          this.submitEnabled = 1;
+        }
+
+        if (!this.userChannels && this.profileChannel.user_channel.length > 0) {
+          // console.log('user channels there', this.profileChannel.user_channel );
+          this.channeList = this.profileChannel.user_channel;
+        }
+
+        if (this.userChannels) {
+          this.channeList = this.userChannels;
+          // console.log( 'user channels passsed', this.userChannels );
+        }
+      });
   }
 
   checkPostFlag(storeValues: any) {
@@ -136,6 +149,17 @@ export class MediaSelectorComponent implements OnInit {
 
   ngOnInit() {
     // If there's input assign, other wise, reload channel list
+    // this.myChannels$.subscribe(event => this.channeListx = event);
+    this.myProfile$.subscribe(event => {
+      this.myProfileData = event;
+      // If user is got
+      let isUserReady;
+      if (event.profileUser && event.profileUser.handle) {
+        this.handle = this.myProfileData.profileUser.handle;
+        isUserReady = true;
+        this.loadChannel(this.handle);
+      }
+    });
   }
 
   /**
@@ -161,6 +185,14 @@ export class MediaSelectorComponent implements OnInit {
       isAdult: [0]
     })
   }
+
+  /**
+   * Load Channel
+   */
+  loadChannel(handle: string) {
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
+  }
+
   /**
    * Media Upload Multiple
    */
@@ -176,79 +208,56 @@ export class MediaSelectorComponent implements OnInit {
   postAllMedia(formValue: any) {
     // Stop submittion if not ready with needed data;
     if (this.submitEnabled < 1 ) {
-      // console.log('FORM', 'Form disabled, All required datas not loaded yet');
       return false;
     }
 
-    if (this.profileChannel.profile_loaded === true ) {
-      this.handle = this.profileChannel.profileUser.handle;
+    let isReady = false;
+    let userHandle = '';
+
+    if (this.chosenChannel !== 0 ) {
+      isReady = true;
+    } else {
+      this.formMessages.push('Please select a Channel');
+      isReady = false;
     }
+
+    if (this.profileChannel.profile_loaded === true ) {
+      userHandle = this.profileChannel.profileUser.handle;
+    }
+
     // 1. Get choosen file
-    const chosenFile = this.editingFile;
-    const chosenChannel = this.chosenChannel;
-
-    const mediaType = this.getFileType(this.editingFile.fileName);
-    const postTime = this.currentTime();
-
     const multipleMedias = [];
-    for (let file of this.uploadedFiles) {
-      if (file) {
-        const files = {
-          fileName: file.fileName,
-          repoPath: file.repoPath,
-          mtype: mediaType,
-          contentType: mediaType,
-          title: formValue.title,
-          description: formValue.desc,
-          active: true,
-          createdBy: this.handle,
-          createdDate: postTime,
-          lastUpdatedDate: postTime,
-          count : {
-            likes: [], shares: [], spots: [],
-            channel: this.chosenChannel.spotfeedId
-          }
-        };
-        multipleMedias.push(files);
+    const formData = formValue;
+    const chosenChannel = this.chosenChannel;
+    const chosenFile = this.editingFile;
+
+    for (let nowFile of this.uploadedFiles) {
+      if (nowFile) {
+        // Build Media Object
+        const mediaItem = this.formatMedia( nowFile, formData, chosenChannel, userHandle);
+        const media = [ mediaItem ];
+        multipleMedias.push(mediaItem);
       }
     }
 
-    // const mediaObj = {
-    //   media: multipleMedias
-    // };
-
-    this.postMediaToChannel(chosenChannel.spotfeedId, multipleMedias);
+    if ( isReady && userHandle !== '') {
+      this.postMediaToChannel(chosenChannel.spotfeedId, multipleMedias);
+    }
   }
 
   /**
-   * Media Info Update
+   * Validte Upload
    */
-  mediaInfoUpdate(value: any) {
+  uploadMeta() {
     this.formMessages = [];
-
-    let userHandle;
     // Stop submittion if not ready with needed data;
     if (this.submitEnabled < 1 ) {
       // console.log('FORM', 'Form disabled, All required datas not loaded yet');
       return false;
     }
 
-    if (this.profileChannel.profile_loaded === true ) {
-      userHandle = this.profileChannel.profileUser.handle;
-    }
-    // 1. Get choosen file
     const chosenFile = this.editingFile;
     const chosenChannel = this.chosenChannel;
-
-    // 2. Make choose a channel
-    // 3. Link and upload
-    const fileName = '';
-    const repoPath = '';
-
-    // Check if a file & a channel is selected
-    console.log('FILE', chosenFile);
-    console.log('CHANNEL', chosenChannel);
-    console.log('HANDLE', userHandle);
 
     let isChannelReady, isFileReady ;
     if (this.chosenChannel === 0 ) {
@@ -262,32 +271,39 @@ export class MediaSelectorComponent implements OnInit {
       isFileReady = false;
       this.formMessages.push('Please select a file');
     } else {
-      console.log('no file choosen', chosenChannel.keys);
+      console.log('No File Choosen');
       isFileReady = true;
     }
+    if (isChannelReady && isFileReady) {
+      return true;
+    }
+    // return isChannelReady;
+  }
 
+  /**
+   * Media Info Update
+   */
+  mediaInfoUpdate(formValue: any) {
     const mediaType = this.getFileType(this.editingFile.fileName);
     const postTime = this.currentTime();
+    const isUploadReady = this.uploadMeta();
 
-    const media = [{
-        fileName: this.editingFile.fileName,
-        repoPath: this.editingFile.repoPath,
-        mtype: mediaType,
-        contentType: mediaType,
-        title: value.title,
-        description: value.desc,
-        active: true,
-        createdBy: userHandle,
-        createdDate: postTime,
-        lastUpdatedDate: postTime,
-        count : {
-          likes: [], shares: [], spots: [],
-          channel: this.chosenChannel.spotfeedId
-        }
-    }];
+    let userHandle;
+    if (this.profileChannel.profile_loaded === true ) {
+      userHandle = this.profileChannel.profileUser.handle;
+    }
 
-    if ( isFileReady && isChannelReady) {
-      this.postMediaToChannel(chosenChannel.spotfeedId, media);
+    if ( isUploadReady ) {
+      const formData = formValue;
+      const chosenChannel = this.chosenChannel;
+      const chosenFile = this.editingFile;
+
+      // Build Media Object
+      const mediaItem = this.formatMedia( chosenFile, formData, chosenChannel, userHandle);
+      const media = [ mediaItem ];
+
+      // Action!!
+      this.postMediaToChannel(this.chosenChannel.spotfeedId, media);
     } else {
       console.log('FORM SUBMITTION ERROR');
     }
@@ -469,6 +485,34 @@ export class MediaSelectorComponent implements OnInit {
   }
 
   /**
+   * Format Media
+   */
+  formatMedia(file: any, formValue: any, channel: any, handle: string) {
+    const mediaType = this.getFileType(file.fileName);
+    const postTime = this.currentTime();
+    const isUploadReady = this.uploadMeta();
+
+    const files = {
+      fileName: file.fileName,
+      repoPath: file.repoPath,
+      mtype: mediaType,
+      contentType: mediaType,
+      title: formValue.title,
+      description: formValue.desc,
+      active: true,
+      createdBy: handle,
+      createdDate: postTime,
+      lastUpdatedDate: postTime,
+      count : {
+        likes: [], shares: [], spots: [],
+        channel: channel.spotfeedId
+      }
+    };
+
+    return files;
+  }
+
+  /**
    * Identify Group
    * @param files
    */
@@ -560,17 +604,18 @@ export class MediaSelectorComponent implements OnInit {
    * Push to Upload List
    */
   addToUploads(uploads: any) {
-    // let uploads = [];
+    let uploadsList = [];
     for (let file of uploads) {
       const thisFile = this.formatFile(file);
-      this.uploadedFiles.push(thisFile);
+      // this.uploadedFiles.push(thisFile);
+      uploadsList.push(thisFile);
     }
 
-    const x = _uniqBy(this.uploadedFiles, function (e) {
-      console.log(e);
+    const cleanedList = _uniqBy(uploadsList, function (e) {
       return e.repoPath;
     });
-    // this.uploadedFiles = _uniqBy(this.uploadedFiles, 'repoPath');
+
+    this.uploadedFiles = cleanedList;
   }
 
   /**
