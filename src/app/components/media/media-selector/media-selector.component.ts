@@ -109,7 +109,7 @@ export class MediaSelectorComponent implements OnInit {
       this.handle = '';
 
       // Subs
-      this.myChannels$ = _store.select(fromRoot.getMyChannel);
+      // this.myChannels$ = _store.select(fromRoot.getMyChannel);
       // this.myProfile$ = _store.select(fromRoot.getMyProfile);
 
       this.myProfile$ = _store.select('profileTags').take(3);

@@ -46,5 +46,5 @@ export function reducer(state: any, action: any) {
 //   return productionReducer(state, action);
 // }
 
-export const getMyChannel = (state: State) => state.profile.user_channel;
-export const getMyProfile = (state: State) => state.profile.profileUser;
+// export const getMyChannel = (state: State) => state.profile.user_channel;
+// export const getMyProfile = (state: State) => state.profile.profileUser;
