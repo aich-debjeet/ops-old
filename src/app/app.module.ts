@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
+// Pipes
+import { OrderByPipe } from './pipes/order.pipe';
 // Guard
 import { AuthGuard } from './guard/auth.guard';
 
@@ -46,9 +48,12 @@ import { ApiService } from './helpers/api.service';
 import { AuthService } from './services/auth.service';
 import { MediaService } from './services/media.service';
 import { GeneralService } from './services/api.service';
+import { ModalService } from './shared/modal/modal.component.service';
 
 import { SharedModule } from './shared/shared.module';
-import { TAB_COMPONENTS  } from './shared/tabs/tabset';
+import { MediaModule } from './components/media/media.module';
+import { ProfileModule } from './components/profile/profile.module';
+import { TabComponents  } from './shared/tabs/tabset';
 
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { MessageComponent } from './components/message/message.component';
@@ -68,15 +73,11 @@ import { LogoutHomeComponent } from './components/logout-home/logout-home.compon
 import { MasonryComponent } from './components/masonry/masonry.component';
 import { LogoutComponent } from './components/logout/logout.component';
 
-// ?
-import { ProfileSliderComponent } from './profile/profile-slider/profile-slider.component'; /** Delete ? */
-
-// Shared Stuffs!
-import { MediaComponent } from './shared/media/media.component';
-import { MediaSelectorComponent } from './shared/media-selector/media-selector.component';
 import { PopularArtistsComponent } from './shared/popular-artists/popular-artists.component';
 import { NearestEventsComponent } from './shared/nearest-events/nearest-events.component';
 import { OpportunitiesComponent } from './shared/opportunities/opportunities.component';
+
+import { MediaComponent } from './components/media/media.component';
 
 // Vide Player
 import { VgCoreModule } from 'videogular2/core';
@@ -111,20 +112,21 @@ import { CommunitiesComponent } from './components/communities/communities.compo
     ExploreComponent,
     ChannelListComponent,
     LogoutHomeComponent,
-    ProfileSliderComponent,
     MasonryComponent,
     LogoutComponent,
-    ProfileSliderComponent,
     ChannelInnerComponent,
     LearnComponent,
     ResourceComponent,
     NotFoundPageComponent,
-    CommunitiesComponent
+    CommunitiesComponent,
+    OrderByPipe
   ],
   imports: [
+    SharedModule,
+    MediaModule,
+    ProfileModule,
     BrowserModule,
     ReactiveFormsModule,
-    SharedModule,
     FormsModule,
     ServicesModule,
     HttpModule,
@@ -147,7 +149,7 @@ import { CommunitiesComponent } from './components/communities/communities.compo
     VgBufferingModule
   ],
   providers: [
-    AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService,
+    AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService, ModalService
   ],
   bootstrap: [AppComponent]
 })

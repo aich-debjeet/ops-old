@@ -32,23 +32,25 @@ export class ChannelInnerComponent implements OnInit {
   channel = initialMedia ;
   channelId: string;
   imageLink: string = environment.API_IMAGE;
-
+  pageLoading: boolean;
   constructor(
     private http: Http,
     private _store: Store<Media>,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private modalService: ModalService
-  ) {
-    this.channelId = route.snapshot.params['id'];
-    this.tagState$ = this._store.select('mediaStore');
-    this.userState$ = this._store.select('profileTags');
-    this.tagState$.subscribe((state) => {
-      console.log(state);
-      this.channel = state;
-    });
-    this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-    this.buildEditForm();
+    private modalService: ModalService) {
+      this.channelId = route.snapshot.params['id'];
+
+      this.pageLoading = false;
+
+      this.tagState$ = this._store.select('mediaStore');
+      this.userState$ = this._store.select('profileTags');
+      this.tagState$.subscribe((state) => {
+        this.channel = state;
+        this.pageLoading = this.channel.channel_loading;
+      });
+      this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+      this.buildEditForm();
   }
 
   ngOnInit() {
@@ -74,7 +76,8 @@ export class ChannelInnerComponent implements OnInit {
       access: '',
       industry: ''
     });
-    this.modalService.open('editform');
+    // Temp hide
+    // this.modalService.open('editform');
   }
 
   closePopup() {
@@ -84,14 +87,21 @@ export class ChannelInnerComponent implements OnInit {
 
   // Media Popup
   mediaOpenPopup(id) {
-    console.log(id);
     this._store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id});
     this._store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
-    this.modalService.open('mediaPopup');
+    // this.modalService.open('mediaPopup');
   }
 
   mediaClosePopup() {
     this.modalService.close('mediaPopup');
+  }
+
+  submitComment(comment) {
+    const send = {
+      'content': comment,
+      'parent': this.channel['media_detail'].id
+    }
+    this._store.dispatch({ type: MediaActions.POST_COMMENT, payload: send});
   }
 
 }

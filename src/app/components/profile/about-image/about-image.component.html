@@ -1,0 +1,12 @@
+<app-modal [modalTitle]="'Change Profile Image'" [closeHidden]="true" (onClose)="isClosed($event)" [blocking]='false' [open]="true" modalId='ChangeProfile' class="media__modal" size="tiny">
+  <div class="edit-profile_head">
+    <div class="col-md-6 padding_none">
+        <h2>Change Profile Image</h2>
+    </div>
+    <div class="col-md-6 padding_none text-right">
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" (click)="isClosed()" >Close</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="saveImageClick()">Save Image</button>
+    </div>
+  </div>
+  <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+</app-modal>

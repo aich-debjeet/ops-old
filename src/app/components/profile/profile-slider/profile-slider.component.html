@@ -1,11 +1,7 @@
-<div *ngIf="profileObject !== null" class="prohead2" [ngStyle]="profileImageStyle(profileObject)">
+<div *ngIf="profileObject !== null" class="prohead2" [ngStyle]="coverImageStyle(profileObject)">
   <div class="container u-rel" *ngIf="isOtherProfile === false">
-      <app-modal [modalTitle]="'Change Profile Image'" (onClose)="isClosed($event)" [blocking]='false' modalId='ChangeCover' class="media__modal" size="tiny">
-          <input #profileImage type="file" name="profile_image"/>
-          <button (click)="uploadCoverImage()">Save</button>
-      </app-modal>
       <span class="upload_cover_img">
-        <a (click)="showCoverImageUploader()" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+        <a routerLink="/profile/about/cover_image" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
           <img src="http://d33wubrfki0l68.cloudfront.net/191393ff3b0564270e49e5a1548ca1384ba44571/2bd8e/img/svg/ico_edit_white.svg" alt="">
         </a>
     </span>
@@ -13,39 +9,28 @@
 </div>
 <div class="container pro-block" *ngIf="profileObject !== null">
     <div class="row">
-        <app-modal [modalTitle]="'Change Profile Image'" (onClose)="isClosed($event)" [blocking]='false' modalId='ChangeProfile' class="media__modal" size="tiny">
-          <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
-          <span class="upload_prof_img u-clear">
-            <button class="btn btn-primary" data-toggle="dropdown" aria-expanded="true" alt="" (click)="saveImageClick()">Save Image</button>
-          </span>
-        </app-modal>
         <div class="col-md-6 col-sm-12 pro__img" *ngIf="changingImage">
-          <span>Changin Image</span>
+
         </div>
 
-        <div class="col-md-6 col-sm-12 pro__img" *ngIf="!changingImage">
+        <div class="col-md-6 col-sm-12 pro__img">
           <div class="prof_img_block">
-            <img src="{{ data && data.image ? data.image : baseUrl + profileObject?.image?.profile }}" class="img-responsive img-circle">
-            <span class="upload_prof_img">
-              <a class="dropdown-toggle btn btn-basic btn-sm upload-btn" data-toggle="dropdown" aria-expanded="true" alt="" (click)="changingImageClick()">
+            <img src="{{ (baseUrl + profileObject?.image?.profile) || defaultImage }}" class="img-responsive img-circle">
+            <span class="upload_prof_img" *ngIf="isOtherProfile === false">
+              <a class="dropdown-toggle btn btn-basic btn-sm upload-btn" data-toggle="dropdown" aria-expanded="true" alt="" routerLink="/profile/about/image">
                 <img src="http://d33wubrfki0l68.cloudfront.net/191393ff3b0564270e49e5a1548ca1384ba44571/2bd8e/img/svg/ico_edit_white.svg"/>
               </a>
             </span>
           </div>
             <!-- profile img block end -->
-
-            <!--
-                    <div class="col-md-6 col-sm-12 pro__img">
-                        <!-- <img *ngIf="userProfile.profileUser?.profileImage.length > 0; else elseProfileImage" src="{{ userProfile.profileUser?.profileImage }}" class="img-responsive img-circle"> -->
-            <!-- <img #elseProfileImage src="/assets/img/avatar.jpg" class="img-responsive img-circle"> -->
             <div class="pro__name2">
               <h2><a routerLink="/profile"> {{ profileObject?.name }} </a></h2>
               <p>{{ '@' + profileObject?.userHandle }}</p>
               <div *ngIf="isOtherProfile === true">
-                <button type="button" class="btn btn-xs btn-primary btn-plus" (click)="followUser(profileObject)">
+                <button type="button" class="btn btn-xs btn-primary btn-plus" (click)="followUser(profileObject)" [ngClass]="{ 'btn-follow': !isfollowing, 'btn-unfollow': isfollowing }">
                   <span class="btn-label-follow">
                     <i class="fa fa-plus" aria-hidden="true"></i>
-                  </span> FOLLOW
+                  </span>{{ isfollowing ? 'Unfollow' : 'Follow' }}
                 </button>
                 <button type="button" class="btn btn-normal2 btn-xs"> NETWORK </button>
                 <button type="button" class="btn btn-normal2 btn-xs"> DONATE </button>
@@ -73,6 +58,10 @@
                 <li class="list-line-item">
                     <a [routerLink]="['about']">project</a>
                 </li>
+
+                <li class="list-line-item">
+                  <a [routerLink]="['image']">Edit</a>
+              </li>
 
                 <li class="list-line-item">
                   <a routerLink="/profile/u/salsabeel/user/">Profile</a>
@@ -122,23 +111,23 @@
             <div class="col-md-4 col-sm-4 pro_bio">
                 <h3>BIO</h3>
                 <button *ngIf="profileObject?.userBio == '' && isOtherProfile === false" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button>
-                <p>{{ profileObject?.userBio }}</p>
+                <p>{{ profileObject?.userBio | slice:0:220}}</p>
 
             </div>
             <div class="col-md-4 col-sm-4 pro_skills">
                 <h3>SKILLS</h3>
-                <button *ngIf="profileObject?.userDetails?.skills == ''" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
-                <button *ngFor="let skill of profileObject?.userDetails?.skills | slice:0:8" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
-                <button type="button" *ngIf="profileObject?.userDetails?.skills?.length > 7" (click)="skillPopup()" class="btn btn-default btn-xs">More...</button>
-                <button *ngFor="let skill of profileObject?.userDetails?.skills" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
+                <button *ngIf="profileObject?.userSkill == '' && isOtherProfile === false" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
+                <button *ngFor="let skill of profileObject?.userSkill | slice:0:8" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
+                <button type="button" *ngIf="profileObject?.userSkill?.length > 7" (click)="skillPopup()" class="btn btn-default btn-xs">More...</button>
             </div>
         </div>
     </div>
 </div>
 
 <router-outlet></router-outlet>
-<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow'>
-    <div>
+
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow' *ngIf="!isOtherProfile" size="tiny__form">
+    <div >
         <form [formGroup]="profileForm" novalidate #myform="ngForm" (submit)= "profileFormSubmit(profileForm.value)">
             <div class="edit-profile_main">
                 <!-- <div class="modal-header" style="border: none;">
@@ -227,12 +216,6 @@
                                 <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.isUnderAge">You should be above 13</p>
                                 <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.isOverAge">You should be below 100</p>
                             </div>
-                            <div class="form_group">
-                                <input class="form_input" required="" type="text" value="Bangalore, India">
-                                <span class="form_highlight"></span>
-                                <span class="form_bar"></span>
-                                <label>Location</label>
-                            </div>
                         </div>
                     </div>
                     <!-- edit profile content block end -->
@@ -320,8 +303,8 @@
 
 <!--Skill more -->
 
-<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='skillMoreWindow'>
+<app-modal [modalTitle]="'Some title'" [open]="false" [blocking]='false' modalId='skillMoreWindow'>
     <div class="popup__window">
-        <button *ngFor="let skill of profileObject?.userDetails.skills" type="button" class="btn btn-default btn-xs btn-skill">{{ skill.name }}</button>
+        <button *ngFor="let skill of profileObject?.userSkill" type="button" class="btn btn-default btn-xs btn-skill">{{ skill.name }}</button>
     </div>
 </app-modal>

@@ -160,13 +160,9 @@ export class AuthService {
      * @param skills array all skills
      */
     saveSelectedSkills(skillsArr) {
-
-      console.log(this.headers);
-        // Object
-        const skills = { profileTypeList: skillsArr }
-        return this.http.put(this.apiLink + '/portal/profile/updateProfile', skills, { headers: this.headers })
-          .map((data: Response) => data.json());
-      }
+      const skills = { profileTypeList: skillsArr }
+      return this.api.put('/portal/profile/updateProfile', skills );
+    }
 
     getAllIndustries() {
       return this.api.get('/portal/industry', '');
@@ -183,8 +179,7 @@ export class AuthService {
     }
 
     getArtistFollow(value) {
-      return this.http.put(this.apiLink + '/portal/searchprofiles/Industry', value, { headers: this.headers })
-          .map((data) => data.json());
+      return this.api.put('/portal/searchprofiles/Industry', value );
     }
 
     fpResetTypePhone(req: any) {
@@ -205,9 +200,37 @@ export class AuthService {
         .map((data: Response) => data.json());
     }
 
+    regSubmitOtp(req: any) {
+        const headers = new Headers({ 'Content-Type': 'application/json'});
+        return this.http.get(this.apiLink + '/portal/activate/profile/' + req.number + '/' + req.otp)
+        .map((data: Response) => data.json());
+    }
+
+    otpLogin(value: any) {
+      return this.http.post(this.apiLink + '/portal/auth/login/profile', value )
+        .map((response: Response) => {
+          const user = response.json();
+          if (user && user.access_token) {
+              localStorage.setItem('currentUser', JSON.stringify(user));
+          }
+        });
+    }
+
+    otpResend(number: any) {
+      const headers = new Headers({ 'Content-Type': 'application/json'});
+        return this.http.get(this.apiLink + '/portal/auth/resendotp/' + number)
+        .map((data: Response) => data.json());
+    }
+
+    otpChangeNumber(value: any) {
+      const token = localStorage.getItem('access_token');
+      const head = new Headers({ 'Content-Type': 'application/json'});
+      head.append('Authorization', 'Bearer ' + token);
+      return this.http.put(this.apiLink + '/portal/auth/user/update', value, { headers: head })
+        .map((data: Response) => data.json());
+    }
+
     fpCreatePass(req: any) {
-        // console.log('req body');
-        // console.log(req);
         const reqBody = {
             password: req.password,
             token: req.activationCode

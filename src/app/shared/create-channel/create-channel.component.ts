@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
-import { TAB_COMPONENTS  } from '../tabs/tabset';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 import { Http, Headers, Response } from '@angular/http';
@@ -12,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
-import { FileUploadService } from '../media/fakeService';
+// import { FileUploadService } from '../media/fakeService';
 import { ProfileModal, initialTag } from '../../models/profile.model';
 import { ProfileActions } from '../../actions/profile.action';
 
@@ -22,7 +21,6 @@ import { TokenService } from '../../helpers/token.service';
 @Component({
   selector: 'app-create-channel',
   templateUrl: './create-channel.component.html',
-  providers: [ TAB_COMPONENTS, FileUploadService],
   styleUrls: ['./create-channel.component.scss']
 })
 
@@ -32,11 +30,11 @@ export class CreateChannelComponent {
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
   profileChannel = initialTag ;
+  channelType: number;
   handle: string;
 
   constructor(
     private fb: FormBuilder,
-    private mediaService: FileUploadService,
     private tokenService: TokenService,
     private store: Store<Media> ) {
       this.createChannelForm();
@@ -52,7 +50,8 @@ export class CreateChannelComponent {
     }
 
 
-  showCreatechannelform() {
+  showCreatechannelform(channelType: number) {
+    this.channelType = channelType;
     this.typeSelected = true;
   }
 
@@ -70,18 +69,43 @@ export class CreateChannelComponent {
   }
 
   /**
+   * Limit Channel Media Type based on Selection
+   * @param type
+   */
+  channelTypeConfig(type: number) {
+    let flag;
+    switch (type) {
+      case 1:
+        flag = 'Image';
+        break;
+      case 2:
+        flag = 'Audio';
+        break;
+      case 3:
+        flag = 'Video';
+        break;
+      case 4:
+        flag = 'Text';
+        break;
+      default:
+        flag = 'All';
+        break;
+    }
+    return flag;
+  }
+
+  /**
    * Form Builder
    */
   createChannel(value: any) {
-    const accessVal = parseInt(value.privacy, 0);
 
     if ( this.channelForm.valid === true ) {
       const channelObj = {
         name: value.title,
-        access: value.privacy,
+        access: Number(value.privacy),
         description: value.desc,
         superType: 'channel',
-        accessSettings : { access : accessVal },
+        accessSettings : { access : Number(value.privacy) },
         owner: this.tokenService.getHandle(),
         industryList: [ value.type ] /** @TODO - To be removed! */
       }
@@ -89,121 +113,6 @@ export class CreateChannelComponent {
       this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
     }
   }
-
-  // ngAfterViewInit() {
-  //   //
-  // }
-
-  // /**
-  //  * Show/Hide Channel Dropdown List
-  //  */
-  // toggleChannelList() {
-  //   this.showChannelList = !this.showChannelList;
-  // }
-
-  // /**
-  //  * File Watcher
-  //  * @param fieldName
-  //  * @param fileList
-  //  */
-  // filesChange(fieldName: string, fileList: FileList) {
-  //   if (!fileList.length) {
-  //     return;
-  //   }
-
-  //   const fd = new FormData();
-
-  //   Array
-  //     .from(Array(fileList.length).keys())
-  //     .map( x => {
-  //       fd.append(fieldName, fileList[x], fileList[x].name);
-  //     });
-
-  //   // // Save it
-  //   // for (let pair of fd.entries()) {
-  //   //   console.log(pair[0] + ', ' + pair[1]);
-  //   // }
-
-  //   this.save(fd);
-  // }
-
-  // /**
-  //  * Init Media Upload state
-  //  */
-
-  // reset() {
-  //   // this.currentStatus = this.STATUS_INITIAL;
-  //   this.uploadedFiles = [];
-  //   this.uploadError = null;
-  // }
-
-  // /**
-  //  * Save Medias
-  //  * @param formData
-  //  */
-  // save(formData: FormData) {
-  //   // Upload data to the server
-  //   // this.currentStatus = this.STATUS_SAVING;
-  //   console.log(formData);
-  //   this.store.dispatch({ type: MediaActions.MEDIA_UPLOAD, payload: formData });
-  // }
-
-  // /**
-  //  * Media Uploader Form
-  //  */
-  // submitStatusForm(value: any) {
-  //   if ( this.statusForm.valid === true ) {
-  //     const postStatus = {
-  //       owner: this.handle,
-  //       feed_type: 'status',
-  //       title: '',
-  //       description: value.status,
-  //       access: 0,
-  //       active: true
-  //     };
-
-  //     this.postStatus( postStatus );
-  //   }
-  // }
-
-  // /**
-  //  * Upload Files
-  //  * @param req
-  //  */
-  // postMedia() {
-  //   //
-  // }
-
-  // /**
-  //  * Post Status
-  //  * @param req
-  //  */
-  // postStatus(req: any) {
-  //   this.store.dispatch({ type: MediaActions.STATUS_SAVE, payload: req });
-  // }
-
-  // ngOnInit() {
-  //   console.log('Initiated');
-  // }
-
-  // /**
-  //  * Status Form
-  //  */
-  // createStatusForm() {
-  //   this.statusForm = this.fb.group({
-  //     status : ['', Validators.required ],
-  //     privacy: ['', Validators.required ]
-  //   })
-  // }
-
-  // /**
-  //  * Media Form
-  //  */
-  // createMediaForm() {
-  //   this.mediaForm = this.fb.group({
-  //     files : ['', Validators.required ]
-  //   })
-  // }
 
 }
 

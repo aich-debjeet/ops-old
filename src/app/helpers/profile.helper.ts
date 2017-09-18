@@ -29,11 +29,12 @@ export class ProfileHelper {
         cover: profile.coverImage
       },
       userHandle: this.extractName(profile),
-      userBio: profile.aboutMe,
+      userBio: profile.summary,
+      userSkill: profile.profileType,
       userDetails: profile,
       followingCount: profile.followingCount,
       follwerCount: profile.followersCount,
-      spotCount: 999
+      spotCount: 0
     }
     return maps;
   }

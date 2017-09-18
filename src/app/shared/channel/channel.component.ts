@@ -16,15 +16,24 @@ export class ChannelComponent implements OnInit {
 
   // Its for admin spefic edit option
   @Input() type: boolean;
+  userImage: string;
+  isfollowing: boolean;
   private image_base_url: string = environment.API_IMAGE;
   constructor() {
     //
   }
 
   ngOnInit() {
+    const defaultImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+    if ((this.channelData.ownerImage !== defaultImage) || (this.channelData.ownerImage !== '')) {
+      this.userImage = defaultImage;
+    } else {
+      this.userImage = this.image_base_url + this.channelData.ownerImage;
+    }
   }
 
   toggleFollowBtn(i) {
+    this.isfollowing = !this.isfollowing;
     this.onClick.emit(i);
   }
 

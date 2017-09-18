@@ -1,3 +1,38 @@
 .c-card{
   margin-bottom: 1.5rem;
 }
+
+
+.empty__state .btn-add {
+  background-color: #ff7b84;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 5px;
+  color: #fff;
+  position: relative;
+  text-decoration: none;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+  pointer-events: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.empty__state h4 {
+  font-weight: bold;
+  font-size: 17px;
+  padding-bottom: 9px;
+}
+
+.empty__state {
+  color: #000;
+  padding: 1rem;
+  text-align: center;
+  width: 29%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 4rem;
+}

@@ -31,6 +31,7 @@ export class ProfileChannelComponent implements OnInit {
   loaded: boolean;
   router: any;
   counter: number;
+  isOwner: boolean;
   constructor(
     private http: Http,
     private _router: Router,
@@ -40,10 +41,10 @@ export class ProfileChannelComponent implements OnInit {
     this.loaded = false;
     this.router = _router;
     this.counter = 0;
+    this.isOwner = false;
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.profileChannel = state;
-      // Load Other Profile Actions
       this.userFlag(state);
     });
   }
@@ -55,6 +56,7 @@ export class ProfileChannelComponent implements OnInit {
     this.sub = this.route.parent.parent.params.subscribe(params => {
       if (params['id'] && params['id'] !== null && this.handle !== null) {
         this.userName = params['id'];
+        this.isOwner = false;
       }
     });
   }
@@ -70,8 +72,10 @@ export class ProfileChannelComponent implements OnInit {
   userFlag(state) {
     this.sub = this.route.parent.parent.params.subscribe(params => {
       if (this.checkEmpty(params)) {
+        this.isOwner = true;
         this.loadCurrentProfile(state);
       } else {
+        this.isOwner = false;
         this.userName = params['id'];
         this.loadOtherProfile(state);
       }
@@ -89,6 +93,7 @@ export class ProfileChannelComponent implements OnInit {
     if ( isChannelReady === false && isProfileReady === true) {
       this.counter++;
       const handleID = state.profile_other.handle;
+      console.log('TOKEN #1', handleID);
       if (this.counter < 10) {
         this.handle = handleID;
         if (this.handle && this.userName ) {
@@ -107,17 +112,17 @@ export class ProfileChannelComponent implements OnInit {
    * Load current user profile data
    */
   loadCurrentProfile(state: any) {
-    // console.log(this.profileChannel.user_channel_loaded);
     const isChannelReady = this.profileChannel.user_channels_loaded;
     const isProfileReady = this.profileChannel.profile_loaded;
 
     // Check if the other profile is loaded; also make sure the activated route is not current user
     if ( isChannelReady === false && isProfileReady === true) {
 
-      const profile = this.profileChannel.profileDetails;
+      const profile = this.profileChannel.profileUser;
       this.counter++;
       // const handleID = this.profileChannel.profileDetails.handle;
-      if (this.counter < 10) {
+      if (this.counter < 10 && profile.handle !== undefined) {
+        console.log('TOKEN #2', profile.handle);
         this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: profile.handle });
       }
     }
@@ -130,6 +135,8 @@ export class ProfileChannelComponent implements OnInit {
 
   toggleFollowBtn(i) {
     // console.log(i);
+
+    // Follow dispatches to happen here
   }
 
   ngOnInit(): void {

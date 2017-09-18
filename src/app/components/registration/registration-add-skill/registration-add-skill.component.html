@@ -13,9 +13,9 @@
                     <a class="navbar-brand" href="#"><img src="/assets/img/ops_icon.png"></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="signup_next">
+                <!-- <div class="signup_next">
                     <button [className]="'btn btn-network btn-sm'" [type]="'submit'" (click)="saveSkills()" [disabled]="!activateSubmitBtn" [ngClass]="{'active-btn': activateSubmitBtn}" >CONTINUE</button>
-                </div>
+                </div> -->
                 <!-- /.navbar-collapse -->
             </div>
             <!-- /.container-fluid -->
@@ -34,7 +34,7 @@
                             <a href="javascript:void(0)" (click)="selectCategory(industry.code)" [ngClass]="industry.isSelected?'activeIndustry':''" >
                                 <span class="skill_list_container">
                                     <span class="skills_list_bg_img">
-                                        <figure><img src="{{industry.background}}" alt=""></figure>
+                                        <figure class="fill"><img src="{{industry.background}}" alt=""></figure>
                                     </span>
                                     <span class="skills_name"><p>{{industry.name}}</p></span>
                                 </span>
@@ -76,4 +76,16 @@
             </div>
         </div>
     </section>
+    <footer class="opsfooter">
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <div class="container">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="signup_next text-center">
+                    <button [className]="'btn btn-network btn-sm'" [type]="'submit'" (click)="saveSkills()" [disabled]="!activateSubmitBtn" [ngClass]="{'active-btn': activateSubmitBtn}" >CONTINUE</button>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+    </footer>
 </form>

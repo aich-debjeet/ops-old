@@ -6,13 +6,14 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./videplayer.component.scss']
 })
 export class VideplayerComponent implements OnInit {
-  @Input() src: string;
+  @Input() src: any;
+  source: any;
   constructor() {
-    //
+    this.source = this.src;
   }
 
   ngOnInit() {
-    // console.log(this.src);
+    console.log(this.src);
   }
 
 }

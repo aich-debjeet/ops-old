@@ -66,7 +66,7 @@ export class ProfileEffect {
   loadUserMedia$ = this.actions$
     .ofType(ProfileActions.LOAD_USER_MEDIA)
     .map(toPayload)
-    .switchMap((payload) => this.profileService.getLoggedInMedia(payload)
+    .switchMap((payload) => this.profileService.getUserMedia(payload)
       .map(res => ({ type: ProfileActions.LOAD_USER_MEDIA_SUCCESS, payload: res }))
       .catch((res) => Observable.of({
         type: ProfileActions.LOAD_USER_MEDIA_FAILED,
@@ -306,7 +306,7 @@ export class ProfileEffect {
     saveCoverImage$ = this.actions$
       .ofType(ProfileActions.PROFILE_COVER_UPDATE)
       .map(toPayload)
-      .switchMap((payload) => this.profileService.uploadImage(payload)
+      .switchMap((payload) => this.profileService.coverImageUploader(payload)
         .map(res => ({ type: ProfileActions.PROFILE_COVER_UPDATE_SUCCESS, payload: res }))
         .catch((res) => Observable.of({ type: ProfileActions.PROFILE_COVER_UPDATE_FAILED, payload: res }))
       );
@@ -393,6 +393,18 @@ export class ProfileEffect {
     .switchMap((payload) => this.profileService.followUser(payload)
       .map(res => ({ type: ProfileActions.PROFILE_FOLLOW_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.PROFILE_FOLLOW_FAILED, payload: res }))
+    );
+
+    /**
+   * Get user channels
+   */
+  @Effect()
+  postMediaChannel$ = this.actions$
+    .ofType(ProfileActions.POST_CHANNEL_MEDIA)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.postMediaToChannel(payload)
+      .map(res => ({ type: ProfileActions.POST_CHANNEL_MEDIA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.POST_CHANNEL_MEDIA_FAILED, payload: res }))
     );
 
   constructor(

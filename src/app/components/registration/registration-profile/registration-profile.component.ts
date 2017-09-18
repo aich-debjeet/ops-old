@@ -33,30 +33,35 @@ export class RegistrationProfileComponent implements OnInit {
   constructor(fb: FormBuilder, private store: Store<AuthModel>, private router: Router) {
 
     this.artistType = [{
-      name: 'Makers',
-      image: '/assets/img/step2a.jpg',
+      name: 'Talent',
+      image: 'http://d33wubrfki0l68.cloudfront.net/b355c589dfbae4393aadb50108572b18de8ea6db/b990b/img/step2a.png',
       typeName: 'individual',
-      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+      description: 'Eg. Performing arts, movement arts, audio arts, visual arts, fine arts, applied arts.'
     }, {
-      name: 'Doers',
-      image: '/assets/img/step2b.jpg',
+      name: 'Stagecrafters',
+      image: 'http://d33wubrfki0l68.cloudfront.net/6720dad7dde30d80dc21425c4588130190355289/4d023/img/step2b.png',
       typeName: 'individual',
-      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+      description: 'Eg. Sound Engineer, Light Engineer, Wardrobe supervisor.'
     }, {
-      name: 'Enablers',
-      image: '/assets/img/step2c.jpg',
+      name: 'Techies',
+      image: 'http://d33wubrfki0l68.cloudfront.net/ff38e007eebacc82c0fac15fb173639a6ba24cb3/ebbd3/img/step2c.png',
       typeName: 'individual',
-      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+      description: 'Eg. VR, Game Programmers, Software Developers, Editors.'
     }, {
-      name: 'Tech Power',
-      image: '/assets/img/step2d.jpg',
+      name: 'Corporates',
+      image: 'http://d33wubrfki0l68.cloudfront.net/c95d739609696b659843aec4892903037ee0c9e0/1927a/img/step2d.png',
       typeName: 'individual',
-      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+      description: 'Eg. Theatre Manger, Account Mangaer, Marketing, Legal, Finance & Accounting.'
+    }, {
+      name: 'Teachers',
+      image: 'http://d33wubrfki0l68.cloudfront.net/88d55591b8fd71d7b250043903558303b655e987/c97e7/img/step2e.png',
+      typeName: 'individual',
+      description: 'Eg. Trainers, Coaches, Mentors, Guides.'
     }, {
       name: 'Art Lovers',
-      image: '/assets/img/step2e.jpg',
+      image: 'http://d33wubrfki0l68.cloudfront.net/fa189f3145c47fa27ca876caff6f452993c52079/fa717/img/step2f.png',
       typeName: 'individual',
-      description: 'Off stage crafts- Designers, sound engineers, photograhers etc.'
+      description: 'Eg. Followers of art forms & artists, entertainment seekers, connoisseurs.'
     }];
 
     this.tagState$ = store.select('loginTags');

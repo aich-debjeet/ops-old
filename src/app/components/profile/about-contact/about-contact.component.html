@@ -2,36 +2,36 @@
 <div id="about_contact">
     <div class="row">
         <div class="col-md-12 col-sm-12 contact_section">
-            <div class="contact_info_block" *ngIf="contactWork.profileDetails?.extra.address.city !== ''">
+            <div class="contact_info_block" *ngIf="userProfile?.extra.address.city !== ''">
                 <div class="contact_ico">
                     <img src="http://d33wubrfki0l68.cloudfront.net/e6472c4f2371cf63e7346385415e3c7224c7e129/74f28/img/svg/ico_location.svg" alt="">
                 </div>
                 <div class="contact_info">
-                    <p>Lives in <span>{{ contactWork.profileDetails?.extra.address.city }}, {{ contactWork.profileDetails?.extra.address.country }}</span></p>
+                    <p>Lives in <span>{{ userProfile?.extra.address.city }}, {{ userProfile?.extra.address.country }}</span></p>
                 </div>
             </div>
-            <div class="contact_info_block" *ngIf="contactWork.profileDetails?.contact.website.website !== ''">
+            <div class="contact_info_block" *ngIf="userProfile?.contact.website.website !== ''">
                 <div class="contact_ico">
                     <img src="http://d33wubrfki0l68.cloudfront.net/ef42655aef0ed58ba37f2e9b34ea54fe7e1fd569/d7419/img/svg/ico_web.svg" alt="">
                 </div>
                 <div class="contact_info">
-                    <p><span>{{ contactWork.profileDetails?.contact.website.website }}</span></p>
+                    <p><span>{{ userProfile?.contact.website.website }}</span></p>
                 </div>
             </div>
-            <div class="contact_info_block" *ngIf="contactWork.profileDetails?.contact.mobile.mobile">
+            <div class="contact_info_block" *ngIf="userProfile?.contact.mobile.mobile">
                 <div class="contact_ico">
                     <img src="http://d33wubrfki0l68.cloudfront.net/8e3a2e35cf175e5fd10ca2245a738f67d5328a95/eb469/img/svg/ico_phone.svg" alt="">
                 </div>
                 <div class="contact_info">
-                    <p><span>{{ contactWork.profileDetails?.contact.mobile.mobile }}</span></p>
+                    <p><span>{{ userProfile?.contact.mobile.mobile }}</span></p>
                 </div>
             </div>
-            <div class="contact_info_block" *ngIf="contactWork.profileDetails?.email !== ''">
+            <div class="contact_info_block" *ngIf="userProfile?.email !== ''">
                 <div class="contact_ico">
                     <img src="http://d33wubrfki0l68.cloudfront.net/28c8f19d875c3a853a46caecc0c9273c0598e82a/5c9d6/img/svg/ico_mail.svg" alt="">
                 </div>
                 <div class="contact_info">
-                    <p><span>{{ contactWork.profileDetails?.email }}</span></p>
+                    <p><span>{{ userProfile?.email }}</span></p>
                 </div>
             </div>
         </div>

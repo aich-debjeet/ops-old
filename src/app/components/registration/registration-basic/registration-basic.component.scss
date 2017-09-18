@@ -3,6 +3,43 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
 
+/* ------------------ Registration step 1 thankyou -------------------------- */
+
+.reg_thankyou {
+    a.btn.btn-default:hover {
+        color: white;
+    }
+    .modal-lg {
+        width: 850px;
+        @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            width: 90%;
+        }
+    }
+    .modal-dialog {
+        margin: 6% auto;
+    }
+    .modal-title {
+        padding: 5% 0;
+    }
+    h3 {
+        font-weight: 800;
+        font-size: 36px;
+        color: #333333;
+        clear: both;
+        margin-top: 7%;
+    }
+    p {
+        color: #333;
+        margin: 5%;
+        font-size: 18px;
+        font-weight: 700;
+    }
+    .btn {
+        margin: 4% 0 18%;
+    }
+}
+
+
 .text-theme {
     color: #ff7b84!important;
 }

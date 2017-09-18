@@ -4,17 +4,19 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { TokenService } from './token.service';
 
+// rx
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
+
+
 @Injectable()
 export class ApiService {
-  private handle: string;
-  private headers: any;
   private apiLink: string = environment.API_ENDPOINT;
   constructor(
     private tokenService: TokenService,
     private http: Http,
     private router: Router) {
-      this.handle = this.tokenService.getHandle();
-      this.headers = this.tokenService.getAuthHeader();
   }
 
   /**
@@ -22,6 +24,13 @@ export class ApiService {
    */
   getHeaders() {
     return this.tokenService.getAuthHeader();
+  }
+
+  /**
+   * Logged in user token headers
+   */
+  getFileHeaders() {
+    return this.tokenService.getPlainHeader();
   }
 
   /**
@@ -55,7 +64,8 @@ export class ApiService {
    */
   get(endpoint: string, id?: string) {
     const path = this.buidDetailPath(endpoint, id);
-    return this.http.get(this.apiLink + path, { headers: this.headers })
+    const head = this.getHeaders();
+    return this.http.get(this.apiLink + path, { headers: head })
       .map((data: Response) => data.json());
   }
 
@@ -63,7 +73,17 @@ export class ApiService {
    * POST Function
    */
   post(path: string, body: any) {
-    return this.http.post(this.apiLink + path, body, { headers: this.headers })
+    const head = this.getHeaders();
+    return this.http.post(this.apiLink + path, body, { headers: head })
+      .map((data: Response) => data.json());
+  }
+
+  /**
+   * POST Function
+   */
+  postFile(path: string, body: any) {
+    const head = this.getFileHeaders();
+    return this.http.post(this.apiLink + path, body, { headers: head })
       .map((data: Response) => data.json());
   }
 
@@ -71,7 +91,8 @@ export class ApiService {
    * GET Function
    */
   put(endpoint: string, body: any) {
-    return this.http.put(this.apiLink + endpoint, body, { headers: this.headers })
+    const head = this.getHeaders();
+    return this.http.put(this.apiLink + endpoint, body, { headers: head })
       .map((data) => data.json());
   }
 
@@ -80,7 +101,8 @@ export class ApiService {
    */
   delete(endpoint: string, id: string) {
     const path = this.buidDetailPath(endpoint, id);
-    return this.http.delete(this.apiLink + endpoint + path, { headers: this.headers })
+    const head = this.getHeaders();
+    return this.http.delete(this.apiLink + endpoint + path, { headers: head })
       .map((data: Response) => data.json());
   }
 }

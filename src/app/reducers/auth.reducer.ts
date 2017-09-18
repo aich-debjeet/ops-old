@@ -12,13 +12,13 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
 
     case AuthActions.USER_REGISTRATION_WELCOME_SUCCESS:
-      console.log(payload);
+      // console.log(payload);
       return Object.assign({}, state, {
         completed: payload,
         success: true
       });
     case AuthActions.USER_ARTIST_FOLLOW:
-     console.log(payload);
+     // console.log(payload);
       return Object.assign({}, state, {
         success: true
       });
@@ -100,7 +100,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
 
     case AuthActions.USER_LOGIN_FAILED:
-      console.log('login Faild');
+      // console.log('login Faild');
       const error = JSON.parse(payload._body);
       return Object.assign({}, state, {
         success: false,
@@ -111,67 +111,68 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
 
     case AuthActions.USER_REGISTRATION_BASIC:
-      console.log(payload);
-      console.log('registration started');
       return Object.assign({}, state, {
-        success: true
+        success: true,
+        user_basic_reg_succs: false,
       });
 
     case AuthActions.USER_REGISTRATION_BASIC_SUCCESS:
       return Object.assign({}, state, {
         completed: payload,
+        user_basic_reg_succs: true,
         success: true,
-        user_token: payload.access_token
+        user_token: payload.access_Token
       });
 
     case AuthActions.USER_REGISTRATION_BASIC_FAILED:
-      console.log('registration Faild');
-      console.log(payload);
+      // console.log('registration Faild');
+      // console.log(payload);
       return Object.assign({}, state, {
+        user_basic_reg_succs: false,
         success: false,
         completed: payload
       });
 
     case AuthActions.USER_REGISTRATION_PROFILE:
-      console.log(payload);
+      // console.log(payload);
       return Object.assign({}, state, {
         success: true
       });
 
     case AuthActions.USER_REGISTRATION_PROFILE_SUCCESS:
-      console.log('registration step2');
+      // console.log('registration step2');
       return Object.assign({}, state, {
         completed: payload,
         success: true
       });
 
     case AuthActions.USER_REGISTRATION_PROFILE_FAILED:
-      console.log('registration Faild');
+      // console.log('registration Faild');
       return Object.assign({}, state, {
         success: false
       });
 
     case AuthActions.OTP_CHECK:
-      console.log(payload);
+      // console.log(payload);
       return Object.assign({}, state, {
         success: true
       });
 
     case AuthActions.OTP_CHECK_SUCCESS:
-      console.log('otp sucess');
+      // console.log('otp sucess');
       return Object.assign({}, state, {
         completed: payload,
         success: true
       });
 
     case AuthActions.OTP_CHECK_FAILED:
-      console.log('otp Faild');
+      // console.log('otp Faild');
       return Object.assign({}, state, {
         success: false
       });
 
     case AuthActions.USER_EXISTS_CHECK:
-      console.log('user Done');
+      // console.log('user Done');
       return Object.assign({}, state, {
         success: false
       });
@@ -179,7 +180,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.USER_EXISTS_SUCCESS:
       if (payload.code === 0) {
         return Object.assign({}, state, {
-          completed: payload,
+          user_exsist: payload.Suggested,
           success: false,
           user_unique: true
         });
@@ -192,13 +193,13 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       }
 
     case AuthActions.ARTIST_FOLLOW:
-      console.log(payload);
+      // console.log(payload);
       return Object.assign({}, state, {
         success: true
       });
 
     case AuthActions.ARTIST_FOLLOW_SUCCESS:
-      console.log('otp sucess');
+      // console.log('otp sucess');
       return Object.assign({}, state, {
         completed: payload,
         success: true
@@ -206,6 +207,8 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     // Forgot Password
     case AuthActions.FP_USER_EXISTS:
+      // console.log('user exist: ');
+      // console.log(payload);
       return Object.assign({}, state, {
         fp_user_exists: false,
         fp_user_input: payload.value
@@ -286,6 +289,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.FP_CREATE_PASS_FAILED:
     // console.log('FP_CREATE_PASS_FAILED');
       return Object.assign({}, state, {
+        fb_pass_create_failed: true,
         success: false
       });
 
@@ -355,6 +359,38 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.FP_GET_USER_EMAIL_FAILED:
       return Object.assign({}, state, {
         fp_userdata_loading_failed: true
+      });
+
+    /**
+     * Reg OTP Submit
+     */
+    case AuthActions.OTP_SUBMIT:
+      return Object.assign({}, state, {
+        user_otp_success: false
+      });
+    case AuthActions.OTP_SUBMIT_SUCCESS:
+      return Object.assign({}, state, {
+        user_otp_success: true
+      });
+    case AuthActions.OTP_SUBMIT_FAILED:
+      return Object.assign({}, state, {
+        user_otp_failed: true
+      });
+
+    /**
+     * Reg OTP Number Change
+     */
+    case AuthActions.OTP_NUMBER_CHANGE:
+      return Object.assign({}, state, {
+        user_number_cng_success: false
+      });
+    case AuthActions.OTP_NUMBER_CHANGE_SUCCESS:
+      return Object.assign({}, state, {
+        user_number_cng_success: true
+      });
+    case AuthActions.OTP_NUMBER_CHANGE_SUCCESS:
+      return Object.assign({}, state, {
+        user_number_cng_failed: true
       });
 
     // OTP Failed

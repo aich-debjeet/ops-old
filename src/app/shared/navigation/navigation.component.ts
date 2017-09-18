@@ -8,7 +8,7 @@ import { ProfileActions } from '../../actions/profile.action';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-navigation',
@@ -46,9 +46,9 @@ export class NavigationComponent implements OnInit {
     this.tagState$ = this.store.select('profileTags');
 
     this.tagState$.subscribe((state) => {
-      console.log(state);
       this.userProfile = state;
     });
+
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
   }
 

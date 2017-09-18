@@ -3,7 +3,6 @@ import { initialTag, ProfileModal } from '../models/profile.model';
 
 import { ProfileActions } from '../actions/profile.action';
 
-
 export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
   switch (type) {
@@ -29,18 +28,20 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.LOAD_CURRENT_USER_PROFILE:
       return Object.assign({}, state, {
-        success: true
+        success: true,
+        profile_loaded: false
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_SUCCESS:
       return Object.assign({}, state, {
         profileUser: payload,
-        success: true
+        profile_loaded: true
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_FAILED:
       return Object.assign({}, state, {
-        success: false
+        success: false,
+        profile_loaded: false
       });
 
     /**
@@ -48,7 +49,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS:
       return Object.assign({}, state, {
-        success: true
+        success: true,
+        profile_loaded: false
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_SUCCESS:
@@ -60,7 +62,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_FAILED:
       return Object.assign({}, state, {
-        success: false
+        success: false,
+        profile_loaded: false
       });
 
       /**
@@ -137,11 +140,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_USER_MEDIA_SUCCESS:
+
+      const posts = payload['SUCCESS'] || [];
+
       return Object.assign({}, state, {
         mediaEntity: payload,
         user_posts_loaded: true,
         user_posts_loading: false,
-        user_posts: payload
+        user_posts: posts
       });
 
     case ProfileActions.LOAD_USER_MEDIA_FAILED:
@@ -175,7 +181,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL:
       return Object.assign({}, state, {
-        success: true,
+        // success: true,
         user_channels_loading: true,
         user_channels_loaded: false
       });
@@ -183,14 +189,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL_SUCCESS:
       return Object.assign({}, state, {
         user_channel: payload,
-        success: true,
         user_channels_loaded: true,
         user_channels_loading: false
       });
 
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL_FAILED:
       return Object.assign({}, state, {
-        success: false,
         user_channels_loading: false,
         user_channels_loaded: false
       });
@@ -319,14 +323,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.PROFILE_LOAD:
       return Object.assign({}, state, {
         profile_other: [],
-        profile_other_loading: true
+        profile_other_loading: true,
       });
 
     case ProfileActions.PROFILE_LOAD_SUCCESS:
       return Object.assign({}, state, {
         profile_other_loading: false,
         profile_other_loaded: true,
-        profile_other: payload
+        profile_other: payload,
+        profiles: [...state.profiles, payload],
       });
 
     case ProfileActions.PROFILE_LOAD_FAILED:
@@ -352,6 +357,35 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.PROFILE_FOLLOW_FAILED:
       return Object.assign({}, state, {
         profile_other_followed: false
+      });
+
+    /**
+     * Current user Profile
+     */
+    case ProfileActions.CURRENT_PROFILE_USER:
+      return Object.assign({}, state, {
+        current_user_profile: payload
+      });
+
+    /**
+     * Post Media to Channel
+     */
+    case ProfileActions.POST_CHANNEL_MEDIA:
+      return Object.assign({}, state, {
+        media_channel_posting: true,
+        media_channel_posted: false
+      });
+
+    case ProfileActions.POST_CHANNEL_MEDIA_SUCCESS:
+      return Object.assign({}, state, {
+        media_channel_posting: false,
+        media_channel_posted: true
+      });
+
+    case ProfileActions.POST_CHANNEL_MEDIA_FAILED:
+      return Object.assign({}, state, {
+        media_channel_posting: false,
+        media_channel_posted: false
       });
 
     default:

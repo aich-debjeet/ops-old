@@ -1,60 +1,67 @@
-
-<form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)" >
-    <header class="opsheader">
-        <nav class="navbar navbar-default navbar-fixed-top">
+<div class="outer_container">
+    <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)" >
+        <header class="opsheader">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#"><img src="/assets/img/ops_icon.png"></a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <!-- <div class="signup_next">
+                        <button [className]="'btn btn-network btn-sm'" [type]="'submit'" [disabled]="!activateSubmitBtn" [ngClass]="{'active-btn': activateSubmitBtn}" >CONTINUE</button>
+                    </div> -->
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+        </header>
+        <section class="container-fluid ops_signup2">
             <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#"><img src="/assets/img/ops_icon.png"></a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="signup_next">
-                    <button [className]="'btn btn-network btn-sm'" [type]="'submit'" [disabled]="!activateSubmitBtn" [ngClass]="{'active-btn': activateSubmitBtn}" >CONTINUE</button>
-                </div>
-                <!-- /.navbar-collapse -->
-            </div>
-            <!-- /.container-fluid -->
-        </nav>
-    </header>
-    <section class="container-fluid ops_signup2">
-        <div class="container">
-            <div class="row ops_signup_step2">
-                <div class="step2_main_heading text-center">Select Your Profile type</div>
-                <div class="step2_main_heading2 text-center">You can select any one or all types, based on your profiles.</div>
-                <div class="row">
+                <div class="row ops_signup_step2">
+                    <div class="step2_main_heading text-center">Select Your Profile type</div>
+                    <div class="step2_main_heading2 text-center">You can select any one or all types, based on your profiles.</div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="step2_selection" *ngFor="let artist of artistType; let i=index" >
-                                <label for="{{'check'+i}}">
-                                    <input type="checkbox" id="{{'check'+i}}" value="{{artist.name}}" (change)="onChange(artist.name, artist.typeName, $event.target.checked)">
-                                    <div class="reg_profile_types">
-                                        <div class="reg_step2_box">
-                                        <img src="{{artist.image}}" class="img-responsive">
-                                            <div class="step2_heading">{{artist.name}}</div>
-                                            <div class="step2_txt">{{artist.description}}</div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="step2_selection" *ngFor="let artist of artistType; let i=index" >
+                                    <label for="{{'check'+i}}">
+                                        <input type="checkbox" id="{{'check'+i}}" value="{{artist.name}}" (change)="onChange(artist.name, artist.typeName, $event.target.checked)">
+                                        <div class="reg_profile_types">
+                                            <div class="reg_step2_box">
+                                            <img src="{{artist.image}}" class="img-responsive margin_t_16">
+                                                <div class="step2_heading">{{artist.name}}</div>
+                                                <div class="step2_txt">{{artist.description}}</div>
+                                            </div>
                                         </div>
+                                    </label>
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <div class="ops_checkbox_lg">
+                                        <p>Click continue to add your skills</p>
+                                        <button [className]="'btn btn-network btn-sm'" [type]="'submit'" [disabled]="!activateSubmitBtn" [ngClass]="{'active-btn': activateSubmitBtn}" >CONTINUE</button>
                                     </div>
-                                </label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="ops_checkbox_lg">
-                                <label class="are_you_student text-center">
-                                    <input type="checkbox" value="Are you study" formControlName="is_student"><span></span><p>Are you a student?</p>
-                                </label>
+                        <!-- <div class="row">
+                            <div class="col-12">
+                                <div class="ops_checkbox_lg">
+                                    <label class="are_you_student text-center">
+                                        <input type="checkbox" value="Are you study" formControlName="is_student"><span></span><p>Are you a student?</p>
+                                    </label>
+                                </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</form>
+        </section>
+    </form>
+</div>

@@ -1,4 +1,4 @@
-<section class="container-fluid ops_signup main_ht_fix">
+<section class="container-fluid ops_signup">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 ops_signup_left">
@@ -16,15 +16,15 @@
                 <div class="col-md-6 ops_signup_right">
                     <!-- form -->
                     <div class="ops_h1">Create Your Account</div>
-                    <form [formGroup]="regFormBasic" (ngSubmit) = "submitForm(regFormBasic.value)" #myform="ngForm">
+                    <form [formGroup]="regFormBasic" novalidate (ngSubmit) = "submitForm(regFormBasic.value)" #regform="ngForm">
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <div class="form_group">
-                                    <input class="form_input" type="text" novalidate formControlName="name" required>
+                                    <input class="form_input" type="text" formControlName="name" required>
                                     <span class="form_highlight"></span>
                                     <span class="form_bar"></span>
                                     <label>Name</label>
-                                    <p class="error_alert" *ngIf="regFormBasic.get('name').hasError('required') && myform.submitted">Name is required</p>
+                                    <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.required && regform.submitted">Name is required</p>
                                 </div>
                                 <div class="form_group">
                                     <input class="form_input" type="text" (ngModelChange)="userExisitCheck($event)" formControlName="username" required>
@@ -32,10 +32,10 @@
                                     <span class="form_bar_alert"></span>
                                     <label>Username</label>
                                     <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace">White Space Not Allowed</p>
-                                    <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && myform.submitted">Username is required</p>
-                                    <p class="error_alert" *ngIf="petTag.user_unique">This username is already taken</p>
+                                    <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && regform.submitted">Username is required</p>
+                                    <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
                                     <ul class="username_error" *ngIf="petTag.user_unique">
-                                        <li *ngFor="let username of Suggested; let isLast=last">
+                                        <li *ngFor="let username of petTag?.user_exsist; let isLast=last">
                                             <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)" >{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
                                         </li>
                                     </ul>
@@ -62,7 +62,7 @@
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>Date of Birth</label>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.required && myform.submitted">DOB is required</p>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.required && regform.submitted">DOB is required</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isUnderAge">You should be above 13</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isOverAge">You should be below 100</p>
@@ -75,7 +75,7 @@
                             <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isEmailUnique ">A user with this email is already registered</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.email && regFormBasic.controls['email'].touched">Email is not valid</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isInvalidEmail">Email is not valid</p>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.required && myform.submitted">Email is required</p>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.required && regform.submitted">Email is required</p>
                         </div>
                         <div class="form_group">
                             <span id="phone" type="tel"></span>
@@ -85,6 +85,7 @@
                             <label style="padding-left: 50px;">Phone Number</label>
                             <app-country-selector></app-country-selector>
                             <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">Someone has already registed with this number</p>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
                         </div>
                         <div class="form_group pwd-cls">
                             <button class="password-toggle pos-abs" type="button" (click)="passwordShowToggle()" title="{{ passwordShow ? 'Hide Password' : 'Show Password' }}" >
@@ -94,7 +95,7 @@
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>Password</label>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.required && myform.submitted">Password is required</p>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.required && regform.submitted">Password is required</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Weak password! Please use special chars, numbers and capital letters</p>
                         </div>
                         <div class="form_group">
@@ -102,11 +103,11 @@
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>Confirm Password</label>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.required && myform.submitted">Confirm password is required</p>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.required && regform.submitted">Confirm password is required</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password not match</p>
                         </div>
                         <div class="signup_privacy">
-                            <p class="text-grey">By clicking I agree to the <a href="javascript:void(0)" (click)="showTerms()" class="text-theme">terms & conditions</a></p>
+                            <p class="text-grey">By clicking I agree to the <a  (click)="showTerms()" class="text-theme">terms & conditions</a></p>
                             <button [className]="'btn btn-primary btn-sm pull-right'" [type]="'submit'">SIGN UP</button>
                         </div>
                     </form>
@@ -394,7 +395,7 @@
                         <p class="text-center">
                             <a class="pointer" (click)="resendOtp()">Resend OTP</a>
                         </p>
-                        <form [formGroup]="otpForm" (ngSubmit) = "otpSubmit(otpForm.value)">
+                        <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #myform="ngForm" >
                             <div class="form_group">
                                 <input class="form_input" type="text"  formControlName="otpNumber" required>
                                 <span class="form_highlight"></span>
@@ -402,6 +403,8 @@
                                 <label>Enter OTP</label>
                                 <span>{{ countDown | async }}</span>
                             </div>
+                            <p class="error_alert text-center" *ngIf="petTag?.user_otp_failed">Invalid OTP</p>
+                            <p class="error_alert text-center" *ngIf="otpForm.controls['otpNumber'].errors?.invalid && myform.submitted">Please enter your 6 digit OTP number</p>
                             <p class="text-center">
                                 <a class="pointer" (click)="otpNotRecieved()">Didn't get your OTP?</a>
                             </p>
@@ -465,5 +468,33 @@
             </div>
           </div>
         </div>
-      </app-modal>
-      <!-- OTP change number -->
+    </app-modal>
+    <!-- OTP change number -->
+
+    <!-- Thank you Modal -->
+    <app-modal [modalTitle]="'OTP'" [blocking]='false' modalId='thankyouModal' class="otp__modal" size="small">
+        <div name="otp" class="otp__modal">
+          <div class="x reg_step1_otp" id="otpModal2" role="dialog">
+            <div class="modal-dialog modal-lg reg_thankyou" id="modal-test-1" style="">
+                <div class="modal-content">
+                    <div class="modal-header" style="border: none;">
+                        <button type="button" class="close" data-dismiss="modal"></button>
+                        <h4 class="modal-title text-center"><img src="https://d33wubrfki0l68.cloudfront.net/0532c099d59ca6db3235d5463c57edbed77345bd/072ec/img/logo_black.png"></h4>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 text-center">
+                                <h3>Thank you for joining us</h3>
+                                <p>Select your profile type and get started</p>
+                                <div class="text-center">
+                                    <a (click)="gotoRegProfile()" class="btn btn-default btn-sm">Next</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </app-modal>
+    <!-- Thank you Modal -->

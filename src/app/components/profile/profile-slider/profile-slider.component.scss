@@ -1017,9 +1017,16 @@
 
 .prohead2{
   &:hover{
-    .upload_cover_img img { display: block; }
+    .upload_cover_img{
+      .upload-btn {
+        background-color: transparent !important;
+        border-color: transparent !important;
+      }
+      img { display: block; }
+    }
   }
 }
+
 .upload_cover_img{
   img {
     display: none;
@@ -1050,6 +1057,8 @@
   &:hover{
     .upload-btn{
       display: inline-block;
+      background-color: transparent !important;
+      border-color: transparent !important;
     }
   }
   img {
@@ -1105,4 +1114,14 @@
     margin: 0px auto;
     min-height: 250px;
     padding: 15px;
+}
+
+.btn-plus {
+  border-color: #f0616b;
+  border-color: #5C5B5B !important;
+}
+
+.btn-follow {
+  background-color: #f0616b !important;
+  border-color: #f0616b !important;
 }
