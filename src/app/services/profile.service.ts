@@ -307,4 +307,13 @@ export class ProfileService {
     const req = payload.req;
     return this.api.put('/portal/network/spotfeed/' + channelId, req);
   }
+
+  /**
+   * Fetching individual spotfeeds data
+   */
+  getSpotfeedDetails(handle: string) {
+    const params = handle + '/' + this.pagination(1);
+    console.log('pagination: ' + params);
+    return this.api.get('/portal/cdn/spotfeed/inner/', params);
+  }
 }
