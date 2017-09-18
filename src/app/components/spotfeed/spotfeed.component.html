@@ -3,14 +3,14 @@
         <!---  section  -->
         <div class="row">
             <div class="col-md-3">
-                <img src="{{ baseUrl + spotfeedDetails.SUCCESS.spotfeedImage }}" class="img-responsive img-rounded img-thumbnail">
+                <img src="{{ baseUrl + spotfeedDetails?.SUCCESS.spotfeedImage }}" class="img-responsive img-rounded img-thumbnail">
             </div>
             <div class="col-md-6">
-                <div class="ops_h1">{{ spotfeedDetails.SUCCESS.spotfeedName }}</div>
+                <div class="ops_h1">{{ spotfeedDetails?.SUCCESS.spotfeedName }}</div>
                 <div class="ops_heading2 spot_in_toptext">
-                    {{ spotfeedDetails.SUCCESS.spotfeedDescription }}
+                    {{ spotfeedDetails?.SUCCESS.spotfeedDescription }}
                 </div>
-                <a href="" class="btn btn-tag btn-sm" *ngFor="let tag of spotfeedDetails.SUCCESS.spotfeedTags" >{{ tag }}</a>
+                <a href="" class="btn btn-tag btn-sm" *ngFor="let tag of spotfeedDetails?.SUCCESS.spotfeedTags" >{{ tag }}</a>
             </div>
             <div class="col-md-3"></div>
         </div>
@@ -21,7 +21,7 @@
           </ul>
           <div class="col-md-12 padding_none ops_artist_follow myBlock">
             <!-- ---------- card ---------- -->
-            <div class="col-md-2 " *ngFor="let artist of spotfeedDetails.SUCCESS.spotfeedProfiles" >
+            <div class="col-md-2 " *ngFor="let artist of spotfeedDetails?.SUCCESS.spotfeedProfiles" >
                 <div class="c-card c-card--artist">
                     <div class="c-artist__avatar">
                         <img *ngIf="artist.image; else default_profile_image" src="{{ baseUrl + artist.image }}" class="c-artist__img">

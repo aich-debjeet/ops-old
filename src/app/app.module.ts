@@ -49,6 +49,7 @@ import { AuthService } from './services/auth.service';
 import { MediaService } from './services/media.service';
 import { GeneralService } from './services/api.service';
 import { ModalService } from './shared/modal/modal.component.service';
+import { HomeService } from './services/home.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
@@ -149,7 +150,7 @@ import { CommunitiesComponent } from './components/communities/communities.compo
     VgBufferingModule
   ],
   providers: [
-    AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService, ModalService
+    AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService, ModalService, HomeService
   ],
   bootstrap: [AppComponent]
 })

@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -73,7 +74,7 @@ export class HomeComponent {
   }
 
   constructor(private store: Store<Channel>) {
-    this.getChannels();
+    // this.getChannels();
     this.cards = [];
   }
 

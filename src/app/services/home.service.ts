@@ -16,13 +16,18 @@ export class HomeService {private handle: string;
       private http: Http
       ) { }
 
-    /**
-     * Get logged in users channels
-     */
-    getChannels(handle: string) {
-        // const headers = this.tokenService.getAuthHeader();
-        const headers = new Headers({ 'Content-Type': 'application/json'});
-        headers.append('Authorization', 'Bearer at-a3fa3fc9-8f4a-4e43-890b-1de2ea932ac6');
-        return this.http.get(this.apiLink + '/portal/network/spotfeed/following/profile/spotfeeds/' + handle, { headers: headers });
+    // /**
+    //  * Get logged in users channels
+    //  */
+    // getChannels(handle: string) {
+    //     // const headers = this.tokenService.getAuthHeader();
+    //     const headers = new Headers({ 'Content-Type': 'application/json'});
+    //     headers.append('Authorization', 'Bearer at-a3fa3fc9-8f4a-4e43-890b-1de2ea932ac6');
+    //     return this.http.get(this.apiLink + '/portal/network/spotfeed/following/profile/spotfeeds/' + handle, { headers: headers });
+    // }
+
+    getChannels() {
+        const userHandle = 'W_E160B801_086B_4C6B_A55E_2014EE3C4171YASWANTHMDH_GMAIL_COM';
+        return this.api.get('/portal/network/spotfeed/following/profile/spotfeeds/' + userHandle , '');
     }
 }

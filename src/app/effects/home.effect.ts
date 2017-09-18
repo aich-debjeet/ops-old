@@ -17,7 +17,7 @@ export class HomeEffect {
   loadChannels$ = this.actions$
     .ofType(HomeActions.LOAD_CHANNELS)
     .map(toPayload)
-    .switchMap((payload) => this.homeService.getChannels(payload)
+    .switchMap((payload) => this.homeService.getChannels()
       .map(res => ({ type: HomeActions.LOAD_CHANNELS_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: HomeActions.LOAD_CHANNELS_FAILED, payload: res }))
     );

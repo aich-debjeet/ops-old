@@ -29,6 +29,11 @@ export class HomeChannelComponent {
   userState;
   userChannels;
 
+  loadMoreParams = {
+    offset: -10,
+    limit: 10
+  };
+
   constructor(
     private http: Http,
     private store: Store<UserChannel>
@@ -47,8 +52,27 @@ export class HomeChannelComponent {
     // };
     // this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: reqBody });
 
-    const userHandle = 'W_E160B801_086B_4C6B_A55E_2014EE3C4171YASWANTHMDH_GMAIL_COM';
-    this.store.dispatch({ type: HomeActions.LOAD_CHANNELS, payload: userHandle });
+    // const userHandle = 'W_E160B801_086B_4C6B_A55E_2014EE3C4171YASWANTHMDH_GMAIL_COM';
+    // this.store.dispatch({ type: HomeActions.LOAD_CHANNELS, payload: userHandle });
+
+    // load channels
+    this.getChannels();
+  }
+
+  // make http request to load channels
+  getChannels() {
+
+    // updating request params to load more channels
+    this.loadMoreParams.offset = this.loadMoreParams.offset + this.loadMoreParams.limit;
+    console.log(this.loadMoreParams);
+
+    console.log('home component: getChannels() dispatched');
+
+    this.store.dispatch({
+      type: HomeActions.LOAD_CHANNELS,
+      payload: this.loadMoreParams
+    });
+
   }
 
 }

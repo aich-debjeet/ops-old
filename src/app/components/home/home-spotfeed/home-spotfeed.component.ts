@@ -32,7 +32,9 @@ export class HomeSpotfeedComponent implements OnInit {
     this.tagState$ = this.store.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.userState = state;
-      this.spotfeeds = this.userState.home_spotfeeds.SUCCESS;
+      if (this.userState.home_spotfeeds !== undefined && this.userState.home_spotfeeds.SUCCESS !== undefined) {
+        this.spotfeeds = this.userState.home_spotfeeds.SUCCESS;
+      }
     });
 
     this.store.dispatch({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS });
