@@ -17,6 +17,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { TabsetComponent  } from '../../../shared/tabs/tabset';
 import { ProfileActions } from '../../../actions/profile.action';
 
+// load channel component
+import { ChannelComponent } from '../../../shared/channel/channel.component';
+
 import { ApiService } from '../../../helpers/api.service';
 
 @Component({
@@ -29,7 +32,7 @@ export class HomeChannelComponent {
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
   userState;
-  userChannels;
+  channelList;
 
   loadMoreParams = {
     offset: -10,
@@ -40,51 +43,35 @@ export class HomeChannelComponent {
     private http: Http,
     private store: Store<ProfileModal>
   ) {
+    let channelLoaded = false;
 
     this.tagState$ = this.store.select('profileTags');
     this.tagState$.subscribe((state) => {
+
       this.userState = state;
+      const userHandle = this.userState.profileUser.handle  || '';
+
+      if (!channelLoaded && userHandle !== '') {
+        channelLoaded = true;
+        // console.log('DISPATCH');
+        this.loadChannels(this.userState.profileUser.handle);
+      }
+
     });
 
-    // const reqBody = {
-    //   superType: 'channel'
-    // };
-    
-    // const userHandle = 'W_E160B801_086B_4C6B_A55E_2014EE3C4171YASWANTHMDH_GMAIL_COM';
-    // this.store.dispatch({ type: HomeActions.LOAD_CHANNELS, payload: userHandle });
-
-    // load channel
-    // this.getChannels();
-
-    this.loadChannels();
   }
 
   /**
    * Check and Load Channels
    */
-  loadChannels() {
-    const userHandle = this.userState.profileUser.handle  || '';
-    if (userHandle !== '' && this.userState.user_channels_loaded === false) {
-      this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: userHandle });
-    } else {
-      // console.log(this.userState);
-    }
-  }
-
-  // make http request to load channels
-  getChannels() {
-
-    // updating request params to load more channels
-    this.loadMoreParams.offset = this.loadMoreParams.offset + this.loadMoreParams.limit;
-    console.log(this.loadMoreParams);
-
-    console.log('home component: getChannels() dispatched');
-
-    this.store.dispatch({
-      type: HomeActions.LOAD_CHANNELS,
-      payload: this.loadMoreParams
+  loadChannels(userHandle: string) {
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: userHandle });
+    this.tagState$.subscribe(data => {
+      // console.log('ProfileActions.LOAD_CURRENT_USER_CHANNEL response: ');
+      // console.log(data);
+      this.channelList = data.user_channel;
+      console.log(this.channelList);
     });
-
   }
 
 }

@@ -56,17 +56,27 @@ export class ProfileService {
   /**
    * Current LoggedIn Channel profile.
    */
-  getLoggedInChannel(value: string, page: number = 1) {
-    const perPage = 10;
-    const offset = page === 1 ? 0 : page * perPage;
-    const body = {
-      'offset': offset,
-      'limit': perPage,
-      'superType': 'channel',
-      'owner': value
-    }
+  // getLoggedInChannel(value: string, page: number = 1) {
+  //   const perPage = 10;
+  //   const offset = page === 1 ? 0 : page * perPage;
+  //   const body = {
+  //     'offset': offset,
+  //     'limit': perPage,
+  //     'superType': 'channel',
+  //     'owner': value
+  //   }
 
-    return this.api.post('/portal/network/spotfeed/search', body);
+  //   return this.api.post('/portal/network/spotfeed/search', body);
+  // }
+
+
+
+  /**
+   * Get loggedin users channels.
+   */
+  getLoggedInChannel(userHandle: string) {
+    // console.log('API call: ' + userHandle);
+    return this.api.get('/portal/network/spotfeed/following/profile/spotfeeds/' + userHandle , '');
   }
 
   /**
