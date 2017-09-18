@@ -11,7 +11,7 @@
                             <h2 class="feed-heading">
                                 Quick Access <a href><img src="/assets/img/svg/ico_options.svg" class="right_options"></a>
                              </h2>
-                            <!-- <app-quick-access></app-quick-access> -->
+                             <app-quick-access *ngFor="let quickAccess of userQuickAccess.userQuickAccess; let i = index" [quickAccessData]="quickAccess"></app-quick-access>
                         </div>
                     </div>
                 </div>

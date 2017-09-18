@@ -7,6 +7,8 @@ import { Channel } from '../../models/home.model';
 import { HomeActions } from '../../actions/home.action';
 import { SharedActions } from '../../actions/shared.action';
 
+import { ProfileModal, initialTag } from '../../models/profile.model';
+
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -20,7 +22,8 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class HomeComponent {
 
-
+  tagState$: Observable<ProfileModal>;
+  userQuickAccess = initialTag;
   channelList$: Observable<Channel>;
   cards: any = [];
 
@@ -73,9 +76,20 @@ export class HomeComponent {
 
   }
 
-  constructor(private store: Store<Channel>) {
+  constructor(
+    private store: Store<Channel>,
+    private profileStore: Store<ProfileModal>
+  ) {
     // this.getChannels();
     this.cards = [];
+
+    // Own Profile
+    this.tagState$ = this.profileStore.select('profileTags');
+    this.tagState$.subscribe((state) => {
+      this.userQuickAccess = state;
+      console.log('this.userQuickAccess');
+      console.log(this.userQuickAccess);
+    });
   }
 
 }
