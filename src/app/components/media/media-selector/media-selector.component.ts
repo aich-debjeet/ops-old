@@ -108,14 +108,7 @@ export class MediaSelectorComponent implements OnInit {
       this.token = this.api.getToken();
       this.handle = '';
 
-      // Subs
-      // this.myChannels$ = _store.select(fromRoot.getMyChannel);
-      // this.myProfile$ = _store.select(fromRoot.getMyProfile);
-
       this.myProfile$ = _store.select('profileTags').take(3);
-
-      // console.log(' MEDIA_SELECTOR { CONSTRUCTOR } : TOKEN ', this.token );
-
       this.tagState$ = this.profileStore.select('profileTags');
       // this.test = 'salabeel';
       this.tagState$.subscribe((state) => {
@@ -141,6 +134,7 @@ export class MediaSelectorComponent implements OnInit {
       // If user is got
       let isUserReady;
       if (event.profileUser && event.profileUser.handle) {
+        console.log('x');
         this.handle = this.myProfileData.profileUser.handle;
         isUserReady = true;
         this.loadChannel(this.handle);

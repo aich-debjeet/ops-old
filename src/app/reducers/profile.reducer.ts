@@ -12,8 +12,6 @@ export interface State {
 
 export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
-  console.log('ProfileReducer');
-
   switch (type) {
 
     case ProfileActions.PROFILE_COVER_UPDATE:

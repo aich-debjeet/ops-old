@@ -19,6 +19,25 @@
                       <label>Title</label>
                     </div>
                   </li>
+                  <li>
+                    <div class="col-md-4">
+                      <div class="form_group">
+                          <select formControlName="type" class="form-control form__select" id="sel1">
+                              <option value="">Industry</option>
+                              <option value="DANCE">Dance</option>
+                              <option value="MUSIC">Music</option>
+                              <option value="THEATRE">Theatre</option>
+                              <option value="CINEMA">Cinema</option>
+                              <option value="GRAPHICS">Graphics</option>
+                              <option value="FASHION">Fashion</option>
+                              <option value="TELEVISION">Television.</option>
+                              <option value="FINE_ARTS">Fine Arts</option>
+                              <option value="PHOTOGRAPHY">Photography</option>
+                              <option value="PRODUCTION">Production</option>
+                          </select>
+                      </div>
+                  </div>
+                  </li>
                   <li class="channel_desc">
                     <div class="form_group">
                       <textarea placeholder="Description" class="form__textarea" formControlName="desc" name="desc" id="" cols="30" rows="10"></textarea>
@@ -33,7 +52,7 @@
                     </div>
                   </li>
                   <li class="create_btn">
-                    <!-- <button class="btn btn-normal btn-sm" type="submit" (click)="createChannel(channelForm.value)">Create Channel</button> -->
+                    <button class="btn btn-normal btn-sm" type="submit" (click)="createChannel(channelForm.value)">Create Channel</button>
                   </li>
               </ul>
             </form>
