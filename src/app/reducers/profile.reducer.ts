@@ -12,6 +12,8 @@ export interface State {
 
 export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
+  console.log('ProfileReducer');
+
   switch (type) {
 
     case ProfileActions.PROFILE_COVER_UPDATE:
@@ -182,6 +184,31 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     return Object.assign({}, state, {
       channel_saved: false
     });
+
+    /**
+     * Get home page spotfeeds
+     */
+    case ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS:
+      return Object.assign({}, state, {
+        success: true,
+        home_spotfeeds_loading: true,
+        home_spotfeeds_loaded: false
+      });
+
+    case ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS_SUCCESS:
+      return Object.assign({}, state, {
+        home_spotfeeds: payload,
+        success: true,
+        home_spotfeeds_loaded: true,
+        home_spotfeeds_loading: false
+      });
+
+    case ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS_FAILED:
+      return Object.assign({}, state, {
+        success: false,
+        home_spotfeeds_loading: false,
+        home_spotfeeds_loaded: false
+      });
 
     /**
      * Get current User channel of profile
@@ -393,6 +420,24 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         media_channel_posting: false,
         media_channel_posted: false
+      });
+
+    // Get single spotfeed details
+    case ProfileActions.GET_SPOTFEED_DETAILS:
+      return Object.assign({}, state, {
+        success: true,
+        spotfeed_loading: false,
+      });
+
+    case ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS:
+      return Object.assign({}, state, {
+        spotfeed_loading: true,
+        spotfeed_detail: payload
+      });
+
+    case ProfileActions.GET_SPOTFEED_DETAILS_FAILED:
+      return Object.assign({}, state, {
+        success: false
       });
 
     default:

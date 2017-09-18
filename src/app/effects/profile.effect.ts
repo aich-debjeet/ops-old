@@ -75,6 +75,22 @@ export class ProfileEffect {
     );
 
   /**
+   * Get home page spotfeed
+   */
+  @Effect()
+  loadHomePageSpotfeeds$ = this.actions$
+    .ofType(ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getHomePageSpotfeeds()
+      .map(res => ({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+
+  /**
    * Get current user channel profile
    */
   @Effect()
@@ -406,6 +422,22 @@ export class ProfileEffect {
       .map(res => ({ type: ProfileActions.POST_CHANNEL_MEDIA_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.POST_CHANNEL_MEDIA_FAILED, payload: res }))
     );
+
+  /**
+   * Get spotfeed details
+   */
+  @Effect()
+  loadSpotfeedDetails$ = this.actions$
+    .ofType(ProfileActions.GET_SPOTFEED_DETAILS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getSpotfeedDetails(payload)
+      .map(res => ({ type: ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.GET_SPOTFEED_DETAILS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
 
   constructor(
     private actions$: Actions,

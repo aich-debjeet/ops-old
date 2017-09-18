@@ -1,5 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
+import { DatePipe } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { UserSpotfeeds } from '../../../models/user-spotfeed.model';
+
+// action
+import { ProfileActions } from '../../../actions/profile.action';
+
+// rx
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-home-spotfeed',
@@ -8,23 +18,29 @@ import { Http, Headers, Response } from '@angular/http';
 })
 export class HomeSpotfeedComponent implements OnInit {
 
-  constructor(private http: Http) { }
+  tagState$: Observable<UserSpotfeeds>;
+  private tagStateSubscription: Subscription;
+  userState;
+  spotfeeds: any = [];
+  baseUrl: String;
 
-  ngOnInit() {
-    this.spotfeed()
+  constructor(
+    private http: Http,
+    private store: Store<UserSpotfeeds>
+  ) {
+
+    this.tagState$ = this.store.select('profileTags');
+    this.tagState$.subscribe((state) => {
+      this.userState = state;
+      if (this.userState.home_spotfeeds !== undefined && this.userState.home_spotfeeds.SUCCESS !== undefined) {
+        this.spotfeeds = this.userState.home_spotfeeds.SUCCESS;
+      }
+    });
+
+    this.store.dispatch({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS });
   }
 
-  spotfeed(){
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    var token = currentUser.access_token; // your token
-
-    let headers = new Headers({ 'Content-Type': 'application/json'}); 
-    headers.append('Authorization','Bearer '+token)
-
-    this.http.get('http://devservices.greenroom6.com:9000/api/1.0/portal/network/spotfeed/range/0/5/spotfeed', { headers: headers })
-        .map(res => res.json())
-        .subscribe(data =>{console.log(data)} );
-    
+  ngOnInit() {
   }
 
 }
