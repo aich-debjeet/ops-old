@@ -47,6 +47,9 @@ export class AboutImageComponent implements OnInit {
     private _store: Store<ProfileModal>
   ) {
     this.tagState$ = this._store.select('profileTags');
+    this.tagState$.subscribe((state) => {
+      this.stateProfile = state;
+    });
     this.changingImage = false;
 
     // Image Cropper Settings
@@ -69,14 +72,14 @@ export class AboutImageComponent implements OnInit {
    * Attach image url to Profile
    */
   saveImageClick() {
-    if (this.data && this.data.image) {
-      const data = {
-        profileHandle: this.tokenService.getHandle(),
+    const userHandle = this.stateProfile.profileUser.handle || '';
+    if (this.data && this.data.image && userHandle !== '') {
+      const imageData = {
+        handle: userHandle,
         image: this.data.image.split((/,(.+)/)[1])
-      }
-      console.log(this.data.image.split((/,(.+)/)[1]));
+      };
 
-      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: data });
+      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: imageData });
       this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
 
       this.changingImage = false;
@@ -87,6 +90,53 @@ export class AboutImageComponent implements OnInit {
     this.router.navigate(['.'], {
       relativeTo: this.route.parent
     });
+  }
+
+  /**
+   * Convert URI to Blob
+   * @param dataURI
+   */
+  dataURItoBlob(dataURI: any) {
+    // convert base64/URLEncoded data component to raw binary data held in a string
+    let byteString;
+    if (dataURI.split(',')[0].indexOf('base64') >= 0) {
+      byteString = atob(dataURI.split(',')[1]);
+    } else {
+      byteString = decodeURI(dataURI.split(',')[1]);
+    }
+
+    // Seperate out the MIME component
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // Write the bytes of the string to a typed array
+    const ia = new Uint8Array(byteString.length);
+    for (let i = 0; i < byteString.length; i ++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ia], {type: mimeString});
+  }
+
+  /**
+   * Upload Image
+   * @param ImageObj
+   */
+  buildImageForm(formValue: any) {
+    // let fileData:FormData = new FormData();
+    let data = new FormData();
+    // Check if image is present
+    if (formValue.image && formValue.image[0]) {
+      const imageData = formValue.image[0];
+      const imageType = (imageData.substring('data:image/'.length, imageData.indexOf(';base64')));
+      // Create random file name
+      const randm = Math.random().toString(36).slice(2);
+      const fileName = 'prof_' + randm + '.' + imageType;
+
+      console.log('x');
+
+      data.append('file', this.dataURItoBlob(imageData), fileName );
+      return data;
+    }
   }
 
 }

@@ -55,6 +55,7 @@ export class ProfileSliderComponent implements OnInit {
   activateSubmitBtn = false;
   router: any;
   isfollowing: boolean;
+  defaultImage: string;
   // profileObject: ProfileCard;
 
   hasFollowed: boolean;
@@ -74,11 +75,10 @@ export class ProfileSliderComponent implements OnInit {
 
     this.tagState$ = this.profileStore.select('profileTags');
     this.skillState$ = this.profileStore.select('loginTags');
-    this.profileImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+    this.defaultImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      this.profileImageDefault();
     });
 
     this.skillState$.subscribe((state) => {
@@ -143,7 +143,7 @@ export class ProfileSliderComponent implements OnInit {
       // Profile
       this.profileImage = profileImageURL;
     }
-    return profileImageURL;
+    // return profileImageURL;
   }
 
   isClosed(event) {

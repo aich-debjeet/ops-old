@@ -15,7 +15,7 @@ import FilesHelper from '../../.../../../helpers/fileUtils';
 
 import { TokenService } from '../../../helpers/token.service';
 
-import { remove as _remove, merge as _merge } from 'lodash';
+import { remove as _remove, merge as _merge, uniqBy as _uniqBy } from 'lodash';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -61,6 +61,7 @@ export class MediaSelectorComponent implements OnInit {
   postSuccess: boolean;
   postSuccessActive: boolean;
   submitEnabled: number;
+  formMessages: string[];
 
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
@@ -79,6 +80,7 @@ export class MediaSelectorComponent implements OnInit {
     // this.uploadedFiles = [];
     this.uploaded = [];
     this.uploadedFiles = [];
+    this.formMessages = [];
 
     this.chosenChannel = 0;
 
@@ -222,6 +224,9 @@ export class MediaSelectorComponent implements OnInit {
    * Media Info Update
    */
   mediaInfoUpdate(value: any) {
+    this.formMessages = [];
+
+    let userHandle;
     // Stop submittion if not ready with needed data;
     if (this.submitEnabled < 1 ) {
       // console.log('FORM', 'Form disabled, All required datas not loaded yet');
@@ -229,7 +234,7 @@ export class MediaSelectorComponent implements OnInit {
     }
 
     if (this.profileChannel.profile_loaded === true ) {
-      this.handle = this.profileChannel.profileUser.handle;
+      userHandle = this.profileChannel.profileUser.handle;
     }
     // 1. Get choosen file
     const chosenFile = this.editingFile;
@@ -239,6 +244,27 @@ export class MediaSelectorComponent implements OnInit {
     // 3. Link and upload
     const fileName = '';
     const repoPath = '';
+
+    // Check if a file & a channel is selected
+    console.log('FILE', chosenFile);
+    console.log('CHANNEL', chosenChannel);
+    console.log('HANDLE', userHandle);
+
+    let isChannelReady, isFileReady ;
+    if (this.chosenChannel === 0 ) {
+      isChannelReady = false;
+      this.formMessages.push('Please select a channel');
+    } else {
+      isChannelReady = true;
+    }
+
+    if (chosenFile.fileName === undefined) {
+      isFileReady = false;
+      this.formMessages.push('Please select a file');
+    } else {
+      console.log('no file choosen', chosenChannel.keys);
+      isFileReady = true;
+    }
 
     const mediaType = this.getFileType(this.editingFile.fileName);
     const postTime = this.currentTime();
@@ -251,7 +277,7 @@ export class MediaSelectorComponent implements OnInit {
         title: value.title,
         description: value.desc,
         active: true,
-        createdBy: this.handle,
+        createdBy: userHandle,
         createdDate: postTime,
         lastUpdatedDate: postTime,
         count : {
@@ -260,7 +286,11 @@ export class MediaSelectorComponent implements OnInit {
         }
     }];
 
-    this.postMediaToChannel(chosenChannel.spotfeedId, media);
+    if ( isFileReady && isChannelReady) {
+      this.postMediaToChannel(chosenChannel.spotfeedId, media);
+    } else {
+      console.log('FORM SUBMITTION ERROR');
+    }
   }
 
   /**
@@ -268,8 +298,6 @@ export class MediaSelectorComponent implements OnInit {
    */
   currentTime() {
     const postDate = new Date(Date.now()).toISOString();
-    console.log( 'NOW', postDate );
-    console.log( 'EXPECTED', '2017-08-23T09:50:12.48' );
     return postDate;
   }
 
@@ -390,6 +418,10 @@ export class MediaSelectorComponent implements OnInit {
     return FilesHelper.fileType(fileName, fileType);
   }
 
+  checkEmpty(obj: Object) {
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
+  }
+
   /**
    * Selected Class builder
    * @param fileName
@@ -478,11 +510,11 @@ export class MediaSelectorComponent implements OnInit {
     let userHandle = '0';
     this.tagState$.subscribe((state) => {
       userHandle = this.profileChannel.profileUser.handle;
-      if ( this.profileChannel.profile_loaded === true && this.uploadStatus < 1 ) {
+      if ( this.profileChannel.profile_loaded === true ) {
         this.uploadStatus = 2;
         this.uploadFile(files, this.token, userHandle)
       } else {
-        console.log('ERROR', 'Entho');
+        console.log('UPLOAD ERROR', this.uploadStatus);
       }
     });
   }
@@ -494,9 +526,6 @@ export class MediaSelectorComponent implements OnInit {
    * @param userHandle
    */
   uploadFile(files: any, token: string, userHandle: string) {
-
-    console.log('Files', files);
-
     this.Upload.upload({
       url: base,
       headers: { Authorization: 'Bearer ' + this.token },
@@ -514,12 +543,6 @@ export class MediaSelectorComponent implements OnInit {
             // @TODO__URGENT Make list appendable for files
             const latestUploaded = event.data['SUCCESS'];
             this.addToUploads(latestUploaded);
-            // const allMedia = _merge(this.uploaded, latestUploaded);
-            // this.uploaded = latestUploaded;
-            // // this.uploadedFiles.push(latestUploaded);
-            // console.log(' ALL ', allMedia);
-            // console.log(' CURRENT ', latestUploaded);
-            // console.log(' UPLOAD FILE : FILE, HANDLE ', [this.uploaded, this.handle] );
 
             this.uploadStatus = 0;
           }
@@ -537,10 +560,17 @@ export class MediaSelectorComponent implements OnInit {
    * Push to Upload List
    */
   addToUploads(uploads: any) {
+    // let uploads = [];
     for (let file of uploads) {
       const thisFile = this.formatFile(file);
       this.uploadedFiles.push(thisFile);
     }
+
+    const x = _uniqBy(this.uploadedFiles, function (e) {
+      console.log(e);
+      return e.repoPath;
+    });
+    // this.uploadedFiles = _uniqBy(this.uploadedFiles, 'repoPath');
   }
 
   /**
@@ -548,7 +578,7 @@ export class MediaSelectorComponent implements OnInit {
    * @param file
    */
   removeFile(file: any) {
-    this.uploaded = _remove(this.uploaded, function(n){
+    this.uploadedFiles = _remove(this.uploadedFiles, function(n){
       return n.fileName !== file.fileName;
     });
   }

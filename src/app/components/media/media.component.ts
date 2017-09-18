@@ -84,10 +84,12 @@ export class MediaComponent implements OnInit, AfterViewInit {
         if (this.channelLoaded === false && this.profileStore.user_channel.length < 1 && this.profileStore.user_channels_loaded === false) {
           this.channelLoaded = true;
           const userHandle = this.profileStore.profileUser.handle;
+          console.log('im making it');
           this.loadChannels(userHandle);
         }
         // If its loaded assign to the variables
-        if (this.profileStore.user_channel.length > 0 ) {
+        if ( this.channelLoaded === false && this.profileStore.user_channels_loaded === true ) {
+          console.log('i passed');
           this.userChannels = this.profileStore.user_channel;
         }
       });
@@ -100,7 +102,9 @@ export class MediaComponent implements OnInit, AfterViewInit {
   }
 
   loadChannels(handle: string) {
-    this.profStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
+    if (handle !== '') {
+      this.profStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
+    }
   }
 
   /**

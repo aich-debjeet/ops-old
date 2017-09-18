@@ -63,4 +63,15 @@ export class TokenService {
     return headers;
   }
 
+  /**
+   * Build Autherization Header based on token
+   */
+  getPlainHeader() {
+    const token = this.getToken();
+    // console.log(token);
+    const headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + token);
+    return headers;
+  }
+
 }

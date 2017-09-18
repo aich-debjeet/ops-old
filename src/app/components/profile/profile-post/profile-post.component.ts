@@ -95,6 +95,7 @@ export class ProfilePostComponent implements OnInit {
   loadOtherProfile(isOwn: boolean = false) {
     let isProfileReady;
     let isChannelReady;
+    let shouldLoad = false;
     // Check
     if (isOwn) {
       isProfileReady = this.userMedia.profile_loaded;
@@ -105,7 +106,20 @@ export class ProfilePostComponent implements OnInit {
       isChannelReady = (this.userName === this.userMedia.profile_other['extra']['username']);
     }
 
-    // X
+    // If loaded posts and the profile are different
+    if ( isProfileReady && isChannelReady ) {
+      // get current handle
+      const mHandleID = this.userMedia.profileDetails.handle;
+      if (this.userMedia.user_posts.length > 0 ) {
+        let handleA = this.userMedia.user_posts[0].ownerHandle || '';
+        let handleB = mHandleID;
+        if (handleA !== handleB) {
+          shouldLoad = true;
+          console.log('This should reload');
+        }
+      }
+    }
+
     // console.log('Posts', isChannelReady, 'Profile', isProfileReady);
 
     // Check if the other profile is loaded; also make sure the activated route is not current user

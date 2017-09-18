@@ -6,7 +6,6 @@ import { environment } from './../../../../environments/environment';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 
 import FilesHelper from '../../../helpers/fileUtils';
-import { ModalService } from '../../../shared/modal/modal.component.service';
 
 
 // Action

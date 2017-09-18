@@ -20,6 +20,7 @@ import { AboutEducationComponent } from './about-education/about-education.compo
 import { AboutContactComponent } from './about-contact/about-contact.component';
 
 import { AboutImageComponent } from './about-image/about-image.component';
+import { AboutCoverComponent } from './about-cover/about-cover.component';
 
 import { ProfileHelper } from '../../helpers/profile.helper';
 
@@ -44,6 +45,7 @@ const childRoutes = [
     children: [
       { path: '', component: AboutBioComponent },
       { path: 'image', component: AboutImageComponent },
+      { path: 'cover_image', component: AboutCoverComponent },
       { path: 'bio', component: AboutBioComponent },
       { path: 'work', component: AboutWorkComponent },
       { path: 'awards', component: AboutAwardsComponent },
@@ -89,6 +91,7 @@ const routes: Routes = [
     AboutEducationComponent,
     AboutContactComponent,
     AboutImageComponent,
+    AboutCoverComponent,
     ImgCrop
   ]
 })

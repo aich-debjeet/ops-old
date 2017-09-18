@@ -1,34 +1,42 @@
-<div class="{{className}} ops_channel_card">
-  <div class="col-md-12 col-sm-12 ops_channel_block">
-    <div class="row">
-      <div class="col-md-12 col-sm-12 ops_channel_top">
-        <a [routerLink]="['/channel', channelData?.spotfeedId]">
-          <div *ngFor="let item of channelData?.media | slice:0:3; let i=index" class="channel_avatar_full sec__{{ i}}">
-            <img *ngIf="checkFileType(item.repoPath, 'Image')" src="{{ 'http://d206s58i653k1q.cloudfront.net/'  + item.repoPath }}">
-            <app-videplayer *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}"></app-videplayer>
-          </div>
-        </a>
+<div class="{{className}} c-card">
+    <!-- card body -->
+    <div class="c-card__body">
+      <a [routerLink]="['/channel', channelData?.spotfeedId]" class="c-channel__heading">{{channelData?.spotfeedName}}</a>
+    </div>
+    <div class="c-channel__media">
+      <div *ngFor="let item of channelData?.media | slice:0:3; let i=index">
+          <div class="c-channel__sec" *ngIf="i===0">
+              <div class="c-channel__left">
+                  <img *ngIf="checkFileType(item.repoPath, 'Image')" src="{{ 'http://d206s58i653k1q.cloudfront.net/'  + item.repoPath }}" class="c-card__image">
+                  <app-videplayer *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-videplayer>
+                  <app-audioplayer type="simple" *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-audioplayer>
+              </div>
+            </div>
+            <div class="c-channel__sec" >
+              <div class="c-channel__right1" *ngIf="i===1">
+                  <div class="c-channel__left">
+                      <img *ngIf="checkFileType(item.repoPath, 'Image')" src="{{ 'http://d206s58i653k1q.cloudfront.net/'  + item.repoPath }}" class="c-card__image">
+                      <app-videplayer *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-videplayer>
+                      <app-audioplayer type="simple" *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-audioplayer>
+                  </div>
+              </div>
+              <div class="c-channel__right2" *ngIf="i===2">
+                  <img *ngIf="checkFileType(item.repoPath, 'Image')" src="{{ 'http://d206s58i653k1q.cloudfront.net/'  + item.repoPath }}" class="c-card__image">
+                  <app-videplayer *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-videplayer>
+                  <app-audioplayer type="simple" *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-audioplayer>
+              </div>
+            </div>
       </div>
-
-      <div class="col-md-12 col-sm-12 pro_channel_cont">
-          <div class="channel_name">
-            <a [routerLink]="['/channel', channelData?.spotfeedId]">
-              <h3 class="channel_heading float-left">{{channelData?.spotfeedName}}</h3>
-            </a>
-              <span>
-            <a ><img class="float-right" src="/assets/img/svg/ico_options.svg"></a>
-          </span>
-          </div>
-          <div class="channel-thumb">
-              <img [src]="userImage">
-              <p>{{channelData?.ownerName}}</p>
-          </div>
-          <div class="channel_count">
-              <span><img src="/assets/img/svg/ico_follower.svg"> {{channelData?.followersCount}}</span>
-              <span><img src="/assets/img/svg/ico_post.svg">{{channelData?.mediaCount}}</span>
-              <!--<app-button (click)="toggleFollowBtn(i)" [className]="'btn-xs btn-primary btn-following'">Following</app-button>-->
-          </div>
+    </div>
+    <div class="c-card__links">
+      <span class="c-links__post">{{channelData?.mediaCount}} Post</span>
+      <span class="c-links__post">{{channelData?.followersCount}} Followers</span>
+      <div class="c-channel__btn">
+        <a href="" class="btn btn-xs btn-primary btn-follow">
+          <span class="btn-label-follow">
+            <img src="http://d33wubrfki0l68.cloudfront.net/dad39c553de20299ab403e1e0d2dcbd6062911cc/62cff/img/svg/ico_plus_white.svg">
+          </span> FOLLOW
+        </a>
       </div>
     </div>
   </div>
-</div>

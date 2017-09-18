@@ -76,14 +76,14 @@ export class ProfileComponent implements OnInit {
     let flag = 0;
     if (!this.userName && userProfile.profile_loaded  === true) {
       flag = 1;
-      console.log(flag);
+      // console.log(flag);
       // this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: flag });
     }
 
     if (this.userName && userProfile.profile_other_loaded === true) {
       flag = 2;
     }
-    console.log(flag);
+    // console.log(flag);
     // this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: flag });
     return flag;
   }

@@ -9,6 +9,12 @@
   <span class="Overlay__status" *ngIf="postSuccessActive === true">
     Saved to Channel ...
   </span>
+
+  <div class="Overlay__error" *ngIf="formMessages.length > 0">
+    <span class="Overlay__status" *ngFor="let msg of formMessages">
+      {{ msg }}
+    </span>
+  </div>
 </div>
 
 <div class="media-selector" [ngClass]="{'not__filled': hasFiles === false }">
@@ -17,7 +23,7 @@
       <li *ngFor="let file of uploadedFiles" class="file__item">
         <div *ngIf="checkFileType(file.fileName, 'Video')" class="add_media_container" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }">
           <app-videplayer (click)="fileDetails(file)" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file.repoPath }}"></app-videplayer>
-          <div class="add_media_delet">
+          <div class="add_media_delet" (click)="removeFile(file)">
               <img src="http://d33wubrfki0l68.cloudfront.net/2b2a108565b4b23215301528183f77ffc0c04a24/f7395/img/svg/ico_create-close.svg">
           </div>
         </div>
@@ -31,7 +37,7 @@
         </div>
         <div *ngIf="checkFileType(file.fileName, 'Audio')" class="add_media_container" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }">
           <app-audioplayer (click)="fileDetails(file)" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file.repoPath }}"></app-audioplayer>
-          <div class="add_media_delet">
+          <div class="add_media_delet" (click)="removeFile(file)">
               <img src="http://d33wubrfki0l68.cloudfront.net/2b2a108565b4b23215301528183f77ffc0c04a24/f7395/img/svg/ico_create-close.svg">
           </div>
         </div>
@@ -125,5 +131,4 @@
     </form>
     <app-channel-selector [userChannels]="channeList" (onSelection)="onChannelSelection($event)"></app-channel-selector>
     <button disable="true" class="btn btn-primary btn-sm btn-save" (click)="mediaInfoUpdate(mediaForm.value)">Post</button>
-    <button disable="true" class="btn btn-primary btn-sm btn-save" (click)="postAllMedia(mediaForm.value)">Post All</button>
   </div>
