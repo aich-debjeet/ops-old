@@ -290,6 +290,11 @@ label.upload-button {
   padding: 24px 24px;
   padding-top: 0;
   border-radius: 3px;
+  padding-right: 0;
+}
+
+.media-selector__list {
+  margin-top: 24px;
 }
 
 .upload-buttonf{
@@ -1708,3 +1713,4 @@ label.upload-button {
 .add_media_info {
   padding-top: 0;
 }
+
