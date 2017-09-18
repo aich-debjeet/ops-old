@@ -47,6 +47,13 @@ export class ProfileService {
   }
 
   /**
+   * Get home page spotfeeds
+   */
+  getHomePageSpotfeeds() {
+      return this.api.get('/portal/cdn/spotfeed', '');
+  }
+
+  /**
    * Current LoggedIn Channel profile.
    */
   getLoggedInChannel(value: string, page: number = 1) {
@@ -60,6 +67,14 @@ export class ProfileService {
     }
 
     return this.api.post('/portal/network/spotfeed/search', body);
+  }
+
+
+  /**
+   * Get loggedin users channels.
+   */
+  getFollowingChannel(userHandle: string) {
+    return this.api.get('/portal/network/spotfeed/following/profile/spotfeeds/' + userHandle , '');
   }
 
   /**
@@ -289,5 +304,14 @@ export class ProfileService {
     const channelId = payload.channelId;
     const req = payload.req;
     return this.api.put('/portal/network/spotfeed/' + channelId, req);
+  }
+
+  /**
+   * Fetching individual spotfeeds data
+   */
+  getSpotfeedDetails(handle: string) {
+    const params = handle + '/' + this.pagination(1);
+    console.log('pagination: ' + params);
+    return this.api.get('/portal/cdn/spotfeed/inner/', params);
   }
 }

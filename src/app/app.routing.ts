@@ -45,7 +45,7 @@ export const routes: Routes = [
  { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule' },
 //  { path: 'media', loadChildren: './components/media/media.module#ProfileModule' },
  { path: 'message', component: MessageComponent },
- { path: 'spotfeed', component: SpotfeedComponent },
+ { path: 'spotfeed/:id', component: SpotfeedComponent },
  { path: 'spotfeed-premium', component: SpotfeedPremiumComponent },
  { path: 'notification', component: NotificationComponent },
  { path: 'portfolio', component: PortfolioComponent },

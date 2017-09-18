@@ -34,6 +34,7 @@ export class ChannelSelectorComponent implements OnInit {
   ) {
       this.chosenChannel = null;
       this.counter = 0;
+      this.createChannelForm();
   }
 
   /**
@@ -53,6 +54,41 @@ export class ChannelSelectorComponent implements OnInit {
     this.addChannel = !this.addChannel;
   }
 
+  /**
+   * Status Form
+   */
+  createChannelForm() {
+    this.channelForm = this.fb.group({
+      title: ['New Channel', Validators.required ],
+      type: ['', Validators.required ],
+      desc: ['Soem rand desc', Validators.required ],
+      privacy: [0, Validators.required ],
+      openess: [0]
+    })
+  }
+
+  /**
+   * Form Builder
+   */
+  createChannel(value: any) {
+    console.log('ACTION', 'CREATE_CHANNEL');
+    // const userHandle = this.profileChannel.profileUser.handle || '';
+    // if ( this.channelForm.valid === true && userHandle !== '' ) {
+    //   const channelObj = {
+    //     name: value.title,
+    //     access: Number(value.privacy),
+    //     description: value.desc,
+    //     superType: 'channel',
+    //     accessSettings : { access : Number(value.privacy) },
+    //     owner: userHandle,
+    //     industryList: [ value.type ]
+    //   }
+    // }
+  }
+
+  /**
+   *
+   */
   ngOnInit() {
     //
   }
