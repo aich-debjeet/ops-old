@@ -65,10 +65,6 @@ export class RegistrationAddSkillComponent implements OnInit {
     this.search = '';
   }
 
-  submitSkills() {
-    this.store.dispatch({ type: AuthActions.USER_SUBMIT_SKILLS, payload: this.selectedSkills });
-  }
-
   ngOnInit() {
     // Load industries
     this.industriesList();
@@ -80,6 +76,14 @@ export class RegistrationAddSkillComponent implements OnInit {
   saveSkills() {
     console.log(this.selectedSkills);
     this.store.dispatch({ type: AuthActions.USER_SUBMIT_SKILLS, payload: this.selectedSkills });
+    this.tagState$.subscribe(
+      data => {
+        console.log(data.success);
+        if (data.success === true) {
+          this.router.navigateByUrl('/profile/user')
+        }
+      }
+    )
   }
 
   /**
