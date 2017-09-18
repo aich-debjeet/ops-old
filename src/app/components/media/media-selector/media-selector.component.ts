@@ -120,31 +120,17 @@ export class MediaSelectorComponent implements OnInit {
       // this.test = 'salabeel';
       this.tagState$.subscribe((state) => {
         this.profileChannel = state;
-        // this.checkPostFlag(this.profileChannel);
-
-        // Post states
+        // // Post states
         this.postSuccess = this.profileChannel.media_channel_posted;
         this.postSuccessActive = this.profileChannel.media_channel_posting;
 
-        if (this.profileChannel.profile_loaded === true ) {
-          this.handle = this.profileChannel.profileUser.handle;
-          this.submitEnabled = 1;
-        }
-
-        if (!this.userChannels && this.profileChannel.user_channel.length > 0) {
-          // console.log('user channels there', this.profileChannel.user_channel );
+        if (this.profileChannel.user_channels_loaded) {
+          console.log('CHANNEL', 'LOADED');
           this.channeList = this.profileChannel.user_channel;
-        }
-
-        if (this.userChannels) {
-          this.channeList = this.userChannels;
-          // console.log( 'user channels passsed', this.userChannels );
+        } else {
+          console.log('CHANNEL', 'NOT LOADED');
         }
       });
-  }
-
-  checkPostFlag(storeValues: any) {
-    //
   }
 
   ngOnInit() {

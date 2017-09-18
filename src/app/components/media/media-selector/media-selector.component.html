@@ -17,17 +17,17 @@
   </div>
 </div>
 
-<div class="media-selector" [ngClass]="{'not__filledx': hasFiles === false }">
+<div class="media-selector" [ngClass]="{'not__filled': hasFiles === false }">
   <div class="col-md-8 padding_none file__viewer">
-    <ul class="file__list">
+    <ul class="file__list media-selector__list">
       <li *ngFor="let file of uploadedFiles" class="file__item">
-        <div *ngIf="checkFileType(file.fileName, 'Video')" class="add_media_container" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }">
-          <app-videplayer (click)="fileDetails(file)" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file.repoPath }}"></app-videplayer>
+        <div *ngIf="checkFileType(file.fileName, 'Video')" class="add_media_container media__video" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }">
+          <app-videplayer (click)="fileDetails(file)" [src]="'http://d206s58i653k1q.cloudfront.net/' + file.repoPath"></app-videplayer>
           <div class="add_media_delet" (click)="removeFile(file)">
               <img src="http://d33wubrfki0l68.cloudfront.net/2b2a108565b4b23215301528183f77ffc0c04a24/f7395/img/svg/ico_create-close.svg">
           </div>
         </div>
-        <div *ngIf="checkFileType(file.fileName, 'Image')" class="add_media_container" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }">
+        <div *ngIf="checkFileType(file.fileName, 'Image')" class="add_media_container media__image" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }">
           <div class="add_media_img">
             <img (click)="fileDetails(file)" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file.repoPath }}"/>
           </div>
@@ -35,7 +35,7 @@
               <img src="http://d33wubrfki0l68.cloudfront.net/2b2a108565b4b23215301528183f77ffc0c04a24/f7395/img/svg/ico_create-close.svg">
           </div>
         </div>
-        <div *ngIf="checkFileType(file.fileName, 'Audio')" class="add_media_container" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }">
+        <div *ngIf="checkFileType(file.fileName, 'Audio')" class="add_media_container media__audio" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }">
           <app-audioplayer (click)="fileDetails(file)" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file.repoPath }}"></app-audioplayer>
           <div class="add_media_delet" (click)="removeFile(file)">
               <img src="http://d33wubrfki0l68.cloudfront.net/2b2a108565b4b23215301528183f77ffc0c04a24/f7395/img/svg/ico_create-close.svg">
@@ -68,11 +68,21 @@
   </div>
       <!-- *ngIf="editingFile" -->
   <div class="col-md-4 add_media_info padding_none file__editor">
+    <div class="form__group">
+      <div class="form__item">
+        <div class="post__top">
+          <div class="post__options">
+            <button disable="true" class="btn-saveUpload" (click)="mediaInfoUpdate(mediaForm.value)">Publish</button>
+            <button disable="true" class="btn-saveUpload--lite" (click)="postAllMedia(mediaForm.value)">Publish All</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <form [formGroup]="mediaForm" novalidate #mediaform="ngForm" class="add_media_info__form">
       <ul class="media_info">
         <li>
           <div class="form_group">
-            <input formControlName="title" class="form_input" required="" type="text" placeholder="Channel Name">
+            <input formControlName="title" class="form_input" required="" type="text">
             <span class="form_highlight"></span>
             <span class="form_bar"></span>
             <label>Title</label>
@@ -129,14 +139,8 @@
         </li>
       </ul>
     </form>
-    <pre>
-
-    </pre>
-    <app-channel-selector [userChannels]="channeList" (onSelection)="onChannelSelection($event)"></app-channel-selector>
-    <button disable="true" class="btn btn-primary btn-sm btn-save" (click)="mediaInfoUpdate(mediaForm.value)">Post</button>
-    <button disable="true" class="btn btn-primary btn-sm btn-save" (click)="postAllMedia(mediaForm.value)">Post All</button>
-    <label>
-      Post all media
-      <input type="radio" value="0"><span></span>Post to All
-    </label>
-  </div>
+    <div class="form__group">
+      <div class="form__item">
+        <app-channel-selector [userChannels]="channeList" (onSelection)="onChannelSelection($event)"></app-channel-selector>
+      </div>
+    </div>

@@ -192,6 +192,7 @@ label.upload-button {
   float: left;
   position: relative;
   border-radius: 3px;
+  margin-bottom: 8px;
 }
 
 .media_info textarea {
@@ -283,6 +284,12 @@ label.upload-button {
 
 .media-selector{
   color: #000;
+  padding-right: 0;
+  box-shadow: 0px 1px 7px #bfb9b9;
+  background-color: #fff;
+  padding: 24px 24px;
+  padding-top: 0;
+  border-radius: 3px;
 }
 
 .upload-buttonf{
@@ -365,7 +372,7 @@ label.upload-button {
 }
 
 .file__item {
-  margin-right: 8px;
+  margin-right: 12px;
   display: inline-block;
 }
 
@@ -1617,4 +1624,87 @@ label.upload-button {
 
 .add_media_inner {
   text-align: center;
+}
+
+.file__editor {
+  position: relative;
+}
+
+.post__top {
+  background-color: #fff;
+  padding: 24px;
+  border-bottom: solid 1px #eee;
+  // margin-bottom: 16px;
+}
+
+
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.post__options {
+  width: 100%;
+  float: none;
+  text-align: left;
+  @include clearfix();
+}
+
+.btn-saveUpload {
+  border: none;
+  background-color: #ff7b84;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 5px;
+  color: #fff;
+  position: relative;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  pointer-events: auto;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.btn-saveUpload--lite {
+  @extend .btn-saveUpload;
+  border: none;
+  background-color: #fff;
+  border: solid 1px  #ff7b84;
+  color: #ff7b84;
+}
+
+.form__item {
+  position: relative;
+}
+
+.form__group {
+  overflow: auto;
+}
+
+.options {
+  position: relative;
+  padding-top: 0;
+  vertical-align: middle;
+  input {
+    display: inline-block;
+    margin-right: 16px;
+    padding: 0;
+    vertical-align: top;
+  }
+}
+
+.media__video,
+.media__audio{
+  max-width: 240px;
+}
+
+.add_media_info {
+  padding-top: 0;
 }

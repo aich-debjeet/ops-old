@@ -61,23 +61,24 @@ $pad-scale-4: 32px;
 }
 
 .channel-list-show{
-  margin-left: 16px;
+  margin-left: $pad-scale-2;
   color: #444;
   text-align: left;
+  padding-top: $pad-scale-2;
   &_img{
     display: inline-block;
   }
   &_txt {
     display: inline-block;
     vertical-align: top;
-    padding-top: 16px;
-    margin-left: 16px;
+    padding-top: $pad-scale-2;
+    margin-left: $pad-scale-2;
   }
   &_btn {
     display: inline-block;
     vertical-align: top;
-    padding-top: 16px;
-    margin-left: 16px;
+    padding-top: $pad-scale-2;
+    margin-left: $pad-scale-2;
     float: right;
   }
 }
