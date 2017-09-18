@@ -32,10 +32,10 @@
       <span class="c-links__post">{{channelData?.mediaCount}} Post</span>
       <span class="c-links__post">{{channelData?.followersCount}} Followers</span>
       <div class="c-channel__btn">
-        <a href="" class="btn btn-xs btn-primary btn-follow">
+        <a (click)="toggleFollowBtn()" class="btn btn-xs btn-primary btn-follow">
           <span class="btn-label-follow">
             <img src="http://d33wubrfki0l68.cloudfront.net/dad39c553de20299ab403e1e0d2dcbd6062911cc/62cff/img/svg/ico_plus_white.svg">
-          </span> FOLLOW
+          </span> {{ isfollowing ? 'Unfollow' : 'Follow' }}
         </a>
       </div>
     </div>

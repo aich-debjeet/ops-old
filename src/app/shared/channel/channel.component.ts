@@ -17,6 +17,7 @@ export class ChannelComponent implements OnInit {
   // Its for admin spefic edit option
   @Input() type: boolean;
   userImage: string;
+  isfollowing: boolean;
   private image_base_url: string = environment.API_IMAGE;
   constructor() {
     //
@@ -32,6 +33,7 @@ export class ChannelComponent implements OnInit {
   }
 
   toggleFollowBtn(i) {
+    this.isfollowing = !this.isfollowing;
     this.onClick.emit(i);
   }
 
