@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
 import { HomeService } from '../services/home.service';
+import { ProfileService } from '../services/profile.service';
 import { HomeActions } from '../actions/home.action';
 
 @Injectable()
@@ -24,6 +25,7 @@ export class HomeEffect {
 
     constructor(
     private actions$: Actions,
-    private homeService: HomeService
+    private homeService: HomeService,
+    private profileService: HomeService
   ) {}
 }
