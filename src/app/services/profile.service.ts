@@ -275,6 +275,14 @@ export class ProfileService {
     return this.api.put('/portal/network/following/start', req);
   }
   /**
+   * Follow a Channel
+   */
+  followChannel(req: any) {
+    const channelId = req.channelId;
+    const follow = req.state ? 'follow' : 'unfollow';
+    return this.api.get('/portal/network/spotfeed/' + follow + '/byId/' + channelId);
+  }
+  /**
    * Check if the response has SUCCESS object in it
    */
   checkForSucces(object: any): boolean {

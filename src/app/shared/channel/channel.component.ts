@@ -12,7 +12,7 @@ import FilesHelper from '../../helpers/fileUtils';
 export class ChannelComponent implements OnInit {
   @Input() className: string;
   @Input() channelData;
-  @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
+  // @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() onFollow: EventEmitter<any> = new EventEmitter<any>();
 
   // Its for admin spefic edit option
@@ -21,10 +21,10 @@ export class ChannelComponent implements OnInit {
   isfollowing: boolean;
   private image_base_url: string = environment.API_IMAGE;
   constructor() {
-    this.isfollowing = this.channelData.isfollowing;
   }
 
   ngOnInit() {
+    this.isfollowing = this.channelData.isFollowing || false;
     const defaultImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
     if ((this.channelData.ownerImage !== defaultImage) || (this.channelData.ownerImage !== '')) {
       this.userImage = defaultImage;
@@ -35,8 +35,10 @@ export class ChannelComponent implements OnInit {
 
   toggleFollowBtn(i) {
     const followState = this.isfollowing;
-    this.onClick.emit(i);
-    this.onFollow.emit(!followState);
+    this.isfollowing = !followState;
+
+    const req = { channel: this.channelData, state: !followState }
+    this.onFollow.emit(req);
   }
 
   checkFileType(fileName: string, fileType: string) {
