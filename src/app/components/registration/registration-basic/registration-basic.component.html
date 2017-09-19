@@ -72,7 +72,7 @@
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>Email</label>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isEmailUnique ">A user with this email is already registered</p>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isEmailUnique ">Mail account already exists</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.email && regFormBasic.controls['email'].touched">Email is not valid</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isInvalidEmail">Email is not valid</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.required && regform.submitted">Email is required</p>
@@ -96,7 +96,7 @@
                             <span class="form_bar"></span>
                             <label>Password</label>
                             <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.required && regform.submitted">Password is required</p>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Weak password! Please use special chars, numbers and capital letters</p>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Weak password! Please use special char, numbers and capital letters</p>
                         </div>
                         <div class="form_group">
                             <input class="form_input" type="password" formControlName="confirmpassword" required>

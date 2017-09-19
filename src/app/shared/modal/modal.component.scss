@@ -137,3 +137,14 @@
     display: none;
   }
 }
+
+.ng-modal.tiny__donation {
+  width: 820px !important;
+  margin-left: auto;
+  margin-right: auto;
+  right: 0;
+  left: 0;
+  .ng-modal-close{
+    display: none;
+  }
+}
