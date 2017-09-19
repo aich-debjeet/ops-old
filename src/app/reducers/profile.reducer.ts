@@ -16,12 +16,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.PROFILE_COVER_UPDATE:
       return Object.assign({}, state, {
-        cover_updating: true
+        cover_updating: true,
+        cover_upload_loading: true
       });
 
     case ProfileActions.PROFILE_COVER_UPDATE_SUCCESS:
       return Object.assign({}, state, {
         cover_updating: false,
+        cover_img_upload_success: true,
+        cover_upload_loading: false,
         cover_updated: true,
       });
 
@@ -78,12 +81,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
        */
       case ProfileActions.LOAD_PROFILE_IMAGE:
         return Object.assign({}, state, {
+          profile_img_upload_loading: true,
           success: true
         });
 
       case ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS:
         return Object.assign({}, state, {
           profileImage: payload,
+          image_upload_success: true,
+          profile_img_upload_loading: false,
           success: true
         });
 

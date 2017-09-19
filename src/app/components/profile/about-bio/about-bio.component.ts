@@ -41,7 +41,6 @@ export class AboutBioComponent implements OnInit {
 
     this.tagState$.subscribe((state) => {
       this.stateProfile = state;
-      console.log(state);
       if (this.stateProfile.current_user_profile && this.stateProfile.profile_other_loaded === true) {
         this.ownProfile = false;
         this.userProfile = this.stateProfile.profile_other;
