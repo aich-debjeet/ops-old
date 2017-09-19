@@ -51,6 +51,7 @@ export class RegistrationBasicComponent implements OnInit {
   petTag = initialBasicRegTag;
   Suggested: String[];
   modals: any;
+  resendingOtp = false;
 
   public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public regFormBasic: FormGroup;
@@ -259,8 +260,14 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   resendOtp() {
+    this.resendingOtp = true;
     const number = this.regFormBasic.value.phone;
     this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT, payload: number });
+    this.store.select('loginTags').subscribe(data => {
+      setTimeout(() => {
+        this.resendingOtp = false;
+      }, 1500);
+    })
   }
 
   resendOtpOnNewNumber() {

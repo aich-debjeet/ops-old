@@ -393,7 +393,8 @@
                     <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
                         <h5 class="text-center">Enter the 6 digit otp that you have received <br> by email or phone </h5>
                         <p class="text-center">
-                            <a class="pointer" (click)="resendOtp()">Resend OTP</a>
+                            <a *ngIf="!resendingOtp" class="pointer" (click)="resendOtp()">Resend OTP</a>
+                            <a *ngIf="resendingOtp">Sending OTP, please wait...</a>
                         </p>
                         <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #myform="ngForm" >
                             <div class="form_group">
