@@ -272,7 +272,7 @@ export class ProfileSliderComponent implements OnInit {
   buildEditForm(): void {
     this.profileForm = this.fb.group({
       'name' : ['' , [Validators.required]],
-      'bio' : ['' , [Validators.required]],
+      'bio' : '',
       'skill': '',
       'username' : ['', [Validators.required, Validators.minLength(4), FormValidation.noWhitespaceValidator], this.profileUpdateValidator.userNameValidation.bind(this.profileUpdateValidator)],
       'number' : ['' , [Validators.required]],
@@ -416,6 +416,14 @@ export class ProfileSliderComponent implements OnInit {
   // Skill Popup
   skillPopup() {
     this.modalService.open('skillMoreWindow');
+  }
+
+  donatePopup() {
+    this.modalService.open('donationPopup');
+  }
+
+  donationClose() {
+    this.modalService.close('donationPopup');
   }
 
 }
