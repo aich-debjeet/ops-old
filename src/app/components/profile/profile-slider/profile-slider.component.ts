@@ -23,7 +23,6 @@ import { ProfileCard } from '../../../models/profile.model';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
 import { find as _find, forEach as _forEach  } from 'lodash';
 
@@ -35,14 +34,12 @@ import { find as _find, forEach as _forEach  } from 'lodash';
 })
 
 export class ProfileSliderComponent implements OnInit {
-  @ViewChild('profileImage') fileInput;
+  // @ViewChild('profileImage') fileInput;
   @Input() profileData: any;
   @Input() isOtherProfile: any;
   @Input() userName: string;
   @Input() profileObject: ProfileCard;
   changingImage: boolean;
-  data: any;
-  cropperSettings: CropperSettings;
   tagState$: Observable<ProfileModal>;
   skillState$: Observable<any>;
   private tagStateSubscription: Subscription;
@@ -52,11 +49,13 @@ export class ProfileSliderComponent implements OnInit {
   baseUrl: string;
   private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   coverImage: string;
-
+  profileImage: string;
   selectedSkills = [];
   search: String;
   activateSubmitBtn = false;
   router: any;
+  isfollowing: boolean;
+  defaultImage: string;
   // profileObject: ProfileCard;
 
   hasFollowed: boolean;
@@ -73,18 +72,10 @@ export class ProfileSliderComponent implements OnInit {
   ) {
 
     this.baseUrl = environment.API_IMAGE;
-    this.cropperSettings = new CropperSettings();
-    this.cropperSettings.width = 100;
-    this.cropperSettings.height = 100;
-    this.cropperSettings.croppedWidth = 100;
-    this.cropperSettings.croppedHeight = 100;
-    this.cropperSettings.canvasWidth = 400;
-    this.cropperSettings.canvasHeight = 300;
-    this.cropperSettings.rounded = true;
-    this.data = {};
 
     this.tagState$ = this.profileStore.select('profileTags');
     this.skillState$ = this.profileStore.select('loginTags');
+    this.defaultImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
@@ -100,10 +91,10 @@ export class ProfileSliderComponent implements OnInit {
 
   }
 
-  changingImageClick() {
-    this.changingImage = true;
-    this.modalService.open('ChangeProfile');
-  }
+  // changingImageClick() {
+  //   this.changingImage = true;
+  //   this.modalService.open('ChangeProfile');
+  // }
 
   ngOnInit() {
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
@@ -111,10 +102,14 @@ export class ProfileSliderComponent implements OnInit {
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
   }
 
+  modalInit() {
+    this.modalService.open('ChangeProfile');
+  }
+
   /**
    * Present Profile Cover Image
    */
-  profileImageStyle(profile: any) {
+  coverImageStyle(profile: any) {
     if (profile == null) {
       return false;
     }
@@ -136,18 +131,19 @@ export class ProfileSliderComponent implements OnInit {
   }
 
   /**
-   * Attach image url to Profile
+   * Present Profile Cover Image
    */
-  saveImageClick() {
-    if (this.data && this.data.image) {
-      const data = {
-        profileHandle: this.tokenService.getHandle(),
-        image: this.data.image.split((/,(.+)/)[1])
+  profileImageDefault() {
+    let profileImageURL = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+    const profile = this.profileObject;
+    if (profile) {
+      if (profile.image && profile.image.profile !== '') {
+        profileImageURL = this.baseUrl + profile.image.profile;
       }
-      this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: data });
-      this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-      this.changingImage = false;
+      // Profile
+      this.profileImage = profileImageURL;
     }
+    // return profileImageURL;
   }
 
   isClosed(event) {
@@ -159,6 +155,7 @@ export class ProfileSliderComponent implements OnInit {
    */
   followUser(profile: any) {
     const handle = profile.userDetails.handle;
+    this.isfollowing = !this.isfollowing;
     this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle });
   }
 
@@ -166,6 +163,7 @@ export class ProfileSliderComponent implements OnInit {
    * Profile Page Edit
    */
   profileEdit() {
+    console.log('profile edit');
     this.loadSkill();
     this.modalService.open('profileEditWindow');
     const date = this.datepipe.transform(this.userProfile.profileDetails['physical'].dateOfBirth, 'dd-MM-yyyy');
@@ -174,12 +172,6 @@ export class ProfileSliderComponent implements OnInit {
       bio: this.userProfile.profileUser['bio'],
       skill: '',
       username: this.userProfile.profileDetails['extra'].username,
-      number: this.userProfile.profileDetails['contact'].mobile.mobile,
-      mobilePrivacy: this.userProfile.profileDetails['contact'].mobile.access,
-      email: this.userProfile.profileDetails['email'],
-      emailPrivacy: 0,
-      website: this.userProfile.profileDetails['contact'].website.website,
-      websitePrivacy: this.userProfile.profileDetails['contact'].website.access,
       dob: date
     });
   }
@@ -232,16 +224,6 @@ export class ProfileSliderComponent implements OnInit {
         'extras': {
           'association': {
             'summary': value.bio
-          },
-          'contact': {
-            'mobile': {
-              'mobile': value.number,
-              'access': Number(value.mobilePrivacy)
-            },
-            'website': {
-              'website': value.website,
-              'access': Number(value.websitePrivacy)
-            }
           }
         },
         'address': {
@@ -258,8 +240,7 @@ export class ProfileSliderComponent implements OnInit {
           'displayName': value.name
         },
         'profileTypeList': this.selectedSkills,
-        'username': value.username.toLowerCase(),
-        'email': value.email
+        'username': value.username.toLowerCase()
       }
 
       this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
@@ -274,15 +255,9 @@ export class ProfileSliderComponent implements OnInit {
   buildEditForm(): void {
     this.profileForm = this.fb.group({
       'name' : ['' , [Validators.required]],
-      'bio' : ['' , [Validators.required]],
+      'bio' : '',
       'skill': '',
       'username' : ['', [Validators.required, Validators.minLength(4), FormValidation.noWhitespaceValidator], this.profileUpdateValidator.userNameValidation.bind(this.profileUpdateValidator)],
-      'number' : ['' , [Validators.required]],
-      'mobilePrivacy' : ['0' , [Validators.required]],
-      'email' : ['' , [Validators.required], this.profileUpdateValidator.emailValidation.bind(this.profileUpdateValidator)],
-      'emailPrivacy' : ['0' , [Validators.required]],
-      'website' : '',
-      'websitePrivacy' : '0',
       'dob' : ['' , [Validators.required], this.profileUpdateValidator.validAge.bind(this.profileUpdateValidator)],
 
     });
@@ -311,15 +286,7 @@ export class ProfileSliderComponent implements OnInit {
    * Upload Cover image
    */
   uploadCoverImage() {
-    this.upload();
-  }
-
-  /**
-   * File Handler
-   */
-  upload() {
-    const fileBrowser = this.fileInput.nativeElement;
-    this.profileStore.dispatch({ type: ProfileActions.PROFILE_COVER_UPDATE, payload: fileBrowser });
+    // this.upload();
   }
   /**
    * Toggle Coer Image upload modal
@@ -426,6 +393,14 @@ export class ProfileSliderComponent implements OnInit {
   // Skill Popup
   skillPopup() {
     this.modalService.open('skillMoreWindow');
+  }
+
+  donatePopup() {
+    this.modalService.open('donationPopup');
+  }
+
+  donationClose() {
+    this.modalService.close('donationPopup');
   }
 
 }

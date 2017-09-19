@@ -1,14 +1,15 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-blogeditor',
-  templateUrl: './blogeditor.component.html',
-  styleUrls: ['./blogeditor.component.scss']
+  templateUrl: './blog-editor.component.html',
+  styleUrls: ['./blog-editor.component.scss']
 })
 
-export class BlogeditorComponent {
+export class BlogEditorComponent {
   chosenChannel: any = 0;
-  constructor() { }
+  @Input() userChannels;
+  constructor() {}
 
   getConfig() {
     const config = {

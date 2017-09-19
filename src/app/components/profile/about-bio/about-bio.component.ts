@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { ProfileHelper } from '../../../helpers/profile.helper';
+import { FormValidation, ProfileUpdateValidator } from '../../../helpers/form.validator';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -24,27 +26,42 @@ export class AboutBioComponent implements OnInit {
   public bioForm: FormGroup;
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
-  userProfile = initialTag;
+  stateProfile = initialTag;
+  userProfile: any;
+  ownProfile: boolean;
+  changingImage: boolean;
 
   constructor(
     private _http: Http,
     private _modalService: ModalService,
     private _fb: FormBuilder,
+    private _utils: ProfileHelper,
+    private profileUpdateValidator: ProfileUpdateValidator,
     private _store: Store<ProfileModal>
   ) {
     this.tagState$ = this._store.select('profileTags');
 
     this.tagState$.subscribe((state) => {
-      this.userProfile = state;
+      this.stateProfile = state;
+      if (this.stateProfile.current_user_profile && this.stateProfile.profile_other_loaded === true) {
+        this.ownProfile = false;
+        this.userProfile = this.stateProfile.profile_other;
+      }else {
+        this.ownProfile = true;
+        this.userProfile = this.stateProfile.profileDetails;
+      }
     });
-
-    // this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
-
   }
 
   ngOnInit() {
     this.bioFormIinit()
   }
+
+  isClosed(event) {
+    this.changingImage = event;
+    console.log(event);
+  }
+
 
   openPopup() {
     this._modalService.open('bioEdit');
@@ -53,12 +70,22 @@ export class AboutBioComponent implements OnInit {
 
   // bio form submit
   bioFormSubmit(value) {
-    console.log(value);
       const form =  {
+        'email': value.email,
         'extras': {
           'aboutMe': value.about_me,
            'association': {
             'languages': value.lang.split(',')
+          },
+          'contact': {
+            'mobile': {
+              'mobile': value.number,
+              'access': Number(value.mobilePrivacy)
+            },
+            'website': {
+              'website': value.website,
+              'access': Number(value.websitePrivacy)
+            }
           }
         },
         'address': {
@@ -100,23 +127,35 @@ export class AboutBioComponent implements OnInit {
       'lang' : '',
       'ethnicity' : '',
       'complexion' : '',
+      'number' : ['' , [Validators.required], this.profileUpdateValidator.mobileValidation.bind(this.profileUpdateValidator)],
+      'mobilePrivacy' : ['0' , [Validators.required]],
+      'email' : ['' , [Validators.required], this.profileUpdateValidator.emailValidation.bind(this.profileUpdateValidator)],
+      'emailPrivacy' : ['0' , [Validators.required]],
+      'website' : '',
+      'websitePrivacy' : '0',
     });
   }
 
   bioFormUpdate() {
     this.bioForm.setValue({
-      about_me: this.userProfile.profileDetails.aboutMe,
-      gender : this.userProfile.profileDetails['physical'].gender ,
-      address_one : this.userProfile.profileDetails['extra']['address'].line1,
-      address_two : this.userProfile.profileDetails['extra']['address'].line2,
-      city : this.userProfile.profileDetails['extra']['address'].city,
-      country : this.userProfile.profileDetails['extra']['address'].country,
-      pin_code : this.userProfile.profileDetails['extra']['address'].postalCode,
-      height : this.userProfile.profileDetails['physical'].height,
-      weight : this.userProfile.profileDetails['physical'].weight,
-      lang : this.userProfile.profileDetails.languages.toString(),
-      ethnicity : this.userProfile.profileDetails['physical'].ethnicity,
-      complexion : this.userProfile.profileDetails['physical'].complexion,
+      about_me: this.userProfile.aboutMe,
+      gender : this.userProfile['physical'].gender ,
+      address_one : this.userProfile['extra']['address'].line1,
+      address_two : this.userProfile['extra']['address'].line2,
+      city : this.userProfile['extra']['address'].city,
+      country : this.userProfile['extra']['address'].country,
+      pin_code : this.userProfile['extra']['address'].postalCode,
+      height : this.userProfile['physical'].height,
+      weight : this.userProfile['physical'].weight,
+      lang : this.userProfile.languages.toString(),
+      ethnicity : this.userProfile['physical'].ethnicity,
+      complexion : this.userProfile['physical'].complexion,
+      number: this.userProfile['contact'].mobile.mobile,
+      mobilePrivacy: this.userProfile['contact'].mobile.access,
+      email: this.userProfile['email'],
+      emailPrivacy: 0,
+      website: this.userProfile['contact'].website.website,
+      websitePrivacy: this.userProfile['contact'].website.access,
     });
   }
 

@@ -51,6 +51,7 @@ export class RegistrationBasicComponent implements OnInit {
   petTag = initialBasicRegTag;
   Suggested: String[];
   modals: any;
+  resendingOtp = false;
 
   public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public regFormBasic: FormGroup;
@@ -180,8 +181,10 @@ export class RegistrationBasicComponent implements OnInit {
   userExisitCheck(value) {
     if (value.length >= 4) {
       this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
-    }else {
-      this.petTag.user_unique = false;
+    } else {
+      if (this.petTag && this.petTag.user_unique) {
+        this.petTag.user_unique = false;
+      }
     }
   }
 
@@ -257,8 +260,14 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   resendOtp() {
+    this.resendingOtp = true;
     const number = this.regFormBasic.value.phone;
     this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT, payload: number });
+    this.store.select('loginTags').subscribe(data => {
+      setTimeout(() => {
+        this.resendingOtp = false;
+      }, 1500);
+    })
   }
 
   resendOtpOnNewNumber() {
@@ -271,6 +280,7 @@ export class RegistrationBasicComponent implements OnInit {
     this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: reqBody });
     this.store.select('loginTags').take(2).subscribe(data => {
       if (data['user_number_cng_success'] === true ) {
+        this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
         this.modalService.close('otpChangeNumber');
         this.modalService.open('otpWindow');
       }

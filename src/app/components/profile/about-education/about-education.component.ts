@@ -29,6 +29,9 @@ export class AboutEducationComponent implements OnInit {
   public educationForm: FormGroup;
   private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   private editFormPopup: boolean;
+  stateProfile = initialTag;
+  userProfile: any;
+  ownProfile: boolean;
 
   constructor(
     private http: Http,
@@ -39,7 +42,14 @@ export class AboutEducationComponent implements OnInit {
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
-      this.aboutWork = state;
+      this.stateProfile = state;
+      if (this.stateProfile.current_user_profile && this.stateProfile.profile_other_loaded === true) {
+        this.ownProfile = false;
+        this.userProfile = this.stateProfile.profile_other;
+      }else {
+        this.ownProfile = true;
+        this.userProfile = this.stateProfile.profileDetails;
+      }
     });
 
     // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
@@ -85,7 +95,6 @@ export class AboutEducationComponent implements OnInit {
    * Add Work form submit
    */
   educationSubmit(value) {
-    console.log('sss');
     if ( this.educationForm.valid === true ) {
       if (this.editFormPopup === false) {
         const body = {
@@ -115,7 +124,6 @@ export class AboutEducationComponent implements OnInit {
    * Delete Current Work of user
    */
   deleteCurrentEducation(id) {
-    console.log(id);
     this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_EDUCATION, payload: id});
   }
 
@@ -123,7 +131,6 @@ export class AboutEducationComponent implements OnInit {
    * Edit Current Work of user
    */
   editCurrentEducation(data) {
-    console.log(data);
     this.editFormPopup = true;
     this.educationForm.patchValue({
       institute: data.institute,

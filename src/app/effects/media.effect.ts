@@ -18,6 +18,21 @@ import { Media, initialMedia  } from '../models/media.model';
 export class MediaEffect {
 
   /**
+   * Get current user media profile
+   */
+  @Effect()
+  loadUserMedia$ = this.actions$
+    .ofType(MediaActions.LOAD_USER_MEDIA)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.getUserMedia(payload)
+      .map(res => ({ type: MediaActions.LOAD_USER_MEDIA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.LOAD_USER_MEDIA_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
    * Media Upload
    */
   @Effect()

@@ -25,10 +25,12 @@ export class AboutWorkComponent implements OnInit {
 
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
-  aboutWork = initialTag ;
   public workForm: FormGroup;
   private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   private editFormPopup: boolean;
+  stateProfile = initialTag;
+  userProfile: any;
+  ownProfile: boolean;
 
   constructor(
     private http: Http,
@@ -38,9 +40,15 @@ export class AboutWorkComponent implements OnInit {
     private profileStore: Store<ProfileModal>
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
-    // this.test = 'salabeel';
     this.tagState$.subscribe((state) => {
-      this.aboutWork = state;
+      this.stateProfile = state;
+      if (this.stateProfile.current_user_profile && this.stateProfile.profile_other_loaded === true) {
+        this.ownProfile = false;
+        this.userProfile = this.stateProfile.profile_other;
+      }else {
+        this.ownProfile = true;
+        this.userProfile = this.stateProfile.profileDetails;
+      }
     });
 
     // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
@@ -122,7 +130,6 @@ export class AboutWorkComponent implements OnInit {
    * Delete Current Work of user
    */
   deleteCurrentWork(id) {
-    console.log(id);
     this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
   }
 
@@ -130,8 +137,6 @@ export class AboutWorkComponent implements OnInit {
    * Edit Work Popup
    */
   editCurrentWork(data) {
-    console.log('editform');
-    console.log(data);
     this.editFormPopup = true;
     this.workForm.patchValue({
       company: data.organizationName,

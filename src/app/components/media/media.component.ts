@@ -1,12 +1,16 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
-import { TAB_COMPONENTS  } from '../tabs/tabset';
+import { TabComponents  } from '../../shared/tabs/tabset';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 import { Http, Headers, Response } from '@angular/http';
+import { ModalService } from '../../shared/modal/modal.component.service';
 
 // Action
 import { MediaActions } from '../../actions/media.action';
+import { ProfileActions } from '../../actions/profile.action';
 import { initialMedia, Media } from '../../models/media.model';
+import { ProfileModal, initialTag as profileInit } from '../../models/profile.model';
+import { Router, ActivatedRoute } from '@angular/router';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -20,7 +24,7 @@ import * as MediumEditor from 'medium-editor';
 @Component({
   selector: 'app-media',
   templateUrl: './media.component.html',
-  providers: [ TAB_COMPONENTS, FileUploadService],
+  providers: [ TabComponents, FileUploadService, ModalService],
   styleUrls: ['./media.component.scss']
 })
 
@@ -30,9 +34,9 @@ export class MediaComponent implements OnInit, AfterViewInit {
 
   private mediaStateSubscription: Subscription;
   mediaState$: Observable<Media>;
+  profileState$: Observable<ProfileModal>;
   mediaStore = initialMedia;
-  // @ViewChild('medias') fileInput;
-
+  profileStore = profileInit;
   uploadedFiles = [];
   uploadError;
   currentStatus: number;
@@ -44,10 +48,18 @@ export class MediaComponent implements OnInit, AfterViewInit {
   textVar: string;
   placeholderVar: string;
   page_message: string;
+  userChannels: any;
+  tempChannel: string;
+  channelLoaded: boolean;
+
+  userHandle$: Observable<string>;
 
   constructor(
     private fb: FormBuilder,
     private mediaService: FileUploadService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private profStore: Store<any>,
     private store: Store<Media> ) {
       // Vars
       this.textVar = 'title';
@@ -57,20 +69,43 @@ export class MediaComponent implements OnInit, AfterViewInit {
       // this.createMediaForm();
 
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      this.handle = localStorage.getItem('currentUserID');
       this.token = currentUser.access_token; // your token
 
       // Reducer Store
-      this.mediaState$ = store.select('mediaStore');
+      this.mediaState$ = this.store.select('mediaStore');
       this.mediaState$.subscribe((state) => {
         this.mediaStore = state;
       });
+
+      this.channelLoaded = false;
+      this.userHandle$ = this.store.select('profileTags');
+      // Profile
+      // this.profileState$ = profStore.select('profileTags');
+      // this.profileState$.subscribe((state) => {
+
+      //   this.profileStore = state;
+      //   const userHandle = this.profileStore.profileUser.handle;
+
+      //   if (userHandle) {
+      //     if (this.profileStore.user_channel.length < 1) {
+      //       console.log('LENGHT < 0');
+      //     }
+      //   }
+      // });
 
       this.reset(); // set initial state
     }
 
   ngAfterViewInit() {
-    //
+    // console.log('media modal');
+  }
+
+  loadChannels(handle: string) {
+    if (handle) {
+      this.profStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
+    } else {
+      console.log('NO HANDLE', handle);
+    }
   }
 
   /**
@@ -79,33 +114,6 @@ export class MediaComponent implements OnInit, AfterViewInit {
   toggleChannelList() {
     this.showChannelList = !this.showChannelList;
   }
-
-  /**
-   * File Watcher
-   * @param fieldName
-   * @param fileList
-   */
-  filesChange(fieldName: string, fileList: FileList) {
-    if (!fileList.length) {
-      return;
-    }
-
-    const fd = new FormData();
-
-    Array
-      .from(Array(fileList.length).keys())
-      .map( x => {
-        fd.append(fieldName, fileList[x], fileList[x].name);
-      });
-
-    // // Save it
-    // for (let pair of fd.entries()) {
-    //   console.log(pair[0] + ', ' + pair[1]);
-    // }
-
-    this.save(fd);
-  }
-
   /**
    * Init Media Upload state
    */
@@ -114,14 +122,6 @@ export class MediaComponent implements OnInit, AfterViewInit {
     // this.currentStatus = this.STATUS_INITIAL;
     this.uploadedFiles = [];
     this.uploadError = null;
-  }
-
-  /**
-   * Save Medias
-   * @param formData
-   */
-  save(formData: FormData) {
-    this.store.dispatch({ type: MediaActions.MEDIA_UPLOAD, payload: formData });
   }
 
   /**
@@ -181,6 +181,15 @@ export class MediaComponent implements OnInit, AfterViewInit {
     this.mediaForm = this.fb.group({
       files : ['', Validators.required ]
     })
+  }
+
+  /**
+   * Close
+   */
+  doClose(bool: boolean = false) {
+    this.router.navigate(['.', { outlets: { media: null } }], {
+      relativeTo: this.route.parent
+    });
   }
 }
 

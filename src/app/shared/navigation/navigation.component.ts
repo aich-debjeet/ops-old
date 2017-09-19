@@ -48,6 +48,7 @@ export class NavigationComponent implements OnInit {
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
     });
+
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
   }
 

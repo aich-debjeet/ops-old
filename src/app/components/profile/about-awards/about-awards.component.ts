@@ -29,6 +29,9 @@ export class AboutAwardsComponent implements OnInit {
   public awardForm: FormGroup;
   private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   private editFormPopup: boolean;
+  stateProfile = initialTag;
+  userProfile: any;
+  ownProfile: boolean;
 
   constructor(
     private http: Http,
@@ -40,10 +43,17 @@ export class AboutAwardsComponent implements OnInit {
     this.tagState$ = this.profileStore.select('profileTags');
     // this.test = 'salabeel';
     this.tagState$.subscribe((state) => {
-      this.aboutWork = state;
+      this.stateProfile = state;
+      if (this.stateProfile.current_user_profile && this.stateProfile.profile_other_loaded === true) {
+        this.ownProfile = false;
+        this.userProfile = this.stateProfile.profile_other;
+      }else {
+        this.ownProfile = true;
+        this.userProfile = this.stateProfile.profileDetails;
+      }
     });
 
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+    // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
 
     // Init From
     this.buildEditForm();
@@ -114,7 +124,6 @@ export class AboutAwardsComponent implements OnInit {
    * Delete Current Work of user
    */
   deleteCurrentAward(id) {
-    console.log(id);
     this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
   }
 
@@ -122,7 +131,6 @@ export class AboutAwardsComponent implements OnInit {
    * Edit Current Work of user
    */
   editCurrentAward(data) {
-    console.log(data);
     this.editFormPopup = true;
     this.awardForm.patchValue({
       award: data.role,

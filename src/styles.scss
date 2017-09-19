@@ -228,6 +228,7 @@ vg-scrub-bar {
     background-color: #fff;
     color: #000;
     border-radius: 4px;
+    overflow: auto;
   }
 }
 
@@ -368,3 +369,8 @@ vg-scrub-bar {
 .main_ht_fix{
   margin-top: -2%;
 }
+
+.block.drop {
+  border: dotted 3px #b5c8cc;
+}
+

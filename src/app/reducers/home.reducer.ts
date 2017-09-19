@@ -6,6 +6,8 @@ import { HomeActions } from '../actions/home.action';
 
 export const HomeReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
 
+  console.log('HomeReducer');
+
   switch (type) {
 
     case HomeActions.LOAD_CHANNELS:

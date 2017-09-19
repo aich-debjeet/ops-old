@@ -21,6 +21,12 @@ tabset section{
     }
 }
 
+.add_media_pop {
+  // width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .ops_add-post {
     // background-color: rgba(243, 245, 247, 0.95);
     // position: fixed;
@@ -1092,7 +1098,7 @@ tabset section{
 .btn-primary {
   color: #fff;
   background-color: #ff7b84;
-  border-color: #ff7b84;
+  border-color: #F79EA5;
 }
 
 
@@ -1101,3 +1107,35 @@ tabset section{
   background-color: #DCEDDD;
   padding: 16px 0px;
 }
+
+.btn__close{
+  float: right;
+  position: absolute;
+  right: 10%;
+}
+
+.btn__img{
+  width: 32px;
+  position: absolute;
+}
+
+.AddPost__links {
+  text-align: center;
+  padding-bottom: 16px;
+}
+
+.AddPost__link {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: left;
+  color: #979797;
+  background: transparent;
+  border: none;
+  text-transform: uppercase;
+  margin-right: 16px;
+  &.active{
+    color: #FF7B84 !important;
+  }
+}
+
+//

@@ -6,7 +6,18 @@
   </div>
   <masonry>
       <masonry-brick class="col-md-4 col-sm-6 c-card" *ngFor="let channel of channels; let i = index">
-          <app-channel [channelData]="channel" (click)="toggleFollowBtn(i)" ></app-channel>
+          <app-channel [channelData]="channel" (onFollow)="followChannel($event)"></app-channel>
       </masonry-brick>
   </masonry>
+
+  <div *ngIf=" channels.length < 1 && isOwner === true " class="empty__state">
+    <h4>You have no channels</h4>
+    <p>You have not added any channels, click below to create your first Channel!</p>
+    <a class="btn-add" [routerLink]="['', { outlets: { media : ['channel', 'add'] } } ]">Add a Channel</a>
+  </div>
+
+  <div *ngIf=" channels.length < 1 && isOwner === false " class="empty__state">
+    <p>User does not have any channels!</p>
+  </div>
+
 </div>

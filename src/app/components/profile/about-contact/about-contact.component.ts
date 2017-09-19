@@ -20,7 +20,9 @@ import { Subscription } from 'rxjs/Subscription';
 export class AboutContactComponent implements OnInit {
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
-  contactWork = initialTag ;
+  stateProfile = initialTag;
+  userProfile: any;
+  ownProfile: boolean;
 
   constructor(
     private http: Http,
@@ -28,10 +30,15 @@ export class AboutContactComponent implements OnInit {
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
-      this.contactWork = state;
+      this.stateProfile = state;
+      if (this.stateProfile.current_user_profile && this.stateProfile.profile_other_loaded === true) {
+        this.ownProfile = false;
+        this.userProfile = this.stateProfile.profile_other;
+      }else {
+        this.ownProfile = true;
+        this.userProfile = this.stateProfile.profileDetails;
+      }
     });
-
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
   }
 
   ngOnInit() {

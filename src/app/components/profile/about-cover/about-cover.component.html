@@ -1,0 +1,37 @@
+<app-modal [modalTitle]="'Change Cover Image'" [closeHidden]="true" (onClose)="isClosed($event)" [blocking]='false' [open]="true" modalId='ChangeCoverImage' class="media__modal">
+  <div id="cover-upload">
+    <div class="modal-content o-cover-upload">
+        <div class="o-cover-upload__head">
+            <h2 class="o-cover-head--heading">EDIT COVER IMAGE</h2>
+        </div>
+        <div class="o-cover-upload__media">
+            <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+        </div>
+        <div class="o-cover-upload-footer">
+          <div *ngIf="stateProfile?.cover_upload_loading">
+            <div class="sticky sticky__top">
+              <div class="loader">Loading...</div>
+            </div>
+          </div>
+            <p class="p_text" *ngIf="stateProfile.cover_img_upload_success">Successfully updated</p>
+            <div class="o-cover-footer__btn">
+                <button type="button"  (click)="isClosed()" class="btn btn-network btn-sm text_uppercase">Cancel</button>
+                <button type="button" (click)="uploadCoverImage()" class="btn btn-primary btn-sm o-cover-btn__mod">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+  
+  <!--<div class="edit-profile_head">
+    <div class="col-md-6 padding_none">
+        <h2>Change Cover Image</h2>
+    </div>
+
+    <div class="col-md-6 padding_none text-right">
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" (click)="isClosed()" >Close</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="uploadCoverImage()">Save Image</button>
+    </div>
+
+  </div>
+  <input #coverImage type="file" name="profile_image"/>-->
+</app-modal>

@@ -72,7 +72,7 @@
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>Email</label>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isEmailUnique ">A user with this email is already registered</p>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isEmailUnique ">Mail account already exists</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.email && regFormBasic.controls['email'].touched">Email is not valid</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isInvalidEmail">Email is not valid</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.required && regform.submitted">Email is required</p>
@@ -96,7 +96,7 @@
                             <span class="form_bar"></span>
                             <label>Password</label>
                             <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.required && regform.submitted">Password is required</p>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Weak password! Please use special chars, numbers and capital letters</p>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Weak password! Please use special char, numbers and capital letters</p>
                         </div>
                         <div class="form_group">
                             <input class="form_input" type="password" formControlName="confirmpassword" required>
@@ -393,7 +393,8 @@
                     <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
                         <h5 class="text-center">Enter the 6 digit otp that you have received <br> by email or phone </h5>
                         <p class="text-center">
-                            <a class="pointer" (click)="resendOtp()">Resend OTP</a>
+                            <a *ngIf="!resendingOtp" class="pointer" (click)="resendOtp()">Resend OTP</a>
+                            <a *ngIf="resendingOtp">Sending OTP, please wait...</a>
                         </p>
                         <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #myform="ngForm" >
                             <div class="form_group">

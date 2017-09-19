@@ -66,13 +66,29 @@ export class ProfileEffect {
   loadUserMedia$ = this.actions$
     .ofType(ProfileActions.LOAD_USER_MEDIA)
     .map(toPayload)
-    .switchMap((payload) => this.profileService.getLoggedInMedia(payload)
+    .switchMap((payload) => this.profileService.getUserMedia(payload)
       .map(res => ({ type: ProfileActions.LOAD_USER_MEDIA_SUCCESS, payload: res }))
       .catch((res) => Observable.of({
         type: ProfileActions.LOAD_USER_MEDIA_FAILED,
         payload: { errorStatus: res.status }
       }))
     );
+
+  /**
+   * Get home page spotfeed
+   */
+  @Effect()
+  loadHomePageSpotfeeds$ = this.actions$
+    .ofType(ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getHomePageSpotfeeds()
+      .map(res => ({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
 
   /**
    * Get current user channel profile
@@ -306,7 +322,7 @@ export class ProfileEffect {
     saveCoverImage$ = this.actions$
       .ofType(ProfileActions.PROFILE_COVER_UPDATE)
       .map(toPayload)
-      .switchMap((payload) => this.profileService.uploadImage(payload)
+      .switchMap((payload) => this.profileService.coverImageUploader(payload)
         .map(res => ({ type: ProfileActions.PROFILE_COVER_UPDATE_SUCCESS, payload: res }))
         .catch((res) => Observable.of({ type: ProfileActions.PROFILE_COVER_UPDATE_FAILED, payload: res }))
       );
@@ -384,7 +400,7 @@ export class ProfileEffect {
     );
 
   /**
-   * Get user channels
+   * Follow Profile
    */
   @Effect()
   followProfile$ = this.actions$
@@ -394,6 +410,46 @@ export class ProfileEffect {
       .map(res => ({ type: ProfileActions.PROFILE_FOLLOW_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.PROFILE_FOLLOW_FAILED, payload: res }))
     );
+
+  /**
+   * Follow Profile
+   */
+  @Effect()
+  followChannel$ = this.actions$
+    .ofType(ProfileActions.CHANNEL_FOLLOW)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.followChannel(payload)
+      .map(res => ({ type: ProfileActions.CHANNEL_FOLLOW_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.CHANNEL_FOLLOW_FAILED, payload: res }))
+    );
+
+    /**
+   * Get user channels
+   */
+  @Effect()
+  postMediaChannel$ = this.actions$
+    .ofType(ProfileActions.POST_CHANNEL_MEDIA)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.postMediaToChannel(payload)
+      .map(res => ({ type: ProfileActions.POST_CHANNEL_MEDIA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.POST_CHANNEL_MEDIA_FAILED, payload: res }))
+    );
+
+  /**
+   * Get spotfeed details
+   */
+  @Effect()
+  loadSpotfeedDetails$ = this.actions$
+    .ofType(ProfileActions.GET_SPOTFEED_DETAILS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getSpotfeedDetails(payload)
+      .map(res => ({ type: ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.GET_SPOTFEED_DETAILS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
 
   constructor(
     private actions$: Actions,

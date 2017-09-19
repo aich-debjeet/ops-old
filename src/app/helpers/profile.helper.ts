@@ -34,7 +34,7 @@ export class ProfileHelper {
       userDetails: profile,
       followingCount: profile.followingCount,
       follwerCount: profile.followersCount,
-      spotCount: 999
+      spotCount: 0
     }
     return maps;
   }

@@ -1,0 +1,134 @@
+<app-modal [modalTitle]="'Some title'" [open]="true" [blocking]='false' (onClose)="doClose($event)"  modalId='ViewMedia' class="media__modal" size="tiny__mediapopup">
+  <div id="imgModal" class=" media_modal">
+      <div class="modal-dialog modal-lg">
+          <!-- Modal content-->
+          <div class="modal-content">
+              <div class="modal-body">
+                  <div class="row">
+                      <div class="col-md-8 col-sm-8 media_left with_border_right">
+                          <div class="media_img_block">
+                              <figure class="avatar_media_img">
+                                  <app-videplayer *ngIf="checkFileType(data?.repopath, 'Video')" src="{{ imageLink + data?.repopath }}"></app-videplayer>
+                                  <img *ngIf="checkFileType(data?.repopath, 'Image')" src="{{ imageLink + data?.repopath }}" class="img-responsive">
+                                  <app-audioplayer *ngIf="checkFileType(data?.repopath, 'Audio')" src="{{ imageLink + data?.repopath }}"></app-audioplayer>
+                              </figure>
+                          </div>
+                      </div>
+                      <div class="col-md-4 col-sm-4 media_right">
+                          <div class="media_img_content">
+                              <ul class="width100">
+                                  <li class="list_style_none">
+                                      <ul class="list-inline">
+                                          <li class="list-inline-item float-left">
+                                              <figure class="avatar_media_user">
+                                                  <img src="{{ imageLink + data?.ownerImage }}">
+                                              </figure>
+                                          </li>
+                                          <li class="list-inline-item float-left">
+                                              <div class="media_name">{{ data?.ownerName }}</div>
+                                              <div routerLink="channels/x" class="media_sub_head">{{ data?.channelName }} <span class="media_time">{{ data?.createdDate | date: 'hh:mm a dd MMM, yy'}}</span></div>
+                                          </li>
+                                          <li class="list-inline-item media_user_icons">
+                                              <a ><img src="img/svg/ico_edit.svg"></a>
+                                              <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                                  <img src="img/svg/ico_options.svg">
+                                              </a>
+                                                  <ul class="dropdown-menu report_block_drop">
+                                                      <li>
+                                                          <a href="#" data-toggle="modal" data-target="#reportmodal">Report</a>
+                                                      </li>
+                                                  </ul>
+
+                                          </li>
+                                      </ul>
+                                  </li>
+                                  <li class="list_style_none float-left">
+                                      <div class="media_detail_block">
+                                          <h2 class="ops_heading">{{ data?.title }}</h2>
+                                          <p class="ops_subheading">
+                                              {{ data?.description }}
+                                              <!--<span class="text-theme pull-right">More..</span>-->
+                                          </p>
+                                          <button *ngFor="let tag of data?.tags" type="button" class="btn btn-tag btn-sm">tag</button>
+                                      </div>
+                                  </li>
+                              </ul>
+                          </div>
+                          <div class="media_like_count">
+                              <ul class="list-inline">
+                                  <li class="list-inline-item">
+                                      <a (click)="spotMedia(data?.id)" class="spot__btn">
+                                        <img *ngIf="spot===false" src="/assets/img/svg/ico_lik.svg">
+                                        <img *ngIf="spot===true" src="http://d33wubrfki0l68.cloudfront.net/8d58c78cd26eb1d103bb24ec6c1d786a0964b8b4/63aa4/img/svg/ico_spot.svg" width="14px">
+                                      </a>
+                                      <div class="like_count">{{ spotCount }}</div>
+                                  </li>
+                                  <li class="list-inline-item">
+                                      <a ><img src="/assets/img/svg/ico_comment.svg"></a>
+                                      <div class="like_count">{{ data?.commentsCount }}</div>
+                                  </li>
+                                  <li class="list-inline-item pull-right">
+                                      <a ><img src="/assets/img/svg/ico_share-02.svg"></a>
+                                  </li>
+                                  <li class="list-inline-item pull-right">
+                                      <a ><img src="/assets/img/svg/ico_addtochannel.svg"></a>
+                                  </li>
+                              </ul>
+                          </div>
+                          <div class="media_comment_input fill_grey">
+                              <ul class="msg_to_list list_style_none">
+                                  <li class="with_border_bottom">
+                                      <ul class="list-inline">
+                                          <li class="list-inline-item float_left">
+                                              <figure class="avatar_media_user2">
+                                                  <img src="{{ imageLink + profileImage?.profileImage }}">
+                                              </figure>
+                                          </li>
+                                          <li class="list-inline-item msg_to_input">
+                                              <div class="form_group">
+                                                  <input class="form_input" type="text" [(ngModel)]="messageText" required="" (keyup.enter)="keyDownFunction(data?.id)">
+                                                  <span class="form_highlight"></span>
+                                                  <span class="form_bar"></span>
+                                                  <label>Comment Here</label>
+                                              </div>
+                                          </li>
+                                      </ul>
+                                  </li>
+                              </ul>
+                          </div>
+                          <div class="media_comments_section" id="ops_scrollbar">
+                          <div class="media_img_comments with_border_bottom" *ngFor="let comment of comment; let i = index;">
+                              <ul class="list-inline">
+                                  <li class="list-inline-item float_left">
+                                  <figure class="avatar_media_user2">
+                                      <img src="{{ imageLink + comment.ownerImage }}">
+                                  </figure>
+                                  </li>
+                                  <li class="list-inline-item">
+                                      <div class="head_name">{{ comment.ownerName }}</div>
+                                  </li>
+                                  <li class="list-inline-item pull-right padding_0">
+                                      <div class="comm_post_time">{{ comment.createdDate | date: 'hh:mm a' }}<span>
+                                          <a (click)="beginEdit(editText)"><img src="/assets/img/svg/ico_options.svg"></a></span>
+                                      </div>
+                                  </li>
+                              </ul>
+                              <ul class="list-inline media_comments_block">
+                                  <li class="list-inline-item">{{ comment.comment }}</li>
+                                  <!--<span [hidden]="isDisplay">
+                                      <input #editText type="text"
+                                          [value]="text" (keyup.enter)="editDone(editText.value)">
+                                      <i class="icon icon-floppy color-primary" title="Save"
+                                          (click)="editDone(editText.value)"></i>
+                                  </span>-->
+                              </ul>
+                          </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </div>
+</app-modal>

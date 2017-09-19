@@ -10,6 +10,13 @@ export class ProfileActions {
   static LOAD_CURRENT_USER_PROFILE_FAILED = 'LOAD_CURRENT_USER_PROFILE_FAILED';
 
   /**
+   * Load spotfeed details
+   */
+  static GET_SPOTFEED_DETAILS = 'GET_SPOTFEED_DETAILS';
+  static GET_SPOTFEED_DETAILS_SUCCESS = 'GET_SPOTFEED_DETAILS_SUCCESS';
+  static GET_SPOTFEED_DETAILS_FAILED = 'GET_SPOTFEED_DETAILS_FAILED';
+
+  /**
    * Load logged in users Quick Access
    */
   static LOAD_CURRENT_USER_QUICK_ACCESS = 'LOAD_CURRENT_USER_QUICK_ACCESS';
@@ -22,6 +29,13 @@ export class ProfileActions {
   static LOAD_CURRENT_USER_PROFILE_DETAILS = 'LOAD_CURRENT_USER_PROFILE_DETAILS';
   static LOAD_CURRENT_USER_PROFILE_DETAILS_SUCCESS = 'LOAD_CURRENT_USER_PROFILE_DETAILS_SUCCESS';
   static LOAD_CURRENT_USER_PROFILE_DETAILS_FAILED = 'LOAD_CURRENT_USER_PROFILE_DETAILS_FAILED';
+
+  /**
+   * Load home page spotfeeds
+   */
+  static LOAD_HOME_PAGE_SPOTFEEDS = 'LOAD_HOME_PAGE_SPOTFEEDS';
+  static LOAD_HOME_PAGE_SPOTFEEDS_SUCCESS = 'LOAD_HOME_PAGE_SPOTFEEDS_SUCCESS';
+  static LOAD_HOME_PAGE_SPOTFEEDS_FAILED = 'LOAD_HOME_PAGE_SPOTFEEDS_FAILED';
 
   /**
    * Load logged in users Channel
@@ -156,6 +170,26 @@ export class ProfileActions {
   static PROFILE_FOLLOW_SUCCESS = 'PROFILE_FOLLOW_SUCCESS';
   static PROFILE_FOLLOW_FAILED = 'PROFILE_FOLLOW_FAILED';
 
+   /**
+   * Follow a profile
+   */
+  static CHANNEL_FOLLOW = 'CHANNEL_FOLLOW_FOLLOW';
+  static CHANNEL_FOLLOW_SUCCESS = 'CHANNEL_FOLLOW_SUCCESS';
+  static CHANNEL_FOLLOW_FAILED = 'CHANNEL_FOLLOW_FAILED';
+
+  /**
+   * Post Media to Channel
+   */
+  static POST_CHANNEL_MEDIA = 'POST_CHANNEL_MEDIA';
+  static POST_CHANNEL_MEDIA_SUCCESS = 'POST_CHANNEL_MEDIA_SUCCESS';
+  static POST_CHANNEL_MEDIA_FAILED = 'POST_CHANNEL_MEDIA_FAILED';
+
+  /**
+   * Who is Current user profile
+   */
+  static CURRENT_PROFILE_USER = 'CURRENT_PROFILE_USER';
+  static CURRENT_PROFILE_USER_SUCCESS = 'CURRENT_PROFILE_USER_SUCCESS';
+
   /**
    * Load Current user profile
    */
@@ -247,6 +281,30 @@ export class ProfileActions {
   getUserMediaFailed(error: any): Action {
     return {
       type: ProfileActions.LOAD_USER_MEDIA_FAILED,
+      payload: error
+    };
+  }
+
+  /**
+   * Get home page spotfeeds
+   * @param value
+   */
+  getHomePageSpotfeeds(value): Action {
+    return {
+      type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS
+    };
+  }
+
+  getHomePageSpotfeedsSuccess(value): Action {
+    return {
+      type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  getHomePageSpotfeedsFailed(error: any): Action {
+    return {
+      type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS_FAILED,
       payload: error
     };
   }
@@ -496,4 +554,33 @@ export class ProfileActions {
       payload: error
     };
   }
+
+  /**
+   * Get spotfeed details
+   */
+  getSpotfeedDetails(value): Action {
+    return {
+      type: ProfileActions.GET_SPOTFEED_DETAILS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  getSpotfeedDetailsSuccess(value): Action {
+    return {
+      type: ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS,
+      payload: {
+        value
+      }
+    };
+  }
+
+  getSpotfeedDetailsFailed(error: any): Action {
+    return {
+      type: ProfileActions.GET_SPOTFEED_DETAILS_FAILED,
+      payload: error
+    };
+  }
+
 }

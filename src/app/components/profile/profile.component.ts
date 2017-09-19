@@ -43,11 +43,12 @@ export class ProfileComponent implements OnInit {
     this.tagState$ = this.profileStore.select('profileTags');
     this.router = this.route;
     this.isCurrentUser = false;
-
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
       this.current_user_value = this.checkUserType(this.userProfile);
     });
+
+    // this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: 'ok' });
   }
 
   /**
@@ -75,12 +76,15 @@ export class ProfileComponent implements OnInit {
     let flag = 0;
     if (!this.userName && userProfile.profile_loaded  === true) {
       flag = 1;
+      // console.log(flag);
+      // this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: flag });
     }
 
     if (this.userName && userProfile.profile_other_loaded === true) {
       flag = 2;
     }
-
+    // console.log(flag);
+    // this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: flag });
     return flag;
   }
 
@@ -93,6 +97,7 @@ export class ProfileComponent implements OnInit {
       .subscribe(params => {
         this.userName = params['id'];
         this.loadProfile(params['id']); // Load corresponding user
+        this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: this.userName });
     });
   }
   /**

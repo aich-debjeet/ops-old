@@ -1,11 +1,7 @@
-<div *ngIf="profileObject !== null" class="prohead2" [ngStyle]="profileImageStyle(profileObject)">
+<div *ngIf="profileObject !== null" class="prohead2" [ngStyle]="coverImageStyle(profileObject)">
   <div class="container u-rel" *ngIf="isOtherProfile === false">
-      <app-modal [modalTitle]="'Change Profile Image'" (onClose)="isClosed($event)" [blocking]='false' modalId='ChangeCover' class="media__modal" size="tiny">
-          <input #profileImage type="file" name="profile_image"/>
-          <button (click)="uploadCoverImage()">Save</button>
-      </app-modal>
       <span class="upload_cover_img">
-        <a (click)="showCoverImageUploader()" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+        <a routerLink="/profile/about/cover_image" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
           <img src="http://d33wubrfki0l68.cloudfront.net/191393ff3b0564270e49e5a1548ca1384ba44571/2bd8e/img/svg/ico_edit_white.svg" alt="">
         </a>
     </span>
@@ -13,42 +9,31 @@
 </div>
 <div class="container pro-block" *ngIf="profileObject !== null">
     <div class="row">
-        <app-modal [modalTitle]="'Change Profile Image'" (onClose)="isClosed($event)" [blocking]='false' modalId='ChangeProfile' class="media__modal" size="tiny">
-          <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper><br>
-          <span class="upload_prof_img u-clear">
-            <button class="btn btn-primary" data-toggle="dropdown" aria-expanded="true" alt="" (click)="saveImageClick()">Save Image</button>
-          </span>
-        </app-modal>
         <div class="col-md-6 col-sm-12 pro__img" *ngIf="changingImage">
-          <span>Changin Image</span>
+
         </div>
 
-        <div class="col-md-6 col-sm-12 pro__img" *ngIf="!changingImage">
+        <div class="col-md-6 col-sm-12 pro__img">
           <div class="prof_img_block">
-            <img src="{{ data && data.image ? data.image : baseUrl + profileObject?.image?.profile }}" class="img-responsive img-circle">
-            <span class="upload_prof_img">
-              <a class="dropdown-toggle btn btn-basic btn-sm upload-btn" data-toggle="dropdown" aria-expanded="true" alt="" (click)="changingImageClick()">
+            <img src="{{ (baseUrl + profileObject?.image?.profile) || defaultImage }}" class="img-responsive img-circle">
+            <span class="upload_prof_img" *ngIf="isOtherProfile === false">
+              <a class="dropdown-toggle btn btn-basic btn-sm upload-btn" data-toggle="dropdown" aria-expanded="true" alt="" routerLink="/profile/about/image">
                 <img src="http://d33wubrfki0l68.cloudfront.net/191393ff3b0564270e49e5a1548ca1384ba44571/2bd8e/img/svg/ico_edit_white.svg"/>
               </a>
             </span>
           </div>
             <!-- profile img block end -->
-
-            <!--
-                    <div class="col-md-6 col-sm-12 pro__img">
-                        <!-- <img *ngIf="userProfile.profileUser?.profileImage.length > 0; else elseProfileImage" src="{{ userProfile.profileUser?.profileImage }}" class="img-responsive img-circle"> -->
-            <!-- <img #elseProfileImage src="/assets/img/avatar.jpg" class="img-responsive img-circle"> -->
             <div class="pro__name2">
               <h2><a routerLink="/profile"> {{ profileObject?.name }} </a></h2>
               <p>{{ '@' + profileObject?.userHandle }}</p>
               <div *ngIf="isOtherProfile === true">
-                <button type="button" class="btn btn-xs btn-primary btn-plus" (click)="followUser(profileObject)">
+                <button type="button" class="btn btn-xs btn-primary btn-plus" (click)="followUser(profileObject)" [ngClass]="{ 'btn-follow': !isfollowing, 'btn-unfollow': isfollowing }">
                   <span class="btn-label-follow">
                     <i class="fa fa-plus" aria-hidden="true"></i>
-                  </span> FOLLOW
+                  </span>{{ isfollowing ? 'Unfollow' : 'Follow' }}
                 </button>
                 <button type="button" class="btn btn-normal2 btn-xs"> NETWORK </button>
-                <button type="button" class="btn btn-normal2 btn-xs"> DONATE </button>
+                <button type="button" (click)="donatePopup()" class="btn btn-normal2 btn-xs"> DONATE </button>
               </div>
             </div>
           <div class="col-md-6"></div>
@@ -75,6 +60,10 @@
                 </li>
 
                 <li class="list-line-item">
+                  <a [routerLink]="['image']">Edit</a>
+              </li>
+
+                <li class="list-line-item">
                   <a routerLink="/profile/u/salsabeel/user/">Profile</a>
               </li>
             </ul>
@@ -82,13 +71,13 @@
         <div class="col-md-3 col-sm-3">
             <ul class="list-inline pro_nav_icon">
                 <li class="list-line-item">
-                    <a href="#"><img src="/assets/img/svg/ico_options.svg"></a>
+                    <a ><img src="/assets/img/svg/ico_options.svg"></a>
                 </li>
                 <li class="list-line-item">
-                    <a href="#"><img src="/assets/img/svg/ico_share.svg"></a>
+                    <a><img src="/assets/img/svg/ico_share.svg"></a>
                 </li>
                 <li class="list-line-item">
-                    <a href="#"><img src="/assets/img/svg/ico_message.svg"></a>
+                    <a><img src="/assets/img/svg/ico_message.svg"></a>
                 </li>
                 <li class="list-line-item" *ngIf="isOtherProfile === false">
                     <a (click)="profileEdit()"><img src="/assets/img/svg/ico_edit.svg"></a>
@@ -136,8 +125,9 @@
 </div>
 
 <router-outlet></router-outlet>
-<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow'>
-    <div>
+
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow' *ngIf="!isOtherProfile" size="tiny__form">
+    <div >
         <form [formGroup]="profileForm" novalidate #myform="ngForm" (submit)= "profileFormSubmit(profileForm.value)">
             <div class="edit-profile_main">
                 <!-- <div class="modal-header" style="border: none;">
@@ -230,82 +220,6 @@
                     </div>
                     <!-- edit profile content block end -->
                 </div>
-                <!-- basic info end -->
-
-                <div class="edit-profile_sec_block">
-                    <div class="edit-profile_sec_head" data-toggle="collapse" data-target="#contact_info">
-                        <h3 class="edit-profile_subtitle">Contact Info</h3>
-                        <div class="edit-profile_iconbox">
-                            <img src="/assets/img/svg/ico-arrow-down.svg" alt="">
-                        </div>
-                    </div>
-                    <!-- edit profile sec head -->
-                    <div id="contact_info" class="edit-profile_content_block show" style="display: none;">
-                        <div class="editarea">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="form_group">
-                                        <input class="form_input" required="" type="email" formControlName="email">
-                                        <span class="form_highlight"></span>
-                                        <span class="form_bar"></span>
-                                        <label>Email</label>
-                                        <p class="error_alert" *ngIf="profileForm.controls['email'].errors?.isEmailUnique">A user with this email is already registered</p>
-                                        <p class="error_alert" *ngIf="profileForm.controls['email'].errors?.required && myform.submitted">Email is required</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form_group">
-                                        <select class="form-control" formControlName="emailPrivacy" id="sel1">
-                                        <option value="0">Public</option>
-                                        <option value="1">Private</option>
-                                    </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="form_group">
-                                        <span id="phone" type="tel"></span>
-                                        <input class="form_input" type="text" formControlName="number" required style="padding-left: 50px;">
-                                        <span class="form_highlight"></span>
-                                        <span class="form_bar"></span>
-                                        <label>Phone Number</label>
-                                        <app-country-selector></app-country-selector>
-                                        <p class="error_alert" *ngIf="profileForm.controls['number'].errors?.required && myform.submitted">Mobile number is required</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form_group">
-                                        <select class="form-control" formControlName="mobilePrivacy" id="sel1">
-                                        <option value="0">Public</option>
-                                        <option value="1">Private</option>
-                                    </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="form_group">
-                                        <input class="form_input"  type="text" formControlName="website">
-                                        <span class="form_highlight"></span>
-                                        <span class="form_bar"></span>
-                                        <label>Website</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form_group">
-                                        <select class="form-control" formControlName="websitePrivacy" id="sel1">
-                                        <option value="0">Public</option>
-                                        <option value="1">Private</option>
-                                    </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- edit profile content block end -->
-                </div>
-                <!-- contact info end -->
             </div>
         </form>
     </div>
@@ -313,8 +227,38 @@
 
 <!--Skill more -->
 
-<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='skillMoreWindow'>
+<app-modal [modalTitle]="'Some title'" [open]="false" [blocking]='false' modalId='skillMoreWindow'>
     <div class="popup__window">
         <button *ngFor="let skill of profileObject?.userSkill" type="button" class="btn btn-default btn-xs btn-skill">{{ skill.name }}</button>
+    </div>
+</app-modal>
+
+<app-modal  [blocking]='false' modalId='donationPopup' *ngIf="isOtherProfile" size="tiny__donation">
+    <div  id="donation_pop" >
+        <div id="report_thank">
+            <!-- Modal content-->
+            <div class="donation_container">
+                <span class="search_close">
+                    <a (click)="donatePopup()" data-dismiss="modal"><img src="/assets/img/svg/ico_close-38.svg" alt=""></a>
+                </span>
+
+                <div class="donation_content">
+                    <h2>Donate<br>Coming Soon</h2>
+                    <div class="donation_illustration">
+                        <img src="http://d33wubrfki0l68.cloudfront.net/d652cd5f626ee7982b86e0eff837e8d9de21c71f/d59d4/img/svg/asset2.svg" alt="">
+                    </div>
+                    <div class="donation_msg">
+                        <p>
+                            We're working on this feature to help<br>our fellow artists.
+                            <span class="stay_tuned">Stay tuned.</span>
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="donationClose()">Okey</app-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- report confirm end -->
     </div>
 </app-modal>

@@ -37,7 +37,7 @@ export class MediaService {
    * @param req
    */
   postStatus(req: any) {
-    return this.api.post('/portal/network/feed/', req);
+    return this.api.post('/portal/network/feed', req);
   }
 
   /**
@@ -86,5 +86,20 @@ export class MediaService {
    */
   unSpotMedia(mediaId: string) {
     return this.api.get('/portal/cdn/media/unSpot/', mediaId);
+  }
+
+  /**
+   * Pagination Helper
+   */
+  pagination(page: number = 1, perPage: number = 20) {
+    return page === 1 ? 0 : page * perPage;
+  }
+
+  /**
+   * Get User media
+   */
+  getUserMedia(handle: string, page: number = 1) {
+    const params = handle + this.pagination(page);
+    return this.api.get('/portal/cdn/media/otherProfile/', params);
   }
 }

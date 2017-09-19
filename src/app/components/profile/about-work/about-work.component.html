@@ -1,8 +1,8 @@
 <div id="about_work" >
   <div class="row">
       <div class="col-md-6 col-sm-6 overview_section">
-          <div class="row sm_panel_body">
-              <div class="col-md-2 sm_panel_left">
+          <div class="row sm_panel_body" *ngIf="ownProfile">
+              <div class="col-md-2 sm_panel_left" >
                   <a (click)="addWorkUser()">
                       <div class="add_plus">+</div>
                   </a>
@@ -12,7 +12,7 @@
               </div>
           </div>
 
-          <div class="row sm_panel_body" *ngFor="let work of aboutWork.profileDetails?.extra.work">
+          <div class="row sm_panel_body" *ngFor="let work of userProfile?.extra?.work">
               <div class="col-md-2 sm_panel_left">
                   <figure class="avatar_overview">
                       <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
@@ -23,7 +23,7 @@
                     <h3>{{ work.role }}<span> at </span> {{ work.organizationName }}</h3>
                     <p>From {{ work.from | date:'MMMM, y'}}</p>
                 </div>
-                <div class="workplace_edit_remove_ico ">
+                <div class="workplace_edit_remove_ico " *ngIf="ownProfile">
                     <a (click) = "editCurrentWork(work)" class="edit_remove_ico"><img src="http://d33wubrfki0l68.cloudfront.net/8acba050eb7fc142849496e9d39c31e6ec848ebc/3b55c/img/svg/ico_edit.svg" alt=""></a>
                     <a (click) = "deleteCurrentWork(work.id)" class="edit_remove_ico"><img src="http://d33wubrfki0l68.cloudfront.net/b3dd9a5fe04c6921b6c04fd3d4647f713a92b32c/a4a4a/img/svg/ico_delete.svg"></a>
                 </div>
@@ -35,7 +35,7 @@
 </div>
 
 
-<app-modal [modalTitle]="''" [blocking]='false' modalId='userWorkAdd'>
+<app-modal [modalTitle]="''" [blocking]='false' modalId='userWorkAdd' *ngIf="ownProfile" size="tiny__form">
     
         <form [formGroup]="workForm" novalidate #myform="ngForm" (submit)= "workFormSubmit(workForm.value)">
             <div class="edit-profile_main">

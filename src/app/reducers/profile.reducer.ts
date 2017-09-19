@@ -3,6 +3,12 @@ import { initialTag, ProfileModal } from '../models/profile.model';
 
 import { ProfileActions } from '../actions/profile.action';
 
+export interface State {
+  user_channel: any,
+  user_channels_loaded: boolean,
+  user_channels_loading: boolean,
+  profileUser: any
+};
 
 export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
@@ -10,12 +16,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.PROFILE_COVER_UPDATE:
       return Object.assign({}, state, {
-        cover_updating: true
+        cover_updating: true,
+        cover_upload_loading: true
       });
 
     case ProfileActions.PROFILE_COVER_UPDATE_SUCCESS:
       return Object.assign({}, state, {
         cover_updating: false,
+        cover_img_upload_success: true,
+        cover_upload_loading: false,
         cover_updated: true,
       });
 
@@ -29,18 +38,20 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.LOAD_CURRENT_USER_PROFILE:
       return Object.assign({}, state, {
-        success: true
+        success: true,
+        profile_loaded: false
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_SUCCESS:
       return Object.assign({}, state, {
         profileUser: payload,
-        success: true
+        profile_loaded: true
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_FAILED:
       return Object.assign({}, state, {
-        success: false
+        success: false,
+        profile_loaded: false
       });
 
     /**
@@ -48,7 +59,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS:
       return Object.assign({}, state, {
-        success: true
+        success: true,
+        profile_loaded: false
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_SUCCESS:
@@ -60,7 +72,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_FAILED:
       return Object.assign({}, state, {
-        success: false
+        success: false,
+        profile_loaded: false
       });
 
       /**
@@ -68,12 +81,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
        */
       case ProfileActions.LOAD_PROFILE_IMAGE:
         return Object.assign({}, state, {
+          profile_img_upload_loading: true,
           success: true
         });
 
       case ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS:
         return Object.assign({}, state, {
           profileImage: payload,
+          image_upload_success: true,
+          profile_img_upload_loading: false,
           success: true
         });
 
@@ -137,11 +153,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_USER_MEDIA_SUCCESS:
+
+      const posts = payload['SUCCESS'] || [];
+
       return Object.assign({}, state, {
         mediaEntity: payload,
         user_posts_loaded: true,
         user_posts_loading: false,
-        user_posts: payload
+        user_posts: posts
       });
 
     case ProfileActions.LOAD_USER_MEDIA_FAILED:
@@ -171,11 +190,36 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
     /**
+     * Get home page spotfeeds
+     */
+    case ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS:
+      return Object.assign({}, state, {
+        success: true,
+        home_spotfeeds_loading: true,
+        home_spotfeeds_loaded: false
+      });
+
+    case ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS_SUCCESS:
+      return Object.assign({}, state, {
+        home_spotfeeds: payload,
+        success: true,
+        home_spotfeeds_loaded: true,
+        home_spotfeeds_loading: false
+      });
+
+    case ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS_FAILED:
+      return Object.assign({}, state, {
+        success: false,
+        home_spotfeeds_loading: false,
+        home_spotfeeds_loaded: false
+      });
+
+    /**
      * Get current User channel of profile
      */
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL:
       return Object.assign({}, state, {
-        success: true,
+        // success: true,
         user_channels_loading: true,
         user_channels_loaded: false
       });
@@ -183,14 +227,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL_SUCCESS:
       return Object.assign({}, state, {
         user_channel: payload,
-        success: true,
         user_channels_loaded: true,
         user_channels_loading: false
       });
 
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL_FAILED:
       return Object.assign({}, state, {
-        success: false,
         user_channels_loading: false,
         user_channels_loaded: false
       });
@@ -319,14 +361,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.PROFILE_LOAD:
       return Object.assign({}, state, {
         profile_other: [],
-        profile_other_loading: true
+        profile_other_loading: true,
       });
 
     case ProfileActions.PROFILE_LOAD_SUCCESS:
       return Object.assign({}, state, {
         profile_other_loading: false,
         profile_other_loaded: true,
-        profile_other: payload
+        profile_other: payload,
+        profiles: [...state.profiles, payload],
       });
 
     case ProfileActions.PROFILE_LOAD_FAILED:
@@ -352,6 +395,70 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.PROFILE_FOLLOW_FAILED:
       return Object.assign({}, state, {
         profile_other_followed: false
+      });
+      /**
+     * Follow Profile
+     */
+    case ProfileActions.CHANNEL_FOLLOW:
+      return Object.assign({}, state, {
+        channel_followed: false
+      });
+
+    case ProfileActions.CHANNEL_FOLLOW_SUCCESS:
+      return Object.assign({}, state, {
+        channel_followed: true
+      });
+
+    case ProfileActions.CHANNEL_FOLLOW_FAILED:
+      return Object.assign({}, state, {
+        channel_followed: false
+      });
+
+    /**
+     * Current user Profile
+     */
+    case ProfileActions.CURRENT_PROFILE_USER:
+      return Object.assign({}, state, {
+        current_user_profile: payload
+      });
+
+    /**
+     * Post Media to Channel
+     */
+    case ProfileActions.POST_CHANNEL_MEDIA:
+      return Object.assign({}, state, {
+        media_channel_posting: true,
+        media_channel_posted: false
+      });
+
+    case ProfileActions.POST_CHANNEL_MEDIA_SUCCESS:
+      return Object.assign({}, state, {
+        media_channel_posting: false,
+        media_channel_posted: true
+      });
+
+    case ProfileActions.POST_CHANNEL_MEDIA_FAILED:
+      return Object.assign({}, state, {
+        media_channel_posting: false,
+        media_channel_posted: false
+      });
+
+    // Get single spotfeed details
+    case ProfileActions.GET_SPOTFEED_DETAILS:
+      return Object.assign({}, state, {
+        success: true,
+        spotfeed_loading: false,
+      });
+
+    case ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS:
+      return Object.assign({}, state, {
+        spotfeed_loading: true,
+        spotfeed_detail: payload
+      });
+
+    case ProfileActions.GET_SPOTFEED_DETAILS_FAILED:
+      return Object.assign({}, state, {
+        success: false
       });
 
     default:

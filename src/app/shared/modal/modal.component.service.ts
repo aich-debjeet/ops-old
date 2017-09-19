@@ -3,7 +3,7 @@ import { ModalComponent } from './modal.component';
 
 @Injectable()
 export class ModalService {
-  private modals: Array<ModalComponent>;
+  modals: Array<ModalComponent>;
 
   constructor() {
     this.modals = [];
@@ -11,18 +11,15 @@ export class ModalService {
 
   registerModal(newModal: ModalComponent): void {
     const modal = this.findModal(newModal.modalId);
-
     // Delete existing to replace the modal
     if (modal) {
       this.modals.splice(this.modals.indexOf(modal));
     }
-
     this.modals.push(newModal);
   }
 
   open(modalId: string): void {
     const modal = this.findModal(modalId);
-
     if (modal) {
       modal.isOpen = true;
     }

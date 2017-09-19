@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../environments/environment';
 import { TokenService } from '../helpers/token.service';
@@ -47,18 +47,34 @@ export class ProfileService {
   }
 
   /**
+   * Get home page spotfeeds
+   */
+  getHomePageSpotfeeds() {
+      return this.api.get('/portal/cdn/spotfeed', '');
+  }
+
+  /**
    * Current LoggedIn Channel profile.
    */
-  getLoggedInChannel(value: string, page: number = 0) {
-    const perPage = 10;
+  getLoggedInChannel(value: string, page: number = 1) {
+    const perPage = 30;
+    const offset = page === 1 ? 0 : page * perPage;
     const body = {
-      'offset': page * perPage,
+      'offset': offset,
       'limit': perPage,
       'superType': 'channel',
       'owner': value
     }
 
     return this.api.post('/portal/network/spotfeed/search', body);
+  }
+
+
+  /**
+   * Get loggedin users channels.
+   */
+  getFollowingChannel(userHandle: string) {
+    return this.api.get('/portal/network/spotfeed/following/profile/spotfeeds/' + userHandle , '');
   }
 
   /**
@@ -83,10 +99,10 @@ export class ProfileService {
       byteString = decodeURI(dataURI.split(',')[1]);
     }
 
-    // separate out the mime component
+    // Seperate out the MIME component
     const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
 
-    // write the bytes of the string to a typed array
+    // Write the bytes of the string to a typed array
     const ia = new Uint8Array(byteString.length);
     for (let i = 0; i < byteString.length; i ++) {
         ia[i] = byteString.charCodeAt(i);
@@ -99,25 +115,39 @@ export class ProfileService {
    * Upload Image
    * @param ImageObj
    */
-  buildImageForm(formData: any) {
-    const data = formData.image[0];
-    const imageType = (data.substring('data:image/'.length, data.indexOf(';base64')));
-    const fileData = new FormData();
-
-    // Create random file name
-    const randm = Math.random().toString(36).slice(2);
-    const fileName = 'profile_' + randm + '.' + imageType;
-
-    fileData.append('file', this.dataURItoBlob(data), fileName );
-    return fileData;
+  buildImageForm(formValue: any) {
+    // let fileData:FormData = new FormData();
+    const data = new FormData();
+    // Check if image is present
+    if (formValue.image && formValue.image[0]) {
+      const imageData = formValue.image[0];
+      const imageType = (imageData.substring('data:image/'.length, imageData.indexOf(';base64')));
+      // Create random file name
+      const randm = Math.random().toString(36).slice(2);
+      const fileName = 'prof_' + randm + '.' + imageType;
+      data.append('file', this.dataURItoBlob(imageData), fileName );
+      return data;
+    }
   }
-
    /**
    * Upload Image to CDN
    */
-  uploadImage(value: any) {
-    return this.api.post('/portal/cdn/media/upload?handle=' + this.handle, value);
+  uploadImage(value: any, handle: string = '') {
+    console.log(value);
+    return this.api.postFile('/portal/cdn/media/upload?handle=' + handle, value);
   }
+
+  /**
+   * Cover Image Uploader
+   */
+  coverImageUploader(payload: any) {
+    const fileData = this.buildImageForm(payload);
+    return this.uploadImage(fileData, payload.handle);
+  }
+  // coverImageUploader(payload: any) {
+  //   const Files = this.imageHandler(payload.image);
+  //   return this.uploadImage(Files, payload.handle);
+  // }
 
   /**
    * Handle File
@@ -135,9 +165,9 @@ export class ProfileService {
    * When a user uploads an image with an existing file name in the system,
    * the response from CDN upload endpoint is giving the very previous image as response on success.
    */
-  uploadProfileImage(formData: any) {
-    const fileData = this.buildImageForm(formData);
-    return this.uploadImage(fileData);
+  uploadProfileImage(formValue: any) {
+    const fileData = this.buildImageForm(formValue);
+    return this.uploadImage(fileData, formValue.handle);
   }
 
   /**
@@ -245,6 +275,14 @@ export class ProfileService {
     return this.api.put('/portal/network/following/start', req);
   }
   /**
+   * Follow a Channel
+   */
+  followChannel(req: any) {
+    const channelId = req.channelId;
+    const follow = req.state ? 'follow' : 'unfollow';
+    return this.api.get('/portal/network/spotfeed/' + follow + '/byId/' + channelId);
+  }
+  /**
    * Check if the response has SUCCESS object in it
    */
   checkForSucces(object: any): boolean {
@@ -253,5 +291,40 @@ export class ProfileService {
     } else {
       return true;
     }
+  }
+
+  /**
+   * Pagination Helper
+   */
+  pagination(page: number = 1, perPage: number = 20) {
+    const p = page === 1 ? 0 : page * perPage;
+    return `${p}/${perPage}`;
+  }
+
+  /**
+   * Get User media
+   */
+  getUserMedia(handle: string, page: number = 1) {
+    const params = handle + '/' + this.pagination(page);
+    return this.api.get('/portal/cdn/media/otherProfile/', params);
+  }
+
+  /**
+   * Post to Media
+   */
+  postMediaToChannel(payload: any) {
+    console.log('SERVICE__PROFILE', payload);
+    const channelId = payload.channelId;
+    const req = payload.req;
+    return this.api.put('/portal/network/spotfeed/' + channelId, req);
+  }
+
+  /**
+   * Fetching individual spotfeeds data
+   */
+  getSpotfeedDetails(handle: string) {
+    const params = handle + '/' + this.pagination(1);
+    console.log('pagination: ' + params);
+    return this.api.get('/portal/cdn/spotfeed/inner/', params);
   }
 }
