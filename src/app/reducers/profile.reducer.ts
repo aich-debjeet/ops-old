@@ -390,6 +390,23 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         profile_other_followed: false
       });
+      /**
+     * Follow Profile
+     */
+    case ProfileActions.CHANNEL_FOLLOW:
+      return Object.assign({}, state, {
+        channel_followed: false
+      });
+
+    case ProfileActions.CHANNEL_FOLLOW_SUCCESS:
+      return Object.assign({}, state, {
+        channel_followed: true
+      });
+
+    case ProfileActions.CHANNEL_FOLLOW_FAILED:
+      return Object.assign({}, state, {
+        channel_followed: false
+      });
 
     /**
      * Current user Profile

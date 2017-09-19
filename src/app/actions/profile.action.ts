@@ -170,6 +170,13 @@ export class ProfileActions {
   static PROFILE_FOLLOW_SUCCESS = 'PROFILE_FOLLOW_SUCCESS';
   static PROFILE_FOLLOW_FAILED = 'PROFILE_FOLLOW_FAILED';
 
+   /**
+   * Follow a profile
+   */
+  static CHANNEL_FOLLOW = 'CHANNEL_FOLLOW_FOLLOW';
+  static CHANNEL_FOLLOW_SUCCESS = 'CHANNEL_FOLLOW_SUCCESS';
+  static CHANNEL_FOLLOW_FAILED = 'CHANNEL_FOLLOW_FAILED';
+
   /**
    * Post Media to Channel
    */
