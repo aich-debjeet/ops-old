@@ -204,7 +204,69 @@
                         <span class="form_bar"></span>
                         <label>Complexion</label>
                     </div>
+                    <div class="row">
+                      <div class="col-md-8">
+                          <div class="form_group">
+                              <input class="form_input" required="" type="email" formControlName="email">
+                              <span class="form_highlight"></span>
+                              <span class="form_bar"></span>
+                              <label>Email</label>
+                              <p class="error_alert" *ngIf="bioForm.controls['email'].errors?.isEmailUnique">Mail account already exists</p>
+                              <p class="error_alert" *ngIf="bioForm.controls['email'].errors?.required && myform.submitted">Email is required</p>
+                          </div>
+                      </div>
+                      <div class="col-md-4">
+                          <div class="form_group">
+                              <select class="form-control" formControlName="emailPrivacy"  id="sel1">
+                              <option value="0">Public</option>
+                              <option value="1">Private</option>
+                          </select>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-8">
+                          <div class="form_group">
+                              <span id="phone" type="tel"></span>
+                              <input class="form_input" type="text" required formControlName="number" style="padding-left: 50px;">
+                              <span class="form_highlight"></span>
+                              <span class="form_bar"></span>
+                              <label>Phone Number</label>
+                              <!--<app-country-selector></app-country-selector>-->
+                              <p class="error_alert" *ngIf="bioForm.controls['number'].errors?.required && myform.submitted">Mobile Number is required</p>
+                              <p class="error_alert" *ngIf="bioForm.controls['number'].errors?.isMobileUnique && myform.submitted">Mobile No already exists</p>
+                          </div>
+                      </div>
+                      <div class="col-md-4">
+                          <div class="form_group">
+                              <select class="form-control" formControlName="mobilePrivacy"  id="sel1">
+                              <option value="0">Public</option>
+                              <option value="1">Private</option>
+                          </select>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-8">
+                          <div class="form_group">
+                              <input class="form_input"  formControlName="website" type="text" >
+                              <span class="form_highlight"></span>
+                              <span class="form_bar"></span>
+                              <label>Website</label>
+                          </div>
+                      </div>
+                      <div class="col-md-4">
+                          <div class="form_group">
+                              <select class="form-control" formControlName="websitePrivacy" id="sel1">
+                              <option value="0">Public</option>
+                              <option value="1">Private</option>
+                          </select>
+                          </div>
+                      </div>
+                  </div>
+                    
                 </div>
+                
             </div>
         </div>
        </form>

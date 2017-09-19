@@ -172,12 +172,6 @@ export class ProfileSliderComponent implements OnInit {
       bio: this.userProfile.profileUser['bio'],
       skill: '',
       username: this.userProfile.profileDetails['extra'].username,
-      number: this.userProfile.profileDetails['contact'].mobile.mobile,
-      mobilePrivacy: this.userProfile.profileDetails['contact'].mobile.access,
-      email: this.userProfile.profileDetails['email'],
-      emailPrivacy: 0,
-      website: this.userProfile.profileDetails['contact'].website.website,
-      websitePrivacy: this.userProfile.profileDetails['contact'].website.access,
       dob: date
     });
   }
@@ -230,16 +224,6 @@ export class ProfileSliderComponent implements OnInit {
         'extras': {
           'association': {
             'summary': value.bio
-          },
-          'contact': {
-            'mobile': {
-              'mobile': value.number,
-              'access': Number(value.mobilePrivacy)
-            },
-            'website': {
-              'website': value.website,
-              'access': Number(value.websitePrivacy)
-            }
           }
         },
         'address': {
@@ -256,8 +240,7 @@ export class ProfileSliderComponent implements OnInit {
           'displayName': value.name
         },
         'profileTypeList': this.selectedSkills,
-        'username': value.username.toLowerCase(),
-        'email': value.email
+        'username': value.username.toLowerCase()
       }
 
       this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
@@ -275,12 +258,6 @@ export class ProfileSliderComponent implements OnInit {
       'bio' : '',
       'skill': '',
       'username' : ['', [Validators.required, Validators.minLength(4), FormValidation.noWhitespaceValidator], this.profileUpdateValidator.userNameValidation.bind(this.profileUpdateValidator)],
-      'number' : ['' , [Validators.required]],
-      'mobilePrivacy' : ['0' , [Validators.required]],
-      'email' : ['' , [Validators.required], this.profileUpdateValidator.emailValidation.bind(this.profileUpdateValidator)],
-      'emailPrivacy' : ['0' , [Validators.required]],
-      'website' : '',
-      'websitePrivacy' : '0',
       'dob' : ['' , [Validators.required], this.profileUpdateValidator.validAge.bind(this.profileUpdateValidator)],
 
     });
