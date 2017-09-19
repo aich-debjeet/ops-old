@@ -39,8 +39,6 @@ export class AboutContactComponent implements OnInit {
         this.userProfile = this.stateProfile.profileDetails;
       }
     });
-
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
   }
 
   ngOnInit() {

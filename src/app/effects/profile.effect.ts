@@ -400,7 +400,7 @@ export class ProfileEffect {
     );
 
   /**
-   * Get user channels
+   * Follow Profile
    */
   @Effect()
   followProfile$ = this.actions$
@@ -409,6 +409,18 @@ export class ProfileEffect {
     .switchMap((payload) => this.profileService.followUser(payload)
       .map(res => ({ type: ProfileActions.PROFILE_FOLLOW_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.PROFILE_FOLLOW_FAILED, payload: res }))
+    );
+
+  /**
+   * Follow Profile
+   */
+  @Effect()
+  followChannel$ = this.actions$
+    .ofType(ProfileActions.CHANNEL_FOLLOW)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.followChannel(payload)
+      .map(res => ({ type: ProfileActions.CHANNEL_FOLLOW_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.CHANNEL_FOLLOW_FAILED, payload: res }))
     );
 
     /**

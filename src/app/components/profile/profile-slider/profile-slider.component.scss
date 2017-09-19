@@ -1125,3 +1125,56 @@
   background-color: #f0616b !important;
   border-color: #f0616b !important;
 }
+
+
+.donation_container{
+	width:800px;
+	position:relative;
+	height:535px;
+	padding:56px 0px;
+	margin:0px auto;
+    background-color: #fff;
+	.search_close {
+	    width: 12px;
+	    position: absolute;
+	    right: 8px;
+	    top: 8px;
+	    img{
+	    	width: 12px;
+	    	height: 12px;
+	    	
+	    }
+	}
+	.donation_content{
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+		h2{
+			font-size: 36px;
+			font-weight: 700;
+			color: #333;
+			text-align: center;
+		}
+		.donation_illustration{
+			width: 277px;
+			height: 150px;
+			margin:16px 0px;
+		}
+		.donation_msg{
+			width: 277px;
+			margin-bottom: 48px;
+			p{
+				font-size: 16px;
+				color:#333;
+				font-weight: 300;
+				text-align: center;
+				.stay_tuned{
+					margin-top: 16px;
+					display: block;
+				}
+			}
+		}
+	}
+}
