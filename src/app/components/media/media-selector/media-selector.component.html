@@ -42,6 +42,9 @@
           </div>
         </div>
       </li>
+      <li *ngIf="uploadedFiles.length > 0" class="file__item">
+          <h1>Add More</h1>
+      </li>
     </ul>
     <div class="dragZone" class="block" (ngxf-drop)="uploadFileList($event)" drop-class="drop" multiple [ngxf-validate]="{ size: { min: 10, max:10000000 } }">
       <div class="add_media_inner">

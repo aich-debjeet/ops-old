@@ -57,7 +57,7 @@ export class ProfileService {
    * Current LoggedIn Channel profile.
    */
   getLoggedInChannel(value: string, page: number = 1) {
-    const perPage = 10;
+    const perPage = 30;
     const offset = page === 1 ? 0 : page * perPage;
     const body = {
       'offset': offset,
@@ -268,6 +268,14 @@ export class ProfileService {
       followedHandle : handle
     }
     return this.api.put('/portal/network/following/start', req);
+  }
+  /**
+   * Follow a Channel
+   */
+  followChannel(req: any) {
+    const channelId = req.channelId;
+    const follow = req.state ? 'follow' : 'unfollow';
+    return this.api.get('/portal/network/spotfeed/' + follow + '/byId/' + channelId);
   }
   /**
    * Check if the response has SUCCESS object in it

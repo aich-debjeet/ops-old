@@ -139,6 +139,17 @@ export class ProfileChannelComponent implements OnInit {
     // Follow dispatches to happen here
   }
 
+  /**
+   * Follow this channel
+   */
+  followChannel(e: any) {
+    const req = {
+      channelId: e.channel.spotfeedId,
+      state: e.state
+    };
+    this.profileStore.dispatch({ type: ProfileActions.CHANNEL_FOLLOW, payload: req });
+  }
+
   ngOnInit(): void {
     this.checkProfile();
   }

@@ -118,10 +118,10 @@ export class MediaSelectorComponent implements OnInit {
         this.postSuccessActive = this.profileChannel.media_channel_posting;
 
         if (this.profileChannel.user_channels_loaded) {
-          console.log('CHANNEL', 'LOADED');
+          // console.log('CHANNEL', 'LOADED');
           this.channeList = this.profileChannel.user_channel;
         } else {
-          console.log('CHANNEL', 'NOT LOADED');
+          // console.log('CHANNEL', 'NOT LOADED');
         }
       });
   }
@@ -130,14 +130,18 @@ export class MediaSelectorComponent implements OnInit {
     // If there's input assign, other wise, reload channel list
     // this.myChannels$.subscribe(event => this.channeListx = event);
     this.myProfile$.subscribe(event => {
+      console.log('[--]');
       this.myProfileData = event;
       // If user is got
+
       let isUserReady;
       if (event.profileUser && event.profileUser.handle) {
-        console.log('x');
-        this.handle = this.myProfileData.profileUser.handle;
+        console.log('[-]');
+        this.handle = event.profileUser.handle;
         isUserReady = true;
         this.loadChannel(this.handle);
+      } else {
+        console.log('[x]');
       }
     });
   }
@@ -187,9 +191,9 @@ export class MediaSelectorComponent implements OnInit {
    */
   postAllMedia(formValue: any) {
     // Stop submittion if not ready with needed data;
-    if (this.submitEnabled < 1 ) {
-      return false;
-    }
+    // if (this.submitEnabled < 1 ) {
+    //   return false;
+    // }
 
     let isReady = false;
     let userHandle = '';
@@ -221,6 +225,7 @@ export class MediaSelectorComponent implements OnInit {
     }
 
     if ( isReady && userHandle !== '') {
+      console.log('MULTIPLE', multipleMedias);
       this.postMediaToChannel(chosenChannel.spotfeedId, multipleMedias);
     }
   }
@@ -230,34 +235,33 @@ export class MediaSelectorComponent implements OnInit {
    */
   uploadMeta() {
     this.formMessages = [];
-    // Stop submittion if not ready with needed data;
-    if (this.submitEnabled < 1 ) {
-      // console.log('FORM', 'Form disabled, All required datas not loaded yet');
-      return false;
-    }
 
     const chosenFile = this.editingFile;
     const chosenChannel = this.chosenChannel;
 
     let isChannelReady, isFileReady ;
+
     if (this.chosenChannel === 0 ) {
+      console.log('NO CHANNEL');
       isChannelReady = false;
       this.formMessages.push('Please select a channel');
     } else {
+      console.log('CHANNEL READY');
       isChannelReady = true;
     }
 
     if (chosenFile.fileName === undefined) {
       isFileReady = false;
+      console.log('No File Choosen');
       this.formMessages.push('Please select a file');
     } else {
-      console.log('No File Choosen');
+      console.log('FILE READY');
       isFileReady = true;
     }
-    if (isChannelReady && isFileReady) {
+
+    if (isChannelReady === true && isFileReady === true) {
       return true;
     }
-    // return isChannelReady;
   }
 
   /**
@@ -272,6 +276,8 @@ export class MediaSelectorComponent implements OnInit {
     if (this.profileChannel.profile_loaded === true ) {
       userHandle = this.profileChannel.profileUser.handle;
     }
+
+    console.log('FORM READY?', isUploadReady);
 
     if ( isUploadReady ) {
       const formData = formValue;
@@ -361,25 +367,7 @@ export class MediaSelectorComponent implements OnInit {
       owner: userHandle
     }
 
-    this.getChannels(searchObj);
-  }
-
-  /**
-   * Load Channels
-   * @param req
-   */
-  getChannels(req: any) {
-    // const headers = new Headers();
-    // const reqOptions = new RequestOptions({ headers: headers });
-
-    // headers.append('Authorization', 'Bearer ' + this.token);
-    // headers.append('Content-Type', 'application/json');
-
-    // return this.http.post(`http://devservices.greenroom6.com:9000/api/1.0/portal/network/spotfeed/search`, req, reqOptions)
-    //   .map((data: Response) => data.json())
-    //   .subscribe(data => {
-    //     this.channels = data;
-    //   });
+    // this.getChannels(searchObj);
   }
 
   /**
@@ -524,24 +512,33 @@ export class MediaSelectorComponent implements OnInit {
       return;
     }
 
+    // Subscribe to current user object
+    this.myProfile$.subscribe(event => {
+      this.myProfileData = event;
+      if (event.profileUser && event.profileUser.handle) {
+        this.handle = event.profileUser.handle;
+      }
+    });
+
     const filesList = [];
+    const userHandle = this.handle;
+    console.log('HANDLE', 'V:' + userHandle);
 
     if (files.length > 0) {
       this.hasFiles = true
       this.files = files;
     }
 
-    let userHandle = '0';
-    this.tagState$.subscribe((state) => {
-      userHandle = this.profileChannel.profileUser.handle;
-      if ( this.profileChannel.profile_loaded === true ) {
-        this.uploadStatus = 2;
-        this.uploadFile(files, this.token, userHandle)
-      } else {
-        console.log('UPLOAD ERROR', this.uploadStatus);
-      }
-    });
+    // this.tagState$.subscribe((state) => {
+    if (this.handle && this.handle !== '') {
+      this.uploadStatus = 2;
+      this.uploadFile(files, this.token, userHandle)
+    } else {
+      this.uploadStatus = 0;
+      console.log('UPLOAD ERROR', this.uploadStatus);
+    }
   }
+
 
   /**
    * Send file to file heaven
