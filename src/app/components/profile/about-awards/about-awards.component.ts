@@ -44,7 +44,7 @@ export class AboutAwardsComponent implements OnInit {
     // this.test = 'salabeel';
     this.tagState$.subscribe((state) => {
       this.stateProfile = state;
-      if (this.stateProfile.profile_other_loaded === true) {
+      if (this.stateProfile.current_user_profile && this.stateProfile.profile_other_loaded === true) {
         this.ownProfile = false;
         this.userProfile = this.stateProfile.profile_other;
       }else {
@@ -53,7 +53,7 @@ export class AboutAwardsComponent implements OnInit {
       }
     });
 
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+    // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
 
     // Init From
     this.buildEditForm();
