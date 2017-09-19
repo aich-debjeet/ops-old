@@ -13,6 +13,7 @@ export class ChannelComponent implements OnInit {
   @Input() className: string;
   @Input() channelData;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onFollow: EventEmitter<any> = new EventEmitter<any>();
 
   // Its for admin spefic edit option
   @Input() type: boolean;
@@ -20,7 +21,7 @@ export class ChannelComponent implements OnInit {
   isfollowing: boolean;
   private image_base_url: string = environment.API_IMAGE;
   constructor() {
-    //
+    this.isfollowing = this.channelData.isfollowing;
   }
 
   ngOnInit() {
@@ -33,8 +34,9 @@ export class ChannelComponent implements OnInit {
   }
 
   toggleFollowBtn(i) {
-    this.isfollowing = !this.isfollowing;
+    const followState = this.isfollowing;
     this.onClick.emit(i);
+    this.onFollow.emit(!followState);
   }
 
   checkFileType(fileName: string, fileType: string) {
