@@ -180,8 +180,10 @@ export class RegistrationBasicComponent implements OnInit {
   userExisitCheck(value) {
     if (value.length >= 4) {
       this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
-    }else {
-      this.petTag.user_unique = false;
+    } else {
+      if (this.petTag && this.petTag.user_unique) {
+        this.petTag.user_unique = false;
+      }
     }
   }
 
@@ -271,6 +273,7 @@ export class RegistrationBasicComponent implements OnInit {
     this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: reqBody });
     this.store.select('loginTags').take(2).subscribe(data => {
       if (data['user_number_cng_success'] === true ) {
+        this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
         this.modalService.close('otpChangeNumber');
         this.modalService.open('otpWindow');
       }
