@@ -125,7 +125,7 @@ import { CommunitiesComponent } from './components/communities/communities.compo
   imports: [
     SharedModule,
     MediaModule,
-    ProfileModule,
+    // ProfileModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
