@@ -77,8 +77,7 @@ export class RegistrationBasicComponent implements OnInit {
     ) {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-        console.log('current state: ');
-        console.log(state);
+      console.log(state);
         this.petTag = state;
     });
     this.isPhotoAdded = false;
@@ -123,17 +122,17 @@ export class RegistrationBasicComponent implements OnInit {
   // Init Reg Form
   buildForm(): void {
     this.regFormBasic = this.fb.group({
-      'name' : ['Abhijeet Salunkhe', [Validators.required]],
-      'username' : ['abhijeet', [
+      'name' : ['', [Validators.required]],
+      'username' : ['', [
         Validators.required,
         FormValidation.noWhitespaceValidator
         ],
         this.databaseValidator.userNameValidation.bind(this.databaseValidator)
       ],
-      'dob' : ['18-12-1991', [Validators.required],
+      'dob' : ['', [Validators.required],
         this.databaseValidator.validAge.bind(this.databaseValidator)
       ],
-      'email' : ['abhijeet.salunkhe@aeione.com', [
+      'email' : ['', [
         Validators.required,
         Validators.min(1),
         // Validators.email
@@ -142,17 +141,17 @@ export class RegistrationBasicComponent implements OnInit {
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
       'gender': ['M', Validators.required],
-      'phone' : ['9867884320', [
+      'phone' : ['', [
         Validators.required,
         Validators.minLength(4)
         ],
         this.databaseValidator.checkMobile.bind(this.databaseValidator)
       ],
-      'password' : ['Admin@123', [
+      'password' : ['', [
         Validators.required,
         FormValidation.passwordStrength.bind(this)
       ]],
-      'confirmpassword' : ['Admin@', [
+      'confirmpassword' : ['', [
         Validators.required,
         this.passwordMatchCheck.bind(this)
       ]],
