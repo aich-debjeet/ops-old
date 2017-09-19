@@ -147,9 +147,6 @@ export class ProfileChannelComponent implements OnInit {
       channelId: e.channel.spotfeedId,
       state: e.state
     };
-
-    console.log(req);
-
     this.profileStore.dispatch({ type: ProfileActions.CHANNEL_FOLLOW, payload: req });
   }
 
