@@ -67,7 +67,7 @@
                   <td class="ops_subheading"><span *ngFor="let lang of userProfile?.languages">{{ lang }},</span></td>
                 </tr>
                 <tr>
-                  <td class="ops_heading12">Ethinicity</td>
+                  <td class="ops_heading12">Ethnicity</td>
                   <td class="ops_subheading">{{ (userProfile?.physical?.ethnicity !== "") ? userProfile?.physical?.ethnicity  : "n/a" }}</td>
                 </tr>
                 <tr>
@@ -163,7 +163,7 @@
                         <label>Country</label>
                     </div>
                     <div class="form_group">
-                        <input class="form_input" formControlName="pin_code">
+                        <input class="form_input" type="number" formControlName="pin_code">
                         <span class="form_highlight"></span>
                         <span class="form_bar"></span>
                         <label>Postal Code</label>
@@ -171,7 +171,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form_group">
-                                <input class="form_input" type="text" formControlName="height">
+                                <input class="form_input" type="number" formControlName="height">
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Height</label>
@@ -179,7 +179,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form_group">
-                                <input class="form_input" type="text" formControlName="weight">
+                                <input class="form_input" type="number" formControlName="weight">
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Weight</label>
