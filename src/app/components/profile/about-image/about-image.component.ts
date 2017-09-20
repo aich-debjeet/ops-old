@@ -48,6 +48,7 @@ export class AboutImageComponent implements OnInit {
   ) {
     this.tagState$ = this._store.select('profileTags');
     this.tagState$.subscribe((state) => {
+      console.log(state);
       this.stateProfile = state;
     });
     this.changingImage = false;
@@ -56,8 +57,8 @@ export class AboutImageComponent implements OnInit {
     this.cropperSettings = new CropperSettings();
     this.cropperSettings.width = 100;
     this.cropperSettings.height = 100;
-    this.cropperSettings.croppedWidth = 100;
-    this.cropperSettings.croppedHeight = 100;
+    this.cropperSettings.croppedWidth = 300;
+    this.cropperSettings.croppedHeight = 300;
     this.cropperSettings.canvasWidth = 400;
     this.cropperSettings.canvasHeight = 300;
     this.cropperSettings.rounded = true;
@@ -80,7 +81,16 @@ export class AboutImageComponent implements OnInit {
       };
 
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: imageData });
-      this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+      this._store.select('profileTags').take(2).subscribe(data => {
+        console.log(data);
+        // console.log('image upload done');
+        if (data['image_upload_success'] === true ) {
+          console.log('image upload done');
+          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+        }
+      })
+      // this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
 
       this.changingImage = false;
     }
