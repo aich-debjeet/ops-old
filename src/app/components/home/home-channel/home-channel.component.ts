@@ -43,21 +43,11 @@ export class HomeChannelComponent {
     private http: Http,
     private store: Store<ProfileModal>
   ) {
-    const channelLoaded = false;
 
     this.tagState$ = this.store.select('profileTags');
     this.tagState$.subscribe((state) => {
 
       this.userState = state;
-      console.log('user follwing channels listners');
-      console.log(state);
-      // const userHandle = this.userState.profileUser.handle  || '';
-
-      // if (!channelLoaded && userHandle !== '') {
-      //   channelLoaded = true;
-      //   // console.log('DISPATCH');
-      //   this.loadChannels(this.userState.profileUser.handle);
-      // }
 
     });
 
@@ -77,8 +67,11 @@ export class HomeChannelComponent {
     this.tagState$.subscribe(data => {
       // console.log('ProfileActions.LOAD_CURRENT_USER_CHANNEL response: ');
       // console.log(data);
-      this.channelList = data.user_channel;
-      console.log(this.channelList);
+      if (data.user_following_channels_loaded) {
+        this.channelList = data.user_following_channel;
+        console.log('home channels: ');
+        console.log(this.channelList);
+      }
     });
   }
 
