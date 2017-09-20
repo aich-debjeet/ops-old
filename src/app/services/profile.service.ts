@@ -327,4 +327,12 @@ export class ProfileService {
     console.log('pagination: ' + params);
     return this.api.get('/portal/cdn/spotfeed/inner/', params);
   }
+
+  /**
+   * Current LoggedIn user following channel
+   */
+  getLoggedInUserFollowingChannel(value: string) {
+    // console.log('handle: ' + value);
+    return this.api.get('/portal/network/spotfeed/following/profile/spotfeeds/' + value, '');
+  }
 }

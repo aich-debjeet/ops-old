@@ -43,21 +43,28 @@ export class HomeChannelComponent {
     private http: Http,
     private store: Store<ProfileModal>
   ) {
-    let channelLoaded = false;
+    const channelLoaded = false;
 
     this.tagState$ = this.store.select('profileTags');
     this.tagState$.subscribe((state) => {
 
       this.userState = state;
-      const userHandle = this.userState.profileUser.handle  || '';
+      console.log('user follwing channels listners');
+      console.log(state);
+      // const userHandle = this.userState.profileUser.handle  || '';
 
-      if (!channelLoaded && userHandle !== '') {
-        channelLoaded = true;
-        // console.log('DISPATCH');
-        this.loadChannels(this.userState.profileUser.handle);
-      }
+      // if (!channelLoaded && userHandle !== '') {
+      //   channelLoaded = true;
+      //   // console.log('DISPATCH');
+      //   this.loadChannels(this.userState.profileUser.handle);
+      // }
 
     });
+
+    const userHandle = localStorage.getItem('currentUserID');
+    if (userHandle) {
+      this.loadChannels(userHandle);
+    }
 
   }
 
@@ -65,7 +72,8 @@ export class HomeChannelComponent {
    * Check and Load Channels
    */
   loadChannels(userHandle: string) {
-    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: userHandle });
+    console.log('handle: ' + userHandle);
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: userHandle });
     this.tagState$.subscribe(data => {
       // console.log('ProfileActions.LOAD_CURRENT_USER_CHANNEL response: ');
       // console.log(data);

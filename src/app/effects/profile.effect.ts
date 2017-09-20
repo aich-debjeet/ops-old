@@ -105,6 +105,22 @@ export class ProfileEffect {
       }))
     );
 
+
+  /**
+   * Get current user following channel
+   */
+  @Effect()
+  loadUserFollowingChannel$ = this.actions$
+    .ofType(ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getLoggedInUserFollowingChannel(payload)
+      .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
   /**
    * Get current user channel profile
    */
