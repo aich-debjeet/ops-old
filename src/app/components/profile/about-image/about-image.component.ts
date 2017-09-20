@@ -81,17 +81,6 @@ export class AboutImageComponent implements OnInit {
       };
 
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: imageData });
-      this._store.select('profileTags').take(2).subscribe(data => {
-        console.log(data);
-        // console.log('image upload done');
-        if (data['image_upload_success'] === true ) {
-          console.log('image upload done');
-          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
-        }
-      })
-      // this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-
       this.changingImage = false;
     }
   }
