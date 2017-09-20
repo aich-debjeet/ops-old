@@ -73,8 +73,7 @@
                             <span class="form_bar"></span>
                             <label>Email</label>
                             <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isEmailUnique ">Mail account already exists</p>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.email && regFormBasic.controls['email'].touched">Email is not valid</p>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isInvalidEmail">Email is not valid</p>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.email || regFormBasic.controls['email'].errors?.isInvalidEmail && regform.submitted">Email is not valid</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.required && regform.submitted">Email is required</p>
                         </div>
                         <div class="form_group form__phone">
