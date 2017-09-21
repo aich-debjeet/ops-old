@@ -83,7 +83,6 @@
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label style="padding-left: 50px;">Phone Number</label>
-                            {{ phone }}
                             <app-country-selector (onNumberUpdate)="regFormBasic.controls['phone']" (onSelect)="getNumberState($event)"></app-country-selector>
                             <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">Someone has already registed with this number</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
