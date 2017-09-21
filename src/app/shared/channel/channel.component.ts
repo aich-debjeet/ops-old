@@ -70,7 +70,8 @@ export class ChannelComponent implements OnInit {
    * Delete a Channel
    */
   deleteChannel(channelId: string) {
-    //
+    this.onDelete.emit(channelId);
+    // console.log('Deleting ' + channelId);
   }
 
 }
