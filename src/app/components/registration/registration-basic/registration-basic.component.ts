@@ -52,6 +52,7 @@ export class RegistrationBasicComponent implements OnInit {
   Suggested: String[];
   modals: any;
   resendingOtp = false;
+  phone: string;
 
   public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public regFormBasic: FormGroup;
@@ -352,5 +353,21 @@ export class RegistrationBasicComponent implements OnInit {
   otpNotRecieved() {
     this.modalService.close('otpWindow');
     this.modalService.open('otpChangeNumber');
+  }
+
+  /**
+   * Is it a valid phone number
+   */
+  isPhoneValid(event: any) {
+    //
+    console.log(event);
+  }
+
+
+  /**
+   * Get Phone number state
+   */
+  getNumberState(e: any) {
+    console.log('phone state', e);
   }
 }

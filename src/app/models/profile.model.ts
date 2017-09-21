@@ -29,6 +29,7 @@ export class ProfileModal {
   channel_saved: boolean;
   profiles: any;
   current_user_profile?: any;
+  userQuickAccess?: any;
 }
 
 export class ProfileForm {
@@ -43,6 +44,7 @@ export const initialTag: ProfileModal = {
   profileUser: [],
   channelEntity: false,
   profile_loaded: false,
+  userQuickAccess: [],
   // Profile Other
   profile_other: [],
   profile_other_loading: false,

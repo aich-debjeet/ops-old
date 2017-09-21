@@ -18,12 +18,12 @@ export class RegistrationComponent implements OnInit {
 
 ngOnInit() {
  this.rightCom = {
- mainTitle: 'Select your profile type',
- description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod long-and vitality,'
- + ' so that the labor expended. Lorem ipsum dolor sit amet, consectetur adipiscing elit,'
- + ' sed do eiusmod long-and vitality, so that the labor expended.',
- loginLink: true
- };
+    mainTitle: 'Select your profile type',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod long-and vitality,'
+    + ' so that the labor expended. Lorem ipsum dolor sit amet, consectetur adipiscing elit,'
+    + ' sed do eiusmod long-and vitality, so that the labor expended.',
+    loginLink: true
+    };
 }
 
 }
