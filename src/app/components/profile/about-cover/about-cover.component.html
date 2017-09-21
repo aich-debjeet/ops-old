@@ -15,13 +15,13 @@
           </div>
             <p class="p_text" *ngIf="stateProfile.cover_img_upload_success">Successfully updated</p>
             <div class="o-cover-footer__btn">
-                <button type="button"  (click)="isClosed()" class="btn btn-network btn-sm text_uppercase">Cancel</button>
+                <button type="button"  (click)="isClosed($event)" class="btn btn-network btn-sm text_uppercase">Cancel</button>
                 <button type="button" (click)="uploadCoverImage()" class="btn btn-primary btn-sm o-cover-btn__mod">Save</button>
             </div>
         </div>
     </div>
 </div>
-  
+
   <!--<div class="edit-profile_head">
     <div class="col-md-6 padding_none">
         <h2>Change Cover Image</h2>
