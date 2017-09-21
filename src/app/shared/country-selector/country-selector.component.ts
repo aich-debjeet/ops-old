@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef} from '@angular/core';
+import { Component, OnInit, AfterViewInit, Output, Input, ElementRef, EventEmitter, OnChanges } from '@angular/core';
 import * as Choices from 'choices.js';
 import { Observable } from 'rxjs/Observable';
 import { parse, format, asYouType } from 'libphonenumber-js';
@@ -12,8 +12,10 @@ import { countries } from './countries';
   styleUrls: ['./country-selector.component.scss']
 })
 
-export class CountrySelectorComponent implements OnInit, AfterViewInit {
+export class CountrySelectorComponent implements OnInit, AfterViewInit, OnChanges {
   search: (term: string) => Observable<any[]>;
+  @Output() onSelect: EventEmitter<any> = new EventEmitter<any>();
+  @Input() onNumberUpdate: string;
   countries: any[];
   country: string;
   selectedCountry: any;
@@ -22,12 +24,20 @@ export class CountrySelectorComponent implements OnInit, AfterViewInit {
   localNumber: number;
   placeholder: string;
   private selector: any;
+
   onSelectCountry(event) {
     this.countryIcon = 'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/1x1/' + event.toLowerCase() + '.svg';
   }
 
   ngOnInit() {
     //
+  }
+
+  /**
+   *
+   */
+  ngOnChanges(changes: any) {
+    console.log(changes);
   }
 
   /**

@@ -117,7 +117,7 @@ export class MediaViewComponent {
   /**
    * Close
    */
-  doClose() {
+  doClose(event) {
     console.log('do close');
     this.router.navigate(['.', { outlets: { media: null } }], {
       relativeTo: this.route.parent

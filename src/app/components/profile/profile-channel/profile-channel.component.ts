@@ -122,7 +122,6 @@ export class ProfileChannelComponent implements OnInit {
       this.counter++;
       // const handleID = this.profileChannel.profileDetails.handle;
       if (this.counter < 10 && profile.handle !== undefined) {
-        console.log('TOKEN #2', profile.handle);
         this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: profile.handle });
       }
     }
@@ -148,6 +147,13 @@ export class ProfileChannelComponent implements OnInit {
       state: e.state
     };
     this.profileStore.dispatch({ type: ProfileActions.CHANNEL_FOLLOW, payload: req });
+  }
+
+  /**
+   * Delete a channel
+   */
+  deleteChannel(channelId: string) {
+    this.profileStore.dispatch({ type: ProfileActions.CHANNEL_DELETE, payload: channelId });
   }
 
   ngOnInit(): void {

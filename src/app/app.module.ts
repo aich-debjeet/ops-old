@@ -8,6 +8,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import { ImageCropperModule } from 'ng2-img-cropper/index';
 
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
@@ -125,7 +126,7 @@ import { CommunitiesComponent } from './components/communities/communities.compo
   imports: [
     SharedModule,
     MediaModule,
-    // ProfileModule,
+    ImageCropperModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
