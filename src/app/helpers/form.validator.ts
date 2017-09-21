@@ -178,6 +178,26 @@ export class ProfileUpdateValidator {
         return q;
     }
 
+    // mobile already Exsist check on DB
+    mobileValidation(control: AbstractControl) {
+        const q = new Promise((resolve, reject) => {
+            // check current email for user
+            if (this.profileDetails.profileDetails['contact'].mobile.mobile !== control.value) {
+                setTimeout(() => {
+                    this.authService.mobilelUser(control.value).subscribe( data => {
+                        if (data.code === 0) {
+                            resolve({ 'isMobileUnique': true });
+                        }
+                        resolve(null);
+                        });
+                }, 1000);
+            }else {
+                resolve(null);
+            }
+        });
+        return q;
+    }
+
     /**
      * Checking for the valid age input on register form
      * @param control: Form birth date input
