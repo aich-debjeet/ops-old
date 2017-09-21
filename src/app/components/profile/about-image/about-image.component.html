@@ -3,8 +3,13 @@
     <div class="col-md-6 padding_none">
         <h2>Change Profile Image</h2>
     </div>
+    <div *ngIf="stateProfile?.profile_img_upload_loading">
+      <div class="sticky sticky__top">
+        <div class="loader">Loading...</div>
+      </div>
+    </div>
     <div class="col-md-6 padding_none text-right">
-        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" (click)="isClosed()" >Close</button>
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal" (click)="isClosed($event)" >Close</button>
         <button type="button" class="btn btn-primary btn-sm" (click)="saveImageClick()">Save Image</button>
     </div>
   </div>

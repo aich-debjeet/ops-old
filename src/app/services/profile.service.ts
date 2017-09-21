@@ -117,7 +117,7 @@ export class ProfileService {
    */
   buildImageForm(formValue: any) {
     // let fileData:FormData = new FormData();
-    let data = new FormData();
+    const data = new FormData();
     // Check if image is present
     if (formValue.image && formValue.image[0]) {
       const imageData = formValue.image[0];
@@ -133,6 +133,7 @@ export class ProfileService {
    * Upload Image to CDN
    */
   uploadImage(value: any, handle: string = '') {
+    console.log(value);
     return this.api.postFile('/portal/cdn/media/upload?handle=' + handle, value);
   }
 
@@ -140,9 +141,13 @@ export class ProfileService {
    * Cover Image Uploader
    */
   coverImageUploader(payload: any) {
-    const Files = this.imageHandler(payload.image);
-    return this.uploadImage(Files, payload.handle);
+    const fileData = this.buildImageForm(payload);
+    return this.uploadImage(fileData, payload.handle);
   }
+  // coverImageUploader(payload: any) {
+  //   const Files = this.imageHandler(payload.image);
+  //   return this.uploadImage(Files, payload.handle);
+  // }
 
   /**
    * Handle File
@@ -321,5 +326,12 @@ export class ProfileService {
     const params = handle + '/' + this.pagination(1);
     console.log('pagination: ' + params);
     return this.api.get('/portal/cdn/spotfeed/inner/', params);
+  }
+
+  /**
+   * Delete a channel
+   */
+  deleteChannel(channelId: string) {
+    return this.api.delete('/portal/network/spotfeed/', channelId, true);
   }
 }

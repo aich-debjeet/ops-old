@@ -34,7 +34,7 @@ export class AboutCoverComponent implements OnInit {
   ownProfile: boolean;
   data: any;
   changingImage: boolean;
-  // cropperSettings: CropperSettings;
+  cropperSettings: CropperSettings;
   @ViewChild('coverImage') fileInput;
 
   constructor(
@@ -51,6 +51,17 @@ export class AboutCoverComponent implements OnInit {
     this.tagState$.subscribe((state) => {
       this.stateProfile = state;
     });
+
+    // Image Cropper Settings
+    this.cropperSettings = new CropperSettings();
+    this.cropperSettings.width = 1000;
+    this.cropperSettings.height = 359;
+    this.cropperSettings.croppedWidth = 1000;
+    this.cropperSettings.croppedHeight = 359;
+    this.cropperSettings.canvasWidth = 880;
+    this.cropperSettings.canvasHeight = 300;
+    this.cropperSettings.rounded = false;
+    this.data = {};
   }
 
   ngOnInit() {
@@ -67,13 +78,40 @@ export class AboutCoverComponent implements OnInit {
    * Upload Cover image
    */
   uploadCoverImage() {
+    console.log(this.data );
     const userHandle = this.stateProfile.profileUser.handle || '';
-    if (userHandle !== '') {
-      const fileBrowser = {
-        image: this.fileInput.nativeElement,
-        handle: userHandle
-      }
-      this._store.dispatch({ type: ProfileActions.PROFILE_COVER_UPDATE, payload: fileBrowser });
+    console.log(userHandle );
+    if (this.data && this.data.image && userHandle !== '') {
+      const imageData = {
+        handle: userHandle,
+        image: this.data.image.split((/,(.+)/)[1])
+      };
+
+      console.log(imageData);
+       this._store.dispatch({ type: ProfileActions.PROFILE_COVER_UPDATE, payload: imageData });
+
+      this._store.select('profileTags').take(2).subscribe(data => {
+        console.log(data);
+        // console.log('image upload done');
+        if (data['cover_img_upload_success'] === true ) {
+          console.log('image upload done');
+          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+        }
+      })
+      // this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+
+      this.changingImage = false;
     }
+
+
+
+
+    // if (userHandle !== '') {
+    //   const fileBrowser = {
+    //     image: this.fileInput.nativeElement,
+    //     handle: userHandle
+    //   }
+    //   this._store.dispatch({ type: ProfileActions.PROFILE_COVER_UPDATE, payload: fileBrowser });
+    // }
   }
 }

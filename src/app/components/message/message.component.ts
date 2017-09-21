@@ -145,14 +145,13 @@ export class MessageComponent {
   }
 
   // user action to toogle views
-  toggleView(tab: any, userHandle: any) {
+  toggleView(tab: any, userHandle: any = '') {
 
     // toggle view
     this.selectedView = tab;
 
     // trigger actions
     if(this.selectedView == 'readMessage') {
-
       this.userHandle = userHandle;
 
       // load user message
