@@ -73,20 +73,28 @@
                             <span class="form_bar"></span>
                             <label>Email</label>
                             <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isEmailUnique ">Mail account already exists</p>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.email && regFormBasic.controls['email'].touched">Email is not valid</p>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isInvalidEmail">Email is not valid</p>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.email || regFormBasic.controls['email'].errors?.isInvalidEmail && regform.submitted">Email is not valid</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.required && regform.submitted">Email is required</p>
                         </div>
-                        <div class="form_group">
-                            <span id="phone" type="tel"></span>
+                        <div class="form_group form__phone">
+                            <!--<span id="phone" type="tel"></span>-->
+                           
                             <input class="form_input" type="text" formControlName="phone" required style="padding-left: 60px;">
                             <span class="form_highlight"></span>
+                             <app-country-selector></app-country-selector>
                             <span class="form_bar"></span>
+        
                             <label style="padding-left: 50px;">Phone Number</label>
+<<<<<<< HEAD
+                            
+=======
                             <app-country-selector (onNumberUpdate)="regFormBasic.controls['phone']" (onSelect)="getNumberState($event)"></app-country-selector>
                             <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">Someone has already registed with this number</p>
+>>>>>>> 777d58f343086f680f1fc28f4a2376ffb6f115fb
                             <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
+                             <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">Someone has already registed with this number</p>
                         </div>
+                       
                         <div class="form_group pwd-cls">
                             <button class="password-toggle pos-abs" type="button" (click)="passwordShowToggle()" title="{{ passwordShow ? 'Hide Password' : 'Show Password' }}" >
                                 <span class="fa {{ passwordShow ? 'fa-eye' : 'fa-eye-slash' }}"></span>

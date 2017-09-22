@@ -12,6 +12,7 @@ export class Login {
  fb_pass_create_scs?: boolean;
  fp_sumit_otp_failed?: boolean;
  fp_userdata_loading_failed: boolean;
+ otp_forget_user_success?: boolean;
 }
 
 export class Register {

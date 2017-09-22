@@ -45,6 +45,13 @@ export class ProfileActions {
   static LOAD_CURRENT_USER_CHANNEL_FAILED = 'LOAD_CURRENT_USER_CHANNEL_FAILED';
 
   /**
+   * Load logged in user following Channel
+   */
+  static LOAD_CURRENT_USER_FOLLOWING_CHANNEL = 'LOAD_CURRENT_USER_FOLLOWING_CHANNEL';
+  static LOAD_CURRENT_USER_FOLLOWING_CHANNEL_SUCCESS = 'LOAD_CURRENT_USER_FOLLOWING_CHANNEL_SUCCESS';
+  static LOAD_CURRENT_USER_FOLLOWING_CHANNEL_FAILED = 'LOAD_CURRENT_USER_FOLLOWING_CHANNEL_FAILED';
+
+  /**
    * Load logged in users Channel
    */
   static LOAD_USER_CHANNEL = 'LOAD_USER_CHANNEL';
@@ -142,6 +149,8 @@ export class ProfileActions {
   static PROFILE_COVER_UPDATE_SUCCESS = 'PROFILE_COVER_UPDATE_SUCCESS';
   static PROFILE_COVER_UPDATE_FAILED = 'PROFILE_COVER_UPDATE_FAILED';
 
+  static PROFILE_COVER_URL_UPDATE_SUCCESS = 'PROFILE_COVER_URL_UPDATE_SUCCESS';
+  static PROFILE_COVER_URL_UPDATE_FAILED = 'PROFILE_COVER_URL_UPDATE_FAILED';
   /**
    * save image to ProfileUI
    */
@@ -337,6 +346,31 @@ export class ProfileActions {
   getUserChannelFailed(error: any): Action {
     return {
       type: ProfileActions.LOAD_CURRENT_USER_CHANNEL_FAILED,
+      payload: error
+    };
+  }
+
+  /**
+   * Get logged in user following Channel
+   * @param value
+   */
+  getUserFollowingChannel(value): Action {
+    return {
+      type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL,
+      payload: { value }
+    };
+  }
+
+  getUserFollowingChannelSuccess(value): Action {
+    return {
+      type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  getUserFollowingChannelFailed(error: any): Action {
+    return {
+      type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL_FAILED,
       payload: error
     };
   }

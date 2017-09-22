@@ -17,6 +17,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.PROFILE_COVER_UPDATE:
       return Object.assign({}, state, {
         cover_updating: true,
+        cover_img_upload_success: false,
         cover_upload_loading: true
       });
 
@@ -235,6 +236,29 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         user_channels_loading: false,
         user_channels_loaded: false
+      });
+
+    /**
+     * Get current user following channel
+     */
+    case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL:
+      return Object.assign({}, state, {
+        // success: true,
+        user_following_channels_loading: true,
+        user_following_channels_loaded: false
+      });
+
+    case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL_SUCCESS:
+      return Object.assign({}, state, {
+        user_following_channel: payload,
+        user_following_channels_loaded: true,
+        user_following_channels_loading: false
+      });
+
+    case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL_FAILED:
+      return Object.assign({}, state, {
+        user_following_channels_loading: false,
+        user_following_channels_loaded: false
       });
 
     /**

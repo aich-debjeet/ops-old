@@ -105,6 +105,22 @@ export class ProfileEffect {
       }))
     );
 
+
+  /**
+   * Get current user following channel
+   */
+  @Effect()
+  loadUserFollowingChannel$ = this.actions$
+    .ofType(ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getLoggedInUserFollowingChannel(payload)
+      .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
   /**
    * Get current user channel profile
    */
@@ -335,8 +351,8 @@ export class ProfileEffect {
      .ofType(ProfileActions.PROFILE_COVER_UPDATE_SUCCESS)
      .map(toPayload)
      .switchMap((payload) => this.profileService.attachCoverImage(payload)
-       .map(res => ({ type: 'BLAH', payload: res }))
-       .catch((res) => Observable.of({ type: 'BLAH_1', payload: res }))
+       .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS }))
+       .catch((res) => Observable.of({ type: ProfileActions.PROFILE_COVER_URL_UPDATE_FAILED, payload: res }))
       );
 /**
  *  Load image to database
@@ -350,9 +366,10 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.LOAD_PROFILE_IMAGE_FAILED, payload: res }))
     );
 
-/**
- *  Save image to ProfileUI
- */
+
+  /**
+   *  Save image to ProfileUI
+   */
    @Effect()
    loadProfileImageSuccess$ = this.actions$
    .ofType(ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS)
@@ -361,6 +378,24 @@ export class ProfileEffect {
      .map(res => ({ type: ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS, payload: res }))
      .catch((res) => Observable.of({ type: ProfileActions.SAVE_PROFILE_IMAGE_FAILED, payload: res }))
     );
+
+  /**
+   *  Save on profile image url
+   */
+  @Effect()
+  imageUrlUpdate$ = this.actions$
+    .ofType(ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS)
+    .mergeMap(reachedThreshold => {
+       return Observable.of({  type: ProfileActions.LOAD_CURRENT_USER_PROFILE })
+    });
+
+  @Effect()
+  profileUrlUpdate$ = this.actions$
+    .ofType(ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS)
+    .mergeMap(reachedThreshold => {
+      return Observable.of({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS })
+    });
+
 
 
   /**

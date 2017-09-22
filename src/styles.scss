@@ -136,7 +136,7 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
   border: 0;
   border-radius: 0;
   font-size: 14px;
-  min-height: 44px;
+  min-height: 27px;
   overflow: hidden;
 }
 .cc-code,
@@ -170,9 +170,8 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 }
 
 app-country-selector {
-  margin-top: -29px;
-  display: block;
-  margin-bottom: 30px;
+  position: absolute;
+  top: 8px;
 }
 vg-scrub-bar {
   height: 3px !important;
