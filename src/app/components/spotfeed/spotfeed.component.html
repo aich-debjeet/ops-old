@@ -47,8 +47,8 @@
                 </div>
             </div>
             <!-- ---------- //card ---------- -->
-            <div *ngIf="spotfeedDetails?.SUCCESS.spotfeedProfiles && spotfeedDetails?.SUCCESS.spotfeedProfiles.length === 0" >
-                <p class="empty-fields">Profiles to follow are unavailable at this moment.</p>
+            <div class="emptyState" *ngIf="spotfeedDetails?.SUCCESS.spotfeedProfiles && spotfeedDetails?.SUCCESS.spotfeedProfiles.length === 0" >
+                <h4 class="emptyState__heading empty-fields">There are no profiles in the Spotfeed</h4>
             </div>
           </div>
         </div>
@@ -114,8 +114,8 @@
                         </div>
                         <!-- //first column -->
                     </div>
-                    <div *ngIf="spotfeedPosts && spotfeedPosts.length === 0">
-                        <p class="empty-fields">Posts for the spotfeed are unavailable at this moment.</p>
+                    <div class="emptyState" *ngIf="spotfeedPosts && spotfeedPosts.length === 0">
+                        <h4 class="emptyState__heading empty-fields">There are no posts in this spotfeed</h4>
                     </div>
                 </div>
             </div>

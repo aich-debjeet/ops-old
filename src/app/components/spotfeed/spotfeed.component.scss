@@ -44,7 +44,7 @@
     padding: 16px;
     text-align: center;
   }
-  
+
   .c-artist__avatar {
     border-radius: 50%;
     display: inline-block;
@@ -54,11 +54,11 @@
     box-sizing: border-box;
     background-color: #f8f8f8;
   }
-  
+
   .c-artist__img {
     width: 100%;
   }
-  
+
   .c-artist__name {
     color: #333333;
     font-size: 14px;
@@ -66,13 +66,13 @@
     line-height: 19px;
     text-align: center;
   }
-  
+
   .c-artist__username {
     color: #333333;
     font-size: 12px;
     line-height: 17px;
   }
-  
+
   .c-artist--btn {
     margin-top: 16px;
   }
@@ -107,12 +107,12 @@
 .c-spotfeed-item__single{
 	width:200px;
 	height: 200px;
-	border-radius: 3px;	
+	border-radius: 3px;
 	transition:.25s;
 	overflow: hidden;
 	position: relative;
 	&:hover{
-		background-color: rgba(102,45,145,0.9);	
+		background-color: rgba(102,45,145,0.9);
 		box-shadow: 0 7px 20px 0 rgba(255,123,132,0.62);
 	}
 }
@@ -138,10 +138,10 @@
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	background-color: rgba(255,123,132,0.57);	
+	background-color: rgba(255,123,132,0.57);
 	cursor: pointer;
 	&:hover{
-		background-color: rgba(255,123,132,0.8);	
+		background-color: rgba(255,123,132,0.8);
 	}
 }
 .c-spotfeed-content__heading{
@@ -150,8 +150,8 @@
 	padding: 16px;
 }
 .c-spotfeed-heading--style{
-	color: $white;	
-	font-size: 14px;	
+	color: $white;
+	font-size: 14px;
 	font-weight: 700;
 }
 
@@ -348,7 +348,17 @@
     padding: 0;
 }
 
-.empty-fields {
-    color: black;
-    font-style: italic;
+// Empty State
+.emptyState {
+  padding: 1.25rem;
+  border: solid 1px #e6e4e4;
+  width: 50%;
+  text-align: center;
+  border-radius: 2px;
+  background-color: #eee;
+  &__heading {
+    font-weight: 300;
+    margin-bottom: 0;
+    color: #666;
+  }
 }
