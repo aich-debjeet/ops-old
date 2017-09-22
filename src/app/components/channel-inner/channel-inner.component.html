@@ -1,6 +1,6 @@
 <app-navigation></app-navigation>
 <section>
-  <div class="container channel_inner outer_header" *ngIf="(tagState$ | async).channel_detail?.channelName && !channel_loading">
+  <div class="container channel_inner outer_header" *ngIf="(tagState$ | async).channel_detail?.channelName && !pageLoading">
     <!---  section  -->
     <div class="row">
         <div class="col-md-6">

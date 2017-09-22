@@ -327,4 +327,11 @@ export class ProfileService {
     console.log('pagination: ' + params);
     return this.api.get('/portal/cdn/spotfeed/inner/', params);
   }
+
+  /**
+   * Delete a channel
+   */
+  deleteChannel(channelId: string) {
+    return this.api.delete('/portal/network/spotfeed/', channelId, true);
+  }
 }

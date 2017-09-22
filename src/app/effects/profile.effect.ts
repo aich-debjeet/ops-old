@@ -469,6 +469,21 @@ export class ProfileEffect {
       }))
     );
 
+  /**
+   * Delete a Channel
+   */
+  @Effect()
+  deleteChannel$ = this.actions$
+    .ofType(ProfileActions.CHANNEL_DELETE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.deleteChannel(payload)
+      .map(res => ({ type: ProfileActions.CHANNEL_DELETE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.CHANNEL_DELETE_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
 
   constructor(
     private actions$: Actions,

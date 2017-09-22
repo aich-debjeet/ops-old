@@ -1,7 +1,22 @@
 <div class="{{className}} c-card">
     <!-- card body -->
-    <div class="c-card__body">
-      <a [routerLink]="['/channel', channelData?.spotfeedId]" class="c-channel__heading">{{channelData?.spotfeedName}}</a>
+    <div class="c-card__body" [ngClass]="{ 'open': showEdit }">
+      <a class="c-channel__heading" [routerLink]="['/channel', channelData?.spotfeedId]" >{{channelData?.spotfeedName}}</a>
+      <a (click)="showOptions()"class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+        <img src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg" alt="" class="c-card__options">
+      </a>
+      <ul class="dropdown-menu c-channel-option">
+        <!--  Only if current user -->
+        <li>
+          <a (click)="deleteChannel(channelData?.spotfeedId)" data-toggle="modal" data-target="#edit_channel_pop">Delete</a>
+        </li>
+        <li>
+          <a data-toggle="modal" data-target="#edit_channel_pop">Edit</a>
+        </li>
+        <li>
+          <a >Pin to Quick Access</a>
+        </li>
+      </ul>
     </div>
     <div class="c-channel__media">
       <div *ngFor="let item of channelData?.media | slice:0:3; let i=index">
@@ -29,10 +44,10 @@
       </div>
     </div>
     <div class="c-card__links">
-      <span class="c-links__post">{{channelData?.mediaCount}} Post</span>
-      <span class="c-links__post">{{channelData?.followersCount}} Followers</span>
+      <span class="c-links__post">{{ channelData?.mediaCount }} Post</span>
+      <span class="c-links__post">{{ channelData?.followersCount }} Followers</span>
       <div class="c-channel__btn">
-        <a (click)="toggleFollowBtn()" class="btn btn-xs btn-primary" [ngClass]="{ 'btn-follow': !isfollowing, 'btn-normal': isfollowing, 'btn-primary': !isfollowing, 'btn-following': isfollowing }">
+        <a (click)="toggleFollowBtn($event)" class="btn btn-xs btn-primary" [ngClass]="{ 'btn-follow': !isfollowing, 'btn-normal': isfollowing, 'btn-primary': !isfollowing, 'btn-following': isfollowing }">
           <span class="btn-label-follow">
             <img src="http://d33wubrfki0l68.cloudfront.net/dad39c553de20299ab403e1e0d2dcbd6062911cc/62cff/img/svg/ico_plus_white.svg">
           </span> {{ isfollowing ? 'Unfollow' : 'Follow' }}

@@ -17,6 +17,7 @@ export const initialMedia: Media = {
   status_saved: false,
   status_uploaded:  false,
   status_success: false,
+  channel_detail: [],
   status_uploading: false,
   user_posts: [],
   user_posts_loaded: false,

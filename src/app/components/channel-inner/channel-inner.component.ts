@@ -92,8 +92,26 @@ export class ChannelInnerComponent implements OnInit {
     // this.modalService.open('mediaPopup');
   }
 
+  /**
+   * Subimt Edit
+   */
+  educationSubmit(form: any) {
+    console.log('Submitting');
+  }
+
+  /**
+   * Close
+   */
+  closeForm() {
+    console.log('Closign Form');
+  }
+
   mediaClosePopup() {
     this.modalService.close('mediaPopup');
+  }
+
+  pineditFormPopup() {
+    return;
   }
 
   submitComment(comment) {

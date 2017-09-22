@@ -462,6 +462,22 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         success: false
       });
 
+      // Get single spotfeed details
+    case ProfileActions.CHANNEL_DELETE:
+      return Object.assign({}, state, {
+        channel_delete_success: false,
+      });
+
+    case ProfileActions.CHANNEL_DELETE_SUCCESS:
+      return Object.assign({}, state, {
+        channel_delete_success: true,
+      });
+
+    case ProfileActions.CHANNEL_DELETE_FAILED:
+      return Object.assign({}, state, {
+        channel_delete_success: false,
+      });
+
     default:
       return state;
   }
