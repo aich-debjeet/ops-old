@@ -21,6 +21,9 @@ export class ProfileModal {
   user_channel: any;
   user_channels_loading: boolean;
   user_channels_loaded: boolean;
+  user_following_channel: any;
+  user_following_channels_loading: boolean;
+  user_following_channels_loaded: boolean;
   user_posts: any;
   user_posts_loading: boolean;
   user_posts_loaded: boolean;
@@ -60,6 +63,10 @@ export const initialTag: ProfileModal = {
   user_channel: [],
   user_channels_loading: false,
   user_channels_loaded: false,
+  // User following channels
+  user_following_channel: [],
+  user_following_channels_loading: false,
+  user_following_channels_loaded: false,
   // User Posts
   user_posts: [],
   user_posts_loading: false,

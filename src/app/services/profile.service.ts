@@ -334,4 +334,12 @@ export class ProfileService {
   deleteChannel(channelId: string) {
     return this.api.delete('/portal/network/spotfeed/', channelId, true);
   }
+
+  /*
+   * Current LoggedIn user following channel
+   */
+  getLoggedInUserFollowingChannel(value: string) {
+    // console.log('handle: ' + value);
+    return this.api.get('/portal/network/spotfeed/following/profile/spotfeeds/' + value, '');
+  }
 }

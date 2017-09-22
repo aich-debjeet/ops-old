@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 // SharedModule
 import { SharedModule } from '../../shared/shared.module';
+import { MasonryModule } from 'angular2-masonry';
 
 // Component
 import { CommonModule } from '@angular/common';
@@ -27,6 +28,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
+    MasonryModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

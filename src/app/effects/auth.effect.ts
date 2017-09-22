@@ -202,7 +202,7 @@ export class AuthEffect {
       return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
     });
 
-  /* otp submit */
+
   @Effect()
   fpCreatePass$ = this.actions$
     .ofType(AuthActions.FP_CREATE_PASS)
@@ -211,6 +211,17 @@ export class AuthEffect {
       .map(res => ({ type: AuthActions.FP_CREATE_PASS_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: AuthActions.FP_CREATE_PASS_FAILED, payload: res }))
     );
+
+  /**
+   * Forget password create sucess redirect login page
+   */
+  @Effect()
+  fpCreatePassSucess$ = this.actions$
+    .ofType(AuthActions.FP_CREATE_PASS_SUCCESS)
+    .mergeMap(reachedThreshold => {
+        this.router.navigateByUrl('/login');
+        return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
+      });
 
   // OTP RESENT FORGET USER
   @Effect()
