@@ -212,15 +212,15 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.FP_CREATE_PASS_FAILED, payload: res }))
     );
 
-  // @Effect()
-  // fpCreatePassSuccess$ = this.actions$
-  //   .ofType(AuthActions.FP_CREATE_PASS_SUCCESS)
-  //   .map((response) => {
-  //     if (response.payload.SUCCESS !== null || response.payload.SUCCESS !== undefined) {
-  //       this.router.navigateByUrl('/login');
-  //     }
-  //     return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
-  //   });
+  // OTP RESENT FORGET USER
+  @Effect()
+  optResendForgetUser$ = this.actions$
+    .ofType(AuthActions.OTP_RESEND_FORGET_USER)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.forgetOtp(payload)
+      .map(res => ({ type: AuthActions.OTP_RESEND_FORGET_USER_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.OTP_RESEND_FORGET_USER_FAILED, payload: res }))
+    );
 
   // Get forget user number
   @Effect()

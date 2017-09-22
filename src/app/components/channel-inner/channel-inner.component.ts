@@ -48,7 +48,6 @@ export class ChannelInnerComponent implements OnInit {
       this.tagState$.subscribe((state) => {
         this.channel = state;
         this.pageLoading = this.channel.channel_loading;
-        console.log(state);
       });
       this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
       this.buildEditForm();
