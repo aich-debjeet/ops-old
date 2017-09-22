@@ -27,52 +27,54 @@ import { ApiService } from '../../../helpers/api.service';
   templateUrl: './home-channel.component.html',
   styleUrls: ['./home-channel.component.scss']
 })
-export class HomeChannelComponent {
+export class HomeChannelComponent implements OnInit {
 
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
   userState;
   channelList;
-
-  loadMoreParams = {
-    offset: -10,
-    limit: 10
-  };
+  myProfile$: Observable<any>;
+  myProfileData: any;
+  handle: string;
+  loadMoreParams: any;
 
   constructor(
     private http: Http,
     private store: Store<ProfileModal>
   ) {
 
-    this.tagState$ = this.store.select('profileTags');
+    this.loadMoreParams = { offset: -10, limit: 10 };
+
+    this.tagState$ = store.select('profileTags');
+    this.myProfile$ = store.select('profileTags').take(3);
     this.tagState$.subscribe((state) => {
-
       this.userState = state;
-
     });
 
-    const userHandle = localStorage.getItem('currentUserID');
-    if (userHandle) {
-      this.loadChannels(userHandle);
-    }
+  }
 
+  ngOnInit() {
+    // If there's input assign, other wise, reload channel list
+    this.myProfile$.subscribe(event => {
+      this.myProfileData = event;
+      let isUserReady;
+      if (event.profileUser && event.profileUser.handle) {
+        this.handle = event.profileUser.handle;
+        isUserReady = true;
+        this.loadChannels(this.handle);
+      }
+    });
   }
 
   /**
    * Check and Load Channels
    */
   loadChannels(userHandle: string) {
-    console.log('handle: ' + userHandle);
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: userHandle });
     this.tagState$.subscribe(data => {
-      // console.log('ProfileActions.LOAD_CURRENT_USER_CHANNEL response: ');
-      // console.log(data);
       if (data.user_following_channels_loaded) {
         this.channelList = data.user_following_channel;
-        console.log('home channels: ');
-        console.log(this.channelList);
       }
     });
   }
-
 }
