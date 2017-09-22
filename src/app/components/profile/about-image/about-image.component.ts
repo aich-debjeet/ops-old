@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
@@ -44,6 +44,7 @@ export class AboutImageComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private _utils: ProfileHelper,
+    private _location: Location,
     private _store: Store<ProfileModal>
   ) {
     this.tagState$ = this._store.select('profileTags');
@@ -86,9 +87,7 @@ export class AboutImageComponent implements OnInit {
   }
 
   isClosed(event: any) {
-    this.router.navigate(['.'], {
-      relativeTo: this.route.parent
-    });
+    this._location.back();
   }
 
   /**
