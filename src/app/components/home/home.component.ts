@@ -27,48 +27,38 @@ export class HomeComponent {
   channelList$: Observable<Channel>;
   cards: any = [];
 
-  loadMoreParams = {
-    offset: -10,
-    limit: 10
-  };
-
+  loadMoreParams: any;
   userProfileHandle: string;
 
-  pinChannel(id: string /* channel id */) {
-    console.log('home component: pinChannel() dispatched for channel: ' + id);
-
-    // this.store.dispatch({
-    //   type: SharedActions.PIN_CHANNEL,
-    //   payload: {
-    //     spotfeedHandle: id,
-    //     profileHandle: this.userProfileHandle
-    //   }
-    // });
-
+  /**
+   * Unpin Channel from Quick Access
+   * @param channelId
+   */
+  pinChannel(channelId: string /* channel id */) {
+    console.log('home component: pinChannel() dispatched for channel: ' + channelId);
   }
 
-  unpinChannel(id: string /* channel id */) {
-    console.log('home component: unpinChannel() dispatched for channel: ' + id);
-
+  /**
+   * Unpin Channels from Quick Access
+   * @param id
+   */
+  unpinChannel(channelId: string /* channel id */) {
+    console.log('home component: unpinChannel() dispatched for channel: ' + channelId);
     this.store.dispatch({
       type: SharedActions.UNPIN_CHANNEL,
       payload: {
-        spotfeedHandle: id,
+        spotfeedHandle: channelId,
         profileHandle: this.userProfileHandle
       }
     });
-
   }
 
-  // make http request to load channels
+  /**
+   * Load Following Channels
+   */
   getChannels() {
-
     // updating request params to load more channels
     this.loadMoreParams.offset = this.loadMoreParams.offset + this.loadMoreParams.limit;
-    console.log(this.loadMoreParams);
-
-    console.log('home component: getChannels() dispatched');
-
     this.store.dispatch({
       type: HomeActions.LOAD_CHANNELS,
       payload: this.loadMoreParams
@@ -80,15 +70,13 @@ export class HomeComponent {
     private store: Store<Channel>,
     private profileStore: Store<ProfileModal>
   ) {
-    // this.getChannels();
     this.cards = [];
+    this.loadMoreParams = { offset: -10, limit: 10 };
 
     // Own Profile
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.userQuickAccess = state;
-      console.log('this.userQuickAccess');
-      console.log(this.userQuickAccess);
     });
   }
 

@@ -1,6 +1,9 @@
 <div id="home_feed" class="tab-pane fade in active">
-  <div class="pro_channel2 row">
-      <!-- <app-channel *ngFor="let channel of channelList" [className]="'col-md-4 col-sm-6 pro_channel_card'"></app-channel> -->
-      <app-channel *ngFor="let channel of channelList" [channelData]="channel" [className]="'col-md-4 col-sm-6 pro_channel_card'"></app-channel>
+  <div class="pro_channel2">
+    <masonry>
+      <masonry-brick class="col-md-4 col-sm-6 c-card" *ngFor="let channel of channelList; let i = index">
+          <app-channel [channelData]="channel" ></app-channel>
+      </masonry-brick>
+    </masonry>
   </div>
 </div>
