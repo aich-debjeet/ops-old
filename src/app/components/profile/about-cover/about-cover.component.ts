@@ -49,6 +49,7 @@ export class AboutCoverComponent implements OnInit {
   ) {
     this.tagState$ = this._store.select('profileTags');
     this.tagState$.subscribe((state) => {
+      console.log(state);
       this.stateProfile = state;
     });
 
@@ -78,40 +79,15 @@ export class AboutCoverComponent implements OnInit {
    * Upload Cover image
    */
   uploadCoverImage() {
-    console.log(this.data );
     const userHandle = this.stateProfile.profileUser.handle || '';
-    console.log(userHandle );
     if (this.data && this.data.image && userHandle !== '') {
       const imageData = {
         handle: userHandle,
         image: this.data.image.split((/,(.+)/)[1])
       };
 
-      console.log(imageData);
-       this._store.dispatch({ type: ProfileActions.PROFILE_COVER_UPDATE, payload: imageData });
-
-      this._store.select('profileTags').take(2).subscribe(data => {
-        console.log(data);
-        // console.log('image upload done');
-        if (data['cover_img_upload_success'] === true ) {
-          console.log('image upload done');
-          this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
-        }
-      })
-      // this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-
+      this._store.dispatch({ type: ProfileActions.PROFILE_COVER_UPDATE, payload: imageData });
       this.changingImage = false;
     }
-
-
-
-
-    // if (userHandle !== '') {
-    //   const fileBrowser = {
-    //     image: this.fileInput.nativeElement,
-    //     handle: userHandle
-    //   }
-    //   this._store.dispatch({ type: ProfileActions.PROFILE_COVER_UPDATE, payload: fileBrowser });
-    // }
   }
 }

@@ -17,6 +17,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.PROFILE_COVER_UPDATE:
       return Object.assign({}, state, {
         cover_updating: true,
+        cover_img_upload_success: false,
         cover_upload_loading: true
       });
 
