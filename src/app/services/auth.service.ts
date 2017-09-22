@@ -246,4 +246,15 @@ export class AuthService {
       return this.http.get(`${this.apiLink}/portal/auth/resetPasswordToken/` + activationCode, { headers: this.headers })
       .map((data: Response) => data.json());
     }
+
+    /**
+     * OTP Resend forget user
+     * @param value
+     */
+    forgetOtp(value: any) {
+      console.log(value);
+        const headers = new Headers({ 'Content-Type': 'application/json'});
+        return this.http.post(`${this.apiLink}/portal/auth/forgotPasswordresendotp/validateString`, value, { headers: this.headers })
+        .map((data: Response) => data.json());
+    }
 }
