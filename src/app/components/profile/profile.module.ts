@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { ImageCropperComponent as ImgCrop } from 'ng2-img-cropper';
+import { ImageCropperModule } from 'ng2-img-cropper';
 import { MasonryModule } from 'angular2-masonry';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
@@ -76,7 +76,8 @@ const routes: Routes = [
     MasonryModule,
     ReactiveFormsModule,
     FormsModule,
-    TextMaskModule
+    TextMaskModule,
+    ImageCropperModule
   ],
   declarations: [
     ProfileComponent,
@@ -91,8 +92,7 @@ const routes: Routes = [
     AboutEducationComponent,
     AboutContactComponent,
     AboutImageComponent,
-    AboutCoverComponent,
-    ImgCrop
+    AboutCoverComponent
   ]
 })
 export class ProfileModule { }

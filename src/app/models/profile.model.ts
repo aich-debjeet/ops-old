@@ -29,6 +29,10 @@ export class ProfileModal {
   channel_saved: boolean;
   profiles: any;
   current_user_profile?: any;
+  userQuickAccess?: any;
+  profile_img_upload_loading: boolean;
+  cover_upload_loading: boolean;
+  cover_img_upload_success: boolean;
 }
 
 export class ProfileForm {
@@ -43,6 +47,7 @@ export const initialTag: ProfileModal = {
   profileUser: [],
   channelEntity: false,
   profile_loaded: false,
+  userQuickAccess: [],
   // Profile Other
   profile_other: [],
   profile_other_loading: false,
@@ -63,7 +68,12 @@ export const initialTag: ProfileModal = {
   media_channel_posting: false,
   media_channel_posted: false,
   channel_saved: false,
-  profiles: []
+  profiles: [],
+
+  // Profile & Cover
+  cover_upload_loading: false,
+  profile_img_upload_loading: false,
+  cover_img_upload_success: false
 };
 
 export class ProfileCard {

@@ -99,10 +99,12 @@ export class ApiService {
   /**
    * DELETE
    */
-  delete(endpoint: string, id: string) {
+  delete(endpoint: string, id: string, ignorePath: boolean = false) {
     const path = this.buidDetailPath(endpoint, id);
+    const fullPath = ignorePath ? path : endpoint + path;
+    console.log(fullPath);
     const head = this.getHeaders();
-    return this.http.delete(this.apiLink + endpoint + path, { headers: head })
+    return this.http.delete(this.apiLink + fullPath, { headers: head })
       .map((data: Response) => data.json());
   }
 }

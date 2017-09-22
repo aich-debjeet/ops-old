@@ -68,7 +68,7 @@
                             <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isOverAge">You should be below 100</p>
                         </div>
                         <div class="form_group">
-                            <input class="form_input" type="text" formControlName="email" required [pattern]="emailPattern" >
+                            <input class="form_input" type="text" formControlName="email" required>
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label>Email</label>
@@ -83,7 +83,7 @@
                             <span class="form_highlight"></span>
                             <span class="form_bar"></span>
                             <label style="padding-left: 50px;">Phone Number</label>
-                            <app-country-selector></app-country-selector>
+                            <app-country-selector (onNumberUpdate)="regFormBasic.controls['phone']" (onSelect)="getNumberState($event)"></app-country-selector>
                             <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">Someone has already registed with this number</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
                         </div>
@@ -108,7 +108,7 @@
                         </div>
                         <div class="signup_privacy">
                             <p class="text-grey">By clicking I agree to the <a  (click)="showTerms()" class="text-theme">terms & conditions</a></p>
-                            <button [className]="'btn btn-primary btn-sm pull-right'" [type]="'submit'">SIGN UP</button>
+                            <button [className]="'btn btn-primary btn-sm pull-right'" type="submit">SIGN UP</button>
                         </div>
                     </form>
                     <!-- //form -->
@@ -460,7 +460,7 @@
                                     Phone number already exist
                                 </p>
                                 <div class="text-center">
-                                    <button class="btn btn-default btn-sm" data-toggle="modal" [type]="submit" >Resend OTP</button>
+                                    <button class="btn btn-default btn-sm" data-toggle="modal" type="submit" >Resend OTP</button>
                                 </div>
                             </form>
                         </div>

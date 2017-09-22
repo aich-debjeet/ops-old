@@ -19,14 +19,7 @@ import { environment } from '../../../environments/environment';
 
 export class NavigationComponent implements OnInit {
 
-  topNav = {
-    status: { open: false },
-    channel: { open: false },
-    search: { open: false },
-    notification: { open: false },
-    message: { open: false },
-    profile: { open: false }
-  };
+  topNav: any;
 
   baseUrl: string;
   showMenu: boolean;
@@ -41,6 +34,14 @@ export class NavigationComponent implements OnInit {
     private renderer: Renderer
   ) {
 
+    this.topNav = {
+      status: { open: false },
+      channel: { open: false },
+      search: { open: false },
+      notification: { open: false },
+      message: { open: false },
+      profile: { open: false }
+    };
 
     this.baseUrl = environment.API_IMAGE;
     this.tagState$ = this.store.select('profileTags');
@@ -76,6 +77,9 @@ export class NavigationComponent implements OnInit {
   ngOnInit() {
   }
 
+  toggleNav(name: string) {
+    return ;
+  }
 
 }
 
