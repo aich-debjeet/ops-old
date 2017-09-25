@@ -34,7 +34,9 @@ export class ProfileHelper {
       userDetails: profile,
       followingCount: profile.followingCount,
       follwerCount: profile.followersCount,
-      spotCount: 0
+      spotCount: profile.extra['spotsCount'],
+      postCount: profile.extra['postCount'],
+      channelCount: profile.extra['channelCount']
     }
     return maps;
   }
