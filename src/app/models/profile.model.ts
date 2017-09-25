@@ -95,9 +95,7 @@ export class ProfileCard {
   userDetails: any; // All Other Datas
   followingCount: number;
   follwerCount: number;
-  spotCount: any;
-  postCount: any;
-  channelCount: any;
+  extra: any;
 }
 
 export class Spotfeed {

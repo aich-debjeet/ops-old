@@ -12,6 +12,7 @@ export class ProfileHelper {
    */
   profileValueMapping(profileData: any, type: string) {
     let profile;
+    console.log(profileData);
     // check if its other profile firs
     let maps  = new ProfileCard();
     if (type === 'other') {
@@ -34,9 +35,7 @@ export class ProfileHelper {
       userDetails: profile,
       followingCount: profile.followingCount,
       follwerCount: profile.followersCount,
-      spotCount: profile.extra['spotsCount'],
-      postCount: profile.extra['postCount'],
-      channelCount: profile.extra['channelCount']
+      extra: profile.extra,
     }
     return maps;
   }
