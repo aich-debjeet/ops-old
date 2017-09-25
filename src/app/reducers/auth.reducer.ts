@@ -388,9 +388,25 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       return Object.assign({}, state, {
         user_number_cng_success: true
       });
-    case AuthActions.OTP_NUMBER_CHANGE_SUCCESS:
+    case AuthActions.OTP_NUMBER_CHANGE_FAILED:
       return Object.assign({}, state, {
         user_number_cng_failed: true
+      });
+
+    /**
+     * OTP RESENT FORGET USER
+     */
+    case AuthActions.OTP_RESEND_FORGET_USER:
+      return Object.assign({}, state, {
+       otp_forget_user_success: true
+      });
+    case AuthActions.OTP_RESEND_FORGET_USER_SUCCESS:
+      return Object.assign({}, state, {
+       otp_forget_user_success: true
+      });
+    case AuthActions.OTP_RESEND_FORGET_USER_FAILED:
+      return Object.assign({}, state, {
+        otp_forget_user_success: false
       });
 
     // OTP Failed

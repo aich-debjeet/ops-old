@@ -50,16 +50,16 @@
           <table class="table">
             <tbody>
               <tr>
-                <td class="ops_heading12">birth day</td>
+                <td class="ops_heading12">Date of Birth</td>
                 <td class="ops_subheading">{{ (userProfile?.physical?.dateOfBirth !== "") ? (userProfile?.physical?.dateOfBirth | date:'dd, MMMM, y') : "n/a" }}</td>
               </tr>
               <tr>
-                <td class="ops_heading12">height</td>
+                <td class="ops_heading12">Height</td>
                 <td class="ops_subheading">{{ (userProfile?.physical?.height !== 0 || userProfile?.physical?.height ) ? userProfile?.physical?.height  : "n/a" }}</td>
               </tr>
               <tr>
                 <tr>
-                  <td class="ops_heading12">weight</td>
+                  <td class="ops_heading12">Weight</td>
                   <td class="ops_subheading">{{ (userProfile?.physical?.weight !== 0) ? userProfile?.physical?.weight  : "n/a" }}</td>
                 </tr>
                 <tr>
@@ -67,11 +67,11 @@
                   <td class="ops_subheading"><span *ngFor="let lang of userProfile?.languages">{{ lang }},</span></td>
                 </tr>
                 <tr>
-                  <td class="ops_heading12">Ethinicity</td>
+                  <td class="ops_heading12">Ethnicity</td>
                   <td class="ops_subheading">{{ (userProfile?.physical?.ethnicity !== "") ? userProfile?.physical?.ethnicity  : "n/a" }}</td>
                 </tr>
                 <tr>
-                  <td class="ops_heading12">complexion</td>
+                  <td class="ops_heading12">Complexion</td>
                   <td class="ops_subheading">{{ (userProfile?.physical?.complexion !== "") ? userProfile?.physical?.complexion  : "n/a" }}</td>
                 </tr>
                 <tr>
@@ -163,7 +163,7 @@
                         <label>Country</label>
                     </div>
                     <div class="form_group">
-                        <input class="form_input" formControlName="pin_code">
+                        <input class="form_input" type="number" formControlName="pin_code">
                         <span class="form_highlight"></span>
                         <span class="form_bar"></span>
                         <label>Postal Code</label>
@@ -171,7 +171,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form_group">
-                                <input class="form_input" type="text" formControlName="height">
+                                <input class="form_input" type="number" formControlName="height">
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Height</label>
@@ -179,7 +179,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form_group">
-                                <input class="form_input" type="text" formControlName="weight">
+                                <input class="form_input" type="number" formControlName="weight">
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Weight</label>

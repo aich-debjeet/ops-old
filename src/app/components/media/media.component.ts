@@ -79,7 +79,9 @@ export class MediaComponent implements OnInit, AfterViewInit {
 
       this.channelLoaded = false;
       this.userHandle$ = this.store.select('profileTags');
-      // Profile
+
+      // ## Profile
+      // -------------------------
       // this.profileState$ = profStore.select('profileTags');
       // this.profileState$.subscribe((state) => {
 

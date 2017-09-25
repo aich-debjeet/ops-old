@@ -239,6 +239,29 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     /**
+     * Get current user following channel
+     */
+    case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL:
+      return Object.assign({}, state, {
+        // success: true,
+        user_following_channels_loading: true,
+        user_following_channels_loaded: false
+      });
+
+    case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL_SUCCESS:
+      return Object.assign({}, state, {
+        user_following_channel: payload,
+        user_following_channels_loaded: true,
+        user_following_channels_loading: false
+      });
+
+    case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL_FAILED:
+      return Object.assign({}, state, {
+        user_following_channels_loading: false,
+        user_following_channels_loaded: false
+      });
+
+    /**
      * Get current User channel of profile
      */
     case ProfileActions.LOAD_USER_CHANNEL:

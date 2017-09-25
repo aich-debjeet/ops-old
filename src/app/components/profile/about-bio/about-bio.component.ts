@@ -70,6 +70,8 @@ export class AboutBioComponent implements OnInit {
 
   // bio form submit
   bioFormSubmit(value) {
+    const height = value.height === null ? 0 : value.height;
+    const weight = value.weight === null ? 0 : value.weight;
       const form =  {
         'email': value.email,
         'extras': {
@@ -96,8 +98,8 @@ export class AboutBioComponent implements OnInit {
           'postalCode': value.pin_code
         },
         'physical': {
-          'height': parseFloat(value.height),
-          'weight': parseFloat(value.weight),
+          'height': parseFloat(height),
+          'weight': parseFloat(weight),
           'ethnicity' : value.ethnicity,
           'complexion' : value.complexion,
           'gender': value.gender
@@ -137,6 +139,8 @@ export class AboutBioComponent implements OnInit {
   }
 
   bioFormUpdate() {
+    const height = this.userProfile['physical'].height === 0 ? '' : this.userProfile['physical'].height;
+    const weight = this.userProfile['physical'].weight === 0 ? '' : this.userProfile['physical'].weight;
     this.bioForm.setValue({
       about_me: this.userProfile.aboutMe,
       gender : this.userProfile['physical'].gender ,
@@ -145,8 +149,8 @@ export class AboutBioComponent implements OnInit {
       city : this.userProfile['extra']['address'].city,
       country : this.userProfile['extra']['address'].country,
       pin_code : this.userProfile['extra']['address'].postalCode,
-      height : this.userProfile['physical'].height,
-      weight : this.userProfile['physical'].weight,
+      height : height,
+      weight : weight,
       lang : this.userProfile.languages.toString(),
       ethnicity : this.userProfile['physical'].ethnicity,
       complexion : this.userProfile['physical'].complexion,

@@ -50,13 +50,12 @@ export class MediaViewComponent {
   ) {
     this.spot = false;
     this.mediaState$ = store.select('mediaStore');
+
     this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
       this.data = this.mediaStore.media_detail;
       this.spotCount = this.mediaStore.media_detail.spotsCount;
-      this.comment = this.mediaStore.media_comment
-
-      console.log(state);
+      this.comment = this.mediaStore.media_comment;
     });
 
     this.loadMedia();
