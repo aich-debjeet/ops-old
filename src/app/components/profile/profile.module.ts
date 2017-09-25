@@ -24,11 +24,15 @@ import { AboutCoverComponent } from './about-cover/about-cover.component';
 
 import { ProfileHelper } from '../../helpers/profile.helper';
 
+// Guard
+import { AuthGuard } from './../../guard/auth.guard';
+
 const childRoutes = [
   {
     path: '',
     redirectTo: 'user',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
   },
   {
     path: 'user',
@@ -37,7 +41,8 @@ const childRoutes = [
       { path: '', component: ProfileChannelComponent },
       { path: 'channel', component: ProfileChannelComponent },
       { path: 'post', component: ProfilePostComponent },
-    ]
+    ],
+    canActivate: [AuthGuard]
   },
   {
     path: 'about',
@@ -51,7 +56,8 @@ const childRoutes = [
       { path: 'awards', component: AboutAwardsComponent },
       { path: 'education', component: AboutEducationComponent },
       { path: 'contact', component: AboutContactComponent }
-    ]
+    ],
+    canActivate: [AuthGuard]
   },
 ];
 
