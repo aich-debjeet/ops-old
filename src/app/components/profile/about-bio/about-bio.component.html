@@ -50,16 +50,16 @@
           <table class="table">
             <tbody>
               <tr>
-                <td class="ops_heading12">birth day</td>
+                <td class="ops_heading12">Date of Birth</td>
                 <td class="ops_subheading">{{ (userProfile?.physical?.dateOfBirth !== "") ? (userProfile?.physical?.dateOfBirth | date:'dd, MMMM, y') : "n/a" }}</td>
               </tr>
               <tr>
-                <td class="ops_heading12">height</td>
+                <td class="ops_heading12">Height</td>
                 <td class="ops_subheading">{{ (userProfile?.physical?.height !== 0 || userProfile?.physical?.height ) ? userProfile?.physical?.height  : "n/a" }}</td>
               </tr>
               <tr>
                 <tr>
-                  <td class="ops_heading12">weight</td>
+                  <td class="ops_heading12">Weight</td>
                   <td class="ops_subheading">{{ (userProfile?.physical?.weight !== 0) ? userProfile?.physical?.weight  : "n/a" }}</td>
                 </tr>
                 <tr>
@@ -71,7 +71,7 @@
                   <td class="ops_subheading">{{ (userProfile?.physical?.ethnicity !== "") ? userProfile?.physical?.ethnicity  : "n/a" }}</td>
                 </tr>
                 <tr>
-                  <td class="ops_heading12">complexion</td>
+                  <td class="ops_heading12">Complexion</td>
                   <td class="ops_subheading">{{ (userProfile?.physical?.complexion !== "") ? userProfile?.physical?.complexion  : "n/a" }}</td>
                 </tr>
                 <tr>
