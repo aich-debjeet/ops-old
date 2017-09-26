@@ -38,12 +38,18 @@ export class AuthService {
         this.headers = this.api.getHeaders();
       }
 
+    updateAuthHeaders() {
+      this.handle = this.api.getHandle();
+      this.headers = this.api.getHeaders();
+    }
+
     login(req: any) {
       return this.http.post(`${this.apiLink}/portal/auth/oauth2/token`, req)
         .map((response: Response) => {
           const user = response.json();
           if (user && user.access_token) {
               localStorage.setItem('currentUser', JSON.stringify(user));
+              this.updateAuthHeaders();
               this.router.navigate(['/profile']);
           }
         });
@@ -51,6 +57,7 @@ export class AuthService {
 
     validateToken() {
       const req = {};
+      this.updateAuthHeaders();
       return this.http.get(`${this.apiLink}/portal/auth/loggedUser`, { headers: this.headers })
       .map((response: Response) => {
           const user = response.json();
@@ -183,25 +190,24 @@ export class AuthService {
     }
 
     fpResetTypePhone(req: any) {
-        const headers = new Headers({ 'Content-Type': 'application/json'});
+        this.updateAuthHeaders();
         return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
         .map((data: Response) => data.json());
     }
 
     fpResetTypeEmail(req: any) {
-        const headers = new Headers({ 'Content-Type': 'application/json'});
+        this.updateAuthHeaders();
         return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
         .map((data: Response) => data.json());
     }
 
     fpSubmitOtp(req: any) {
-        const headers = new Headers({ 'Content-Type': 'application/json'});
+        this.updateAuthHeaders();
         return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
         .map((data: Response) => data.json());
     }
 
     regSubmitOtp(req: any) {
-        const headers = new Headers({ 'Content-Type': 'application/json'});
         return this.http.get(this.apiLink + '/portal/activate/profile/' + req.number + '/' + req.otp)
         .map((data: Response) => data.json());
     }
@@ -235,14 +241,14 @@ export class AuthService {
             password: req.password,
             token: req.activationCode
         }
-        const headers = new Headers({ 'Content-Type': 'application/json'});
+        this.updateAuthHeaders();
         return this.http.put(`${this.apiLink}/portal/auth/user/change/` + req.identity, reqBody, { headers: this.headers })
         .map((data: Response) => data.json());
     }
 
     // Get data forget user
     fpGetUserdata(activationCode) {
-      const headers = new Headers({ 'Content-Type': 'application/json'});
+      this.updateAuthHeaders();
       return this.http.get(`${this.apiLink}/portal/auth/resetPasswordToken/` + activationCode, { headers: this.headers })
       .map((data: Response) => data.json());
     }
@@ -252,9 +258,13 @@ export class AuthService {
      * @param value
      */
     forgetOtp(value: any) {
-      console.log(value);
-        const headers = new Headers({ 'Content-Type': 'application/json'});
+        this.updateAuthHeaders();
         return this.http.post(`${this.apiLink}/portal/auth/forgotPasswordresendotp/validateString`, value, { headers: this.headers })
         .map((data: Response) => data.json());
+    }
+
+    isLoggedIn() {
+      this.updateAuthHeaders();
+      return this.http.get(`${this.apiLink}/portal/auth/loggedUser`, { headers: this.headers });
     }
 }

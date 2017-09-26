@@ -12,6 +12,9 @@ import { HomeChannelComponent } from './home-channel/home-channel.component';
 import { HomeSpotfeedComponent } from './home-spotfeed/home-spotfeed.component';
 import { HomeRightBlockComponent } from './home-right-block/home-right-block.component';
 
+// Guard
+import { AuthGuard } from './../../guard/auth.guard';
+
 const routes: Routes = [
   {
     path: '',
