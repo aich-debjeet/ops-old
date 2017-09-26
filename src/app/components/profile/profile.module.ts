@@ -24,6 +24,9 @@ import { AboutCoverComponent } from './about-cover/about-cover.component';
 
 import { ProfileHelper } from '../../helpers/profile.helper';
 
+// Guard
+import { AuthGuard } from './../../guard/auth.guard';
+
 const childRoutes = [
   {
     path: '',

@@ -13,6 +13,8 @@ export class Login {
  fp_sumit_otp_failed?: boolean;
  fp_userdata_loading_failed: boolean;
  otp_forget_user_success?: boolean;
+ login_status_response?: any;
+ login_status?: boolean;
 }
 
 export class Register {
