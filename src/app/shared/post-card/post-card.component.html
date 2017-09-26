@@ -37,7 +37,11 @@
           </div>
         </div>
         <div class="pro_channel_count">
-          <span><img src="/assets/img/svg/ico_lik.svg"><div class="like_count">{{ mediaData?.spotsCount }}</div></span>
+          <span>
+              <img *ngIf="isSpotted === false" src="/assets/img/svg/ico_lik.svg">
+              <img *ngIf="isSpotted === true" src="http://d33wubrfki0l68.cloudfront.net/8d58c78cd26eb1d103bb24ec6c1d786a0964b8b4/63aa4/img/svg/ico_spot.svg" width="14px">
+            <div class="like_count">{{ mediaData?.spotsCount }}</div>
+          </span>
           <span><img src="/assets/img/svg/ico_comment.svg"> <div class="like_count">{{ mediaData?.commentsCount }}</div></span>
           <div class="pull-right">
             <span><img src="/assets/img/svg/ico_addtochannel.svg"></span>

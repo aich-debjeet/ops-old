@@ -23,6 +23,8 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 
 import { NgxfUploaderModule } from 'ngxf-uploader';
+import { TagInputModule } from 'ngx-chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   {
@@ -69,7 +71,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     NgxfUploaderModule.forRoot(),
-    FormsModule
+    FormsModule,
+    TagInputModule,
+    BrowserAnimationsModule
   ],
   declarations: [
     MediaComponent,

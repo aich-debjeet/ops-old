@@ -58,6 +58,7 @@ export class MediaSelectorComponent implements OnInit {
   handle: string;
   token: string;
   uploadStatus: number;
+  tags: any;
 
   //
   postSuccess: boolean;
@@ -136,12 +137,12 @@ export class MediaSelectorComponent implements OnInit {
 
       let isUserReady;
       if (event.profileUser && event.profileUser.handle) {
-        console.log('[-]');
+        // console.log('[-]');
         this.handle = event.profileUser.handle;
         isUserReady = true;
         this.loadChannel(this.handle);
       } else {
-        console.log('[x]');
+        // console.log('[x]');
       }
     });
   }
@@ -453,12 +454,30 @@ export class MediaSelectorComponent implements OnInit {
   }
 
   /**
+   * Array of tags splitted by comma
+   * @param tags
+   */
+  seperateTags(tags: any) {
+    const tagList = [];
+    if (tags) {
+      for (const tag of tags) {
+        tagList.push(tag.value);
+      }
+    }
+    return tagList;
+  }
+
+  /**
    * Format Media
    */
   formatMedia(file: any, formValue: any, channel: any, handle: string) {
     const mediaType = this.getFileType(file.fileName);
     const postTime = this.currentTime();
     const isUploadReady = this.uploadMeta();
+
+    const tags = this.seperateTags(this.tags);
+    console.log(tags);
+    // const tags =
 
     const files = {
       fileName: file.fileName,
@@ -471,6 +490,7 @@ export class MediaSelectorComponent implements OnInit {
       createdBy: handle,
       createdDate: postTime,
       lastUpdatedDate: postTime,
+      tags : tags,
       count : {
         likes: [], shares: [], spots: [],
         channel: channel.spotfeedId

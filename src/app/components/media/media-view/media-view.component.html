@@ -49,7 +49,7 @@
                                               {{ data?.description }}
                                               <!--<span class="text-theme pull-right">More..</span>-->
                                           </p>
-                                          <button *ngFor="let tag of data?.tags" type="button" class="btn btn-tag btn-sm">tag</button>
+                                          <button *ngFor="let tag of data?.tags" type="button" class="btn btn-tag btn-sm">{{ tag }}</button>
                                       </div>
                                   </li>
                               </ul>

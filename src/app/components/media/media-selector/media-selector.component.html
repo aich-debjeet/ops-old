@@ -98,7 +98,7 @@
         </li>
         <li>
           <div class="form_group">
-            <input class="form_input" required="" type="text">
+            <tag-input [(ngModel)]='tags' [ngModelOptions]="{standalone: true}"></tag-input>
             <span class="form_highlight"></span>
             <span class="form_bar"></span>
             <label>Tags</label>
