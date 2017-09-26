@@ -1,9 +1,15 @@
 .outer_container{
   margin-top: 3.5%;
+  margin-bottom: 4%;
   @include mq($from: $desktop_lg, $until: $desktop_imac) {
-      margin-top: 2%
+      margin-top: 2%;
+      margin-bottom: 4%;
   }
 }
+.clearfix{
+  clear: none;
+}
+// ops headings ------------------------
 
 .ops_heading{
   font-size: 14px;
@@ -37,20 +43,81 @@
 }
 .ops_h1 {
   color: #333333;
-  font-family: "Open Sans";
   font-size: 28px;
   font-weight: bold;
   line-height: 38px;
 }
+.ops_h2{
+  color: #333333;
+  font-size: 18px;
+  font-weight: bold;
+}
+.ops_h3{
+  color: #333333;
+  font-size: 18px;
+  font-weight: normal;
+}
+.heading36{
+  font-size: 36;
+  font-weight: normal;
+  color: $theme_black;
+}
+.heading_2{
+  font-size: 18px;
+  font-weight: 700;
+}
+.heading_3{
+  font-size: 14px;
+  font-weight: 700;
+}
+.p_text{
+  font-size: 12px;
+  font-weight: 500;
+  color: $theme_black;
+}
+.status_txt{
+  color: #979797;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+// ops margin & padding --------------------
+
 .margin_tb_16 {
   margin: 16px 0;
+}
+.margin_tb_32 {
+  margin: 32px 0;
 }
 .margin_b_16 {
   margin-bottom: 16px;
 }
+.margin_b_32 {
+  margin-bottom: 32px;
+}
+.margin_t_16 {
+  margin-top: 16px;
+}
+.margin_l_16 {
+  margin-left: 16px;
+}
 .padding_16 {
   padding: 16px;
 }
+.padding_8{
+  padding:8px;
+}
+.padding_l_none{
+  padding-left: 0px;
+}
+
+.padding_none{
+  padding:0px !important;
+}
+.margin_none{
+  margin:0px !important;
+}
+
 .with_border {
   border: solid 1px rgba(0, 0, 0, 0.1);
 }
@@ -66,11 +133,36 @@
 .with_border_bottom {
   border-bottom: solid 1px rgba(0, 0, 0, 0.1);
 }
+.with_border_none {
+  border: none !important;
+}
+
+
+// ops text color ---------------------------
+
 .text-black {
   color: #000000;
 }
+.text-theme {
+  color:  $theme_red !important;
+  a {
+      color:  $theme_red;
+  }
+}
+.text-grey{
+  color: #979797 !important;
+}
+
+// ops alignment ----------------------------
+
 .text-left{
   text-align: left!important;
+}
+.text-right{
+  text-align: right!important;
+}
+.text-center{
+  text-align: center!important;
 }
 .float_left {
   float: left;
@@ -78,31 +170,42 @@
 .float_right {
   float: right;
 }
+.float_none {
+  float: none !important;
+}
+.clear-both {
+    clear: both;
+}
+
+// ops background color ----------------------
+
 .fill_grey {
     background-color: rgba(102, 45, 145, 0.05);
 }
-.text-grey{
-  color: #979797!important;
+.bg_white{
+  background: $white;
 }
+
+//ops text properties ----------------------
+
 .text_uppercase {
   text-transform: uppercase;
 }
 .list_style_none {
   list-style-type: none;
 }
-.padding_none{
-  padding:0px!important;
-}
-// headings
 
-.heading_2{
-  font-size: 18px;
-  font-weight: 700;
-}
-.heading_3{
-  font-size: 14px;
-  font-weight: 700;
-}
 .capitalize{
   text-transform: uppercase;
+}
+.width100 {
+  width: 100%;
+}
+.width50 {
+  width: 50%;
+}
+
+.fixed-block{
+  width: 100%;
+  position: fixed;
 }
