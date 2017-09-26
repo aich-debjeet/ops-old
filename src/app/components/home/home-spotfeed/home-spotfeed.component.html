@@ -1,11 +1,13 @@
 <div id="home_spotfeed" class="tab-pane fade active in">
   <div class="c-spotfeed">
     <div class="c-spotfeed-block">
+      <div class="row">
         <div class="c-spotfeed-block__item-4" *ngFor="let spotfeed of spotfeeds">
           <a class="c-spotfeed-item__single" [routerLink]="['/spotfeed', spotfeed.name]">
             <app-spotfeed-card  [spotfeedData]="spotfeed" ></app-spotfeed-card>
           </a>
         </div>
+      </div>
     </div>
   </div><!-- c-spotfeed end -->
 </div>
