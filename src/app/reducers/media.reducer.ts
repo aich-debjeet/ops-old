@@ -78,7 +78,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
 
     // Fetch Media comment
     case MediaActions.MEDIA_COMMENT_FETCH:
-    console.log(state);
+    console.log('comment post user');
       return Object.assign({}, state, {
         media_comment_loading: true,
         media_post_success: false,
@@ -88,6 +88,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
     case MediaActions.MEDIA_COMMENT_FETCH_SUCCESS:
       console.log('comment loading');
       console.log(payload);
+      console.log(state);
       return Object.assign({}, state, {
         media_comment_loading: false,
         media_post_success: false,

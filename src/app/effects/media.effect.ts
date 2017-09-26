@@ -150,9 +150,9 @@ export class MediaEffect {
     .ofType(MediaActions.MEDIA_UNSPOT)
     .map(toPayload)
     .switchMap((payload) => this.mediaService.unSpotMedia(payload)
-      .map(res => ({ type: MediaActions.MEDIA_SPOT_SUCCESS, payload: res }))
+      .map(res => ({ type: MediaActions.MEDIA_UNSPOT_SUCCESS, payload: res }))
       .catch((res) => Observable.of({
-        type: MediaActions.MEDIA_SPOT_FAILED,
+        type: MediaActions.MEDIA_UNSPOT_FAILED,
         payload: { errorStatus: res.status }
       }))
     );

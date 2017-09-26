@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>ico_web</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="135" y="620" width="1170" height="291" rx="3"></rect>
+        <filter x="-0.3%" y="-0.9%" width="100.6%" height="102.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.4   0 0 0 0 0.176470588   0 0 0 0 0.568627451  0 0 0 0.0673120471 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="About" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="About_Contact" transform="translate(-166.000000, -763.000000)">
+            <g id="Combined-Shape-Copy-2">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+            <g id="ico_web" transform="translate(166.000000, 763.000000)" fill-rule="nonzero" fill="#333333">
+                <path d="M12,1.18423789e-15 C5.372583,-4.07081776e-16 7.77156117e-16,5.372583 0,12 C-7.77156117e-16,18.627417 5.372583,24 12,24 C18.627417,24 24,18.627417 24,12 C24,8.81740212 22.7357179,5.76515517 20.4852814,3.51471863 C18.2348448,1.26428208 15.1825979,2.22044605e-16 12,1.18423789e-15 Z M22.2966667,11.1666667 L19.6466667,11.1666667 C19.51,7.92 18.5866667,5.06333333 17.16,3.05333333 C20.1011627,4.74964945 22.0213464,7.78256782 22.2966667,11.1666667 Z M11,1.82 L11,11.1533333 L6.02333333,11.1533333 C6.25,6.51333333 8.36,2.62 11,1.82 Z M11,12.82 L11,22.1533333 C8.36,21.3533333 6.25,17.46 6.02333333,12.82 L11,12.82 Z M12.6666667,22.25 L12.6666667,12.8333333 L17.9766667,12.8333333 C17.74,17.6666667 15.46,21.7033333 12.6666667,22.2633333 L12.6666667,22.25 Z M12.6666667,11.1666667 L12.6666667,1.73666667 C15.46,2.29666667 17.74,6.33333333 17.9766667,11.1666667 L12.6666667,11.1666667 Z M6.84,3.05333333 C5.41333333,5.05333333 4.48666667,7.92 4.35333333,11.1666667 L1.70333333,11.1666667 C1.97865359,7.78256782 3.89883732,4.74964945 6.84,3.05333333 L6.84,3.05333333 Z M1.70333333,12.8333333 L4.35333333,12.8333333 C4.49,16.08 5.41333333,18.9366667 6.84,20.9466667 C3.89883732,19.2503506 1.97865359,16.2174322 1.70333333,12.8333333 Z M17.16,20.9466667 C18.5866667,18.9466667 19.5133333,16.08 19.6466667,12.8333333 L22.2966667,12.8333333 C22.0213464,16.2174322 20.1011627,19.2503506 17.16,20.9466667 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
