@@ -308,8 +308,14 @@ export class RegistrationBasicComponent implements OnInit {
    * @param value
    */
   submitForm(value) {
-    console.log(this.regFormBasic)
-    // Form
+
+    // checking if all required fields with valid info available before submitting the form
+    if (!this.regFormBasic.valid) {
+      // console.log('invalid form');
+      return false;
+    }
+
+    // form object
     const form =  {
       'name': {
       'firstName': value.name
