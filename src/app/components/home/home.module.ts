@@ -23,8 +23,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'spotfeed'},
       { path: 'spotfeed', component: HomeSpotfeedComponent},
       { path: 'channel', component: HomeChannelComponent}
-    ],
-    canActivate: [AuthGuard]
+    ]
   }
 ]
 

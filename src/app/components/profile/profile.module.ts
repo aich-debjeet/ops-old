@@ -31,8 +31,7 @@ const childRoutes = [
   {
     path: '',
     redirectTo: 'user',
-    pathMatch: 'full',
-    canActivate: [AuthGuard]
+    pathMatch: 'full'
   },
   {
     path: 'user',
@@ -41,8 +40,7 @@ const childRoutes = [
       { path: '', component: ProfileChannelComponent },
       { path: 'channel', component: ProfileChannelComponent },
       { path: 'post', component: ProfilePostComponent },
-    ],
-    canActivate: [AuthGuard]
+    ]
   },
   {
     path: 'about',
@@ -56,8 +54,7 @@ const childRoutes = [
       { path: 'awards', component: AboutAwardsComponent },
       { path: 'education', component: AboutEducationComponent },
       { path: 'contact', component: AboutContactComponent }
-    ],
-    canActivate: [AuthGuard]
+    ]
   },
 ];
 
