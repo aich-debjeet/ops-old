@@ -2,6 +2,15 @@
 @import './src/assets/scss/helpers/_functions.scss';
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
+@import "~ngx-chips/dist/modules/core/styles/core/_core.scss";
+
+$ops-theme: (
+  container-border-bottom: 1px solid #c1c1c1
+);
+
+.ng2-tag-input.ops-theme {
+  @include tag-input-theme($ops-theme);
+}
 
 label {
   padding-bottom: 0.5rem;

@@ -42,9 +42,9 @@
           </div>
         </div>
       </li>
-      <li *ngIf="uploadedFiles.length > 0" class="file__item">
+      <!-- <li *ngIf="uploadedFiles.length > 0" class="file__item">
           <h1>Add More</h1>
-      </li>
+      </li> -->
     </ul>
     <div class="dragZone" class="block" (ngxf-drop)="uploadFileList($event)" drop-class="drop" multiple [ngxf-validate]="{ size: { min: 10, max:10000000 } }">
       <div class="add_media_inner">
@@ -76,7 +76,7 @@
         <div class="post__top">
           <div class="post__options">
             <button disable="true" class="btn-saveUpload" (click)="mediaInfoUpdate(mediaForm.value)">Publish</button>
-            <button disable="true" class="btn-saveUpload--lite" (click)="postAllMedia(mediaForm.value)">Publish All</button>
+            <!-- <button disable="true" class="btn-saveUpload--lite" (click)="postAllMedia(mediaForm.value)">Publish All</button> -->
           </div>
         </div>
       </div>
@@ -98,10 +98,7 @@
         </li>
         <li>
           <div class="form_group">
-            <tag-input [(ngModel)]='tags' [ngModelOptions]="{standalone: true}"></tag-input>
-            <span class="form_highlight"></span>
-            <span class="form_bar"></span>
-            <label>Tags</label>
+            <tag-input [(ngModel)]='tags' [ngModelOptions]="{standalone: true}" [theme]="'ops-theme'"></tag-input>
           </div>
         </li>
         <li>
