@@ -1,46 +1,3 @@
-// post with comments block style -----------------------------------
-.c-avatar--status {
-  width: 34px;
-  height: 34px;
-}
-
-.c-avatar--artist {
-  width: 90px;
-  height: 90px;
-}
-
-.c-user--align {
-  margin-left: 16px; // margin-top: 8px;
-}
-
-.c-user__channel-align {
-  margin-top: 20px;
-  position: absolute;
-  margin-left: 50px;
-}
-
-.c-status--block {
-  width: 100%;
-  float: left;
-  clear: both;
-  padding: 16px 24px;
-  position: relative;
-}
-
-.c-post__time {
-  float: left;
-  color: #979797;
-  font-size: 12px;
-  line-height: 17px; // margin-right: 8px;
-  margin-top: 8px;
-}
-
-.c-status__options {
-  width: 14px;
-  float: left;
-  margin-top: 9px;
-  margin-left: 8px;
-}
 
 
 // feed Card style ----------------------------------------------------
@@ -285,4 +242,48 @@
     color: red;
   }
 
+}
+
+// post with comments block style -----------------------------------
+.c-avatar--status {
+  width: 34px;
+  height: 34px;
+}
+
+.c-avatar--artist {
+  width: 90px;
+  height: 90px;
+}
+
+.c-user--align {
+  margin-left: 16px; // margin-top: 8px;
+}
+
+.c-user__channel-align {
+  margin-top: 20px;
+  position: absolute;
+  margin-left: 50px;
+}
+
+.c-status--block {
+  width: 100%;
+  float: left;
+  clear: both;
+  padding: 16px 24px;
+  position: relative;
+}
+
+.c-post__time {
+  float: left;
+  color: #979797;
+  font-size: 12px;
+  line-height: 17px; // margin-right: 8px;
+  margin-top: 8px;
+}
+
+.c-status__options {
+  width: 14px;
+  float: left;
+  margin-top: 9px;
+  margin-left: 8px;
 }
