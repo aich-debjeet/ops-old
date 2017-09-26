@@ -1,0 +1,18 @@
+<div class="c-post__comment with_border_top fill_grey c-post--unread">
+  <a class="c-user__avatar c-avatar--status">
+      <img class="c-user__image" src="{{ imageLink + commentData?.ownerImage }}">
+  </a>
+  <a class="c-post__commenter">{{ commentData?.ownerName }}</a>
+  <div class="pull-right">
+    <div class="c-post__comment--time">{{ commentData?.createdDate | date: 'hh:mm a' }}
+      <span>
+      <!--<a>
+        <img src="/assets/img/svg/ico_options.svg" alt="" class="c-card__options">
+      </a>-->
+    </span>
+    </div>
+  </div>
+  <div class="c-post__comment_text">
+    {{ commentData?.comment }}
+  </div>
+</div>

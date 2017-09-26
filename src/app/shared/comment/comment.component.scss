@@ -1,0 +1,157 @@
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+// comments block -----------------------------
+.c-post__comment {
+  padding: 16px 24px;
+  @include clearfix;
+  position: relative;
+  overflow: auto;
+}
+
+.c-post--unread {
+  background-color: #F5F5F5;
+}
+
+.c-post__comment--time {
+  color: #979797;
+  font-size: 10px;
+  line-height: 17px;
+  margin-top: 3px;
+  padding-right: 8px;
+}
+
+.c-post__commenter {
+  color: #333333;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 17px;
+  margin-left: 12px;
+  cursor: pointer;
+  &:hover {
+    color: #333;
+  }
+}
+
+.c-post__comment_text {
+  color: #333333;
+  font-size: 12px;
+  line-height: 21px;
+  margin-left: 46px;
+}
+
+.c-post__input {
+  width: 90%;
+  float: left;
+  margin-left: 8px;
+}
+
+.form__bottom--0 {
+  margin-bottom: 0px;
+  .form_input:focus~label,
+  .form_input:valid~label {
+    display: none;
+  }
+}
+
+// post with comments block style -----------------------------------
+.c-avatar--status {
+  width: 34px;
+  height: 34px;
+}
+
+.c-avatar--artist {
+  width: 90px;
+  height: 90px;
+}
+
+.c-user--align {
+  margin-left: 16px; // margin-top: 8px;
+}
+
+.c-user__channel-align {
+  margin-top: 20px;
+  position: absolute;
+  margin-left: 50px;
+}
+
+.c-status--block {
+  width: 100%;
+  float: left;
+  clear: both;
+  padding: 16px 24px;
+  position: relative;
+}
+
+.c-post__time {
+  float: left;
+  color: #979797;
+  font-size: 12px;
+  line-height: 17px; // margin-right: 8px;
+  margin-top: 8px;
+}
+
+.c-status__options {
+  width: 14px;
+  float: left;
+  margin-top: 9px;
+  margin-left: 8px;
+}
+
+// card user block ------------------
+.c-card__user {
+  margin-top: 16px;
+}
+
+.c-user__avatar {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  background: #f8f8f8;
+  cursor: pointer;
+  border-radius: 50px;
+  float: left;
+}
+
+.c-avatar--feed {
+  width: 24px;
+  height: 24px;
+}
+
+.c-user__image {
+  width: 100%
+}
+
+.c-user__name {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  color: #000;
+  margin-left: 8px;
+  margin-top: 2px;
+  float: left;
+  cursor: pointer;
+  &:hover {
+    color: #000;
+  }
+}
+
+.c-user__channel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #979797;
+  display: block;
+  margin-left: 32px;
+  clear: both;
+  cursor: pointer;
+  &:hover {
+    color: #979797;
+  }
+}
+
