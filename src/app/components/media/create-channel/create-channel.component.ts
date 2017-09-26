@@ -71,9 +71,9 @@ export class CreateChannelComponent {
    */
   createChannelForm() {
     this.channelForm = this.fb.group({
-      title: ['New Channel', Validators.required ],
+      title: ['', Validators.required ],
       type: ['', Validators.required ],
-      desc: ['Soem rand desc', Validators.required ],
+      desc: ['', Validators.required ],
       privacy: [0, Validators.required ],
       openess: [0]
     })
