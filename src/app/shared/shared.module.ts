@@ -43,6 +43,9 @@ import { DropdownNotClosableZoneDirective } from './dropdown/dropdown-not-closab
 import { DropdownOpenDirective } from './dropdown/dropdown-open.directive';
 
 import { MediaComponent } from '../components/media/media.component';
+import { PostComponent } from './post/post.component';
+import { CommentListComponent } from './comment-list/comment-list.component';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   imports: [
@@ -75,7 +78,10 @@ import { MediaComponent } from '../components/media/media.component';
     ComingSoonComponent,
     DropdownDirective,
     DropdownNotClosableZoneDirective,
-    DropdownOpenDirective
+    DropdownOpenDirective,
+    PostComponent,
+    CommentListComponent,
+    CommentComponent
   ],
   exports: [
     AuthRightBlockComponent,
@@ -95,7 +101,9 @@ import { MediaComponent } from '../components/media/media.component';
     ComingSoonComponent,
     DropdownDirective,
     DropdownNotClosableZoneDirective,
-    DropdownOpenDirective
+    DropdownOpenDirective,
+    PostComponent,
+    CommentComponent
   ]
 
 })

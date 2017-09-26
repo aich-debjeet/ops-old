@@ -4,15 +4,16 @@
       <div class="loader">Loading...</div>
     </div>
   </div>
-  <masonry>
+  <app-post *ngFor="let userMedia of posts; let i = index" [mediaData]="userMedia"></app-post>
+  <!--<masonry>
     <masonry-brick class="col-md-4 col-sm-6 c-card" *ngFor="let userMedia of posts; let i = index">
       <app-post-card [mediaData]="userMedia"></app-post-card>
     </masonry-brick>
-  </masonry>
+  </masonry>-->
 </div>
 
 <div *ngIf="isEmpty" class="empty__state">
   <h4>You have no medias</h4>
-  <p>You have not added any posts, click below to create your first Channel!</p>
+  <p>You have not added any posts, click below to create your first Post!</p>
   <a class="btn-add" [routerLink]="['', { outlets: { media : ['post', 'media'] } } ]">Post media</a>
 </div>

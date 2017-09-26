@@ -297,7 +297,7 @@ export class AuthEffect {
       .map(res => ({ type: AuthActions.OTP_RESEND_SUBMIT_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: AuthActions.OTP_RESEND_SUBMIT_FAILED, payload: res }))
     );
-  
+
   /* OTP Number Change */
   @Effect()
   otpNumberChange$ = this.actions$
@@ -306,6 +306,15 @@ export class AuthEffect {
     .switchMap((payload) => this.authService.otpChangeNumber(payload)
       .map(res => ({ type: AuthActions.OTP_NUMBER_CHANGE_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: AuthActions.OTP_NUMBER_CHANGE_FAILED, payload: res }))
+    );
+
+  @Effect()
+  isUserLoggedIn$ = this.actions$
+    .ofType(AuthActions.USER_LOGGED_IN)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.isLoggedIn()
+      .map(res => ({ type: AuthActions.USER_LOGGED_IN_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.USER_LOGGED_IN_FAILED, payload: res }))
     );
 
   constructor(
