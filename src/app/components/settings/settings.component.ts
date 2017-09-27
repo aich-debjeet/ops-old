@@ -21,7 +21,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class SettingsComponent implements OnInit {
   storeState$: Observable<ProfileModal>;
   userProfile = initialTag;
-  private pwdForm: FormGroup;
+  pwdForm: FormGroup;
   private usernameForm: FormGroup;
   emailActive: boolean;
   phoneActive: boolean;
