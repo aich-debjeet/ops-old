@@ -1723,3 +1723,40 @@ label.upload-button {
   padding-top: 0;
 }
 
+.file__add {
+  position: relative;
+  width: 174px;
+  height: 174px;
+  border: 2px #ccc solid;
+  border-radius: 2px;
+  vertical-align: top;
+  .upload-button {
+    background-color: transparent !important;
+    height: 100%;
+    width: 100%;
+    text-transform: capitalize;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    vertical-align: bottom;
+    font-weight: normal;
+    color: #C1C1C1;
+    font-size: 14px;
+    &:before {
+      content: '';
+      width: 30px;
+      height: 30px;
+      background-image: url(http://d33wubrfki0l68.cloudfront.net/b2db74eef243b31664217b57fa83bfb74e5c8105/fec5e/img/svg/ico_add-grey.svg);
+      display: inline-block;
+      text-align: center;
+      position: absolute;
+      left: 40%;
+      top: 33%;
+    }
+  }
+}
+
+
+.add_media_inner.is__filled {
+  opacity: 0;
+}

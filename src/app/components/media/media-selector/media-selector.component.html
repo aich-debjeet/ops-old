@@ -42,12 +42,14 @@
           </div>
         </div>
       </li>
-      <!-- <li *ngIf="uploadedFiles.length > 0" class="file__item">
-          <h1>Add More</h1>
-      </li> -->
+      <li *ngIf="hasFiles === true" class="file__item file__add">
+        <label class="upload-button">
+          <input type="file" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.mp4">Add more Media
+        </label>
+      </li>
     </ul>
     <div class="dragZone" class="block" (ngxf-drop)="uploadFileList($event)" drop-class="drop" multiple [ngxf-validate]="{ size: { min: 10, max:10000000 } }">
-      <div class="add_media_inner">
+      <div class="add_media_inner" [ngClass]="{'is__filled': hasFiles === true }">
           <div class="select_media_ico">
               <img width="100" src="http://d33wubrfki0l68.cloudfront.net/1c31dc8ee913450e1062a90675f43527198ff78d/a6d0c/img/svg/media_add.svg" alt="">
           </div>
