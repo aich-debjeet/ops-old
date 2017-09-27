@@ -25,6 +25,7 @@ export class ChannelSelectorComponent implements OnInit {
   channelForm: FormGroup;
   isChosen: boolean;
   @Output() onSelection: EventEmitter<any> = new EventEmitter();
+  @Output() onChannelCreate: EventEmitter<any> = new EventEmitter();
   @Input() userChannels: any;
   counter: number;
 
@@ -59,9 +60,9 @@ export class ChannelSelectorComponent implements OnInit {
    */
   createChannelForm() {
     this.channelForm = this.fb.group({
-      title: ['New Channel', Validators.required ],
+      title: ['', Validators.required ],
       type: ['', Validators.required ],
-      desc: ['Soem rand desc', Validators.required ],
+      desc: ['', Validators.required ],
       privacy: [0, Validators.required ],
       openess: [0]
     })
@@ -71,19 +72,19 @@ export class ChannelSelectorComponent implements OnInit {
    * Form Builder
    */
   createChannel(value: any) {
-    console.log('ACTION', 'CREATE_CHANNEL');
-    // const userHandle = this.profileChannel.profileUser.handle || '';
-    // if ( this.channelForm.valid === true && userHandle !== '' ) {
-    //   const channelObj = {
-    //     name: value.title,
-    //     access: Number(value.privacy),
-    //     description: value.desc,
-    //     superType: 'channel',
-    //     accessSettings : { access : Number(value.privacy) },
-    //     owner: userHandle,
-    //     industryList: [ value.type ]
-    //   }
-    // }
+    const channelObj = {
+      name: value.title,
+      access: Number(value.privacy),
+      description: value.desc,
+      superType: 'channel',
+      accessSettings : { access : Number(value.privacy) },
+      owner: '',
+      industryList: [ value.type ]
+    }
+
+    console.log('CREATE__CHANNEL', channelObj);
+
+    this.onChannelCreate.emit(channelObj);
   }
 
   /**

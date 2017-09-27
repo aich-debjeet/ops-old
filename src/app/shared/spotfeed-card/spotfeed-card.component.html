@@ -1,16 +1,8 @@
-<div class="c-spotfeed">
-  <div class="c-spotfeed-block margin_none">
-      <div class="c-spotfeed-block__item">
-          <a class="c-spotfeed-item__single" [routerLink]="['/spotfeed', spotfeedData.name]">
-              <div class="c-spotfeed-single__media fill">
-                  <img src="{{ baseUrl + spotfeedData.image }}" alt="">
-              </div>
-              <div class="c-spotfeed-single__content">
-                  <div class="c-spotfeed-content__heading">
-                      <h3 class="c-spotfeed-heading--style">{{ spotfeedData.name }}</h3>
-                  </div>
-              </div>
-            </a>
-      </div>
-  </div>
-</div><!-- c-spotfeed end -->
+<div class="c-spotfeed-single__media fill">
+    <img src="{{ baseUrl + spotfeedData.image }}" alt="">
+</div>
+<div class="c-spotfeed-single__content">
+    <div class="c-spotfeed-content__heading">
+        <h3 class="c-spotfeed-heading--style">{{ spotfeedData.name }}</h3>
+    </div>
+</div>

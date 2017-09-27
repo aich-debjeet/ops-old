@@ -2,13 +2,22 @@
 @import './src/assets/scss/helpers/_functions.scss';
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
+@import "~ngx-chips/dist/modules/core/styles/core/_core.scss";
+
+// Chips
+$ops-theme: (
+  container-border-bottom: 1px solid #c1c1c1
+);
+
+.ng2-tag-input.ops-theme {
+  @include tag-input-theme($ops-theme);
+}
 
 label {
   padding-bottom: 0.5rem;
   display: inline-block;
   padding-top: 0.5rem;
 }
-
 
 label.upload-button {
   background-color: #ff7b84;
@@ -433,7 +442,7 @@ label.upload-button {
 .add_media_info ul {
   list-style: none;
   border-bottom: 1px rgba(102,45,145,.1) solid;
-  padding: 32px;
+  padding: 16px 32px;
   overflow: hidden;
 }
 
