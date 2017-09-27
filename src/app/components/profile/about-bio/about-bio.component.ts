@@ -72,12 +72,14 @@ export class AboutBioComponent implements OnInit {
   bioFormSubmit(value) {
     const height = value.height === null ? 0 : value.height;
     const weight = value.weight === null ? 0 : value.weight;
+    const pincode = value.pin_code === null ? '' : value.pin_code.toString();
+    const lang = value.lang === '' ? [] : value.lang.split(',');
       const form =  {
         'email': value.email,
         'extras': {
           'aboutMe': value.about_me,
            'association': {
-            'languages': value.lang.split(',')
+            'languages': lang
           },
           'contact': {
             'mobile': {
@@ -91,11 +93,11 @@ export class AboutBioComponent implements OnInit {
           }
         },
         'address': {
-          'city': value.city,
+          'city': value.city.charAt(0).toUpperCase() + value.city.slice(1),
           'country': value.country,
           'line1': value.address_one,
           'line2': value.address_two,
-          'postalCode': value.pin_code
+          'postalCode': pincode,
         },
         'physical': {
           'height': parseFloat(height),

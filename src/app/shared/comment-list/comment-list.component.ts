@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 })
 export class CommentListComponent implements OnInit {
   @Input() commentData: any;
-  private imageLink: string = environment.API_IMAGE;
+  imageLink: string = environment.API_IMAGE;
 
   constructor() { }
 
