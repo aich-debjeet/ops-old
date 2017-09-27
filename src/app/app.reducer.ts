@@ -31,7 +31,8 @@ export interface State {
 }
 
 const productionReducer = combineReducers(reducers);
-const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
+const developmentReducer = combineReducers(reducers);
+// const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
 // const productionReducer: ActionReducer<State> = combineReducers(reducers);
 
 export function reducer(state: any, action: any) {
