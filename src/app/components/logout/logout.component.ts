@@ -11,11 +11,7 @@ export class LogoutComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('access_token');
-    // localStorage.removeItem('currentUserID');
-    // localStorage.removeItem('userType');
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 
