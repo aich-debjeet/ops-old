@@ -22,16 +22,17 @@
           </ul>
           <div class="col-md-12 ops_artist_follow myBlock">
             <!-- ---------- card ---------- -->
-            <div *ngIf="spotfeedDetails?.SUCCESS.spotfeedProfiles && spotfeedDetails?.SUCCESS.spotfeedProfiles.length > 0" class="row" >
-                <div class="col-md-2" *ngFor="let artist of spotfeedDetails?.SUCCESS.spotfeedProfiles" >
+            <div *ngIf="spotfeedDetails?.SUCCESS.spotfeedProfiles && spotfeedDetails?.SUCCESS.spotfeedProfiles.length > 0" >
+              <div class="row">
+                <div class="col-md-2 " *ngFor="let artist of spotfeedDetails?.SUCCESS.spotfeedProfiles" >
                     <div class="c-card c-card--artist">
-                        <div class="c-artist__avatar">
-                            <img *ngIf="artist.image; else default_profile_image" src="{{ baseUrl + artist.image }}" class="c-artist__img">
-                            <ng-template #default_profile_image>
-                                <img src="/assets/img/avatar.jpg" class="c-artist__img">
-                            </ng-template>
-                        </div>
-                        <div class="c-artist__name margin_t_16">{{ artist.name }}</div>
+                        <a routerLink="{{ '/profile/u/' + artist.username }}" class="c-artist__avatar">
+                          <img *ngIf="artist.image; else default_profile_image" src="{{ baseUrl + artist.image }}" class="c-artist__img">
+                          <ng-template #default_profile_image>
+                              <img src="/assets/img/avatar.jpg" class="c-artist__img">
+                          </ng-template>
+                        </a>
+                        <a routerLink="{{ '/profile/u/' + artist.username }}" class="c-artist__name margin_t_16">{{ artist.name }}</a>
                         <div class="c-artist__username">
                             @{{ artist.username }}
                         </div>
@@ -45,6 +46,7 @@
                         </div>
                     </div>
                 </div>
+              </div>
             </div>
             <!-- ---------- //card ---------- -->
             <div class="emptyState" *ngIf="spotfeedDetails?.SUCCESS.spotfeedProfiles && spotfeedDetails?.SUCCESS.spotfeedProfiles.length === 0" >
@@ -64,59 +66,12 @@
                   <a href="#"><span class="post-icons"><img src="/assets/img/svg/ico-blog-black.svg" alt=""></span></a>
                 </li>
             </ul>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="">
-                        <div *ngIf="spotfeedPosts && spotfeedPosts.length > 0" >
-                            <!-- first column -->
-                            <div class="col-md-3" *ngFor="let post of spotfeedPosts" >
-                                <div class="row">
-                                    <!-- feed block -->
-                                    <div class="col-md-12 col-sm-6 pro_channel_card">
-                                        <div class="col-md-12 col-sm-12 feed_block">
-                                            <div class="row">
-                                                <div class="col-md-12 col-sm-12 pro_channel_img1">
-                                                    <figure class="feed-avatar">
-                                                        <img *ngIf="post.mtype == 'image' && post.repopath" src="{{ baseUrl + post.repopath }}" class="img-responsive">
-                                                        <img *ngIf="post.mtype == 'image' && !post.repopath" src="{{ baseUrl + post.repopath }}" class="img-responsive">
-                                                        <img *ngIf="post.mtype != 'image'" src="/assets/img/pro_block.jpg" class="img-responsive">
-                                                    </figure>
-                                                    <div *ngIf="post.mtype == '' || post.mtype == 'video' || post.mtype == 'image'" class="feed_article"><img src="/assets/img/svg/ico_article.svg"></div>
-                                                    <div *ngIf="post.mtype == 'audio'" class="feed_article"><img src="/assets/img/svg/ico_audio.svg"></div>
-                                                </div>
-                                                <div class="col-md-12 col-sm-12 pro_channel_cont">
-                                                    <div class="pro_channel_name">
-                                                        <h3 class="feed-heading float-left">{{ post.title }}</h3>
-                                                        <span>
-                                                        <img class="float-right" src="/assets/img/svg/ico_options.svg">
-                                                    </span>
-                                                    </div>
-                                                    <div class="ops_subheading extra-padding">{{ post.description }}</div>
-                                                    <div class="pro_channel-thumb">
-                                                        <img *ngIf="post.ownerImage" src="{{ post.ownerImage }}">
-                                                        <img *ngIf="!post.ownerImage" src="https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png">
-                                                        <p>{{ post.ownerName }}</p>
-                                                        <div class="small-txt">{{ post.subtitle }}</div>
-                                                    </div>
-                                                    <div class="pro_channel_count">
-                                                        <span><img src="/assets/img/svg/ico_lik.svg"><div class="like_count">{{ post.spotsCount }}</div></span>
-                                                        <span><img src="/assets/img/svg/ico_comment.svg"> <div class="like_count">{{ post.commentsCount }}</div></span>
-                                                        <div class="pull-right">
-                                                            <span><img src="/assets/img/svg/ico_addtochannel.svg"></span>
-                                                            <span><img src="/assets/img/svg/ico_share-02.svg"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- // feed block -->
-                                </div>
-                            </div>
-                            <!-- //first column -->
-                        </div>
-                        <div class="emptyState" *ngIf="spotfeedPosts && spotfeedPosts.length === 0">
-                            <h4 class="emptyState__heading empty-fields">There are no posts in this spotfeed</h4>
+            <div class="col-md-12">
+                <div class="row">
+                    <div *ngIf="spotfeedPosts && spotfeedPosts.length > 0" >
+                        <!-- first column -->
+                        <div class="col-md-3" *ngFor="let post of spotfeedPosts" >
+                          <app-post-card [mediaData]="post"></app-post-card>
                         </div>
                     </div>
                 </div>

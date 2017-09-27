@@ -15,6 +15,7 @@ export class PostCardComponent implements OnInit {
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   dotMenuState: boolean;
+  isSpotted: boolean;
 
   userImage: string;
 
@@ -33,6 +34,7 @@ export class PostCardComponent implements OnInit {
     } else {
       this.userImage = this.imageLink + this.mediaData.ownerImage;
     }
+    this.isSpotted = this.mediaData.isSpotted;
   }
 
   /**
@@ -52,8 +54,6 @@ export class PostCardComponent implements OnInit {
   }
 
   dotMenuOpen() {
-    console.log('Opening');
     this.dotMenuState = !this.dotMenuState;
-    console.log(this.dotMenuState);
   }
 }

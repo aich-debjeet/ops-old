@@ -56,6 +56,8 @@ export class MediaViewComponent {
       this.data = this.mediaStore.media_detail;
       this.spotCount = this.mediaStore.media_detail.spotsCount;
       this.comment = this.mediaStore.media_comment;
+      console.log('SPOT', this.mediaStore.media_detail.isSpotted);
+      this.spot = this.mediaStore.media_detail.isSpotted;
     });
 
     this.loadMedia();
