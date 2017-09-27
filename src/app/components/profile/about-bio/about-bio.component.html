@@ -67,7 +67,7 @@
                 </tr>
                 <tr *ngIf="userProfile?.languages === undefined || (userProfile?.languages)?.length >= 1">
                   <td class="ops_heading12">Language known</td>
-                  <td class="ops_subheading"><span *ngFor="let lang of userProfile?.languages; let isLast=last"> {{ lang }}{{isLast ? '' : ', '}} {{(userProfile?.languages)?.length}}</span></td>
+                  <td class="ops_subheading"><span *ngFor="let lang of userProfile?.languages; let isLast=last"> {{ lang }}{{isLast ? '' : ', '}} </span></td>
                 </tr>
                 <tr *ngIf="userProfile?.physical?.ethnicity">
                   <td class="ops_heading12">Ethnicity</td>
