@@ -19,6 +19,7 @@ $pad-scale-4: 32px;
 .channel__form {
   list-style: none;
   padding-top: $pad-scale-2;
+  margin-right: $pad-scale-3;
 }
 
 .form__textarea {
@@ -71,14 +72,12 @@ $pad-scale-4: 32px;
   &_txt {
     display: inline-block;
     vertical-align: top;
-    padding-top: $pad-scale-2;
     margin-left: $pad-scale-2;
   }
   &_btn {
     display: inline-block;
     vertical-align: top;
-    padding-top: $pad-scale-2;
-    margin-left: $pad-scale-2;
+    margin-right: $pad-scale-2;
     float: right;
   }
 }
@@ -86,4 +85,24 @@ $pad-scale-4: 32px;
 .sel .btn-sm {
     color: #9aa59b;
     background-color: #eee;
+}
+
+.channel-list-show_img {
+  width: 49px;
+  height: 49px;
+  overflow: hidden;
+}
+
+.channel-list-show_img__img {
+  max-width: 100%;
+}
+
+.channel-list-show_img__empty {
+  width: 49px;
+  height: 32px;
+  background-color: #eee;
+}
+
+.createchannelForm{
+  padding-bottom: $pad-scale-3;
 }
