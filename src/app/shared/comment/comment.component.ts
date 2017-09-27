@@ -24,7 +24,7 @@ export class CommentComponent implements OnInit {
   @Output() submitComment: EventEmitter<any> = new EventEmitter<any>();
   @Output() deleteComment: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateComment: EventEmitter<any> = new EventEmitter<any>();
-  private imageLink: string = environment.API_IMAGE;
+  imageLink: string = environment.API_IMAGE;
 
   constructor(
     private store: Store<Media>
