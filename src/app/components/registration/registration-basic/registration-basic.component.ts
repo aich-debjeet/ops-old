@@ -342,10 +342,6 @@ export class RegistrationBasicComponent implements OnInit {
       }
     }
 
-    console.log('form data: ');
-    console.log(form);
-    return false;
-
     // // if (this.regFormBasic.valid === true) {
     // this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
     // this.store.select('loginTags').take(2).subscribe(data => {
