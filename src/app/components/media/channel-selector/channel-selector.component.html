@@ -1,7 +1,7 @@
 <div id="choose_channel_details" style="">
   <div class="add-post_choosechannel">
     <div class="createchannel with_border_bottom">
-      <div class="createchannel with_border_bottom">
+      <div class="createchannel">
         <div (click)="showChannelForm()" class="icon__holder">
           <span class="ico__add">
             <img width="24" src="http://d33wubrfki0l68.cloudfront.net/ecd156ec380d4f55a1b0b797ccdef45d2fca54df/494c4/img/svg/ico_create-plus.svg">
@@ -9,7 +9,7 @@
           <span class="ico__label">Create Channel</span>
         </div>
         <div *ngIf="addChannel" class="o-block_2 o-create_channel">
-          <form [formGroup]="channelForm" novalidate #myform="ngForm">
+          <form class="createchannelForm" [formGroup]="channelForm" novalidate #myform="ngForm">
               <ul class="channel__form">
                   <li class="channel_title">
                     <div class="form_group">
@@ -20,27 +20,25 @@
                     </div>
                   </li>
                   <li>
-                    <div class="col-md-4">
-                      <div class="form_group">
-                          <select formControlName="type" class="form-control form__select" id="sel1">
-                              <option value="">Industry</option>
-                              <option value="DANCE">Dance</option>
-                              <option value="MUSIC">Music</option>
-                              <option value="THEATRE">Theatre</option>
-                              <option value="CINEMA">Cinema</option>
-                              <option value="GRAPHICS">Graphics</option>
-                              <option value="FASHION">Fashion</option>
-                              <option value="TELEVISION">Television.</option>
-                              <option value="FINE_ARTS">Fine Arts</option>
-                              <option value="PHOTOGRAPHY">Photography</option>
-                              <option value="PRODUCTION">Production</option>
-                          </select>
-                      </div>
-                  </div>
+                    <div class="form_group">
+                      <select formControlName="type" class="form-control form__select" id="sel1">
+                        <option value="">Industry</option>
+                        <option value="DANCE">Dance</option>
+                        <option value="MUSIC">Music</option>
+                        <option value="THEATRE">Theatre</option>
+                        <option value="CINEMA">Cinema</option>
+                        <option value="GRAPHICS">Graphics</option>
+                        <option value="FASHION">Fashion</option>
+                        <option value="TELEVISION">Television.</option>
+                        <option value="FINE_ARTS">Fine Arts</option>
+                        <option value="PHOTOGRAPHY">Photography</option>
+                        <option value="PRODUCTION">Production</option>
+                      </select>
+                    </div>
                   </li>
                   <li class="channel_desc">
                     <div class="form_group">
-                      <textarea placeholder="Description" class="form__textarea" formControlName="desc" name="desc" id="" cols="30" rows="10"></textarea>
+                      <textarea placeholder="Description" class="form__textarea" formControlName="desc" name="desc" id="" cols="30" rows="2"></textarea>
                     </div>
                   </li>
                   <li class="list-inline-item discussion_post_topic">
@@ -61,9 +59,12 @@
     </div>
   </div>
   <div *ngFor="let channel of userChannels; let i = index" class="channel-list-show with_border_bottom">
-    <div class="channel-list-show_img ">
+    <div class="channel-list-show_img">
       <figure class="channel-list-show_img">
-          <a href=""><img width="42" src="https://d33wubrfki0l68.cloudfront.net/a4ad69d317551d24c67bda3a1ed38c6e740ba123/d7eb6/img/quick3.jpg"></a>
+          <a (click)="chooseChannel(channel)">
+            <img class="channel-list-show_img__img" *ngIf="channel.media[0]?.repoPath" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + channel.media[0]?.repoPath }}"/>
+            <div class="channel-list-show_img__empty" *ngIf="!channel.media[0]?.repoPath"></div>
+          </a>
       </figure>
     </div>
     <div class="channel-list-show_txt">

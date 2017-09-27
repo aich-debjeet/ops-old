@@ -28,7 +28,9 @@
         <div class="ops_subheading extra-padding" *ngIf="mediaData?.mtype!='status'">{{ mediaData?.description }} </div>
         <div class="pro_channel-thumb">
             <img [src]="userImage">
-            <p>{{ mediaData?.ownerName }}</p>
+            <a routerLink="{{ '/profile/u/' + mediaData?.ownerUserName }}">
+              <p>{{ mediaData?.ownerName }}</p>
+            </a>
             <a *ngIf="mediaData?.channelId" routerLink="{{ '/channel/' + mediaData?.channelId }}" class="small-txt" >{{ mediaData?.channelName }}</a>
         </div>
         <div class="status_block" *ngIf="mediaData?.mtype==='status'">

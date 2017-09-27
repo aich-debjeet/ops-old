@@ -17,7 +17,7 @@ import { TokenService } from '../../../helpers/token.service';
 
 import * as fromRoot from '../../../../app/app.reducer';
 
-import { remove as _remove, merge as _merge, uniqBy as _uniqBy } from 'lodash';
+import { remove as _remove, merge as _merge, uniqBy as _uniqBy, flatten } from 'lodash';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -74,6 +74,7 @@ export class MediaSelectorComponent implements OnInit {
   myChannels$: Observable<any>;
   myProfile$: Observable<any>;
   myProfileData: any;
+  fileFormData: any;
 
   constructor(
     private Upload: NgxfUploaderService,
@@ -339,6 +340,24 @@ export class MediaSelectorComponent implements OnInit {
   }
 
   /**
+   * onChannelCreation
+   */
+  onChannelCreation(event: any) {
+    console.log('ORDER RECIEVED TO CREATE CHANNEL', event);
+    if (event) {
+      // If handle is empty, append current handle
+      // Give away what you have, humanity dear!
+      let newObj = event;
+      newObj.owner = this.handle;
+
+      if (newObj.owner) {
+        console.log('OWNER', newObj.owner);
+        this.saveChannel( newObj );
+      }
+    }
+  }
+
+  /**
    * Make Channel
    */
   makeChannel() {
@@ -436,8 +455,8 @@ export class MediaSelectorComponent implements OnInit {
    */
 
   fileDetails(file) {
-    console.log('SELECTED FILE', file);
     this.editingFile = this.formatFile(file);
+    console.log(this.editingFile);
   }
 
   /**
@@ -542,7 +561,6 @@ export class MediaSelectorComponent implements OnInit {
 
     const filesList = [];
     const userHandle = this.handle;
-    console.log('HANDLE', 'V:' + userHandle);
 
     if (files.length > 0) {
       this.hasFiles = true
@@ -604,15 +622,16 @@ export class MediaSelectorComponent implements OnInit {
     let uploadsList = [];
     for (let file of uploads) {
       const thisFile = this.formatFile(file);
-      // this.uploadedFiles.push(thisFile);
       uploadsList.push(thisFile);
     }
 
     const cleanedList = _uniqBy(uploadsList, function (e) {
       return e.repoPath;
     });
+    const nowUploads = this.uploadedFiles;
+    const newArray = flatten([nowUploads, cleanedList]);
 
-    this.uploadedFiles = cleanedList;
+    this.uploadedFiles = newArray;
   }
 
   /**

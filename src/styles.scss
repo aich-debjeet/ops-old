@@ -373,3 +373,12 @@ vg-scrub-bar {
   border: dotted 3px #b5c8cc;
 }
 
+.ng2-tag-input.ops-theme {
+  border-bottom: 1px solid #c1c1c1 !important;
+}
+
+.ng2-tag-input__text-input{
+  padding-left: 0 !important;
+  font-family: inherit !important;
+  font-size: 14px;
+}
