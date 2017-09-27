@@ -1,0 +1,103 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_functions.scss';
+@import './src/assets/scss/helpers/_mixins.scss';
+@import '~sass-mq/_mq.scss';
+
+// industrial category
+
+.c-spotfeed {
+  width: 100%;
+  margin: 8px 0px;
+}
+
+.c-spotfeed-block {
+  list-style: none;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  margin-right: 0px;
+  margin-left: 15px
+}
+
+.c-spotfeed-block__item {
+  float: left;
+  list-style-type: none;
+  margin: 8px 0px 24px 35px;
+}
+
+.c-spotfeed-block__item-4 {
+  float: left;
+  list-style-type: none;
+  margin: 8px 0px 8px 16px;
+}
+
+.c-spotfeed-item__single {
+  width: 157px;
+  height: 157px;
+  border-radius: 3px;
+  transition: .25s;
+  overflow: hidden;
+  position: relative;
+  display: block;
+  &:hover {
+    .c-spotfeed-single__content {
+      height: 80px;
+    }
+  }
+}
+
+.c-spotfeed-block__item:nth-child(6n+1) {
+  margin-left: 0px;
+}
+
+.c-spotfeed-block__item-4:nth-child(5n+1) {
+  margin-left: 0px;
+}
+
+.c-spotfeed-single__media {
+  width: 157px;
+  height: 157px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  img {
+    width: 100%;
+  }
+}
+
+.c-spotfeed-single__content {
+  width: 157px;
+  height: 51px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+  cursor: pointer;
+  transition: .25s;
+}
+
+.c-spotfeed-content__heading {
+  position: absolute;
+  bottom: 0px;
+  padding: 16px;
+}
+
+.c-spotfeed-heading--style {
+  color: $white;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.fill {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  img {
+      flex-shrink: 0;
+      width: auto !important;
+  }
+}

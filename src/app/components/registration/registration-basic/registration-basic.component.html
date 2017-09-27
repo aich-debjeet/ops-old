@@ -81,18 +81,11 @@
                            
                             <input class="form_input" type="text" formControlName="phone" required style="padding-left: 60px;">
                             <span class="form_highlight"></span>
-                             <app-country-selector></app-country-selector>
+                            <app-country-selector (onCountrySelection)="saveCountry($event)"></app-country-selector>
                             <span class="form_bar"></span>
-        
                             <label style="padding-left: 50px;">Phone Number</label>
-<<<<<<< HEAD
-                            
-=======
-                            <app-country-selector (onNumberUpdate)="regFormBasic.controls['phone']" (onSelect)="getNumberState($event)"></app-country-selector>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">Someone has already registed with this number</p>
->>>>>>> 777d58f343086f680f1fc28f4a2376ffb6f115fb
                             <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
-                             <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">Someone has already registed with this number</p>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">This phone number already registered</p>
                         </div>
                        
                         <div class="form_group pwd-cls">
@@ -112,10 +105,10 @@
                             <span class="form_bar"></span>
                             <label>Confirm Password</label>
                             <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.required && regform.submitted">Confirm password is required</p>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password not match</p>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password does not match</p>
                         </div>
                         <div class="signup_privacy">
-                            <p class="text-grey">By clicking I agree to the <a  (click)="showTerms()" class="text-theme">terms & conditions</a></p>
+                            <p class="text-grey">By clicking, I agree to the <a  (click)="showTerms()" class="text-theme">Terms & Conditions</a></p>
                             <button [className]="'btn btn-primary btn-sm pull-right'" type="submit">SIGN UP</button>
                         </div>
                     </form>

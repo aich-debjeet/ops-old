@@ -373,3 +373,35 @@ vg-scrub-bar {
   border: dotted 3px #b5c8cc;
 }
 
+.ng2-tag-input.ops-theme {
+  border-bottom: 1px solid #c1c1c1 !important;
+}
+
+.ng2-tag-input__text-input{
+  padding-left: 0 !important;
+  font-family: inherit !important;
+  font-size: 14px;
+}
+
+.ng2-tags-container tag{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  letter-spacing: 0.05rem;
+  color: #444;
+  border-radius: 16px;
+  transition: all 0.3s;
+  margin: 0.1rem 0.3rem 0.1rem 0;
+  padding: 0px 12px 8px 16px !important;
+  height: 32px;
+  line-height: 34px;
+  background: #efefef;
+  user-select: none;
+  overflow: hidden;
+  outline: 0;
+  cursor: pointer;
+  position: relative;
+}

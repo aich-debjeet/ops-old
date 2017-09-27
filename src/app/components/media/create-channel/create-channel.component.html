@@ -15,7 +15,7 @@
                             </div>
                             <div class="channel_title_and_short_det">
                                 <h3>A collection of all media type</h3>
-                                <p>Make a collection of Photo,Audio,Video and Blog</p>
+                                <p>Make a collection of Photo, Audio, Video and Blog</p>
                             </div>
                         </a>
                     </li>
@@ -47,7 +47,7 @@
                               <img src="http://d33wubrfki0l68.cloudfront.net/f554c7b812b555afa0a28e574e41334b4f308f31/82e90/img/illu-video@4x.png" alt="">
                           </div>
                           <div class="channel_title_and_short_det">
-                              <h3>video Library</h3>
+                              <h3>Video Library</h3>
                               <p>Make a library of videos</p>
                           </div>
                         </a>
@@ -137,11 +137,7 @@
                       </div>
 
                       <div class="form_group">
-                          <input class="form_input" type="text" required="">
-                          <span class="form_highlight"></span>
-                          <span class="form_bar"></span>
-                          <label>Add peoples</label>
-                          <span><i class="fa fa-search" aria-hidden="true"></i></span>
+                        <tag-input [ngModel]="['@people']" [ngModelOptions]="{standalone: true}" [theme]="'ops-theme'"></tag-input>
                       </div>
                   </div>
                   <div class="create_channel_btn with_border_top">

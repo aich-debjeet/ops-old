@@ -226,18 +226,12 @@ export class ProfileSliderComponent implements OnInit {
             'summary': value.bio
           }
         },
-        'address': {
-          'city': 'City',
-          'state': 'State'
-        },
         'physical': {
           'dateOfBirth': this.reverseDate(value.dob) + 'T05:00:00',
-            'height': 0.0,
-            'weight': 0.0,
         },
         'name': {
-          'firstName': value.name,
-          'displayName': value.name
+          'firstName': value.name.charAt(0).toUpperCase() + value.name.slice(1),
+          'displayName': value.name.charAt(0).toUpperCase() + value.name.slice(1)
         },
         'profileTypeList': this.selectedSkills,
         'username': value.username.toLowerCase()

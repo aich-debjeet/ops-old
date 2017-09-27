@@ -38,7 +38,9 @@ export class MediaActions {
   static MEDIA_SPOT_FAILED = 'MEDIA_SPOT_FAILED';
 
   // Unspot
-  static MEDIA_UNSPOT = 'MEDIA_SPOT';
+  static MEDIA_UNSPOT = 'MEDIA_UNSPOT';
+  static MEDIA_UNSPOT_SUCCESS = 'MEDIA_UNSPOT_SUCCESS';
+  static MEDIA_UNSPOT_FAILED = 'MEDIA_UNSPOT_FAILED';
 
   // Load user Media
   static LOAD_USER_MEDIA = '[USER]LOAD_USER_MEDIA';

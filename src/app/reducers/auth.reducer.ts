@@ -415,6 +415,25 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
           fp_sumit_otp_failed: true
         });
 
+    /**
+     * checking if user is logged in and have the valid access token
+     */
+    case AuthActions.USER_LOGGED_IN:
+      return Object.assign({}, state, {
+        login_status: false
+      });
+
+    case AuthActions.USER_LOGGED_IN_SUCCESS:
+      return Object.assign({}, state, {
+        login_status_response: payload,
+        login_status: true
+      });
+
+    case AuthActions.USER_LOGGED_IN_FAILED:
+      return Object.assign({}, state, {
+        login_status: false
+      });
+
     default:
       return state;
 

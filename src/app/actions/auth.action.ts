@@ -7,6 +7,10 @@ export class AuthActions {
   static USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
   static USER_LOGIN_FAILED = 'USER_LOGIN_FAILED';
 
+  static USER_LOGGED_IN = 'USER_LOGGED_IN';
+  static USER_LOGGED_IN_SUCCESS = 'USER_LOGGED_IN_SUCCESS';
+  static USER_LOGGED_IN_FAILED = 'USER_LOGGED_IN_FAILED';
+
   // Reg Step 1
   static USER_REGISTRATION_BASIC = 'USER_REGISTRATION_BASIC';
   static USER_REGISTRATION_BASIC_SUCCESS = 'USER_REGISTRATION_BASIC_SUCCESS';
@@ -564,7 +568,7 @@ export class AuthActions {
     };
   }
 
-    // ===================================
+  // ===================================
   //  FP CREATE PASS
   // -----------------------------------
   fpCreatePass(value): Action {
@@ -591,6 +595,30 @@ export class AuthActions {
       payload: {
         value
       }
+    };
+  }
+
+  // ===================================
+  //  CHECK IF USER LOGGED IN
+  // -----------------------------------
+  isUserLoggedIn(value): Action {
+    return {
+      type: AuthActions.USER_LOGGED_IN,
+      payload: { value }
+    };
+  }
+
+  isUserLoggedInSuccess(value): Action {
+    return {
+      type: AuthActions.USER_LOGGED_IN_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  isUserLoggedInFailed(error): Action {
+    return {
+      type: AuthActions.USER_LOGGED_IN_FAILED,
+      payload: error
     };
   }
 

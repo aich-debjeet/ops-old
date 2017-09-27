@@ -44,6 +44,7 @@ export class RegistrationBasicComponent implements OnInit {
   counter = 60;
   isPhotoAdded: boolean;
   passwordShow = false;
+  country: any;
 
   rightCom: RightBlockTag;
   tagState$: Observable<BasicRegTag>;
@@ -308,8 +309,14 @@ export class RegistrationBasicComponent implements OnInit {
    * @param value
    */
   submitForm(value) {
-    console.log(this.regFormBasic)
-    // Form
+
+    // checking if all required fields with valid info available before submitting the form
+    if (!this.regFormBasic.valid) {
+      // console.log('invalid form');
+      return false;
+    }
+
+    // form object
     const form =  {
       'name': {
       'firstName': value.name
@@ -323,7 +330,7 @@ export class RegistrationBasicComponent implements OnInit {
       'location': '',
       'contact': {
         'contactNumber': value.phone.toString(),
-        'countryCode': '+91'
+        'countryCode': this.country.callingCodes[0]
       },
       'other': {
         'completionStatus': 1,
@@ -335,7 +342,6 @@ export class RegistrationBasicComponent implements OnInit {
       }
     }
 
-    // if (this.regFormBasic.valid === true) {
     this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
     this.store.select('loginTags').take(2).subscribe(data => {
         if (data['user_basic_reg_succs'] === true ) {
@@ -369,5 +375,13 @@ export class RegistrationBasicComponent implements OnInit {
    */
   getNumberState(e: any) {
     console.log('phone state', e);
+  }
+
+  /**
+   * Save country
+   */
+  saveCountry(country: any) {
+    console.log(country);
+    this.country = country;
   }
 }
