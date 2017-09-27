@@ -207,6 +207,13 @@ export class ProfileActions {
   static CURRENT_PROFILE_USER_SUCCESS = 'CURRENT_PROFILE_USER_SUCCESS';
 
   /**
+   * User Password update
+   */
+  static USER_PASSWORD_UPDATE = 'USER_PASSWORD_UPDATE';
+  static USER_PASSWORD_UPDATE_SUCCESS = 'USER_PASSWORD_UPDATE_SUCCESS';
+  static USER_PASSWORD_UPDATE_FAILED = 'USER_PASSWORD_UPDATE_FAILED';
+
+  /**
    * Load Current user profile
    */
   getUserProfile(): Action {
