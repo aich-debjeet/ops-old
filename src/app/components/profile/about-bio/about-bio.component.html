@@ -11,36 +11,40 @@
                 </span>
                 Edit Bio Details
             </a>
-            <div class="ops_heading12">About Me</div>
-            <div class="ops_subheading">
-              {{ (userProfile?.aboutMe !== "") ? userProfile?.aboutMe : "n/a" }}
-              </div>
+            <div *ngIf="userProfile?.aboutMe">
+                <div class="ops_heading12">About Me</div>
+                <div class="ops_subheading">
+                {{ userProfile?.aboutMe }}
+                </div>
+            </div>
             <table class="table">
               <tbody>
-                <tr>
+                <tr *ngIf="userProfile?.physical?.gender">
                   <td class="ops_heading12">Gender</td>
-                  <td class="ops_subheading">{{ (userProfile?.physical?.gender !== "") ? userProfile?.physical?.gender : "n/a" }}</td>
+                  <td class="ops_subheading" *ngIf="userProfile?.physical?.gender === 'M'">Male</td>
+                  <td class="ops_subheading" *ngIf="userProfile?.physical?.gender === 'F'">Female</td>
+                  <td class="ops_subheading" *ngIf="userProfile?.physical?.gender === 'O'">Others</td>
                 </tr>
-                <tr>
+                <tr *ngIf="userProfile?.extra?.address?.line1">
                   <td class="ops_heading12">Address Line 1</td>
-                  <td class="ops_subheading">{{ (userProfile?.extra?.address?.line1 !== "") ? userProfile?.extra?.address?.line1 : "n/a" }}</td>
+                  <td class="ops_subheading">{{ userProfile?.extra?.address?.line1 }}</td>
                 </tr>
                 <tr>
-                  <tr>
+                  <tr *ngIf="userProfile?.extra?.address?.line2">
                     <td class="ops_heading12">Address Line 2</td>
-                    <td class="ops_subheading">{{ (userProfile?.extra?.address?.line2 !== "") ? userProfile?.extra?.address?.line2 : "n/a" }}</td>
+                    <td class="ops_subheading">{{ userProfile?.extra?.address?.line2 }}</td>
                   </tr>
-                  <tr>
+                  <tr *ngIf="userProfile?.extra?.address?.city">
                     <td class="ops_heading12">City</td>
-                    <td class="ops_subheading">{{ (userProfile?.extra?.address?.city !== "") ? userProfile?.extra?.address?.city : "n/a" }}</td>
+                    <td class="ops_subheading">{{ userProfile?.extra?.address?.city }}</td>
                   </tr>
-                  <tr>
+                  <tr *ngIf="userProfile?.extra?.address?.country">
                     <td class="ops_heading12">Country</td>
-                    <td class="ops_subheading">{{ (userProfile?.extra?.address?.country !== "") ? userProfile?.extra?.address?.country : "n/a" }}</td>
+                    <td class="ops_subheading">{{ userProfile?.extra?.address?.country }}</td>
                   </tr>
-                  <tr>
+                  <tr *ngIf="userProfile?.extra?.address?.postalCode">
                     <td class="ops_heading12">Postal Code</td>
-                    <td class="ops_subheading">{{ (userProfile?.extra?.address?.postalCode !== "") ? userProfile?.extra?.address?.postalCode : "n/a" }}</td>
+                    <td class="ops_subheading">{{ userProfile?.extra?.address?.postalCode }}</td>
                   </tr>
               </tbody>
             </table>
@@ -49,42 +53,41 @@
         <div class="col-md-6 about_padding24 with_border_left">
           <table class="table">
             <tbody>
-              <tr>
-                <td class="ops_heading12">Date of Birth</td>
-                <td class="ops_subheading">{{ (userProfile?.physical?.dateOfBirth !== "") ? (userProfile?.physical?.dateOfBirth | date:'dd, MMMM, y') : "n/a" }}</td>
-              </tr>
-              <tr>
-                <td class="ops_heading12">Height</td>
-                <td class="ops_subheading">{{ (userProfile?.physical?.height !== 0 || userProfile?.physical?.height ) ? userProfile?.physical?.height  : "n/a" }}</td>
-              </tr>
-              <tr>
-                <tr>
+                <tr *ngIf="userProfile?.physical?.dateOfBirth">
+                    <td class="ops_heading12">Date of Birth</td>
+                    <td class="ops_subheading">{{ (userProfile?.physical?.dateOfBirth | date:'dd MMMM, y') }}</td>
+                </tr>
+                <tr *ngIf="userProfile?.physical?.height !== 0 || userProfile?.physical?.height">
+                    <td class="ops_heading12">Height</td>
+                    <td class="ops_subheading">{{ userProfile?.physical?.height }}</td>
+                </tr>
+                <tr *ngIf="userProfile?.physical?.weight !== 0 || userProfile?.physical?.weight">
                   <td class="ops_heading12">Weight</td>
-                  <td class="ops_subheading">{{ (userProfile?.physical?.weight !== 0) ? userProfile?.physical?.weight  : "n/a" }}</td>
+                  <td class="ops_subheading">{{ userProfile?.physical?.weight }}</td>
                 </tr>
-                <tr>
+                <tr *ngIf="userProfile?.languages === undefined || (userProfile?.languages)?.length >= 1">
                   <td class="ops_heading12">Language known</td>
-                  <td class="ops_subheading"><span *ngFor="let lang of userProfile?.languages">{{ lang }},</span></td>
+                  <td class="ops_subheading"><span *ngFor="let lang of userProfile?.languages; let isLast=last"> {{ lang }}{{isLast ? '' : ', '}} {{(userProfile?.languages)?.length}}</span></td>
                 </tr>
-                <tr>
+                <tr *ngIf="userProfile?.physical?.ethnicity">
                   <td class="ops_heading12">Ethnicity</td>
-                  <td class="ops_subheading">{{ (userProfile?.physical?.ethnicity !== "") ? userProfile?.physical?.ethnicity  : "n/a" }}</td>
+                  <td class="ops_subheading">{{ userProfile?.physical?.ethnicity }}</td>
                 </tr>
-                <tr>
+                <tr *ngIf="userProfile?.physical?.complexion">
                   <td class="ops_heading12">Complexion</td>
-                  <td class="ops_subheading">{{ (userProfile?.physical?.complexion !== "") ? userProfile?.physical?.complexion  : "n/a" }}</td>
+                  <td class="ops_subheading">{{ userProfile?.physical?.complexion }}</td>
                 </tr>
-                <tr>
+                <tr *ngIf="userProfile?.contact?.mobile?.mobile">
                   <td class="ops_heading12">Phone</td>
-                  <td class="ops_subheading">{{ (userProfile?.contact?.mobile?.mobile !== "" ) ? userProfile?.contact?.mobile?.mobile  : "n/a" }}</td>
+                  <td class="ops_subheading">{{ userProfile?.contact?.mobile?.mobile }}</td>
                 </tr>
-                <tr>
+                <tr *ngIf="userProfile?.email">
                   <td class="ops_heading12">mail</td>
-                  <td class="ops_subheading">{{ (userProfile?.email !== "" ) ? userProfile?.email : "n/a" }}</td>
+                  <td class="ops_subheading">{{ userProfile?.email }}</td>
                 </tr>
-                <tr>
+                <tr *ngIf="userProfile?.contact?.website?.website">
                   <td class="ops_heading12">website</td>
-                  <td class="ops_subheading">{{ (userProfile?.contact?.website !== "" ) ? userProfile?.contact?.website?.website : "n/a" }}</td>
+                  <td class="ops_subheading">{{ userProfile?.contact?.website?.website }}</td>
                 </tr>
             </tbody>
           </table>
