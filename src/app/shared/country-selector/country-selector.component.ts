@@ -6,6 +6,8 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@ang
 // countries
 import { countries } from './countries';
 
+import { find as _find } from 'lodash';
+
 @Component({
   selector: 'app-country-selector',
   templateUrl: './country-selector.component.html',
@@ -14,7 +16,7 @@ import { countries } from './countries';
 
 export class CountrySelectorComponent implements OnInit, AfterViewInit, OnChanges {
   search: (term: string) => Observable<any[]>;
-  @Output() onSelect: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onCountrySelection: EventEmitter<any> = new EventEmitter<any>();
   @Input() onNumberUpdate: string;
   countries: any[];
   country: string;
@@ -27,6 +29,17 @@ export class CountrySelectorComponent implements OnInit, AfterViewInit, OnChange
 
   onSelectCountry(event) {
     this.countryIcon = 'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/1x1/' + event.toLowerCase() + '.svg';
+    const countryData = this.getCountry(event);
+    this.onCountrySelection.emit(countryData);
+  }
+
+  /**
+   * Get country details from the country id
+   */
+  getCountry(countryId: any) {
+    return _find(this.countries, function(country: any) {
+      return country.value === countryId;
+    });
   }
 
   ngOnInit() {
@@ -112,6 +125,8 @@ export class CountrySelectorComponent implements OnInit, AfterViewInit, OnChange
         };
       }
     }).setValueByChoice('IN');
+
+    this.onSelectCountry('IN');
 
   }
 

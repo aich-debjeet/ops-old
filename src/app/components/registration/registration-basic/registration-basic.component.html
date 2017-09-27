@@ -81,7 +81,7 @@
                            
                             <input class="form_input" type="text" formControlName="phone" required style="padding-left: 60px;">
                             <span class="form_highlight"></span>
-                             <app-country-selector></app-country-selector>
+                            <app-country-selector (onCountrySelection)="saveCountry($event)"></app-country-selector>
                             <span class="form_bar"></span>
                             <label style="padding-left: 50px;">Phone Number</label>
                             <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>

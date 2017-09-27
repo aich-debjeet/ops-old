@@ -44,6 +44,7 @@ export class RegistrationBasicComponent implements OnInit {
   counter = 60;
   isPhotoAdded: boolean;
   passwordShow = false;
+  country: any;
 
   rightCom: RightBlockTag;
   tagState$: Observable<BasicRegTag>;
@@ -329,7 +330,7 @@ export class RegistrationBasicComponent implements OnInit {
       'location': '',
       'contact': {
         'contactNumber': value.phone.toString(),
-        'countryCode': '+91'
+        'countryCode': this.country.callingCodes[0]
       },
       'other': {
         'completionStatus': 1,
@@ -341,17 +342,21 @@ export class RegistrationBasicComponent implements OnInit {
       }
     }
 
-    // if (this.regFormBasic.valid === true) {
-    this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
-    this.store.select('loginTags').take(2).subscribe(data => {
-        if (data['user_basic_reg_succs'] === true ) {
-          console.log('success otp');
-          if (data && data['user_token']) {
-              localStorage.setItem('access_token', data['user_token']);
-          }
-          this.modalService.open('otpWindow');
-        }
-    })
+    console.log('form data: ');
+    console.log(form);
+    return false;
+
+    // // if (this.regFormBasic.valid === true) {
+    // this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
+    // this.store.select('loginTags').take(2).subscribe(data => {
+    //     if (data['user_basic_reg_succs'] === true ) {
+    //       console.log('success otp');
+    //       if (data && data['user_token']) {
+    //           localStorage.setItem('access_token', data['user_token']);
+    //       }
+    //       this.modalService.open('otpWindow');
+    //     }
+    // })
   }
 
 
@@ -375,5 +380,13 @@ export class RegistrationBasicComponent implements OnInit {
    */
   getNumberState(e: any) {
     console.log('phone state', e);
+  }
+
+  /**
+   * Save country
+   */
+  saveCountry(country: any) {
+    console.log(country);
+    this.country = country;
   }
 }
