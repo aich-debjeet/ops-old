@@ -500,6 +500,18 @@ export class ProfileEffect {
       }))
     );
 
+  /**
+   * Exsisting password update
+   */
+  @Effect()
+  passwordUpdate$ = this.actions$
+    .ofType(ProfileActions.USER_PASSWORD_UPDATE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.userPasswordUpdate(payload)
+      .map(res => ({ type: ProfileActions.USER_PASSWORD_UPDATE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.USER_PASSWORD_UPDATE_FAILED, payload: res }))
+    );
+
 
   constructor(
     private actions$: Actions,

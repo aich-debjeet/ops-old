@@ -188,6 +188,13 @@ export class ProfileService {
   }
 
   /**
+   * Update Profile Object
+   */
+  userPasswordUpdate(data: any) {
+    return this.api.put('/portal/auth/user/change', data);
+  }
+
+  /**
    * Add User Work
    */
   addUserWork(body: any) {
