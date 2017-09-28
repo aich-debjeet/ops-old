@@ -501,6 +501,50 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         channel_delete_success: false,
       });
 
+    /**
+     * Current user status list load
+     */
+    case ProfileActions.LOAD_USER_STATUS:
+      return Object.assign({}, state, {
+      });
+
+    case ProfileActions.LOAD_USER_STATUS_SUCCESS:
+      return Object.assign({}, state, {
+        user_status_list: payload
+      });
+
+    case ProfileActions.LOAD_USER_STATUS_FAILED:
+      return Object.assign({}, state, {
+
+      });
+
+    /**
+     * Pin channel
+     */
+    case ProfileActions.PIN_CHANNEL_SUCCESS:
+      return Object.assign({}, state, {
+        channel_pin_success: true
+      });
+
+    case ProfileActions.PIN_CHANNEL_FAILED:
+      return Object.assign({}, state, {
+        channel_pin_failed: true
+      });
+
+    /**
+     * Unpin channel
+     */
+    case ProfileActions.UNPIN_CHANNEL_SUCCESS:
+      return Object.assign({}, state, {
+        channel_unpin_success: true
+      });
+
+    case ProfileActions.UNPIN_CHANNEL_FAILED:
+      return Object.assign({}, state, {
+        channel_unpin_failed: true
+      });
+
+
     default:
       return state;
   }

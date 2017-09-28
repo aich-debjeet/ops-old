@@ -1,39 +1,23 @@
 <ul class="list-inline quick_section">
-  <a [routerLink]="['/channel', quickAccessData?.spotfeedId]">
-      <li class="list-inline-item">
-          <div class="quick_access_img">
-              <img src="http://d33wubrfki0l68.cloudfront.net/e977c51b7704e478aec7e38934c5096e9b4db080/192b8/img/quick2.jpg">
-          </div>
-          <div class="quick_access_text">
-              <p class="quick_access_text_name">{{ quickAccessData?.name }}</p>
-              <p class="quick_access_text_post">{{ quickAccessData?.count }} Post</p>
-          </div>
-      </li>
-  </a>
-</ul>
-
-
-
-
-
-<!--<div class="row">
-  <div class="col-sm-12">
-    <p><strong>quick access</strong></p>
-  </div>
-</div>
-
-<hr>
-
-<div class="row">
-
-  <div class="col-sm-4" *ngFor="let item of quickAccess; let i = index;">
-    <div class="card">
-      <div class="card-block">
-        <h4 class="card-title">#{{ i }} {{ item.title }}</h4>
-        <h6 class="card-subtitle mb-2 text-muted">{{ item.subTitle }}</h6>
-        <a href="#" class="card-link">{{ item.link }}</a>
+  <li class="list-inline-item">
+    <a [routerLink]="(quickAccessData?.name =='My Status') ? ['/user/status/list'] : ['/channel', quickAccessData?.handle]"> 
+      <div class="quick_access_img">
+        <img src="http://d33wubrfki0l68.cloudfront.net/e977c51b7704e478aec7e38934c5096e9b4db080/192b8/img/quick2.jpg">
       </div>
-    </div>
-  </div>
-
-</div>-->
+      <div class="quick_access_text">
+        <p class="quick_access_text_name">{{ quickAccessData?.name }}</p>
+        <p class="quick_access_text_post">{{ quickAccessData?.count }} Post</p>
+      </div>
+    </a>
+    <span class="quick_tag_option" appDropdown *ngIf="quickAccessData?.name !='My Status' && quickAccessData?.name !='My Media'">
+      <a class="dropdown-toggle" appDropdownOpen><img src="/assets/img/svg/ico_option_white.svg"></a>
+      <ul class="dropdown-menu quick_acess_drop">
+          <li>
+              <a (click)="unpinQuickAccess(quickAccessData?.handle)" >
+                  Remove from Quick Access
+              </a>
+          </li>
+      </ul>
+    </span>
+  </li>
+</ul>

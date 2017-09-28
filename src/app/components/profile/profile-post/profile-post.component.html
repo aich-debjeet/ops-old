@@ -4,7 +4,7 @@
       <div class="loader">Loading...</div>
     </div>
   </div>
-  <app-post *ngFor="let userMedia of posts; let i = index" [mediaData]="userMedia"></app-post>
+  <app-post *ngFor="let userMedia of posts; let i = index" [className]="'col-md-8'" [mediaData]="userMedia"></app-post>
   <!--<masonry>
     <masonry-brick class="col-md-4 col-sm-6 c-card" *ngFor="let userMedia of posts; let i = index">
       <app-post-card [mediaData]="userMedia"></app-post-card>

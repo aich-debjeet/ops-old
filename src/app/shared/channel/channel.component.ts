@@ -1,7 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { environment } from './../../../environments/environment';
-
+import { Store } from '@ngrx/store';
+import { ProfileModal, initialTag } from '../../models/profile.model';
 import FilesHelper from '../../helpers/fileUtils';
+
+// action
+import { ProfileActions } from '../../actions/profile.action';
+
+// rx
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-channel',
@@ -12,6 +20,7 @@ import FilesHelper from '../../helpers/fileUtils';
 export class ChannelComponent implements OnInit {
   @Input() className: string;
   @Input() channelData;
+  @Input() currentUser: boolean;
   // @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() onFollow: EventEmitter<any> = new EventEmitter<any>();
   @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();
@@ -22,8 +31,20 @@ export class ChannelComponent implements OnInit {
   userImage: string;
   isfollowing: boolean;
   showEdit: boolean;
+  storeState$: Observable<ProfileModal>;
+  userProfile = initialTag;
+  userHandle: any;
   private image_base_url: string = environment.API_IMAGE;
-  constructor() {
+
+  constructor(
+    private _store: Store<ProfileModal>
+  ) {
+    this.storeState$ = this._store.select('profileTags');
+
+     this.storeState$.subscribe((state) => {
+       this.userHandle = state['profileDetails'].handle;
+      // this.userProfile = state['profileDetails'];
+    });
   }
 
   ngOnInit() {
@@ -64,6 +85,16 @@ export class ChannelComponent implements OnInit {
    */
   showOptions() {
     this.showEdit = !this.showEdit;
+  }
+
+  pinChannel(spotfeedId) {
+    console.log(spotfeedId);
+    const data = {
+      'spotfeedId': spotfeedId,
+      'profileHandle': this.userHandle
+    }
+
+    this._store.dispatch({ type: ProfileActions.PIN_CHANNEL, payload: data });
   }
 
   /**

@@ -1,0 +1,90 @@
+<app-navigation></app-navigation>
+<section>
+  <div class="container">
+    <div class="row status-inner">
+      <div class="col-md-3">
+        <div class="popular-topics">
+          <div class="coming_soon_txt">Coming Soon</div>
+          <div class="title with_border_bottom">
+            <h2 class="title_16 padding_lr_24 padding_tb_16 capitalize">Popular Topics</h2>
+          </div>
+          <div class="blur-main">
+            <ul class="topic-list">
+              <li class="topic__item">
+                <span class="topic__name">
+                  #KochiMuzirisBiennale
+                </span>
+                <span class="topic__voice p_text">
+                  16k Voices
+                </span>
+              </li>
+              <li class="topic__item">
+                <span class="topic__name">
+                  #wkkb
+                </span>
+                <span class="topic__voice p_text">
+                  16k Voices
+                </span>
+              </li>
+              <li class="topic__item">
+                <span class="topic__name">
+                  #makeitmatter
+                </span>
+                <span class="topic__voice p_text">
+                  16k Voices
+                </span>
+              </li>
+              <li class="topic__item">
+                <span class="topic__name">
+                  #oscars
+                </span>
+                <span class="topic__voice p_text">
+                  16k Voices
+                </span>
+              </li>
+              <li class="topic__item">
+                <span class="topic__name">
+                  #Kingsman
+                </span>
+                <span class="topic__voice p_text">
+                  16k Voices
+                </span>
+              </li>
+              <li class="topic__item">
+                <span class="topic__name">
+                  #climateChange
+                </span>
+                <span class="topic__voice p_text">
+                  16k Voices
+                </span>
+              </li>
+              <li class="topic__item">
+                <span class="topic__name">
+                  #Inktober2017
+                </span>
+                <span class="topic__voice p_text">
+                  16k Voices
+                </span>
+              </li>
+            </ul>
+            <div class="topic-footer with_border_top">
+              <a class="topic_more">View More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 ">
+        <app-post *ngFor="let post of userStatus; let i = index" [className]="'col-md-12'" [mediaData]="post"></app-post>
+      </div>
+
+      <div class="col-md-3 ">
+        <div class="popular-topics">
+          <div class="coming_soon_txt">Coming Soon</div>
+          <div class="blur-main">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

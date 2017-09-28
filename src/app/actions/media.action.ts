@@ -47,6 +47,7 @@ export class MediaActions {
   static LOAD_USER_MEDIA_SUCCESS = '[USER]LOAD_USER_MEDIA_SUCCESS';
   static LOAD_USER_MEDIA_FAILED = '[USER]LOAD_USER_MEDIA_FAILED';
 
+
   /**
    * Upload status
    * @param value
