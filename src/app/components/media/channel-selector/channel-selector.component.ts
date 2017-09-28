@@ -82,8 +82,6 @@ export class ChannelSelectorComponent implements OnInit {
       industryList: [ value.type ]
     }
 
-    console.log('CREATE__CHANNEL', channelObj);
-
     this.onChannelCreate.emit(channelObj);
   }
 
@@ -109,7 +107,4 @@ export class ChannelSelectorComponent implements OnInit {
       }
     }
   }
-
 }
-
-// On the Blog, part I met Aami, last Night, he was exploring options for the font, been collecting fonts in TypeKit, and MyFonts

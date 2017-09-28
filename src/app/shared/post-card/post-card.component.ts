@@ -3,6 +3,7 @@ import { environment } from './../../../environments/environment';
 import { Router } from '@angular/router';
 
 import FilesHelper from '../../helpers/fileUtils';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-post-card',
@@ -23,6 +24,7 @@ export class PostCardComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private toastr: ToastrService
   ) {
     this.dotMenuState = false;
   }
