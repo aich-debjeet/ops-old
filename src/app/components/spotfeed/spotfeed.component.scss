@@ -46,17 +46,19 @@
   }
 
   .c-artist__avatar {
-    border-radius: 50%;
+    // border-radius: 50%;
     display: inline-block;
     vertical-align: middle;
     overflow: hidden;
     position: relative;
     box-sizing: border-box;
-    background-color: #f8f8f8;
+    // background-color: #f8f8f8;
   }
 
   .c-artist__img {
     width: 100%;
+    border-radius: 23em;
+    max-width: 100px;
   }
 
   .c-artist__name {

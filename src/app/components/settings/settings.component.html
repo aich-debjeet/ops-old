@@ -1,68 +1,276 @@
-<div class="container">
-  <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
-              <div class="bhoechie-tab-menu">
-                <div class="list-group">
-                  <a ng-click="settingType='connection'" class="list-group-item curs-point active" ng-class="{'active':settingType=='connection'}">
-                    Connection
-                  </a>
-                  <a ng-click="settingType='message'" class="list-group-item curs-point" ng-class="{'active':settingType=='message'}">
-                    Message
-                  </a>
-                  <a ng-click="settingType='profile'" class="list-group-item curs-point" ng-class="{'active':settingType=='profile'}">
-                    Profile
-                  </a>
-                  <a ng-click="settingType='changepassword'" class="list-group-item curs-point" ng-class="{'active':settingType=='changepassword'}">
-                    Change Password
-                  </a>
+<app-navigation></app-navigation>
+<section class="settings_block">
+    <div class="container">
+        <div class="row settings_block_container">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 settings_left with_border_right">
+                <div class="settings_head">
+                    <div class="settings_ico">
+                        <img src="/assets/img/svg/ico_settings.svg" class="msg_setting_icon">
+                    </div>
+                    <div class="settings_head_txt">
+                        Settings
+                    </div>
                 </div>
-              </div>
+                    <!-- Nav tabs -->
+                <ul class="nav nav-tabs tabs-left">
+                    <li class="active">
+                        <a href="#account" data-toggle="tab">
+                            Account <span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
+                        </a>
+                    </li>
+                    <!--<li>
+                        <a href="#preference" data-toggle="tab">
+                            Preference<span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#email" data-toggle="tab">
+                            Email Settings<span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#nsfw" data-toggle="tab">
+                            NSFW<span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
+                        </a>
+                    </li>-->
+                </ul>
+            </div><!--- setting left end -->
+
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 settings_right">
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="account">
+                        <h3 class="setting_h3">Account Information</h3>
+                        <div class="account_setting_block">
+                            <div class="account_info_head">
+                                <span class="heading_txt">Email id</span>
+                                <!--<span class="info_edit_ico" (click)="emailToggle()">
+                                    <img src="/assets/img/svg/ico_edit.svg">
+                                </span>-->
+                            </div>
+                            <div class="account_info_data">
+                                <p id="acc_info" *ngIf="!emailActive">{{ userProfile?.email }}</p>
+                                <div id="info_edit" class="form_group" *ngIf="emailActive">
+                                    <input class="form_input form_input--mod" required="" type="email" value="{{ userProfile?.email }}">
+                                    <button type="button" class="btn btn-primary btn-sm setting-btn">Verify</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="account_setting_block">
+                            <div class="account_info_head">
+                                <span class="heading_txt">Phone</span>
+                                <!--<span class="info_edit_ico" (click)="phoneToggle()">
+                                    <img src="/assets/img/svg/ico_edit.svg">
+                                </span>-->
+                            </div>
+                            <div class="account_info_data">
+                                <p id="acc_info_phone" *ngIf="!phoneActive">{{ userProfile?.contact?.mobile?.mobile }}</p>
+                                <div id="info_edit_phone" class="form_group" *ngIf="phoneActive">
+                                    <input class="form_input form_input--mod" required="" type="Phone" value="{{ userProfile?.contact?.mobile?.mobile }}">
+                                    <button type="button" (click)="sendOtp()" class="btn btn-primary btn-sm setting-btn">Send OTP</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="account_setting_block">
+                            <div class="account_info_head">
+                                <span class="heading_txt">Username</span>
+                                <span class="info_edit_ico" (click)="userToggle()">
+                                    <img src="/assets/img/svg/ico_edit.svg">
+                                </span>
+                            </div>
+                            <div class="account_info_data">
+                                <p id="acc_info_username" *ngIf="!userActive">{{ userProfile?.extra?.username }}</p>
+                                <div id="info_edit_username" class="form_group" *ngIf="userActive">
+                                    <form [formGroup]="usernameForm" novalidate (ngSubmit) = "userFormUpdate(usernameForm.value)" #userform="ngForm">
+                                        <input class="form_input form_input--mod" required type="text" formControlName="username">
+                                        <app-button [className]="'btn-primary btn-sm setting-btn'" [type]="'submit'">Update</app-button>
+                                        <p class="error_alert" *ngIf="usernameForm.controls['username'].errors?.required && userform.submitted">Username is required</p>
+                                        <p class="error_alert" *ngIf="usernameForm.controls['username'].errors?.whitespace">White Space Not Allowed</p>
+                                        <p class="error_alert" *ngIf="usernameForm.controls['username'].errors?.minlength">Username must be min length 4</p>
+                                        <p class="error_alert" *ngIf="usernameForm.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="change_password">
+                            <form [formGroup]="pwdForm" novalidate (ngSubmit) = "submitForm(pwdForm.value)" #passform="ngForm">
+                                <h3 class="setting_h3">Password</h3>
+                                <div class="form_group">
+                                    <input class="form_input" required type="password" formControlName="currentpassword">
+                                    <span class="form_highlight"></span>
+                                    <span class="form_bar"></span>
+                                    <label>Old Password</label>
+                                    <p class="error_alert" *ngIf="pwdForm.controls['currentpassword'].errors?.required && passform.submitted">Current password is required</p>
+                                </div>
+                                <div class="form_group">
+                                    <input class="form_input" required type="password" formControlName="newpassword">
+                                    <span class="form_highlight"></span>
+                                    <span class="form_bar"></span>
+                                    <label>New Password</label>
+                                    <p class="error_alert" *ngIf="pwdForm.controls['newpassword'].errors?.required && passform.submitted">New Password is required</p>
+                                    <p class="error_alert" *ngIf="pwdForm.controls['newpassword'].errors?.isWeakPassword">Weak password! Please use special char, numbers and capital letters</p>
+                                </div>
+                                <div class="form_group">
+                                    <input class="form_input" required type="password" formControlName="confirmpassword">
+                                    <span class="form_highlight"></span>
+                                    <span class="form_bar"></span>
+                                    <label>Confirm new password</label>
+                                    <p class="error_alert" *ngIf="pwdForm.controls['confirmpassword'].errors?.required && passform.submitted">Confirm password is required</p>
+                                    <p class="error_alert" *ngIf="pwdForm.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password does not match</p>
+                                </div>
+                                <div class="form_group">
+                                    <app-button [className]="'btn-primary btn-sm text_uppercase'" [type]="'submit'">Save</app-button>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!-- account end -->
+
+                    <!--<div class="tab-pane" id="preference">
+                        <h3 class="setting_h4">Quick Access</h3>
+                        <div class="account_setting_block">
+                            <div class="block_text">
+                                <p>Enable quick access in home page</p>
+                            </div>
+                            <div class="switch_btn">
+                                <label class="switch">
+                                  <input type="checkbox" checked>
+                                  <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <h3 class="setting_h4">Post</h3>
+                        <div class="account_setting_block">
+                            <div class="block_text">
+                                <p>Enable posts in home page</p>
+                            </div>
+                            <div class="switch_btn">
+                                <label class="switch">
+                                  <input type="checkbox" checked>
+                                  <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <h3 class="setting_h4">Channel</h3>
+                        <div class="account_setting_block">
+                            <div class="block_text">
+                                <p>Enable channel in home page</p>
+                            </div>
+                            <div class="switch_btn">
+                                <label class="switch">
+                                  <input type="checkbox" checked>
+                                  <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <h3 class="setting_h4">Calendar</h3>
+                        <div class="account_setting_block">
+                            <div class="block_text">
+                                <p>Enable calendar</p>
+                            </div>
+                            <div class="switch_btn">
+                                <label class="switch">
+                                  <input type="checkbox">
+                                  <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>-->
+                    <!-- preference end -->
+
+                    <!--<div class="tab-pane" id="email">
+                        <h3 class="setting_h4">Comments</h3>
+                        <div class="account_setting_block">
+                            <div class="ops_radio_sm">
+                                <label class="row">
+                                    <input type="radio"><span></span>
+                                    <p>Receive an e-mail when other people comment on your posts</p>
+                                </label>
+                            </div>
+                        </div>
+                        <h3 class="setting_h4">Spots</h3>
+                        <div class="account_setting_block">
+                            <div class="ops_radio_sm">
+                                <label class="row">
+                                    <input type="radio"><span></span>
+                                    <p>Receive an e-mail when other people spot your posts</p>
+                                </label>
+                            </div>
+                        </div>
+                        <h3 class="setting_h4">Mentions</h3>
+                        <div class="account_setting_block">
+                            <div class="ops_radio_sm">
+                                <label class="row">
+                                    <input type="radio"><span></span>
+                                    <p>Receive an e-mail when other people mention you in a post</p>
+                                </label>
+                            </div>
+                        </div>
+                        <h3 class="setting_h4">New Follower</h3>
+                        <div class="account_setting_block">
+                            <div class="ops_radio_sm">
+                                <label class="row">
+                                    <input type="radio"><span></span>
+                                    <p>Receive an e-mail when other people follow you</p>
+                                </label>
+                            </div>
+                        </div>
+                    </div>-->
+                    <!-- email end -->
+
+                    <!--<div class="tab-pane" id="nsfw">
+                        <div class="account_setting_block">
+                            <div class="nsfw_txt">
+                                <h3 class="setting_h5">View adult content</h3>
+                            </div>
+                            <div class="switch_btn">
+                                <label class="switch">
+                                  <input type="checkbox" checked>
+                                  <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="account_setting_block">
+                            <div class="nsfw_txt">
+                                <h3 class="setting_h5">Post adult content</h3>
+                            </div>
+                            <div class="switch_btn">
+                                <label class="switch">
+                                  <input type="checkbox">
+                                  <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
-              <div class="bhoechie-tab">
-                <!-- connection section -->
-                <!-- ngIf: settingType=='connection' --><div ng-if="settingType=='connection'" class="bhoechie-tab-content ng-scope active" ng-class="{'active':settingType=='connection'}">
-                    <div class="row">
-                      <ul class="settings_connection">
-                        <li>
-                          Receive connection requests without email?
-                          <label>
-                              <input ng-model="connection.allowWithoutEmail" class="ng-pristine ng-untouched ng-valid ng-not-empty" type="checkbox"><span></span>
-                              <!-- <input type="checkbox"> -->
-                          </label>
-                        </li>
-                        <li>
-                          Follow even if connection rejected?
-                          <label>
-                              <input ng-model="connection.followIfRejected" class="ng-pristine ng-untouched ng-valid ng-empty" type="checkbox"><span></span>
-                          </label>
-                        </li>
-                        <li>
-                          Show connections to everyone?
-                          <label>
-                             <input ng-model="connection.showConnectionsToEveryone" class="ng-pristine ng-untouched ng-valid ng-not-empty" type="checkbox"> <span></span>
-                          </label>
-                        </li>
+            <!--- setting right end -->
+            <div class="clearfix"></div>
+        </div><!--- setting block container end -->
+    </div>
+</section>
 
 
-                      </ul><!-- net_req -->
-                  </div>
-                </div><!-- end ngIf: settingType=='connection' -->
-                <!-- message section -->
-                <!-- ngIf: settingType=='message' -->
 
-                <!-- profile  -->
-                <!-- ngIf: settingType=='profile' -->
-
-                <!-- change password search -->
-                <!-- ngIf: settingType=='changepassword' -->
-              </div>
-              <div class="button_container">
-                <button class="btn_sub">Deactivate</button>
-                <button class="btn_sub" ng-click="connectionSettings();">Submit</button>
-              </div>
+<!-- email verification -->
+<app-modal  [blocking]='false' modalId='otpValidatePopup' >
+    <div  id="phone-verify" role="dialog">
+        <div class="modal-content o-settings-pop-contianer">
+            <div class="o-s-pop_content">
+                <h3 class="o-s-pop-head">Check your phone</h3>
+                <p class="ops_heading2 o-s-pop--text">
+                We've texted a code to the phone number ending in '16'. Once you receive the code, enter it below to change your phone number
+                </p>
+                <form action="">
+                    <div class="form_group o-s-pop-form">
+                        <input class="form_input o-s-pop-form--input" type="text" placeholder="Type the code" required>
+                        <span class="form_highlight"></span>
+                        <span class="form_bar"></span>
+                        <!--<span>00:59</span>-->
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm o-s-pop_btn capitalize">submit</button>
+                </form>
+                <a href="#" class="o-s-pop-resend">Resend OTP</a>
             </div>
         </div>
-  </div>
-</div>
+    </div>
+</app-modal>

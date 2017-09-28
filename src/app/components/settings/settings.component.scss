@@ -1,0 +1,314 @@
+@import './src/assets/scss/helpers/_variables.scss';
+.settings_block{
+	background: #f1f1f1;
+    padding: 70px 0px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    .settings_block_container {
+	    border-radius: 5px;
+	    background-color: $white;
+	    -webkit-box-shadow: 0 1px 12.5px 0 rgba(0, 0, 0, 0.08);
+	    -moz-box-shadow: 0 1px 12.5px 0 rgba(0, 0, 0, 0.08);
+	    box-shadow: 0 1px 12.5px 0 rgba(0, 0, 0, 0.08);
+	    overflow: hidden;
+	    position: relative;
+	    min-height: 600px;
+	    .settings_left{
+	    	min-height: 600px;
+	    	float: left;
+	    	padding:0px;
+		    .tabs-left{
+		    	li{
+		    		float: left;
+		    		width: 100%;
+		    		border-top: 1px solid rgba(102,45,145,0.1);
+		    		padding:16px 32px;
+		    		a{
+		    			background:none;
+		    			border:none;
+		    			font-size: 14px;
+		    			color: #333;
+		    			font-weight: 600;
+		    			padding:0px;
+		    			position:relative;
+		    			.arrow_ico{
+			    			position: absolute;
+						    width: 40px;
+						    transform: rotate(-90deg);
+						    transition: transform .4s;
+						    top: -12px;
+						    right: -16px;
+					    }
+		    		}
+		    	}
+		    	.active{
+		    		border-top: 1px solid rgba(102,45,145,0.1);
+		    		a{
+		    			font-weight: 700;
+		    		}
+		    	}
+		    }
+		    .settings_head{
+		    	width: 100%;
+		    	padding:24px 32px;
+		    	float: left;
+		    	.settings_ico{
+		    		width: 24px;
+		    		height: 24px;
+		    		float: left;
+		    		overflow: hidden;
+		    		img{
+		    			width: 100%;
+		    		}
+		    	}
+		    	.settings_head_txt{
+		    		width: 90%;
+		    		float: left;
+		    		font-size: 18px;
+		    		font-weight: 600;
+		    		color: #333;
+		    		padding-left:8px;
+		    	}
+		    }
+		}
+	    .settings_right{
+	    	min-height: 600px;
+	    	float: left;
+	    	padding:40px;
+	    	h3.setting_h3{
+	    		font-size: 16px;
+	    		font-weight:600;
+	    		color:#333;
+	    		padding-bottom:12px;
+	    	}
+	    	.setting_h4{
+    			font-size: 14px;
+    			font-weight: 700;
+    			color: #333;
+    			padding-top: 16px;
+    			float: left;
+    		}
+    		.setting_h5{
+    			font-size: 14px;
+    			font-weight: 700;
+    			color: #333;
+    			float: left;
+    		}
+	    	.account_setting_block{
+	    		width:100%;
+	    		float: left;
+	    		padding:12px 0px;
+	    		.account_info_head{
+	    			width: 100%;
+	    			float: left;
+	    			.heading_txt{
+	    				color: #979797;
+	    				font-size: 14px;
+	    				font-weight: 600;
+	    				float: left;
+	    			}
+    				.info_edit_ico{
+    					width: 16px;
+    					height: 18px;
+    					overflow: hidden;
+    					float: left;
+    					margin-left: 8px;
+    					img{
+    						width: 100%;
+    					}
+    				}
+	    		}
+	    		.account_info_data{
+	    			width: 100%;
+	    			float: left;
+	    			p{
+	    				font-size: 14px;
+	    				font-weight: normal;
+	    				color: #333;
+	    				padding-top:8px;
+	    			}
+	    			.form_group{
+	    				width: 424px;
+	    				margin: 0px;
+	    			}
+	    		}
+	    		.block_text{
+	    			width: 300px;
+	    			float: left;
+	    			p{
+	    				color: #333333;	
+	    				font-size: 14px;	
+	    				line-height: 19px;
+	    			}	    			
+	    		}
+	    		.ops_radio_sm{
+	    			padding-left:16px;	    			
+	    			p{
+	    				color: #333333;
+	    				font-size: 14px;
+	    				line-height: 19px;	
+	    				float: left;
+	    				font-weight: 500;
+	    			}    			
+	    		}
+	    		.switch_btn{
+	    			width: 100px;
+	    			float: left;
+	    		}
+	    		.nsfw_txt{
+	    			width: 160px;
+	    			float: left;
+	    		}
+	    		.switch {
+				  	position: relative;
+				  	display: inline-block;
+				  	width: 30px;
+				  	height: 20px;
+					pointer-events: all;
+					top:0px;
+				}
+
+				.switch input {display:none;}
+
+				.slider {
+				  position: absolute;
+				  cursor: pointer;
+				  top: 0;
+				  left: 0;
+				  right: 0;
+				  bottom: 0;
+				  background-color: #ccc;
+				  -webkit-transition: .4s;
+				  transition: .4s;
+				}
+
+				.slider:before {
+				  	position: absolute;
+				  	content: "";
+				    height: 18px;
+				    width: 18px;
+				    left: 1px;
+				    bottom: 1px;
+				  	background-color: white;
+				  	-webkit-transition: .4s;
+				  	transition: .4s;
+				}
+
+				input:checked + .slider {
+				  background-color: #44DB5E;
+				}
+
+				input:focus + .slider {
+				  box-shadow: 0 0 1px #2196F3;
+				}
+
+				input:checked + .slider:before {
+				  -webkit-transform: translateX(10px);
+				  -ms-transform: translateX(10px);
+				  transform: translateX(10px);
+				}
+
+				/* Rounded sliders */
+				.slider.round {
+				  border-radius: 34px;
+				}
+
+				.slider.round:before {
+				  border-radius: 50%;
+				}
+	    	}
+	    	.change_password{
+	    		float: left;
+	    		width: 100%;
+	    		padding-top:40px;
+	    		h3.setting_h3{
+		    		font-size: 16px;
+		    		font-weight:600;
+		    		color:#333;
+		    		padding-bottom:24px;
+		    	}
+		    	.form_group{
+		    		width: 424px;
+		    		display: block;
+		    		label{
+		    			font-size: 14px;
+		    			font-weight: 600;
+		    			color: #333;
+		    		}
+		    		.form_input:focus ~ label, .form_input:valid ~ label    {
+						top:-10px;
+						font-size:12px;
+						color: #c1c1c1;
+					}
+		    	}
+	    	}
+	    }
+	}
+}
+.form_input--mod{
+	width: 70%;
+	float: left;
+}
+.setting-btn{
+	margin:6px 0px 0px 10px;
+	text-transform: uppercase;
+}
+
+// settings pop
+
+.o-settings-pop-contianer{
+    width: 426px;
+    height: 350px;
+    background: #fff;
+    margin: 60px auto;
+    padding: 24px 32px 32px 32px;
+}
+.o-s-pop_content{
+	text-align: center;
+}
+.o-s-pop-head{
+	font-size: 18px;
+	color: $theme_black;
+	font-weight: 600;
+	text-align: center;
+}
+.o-s-pop--text{
+	text-align: center;
+	margin-top: 24px;
+	line-height: 21px;
+}
+.o-s-pop-form{
+	margin-top: 32px;
+}
+.o-s-pop-form--input::placeholder {
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  position: relative;
+}
+.o-s-pop_btn{
+	text-transform: uppercase;
+	margin-top: 24px;
+}
+.o-s-pop-resend{
+	font-size: 14px;
+	font-weight: 600;
+	color: #FF7B84;
+	margin-top: 24px;
+	display: block;
+	&:hover{
+		color: #FF7B84;
+	}
+	&:focus{
+		color: #FF7B84;
+	}
+}
+.o-s-pop-form span{
+    position: absolute;
+    top: 12px;
+    right: 0px;
+    color: $theme_red;
+    font-size: 14px;
+    font-weight: 600;
+}
