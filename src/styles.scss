@@ -6,6 +6,7 @@ $icon-font-path: "../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
 // Vendors */
 @import '~sass-mq/_mq.scss';
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~ngx-toastr/toastr";
 
 
 // /* Helpers */

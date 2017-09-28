@@ -2,13 +2,13 @@
   <span class="Overlay__status" *ngIf="status >1 && status <100">
     Uploading {{ status }}%
   </span>
-  <span class="Overlay__status" *ngIf="postSuccess === true">
+  <!-- <span class="Overlay__status" *ngIf="postSuccess === true">
     Upload successful!
   </span>
 
   <span class="Overlay__status" *ngIf="postSuccessActive === true">
     Saved to Channel ...
-  </span>
+  </span> -->
 
   <div class="Overlay__error" *ngIf="formMessages.length > 0">
     <span class="Overlay__status" *ngFor="let msg of formMessages">

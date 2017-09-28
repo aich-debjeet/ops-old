@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { ImageCropperModule } from 'ng2-img-cropper/index';
+import { ToastrModule } from 'ngx-toastr';
 
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
@@ -135,6 +136,7 @@ import { CommunitiesComponent } from './components/communities/communities.compo
     MasonryModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
+    ToastrModule.forRoot(), // ToastrModule added
     // StoreRouterConnectingModule,
     EffectsModule.run(AuthEffect),
     EffectsModule.run(HomeEffect),
