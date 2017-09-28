@@ -1,22 +1,18 @@
 <div class="{{className}} c-card">
     <!-- card body -->
-    <div class="c-card__body" [ngClass]="{ 'open': showEdit }">
+    <div class="c-card__body" [ngClass]="{ 'open': showEdit }"  >
       <a class="c-channel__heading" [routerLink]="['/channel', channelData?.spotfeedId]" >{{channelData?.spotfeedName}}</a>
-      <a (click)="showOptions()"class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-        <img src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg" alt="" class="c-card__options">
-      </a>
-      <ul class="dropdown-menu c-channel-option">
-        <!--  Only if current user -->
-        <li>
-          <a (click)="deleteChannel(channelData?.spotfeedId)" data-toggle="modal" data-target="#edit_channel_pop">Delete</a>
-        </li>
-        <li>
-          <a data-toggle="modal" data-target="#edit_channel_pop">Edit</a>
-        </li>
-        <li>
-          <a >Pin to Quick Access</a>
-        </li>
-      </ul>
+        <div appDropdown *ngIf="currentUser">
+          <a class="dropdown-toggle" appDropdownOpen>
+            <img src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg" alt="" class="c-card__options">
+          </a>
+          <ul class="dropdown-menu c-channel-option">
+            <!--  Only if current user -->
+            <li><a (click)="deleteChannel(channelData?.spotfeedId)">Delete</a></li>
+            <li><a >Edit</a></li>
+            <li><a >Pin to Quick Access</a></li>
+          </ul>
+        </div>
     </div>
     <div class="c-channel__media">
       <div *ngFor="let item of channelData?.media | slice:0:3; let i=index">

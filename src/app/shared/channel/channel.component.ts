@@ -12,6 +12,7 @@ import FilesHelper from '../../helpers/fileUtils';
 export class ChannelComponent implements OnInit {
   @Input() className: string;
   @Input() channelData;
+  @Input() currentUser: boolean;
   // @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() onFollow: EventEmitter<any> = new EventEmitter<any>();
   @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();
