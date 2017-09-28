@@ -5,6 +5,7 @@ import { Channel } from '../../models/home.model';
 
 // action
 import { HomeActions } from '../../actions/home.action';
+import { ProfileActions } from '../../actions/profile.action';
 import { SharedActions } from '../../actions/shared.action';
 
 import { ProfileModal, initialTag } from '../../models/profile.model';
@@ -78,6 +79,7 @@ export class HomeComponent {
     this.tagState$.subscribe((state) => {
       this.userQuickAccess = state;
     });
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
   }
 
 }
