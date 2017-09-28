@@ -102,4 +102,5 @@ export class MediaService {
     const params = handle + this.pagination(page);
     return this.api.get('/portal/cdn/media/otherProfile/', params);
   }
+
 }

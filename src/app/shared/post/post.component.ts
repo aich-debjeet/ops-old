@@ -20,6 +20,7 @@ import { Store } from '@ngrx/store';
 })
 export class PostComponent implements OnInit {
   @Input() mediaData;
+  @Input() className: string;
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   dotMenuState: boolean;

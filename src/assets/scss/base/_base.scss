@@ -41,6 +41,11 @@
     font-weight: 600;
     color: #979797;
 }
+.title_16{
+  font-size: 16px;
+  font-weight: 600;
+  color: $theme_black;
+}
 .ops_h1 {
   color: #333333;
   font-size: 28px;
@@ -95,17 +100,31 @@
 .margin_b_32 {
   margin-bottom: 32px;
 }
+.margin_t_32 {
+  margin-top: 32px;
+}
 .margin_t_16 {
   margin-top: 16px;
 }
 .margin_l_16 {
   margin-left: 16px;
 }
+.margin_r_32 {
+  margin-right: 32px;
+}
 .padding_16 {
   padding: 16px;
 }
 .padding_8{
   padding:8px;
+}
+.padding_tb_16{
+  padding-top:16px;
+  padding-bottom: 16px;
+}
+.padding_lr_24{
+  padding-left:24px;
+  padding-right:24px;
 }
 .padding_l_none{
   padding-left: 0px;

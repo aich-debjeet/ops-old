@@ -33,7 +33,7 @@ export class SettingsComponent implements OnInit {
     private profileUpdateValidator: ProfileUpdateValidator,
     private _store: Store<ProfileModal>
   ) {
-     this.storeState$ = this._store.select('profileTags');
+    this.storeState$ = this._store.select('profileTags');
 
      this.storeState$.subscribe((state) => {
       this.userProfile = state['profileDetails'];

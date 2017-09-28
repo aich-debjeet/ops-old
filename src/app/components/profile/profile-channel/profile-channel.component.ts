@@ -97,7 +97,6 @@ export class ProfileChannelComponent implements OnInit {
     if ( isChannelReady === false && isProfileReady === true) {
       this.counter++;
       const handleID = state.profile_other.handle;
-      console.log('TOKEN #1', handleID);
       if (this.counter < 10) {
         this.handle = handleID;
         if (this.handle && this.userName ) {
@@ -137,8 +136,6 @@ export class ProfileChannelComponent implements OnInit {
   }
 
   toggleFollowBtn(i) {
-    // console.log(i);
-
     // Follow dispatches to happen here
   }
 

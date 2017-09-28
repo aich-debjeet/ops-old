@@ -10,6 +10,7 @@ import { SharedActions } from '../../actions/shared.action';
 
 import { ProfileModal, initialTag } from '../../models/profile.model';
 
+
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -30,6 +31,22 @@ export class HomeComponent {
 
   loadMoreParams: any;
   userProfileHandle: string;
+
+  constructor(
+    private store: Store<Channel>,
+    private profileStore: Store<ProfileModal>
+  ) {
+    this.cards = [];
+    this.loadMoreParams = { offset: -10, limit: 10 };
+
+    // Own Profile
+    this.tagState$ = this.profileStore.select('profileTags');
+    this.tagState$.subscribe((state) => {
+      this.userQuickAccess = state;
+    });
+
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
+  }
 
   /**
    * Unpin Channel from Quick Access
@@ -66,20 +83,4 @@ export class HomeComponent {
     });
 
   }
-
-  constructor(
-    private store: Store<Channel>,
-    private profileStore: Store<ProfileModal>
-  ) {
-    this.cards = [];
-    this.loadMoreParams = { offset: -10, limit: 10 };
-
-    // Own Profile
-    this.tagState$ = this.profileStore.select('profileTags');
-    this.tagState$.subscribe((state) => {
-      this.userQuickAccess = state;
-    });
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
-  }
-
 }
