@@ -1,5 +1,16 @@
 @import './src/assets/scss/helpers/_variables.scss';
 
+@import "~ngx-chips/dist/modules/core/styles/core/_core.scss";
+
+// Chips
+$ops-theme: (
+  container-border-bottom: 1px solid #c1c1c1
+);
+
+.ng2-tag-input.ops-theme {
+  @include tag-input-theme($ops-theme);
+}
+
 // create channel style start
 .create_channel_main {
     background-color: transparent;
@@ -403,4 +414,36 @@
   color: #7c9e7c;
   background-color: #f6fdf6;
   padding: 1rem;
+}
+
+/deep/ .ng2-tag-input.foundation-theme {
+  @include tag-input-theme($ops-theme);
+}
+
+/deep/ .ng2-tag-input.foundation-theme tag {
+  @include tag-theme($ops-theme);
+}
+
+/deep/ .ng2-tag-input.foundation-theme tag delete-icon {
+  @include icon-theme($ops-theme);
+}
+
+.userList {
+  vertical-align: top;
+}
+
+.tinyImgHolder{
+  width: 24px;
+  height: 24px;
+  background-color: #eee;
+  border-radius: 33em;
+  vertical-align: top;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.tinyName{
+  vertical-align: top;
+  display: inline-block;
+  padding-top: 8px;
 }
