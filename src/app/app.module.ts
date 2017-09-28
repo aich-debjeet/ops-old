@@ -91,6 +91,7 @@ import { LearnComponent } from './components/learn/learn.component';
 import { ResourceComponent } from './components/resource/resource.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { CommunitiesComponent } from './components/communities/communities.component';
+import { StatusListComponent } from './components/status-list/status-list.component';
 
 @NgModule({
   declarations: [
@@ -121,7 +122,8 @@ import { CommunitiesComponent } from './components/communities/communities.compo
     ResourceComponent,
     NotFoundPageComponent,
     CommunitiesComponent,
-    OrderByPipe
+    OrderByPipe,
+    StatusListComponent
   ],
   imports: [
     SharedModule,

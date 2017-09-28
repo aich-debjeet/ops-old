@@ -79,12 +79,13 @@ export class ProfileSliderComponent implements OnInit {
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      console.log(state);
     });
 
     this.skillState$.subscribe((state) => {
       this.findSkill = state;
     });
+
+    // this.isfollowing = this.userProfile['profile_other'].extra
 
     this.buildEditForm();
 
@@ -164,7 +165,6 @@ export class ProfileSliderComponent implements OnInit {
    * Profile Page Edit
    */
   profileEdit() {
-    console.log('profile edit');
     this.loadSkill();
     this.modalService.open('profileEditWindow');
     const date = this.datepipe.transform(this.userProfile.profileDetails['physical'].dateOfBirth, 'dd-MM-yyyy');
@@ -219,7 +219,6 @@ export class ProfileSliderComponent implements OnInit {
    * Edit Form Submit
    */
   profileFormSubmit(value) {
-    console.log(this.profileForm.valid);
     if ( this.profileForm.valid === true ) {
       const form =  {
         'extras': {
@@ -264,7 +263,6 @@ export class ProfileSliderComponent implements OnInit {
    * @param control: Form email input
    */
   validEmail(control: AbstractControl) {
-    console.log(control.value);
     if (control.value === '') {
       // console.log('empty email');
       return;
@@ -325,8 +323,6 @@ export class ProfileSliderComponent implements OnInit {
     const selectedSkill = _find(this.selectedSkills, function(s) {
       return s.code === skillCode;
     });
-
-   console.log(selectedSkill);
 
     // If skill exist then remove it from selection array
     if (selectedSkill !== undefined) {

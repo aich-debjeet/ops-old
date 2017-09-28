@@ -447,6 +447,18 @@ export class ProfileEffect {
     );
 
   /**
+   * UnFollow Profile
+   */
+  @Effect()
+  unfollowProfile$ = this.actions$
+    .ofType(ProfileActions.PROFILE_UNFOLLOW)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.unfollowUser(payload)
+      .map(res => ({ type: ProfileActions.PROFILE_UNFOLLOW_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.PROFILE_UNFOLLOW_FAILED, payload: res }))
+    );
+
+  /**
    * Follow Profile
    */
   @Effect()
@@ -511,6 +523,62 @@ export class ProfileEffect {
       .map(res => ({ type: ProfileActions.USER_PASSWORD_UPDATE_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.USER_PASSWORD_UPDATE_FAILED, payload: res }))
     );
+
+   /**
+   * Current User status load
+   */
+  @Effect()
+  userStatusLoad$ = this.actions$
+    .ofType(ProfileActions.LOAD_USER_STATUS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.currentUserStatus(payload)
+      .map(res => ({ type: ProfileActions.LOAD_USER_STATUS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.LOAD_USER_STATUS_FAILED, payload: res }))
+    );
+
+   /**
+   * Pin channel
+   */
+  @Effect()
+  pinChannel$ = this.actions$
+    .ofType(ProfileActions.PIN_CHANNEL)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.userChannelPin(payload)
+      .map(res => ({ type: ProfileActions.PIN_CHANNEL_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.PIN_CHANNEL_FAILED, payload: res }))
+    );
+
+   /**
+   * UnPin channel
+   */
+  @Effect()
+  unpinChannel$ = this.actions$
+    .ofType(ProfileActions.UNPIN_CHANNEL)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.userChannelUnpin(payload)
+      .map(res => ({ type: ProfileActions.UNPIN_CHANNEL_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.UNPIN_CHANNEL_FAILED, payload: res }))
+    );
+
+  /**
+   *  Unpin sucess loadload Quick Access
+   */
+  @Effect()
+  unpinChannelSuccess$ = this.actions$
+    .ofType(ProfileActions.UNPIN_CHANNEL_SUCCESS)
+    .mergeMap(reachedThreshold => {
+       return Observable.of({  type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS })
+    });
+
+  /**
+   *  pin sucess loadload Quick Access
+   */
+  @Effect()
+  pinChannelSuccess$ = this.actions$
+    .ofType(ProfileActions.PIN_CHANNEL_SUCCESS)
+    .mergeMap(reachedThreshold => {
+       return Observable.of({  type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS })
+    });
 
 
   constructor(

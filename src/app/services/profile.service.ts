@@ -281,6 +281,17 @@ export class ProfileService {
     }
     return this.api.put('/portal/network/following/start', req);
   }
+
+  /**
+   * Load a user profile
+   */
+  unfollowUser(handle: string) {
+    const req  = {
+      followedHandle : handle
+    }
+    return this.api.put('/portal/network/following/stop', req);
+  }
+
   /**
    * Follow a Channel
    */
@@ -348,5 +359,26 @@ export class ProfileService {
   getLoggedInUserFollowingChannel(value: string) {
     // console.log('handle: ' + value);
     return this.api.get('/portal/network/spotfeed/following/profile/spotfeeds/' + value, '');
+  }
+
+  /**
+   * Current user status load
+   */
+  currentUserStatus(handleId: string) {
+    return this.api.get('/portal/network/feeds/' + handleId);
+  }
+
+  /**
+   * Pin channel
+   */
+  userChannelPin(body: any) {
+    return this.api.put('/portal/network/spotfeed/pinspotfeed/pin', body);
+  }
+
+  /**
+   * Unpin channel
+   */
+  userChannelUnpin(body: any) {
+    return this.api.put('/portal/network/spotfeed/unpinspotfeed/unpin', body);
   }
 }

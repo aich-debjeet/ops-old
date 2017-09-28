@@ -10,7 +10,7 @@
             <!--  Only if current user -->
             <li><a (click)="deleteChannel(channelData?.spotfeedId)">Delete</a></li>
             <li><a >Edit</a></li>
-            <li><a >Pin to Quick Access</a></li>
+            <li><a (click)="pinChannel(channelData?.spotfeedId)">Pin to Quick Access</a></li>
           </ul>
         </div>
     </div>

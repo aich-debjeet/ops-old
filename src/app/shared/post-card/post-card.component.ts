@@ -1,6 +1,13 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { Router } from '@angular/router';
+import { initialMedia, Media } from '../../models/media.model';
+import { MediaActions } from '../../actions/media.action';
+
+// rx
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
 
 import FilesHelper from '../../helpers/fileUtils';
 
@@ -15,7 +22,8 @@ export class PostCardComponent implements OnInit {
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   dotMenuState: boolean;
-  isSpotted: boolean;
+  following: boolean;
+  followingCount: any;
 
   userImage: string;
 
@@ -23,6 +31,7 @@ export class PostCardComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private store: Store<Media>
   ) {
     this.dotMenuState = false;
   }
@@ -34,7 +43,8 @@ export class PostCardComponent implements OnInit {
     } else {
       this.userImage = this.imageLink + this.mediaData.ownerImage;
     }
-    this.isSpotted = this.mediaData.isSpotted;
+    this.following = this.mediaData.isSpotted;
+    this.followingCount = this.mediaData.spotsCount;
   }
 
   /**
@@ -56,4 +66,22 @@ export class PostCardComponent implements OnInit {
   dotMenuOpen() {
     this.dotMenuState = !this.dotMenuState;
   }
+
+  /**
+   * Spot a Media
+   * @param mediaId
+   */
+  spotMedia(mediaId: string) {
+    console.log(this.mediaData);
+    if (this.following === false) {
+      this.following = true;
+      this.followingCount++;
+      this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: this.mediaData.id });
+    }else {
+      this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: this.mediaData.id });
+      this.following = false
+      this.followingCount--;
+    }
+  }
+
 }
