@@ -11,7 +11,7 @@ export class EventsComponent implements OnInit {
 
   ngOnInit() {
     this.comingsoon = {
-      mainTitle: 'Events will be Coming Soon.',
+      mainTitle: 'Events will be coming soon.',
       description: 'Our folks are still arranging the chairs right now. Please wait outside while we set this up. <br> <br> Feel free to browse through our other pages.',
       buttonLink: '/home',
       buttonText: 'Go to Home',
