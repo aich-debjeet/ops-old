@@ -142,7 +142,12 @@
       </ul>
     </form>
     <div class="form__group">
-      <div class="form__item">
+      <div class="channel__holder" (click)="chooseChannelToggle()">
+        <div class="icon__holder">
+          <span class="ico__label">Choose Channel</span>
+        </div>
+      </div>
+      <div class="form__item bg__dim" *ngIf="chooseChannelToggleState === true">
         <app-channel-selector [userChannels]="channeList" (onSelection)="onChannelSelection($event)" (onChannelCreate)="onChannelCreation($event)"></app-channel-selector>
       </div>
     </div>

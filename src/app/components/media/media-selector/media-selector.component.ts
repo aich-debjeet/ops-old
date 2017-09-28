@@ -76,7 +76,7 @@ export class MediaSelectorComponent implements OnInit {
   myProfile$: Observable<any>;
   myProfileData: any;
   fileFormData: any;
-
+  chooseChannelToggleState: boolean;
   constructor(
     private Upload: NgxfUploaderService,
     private fb: FormBuilder,
@@ -94,6 +94,7 @@ export class MediaSelectorComponent implements OnInit {
       this.formMessages = [];
 
       this.chosenChannel = 0;
+      this.chooseChannelToggleState = false;
 
       // If there's input assign, other wise, reload channel list
       if (this.userChannels) {
@@ -667,6 +668,13 @@ export class MediaSelectorComponent implements OnInit {
         alert('Type Error');
         break;
     }
+  }
+
+  /**
+   * Hide/Show Choose Channel
+   */
+  chooseChannelToggle() {
+    this.chooseChannelToggleState = !this.chooseChannelToggleState;
   }
 }
 
