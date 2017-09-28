@@ -79,6 +79,7 @@ export class ProfileSliderComponent implements OnInit {
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
+      console.log(state);
     });
 
     this.skillState$.subscribe((state) => {

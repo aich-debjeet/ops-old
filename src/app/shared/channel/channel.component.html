@@ -43,7 +43,8 @@
       <span class="c-links__post">{{ channelData?.mediaCount }} Post</span>
       <span class="c-links__post">{{ channelData?.followersCount }} Followers</span>
       <div class="c-channel__btn">
-        <a (click)="toggleFollowBtn($event)" class="btn btn-xs btn-primary" [ngClass]="{ 'btn-follow': !isfollowing, 'btn-normal': isfollowing, 'btn-primary': !isfollowing, 'btn-following': isfollowing }">
+        <app-button *ngIf="currentUser" [routerLink]="['', { outlets: { media : ['post'] } } ]" [className]="'btn-xs btn-primary'" [type]="'button'">Add Media</app-button>
+        <a *ngIf="!currentUser" (click)="toggleFollowBtn($event)" class="btn btn-xs btn-primary" [ngClass]="{ 'btn-follow': !isfollowing, 'btn-normal': isfollowing, 'btn-primary': !isfollowing, 'btn-following': isfollowing }">
           <span class="btn-label-follow">
             <img src="http://d33wubrfki0l68.cloudfront.net/dad39c553de20299ab403e1e0d2dcbd6062911cc/62cff/img/svg/ico_plus_white.svg">
           </span> {{ isfollowing ? 'Unfollow' : 'Follow' }}
