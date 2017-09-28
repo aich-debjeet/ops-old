@@ -10,7 +10,7 @@
                         An OTP number will be sent to your email or phone number after registration for account verification.
                     </div>
                     <div class="ops_heading signup_already text-center">
-                        Already a member? <a routerLink="/login" class="text-theme">Log in</a>
+                        Already a member? <a routerLink="/login" class="text-theme">Log In</a>
                     </div>
                 </div>
                 <div class="col-md-6 ops_signup_right">
@@ -52,7 +52,7 @@
                                     <input type="radio" value="F" name="gender" formControlName="gender"><span></span>Female
                                 </label>
                                 <label class="col-md-3 gender_single">
-                                    <input type="radio" value="O" name="gender" formControlName="gender"><span></span>Others
+                                    <input type="radio" value="O" name="gender" formControlName="gender"><span></span>Other
                                 </label>
                             </label>
                         </div>
@@ -97,7 +97,7 @@
                             <span class="form_bar"></span>
                             <label>Password</label>
                             <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.required && regform.submitted">Password is required</p>
-                            <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Weak password! Please use special char, numbers and capital letters</p>
+                            <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Weak password! Please use special characters, numbers and capital letters</p>
                         </div>
                         <div class="form_group">
                             <input class="form_input" type="password" formControlName="confirmpassword" required>
@@ -392,7 +392,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
-                        <h5 class="text-center">Enter the 6 digit otp that you have received <br> by email or phone </h5>
+                        <h5 class="text-center">Enter the 6 digit OTP that you have received <br> by email or phone </h5>
                         <p class="text-center">
                             <a *ngIf="!resendingOtp" class="pointer" (click)="resendOtp()">Resend OTP</a>
                             <a *ngIf="resendingOtp">Sending OTP, please wait...</a>

@@ -40,8 +40,6 @@ export class SpotfeedComponent {
       this.spotfeedDetails = state.spotfeed_detail;
       if (state.spotfeed_detail && state.spotfeed_detail['SUCCESS'].spotfeedMedia) {
         this.spotfeedPosts = state.spotfeed_detail['SUCCESS'].spotfeedMedia;
-        // console.log('this.spotfeedPosts');
-        // console.log(this.spotfeedPosts);
       }
     });
 
@@ -53,6 +51,14 @@ export class SpotfeedComponent {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Follow a user
+   * @param userObject
+   */
+  followUser(userObject: any) {
+    //
   }
 
 }

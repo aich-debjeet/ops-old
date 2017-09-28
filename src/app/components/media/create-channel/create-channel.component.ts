@@ -17,6 +17,10 @@ import { Store } from '@ngrx/store';
 // import { FileUploadService } from '../media/fakeService';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ProfileActions } from '../../../actions/profile.action';
+import { environment } from './../../../../environments/environment';
+
+import { map as _map } from 'lodash';
+import { ToastrService } from 'ngx-toastr';
 
 // Blog
 import { TokenService } from '../../../helpers/token.service';
@@ -36,17 +40,25 @@ export class CreateChannelComponent {
   profileChannel = initialTag ;
   channelType: number;
   handle: string;
+  channelSavedHere: boolean;
   channelSaved = false;
+  people: any;
+  tags: any;
+  private apiLink: string = environment.API_ENDPOINT;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private toastr: ToastrService,
+    private http: Http,
     private tokenService: TokenService,
     private store: Store<Media> ) {
       this.createChannelForm();
       this.typeSelected = false;
       this.channelSaved = false;
+      this.channelSavedHere = false;
+      this.people = [];
 
       this.handle = '';
       if (this.handle !== '') {
@@ -57,6 +69,13 @@ export class CreateChannelComponent {
       this.tagState$.subscribe((state) => {
         this.profileChannel = state;
         this.channelSaved = this.profileChannel.channel_saved;
+
+        // Success message
+        if (this.channelSavedHere && this.channelSaved === true ) {
+          this.toastr.success('Channel Created');
+          this.createChannelForm();
+          this.channelSavedHere = false;
+        }
       });
     }
 
@@ -70,12 +89,17 @@ export class CreateChannelComponent {
    * Status Form
    */
   createChannelForm() {
+    // Clear All Tags
+    this.people = [];
+    this.tags = [];
+
+    // Empty initiate form
     this.channelForm = this.fb.group({
       title: ['', Validators.required ],
       type: ['', Validators.required ],
       desc: ['', Validators.required ],
       privacy: [0, Validators.required ],
-      openess: [0]
+      openess: [1]
     })
   }
 
@@ -87,22 +111,37 @@ export class CreateChannelComponent {
     let flag;
     switch (type) {
       case 1:
-        flag = 'Image';
+        flag = ['image'];
         break;
       case 2:
-        flag = 'Audio';
+        flag = ['video'];
         break;
       case 3:
-        flag = 'Video';
+        flag = ['audio'];
         break;
       case 4:
-        flag = 'Text';
+        flag = ['text'];
         break;
       default:
-        flag = 'All';
+        flag = ['image', 'video', 'audio', 'text'];
         break;
     }
     return flag;
+  }
+
+  /**
+   * Get people search
+   */
+
+  public requestAutocompleteItems = (text: string): Observable<Response> => {
+    const url  = this.apiLink + '/portal/searchprofiles/1/' + text + '/0/10';
+    return this.http
+      .get(url)
+      .map(data => data.json());
+  };
+
+  handledObject(n) {
+    return { handle: n.handle }
   }
 
   /**
@@ -110,7 +149,25 @@ export class CreateChannelComponent {
    */
   createChannel(value: any) {
     const userHandle = this.profileChannel.profileUser.handle || '';
+    const mediaTypeList = this.channelTypeConfig(this.channelType);
+
+    // Get only handles from user list
+    const peopleListAll = this.people;
+    const peopleList = _map(peopleListAll, 'handle');
+
+    const peopleListList = [];
+
+    for (const i of peopleList) {
+      peopleListList.push({ handle: i });
+    }
+
+    let otherField = {};
+    if (peopleListList.length > 0 ) {
+      otherField = { contributerList: peopleListList }
+    }
+
     if ( this.channelForm.valid === true && userHandle !== '' ) {
+
       const channelObj = {
         name: value.title,
         access: Number(value.privacy),
@@ -118,10 +175,16 @@ export class CreateChannelComponent {
         superType: 'channel',
         accessSettings : { access : Number(value.privacy) },
         owner: userHandle,
-        industryList: [ value.type ]
+        industryList: [ value.type ],
+        mediaTypes: mediaTypeList,
+        otherField
       }
 
+      console.log('CREATE', channelObj );
+      this.channelSavedHere = true;
       this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
+    } else {
+      this.toastr.warning('Please fill all required fields');
     }
   }
 

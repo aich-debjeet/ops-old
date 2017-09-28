@@ -11,7 +11,7 @@ export class ResourceComponent implements OnInit {
 
   ngOnInit() {
     this.comingsoon = {
-      mainTitle: 'Resources Coming Soon.',
+      mainTitle: 'Resources will be coming soon.',
       description: 'The dog did this! I swear! <br> <br> Feel free to browse through our other pages while we get this ready again.',
       buttonLink: '/home',
       buttonText: 'Go to Home',

@@ -45,6 +45,7 @@ export class ProfileComponent implements OnInit {
     this.isCurrentUser = false;
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
+         console.log(state);
       this.current_user_value = this.checkUserType(this.userProfile);
     });
 
@@ -76,14 +77,12 @@ export class ProfileComponent implements OnInit {
     let flag = 0;
     if (!this.userName && userProfile.profile_loaded  === true) {
       flag = 1;
-      // console.log(flag);
       // this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: flag });
     }
 
     if (this.userName && userProfile.profile_other_loaded === true) {
       flag = 2;
     }
-    // console.log(flag);
     // this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: flag });
     return flag;
   }

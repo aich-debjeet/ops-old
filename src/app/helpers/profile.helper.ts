@@ -12,11 +12,9 @@ export class ProfileHelper {
    */
   profileValueMapping(profileData: any, type: string) {
     let profile;
-    console.log(profileData);
     // check if its other profile firs
     let maps  = new ProfileCard();
     if (type === 'other') {
-      // console.log('other profile !');
       profile = profileData.profile_other;
     } else {
       profile = profileData.profileDetails;

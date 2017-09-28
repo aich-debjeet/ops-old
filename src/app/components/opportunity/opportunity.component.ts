@@ -11,7 +11,7 @@ export class OpportunityComponent implements OnInit {
 
   ngOnInit() {
     this.comingsoon = {
-      mainTitle: 'Opportunities will be Coming Soon.',
+      mainTitle: 'Opportunities will be coming soon.',
       description: 'Sorry. We are on the way. Traffic these days, I tell you! Feel free to browse through our other pages.',
       buttonLink: '/home',
       buttonText: 'Go to Home',

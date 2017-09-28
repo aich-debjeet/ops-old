@@ -28,6 +28,7 @@ import { LearnComponent } from './components/learn/learn.component';
 import { ResourceComponent } from './components/resource/resource.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { CommunitiesComponent } from './components/communities/communities.component';
+import { StatusListComponent } from './components/status-list/status-list.component';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -45,6 +46,7 @@ export const routes: Routes = [
  { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule', canActivate: [AuthGuard] },
 //  { path: 'media', loadChildren: './components/media/media.module#ProfileModule' },
  { path: 'message', component: MessageComponent },
+ { path: 'user/status/list', component: StatusListComponent },
  { path: 'spotfeed/:id', component: SpotfeedComponent },
  { path: 'spotfeed-premium', component: SpotfeedPremiumComponent },
  { path: 'notification', component: NotificationComponent },
@@ -54,7 +56,7 @@ export const routes: Routes = [
  { path: 'job-details', component: JobDetailsComponent },
  { path: 'events', component: EventsComponent, canActivate: [AuthGuard] },
  { path: 'search', component: SearchComponent },
- { path: 'settings', component: SettingsComponent },
+ { path: 'user/settings', component: SettingsComponent },
  { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard] },
  { path: 'channel', component: ChannelListComponent },
  { path: 'resources', component: ResourceComponent, canActivate: [AuthGuard] },

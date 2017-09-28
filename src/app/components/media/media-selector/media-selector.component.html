@@ -2,13 +2,13 @@
   <span class="Overlay__status" *ngIf="status >1 && status <100">
     Uploading {{ status }}%
   </span>
-  <span class="Overlay__status" *ngIf="postSuccess === true">
+  <!-- <span class="Overlay__status" *ngIf="postSuccess === true">
     Upload successful!
   </span>
 
   <span class="Overlay__status" *ngIf="postSuccessActive === true">
     Saved to Channel ...
-  </span>
+  </span> -->
 
   <div class="Overlay__error" *ngIf="formMessages.length > 0">
     <span class="Overlay__status" *ngFor="let msg of formMessages">
@@ -100,7 +100,7 @@
         </li>
         <li>
           <div class="form_group">
-            <tag-input [(ngModel)]='tags' [placeholder]="'Tags'" [ngModelOptions]="{standalone: true}" [theme]="'ops-theme'"></tag-input>
+            <tag-input [(ngModel)]='tags' [secondaryPlaceholder]="'Add Tags'" [placeholder]="'Tags'" [ngModelOptions]="{standalone: true}" [theme]="'ops-theme'"></tag-input>
           </div>
         </li>
         <li>
@@ -142,7 +142,12 @@
       </ul>
     </form>
     <div class="form__group">
-      <div class="form__item">
+      <div class="channel__holder" (click)="chooseChannelToggle()">
+        <div class="icon__holder">
+          <span class="ico__label">Choose Channel</span>
+        </div>
+      </div>
+      <div class="form__item bg__dim" *ngIf="chooseChannelToggleState === true">
         <app-channel-selector [userChannels]="channeList" (onSelection)="onChannelSelection($event)" (onChannelCreate)="onChannelCreation($event)"></app-channel-selector>
       </div>
     </div>

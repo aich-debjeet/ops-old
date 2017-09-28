@@ -14,10 +14,12 @@
                     </button>
                 </li>-->
             </ul>
-            <div class="channel_inner_type"><span *ngIf="!(tagState$ | async).channel_detail?.accessSeetings.access" class="public_channel">Public Channel</span><span *ngIf="(tagState$ | async).channel_detail?.accessSeetings.access" class="public_channel">Private Channel</span>
+            <div class="channel_inner_type">
+              <span *ngIf="!(tagState$ | async).channel_detail?.accessSeetings.access" class="public_channel">Public Channel</span>
+              <span *ngIf="(tagState$ | async).channel_detail?.accessSeetings.access" class="public_channel">Private Channel</span>
                 <ul class="list-inline pro_nav_icon">
                     <li class="list-line-item">
-                        <a (click)="pineditFormPopup"  aria-expanded="true">
+                        <a (click)="pinEditFormPopup()"  aria-expanded="true">
                             <img src="/assets/img/svg/ico_options.svg">
                         </a>
                         <ul class="dropdown-menu report_block_drop">
@@ -27,9 +29,9 @@
                         </ul>
                     </li>
                     <li class="list-line-item">
-                        <a (click)="editPopup(channel.channel_detail)" data-toggle="modal" data-target="#edit_channel_pop">
-                            <img src="/assets/img/svg/ico_edit.svg">
-                        </a>
+                      <a [routerLink]="['', { outlets: { media : ['channel', (tagState$ | async).channel_detail?.channelId, 'edit' ] } } ]">
+                        <img src="/assets/img/svg/ico_edit.svg">
+                      </a>
                     </li>
                 </ul>
             </div>
@@ -44,7 +46,9 @@
             </ul>
             <div class="col-sm-12 spot_in_icons">
                 <div class="overlap_thumb">
-                    <span class="over1_thumb" *ngFor="let media of (tagState$ | async).channel_detail?.media | slice:0:3 ; let i=index"><img src="{{ imageLink + media.ownerImage }}"></span>
+                    <span class="over1_thumb" *ngFor="let media of (tagState$ | async).channel_detail?.media | unique">
+                      <img src="{{ imageLink + media.ownerImage }}">
+                    </span>
                 </div>
             </div>
         </div>
@@ -72,104 +76,6 @@
     <h2>Channel Not Found</h2>
   </div>-->
 </section>
-
-
-<!-- edit channel pop -->
-
-<app-modal [modalTitle]="''" [blocking]='false' modalId='editform'>
-  <form [formGroup]="editForm" novalidate #myform="ngForm" (submit)= "educationSubmit(editForm.value)">
-    <div id="edit_channel_container">
-        <div class="modal-content edit-channel_main">
-            <!-- <div class="modal-header" style="border: none;">
-                <button type="button" class="close" data-dismiss="modal"></button>
-            </div> -->
-            <div class="edit-channel_head">
-                <div class="col-md-6 padding_none">
-                    <h2>Edit Channel</h2>
-                </div>
-            </div>
-            <div class="edit-channel_sec_block">
-                <div id="basic_info" class="edit-channel_content_block show" style="display: none;">
-                    <div class="editarea">
-                        <div class="form_group">
-                            <input class="form_input" required type="text" formControlName="name">
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label>Name</label>
-                        </div>
-                        <div class="form_group">
-                            <textarea class="form_input form_textarea" name="" formControlName="bio"></textarea>
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label>Bio</label>
-                        </div>
-                        <div class="form_group">
-                            <input class="form_input" required="" type="text">
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label>Skills</label>
-                            <button type="button" class="btn btn-tag btn-sm">TAGS</button>
-                        </div>
-                        <div class="form_group">
-                            <select class="form-control" id="sel1" formControlName="bio">
-                                <option value="0">Public</option>
-                                <option>Private</option>
-                            </select>
-                        </div>
-                        <div class="form_group">
-                            <select class="form-control" id="sel1">
-                                <option>Industry</option>
-                               <option>Dance</option>
-                               <option>Music</option>
-                               <option>Theatre</option>
-                               <option>Cinema</option>
-                               <option>Graphics</option>
-                               <option>Fashion</option>
-                               <option>Television.</option>
-                               <option>Fine Arts</option>
-                               <option>Photography</option>
-                                <option>Production</option>
-                            </select>
-                        </div>
-                        <div class="form_group">
-                            <input class="form_input" required="" type="text" value="">
-                            <span class="form_highlight"></span>
-                            <span class="form_bar"></span>
-                            <label>Add People</label>
-                        </div>
-                        <div class="search_result_block">
-                            <div class="result_list_main">
-                                <div class="result_pro_img">
-                                    <img src="img/avatar2.jpg" alt="">
-                                </div>
-                                <div class="result_name">
-                                    <p>Zane Lowe </p>
-                                </div>
-                                <div class="remove_btn text-right">
-                                    <button type="button" class="btn btn-network btn-sm">Remove</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- edit profile content block end -->
-            </div>
-            <div class="edit_channel_footer">
-                <div class="col-md-6 padding_none text-left">
-                  <app-button [className]="'btn-network btn-sm'" [type]="'button'">Delete</app-button>
-                </div>
-                <div class="col-md-6 padding_none text-right">
-                    <app-button [className]="'btn-default btn-sm'" [type]="'button'" (click) = "closePopup()">Cancel</app-button>
-                    <app-button [className]="'btn-primary btn-sm'" [type]="'button'" (click) = "closeForm()">Save</app-button>
-                </div>
-            </div>
-            <!-- edit profile head end -->
-
-        </div>
-    </div>
-  </form>
-</app-modal>
-
 
 <div *ngIf="pageLoading === true">
   <div class="sticky">
