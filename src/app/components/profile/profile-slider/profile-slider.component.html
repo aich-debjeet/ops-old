@@ -109,8 +109,8 @@
             <div class="col-md-4 col-sm-4 pro_skills">
                 <h3>SKILLS</h3>
                 <button *ngIf="profileObject?.userSkill == '' && isOtherProfile === false" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
-                <button *ngFor="let skill of profileObject?.userSkill | slice:0:8" type="button" class="btn btn-default btn-xs">{{ skill.name }}</button>
-                <button type="button" *ngIf="profileObject?.userSkill?.length > 7" (click)="skillPopup()" class="btn btn-default btn-xs">More...</button>
+                <a routerLink="{{ '/spotfeed/' + skill.name }}"  *ngFor="let skill of profileObject?.userSkill | slice:0:8" type="button" class="btn btn-default btn-xs">{{ skill.name }}</a>
+                <a type="button" *ngIf="profileObject?.userSkill?.length > 7" (click)="skillPopup()" class="btn btn-default btn-xs">More...</a>
             </div>
         </div>
     </div>

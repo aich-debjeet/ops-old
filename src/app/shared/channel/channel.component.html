@@ -11,7 +11,7 @@
           <a (click)="deleteChannel(channelData?.spotfeedId)" data-toggle="modal" data-target="#edit_channel_pop">Delete</a>
         </li>
         <li>
-          <a data-toggle="modal" data-target="#edit_channel_pop">Edit</a>
+          <a [routerLink]="['', { outlets: { media : ['channel', channelData?.spotfeedId, 'edit' ] } } ]" data-toggle="modal" data-target="#edit_channel_pop">Edit</a>
         </li>
         <li>
           <a >Pin to Quick Access</a>

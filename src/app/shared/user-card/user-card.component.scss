@@ -1,0 +1,50 @@
+// feed Card style ----------------------------------------------------
+.c-card {
+  width: 100%;
+  height: auto;
+  float: left;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+// card artist follow block style ----------------------------------------------------
+.c-card--artist {
+  padding: 16px;
+  text-align: center;
+}
+
+.c-artist__avatar {
+  // border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  // background-color: #f8f8f8;
+}
+
+.c-artist__img {
+  width: 100%;
+  border-radius: 23em;
+  max-width: 100px;
+}
+
+.c-artist__name {
+  color: #333333;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 19px;
+  text-align: center;
+}
+
+.c-artist__username {
+  color: #333333;
+  font-size: 12px;
+  line-height: 17px;
+}
+
+.c-artist--btn {
+  margin-top: 16px;
+}

@@ -122,4 +122,8 @@ export class ChannelInnerComponent implements OnInit {
     this._store.dispatch({ type: MediaActions.POST_COMMENT, payload: send});
   }
 
+  pinEditFormPopup() {
+    //
+  }
+
 }
