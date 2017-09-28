@@ -13,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
+import { UniquePipe } from './pipes/unique.pipe';
 // Guard
 import { AuthGuard } from './guard/auth.guard';
 
@@ -122,7 +123,8 @@ import { CommunitiesComponent } from './components/communities/communities.compo
     ResourceComponent,
     NotFoundPageComponent,
     CommunitiesComponent,
-    OrderByPipe
+    OrderByPipe,
+    UniquePipe
   ],
   imports: [
     SharedModule,
