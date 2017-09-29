@@ -34,7 +34,9 @@ export class ProfileHelper {
       followingCount: profile.followingCount,
       follwerCount: profile.followersCount,
       extra: profile.extra,
+      isFollowing: this.checkFollowing(profile)
     }
+
     return maps;
   }
 
@@ -54,4 +56,17 @@ export class ProfileHelper {
     return name;
   }
 
+  /**
+   *
+   */
+  checkFollowing(profile: any) {
+    let name = false;
+    if ('extra' in profile) {
+      const extra = profile['extra'];
+      if ('isFollowing' in extra) {
+        name = extra['isFollowing'];
+      }
+    }
+    return name;
+  }
 }
