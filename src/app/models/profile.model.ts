@@ -36,6 +36,9 @@ export class ProfileModal {
   profile_img_upload_loading: boolean;
   cover_upload_loading: boolean;
   cover_img_upload_success: boolean;
+
+  user_profiles_all_loaded: boolean;
+  user_profiles_all?: any;
 }
 
 export class ProfileForm {
@@ -80,7 +83,11 @@ export const initialTag: ProfileModal = {
   // Profile & Cover
   cover_upload_loading: false,
   profile_img_upload_loading: false,
-  cover_img_upload_success: false
+  cover_img_upload_success: false,
+
+  // All Profiles
+  user_profiles_all_loaded: false,
+  user_profiles_all: []
 };
 
 export class ProfileCard {

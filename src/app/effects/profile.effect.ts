@@ -580,6 +580,18 @@ export class ProfileEffect {
        return Observable.of({  type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS })
     });
 
+  /**
+   * [TEMP] Load all profiles
+   */
+  @Effect()
+  loadProfiles$ = this.actions$
+    .ofType(ProfileActions.LOAD_ALL_PROFILES)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getAllProfiles()
+      .map(res => ({ type: ProfileActions.LOAD_ALL_PROFILES_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.LOAD_ALL_PROFILES_FAILED, payload: res }))
+    );
+
 
   constructor(
     private actions$: Actions,

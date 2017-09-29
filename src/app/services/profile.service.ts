@@ -381,4 +381,11 @@ export class ProfileService {
   userChannelUnpin(body: any) {
     return this.api.put('/portal/network/spotfeed/unpinspotfeed/unpin', body);
   }
+
+  /**
+   * [TEMP] Get all profiles
+   */
+  getAllProfiles() {
+    return this.api.get('/portal/profile/0/50', '');
+  }
 }
