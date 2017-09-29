@@ -544,6 +544,23 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         channel_unpin_failed: true
       });
 
+      /**
+       * [TEMP] Load all profiles
+       */
+    case ProfileActions.LOAD_ALL_PROFILES:
+      return Object.assign({}, state, {
+        user_profiles_all_loaded: false
+      });
+    case ProfileActions.LOAD_ALL_PROFILES_SUCCESS:
+      return Object.assign({}, state, {
+        user_profiles_all_loaded: true,
+        user_profiles_all: payload
+      });
+
+    case ProfileActions.LOAD_ALL_PROFILES_FAILED:
+      return Object.assign({}, state, {
+        user_profiles_all_loaded: false
+      });
 
     default:
       return state;

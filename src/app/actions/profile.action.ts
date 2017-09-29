@@ -235,6 +235,11 @@ export class ProfileActions {
   static UNPIN_CHANNEL_SUCCESS = 'UNPIN_CHANNEL_SUCCESS';
   static UNPIN_CHANNEL_FAILED = 'UNPIN_CHANNEL_FAILED';
 
+  // [TEMP] Load all profiles
+  static LOAD_ALL_PROFILES = 'LOAD_ALL_PROFILES';
+  static LOAD_ALL_PROFILES_SUCCESS = 'LOAD_ALL_PROFILES_SUCCESS';
+  static LOAD_ALL_PROFILES_FAILED = 'LOAD_ALL_PROFILES_FAILED';
+
   /**
    * Load Current user profile
    */
