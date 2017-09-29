@@ -45,7 +45,6 @@ export class ProfileComponent implements OnInit {
     this.isCurrentUser = false;
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-         console.log(state);
       this.current_user_value = this.checkUserType(this.userProfile);
     });
 

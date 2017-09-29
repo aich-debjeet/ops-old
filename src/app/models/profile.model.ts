@@ -96,6 +96,7 @@ export class ProfileCard {
   followingCount: number;
   follwerCount: number;
   extra: any;
+  isFollowing: boolean;
 }
 
 export class Spotfeed {

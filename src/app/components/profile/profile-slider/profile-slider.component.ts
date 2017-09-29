@@ -79,6 +79,9 @@ export class ProfileSliderComponent implements OnInit {
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
+      if (this.profileObject) {
+        this.isfollowing = this.profileObject['isFollowing'];
+      }
     });
 
     this.skillState$.subscribe((state) => {
@@ -99,6 +102,9 @@ export class ProfileSliderComponent implements OnInit {
   // }
 
   ngOnInit() {
+
+
+
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
@@ -157,8 +163,18 @@ export class ProfileSliderComponent implements OnInit {
    */
   followUser(profile: any) {
     const handle = profile.userDetails.handle;
+
     this.isfollowing = !this.isfollowing;
-    this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle });
+    console.log('FOLLOW', this.isfollowing);
+
+    if (this.isfollowing === false) {
+      console.log('FOLLOW', 'STOPPED', this.isfollowing);
+      this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
+    } else {
+      console.log('FOLLOW', 'STARTED', this.isfollowing);
+      this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle });
+    }
+
   }
 
   /**
