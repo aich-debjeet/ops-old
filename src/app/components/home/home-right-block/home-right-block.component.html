@@ -3,11 +3,32 @@
     <div class="row">
       <!-- communities -->
       <div class="relative">
+        <div class="panel-group">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+                Users to follow
+                <!--<span><a href="">See More</a></span>-->
+            </div>
+            <div class="panel-body">
+              <ul class="userList">
+                  <li *ngFor="let profileItem of getProfileImage()" class="userListItem">
+                    <span *ngIf="profileItem.profileImage" class="userItem">
+                      <img *ngIf="profileItem.profileImage" class="userImage" [src]="'http://d206s58i653k1q.cloudfront.net/' + profileItem.profileImage" width="24px"/>
+                      <span *ngIf="!profileItem.profileImage" class="userImage userImage--holder"></span>
+                      <span class="userName">{{ profileItem.name?.displayName }}</span>
+                    </span>
+                  </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="relative">
             <div class="coming_soon_txt">Coming Soon</div>
             <div class="panel-group">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        COMMUNITIES 
+                        COMMUNITIES
                         <!--<span><a href="">See More</a></span>-->
                     </div>
                     <div class="panel-body blur-main">
@@ -47,14 +68,14 @@
             </div>
       </div>
       <br>
-      
+
       <!-- nearest event -->
       <div class="relative" >
             <div class="coming_soon_txt">Coming Soon</div>
             <div class="panel-group">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Nearest Events 
+                            Nearest Events
                             <!--<span><a href="">See More</a></span>-->
                         </div>
                         <div class="blur-main">
@@ -85,14 +106,14 @@
                 </div>
       </div>
       <br>
-  
+
       <!-- opportunities -->
       <div class="relative" >
             <div class="coming_soon_txt">Coming Soon</div>
             <div class="panel-group">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        opportunities 
+                        opportunities
                         <!--<span><a href="">See More</a></span>-->
                     </div>
                     <div class="blur-main">
