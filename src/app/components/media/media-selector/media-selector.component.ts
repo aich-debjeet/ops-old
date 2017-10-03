@@ -14,6 +14,7 @@ import { SharedActions } from '../../../actions/shared.action';
 import FilesHelper from '../../.../../../helpers/fileUtils';
 
 import { TokenService } from '../../../helpers/token.service';
+import { ToastrService } from 'ngx-toastr';
 
 import * as fromRoot from '../../../../app/app.reducer';
 
@@ -75,11 +76,12 @@ export class MediaSelectorComponent implements OnInit {
   myProfile$: Observable<any>;
   myProfileData: any;
   fileFormData: any;
-
+  chooseChannelToggleState: boolean;
   constructor(
     private Upload: NgxfUploaderService,
     private fb: FormBuilder,
     private api: TokenService,
+    private toastr: ToastrService,
     private profileStore: Store<ProfileModal>,
     private _store: Store<fromRoot.State>,
     private http: Http) {
@@ -92,6 +94,7 @@ export class MediaSelectorComponent implements OnInit {
       this.formMessages = [];
 
       this.chosenChannel = 0;
+      this.chooseChannelToggleState = false;
 
       // If there's input assign, other wise, reload channel list
       if (this.userChannels) {
@@ -119,6 +122,10 @@ export class MediaSelectorComponent implements OnInit {
         this.postSuccess = this.profileChannel.media_channel_posted;
         this.postSuccessActive = this.profileChannel.media_channel_posting;
 
+        if (this.postSuccessActive === true) {
+          this.toastr.success('Your media has been successfully posted to your channel', 'Upload');
+        }
+
         if (this.profileChannel.user_channels_loaded) {
           // console.log('CHANNEL', 'LOADED');
           this.channeList = this.profileChannel.user_channel;
@@ -132,7 +139,7 @@ export class MediaSelectorComponent implements OnInit {
     // If there's input assign, other wise, reload channel list
     // this.myChannels$.subscribe(event => this.channeListx = event);
     this.myProfile$.subscribe(event => {
-      console.log('[--]');
+      console.log('[WATCHER]');
       this.myProfileData = event;
       // If user is got
 
@@ -244,20 +251,16 @@ export class MediaSelectorComponent implements OnInit {
     let isChannelReady, isFileReady ;
 
     if (this.chosenChannel === 0 ) {
-      console.log('NO CHANNEL');
       isChannelReady = false;
-      this.formMessages.push('Please select a channel');
+      this.toastr.error('You need to select a channel', 'Not ready yet');
     } else {
-      console.log('CHANNEL READY');
       isChannelReady = true;
     }
 
     if (chosenFile.fileName === undefined) {
       isFileReady = false;
-      console.log('No File Choosen');
-      this.formMessages.push('Please select a file');
+      this.toastr.error('You need to select a file to post', 'Not ready yet');
     } else {
-      console.log('FILE READY');
       isFileReady = true;
     }
 
@@ -279,8 +282,6 @@ export class MediaSelectorComponent implements OnInit {
       userHandle = this.profileChannel.profileUser.handle;
     }
 
-    console.log('FORM READY?', isUploadReady);
-
     if ( isUploadReady ) {
       const formData = formValue;
       const chosenChannel = this.chosenChannel;
@@ -295,6 +296,13 @@ export class MediaSelectorComponent implements OnInit {
     } else {
       console.log('FORM SUBMITTION ERROR');
     }
+  }
+
+  /**
+   * Notification Wacther
+   */
+  notificationWatcher() {
+    //
   }
 
   /**
@@ -344,6 +352,7 @@ export class MediaSelectorComponent implements OnInit {
    */
   onChannelCreation(event: any) {
     console.log('ORDER RECIEVED TO CREATE CHANNEL', event);
+
     if (event) {
       // If handle is empty, append current handle
       // Give away what you have, humanity dear!
@@ -353,6 +362,8 @@ export class MediaSelectorComponent implements OnInit {
       if (newObj.owner) {
         console.log('OWNER', newObj.owner);
         this.saveChannel( newObj );
+        // Recollect channel details
+        this.loadChannel(this.handle);
       }
     }
   }
@@ -657,6 +668,13 @@ export class MediaSelectorComponent implements OnInit {
         alert('Type Error');
         break;
     }
+  }
+
+  /**
+   * Hide/Show Choose Channel
+   */
+  chooseChannelToggle() {
+    this.chooseChannelToggleState = !this.chooseChannelToggleState;
   }
 }
 

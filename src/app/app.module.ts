@@ -9,9 +9,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { ImageCropperModule } from 'ng2-img-cropper/index';
+import { ToastrModule } from 'ngx-toastr';
 
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
+import { UniquePipe } from './pipes/unique.pipe';
 // Guard
 import { AuthGuard } from './guard/auth.guard';
 
@@ -91,6 +93,7 @@ import { LearnComponent } from './components/learn/learn.component';
 import { ResourceComponent } from './components/resource/resource.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { CommunitiesComponent } from './components/communities/communities.component';
+import { StatusListComponent } from './components/status-list/status-list.component';
 
 @NgModule({
   declarations: [
@@ -121,7 +124,9 @@ import { CommunitiesComponent } from './components/communities/communities.compo
     ResourceComponent,
     NotFoundPageComponent,
     CommunitiesComponent,
-    OrderByPipe
+    OrderByPipe,
+    UniquePipe,
+    StatusListComponent
   ],
   imports: [
     SharedModule,
@@ -135,6 +140,7 @@ import { CommunitiesComponent } from './components/communities/communities.compo
     MasonryModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
+    ToastrModule.forRoot(), // ToastrModule added
     // StoreRouterConnectingModule,
     EffectsModule.run(AuthEffect),
     EffectsModule.run(HomeEffect),

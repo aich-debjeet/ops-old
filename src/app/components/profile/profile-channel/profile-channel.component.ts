@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { Router, ActivatedRoute, RoutesRecognized } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -12,6 +13,8 @@ import { SharedActions } from '../../../actions/shared.action';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+
+import { remove as _remove } from 'lodash';
 
 @Component({
   selector: 'app-profile-channel',
@@ -36,6 +39,7 @@ export class ProfileChannelComponent implements OnInit {
     private http: Http,
     private _router: Router,
     public route: ActivatedRoute,
+    private toastr: ToastrService,
     private profileStore: Store<ProfileModal>
   ) {
     this.loaded = false;
@@ -93,7 +97,6 @@ export class ProfileChannelComponent implements OnInit {
     if ( isChannelReady === false && isProfileReady === true) {
       this.counter++;
       const handleID = state.profile_other.handle;
-      console.log('TOKEN #1', handleID);
       if (this.counter < 10) {
         this.handle = handleID;
         if (this.handle && this.userName ) {
@@ -133,8 +136,6 @@ export class ProfileChannelComponent implements OnInit {
   }
 
   toggleFollowBtn(i) {
-    // console.log(i);
-
     // Follow dispatches to happen here
   }
 
@@ -154,6 +155,22 @@ export class ProfileChannelComponent implements OnInit {
    */
   deleteChannel(channelId: string) {
     this.profileStore.dispatch({ type: ProfileActions.CHANNEL_DELETE, payload: channelId });
+    this.removeChannel(channelId);
+    this.toastr.warning('Channel Deleted');
+  }
+
+  /**
+   * Remove a channel from list
+   * @param file
+   */
+  removeChannel(channelId: any) {
+    const list = _remove(this.channels, function(n){
+      return n.spotfeedId === channelId;
+    });
+
+    if (list) {
+      this.channels = list;
+    }
   }
 
   ngOnInit(): void {

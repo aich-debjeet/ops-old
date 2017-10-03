@@ -14,6 +14,7 @@ import { MediaSelectorComponent } from './media-selector/media-selector.componen
 import { ChannelSelectorComponent } from './channel-selector/channel-selector.component';
 import { MediaViewComponent } from './media-view/media-view.component';
 import { CreateChannelComponent } from './create-channel/create-channel.component';
+import { EditChannelComponent } from './channel-edit/channel-edit.component';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -60,6 +61,11 @@ const routes: Routes = [
     path: 'channel/add',
     component: CreateChannelComponent,
     outlet: 'media'
+  },
+  {
+    path: 'channel/:id/edit',
+    component: EditChannelComponent,
+    outlet: 'media'
   }
 ];
 
@@ -82,7 +88,8 @@ const routes: Routes = [
     StatusEditorComponent,
     MediaSelectorComponent,
     ChannelSelectorComponent,
-    CreateChannelComponent
+    CreateChannelComponent,
+    EditChannelComponent
   ],
   exports: [
     MediaComponent

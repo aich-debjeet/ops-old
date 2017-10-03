@@ -12,11 +12,9 @@ export class ProfileHelper {
    */
   profileValueMapping(profileData: any, type: string) {
     let profile;
-    console.log(profileData);
     // check if its other profile firs
     let maps  = new ProfileCard();
     if (type === 'other') {
-      // console.log('other profile !');
       profile = profileData.profile_other;
     } else {
       profile = profileData.profileDetails;
@@ -36,7 +34,9 @@ export class ProfileHelper {
       followingCount: profile.followingCount,
       follwerCount: profile.followersCount,
       extra: profile.extra,
+      isFollowing: this.checkFollowing(profile)
     }
+
     return maps;
   }
 
@@ -56,4 +56,17 @@ export class ProfileHelper {
     return name;
   }
 
+  /**
+   *
+   */
+  checkFollowing(profile: any) {
+    let name = false;
+    if ('extra' in profile) {
+      const extra = profile['extra'];
+      if ('isFollowing' in extra) {
+        name = extra['isFollowing'];
+      }
+    }
+    return name;
+  }
 }

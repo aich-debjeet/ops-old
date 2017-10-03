@@ -35,7 +35,7 @@ $pad-scale-4: 32px;
 
 .ico__add {
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: top;
   margin-top: $pad-scale-2;
   margin-left: $pad-scale-2;
   margin-right: $pad-scale-2;
@@ -43,7 +43,8 @@ $pad-scale-4: 32px;
 
 .ico__label{
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: top;
+  margin-top: $pad-scale-2;
 }
 
 .icon__holder {
@@ -100,9 +101,16 @@ $pad-scale-4: 32px;
 .channel-list-show_img__empty {
   width: 49px;
   height: 32px;
-  background-color: #eee;
+  background-color: #ddd;
 }
 
 .createchannelForm{
   padding-bottom: $pad-scale-3;
+  .form_input, .form__select, .form__textarea{
+    background-color: transparent;
+  }
+}
+
+.createchannel {
+  background-color: #fbfafa;
 }

@@ -46,6 +46,7 @@ import { MediaComponent } from '../components/media/media.component';
 import { PostComponent } from './post/post.component';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { CommentComponent } from './comment/comment.component';
+import { UserCardComponent } from './user-card/user-card.component';
 
 @NgModule({
   imports: [
@@ -81,7 +82,8 @@ import { CommentComponent } from './comment/comment.component';
     DropdownOpenDirective,
     PostComponent,
     CommentListComponent,
-    CommentComponent
+    CommentComponent,
+    UserCardComponent
   ],
   exports: [
     AuthRightBlockComponent,
@@ -103,7 +105,8 @@ import { CommentComponent } from './comment/comment.component';
     DropdownNotClosableZoneDirective,
     DropdownOpenDirective,
     PostComponent,
-    CommentComponent
+    CommentComponent,
+    UserCardComponent
   ]
 
 })

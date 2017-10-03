@@ -36,7 +36,6 @@ export class HomeSpotfeedComponent implements OnInit {
         this.spotfeeds = this.userState.home_spotfeeds.SUCCESS;
       }
     });
-
     this.store.dispatch({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS });
   }
 
