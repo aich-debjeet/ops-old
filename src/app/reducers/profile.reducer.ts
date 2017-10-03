@@ -125,6 +125,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS:
       // console.log('current user Quick Access');
       return Object.assign({}, state, {
+        userQuickAccess: [],
         success: true
       });
 
