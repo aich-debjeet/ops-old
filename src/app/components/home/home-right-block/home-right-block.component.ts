@@ -38,8 +38,8 @@ export class HomeRightBlockComponent implements OnInit {
   }
 
   getProfileImage() {
-    return _filter(this.profiles, function(o) {
-      return o.profileImage !== ''; 
+    return _filter(this.profiles, function(item) {
+      return item.profileImage !== '';
     });
   }
 
