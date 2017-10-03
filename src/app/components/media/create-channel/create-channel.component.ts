@@ -161,9 +161,9 @@ export class CreateChannelComponent {
       peopleListList.push({ handle: i });
     }
 
-    let otherField = {};
+    let otherFields = {};
     if (peopleListList.length > 0 ) {
-      otherField = { contributerList: peopleListList }
+      otherFields = { contributerList: peopleListList }
     }
 
     if ( this.channelForm.valid === true && userHandle !== '' ) {
@@ -177,7 +177,7 @@ export class CreateChannelComponent {
         owner: userHandle,
         industryList: [ value.type ],
         mediaTypes: mediaTypeList,
-        otherField
+        otherFields
       }
 
       console.log('CREATE', channelObj );
