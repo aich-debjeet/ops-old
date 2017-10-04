@@ -251,6 +251,13 @@ export class ProfileService {
   }
 
   /**
+   * Create a channel
+   */
+  updateChannel(data: any) {
+    return this.api.put('/portal/network/spotfeed/' + data.channelId, data.channelData);
+  }
+
+  /**
    * Attach Image to Cover
    */
   attachCoverImage(imageResp: any) {
