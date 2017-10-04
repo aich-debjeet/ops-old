@@ -16,6 +16,7 @@ import { ProfileActions } from '../../../actions/profile.action';
 import { initialMedia, Media } from '../../../models/media.model';
 
 import { initialTag, Follow } from '../../../models/auth.model';
+import { ProfileModal } from '../../../models/profile.model';
 
 import { map as _map } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
@@ -39,7 +40,8 @@ export class EditChannelComponent implements OnInit {
   private mediaStateSubscription: Subscription;
   mediaState$: Observable<Media>;
   editState$: Observable<any>;
-  tagState$: Observable<Follow>;
+  loginTagState$: Observable<Follow>;
+  tagState$: Observable<ProfileModal>;
   mediaStore = initialMedia;
   editValues: any;
   people: any[];
@@ -73,20 +75,26 @@ export class EditChannelComponent implements OnInit {
       if (typeof this.mediaStore.channel_detail['contributorProfile'] !== 'undefined') {
         this.people = this.mediaStore.channel_detail['contributorProfile'];
         this.tags = this.mediaStore.channel_detail['tags'];
-        this.selectedIndustry = this.mediaStore.channel_detail['industryList'][0];
+        const industryArrLen = this.mediaStore.channel_detail['industryList'].length;
+        this.selectedIndustry = this.mediaStore.channel_detail['industryList'][industryArrLen - 1];
         this.selectedPrivacy = this.mediaStore.channel_detail['accessSeetings'].access;
       }
     });
 
-    this.tagState$ = store.select('loginTags');
+    this.loginTagState$ = store.select('loginTags');
+    this.loginTagState$.subscribe((state) => {
+      this.profileChannel = state;
+    });
+
+    this.tagState$ = this.store.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.profileChannel = state;
-      this.channelSaved = this.profileChannel.channel_saved;
+      console.log(state);
+      this.channelSaved = this.profileChannel.channel_updated;
 
       // Success message
       if (this.channelSavedHere && this.channelSaved === true ) {
         this.toastr.success('Channel Updated');
-        this.updateChannelForm();
         this.channelSavedHere = false;
       }
     });
@@ -214,20 +222,6 @@ export class EditChannelComponent implements OnInit {
     } else {
       this.toastr.warning('Please fill all required fields');
     }
-  }
-
-  /**
-   * Status Form
-   */
-  updateChannelForm() {
-    // Empty initiate form
-    this.channelForm = this.fb.group({
-      title: ['', Validators.required ],
-      type: ['', Validators.required ],
-      desc: ['', Validators.required ],
-      privacy: [0, Validators.required ],
-      openess: [1]
-    })
   }
 
   /**

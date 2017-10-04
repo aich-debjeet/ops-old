@@ -191,6 +191,24 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       channel_saved: false
     });
 
+  /**
+   * User channel update
+   */
+  case ProfileActions.CHANNEL_UPDATE:
+    return Object.assign({}, state, {
+      channel_updated: false
+    });
+
+  case ProfileActions.CHANNEL_UPDATE_SUCCESS:
+    return Object.assign({}, state, {
+      channel_updated: true
+    });
+
+  case ProfileActions.CHANNEL_UPDATE_FAILED:
+    return Object.assign({}, state, {
+      channel_updated: false
+    });
+
     /**
      * Get home page spotfeeds
      */
