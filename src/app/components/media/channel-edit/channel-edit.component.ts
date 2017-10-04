@@ -70,8 +70,8 @@ export class EditChannelComponent implements OnInit {
 
     this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
-      console.log('state');
-      console.log(this.mediaStore);
+      // console.log('state');
+      // console.log(this.mediaStore);
       if (typeof this.mediaStore.channel_detail['isOwner'] !== 'undefined' && this.mediaStore.channel_detail['isOwner'] !== true) {
         this.doClose(0);
       }
@@ -122,7 +122,7 @@ export class EditChannelComponent implements OnInit {
 
     // reading route
     this.route.params.subscribe(params => {
-      console.log(params);
+      // console.log(params);
       if (typeof params['id'] !== 'undefined') {
         this.channelId = params['id'];
         this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
@@ -134,8 +134,8 @@ export class EditChannelComponent implements OnInit {
 
       this.editValues = event;
       const channel = event.channel_detail;
-      console.log('channel');
-      console.log(channel);
+      // console.log('channel');
+      // console.log(channel);
       this.userHandle = channel.ownerHandle;
 
       this.channelForm = this.fb.group({
@@ -154,7 +154,7 @@ export class EditChannelComponent implements OnInit {
    * Close
    */
   doClose(event) {
-    console.log('do close');
+    // console.log('do close');
     this.router.navigate(['.', { outlets: { media: null } }], {
       relativeTo: this.route.parent
     });
@@ -189,7 +189,7 @@ export class EditChannelComponent implements OnInit {
       const tagList = [];
 
       for (const tag of tagListAll) {
-        console.log(tag);
+        // console.log(tag);
         if (typeof tag === 'string' || tag instanceof String) {
           tagList.push(tag);
         } else if (tag instanceof Object) {
@@ -214,7 +214,7 @@ export class EditChannelComponent implements OnInit {
         otherFields: otherField
       }
 
-      console.log('UPDATE CHANNEL', channelObj);
+      // console.log('UPDATE CHANNEL', channelObj);
       this.channelSavedHere = true;
 
       const reqParams = {
