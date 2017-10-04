@@ -1,87 +1,89 @@
-<app-modal [modalTitle]="'Edit Channel'" [open]="true" [blocking]='false' (onClose)="doClose($event)"  modalId='ViewMedia' class="media__tiny" size="tiny">
-    <form [formGroup]="channelForm" novalidate #myform="ngForm">
-        <!-- <div class="edit-channel_head">
-            <div class="col-md-12 padding_none">
-                <h2>Edit Channel</h2>
-            </div>
-        </div> -->
-        <div class="edit-channel_sec_block">
-            <div id="basic_info" class="edit-channel_content_block show" style="display: none;">
-                <div class="editarea">
-                    <div class="form_group">
-                        <input formControlName="title" class="form_input" required="" type="text" disabled="">
-                        <span class="form_highlight"></span>
-                        <span class="form_bar"></span>
-                        <label>Title</label>
-                    </div>
-                    <div class="form_group">
-                        <textarea class="form_input form_textarea" formControlName="desc" name="" placeholder="About your Channel"></textarea>
-                        <span class="form_highlight"></span>
-                        <span class="form_bar"></span>
-                        <label>Bio</label>
-                    </div>
-                    <div class="form_group">
-                        <tag-input [(ngModel)]='tags'
+<app-modal [modalTitle]="'Edit Channel'" [open]="true" [blocking]='false' (onClose)="doClose($event)"  modalId='ViewMedia' class="media__large" size="large">
+    <div class="container create_channel_main">
+        <div class="row">
+            <div class="create_channel_container">
+                <div class="create_channel__head with_border_bottom">
+                    <h3 class="heading_3 text-black capitalize">Edit Channel</h3>
+                    <span class="search_close" (click)="doClose()">
+                        <a href="javascript:hideCreatechannelform()"><img src="http://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
+                    </span>
+                </div><!-- edit channel head -->
+                <div class="create_channel__content">
+                <form [formGroup]="channelForm" novalidate #myform="ngForm">
+                    <div class="create_channel_form">
+                        <div class="form_group">
+                            <input formControlName="title" class="form_input" required="" type="text">
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label>Title</label>
+                        </div>
+                        <div class="form_group">
+                            <textarea class="form_textarea" formControlName="desc" name="" placeholder="About your Channel"></textarea>
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <!-- <label>About Channel</label> -->
+                        </div>
+                        <div class="form_group">
+                            <tag-input [(ngModel)]='tags'
                             [placeholder]="'Add Tags'"
                             [theme]="'ops-theme'"
                             [ngModelOptions]="{standalone: true}"
                             [secondaryPlaceholder]="'Add tags to channel'">
-                        </tag-input>
-                    </div>
-                    <div class="form_group display-inline-block width100">
-                        <select formControlName="privacy" class="form-control width45 float-right" id="sel1" [(ngModel)]="selectedPrivacy">
-                            <option value="0">Public</option>
-                            <option value="1">Private</option>
-                        </select>
-                        <select formControlName="type" class="form-control width45" id="sel1" [(ngModel)]="selectedIndustry">
-                            <option value="">Industry</option>
-                            <option *ngFor="let industry of industryList.industries" [value]="industry.code" >{{ industry.name }}</option>
-                        </select>
-                    </div>
-                    <!-- <div class="form_group">
-                        <input class="form_input" required="" type="text" value="">
-                        <span class="form_highlight"></span>
-                        <span class="form_bar"></span>
-                        <label>Add People</label>
-                    </div> -->
-                    <div class="form_group">
-                        <tag-input [(ngModel)]='people'
-                        [placeholder]="'Add people'"
-                        [theme]="'ops-theme'"
-                        [onTextChangeDebounce]="500"
-                        [ngModelOptions]="{standalone: true}"
-                        [secondaryPlaceholder]="'Add people to channel'"
-                        [onlyFromAutocomplete]="true"
-                        [displayBy]="'name'"
-                        [identifyBy]="'handle'">
-                            <tag-input-dropdown
+                            </tag-input>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form_group">
+                                    <select formControlName="type" class="form-control" id="sel1" [(ngModel)]="selectedIndustry">
+                                        <option value="">Industry</option>
+                                        <option *ngFor="let industry of industryList.industries" [value]="industry.code" >{{ industry.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form_group">
+                                    <select formControlName="privacy" class="form-control" id="sel1" [(ngModel)]="selectedPrivacy">
+                                        <option value="0">Public</option>
+                                        <option value="1">Private</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form_group">
+                            <tag-input [(ngModel)]='people'
+                                [placeholder]="'Add people'"
+                                [theme]="'ops-theme'"
+                                [onTextChangeDebounce]="500"
+                                [ngModelOptions]="{standalone: true}"
+                                [secondaryPlaceholder]="'Add people to channel'"
                                 [displayBy]="'name'"
-                                [identifyBy]="'handle'"
-                                [autocompleteObservable]="requestAutocompleteItems">
-                                <ng-template let-item="item" let-index="index" class="userList">
-                                    <div class="tinyImgHolder">
-                                        <img class="tinyImg" width="24" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.profileImage}}"/>
-                                    </div>
-                                    <span class="tinyName">
-                                        {{ item.name }}
-                                        <span class="tinyUsername">
-                                        ({{ item.extra.username }})
-                                        </span>
-                                    </span>
-                                </ng-template>
-                            </tag-input-dropdown>
-                        </tag-input>
+                                [onlyFromAutocomplete]="true">
+                                    <tag-input-dropdown
+                                    [displayBy]="'name'"
+                                    [identifyBy]="'handle'"
+                                    [autocompleteObservable]="requestAutocompleteItems">
+                                        <ng-template let-item="item" let-index="index" class="userList">
+                                            <div class="tinyImgHolder">
+                                            <img class="tinyImg" width="24" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.profileImage}}"/>
+                                            </div>
+                                            <span class="tinyName">
+                                            {{ item.name }}
+                                            <span class="tinyUsername">
+                                                ({{ item.extra.username }})
+                                            </span>
+                                            </span>
+                                        </ng-template>
+                                    </tag-input-dropdown>
+                            </tag-input>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- edit profile content block end -->
-        </div>
-        <div class="edit_channel_footer">
-            <div class="col-md-6 padding_none text-right">
-                <button type="button" class="btn btn-network btn-sm capitalize" (click)="doClose($event)">Cancel</button>
-                <button type="button" class="btn btn-primary btn-sm capitalize">Save</button>
+                    <div class="create_channel_btn with_border_top">
+                        <button class="btn btn-primary btn-sm" type="submit" (click)="updateChannel(channelForm.value)">Update</button>
+                    </div>
+                </form>
+                </div><!-- edit channel content end -->
             </div>
         </div>
-        <!-- edit profile head end -->
-    </form>
+    </div>
 </app-modal>

@@ -12,9 +12,13 @@ import FilesHelper from '../../../helpers/fileUtils';
 // Action
 import { MediaActions } from '../../../actions/media.action';
 import { AuthActions } from '../../../actions/auth.action';
+import { ProfileActions } from '../../../actions/profile.action';
 import { initialMedia, Media } from '../../../models/media.model';
 
 import { initialTag, Follow } from '../../../models/auth.model';
+
+import { map as _map } from 'lodash';
+import { ToastrService } from 'ngx-toastr';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -43,13 +47,19 @@ export class EditChannelComponent implements OnInit {
   tags: any;
   selectedIndustry: string;
   selectedPrivacy: string;
+
+  profileChannel: any;
+  channelSaved = false;
+  channelSavedHere: boolean;
+
   private apiLink: string = environment.API_ENDPOINT;
   constructor(
     private fb: FormBuilder,
     private http: Http,
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<Media>
+    private store: Store<Media>,
+    private toastr: ToastrService,
   ) {
 
     this.mediaState$ = store.select('mediaStore');
@@ -61,6 +71,7 @@ export class EditChannelComponent implements OnInit {
       console.log(this.mediaStore);
       if (typeof this.mediaStore.channel_detail['followersProfile'] !== 'undefined') {
         this.people = this.mediaStore.channel_detail['followersProfile'];
+        this.tags = this.mediaStore.channel_detail['tags'];
         this.selectedIndustry = this.mediaStore.channel_detail['industryList'][0];
         // this.selectedPrivacy = this.mediaStore.channel_detail['accessSettings']['access'];
       }
@@ -69,8 +80,15 @@ export class EditChannelComponent implements OnInit {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       this.industryList = state;
-      // console.log('this.industryList');
-      // console.log(this.industryList.industries);
+      this.profileChannel = state;
+      this.channelSaved = this.profileChannel.channel_saved;
+
+      // Success message
+      if (this.channelSavedHere && this.channelSaved === true ) {
+        this.toastr.success('Channel Created');
+        this.updateChannelForm();
+        this.channelSavedHere = false;
+      }
     });
   }
 
@@ -131,18 +149,51 @@ export class EditChannelComponent implements OnInit {
    * Upate Form
    * @param formValue
    */
-  updateChannel(formValue: any) {
-    //
+  updateChannel(value: any) {
+    const userHandle = this.profileChannel.profileUser.handle || '';
+    const mediaTypeList = [];
+
+    // Get only handles from user list
+    const peopleListAll = this.people;
+    const peopleList = _map(peopleListAll, 'handle');
+
+    const peopleListList = [];
+
+    for (const i of peopleList) {
+      peopleListList.push({ handle: i });
+    }
+
+    let otherField = {};
+    if (peopleListList.length > 0 ) {
+      otherField = { contributerList: peopleListList }
+    }
+
+    if ( this.channelForm.valid === true && userHandle !== '' ) {
+
+      const channelObj = {
+        name: value.title,
+        access: Number(value.privacy),
+        description: value.desc,
+        superType: 'channel',
+        accessSettings : { access : Number(value.privacy) },
+        owner: userHandle,
+        industryList: [ value.type ],
+        mediaTypes: mediaTypeList,
+        otherField
+      }
+
+      console.log('CREATE', channelObj );
+      this.channelSavedHere = true;
+      this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
+    } else {
+      this.toastr.warning('Please fill all required fields');
+    }
   }
 
   /**
    * Status Form
    */
-  createChannelForm() {
-    // Clear All Tags
-    // this.people = [];
-    this.tags = [];
-
+  updateChannelForm() {
     // Empty initiate form
     this.channelForm = this.fb.group({
       title: ['', Validators.required ],
@@ -156,11 +207,11 @@ export class EditChannelComponent implements OnInit {
   /**
    * Get people search
    */
-
   public requestAutocompleteItems = (text: string): Observable<Response> => {
     const url  = this.apiLink + '/portal/searchprofiles/1/' + text + '/0/10';
     return this.http
       .get(url)
       .map(data => data.json());
   };
+
 }
