@@ -70,8 +70,11 @@ export class EditChannelComponent implements OnInit {
 
     this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
-      // console.log('state');
-      // console.log(this.mediaStore);
+      console.log('state');
+      console.log(this.mediaStore);
+      if (typeof this.mediaStore.channel_detail['isOwner'] !== 'undefined' && this.mediaStore.channel_detail['isOwner'] !== true) {
+        this.doClose(0);
+      }
       if (typeof this.mediaStore.channel_detail['contributorProfile'] !== 'undefined') {
         this.people = this.mediaStore.channel_detail['contributorProfile'];
         this.tags = this.mediaStore.channel_detail['tags'];
