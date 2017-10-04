@@ -36,7 +36,7 @@
                                 <div class="form_group">
                                     <select formControlName="type" class="form-control" id="sel1" [(ngModel)]="selectedIndustry">
                                         <option value="">Industry</option>
-                                        <option *ngFor="let industry of industryList.industries" [value]="industry.code" >{{ industry.name }}</option>
+                                        <option *ngFor="let industry of profileChannel.industries" [value]="industry.code" >{{ industry.name }}</option>
                                     </select>
                                 </div>
                             </div>

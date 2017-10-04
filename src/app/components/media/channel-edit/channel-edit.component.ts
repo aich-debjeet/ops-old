@@ -41,12 +41,13 @@ export class EditChannelComponent implements OnInit {
   editState$: Observable<any>;
   tagState$: Observable<Follow>;
   mediaStore = initialMedia;
-  industryList: any;
   editValues: any;
   people: any[];
   tags: any;
   selectedIndustry: string;
   selectedPrivacy: string;
+  channelId: string;
+  userHandle: string;
 
   profileChannel: any;
   channelSaved = false;
@@ -67,25 +68,24 @@ export class EditChannelComponent implements OnInit {
 
     this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
-      console.log('state');
-      console.log(this.mediaStore);
-      if (typeof this.mediaStore.channel_detail['followersProfile'] !== 'undefined') {
-        this.people = this.mediaStore.channel_detail['followersProfile'];
+      // console.log('state');
+      // console.log(this.mediaStore);
+      if (typeof this.mediaStore.channel_detail['contributorProfile'] !== 'undefined') {
+        this.people = this.mediaStore.channel_detail['contributorProfile'];
         this.tags = this.mediaStore.channel_detail['tags'];
         this.selectedIndustry = this.mediaStore.channel_detail['industryList'][0];
-        // this.selectedPrivacy = this.mediaStore.channel_detail['accessSettings']['access'];
+        this.selectedPrivacy = this.mediaStore.channel_detail['accessSeetings'].access;
       }
     });
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-      this.industryList = state;
       this.profileChannel = state;
       this.channelSaved = this.profileChannel.channel_saved;
 
       // Success message
       if (this.channelSavedHere && this.channelSaved === true ) {
-        this.toastr.success('Channel Created');
+        this.toastr.success('Channel Updated');
         this.updateChannelForm();
         this.channelSavedHere = false;
       }
@@ -113,7 +113,8 @@ export class EditChannelComponent implements OnInit {
     this.route.params.subscribe(params => {
       console.log(params);
       if (typeof params['id'] !== 'undefined') {
-        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: params['id'] });
+        this.channelId = params['id'];
+        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
       }
     });
 
@@ -122,12 +123,15 @@ export class EditChannelComponent implements OnInit {
 
       this.editValues = event;
       const channel = event.channel_detail;
+      console.log('channel');
+      console.log(channel);
+      this.userHandle = channel.ownerHandle;
 
       this.channelForm = this.fb.group({
         title: [channel.channelName, Validators.required ],
         type: ['', Validators.required ],
         desc: [channel.description, Validators.required ],
-        privacy: [0, Validators.required ],
+        privacy: [this.selectedPrivacy, Validators.required ],
         openess: [1],
         // tags: ['tag1', 'tag2']
       });
@@ -150,41 +154,63 @@ export class EditChannelComponent implements OnInit {
    * @param formValue
    */
   updateChannel(value: any) {
-    const userHandle = this.profileChannel.profileUser.handle || '';
+    const userHandle = this.userHandle || '';
     const mediaTypeList = [];
-
-    // Get only handles from user list
-    const peopleListAll = this.people;
-    const peopleList = _map(peopleListAll, 'handle');
-
-    const peopleListList = [];
-
-    for (const i of peopleList) {
-      peopleListList.push({ handle: i });
-    }
-
-    let otherField = {};
-    if (peopleListList.length > 0 ) {
-      otherField = { contributerList: peopleListList }
-    }
 
     if ( this.channelForm.valid === true && userHandle !== '' ) {
 
-      const channelObj = {
-        name: value.title,
-        access: Number(value.privacy),
-        description: value.desc,
-        superType: 'channel',
-        accessSettings : { access : Number(value.privacy) },
-        owner: userHandle,
-        industryList: [ value.type ],
-        mediaTypes: mediaTypeList,
-        otherField
+      // Get only handles from user list
+      const peopleListAll = this.people;
+      const peopleList = _map(peopleListAll, 'handle');
+      const peopleListList = [];
+
+      for (const i of peopleList) {
+        peopleListList.push({ handle: i });
       }
 
-      console.log('CREATE', channelObj );
+      let otherField = {};
+      if (peopleListList.length > 0 ) {
+        otherField = { contributerList: peopleListList }
+      }
+
+      // Get only tag names from tag list
+      const tagListAll = this.tags;
+      const tagList = [];
+
+      for (const tag of tagListAll) {
+        console.log(tag);
+        if (typeof tag === 'string' || tag instanceof String) {
+          tagList.push(tag);
+        } else if (tag instanceof Object) {
+          if (typeof tag.value !== 'undefined') {
+            tagList.push(tag.value);
+          }
+        }
+      }
+
+      // console.log('tags');
+      // console.log(tagList);
+      // console.log('people');
+      // console.log(peopleListList);
+
+      const channelObj = {
+        name: value.title,
+        description: value.desc,
+        industryList: [ value.type ],
+        access: Number(value.privacy),
+        accessSettings : { access : Number(value.privacy) },
+        hashTags: tagList,
+        otherFields: otherField
+      }
+
+      console.log('UPDATE CHANNEL', channelObj);
       this.channelSavedHere = true;
-      this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
+
+      const reqParams = {
+        channelData: channelObj,
+        channelId: this.channelId
+      }
+      this.store.dispatch({ type: ProfileActions.CHANNEL_UPDATE, payload: reqParams });
     } else {
       this.toastr.warning('Please fill all required fields');
     }
