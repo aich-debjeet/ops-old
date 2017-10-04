@@ -76,6 +76,6 @@
         </div>
       </div>
     </div>
-    <app-comment [mediaId]="mediaId" (submitComment)="sbComment()"></app-comment>
+    <app-comment [mediaId]="mediaId" [comments]="comments" [mediaType]="mediaType" (submitComment)="sbComment($event)"></app-comment>
   </div>
 </div>

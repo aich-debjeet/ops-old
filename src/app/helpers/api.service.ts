@@ -107,4 +107,13 @@ export class ApiService {
     return this.http.delete(this.apiLink + fullPath, { headers: head })
       .map((data: Response) => data.json());
   }
+
+    /**
+   * Delete Function
+   */
+  del(endpoint: string) {
+    const head = this.getHeaders();
+    return this.http.delete(this.apiLink + endpoint, { headers: head })
+      .map((data) => data.json());
+  }
 }

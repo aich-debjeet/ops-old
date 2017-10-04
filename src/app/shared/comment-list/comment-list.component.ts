@@ -10,11 +10,30 @@ import { DatePipe } from '@angular/common';
 })
 export class CommentListComponent implements OnInit {
   @Input() commentData: any;
+  @Output() commentDelete = new EventEmitter();
+  @Output() commentEdited = new EventEmitter();
   imageLink: string = environment.API_IMAGE;
+  isEdit: boolean;
+  messageText: string;
 
   constructor() { }
 
   ngOnInit() {
+    this.messageText = this.commentData.comment;
+  }
+
+  onContentEdit() {
+    this.isEdit = true;
+  }
+
+  onContentSaved(content) {
+    console.log(this.messageText);
+    this.isEdit = false;
+    this.commentEdited.next(this.messageText);
+  }
+
+  onContentDelete(content) {
+    this.commentDelete.next(content);
   }
 
 }

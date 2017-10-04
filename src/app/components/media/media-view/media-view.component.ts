@@ -36,9 +36,11 @@ export class MediaViewComponent {
   mediaState$: Observable<Media>;
   mediaStore = initialMedia;
   mediaId: string;
+  mediaType: string;
   sub: any;
   data: any;
-  comment: any;
+  comments: any;
+  commentCount: number;
   spot: boolean;
   spotCount: number;
   message: boolean;
@@ -55,8 +57,10 @@ export class MediaViewComponent {
       this.mediaStore = state;
       this.data = this.mediaStore.media_detail;
       this.spotCount = this.mediaStore.media_detail.spotsCount;
-      this.comment = this.mediaStore.media_comment;
-      console.log('SPOT', this.mediaStore.media_detail.isSpotted);
+      this.mediaType = this.mediaStore.media_detail.mtype;
+      this.mediaId = this.mediaStore.media_detail.id;
+      this.comments = this.mediaStore.media_comment;
+      this.commentCount = this.mediaStore.media_detail.commentsCount;
       this.spot = this.mediaStore.media_detail.isSpotted;
     });
 
@@ -72,27 +76,16 @@ export class MediaViewComponent {
    */
   loadMedia() {
     this.sub = this.route.params.subscribe(params => {
-      console.log(params);
       if (!this.checkEmpty(params)) {
         this.store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: params['id']});
         // comment fetch
-        this.store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: params['id']});
+        const send = {
+          'media_id': params['id'],
+          'commentType': this.mediaType
+        }
+        this.store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: send });
       }
     });
-  }
-
-  keyDownFunction(mediaId: string) {
-    console.log(mediaId);
-    if (this.messageText !== null || this.messageText !== ' ') {
-      this.onComment.emit(this.message);
-      const send = {
-        'content': this.messageText,
-        'parent': mediaId
-      }
-      this.store.dispatch({ type: MediaActions.POST_COMMENT, payload: send});
-
-      this.messageText = null;
-    }
   }
 
 
@@ -101,13 +94,17 @@ export class MediaViewComponent {
    * @param mediaId
    */
   spotMedia(mediaId: string) {
+    const data = {
+      'mediaType': this.mediaType,
+      'id': this.mediaId
+    }
     this.spot = !this.spot;
     if (this.spot === true) {
       this.spotCount++;
-      this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: mediaId });
+      this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
     }else {
       this.spotCount--;
-      this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: mediaId });
+      this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
     }
   }
 
@@ -119,9 +116,19 @@ export class MediaViewComponent {
    * Close
    */
   doClose(event) {
-    console.log('do close');
     this.router.navigate(['.', { outlets: { media: null } }], {
       relativeTo: this.route.parent
     });
+  }
+
+   /**
+   * Submit Comment
+   */
+  sbComment(param) {
+    if (param === 'Del') {
+      this.commentCount--
+    }else {
+      this.commentCount++
+    }
   }
 }
