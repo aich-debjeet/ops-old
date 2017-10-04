@@ -11,7 +11,10 @@ import FilesHelper from '../../../helpers/fileUtils';
 
 // Action
 import { MediaActions } from '../../../actions/media.action';
+import { AuthActions } from '../../../actions/auth.action';
 import { initialMedia, Media } from '../../../models/media.model';
+
+import { initialTag, Follow } from '../../../models/auth.model';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -25,17 +28,21 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./channel-edit.component.scss']
 })
 
-export class EditChannelComponent implements OnInit{
+export class EditChannelComponent implements OnInit {
   imageLink: string = environment.API_IMAGE;
   messageText: string;
   channelForm: FormGroup;
   private mediaStateSubscription: Subscription;
   mediaState$: Observable<Media>;
   editState$: Observable<any>;
+  tagState$: Observable<Follow>;
   mediaStore = initialMedia;
+  industryList: any;
   editValues: any;
-  people: any;
+  people: any[];
   tags: any;
+  selectedIndustry: string;
+  selectedPrivacy: string;
   private apiLink: string = environment.API_ENDPOINT;
   constructor(
     private fb: FormBuilder,
@@ -50,6 +57,20 @@ export class EditChannelComponent implements OnInit{
 
     this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
+      console.log('state');
+      console.log(this.mediaStore);
+      if (typeof this.mediaStore.channel_detail['followersProfile'] !== 'undefined') {
+        this.people = this.mediaStore.channel_detail['followersProfile'];
+        this.selectedIndustry = this.mediaStore.channel_detail['industryList'][0];
+        // this.selectedPrivacy = this.mediaStore.channel_detail['accessSettings']['access'];
+      }
+    });
+
+    this.tagState$ = store.select('loginTags');
+    this.tagState$.subscribe((state) => {
+      this.industryList = state;
+      // console.log('this.industryList');
+      // console.log(this.industryList.industries);
     });
   }
 
@@ -57,24 +78,42 @@ export class EditChannelComponent implements OnInit{
     return Object.keys(obj).length === 0 && obj.constructor === Object;
   }
 
+
+  /**
+   * Load List of Skills (High Level)
+   */
+  industriesList() {
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
+  }
+
   ngOnInit() {
-    this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: 'f_d910bb3c-da2d-4be8-b8f0-bbbfc0a3a7bf' });
+
+    // loading industry list
+    this.industriesList();
+
+    // reading route
+    this.route.params.subscribe(params => {
+      console.log(params);
+      if (typeof params['id'] !== 'undefined') {
+        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: params['id'] });
+      }
+    });
 
     // Watch for Changes
     this.editState$.subscribe(event => {
-      console.log('[WATCHER]');
-      this.editValues = event;
 
+      this.editValues = event;
       const channel = event.channel_detail;
-      console.log('CHANNEL', channel);
 
       this.channelForm = this.fb.group({
         title: [channel.channelName, Validators.required ],
         type: ['', Validators.required ],
         desc: [channel.description, Validators.required ],
         privacy: [0, Validators.required ],
-        openess: [1]
-      })
+        openess: [1],
+        // tags: ['tag1', 'tag2']
+      });
+
     });
   }
 
@@ -101,7 +140,7 @@ export class EditChannelComponent implements OnInit{
    */
   createChannelForm() {
     // Clear All Tags
-    this.people = [];
+    // this.people = [];
     this.tags = [];
 
     // Empty initiate form
