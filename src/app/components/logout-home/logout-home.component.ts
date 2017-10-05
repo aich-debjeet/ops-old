@@ -30,17 +30,18 @@ export class LogoutHomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    const currentUrl = this.router.url;
-    // console.log('currentUrl');
-    // console.log(currentUrl);
+    let currentUrl = this.router.url;
+    console.log('currentUrl');
+    console.log(currentUrl);
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
 
     this.tagState$.subscribe((state) => {
       this.userDetails = state;
       // console.log(this.userDetails);
       if (currentUrl === '/' && typeof this.userDetails.profileUser.username !== 'undefined') {
-        // this.router.navigate(['/profile/user']);
-        // console.log('redirecting');
+        this.router.navigate(['/profile/user']);
+        console.log('redirecting');
+        currentUrl = '';
       }
     });
   }
