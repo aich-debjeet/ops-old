@@ -60,32 +60,48 @@ export class MediaService {
    * Media comment fetch
    * @param mediaId Channel ID
    */
-  fetchMediaComment(mediaId: string) {
-    return this.api.get('/portal/cdn/comment/' + mediaId);
+  fetchMediaComment(payload: any) {
+    return this.api.get(`/portal/cdn/comment/${payload.media_id}/${payload.commentType}`);
   }
 
   /**
    * Post Comment
-   * @param req
+   * @param body
    */
   postComment(body: any) {
     return this.api.post( '/portal/cdn/comment/' + body.parent, body);
   }
 
   /**
+   * Update Comment
+   * @param body
+   */
+  updateComment(body: any) {
+    return this.api.put( '/portal/cdn/comment/' + body.parent, body);
+  }
+
+  /**
+   * Delete Comment
+   * @param body
+   */
+  deleteComment(body: any) {
+    return this.api.del( `/portal/cdn/comment/${body.parent}/${body.id}/${body.commentType}`);
+  }
+
+  /**
    * Spot a Media
    * @param mediaId Channel ID
    */
-  spotMedia(mediaId: string) {
-    return this.api.get('/portal/cdn/media/spot/', mediaId);
+  spotMedia(payload: any) {
+    return this.api.get(`/portal/cdn/media/spot/${payload.id}/${payload.mediaType}`);
   }
 
   /**
    * Reverse Spot a Media
    * @param mediaId Channel ID
    */
-  unSpotMedia(mediaId: string) {
-    return this.api.get('/portal/cdn/media/unSpot/', mediaId);
+  unSpotMedia(payload: any) {
+    return this.api.get(`/portal/cdn/media/unSpot/${payload.id}/${payload.mediaType}`);
   }
 
   /**

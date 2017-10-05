@@ -115,12 +115,9 @@ export class ProfilePostComponent implements OnInit {
         let handleB = mHandleID;
         if (handleA !== handleB) {
           shouldLoad = true;
-          console.log('This should reload');
         }
       }
     }
-
-    // console.log('Posts', isChannelReady, 'Profile', isProfileReady);
 
     // Check if the other profile is loaded; also make sure the activated route is not current user
     if ( isChannelReady === false && isProfileReady === true) {
