@@ -166,6 +166,13 @@ export class ProfileActions {
   static CHANNEL_SAVE_FAILED = 'CHANNEL_SAVE_FAILED';
 
   /**
+   * Update Channel
+   */
+  static CHANNEL_UPDATE = 'CHANNEL_UPDATE';
+  static CHANNEL_UPDATE_SUCCESS = 'CHANNEL_UPDATE_SUCCESS';
+  static CHANNEL_UPDATE_FAILED = 'CHANNEL_UPDATE_FAILED';
+
+  /**
    * Load a Profile
    */
   static PROFILE_LOAD = 'PROFILE_LOAD';
@@ -212,6 +219,13 @@ export class ProfileActions {
    */
   static CURRENT_PROFILE_USER = 'CURRENT_PROFILE_USER';
   static CURRENT_PROFILE_USER_SUCCESS = 'CURRENT_PROFILE_USER_SUCCESS';
+
+   /**
+   * Who is Current user profile
+   */
+  static LOAD_POSTS_USER = 'LOAD_POSTS_USER';
+  static LOAD_POSTS_USER_SUCCESS = 'LOAD_POSTS_USER_SUCCESS';
+
 
   /**
    * User Password update
