@@ -27,10 +27,16 @@
               <h2><a routerLink="/profile"> {{ profileObject?.name }} </a></h2>
               <p>{{ '@' + profileObject?.userHandle }}</p>
               <div *ngIf="isOtherProfile === true">
-                <button type="button" class="btn btn-xs btn-primary btn-plus" (click)="followUser(profileObject)" [ngClass]="{ 'btn-follow': !isfollowing, 'btn-unfollow': isfollowing }">
+                <!-- <button type="button" class="btn btn-xs btn-primary btn-plus" (click)="followUser(profileObject)" [ngClass]="{ 'btn-follow': !isFollowing, 'btn-unfollow': isFollowing }">
                   <span class="btn-label-follow">
                     <i class="fa fa-plus" aria-hidden="true"></i>
-                  </span>{{ isfollowing ? 'Unfollow' : 'Follow' }}
+                  </span>{{ isFollowing ? 'Unfollow' : 'Follow' }}
+                </button> -->
+                <button (click)="unfollowUser(profileObject)" *ngIf="isFollowing" type="button" class="btn btn-xs btn-basic btn-following" >
+                    <span class="btn-label-follow"> UNFOLLOW </span>
+                </button>
+                <button (click)="followUser(profileObject)" *ngIf="!isFollowing" type="button" class="btn btn-xs btn-basic btn-following" >
+                    <span class="btn-label-follow"> FOLLOW </span>
                 </button>
                 <button type="button" class="btn btn-normal2 btn-xs"> NETWORK </button>
                 <button type="button" (click)="donatePopup()" class="btn btn-normal2 btn-xs"> DONATE </button>
