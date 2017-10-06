@@ -85,7 +85,6 @@ export class CommentComponent implements OnInit {
       const comments = data['media_comment'];
       if (comments.length > 0) {
         this.comments = comments
-        console.log('dd');
       }
     })
   }
