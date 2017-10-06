@@ -7,6 +7,7 @@ export interface State {
   user_channel: any,
   user_channels_loaded: boolean,
   user_channels_loading: boolean,
+  current_user_profile: any,
   profileUser: any
 };
 
@@ -155,9 +156,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_USER_MEDIA_SUCCESS:
-
       const posts = payload['SUCCESS'] || [];
-
       return Object.assign({}, state, {
         mediaEntity: payload,
         user_posts_loaded: true,
@@ -570,3 +569,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 }
 
 export const currentUserProfile = (state: ProfileModal) => state.completed;
+
+export function currenCurrntUser(state: State) {
+  return state.current_user_profile;
+}

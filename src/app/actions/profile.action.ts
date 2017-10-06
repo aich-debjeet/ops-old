@@ -213,6 +213,13 @@ export class ProfileActions {
   static CURRENT_PROFILE_USER = 'CURRENT_PROFILE_USER';
   static CURRENT_PROFILE_USER_SUCCESS = 'CURRENT_PROFILE_USER_SUCCESS';
 
+   /**
+   * Who is Current user profile
+   */
+  static LOAD_POSTS_USER = 'LOAD_POSTS_USER';
+  static LOAD_POSTS_USER_SUCCESS = 'LOAD_POSTS_USER_SUCCESS';
+
+
   /**
    * User Password update
    */
