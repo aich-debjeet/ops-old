@@ -28,7 +28,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="list-line-item">
+                    <li *ngIf="(tagState$ | async).channel_detail?.isOwner" class="list-line-item">
                       <a [routerLink]="['', { outlets: { media : ['channel', (tagState$ | async).channel_detail?.channelId, 'edit' ] } } ]">
                         <img src="/assets/img/svg/ico_edit.svg">
                       </a>

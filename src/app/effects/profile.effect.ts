@@ -411,6 +411,18 @@ export class ProfileEffect {
     );
 
   /**
+   * Update channel
+   */
+  @Effect()
+  updateChannel$ = this.actions$
+    .ofType(ProfileActions.CHANNEL_UPDATE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.updateChannel(payload)
+      .map(res => ({ type: ProfileActions.CHANNEL_UPDATE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.CHANNEL_UPDATE_FAILED, payload: res }))
+    );
+
+  /**
    * Get current user channel profile
    */
   @Effect()
