@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Message } from '../models/message.model';
+import { MessageModal, initialMessage } from '../models/message.model';
 
 export class MessageActions {
 
@@ -14,6 +14,14 @@ export class MessageActions {
   static SEND_MESSAGE = 'SEND_MESSAGE';
   static SEND_MESSAGE_SUCCESS = 'SEND_MESSAGE_SUCCESS';
   static SEND_MESSAGE_FAILED = 'SEND_MESSAGE_FAILED';
+
+  static LOAD_USER_PROFILE_DATA = 'LOAD_USER_PROFILE_DATA';
+  static LOAD_USER_PROFILE_DATA_SUCCESS = 'LOAD_USER_PROFILE_DATA_SUCCESS';
+  static LOAD_USER_PROFILE_DATA_FAILED = 'LOAD_USER_PROFILE_DATA_FAILED';
+
+  static LOAD_HANDLE_PROFILE_DATA = 'LOAD_HANDLE_PROFILE_DATA';
+  static LOAD_HANDLE_PROFILE_DATA_SUCCESS = 'LOAD_HANDLE_PROFILE_DATA_SUCCESS';
+  static LOAD_HANDLE_PROFILE_DATA_FAILED = 'LOAD_HANDLE_PROFILE_DATA_FAILED';
 
   /* -------------------------------- load sent messages -------------------------------- */
   loadSentMessages(value): Action {
@@ -92,5 +100,57 @@ export class MessageActions {
     };
   }
   /* -------------------------------- send message -------------------------------- */
+
+  /* -------------------------------- load current user profile data -------------------------------- */
+  loadUserProfile(value): Action {
+    console.log('LOAD_USER_PROFILE_DATA action triggred');
+    return {
+      type: MessageActions.LOAD_USER_PROFILE_DATA,
+      payload: { value }
+    };
+  }
+
+  loadUserProfileSuccess(value): Action {
+    console.log('LOAD_USER_PROFILE_DATA_SUCCESS action triggred');
+    return {
+      type: MessageActions.LOAD_USER_PROFILE_DATA_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  loadUserProfileFailed(error: any): Action {
+    console.log('LOAD_USER_PROFILE_DATA_FAILED action triggred');
+    return {
+      type: MessageActions.LOAD_USER_PROFILE_DATA_FAILED,
+      payload: error
+    };
+  }
+  /* -------------------------------- load current user profile data -------------------------------- */
+
+  /* -------------------------------- load profile data according to list of handles-------------------------------- */
+  loadHandleProfile(value): Action {
+    console.log('LOAD_HANDLE_PROFILE_DATA action triggred');
+    return {
+      type: MessageActions.LOAD_HANDLE_PROFILE_DATA,
+      payload: { value }
+    };
+  }
+
+  loadHandleProfileSuccess(value): Action {
+    console.log('LOAD_HANDLE_PROFILE_DATA_SUCCESS action triggred');
+    return {
+      type: MessageActions.LOAD_HANDLE_PROFILE_DATA_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  loadhandleProfileFailed(error: any): Action {
+    console.log('LOAD_HANDLE_PROFILE_DATA_FAILED action triggred');
+    return {
+      type: MessageActions.LOAD_HANDLE_PROFILE_DATA_FAILED,
+      payload: error
+    };
+  }
+  /* -------------------------------- load profile data according to list of handles -------------------------------- */
 
 }

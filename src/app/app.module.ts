@@ -44,6 +44,7 @@ import { ProfileEffect } from './effects/profile.effect';
 import { MessageEffect } from './effects/message.effects';
 import { UserSearchEffect } from './effects/user-search.effect';
 
+
 // Services
 import { ServicesModule } from './services/services.module';
 import { TokenService } from './helpers/token.service';
@@ -53,6 +54,7 @@ import { MediaService } from './services/media.service';
 import { GeneralService } from './services/api.service';
 import { ModalService } from './shared/modal/modal.component.service';
 import { HomeService } from './services/home.service';
+import { MessageService } from './services/message.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
@@ -157,7 +159,7 @@ import { StatusListComponent } from './components/status-list/status-list.compon
     VgBufferingModule
   ],
   providers: [
-    AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService, ModalService, HomeService
+    AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService, ModalService, HomeService, MessageService
   ],
   bootstrap: [AppComponent]
 })

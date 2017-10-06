@@ -1,24 +1,47 @@
-import { Component, Renderer } from '@angular/core';
+import { initialTag } from '../../models/auth.model';
+import { of } from 'rxjs/observable/of';
+import { Component, Renderer , OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Message } from '../../models/message.model';
+import { MessageModal, initialMessage} from '../../models/message.model';
 import { UserMessages } from '../../models/user-messages.model';
 import { UserSearch } from '../../models/user-search.model';
+import { Http, Headers, Response } from '@angular/http';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SearchNamePipe } from './../../pipes/name.pipe';
+import { TokenService } from './../../helpers/token.service';
 
-// actions
+import { environment } from '../../../environments/environment';
+
+// actions// action
+import { ProfileActions } from '../../actions/profile.action';
 import { MessageActions } from '../../actions/message.action'
 import { UserSearchActions } from '../../actions/user-search.action'
+
+import { ProfileModal } from '../../models/profile.model';
 
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/observable/timer';
+import 'rxjs/add/observable/from';
+
+import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
+// import 'rxjs/add/operator/takeWhile';
+
+import { unionBy as _unionBy } from 'lodash';
+import { orderBy as _orderBy } from 'lodash';
+import { sortBy as _sortBy } from 'lodash';
 
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
-  styleUrls: ['./message.component.css']
+  providers: [ MessageActions ],
+  styleUrls: ['./message.component.scss']
 })
-export class MessageComponent {
-
+export class MessageComponent implements OnInit {
+/*
   userSearch$: Observable<UserSearch>;
   userSearch;
 
@@ -173,5 +196,128 @@ export class MessageComponent {
     return JSON.parse('{"messages":{"received":[{"id":"u_a472c41e-e991-4590-ad7e-bdb38255b065","by":"W_D03D8B98_7852_418D_96D0_30C025BCB73DTAPASIPRAPTHI_GMAIL_COM","to":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","subject":"hello","content":"hello","time":"2017-07-05T09:12:49.11","isRead":false},{"id":"t_f834c539-3f2c-4df1-975e-04171cee68a9","by":"W_D03D8B98_7852_418D_96D0_30C025BCB73DTAPASIPRAPTHI_GMAIL_COM","to":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","subject":"Hiii","content":"Hiii","time":"2017-07-05T09:13:04.504","isRead":false},{"id":"k-6044bcfe-3c9b-415a-8317-13dbec7edba9","by":"W_D03D8B98_7852_418D_96D0_30C025BCB73DTAPASIPRAPTHI_GMAIL_COM","to":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","subject":"prapthi","content":"prapthi","time":"2017-07-05T09:14:52.673","isRead":false},{"id":"n-04f7ca27-69f6-46c0-8a05-2e2f56e5e740","by":"Z_4A3E954C_7F22_444B_9095_BAF0FE0B8A72YASWANTH_RAJA_AEIONE_COM","to":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","subject":"yaa pakka","content":"yaa pakka","time":"2017-07-24T13:20:00.211","isRead":false},{"id":"y-ad8f8da6-f374-48fe-8586-6165b53fdbac","by":"Z_2CDDA688_13D9_4C4D_A865_6DE9F66374E5PRAPTHI_AEIONE_GMAIL_COM","to":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","subject":"Hi","content":"Hi","time":"2017-08-02T09:53:38.321","isRead":false},{"id":"k_ca0fee41-8aa1-4c6d-a859-81366a71b4c0","by":"Z_2CDDA688_13D9_4C4D_A865_6DE9F66374E5PRAPTHI_AEIONE_GMAIL_COM","to":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","subject":"Hi","content":"Hi","time":"2017-08-02T09:54:50.285","isRead":false}]}}');
 
   }
+*/
+selectedView = '';
+userHandle;
+baseUrl: string;
+private apiLink: string = environment.API_ENDPOINT;
+composeMessage = {
+  searchUser: '',
+  messageToSend: ''
+};
+messageForm: FormGroup;   // formgroup instance
+mForm: FormGroup;         // formgroup instance
+text: string  ;
+searchText: string;
+userO$: Observable<any>;
+currentUserDetails
 
+userProfile$: Observable<MessageModal>;
+currentProfile = initialMessage;
+
+userProfile: any;
+listData; // temporary variable to store list of handles
+
+
+constructor(
+  fb: FormBuilder,
+  private http: Http,
+  private messageAction: MessageActions,
+  private tokenService: TokenService,
+  private messageStore: Store<MessageModal>,
+  private profileStore: Store<ProfileModal>
+) {
+
+  this.baseUrl = environment.API_IMAGE;
+  this.messageForm = fb.group({
+    'message' : [null, Validators.required],
+  })
+  this.mForm = fb.group({
+    'searchUserTerm' : [null, Validators.required],
+    'message_term' : [null, Validators.required],
+  })
+  this.text = '';
+  // this.recipientsListState = false;
+  // const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  // this.token = currentUser.access_token;
+  this.userO$ = profileStore.select('profileTags').take(3);
+}
+
+ngOnInit() {
+
+  // this.sentMessages$.subscribe((state) => {
+  //   this.message = state;
+  //   this.receipientList = this.message.receipients;
+  //   // console.log(this.message.receipients)
+  //   // console.log(this.receipientList)
+  //   // console.log(state)
+  //   // this.mergedMessages = _unionBy(this.message.receivedAll, this.message.sentAll, 'id');
+  //   // console.log('REC', this.message.receivedAll)
+  //   // if ( this.mergedMessages !== undefined || this.mergedMessages.length !== 0 ) {
+  //   //   this.getByHandleList (this.mergedMessages);
+  //   });
+  this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+  this.userO$.subscribe((val) => {
+    this.currentUserDetails = val;
+    // console.log('SUB', this.currentUserDetails);
+    if (typeof this.currentUserDetails.profileUser !== 'undefined') {
+      // console.log('SUB__HANDLE', this.currentUserDetails.profileUser);
+      this.userHandle = this.currentUserDetails.profileUser.handle;
+     this.initMessaging(this.userHandle);
+    }
+  });
+
+  this.userProfile$ = this.messageStore.select('userProfileTags');
+  this.userProfile$.subscribe((state) => {
+
+    // if state is not empty
+    if (state && state.userProfileDetails) {
+       console.log('STATE', state);
+      this.userProfile = state.userProfileDetails;
+      console.log('USER', this.userProfile);
+    }
+    if (state && state.receivedAll) {
+      console.log('STATE', state.receivedAll)
+    }
+    if (state && state.sentAll) {
+     console.log('STATE', state.sentAll)
+    }
+    if (state && state.mergedMessages) {
+      console.log(state.mergedMessages)
+      this.fetchProfileByHandle(state.mergedMessages)
+    }
+  })
+
+}
+
+initMessaging(handle: string) {
+  if (!handle) {
+    return false;
+  }
+    this.messageStore.dispatch({ type: MessageActions.LOAD_USER_PROFILE_DATA, payload: handle });
+    this.messageStore.dispatch({ type: MessageActions.LOAD_SENT_MESSAGES, payload: handle });
+    this.messageStore.dispatch({type: MessageActions.LOAD_RECEIVED_MESSAGES, payload: handle});
+}
+fetchProfileByHandle(mergedMessages: any) {
+  console.log(mergedMessages)
+  if (mergedMessages !== 'undefined') {
+    console.log(mergedMessages.length)
+    for (let i = 0 ; i < mergedMessages.length; i++) {
+      if (this.listData.indexOf(mergedMessages[i].by) === -1) {
+        this.listData.push(mergedMessages[i].by)
+        // console.log(this.listData)
+      }
+        if (this.listData.indexOf(mergedMessages[i].to) === -1) {
+        this.listData.push(mergedMessages[i].to)
+        // console.log(this.listData)
+      }
+    }
+    const reqBody = JSON.stringify({
+      listData: this.listData
+    });
+    if (reqBody !== 'undefined') {
+    this.messageStore.dispatch({type: MessageActions.LOAD_HANDLE_PROFILE_DATA, payload: reqBody});
+    }
+  }
+}
 }
