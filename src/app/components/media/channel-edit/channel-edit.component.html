@@ -1,95 +1,89 @@
-<app-modal [modalTitle]="'Edit Channel'" [open]="true" [blocking]='false' (onClose)="doClose($event)"  modalId='ViewMedia' class="media__tiny" size="tiny">
-  <div>
-      <form [formGroup]="channelForm" novalidate #myform="ngForm">
-          <div class="create_channel_form">
-              <div class="form_group">
-                  <input formControlName="title" class="form_input" required="" type="text">
-                  <span class="form_highlight"></span>
-                  <span class="form_bar"></span>
-                  <label>Title</label>
-              </div>
-              <div class="form_group">
-                  <textarea class="form_textarea" formControlName="desc" name="" placeholder="About your Channel"></textarea>
-                  <span class="form_highlight"></span>
-                  <span class="form_bar"></span>
-                  <!-- <label>About Channel</label> -->
-              </div>
-              <div class="form_group">
-                  <tag-input [(ngModel)]='tags'
-                    [placeholder]="'Add Tags'"
-                    [theme]="'ops-theme'"
-                    [ngModelOptions]="{standalone: true}"
-                    [secondaryPlaceholder]="'Add tags to channel'">
-                  </tag-input>
-              </div>
-              <div class="row">
-                  <div class="col-md-4">
-                      <div class="form_group">
-                          <select formControlName="type" class="form-control" id="sel1">
-                              <option value="">Industry</option>
-                              <option value="DANCE">Dance</option>
-                              <option value="MUSIC">Music</option>
-                              <option value="THEATRE">Theatre</option>
-                              <option value="CINEMA">Cinema</option>
-                              <option value="GRAPHICS">Graphics</option>
-                              <option value="FASHION">Fashion</option>
-                              <option value="TELEVISION">Television.</option>
-                              <option value="FINE_ARTS">Fine Arts</option>
-                              <option value="PHOTOGRAPHY">Photography</option>
-                              <option value="PRODUCTION">Production</option>
-                          </select>
-                      </div>
-                  </div>
-                  <div class="col-md-4">
-                      <div class="form_group">
-                          <select formControlName="privacy" class="form-control" id="sel1">
-                              <option value="0">Public</option>
-                              <option value="1">Private</option>
-                          </select>
-                      </div>
-                  </div>
-                  <!-- <div class="col-md-4">
-                      <div class="ops_radio_sm">
-                          <label class="col-md-6">
-                              <input formControlName="openess" type="radio" value="0"><span></span>Open
-                          </label>
-                          <label class="col-md-6">
-                              <input formControlName="openess" type="radio" value="1"><span></span>Close
-                          </label>
-                      </div>
-                  </div> -->
-              </div>
+<app-modal [modalTitle]="'Edit Channel'" [open]="true" [blocking]='false' (onClose)="doClose($event)"  modalId='ViewMedia' class="media__large" size="large">
+    <div class="container create_channel_main">
+        <div class="row">
+            <div class="create_channel_container">
+                <div class="create_channel__head with_border_bottom">
+                    <h3 class="heading_3 text-black capitalize">Edit Channel</h3>
+                    <span class="search_close" (click)="doClose($event)">
+                        <a href="javascript:hideCreatechannelform()"><img src="http://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
+                    </span>
+                </div><!-- edit channel head -->
+                <div class="create_channel__content">
+                <form [formGroup]="channelForm" novalidate #myform="ngForm">
+                    <div class="create_channel_form">
+                        <div class="form_group">
+                            <input formControlName="title" class="form_input" required="" type="text">
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <label>Title</label>
+                        </div>
+                        <div class="form_group">
+                            <textarea class="form_textarea" formControlName="desc" name="" placeholder="About your Channel"></textarea>
+                            <span class="form_highlight"></span>
+                            <span class="form_bar"></span>
+                            <!-- <label>About Channel</label> -->
+                        </div>
+                        <div class="form_group">
+                            <tag-input [(ngModel)]='tags'
+                            [placeholder]="'Add Tags'"
+                            [theme]="'ops-theme'"
+                            [ngModelOptions]="{standalone: true}"
+                            [secondaryPlaceholder]="'Add tags to channel'">
+                            </tag-input>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form_group">
+                                    <select formControlName="type" class="form-control" id="sel1" [(ngModel)]="selectedIndustry">
+                                        <option value="">Industry</option>
+                                        <option *ngFor="let industry of forIndustries.industries" [value]="industry.code" >{{ industry.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form_group">
+                                    <select formControlName="privacy" class="form-control" id="sel1" [(ngModel)]="selectedPrivacy">
+                                        <option value="0">Public</option>
+                                        <option value="1">Private</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
-              <div class="form_group">
-                <tag-input [(ngModel)]='people'
-                  [placeholder]="'Add people'"
-                  [theme]="'ops-theme'"
-                  [onTextChangeDebounce]="500"
-                  [ngModelOptions]="{standalone: true}"
-                  [secondaryPlaceholder]="'Add people to channel'"
-                  [onlyFromAutocomplete]="true">
-                      <tag-input-dropdown
-                        [displayBy]="'name'"
-                        [identifyBy]="'handle'"
-                        [autocompleteObservable]="requestAutocompleteItems">
-                          <ng-template let-item="item" let-index="index" class="userList">
-                              <div class="tinyImgHolder">
-                                <img class="tinyImg" width="24" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.profileImage}}"/>
-                              </div>
-                              <span class="tinyName">
-                                {{ item.name }}
-                                <span class="tinyUsername">
-                                  ({{ item.extra.username }})
-                                </span>
-                              </span>
-                          </ng-template>
-                      </tag-input-dropdown>
-                  </tag-input>
-              </div>
-          </div>
-          <div class="create_channel_btn with_border_top">
-              <button class="btn btn-primary btn-sm" type="submit" (click)="updateChannel(channelForm.value)">Save</button>
-          </div>
-        </form>
-  </div>
+                        <div class="form_group">
+                            <tag-input [(ngModel)]='people'
+                                [placeholder]="'Add people'"
+                                [theme]="'ops-theme'"
+                                [onTextChangeDebounce]="500"
+                                [ngModelOptions]="{standalone: true}"
+                                [secondaryPlaceholder]="'Add people to channel'"
+                                [displayBy]="'name'"
+                                [onlyFromAutocomplete]="true">
+                                    <tag-input-dropdown
+                                    [displayBy]="'name'"
+                                    [identifyBy]="'handle'"
+                                    [autocompleteObservable]="requestAutocompleteItems">
+                                        <ng-template let-item="item" let-index="index" class="userList">
+                                            <div class="tinyImgHolder">
+                                            <img class="tinyImg" width="24" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.profileImage}}"/>
+                                            </div>
+                                            <span class="tinyName">
+                                            {{ item.name }}
+                                            <span class="tinyUsername">
+                                                ({{ item.extra.username }})
+                                            </span>
+                                            </span>
+                                        </ng-template>
+                                    </tag-input-dropdown>
+                            </tag-input>
+                        </div>
+                    </div>
+                    <div class="create_channel_btn with_border_top">
+                        <button class="btn btn-primary btn-sm" type="submit" (click)="updateChannel(channelForm.value)">Update</button>
+                    </div>
+                </form>
+                </div><!-- edit channel content end -->
+            </div>
+        </div>
+    </div>
 </app-modal>

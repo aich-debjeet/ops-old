@@ -47,8 +47,6 @@ export class ProfileComponent implements OnInit {
       this.userProfile = state;
       this.current_user_value = this.checkUserType(this.userProfile);
     });
-
-    // this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: 'ok' });
   }
 
   /**
@@ -95,7 +93,6 @@ export class ProfileComponent implements OnInit {
       .subscribe(params => {
         this.userName = params['id'];
         this.loadProfile(params['id']); // Load corresponding user
-        this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: this.userName });
     });
   }
   /**
@@ -106,10 +103,11 @@ export class ProfileComponent implements OnInit {
       this.current_user_value = new ProfileCard();
       this.isCurrentUser = false;
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_LOAD, payload: userName });
+      this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: userName });
     } else {
       this.current_user_value = null;
       this.isCurrentUser = true;
-      this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+      this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
       this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
     }
   }

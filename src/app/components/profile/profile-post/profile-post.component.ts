@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { DatePipe } from '@angular/common';
-import { Store } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Media, initialMedia  } from '../../../models/media.model';
@@ -34,6 +34,7 @@ export class ProfilePostComponent implements OnInit {
   handle: string;
   counter: number;
   posts: any;
+  otherPost: boolean;
   isEmpty: boolean;
   constructor(
     private http: Http,
@@ -48,11 +49,41 @@ export class ProfilePostComponent implements OnInit {
     this.posts = [];
     this.tagState$.subscribe((state) => {
       this.userMedia = state;
-      this.userFlag(state);
+       this.posts = this.userMedia.user_posts;
     });
+
+    this._store.select('profileTags').take(7).last().subscribe( data => {
+        if (this.userMedia.current_user_profile && this.userMedia.profile_other_loaded === true) {
+          const handle = this.userMedia.profile_other.handle;
+          this.postLoad(handle);
+        }else {
+          const handle = this.userMedia.profileDetails.handle;
+          this.postLoad(handle)
+        }
+    });
+
   }
 
   ngOnInit() {
+    if (this.userMedia.current_user_profile && this.userMedia.profile_other_loaded === true) {
+      const handle = this.userMedia.profile_other.handle;
+      this.postLoad(handle);
+    }else {
+      const handle = this.userMedia.profileDetails.handle;
+      this.postLoad(handle)
+    }
+  }
+
+  onScroll() {
+    console.log('scrolling');
+  }
+
+  /**
+   * Current User post load
+   * @param handle User Handle
+   */
+  postLoad(handle) {
+    this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA, payload: handle });
   }
 
   /**
@@ -81,10 +112,12 @@ export class ProfilePostComponent implements OnInit {
   userFlag(state) {
     this.sub = this.route.parent.parent.params.subscribe(params => {
       if (this.checkEmpty(params)) {
-        this.loadOtherProfile(true);
+         this.loadOtherProfile(true);
+        console.log('true');
       } else {
         this.userName = params['id'];
-        this.loadOtherProfile(false);
+         this.loadOtherProfile(false);
+        console.log('false');
       }
     });
   }
@@ -96,57 +129,66 @@ export class ProfilePostComponent implements OnInit {
     let isProfileReady;
     let isChannelReady;
     let shouldLoad = false;
+    console.log(this.userMedia.current_user_profile );
+    if (this.userMedia.current_user_profile) {
+      const handleID = this.userMedia.profile_other.handle;
+      
+      // this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA, payload: handleID });
+    }else {
+      const handleID = this.userMedia.profileDetails.handle;
+      // this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA, payload: handleID });
+    }
     // Check
-    if (isOwn) {
-      isProfileReady = this.userMedia.profile_loaded;
-      isChannelReady = this.userMedia.user_posts_loaded;
-      // handleID = this.userMedia.profileDetails.handle;
-    } else {
-      isProfileReady = this.userMedia.profile_other_loaded;
-      isChannelReady = (this.userName === this.userMedia.profile_other['extra']['username']);
-    }
+    // if (isOwn) {
+    //   isProfileReady = this.userMedia.profile_loaded;
+    //   isChannelReady = this.userMedia.user_posts_loaded;
+    //   // handleID = this.userMedia.profileDetails.handle;
+    // } else {
+    //   isProfileReady = this.userMedia.profile_other_loaded;
+    //   isChannelReady = (this.userName === this.userMedia.profile_other['extra']['username']);
+    // }
 
-    // If loaded posts and the profile are different
-    if ( isProfileReady && isChannelReady ) {
-      // get current handle
-      const mHandleID = this.userMedia.profileDetails.handle;
-      if (this.userMedia.user_posts.length > 0 ) {
-        let handleA = this.userMedia.user_posts[0].ownerHandle || '';
-        let handleB = mHandleID;
-        if (handleA !== handleB) {
-          shouldLoad = true;
-          console.log('This should reload');
-        }
-      }
-    }
+    // // If loaded posts and the profile are different
+    // if ( isProfileReady && isChannelReady ) {
+    //   // get current handle
+    //   const mHandleID = this.userMedia.profileDetails.handle;
+    //   if (this.userMedia.user_posts.length > 0 ) {
+    //     let handleA = this.userMedia.user_posts[0].ownerHandle || '';
+    //     let handleB = mHandleID;
+    //     if (handleA !== handleB) {
+    //       shouldLoad = true;
+    //       console.log('This should reload');
+    //     }
+    //   }
+    // }
 
-    // console.log('Posts', isChannelReady, 'Profile', isProfileReady);
+    // // console.log('Posts', isChannelReady, 'Profile', isProfileReady);
 
-    // Check if the other profile is loaded; also make sure the activated route is not current user
-    if ( isChannelReady === false && isProfileReady === true) {
-      let handleID;
-      if (isOwn) {
-        handleID = this.userMedia.profileDetails.handle;
-      } else {
-        handleID = this.userMedia.profile_other.handle;
-      }
+    // // Check if the other profile is loaded; also make sure the activated route is not current user
+    // if ( isChannelReady === false && isProfileReady === true) {
+    //   let handleID;
+    //   if (isOwn) {
+    //     handleID = this.userMedia.profileDetails.handle;
+    //   } else {
+    //     handleID = this.userMedia.profile_other.handle;
+    //   }
 
-      this.counter++;
+    //   this.counter++;
 
-      if (this.counter < 10 && handleID) {
-        this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA, payload: handleID });
-      }
-    }
+    //   if (this.counter < 10 && handleID) {
+    //     this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA, payload: handleID });
+    //   }
+    // }
 
-    // Assign channel data to general list
-    if ( isChannelReady === true ) {
-      this.posts = this.userMedia.user_posts;
-      if (this.posts.length > 0 ) {
-        this.isEmpty = false;
-      } else {
-        this.isEmpty = true;
-      }
-    }
+    // // Assign channel data to general list
+    // if ( isChannelReady === true ) {
+    //   this.posts = this.userMedia.user_posts;
+    //   if (this.posts.length > 0 ) {
+    //     this.isEmpty = false;
+    //   } else {
+    //     this.isEmpty = true;
+    //   }
+    // }
   }
 
 }

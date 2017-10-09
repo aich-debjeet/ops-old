@@ -15,11 +15,12 @@ import { Store } from '@ngrx/store';
 })
 export class CommentComponent implements OnInit {
   @Input() mediaId: string;
+  @Input() mediaType: string;
+  @Input() comments: any;
   userState$: Observable<Media>;
   mediaState$: Observable<Media>;
   mediaStore = initialMedia;
   userData: any;
-  comments: any;
   messageText: string;
   @Output() submitComment: EventEmitter<any> = new EventEmitter<any>();
   @Output() deleteComment: EventEmitter<any> = new EventEmitter<any>();
@@ -34,14 +35,6 @@ export class CommentComponent implements OnInit {
 
     this.userState$.subscribe((state) => {
       this.userData = state['profileUser'];
-      // console.log(this.userData);
-    });
-
-    this.mediaState$.subscribe((state) => {
-      this.mediaStore = state;
-      this.comments = this.mediaStore.media_comment
-      // console.log(state);
-      // this.userData = this.mediaStore.media_detail;
     });
   }
 
@@ -54,24 +47,80 @@ export class CommentComponent implements OnInit {
    */
   loadMedia() {
     console.log(this.mediaId);
-    this.store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: this.mediaId });
-      
+    const send = {
+      'media_id': this.mediaId,
+      'commentType': this.mediaType
+    }
+    this.store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: send });
   }
 
   /**
    * Submit Comment
    */
   keyDownFunction(mediaId: string) {
-    console.log(mediaId);
-    if (this.messageText !== null || this.messageText !== ' ') {
+    if (this.messageText !== null || this.messageText !== '') {
       const send = {
         'content': this.messageText,
+        'commentType': this.mediaType,
         'parent': mediaId
       }
       this.store.dispatch({ type: MediaActions.POST_COMMENT, payload: send});
       this.submitComment.emit();
+      this.addNewComment();
       this.messageText = null;
     }
+  }
+
+  addNewComment() {
+    this.comments.push({
+      comment: this.messageText,
+      isOwner: true,
+      ownerImage: this.userData.profileImage,
+      ownerName: this.userData.name,
+      createdDate: +new Date(),
+      id: 'dssdd'
+    })
+    this.loadMedia();
+    this.store.select('mediaStore').take(7).subscribe(data => {
+      const comments = data['media_comment'];
+      if (comments.length > 0) {
+        this.comments = comments
+      }
+    })
+  }
+
+  deleteBacend(comment) {
+    const index: number = this.comments.indexOf(comment);
+    if (index !== -1) {
+      this.comments.splice(index, 1);
+      const send = {
+        'id': comment.commentsId,
+        'commentType': this.mediaType,
+        'parent': this.mediaId
+      }
+      this.store.dispatch({ type: MediaActions.DELETE_COMMENT, payload: send});
+    }
+  }
+
+  onCommentDelete(comment) {
+    console.log(comment);
+    this.submitComment.emit('Del');
+    this.deleteBacend(comment);
+  }
+
+  onCommentEdit(comment, message) {
+    if (message === '') {
+      this.deleteBacend(comment);
+      return
+    }
+
+    const send = {
+      'id': comment.commentsId,
+      'content': message,
+      'commentType': this.mediaType,
+      'parent': this.mediaId
+    }
+    this.store.dispatch({ type: MediaActions.UPDATE_COMMENT, payload: send});
   }
 
 }

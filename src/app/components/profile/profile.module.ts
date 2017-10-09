@@ -23,6 +23,7 @@ import { AboutImageComponent } from './about-image/about-image.component';
 import { AboutCoverComponent } from './about-cover/about-cover.component';
 
 import { ProfileHelper } from '../../helpers/profile.helper';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 // Guard
 import { AuthGuard } from './../../guard/auth.guard';
@@ -80,7 +81,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     TextMaskModule,
-    ImageCropperModule
+    ImageCropperModule,
+    InfiniteScrollModule
   ],
   declarations: [
     ProfileComponent,
