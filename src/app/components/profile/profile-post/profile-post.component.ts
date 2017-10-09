@@ -74,6 +74,10 @@ export class ProfilePostComponent implements OnInit {
     }
   }
 
+  onScroll() {
+    console.log('scrolling');
+  }
+
   /**
    * Current User post load
    * @param handle User Handle

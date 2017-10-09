@@ -11,6 +11,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ImageCropperModule } from 'ng2-img-cropper/index';
 import { ToastrModule } from 'ngx-toastr';
 
+
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
 import { UniquePipe } from './pipes/unique.pipe';
@@ -154,7 +155,7 @@ import { StatusListComponent } from './components/status-list/status-list.compon
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
-    VgBufferingModule
+    VgBufferingModule,
   ],
   providers: [
     AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService, ModalService, HomeService
