@@ -18,6 +18,8 @@ import { ProfileActions } from '../../../actions/profile.action';
 import { AuthActions } from '../../../actions/auth.action';
 import { SharedActions } from '../../../actions/shared.action';
 
+import { ToastrService } from 'ngx-toastr';
+
 import { ProfileCard } from '../../../models/profile.model';
 
 // rx
@@ -68,7 +70,8 @@ export class ProfileSliderComponent implements OnInit {
     public datepipe: DatePipe,
     private _router: Router,
     public tokenService: TokenService,
-    private profileStore: Store<ProfileModal>
+    private profileStore: Store<ProfileModal>,
+    private toastr: ToastrService
   ) {
 
     this.baseUrl = environment.API_IMAGE;
@@ -270,6 +273,7 @@ export class ProfileSliderComponent implements OnInit {
       }
 
       this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+      this.toastr.success('You profile has been updated successfully!');
       this.modalService.close('profileEditWindow');
     }
 
