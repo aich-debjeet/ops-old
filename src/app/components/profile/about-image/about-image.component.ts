@@ -13,7 +13,7 @@ import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 import { ProfileActions } from '../../../actions/profile.action';
 import { SharedActions } from '../../../actions/shared.action';
 
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { environment } from '../../../../environments/environment.prod';
 
 // rx
@@ -50,17 +50,12 @@ export class AboutImageComponent implements OnInit {
     private _location: Location,
     private _store: Store<ProfileModal>
   ) {
+    // this.route.params.subscribe((params: Params) => {
+    //   console.log('route: ', params);
+    // });
 
     this.baseUrl = environment.API_IMAGE;
     this.tagState$ = this._store.select('profileTags');
-    this.tagState$.subscribe((state) => {
-      // console.log(state);
-      this.stateProfile = state;
-      if (typeof this.stateProfile.profileUser.profileImage !== 'undefined') {
-        console.log('profile image loaded');
-        this.loadImage();
-      }
-    });
     this.changingImage = false;
 
     // Image Cropper Settings
@@ -75,7 +70,19 @@ export class AboutImageComponent implements OnInit {
     this.data = {};
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // if (typeof this.router.url !== 'undefined') {
+    //   console.log('url', this.router.url);
+    // }
+    this.tagState$.subscribe((state) => {
+      // console.log(state);
+      this.stateProfile = state;
+      if (typeof this.stateProfile.profileUser.profileImage !== 'undefined' && this.router.url === '/profile/about/image') {
+        console.log('profile image loaded');
+        this.loadImage();
+      }
+    });
+  }
 
   loadImage() {
     const self = this;
@@ -89,7 +96,7 @@ export class AboutImageComponent implements OnInit {
       self.drawImageProp(ctx, this, 0, 0, self.cropperSettings.canvasWidth, self.cropperSettings.canvasHeight, 0.1, 0.5);
     };
     const imageSrc = this.baseUrl + this.stateProfile.profileUser.profileImage;
-    console.log('imageSrc', imageSrc);
+    // console.log('imageSrc', imageSrc);
     img.src = imageSrc;
   }
 
