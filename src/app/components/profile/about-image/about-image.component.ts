@@ -77,7 +77,7 @@ export class AboutImageComponent implements OnInit {
     this.tagState$.subscribe((state) => {
       // console.log(state);
       this.stateProfile = state;
-      if (typeof this.stateProfile.profileUser.profileImage !== 'undefined' && this.router.url === '/profile/about/image') {
+      if (typeof this.stateProfile.profileUser.profileImage !== 'undefined') {
         console.log('profile image loaded');
         this.loadImage();
       }
@@ -95,9 +95,15 @@ export class AboutImageComponent implements OnInit {
       // ctx.drawImage(img, 0, 0, self.cropperSettings.canvasHeight, self.cropperSettings.canvasWidth);
       self.drawImageProp(ctx, this, 0, 0, self.cropperSettings.canvasWidth, self.cropperSettings.canvasHeight, 0.1, 0.5);
     };
-    const imageSrc = this.baseUrl + this.stateProfile.profileUser.profileImage;
+
+    let profileImageURL;
+    if (typeof this.stateProfile.profileUser.profileImage !== 'undefined') {
+      profileImageURL = this.baseUrl + this.stateProfile.profileUser.profileImage;
+    } else {
+      profileImageURL = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+    }
     // console.log('imageSrc', imageSrc);
-    img.src = imageSrc;
+    img.src = profileImageURL;
   }
 
   /**
