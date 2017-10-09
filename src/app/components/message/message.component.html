@@ -69,7 +69,7 @@
                         </li>
                     </ul>
                     <div class="msg_friend_list" id="ops_scrollbar">
-                        <a href="javascript:void(0)" *ngFor="let message of orderedMessageContacts | searchfilter : searchText">
+                        <a href="javascript:void(0)" *ngFor="let message of orderedMessageContacts">
                             <ul class="msg_name_list msg_unread fill_grey" *ngIf="message.isRead == false" (click)="toggleView('readMessage', message.handle)">
                                 <li class="with_border_bottom" *ngIf="message.handle != userHandle">
                                     <ul class="list-inline">
@@ -173,7 +173,7 @@
                             <div class="col-md-12">
                                 <ul class="list-inline" *ngIf="message.by == userHandle">
                                     <li class="list-inline-item avatar_msg_input float_right">
-                                        <img src="{{ baseUrl + profile.profileImage}}" class="img-responsive">
+                                        <img src="{{ baseUrl + selfProfile.profileImage}}" class="img-responsive">
                                     </li>
                                     <li class="list-inline-item msg_cont_block2">
                                         <p class="ops_msg_aero2">
@@ -193,7 +193,7 @@
                                 <li>
                                     <ul class="list-inline">
                                         <li class="list-inline-item avatar_msg_input float_left">
-                                            <img src="{{ baseUrl + profile.profileImage}}" class="img-responsive padding_0">
+                                            <img src="{{ baseUrl + selfProfile.profileImage}}" class="img-responsive padding_0">
                                         </li>
                                         <li class="list-inline-item msg_to_input">
 
@@ -281,7 +281,7 @@
                                 <li>
                                     <ul class="list-inline msg__input--height">
                                         <li class="list-inline-item avatar_msg_input float_left">
-                                            <img src="{{ baseUrl + profile.profileImage}}" class="img-responsive padding_0">
+                                            <img src="{{ baseUrl + selfProfile.profileImage}}" class="img-responsive padding_0">
                                         </li>
                                         <li class="list-inline-item msg_to_input">
 

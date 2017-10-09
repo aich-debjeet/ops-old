@@ -41,10 +41,17 @@ export class MessageService {
         return this.http.get(this.apiLink + '/portal/profile/' + value, { headers: headers })
         .map((response: Response) => response.json())
     }
-    getUserProfileByHandles(value) {
+    // getUserProfileByHandles(value) {
+    //     const headers = this.tokenService.getAuthHeader();
+    //     return this.http.get(this.apiLink + '/portal/auth/handleDisplayData' + value, { headers: headers })
+    //     .map((response: Response) => response.json())
+    // }
+    getUserProfileByHandles(handles: any) {
+        console.log('In service');
+        const reqBody = { listData: handles };
         const headers = this.tokenService.getAuthHeader();
-        return this.http.get(this.apiLink + '/portal/auth/handleDisplayData' + value, { headers: headers })
-        .map((response: Response) => response.json())
+        return this.http.post(this.apiLink + '/portal/auth/handleDisplayData', reqBody, { headers: headers })
+            .map((response: Response) => response.json())
     }
 
 }
