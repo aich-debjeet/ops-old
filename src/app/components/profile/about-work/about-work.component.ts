@@ -115,7 +115,7 @@ export class AboutWorkComponent implements OnInit {
           'from': this.reverseDate(value.from) + 'T05:00:00',
           'to': this.reverseDate(value.to) + 'T05:00:00',
           'currentlyWith': value.currentWork,
-          'access': value.publicWork,
+          'access': Number(value.publicWork),
           'id': value.id,
         }
         this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});

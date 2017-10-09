@@ -52,6 +52,7 @@ export class EditChannelComponent implements OnInit {
   userHandle: string;
 
   profileChannel: any;
+  forIndustries: any;
   channelSaved = false;
   channelSavedHere: boolean;
 
@@ -86,7 +87,7 @@ export class EditChannelComponent implements OnInit {
 
     this.loginTagState$ = store.select('loginTags');
     this.loginTagState$.subscribe((state) => {
-      this.profileChannel = state;
+      this.forIndustries = state;
     });
 
     this.tagState$ = this.store.select('profileTags');
