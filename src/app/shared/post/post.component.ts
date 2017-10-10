@@ -23,6 +23,7 @@ export class PostComponent implements OnInit {
   @Input() className: string;
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() postDelete = new EventEmitter();
   dotMenuState: boolean;
   comments: any;
   userData: any;
@@ -86,6 +87,9 @@ export class PostComponent implements OnInit {
     this.dotMenuState = !this.dotMenuState;
   }
 
+  onContentDelete(content) {
+    this.postDelete.next(content);
+  }
 
   /**
    * Spot a Media
