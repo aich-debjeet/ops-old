@@ -6,7 +6,11 @@ export class MessageModal {
     receipients: String[];
     mergedMessages: String[];
     profileHandles: string[];
-    receipients_loaded?: boolean 
+    nonUserProfileDetails: string[];
+    conversationDetails: string[];
+    sendMessageResponse: string[];
+    receipients_loaded?: boolean;
+    markRead: boolean
 }
 
 export const initialMessage: MessageModal = {
@@ -16,4 +20,8 @@ export const initialMessage: MessageModal = {
     userProfileDetails: [],
     mergedMessages: [],
     profileHandles: [],
+    nonUserProfileDetails: [],
+    conversationDetails: [],
+    markRead: false,
+    sendMessageResponse: [],
 };

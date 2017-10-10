@@ -1,3 +1,4 @@
+import { action } from 'aws-sdk/clients/sns';
 import { ActionReducer, Action } from '@ngrx/store';
 import { MessageModal, initialMessage } from '../models/message.model';
 import { unionBy as _unionBy } from 'lodash';
@@ -36,7 +37,7 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
         success: false
       });
 
-      case MessageActions.LOAD_USER_PROFILE_DATA:
+    case MessageActions.LOAD_USER_PROFILE_DATA:
       return Object.assign({}, state, {
         success: true
       });
@@ -79,7 +80,10 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
 
     case MessageActions.SEND_MESSAGE_SUCCESS:
       return Object.assign({}, state, {
-        completed: payload,
+        sendMessageResponse: payload,
+        mergedMessages: state.mergedMessages.concat(payload.SUCCESS),
+        conversationDetails: state.conversationDetails.concat(payload.SUCCESS),
+        userProfileDetails.extra.messages.sent: state.userProfileDetails.extra.messages.sent.concat(payload.SUCCESS),
         success: true
       });
 
@@ -104,6 +108,56 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       return Object.assign({}, state, {
         success: false
       });
+
+    case MessageActions.LOAD_NON_USER_PROFILE_DATA:
+      return Object.assign({}, state, {
+        success: true
+      });
+
+    case MessageActions.LOAD_NON_USER_PROFILE_DATA_SUCCESS:
+      return Object.assign({}, state, {
+        nonUserProfileDetails: payload,
+        success: true
+      });
+
+    case MessageActions.LOAD_NON_USER_PROFILE_DATA_FAILED:
+      return Object.assign({}, state, {
+        success: false
+      });
+
+    case MessageActions.MARK_MESSAGES_READ:
+      return Object.assign({}, state, {
+        success: true
+      });
+
+    case MessageActions.MARK_MESSAGES_READ_SUCCESS:
+      return Object.assign({}, state, {
+        markRead: true,
+        success: true
+      });
+
+    case MessageActions.MARK_MESSAGES_READ_FAILED:
+      return Object.assign({}, state, {
+        success: false
+      });
+
+      case MessageActions.SORT_MESSAGES_BY_TIME:
+      return Object.assign({}, state, {
+        conversationDetails: payload,
+        success: true
+      });
+
+    case MessageActions.SORT_MESSAGES_BY_TIME_SUCCESS:
+      return Object.assign({}, state, {
+        conversationDetails: payload,
+        success: true
+      });
+
+    case MessageActions.SORT_MESSAGES_BY_TIME_FAILED:
+      return Object.assign({}, state, {
+        success: false
+      });
+
 
     default:
       return state;

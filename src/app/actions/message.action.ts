@@ -19,13 +19,25 @@ export class MessageActions {
   static LOAD_USER_PROFILE_DATA_SUCCESS = 'LOAD_USER_PROFILE_DATA_SUCCESS';
   static LOAD_USER_PROFILE_DATA_FAILED = 'LOAD_USER_PROFILE_DATA_FAILED';
 
+  static LOAD_NON_USER_PROFILE_DATA = 'LOAD_NON_USER_PROFILE_DATA';
+  static LOAD_NON_USER_PROFILE_DATA_SUCCESS = 'LOAD_NON_USER_PROFILE_DATA_SUCCESS';
+  static LOAD_NON_USER_PROFILE_DATA_FAILED = 'LOAD_NON_USER_PROFILE_DATA_FAILED';
+
   static LOAD_HANDLE_PROFILE_DATA = 'LOAD_HANDLE_PROFILE_DATA';
   static LOAD_HANDLE_PROFILE_DATA_SUCCESS = 'LOAD_HANDLE_PROFILE_DATA_SUCCESS';
   static LOAD_HANDLE_PROFILE_DATA_FAILED = 'LOAD_HANDLE_PROFILE_DATA_FAILED';
 
+  static MARK_MESSAGES_READ = 'MARK_MESSAGES_READ';
+  static MARK_MESSAGES_READ_SUCCESS = 'MARK_MESSAGES_READ_SUCCESS';
+  static MARK_MESSAGES_READ_FAILED = 'MARK_MESSAGES_READ_FAILED';
+
+  static SORT_MESSAGES_BY_TIME = 'SORT_MESSAGES_BY_TIME';
+  static SORT_MESSAGES_BY_TIME_SUCCESS = 'SORT_MESSAGES_BY_TIME_SUCCESS';
+  static SORT_MESSAGES_BY_TIME_FAILED = 'SORT_MESSAGES_BY_TIME_FAILED';
+
   /* -------------------------------- load sent messages -------------------------------- */
   loadSentMessages(value): Action {
-    console.log('LOAD_SENT_MESSAGES action triggred');
+    console.log('LOAD_SENT_MESSAGES ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_SENT_MESSAGES,
       payload: { value }
@@ -33,7 +45,7 @@ export class MessageActions {
   }
 
   loadSentMessagesSuccess(value): Action {
-    console.log('LOAD_SENT_MESSAGES_SUCCESS action triggred');
+    console.log('LOAD_SENT_MESSAGES_SUCCESS ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_SENT_MESSAGES_SUCCESS,
       payload: { value }
@@ -41,7 +53,7 @@ export class MessageActions {
   }
 
   loadSentMessagesFailed(error: any): Action {
-    console.log('LOAD_SENT_MESSAGES_FAILED action triggred');
+    console.log('LOAD_SENT_MESSAGES_FAILED ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_SENT_MESSAGES_FAILED,
       payload: error
@@ -51,7 +63,7 @@ export class MessageActions {
 
   /* -------------------------------- load received messages -------------------------------- */
   loadReceivedMessages(value): Action {
-    console.log('LOAD_RECEIVED_MESSAGES action triggred');
+    console.log('LOAD_RECEIVED_MESSAGES ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_RECEIVED_MESSAGES,
       payload: { value }
@@ -59,7 +71,7 @@ export class MessageActions {
   }
 
   loadReceivedMessagesSuccess(value): Action {
-    console.log('LOAD_RECEIVED_MESSAGES_SUCCESS action triggred');
+    console.log('LOAD_RECEIVED_MESSAGES_SUCCESS ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_RECEIVED_MESSAGES_SUCCESS,
       payload: { value }
@@ -67,7 +79,7 @@ export class MessageActions {
   }
 
   loadReceivedMessagesFailed(error: any): Action {
-    console.log('LOAD_RECEIVED_MESSAGES_FAILED action triggred');
+    console.log('LOAD_RECEIVED_MESSAGES_FAILED ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_RECEIVED_MESSAGES_FAILED,
       payload: error
@@ -77,7 +89,7 @@ export class MessageActions {
 
   /* -------------------------------- send message -------------------------------- */
   sendMessage(value): Action {
-    console.log('SEND_MESSAGE action triggred');
+    console.log('SEND_MESSAGE ACTION TRIGGERED');
     return {
       type: MessageActions.SEND_MESSAGE,
       payload: { value }
@@ -85,7 +97,7 @@ export class MessageActions {
   }
 
   sendMessageSuccess(value): Action {
-    console.log('SEND_MESSAGE_SUCCESS action triggred');
+    console.log('SEND_MESSAGE_SUCCESS ACTION TRIGGERED');
     return {
       type: MessageActions.SEND_MESSAGE_SUCCESS,
       payload: { value }
@@ -93,7 +105,7 @@ export class MessageActions {
   }
 
   sendMessageFailed(error: any): Action {
-    console.log('SEND_MESSAGE_FAILED action triggred');
+    console.log('SEND_MESSAGE_FAILED ACTION TRIGGERED');
     return {
       type: MessageActions.SEND_MESSAGE_FAILED,
       payload: error
@@ -103,7 +115,7 @@ export class MessageActions {
 
   /* -------------------------------- load current user profile data -------------------------------- */
   loadUserProfile(value): Action {
-    console.log('LOAD_USER_PROFILE_DATA action triggred');
+    console.log('LOAD_USER_PROFILE_DATA ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_USER_PROFILE_DATA,
       payload: { value }
@@ -111,7 +123,7 @@ export class MessageActions {
   }
 
   loadUserProfileSuccess(value): Action {
-    console.log('LOAD_USER_PROFILE_DATA_SUCCESS action triggred');
+    console.log('LOAD_USER_PROFILE_DATA_SUCCESS ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_USER_PROFILE_DATA_SUCCESS,
       payload: { value }
@@ -119,7 +131,7 @@ export class MessageActions {
   }
 
   loadUserProfileFailed(error: any): Action {
-    console.log('LOAD_USER_PROFILE_DATA_FAILED action triggred');
+    console.log('LOAD_USER_PROFILE_DATA_FAILED ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_USER_PROFILE_DATA_FAILED,
       payload: error
@@ -129,7 +141,7 @@ export class MessageActions {
 
   /* -------------------------------- load profile data according to list of handles-------------------------------- */
   loadHandleProfile(value): Action {
-    console.log('LOAD_HANDLE_PROFILE_DATA action triggred');
+    console.log('LOAD_HANDLE_PROFILE_DATA ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_HANDLE_PROFILE_DATA,
       payload: { value }
@@ -137,7 +149,7 @@ export class MessageActions {
   }
 
   loadHandleProfileSuccess(value): Action {
-    console.log('LOAD_HANDLE_PROFILE_DATA_SUCCESS action triggred');
+    console.log('LOAD_HANDLE_PROFILE_DATA_SUCCESS ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_HANDLE_PROFILE_DATA_SUCCESS,
       payload: { value }
@@ -145,12 +157,66 @@ export class MessageActions {
   }
 
   loadhandleProfileFailed(error: any): Action {
-    console.log('LOAD_HANDLE_PROFILE_DATA_FAILED action triggred');
+    console.log('LOAD_HANDLE_PROFILE_DATA_FAILED ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_HANDLE_PROFILE_DATA_FAILED,
       payload: error
     };
   }
   /* -------------------------------- load profile data according to list of handles -------------------------------- */
+
+  /* -------------------------------- load non user profile data -------------------------------- */
+  loadNonUserProfile(value): Action {
+    console.log('LOAD_NON_USER_PROFILE_DATA ACTION TRIGGERED');
+    return {
+      type: MessageActions.LOAD_USER_PROFILE_DATA,
+      payload: { value }
+    };
+  }
+
+  loadNonUserProfileSuccess(value): Action {
+    console.log('LOAD_NON_USER_PROFILE_DATA_SUCCESS ACTION TRIGGERED');
+    return {
+      type: MessageActions.LOAD_USER_PROFILE_DATA_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  loadNonUserProfileFailed(error: any): Action {
+    console.log('LOAD_NON_USER_PROFILE_DATA_FAILED ACTION TRIGGERED');
+    return {
+      type: MessageActions.LOAD_USER_PROFILE_DATA_FAILED,
+      payload: error
+    };
+  }
+  /* -------------------------------- load non user profile data -------------------------------- */
+
+
+  /* -------------------------------- make messages read -------------------------------- */
+  markMessagesRead(value): Action {
+    console.log('MARK_MESSAGES_READ ACTION TRIGGERED');
+    return {
+      type: MessageActions.MARK_MESSAGES_READ,
+      payload: { value }
+    };
+  }
+
+  markMessagesReadSuccess(value): Action {
+    console.log('MARK_MESSAGES_READ_SUCCESS ACTION TRIGGERED');
+    return {
+      type: MessageActions.MARK_MESSAGES_READ_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  markMessagesReadFailed(error: any): Action {
+    console.log('MARK_MESSAGES_READ_FAILED ACTION TRIGGERED');
+    return {
+      type: MessageActions.MARK_MESSAGES_READ_FAILED,
+      payload: error
+    };
+  }
+  /* -------------------------------- make messages read -------------------------------- */
+
 
 }

@@ -57,14 +57,31 @@ export class MessageEffect {
       .catch((res) => Observable.of({ type: MessageActions.LOAD_HANDLE_PROFILE_DATA_FAILED, payload: res }))
     );
 
-  // @Effect()
-  // sendMessage$ = this.actions$
-  //   .ofType(MessageActions.SEND_MESSAGE)
-  //   .map(toPayload)
-  //   .switchMap((payload) => this.apiService.sendMessage(payload)
-  //     .map(res => ({ type: MessageActions.SEND_MESSAGE_SUCCESS, payload: res }))
-  //     .catch((res) => Observable.of({ type: MessageActions.SEND_MESSAGE_FAILED, payload: res }))
-  //   );
+    @Effect()
+    nonUserProfile$ = this.actions$
+    .ofType(MessageActions.LOAD_NON_USER_PROFILE_DATA)
+    .map(toPayload)
+    .switchMap((payload) => this.messageService.getNonUserProfileDetails(payload)
+      .map(res => ({ type: MessageActions.LOAD_NON_USER_PROFILE_DATA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.LOAD_NON_USER_PROFILE_DATA_FAILED, payload: res }))
+    );
+
+    @Effect()
+    markMessages$ = this.actions$
+    .ofType(MessageActions.MARK_MESSAGES_READ)
+    .map(toPayload)
+    .switchMap((payload) => this.messageService.markMessagesRead(payload)
+      .map(res => ({ type: MessageActions.MARK_MESSAGES_READ_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.MARK_MESSAGES_READ_FAILED, payload: res }))
+    );
+  @Effect()
+  sendMessage$ = this.actions$
+    .ofType(MessageActions.SEND_MESSAGE)
+    .map(toPayload)
+    .switchMap((payload) => this.messageService.sendMessage(payload)
+      .map(res => ({ type: MessageActions.SEND_MESSAGE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.SEND_MESSAGE_FAILED, payload: res }))
+    );
 
     constructor(
     private actions$: Actions,
