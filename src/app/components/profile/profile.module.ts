@@ -27,6 +27,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // Guard
 import { AuthGuard } from './../../guard/auth.guard';
+import { ProfileSpotfeedComponent } from './profile-spotfeed/profile-spotfeed.component';
 
 const childRoutes = [
   {
@@ -41,6 +42,7 @@ const childRoutes = [
       { path: '', component: ProfileChannelComponent },
       { path: 'channel', component: ProfileChannelComponent },
       { path: 'post', component: ProfilePostComponent },
+      { path: 'spotfeed', component: ProfileSpotfeedComponent }
     ]
   },
   {
@@ -97,7 +99,8 @@ const routes: Routes = [
     AboutEducationComponent,
     AboutContactComponent,
     AboutImageComponent,
-    AboutCoverComponent
+    AboutCoverComponent,
+    ProfileSpotfeedComponent
   ]
 })
 export class ProfileModule { }
