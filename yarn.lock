@@ -304,6 +304,13 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+<<<<<<< HEAD
+=======
+angular2-infinite-scroll@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/angular2-infinite-scroll/-/angular2-infinite-scroll-0.3.5.tgz#c2943511c75b76ffc448f60ec39505d027c14d9f"
+
+>>>>>>> 71ad04262ff6746311ec8df208391e5739b28970
 angular2-masonry@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/angular2-masonry/-/angular2-masonry-0.4.0.tgz#5be7c87bdabc50ed384f01c585f50f5170cdff10"

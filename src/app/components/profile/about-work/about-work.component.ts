@@ -11,6 +11,8 @@ import { DatePipe } from '@angular/common';
 import { ProfileActions } from '../../../actions/profile.action';
 import { SharedActions } from '../../../actions/shared.action';
 
+import { ToastrService } from 'ngx-toastr';
+
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -37,7 +39,8 @@ export class AboutWorkComponent implements OnInit {
     public modalService: ModalService,
     private fb: FormBuilder,
     public datepipe: DatePipe,
-    private profileStore: Store<ProfileModal>
+    private profileStore: Store<ProfileModal>,
+    private toastr: ToastrService
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
@@ -106,6 +109,7 @@ export class AboutWorkComponent implements OnInit {
           'access': Number(value.publicWork)
         }
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
+        this.toastr.success('Your work has been updated successfully!');
         this.modalService.close('userWorkAdd');
       } else {
         const body = {
@@ -119,6 +123,7 @@ export class AboutWorkComponent implements OnInit {
           'id': value.id,
         }
         this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
+        this.toastr.success('Your work has been updated successfully!');
         this.modalService.close('userWorkAdd');
       }
       this.workForm.reset();
