@@ -35,7 +35,63 @@
                   </ul>
                 </li>
                 <!-- <li><a (click)="toggleNav('search')"><img src="/assets/img/svg/ico_search.svg"></a></li> -->
-                <li><a (click)="toggleNav('notification')"><img src="/assets/img/svg/ico_notification.svg"></a></li>
+                <li appDropdown class="opsheader-notification">
+                  <a class="drop-down-value" appDropdownOpen>
+                    <img src="/assets/img/svg/ico_notification.svg">
+                  </a>
+                  <ul class="dropdown-menu messsage_dropdown">
+                    <li class="with_border_bottom">
+                      <ul class="list-inline head_drop_thumb">
+                        <li class="list-inline-item header_ym">
+                          <a href="/notification">Your Notification</a>
+                        </li>
+                        <li class="list-inline-item pull-right header_compose">
+                          <a href="">Mark all as read</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="with_border_bottom fill_grey">
+                      <ul class="list-inline head_drop_thumb">
+                        <li class="list-inline-item float_left">
+                          <img src="https://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                        </li>
+                        <li class="list-inline-item noti_cont" data-toggle="modal" data-target="#network-connect-pop">
+                          <div class="head_msg_name">Tommy Russel</div>
+                          <div class="head_msg_short">wants to network with you</div>
+                        </li>
+                        <li class="list-inline-item noti_cont_time">
+                          <div class="msg_time">
+                            <p>10:08 PM</p>
+                          </div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="with_border_bottom fill_grey">
+                      <ul class="list-inline head_drop_thumb">
+                        <li class="list-inline-item float_left">
+                          <img src="https://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                        </li>
+                        <li class="list-inline-item noti_cont">
+                          <div class="head_msg_name">Tommy Russel</div>
+                          <div class="head_msg_short">and 8 others spotted your post</div>
+                        </li>
+                        <li class="list-inline-item noti_cont_time">
+                          <div class="msg_time">
+                            <img src="https://d33wubrfki0l68.cloudfront.net/8d58c78cd26eb1d103bb24ec6c1d786a0964b8b4/63aa4/img/svg/ico_spot.svg" class="img-responsive">
+                            <p>10:08 PM</p>
+                          </div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <ul class="list-inline head_drop_thumb text-center">
+                        <li class="list-inline-item">
+                          <a routerLink="/notifications" class="msg_viewall">view all</a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
                 <!-- <li><a href="javascript:void(0)" ><img src="/assets/img/svg/ico_message.svg"></a></li> -->
                 <li class="dropdown opsheader-paddingt6" appDropdown>
                   <a class="dropdown-toggle opsheader-lineheight30" appDropdownOpen>
