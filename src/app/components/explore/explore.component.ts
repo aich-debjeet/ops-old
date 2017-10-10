@@ -11,7 +11,7 @@ export class ExploreComponent implements OnInit {
 
   ngOnInit() {
     this.comingsoon = {
-      mainTitle: 'Explore will be coming soon.',
+      mainTitle: 'Explore <br> Coming Soon.',
       description: 'Our Explorers are working up the map. Feel free to browse through our other pages.',
       buttonLink: '/home',
       buttonText: 'Go to Home',
