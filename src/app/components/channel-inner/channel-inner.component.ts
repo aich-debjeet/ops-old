@@ -89,7 +89,19 @@ export class ChannelInnerComponent implements OnInit {
   mediaOpenPopup(id) {
     this._store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id});
     this._store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
-    // this.modalService.open('mediaPopup');
+  }
+
+  /**
+   * Delete Post
+   */
+  deletePost(media) {
+    const posts = this.channel.channel_detail['media']
+    const index: number = posts.indexOf(media);
+    if (index !== -1) {
+      posts.splice(index, 1);
+      const id = media.id;
+      this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+    }
   }
 
   /**

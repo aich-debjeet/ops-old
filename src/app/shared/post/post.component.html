@@ -16,9 +16,16 @@
           <img *ngIf="mediaData?.access === 1" src="/assets/img/svg/ico_private.svg" alt="" class="c-status__options">
           <img *ngIf="mediaData?.access === 0" src="/assets/img/svg/ico_public.svg" alt="" class="c-status__options">
         </a>
-        <!--<a href="">
-          <img src="/assets/img/svg/ico_options.svg" alt="" class="c-status__options">
-        </a>-->
+        <div appDropdown >
+          <a class="dropdown-toggle" appDropdownOpen>
+           <img src="/assets/img/svg/ico_options.svg" alt="" class="c-card__options drop-postion__icon">
+          </a>
+          <ul class="dropdown-menu c-channel-option drop-postion">
+            <!--  Only if current user -->
+            <li><a (click)="onContentDelete($event)">Delete</a></li>
+            <!--<li><a (click)="onContentEdit($event)" >Edit</a></li>-->
+          </ul>
+        </div>
       </div>
     </div>
     <div *ngIf="mediaData?.description && mediaData?.mtype === 'status' " class="c-status--block">
