@@ -12,9 +12,17 @@
               <textarea class="form___textarea" formControlName="status" name="comment" rows="2" placeholder="Update your Status"></textarea>
           </div>
           <div class="c-status__block">
-            <span class="u-right">
-              <a (click)="submitStatusForm(statusForm.value)" class="btn__primary">Post</a>
-            </span>
+            <div class="width-50 float-left">
+              <select formControlName="privacy" class="form-control" id="sel1">
+                <option value="0">Public</option>
+                <option value="1">Private</option>
+              </select>
+            </div>
+            <div class="width-50 float-right">
+              <span class="u-right">
+                <a (click)="submitStatusForm(statusForm.value)" class="btn__primary cursor-pointer">Post</a>
+              </span>
+            </div>
           </div>
       </div>
     </div>

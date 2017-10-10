@@ -196,6 +196,9 @@
 .login_btn{
     background: transparent;
     margin-left: 24px;
+    &:hover {
+        background-color: #ff7b84;
+    }
 }
 .o-block{
     background: #fff;

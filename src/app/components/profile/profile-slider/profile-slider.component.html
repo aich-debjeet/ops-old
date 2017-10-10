@@ -1,4 +1,4 @@
-<div *ngIf="profileObject !== null" class="prohead2" [ngStyle]="coverImageStyle(profileObject)">
+<div *ngIf="profileObject !== null" id="cover-image" class="prohead2" [ngStyle]="coverImageStyle(profileObject)">
   <div class="container u-rel" *ngIf="isOtherProfile === false">
       <span class="upload_cover_img">
         <a routerLink="/profile/about/cover_image" class="dropdown-toggle cursor-pointer" data-toggle="dropdown" aria-expanded="true">
@@ -68,13 +68,13 @@
         </div>
         <div class="col-md-3 col-sm-3">
             <ul class="list-inline pro_nav_icon">
-                <li class="list-line-item">
+                <li class="list-line-item" *ngIf="isOtherProfile === true">
                     <a ><img src="/assets/img/svg/ico_options.svg"></a>
                 </li>
                 <li class="list-line-item">
                     <a><img src="/assets/img/svg/ico_share.svg"></a>
                 </li>
-                <li class="list-line-item">
+                <li class="list-line-item" *ngIf="isOtherProfile === true">
                     <a><img src="/assets/img/svg/ico_message.svg"></a>
                 </li>
                 <li class="list-line-item" *ngIf="isOtherProfile === false">
@@ -124,7 +124,7 @@
 
 <router-outlet></router-outlet>
 
-<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow' *ngIf="!isOtherProfile" size="tiny__form">
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow' *ngIf="!isOtherProfile" size="profile_update">
     <div >
         <form [formGroup]="profileForm" novalidate #myform="ngForm" (submit)= "profileFormSubmit(profileForm.value)">
             <div class="edit-profile_main">
@@ -145,9 +145,9 @@
                 <div class="edit-profile_sec_block">
                     <div class="edit-profile_sec_head" data-toggle="collapse " data-target="#basic_info">
                         <h3 class="edit-profile_subtitle">Basic Info</h3>
-                        <div class="edit-profile_iconbox">
+                        <!-- <div class="edit-profile_iconbox">
                             <img src="/assets/img/svg/ico-arrow-down.svg" alt="">
-                        </div>
+                        </div> -->
                     </div>
                     <!-- edit profile sec head -->
                     <div id="basic_info" class="edit-profile_content_block show" style="display: none;">
