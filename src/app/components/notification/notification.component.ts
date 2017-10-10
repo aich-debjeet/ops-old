@@ -1,4 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+// rx
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
+// action
+import { NotificationActions } from './../../actions/notification.action';
+import { Notification } from './../../models/notification.model';
 
 @Component({
   selector: 'app-notification',
@@ -6,57 +15,27 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent implements OnInit {
-  dropDownOpen : boolean = false;
-  messageIconOpen : boolean = false;
-  notificationOpen : boolean = false;
-  searchBarDisplay : boolean = false;
-  constructor() { }
 
-  ngOnInit() {
+  notificationsState$: Observable<Notification>;
+
+  constructor(
+    private store: Store<Notification>
+  ) {
+
+    // loading notifications
+    this.store.dispatch({
+      type: NotificationActions.LOAD_NOTIFICATIONS,
+      payload: null
+    });
+
+    this.notificationsState$ = this.store.select('notificationTags');
+
+    // observe the store value
+    this.notificationsState$.subscribe((state) => {
+      console.log(state);
+    });
   }
-    toggleNav(event:any) {
-    event.preventDefault();
-    if(this.dropDownOpen) {
-      this.dropDownOpen = false;
-    } else {
-      this.dropDownOpen = true;
-      this.messageIconOpen = false;
-      this.notificationOpen = false;
-      this.searchBarDisplay = false;
-    }
-  }
-  toggleNav1(event:any) {
-    event.preventDefault();
-    if(this.messageIconOpen) {
-      this.messageIconOpen = false;
-    } else {
-      this.messageIconOpen = true;
-      this.dropDownOpen = false;
-      this.notificationOpen = false;
-      this.searchBarDisplay = false;
-    }
-  }
-  toggleNav2(event:any) {
-    event.preventDefault();
-    if(this.notificationOpen) {
-      this.notificationOpen = false;
-    } else {
-      this.notificationOpen = true;
-      this.searchBarDisplay = false;
-      this.dropDownOpen = false;
-      this.messageIconOpen = false;
-    }
-  }
-  searchBar()
-  {
-    if (this.searchBarDisplay) {
-      this.searchBarDisplay=false;
-    }
-    else {
-      this.searchBarDisplay=true;
-      this.notificationOpen=false;
-      this.dropDownOpen=false;
-      this.messageIconOpen=false;
-    }
-  }
+
+  ngOnInit() { }
+
 }

@@ -43,6 +43,7 @@ import { MediaEffect } from './effects/media.effect';
 import { SharedEffect } from './effects/shared.effect';
 import { ProfileEffect } from './effects/profile.effect';
 import { MessageEffect } from './effects/message.effects';
+import { NotificationEffect } from './effects/notification.effect';
 import { UserSearchEffect } from './effects/user-search.effect';
 
 // Services
@@ -54,6 +55,7 @@ import { MediaService } from './services/media.service';
 import { GeneralService } from './services/api.service';
 import { ModalService } from './shared/modal/modal.component.service';
 import { HomeService } from './services/home.service';
+import { NotificationService } from './services/notification.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
@@ -154,6 +156,7 @@ import { ProjectComponent } from './components/project/project.component';
     EffectsModule.run(SharedEffect),
     EffectsModule.run(ProfileEffect),
     EffectsModule.run(MessageEffect),
+    EffectsModule.run(NotificationEffect),
     EffectsModule.run(UserSearchEffect),
     EffectsModule.run(MediaEffect),
     // Video
@@ -164,7 +167,15 @@ import { ProjectComponent } from './components/project/project.component';
     VgBufferingModule,
   ],
   providers: [
-    AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService, ModalService, HomeService
+    AuthService,
+    AuthGuard,
+    GeneralService,
+    ApiService,
+    TokenService,
+    MediaService,
+    ModalService,
+    HomeService,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })
