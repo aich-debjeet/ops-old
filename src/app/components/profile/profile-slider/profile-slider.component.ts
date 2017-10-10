@@ -70,7 +70,7 @@ export class ProfileSliderComponent implements OnInit {
     public tokenService: TokenService,
     private profileStore: Store<ProfileModal>
   ) {
-
+  document.body.scrollTop = 0;
     this.baseUrl = environment.API_IMAGE;
 
     this.tagState$ = this.profileStore.select('profileTags');

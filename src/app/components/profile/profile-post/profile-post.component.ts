@@ -36,6 +36,13 @@ export class ProfilePostComponent implements OnInit {
   posts: any;
   otherPost: boolean;
   isEmpty: boolean;
+  sum = 10;
+  page_start = 1;
+  page_end = 10;
+  total_pages = 10;
+  scrolling = 0;
+  scrollingLoad = 1000;
+
   constructor(
     private http: Http,
     private _router: Router,
@@ -74,16 +81,41 @@ export class ProfilePostComponent implements OnInit {
     }
   }
 
-  onScroll() {
-    console.log('scrolling');
+  onScroll(e) {
+
+    this.scrolling = e.currentScrollPosition;
+
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 1000
+      this.page_start = this.page_end + 1;
+      this.page_end += 20;
+
+      if (this.userMedia.current_user_profile && this.userMedia.profile_other_loaded === true) {
+        const handle = this.userMedia.profile_other.handle;
+        this.postLoad(handle);
+      }else {
+        const handle = this.userMedia.profileDetails.handle;
+        this.postLoad(handle)
+      }
+    }
   }
+
+  // onScrollUp() {
+  //    this.page--;
+  //   console.log(this.page);
+  // }
 
   /**
    * Current User post load
    * @param handle User Handle
    */
   postLoad(handle) {
-    this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA, payload: handle });
+    const data = {
+      handle: handle,
+      page_start: this.page_start,
+      page_end: this.page_end
+    }
+    this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA, payload: data });
   }
 
   /**

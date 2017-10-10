@@ -152,16 +152,20 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         user_posts_loading: true,
         user_posts_loaded: false,
-        user_posts: []
+        // user_posts: []
       });
 
     case ProfileActions.LOAD_USER_MEDIA_SUCCESS:
       const posts = payload['SUCCESS'] || [];
+      let ss = state.user_posts.concat(posts)
+      console.log(ss)
+
       return Object.assign({}, state, {
         mediaEntity: payload,
         user_posts_loaded: true,
         user_posts_loading: false,
-        user_posts: posts
+        // user_posts: [...state.user_posts, posts]
+        user_posts: ss
       });
 
     case ProfileActions.LOAD_USER_MEDIA_FAILED:
