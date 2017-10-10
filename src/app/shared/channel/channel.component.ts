@@ -30,6 +30,7 @@ export class ChannelComponent implements OnInit {
   @Input() type: boolean;
   userImage: string;
   isfollowing: boolean;
+  ispin: boolean;
   showEdit: boolean;
   storeState$: Observable<ProfileModal>;
   userProfile = initialTag;
@@ -48,8 +49,10 @@ export class ChannelComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.channelData);
     this.isfollowing = this.channelData.isFollowing || false;
     this.showEdit = false;
+    this.ispin = this.channelData.isPinned || false;
     const defaultImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
     if ((this.channelData.ownerImage !== defaultImage) || (this.channelData.ownerImage !== '')) {
       this.userImage = defaultImage;
@@ -88,13 +91,21 @@ export class ChannelComponent implements OnInit {
   }
 
   pinChannel(spotfeedId) {
-    console.log(spotfeedId);
-    const data = {
-      'spotfeedId': spotfeedId,
-      'profileHandle': this.userHandle
+    if (this.ispin === false) {
+      this.ispin = true;
+      const data = {
+        'spotfeedId': spotfeedId,
+        'profileHandle': this.userHandle
+      }
+      this._store.dispatch({ type: ProfileActions.PIN_CHANNEL, payload: data });
+    }else {
+      this.ispin = false;
+      const data = {
+        'spotfeedId': spotfeedId,
+        'profileHandle': this.userHandle
+      }
+      this._store.dispatch({ type: ProfileActions.UNPIN_CHANNEL, payload: data });
     }
-
-    this._store.dispatch({ type: ProfileActions.PIN_CHANNEL, payload: data });
   }
 
   /**

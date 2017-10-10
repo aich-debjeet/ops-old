@@ -22,6 +22,7 @@ export class PostCardComponent implements OnInit {
   @Input() mediaData;
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() postDelete = new EventEmitter();
   dotMenuState: boolean;
   following: boolean;
   followingCount: any;
@@ -67,6 +68,10 @@ export class PostCardComponent implements OnInit {
 
   dotMenuOpen() {
     this.dotMenuState = !this.dotMenuState;
+  }
+
+  onContentDelete(content) {
+    this.postDelete.next(content);
   }
 
   /**
