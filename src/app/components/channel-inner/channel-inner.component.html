@@ -41,13 +41,13 @@
             <ul class="list-inline">
                 <li class="list-inline-item pull-right">
                     <div class="spot_in_follow"><strong>{{ (tagState$ | async).channel_detail?.followersCount }}</strong> Followers</div>
-                    <div class="spot_in_follow"><strong>{{ (tagState$ | async).channel_detail?.spotCount }}</strong> Post</div>
+                    <div class="spot_in_follow"><strong>{{ (tagState$ | async).channel_detail?.spotCount }}</strong>Post</div>
                 </li>
             </ul>
             <div class="col-sm-12 spot_in_icons">
                 <div class="overlap_thumb">
-                    <span class="over1_thumb" *ngFor="let media of (tagState$ | async).channel_detail?.media | unique">
-                      <img src="{{ imageLink + media.ownerImage }}">
+                    <span class="over1_thumb" *ngFor="let media of (tagState$ | async).channel_detail?.contributorProfile | slice:0:3">
+                      <img src="{{ imageLink + media.profileImage}}">
                     </span>
                 </div>
             </div>
@@ -65,7 +65,7 @@
           </div>-->
           <masonry>
             <masonry-brick class="col-md-3" *ngFor="let media of (tagState$ | async).channel_detail?.media; let i = index">
-                <app-post-card  (onClick)="mediaOpenPopup(media.id)" [mediaData]="media"></app-post-card>
+                <app-post-card  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)" [mediaData]="media"></app-post-card>
             </masonry-brick>
           </masonry>
         </div>

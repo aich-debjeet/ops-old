@@ -77,8 +77,7 @@ export class CommentComponent implements OnInit {
       isOwner: true,
       ownerImage: this.userData.profileImage,
       ownerName: this.userData.name,
-      createdDate: +new Date(),
-      id: 'dssdd'
+      createdDate: +new Date()
     })
     this.loadMedia();
     this.store.select('mediaStore').take(7).subscribe(data => {

@@ -173,6 +173,21 @@ export class MediaEffect {
       );
 
   /**
+   *Media post delete
+   */
+  @Effect()
+    mediaPostDelete$ = this.actions$
+      .ofType(MediaActions.MEDIA_POST_DELETE)
+      .map(toPayload)
+      .switchMap((payload) => this.mediaService.mediaPostDelete(payload)
+        .map(res => ({ type: MediaActions.MEDIA_POST_DELETE_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({
+          type: MediaActions.MEDIA_POST_DELETE_FAILED,
+          payload: { errorStatus: res.status }
+        }))
+      );
+
+  /**
    * Un Spot a Media
    */
   @Effect()

@@ -105,6 +105,14 @@ export class MediaService {
   }
 
   /**
+   * Media post delete
+   */
+  mediaPostDelete(id: string) {
+    return this.api.del( `/portal/cdn/media/delete/${id}`);
+
+  }
+
+  /**
    * Pagination Helper
    */
   pagination(page: number = 1, perPage: number = 20) {
