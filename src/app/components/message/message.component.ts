@@ -72,7 +72,7 @@ export class MessageComponent implements OnInit {
   messagesbytime = [];
   sortedMessagesByTime = [];
   recipientsListState: boolean;
-  receipientList = [];      // to store the list of receipients
+  receipientList: any;      // to store the list of receipients
   counter = 0;
   
   constructor(
@@ -374,6 +374,7 @@ export class MessageComponent implements OnInit {
       // });
    }
   }
+  sentMessageToRecipient(value: any ) {}
   toggleSelectSkill(handle: any) {
     this.recipientsListState = !this.recipientsListState;
     if (handle === undefined || handle === null ) {
@@ -383,19 +384,27 @@ export class MessageComponent implements OnInit {
     }
 
     if (handle !== this.userHandle && handle !== undefined) {
-      this.http.get(this.apiLink + '/portal/profile/' + handle, { headers: headers })
-      .map((response: Response) => response.json())
-      .subscribe(response => {
-        if (response === null || response === undefined) {
-          // console.log('no such receipient exist')
-          this.composeMessage.searchUser = 'No such receipient';
-        } else {
-          this.nonUserProfile = response
-          // console.log(this.nonUserProfile)
+      this.messageStore.dispatch({ type: MessageActions.LOAD_SEARCHED_NON_USER_PROFILE_DATA, payload: handle });
+      // this.http.get(this.apiLink + '/portal/profile/' + handle, { headers: headers })
+      // .map((response: Response) => response.json())
+      // .subscribe(response => {
+      //   if (response === null || response === undefined) {
+      //     // console.log('no such receipient exist')
+      //     this.composeMessage.searchUser = 'No such receipient';
+      //   } else {
+      //     this.nonUserProfile = response
+      //     // console.log(this.nonUserProfile)
+      //     this.composeMessage.searchUser = this.nonUserProfile.name;
+      //     // console.log(this.nonUserProfile.handle + 'is not equal to' + this.userHandle)
+      //   }
+      // })
+      if (this.nonUserProfile !== null) {
+        if (handle === this.nonUserProfile.handle) {
           this.composeMessage.searchUser = this.nonUserProfile.name;
-          // console.log(this.nonUserProfile.handle + 'is not equal to' + this.userHandle)
         }
-      })
+      } else {
+       this.composeMessage.searchUser = 'No such receipient';
+      }
     }
 
     if (handle === this.userHandle) {

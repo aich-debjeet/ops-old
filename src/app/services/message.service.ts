@@ -59,6 +59,12 @@ export class MessageService {
         .map((response: Response) => response.json())
     }
 
+    getSearchedNonUserProfileDetails(handle: any) {
+        const headers = this.tokenService.getAuthHeader();
+        return this.http.get(this.apiLink + '/portal/profile/' + handle, { headers: headers })
+        .map((response: Response) => response.json())
+    }
+
     markMessagesRead(value: any) {
         const headers = this.tokenService.getAuthHeader();
         return this.http.put(this.apiLink + '/portal/message/markListRead', value, { headers: headers })

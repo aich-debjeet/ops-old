@@ -81,9 +81,9 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
     case MessageActions.SEND_MESSAGE_SUCCESS:
       return Object.assign({}, state, {
         sendMessageResponse: payload,
-        mergedMessages: state.mergedMessages.concat(payload.SUCCESS),
-        conversationDetails: state.conversationDetails.concat(payload.SUCCESS),
-        userProfileDetails.extra.messages.sent: state.userProfileDetails.extra.messages.sent.concat(payload.SUCCESS),
+        // mergedMessages: state.mergedMessages.concat(payload.SUCCESS),
+        // conversationDetails: state.conversationDetails.concat(payload.SUCCESS),
+        // userProfileDetails.extra.messages.sent: state.userProfileDetails.extra.messages.sent.concat(payload.SUCCESS),
         success: true
       });
 
@@ -158,25 +158,40 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
         success: false
       });
 
-      case MessageActions.GET_RECEIPIENT:
-      // console.log('GET_Receipient')
-        return Object.assign({}, state, {
-          receipients: [],
-          receipients_loaded: false
-        });
-      case MessageActions.GET_RECEIPIENT_SUCCESS:
-      // console.log(payload)
-      // console.log('GET_Receipient comming success')
-        return Object.assign({}, state, {
-          receipients: payload,
-          receipients_loaded: true
-        });
-      case MessageActions.GET_RECEIPIENT_FAILED:
-      // console.log('GET_Receipient comming failed')
-        return Object.assign({}, state, {
-          success: false,
-          receipients_loaded: false
-        });
+    case MessageActions.GET_RECEIPIENT:
+    // console.log('GET_Receipient')
+      return Object.assign({}, state, {
+        receipients: [],
+        receipients_loaded: false
+      });
+    case MessageActions.GET_RECEIPIENT_SUCCESS:
+    // console.log(payload)
+    // console.log('GET_Receipient comming success')
+      return Object.assign({}, state, {
+        receipients: payload,
+        receipients_loaded: true
+      });
+    case MessageActions.GET_RECEIPIENT_FAILED:
+    // console.log('GET_Receipient comming failed')
+      return Object.assign({}, state, {
+        success: false,
+        receipients_loaded: false
+      });
+      case MessageActions.LOAD_SEARCHED_NON_USER_PROFILE_DATA:
+      return Object.assign({}, state, {
+        success: true
+      });
+
+    case MessageActions.LOAD_SEARCHED_NON_USER_PROFILE_DATA_SUCCESS:
+      return Object.assign({}, state, {
+        nonUserProfileDetails: payload,
+        success: true
+      });
+
+    case MessageActions.LOAD_SEARCHED_NON_USER_PROFILE_DATA_FAILED:
+      return Object.assign({}, state, {
+        success: false
+      });
 
 
     default:

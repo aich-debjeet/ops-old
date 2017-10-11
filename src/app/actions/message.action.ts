@@ -23,6 +23,10 @@ export class MessageActions {
   static LOAD_NON_USER_PROFILE_DATA_SUCCESS = 'LOAD_NON_USER_PROFILE_DATA_SUCCESS';
   static LOAD_NON_USER_PROFILE_DATA_FAILED = 'LOAD_NON_USER_PROFILE_DATA_FAILED';
 
+  static LOAD_SEARCHED_NON_USER_PROFILE_DATA = 'LOAD_SEARCHED_NON_USER_PROFILE_DATA';
+  static LOAD_SEARCHED_NON_USER_PROFILE_DATA_SUCCESS = 'LOAD_SEARCHED_NON_USER_PROFILE_DATA_SUCCESS';
+  static LOAD_SEARCHED_NON_USER_PROFILE_DATA_FAILED = 'LOAD_SEARCHED_NON_USER_PROFILE_DATA_FAILED';
+
   static LOAD_HANDLE_PROFILE_DATA = 'LOAD_HANDLE_PROFILE_DATA';
   static LOAD_HANDLE_PROFILE_DATA_SUCCESS = 'LOAD_HANDLE_PROFILE_DATA_SUCCESS';
   static LOAD_HANDLE_PROFILE_DATA_FAILED = 'LOAD_HANDLE_PROFILE_DATA_FAILED';
@@ -195,6 +199,32 @@ export class MessageActions {
   }
   /* -------------------------------- load non user profile data -------------------------------- */
 
+   /* -------------------------------- load searched non user profile data -------------------------------- */
+   loadSearchedNonUserProfile(value): Action {
+    console.log('LOAD_SEARCHED_NON_USER_PROFILE_DATA ACTION TRIGGERED');
+    return {
+      type: MessageActions.LOAD_SEARCHED_NON_USER_PROFILE_DATA,
+      payload: { value }
+    };
+  }
+
+  loadSearchedNonUserProfileSuccess(value): Action {
+    console.log('LOAD_SEARCHED_NON_USER_PROFILE_DATA_SUCCESS ACTION TRIGGERED');
+    return {
+      type: MessageActions.LOAD_SEARCHED_NON_USER_PROFILE_DATA_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  loadSearchedNonUserProfileFailed(error: any): Action {
+    console.log('LOAD_SEARCHED_NON_USER_PROFILE_DATA_FAILED ACTION TRIGGERED');
+    return {
+      type: MessageActions.LOAD_SEARCHED_NON_USER_PROFILE_DATA_FAILED,
+      payload: error
+    };
+  }
+  /* -------------------------------- load searched non user profile data -------------------------------- */
+
 
   /* -------------------------------- make messages read -------------------------------- */
   markMessagesRead(value): Action {
@@ -222,7 +252,7 @@ export class MessageActions {
   }
   /* -------------------------------- make messages read -------------------------------- */
 
-  
+
   /*------------------------ get receipient details---------------------------------*/
   getReceipient(value) {
     console.log('GET_RECEIPIENT action triggred');

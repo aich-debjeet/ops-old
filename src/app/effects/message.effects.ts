@@ -67,6 +67,15 @@ export class MessageEffect {
     );
 
     @Effect()
+    searchedNonUserProfile$ = this.actions$
+    .ofType(MessageActions.LOAD_SEARCHED_NON_USER_PROFILE_DATA)
+    .map(toPayload)
+    .switchMap((payload) => this.messageService.getSearchedNonUserProfileDetails(payload)
+      .map(res => ({ type: MessageActions.LOAD_SEARCHED_NON_USER_PROFILE_DATA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.LOAD_SEARCHED_NON_USER_PROFILE_DATA_FAILED, payload: res }))
+    );
+
+    @Effect()
     markMessages$ = this.actions$
     .ofType(MessageActions.MARK_MESSAGES_READ)
     .map(toPayload)
