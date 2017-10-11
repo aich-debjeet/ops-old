@@ -109,7 +109,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       return Object.assign({}, state, {
         user_posts_loading: true,
         user_posts_loaded: false,
-        user_posts: []
+        // user_posts: []
       });
 
     case MediaActions.LOAD_USER_MEDIA_SUCCESS:

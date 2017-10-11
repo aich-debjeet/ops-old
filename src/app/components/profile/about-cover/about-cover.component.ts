@@ -9,11 +9,14 @@ import { ProfileHelper } from '../../../helpers/profile.helper';
 import { TokenService } from '../../../helpers/token.service';
 
 import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
+
 // action
 import { ProfileActions } from '../../../actions/profile.action';
 import { SharedActions } from '../../../actions/shared.action';
 
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { environment } from '../../../../environments/environment.prod';
+
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -36,6 +39,7 @@ export class AboutCoverComponent implements OnInit {
   changingImage: boolean;
   cropperSettings: CropperSettings;
   @ViewChild('coverImage') fileInput;
+  baseUrl: string;
 
   constructor(
     private _http: Http,
@@ -48,11 +52,14 @@ export class AboutCoverComponent implements OnInit {
     private _location: Location,
     private _store: Store<ProfileModal>
   ) {
+
+    this.baseUrl = environment.API_IMAGE;
+
     this.tagState$ = this._store.select('profileTags');
-    this.tagState$.subscribe((state) => {
-      console.log(state);
-      this.stateProfile = state;
-    });
+    // this.tagState$.subscribe((state) => {
+    //   console.log(state);
+    //   this.stateProfile = state;
+    // });
 
     // Image Cropper Settings
     this.cropperSettings = new CropperSettings();
@@ -67,7 +74,14 @@ export class AboutCoverComponent implements OnInit {
   }
 
   ngOnInit() {
-    //
+    this.tagState$.subscribe((state) => {
+      console.log(state);
+      this.stateProfile = state;
+      if (typeof this.stateProfile.profileUser.coverImage !== 'undefined') {
+        console.log('cover image loaded');
+        this.loadCoverImage();
+      }
+    });
   }
 
   isClosed(event: any) {
@@ -88,5 +102,70 @@ export class AboutCoverComponent implements OnInit {
       this._store.dispatch({ type: ProfileActions.PROFILE_COVER_UPDATE, payload: imageData });
       this.changingImage = false;
     }
+  }
+
+  loadCoverImage() {
+    const self = this;
+    // loading profile image
+    const ctx = document.getElementsByTagName('canvas')[0].getContext('2d');
+    const img = new Image();
+    img.onload = function(){
+      // const imgHeight = img.height;
+      // const imgWidth = img.width;
+      // ctx.drawImage(img, 0, 0, self.cropperSettings.canvasHeight, self.cropperSettings.canvasWidth);
+      self.drawImageProp(ctx, this, 0, 0, self.cropperSettings.canvasWidth, self.cropperSettings.canvasHeight, 0.1, 0.5);
+    };
+
+    let coverImageURL;
+    if (typeof this.stateProfile.profileUser.coverImage !== 'undefined') {
+      coverImageURL = this.baseUrl + this.stateProfile.profileUser.coverImage;
+    } else {
+      coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
+    }
+    // console.log('coverImageURL', coverImageURL);
+    img.src = coverImageURL;
+  }
+
+  /**
+   * Fitting the profile image to the canvas
+   */
+  drawImageProp(ctx, img, x, y, w, h, offsetX, offsetY) {
+    if (arguments.length === 2) {
+        x = y = 0;
+        w = ctx.canvas.width;
+        h = ctx.canvas.height;
+    }
+    /// default offset is center
+    offsetX = typeof offsetX === 'number' ? offsetX : 0.5;
+    offsetY = typeof offsetY === 'number' ? offsetY : 0.5;
+    /// keep bounds [0.0, 1.0]
+    if (offsetX < 0) { offsetX = 0 };
+    if (offsetY < 0) { offsetY = 0 };
+    if (offsetX > 1) { offsetX = 1 };
+    if (offsetY > 1) { offsetY = 1 };
+    const iw = img.width;
+    const ih = img.height;
+    const r = Math.min(w / iw, h / ih);
+    let nw = iw * r;   /// new prop. width
+    let nh = ih * r;   /// new prop. height
+    let cx = 1, cy = 1, cw = 1, ch = 1;
+    let ar = 1;
+    /// decide which gap to fill
+    if (nw < w) { ar = w / nw };
+    if (nh < h) { ar = h / nh };
+    nw *= ar;
+    nh *= ar;
+    /// calc source rectangle
+    cw = iw / (nw / w);
+    ch = ih / (nh / h);
+    cx = (iw - cw) * offsetX;
+    cy = (ih - ch) * offsetY;
+    /// make sure source rectangle is valid
+    if (cx < 0) { cx = 0 };
+    if (cy < 0) { cy = 0 };
+    if (cw > iw) { cw = iw };
+    if (ch > ih) { ch = ih };
+    /// fill image in dest. rectangle
+    ctx.drawImage(img, cx, cy, cw, ch,  x, y, w, h);
   }
 }

@@ -1,17 +1,13 @@
 <div class="row">
+  <div class="search-results" infinite-scroll  (scrolled)="onScroll($event)" >
+    <app-post *ngFor="let userMedia of posts; let i = index" [className]="'col-md-8'" (postDelete)="postDelete(userMedia)" [mediaData]="userMedia"></app-post>
+  </div>
+
   <div *ngIf="userMedia.user_posts_loading">
     <div class="msg__loading">
       <div class="loader">Loading...</div>
     </div>
   </div>
-  <div class="search-results" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" [scrollWindow]="true" (scrolled)="onScroll()" [scrollWindow]="false">
-  <app-post *ngFor="let userMedia of posts; let i = index" [className]="'col-md-8'" [mediaData]="userMedia"></app-post>
-  </div>
-  <!--<masonry>
-    <masonry-brick class="col-md-4 col-sm-6 c-card" *ngFor="let userMedia of posts; let i = index">
-      <app-post-card [mediaData]="userMedia"></app-post-card>
-    </masonry-brick>
-  </masonry>-->
 </div>
 
 <div *ngIf="isEmpty" class="empty__state">

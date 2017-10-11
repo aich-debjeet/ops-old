@@ -95,6 +95,9 @@ import { ResourceComponent } from './components/resource/resource.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { CommunitiesComponent } from './components/communities/communities.component';
 import { StatusListComponent } from './components/status-list/status-list.component';
+import { PlannerComponent } from './components/planner/planner.component';
+import { NetworkComponent } from './components/network/network.component';
+import { ProjectComponent } from './components/project/project.component';
 
 @NgModule({
   declarations: [
@@ -127,7 +130,10 @@ import { StatusListComponent } from './components/status-list/status-list.compon
     CommunitiesComponent,
     OrderByPipe,
     UniquePipe,
-    StatusListComponent
+    StatusListComponent,
+    PlannerComponent,
+    NetworkComponent,
+    ProjectComponent
   ],
   imports: [
     SharedModule,

@@ -304,10 +304,13 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+<<<<<<< HEAD
+=======
 angular2-infinite-scroll@^0.3.5:
-  version "0.3.43"
-  resolved "https://registry.yarnpkg.com/angular2-infinite-scroll/-/angular2-infinite-scroll-0.3.43.tgz#f7205c228d0de8a2df560089586b0ef7f571c0b6"
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/angular2-infinite-scroll/-/angular2-infinite-scroll-0.3.5.tgz#c2943511c75b76ffc448f60ec39505d027c14d9f"
 
+>>>>>>> 71ad04262ff6746311ec8df208391e5739b28970
 angular2-masonry@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/angular2-masonry/-/angular2-masonry-0.4.0.tgz#5be7c87bdabc50ed384f01c585f50f5170cdff10"
@@ -3509,6 +3512,10 @@ ngx-chips@^1.5.3:
   resolved "https://registry.yarnpkg.com/ngx-chips/-/ngx-chips-1.5.3.tgz#8b47cf02bad41c0107fbf072e8f65e40c92fee59"
   dependencies:
     ng2-material-dropdown "0.7.10"
+
+ngx-infinite-scroll@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-0.5.2.tgz#f31aefc5e78e6b352e68f286f16c4dead180d43c"
 
 ngx-toastr@^6.3.0:
   version "6.3.0"

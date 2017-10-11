@@ -4,6 +4,9 @@
         <div class="create_channel_container" *ngIf="typeSelected === false">
             <div class="create_channel__head with_border_bottom">
               <h3 class="heading_3 text-black capitalize">Create Channel</h3>
+              <span class="search_close" (click)="doClose()">
+                <a href="javascript:hideCreatechannelform()"><img src="http://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
+              </span>
             </div>
             <div class="create_channel__content">
                 <h2 class="heading_2">What is your channel about?</h2>
@@ -154,7 +157,7 @@
                       </div>
                   </div>
                   <div class="create_channel_btn with_border_top">
-                      <button class="btn btn-primary btn-sm" type="submit" (click)="createChannel(channelForm.value)">Create</button>
+                      <button class="btn btn-primary btn-sm text-uppercase" type="submit" (click)="createChannel(channelForm.value)">Create</button>
                   </div>
                 </form>
               </div><!-- create channel content end -->

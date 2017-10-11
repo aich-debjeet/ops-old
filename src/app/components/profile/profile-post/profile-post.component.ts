@@ -36,6 +36,13 @@ export class ProfilePostComponent implements OnInit {
   posts: any;
   otherPost: boolean;
   isEmpty: boolean;
+  sum = 10;
+  page_start = 0;
+  page_end = 10;
+  total_pages = 10;
+  scrolling = 0;
+  scrollingLoad = 1000;
+
   constructor(
     private http: Http,
     private _router: Router,
@@ -74,8 +81,32 @@ export class ProfilePostComponent implements OnInit {
     }
   }
 
-  onScroll() {
-    console.log('scrolling');
+  onScroll(e) {
+
+    this.scrolling = e.currentScrollPosition;
+
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 1000
+      this.page_start = this.page_end + 1;
+      this.page_end += 20;
+
+      if (this.userMedia.current_user_profile && this.userMedia.profile_other_loaded === true) {
+        const handle = this.userMedia.profile_other.handle;
+        this.postLoad(handle);
+      }else {
+        const handle = this.userMedia.profileDetails.handle;
+        this.postLoad(handle)
+      }
+    }
+  }
+
+  postDelete(post) {
+    const index: number = this.posts.indexOf(post);
+    if (index !== -1) {
+      this.posts.splice(index, 1);
+      const id = post.id;
+      this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+    }
   }
 
   /**
@@ -83,7 +114,12 @@ export class ProfilePostComponent implements OnInit {
    * @param handle User Handle
    */
   postLoad(handle) {
-    this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA, payload: handle });
+    const data = {
+      handle: handle,
+      page_start: this.page_start,
+      page_end: this.page_end
+    }
+    this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA, payload: data });
   }
 
   /**
@@ -104,91 +140,4 @@ export class ProfilePostComponent implements OnInit {
   checkEmpty(obj: Object) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
   }
-
-  /**
-   * Check if current user or other profile
-   * @param userName
-   */
-  userFlag(state) {
-    this.sub = this.route.parent.parent.params.subscribe(params => {
-      if (this.checkEmpty(params)) {
-         this.loadOtherProfile(true);
-        console.log('true');
-      } else {
-        this.userName = params['id'];
-         this.loadOtherProfile(false);
-        console.log('false');
-      }
-    });
-  }
-
-  /**
-   * Load Other Profile Related Data
-   */
-  loadOtherProfile(isOwn: boolean = false) {
-    let isProfileReady;
-    let isChannelReady;
-    let shouldLoad = false;
-    console.log(this.userMedia.current_user_profile );
-    if (this.userMedia.current_user_profile) {
-      const handleID = this.userMedia.profile_other.handle;
-      
-      // this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA, payload: handleID });
-    }else {
-      const handleID = this.userMedia.profileDetails.handle;
-      // this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA, payload: handleID });
-    }
-    // Check
-    // if (isOwn) {
-    //   isProfileReady = this.userMedia.profile_loaded;
-    //   isChannelReady = this.userMedia.user_posts_loaded;
-    //   // handleID = this.userMedia.profileDetails.handle;
-    // } else {
-    //   isProfileReady = this.userMedia.profile_other_loaded;
-    //   isChannelReady = (this.userName === this.userMedia.profile_other['extra']['username']);
-    // }
-
-    // // If loaded posts and the profile are different
-    // if ( isProfileReady && isChannelReady ) {
-    //   // get current handle
-    //   const mHandleID = this.userMedia.profileDetails.handle;
-    //   if (this.userMedia.user_posts.length > 0 ) {
-    //     let handleA = this.userMedia.user_posts[0].ownerHandle || '';
-    //     let handleB = mHandleID;
-    //     if (handleA !== handleB) {
-    //       shouldLoad = true;
-    //       console.log('This should reload');
-    //     }
-    //   }
-    // }
-
-    // // console.log('Posts', isChannelReady, 'Profile', isProfileReady);
-
-    // // Check if the other profile is loaded; also make sure the activated route is not current user
-    // if ( isChannelReady === false && isProfileReady === true) {
-    //   let handleID;
-    //   if (isOwn) {
-    //     handleID = this.userMedia.profileDetails.handle;
-    //   } else {
-    //     handleID = this.userMedia.profile_other.handle;
-    //   }
-
-    //   this.counter++;
-
-    //   if (this.counter < 10 && handleID) {
-    //     this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA, payload: handleID });
-    //   }
-    // }
-
-    // // Assign channel data to general list
-    // if ( isChannelReady === true ) {
-    //   this.posts = this.userMedia.user_posts;
-    //   if (this.posts.length > 0 ) {
-    //     this.isEmpty = false;
-    //   } else {
-    //     this.isEmpty = true;
-    //   }
-    // }
-  }
-
 }

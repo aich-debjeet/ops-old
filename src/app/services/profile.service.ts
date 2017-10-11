@@ -329,8 +329,8 @@ export class ProfileService {
   /**
    * Get User media
    */
-  getUserMedia(handle: string, page: number = 1) {
-    const params = handle + '/' + this.pagination(page);
+  getUserMedia(payload: any) {
+    const params = payload.handle + '/' + payload.page_start + '/' + payload.page_end;
     return this.api.get('/portal/cdn/media/otherProfile/', params);
   }
 
