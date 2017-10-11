@@ -19,7 +19,7 @@ export class NotificationComponent implements OnInit {
 
   notificationsState$: Observable<Notification>;
   formattedNotifications: any[];
-  notificationId: string;
+  notificationIds: any[];
   notifications: any[];
   baseUrl: string;
 
@@ -47,7 +47,7 @@ export class NotificationComponent implements OnInit {
       }
       if (typeof state['marking_as_read_response'] !== 'undefined') {
         // upadte notification as marked
-        console.log('read: ' + this.notificationId);
+        console.log('read: ' + this.notificationIds[0]);
         this.updateNotifications()
       }
       console.log('this.notifications', this.notifications);
@@ -59,7 +59,7 @@ export class NotificationComponent implements OnInit {
    */
   updateNotifications() {
     this.notifications.forEach((notif, index) => {
-      if (notif.notificationId === this.notificationId) {
+      if (notif.notificationId === this.notificationIds[0]) {
         this.notifications[index].isRead = true;
       }
     });
@@ -69,7 +69,6 @@ export class NotificationComponent implements OnInit {
   processNotifications() {
 
     this.notifications.forEach((notif, index) => {
-      console.log();
 
       switch (notif.notificationType) {
 
@@ -104,8 +103,8 @@ export class NotificationComponent implements OnInit {
    * @Param: notification id
    */
   markAsRead(notificationId: string) {
-    // console.log(notificationId);
-    this.notificationId = notificationId;
+    console.log(notificationId);
+    this.notificationIds = [notificationId];
     this.dispatchReadNotifications([notificationId]);
   }
 
@@ -139,10 +138,10 @@ export class NotificationComponent implements OnInit {
    * Marking all notifications as read
    */
   markAllAsRead() {
-
+    const self = this;
     this.getAllNotificationIds(function(notificationIds: any) {
       // console.log('mark all read', notificationIds);
-      this.dispatchReadNotifications(notificationIds);
+      self.dispatchReadNotifications(notificationIds);
     });
 
   }
