@@ -40,17 +40,16 @@ export class NotificationComponent implements OnInit {
 
     // observe the store value
     this.notificationsState$.subscribe((state) => {
-      console.log(state);
+      // console.log(state);
       if (typeof state['recieved_notifications'] !== 'undefined') {
         this.notifications = state['recieved_notifications'];
         this.processNotifications();
       }
       if (typeof state['marking_as_read_response'] !== 'undefined') {
         // upadte notification as marked
-        console.log('read: ' + this.notificationIds[0]);
-        this.updateNotifications()
+        // console.log('read: ' + this.notificationIds);
+        this.updateNotifications();
       }
-      console.log('this.notifications', this.notifications);
     });
   }
 
@@ -58,11 +57,17 @@ export class NotificationComponent implements OnInit {
    * Updating notification read in UI
    */
   updateNotifications() {
-    this.notifications.forEach((notif, index) => {
-      if (notif.notificationId === this.notificationIds[0]) {
-        this.notifications[index].isRead = true;
+    for (let readNotifIndex = 0; readNotifIndex < this.notificationIds.length; readNotifIndex++) {
+      const readNotif = this.notificationIds[readNotifIndex];
+      // console.log('readNotif', readNotif);
+      // console.log('this.notifications', this.notifications);
+      for (let notifIndex = 0; notifIndex < this.notifications.length; notifIndex++) {
+        if (this.notifications[notifIndex].notificationId === this.notificationIds[readNotifIndex]) {
+          // console.log('mark read: ', this.notifications[notifIndex].notificationId);
+          this.notifications[notifIndex].isRead = true;
+        }
       }
-    });
+    }
   }
 
   // message maker
@@ -89,11 +94,6 @@ export class NotificationComponent implements OnInit {
           break;
 
       }
-
-      if (index === (this.notifications.length - 1)) {
-        console.log('last', this.notifications[index]);
-        // return this.notifications;
-      }
     });
 
   }
@@ -103,7 +103,7 @@ export class NotificationComponent implements OnInit {
    * @Param: notification id
    */
   markAsRead(notificationId: string) {
-    console.log(notificationId);
+    // console.log(notificationId);
     this.notificationIds = [notificationId];
     this.dispatchReadNotifications([notificationId]);
   }
@@ -127,9 +127,13 @@ export class NotificationComponent implements OnInit {
   getAllNotificationIds(callback) {
     const data = [];
     this.notifications.forEach((notif, index) => {
-      data.push(notif.notificationId);
+      if (notif.isRead === false) {
+        data.push(notif.notificationId);
+      }
       if (index === (this.notifications.length - 1)) {
-        callback(data);
+        this.notificationIds = data;
+        // console.log('collection this.notificationIds', this.notificationIds);
+        callback();
       }
     });
   }
@@ -139,9 +143,9 @@ export class NotificationComponent implements OnInit {
    */
   markAllAsRead() {
     const self = this;
-    this.getAllNotificationIds(function(notificationIds: any) {
-      // console.log('mark all read', notificationIds);
-      self.dispatchReadNotifications(notificationIds);
+    this.getAllNotificationIds(function() {
+      // console.log('mark all read', self.notificationIds);
+      self.dispatchReadNotifications(self.notificationIds);
     });
 
   }
