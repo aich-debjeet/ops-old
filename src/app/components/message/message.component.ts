@@ -74,6 +74,7 @@ export class MessageComponent implements OnInit {
   recipientsListState: boolean;
   receipientList: any;      // to store the list of receipients
   counter = 0;
+  counter2 = 0;
   
   constructor(
     fb: FormBuilder,
@@ -148,13 +149,31 @@ export class MessageComponent implements OnInit {
       }
       if (state && state.nonUserProfileDetails) {
         this.nonUserProfile = state.nonUserProfileDetails
-        console.log(this.nonUserProfile)
+        // this.selectedUser = this.nonUserProfile.name;
+        // this.selectedUserHandle = this.nonUserProfile.handle;
+        // this.selectedUserName = this.nonUserProfile.username;
+         console.log(this.nonUserProfile)
+        // console.log(this.selectedUserHandle)
+        // console.log(this.selectedUser)
       }
-      if (state && state.conversationDetails) {
-        this.sortedMessagesByTime = state.conversationDetails
-      }
-      if (state.receipients_loaded === true) {
+      console.log('state', state);
+    //   if (state && state.conversationDetails) {
+    //     this.counter2++;
+    //     if (this.counter2 === 1) {
+    //     console.log('sorted msgs')
+    //     this.sortedMessagesByTime = state.conversationDetails
+    //   }
+    // }
+      if (state && state.receipients) {
         this.receipientList = state.receipients
+      }
+      if (state && state.markRead) {
+        console.log('mark read')
+         this.sortedMessages()
+      }
+      if (state && state.sendMessageResponse ) {
+        console.log(state.sendMessageResponse)
+        this.manageAddMessages(state.sendMessageResponse)
       }
     })
   }
@@ -290,25 +309,22 @@ export class MessageComponent implements OnInit {
           }
         }
         this.selectUserData(this.orderedMessageContacts[indexOfNonUserHandle])
-      // })
       }
-      // load user message
-      // console.log(nonUserHandle);
+
     }
   }
   selectUserData(selectUser) {
     console.log(selectUser);
     selectUser.read = true;
-    // console.log(selectUser.isLastMessageSentByMe)
     if (selectUser.isLastMessageSentByMe) {
       selectUser.isLastMessageSentByMe = true;
     }
     this.selectedUser = selectUser.name;
     this.selectedUserHandle = selectUser.handle;
     this.selectedUserName = selectUser.username;
-    // this.sendMessageTab = false;
+    console.log(this.selectedUser)
     const list = [];
-    const userMessages = [];
+    // const userMessages = [];
     // make list of messages to assign them read value true
     for ( let i = 0; i < this.makeIsReadTrue.length; i++) {
         if (this.makeIsReadTrue[i].sendHandle === selectUser.handle) {
@@ -325,22 +341,22 @@ export class MessageComponent implements OnInit {
     }
     // make message read
     this.messageStore.dispatch({ type: MessageActions.MARK_MESSAGES_READ, payload: isReadMessages });
+  }
 
-    this.userProfile$ = this.messageStore.select('userProfileTags');
-    this.userProfile$.subscribe((state) => {
-      if (state.markRead === true) {
-        for ( let i = 0 ; i < this.mergedMsg.length; i++) {
-              if (this.mergedMsg[i].to === selectUser.handle || this.mergedMsg[i].by === selectUser.handle) {
-                userMessages.push(this.mergedMsg[i]);
-              }
-              if (i === (this.mergedMsg.length - 1)) {
-                console.log('last msg', userMessages[i]);
-                this.messagesbytime = _sortBy(userMessages, function(msg) { return msg.time; });
-                this.messageStore.dispatch({ type: MessageActions.SORT_MESSAGES_BY_TIME, payload: this.messagesbytime });
-              }
-          }
+  sortedMessages() {
+    const userMessages = [];
+    for ( let i = 0 ; i < this.mergedMsg.length; i++) {
+      if (this.mergedMsg[i].to === this.selectedUserHandle || (this.mergedMsg[i].by === this.selectedUserHandle)) {
+        userMessages.push(this.mergedMsg[i]);
+        console.log(userMessages)
+      } else {
+        console.log(this.selectedUserHandle + ' doesent exist in ' + 'merged msg')
       }
-    })
+    }
+        this.messagesbytime = _sortBy(userMessages, function(msg) { return msg.time; });
+        console.log(this.messagesbytime)
+        console.log(this.mergedMsg)
+       // this.messageStore.dispatch({ type: MessageActions.SORT_MESSAGES_BY_TIME, payload: this.messagesbytime });
   }
 
   addMessage(value: any) {
@@ -353,6 +369,7 @@ export class MessageComponent implements OnInit {
         time: new Date().toISOString(),
       }
       this.messageStore.dispatch({ type: MessageActions.SEND_MESSAGE, payload: messageBody });
+      this.text = '';
       // this.http.post(this.apiLink + '/portal/message', messageBody, { headers: headers })
       // .map((response: Response) => response.json())
       // .subscribe(response => {
@@ -374,7 +391,25 @@ export class MessageComponent implements OnInit {
       // });
    }
   }
-  sentMessageToRecipient(value: any ) {}
+  manageAddMessages(response) {
+    // this.messagesbytime.push(response.SUCCESS)
+    if (response.SUCCESS.to === this.selectedUserHandle && response.SUCCESS.by === this.userHandle) {
+     this.messagesbytime.push(response.SUCCESS)
+     console.log(this.messagesbytime)
+    for (let i in this.orderedMessageContacts) {
+          if (this.orderedMessageContacts[i].handle === this.selectedUserHandle) {
+            this.orderedMessageContacts[i].isLastMessageSentByMe = true;
+            this.orderedMessageContacts[i].latestmessagetime = response.SUCCESS.time;
+            this.orderedMessageContacts[i].latestmessage = response.SUCCESS.content;
+          }
+        }
+        this. orderedMessageContacts = _sortBy(this. orderedMessageContacts, function(msg) { return msg.latestmessagetime; }).reverse()
+    }
+  }
+  sentMessageToRecipient(value: any ) {
+
+  }
+
   toggleSelectSkill(handle: any) {
     this.recipientsListState = !this.recipientsListState;
     if (handle === undefined || handle === null ) {

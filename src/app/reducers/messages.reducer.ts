@@ -79,6 +79,9 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
 
     case MessageActions.SEND_MESSAGE_SUCCESS:
+        console.log('payload', payload);
+        if (payload) {
+      console.log('its a success')
       return Object.assign({}, state, {
         sendMessageResponse: payload,
         // mergedMessages: state.mergedMessages.concat(payload.SUCCESS),
@@ -86,6 +89,10 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
         // userProfileDetails.extra.messages.sent: state.userProfileDetails.extra.messages.sent.concat(payload.SUCCESS),
         success: true
       });
+    } else {
+      console.log('no response', payload)
+      return null
+      }
 
     case MessageActions.SEND_MESSAGE_FAILED:
       return Object.assign({}, state, {
@@ -142,20 +149,23 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
 
       case MessageActions.SORT_MESSAGES_BY_TIME:
+      console.log('sort')
       return Object.assign({}, state, {
-        conversationDetails: payload,
-        success: true
+       // conversationDetails: payload,
+       // success: true
       });
 
     case MessageActions.SORT_MESSAGES_BY_TIME_SUCCESS:
+    console.log('sorted')
+    console.log(payload)
       return Object.assign({}, state, {
-        conversationDetails: payload,
-        success: true
+        conversationDetails: [...payload],
+       // success: true
       });
 
     case MessageActions.SORT_MESSAGES_BY_TIME_FAILED:
       return Object.assign({}, state, {
-        success: false
+       // success: false
       });
 
     case MessageActions.GET_RECEIPIENT:

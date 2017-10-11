@@ -10,7 +10,7 @@
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <div class="msg_inbox_name">
-                                    <img src="/assets/img/svg/ico_message.svg">
+                                    <img src="img/svg/ico_message.svg">
                                     <span>INBOX</span>
                                 </div>
                             </li>
@@ -47,9 +47,9 @@
                                     <div class="msg_friend_name">Select All</div>
                                 </li>
                                 <li class="list-inline-item pull-right">
-                                    <div class="pull-right msg_action dropdown" appDropdown>
-                                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" appDropdownOpen> Action <span class="caret"></span></a>
-                                        <ul class="dropdown-menu" [ngClass]="{'open': this.msgNav['action'].open }">
+                                    <div class="pull-right msg_action dropdown">
+                                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"> Action <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
                                             <li class="with_border_bottom">
                                                 <a href="javascript:void(0)">
                                                     <img src="/assets/img/svg/ico_archive.svg">
@@ -128,11 +128,11 @@
                                     </div>
                                 </li>
                                 <li class="list-inline-item float_right msg_setting">
-                                    <div class="dropdown pull-right" appDropdown>
-                                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" appDropdownOpen>
+                                    <div class="dropdown pull-right">
+                                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
                                             <img src="/assets/img/svg/ico_settings.svg" class="msg_setting_icon">
                                         </a>
-                                        <ul class="dropdown-menu" [ngClass]="{'open': this.msgNav['setting'].open }">
+                                        <ul class="dropdown-menu">
                                             <li class="with_border_bottom">
                                                 <a href="#">
                                                     <img src="/assets/img/svg/ico_archive.svg">
@@ -153,7 +153,7 @@
                     </ul>
                     <!-- message container -->
                     <div class="msg_container_block" id="ops_scrollbar">
-                        <div class="msg_container" *ngFor="let message of sortedMessagesByTime ">
+                        <div class="msg_container" *ngFor="let message of messagesbytime ">
                             <div class="col-md-12">
                                 <ul class="list-inline" *ngIf="message.to == userHandle && selectedUserHandle != userHandle">
                                     <li class="list-inline-item avatar_msg_input float_left">
@@ -247,11 +247,11 @@
                                         </div>
                                     </li>
                                     <li class="list-inline-item float_right msg_setting">
-                                        <div class="dropdown pull-right" appDropdown>
-                                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" appDropdownOpen>
+                                        <div class="dropdown pull-right">
+                                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
                                                 <img src="/assets/img/svg/ico_settings.svg" class="msg_setting_icon">
                                             </a>
-                                            <ul class="dropdown-menu" [ngClass]="{'open': this.msgNav['setting'].open }">
+                                            <ul class="dropdown-menu">
                                                 <li>
                                                     <a href="#">
                                                         <img src="assets/img/svg/ico_archive.svg">

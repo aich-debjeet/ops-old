@@ -70,9 +70,11 @@ export class MessageService {
         return this.http.put(this.apiLink + '/portal/message/markListRead', value, { headers: headers })
         .map((res: Response) => res.json())
     }
+    
     sendMessage(value) {
         const headers = this.tokenService.getAuthHeader();
+        console.log(value)
         return this.http.post(this.apiLink + '/portal/message', value, { headers: headers })
-            .map((data: Response) => { data = data.json() });
+        .map((response: Response) => response.json())
       }
 }
