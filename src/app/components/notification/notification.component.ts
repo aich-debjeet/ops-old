@@ -19,14 +19,9 @@ export class NotificationComponent implements OnInit {
 
   notificationsState$: Observable<Notification>;
   formattedNotifications: any[];
+  notificationId: string;
   notifications: any[];
   baseUrl: string;
-  msgTypes = [
-    'Media_Spot',
-    'Media_Comments',
-    'Status_Spot',
-    'Status_Comments'
-  ];
 
   constructor(
     private store: Store<Notification>
@@ -45,12 +40,28 @@ export class NotificationComponent implements OnInit {
 
     // observe the store value
     this.notificationsState$.subscribe((state) => {
-      // console.log(state);
-      if (typeof state['completed'] !== 'undefined') {
-        this.notifications = state['completed'];
+      console.log(state);
+      if (typeof state['recieved_notifications'] !== 'undefined') {
+        this.notifications = state['recieved_notifications'];
         this.processNotifications();
       }
+      if (typeof state['marking_as_read_response'] !== 'undefined') {
+        // upadte notification as marked
+        console.log('read: ' + this.notificationId);
+        this.updateNotifications()
+      }
       console.log('this.notifications', this.notifications);
+    });
+  }
+
+  /**
+   * Updating notification read in UI
+   */
+  updateNotifications() {
+    this.notifications.forEach((notif, index) => {
+      if (notif.notificationId === this.notificationId) {
+        this.notifications[index].isRead = true;
+      }
     });
   }
 
@@ -93,7 +104,47 @@ export class NotificationComponent implements OnInit {
    * @Param: notification id
    */
   markAsRead(notificationId: string) {
-    console.log(notificationId);
+    // console.log(notificationId);
+    this.notificationId = notificationId;
+    this.dispatchReadNotifications([notificationId]);
+  }
+
+  /**
+   * Dispatch read notification
+   * @Parmas: list of notification ids
+   */
+  dispatchReadNotifications(notifList) {
+    this.store.dispatch({
+      type: NotificationActions.MARK_AS_READ,
+      payload: {
+        notificationList: notifList
+      }
+    });
+  }
+
+  /**
+   * Get all ids of all notifications
+   */
+  getAllNotificationIds(callback) {
+    const data = [];
+    this.notifications.forEach((notif, index) => {
+      data.push(notif.notificationId);
+      if (index === (this.notifications.length - 1)) {
+        callback(data);
+      }
+    });
+  }
+
+  /**
+   * Marking all notifications as read
+   */
+  markAllAsRead() {
+
+    this.getAllNotificationIds(function(notificationIds: any) {
+      // console.log('mark all read', notificationIds);
+      this.dispatchReadNotifications(notificationIds);
+    });
+
   }
 
   ngOnInit() { }

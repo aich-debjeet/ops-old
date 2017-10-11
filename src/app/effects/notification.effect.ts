@@ -22,6 +22,15 @@ export class NotificationEffect {
       .catch((res) => Observable.of({ type: NotificationActions.LOAD_NOTIFICATIONS_FAILED, payload: res }))
     );
 
+  @Effect()
+  notificationRead$ = this.actions$
+    .ofType(NotificationActions.MARK_AS_READ)
+    .map(toPayload)
+    .switchMap((payload) => this.apiService.notificationMarkAsRead(payload)
+      .map(res => ({ type: NotificationActions.MARK_AS_READ_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: NotificationActions.MARK_AS_READ_FAILED, payload: res }))
+    );
+
   constructor(
       private actions$: Actions,
       private apiService: NotificationService
