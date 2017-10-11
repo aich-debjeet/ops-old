@@ -69,7 +69,7 @@
                         </li>
                     </ul>
                     <div class="msg_friend_list" id="ops_scrollbar">
-                        <a href="javascript:void(0)" *ngFor="let message of orderedMessageContacts">
+                        <a href="javascript:void(0)" *ngFor="let message of orderedMessageContacts | searchfilter : searchText">
                             <ul class="msg_name_list msg_unread fill_grey" *ngIf="message.isRead == false" (click)="toggleView('readMessage', message.handle)">
                                 <li class="with_border_bottom" *ngIf="message.handle != userHandle">
                                     <ul class="list-inline">

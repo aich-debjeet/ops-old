@@ -64,13 +64,15 @@ export class MessageComponent implements OnInit {
   listData = []; // temporary variable to store list of handles
   makeIsReadTrue = [];      // contains the list of messages to assign them read value true.
   orderedMessageContacts;   // to present the list of contacts on the left hand side of the message view page
-  nonUserProfile = [];           // to store the entire data of the current selected user
+  nonUserProfile;           // to store the entire data of the current selected user
   selectedUser;
   selectedUserHandle;
   selectedUserName;
   mergedMsg = [];
   messagesbytime = [];
   sortedMessagesByTime = [];
+  recipientsListState: boolean;
+  receipientList = [];      // to store the list of receipients
   counter = 0;
   
   constructor(
@@ -90,7 +92,7 @@ export class MessageComponent implements OnInit {
       'message_term' : [null, Validators.required],
     })
     this.text = '';
-    // this.recipientsListState = false;
+    this.recipientsListState = false;
     // const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     // this.token = currentUser.access_token;
     this.userO$ = profileStore.select('profileTags').take(3);
@@ -150,6 +152,9 @@ export class MessageComponent implements OnInit {
       }
       if (state && state.conversationDetails) {
         this.sortedMessagesByTime = state.conversationDetails
+      }
+      if (state.receipients_loaded === true) {
+        this.receipientList = state.receipients
       }
     })
   }
@@ -368,5 +373,42 @@ export class MessageComponent implements OnInit {
       //   this. orderedMessageContacts = _sortBy(this. orderedMessageContacts, function(msg) { return msg.latestmessagetime; }).reverse()
       // });
    }
+  }
+  toggleSelectSkill(handle: any) {
+    this.recipientsListState = !this.recipientsListState;
+    if (handle === undefined || handle === null ) {
+      // console.log('no such receipient exist')
+      this.composeMessage.searchUser = 'No such receipient';
+      this.selectedView = '';
+    }
+
+    if (handle !== this.userHandle && handle !== undefined) {
+      this.http.get(this.apiLink + '/portal/profile/' + handle, { headers: headers })
+      .map((response: Response) => response.json())
+      .subscribe(response => {
+        if (response === null || response === undefined) {
+          // console.log('no such receipient exist')
+          this.composeMessage.searchUser = 'No such receipient';
+        } else {
+          this.nonUserProfile = response
+          // console.log(this.nonUserProfile)
+          this.composeMessage.searchUser = this.nonUserProfile.name;
+          // console.log(this.nonUserProfile.handle + 'is not equal to' + this.userHandle)
+        }
+      })
+    }
+
+    if (handle === this.userHandle) {
+      // console.log('cannot sent to ur own profile')
+      this.selectedView = '';
+      return
+    }
+  }
+  onSearch () {
+    this.recipientsListState = true;
+    // console.log(this.composeMessage.searchUser);
+    if (this.composeMessage.searchUser !== null || this.composeMessage.searchUser !== ' ') {
+      this.messageStore.dispatch({ type: MessageActions.GET_RECEIPIENT, payload: this.composeMessage.searchUser });
+    }
   }
 }

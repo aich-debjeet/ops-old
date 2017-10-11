@@ -14,6 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
 import { UniquePipe } from './pipes/unique.pipe';
+import { SearchNamePipe } from './pipes/name.pipe';
 // Guard
 import { AuthGuard } from './guard/auth.guard';
 
@@ -128,6 +129,7 @@ import { StatusListComponent } from './components/status-list/status-list.compon
     CommunitiesComponent,
     OrderByPipe,
     UniquePipe,
+    SearchNamePipe,
     StatusListComponent
   ],
   imports: [

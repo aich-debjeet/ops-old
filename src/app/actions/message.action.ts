@@ -35,6 +35,10 @@ export class MessageActions {
   static SORT_MESSAGES_BY_TIME_SUCCESS = 'SORT_MESSAGES_BY_TIME_SUCCESS';
   static SORT_MESSAGES_BY_TIME_FAILED = 'SORT_MESSAGES_BY_TIME_FAILED';
 
+  static GET_RECEIPIENT = 'GET_RECEIPIENT';
+  static GET_RECEIPIENT_SUCCESS = 'GET_RECEIPIENT_SUCCESS';
+  static GET_RECEIPIENT_FAILED = 'GET_RECEIPIENT_FAILED';
+
   /* -------------------------------- load sent messages -------------------------------- */
   loadSentMessages(value): Action {
     console.log('LOAD_SENT_MESSAGES ACTION TRIGGERED');
@@ -218,5 +222,29 @@ export class MessageActions {
   }
   /* -------------------------------- make messages read -------------------------------- */
 
-
+  
+  /*------------------------ get receipient details---------------------------------*/
+  getReceipient(value) {
+    console.log('GET_RECEIPIENT action triggred');
+    return {
+      type: MessageActions.GET_RECEIPIENT,
+      payload: { value }
+    };
+  }
+  getReceipientSuccess (value) {
+    console.log('GET_RECEIPIENT_SUCCESS action triggred');
+    return {
+      type: MessageActions.GET_RECEIPIENT_SUCCESS,
+      payload: { value }
+    };
+  }
+  getReceipientFailure (value) {
+    console.log('GET_RECEIPIENT_FAIlURE action triggred');
+    return {
+      type: MessageActions.GET_RECEIPIENT_FAILED,
+      payload: { value }
+    };
+  }
+  /*------------------------ get receipient details---------------------------------*/
+  
 }

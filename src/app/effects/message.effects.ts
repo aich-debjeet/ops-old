@@ -82,6 +82,14 @@ export class MessageEffect {
       .map(res => ({ type: MessageActions.SEND_MESSAGE_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: MessageActions.SEND_MESSAGE_FAILED, payload: res }))
     );
+    @Effect()
+    getReceipient$ = this.actions$
+      .ofType(MessageActions.GET_RECEIPIENT)
+      .map(toPayload)
+      .switchMap((payload) => this.messageService.getReceipientDetails( payload )
+        .map(res => ({ type: MessageActions.GET_RECEIPIENT_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: MessageActions.GET_RECEIPIENT_FAILED, payload: res }))
+      );
 
     constructor(
     private actions$: Actions,

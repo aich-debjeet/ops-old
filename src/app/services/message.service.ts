@@ -33,7 +33,7 @@ export class MessageService {
 
     }
     getReceipientDetails (value: string) {
-        return this.http.get(this.apiLink + '/portal/searchprofiles/1/' + value + '/0/10')
+        return this.http.get(this.apiLink + '/portal/searchprofiles/1/' + value + '/0/5')
         .map((data: Response) => data.json());
     }
     getUserProfileDetails(value: any) {

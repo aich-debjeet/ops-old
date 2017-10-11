@@ -9,7 +9,7 @@ export class MessageModal {
     nonUserProfileDetails: string[];
     conversationDetails: string[];
     sendMessageResponse: string[];
-    receipients_loaded?: boolean;
+    receipients_loaded: boolean;
     markRead: boolean
 }
 
@@ -23,5 +23,6 @@ export const initialMessage: MessageModal = {
     nonUserProfileDetails: [],
     conversationDetails: [],
     markRead: false,
+    receipients_loaded: false,
     sendMessageResponse: [],
 };
