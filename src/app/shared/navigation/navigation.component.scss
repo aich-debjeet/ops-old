@@ -555,3 +555,14 @@ app-modal.media__modal .ng-modal {
         color: #ff7b84
     }
 }
+
+.noti_cont_footer {
+    display: none;
+}
+
+.opsheader-notification {
+    .dropdown-menu.messsage_dropdown {
+        height: 500px;
+        overflow-y: auto;
+    }
+}
