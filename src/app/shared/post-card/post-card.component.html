@@ -7,7 +7,7 @@
         <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
             <figure class="feed-avatar">
                 <app-videplayer *ngIf="checkFileType(mediaData?.repopath, 'Video')" src="{{ imageLink + mediaData?.repopath }}"></app-videplayer>
-                <img *ngIf="checkFileType(mediaData?.repopath, 'Image')" src="{{ imageLink + mediaData?.repopath }}" class="img-responsive">
+                <img *ngIf="checkFileType(mediaData?.repopath, 'Image')" src="{{ imageLink + mediaData?.repopath }}" class="img-responsive" (load)="triggerMasonryLayout()">
                 <app-audioplayer class="audio" *ngIf="checkFileType(mediaData?.repopath, 'Audio')" src="{{ imageLink + mediaData?.repopath }}" type="simple"></app-audioplayer>
             </figure>
         </a>

@@ -70,6 +70,7 @@ export class AboutCoverComponent implements OnInit {
     this.cropperSettings.canvasWidth = 880;
     this.cropperSettings.canvasHeight = 300;
     this.cropperSettings.rounded = false;
+    this.cropperSettings.fileType = 'image/png';
     this.data = {};
   }
 

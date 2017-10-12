@@ -23,12 +23,26 @@ export class NotificationService {
       this.handle = this.api.getHandle();
     }
 
+  updateToken() {
+    this.headers = this.api.getHeaders();
+    this.handle = this.api.getHandle();
+  }
+
   /**
    * Get notifications
    * @param req
    */
   getAllNotifications() {
+    this.updateToken();
     return this.api.get('/portal/network/notification/getAllNotification');
+  }
+
+  /**
+   * Mark notification as read
+   */
+  notificationMarkAsRead(reqBody: any) {
+    this.updateToken();
+    return this.api.put( '/portal/network/notification/mark/read', reqBody);
   }
 
 }

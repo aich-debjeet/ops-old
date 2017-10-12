@@ -1,0 +1,45 @@
+<app-navigation></app-navigation>
+
+<section>
+    <div class="container o-my-media">
+        <!---  section  -->
+        <div class="row">
+            <div class="o-my-media__title">
+                <h2 class="ops_h1">My Media</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="o-my-media-tabs">
+                <div class="ops_tabs ">
+                    <div class="col-md-6 padding_none">
+                        <ul class="nav nav-tabs">
+                          <li class="active"><a class="o-my-media__link">RECENT</a></li>
+                          <li class=""><a data-toggle="tab">POPULAR</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="filter-block">
+                            <a><span class="post-icons"><img src="/assets/img/svg/ico-image-black.svg"></span></a>
+                            <a><span class="post-icons"><img src="/assets/img/svg/ico-play-gray.svg"></span></a>
+                            <a><span class="post-icons"><img src="/assets/img/svg/ico-audio-black.svg"></span></a>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                      <div id="recent" class="">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <!-- image column -->
+                                <masonry [options]="options" [useImagesLoaded]="true">
+                                    <masonry-brick class="col-md-3" *ngFor="let media of channel.channel_detail?.media; let i = index">
+                                        <app-post-card  (postDelete)="deletePost(media)" (imageLoad)="imageloaded()" (onClick)="mediaOpenPopup(media.id)" [mediaData]="media"></app-post-card>
+                                    </masonry-brick>
+                                </masonry>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+</section>

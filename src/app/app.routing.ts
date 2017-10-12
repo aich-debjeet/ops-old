@@ -32,6 +32,7 @@ import { StatusListComponent } from './components/status-list/status-list.compon
 import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
+import { MediaListComponent } from './components/media-list/media-list.component';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -50,6 +51,7 @@ export const routes: Routes = [
 //  { path: 'media', loadChildren: './components/media/media.module#ProfileModule' },
  { path: 'message', component: MessageComponent },
  { path: 'user/status/list', component: StatusListComponent },
+ { path: 'user/media/list', component: MediaListComponent },
  { path: 'spotfeed/:id', component: SpotfeedComponent },
  { path: 'spotfeed-premium', component: SpotfeedPremiumComponent },
  { path: 'notification', component: NotificationComponent },

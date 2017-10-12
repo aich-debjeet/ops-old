@@ -38,10 +38,10 @@ export class ProfilePostComponent implements OnInit {
   isEmpty: boolean;
   sum = 10;
   page_start = 0;
-  page_end = 10;
+  page_end = 20;
   total_pages = 10;
   scrolling = 0;
-  scrollingLoad = 1000;
+  scrollingLoad = 8000;
 
   constructor(
     private http: Http,
@@ -86,10 +86,10 @@ export class ProfilePostComponent implements OnInit {
     this.scrolling = e.currentScrollPosition;
 
     if (this.scrollingLoad <= this.scrolling) {
-      this.scrollingLoad += 1000
+      this.scrollingLoad += 8000
       this.page_start = this.page_end + 1;
-      this.page_end += 20;
-
+      this.page_end += 10;
+      console.log('called');
       if (this.userMedia.current_user_profile && this.userMedia.profile_other_loaded === true) {
         const handle = this.userMedia.profile_other.handle;
         this.postLoad(handle);
