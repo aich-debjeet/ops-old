@@ -150,6 +150,12 @@ export class NotificationComponent implements OnInit {
 
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+
+    // on page load mark all notifications as read
+    setTimeout(() => {
+      this.markAllAsRead();
+    }, 1000);
+  }
 
 }
