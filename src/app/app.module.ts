@@ -100,6 +100,9 @@ import { StatusListComponent } from './components/status-list/status-list.compon
 import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
+import { MediaListComponent } from './components/media-list/media-list.component';
+import { RecentListComponent } from './components/media-list/recent-list/recent-list.component';
+import { PopularListComponent } from './components/media-list/popular-list/popular-list.component';
 
 @NgModule({
   declarations: [
@@ -135,7 +138,10 @@ import { ProjectComponent } from './components/project/project.component';
     StatusListComponent,
     PlannerComponent,
     NetworkComponent,
-    ProjectComponent
+    ProjectComponent,
+    MediaListComponent,
+    RecentListComponent,
+    PopularListComponent
   ],
   imports: [
     SharedModule,

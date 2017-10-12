@@ -22,12 +22,12 @@ import { AngularMasonry, MasonryOptions } from 'angular2-masonry';
 
 
 @Component({
-  selector: 'app-channel-inner',
-  templateUrl: './channel-inner.component.html',
-  providers: [ModalService, DatePipe],
-  styleUrls: ['./channel-inner.component.scss']
+  selector: 'app-media-list',
+  templateUrl: './media-list.component.html',
+  styleUrls: ['./media-list.component.scss']
 })
-export class ChannelInnerComponent implements OnInit {
+export class MediaListComponent implements OnInit {
+
   @ViewChild(AngularMasonry) masonry: AngularMasonry;
   tagState$: Observable<Media>;
   userState$: Observable<Media>;
@@ -37,14 +37,25 @@ export class ChannelInnerComponent implements OnInit {
   channelId: string;
   imageLink: string = environment.API_IMAGE;
   pageLoading: boolean;
+  // Options
+  options: MasonryOptions = {
+    // transitionDuration: '5.3s',
+    initLayout: true,
+    resize: true,
+    percentPosition: true,
+    // itemSelector: '.grid-item',
+    // itemSelector: '.social-card',
+    //  gutter: 10
+  }
 
   constructor(
     private http: Http,
+    // @Inject(forwardRef(() => AngularMasonry)) private masonryContainer: AngularMasonry,
     private _store: Store<Media>,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private modalService: ModalService) {
-      this.channelId = route.snapshot.params['id'];
+      this.channelId = 'g-b93f98c2-a2ca-4b5b-afe5-457381255752';
 
       this.pageLoading = false;
 
@@ -60,6 +71,10 @@ export class ChannelInnerComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  imageloaded() {
+
   }
 
    /**

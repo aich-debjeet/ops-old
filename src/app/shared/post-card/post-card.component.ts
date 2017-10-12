@@ -22,6 +22,7 @@ export class PostCardComponent implements OnInit {
   @Input() mediaData;
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() imageLoad: EventEmitter<any> = new EventEmitter<any>();
   @Output() postDelete = new EventEmitter();
   dotMenuState: boolean;
   following: boolean;
@@ -89,6 +90,11 @@ export class PostCardComponent implements OnInit {
       this.following = false
       this.followingCount--;
     }
+  }
+
+  triggerMasonryLayout() {
+    this.imageLoad.emit();
+    console.log('image Load done');
   }
 
 }
