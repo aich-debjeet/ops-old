@@ -1,4 +1,4 @@
-<app-navigation></app-navigation>
+<!-- <app-navigation></app-navigation> -->
 
 <main class="container-fulid outer_container">
             <section class="notification_block">
@@ -14,9 +14,9 @@
                             <li class="list-inline-item header_ym">
                                 <a href="javascript:void(0)">Your Notifications</a>
                             </li>
-                            <!-- <li class="list-inline-item pull-right header_compose">
+                            <li class="list-inline-item pull-right header_compose">
                                 <a href="javascript:void(0)" (click)="markAllAsRead()">Mark all as read</a>
-                            </li> -->
+                            </li>
                           </ul>
                       </li>
                       <li class="with_border_bottom" *ngFor="let notification of notifications" [ngClass]="{'fill_grey': !notification.isRead}">

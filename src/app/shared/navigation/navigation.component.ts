@@ -134,20 +134,20 @@ export class NavigationComponent implements OnInit {
    * @Param: notification id
    */
   markAsRead(notificationId: string) {
-    // console.log(notificationId);
     this.notificationIds = [notificationId];
-    this.dispatchReadNotifications([notificationId]);
+    console.log('this.notificationIds', this.notificationIds);
+    this.dispatchReadNotifications();
   }
 
   /**
    * Dispatch read notification
    * @Parmas: list of notification ids
    */
-  dispatchReadNotifications(notifList) {
+  dispatchReadNotifications() {
     this.store.dispatch({
       type: NotificationActions.MARK_AS_READ,
       payload: {
-        notificationList: notifList
+        notificationList: this.notificationIds
       }
     });
   }
@@ -176,9 +176,8 @@ export class NavigationComponent implements OnInit {
     const self = this;
     this.getAllNotificationIds(function() {
       // console.log('mark all read', self.notificationIds);
-      self.dispatchReadNotifications(self.notificationIds);
+      self.dispatchReadNotifications();
     });
-
   }
 
   /**
