@@ -152,8 +152,8 @@
                         </li>
                     </ul>
                     <!-- message container -->
-                    <div class="msg_container_block" id="ops_scrollbar">
-                        <div class="msg_container" *ngFor="let message of messagesbytime ">
+                    <div class="msg_container_block" id="ops_scrollbar" #scrollMeBottom>
+                        <div class="msg_container" *ngFor="let message of messagesbytime">
                             <div class="col-md-12">
                                 <ul class="list-inline" *ngIf="message.to == userHandle && selectedUserHandle != userHandle">
                                     <li class="list-inline-item avatar_msg_input float_left">

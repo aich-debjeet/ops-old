@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
@@ -15,22 +15,28 @@ import { MessageActions } from '../actions/message.action';
 @Injectable()
 export class MessageEffect {
   @Effect()
-  sentMessages$ = this.actions$
+  sentMessages$: Observable<Action> = this.actions$
     .ofType(MessageActions.LOAD_SENT_MESSAGES)
     .map(toPayload)
-    .switchMap((payload) => this.messageService.getAllSentMessages( payload )    /*'sent'*/
+    .switchMap((payload) => Observable
+    .timer(0 , 10000)
+    .switchMap(() => this.messageService.getAllSentMessages( payload )    /*'sent'*/
       .map(res => ({ type: MessageActions.LOAD_SENT_MESSAGES_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: MessageActions.LOAD_SENT_MESSAGES_FAILED, payload: res }))
-    );
+    )
+  );
 
   @Effect()
-  receivedMessages$ = this.actions$
+  receivedMessages$: Observable<Action> = this.actions$
     .ofType(MessageActions.LOAD_RECEIVED_MESSAGES)
     .map(toPayload)
-    .switchMap((payload) => this.messageService.getAllReceivedMessages( payload )  /*'received' */
+    .switchMap((payload) => Observable
+    .timer(0 , 10000)
+    .switchMap(() => this.messageService.getAllReceivedMessages( payload )  /*'received' */
       .map(res => ({ type: MessageActions.LOAD_RECEIVED_MESSAGES_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: MessageActions.LOAD_RECEIVED_MESSAGES_FAILED, payload: res }))
-    );
+    )
+  );
     // @Effect()
     // getReceipient$ = this.actions$
     //   .ofType(MessageActions.GET_RECEIPIENT)
@@ -43,10 +49,13 @@ export class MessageEffect {
     userProfile$ = this.actions$
     .ofType(MessageActions.LOAD_USER_PROFILE_DATA)
     .map(toPayload)
-    .switchMap((payload) => this.messageService.getUserProfileDetails(payload)
+    .switchMap((payload) => Observable
+    .timer(0 , 10000)
+    .switchMap(() => this.messageService.getUserProfileDetails(payload)
       .map(res => ({ type: MessageActions.LOAD_USER_PROFILE_DATA_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: MessageActions.LOAD_USER_PROFILE_DATA_FAILED, payload: res }))
-    );
+    )
+  );
 
     @Effect()
     ProfileHandles$ = this.actions$
