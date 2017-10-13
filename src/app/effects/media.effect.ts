@@ -202,6 +202,21 @@ export class MediaEffect {
       }))
     );
 
+  /**
+   *  Load my Media
+   */
+  @Effect()
+  loadMyStatus$ = this.actions$
+    .ofType(MediaActions.LOAD_MY_MEDIA)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.getMyMedia(payload)
+      .map(res => ({ type: MediaActions.LOAD_MY_MEDIA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.LOAD_MY_MEDIA_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
   constructor(
       private actions$: Actions,
       private store$: Store<Media>,

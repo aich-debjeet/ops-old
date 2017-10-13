@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { SharedModule } from '../../shared/shared.module';
+import { ReadMoreDirective } from '../../helpers/read-more.directive';
 import { MediaComponent } from './media.component';
 
 // Childs
@@ -89,7 +90,8 @@ const routes: Routes = [
     MediaSelectorComponent,
     ChannelSelectorComponent,
     CreateChannelComponent,
-    EditChannelComponent
+    EditChannelComponent,
+    ReadMoreDirective
   ],
   exports: [
     MediaComponent

@@ -15,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
 import { UniquePipe } from './pipes/unique.pipe';
+import { TruncatePipe } from './pipes/truncate.pipe';
 // Guard
 import { AuthGuard } from './guard/auth.guard';
 
@@ -100,9 +101,6 @@ import { StatusListComponent } from './components/status-list/status-list.compon
 import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
-import { MediaListComponent } from './components/media-list/media-list.component';
-import { RecentListComponent } from './components/media-list/recent-list/recent-list.component';
-import { PopularListComponent } from './components/media-list/popular-list/popular-list.component';
 
 @NgModule({
   declarations: [
@@ -138,10 +136,7 @@ import { PopularListComponent } from './components/media-list/popular-list/popul
     StatusListComponent,
     PlannerComponent,
     NetworkComponent,
-    ProjectComponent,
-    MediaListComponent,
-    RecentListComponent,
-    PopularListComponent
+    ProjectComponent
   ],
   imports: [
     SharedModule,
