@@ -81,19 +81,19 @@ export class NotificationComponent implements OnInit {
       switch (notif.notificationType) {
 
         case 'Media_Spot':
-          this.notifications[index]['message'] = notif.name + ' and ' + notif.spotCount + ' others spotted your post';
+          this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your post';
           break;
 
         case 'Media_Comments':
-          this.notifications[index]['message'] = notif.name + ' and ' + notif.commentsCount + ' others commented on your post';
+          this.notifications[index]['message'] = ' and ' + notif.commentsCount + ' others commented on your post';
           break;
 
         case 'Status_Spot':
-          this.notifications[index]['message'] = notif.name + ' and ' + notif.spotCount + ' others spotted your status';
+          this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your status';
           break;
 
         case 'Status_Comments':
-          this.notifications[index]['message'] = notif.name + ' and ' + notif.commentsCount + ' others commented on your status';
+          this.notifications[index]['message'] = ' and ' + notif.commentsCount + ' others commented on your status';
           break;
 
       }
