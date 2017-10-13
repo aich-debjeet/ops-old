@@ -127,6 +127,24 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         user_posts_loading: false
       });
 
+    case MediaActions.LOAD_MY_MEDIA:
+      if (payload.offset === 0) {
+        return Object.assign({}, state, {
+          my_media: []
+        });
+      }
+      return Object.assign({}, state, {
+          my_media_loading: false
+      });
+
+
+    case MediaActions.LOAD_MY_MEDIA_SUCCESS:
+      const new_media = state.my_media.concat(payload)
+      return Object.assign({}, state, {
+        my_media: new_media
+      });
+
+
     default:
       return state;
   }

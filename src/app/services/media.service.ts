@@ -127,4 +127,12 @@ export class MediaService {
     return this.api.get('/portal/cdn/media/otherProfile/', params);
   }
 
+  /**
+   * Load my status
+   * @param body
+   */
+  getMyMedia(body: any) {
+    return this.api.put( '/portal/cdn/myMedia', body);
+  }
+
 }

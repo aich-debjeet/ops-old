@@ -1,6 +1,6 @@
 <ul class="list-inline quick_section">
   <li class="list-inline-item">
-    <a [routerLink]="(quickAccessData?.name =='My Status') ? ['/user/status/list'] : ['/channel', quickAccessData?.handle]"> 
+    <a [routerLink]="(quickAccessData?.name =='My Status') ? ['/user/status/list'] : ['/channel', quickAccessData?.handle] && (quickAccessData?.name =='My Media') ? ['/user/media/list'] : ['/channel', quickAccessData?.handle]"> 
       <div class="quick_access_img">
         <img src="http://d33wubrfki0l68.cloudfront.net/e977c51b7704e478aec7e38934c5096e9b4db080/192b8/img/quick2.jpg">
       </div>

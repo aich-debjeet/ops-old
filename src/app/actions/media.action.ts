@@ -63,6 +63,12 @@ export class MediaActions {
   static MEDIA_POST_DELETE_FAILED = 'MEDIA_POST_DELETE_FAILED';
 
 
+   // Load My Status
+  static LOAD_MY_MEDIA = 'LOAD_MY_MEDIA';
+  static LOAD_MY_MEDIA_SUCCESS = 'LOAD_MY_MEDIA_SUCCESS';
+  static LOAD_MY_MEDIA_FAILED = 'LOAD_MY_MEDIA_FAILED';
+
+
   /**
    * Upload status
    * @param value

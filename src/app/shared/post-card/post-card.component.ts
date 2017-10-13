@@ -42,7 +42,6 @@ export class PostCardComponent implements OnInit {
 
   ngOnInit() {
     if (!this.mediaData.ownerImage) {
-      console.log('not there');
       this.userImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
     } else {
       this.userImage = this.imageLink + this.mediaData.ownerImage;
@@ -56,7 +55,6 @@ export class PostCardComponent implements OnInit {
    * @param event
    */
   deleteMedia(channel: any) {
-    console.log('Deleting this Channenl');
   }
 
   handleClick(id) {
@@ -80,7 +78,6 @@ export class PostCardComponent implements OnInit {
    * @param mediaId
    */
   spotMedia(mediaId: string) {
-    console.log(this.mediaData);
     if (this.following === false) {
       this.following = true;
       this.followingCount++;
@@ -90,11 +87,6 @@ export class PostCardComponent implements OnInit {
       this.following = false
       this.followingCount--;
     }
-  }
-
-  triggerMasonryLayout() {
-    this.imageLoad.emit();
-    console.log('image Load done');
   }
 
 }
