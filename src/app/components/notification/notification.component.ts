@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -24,7 +25,8 @@ export class NotificationComponent implements OnInit {
   baseUrl: string;
 
   constructor(
-    private store: Store<Notification>
+    private store: Store<Notification>,
+    private router: Router
   ) {
 
     // image path
@@ -105,9 +107,30 @@ export class NotificationComponent implements OnInit {
    * Open respective link
    */
   openLink(notifIndex: any, notificationId: string) {
-    console.log('notifIndex', notifIndex);
     const notifDetails = this.notifications[notifIndex];
-    console.log('notifDetails', notifDetails);
+    console.log('notifDetails', notifDetails.notificationType);
+
+    // redirecting to the respective link
+    switch (notifDetails.notificationType) {
+
+      case 'Media_Spot':
+        this.router.navigate(['/user/status/list']);
+        break;
+
+      case 'Media_Comments':
+        this.router.navigate(['/user/status/list']);
+        break;
+
+      case 'Status_Spot':
+        this.router.navigate(['/user/status/list']);
+        break;
+
+      case 'Status_Comments':
+        this.router.navigate(['/user/status/list']);
+        break;
+
+    }
+
   }
 
   /**
