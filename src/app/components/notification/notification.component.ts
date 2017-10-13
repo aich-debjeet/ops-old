@@ -101,56 +101,56 @@ export class NotificationComponent implements OnInit {
 
   }
 
-  /**
-   * Marking notification as read
-   * @Param: notification id
-   */
-  markAsRead(notificationId: string) {
-    this.notificationIds = [notificationId];
-    console.log('this.notificationIds', this.notificationIds);
-    this.dispatchReadNotifications();
-  }
+  // /**
+  //  * Marking notification as read
+  //  * @Param: notification id
+  //  */
+  // markAsRead(notificationId: string) {
+  //   this.notificationIds = [notificationId];
+  //   console.log('this.notificationIds', this.notificationIds);
+  //   this.dispatchReadNotifications();
+  // }
 
-  /**
-   * Dispatch read notification
-   * @Parmas: list of notification ids
-   */
-  dispatchReadNotifications() {
-    this.store.dispatch({
-      type: NotificationActions.MARK_AS_READ,
-      payload: {
-        notificationList: this.notificationIds
-      }
-    });
-  }
+  // /**
+  //  * Dispatch read notification
+  //  * @Parmas: list of notification ids
+  //  */
+  // dispatchReadNotifications() {
+  //   this.store.dispatch({
+  //     type: NotificationActions.MARK_AS_READ,
+  //     payload: {
+  //       notificationList: this.notificationIds
+  //     }
+  //   });
+  // }
 
-  /**
-   * Get all ids of all notifications
-   */
-  getAllNotificationIds(callback) {
-    const data = [];
-    this.notifications.forEach((notif, index) => {
-      if (notif.isRead === false) {
-        data.push(notif.notificationId);
-      }
-      if (index === (this.notifications.length - 1)) {
-        this.notificationIds = data;
-        // console.log('collection this.notificationIds', this.notificationIds);
-        callback();
-      }
-    });
-  }
+  // /**
+  //  * Get all ids of all notifications
+  //  */
+  // getAllNotificationIds(callback) {
+  //   const data = [];
+  //   this.notifications.forEach((notif, index) => {
+  //     if (notif.isRead === false) {
+  //       data.push(notif.notificationId);
+  //     }
+  //     if (index === (this.notifications.length - 1)) {
+  //       this.notificationIds = data;
+  //       // console.log('collection this.notificationIds', this.notificationIds);
+  //       callback();
+  //     }
+  //   });
+  // }
 
-  /**
-   * Marking all notifications as read
-   */
-  markAllAsRead() {
-    const self = this;
-    this.getAllNotificationIds(function() {
-      // console.log('mark all read', self.notificationIds);
-      self.dispatchReadNotifications();
-    });
-  }
+  // /**
+  //  * Marking all notifications as read
+  //  */
+  // markAllAsRead() {
+  //   const self = this;
+  //   this.getAllNotificationIds(function() {
+  //     // console.log('mark all read', self.notificationIds);
+  //     self.dispatchReadNotifications();
+  //   });
+  // }
 
   ngOnInit() {
 
