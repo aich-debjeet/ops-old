@@ -72,7 +72,6 @@ export class PostComponent implements OnInit {
    * @param event
    */
   deleteMedia(channel: any) {
-    console.log('Deleting this Channenl');
   }
 
   handleClick(id) {
