@@ -10,32 +10,50 @@ function merger(sentMsgs, recvdMsgs) {
   return mergedMsgs;
 }
 
-const sentMessages = [];
-const receivedMessages = [];
-const mergedMessages = [];
+// const sentMessages = [];
+// const receivedMessages = [];
+// const mergedMessages = [];
 
 export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
 
   switch (type) {
 
-    case MessageActions.LOAD_SENT_MESSAGES:
+    case MessageActions.LOAD_COMBINED_MESSAGES:
       return Object.assign({}, state, {
         success: true
       });
 
-    case MessageActions.LOAD_SENT_MESSAGES_SUCCESS:
-      this.sentMessages = payload.messages.sent;
-       this.mergedMessages = merger(this.sentMessages, this.receivedMessages);
+    case MessageActions.LOAD_COMBINED_MESSAGES_SUCCESS:
+    console.log(payload)
       return Object.assign({}, state, {
-        sentAll: payload.messages.sent,
-        mergedMessages: this.mergedMessages,
+       // sentAll: payload.messages.sent,
+       mergedMessages: payload,
         success: true
       });
 
-    case MessageActions.LOAD_SENT_MESSAGES_FAILED:
+    case MessageActions.LOAD_COMBINED_MESSAGES_FAILED:
       return Object.assign({}, state, {
         success: false
       });
+
+    // case MessageActions.LOAD_SENT_MESSAGES:
+    //   return Object.assign({}, state, {
+    //     success: true
+    //   });
+
+    // case MessageActions.LOAD_SENT_MESSAGES_SUCCESS:
+    //   this.sentMessages = payload.messages.sent;
+    //    this.mergedMessages = merger(this.sentMessages, this.receivedMessages);
+    //   return Object.assign({}, state, {
+    //     sentAll: payload.messages.sent,
+    //     mergedMessages: this.mergedMessages,
+    //     success: true
+    //   });
+
+    // case MessageActions.LOAD_SENT_MESSAGES_FAILED:
+    //   return Object.assign({}, state, {
+    //     success: false
+    //   });
 
     case MessageActions.LOAD_USER_PROFILE_DATA:
       return Object.assign({}, state, {
@@ -54,24 +72,24 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
 
 
-    case MessageActions.LOAD_RECEIVED_MESSAGES:
-      return Object.assign({}, state, {
-        success: true
-      });
+    // case MessageActions.LOAD_RECEIVED_MESSAGES:
+    //   return Object.assign({}, state, {
+    //     success: true
+    //   });
 
-    case MessageActions.LOAD_RECEIVED_MESSAGES_SUCCESS:
-      this.receivedMessages = payload.messages.received;
-      this.mergedMessages = merger(this.sentMessages, this.receivedMessages);
-      return Object.assign({}, state, {
-        receivedAll: payload.messages.received,
-        mergedMessages: this.mergedMessages,
-        success: true
-      });
+    // case MessageActions.LOAD_RECEIVED_MESSAGES_SUCCESS:
+    //   this.receivedMessages = payload.messages.received;
+    //   this.mergedMessages = merger(this.sentMessages, this.receivedMessages);
+    //   return Object.assign({}, state, {
+    //     receivedAll: payload.messages.received,
+    //     mergedMessages: this.mergedMessages,
+    //     success: true
+    //   });
 
-    case MessageActions.LOAD_RECEIVED_MESSAGES_FAILED:
-      return Object.assign({}, state, {
-        success: false
-      });
+    // case MessageActions.LOAD_RECEIVED_MESSAGES_FAILED:
+    //   return Object.assign({}, state, {
+    //     success: false
+    //   });
 
     case MessageActions.SEND_MESSAGE:
       return Object.assign({}, state, {
@@ -98,6 +116,7 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
 
     case MessageActions.LOAD_HANDLE_PROFILE_DATA_SUCCESS:
+      console.log('handle profiles', payload)
       return Object.assign({}, state, {
         profileHandles: payload,
         success: true
@@ -167,8 +186,8 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
         receipients_loaded: false
       });
     case MessageActions.GET_RECEIPIENT_SUCCESS:
-    // console.log(payload)
-    // console.log('GET_Receipient comming success')
+     console.log(payload)
+     console.log('GET_Receipient comming success')
       return Object.assign({}, state, {
         receipients: payload,
         receipients_loaded: true

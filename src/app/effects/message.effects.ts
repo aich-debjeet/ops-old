@@ -14,29 +14,42 @@ import { MessageActions } from '../actions/message.action';
 
 @Injectable()
 export class MessageEffect {
-  @Effect()
-  sentMessages$: Observable<Action> = this.actions$
-    .ofType(MessageActions.LOAD_SENT_MESSAGES)
-    .map(toPayload)
-    .switchMap((payload) => Observable
-    .timer(0 , 10000)
-    .switchMap(() => this.messageService.getAllSentMessages( payload )    /*'sent'*/
-      .map(res => ({ type: MessageActions.LOAD_SENT_MESSAGES_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: MessageActions.LOAD_SENT_MESSAGES_FAILED, payload: res }))
-    )
-  );
 
-  @Effect()
-  receivedMessages$: Observable<Action> = this.actions$
-    .ofType(MessageActions.LOAD_RECEIVED_MESSAGES)
-    .map(toPayload)
-    .switchMap((payload) => Observable
-    .timer(0 , 10000)
-    .switchMap(() => this.messageService.getAllReceivedMessages( payload )  /*'received' */
-      .map(res => ({ type: MessageActions.LOAD_RECEIVED_MESSAGES_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: MessageActions.LOAD_RECEIVED_MESSAGES_FAILED, payload: res }))
-    )
-  );
+//   @Effect()
+//   sentMessages$: Observable<Action> = this.actions$
+//     .ofType(MessageActions.LOAD_COMBINED_MESSAGES)
+//     .map(toPayload)
+//     .switchMap(() => Observable
+//     .timer(0 , 10000)
+//     .switchMap(() => this.messageService.getCombinedMessages()    /*'sent'*/
+//       .map(res => ({ type: MessageActions.LOAD_COMBINED_MESSAGES_SUCCESS, payload: res }))
+//       .catch((res) => Observable.of({ type: MessageActions.LOAD_COMBINED_MESSAGES_FAILED, payload: res }))
+//   )
+// );
+
+  // @Effect()
+  // sentMessages$: Observable<Action> = this.actions$
+  //   .ofType(MessageActions.LOAD_SENT_MESSAGES)
+  //   .map(toPayload)
+  //   .switchMap((payload) => Observable
+  //   .timer(0 , 10000)
+  //   .switchMap(() => this.messageService.getAllSentMessages( payload )    /*'sent'*/
+  //     .map(res => ({ type: MessageActions.LOAD_SENT_MESSAGES_SUCCESS, payload: res }))
+  //     .catch((res) => Observable.of({ type: MessageActions.LOAD_SENT_MESSAGES_FAILED, payload: res }))
+  //   )
+  // );
+
+  // @Effect()
+  // receivedMessages$: Observable<Action> = this.actions$
+  //   .ofType(MessageActions.LOAD_RECEIVED_MESSAGES)
+  //   .map(toPayload)
+  //   .switchMap((payload) => Observable
+  //   .timer(0 , 10000)
+  //   .switchMap(() => this.messageService.getAllReceivedMessages( payload )  /*'received' */
+  //     .map(res => ({ type: MessageActions.LOAD_RECEIVED_MESSAGES_SUCCESS, payload: res }))
+  //     .catch((res) => Observable.of({ type: MessageActions.LOAD_RECEIVED_MESSAGES_FAILED, payload: res }))
+  //   )
+  // );
     // @Effect()
     // getReceipient$ = this.actions$
     //   .ofType(MessageActions.GET_RECEIPIENT)
@@ -54,8 +67,8 @@ export class MessageEffect {
     .switchMap(() => this.messageService.getUserProfileDetails(payload)
       .map(res => ({ type: MessageActions.LOAD_USER_PROFILE_DATA_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: MessageActions.LOAD_USER_PROFILE_DATA_FAILED, payload: res }))
-    )
-  );
+  )
+);
 
     @Effect()
     ProfileHandles$ = this.actions$
@@ -109,6 +122,14 @@ export class MessageEffect {
         .catch((res) => Observable.of({ type: MessageActions.GET_RECEIPIENT_FAILED, payload: res }))
       );
 
+      @Effect()
+      getConversationMessages$ = this.actions$
+        .ofType(MessageActions.SORT_MESSAGES_BY_TIME)
+        .map(toPayload)
+        .switchMap((payload) => this.messageService.getConversationDetails( payload )
+          .map(res => ({ type: MessageActions.SORT_MESSAGES_BY_TIME_SUCCESS, payload: res }))
+          .catch((res) => Observable.of({ type: MessageActions.SORT_MESSAGES_BY_TIME_FAILED, payload: res }))
+        );
     constructor(
     private actions$: Actions,
     private apiService: GeneralService,

@@ -16,10 +16,8 @@ const reducers = {
   loginTags: AuthReducer,
   profileTags: ProfileReducer,
   userMediaTags: ProfileReducer,
-  sentMessagesTags: MessageReducer,
-  userProfileTags: MessageReducer,
+  messageTags: MessageReducer,
   userSearchTags: UserSearchReducer,
-  receivedMessagesTags: MessageReducer,
   mediaStore: MediaReducer
 }
 

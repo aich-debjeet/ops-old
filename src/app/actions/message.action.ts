@@ -3,13 +3,17 @@ import { MessageModal, initialMessage } from '../models/message.model';
 
 export class MessageActions {
 
-  static LOAD_SENT_MESSAGES = 'LOAD_SENT_MESSAGES';
-  static LOAD_SENT_MESSAGES_SUCCESS = 'LOAD_SENT_MESSAGES_SUCCESS';
-  static LOAD_SENT_MESSAGES_FAILED = 'LOAD_SENT_MESSAGES_FAILED';
+  // static LOAD_SENT_MESSAGES = 'LOAD_SENT_MESSAGES';
+  // static LOAD_SENT_MESSAGES_SUCCESS = 'LOAD_SENT_MESSAGES_SUCCESS';
+  // static LOAD_SENT_MESSAGES_FAILED = 'LOAD_SENT_MESSAGES_FAILED';
 
-  static LOAD_RECEIVED_MESSAGES = 'LOAD_RECEIVED_MESSAGES';
-  static LOAD_RECEIVED_MESSAGES_SUCCESS = 'LOAD_RECEIVED_MESSAGES_SUCCESS';
-  static LOAD_RECEIVED_MESSAGES_FAILED = 'LOAD_RECEIVED_MESSAGES_FAILED';
+  // static LOAD_RECEIVED_MESSAGES = 'LOAD_RECEIVED_MESSAGES';
+  // static LOAD_RECEIVED_MESSAGES_SUCCESS = 'LOAD_RECEIVED_MESSAGES_SUCCESS';
+  // static LOAD_RECEIVED_MESSAGES_FAILED = 'LOAD_RECEIVED_MESSAGES_FAILED';
+
+  static LOAD_COMBINED_MESSAGES = 'LOAD_COMBINED_MESSAGES';
+  static LOAD_COMBINED_MESSAGES_SUCCESS = 'LOAD_COMBINED_MESSAGES_SUCCESS';
+  static LOAD_COMBINED_MESSAGES_FAILED = 'LOAD_COMBINED_MESSAGES_FAILED';
 
   static SEND_MESSAGE = 'SEND_MESSAGE';
   static SEND_MESSAGE_SUCCESS = 'SEND_MESSAGE_SUCCESS';
@@ -43,57 +47,84 @@ export class MessageActions {
   static GET_RECEIPIENT_SUCCESS = 'GET_RECEIPIENT_SUCCESS';
   static GET_RECEIPIENT_FAILED = 'GET_RECEIPIENT_FAILED';
 
-  /* -------------------------------- load sent messages -------------------------------- */
-  loadSentMessages(value): Action {
-    console.log('LOAD_SENT_MESSAGES ACTION TRIGGERED');
+  /* -------------------------------- load COMBINED messages -------------------------------- */
+  loadCombinedMessages(value): Action {
+    console.log('LOAD_COMBINED_MESSAGES ACTION TRIGGERED');
     return {
-      type: MessageActions.LOAD_SENT_MESSAGES,
+      type: MessageActions.LOAD_COMBINED_MESSAGES,
       payload: { value }
     };
   }
 
-  loadSentMessagesSuccess(value): Action {
-    console.log('LOAD_SENT_MESSAGES_SUCCESS ACTION TRIGGERED');
+  loadCombinedMessagesSuccess(value): Action {
+    console.log('LOAD_COMBINED_MESSAGES_SUCCESS ACTION TRIGGERED');
     return {
-      type: MessageActions.LOAD_SENT_MESSAGES_SUCCESS,
+      type: MessageActions.LOAD_COMBINED_MESSAGES_SUCCESS,
       payload: { value }
     };
   }
 
-  loadSentMessagesFailed(error: any): Action {
-    console.log('LOAD_SENT_MESSAGES_FAILED ACTION TRIGGERED');
+  loadCombinedMessagesFailed(error: any): Action {
+    console.log('LOAD_COMBINED_MESSAGES_FAILED ACTION TRIGGERED');
     return {
-      type: MessageActions.LOAD_SENT_MESSAGES_FAILED,
+      type: MessageActions.LOAD_COMBINED_MESSAGES_FAILED,
       payload: error
     };
   }
-  /* -------------------------------- load sent messages -------------------------------- */
+   /* -------------------------------- load COMBINED messages -------------------------------- */
 
-  /* -------------------------------- load received messages -------------------------------- */
-  loadReceivedMessages(value): Action {
-    console.log('LOAD_RECEIVED_MESSAGES ACTION TRIGGERED');
-    return {
-      type: MessageActions.LOAD_RECEIVED_MESSAGES,
-      payload: { value }
-    };
-  }
 
-  loadReceivedMessagesSuccess(value): Action {
-    console.log('LOAD_RECEIVED_MESSAGES_SUCCESS ACTION TRIGGERED');
-    return {
-      type: MessageActions.LOAD_RECEIVED_MESSAGES_SUCCESS,
-      payload: { value }
-    };
-  }
+  // /* -------------------------------- load sent messages -------------------------------- */
+  // loadSentMessages(value): Action {
+  //   console.log('LOAD_SENT_MESSAGES ACTION TRIGGERED');
+  //   return {
+  //     type: MessageActions.LOAD_SENT_MESSAGES,
+  //     payload: { value }
+  //   };
+  // }
 
-  loadReceivedMessagesFailed(error: any): Action {
-    console.log('LOAD_RECEIVED_MESSAGES_FAILED ACTION TRIGGERED');
-    return {
-      type: MessageActions.LOAD_RECEIVED_MESSAGES_FAILED,
-      payload: error
-    };
-  }
-  /* -------------------------------- load received messages -------------------------------- */
+  // loadSentMessagesSuccess(value): Action {
+  //   console.log('LOAD_SENT_MESSAGES_SUCCESS ACTION TRIGGERED');
+  //   return {
+  //     type: MessageActions.LOAD_SENT_MESSAGES_SUCCESS,
+  //     payload: { value }
+  //   };
+  // }
+
+  // loadSentMessagesFailed(error: any): Action {
+  //   console.log('LOAD_SENT_MESSAGES_FAILED ACTION TRIGGERED');
+  //   return {
+  //     type: MessageActions.LOAD_SENT_MESSAGES_FAILED,
+  //     payload: error
+  //   };
+  // }
+  // /* -------------------------------- load sent messages -------------------------------- */
+
+  // /* -------------------------------- load received messages -------------------------------- */
+  // loadReceivedMessages(value): Action {
+  //   console.log('LOAD_RECEIVED_MESSAGES ACTION TRIGGERED');
+  //   return {
+  //     type: MessageActions.LOAD_RECEIVED_MESSAGES,
+  //     payload: { value }
+  //   };
+  // }
+
+  // loadReceivedMessagesSuccess(value): Action {
+  //   console.log('LOAD_RECEIVED_MESSAGES_SUCCESS ACTION TRIGGERED');
+  //   return {
+  //     type: MessageActions.LOAD_RECEIVED_MESSAGES_SUCCESS,
+  //     payload: { value }
+  //   };
+  // }
+
+  // loadReceivedMessagesFailed(error: any): Action {
+  //   console.log('LOAD_RECEIVED_MESSAGES_FAILED ACTION TRIGGERED');
+  //   return {
+  //     type: MessageActions.LOAD_RECEIVED_MESSAGES_FAILED,
+  //     payload: error
+  //   };
+  // }
+  // /* -------------------------------- load received messages -------------------------------- */
 
   /* -------------------------------- send message -------------------------------- */
   sendMessage(value): Action {

@@ -59,7 +59,7 @@ export class MessageComponent implements OnInit, AfterViewChecked {
   userO$: Observable<any>;
   currentUserDetails
   
-  userProfile$: Observable<MessageModal>;
+  messages$: Observable<any>;
   currentProfile = initialMessage;
   
   selfProfile: any; // users self profile
@@ -76,7 +76,6 @@ export class MessageComponent implements OnInit, AfterViewChecked {
   recipientsListState: boolean;
   receipientList: any;      // to store the list of receipients
   counter = 0;
-  counter2 = 0;
 
   ngAfterViewChecked() {
     this.scrollToBottom();
@@ -112,17 +111,6 @@ export class MessageComponent implements OnInit, AfterViewChecked {
     this.userO$ = profileStore.select('profileTags').take(3);
   }
   ngOnInit() {
-    // this.sentMessages$.subscribe((state) => {
-    //   this.message = state;
-    //   this.receipientList = this.message.receipients;
-    //   // console.log(this.message.receipients)
-    //   // console.log(this.receipientList)
-    //   // console.log(state)
-    //   // this.mergedMessages = _unionBy(this.message.receivedAll, this.message.sentAll, 'id');
-    //   // console.log('REC', this.message.receivedAll)
-    //   // if ( this.mergedMessages !== undefined || this.mergedMessages.length !== 0 ) {
-    //   //   this.getByHandleList (this.mergedMessages);
-    //   });
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     this.userO$.subscribe((val) => {
       this.currentUserDetails = val;
@@ -133,75 +121,47 @@ export class MessageComponent implements OnInit, AfterViewChecked {
         this.initMessaging(this.userHandle);
       }
     });
-    this.userProfile$ = this.messageStore.select('userProfileTags');
-    this.userProfile$.subscribe((state) => {
+    this.messages$ = this.messageStore.select('messageTags').take(5);
+    this.messages$.subscribe((state) => {
+      console.log(state);
       // if state is not empty
-      if (state && state.userProfileDetails) {
+      if (state && state.userProfileDetails ) {
           // console.log('STATE', state);
         this.selfProfile = state.userProfileDetails;
         // console.log('USER', this.selfProfile);
       }
-      if (state && state.receivedAll) {
-         console.log('STATE RECEIVED', state.receivedAll)
-      }
-      if (state && state.sentAll) {
-         console.log('STAte sent', state.sentAll)
-      }
-      if (state && state.mergedMessages) {
-        this.counter++;
-        if (this.counter === 3) {
-          this.mergedMsg = state.mergedMessages;
-           console.log('state.mergedMessages', state.mergedMessages)
-          this.fetchProfileByHandle(state.mergedMessages)
-        }
-
-      }
-      if (state && state.profileHandles) {
-        // console.log('now it called', state.profileHandles)
-          this.orderProfileMessage(state.profileHandles);
-      }
+      // if (state && state.mergedMessages) {
+      //   this.mergedMsg = state.mergedMessages;
+      //    console.log('state.mergedMessages', this.mergedMsg)
+      //   this.fetchProfileByHandle(state.mergedMessages)
+      // }
+      // if (state && state.profileHandles !== 'undefined' ) {
+      //   console.log('its under profile handles')
+      //   console.log('state.profileHandles', state.profileHandles)
+      //   this.orderProfileMessage(state.profileHandles);
+      // }
       if (state && state.nonUserProfileDetails) {
         this.nonUserProfile = state.nonUserProfileDetails;
         console.log('state.nonUserProfileDetails', state.nonUserProfileDetails);
-        // this.selectedUser = this.nonUserProfile.name;
-        // this.selectedUserHandle = this.nonUserProfile.handle;
-        // this.selectedUserName = this.nonUserProfile.username;
-        //  // console.log(this.nonUserProfile)
-        // // console.log(this.selectedUserHandle)
-        // // console.log(this.selectedUser)
       }
-      // // console.log('state', state);
-    //   if (state && state.conversationDetails) {
-    //     this.counter2++;
-    //     if (this.counter2 === 1) {
-    //     // console.log('sorted msgs')
-    //     this.sortedMessagesByTime = state.conversationDetails
-    //   }
-    // }
+      if (state && state.conversationDetails) {
+        // this.counter2++;
+        // if (this.counter2 === 1) {
+          console.log('sorted msgs')
+        this.sortedMessagesByTime = state.conversationDetails;
+        this.messagesbytime = _sortBy(this.sortedMessagesByTime, function(msg) { return msg.time; });
+      }
       if (state && state.receipients) {
+        console.log('getting receipients')
         this.receipientList = state.receipients
       }
-      if (state && state.markRead) {
-        // // console.log('mark read')
-         this.sortedMessages()
-      }
-      if (state && state.sendMessageResponse ) {
-        // // console.log(state.sendMessageResponse)
-        this.manageAddMessages(state.sendMessageResponse)
-      }
-      // if (state && typeof state['message_sent_successful'] !== 'undefined') {
-      //   // console.log('message_sent_resp', state['message_sent_response']);
-      //   // this.messagesbytime = [];
-      //   console.log('this.messagesbytime', this.messagesbytime)
-      //   // const mLen = this.messagesbytime.length - 1;
-      //   // console.log('mesage length', mLen);
-      //   if (typeof state['message_sent_response'] !== 'undefined') {
-      //     console.log('pushing');
-      //     this.messagesbytime.push(state['message_sent_response']);
-      //     console.log('pushed', this.messagesbytime);
-      //     // this.messagesbytime.push(state['message_sent_response']);
-      //     // this.messagesbytime[mLen] = state['message_sent_response'];
-      //   }
+      // if (state && state.markRead) {
+      //    console.log('mark read')
+      //    this.sortedMessages()
+      // }
+      // if (state && state.sendMessageResponse ) {
+      //    console.log(state.sendMessageResponse)
+      //   this.manageAddMessages(state.sendMessageResponse)
       // }
     })
   }
@@ -210,12 +170,22 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       return false;
     }
       this.messageStore.dispatch({ type: MessageActions.LOAD_USER_PROFILE_DATA, payload: handle });
-      this.messageStore.dispatch({ type: MessageActions.LOAD_SENT_MESSAGES, payload: handle });
-      this.messageStore.dispatch({type: MessageActions.LOAD_RECEIVED_MESSAGES, payload: handle});
+     // this.messageStore.dispatch({type: MessageActions.LOAD_COMBINED_MESSAGES});
+     setInterval(() => {
+     const headers = this.tokenService.getAuthHeader();
+     console.log('getting combined messages');
+     return this.http.get(this.apiLink + '/portal/message/combined/sent/received', { headers: headers })
+     .map((data: Response) => data.json())
+     .subscribe(response => {
+      this.mergedMsg = response;
+      console.log('state.mergedMessages', this.mergedMsg)
+     this.fetchProfileByHandle(this.mergedMsg)
+     });
+    }, 10000);
   }
   fetchProfileByHandle(mergedMessages: any) {
-    // // console.log(mergedMessages)
     console.log('its under fetch profiles by handle')
+    const headers = this.tokenService.getAuthHeader();
     if (mergedMessages !== 'undefined') {
       // // console.log(mergedMessages.length)
       for (let i = 0 ; i < mergedMessages.length; i++) {
@@ -229,14 +199,26 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       if (this.listData) {
         // // console.log('handles list before: ', this.listData);
         this.listData = this.listData.filter( this.onlyUnique );
+        const reqBody = { listData: this.listData };
         // // console.log('handles list after: ', this.listData);
-        this.messageStore.dispatch({type: MessageActions.LOAD_HANDLE_PROFILE_DATA, payload: this.listData});
+        // this.messageStore.dispatch({type: MessageActions.LOAD_HANDLE_PROFILE_DATA, payload: this.listData});
+        this.http.post(this.apiLink + '/portal/auth/handleDisplayData', reqBody, { headers: headers })
+        .map((response: Response) => response.json())
+        .subscribe(response => {
+          //  console.log( response )
+          this.orderProfileMessage(response)
+        });
       }
     }
   }
-  orderProfileMessage(data) {
-      // // console.log(data)
+  orderProfileMessage(data: any) {
+    if (!data) {
+      console.log('hi')
+      return false;
+    } else {
+      //  console.log(data)
       const handleDataMap = data;
+      // console.log(handleDataMap)
       const messageContacts = [];
       for (let i = 0; i < this.listData.length; i++) {
         if (handleDataMap[this.listData[i]]) {
@@ -245,11 +227,9 @@ export class MessageComponent implements OnInit, AfterViewChecked {
           }
         }
       }
-      // // console.log(messageContacts);
           /*latest received message will come up*/
           for (let i = 0 ; i < messageContacts.length; i++) {
           if ( messageContacts[i].handle === this.userHandle) {
-            // // console.log('skiiping self profile')
             /*skipped self profile */
             continue;
           }
@@ -262,7 +242,7 @@ export class MessageComponent implements OnInit, AfterViewChecked {
               if (messageContacts[i].handle === this.selfProfile.extra.messages.received[j].by) {
                 lastReceivedMessageCount = j;
                 if (this.selfProfile.extra.messages.received[j].isRead === false) {
-                  // // console.log('its under me')
+                   console.log('its under me')
                   messageContacts[i].isRead = false;
                   const isReadList = {
                     // message recived by
@@ -272,14 +252,14 @@ export class MessageComponent implements OnInit, AfterViewChecked {
                     messageId : this.selfProfile.extra.messages.received[j].id,
                     isRead : true
                   };
-                  // // console.log(isReadList);
+                   // console.log(isReadList);
                   this.makeIsReadTrue.push(isReadList);
                   messageContacts[i].latestmessage = this.selfProfile.extra.messages.received[j].content;
                   messageContacts[i].latestmessagetime = this.selfProfile.extra.messages.received[j].time;
                   messageContacts[i].isLastMessageSentByMe = false;
-                  // // console.log(this.makeIsReadTrue)
+                   // console.log(this.makeIsReadTrue)
                 } else {
-                    // // console.log('message already set isread true..')
+                     console.log('message already set isread true..')
                 }
               }
             }
@@ -302,21 +282,23 @@ export class MessageComponent implements OnInit, AfterViewChecked {
               }
             }
           }
-          // // console.log(messageContacts[i])
+           // console.log(messageContacts[i])
         }
         this.orderedMessageContacts = _sortBy(messageContacts, function(msg) { return msg.latestmessagetime; }).reverse()
-        // // console.log(this.orderedMessageContacts)
+         // console.log(this.orderedMessageContacts)
   }
+}
   onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
   }
   toggleView(tab: any, nonUserHandle: any) {
+    console.log(nonUserHandle)
       // toggle view
     this.selectedView = tab;
     // trigger actions
     if (this.selectedView === 'readMessage') {
       // const nonUserHandle = userHandle
-        // console.log(nonUserHandle)
+         console.log(nonUserHandle)
       if (nonUserHandle !== this.userHandle) {
         this.messageStore.dispatch({ type: MessageActions.LOAD_NON_USER_PROFILE_DATA, payload: nonUserHandle });
         // this.http.get(this.apiLink + '/portal/profile/' + nonUserHandle, { headers: headers })
@@ -329,18 +311,23 @@ export class MessageComponent implements OnInit, AfterViewChecked {
         let indexOfNonUserHandle ;
         for (const i in this.orderedMessageContacts) {
           if (this.orderedMessageContacts[i].handle === nonUserHandle) {
-            // // console.log(this.orderedMessageContacts[i])
+             console.log(this.orderedMessageContacts[i])
             indexOfNonUserHandle = i;
             break;
+          } else  {
+            console.log('not present')
           }
         }
         this.selectUserData(this.orderedMessageContacts[indexOfNonUserHandle])
+      } else {
+        console.log(nonUserHandle)
       }
 
     }
   }
   selectUserData(selectUser) {
-    // console.log(selectUser);
+     console.log(selectUser);
+     const headers = this.tokenService.getAuthHeader();
     selectUser.read = true;
     if (selectUser.isLastMessageSentByMe) {
       selectUser.isLastMessageSentByMe = true;
@@ -366,26 +353,46 @@ export class MessageComponent implements OnInit, AfterViewChecked {
           list : list
     }
     // make message read
-    this.messageStore.dispatch({ type: MessageActions.MARK_MESSAGES_READ, payload: isReadMessages });
+    // this.messageStore.dispatch({ type: MessageActions.MARK_MESSAGES_READ, payload: isReadMessages });
+    this.http.put(this.apiLink + '/portal/message/markListRead', isReadMessages, { headers: headers })
+    .map((res: Response) => res.json())
+    .subscribe(response => {
+    // console.log(response)
+    this.sortedMessages();
+    })
   }
 
   sortedMessages() {
-    const userMessages = [];
-    for ( let i = 0 ; i < this.mergedMsg.length; i++) {
-      if (this.mergedMsg[i].to === this.selectedUserHandle || (this.mergedMsg[i].by === this.selectedUserHandle)) {
-        userMessages.push(this.mergedMsg[i]);
-        // console.log(userMessages)
-      } else {
-        // console.log(this.selectedUserHandle + ' doesent exist in ' + 'merged msg')
-      }
-    }
-        this.messagesbytime = _sortBy(userMessages, function(msg) { return msg.time; });
-        // console.log(this.messagesbytime)
+    if ( this.selectedUserHandle !== this.userHandle) {
+    // const headers = this.tokenService.getAuthHeader();
+    // this.messageStore.dispatch({ type: MessageActions.SORT_MESSAGES_BY_TIME, payload: this.selectedUserHandle });
+    // const userMessages = [];
+    // for ( let i = 0 ; i < this.mergedMsg.length; i++) {
+    //   if (this.mergedMsg[i].to === this.selectedUserHandle || (this.mergedMsg[i].by === this.selectedUserHandle)) {
+    //     userMessages.push(this.mergedMsg[i]);
+    //     // console.log(userMessages)
+    //   } else {
+    //     // console.log(this.selectedUserHandle + ' doesent exist in ' + 'merged msg')
+    //   }
+    // }
+    //     this.messagesbytime = _sortBy(userMessages, function(msg) { return msg.time; });
+    //      console.log(this.messagesbytime)
         // console.log(this.mergedMsg)
        // this.messageStore.dispatch({ type: MessageActions.SORT_MESSAGES_BY_TIME, payload: this.messagesbytime });
+       setInterval(() => {
+        const headers = this.tokenService.getAuthHeader();
+        this.http.get(this.apiLink + '/portal/message/conversation/' + this.selectedUserHandle, { headers: headers })
+       .map((response: Response) => response.json())
+       .subscribe(response => {
+        this.sortedMessagesByTime = response;
+        this.messagesbytime = _sortBy(this.sortedMessagesByTime, function(msg) { return msg.time; });
+       })
+      }, 5000);
+      }
   }
 
   addMessage(value: any) {
+    const headers = this.tokenService.getAuthHeader();
     if (this.messageForm.valid === true) {
       const messageBody = {
         by : this.userHandle,
@@ -394,11 +401,16 @@ export class MessageComponent implements OnInit, AfterViewChecked {
         content : value.message,
         time: new Date().toISOString(),
       }
-      this.messageStore.dispatch({ type: MessageActions.SEND_MESSAGE, payload: messageBody });
-      this.text = '';
-    }
+      // this.messageStore.dispatch({ type: MessageActions.SEND_MESSAGE, payload: messageBody });
+      // this.text = '';
+      this.http.post(this.apiLink + '/portal/message', messageBody, { headers: headers })
+      .map((response: Response) => response.json())
+      .subscribe(response => {
+        this.text = '';
+        this.manageAddMessages(response);
+    })
+   }
   }
-
   manageAddMessages(response) {
     // this.messagesbytime.push(response.SUCCESS)
     if (response.SUCCESS.to === this.selectedUserHandle && response.SUCCESS.by === this.userHandle) {
@@ -432,29 +444,30 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       subject : value.message_term,
       content : value.message_term,
     }
-    this.messageStore.dispatch({ type: MessageActions.SEND_MESSAGE, payload: messageBody });
-    this.composeMessage.messageToSend = '';
-        this.composeMessage.searchUser = '';
-        this.selectedUserHandle = this.nonUserProfile.handle;
-        this.selectedUser = this.nonUserProfile.name;
-        this.selectedUserName = this.nonUserProfile.extra.username;
-        this.toggleView('readMessage', this.nonUserProfile.handle)
-  //   this.http.post(this.apiLink + '/portal/message', messageBody, { headers: headers })
-  //   .map((response: Response) => response.json())
-  //   .subscribe(response => {
-  //     this.composeMessage.messageToSend = '';
-  //     this.composeMessage.searchUser = '';
-  //     this.selectedUserHandle = this.nonUserProfile.handle;
-  //     this.selectedUser = this.nonUserProfile.name;
-  //     this.selectedUserName = this.nonUserProfile.extra.username;
-  //     this.mergedMessages.push(response.SUCCESS);
-  //     this.messagesbytime.push(response.SUCCESS);
-  //     this.profile.extra.messages.sent.push(response.SUCCESS);
-  //     // console.log(this.messagesbytime)
-  //     this.getByHandleList(this.mergedMessages)
-  //     this.toggleView('readMessage', this.nonUserProfile.handle)
-  //   // })
-  // })
+    // this.messageStore.dispatch({ type: MessageActions.SEND_MESSAGE, payload: messageBody });
+    // this.composeMessage.messageToSend = '';
+    //     this.composeMessage.searchUser = '';
+    //     this.selectedUserHandle = this.nonUserProfile.handle;
+    //     this.selectedUser = this.nonUserProfile.name;
+    //     this.selectedUserName = this.nonUserProfile.extra.username;
+    //     this.toggleView('readMessage', this.nonUserProfile.handle)
+    this.http.post(this.apiLink + '/portal/message', messageBody, { headers: headers })
+    .map((response: Response) => response.json())
+    .subscribe(response => {
+      console.log(response)
+      this.composeMessage.messageToSend = '';
+      this.composeMessage.searchUser = '';
+      this.selectedUserHandle = this.nonUserProfile.handle;
+      this.selectedUser = this.nonUserProfile.name;
+      this.selectedUserName = this.nonUserProfile.extra.username;
+       this.mergedMsg.push(response.SUCCESS);
+      this.messagesbytime.push(response.SUCCESS);
+     // this.profile.extra.messages.sent.push(response.SUCCESS);
+      // console.log(this.messagesbytime)
+       this.fetchProfileByHandle(this.mergedMsg)
+      this.toggleView('readMessage', this.nonUserProfile.handle)
+    // })
+  })
   }
 
   toggleSelectSkill(handle: any) {
@@ -466,27 +479,28 @@ export class MessageComponent implements OnInit, AfterViewChecked {
     }
 
     if (handle !== this.userHandle && handle !== undefined) {
-      this.messageStore.dispatch({ type: MessageActions.LOAD_SEARCHED_NON_USER_PROFILE_DATA, payload: handle });
-      // this.http.get(this.apiLink + '/portal/profile/' + handle, { headers: headers })
-      // .map((response: Response) => response.json())
-      // .subscribe(response => {
-      //   if (response === null || response === undefined) {
-      //     // // console.log('no such receipient exist')
-      //     this.composeMessage.searchUser = 'No such receipient';
-      //   } else {
-      //     this.nonUserProfile = response
-      //     // // console.log(this.nonUserProfile)
-      //     this.composeMessage.searchUser = this.nonUserProfile.name;
-      //     // // console.log(this.nonUserProfile.handle + 'is not equal to' + this.userHandle)
-      //   }
-      // })
-      if (this.nonUserProfile !== null) {
-        if (handle === this.nonUserProfile.handle) {
+      const headers = this.tokenService.getAuthHeader();
+      // this.messageStore.dispatch({ type: MessageActions.LOAD_SEARCHED_NON_USER_PROFILE_DATA, payload: handle });
+      this.http.get(this.apiLink + '/portal/profile/' + handle, { headers: headers })
+      .map((response: Response) => response.json())
+      .subscribe(response => {
+        if (response === null || response === undefined) {
+          // // console.log('no such receipient exist')
+          this.composeMessage.searchUser = 'No such receipient';
+        } else {
+          this.nonUserProfile = response
+          // // console.log(this.nonUserProfile)
           this.composeMessage.searchUser = this.nonUserProfile.name;
+          // // console.log(this.nonUserProfile.handle + 'is not equal to' + this.userHandle)
         }
-      } else {
-       this.composeMessage.searchUser = 'No such receipient';
-      }
+      })
+      // if (this.nonUserProfile !== null) {
+      //   if (handle === this.nonUserProfile.handle) {
+      //     this.composeMessage.searchUser = this.nonUserProfile.name;
+      //   }
+      // } else {
+      //  this.composeMessage.searchUser = 'No such receipient';
+      // }
     }
 
     if (handle === this.userHandle) {
@@ -497,9 +511,14 @@ export class MessageComponent implements OnInit, AfterViewChecked {
   }
   onSearch () {
     this.recipientsListState = true;
-    // console.log(this.composeMessage.searchUser);
+     console.log(this.composeMessage.searchUser);
     if (this.composeMessage.searchUser !== null || this.composeMessage.searchUser !== ' ') {
-      this.messageStore.dispatch({ type: MessageActions.GET_RECEIPIENT, payload: this.composeMessage.searchUser });
+     //  this.messageStore.dispatch({ type: MessageActions.GET_RECEIPIENT, payload: this.composeMessage.searchUser });
+     this.http.get(this.apiLink + '/portal/searchprofiles/1/' + this.composeMessage.searchUser + '/0/5')
+     .map((data: Response) => data.json())
+     .subscribe(response => {
+       this.receipientList = response
+     });
     }
   }
 }
