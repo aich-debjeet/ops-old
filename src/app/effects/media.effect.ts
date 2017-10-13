@@ -105,6 +105,36 @@ export class MediaEffect {
     );
 
   /**
+   * Update comment
+   */
+  @Effect()
+  updateComment$ = this.actions$
+    .ofType(MediaActions.UPDATE_COMMENT)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.updateComment(payload)
+      .map(res => ({ type: MediaActions.UPDATE_COMMENT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.UPDATE_COMMENT_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+   /**
+   * Delete comment
+   */
+  @Effect()
+  deleteComment$ = this.actions$
+    .ofType(MediaActions.DELETE_COMMENT)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.deleteComment(payload)
+      .map(res => ({ type: MediaActions.DELETE_COMMENT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.DELETE_COMMENT_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
    * Media Comment Fetch
    */
   @Effect()
@@ -119,13 +149,13 @@ export class MediaEffect {
       }))
     );
 
-  @Effect()
-  saveCommentSuccess$ = this.actions$
-    .ofType(MediaActions.POST_COMMENT_SUCCESS)
-    .withLatestFrom(this.store$.select('mediaStore'), (payload, state) => {
-      const comment_id = state['media_detail'].id;
-      return ({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: comment_id })
-    })
+  // @Effect()
+  // saveCommentSuccess$ = this.actions$
+  //   .ofType(MediaActions.POST_COMMENT_SUCCESS)
+  //   .withLatestFrom(this.store$.select('mediaStore'), (payload, state) => {
+  //     const comment_id = state['media_detail'].id;
+  //     return ({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: comment_id })
+  //   })
 
   /**
    * Spot a Media
@@ -143,6 +173,21 @@ export class MediaEffect {
       );
 
   /**
+   *Media post delete
+   */
+  @Effect()
+    mediaPostDelete$ = this.actions$
+      .ofType(MediaActions.MEDIA_POST_DELETE)
+      .map(toPayload)
+      .switchMap((payload) => this.mediaService.mediaPostDelete(payload)
+        .map(res => ({ type: MediaActions.MEDIA_POST_DELETE_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({
+          type: MediaActions.MEDIA_POST_DELETE_FAILED,
+          payload: { errorStatus: res.status }
+        }))
+      );
+
+  /**
    * Un Spot a Media
    */
   @Effect()
@@ -153,6 +198,21 @@ export class MediaEffect {
       .map(res => ({ type: MediaActions.MEDIA_UNSPOT_SUCCESS, payload: res }))
       .catch((res) => Observable.of({
         type: MediaActions.MEDIA_UNSPOT_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
+   *  Load my Media
+   */
+  @Effect()
+  loadMyStatus$ = this.actions$
+    .ofType(MediaActions.LOAD_MY_MEDIA)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.getMyMedia(payload)
+      .map(res => ({ type: MediaActions.LOAD_MY_MEDIA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.LOAD_MY_MEDIA_FAILED,
         payload: { errorStatus: res.status }
       }))
     );

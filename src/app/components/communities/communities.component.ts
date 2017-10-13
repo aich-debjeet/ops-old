@@ -12,7 +12,7 @@ export class CommunitiesComponent implements OnInit {
 
   ngOnInit() {
     this.comingsoon = {
-      mainTitle: 'Communities will be coming soon.',
+      mainTitle: 'Communities <br> Coming Soon.',
       description: 'We can\'t find John Doe! We can\'t start without him now, can we? We\'ll be back as soon as we find him. Feel free to browse through our other pages.',
       buttonLink: '/home',
       buttonText: 'Go to Home',

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { initialMedia, Media } from '../../models/media.model';
 import { MediaActions } from '../../actions/media.action';
 
+import { TruncatePipe } from '../../pipes/truncate.pipe';
+
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -22,6 +24,8 @@ export class PostCardComponent implements OnInit {
   @Input() mediaData;
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() imageLoad: EventEmitter<any> = new EventEmitter<any>();
+  @Output() postDelete = new EventEmitter();
   dotMenuState: boolean;
   following: boolean;
   followingCount: any;
@@ -33,14 +37,13 @@ export class PostCardComponent implements OnInit {
   constructor(
     private router: Router,
     private toastr: ToastrService,
-    private store: Store<Media>
+    private store: Store<Media>,
   ) {
     this.dotMenuState = false;
   }
 
   ngOnInit() {
     if (!this.mediaData.ownerImage) {
-      console.log('not there');
       this.userImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
     } else {
       this.userImage = this.imageLink + this.mediaData.ownerImage;
@@ -54,7 +57,6 @@ export class PostCardComponent implements OnInit {
    * @param event
    */
   deleteMedia(channel: any) {
-    console.log('Deleting this Channenl');
   }
 
   handleClick(id) {
@@ -69,12 +71,15 @@ export class PostCardComponent implements OnInit {
     this.dotMenuState = !this.dotMenuState;
   }
 
+  onContentDelete(content) {
+    this.postDelete.next(content);
+  }
+
   /**
    * Spot a Media
    * @param mediaId
    */
   spotMedia(mediaId: string) {
-    console.log(this.mediaData);
     if (this.following === false) {
       this.following = true;
       this.followingCount++;

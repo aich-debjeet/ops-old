@@ -6,13 +6,21 @@
   <div class="pull-right">
     <div class="c-post__comment--time">{{ commentData?.createdDate | date: 'hh:mm a' }}
       <span>
-      <!--<a>
-        <img src="/assets/img/svg/ico_options.svg" alt="" class="c-card__options">
-      </a>-->
+        <div appDropdown *ngIf="commentData?.isOwner">
+          <a class="dropdown-toggle" appDropdownOpen>
+           <img src="/assets/img/svg/ico_options.svg" alt="" class="c-card__options">
+          </a>
+          <ul class="dropdown-menu c-channel-option">
+            <!--  Only if current user -->
+            <li><a (click)="onContentDelete($event)">Delete</a></li>
+            <li><a (click)="onContentEdit($event)" >Edit</a></li>
+          </ul>
+        </div>
     </span>
     </div>
   </div>
   <div class="c-post__comment_text">
-    {{ commentData?.comment }}
+    <div *ngIf="!isEdit"> {{ messageText }} </div>
+    <input type="text" *ngIf="isEdit" [(ngModel)]="messageText" (keyup.enter)="onContentSaved()" value="{{ commentData?.comment }}">
   </div>
 </div>

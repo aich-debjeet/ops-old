@@ -7,6 +7,7 @@ export interface State {
   user_channel: any,
   user_channels_loaded: boolean,
   user_channels_loading: boolean,
+  current_user_profile: any,
   profileUser: any
 };
 
@@ -125,6 +126,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS:
       // console.log('current user Quick Access');
       return Object.assign({}, state, {
+        userQuickAccess: [],
         success: true
       });
 
@@ -147,21 +149,27 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get User Media Post
      */
     case ProfileActions.LOAD_USER_MEDIA:
+      if (payload.page_start === 0) {
+        return Object.assign({}, state, {
+          user_posts_loading: true,
+          user_posts_loaded: false,
+          user_posts: []
+        });
+      }
       return Object.assign({}, state, {
         user_posts_loading: true,
-        user_posts_loaded: false,
-        user_posts: []
+        user_posts_loaded: false
       });
 
+
     case ProfileActions.LOAD_USER_MEDIA_SUCCESS:
-
       const posts = payload['SUCCESS'] || [];
-
+      const new_post = state.user_posts.concat(posts)
       return Object.assign({}, state, {
         mediaEntity: payload,
         user_posts_loaded: true,
         user_posts_loading: false,
-        user_posts: posts
+        user_posts: new_post
       });
 
     case ProfileActions.LOAD_USER_MEDIA_FAILED:
@@ -188,6 +196,24 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
   case ProfileActions.CHANNEL_SAVE_FAILED:
     return Object.assign({}, state, {
       channel_saved: false
+    });
+
+  /**
+   * User channel update
+   */
+  case ProfileActions.CHANNEL_UPDATE:
+    return Object.assign({}, state, {
+      channel_updated: false
+    });
+
+  case ProfileActions.CHANNEL_UPDATE_SUCCESS:
+    return Object.assign({}, state, {
+      channel_updated: true
+    });
+
+  case ProfileActions.CHANNEL_UPDATE_FAILED:
+    return Object.assign({}, state, {
+      channel_updated: false
     });
 
     /**
@@ -569,3 +595,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 }
 
 export const currentUserProfile = (state: ProfileModal) => state.completed;
+
+export function currenCurrntUser(state: State) {
+  return state.current_user_profile;
+}

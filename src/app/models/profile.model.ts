@@ -30,6 +30,7 @@ export class ProfileModal {
   media_channel_posting: boolean;
   media_channel_posted: boolean;
   channel_saved: boolean;
+  channel_updated: boolean;
   profiles: any;
   current_user_profile?: any;
   userQuickAccess?: any;
@@ -78,6 +79,7 @@ export const initialTag: ProfileModal = {
   media_channel_posting: false,
   media_channel_posted: false,
   channel_saved: false,
+  channel_updated: false,
   profiles: [],
 
   // Profile & Cover

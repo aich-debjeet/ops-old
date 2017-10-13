@@ -197,3 +197,17 @@
     color: #979797;
   }
 }
+
+// channel dropdown
+.c-channel-option{
+    position: absolute;
+    top: 36px;
+    right: 16px;
+    padding: 0px;
+    left: inherit;
+    // border:none;
+    overflow: hidden;
+}
+.c-channel-option a{
+    background: transparent;
+}

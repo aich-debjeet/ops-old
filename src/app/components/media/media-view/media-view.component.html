@@ -29,26 +29,33 @@
                                               <div routerLink="channels/x" class="media_sub_head">{{ data?.channelName }} <span class="media_time">{{ data?.createdDate | date: 'hh:mm a dd MMM, yy'}}</span></div>
                                           </li>
                                           <li class="list-inline-item media_user_icons">
-                                              <a ><img src="img/svg/ico_edit.svg"></a>
+                                              <!--<a ><img src="/assets/img/svg/ico_edit.svg"></a>
                                               <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                                  <img src="img/svg/ico_options.svg">
+                                                  <img src="/assets/img/svg/ico_options.svg">
                                               </a>
                                                   <ul class="dropdown-menu report_block_drop">
                                                       <li>
                                                           <a href="#" data-toggle="modal" data-target="#reportmodal">Report</a>
                                                       </li>
-                                                  </ul>
+                                                  </ul>-->
 
                                           </li>
                                       </ul>
                                   </li>
                                   <li class="list_style_none float-left">
                                       <div class="media_detail_block">
-                                          <h2 class="ops_heading">{{ data?.title }}</h2>
-                                          <p class="ops_subheading">
-                                              {{ data?.description }}
-                                              <!--<span class="text-theme pull-right">More..</span>-->
-                                          </p>
+                                        <h2 class="ops_heading">{{ data?.title }}</h2>
+                                        <p class="ops_subheading" #textsContent id="read-more" >
+                                            <!--There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.-->
+                                            {{data?.description}}
+                                            <!--<span class="text-theme pull-right">More..</span>-->
+                                        </p>
+                                        <div class="read-more-link">
+                                            <a readMore [readMore-length]="250" [readMore-text]="data?.description" [readMore-element]="textsContent">
+                                                <span class="less">Less </span>
+                                                <span class="more">More </span>
+                                            </a>
+                                        </div>
                                           <a *ngFor="let tag of data?.tags" type="button" class="btn btn-tag btn-sm">{{ tag }}</a>
                                       </div>
                                   </li>
@@ -65,7 +72,7 @@
                                   </li>
                                   <li class="list-inline-item">
                                       <a ><img src="/assets/img/svg/ico_comment.svg"></a>
-                                      <div class="like_count">{{ data?.commentsCount }}</div>
+                                      <div class="like_count">{{ commentCount }}</div>
                                   </li>
                                   <li class="list-inline-item pull-right">
                                       <a ><img src="/assets/img/svg/ico_share-02.svg"></a>
@@ -75,54 +82,9 @@
                                   </li>
                               </ul>
                           </div>
-                          <div class="media_comment_input fill_grey">
-                              <ul class="msg_to_list list_style_none">
-                                  <li class="with_border_bottom">
-                                      <ul class="list-inline">
-                                          <li class="list-inline-item float_left">
-                                              <figure class="avatar_media_user2">
-                                                  <img src="{{ imageLink + profileImage?.profileImage }}">
-                                              </figure>
-                                          </li>
-                                          <li class="list-inline-item msg_to_input">
-                                              <div class="form_group">
-                                                  <input class="form_input" type="text" [(ngModel)]="messageText" required="" (keyup.enter)="keyDownFunction(data?.id)">
-                                                  <span class="form_highlight"></span>
-                                                  <span class="form_bar"></span>
-                                                  <label>Comment Here</label>
-                                              </div>
-                                          </li>
-                                      </ul>
-                                  </li>
-                              </ul>
-                          </div>
+                          
                           <div class="media_comments_section" id="ops_scrollbar">
-                          <div class="media_img_comments with_border_bottom" *ngFor="let comment of comment; let i = index;">
-                              <ul class="list-inline">
-                                  <li class="list-inline-item float_left">
-                                  <figure class="avatar_media_user2">
-                                      <img src="{{ imageLink + comment.ownerImage }}">
-                                  </figure>
-                                  </li>
-                                  <li class="list-inline-item">
-                                      <div class="head_name">{{ comment.ownerName }}</div>
-                                  </li>
-                                  <li class="list-inline-item pull-right padding_0">
-                                      <div class="comm_post_time">{{ comment.createdDate | date: 'hh:mm a' }}<span>
-                                          <a (click)="beginEdit(editText)"><img src="/assets/img/svg/ico_options.svg"></a></span>
-                                      </div>
-                                  </li>
-                              </ul>
-                              <ul class="list-inline media_comments_block">
-                                  <li class="list-inline-item">{{ comment.comment }}</li>
-                                  <!--<span [hidden]="isDisplay">
-                                      <input #editText type="text"
-                                          [value]="text" (keyup.enter)="editDone(editText.value)">
-                                      <i class="icon icon-floppy color-primary" title="Save"
-                                          (click)="editDone(editText.value)"></i>
-                                  </span>-->
-                              </ul>
-                          </div>
+                                <app-comment [mediaId]="mediaId" [commentsType]="'media-popup'" [comments]="comments" [mediaType]="mediaType" (submitComment)="sbComment($event)"></app-comment>
                           </div>
                       </div>
                   </div>

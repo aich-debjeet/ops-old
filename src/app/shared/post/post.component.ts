@@ -23,13 +23,15 @@ export class PostComponent implements OnInit {
   @Input() className: string;
   @Input() type: string;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() postDelete = new EventEmitter();
   dotMenuState: boolean;
-  comment: any;
+  comments: any;
   userData: any;
   following: boolean;
   followingCount: any;
   commentCount: any;
   mediaId: any;
+  mediaType: any;
   mediaStore = initialMedia;
   mediaState$: Observable<Media>;
 
@@ -41,21 +43,17 @@ export class PostComponent implements OnInit {
     private router: Router,
     private store: Store<Media>
   ) {
-    console.log(this.mediaData);
     this.dotMenuState = false;
     this.mediaState$ = store.select('mediaStore');
 
     this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
-      // console.log(state);
-      // this.userData = this.mediaStore.media_detail;
     });
 
   }
 
   ngOnInit() {
     if (!this.mediaData.ownerImage) {
-      console.log('not there');
       this.userImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
     } else {
       this.userImage = this.imageLink + this.mediaData.ownerImage;
@@ -64,7 +62,9 @@ export class PostComponent implements OnInit {
     this.following = this.mediaData.isSpotted;
     this.followingCount = this.mediaData.spotsCount;
     this.mediaId = this.mediaData.id;
+    this.mediaType = this.mediaData.mtype;
     this.commentCount = this.mediaData.commentsCount;
+    this.comments = this.mediaData.commentsList;
   }
 
   /**
@@ -72,7 +72,6 @@ export class PostComponent implements OnInit {
    * @param event
    */
   deleteMedia(channel: any) {
-    console.log('Deleting this Channenl');
   }
 
   handleClick(id) {
@@ -84,24 +83,28 @@ export class PostComponent implements OnInit {
   }
 
   dotMenuOpen() {
-    console.log('Opening');
     this.dotMenuState = !this.dotMenuState;
-    console.log(this.dotMenuState);
   }
 
+  onContentDelete(content) {
+    this.postDelete.next(content);
+  }
 
   /**
    * Spot a Media
    * @param mediaId
    */
   spotMedia(mediaId: string) {
-    console.log(this.mediaData);
+    const data = {
+      'mediaType': this.mediaType,
+      'id': this.mediaId
+    }
     if (this.following === false) {
       this.following = true;
       this.followingCount++;
-      this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: this.mediaData.id });
+      this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
     }else {
-      this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: this.mediaData.id });
+      this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
       this.following = false
       this.followingCount--;
     }
@@ -110,9 +113,12 @@ export class PostComponent implements OnInit {
   /**
    * Submit Comment
    */
-  sbComment() {
-    this.commentCount++
-    console.log('Comment Submit');
+  sbComment(param) {
+    if (param === 'Del') {
+      this.commentCount--
+    }else {
+      this.commentCount++
+    }
   }
 
 }

@@ -251,6 +251,13 @@ export class ProfileService {
   }
 
   /**
+   * Create a channel
+   */
+  updateChannel(data: any) {
+    return this.api.put('/portal/network/spotfeed/' + data.channelId, data.channelData);
+  }
+
+  /**
    * Attach Image to Cover
    */
   attachCoverImage(imageResp: any) {
@@ -322,8 +329,8 @@ export class ProfileService {
   /**
    * Get User media
    */
-  getUserMedia(handle: string, page: number = 1) {
-    const params = handle + '/' + this.pagination(page);
+  getUserMedia(payload: any) {
+    const params = payload.handle + '/' + payload.page_start + '/' + payload.page_end;
     return this.api.get('/portal/cdn/media/otherProfile/', params);
   }
 

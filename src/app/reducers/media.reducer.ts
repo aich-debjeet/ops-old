@@ -56,14 +56,12 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
 
     // Get Media Details
     case MediaActions.MEDIA_DETAILS:
-    console.log(payload);
       return Object.assign({}, state, {
         media_detail_loading: true,
         media_detail: []
       });
 
     case MediaActions.MEDIA_DETAILS_SUCCESS:
-      console.log(payload);
       return Object.assign({}, state, {
         media_detail_loading: false,
         media_detail: payload
@@ -78,7 +76,6 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
 
     // Fetch Media comment
     case MediaActions.MEDIA_COMMENT_FETCH:
-    console.log('comment post user');
       return Object.assign({}, state, {
         media_comment_loading: true,
         media_post_success: false,
@@ -86,9 +83,6 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       });
 
     case MediaActions.MEDIA_COMMENT_FETCH_SUCCESS:
-      console.log('comment loading');
-      console.log(payload);
-      console.log(state);
       return Object.assign({}, state, {
         media_comment_loading: false,
         media_post_success: false,
@@ -99,12 +93,11 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       return Object.assign({}, state, {
         media_comment_loading: false,
         media_comment_failed: true,
-        media_comment: []
+        // media_comment: []
       });
 
     // Media comment success
     case MediaActions.POST_COMMENT_SUCCESS:
-      console.log('comment loading');
       return Object.assign({}, state, {
         media_post_success: true
       });
@@ -113,15 +106,13 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
      * Get User Media Post
      */
     case MediaActions.LOAD_USER_MEDIA:
-      console.log('loading');
       return Object.assign({}, state, {
         user_posts_loading: true,
         user_posts_loaded: false,
-        user_posts: []
+        // user_posts: []
       });
 
     case MediaActions.LOAD_USER_MEDIA_SUCCESS:
-      console.log('loaded');
       return Object.assign({}, state, {
         mediaEntity: payload,
         user_posts_loaded: true,
@@ -135,6 +126,24 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         user_posts_loaded: false,
         user_posts_loading: false
       });
+
+    case MediaActions.LOAD_MY_MEDIA:
+      if (payload.offset === 0) {
+        return Object.assign({}, state, {
+          my_media: []
+        });
+      }
+      return Object.assign({}, state, {
+          my_media_loading: false
+      });
+
+
+    case MediaActions.LOAD_MY_MEDIA_SUCCESS:
+      const new_media = state.my_media.concat(payload)
+      return Object.assign({}, state, {
+        my_media: new_media
+      });
+
 
     default:
       return state;

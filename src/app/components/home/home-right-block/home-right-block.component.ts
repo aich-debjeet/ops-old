@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 import { ProfileModal, initialTag } from '../../../models/profile.model';
+import { filter as _filter } from 'lodash';
 
 @Component({
   selector: 'home-right-block',
@@ -37,7 +38,9 @@ export class HomeRightBlockComponent implements OnInit {
   }
 
   getProfileImage() {
-    return this.profiles.filter((item) => item.profileImage !== '' );
+    return _filter(this.profiles, function(item) {
+      return item.profileImage !== '';
+    });
   }
 
 }

@@ -29,6 +29,10 @@ import { ResourceComponent } from './components/resource/resource.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { CommunitiesComponent } from './components/communities/communities.component';
 import { StatusListComponent } from './components/status-list/status-list.component';
+import { PlannerComponent } from './components/planner/planner.component';
+import { NetworkComponent } from './components/network/network.component';
+import { ProjectComponent } from './components/project/project.component';
+
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -47,10 +51,14 @@ export const routes: Routes = [
 //  { path: 'media', loadChildren: './components/media/media.module#ProfileModule' },
  { path: 'message', component: MessageComponent },
  { path: 'user/status/list', component: StatusListComponent },
+ { path: 'user/media/list', loadChildren: './components/media-list/media-list.module#MediaListModule'},
  { path: 'spotfeed/:id', component: SpotfeedComponent },
  { path: 'spotfeed-premium', component: SpotfeedPremiumComponent },
  { path: 'notification', component: NotificationComponent },
  { path: 'portfolio', component: PortfolioComponent },
+ { path: 'planner', component: PlannerComponent },
+ { path: 'network', component: NetworkComponent },
+ { path: 'project', component: ProjectComponent },
  { path: 'opportunity', component: OpportunityComponent, canActivate: [AuthGuard] },
  { path: 'jobs', component: JobsComponent },
  { path: 'job-details', component: JobDetailsComponent },

@@ -1,14 +1,42 @@
-<!--<app-comment-list *ngFor="let comment of comments; let i = index" [commentData]="comment"></app-comment-list>-->
-<div class="c-post__comment with_border_top">
-  <a class="c-user__avatar c-avatar--status">
-      <img class="c-user__image" src="{{ imageLink + userData?.profileImage }}">
-  </a>
-  <div class="c-post__input">
-    <div class="form_group form__bottom--0">
-      <input class="form_input" type="text" [(ngModel)]="messageText" required (keyup.enter)="keyDownFunction(mediaId)">
-      <span class="form_highlight"></span>
-      <span class="form_bar"></span>
-      <label>Write a comment.... </label>
+<div *ngIf="commentsType === 'media-popup'">
+  <div class="media_comment_input media-c__popup fill_grey">
+    <ul class="msg_to_list list_style_none">
+        <li class="with_border_bottom">
+            <ul class="list-inline">
+                <li class="list-inline-item float_left">
+                    <figure class="avatar_media_user2">
+                        <img class="c-user__image" src="{{ imageLink + userData?.profileImage }}">
+                    </figure>
+                </li>
+                <li class="list-inline-item msg_to_input">
+                    <div class="form_group">
+                        <input class="form_input" type="text" [(ngModel)]="messageText" required (keyup.enter)="keyDownFunction(mediaId)">
+                        <span class="form_highlight"></span>
+                        <span class="form_bar"></span>
+                        <label>Write a comment.... </label>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+  </div>
+  <app-comment-list *ngFor="let comment of comments; let i = index" [commentData]="comment" (commentDelete)="onCommentDelete(comment, $event)" (commentEdited)="onCommentEdit(comment, $event)">></app-comment-list>
+</div>
+
+
+<div *ngIf="commentsType === 'media-list'">
+  <div class="c-post__comment with_border_top">
+    <a class="c-user__avatar c-avatar--status">
+        <img class="c-user__image" src="{{ imageLink + userData?.profileImage }}">
+    </a>
+    <div class="c-post__input">
+      <div class="form_group form__bottom--0">
+        <input class="form_input" type="text" [(ngModel)]="messageText" required (keyup.enter)="keyDownFunction(mediaId)">
+        <span class="form_highlight"></span>
+        <span class="form_bar"></span>
+        <label>Write a comment.... </label>
+      </div>
     </div>
   </div>
+  <app-comment-list *ngFor="let comment of comments; let i = index" [commentData]="comment" (commentDelete)="onCommentDelete(comment, $event)" (commentEdited)="onCommentEdit(comment, $event)">></app-comment-list>
 </div>

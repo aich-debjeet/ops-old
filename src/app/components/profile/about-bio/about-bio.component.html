@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-md-6">
           <div class="about_padding24">
-            <a (click)="openPopup()" class="about-edit" *ngIf="ownProfile">
+            <a (click)="openPopup()" class="about-edit cursor-pointer" *ngIf="ownProfile">
                 <span class="about-edit-ico">
                     <img src="http://d33wubrfki0l68.cloudfront.net/f59445fae5cd6afccbcb9f1f677a4383643bd1de/3ef81/img/svg/edit-red.svg" alt="">
                 </span>
@@ -98,7 +98,7 @@
   </div>
 </div>
 
-<app-modal [blocking]='false' modalId='bioEdit' *ngIf="ownProfile" (onClose)="isClosed($event)" [closeHidden]="false" size="tiny__form">
+<app-modal [blocking]='false' modalId='bioEdit' *ngIf="ownProfile" (onClose)="isClosed($event)" [closeHidden]="false" size="">
     <!-- edit bio pop -->
   <div id="edit_bio_pop" >
     <div id="">

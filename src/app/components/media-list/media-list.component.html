@@ -1,0 +1,29 @@
+<app-navigation></app-navigation>
+
+<section>
+    <div class="container o-my-media">
+        <!---  section  -->
+        <div class="row">
+            <div class="o-my-media__title">
+                <h2 class="ops_h1">My Media</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="o-my-media-tabs">
+                <div class="ops_tabs ">
+                    <div class="col-md-6 padding_none">
+                        <ul class="nav nav-tabs o-my-media__nav">
+                            <li class="list-line-item">
+                                <a [routerLink]="['recent']" routerLinkActive="o-my-media__active">Recent</a>
+                            </li>
+                            <li class="list-line-item">
+                                <a [routerLink]="['popular']" routerLinkActive="o-my-media__active">Popular</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>        
+    </div>
+</section>

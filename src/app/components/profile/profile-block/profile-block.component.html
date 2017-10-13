@@ -114,6 +114,7 @@
                     <ul class="nav nav-tabs">
                       <li><a [routerLink]="['channel']" routerLinkActive="active">Channel</a></li>
                       <li><a [routerLink]="['post']" routerLinkActive="active">Posts</a></li>
+                      <li *ngIf="isCurrentUser===true"><a [routerLink]="['spotfeed']" routerLinkActive="active">spotfeed</a></li>
                     </ul>
                     <div class="row pro_channel2">
                         <router-outlet></router-outlet>

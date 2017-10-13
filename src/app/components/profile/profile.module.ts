@@ -23,9 +23,11 @@ import { AboutImageComponent } from './about-image/about-image.component';
 import { AboutCoverComponent } from './about-cover/about-cover.component';
 
 import { ProfileHelper } from '../../helpers/profile.helper';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // Guard
 import { AuthGuard } from './../../guard/auth.guard';
+import { ProfileSpotfeedComponent } from './profile-spotfeed/profile-spotfeed.component';
 
 const childRoutes = [
   {
@@ -40,6 +42,7 @@ const childRoutes = [
       { path: '', component: ProfileChannelComponent },
       { path: 'channel', component: ProfileChannelComponent },
       { path: 'post', component: ProfilePostComponent },
+      { path: 'spotfeed', component: ProfileSpotfeedComponent }
     ]
   },
   {
@@ -80,7 +83,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     TextMaskModule,
-    ImageCropperModule
+    ImageCropperModule,
+    InfiniteScrollModule
   ],
   declarations: [
     ProfileComponent,
@@ -95,7 +99,8 @@ const routes: Routes = [
     AboutEducationComponent,
     AboutContactComponent,
     AboutImageComponent,
-    AboutCoverComponent
+    AboutCoverComponent,
+    ProfileSpotfeedComponent
   ]
 })
 export class ProfileModule { }

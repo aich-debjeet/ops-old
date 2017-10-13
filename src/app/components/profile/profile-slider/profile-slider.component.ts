@@ -18,6 +18,8 @@ import { ProfileActions } from '../../../actions/profile.action';
 import { AuthActions } from '../../../actions/auth.action';
 import { SharedActions } from '../../../actions/shared.action';
 
+import { ToastrService } from 'ngx-toastr';
+
 import { ProfileCard } from '../../../models/profile.model';
 
 // rx
@@ -54,7 +56,7 @@ export class ProfileSliderComponent implements OnInit {
   search: String;
   activateSubmitBtn = false;
   router: any;
-  isfollowing: boolean;
+  isFollowing: boolean;
   defaultImage: string;
   // profileObject: ProfileCard;
 
@@ -68,9 +70,10 @@ export class ProfileSliderComponent implements OnInit {
     public datepipe: DatePipe,
     private _router: Router,
     public tokenService: TokenService,
-    private profileStore: Store<ProfileModal>
+    private profileStore: Store<ProfileModal>,
+    private toastr: ToastrService
   ) {
-
+  document.body.scrollTop = 0;
     this.baseUrl = environment.API_IMAGE;
 
     this.tagState$ = this.profileStore.select('profileTags');
@@ -80,7 +83,9 @@ export class ProfileSliderComponent implements OnInit {
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
       if (this.profileObject) {
-        this.isfollowing = this.profileObject['isFollowing'];
+        // console.log(this.profileObject);
+        // console.log('this.profileObject');
+        this.isFollowing = this.profileObject['isFollowing'];
       }
     });
 
@@ -88,7 +93,7 @@ export class ProfileSliderComponent implements OnInit {
       this.findSkill = state;
     });
 
-    // this.isfollowing = this.userProfile['profile_other'].extra
+    // this.isFollowing = this.userProfile['profile_other'].extra
 
     this.buildEditForm();
 
@@ -102,12 +107,7 @@ export class ProfileSliderComponent implements OnInit {
   // }
 
   ngOnInit() {
-
-
-
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+    // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
   }
 
   modalInit() {
@@ -157,24 +157,43 @@ export class ProfileSliderComponent implements OnInit {
   isClosed(event) {
     this.changingImage = event;
   }
+  // /**
+  //  * Follow current Profile
+  //  * @param profile
+  //  */
+  // followUser(profile: any) {
+  //   const handle = profile.userDetails.handle;
+
+  //   this.isFollowing = !this.isFollowing;
+  //   console.log('FOLLOW', this.isFollowing);
+
+  //   if (this.isFollowing === false) {
+  //     console.log('FOLLOW', 'STOPPED', this.isFollowing);
+  //     this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
+  //   } else {
+  //     console.log('FOLLOW', 'STARTED', this.isFollowing);
+  //     this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle });
+  //   }
+  // }
+
   /**
-   * Follow current Profile
-   * @param profile
+   * Follow an artist
+   * @param user obj
    */
-  followUser(profile: any) {
-    const handle = profile.userDetails.handle;
+  followUser(user: any) {
+    // console.log(user);
+    this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.userDetails.handle });
+    this.isFollowing = true;
+  }
 
-    this.isfollowing = !this.isfollowing;
-    console.log('FOLLOW', this.isfollowing);
-
-    if (this.isfollowing === false) {
-      console.log('FOLLOW', 'STOPPED', this.isfollowing);
-      this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
-    } else {
-      console.log('FOLLOW', 'STARTED', this.isfollowing);
-      this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle });
-    }
-
+  /**
+   * Unfollow an artist
+   * @param user obj
+   */
+  unfollowUser(user: any) {
+    // console.log(user);
+    this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.userDetails.handle });
+    this.isFollowing = false;
   }
 
   /**
@@ -254,6 +273,7 @@ export class ProfileSliderComponent implements OnInit {
       }
 
       this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+      this.toastr.success('You profile has been updated successfully!');
       this.modalService.close('profileEditWindow');
     }
 
