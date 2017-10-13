@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -24,7 +25,8 @@ export class NotificationComponent implements OnInit {
   baseUrl: string;
 
   constructor(
-    private store: Store<Notification>
+    private store: Store<Notification>,
+    private router: Router
   ) {
 
     // image path
@@ -47,7 +49,7 @@ export class NotificationComponent implements OnInit {
       }
       if (typeof state['marking_as_read_response'] !== 'undefined') {
         // upadte notification as marked
-        // console.log('read: ' + this.notificationIds);
+        console.log('read: ' + this.notificationIds);
         this.updateNotifications();
       }
     });
@@ -57,16 +59,19 @@ export class NotificationComponent implements OnInit {
    * Updating notification read in UI
    */
   updateNotifications() {
-    for (let readNotifIndex = 0; readNotifIndex < this.notificationIds.length; readNotifIndex++) {
-      const readNotif = this.notificationIds[readNotifIndex];
-      // console.log('readNotif', readNotif);
-      // console.log('this.notifications', this.notifications);
-      for (let notifIndex = 0; notifIndex < this.notifications.length; notifIndex++) {
-        if (this.notifications[notifIndex].notificationId === this.notificationIds[readNotifIndex]) {
-          // console.log('mark read: ', this.notifications[notifIndex].notificationId);
-          this.notifications[notifIndex].isRead = true;
+    if (typeof this.notifications !== 'undefined'
+      && typeof this.notificationIds !== 'undefined'
+      && this.notifications.length > 0) {
+        for (let readNotifIndex = 0; readNotifIndex < this.notificationIds.length; readNotifIndex++) {
+          const readNotif = this.notificationIds[readNotifIndex];
+          // console.log('readNotif', readNotif);
+          for (let notifIndex = 0; notifIndex < this.notifications.length; notifIndex++) {
+            if (this.notifications[notifIndex].notificationId === this.notificationIds[readNotifIndex]) {
+              // console.log('mark read: ', this.notifications[notifIndex].notificationId);
+              this.notifications[notifIndex].isRead = true;
+            }
+          }
         }
-      }
     }
   }
 
@@ -78,19 +83,19 @@ export class NotificationComponent implements OnInit {
       switch (notif.notificationType) {
 
         case 'Media_Spot':
-          this.notifications[index]['message'] = notif.name + ' and ' + notif.spotCount + ' others spotted your post';
+          this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your post';
           break;
 
         case 'Media_Comments':
-          this.notifications[index]['message'] = notif.name + ' and ' + notif.commentsCount + ' others commented on your post';
+          this.notifications[index]['message'] = ' and ' + notif.commentsCount + ' others commented on your post';
           break;
 
         case 'Status_Spot':
-          this.notifications[index]['message'] = notif.name + ' and ' + notif.spotCount + ' others spotted your status';
+          this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your status';
           break;
 
         case 'Status_Comments':
-          this.notifications[index]['message'] = notif.name + ' and ' + notif.commentsCount + ' others commented on your status';
+          this.notifications[index]['message'] = ' and ' + notif.commentsCount + ' others commented on your status';
           break;
 
       }
@@ -99,24 +104,54 @@ export class NotificationComponent implements OnInit {
   }
 
   /**
+   * Open respective link
+   */
+  openLink(notifIndex: any, notificationId: string) {
+    const notifDetails = this.notifications[notifIndex];
+    console.log('notifDetails', notifDetails.notificationType);
+
+    // redirecting to the respective link
+    switch (notifDetails.notificationType) {
+
+      case 'Media_Spot':
+        this.router.navigate(['/user/status/list']);
+        break;
+
+      case 'Media_Comments':
+        this.router.navigate(['/user/status/list']);
+        break;
+
+      case 'Status_Spot':
+        this.router.navigate(['/user/status/list']);
+        break;
+
+      case 'Status_Comments':
+        this.router.navigate(['/user/status/list']);
+        break;
+
+    }
+
+  }
+
+  /**
    * Marking notification as read
    * @Param: notification id
    */
   markAsRead(notificationId: string) {
-    // console.log(notificationId);
     this.notificationIds = [notificationId];
-    this.dispatchReadNotifications([notificationId]);
+    console.log('this.notificationIds', this.notificationIds);
+    this.dispatchReadNotifications();
   }
 
   /**
    * Dispatch read notification
    * @Parmas: list of notification ids
    */
-  dispatchReadNotifications(notifList) {
+  dispatchReadNotifications() {
     this.store.dispatch({
       type: NotificationActions.MARK_AS_READ,
       payload: {
-        notificationList: notifList
+        notificationList: this.notificationIds
       }
     });
   }
@@ -126,16 +161,18 @@ export class NotificationComponent implements OnInit {
    */
   getAllNotificationIds(callback) {
     const data = [];
-    this.notifications.forEach((notif, index) => {
-      if (notif.isRead === false) {
-        data.push(notif.notificationId);
-      }
-      if (index === (this.notifications.length - 1)) {
-        this.notificationIds = data;
-        // console.log('collection this.notificationIds', this.notificationIds);
-        callback();
-      }
-    });
+    if (typeof this.notifications !== 'undefined') {
+      this.notifications.forEach((notif, index) => {
+        if (notif.isRead === false) {
+          data.push(notif.notificationId);
+        }
+        if (index === (this.notifications.length - 1)) {
+          this.notificationIds = data;
+          // console.log('collection this.notificationIds', this.notificationIds);
+          callback();
+        }
+      });
+    }
   }
 
   /**
@@ -145,11 +182,16 @@ export class NotificationComponent implements OnInit {
     const self = this;
     this.getAllNotificationIds(function() {
       // console.log('mark all read', self.notificationIds);
-      self.dispatchReadNotifications(self.notificationIds);
+      self.dispatchReadNotifications();
     });
-
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+
+    // on page load mark all notifications as read
+    setTimeout(() => {
+      this.markAllAsRead();
+    }, 1000);
+  }
 
 }

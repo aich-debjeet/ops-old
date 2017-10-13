@@ -19,13 +19,13 @@
                             </li>
                           </ul>
                       </li>
-                      <li class="with_border_bottom" *ngFor="let notification of notifications" [ngClass]="{'fill_grey': !notification.isRead}">
+                      <li class="with_border_bottom" *ngFor="let notification of notifications; let notifIndex = index;" [ngClass]="{'fill_grey': !notification.isRead}">
                           <ul class="list-inline">
                             <li class="list-inline-item float_left noti_avatar">
                               <img *ngIf="!notification.profileImage" src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
                               <img *ngIf="notification.profileImage" src="{{ baseUrl + notification.profileImage }}" class="img-responsive">
                             </li>
-                            <li class="list-inline-item noti_cont cursor-pointer" (click)="markAsRead(notification.notificationId)" >
+                            <li class="list-inline-item noti_cont cursor-pointer" (click)="openLink(notifIndex, notification.notificationId)" >
                                 <div class="head_msg_name">{{ notification.name }}</div>
                                 <div class="head_msg_short">{{ notification.message }}</div>
                                 <div class="noti_cont_footer">
