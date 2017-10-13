@@ -34,7 +34,7 @@ export class NotificationService {
    */
   getAllNotifications() {
     this.updateToken();
-    return this.api.get('/portal/network/notification/getAllNotification/0/20');
+    return this.api.get('/portal/network/notification/getAllNotification/1/50');
   }
 
   /**
