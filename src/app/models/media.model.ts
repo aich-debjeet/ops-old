@@ -11,6 +11,7 @@ export class Media {
   media_detail: any;
   media_comment?: any;
   channel_loading: boolean;
+  my_media?: any;
 }
 
 export const initialMedia: Media = {
