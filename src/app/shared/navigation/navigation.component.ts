@@ -1,9 +1,7 @@
 import { Component, Directive, OnInit, HostListener, Renderer, ElementRef, HostBinding } from '@angular/core';
 import { ModalService } from '../modal/modal.component.service';
 import { Store } from '@ngrx/store';
-
 import { ProfileModal, initialTag } from '../../models/profile.model';
-import { Notification } from './../../models/notification.model';
 
 // action
 import { ProfileActions } from '../../actions/profile.action';
@@ -28,12 +26,13 @@ export class NavigationComponent implements OnInit {
   showMenu: boolean;
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
-  userProfile = initialTag;
+  userProfile = initialTag ;
 
-  // notitfications array
+  /* ========================== notification ========================== */
   notificationsState$: Observable<Notification>;
   notificationIds: any[];
   notifications: any[];
+  /* ========================== notification ========================== */
 
   constructor(
     private store: Store<ProfileModal>,
@@ -42,28 +41,6 @@ export class NavigationComponent implements OnInit {
     private el: ElementRef,
     private renderer: Renderer
   ) {
-
-    // loading notifications
-    this.store.dispatch({
-      type: NotificationActions.LOAD_NOTIFICATIONS,
-      payload: null
-    });
-
-    this.notificationsState$ = this.store.select('notificationTags');
-
-    // observe the store value
-    this.notificationsState$.subscribe((state) => {
-      // console.log(state);
-      if (typeof state['recieved_notifications'] !== 'undefined') {
-        this.notifications = state['recieved_notifications'];
-        this.processNotifications();
-      }
-      if (typeof state['marking_as_read_response'] !== 'undefined') {
-        // upadte notification as marked
-        // console.log('read: ' + this.notificationIds);
-        this.updateNotifications();
-      }
-    });
 
     this.topNav = {
       status: { open: false },
@@ -82,22 +59,80 @@ export class NavigationComponent implements OnInit {
     });
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+
+    /* ========================== notification ========================== */
+    // loading notifications
+    this.notificationStore.dispatch({
+      type: NotificationActions.LOAD_NOTIFICATIONS,
+      payload: null
+    });
+
+    this.notificationsState$ = this.notificationStore.select('notificationTags');
+
+    // observe the store value
+    this.notificationsState$.subscribe((state) => {
+      // console.log(state);
+      if (typeof state['recieved_notifications'] !== 'undefined') {
+        this.notifications = state['recieved_notifications'];
+        this.processNotifications();
+      }
+      if (typeof state['marking_as_read_response'] !== 'undefined') {
+        // upadte notification as marked
+        console.log('read: ' + this.notificationIds);
+        this.updateNotifications();
+      }
+    });
+    /* ========================== notification ========================== */
+
   }
 
+  /**
+   * Add Media
+   */
+  addMedia() {
+    this.modalService.open('AddMedia');
+  }
+
+  /**
+   * Create channel
+   */
+  createChannel() {
+    this.modalService.open('CreateChannel');
+  }
+
+  /**
+   * Create a community
+   */
+  createCommunity() {
+    //
+  }
+
+  ngOnInit() {
+  }
+
+  toggleNav(name: string) {
+    return ;
+  }
+
+
+  /* =================================== notification =================================== */
   /**
    * Updating notification read in UI
    */
   updateNotifications() {
-    for (let readNotifIndex = 0; readNotifIndex < this.notificationIds.length; readNotifIndex++) {
-      const readNotif = this.notificationIds[readNotifIndex];
-      // console.log('readNotif', readNotif);
-      // console.log('this.notifications', this.notifications);
-      for (let notifIndex = 0; notifIndex < this.notifications.length; notifIndex++) {
-        if (this.notifications[notifIndex].notificationId === this.notificationIds[readNotifIndex]) {
-          // console.log('mark read: ', this.notifications[notifIndex].notificationId);
-          this.notifications[notifIndex].isRead = true;
+    if (typeof this.notifications !== 'undefined'
+      && typeof this.notificationIds !== 'undefined'
+      && this.notifications.length > 0) {
+        for (let readNotifIndex = 0; readNotifIndex < this.notificationIds.length; readNotifIndex++) {
+          const readNotif = this.notificationIds[readNotifIndex];
+          // console.log('readNotif', readNotif);
+          for (let notifIndex = 0; notifIndex < this.notifications.length; notifIndex++) {
+            if (this.notifications[notifIndex].notificationId === this.notificationIds[readNotifIndex]) {
+              // console.log('mark read: ', this.notifications[notifIndex].notificationId);
+              this.notifications[notifIndex].isRead = true;
+            }
+          }
         }
-      }
     }
   }
 
@@ -144,7 +179,7 @@ export class NavigationComponent implements OnInit {
    * @Parmas: list of notification ids
    */
   dispatchReadNotifications() {
-    this.store.dispatch({
+    this.notificationStore.dispatch({
       type: NotificationActions.MARK_AS_READ,
       payload: {
         notificationList: this.notificationIds
@@ -179,34 +214,8 @@ export class NavigationComponent implements OnInit {
       self.dispatchReadNotifications();
     });
   }
+  /* =================================== notification =================================== */
 
-  /**
-   * Add Media
-   */
-  addMedia() {
-    this.modalService.open('AddMedia');
-  }
 
-  /**
-   * Create channel
-   */
-  createChannel() {
-    this.modalService.open('CreateChannel');
-  }
-
-  /**
-   * Create a community
-   */
-  createCommunity() {
-    //
-  }
-
-  ngOnInit() {
-  }
-
-  toggleNav(name: string) {
-    return ;
-  }
 
 }
-

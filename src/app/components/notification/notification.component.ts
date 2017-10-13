@@ -156,7 +156,7 @@ export class NotificationComponent implements OnInit {
 
     // on page load mark all notifications as read
     setTimeout(() => {
-      this.markAllAsRead();
+      // this.markAllAsRead();
     }, 1000);
   }
 

@@ -562,7 +562,7 @@ app-modal.media__modal .ng-modal {
 
 .opsheader-notification {
     .dropdown-menu.messsage_dropdown {
-        height: 500px;
+        max-height: 500px;
         overflow-y: auto;
     }
 }
