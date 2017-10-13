@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { initialMedia, Media } from '../../models/media.model';
 import { MediaActions } from '../../actions/media.action';
 
+import { TruncatePipe } from '../../pipes/truncate.pipe';
+
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -35,7 +37,7 @@ export class PostCardComponent implements OnInit {
   constructor(
     private router: Router,
     private toastr: ToastrService,
-    private store: Store<Media>
+    private store: Store<Media>,
   ) {
     this.dotMenuState = false;
   }

@@ -17,6 +17,7 @@ export class CommentComponent implements OnInit {
   @Input() mediaId: string;
   @Input() mediaType: string;
   @Input() comments: any;
+  @Input() commentsType: string = 'media-list'; // media-list or media-popup
   userState$: Observable<Media>;
   mediaState$: Observable<Media>;
   mediaStore = initialMedia;

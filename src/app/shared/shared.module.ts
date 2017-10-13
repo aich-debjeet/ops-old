@@ -15,6 +15,7 @@ import { FooterComponent } from './footer/footer.component';
 import { PostCardComponent } from './post-card/post-card.component';
 import { ModalComponent } from './modal/modal.component';
 import { CountrySelectorComponent } from './country-selector/country-selector.component';
+import { TruncatePipe } from './../pipes/truncate.pipe';
 
 // import 'rxjs/add/operator/map';
 // import 'rxjs/add/operator/catch';
@@ -60,6 +61,7 @@ import { UserCardComponent } from './user-card/user-card.component';
     VgBufferingModule,
   ],
   declarations: [
+    TruncatePipe,
     ModalComponent,
     AuthRightBlockComponent,
     AppButtonComponent,

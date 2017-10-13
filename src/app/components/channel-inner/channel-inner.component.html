@@ -18,7 +18,7 @@
               <span *ngIf="!(tagState$ | async).channel_detail?.accessSeetings.access" class="public_channel">Public Channel</span>
               <span *ngIf="(tagState$ | async).channel_detail?.accessSeetings.access" class="public_channel">Private Channel</span>
                 <ul class="list-inline pro_nav_icon">
-                    <li class="list-line-item">
+                    <!--<li class="list-line-item">
                         <a (click)="pinEditFormPopup()"  aria-expanded="true">
                             <img src="/assets/img/svg/ico_options.svg">
                         </a>
@@ -27,7 +27,8 @@
                                 <a href="#">Pin to Quick acess</a>
                             </li>
                         </ul>
-                    </li>
+                    </li>-->
+                    
                     <li *ngIf="(tagState$ | async).channel_detail?.isOwner" class="list-line-item">
                       <a [routerLink]="['', { outlets: { media : ['channel', (tagState$ | async).channel_detail?.channelId, 'edit' ] } } ]">
                         <img src="/assets/img/svg/ico_edit.svg">

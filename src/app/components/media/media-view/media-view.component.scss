@@ -24,6 +24,8 @@
         margin: 0px;
         padding: 0px;
         width: 375px;
+        height: 575px;
+        overflow-y: scroll;
     }
 }
 
@@ -124,11 +126,16 @@
     }
 }
 
+// .media_comments_section {
+//     width: 100%;
+//     float: left;
+//     height: 218px;
+//     overflow-y: scroll;
+// }
 .media_comments_section {
-    width: 100%;
-    float: left;
-    height: 218px;
-    overflow-y: scroll;
+  width: 100%;
+  float: left; // height: 203px;
+  // overflow-y: scroll;
 }
 
 .media_img_comments {
@@ -214,6 +221,7 @@
     img {
         max-width: 100%;
         max-height: 575px;
+        margin: auto;
     }
     video {
         width: 100%;
@@ -580,4 +588,14 @@ li.list-inline-item a {
 
 .btn-tag {
   margin-right: 4px;
+}
+
+.read-more-link{
+    float: right;
+    span{
+        color: #ff7b84;
+        font-size: 12px;
+        text-decoration: underline;
+        cursor: pointer;
+    }
 }
