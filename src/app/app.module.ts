@@ -61,6 +61,7 @@ import { NotificationService } from './services/notification.service';
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
 import { ProfileModule } from './components/profile/profile.module';
+import { SearchModule } from './components/search/search.module';
 import { TabComponents  } from './shared/tabs/tabset';
 
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
@@ -73,7 +74,7 @@ import { OpportunityComponent } from './components/opportunity/opportunity.compo
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
 import { EventsComponent } from './components/events/events.component';
-import { SearchComponent } from './components/search/search.component';
+// import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
@@ -116,7 +117,7 @@ import { ProjectComponent } from './components/project/project.component';
     JobsComponent,
     JobDetailsComponent,
     EventsComponent,
-    SearchComponent,
+    // SearchComponent,
     SettingsComponent,
     PopularArtistsComponent,
     NearestEventsComponent,
@@ -166,6 +167,7 @@ import { ProjectComponent } from './components/project/project.component';
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
+    SearchModule
   ],
   providers: [
     AuthService,
