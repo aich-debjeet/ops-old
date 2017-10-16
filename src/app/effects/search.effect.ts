@@ -14,7 +14,7 @@ import { SearchService } from '../services/search.service';
 export class SearchEffect {
 
   @Effect()
-  notifications$ = this.actions$
+  userSearch$ = this.actions$
     .ofType(SearchActions.SEARCH_PEOPLE)
     .map(toPayload)
     .switchMap((payload) => this.apiService.getPeople(payload)
