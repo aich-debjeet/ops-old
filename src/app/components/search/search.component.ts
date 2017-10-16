@@ -9,6 +9,8 @@ import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCanc
 export class SearchComponent implements OnInit {
 
   previousUrl: string;
+  activeTab = 'tab-all';
+  showSearchPLaceholder = true;
 
   constructor(router: Router) {
 
@@ -19,7 +21,7 @@ export class SearchComponent implements OnInit {
       // console.log('prev:', this.previousUrl);
     });
 
-    router.navigate(['search/people']);
+    // router.navigate(['search/people']);
 
   }
 
@@ -28,6 +30,28 @@ export class SearchComponent implements OnInit {
 
   searchAction(searchQuery:  string) {
     console.log('searchQuery', searchQuery);
+  }
+
+  /**
+   * Search input on focus
+   */
+  searchOnFocus() {
+    this.showSearchPLaceholder = false;
+  }
+
+  /**
+   * Search input on blur
+   */
+  searchOnBlur() {
+    this.showSearchPLaceholder = true;
+  }
+
+  /**
+   * Select tab
+   * @param tab id: string
+   */
+  selectTab(tabId: string) {
+    this.activeTab = tabId;
   }
 
 }

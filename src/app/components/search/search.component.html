@@ -7,22 +7,50 @@
             <div class="col-md-6 col-md-offset-3 search_top_input">
                 <form action="" >
                     <div class="form_group">
-                        <input class="form_input" type="text" [(ngModel)]="searchQuery" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchAction($event)" >
-                        <label>Search</label>
+                        <input (blur)="searchOnBlur()" (focus)="searchOnFocus()" class="form_input" type="text" [(ngModel)]="searchQuery" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchAction($event)" >
+                        <label id="search-placeholder" *ngIf="showSearchPLaceholder" >Search</label>
                         <p class="search_top_icon"><img src="assets/img/svg/ico_search.svg"></p>
                     </div>
                 </form>
             </div>
             <div class="col-md-12 home_tabs">
-                <ul class="nav nav-tabs">
+                <!-- <ul class="nav nav-tabs">
                     <li><a [routerLink]="['all']" aria-expanded="true" >All</a></li>
                     <li><a [routerLink]="['post']" aria-expanded="true">Post</a></li>
                     <li><a [routerLink]="['channel']" aria-expanded="false">Channel</a></li>
                     <li><a [routerLink]="['spotfeed']" aria-expanded="false">Spotfeed</a></li>-
-                    <li><a [routerLink]="['people']" aria-expanded="false">people</a></li>-
-                    <li><a [routerLink]="['community']" aria-expanded="false">community</a></li>
+                    <li><a [routerLink]="['people']" aria-expanded="false">People</a></li>-
+                    <li><a [routerLink]="['community']" aria-expanded="false">Community</a></li>
                 </ul>
-                <router-outlet></router-outlet>
+                <router-outlet></router-outlet> -->
+                <ul class="nav nav-tabs">
+                    <li><a (click)="selectTab('tab-all')" >All</a></li>
+                    <li><a (click)="selectTab('tab-post')" >Post</a></li>
+                    <li><a (click)="selectTab('tab-channel')" >Channel</a></li>
+                    <li><a (click)="selectTab('tab-spotfeed')" >Spotfeed</a></li>
+                    <li><a (click)="selectTab('tab-people')" >People</a></li>
+                    <li><a (click)="selectTab('tab-community')" >Community</a></li>
+                </ul>
+                <div class="tabs-container">
+                    <div *ngIf="activeTab == 'tab-all'" id="tab-all" class="tabs">
+                        All
+                    </div>
+                    <div *ngIf="activeTab == 'tab-post'" id="tab-post" class="tabs">
+                        Post
+                    </div>
+                    <div *ngIf="activeTab == 'tab-channel'" id="tab-channel" class="tabs">
+                        Channel
+                    </div>
+                    <div *ngIf="activeTab == 'tab-spotfeed'" id="tab-spotfeed" class="tabs">
+                        Spotfeed
+                    </div>
+                    <div *ngIf="activeTab == 'tab-people'" id="tab-people" class="tabs">
+                        People
+                    </div>
+                    <div *ngIf="activeTab == 'tab-community'" id="tab-community" class="tabs">
+                        Community
+                    </div>
+                </div>
             </div>
         </div>
     </div>
