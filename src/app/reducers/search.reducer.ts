@@ -3,7 +3,8 @@ import { ActionReducer, Action } from '@ngrx/store';
 import { SearchModel } from '../models/search.model';
 import { SearchActions } from '../actions/search.action';
 
-export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
+export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
+  console.log('reducer action', type);
 
   switch (type) {
 
