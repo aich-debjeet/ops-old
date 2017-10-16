@@ -1,13 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-
-import { SearchActions } from './../../../actions/search.action';
-import { SearchModel } from './../../../models/search.model';
-
-// rx
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-
-import { Store } from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-search-all',
@@ -16,42 +7,9 @@ import { Store } from '@ngrx/store';
 })
 export class SearchAllComponent implements OnInit {
 
-  @Input() searchQuery;
-  searchState$: Observable<SearchModel>;
-
-  constructor(
-    private store: Store<SearchModel>
-  ) {
-
-    this.searchState$ = this.store.select('searchTags');
-
-    // observe the store value
-    this.searchState$.subscribe((state) => {
-      console.log(state);
-      // if (typeof state[''] !== 'undefined') {
-      // }
-    });
-
-    console.log('Search query: ', this.searchQuery);
-  }
+  constructor() { }
 
   ngOnInit() {
-
-    // get all users
-    this.store.dispatch({
-      type: SearchActions.SEARCH_PEOPLE,
-      payload: null
-    });
-
-  }
-
-  searchUser() {
-    if (typeof this.searchQuery !== 'undefined' && this.searchQuery.length > 2) {
-      this.store.dispatch({
-        type: SearchActions.SEARCH_PEOPLE,
-        payload: this.searchQuery
-      });
-    }
   }
 
 }
