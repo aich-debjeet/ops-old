@@ -15,12 +15,12 @@
             </div>
             <div class="col-md-12 home_tabs">
                 <ul class="nav nav-tabs">
-                    <li><a data-toggle="tab" [routerLink]="['all']" aria-expanded="true" >All</a></li>
-                    <li><a data-toggle="tab" [routerLink]="['post']" aria-expanded="true">Post</a></li>
-                    <li><a data-toggle="tab" [routerLink]="['channel']" aria-expanded="false">Channel</a></li>
-                    <li><a data-toggle="tab" [routerLink]="['spotfeed']" aria-expanded="false">Spotfeed</a></li>-
-                    <li><a data-toggle="tab" [routerLink]="['people']" aria-expanded="false">people</a></li>-
-                    <li><a data-toggle="tab" [routerLink]="['community']" aria-expanded="false">community</a></li>
+                    <li><a [routerLink]="['all']" aria-expanded="true" >All</a></li>
+                    <li><a [routerLink]="['post']" aria-expanded="true">Post</a></li>
+                    <li><a [routerLink]="['channel']" aria-expanded="false">Channel</a></li>
+                    <li><a [routerLink]="['spotfeed']" aria-expanded="false">Spotfeed</a></li>-
+                    <li><a [routerLink]="['people']" aria-expanded="false">people</a></li>-
+                    <li><a [routerLink]="['community']" aria-expanded="false">community</a></li>
                 </ul>
                 <router-outlet></router-outlet>
             </div>
