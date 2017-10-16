@@ -18,71 +18,15 @@ export class MessageService {
     private http: Http
     ) { }
 
-    // getCombinedMessages() {
-    //     const headers = this.tokenService.getAuthHeader();
-    //     console.log('getting combined messages');
-    //     return this.http.get(this.apiLink + '/portal/message/combined/sent/received', { headers: headers })
-    //     .map((data: Response) => data.json());
-    // }
-    // getAllSentMessages(value) {
-    //     const headers = this.tokenService.getAuthHeader();
-    //     console.log(value + ' is the handle ');
-    //     return this.http.get(this.apiLink + '/portal/message/sent/' + value, { headers: headers })
-    //     .map((data: Response) => data.json());
-    // }
-    // getAllReceivedMessages(value) {
-    //     const headers = this.tokenService.getAuthHeader();
-    //     console.log(value + ' is the handle ');
-    //     console.log('getting all receivd messages')
-    //     return this.http.get(this.apiLink + '/portal/message/received/' + value, { headers: headers })
-    //     .map((data: Response) => data.json());
-
-    // }
-    getReceipientDetails (value: string) {
-        return this.http.get(this.apiLink + '/portal/searchprofiles/1/' + value + '/0/5')
-        .map((data: Response) => data.json());
-    }
     getUserProfileDetails(value: any) {
         const headers = this.tokenService.getAuthHeader();
         return this.http.get(this.apiLink + '/portal/profile/' + value, { headers: headers })
         .map((response: Response) => response.json())
     }
 
-    getUserProfileByHandles(handles: any) {
-        // console.log(handles)
-        console.log('In service');
-        const reqBody = { listData: handles };
-        console.log(reqBody)
-        const headers = this.tokenService.getAuthHeader();
-        return this.http.post(this.apiLink + '/portal/auth/handleDisplayData', reqBody, { headers: headers })
-            .map((response: Response) => response.json())
-    }
     getNonUserProfileDetails(handle: any) {
         const headers = this.tokenService.getAuthHeader();
         return this.http.get(this.apiLink + '/portal/profile/' + handle, { headers: headers })
         .map((response: Response) => response.json())
     }
-
-    getSearchedNonUserProfileDetails(handle: any) {
-        const headers = this.tokenService.getAuthHeader();
-        return this.http.get(this.apiLink + '/portal/profile/' + handle, { headers: headers })
-        .map((response: Response) => response.json())
-    }
-
-    markMessagesRead(value: any) {
-        const headers = this.tokenService.getAuthHeader();
-        return this.http.put(this.apiLink + '/portal/message/markListRead', value, { headers: headers })
-        .map((res: Response) => res.json())
-    }
-    sendMessage(value) {
-        const headers = this.tokenService.getAuthHeader();
-        console.log(value)
-        return this.http.post(this.apiLink + '/portal/message', value, { headers: headers })
-        .map((response: Response) => response.json())
-      }
-      getConversationDetails(handle: any) {
-        const headers = this.tokenService.getAuthHeader();
-        return this.http.get(this.apiLink + '/portal/message/conversation/' + handle, { headers: headers })
-        .map((response: Response) => response.json())
-      }
 }

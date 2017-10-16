@@ -1,75 +1,83 @@
 <header class="opsheader">
     <nav class="navbar navbar-default navbar-fixed-top">
-       <div class="container">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
              <span class="sr-only">Toggle navigation</span>
              <span class="icon-bar"></span>
              <span class="icon-bar"></span>
              <span class="icon-bar"></span>
              </button>
-             <a class="navbar-brand" routerLink="/home"><img src="/assets/img/ops_icon.png"></a>
-          </div>
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-             <ul class="nav navbar-nav">
-                <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
-                <li><a routerLink="/explore" routerLinkActive="active">Explore</a></li>
-                <li><a routerLink="/opportunity" routerLinkActive="active">Opportunity</a></li>
-                <li><a routerLink="/events" routerLinkActive="active">Event</a></li>
-                <li><a routerLink="/learn" routerLinkActive="active">Learn</a></li>
-                <li><a routerLink="/resources" routerLinkActive="active">Resource</a></li>
-                <li><a routerLink="/communities" routerLinkActive="active">Community</a></li>
-             </ul>
-             <ul class="nav navbar-nav navbar-right nav_right">
-                <li><a [routerLink]="['', { outlets: { media : ['post'] } } ]"><img src="/assets/img/svg/ico_create-post.svg"></a></li>
-                <li appDropdown>
-                  <a class="drop-down-value" appDropdownOpen>
-                    <img src="/assets/img/svg/ico_add.svg">
-                  </a>
-                  <ul class="dropdown-menu create_drop" >
-                    <li><a [routerLink]="['', { outlets: { media : ['channel', 'add'] } } ]">Create Channel</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a (click)="createCommunity()" >Create Community</a></li>
-                  </ul>
-                </li>
-                <li><a (click)="toggleNav('search')"><img src="/assets/img/svg/ico_search.svg"></a></li>
-                <li><a (click)="toggleNav('notification')"><img src="/assets/img/svg/ico_notification.svg"></a></li>
-                <li><a href="javascript:void(0)" ><img src="/assets/img/svg/ico_message.svg"></a></li>
-                <li class="dropdown opsheader-paddingt6" appDropdown>
-                  <a class="dropdown-toggle opsheader-lineheight30" appDropdownOpen>
-                    <img src="{{ baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle"> <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu" [ngClass]="{'open': this.topNav['profile'].open }">
-                      <li>
-                         <ul class="list-inline head_drop_thumb">
-                            <li class="list-inline-item">
-                              <img src="{{ baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
+                <a class="navbar-brand" routerLink="/home"><img src="/assets/img/ops_icon.png"></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+                    <li><a routerLink="/explore" routerLinkActive="active">Explore</a></li>
+                    <li><a routerLink="/opportunity" routerLinkActive="active">Opportunity</a></li>
+                    <li><a routerLink="/events" routerLinkActive="active">Event</a></li>
+                    <li><a routerLink="/learn" routerLinkActive="active">Learn</a></li>
+                    <li><a routerLink="/resources" routerLinkActive="active">Resource</a></li>
+                    <li><a routerLink="/communities" routerLinkActive="active">Community</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right nav_right">
+                    <li>
+                        <a [routerLink]="['', { outlets: { media : ['post'] } } ]"><img src="/assets/img/svg/ico_create-post.svg"></a>
+                    </li>
+                    <li appDropdown>
+                        <a class="drop-down-value" appDropdownOpen>
+                            <img src="/assets/img/svg/ico_add.svg">
+                        </a>
+                        <ul class="dropdown-menu create_drop">
+                            <li><a [routerLink]="['', { outlets: { media : ['channel', 'add'] } } ]">Create Channel</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a (click)="createCommunity()">Create Community</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a (click)="toggleNav('search')"><img src="/assets/img/svg/ico_search.svg"></a>
+                    </li>
+                    <li>
+                        <a (click)="toggleNav('notification')"><img src="/assets/img/svg/ico_notification.svg"></a>
+                    </li>
+                    <li>
+                        <a routerLink="/message" routerLinkActive="active"><img src="/assets/img/svg/ico_message.svg"></a>
+                    </li>
+                    <li class="dropdown opsheader-paddingt6" appDropdown>
+                        <a class="dropdown-toggle opsheader-lineheight30" appDropdownOpen>
+                            <img src="{{ baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle"> <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" [ngClass]="{'open': this.topNav['profile'].open }">
+                            <li>
+                                <ul class="list-inline head_drop_thumb">
+                                    <li class="list-inline-item">
+                                        <img src="{{ baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <h4 routerLink="/profile">{{ userProfile.profileUser?.name }} </h4>
+                                        <p>@{{ userProfile.profileUser?.username }}</p>
+                                    </li>
+                                </ul>
                             </li>
-                            <li class="list-inline-item">
-                              <h4 routerLink="/profile">{{ userProfile.profileUser?.name }} </h4>
-                              <p>@{{ userProfile.profileUser?.username }}</p>
-                            </li>
-                         </ul>
-                      </li>
-                      <li role="separator" class="divider"></li>
-                      <li><a routerLink="/organisation">Organization</a></li>
-                      <li><a routerLink="/user/settings">Settings</a></li>
-                      <li role="separator" class="divider"></li>
-                      <li><a routerLink="/about">About One Page Spotlight</a></li>
-                      <li role="separator" class="divider"></li>
-                      <li><a routerLink="/logout">Sign out</a></li>
-                   </ul>
-                </li>
-             </ul>
-          </div>
-          <!-- button dropdown -->
-          <!-- /.navbar-collapse -->
-       </div>
-       <!-- /.container-fluid -->
+                            <li role="separator" class="divider"></li>
+                            <li><a routerLink="/organisation">Organization</a></li>
+                            <li><a routerLink="/user/settings">Settings</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a routerLink="/about">About One Page Spotlight</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a routerLink="/logout">Sign out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- button dropdown -->
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
     </nav>
 </header>
 <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='CreateChannel' class="media__modal" size="large">
-  <app-create-channel></app-create-channel>
+    <app-create-channel></app-create-channel>
 </app-modal>
