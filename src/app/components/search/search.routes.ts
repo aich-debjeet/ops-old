@@ -12,12 +12,12 @@ import { SearchCommunityComponent } from './search-community/search-community.co
 export const SearchRoutes = [
   { path: '', component: SearchComponent ,
   children: [
-  { path: 'search_all', component: SearchAllComponent },
-  { path: 'search_channel', component: SearchChannelComponent },
-  { path: 'search_community', component: SearchCommunityComponent },
-  { path: 'search_people', component: SearchPeopleComponent },
-  { path: 'search_post', component: SearchPostComponent },
-  { path: 'search_spotfeed', component: SearchSpotfeedComponent }
+  { path: 'all', component: SearchAllComponent },
+  { path: 'channel', component: SearchChannelComponent },
+  { path: 'community', component: SearchCommunityComponent },
+  { path: 'people', component: SearchPeopleComponent },
+  { path: 'post', component: SearchPostComponent },
+  { path: 'spotfeed', component: SearchSpotfeedComponent }
   ]
  }
 ]
