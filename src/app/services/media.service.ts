@@ -105,6 +105,14 @@ export class MediaService {
   }
 
   /**
+   * Media post delete
+   */
+  mediaPostDelete(id: string) {
+    return this.api.del( `/portal/cdn/media/delete/${id}`);
+
+  }
+
+  /**
    * Pagination Helper
    */
   pagination(page: number = 1, perPage: number = 20) {
@@ -117,6 +125,14 @@ export class MediaService {
   getUserMedia(handle: string, page: number = 1) {
     const params = handle + this.pagination(page);
     return this.api.get('/portal/cdn/media/otherProfile/', params);
+  }
+
+  /**
+   * Load my status
+   * @param body
+   */
+  getMyMedia(body: any) {
+    return this.api.put( '/portal/cdn/myMedia', body);
   }
 
 }

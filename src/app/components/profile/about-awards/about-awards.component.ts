@@ -12,6 +12,8 @@ import { DatePipe } from '@angular/common';
 import { ProfileActions } from '../../../actions/profile.action';
 import { SharedActions } from '../../../actions/shared.action';
 
+import { ToastrService } from 'ngx-toastr';
+
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -38,7 +40,8 @@ export class AboutAwardsComponent implements OnInit {
     public modalService: ModalService,
     private fb: FormBuilder,
     private datepipe: DatePipe,
-    private profileStore: Store<ProfileModal>
+    private profileStore: Store<ProfileModal>,
+    private toastr: ToastrService
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
     // this.test = 'salabeel';
@@ -104,6 +107,7 @@ export class AboutAwardsComponent implements OnInit {
           'access': 0
         }
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
+        this.toastr.success('New award has been added successfully!');
         this.modalService.close('addAwardPopup');
       } else {
         const body = {
@@ -115,6 +119,7 @@ export class AboutAwardsComponent implements OnInit {
           'id': value.id,
         }
         this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
+        this.toastr.success('Your award has been updated successfully!');
         this.modalService.close('addAwardPopup');
       }
     }

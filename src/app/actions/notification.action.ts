@@ -1,0 +1,13 @@
+import { Action } from '@ngrx/store';
+
+export class NotificationActions {
+
+  static LOAD_NOTIFICATIONS = 'LOAD_NOTIFICATIONS';
+  static LOAD_NOTIFICATIONS_SUCCESS = 'LOAD_NOTIFICATIONS_SUCCESS';
+  static LOAD_NOTIFICATIONS_FAILED = 'LOAD_NOTIFICATIONS_FAILED';
+
+  static MARK_AS_READ = 'MARK_AS_READ';
+  static MARK_AS_READ_SUCCESS = 'MARK_AS_READ_SUCCESS';
+  static MARK_AS_READ_FAILED = 'MARK_AS_READ_FAILED';
+
+}

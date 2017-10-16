@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import {ActivatedRoute} from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -18,6 +18,9 @@ import { SharedActions } from '../../actions/shared.action';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
+import { AngularMasonry, MasonryOptions } from 'angular2-masonry';
+
+
 @Component({
   selector: 'app-channel-inner',
   templateUrl: './channel-inner.component.html',
@@ -25,6 +28,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./channel-inner.component.scss']
 })
 export class ChannelInnerComponent implements OnInit {
+  @ViewChild(AngularMasonry) masonry: AngularMasonry;
   tagState$: Observable<Media>;
   userState$: Observable<Media>;
   private tagStateSubscription: Subscription;
@@ -33,6 +37,7 @@ export class ChannelInnerComponent implements OnInit {
   channelId: string;
   imageLink: string = environment.API_IMAGE;
   pageLoading: boolean;
+
   constructor(
     private http: Http,
     private _store: Store<Media>,
@@ -47,6 +52,7 @@ export class ChannelInnerComponent implements OnInit {
       this.userState$ = this._store.select('profileTags');
       this.tagState$.subscribe((state) => {
         this.channel = state;
+        console.log(this.channel);
         this.pageLoading = this.channel.channel_loading;
       });
       this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
@@ -89,7 +95,19 @@ export class ChannelInnerComponent implements OnInit {
   mediaOpenPopup(id) {
     this._store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id});
     this._store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
-    // this.modalService.open('mediaPopup');
+  }
+
+  /**
+   * Delete Post
+   */
+  deletePost(media) {
+    const posts = this.channel.channel_detail['media']
+    const index: number = posts.indexOf(media);
+    if (index !== -1) {
+      posts.splice(index, 1);
+      const id = media.id;
+      this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+    }
   }
 
   /**

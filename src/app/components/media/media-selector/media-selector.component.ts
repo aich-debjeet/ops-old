@@ -227,7 +227,7 @@ export class MediaSelectorComponent implements OnInit {
     for (let nowFile of this.uploadedFiles) {
       if (nowFile) {
         // Build Media Object
-        const mediaItem = this.formatMedia( nowFile, formData, chosenChannel, userHandle);
+        const mediaItem = this.formatMedia( nowFile, formData, chosenChannel, userHandle, formValue.privacy);
         const media = [ mediaItem ];
         multipleMedias.push(mediaItem);
       }
@@ -273,6 +273,7 @@ export class MediaSelectorComponent implements OnInit {
    * Media Info Update
    */
   mediaInfoUpdate(formValue: any) {
+    console.log('formVlaue', formValue);
     const mediaType = this.getFileType(this.editingFile.fileName);
     const postTime = this.currentTime();
     const isUploadReady = this.uploadMeta();
@@ -288,7 +289,7 @@ export class MediaSelectorComponent implements OnInit {
       const chosenFile = this.editingFile;
 
       // Build Media Object
-      const mediaItem = this.formatMedia( chosenFile, formData, chosenChannel, userHandle);
+      const mediaItem = this.formatMedia( chosenFile, formData, chosenChannel, userHandle, formValue.privacy);
       const media = [ mediaItem ];
 
       // Action!!
@@ -321,7 +322,7 @@ export class MediaSelectorComponent implements OnInit {
       channelId: channelId,
       req: { media: req }
     };
-
+    console.log('req body', req);
     this.profileStore.dispatch({ type: ProfileActions.POST_CHANNEL_MEDIA, payload: payload })
   }
 
@@ -335,7 +336,7 @@ export class MediaSelectorComponent implements OnInit {
     if ( this.channelForm.valid === true ) {
       const channelObj = {
         name: value.title,
-        access: value.privacy,
+        access: Number(value.privacy),
         description: value.desc,
         superType: 'channel',
         accessSettings : { access : accessVal },
@@ -500,7 +501,7 @@ export class MediaSelectorComponent implements OnInit {
   /**
    * Format Media
    */
-  formatMedia(file: any, formValue: any, channel: any, handle: string) {
+  formatMedia(file: any, formValue: any, channel: any, handle: string, privacy: string) {
     const mediaType = this.getFileType(file.fileName);
     const postTime = this.currentTime();
     const isUploadReady = this.uploadMeta();
@@ -521,6 +522,9 @@ export class MediaSelectorComponent implements OnInit {
       createdDate: postTime,
       lastUpdatedDate: postTime,
       tags : tags,
+      // extras: {
+      //   access: Number(privacy)
+      // },
       count : {
         likes: [], shares: [], spots: [],
         channel: channel.spotfeedId

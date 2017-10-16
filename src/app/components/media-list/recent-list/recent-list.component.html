@@ -1,0 +1,25 @@
+<div class="col-md-6">
+  <div class="filter-block">
+      <a (click)="filter('image')"><span class="post-icons"><img src="/assets/img/svg/ico-image-black.svg"></span></a>
+      <a (click)="filter('video')"><span class="post-icons"><img src="/assets/img/svg/ico-play-gray.svg"></span></a>
+      <a (click)="filter('audio')"><span class="post-icons"><img src="/assets/img/svg/ico-audio-black.svg"></span></a>
+  </div>
+</div>
+<div class="tab-content">
+  <div id="recent" class="">
+    <div class="col-md-12">
+        <div class="row" 
+        infiniteScroll
+		    [infiniteScrollDistance]="2"
+		    [infiniteScrollThrottle]="10"
+		    (scrolled)="onScroll($event)">
+            <!-- image column -->
+            <masonry  [useImagesLoaded]="true">
+                <masonry-brick class="col-md-3" *ngFor="let media of channel.my_media; let i = index">
+                    <app-post-card  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)" [mediaData]="media"></app-post-card>
+                </masonry-brick>
+            </masonry>
+        </div>
+    </div>
+  </div>
+</div>

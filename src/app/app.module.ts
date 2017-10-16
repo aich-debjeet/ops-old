@@ -11,10 +11,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ImageCropperModule } from 'ng2-img-cropper/index';
 import { ToastrModule } from 'ngx-toastr';
 
+
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
 import { UniquePipe } from './pipes/unique.pipe';
 import { SearchNamePipe } from './pipes/name.pipe';
+import { TruncatePipe } from './pipes/truncate.pipe';
 // Guard
 import { AuthGuard } from './guard/auth.guard';
 
@@ -43,6 +45,7 @@ import { MediaEffect } from './effects/media.effect';
 import { SharedEffect } from './effects/shared.effect';
 import { ProfileEffect } from './effects/profile.effect';
 import { MessageEffect } from './effects/message.effects';
+import { NotificationEffect } from './effects/notification.effect';
 import { UserSearchEffect } from './effects/user-search.effect';
 
 
@@ -56,6 +59,7 @@ import { GeneralService } from './services/api.service';
 import { ModalService } from './shared/modal/modal.component.service';
 import { HomeService } from './services/home.service';
 import { MessageService } from './services/message.service';
+import { NotificationService } from './services/notification.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
@@ -97,6 +101,9 @@ import { ResourceComponent } from './components/resource/resource.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { CommunitiesComponent } from './components/communities/communities.component';
 import { StatusListComponent } from './components/status-list/status-list.component';
+import { PlannerComponent } from './components/planner/planner.component';
+import { NetworkComponent } from './components/network/network.component';
+import { ProjectComponent } from './components/project/project.component';
 
 @NgModule({
   declarations: [
@@ -130,7 +137,10 @@ import { StatusListComponent } from './components/status-list/status-list.compon
     OrderByPipe,
     UniquePipe,
     SearchNamePipe,
-    StatusListComponent
+    StatusListComponent,
+    PlannerComponent,
+    NetworkComponent,
+    ProjectComponent
   ],
   imports: [
     SharedModule,
@@ -151,6 +161,7 @@ import { StatusListComponent } from './components/status-list/status-list.compon
     EffectsModule.run(SharedEffect),
     EffectsModule.run(ProfileEffect),
     EffectsModule.run(MessageEffect),
+    EffectsModule.run(NotificationEffect),
     EffectsModule.run(UserSearchEffect),
     EffectsModule.run(MediaEffect),
     // Video
@@ -158,10 +169,18 @@ import { StatusListComponent } from './components/status-list/status-list.compon
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
-    VgBufferingModule
+    VgBufferingModule,
   ],
   providers: [
-    AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService, ModalService, HomeService, MessageService
+    AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService, ModalService, HomeService, MessageService,
+    AuthGuard,
+    GeneralService,
+    ApiService,
+    TokenService,
+    MediaService,
+    ModalService,
+    HomeService,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })

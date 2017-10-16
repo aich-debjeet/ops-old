@@ -12,6 +12,8 @@ import { FormValidation, ProfileUpdateValidator } from '../../../helpers/form.va
 import { ProfileActions } from '../../../actions/profile.action';
 import { SharedActions } from '../../../actions/shared.action';
 
+import { ToastrService } from 'ngx-toastr';
+
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -37,7 +39,8 @@ export class AboutBioComponent implements OnInit {
     private _fb: FormBuilder,
     private _utils: ProfileHelper,
     private profileUpdateValidator: ProfileUpdateValidator,
-    private _store: Store<ProfileModal>
+    private _store: Store<ProfileModal>,
+    private toastr: ToastrService
   ) {
     this.tagState$ = this._store.select('profileTags');
 
@@ -109,6 +112,7 @@ export class AboutBioComponent implements OnInit {
       }
 
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+      this.toastr.success('Your profile has been updated successfully!');
       this._modalService.close('bioEdit');
   }
 
@@ -120,7 +124,7 @@ export class AboutBioComponent implements OnInit {
   bioFormIinit() {
     this.bioForm = this._fb.group({
       'about_me': '',
-      'gender' : ['F' , [Validators.required]],
+      'gender' : ['M' , [Validators.required]],
       'address_one' : '',
       'address_two' : '',
       'city' : '',

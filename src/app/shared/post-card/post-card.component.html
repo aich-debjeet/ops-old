@@ -18,14 +18,25 @@
       <div class="col-md-12 col-sm-12 pro_channel_cont">
         <div class="pro_channel_name">
           <h3 class="feed-heading float-left">{{ mediaData?.title}}</h3>
-          <span class="c-menu__dot" (click)="dotMenuOpen()">
-            <img class="float-right" src="/assets/img/svg/ico_options.svg">
-            <div class="c-menu__open" *ngIf="dotMenuState">
-              <a (click)="deleteMedia(mediaData)">Delete</a>
-            </div>
-          </span>
+
+
+          <div *ngIf="mediaData?.isOwner" class="dropdown c-postion__right" appDropdown>   
+            <span class="com-head" appDropdownOpen>
+              <img src="/assets/img/svg/ico_options.svg" class="c-card__options drop-postion__icon c-opsdropdown--icons">
+            </span>
+            <ul class="dropdown-menu drop-postion__right">
+               <li>
+                <a class="c-opsdropdown__list" (click)="onContentDelete($event)">
+                  <img src="http://d33wubrfki0l68.cloudfront.net/b3dd9a5fe04c6921b6c04fd3d4647f713a92b32c/a4a4a/img/svg/ico_delete.svg" class="c-opsdropdown--icons">
+                  <span class="c-opsdropdown--text">Delete</span>
+                </a>
+               </li>
+            </ul>
+          </div>
+
+
         </div>
-        <div class="ops_subheading extra-padding" *ngIf="mediaData?.mtype!='status'">{{ mediaData?.description }} </div>
+        <div class="ops_subheading extra-padding" *ngIf="mediaData?.mtype!='status'">{{ mediaData?.description | truncate:[70, '...'] }} </div>
         <div class="pro_channel-thumb">
             <img [src]="userImage">
             <a routerLink="{{ '/profile/u/' + mediaData?.ownerUserName }}">
@@ -35,10 +46,10 @@
         </div>
         <div class="status_block" *ngIf="mediaData?.mtype==='status'">
           <div class="status_container">
-              {{ mediaData?.description }}
+              <!--{{ mediaData?.description | slice:0:6}}-->
           </div>
         </div>
-        <div class="pro_channel_count">
+        <div class="pro_channel_count pro_channel__footer">
           <span (click)="spotMedia(mediaData?.id)">
               <img *ngIf="following === false" src="/assets/img/svg/ico_lik.svg">
               <img *ngIf="following === true" src="http://d33wubrfki0l68.cloudfront.net/8d58c78cd26eb1d103bb24ec6c1d786a0964b8b4/63aa4/img/svg/ico_spot.svg" width="14px">
