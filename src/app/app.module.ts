@@ -15,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
 import { UniquePipe } from './pipes/unique.pipe';
+import { SearchNamePipe } from './pipes/name.pipe';
 import { TruncatePipe } from './pipes/truncate.pipe';
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -46,6 +47,8 @@ import { ProfileEffect } from './effects/profile.effect';
 import { MessageEffect } from './effects/message.effects';
 import { NotificationEffect } from './effects/notification.effect';
 import { UserSearchEffect } from './effects/user-search.effect';
+import { SearchEffect } from './effects/search.effect';
+
 
 // Services
 import { ServicesModule } from './services/services.module';
@@ -56,11 +59,14 @@ import { MediaService } from './services/media.service';
 import { GeneralService } from './services/api.service';
 import { ModalService } from './shared/modal/modal.component.service';
 import { HomeService } from './services/home.service';
+import { MessageService } from './services/message.service';
 import { NotificationService } from './services/notification.service';
+import { SearchService } from './services/search.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
 import { ProfileModule } from './components/profile/profile.module';
+import { SearchModule } from './components/search/search.module';
 import { TabComponents  } from './shared/tabs/tabset';
 
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
@@ -73,7 +79,7 @@ import { OpportunityComponent } from './components/opportunity/opportunity.compo
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
 import { EventsComponent } from './components/events/events.component';
-import { SearchComponent } from './components/search/search.component';
+// import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
@@ -86,6 +92,7 @@ import { NearestEventsComponent } from './shared/nearest-events/nearest-events.c
 import { OpportunitiesComponent } from './shared/opportunities/opportunities.component';
 
 import { MediaComponent } from './components/media/media.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // Vide Player
 import { VgCoreModule } from 'videogular2/core';
@@ -101,6 +108,7 @@ import { StatusListComponent } from './components/status-list/status-list.compon
 import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
+import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 
 @NgModule({
   declarations: [
@@ -116,7 +124,7 @@ import { ProjectComponent } from './components/project/project.component';
     JobsComponent,
     JobDetailsComponent,
     EventsComponent,
-    SearchComponent,
+    // SearchComponent,
     SettingsComponent,
     PopularArtistsComponent,
     NearestEventsComponent,
@@ -133,10 +141,12 @@ import { ProjectComponent } from './components/project/project.component';
     CommunitiesComponent,
     OrderByPipe,
     UniquePipe,
+    SearchNamePipe,
     StatusListComponent,
     PlannerComponent,
     NetworkComponent,
-    ProjectComponent
+    ProjectComponent,
+    DirectoryListComponent
   ],
   imports: [
     SharedModule,
@@ -148,6 +158,7 @@ import { ProjectComponent } from './components/project/project.component';
     ServicesModule,
     HttpModule,
     MasonryModule,
+    InfiniteScrollModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
     ToastrModule.forRoot(), // ToastrModule added
@@ -160,15 +171,17 @@ import { ProjectComponent } from './components/project/project.component';
     EffectsModule.run(NotificationEffect),
     EffectsModule.run(UserSearchEffect),
     EffectsModule.run(MediaEffect),
+    EffectsModule.run(SearchEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
+    SearchModule
   ],
   providers: [
-    AuthService,
+    AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService, ModalService, HomeService, MessageService,
     AuthGuard,
     GeneralService,
     ApiService,
@@ -176,7 +189,8 @@ import { ProjectComponent } from './components/project/project.component';
     MediaService,
     ModalService,
     HomeService,
-    NotificationService
+    NotificationService,
+    SearchService
   ],
   bootstrap: [AppComponent]
 })

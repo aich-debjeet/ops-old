@@ -347,8 +347,8 @@ export class ProfileService {
   /**
    * Fetching individual spotfeeds data
    */
-  getSpotfeedDetails(handle: string) {
-    const params = handle + '/' + this.pagination(1);
+  getSpotfeedDetails(data: any) {
+    const params = `${data.handle}/${data.page_start}/${data.page_end}`;
     console.log('pagination: ' + params);
     return this.api.get('/portal/cdn/spotfeed/inner/', params);
   }
@@ -394,5 +394,12 @@ export class ProfileService {
    */
   getAllProfiles() {
     return this.api.get('/portal/profile/0/50', '');
+  }
+
+  /**
+   * Update Profile Object
+   */
+  loadDirectory(body: any) {
+    return this.api.put('/portal/searchprofiles', body);
   }
 }

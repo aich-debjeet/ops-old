@@ -1,6 +1,6 @@
 <!-- right home feed -->
   <div class="col-md-3 col-sm-3">
-    <div class="row">
+
       <!-- communities -->
       <div class="relative">
         <div class="panel-group">
@@ -9,20 +9,25 @@
                 Users to follow
                 <!--<span><a href="">See More</a></span>-->
             </div>
-            <div class="panel-body">
-              <ul class="userList">
-                  <li *ngFor="let profileItem of getProfileImage()" class="userListItem">
-                    <span *ngIf="profileItem.profileImage" class="userItem">
-                      <img *ngIf="profileItem.profileImage" class="userImage" [src]="'http://d206s58i653k1q.cloudfront.net/' + profileItem.profileImage" width="24px"/>
-                      <span *ngIf="!profileItem.profileImage" class="userImage userImage--holder"></span>
-                      <span class="userName">{{ profileItem.name?.displayName }}</span>
-                    </span>
-                  </li>
-              </ul>
+            <div class="panel-body r-body__heigth">
+            <ul class="user-list">
+                <li *ngFor="let profileItem of this.profiles" class="user-list__li">
+                    <a routerLink="/profile/u/{{ profileItem?.extra?.username }}">
+                        <div class="user-follow_img">
+                            <img *ngIf="profileItem.profileImage" class="userImage" [src]="'http://d206s58i653k1q.cloudfront.net/' + profileItem.profileImage" width="24px"/>
+                        </div>
+                        <div class="user-follow_text">
+                            <div class="user-follow_name">{{ profileItem?.name }}</div>
+                            <div class="user-follow_user">@{{ profileItem?.extra?.username }}</div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
             </div>
           </div>
         </div>
       </div>
+      <br>
       <div class="relative">
             <div class="coming_soon_txt">Coming Soon</div>
             <div class="panel-group">
@@ -149,6 +154,5 @@
             </div>
 
       </div>
-    </div>
   </div>
   <!-- //right home feed -->

@@ -1,7 +1,7 @@
 <div class="{{className}} c-card">
     <!-- card body -->
     <div class="c-card__body" [ngClass]="{ 'open': showEdit }"  >
-      <a class="c-channel__heading" [routerLink]="['/channel', channelData?.spotfeedId]" >{{channelData?.spotfeedName}}</a>
+      <a class="c-channel__heading" [routerLink]="['/channel', channelData?.spotfeedId]" >{{channelData?.spotfeedName | truncate:[19, '...'] }}</a>
         <div appDropdown *ngIf="currentUser">
           <a class="dropdown-toggle" appDropdownOpen>
             <img src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg" alt="" class="c-card__options">

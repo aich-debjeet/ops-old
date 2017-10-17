@@ -49,7 +49,6 @@ export class ChannelComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.channelData);
     this.isfollowing = this.channelData.isFollowing || false;
     this.showEdit = false;
     this.ispin = this.channelData.isPinned || false;

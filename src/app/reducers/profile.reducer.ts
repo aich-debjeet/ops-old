@@ -62,6 +62,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS:
       return Object.assign({}, state, {
         success: true,
+        profileDetails: [],
         profile_loaded: false
       });
 
@@ -426,7 +427,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         profile_other: [],
         profile_other_loading: false,
-        profile_other_loaded: false
+        // profile_other_loaded: false
       });
 
     /**
@@ -498,12 +499,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         success: true,
         spotfeed_loading: false,
+        spotfeed_detail: []
       });
 
     case ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS:
+      const spotfeed = payload['SUCCESS'] || [];
       return Object.assign({}, state, {
         spotfeed_loading: true,
-        spotfeed_detail: payload
+        spotfeed_detail: spotfeed
       });
 
     case ProfileActions.GET_SPOTFEED_DETAILS_FAILED:
@@ -586,6 +589,26 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_ALL_PROFILES_FAILED:
       return Object.assign({}, state, {
         user_profiles_all_loaded: false
+      });
+
+    /**
+     * [TEMP] Load All directory
+     */
+    case ProfileActions.LOAD_DIRECTORY:
+      if (payload.offset === 0) {
+        return Object.assign({}, state, {
+          dir_list: []
+        });
+      }
+      return Object.assign({}, state, {
+        dir_list_loading: true,
+      });
+
+    case ProfileActions.LOAD_DIRECTORY_SUCCESS:
+      const dir_list = state.dir_list.concat(payload)
+      return Object.assign({}, state, {
+        dir_list_loading: false,
+        dir_list: dir_list
       });
 
     default:

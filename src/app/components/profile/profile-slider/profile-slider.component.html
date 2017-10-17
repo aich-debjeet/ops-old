@@ -24,7 +24,8 @@
           </div>
             <!-- profile img block end -->
             <div class="pro__name2">
-              <h2><a routerLink="/profile"> {{ profileObject?.name }} </a></h2>
+              <h2 *ngIf="isOtherProfile === false"><a routerLink="/profile"> {{ profileObject?.name }} </a></h2>
+              <h2 *ngIf="isOtherProfile === true"><a routerLink="/profile/u/{{ profileObject?.userHandle }}"> {{ profileObject?.name }} </a></h2>
               <p>{{ '@' + profileObject?.userHandle }}</p>
               <div *ngIf="isOtherProfile === true">
                 <!-- <button type="button" class="btn btn-xs btn-primary btn-plus" (click)="followUser(profileObject)" [ngClass]="{ 'btn-follow': !isFollowing, 'btn-unfollow': isFollowing }">
