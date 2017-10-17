@@ -34,7 +34,7 @@ export class SearchService {
    */
   getPeople(query: string) {
     this.updateToken();
-    return this.api.get('/portal/searchprofiles/1/' + query + '/0/10');
+    return this.api.get('/portal/searchprofiles/1/' + query + '/0/100');
   }
 
 }

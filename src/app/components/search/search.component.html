@@ -1,14 +1,14 @@
 <div class="ops_search" id="search-popup">
-    <p class="search_close">
+    <!-- <p class="search_close">
         <a rouetrLink="/home"><img src="/assets/img/svg/ico_close.svg" alt=""></a>
-    </p>
+    </p> -->
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3 search_top_input">
                 <form action="" >
                     <div class="form_group">
-                        <input class="form_input" type="text" [value]="" [formControl]="searchQuery" >
-                        <!-- <label id="search-placeholder" *ngIf="showSearchPlaceholder" >Search</label> -->
+                        <input (focus)="searchOnFocus()" class="form_input" type="text" [value]="" [formControl]="searchQuery" >
+                        <label id="search-placeholder" *ngIf="showSearchPlaceholder" >Search</label>
                         <p class="search_top_icon">
                             <img *ngIf="!isLoading" src="/assets/img/svg/ico_search.svg">
                             <img *ngIf="isLoading" src="/assets/img/spinner.gif">
@@ -16,7 +16,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-12 home_tabs">
+            <div class="row">
 
                 <div class="people-wrapper col-md-12 ops_artist_follow">
 

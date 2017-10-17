@@ -85,16 +85,16 @@ export class SearchComponent implements OnInit {
    * Search input on focus
    */
   searchOnFocus() {
-    // this.showSearchPlaceholder = false;
+    this.showSearchPlaceholder = false;
   }
 
   /**
    * Search input on blur
    */
   searchOnBlur() {
-    // if (typeof this.searchQuery !== 'undefined' && this.searchQuery.length === 0) {
-    //   this.showSearchPlaceholder = true;
-    // }
+    if (typeof this.searchQuery !== 'undefined') {
+      this.showSearchPlaceholder = true;
+    }
   }
 
   /**
