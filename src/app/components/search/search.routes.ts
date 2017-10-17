@@ -10,14 +10,16 @@ import { SearchComponent } from './search.component'
 import { SearchCommunityComponent } from './search-community/search-community.component';
 
 export const SearchRoutes = [
-  { path: '', component: SearchComponent ,
-  children: [
-    { path: 'all', component: SearchAllComponent },
-    { path: 'channel', component: SearchChannelComponent },
-    { path: 'community', component: SearchCommunityComponent },
-    { path: 'people', component: SearchPeopleComponent },
-    { path: 'post', component: SearchPostComponent },
-    { path: 'spotfeed', component: SearchSpotfeedComponent }
-  ]
+ {
+    path: 'search',
+    component: SearchComponent,
+    children: [
+      { path: 'all', component: SearchAllComponent },
+      { path: 'channel', component: SearchChannelComponent },
+      { path: 'community', component: SearchCommunityComponent },
+      { path: 'people', component: SearchPeopleComponent },
+      { path: 'post', component: SearchPostComponent },
+      { path: 'spotfeed', component: SearchSpotfeedComponent }
+    ]
  }
 ]
