@@ -591,6 +591,26 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         user_profiles_all_loaded: false
       });
 
+    /**
+     * [TEMP] Load All directory
+     */
+    case ProfileActions.LOAD_DIRECTORY:
+      if (payload.offset === 0) {
+        return Object.assign({}, state, {
+          dir_list: []
+        });
+      }
+      return Object.assign({}, state, {
+        dir_list_loading: true,
+      });
+
+    case ProfileActions.LOAD_DIRECTORY_SUCCESS:
+      const dir_list = state.dir_list.concat(payload)
+      return Object.assign({}, state, {
+        dir_list_loading: false,
+        dir_list: dir_list
+      });
+
     default:
       return state;
   }

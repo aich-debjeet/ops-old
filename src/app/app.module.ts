@@ -105,6 +105,7 @@ import { StatusListComponent } from './components/status-list/status-list.compon
 import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
+import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 
 @NgModule({
   declarations: [
@@ -141,7 +142,8 @@ import { ProjectComponent } from './components/project/project.component';
     StatusListComponent,
     PlannerComponent,
     NetworkComponent,
-    ProjectComponent
+    ProjectComponent,
+    DirectoryListComponent
   ],
   imports: [
     SharedModule,

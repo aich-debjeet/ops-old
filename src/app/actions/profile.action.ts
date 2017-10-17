@@ -254,6 +254,12 @@ export class ProfileActions {
   static LOAD_ALL_PROFILES_SUCCESS = 'LOAD_ALL_PROFILES_SUCCESS';
   static LOAD_ALL_PROFILES_FAILED = 'LOAD_ALL_PROFILES_FAILED';
 
+
+  // [TEMP into move other directory] Load directory
+  static LOAD_DIRECTORY = 'LOAD_DIRECTORY';
+  static LOAD_DIRECTORY_SUCCESS = 'LOAD_DIRECTORY_SUCCESS';
+  static LOAD_DIRECTORY_FAILED = 'LOAD_DIRECTORY_FAILED';
+
   /**
    * Load Current user profile
    */
