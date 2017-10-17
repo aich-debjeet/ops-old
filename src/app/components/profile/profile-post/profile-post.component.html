@@ -10,8 +10,13 @@
   </div>
 </div>
 
-<div *ngIf="isEmpty" class="empty__state">
+<div *ngIf="posts.length < 1 && isOwner === true" class="empty__state">
   <h4>You have no medias</h4>
   <p>You have not added any posts, click below to create your first Post!</p>
   <a class="btn-add" [routerLink]="['', { outlets: { media : ['post', 'media'] } } ]">Post media</a>
 </div>
+
+<div *ngIf="posts.length < 1 && isOwner === false" class="empty__state">
+    <p>User does not have any posts!</p>
+</div>
+

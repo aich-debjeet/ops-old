@@ -50,12 +50,13 @@ export class AboutImageComponent implements OnInit {
     private _location: Location,
     private _store: Store<ProfileModal>
   ) {
-    // this.route.params.subscribe((params: Params) => {
-    //   console.log('route: ', params);
-    // });
+
+    this.tagState$ = this._store.select('profileTags');
+    this.tagState$.subscribe((state) => {
+      this.stateProfile = state;
+    });
 
     this.baseUrl = environment.API_IMAGE;
-    this.tagState$ = this._store.select('profileTags');
     this.changingImage = false;
 
     // Image Cropper Settings
@@ -71,17 +72,11 @@ export class AboutImageComponent implements OnInit {
   }
 
   ngOnInit() {
-    // if (typeof this.router.url !== 'undefined') {
-    //   console.log('url', this.router.url);
-    // }
-    this.tagState$.subscribe((state) => {
-      // console.log(state);
-      this.stateProfile = state;
-      if (typeof this.stateProfile.profileUser.profileImage !== 'undefined') {
-        console.log('profile image loaded');
+    this.tagState$
+      .first(profile => this.stateProfile.profileUser.profileImage)
+      .subscribe( data => {
         this.loadImage();
-      }
-    });
+      });
   }
 
   loadImage() {

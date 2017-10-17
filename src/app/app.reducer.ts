@@ -20,7 +20,7 @@ const reducers = {
   searchTags: SearchReducer,
   profileTags: ProfileReducer,
   userMediaTags: ProfileReducer,
-  sentMessagesTags: MessageReducer,
+  messageTags: MessageReducer,
   userSearchTags: UserSearchReducer,
   receivedMessagesTags: MessageReducer,
   notificationTags: NotificationReducer

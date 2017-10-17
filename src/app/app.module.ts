@@ -15,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
 import { UniquePipe } from './pipes/unique.pipe';
+import { SearchNamePipe } from './pipes/name.pipe';
 import { TruncatePipe } from './pipes/truncate.pipe';
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -48,6 +49,7 @@ import { NotificationEffect } from './effects/notification.effect';
 import { UserSearchEffect } from './effects/user-search.effect';
 import { SearchEffect } from './effects/search.effect';
 
+
 // Services
 import { ServicesModule } from './services/services.module';
 import { TokenService } from './helpers/token.service';
@@ -57,6 +59,7 @@ import { MediaService } from './services/media.service';
 import { GeneralService } from './services/api.service';
 import { ModalService } from './shared/modal/modal.component.service';
 import { HomeService } from './services/home.service';
+import { MessageService } from './services/message.service';
 import { NotificationService } from './services/notification.service';
 import { SearchService } from './services/search.service';
 
@@ -89,6 +92,7 @@ import { NearestEventsComponent } from './shared/nearest-events/nearest-events.c
 import { OpportunitiesComponent } from './shared/opportunities/opportunities.component';
 
 import { MediaComponent } from './components/media/media.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // Vide Player
 import { VgCoreModule } from 'videogular2/core';
@@ -136,6 +140,7 @@ import { ProjectComponent } from './components/project/project.component';
     CommunitiesComponent,
     OrderByPipe,
     UniquePipe,
+    SearchNamePipe,
     StatusListComponent,
     PlannerComponent,
     NetworkComponent,
@@ -151,6 +156,7 @@ import { ProjectComponent } from './components/project/project.component';
     ServicesModule,
     HttpModule,
     MasonryModule,
+    InfiniteScrollModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
     ToastrModule.forRoot(), // ToastrModule added
@@ -173,7 +179,7 @@ import { ProjectComponent } from './components/project/project.component';
     SearchModule
   ],
   providers: [
-    AuthService,
+    AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService, ModalService, HomeService, MessageService,
     AuthGuard,
     GeneralService,
     ApiService,

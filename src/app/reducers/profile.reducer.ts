@@ -62,6 +62,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS:
       return Object.assign({}, state, {
         success: true,
+        profileDetails: [],
         profile_loaded: false
       });
 
@@ -426,7 +427,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         profile_other: [],
         profile_other_loading: false,
-        profile_other_loaded: false
+        // profile_other_loaded: false
       });
 
     /**
@@ -498,12 +499,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         success: true,
         spotfeed_loading: false,
+        spotfeed_detail: []
       });
 
     case ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS:
+      const spotfeed = payload['SUCCESS'] || [];
       return Object.assign({}, state, {
         spotfeed_loading: true,
-        spotfeed_detail: payload
+        spotfeed_detail: spotfeed
       });
 
     case ProfileActions.GET_SPOTFEED_DETAILS_FAILED:
