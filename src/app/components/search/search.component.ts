@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit {
   activeTab = 'tab-all';
   showSearchPlaceholder = true;
   searchQuery = new FormControl();
-  users: any[];
+  artists: any[];
   isLoading = false;
 
   constructor(
@@ -58,11 +58,11 @@ export class SearchComponent implements OnInit {
     this.searchPeopleState$.subscribe((state) => {
       console.log('state', state);
       if (state && state.hasOwnProperty('search_people')) {
-        this.users = state.search_people;
+        this.artists = state.search_people;
       }
 
       if (state && state.hasOwnProperty('searching_people')) {
-        console.log('searching status', state.searching_people);
+        // console.log('searching status', state.searching_people);
         this.isLoading = state.searching_people;
       }
     });
@@ -71,7 +71,7 @@ export class SearchComponent implements OnInit {
       .debounceTime(200)
       .subscribe((value) => {
         if (value !== '') {
-          console.log('this.searchQuery', value);
+          // console.log('this.searchQuery', value);
           this.store.dispatch({
             type: SearchActions.SEARCH_PEOPLE,
             payload: value

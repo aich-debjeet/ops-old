@@ -20,17 +20,22 @@
 
                 <div class="people-wrapper col-md-12 ops_artist_follow">
 
-                    <div class="panel20 text-center" *ngFor="let user of users" >
+                    <div class="panel20 text-center" *ngFor="let artist of artists" >
                         <figure class="avatar_artist_follow">
-                            <img *ngIf="user.profileImage" src="{{ baseUrl + user.profileImage }}">
+                            <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist.profileImage }}">
+                            <ng-template #default_profile_image>
+                                <img src="/assets/img/avatar.jpg" class="c-artist__img">
+                            </ng-template>
                         </figure>
-                        <div class="ops_heading">{{ user.name }}</div>
-                        <p class="ops_heading12">@{{ user.extra.username }}</p>
-                        <button type="button" class="btn btn-xs btn-normal btn-follow">
+                        <div class="ops_heading">
+                            <a routerLink="{{ '/profile/u/' + artist.username }}" class="c-artist__name margin_t_16">{{ artist.name }}</a>
+                        </div>
+                        <p class="ops_heading12">@{{ artist.extra.username }}</p>
+                        <!-- <button type="button" class="btn btn-xs btn-normal btn-follow">
                             <span class="btn-label-follow">
                             <img src="https://d33wubrfki0l68.cloudfront.net/dad39c553de20299ab403e1e0d2dcbd6062911cc/62cff/img/svg/ico_plus_white.svg">
                             </span> FOLLOW
-                        </button>
+                        </button> -->
                     </div>
 
                 </div>
