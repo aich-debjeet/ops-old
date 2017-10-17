@@ -569,4 +569,9 @@ app-modal.media__modal .ng-modal {
 .caret{
     color: #333;
     cursor: pointer;
+    display: block;
+    float: right;
+    top: 11px;
+    height: 19px;
+    position: relative;
 }
