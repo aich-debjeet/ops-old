@@ -7,8 +7,9 @@
             <div class="col-md-6 col-md-offset-3 search_top_input">
                 <form action="" >
                     <div class="form_group">
-                        <input (blur)="searchOnBlur()" (focus)="searchOnFocus()" class="form_input" type="text" [(ngModel)]="searchQuery" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchAction($event)" >
-                        <label id="search-placeholder" *ngIf="showSearchPLaceholder" >Search</label>
+                        <!-- <input (blur)="searchOnBlur()" (focus)="searchOnFocus()" class="form_input" type="text" [(ngModel)]="searchQuery" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchAction($event)" > -->
+                        <!-- <label id="search-placeholder" *ngIf="showSearchPlaceholder" >Search</label> -->
+                        <input [(ngModel)]="searchQuery" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchAction($event)" class="Search" class="form_input" type="text">
                         <p class="search_top_icon"><img src="assets/img/svg/ico_search.svg"></p>
                     </div>
                 </form>

@@ -10,7 +10,7 @@ export class SearchComponent implements OnInit {
 
   previousUrl: string;
   activeTab = 'tab-all';
-  showSearchPLaceholder = true;
+  showSearchPlaceholder = true;
 
   constructor(router: Router) {
 
@@ -36,14 +36,14 @@ export class SearchComponent implements OnInit {
    * Search input on focus
    */
   searchOnFocus() {
-    this.showSearchPLaceholder = false;
+    this.showSearchPlaceholder = false;
   }
 
   /**
    * Search input on blur
    */
   searchOnBlur() {
-    this.showSearchPLaceholder = true;
+    this.showSearchPlaceholder = true;
   }
 
   /**
