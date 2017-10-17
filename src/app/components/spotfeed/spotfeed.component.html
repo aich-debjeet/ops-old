@@ -55,9 +55,11 @@
                                 <app-post-card  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)" [mediaData]="post"></app-post-card>
                             </masonry-brick>
                         </masonry>
-                        <!-- first column -->
-                        <div class="col-md-3" *ngFor="let post of spotfeedPosts" >
-                          <!--<app-post-card [mediaData]="post"></app-post-card>-->
+                    </div>
+
+                    <div class="col-md-12" *ngIf="spotfeedPosts && spotfeedPosts.length === 0">
+                        <div class="emptyState" >
+                            <h4 class="emptyState__heading empty-fields">There are no feed in the Spotfeed</h4>
                         </div>
                     </div>
                 </div>
