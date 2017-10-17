@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SearchAllComponent } from './search-all/search-all.component';
 import { SearchSpotfeedComponent } from './search-spotfeed/search-spotfeed.component';
@@ -16,6 +16,7 @@ import { SearchComponent } from './search.component';
 @NgModule({
   imports: [
     FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     RouterModule.forChild(routes),
   ],

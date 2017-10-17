@@ -42,7 +42,7 @@
         img {
             width: 32px;
             float: right;
-            margin-top: -48px;
+            margin-top: -75px;
         }
     }
     // ops tab
@@ -1116,3 +1116,40 @@ padding-right: 15px;
 ul.nav-tabs li a {
     cursor: pointer;
 }
+
+
+/* user search */
+.ops_artist_follow {
+    padding: 0 8px;
+}
+.ops_artist_follow .panel20 {
+    width: 216px;
+    height: auto;
+    float: left;
+    background: #fff;
+    border: 1px solid rgba(102, 45, 145, 0.1);
+    border-radius: 3px;
+    padding: 24px 32px;
+    margin: 0 10px;
+}
+.text-center {
+    text-align: center !important;
+}
+.avatar_artist_follow {
+    width: 57px;
+    height: 57px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 2.5;
+    border: 0.2px solid #f8f8f8;
+    background-color: #f8f8f8;
+    .avatar_artist_follow img {
+        width: 100%;
+    }
+}
+/* user search */
