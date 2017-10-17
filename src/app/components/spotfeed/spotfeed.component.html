@@ -4,14 +4,14 @@
         <!---  section  -->
         <div class="row">
             <div class="col-md-3">
-                <img src="{{ baseUrl + spotfeedDetails?.SUCCESS.spotfeedImage }}" class="img-responsive img-rounded img-thumbnail">
+                <img src="{{ baseUrl + spotfeedDetails?.spotfeedImage }}" class="img-responsive img-rounded img-thumbnail">
             </div>
             <div class="col-md-6">
-                <div class="ops_h1">{{ spotfeedDetails?.SUCCESS.spotfeedName }}</div>
+                <div class="ops_h1">{{ spotfeedDetails?.spotfeedName }}</div>
                 <div class="ops_heading2 spot_in_toptext">
-                    {{ spotfeedDetails?.SUCCESS.spotfeedDescription }}
+                    {{ spotfeedDetails?.spotfeedDescription }}
                 </div>
-                <a routerLink="{{ '/spotfeed/' + tag }}" class="btn btn-tag btn-sm" *ngFor="let tag of spotfeedDetails?.SUCCESS.spotfeedTags" >{{ tag }}</a>
+                <a routerLink="{{ '/spotfeed/' + tag }}" class="btn btn-tag btn-sm" *ngFor="let tag of spotfeedDetails?.spotfeedTags" >{{ tag }}</a>
             </div>
             <div class="col-md-3"></div>
         </div>
@@ -22,15 +22,15 @@
           </ul>
           <div class="col-md-12 ops_artist_follow myBlock">
             <!-- ---------- card ---------- -->
-            <div *ngIf="spotfeedDetails?.SUCCESS.spotfeedProfiles && spotfeedDetails?.SUCCESS.spotfeedProfiles.length > 0" >
+            <div *ngIf="spotfeedDetails?.spotfeedProfiles && spotfeedDetails?.spotfeedProfiles.length > 0" >
               <div class="row">
-                <div class="col-md-2 " *ngFor="let artist of spotfeedDetails?.SUCCESS.spotfeedProfiles" >
+                <div class="col-md-2 " *ngFor="let artist of spotfeedDetails?.spotfeedProfiles" >
                   <app-user-card [artist]="artist"></app-user-card>
                 </div>
               </div>
             </div>
             <!-- ---------- //card ---------- -->
-            <div class="emptyState" *ngIf="spotfeedDetails?.SUCCESS.spotfeedProfiles && spotfeedDetails?.SUCCESS.spotfeedProfiles.length === 0" >
+            <div class="emptyState" *ngIf="spotfeedDetails?.spotfeedProfiles && spotfeedDetails?.spotfeedProfiles.length === 0" >
                 <h4 class="emptyState__heading empty-fields">There are no profiles in the Spotfeed</h4>
             </div>
           </div>
@@ -49,15 +49,15 @@
             </ul>
             <div class="col-md-12">
                 <div class="row">
-                    <div *ngIf="spotfeedPosts && spotfeedPosts.length > 0" >
+                    <div *ngIf="spotfeedDetails?.spotfeedMedia && (spotfeedDetails?.spotfeedMedia)?.length > 0" >
                         <masonry [useImagesLoaded]="true">
-                            <masonry-brick class="col-md-3" *ngFor="let post of spotfeedPosts; let i = index">
+                            <masonry-brick class="col-md-3" *ngFor="let post of spotfeedDetails?.spotfeedMedia; let i = index">
                                 <app-post-card  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)" [mediaData]="post"></app-post-card>
                             </masonry-brick>
                         </masonry>
                     </div>
 
-                    <div class="col-md-12" *ngIf="spotfeedPosts && spotfeedPosts.length === 0">
+                    <div class="col-md-12" *ngIf="(spotfeedDetails?.spotfeedMedia)?.length == 0">
                         <div class="emptyState" >
                             <h4 class="emptyState__heading empty-fields">There are no feed in the Spotfeed</h4>
                         </div>

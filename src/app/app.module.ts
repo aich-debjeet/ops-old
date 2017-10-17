@@ -86,6 +86,7 @@ import { NearestEventsComponent } from './shared/nearest-events/nearest-events.c
 import { OpportunitiesComponent } from './shared/opportunities/opportunities.component';
 
 import { MediaComponent } from './components/media/media.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // Vide Player
 import { VgCoreModule } from 'videogular2/core';
@@ -148,6 +149,7 @@ import { ProjectComponent } from './components/project/project.component';
     ServicesModule,
     HttpModule,
     MasonryModule,
+    InfiniteScrollModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
     ToastrModule.forRoot(), // ToastrModule added

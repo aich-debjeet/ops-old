@@ -499,12 +499,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         success: true,
         spotfeed_loading: false,
+        spotfeed_detail: []
       });
 
     case ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS:
+      const spotfeed = payload['SUCCESS'] || [];
       return Object.assign({}, state, {
         spotfeed_loading: true,
-        spotfeed_detail: payload
+        spotfeed_detail: spotfeed
       });
 
     case ProfileActions.GET_SPOTFEED_DETAILS_FAILED:
