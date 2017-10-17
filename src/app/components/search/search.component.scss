@@ -11,7 +11,7 @@
     bottom: 0;
     left: 0;
     z-index: 1033;
-    overflow-y: auto;
+    overflow-y: scroll;
     .search_close {
       float: right;
       margin: 20px;
@@ -42,7 +42,7 @@
         img {
             width: 32px;
             float: right;
-            margin-top: -48px;
+            margin-top: -45px;
         }
     }
     // ops tab
@@ -336,13 +336,7 @@ padding-right: 15px;
     border: 1px solid rgba(102,45,145,0.1);
     border-radius: 3px;
     padding: 24px;
-    margin: 0 10px;
-    &:first-child {
-          margin: 0 5px 0 0;
-    }
-    &:last-child {
-          margin: 0 0 0 5px;
-    }
+    margin: 0 10px 10px 0;
     .ops_heading {
           margin-top: 8px;
           font-size: 14px;
@@ -1108,3 +1102,57 @@ padding-right: 15px;
 .channel-avatar-full img {
     width: 100%;
 }
+
+#search-placeholder {
+    top: 15px !important;
+}
+
+ul.nav-tabs li a {
+    cursor: pointer;
+}
+
+
+/* user search */
+.ops_artist_follow {
+    padding: 0 8px;
+}
+.ops_artist_follow .panel20 {
+    width: 216px;
+    height: auto;
+    float: left;
+    background: #fff;
+    border: 1px solid rgba(102, 45, 145, 0.1);
+    border-radius: 3px;
+    padding: 24px 32px;
+    margin: 0 10px 10px 0;
+}
+.text-center {
+    text-align: center !important;
+}
+.avatar_artist_follow {
+    width: 57px;
+    height: 57px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 2.5;
+    border: 0.2px solid #f8f8f8;
+    background-color: #f8f8f8;
+    .avatar_artist_follow img {
+        width: 100%;
+    }
+}
+.people-wrapper {
+    padding-bottom: 100px;
+}
+.artists-not-found {
+    text-align: center;
+    color: black;
+    padding-top: 50px;
+    font-size: 20px;
+}
+/* user search */

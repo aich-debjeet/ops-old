@@ -1,44 +1,97 @@
-<div class="reg_step3">
-  <div class="form_group">
-        <input class="form_input" type="text" [(ngModel)]="searchCardText" (focusout)="search()" >
-        <span class="form_highlight"></span>
-        <span class="form_bar"></span>
-        <label>Search</label>
+<div class="ops_search" id="search-popup">
+    <p class="search_close">
+        <a href="/home"><img src="/assets/img/svg/ico_close.svg" alt=""></a>
+    </p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 search_top_input">
+                <form action="" >
+                    <div class="form_group">
+                        <input (focus)="searchOnFocus()" class="form_input" type="text" [value]="" [formControl]="searchQuery" >
+                        <label id="search-placeholder" *ngIf="showSearchPlaceholder" >Search Artists</label>
+                        <p class="search_top_icon">
+                            <img *ngIf="!isLoading" src="/assets/img/svg/ico_search.svg">
+                            <img *ngIf="isLoading" src="/assets/img/spinner.gif">
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+
+                <div class="people-wrapper col-md-12 ops_artist_follow">
+                        
+                    <div *ngIf="artists && artists.length === 0; else artists_not_found;">
+                        <p class="artists-not-found">Artists not found!</p>
+                    </div>
+
+                    <template #artists_not_found>
+    
+                        <div *ngFor="let artist of artists" class="panel20 text-center" >
+                            <figure class="avatar_artist_follow">
+                                <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist.profileImage }}">
+                                <ng-template #default_profile_image>
+                                    <img src="/assets/img/avatar.jpg" class="c-artist__img">
+                                </ng-template>
+                            </figure>
+                            <div class="ops_heading">
+                                <a routerLink="{{ '/profile/u/' + artist.extra.username }}" class="c-artist__name margin_t_16">{{ artist.name }}</a>
+                            </div>
+                            <p class="ops_heading12">@{{ artist.extra.username }}</p>
+                            <!-- <button type="button" class="btn btn-xs btn-normal btn-follow">
+                                <span class="btn-label-follow">
+                                <img src="https://d33wubrfki0l68.cloudfront.net/dad39c553de20299ab403e1e0d2dcbd6062911cc/62cff/img/svg/ico_plus_white.svg">
+                                </span> FOLLOW
+                            </button> -->
+                        </div>
+                        
+                    </template>
+
+                </div>
+
+                <!-- with routes -->
+                <!-- <ul class="nav nav-tabs">
+                    <li><a [routerLink]="['all']" aria-expanded="true" >All</a></li>
+                    <li><a [routerLink]="['post']" aria-expanded="true">Post</a></li>
+                    <li><a [routerLink]="['channel']" aria-expanded="false">Channel</a></li>
+                    <li><a [routerLink]="['spotfeed']" aria-expanded="false">Spotfeed</a></li>-
+                    <li><a [routerLink]="['people']" aria-expanded="false">People</a></li>-
+                    <li><a [routerLink]="['community']" aria-expanded="false">Community</a></li>
+                </ul>
+                <router-outlet></router-outlet> -->
+                <!-- with routes -->
+
+                <!-- with childs -->
+                <!-- <ul class="nav nav-tabs">
+                    <li><a (click)="selectTab('tab-all')" >All</a></li>
+                    <li><a (click)="selectTab('tab-post')" >Post</a></li>
+                    <li><a (click)="selectTab('tab-channel')" >Channel</a></li>
+                    <li><a (click)="selectTab('tab-spotfeed')" >Spotfeed</a></li>
+                    <li><a (click)="selectTab('tab-people')" >People</a></li>
+                    <li><a (click)="selectTab('tab-community')" >Community</a></li>
+                </ul>
+                <div class="tabs-container">
+                    <div *ngIf="activeTab == 'tab-all'" id="tab-all" class="tabs">
+                        All
+                    </div>
+                    <div *ngIf="activeTab == 'tab-post'" id="tab-post" class="tabs">
+                        Post
+                    </div>
+                    <div *ngIf="activeTab == 'tab-channel'" id="tab-channel" class="tabs">
+                        Channel
+                    </div>
+                    <div *ngIf="activeTab == 'tab-spotfeed'" id="tab-spotfeed" class="tabs">
+                        Spotfeed
+                    </div>
+                    <div *ngIf="activeTab == 'tab-people'" id="tab-people" class="tabs">
+                        People
+                    </div>
+                    <div *ngIf="activeTab == 'tab-community'" id="tab-community" class="tabs">
+                        Community
+                    </div>
+                </div> -->
+                <!-- with childs -->
+
+            </div>
+        </div>
     </div>
 </div>
-
-<hr>
-
-        <div class="row prof_feed_container">
-          <ul id="tags">
-            <li *ngFor="let tag of searchTags">{{ tag.name }}</li>
-          </ul>
-        </div>
-
-<hr>
-<div class="col-md-12 col-sm-12 col-xs-12">
-            <ul id="tabs" class="search_tabs">
-                <li class="tab-link current" >Post</li>
-                <li class="tab-link" >Spotfeed</li>
-                <li class="tab-link" >People</li>
-                <li class="tab-link" >Collaborate</li>
-                <li class="tab-link" >Jobs</li>
-                <li class="tab-link" >Events</li>
-            </ul>
-        </div>
-
-<hr>
-<div class="row">
-  <div class="col-sm-3" *ngFor="let item of cards">
-    <div class="card">
-      <div class="card-block">
-        <h4 class="card-title">{{ item.title }}</h4>
-        <p class="card-text">{{ item.cardText }}</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-      <img class="card-img-bottom" src="{{ item.image }}" alt="Card image cap">
-    </div>
-  </div>
-</div>
-
-<hr>
