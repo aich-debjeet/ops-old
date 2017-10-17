@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { DatePipe } from '@angular/common';
 import { Store, Action } from '@ngrx/store';
@@ -15,6 +15,7 @@ import { environment } from '../../../../environments/environment';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'app-profile-post',
@@ -23,6 +24,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./profile-post.component.scss']
 })
 export class ProfilePostComponent implements OnInit {
+  componentDestroyed$: Subject<boolean> = new Subject();
 
   tagState$: Observable<ProfileModal>;
   mediaState$: Observable<Media>;
@@ -42,6 +44,7 @@ export class ProfilePostComponent implements OnInit {
   total_pages = 10;
   scrolling = 0;
   scrollingLoad = 8000;
+  isOwner: boolean;
 
   constructor(
     private http: Http,
@@ -58,25 +61,32 @@ export class ProfilePostComponent implements OnInit {
       this.userMedia = state;
        this.posts = this.userMedia.user_posts;
     });
+    // const timer = Rx.Observable.timer(5000);
 
-    this._store.select('profileTags').take(7).last().subscribe( data => {
-        if (this.userMedia.current_user_profile && this.userMedia.profile_other_loaded === true) {
-          const handle = this.userMedia.profile_other.handle;
-          this.postLoad(handle);
-        }else {
-          const handle = this.userMedia.profileDetails.handle;
-          this.postLoad(handle)
-        }
+    this._store.select('profileTags').take(8).last().subscribe( data => {
+        this.userType();
     });
+
+    this._store.select('profileTags')
+      .first(profile => profile['profile_other_loaded'] === true )
+      .subscribe( data => {
+         this.userType();
+      });
 
   }
 
   ngOnInit() {
+    this.userType()
+  }
+
+  userType() {
     if (this.userMedia.current_user_profile && this.userMedia.profile_other_loaded === true) {
       const handle = this.userMedia.profile_other.handle;
       this.postLoad(handle);
+      this.isOwner = false;
     }else {
       const handle = this.userMedia.profileDetails.handle;
+      this.isOwner = false;
       this.postLoad(handle)
     }
   }

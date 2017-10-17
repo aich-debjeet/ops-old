@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { DatePipe, Location } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -38,9 +38,9 @@ export class AboutCoverComponent implements OnInit {
   data: any;
   changingImage: boolean;
   cropperSettings: CropperSettings;
-  @ViewChild('coverImage') fileInput;
   baseUrl: string;
 
+  @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
   constructor(
     private _http: Http,
     private _modalService: ModalService,
@@ -56,10 +56,9 @@ export class AboutCoverComponent implements OnInit {
     this.baseUrl = environment.API_IMAGE;
 
     this.tagState$ = this._store.select('profileTags');
-    // this.tagState$.subscribe((state) => {
-    //   console.log(state);
-    //   this.stateProfile = state;
-    // });
+    this.tagState$.subscribe((state) => {
+      this.stateProfile = state;
+    });
 
     // Image Cropper Settings
     this.cropperSettings = new CropperSettings();
@@ -71,22 +70,35 @@ export class AboutCoverComponent implements OnInit {
     this.cropperSettings.canvasHeight = 300;
     this.cropperSettings.rounded = false;
     this.cropperSettings.fileType = 'image/png';
+    this.cropperSettings.noFileInput = true;
     this.data = {};
   }
 
   ngOnInit() {
-    this.tagState$.subscribe((state) => {
-      console.log(state);
-      this.stateProfile = state;
-      if (typeof this.stateProfile.profileUser.coverImage !== 'undefined') {
-        console.log('cover image loaded');
-        this.loadCoverImage();
-      }
+    this.tagState$
+    .first(profile => this.stateProfile.profileDetails.coverImage)
+    .subscribe( data => {
+      this.loadCoverImage();
+      this.stateProfile.cover_img_upload_success = false;
     });
   }
 
   isClosed(event: any) {
     this._location.back();
+  }
+
+  fileChangeListener($event) {
+      let image: any = new Image();
+      let file: File = $event.target.files[0];
+      let myReader: FileReader = new FileReader();
+      let that = this;
+      myReader.onloadend = function (loadEvent: any) {
+          image.src = loadEvent.target.result;
+          that.cropper.setImage(image);
+
+      };
+
+      myReader.readAsDataURL(file);
   }
 
    /**
@@ -111,15 +123,15 @@ export class AboutCoverComponent implements OnInit {
     const ctx = document.getElementsByTagName('canvas')[0].getContext('2d');
     const img = new Image();
     img.onload = function(){
-      // const imgHeight = img.height;
-      // const imgWidth = img.width;
-      // ctx.drawImage(img, 0, 0, self.cropperSettings.canvasHeight, self.cropperSettings.canvasWidth);
+      const imgHeight = 880;
+      const imgWidth = 300;
+      // ctx.drawImage(img, 0, 0, imgHeight, imgWidth);
       self.drawImageProp(ctx, this, 0, 0, self.cropperSettings.canvasWidth, self.cropperSettings.canvasHeight, 0.1, 0.5);
     };
 
     let coverImageURL;
-    if (typeof this.stateProfile.profileUser.coverImage !== 'undefined') {
-      coverImageURL = this.baseUrl + this.stateProfile.profileUser.coverImage;
+    if (typeof this.stateProfile.profileDetails.coverImage !== 'undefined') {
+      coverImageURL = this.baseUrl + this.stateProfile.profileDetails.coverImage;
     } else {
       coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
     }

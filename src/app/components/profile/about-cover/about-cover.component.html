@@ -8,14 +8,22 @@
             </span>
         </div>
         <div class="o-cover-upload__media">
-            <img-cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+            <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+            <div *ngIf="stateProfile?.cover_upload_loading">
+                <div class="sticky sticky__top">
+                    <div class="loader">Loading...</div>
+                </div>
+            </div>
+        </div>
+        <div class="o-cover-media__browse">
+            <div class="upload-btn-wrapper">
+                <button class="btn btn-network">Browse</button>
+                <input type="file" name="myfile" (change)="fileChangeListener($event)"/>
+            </div>
+            <!--<span class="text">Browse</span>
+            <input id="custom-input" type="file" (change)="fileChangeListener($event)">-->
         </div>
         <div class="o-cover-upload-footer">
-          <div *ngIf="stateProfile?.cover_upload_loading">
-            <div class="sticky sticky__top">
-              <div class="loader">Loading...</div>
-            </div>
-          </div>
             <p class="p_text" *ngIf="stateProfile.cover_img_upload_success">Successfully updated</p>
             <div class="o-cover-footer__btn">
                 <button type="button"  (click)="isClosed($event)" class="btn btn-network btn-sm text_uppercase">Cancel</button>

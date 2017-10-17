@@ -29,6 +29,7 @@ export class PostCardComponent implements OnInit {
   dotMenuState: boolean;
   following: boolean;
   followingCount: any;
+  mediaType: any;
 
   userImage: string;
 
@@ -50,6 +51,7 @@ export class PostCardComponent implements OnInit {
     }
     this.following = this.mediaData.isSpotted;
     this.followingCount = this.mediaData.spotsCount;
+    this.mediaType = this.mediaData.mtype;
   }
 
   /**
@@ -80,12 +82,16 @@ export class PostCardComponent implements OnInit {
    * @param mediaId
    */
   spotMedia(mediaId: string) {
+    const data = {
+      'mediaType': this.mediaType,
+      'id': mediaId
+    }
     if (this.following === false) {
       this.following = true;
       this.followingCount++;
-      this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: this.mediaData.id });
+      this.store.dispatch({ type: MediaActions.MEDIA_SPOT, payload: data });
     }else {
-      this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: this.mediaData.id });
+      this.store.dispatch({ type: MediaActions.MEDIA_UNSPOT, payload: data });
       this.following = false
       this.followingCount--;
     }
