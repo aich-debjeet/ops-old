@@ -17,6 +17,7 @@ import { Store } from '@ngrx/store';
 export class SearchPeopleComponent implements OnInit {
 
   searchState$: Observable<SearchModel>;
+  cards: any;
 
   constructor(
     private store: Store<SearchModel>
