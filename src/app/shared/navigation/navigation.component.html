@@ -1,118 +1,122 @@
 <header class="opsheader">
-  <nav class="navbar navbar-default navbar-fixed-top">
-     <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
            <span class="sr-only">Toggle navigation</span>
            <span class="icon-bar"></span>
            <span class="icon-bar"></span>
            <span class="icon-bar"></span>
            </button>
-           <a class="navbar-brand" routerLink="/home"><img src="/assets/img/ops_icon.png"></a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-           <ul class="nav navbar-nav">
-              <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
-              <li><a routerLink="/explore" routerLinkActive="active">Explore</a></li>
-              <li><a routerLink="/opportunity" routerLinkActive="active">Opportunity</a></li>
-              <li><a routerLink="/events" routerLinkActive="active">Event</a></li>
-              <li><a routerLink="/learn" routerLinkActive="active">Learn</a></li>
-              <li><a routerLink="/resources" routerLinkActive="active">Resource</a></li>
-              <li><a routerLink="/communities" routerLinkActive="active">Community</a></li>
-           </ul>
-           <ul class="nav navbar-nav navbar-right nav_right">
-              <li><a [routerLink]="['', { outlets: { media : ['post'] } } ]"><img src="/assets/img/svg/ico_create-post.svg"></a></li>
-              <li appDropdown>
-                <a class="drop-down-value" appDropdownOpen>
-                  <img src="/assets/img/svg/ico_add.svg">
-                </a>
-                <ul class="dropdown-menu create_drop" >
-                  <li><a [routerLink]="['', { outlets: { media : ['channel', 'add'] } } ]">Create Channel</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a (click)="createCommunity()" >Create Community</a></li>
+                <a class="navbar-brand" routerLink="/home"><img src="/assets/img/ops_icon.png"></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+                    <li><a routerLink="/explore" routerLinkActive="active">Explore</a></li>
+                    <li><a routerLink="/opportunity" routerLinkActive="active">Opportunity</a></li>
+                    <li><a routerLink="/events" routerLinkActive="active">Event</a></li>
+                    <li><a routerLink="/learn" routerLinkActive="active">Learn</a></li>
+                    <li><a routerLink="/resources" routerLinkActive="active">Resource</a></li>
+                    <li><a routerLink="/communities" routerLinkActive="active">Community</a></li>
                 </ul>
-              </li>
-              <!-- <li><a (click)="toggleNav('search')"><img src="/assets/img/svg/ico_search.svg"></a></li> -->
-              <li appDropdown class="opsheader-notification">
-                <a class="drop-down-value" appDropdownOpen>
-                  <img src="/assets/img/svg/ico_notification.svg">
-                </a>
-                <ul class="dropdown-menu messsage_dropdown">
-                  <li class="with_border_bottom">
-                    <ul class="list-inline head_drop_thumb">
-                      <li class="list-inline-item header_ym">
-                        <a routerLink="/notification">Your Notification</a>
-                      </li>
-                      <li class="list-inline-item pull-right header_compose">
-                        <a (click)="markAllAsRead()">Mark all as read</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="with_border_bottom" *ngFor="let notification of notifications" [ngClass]="{'fill_grey': !notification.isRead}">
-                    <ul class="list-inline">
-                      <li class="list-inline-item float_left noti_avatar">
-                        <img *ngIf="!notification.profileImage" src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
-                        <img *ngIf="notification.profileImage" src="{{ baseUrl + notification.profileImage }}" class="img-responsive">
-                      </li>
-                      <li class="list-inline-item noti_cont cursor-pointer" (click)="markAsRead(notification.notificationId)" >
-                          <div class="head_msg_name">{{ notification.name }}</div>
-                          <div class="head_msg_short">{{ notification.message }}</div>
-                          <div class="noti_cont_footer">
-                            <img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg" class="noti_cont_footer_img"><span>10:08 PM</span>
-                          </div>
-                      </li>
-                      <li class="list-inline-item noti_cont_time">
-                        <div class="msg_time">
-                            <img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="img-responsive">
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <ul class="list-inline head_drop_thumb text-center">
-                      <li class="list-inline-item">
-                        <a routerLink="/notification" class="msg_viewall">view all</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <!-- <li><a href="javascript:void(0)" ><img src="/assets/img/svg/ico_message.svg"></a></li> -->
-              <li class="dropdown opsheader-paddingt6" appDropdown>
-                <a class="dropdown-toggle opsheader-lineheight30" appDropdownOpen>
-                  <img src="{{ baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle"> <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" [ngClass]="{'open': this.topNav['profile'].open }">
+                <ul class="nav navbar-nav navbar-right nav_right">
                     <li>
-                       <ul class="list-inline head_drop_thumb">
-                          <li class="list-inline-item">
-                            <img src="{{ baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
-                          </li>
-                          <li class="list-inline-item">
-                            <h4 routerLink="/profile">{{ userProfile.profileUser?.name }} </h4>
-                            <p>@{{ userProfile.profileUser?.username }}</p>
-                          </li>
-                       </ul>
+                        <a [routerLink]="['', { outlets: { media : ['post'] } } ]"><img src="/assets/img/svg/ico_create-post.svg"></a>
                     </li>
-                    <li role="separator" class="divider"></li>
-                    <li><a routerLink="/organisation">Organization</a></li>
-                    <li><a routerLink="/user/settings">Settings</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a routerLink="/about">About One Page Spotlight</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a routerLink="/logout">Sign out</a></li>
-                 </ul>
-              </li>
-           </ul>
+                    <li appDropdown>
+                        <a class="drop-down-value" appDropdownOpen>
+                            <img src="/assets/img/svg/ico_add.svg">
+                        </a>
+                        <ul class="dropdown-menu create_drop">
+                            <li><a [routerLink]="['', { outlets: { media : ['channel', 'add'] } } ]">Create Channel</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a (click)="createCommunity()">Create Community</a></li>
+                        </ul>
+                    </li>
+                    <!-- <li><a (click)="toggleNav('search')"><img src="/assets/img/svg/ico_search.svg"></a></li> -->
+                    <li appDropdown class="opsheader-notification">
+                        <a class="drop-down-value" appDropdownOpen>
+                            <img src="/assets/img/svg/ico_notification.svg">
+                        </a>
+                        <ul class="dropdown-menu messsage_dropdown">
+                            <li class="with_border_bottom">
+                                <ul class="list-inline head_drop_thumb">
+                                    <li class="list-inline-item header_ym">
+                                        <a routerLink="/notification">Your Notification</a>
+                                    </li>
+                                    <li class="list-inline-item pull-right header_compose">
+                                        <a (click)="markAllAsRead()">Mark all as read</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="with_border_bottom" *ngFor="let notification of notifications" [ngClass]="{'fill_grey': !notification.isRead}">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item float_left noti_avatar">
+                                        <img *ngIf="!notification.profileImage" src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                        <img *ngIf="notification.profileImage" src="{{ baseUrl + notification.profileImage }}" class="img-responsive">
+                                    </li>
+                                    <li class="list-inline-item noti_cont cursor-pointer" (click)="markAsRead(notification.notificationId)">
+                                        <div class="head_msg_name">{{ notification.name }}</div>
+                                        <div class="head_msg_short">{{ notification.message }}</div>
+                                        <div class="noti_cont_footer">
+                                            <img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg" class="noti_cont_footer_img"><span>10:08 PM</span>
+                                        </div>
+                                    </li>
+                                    <li class="list-inline-item noti_cont_time">
+                                        <div class="msg_time">
+                                            <img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="img-responsive">
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <ul class="list-inline head_drop_thumb text-center">
+                                    <li class="list-inline-item">
+                                        <a routerLink="/notification" class="msg_viewall">view all</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a routerLink="/message" routerLinkActive="active"><img src="/assets/img/svg/ico_message.svg"></a>
+                    </li>
+                    <li class="dropdown opsheader-paddingt6" appDropdown>
+                        <a class="dropdown-toggle opsheader-lineheight30" appDropdownOpen>
+                            <img src="{{ baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle"> <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" [ngClass]="{'open': this.topNav['profile'].open }">
+                            <li>
+                                <ul class="list-inline head_drop_thumb">
+                                    <li class="list-inline-item">
+                                        <img src="{{ baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <h4 routerLink="/profile">{{ userProfile.profileUser?.name }} </h4>
+                                        <p>@{{ userProfile.profileUser?.username }}</p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a routerLink="/organisation">Organization</a></li>
+                            <li><a routerLink="/user/settings">Settings</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a routerLink="/about">About One Page Spotlight</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a routerLink="/logout">Sign out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- button dropdown -->
+            <!-- /.navbar-collapse -->
         </div>
-        <!-- button dropdown -->
-        <!-- /.navbar-collapse -->
-     </div>
-     <!-- /.container-fluid -->
-  </nav>
+        <!-- /.container-fluid -->
+    </nav>
 </header>
 <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='CreateChannel' class="media__modal" size="large">
-<app-create-channel></app-create-channel>
+    <app-create-channel></app-create-channel>
 </app-modal>
