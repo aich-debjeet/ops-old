@@ -132,6 +132,11 @@ export class MessageComponent implements OnInit, AfterViewChecked {
     })
   }
 
+  /**
+   * This method will get user profile details and also get all the user sent and receive messages
+   * @param handle
+ */
+
   initMessaging(handle: string) {
     if (!handle) {
       return false;
@@ -147,6 +152,11 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       });
     }, 10000);
   }
+
+  /**
+   *This method will take the merged messages and filter out all the handles of different users to get their user information
+   * @param mergedMessages
+ */
 
   fetchProfileByHandle(mergedMessages: any) {
     const headers = this.tokenService.getAuthHeader();
@@ -173,6 +183,11 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       }
     }
   }
+
+  /**
+   *This method will get all the user information according to handles and will filter out the latest message received w.r.t the user and will list out the user with their latest message on the left hand side.
+   * @param data
+ */
 
   orderProfileMessage(data: any) {
     if (!data) {
@@ -243,6 +258,12 @@ export class MessageComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  /**
+   *this method is usd to select the view and also to select a particular user to get all its conversation with the logged in user
+   * @param tab
+   * @param nonUserHandle
+ */
+
   toggleView(tab: any, nonUserHandle: any) {
       // toggle view
     this.selectedView = tab;
@@ -265,6 +286,11 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       }
     }
   }
+
+  /**
+   *
+   *  @param selectUser passing the selected user to mark all its messages read w.r.t the logged in user
+ */
 
   selectUserData(selectUser) {
     const headers = this.tokenService.getAuthHeader();
@@ -298,6 +324,10 @@ export class MessageComponent implements OnInit, AfterViewChecked {
     })
   }
 
+ /**
+   *this method will get the conversation between the logged in user and the selected user and will have conversation messages sorted with time
+ */
+
   sortedMessages() {
     if ( this.selectedUserHandle !== this.userHandle) {
       let sortedMessagesByTime = [];
@@ -312,6 +342,11 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       }, 10000);
     }
   }
+
+  /**
+   *
+   * @param value add messages to an ongoing conversation between two users
+ */
 
   addMessage(value: any) {
     const headers = this.tokenService.getAuthHeader();
@@ -331,6 +366,10 @@ export class MessageComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  /**
+   *put the latest conversation on the left hand side with respect to the selected user
+  */
+
   manageAddMessages(response) {
     if (response.SUCCESS.to === this.selectedUserHandle && response.SUCCESS.by === this.userHandle) {
       if (!_find(this.messagesbytime, {id: response.SUCCESS.id})) {
@@ -346,6 +385,11 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       this. orderedMessageContacts = _sortBy(this. orderedMessageContacts, function(msg) { return msg.latestmessagetime; }).reverse()
     }
   }
+
+  /**
+   *
+   * @param value used to send message to a receipient on custom search using the compose button
+  */
 
   sentMessageToRecipient(value: any ) {
     const headers = this.tokenService.getAuthHeader();
@@ -371,6 +415,10 @@ export class MessageComponent implements OnInit, AfterViewChecked {
     })
   }
 
+  /**
+   *
+   * @param handle this method will get the details of the selected user on custom search
+  */
   toggleSelectSkill(handle: any) {
     this.recipientsListState = !this.recipientsListState;
     if (handle === undefined || handle === null ) {
@@ -397,6 +445,10 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       return
     }
   }
+
+  /**
+   * this method is used to perform the custom search
+  */
 
   onSearch () {
     this.recipientsListState = true;
