@@ -31,7 +31,8 @@ export class MessageService {
     }
 
     getReceipientDetails (value: string) {
-        return this.http.get(this.apiLink + '/portal/searchprofiles/1/' + value + '/0/10')
+        const headers = this.tokenService.getAuthHeader();
+        return this.http.get(this.apiLink + '/portal/searchprofiles/1/' + value + '/0/10', { headers: headers })
         .map((data: Response) => data.json());
     }
 }
