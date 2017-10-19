@@ -11,6 +11,9 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { environment } from '../../../environments/environment';
 
+import { _ } from 'lodash';
+import { GeneralUtilities } from '../../helpers/general.utils';
+
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -39,7 +42,8 @@ export class NavigationComponent implements OnInit {
     private notificationStore: Store<Notification>,
     public modalService: ModalService,
     private el: ElementRef,
-    private renderer: Renderer
+    private renderer: Renderer,
+    public generalHelper: GeneralUtilities
   ) {
 
     this.topNav = {
@@ -139,6 +143,10 @@ export class NavigationComponent implements OnInit {
   // message maker
   processNotifications() {
 
+    // console.log('this.notifications before: ', this.notifications);
+    // this.notifications = this.notifications.filter(value => Object.keys(value).length !== 0);
+    // console.log('this.notifications after: ', this.notifications);
+
     this.notifications.forEach((notif, index) => {
 
       switch (notif.notificationType) {
@@ -160,6 +168,11 @@ export class NavigationComponent implements OnInit {
           break;
 
       }
+
+      // if (index === this.notifications.length - 1) {
+      //   console.log('this.notifications after: ', this.notifications);
+      // }
+
     });
 
   }

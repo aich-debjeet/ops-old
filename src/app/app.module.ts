@@ -54,6 +54,7 @@ import { SearchEffect } from './effects/search.effect';
 import { ServicesModule } from './services/services.module';
 import { TokenService } from './helpers/token.service';
 import { ApiService } from './helpers/api.service';
+import { GeneralUtilities } from './helpers/general.utils';
 import { AuthService } from './services/auth.service';
 import { MediaService } from './services/media.service';
 import { GeneralService } from './services/api.service';
@@ -181,7 +182,8 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
     SearchModule
   ],
   providers: [
-    AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService, ModalService, HomeService, MessageService,
+    AuthService,
+    MessageService,
     AuthGuard,
     GeneralService,
     ApiService,
@@ -190,7 +192,8 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
     ModalService,
     HomeService,
     NotificationService,
-    SearchService
+    SearchService,
+    GeneralUtilities
   ],
   bootstrap: [AppComponent]
 })
