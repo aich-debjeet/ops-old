@@ -528,6 +528,10 @@ app-modal.media__modal .ng-modal {
     }
     ul > li {
         .head_msg_name {
+            & a, a:hover {
+               cursor: pointer;
+               color: #333333;
+            }
             font-size: 14px;
             font-weight: bold;
             text-align: left;

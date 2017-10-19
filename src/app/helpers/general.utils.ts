@@ -15,4 +15,13 @@ export class GeneralUtilities {
         }
     }
 
+    /**
+     * Prepare user profile link using the username
+     * @param username string
+     */
+    getUserProfileUrl(username: string) {
+        const link = '/profile/u/' + username + '/user';
+        return link;
+    }
+
 }

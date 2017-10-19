@@ -143,10 +143,6 @@ export class NavigationComponent implements OnInit {
   // message maker
   processNotifications() {
 
-    // console.log('this.notifications before: ', this.notifications);
-    // this.notifications = this.notifications.filter(value => Object.keys(value).length !== 0);
-    // console.log('this.notifications after: ', this.notifications);
-
     this.notifications.forEach((notif, index) => {
 
       switch (notif.notificationType) {
@@ -168,10 +164,6 @@ export class NavigationComponent implements OnInit {
           break;
 
       }
-
-      // if (index === this.notifications.length - 1) {
-      //   console.log('this.notifications after: ', this.notifications);
-      // }
 
     });
 
