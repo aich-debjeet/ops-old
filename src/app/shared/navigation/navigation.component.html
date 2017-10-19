@@ -91,10 +91,10 @@
                         <a routerLink="/message" routerLinkActive="active"><img src="/assets/img/svg/ico_message.svg"></a>
                     </li>
                     <li class="dropdown opsheader-paddingt6" appDropdown>
-                        <a class="dropdown-toggle opsheader-lineheight30" routerLink="/profile">
+                        <a class="dropdown-toggle opsheader-lineheight30" appDropdownOpen>
                             <img src="{{ baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
                         </a>
-                        <span class="caret" appDropdownOpen></span>
+                        <span class="caret"></span>
                         <ul class="dropdown-menu" [ngClass]="{'open': this.topNav['profile'].open }">
                             <li>
                                 <ul class="list-inline head_drop_thumb">
