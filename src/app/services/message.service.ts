@@ -29,4 +29,9 @@ export class MessageService {
         return this.http.get(this.apiLink + '/portal/profile/' + handle, { headers: headers })
         .map((response: Response) => response.json())
     }
+
+    getReceipientDetails (value: string) {
+        return this.http.get(this.apiLink + '/portal/searchprofiles/1/' + value + '/0/10')
+        .map((data: Response) => data.json());
+    }
 }
