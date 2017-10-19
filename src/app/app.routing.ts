@@ -21,7 +21,6 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
-// import { SearchIconComponent } from './components/search-icon/search-icon.component';
 import { MasonryComponent } from './components/masonry/masonry.component';
 import { ChannelInnerComponent } from './components/channel-inner/channel-inner.component';
 import { LearnComponent } from './components/learn/learn.component';
@@ -32,6 +31,7 @@ import { StatusListComponent } from './components/status-list/status-list.compon
 import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
+import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 
 
 // Guard
@@ -54,6 +54,7 @@ export const routes: Routes = [
  { path: 'user/media/list', loadChildren: './components/media-list/media-list.module#MediaListModule'},
  { path: 'spotfeed/:id', component: SpotfeedComponent },
  { path: 'spotfeed-premium', component: SpotfeedPremiumComponent },
+ { path: 'directory', component: DirectoryListComponent },
  { path: 'notification', component: NotificationComponent },
  { path: 'portfolio', component: PortfolioComponent },
  { path: 'planner', component: PlannerComponent },
@@ -63,13 +64,12 @@ export const routes: Routes = [
  { path: 'jobs', component: JobsComponent },
  { path: 'job-details', component: JobDetailsComponent },
  { path: 'events', component: EventsComponent, canActivate: [AuthGuard] },
- { path: 'search', component: SearchComponent },
  { path: 'user/settings', component: SettingsComponent },
  { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard] },
  { path: 'channel', component: ChannelListComponent },
  { path: 'resources', component: ResourceComponent, canActivate: [AuthGuard] },
  { path: 'communities', component: CommunitiesComponent, canActivate: [AuthGuard] },
- { path: 'searchIcon', loadChildren: './components/search-icon/search-icon.module#SearchIconModule' },
+ { path: 'search', loadChildren: './components/search/search.module#SearchModule' },
  { path: 'page-not-found', component: NotFoundPageComponent },
  { path: '**', redirectTo: 'page-not-found' }
 ];

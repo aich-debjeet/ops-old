@@ -47,6 +47,7 @@ import { ProfileEffect } from './effects/profile.effect';
 import { MessageEffect } from './effects/message.effects';
 import { NotificationEffect } from './effects/notification.effect';
 import { UserSearchEffect } from './effects/user-search.effect';
+import { SearchEffect } from './effects/search.effect';
 
 
 // Services
@@ -60,10 +61,12 @@ import { ModalService } from './shared/modal/modal.component.service';
 import { HomeService } from './services/home.service';
 import { MessageService } from './services/message.service';
 import { NotificationService } from './services/notification.service';
+import { SearchService } from './services/search.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
 import { ProfileModule } from './components/profile/profile.module';
+import { SearchModule } from './components/search/search.module';
 import { TabComponents  } from './shared/tabs/tabset';
 
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
@@ -76,7 +79,7 @@ import { OpportunityComponent } from './components/opportunity/opportunity.compo
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
 import { EventsComponent } from './components/events/events.component';
-import { SearchComponent } from './components/search/search.component';
+// import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
@@ -105,6 +108,7 @@ import { StatusListComponent } from './components/status-list/status-list.compon
 import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
+import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 
 @NgModule({
   declarations: [
@@ -120,7 +124,7 @@ import { ProjectComponent } from './components/project/project.component';
     JobsComponent,
     JobDetailsComponent,
     EventsComponent,
-    SearchComponent,
+    // SearchComponent,
     SettingsComponent,
     PopularArtistsComponent,
     NearestEventsComponent,
@@ -141,7 +145,8 @@ import { ProjectComponent } from './components/project/project.component';
     StatusListComponent,
     PlannerComponent,
     NetworkComponent,
-    ProjectComponent
+    ProjectComponent,
+    DirectoryListComponent
   ],
   imports: [
     SharedModule,
@@ -166,12 +171,14 @@ import { ProjectComponent } from './components/project/project.component';
     EffectsModule.run(NotificationEffect),
     EffectsModule.run(UserSearchEffect),
     EffectsModule.run(MediaEffect),
+    EffectsModule.run(SearchEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
+    SearchModule
   ],
   providers: [
     AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService, ModalService, HomeService, MessageService,
@@ -182,7 +189,8 @@ import { ProjectComponent } from './components/project/project.component';
     MediaService,
     ModalService,
     HomeService,
-    NotificationService
+    NotificationService,
+    SearchService
   ],
   bootstrap: [AppComponent]
 })

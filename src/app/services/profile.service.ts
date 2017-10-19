@@ -395,4 +395,11 @@ export class ProfileService {
   getAllProfiles() {
     return this.api.get('/portal/profile/0/50', '');
   }
+
+  /**
+   * Update Profile Object
+   */
+  loadDirectory(body: any) {
+    return this.api.put('/portal/searchprofiles', body);
+  }
 }

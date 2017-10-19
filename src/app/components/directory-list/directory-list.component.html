@@ -1,0 +1,136 @@
+<app-navigation></app-navigation>
+
+<section class="o-directory">
+  <div class="container">
+    <div class=" col-md-12 o-dir-search">
+      <div class="col-md-10 padding_none">
+        <input class="c-form__input--search" required="" type="text" placeholder="Search by Name, City and Proffession">
+        <span class="o-dir-search__ico">
+          <img src="/assets/img/svg/ico_search.svg">
+        </span>
+      </div>
+      <div class="col-md-2 padding_none">
+        <a class="o-dir-link o-dir-filter"><img src="/assets/img/directory/filter.svg"></a>
+      </div>
+      <div class="row o-dirfil-opt">
+        <div class="o-dirfil-group with_border_right">
+          <div class="btn-group">
+          <button type="button" class="btn btn-primary btn-sm">All</button>
+          <button type="button" class="btn btn-network btn-sm">People</button>
+          <button type="button" class="btn btn-network btn-sm">Organization</button>
+        </div>
+        </div>
+        <div class="o-dirfil-radio with_border_right">
+          <div class="form_group ops_radio_sm">
+              <label class="width100">
+                  <label class="col-md-4">
+                      <input type="radio" name="demo"><span></span>Inactive
+                  </label>
+                  <label class="col-md-4">
+                      <input type="radio" name="demo"><span></span>Active
+                  </label>
+                  <label class="col-md-4">
+                      <input type="radio" name="demo"><span></span>Verified
+                  </label>
+              </label>
+          </div>
+        </div>
+        <div class="o-dirfil-selectlist">
+          <div class="c-form__group">
+              <select class="c-form-control">
+                <option>Industry</option>
+                <option>Select list 1</option>
+                <option>Select list 2</option>
+                <option>Select list 3</option>
+              </select>
+            </div>
+        </div>
+      </div>
+    </div><!-- search end -->
+  
+  <div class="o-dir-tag__list">
+  <span class="o-dir-tag">#because</span>
+  <span class="o-dir-tag">#things</span>
+  <span class="o-dir-tag">#difficult</span>
+    <span class="o-dir-tag">#because</span>
+  <span class="o-dir-tag">#things</span>
+  <span class="o-dir-tag">#difficult</span>
+    <span class="o-dir-tag">#because</span>
+  <span class="o-dir-tag">#things</span>
+  <span class="o-dir-tag">#difficult</span>
+    <span class="o-dir-tag">#because</span>
+  <span class="o-dir-tag">#things</span>
+  <span class="o-dir-tag">#difficult</span>
+    <span class="o-dir-tag">#because</span>
+  <span class="o-dir-tag">#things</span>
+  <span class="o-dir-tag">#difficult</span>
+  <span class="o-dir-tag">#because</span>
+  <span class="o-dir-tag">#things</span>
+  <span class="o-dir-tag">#difficult</span>
+    <span class="o-dir-tag--more">More..</span>
+  </div>
+
+    <div class="o-dir-list-block">
+      <div class="o-dir-list" 
+        *ngFor="let dir of dirList;"
+        infiniteScroll
+		    [infiniteScrollDistance]="2"
+		    [infiniteScrollThrottle]="10"
+		    (scrolled)="onScroll($event)">
+        >
+        <div class="o-dir-list__user o-dir-list--box">
+          <div class="c-card__user margin_none">
+            <!--<span class="c-user-list__active-ico"><img src="/assets/img/directory/inactive.svg"></span>-->
+            <div class="c-user c-user-list--dir">
+                <a class="c-user__avatar c-avatar--dir">
+                  <img *ngIf="!dir?.profileImage" class="c-user__image" src="http://d206s58i653k1q.cloudfront.net/images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png">
+                  <img *ngIf="dir?.profileImage" class="c-user__image" src="{{ dir?.profileImage }}">
+                </a>
+                <a class="c-user__name c-user--dir-name">{{ dir?.name }}</a>
+                <a class="c-user__dir-sub">{{ dir?.extra?.profession }}</a>
+            </div>
+          </div>
+        </div>
+        <div class="o-dir-list__mail o-dir-list--box">
+          <div class="o-dir-contact__det">
+            <div class="o-dir-contact__ico">
+              <img width="15" src="/assets/img/directory/envelope.svg" alt="">
+            </div>
+            <div class="o-dir-contact__txt c-text_sm-light"  *ngIf="dir?.email">
+              {{ dir?.email }}
+            </div>
+            <div *ngIf="!(dir?.email)" class="o-dir-contact__txt c-text_sm-light">Email has not been added</div>
+          </div>
+        </div>
+        <div class="o-dir-list__phone o-dir-list--box">
+          <div class="o-dir-contact__ico">
+            <img width="15" src="/assets/img/directory/receiver.svg" alt="">
+          </div>
+          <div class="o-dir-contact__txt c-text_sm-light">
+            <div *ngIf="dir?.contact?.mobile?.mobile" class="o-dir-phone margin_none">{{  dir?.contact?.mobile?.mobile }}</div>
+            <div *ngIf="!(dir?.contact?.mobile?.mobile)" class="o-dir-phone margin_none">Mobile No has not been added</div>
+            <!--<div class="o-dir-phone">219-501-4082</div>-->
+          </div>
+        </div>
+        <div class="o-dir-list__address o-dir-list--box">
+          <div class="o-dir-address margin_none">
+            <p class="o-dir-address__txt">
+              {{ dir?.extra?.address?.line1 }} {{ dir?.extra?.address?.city }}
+              {{ dir?.extra?.address?.state }} {{ dir?.extra?.address?.country }}
+            </p>
+          </div>
+        </div>
+        <div class="o-dir-list__actions">
+          <div class="o-dir-actions">
+            <button type="button" class="btn btn-default btn-md" disabled>CONTACT</button>
+            <button type="button" class="btn btn-md btn-primary btn-follow" disabled>
+                        <span class="btn-label-follow">
+                        <img src="/assets/img/svg/ico_plus_white.svg">
+                      </span> FOLLOW
+                    </button>
+          </div>
+        </div>
+      </div><!-- 1st row end -->
+    </div>
+  </div>
+</section>
