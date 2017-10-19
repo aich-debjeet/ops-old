@@ -460,6 +460,7 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       this.messageStore.dispatch({ type: MessageActions.GET_RECEIPIENT, payload: this.composeMessage.searchUser });
     } else {
       this.recipientsListState = false;
+      this.composeMessage.searchUser = '';
     }
   }
 }
