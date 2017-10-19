@@ -84,7 +84,7 @@
             <div class="c-user c-user-list--dir">
                 <a class="c-user__avatar c-avatar--dir">
                   <img *ngIf="!dir?.profileImage" class="c-user__image" src="http://d206s58i653k1q.cloudfront.net/images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png">
-                  <img *ngIf="dir?.profileImage" class="c-user__image" src="{{ dir?.profileImage }}">
+                  <img *ngIf="dir?.profileImage" class="c-user__image" src="{{ baseUrl + dir?.profileImage }}">
                 </a>
                 <a class="c-user__name c-user--dir-name">{{ dir?.name }}</a>
                 <a class="c-user__dir-sub">{{ dir?.extra?.profession }}</a>
@@ -123,7 +123,7 @@
         <div class="o-dir-list__actions">
           <div class="o-dir-actions">
             <button type="button" class="btn btn-default btn-md" disabled>CONTACT</button>
-            <button type="button" class="btn btn-md btn-primary btn-follow" disabled>
+            <button type="button" class="btn btn-md btn-primary btn-follow" *ngIf="!dir?.extra?.isImported">
                         <span class="btn-label-follow">
                         <img src="/assets/img/svg/ico_plus_white.svg">
                       </span> FOLLOW
