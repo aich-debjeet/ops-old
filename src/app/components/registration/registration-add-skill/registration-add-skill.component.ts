@@ -50,8 +50,6 @@ export class RegistrationAddSkillComponent implements OnInit {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       this.skillSelectionPage = state;
-      // console.log('this.skillSelectionPage.skills');
-      // console.log(this.skillSelectionPage.skills);
     });
 
     this.rForm = fb.group({
@@ -74,11 +72,9 @@ export class RegistrationAddSkillComponent implements OnInit {
    * Save skills if all selected
    */
   saveSkills() {
-    console.log(this.selectedSkills);
     this.store.dispatch({ type: AuthActions.USER_SUBMIT_SKILLS, payload: this.selectedSkills });
     this.tagState$.subscribe(
       data => {
-        console.log(data.success);
         if (data.success === true) {
           this.router.navigateByUrl('/profile/user')
         }
@@ -91,7 +87,6 @@ export class RegistrationAddSkillComponent implements OnInit {
    * @param query
    */
   onSearchChange(query) {
-    console.log('searching: ' + query);
     if (query || query !== '') {
       this.store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
     }
@@ -181,7 +176,6 @@ export class RegistrationAddSkillComponent implements OnInit {
         'active': true
       });
     }
-    // console.log(this.selectedSkills);
 
     if (this.selectedSkills.length > 0) {
       this.activateSubmitBtn = true;

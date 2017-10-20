@@ -125,22 +125,18 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Load Current User Profile
      */
     case ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS:
-      // console.log('current user Quick Access');
       return Object.assign({}, state, {
         userQuickAccess: [],
         success: true
       });
 
     case ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS_SUCCESS:
-      // console.log('current user Quick Access success');
-      // console.log(payload);
       return Object.assign({}, state, {
         userQuickAccess: payload,
         success: true
       });
 
     case ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS_FAILED:
-      // console.log('current user Quick Access failed');
       return Object.assign({}, state, {
         success: false
       });
@@ -294,7 +290,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_USER_CHANNEL:
       return Object.assign({}, state, {
         other_channels_loading: true,
-        other_channels_loaded: false
+        other_channels_loaded: false,
+        other_channel: []
       });
 
     case ProfileActions.LOAD_USER_CHANNEL_SUCCESS:
@@ -470,7 +467,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.CURRENT_PROFILE_USER:
       return Object.assign({}, state, {
-        current_user_profile: payload
+        current_user_profile: payload,
+        profile_user_info : payload
       });
 
     /**

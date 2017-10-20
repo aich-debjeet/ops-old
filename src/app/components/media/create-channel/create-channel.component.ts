@@ -73,8 +73,6 @@ export class CreateChannelComponent implements OnInit {
       this.loginTagState$ = store.select('loginTags');
       this.loginTagState$.subscribe((state) => {
         this.industries = state.industries;
-        // console.log('this.industries');
-        // console.log(this.industries);
       });
 
       this.tagState$ = this.store.select('profileTags');
@@ -192,7 +190,6 @@ export class CreateChannelComponent implements OnInit {
         otherField
       }
 
-      console.log('CREATE', channelObj );
       this.channelSavedHere = true;
       this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
     } else {
@@ -213,7 +210,6 @@ export class CreateChannelComponent implements OnInit {
    * Load List of Skills (High Level)
    */
   industriesList() {
-    console.log('AuthActions.LOAD_INDUSTRIES');
     this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
   }
 

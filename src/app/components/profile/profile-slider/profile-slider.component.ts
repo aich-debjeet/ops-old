@@ -27,6 +27,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { find as _find, forEach as _forEach  } from 'lodash';
+import { ProfileHelper } from '../../../helpers/profile.helper';
 
 @Component({
   selector: 'app-profile-slider',
@@ -40,7 +41,8 @@ export class ProfileSliderComponent implements OnInit {
   @Input() profileData: any;
   @Input() isOtherProfile: any;
   @Input() userName: string;
-  @Input() profileObject: ProfileCard;
+  isOwner: boolean;
+  profileObject: ProfileCard;
   changingImage: boolean;
   tagState$: Observable<ProfileModal>;
   skillState$: Observable<any>;
@@ -71,6 +73,7 @@ export class ProfileSliderComponent implements OnInit {
     private _router: Router,
     public tokenService: TokenService,
     private profileStore: Store<ProfileModal>,
+    private utils: ProfileHelper,
     private toastr: ToastrService
   ) {
   document.body.scrollTop = 0;
@@ -82,10 +85,14 @@ export class ProfileSliderComponent implements OnInit {
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      if (this.profileObject) {
-        // console.log(this.profileObject);
-        // console.log('this.profileObject');
-        this.isFollowing = this.profileObject['isFollowing'];
+      if (state.profile_user_info) {
+        if (state.profile_user_info.isCurrentUser) {
+          this.profileObject = this.loadProfile( state, 'own' );
+          this.isOwner = true;
+        }else {
+          this.profileObject = this.loadProfile( state, 'other' );
+          this.isOwner = false;
+        }
       }
     });
 
@@ -93,12 +100,17 @@ export class ProfileSliderComponent implements OnInit {
       this.findSkill = state;
     });
 
-    // this.isFollowing = this.userProfile['profile_other'].extra
-
     this.buildEditForm();
 
     this.router = _router;
 
+  }
+
+  /**
+   * User type based user load
+   */
+  loadProfile(profile: any, type: string) {
+      return this.utils.profileValueMapping(profile, type );
   }
 
   // changingImageClick() {
@@ -157,44 +169,22 @@ export class ProfileSliderComponent implements OnInit {
   isClosed(event) {
     this.changingImage = event;
   }
-  // /**
-  //  * Follow current Profile
-  //  * @param profile
-  //  */
-  // followUser(profile: any) {
-  //   const handle = profile.userDetails.handle;
-
-  //   this.isFollowing = !this.isFollowing;
-  //   console.log('FOLLOW', this.isFollowing);
-
-  //   if (this.isFollowing === false) {
-  //     console.log('FOLLOW', 'STOPPED', this.isFollowing);
-  //     this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
-  //   } else {
-  //     console.log('FOLLOW', 'STARTED', this.isFollowing);
-  //     this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle });
-  //   }
-  // }
 
   /**
-   * Follow an artist
-   * @param user obj
+   * User Follow Check
+   * @param follow User follow true or false check
+   * @param handle User Handle
    */
-  followUser(user: any) {
-    // console.log(user);
-    this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.userDetails.handle });
-    this.isFollowing = true;
+  userFollow(follow: boolean, handle: string) {
+    if (follow) {
+      this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
+      this.profileObject.isFollowing = false;
+    }else {
+      this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle  });
+      this.profileObject.isFollowing = true;
+    }
   }
 
-  /**
-   * Unfollow an artist
-   * @param user obj
-   */
-  unfollowUser(user: any) {
-    // console.log(user);
-    this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.userDetails.handle });
-    this.isFollowing = false;
-  }
 
   /**
    * Profile Page Edit
@@ -300,7 +290,6 @@ export class ProfileSliderComponent implements OnInit {
    */
   validEmail(control: AbstractControl) {
     if (control.value === '') {
-      // console.log('empty email');
       return;
     }
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

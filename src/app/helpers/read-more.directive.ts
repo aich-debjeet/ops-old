@@ -60,7 +60,6 @@ export class ReadMoreDirective implements  AfterViewInit, OnChanges {
    */
   private determineView(): void {
     const _elementChange = document.getElementById(this.elementChange.id);
-    console.log(_elementChange)
     if (this.text.length <= this.maxLength) {
       this.currentText = this.text;
       _elementChange.innerHTML = this.currentText;

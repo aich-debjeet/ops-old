@@ -81,7 +81,6 @@ export class ProfileService {
    * Find channels of a user
    */
   getUserChannel(handle: string) {
-    // return this.api.get(`/portal/network/spotfeed/${handle}/channel`);
     return this.getLoggedInChannel(handle);
   }
 
@@ -133,7 +132,6 @@ export class ProfileService {
    * Upload Image to CDN
    */
   uploadImage(value: any, handle: string = '') {
-    console.log(value);
     return this.api.postFile('/portal/cdn/media/upload?handle=' + handle, value);
   }
 
@@ -338,7 +336,6 @@ export class ProfileService {
    * Post to Media
    */
   postMediaToChannel(payload: any) {
-    console.log('SERVICE__PROFILE', payload);
     const channelId = payload.channelId;
     const req = payload.req;
     return this.api.put('/portal/network/spotfeed/' + channelId, req);
@@ -349,7 +346,6 @@ export class ProfileService {
    */
   getSpotfeedDetails(data: any) {
     const params = `${data.handle}/${data.page_start}/${data.page_end}`;
-    console.log('pagination: ' + params);
     return this.api.get('/portal/cdn/spotfeed/inner/', params);
   }
 
@@ -364,7 +360,6 @@ export class ProfileService {
    * Current LoggedIn user following channel
    */
   getLoggedInUserFollowingChannel(value: string) {
-    // console.log('handle: ' + value);
     return this.api.get('/portal/network/spotfeed/following/profile/spotfeeds/' + value, '');
   }
 

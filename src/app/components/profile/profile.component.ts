@@ -45,43 +45,9 @@ export class ProfileComponent implements OnInit {
     this.isCurrentUser = false;
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      this.current_user_value = this.checkUserType(this.userProfile);
+      // this.current_user_value = this.checkUserType(this.userProfile);
     });
-  }
 
-  /**
-   * Assign current profile values
-   * @param userProfile
-   */
-
-  checkUserType(userProfile: any) {
-    // Other Profile
-    if (this.userFlag(userProfile) === 1) {
-      return this.utils.profileValueMapping(userProfile, 'own');
-    }
-    // Other Profile
-    if (this.userFlag(this.userProfile) === 2) {
-      return this.utils.profileValueMapping(userProfile, 'other');
-    }
-  }
-
-  /**
-   * Validate user type based on path & state
-   * @param userProfile
-   */
-
-  userFlag(userProfile: any): number {
-    let flag = 0;
-    if (!this.userName && userProfile.profile_loaded  === true) {
-      flag = 1;
-      // this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: flag });
-    }
-
-    if (this.userName && userProfile.profile_other_loaded === true) {
-      flag = 2;
-    }
-    // this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: flag });
-    return flag;
   }
 
   /**
@@ -100,15 +66,20 @@ export class ProfileComponent implements OnInit {
    */
   loadProfile(userName: string) {
     if (userName) {
-      this.current_user_value = new ProfileCard();
-      this.isCurrentUser = false;
+      const userdata = {
+        isCurrentUser: false,
+        username: userName,
+      }
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_LOAD, payload: userName });
-      this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: userName });
+      this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: userdata });
     } else {
-      this.current_user_value = null;
-      this.isCurrentUser = true;
+      const userdata = {
+        isCurrentUser: true,
+        username: userName,
+      }
       this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
       this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
+      this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: userdata });
     }
   }
 }

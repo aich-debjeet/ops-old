@@ -87,9 +87,6 @@ export class AboutImageComponent implements OnInit {
     const ctx = document.getElementsByTagName('canvas')[0].getContext('2d');
     const img = new Image();
     img.onload = function(){
-      // const imgHeight = img.height;
-      // const imgWidth = img.width;
-      // ctx.drawImage(img, 0, 0, self.cropperSettings.canvasHeight, self.cropperSettings.canvasWidth);
       self.drawImageProp(ctx, this, 0, 0, self.cropperSettings.canvasWidth, self.cropperSettings.canvasHeight, 0.1, 0.5);
     };
 
@@ -99,7 +96,6 @@ export class AboutImageComponent implements OnInit {
     } else {
       profileImageURL = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
     }
-    // console.log('imageSrc', imageSrc);
     img.src = profileImageURL;
   }
 
@@ -220,9 +216,6 @@ export class AboutImageComponent implements OnInit {
       // Create random file name
       const randm = Math.random().toString(36).slice(2);
       const fileName = 'prof_' + randm + '.' + imageType;
-
-      console.log('x');
-
       data.append('file', this.dataURItoBlob(imageData), fileName );
       return data;
     }

@@ -1,5 +1,5 @@
 <div  *ngIf="profileObject !== null" id="cover-image" class="prohead2" [ngStyle]="coverImageStyle(profileObject)">
-    <div class="container" *ngIf="isOtherProfile === false">
+    <div class="container" *ngIf="this.isOwner">
         <span class="upload_cover_img" appDropdown>
             <a  appDropdownOpen>
                 <img src="/assets/img/svg/ico_edit_white.svg" alt="">
@@ -24,7 +24,7 @@
         <div class="col-md-6 col-sm-12 pro__img " >
             <div class="prof_img_block">
                 <img src="{{ (baseUrl + profileObject?.image?.profile) || defaultImage }}" class="img-responsive img-circle">
-                <span *ngIf="isOtherProfile === false" class="upload_prof_img" appDropdown>
+                <span *ngIf="this.isOwner" class="upload_prof_img" appDropdown>
                     <a appDropdownOpen>
                         <img src="/assets/img/svg/ico_edit_white.svg">
                     </a>
@@ -38,15 +38,12 @@
                 </span>
             </div><!-- profile img block end -->
             <div class="pro__name" >
-                <h2><a routerLink="{{ isOtherProfile ? '/profile/u/' + profileObject?.userHandle : '/profile' }}"> {{ profileObject?.name }} </a></h2>
+                <h2><a routerLink="{{ !this.isOwner ? '/profile/u/' + profileObject?.userHandle : '/profile' }}"> {{ profileObject?.name }} </a></h2>
                 <p>{{ '@' + profileObject?.userHandle }}</p>
                 <p class="profession">{{ profileObject?.extra?.profession }}</p>
-                <div *ngIf="isOtherProfile === true" class="share__follow">
-                    <button (click)="unfollowUser(profileObject)" *ngIf="isFollowing" type="button" class="btn btn-xs btn-basic btn-small btn-following" >
-                        <span class="btn-label-follow "> UNFOLLOW </span>
-                    </button>
-                    <button (click)="followUser(profileObject)" *ngIf="!isFollowing" type="button" class="btn btn-xs btn-small btn-basic btn-following" >
-                        <span class="btn-label-follow"> FOLLOW </span>
+                <div *ngIf="!this.isOwner" class="share__follow">
+                    <button (click)="userFollow(profileObject?.isFollowing, profileObject?.userDetails?.handle )"  type="button" class="btn btn-xs btn-basic btn-small btn-following" [ngClass]="(profileObject?.isFollowing) ? 'btn-following' : 'btn-primary'">
+                        <span class="btn-label-follow ">{{ (profileObject?.isFollowing)? 'Unfollow' : 'Follow'}} </span>
                     </button>
                     <button type="button" class="btn btn-normal2 btn-xs btn-small"> NETWORK </button>
                     <button type="button" (click)="donatePopup()" class="btn btn-normal2 btn-xs btn-small"> DONATE </button>
@@ -78,16 +75,16 @@
         </div>
         <div class="col-md-3 col-sm-3">
             <ul class="list-inline pro_nav_icon">
-                <li class="list-line-item" *ngIf="isOtherProfile === true">
+                <li class="list-line-item" *ngIf="!this.isOwner">
                     <a ><img src="/assets/img/svg/ico_options.svg"></a>
                 </li>
                 <li class="list-line-item">
                     <a><img src="/assets/img/svg/ico_share.svg"></a>
                 </li>
-                <li class="list-line-item" *ngIf="isOtherProfile === true">
+                <li class="list-line-item" *ngIf="!this.isOwner">
                     <a><img src="/assets/img/svg/ico_message.svg"></a>
                 </li>
-                <li class="list-line-item" *ngIf="isOtherProfile === false">
+                <li class="list-line-item" *ngIf="this.isOwner">
                     <a (click)="profileEdit()"><img src="/assets/img/svg/ico_edit.svg"></a>
                 </li>
             </ul>
@@ -120,13 +117,13 @@
             </div>
             <div class="col-md-4 col-sm-4 pro_bio">
                 <h3>BIO</h3>
-                <button *ngIf="profileObject?.userBio == '' && isOtherProfile === false" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button>
+                <button *ngIf="profileObject?.userBio == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button>
                 <p>{{ profileObject?.userBio | slice:0:220}}</p>
 
             </div>
             <div class="col-md-4 col-sm-4 pro_skills">
                 <h3>SKILLS</h3>
-                <button *ngIf="profileObject?.userSkill == '' && isOtherProfile === false" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
+                <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
                 <span routerLink="{{ '/spotfeed/' + skill.name }}"  *ngFor="let skill of profileObject?.userSkill | slice:0:8" class="c-skill__tags">#{{ skill.name }} </span>  
                 <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillPopup()" class="c-skill__tags c-skill__tags--more">...</a>
             </div>
@@ -136,7 +133,7 @@
 
 <router-outlet></router-outlet>
 
-<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow' *ngIf="!isOtherProfile" size="profile_update">
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow' *ngIf="this.isOwner" size="profile_update">
     <div >
         <form [formGroup]="profileForm" novalidate #myform="ngForm" (submit)= "profileFormSubmit(profileForm.value)">
             <div class="edit-profile_main">
@@ -243,7 +240,7 @@
     </div>
 </app-modal>
 
-<app-modal  [blocking]='false' modalId='donationPopup' *ngIf="isOtherProfile" size="tiny__donation">
+<app-modal  [blocking]='false' modalId='donationPopup' *ngIf="!this.isOwner" size="tiny__donation">
     <div  id="donation_pop" >
         <div id="report_thank">
             <!-- Modal content-->
