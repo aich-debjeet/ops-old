@@ -7,18 +7,18 @@
             <div class="col-md-6 col-md-offset-3 search_top_input">
                 <form action="" >
                     <div class="form_group">
-                        <input (focus)="searchOnFocus()" class="form_input" type="text" [value]="" [formControl]="searchQuery" >
-                        <label id="search-placeholder" *ngIf="showSearchPlaceholder" >Search Artists</label>
+                        <input (focus)="searchOnFocus()" (blur)="searchOnBlur()" class="form_input" type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchTrigger($event)" >
+                        <!-- <label id="search-placeholder" *ngIf="showSearchPlaceholder" >Search</label>
                         <p class="search_top_icon">
                             <img *ngIf="!isLoading" src="/assets/img/svg/ico_search.svg">
                             <img *ngIf="isLoading" src="/assets/img/spinner.gif">
-                        </p>
+                        </p> -->
                     </div>
                 </form>
             </div>
             <div class="row">
 
-                <div class="people-wrapper col-md-12 ops_artist_follow">
+                <!-- <div class="people-wrapper col-md-12 ops_artist_follow">
                         
                     <div *ngIf="artists && artists.length === 0; else artists_not_found;">
                         <p class="artists-not-found">Artists not found!</p>
@@ -37,58 +37,23 @@
                                 <a routerLink="{{ '/profile/u/' + artist.extra.username }}" class="c-artist__name margin_t_16">{{ artist.name }}</a>
                             </div>
                             <p class="ops_heading12">@{{ artist.extra.username }}</p>
-                            <!-- <button type="button" class="btn btn-xs btn-normal btn-follow">
-                                <span class="btn-label-follow">
-                                <img src="https://d33wubrfki0l68.cloudfront.net/dad39c553de20299ab403e1e0d2dcbd6062911cc/62cff/img/svg/ico_plus_white.svg">
-                                </span> FOLLOW
-                            </button> -->
                         </div>
                         
                     </ng-template>
 
-                </div>
-
-                <!-- with routes -->
-                <!-- <ul class="nav nav-tabs">
-                    <li><a [routerLink]="['all']" aria-expanded="true" >All</a></li>
-                    <li><a [routerLink]="['post']" aria-expanded="true">Post</a></li>
-                    <li><a [routerLink]="['channel']" aria-expanded="false">Channel</a></li>
-                    <li><a [routerLink]="['spotfeed']" aria-expanded="false">Spotfeed</a></li>-
-                    <li><a [routerLink]="['people']" aria-expanded="false">People</a></li>-
-                    <li><a [routerLink]="['community']" aria-expanded="false">Community</a></li>
-                </ul>
-                <router-outlet></router-outlet> -->
-                <!-- with routes -->
-
+                </div> -->
+                
                 <!-- with childs -->
-                <!-- <ul class="nav nav-tabs">
+                <ul class="nav nav-tabs">
                     <li><a (click)="selectTab('tab-all')" >All</a></li>
-                    <li><a (click)="selectTab('tab-post')" >Post</a></li>
                     <li><a (click)="selectTab('tab-channel')" >Channel</a></li>
-                    <li><a (click)="selectTab('tab-spotfeed')" >Spotfeed</a></li>
                     <li><a (click)="selectTab('tab-people')" >People</a></li>
-                    <li><a (click)="selectTab('tab-community')" >Community</a></li>
                 </ul>
                 <div class="tabs-container">
-                    <div *ngIf="activeTab == 'tab-all'" id="tab-all" class="tabs">
-                        All
-                    </div>
-                    <div *ngIf="activeTab == 'tab-post'" id="tab-post" class="tabs">
-                        Post
-                    </div>
-                    <div *ngIf="activeTab == 'tab-channel'" id="tab-channel" class="tabs">
-                        Channel
-                    </div>
-                    <div *ngIf="activeTab == 'tab-spotfeed'" id="tab-spotfeed" class="tabs">
-                        Spotfeed
-                    </div>
-                    <div *ngIf="activeTab == 'tab-people'" id="tab-people" class="tabs">
-                        People
-                    </div>
-                    <div *ngIf="activeTab == 'tab-community'" id="tab-community" class="tabs">
-                        Community
-                    </div>
-                </div> -->
+                    <app-search-all *ngIf="activeTab == 'tab-all'" id="tab-all" class="tabs"></app-search-all>
+                    <app-search-channel *ngIf="activeTab == 'tab-channel'" id="tab-channel" class="tabs"></app-search-channel>
+                    <app-search-people *ngIf="activeTab == 'tab-people'" id="tab-people" class="tabs" [search]="search"></app-search-people>
+                </div>
                 <!-- with childs -->
 
             </div>
