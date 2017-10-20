@@ -16,6 +16,7 @@ export class SearchEffect {
   @Effect()
   userSearch$ = this.actions$
     .ofType(SearchActions.SEARCH_PEOPLE)
+    .debounceTime(500)
     .map(toPayload)
     .switchMap((payload) => this.apiService.getPeople(payload)
       .map(res => ({ type: SearchActions.SEARCH_PEOPLE_SUCCESS, payload: res }))

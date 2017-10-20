@@ -3,6 +3,8 @@ import { Component, OnInit, Input, KeyValueDiffers, DoCheck } from '@angular/cor
 import { SearchActions } from './../../../actions/search.action';
 import { SearchModel } from './../../../models/search.model';
 
+import { environment } from './../../../../environments/environment.prod';
+
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -19,8 +21,11 @@ export class SearchPeopleComponent implements OnInit, DoCheck {
   @Input() search: any;
   differ: any;
 
-  searchState$: Observable<SearchModel>;
-  cards: any;
+  searchPeopleState$: Observable<SearchModel>;
+  baseUrl: string;
+
+  artists: any[];
+  isLoading = false;
 
   constructor(
     private differs: KeyValueDiffers,
@@ -29,49 +34,43 @@ export class SearchPeopleComponent implements OnInit, DoCheck {
 
     this.differ = differs.find({}).create(null);
 
-    // this.searchState$ = this.store.select('searchTags');
-
-    // // observe the store value
-    // this.searchState$.subscribe((state) => {
-    //   console.log(state);
-    //   // if (typeof state[''] !== 'undefined') {
-    //   // }
-    // });
+    this.baseUrl = environment.API_IMAGE;
+    this.searchPeopleState$ = this.store.select('searchTags');
 
   }
 
   ngDoCheck() {
     const changes = this.differ.diff(this.search);
-    console.log('changes', changes);
+    // console.log('changes', changes);
     if (changes) {
-      console.log('changes detected');
-      changes.forEachChangedItem(r => console.log('changed ', r.currentValue));
+      changes.forEachChangedItem(response => {
+        console.log('changed ', response.currentValue)
+        this.store.dispatch({
+          type: SearchActions.SEARCH_PEOPLE,
+          payload: response.currentValue
+        });
+      });
       // changes.forEachAddedItem(r => console.log('added ' + r.currentValue));
       // changes.forEachRemovedItem(r => console.log('removed ' + r.currentValue));
     } else {
-      console.log('NO CHANGE');
+      // console.log('NO CHANGE');
     }
   }
 
   ngOnInit() {
 
-    console.log('recieved query', this.search);
+    // observe the store value
+    this.searchPeopleState$.subscribe((state) => {
+      console.log('state', state);
+      if (state && state.hasOwnProperty('search_people')) {
+        this.artists = state.search_people;
+      }
+      if (state && state.hasOwnProperty('searching_people')) {
+        // console.log('searching status', state.searching_people);
+        this.isLoading = state.searching_people;
+      }
+    });
 
-    // // get all users
-    // this.store.dispatch({
-    //   type: SearchActions.SEARCH_PEOPLE,
-    //   payload: null
-    // });
-
-  }
-
-  searchUser() {
-    // if (typeof this.searchQuery !== 'undefined' && this.searchQuery.length > 2) {
-    //   this.store.dispatch({
-    //     type: SearchActions.SEARCH_PEOPLE,
-    //     payload: this.searchQuery
-    //   });
-    // }
   }
 
 }
