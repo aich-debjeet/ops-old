@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { DatePipe, Location } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -38,6 +38,7 @@ export class AboutImageComponent implements OnInit {
   changingImage: boolean;
   cropperSettings: CropperSettings;
   baseUrl: string;
+  @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
   constructor(
     private _http: Http,
@@ -68,6 +69,7 @@ export class AboutImageComponent implements OnInit {
     this.cropperSettings.canvasWidth = 400;
     this.cropperSettings.canvasHeight = 300;
     this.cropperSettings.rounded = true;
+    this.cropperSettings.noFileInput = true;
     this.data = {};
   }
 
@@ -159,6 +161,20 @@ export class AboutImageComponent implements OnInit {
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: imageData });
       this.changingImage = false;
     }
+  }
+
+  fileChangeListener($event) {
+      let image: any = new Image();
+      let file: File = $event.target.files[0];
+      let myReader: FileReader = new FileReader();
+      let that = this;
+      myReader.onloadend = function (loadEvent: any) {
+          image.src = loadEvent.target.result;
+          that.cropper.setImage(image);
+
+      };
+
+      myReader.readAsDataURL(file);
   }
 
   isClosed(event: any) {
