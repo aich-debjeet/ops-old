@@ -1,296 +1,76 @@
 <div class="tab-content">
-<div id="search_post" class="tab-pane fade in active">
-    <div class="row pro_channel2">
 
-        <div class="col-md-3">
-            <div class="row">
-
-                <div class="col-md-12 col-sm-6 pro_channel_card">
-                    <div class="col-md-12 col-sm-12 feed_block">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 pro_channel_img1">
-                                <figure class="feed-avatar">
-                                    <img src="/assets/img/art_color.jpg" class="img-responsive">
-                                </figure>
-                                <div class="feed_article"><img src="/assets/img/svg/ico_article.svg"></div>
-                            </div>
-                            <div class="col-md-12 col-sm-12 pro_channel_cont">
-                                <div class="pro_channel_name">
-                                    <h3 class="feed-heading float-left">When The Morning Dawns</h3>
-                                    <span><img class="float-right" src="/assets/img/svg/ico_options.svg"></span>
-                                </div>
-                                <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
-                                <div class="pro_channel-thumb">
-                                    <img src="/assets/img/avatar.jpg">
-                                    <p>James Sims</p>
-                                    <div class="small-txt">Cafe and Colors</div>
-                                </div>
-                                <div class="pro_channel_count">
-                                    <span><img src="/assets/img/svg/ico_lik.svg"><div class="like_count">705</div></span>
-                                    <span><img src="/assets/img/svg/ico_comment.svg"> <div class="like_count">12</div></span>
-                                    <div class="pull-right">
-                                        <span><img src="/assets/img/svg/ico_addtochannel.svg"></span>
-                                        <span><img src="/assets/img/svg/ico_share-02.svg"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 col-sm-6 pro_channel_card">
-                    <div class="col-md-12 col-sm-12 feed_block">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 pro_channel_img1">
-                                <figure class="feed-avatar">
-                                    <img src="/assets/img/chri.jpg" class="img-responsive">
-                                </figure>
-                                <div class="feed_article"><img src="/assets/img/svg/ico_video.svg"></div>
-                            </div>
-                            <div class="col-md-12 col-sm-12 pro_channel_cont">
-                                <div class="pro_channel_name">
-                                    <h3 class="feed-heading float-left">When The Morning Dawns</h3>
-                                    <span><img class="float-right" src="/assets/img/svg/ico_options.svg"></span>
-                                </div>
-                                <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
-                                <div class="pro_channel-thumb">
-                                    <img src="/assets/img/avatar.jpg">
-                                    <p>James Sims</p>
-                                    <div class="small-txt">Cafe and Colors</div>
-                                </div>
-                                <div class="pro_channel_count">
-                                    <span><img src="/assets/img/svg/ico_lik.svg"> <div class="like_count">855</div></span>
-                                    <span><img src="/assets/img/svg/ico_comment.svg"> <div class="like_count">105</div></span>
-                                    <div class="pull-right">
-                                        <span><img src="/assets/img/svg/ico_addtochannel.svg"></span>
-                                        <span><img src="/assets/img/svg/ico_share-02.svg"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+    <div id="search_post" class="tab-pane fade active in">
+        
+        <div class="row">
+            <div *ngIf="posts && posts.length === 0; else posts_not_found;">
+                <p class="artists-not-found">Posts not found!</p>
             </div>
+        
+            <ng-template #posts_not_found>
+                <div *ngFor="let post of posts" >
+                    <div class="col-md-3" *ngIf="post.mtype == 'image'" >
+                        <div class="c-card">
+                            <!-- card media (img, video & audio) -->
+                            <div class="c-card__media">
+                                <a href="">
+                                    <img src="{{ baseUrl + post.repopath }}" alt="" class="c-card__image">
+                                </a>
+                                <span>
+                                <img src="https://d33wubrfki0l68.cloudfront.net/e71f0fc9a8055ea597b62c0c1b3c9c94b2e5f2bc/ab7ce/img/svg/ico_media_img.svg" alt="" class="c-card__icon">
+                            </span>
+                            </div>
+                            <!-- //card media (img, video & audio) -->
+                            <!-- card body -->
+                            <div class="c-card__body">
+                                <a class="c-card__heading" href="">{{ post.title }}</a>
+                                <div class="c-card__desc">{{ post.description }}</div>
+                                <a href="">
+                                    <img src="https://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg" alt="" class="c-card__options">
+                                </a>
+                                <div class="c-card__user">
+                                <div class="c-user">
+                                    <a class="c-user__avatar c-avatar--feed">
+                                        <img class="c-user__image" src="https://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                    </a>
+                                    <a class="c-user__name" routerLink="{{ '/profile/u/' + post.ownerUserName }}">{{ post.ownerName }}</a>
+                                    <!-- <a class="c-user__channel">Do Your Think Motivational</a> -->
+                                </div>
+                                </div>
+                            </div>
+                            <!-- //card body -->
+                            <!-- card footer links -->
+                            <div class="c-card__links">
+                                <div class="c-links">
+                                <div class="c-links__spots">
+                                    <img src="https://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="c-links__image">
+                                    <span class="c-links__count">{{ post.spotsCount }}</span>
+                                </div>
+                                <div class="c-links__comments">
+                                    <img src="https://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg" class="c-links__image">
+                                    <span class="c-links__count">{{ post.commentsCount }}</span>
+                                </div>
+                                <div class="c-links__actions">
+                                    <span class="c-links__add">
+                                            <a href="">
+                                                <img src="https://d33wubrfki0l68.cloudfront.net/757d12023ec2c0c7c0649d1ed1334031990ffe92/cbaf2/img/svg/ico_addtochannel.svg" class="c-action__image">
+                                            </a>
+                                        </span>
+                                    <span class="c-links__share">
+                                            <a href="">
+                                                <img src="https://d33wubrfki0l68.cloudfront.net/5ca05db3ef5c4aadb2b4d445eb205bbe59ca0abd/4634c/img/svg/ico_share-02.svg" class="c-action__image">
+                                            </a>
+                                        </span>
+                                </div>
+                                </div>
+                            </div>
+                            <!-- //card footer links -->
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
         </div>
-
-        <div class="col-md-3">
-            <div class="row">
-
-                <div class="col-md-12 col-sm-6 pro_channel_card">
-                    <div class="col-md-12 col-sm-12 feed_block">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 pro_channel_img1">
-                                <figure class="feed-avatar">
-                                    <img src="/assets/img/pro_block3.jpg" class="img-responsive">
-                                </figure>
-                                <div class="feed_article"><img src="/assets/img/svg/ico_audio.svg"></div>
-                            </div>
-                            <div class="col-md-12 col-sm-12 pro_channel_cont">
-                                <div class="pro_channel_name">
-                                    <h3 class="feed-heading float-left">When The Morning Dawns</h3>
-                                    <span><img class="float-right" src="/assets/img/svg/ico_options.svg"></span>
-                                </div>
-                                <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
-                                <div class="pro_channel-thumb">
-                                    <img src="/assets/img/avatar.jpg">
-                                    <p>James Sims</p>
-                                    <div class="small-txt">Cafe and Colors</div>
-                                </div>
-                                <div class="pro_channel_count">
-                                    <span><img src="/assets/img/svg/ico_lik.svg"> <div class="like_count">963</div></span>
-                                    <span><img src="/assets/img/svg/ico_comment.svg"> <div class="like_count">75</div></span>
-                                    <div class="pull-right">
-                                        <span><img src="/assets/img/svg/ico_addtochannel.svg"></span>
-                                        <span><img src="/assets/img/svg/ico_share-02.svg"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 col-sm-6 pro_channel_card">
-                    <div class="col-md-12 col-sm-12 feed_block">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 pro_channel_img1">
-                                <figure class="feed-avatar">
-                                    <img src="/assets/img/picse.jpg" class="img-responsive">
-                                </figure>
-                                <div class="feed_article"><img src="/assets/img/svg/ico_audio.svg"></div>
-                            </div>
-                            <div class="col-md-12 col-sm-12 pro_channel_cont">
-                                <div class="pro_channel_name">
-                                    <h3 class="feed-heading float-left">When The Morning Dawns</h3>
-                                    <span><img class="float-right" src="/assets/img/svg/ico_options.svg"></span>
-                                </div>
-                                <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
-                                <div class="pro_channel-thumb">
-                                    <img src="/assets/img/avatar.jpg">
-                                    <p>James Sims</p>
-                                    <div class="small-txt">Cafe and Colors</div>
-                                </div>
-                                <div class="pro_channel_count">
-                                    <span><img src="/assets/img/svg/ico_lik.svg"> <div class="like_count">75</div></span>
-                                    <span><img src="/assets/img/svg/ico_comment.svg"> <div class="like_count">70</div></span>
-                                    <div class="pull-right">
-                                        <span><img src="/assets/img/svg/ico_addtochannel.svg"></span>
-                                        <span><img src="/assets/img/svg/ico_share-02.svg"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="row">
-
-                <div class="col-md-12 col-sm-6 pro_channel_card">
-                    <div class="col-md-12 col-sm-12 feed_block">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 pro_channel_img1">
-                                <figure class="feed-avatar">
-                                    <img src="/assets/img/pro_block.jpg" class="img-responsive">
-                                </figure>
-                                <div class="feed_article"><img src="/assets/img/svg/ico_audio.svg"></div>
-                            </div>
-                            <div class="col-md-12 col-sm-12 pro_channel_cont">
-                                <div class="pro_channel_name">
-                                    <h3 class="feed-heading float-left">When The Morning Dawns</h3>
-                                    <span><img class="float-right" src="/assets/img/svg/ico_options.svg"></span>
-                                </div>
-                                <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
-                                <div class="pro_channel-thumb">
-                                    <img src="/assets/img/avatar.jpg">
-                                    <p>James Sims</p>
-                                    <div class="small-txt">Cafe and Colors</div>
-                                </div>
-                                <div class="pro_channel_count">
-                                    <span><img src="/assets/img/svg/ico_lik.svg"> <div class="like_count">55</div></span>
-                                    <span><img src="/assets/img/svg/ico_comment.svg"> <div class="like_count">15</div></span>
-                                    <div class="pull-right">
-                                        <span><img src="/assets/img/svg/ico_addtochannel.svg"></span>
-                                        <span><img src="/assets/img/svg/ico_share-02.svg"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 col-sm-6 pro_channel_card">
-                    <div class="col-md-12 col-sm-12 feed_block">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 pro_channel_img1">
-                                <figure class="feed-avatar">
-                                    <img src="/assets/img/chri.jpg" class="img-responsive">
-                                </figure>
-                                <div class="feed_article"><img src="/assets/img/svg/ico_video.svg"></div>
-                            </div>
-                            <div class="col-md-12 col-sm-12 pro_channel_cont">
-                                <div class="pro_channel_name">
-                                    <h3 class="feed-heading float-left">When The Morning Dawns</h3>
-                                    <span><img class="float-right" src="/assets/img/svg/ico_options.svg"></span>
-                                </div>
-                                <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
-                                <div class="pro_channel-thumb">
-                                    <img src="/assets/img/avatar.jpg">
-                                    <p>James Sims</p>
-                                    <div class="small-txt">Cafe and Colors</div>
-                                </div>
-                                <div class="pro_channel_count">
-                                    <span><img src="/assets/img/svg/ico_lik.svg"> <div class="like_count">855</div></span>
-                                    <span><img src="/assets/img/svg/ico_comment.svg"> <div class="like_count">105</div></span>
-                                    <div class="pull-right">
-                                        <span><img src="/assets/img/svg/ico_addtochannel.svg"></span>
-                                        <span><img src="/assets/img/svg/ico_share-02.svg"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="row">
-
-                <div class="col-md-12 col-sm-6 pro_channel_card">
-                    <div class="col-md-12 col-sm-12 feed_block">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 pro_channel_img1">
-                                <figure class="feed-avatar">
-                                    <img src="/assets/img/pro_block.jpg" class="img-responsive">
-                                </figure>
-                                <div class="feed_article"><img src="/assets/img/svg/ico_audio.svg"></div>
-                            </div>
-                            <div class="col-md-12 col-sm-12 pro_channel_cont">
-                                <div class="pro_channel_name">
-                                    <h3 class="feed-heading float-left">When The Morning Dawns</h3>
-                                    <span><img class="float-right" src="/assets/img/svg/ico_options.svg"></span>
-                                </div>
-                                <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
-                                <div class="pro_channel-thumb">
-                                    <img src="/assets/img/avatar.jpg">
-                                    <p>James Sims</p>
-                                    <div class="small-txt">Cafe and Colors</div>
-                                </div>
-                                <div class="pro_channel_count">
-                                    <span><img src="/assets/img/svg/ico_lik.svg"> <div class="like_count">55</div></span>
-                                    <span><img src="/assets/img/svg/ico_comment.svg"> <div class="like_count">15</div></span>
-                                    <div class="pull-right">
-                                        <span><img src="/assets/img/svg/ico_addtochannel.svg"></span>
-                                        <span><img src="/assets/img/svg/ico_share-02.svg"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 col-sm-6 pro_channel_card">
-                    <div class="col-md-12 col-sm-12 feed_block">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 pro_channel_img1">
-                                <figure class="feed-avatar">
-                                    <img src="/assets/img/chri.jpg" class="img-responsive">
-                                </figure>
-                                <div class="feed_article"><img src="/assets/img/svg/ico_video.svg"></div>
-                            </div>
-                            <div class="col-md-12 col-sm-12 pro_channel_cont">
-                                <div class="pro_channel_name">
-                                    <h3 class="feed-heading float-left">When The Morning Dawns</h3>
-                                    <span><img class="float-right" src="/assets/img/svg/ico_options.svg"></span>
-                                </div>
-                                <div class="ops_subheading extra-padding">This is the third article of a three part series, i'm illustrating the... </div>
-                                <div class="pro_channel-thumb">
-                                    <img src="/assets/img/avatar.jpg">
-                                    <p>James Sims</p>
-                                    <div class="small-txt">Cafe and Colors</div>
-                                </div>
-                                <div class="pro_channel_count">
-                                    <span><img src="/assets/img/svg/ico_lik.svg"> <div class="like_count">855</div></span>
-                                    <span><img src="/assets/img/svg/ico_comment.svg"> <div class="like_count">105</div></span>
-                                    <div class="pull-right">
-                                        <span><img src="/assets/img/svg/ico_addtochannel.svg"></span>
-                                        <span><img src="/assets/img/svg/ico_share-02.svg"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
+        
     </div>
-  </div>
-  </div>
+
+</div>

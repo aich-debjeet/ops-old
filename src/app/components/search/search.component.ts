@@ -20,7 +20,7 @@ import { Store } from '@ngrx/store';
 })
 export class SearchComponent {
 
-  activeTab = 'tab-all';
+  activeTab = 'tab-post';
   showSearchPlaceholder = true;
   search = {
     searchQuery: ''
@@ -36,6 +36,9 @@ export class SearchComponent {
 
     // search people
     this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: this.search.searchQuery });
+
+    // search post
+    this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: this.search.searchQuery });
   }
 
   /**
