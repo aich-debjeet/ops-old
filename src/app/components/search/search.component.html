@@ -17,42 +17,19 @@
                 </form>
             </div>
             <div class="row">
-
-                <!-- <div class="people-wrapper col-md-12 ops_artist_follow">
-                        
-                    <div *ngIf="artists && artists.length === 0; else artists_not_found;">
-                        <p class="artists-not-found">Artists not found!</p>
-                    </div>
-
-                    <ng-template #artists_not_found>
-    
-                        <div *ngFor="let artist of artists" class="panel20 text-center" >
-                            <figure class="avatar_artist_follow">
-                                <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist.profileImage }}">
-                                <ng-template #default_profile_image>
-                                    <img src="/assets/img/avatar.jpg" class="c-artist__img">
-                                </ng-template>
-                            </figure>
-                            <div class="ops_heading">
-                                <a routerLink="{{ '/profile/u/' + artist.extra.username }}" class="c-artist__name margin_t_16">{{ artist.name }}</a>
-                            </div>
-                            <p class="ops_heading12">@{{ artist.extra.username }}</p>
-                        </div>
-                        
-                    </ng-template>
-
-                </div> -->
                 
                 <!-- with childs -->
                 <ul class="nav nav-tabs">
                     <li><a (click)="selectTab('tab-all')" >All</a></li>
                     <li><a (click)="selectTab('tab-channel')" >Channel</a></li>
+                    <li><a (click)="selectTab('tab-post')" >Post</a></li>
                     <li><a (click)="selectTab('tab-people')" >People</a></li>
                 </ul>
                 <div class="tabs-container">
                     <app-search-all *ngIf="activeTab == 'tab-all'" id="tab-all" class="tabs"></app-search-all>
+                    <app-search-post *ngIf="activeTab == 'tab-post'" id="tab-post" class="tabs"></app-search-post>
+                    <app-search-people *ngIf="activeTab == 'tab-people'" [search]="search" id="tab-people" class="tabs"></app-search-people>
                     <app-search-channel *ngIf="activeTab == 'tab-channel'" id="tab-channel" class="tabs"></app-search-channel>
-                    <app-search-people *ngIf="activeTab == 'tab-people'" id="tab-people" class="tabs" [search]="search"></app-search-people>
                 </div>
                 <!-- with childs -->
 
