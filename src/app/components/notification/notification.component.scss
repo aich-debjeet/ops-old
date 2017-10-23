@@ -517,3 +517,10 @@ footer p{
 .cursor-pointer {
     cursor: pointer;
 }
+
+.head_msg_name {
+    & a, a:hover {
+        color: #333333;
+        cursor: pointer;
+    }
+}

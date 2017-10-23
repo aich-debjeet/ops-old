@@ -29,4 +29,10 @@ export class MessageService {
         return this.http.get(this.apiLink + '/portal/profile/' + handle, { headers: headers })
         .map((response: Response) => response.json())
     }
+
+    getReceipientDetails (value: string) {
+        const headers = this.tokenService.getAuthHeader();
+        return this.http.get(this.apiLink + '/portal/searchprofiles/1/' + value + '/0/10', { headers: headers })
+        .map((data: Response) => data.json());
+    }
 }

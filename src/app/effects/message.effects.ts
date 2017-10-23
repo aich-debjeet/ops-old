@@ -36,6 +36,15 @@ export class MessageEffect {
       .catch((res) => Observable.of({ type: MessageActions.LOAD_NON_USER_PROFILE_DATA_FAILED, payload: res }))
     );
 
+  @Effect()
+    getReceipient$ = this.actions$
+      .ofType(MessageActions.GET_RECEIPIENT)
+      .map(toPayload)
+      .switchMap((payload) => this.messageService.getReceipientDetails( payload )
+        .map(res => ({ type: MessageActions.GET_RECEIPIENT_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: MessageActions.GET_RECEIPIENT_FAILED, payload: res }))
+      );
+
   constructor(
   private actions$: Actions,
   private apiService: GeneralService,
