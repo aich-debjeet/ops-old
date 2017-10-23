@@ -47,7 +47,6 @@ export class CommentComponent implements OnInit {
    * Load Comments
    */
   loadMedia() {
-    console.log(this.mediaId);
     const send = {
       'media_id': this.mediaId,
       'commentType': this.mediaType
@@ -103,7 +102,6 @@ export class CommentComponent implements OnInit {
   }
 
   onCommentDelete(comment) {
-    console.log(comment);
     this.submitComment.emit('Del');
     this.deleteBacend(comment);
   }

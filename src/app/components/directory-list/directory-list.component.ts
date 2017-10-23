@@ -28,6 +28,7 @@ export class DirectoryListComponent implements OnInit {
   page_end = 20;
   scrolling = 0;
   scrollingLoad = 2000;
+  baseUrl = environment.API_IMAGE;
 
   constructor(
     private _store: Store<ProfileModal>,
@@ -47,7 +48,6 @@ export class DirectoryListComponent implements OnInit {
   loadDir() {
     const data = {
       isHuman: '1',
-      isImported: true,
       offset: this.page_start,
       limit: this.page_end
     }

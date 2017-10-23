@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" viewBox="0 0 12 12">
+  <defs>
+    <path id="radio-o-copy-2-a" d="M12.6666667,3.33333333 L12.6666667,12.6666667 L3.33333333,12.6666667 L3.33333333,3.33333333 L12.6666667,3.33333333 L12.6666667,3.33333333 Z M12.6666667,2 L3.33333333,2 C2.6,2 2,2.6 2,3.33333333 L2,12.6666667 C2,13.4 2.6,14 3.33333333,14 L12.6666667,14 C13.4,14 14,13.4 14,12.6666667 L14,3.33333333 C14,2.6 13.4,2 12.6666667,2 Z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(-2 -2)">
+    <mask id="radio-o-copy-2-b" fill="#fff">
+      <use xlink:href="#radio-o-copy-2-a"/>
+    </mask>
+    <g fill="#333" mask="url(#radio-o-copy-2-b)">
+      <rect width="53" height="53" rx="2" transform="translate(-18 -18)"/>
+    </g>
+  </g>
+</svg>

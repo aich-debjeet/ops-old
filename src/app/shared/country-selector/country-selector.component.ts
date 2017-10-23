@@ -50,7 +50,6 @@ export class CountrySelectorComponent implements OnInit, AfterViewInit, OnChange
    *
    */
   ngOnChanges(changes: any) {
-    console.log(changes);
   }
 
   /**
@@ -68,7 +67,6 @@ export class CountrySelectorComponent implements OnInit, AfterViewInit, OnChange
       formatter.input(event);
       this.selectedCountry = formatter.country;
 
-      console.log(formatter);
       // const country = formatter.country.toLowerCase();
       // const sel = this.selector;
       this.selector.setValueByChoice(formatter.country); // Choice with value of 'Two' has now been selected.
@@ -90,8 +88,6 @@ export class CountrySelectorComponent implements OnInit, AfterViewInit, OnChange
 
         return {
           item: function(data) {
-
-            // console.log(data);
 
             return strToEl('\
               <div\

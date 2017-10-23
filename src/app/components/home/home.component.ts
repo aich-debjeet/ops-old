@@ -49,19 +49,10 @@ export class HomeComponent {
   }
 
   /**
-   * Unpin Channel from Quick Access
-   * @param channelId
-   */
-  pinChannel(channelId: string /* channel id */) {
-    console.log('home component: pinChannel() dispatched for channel: ' + channelId);
-  }
-
-  /**
    * Unpin Channels from Quick Access
    * @param id
    */
   unpinChannel(channelId: string /* channel id */) {
-    console.log('home component: unpinChannel() dispatched for channel: ' + channelId);
     this.store.dispatch({
       type: SharedActions.UNPIN_CHANNEL,
       payload: {

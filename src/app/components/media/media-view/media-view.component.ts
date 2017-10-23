@@ -138,9 +138,7 @@ export class MediaViewComponent {
     if (param === 'Del') {
       this.commentCount--
     }else {
-      console.log('param');
       this.commentCount++
-      console.log(this.commentCount);
     }
   }
 }

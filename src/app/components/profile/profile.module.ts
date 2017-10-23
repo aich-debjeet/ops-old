@@ -25,6 +25,8 @@ import { AboutCoverComponent } from './about-cover/about-cover.component';
 import { ProfileHelper } from '../../helpers/profile.helper';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
+
+
 // Guard
 import { AuthGuard } from './../../guard/auth.guard';
 import { ProfileSpotfeedComponent } from './profile-spotfeed/profile-spotfeed.component';

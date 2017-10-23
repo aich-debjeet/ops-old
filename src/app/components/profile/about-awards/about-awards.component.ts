@@ -47,12 +47,14 @@ export class AboutAwardsComponent implements OnInit {
     // this.test = 'salabeel';
     this.tagState$.subscribe((state) => {
       this.stateProfile = state;
-      if (this.stateProfile.current_user_profile && this.stateProfile.profile_other_loaded === true) {
-        this.ownProfile = false;
-        this.userProfile = this.stateProfile.profile_other;
-      }else {
-        this.ownProfile = true;
-        this.userProfile = this.stateProfile.profileDetails;
+      if (state.profile_user_info) {
+        if (this.stateProfile.profile_user_info.isCurrentUser === false && this.stateProfile.profile_other_loaded === true) {
+          this.ownProfile = false;
+          this.userProfile = this.stateProfile.profile_other;
+        }else {
+          this.ownProfile = true;
+          this.userProfile = this.stateProfile.profileDetails;
+        }
       }
     });
 

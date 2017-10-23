@@ -12,16 +12,70 @@
       <div class="col-md-2 padding_none">
         <a class="o-dir-link o-dir-filter"><img src="/assets/img/directory/filter.svg"></a>
       </div>
-      <div class="row o-dirfil-opt">
+      <div class="o-dirfil-opt">
         <div class="o-dirfil-group with_border_right">
-          <div class="btn-group">
-          <button type="button" class="btn btn-primary btn-sm">All</button>
-          <button type="button" class="btn btn-network btn-sm">People</button>
-          <button type="button" class="btn btn-network btn-sm">Organization</button>
+
+          <ul class="o-dirfil">
+            <li class="o-dirfill-item with_border_right">
+              <label for="all" class="o-dirfill-block">
+                <input type="radio" name="opt" id="all">
+                <span class="o-dirfill__container">
+                  <span class="o-dirfil__ico">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                      <defs>
+                        <path id="all-list-copy-a" d="M2,20 L22,20 L22,16 L2,16 L2,20 Z M4,17 L6,17 L6,19 L4,19 L4,17 Z M2,4 L2,8 L22,8 L22,4 L2,4 Z M6,7 L4,7 L4,5 L6,5 L6,7 Z M2,14 L22,14 L22,10 L2,10 L2,14 Z M4,11 L6,11 L6,13 L4,13 L4,11 Z"/>
+                      </defs>
+                      <g  fill-rule="evenodd">
+                        <use fill-rule="nonzero" xlink:href="#all-list-copy-a"/>
+                      </g>
+                    </svg>
+                  </span>
+                  <span class="o-dirfill__name">All</span>
+                </span>
+              </label>
+            </li>
+            <li class="o-dirfill-item with_border_right">
+              <label class="o-dirfill-block">
+                <input type="radio" name="opt">
+                <span class="o-dirfill__container">
+                  <span class="o-dirfil__ico">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                      <defs>
+                        <path id="people-copy-a" d="M11.75,11.55 C8.0105,11.55 5,13.61235 5,16.05 L5,21 L18.5,21 L18.5,16.05 C18.5,13.612575 15.4895,11.55 11.75,11.55 M11.75,3 C9.8861,3 8.375,4.5111 8.375,6.375 C8.375,8.2389 9.8861,9.75 11.75,9.75 C13.6139,9.75 15.125,8.2389 15.125,6.375 C15.125,4.5111 13.6139,3 11.75,3"/>
+                      </defs>
+                      <g fill-rule="evenodd">
+                        <use xlink:href="#people-copy-a"/>
+                      </g>
+                    </svg>
+                  </span>
+                  <span class="o-dirfill__name">People</span>
+                </span>
+              </label>
+            </li>
+            <li class="o-dirfill-item">
+              <label class="o-dirfill-block">
+                <input type="radio" name="opt">
+                <span class="o-dirfill__container">
+                  <span class="o-dirfil__ico">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                      <defs>
+                        <path id="industry-copy-a" d="M18.193137,20.4357585 L15.8540085,20.4357585 L15.8540085,13.8523458 C15.8540085,13.0028732 16.4385818,12.3657687 17.0239903,12.3657687 C17.691239,12.3657687 18.193137,13.0028732 18.193137,13.8523458 L18.193137,20.4357585 Z M13.1825084,20.4357585 L10.844215,20.4357585 L10.844215,13.8523458 C10.844215,13.0028732 11.4279532,12.3657687 12.0133617,12.3657687 C12.6806104,12.3657687 13.1825084,13.0028732 13.1825084,13.8523458 L13.1825084,20.4357585 Z M8.17187974,20.4357585 L5.8335864,20.4357585 L5.8335864,13.8523458 C5.8335864,13.0028732 6.41732463,12.3657687 7.00273307,12.3657687 C7.66998178,12.3657687 8.17187974,13.0028732 8.17187974,13.8523458 L8.17187974,20.4357585 Z M12.0133617,5.69119704 C12.9311418,5.69119704 13.6835712,6.43254371 13.6835712,7.33863408 C13.6835712,8.24472445 12.9311418,8.98607112 12.0133617,8.98607112 C11.0947464,8.98607112 10.3431521,8.24472445 10.3431521,7.33863408 C10.3431521,6.43254371 11.0947464,5.69119704 12.0133617,5.69119704 L12.0133617,5.69119704 Z M19.946857,13.2694074 L19.9318251,11.0453674 L20.8646371,11.0453674 L23,11.0453674 L12.4309141,2.23157926 C12.1803826,1.98446371 11.7628302,1.90209185 11.5122988,2.14920741 L1,11.0453674 L2.99423019,11.0453674 L3.91201032,11.0453674 L3.91201032,20.4357585 L2.49316732,20.4357585 L2.49316732,22 L21.3665351,22 L21.3665351,20.4357585 L19.946857,20.4357585 L19.946857,13.2694074 Z"/>
+                      </defs>
+                      <g  fill-rule="evenodd">
+                        <use xlink:href="#industry-copy-a"/>
+                      </g>
+                    </svg>
+                  </span>
+                  <span class="o-dirfill__name">Organization</span>
+                </span>
+              </label>
+            </li>
+          </ul>
+          
+
         </div>
-        </div>
-        <div class="o-dirfil-radio with_border_right">
-          <div class="form_group ops_radio_sm">
+        <div class="o-dirfil-checkbox with_border_right">
+          <!-- <div class="form_group ops_radio_sm">
               <label class="width100">
                   <label class="col-md-4">
                       <input type="radio" name="demo"><span></span>Inactive
@@ -33,7 +87,27 @@
                       <input type="radio" name="demo"><span></span>Verified
                   </label>
               </label>
-          </div>
+          </div> -->
+          <ul class="o-dirfill-check">
+            <li class="o-dirfill-check__list">
+              <label>
+                <input type="checkbox" name="checkbox" value="1" checked> <span></span>
+                <span class="o-dirfill-check__txt"> Inactive</span>
+              </label>
+            </li>
+            <li class="o-dirfill-check__list">
+              <label>
+                <input type="checkbox" name="checkbox" value="2"> <span></span> 
+                <span class="o-dirfill-check__txt">Active</span>
+              </label>
+            </li>
+            <li class="o-dirfill-check__list">
+              <label>
+                <input type="checkbox" name="checkbox" value="99"> <span></span> 
+                <span class="o-dirfill-check__txt">Verified</span>
+              </label>
+            </li>
+          </ul>
         </div>
         <div class="o-dirfil-selectlist">
           <div class="c-form__group">
@@ -84,7 +158,7 @@
             <div class="c-user c-user-list--dir">
                 <a class="c-user__avatar c-avatar--dir">
                   <img *ngIf="!dir?.profileImage" class="c-user__image" src="http://d206s58i653k1q.cloudfront.net/images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png">
-                  <img *ngIf="dir?.profileImage" class="c-user__image" src="{{ dir?.profileImage }}">
+                  <img *ngIf="dir?.profileImage" class="c-user__image" src="{{ baseUrl + dir?.profileImage }}">
                 </a>
                 <a class="c-user__name c-user--dir-name">{{ dir?.name }}</a>
                 <a class="c-user__dir-sub">{{ dir?.extra?.profession }}</a>
@@ -123,7 +197,7 @@
         <div class="o-dir-list__actions">
           <div class="o-dir-actions">
             <button type="button" class="btn btn-default btn-md" disabled>CONTACT</button>
-            <button type="button" class="btn btn-md btn-primary btn-follow" disabled>
+            <button type="button" class="btn btn-md btn-primary btn-follow" *ngIf="!dir?.extra?.isImported">
                         <span class="btn-label-follow">
                         <img src="/assets/img/svg/ico_plus_white.svg">
                       </span> FOLLOW
