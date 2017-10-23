@@ -10,7 +10,6 @@ export class HomeActions {
   // home load channels
 
   loadChannels(value: Channel): Action {
-    console.log('home action: LOAD_CHANNELS triggred');
     return {
       type: HomeActions.LOAD_CHANNELS,
       payload: { value }
@@ -18,7 +17,6 @@ export class HomeActions {
   }
 
   loadChannelsSuccess(value: Channel): Action {
-    console.log('home action: LOAD_CHANNELS_SUCCESS triggred');
     return {
       type: HomeActions.LOAD_CHANNELS_SUCCESS,
       payload: { value }
@@ -26,7 +24,6 @@ export class HomeActions {
   }
 
   loadChannelsFailed(error: any): Action {
-    console.log('home action: LOAD_CHANNELS_FAILED triggred');
     return {
       type: HomeActions.LOAD_CHANNELS_FAILED,
       payload: error

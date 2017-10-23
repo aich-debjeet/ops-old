@@ -144,12 +144,12 @@
     padding: 7px 15px;
   }
   .btn-follow {
-    padding: 4px 10px;
-    font-size: 14px;
-    font-weight: 500;
+    padding: 6px 8px;
+    font-size: 11px;
+    font-weight: 600;
     margin-left: 16px;
     .btn-label-follow img {
-      width: 14px !important;
+      width: 11px !important;
       vertical-align: middle;
       line-height: 13px;
       margin-left: 0;
@@ -250,53 +250,41 @@
 }
 
 .o-dirfil-opt {
-  margin-top: 54px;
+  margin-top: 24px;
   clear: both;
+  float: left;
+  width: 100%;
 }
 
-.o-dirfil-group {
-  width: 24%;
-  float: left;
-  padding: 2px 0;
-  .btn-group {
-    margin-left: 16px;
-    .btn-sm {
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: capitalize;
-    }
-  }
-}
-
-.o-dirfil-radio {
-  width: 24%;
-  float: left;
-  padding: 2px 0;
-  margin-top: 5px;
-  .form_group {
-    margin-bottom: 0;
-    label {
-      color: #333333;
-      font-size: 11px;
-      line-height: 18px;
-      font-weight: 500;
-    }
-    .col-md-4 {
-      padding-left: 12px;
-      padding-right: 12px;
-      input[type="radio"]+span {
-        margin-top: 1px;
-      }
-      input[type="radio"]:checked+span:after {
-      background-color: #555;
-      font-size: 11px;
-    }
-    }
-  }
-  .width100 {
-    width: 100%;
-  }
-}
+// .o-dirfil-checkbox {
+//   width: 24%;
+//   float: left;
+//   padding: 2px 0;
+//   margin-top: 5px;
+//   .form_group {
+//     margin-bottom: 0;
+//     label {
+//       color: #333333;
+//       font-size: 11px;
+//       line-height: 18px;
+//       font-weight: 500;
+//     }
+//     .col-md-4 {
+//       padding-left: 12px;
+//       padding-right: 12px;
+//       input[type="radio"]+span {
+//         margin-top: 1px;
+//       }
+//       input[type="radio"]:checked+span:after {
+//         background-color: #555;
+//         font-size: 11px;
+//       }
+//     }
+//   }
+//   .width100 {
+//     width: 100%;
+//   }
+// }
 
 .o-dirfil-selectlist {
   width: 15%;
@@ -312,6 +300,136 @@
     line-height: 18px;
   }
 }
+
+
+// filter option radio
+.o-dirfil-group{
+  float: left;
+  padding-right: 16px;
+}
+.o-dirfil{
+  list-style:none;
+  position: relative;
+  float: left;
+  border-radius: 3px;
+  border: 1px solid #EFEAF4;
+  overflow: hidden;
+}
+.o-dirfill-item{
+  list-style-type: none;
+  float: left;
+  display: flex;
+  //border-right: 1px solid #EFEAF4;
+  // width: 54px;
+  // height: 32px;
+  // float: left;
+}
+.o-dirfill-item input[type="radio"]{
+  display: none;
+}
+.o-dirfill-item input[type="radio"] + span{
+  padding:8px;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  flex-direction:row;
+  transition:.25s;
+
+  float: left;
+  font-size: 11px;
+  font-weight: normal;
+  color: #333;
+}
+.o-dirfill-item input[type="radio"]:checked + span{   
+  transition:.25s;
+  background: #ff7b84;
+  color: #fff;
+}
+.o-dirfill-block{
+  pointer-events:all;
+  position: static;
+}
+.o-dirfil__ico{
+  width: 15px;
+  height: 15px;
+  float: left;
+  margin-right: 4px;
+  vertical-align: middle;
+  svg{
+    fill:#333;
+    width: 15px;
+    height: 15px;
+  }
+}
+.o-dirfill__name{
+  margin-top: 3px;
+}
+.o-dirfill-ico__black{
+  transition:.25s;
+}
+.o-dirfill-ico__white{
+  display: block;
+}
+.o-dirfill-item input[type="radio"]:checked + span{
+  svg{
+    fill:#fff;
+  }
+}
+
+
+
+// filter check box
+
+.o-dirfil-checkbox {
+  width: 25%;
+  float: left;
+  padding: 2px 0;
+  margin-top: 5px;
+  padding-left: 16px;
+}
+.o-dirfill-check{
+  position: relative;
+  list-style: none;
+}
+.o-dirfill-check__list{
+  float: left;
+  list-style-type: none;
+  margin-right: 16px;
+}
+.o-dirfill-check__list label{
+  position: relative;
+  pointer-events: inherit;
+  color: #333333;
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: 500;
+  top: 6px;
+}
+
+.o-dirfill-check__list input[type="checkbox"] {
+  display: none;
+}
+.o-dirfill-check__list input[type="checkbox"] + span {
+  display: inline-block;
+  background: url(/assets/img/directory/checkboxdisabled.svg) no-repeat;
+  float: left;
+  margin-right: 7px;
+  padding: 7px;
+  position: relative;
+  width: 16px;
+}
+.o-dirfill-check__list input[type="checkbox"]:checked + span {
+  background: url(/assets/img/directory/checkboxactived.svg) no-repeat;
+}
+
+.o-dirfill-check__txt{
+  margin-top: -2px;
+  float: left;
+}
+
+
+
+
 // card user block ------------------
 .c-card__user {
   margin-top: 16px;

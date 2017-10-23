@@ -125,7 +125,6 @@ export class AboutCoverComponent implements OnInit {
     img.onload = function(){
       const imgHeight = 880;
       const imgWidth = 300;
-      // ctx.drawImage(img, 0, 0, imgHeight, imgWidth);
       self.drawImageProp(ctx, this, 0, 0, self.cropperSettings.canvasWidth, self.cropperSettings.canvasHeight, 0.1, 0.5);
     };
 
@@ -135,7 +134,6 @@ export class AboutCoverComponent implements OnInit {
     } else {
       coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
     }
-    // console.log('coverImageURL', coverImageURL);
     img.src = coverImageURL;
   }
 

@@ -71,14 +71,12 @@ export class NavigationComponent implements OnInit {
 
     // observe the store value
     this.notificationsState$.subscribe((state) => {
-      // console.log(state);
       if (typeof state['recieved_notifications'] !== 'undefined') {
         this.notifications = state['recieved_notifications'];
         this.processNotifications();
       }
       if (typeof state['marking_as_read_response'] !== 'undefined') {
         // upadte notification as marked
-        console.log('read: ' + this.notificationIds);
         this.updateNotifications();
       }
     });
@@ -125,10 +123,8 @@ export class NavigationComponent implements OnInit {
       && this.notifications.length > 0) {
         for (let readNotifIndex = 0; readNotifIndex < this.notificationIds.length; readNotifIndex++) {
           const readNotif = this.notificationIds[readNotifIndex];
-          // console.log('readNotif', readNotif);
           for (let notifIndex = 0; notifIndex < this.notifications.length; notifIndex++) {
             if (this.notifications[notifIndex].notificationId === this.notificationIds[readNotifIndex]) {
-              // console.log('mark read: ', this.notifications[notifIndex].notificationId);
               this.notifications[notifIndex].isRead = true;
             }
           }
@@ -170,7 +166,6 @@ export class NavigationComponent implements OnInit {
    */
   markAsRead(notificationId: string) {
     this.notificationIds = [notificationId];
-    console.log('this.notificationIds', this.notificationIds);
     this.dispatchReadNotifications();
   }
 
@@ -198,7 +193,6 @@ export class NavigationComponent implements OnInit {
       }
       if (index === (this.notifications.length - 1)) {
         this.notificationIds = data;
-        // console.log('collection this.notificationIds', this.notificationIds);
         callback();
       }
     });
@@ -210,7 +204,6 @@ export class NavigationComponent implements OnInit {
   markAllAsRead() {
     const self = this;
     this.getAllNotificationIds(function() {
-      // console.log('mark all read', self.notificationIds);
       self.dispatchReadNotifications();
     });
   }

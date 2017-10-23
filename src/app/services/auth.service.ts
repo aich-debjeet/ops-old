@@ -62,7 +62,7 @@ export class AuthService {
       .map((response: Response) => {
           const user = response.json();
           if (user.profileId) {
-            console.log(user.profileId);
+            // console.log(user.profileId);
           }
           localStorage.setItem('currentUserID', user.profileId);
           this.router.navigate(['/profile']);
@@ -159,7 +159,6 @@ export class AuthService {
      * Go to user profile page
      */
     goToProfile() {
-      console.log('going to profile');
       this.router.navigateByUrl('/profile');
     }
     /**

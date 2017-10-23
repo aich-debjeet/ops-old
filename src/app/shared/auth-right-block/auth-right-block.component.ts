@@ -14,7 +14,7 @@ export class AuthRightBlockComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.rightCom.mainTitle);
+
   }
 
 }

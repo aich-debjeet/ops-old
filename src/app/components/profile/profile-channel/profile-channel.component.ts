@@ -40,17 +40,50 @@ export class ProfileChannelComponent implements OnInit {
     private _router: Router,
     public route: ActivatedRoute,
     private toastr: ToastrService,
-    private profileStore: Store<ProfileModal>
+    private _store: Store<ProfileModal>
   ) {
     this.loaded = false;
     this.router = _router;
     this.counter = 0;
     this.isOwner = false;
-    this.tagState$ = this.profileStore.select('profileTags');
+    this.tagState$ = this._store.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.profileChannel = state;
-      this.userFlag(state);
+      this.channels = this.profileChannel.other_channel;
     });
+  }
+
+  ngOnInit() {
+    this.checkUserType();
+  }
+
+
+  checkUserType() {
+    this._store.select('profileTags')
+      .first(profile => profile['profile_user_info'] && profile['profileUser'].handle)
+      .subscribe( data => {
+        if (data['profile_user_info'].isCurrentUser === true) {
+          const handle = this.profileChannel.profileUser.handle;
+          this.isOwner = true;
+          this.channels = [];
+          this.loadChannel(handle);
+        }
+      });
+
+    this._store.select('profileTags')
+      .first(profile => profile['profile_user_info'] && profile['profile_other'].handle )
+      .subscribe( data => {
+        if (data['profile_user_info'].isCurrentUser === false) {
+          const handle = this.profileChannel.profile_other.handle;
+          this.isOwner = false;
+          this.loadChannel(handle);
+        }
+      });
+  }
+
+
+  loadChannel(handle: string) {
+    this._store.dispatch({ type: ProfileActions.LOAD_USER_CHANNEL, payload: handle });
   }
 
   /**
@@ -69,75 +102,6 @@ export class ProfileChannelComponent implements OnInit {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
   }
 
-  /**
-   * Check if current user or other profile
-   * @param userName
-   */
-  userFlag(state) {
-    this.sub = this.route.parent.parent.params.subscribe(params => {
-      if (this.checkEmpty(params)) {
-        this.isOwner = true;
-        this.loadCurrentProfile(state);
-      } else {
-        this.isOwner = false;
-        this.userName = params['id'];
-        this.loadOtherProfile(state);
-      }
-    });
-  }
-
-  /**
-   * Load Other Profile Related Data
-   */
-  loadOtherProfile(state) {
-    const isChannelReady = this.profileChannel.other_channels_loaded;
-    const isProfileReady = this.profileChannel.profile_other_loaded;
-
-    // Check if the other profile is loaded; also make sure the activated route is not current user
-    if ( isChannelReady === false && isProfileReady === true) {
-      this.counter++;
-      const handleID = state.profile_other.handle;
-      if (this.counter < 10) {
-        this.handle = handleID;
-        if (this.handle && this.userName ) {
-          this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_CHANNEL, payload: handleID });
-        }
-      }
-    }
-
-    // Assign channel data to general list
-    if ( isChannelReady === true ) {
-      this.channels = this.profileChannel.other_channel;
-    }
-  }
-
-  /**
-   * Load current user profile data
-   */
-  loadCurrentProfile(state: any) {
-    const isChannelReady = this.profileChannel.user_channels_loaded;
-    const isProfileReady = this.profileChannel.profile_loaded;
-
-    // Check if the other profile is loaded; also make sure the activated route is not current user
-    if ( isChannelReady === false && isProfileReady === true) {
-
-      const profile = this.profileChannel.profileUser;
-      this.counter++;
-      // const handleID = this.profileChannel.profileDetails.handle;
-      if (this.counter < 10 && profile.handle !== undefined) {
-        this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: profile.handle });
-      }
-    }
-
-    // Assign channel data to general list
-    if ( isChannelReady === true ) {
-      this.channels = this.profileChannel.user_channel;
-    }
-  }
-
-  toggleFollowBtn(i) {
-    // Follow dispatches to happen here
-  }
 
   /**
    * Follow this channel
@@ -147,14 +111,14 @@ export class ProfileChannelComponent implements OnInit {
       channelId: e.channel.spotfeedId,
       state: e.state
     };
-    this.profileStore.dispatch({ type: ProfileActions.CHANNEL_FOLLOW, payload: req });
+    this._store.dispatch({ type: ProfileActions.CHANNEL_FOLLOW, payload: req });
   }
 
   /**
    * Delete a channel
    */
   deleteChannel(channelId: string) {
-    this.profileStore.dispatch({ type: ProfileActions.CHANNEL_DELETE, payload: channelId });
+    this._store.dispatch({ type: ProfileActions.CHANNEL_DELETE, payload: channelId });
     this.removeChannel(channelId);
     this.toastr.warning('Channel Deleted');
   }
@@ -173,7 +137,4 @@ export class ProfileChannelComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.checkProfile();
-  }
 }
