@@ -41,6 +41,22 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       success: false
     });
 
+    case MessageActions.GET_RECEIPIENT:
+      return Object.assign({}, state, {
+      receipients: [],
+      receipients_loaded: false
+    });
+    case MessageActions.GET_RECEIPIENT_SUCCESS:
+      return Object.assign({}, state, {
+        receipients: payload,
+        receipients_loaded: true
+      });
+    case MessageActions.GET_RECEIPIENT_FAILED:
+      return Object.assign({}, state, {
+        success: false,
+        receipients_loaded: false
+      });
+
     default:
     return state;
   }

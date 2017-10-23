@@ -25,8 +25,13 @@
                               <img *ngIf="!notification.profileImage" src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
                               <img *ngIf="notification.profileImage" src="{{ baseUrl + notification.profileImage }}" class="img-responsive">
                             </li>
-                            <li class="list-inline-item noti_cont cursor-pointer" (click)="openLink(notifIndex, notification.notificationId)" >
-                                <div class="head_msg_name">{{ notification.name }}</div>
+                            <!-- <li class="list-inline-item noti_cont cursor-pointer" (click)="openLink(notifIndex, notification.notificationId)" > -->
+                            <li class="list-inline-item noti_cont cursor-pointer">
+                                <div class="head_msg_name">
+                                        <a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                                        {{ notification.name }}
+                                    </a>
+                                </div>
                                 <div class="head_msg_short">{{ notification.message }}</div>
                                 <div class="noti_cont_footer">
                                   <img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg" class="noti_cont_footer_img"><span>10:08 PM</span>

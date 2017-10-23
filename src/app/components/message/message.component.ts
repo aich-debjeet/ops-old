@@ -97,7 +97,8 @@ export class MessageComponent implements OnInit, AfterViewChecked {
 
     this.msgNav = {
       action: { open: false },
-      setting: { open: false }
+      setting: { open: false },
+      name: { open: false}
     };
 
     this.messageForm = fb.group({
@@ -128,6 +129,9 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       }
       if (state && state.nonUserProfileDetails) {
         this.nonUserProfile = state.nonUserProfileDetails;
+      }
+      if (state && state.receipients) {
+        this.receipientList = state.receipients;
       }
     })
   }
@@ -451,13 +455,12 @@ export class MessageComponent implements OnInit, AfterViewChecked {
   */
 
   onSearch () {
-    this.recipientsListState = true;
-    if (this.composeMessage.searchUser !== null || this.composeMessage.searchUser !== ' ') {
-     this.http.get(this.apiLink + '/portal/searchprofiles/1/' + this.composeMessage.searchUser + '/0/10')
-     .map((data: Response) => data.json())
-     .subscribe(response => {
-       this.receipientList = response
-     });
+    if (this.composeMessage.searchUser !== null || this.composeMessage.searchUser !== '') {
+      this.recipientsListState = true;
+      this.messageStore.dispatch({ type: MessageActions.GET_RECEIPIENT, payload: this.composeMessage.searchUser });
+    } else {
+      this.recipientsListState = false;
+      this.composeMessage.searchUser = '';
     }
   }
 }

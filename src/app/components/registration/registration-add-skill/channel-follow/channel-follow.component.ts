@@ -10,7 +10,6 @@ export class ChannelFollowComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.ChannelFollow);
   }
 
 }

@@ -528,6 +528,10 @@ app-modal.media__modal .ng-modal {
     }
     ul > li {
         .head_msg_name {
+            & a, a:hover {
+               cursor: pointer;
+               color: #333333;
+            }
             font-size: 14px;
             font-weight: bold;
             text-align: left;
@@ -566,12 +570,38 @@ app-modal.media__modal .ng-modal {
         overflow-y: auto;
     }
 }
-.caret{
-    color: #333;
-    cursor: pointer;
-    display: block;
-    float: right;
-    top: 11px;
-    height: 19px;
-    position: relative;
+
+.opsheader-paddingt6 {
+    margin-top: -6px;
+    img {
+        width: 34px !important;
+        height: 34px !important;
+        border: solid 1px rgba(102, 45, 145, 0.1);
+        border-radius: 50%;
+    }
+}
+.header-prof-img{
+    width: 34px !important;
+    height: 34px !important;
+    border: solid 1px rgba(102, 45, 145, 0.1);
+    border-radius: 50%;
+    margin-top: -6px;
+}
+
+.opsheader-lineheight30 {
+    line-height: 30px !important;
+}
+.account-opt{
+    padding: 20px 0px 0px!important;
+    .caret {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        margin-left: 2px;
+        vertical-align: middle;
+        border-top: 6px dashed;
+        // border-top: 4px solid 9;
+        border-right: 6px solid transparent;
+        border-left: 6px solid transparent;
+    }   
 }

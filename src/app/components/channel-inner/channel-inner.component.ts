@@ -74,7 +74,6 @@ export class ChannelInnerComponent implements OnInit {
   }
 
   editPopup(data) {
-    console.log(data);
     this.editForm.patchValue({
       name: data.channelName,
       bio: data.description,
@@ -86,7 +85,6 @@ export class ChannelInnerComponent implements OnInit {
   }
 
   closePopup() {
-    console.log('close form');
     this.modalService.close('editform');
   }
 
@@ -113,14 +111,12 @@ export class ChannelInnerComponent implements OnInit {
    * Subimt Edit
    */
   educationSubmit(form: any) {
-    console.log('Submitting');
   }
 
   /**
    * Close
    */
   closeForm() {
-    console.log('Closign Form');
   }
 
   mediaClosePopup() {

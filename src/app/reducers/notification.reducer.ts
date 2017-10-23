@@ -13,8 +13,9 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       });
 
     case NotificationActions.LOAD_NOTIFICATIONS_SUCCESS:
+      const filteredNotifications = payload.filter(value => Object.keys(value).length !== 0);
       return Object.assign({}, state, {
-        recieved_notifications: payload,
+        recieved_notifications: filteredNotifications,
         recieved_notifications_success: true
       });
 

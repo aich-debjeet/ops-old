@@ -23,8 +23,6 @@ export class AuthGuard implements CanActivate {
     ): Observable<boolean> | Promise<boolean> | boolean {
         const observable: Observable<boolean> = this.store.select('loginTags');
         return observable.map(val => {
-          console.log('AuthActions.USER_LOGGED_IN response');
-          console.log(val);
             if (val) {
                 return true;
             } else {

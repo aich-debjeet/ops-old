@@ -47,7 +47,6 @@ export class UserCardComponent implements OnInit {
    * @param event
    */
   deleteMedia(channel: any) {
-    console.log('Deleting this Channenl');
   }
 
   handleClick(id) {
@@ -63,10 +62,8 @@ export class UserCardComponent implements OnInit {
    * @param user obj
    */
   followUser(user: any) {
-    console.log(user);
     // get user handle
     const userHandle = user.image.split('/')[1];
-    // console.log('user: ' + userHandle);
     this.store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: userHandle });
     user.isFollowing = true;
   }
@@ -76,10 +73,8 @@ export class UserCardComponent implements OnInit {
    * @param user obj
    */
   unfollowUser(user: any) {
-    console.log(user);
     // get user handle
     const userHandle = user.image.split('/')[1];
-    // console.log('user: ' + userHandle);
     this.store.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: userHandle });
     user.isFollowing = false;
   }

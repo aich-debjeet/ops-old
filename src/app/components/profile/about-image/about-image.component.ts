@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { DatePipe, Location } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -38,6 +38,7 @@ export class AboutImageComponent implements OnInit {
   changingImage: boolean;
   cropperSettings: CropperSettings;
   baseUrl: string;
+  @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
   constructor(
     private _http: Http,
@@ -68,6 +69,7 @@ export class AboutImageComponent implements OnInit {
     this.cropperSettings.canvasWidth = 400;
     this.cropperSettings.canvasHeight = 300;
     this.cropperSettings.rounded = true;
+    this.cropperSettings.noFileInput = true;
     this.data = {};
   }
 
@@ -85,9 +87,6 @@ export class AboutImageComponent implements OnInit {
     const ctx = document.getElementsByTagName('canvas')[0].getContext('2d');
     const img = new Image();
     img.onload = function(){
-      // const imgHeight = img.height;
-      // const imgWidth = img.width;
-      // ctx.drawImage(img, 0, 0, self.cropperSettings.canvasHeight, self.cropperSettings.canvasWidth);
       self.drawImageProp(ctx, this, 0, 0, self.cropperSettings.canvasWidth, self.cropperSettings.canvasHeight, 0.1, 0.5);
     };
 
@@ -97,7 +96,6 @@ export class AboutImageComponent implements OnInit {
     } else {
       profileImageURL = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
     }
-    // console.log('imageSrc', imageSrc);
     img.src = profileImageURL;
   }
 
@@ -161,6 +159,20 @@ export class AboutImageComponent implements OnInit {
     }
   }
 
+  fileChangeListener($event) {
+      let image: any = new Image();
+      let file: File = $event.target.files[0];
+      let myReader: FileReader = new FileReader();
+      let that = this;
+      myReader.onloadend = function (loadEvent: any) {
+          image.src = loadEvent.target.result;
+          that.cropper.setImage(image);
+
+      };
+
+      myReader.readAsDataURL(file);
+  }
+
   isClosed(event: any) {
     this._location.back();
   }
@@ -204,9 +216,6 @@ export class AboutImageComponent implements OnInit {
       // Create random file name
       const randm = Math.random().toString(36).slice(2);
       const fileName = 'prof_' + randm + '.' + imageType;
-
-      console.log('x');
-
       data.append('file', this.dataURItoBlob(imageData), fileName );
       return data;
     }
