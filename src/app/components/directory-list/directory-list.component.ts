@@ -29,6 +29,8 @@ export class DirectoryListComponent implements OnInit {
   scrolling = 0;
   scrollingLoad = 2000;
   baseUrl = environment.API_IMAGE;
+  searchText: string;
+  profileType: any = 1;
 
   constructor(
     private _store: Store<ProfileModal>,
@@ -45,15 +47,39 @@ export class DirectoryListComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  /**
+   * While Typing Search
+   */
+  search() {
+    this.page_start = 0
+    this.loadDir();
+  }
+
+  /**
+   * Organation and People select option
+   */
+  profileTypeOption() {
+    this.page_start = 0
+    this.loadDir();
+  }
+
+  /**
+   * Call Directory API
+   */
   loadDir() {
     const data = {
-      isHuman: '1',
+      isHuman: String(this.profileType),
+      searchText: this.searchText,
       offset: this.page_start,
       limit: this.page_end
     }
     this._store.dispatch({ type: ProfileActions.LOAD_DIRECTORY, payload: data });
   }
 
+  /**
+   * While Scrolling trigger directory api
+   */
   onScroll(e) {
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
