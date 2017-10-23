@@ -42,8 +42,8 @@
                 <p>{{ '@' + profileObject?.userHandle }}</p>
                 <p class="profession">{{ profileObject?.extra?.profession }}</p>
                 <div *ngIf="!this.isOwner" class="share__follow">
-                    <button (click)="userFollow(profileObject?.isFollowing, profileObject?.userDetails?.handle )"  type="button" class="btn btn-xs btn-basic btn-small btn-following" [ngClass]="(profileObject?.isFollowing) ? 'btn-following' : 'btn-primary'">
-                        <span class="btn-label-follow ">{{ (profileObject?.isFollowing)? 'Unfollow' : 'Follow'}} </span>
+                    <button (click)="userFollow(isFollowing, profileObject?.userDetails?.handle )"  type="button" class="btn btn-xs btn-basic btn-small" [ngClass]="(isFollowing) ? 'btn-following' : 'btn-primary'">
+                        <span class="btn-label-follow ">{{ (isFollowing)? 'Unfollow' : 'Follow'}} </span>
                     </button>
                     <button type="button" class="btn btn-normal2 btn-xs btn-small"> NETWORK </button>
                     <button type="button" (click)="donatePopup()" class="btn btn-normal2 btn-xs btn-small"> DONATE </button>
