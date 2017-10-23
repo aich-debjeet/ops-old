@@ -11,74 +11,38 @@ import { environment } from './../../../environments/environment.prod';
 // import 'rxjs/add/operator/map';
 // import 'rxjs/add/operator/debounceTime';
 
-// import { Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
-
-  // searchPeopleState$: Observable<SearchModel>;
-  // baseUrl: string;
+export class SearchComponent {
 
   activeTab = 'tab-all';
   showSearchPlaceholder = true;
   search = {
     searchQuery: ''
   };
-  // artists: any[];
-  // isLoading = false;
 
   constructor(
-    // private store: Store<SearchModel>
-  ) {
-
-    // this.baseUrl = environment.API_IMAGE;
-    // this.searchPeopleState$ = this.store.select('searchTags');
-
-  }
+    private store: Store<SearchModel>
+  ) { }
 
   searchTrigger(query: string) {
-    console.log('searching', query);
+    // console.log('searching', query);
     this.search.searchQuery = query;
-  }
 
-  ngOnInit() {
-
-    // // observe the store value
-    // this.searchPeopleState$.subscribe((state) => {
-    //   console.log('state', state);
-    //   if (state && state.hasOwnProperty('search_people')) {
-    //     this.artists = state.search_people;
-    //   }
-
-    //   if (state && state.hasOwnProperty('searching_people')) {
-    //     // console.log('searching status', state.searching_people);
-    //     this.isLoading = state.searching_people;
-    //   }
-    // });
-
-    // this.searchQuery.valueChanges
-    //   .debounceTime(200)
-    //   .subscribe((value) => {
-    //     if (value !== '') {
-    //       // console.log('this.searchQuery', value);
-    //       this.store.dispatch({
-    //         type: SearchActions.SEARCH_PEOPLE,
-    //         payload: value
-    //       });
-    //     }
-    //   });
-
+    // search people
+    this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: this.search.searchQuery });
   }
 
   /**
    * Search input on focus
    */
   searchOnFocus() {
-    this.showSearchPlaceholder = false;
+    // this.showSearchPlaceholder = false;
   }
 
   /**
