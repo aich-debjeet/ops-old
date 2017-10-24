@@ -3,12 +3,19 @@
     <div id="search_post" class="tab-pane fade active in">
         
         <div class="row">
-            <div *ngIf="posts && posts.length === 0; else posts_not_found;">
+            
+            <!-- if posts not found -->
+            <div *ngIf="posts && posts.length === 0; else posts_found;">
                 <p class="artists-not-found">Posts not found!</p>
             </div>
-        
-            <ng-template #posts_not_found>
+            <!-- if posts not found -->
+            
+            <!-- if posts found -->
+            <ng-template #posts_found>
+
                 <div *ngFor="let post of posts" >
+
+                    <!-- post type image -->
                     <div class="col-md-3" *ngIf="post.mtype == 'image'" >
                         <div class="c-card">
                             <!-- card media (img, video & audio) -->
@@ -67,8 +74,13 @@
                             <!-- //card footer links -->
                         </div>
                     </div>
+                    <!-- post type image -->
+
                 </div>
+
             </ng-template>
+            <!-- if posts found -->
+
         </div>
         
     </div>

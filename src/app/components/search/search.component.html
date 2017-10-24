@@ -8,15 +8,15 @@
                 <form action="" >
                     <div class="form_group">
                         <input (focus)="searchOnFocus()" (blur)="searchOnBlur()" class="form_input" type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchTrigger($event)" >
-                        <!-- <label id="search-placeholder" *ngIf="showSearchPlaceholder" >Search</label>
+                        <label id="search-placeholder" *ngIf="showSearchPlaceholder" >Search</label>
                         <p class="search_top_icon">
                             <img *ngIf="!isLoading" src="/assets/img/svg/ico_search.svg">
                             <img *ngIf="isLoading" src="/assets/img/spinner.gif">
-                        </p> -->
+                        </p>
                     </div>
                 </form>
             </div>
-            <div class="row">
+            <div class="col-md-12 home_tabs">
                 
                 <!-- with childs -->
                 <ul class="nav nav-tabs">
