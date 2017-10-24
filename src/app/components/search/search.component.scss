@@ -109,11 +109,18 @@
     padding: 10px 15px;
 }
 
-.search_close a {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 100;
+.search_close {
+    float: right;
+    margin: 20px;
+    img {
+            width: 30px;
+    }
+    a {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+    }
 }
 
 .home_tabs .nav-tabs li a {
