@@ -16,7 +16,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './search-all.component.html',
   styleUrls: ['./search-all.component.scss']
 })
-export class SearchAllComponent implements OnInit, DoCheck {
+export class SearchAllComponent implements OnInit {
 
   @Input() search: any;
   differ: any;
@@ -27,7 +27,6 @@ export class SearchAllComponent implements OnInit, DoCheck {
   posts: any[];
   artists: any[];
   channels: any[];
-  isLoading = false;
 
   constructor(
     private differs: KeyValueDiffers,
@@ -39,24 +38,6 @@ export class SearchAllComponent implements OnInit, DoCheck {
     this.baseUrl = environment.API_IMAGE;
     this.searchAllState$ = this.store.select('searchTags');
 
-  }
-
-  ngDoCheck() {
-    const changes = this.differ.diff(this.search);
-    // console.log('changes', changes);
-    if (changes) {
-      changes.forEachChangedItem(response => {
-        console.log('changed ', response.currentValue)
-        this.store.dispatch({
-          type: SearchActions.SEARCH_PEOPLE,
-          payload: response.currentValue
-        });
-      });
-      // changes.forEachAddedItem(r => console.log('added ' + r.currentValue));
-      // changes.forEachRemovedItem(r => console.log('removed ' + r.currentValue));
-    } else {
-      // console.log('NO CHANGE');
-    }
   }
 
   ngOnInit() {
