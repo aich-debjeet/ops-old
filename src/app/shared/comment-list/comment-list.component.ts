@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { DatePipe } from '@angular/common';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-comment-list',
@@ -15,6 +16,7 @@ export class CommentListComponent implements OnInit {
   imageLink: string = environment.API_IMAGE;
   isEdit: boolean;
   messageText: string;
+  dates: any;
 
   constructor() { }
 

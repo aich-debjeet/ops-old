@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="pull-right">
-        <div class="c-post__time">{{ mediaData?.createdDate | date:'d MMM h:m a'}}</div>
+        <div class="c-post__time">{{ mediaData?.createdDate | utcDate | date:'d MMM h:m a'}}</div>
         <a>
           <img *ngIf="mediaData?.access === 1" src="/assets/img/svg/ico_private.svg" alt="" class="c-status__options">
           <img *ngIf="mediaData?.access === 0" src="/assets/img/svg/ico_public.svg" alt="" class="c-status__options">

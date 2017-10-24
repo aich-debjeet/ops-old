@@ -8,6 +8,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { ReadMoreDirective } from '../../helpers/read-more.directive';
 import { MediaComponent } from './media.component';
 
+
 // Childs
 import { BlogEditorComponent } from './blog-editor/blog-editor.component';
 import { StatusEditorComponent } from './status-editor/status-editor.component';
@@ -27,6 +28,8 @@ import 'rxjs/add/observable/throw';
 import { NgxfUploaderModule } from 'ngxf-uploader';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { UtcDatePipe } from './../../pipes/utcdate.pipe';
 
 const routes: Routes = [
   {

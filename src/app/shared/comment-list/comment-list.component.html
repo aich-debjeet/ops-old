@@ -4,7 +4,7 @@
   </a>
   <a class="c-post__commenter">{{ commentData?.ownerName }}</a>
   <div class="pull-right">
-    <div class="c-post__comment--time">{{ commentData?.createdDate | date: 'hh:mm a' }}
+    <div class="c-post__comment--time">{{ commentData?.createdDate | utcDate | date: 'hh:mm a ' }}
       <span>
         <div appDropdown *ngIf="commentData?.isOwner">
           <a class="dropdown-toggle" appDropdownOpen>

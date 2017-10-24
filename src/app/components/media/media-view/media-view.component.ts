@@ -7,7 +7,6 @@ import { ModalService } from '../../../shared/modal/modal.component.service';
 
 import FilesHelper from '../../../helpers/fileUtils';
 
-
 // Action
 import { MediaActions } from '../../../actions/media.action';
 import { initialMedia, Media } from '../../../models/media.model';
@@ -17,10 +16,12 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
+import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
+
 @Component({
   selector: 'app-media-view',
   templateUrl: './media-view.component.html',
-  providers: [ ModalService ],
+  providers: [ ModalService, UtcDatePipe ],
   styleUrls: ['./media-view.component.scss']
 })
 

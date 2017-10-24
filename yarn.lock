@@ -304,13 +304,6 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
-<<<<<<< HEAD
-=======
-angular2-infinite-scroll@^0.3.5:
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/angular2-infinite-scroll/-/angular2-infinite-scroll-0.3.5.tgz#c2943511c75b76ffc448f60ec39505d027c14d9f"
-
->>>>>>> 71ad04262ff6746311ec8df208391e5739b28970
 angular2-masonry@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/angular2-masonry/-/angular2-masonry-0.4.0.tgz#5be7c87bdabc50ed384f01c585f50f5170cdff10"
@@ -3447,6 +3440,10 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+moment@^2.19.1:
+  version "2.19.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
 
 ms@0.7.1:
   version "0.7.1"

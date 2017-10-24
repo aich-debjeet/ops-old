@@ -160,8 +160,8 @@
                   <img *ngIf="!dir?.profileImage" class="c-user__image" src="http://d206s58i653k1q.cloudfront.net/images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png">
                   <img *ngIf="dir?.profileImage" class="c-user__image" src="{{ baseUrl + dir?.profileImage }}">
                 </a>
-                <a class="c-user__name c-user--dir-name">{{ dir?.name }}</a>
-                <a class="c-user__dir-sub">{{ dir?.extra?.profession }}</a>
+                <a class="c-user__name c-user--dir-name" routerLink="{{ '/profile/u/' + dir?.extra?.username }}">{{ dir?.name }}</a>
+                <a class="c-user__dir-sub" routerLink="{{ '/profile/u/' + dir?.extra?.username }}">{{ dir?.extra?.profession }}</a>
             </div>
           </div>
         </div>
