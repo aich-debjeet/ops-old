@@ -15,7 +15,8 @@ import { FooterComponent } from './footer/footer.component';
 import { PostCardComponent } from './post-card/post-card.component';
 import { ModalComponent } from './modal/modal.component';
 import { CountrySelectorComponent } from './country-selector/country-selector.component';
-import { TruncatePipe } from './../pipes/truncate.pipe';
+// import { TruncatePipe } from './../pipes/truncate.pipe';
+import { SharedPipesModule } from './../pipes/shared-pipes.module';
 
 // import 'rxjs/add/operator/map';
 // import 'rxjs/add/operator/catch';
@@ -59,9 +60,10 @@ import { UserCardComponent } from './user-card/user-card.component';
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
+    SharedPipesModule
   ],
   declarations: [
-    TruncatePipe,
+    // TruncatePipe,
     ModalComponent,
     AuthRightBlockComponent,
     AppButtonComponent,

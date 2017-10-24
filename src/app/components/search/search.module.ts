@@ -13,12 +13,15 @@ import { SearchCommunityComponent } from './search-community/search-community.co
 import { SearchRoutes as routes } from './search.routes';
 import { SearchComponent } from './search.component';
 
+import { SharedPipesModule } from './../../pipes/shared-pipes.module';
+
 @NgModule({
   imports: [
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
     RouterModule.forChild(routes),
+    SharedPipesModule
   ],
   declarations: [
     SearchComponent,

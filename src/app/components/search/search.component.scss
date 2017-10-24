@@ -6,7 +6,7 @@
     bottom: 0;
     left: 0;
     z-index: 1033;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 .container {
@@ -93,7 +93,7 @@
 }
 
 .home_tabs .nav-tabs>li>a.active {
-    color: black;
+    color:#333;
 }
 
 .nav-tabs>li>a {

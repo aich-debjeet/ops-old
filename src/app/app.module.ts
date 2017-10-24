@@ -16,7 +16,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { OrderByPipe } from './pipes/order.pipe';
 import { UniquePipe } from './pipes/unique.pipe';
 import { SearchNamePipe } from './pipes/name.pipe';
-import { TruncatePipe } from './pipes/truncate.pipe';
+// import { TruncatePipe } from './pipes/truncate.pipe';
+import { SharedPipesModule } from './pipes/shared-pipes.module';
+
 // Guard
 import { AuthGuard } from './guard/auth.guard';
 
@@ -150,6 +152,7 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
     DirectoryListComponent
   ],
   imports: [
+    SharedPipesModule,
     SharedModule,
     MediaModule,
     ImageCropperModule,
