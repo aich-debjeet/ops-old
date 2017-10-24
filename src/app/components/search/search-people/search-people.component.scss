@@ -1,0 +1,88 @@
+.c-card--artist {
+    padding: 16px;
+    text-align: center;
+}
+
+.c-card {
+    width: 100%;
+    height: auto;
+    float: left;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 0 rgba(102,45,145,.15);
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.c-avatar--artist {
+    width: 90px;
+    height: 90px;
+}
+
+.c-artist__avatar {
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    background-color: #f8f8f8;
+}
+
+.c-artist__avatar.c-avatar--artist img {
+    width: 100%;
+}
+
+.c-artist__name {
+    color: #333;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 19px;
+    text-align: center;
+}
+
+.margin_t_16 {
+    margin-top: 16px;
+}
+
+.c-artist__username {
+    color: #333;
+    font-size: 12px;
+    line-height: 17px;
+}
+
+.c-artist--btn {
+    margin-top: 16px;
+}
+
+.btn-normal {
+    color: #fff;
+    background-color: #c1c1c1;
+    border-color: #c1c1c1;
+}
+
+.btn-follow {
+    padding: 0 9px 0 1px;
+    font-weight: 500;
+    font-size: 12px;
+    border-radius: 3px;
+}
+
+.btn-label-follow {
+    position: relative;
+    left: -6px;
+    display: inline-block;
+    padding: 1px 0 1px 10px;
+    border-radius: 3px 0 0 3px;
+}
+
+.result-not-found {
+    margin-top: 80px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+}
+
+.pad-bot-25 {
+    padding-bottom: 25px;
+}
