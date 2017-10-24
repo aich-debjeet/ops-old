@@ -125,7 +125,6 @@
             <!-- post type video -->
             <div class="col-md-3 col-sm-3 pad-bot-25" *ngIf="post.mtype == 'video'">
                 <div class="c-card">
-                    <!-- card body -->
                     <div>
                         <a [routerLink]="['', { outlets: { media : ['media', post?.id] } }]">
                             <figure class="feed-avatar">
@@ -135,6 +134,23 @@
                         </a>
                     </div>
                     <!-- card body -->
+                    <div class="c-card__body">
+                        <a class="c-card__heading" href="javascript:void(0)">{{ post.title }}</a>
+                        <div class="c-card__desc">{{ post.description }}</div>
+                        <a href="javascript:void(0)">
+                            <img src="https://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg" alt="" class="c-card__options">
+                        </a>
+                        <div class="c-card__user">
+                        <div class="c-user">
+                            <a class="c-user__avatar c-avatar--feed">
+                                <img class="c-user__image" src="https://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                            </a>
+                            <a class="c-user__name" routerLink="{{ '/profile/u/' + post.ownerUserName }}">{{ post.ownerName }}</a>
+                            <!-- <a class="c-user__channel">Do Your Think Motivational</a> -->
+                        </div>
+                        </div>
+                    </div>
+                    <!-- //card body -->
 
                     <!-- card footer links -->
                     <div class="c-card__links">
