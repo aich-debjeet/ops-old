@@ -14,6 +14,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { TabComponents  } from '../../../shared/tabs/tabset';
+import { ProfileHelper } from '../../../helpers/profile.helper';
 
 @Component({
   selector: 'app-profile-block',
@@ -33,10 +34,12 @@ export class ProfileBlockComponent implements OnInit {
   routeData: any;
   userId: string;
   channels: any;
+  profileObject: any;
   constructor(
     private http: Http,
     private _router: Router,
     public route: ActivatedRoute,
+    private utils: ProfileHelper,
     private profileStore: Store<ProfileModal>,
   ) {
     this.router = _router;
@@ -46,6 +49,13 @@ export class ProfileBlockComponent implements OnInit {
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.userQuickAccess = state;
+      if (state.profile_user_info) {
+        if (state.profile_user_info.isCurrentUser) {
+          this.profileObject = this.loadProfile( state, 'own' );
+        }else {
+          this.profileObject = this.loadProfile( state, 'other' );
+        }
+      }
     });
   }
 
@@ -55,6 +65,13 @@ export class ProfileBlockComponent implements OnInit {
 
   checkEmpty(obj: Object) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
+  }
+
+   /**
+   * User type based user load
+   */
+  loadProfile(profile: any, type: string) {
+      return this.utils.profileValueMapping(profile, type );
   }
 
   /**

@@ -26,7 +26,7 @@
                                           </li>
                                           <li class="list-inline-item float-left">
                                               <div class="media_name">{{ data?.ownerName }}</div>
-                                              <div routerLink="channels/x" class="media_sub_head">{{ data?.channelName }} <span class="media_time">{{ data?.createdDate | date: 'hh:mm a dd MMM, yy'}}</span></div>
+                                              <div routerLink="channels/x" class="media_sub_head">{{ data?.channelName }} <span class="media_time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span></div>
                                           </li>
                                           <li class="list-inline-item media_user_icons">
                                               <!--<a ><img src="/assets/img/svg/ico_edit.svg"></a>

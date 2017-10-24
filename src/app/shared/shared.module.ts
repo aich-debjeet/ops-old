@@ -17,6 +17,7 @@ import { ModalComponent } from './modal/modal.component';
 import { CountrySelectorComponent } from './country-selector/country-selector.component';
 // import { TruncatePipe } from './../pipes/truncate.pipe';
 import { SharedPipesModule } from './../pipes/shared-pipes.module';
+import { UtcDatePipe } from './../pipes/utcdate.pipe';
 
 // import 'rxjs/add/operator/map';
 // import 'rxjs/add/operator/catch';
@@ -64,6 +65,7 @@ import { UserCardComponent } from './user-card/user-card.component';
   ],
   declarations: [
     // TruncatePipe,
+    UtcDatePipe,
     ModalComponent,
     AuthRightBlockComponent,
     AppButtonComponent,
@@ -110,7 +112,8 @@ import { UserCardComponent } from './user-card/user-card.component';
     DropdownOpenDirective,
     PostComponent,
     CommentComponent,
-    UserCardComponent
+    UserCardComponent,
+    UtcDatePipe,
   ]
 
 })

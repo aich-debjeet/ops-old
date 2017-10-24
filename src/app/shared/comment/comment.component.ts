@@ -41,6 +41,7 @@ export class CommentComponent implements OnInit {
 
   ngOnInit() {
     // this.loadMedia()
+    
   }
 
   /**
@@ -72,6 +73,7 @@ export class CommentComponent implements OnInit {
   }
 
   addNewComment() {
+    const commentCount = this.comments.length
     this.comments.push({
       comment: this.messageText,
       isOwner: true,
@@ -80,12 +82,16 @@ export class CommentComponent implements OnInit {
       createdDate: +new Date()
     })
     this.loadMedia();
-    this.store.select('mediaStore').take(7).subscribe(data => {
-      const comments = data['media_comment'];
-      if (comments.length > 0) {
-        this.comments = comments
-      }
-    })
+
+    this.store.select('mediaStore')
+      .first(commentsData => commentsData['media_comment'].length > commentCount )
+      .subscribe( data => {
+        console.log('working');
+        const comments = data['media_comment'];
+        if (comments.length > 0) {
+          this.comments = comments
+        }
+      });
   }
 
   deleteBacend(comment) {
