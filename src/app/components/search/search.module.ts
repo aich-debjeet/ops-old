@@ -14,6 +14,7 @@ import { SearchRoutes as routes } from './search.routes';
 import { SearchComponent } from './search.component';
 
 import { SharedPipesModule } from './../../pipes/shared-pipes.module';
+import { SharedModule } from './../../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { SharedPipesModule } from './../../pipes/shared-pipes.module';
     ReactiveFormsModule,
     CommonModule,
     RouterModule.forChild(routes),
-    SharedPipesModule
+    SharedPipesModule,
+    SharedModule
   ],
   declarations: [
     SearchComponent,

@@ -23,6 +23,7 @@ export class SearchComponent {
   @ViewChild('search_query') search_query;
 
   activeTab = 'tab-all';
+  baseUrl: string;
   showSearchPlaceholder = true;
   search = {
     searchQuery: ''
@@ -33,6 +34,8 @@ export class SearchComponent {
   constructor(
     private store: Store<SearchModel>
   ) {
+
+    this.baseUrl = environment.API_IMAGE;
 
     this.searchState$ = this.store.select('searchTags');
 
