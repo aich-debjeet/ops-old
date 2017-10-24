@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { SearchActions } from './../../actions/search.action';
 import { SearchModel } from './../../models/search.model';
@@ -20,12 +20,14 @@ import { Store } from '@ngrx/store';
 })
 export class SearchComponent {
 
+  @ViewChild('search_query') search_query;
+
   activeTab = 'tab-post';
   showSearchPlaceholder = true;
   search = {
     searchQuery: ''
   };
-  isLoading = false;
+  isSearching = false;
   searchState$: Observable<SearchModel>;
 
   constructor(
@@ -36,9 +38,9 @@ export class SearchComponent {
 
     // observe the store value
     this.searchState$.subscribe((state) => {
-      console.log('state', state);
+      // console.log('state', state);
       if (state && state.searching_people === false && state.searching_post === false) {
-        this.isLoading = false;
+        this.isSearching = false;
       }
     });
 
@@ -47,7 +49,7 @@ export class SearchComponent {
   searchTrigger(query: string) {
     // console.log('searching', query);
     this.search.searchQuery = query;
-    this.isLoading = true;
+    this.isSearching = true;
 
     // search people
     this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: this.search.searchQuery });
@@ -67,7 +69,7 @@ export class SearchComponent {
    * Search input on blur
    */
   searchOnBlur() {
-    if (typeof this.search.searchQuery !== 'undefined') {
+    if (this.search_query.nativeElement.value === '') {
       this.showSearchPlaceholder = true;
     }
   }

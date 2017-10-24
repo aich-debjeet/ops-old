@@ -62,10 +62,10 @@ export class SearchPeopleComponent implements OnInit, DoCheck {
     // observe the store value
     this.searchPeopleState$.subscribe((state) => {
       console.log('state', state);
-      if (state && state.hasOwnProperty('search_people')) {
+      if (state && state.search_people) {
         this.artists = state.search_people;
       }
-      if (state && state.hasOwnProperty('searching_people')) {
+      if (state && state.searching_people) {
         // console.log('searching status', state.searching_people);
         this.isLoading = state.searching_people;
       }
