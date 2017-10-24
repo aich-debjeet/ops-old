@@ -34,7 +34,8 @@
                         <div class="c-card__user">
                         <div class="c-user">
                             <a class="c-user__avatar c-avatar--feed">
-                                <img class="c-user__image" src="https://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                <img class="c-user__image" *ngIf="!post.ownerImage" src="http://d206s58i653k1q.cloudfront.net/images/defaultMale/03eed8d4-5659-463a-8fbf-9aa71034c19a.png">
+                                <img class="c-user__image" *ngIf="post.ownerImage" src="{{ baseUrl + post.ownerImage }}">
                             </a>
                             <a class="c-user__name" routerLink="{{ '/profile/u/' + post.ownerUserName }}">{{ post.ownerName }}</a>
                             <!-- <a class="c-user__channel">Do Your Think Motivational</a> -->
@@ -80,7 +81,8 @@
                         <div class="c-card__user margin_none">
                             <div class="c-user">
                             <a class="c-user__avatar c-avatar--feed">
-                                <img class="c-user__image" src="https://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                <img class="c-user__image" *ngIf="!post.ownerImage" src="http://d206s58i653k1q.cloudfront.net/images/defaultMale/03eed8d4-5659-463a-8fbf-9aa71034c19a.png">
+                                <img class="c-user__image" *ngIf="post.ownerImage" src="{{ baseUrl + post.ownerImage }}">
                             </a>
                             <a class="c-user__name" routerLink="{{ '/profile/u/' + post.ownerUserName }}">{{ post.ownerName }}</a>
                             <!-- <a class="c-user__channel">Do Your Think Motivational</a> -->
@@ -143,7 +145,8 @@
                         <div class="c-card__user">
                         <div class="c-user">
                             <a class="c-user__avatar c-avatar--feed">
-                                <img class="c-user__image" src="https://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg">
+                                <img class="c-user__image" *ngIf="!post.ownerImage" src="http://d206s58i653k1q.cloudfront.net/images/defaultMale/03eed8d4-5659-463a-8fbf-9aa71034c19a.png">
+                                <img class="c-user__image" *ngIf="post.ownerImage" src="{{ baseUrl + post.ownerImage }}">
                             </a>
                             <a class="c-user__name" routerLink="{{ '/profile/u/' + post.ownerUserName }}">{{ post.ownerName }}</a>
                             <!-- <a class="c-user__channel">Do Your Think Motivational</a> -->
