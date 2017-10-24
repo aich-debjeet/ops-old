@@ -20,10 +20,10 @@
                 
                 <!-- with childs -->
                 <ul class="nav nav-tabs">
-                    <li><a (click)="selectTab('tab-all')" >All</a></li>
-                    <li><a (click)="selectTab('tab-channel')" >Channel</a></li>
-                    <li><a (click)="selectTab('tab-post')" >Post</a></li>
-                    <li><a (click)="selectTab('tab-people')" >People</a></li>
+                    <li><a (click)="selectTab('tab-all')" [ngClass]="{'active': activeTab == 'tab-all'}" >All</a></li>
+                    <li><a (click)="selectTab('tab-channel')" [ngClass]="{'active': activeTab == 'tab-channel'}" >Channel</a></li>
+                    <li><a (click)="selectTab('tab-post')" [ngClass]="{'active': activeTab == 'tab-post'}" >Post</a></li>
+                    <li><a (click)="selectTab('tab-people')" [ngClass]="{'active': activeTab == 'tab-people'}" >People</a></li>
                 </ul>
                 <div class="tabs-container">
                     <app-search-all *ngIf="activeTab == 'tab-all'" id="tab-all" class="tabs"></app-search-all>

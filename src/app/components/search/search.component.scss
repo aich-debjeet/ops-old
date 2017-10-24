@@ -92,6 +92,10 @@
     text-transform: uppercase;
 }
 
+.home_tabs .nav-tabs>li>a.active {
+    color: black;
+}
+
 .nav-tabs>li>a {
     margin-right: 2px;
     line-height: 1.428571429;

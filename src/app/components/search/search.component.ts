@@ -22,7 +22,7 @@ export class SearchComponent {
 
   @ViewChild('search_query') search_query;
 
-  activeTab = 'tab-post';
+  activeTab = 'tab-all';
   showSearchPlaceholder = true;
   search = {
     searchQuery: ''

@@ -1,28 +1,3 @@
-<!-- <div class="people-wrapper col-md-12 ops_artist_follow">
-    
-    <div *ngIf="artists && artists.length === 0; else artists_found;">
-        <p class="artists-not-found">Artists not found!</p>
-    </div>
-
-    <ng-template #artists_found>
-
-        <div *ngFor="let artist of artists" class="panel20 text-center" >
-            <figure class="avatar_artist_follow">
-                <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist.profileImage }}">
-                <ng-template #default_profile_image>
-                    <img src="/assets/img/avatar.jpg" class="c-artist__img">
-                </ng-template>
-            </figure>
-            <div class="ops_heading">
-                <a routerLink="{{ '/profile/u/' + artist.extra.username }}" class="c-artist__name margin_t_16">{{ artist.name }}</a>
-            </div>
-            <p class="ops_heading12">@{{ artist.extra.username }}</p>
-        </div>
-        
-    </ng-template>
-
-</div> -->
-
 <div class="row">
 
     <div *ngIf="artists && artists.length === 0; else artists_found;">
