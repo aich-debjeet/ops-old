@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, KeyValueDiffers, DoCheck } from '@angular/core';
+import { Component, OnInit, Input, Output, KeyValueDiffers, EventEmitter } from '@angular/core';
 
 import { SearchActions } from './../../../actions/search.action';
 import { SearchModel } from './../../../models/search.model';
@@ -18,6 +18,7 @@ import { Store } from '@ngrx/store';
 })
 export class SearchAllComponent implements OnInit {
 
+  @Output() tabClicked: EventEmitter<any> = new EventEmitter<any>();
   @Input() search: any;
   differ: any;
 
@@ -56,6 +57,12 @@ export class SearchAllComponent implements OnInit {
       }
     });
 
+  }
+
+  // trigger selected tab
+  public selectTab(tabId: string) {
+    // console.log('child called', tabId);
+    this.tabClicked.emit(tabId);
   }
 
 }

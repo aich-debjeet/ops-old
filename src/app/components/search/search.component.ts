@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
 
 import { SearchActions } from './../../actions/search.action';
 import { SearchModel } from './../../models/search.model';
@@ -32,7 +33,8 @@ export class SearchComponent {
   searchState$: Observable<SearchModel>;
 
   constructor(
-    private store: Store<SearchModel>
+    private store: Store<SearchModel>,
+    @Inject(DOCUMENT) private document: Document
   ) {
 
     this.baseUrl = environment.API_IMAGE;
@@ -86,6 +88,12 @@ export class SearchComponent {
    */
   selectTab(tabId: string) {
     this.activeTab = tabId;
+  }
+
+  switchTab(tabId: string) {
+    this.document.body.scrollTop = 0;
+    // window.scrollTo(0, 0);
+    this.selectTab(tabId);
   }
 
 }
