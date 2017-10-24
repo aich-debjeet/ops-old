@@ -6,7 +6,7 @@
 
     <ng-template #artists_found>
     
-        <div class="col-md-2" *ngFor="let artist of artists">
+        <div class="col-md-2 pad-bot-25" *ngFor="let artist of artists">
             <div class="c-card c-card--artist">
                 <div class="c-artist__avatar c-avatar--artist">
                     <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist.profileImage }}">
