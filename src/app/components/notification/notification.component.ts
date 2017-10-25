@@ -11,6 +11,8 @@ import { NotificationActions } from './../../actions/notification.action';
 import { Notification } from './../../models/notification.model';
 import { environment } from './../../../environments/environment';
 
+import * as _ from 'lodash';
+
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -23,6 +25,7 @@ export class NotificationComponent implements OnInit {
   notificationIds: any[];
   notifications: any[];
   baseUrl: string;
+  alreadyReadAll = true;
 
   constructor(
     private store: Store<Notification>,
@@ -42,9 +45,27 @@ export class NotificationComponent implements OnInit {
 
     // observe the store value
     this.notificationsState$.subscribe((state) => {
-      // console.log(state);
+      console.log(state);
       if (typeof state['recieved_notifications'] !== 'undefined') {
         this.notifications = state['recieved_notifications'];
+
+        // check is unread notification exits
+        // on page load mark all notifications as read
+        setTimeout(() => {
+
+            // check if unread notification is available
+            const allNotifsRead = _.every(this.notifications, ['isRead', true]);
+            console.log('allNotifsRead', allNotifsRead);
+            // this.alreadyReadAll = false;
+
+            if (allNotifsRead) {
+              this.alreadyReadAll = true;
+            } else {
+              this.alreadyReadAll = false;
+              this.markAllAsRead();
+            }
+          }, 1000);
+
         this.processNotifications();
       }
       if (typeof state['marking_as_read_response'] !== 'undefined') {
@@ -186,12 +207,6 @@ export class NotificationComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-
-    // on page load mark all notifications as read
-    setTimeout(() => {
-      this.markAllAsRead();
-    }, 1000);
-  }
+  ngOnInit() { }
 
 }
