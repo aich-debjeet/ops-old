@@ -1,23 +1,31 @@
-<div class="tab-content">
-<div id="search_people" class="tab-pane fade in active">
-    <div class="row home_artist_follow ops_search_people">
-      <div class="col-md-12">
-          <div class="row">
-              <div class="col-md-12 ops_artist_follow" >
-                  <div class="panel20 text-center" *ngFor="let item of cards">
-                      <figure class="avatar_artist_follow">
-                          <img src="{{ item.image }}">
-                      </figure>
-                      <div class="ops_heading">{{item.heading}}</div>
-                      <p class="ops_heading12">{{item.heading12}}</p>
-                      <button type="button" class="btn btn-xs btn-normal btn-follow">
-                          <span class="btn-label-follow">
-                          <img src="{{ item.iconImage }}">
-                        </span> {{item.button}} </button>
-                  </div>
-              </div>
-          </div>
-      </div>
+<div class="row">
+
+    <div *ngIf="artists && artists.length === 0; else artists_found;">
+        <p class="result-not-found">Artists not found!</p>
     </div>
-  </div>
+
+    <ng-template #artists_found>
+    
+        <div class="col-md-2 pad-bot-25" *ngFor="let artist of artists">
+            <div class="c-card c-card--artist">
+                <div class="c-artist__avatar c-avatar--artist">
+                    <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist.profileImage }}">
+                    <ng-template #default_profile_image>
+                        <img src="/assets/img/avatar.jpg" class="c-artist__img">
+                    </ng-template>
+                </div>
+                <div class="c-artist__name margin_t_16">
+                    <a routerLink="{{ '/profile/u/' + artist.extra.username }}" class="c-artist__name margin_t_16">{{ artist.name }}</a>
+                </div>
+                <div class="c-artist__username">@{{ artist.extra.username }}</div>
+                <div class="c-artist--btn">
+                    <button type="button" class="btn btn-xs btn-basic btn-following">
+                        <span class="btn-label-follow"> FOLLOWING </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </ng-template>
+
 </div>

@@ -36,7 +36,7 @@
             </li>-->
             <li class="o-dirfill-item with_border_right">
               <label class="o-dirfill-block">
-                <input type="radio" name="profileType" [(ngModel)]="profileType" value="1"  (change)="profileTypeOption($event)">
+                <input type="radio" name="profileType" [(ngModel)]="profileType" value="1"  (change)="profileTypeOption('1')">
                 <span class="o-dirfill__container">
                   <span class="o-dirfil__ico">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
@@ -54,7 +54,7 @@
             </li>
             <li class="o-dirfill-item">
               <label class="o-dirfill-block">
-                <input type="radio" name="profileType" [(ngModel)]="profileType" value="0" (change)="profileTypeOption($event)">
+                <input type="radio" name="profileType" [(ngModel)]="profileType" value="0" (change)="profileTypeOption(2)">
                 <span class="o-dirfill__container">
                   <span class="o-dirfil__ico">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
@@ -160,8 +160,8 @@
                   <img *ngIf="!dir?.profileImage" class="c-user__image" src="http://d206s58i653k1q.cloudfront.net/images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png">
                   <img *ngIf="dir?.profileImage" class="c-user__image" src="{{ baseUrl + dir?.profileImage }}">
                 </a>
-                <a class="c-user__name c-user--dir-name">{{ dir?.name }}</a>
-                <a class="c-user__dir-sub">{{ dir?.extra?.profession }}</a>
+                <a class="c-user__name c-user--dir-name" routerLink="{{ '/profile/u/' + dir?.extra?.username }}">{{ dir?.name }}</a>
+                <a class="c-user__dir-sub" routerLink="{{ '/profile/u/' + dir?.extra?.username }}">{{ dir?.extra?.profession }}</a>
             </div>
           </div>
         </div>

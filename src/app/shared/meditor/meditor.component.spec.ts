@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MeditorComponent } from './meditor.component';
+import { MediumEditorComponent } from './meditor.component';
 
 describe('MeditorComponent', () => {
-  let component: MeditorComponent;
-  let fixture: ComponentFixture<MeditorComponent>;
+  let component: MediumEditorComponent;
+  let fixture: ComponentFixture<MediumEditorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MeditorComponent ]
+      declarations: [ MediumEditorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MeditorComponent);
+    fixture = TestBed.createComponent(MediumEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

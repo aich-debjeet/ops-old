@@ -59,7 +59,7 @@ export class DirectoryListComponent implements OnInit {
   /**
    * Organation and People select option
    */
-  profileTypeOption() {
+  profileTypeOption(value) {
     this.page_start = 0
     this.loadDir();
   }

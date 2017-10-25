@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel, RoutesRecognized } from '@angular/router';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
 
 import { SearchActions } from './../../actions/search.action';
 import { SearchModel } from './../../models/search.model';
@@ -9,9 +8,9 @@ import { environment } from './../../../environments/environment.prod';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/debounceTime';
+// import { Subscription } from 'rxjs/Subscription';
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/debounceTime';
 
 import { Store } from '@ngrx/store';
 
@@ -20,65 +19,52 @@ import { Store } from '@ngrx/store';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
 
-  searchPeopleState$: Observable<SearchModel>;
-  baseUrl: string;
+  @ViewChild('search_query') search_query;
 
-  previousUrl: string;
   activeTab = 'tab-all';
+  baseUrl: string;
   showSearchPlaceholder = true;
-  searchQuery = new FormControl();
-  artists: any[];
-  isLoading = false;
+  search = {
+    searchQuery: ''
+  };
+  isSearching = false;
+  searchState$: Observable<SearchModel>;
+  searchString: string;
 
   constructor(
-    router: Router,
-    private store: Store<SearchModel>
+    private store: Store<SearchModel>,
+    @Inject(DOCUMENT) private document: Document
   ) {
 
     this.baseUrl = environment.API_IMAGE;
 
-    this.searchPeopleState$ = this.store.select('searchTags');
+    this.searchState$ = this.store.select('searchTags');
 
-    router.events
-    .filter(event => event instanceof NavigationEnd)
-    .subscribe(e => {
-      this.previousUrl = e['url'];
-      // console.log('prev:', this.previousUrl);
+    // observe the store value
+    this.searchState$.subscribe((state) => {
+      // console.log('state', state);
+      if (state && state.searching_people === false && state.searching_post === false && state.searching_channel === false) {
+        this.isSearching = false;
+      }
     });
-
-    // router.navigate(['search/people']);
 
   }
 
-  ngOnInit() {
+  searchTrigger(query: string) {
+    // console.log('searching', query);
+    this.search.searchQuery = query;
+    this.isSearching = true;
 
-    // observe the store value
-    this.searchPeopleState$.subscribe((state) => {
-      console.log('state', state);
-      if (state && state.hasOwnProperty('search_people')) {
-        this.artists = state.search_people;
-      }
+    // search people
+    this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: this.search.searchQuery });
 
-      if (state && state.hasOwnProperty('searching_people')) {
-        // console.log('searching status', state.searching_people);
-        this.isLoading = state.searching_people;
-      }
-    });
+    // search post
+    this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: this.search.searchQuery });
 
-    this.searchQuery.valueChanges
-      .debounceTime(200)
-      .subscribe((value) => {
-        if (value !== '') {
-          // console.log('this.searchQuery', value);
-          this.store.dispatch({
-            type: SearchActions.SEARCH_PEOPLE,
-            payload: value
-          });
-        }
-      });
-
+    // search channel
+    this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: this.search.searchQuery });
   }
 
   /**
@@ -92,7 +78,7 @@ export class SearchComponent implements OnInit {
    * Search input on blur
    */
   searchOnBlur() {
-    if (typeof this.searchQuery !== 'undefined') {
+    if (this.search_query.nativeElement.value === '') {
       this.showSearchPlaceholder = true;
     }
   }
@@ -103,6 +89,12 @@ export class SearchComponent implements OnInit {
    */
   selectTab(tabId: string) {
     this.activeTab = tabId;
+  }
+
+  switchTab(tabId: string) {
+    this.document.body.scrollTop = 0;
+    // window.scrollTo(0, 0);
+    this.selectTab(tabId);
   }
 
 }

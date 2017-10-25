@@ -17,8 +17,8 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { environment } from '../../../../environments/environment.prod';
 
 // rx
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   selector: 'app-about-image',

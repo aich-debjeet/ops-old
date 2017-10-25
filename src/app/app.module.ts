@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -16,7 +16,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { OrderByPipe } from './pipes/order.pipe';
 import { UniquePipe } from './pipes/unique.pipe';
 import { SearchNamePipe } from './pipes/name.pipe';
-import { TruncatePipe } from './pipes/truncate.pipe';
+// import { TruncatePipe } from './pipes/truncate.pipe';
+import { SharedPipesModule } from './pipes/shared-pipes.module';
+
 // Guard
 import { AuthGuard } from './guard/auth.guard';
 
@@ -150,6 +152,7 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
     DirectoryListComponent
   ],
   imports: [
+    SharedPipesModule,
     SharedModule,
     MediaModule,
     ImageCropperModule,
@@ -195,6 +198,7 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
     SearchService,
     GeneralUtilities
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

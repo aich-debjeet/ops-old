@@ -37,4 +37,22 @@ export class SearchService {
     return this.api.get('/portal/searchprofiles/1/' + query + '/0/100');
   }
 
+  /**
+   * Get posts by search query
+   * @param search query
+   */
+  getPosts(query: string) {
+    this.updateToken();
+    return this.api.get('/portal/cdn/media/postByText/' + query + '/0/100');
+  }
+
+  /**
+   * Get channels by search query
+   * @param search query
+   */
+  getChannels(query: string) {
+    this.updateToken();
+    return this.api.get('/portal/network/spotfeed/searchByText/' + query + '/0/100');
+  }
+
 }

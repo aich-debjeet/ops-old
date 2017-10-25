@@ -104,6 +104,16 @@ export class ProfileSliderComponent implements OnInit {
 
     this.router = _router;
 
+
+    this.profileStore.select('profileTags')
+      .first(profile => profile['profile_other'].handle )
+      .subscribe( data => {
+        this.isFollowing = data['profile_other'].extra.isFollowing;
+      });
+
+    // console.log(this.profileObject.isFollowing);
+    // this.isFollowing = this.profileObject.isFollowing
+
   }
 
   /**
@@ -178,10 +188,10 @@ export class ProfileSliderComponent implements OnInit {
   userFollow(follow: boolean, handle: string) {
     if (follow) {
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
-      this.profileObject.isFollowing = false;
+      this.isFollowing = false;
     }else {
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle  });
-      this.profileObject.isFollowing = true;
+      this.isFollowing = true;
     }
   }
 
