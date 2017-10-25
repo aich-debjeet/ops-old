@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BlogeditorComponent } from './blogeditor.component';
+import { StatusEditorComponent  } from './status-editor.component';
 
 describe('BlogeditorComponent', () => {
-  let component: BlogeditorComponent;
-  let fixture: ComponentFixture<BlogeditorComponent>;
+  let component: StatusEditorComponent;
+  let fixture: ComponentFixture<StatusEditorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BlogeditorComponent ]
+      declarations: [ StatusEditorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BlogeditorComponent);
+    fixture = TestBed.createComponent(StatusEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
