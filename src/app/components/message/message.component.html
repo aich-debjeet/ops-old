@@ -1,5 +1,5 @@
 <app-navigation></app-navigation>
-<section class="messages_block outer_container">
+<section class="messages_block outer_container" (click)="hideList()">
     <div class="container">
         <!-- registraion middle container -->
         <div class="row messages_block_container">
@@ -10,7 +10,7 @@
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <div class="msg_inbox_name">
-                                    <img src="img/svg/ico_message.svg">
+                                    <img src="/assets/img/svg/ico_message.svg">
                                     <span>INBOX</span>
                                 </div>
                             </li>

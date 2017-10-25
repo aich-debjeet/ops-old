@@ -406,6 +406,7 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       subject : value.message_term,
       content : value.message_term,
     }
+    console.log('this is the current user converstaion to' + this.nonUserProfile.handle + '' + this.nonUserProfile.name)
     this.http.post(this.apiLink + '/portal/message', messageBody, { headers: headers })
     .map((response: Response) => response.json())
     .subscribe(response => {
@@ -431,6 +432,7 @@ export class MessageComponent implements OnInit, AfterViewChecked {
     }
 
     if (handle !== this.userHandle && handle !== undefined) {
+      console.log('this is the chosen handle' + handle);
       const headers = this.tokenService.getAuthHeader();
       this.http.get(this.apiLink + '/portal/profile/' + handle, { headers: headers })
       .map((response: Response) => response.json())
@@ -440,6 +442,7 @@ export class MessageComponent implements OnInit, AfterViewChecked {
         } else {
           this.nonUserProfile = response
           this.composeMessage.searchUser = this.nonUserProfile.name;
+          console.log('this is the current' + this.nonUserProfile.name + '' + this.nonUserProfile.handle )
         }
       })
     }
@@ -459,8 +462,13 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       this.recipientsListState = true;
       this.messageStore.dispatch({ type: MessageActions.GET_RECEIPIENT, payload: this.composeMessage.searchUser });
     } else {
-      this.recipientsListState = false;
-      this.composeMessage.searchUser = '';
+       this.recipientsListState = !this.recipientsListState;
+      // this.composeMessage.searchUser = '';
     }
+  }
+
+  hideList() {
+    console.log('close');
+    this.recipientsListState = false;
   }
 }
