@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
@@ -106,8 +106,7 @@ import { UserCardComponent } from './user-card/user-card.component';
     CommentComponent,
     UserCardComponent,
     UtcDatePipe,
-  ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  ]
 
 })
 export class SharedModule { }
