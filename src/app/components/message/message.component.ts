@@ -1,6 +1,6 @@
 import { initialTag } from '../../models/auth.model';
 import { of } from 'rxjs/observable/of';
-import { Component, Renderer, ViewChild, ElementRef, AfterViewChecked, OnInit} from '@angular/core';
+import { Component, Renderer, ViewChild, ElementRef, AfterViewChecked, OnInit, OnDestroy} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MessageModal, initialMessage} from '../../models/message.model';
 // import { UserMessages } from '../../models/user-messages.model';
@@ -22,6 +22,7 @@ import { ProfileModal } from '../../models/profile.model';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/timer';
@@ -40,7 +41,7 @@ import { uniq as _uniq } from 'lodash';
   providers: [ MessageActions ],
   styleUrls: ['./message.component.scss']
 })
-export class MessageComponent implements OnInit, AfterViewChecked {
+export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   @ViewChild('scrollMeBottom') private myScrollContainer: ElementRef;
   msgNav: any;
@@ -74,6 +75,10 @@ export class MessageComponent implements OnInit, AfterViewChecked {
   messagesbytime = []; // to sort messages by time
   recipientsListState: boolean;
   receipientList: any;      // to store the list of receipients
+  private alive: boolean; // used to unsubscribe from the IntervalObservable
+  // when OnDestroy is called.
+  private timer: Observable<number>;
+  private interval: number;
 
   ngAfterViewChecked() {
     this.scrollToBottom();
@@ -94,6 +99,9 @@ export class MessageComponent implements OnInit, AfterViewChecked {
     private profileStore: Store<ProfileModal>
     ) {
     this.baseUrl = environment.API_IMAGE;
+    this.alive = true;
+    this.interval = 5000;
+    this.timer = Observable.timer(0, this.interval);
 
     this.msgNav = {
       action: { open: false },
@@ -113,6 +121,7 @@ export class MessageComponent implements OnInit, AfterViewChecked {
     this.userO$ = profileStore.select('profileTags').take(3);
   }
   ngOnInit() {
+    this.scrollToBottom();
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     this.userO$.subscribe((val) => {
       this.currentUserDetails = val;
@@ -130,6 +139,9 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       if (state && state.nonUserProfileDetails) {
         this.nonUserProfile = state.nonUserProfileDetails;
       }
+      if (state && state.nonUserProfile2Details) {
+        this.nonUserProfile = state.nonUserProfile2Details;
+      }
       if (state && state.receipients) {
         this.receipientList = state.receipients;
       }
@@ -146,7 +158,9 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       return false;
     }
     this.messageStore.dispatch({ type: MessageActions.LOAD_USER_PROFILE_DATA, payload: handle });
-    setInterval(() => {
+    this.timer
+    .takeWhile(() => this.alive)
+    .subscribe(() => {
       const headers = this.tokenService.getAuthHeader();
       return this.http.get(this.apiLink + '/portal/message/combined/sent/received', { headers: headers })
       .map((data: Response) => data.json())
@@ -154,7 +168,7 @@ export class MessageComponent implements OnInit, AfterViewChecked {
       this.mergedMsg = response;
       this.fetchProfileByHandle(this.mergedMsg)
       });
-    }, 10000);
+    });
   }
 
   /**
@@ -335,15 +349,17 @@ export class MessageComponent implements OnInit, AfterViewChecked {
   sortedMessages() {
     if ( this.selectedUserHandle !== this.userHandle) {
       let sortedMessagesByTime = [];
-      setInterval(() => {
+      this.timer
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       const headers = this.tokenService.getAuthHeader();
       this.http.get(this.apiLink + '/portal/message/conversation/' + this.selectedUserHandle, { headers: headers })
       .map((response: Response) => response.json())
       .subscribe(response => {
         sortedMessagesByTime = response;
         this.messagesbytime = _sortBy(sortedMessagesByTime, function(msg) { return msg.time; });
-      })
-      }, 10000);
+      });
+      });
     }
   }
 
@@ -433,18 +449,14 @@ export class MessageComponent implements OnInit, AfterViewChecked {
 
     if (handle !== this.userHandle && handle !== undefined) {
       console.log('this is the chosen handle' + handle);
-      const headers = this.tokenService.getAuthHeader();
-      this.http.get(this.apiLink + '/portal/profile/' + handle, { headers: headers })
-      .map((response: Response) => response.json())
-      .subscribe(response => {
-        if (response === null || response === undefined) {
-          this.composeMessage.searchUser = 'No such receipient';
-        } else {
-          this.nonUserProfile = response
-          this.composeMessage.searchUser = this.nonUserProfile.name;
-          console.log('this is the current' + this.nonUserProfile.name + '' + this.nonUserProfile.handle )
+     // const headers = this.tokenService.getAuthHeader();
+      this.messageStore.dispatch({ type: MessageActions.LOAD_NON_USER_PROFILE2_DATA, payload: handle });
+      console.log(this.receipientList)
+      for (const i in this.receipientList) {
+        if (this.receipientList[i].handle === handle) {
+          this.composeMessage.searchUser = this.receipientList[i].name;
         }
-      })
+      }
     }
 
     if (handle === this.userHandle) {
@@ -470,5 +482,10 @@ export class MessageComponent implements OnInit, AfterViewChecked {
   hideList() {
     console.log('close');
     this.recipientsListState = false;
+  }
+
+  ngOnDestroy() {
+    this.alive = false; // switches your IntervalObservable off
+    this.messageStore.dispatch({ type: MessageActions.UNLOAD_USER_PROFILE_DATA});
   }
 }

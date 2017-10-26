@@ -373,7 +373,8 @@
 .msg__dropdown {
     width: 40%;
     margin-top: 11px;
-    //display: block !important;
+    // display: block !important;
+    overflow-y: scroll;
 }
 
 .msg_to_input {

@@ -18,14 +18,20 @@ export class MessageEffect {
   @Effect()
     userProfile$ = this.actions$
     .ofType(MessageActions.LOAD_USER_PROFILE_DATA)
+    .takeUntil(this.actions$.ofType(MessageActions.UNLOAD_USER_PROFILE_DATA))
     .map(toPayload)
     .switchMap((payload) => Observable
-      .timer(0 , 10000)
+      .timer(0 , 5000)
       .switchMap(() => this.messageService.getUserProfileDetails(payload)
         .map(res => ({ type: MessageActions.LOAD_USER_PROFILE_DATA_SUCCESS, payload: res }))
         .catch((res) => Observable.of({ type: MessageActions.LOAD_USER_PROFILE_DATA_FAILED, payload: res }))
       )
     );
+
+    @Effect()
+    unloadProfile$ = this.actions$
+    .ofType(MessageActions.UNLOAD_USER_PROFILE_DATA)
+    .mapTo({ type: MessageActions.UNLOAD_USER_PROFILE_DATA_SUCCESS})
 
   @Effect()
     nonUserProfile$ = this.actions$
@@ -34,6 +40,15 @@ export class MessageEffect {
     .switchMap((payload) => this.messageService.getNonUserProfileDetails(payload)
       .map(res => ({ type: MessageActions.LOAD_NON_USER_PROFILE_DATA_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: MessageActions.LOAD_NON_USER_PROFILE_DATA_FAILED, payload: res }))
+    );
+
+    @Effect()
+    nonUserProfile2$ = this.actions$
+    .ofType(MessageActions.LOAD_NON_USER_PROFILE2_DATA)
+    .map(toPayload)
+    .switchMap((payload) => this.messageService.getNonUserProfileDetails(payload)
+      .map(res => ({ type: MessageActions.LOAD_NON_USER_PROFILE2_DATA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.LOAD_NON_USER_PROFILE2_DATA_FAILED, payload: res }))
     );
 
   @Effect()
