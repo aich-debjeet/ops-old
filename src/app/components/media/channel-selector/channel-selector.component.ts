@@ -1,6 +1,6 @@
 import { Component, Output, Input, OnInit, EventEmitter} from '@angular/core';
 import { Store } from '@ngrx/store';
-
+import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/from';
@@ -26,8 +26,18 @@ export class ChannelSelectorComponent implements OnInit {
   isChosen: boolean;
   @Output() onSelection: EventEmitter<any> = new EventEmitter();
   @Output() onChannelCreate: EventEmitter<any> = new EventEmitter();
+  @Output() onPostMedia: EventEmitter<any> = new EventEmitter();
   @Input() userChannels: any;
+  @Input() settingDisable: boolean;
   counter: number;
+  channelCreatebtn: boolean = false;
+  baseUrl = environment.API_IMAGE;
+
+  channelName: String;
+  channelPrivacy: any = 0;
+
+  mediaPrivacy: any = 0;
+
 
   constructor(
     private fb: FormBuilder,
@@ -46,6 +56,19 @@ export class ChannelSelectorComponent implements OnInit {
   chooseChannel(channel: any) {
     this.chosenChannel = channel;
     this.onSelection.emit(channel);
+    console.log(this.chosenChannel);
+  }
+
+  choosePrivacy(value) {
+    this.channelPrivacy = value
+  }
+
+  mediaPrivacyToggle(value) {
+    this.mediaPrivacy = value
+  }
+
+  postMedia(value) {
+    this.onPostMedia.emit(value);
   }
 
   /**
@@ -53,6 +76,14 @@ export class ChannelSelectorComponent implements OnInit {
    */
   showChannelForm() {
     this.addChannel = !this.addChannel;
+  }
+
+  channelButton() {
+    if (this.channelCreatebtn === true) {
+      this.channelCreatebtn = false;
+    }else {
+      this.channelCreatebtn = true;
+    }
   }
 
   /**
@@ -71,18 +102,24 @@ export class ChannelSelectorComponent implements OnInit {
   /**
    * Form Builder
    */
-  createChannel(value: any) {
-    const channelObj = {
-      name: value.title,
-      access: Number(value.privacy),
-      description: value.desc,
-      superType: 'channel',
-      accessSettings : { access : Number(value.privacy) },
-      owner: '',
-      industryList: [ value.type ]
-    }
+  createChannel() {
+    const name = (this.channelName || '').trim().length === 0;
 
-    this.onChannelCreate.emit(channelObj);
+    if (!name) {
+      const channelObj = {
+        name: this.channelName,
+        access: Number(this.channelPrivacy),
+        // description: value.desc,
+        superType: 'channel',
+        accessSettings : { access : Number(this.channelPrivacy) },
+        owner: '',
+        // industryList: [ value.type ]
+      }
+      this.channelName = '';
+      this.channelPrivacy = 0;
+      this.onChannelCreate.emit(channelObj);
+      this.channelCreatebtn = false;
+    }
   }
 
   /**

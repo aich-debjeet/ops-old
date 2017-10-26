@@ -17,137 +17,177 @@
   </div>
 </div>
 
-<div class="media-selector" [ngClass]="{'not__filled': hasFiles === false }">
-  <div class="col-md-8 padding_none file__viewer">
-    <ul class="file__list media-selector__list">
-      <li *ngFor="let file of uploadedFiles" class="file__item">
-        <div *ngIf="checkFileType(file.fileName, 'Video')" class="add_media_container media__video" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }">
-          <app-videplayer (click)="fileDetails(file)" [src]="'http://d206s58i653k1q.cloudfront.net/' + file.repoPath"></app-videplayer>
-          <div class="add_media_delet" (click)="removeFile(file)">
-              <img src="http://d33wubrfki0l68.cloudfront.net/2b2a108565b4b23215301528183f77ffc0c04a24/f7395/img/svg/ico_create-close.svg">
-          </div>
+<section class="o-add-media">
+  <div class="container">
+    <!-- add media  -->
+    <div class="col-md-8 padding_none">
+      <div class="o-add-media__block">
+        <div class="c-user c-user--addpost">
+          <a class="c-user__avatar c-avatar--feed">
+            <img class="c-user__image" src="{{ baseUrl + profileChannel.profileUser?.profileImage }}">
+          </a>
+          <a class="c-user__name c-user__name--addpost">{{ profileChannel.profileUser?.name }}</a>
         </div>
-        <div *ngIf="checkFileType(file.fileName, 'Image')" class="add_media_container media__image" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }">
-          <div class="add_media_img">
-            <img (click)="fileDetails(file)" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file.repoPath }}"/>
-          </div>
-          <div class="add_media_delet" (click)="removeFile(file)">
-              <img src="http://d33wubrfki0l68.cloudfront.net/2b2a108565b4b23215301528183f77ffc0c04a24/f7395/img/svg/ico_create-close.svg">
-          </div>
+        <div class="o-add-status__txt">
+          <textarea class="o-add-post--textarea c-text_lg-light"  [disabled]="uploadedFiles.length === 0" rows='1' data-min-rows='0' placeholder="Description"></textarea>
         </div>
-        <div *ngIf="checkFileType(file.fileName, 'Audio')" class="add_media_container media__audio" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }">
-          <app-audioplayer (click)="fileDetails(file)" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file.repoPath }}"></app-audioplayer>
-          <div class="add_media_delet" (click)="removeFile(file)">
-              <img src="http://d33wubrfki0l68.cloudfront.net/2b2a108565b4b23215301528183f77ffc0c04a24/f7395/img/svg/ico_create-close.svg">
-          </div>
-        </div>
-      </li>
-      <li *ngIf="hasFiles === true" class="file__item file__add">
-        <label class="upload-button">
-          <input type="file" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.mp4">Add more Media
-        </label>
-      </li>
-    </ul>
-    <div class="dragZone" class="block" (ngxf-drop)="uploadFileList($event)" drop-class="drop" multiple [ngxf-validate]="{ size: { min: 10, max:10000000 } }">
-      <div class="add_media_inner" [ngClass]="{'is__filled': hasFiles === true }">
-          <div class="select_media_ico">
-              <img width="100" src="http://d33wubrfki0l68.cloudfront.net/1c31dc8ee913450e1062a90675f43527198ff78d/a6d0c/img/svg/media_add.svg" alt="">
-          </div>
-          <div class="dropZone2">
-            <label class="upload-button hidden">
-              <input type="file" (ngxf-select)="uploadFileList($event)" [ngxf-validate]="{ size: { min: 50000, max:1000000 } }">
-            </label>
+      </div>
 
-            <label class="upload-button">
-              <input type="file" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.mp4">Select Media
-            </label>
+      <div class="o-add-media__upload text-center" *ngIf="uploadedFiles.length === 0">
+        <div class="o-add-media-upload__icon">
+          <img width="95" src="/assets/img/svg/upload.svg" alt="">
+        </div>
+        <h3 class="c-h3">Upload images, videos and audios</h3>
+        <p class="c-text_sm o-add-media-upload__type">You can upload jpg, png, mp4, wav ,avi, mp3, aac, wma</p>
+        
+        <div class="o-add-media-btn">
+          <input type="file" class="o-add-media_upload" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.mp4" name="photo" id="upload-photo">
+          <div class="btn btn-primary btn-lg o-add-media__upload-btn">
+            <span class="o-media-upload-btn m-r-5">
+            </span> Upload
           </div>
-          <div class="select_media_info">
-              <p>Upload or drag &amp; drop images, videos and audios</p>
+        </div>
+
+        
+        <!--<a href="addmedia_more.html" class="btn btn-primary btn-lg">
+          <span class="o-media-upload-btn m-r-5">
+          </span> Upload
+        </a>-->
+      </div>
+
+      <div class="o-add-media__upload text-center" *ngIf="uploadedFiles.length > 0">
+        <ul class="o-file-list" >
+          <li class="o-file_item selected" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }" *ngFor="let file of uploadedFiles">
+            <div class="o-media-block" *ngIf="checkFileType(file.fileName, 'Image')" >
+              <figure class="o-media_img">
+              <img class="obj-fit-fill" (click)="fileDetails(file)" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file?.repoPath }}">
+              </figure>
+              <div class="o-media__info">
+                <div class="o-media_type">
+                <img width="14" src="/assets/img/svg/ico_media_img.svg" alt="">
+                </div>
+                <div class="o-media_delet">
+                <img src="/assets/img/svg/ico_create-close.svg">
+                </div>
+              </div>
+            </div>
+
+            <div class="o-media-block" *ngIf="checkFileType(file.fileName, 'Audio')" >
+              <figure class="o-media_img">
+              <img class="obj-fit-fill" src="img/interest.jpg" alt="">
+              </figure>
+              <div class="o-media__info">
+                <div class="o-media_type">
+                <img src="/assets/img/svg/ico_audio.svg">
+                </div>
+                <div class="o-media_delet">
+                <img src="/assets/img/svg/ico_create-close.svg">
+                </div>
+              </div>
+            </div>
+
+            <div class="o-media-block" *ngIf="checkFileType(file.fileName, 'Video')">
+              <figure class="o-media_img">
+              <img class="obj-fit-fill" src="img/art3.jpg" alt="">
+              </figure>
+              <div class="o-media__info">
+                <div class="o-media_type">
+                <img src="/assets/img/svg/ico_video.svg">
+                </div>
+                <div class="o-media_delet">
+                 <img src="/assets/img/svg/ico_create-close.svg">
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="o-file_item">
+            <div class="o-media-more">
+              <input type="file" class="o-media_upload" name="photo" id="upload-photo" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.mp4">
+              <div class="o-media_add-icon">
+              <img width="42" src="/assets/img/svg/upload.svg" alt="">
+              </div>
+              <div class="o-media_add-txt">
+              <p>Upload More</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- for audio media thumb pop -->
+
+
+
+
+      <div class="o-media-pop-container" *ngIf="uploadedFiles.length > 0">
+        <div class="o-media-pop__title c-text_lg">
+          Audio Settings
+          <div class="o-media-pop__close"><img src="/assets/img/svg/ico_close-line.svg"></div>
+        </div>
+        <div class="o-media-pop__select">
+          <div class="col-md-2 padding_none">
+            <select class="c-form-control c-form-control--pop">
+                <option>Genre</option>
+                <option>Select list 2</option>
+            </select>
           </div>
-          <div class="select_media_format">
-              <p>You can upload jpg, png, mp4, wav, avi, mp3, aac, wma</p>
+        </div>
+        <div class="o-media-pop__thumb-upload">
+          <div class="o-media-pop-thumb__upload">
+            <input type="file" class="o-media-pop__thumb" name="photo" id="upload-photo">
+            <div class="o-media-pop__txt">
+            <p class="c-text_md c-text_md--color">Upload<br>Cover</p>
+            </div>
           </div>
+        </div>
+      </div>
+
+      <!-- for video media thumb pop -->
+      <div class="o-media-pop-container" *ngIf="uploadedFiles.length > 0">
+        <div class="o-media-pop__title c-text_lg">
+          Video Settings
+          <div class="o-media-pop__close"><img src="/assets/img/svg/ico_close-line.svg"></div>
+        </div>
+        <div class="o-media-pop__sub-title">
+          Choose Thumbnail
+        </div>
+        <ul class="o-media-pop__video-thumb">
+          <li class="o-video-thumb__list">
+            <div class="o-video-thumb-block">
+              <figure class="o-media_img">
+                <img class="obj-fit-fill" src="img/photography8.jpg" alt="">
+              </figure>
+            </div>
+          </li>
+          <li class="o-video-thumb__list">
+            <div class="o-video-thumb-block">
+              <figure class="o-media_img">
+                <img class="obj-fit-fill" src="img/photography8.jpg" alt="">
+              </figure>
+            </div>
+          </li>
+          <li class="o-video-thumb__list">
+            <div class="o-video-thumb-block">
+              <figure class="o-media_img">
+                <img class="obj-fit-fill" src="img/photography8.jpg" alt="">
+              </figure>
+            </div>
+          </li>
+          <li class="o-video-thumb__list">
+            <div class="o-media-video-thumb-upload">
+              <div class="o-media-video-thumb__upload">
+                <input type="file" class="o-media-video__thumb" name="photo" id="upload-photo">
+                <div class="o-media-video__txt">
+                <p class="c-text_sm c-text_sm--color">Add<br>Thumbnail</p>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
+    <div class="col-md-4 padding_none">
+      <app-channel-selector [userChannels]="channeList" [settingDisable]="uploadedFiles.length === 0" (onPostMedia)="postAllMedia()" (onSelection)="onChannelSelection($event)" (onChannelCreate)="onChannelCreation($event)"></app-channel-selector>
+    </div>
+    <!-- add media end --> 
   </div>
-      <!-- *ngIf="editingFile" -->
-  <div class="col-md-4 add_media_info padding_none file__editor">
-    <div class="form__group">
-      <div class="form__item">
-        <div class="post__top">
-          <div class="post__options">
-            <button disable="true" class="btn-saveUpload text-upppercase float-right" (click)="mediaInfoUpdate(mediaForm.value)">Publish</button>
-            <!-- <button disable="true" class="btn-saveUpload--lite" (click)="postAllMedia(mediaForm.value)">Publish All</button> -->
-          </div>
-        </div>
-      </div>
-    </div>
-    <form [formGroup]="mediaForm" novalidate #mediaform="ngForm" class="add_media_info__form">
-      <ul class="media_info">
-        <li>
-          <div class="form_group">
-            <input formControlName="title" class="form_input" required="" type="text">
-            <span class="form_highlight"></span>
-            <span class="form_bar"></span>
-            <label>Title</label>
-          </div>
-        </li>
-        <li>
-          <div class="form_group">
-            <textarea formControlName="desc" name="comment" rows="2" placeholder="Description"></textarea>
-          </div>
-        </li>
-        <li>
-          <div class="form_group">
-            <tag-input [(ngModel)]='tags' [secondaryPlaceholder]="'Add Tags'" [placeholder]="'Tags'" [ngModelOptions]="{standalone: true}" [theme]="'ops-theme'"></tag-input>
-          </div>
-        </li>
-        <li>
-          <div class="form_group" *ngIf="editingFile.type=== 'Video'">
-              <input type="file" (ngxf-select)="uploadFile($event)" [ngxf-validate]="{ size: { min: 50000, max:1000000 } }">
-          </div>
-        </li>
-      </ul>
-      <ul class="media_content_report">
-        <li>
-          <div class="form_group">
-            <select formControlName="privacy" class="form-control" id="sel1">
-                <option value="0">Public</option>
-                <option value="1">Private</option>
-            </select>
-          </div>
-        </li>
-        <li>
-          <div class="form_group">
-            <select formControlName="copyright" class="form-control" id="sel1">
-              <option value="1">Copyright and License type</option>
-              <option value="2">CC: Attribution Share Alike</option>
-              <option value="3">CC: Attribution Non-Derivative</option>
-              <option value="4">CC: Attribution-NonCommercial</option>
-              <option value="5">CC: Attribution-NonCommercial-ShareAlike</option>
-              <option value="6">CC: Attribution-NonCommercial-NoDerivs No License</option>
-            </select>
-          </div>
-        </li>
-        <li class="ops_radio_sm">
-          <div class="form_group ops_radio_sm">
-            <label>
-              <label class="gender_single">
-                <input formControlName="isAdult" type="checkbox" name="demo"><span></span>This media contain adult content
-              </label>
-            </label>
-          </div>
-        </li>
-      </ul>
-    </form>
-    <div class="form__group">
-      <div class="channel__holder" (click)="chooseChannelToggle()">
-        <div class="icon__holder">
-          <span class="ico__label">Choose Channel</span>
-        </div>
-      </div>
-      <div class="form__item bg__dim" *ngIf="chooseChannelToggleState === true">
-        <app-channel-selector [userChannels]="channeList" (onSelection)="onChannelSelection($event)" (onChannelCreate)="onChannelCreation($event)"></app-channel-selector>
-      </div>
-    </div>
+</section>
