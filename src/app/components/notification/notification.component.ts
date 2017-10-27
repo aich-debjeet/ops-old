@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 
@@ -26,6 +26,7 @@ export class NotificationComponent implements OnInit {
   notifications: any[];
   baseUrl: string;
   alreadyReadAll = true;
+  canScroll = true;
 
   constructor(
     private store: Store<Notification>,
@@ -35,11 +36,7 @@ export class NotificationComponent implements OnInit {
     // image path
     this.baseUrl = environment.API_IMAGE;
 
-    // loading notifications
-    this.store.dispatch({
-      type: NotificationActions.LOAD_NOTIFICATIONS,
-      payload: null
-    });
+    this.dispatchLoadNotifications();
 
     this.notificationsState$ = this.store.select('notificationTags');
 
@@ -52,27 +49,49 @@ export class NotificationComponent implements OnInit {
         // check is unread notification exits
         // on page load mark all notifications as read
         setTimeout(() => {
+          // check if unread notification is available
+          const allNotifsRead = _.every(this.notifications, ['isRead', true]);
+          // console.log('allNotifsRead', allNotifsRead);
+          // this.alreadyReadAll = false;
 
-            // check if unread notification is available
-            const allNotifsRead = _.every(this.notifications, ['isRead', true]);
-            console.log('allNotifsRead', allNotifsRead);
-            // this.alreadyReadAll = false;
-
-            if (allNotifsRead) {
-              this.alreadyReadAll = true;
-            } else {
-              this.alreadyReadAll = false;
-              this.markAllAsRead();
-            }
-          }, 1000);
+          if (allNotifsRead) {
+            this.alreadyReadAll = true;
+          } else {
+            this.alreadyReadAll = false;
+            this.markAllAsRead();
+          }
+        }, 1000);
 
         this.processNotifications();
       }
       if (typeof state['marking_as_read_response'] !== 'undefined') {
         // upadte notification as marked
-        console.log('read: ' + this.notificationIds);
+        // console.log('read: ' + this.notificationIds);
         this.updateNotifications();
       }
+    });
+  }
+
+  @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
+    // console.log('scrolling', $event);
+    if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      // reached the bottom of the page
+      this.canScroll = false;
+      setTimeout(() => {
+        this.canScroll = true;
+      }, 5000);
+      this.dispatchLoadNotifications();
+    }
+  }
+
+  /**
+   * Redux dispatch to load notifications
+   */
+  dispatchLoadNotifications() {
+    // loading notifications
+    this.store.dispatch({
+      type: NotificationActions.LOAD_NOTIFICATIONS,
+      payload: null
     });
   }
 
