@@ -44,6 +44,7 @@ import { uniq as _uniq } from 'lodash';
 export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   @ViewChild('scrollMeBottom') private myScrollContainer: ElementRef;
+  disableScrollDown = false;
   msgNav: any;
   selectedView = '';
   userHandle;
@@ -79,15 +80,10 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
   // when OnDestroy is called.
   private timer: Observable<number>;
   private interval: number;
+  testVar: any;
 
   ngAfterViewChecked() {
     this.scrollToBottom();
-  }
-
-  scrollToBottom(): void {
-    try {
-        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch (err) { }
   }
 
   constructor(
@@ -121,7 +117,6 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.userO$ = profileStore.select('profileTags').take(3);
   }
   ngOnInit() {
-    this.scrollToBottom();
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     this.userO$.subscribe((val) => {
       this.currentUserDetails = val;
@@ -131,7 +126,7 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
       }
     });
     this.messages$ = this.messageStore.select('messageTags');
-    this.messages$.subscribe((state) => {
+    this.testVar = this.messages$.subscribe((state) => {
       // if state is not empty
       if (state && state.userProfileDetails ) {
         this.selfProfile = state.userProfileDetails;
@@ -347,6 +342,7 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
  */
 
   sortedMessages() {
+    this.messagesbytime.length = 0;
     if ( this.selectedUserHandle !== this.userHandle) {
       let sortedMessagesByTime = [];
       this.timer
@@ -412,6 +408,7 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
   */
 
   sentMessageToRecipient(value: any ) {
+    this.messagesbytime.length = 0;
     const headers = this.tokenService.getAuthHeader();
     if ((value.message_term === null || value.message_term === undefined) && (value.searchUserTerm === null || value.searchUserTerm === undefined)) {
       return
@@ -486,6 +483,30 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ngOnDestroy() {
     this.alive = false; // switches your IntervalObservable off
-    this.messageStore.dispatch({ type: MessageActions.UNLOAD_USER_PROFILE_DATA});
+    this.testVar.unsubscribe();
+    // this.messageStore.dispatch({ type: MessageActions.UNLOAD_USER_PROFILE_DATA});
   }
+
+  scrollToBottom(): void {
+    if (this.disableScrollDown) {
+      console.log('false')
+      return
+  }
+    try {
+      console.log('after false')
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch (err) { }
+  }
+
+   onScroll() {
+    const element = this.myScrollContainer.nativeElement
+    const atBottom = element.scrollHeight - element.scrollTop === element.clientHeight
+    if (this.disableScrollDown && atBottom) {
+      console.log(this.disableScrollDown)
+        this.disableScrollDown = false
+    } else {
+      console.log('here' + this.disableScrollDown)
+        this.disableScrollDown = true
+    }
+}
 }

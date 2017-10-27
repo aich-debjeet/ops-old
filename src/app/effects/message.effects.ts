@@ -18,7 +18,6 @@ export class MessageEffect {
   @Effect()
     userProfile$ = this.actions$
     .ofType(MessageActions.LOAD_USER_PROFILE_DATA)
-    .takeUntil(this.actions$.ofType(MessageActions.UNLOAD_USER_PROFILE_DATA))
     .map(toPayload)
     .switchMap((payload) => Observable
       .timer(0 , 5000)
@@ -27,11 +26,6 @@ export class MessageEffect {
         .catch((res) => Observable.of({ type: MessageActions.LOAD_USER_PROFILE_DATA_FAILED, payload: res }))
       )
     );
-
-    @Effect()
-    unloadProfile$ = this.actions$
-    .ofType(MessageActions.UNLOAD_USER_PROFILE_DATA)
-    .mapTo({ type: MessageActions.UNLOAD_USER_PROFILE_DATA_SUCCESS})
 
   @Effect()
     nonUserProfile$ = this.actions$
