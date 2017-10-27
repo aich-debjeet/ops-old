@@ -17,7 +17,6 @@ export class SharedActions {
 
   /* -------------------------------- PIN channel methods -------------------------------- */
   pinChannel(value): Action {
-    console.log('home action: PIN_CHANNEL triggred');
     return {
       type: SharedActions.PIN_CHANNEL,
       payload: { value }
@@ -42,7 +41,6 @@ export class SharedActions {
 
   /* -------------------------------- UNPIN channel methods -------------------------------- */
   unpinChannel(value): Action {
-    console.log('home action: UNPIN_CHANNEL triggred');
     return {
       type: SharedActions.UNPIN_CHANNEL,
       payload: { value }

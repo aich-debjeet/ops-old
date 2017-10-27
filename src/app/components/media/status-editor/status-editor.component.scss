@@ -7,6 +7,7 @@ $btn-color: #ff7b84;
   font-size: 18px;
   outline: none;
   min-height: 60px;
+  resize:none;
 }
 
 .c-status {
@@ -48,4 +49,23 @@ $btn-color: #ff7b84;
   color: #7c9e7c;
   background-color: #f6fdf6;
   padding: 1rem;
+}
+
+.width-50 {
+  width: 50%;
+  select {
+    width: 100px;
+  }
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

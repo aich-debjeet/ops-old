@@ -1,177 +1,466 @@
-import { Component, Renderer } from '@angular/core';
+import { initialTag } from '../../models/auth.model';
+import { of } from 'rxjs/observable/of';
+import { Component, Renderer, ViewChild, ElementRef, AfterViewChecked, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Message } from '../../models/message.model';
-import { UserMessages } from '../../models/user-messages.model';
+import { MessageModal, initialMessage} from '../../models/message.model';
+// import { UserMessages } from '../../models/user-messages.model';
 import { UserSearch } from '../../models/user-search.model';
+import { Http, Headers, Response } from '@angular/http';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SearchNamePipe } from './../../pipes/name.pipe';
+import { TokenService } from './../../helpers/token.service';
 
-// actions
+import { environment } from '../../../environments/environment';
+
+// actions// action
+import { ProfileActions } from '../../actions/profile.action';
 import { MessageActions } from '../../actions/message.action'
 import { UserSearchActions } from '../../actions/user-search.action'
+
+import { ProfileModal } from '../../models/profile.model';
 
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/observable/timer';
+import 'rxjs/add/observable/from';
+
+import { unionBy as _unionBy } from 'lodash';
+import { orderBy as _orderBy } from 'lodash';
+import { sortBy as _sortBy } from 'lodash';
+import { indexOf as _indexOf } from 'lodash';
+import { find as _find } from 'lodash';
+import { uniq as _uniq } from 'lodash';
 
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
-  styleUrls: ['./message.component.css']
+  providers: [ MessageActions ],
+  styleUrls: ['./message.component.scss']
 })
-export class MessageComponent {
+export class MessageComponent implements OnInit, AfterViewChecked {
 
-  userSearch$: Observable<UserSearch>;
-  userSearch;
-
-  sentMessages$: Observable<UserMessages>;
-  sentMessages;
-
-  receivedMessages$: Observable<UserMessages>;
-  receivedMessages;
-
-  private searchUserTerm;
-  private messageToSend;
-
-  loggedInUserHandle = 'J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM';
-
-  // var to store all processed messages
-  groupedMessages = [];
-  mergedMessages = [];
-
+  @ViewChild('scrollMeBottom') private myScrollContainer: ElementRef;
+  msgNav: any;
   selectedView = '';
-  userHandle = '';
+  userHandle;
+  baseUrl: string;
+  private apiLink: string = environment.API_ENDPOINT;
+  composeMessage = {
+    searchUser: '',
+    messageToSend: ''
+  };
+  messageForm: FormGroup;   // formgroup instance
+  mForm: FormGroup;         // formgroup instance
+  text: string  ;
+  searchText: string;
+  userO$: Observable<any>;
+  currentUserDetails
 
-  constructor(private store: Store<Message>) {
+  messages$: Observable<any>;
+  tags = initialMessage;
 
-    // this.sentMessages = this.getAllSentMessages().messages.sent;
-    // this.receivedMessages = this.getAllReceivedMessages().messages.received;
-    //
-    // this.sentMessages = this.markSentOrReceived(this.sentMessages, 'sent');
-    // this.receivedMessages = this.markSentOrReceived(this.receivedMessages, 'received');
-    //
-    // // console.log(this.sentMessages);
-    // // console.log(this.receivedMessages);
-    //
-    // var self = this;
-    //
-    // // merging sent and received messages
-    // this.mergeMessages(function() {
-    //
-    //   // group messages
-    //   self.groupMessages();
-    //
-    // });
+  selfProfile: any; // users self profile
+  listData = []; // temporary variable to store list of handles
+  makeIsReadTrue = [];      // contains the list of messages to assign them read value true.
+  orderedMessageContacts;   // to present the list of contacts on the left hand side of the message view page
+  nonUserProfile;           // to store the entire data of the current selected user
+  selectedUser;
+  selectedUserHandle;
+  selectedUserName;
+  mergedMsg = [];      // to contain both sent and received messages of a user
+  messagesbytime = []; // to sort messages by time
+  recipientsListState: boolean;
+  receipientList: any;      // to store the list of receipients
 
+  ngAfterViewChecked() {
+    this.scrollToBottom();
   }
 
-  // search user
-  searchUser() {
-    console.log('user search: '+this.searchUserTerm);
-    if (this.searchUserTerm.length > 2) {
-      // trigger search method
-      this.store.dispatch({ type: UserSearchActions.USER_SEARCH, payload: this.searchUserTerm });
+  scrollToBottom(): void {
+    try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch (err) { }
+  }
+
+  constructor(
+    fb: FormBuilder,
+    private http: Http,
+    private messageAction: MessageActions,
+    private tokenService: TokenService,
+    private messageStore: Store<MessageModal>,
+    private profileStore: Store<ProfileModal>
+    ) {
+    this.baseUrl = environment.API_IMAGE;
+
+    this.msgNav = {
+      action: { open: false },
+      setting: { open: false },
+      name: { open: false}
+    };
+
+    this.messageForm = fb.group({
+      'message' : [null, Validators.required],
+    })
+    this.mForm = fb.group({
+      'searchUserTerm' : [null, Validators.required],
+      'message_term' : [null, Validators.required],
+    })
+    this.text = '';
+    this.recipientsListState = false;
+    this.userO$ = profileStore.select('profileTags').take(3);
+  }
+  ngOnInit() {
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    this.userO$.subscribe((val) => {
+      this.currentUserDetails = val;
+      if (typeof this.currentUserDetails.profileUser !== 'undefined') {
+      this.userHandle = this.currentUserDetails.profileUser.handle;
+      this.initMessaging(this.userHandle);
+      }
+    });
+    this.messages$ = this.messageStore.select('messageTags');
+    this.messages$.subscribe((state) => {
+      // if state is not empty
+      if (state && state.userProfileDetails ) {
+        this.selfProfile = state.userProfileDetails;
+      }
+      if (state && state.nonUserProfileDetails) {
+        this.nonUserProfile = state.nonUserProfileDetails;
+      }
+      if (state && state.receipients) {
+        this.receipientList = state.receipients;
+      }
+    })
+  }
+
+  /**
+   * This method will get user profile details and also get all the user sent and receive messages
+   * @param handle
+ */
+
+  initMessaging(handle: string) {
+    if (!handle) {
+      return false;
+    }
+    this.messageStore.dispatch({ type: MessageActions.LOAD_USER_PROFILE_DATA, payload: handle });
+    setInterval(() => {
+      const headers = this.tokenService.getAuthHeader();
+      return this.http.get(this.apiLink + '/portal/message/combined/sent/received', { headers: headers })
+      .map((data: Response) => data.json())
+      .subscribe(response => {
+      this.mergedMsg = response;
+      this.fetchProfileByHandle(this.mergedMsg)
+      });
+    }, 10000);
+  }
+
+  /**
+   *This method will take the merged messages and filter out all the handles of different users to get their user information
+   * @param mergedMessages
+ */
+
+  fetchProfileByHandle(mergedMessages: any) {
+    const headers = this.tokenService.getAuthHeader();
+    const data = [];
+    if (mergedMessages !== 'undefined') {
+
+      for (let i = 0 ; i < mergedMessages.length; i++) {
+         if (!_find(this.listData, (mergedMessages[i].by))) {
+          this.listData.push(mergedMessages[i].by)
+         }
+         if (!_find(this.listData, (mergedMessages[i].to))) {
+          this.listData.push(mergedMessages[i].to)
+         }
+      }
+
+      if (this.listData) {
+        this.listData = _uniq(this.listData, 'id');
+        const reqBody = { listData: this.listData };
+        this.http.post(this.apiLink + '/portal/auth/handleDisplayData', reqBody, { headers: headers })
+        .map((response: Response) => response.json())
+        .subscribe(response => {
+          this.orderProfileMessage(response)
+        });
+      }
     }
   }
 
-  // send message
-  sendMessage() {
+  /**
+   *This method will get all the user information according to handles and will filter out the latest message received w.r.t the user and will list out the user with their latest message on the left hand side.
+   * @param data
+ */
 
-    console.log('send message');
-
-    const toUserHandle = 'J_47578AB2_AB1F_4B56_BB23_A0BFB26EFCE2DEEPASHREE_AEIONE_GMAIL_COM';
-
-    console.log('sending: ' + this.messageToSend + ' to: ' + toUserHandle);
-    // trigger send message method
-    this.store.dispatch({
-      type: MessageActions.SEND_MESSAGE,
-      payload: {
-        subject: this.messageToSend,
-        content: this.messageToSend,
-        to: toUserHandle
+  orderProfileMessage(data: any) {
+    if (!data) {
+      console.log('no data')
+      return false;
+    } else {
+    const handleDataMap = data;
+    const messageContacts = [];
+    for (let i = 0; i < this.listData.length; i++) {
+      if (handleDataMap[this.listData[i]]) {
+        if (this.listData[i] === handleDataMap[this.listData[i]].handle) {
+          messageContacts.push( handleDataMap[this.listData[i]])
+        }
       }
-    });
-
-  }
-
-  mergeMessages(callback) {
-    this.mergedMessages = this.sentMessages.concat(this.receivedMessages);
-    console.log(this.mergedMessages);
-    callback();
-  }
-
-  markSentOrReceived(data, type) {
-
-    var result = data.map(function(el) {
-      var o = Object.assign({}, el);
-      o.type = type;
-      return o;
-    });
-
-    return result;
-
-  }
-
-  // loop through all records and group them
-  groupMessages() {
-
-    var self = this;
-
-    this.mergedMessages.forEach(function(singleMessage, index) {
-
-      // checking if user already exist in group array, if yes then append new singleMessage
-      if(self.groupedMessages.hasOwnProperty(singleMessage.to)) {
-
-        console.log('found');
-        // appending the new singleMessage to existing users array
-        self.groupedMessages[singleMessage.to].push(singleMessage);
-
-      } else { // else add user and singleMessage to the new array
-
-        console.log('not found');
-        // making a placeholder array for next users singleMessages
-        self.groupedMessages[singleMessage.to] = [];
-        self.groupedMessages[singleMessage.to].push(singleMessage);
-
+    }
+    /*latest received message will come up*/
+    for (let i = 0 ; i < messageContacts.length; i++) {
+      if ( messageContacts[i].handle === this.userHandle) {
+        /*skipped self profile */
+        continue;
       }
-
-
-      // checking if looped through all elements in the sent messages array
-      if(self.mergedMessages.length == index + 1) {
-        console.log('grouped: ');
-        console.log(self.groupedMessages);
+      messageContacts[i].isRead = true;
+      messageContacts[i].latestmessage = ''
+      if ( this.selfProfile.extra.messages.received || this.selfProfile.extra.messages.received !== undefined) {
+        let lastReceivedMessageCount;
+        for (let j = 0; j < this.selfProfile.extra.messages.received.length; j++) {
+          if (messageContacts[i].handle === this.selfProfile.extra.messages.received[j].by) {
+            lastReceivedMessageCount = j;
+            if (this.selfProfile.extra.messages.received[j].isRead === false) {
+              messageContacts[i].isRead = false;
+              const isReadList = {
+              // message recived by
+              handle: this.userHandle,
+              // message sender
+              sendHandle: messageContacts[i].handle,
+              messageId : this.selfProfile.extra.messages.received[j].id,
+              isRead : true
+            };
+            this.makeIsReadTrue.push(isReadList);
+            messageContacts[i].latestmessage = this.selfProfile.extra.messages.received[j].content;
+            messageContacts[i].latestmessagetime = this.selfProfile.extra.messages.received[j].time;
+            messageContacts[i].isLastMessageSentByMe = false;
+            } else {
+              console.log('message already set isread true..')
+            }
+          }
+        }
+        if (!messageContacts[i].latestmessagetime || messageContacts[i].latestmessagetime === '' ) {
+          if (lastReceivedMessageCount) {
+            messageContacts[i].latestmessage =  this.selfProfile.extra.messages.received[lastReceivedMessageCount].content;
+            messageContacts[i].latestmessagetime = this.selfProfile.extra.messages.received[lastReceivedMessageCount].time;
+          }
+        }
       }
-
-    });
-
+      if (this.selfProfile.extra.messages.sent || this.selfProfile.extra.messages.sent !== undefined) {
+        for (let j = 0 ; j < this.selfProfile.extra.messages.sent.length; j++) {
+          if (messageContacts[i].handle === this.selfProfile.extra.messages.sent[j].to) {
+            if (this.selfProfile.extra.messages.sent[j].time > messageContacts[i].latestmessagetime || messageContacts[i].latestmessagetime === undefined) {
+              messageContacts[i].isLastMessageSentByMe = true;
+              messageContacts[i].latestmessage = this.selfProfile.extra.messages.sent[j].content;
+              messageContacts[i].latestmessagetime = this.selfProfile.extra.messages.sent[j].time;
+            }
+          }
+        }
+      }
+    }
+    this.orderedMessageContacts = _sortBy(messageContacts, function(msg) { return msg.latestmessagetime; }).reverse()
+    }
   }
 
-  // user action to toogle views
-  toggleView(tab: any, userHandle: any = '') {
+  /**
+   *this method is usd to select the view and also to select a particular user to get all its conversation with the logged in user
+   * @param tab
+   * @param nonUserHandle
+ */
 
-    // toggle view
+  toggleView(tab: any, nonUserHandle: any) {
+      // toggle view
     this.selectedView = tab;
-
     // trigger actions
-    if(this.selectedView == 'readMessage') {
-      this.userHandle = userHandle;
+    if (this.selectedView === 'readMessage') {
+      if (nonUserHandle !== this.userHandle) {
+        this.messageStore.dispatch({ type: MessageActions.LOAD_NON_USER_PROFILE_DATA, payload: nonUserHandle });
+        let indexOfNonUserHandle ;
+        for (const i in this.orderedMessageContacts) {
+          if (this.orderedMessageContacts[i].handle === nonUserHandle) {
+            indexOfNonUserHandle = i;
+            break;
+          } else {
+            console.log('not present')
+          }
+        }
+        this.selectUserData(this.orderedMessageContacts[indexOfNonUserHandle])
+      } else {
+        console.log(nonUserHandle)
+      }
+    }
+  }
 
-      // load user message
-      console.log(userHandle);
+  /**
+   *
+   *  @param selectUser passing the selected user to mark all its messages read w.r.t the logged in user
+ */
 
+  selectUserData(selectUser) {
+    const headers = this.tokenService.getAuthHeader();
+    selectUser.read = true;
+    if (selectUser.isLastMessageSentByMe) {
+      selectUser.isLastMessageSentByMe = true;
+    }
+    this.selectedUser = selectUser.name;
+    this.selectedUserHandle = selectUser.handle;
+    this.selectedUserName = selectUser.username;
+    const list = [];
+    // make list of messages to assign them read value true
+    for ( let i = 0; i < this.makeIsReadTrue.length; i++) {
+      if (this.makeIsReadTrue[i].sendHandle === selectUser.handle) {
+        const listOfIsRead = {
+          handle: this.userHandle,
+          messageId: this.makeIsReadTrue[i].messageId,
+          isRead: true
+        }
+        list.push(listOfIsRead);
+      }
+    }
+    const isReadMessages = {
+      list : list
+    }
+    // make message read
+    this.http.put(this.apiLink + '/portal/message/markListRead', isReadMessages, { headers: headers })
+    .map((res: Response) => res.json())
+    .subscribe(response => {
+    this.sortedMessages();
+    })
+  }
+
+ /**
+   *this method will get the conversation between the logged in user and the selected user and will have conversation messages sorted with time
+ */
+
+  sortedMessages() {
+    if ( this.selectedUserHandle !== this.userHandle) {
+      let sortedMessagesByTime = [];
+      setInterval(() => {
+      const headers = this.tokenService.getAuthHeader();
+      this.http.get(this.apiLink + '/portal/message/conversation/' + this.selectedUserHandle, { headers: headers })
+      .map((response: Response) => response.json())
+      .subscribe(response => {
+        sortedMessagesByTime = response;
+        this.messagesbytime = _sortBy(sortedMessagesByTime, function(msg) { return msg.time; });
+      })
+      }, 10000);
+    }
+  }
+
+  /**
+   *
+   * @param value add messages to an ongoing conversation between two users
+ */
+
+  addMessage(value: any) {
+    const headers = this.tokenService.getAuthHeader();
+    if (this.messageForm.valid === true) {
+      const messageBody = {
+        by : this.userHandle,
+        to : this.selectedUserHandle,
+        subject : value.message,
+        content : value.message,
+      }
+      this.http.post(this.apiLink + '/portal/message', messageBody, { headers: headers })
+      .map((response: Response) => response.json())
+      .subscribe(response => {
+        this.text = '';
+        this.manageAddMessages(response);
+      })
+    }
+  }
+
+  /**
+   *put the latest conversation on the left hand side with respect to the selected user
+  */
+
+  manageAddMessages(response) {
+    if (response.SUCCESS.to === this.selectedUserHandle && response.SUCCESS.by === this.userHandle) {
+      if (!_find(this.messagesbytime, {id: response.SUCCESS.id})) {
+        this.messagesbytime.push(response.SUCCESS);
+      }
+      for (const i in this.orderedMessageContacts) {
+        if (this.orderedMessageContacts[i].handle === this.selectedUserHandle) {
+          this.orderedMessageContacts[i].isLastMessageSentByMe = true;
+          this.orderedMessageContacts[i].latestmessagetime = response.SUCCESS.time;
+          this.orderedMessageContacts[i].latestmessage = response.SUCCESS.content;
+        }
+      }
+      this. orderedMessageContacts = _sortBy(this. orderedMessageContacts, function(msg) { return msg.latestmessagetime; }).reverse()
+    }
+  }
+
+  /**
+   *
+   * @param value used to send message to a receipient on custom search using the compose button
+  */
+
+  sentMessageToRecipient(value: any ) {
+    const headers = this.tokenService.getAuthHeader();
+    if ((value.message_term === null || value.message_term === undefined) && (value.searchUserTerm === null || value.searchUserTerm === undefined)) {
+      return
+    }
+    const messageBody = {
+      by : this.userHandle,
+      to : this.nonUserProfile.handle,
+      subject : value.message_term,
+      content : value.message_term,
+    }
+    this.http.post(this.apiLink + '/portal/message', messageBody, { headers: headers })
+    .map((response: Response) => response.json())
+    .subscribe(response => {
+      this.composeMessage.messageToSend = '';
+      this.composeMessage.searchUser = '';
+      this.selectedUserHandle = this.nonUserProfile.handle;
+      this.selectedUser = this.nonUserProfile.name;
+      this.selectedUserName = this.nonUserProfile.extra.username;
+      this.messagesbytime.push(response.SUCCESS);
+      this.toggleView('readMessage', this.nonUserProfile.handle)
+    })
+  }
+
+  /**
+   *
+   * @param handle this method will get the details of the selected user on custom search
+  */
+  toggleSelectSkill(handle: any) {
+    this.recipientsListState = !this.recipientsListState;
+    if (handle === undefined || handle === null ) {
+      this.composeMessage.searchUser = 'No such receipient';
+      this.selectedView = '';
     }
 
+    if (handle !== this.userHandle && handle !== undefined) {
+      const headers = this.tokenService.getAuthHeader();
+      this.http.get(this.apiLink + '/portal/profile/' + handle, { headers: headers })
+      .map((response: Response) => response.json())
+      .subscribe(response => {
+        if (response === null || response === undefined) {
+          this.composeMessage.searchUser = 'No such receipient';
+        } else {
+          this.nonUserProfile = response
+          this.composeMessage.searchUser = this.nonUserProfile.name;
+        }
+      })
+    }
+
+    if (handle === this.userHandle) {
+      this.selectedView = '';
+      return
+    }
   }
 
-  // dummy response
-  getAllSentMessages() {
+  /**
+   * this method is used to perform the custom search
+  */
 
-    return JSON.parse('{"messages":{"sent":[{"id":"h_ac88b5f6-3990-4311-92ed-689b67890e3c","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"Z_4A3E954C_7F22_444B_9095_BAF0FE0B8A72YASWANTH_RAJA_AEIONE_COM","subject":"Hii...yaswanth","content":"Hii...yaswanth","time":"2017-06-28T11:44:22.976","isRead":false},{"id":"l-be61ca00-8176-4918-b656-70d4d722bd67","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"L_E65E2BA1_9CFA_4E79_B5A1_950524FFFA96DINESHWEBB_GMAIL_COM","subject":"Hiii....","content":"Hiii....","time":"2017-06-28T11:46:35.41","isRead":false},{"id":"p_58ec7c32-f7d3-4d3b-85b7-559e66b215ca","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"L_E65E2BA1_9CFA_4E79_B5A1_950524FFFA96DINESHWEBB_GMAIL_COM","subject":"Hi dinesh ....","content":"Hi dinesh ....","time":"2017-07-04T10:30:56.885","isRead":false},{"id":"l_a1d38b2d-52bc-49a4-82eb-31f20a58c537","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"Z_4A3E954C_7F22_444B_9095_BAF0FE0B8A72YASWANTH_RAJA_AEIONE_COM","subject":"Hi...plz take care about our bugs na","content":"Hi...plz take care about our bugs na","time":"2017-07-04T10:33:46.998","isRead":false},{"id":"n-82c25c5a-09aa-4ae0-a683-d727aeb74f8b","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"A_AD57E36C_EA89_4EFA_9E65_70B239565F2FANUSHKA19_SHETTY81_GMAIL_COM","subject":"hiii","content":"hiii","time":"2017-07-04T10:42:05.789","isRead":false},{"id":"a_c1983fa0-21fb-4780-a218-7affe14d1944","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"A_B8E6FF5E_3FEC_4768_867A_7F547F2307D4PRAPTHI_CHANDRAPPA_AEIONE_COM","subject":"Hiii prapthi","content":"Hiii prapthi","time":"2017-07-04T10:52:01.86","isRead":false},{"id":"q_9b41651b-2a82-490d-abe2-a376a27c5e64","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"X_7F29BBC4_98D6_4A8D_81EC_D036EB3727FBHRUDAY_KUPPALI_THEJADESHOW_COM","subject":"hiii","content":"hiii","time":"2017-07-04T10:52:23.729","isRead":false},{"id":"t_5e1828ea-68ea-4aeb-b8c1-f4eeab792d5d","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"A_B8E6FF5E_3FEC_4768_867A_7F547F2307D4PRAPTHI_CHANDRAPPA_AEIONE_COM","subject":"hii","content":"hii","time":"2017-07-04T10:53:46.474","isRead":false},{"id":"a-0d0efe63-14f3-4875-85d9-5694b33d959d","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"X_7F29BBC4_98D6_4A8D_81EC_D036EB3727FBHRUDAY_KUPPALI_THEJADESHOW_COM","subject":"hiii","content":"hiii","time":"2017-07-04T10:54:15.259","isRead":false},{"id":"g_7a369d09-ac61-48a6-b855-9288b5f82d22","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"A_B8E6FF5E_3FEC_4768_867A_7F547F2307D4PRAPTHI_CHANDRAPPA_AEIONE_COM","subject":"cfgf","content":"cfgf","time":"2017-07-04T10:55:30.779","isRead":false},{"id":"f-1e638dde-851d-459b-9b0e-55778b3c320b","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"Y_883E03D5_5A3A_4E9B_8DB7_73711B8FDEF7YASWANTH_RAJA_AEIONEASD_COM","subject":"hghg","content":"hghg","time":"2017-07-04T10:57:10.36","isRead":false},{"id":"c-c42fd668-df10-4e19-a616-87d99c07d1d7","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"H_78DFCDBA_1F29_419B_8116_331D6B2781B5MANOJ_S_RAMASWAMY9_AEIONE_COM","subject":"hi","content":"hi","time":"2017-07-04T10:59:36.191","isRead":false},{"id":"a-51469224-ceae-42d5-80cc-50f4a3d5b3df","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"N_7E8BA1F6_EDD3_41B9_8863_E050643CC797PRAPTHIASAGODU86_GMAIL_COM","subject":"hi","content":"hi","time":"2017-07-04T10:59:51.463","isRead":false},{"id":"e_ef778049-e15c-496c-a69b-9a1d47eb45b0","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"N_7E8BA1F6_EDD3_41B9_8863_E050643CC797PRAPTHIASAGODU86_GMAIL_COM","subject":"hi","content":"hi","time":"2017-07-04T10:59:55.004","isRead":false},{"id":"a-28693f0c-8e55-4e52-824f-5eb1826c733e","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"N_7E8BA1F6_EDD3_41B9_8863_E050643CC797PRAPTHIASAGODU86_GMAIL_COM","subject":"hi","content":"hi","time":"2017-07-04T10:59:59.744","isRead":false},{"id":"m-1c5899a2-0e8b-43f0-846a-a90a536ae2ec","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"L_850CC80D_E051_42D9_B31F_28C46BFF3B28SFBAFKB_GMAIL_COM","subject":"hi","content":"hi","time":"2017-07-04T11:00:18.967","isRead":false},{"id":"d-f61be94b-a09d-4dca-9899-c9ee1537c857","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"W_D03D8B98_7852_418D_96D0_30C025BCB73DTAPASIPRAPTHI_GMAIL_COM","subject":"hi","content":"hi","time":"2017-07-04T11:38:13.664","isRead":false},{"id":"e_a71cb6df-15c9-4373-87ad-c59f25017d03","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"W_D03D8B98_7852_418D_96D0_30C025BCB73DTAPASIPRAPTHI_GMAIL_COM","subject":"hi","content":"hi","time":"2017-07-04T11:38:15.893","isRead":false},{"id":"v_e7e08e09-3b31-452b-8409-6d94f986fec6","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"W_D03D8B98_7852_418D_96D0_30C025BCB73DTAPASIPRAPTHI_GMAIL_COM","subject":"hi","content":"hi","time":"2017-07-04T11:38:25.415","isRead":false},{"id":"k-e96db78e-3851-43cb-88f5-1cb577141568","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"X_7F29BBC4_98D6_4A8D_81EC_D036EB3727FBHRUDAY_KUPPALI_THEJADESHOW_COM","subject":"hi","content":"hi","time":"2017-07-04T11:38:43.396","isRead":false},{"id":"u-35b37942-a612-44a6-abe1-7de676a2959b","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"X_7F29BBC4_98D6_4A8D_81EC_D036EB3727FBHRUDAY_KUPPALI_THEJADESHOW_COM","subject":"hi","content":"hi","time":"2017-07-04T11:38:43.417","isRead":false},{"id":"g-8cd3613c-171d-441a-9610-8a5e367cb313","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"X_7F29BBC4_98D6_4A8D_81EC_D036EB3727FBHRUDAY_KUPPALI_THEJADESHOW_COM","subject":"hi","content":"hi","time":"2017-07-04T11:38:48.935","isRead":false},{"id":"j_517f3299-f231-4fcc-912d-0721deb6b88f","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"X_7F29BBC4_98D6_4A8D_81EC_D036EB3727FBHRUDAY_KUPPALI_THEJADESHOW_COM","subject":"hi","content":"hi","time":"2017-07-04T11:38:48.967","isRead":false},{"id":"y_dacad0f6-23a8-4197-a378-1eb610755a06","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"A_B8E6FF5E_3FEC_4768_867A_7F547F2307D4PRAPTHI_CHANDRAPPA_AEIONE_COM","subject":"hi","content":"hi","time":"2017-07-04T11:41:34.713","isRead":false},{"id":"o-bb780743-ddcf-4937-84d4-fa4671c0af18","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"A_B8E6FF5E_3FEC_4768_867A_7F547F2307D4PRAPTHI_CHANDRAPPA_AEIONE_COM","subject":"hi","content":"hi","time":"2017-07-04T11:41:40.456","isRead":false},{"id":"q-bc2fbd7d-93a1-4043-9853-f64c464ef149","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"A_B8E6FF5E_3FEC_4768_867A_7F547F2307D4PRAPTHI_CHANDRAPPA_AEIONE_COM","subject":"hello","content":"hello","time":"2017-07-04T11:41:54.282","isRead":false},{"id":"k-8961e2cd-023a-42fa-9578-d95fc729d0f4","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"A_B8E6FF5E_3FEC_4768_867A_7F547F2307D4PRAPTHI_CHANDRAPPA_AEIONE_COM","subject":"hello","content":"hello","time":"2017-07-04T11:41:58.745","isRead":false},{"id":"b_eab88dff-b01f-4c2b-926a-83de03fd7e10","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"A_B8E6FF5E_3FEC_4768_867A_7F547F2307D4PRAPTHI_CHANDRAPPA_AEIONE_COM","subject":"hello","content":"hello","time":"2017-07-04T11:42:00.939","isRead":false},{"id":"n-b19269ba-2e3d-4716-9b3f-1d8866bffe27","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"A_AD57E36C_EA89_4EFA_9E65_70B239565F2FANUSHKA19_SHETTY81_GMAIL_COM","subject":"Hi anushka","content":"Hi anushka","time":"2017-07-04T13:41:55.808","isRead":false},{"id":"c-7a6f4001-fff8-4c2c-bc52-625563f24407","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"W_D03D8B98_7852_418D_96D0_30C025BCB73DTAPASIPRAPTHI_GMAIL_COM","subject":"Hi...how ru?","content":"Hi...how ru?","time":"2017-07-06T05:22:38.362","isRead":false},{"id":"s_f32dd23f-8187-47ca-9813-463277995b57","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"W_D03D8B98_7852_418D_96D0_30C025BCB73DTAPASIPRAPTHI_GMAIL_COM","subject":"nice pic","content":"nice pic","time":"2017-07-06T05:22:51.621","isRead":false},{"id":"o_46240670-bcd3-407d-aa54-e4ca9f0f8071","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"W_D03D8B98_7852_418D_96D0_30C025BCB73DTAPASIPRAPTHI_GMAIL_COM","subject":"nice pic","content":"nice pic","time":"2017-07-06T05:22:54.494","isRead":false},{"id":"f_e8ba2c88-f38e-4855-8bf7-d67584090368","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"W_D03D8B98_7852_418D_96D0_30C025BCB73DTAPASIPRAPTHI_GMAIL_COM","subject":"nice pic","content":"nice pic","time":"2017-07-06T05:22:55.719","isRead":false},{"id":"e-2d63bdf9-e732-4b97-bf05-bf1dbe13cdc8","by":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","to":"W_D03D8B98_7852_418D_96D0_30C025BCB73DTAPASIPRAPTHI_GMAIL_COM","subject":"nice pic","content":"nice pic","time":"2017-07-06T05:22:55.735","isRead":false}]}}');
-
+  onSearch () {
+    if (this.composeMessage.searchUser !== null || this.composeMessage.searchUser !== '') {
+      this.recipientsListState = true;
+      this.messageStore.dispatch({ type: MessageActions.GET_RECEIPIENT, payload: this.composeMessage.searchUser });
+    } else {
+      this.recipientsListState = false;
+      this.composeMessage.searchUser = '';
+    }
   }
-
-  getAllReceivedMessages() {
-
-    return JSON.parse('{"messages":{"received":[{"id":"u_a472c41e-e991-4590-ad7e-bdb38255b065","by":"W_D03D8B98_7852_418D_96D0_30C025BCB73DTAPASIPRAPTHI_GMAIL_COM","to":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","subject":"hello","content":"hello","time":"2017-07-05T09:12:49.11","isRead":false},{"id":"t_f834c539-3f2c-4df1-975e-04171cee68a9","by":"W_D03D8B98_7852_418D_96D0_30C025BCB73DTAPASIPRAPTHI_GMAIL_COM","to":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","subject":"Hiii","content":"Hiii","time":"2017-07-05T09:13:04.504","isRead":false},{"id":"k-6044bcfe-3c9b-415a-8317-13dbec7edba9","by":"W_D03D8B98_7852_418D_96D0_30C025BCB73DTAPASIPRAPTHI_GMAIL_COM","to":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","subject":"prapthi","content":"prapthi","time":"2017-07-05T09:14:52.673","isRead":false},{"id":"n-04f7ca27-69f6-46c0-8a05-2e2f56e5e740","by":"Z_4A3E954C_7F22_444B_9095_BAF0FE0B8A72YASWANTH_RAJA_AEIONE_COM","to":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","subject":"yaa pakka","content":"yaa pakka","time":"2017-07-24T13:20:00.211","isRead":false},{"id":"y-ad8f8da6-f374-48fe-8586-6165b53fdbac","by":"Z_2CDDA688_13D9_4C4D_A865_6DE9F66374E5PRAPTHI_AEIONE_GMAIL_COM","to":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","subject":"Hi","content":"Hi","time":"2017-08-02T09:53:38.321","isRead":false},{"id":"k_ca0fee41-8aa1-4c6d-a859-81366a71b4c0","by":"Z_2CDDA688_13D9_4C4D_A865_6DE9F66374E5PRAPTHI_AEIONE_GMAIL_COM","to":"J_F388662D_00A2_4BF7_BE66_AB389628AC73GREESHMAPRIYA86_GMAIL_COM","subject":"Hi","content":"Hi","time":"2017-08-02T09:54:50.285","isRead":false}]}}');
-
-  }
-
 }

@@ -293,3 +293,17 @@
         max-width: 100%;
     }
 }
+
+.media-c__popup{
+  width: 100%;
+  float: left;
+  .list-inline{
+    padding: 16px 24px;
+    list-style: none;
+    margin-left: -5px;
+  }
+  .msg_to_input{
+    width: 84%;
+  }
+
+}

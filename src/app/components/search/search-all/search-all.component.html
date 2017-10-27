@@ -1,0 +1,265 @@
+<div class="row mar-top-bot-40">
+
+    <div *ngIf="channels && channels.length === 0; else channels_found;">
+        <p class="result-not-found">Channels not found!</p>
+    </div>
+
+    <ng-template #channels_found>
+            
+        <ul class="list-inline ops_explore_head" *ngIf="channels && channels.length > 0;" >
+            <li class="list-inline-item ops_heading text_uppercase">Channel</li>
+            <li class="list-inline-item ops_heading2 text_uppercase pull-right"><a (click)="selectTab('tab-channel')">See more</a></li>
+        </ul>
+
+        <div class="col-md-3" *ngFor="let channel of channels; let i = index;">
+            <ng-container *ngIf="(i <= 3)">
+                <app-channel [channelData]="channel" ></app-channel>
+            </ng-container>
+        </div>
+
+    </ng-template>
+
+</div>
+
+<div class="row mar-top-bot-40">
+    
+    <!-- if posts not found -->
+    <div *ngIf="posts && posts.length === 0; else posts_found;">
+        <p class="result-not-found">Posts not found!</p>
+    </div>
+    <!-- if posts not found -->
+    
+    <!-- if posts found -->
+    <ng-template #posts_found>
+            
+        <ul class="list-inline ops_explore_head" *ngIf="posts && posts.length > 0;" >
+            <li class="list-inline-item ops_heading text_uppercase">Posts</li>
+            <li class="list-inline-item ops_heading2 text_uppercase pull-right"><a (click)="selectTab('tab-post')">See more</a></li>
+        </ul>
+
+        <div *ngFor="let post of posts; let i = index;" >
+            
+            <ng-container *ngIf="(i <= 3)">
+                    
+                <!-- post type image -->
+                <div class="col-md-3 pad-bot-25" *ngIf="post.mtype == 'image'" >
+                    <div class="c-card">
+                        <!-- card media (img, video & audio) -->
+                        <div class="c-card__media">
+                            <a [routerLink]="['', { outlets: { media : ['media', post?.id] } }]">
+                                <img src="{{ baseUrl + post.repopath }}" alt="" class="c-card__image">
+                            </a>
+                            <span>
+                            <img src="https://d33wubrfki0l68.cloudfront.net/e71f0fc9a8055ea597b62c0c1b3c9c94b2e5f2bc/ab7ce/img/svg/ico_media_img.svg" alt="" class="c-card__icon">
+                        </span>
+                        </div>
+                        <!-- //card media (img, video & audio) -->
+                        <!-- card body -->
+                        <div class="c-card__body">
+                            <a class="c-card__heading" href="javascript:void(0)">{{ post.title }}</a>
+                            <div class="c-card__desc">{{ post.description }}</div>
+                            <a href="javascript:void(0)">
+                                <!-- <img src="https://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg" alt="" class="c-card__options"> -->
+                            </a>
+                            <div class="c-card__user">
+                            <div class="c-user">
+                                <a class="c-user__avatar c-avatar--feed">
+                                    <img class="c-user__image" *ngIf="!post.ownerImage" src="http://d206s58i653k1q.cloudfront.net/images/defaultMale/03eed8d4-5659-463a-8fbf-9aa71034c19a.png">
+                                    <img class="c-user__image" *ngIf="post.ownerImage" src="{{ baseUrl + post.ownerImage }}">
+                                </a>
+                                <a class="c-user__name" routerLink="{{ '/profile/u/' + post.ownerUserName }}">{{ post.ownerName }}</a>
+                                <!-- <a class="c-user__channel">Do Your Think Motivational</a> -->
+                            </div>
+                            </div>
+                        </div>
+                        <!-- //card body -->
+                        <!-- card footer links -->
+                        <div class="c-card__links">
+                            <div class="c-links">
+                            <div class="c-links__spots">
+                                <img src="https://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="c-links__image">
+                                <span class="c-links__count">{{ post.spotsCount }}</span>
+                            </div>
+                            <div class="c-links__comments">
+                                <img src="https://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg" class="c-links__image">
+                                <span class="c-links__count">{{ post.commentsCount }}</span>
+                            </div>
+                            <div class="c-links__actions">
+                                <span class="c-links__add">
+                                        <a href="javascript:void(0)">
+                                            <img src="https://d33wubrfki0l68.cloudfront.net/757d12023ec2c0c7c0649d1ed1334031990ffe92/cbaf2/img/svg/ico_addtochannel.svg" class="c-action__image">
+                                        </a>
+                                    </span>
+                                <span class="c-links__share">
+                                        <a href="javascript:void(0)">
+                                            <img src="https://d33wubrfki0l68.cloudfront.net/5ca05db3ef5c4aadb2b4d445eb205bbe59ca0abd/4634c/img/svg/ico_share-02.svg" class="c-action__image">
+                                        </a>
+                                    </span>
+                            </div>
+                            </div>
+                        </div>
+                        <!-- //card footer links -->
+                    </div>
+                </div>
+                <!-- post type image -->
+
+                <!-- post type status -->
+                <div class="col-md-3 pad-bot-25" *ngIf="post.mtype == 'status'" >
+                    <div class="c-card">
+                        <!-- card body -->
+                        <div class="c-card__body">
+                            <div class="c-card__user margin_none">
+                                <div class="c-user">
+                                <a class="c-user__avatar c-avatar--feed">
+                                    <img class="c-user__image" *ngIf="!post.ownerImage" src="http://d206s58i653k1q.cloudfront.net/images/defaultMale/03eed8d4-5659-463a-8fbf-9aa71034c19a.png">
+                                    <img class="c-user__image" *ngIf="post.ownerImage" src="{{ baseUrl + post.ownerImage }}">
+                                </a>
+                                <a class="c-user__name" routerLink="{{ '/profile/u/' + post.ownerUserName }}">{{ post.ownerName }}</a>
+                                <!-- <a class="c-user__channel">Do Your Think Motivational</a> -->
+                                </div>
+                            </div>
+                            <a href="javascript:void(0)">
+                                <!-- <img src="https://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg" alt="" class="c-card__options"> -->
+                            </a>
+                            <div class="c-user__status">{{ post.description | truncate:[200, '...'] }}</div>
+                        </div>
+                        <!-- //card body -->
+                        <!-- card footer links -->
+                        <div class="c-card__links">
+                            <div class="c-links">
+                                <div class="c-links__spots">
+                                    <img src="https://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="c-links__image">
+                                    <span class="c-links__count">{{ post.spotsCount }}</span>
+                                </div>
+                                <div class="c-links__comments">
+                                    <img src="https://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg" class="c-links__image">
+                                    <span class="c-links__count">{{ post.commentsCount }}</span>
+                                </div>
+                                <div class="c-links__actions">
+                                    <span class="c-links__add">
+                                        <a href="javascript:void(0)">
+                                            <img src="https://d33wubrfki0l68.cloudfront.net/757d12023ec2c0c7c0649d1ed1334031990ffe92/cbaf2/img/svg/ico_addtochannel.svg" class="c-action__image">
+                                        </a>
+                                    </span>
+                                    <span class="c-links__share">
+                                        <a href="javascript:void(0)">
+                                            <img src="https://d33wubrfki0l68.cloudfront.net/5ca05db3ef5c4aadb2b4d445eb205bbe59ca0abd/4634c/img/svg/ico_share-02.svg" class="c-action__image">
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //card footer links -->
+                    </div>
+                </div>
+                <!-- post type status -->
+
+                <!-- post type video -->
+                <div class="col-md-3 col-sm-3 pad-bot-25" *ngIf="post.mtype == 'video'">
+                    <div class="c-card">
+                        <div>
+                            <a [routerLink]="['', { outlets: { media : ['media', post?.id] } }]">
+                                <figure class="feed-avatar">
+                                    <app-videplayer src="{{ baseUrl + post?.repopath }}"></app-videplayer>
+                                    <img src="{{ baseUrl + post?.repopath }}" class="img-responsive">
+                                </figure>
+                            </a>
+                        </div>
+                        <!-- card body -->
+                        <div class="c-card__body">
+                            <a class="c-card__heading" href="javascript:void(0)">{{ post.title }}</a>
+                            <div class="c-card__desc">{{ post.description }}</div>
+                            <a href="javascript:void(0)">
+                                <!-- <img src="https://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg" alt="" class="c-card__options"> -->
+                            </a>
+                            <div class="c-card__user">
+                            <div class="c-user">
+                                <a class="c-user__avatar c-avatar--feed">
+                                    <img class="c-user__image" *ngIf="!post.ownerImage" src="http://d206s58i653k1q.cloudfront.net/images/defaultMale/03eed8d4-5659-463a-8fbf-9aa71034c19a.png">
+                                    <img class="c-user__image" *ngIf="post.ownerImage" src="{{ baseUrl + post.ownerImage }}">
+                                </a>
+                                <a class="c-user__name" routerLink="{{ '/profile/u/' + post.ownerUserName }}">{{ post.ownerName }}</a>
+                                <!-- <a class="c-user__channel">Do Your Think Motivational</a> -->
+                            </div>
+                            </div>
+                        </div>
+                        <!-- //card body -->
+
+                        <!-- card footer links -->
+                        <div class="c-card__links">
+                            <div class="c-links">
+                                <div class="c-links__spots">
+                                    <img src="https://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="c-links__image">
+                                    <span class="c-links__count">{{ post.spotsCount }}</span>
+                                </div>
+                                <div class="c-links__comments">
+                                    <img src="https://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg" class="c-links__image">
+                                    <span class="c-links__count">{{ post.commentsCount }}</span>
+                                </div>
+                                <div class="c-links__actions">
+                                    <span class="c-links__add">
+                                        <a href="javascript:void(0)">
+                                            <img src="https://d33wubrfki0l68.cloudfront.net/757d12023ec2c0c7c0649d1ed1334031990ffe92/cbaf2/img/svg/ico_addtochannel.svg" class="c-action__image">
+                                        </a>
+                                    </span>
+                                    <span class="c-links__share">
+                                        <a href="javascript:void(0)">
+                                            <img src="https://d33wubrfki0l68.cloudfront.net/5ca05db3ef5c4aadb2b4d445eb205bbe59ca0abd/4634c/img/svg/ico_share-02.svg" class="c-action__image">
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- //card footer links -->
+                    </div>
+                </div>
+                <!-- post type video -->
+
+            </ng-container>
+
+        </div>
+
+    </ng-template>
+    <!-- if posts found -->
+
+</div>
+
+<div class="row mar-top-bot-40">
+
+    <div *ngIf="artists && artists.length === 0; else artists_found;">
+        <p class="result-not-found">Artists not found!</p>
+    </div>
+
+    <ng-template #artists_found>
+            
+        <ul class="list-inline ops_explore_head" *ngIf="artists && artists.length > 0;" >
+            <li class="list-inline-item ops_heading text_uppercase">Artists</li>
+            <li class="list-inline-item ops_heading2 text_uppercase pull-right"><a (click)="selectTab('tab-people')">See more</a></li>
+        </ul>
+    
+        <div class="col-md-2 pad-bot-25" *ngFor="let artist of artists; let i = index;">
+            <ng-container *ngIf="(i <= 5)">
+                <div class="c-card c-card--artist">
+                    <div class="c-artist__avatar c-avatar--artist">
+                        <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist.profileImage }}">
+                        <ng-template #default_profile_image>
+                            <img src="/assets/img/avatar.jpg" class="c-artist__img">
+                        </ng-template>
+                    </div>
+                    <div class="c-artist__name margin_t_16">
+                        <a routerLink="{{ '/profile/u/' + artist.extra.username }}" class="c-artist__name margin_t_16">{{ artist.name }}</a>
+                    </div>
+                    <div class="c-artist__username">@{{ artist.extra.username }}</div>
+                    <div class="c-artist--btn">
+                        <button type="button" class="btn btn-xs btn-basic btn-following">
+                            <span class="btn-label-follow"> FOLLOWING </span>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+    </ng-template>
+
+</div>
+

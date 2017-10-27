@@ -173,6 +173,21 @@ export class MediaEffect {
       );
 
   /**
+   *Media post delete
+   */
+  @Effect()
+    mediaPostDelete$ = this.actions$
+      .ofType(MediaActions.MEDIA_POST_DELETE)
+      .map(toPayload)
+      .switchMap((payload) => this.mediaService.mediaPostDelete(payload)
+        .map(res => ({ type: MediaActions.MEDIA_POST_DELETE_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({
+          type: MediaActions.MEDIA_POST_DELETE_FAILED,
+          payload: { errorStatus: res.status }
+        }))
+      );
+
+  /**
    * Un Spot a Media
    */
   @Effect()
@@ -186,6 +201,23 @@ export class MediaEffect {
         payload: { errorStatus: res.status }
       }))
     );
+
+  /**
+   *  Load my Media
+   */
+  @Effect()
+  loadMyStatus$ = this.actions$
+    .ofType(MediaActions.LOAD_MY_MEDIA)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.getMyMedia(payload)
+      .map(res => ({ type: MediaActions.LOAD_MY_MEDIA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.LOAD_MY_MEDIA_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  
 
   constructor(
       private actions$: Actions,

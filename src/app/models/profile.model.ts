@@ -14,7 +14,7 @@ export class ProfileModal {
   profile_loaded: boolean;
   profile_other?: any;
   profile_other_loading: boolean;
-  profile_other_loaded: boolean;
+  profile_other_loaded?: boolean;
   other_channel: any;
   other_channels_loading: boolean;
   other_channels_loaded: boolean;
@@ -37,6 +37,7 @@ export class ProfileModal {
   profile_img_upload_loading: boolean;
   cover_upload_loading: boolean;
   cover_img_upload_success: boolean;
+  profile_user_info?: any;
 
   user_profiles_all_loaded: boolean;
   user_profiles_all?: any;

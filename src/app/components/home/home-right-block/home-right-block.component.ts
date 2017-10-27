@@ -25,15 +25,13 @@ export class HomeRightBlockComponent implements OnInit {
   constructor(
     private store: Store<ProfileModal>
   ) {
-    this.myProfile$ = store.select('profileTags').take(5);
+    this.myProfile$ = store.select('profileTags');
   }
 
   ngOnInit() {
     this.store.dispatch({ type: ProfileActions.LOAD_ALL_PROFILES, payload: '' });
     this.myProfile$.subscribe(event => {
-      if (event.user_profiles_all_loaded  === true ) {
-        this.profiles = event.user_profiles_all;
-      }
+      this.profiles = event.user_profiles_all;
     });
   }
 

@@ -217,6 +217,10 @@
 
 .c-feed__img {
   width: 100%;
+  background: #f9f9f9;
+  img{
+    margin: 0 auto;
+  }
 }
 
 .c-feed__img-heading {
@@ -286,4 +290,15 @@
   float: left;
   margin-top: 9px;
   margin-left: 8px;
+}
+
+.drop-postion{
+  right: 0px;
+  left: initial;
+}
+
+.drop-postion__icon{
+  top: 18px;
+  margin: 6px;
+  cursor: pointer
 }

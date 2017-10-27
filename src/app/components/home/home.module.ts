@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // SharedModule
@@ -39,7 +39,8 @@ const routes: Routes = [
     HomeChannelComponent,
     HomeSpotfeedComponent,
     HomeRightBlockComponent,
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 
 })
 export class HomeModule { }

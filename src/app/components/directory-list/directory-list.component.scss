@@ -1,0 +1,484 @@
+// directory css
+.o-directory {
+  margin-top: 83px;
+}
+
+.o-dir-search {
+  width: 100%;
+  background: #fff;
+  padding: 18px 24px;
+  float: left;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.c-form__input--search {
+  border: none;
+  width: 100%;
+  font-weight: 300;
+  font-size: 15px;
+  color: #979797;
+  // padding-left: 24px;
+  &:focus {
+    outline: none;
+  }
+}
+
+.c-form__input--search::-webkit-input-placeholder {
+  font-weight: 300;
+  font-size: 15px;
+  color: #979797;
+}
+
+.o-dir-search__ico {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+
+.o-dir-link {
+  float: right;
+  width: 20px;
+  height: 20px;
+  margin-left: 16px;
+  opacity: 0.6;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.activein {
+  opacity: 1;
+}
+
+// directory card 
+.o-dir-card-block {}
+
+.o-dir-card {
+  background: #fff;
+  padding: 24px;
+  float: left;
+  margin: 8px 8px;
+}
+
+.c-user--dir {
+  position: relative;
+}
+
+.c-avatar--dir {
+  width: 32px;
+  height: 32px;
+}
+
+.c-user--dir-name {
+  font-size: 15px!important;
+  color: #333!important;
+  display: block;
+  width: 70%;
+}
+
+.c-user__dir-sub {
+  font-size: 11px;
+  color: #979797;
+  font-weight: normal;
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.c-user__active-ico {
+  width: 11px;
+  position: absolute;
+  left: 24px;
+  bottom: 8px;
+}
+
+.o-dir-contact {
+  width: 100%;
+  margin-top: 32px;
+  float: left;
+}
+
+.o-dir-contact__det {
+  width: 100%;
+  float: left;
+}
+
+.o-dir-contact__ico {
+  float: left;
+  width: 15px;
+}
+
+.o-dir-contact__txt {
+  padding: 1px 8px;
+  float: left;
+  color: #333333;
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: 300;
+}
+
+.o-dir-phone {
+  margin-top: 8px;
+}
+
+.o-dir-address {
+  margin-top: 16px;
+  float: left;
+}
+
+.o-dir-address__txt {
+  font-weight: normal;
+  font-size: 11px;
+  color: #979797;
+}
+
+.o-dir-actions {
+  width: 100%;
+  float: left;
+  margin-top: 16px;
+  .btn-default {
+    font-weight: 500;
+    font-size: 11px;
+    padding: 7px 15px;
+  }
+  .btn-follow {
+    padding: 6px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 16px;
+    .btn-label-follow img {
+      width: 11px !important;
+      vertical-align: middle;
+      line-height: 13px;
+      margin-left: 0;
+    }
+  }
+}
+
+// directory list
+.o-dir-list-block {
+  width: 100%;
+  float: left;
+  background: #fff;
+  margin-top: 18px;
+  min-height: 500px;
+}
+
+.o-dir-list {
+  width: 100%;
+  float: left;
+  padding: 24px 24px;
+  border-bottom: 1px solid rgba(102, 45, 145, 0.1);
+}
+
+.o-dir-list--box {
+  min-height: 51px;
+  border-right: 1px solid rgba(102, 45, 145, 0.1);
+}
+
+.o-dir-list__user {
+  width: 20%;
+  position: relative;
+  float: left;
+}
+
+.c-user-list__active-ico {
+  position: absolute;
+  left: 0px;
+  top: 4px;
+}
+
+.c-user-list--dir {
+  position: relative;
+  padding-left: 16px;
+}
+
+.o-dir-list__mail {
+  width: 20%;
+  float: left;
+  padding: 0px 16px;
+}
+
+.o-dir-list__phone {
+  width: 15%;
+  float: left;
+  padding: 0px 16px;
+}
+
+.o-dir-list__address {
+  width: 20%;
+  float: left;
+  padding: 0px 16px;
+}
+
+.o-dir-list__actions {
+  width: 24%;
+  float: left;
+  padding: 0px 16px;
+}
+
+// by dinesh
+.o-dir-tag__list {}
+
+.o-dir-tag {
+  color: #FF7B84;
+  font-size: 11px;
+  line-height: 15px;
+  background-color: #fff;
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-right: 2px;
+}
+
+.o-dir-tag--more {
+  color: #FF7B84;
+  font-size: 11px;
+  line-height: 15px;
+}
+
+.o-dir-filter {
+  width: 24px;
+  height: 24px;
+  background-color: #F3F5F7;
+  border-radius: 3px;
+  img {
+    width: 24px;
+    padding: 3px;
+  }
+}
+
+.o-dirfil-opt {
+  margin-top: 24px;
+  clear: both;
+  float: left;
+  width: 100%;
+}
+
+// .o-dirfil-checkbox {
+//   width: 24%;
+//   float: left;
+//   padding: 2px 0;
+//   margin-top: 5px;
+//   .form_group {
+//     margin-bottom: 0;
+//     label {
+//       color: #333333;
+//       font-size: 11px;
+//       line-height: 18px;
+//       font-weight: 500;
+//     }
+//     .col-md-4 {
+//       padding-left: 12px;
+//       padding-right: 12px;
+//       input[type="radio"]+span {
+//         margin-top: 1px;
+//       }
+//       input[type="radio"]:checked+span:after {
+//         background-color: #555;
+//         font-size: 11px;
+//       }
+//     }
+//   }
+//   .width100 {
+//     width: 100%;
+//   }
+// }
+
+.o-dirfil-selectlist {
+  width: 15%;
+  float: left;
+  padding: 2px 14px;
+  .c-form__group {
+  	margin-bottom: 0px;
+  }
+  .c-form-control {
+    color: #333333;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 18px;
+  }
+}
+
+
+// filter option radio
+.o-dirfil-group{
+  float: left;
+  padding-right: 16px;
+}
+.o-dirfil{
+  list-style:none;
+  position: relative;
+  float: left;
+  border-radius: 3px;
+  border: 1px solid #EFEAF4;
+  overflow: hidden;
+}
+.o-dirfill-item{
+  list-style-type: none;
+  float: left;
+  display: flex;
+  //border-right: 1px solid #EFEAF4;
+  // width: 54px;
+  // height: 32px;
+  // float: left;
+}
+.o-dirfill-item input[type="radio"]{
+  display: none;
+}
+.o-dirfill-item input[type="radio"] + span{
+  padding:8px;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  flex-direction:row;
+  transition:.25s;
+
+  float: left;
+  font-size: 11px;
+  font-weight: normal;
+  color: #333;
+}
+.o-dirfill-item input[type="radio"]:checked + span{   
+  transition:.25s;
+  background: #ff7b84;
+  color: #fff;
+}
+.o-dirfill-block{
+  pointer-events:all;
+  position: static;
+}
+.o-dirfil__ico{
+  width: 15px;
+  height: 15px;
+  float: left;
+  margin-right: 4px;
+  vertical-align: middle;
+  svg{
+    fill:#333;
+    width: 15px;
+    height: 15px;
+  }
+}
+.o-dirfill__name{
+  margin-top: 3px;
+}
+.o-dirfill-ico__black{
+  transition:.25s;
+}
+.o-dirfill-ico__white{
+  display: block;
+}
+.o-dirfill-item input[type="radio"]:checked + span{
+  svg{
+    fill:#fff;
+  }
+}
+
+
+
+// filter check box
+
+.o-dirfil-checkbox {
+  width: 25%;
+  float: left;
+  padding: 2px 0;
+  margin-top: 5px;
+  padding-left: 16px;
+}
+.o-dirfill-check{
+  position: relative;
+  list-style: none;
+}
+.o-dirfill-check__list{
+  float: left;
+  list-style-type: none;
+  margin-right: 16px;
+}
+.o-dirfill-check__list label{
+  position: relative;
+  pointer-events: inherit;
+  color: #333333;
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: 500;
+  top: 6px;
+}
+
+.o-dirfill-check__list input[type="checkbox"] {
+  display: none;
+}
+.o-dirfill-check__list input[type="checkbox"] + span {
+  display: inline-block;
+  background: url(/assets/img/directory/checkboxdisabled.svg) no-repeat;
+  float: left;
+  margin-right: 7px;
+  padding: 7px;
+  position: relative;
+  width: 16px;
+}
+.o-dirfill-check__list input[type="checkbox"]:checked + span {
+  background: url(/assets/img/directory/checkboxactived.svg) no-repeat;
+}
+
+.o-dirfill-check__txt{
+  margin-top: -2px;
+  float: left;
+}
+
+
+
+
+// card user block ------------------
+.c-card__user {
+  margin-top: 16px;
+}
+
+.c-user__avatar {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  background: #f8f8f8;
+  cursor: pointer;
+  border-radius: 50px;
+  float: left;
+}
+
+.c-avatar--feed {
+  width: 24px;
+  height: 24px;
+}
+
+.c-user__image {
+  width: 100%
+}
+
+.c-user__name {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  color: #000;
+  margin-left: 8px;
+  margin-top: 2px;
+  float: left;
+  cursor: pointer;
+  &:hover {
+    color: #000;
+  }
+}
+
+.c-user__channel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #979797;
+  display: block;
+  margin-left: 32px;
+  clear: both;
+  cursor: pointer;
+  &:hover {
+    color: #979797;
+  }
+}

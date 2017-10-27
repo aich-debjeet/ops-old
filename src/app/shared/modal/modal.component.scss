@@ -149,6 +149,16 @@
   }
 }
 
+.ng-modal.tiny__profile_upload{
+  width: 490px;
+  margin: 0 auto;
+  right: 0;
+  left: 0;
+  .ng-modal-close{
+    display: none;
+  }
+}
+
 .ng-modal.tiny__mediapopup {
   width: 1110px !important;
   margin-left: auto;
@@ -160,5 +170,11 @@
       color: #000;
     }
     // display: none;
+  }
+}
+
+.modal__profile_update {
+  .ng-modal {
+    padding-top: 0;
   }
 }

@@ -81,7 +81,6 @@ export class ProfileService {
    * Find channels of a user
    */
   getUserChannel(handle: string) {
-    // return this.api.get(`/portal/network/spotfeed/${handle}/channel`);
     return this.getLoggedInChannel(handle);
   }
 
@@ -133,7 +132,6 @@ export class ProfileService {
    * Upload Image to CDN
    */
   uploadImage(value: any, handle: string = '') {
-    console.log(value);
     return this.api.postFile('/portal/cdn/media/upload?handle=' + handle, value);
   }
 
@@ -329,8 +327,8 @@ export class ProfileService {
   /**
    * Get User media
    */
-  getUserMedia(handle: string, page: number = 1) {
-    const params = handle + '/' + this.pagination(page);
+  getUserMedia(payload: any) {
+    const params = payload.handle + '/' + payload.page_start + '/' + payload.page_end;
     return this.api.get('/portal/cdn/media/otherProfile/', params);
   }
 
@@ -338,7 +336,6 @@ export class ProfileService {
    * Post to Media
    */
   postMediaToChannel(payload: any) {
-    console.log('SERVICE__PROFILE', payload);
     const channelId = payload.channelId;
     const req = payload.req;
     return this.api.put('/portal/network/spotfeed/' + channelId, req);
@@ -347,9 +344,8 @@ export class ProfileService {
   /**
    * Fetching individual spotfeeds data
    */
-  getSpotfeedDetails(handle: string) {
-    const params = handle + '/' + this.pagination(1);
-    console.log('pagination: ' + params);
+  getSpotfeedDetails(data: any) {
+    const params = `${data.handle}/${data.page_start}/${data.page_end}`;
     return this.api.get('/portal/cdn/spotfeed/inner/', params);
   }
 
@@ -364,7 +360,6 @@ export class ProfileService {
    * Current LoggedIn user following channel
    */
   getLoggedInUserFollowingChannel(value: string) {
-    // console.log('handle: ' + value);
     return this.api.get('/portal/network/spotfeed/following/profile/spotfeeds/' + value, '');
   }
 
@@ -394,5 +389,12 @@ export class ProfileService {
    */
   getAllProfiles() {
     return this.api.get('/portal/profile/0/50', '');
+  }
+
+  /**
+   * Update Profile Object
+   */
+  loadDirectory(body: any) {
+    return this.api.put('/portal/searchprofiles', body);
   }
 }

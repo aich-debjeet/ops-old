@@ -11,7 +11,7 @@ export class LearnComponent implements OnInit {
 
   ngOnInit() {
     this.comingsoon = {
-      mainTitle: 'Learn will be coming soon.',
+      mainTitle: 'Learn <br> Coming Soon.',
       description: 'Lights! Camera! Action!!! ......Action! Action? Wait, where\'s the bloody camera??! <br> <br> Sorry folks, do feel free to browse through our other pages while we sort this shit out.',
       buttonLink: '/home',
       buttonText: 'Go to Home',

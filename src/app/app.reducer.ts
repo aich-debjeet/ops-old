@@ -3,6 +3,8 @@ import { HomeReducer } from './reducers/home.reducer';
 import { SharedReducer } from './reducers/shared.reducer';
 import { ProfileReducer, State as ProfileState } from './reducers/profile.reducer';
 import { MessageReducer } from './reducers/messages.reducer';
+import { NotificationReducer } from './reducers/notification.reducer';
+import { SearchReducer } from './reducers/search.reducer';
 import { UserSearchReducer } from './reducers/user-search.reducer';
 import { MediaReducer } from './reducers/media.reducer';
 
@@ -14,12 +16,14 @@ import { environment } from '../environments/environment';
 
 const reducers = {
   loginTags: AuthReducer,
+  mediaStore: MediaReducer,
+  searchTags: SearchReducer,
   profileTags: ProfileReducer,
   userMediaTags: ProfileReducer,
-  sentMessagesTags: MessageReducer,
+  messageTags: MessageReducer,
   userSearchTags: UserSearchReducer,
   receivedMessagesTags: MessageReducer,
-  mediaStore: MediaReducer
+  notificationTags: NotificationReducer
 }
 
 /**

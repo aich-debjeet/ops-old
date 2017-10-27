@@ -4,7 +4,7 @@
             <div class="create_channel_container">
                 <div class="create_channel__head with_border_bottom">
                     <h3 class="heading_3 text-black capitalize">Edit Channel</h3>
-                    <span class="search_close" (click)="doClose()">
+                    <span class="search_close" (click)="doClose($event)">
                         <a href="javascript:hideCreatechannelform()"><img src="http://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
                     </span>
                 </div><!-- edit channel head -->
@@ -36,7 +36,7 @@
                                 <div class="form_group">
                                     <select formControlName="type" class="form-control" id="sel1" [(ngModel)]="selectedIndustry">
                                         <option value="">Industry</option>
-                                        <option *ngFor="let industry of profileChannel.industries" [value]="industry.code" >{{ industry.name }}</option>
+                                        <option *ngFor="let industry of forIndustries.industries" [value]="industry.code" >{{ industry.name }}</option>
                                     </select>
                                 </div>
                             </div>

@@ -18,6 +18,8 @@ import { ProfileActions } from '../../../actions/profile.action';
 import { AuthActions } from '../../../actions/auth.action';
 import { SharedActions } from '../../../actions/shared.action';
 
+import { ToastrService } from 'ngx-toastr';
+
 import { ProfileCard } from '../../../models/profile.model';
 
 // rx
@@ -25,6 +27,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { find as _find, forEach as _forEach  } from 'lodash';
+import { ProfileHelper } from '../../../helpers/profile.helper';
 
 @Component({
   selector: 'app-profile-slider',
@@ -38,7 +41,8 @@ export class ProfileSliderComponent implements OnInit {
   @Input() profileData: any;
   @Input() isOtherProfile: any;
   @Input() userName: string;
-  @Input() profileObject: ProfileCard;
+  isOwner: boolean;
+  profileObject: ProfileCard;
   changingImage: boolean;
   tagState$: Observable<ProfileModal>;
   skillState$: Observable<any>;
@@ -54,7 +58,7 @@ export class ProfileSliderComponent implements OnInit {
   search: String;
   activateSubmitBtn = false;
   router: any;
-  isfollowing: boolean;
+  isFollowing: boolean;
   defaultImage: string;
   // profileObject: ProfileCard;
 
@@ -68,9 +72,11 @@ export class ProfileSliderComponent implements OnInit {
     public datepipe: DatePipe,
     private _router: Router,
     public tokenService: TokenService,
-    private profileStore: Store<ProfileModal>
+    private profileStore: Store<ProfileModal>,
+    private utils: ProfileHelper,
+    private toastr: ToastrService
   ) {
-
+  document.body.scrollTop = 0;
     this.baseUrl = environment.API_IMAGE;
 
     this.tagState$ = this.profileStore.select('profileTags');
@@ -79,8 +85,14 @@ export class ProfileSliderComponent implements OnInit {
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      if (this.profileObject) {
-        this.isfollowing = this.profileObject['isFollowing'];
+      if (state.profile_user_info) {
+        if (state.profile_user_info.isCurrentUser) {
+          this.profileObject = this.loadProfile( state, 'own' );
+          this.isOwner = true;
+        }else {
+          this.profileObject = this.loadProfile( state, 'other' );
+          this.isOwner = false;
+        }
       }
     });
 
@@ -88,12 +100,27 @@ export class ProfileSliderComponent implements OnInit {
       this.findSkill = state;
     });
 
-    // this.isfollowing = this.userProfile['profile_other'].extra
-
     this.buildEditForm();
 
     this.router = _router;
 
+
+    this.profileStore.select('profileTags')
+      .first(profile => profile['profile_other'].handle )
+      .subscribe( data => {
+        this.isFollowing = data['profile_other'].extra.isFollowing;
+      });
+
+    // console.log(this.profileObject.isFollowing);
+    // this.isFollowing = this.profileObject.isFollowing
+
+  }
+
+  /**
+   * User type based user load
+   */
+  loadProfile(profile: any, type: string) {
+      return this.utils.profileValueMapping(profile, type );
   }
 
   // changingImageClick() {
@@ -152,25 +179,22 @@ export class ProfileSliderComponent implements OnInit {
   isClosed(event) {
     this.changingImage = event;
   }
+
   /**
-   * Follow current Profile
-   * @param profile
+   * User Follow Check
+   * @param follow User follow true or false check
+   * @param handle User Handle
    */
-  followUser(profile: any) {
-    const handle = profile.userDetails.handle;
-
-    this.isfollowing = !this.isfollowing;
-    console.log('FOLLOW', this.isfollowing);
-
-    if (this.isfollowing === false) {
-      console.log('FOLLOW', 'STOPPED', this.isfollowing);
+  userFollow(follow: boolean, handle: string) {
+    if (follow) {
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
-    } else {
-      console.log('FOLLOW', 'STARTED', this.isfollowing);
-      this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle });
+      this.isFollowing = false;
+    }else {
+      this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle  });
+      this.isFollowing = true;
     }
-
   }
+
 
   /**
    * Profile Page Edit
@@ -249,6 +273,7 @@ export class ProfileSliderComponent implements OnInit {
       }
 
       this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+      this.toastr.success('You profile has been updated successfully!');
       this.modalService.close('profileEditWindow');
     }
 
@@ -275,7 +300,6 @@ export class ProfileSliderComponent implements OnInit {
    */
   validEmail(control: AbstractControl) {
     if (control.value === '') {
-      // console.log('empty email');
       return;
     }
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

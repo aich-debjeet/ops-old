@@ -1,6 +1,6 @@
 .o-cover-upload{
     width: 887px;
-    height: 480px;
+    height: 500px;
     background: #fff;
     margin: 0 auto;
 }
@@ -48,7 +48,7 @@
     text-align: right;
 }
 .o-cover-btn__mod{
-    margin-left: 16px;
+    // margin-left: 16px;
 }
 .p_text{
   color: #333;
@@ -78,3 +78,57 @@
 //   color: #333333;
 //   padding: 8px 0px;
 // }
+
+span.search_close {
+    width: 20px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+}
+
+.o-cover-media__browse{
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    float: left;
+    .upload-btn-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    .upload-btn-wrapper input[type=file] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        cursor: pointer;
+        &:hover{
+            color: #ff7b84;
+            background-color: #ffffff;
+            border-color: #ff7b84;
+        }
+    }
+    .btn-network {
+        color: #ff7b84;
+        background-color: #ffffff;
+        border-color: #ff7b84;
+        text-transform: uppercase;
+        padding: 6px 18px;
+        font-size: 14px;
+        line-height: 1.0;
+        border-radius: 3px;
+        font-weight: 700;
+        cursor: pointer;
+        &:hover{
+            color: #ff7b84;
+            background-color: #ffffff;
+            border-color: #ff7b84;
+        }
+    }
+}
+
+
+

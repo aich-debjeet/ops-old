@@ -23,7 +23,10 @@ export class SpotfeedComponent {
   spotfeedDetails: any;
   userState$: Observable<Spotfeed>;
   userState: any;
-  spotfeedPosts: any[];
+  page_start = 0;
+  page_end = 20;
+  scrolling = 0;
+  scrollingLoad = 2000;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,13 +40,13 @@ export class SpotfeedComponent {
     this.spotfeedId = route.snapshot.params['id'];
     this.userState$.subscribe((state) => {
       this.userState = state;
-      this.spotfeedDetails = state.spotfeed_detail;
-      if (state.spotfeed_detail && state.spotfeed_detail['SUCCESS'].spotfeedMedia) {
-        this.spotfeedPosts = state.spotfeed_detail['SUCCESS'].spotfeedMedia;
-      }
+      console.log(state);
+      // console.log(state.spotfeed_detail['spotfeedMedia']);
+      this.spotfeedDetails = state['spotfeed_detail'];
+      // this.spotfeedPosts = this.spotfeedDetails.spotfeedMedia;
     });
 
-    this._store.dispatch({ type: ProfileActions.GET_SPOTFEED_DETAILS, payload: this.spotfeedId });
+    this.loadPostFeed();
   }
 
   disableFollowForSelf(username: string) {
@@ -54,11 +57,34 @@ export class SpotfeedComponent {
   }
 
   /**
+   * Get Post feed
+   */
+
+  loadPostFeed() {
+    const data = {
+      handle: this.spotfeedId,
+      page_start: this.page_start,
+      page_end: this.page_end
+    }
+    this._store.dispatch({ type: ProfileActions.GET_SPOTFEED_DETAILS, payload: data });
+  }
+
+  /**
    * Follow a user
    * @param userObject
    */
   followUser(userObject: any) {
     //
+  }
+
+  onScroll(e) {
+    this.scrolling = e.currentScrollPosition;
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 1500
+      this.page_start = this.page_end + 1;
+      this.page_end += 15;
+      this.loadPostFeed();
+    }
   }
 
 }

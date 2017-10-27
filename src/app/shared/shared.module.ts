@@ -15,13 +15,8 @@ import { FooterComponent } from './footer/footer.component';
 import { PostCardComponent } from './post-card/post-card.component';
 import { ModalComponent } from './modal/modal.component';
 import { CountrySelectorComponent } from './country-selector/country-selector.component';
-
-// import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/catch';
-// import 'rxjs/add/operator/filter';
-
-// import 'rxjs/add/observable/of';
-// import 'rxjs/add/observable/throw';
+import { SharedPipesModule } from './../pipes/shared-pipes.module';
+import { UtcDatePipe } from './../pipes/utcdate.pipe';
 
 import { MediumEditorComponent } from './meditor/meditor.component';
 
@@ -58,8 +53,11 @@ import { UserCardComponent } from './user-card/user-card.component';
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
+    SharedPipesModule
   ],
   declarations: [
+    // TruncatePipe,
+    UtcDatePipe,
     ModalComponent,
     AuthRightBlockComponent,
     AppButtonComponent,
@@ -106,7 +104,8 @@ import { UserCardComponent } from './user-card/user-card.component';
     DropdownOpenDirective,
     PostComponent,
     CommentComponent,
-    UserCardComponent
+    UserCardComponent,
+    UtcDatePipe,
   ]
 
 })

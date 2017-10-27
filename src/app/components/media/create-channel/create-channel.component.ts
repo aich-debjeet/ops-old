@@ -9,6 +9,8 @@ import { ModalService } from '../../../shared/modal/modal.component.service';
 // Action
 import { MediaActions } from '../../../actions/media.action';
 import { initialMedia, Media } from '../../../models/media.model';
+import { AuthActions } from '../../../actions/auth.action';
+
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -32,10 +34,11 @@ import { TokenService } from '../../../helpers/token.service';
   styleUrls: ['./create-channel.component.scss']
 })
 
-export class CreateChannelComponent {
+export class CreateChannelComponent implements OnInit {
   typeSelected: boolean;
   channelForm: FormGroup;
   tagState$: Observable<ProfileModal>;
+  loginTagState$: Observable<any>;
   private tagStateSubscription: Subscription;
   profileChannel = initialTag ;
   channelType: number;
@@ -45,6 +48,8 @@ export class CreateChannelComponent {
   people: any;
   tags: any;
   private apiLink: string = environment.API_ENDPOINT;
+  industries: any[];
+  selectedIndustry = '';
 
   constructor(
     private fb: FormBuilder,
@@ -64,6 +69,11 @@ export class CreateChannelComponent {
       if (this.handle !== '') {
         this.handle = this.tokenService.getHandle();
       }
+
+      this.loginTagState$ = store.select('loginTags');
+      this.loginTagState$.subscribe((state) => {
+        this.industries = state.industries;
+      });
 
       this.tagState$ = this.store.select('profileTags');
       this.tagState$.subscribe((state) => {
@@ -180,7 +190,6 @@ export class CreateChannelComponent {
         otherFields
       }
 
-      console.log('CREATE', channelObj );
       this.channelSavedHere = true;
       this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
     } else {
@@ -196,5 +205,18 @@ export class CreateChannelComponent {
       relativeTo: this.route.parent
     });
   }
+
+  /**
+   * Load List of Skills (High Level)
+   */
+  industriesList() {
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
+  }
+
+  ngOnInit() {
+      // loading industry list
+      this.industriesList();
+  }
+
 }
 

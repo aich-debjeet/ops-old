@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { DatePipe, Location } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -13,10 +13,12 @@ import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 import { ProfileActions } from '../../../actions/profile.action';
 import { SharedActions } from '../../../actions/shared.action';
 
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { environment } from '../../../../environments/environment.prod';
+
 // rx
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Rx';
 
 @Component({
   selector: 'app-about-image',
@@ -35,6 +37,8 @@ export class AboutImageComponent implements OnInit {
   data: any;
   changingImage: boolean;
   cropperSettings: CropperSettings;
+  baseUrl: string;
+  @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
   constructor(
     private _http: Http,
@@ -47,11 +51,13 @@ export class AboutImageComponent implements OnInit {
     private _location: Location,
     private _store: Store<ProfileModal>
   ) {
+
     this.tagState$ = this._store.select('profileTags');
     this.tagState$.subscribe((state) => {
-      console.log(state);
       this.stateProfile = state;
     });
+
+    this.baseUrl = environment.API_IMAGE;
     this.changingImage = false;
 
     // Image Cropper Settings
@@ -63,12 +69,79 @@ export class AboutImageComponent implements OnInit {
     this.cropperSettings.canvasWidth = 400;
     this.cropperSettings.canvasHeight = 300;
     this.cropperSettings.rounded = true;
+    this.cropperSettings.noFileInput = true;
     this.data = {};
   }
 
   ngOnInit() {
-    //
+    this.tagState$
+      .first(profile => this.stateProfile.profileUser.profileImage)
+      .subscribe( data => {
+        this.loadImage();
+      });
   }
+
+  loadImage() {
+    const self = this;
+    // loading profile image
+    const ctx = document.getElementsByTagName('canvas')[0].getContext('2d');
+    const img = new Image();
+    img.onload = function(){
+      self.drawImageProp(ctx, this, 0, 0, self.cropperSettings.canvasWidth, self.cropperSettings.canvasHeight, 0.1, 0.5);
+    };
+
+    let profileImageURL;
+    if (typeof this.stateProfile.profileUser.profileImage !== 'undefined') {
+      profileImageURL = this.baseUrl + this.stateProfile.profileUser.profileImage;
+    } else {
+      profileImageURL = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+    }
+    img.src = profileImageURL;
+  }
+
+  /**
+   * Fitting the profile image to the canvas
+   */
+  drawImageProp(ctx, img, x, y, w, h, offsetX, offsetY) {
+      if (arguments.length === 2) {
+          x = y = 0;
+          w = ctx.canvas.width;
+          h = ctx.canvas.height;
+      }
+      /// default offset is center
+      offsetX = typeof offsetX === 'number' ? offsetX : 0.5;
+      offsetY = typeof offsetY === 'number' ? offsetY : 0.5;
+      /// keep bounds [0.0, 1.0]
+      if (offsetX < 0) { offsetX = 0 };
+      if (offsetY < 0) { offsetY = 0 };
+      if (offsetX > 1) { offsetX = 1 };
+      if (offsetY > 1) { offsetY = 1 };
+      const iw = img.width;
+      const ih = img.height;
+      const r = Math.min(w / iw, h / ih);
+      let nw = iw * r;   /// new prop. width
+      let nh = ih * r;   /// new prop. height
+      let cx = 1, cy = 1, cw = 1, ch = 1;
+      let ar = 1;
+      /// decide which gap to fill
+      if (nw < w) { ar = w / nw };
+      if (nh < h) { ar = h / nh };
+      nw *= ar;
+      nh *= ar;
+      /// calc source rectangle
+      cw = iw / (nw / w);
+      ch = ih / (nh / h);
+      cx = (iw - cw) * offsetX;
+      cy = (ih - ch) * offsetY;
+      /// make sure source rectangle is valid
+      if (cx < 0) { cx = 0 };
+      if (cy < 0) { cy = 0 };
+      if (cw > iw) { cw = iw };
+      if (ch > ih) { ch = ih };
+      /// fill image in dest. rectangle
+      ctx.drawImage(img, cx, cy, cw, ch,  x, y, w, h);
+  }
+
 
   /**
    * Attach image url to Profile
@@ -84,6 +157,20 @@ export class AboutImageComponent implements OnInit {
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_IMAGE, payload: imageData });
       this.changingImage = false;
     }
+  }
+
+  fileChangeListener($event) {
+      let image: any = new Image();
+      let file: File = $event.target.files[0];
+      let myReader: FileReader = new FileReader();
+      let that = this;
+      myReader.onloadend = function (loadEvent: any) {
+          image.src = loadEvent.target.result;
+          that.cropper.setImage(image);
+
+      };
+
+      myReader.readAsDataURL(file);
   }
 
   isClosed(event: any) {
@@ -129,9 +216,6 @@ export class AboutImageComponent implements OnInit {
       // Create random file name
       const randm = Math.random().toString(36).slice(2);
       const fileName = 'prof_' + randm + '.' + imageType;
-
-      console.log('x');
-
       data.append('file', this.dataURItoBlob(imageData), fileName );
       return data;
     }

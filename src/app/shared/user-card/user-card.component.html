@@ -10,11 +10,15 @@
         @{{ artist.username }}
     </div>
     <div class="c-artist--btn">
-        <button *ngIf="artist.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist.username)" >
-          <span class="btn-label-follow"> FOLLOWING </span>
+        <button (click)="unfollowUser(artist)" *ngIf="artist.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist.username)" >
+          <span class="btn-label-follow"> UNFOLLOW </span>
         </button>
         <button (click)="followUser(artist)" *ngIf="!artist.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist.username)" >
           <span class="btn-label-follow"> FOLLOW </span>
         </button>
     </div>
 </div>
+
+<!-- {{ artist | json }}
+<span *ngIf="artist.isFollowing" class="btn-label-follow"> UNFOLLOW </span>
+<span *ngIf="!artist.isFollowing" class="btn-label-follow"> FOLLOW </span> -->

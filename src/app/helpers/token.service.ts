@@ -57,7 +57,6 @@ export class TokenService {
    */
   getAuthHeader() {
     const token = this.getToken();
-    // console.log(token);
     const headers = new Headers({ 'Content-Type': 'application/json'});
     headers.append('Authorization', 'Bearer ' + token);
     return headers;
@@ -68,7 +67,6 @@ export class TokenService {
    */
   getPlainHeader() {
     const token = this.getToken();
-    // console.log(token);
     const headers = new Headers();
     headers.append('Authorization', 'Bearer ' + token);
     return headers;

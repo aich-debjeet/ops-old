@@ -109,7 +109,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       return Object.assign({}, state, {
         user_posts_loading: true,
         user_posts_loaded: false,
-        user_posts: []
+        // user_posts: []
       });
 
     case MediaActions.LOAD_USER_MEDIA_SUCCESS:
@@ -126,6 +126,24 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         user_posts_loaded: false,
         user_posts_loading: false
       });
+
+    case MediaActions.LOAD_MY_MEDIA:
+      if (payload.offset === 0) {
+        return Object.assign({}, state, {
+          my_media: []
+        });
+      }
+      return Object.assign({}, state, {
+          my_media_loading: false
+      });
+
+
+    case MediaActions.LOAD_MY_MEDIA_SUCCESS:
+      const new_media = state.my_media.concat(payload)
+      return Object.assign({}, state, {
+        my_media: new_media
+      });
+
 
     default:
       return state;

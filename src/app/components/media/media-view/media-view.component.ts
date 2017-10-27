@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, AfterViewInit, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, AfterViewInit, Output, OnChanges} from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 import { Router, ActivatedRoute } from '@angular/router';
@@ -6,7 +6,6 @@ import { environment } from './../../../../environments/environment';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 
 import FilesHelper from '../../../helpers/fileUtils';
-
 
 // Action
 import { MediaActions } from '../../../actions/media.action';
@@ -17,10 +16,12 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
+import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
+
 @Component({
   selector: 'app-media-view',
   templateUrl: './media-view.component.html',
-  providers: [ ModalService ],
+  providers: [ ModalService, UtcDatePipe ],
   styleUrls: ['./media-view.component.scss']
 })
 
@@ -59,13 +60,23 @@ export class MediaViewComponent {
       this.spotCount = this.mediaStore.media_detail.spotsCount;
       this.mediaType = this.mediaStore.media_detail.mtype;
       this.mediaId = this.mediaStore.media_detail.id;
-      this.comments = this.mediaStore.media_comment;
-      this.commentCount = this.mediaStore.media_detail.commentsCount;
       this.spot = this.mediaStore.media_detail.isSpotted;
+    });
+
+    store.select('mediaStore').take(6).subscribe((state) => {
+      this.commentCount = this.mediaStore.media_detail.commentsCount;
+      this.comments = this.mediaStore.media_comment;
+
     });
 
     this.loadMedia();
   }
+
+
+  // ngOnChanges() {
+  //   console.log('ngonchange');
+  //   console.log(this.mediaStore.media_detail.commentsCount);
+  // }
 
   checkEmpty(obj: Object) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;

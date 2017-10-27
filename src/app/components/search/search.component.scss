@@ -1,0 +1,138 @@
+.ops_search {
+    background-color: rgba(243,245,247,.95);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1033;
+    overflow-y: scroll;
+}
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.ops_search .search_top_input {
+    margin-top: 160px;
+}
+
+.form_group {
+    width: 100%;
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.ops_search .search_top_input .form_group .form_input {
+    background-color: transparent;
+    height: 55px;
+    font-size: 48px;
+    padding-right: 40px;
+}
+
+.form_input {
+    font-size: 14px;
+    padding: 10px 10px 5px 0;
+    display: block;
+    width: 100%;
+    border: none;
+    color: #333;
+    border-bottom: 1px solid #c1c1c1;
+    background: 0 0;
+}
+
+.ops_search .search_top_input .form_group label {
+    font-size: 48px;
+    color: #979797;
+}
+
+.form_group label {
+    font-weight: 600;
+}
+
+.home_tabs {
+    margin-top: 8px;
+}
+
+.ops_search .nav-tabs {
+    text-align: center;
+}
+
+.home_tabs .nav-tabs {
+    border-bottom: none;
+}
+
+.ops_search .nav-tabs>li {
+    float: none;
+    display: inline-block;
+    zoom: 1;
+}
+
+.nav-tabs>li {
+    float: left;
+    margin-bottom: -1px;
+}
+
+.home_tabs .nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px 10px 0;
+}
+
+.home_tabs .nav-tabs>li>a {
+    font-size: 14px;
+    font-weight: 700;
+    text-align: left;
+    color: #979797;
+    background: 0 0;
+    border: none;
+    text-transform: uppercase;
+}
+
+.home_tabs .nav-tabs>li>a.active {
+    color:#333;
+}
+
+.nav-tabs>li>a {
+    margin-right: 2px;
+    line-height: 1.428571429;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+.search_close {
+    float: right;
+    margin: 20px;
+    img {
+            width: 30px;
+    }
+    a {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+    }
+}
+
+.home_tabs .nav-tabs li a {
+    cursor: pointer;
+}
+
+.ops_search .search_top_icon img {
+    width: 32px;
+    float: right;
+    margin-top: -48px;
+}
+
+.tabs-container {
+    margin: 50px 0;
+}

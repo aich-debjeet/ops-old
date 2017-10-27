@@ -69,7 +69,7 @@ export class StatusEditorComponent {
         feed_type: 'status',
         title: '',
         description: value.status,
-        access: 0,
+        access: Number(value.privacy),
         active: true
       };
 
@@ -89,7 +89,7 @@ export class StatusEditorComponent {
   createStatusForm() {
     this.statusForm = this.fb.group({
       status : ['', Validators.required ],
-      privacy: [ 0 ]
+      privacy: [0, Validators.required ]
     })
   }
 }

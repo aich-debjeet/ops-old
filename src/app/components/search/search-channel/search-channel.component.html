@@ -1,0 +1,21 @@
+<div class="row">
+
+    <div *ngIf="channels && channels.length === 0; else channels_found;">
+        <p class="result-not-found">Channels not found!</p>
+    </div>
+
+    <ng-template #channels_found>
+
+        <!-- <masonry>
+            <masonry-brick class="col-md-3 col-sm-6 c-card padding_8" *ngFor="let channel of channels; let i = index">
+                <app-channel [channelData]="channel" ></app-channel>
+            </masonry-brick>
+        </masonry> -->
+
+        <div class="col-md-3 col-sm-6 c-card padding_8" *ngFor="let channel of channels">
+            <app-channel [channelData]="channel" ></app-channel>
+        </div>
+
+    </ng-template>
+
+</div>

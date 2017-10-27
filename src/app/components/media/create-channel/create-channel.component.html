@@ -4,6 +4,9 @@
         <div class="create_channel_container" *ngIf="typeSelected === false">
             <div class="create_channel__head with_border_bottom">
               <h3 class="heading_3 text-black capitalize">Create Channel</h3>
+              <span class="search_close" (click)="doClose()">
+                <a href="javascript:hideCreatechannelform()"><img src="http://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
+              </span>
             </div>
             <div class="create_channel__content">
                 <h2 class="heading_2">What is your channel about?</h2>
@@ -100,19 +103,10 @@
                       <div class="row">
                           <div class="col-md-4">
                               <div class="form_group">
-                                  <select formControlName="type" class="form-control" id="sel1">
-                                      <option value="">Industry</option>
-                                      <option value="DANCE">Dance</option>
-                                      <option value="MUSIC">Music</option>
-                                      <option value="THEATRE">Theatre</option>
-                                      <option value="CINEMA">Cinema</option>
-                                      <option value="GRAPHICS">Graphics</option>
-                                      <option value="FASHION">Fashion</option>
-                                      <option value="TELEVISION">Television.</option>
-                                      <option value="FINE_ARTS">Fine Arts</option>
-                                      <option value="PHOTOGRAPHY">Photography</option>
-                                      <option value="PRODUCTION">Production</option>
-                                  </select>
+                                <select formControlName="type" class="form-control" id="sel1" [(ngModel)]="selectedIndustry">
+                                    <option value="" selected="">Industry</option>
+                                    <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
+                                </select>
                               </div>
                           </div>
                           <div class="col-md-4">
@@ -163,7 +157,7 @@
                       </div>
                   </div>
                   <div class="create_channel_btn with_border_top">
-                      <button class="btn btn-primary btn-sm" type="submit" (click)="createChannel(channelForm.value)">Create</button>
+                      <button class="btn btn-primary btn-sm text-uppercase" type="submit" (click)="createChannel(channelForm.value)">Create</button>
                   </div>
                 </form>
               </div><!-- create channel content end -->

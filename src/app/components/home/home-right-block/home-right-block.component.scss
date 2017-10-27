@@ -128,3 +128,32 @@
   background-color: #eee;
   display: inline-block;
 }
+
+.r-body__heigth{
+    height: 350px;
+    overflow-x: scroll;
+}
+
+.user-follow_img{
+    float: left;
+    img{
+        margin-top: 5px;
+        width: 25px;
+        height: 25px;
+    }
+}
+.user-follow_user{
+    font-size: 10px;
+    color: #b9b9b9;
+    text-transform: lowercase; 
+}
+.user-follow_name{
+    font-weight: 700;
+    font-size: 14px;
+    color: #333;
+    text-transform: capitalize;
+}
+.user-list__li{
+    border-bottom: 1px solid #f3f3f3;
+    padding: 8px 0px;
+}

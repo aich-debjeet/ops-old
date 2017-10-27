@@ -1,3 +1,6 @@
+.pro_channel_card{
+    margin-bottom: 25px;
+}
 .feed_block {
     //margin: 0 10px;
     height: auto;
@@ -63,11 +66,7 @@
   border-bottom: solid 1px rgba(0,0,0,.1);
 }
 
-.with_border_top {}
-
-.pro_channel_cont {
-    //margin: 15px 0;
-    padding: 0px;
+.pro_channel__footer{
     span {
         width: 5%;
         display: inline-block;
@@ -75,6 +74,12 @@
             width: 14px;
         }
     }
+}
+
+.pro_channel_cont {
+    //margin: 15px 0;
+    padding: 0px;
+    
     .feed-heading {
         width: 95%;
         font-size: 14px;
@@ -197,4 +202,31 @@
 
 .audio{
   min-height: 200px;
+}
+
+.c-opsdropdown--icons {
+  width: 12px;
+  display: inline;
+  margin: 0 !important;
+  float: left;
+  padding-top: 3px;
+}
+
+.c-opsdropdown--text {
+    font-size: 12px;
+    text-align: left;
+    color: #333;
+    padding: 10px 20px;
+}
+
+.drop-postion__right{
+    right: 0;
+    left: auto;
+    top: 20px;
+}
+
+.c-postion__right{
+    width: 5%;
+    display: inline-block;
+    top: 8px;
 }

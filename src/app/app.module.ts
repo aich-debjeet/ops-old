@@ -1,6 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { StoreModule } from '@ngrx/store';
@@ -11,9 +11,14 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ImageCropperModule } from 'ng2-img-cropper/index';
 import { ToastrModule } from 'ngx-toastr';
 
+
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
 import { UniquePipe } from './pipes/unique.pipe';
+import { SearchNamePipe } from './pipes/name.pipe';
+// import { TruncatePipe } from './pipes/truncate.pipe';
+import { SharedPipesModule } from './pipes/shared-pipes.module';
+
 // Guard
 import { AuthGuard } from './guard/auth.guard';
 
@@ -42,21 +47,29 @@ import { MediaEffect } from './effects/media.effect';
 import { SharedEffect } from './effects/shared.effect';
 import { ProfileEffect } from './effects/profile.effect';
 import { MessageEffect } from './effects/message.effects';
+import { NotificationEffect } from './effects/notification.effect';
 import { UserSearchEffect } from './effects/user-search.effect';
+import { SearchEffect } from './effects/search.effect';
+
 
 // Services
 import { ServicesModule } from './services/services.module';
 import { TokenService } from './helpers/token.service';
 import { ApiService } from './helpers/api.service';
+import { GeneralUtilities } from './helpers/general.utils';
 import { AuthService } from './services/auth.service';
 import { MediaService } from './services/media.service';
 import { GeneralService } from './services/api.service';
 import { ModalService } from './shared/modal/modal.component.service';
 import { HomeService } from './services/home.service';
+import { MessageService } from './services/message.service';
+import { NotificationService } from './services/notification.service';
+import { SearchService } from './services/search.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
 import { ProfileModule } from './components/profile/profile.module';
+import { SearchModule } from './components/search/search.module';
 import { TabComponents  } from './shared/tabs/tabset';
 
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
@@ -69,7 +82,7 @@ import { OpportunityComponent } from './components/opportunity/opportunity.compo
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
 import { EventsComponent } from './components/events/events.component';
-import { SearchComponent } from './components/search/search.component';
+// import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ExploreComponent } from './components/explore/explore.component';
 import { ChannelListComponent } from './components/channel-list/channel-list.component';
@@ -82,6 +95,7 @@ import { NearestEventsComponent } from './shared/nearest-events/nearest-events.c
 import { OpportunitiesComponent } from './shared/opportunities/opportunities.component';
 
 import { MediaComponent } from './components/media/media.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // Vide Player
 import { VgCoreModule } from 'videogular2/core';
@@ -94,6 +108,10 @@ import { ResourceComponent } from './components/resource/resource.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { CommunitiesComponent } from './components/communities/communities.component';
 import { StatusListComponent } from './components/status-list/status-list.component';
+import { PlannerComponent } from './components/planner/planner.component';
+import { NetworkComponent } from './components/network/network.component';
+import { ProjectComponent } from './components/project/project.component';
+import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 
 @NgModule({
   declarations: [
@@ -109,7 +127,7 @@ import { StatusListComponent } from './components/status-list/status-list.compon
     JobsComponent,
     JobDetailsComponent,
     EventsComponent,
-    SearchComponent,
+    // SearchComponent,
     SettingsComponent,
     PopularArtistsComponent,
     NearestEventsComponent,
@@ -126,9 +144,15 @@ import { StatusListComponent } from './components/status-list/status-list.compon
     CommunitiesComponent,
     OrderByPipe,
     UniquePipe,
-    StatusListComponent
+    SearchNamePipe,
+    StatusListComponent,
+    PlannerComponent,
+    NetworkComponent,
+    ProjectComponent,
+    DirectoryListComponent
   ],
   imports: [
+    SharedPipesModule,
     SharedModule,
     MediaModule,
     ImageCropperModule,
@@ -138,6 +162,7 @@ import { StatusListComponent } from './components/status-list/status-list.compon
     ServicesModule,
     HttpModule,
     MasonryModule,
+    InfiniteScrollModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
     ToastrModule.forRoot(), // ToastrModule added
@@ -147,17 +172,31 @@ import { StatusListComponent } from './components/status-list/status-list.compon
     EffectsModule.run(SharedEffect),
     EffectsModule.run(ProfileEffect),
     EffectsModule.run(MessageEffect),
+    EffectsModule.run(NotificationEffect),
     EffectsModule.run(UserSearchEffect),
     EffectsModule.run(MediaEffect),
+    EffectsModule.run(SearchEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
-    VgBufferingModule
+    VgBufferingModule,
+    SearchModule
   ],
   providers: [
-    AuthService, AuthGuard, GeneralService, ApiService, TokenService, MediaService, ModalService, HomeService
+    AuthService,
+    MessageService,
+    AuthGuard,
+    GeneralService,
+    ApiService,
+    TokenService,
+    MediaService,
+    ModalService,
+    HomeService,
+    NotificationService,
+    SearchService,
+    GeneralUtilities
   ],
   bootstrap: [AppComponent]
 })
