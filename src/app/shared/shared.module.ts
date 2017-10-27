@@ -15,16 +15,8 @@ import { FooterComponent } from './footer/footer.component';
 import { PostCardComponent } from './post-card/post-card.component';
 import { ModalComponent } from './modal/modal.component';
 import { CountrySelectorComponent } from './country-selector/country-selector.component';
-// import { TruncatePipe } from './../pipes/truncate.pipe';
 import { SharedPipesModule } from './../pipes/shared-pipes.module';
 import { UtcDatePipe } from './../pipes/utcdate.pipe';
-
-// import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/catch';
-// import 'rxjs/add/operator/filter';
-
-// import 'rxjs/add/observable/of';
-// import 'rxjs/add/observable/throw';
 
 import { MediumEditorComponent } from './meditor/meditor.component';
 
