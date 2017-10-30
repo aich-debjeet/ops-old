@@ -38,22 +38,20 @@ export class NotificationComponent implements OnInit {
 
     this.dispatchLoadNotifications();
 
+    // notification sotre
     this.notificationsState$ = this.store.select('notificationTags');
 
     // observe the store value
     this.notificationsState$.subscribe((state) => {
-      console.log(state);
+      // console.log(state);
       if (typeof state['recieved_notifications'] !== 'undefined') {
         this.notifications = state['recieved_notifications'];
 
-        // check is unread notification exits
-        // on page load mark all notifications as read
+        // check is unread notification exits else mark all notifications as read
         setTimeout(() => {
           // check if unread notification is available
           const allNotifsRead = _.every(this.notifications, ['isRead', true]);
           // console.log('allNotifsRead', allNotifsRead);
-          // this.alreadyReadAll = false;
-
           if (allNotifsRead) {
             this.alreadyReadAll = true;
           } else {
@@ -66,7 +64,6 @@ export class NotificationComponent implements OnInit {
       }
       if (typeof state['marking_as_read_response'] !== 'undefined') {
         // upadte notification as marked
-        // console.log('read: ' + this.notificationIds);
         this.updateNotifications();
       }
     });

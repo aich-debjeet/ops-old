@@ -13,8 +13,14 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       });
 
     case NotificationActions.LOAD_NOTIFICATIONS_SUCCESS:
+      let updated_notifications;
+      if (state && state.recieved_notifications) {
+        updated_notifications = [...state.recieved_notifications, ...payload];
+      } else {
+        updated_notifications = payload;
+      }
       return Object.assign({}, state, {
-        recieved_notifications: payload,
+        recieved_notifications: updated_notifications,
         recieved_notifications_success: true
       });
 
