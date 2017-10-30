@@ -1,6 +1,26 @@
 <!-- add media pop up -->
-<!-- <app-navigation></app-navigation> -->
-<app-modal [modalTitle]="'Some title'" [closeHidden]="true" [open]="true" [blocking]='false' modalId='ViewMedia' class="media__modal" size="large" (onClose)="doClose($event)">
+<app-navigation></app-navigation>
+
+<section class="o-add-post">
+  <div class="container">
+    <ul class="o-AddPost-nav">
+      <li class="o-AddPost__item" routerLinkActive="active">
+        <a class="o-AddPost__link c-text_md" [routerLink]="['status']">Status</a>
+      </li>
+      <li class="o-AddPost__item" routerLinkActive="active">
+        <a class="o-AddPost__link c-text_md"  [routerLink]="['media']">Media</a>
+      </li>
+      <li class="o-AddPost__item" routerLinkActive="active">
+        <a class="o-AddPost__link c-text_md" [routerLink]="['blog']">Blog</a>
+      </li>
+    </ul>
+  </div>
+</section>
+<router-outlet></router-outlet>
+
+
+
+<!--<app-modal [modalTitle]="'Some title'" [closeHidden]="true" [open]="true" [blocking]='false' modalId='ViewMedia' class="media__modal" size="large" (onClose)="doClose($event)">
   <div class="ops_add-post" id="add_media_pop">
     <div class="AddPost__links">
       <a (click)="doClose()" class="btn__close">
@@ -16,4 +36,4 @@
       <router-outlet></router-outlet>
     </div>
   </div>
-</app-modal>
+</app-modal>-->
