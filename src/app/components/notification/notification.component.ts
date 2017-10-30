@@ -28,6 +28,7 @@ export class NotificationComponent implements OnInit {
   alreadyReadAll = true;
   canScroll = true;
   lastScrollTop = 0;
+  showPreloader: boolean;
 
   constructor(
     private store: Store<Notification>,
@@ -44,7 +45,7 @@ export class NotificationComponent implements OnInit {
 
     // observe the store value
     this.notificationsState$.subscribe((state) => {
-      // console.log(state);
+      console.log(state);
       if (typeof state['recieved_notifications'] !== 'undefined') {
         this.notifications = state['recieved_notifications'];
 
@@ -66,6 +67,9 @@ export class NotificationComponent implements OnInit {
       if (typeof state['marking_as_read_response'] !== 'undefined') {
         // upadte notification as marked
         this.updateNotifications();
+      }
+      if (state && state['recieved_notifications_success'] === true) {
+        this.showPreloader = false;
       }
     });
   }
@@ -96,6 +100,8 @@ export class NotificationComponent implements OnInit {
    * Redux dispatch to load notifications
    */
   dispatchLoadNotifications() {
+    // showing preloader
+    this.showPreloader = true;
     // loading notifications
     this.store.dispatch({
       type: NotificationActions.LOAD_NOTIFICATIONS,

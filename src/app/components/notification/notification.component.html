@@ -50,6 +50,11 @@
             </div>
             <!-- //registraion middle container -->
         </div>
+        <div *ngIf="showPreloader === true">
+            <div class="sticky">
+                <div class="loader">Loading...</div>
+            </div>
+        </div>
     </section>
 </main>
 
