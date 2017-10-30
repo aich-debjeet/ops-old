@@ -1,5 +1,5 @@
 <app-navigation></app-navigation>
-<section class="messages_block outer_container">
+<section class="messages_block outer_container" (click)="hideList()">
     <div class="container">
         <!-- registraion middle container -->
         <div class="row messages_block_container">
@@ -10,13 +10,15 @@
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <div class="msg_inbox_name">
-                                    <img src="img/svg/ico_message.svg">
+                                    <img src="/assets/img/svg/ico_message.svg">
                                     <span>INBOX</span>
                                 </div>
                             </li>
                             <li class="list-inline-item float_right">
                                 <a href="javascript:void(0)" (click)="toggleView('composeMessage', null)" class="btn btn-xs btn-primary btn-follow">
-                                    COMPOSE
+                                    <span class="btn-label-follow">
+                                        <img src="/assets/img/svg/ico_plus_white.svg">
+                                    </span> COMPOSE
                                 </a>
                             </li>
                         </ul>
@@ -70,6 +72,11 @@
                     </ul>
                     <div class="msg_friend_list" id="ops_scrollbar">
                         <a href="javascript:void(0)" *ngFor="let message of orderedMessageContacts | searchfilter : searchText">
+                            <div *ngIf="message.length === 0">
+                                <div class="sticky">
+                                    <div class="loader">Loading...</div>
+                                </div>
+                            </div>
                             <ul class="msg_name_list msg_unread fill_grey" *ngIf="message.isRead == false" (click)="toggleView('readMessage', message.handle)">
                                 <li class="with_border_bottom" *ngIf="message.handle != userHandle">
                                     <ul class="list-inline">
@@ -78,7 +85,7 @@
                                         </li>
                                         <li class="list-inline-item msg_avatar float_left">
                                             <img *ngIf="message.profileImage" src="{{ baseUrl + message.profileImage }}" class="img-responsive">
-                                            <img *ngIf="!message.profileImage" src="/assets/img/avatar.jpg" class="img-responsive">
+                                            <img *ngIf="!message.profileImage" src="http://d206s58i653k1q.cloudfront.net/images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png" class="img-responsive">
                                         </li>
                                         <li class="list-inline-item">
                                             <div class="msg_friend_name">{{message.name}}</div>
@@ -98,7 +105,7 @@
                                         </li>
                                         <li class="list-inline-item msg_avatar float_left">
                                             <img *ngIf="message.profileImage" src="{{ baseUrl + message.profileImage }}" class="img-responsive">
-                                            <img *ngIf="!message.profileImage" src="/assets/img/avatar.jpg" class="img-responsive">
+                                            <img *ngIf="!message.profileImage" src="http://d206s58i653k1q.cloudfront.net/images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png" class="img-responsive">
                                         </li>
                                         <li class="list-inline-item">
                                             <div class="msg_friend_name">{{message.name}}</div>
@@ -152,13 +159,13 @@
                         </li>
                     </ul>
                     <!-- message container -->
-                    <div class="msg_container_block" id="ops_scrollbar" #scrollMeBottom>
+                    <div class="msg_container_block" id="ops_scrollbar" #scrollMeBottom (scroll)="onScroll()" [scrollTop]="scrollMeBottom.scrollHeight">
                         <div class="msg_container" *ngFor="let message of messagesbytime">
                             <div class="col-md-12">
                                 <ul class="list-inline" *ngIf="message.to == userHandle && selectedUserHandle != userHandle">
                                     <li class="list-inline-item avatar_msg_input float_left">
-                                        <img *ngIf="nonUserProfile?.profileImage" src="{{ baseUrl + nonUserProfile?.profileImage}}" class="img-responsive">
-                                        <img *ngIf="!nonUserProfile?.profileImage" src="https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png" class="img-responsive">
+                                        <img *ngIf="nonUserProfile.profileImage" src="{{ baseUrl + nonUserProfile.profileImage}}" class="img-responsive">
+                                        <img *ngIf="!nonUserProfile.profileImage" src="http://d206s58i653k1q.cloudfront.net/images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png" class="img-responsive">
                                     </li>
                                     <li class="list-inline-item msg_cont_block">
                                         <p class="ops_msg_aero">
@@ -237,11 +244,11 @@
                                                 <li class="c-post__comment" *ngFor="let skill of receipientList | slice:0:5" (click)="toggleSelectSkill(skill.handle)">
                                                     <a class="c-user__avatar c-avatar--status">
                                                         <img class="c-user__image" src="{{baseUrl +skill.profileImage}}">
+                                                        <p class="c-post__commenter msg_to_name2">{{skill.name}}</p>
+                                                        <p class="c-post__comment_text">
+                                                            {{ '@' + skill.extra.username }}
+                                                        </p>
                                                     </a>
-                                                    <a class="c-post__commenter msg_to_name2">{{skill.name}}</a>
-                                                    <div class="c-post__comment_text">
-                                                        {{ '@' + skill.extra.username }}
-                                                    </div>
                                                 </li>
                                             </ul>
                                         </div>
