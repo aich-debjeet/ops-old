@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import MediaPlayer from 'app/models/mediaplayer.model';
 import { environment } from '../../../../environments/environment';
+import { Router } from '@angular/router';
 
 import { NgModel } from '@angular/forms';
 import { NgxfUploaderService, UploadEvent, UploadStatus, FileError } from 'ngxf-uploader';
@@ -62,6 +63,7 @@ export class MediaSelectorComponent implements OnInit {
   uploadStatus: number;
   tags: any;
   baseUrl = environment.API_IMAGE;
+  desc: string;
 
   //
   postSuccess: boolean;
@@ -84,6 +86,7 @@ export class MediaSelectorComponent implements OnInit {
     private fb: FormBuilder,
     private api: TokenService,
     private toastr: ToastrService,
+    private router: Router,
     private profileStore: Store<ProfileModal>,
     private _store: Store<fromRoot.State>,
     private http: Http) {
@@ -108,7 +111,7 @@ export class MediaSelectorComponent implements OnInit {
       this.postSuccessActive = false;
 
       this.createChannelForm(); // Create Channel Form
-      this.createMediaForm(); // Media Info
+      // this.createMediaForm(); // Media Info
 
       this.uploadStatus = 0;
       this.submitEnabled = 0;
@@ -197,11 +200,17 @@ export class MediaSelectorComponent implements OnInit {
     console.log(this.uploaded);
   }
 
+  postMediaData() {
+    console.log('Test');
+  }
+
   /**
    * Post all medias at once
    * @param formValue
    */
-  postAllMedia(formValue: any) {
+  postAllMedia(value) {
+    console.log('post all media');
+    console.log(value);
     // Stop submittion if not ready with needed data;
     // if (this.submitEnabled < 1 ) {
     //   return false;
@@ -223,16 +232,21 @@ export class MediaSelectorComponent implements OnInit {
 
     // 1. Get choosen file
     const multipleMedias = [];
-    const formData = formValue;
+    const formData = {
+      desc: this.desc,
+    }
     const chosenChannel = this.chosenChannel;
-    const chosenFile = this.editingFile;
+    // const chosenFile = this.editingFile;
 
-    for (let nowFile of this.uploadedFiles) {
+    for (const nowFile of this.uploadedFiles) {
+      console.log(nowFile);
       if (nowFile) {
         // Build Media Object
-        const mediaItem = this.formatMedia( nowFile, formData, chosenChannel, userHandle, formValue.privacy);
+        const mediaItem = this.formatMedia( nowFile, formData, chosenChannel, userHandle, value.privacy);
+        console.log(mediaItem);
         const media = [ mediaItem ];
         multipleMedias.push(mediaItem);
+        console.log(multipleMedias);
       }
     }
 
@@ -327,7 +341,15 @@ export class MediaSelectorComponent implements OnInit {
       req: { media: req }
     };
     console.log('req body', req);
+    console.log('Sucess Post');
     this.profileStore.dispatch({ type: ProfileActions.POST_CHANNEL_MEDIA, payload: payload })
+
+    this._store.select('profileTags')
+      .first(media => media['media_channel_posted'] === true)
+      .subscribe( data => {
+        console.log('save success');
+         this.router.navigate(['/channel/' + channelId]);
+      });
   }
 
   /**

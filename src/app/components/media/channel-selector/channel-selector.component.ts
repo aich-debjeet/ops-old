@@ -45,7 +45,7 @@ export class ChannelSelectorComponent implements OnInit {
   ) {
       this.chosenChannel = null;
       this.counter = 0;
-      this.createChannelForm();
+      // this.createChannelForm();
   }
 
   /**
@@ -65,10 +65,14 @@ export class ChannelSelectorComponent implements OnInit {
 
   mediaPrivacyToggle(value) {
     this.mediaPrivacy = value
+    console.log(value);
   }
 
   postMedia(value) {
-    this.onPostMedia.emit(value);
+    const data = {
+      privacy: this.mediaPrivacy,
+    }
+    this.onPostMedia.emit(data);
   }
 
   /**

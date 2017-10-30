@@ -1,4 +1,4 @@
-<div class="o-add-post-rightbar">
+<div class="o-add-post-rightbar" [ngClass]="(settingDisable)? 'o-block__fade' : ''">
   <div class="o-add-post__block">
     <h4 class="c-text_lg-bold c-text-semibold">Add to Channel</h4>
     <div class="o-channel-search">
@@ -83,10 +83,12 @@
   <div class="o-rightbar-footer with_border_top">
     <div class="c-form__group">
       <select class="c-form-control c-form-control--color">
-        <option>Select list 1</option>
-        <option>Select list 2</option>
-        <option>Select list 3</option>
-        <option>Select list 4</option>
+        <option value="1">Copyright and License type</option>
+        <option value="2">CC: Attribution Share Alike</option>
+        <option value="3">CC: Attribution Non-Derivative</option>
+        <option value="4">CC: Attribution-NonCommercial</option>
+        <option value="5">CC: Attribution-NonCommercial-ShareAlike</option>
+        <option value="6">CC: Attribution-NonCommercial-NoDerivs No License</option>
       </select>
     </div>
     <div class="o-add-post-right__actions">
@@ -104,7 +106,7 @@
           <div class="dropdown margin_l_16" appDropdown>   
             <span class="com-head" appDropdownOpen>
               <div class="o-action__ico">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72"><defs><style>.cls-1{fill:#fff;}</style></defs><title>ico-public</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M36,0A36,36,0,1,0,72,36,36,36,0,0,0,36,0ZM66.89,33.5H58.94c-.41-9.74-3.18-18.31-7.46-24.34A31,31,0,0,1,66.89,33.5ZM33,5.46v28H18.07C18.75,19.54,25.08,7.86,33,5.46Zm0,33v28c-7.92-2.4-14.25-14.08-14.93-28Zm5,28.29V38.5H53.93C53.22,53,46.38,65.11,38,66.79ZM38,33.5V5.21C46.38,6.89,53.22,19,53.93,33.5ZM20.52,9.16c-4.28,6-7.06,14.6-7.46,24.34H5.11A31,31,0,0,1,20.52,9.16ZM5.11,38.5h7.95c.41,9.74,3.18,18.31,7.46,24.34A31,31,0,0,1,5.11,38.5ZM51.48,62.84c4.28-6,7.06-14.6,7.46-24.34h7.95A31,31,0,0,1,51.48,62.84Z"/></g></g></svg>
+                <img src="{{ (mediaPrivacy == 0) ? '/assets/img/svg/ico_web.svg': '/assets/img/svg/Ico-private.svg' }}">
               </div>
               <div class="o-action__ico-arrow">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="10px" viewBox="0 0 16 10" version="1.1">
@@ -135,7 +137,7 @@
           </div>
         </li>
         <li class="o-action-list float-right">
-          <button type="button" class="btn btn-primary btn-md btn-inverse" (click)="postMedia()">POST</button>
+          <button type="button" class="btn btn-primary btn-md btn-inverse" [disabled]="settingDisable" (click)="postMedia()">POST</button>
         </li>
         
       </ul>

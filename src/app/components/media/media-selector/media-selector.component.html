@@ -21,7 +21,7 @@
   <div class="container">
     <!-- add media  -->
     <div class="col-md-8 padding_none">
-      <div class="o-add-media__block">
+      <div class="o-add-media__block" [ngClass]="(uploadedFiles.length === 0)? 'o-block__fade' : ''">
         <div class="c-user c-user--addpost">
           <a class="c-user__avatar c-avatar--feed">
             <img class="c-user__image" src="{{ baseUrl + profileChannel.profileUser?.profileImage }}">
@@ -29,7 +29,7 @@
           <a class="c-user__name c-user__name--addpost">{{ profileChannel.profileUser?.name }}</a>
         </div>
         <div class="o-add-status__txt">
-          <textarea class="o-add-post--textarea c-text_lg-light"  [disabled]="uploadedFiles.length === 0" rows='1' data-min-rows='0' placeholder="Description"></textarea>
+          <textarea class="o-add-post--textarea c-text_lg-light" [(ngModel)]="desc"  [disabled]="uploadedFiles.length === 0" rows='1' data-min-rows='0' placeholder="Description"></textarea>
         </div>
       </div>
 
@@ -118,7 +118,7 @@
 
 
 
-      <div class="o-media-pop-container" *ngIf="uploadedFiles.length > 0">
+      <!--<div class="o-media-pop-container" *ngIf="uploadedFiles.length > 0">
         <div class="o-media-pop__title c-text_lg">
           Audio Settings
           <div class="o-media-pop__close"><img src="/assets/img/svg/ico_close-line.svg"></div>
@@ -139,10 +139,10 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
 
       <!-- for video media thumb pop -->
-      <div class="o-media-pop-container" *ngIf="uploadedFiles.length > 0">
+      <!--<div class="o-media-pop-container" *ngIf="uploadedFiles.length > 0">
         <div class="o-media-pop__title c-text_lg">
           Video Settings
           <div class="o-media-pop__close"><img src="/assets/img/svg/ico_close-line.svg"></div>
@@ -183,10 +183,10 @@
             </div>
           </li>
         </ul>
-      </div>
+      </div>-->
     </div>
     <div class="col-md-4 padding_none">
-      <app-channel-selector [userChannels]="channeList" [settingDisable]="uploadedFiles.length === 0" (onPostMedia)="postAllMedia()" (onSelection)="onChannelSelection($event)" (onChannelCreate)="onChannelCreation($event)"></app-channel-selector>
+      <app-channel-selector [userChannels]="channeList" [settingDisable]="uploadedFiles.length === 0" (onPostMedia)="postAllMedia($event)" (onSelection)="onChannelSelection($event)" (onChannelCreate)="onChannelCreation($event)"></app-channel-selector>
     </div>
     <!-- add media end --> 
   </div>
