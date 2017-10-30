@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
 
 // Action
 import { MediaActions } from '../../../actions/media.action';
@@ -26,6 +27,9 @@ export class StatusEditorComponent {
   mediaState$: Observable<Media>;
   mediaStore = initialMedia;
   profileStore = initialTag;
+  baseUrl = environment.API_IMAGE;
+  privacy: any = 0;
+  statusMessage: string;
 
   profileState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
@@ -43,6 +47,7 @@ export class StatusEditorComponent {
     // Profile
     this.profileState$.subscribe((state) => {
       this.profileStore = state;
+      console.log(this.profileStore);
     });
     // Media
     this.mediaState$.subscribe((state) => {
@@ -57,19 +62,24 @@ export class StatusEditorComponent {
     this.chosenChannel = channel;
   }
 
+  choosePrivacy(value) {
+    this.privacy = value
+  }
+
   /**
    * Status Form
    */
-  submitStatusForm(value: any) {
+  submitStatusForm() {
     const userHandle = this.profileStore.profileUser.handle || '';
+    const message = (this.statusMessage || '').trim().length === 0;
 
-    if ( this.statusForm.valid === true && userHandle !== '') {
+    if ( !message && userHandle !== '') {
       const postStatus = {
         owner: userHandle,
         feed_type: 'status',
         title: '',
-        description: value.status,
-        access: Number(value.privacy),
+        description: this.statusMessage,
+        access: Number(this.privacy),
         active: true
       };
 

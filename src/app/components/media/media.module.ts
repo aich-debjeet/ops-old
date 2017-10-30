@@ -30,12 +30,13 @@ import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { UtcDatePipe } from './../../pipes/utcdate.pipe';
+import { SearchUniquePipe } from './../../pipes/uniquesearch.pipe';
+
 
 const routes: Routes = [
   {
     path: 'post',
     component: MediaComponent,
-    outlet: 'media',
     children: [
       {
         path: '',
@@ -94,7 +95,8 @@ const routes: Routes = [
     ChannelSelectorComponent,
     CreateChannelComponent,
     EditChannelComponent,
-    ReadMoreDirective
+    ReadMoreDirective,
+    SearchUniquePipe
   ],
   exports: [
     MediaComponent
