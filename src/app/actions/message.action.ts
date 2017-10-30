@@ -7,6 +7,10 @@ export class MessageActions {
   static LOAD_USER_PROFILE_DATA_SUCCESS = 'LOAD_USER_PROFILE_DATA_SUCCESS';
   static LOAD_USER_PROFILE_DATA_FAILED = 'LOAD_USER_PROFILE_DATA_FAILED';
 
+  static UNLOAD_USER_PROFILE_DATA = 'UNLOAD_USER_PROFILE_DATA';
+  static UNLOAD_USER_PROFILE_DATA_SUCCESS = 'UNLOAD_USER_PROFILE_DATA_SUCCESS';
+  static UNLOAD_USER_PROFILE_DATA_FAILED = 'UNLOAD_USER_PROFILE_DATA_FAILED';
+
   static LOAD_NON_USER_PROFILE_DATA = 'LOAD_NON_USER_PROFILE_DATA';
   static LOAD_NON_USER_PROFILE_DATA_SUCCESS = 'LOAD_NON_USER_PROFILE_DATA_SUCCESS';
   static LOAD_NON_USER_PROFILE_DATA_FAILED = 'LOAD_NON_USER_PROFILE_DATA_FAILED';
@@ -14,6 +18,10 @@ export class MessageActions {
   static GET_RECEIPIENT = 'GET_RECEIPIENT';
   static GET_RECEIPIENT_SUCCESS = 'GET_RECEIPIENT_SUCCESS';
   static GET_RECEIPIENT_FAILED = 'GET_RECEIPIENT_FAILED';
+
+  static LOAD_NON_USER_PROFILE2_DATA = 'LOAD_NON_USER_PROFILE2_DATA';
+  static LOAD_NON_USER_PROFILE2_DATA_SUCCESS = 'LOAD_NON_USER_PROFILE2_DATA_SUCCESS';
+  static LOAD_NON_USER_PROFILE2_DATA_FAILED = 'LOAD_NON_USER_PROFILE2_DATA_FAILED';
 
   /* -------------------------------- load current user profile data -------------------------------- */
   loadUserProfile(value): Action {
@@ -47,7 +55,7 @@ export class MessageActions {
   loadNonUserProfile(value): Action {
     console.log('LOAD_NON_USER_PROFILE_DATA ACTION TRIGGERED');
     return {
-      type: MessageActions.LOAD_USER_PROFILE_DATA,
+      type: MessageActions.LOAD_NON_USER_PROFILE_DATA,
       payload: { value }
     };
   }
@@ -55,7 +63,7 @@ export class MessageActions {
   loadNonUserProfileSuccess(value): Action {
     console.log('LOAD_NON_USER_PROFILE_DATA_SUCCESS ACTION TRIGGERED');
     return {
-      type: MessageActions.LOAD_USER_PROFILE_DATA_SUCCESS,
+      type: MessageActions.LOAD_NON_USER_PROFILE_DATA_SUCCESS,
       payload: { value }
     };
   }
@@ -63,7 +71,7 @@ export class MessageActions {
   loadNonUserProfileFailed(error: any): Action {
     console.log('LOAD_NON_USER_PROFILE_DATA_FAILED ACTION TRIGGERED');
     return {
-      type: MessageActions.LOAD_USER_PROFILE_DATA_FAILED,
+      type: MessageActions.LOAD_NON_USER_PROFILE_DATA_FAILED,
       payload: error
     };
   }
@@ -94,5 +102,32 @@ export class MessageActions {
   }
 
  /*------------------------ get receipient details---------------------------------*/
+
+   /* -------------------------------- load non user profile2 data -------------------------------- */
+   loadNonUserProfile2(value): Action {
+    console.log('LOAD_NON_USER_PROFILE2_DATA ACTION TRIGGERED');
+    return {
+      type: MessageActions.LOAD_NON_USER_PROFILE2_DATA,
+      payload: { value }
+    };
+  }
+
+  loadNonUserProfile2Success(value): Action {
+    console.log('LOAD_NON_USER_PROFILE2_DATA_SUCCESS ACTION TRIGGERED');
+    return {
+      type: MessageActions.LOAD_NON_USER_PROFILE2_DATA_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  loadNonUserProfile2Failed(error: any): Action {
+    console.log('LOAD_NON_USER_PROFILE2_DATA_FAILED ACTION TRIGGERED');
+    return {
+      type: MessageActions.LOAD_NON_USER_PROFILE2_DATA_FAILED,
+      payload: error
+    };
+  }
+  /* -------------------------------- load non user profile2 data -------------------------------- */
+
 
 }

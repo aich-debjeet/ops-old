@@ -1,4 +1,3 @@
-import { action } from 'aws-sdk/clients/sns';
 import { ActionReducer, Action } from '@ngrx/store';
 import { MessageModal, initialMessage } from '../models/message.model';
 import { unionBy as _unionBy } from 'lodash';
@@ -25,6 +24,15 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       success: false,
     });
 
+    case MessageActions.UNLOAD_USER_PROFILE_DATA:
+    return (<any>Object).assign({}, state, {
+      success: true,
+    });
+
+    case MessageActions.UNLOAD_USER_PROFILE_DATA_SUCCESS:
+    console.log('its here');
+    return
+
     case MessageActions.LOAD_NON_USER_PROFILE_DATA:
     return (<any>Object).assign({}, state, {
       success: true
@@ -37,6 +45,22 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
     });
 
     case MessageActions.LOAD_NON_USER_PROFILE_DATA_FAILED:
+    return (<any>Object).assign({}, state, {
+      success: false
+    });
+
+    case MessageActions.LOAD_NON_USER_PROFILE2_DATA:
+    return (<any>Object).assign({}, state, {
+      success: true
+    });
+
+    case MessageActions.LOAD_NON_USER_PROFILE2_DATA_SUCCESS:
+    return (<any>Object).assign({}, state, {
+      nonUserProfile2Details: payload,
+      success: true
+    });
+
+    case MessageActions.LOAD_NON_USER_PROFILE2_DATA_FAILED:
     return (<any>Object).assign({}, state, {
       success: false
     });
