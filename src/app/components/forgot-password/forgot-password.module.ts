@@ -29,6 +29,7 @@ const routes: Routes = [
   declarations: [
     ForgotPasswordComponent,
     PasswordOptionComponent,
-    PasswordMailComponent, PasswordSmsComponent, PasswordCreateComponent]
+    PasswordMailComponent, PasswordSmsComponent, PasswordCreateComponent
+  ],
 })
 export class ForgotPasswordModule { }

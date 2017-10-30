@@ -31,6 +31,7 @@ export class SearchComponent {
   };
   isSearching = false;
   searchState$: Observable<SearchModel>;
+  searchString: string;
 
   constructor(
     private store: Store<SearchModel>,
