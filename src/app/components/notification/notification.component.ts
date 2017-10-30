@@ -27,6 +27,7 @@ export class NotificationComponent implements OnInit {
   baseUrl: string;
   alreadyReadAll = true;
   canScroll = true;
+  lastScrollTop = 0;
 
   constructor(
     private store: Store<Notification>,
@@ -71,12 +72,22 @@ export class NotificationComponent implements OnInit {
 
   @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
     // console.log('scrolling', $event);
-    if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    const scrolledValue = window.pageYOffset;
+    let scrollDirection = '';
+    if (scrolledValue > this.lastScrollTop) {
+      scrollDirection = 'down';
+    } else {
+      scrollDirection = 'up';
+    }
+    this.lastScrollTop = scrolledValue;
+    // console.log('scrolling direction', scrollDirection);
+
+    if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
       // reached the bottom of the page
       this.canScroll = false;
       setTimeout(() => {
         this.canScroll = true;
-      }, 5000);
+      }, 1000);
       this.dispatchLoadNotifications();
     }
   }
