@@ -60,14 +60,20 @@ export class SearchComponent {
     this.search.searchQuery = query;
     this.isSearching = true;
 
+    const searchParams = {
+      query: this.search.searchQuery,
+      offset: 0,
+      limit: 4
+    }
+
     // search people
-    this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: this.search.searchQuery });
+    this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
 
     // search post
-    this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: this.search.searchQuery });
+    this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchParams });
 
     // search channel
-    this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: this.search.searchQuery });
+    this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchParams });
   }
 
   /**
