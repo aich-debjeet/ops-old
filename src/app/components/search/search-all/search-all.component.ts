@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, KeyValueDiffers, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { SearchActions } from './../../../actions/search.action';
 import { SearchModel } from './../../../models/search.model';
@@ -19,10 +19,8 @@ import { Store } from '@ngrx/store';
 export class SearchAllComponent implements OnInit {
 
   @Output() tabClicked: EventEmitter<any> = new EventEmitter<any>();
-  @Input() search: any;
-  differ: any;
 
-  searchAllState$: Observable<SearchModel>;
+  searchState$: Observable<SearchModel>;
   baseUrl: string;
 
   posts: any[];
@@ -30,22 +28,19 @@ export class SearchAllComponent implements OnInit {
   channels: any[];
 
   constructor(
-    private differs: KeyValueDiffers,
     private store: Store<SearchModel>
   ) {
 
-    this.differ = differs.find({}).create(null);
-
     this.baseUrl = environment.API_IMAGE;
-    this.searchAllState$ = this.store.select('searchTags');
+    this.searchState$ = this.store.select('searchTags');
 
   }
 
   ngOnInit() {
 
     // observe the store value
-    this.searchAllState$.subscribe((state) => {
-      console.log('state', state);
+    this.searchState$.subscribe((state) => {
+      // console.log('state', state);
       if (state && state.search_people) {
         this.artists = state.search_people;
       }

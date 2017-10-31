@@ -44,7 +44,7 @@ export class SearchComponent {
 
     // observe the store value
     this.searchState$.subscribe((state) => {
-      // console.log('state', state);
+      // console.log('searchState', state);
       if (state && state.searching_people === false && state.searching_post === false && state.searching_channel === false) {
         this.isSearching = false;
       }

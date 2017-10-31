@@ -13,9 +13,6 @@ export class SearchService {
   handle: string;
   headers: any;
   private apiLink: string = environment.API_ENDPOINT;
-  postsPageNumber = -1;
-  peoplePageNumber = -1;
-  channelPageNumber = -1;
 
   constructor(
     private http: Http,
@@ -37,9 +34,7 @@ export class SearchService {
    */
   getPeople(query: string) {
     this.updateToken();
-    this.peoplePageNumber ++;
-    const pagination = this.paginate(this.peoplePageNumber);
-    return this.api.get('/portal/searchprofiles/1/' + query + '/' + pagination.offset + '/' + pagination.limit);
+    return this.api.get('/portal/searchprofiles/1/' + query + '/0/4');
   }
 
   /**
@@ -48,9 +43,7 @@ export class SearchService {
    */
   getPosts(query: string) {
     this.updateToken();
-    this.postsPageNumber ++;
-    const pagination = this.paginate(this.postsPageNumber);
-    return this.api.get('/portal/cdn/media/postByText/' + query + '/' + pagination.offset + '/' + pagination.limit);
+    return this.api.get('/portal/cdn/media/postByText/' + query + '/0/4');
   }
 
   /**
@@ -59,26 +52,7 @@ export class SearchService {
    */
   getChannels(query: string) {
     this.updateToken();
-    this.channelPageNumber ++;
-    const pagination = this.paginate(this.channelPageNumber);
-    return this.api.get('/portal/network/spotfeed/searchByText/' + query + '/' + pagination.offset + '/' + pagination.limit);
-  }
-
-  /**
-   * Pagination
-   * @param page number
-   */
-  paginate(page: number) {
-    let beginItem: number;
-    let endItem: number;
-    let itemsPerPage = 20;
-    if (page === 0 ) {
-        beginItem = 0;
-    } else {
-        beginItem = (page - 1) * itemsPerPage;
-    } return {
-        offset: beginItem, limit: itemsPerPage
-    }
+    return this.api.get('/portal/network/spotfeed/searchByText/' + query + '/0/4');
   }
 
 }
