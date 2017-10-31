@@ -44,7 +44,7 @@ export class ApiService {
    * @param endpoint API endpoint
    * @param id item id
    */
-  buidDetailPath(endpoint: string, id: string) {
+  buildDetailPath(endpoint: string, id: string) {
     let path = endpoint;
     if (id && id !== '') {
       path = endpoint + id
@@ -63,7 +63,7 @@ export class ApiService {
    * PUT Function
    */
   get(endpoint: string, id?: string) {
-    const path = this.buidDetailPath(endpoint, id);
+    const path = this.buildDetailPath(endpoint, id);
     const head = this.getHeaders();
     return this.http.get(this.apiLink + path, { headers: head })
       .map((data: Response) => data.json());
@@ -100,9 +100,8 @@ export class ApiService {
    * DELETE
    */
   delete(endpoint: string, id: string, ignorePath: boolean = false) {
-    const path = this.buidDetailPath(endpoint, id);
-    const fullPath = ignorePath ? path : endpoint + path;
-    console.log(fullPath);
+    const path = this.buildDetailPath(endpoint, id);
+    const fullPath = ignorePath ? path : endpoint + id;
     const head = this.getHeaders();
     return this.http.delete(this.apiLink + fullPath, { headers: head })
       .map((data: Response) => data.json());
