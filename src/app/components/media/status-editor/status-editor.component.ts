@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
+import { Router } from '@angular/router';
 
 // Action
 import { MediaActions } from '../../../actions/media.action';
@@ -11,6 +13,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 import { ProfileModal, initialTag } from '../../../models/profile.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-status-editor',
@@ -26,6 +29,9 @@ export class StatusEditorComponent {
   mediaState$: Observable<Media>;
   mediaStore = initialMedia;
   profileStore = initialTag;
+  baseUrl = environment.API_IMAGE;
+  privacy: any = 0;
+  statusMessage: string;
 
   profileState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
@@ -34,6 +40,8 @@ export class StatusEditorComponent {
 
   constructor(
     private fb: FormBuilder,
+    private toastr: ToastrService,
+    private router: Router,
     private store: Store<Media>
   ) {
     this.createStatusForm();
@@ -43,6 +51,7 @@ export class StatusEditorComponent {
     // Profile
     this.profileState$.subscribe((state) => {
       this.profileStore = state;
+      console.log(this.profileStore);
     });
     // Media
     this.mediaState$.subscribe((state) => {
@@ -57,19 +66,24 @@ export class StatusEditorComponent {
     this.chosenChannel = channel;
   }
 
+  choosePrivacy(value) {
+    this.privacy = value
+  }
+
   /**
    * Status Form
    */
-  submitStatusForm(value: any) {
+  submitStatusForm() {
     const userHandle = this.profileStore.profileUser.handle || '';
+    const message = (this.statusMessage || '').trim().length === 0;
 
-    if ( this.statusForm.valid === true && userHandle !== '') {
+    if ( !message && userHandle !== '') {
       const postStatus = {
         owner: userHandle,
         feed_type: 'status',
         title: '',
-        description: value.status,
-        access: Number(value.privacy),
+        description: this.statusMessage,
+        access: Number(this.privacy),
         active: true
       };
 
@@ -82,6 +96,14 @@ export class StatusEditorComponent {
    */
   postStatus(req: any) {
     this.store.dispatch({ type: MediaActions.STATUS_SAVE, payload: req });
+
+    this.store.select('mediaStore')
+      .first(post => post['status_saved'] === true)
+      .subscribe( data => {
+        console.log('save success');
+        this.toastr.success('Successfully posted your status');
+        this.router.navigate(['/user/status/list']);
+      });
   }
   /**
    * Status Form

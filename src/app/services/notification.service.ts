@@ -13,6 +13,7 @@ export class NotificationService {
   handle: string;
   headers: any;
   private apiLink: string = environment.API_ENDPOINT;
+  pageNumber = -1;
 
   constructor(
     private http: Http,
@@ -32,9 +33,12 @@ export class NotificationService {
    * Get notifications
    * @param req
    */
-  getAllNotifications() {
+  getNotifications() {
     this.updateToken();
-    return this.api.get('/portal/network/notification/getAllNotification/1/50');
+    this.pageNumber ++;
+    const pagination = this.paginate(this.pageNumber);
+    console.log('pagination', pagination);
+    return this.api.get('/portal/network/notification/getAllNotification/' + pagination.offset + '/' + pagination.limit);
   }
 
   /**
@@ -43,6 +47,23 @@ export class NotificationService {
   notificationMarkAsRead(reqBody: any) {
     this.updateToken();
     return this.api.put( '/portal/network/notification/mark/read', reqBody);
+  }
+
+  /**
+   * Pagination
+   * @param page number
+   */
+  paginate(page: number) {
+    let beginItem: number;
+    let endItem: number;
+    let itemsPerPage = 10;
+    if (page === 1 ) {
+        beginItem = 0;
+    } else {
+        beginItem = (page - 1) * itemsPerPage;
+    } return {
+        offset: beginItem, limit: itemsPerPage
+    }
   }
 
 }

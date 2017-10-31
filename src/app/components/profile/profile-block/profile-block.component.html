@@ -112,9 +112,9 @@
             <div class="col-md-12 col-sm-12 profile_page">
                 <div class="home_tabs">
                     <ul class="nav nav-tabs">
-                      <li><a [routerLink]="['channel']" routerLinkActive="active">Channel</a></li>
-                      <li><a [routerLink]="['post']" routerLinkActive="active">Posts</a></li>
-                      <li *ngIf="isCurrentUser===true"><a [routerLink]="['spotfeed']" routerLinkActive="active">spotfeed</a></li>
+                      <li routerLinkActive="active"><a [routerLink]="['channel']">Channel</a></li>
+                      <li routerLinkActive="active"><a [routerLink]="['post']">Posts</a></li>
+                      <li routerLinkActive="active" *ngIf="isCurrentUser===true"><a [routerLink]="['spotfeed']">spotfeed</a></li>
                     </ul>
                     <div class="row pro_channel2">
                         <router-outlet></router-outlet>

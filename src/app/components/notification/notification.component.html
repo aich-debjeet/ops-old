@@ -1,7 +1,7 @@
 <app-navigation></app-navigation>
 
 <main class="container-fulid outer_container">
-            <section class="notification_block">
+    <section class="notification_block">
         <div class="container">
             <!-- registraion middle container -->
             <div class="row notification_block_container">
@@ -14,9 +14,9 @@
                             <li class="list-inline-item header_ym">
                                 <a href="javascript:void(0)">Your Notifications</a>
                             </li>
-                            <li class="list-inline-item pull-right header_compose">
+                            <!-- <li class="list-inline-item pull-right header_compose">
                                 <a href="javascript:void(0)" (click)="markAllAsRead()">Mark all as read</a>
-                            </li>
+                            </li> -->
                           </ul>
                       </li>
                       <li class="with_border_bottom" *ngFor="let notification of notifications; let notifIndex = index;" [ngClass]="{'fill_grey': !notification.isRead}">
@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="head_msg_short">{{ notification.message }}</div>
                                 <div class="noti_cont_footer">
-                                  <img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg" class="noti_cont_footer_img"><span>10:08 PM</span>
+                                  <img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg" class="noti_cont_footer_img"><span>{{ notification.createdDate | utcDate | date:'d MMM hh:mm a' }}</span>
                                 </div>
                             </li>
                             <li class="list-inline-item noti_cont_time">
@@ -49,6 +49,11 @@
                 </div>
             </div>
             <!-- //registraion middle container -->
+        </div>
+        <div *ngIf="showPreloader === true">
+            <div class="sticky">
+                <div class="loader">Loading...</div>
+            </div>
         </div>
     </section>
 </main>

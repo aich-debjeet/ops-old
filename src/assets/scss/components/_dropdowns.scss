@@ -1,50 +1,43 @@
 // @ dropdowns style ----------------------------------------------------
 // dropdown 01
-.dropdown-menu {
-  min-width: auto;
-}
-.dropdown-menu > li > a {
-      padding: 6px 20px;
-}
 .c-opsdropdown--size1 {
-  width: 109px;
+    width: 109px;
 }
 
 .c-opsdropdown--size2 {
-  width: 200px;
+    width: 200px;
 }
 
 .c-opsdropdown__list {
-  font-size: 12px;
-  text-align: left;
-  color: #979797;
-  padding: 10px 20px;
-  cursor: pointer
+    font-size: 12px;
+    text-align: left;
+    color: #979797;
+    padding: 10px 20px;
 }
 
 .c-opsdropdown--icons {
-  width: 12px;
-  display: inline;
-  margin: 0 !important;
-  float: left;
-  padding-top: 3px;
+    width: 12px;
+    display: inline;
+    margin: 0 !important;
+    float: left;
+    padding-top: 3px;
 }
 
 .c-opsdropdown--text {
   font-size: 12px;
-  text-align: left;
-  color: #333333;
-  padding: 10px 20px;
-  &:hover {
-    color: #000000;
-  }
+    text-align: left;
+    color: #979797;
+    padding: 10px 20px;
+    &:hover {
+      color: #000000;
+    }
 }
 
 .c-opsdropdown--text2 {
   font-size: 12px;
-  text-align: left;
-  color: #333333;
-  &:hover {
-    color: #000000;
-  }
+    text-align: left;
+    color: #979797;
+    &:hover {
+      color: #000000;
+    }
 }

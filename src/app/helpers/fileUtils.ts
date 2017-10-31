@@ -25,7 +25,7 @@ export default class FilesHelper {
   static fileType(filename: string, fileGroup: string) {
 
     // List of Image files
-    const ImageList = ['jpg', 'jpeg', 'png'];
+    const ImageList = ['jpg', 'jpeg', 'png', 'JPG'];
     const VideoList = ['mp4', 'webm'];
     const AudioList = ['mp3', 'ogg'];
 
