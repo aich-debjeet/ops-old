@@ -74,7 +74,7 @@
 
             <div class="o-media-block" *ngIf="checkFileType(file.fileName, 'Audio')" >
               <figure class="o-media_img">
-              <img class="obj-fit-fill" src="img/interest.jpg" alt="">
+              <img class="obj-fit-fill" src="https://ops-v2.netlify.com/img/interest.jpg" alt="">
               </figure>
               <div class="o-media__info">
                 <div class="o-media_type">
@@ -86,9 +86,9 @@
               </div>
             </div>
 
-            <div class="o-media-block" *ngIf="checkFileType(file.fileName, 'Video')">
+            <div class="o-media-block" *ngIf="checkFileType(file.fileName, 'Video')" (click)="fileDetails(file)">
               <figure class="o-media_img">
-              <img class="obj-fit-fill" (click)="fileDetails(file)" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + file?.repoPath }}">
+              <img class="obj-fit-fill"  src="https://ops-v2.netlify.com/img/interest.jpg">
               </figure>
               <div class="o-media__info">
                 <div class="o-media_type">
