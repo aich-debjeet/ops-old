@@ -44,7 +44,6 @@ export class DirectoryListComponent implements OnInit {
   ) {
       this.tagState$ = this._store.select('profileTags');
       this.tagState$.subscribe((state) => {
-        console.log(state);
         this.dirList = state['dir_list']
       });
       this.loadDir();
@@ -102,5 +101,23 @@ export class DirectoryListComponent implements OnInit {
       this.loadDir();
     }
   }
+
+  /**
+   * User Follow function
+   * @param dir List of current user
+   * @param index Index of array
+   */
+  userFollow(dir, index) {
+    const handle = this.dirList[index].handle;
+    if (this.dirList[index].extra.isFollowing) {
+      this.dirList[index].extra.isFollowing = false;
+      this._store.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
+    }else {
+      this.dirList[index].extra.isFollowing = true;
+      this._store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle  });
+    }
+  }
+
+
 
 }

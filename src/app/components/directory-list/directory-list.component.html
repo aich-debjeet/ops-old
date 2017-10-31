@@ -98,25 +98,13 @@
             </label>
         </div>-->
         
-          <ul class="o-dirfill-check" *ngFor="let option of options">
-            <li class="o-dirfill-check__list">
+          <ul class="o-dirfill-check">
+            <li class="o-dirfill-check__list" *ngFor="let option of options">
               <label>
                 <input type="checkbox" name="options" value="{{option.value}}" checked [(ngModel)]="option.checked" (change)="updateCheckedOptions(option, $event)"> <span></span>
                 <span class="o-dirfill-check__txt"> {{option.name}}</span>
               </label>
             </li>
-            <!--<li class="o-dirfill-check__list">
-              <label>
-                <input type="checkbox" name="checkbox" value="2"> <span></span> 
-                <span class="o-dirfill-check__txt">Active</span>
-              </label>
-            </li>
-            <li class="o-dirfill-check__list">
-              <label>
-                <input type="checkbox" name="checkbox" value="99"> <span></span> 
-                <span class="o-dirfill-check__txt">Verified</span>
-              </label>
-            </li>-->
           </ul>
         </div>
         <!--<div class="o-dirfil-selectlist">
@@ -156,7 +144,7 @@
 
     <div class="o-dir-list-block">
       <div class="o-dir-list" 
-        *ngFor="let dir of dirList;"
+        *ngFor="let dir of dirList; let i = index"
         infiniteScroll
 		    [infiniteScrollDistance]="2"
 		    [infiniteScrollThrottle]="10"
@@ -207,11 +195,11 @@
         <div class="o-dir-list__actions">
           <div class="o-dir-actions">
             <button type="button" class="btn btn-default btn-md" disabled>CONTACT </button>
-            <button type="button" class="btn btn-md btn-primary btn-follow" *ngIf="!dir?.extra?.isImported">
-                        <span class="btn-label-follow">
-                        <img src="/assets/img/svg/ico_plus_white.svg">
-                      </span> {{(dir?.extra?.isFollowing ? 'FOLLOWING' : 'FOLLOW')}} 
-                    </button>
+            <button type="button" (click)="userFollow(dir, i)" class="btn btn-md btn-primary btn-follow" *ngIf="!dir?.extra?.isImported">
+                <span class="btn-label-follow">
+                <img src="/assets/img/svg/ico_plus_white.svg">
+              </span> {{(dir?.extra?.isFollowing ? 'FOLLOWING' : 'FOLLOW')}} 
+            </button>
           </div>
         </div>
       </div><!-- 1st row end -->
