@@ -37,8 +37,8 @@ export class SearchPostComponent implements OnInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       // console.log('searchState', state);
-      if (state && state.search_post) {
-        this.posts = state.search_post;
+      if (state && state.search_post_data) {
+        this.posts = state.search_post_data;
       }
     });
 

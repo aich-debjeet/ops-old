@@ -37,8 +37,8 @@ export class SearchPeopleComponent implements OnInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       // console.log('searchState', state);
-      if (state && state.search_people) {
-        this.artists = state.search_people;
+      if (state && state.search_people_data) {
+        this.artists = state.search_people_data;
       }
     });
 

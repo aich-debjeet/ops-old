@@ -33,6 +33,8 @@ export class SearchComponent implements AfterViewInit {
   lastScrollTop = 0;
   canScroll = true;
 
+  recordsPerPage = 10;
+
   constructor(
     private store: Store<SearchModel>,
     @Inject(DOCUMENT) private document: Document
@@ -44,7 +46,7 @@ export class SearchComponent implements AfterViewInit {
 
     // observe the store value
     this.searchState$.subscribe((state) => {
-      // console.log('searchState', state);
+      console.log('searchState', state);
       if (state && state.searching_people === false && state.searching_post === false && state.searching_channel === false) {
         this.isSearching = false;
       }
@@ -72,7 +74,7 @@ export class SearchComponent implements AfterViewInit {
         const searchParams = {
           query: searchString,
           offset: 0,
-          limit: 4
+          limit: this.recordsPerPage
         }
 
         // search people

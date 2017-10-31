@@ -37,8 +37,8 @@ export class SearchChannelComponent implements OnInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       // console.log('searchState', state);
-      if (state && state.search_channel) {
-        this.channels = state.search_channel;
+      if (state && state.search_channel_data) {
+        this.channels = state.search_channel_data;
       }
     });
 

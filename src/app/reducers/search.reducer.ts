@@ -11,14 +11,14 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
     case SearchActions.SEARCH_PEOPLE:
       return Object.assign({}, state, {
         searching_people: true,
-        search_query: payload,
+        search_people_params: payload,
         search_people_success: false
       });
 
     case SearchActions.SEARCH_PEOPLE_SUCCESS:
       return Object.assign({}, state, {
         searching_people: false,
-        search_people: payload,
+        search_people_data: payload,
         search_people_success: true
       });
 
@@ -33,14 +33,14 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
     case SearchActions.SEARCH_POST:
       return Object.assign({}, state, {
         searching_post: true,
-        search_query: payload,
+        search_post_params: payload,
         search_post_success: false
       });
 
     case SearchActions.SEARCH_POST_SUCCESS:
       return Object.assign({}, state, {
         searching_post: false,
-        search_post: payload,
+        search_post_data: payload,
         search_post_success: true
       });
 
@@ -55,14 +55,14 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
     case SearchActions.SEARCH_CHANNEL:
       return Object.assign({}, state, {
         searching_channel: true,
-        search_query: payload,
+        search_channel_params: payload,
         search_channel_success: false
       });
 
     case SearchActions.SEARCH_CHANNEL_SUCCESS:
       return Object.assign({}, state, {
         searching_channel: false,
-        search_channel: payload,
+        search_channel_data: payload,
         search_channel_success: true
       });
 

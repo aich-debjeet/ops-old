@@ -41,14 +41,14 @@ export class SearchAllComponent implements OnInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       // console.log('state', state);
-      if (state && state.search_people) {
-        this.artists = state.search_people;
+      if (state && state.search_people_data) {
+        this.artists = state.search_people_data;
       }
-      if (state && state.search_channel) {
-        this.channels = state.search_channel;
+      if (state && state.search_channel_data) {
+        this.channels = state.search_channel_data;
       }
-      if (state && state.search_post) {
-        this.posts = state.search_post;
+      if (state && state.search_post_data) {
+        this.posts = state.search_post_data;
       }
     });
 
