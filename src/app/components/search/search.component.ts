@@ -29,11 +29,14 @@ export class SearchComponent implements AfterViewInit {
   showSearchPlaceholder = true;
   isSearching = false;
   searchState$: Observable<SearchModel>;
+  searchState: any;
+  searchString: string;
 
   lastScrollTop = 0;
   canScroll = true;
 
   recordsPerPage = 10;
+  showPreloader = false;
 
   constructor(
     private store: Store<SearchModel>,
@@ -47,8 +50,10 @@ export class SearchComponent implements AfterViewInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       console.log('searchState', state);
+      this.searchState = state;
       if (state && state.searching_people === false && state.searching_post === false && state.searching_channel === false) {
         this.isSearching = false;
+        this.showPreloader = false;
       }
     });
 
@@ -63,16 +68,16 @@ export class SearchComponent implements AfterViewInit {
     .debounceTime(500)
     .subscribe(() => {
 
-      const searchString = this.searchInput.value;
-      console.log('searching: ', searchString);
+      this.searchString = this.searchInput.value;
+      // console.log('searching: ', this.searchString);
 
       // search if string is available
-      if (searchString && searchString.length > 0) {
-        console.log('new search', searchString);
+      if (this.searchString && this.searchString.length > 0) {
+        // console.log('new search', this.searchString);
         this.isSearching = true;
 
         const searchParams = {
-          query: searchString,
+          query: this.searchString,
           offset: 0,
           limit: this.recordsPerPage
         }
@@ -147,10 +152,46 @@ export class SearchComponent implements AfterViewInit {
   }
 
   /**
-   * Load more search result
+   * Load more results for active tab
    */
   dispatchLoadMore() {
-    console.log('load more: ' + this.activeTab);
+    // console.log('load more: ' + this.activeTab);
+    // console.log('state: ', this.searchState);
+    this.showPreloader = true;
+
+    if (this.activeTab === 'tab-people') {
+      const searchParams = {
+        query: this.searchQueryElement.nativeElement.value,
+        offset: this.searchState.search_people_params.offset + this.recordsPerPage,
+        limit: this.recordsPerPage
+      }
+      // console.log('req params', searchParams);
+      // search people
+      this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
+    }
+
+    if (this.activeTab === 'tab-post') {
+      const searchParams = {
+        query: this.searchQueryElement.nativeElement.value,
+        offset: this.searchState.search_post_params.offset + this.recordsPerPage,
+        limit: this.recordsPerPage
+      }
+      // console.log('req params', searchParams);
+      // search post
+      this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchParams });
+    }
+
+    if (this.activeTab === 'tab-channel') {
+      const searchParams = {
+        query: this.searchQueryElement.nativeElement.value,
+        offset: this.searchState.search_channel_params.offset + this.recordsPerPage,
+        limit: this.recordsPerPage
+      }
+      // console.log('req params', searchParams);
+      // search channel
+      this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchParams });
+    }
+
   }
 
 }

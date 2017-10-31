@@ -16,9 +16,16 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
       });
 
     case SearchActions.SEARCH_PEOPLE_SUCCESS:
+      // update state for pagination
+      let people_payload;
+      if (state.search_people_params.offset === 0) {
+        people_payload = payload;
+      } else {
+        people_payload = [...state.search_people_data, ...payload];
+      }
       return Object.assign({}, state, {
         searching_people: false,
-        search_people_data: payload,
+        search_people_data: people_payload,
         search_people_success: true
       });
 
@@ -38,9 +45,16 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
       });
 
     case SearchActions.SEARCH_POST_SUCCESS:
+      // update state for pagination
+      let post_payload;
+      if (state.search_post_params.offset === 0) {
+        post_payload = payload;
+      } else {
+        post_payload = [...state.search_post_data, ...payload];
+      }
       return Object.assign({}, state, {
         searching_post: false,
-        search_post_data: payload,
+        search_post_data: post_payload,
         search_post_success: true
       });
 
@@ -60,9 +74,16 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
       });
 
     case SearchActions.SEARCH_CHANNEL_SUCCESS:
+      // update state for pagination
+      let channel_payload;
+      if (state.search_channel_params.offset === 0) {
+        channel_payload = payload;
+      } else {
+        channel_payload = [...state.search_channel_data, ...payload];
+      }
       return Object.assign({}, state, {
         searching_channel: false,
-        search_channel_data: payload,
+        search_channel_data: channel_payload,
         search_channel_success: true
       });
 
