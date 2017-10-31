@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, HostListener } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
 import { SearchActions } from './../../actions/search.action';
@@ -32,6 +32,9 @@ export class SearchComponent {
   isSearching = false;
   searchState$: Observable<SearchModel>;
   searchString: string;
+
+  lastScrollTop = 0;
+  canScroll = true;
 
   constructor(
     private store: Store<SearchModel>,
@@ -96,5 +99,37 @@ export class SearchComponent {
   //   // window.scrollTo(0, 0);
   //   this.selectTab(tabId);
   // }
+
+  /**
+   * Scroll event listener
+   */
+  @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
+    // console.log('scrolling', $event);
+    const scrolledValue = window.pageYOffset;
+    let scrollDirection = '';
+    if (scrolledValue > this.lastScrollTop) {
+      scrollDirection = 'down';
+    } else {
+      scrollDirection = 'up';
+    }
+    this.lastScrollTop = scrolledValue;
+    // console.log('scrolling direction', scrollDirection);
+
+    if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
+      // reached the bottom of the page
+      this.canScroll = false;
+      setTimeout(() => {
+        this.canScroll = true;
+      }, 1000);
+      this.dispatchLoadMore();
+    }
+  }
+
+  /**
+   * Load more search result
+   */
+  dispatchLoadMore() {
+    console.log('load more: ' + this.activeTab);
+  }
 
 }
