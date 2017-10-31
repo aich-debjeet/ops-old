@@ -33,6 +33,7 @@ export class AboutWorkComponent implements OnInit {
   stateProfile = initialTag;
   userProfile: any;
   ownProfile: boolean;
+  hideTo: boolean;
 
   constructor(
     private http: Http,
@@ -52,6 +53,7 @@ export class AboutWorkComponent implements OnInit {
         }else {
           this.ownProfile = true;
           this.userProfile = this.stateProfile.profileDetails;
+          console.log(this.userProfile)
         }
       }
     });
@@ -62,6 +64,20 @@ export class AboutWorkComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.workForm.get('currentWork').valueChanges.subscribe(
+            (currentWork) => {
+              console.log('currentWork', currentWork);
+                if (currentWork === true) {
+                    this.workForm.get('to').setValidators([]);
+                    console.log('its here')
+                    this.hideTo = true;
+                    // this.titleAlert = 'You need to specify at least 3 characters';
+                } else {
+                    this.workForm.get('to').setValidators(Validators.required);
+                    this.hideTo = false;
+                }
+                this.workForm.get('to').updateValueAndValidity();
+            });
   }
 
   /**
@@ -101,6 +117,7 @@ export class AboutWorkComponent implements OnInit {
   workFormSubmit(value) {
     if ( this.workForm.valid === true ) {
       if (this.editFormPopup === false) {
+        if (this.hideTo !== true) {
         const body = {
           'role': value.position,
           'organizationName': value.company,
@@ -113,6 +130,20 @@ export class AboutWorkComponent implements OnInit {
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
         this.toastr.success('Your work has been updated successfully!');
         this.modalService.close('userWorkAdd');
+      }
+     if (this.hideTo === true) {
+        const body = {
+          'role': value.position,
+          'organizationName': value.company,
+          'workOrAward': 'work',
+          'from': this.reverseDate(value.from) + 'T05:00:00',
+          'currentlyWith': Boolean(value.currentWork),
+          'access': Number(value.publicWork)
+        }
+        this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
+        this.toastr.success('Your work has been updated successfully!');
+        this.modalService.close('userWorkAdd');
+      }
       } else {
         const body = {
           'role': value.position,
@@ -124,12 +155,13 @@ export class AboutWorkComponent implements OnInit {
           'access': Number(value.publicWork),
           'id': value.id,
         }
+        console.log('i am here' + JSON.stringify(body))
         this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
         this.toastr.success('Your work has been updated successfully!');
         this.modalService.close('userWorkAdd');
       }
       this.workForm.reset();
-      this.buildEditForm()
+     // this.buildEditForm()
     }
   }
 
@@ -163,7 +195,7 @@ export class AboutWorkComponent implements OnInit {
   workFormClose() {
     this.modalService.close('userWorkAdd');
     this.workForm.reset();
-    this.buildEditForm()
+   // this.buildEditForm()
   }
 
   /**
@@ -176,7 +208,7 @@ export class AboutWorkComponent implements OnInit {
       from: '',
       to: '',
       currentWork: false,
-      publicWork: 0,
+      publicWork: '0',
       id: ''
     });
   }
