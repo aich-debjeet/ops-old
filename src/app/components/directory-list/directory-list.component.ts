@@ -31,6 +31,12 @@ export class DirectoryListComponent implements OnInit {
   baseUrl = environment.API_IMAGE;
   searchText: string;
   profileType: any = 1;
+  selectedOption = [];
+  options = [
+    {name: 'Inactive', value: 'inactive', checked: false},
+    {name: 'Active', value: 'active', checked: false},
+    {name: 'verified', value: 'verified', checked: false}
+  ]
 
   constructor(
     private _store: Store<ProfileModal>,
@@ -38,7 +44,6 @@ export class DirectoryListComponent implements OnInit {
   ) {
       this.tagState$ = this._store.select('profileTags');
       this.tagState$.subscribe((state) => {
-        console.log(state);
         this.dirList = state['dir_list']
       });
       this.loadDir();
@@ -47,6 +52,11 @@ export class DirectoryListComponent implements OnInit {
   ngOnInit() {
   }
 
+  updateCheckedOptions(option, event) {
+    this.selectedOption = this.options.filter(opt => opt.checked).map(opt => opt.value);
+    this.page_start = 0
+    this.loadDir();
+  }
 
   /**
    * While Typing Search
@@ -55,6 +65,7 @@ export class DirectoryListComponent implements OnInit {
     this.page_start = 0
     this.loadDir();
   }
+
 
   /**
    * Organation and People select option
@@ -71,6 +82,7 @@ export class DirectoryListComponent implements OnInit {
     const data = {
       isHuman: String(this.profileType),
       searchText: this.searchText,
+      status: this.selectedOption,
       offset: this.page_start,
       limit: this.page_end
     }
@@ -89,5 +101,23 @@ export class DirectoryListComponent implements OnInit {
       this.loadDir();
     }
   }
+
+  /**
+   * User Follow function
+   * @param dir List of current user
+   * @param index Index of array
+   */
+  userFollow(dir, index) {
+    const handle = this.dirList[index].handle;
+    if (this.dirList[index].extra.isFollowing) {
+      this.dirList[index].extra.isFollowing = false;
+      this._store.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
+    }else {
+      this.dirList[index].extra.isFollowing = true;
+      this._store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle  });
+    }
+  }
+
+
 
 }

@@ -343,6 +343,9 @@
             width: 35px;
             height: 35px;
             padding: 5px;
+            a{
+                color: #333333;
+            }
         }
         .upcoming {
           position: absolute;
@@ -644,7 +647,7 @@ width: 100%;
   }
 }
 
-.nav-tabs .active{
+.nav-tabs .active a{
     color: #000000!important;
 }
 // tabs
