@@ -31,6 +31,12 @@ export class DirectoryListComponent implements OnInit {
   baseUrl = environment.API_IMAGE;
   searchText: string;
   profileType: any = 1;
+  selectedOption = [];
+  options = [
+    {name: 'Inactive', value: 'inactive', checked: false},
+    {name: 'Active', value: 'active', checked: false},
+    {name: 'verified', value: 'verified', checked: false}
+  ]
 
   constructor(
     private _store: Store<ProfileModal>,
@@ -47,6 +53,11 @@ export class DirectoryListComponent implements OnInit {
   ngOnInit() {
   }
 
+  updateCheckedOptions(option, event) {
+    this.selectedOption = this.options.filter(opt => opt.checked).map(opt => opt.value);
+    this.page_start = 0
+    this.loadDir();
+  }
 
   /**
    * While Typing Search
@@ -55,6 +66,7 @@ export class DirectoryListComponent implements OnInit {
     this.page_start = 0
     this.loadDir();
   }
+
 
   /**
    * Organation and People select option
@@ -71,6 +83,7 @@ export class DirectoryListComponent implements OnInit {
     const data = {
       isHuman: String(this.profileType),
       searchText: this.searchText,
+      status: this.selectedOption,
       offset: this.page_start,
       limit: this.page_end
     }

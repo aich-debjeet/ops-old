@@ -88,14 +88,24 @@
                   </label>
               </label>
           </div> -->
-          <ul class="o-dirfill-check">
+          <!--<div *ngFor="let option of options">
+            <label>
+                <input type="checkbox"
+                      
+                      
+                      [(ngModel)]="option.checked"/>
+                {{option.name}}
+            </label>
+        </div>-->
+        
+          <ul class="o-dirfill-check" *ngFor="let option of options">
             <li class="o-dirfill-check__list">
               <label>
-                <input type="checkbox" name="checkbox" value="1" checked> <span></span>
-                <span class="o-dirfill-check__txt"> Inactive</span>
+                <input type="checkbox" name="options" value="{{option.value}}" checked [(ngModel)]="option.checked" (change)="updateCheckedOptions(option, $event)"> <span></span>
+                <span class="o-dirfill-check__txt"> {{option.name}}</span>
               </label>
             </li>
-            <li class="o-dirfill-check__list">
+            <!--<li class="o-dirfill-check__list">
               <label>
                 <input type="checkbox" name="checkbox" value="2"> <span></span> 
                 <span class="o-dirfill-check__txt">Active</span>
@@ -106,7 +116,7 @@
                 <input type="checkbox" name="checkbox" value="99"> <span></span> 
                 <span class="o-dirfill-check__txt">Verified</span>
               </label>
-            </li>
+            </li>-->
           </ul>
         </div>
         <!--<div class="o-dirfil-selectlist">
