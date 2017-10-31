@@ -53,7 +53,6 @@ export class AboutWorkComponent implements OnInit {
         }else {
           this.ownProfile = true;
           this.userProfile = this.stateProfile.profileDetails;
-          console.log(this.userProfile)
         }
       }
     });
@@ -66,12 +65,9 @@ export class AboutWorkComponent implements OnInit {
   ngOnInit() {
     this.workForm.get('currentWork').valueChanges.subscribe(
             (currentWork) => {
-              console.log('currentWork', currentWork);
                 if (currentWork === true) {
                     this.workForm.get('to').setValidators([]);
-                    console.log('its here')
                     this.hideTo = true;
-                    // this.titleAlert = 'You need to specify at least 3 characters';
                 } else {
                     this.workForm.get('to').setValidators(Validators.required);
                     this.hideTo = false;

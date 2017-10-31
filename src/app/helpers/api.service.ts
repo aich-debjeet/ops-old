@@ -101,9 +101,7 @@ export class ApiService {
    */
   delete(endpoint: string, id: string, ignorePath: boolean = false) {
     const path = this.buildDetailPath(endpoint, id);
-    console.log(path)
     const fullPath = ignorePath ? path : endpoint + id;
-    console.log(fullPath);
     const head = this.getHeaders();
     return this.http.delete(this.apiLink + fullPath, { headers: head })
       .map((data: Response) => data.json());
