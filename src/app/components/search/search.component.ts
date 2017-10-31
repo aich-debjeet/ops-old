@@ -53,7 +53,7 @@ export class SearchComponent {
   }
 
   searchTrigger(query: string) {
-    // console.log('searching', query);
+    console.log('new search', query);
     this.search.searchQuery = query;
     this.isSearching = true;
 
@@ -91,10 +91,10 @@ export class SearchComponent {
     this.activeTab = tabId;
   }
 
-  switchTab(tabId: string) {
-    this.document.body.scrollTop = 0;
-    // window.scrollTo(0, 0);
-    this.selectTab(tabId);
-  }
+  // switchTab(tabId: string) {
+  //   this.document.body.scrollTop = 0;
+  //   // window.scrollTo(0, 0);
+  //   this.selectTab(tabId);
+  // }
 
 }

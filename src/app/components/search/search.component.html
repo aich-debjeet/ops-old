@@ -26,7 +26,7 @@
                     <li><a (click)="selectTab('tab-people')" [ngClass]="{'active': activeTab == 'tab-people'}" >People</a></li>
                 </ul>
                 <div class="tabs-container">
-                    <app-search-all *ngIf="activeTab == 'tab-all'" (tabClicked)="switchTab($event)" id="tab-all" class="tabs"></app-search-all>
+                    <app-search-all *ngIf="activeTab == 'tab-all'" id="tab-all" class="tabs"></app-search-all>
                     <app-search-post *ngIf="activeTab == 'tab-post'" id="tab-post" class="tabs"></app-search-post>
                     <app-search-people *ngIf="activeTab == 'tab-people'" id="tab-people" class="tabs"></app-search-people>
                     <app-search-channel *ngIf="activeTab == 'tab-channel'" id="tab-channel" class="tabs"></app-search-channel>
