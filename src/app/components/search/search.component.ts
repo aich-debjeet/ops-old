@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Inject, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, HostListener, AfterViewInit } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
 import { SearchActions } from './../../actions/search.action';
@@ -8,9 +8,9 @@ import { environment } from './../../../environments/environment.prod';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-// import { Subscription } from 'rxjs/Subscription';
-// import 'rxjs/add/operator/map';
-// import 'rxjs/add/operator/debounceTime';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
 
 import { Store } from '@ngrx/store';
 
@@ -19,19 +19,16 @@ import { Store } from '@ngrx/store';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent {
+export class SearchComponent implements AfterViewInit {
 
-  @ViewChild('search_query') search_query;
+  @ViewChild('searchInput') searchInput;
+  @ViewChild('searchQueryElement') searchQueryElement;
 
   activeTab = 'tab-all';
   baseUrl: string;
   showSearchPlaceholder = true;
-  search = {
-    searchQuery: ''
-  };
   isSearching = false;
   searchState$: Observable<SearchModel>;
-  searchString: string;
 
   lastScrollTop = 0;
   canScroll = true;
@@ -55,25 +52,41 @@ export class SearchComponent {
 
   }
 
-  searchTrigger(query: string) {
-    console.log('new search', query);
-    this.search.searchQuery = query;
-    this.isSearching = true;
+  ngAfterViewInit() {
 
-    const searchParams = {
-      query: this.search.searchQuery,
-      offset: 0,
-      limit: 4
-    }
+    /**
+     * Observing the search input change
+     */
+    this.searchInput.valueChanges
+    .debounceTime(500)
+    .subscribe(() => {
 
-    // search people
-    this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
+      const searchString = this.searchInput.value;
+      console.log('searching: ', searchString);
 
-    // search post
-    this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchParams });
+      // search if string is available
+      if (searchString && searchString.length > 0) {
+        console.log('new search', searchString);
+        this.isSearching = true;
 
-    // search channel
-    this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchParams });
+        const searchParams = {
+          query: searchString,
+          offset: 0,
+          limit: 4
+        }
+
+        // search people
+        this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
+
+        // search post
+        this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchParams });
+
+        // search channel
+        this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchParams });
+      }
+
+    });
+
   }
 
   /**
@@ -87,7 +100,7 @@ export class SearchComponent {
    * Search input on blur
    */
   searchOnBlur() {
-    if (this.search_query.nativeElement.value === '') {
+    if (this.searchQueryElement.nativeElement.value === '') {
       this.showSearchPlaceholder = true;
     }
   }
