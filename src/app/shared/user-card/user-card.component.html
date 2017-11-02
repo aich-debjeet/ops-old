@@ -1,6 +1,6 @@
 <div class="c-card c-card--artist">
     <a routerLink="{{ '/profile/u/' + artist.extra.username }}" class="c-artist__avatar">
-      <img *ngIf="artist.image; else default_profile_image" src="{{ baseUrl + artist.image }}" class="c-artist__img">
+      <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist.profileImage }}" class="c-artist__img">
       <ng-template #default_profile_image>
           <img src="/assets/img/avatar.jpg" class="c-artist__img">
       </ng-template>
