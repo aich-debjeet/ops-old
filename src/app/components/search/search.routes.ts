@@ -9,9 +9,13 @@ import { SearchChannelComponent } from './search-channel/search-channel.componen
 import { SearchComponent } from './search.component'
 import { SearchCommunityComponent } from './search-community/search-community.component';
 
+// Guard
+import { AuthGuard } from './../../guard/auth.guard';
+
 export const SearchRoutes = [
  {
     path: 'search',
+    canActivate: [AuthGuard],
     component: SearchComponent,
     children: [
       { path: 'all', component: SearchAllComponent },
