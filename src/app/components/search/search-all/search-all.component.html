@@ -11,11 +11,13 @@
             <li class="list-inline-item ops_heading2 text_uppercase pull-right"><a (click)="selectTab('tab-channel')">See more</a></li>
         </ul>
 
-        <div class="col-md-3" *ngFor="let channel of channels; let i = index;">
-            <ng-container *ngIf="(i <= 3)">
-                <app-channel [channelData]="channel" ></app-channel>
-            </ng-container>
-        </div>
+        <masonry>
+            <masonry-brick class="col-md-3" *ngFor="let channel of channels; let i = index;">
+                <ng-container *ngIf="(i <= 3)">
+                    <app-channel [channelData]="channel" ></app-channel>
+                </ng-container>
+            </masonry-brick>
+        </masonry>
 
     </ng-template>
 
@@ -62,7 +64,7 @@
             <li class="list-inline-item ops_heading text_uppercase">Artists</li>
             <li class="list-inline-item ops_heading2 text_uppercase pull-right"><a (click)="selectTab('tab-people')">See more</a></li>
         </ul>
-        
+
         <div class="col-md-2 pad-bot-25" *ngFor="let artist of artists; let i = index;">
             <ng-container *ngIf="(i <= 5)">
                 <app-user-card [artist]="artist" ></app-user-card>
