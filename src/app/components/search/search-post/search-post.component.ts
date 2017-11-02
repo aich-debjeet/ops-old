@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { SearchActions } from './../../../actions/search.action';
 import { SearchModel } from './../../../models/search.model';
+import { MediaActions } from '../../../actions/media.action';
+
+import { Media, initialMedia  } from '../../../models/media.model';
 
 import { environment } from './../../../../environments/environment.prod';
 
@@ -24,6 +27,7 @@ export class SearchPostComponent implements OnInit {
   posts: any[];
 
   constructor(
+    private _store: Store<Media>,
     private store: Store<SearchModel>
   ) {
 
@@ -42,6 +46,25 @@ export class SearchPostComponent implements OnInit {
       }
     });
 
+  }
+
+  // Media Popup
+  mediaOpenPopup(id) {
+    this._store.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id});
+    this._store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
+  }
+
+  /**
+   * Delete Post
+   */
+  deletePost(post) {
+    const posts = this.posts;
+    const index: number = posts.indexOf(post);
+    if (index !== -1) {
+      posts.splice(index, 1);
+      const id = post.id;
+      this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+    }
   }
 
 }
