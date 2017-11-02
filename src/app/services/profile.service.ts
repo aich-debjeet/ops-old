@@ -231,7 +231,7 @@ export class ProfileService {
    * Delete User Work
    */
   deleteUserWork(id: string) {
-    return this.api.delete('/portal/profile/delete/workandAwards/', id);
+    return this.api.delete('/portal/profile/delete/workandAwards/' , id);
   }
 
   /**

@@ -134,7 +134,6 @@ export class MediaSelectorComponent implements OnInit {
         if (this.profileChannel.user_channels_loaded) {
           // console.log('CHANNEL', 'LOADED');
           this.channeList = this.profileChannel.user_channel;
-          console.log(this.channeList);
         } else {
           // console.log('CHANNEL', 'NOT LOADED');
         }
@@ -145,7 +144,6 @@ export class MediaSelectorComponent implements OnInit {
     // If there's input assign, other wise, reload channel list
     // this.myChannels$.subscribe(event => this.channeListx = event);
     this.myProfile$.subscribe(event => {
-      console.log('[WATCHER]');
       this.myProfileData = event;
       // If user is got
 
@@ -200,10 +198,6 @@ export class MediaSelectorComponent implements OnInit {
     console.log(this.uploaded);
   }
 
-  postMediaData() {
-    console.log('Test');
-  }
-
   /**
    * Post all medias at once
    * @param formValue
@@ -211,10 +205,6 @@ export class MediaSelectorComponent implements OnInit {
   postAllMedia(value) {
     console.log('post all media');
     console.log(value);
-    // Stop submittion if not ready with needed data;
-    // if (this.submitEnabled < 1 ) {
-    //   return false;
-    // }
 
     let isReady = false;
     let userHandle = '';
@@ -276,7 +266,7 @@ export class MediaSelectorComponent implements OnInit {
 
     if (chosenFile.fileName === undefined) {
       isFileReady = false;
-      this.toastr.error('You need to select a file to post', 'Not ready yet');
+      // this.toastr.error('You need to select a file to post', 'Not ready yet');
     } else {
       isFileReady = true;
     }
@@ -476,6 +466,9 @@ export class MediaSelectorComponent implements OnInit {
    * @param fileName
    */
   isSelectedFile(fileName) {
+    console.log('File Selected');
+    console.log(fileName);
+    console.log(fileName.type);
     if (this.editingFile.fileName !== null) {
       const selectedFile = this.editingFile.fileName;
       if (fileName === selectedFile) {
@@ -531,6 +524,21 @@ export class MediaSelectorComponent implements OnInit {
     return tagList;
   }
 
+  extractTags() {
+    const REGEX_HASHTAG = /\B(#[Ã¡-ÃºÃ-ÃÃ¤-Ã¼Ã-Ãa-zA-Z0-9_]+)/g;
+    const string = this.desc
+    const results = string.match(REGEX_HASHTAG)
+
+    const tag = [];
+    if (results) {
+      results.forEach(function(element) {
+        const newVal = element.replace('#', '');
+        tag.push(newVal);
+      });
+    }
+    return tag
+  }
+
   /**
    * Format Media
    */
@@ -539,9 +547,8 @@ export class MediaSelectorComponent implements OnInit {
     const postTime = this.currentTime();
     const isUploadReady = this.uploadMeta();
 
-    const tags = this.seperateTags(this.tags);
+    const tags = this.extractTags();
     console.log(tags);
-    // const tags =
 
     const files = {
       fileName: file.fileName,
