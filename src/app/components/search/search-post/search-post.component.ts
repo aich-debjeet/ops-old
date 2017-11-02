@@ -54,17 +54,4 @@ export class SearchPostComponent implements OnInit {
     this._store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id});
   }
 
-  /**
-   * Delete Post
-   */
-  deletePost(post) {
-    const posts = this.posts;
-    const index: number = posts.indexOf(post);
-    if (index !== -1) {
-      posts.splice(index, 1);
-      const id = post.id;
-      this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
-    }
-  }
-
 }
