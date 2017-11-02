@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +15,7 @@ import { SearchComponent } from './search.component';
 
 import { SharedPipesModule } from './../../pipes/shared-pipes.module';
 import { SharedModule } from './../../shared/shared.module';
+import { MasonryModule } from 'angular2-masonry';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { SharedModule } from './../../shared/shared.module';
     CommonModule,
     RouterModule.forChild(routes),
     SharedPipesModule,
-    SharedModule
+    SharedModule,
+    MasonryModule
   ],
   declarations: [
     SearchComponent,
@@ -33,6 +35,7 @@ import { SharedModule } from './../../shared/shared.module';
     SearchPeopleComponent,
     SearchChannelComponent,
     SearchCommunityComponent
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SearchModule { }
