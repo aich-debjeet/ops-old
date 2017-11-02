@@ -1,19 +1,19 @@
 <div class="c-card c-card--artist">
-    <a routerLink="{{ '/profile/u/' + artist.username }}" class="c-artist__avatar">
+    <a routerLink="{{ '/profile/u/' + artist.extra.username }}" class="c-artist__avatar">
       <img *ngIf="artist.image; else default_profile_image" src="{{ baseUrl + artist.image }}" class="c-artist__img">
       <ng-template #default_profile_image>
           <img src="/assets/img/avatar.jpg" class="c-artist__img">
       </ng-template>
     </a>
-    <a routerLink="{{ '/profile/u/' + artist.username }}" class="c-artist__name margin_t_16">{{ artist.name }}</a>
+    <a routerLink="{{ '/profile/u/' + artist.extra.username }}" class="c-artist__name margin_t_16">{{ artist.name }}</a>
     <div class="c-artist__username">
-        @{{ artist.username }}
+        @{{ artist.extra.username }}
     </div>
     <div class="c-artist--btn">
-        <button (click)="unfollowUser(artist)" *ngIf="artist.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist.username)" >
+        <button (click)="unfollowUser(artist)" *ngIf="artist.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist.extra.username)" >
           <span class="btn-label-follow"> UNFOLLOW </span>
         </button>
-        <button (click)="followUser(artist)" *ngIf="!artist.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist.username)" >
+        <button (click)="followUser(artist)" *ngIf="!artist.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist.extra.username)" >
           <span class="btn-label-follow"> FOLLOW </span>
         </button>
     </div>
