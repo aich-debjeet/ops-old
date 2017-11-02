@@ -157,7 +157,11 @@ export class SearchComponent implements AfterViewInit {
   dispatchLoadMore() {
     // console.log('load more: ' + this.activeTab);
     // console.log('state: ', this.searchState);
-    this.showPreloader = true;
+    if (this.searchQueryElement.nativeElement.value && this.searchQueryElement.nativeElement.value.length > 0) {
+      this.showPreloader = true;
+    } else {
+      return;
+    }
 
     if (this.activeTab === 'tab-people') {
       const searchParams = {
