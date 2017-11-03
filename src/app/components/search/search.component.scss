@@ -1,12 +1,12 @@
 .ops_search {
     background-color: rgba(243,245,247,.95);
-    position: fixed;
+    position: relative;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     z-index: 1033;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 .container {
@@ -134,5 +134,5 @@
 }
 
 .tabs-container {
-    margin: 50px 0;
+    margin: 50px 0 400px 0;
 }

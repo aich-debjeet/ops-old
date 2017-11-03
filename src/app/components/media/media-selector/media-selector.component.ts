@@ -134,7 +134,6 @@ export class MediaSelectorComponent implements OnInit {
         if (this.profileChannel.user_channels_loaded) {
           // console.log('CHANNEL', 'LOADED');
           this.channeList = this.profileChannel.user_channel;
-          console.log(this.channeList);
         } else {
           // console.log('CHANNEL', 'NOT LOADED');
         }
@@ -145,7 +144,6 @@ export class MediaSelectorComponent implements OnInit {
     // If there's input assign, other wise, reload channel list
     // this.myChannels$.subscribe(event => this.channeListx = event);
     this.myProfile$.subscribe(event => {
-      console.log('[WATCHER]');
       this.myProfileData = event;
       // If user is got
 
@@ -468,6 +466,9 @@ export class MediaSelectorComponent implements OnInit {
    * @param fileName
    */
   isSelectedFile(fileName) {
+    console.log('File Selected');
+    console.log(fileName);
+    console.log(fileName.type);
     if (this.editingFile.fileName !== null) {
       const selectedFile = this.editingFile.fileName;
       if (fileName === selectedFile) {

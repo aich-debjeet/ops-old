@@ -18,8 +18,6 @@
       <div class="col-md-12 col-sm-12 pro_channel_cont">
         <div class="pro_channel_name">
           <h3 class="feed-heading float-left">{{ mediaData?.title}}</h3>
-
-
           <div *ngIf="mediaData?.isOwner" class="dropdown c-postion__right" appDropdown>   
             <span class="com-head" appDropdownOpen>
               <img src="/assets/img/svg/ico_options.svg" class="c-card__options drop-postion__icon c-opsdropdown--icons">
@@ -33,8 +31,6 @@
                </li>
             </ul>
           </div>
-
-
         </div>
         <div class="ops_subheading extra-padding" *ngIf="mediaData?.mtype!='status'">{{ mediaData?.description | truncate:[70, '...'] }} </div>
         <div class="pro_channel-thumb">
@@ -46,7 +42,7 @@
         </div>
         <div class="status_block" *ngIf="mediaData?.mtype==='status'">
           <div class="status_container">
-              <!--{{ mediaData?.description | slice:0:6}}-->
+              {{ mediaData?.description | truncate:[100, '...']}}
           </div>
         </div>
         <div class="pro_channel_count pro_channel__footer">
