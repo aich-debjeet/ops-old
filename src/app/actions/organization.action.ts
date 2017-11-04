@@ -1,0 +1,9 @@
+import { Action } from '@ngrx/store';
+
+export class OrganizationActions {
+
+    // Organization Registration
+    static ORGANIZATION_REGISTRATION = 'ORGANIZATION_REGISTRATION';
+    static ORGANIZATION_REGISTRATION_SUCCESS = 'ORGANIZATION_REGISTRATION_SUCCESS';
+    static ORGANIZATION_REGISTRATION_FAILED = 'ORGANIZATION_REGISTRATION_FAILED';
+}

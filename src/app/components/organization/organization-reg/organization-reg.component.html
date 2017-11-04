@@ -41,6 +41,8 @@
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
               <label>Username</label>
+              <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.required && orgReg.submitted">Username is required</p>
+              <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.isUsernameUnique">This organization username is already taken</p>
             </div>
             <h6 class="c-text_md o-org--type">Choose type of your organization</h6>
             <div class="o-org-reg__choose">
@@ -153,11 +155,14 @@
               <div class="eg">eg:UI Design, UX Design, Branding</div>
             </div>
             <div class="c-form__group margin_b_32">
-              <input class="c-form__input" required="" type="text">
+              <input class="c-form__input" required="" placeholder="" type="text" autocorrect="off" autocapitalize="off" spellcheck="off" #search formControlName="org_location">
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
               <label>Location</label>
             </div>
+      <!--<agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+        <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+      </agm-map>-->
             <!-- <div class="add-product-block">
               <div class="add-product__head">
                 <div class="add-product-head__ico">

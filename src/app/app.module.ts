@@ -113,6 +113,8 @@ import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 
+import { AgmCoreModule } from '@agm/core';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -182,7 +184,12 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
-    SearchModule
+    SearchModule,
+    AgmCoreModule.forRoot({
+      libraries: ['places'],
+      apiKey: 'AIzaSyDHx_cyWUg9okHlTH8M_kvduvWFSV3nShc'
+    }),
+
   ],
   providers: [
     AuthService,
