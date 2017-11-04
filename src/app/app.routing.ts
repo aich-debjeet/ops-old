@@ -70,6 +70,7 @@ export const routes: Routes = [
  { path: 'resources', component: ResourceComponent, canActivate: [AuthGuard] },
  { path: 'communities', component: CommunitiesComponent, canActivate: [AuthGuard] },
  { path: 'search', loadChildren: './components/search/search.module#SearchModule' },
+ { path: 'org', loadChildren: './components/organization/organization.module#OrganizationModule'},
  { path: 'page-not-found', component: NotFoundPageComponent },
- { path: '**', redirectTo: 'page-not-found' }
+ { path: '**', redirectTo: 'page-not-found' },
 ];
