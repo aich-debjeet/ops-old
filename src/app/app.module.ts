@@ -50,6 +50,7 @@ import { MessageEffect } from './effects/message.effects';
 import { NotificationEffect } from './effects/notification.effect';
 import { UserSearchEffect } from './effects/user-search.effect';
 import { SearchEffect } from './effects/search.effect';
+import { OrganizationEffect } from './effects/organization.effect';
 
 
 // Services
@@ -178,6 +179,8 @@ import { AgmCoreModule } from '@agm/core';
     EffectsModule.run(UserSearchEffect),
     EffectsModule.run(MediaEffect),
     EffectsModule.run(SearchEffect),
+    EffectsModule.run(OrganizationEffect),
+    
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,

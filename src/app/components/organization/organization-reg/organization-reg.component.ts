@@ -2,7 +2,15 @@ import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core'
 import { FormValidation, DatabaseValidator } from '../../../helpers/form.validator';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { Follow, Login } from '../../../models/auth.model';
+import { AuthActions } from '../../../actions/auth.action';
+import { OrganizationActions } from '../../../actions/organization.action';
+
+import { Store } from '@ngrx/store';
 import {} from '@types/googlemaps';
+
 @Component({
   selector: 'app-organization-reg',
   templateUrl: './organization-reg.component.html',
@@ -17,6 +25,9 @@ export class OrganizationRegComponent implements OnInit {
   public longitude: number;
   public searchControl: FormControl;
   public zoom: number;
+  tagState$: Observable<Follow>;
+  skillSelectionPage: any;
+  search: String;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -26,7 +37,14 @@ export class OrganizationRegComponent implements OnInit {
     private databaseValidator: DatabaseValidator,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-  ) { }
+    private store: Store<Login>
+  ) {
+    this.tagState$ = store.select('loginTags');
+    this.tagState$.subscribe((state) => {
+      this.skillSelectionPage = state;
+      console.log(state);
+    });
+   }
 
   ngOnInit() {
     this.buildForm();
@@ -78,6 +96,7 @@ export class OrganizationRegComponent implements OnInit {
       ],
       'org_type': ['', Validators.required],
       'org_location': ['', Validators.required],
+      'org_service': ['', Validators.required],
     //   'dob' : ['', [Validators.required],
     //     this.databaseValidator.validAge.bind(this.databaseValidator)
     //   ],
@@ -138,6 +157,56 @@ export class OrganizationRegComponent implements OnInit {
   submitForm(value) {
     console.log(value);
     console.log(this.searchElementRef.nativeElement.value);
+    console.log(value.org_service.split(/\s*,\s*/));
+
+    const data = {
+        industryList : [
+            {
+                name : 'Film',
+                code : 'FILM',
+                active : true
+            }
+        ],
+        organizationName : value.org_name,
+        services: value.org_service,
+        address : {
+            line1 : '3033 Third Floor',
+            line2 : 'HAL 3Rd Stage Indiranagar',
+            city : 'Bangalore',
+            state : 'Karnataka',
+            country : 'India',
+            postalCode : '560078'
+        },
+        extras: {
+          username: value.org_username,
+          memberList: [{
+              memberHandle: 'S_D124382B_DD5F_4ABA_BC0B_306044413E2C',
+              isAdmin: true,
+              status: 'accept'
+            }],
+          location: ''
+        },
+        accountType : [{
+          'name': value.org_type,
+          'typeName': 'organization'
+        }],
+        managedBy : 'S_D124382B_DD5F_4ABA_BC0B_306044413E2C',
+        active : true
+    }
+
+
+    this.store.dispatch({ type: OrganizationActions.ORGANIZATION_REGISTRATION, payload: data });
+  }
+
+  /**
+   * Skill Search input handler
+   * @param query
+   */
+  onSearchChange(query) {
+    console.log(query);
+    if (query || query !== '') {
+      this.store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
+    }
   }
 
 }

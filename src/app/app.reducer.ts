@@ -7,6 +7,7 @@ import { NotificationReducer } from './reducers/notification.reducer';
 import { SearchReducer } from './reducers/search.reducer';
 import { UserSearchReducer } from './reducers/user-search.reducer';
 import { MediaReducer } from './reducers/media.reducer';
+import { OrganizationReducer } from './reducers/organization.reducer';
 
 import { combineReducers, ActionReducer } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
@@ -23,7 +24,8 @@ const reducers = {
   messageTags: MessageReducer,
   userSearchTags: UserSearchReducer,
   receivedMessagesTags: MessageReducer,
-  notificationTags: NotificationReducer
+  notificationTags: NotificationReducer,
+  OrganizationTags: OrganizationReducer,
 }
 
 /**
