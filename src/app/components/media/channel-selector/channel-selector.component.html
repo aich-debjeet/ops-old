@@ -48,7 +48,7 @@
               <label>Name of channel</label>
           </div>
           <div class="o-create-channel__action">
-            <div class="dropdown" appDropdown>   
+            <div class="dropdown" appDropdown>
               <span class="com-head" appDropdownOpen>
                 <div class="o-action__ico">
                   <img src="{{ (channelPrivacy == 0) ? '/assets/img/svg/ico_web.svg': '/assets/img/svg/Ico-private.svg' }}">
@@ -94,16 +94,16 @@
     <div class="o-add-post-right__actions">
       <div class="o-add-post__switch_btn">
         <label class="o-add-post__switch">
-          <input type="checkbox" checked="">
+          <input type="checkbox" value="0">
           <span class="o-add-post__slider o-add-post__round"></span>
         </label>
       </div>
       <ul class="o-status-action ">
         <li class="o-action-list">
-          <a class="o-action-help" href="#">NSFW <span class="help_ico">?</span></a>
+          <a class="o-action-help" href="javascript:void(0)" title="Contains nudity, Not Suitable For Work">NSFW <span class="help_ico">?</span></a>
         </li>
         <li class="o-action-list">
-          <div class="dropdown margin_l_16" appDropdown>   
+          <div class="dropdown margin_l_16" appDropdown>
             <span class="com-head" appDropdownOpen>
               <div class="o-action__ico">
                 <img src="{{ (mediaPrivacy == 0) ? '/assets/img/svg/ico_web.svg': '/assets/img/svg/Ico-private.svg' }}">
@@ -139,7 +139,7 @@
         <li class="o-action-list float-right">
           <button type="button" class="btn btn-primary btn-md btn-inverse" [disabled]="settingDisable" (click)="postMedia($event)">POST</button>
         </li>
-        
+
       </ul>
     </div>
   </div>

@@ -64,6 +64,7 @@ export class MediaSelectorComponent implements OnInit {
   tags: any;
   baseUrl = environment.API_IMAGE;
   desc: string;
+  addFileData: boolean;
 
   //
   postSuccess: boolean;
@@ -495,6 +496,7 @@ export class MediaSelectorComponent implements OnInit {
   fileDetails(file) {
     this.editingFile = this.formatFile(file);
     console.log(this.editingFile);
+    this.addFileData = true;
   }
 
   /**
