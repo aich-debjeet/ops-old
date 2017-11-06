@@ -11,14 +11,13 @@ export const OrganizationReducer: ActionReducer<any> = (state = initialOrganizat
     case OrganizationActions.ORGANIZATION_REGISTRATION_SUCCESS:
         console.log('registration success');
       return Object.assign({}, state, {
-        status_saved: true
+        org_registration_success: true
       });
 
     case OrganizationActions.ORGANIZATION_REGISTRATION_FAILED:
     console.log('registration failed');
       return Object.assign({}, state, {
-        status_saved: false,
-        status_error: payload
+        org_registration_failed: true
       });
 
     default:

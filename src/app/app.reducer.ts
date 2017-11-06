@@ -25,7 +25,7 @@ const reducers = {
   userSearchTags: UserSearchReducer,
   receivedMessagesTags: MessageReducer,
   notificationTags: NotificationReducer,
-  OrganizationTags: OrganizationReducer,
+  organizationTags: OrganizationReducer,
 }
 
 /**

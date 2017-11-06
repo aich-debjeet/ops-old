@@ -6,7 +6,9 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Follow, Login } from '../../../models/auth.model';
 import { AuthActions } from '../../../actions/auth.action';
+import { ProfileActions } from '../../../actions/profile.action';
 import { OrganizationActions } from '../../../actions/organization.action';
+import { ToastrService } from 'ngx-toastr';
 
 import { Store } from '@ngrx/store';
 import {} from '@types/googlemaps';
@@ -27,7 +29,17 @@ export class OrganizationRegComponent implements OnInit {
   public zoom: number;
   tagState$: Observable<Follow>;
   skillSelectionPage: any;
+
+  // Address --
+  address: string;
+  country: string;
+  state: string;
+  postalCode: string;
+  city: string;
+  // -----
   search: String;
+  userHandle: string;
+
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -36,19 +48,142 @@ export class OrganizationRegComponent implements OnInit {
     private fb: FormBuilder,
     private databaseValidator: DatabaseValidator,
     private mapsAPILoader: MapsAPILoader,
+    private toastr: ToastrService,
     private ngZone: NgZone,
     private store: Store<Login>
   ) {
+
+    // Dispatch current current user Handle
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       this.skillSelectionPage = state;
       console.log(state);
     });
+
+    // Get own user handle
+    this.store.select('profileTags')
+      .first(profile => profile['profileUser'].handle)
+      .subscribe( data => {
+        console.log(data['profileUser'].handle);
+        this.userHandle = data['profileUser'].handle;
+      });
    }
 
   ngOnInit() {
     this.buildForm();
+    this.getLocationGoogle();
+  }
 
+  /**
+   * Initinal Reg Page
+   */
+  buildForm() {
+    this.orgReg = this.fb.group({
+      'org_name' : ['', [Validators.required]],
+      'org_username' : ['', [
+        Validators.required,
+        FormValidation.noWhitespaceValidator
+        ],
+        this.databaseValidator.userNameValidation.bind(this.databaseValidator)
+      ],
+      'org_type': ['', Validators.required],
+      'org_location': ['', Validators.required],
+      'org_service': ['', Validators.required]
+    })
+  }
+
+  private setCurrentPosition() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 12;
+      });
+    }
+  }
+
+  submitForm(value) {
+
+    console.log(this.orgReg);
+    if (!this.orgReg.valid) {
+      console.log('invalid form')
+      return false;
+    }
+    // console.log(this.searchElementRef.nativeElement.value);
+    const org_servive = value.org_service.split(/\s*,\s*/);
+
+    const data = {
+        industryList : [
+            {
+                name : 'Film',
+                code : 'FILM',
+                active : true
+            }
+        ],
+        organizationName : value.org_name,
+        services: org_servive,
+        address : {
+            line1 : this.address,
+            line2 : '',
+            city : this.city,
+            state : this.state,
+            country : this.country,
+            postalCode : this.postalCode
+        },
+        extras: {
+          username: value.org_username,
+          memberList: [{
+              memberHandle: this.userHandle,
+              isAdmin: true,
+              status: 'accept'
+            }],
+          location: ''
+        },
+        accountType : [{
+          'name': value.org_type,
+          'typeName': 'organization'
+        }],
+        managedBy : this.userHandle,
+        active : true
+    }
+
+    this.store.dispatch({ type: OrganizationActions.ORGANIZATION_REGISTRATION, payload: data });
+
+    // Org Registration successfully
+    this.store.select('organizationTags')
+      .first(profile => profile['org_registration_success'] === true)
+      .subscribe( datas => {
+        console.log(datas);
+        this.toastr.success('Successfully registered organization');
+      });
+
+      // Org Registration Failed
+      this.store.select('organizationTags')
+        .first(profile => profile['org_registration_failed'] === true)
+        .subscribe( datas => {
+          console.log(datas);
+          this.toastr.success('Organization registration failed');
+        });
+
+  }
+
+  /**
+   * Skill Search input handler
+   * @param query
+   */
+  onSearchChange(query) {
+    console.log(query);
+    if (query || query !== '') {
+      this.store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
+    }
+  }
+
+  /**
+   * Location find from google
+   */
+  getLocationGoogle() {
     // set google maps defaults
     this.zoom = 4;
     this.latitude = 39.8282;
@@ -65,148 +200,57 @@ export class OrganizationRegComponent implements OnInit {
       const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
 
       });
+      console.log(autocomplete);
+      const componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'long_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
           // get the place result
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          console.log(place);
 
+          for (let i = 0; i < place.address_components.length; i++) {
+            const addressType = place.address_components[i].types[0];
+            console.log(addressType);
+            if (componentForm[addressType]) {
+              const val = place.address_components[i][componentForm[addressType]];
+              if ( addressType === 'country') {
+                this.country = val;
+              }
+              if ( addressType === 'postal_code') {
+                this.postalCode = val;
+              }
+              if ( addressType === 'locality') {
+                this.city = val
+              }
+              if ( addressType === 'administrative_area_level_1') {
+                this.state = val
+              }
+            }
+          }
+
+
+           console.log(componentForm.country);
           // verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
 
           // set latitude, longitude and zoom
+          this.address = place.formatted_address;
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
           this.zoom = 12;
         });
       });
     });
-  }
-
-  // Init Reg Form
-  buildForm() {
-    this.orgReg = this.fb.group({
-      'org_name' : ['', [Validators.required]],
-      'org_username' : ['', [
-        Validators.required,
-        FormValidation.noWhitespaceValidator
-        ],
-        this.databaseValidator.userNameValidation.bind(this.databaseValidator)
-      ],
-      'org_type': ['', Validators.required],
-      'org_location': ['', Validators.required],
-      'org_service': ['', Validators.required],
-    //   'dob' : ['', [Validators.required],
-    //     this.databaseValidator.validAge.bind(this.databaseValidator)
-    //   ],
-    //   'email' : ['', [
-    //     Validators.required,
-    //     Validators.min(1),
-    //     // Validators.email
-    //     FormValidation.validEmail
-    //     ],
-    //     this.databaseValidator.checkEmail.bind(this.databaseValidator)
-    //   ],
-    //   'gender': ['M', Validators.required],
-    //   'phone' : ['', [
-    //     Validators.required,
-    //     Validators.minLength(4)
-    //     ],
-    //     this.databaseValidator.checkMobile.bind(this.databaseValidator)
-    //   ],
-    //   'password' : ['', [
-    //     Validators.required,
-    //     FormValidation.passwordStrength.bind(this)
-    //   ]],
-    //   'confirmpassword' : ['', [
-    //     Validators.required,
-    //     this.passwordMatchCheck.bind(this)
-    //   ]],
-    // });
-
-    // // OTP Form Builder
-    // this.otpForm = this.fb.group({
-    //   'otpNumber': ['', [
-    //       FormValidation.validOtp.bind(this)
-    //     ],
-    //   ]
-    // })
-
-    // // OTP new number
-    // this.newNumberForm = this.fb.group({
-    //   'newNumber': ['', [
-    //       Validators.required,
-    //       Validators.minLength(4)
-    //     ],
-    //     this.databaseValidator.checkMobile.bind(this.databaseValidator)
-    //   ]
-    })
-  }
-
-  private setCurrentPosition() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 12;
-      });
-    }
-  }
-
-  submitForm(value) {
-    console.log(value);
-    console.log(this.searchElementRef.nativeElement.value);
-    console.log(value.org_service.split(/\s*,\s*/));
-
-    const data = {
-        industryList : [
-            {
-                name : 'Film',
-                code : 'FILM',
-                active : true
-            }
-        ],
-        organizationName : value.org_name,
-        services: value.org_service,
-        address : {
-            line1 : '3033 Third Floor',
-            line2 : 'HAL 3Rd Stage Indiranagar',
-            city : 'Bangalore',
-            state : 'Karnataka',
-            country : 'India',
-            postalCode : '560078'
-        },
-        extras: {
-          username: value.org_username,
-          memberList: [{
-              memberHandle: 'S_D124382B_DD5F_4ABA_BC0B_306044413E2C',
-              isAdmin: true,
-              status: 'accept'
-            }],
-          location: ''
-        },
-        accountType : [{
-          'name': value.org_type,
-          'typeName': 'organization'
-        }],
-        managedBy : 'S_D124382B_DD5F_4ABA_BC0B_306044413E2C',
-        active : true
-    }
-
-
-    this.store.dispatch({ type: OrganizationActions.ORGANIZATION_REGISTRATION, payload: data });
-  }
-
-  /**
-   * Skill Search input handler
-   * @param query
-   */
-  onSearchChange(query) {
-    console.log(query);
-    if (query || query !== '') {
-      this.store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
-    }
   }
 
 }
