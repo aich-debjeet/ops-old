@@ -29,7 +29,7 @@
           <a class="c-user__name c-user__name--addpost">{{ profileChannel.profileUser?.name }}</a>
         </div>
         <div class="o-add-status__txt">
-          <textarea class="o-add-post--textarea c-text_lg-light" [(ngModel)]="desc"  [disabled]="uploadedFiles.length === 0" rows='1' data-min-rows='0' placeholder="Description"></textarea>
+          <textarea class="o-add-post--textarea c-text_lg-light" [(ngModel)]="desc"  [disabled]="uploadedFiles.length === 0" rows='1' data-min-rows='0' placeholder="Tell us about this media. Don’t forget to add tags."></textarea>
         </div>
       </div>
 
@@ -74,7 +74,7 @@
 
             <div class="o-media-block" *ngIf="checkFileType(file.fileName, 'Audio')" >
               <figure class="o-media_img">
-              <img class="obj-fit-fill" src="img/interest.jpg" alt="">
+              <img class="obj-fit-fill" src="https://ops-v2.netlify.com/img/interest.jpg" alt="">
               </figure>
               <div class="o-media__info">
                 <div class="o-media_type">
@@ -86,9 +86,9 @@
               </div>
             </div>
 
-            <div class="o-media-block" *ngIf="checkFileType(file.fileName, 'Video')">
+            <div class="o-media-block" *ngIf="checkFileType(file.fileName, 'Video')" (click)="fileDetails(file)">
               <figure class="o-media_img">
-              <img class="obj-fit-fill" src="img/art3.jpg" alt="">
+              <img class="obj-fit-fill"  src="https://ops-v2.netlify.com/img/interest.jpg">
               </figure>
               <div class="o-media__info">
                 <div class="o-media_type">
@@ -142,7 +142,7 @@
       </div>-->
 
       <!-- for video media thumb pop -->
-      <!--<div class="o-media-pop-container" *ngIf="uploadedFiles.length > 0">
+      <div class="o-media-pop-container" *ngIf="uploadedFiles.length > 0">
         <div class="o-media-pop__title c-text_lg">
           Video Settings
           <div class="o-media-pop__close"><img src="/assets/img/svg/ico_close-line.svg"></div>
@@ -183,7 +183,7 @@
             </div>
           </li>
         </ul>
-      </div>-->
+      </div>
     </div>
     <div class="col-md-4 padding_none">
       <app-channel-selector [userChannels]="channeList" [settingDisable]="uploadedFiles.length === 0" (onPostMedia)="postAllMedia($event)" (onSelection)="onChannelSelection($event)" (onChannelCreate)="onChannelCreation($event)"></app-channel-selector>

@@ -62,9 +62,7 @@ export class UserCardComponent implements OnInit {
    * @param user obj
    */
   followUser(user: any) {
-    // get user handle
-    const userHandle = user.image.split('/')[1];
-    this.store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: userHandle });
+    this.store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
     user.isFollowing = true;
   }
 
@@ -73,9 +71,7 @@ export class UserCardComponent implements OnInit {
    * @param user obj
    */
   unfollowUser(user: any) {
-    // get user handle
-    const userHandle = user.image.split('/')[1];
-    this.store.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: userHandle });
+    this.store.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.handle });
     user.isFollowing = false;
   }
 

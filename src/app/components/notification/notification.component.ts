@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 
@@ -10,6 +10,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { NotificationActions } from './../../actions/notification.action';
 import { Notification } from './../../models/notification.model';
 import { environment } from './../../../environments/environment';
+
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-notification',
@@ -23,6 +25,10 @@ export class NotificationComponent implements OnInit {
   notificationIds: any[];
   notifications: any[];
   baseUrl: string;
+  alreadyReadAll = true;
+  canScroll = true;
+  lastScrollTop = 0;
+  showPreloader: boolean;
 
   constructor(
     private store: Store<Notification>,
@@ -32,26 +38,74 @@ export class NotificationComponent implements OnInit {
     // image path
     this.baseUrl = environment.API_IMAGE;
 
-    // loading notifications
-    this.store.dispatch({
-      type: NotificationActions.LOAD_NOTIFICATIONS,
-      payload: null
-    });
+    this.dispatchLoadNotifications();
 
+    // notification sotre
     this.notificationsState$ = this.store.select('notificationTags');
 
     // observe the store value
     this.notificationsState$.subscribe((state) => {
-      // console.log(state);
+      console.log(state);
       if (typeof state['recieved_notifications'] !== 'undefined') {
         this.notifications = state['recieved_notifications'];
+
+        // check is unread notification exits else mark all notifications as read
+        setTimeout(() => {
+          // check if unread notification is available
+          const allNotifsRead = _.every(this.notifications, ['isRead', true]);
+          // console.log('allNotifsRead', allNotifsRead);
+          if (allNotifsRead) {
+            this.alreadyReadAll = true;
+          } else {
+            this.alreadyReadAll = false;
+            this.markAllAsRead();
+          }
+        }, 1000);
+
         this.processNotifications();
       }
       if (typeof state['marking_as_read_response'] !== 'undefined') {
         // upadte notification as marked
-        console.log('read: ' + this.notificationIds);
         this.updateNotifications();
       }
+      if (state && state['recieved_notifications_success'] === true) {
+        this.showPreloader = false;
+      }
+    });
+  }
+
+  @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
+    // console.log('scrolling', $event);
+    const scrolledValue = window.pageYOffset;
+    let scrollDirection = '';
+    if (scrolledValue > this.lastScrollTop) {
+      scrollDirection = 'down';
+    } else {
+      scrollDirection = 'up';
+    }
+    this.lastScrollTop = scrolledValue;
+    // console.log('scrolling direction', scrollDirection);
+
+    if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
+      // reached the bottom of the page
+      this.canScroll = false;
+      setTimeout(() => {
+        this.canScroll = true;
+      }, 1000);
+      this.dispatchLoadNotifications();
+    }
+  }
+
+  /**
+   * Redux dispatch to load notifications
+   */
+  dispatchLoadNotifications() {
+    // showing preloader
+    this.showPreloader = true;
+    // loading notifications
+    this.store.dispatch({
+      type: NotificationActions.LOAD_NOTIFICATIONS,
+      payload: null
     });
   }
 
@@ -186,12 +240,6 @@ export class NotificationComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-
-    // on page load mark all notifications as read
-    setTimeout(() => {
-      this.markAllAsRead();
-    }, 1000);
-  }
+  ngOnInit() { }
 
 }
