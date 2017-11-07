@@ -100,4 +100,11 @@ export class OrganizationService {
   }
 
   // ------- DONE --------
+
+  /**
+     * Load organization
+     */
+    loadOrganization(orgHandle: string) {
+      return this.api.get('/portal/organization/' + orgHandle);
+    }
 }
