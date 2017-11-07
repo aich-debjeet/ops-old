@@ -7,6 +7,8 @@ import { Location } from '@angular/common';
 
 // action
 import { ProfileActions } from '../../../../actions/profile.action';
+import { OrganizationActions } from '../../../../actions/organization.action';
+import { ToastrService } from 'ngx-toastr';
 
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
@@ -32,6 +34,8 @@ export class OrgCoverComponent implements OnInit {
   changingImage: boolean;
   cropperSettings: CropperSettings;
   baseUrl: string;
+  orgHandle: string;
+  stateOrg: any;
 
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
   constructor(
@@ -39,6 +43,7 @@ export class OrgCoverComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private _location: Location,
+    private toastr: ToastrService,
     private _store: Store<ProfileModal>
   ) {
 
@@ -47,7 +52,22 @@ export class OrgCoverComponent implements OnInit {
     this.tagState$ = this._store.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.stateProfile = state;
+      console.log(state);
     });
+
+    this._store.select('organizationTags').subscribe((state) => {
+      this.stateOrg = state;
+    });
+
+
+    // Get own user handle
+    this._store.select('profileTags')
+      .first(profile => profile['profileUser'].organization )
+      .subscribe( data => {
+        if (data['profileUser'].organization) {
+          this.orgHandle = data['profileUser'].organization.organizationHandle;
+        }
+      });
 
     // Image Cropper Settings
     this.cropperSettings = new CropperSettings();
@@ -65,7 +85,7 @@ export class OrgCoverComponent implements OnInit {
 
   ngOnInit() {
     this.tagState$
-    .first(profile => this.stateProfile.profileDetails.coverImage)
+    .first(profile => this.stateProfile.profileUser.organization)
     .subscribe( data => {
       this.loadCoverImage();
       this.stateProfile.cover_img_upload_success = false;
@@ -94,16 +114,25 @@ export class OrgCoverComponent implements OnInit {
    * Upload Cover image
    */
   uploadCoverImage() {
-    const userHandle = this.stateProfile.profileUser.handle || '';
+    const userHandle = this.orgHandle;
     if (this.data && this.data.image && userHandle !== '') {
       const imageData = {
         handle: userHandle,
         image: this.data.image.split((/,(.+)/)[1])
       };
 
-      this._store.dispatch({ type: ProfileActions.PROFILE_COVER_UPDATE, payload: imageData });
+      this._store.dispatch({ type: OrganizationActions.IMAGE_UPLOAD_SERVER, payload: imageData });
       this.changingImage = false;
     }
+
+    // Get own user handle
+    this._store.select('organizationTags')
+      .first(org => org['image_upload_success'] === true)
+      .subscribe( data => {
+        console.log('upload sucess');
+        const image = data['profileImage'].repoPath;
+        this.updateCoverImage(image);
+      });
   }
 
   loadCoverImage() {
@@ -117,14 +146,53 @@ export class OrgCoverComponent implements OnInit {
       self.drawImageProp(ctx, this, 0, 0, self.cropperSettings.canvasWidth, self.cropperSettings.canvasHeight, 0.1, 0.5);
     };
 
-    let coverImageURL;
-    if (typeof this.stateProfile.profileDetails.coverImage !== 'undefined') {
-      coverImageURL = this.baseUrl + this.stateProfile.profileDetails.coverImage;
+     let coverImageURL;
+    console.log(this.stateProfile.profileUser.organization.organizationCoverImage);
+    if (typeof this.stateProfile.profileUser.organization.organizationCoverImage !== 'undefined') {
+      coverImageURL = this.baseUrl + this.stateProfile.profileUser.organization.organizationCoverImage;
     } else {
       coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
     }
     img.src = coverImageURL;
   }
+
+  /**
+   * Profile Image Upload
+   * @param image
+   */
+  updateCoverImage(image) {
+
+    const data = {
+      handle: this.orgHandle,
+      body: {
+        extras: {
+          coverImage: [image]
+        }
+      }
+    }
+    this._store.dispatch({ type: OrganizationActions.ORG_PROFILE_UPDATE, payload: data });
+
+    // profile update sucess
+    this._store.select('organizationTags')
+      .first(org => org['org_profile_update_success'] === true)
+      .subscribe( orgUpdate => {
+        console.log('profile upload sucess');
+        this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+        this.uploadCompeleted();
+      });
+  }
+
+  uploadCompeleted() {
+    // Get own user handle
+    this._store.select('profileTags')
+      .first(profile => profile['current_user_profile_loading'] === true )
+      .subscribe( data => {
+        console.log('upload compeleted');
+        this._location.back();
+        this.toastr.success('Organization cover image updated');
+      });
+  }
+
 
   /**
    * Fitting the profile image to the canvas

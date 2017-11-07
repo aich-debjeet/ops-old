@@ -26,6 +26,8 @@ export const OrganizationReducer: ActionReducer<any> = (state = initialOrganizat
     case OrganizationActions.IMAGE_UPLOAD_SERVER:
       return Object.assign({}, state, {
         profile_img_upload_loading: true,
+        image_upload_starting: true,
+        image_upload_success: false,
         success: true
       });
 
@@ -33,12 +35,14 @@ export const OrganizationReducer: ActionReducer<any> = (state = initialOrganizat
       return Object.assign({}, state, {
         profileImage: payload['SUCCESS'],
         image_upload_success: true,
+        image_upload_starting: false,
         profile_img_upload_loading: false,
         success: true
       });
 
     case OrganizationActions.IMAGE_UPLOAD_SERVER_FAILED:
       return Object.assign({}, state, {
+        image_upload_starting: false,
         success: false
       });
 

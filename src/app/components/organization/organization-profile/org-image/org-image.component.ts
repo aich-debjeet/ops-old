@@ -40,6 +40,7 @@ export class OrgImageComponent implements OnInit {
   cropperSettings: CropperSettings;
   baseUrl: string;
   orgHandle: string;
+  stateOrg: any;
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
   constructor(
@@ -60,6 +61,10 @@ export class OrgImageComponent implements OnInit {
       console.log(state);
     });
 
+    this._store.select('organizationTags').subscribe((state) => {
+      this.stateOrg = state;
+    });
+
     // Get own user handle
     this._store.select('profileTags')
       .first(profile => profile['profileUser'].organization )
@@ -68,11 +73,6 @@ export class OrgImageComponent implements OnInit {
           this.orgHandle = data['profileUser'].organization.organizationHandle;
         }
       });
-
-    this._store.select('organizationTags').subscribe((state) => {
-
-      console.log(state);
-    });
 
     this.baseUrl = environment.API_IMAGE;
     this.changingImage = false;
@@ -108,7 +108,6 @@ export class OrgImageComponent implements OnInit {
     };
 
     let profileImageURL;
-    console.log(this.stateProfile.profileUser.organization.organizationImage);
     if (typeof this.stateProfile.profileUser.organization.organizationImage !== 'undefined') {
       profileImageURL = this.baseUrl + this.stateProfile.profileUser.organization.organizationImage;
     } else {
@@ -205,7 +204,19 @@ export class OrgImageComponent implements OnInit {
       .subscribe( orgUpdate => {
         console.log('profile upload sucess');
         this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-        this.toastr.success('Organization profile image updated');
+        this.uploadCompeleted();
+      });
+  }
+
+
+  uploadCompeleted() {
+    // Get own user handle
+    this._store.select('profileTags')
+      .first(profile => profile['current_user_profile_loading'] === true )
+      .subscribe( data => {
+        console.log('upload compeleted');
+        this._location.back();
+        this.toastr.success('Organization cover image updated');
       });
   }
 

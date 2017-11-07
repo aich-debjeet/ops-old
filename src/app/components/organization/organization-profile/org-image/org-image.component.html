@@ -10,7 +10,7 @@
         </div>
         <div class="o-cover-upload__media">
           <img-cropper #cropper  class="o-cover-media__image" [image]="data" [settings]="cropperSettings"></img-cropper>
-            <div *ngIf="stateProfile?.profile_img_upload_loading">
+            <div *ngIf="stateOrg?.image_upload_starting">
               <div class="sticky sticky__top">
                 <div class="loader">Loading...</div>
               </div>
