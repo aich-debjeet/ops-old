@@ -171,9 +171,9 @@ export class CreateChannelComponent implements OnInit {
       peopleListList.push({ handle: i });
     }
 
-    let otherField = {};
+    let otherFields = {};
     if (peopleListList.length > 0 ) {
-      otherField = { contributerList: peopleListList }
+      otherFields = { contributerList: peopleListList }
     }
 
     if ( this.channelForm.valid === true && userHandle !== '' ) {
@@ -187,7 +187,7 @@ export class CreateChannelComponent implements OnInit {
         owner: userHandle,
         industryList: [ value.type ],
         mediaTypes: mediaTypeList,
-        otherField
+        otherFields
       }
 
       this.channelSavedHere = true;
