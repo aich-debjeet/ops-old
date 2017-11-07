@@ -20,6 +20,41 @@ export const OrganizationReducer: ActionReducer<any> = (state = initialOrganizat
         org_registration_failed: true
       });
 
+    /**
+     * Load image to database
+     */
+    case OrganizationActions.IMAGE_UPLOAD_SERVER:
+      return Object.assign({}, state, {
+        profile_img_upload_loading: true,
+        success: true
+      });
+
+    case OrganizationActions.IMAGE_UPLOAD_SERVER_SUCCESS:
+      return Object.assign({}, state, {
+        profileImage: payload['SUCCESS'],
+        image_upload_success: true,
+        profile_img_upload_loading: false,
+        success: true
+      });
+
+    case OrganizationActions.IMAGE_UPLOAD_SERVER_FAILED:
+      return Object.assign({}, state, {
+        success: false
+      });
+
+    /**
+     * Org Profile Update
+     */
+    case OrganizationActions.ORG_PROFILE_UPDATE_SUCCESS:
+      return Object.assign({}, state, {
+        org_profile_update_success: true
+      });
+
+    case OrganizationActions.ORG_PROFILE_UPDATE_FAILED:
+      return Object.assign({}, state, {
+        org_profile_update_failed: true
+      });
+
     default:
       return state;
   }
