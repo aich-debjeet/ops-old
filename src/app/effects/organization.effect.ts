@@ -26,7 +26,17 @@ export class OrganizationEffect {
                 .catch((res) => Observable.of({ type: OrganizationActions.ORGANIZATION_REGISTRATION_FAILED, payload: res }))
             );
 
-
+    /**
+     * Loading organization
+     */
+    @Effect()
+    loadOrganization$ = this._actions$
+        .ofType(OrganizationActions.LOAD_ORGANIZATION)
+        .map(toPayload)
+        .switchMap((payload) => this._orgService.loadOrganization(payload)
+            .map(res => ({ type: OrganizationActions.LOAD_ORGANIZATION_SUCCESS, payload: res }))
+            .catch((res) => Observable.of({ type: OrganizationActions.LOAD_ORGANIZATION_FAILED, payload: res }))
+        );
 
    constructor(
     private _actions$: Actions,

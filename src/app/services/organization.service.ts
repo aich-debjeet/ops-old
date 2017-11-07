@@ -29,4 +29,11 @@ export class OrganizationService {
         console.log(body);
         return this.api.post('/portal/organization', body);
     }
+
+    /**
+     * Load organization
+     */
+    loadOrganization(orgHandle: string) {
+      return this.api.get('/portal/organization/' + orgHandle);
+    }
 }
