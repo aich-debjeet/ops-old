@@ -12,6 +12,7 @@ import { OrgFeedComponent } from './organization-profile/org-feed/org-feed.compo
 import { OrgCoverblockComponent } from './organization-profile/org-coverblock/org-coverblock.component';
 import { OrgProfileComponent } from './organization-profile/org-profile/org-profile.component';
 import { OrgAboutComponent } from './organization-profile/org-about/org-about.component';
+import { OrgSettingsComponent } from './organization-profile/org-settings/org-settings.component';
 
 
 const childRoutes = [
@@ -33,16 +34,10 @@ const childRoutes = [
   {
     path: 'about',
     component: OrgAboutComponent,
-    // children: [
-    //   { path: '', component: AboutBioComponent },
-    //   { path: 'image', component: AboutImageComponent },
-    //   { path: 'cover_image', component: AboutCoverComponent },
-    //   { path: 'bio', component: AboutBioComponent },
-    //   { path: 'work', component: AboutWorkComponent },
-    //   { path: 'awards', component: AboutAwardsComponent },
-    //   { path: 'education', component: AboutEducationComponent },
-    //   { path: 'contact', component: AboutContactComponent }
-    // ]
+  },
+  {
+    path: 'settings',
+    component: OrgSettingsComponent,
   },
 ];
 
@@ -113,7 +108,8 @@ const routes: Routes = [
     OrgFeedComponent,
     OrgCoverblockComponent,
     OrgProfileComponent,
-    OrgAboutComponent
+    OrgAboutComponent,
+    OrgSettingsComponent
   ]
 })
 export class OrganizationModule { }
