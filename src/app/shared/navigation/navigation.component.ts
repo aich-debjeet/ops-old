@@ -1,4 +1,5 @@
 import { Component, Directive, OnInit, HostListener, Renderer, ElementRef, HostBinding } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalService } from '../modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../models/profile.model';
@@ -31,6 +32,8 @@ export class NavigationComponent implements OnInit {
   private tagStateSubscription: Subscription;
   userProfile = initialTag ;
 
+  activeRoute: any;
+
   /* ========================== notification ========================== */
   notificationsState$: Observable<Notification>;
   notificationIds: any[];
@@ -43,7 +46,8 @@ export class NavigationComponent implements OnInit {
     public modalService: ModalService,
     private el: ElementRef,
     private renderer: Renderer,
-    public generalHelper: GeneralUtilities
+    public generalHelper: GeneralUtilities,
+    private router: Router
   ) {
 
     this.topNav = {
@@ -60,6 +64,47 @@ export class NavigationComponent implements OnInit {
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
+      // console.log('this.userProfile', this.userProfile);
+
+      // check if localstorage has required data for context switching
+      if (localStorage.getItem('accountStatus') === null) {
+
+        // checking if user has already created organization or not
+        if (this.userProfile && this.userProfile.profileUser) {
+
+          // save the user details to the local storage for the reference
+          localStorage.setItem('accountStatus', JSON.stringify({
+            loggedInAs: 'user',
+            userDetails: this.userProfile.profileUser
+          }));
+
+        }
+
+      } else {
+
+        // checking if user has already created organization or not
+        if (this.userProfile && this.userProfile.profileUser.organization && (this.activeRoute === '/org/page/profile' || this.activeRoute === '/profile/user')) {
+
+          const accountStatus = {
+            loggedInAs: '',
+            userDetails: this.userProfile.profileUser,
+            orgDetails: this.userProfile.profileUser.organization
+          }
+
+          // check for route if switching to the org
+          if (this.activeRoute === '/org/page/profile') {
+            accountStatus.loggedInAs = 'org';
+          } else if (this.activeRoute === '/profile/user') {
+            accountStatus.loggedInAs = 'user';
+          }
+
+          // save the org details to the local storage for the reference
+          localStorage.setItem('accountStatus', JSON.stringify(accountStatus));
+
+        }
+
+      }
+
     });
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
@@ -110,6 +155,8 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.activeRoute = this.router.url;
+    console.log('this.activeRoute', this.activeRoute);
   }
 
   toggleNav(name: string) {
