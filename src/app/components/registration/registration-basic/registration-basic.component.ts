@@ -181,10 +181,12 @@ export class RegistrationBasicComponent implements OnInit {
 
   // User user exists
   userExisitCheck(value) {
+    console.log(value)
     if (value.length >= 4) {
       this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
     } else {
       if (this.petTag && this.petTag.user_unique) {
+        console.log('now i am here')
         this.petTag.user_unique = false;
       }
     }

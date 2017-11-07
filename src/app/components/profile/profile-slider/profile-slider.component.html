@@ -1,4 +1,4 @@
-<div  *ngIf="profileObject !== null" id="cover-image" class="prohead2" [ngStyle]="coverImageStyle(profileObject)">
+<div *ngIf="profileObject !== null" id="cover-image" class="prohead2" [ngStyle]="coverImageStyle(profileObject)">
     <div class="container" *ngIf="this.isOwner">
         <span class="upload_cover_img" appDropdown>
             <a  appDropdownOpen>
@@ -21,7 +21,7 @@
 
 
     <div class="row">
-        <div class="col-md-6 col-sm-12 pro__img " >
+        <div class="col-md-6 col-sm-12 pro__img ">
             <div class="prof_img_block">
                 <img src="{{ (baseUrl + profileObject?.image?.profile) || defaultImage }}" class="img-responsive img-circle">
                 <span *ngIf="this.isOwner" class="upload_prof_img" appDropdown>
@@ -36,16 +36,17 @@
                         </li>
                     </ul>
                 </span>
-            </div><!-- profile img block end -->
-            <div class="pro__name" >
+            </div>
+            <!-- profile img block end -->
+            <div class="pro__name">
                 <h2><a routerLink="{{ !this.isOwner ? '/profile/u/' + profileObject?.userHandle : '/profile' }}"> {{ profileObject?.name }} </a></h2>
                 <p>{{ '@' + profileObject?.userHandle }}</p>
                 <p class="profession">{{ profileObject?.extra?.profession }}</p>
                 <div *ngIf="!this.isOwner" class="share__follow">
-                    <button (click)="userFollow(isFollowing, profileObject?.userDetails?.handle )" *ngIf="!profileObject?.extra?.isImported"  type="button" class="btn btn-xs btn-basic btn-small" [ngClass]="(isFollowing) ? 'btn-following' : 'btn-primary'">
+                    <button (click)="userFollow(isFollowing, profileObject?.userDetails?.handle )" *ngIf="!profileObject?.extra?.isImported" type="button" class="btn btn-xs btn-basic btn-small" [ngClass]="(isFollowing) ? 'btn-following' : 'btn-primary'">
                         <span class="btn-label-follow ">{{ (isFollowing)? 'Unfollow' : 'Follow'}} </span>
                     </button>
-                    <button  *ngIf="profileObject?.extra?.isImported"  type="button" class="btn btn-xs btn-basic btn-small btn-following">
+                    <button *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-xs btn-basic btn-small btn-following">
                         <span class="btn-label-follow ">CLAIM</span>
                     </button>
                     <button type="button" class="btn btn-normal2 btn-xs btn-small"> NETWORK </button>
@@ -55,11 +56,11 @@
         </div>
         <div class="col-md-6"></div>
     </div>
-    
-        <div class="row pro__detail">
-            <div [ngClass]="(profileObject?.extra?.isImported) ? 'blur-main': ''">
-                <div class="col-md-9 col-sm-9">
-                    <ul class="list-inline pro_nav_list">
+
+    <div class="row pro__detail">
+        <div [ngClass]="(profileObject?.extra?.isImported) ? 'blur-main': ''">
+            <div class="col-md-9 col-sm-9">
+                <ul class="list-inline pro_nav_list">
                     <li class="list-line-item">
                         <a [routerLink]="['about']">About</a>
                     </li>
@@ -75,73 +76,73 @@
                     <li class="list-line-item">
                         <a routerLink="/project">Project</a>
                     </li>
-                    </ul>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <ul class="list-inline pro_nav_icon">
-                        <li class="list-line-item" *ngIf="!this.isOwner">
-                            <a ><img src="/assets/img/svg/ico_options.svg"></a>
-                        </li>
-                        <li class="list-line-item">
-                            <a><img src="/assets/img/svg/ico_share.svg"></a>
-                        </li>
-                        <li class="list-line-item" *ngIf="!this.isOwner">
-                            <a><img src="/assets/img/svg/ico_message.svg"></a>
-                        </li>
-                        <li class="list-line-item" *ngIf="this.isOwner">
-                            <a (click)="profileEdit()"><img src="/assets/img/svg/ico_edit.svg"></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-12 col-sm-12 pro__detail__container">
-                    <div class="col-md-4 col-sm-4 text-center pro__count">
+                </ul>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <ul class="list-inline pro_nav_icon">
+                    <li class="list-line-item" *ngIf="!this.isOwner">
+                        <a><img src="/assets/img/svg/ico_options.svg"></a>
+                    </li>
+                    <li class="list-line-item">
+                        <a><img src="/assets/img/svg/ico_share.svg"></a>
+                    </li>
+                    <li class="list-line-item" *ngIf="!this.isOwner">
+                        <a routerLink="/message" routerLinkActive="active"><img src="/assets/img/svg/ico_message.svg"></a>
+                    </li>
+                    <li class="list-line-item" *ngIf="this.isOwner">
+                        <a (click)="profileEdit()"><img src="/assets/img/svg/ico_edit.svg"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-12 col-sm-12 pro__detail__container">
+                <div class="col-md-4 col-sm-4 text-center pro__count">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 pro__followers">
+                            <h3>{{ profileObject?.follwerCount }}</h3>
+                            <p>Followers</p>
+                        </div>
+                        <div class="col-md-4 col-sm-4 pro__following">
+                            <h3>{{ profileObject?.followingCount }}</h3>
+                            <p>Following</p>
+                        </div>
+                        <div class="col-md-3 col-sm-4 pro__spots">
+                            <h3>{{ profileObject?.extra?.spotsCount }}</h3>
+                            <p>Spots</p>
+                        </div>
                         <div class="row">
-                            <div class="col-md-4 col-sm-4 pro__followers">
-                                <h3>{{ profileObject?.follwerCount }}</h3>
-                                <p>Followers</p>
+                            <div class="pro__spotscore">
+                                Spotscore Coming Soon
                             </div>
-                            <div class="col-md-4 col-sm-4 pro__following">
-                                <h3>{{ profileObject?.followingCount }}</h3>
-                                <p>Following</p>
-                            </div>
-                            <div class="col-md-3 col-sm-4 pro__spots">
-                                <h3>{{ profileObject?.extra?.spotsCount }}</h3>
-                                <p>Spots</p>
-                            </div>
-                            <div class="row">
-                                <div class="pro__spotscore">
-                                    Spotscore Coming Soon
-                                </div>
-                                <div class="pro__postchannels">
-                                    <h4>{{ profileObject?.extra?.postCount }}<small> Posts</small></h4>
-                                    <h4>{{ profileObject?.extra?.channelCount }}<small> Channels</small></h4>
-                                </div>
+                            <div class="pro__postchannels">
+                                <h4>{{ profileObject?.extra?.postCount }}<small> Posts</small></h4>
+                                <h4>{{ profileObject?.extra?.channelCount }}<small> Channels</small></h4>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-4 pro_bio">
-                        <h3>BIO</h3>
-                        <button *ngIf="profileObject?.userBio == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button>
-                        <p>{{ profileObject?.userBio | slice:0:220}}</p>
+                </div>
+                <div class="col-md-4 col-sm-4 pro_bio">
+                    <h3>BIO</h3>
+                    <button *ngIf="profileObject?.userBio == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button>
+                    <p>{{ profileObject?.userBio | slice:0:220}}</p>
 
-                    </div>
-                    <div class="col-md-4 col-sm-4 pro_skills">
-                        <h3>SKILLS</h3>
-                        <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
-                        <span routerLink="{{ '/spotfeed/' + skill.name }}"  *ngFor="let skill of profileObject?.userSkill | slice:0:8" class="c-skill__tags">#{{ skill.name }} </span>  
-                        <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillPopup()" class="c-skill__tags c-skill__tags--more">...</a>
-                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 pro_skills">
+                    <h3>SKILLS</h3>
+                    <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
+                    <span routerLink="{{ '/spotfeed/' + skill.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:8" class="c-skill__tags">#{{ skill.name }} </span>
+                    <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillPopup()" class="c-skill__tags c-skill__tags--more">...</a>
                 </div>
             </div>
         </div>
-    
+    </div>
+
 </div>
 
 <router-outlet></router-outlet>
 
 <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow' *ngIf="this.isOwner" size="profile_update">
-    <div >
-        <form [formGroup]="profileForm" novalidate #myform="ngForm" (submit)= "profileFormSubmit(profileForm.value)">
+    <div>
+        <form [formGroup]="profileForm" novalidate #myform="ngForm" (submit)="profileFormSubmit(profileForm.value)">
             <div class="edit-profile_main">
                 <!-- <div class="modal-header" style="border: none;">
                 <button type="button" class="close" data-dismiss="modal"></button>
@@ -152,7 +153,7 @@
                     </div>
                     <div class="col-md-6 padding_none text-right">
                         <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="profileFormClose()">Close</app-button>
-                        <app-button [className]="'btn btn-primary btn-sm'" [type]="'submit'" >Save</app-button>
+                        <app-button [className]="'btn btn-primary btn-sm'" [type]="'submit'">Save</app-button>
                     </div>
                 </div>
                 <!-- edit profile head end -->
@@ -209,7 +210,7 @@
                                     <div *ngIf="findSkill.skills_loaded===false">
                                         <span class="loading">Loading...</span>
                                     </div>
-                                    <span *ngFor="let skill of findSkill.skills" >
+                                    <span *ngFor="let skill of findSkill.skills">
                                         <button type="button" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" class="btn btn-tag btn-sm">
                                             {{skill.name}}
                                         </button>
@@ -246,8 +247,8 @@
     </div>
 </app-modal>
 
-<app-modal  [blocking]='false' modalId='donationPopup' *ngIf="!this.isOwner" size="tiny__donation">
-    <div  id="donation_pop" >
+<app-modal [blocking]='false' modalId='donationPopup' *ngIf="!this.isOwner" size="tiny__donation">
+    <div id="donation_pop">
         <div id="report_thank">
             <!-- Modal content-->
             <div class="donation_container">

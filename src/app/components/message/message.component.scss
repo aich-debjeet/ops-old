@@ -71,6 +71,8 @@
             text-align: left;
             color: #333333 !important;
             font-weight: bold;
+            word-wrap: normal !important;
+            word-break: break-all !important;
         }
         .msg_time {
             color: #333333 !important;

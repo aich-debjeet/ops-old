@@ -81,6 +81,8 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
   private timer: Observable<number>;
   private interval: number;
   testVar: any;
+  otherUserProfile: any;
+  ownProfile = true;
 
   ngAfterViewChecked() {
     this.scrollToBottom();
@@ -114,12 +116,20 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
     })
     this.text = '';
     this.recipientsListState = false;
-    this.userO$ = profileStore.select('profileTags').take(3);
+    this.userO$ = profileStore.select('profileTags').take(2);
   }
   ngOnInit() {
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     this.userO$.subscribe((val) => {
+      console.log(val)
       this.currentUserDetails = val;
+      if (val.profile_user_info) {
+        if (this.currentUserDetails.profile_user_info.isCurrentUser === false && this.currentUserDetails.profile_other_loaded === true) {
+          this.ownProfile = false;
+          this.otherUserProfile = this.currentUserDetails.profile_other;
+          this.otherProfile(this.otherUserProfile);
+        }
+      }
       if (typeof this.currentUserDetails.profileUser !== 'undefined') {
       this.userHandle = this.currentUserDetails.profileUser.handle;
       this.initMessaging(this.userHandle);
@@ -431,6 +441,10 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
       this.messagesbytime.push(response.SUCCESS);
       this.toggleView('readMessage', this.nonUserProfile.handle)
     })
+    if (this.ownProfile !== true) {
+      console.log(this.ownProfile)
+      this.ownProfile = true;
+    }
   }
 
   /**
@@ -448,7 +462,6 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
       console.log('this is the chosen handle' + handle);
      // const headers = this.tokenService.getAuthHeader();
       this.messageStore.dispatch({ type: MessageActions.LOAD_NON_USER_PROFILE2_DATA, payload: handle });
-      console.log(this.receipientList)
       for (const i in this.receipientList) {
         if (this.receipientList[i].handle === handle) {
           this.composeMessage.searchUser = this.receipientList[i].name;
@@ -466,10 +479,12 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
    * this method is used to perform the custom search
   */
 
-  onSearch () {
-    if (this.composeMessage.searchUser !== null || this.composeMessage.searchUser !== '') {
+  onSearch (value) {
+    console.log(value)
+    if (value) {
+      console.log('its here')
       this.recipientsListState = true;
-      this.messageStore.dispatch({ type: MessageActions.GET_RECEIPIENT, payload: this.composeMessage.searchUser });
+      this.messageStore.dispatch({ type: MessageActions.GET_RECEIPIENT, payload: value });
     } else {
        this.recipientsListState = !this.recipientsListState;
       // this.composeMessage.searchUser = '';
@@ -508,5 +523,13 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
       console.log('here' + this.disableScrollDown)
         this.disableScrollDown = true
     }
+}
+
+otherProfile (user: any) {
+// console.log(JSON.stringify(this.otherUserProfile))
+// console.log(JSON.stringify(user))
+this.composeMessage.searchUser = user.name;
+// this.ownProfile = true;
+ this.messageStore.dispatch({ type: MessageActions.LOAD_NON_USER_PROFILE2_DATA, payload: user.handle});
 }
 }
