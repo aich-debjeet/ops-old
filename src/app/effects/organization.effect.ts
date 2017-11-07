@@ -18,13 +18,51 @@ export class OrganizationEffect {
      * Registration of Organization
      */
     @Effect()
-        createOrganization$ = this._actions$
-            .ofType(OrganizationActions.ORGANIZATION_REGISTRATION)
-            .map(toPayload)
-            .switchMap((payload) => this._orgService.regOrganization(payload)
-                .map(res => ({ type: OrganizationActions.ORGANIZATION_REGISTRATION_SUCCESS, payload: res }))
-                .catch((res) => Observable.of({ type: OrganizationActions.ORGANIZATION_REGISTRATION_FAILED, payload: res }))
-            );
+    createOrganization$ = this._actions$
+        .ofType(OrganizationActions.ORGANIZATION_REGISTRATION)
+        .map(toPayload)
+        .switchMap((payload) => this._orgService.regOrganization(payload)
+            .map(res => ({ type: OrganizationActions.ORGANIZATION_REGISTRATION_SUCCESS, payload: res }))
+            .catch((res) => Observable.of({ type: OrganizationActions.ORGANIZATION_REGISTRATION_FAILED, payload: res }))
+        );
+
+    /**
+     *  Load image to database
+     */
+    @Effect()
+    loadProfileImage$ = this._actions$
+        .ofType(OrganizationActions.IMAGE_UPLOAD_SERVER)
+        .map(toPayload)
+        .switchMap((payload) => this._orgService.uploadImageServer(payload)
+        .map(res => ({ type: OrganizationActions.IMAGE_UPLOAD_SERVER_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: OrganizationActions.IMAGE_UPLOAD_SERVER_FAILED, payload: res }))
+        );
+
+    /**
+     *  Update organization profile
+     */
+    @Effect()
+    updateOrganization$ = this._actions$
+        .ofType(OrganizationActions.ORG_PROFILE_UPDATE)
+        .map(toPayload)
+        .switchMap((payload) => this._orgService.updateOrganization(payload)
+            .map(res => ({ type: OrganizationActions.ORG_PROFILE_UPDATE_SUCCESS, payload: res }))
+            .catch((res) => Observable.of({ type: OrganizationActions.ORG_PROFILE_UPDATE_FAILED, payload: res }))
+        );
+
+
+
+//   /**
+//    *  Save image to ProfileUI
+//    */
+//    @Effect()
+//    loadProfileImageSuccess$ = this._actions$
+//    .ofType(ProfileActions.LOAD_PROFILE_IMAGE_SUCCESS)
+//    .map(toPayload)
+//    .switchMap((payload) => this.profileService.saveProfileImage(payload)
+//      .map(res => ({ type: ProfileActions.SAVE_PROFILE_IMAGE_SUCCESS, payload: res }))
+//      .catch((res) => Observable.of({ type: ProfileActions.SAVE_PROFILE_IMAGE_FAILED, payload: res }))
+//     );
 
     /**
      * Loading organization
