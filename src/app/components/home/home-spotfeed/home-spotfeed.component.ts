@@ -40,10 +40,6 @@ export class HomeSpotfeedComponent implements OnInit {
       }
     });
     this.store.dispatch({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS });
-
-    localStorageService.accountStatusValue.subscribe((nextValue) => {
-      console.log('localstorage value changed' + nextValue);
-    });
   }
 
   ngOnInit() {
