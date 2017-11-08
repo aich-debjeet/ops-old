@@ -11,14 +11,13 @@
                 <app-audioplayer class="audio" *ngIf="checkFileType(mediaData?.repopath, 'Audio')" src="{{ imageLink + mediaData?.repopath }}" type="simple"></app-audioplayer>
             </figure>
         </a>
-        <div class="feed_article" *ngIf="checkFileType(mediaData?.repopath, 'Image')"><img src="http://d33wubrfki0l68.cloudfront.net/e71f0fc9a8055ea597b62c0c1b3c9c94b2e5f2bc/ab7ce/img/svg/ico_media_img.svg"></div>
         <div class="feed_article" *ngIf="mediaData?.mtype === 'audio'"><img src="/assets/img/svg/ico_audio.svg"></div>
         <div class="feed_article" *ngIf="checkFileType(mediaData?.repopath, 'Video')"><img src="/assets/img/svg/ico_video.svg"></div>
       </div>
       <div class="col-md-12 col-sm-12 pro_channel_cont">
         <div class="pro_channel_name">
           <h3 class="feed-heading float-left">{{ mediaData?.title}}</h3>
-          <div *ngIf="mediaData?.isOwner" class="dropdown c-postion__right" appDropdown>   
+          <div *ngIf="mediaData?.isOwner" class="dropdown c-postion__right" appDropdown>
             <span class="com-head" appDropdownOpen>
               <img src="/assets/img/svg/ico_options.svg" class="c-card__options drop-postion__icon c-opsdropdown--icons">
             </span>

@@ -1,5 +1,5 @@
-<div class="c-spotfeed-single__media fill">
-    <img src="{{ baseUrl + spotfeedData?.image }}">
+<div class="c-spotfeed-single__media fill" [ngStyle]="imageFiller(baseUrl + spotfeedData?.image)">
+    <!-- <img src="{{ baseUrl + spotfeedData?.image }}"> -->
 </div>
 <div class="c-spotfeed-single__content">
     <div class="c-spotfeed-content__heading">

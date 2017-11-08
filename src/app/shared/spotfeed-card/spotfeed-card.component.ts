@@ -17,4 +17,11 @@ export class SpotfeedCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  imageFiller(coverImageURL: string) {
+    const resp = {
+      'background-image': 'url(' + coverImageURL + ')',
+      'background-size': 'cover'
+    }
+    return resp;
+  }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -44,8 +44,13 @@ export class RegistrationAddSkillComponent implements OnInit {
   selectedSkills = [];
   search: String;
   activateSubmitBtn = false;
+  redrectUrl: any;
 
-  constructor(fb: FormBuilder, private http: Http, private router: Router, private store: Store<Login>) {
+  constructor(fb: FormBuilder, private http: Http, private router: Router, private store: Store<Login>, private route: ActivatedRoute) {
+    // if redriect url there
+    if (this.route.snapshot.queryParams['next']) {
+      this.redrectUrl = this.route.snapshot.queryParams['next'];
+    }
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
@@ -76,7 +81,13 @@ export class RegistrationAddSkillComponent implements OnInit {
     this.tagState$.subscribe(
       data => {
         if (data.success === true) {
-          this.router.navigateByUrl('/profile/user')
+          if (this.redrectUrl !== undefined) {
+            this.router.navigate([this.redrectUrl]);
+            return
+          }else {
+            this.router.navigateByUrl('/profile/user');
+            return
+          }
         }
       }
     )

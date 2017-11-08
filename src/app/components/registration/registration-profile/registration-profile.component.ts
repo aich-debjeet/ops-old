@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Register, UserTag, initialTag, AuthModel, RightBlockTag } from '../../../models/auth.model';
 
 
@@ -29,8 +29,14 @@ export class RegistrationProfileComponent implements OnInit {
   // artistType = initialTag;
   artistType = [];
   activateSubmitBtn = false;
+  redrectUrl: any;
 
-  constructor(fb: FormBuilder, private store: Store<AuthModel>, private router: Router) {
+  constructor(fb: FormBuilder, private store: Store<AuthModel>, private router: Router, private route: ActivatedRoute) {
+
+    // if redriect url there
+    if (this.route.snapshot.queryParams['next']) {
+      this.redrectUrl = this.route.snapshot.queryParams['next'];
+    }
 
     this.artistType = [{
       name: 'Talent',
@@ -112,7 +118,13 @@ export class RegistrationProfileComponent implements OnInit {
       data => {
         console.log(data.success);
         if (data.success === true) {
-          this.router.navigateByUrl('/reg/addskill')
+          if (this.redrectUrl !== undefined) {
+            this.router.navigate(['/reg/addskill'], { queryParams: { next: this.redrectUrl }});
+            return
+          }else {
+            this.router.navigateByUrl('/reg/addskill');
+            return
+          }
         }
       }
     )

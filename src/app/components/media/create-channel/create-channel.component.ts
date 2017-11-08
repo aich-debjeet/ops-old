@@ -26,6 +26,7 @@ import { ToastrService } from 'ngx-toastr';
 
 // Blog
 import { TokenService } from '../../../helpers/token.service';
+import { LocalStorageService } from './../../../services/local-storage.service';
 
 @Component({
   selector: 'app-create-channel',
@@ -58,6 +59,7 @@ export class CreateChannelComponent implements OnInit {
     private toastr: ToastrService,
     private http: Http,
     private tokenService: TokenService,
+    private localStorageService: LocalStorageService,
     private store: Store<Media> ) {
       this.createChannelForm();
       this.typeSelected = false;
@@ -171,12 +173,23 @@ export class CreateChannelComponent implements OnInit {
       peopleListList.push({ handle: i });
     }
 
-    let otherField = {};
+    let otherFields = {};
     if (peopleListList.length > 0 ) {
-      otherField = { contributerList: peopleListList }
+      otherFields = { contributerList: peopleListList }
     }
 
-    if ( this.channelForm.valid === true && userHandle !== '' ) {
+    // set profile handle to user handle
+    let profileHandle = userHandle;
+
+    // check if creator is user or organization
+    if (localStorage.getItem('accountStatus') !== null) {
+      const localStore = JSON.parse(this.localStorageService.theAccountStatus);
+      if (localStore.profileType === 'org') {
+        profileHandle = localStore.handle;
+      }
+    }
+
+    if ( this.channelForm.valid === true && profileHandle !== '' ) {
 
       const channelObj = {
         name: value.title,
@@ -184,10 +197,10 @@ export class CreateChannelComponent implements OnInit {
         description: value.desc,
         superType: 'channel',
         accessSettings : { access : Number(value.privacy) },
-        owner: userHandle,
+        owner: profileHandle,
         industryList: [ value.type ],
         mediaTypes: mediaTypeList,
-        otherField
+        otherFields
       }
 
       this.channelSavedHere = true;
