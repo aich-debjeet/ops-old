@@ -18,15 +18,20 @@ import { Store } from '@ngrx/store';
 export class OrgCoverblockComponent implements OnInit {
   tagState$: Observable<ProfileModal>;
   organization: any;
+  orgHandle: any;
   baseUrl = environment.API_IMAGE;
+  orgState: any;
   constructor(
     private toastr: ToastrService,
     private ngZone: NgZone,
     private store: Store<Login>
   ) {
-    this.store.select('profileTags')
+    this.store.select('organizationTags')
       .subscribe( data => {
-        console.log(data);
+        if (data['org_profile_details']) {
+          this.orgState = data['org_profile_details'];
+        }
+        console.log(this.orgState);
       });
 
       // Own Profile
@@ -37,6 +42,16 @@ export class OrgCoverblockComponent implements OnInit {
       }
       console.log(this.organization);
     });
+
+    this.store.select('profileTags')
+      .first(profile => profile['profileUser'].organization)
+      .subscribe( data => {
+        if (data['profileUser'].organization.organizationHandle) {
+          this.orgHandle = data['profileUser'].organization.organizationHandle;
+          const username = data['profileUser'].organization.organizationUserName;
+          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: username });
+        }
+      });
    }
 
   ngOnInit() {

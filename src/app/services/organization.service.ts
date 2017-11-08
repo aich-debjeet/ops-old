@@ -38,6 +38,13 @@ export class OrganizationService {
       return this.api.put(`/portal/organization/${data.handle}`, data.body);
   }
 
+  /**
+   * Get org profile details
+   */
+  detailOrganization(username: any) {
+      return this.api.get(`/portal/organization/user/username/${username}`);
+  }
+
 
 
   // --- IT SHOULD BE MOVE COMMEN SERVICE ---
