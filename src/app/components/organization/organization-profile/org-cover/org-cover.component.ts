@@ -52,7 +52,7 @@ export class OrgCoverComponent implements OnInit {
     this.tagState$ = this._store.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.stateProfile = state;
-      console.log(state);
+      // console.log(state);
     });
 
     this._store.select('organizationTags').subscribe((state) => {
