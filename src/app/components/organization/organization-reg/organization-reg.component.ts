@@ -8,6 +8,7 @@ import { Follow, Login } from '../../../models/auth.model';
 import { AuthActions } from '../../../actions/auth.action';
 import { ProfileActions } from '../../../actions/profile.action';
 import { OrganizationActions } from '../../../actions/organization.action';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { Store } from '@ngrx/store';
@@ -49,24 +50,26 @@ export class OrganizationRegComponent implements OnInit {
     private databaseValidator: DatabaseValidator,
     private mapsAPILoader: MapsAPILoader,
     private toastr: ToastrService,
+    private router: Router,
     private ngZone: NgZone,
     private store: Store<Login>
   ) {
 
-    // Dispatch current current user Handle
+    // // Dispatch current current user Handle
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       this.skillSelectionPage = state;
-      console.log(state);
     });
 
     // Get own user handle
     this.store.select('profileTags')
-      .first(profile => profile['profileUser'].handle)
+      .first(profile => profile['current_user_profile_loading'] === true)
       .subscribe( data => {
-        console.log(data['profileUser'].handle);
+        if (data['profileUser'].isOrganization === true) {
+          this.router.navigateByUrl('/org/page/profile');
+        }
         this.userHandle = data['profileUser'].handle;
       });
    }
@@ -105,10 +108,7 @@ export class OrganizationRegComponent implements OnInit {
   }
 
   submitForm(value) {
-
-    console.log(this.orgReg);
     if (!this.orgReg.valid) {
-      console.log('invalid form')
       return false;
     }
     // console.log(this.searchElementRef.nativeElement.value);
@@ -155,15 +155,14 @@ export class OrganizationRegComponent implements OnInit {
     this.store.select('organizationTags')
       .first(profile => profile['org_registration_success'] === true)
       .subscribe( datas => {
-        console.log(datas);
         this.toastr.success('Successfully registered organization');
+        this.router.navigateByUrl('/org/page');
       });
 
       // Org Registration Failed
       this.store.select('organizationTags')
         .first(profile => profile['org_registration_failed'] === true)
         .subscribe( datas => {
-          console.log(datas);
           this.toastr.success('Organization registration failed');
         });
 
@@ -214,7 +213,7 @@ export class OrganizationRegComponent implements OnInit {
         this.ngZone.run(() => {
           // get the place result
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          console.log(place);
+          // console.log(place);
 
           for (let i = 0; i < place.address_components.length; i++) {
             const addressType = place.address_components[i].types[0];
@@ -236,8 +235,6 @@ export class OrganizationRegComponent implements OnInit {
             }
           }
 
-
-           console.log(componentForm.country);
           // verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;

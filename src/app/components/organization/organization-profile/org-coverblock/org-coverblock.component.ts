@@ -7,6 +7,7 @@ import { AuthActions } from '../../../../actions/auth.action';
 import { ProfileActions } from '../../../../actions/profile.action';
 import { OrganizationActions } from '../../../../actions/organization.action';
 import { environment } from '../../../../../environments/environment';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Store } from '@ngrx/store';
 
@@ -24,15 +25,16 @@ export class OrgCoverblockComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
     private ngZone: NgZone,
-    private store: Store<Login>
+    private store: Store<Login>,
+    private router: Router,
   ) {
     this.store.select('organizationTags')
       .subscribe( data => {
         if (data['org_profile_details']) {
           this.orgState = data['org_profile_details'];
         }
-        console.log(this.orgState);
       });
+
 
       // Own Profile
     this.tagState$ = this.store.select('profileTags');
@@ -40,7 +42,6 @@ export class OrgCoverblockComponent implements OnInit {
       if (state['profileUser'].organization) {
         this.organization = state['profileUser'].organization;
       }
-      console.log(this.organization);
     });
 
     this.store.select('profileTags')

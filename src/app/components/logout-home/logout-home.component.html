@@ -99,7 +99,7 @@
                     Always be on the lookout for new talent. Network and discover artists and art
                     <br>lovers across all disciplines.
                 </p>
-                <a href="#" type="button" class="btn btn-primary btn-md text_uppercase margin_t_16">Try Organization</a>
+                <a [routerLink]="['login']" [queryParams]="{ next: 'org/page/profile' }" type="button" class="btn btn-primary btn-md text_uppercase margin_t_16">Try Organization</a>
             </div>
             <div class="col-md-5 padding_none">
                 <div class="organization-img">

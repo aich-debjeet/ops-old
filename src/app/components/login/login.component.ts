@@ -24,8 +24,14 @@ export class LoginComponent implements OnInit {
   rightCom: RightBlockTag;
   petTag = initialTag;
   loginForm: FormGroup;
+  redrectUrl: any;
 
-  constructor(fb: FormBuilder, private store: Store<Login>, private router: Router) {
+  constructor(
+    fb: FormBuilder,
+    private store: Store<Login>,
+    private router: Router,
+    private route: ActivatedRoute,
+    ) {
 
     this.loginForm = fb.group({
       'email' : [null, Validators.required],
@@ -40,6 +46,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    // if redriect url there
+    if (this.route.snapshot.queryParams['next']) {
+      this.redrectUrl = this.route.snapshot.queryParams['next'];
+    }
+
+    console.log(this.redrectUrl);
+    // this.redrectUrl = '';
     this.rightCom = {
       mainTitle: 'Log in to your account',
       secondHead: '',
@@ -57,7 +70,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
+
   submitForm(value: any) {
+    console.log(this.redrectUrl);
+    // this.router.navigateByUrl(this.redrectUrl);
 
     if ( this.loginForm.valid === true ) {
       const form =  {
@@ -69,6 +85,23 @@ export class LoginComponent implements OnInit {
       }
 
       this.store.dispatch({ type: AuthActions.USER_LOGIN, payload: form});
+      console.log('submit button');
+    // Org Registration successfully
+    this.store.select('loginTags')
+      .first(login => login['login_success'] === true)
+      .subscribe( datas => {
+        console.log('sucess login');
+        // this.router.navigate([this.redrectUrl]);
+        // // co
+        if (this.redrectUrl !== undefined) {
+          this.router.navigateByUrl(this.redrectUrl);
+          return
+        }else {
+          this.router.navigateByUrl('/profile');
+          return
+        }
+
+      });
     }
   }
 
