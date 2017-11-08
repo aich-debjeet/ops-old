@@ -2,9 +2,13 @@ import { Component, Directive, OnInit, HostListener, Renderer, ElementRef, HostB
 import { ModalService } from '../modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../models/profile.model';
+import { Organization, initialOrganization } from '../../models/organization.model';
+
+import { LocalStorageService } from './../../services/local-storage.service';
 
 // action
 import { ProfileActions } from '../../actions/profile.action';
+import { OrganizationActions } from '../../actions/organization.action';
 import { NotificationActions } from './../../actions/notification.action';
 
 import { Observable } from 'rxjs/Observable';
@@ -28,8 +32,11 @@ export class NavigationComponent implements OnInit {
   baseUrl: string;
   showMenu: boolean;
   tagState$: Observable<ProfileModal>;
+  orgState$: Observable<Organization>;
   private tagStateSubscription: Subscription;
-  userProfile = initialTag ;
+  userProfile = initialTag;
+  orgProfile;
+  profileType: string;
 
   /* ========================== notification ========================== */
   notificationsState$: Observable<Notification>;
@@ -43,7 +50,8 @@ export class NavigationComponent implements OnInit {
     public modalService: ModalService,
     private el: ElementRef,
     private renderer: Renderer,
-    public generalHelper: GeneralUtilities
+    public generalHelper: GeneralUtilities,
+    private localStorageService: LocalStorageService
   ) {
 
     this.topNav = {
@@ -55,14 +63,43 @@ export class NavigationComponent implements OnInit {
       profile: { open: false }
     };
 
+    // localStorageService.accountStatusValue.subscribe((accountStatus) => {
+    //   console.log('accountStatus NAV SERVICE', accountStatus);
+    // });
+    // check for account type in localStorage
+    if (localStorage.getItem('accountStatus') === null) {
+      this.profileType = 'user';
+      localStorageService.theAccountStatus = JSON.stringify({ 'profileType': 'user' });
+      // localStorage.setItem('accountStatus', JSON.stringify({ 'profileType': 'user' }));
+    } else {
+      // const localStore = JSON.parse(localStorage.getItem('accountStatus'));
+      const localStore = JSON.parse(localStorageService.theAccountStatus);
+      if (localStore.profileType === 'org') {
+        this.profileType = 'org';
+        this.switchToOrg(localStore.handle);
+      } else {
+        this.profileType = 'user';
+      }
+    }
+    // console.log('this.profileType', this.profileType);
+
     this.baseUrl = environment.API_IMAGE;
     this.tagState$ = this.store.select('profileTags');
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
+      // console.log('this.userProfile in Navigation component', this.userProfile);
     });
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+
+    /* org state */
+    this.orgState$ = this.store.select('organizationTags');
+    this.orgState$.subscribe((state) => {
+      this.orgProfile = state;
+      // console.log('this.orgProfile', this.orgProfile);
+    });
+    /* org state */
 
     /* ========================== notification ========================== */
     // loading notifications
@@ -214,6 +251,32 @@ export class NavigationComponent implements OnInit {
   }
   /* =================================== notification =================================== */
 
+  // switch to the org
+  switchToOrg(handle: string) {
+    let orgHandle = '';
 
+    // check for org handle
+    if (handle) {
+      orgHandle = handle;
+    } else if (this.userProfile.profileUser.organization.organizationHandle) {
+      orgHandle = this.userProfile.profileUser.organization.organizationHandle;
+    }
+
+    if (orgHandle !== '') {
+      // console.log('org handle found', orgHandle);
+      this.store.dispatch({ type: OrganizationActions.LOAD_ORGANIZATION, payload: orgHandle });
+    }
+
+    this.profileType = 'org';
+    this.localStorageService.theAccountStatus = JSON.stringify({ 'profileType': 'org', 'handle': orgHandle });
+
+  }
+
+  switchToUser() {
+    this.profileType = 'user';
+    this.localStorageService.theAccountStatus = JSON.stringify({ 'profileType': 'user' });
+    // localStorage.setItem('accountStatus', JSON.stringify({ 'profileType': 'user' }));
+    // this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+  }
 
 }

@@ -1,0 +1,21 @@
+<div class="o-org-content">
+    <div class="container">
+        <div class="col-md-3 col-sm-3 p-0">
+            <app-org-leftblock></app-org-leftblock>
+        </div>
+        <!-- right feed -->
+        <div class="col-md-9 col-sm-9 pro_feed-right">
+            <div class="home_tabs">
+                <ul class="nav nav-tabs">
+                  <li routerLinkActive="active"><a [routerLink]="['channel']">Channel</a></li>
+                  <li routerLinkActive="active"><a [routerLink]="['post']">Posts</a></li>
+                  <li routerLinkActive="active"><a [routerLink]="['spotfeed']">spotfeed</a></li>
+                </ul>
+                <div class="tab-content">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>            
+        </div>
+        <!-- //right feed -->
+    </div>
+</div>

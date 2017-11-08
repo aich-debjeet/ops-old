@@ -50,6 +50,7 @@ import { MessageEffect } from './effects/message.effects';
 import { NotificationEffect } from './effects/notification.effect';
 import { UserSearchEffect } from './effects/user-search.effect';
 import { SearchEffect } from './effects/search.effect';
+import { OrganizationEffect } from './effects/organization.effect';
 
 
 // Services
@@ -65,6 +66,7 @@ import { HomeService } from './services/home.service';
 import { MessageService } from './services/message.service';
 import { NotificationService } from './services/notification.service';
 import { SearchService } from './services/search.service';
+import { LocalStorageService } from './services/local-storage.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
@@ -112,6 +114,8 @@ import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
+
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -176,13 +180,20 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
     EffectsModule.run(UserSearchEffect),
     EffectsModule.run(MediaEffect),
     EffectsModule.run(SearchEffect),
+    EffectsModule.run(OrganizationEffect),
+    
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
-    SearchModule
+    SearchModule,
+    AgmCoreModule.forRoot({
+      libraries: ['places'],
+      apiKey: 'AIzaSyDHx_cyWUg9okHlTH8M_kvduvWFSV3nShc'
+    }),
+
   ],
   providers: [
     AuthService,
@@ -196,7 +207,8 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
     HomeService,
     NotificationService,
     SearchService,
-    GeneralUtilities
+    GeneralUtilities,
+    LocalStorageService
   ],
   bootstrap: [AppComponent]
 })

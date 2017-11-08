@@ -50,7 +50,7 @@ export class AuthService {
           if (user && user.access_token) {
               localStorage.setItem('currentUser', JSON.stringify(user));
               this.updateAuthHeaders();
-              this.router.navigate(['/profile']);
+              // this.router.navigate(['/org/page']);
           }
         });
     }
