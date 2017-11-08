@@ -6,7 +6,7 @@
                 <div class="c-invite--search">
                     <form class="fill-grey-light">
                         <div class="c-form__group c-form--noeffect c-form--sm">
-                            <input class="c-form__input fpadding_l32" required="" type="text">
+                            <input class="c-form__input fpadding_l32" type="text">
                             <span class="c-form__highlight"></span>
                             <span class="c-form__bar"></span>
                             <label class="fpadding_l32">Search</label>
@@ -75,155 +75,149 @@
         <!-- right feed -->
         <div class="col-md-9 col-sm-9 p-0">
             <div class="o-org-about m-t-16 m-l-16">
-                <div class="col-md-6 p-0">
-                    <h6 class="c-text_lg m-b-16 p-l-8">About</h6>
-                    <form action="">
+                <form action="">
+                    <div class="col-md-6 p-0">
+                        <h6 class="c-text_lg m-b-16 p-l-8">About</h6>
                         <ul class="o-org-about-form">
                             <li class="o-org-form__item m-b-24">
                                 <h6 class="c-text_md">Breif 
-                                    <a class="o-org-form__edit-ico" onclick="switchVisiblebrief();"><img src="/assets/img/svg/ico_edit.svg"></a>
+                                    <a class="o-org-form__edit-ico" (click)="editField('description')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
-                                <p id="brief" class="c-text_sm color-grey-dark m-t-8">
+                                <p *ngIf="editingField != 'description'" id="brief" class="c-text_sm color-grey-dark m-t-8">
                                     {{ orgProfile?.org_profile_details?.description }}
                                 </p>
-                                <div id="brief-edit" class="o-org-form__edit-sec">
-                                    <textarea name=""  class="o-org-about__breif c-text_sm m-t-8">Many people would say that it is absolute madness to keep on doing the same thing, time after time, expecting to get a different result or for something different to happen. Alternatively, many people, especially those in the personal development, NLP and wellness fields of varying natures, would describe it as intelligent to have a goal and be wonderfully flexible about how you go about achieving it. 
-                                    </textarea>
+                                <div *ngIf="editingField == 'description'" id="brief-edit" class="o-org-form__edit-sec">
+                                    <textarea class="o-org-about__breif c-text_sm m-t-8">{{ orgProfile?.org_profile_details?.description }}</textarea>
                                     <div class="o-org-form__actions">
-                                        <button type="button" class="btn btn-default btn-sm">Cancel</button>
+                                        <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
                                         <button type="button" class="btn btn-primary btn-sm">Save</button>
                                     </div>
                                 </div>
                             </li>
                             <li class="o-org-form__item m-b-24">
                                 <h6 class="c-text_md">Services 
-                                    <a class="o-org-form__edit-ico" onclick="switchVisibleservice();"><img src="/assets/img/svg/ico_edit.svg"></a>
+                                    <a class="o-org-form__edit-ico" (click)="editField('services')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
-                                <p id="o-org-about-serv" class="c-text_sm color-grey-dark m-t-8">
+                                <p *ngIf="editingField != 'services'" id="o-org-about-serv" class="c-text_sm color-grey-dark m-t-8">
                                     {{ orgProfile?.orgProfileDetails?.services.join(', ') }}
                                 </p>
-                                <div id="o-org-about-serv_edit" class="o-org-form__edit-sec">
+                                <div *ngIf="editingField == 'services'" id="o-org-about-serv_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input" required="" type="text" value="UI Design, UX Design, Branding">
+                                        <input class="c-form__input" type="text" value="UI Design, UX Design, Branding">
                                     </div>
                                     <div class="o-org-form__actions">
-                                        <button type="button" class="btn btn-default btn-sm">Cancel</button>
+                                        <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
                                         <button type="button" class="btn btn-primary btn-sm">Save</button>
                                     </div>
                                 </div>
                             </li>
                             <li class="o-org-form__item m-b-24">
                                 <h6 class="c-text_md">Industry 
-                                    <a class="o-org-form__edit-ico" onclick="switchVisibleind();"><img src="/assets/img/svg/ico_edit.svg"></a>
+                                    <a class="o-org-form__edit-ico" (click)="editField('industries')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
-                                <p id="o-org-about-ind" class="c-text_sm color-grey-dark m-t-8">
+                                <p *ngIf="editingField != 'industries'" id="o-org-about-ind" class="c-text_sm color-grey-dark m-t-8">
                                     <ng-container *ngFor="let industry of orgProfile?.orgProfileDetails?.industryList; let isLast = last;">
                                         {{ industry.name }} {{isLast ? '' : ', '}}
                                     </ng-container>
                                 </p>
-                                <div id="o-org-about-ind_edit" class="o-org-form__edit-sec">
+                                <div *ngIf="editingField == 'industries'" id="o-org-about-ind_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input" required="" type="text" value="Music, Design">
+                                        <input class="c-form__input" type="text" value="">
                                     </div>
                                     <div class="o-org-form__actions">
-                                        <button type="button" class="btn btn-default btn-sm">Cancel</button>
+                                        <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
                                         <button type="button" class="btn btn-primary btn-sm">Save</button>
                                     </div>
                                 </div>
                             </li>
                             <li class="o-org-form__item m-b-24">
                                 <h6 class="c-text_md">Founded Year 
-                                    <a class="o-org-form__edit-ico" onclick="switchVisiblefoundyr();"><img src="/assets/img/svg/ico_edit.svg"></a>
+                                    <a class="o-org-form__edit-ico" (click)="editField('activeFrom')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
-                                <p id="o-org-about-foundyr" class="c-text_sm color-grey-dark m-t-8">
+                                <p *ngIf="editingField != 'activeFrom'" id="o-org-about-foundyr" class="c-text_sm color-grey-dark m-t-8">
                                     {{ orgProfile?.org_profile_details?.activeFrom | utcDate | date: 'dd MMM, yyyy' }}
                                 </p>
-                                <div id="o-org-about-foundyr_edit" class="o-org-form__edit-sec">
+                                <div *ngIf="editingField == 'activeFrom'" id="o-org-about-foundyr_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group ">
-                                        <select class="c-form-control p-l-0">
-                                            <option>12, March, 2014</option>
-                                            <option>12, March, 2013</option>
-                                        </select>
+                                        <input class="c-form__input" type="text" value="{{ orgProfile?.org_profile_details?.activeFrom }}">
                                     </div>
                                     <div class="o-org-form__actions">
-                                        <button type="button" class="btn btn-default btn-sm">Cancel</button>
+                                        <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
                                         <button type="button" class="btn btn-primary btn-sm">Save</button>
                                     </div>
                                 </div>
                             </li>
                         </ul>
-                    </form>
-                </div>
-                <div class="col-md-6 p-0">
-                    <h6 class="c-text_lg m-b-16 p-l-8">Contact</h6>
-                    <form action="">
+                    </div>
+                    <div class="col-md-6 p-0">
+                        <h6 class="c-text_lg m-b-16 p-l-8">Contact</h6>
                         <ul class="o-org-about-form">
                             <li class="o-org-form__item ">
-                                <div id="o-org-about-contact-ph" class="o-org-about__contact-ph ">
+                                <div *ngIf="editingField != 'mobile'" id="o-org-about-contact-ph" class="o-org-about__contact-ph ">
                                     <span class="o-org-about__contact-ico">
                                         <img src="/assets/img/svg/ico_receiver.svg" alt="">
                                     </span>
                                     <span class="o-org-about__contact-txt c-text_sm color-grey-dark">
-                                        +91 9876 554 321
+                                        {{ orgProfile?.orgProfileDetails?.mobile }}
                                     </span>
-                                    <a class="o-org-form__edit-ico" onclick="switchVisiblecontactph();"><img src="/assets/img/svg/ico_edit.svg"></a>
+                                    <a class="o-org-form__edit-ico" (click)="editField('mobile')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </div>
-                                <div id="o-org-about-contact-ph-edit" class="o-org-about__contact-ph-edit ">
+                                <div *ngIf="editingField == 'mobile'" id="o-org-about-contact-ph-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input fpadding_l32" required="" type="text" value="+91 9876 554 321">
+                                        <input class="c-form__input fpadding_l32" type="text" value="{{ orgProfile?.orgProfileDetails?.mobile }}">
                                         <span><img src="/assets/img/svg/ico_receiver.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">
-                                        <button type="button" class="btn btn-default btn-sm">Cancel</button>
+                                        <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
                                         <button type="button" class="btn btn-primary btn-sm">Save</button>
                                     </div>
                                 </div>
                             </li>
                             <li class="o-org-form__item ">
-                                <div id="o-org-about-contact-mail" class="o-org-about__contact-mail ">
+                                <div *ngIf="editingField != 'email'" id="o-org-about-contact-mail" class="o-org-about__contact-mail ">
                                     <span class="o-org-about__contact-ico">
                                         <img src="/assets/img/svg/ico_envelope.svg" alt="">
                                     </span>
                                     <span class="o-org-about__contact-txt c-text_sm color-grey-dark">
                                         {{ orgProfile?.org_profile_details?.email }}
                                     </span>
-                                    <a class="o-org-form__edit-ico" onclick="switchVisiblecontactmail();"><img src="/assets/img/svg/ico_edit.svg"></a>
+                                    <a class="o-org-form__edit-ico" (click)="editField('email')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </div>
-                                <div id="o-org-about-contact-mail-edit" class="o-org-about__contact-ph-edit ">
+                                <div *ngIf="editingField == 'email'" id="o-org-about-contact-mail-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input fpadding_l32" required="" type="text" value="info@prattinstitute.com">
+                                        <input class="c-form__input fpadding_l32" type="text" value="{{ orgProfile?.org_profile_details?.email }}">
                                         <span><img src="/assets/img/svg/ico_envelope.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">
-                                        <button type="button" class="btn btn-default btn-sm">Cancel</button>
+                                        <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
                                         <button type="button" class="btn btn-primary btn-sm">Save</button>
                                     </div>
                                 </div>
                             </li>
                             <li class="o-org-form__item ">
-                                <div id="o-org-about-contact-web" class="o-org-about__contact-web ">
+                                <div *ngIf="editingField != 'website'" id="o-org-about-contact-web" class="o-org-about__contact-web ">
                                     <span class="o-org-about__contact-ico">
                                         <img src="/assets/img/svg/ico_public_grey.svg" alt="">
                                     </span>
                                     <span class="o-org-about__contact-txt c-text_sm color-grey-dark" contenteditable="true">
                                         {{ orgProfile?.org_profile_details?.contact?.website.website }}
                                     </span>
-                                    <a class="o-org-form__edit-ico" onclick="switchVisiblecontactweb();"><img src="img/svg/ico_edit.svg"></a>
+                                    <a class="o-org-form__edit-ico" (click)="editField('website')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </div>
-                                <div id="o-org-about-contact-web-edit" class="o-org-about__contact-ph-edit ">
+                                <div *ngIf="editingField == 'website'" id="o-org-about-contact-web-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input fpadding_l32" required="" type="text" value="www.prattinstitute.com">
+                                        <input class="c-form__input fpadding_l32" type="text" value="{{ orgProfile?.org_profile_details?.contact?.website.website }}">
                                         <span><img src="/assets/img/svg/ico_public_grey.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">
-                                        <button type="button" class="btn btn-default btn-sm">Cancel</button>
+                                        <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
                                         <button type="button" class="btn btn-primary btn-sm">Save</button>
                                     </div>
                                 </div>
                             </li>
                             <li class="o-org-form__item m-t-24">
                                 <h6 class="c-text_md">Address
-                                    <a class="o-org-form__edit-ico" onclick="switchVisibleaddress();"><img src="/assets/img/svg/ico_edit.svg"></a>
+                                    <a class="o-org-form__edit-ico" (click)="editField('address')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
                                 <div class="o-org-about__address-map m-t-b-8">
                                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.9863164034696!2d77.63703341474799!3d12.972726890855197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae16a6f8666621%3A0x8a0eaab208105e27!2sAbove+Solutions+India+Pvt.+Ltd.!5e0!3m2!1sen!2sin!4v1509367207866" width="393" height="165" frameborder="0" style="border:0" allowfullscreen></iframe>
@@ -231,19 +225,19 @@
                                 <p id="o-org-about-address" class="c-text_sm color-grey-dark m-t-8">
                                     200 Willoughby Ave, Brooklyn, NY 11205, USA
                                 </p>
-                                <div id="o-org-about-address_edit" class="o-org-form__edit-sec">
+                                <div *ngIf="editingField == 'address'" id="o-org-about-address_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input" required="" type="text" value="200 Willoughby Ave, Brooklyn, NY 11205, USA">
+                                        <input class="c-form__input" type="text" value="200 Willoughby Ave, Brooklyn, NY 11205, USA">
                                     </div>
                                 </div>
-                                <div class="o-org-form__actions">
-                                    <button type="button" class="btn btn-default btn-sm">Cancel</button>
+                                <div *ngIf="editingField == 'address'" class="o-org-form__actions">
+                                    <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
                                     <button type="button" class="btn btn-primary btn-sm">Save</button>
                                 </div>
                             </li>
                         </ul>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
         <!-- //right feed -->

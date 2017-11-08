@@ -53,7 +53,6 @@
 .o-org-form__edit-sec{
 	width: 100%;
 	float: left;
-	display: none;
 }
 .o-org-form__actions{
 	width: 100%;
@@ -76,9 +75,6 @@
 .o-org-about__contact-txt{
 	float: left;
 }
-.o-org-about__contact-ph-edit{
-	display: none;
-}
 .o-org-about__address-map{
 	width: 385px;
 	height: 165px;
@@ -88,7 +84,11 @@
 	overflow: hidden;
 }	
 
- .c-avatar--status {
-    width: 34px;
-    height: 34px; 
- }
+.c-avatar--status {
+	width: 34px;
+	height: 34px; 
+}
+
+.fpadding_l32 {
+    padding-left: 32px;
+}
