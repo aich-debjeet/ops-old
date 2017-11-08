@@ -66,6 +66,7 @@ import { HomeService } from './services/home.service';
 import { MessageService } from './services/message.service';
 import { NotificationService } from './services/notification.service';
 import { SearchService } from './services/search.service';
+import { LocalStorageService } from './services/local-storage.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
@@ -206,7 +207,8 @@ import { AgmCoreModule } from '@agm/core';
     HomeService,
     NotificationService,
     SearchService,
-    GeneralUtilities
+    GeneralUtilities,
+    LocalStorageService
   ],
   bootstrap: [AppComponent]
 })

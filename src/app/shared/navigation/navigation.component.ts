@@ -4,6 +4,8 @@ import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../models/profile.model';
 import { Organization, initialOrganization } from '../../models/organization.model';
 
+import { LocalStorageService } from './../../services/local-storage.service';
+
 // action
 import { ProfileActions } from '../../actions/profile.action';
 import { OrganizationActions } from '../../actions/organization.action';
@@ -48,7 +50,8 @@ export class NavigationComponent implements OnInit {
     public modalService: ModalService,
     private el: ElementRef,
     private renderer: Renderer,
-    public generalHelper: GeneralUtilities
+    public generalHelper: GeneralUtilities,
+    private localStorageService: LocalStorageService
   ) {
 
     this.topNav = {
@@ -60,12 +63,17 @@ export class NavigationComponent implements OnInit {
       profile: { open: false }
     };
 
+    // localStorageService.accountStatusValue.subscribe((accountStatus) => {
+    //   console.log('accountStatus NAV SERVICE', accountStatus);
+    // });
     // check for account type in localStorage
     if (localStorage.getItem('accountStatus') === null) {
       this.profileType = 'user';
-      localStorage.setItem('accountStatus', JSON.stringify({ 'profileType': 'user' }));
+      localStorageService.theAccountStatus = JSON.stringify({ 'profileType': 'user' });
+      // localStorage.setItem('accountStatus', JSON.stringify({ 'profileType': 'user' }));
     } else {
-      const localStore = JSON.parse(localStorage.getItem('accountStatus'));
+      // const localStore = JSON.parse(localStorage.getItem('accountStatus'));
+      const localStore = JSON.parse(localStorageService.theAccountStatus);
       if (localStore.profileType === 'org') {
         this.profileType = 'org';
         this.switchToOrg(localStore.handle);
@@ -73,7 +81,7 @@ export class NavigationComponent implements OnInit {
         this.profileType = 'user';
       }
     }
-    console.log('this.profileType', this.profileType);
+    // console.log('this.profileType', this.profileType);
 
     this.baseUrl = environment.API_IMAGE;
     this.tagState$ = this.store.select('profileTags');
@@ -89,7 +97,7 @@ export class NavigationComponent implements OnInit {
     this.orgState$ = this.store.select('organizationTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      console.log('this.orgProfile', this.orgProfile);
+      // console.log('this.orgProfile', this.orgProfile);
     });
     /* org state */
 
@@ -245,14 +253,6 @@ export class NavigationComponent implements OnInit {
 
   // switch to the org
   switchToOrg(handle: string) {
-
-    // // checking if org alreay loaded in the state
-    // if (typeof this.orgProfile['orgProfile']['orgProfileDetails'] !== 'undefined') {
-    //   this.profileType = 'org';
-    //   return;
-    // }
-
-    this.profileType = 'org';
     let orgHandle = '';
 
     // check for org handle
@@ -267,11 +267,15 @@ export class NavigationComponent implements OnInit {
       this.store.dispatch({ type: OrganizationActions.LOAD_ORGANIZATION, payload: orgHandle });
     }
 
+    this.profileType = 'org';
+    this.localStorageService.theAccountStatus = JSON.stringify({ 'profileType': 'org', 'handle': orgHandle });
+
   }
 
   switchToUser() {
     this.profileType = 'user';
-    localStorage.setItem('accountStatus', JSON.stringify({ 'profileType': 'user' }));
+    this.localStorageService.theAccountStatus = JSON.stringify({ 'profileType': 'user' });
+    // localStorage.setItem('accountStatus', JSON.stringify({ 'profileType': 'user' }));
     // this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
   }
 

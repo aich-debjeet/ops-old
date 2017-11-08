@@ -25,7 +25,7 @@ export const OrganizationReducer: ActionReducer<any> = (state = initialOrganizat
 
     /* Load Org */
     case OrganizationActions.LOAD_ORGANIZATION:
-      localStorage.setItem('accountStatus', JSON.stringify({ 'profileType': 'org', 'handle': payload }));
+      // localStorage.setItem('accountStatus', JSON.stringify({ 'profileType': 'org', 'handle': payload }));
       return Object.assign({}, state, {
         status: 'laoding',
         orgHandle: payload,
