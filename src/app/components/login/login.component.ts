@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     fb: FormBuilder,
     private store: Store<Login>,
     private router: Router,
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     ) {
 
     this.loginForm = fb.group({
@@ -50,8 +50,6 @@ export class LoginComponent implements OnInit {
     if (this.route.snapshot.queryParams['next']) {
       this.redrectUrl = this.route.snapshot.queryParams['next'];
     }
-
-    console.log(this.redrectUrl);
     // this.redrectUrl = '';
     this.rightCom = {
       mainTitle: 'Log in to your account',
