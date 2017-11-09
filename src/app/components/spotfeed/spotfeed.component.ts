@@ -9,6 +9,8 @@ import { Spotfeed } from './../../models/profile.model';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
+import * as _ from 'lodash';
+
 import { environment } from './../../../environments/environment'
 
 @Component({
@@ -34,7 +36,6 @@ export class SpotfeedComponent {
   ) {
 
     this.baseUrl = environment.API_IMAGE;
-
     this.userState$ = this._store.select('profileTags');
 
     this.spotfeedId = route.snapshot.params['id'];
@@ -43,6 +44,15 @@ export class SpotfeedComponent {
       // console.log(state.spotfeed_detail['spotfeedMedia']);
       this.spotfeedDetails = state['spotfeed_detail'];
       // this.spotfeedPosts = this.spotfeedDetails.spotfeedMedia;
+
+      // filtering artists duplicate profiles
+      if (this.spotfeedDetails && typeof this.spotfeedDetails.spotfeedProfiles !== 'undefined') {
+        this.spotfeedDetails.spotfeedProfiles = _.uniqBy(this.spotfeedDetails.spotfeedProfiles, 'username');
+      }
+      // filtering media duplicate profiles
+      if (this.spotfeedDetails && typeof this.spotfeedDetails.spotfeedMedia !== 'undefined') {
+        this.spotfeedDetails.spotfeedMedia = _.uniqBy(this.spotfeedDetails.spotfeedMedia, 'id');
+      }
     });
 
     this.loadPostFeed();
