@@ -60,7 +60,7 @@
                             <div class="col-md-7">
                                 <div class="switch_btn">
                                     <label class="switch">
-                                    <input type="checkbox" checked="">
+                                    <input type="checkbox" name="followOption" value="{{followOption.value}}" checked [(ngModel)]="followOption.checked" (change)="updateCheckedOptions(followOption, $event)">
                                     <span class="slider round">
                                         </span>
                                     </label>
@@ -80,7 +80,7 @@
                             <div class="col-md-7">
                                 <div class="switch_btn">
                                     <label class="switch">
-                                    <input type="checkbox" checked="">
+                                    <input type="checkbox" name="donationOption" value="{{donationOption.value}}" checked [(ngModel)]="donationOption.checked" (change)="updateCheckedOptions(donationOption, $event)">
                                     <span class="slider round">
                                         </span>
                                     </label>
@@ -100,7 +100,7 @@
                             <div class="col-md-7">
                                 <div class="switch_btn">
                                     <label class="switch">
-                                    <input type="checkbox" checked="">
+                                    <input type="checkbox" name="networkOption" value="{{networkOption.value}}" checked [(ngModel)]="networkOption.checked" (change)="updateCheckedOptions(networkOption, $event)">
                                     <span class="slider round">
                                     </span>
                                     </label>
@@ -120,7 +120,7 @@
                             <div class="col-md-7">
                                 <div class="switch_btn">
                                     <label class="switch">
-                                        <input type="checkbox" checked="">
+                                        <input type="checkbox" name="messageOption" value="{{messageOption.value}}" checked [(ngModel)]="messageOption.checked" (change)="updateCheckedOptions(messageOption, $event)">
                                         <span class="slider round">
                                         </span>
                                 </label>
@@ -307,16 +307,18 @@
                             </div>
                         </div> -->
                         <div class="o-set-single-block  m-b-16" *ngIf="existingMembers">
-                            <div class="col-md-3 p-0" *ngFor="let members of existingMembers; let i = index;">
-                                <div class="c-user">
-                                    <a class="c-user__avatar c-avatar--feed">
-                                        <img class="c-user__image" src="{{baseUrl + members.profileImage}}">
-                                    </a>
-                                    <a class="c-user__name c-user__name--org">{{members.username}}</a>
+                            <div class="col-md-12 p-0" *ngFor="let members of existingMembers; let i = index;">
+                                <div class="col-md-5">
+                                    <div class="c-user">
+                                        <a class="c-user__avatar c-avatar--feed">
+                                            <img class="c-user__image" src="{{baseUrl + members.profileImage}}">
+                                        </a>
+                                        <a class="c-user__name c-user__name--org">{{members.username}}</a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3 p-0">
-                                <button type="button" class="btn btn-default btn-sm">Remove</button>
+                                <div class="col-md-3 p-0">
+                                    <button type="button" class="btn btn-default btn-sm" (click)="removeMember(members.handle)">Remove</button>
+                                </div>
                             </div>
                         </div>
                         <!-- block list 2 -->
