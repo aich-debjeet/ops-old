@@ -81,14 +81,11 @@ export class NavigationComponent implements OnInit {
         this.profileType = 'user';
       }
     }
-    // console.log('this.profileType', this.profileType);
-
     this.baseUrl = environment.API_IMAGE;
     this.tagState$ = this.store.select('profileTags');
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      // console.log('this.userProfile in Navigation component', this.userProfile);
     });
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
@@ -97,7 +94,6 @@ export class NavigationComponent implements OnInit {
     this.orgState$ = this.store.select('organizationTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      // console.log('this.orgProfile', this.orgProfile);
     });
     /* org state */
 
