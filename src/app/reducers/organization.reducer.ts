@@ -21,6 +21,7 @@ export const OrganizationReducer: ActionReducer<any> = (state = initialOrganizat
       });
 
     case OrganizationActions.ORGANIZATION_DELETE:
+    console.log('about to delete')
       return Object.assign({}, state, {
         status_saved: false
       });
@@ -71,6 +72,29 @@ export const OrganizationReducer: ActionReducer<any> = (state = initialOrganizat
       return Object.assign({}, state, {
         members_loading: false
       });
+
+      /**
+       * get default settings of an organization
+       */
+
+      case OrganizationActions.GET_ORGANIZATION_BY_HANDLE:
+      console.log('GET_ORGANIZATION_BY_HANDLE')
+        return Object.assign({}, state, {
+          defaultSettings: []
+
+        });
+      case OrganizationActions.GET_ORGANIZATION_BY_HANDLE_SUCCESS:
+          console.log('GET_ORGANIZATION_BY_HANDLE success');
+          console.log(payload)
+        return Object.assign({}, state, {
+          defaultSettings: payload.extras.settings
+        });
+
+      case OrganizationActions.GET_ORGANIZATION_BY_HANDLE_FAILED:
+      console.log('GET_ORGANIZATION_BY_HANDLE failed');
+        return Object.assign({}, state, {
+          success: false
+        });
 
     default:
       return state;
