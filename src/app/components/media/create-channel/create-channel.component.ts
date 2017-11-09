@@ -5,6 +5,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ModalService } from '../../../shared/modal/modal.component.service';
+import { ApiService } from '../../../helpers/api.service';
 
 // Action
 import { MediaActions } from '../../../actions/media.action';
@@ -60,6 +61,7 @@ export class CreateChannelComponent implements OnInit {
     private http: Http,
     private tokenService: TokenService,
     private localStorageService: LocalStorageService,
+    private apiService: ApiService,
     private store: Store<Media> ) {
       this.createChannelForm();
       this.typeSelected = false;
@@ -146,10 +148,9 @@ export class CreateChannelComponent implements OnInit {
    */
 
   public requestAutocompleteItems = (text: string): Observable<Response> => {
+    const headers = this.apiService.getHeaders();
     const url  = this.apiLink + '/portal/searchprofiles/1/' + text + '/0/10';
-    return this.http
-      .get(url)
-      .map(data => data.json());
+    return this.http.get(url, { headers: headers }).map(data => data.json());
   };
 
   handledObject(n) {
