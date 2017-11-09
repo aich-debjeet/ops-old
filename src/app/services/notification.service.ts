@@ -37,7 +37,7 @@ export class NotificationService {
     this.updateToken();
     this.pageNumber ++;
     const pagination = this.paginate(this.pageNumber);
-    console.log('pagination', pagination);
+    // console.log('pagination', pagination);
     return this.api.get('/portal/network/notification/getAllNotification/' + pagination.offset + '/' + pagination.limit);
   }
 
