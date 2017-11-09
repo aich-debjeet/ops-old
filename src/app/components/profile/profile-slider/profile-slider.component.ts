@@ -421,6 +421,10 @@ export class ProfileSliderComponent implements OnInit {
     this.modalService.open('skillMoreWindow');
   }
 
+  skillClose() {
+    this.modalService.close('skillMoreWindow');
+  }
+
   donatePopup() {
     this.modalService.open('donationPopup');
   }
