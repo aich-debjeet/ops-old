@@ -335,6 +335,7 @@
     font-size: 11px;
     line-height: 15px;
     cursor: pointer;
+    margin-right: 4px;
 }
 
 /* -------------------------- profile feed ----------------- */
@@ -1320,4 +1321,47 @@
     height: 100%;
     background-color: #fff;
     /* opacity: .5; */
+}
+
+// tag pop
+
+.o-tag-pop{
+    width: 675px;
+    min-height: 200px;
+    background: #fff;
+    margin: 40px auto;
+    display: table;
+}
+
+.o-tag-head{
+    width: 100%;
+    padding: 16px 24px;
+    float: left;
+}
+.o-tag__title{
+    font-size: 14px;
+    color: #333;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 19px;
+}
+.o-tag-list{
+    width: 100%;
+    float: left;
+    padding:32px;
+}
+.line-15{
+    line-height: 15px;
+}
+
+.pop-close{
+    float: right;
+    width: 12px;
+    height: 12px;
+    cursor: pointer
+    img {
+        width: 12px;
+        height: 12px;
+    }
 }
