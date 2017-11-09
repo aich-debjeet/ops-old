@@ -2,7 +2,7 @@
   <div class="pro_channel2 row">
     <masonry>
       <masonry-brick class="col-md-3 col-sm-6 c-card padding_8" *ngFor="let channel of channelList; let i = index">
-          <app-channel [channelData]="channel" ></app-channel>
+          <app-channel [channelData]="channel" (onFollow)="followChannel($event)"></app-channel>
       </masonry-brick>
     </masonry>
   </div>
