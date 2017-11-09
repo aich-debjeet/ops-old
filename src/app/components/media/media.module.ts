@@ -99,7 +99,9 @@ const routes: Routes = [
     SearchUniquePipe
   ],
   exports: [
-    MediaComponent
+    MediaComponent,
+    ReadMoreDirective,
+    // ReadMoreDirective
   ]
 })
 

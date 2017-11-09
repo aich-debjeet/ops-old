@@ -37,6 +37,7 @@ export class ChannelInnerComponent implements OnInit {
   channelId: string;
   imageLink: string = environment.API_IMAGE;
   pageLoading: boolean;
+  isfollowing: boolean;
 
   constructor(
     private http: Http,
@@ -56,9 +57,19 @@ export class ChannelInnerComponent implements OnInit {
       });
       this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
       this.buildEditForm();
+
+      // this._store.select('profileTags')
+      //   .first(data => data['channel_details'].isFollowing)
+      //   .subscribe( data => {
+      //     console.log(data);
+      //     // this.isfollowing = data['channel_detail'].isFollowing;
+      //   });
+
   }
 
   ngOnInit() {
+    console.log(this.channel);
+    // this.isfollowing = this.channel.isFollowing || false;
   }
 
    /**

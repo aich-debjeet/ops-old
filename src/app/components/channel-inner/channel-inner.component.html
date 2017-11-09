@@ -3,57 +3,63 @@
   <div class="container channel_inner outer_header" *ngIf="(tagState$ | async).channel_detail?.channelName && !pageLoading">
     <!---  section  -->
     <div class="row">
-        <div class="col-md-6">
-            <ul class="list-inline">
-                <li class="list-inline-item">
-                    <div class="ops_h1">{{(tagState$ | async).channel_detail?.channelName}}</div>
-                </li>
-                <!--<li class="list-inline-item">
-                    <button type="button" class="btn btn-xs btn-normal btn-following">
-                        FOLLOWING
-                    </button>
-                </li>-->
-            </ul>
-            <div class="channel_inner_type">
-              <span *ngIf="!(tagState$ | async).channel_detail?.accessSeetings.access" class="public_channel">Public Channel</span>
-              <span *ngIf="(tagState$ | async).channel_detail?.accessSeetings.access" class="public_channel">Private Channel</span>
-                <ul class="list-inline pro_nav_icon">
-                    <!--<li class="list-line-item">
-                        <a (click)="pinEditFormPopup()"  aria-expanded="true">
-                            <img src="/assets/img/svg/ico_options.svg">
-                        </a>
-                        <ul class="dropdown-menu report_block_drop">
-                            <li>
-                                <a href="#">Pin to Quick acess</a>
-                            </li>
-                        </ul>
-                    </li>-->
+            <div class="col-md-6">
+                <p *ngIf="!(tagState$ | async).channel_detail?.accessSeetings.access" class="c-text_sm text_uppercase ltr-space color-grey-dark">Public Channel</p>
+                <p *ngIf="(tagState$ | async).channel_detail?.accessSeetings.access" class="c-text_sm text_uppercase ltr-space color-grey-dark">Private Channel</p>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <div class="c-h3 c-h3--weight">{{(tagState$ | async).channel_detail?.channelName}}</div>
+                    </li>
+                    <li class="list-inline-item" *ngIf="(tagState$ | async).channel_detail?.isOwner">
+                        <button type="button" class="btn btn-default btn-sm fill-white">
+                            Add Post
+                        </button>
+                    </li>
+                    <li class="list-inline-item">
+                        <!--<button type="button" class="btn btn-primary btn-sm">{{ isfollowing ? 'Unfollow' : 'Follow' }}</button>-->
+                    </li>
                     
-                    <li *ngIf="(tagState$ | async).channel_detail?.isOwner" class="list-line-item">
-                      <a [routerLink]="['', { outlets: { media : ['channel', (tagState$ | async).channel_detail?.channelId, 'edit' ] } } ]">
-                        <img src="/assets/img/svg/ico_edit.svg">
-                      </a>
+                    <li class="list-inline-item" *ngIf="(tagState$ | async).channel_detail?.isOwner">
+                        <div class="dropdown" appDropdown>
+                            <span class="com-head" appDropdownOpen>
+                                <a (click)="pinEditFormPopup()"  >
+                                    <img class="opt-dot" src="/assets/img/svg/ico_options.svg">
+                                </a>
+                            </span>
+                            <ul class="dropdown-menu c-opsdropdown--size1">
+                                <!--<li class="list-inline-item">
+                                    <a href="#">Pin to Quick Access</a>
+                                </li>-->
+                                <li class="list-inline-item">
+                                    <a [routerLink]="['', { outlets: { media : ['channel', (tagState$ | async).channel_detail?.channelId, 'edit' ] } } ]" >Edit</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </li>
+                </ul>
+                <div class=" spot_in_toptext c-text_md color-grey-dark m-t-16">
+                    {{ (tagState$ | async).channel_detail?.description }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                
+                <div class="col-sm-12 spot_in_icons m-b-24">
+                    <div class="overlap_thumb">
+                        <span class="over1_thumb" *ngFor="let media of (tagState$ | async).channel_detail?.contributorProfile | slice:0:3">
+                        <img src="{{ imageLink + media.profileImage}}">
+                        </span>
+                    </div>
+                </div>
+                <ul class="list-inline">
+                    <li class="list-inline-item pull-right">
+                        <div class="spot_in_follow c-text_sm text_uppercase ltr-space color-grey-dark"><span class="c-h3 c-h3--weight">{{ (tagState$ | async).channel_detail?.followersCount }}</span><br>Followers</div>
+                        <div class="spot_in_follow c-text_sm text_uppercase ltr-space color-grey-dark"><span class="c-h3 c-h3--weight">{{ (tagState$ | async).channel_detail?.spotCount }}</span><br>Posts</div>
                     </li>
                 </ul>
             </div>
-            <div class="ops_heading2 spot_in_toptext">{{ (tagState$ | async).channel_detail?.description }}</div>
         </div>
-        <div class="col-md-6">
-            <ul class="list-inline">
-                <li class="list-inline-item pull-right">
-                    <div class="spot_in_follow"><strong>{{ (tagState$ | async).channel_detail?.followersCount }}</strong> Followers</div>
-                    <div class="spot_in_follow"><strong>{{ (tagState$ | async).channel_detail?.spotCount }}</strong>Post</div>
-                </li>
-            </ul>
-            <div class="col-sm-12 spot_in_icons">
-                <div class="overlap_thumb">
-                    <span class="over1_thumb" *ngFor="let media of (tagState$ | async).channel_detail?.contributorProfile | slice:0:3">
-                      <img src="{{ imageLink + media.profileImage}}">
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <!-- follow channels -->
     <div class="row channel_inner_block">
