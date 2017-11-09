@@ -66,6 +66,7 @@ export class ChannelComponent implements OnInit {
    */
 
   toggleFollowBtn(event) {
+    console.log(event);
     const followState = this.isfollowing;
     this.isfollowing = !followState;
 
