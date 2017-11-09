@@ -28,7 +28,7 @@ export class StatusListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._store.dispatch({ type: ProfileActions.LOAD_USER_STATUS, payload: 'D_BC0C5227_3FF7_4260_8733_DFDBFE965437' });
+    this._store.dispatch({ type: ProfileActions.LOAD_USER_STATUS });
   }
 
 }
