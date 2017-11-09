@@ -86,6 +86,10 @@ const routes: Routes = [
     // children: childRoutes,
   },
   {
+    path: 'settings',
+    component: OrgSettingsComponent,
+  },
+  {
     path: 'page',
     component: OrganizationProfileComponent,
     children: childRoutes

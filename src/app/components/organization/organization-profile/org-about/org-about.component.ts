@@ -30,7 +30,7 @@ export class OrgAboutComponent implements OnInit {
     this.orgState$ = this.store.select('organizationTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      // console.log('this.orgProfile ABOUT ORG', this.orgProfile);
+      console.log('this.orgProfile ABOUT ORG', this.orgProfile);
     });
     /* org state */
 
