@@ -15,7 +15,7 @@
                             Add Post
                         </button>
                     </li>
-                    <li class="list-inline-item">
+                    <li class="list-inline-item" *ngIf="!(tagState$ | async).channel_detail?.isOwner">
                         <button type="button" (click)="followChannel(isfollowing, channel?.channel_detail?.channelId )" class="btn btn-primary btn-sm">{{ isfollowing ? 'Unfollow' : 'Follow' }}</button>
                     </li>
                     
