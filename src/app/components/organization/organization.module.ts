@@ -30,7 +30,7 @@ const childRoutes = [
     component: OrgProfileComponent,
     children: [
       { path: '', component: OrgChannelComponent },
-      { path: 'channel', component: OrgPostComponent },
+      { path: 'channel', component: OrgChannelComponent },
       { path: 'post', component: OrgPostComponent },
       { path: 'spotfeed', component: OrgFeedComponent },
       { path: 'image-upload', component: OrgImageComponent },
