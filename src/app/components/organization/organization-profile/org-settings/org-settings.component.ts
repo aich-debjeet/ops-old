@@ -36,6 +36,12 @@ export class OrgSettingsComponent implements OnInit {
   private apiLink: string = environment.API_ENDPOINT;
   existingMembers: any = [];
   membersLoading: boolean;
+  selectedOption = [];
+  followOption = {name: 'Follow', value: 'Follow', checked: true};
+  donationOption = {name: 'Donation', value: 'Donation', checked: true};
+  networkOption = {name: 'Network', value: 'Network', checked: true};
+  messageOption = {name: 'Message', value: 'Message', checked: true};
+  defaultSettings: any;
 
   constructor(
     private http: Http,
@@ -55,6 +61,7 @@ export class OrgSettingsComponent implements OnInit {
       console.log(this.userProfile)
       if (state.profileUser.isOrganization === true) {
         this.organizationHandle = state.profileUser.organization.organizationHandle;
+        this.store.dispatch({type: OrganizationActions.GET_ORGANIZATION_BY_HANDLE, payload: this.organizationHandle});
       }
     });
 
@@ -69,12 +76,26 @@ export class OrgSettingsComponent implements OnInit {
         this.existingMembers = this.orgProfile.organizationMembers;
         this.membersLoading = true;
       }
+      if (state.defaultSettings) {
+        this.defaultSettings = state.defaultSettings;
+        this.followOption.checked = this.defaultSettings.follow;
+        this.donationOption.checked = this.defaultSettings.donation;
+        this.networkOption.checked = this.defaultSettings.network;
+        this.messageOption.checked = this.defaultSettings.message;
+      }
+      if (state.org_deletion_success) {
+        console.log('success')
+        this.toastr.success('Organization deletion Success');
+      }
+      if (state.org_deletion_failed) {
+        console.log('failed')
+        this.toastr.success('Organization deletion failed');
+      }
     });
   }
 
   ngOnInit() {
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-    // this.store.dispatch({type: OrganizationActions.GET_MEMBERS, payload: this.organizationHandle});
     this.selectedView = true;
     this.show = false;
     this.show1 = false;
@@ -124,9 +145,16 @@ export class OrgSettingsComponent implements OnInit {
       .subscribe(response => {
         console.log('finally its a success' + response)
       });
+      this.adminNameForm.reset();
     }
   }
 
+  reset() {
+    this.adminNameForm.patchValue({
+      adminName: '',
+      publicWork: true
+    });
+  }
   onSearch() {
   if (this.admin !== null || this.admin !== '') {
     this.recipientsListState = true;
@@ -155,24 +183,104 @@ export class OrgSettingsComponent implements OnInit {
   deleteOrganization() {
     if (this.organizationHandle !== 'undefined') {
       console.log('here')
-      this.store.dispatch({ type: OrganizationActions.ORGANIZATION_DELETE, payload: this.organizationHandle });
-      this.store.select('organizationTags')
-        .first(profile => profile['org_deletion_success'] === true)
-        .subscribe( datas => {
-        console.log(datas);
-        this.toastr.success('Organization deletion Success');
+      const headers = this.tokenService.getAuthHeader();
+      console.log(this.apiLink)
+      this.http.delete(this.apiLink + '/portal/organization/' + this.organizationHandle, { headers: headers })
+      .map((data: Response) => data.json())
+      .subscribe(response => {
+        console.log('finally its a success' + response)
       });
-      this.store.select('organizationTags')
-      .first(profile => profile['org_deletion_failed'] === true)
-      .subscribe( datas => {
-      console.log(datas);
-      this.toastr.success('Organization deletion failed');
-    });
+      // this.store.dispatch({ type: OrganizationActions.ORGANIZATION_DELETE, payload: this.organizationHandle });
   }
 }
 
 hideList() {
   this.recipientsListState = false;
 }
+
+removeMember(handle: any) {
+
+  const form = {
+    'organizationHandle': this.organizationHandle,
+    'memberHandle': handle,
+    'status': 'remove'
+  }
+  const headers = this.tokenService.getAuthHeader();
+   return this.http.put(this.apiLink + '/portal/organization/remove/member/deleteResponse', form , { headers: headers })
+  .map((data: Response) => data.json())
+  .subscribe(response => {
+    console.log('finally its a success' + response)
+  });
+}
+  updateCheckedOptions(option, event) {
+    console.log(option);
+    const val = option.name;
+    console.log(val)
+    console.log(event);
+    if (option.name === 'Follow') {
+      const form =  {
+        'extras': {
+        'settings': {
+          follow : option.checked
+        }
+      }
+      }
+      console.log(form)
+      const headers = this.tokenService.getAuthHeader();
+       this.http.put(this.apiLink + '/portal/organization/' + this.organizationHandle, form, { headers: headers })
+      .map((data: Response) => data.json())
+      .subscribe(response => {
+        console.log('finally its a success' + response)
+      });
+    }
+    if (option.name === 'Donation') {
+      const form =  {
+        'extras': {
+        'settings': {
+          donation : option.checked
+        }
+      }
+      }
+      console.log(form)
+      const headers = this.tokenService.getAuthHeader();
+       this.http.put(this.apiLink + '/portal/organization/' + this.organizationHandle, form, { headers: headers })
+      .map((data: Response) => data.json())
+      .subscribe(response => {
+        console.log('finally its a success' + response)
+      });
+    }
+    if (option.name === 'Network') {
+      const form =  {
+        'extras': {
+        'settings': {
+          network : option.checked
+        }
+      }
+      }
+      console.log(form)
+      const headers = this.tokenService.getAuthHeader();
+       this.http.put(this.apiLink + '/portal/organization/' + this.organizationHandle, form, { headers: headers })
+      .map((data: Response) => data.json())
+      .subscribe(response => {
+        console.log('finally its a success' + response)
+      });
+    }
+    if (option.name === 'Message') {
+      const form =  {
+        'extras': {
+        'settings': {
+          message : option.checked
+        }
+      }
+      }
+      console.log(form)
+      const headers = this.tokenService.getAuthHeader();
+       this.http.put(this.apiLink + '/portal/organization/' + this.organizationHandle, form, { headers: headers })
+      .map((data: Response) => data.json())
+      .subscribe(response => {
+        console.log('finally its a success' + response)
+      });
+    }
+  }
 
 }
