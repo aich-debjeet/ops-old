@@ -43,6 +43,10 @@ export class OrganizationActions {
     static GET_MEMBERS_SUCCESS = 'GET_MEMBERS_SUCCESS';
     static GET_MEMBERS_FAILED = 'GET_MEMBERS_FAILED';
 
+    static GET_ORGANIZATION_BY_HANDLE = 'GET_ORGANIZATION_BY_HANDLE';
+    static GET_ORGANIZATION_BY_HANDLE_SUCCESS = 'GET_ORGANIZATION_BY_HANDLE_SUCCESS';
+    static GET_ORGANIZATION_BY_HANDLE_FAILED = 'GET_ORGANIZATION_BY_HANDLE_FAILED';
+
     /*------------------------ get receipient details---------------------------------*/
 
   getReceipient(value) {
@@ -90,4 +94,27 @@ export class OrganizationActions {
     };
   }
 
+
+  /*------------------------ get organization settings details by handle---------------------------------*/
+  getDefaultSettings(value) {
+    console.log('GET_ORGANIZATION_BY_HANDLE action triggred');
+    return {
+      type: OrganizationActions.GET_ORGANIZATION_BY_HANDLE,
+      payload: { value }
+    };
+  }
+  getDefaultSettingsSuccess (value) {
+    console.log('GET_ORGANIZATION_BY_HANDLE_SUCCESS action triggred');
+    return {
+      type: OrganizationActions.GET_ORGANIZATION_BY_HANDLE_SUCCESS,
+      payload: { value }
+    };
+  }
+  getDefaultSettingsFailure (value) {
+    console.log('GET_ORGANIZATION_BY_HANDLE_FAIlURE action triggred');
+    return {
+      type: OrganizationActions.GET_ORGANIZATION_BY_HANDLE_FAILED,
+      payload: { value }
+    };
+  }
 }

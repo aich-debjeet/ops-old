@@ -45,12 +45,26 @@ export class OrganizationEffect {
 
     @Effect()
         getMembers$ = this._actions$
-                .ofType(OrganizationActions.GET_MEMBERS)
-                .map(toPayload)
-                .switchMap((payload) => this._orgService.getOrganizationMembers( payload )
-                     .map(res => ({ type: OrganizationActions.GET_MEMBERS_SUCCESS, payload: res }))
-                     .catch((res) => Observable.of({ type: OrganizationActions.GET_MEMBERS_FAILED, payload: res }))
-                );
+            .ofType(OrganizationActions.GET_MEMBERS)
+            .map(toPayload)
+            .switchMap((payload) => this._orgService.getOrganizationMembers( payload )
+                 .map(res => ({ type: OrganizationActions.GET_MEMBERS_SUCCESS, payload: res }))
+                 .catch((res) => Observable.of({ type: OrganizationActions.GET_MEMBERS_FAILED, payload: res }))
+            );
+
+    /**
+     * 
+     * getting default settings of an organization
+     * @param _orgService
+     */
+    @Effect()
+        getSettings$ = this._actions$
+            .ofType(OrganizationActions.GET_ORGANIZATION_BY_HANDLE)
+            .map(toPayload)
+            .switchMap((payload) => this._orgService.getDefaultSettings( payload )
+                 .map(res => ({ type: OrganizationActions.GET_ORGANIZATION_BY_HANDLE_SUCCESS, payload: res }))
+                 .catch((res) => Observable.of({ type: OrganizationActions.GET_ORGANIZATION_BY_HANDLE_FAILED, payload: res }))
+            );
 
     /**
      *  Load image to database
