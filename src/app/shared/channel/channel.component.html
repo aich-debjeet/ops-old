@@ -2,6 +2,17 @@
     <!-- card body -->
     <div class="c-card__body">
         <a class="c-channel__heading" [routerLink]="['/channel', channelData?.spotfeedId]" >{{channelData?.spotfeedName | truncate:[19, '...'] }}</a>
+        <div appDropdown *ngIf="currentUser">
+          <a class="dropdown-toggle" appDropdownOpen>
+            <img src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg" alt="" class="c-card__options">
+          </a>
+          <ul class="dropdown-menu c-channel-option">
+            <!--  Only if current user -->
+            <li><a (click)="deleteChannel(channelData?.spotfeedId)">Delete</a></li>
+            <li><a [routerLink]="['', { outlets: { media : ['channel', channelData?.spotfeedId, 'edit' ] } } ]">Edit</a></li>
+            <li><a (click)="pinChannel(channelData?.spotfeedId)">{{ ispin? 'Unpin from Quick Access' : 'Pin to Quick Access' }}</a></li>
+          </ul>
+        </div>
     </div>
     <!-- //card body -->
     <!-- channel media -->
