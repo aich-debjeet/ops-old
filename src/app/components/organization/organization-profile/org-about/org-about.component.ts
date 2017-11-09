@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 // action
@@ -22,6 +22,18 @@ export class OrgAboutComponent implements OnInit {
   orgProfile;
   editingField: string;
 
+  /**
+   * about vars
+   */
+  @ViewChild('aboutDescription') aboutDescription;
+  @ViewChild('aboutServices') aboutServices;
+  @ViewChild('aboutIndustries') aboutIndustries;
+  @ViewChild('aboutActiveFrom') aboutActiveFrom;
+  @ViewChild('aboutMobile') aboutMobile;
+  @ViewChild('aboutEmail') aboutEmail;
+  @ViewChild('aboutWebsite') aboutWebsite;
+  @ViewChild('aboutAddress') aboutAddress;
+
   constructor(
     private store: Store<Organization>
   ) {
@@ -30,7 +42,7 @@ export class OrgAboutComponent implements OnInit {
     this.orgState$ = this.store.select('organizationTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      // console.log('this.orgProfile ABOUT ORG', this.orgProfile);
+      console.log('this.orgProfile ABOUT ORG', this.orgProfile);
     });
     /* org state */
 
@@ -51,6 +63,37 @@ export class OrgAboutComponent implements OnInit {
    */
   cancelEdit() {
     this.editingField = '';
+  }
+
+  closeEditor() {
+    this.cancelEdit();
+  }
+
+  /**
+   * Update individual field
+   */
+  updateField(fieldName: string) {
+    const updatedValue = this.aboutDescription.nativeElement.value;
+    // console.log('updatedValue', updatedValue);
+
+    const data = {
+      handle: this.orgProfile.orgHandle,
+      body: {
+        extras: {
+          Description: updatedValue
+        }
+      }
+    }
+    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_UPDATE, payload: data });
+
+    // profile update sucess
+    this.store.select('organizationTags')
+    .first(org => org['org_profile_update_success'] === true)
+    .subscribe( orgUpdate => {
+      this.store.dispatch({ type: OrganizationActions.LOAD_ORGANIZATION, payload: this.orgProfile.orgHandle });
+      this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.orgProfile.org_profile_details.extra.username });
+      this.closeEditor();
+    });
   }
 
 }

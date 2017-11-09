@@ -87,10 +87,10 @@
                                     {{ orgProfile?.org_profile_details?.description }}
                                 </p>
                                 <div *ngIf="editingField == 'description'" id="brief-edit" class="o-org-form__edit-sec">
-                                    <textarea class="o-org-about__breif c-text_sm m-t-8">{{ orgProfile?.org_profile_details?.description }}</textarea>
+                                    <textarea #aboutDescription class="o-org-about__breif c-text_sm m-t-8">{{ orgProfile?.org_profile_details?.description }}</textarea>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button (click)="updateField('description')" type="button" class="btn btn-primary btn-sm">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -103,11 +103,11 @@
                                 </p>
                                 <div *ngIf="editingField == 'services'" id="o-org-about-serv_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input" type="text" value="UI Design, UX Design, Branding">
+                                        <input #aboutServices class="c-form__input" type="text" value="UI Design, UX Design, Branding">
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button (click)="updateField('services')" type="button" class="btn btn-primary btn-sm">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -122,11 +122,11 @@
                                 </p>
                                 <div *ngIf="editingField == 'industries'" id="o-org-about-ind_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input" type="text" value="">
+                                        <input #aboutIndustries class="c-form__input" type="text" value="">
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button (click)="updateField('industries')" type="button" class="btn btn-primary btn-sm">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -139,11 +139,11 @@
                                 </p>
                                 <div *ngIf="editingField == 'activeFrom'" id="o-org-about-foundyr_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group ">
-                                        <input class="c-form__input" type="text" value="{{ orgProfile?.org_profile_details?.activeFrom }}">
+                                        <input #aboutActiveFrom class="c-form__input" type="text" value="{{ orgProfile?.org_profile_details?.activeFrom }}">
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button (click)="updateField('activeFrom')" type="button" class="btn btn-primary btn-sm">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -164,12 +164,12 @@
                                 </div>
                                 <div *ngIf="editingField == 'mobile'" id="o-org-about-contact-ph-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input fpadding_l32" type="text" value="{{ orgProfile?.orgProfileDetails?.mobile }}">
+                                        <input #aboutMobile class="c-form__input fpadding_l32" type="text" value="{{ orgProfile?.orgProfileDetails?.mobile }}">
                                         <span><img src="/assets/img/svg/ico_receiver.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button (click)="updateField('mobile')" type="button" class="btn btn-primary btn-sm">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -185,12 +185,12 @@
                                 </div>
                                 <div *ngIf="editingField == 'email'" id="o-org-about-contact-mail-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input fpadding_l32" type="text" value="{{ orgProfile?.org_profile_details?.email }}">
+                                        <input #aboutEmail class="c-form__input fpadding_l32" type="text" value="{{ orgProfile?.org_profile_details?.email }}">
                                         <span><img src="/assets/img/svg/ico_envelope.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button (click)="updateField('email')" type="button" class="btn btn-primary btn-sm">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -206,12 +206,12 @@
                                 </div>
                                 <div *ngIf="editingField == 'website'" id="o-org-about-contact-web-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input fpadding_l32" type="text" value="{{ orgProfile?.org_profile_details?.contact?.website.website }}">
+                                        <input #aboutWebsite class="c-form__input fpadding_l32" type="text" value="{{ orgProfile?.org_profile_details?.contact?.website.website }}">
                                         <span><img src="/assets/img/svg/ico_public_grey.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button (click)="updateField('website')" type="button" class="btn btn-primary btn-sm">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -227,12 +227,12 @@
                                 </p>
                                 <div *ngIf="editingField == 'address'" id="o-org-about-address_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input" type="text" value="200 Willoughby Ave, Brooklyn, NY 11205, USA">
+                                        <input #aboutAddress class="c-form__input" type="text" value="200 Willoughby Ave, Brooklyn, NY 11205, USA">
                                     </div>
                                 </div>
                                 <div *ngIf="editingField == 'address'" class="o-org-form__actions">
                                     <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                    <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                    <button (click)="updateField('address')" type="button" class="btn btn-primary btn-sm">Save</button>
                                 </div>
                             </li>
                         </ul>
