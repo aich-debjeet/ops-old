@@ -122,7 +122,12 @@
                                 </p>
                                 <div *ngIf="editingField == 'industries'" id="o-org-about-ind_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input #aboutIndustries class="c-form__input" type="text" value="">
+                                        <!-- <input #aboutIndustries class="c-form__input" type="text" value=""> -->
+                                        <select #aboutIndustries class="form-control">
+                                            <ng-container *ngFor="let industry of industries">
+                                                <option [selected]="industry == orgIndustry" [value]="industry.code" >{{ industry.name }}</option>
+                                            </ng-container>
+                                        </select>
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>

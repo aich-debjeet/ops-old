@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 // action
 import { ProfileActions } from '../../../../actions/profile.action';
 import { OrganizationActions } from '../../../../actions/organization.action';
+import { AuthActions } from '../../../../actions/auth.action';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -19,8 +20,11 @@ import { UtcDatePipe } from './../../../../pipes/utcdate.pipe';
 export class OrgAboutComponent implements OnInit {
 
   orgState$: Observable<Organization>;
+  loginTagState$: Observable<any>;
   orgProfile;
   editingField: string;
+  industries: any[];
+  orgIndustry: string;
 
   /**
    * about vars
@@ -43,8 +47,19 @@ export class OrgAboutComponent implements OnInit {
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
       console.log('this.orgProfile ABOUT ORG', this.orgProfile);
+      if (this.orgProfile && this.orgProfile['orgProfileDetails']['industryList']) {
+        this.orgIndustry = this.orgProfile.orgProfileDetails.industryList[0].name;
+      }
     });
     /* org state */
+
+    // loading industries
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
+    this.loginTagState$ = store.select('loginTags');
+    this.loginTagState$.subscribe((state) => {
+      this.industries = state.industries;
+      // console.log('this.industries', this.industries);
+    });
 
   }
 
