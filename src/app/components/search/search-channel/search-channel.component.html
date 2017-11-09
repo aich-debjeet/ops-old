@@ -6,7 +6,7 @@
 
     <ng-template #channels_found>
 
-        <masonry>
+        <masonry [useImagesLoaded]="true">
             <masonry-brick class="col-md-3 col-sm-6 c-card padding_8" *ngFor="let channel of channels; let i = index">
                 <app-channel [channelData]="channel" ></app-channel>
             </masonry-brick>
