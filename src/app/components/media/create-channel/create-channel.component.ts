@@ -240,11 +240,15 @@ export class CreateChannelComponent implements OnInit {
    * Check for hashtags in Desc
    */
   descListener(descValue: any) {
+    console.log('descValue', descValue);
 
     // checking for last char if it's a space
     const lastChar = descValue[descValue.length - 1];
 
-    if (lastChar === ' ') {
+    // check if hit enter
+    const match = /\r|\n/.exec(descValue);
+
+    if (lastChar === ' ' || match) {
       // checking of hashtags
       let hashTags = this.generalHelper.findHashtags(descValue);
       if (hashTags && hashTags.length > 0) {
@@ -252,17 +256,19 @@ export class CreateChannelComponent implements OnInit {
         // filter for duplicate values
         hashTags = _.uniq(hashTags);
         console.log('U hashtags', hashTags);
+        console.log('U tags', this.tags);
 
         const that = this;
         // prepare value to add
-        hashTags.forEach(hashTag => {
+        hashTags.forEach((hashTag, i) => {
           that.tags.push({
             display: hashTag,
             value: hashTag
           });
-
-          // make the array uniq
-          this.tags = _.uniqBy(this.tags, 'value');
+          if (i === hashTags.length - 1) {
+            // make the array uniq
+            this.tags = _.uniqBy(this.tags, 'value');
+          }
         });
       }
       // console.log('tags', this.tags);
