@@ -81,8 +81,10 @@ export class EditChannelComponent implements OnInit {
       if (typeof this.mediaStore.channel_detail['contributorProfile'] !== 'undefined') {
         this.people = this.mediaStore.channel_detail['contributorProfile'];
         this.tags = this.mediaStore.channel_detail['tags'];
-        const industryArrLen = this.mediaStore.channel_detail['industryList'].length;
-        this.selectedIndustry = this.mediaStore.channel_detail['industryList'][industryArrLen - 1];
+        setTimeout(() => {
+          const industryArrLen = this.mediaStore.channel_detail['industryList'].length;
+          this.selectedIndustry = this.mediaStore.channel_detail['industryList'][industryArrLen - 1];
+        }, 1000);
         this.selectedPrivacy = this.mediaStore.channel_detail['accessSeetings'].access;
       }
     });
