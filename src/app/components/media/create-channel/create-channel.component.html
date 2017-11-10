@@ -87,7 +87,7 @@
                           <label>Title</label>
                       </div>
                       <div class="form_group">
-                          <textarea class="form_textarea" formControlName="desc" name="" placeholder="About your Channel"></textarea>
+                          <textarea class="form_textarea" formControlName="desc" name="" placeholder="About your Channel" (ngModelChange)="descListener($event)"></textarea>
                           <span class="form_highlight"></span>
                           <span class="form_bar"></span>
                           <!-- <label>About Channel</label> -->
