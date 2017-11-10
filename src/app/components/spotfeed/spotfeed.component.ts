@@ -51,7 +51,7 @@ export class SpotfeedComponent {
         // remove loggedn in user profile
 
         // filtering artists duplicate profiles
-        this.spotfeedDetails.spotfeedProfiles = _.uniqBy(this.spotfeedDetails.spotfeedProfiles, 'username');
+        this.spotfeedDetails.spotfeedProfiles = _.uniqBy(this.spotfeedDetails.spotfeedProfiles, 'handle');
       }
       // filtering media duplicate profiles
       if (this.spotfeedDetails && typeof this.spotfeedDetails.spotfeedMedia !== 'undefined') {
