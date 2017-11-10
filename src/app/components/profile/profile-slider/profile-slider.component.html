@@ -241,10 +241,22 @@
 
 <!--Skill more -->
 
-<app-modal [modalTitle]="'Some title'" [open]="false" [blocking]='false' modalId='skillMoreWindow'>
-    <div class="popup__window">
-        <button *ngFor="let skill of profileObject?.userSkill" type="button" class="btn btn-default btn-xs btn-skill">{{ skill.name }}</button>
+<app-modal [modalTitle]="'Some title'" [open]="false" [blocking]='false' modalId='skillMoreWindow' size="tiny__skill">
+    <div class="modal-content o-tag-pop">
+        <div class="o-tag-head with_border_bottom">
+            <h2 class="o-tag__title">More Skills
+                <span class="pop-close" (click)="skillClose()">
+                  <a  ><img src="https://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
+                </span>
+            </h2>
+        </div>
+        <div class="o-tag-list">
+            <span *ngFor="let skill of profileObject?.userSkill" class="c-skill__tags">#{{ skill.name }}</span>
+        </div>
     </div>
+    <!--<div class="popup__window">
+        <button *ngFor="let skill of profileObject?.userSkill" type="button" class="btn btn-default btn-xs btn-skill">{{ skill.name }}</button>
+    </div>-->
 </app-modal>
 
 <app-modal [blocking]='false' modalId='donationPopup' *ngIf="!this.isOwner" size="tiny__donation">

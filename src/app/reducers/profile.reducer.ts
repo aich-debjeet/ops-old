@@ -41,19 +41,22 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_CURRENT_USER_PROFILE:
       return Object.assign({}, state, {
         success: true,
-        profile_loaded: false
+        profile_loaded: false,
+        current_user_profile_loading: false
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_SUCCESS:
       return Object.assign({}, state, {
         profileUser: payload,
-        profile_loaded: true
+        profile_loaded: true,
+        current_user_profile_loading: true
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_FAILED:
       return Object.assign({}, state, {
         success: false,
-        profile_loaded: false
+        profile_loaded: false,
+        current_user_profile_loading: false
       });
 
     /**
@@ -498,15 +501,27 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         success: true,
         spotfeed_loading: false,
-        spotfeed_detail: []
+        // spotfeed_detail: []
       });
 
     case ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS:
-      const spotfeed = payload['SUCCESS'] || [];
-      return Object.assign({}, state, {
-        spotfeed_loading: true,
-        spotfeed_detail: spotfeed
-      });
+      const new_spotfeed = payload['SUCCESS'] || [];
+      // console.log('ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS', state);
+      if (state.spotfeed_detail && state.spotfeed_detail.spotfeedMedia) {
+        state.spotfeed_detail.spotfeedMedia = [...state.spotfeed_detail.spotfeedMedia, ...new_spotfeed.spotfeedMedia];
+        state.spotfeed_detail.spotfeedProfiles = [...state.spotfeed_detail.spotfeedProfiles, ...new_spotfeed.spotfeedProfiles];
+        // appending the new spotfeeds and profile to the existing records in the state
+        return Object.assign({}, state, {
+          spotfeed_loading: false,
+          spotfeed_detail: state.spotfeed_detail
+        });
+      } else {
+        // appending the new spotfeeds and profile to the existing records in the state
+        return Object.assign({}, state, {
+          spotfeed_loading: false,
+          spotfeed_detail: new_spotfeed
+        });
+      }
 
     case ProfileActions.GET_SPOTFEED_DETAILS_FAILED:
       return Object.assign({}, state, {

@@ -1,7 +1,7 @@
-<div class="{{className}} c-card">
+<div class="c-card">
     <!-- card body -->
-    <div class="c-card__body" [ngClass]="{ 'open': showEdit }"  >
-      <a class="c-channel__heading" [routerLink]="['/channel', channelData?.spotfeedId]" >{{channelData?.spotfeedName | truncate:[19, '...'] }}</a>
+    <div class="c-card__body">
+        <a class="c-channel__heading" [routerLink]="['/channel', channelData?.spotfeedId]" >{{channelData?.spotfeedName | truncate:[19, '...'] }}</a>
         <div appDropdown *ngIf="currentUser">
           <a class="dropdown-toggle" appDropdownOpen>
             <img src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg" alt="" class="c-card__options">
@@ -14,41 +14,85 @@
           </ul>
         </div>
     </div>
+    <!-- //card body -->
+    <!-- channel media -->
     <div class="c-channel__media">
-      <div *ngFor="let item of channelData?.media | slice:0:3; let i=index">
-          <div class="c-channel__sec" *ngIf="i===0">
+        <div *ngFor="let item of channelData?.media | slice:0:3; let i=index">
+          <div class="c-channel__sec" *ngIf="i===0 && !checkFileType(item?.repoPath, 'Image')">
               <div class="c-channel__left">
-                  <img *ngIf="checkFileType(item.repoPath, 'Image')" src="{{ 'http://d206s58i653k1q.cloudfront.net/'  + item.repoPath }}" class="c-card__image">
-                  <app-videplayer *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-videplayer>
-                  <app-audioplayer type="simple" *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-audioplayer>
+                    <!--<img *ngIf="checkFileType(item?.repoPath, 'Image')" src="{{ 'http://d206s58i653k1q.cloudfront.net/'  + item?.repoPath }}" class="c-card__image">-->
+                    <app-videplayer *ngIf="checkFileType(item?.repoPath, 'Video')" src="{{ image_base_url + item?.repoPath }}" class="c-card__image"></app-videplayer>
+                    <app-audioplayer type="simple" *ngIf="checkFileType(item?.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item?.repoPath }}" class="c-card__image"></app-audioplayer>
+                </div>
+          </div>
+          <div class="c-channel__sec c-card__image" *ngIf="i===0 && checkFileType(item?.repoPath, 'Image')">
+              <div class="c-channel__left" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}">
               </div>
+          </div>
+          <div class="c-channel__sec" >
+            <div class="c-channel__right1" *ngIf="i===1 && checkFileType(item?.repoPath, 'Image')">
+                <div class="c-channel__left" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}">
+                </div>
             </div>
-            <div class="c-channel__sec" >
-              <div class="c-channel__right1" *ngIf="i===1">
-                  <div class="c-channel__left">
-                      <img *ngIf="checkFileType(item.repoPath, 'Image')" src="{{ 'http://d206s58i653k1q.cloudfront.net/'  + item.repoPath }}" class="c-card__image">
-                      <app-videplayer *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-videplayer>
-                      <app-audioplayer type="simple" *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-audioplayer>
-                  </div>
-              </div>
-              <div class="c-channel__right2" *ngIf="i===2">
-                  <img *ngIf="checkFileType(item.repoPath, 'Image')" src="{{ 'http://d206s58i653k1q.cloudfront.net/'  + item.repoPath }}" class="c-card__image">
-                  <app-videplayer *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-videplayer>
-                  <app-audioplayer type="simple" *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-audioplayer>
-              </div>
+            <div class="c-channel__right1" *ngIf="i===1 && !checkFileType(item.repoPath, 'Image')">
+                <div class="c-channel__left">
+                    <app-videplayer *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-videplayer>
+                    <app-audioplayer type="simple" *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-audioplayer>
+                </div>
             </div>
-      </div>
+            
+            <div class="c-channel__right2" *ngIf="i===2 && !checkFileType(item.repoPath, 'Image') ">
+                <app-videplayer *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-videplayer>
+                <app-audioplayer type="simple" *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-audioplayer>
+            </div>
+            <div class="c-channel__right2"  *ngIf="i===2 && checkFileType(item.repoPath, 'Image')">
+              <div class="c-channel__left" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}"></div>
+                
+            </div>
+          </div>
+        </div>
     </div>
+     <div class="c-channel__media" *ngIf="(channelData?.media)?.length === 0">
+        <div class="c-channel__sec">
+            <div class="c-channel__left">
+                <img src="" class="c-card__image">
+            </div>
+        </div>
+        <div class="c-channel__sec">
+            <div class="c-channel__right1">
+                <img src="" class="c-card__image">
+            </div>
+            <div class="c-channel__right2">
+                <img src="" class="c-card__image">
+            </div>
+        </div>
+    </div>
+    <!-- //channel media -->
+    <!-- card footer links -->
     <div class="c-card__links">
-      <span class="c-links__post">{{ channelData?.mediaCount }} Post</span>
-      <span class="c-links__post">{{ channelData?.followersCount }} Followers</span>
-      <div class="c-channel__btn">
-        <app-button *ngIf="currentUser" [routerLink]="['', { outlets: { media : ['post'] } } ]" [className]="'btn-xs btn-primary'" [type]="'button'">Add Media</app-button>
-        <a *ngIf="!currentUser" (click)="toggleFollowBtn($event)" class="btn btn-xs btn-primary" [ngClass]="{ 'btn-follow': !isfollowing, 'btn-normal': isfollowing, 'btn-primary': !isfollowing, 'btn-following': isfollowing }">
-          <span class="btn-label-follow">
-            <img src="http://d33wubrfki0l68.cloudfront.net/dad39c553de20299ab403e1e0d2dcbd6062911cc/62cff/img/svg/ico_plus_white.svg">
-          </span> {{ isfollowing ? 'Unfollow' : 'Follow' }}
-        </a>
-      </div>
+        <span class="c-links__post">{{ channelData?.mediaCount }} Post</span>
+        <span class="c-links__post">{{ channelData?.followersCount }} Followers</span>
+        <div class="c-followers">
+          <div class="c-followers__img">
+            <img class="c-user__image" src="/assets/img/avatar.jpg">
+          </div>
+          <div class="c-followers__img m-l--8">
+            <img class="c-user__image" src="/assets/img/avatar2.jpg">
+          </div>
+          <p class="c-followers__count">+8</p>
+        </div>
+
+        <!--<div class="c-channel__btn" *ngIf="currentUser">
+          <a>
+            <img src="/assets/img/svg/ico_edit.svg" class="width24 pull-right">
+          </a>
+        </div>-->
+
+        <div class="c-channel__btn" *ngIf="!currentUser">
+            <a class="btn btn-default btn-sm pull-right" (click)="toggleFollowBtn($event)">{{ isfollowing ? 'Unfollow' : 'Follow' }}</a>
+        </div>
     </div>
-  </div>
+    <!-- //card footer links -->
+</div>
+
+

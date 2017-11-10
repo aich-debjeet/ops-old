@@ -59,6 +59,7 @@ export class RegistrationBasicComponent implements OnInit {
   public regFormBasic: FormGroup;
   public otpForm: FormGroup;
   public newNumberForm: FormGroup;
+  redrectUrl: any;
 
   passwordShowToggle() {
     if (this.passwordShow === true) {
@@ -75,9 +76,14 @@ export class RegistrationBasicComponent implements OnInit {
     private databaseValidator: DatabaseValidator,
     private http: Http,
     private router: Router,
+    private route: ActivatedRoute,
     public modalService: ModalService,
     public tokenService: TokenService
     ) {
+    // if redriect url there
+    if (this.route.snapshot.queryParams['next']) {
+      this.redrectUrl = this.route.snapshot.queryParams['next'];
+    }
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       console.log(state);
@@ -256,7 +262,13 @@ export class RegistrationBasicComponent implements OnInit {
 
   // reg next step
   gotoRegProfile() {
-    this.router.navigate(['/reg/profile']);
+    if (this.redrectUrl !== undefined) {
+      this.router.navigate(['/reg/profile'], { queryParams: { next: this.redrectUrl }});
+      return
+    }else {
+      this.router.navigate(['/reg/profile']);
+      return
+    }
   }
 
   reverseDate(string) {

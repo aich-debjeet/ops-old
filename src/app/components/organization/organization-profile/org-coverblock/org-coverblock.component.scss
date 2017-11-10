@@ -1,0 +1,201 @@
+// nav
+.pro_nav_list {
+    width: 100%;
+    // height: 65px;
+}
+
+.pro_nav_list li {
+    font-size: 13px;
+    font-weight: normal;
+    text-align: left;
+    text-transform: capitalize;
+    padding: 16px 16px;
+    a {
+        color: #929292;
+    }
+    .activein{
+        color: #333333;
+    }
+}
+
+.pro_nav_icon img {
+    float: right;
+    color: #c1c1c1;
+    width: 16px;
+}
+
+.pro_nav_icon li {
+    float: right;
+    padding: 16px 12px;
+    .report_block_drop{
+        right: 24px;
+        left: auto;
+        top: 56px;
+        // &::before {
+        //     width: 10px;
+        //     height: 10px;
+        //     position: absolute;
+        //     top: -6px;
+        //     content: ' ';
+        //     left: 46%;
+        //     background: #ffffff;
+        //     -ms-transform: rotate(7deg);
+        //     -webkit-transform: rotate(7deg);
+        //     transform: rotate(45deg);
+        //     border-left: 1px #ccc solid;
+        //     border-top: 1px #ccc solid;
+        // }
+        li{
+            width: 100%;
+            padding:0px;
+            a{
+                font-weight: 600;
+                font-size: 14px;
+                color: #333333;
+            }
+        }
+    }
+}
+
+.o-org-prof--white{
+	color: #fff!important;
+}
+
+// cover
+.o-org-cover{
+	width: 100%;
+	float: left;
+	min-height: 350px;
+	max-height: 350px;
+	overflow: hidden;
+	margin-top: 50px;
+	position: relative;
+	cursor: pointer;
+}
+.o-org-cover__img{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+.o-org-cover__edit{
+	position: absolute;
+  top: 0px;
+  background: linear-gradient(360deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, .7) 100%);
+  width: 100%;
+  height: 165px;
+  transition: .25s;
+  text-align: right;
+  display: none;
+}
+.o-org-cover:hover .o-org-cover__edit{
+	display: block;
+}
+// profile
+.o-org-prof-block{
+	width: 100%;
+	float: left;
+	margin-top: -119px;
+	position: relative;
+}
+.o-org-prof__img{
+	height: 165px;	
+	width: 160px;	
+	border: 2px solid #FFFFFF;
+	border-radius: 3px;	
+	background: #747474;
+	overflow: hidden;
+	position: relative;
+	float: left;
+}
+.o-org-prof__media{
+	width: 100%;
+	height: 100%;
+	float: left;
+	img{
+		width: 100%;
+	}
+}
+.o-org-prof-edit-ico{
+  background-image: url(/assets/img/svg/edit-red.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 11px;
+  height: 11px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -1px;
+}
+.o-org-prof__btn{
+  position: absolute;
+  bottom: 0px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, .7) 100%);
+  width: 100%;
+  height: 40px;
+  padding: 8px;
+  display: none;
+  transition:.25s;
+}
+.o-org-prof__img:hover .o-org-prof__btn{
+	display: block;
+}
+
+// prof name
+.o-org-prof__name{
+  width: 85.9%;
+  float: left;
+  padding:16px;
+}
+.org-label-ico{
+	width: 24px;
+	height: 24px;
+	overflow: hidden;
+	margin-left: 8px;
+}
+// prof account det
+.o-org-prof__account-det{
+	width: 85.9%;
+  float: left;
+  padding:16px 16px 21px 16px;
+  background: #fff;
+  border-bottom: 1px solid rgba(102,45,145,0.1);
+}
+.o-org-account-stat{
+	margin-right: 32px;
+	float: left;
+	span{
+		display: block;
+	}
+}
+.btn-label-icon--message{
+	background-image: url(/assets/img/svg/message-theme.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -1px;
+}
+.btn-md:hover .btn-label-icon--message {
+  background-image: url(/assets/img/svg/message-white.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -1px;
+}
+
+// org navigation
+.o-org-navigation{
+	width: 100%;
+	padding:0px 24px;
+	float: left;
+}
+
+// org content
+.o-org-content{
+	width: 100%;
+	float: left;
+}

@@ -5,6 +5,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ModalService } from '../../../shared/modal/modal.component.service';
+import { ApiService } from '../../../helpers/api.service';
 
 // Action
 import { MediaActions } from '../../../actions/media.action';
@@ -26,6 +27,7 @@ import { ToastrService } from 'ngx-toastr';
 
 // Blog
 import { TokenService } from '../../../helpers/token.service';
+import { LocalStorageService } from './../../../services/local-storage.service';
 
 @Component({
   selector: 'app-create-channel',
@@ -58,6 +60,8 @@ export class CreateChannelComponent implements OnInit {
     private toastr: ToastrService,
     private http: Http,
     private tokenService: TokenService,
+    private localStorageService: LocalStorageService,
+    private apiService: ApiService,
     private store: Store<Media> ) {
       this.createChannelForm();
       this.typeSelected = false;
@@ -144,10 +148,9 @@ export class CreateChannelComponent implements OnInit {
    */
 
   public requestAutocompleteItems = (text: string): Observable<Response> => {
+    const headers = this.apiService.getHeaders();
     const url  = this.apiLink + '/portal/searchprofiles/1/' + text + '/0/10';
-    return this.http
-      .get(url)
-      .map(data => data.json());
+    return this.http.get(url, { headers: headers }).map(data => data.json());
   };
 
   handledObject(n) {
@@ -176,7 +179,18 @@ export class CreateChannelComponent implements OnInit {
       otherFields = { contributerList: peopleListList }
     }
 
-    if ( this.channelForm.valid === true && userHandle !== '' ) {
+    // set profile handle to user handle
+    let profileHandle = userHandle;
+
+    // check if creator is user or organization
+    if (localStorage.getItem('accountStatus') !== null) {
+      const localStore = JSON.parse(this.localStorageService.theAccountStatus);
+      if (localStore.profileType === 'org') {
+        profileHandle = localStore.handle;
+      }
+    }
+
+    if ( this.channelForm.valid === true && profileHandle !== '' ) {
 
       const channelObj = {
         name: value.title,
@@ -184,7 +198,7 @@ export class CreateChannelComponent implements OnInit {
         description: value.desc,
         superType: 'channel',
         accessSettings : { access : Number(value.privacy) },
-        owner: userHandle,
+        owner: profileHandle,
         industryList: [ value.type ],
         mediaTypes: mediaTypeList,
         otherFields

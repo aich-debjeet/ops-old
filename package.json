@@ -13,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "@agm/core": "^1.0.0-beta.2",
     "@angular/animations": "^4.0.0",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
@@ -26,6 +27,7 @@
     "@ngrx/effects": "^2.0.4",
     "@ngrx/store": "^2.2.3",
     "@ngrx/store-devtools": "^3.2.4",
+    "@types/googlemaps": "^3.29.2",
     "@types/medium-editor": "5.0.1",
     "angular2-masonry": "^0.4.0",
     "angular2-text-mask": "^8.0.3",

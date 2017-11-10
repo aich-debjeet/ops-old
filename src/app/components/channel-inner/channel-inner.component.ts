@@ -12,6 +12,7 @@ import { environment } from '../../../environments/environment';
 
 // action
 import { MediaActions } from '../../actions/media.action';
+import { ProfileActions } from '../../actions/profile.action';
 import { SharedActions } from '../../actions/shared.action';
 
 // rx
@@ -37,6 +38,7 @@ export class ChannelInnerComponent implements OnInit {
   channelId: string;
   imageLink: string = environment.API_IMAGE;
   pageLoading: boolean;
+  isfollowing: boolean;
 
   constructor(
     private http: Http,
@@ -52,13 +54,24 @@ export class ChannelInnerComponent implements OnInit {
       this.userState$ = this._store.select('profileTags');
       this.tagState$.subscribe((state) => {
         this.channel = state;
+        console.log(state);
         this.pageLoading = this.channel.channel_loading;
       });
       this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
       this.buildEditForm();
+
+      this._store.select('mediaStore')
+        .first(data => data['channel_detail'].ownerName)
+        .subscribe( data => {
+          console.log(data);
+          this.isfollowing = data['channel_detail'].isFollowing;
+        });
+
   }
 
   ngOnInit() {
+    console.log(this.channel);
+    // this.isfollowing = this.channel.isFollowing || false;
   }
 
    /**
@@ -107,6 +120,30 @@ export class ChannelInnerComponent implements OnInit {
     }
   }
 
+  /**
+   * Follow this channel
+   */
+  followChannel(type, channelId) {
+    console.log(channelId);
+    console.log(type);
+    if (this.isfollowing === true) {
+      this.following (type = false, channelId)
+      this.isfollowing = false;
+      return
+    }else {
+      this.following (type = true, channelId);
+      this.isfollowing = true;
+      return
+    }
+  }
+
+  following (type, channelId) {
+    const req = {
+      channelId: channelId,
+      state: type
+    };
+    this._store.dispatch({ type: ProfileActions.CHANNEL_FOLLOW, payload: req });
+  }
   /**
    * Subimt Edit
    */

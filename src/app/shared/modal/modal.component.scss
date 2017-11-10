@@ -149,6 +149,12 @@
   }
 }
 
+.ng-modal.tiny__skill {
+  .ng-modal-close{
+    display: none;
+  }
+}
+
 .ng-modal.tiny__profile_upload{
   width: 490px;
   margin: 0 auto;
@@ -177,4 +183,8 @@
   .ng-modal {
     padding-top: 0;
   }
+}
+
+.modal__tiny__mediapopup .ng-modal {
+  padding: 0 !important;
 }
