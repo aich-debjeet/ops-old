@@ -41,12 +41,16 @@ export class SpotfeedComponent {
     this.spotfeedId = route.snapshot.params['id'];
     this.userState$.subscribe((state) => {
       this.userState = state;
+      console.log('this.userState', this.userState);
       // console.log(state.spotfeed_detail['spotfeedMedia']);
       this.spotfeedDetails = state['spotfeed_detail'];
       // this.spotfeedPosts = this.spotfeedDetails.spotfeedMedia;
 
-      // filtering artists duplicate profiles
+      // filtering artists
       if (this.spotfeedDetails && typeof this.spotfeedDetails.spotfeedProfiles !== 'undefined') {
+        // remove loggedn in user profile
+
+        // filtering artists duplicate profiles
         this.spotfeedDetails.spotfeedProfiles = _.uniqBy(this.spotfeedDetails.spotfeedProfiles, 'username');
       }
       // filtering media duplicate profiles
