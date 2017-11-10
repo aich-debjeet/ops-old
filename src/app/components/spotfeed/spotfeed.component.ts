@@ -49,7 +49,11 @@ export class SpotfeedComponent {
       // filtering artists
       if (this.spotfeedDetails && typeof this.spotfeedDetails.spotfeedProfiles !== 'undefined') {
         // remove loggedn in user profile
-
+        // filtering artists duplicate profiles
+        const currentUserHandle = this.userState.profileUser.handle;
+        this.spotfeedDetails.spotfeedProfiles = _.remove(this.spotfeedDetails.spotfeedProfiles, function(currentObject) {
+            return currentObject.handle !== currentUserHandle;
+        });
         // filtering artists duplicate profiles
         this.spotfeedDetails.spotfeedProfiles = _.uniqBy(this.spotfeedDetails.spotfeedProfiles, 'handle');
       }
