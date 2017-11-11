@@ -90,7 +90,7 @@
                                     <textarea class="o-org-about__breif c-text_sm m-t-8">{{ orgProfile?.org_profile_details?.description }}</textarea>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('description')">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -107,7 +107,7 @@
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('services')">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -126,7 +126,7 @@
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('industries')">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -143,7 +143,7 @@
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('activeFrom')">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -169,7 +169,7 @@
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('mobile')">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -190,7 +190,7 @@
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('email')">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -211,7 +211,7 @@
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('website')">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -232,7 +232,7 @@
                                 </div>
                                 <div *ngIf="editingField == 'address'" class="o-org-form__actions">
                                     <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                    <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                    <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('address')">Save</button>
                                 </div>
                             </li>
                         </ul>

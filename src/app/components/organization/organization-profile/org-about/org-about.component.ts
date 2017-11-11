@@ -53,4 +53,16 @@ export class OrgAboutComponent implements OnInit {
     this.editingField = '';
   }
 
+  /**
+   * Update about individual field
+   */
+  updateAbout(fieldName: string) {
+    console.log('update org field');
+    const data = {
+      handle: this.orgProfile.orgProfileDetails.handle,
+      body: {}
+    }
+    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_UPDATE, payload: data });
+  }
+
 }
