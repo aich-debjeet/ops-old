@@ -27,6 +27,7 @@ export class OrgAboutComponent implements OnInit {
   orgIndustry: string;
   forIndustries: any;
   loginTagState$: Observable<Follow>;
+  aboutMobile: any;
 
   constructor(
     private store: Store<Organization>
@@ -37,6 +38,9 @@ export class OrgAboutComponent implements OnInit {
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
       // console.log('this.orgProfile ABOUT ORG', this.orgProfile);
+      if (this.orgProfile && this.orgProfile.orgProfileDetails && this.orgProfile.orgProfileDetails.mobile) {
+        this.aboutMobile = this.orgProfile.orgProfileDetails.mobile;
+      }
       if (this.orgProfile && this.orgProfile.orgProfileDetails && this.orgProfile.orgProfileDetails['industryList'].length > 0) {
         setTimeout(() => {
           const industryArrLen = this.orgProfile.orgProfileDetails['industryList'].length;
@@ -77,11 +81,22 @@ export class OrgAboutComponent implements OnInit {
    * Update about individual field
    */
   updateAbout(fieldName: string) {
-    console.log('update org field');
+    // console.log('update org field', fieldName);
+
+    let reqBody;
+
+    if (fieldName === 'mobile') {
+      reqBody.mobile = this.aboutMobile;
+      // console.log('reqBody.mobile', reqBody.mobile);
+    } else {
+      reqBody = {};
+    }
+
     const data = {
       handle: this.orgProfile.orgProfileDetails.handle,
-      body: {}
+      body: reqBody
     }
+    // console.log('data', data);
     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_UPDATE, payload: data });
   }
 

@@ -167,7 +167,7 @@
                                 </div>
                                 <div *ngIf="editingField == 'mobile'" id="o-org-about-contact-ph-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input fpadding_l32" type="text" value="{{ orgProfile?.orgProfileDetails?.mobile }}">
+                                        <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutMobile" [ngModelOptions]="{standalone: true}" value="{{ orgProfile?.orgProfileDetails?.mobile }}">
                                         <span><img src="/assets/img/svg/ico_receiver.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">
