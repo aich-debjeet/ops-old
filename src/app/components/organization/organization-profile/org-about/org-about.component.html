@@ -99,7 +99,7 @@
                                     <a class="o-org-form__edit-ico" (click)="editField('services')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
                                 <p *ngIf="editingField != 'services'" id="o-org-about-serv" class="c-text_sm color-grey-dark m-t-8">
-                                    {{ orgProfile?.orgProfileDetails?.services.join(', ') }}
+                                    {{ orgProfile?.org_profile_details?.languages.join(', ') }}
                                 </p>
                                 <div *ngIf="editingField == 'services'" id="o-org-about-serv_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
@@ -116,7 +116,7 @@
                                     <a class="o-org-form__edit-ico" (click)="editField('industries')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
                                 <p *ngIf="editingField != 'industries'" id="o-org-about-ind" class="c-text_sm color-grey-dark m-t-8">
-                                    <ng-container *ngFor="let industry of orgProfile?.orgProfileDetails?.industryList; let isLast = last;">
+                                    <ng-container *ngFor="let industry of orgProfile?.org_profile_details?.extra?.industryList; let isLast = last;">
                                         {{ industry.name }} {{isLast ? '' : ', '}}
                                     </ng-container>
                                 </p>
@@ -161,13 +161,13 @@
                                         <img src="/assets/img/svg/ico_receiver.svg" alt="">
                                     </span>
                                     <span class="o-org-about__contact-txt c-text_sm color-grey-dark">
-                                        {{ orgProfile?.orgProfileDetails?.mobile }}
+                                        {{ orgProfile?.org_profile_details?.mobile }}
                                     </span>
                                     <a class="o-org-form__edit-ico" (click)="editField('mobile')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </div>
                                 <div *ngIf="editingField == 'mobile'" id="o-org-about-contact-ph-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutMobile" [ngModelOptions]="{standalone: true}" value="{{ orgProfile?.orgProfileDetails?.mobile }}">
+                                        <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutMobile" [ngModelOptions]="{standalone: true}" value="{{ orgProfile?.org_profile_details?.mobile }}">
                                         <span><img src="/assets/img/svg/ico_receiver.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">

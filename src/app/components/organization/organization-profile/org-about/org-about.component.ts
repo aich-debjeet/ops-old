@@ -38,14 +38,14 @@ export class OrgAboutComponent implements OnInit {
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
       // console.log('this.orgProfile ABOUT ORG', this.orgProfile);
-      if (this.orgProfile && this.orgProfile.orgProfileDetails && this.orgProfile.orgProfileDetails.mobile) {
-        this.aboutMobile = this.orgProfile.orgProfileDetails.mobile;
+      if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.contact.mobile) {
+        this.aboutMobile = this.orgProfile.org_profile_details.contact.mobile;
       }
-      if (this.orgProfile && this.orgProfile.orgProfileDetails && this.orgProfile.orgProfileDetails['industryList'].length > 0) {
+      if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.extra['industryList'].length > 0) {
         setTimeout(() => {
-          const industryArrLen = this.orgProfile.orgProfileDetails['industryList'].length;
-          this.orgIndustry = this.orgProfile.orgProfileDetails['industryList'][industryArrLen - 1].code;
-          // console.log('this.orgIndustry', this.orgIndustry);
+          const industryArrLen = this.orgProfile.org_profile_details.extra['industryList'].length;
+          this.orgIndustry = this.orgProfile.org_profile_details.extra['industryList'][industryArrLen - 1].code;
+          console.log('this.orgIndustry', this.orgIndustry);
         }, 1000);
       }
     });
@@ -54,6 +54,7 @@ export class OrgAboutComponent implements OnInit {
     this.loginTagState$ = store.select('loginTags');
     this.loginTagState$.subscribe((state) => {
       this.forIndustries = state;
+      console.log('this.forIndustries', this.forIndustries);
     });
 
     this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
@@ -88,9 +89,11 @@ export class OrgAboutComponent implements OnInit {
     if (fieldName === 'mobile') {
       reqBody.mobile = this.aboutMobile;
       // console.log('reqBody.mobile', reqBody.mobile);
-    } else {
-      reqBody = {};
     }
+    
+    // if () {
+      
+    // }
 
     const data = {
       handle: this.orgProfile.orgProfileDetails.handle,
