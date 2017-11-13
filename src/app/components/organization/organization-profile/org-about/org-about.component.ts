@@ -46,7 +46,7 @@ export class OrgAboutComponent implements OnInit {
       this.orgProfile = state;
       console.log('this.orgProfile ABOUT ORG', this.orgProfile);
       if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.contact.mobile) {
-        this.aboutMobile = this.orgProfile.org_profile_details.contact.mobile;
+        this.aboutMobile = this.orgProfile.org_profile_details.contact.mobile.mobile;
       }
       if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.description) {
         this.aboutDescription = this.orgProfile.org_profile_details.description;
@@ -109,6 +109,7 @@ export class OrgAboutComponent implements OnInit {
     let reqBody;
 
     if (fieldName === 'mobile' && this.aboutMobile.length > 0) {
+      reqBody = { mobile: '' };
       reqBody.mobile = this.aboutMobile;
     }
 
@@ -130,7 +131,7 @@ export class OrgAboutComponent implements OnInit {
         reqBody.services.push(service);
         // console.log('index', index);
         if (index >= (aboutServicesArr.length - 1)) {
-          this.dispatchUpdate(reqBody);
+          this.dispatchAboutUpdate(reqBody);
           return;
         }
       });
@@ -147,10 +148,10 @@ export class OrgAboutComponent implements OnInit {
       reqBody.industryList.push(newIndustry);
     }
 
-    this.dispatchUpdate(reqBody);
+    this.dispatchAboutUpdate(reqBody);
   }
 
-  dispatchUpdate(reqData: any) {
+  dispatchAboutUpdate(reqData: any) {
     const data = {
       handle: this.orgProfile.org_profile_details.handle,
       body: reqData
