@@ -29,7 +29,6 @@ export class OrgAboutComponent implements OnInit {
   aboutIndustry: any;
   aboutIndustryCode: any;
   forIndustries: any;
-  loginTagState$: Observable<Follow>;
   aboutMobile: any;
   aboutWebsite: any;
   aboutEmail: any;
