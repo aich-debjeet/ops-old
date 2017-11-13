@@ -43,6 +43,11 @@ import { CommentListComponent } from './comment-list/comment-list.component';
 import { CommentComponent } from './comment/comment.component';
 import { UserCardComponent } from './user-card/user-card.component';
 
+
+// modal new
+import {Modal, ModalContent} from './modal-new/Modal';
+import {RouteModal} from './modal-new/RouteModal';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -81,7 +86,10 @@ import { UserCardComponent } from './user-card/user-card.component';
     PostComponent,
     CommentListComponent,
     CommentComponent,
-    UserCardComponent
+    UserCardComponent,
+    Modal,
+    RouteModal,
+    ModalContent,
   ],
   exports: [
     AuthRightBlockComponent,
@@ -106,6 +114,9 @@ import { UserCardComponent } from './user-card/user-card.component';
     CommentComponent,
     UserCardComponent,
     UtcDatePipe,
+    Modal,
+    RouteModal,
+    ModalContent,
   ]
 
 })

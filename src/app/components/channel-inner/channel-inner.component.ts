@@ -54,7 +54,6 @@ export class ChannelInnerComponent implements OnInit {
       this.userState$ = this._store.select('profileTags');
       this.tagState$.subscribe((state) => {
         this.channel = state;
-        console.log(state);
         this.pageLoading = this.channel.channel_loading;
       });
       this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });

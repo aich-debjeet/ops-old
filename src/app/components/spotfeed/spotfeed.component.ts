@@ -39,8 +39,10 @@ export class SpotfeedComponent {
     this.userState$ = this._store.select('profileTags');
 
     this.spotfeedId = route.snapshot.params['id'];
+    console.log(this.spotfeedId);
     this.userState$.subscribe((state) => {
       this.userState = state;
+      console.log(state);
       // console.log(state.spotfeed_detail['spotfeedMedia']);
       this.spotfeedDetails = state['spotfeed_detail'];
       // this.spotfeedPosts = this.spotfeedDetails.spotfeedMedia;
@@ -55,6 +57,7 @@ export class SpotfeedComponent {
       }
     });
 
+    // console.log(this.userState);
     this.loadPostFeed();
   }
 
