@@ -2,15 +2,15 @@
   <div class="c-text_lg m-16">Contact</div>
     <div class="c-text_sm m-16">
       <img src="/assets/img/svg/ico_receiver.svg" class="width12">
-      <span class="m-l-8">+91 9876543210</span>
+      <span class="m-l-8">{{ orgProfile?.org_profile_details?.contact?.mobile.mobile }}</span>
     </div>
     <div class="c-text_sm m-16">
       <img src="/assets/img/svg/ico_envelope.svg" class="width12">
-      <span class="m-l-8">info@domain-name.com</span>
+      <span class="m-l-8">{{ orgProfile?.org_profile_details?.email }}</span>
     </div>
     <div class="c-text_sm m-16">
       <img src="/assets/img/svg/ico_public_grey.svg" class="width12">
-      <span class="m-l-8">www.domain-name.com</span>
+      <span class="m-l-8">{{ orgProfile?.org_profile_details?.contact?.website.website }}</span>
     </div>
     <div class="c-invite__products">
       <img src="/assets/img/google-maps.jpg" class="c-card__image">

@@ -4,6 +4,7 @@ import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../../../environments/environment';
 import { ModalService } from '../../../shared/modal/modal.component.service';
+import { ApiService } from '../../../helpers/api.service';
 
 import { Http, Headers, Response } from '@angular/http';
 
@@ -64,6 +65,7 @@ export class EditChannelComponent implements OnInit {
     private route: ActivatedRoute,
     private store: Store<Media>,
     private toastr: ToastrService,
+    private apiService: ApiService,
   ) {
 
     this.mediaState$ = store.select('mediaStore');
@@ -79,8 +81,10 @@ export class EditChannelComponent implements OnInit {
       if (typeof this.mediaStore.channel_detail['contributorProfile'] !== 'undefined') {
         this.people = this.mediaStore.channel_detail['contributorProfile'];
         this.tags = this.mediaStore.channel_detail['tags'];
-        const industryArrLen = this.mediaStore.channel_detail['industryList'].length;
-        this.selectedIndustry = this.mediaStore.channel_detail['industryList'][industryArrLen - 1];
+        setTimeout(() => {
+          const industryArrLen = this.mediaStore.channel_detail['industryList'].length;
+          this.selectedIndustry = this.mediaStore.channel_detail['industryList'][industryArrLen - 1];
+        }, 1000);
         this.selectedPrivacy = this.mediaStore.channel_detail['accessSeetings'].access;
       }
     });
@@ -232,10 +236,9 @@ export class EditChannelComponent implements OnInit {
    * Get people search
    */
   public requestAutocompleteItems = (text: string): Observable<Response> => {
+    const headers = this.apiService.getHeaders();
     const url  = this.apiLink + '/portal/searchprofiles/1/' + text + '/0/10';
-    return this.http
-      .get(url)
-      .map(data => data.json());
+    return this.http.get(url, { headers: headers }).map(data => data.json());
   };
 
 }
