@@ -1,4 +1,4 @@
-import { environment } from '../../../../environments/environment.prod';
+import { environment } from '../../../../environments/environment';
 import { Component, OnInit, Input, ViewChild} from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
@@ -419,6 +419,10 @@ export class ProfileSliderComponent implements OnInit {
   // Skill Popup
   skillPopup() {
     this.modalService.open('skillMoreWindow');
+  }
+
+  skillClose() {
+    this.modalService.close('skillMoreWindow');
   }
 
   donatePopup() {

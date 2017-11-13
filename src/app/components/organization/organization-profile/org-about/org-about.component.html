@@ -84,13 +84,13 @@
                                     <a class="o-org-form__edit-ico" (click)="editField('description')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
                                 <p *ngIf="editingField != 'description'" id="brief" class="c-text_sm color-grey-dark m-t-8">
-                                    {{ orgProfile?.org_profile_details?.description }}
+                                    {{ aboutDescription }}
                                 </p>
                                 <div *ngIf="editingField == 'description'" id="brief-edit" class="o-org-form__edit-sec">
-                                    <textarea #aboutDescription class="o-org-about__breif c-text_sm m-t-8">{{ orgProfile?.org_profile_details?.description }}</textarea>
+                                    <textarea class="o-org-about__breif c-text_sm m-t-8" [(ngModel)]="aboutDescription" [ngModelOptions]="{standalone: true}">{{ aboutDescription }}</textarea>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button (click)="updateField('description')" type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('description')">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -99,15 +99,20 @@
                                     <a class="o-org-form__edit-ico" (click)="editField('services')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
                                 <p *ngIf="editingField != 'services'" id="o-org-about-serv" class="c-text_sm color-grey-dark m-t-8">
-                                    {{ orgProfile?.orgProfileDetails?.services.join(', ') }}
+                                    {{ aboutServices }}
                                 </p>
                                 <div *ngIf="editingField == 'services'" id="o-org-about-serv_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input #aboutServices class="c-form__input" type="text" value="UI Design, UX Design, Branding">
+                                        <input class="c-form__input" type="text" [(ngModel)]="aboutServices" [ngModelOptions]="{standalone: true}">
+                                        <!-- <tag-input [(ngModel)]='services'
+                                        [placeholder]="'Add Services'"
+                                        [theme]="'ops-theme'"
+                                        [ngModelOptions]="{standalone: true}">
+                                        </tag-input> -->
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button (click)="updateField('services')" type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('services')">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -116,22 +121,21 @@
                                     <a class="o-org-form__edit-ico" (click)="editField('industries')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
                                 <p *ngIf="editingField != 'industries'" id="o-org-about-ind" class="c-text_sm color-grey-dark m-t-8">
-                                    <ng-container *ngFor="let industry of orgProfile?.orgProfileDetails?.industryList; let isLast = last;">
+                                    <!-- <ng-container *ngFor="let industry of orgProfile?.org_profile_details?.extra?.industryList; let isLast = last;">
                                         {{ industry.name }} {{isLast ? '' : ', '}}
-                                    </ng-container>
+                                    </ng-container> -->
+                                    {{ aboutIndustryCode }}
                                 </p>
                                 <div *ngIf="editingField == 'industries'" id="o-org-about-ind_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <!-- <input #aboutIndustries class="c-form__input" type="text" value=""> -->
-                                        <select #aboutIndustries class="form-control">
-                                            <ng-container *ngFor="let industry of industries">
-                                                <option [selected]="industry == orgIndustry" [value]="industry.code" >{{ industry.name }}</option>
-                                            </ng-container>
+                                        <select class="form-control" id="sel1" [(ngModel)]="aboutIndustryCode" [ngModelOptions]="{standalone: true}">
+                                            <option value="">Industry</option>
+                                            <option *ngFor="let industry of forIndustries.industries" [value]="industry.code" >{{ industry.name }}</option>
                                         </select>
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button (click)="updateField('industries')" type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('industries')">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -148,7 +152,7 @@
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button (click)="updateField('activeFrom')" type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('activeFrom')">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -163,18 +167,18 @@
                                         <img src="/assets/img/svg/ico_receiver.svg" alt="">
                                     </span>
                                     <span class="o-org-about__contact-txt c-text_sm color-grey-dark">
-                                        {{ orgProfile?.orgProfileDetails?.mobile }}
+                                        {{ orgProfile?.org_profile_details?.contact?.mobile?.mobile }}
                                     </span>
                                     <a class="o-org-form__edit-ico" (click)="editField('mobile')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </div>
                                 <div *ngIf="editingField == 'mobile'" id="o-org-about-contact-ph-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input #aboutMobile class="c-form__input fpadding_l32" type="text" value="{{ orgProfile?.orgProfileDetails?.mobile }}">
+                                        <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutMobile" [ngModelOptions]="{standalone: true}" value="{{ orgProfile?.org_profile_details?.mobile }}">
                                         <span><img src="/assets/img/svg/ico_receiver.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button (click)="updateField('mobile')" type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('mobile')">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -190,12 +194,12 @@
                                 </div>
                                 <div *ngIf="editingField == 'email'" id="o-org-about-contact-mail-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input #aboutEmail class="c-form__input fpadding_l32" type="text" value="{{ orgProfile?.org_profile_details?.email }}">
+                                        <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutEmail" [ngModelOptions]="{standalone: true}" value="{{ orgProfile?.org_profile_details?.email }}">
                                         <span><img src="/assets/img/svg/ico_envelope.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button (click)="updateField('email')" type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('email')">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -211,12 +215,12 @@
                                 </div>
                                 <div *ngIf="editingField == 'website'" id="o-org-about-contact-web-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input #aboutWebsite class="c-form__input fpadding_l32" type="text" value="{{ orgProfile?.org_profile_details?.contact?.website.website }}">
+                                        <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutWebsite" [ngModelOptions]="{standalone: true}" value="{{ orgProfile?.org_profile_details?.contact?.website.website }}">
                                         <span><img src="/assets/img/svg/ico_public_grey.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                        <button (click)="updateField('website')" type="button" class="btn btn-primary btn-sm">Save</button>
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('website')">Save</button>
                                     </div>
                                 </div>
                             </li>
@@ -237,7 +241,7 @@
                                 </div>
                                 <div *ngIf="editingField == 'address'" class="o-org-form__actions">
                                     <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
-                                    <button (click)="updateField('address')" type="button" class="btn btn-primary btn-sm">Save</button>
+                                    <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('address')">Save</button>
                                 </div>
                             </li>
                         </ul>

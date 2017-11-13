@@ -216,7 +216,7 @@ export class OrgImageComponent implements OnInit {
       .subscribe( data => {
         console.log('upload compeleted');
         this._location.back();
-        this.toastr.success('Organization cover image updated');
+        this.toastr.success('Organization profile image updated');
       });
   }
 

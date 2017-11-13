@@ -8,7 +8,7 @@
                       <div class="col-md-8 col-sm-8 media_left with_border_right">
                           <div class="media_img_block">
                               <figure class="avatar_media_img">
-                                  <app-videplayer *ngIf="checkFileType(data?.repopath, 'Video')" src="{{ imageLink + data?.repopath }}"></app-videplayer>
+                                  <app-videplayer [play]="'true'" *ngIf="checkFileType(data?.repopath, 'Video')" src="{{ imageLink + data?.repopath }}"></app-videplayer>
                                   <img *ngIf="checkFileType(data?.repopath, 'Image')" src="{{ imageLink + data?.repopath }}" class="img-responsive">
                                   <app-audioplayer *ngIf="checkFileType(data?.repopath, 'Audio')" src="{{ imageLink + data?.repopath }}"></app-audioplayer>
                               </figure>

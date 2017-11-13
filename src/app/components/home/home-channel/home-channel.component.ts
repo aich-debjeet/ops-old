@@ -77,4 +77,15 @@ export class HomeChannelComponent implements OnInit {
       }
     });
   }
+
+  /**
+   * Follow this channel
+   */
+  followChannel(e: any) {
+    const req = {
+      channelId: e.channel.spotfeedId,
+      state: e.state
+    };
+    this.store.dispatch({ type: ProfileActions.CHANNEL_FOLLOW, payload: req });
+  }
 }

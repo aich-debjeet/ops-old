@@ -9,6 +9,8 @@ import { Spotfeed } from './../../models/profile.model';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
+import * as _ from 'lodash';
+
 import { environment } from './../../../environments/environment'
 
 @Component({
@@ -34,15 +36,31 @@ export class SpotfeedComponent {
   ) {
 
     this.baseUrl = environment.API_IMAGE;
-
     this.userState$ = this._store.select('profileTags');
 
     this.spotfeedId = route.snapshot.params['id'];
     this.userState$.subscribe((state) => {
       this.userState = state;
+      console.log('this.userState', this.userState);
       // console.log(state.spotfeed_detail['spotfeedMedia']);
       this.spotfeedDetails = state['spotfeed_detail'];
       // this.spotfeedPosts = this.spotfeedDetails.spotfeedMedia;
+
+      // filtering artists
+      if (this.spotfeedDetails && typeof this.spotfeedDetails.spotfeedProfiles !== 'undefined') {
+        // remove loggedn in user profile
+        // filtering artists duplicate profiles
+        const currentUserHandle = this.userState.profileUser.handle;
+        this.spotfeedDetails.spotfeedProfiles = _.remove(this.spotfeedDetails.spotfeedProfiles, function(currentObject) {
+            return currentObject.handle !== currentUserHandle;
+        });
+        // filtering artists duplicate profiles
+        this.spotfeedDetails.spotfeedProfiles = _.uniqBy(this.spotfeedDetails.spotfeedProfiles, 'handle');
+      }
+      // filtering media duplicate profiles
+      if (this.spotfeedDetails && typeof this.spotfeedDetails.spotfeedMedia !== 'undefined') {
+        this.spotfeedDetails.spotfeedMedia = _.uniqBy(this.spotfeedDetails.spotfeedMedia, 'id');
+      }
     });
 
     this.loadPostFeed();

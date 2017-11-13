@@ -18,13 +18,53 @@ export class OrganizationEffect {
      * Registration of Organization
      */
     @Effect()
-    createOrganization$ = this._actions$
-        .ofType(OrganizationActions.ORGANIZATION_REGISTRATION)
-        .map(toPayload)
-        .switchMap((payload) => this._orgService.regOrganization(payload)
-            .map(res => ({ type: OrganizationActions.ORGANIZATION_REGISTRATION_SUCCESS, payload: res }))
-            .catch((res) => Observable.of({ type: OrganizationActions.ORGANIZATION_REGISTRATION_FAILED, payload: res }))
-        );
+        createOrganization$ = this._actions$
+            .ofType(OrganizationActions.ORGANIZATION_REGISTRATION)
+            .map(toPayload)
+            .switchMap((payload) => this._orgService.regOrganization(payload)
+                .map(res => ({ type: OrganizationActions.ORGANIZATION_REGISTRATION_SUCCESS, payload: res }))
+                .catch((res) => Observable.of({ type: OrganizationActions.ORGANIZATION_REGISTRATION_FAILED, payload: res }))
+            );
+    @Effect()
+        deleteOrganization$ = this._actions$
+            .ofType(OrganizationActions.ORGANIZATION_DELETE)
+            .map(toPayload)
+            .switchMap((payload) => this._orgService.delOrganization(payload)
+                .map(res => ({ type: OrganizationActions.ORGANIZATION_DELETE_SUCCESS, payload: res }))
+                .catch((res) => Observable.of({ type: OrganizationActions.ORGANIZATION_DELETE_FAILED, payload: res }))
+            );
+
+    @Effect()
+        getReceipient$ = this._actions$
+              .ofType(OrganizationActions.GET_RECEIPIENT)
+              .map(toPayload)
+              .switchMap((payload) => this._orgService.getReceipientDetails( payload )
+                .map(res => ({ type: OrganizationActions.GET_RECEIPIENT_SUCCESS, payload: res }))
+                .catch((res) => Observable.of({ type: OrganizationActions.GET_RECEIPIENT_FAILED, payload: res }))
+              );
+
+    @Effect()
+        getMembers$ = this._actions$
+            .ofType(OrganizationActions.GET_MEMBERS)
+            .map(toPayload)
+            .switchMap((payload) => this._orgService.getOrganizationMembers( payload )
+                 .map(res => ({ type: OrganizationActions.GET_MEMBERS_SUCCESS, payload: res }))
+                 .catch((res) => Observable.of({ type: OrganizationActions.GET_MEMBERS_FAILED, payload: res }))
+            );
+
+    /**
+     * 
+     * getting default settings of an organization
+     * @param _orgService
+     */
+    @Effect()
+        getSettings$ = this._actions$
+            .ofType(OrganizationActions.GET_ORGANIZATION_BY_HANDLE)
+            .map(toPayload)
+            .switchMap((payload) => this._orgService.getDefaultSettings( payload )
+                 .map(res => ({ type: OrganizationActions.GET_ORGANIZATION_BY_HANDLE_SUCCESS, payload: res }))
+                 .catch((res) => Observable.of({ type: OrganizationActions.GET_ORGANIZATION_BY_HANDLE_FAILED, payload: res }))
+            );
 
     /**
      *  Load image to database

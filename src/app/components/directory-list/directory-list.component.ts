@@ -53,6 +53,7 @@ export class DirectoryListComponent implements OnInit {
   }
 
   updateCheckedOptions(option, event) {
+    console.log(option)
     this.selectedOption = this.options.filter(opt => opt.checked).map(opt => opt.value);
     this.page_start = 0
     this.loadDir();
