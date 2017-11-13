@@ -53,10 +53,6 @@ export class MediaViewComponent {
     private store: Store<Media>
   ) {
 
-    router.events.subscribe((url:any) => console.log(url));
-      console.log(router.url);  // to print only path eg:"/login"
-
-
     this.spot = false;
     this.mediaState$ = store.select('mediaStore');
 
