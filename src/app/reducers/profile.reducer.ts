@@ -509,14 +509,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS:
       const new_spotfeed = payload['SUCCESS'] || [];
       if (this.getSpotfeedPayload.page_start === 0) {
-        console.log('initial load');
+        // console.log('initial load');
         // appending the new spotfeeds and profile to the existing records in the state
         return Object.assign({}, state, {
           spotfeed_loading: false,
           spotfeed_detail: new_spotfeed
         });
       } else {
-        console.log('load more');
+        // console.log('load more');
         // appending the new spotfeeds and profile to the existing records in the state
         state.spotfeed_detail.spotfeedMedia = [...state.spotfeed_detail.spotfeedMedia, ...new_spotfeed.spotfeedMedia];
         state.spotfeed_detail.spotfeedProfiles = [...state.spotfeed_detail.spotfeedProfiles, ...new_spotfeed.spotfeedProfiles];
