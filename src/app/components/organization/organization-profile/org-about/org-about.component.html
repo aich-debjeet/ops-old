@@ -84,10 +84,10 @@
                                     <a class="o-org-form__edit-ico" (click)="editField('description')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
                                 <p *ngIf="editingField != 'description'" id="brief" class="c-text_sm color-grey-dark m-t-8">
-                                    {{ orgProfile?.org_profile_details?.description }}
+                                    {{ aboutDescription }}
                                 </p>
                                 <div *ngIf="editingField == 'description'" id="brief-edit" class="o-org-form__edit-sec">
-                                    <textarea class="o-org-about__breif c-text_sm m-t-8">{{ orgProfile?.org_profile_details?.description }}</textarea>
+                                    <textarea class="o-org-about__breif c-text_sm m-t-8" [(ngModel)]="aboutDescription" [ngModelOptions]="{standalone: true}">{{ aboutDescription }}</textarea>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
                                         <button type="button" class="btn btn-primary btn-sm" (click)="updateAbout('description')">Save</button>
@@ -99,11 +99,16 @@
                                     <a class="o-org-form__edit-ico" (click)="editField('services')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
                                 <p *ngIf="editingField != 'services'" id="o-org-about-serv" class="c-text_sm color-grey-dark m-t-8">
-                                    {{ orgProfile?.org_profile_details?.languages.join(', ') }}
+                                    {{ aboutServices }}
                                 </p>
                                 <div *ngIf="editingField == 'services'" id="o-org-about-serv_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input" type="text" value="UI Design, UX Design, Branding">
+                                        <input class="c-form__input" type="text" [(ngModel)]="aboutServices" [ngModelOptions]="{standalone: true}">
+                                        <!-- <tag-input [(ngModel)]='services'
+                                        [placeholder]="'Add Services'"
+                                        [theme]="'ops-theme'"
+                                        [ngModelOptions]="{standalone: true}">
+                                        </tag-input> -->
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
@@ -116,13 +121,14 @@
                                     <a class="o-org-form__edit-ico" (click)="editField('industries')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
                                 <p *ngIf="editingField != 'industries'" id="o-org-about-ind" class="c-text_sm color-grey-dark m-t-8">
-                                    <ng-container *ngFor="let industry of orgProfile?.org_profile_details?.extra?.industryList; let isLast = last;">
+                                    <!-- <ng-container *ngFor="let industry of orgProfile?.org_profile_details?.extra?.industryList; let isLast = last;">
                                         {{ industry.name }} {{isLast ? '' : ', '}}
-                                    </ng-container>
+                                    </ng-container> -->
+                                    {{ aboutIndustryCode }}
                                 </p>
                                 <div *ngIf="editingField == 'industries'" id="o-org-about-ind_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <select class="form-control" id="sel1" [(ngModel)]="orgIndustry" [ngModelOptions]="{standalone: true}">
+                                        <select class="form-control" id="sel1" [(ngModel)]="aboutIndustryCode" [ngModelOptions]="{standalone: true}">
                                             <option value="">Industry</option>
                                             <option *ngFor="let industry of forIndustries.industries" [value]="industry.code" >{{ industry.name }}</option>
                                         </select>
