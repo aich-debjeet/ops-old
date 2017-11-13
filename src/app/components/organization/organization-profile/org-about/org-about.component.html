@@ -194,7 +194,7 @@
                                 </div>
                                 <div *ngIf="editingField == 'email'" id="o-org-about-contact-mail-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input fpadding_l32" type="text" value="{{ orgProfile?.org_profile_details?.email }}">
+                                        <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutEmail" [ngModelOptions]="{standalone: true}" value="{{ orgProfile?.org_profile_details?.email }}">
                                         <span><img src="/assets/img/svg/ico_envelope.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">

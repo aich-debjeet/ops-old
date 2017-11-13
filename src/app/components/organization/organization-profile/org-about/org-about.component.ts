@@ -30,6 +30,7 @@ export class OrgAboutComponent implements OnInit {
   forIndustries: any;
   loginTagState$: Observable<Follow>;
   aboutMobile: any;
+  aboutEmail: any;
   aboutDescription: string;
   aboutServices: string;
   // services: any[];
@@ -48,6 +49,10 @@ export class OrgAboutComponent implements OnInit {
       if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.contact.mobile) {
         this.aboutMobile = this.orgProfile.org_profile_details.contact.mobile.mobile;
       }
+      if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.email) {
+        this.aboutEmail = this.orgProfile.org_profile_details.email;
+      }
+      // aboutEmail
       if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.description) {
         this.aboutDescription = this.orgProfile.org_profile_details.description;
       }
@@ -111,6 +116,11 @@ export class OrgAboutComponent implements OnInit {
     if (fieldName === 'mobile' && this.aboutMobile.length > 0) {
       reqBody = { mobile: '' };
       reqBody.mobile = this.aboutMobile;
+    }
+
+    if (fieldName === 'email' && this.aboutEmail.length > 0) {
+      reqBody = { email: '' };
+      reqBody.email = this.aboutEmail;
     }
 
     if (fieldName === 'description' && this.aboutDescription.length > 0) {
