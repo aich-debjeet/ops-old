@@ -30,6 +30,7 @@ export class OrgAboutComponent implements OnInit {
   forIndustries: any;
   loginTagState$: Observable<Follow>;
   aboutMobile: any;
+  aboutWebsite: any;
   aboutEmail: any;
   aboutDescription: string;
   aboutServices: string;
@@ -46,20 +47,28 @@ export class OrgAboutComponent implements OnInit {
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
       console.log('this.orgProfile ABOUT ORG', this.orgProfile);
+      // for mobile
       if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.contact.mobile) {
         this.aboutMobile = this.orgProfile.org_profile_details.contact.mobile.mobile;
       }
+      // for website
+      if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.contact.website) {
+        this.aboutWebsite = this.orgProfile.org_profile_details.contact.website.website;
+      }
+      // for email
       if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.email) {
         this.aboutEmail = this.orgProfile.org_profile_details.email;
       }
-      // aboutEmail
+      // for description
       if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.description) {
         this.aboutDescription = this.orgProfile.org_profile_details.description;
       }
+      // for services
       if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.languages) {
         this.aboutServices = this.orgProfile.org_profile_details.languages.join(', ');
         // console.log('aboutServices', this.aboutServices);
       }
+      // loading industries
       if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.extra['industryList'].length > 0) {
         setTimeout(() => {
           const industryArrLen = this.orgProfile.org_profile_details.extra['industryList'].length;
@@ -113,16 +122,25 @@ export class OrgAboutComponent implements OnInit {
 
     let reqBody;
 
+    // for mobile update
     if (fieldName === 'mobile' && this.aboutMobile.length > 0) {
       reqBody = { mobile: '' };
       reqBody.mobile = this.aboutMobile;
     }
 
+    // for webiste update
+    if (fieldName === 'website' && this.aboutWebsite.length > 0) {
+      reqBody = { website: '' };
+      reqBody.website = this.aboutWebsite;
+    }
+
+    // for email update
     if (fieldName === 'email' && this.aboutEmail.length > 0) {
       reqBody = { email: '' };
       reqBody.email = this.aboutEmail;
     }
 
+    // for description update
     if (fieldName === 'description' && this.aboutDescription.length > 0) {
       reqBody = {
         extras: {
@@ -132,6 +150,7 @@ export class OrgAboutComponent implements OnInit {
       reqBody.extras.Description = this.aboutDescription;
     }
 
+    // for services update
     if (fieldName === 'services' && this.aboutServices.length > 0) {
       reqBody = {
         services: [],
@@ -147,6 +166,7 @@ export class OrgAboutComponent implements OnInit {
       });
     }
 
+    // for indusrty update
     if (fieldName === 'industries' && this.aboutIndustryCode.length > 0) {
       console.log('selected', this.aboutIndustryCode);
       const newIndustry = _.find(this.forIndustries.industries, { 'code': this.aboutIndustryCode });

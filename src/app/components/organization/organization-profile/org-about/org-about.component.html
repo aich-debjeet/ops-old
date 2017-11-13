@@ -215,7 +215,7 @@
                                 </div>
                                 <div *ngIf="editingField == 'website'" id="o-org-about-contact-web-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input fpadding_l32" type="text" value="{{ orgProfile?.org_profile_details?.contact?.website.website }}">
+                                        <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutWebsite" [ngModelOptions]="{standalone: true}" value="{{ orgProfile?.org_profile_details?.contact?.website.website }}">
                                         <span><img src="/assets/img/svg/ico_public_grey.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">
