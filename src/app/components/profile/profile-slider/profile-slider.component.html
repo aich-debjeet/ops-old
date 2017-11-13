@@ -19,7 +19,7 @@
 
 <div class="container pro-block" *ngIf="profileObject !== null">
 
-
+    
     <div class="row">
         <div class="col-md-6 col-sm-12 pro__img " >
             <div class="prof_img_block">
@@ -129,12 +129,11 @@
                         <h3>SKILLS</h3>
                         <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
                         <span routerLink="{{ '/spotfeed/' + skill.name }}"  *ngFor="let skill of profileObject?.userSkill | slice:0:8" class="c-skill__tags">#{{ skill.name }} </span>  
-                        <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillPopup()" class="c-skill__tags c-skill__tags--more">...</a>
+                        <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags c-skill__tags--more">...</a>
                     </div>
                 </div>
             </div>
-        </div>
-    
+        </div>    
 </div>
 
 <router-outlet></router-outlet>
@@ -240,11 +239,12 @@
 
 <!--Skill more -->
 
-<app-modal [modalTitle]="'Some title'" [open]="false" [blocking]='false' modalId='skillMoreWindow' size="tiny__skill">
-    <div class="modal-content o-tag-pop">
+<app-modal-new #skillModal modalClass="modal-cus__sm">
+    <modal-content>
+        <div class="modal-content o-tag-pop">
         <div class="o-tag-head with_border_bottom">
             <h2 class="o-tag__title">More Skills
-                <span class="pop-close" (click)="skillClose()">
+                <span class="pop-close" (click)="skillModal.close()">
                   <a  ><img src="https://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
                 </span>
             </h2>
@@ -253,10 +253,8 @@
             <span *ngFor="let skill of profileObject?.userSkill" class="c-skill__tags">#{{ skill.name }}</span>
         </div>
     </div>
-    <!--<div class="popup__window">
-        <button *ngFor="let skill of profileObject?.userSkill" type="button" class="btn btn-default btn-xs btn-skill">{{ skill.name }}</button>
-    </div>-->
-</app-modal>
+    </modal-content>
+</app-modal-new>
 
 <app-modal  [blocking]='false' modalId='donationPopup' *ngIf="!this.isOwner" size="tiny__donation">
     <div  id="donation_pop" >

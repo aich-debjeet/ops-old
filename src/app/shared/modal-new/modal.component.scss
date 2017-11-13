@@ -1,0 +1,26 @@
+.modal-block{
+
+}
+
+.modal.in .modal-block{
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+.modal.fade .modal-block {
+    -webkit-transform: translate(0, -25%);
+    transform: translate(0, -25%);
+    transition: -webkit-transform 0.3s ease-out;
+    transition: transform 0.3s ease-out;
+    transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+}
+
+.modal-cus__sm{
+    width: 675px;
+    margin: 100px auto;
+    display: table;
+}
+
+.modal-cus-body{
+    position: relative;
+}
