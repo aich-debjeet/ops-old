@@ -59,11 +59,11 @@ export class OrgChannelComponent implements OnInit {
 
 
   checkUserType() {
-    console.log('channel');
+    // console.log('channel');
     this._store.select('profileTags')
       .first(profile => profile['profileUser'].handle)
       .subscribe( data => {
-        console.log(data);
+        // console.log(data);
         const handle = this.profileChannel.profileUser.handle;
           this.isOwner = true;
           this.channels = [];
@@ -84,7 +84,7 @@ export class OrgChannelComponent implements OnInit {
 
 
   loadChannel(handle: string) {
-    console.log(handle);
+    // console.log(handle);
     this._store.dispatch({ type: ProfileActions.LOAD_USER_CHANNEL, payload: handle });
   }
 
