@@ -24,4 +24,19 @@ export class GeneralUtilities {
         return link;
     }
 
+    /**
+     * Search hashatgs
+     * @Param: string
+     * @Return: string array
+     */
+    public findHashtags(searchText) {
+        const regexp = /\B\#\w\w+\b/g
+        const result = searchText.match(regexp);
+        if (result) {
+            return result;
+        } else {
+            return false;
+        }
+    }
+
 }

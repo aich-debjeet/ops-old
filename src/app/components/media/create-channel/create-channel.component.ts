@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { ApiService } from '../../../helpers/api.service';
+import { GeneralUtilities } from '../../../helpers/general.utils';
 
 // Action
 import { MediaActions } from '../../../actions/media.action';
@@ -24,6 +25,8 @@ import { environment } from './../../../../environments/environment';
 
 import { map as _map } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
+
+import * as _ from 'lodash';
 
 // Blog
 import { TokenService } from '../../../helpers/token.service';
@@ -62,6 +65,7 @@ export class CreateChannelComponent implements OnInit {
     private tokenService: TokenService,
     private localStorageService: LocalStorageService,
     private apiService: ApiService,
+    private generalHelper: GeneralUtilities,
     private store: Store<Media> ) {
       this.createChannelForm();
       this.typeSelected = false;
@@ -230,6 +234,47 @@ export class CreateChannelComponent implements OnInit {
   ngOnInit() {
       // loading industry list
       this.industriesList();
+  }
+
+  /**
+   * Check for hashtags in Desc
+   */
+  descListener(descValue: any) {
+    console.log('descValue', descValue);
+
+    // checking for last char if it's a space
+    const lastChar = descValue[descValue.length - 1];
+
+    // check if hit enter
+    const match = /\r|\n/.exec(descValue);
+
+    if (lastChar === ' ' || match) {
+      // checking of hashtags
+      let hashTags = this.generalHelper.findHashtags(descValue);
+      if (hashTags && hashTags.length > 0) {
+
+        // filter for duplicate values
+        hashTags = _.uniq(hashTags);
+        console.log('U hashtags', hashTags);
+        console.log('U tags', this.tags);
+
+        const that = this;
+        // prepare value to add
+        hashTags.forEach((hashTag, i) => {
+          that.tags.push({
+            display: hashTag,
+            value: hashTag
+          });
+          if (i === hashTags.length - 1) {
+            // make the array uniq
+            this.tags = _.uniqBy(this.tags, 'value');
+          }
+        });
+      }
+      // console.log('tags', this.tags);
+    } else {
+      // console.log('last char is not space');
+    }
   }
 
 }

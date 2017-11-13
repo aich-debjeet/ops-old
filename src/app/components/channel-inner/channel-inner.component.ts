@@ -4,6 +4,8 @@ import {ActivatedRoute} from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Media, initialMedia  } from '../../models/media.model';
 
+import { Router } from '@angular/router';
+
 import { ModalService } from '../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -45,7 +47,9 @@ export class ChannelInnerComponent implements OnInit {
     private _store: Store<Media>,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private modalService: ModalService) {
+    private modalService: ModalService,
+    private router: Router
+  ) {
       this.channelId = route.snapshot.params['id'];
 
       this.pageLoading = false;
@@ -173,6 +177,10 @@ export class ChannelInnerComponent implements OnInit {
 
   pinEditFormPopup() {
     //
+  }
+
+  addPostBtnClick() {
+    this.router.navigateByUrl('/post/media');
   }
 
 }

@@ -156,7 +156,7 @@
 }
 
 .ng-modal.tiny__profile_upload{
-  width: 490px;
+  width: 500px;
   margin: 0 auto;
   right: 0;
   left: 0;
@@ -187,4 +187,12 @@
 
 .modal__tiny__mediapopup .ng-modal {
   padding: 0 !important;
+}
+
+.tiny__profile_upload .body {
+  padding: 0;
+}
+
+.tiny__profile_upload {
+  padding-top: 2em !important;
 }
