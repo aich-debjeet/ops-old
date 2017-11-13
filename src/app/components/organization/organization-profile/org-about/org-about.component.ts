@@ -46,7 +46,7 @@ export class OrgAboutComponent implements OnInit {
     this.orgState$ = this.store.select('organizationTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      console.log('this.orgProfile ABOUT ORG', this.orgProfile);
+      // console.log('this.orgProfile ABOUT ORG', this.orgProfile);
       // for mobile
       if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.contact.mobile) {
         this.aboutMobile = this.orgProfile.org_profile_details.contact.mobile.mobile;
@@ -118,8 +118,7 @@ export class OrgAboutComponent implements OnInit {
    * Update about individual field
    */
   updateAbout(fieldName: string) {
-    console.log('update org field', fieldName);
-
+    // console.log('update org field', fieldName);
     let reqBody;
 
     // for mobile update
@@ -186,7 +185,7 @@ export class OrgAboutComponent implements OnInit {
       handle: this.orgProfile.org_profile_details.handle,
       body: reqData
     }
-    console.log('req body', data);
+    // console.log('req body', data);
     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_UPDATE, payload: data });
 
     this.closeEditor();
