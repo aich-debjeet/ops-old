@@ -45,9 +45,16 @@ export class SpotfeedComponent {
       this.spotfeedDetails = state['spotfeed_detail'];
       // this.spotfeedPosts = this.spotfeedDetails.spotfeedMedia;
 
-      // filtering artists duplicate profiles
+      // filtering artists
       if (this.spotfeedDetails && typeof this.spotfeedDetails.spotfeedProfiles !== 'undefined') {
-        this.spotfeedDetails.spotfeedProfiles = _.uniqBy(this.spotfeedDetails.spotfeedProfiles, 'username');
+        // remove loggedn in user profile
+        // filtering artists duplicate profiles
+        const currentUserHandle = this.userState.profileUser.handle;
+        this.spotfeedDetails.spotfeedProfiles = _.remove(this.spotfeedDetails.spotfeedProfiles, function(currentObject) {
+            return currentObject.handle !== currentUserHandle;
+        });
+        // filtering artists duplicate profiles
+        this.spotfeedDetails.spotfeedProfiles = _.uniqBy(this.spotfeedDetails.spotfeedProfiles, 'handle');
       }
       // filtering media duplicate profiles
       if (this.spotfeedDetails && typeof this.spotfeedDetails.spotfeedMedia !== 'undefined') {
@@ -55,6 +62,7 @@ export class SpotfeedComponent {
       }
     });
 
+    // console.log(this.userState);
     this.loadPostFeed();
   }
 

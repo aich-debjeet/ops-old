@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl(this.redrectUrl);
           return
         }else {
-          this.router.navigateByUrl('/profile');
+          this.router.navigateByUrl('/home');
           return
         }
 

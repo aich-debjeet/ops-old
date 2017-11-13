@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, AfterViewInit, Output, OnChanges} from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, AfterViewInit, Output, OnChanges, ViewChild} from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 import { Router, ActivatedRoute } from '@angular/router';
@@ -31,6 +31,7 @@ export class MediaViewComponent {
   @Input() userChannels;
   @Input() profileImage;
   @Output() onComment: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('firstModal') modal: any;
   messageText: string;
   statusForm: FormGroup;
   private mediaStateSubscription: Subscription;
@@ -51,6 +52,7 @@ export class MediaViewComponent {
     private route: ActivatedRoute,
     private store: Store<Media>
   ) {
+
     this.spot = false;
     this.mediaState$ = store.select('mediaStore');
 
@@ -69,7 +71,12 @@ export class MediaViewComponent {
 
     });
 
+
     this.loadMedia();
+  }
+
+  closeFunction() {
+    this.doClose(event);
   }
 
 

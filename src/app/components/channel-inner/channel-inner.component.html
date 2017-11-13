@@ -11,7 +11,7 @@
                         <div class="c-h3 c-h3--weight">{{(tagState$ | async).channel_detail?.channelName}}</div>
                     </li>
                     <li class="list-inline-item" *ngIf="(tagState$ | async).channel_detail?.isOwner">
-                        <button type="button" class="btn btn-default btn-sm fill-white">
+                        <button type="button" class="btn btn-default btn-sm" (click)="addPostBtnClick()" >
                             Add Post
                         </button>
                     </li>

@@ -15,44 +15,45 @@
         </div>
     </div>
     <!-- //card body -->
-    <!-- channel media -->
-    <div class="c-channel__media">
+    <div class="c-channel__media" *ngIf="(channelData?.media)?.length > 0">
         <div *ngFor="let item of channelData?.media | slice:0:3; let i=index">
-          <div class="c-channel__sec" *ngIf="i===0 && !checkFileType(item?.repoPath, 'Image')">
-              <div class="c-channel__left">
-                    <!--<img *ngIf="checkFileType(item?.repoPath, 'Image')" src="{{ 'http://d206s58i653k1q.cloudfront.net/'  + item?.repoPath }}" class="c-card__image">-->
+            <div class="c-channel__sec" *ngIf="i===0">
+                <div class="c-channel__left" *ngIf="!checkFileType(item?.repoPath, 'Image')">
                     <app-videplayer *ngIf="checkFileType(item?.repoPath, 'Video')" src="{{ image_base_url + item?.repoPath }}" class="c-card__image"></app-videplayer>
                     <app-audioplayer type="simple" *ngIf="checkFileType(item?.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item?.repoPath }}" class="c-card__image"></app-audioplayer>
                 </div>
-          </div>
-          <div class="c-channel__sec c-card__image" *ngIf="i===0 && checkFileType(item?.repoPath, 'Image')">
-              <div class="c-channel__left" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}">
-              </div>
-          </div>
-          <div class="c-channel__sec" >
-            <div class="c-channel__right1" *ngIf="i===1 && checkFileType(item?.repoPath, 'Image')">
-                <div class="c-channel__left" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}">
+                <div class="c-channel__left" *ngIf="checkFileType(item?.repoPath, 'Image')" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}">
                 </div>
             </div>
-            <div class="c-channel__right1" *ngIf="i===1 && !checkFileType(item.repoPath, 'Image')">
-                <div class="c-channel__left">
+            <div class="c-channel__sec">
+                <div class="c-channel__right1"  *ngIf="i===1 && checkFileType(item?.repoPath, 'Image')" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}">
+                </div>
+                <div class="c-channel__right1" *ngIf="i===1 && !checkFileType(item.repoPath, 'Image') ">
                     <app-videplayer *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-videplayer>
                     <app-audioplayer type="simple" *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-audioplayer>
                 </div>
+                <div class="c-channel__right1"  *ngIf="i===0 && (channelData?.media)?.length === 1">
+                    <div class="c-card__image"></div>
+                </div>
+
+                <!--Right block botton-->
+                <div class="c-channel__right2" *ngIf="i===2 && checkFileType(item?.repoPath, 'Image')" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}">
+                </div>
+                <div class="c-channel__right2" *ngIf="i===2 && !checkFileType(item.repoPath, 'Image') ">
+                    <app-videplayer *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-videplayer>
+                    <app-audioplayer type="simple" *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-audioplayer>
+                </div>
+                <div class="c-channel__right2"  *ngIf="i===1 && (channelData?.media)?.length === 2">
+                    <div class="c-card__image"></div>
+                </div>
+                <div class="c-channel__right2"  *ngIf="i===0 && (channelData?.media)?.length === 1">
+                    <div class="c-card__image"></div>
+                </div>
             </div>
-            
-            <div class="c-channel__right2" *ngIf="i===2 && !checkFileType(item.repoPath, 'Image') ">
-                <app-videplayer *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-videplayer>
-                <app-audioplayer type="simple" *ngIf="checkFileType(item.repoPath, 'Video')" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-audioplayer>
-            </div>
-            <div class="c-channel__right2"  *ngIf="i===2 && checkFileType(item.repoPath, 'Image')">
-              <div class="c-channel__left" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}"></div>
-                
-            </div>
-          </div>
         </div>
     </div>
-     <div class="c-channel__media" *ngIf="(channelData?.media)?.length === 0">
+    <!-- channel media -->
+    <div class="c-channel__media" *ngIf="(channelData?.media)?.length === 0">
         <div class="c-channel__sec">
             <div class="c-channel__left">
                 <img src="" class="c-card__image">
@@ -74,12 +75,8 @@
         <span class="c-links__post">{{ channelData?.followersCount }} Followers</span>
         <div class="c-followers">
           <div class="c-followers__img">
-            <img class="c-user__image" src="/assets/img/avatar.jpg">
+            <img class="c-user__image" src="{{ image_base_url + channelData?.ownerImage }}">
           </div>
-          <div class="c-followers__img m-l--8">
-            <img class="c-user__image" src="/assets/img/avatar2.jpg">
-          </div>
-          <p class="c-followers__count">+8</p>
         </div>
 
         <!--<div class="c-channel__btn" *ngIf="currentUser">

@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class VideplayerComponent implements OnInit {
   @Input() src: any;
+  @Input() play: boolean = false;
   source: any;
   constructor() {
     this.source = this.src;

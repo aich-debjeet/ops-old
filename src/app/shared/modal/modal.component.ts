@@ -9,9 +9,9 @@ import { ModalService } from './modal.component.service';
         <div class="ng-modal-overlay" (click)="close(true)"></div>
         <div [ngClass]="size" class="ng-modal">
           <div class="body">
-            <span *ngIf="closeHidden === false" class="right-align ng-modal-close" title="close" (click)="close(true)">
+            <!--<span *ngIf="closeHidden === false" class="right-align ng-modal-close" title="close" (click)="close(true)">
               <img class="pointer" width="24" src="http://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg"/>
-            </span>
+            </span>-->
             <ng-content></ng-content>
           </div>
         </div>
