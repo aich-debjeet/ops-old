@@ -79,41 +79,37 @@
             <div class="pop-container-sm create-channel--form">
                 <div class="pop-head m-b-32">
                     <h5 class="c-text_lg text-center">Create Channel</h5>
-                    <span class="pop-close">
-                        <a href="" data-dismiss="modal"><img src="img/svg/ico_close-38.svg" alt=""></a>
+                    <span class="pop-close" (click)="closeChannelCreation()">
+                        <a href="javascript:void(0)"><img src="http://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
                     </span>
                 </div><!-- create channel head -->
                 <div class="create_channel__content-form">
-                    <form action="">
+                    <form [formGroup]="channelForm" novalidate #myform="ngForm">
                         <div class="c-form__group m-b-16">
-                            <input class="c-form__input" required="" type="text">
+                            <input class="c-form__input" formControlName="title" type="text">
                             <span class="c-form__highlight"></span>
                             <span class="c-form__bar"></span>
                             <label>Channel Name</label>
                         </div>
                         <div class="c-form__group m-b-16">
-                            <input class="c-form__input" required="" type="text">
+                            <input class="c-form__input" type="text" formControlName="desc" (ngModelChange)="descListener($event)">
                             <span class="c-form__highlight"></span>
                             <span class="c-form__bar"></span>
                             <label>About channel</label>
                         </div>
                         <div class="channel-industry__block ">
                             <div class="c-form__group">
-                                <select class="c-form-control p-0">
-                                    <option>Industry</option>
-                                    <option>Select list 2</option>
-                                    <option>Select list 3</option>
-                                    <option>Select list 4</option>
+                                <select formControlName="type" class="c-form-control p-0" id="sel1" [(ngModel)]="selectedIndustry">
+                                    <option value="" selected="">Industry</option>
+                                    <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="channel-public__block p-0">
                             <div class="c-form__group">
-                                <select class="c-form-control p-0">
-                                    <option>public</option>
-                                    <option>Select list 2</option>
-                                    <option>Select list 3</option>
-                                    <option>Select list 4</option>
+                                <select formControlName="privacy" class="c-form-control p-0" id="sel1">
+                                    <option value="0">Public</option>
+                                    <option value="1">Private</option>
                                 </select>
                             </div>
                         </div>
@@ -132,13 +128,13 @@
             <div class="pop-container-sm create-channel--form">
                 <div class="pop-head m-b-32">
                     <h5 class="c-text_lg text-center"></h5>
-                    <span class="pop-close">
-                        <a href="" data-dismiss="modal"><img src="img/svg/ico_close-38.svg" alt=""></a>
+                    <span class="pop-close" (click)="closeChannelCreation()">
+                        <a href="javascript:void(0)"><img src="http://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
                     </span>
                 </div><!-- create channel head -->
                 <div class="create_channel__content">
                     <div class="create-channel__done-tic">
-                        <img width="135" src="img/svg/channeltic.svg" alt="">
+                        <img width="135" src="/assets/img/svg/channeltic.svg" alt="">
                     </div>
                     <h5 class="c-h5 m-b-32">Channel has been created<br>successfully</h5>
                 </div><!-- create channel content end -->

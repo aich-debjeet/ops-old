@@ -51,7 +51,6 @@ export class CreateChannelComponent implements OnInit {
   handle: string;
   channelSavedHere: boolean;
   channelSaved = false;
-  people: any;
   tags: any;
   private apiLink: string = environment.API_ENDPOINT;
   industries: any[];
@@ -73,7 +72,6 @@ export class CreateChannelComponent implements OnInit {
       this.stepNumber = 1;
       this.channelSaved = false;
       this.channelSavedHere = false;
-      this.people = [];
 
       this.handle = '';
       if (this.handle !== '') {
@@ -92,7 +90,8 @@ export class CreateChannelComponent implements OnInit {
 
         // Success message
         if (this.channelSavedHere && this.channelSaved === true ) {
-          this.toastr.success('Channel Created');
+          // this.toastr.success('Channel Created');
+          this.switchToStep(3);
           this.createChannelForm();
           this.channelSavedHere = false;
         }
@@ -106,6 +105,7 @@ export class CreateChannelComponent implements OnInit {
   }
 
   selectChannelType(channelType: number) {
+    // console.log(channelType);
     this.channelType = channelType;
     this.switchToStep(2);
   }
@@ -122,7 +122,6 @@ export class CreateChannelComponent implements OnInit {
    */
   createChannelForm() {
     // Clear All Tags
-    this.people = [];
     this.tags = [];
 
     // Empty initiate form
@@ -130,8 +129,7 @@ export class CreateChannelComponent implements OnInit {
       title: ['', Validators.required ],
       type: ['', Validators.required ],
       desc: ['', Validators.required ],
-      privacy: [0, Validators.required ],
-      openess: [1]
+      privacy: [0, Validators.required ]
     })
   }
 
@@ -168,21 +166,6 @@ export class CreateChannelComponent implements OnInit {
     const userHandle = this.profileChannel.profileUser.handle || '';
     const mediaTypeList = this.channelTypeConfig(this.channelType);
 
-    // Get only handles from user list
-    const peopleListAll = this.people;
-    const peopleList = _map(peopleListAll, 'handle');
-
-    const peopleListList = [];
-
-    for (const i of peopleList) {
-      peopleListList.push({ handle: i });
-    }
-
-    let otherFields = {};
-    if (peopleListList.length > 0 ) {
-      otherFields = { contributerList: peopleListList }
-    }
-
     // set profile handle to user handle
     let profileHandle = userHandle;
 
@@ -198,14 +181,13 @@ export class CreateChannelComponent implements OnInit {
 
       const channelObj = {
         name: value.title,
+        owner: profileHandle,
+        mediaTypes: mediaTypeList,
+        industryList: [ value.type ],
+        superType: 'channel',
         access: Number(value.privacy),
         description: value.desc,
-        superType: 'channel',
-        accessSettings : { access : Number(value.privacy) },
-        owner: profileHandle,
-        industryList: [ value.type ],
-        mediaTypes: mediaTypeList,
-        otherFields
+        accessSettings : { access : Number(value.privacy) }
       }
 
       this.channelSavedHere = true;
@@ -240,8 +222,6 @@ export class CreateChannelComponent implements OnInit {
    * Check for hashtags in Desc
    */
   descListener(descValue: any) {
-    console.log('descValue', descValue);
-
     // checking for last char if it's a space
     const lastChar = descValue[descValue.length - 1];
 
