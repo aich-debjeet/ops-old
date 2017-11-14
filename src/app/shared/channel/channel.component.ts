@@ -35,7 +35,7 @@ export class ChannelComponent implements OnInit {
   storeState$: Observable<ProfileModal>;
   userProfile = initialTag;
   userHandle: any;
-  private image_base_url: string = environment.API_IMAGE;
+  image_base_url: string = environment.API_IMAGE;
 
   constructor(
     private _store: Store<ProfileModal>

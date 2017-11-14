@@ -122,7 +122,7 @@
                 </form>
             </div>
 
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 msg_right">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 msg_right" *ngIf="ownProfile">
 
                 <!-- read message -->
                 <div class="messageDisplay" *ngIf="this.selectedView == 'readMessage'">
@@ -238,7 +238,7 @@
                                     <li class="list-inline-item msg_to_input">
                                         <div class="form_group">
                                             <!-- <a class="dropdown-toggle" data-toggle="dropdown"> -->
-                                            <input class="form_input" type="text" formControlName="searchUserTerm" [(ngModel)]="composeMessage.searchUser" (keyup)="onSearch()" required="">
+                                            <input class="form_input" type="text" formControlName="searchUserTerm" [ngModel]="composeMessage.searchUser" (ngModelChange)="onSearch($event)" required="">
                                             <!-- </a> -->
                                             <ul class="dropdown-menu msg__dropdown show" *ngIf="recipientsListState">
                                                 <li class="c-post__comment" *ngFor="let skill of receipientList | slice:0:5" (click)="toggleSelectSkill(skill.handle)">
@@ -317,6 +317,195 @@
                 </div>
                 <!-- no message -->
             </div>
+
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 msg_right" *ngIf="!ownProfile">
+                <!-- read message -->
+                <div class="messageDisplay" *ngIf="this.selectedView == 'readMessage'">
+                    <ul class="msg_to_list list_style_none">
+                        <li class="with_border_bottom">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <div class="msg_with" *ngIf="selectedUserHandle != userHandle">
+                                        Message with <strong>{{selectedUser}}</strong>
+                                    </div>
+                                </li>
+                                <li class="list-inline-item float_right msg_setting">
+                                    <div class="dropdown pull-right" appDropdown>
+                                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" appDropdownOpen>
+                                            <img src="/assets/img/svg/ico_settings.svg" class="msg_setting_icon">
+                                        </a>
+                                        <ul class="dropdown-menu" [ngClass]="{'open': this.msgNav['setting'].open }">
+                                            <li class="with_border_bottom">
+                                                <a href="#">
+                                                    <img src="/assets/img/svg/ico_archive.svg">
+                                                    <span>Archive</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <img src="/assets/img/svg/ico_delete.svg">
+                                                    <span>Delete</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- message container -->
+                    <div class="msg_container_block" id="ops_scrollbar" #scrollMeBottom (scroll)="onScroll()" [scrollTop]="scrollMeBottom.scrollHeight">
+                        <div class="msg_container" *ngFor="let message of messagesbytime">
+                            <div class="col-md-12">
+                                <ul class="list-inline" *ngIf="message.to == userHandle && selectedUserHandle != userHandle">
+                                    <li class="list-inline-item avatar_msg_input float_left">
+                                        <img *ngIf="nonUserProfile.profileImage" src="{{ baseUrl + nonUserProfile.profileImage}}" class="img-responsive">
+                                        <img *ngIf="!nonUserProfile.profileImage" src="http://d206s58i653k1q.cloudfront.net/images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png" class="img-responsive">
+                                    </li>
+                                    <li class="list-inline-item msg_cont_block">
+                                        <p class="ops_msg_aero">
+                                            {{message.content}}
+                                        </p>
+                                        <div class="msg_sent_time">{{message.time | date:'medium'}}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- </div> -->
+                            <!-- <div class="msg_container"> -->
+                            <div class="col-md-12">
+                                <ul class="list-inline" *ngIf="message.by == userHandle">
+                                    <li class="list-inline-item avatar_msg_input float_right">
+                                        <img src="{{ baseUrl + selfProfile.profileImage}}" class="img-responsive">
+                                    </li>
+                                    <li class="list-inline-item msg_cont_block2">
+                                        <p class="ops_msg_aero2">
+                                            {{message.content}}
+                                        </p>
+                                        <div class="msg_sent_time2">{{message.time | date:'medium'}}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--message footer input section-->
+                    <form [formGroup]="messageForm" novalidate (submit)="addMessage(messageForm.value)" #myform="ngForm">
+                        <!-- <p class="error_alert text-center" *ngIf ="message?.error_description">{{message?.error_description}}</p>-->
+                        <div class="col-md-12 msg_footer_input">
+                            <ul class="msg_to_list list_style_none">
+                                <li>
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item avatar_msg_input float_left">
+                                            <img src="{{ baseUrl + selfProfile.profileImage}}" class="img-responsive padding_0">
+                                        </li>
+                                        <li class="list-inline-item msg_to_input">
+
+                                            <div class="form_group">
+                                                <input class="form_input" type="text" formControlName="message" [(ngModel)]="text" required="">
+                                                <span class="form_highlight"></span>
+                                                <span class="form_bar"></span>
+                                                <label>Enter the text</label>
+                                                <p class="error_alert" *ngIf="messageForm.controls['message'].errors?.required && myform.submitted">{{text}}</p>
+                                            </div>
+
+                                        </li>
+                                        <li class="list-inline-item float_right">
+                                            <button type="button" class="btn btn-primary btn-xs" [type]="'submit'" [disabled]="!messageForm.valid">SEND</button>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+                <!-- read message -->
+
+                <!--compose message-->
+                <div class="composeMesage" *ngIf="this.selectedView == 'composeMessage' || this.selectedView == ''">
+                    <form [formGroup]="mForm" novalidate (submit)="sentMessageToRecipient(mForm.value)" #mform="ngForm">
+                        <ul class="msg_to_list list_style_none">
+                            <li class="with_border_bottom">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <div class="msg_to_name">
+                                            <span>To :</span>
+                                        </div>
+                                    </li>
+                                    <li class="list-inline-item msg_to_input">
+                                        <div class="form_group">
+                                            <!-- <a class="dropdown-toggle" data-toggle="dropdown"> -->
+                                            <input class="form_input" type="text" formControlName="searchUserTerm" [ngModel]="composeMessage.searchUser" required="">
+                                            <!-- </a> -->
+                                            <!-- <ul class="dropdown-menu msg__dropdown show" *ngIf="recipientsListState">
+                                                <li class="c-post__comment" *ngFor="let skill of receipientList | slice:0:5" (click)="toggleSelectSkill(skill.handle)">
+                                                    <a class="c-user__avatar c-avatar--status">
+                                                        <img class="c-user__image" src="{{baseUrl +skill.profileImage}}">
+                                                        <p class="c-post__commenter msg_to_name2">{{skill.name}}</p>
+                                                        <p class="c-post__comment_text">
+                                                            {{ '@' + skill.extra.username }}
+                                                        </p>
+                                                    </a>
+                                                </li>
+                                            </ul> -->
+                                        </div>
+                                    </li>
+                                    <li class="list-inline-item float_right msg_setting">
+                                        <div class="dropdown pull-right" appDropdown>
+                                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" appDropdownOpen>
+                                                <img src="/assets/img/svg/ico_settings.svg" class="msg_setting_icon">
+                                            </a>
+                                            <ul class="dropdown-menu" [ngClass]="{'open': this.msgNav['setting'].open }">
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="assets/img/svg/ico_archive.svg">
+                                                        <span>Archive</span>
+                                                    </a>
+                                                </li>
+                                                <li class="with_border_bottom">
+                                                    <a href="#">
+                                                        <img src="/assets/img/svg/ico_delete.svg">
+                                                        <span>Delete</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" data-toggle="modal" data-target="#reportmodal">
+                                                        <span>Report</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- message footer input section -->
+                        <div class="col-md-12 msg_footer_input">
+                            <ul class="msg_to_list list_style_none">
+                                <li>
+                                    <ul class="list-inline msg__input--height">
+                                        <li class="list-inline-item avatar_msg_input float_left">
+                                            <img src="{{ baseUrl + selfProfile.profileImage}}" class="img-responsive padding_0">
+                                        </li>
+                                        <li class="list-inline-item msg_to_input">
+
+                                            <div class="form_group">
+                                                <input class="form_input" type="text" required="" [(ngModel)]="composeMessage.messageToSend" formControlName="message_term">
+                                                <span class="form_highlight"></span>
+                                                <span class="form_bar"></span>
+                                                <label>Name of the field</label>
+                                            </div>
+
+                                        </li>
+                                        <li class="list-inline-item float_right">
+                                            <button type="button" class="btn btn-primary btn-xs" [type]="'submit'" [disabled]="!mForm.valid">SEND</button>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
         </div>
         <!-- //registraion middle container -->
     </div>
