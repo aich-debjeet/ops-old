@@ -7,7 +7,7 @@
                 <div class="pop-container-sm create-channel--form">
                     <div class="pop-head m-b-32">
                         <h5 class="c-text_lg text-center">Update Channel</h5>
-                        <span class="pop-close" (click)="closeChannelCreation()">
+                        <span class="pop-close" (click)="closeChannelUpdate()">
                             <a href="javascript:void(0)"><img src="http://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
                         </span>
                     </div><!-- create channel head -->
@@ -42,8 +42,8 @@
                                 </div>
                             </div>
                             <div class="col-md-12 p-0 text-right m-t-32">
-                                <button type="button" class="btn btn-default btn-md m-r-16" (click)="closeChannelCreation()">Cancel</button>
-                                <button type="button" class="btn btn-primary btn-md" (click)="createChannel(channelForm.value)">Update</button>
+                                <button type="button" class="btn btn-default btn-md m-r-16" (click)="closeChannelUpdate()">Cancel</button>
+                                <button type="button" class="btn btn-primary btn-md" (click)="updateChannel(channelForm.value)">Update</button>
                             </div>
                         </form>
                     </div><!-- create channel content end -->
@@ -56,7 +56,7 @@
                 <div class="pop-container-sm create-channel--form">
                     <div class="pop-head m-b-32">
                         <h5 class="c-text_lg text-center"></h5>
-                        <span class="pop-close" (click)="closeChannelCreation()">
+                        <span class="pop-close" (click)="closeChannelUpdate()">
                             <a href="javascript:void(0)"><img src="http://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
                         </span>
                     </div><!-- create channel head -->
@@ -64,7 +64,7 @@
                         <div class="create-channel__done-tic">
                             <img width="135" src="/assets/img/svg/channeltic.svg" alt="">
                         </div>
-                        <h5 class="c-h5 m-b-32">Channel has been created<br>successfully</h5>
+                        <h5 class="c-h5 m-b-32">Channel has been updated<br>successfully</h5>
                     </div><!-- create channel content end -->
                 </div><!-- create channel container end -->
             </div>
