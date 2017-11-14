@@ -181,12 +181,14 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_EXISTS_SUCCESS:
       if (payload.code === 0) {
+        console.log(payload + ' ' + payload.code )
         return Object.assign({}, state, {
           user_exsist: payload.Suggested,
           success: false,
           user_unique: true
         });
       }else {
+        console.log(payload + ' ' + payload.code )
         return Object.assign({}, state, {
           completed: payload,
           success: false,

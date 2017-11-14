@@ -236,8 +236,12 @@
 
 .o-settings-tabs {
     .active {
-        background-color: #F3F5F7;
+        //background-color: #F3F5F7;
         border-radius: 3px;
+        &:hover {
+            // color: #333;
+            background-color: #F3F5F7
+        }
         // overflow: hidden;
     }
 }
