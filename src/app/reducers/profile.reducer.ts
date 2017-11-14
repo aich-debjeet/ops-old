@@ -469,6 +469,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Current user Profile
      */
     case ProfileActions.CURRENT_PROFILE_USER:
+     console.log(JSON.stringify(payload))
       return Object.assign({}, state, {
         current_user_profile: payload,
         profile_user_info : payload
