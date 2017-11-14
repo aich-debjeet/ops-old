@@ -35,22 +35,19 @@ import { Store } from '@ngrx/store';
 })
 
 export class EditChannelComponent implements OnInit {
-  imageLink: string = environment.API_IMAGE;
-  messageText: string;
   channelForm: FormGroup;
-  private mediaStateSubscription: Subscription;
   mediaState$: Observable<Media>;
   editState$: Observable<any>;
   loginTagState$: Observable<Follow>;
   tagState$: Observable<ProfileModal>;
   mediaStore = initialMedia;
   editValues: any;
-  people: any[];
   tags: any;
   selectedIndustry: string;
   selectedPrivacy: string;
   channelId: string;
   userHandle: string;
+  stepNumber = 2;
 
   profileChannel: any;
   forIndustries: any;
@@ -77,15 +74,6 @@ export class EditChannelComponent implements OnInit {
       // console.log(this.mediaStore);
       if (typeof this.mediaStore.channel_detail['isOwner'] !== 'undefined' && this.mediaStore.channel_detail['isOwner'] !== true) {
         this.doClose(0);
-      }
-      if (typeof this.mediaStore.channel_detail['contributorProfile'] !== 'undefined') {
-        this.people = this.mediaStore.channel_detail['contributorProfile'];
-        this.tags = this.mediaStore.channel_detail['tags'];
-        setTimeout(() => {
-          const industryArrLen = this.mediaStore.channel_detail['industryList'].length;
-          this.selectedIndustry = this.mediaStore.channel_detail['industryList'][industryArrLen - 1];
-        }, 1000);
-        this.selectedPrivacy = this.mediaStore.channel_detail['accessSeetings'].access;
       }
     });
 
@@ -175,20 +163,6 @@ export class EditChannelComponent implements OnInit {
 
     if ( this.channelForm.valid === true && userHandle !== '' ) {
 
-      // Get only handles from user list
-      const peopleListAll = this.people;
-      const peopleList = _map(peopleListAll, 'handle');
-      const peopleListList = [];
-
-      for (const i of peopleList) {
-        peopleListList.push({ handle: i });
-      }
-
-      let otherField = {};
-      if (peopleListList.length > 0 ) {
-        otherField = { contributerList: peopleListList }
-      }
-
       // Get only tag names from tag list
       const tagListAll = this.tags;
       const tagList = [];
@@ -204,19 +178,13 @@ export class EditChannelComponent implements OnInit {
         }
       }
 
-      // console.log('tags');
-      // console.log(tagList);
-      // console.log('people');
-      // console.log(peopleListList);
-
       const channelObj = {
         name: value.title,
         description: value.desc,
         industryList: [ value.type ],
         access: Number(value.privacy),
         accessSettings : { access : Number(value.privacy) },
-        hashTags: tagList,
-        otherFields: otherField
+        hashTags: tagList
       }
 
       // console.log('UPDATE CHANNEL', channelObj);
@@ -231,14 +199,4 @@ export class EditChannelComponent implements OnInit {
       this.toastr.warning('Please fill all required fields');
     }
   }
-
-  /**
-   * Get people search
-   */
-  public requestAutocompleteItems = (text: string): Observable<Response> => {
-    const headers = this.apiService.getHeaders();
-    const url  = this.apiLink + '/portal/searchprofiles/1/' + text + '/0/10';
-    return this.http.get(url, { headers: headers }).map(data => data.json());
-  };
-
 }
