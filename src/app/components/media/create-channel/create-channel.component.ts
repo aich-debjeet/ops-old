@@ -41,6 +41,7 @@ import { LocalStorageService } from './../../../services/local-storage.service';
 
 export class CreateChannelComponent implements OnInit {
   typeSelected: boolean;
+  stepNumber: number;
   channelForm: FormGroup;
   tagState$: Observable<ProfileModal>;
   loginTagState$: Observable<any>;
@@ -69,6 +70,7 @@ export class CreateChannelComponent implements OnInit {
     private store: Store<Media> ) {
       this.createChannelForm();
       this.typeSelected = false;
+      this.stepNumber = 1;
       this.channelSaved = false;
       this.channelSavedHere = false;
       this.people = [];
@@ -101,6 +103,18 @@ export class CreateChannelComponent implements OnInit {
   showCreatechannelform(channelType: number) {
     this.channelType = channelType;
     this.typeSelected = true;
+  }
+
+  selectChannelType(channelType: number) {
+    this.channelType = channelType;
+    this.switchToStep(2);
+  }
+
+  /**
+   * switch between steps step
+   */
+  switchToStep(stepNum: any) {
+    this.stepNumber = stepNum;
   }
 
   /**
@@ -145,20 +159,6 @@ export class CreateChannelComponent implements OnInit {
         break;
     }
     return flag;
-  }
-
-  /**
-   * Get people search
-   */
-
-  public requestAutocompleteItems = (text: string): Observable<Response> => {
-    const headers = this.apiService.getHeaders();
-    const url  = this.apiLink + '/portal/searchprofiles/1/' + text + '/0/10';
-    return this.http.get(url, { headers: headers }).map(data => data.json());
-  };
-
-  handledObject(n) {
-    return { handle: n.handle }
   }
 
   /**
@@ -218,7 +218,7 @@ export class CreateChannelComponent implements OnInit {
   /**
    * Close
    */
-  doClose(input: any) {
+  closeChannelCreation(input: any) {
     this.router.navigate(['.', { outlets: { media: null } }], {
       relativeTo: this.route.parent
     });
