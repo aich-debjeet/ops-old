@@ -13,8 +13,6 @@ export interface State {
 
 export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
-  let getSpotfeedPayload;
-
   switch (type) {
 
     case ProfileActions.PROFILE_COVER_UPDATE:
@@ -499,16 +497,26 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     // Get single spotfeed details
     case ProfileActions.GET_SPOTFEED_DETAILS:
-      this.getSpotfeedPayload = payload;
-      return Object.assign({}, state, {
-        success: true,
-        spotfeed_loading: false,
-        // spotfeed_detail: []
-      });
+      if (payload.page_start === 0) {
+        // console.log('truncate');
+        return Object.assign({}, state, {
+          success: true,
+          spotfeed_loading: false,
+          spotfeed_request_params: payload,
+          spotfeed_detail: []
+        });
+      } else {
+        // console.log('append');
+        return Object.assign({}, state, {
+          success: true,
+          spotfeed_loading: false,
+          spotfeed_request_params: payload
+        });
+      }
 
     case ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS:
       const new_spotfeed = payload['SUCCESS'] || [];
-      if (this.getSpotfeedPayload.page_start === 0) {
+      if (state.spotfeed_request_params.page_start === 0) {
         // console.log('initial load');
         // appending the new spotfeeds and profile to the existing records in the state
         return Object.assign({}, state, {
