@@ -71,7 +71,7 @@
             text-align: left;
             color: #333333 !important;
             font-weight: bold;
-            word-wrap: break-word;
+            word-wrap: break-all;
         }
         .msg_time {
             color: #333333 !important;
@@ -80,6 +80,10 @@
     }
     .msg_name_list li>ul {
         padding: 20px 24px;
+        &:hover {
+            // color: #333;
+            background-color: #F3F5F7
+        }
         .msg_action {
             a {
                 font-size: 12px;
@@ -141,7 +145,7 @@
             font-size: 12px;
             text-align: left;
             color: #979797;
-            word-break: break-word;
+            word-break: break-all;
         }
         .msg_time {
             font-size: 12px;

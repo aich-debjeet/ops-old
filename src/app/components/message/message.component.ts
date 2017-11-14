@@ -163,9 +163,9 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
       return false;
     }
      this.messageStore.dispatch({ type: MessageActions.LOAD_USER_PROFILE_DATA, payload: handle });
-    // this.timer
-    // .takeWhile(() => this.alive)
-    // .subscribe(() => {
+    this.timer
+    .takeWhile(() => this.alive)
+    .subscribe(() => {
       const headers = this.tokenService.getAuthHeader();
       return this.http.get(this.apiLink + '/portal/message/combined/sent/received', { headers: headers })
       .map((data: Response) => data.json())
@@ -173,7 +173,7 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
       this.mergedMsg = response;
       this.fetchProfileByHandle(this.mergedMsg)
       });
-    // });
+    });
   }
 
   /**
@@ -355,9 +355,9 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.messagesbytime.length = 0;
     if ( this.selectedUserHandle !== this.userHandle) {
       let sortedMessagesByTime = [];
-      // this.timer
-      // .takeWhile(() => this.alive)
-      // .subscribe(() => {
+      this.timer
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
       const headers = this.tokenService.getAuthHeader();
       this.http.get(this.apiLink + '/portal/message/conversation/' + this.selectedUserHandle, { headers: headers })
       .map((response: Response) => response.json())
@@ -365,7 +365,7 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
         sortedMessagesByTime = response;
         this.messagesbytime = _sortBy(sortedMessagesByTime, function(msg) { return msg.time; });
       });
-      // });
+      });
     }
   }
 
