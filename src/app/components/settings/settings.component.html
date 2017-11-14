@@ -11,35 +11,36 @@
                         Settings
                     </div>
                 </div>
-                    <!-- Nav tabs -->
+                <!-- Nav tabs -->
                 <ul class="nav nav-tabs tabs-left">
-                    <li class="active">
-                        <a href="#account" data-toggle="tab">
+                    <li class=" o-settings-tab_list active">
+                        <a href="javascript:void(0)" data-toggle="tab" (click)="displayView('account')">
                             Account <span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
                         </a>
                     </li>
-                    <!--<li>
-                        <a href="#preference" data-toggle="tab">
+                    <li class="o-settings-tab_list">
+                        <a class="o-settings-tab_links" href="javascript:void(0)" data-toggle="tab" (click)="displayView('preference')">
                             Preference<span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#email" data-toggle="tab">
+                    <li class="o-settings-tab_list">
+                        <a class="o-settings-tab_links" href="javascript:void(0)" data-toggle="tab" (click)="displayView('email')">
                             Email Settings<span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#nsfw" data-toggle="tab">
+                    <li class="o-settings-tab_list">
+                        <a class="o-settings-tab_links" href="javascript:void(0)" data-toggle="tab" (click)="displayView('nsfw')">
                             NSFW<span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
                         </a>
-                    </li>-->
+                    </li>
                 </ul>
-            </div><!--- setting left end -->
+            </div>
+            <!--- setting left end -->
 
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 settings_right">
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div class="tab-pane active" id="account">
+                    <div class="tab-pane active" id="account" *ngIf="this.selectedView === 'account'">
                         <h3 class="setting_h3">Account Information</h3>
                         <div class="account_setting_block">
                             <div class="account_info_head">
@@ -81,7 +82,7 @@
                             <div class="account_info_data">
                                 <p id="acc_info_username" *ngIf="!userActive">{{ userProfile?.extra?.username }}</p>
                                 <div id="info_edit_username" class="form_group" *ngIf="userActive">
-                                    <form [formGroup]="usernameForm" novalidate (ngSubmit) = "userFormUpdate(usernameForm.value)" #userform="ngForm">
+                                    <form [formGroup]="usernameForm" novalidate (ngSubmit)="userFormUpdate(usernameForm.value)" #userform="ngForm">
                                         <input class="form_input form_input--mod" required type="text" formControlName="username">
                                         <app-button [className]="'btn-primary btn-sm setting-btn'" [type]="'submit'">Update</app-button>
                                         <p class="error_alert" *ngIf="usernameForm.controls['username'].errors?.required && userform.submitted">Username is required</p>
@@ -93,7 +94,7 @@
                             </div>
                         </div>
                         <div class="change_password">
-                            <form [formGroup]="pwdForm" novalidate (ngSubmit) = "submitForm(pwdForm.value)" #passform="ngForm">
+                            <form [formGroup]="pwdForm" novalidate (ngSubmit)="submitForm(pwdForm.value)" #passform="ngForm">
                                 <h3 class="setting_h3">Password</h3>
                                 <div class="form_group">
                                     <input class="form_input" required type="password" formControlName="currentpassword">
@@ -123,9 +124,10 @@
                                 </div>
                             </form>
                         </div>
-                    </div><!-- account end -->
+                    </div>
+                    <!-- account end -->
 
-                    <!--<div class="tab-pane" id="preference">
+                    <div class="tab-pane active" id="preference" *ngIf="this.selectedView === 'preference'">
                         <h3 class="setting_h4">Quick Access</h3>
                         <div class="account_setting_block">
                             <div class="block_text">
@@ -177,7 +179,7 @@
                     </div>-->
                     <!-- preference end -->
 
-                    <!--<div class="tab-pane" id="email">
+                    <div class="tab-pane active" id="email" *ngIf="this.selectedView === 'email'">
                         <h3 class="setting_h4">Comments</h3>
                         <div class="account_setting_block">
                             <div class="ops_radio_sm">
@@ -217,7 +219,7 @@
                     </div>-->
                     <!-- email end -->
 
-                    <!--<div class="tab-pane" id="nsfw">
+                    <div class="tab-pane active" id="nsfw" *ngIf="this.selectedView === 'nsfw'">
                         <div class="account_setting_block">
                             <div class="nsfw_txt">
                                 <h3 class="setting_h5">View adult content</h3>
@@ -240,25 +242,26 @@
                                 </label>
                             </div>
                         </div>
-                    </div>-->
+                    </div>
                 </div>
             </div>
             <!--- setting right end -->
             <div class="clearfix"></div>
-        </div><!--- setting block container end -->
+        </div>
+        <!--- setting block container end -->
     </div>
 </section>
 
 
 
 <!-- email verification -->
-<app-modal  [blocking]='false' modalId='otpValidatePopup' >
-    <div  id="phone-verify" role="dialog">
+<app-modal [blocking]='false' modalId='otpValidatePopup'>
+    <div id="phone-verify" role="dialog">
         <div class="modal-content o-settings-pop-contianer">
             <div class="o-s-pop_content">
                 <h3 class="o-s-pop-head">Check your phone</h3>
                 <p class="ops_heading2 o-s-pop--text">
-                We've texted a code to the phone number ending in '16'. Once you receive the code, enter it below to change your phone number
+                    We've texted a code to the phone number ending in '16'. Once you receive the code, enter it below to change your phone number
                 </p>
                 <form action="">
                     <div class="form_group o-s-pop-form">

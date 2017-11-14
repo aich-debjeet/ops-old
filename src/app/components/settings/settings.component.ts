@@ -26,6 +26,7 @@ export class SettingsComponent implements OnInit {
   emailActive: boolean;
   phoneActive: boolean;
   userActive: boolean;
+  selectedView: string;
 
   constructor(
     private _modalService: ModalService,
@@ -51,6 +52,7 @@ export class SettingsComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.selectedView = 'account';
     this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
   }
 
@@ -158,6 +160,21 @@ export class SettingsComponent implements OnInit {
       return { passwordDoesNotMatch: true };
     }
     return null;
+  }
+
+  displayView(tab: string) {
+    if (tab === 'account') {
+     this.selectedView = 'account';
+    }
+    if (tab === 'preference') {
+     this.selectedView = 'preference';
+    }
+    if (tab === 'email') {
+     this.selectedView = 'email';
+    }
+    if (tab === 'nsfw') {
+     this.selectedView = 'nsfw';
+    }
   }
 
 }
