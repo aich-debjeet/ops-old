@@ -35,22 +35,19 @@ import { Store } from '@ngrx/store';
 })
 
 export class EditChannelComponent implements OnInit {
-  imageLink: string = environment.API_IMAGE;
-  messageText: string;
   channelForm: FormGroup;
-  private mediaStateSubscription: Subscription;
   mediaState$: Observable<Media>;
   editState$: Observable<any>;
   loginTagState$: Observable<Follow>;
   tagState$: Observable<ProfileModal>;
   mediaStore = initialMedia;
   editValues: any;
-  people: any[];
   tags: any;
   selectedIndustry: string;
   selectedPrivacy: string;
   channelId: string;
   userHandle: string;
+  stepNumber = 2;
 
   profileChannel: any;
   forIndustries: any;
@@ -78,14 +75,14 @@ export class EditChannelComponent implements OnInit {
       if (typeof this.mediaStore.channel_detail['isOwner'] !== 'undefined' && this.mediaStore.channel_detail['isOwner'] !== true) {
         this.doClose(0);
       }
-      if (typeof this.mediaStore.channel_detail['contributorProfile'] !== 'undefined') {
-        this.people = this.mediaStore.channel_detail['contributorProfile'];
-        this.tags = this.mediaStore.channel_detail['tags'];
+      if (typeof this.mediaStore.channel_detail['industryList'] !== 'undefined') {
         setTimeout(() => {
           const industryArrLen = this.mediaStore.channel_detail['industryList'].length;
           this.selectedIndustry = this.mediaStore.channel_detail['industryList'][industryArrLen - 1];
+          // console.log('selectedIndustry', this.selectedIndustry);
         }, 1000);
         this.selectedPrivacy = this.mediaStore.channel_detail['accessSeetings'].access;
+        // console.log('selectedPrivacy', this.selectedPrivacy);
       }
     });
 
@@ -102,16 +99,29 @@ export class EditChannelComponent implements OnInit {
 
       // Success message
       if (this.channelSavedHere && this.channelSaved === true ) {
-        this.toastr.success('Channel Updated');
+        // this.toastr.success('Channel Updated');
+        this.switchToStep(3);
         this.channelSavedHere = false;
+        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
       }
     });
   }
 
-  checkEmpty(obj: Object) {
-    return Object.keys(obj).length === 0 && obj.constructor === Object;
+  /**
+   * switch between steps step
+   */
+  switchToStep(stepNum: any) {
+    this.stepNumber = stepNum;
   }
 
+  /**
+   * Close
+   */
+  closeChannelUpdate(input: any) {
+    this.router.navigate(['.', { outlets: { media: null } }], {
+      relativeTo: this.route.parent
+    });
+  }
 
   /**
    * Load List of Skills (High Level)
@@ -130,7 +140,7 @@ export class EditChannelComponent implements OnInit {
       // console.log(params);
       if (typeof params['id'] !== 'undefined') {
         this.channelId = params['id'];
-        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+        // this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
       }
     });
 
@@ -139,17 +149,12 @@ export class EditChannelComponent implements OnInit {
 
       this.editValues = event;
       const channel = event.channel_detail;
-      // console.log('channel');
-      // console.log(channel);
       this.userHandle = channel.ownerHandle;
-
       this.channelForm = this.fb.group({
         title: [channel.channelName, Validators.required ],
         type: ['', Validators.required ],
         desc: [channel.description, Validators.required ],
-        privacy: [this.selectedPrivacy, Validators.required ],
-        openess: [1],
-        // tags: ['tag1', 'tag2']
+        privacy: [this.selectedPrivacy, Validators.required ]
       });
 
     });
@@ -175,39 +180,20 @@ export class EditChannelComponent implements OnInit {
 
     if ( this.channelForm.valid === true && userHandle !== '' ) {
 
-      // Get only handles from user list
-      const peopleListAll = this.people;
-      const peopleList = _map(peopleListAll, 'handle');
-      const peopleListList = [];
-
-      for (const i of peopleList) {
-        peopleListList.push({ handle: i });
-      }
-
-      let otherField = {};
-      if (peopleListList.length > 0 ) {
-        otherField = { contributerList: peopleListList }
-      }
-
       // Get only tag names from tag list
-      const tagListAll = this.tags;
-      const tagList = [];
+      // const tagListAll = this.tags;
+      // const tagList = [];
 
-      for (const tag of tagListAll) {
-        // console.log(tag);
-        if (typeof tag === 'string' || tag instanceof String) {
-          tagList.push(tag);
-        } else if (tag instanceof Object) {
-          if (typeof tag.value !== 'undefined') {
-            tagList.push(tag.value);
-          }
-        }
-      }
-
-      // console.log('tags');
-      // console.log(tagList);
-      // console.log('people');
-      // console.log(peopleListList);
+      // for (const tag of tagListAll) {
+      //   // console.log(tag);
+      //   if (typeof tag === 'string' || tag instanceof String) {
+      //     tagList.push(tag);
+      //   } else if (tag instanceof Object) {
+      //     if (typeof tag.value !== 'undefined') {
+      //       tagList.push(tag.value);
+      //     }
+      //   }
+      // }
 
       const channelObj = {
         name: value.title,
@@ -215,8 +201,7 @@ export class EditChannelComponent implements OnInit {
         industryList: [ value.type ],
         access: Number(value.privacy),
         accessSettings : { access : Number(value.privacy) },
-        hashTags: tagList,
-        otherFields: otherField
+        // hashTags: tagList
       }
 
       // console.log('UPDATE CHANNEL', channelObj);
@@ -231,14 +216,4 @@ export class EditChannelComponent implements OnInit {
       this.toastr.warning('Please fill all required fields');
     }
   }
-
-  /**
-   * Get people search
-   */
-  public requestAutocompleteItems = (text: string): Observable<Response> => {
-    const headers = this.apiService.getHeaders();
-    const url  = this.apiLink + '/portal/searchprofiles/1/' + text + '/0/10';
-    return this.http.get(url, { headers: headers }).map(data => data.json());
-  };
-
 }
