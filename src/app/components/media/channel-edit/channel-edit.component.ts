@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../../../environments/environment';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { ApiService } from '../../../helpers/api.service';
+import { GeneralUtilities } from '../../../helpers/general.utils';
 
 import { Http, Headers, Response } from '@angular/http';
 
@@ -27,6 +28,8 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
+import * as _ from 'lodash';
+
 @Component({
   selector: 'app-channel-edit',
   templateUrl: './channel-edit.component.html',
@@ -48,6 +51,7 @@ export class EditChannelComponent implements OnInit {
   channelId: string;
   userHandle: string;
   stepNumber = 2;
+  hashTags: string[];
 
   profileChannel: any;
   forIndustries: any;
@@ -63,6 +67,7 @@ export class EditChannelComponent implements OnInit {
     private store: Store<Media>,
     private toastr: ToastrService,
     private apiService: ApiService,
+    private generalHelper: GeneralUtilities
   ) {
 
     this.mediaState$ = store.select('mediaStore');
@@ -175,25 +180,11 @@ export class EditChannelComponent implements OnInit {
    * @param formValue
    */
   updateChannel(value: any) {
+    this.prepareHashtags(value.desc);
     const userHandle = this.userHandle || '';
     const mediaTypeList = [];
 
     if ( this.channelForm.valid === true && userHandle !== '' ) {
-
-      // Get only tag names from tag list
-      // const tagListAll = this.tags;
-      // const tagList = [];
-
-      // for (const tag of tagListAll) {
-      //   // console.log(tag);
-      //   if (typeof tag === 'string' || tag instanceof String) {
-      //     tagList.push(tag);
-      //   } else if (tag instanceof Object) {
-      //     if (typeof tag.value !== 'undefined') {
-      //       tagList.push(tag.value);
-      //     }
-      //   }
-      // }
 
       const channelObj = {
         name: value.title,
@@ -201,7 +192,7 @@ export class EditChannelComponent implements OnInit {
         industryList: [ value.type ],
         access: Number(value.privacy),
         accessSettings : { access : Number(value.privacy) },
-        // hashTags: tagList
+        hashTags: this.hashTags
       }
 
       // console.log('UPDATE CHANNEL', channelObj);
@@ -215,5 +206,21 @@ export class EditChannelComponent implements OnInit {
     } else {
       this.toastr.warning('Please fill all required fields');
     }
+  }
+
+  /**
+   * Check for hashtags in Desc
+   */
+  prepareHashtags(descValue: any) {
+    // check if not empty
+    if (descValue && descValue.length > 0) {
+      // checking of hashtags
+      this.hashTags = this.generalHelper.findHashtags(descValue);
+      if (this.hashTags && this.hashTags.length > 0) {
+        // filter for duplicate values
+        this.hashTags = _.uniq(this.hashTags);
+      }
+    }
+
   }
 }
