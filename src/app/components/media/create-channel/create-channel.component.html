@@ -92,10 +92,10 @@
                             <label>Channel Name</label>
                         </div>
                         <div class="c-form__group m-b-16">
-                            <input class="c-form__input" type="text" formControlName="desc" (ngModelChange)="descListener($event)">
+                            <textarea formControlName="desc" class="c-textarea__block c-textarea--style " rows="4" data-min-rows="0" placeholder="About channel"></textarea>
                             <span class="c-form__highlight"></span>
                             <span class="c-form__bar"></span>
-                            <label>About channel</label>
+                            <!-- <label>About channel</label> -->
                         </div>
                         <div class="channel-industry__block ">
                             <div class="c-form__group">

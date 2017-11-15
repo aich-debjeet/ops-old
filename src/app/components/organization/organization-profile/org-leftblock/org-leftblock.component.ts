@@ -25,11 +25,7 @@ export class OrgLeftblockComponent implements OnInit {
     this.orgState$ = this.store.select('organizationTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      console.log('this.orgProfile LEFT', this.orgProfile);
-
-      // if (this.orgProfile && this.orgProfile.org_profile_details) {
-
-      // }
+      // console.log('this.orgProfile LEFT', this.orgProfile);
     })
   }
 
