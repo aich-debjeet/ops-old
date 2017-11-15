@@ -39,7 +39,8 @@
                     </li>
                 </ul>
                 <div class=" spot_in_toptext c-text_md color-grey-dark m-t-16">
-                    {{ (tagState$ | async).channel_detail?.description }}
+                    <!--{{ (tagState$ | async).channel_detail?.description }}-->
+                    <read-more [class]="'media_channel--text'" [text]="(tagState$ | async).channel_detail?.description" [maxLength]=300 ></read-more>
                 </div>
             </div>
             <div class="col-md-6">
