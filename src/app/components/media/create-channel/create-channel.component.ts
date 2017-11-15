@@ -1,16 +1,14 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { ApiService } from '../../../helpers/api.service';
 import { GeneralUtilities } from '../../../helpers/general.utils';
+import { initialMedia, Media } from '../../../models/media.model';
 
 // Action
-import { MediaActions } from '../../../actions/media.action';
-import { initialMedia, Media } from '../../../models/media.model';
 import { AuthActions } from '../../../actions/auth.action';
 
 // rx
@@ -45,13 +43,11 @@ export class CreateChannelComponent implements OnInit {
   channelForm: FormGroup;
   tagState$: Observable<ProfileModal>;
   loginTagState$: Observable<any>;
-  private tagStateSubscription: Subscription;
-  profileChannel = initialTag ;
+  profileChannel = initialTag;
   channelType: number;
   handle: string;
   channelSavedHere: boolean;
   channelSaved = false;
-  tags: any;
   private apiLink: string = environment.API_ENDPOINT;
   industries: any[];
   selectedIndustry = '';
@@ -62,10 +58,8 @@ export class CreateChannelComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastrService,
-    private http: Http,
     private tokenService: TokenService,
     private localStorageService: LocalStorageService,
-    private apiService: ApiService,
     private generalHelper: GeneralUtilities,
     private store: Store<Media> ) {
       this.createChannelForm();
@@ -122,9 +116,6 @@ export class CreateChannelComponent implements OnInit {
    * Status Form
    */
   createChannelForm() {
-    // Clear All Tags
-    this.tags = [];
-
     // Empty initiate form
     this.channelForm = this.fb.group({
       title: ['', Validators.required ],
@@ -181,6 +172,10 @@ export class CreateChannelComponent implements OnInit {
 
     if ( this.channelForm.valid === true && profileHandle !== '' ) {
 
+      if (!this.hashTags) {
+        this.hashTags = [];
+      }
+
       const channelObj = {
         name: value.title,
         owner: profileHandle,
@@ -209,16 +204,9 @@ export class CreateChannelComponent implements OnInit {
     });
   }
 
-  /**
-   * Load List of Skills (High Level)
-   */
-  industriesList() {
-    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
-  }
-
   ngOnInit() {
       // loading industry list
-      this.industriesList();
+      this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   /**

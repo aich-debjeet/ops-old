@@ -186,6 +186,10 @@ export class EditChannelComponent implements OnInit {
 
     if ( this.channelForm.valid === true && userHandle !== '' ) {
 
+      if (!this.hashTags) {
+        this.hashTags = [];
+      }
+
       const channelObj = {
         name: value.title,
         description: value.desc,
