@@ -1,5 +1,5 @@
 <vg-player class="fullFit">
-  <vg-controls>
+  <vg-controls *ngIf="type !== 'simple'">
       <vg-play-pause></vg-play-pause>
       <div *ngIf="type !== 'simple'">
         <vg-playback-button></vg-playback-button>
