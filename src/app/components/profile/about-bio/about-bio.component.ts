@@ -75,47 +75,51 @@ export class AboutBioComponent implements OnInit {
 
   // bio form submit
   bioFormSubmit(value) {
-    const height = value.height === null ? 0 : value.height;
-    const weight = value.weight === null ? 0 : value.weight;
-    const pincode = value.pin_code === null ? '' : value.pin_code.toString();
-    const lang = value.lang === '' ? [] : value.lang.split(',');
-      const form =  {
-        'email': value.email,
-        'extras': {
-          'aboutMe': value.about_me,
-           'association': {
-            'languages': lang
-          },
-          'contact': {
-            'mobile': {
-              'mobile': value.number,
-              'access': Number(value.mobilePrivacy)
+    if ( this.bioForm.valid === true ) {
+      const height = value.height === null ? 0 : value.height;
+      const weight = value.weight === null ? 0 : value.weight;
+      const pincode = value.pin_code === null ? '' : value.pin_code.toString();
+      const lang = value.lang === '' ? [] : value.lang.split(',');
+        const form =  {
+          'email': value.email,
+          'extras': {
+            'aboutMe': value.about_me,
+            'association': {
+              'languages': lang
             },
-            'website': {
-              'website': value.website,
-              'access': Number(value.websitePrivacy)
+            'contact': {
+              'mobile': {
+                'mobile': value.number,
+                'access': Number(value.mobilePrivacy)
+              },
+              'website': {
+                'website': value.website,
+                'access': Number(value.websitePrivacy)
+              }
             }
+          },
+          'address': {
+            'city': value.city.charAt(0).toUpperCase() + value.city.slice(1),
+            'country': value.country,
+            'line1': value.address_one,
+            'line2': value.address_two,
+            'postalCode': pincode,
+          },
+          'physical': {
+            'height': parseFloat(height),
+            'weight': parseFloat(weight),
+            'ethnicity' : value.ethnicity,
+            'complexion' : value.complexion,
+            'gender': value.gender
           }
-        },
-        'address': {
-          'city': value.city.charAt(0).toUpperCase() + value.city.slice(1),
-          'country': value.country,
-          'line1': value.address_one,
-          'line2': value.address_two,
-          'postalCode': pincode,
-        },
-        'physical': {
-          'height': parseFloat(height),
-          'weight': parseFloat(weight),
-          'ethnicity' : value.ethnicity,
-          'complexion' : value.complexion,
-          'gender': value.gender
         }
-      }
 
-      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
-      this.toastr.success('Your profile has been updated successfully!');
-      this._modalService.close('bioEdit');
+        this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+        this.toastr.success('Your profile has been updated successfully!');
+        this._modalService.close('bioEdit');
+    }else {
+      this.toastr.error('Please fill out all required fields');
+    }
   }
 
   editFormClose() {

@@ -1,5 +1,5 @@
 <div class=" pro_channel2 row" *ngIf="channels">
-  <div *ngIf="channels.user_channels_loading">
+  <div *ngIf="profileChannel?.other_channels_loading">
       <div class="msg__loading">
         <div class="loader">Loading...</div>
       </div>
@@ -10,13 +10,13 @@
       </masonry-brick>
   </masonry>
 
-  <div *ngIf=" channels.length < 1 && isOwner === true " class="empty__state">
+  <div *ngIf="!profileChannel?.other_channels_loading&& channels.length < 1 && isOwner === true " class="empty__state">
     <h4>You have no channels</h4>
     <p>You have not added any channels, click below to create your first Channel!</p>
     <a class="btn-add" [routerLink]="['', { outlets: { media : ['channel', 'add'] } } ]">Add a Channel</a>
   </div>
 
-  <div *ngIf=" channels.length < 1 && isOwner === false " class="empty__state">
+  <div *ngIf="!profileChannel?.other_channels_loading && channels.length < 1 && isOwner === false " class="empty__state">
     <p>User does not have any channels!</p>
   </div>
 
