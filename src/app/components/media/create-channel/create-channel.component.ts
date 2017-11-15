@@ -55,6 +55,7 @@ export class CreateChannelComponent implements OnInit {
   private apiLink: string = environment.API_ENDPOINT;
   industries: any[];
   selectedIndustry = '';
+  hashTags: string[];
 
   constructor(
     private fb: FormBuilder,
@@ -69,7 +70,7 @@ export class CreateChannelComponent implements OnInit {
     private store: Store<Media> ) {
       this.createChannelForm();
       this.typeSelected = false;
-      this.stepNumber = 1;
+      this.stepNumber = 2;
       this.channelSaved = false;
       this.channelSavedHere = false;
 
@@ -163,6 +164,7 @@ export class CreateChannelComponent implements OnInit {
    * Form Builder
    */
   createChannel(value: any) {
+    this.prepareHashtags(value.desc);
     const userHandle = this.profileChannel.profileUser.handle || '';
     const mediaTypeList = this.channelTypeConfig(this.channelType);
 
@@ -187,7 +189,8 @@ export class CreateChannelComponent implements OnInit {
         superType: 'channel',
         access: Number(value.privacy),
         description: value.desc,
-        accessSettings : { access : Number(value.privacy) }
+        accessSettings : { access : Number(value.privacy) },
+        hashTags: this.hashTags
       }
 
       this.channelSavedHere = true;
@@ -221,40 +224,17 @@ export class CreateChannelComponent implements OnInit {
   /**
    * Check for hashtags in Desc
    */
-  descListener(descValue: any) {
-    // checking for last char if it's a space
-    const lastChar = descValue[descValue.length - 1];
-
-    // check if hit enter
-    const match = /\r|\n/.exec(descValue);
-
-    if (lastChar === ' ' || match) {
+  prepareHashtags(descValue: any) {
+    // check if not empty
+    if (descValue && descValue.length > 0) {
       // checking of hashtags
-      let hashTags = this.generalHelper.findHashtags(descValue);
-      if (hashTags && hashTags.length > 0) {
-
+      this.hashTags = this.generalHelper.findHashtags(descValue);
+      if (this.hashTags && this.hashTags.length > 0) {
         // filter for duplicate values
-        hashTags = _.uniq(hashTags);
-        console.log('U hashtags', hashTags);
-        console.log('U tags', this.tags);
-
-        const that = this;
-        // prepare value to add
-        hashTags.forEach((hashTag, i) => {
-          that.tags.push({
-            display: hashTag,
-            value: hashTag
-          });
-          if (i === hashTags.length - 1) {
-            // make the array uniq
-            this.tags = _.uniqBy(this.tags, 'value');
-          }
-        });
+        this.hashTags = _.uniq(this.hashTags);
       }
-      // console.log('tags', this.tags);
-    } else {
-      // console.log('last char is not space');
     }
+
   }
 
 }
