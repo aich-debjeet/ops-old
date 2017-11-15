@@ -26,6 +26,7 @@ export class SettingsComponent implements OnInit {
   emailActive: boolean;
   phoneActive: boolean;
   userActive: boolean;
+  nameActive: boolean;
   selectedView: string;
 
   constructor(
@@ -38,6 +39,7 @@ export class SettingsComponent implements OnInit {
 
      this.storeState$.subscribe((state) => {
       this.userProfile = state['profileDetails'];
+      console.log(this.userProfile)
     });
 
     // Username update form init
@@ -49,10 +51,11 @@ export class SettingsComponent implements OnInit {
 
     this.emailActive = false;
     this.phoneActive = false;
+    this.nameActive = false;
    }
 
   ngOnInit() {
-    this.selectedView = 'account';
+    this.selectedView = 'General';
     this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
   }
 
@@ -131,6 +134,17 @@ export class SettingsComponent implements OnInit {
   }
 
   /**
+   * toggle of name field
+   */
+  nameToggle() {
+    if (this.nameActive === true) {
+      this.nameActive = false;
+    }else {
+      this.nameActive = true;
+    }
+  }
+
+  /**
    * toggle of user
    */
   userToggle() {
@@ -163,17 +177,17 @@ export class SettingsComponent implements OnInit {
   }
 
   displayView(tab: string) {
-    if (tab === 'account') {
-     this.selectedView = 'account';
+    if (tab === 'General') {
+     this.selectedView = 'General';
     }
-    if (tab === 'preference') {
-     this.selectedView = 'preference';
+    if (tab === 'Security') {
+     this.selectedView = 'Security';
     }
-    if (tab === 'email') {
-     this.selectedView = 'email';
+    if (tab === 'Notification') {
+     this.selectedView = 'Notification';
     }
-    if (tab === 'nsfw') {
-     this.selectedView = 'nsfw';
+    if (tab === 'Home') {
+     this.selectedView = 'Home';
     }
   }
 
