@@ -71,7 +71,7 @@
             </div>
           </div>-->
           <masonry [useImagesLoaded]="true">
-            <masonry-brick class="col-md-3" *ngFor="let media of channel.channel_detail?.media; let i = index">
+            <masonry-brick class="col-md-3 p-l-r-8" *ngFor="let media of channel.channel_detail?.media; let i = index">
                 <app-post-card  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)" [mediaData]="media"></app-post-card>
             </masonry-brick>
           </masonry>

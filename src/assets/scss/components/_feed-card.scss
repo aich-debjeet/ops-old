@@ -67,7 +67,7 @@
 }
 
 .c-card__desc {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: #979797;
 }
@@ -86,7 +86,7 @@
   width: 100%;
   float: left;
   padding: 16px;
-  border-top: 1px solid #EFEFEF;
+  // border-top: 1px solid #EFEFEF;
 }
 
 .c-links {
@@ -102,17 +102,20 @@
   float: left;
   margin-right: 24px;
   cursor: pointer;
+  font-weight: 500;
+      color: #929292;
 }
 
 .c-links__image {
-  width: 14px;
+  width: 18px;
   float: left;
 }
 
 .c-links__count {
   float: left;
-  margin-top: -2px;
   margin-left: 6px;
+  font-weight: 500;
+      color: #929292;
 }
 
 .c-links__comments {
@@ -127,7 +130,7 @@
 }
 
 .c-action__image {
-  width: 14px;
+  width: 18px;
   margin-left: 8px;
 }
 
@@ -160,6 +163,11 @@
   width: 24px;
   height: 24px;
 }
+.c-avatar--feed2 {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #FFFFFF;
+}
 
 .c-user__image {
   width: 100%
@@ -176,6 +184,19 @@
   cursor: pointer;
   &:hover {
     color: #000;
+  }
+}
+.c-user__name2 {
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  color: #ffffff;
+  margin-left: 8px;
+  margin-top: 4px;
+  float: left;
+  cursor: pointer;
+  &:hover {
+    color: #fff;
   }
 }
 
