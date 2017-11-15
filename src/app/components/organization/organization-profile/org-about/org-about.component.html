@@ -148,7 +148,7 @@
                                 </p>
                                 <div *ngIf="editingField == 'activeFrom'" id="o-org-about-foundyr_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group ">
-                                        <input class="c-form__input" type="text" value="{{ orgProfile?.org_profile_details?.activeFrom }}">
+                                        <input #aboutActiveFrom class="c-form__input" type="text" value="{{ orgProfile?.org_profile_details?.activeFrom }}">
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
@@ -236,7 +236,7 @@
                                 </p>
                                 <div *ngIf="editingField == 'address'" id="o-org-about-address_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input" type="text" value="200 Willoughby Ave, Brooklyn, NY 11205, USA">
+                                        <input #aboutAddress class="c-form__input" type="text" value="200 Willoughby Ave, Brooklyn, NY 11205, USA">
                                     </div>
                                 </div>
                                 <div *ngIf="editingField == 'address'" class="o-org-form__actions">
