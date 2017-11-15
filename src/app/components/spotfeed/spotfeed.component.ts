@@ -68,8 +68,8 @@ export class SpotfeedComponent {
 
     // subsribe for the route change
     router.events.subscribe((newRoute) => {
-      this.spotfeedId = route.snapshot.params['id'];
-      this.loadPostFeed();
+      // this.spotfeedId = route.snapshot.params['id'];
+      // this.loadPostFeed();
     });
   }
 
