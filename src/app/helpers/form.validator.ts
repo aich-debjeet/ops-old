@@ -164,7 +164,7 @@ export class ProfileUpdateValidator {
                 if (control.value.length >= 4) {
                     setTimeout(() => {
                         this.authService.userExists(control.value).subscribe( data => {
-                            if (data.code === 0) {
+                            if (data.SUCCESS.code === 1) {
                                 resolve({ 'isUsernameUnique': true });
                             }
                             resolve(null);
@@ -185,7 +185,7 @@ export class ProfileUpdateValidator {
             if (this.profileDetails.profileDetails['contact'].mobile.mobile !== control.value) {
                 setTimeout(() => {
                     this.authService.mobilelUser(control.value).subscribe( data => {
-                        if (data.code === 0) {
+                        if (data.SUCCESS.code === 1) {
                             resolve({ 'isMobileUnique': true });
                         }
                         resolve(null);

@@ -22,7 +22,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AngularMasonry, MasonryOptions } from 'angular2-masonry';
-
+import { GeneralUtilities } from './../../helpers/general.utils';
 
 @Component({
   selector: 'app-channel-inner',
@@ -41,6 +41,7 @@ export class ChannelInnerComponent implements OnInit {
   imageLink: string = environment.API_IMAGE;
   pageLoading: boolean;
   isfollowing: boolean;
+  contributors: any[];
 
   constructor(
     private http: Http,
@@ -48,7 +49,8 @@ export class ChannelInnerComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private modalService: ModalService,
-    private router: Router
+    private router: Router,
+    private generalHelper: GeneralUtilities
   ) {
       this.channelId = route.snapshot.params['id'];
 
@@ -66,8 +68,11 @@ export class ChannelInnerComponent implements OnInit {
       this._store.select('mediaStore')
         .first(data => data['channel_detail'].ownerName)
         .subscribe( data => {
-          console.log(data);
+          // console.log(data);
           this.isfollowing = data['channel_detail'].isFollowing;
+          if (data['channel_detail'].contributorProfile) {
+            this.contributors = this.generalHelper.getArrayWithLimitedLength(data['channel_detail'].contributorProfile, 3);
+          }
         });
 
   }
