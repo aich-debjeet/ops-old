@@ -46,8 +46,9 @@
                 
                 <div class="col-sm-12 spot_in_icons m-b-24">
                     <div class="overlap_thumb">
-                        <span class="over1_thumb" *ngFor="let media of (tagState$ | async).channel_detail?.contributorProfile | slice:0:3">
-                        <img src="{{ imageLink + media.profileImage}}">
+                        <span class="over1_thumb" *ngFor="let contributor of contributors">
+                            <img *ngIf="contributor.profileImage" src="{{ imageLink + contributor.profileImage }}">
+                            <img *ngIf="!contributor.profileImage" src="/assets/img/avatar.jpg">
                         </span>
                     </div>
                 </div>
@@ -71,7 +72,7 @@
             </div>
           </div>-->
           <masonry [useImagesLoaded]="true">
-            <masonry-brick class="col-md-3" *ngFor="let media of channel.channel_detail?.media; let i = index">
+            <masonry-brick class="col-md-3 p-l-r-8" *ngFor="let media of channel.channel_detail?.media; let i = index">
                 <app-post-card  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)" [mediaData]="media"></app-post-card>
             </masonry-brick>
           </masonry>
