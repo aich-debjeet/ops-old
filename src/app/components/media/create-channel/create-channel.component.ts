@@ -1,16 +1,14 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { ApiService } from '../../../helpers/api.service';
 import { GeneralUtilities } from '../../../helpers/general.utils';
+import { initialMedia, Media } from '../../../models/media.model';
 
 // Action
-import { MediaActions } from '../../../actions/media.action';
-import { initialMedia, Media } from '../../../models/media.model';
 import { AuthActions } from '../../../actions/auth.action';
 
 // rx
@@ -45,26 +43,23 @@ export class CreateChannelComponent implements OnInit {
   channelForm: FormGroup;
   tagState$: Observable<ProfileModal>;
   loginTagState$: Observable<any>;
-  private tagStateSubscription: Subscription;
-  profileChannel = initialTag ;
+  profileChannel = initialTag;
   channelType: number;
   handle: string;
   channelSavedHere: boolean;
   channelSaved = false;
-  tags: any;
   private apiLink: string = environment.API_ENDPOINT;
   industries: any[];
   selectedIndustry = '';
+  hashTags: string[];
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastrService,
-    private http: Http,
     private tokenService: TokenService,
     private localStorageService: LocalStorageService,
-    private apiService: ApiService,
     private generalHelper: GeneralUtilities,
     private store: Store<Media> ) {
       this.createChannelForm();
@@ -121,9 +116,6 @@ export class CreateChannelComponent implements OnInit {
    * Status Form
    */
   createChannelForm() {
-    // Clear All Tags
-    this.tags = [];
-
     // Empty initiate form
     this.channelForm = this.fb.group({
       title: ['', Validators.required ],
@@ -163,6 +155,7 @@ export class CreateChannelComponent implements OnInit {
    * Form Builder
    */
   createChannel(value: any) {
+    this.prepareHashtags(value.desc);
     const userHandle = this.profileChannel.profileUser.handle || '';
     const mediaTypeList = this.channelTypeConfig(this.channelType);
 
@@ -179,6 +172,10 @@ export class CreateChannelComponent implements OnInit {
 
     if ( this.channelForm.valid === true && profileHandle !== '' ) {
 
+      if (!this.hashTags) {
+        this.hashTags = [];
+      }
+
       const channelObj = {
         name: value.title,
         owner: profileHandle,
@@ -187,7 +184,8 @@ export class CreateChannelComponent implements OnInit {
         superType: 'channel',
         access: Number(value.privacy),
         description: value.desc,
-        accessSettings : { access : Number(value.privacy) }
+        accessSettings : { access : Number(value.privacy) },
+        hashTags: this.hashTags
       }
 
       this.channelSavedHere = true;
@@ -206,55 +204,25 @@ export class CreateChannelComponent implements OnInit {
     });
   }
 
-  /**
-   * Load List of Skills (High Level)
-   */
-  industriesList() {
-    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
-  }
-
   ngOnInit() {
       // loading industry list
-      this.industriesList();
+      this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   /**
    * Check for hashtags in Desc
    */
-  descListener(descValue: any) {
-    // checking for last char if it's a space
-    const lastChar = descValue[descValue.length - 1];
-
-    // check if hit enter
-    const match = /\r|\n/.exec(descValue);
-
-    if (lastChar === ' ' || match) {
+  prepareHashtags(descValue: any) {
+    // check if not empty
+    if (descValue && descValue.length > 0) {
       // checking of hashtags
-      let hashTags = this.generalHelper.findHashtags(descValue);
-      if (hashTags && hashTags.length > 0) {
-
+      this.hashTags = this.generalHelper.findHashtags(descValue);
+      if (this.hashTags && this.hashTags.length > 0) {
         // filter for duplicate values
-        hashTags = _.uniq(hashTags);
-        console.log('U hashtags', hashTags);
-        console.log('U tags', this.tags);
-
-        const that = this;
-        // prepare value to add
-        hashTags.forEach((hashTag, i) => {
-          that.tags.push({
-            display: hashTag,
-            value: hashTag
-          });
-          if (i === hashTags.length - 1) {
-            // make the array uniq
-            this.tags = _.uniqBy(this.tags, 'value');
-          }
-        });
+        this.hashTags = _.uniq(this.hashTags);
       }
-      // console.log('tags', this.tags);
-    } else {
-      // console.log('last char is not space');
     }
+
   }
 
 }
