@@ -70,7 +70,9 @@ export class ChannelInnerComponent implements OnInit {
         .subscribe( data => {
           // console.log(data);
           this.isfollowing = data['channel_detail'].isFollowing;
-          this.contributors = this.generalHelper.getArrayWithLimitedLength(data['channel_detail'].contributorProfile, 3);
+          if (data['channel_detail'].contributorProfile) {
+            this.contributors = this.generalHelper.getArrayWithLimitedLength(data['channel_detail'].contributorProfile, 3);
+          }
         });
 
   }
