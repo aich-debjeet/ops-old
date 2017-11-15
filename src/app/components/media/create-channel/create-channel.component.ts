@@ -70,7 +70,7 @@ export class CreateChannelComponent implements OnInit {
     private store: Store<Media> ) {
       this.createChannelForm();
       this.typeSelected = false;
-      this.stepNumber = 2;
+      this.stepNumber = 1;
       this.channelSaved = false;
       this.channelSavedHere = false;
 
