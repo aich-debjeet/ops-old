@@ -1,4 +1,9 @@
 <div id="home_spotfeed" class="tab-pane fade active in">
+  <div *ngIf="userState?.home_spotfeeds_loading">
+      <div class="msg__loading">
+        <div class="loader">Loading...</div>
+      </div>
+  </div>
   <div class="c-spotfeed">
     <div class="c-spotfeed-block">
       <div class="row">
