@@ -1,15 +1,10 @@
-import { Component, OnInit, EventEmitter, Input, AfterViewInit, Output } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../../../environments/environment';
 import { ModalService } from '../../../shared/modal/modal.component.service';
-import { ApiService } from '../../../helpers/api.service';
 import { GeneralUtilities } from '../../../helpers/general.utils';
-
-import { Http, Headers, Response } from '@angular/http';
-
-import FilesHelper from '../../../helpers/fileUtils';
 
 // Action
 import { MediaActions } from '../../../actions/media.action';
@@ -45,7 +40,6 @@ export class EditChannelComponent implements OnInit {
   tagState$: Observable<ProfileModal>;
   mediaStore = initialMedia;
   editValues: any;
-  tags: any;
   selectedIndustry: string;
   selectedPrivacy: string;
   channelId: string;
@@ -61,12 +55,10 @@ export class EditChannelComponent implements OnInit {
   private apiLink: string = environment.API_ENDPOINT;
   constructor(
     private fb: FormBuilder,
-    private http: Http,
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<Media>,
     private toastr: ToastrService,
-    private apiService: ApiService,
     private generalHelper: GeneralUtilities
   ) {
 
@@ -128,17 +120,10 @@ export class EditChannelComponent implements OnInit {
     });
   }
 
-  /**
-   * Load List of Skills (High Level)
-   */
-  industriesList() {
-    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
-  }
-
   ngOnInit() {
 
     // loading industry list
-    this.industriesList();
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
 
     // reading route
     this.route.params.subscribe(params => {
