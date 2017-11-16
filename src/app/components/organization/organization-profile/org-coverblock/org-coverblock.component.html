@@ -26,11 +26,11 @@
                 </div>
             </div>
             <div class="o-org-prof__name">
-                <h3 class="c-h3 o-org-prof--white">{{ organization?.organizationName }}
+                <h3 class="c-h3 o-org-prof--white">{{ orgProfile?.orgProfileDetails?.organizationName }}
                     <span class="org-label-ico"><img width="24" src="/assets/img/svg/Organization.svg" alt=""></span>
                 </h3>
-                <span class="c-text_md o-org-prof--white">@{{ organization?.organizationUserName }}</span>
-                <span class="c-text_md o-org-prof--white margin_l_16">{{ organization?.organizationAccountType }}</span>
+                <span class="c-text_md o-org-prof--white">@{{ orgProfile?.orgProfileDetails?.extras.username }}</span>
+                <span class="c-text_md o-org-prof--white margin_l_16">{{ orgProfile?.orgProfileDetails?.accountType?.name }}</span>
             </div>
             <div class="o-org-prof__account-det">
                 <div class="col-md-6 padding_none">

@@ -17,42 +17,35 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./org-coverblock.component.scss']
 })
 export class OrgCoverblockComponent implements OnInit {
+
   tagState$: Observable<ProfileModal>;
-  organization: any;
   orgHandle: any;
   baseUrl = environment.API_IMAGE;
-  orgState: any;
+  orgProfile: any;
+  orgState$: any;
+
   constructor(
     private toastr: ToastrService,
     private ngZone: NgZone,
     private store: Store<Login>,
     private router: Router,
   ) {
-    this.store.select('organizationTags')
-      .subscribe( data => {
-        if (data['org_profile_details']) {
-          this.orgState = data['org_profile_details'];
-        }
-      });
+
+    /* org state */
+    this.orgState$ = this.store.select('organizationTags');
+    this.orgState$.subscribe((state) => {
+      this.orgProfile = state;
+      console.log('this.orgProfile', this.orgProfile);
+    });
+    /* org state */
 
 
-      // Own Profile
+    // users own profile
     this.tagState$ = this.store.select('profileTags');
     this.tagState$.subscribe((state) => {
-      if (state['profileUser'].organization) {
-        this.organization = state['profileUser'].organization;
-      }
+      // console.log('user state', state);
     });
 
-    this.store.select('profileTags')
-      .first(profile => profile['profileUser'].organization)
-      .subscribe( data => {
-        if (data['profileUser'].organization.organizationHandle) {
-          this.orgHandle = data['profileUser'].organization.organizationHandle;
-          const username = data['profileUser'].organization.organizationUserName;
-          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: username });
-        }
-      });
    }
 
   ngOnInit() {

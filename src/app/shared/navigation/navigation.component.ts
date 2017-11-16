@@ -63,17 +63,14 @@ export class NavigationComponent implements OnInit {
       profile: { open: false }
     };
 
-    // localStorageService.accountStatusValue.subscribe((accountStatus) => {
-    //   console.log('accountStatus NAV SERVICE', accountStatus);
-    // });
     // check for account type in localStorage
     if (localStorage.getItem('accountStatus') === null) {
+      console.log('accountStatus is not available');
       this.profileType = 'user';
       localStorageService.theAccountStatus = JSON.stringify({ 'profileType': 'user' });
-      // localStorage.setItem('accountStatus', JSON.stringify({ 'profileType': 'user' }));
     } else {
-      // const localStore = JSON.parse(localStorage.getItem('accountStatus'));
       const localStore = JSON.parse(localStorageService.theAccountStatus);
+      console.log('accountStatus avaibale, localStore', localStore);
       if (localStore.profileType === 'org') {
         this.profileType = 'org';
         this.switchToOrg(localStore.handle);
@@ -249,13 +246,14 @@ export class NavigationComponent implements OnInit {
 
   // switch to the org
   switchToOrg(handle: string) {
-    let orgHandle = '';
+    let orgHandle, orgUsername;
 
     // check for org handle
     if (handle) {
       orgHandle = handle;
     } else if (this.userProfile.profileUser.organization.organizationHandle) {
       orgHandle = this.userProfile.profileUser.organization.organizationHandle;
+      orgUsername = this.userProfile.profileUser.organization.organizationUserName;
     }
 
     if (orgHandle !== '') {
@@ -264,7 +262,11 @@ export class NavigationComponent implements OnInit {
     }
 
     this.profileType = 'org';
-    this.localStorageService.theAccountStatus = JSON.stringify({ 'profileType': 'org', 'handle': orgHandle });
+    this.localStorageService.theAccountStatus = JSON.stringify({
+      profileType: 'org',
+      handle: orgHandle,
+      username: orgUsername
+    });
 
   }
 
