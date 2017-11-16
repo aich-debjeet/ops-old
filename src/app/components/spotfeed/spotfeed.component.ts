@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { ProfileActions } from './../../actions/profile.action';
@@ -32,13 +32,13 @@ export class SpotfeedComponent {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private _store: Store<Spotfeed>,
   ) {
 
     this.baseUrl = environment.API_IMAGE;
     this.userState$ = this._store.select('profileTags');
 
-    this.spotfeedId = route.snapshot.params['id'];
     this.userState$.subscribe((state) => {
       this.userState = state;
       // console.log(state.spotfeed_detail['spotfeedMedia']);
@@ -62,8 +62,15 @@ export class SpotfeedComponent {
       }
     });
 
-    // console.log(this.userState);
+    // load the spotfeed
+    this.spotfeedId = route.snapshot.params['id'];
     this.loadPostFeed();
+
+    // subsribe for the route change
+    router.events.subscribe((newRoute) => {
+      // this.spotfeedId = route.snapshot.params['id'];
+      // this.loadPostFeed();
+    });
   }
 
   disableFollowForSelf(username: string) {
@@ -102,6 +109,14 @@ export class SpotfeedComponent {
       this.page_end += 15;
       this.loadPostFeed();
     }
+  }
+
+  loadSpotfeed(spotfeedId: any) {
+    this.spotfeedId = spotfeedId;
+    this.page_start = 0;
+    this.page_end = 20;
+    this.loadPostFeed();
+    this.router.navigate(['/spotfeed/' + spotfeedId]);
   }
 
 }

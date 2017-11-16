@@ -63,32 +63,45 @@ export class ProfilePostComponent implements OnInit {
     });
     // const timer = Rx.Observable.timer(5000);
 
-    this._store.select('profileTags').take(8).last().subscribe( data => {
-        this.userType();
-    });
+    // this._store.select('profileTags').take(8).last().subscribe( data => {
+    //     this.userType();
+    // });
 
-    this._store.select('profileTags')
-      .first(profile => profile['profile_other_loaded'] === true )
-      .subscribe( data => {
-         this.userType();
-      });
+    // this._store.select('profileTags')
+    //   .first(profile => profile['profile_other_loaded'] === true )
+    //   .subscribe( data => {
+    //      this.userType();
+    //   });
 
   }
 
   ngOnInit() {
-    this.userType()
+    this.userType();
   }
 
   userType() {
-    if (this.userMedia.current_user_profile && this.userMedia.profile_other_loaded === true) {
-      const handle = this.userMedia.profile_other.handle;
-      this.postLoad(handle);
-      this.isOwner = false;
-    }else {
-      const handle = this.userMedia.profileDetails.handle;
-      this.isOwner = false;
-      this.postLoad(handle)
-    }
+
+    this._store.select('profileTags')
+      .first(profile => profile['profile_user_info'] && profile['profileUser'].handle)
+      .subscribe( data => {
+        if (data['profile_user_info'].isCurrentUser === true) {
+          const handle = this.userMedia.profileUser.handle;
+          this.isOwner = true;
+          this.posts = [];
+          this.postLoad(handle);
+        }
+      });
+
+    this._store.select('profileTags')
+      .first(profile => profile['profile_user_info'] && profile['profile_other'].handle )
+      .subscribe( data => {
+        if (data['profile_user_info'].isCurrentUser === false) {
+          const handle = this.userMedia.profile_other.handle;
+          this.isOwner = false;
+          this.posts = [];
+          this.postLoad(handle);
+        }
+      });
   }
 
   onScroll(e) {
@@ -99,14 +112,7 @@ export class ProfilePostComponent implements OnInit {
       this.scrollingLoad += 8000
       this.page_start = this.page_end + 1;
       this.page_end += 10;
-      console.log('called');
-      if (this.userMedia.current_user_profile && this.userMedia.profile_other_loaded === true) {
-        const handle = this.userMedia.profile_other.handle;
-        this.postLoad(handle);
-      }else {
-        const handle = this.userMedia.profileDetails.handle;
-        this.postLoad(handle)
-      }
+      this.userType();
     }
   }
 

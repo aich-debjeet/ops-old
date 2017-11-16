@@ -75,7 +75,7 @@
       </div>
 
       <div class="col-md-6 ">
-        <app-post *ngFor="let post of userStatus; let i = index" [className]="'col-md-12'" [mediaData]="post"></app-post>
+        <app-post *ngFor="let post of userStatus; let i = index" [className]="'col-md-12'" [mediaData]="post" (postDelete)="postDelete(post)"></app-post>
       </div>
 
       <div class="col-md-3 ">

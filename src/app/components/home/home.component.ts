@@ -36,6 +36,7 @@ export class HomeComponent {
     private store: Store<Channel>,
     private profileStore: Store<ProfileModal>
   ) {
+    document.body.scrollTop = 0;
     this.cards = [];
     this.loadMoreParams = { offset: -10, limit: 10 };
 
