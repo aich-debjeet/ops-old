@@ -13,6 +13,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 
 import { Store } from '@ngrx/store';
+import { setTimeout } from 'core-js/library/web/timers';
 
 @Component({
   selector: 'app-search',
@@ -118,6 +119,10 @@ export class SearchComponent implements AfterViewInit {
    */
   selectTab(tabId: string) {
     this.activeTab = tabId;
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      // console.log('scrolling top');
+    }, 500);
   }
 
   // switchTab(tabId: string) {
