@@ -60,6 +60,7 @@ export class ProfileComponent implements OnInit {
         this.userName = params['id'];
         this.loadProfile(params['id']); // Load corresponding user
     });
+
   }
   /**
    * Load a profile

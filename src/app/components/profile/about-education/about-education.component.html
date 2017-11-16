@@ -63,7 +63,7 @@
                                 <div class="editarea">
                                     <div class="editarea_leftbar">
                                         <div class="add_workplace_logo">
-                                            <input type="file" name="photo" id="upload-photo">
+                                            <input type="file"  name="photo" id="upload-photo">
                                             <div class="add_media_plus_ico">
                                                 <img src="/assets/img/svg/ico_add-grey.svg" alt="">
                                             </div>
@@ -74,14 +74,14 @@
                                     <div class="editarea_rightbar">
                                         <div class="form_group">
                                             <input class="form_input"  type="hidden" formControlName="id">
-                                            <input class="form_input"  type="text" formControlName="institute" required>
+                                            <input class="form_input"  type="text" maxlength="40" formControlName="institute" required>
                                             <span class="form_highlight"></span>
                                             <span class="form_bar"></span>
                                             <label>Institute</label>
                                             <p class="error_alert" *ngIf="educationForm.controls['institute'].errors?.required && myform.submitted" required>Institute is required</p>
                                         </div>
                                         <div class="form_group">
-                                            <input class="form_input" type="text" formControlName="course" required>
+                                            <input class="form_input" type="text" maxlength="40" formControlName="course" required>
                                             <span class="form_highlight"></span>
                                             <span class="form_bar"></span>
                                             <label>Course</label>
