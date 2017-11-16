@@ -111,9 +111,7 @@ export class ProfileSliderComponent implements OnInit {
       .subscribe( data => {
         this.isFollowing = data['profile_other'].extra.isFollowing;
         this.followers = data['profile_other'].followersCount;
-        console.log(data['profile_other']);
       });
-      
     // console.log(this.profileObject.isFollowing);
     // this.isFollowing = this.profileObject.isFollowing
 
