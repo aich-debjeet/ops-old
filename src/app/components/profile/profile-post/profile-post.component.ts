@@ -112,15 +112,7 @@ export class ProfilePostComponent implements OnInit {
       this.scrollingLoad += 8000
       this.page_start = this.page_end + 1;
       this.page_end += 10;
-      console.log('called');
       this.userType();
-      // if (this.userMedia.current_user_profile && this.userMedia.profile_other_loaded === true) {
-      //   const handle = this.userMedia.profile_other.handle;
-      //   this.postLoad(handle);
-      // }else {
-      //   const handle = this.userMedia.profileDetails.handle;
-      //   this.postLoad(handle)
-      // }
     }
   }
 
