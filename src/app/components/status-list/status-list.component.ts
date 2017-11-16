@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 
 // action
 import { ProfileActions } from '../../actions/profile.action';
+import { MediaActions } from '../../actions/media.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -29,6 +30,15 @@ export class StatusListComponent implements OnInit {
 
   ngOnInit() {
     this._store.dispatch({ type: ProfileActions.LOAD_USER_STATUS });
+  }
+
+  postDelete(post) {
+    const index: number = this.userStatus.indexOf(post);
+    if (index !== -1) {
+      this.userStatus.splice(index, 1);
+      const id = post.id;
+      this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+    }
   }
 
 }
