@@ -11,7 +11,7 @@
                 <div class="ops_heading2 spot_in_toptext">
                     {{ spotfeedDetails?.spotfeedDescription }}
                 </div>
-                <a routerLink="{{ '/spotfeed/' + tag }}" class="btn btn-tag btn-sm" *ngFor="let tag of spotfeedDetails?.spotfeedTags" >{{ tag }}</a>
+                <a (click)="loadSpotfeed(tag)" class="btn btn-tag btn-sm" *ngFor="let tag of spotfeedDetails?.spotfeedTags" >{{ tag }}</a>
             </div>
             <div class="col-md-3"></div>
         </div>

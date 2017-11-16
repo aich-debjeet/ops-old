@@ -111,4 +111,12 @@ export class SpotfeedComponent {
     }
   }
 
+  loadSpotfeed(spotfeedId: any) {
+    this.spotfeedId = spotfeedId;
+    this.page_start = 0;
+    this.page_end = 20;
+    this.loadPostFeed();
+    this.router.navigate(['/spotfeed/' + spotfeedId]);
+  }
+
 }
