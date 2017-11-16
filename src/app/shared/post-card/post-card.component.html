@@ -44,8 +44,8 @@
   <!-- //card body -->
   <!-- card footer links -->
   <div class="c-card__links p-t-0">
-    <div class="c-links" (click)="spotMedia(mediaData?.id)">
-      <div class="c-links__spots">
+    <div class="c-links">
+      <div class="c-links__spots" (click)="spotMedia(mediaData?.id)">
         <img *ngIf="following === false" src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
         <img *ngIf="following === true" src="http://d33wubrfki0l68.cloudfront.net/8d58c78cd26eb1d103bb24ec6c1d786a0964b8b4/63aa4/img/svg/ico_spot.svg" class="c-links__image" width="14px!important">
         <span class="c-links__count">{{ followingCount }}</span>
