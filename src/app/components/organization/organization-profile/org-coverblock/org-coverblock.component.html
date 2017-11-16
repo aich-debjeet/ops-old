@@ -1,6 +1,6 @@
 <section class="o-org-cover">
     <div class="o-org-cover__img">
-        <img width="100%" src="{{ baseUrl + organization?.organizationCoverImage }}" alt="">
+        <img width="100%" src="{{ baseUrl + orgProfile?.org_profile_details?.coverImage }}" alt="">
     </div>
     <div class="o-org-cover__edit p-t-16">
         <div class="container p-0">
@@ -16,7 +16,7 @@
         <div class="o-org-prof-det">
             <div class="o-org-prof__img">
                 <div class="o-org-prof__media">
-                    <img width="100%;" height="100%" src="{{ baseUrl + organization?.organizationImage }}" alt="">
+                    <img width="100%;" height="100%" src="{{ baseUrl + orgProfile?.org_profile_details?.profileImage }}" alt="">
                 </div>
                 <div class="o-org-prof__btn">
                     <button type="button" class="btn btn-primary btn-sm btn-inverse" routerLink="/org/page/profile/image-upload">
@@ -26,11 +26,11 @@
                 </div>
             </div>
             <div class="o-org-prof__name">
-                <h3 class="c-h3 o-org-prof--white">{{ orgProfile?.orgProfileDetails?.organizationName }}
+                <h3 class="c-h3 o-org-prof--white">{{ orgProfile?.org_profile_details?.name }}
                     <span class="org-label-ico"><img width="24" src="/assets/img/svg/Organization.svg" alt=""></span>
                 </h3>
-                <span class="c-text_md o-org-prof--white">@{{ orgProfile?.orgProfileDetails?.extras.username }}</span>
-                <span class="c-text_md o-org-prof--white margin_l_16">{{ orgProfile?.orgProfileDetails?.accountType?.name }}</span>
+                <span class="c-text_md o-org-prof--white">@{{ orgProfile?.org_profile_details?.extra.username }}</span>
+                <span class="c-text_md o-org-prof--white margin_l_16">{{ orgProfile?.org_profile_details?.accountType?.name }}</span>
             </div>
             <div class="o-org-prof__account-det">
                 <div class="col-md-6 padding_none">
