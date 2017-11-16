@@ -140,6 +140,7 @@ export class ProfileService {
    */
   coverImageUploader(payload: any) {
     const fileData = this.buildImageForm(payload);
+	fileData.append('upload_for','coverImage');
     return this.uploadImage(fileData, payload.handle);
   }
   // coverImageUploader(payload: any) {
@@ -165,6 +166,7 @@ export class ProfileService {
    */
   uploadProfileImage(formValue: any) {
     const fileData = this.buildImageForm(formValue);
+	fileData.append('upload_for','profile');
     return this.uploadImage(fileData, formValue.handle);
   }
 

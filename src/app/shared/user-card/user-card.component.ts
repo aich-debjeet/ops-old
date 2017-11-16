@@ -27,6 +27,8 @@ export class UserCardComponent implements OnInit {
   isFollowing: boolean;
   userImage: string;
   baseUrl: string = environment.API_IMAGE;
+  userState$: any;
+  userProfile: any;
 
   constructor(
     private router: Router,
@@ -34,6 +36,15 @@ export class UserCardComponent implements OnInit {
     private store: Store<ProfileModal>
   ) {
     this.isFollowing = false;
+
+    /* ================== current user ========= */
+    this.userState$ = this.store.select('profileTags');
+    this.userState$.subscribe((state) => {
+      this.userProfile = state;
+      // console.log('user card this.userProfile', this.userProfile);
+    });
+    // this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    /* ================== current user ========= */
   }
 
   ngOnInit() {
@@ -77,7 +88,10 @@ export class UserCardComponent implements OnInit {
     user.isFollowing = false;
   }
 
-  disableFollowForSelf() {
+  disableFollowForSelf(username: string) {
+    if (this.userProfile && (this.userProfile['profileUser']['username']) === username) {
+      return true;
+    }
     return false;
   }
 }
