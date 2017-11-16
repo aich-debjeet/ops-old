@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 // action
@@ -23,12 +23,12 @@ import * as _ from 'lodash';
 export class OrgAboutComponent implements OnInit {
 
   orgState$: Observable<Organization>;
+  loginTagState$: Observable<any>;
   orgProfile;
   editingField: string;
   aboutIndustry: any;
   aboutIndustryCode: any;
   forIndustries: any;
-  loginTagState$: Observable<Follow>;
   aboutMobile: any;
   aboutWebsite: any;
   aboutEmail: any;

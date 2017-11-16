@@ -12,6 +12,8 @@ import { ProfileActions } from './../../actions/profile.action';
 import FilesHelper from '../../helpers/fileUtils';
 import { ToastrService } from 'ngx-toastr';
 
+import { TruncatePipe } from '../../pipes/truncate.pipe';
+
 @Component({
   selector: 'app-user-card',
   templateUrl: './user-card.component.html',

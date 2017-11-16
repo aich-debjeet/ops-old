@@ -117,7 +117,6 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
 
 import { AgmCoreModule } from '@agm/core';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -194,7 +193,6 @@ import { AgmCoreModule } from '@agm/core';
       libraries: ['places'],
       apiKey: 'AIzaSyDHx_cyWUg9okHlTH8M_kvduvWFSV3nShc'
     }),
-    
   ],
   providers: [
     AuthService,

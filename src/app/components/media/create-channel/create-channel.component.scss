@@ -1,4 +1,6 @@
 @import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_helpers.scss';
+@import './src/assets/scss/components/_form.scss';
 
 .pop-container-sm{
     width: 100%;
@@ -139,4 +141,8 @@
   .channel-type__list {
       width: 100%;
       cursor: pointer;
+  }
+
+  .pop-head {
+    margin-bottom: 20px;
   }
