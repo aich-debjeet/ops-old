@@ -498,3 +498,38 @@ input:checked+.slider:before {
     margin-top: 3px;
     margin-left: 8px;
 }
+
+.o-set-acc-type-block {
+    display: block;
+    margin-bottom: 24px;
+}
+
+.o-set-acc-type {
+    display: inline-block;
+    z-index: 1;
+    position: relative;
+    transition: all 250ms ease-out;
+    cursor: pointer;
+    pointer-events: auto;
+    height: 150px;
+    width: 180px;
+    border-radius: 3px;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 4px 0 rgba(102, 45, 145, 0.18);
+    padding: 24px 16px;
+    text-align: center;
+    margin: 8px;
+    float: left;
+}
+
+.o-set-acc-type-block input[type=checkbox] {
+    display: none;
+    pointer-events: auto;
+}
+
+.o-set-acc-type-block input[type=checkbox]:checked+.o-set-acc-type {
+    border: 1px solid #FF7B84;
+    border-radius: 3px;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 4px 0 rgba(102, 45, 145, 0.18);
+}

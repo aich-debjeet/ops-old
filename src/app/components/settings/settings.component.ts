@@ -4,6 +4,11 @@ import { ProfileModal, initialTag } from '../../models/profile.model';
 import { ModalService } from '../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { FormValidation, ProfileUpdateValidator } from '../../helpers/form.validator';
+import { DatePipe } from '@angular/common';
+import { Http, Headers, Response } from '@angular/http';
+import { TokenService } from './../../helpers/token.service';
+import { environment } from '../../../environments/environment';
+
 
 // action
 import { ProfileActions } from '../../actions/profile.action';
@@ -27,12 +32,26 @@ export class SettingsComponent implements OnInit {
   phoneActive: boolean;
   userActive: boolean;
   nameActive: boolean;
+  genderActive: boolean;
+  dobActive: boolean;
+  profileTypeActive: boolean;
   selectedView: string;
+  private apiLink: string = environment.API_ENDPOINT;
+
+  commentsOption = {name: 'Comments', value: 'Comments', checked: true};
+  spotsOption = {name: 'Spots', value: 'Spots', checked: true};
+  mentionOption = {name: 'Mention', value: 'Mention', checked: true};
+  followersOption = {name: 'Followers', value: 'Followers', checked: true};
+  channelsOption = {name: 'Channels', value: 'Channels', checked: true};
+  donateOption = {name: 'Donate', value: 'Donate', checked: true};
+  networkOption = {name: 'Network', value: 'Network', checked: true};
 
   constructor(
     private _modalService: ModalService,
+    private http: Http,
     private _fb: FormBuilder,
     private profileUpdateValidator: ProfileUpdateValidator,
+    private tokenService: TokenService,
     private _store: Store<ProfileModal>
   ) {
     this.storeState$ = this._store.select('profileTags');
@@ -52,6 +71,9 @@ export class SettingsComponent implements OnInit {
     this.emailActive = false;
     this.phoneActive = false;
     this.nameActive = false;
+    this.genderActive = false;
+    this.dobActive = false;
+    this.profileTypeActive = false;
    }
 
   ngOnInit() {
@@ -145,6 +167,37 @@ export class SettingsComponent implements OnInit {
   }
 
   /**
+   * tooggle of gender field
+   */
+  genderToggle() {
+    if (this.genderActive === true) {
+      this.genderActive = false;
+    }else {
+      this.genderActive = true;
+    }
+  }
+
+  /**
+   * dob toggle field
+   */
+  dobToggle() {
+    if (this.dobActive === true) {
+      this.dobActive = false;
+    }else {
+      this.dobActive = true;
+    }
+  }
+  /**
+   * profileType toggle field
+   */
+  profileTypeToggle() {
+    if (this.profileTypeActive === true) {
+      this.profileTypeActive = false;
+    }else {
+      this.profileTypeActive = true;
+    }
+  }
+  /**
    * toggle of user
    */
   userToggle() {
@@ -177,18 +230,111 @@ export class SettingsComponent implements OnInit {
   }
 
   displayView(tab: string) {
-    if (tab === 'General') {
-     this.selectedView = 'General';
-    }
-    if (tab === 'Security') {
-     this.selectedView = 'Security';
-    }
-    if (tab === 'Notification') {
-     this.selectedView = 'Notification';
-    }
-    if (tab === 'Home') {
-     this.selectedView = 'Home';
-    }
+    this.selectedView = tab;
   }
 
+  updateCheckedOptions(option, event) {
+    console.log(option);
+    const val = option.name;
+    console.log(val)
+    console.log(event);
+    if (option.name === 'Comments') {
+      const form =  {
+        'notificationSettings': {
+          'comments' : option.checked
+        }
+      }
+      console.log(form)
+      const headers = this.tokenService.getAuthHeader();
+       this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
+      .map((data: Response) => data.json())
+      .subscribe(response => {
+        console.log('finally its a success' + response)
+      });
+    }
+    if (option.name === 'Spots') {
+      const form =  {
+        'notificationSettings': {
+          'spots' : option.checked
+        }
+      }
+      console.log(form)
+      const headers = this.tokenService.getAuthHeader();
+       this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
+      .map((data: Response) => data.json())
+      .subscribe(response => {
+        console.log('finally its a success' + response)
+      });
+    }
+    if (option.name === 'Mention') {
+      const form =  {
+        'notificationSettings': {
+          'mention' : option.checked
+        }
+      }
+      console.log(form)
+      const headers = this.tokenService.getAuthHeader();
+       this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
+      .map((data: Response) => data.json())
+      .subscribe(response => {
+        console.log('finally its a success' + response)
+      });
+    }
+    if (option.name === 'Followers') {
+      const form =  {
+        'notificationSettings': {
+          'newFollower' : option.checked
+        }
+      }
+      console.log(form)
+      const headers = this.tokenService.getAuthHeader();
+       this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
+      .map((data: Response) => data.json())
+      .subscribe(response => {
+        console.log('finally its a success' + response)
+      });
+    }
+    if (option.name === 'Channels') {
+      const form =  {
+        'notificationSettings': {
+          'channels' : option.checked
+        }
+      }
+      console.log(form)
+      const headers = this.tokenService.getAuthHeader();
+       this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
+      .map((data: Response) => data.json())
+      .subscribe(response => {
+        console.log('finally its a success' + response)
+      });
+    }
+    if (option.name === 'Donate') {
+      const form =  {
+        'notificationSettings': {
+          'donate' : option.checked
+        }
+      }
+      console.log(form)
+      const headers = this.tokenService.getAuthHeader();
+       this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
+      .map((data: Response) => data.json())
+      .subscribe(response => {
+        console.log('finally its a success' + response)
+      });
+    }
+    if (option.name === 'Network') {
+      const form =  {
+        'notificationSettings': {
+          'network' : option.checked
+        }
+      }
+      console.log(form)
+      const headers = this.tokenService.getAuthHeader();
+       this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
+      .map((data: Response) => data.json())
+      .subscribe(response => {
+        console.log('finally its a success' + response)
+      });
+    }
+  }
 }

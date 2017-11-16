@@ -113,19 +113,19 @@
                                     </span>
                                     </div>
                                     <div class="col-md-9 p-0">
-                                        <div id="acc_info-dob" class="o-set-list__data">
-                                            <span class="c-text_md color-grey-dark">24 - Aug - 1993</span>
+                                        <div id="acc_info-dob" class="o-set-list__data" *ngIf="!dobActive">
+                                            <span class="c-text_md color-grey-dark">{{ userProfile?.physical?.dateOfBirth | date:'longDate'}}</span>
                                             <span class="o-set-list__edit-btn">
-                                              <a href="#" class="o-set-list-edit__link c-text_md" onclick="switchVisibledob();" >
+                                              <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="dobToggle()" >
                                                     <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
                                         <!-- data end -->
-                                        <div id="acc-info-dob__edit" class="o-set-list__edit">
+                                        <div id="acc-info-dob__edit" class="o-set-list__edit" *ngIf="dobActive">
                                             <div class="col-md-4 p-0">
                                                 <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                    <input class="c-form__input p-0" type="text" value="24 - Aug - 1993">
+                                                    <input class="c-form__input p-0" type="text" value="{{ userProfile?.physical?.dateOfBirth | date:'longDate'}}">
                                                 </div>
                                             </div>
                                             <div class="col-md-2 p-0">
@@ -162,7 +162,7 @@
                                             <div class="col-md-6 p-0">
                                                 <div class="o-set-list-edit__actions">
                                                     <button type="button" class="btn btn-primary btn-sm">Save</button>
-                                                    <button type="button" class="btn btn-default btn-sm">Cancel</button>
+                                                    <button type="button" class="btn btn-default btn-sm" (click)="dobToggle()">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -177,19 +177,19 @@
                                     </span>
                                     </div>
                                     <div class="col-md-9 p-0">
-                                        <div id="acc_info-gender" class="o-set-list__data">
-                                            <span class="c-text_md color-grey-dark">Male</span>
+                                        <div id="acc_info-gender" class="o-set-list__data" *ngIf="!genderActive">
+                                            <span class="c-text_md color-grey-dark">{{ userProfile?.physical?.gender }}</span>
                                             <span class="o-set-list__edit-btn">
-                                            <a href="#" class="o-set-list-edit__link c-text_md" onclick="switchVisiblegender();" >
+                                            <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="genderToggle()" >
                                                 <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
                                         <!-- data end -->
-                                        <div id="acc-info-gender__edit" class="o-set-list__edit">
+                                        <div id="acc-info-gender__edit" class="o-set-list__edit" *ngIf="genderActive">
                                             <div class="col-md-4 p-0">
                                                 <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                    <input class="c-form__input p-0" type="text" value="Male">
+                                                    <input class="c-form__input p-0" type="text" value="{{ userProfile?.physical?.gender }}">
                                                 </div>
                                             </div>
                                             <div class="col-md-2 p-0">
@@ -197,7 +197,7 @@
                                             <div class="col-md-6 p-0">
                                                 <div class="o-set-list-edit__actions">
                                                     <button type="button" class="btn btn-primary btn-sm">Save</button>
-                                                    <button type="button" class="btn btn-default btn-sm">Cancel</button>
+                                                    <button type="button" class="btn btn-default btn-sm" (click)="genderToggle()">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -325,90 +325,75 @@
                                         </span>
                                     </div>
                                     <div class="col-md-9 p-0">
-                                        <div id="acc_info-protype" class="o-set-list__data">
+                                        <div id="acc_info-protype" class="o-set-list__data" *ngIf="!profileTypeActive">
                                             <span class="c-text_md color-grey-dark">Talent, Stagecraft </span>
                                             <span class="o-set-list__edit-btn">
-                                            <a href="#" class="o-set-list-edit__link c-text_md" onclick="switchVisibleprotype();" >
+                                            <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="profileTypeToggle()" >
                                                 <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
                                         <!-- data end -->
-                                        <div id="acc-info-protype__edit" class="o-set-list__edit">
-                                            <div class="col-md-12 p-0">
-                                                <div class="step2_selection">
-                                                    <label>
-                                                        <input type="checkbox">
-                                                        <div class="reg_profile_types">
-                                                            <div class="reg_step2_box">
-                                                                <div class="step2_heading">Talent</div>
-                                                                <div class="step2_txt">Eg: Performing Arts, Movement Arts, Audio Arts, Visual Arts, Fine Arts, Applied Arts.</div>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <div class="step2_selection">
-                                                    <label>
-                                                        <input type="checkbox">
-                                                        <div class="reg_profile_types">
-                                                            <div class="reg_step2_box">
-                                                                <div class="step2_heading">Stagecrafts</div>
-                                                                <div class="step2_txt">Eg: Sound Engineer, Light Engineer, Wardrobe Supervisor</div>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <div class="step2_selection">
-                                                    <label>
-                                                        <input type="checkbox">
-                                                        <div class="reg_profile_types">
-                                                            <div class="reg_step2_box">
-                                                                <div class="step2_heading">Techies</div>
-                                                                <div class="step2_txt">Eg: VR, Game Programmers, Software Developers, Editors</div>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <div class="step2_selection">
-                                                    <label>
-                                                        <input type="checkbox">
-                                                        <div class="reg_profile_types">
-                                                            <div class="reg_step2_box">
-                                                                <div class="step2_heading">Corporates</div>
-                                                                <div class="step2_txt">Eg: Theatre Manger, Account Mangaer, Marketing, Legal, Finance &amp; Accounting</div>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <div class="step2_selection">
-                                                    <label>
-                                                        <input type="checkbox">
-                                                        <div class="reg_profile_types">
-                                                            <div class="reg_step2_box">
-                                                                <div class="step2_heading">Teachers</div>
-                                                                <div class="step2_txt">Eg: Trainers, Coaches, Mentors, Guides</div>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <div class="step2_selection">
-                                                    <label>
-                                                        <input type="checkbox">
-                                                        <div class="reg_profile_types">
-                                                            <div class="reg_step2_box">
-                                                                <div class="step2_heading">Art Lovers</div>
-                                                                <div class="step2_txt">Eg: Followers of Art Forms &amp; Artists, Entertainment Seekers, Connoisseurs</div>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
+                                        <div id="acc-info-protype__edit" class="o-set-acc-type-block" *ngIf="profileTypeActive">
+                                            <input type="checkbox" name="rGroup" value="1" id="r1" />
+                                            <label class="o-set-acc-type m-l-0" for="r1">
+                                                <span class="c-text_lg">Talent</span>
+                                                  <p class="c-text_sm color-grey-dark m-t-8">
+                                                    Eg: Performing arts, movement arts, audio arts, visual arts, fine arts, applied arts
+                                                  </p>
+                                            </label>
+                                            <!-- talent end -->
+
+                                            <input type="checkbox" name="rGroup" value="1" id="r2" />
+                                            <label class="o-set-acc-type" for="r2">
+                                              <span class="c-text_lg">Stagecrafters</span>
+                                                  <p class="c-text_sm color-grey-dark m-t-8">
+                                                    Eg: Sound Engineer, Light Engineer, Wardrobe supervisor
+                                                  </p>
+                                            </label>
+                                            <!-- Stagecrafters end -->
+
+                                            <input type="checkbox" name="rGroup" value="1" id="r3" />
+                                            <label class="o-set-acc-type" for="r3">
+                                              <span class="c-text_lg">Techies</span>
+                                                  <p class="c-text_sm color-grey-dark m-t-8">
+                                                    Eg: VR, Game Programmers, Software Developers, Editors
+                                                  </p>
+                                            </label>
+                                            <!-- Techies end -->
+
+                                            <input type="checkbox" name="rGroup" value="1" id="r4" />
+                                            <label class="o-set-acc-type m-l-0" for="r4">
+                                              <span class="c-text_lg">Corporates</span>
+                                                  <p class="c-text_sm color-grey-dark m-t-8">
+                                                    Eg: Theatre Manager, Account Manager, Marketing, Legal, Finance & Accounting
+                                                  </p>
+                                            </label>
+                                            <!-- Corporates end -->
+
+                                            <input type="checkbox" name="rGroup" value="1" id="r5" />
+                                            <label class="o-set-acc-type" for="r5">
+                                              <span class="c-text_lg">Teachers</span>
+                                                  <p class="c-text_sm color-grey-dark m-t-8">
+                                                    Eg: Trainers, Coaches, Mentors, Guides
+                                                  </p>
+                                           </label>
+                                            <!-- Teachers end -->
+
+                                            <input type="checkbox" name="rGroup" value="1" id="r6" />
+                                            <label class="o-set-acc-type" for="r6">
+                                                <span class="c-text_lg">Art Lovers</span>
+                                                  <p class="c-text_sm color-grey-dark m-t-8">
+                                                    Eg: Followers of art forms & artists, entertainment seekers, connoisseurs
+                                                  </p>
+                                            </label>
+                                            <!-- Art Lovers end -->
+
+                                            <div class="col-md-12 p-0 p-t-b-16">
+                                                <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                                <button type="button" class="btn btn-default btn-sm" (click)="profileTypeToggle()">Cancel</button>
                                             </div>
-                                            <div class="col-md-12 p-0">
-                                                <div class="o-set-list-edit__actions">
-                                                    <button type="button" class="btn btn-primary btn-sm">Save</button>
-                                                    <button type="button" class="btn btn-default btn-sm">Cancel</button>
-                                                </div>
-                                            </div>
+
                                         </div>
                                         <!-- edit data end -->
                                     </div>
@@ -601,7 +586,8 @@
                                 </h6>
                                 <div class="switch_btn">
                                     <label class="switch">
-                                    <input type="checkbox" checked="">
+                                    <input type="checkbox" name="commentsOption" value="{{commentsOption.value}}" checked [(ngModel)]="commentsOption.checked" (change)="updateCheckedOptions(commentsOption, $event)">
+                                    <!-- <input type="checkbox" checked=""> -->
                                     <span class="slider round"></span>
                                     </label>
                                 </div>
@@ -616,7 +602,7 @@
                                 </h6>
                                 <div class="switch_btn">
                                     <label class="switch">
-                                        <input type="checkbox" checked="">
+                                        <input type="checkbox" name="spotsOption" value="{{spotsOption.value}}" checked [(ngModel)]="spotsOption.checked" (change)="updateCheckedOptions(spotsOption, $event)">
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
@@ -631,7 +617,7 @@
                                 </h6>
                                 <div class="switch_btn">
                                     <label class="switch">
-                                        <input type="checkbox" checked="">
+                                        <input type="checkbox" name="mentionOption" value="{{mentionOption.value}}" checked [(ngModel)]="mentionOption.checked" (change)="updateCheckedOptions(mentionOption, $event)">
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
@@ -646,7 +632,7 @@
                                 </h6>
                                 <div class="switch_btn">
                                     <label class="switch">
-                                        <input type="checkbox" checked="">
+                                        <input type="checkbox" name="followersOption" value="{{followersOption.value}}" checked [(ngModel)]="followersOption.checked" (change)="updateCheckedOptions(followersOption, $event)">
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
@@ -661,7 +647,7 @@
                                 </h6>
                                 <div class="switch_btn">
                                     <label class="switch">
-                                        <input type="checkbox" checked="">
+                                        <input type="checkbox" name="channelsOption" value="{{channelsOption.value}}" checked [(ngModel)]="channelsOption.checked" (change)="updateCheckedOptions(channelsOption, $event)">
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
@@ -676,7 +662,7 @@
                                 </h6>
                                 <div class="switch_btn">
                                     <label class="switch">
-                                        <input type="checkbox" checked="">
+                                        <input type="checkbox" name="donateOption" value="{{donateOption.value}}" checked [(ngModel)]="donateOption.checked" (change)="updateCheckedOptions(donateOption, $event)">
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
@@ -691,7 +677,7 @@
                                 </h6>
                                 <div class="switch_btn">
                                     <label class="switch">
-                                      <input type="checkbox" checked="">
+                                      <input type="checkbox" name="networkOption" value="{{networkOption.value}}" checked [(ngModel)]="networkOption.checked" (change)="updateCheckedOptions(networkOption, $event)">
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
