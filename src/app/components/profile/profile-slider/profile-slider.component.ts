@@ -60,6 +60,7 @@ export class ProfileSliderComponent implements OnInit {
   router: any;
   isFollowing: boolean;
   defaultImage: string;
+  followers: string;
   // profileObject: ProfileCard;
 
   hasFollowed: boolean;
@@ -109,11 +110,8 @@ export class ProfileSliderComponent implements OnInit {
       .first(profile => profile['profile_other'].handle )
       .subscribe( data => {
         this.isFollowing = data['profile_other'].extra.isFollowing;
+        this.followers = data['profile_other'].followersCount;
       });
-
-    // console.log(this.profileObject.isFollowing);
-    // this.isFollowing = this.profileObject.isFollowing
-
   }
 
   /**
@@ -123,13 +121,7 @@ export class ProfileSliderComponent implements OnInit {
       return this.utils.profileValueMapping(profile, type );
   }
 
-  // changingImageClick() {
-  //   this.changingImage = true;
-  //   this.modalService.open('ChangeProfile');
-  // }
-
   ngOnInit() {
-    // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
   }
 
   modalInit() {
@@ -189,9 +181,11 @@ export class ProfileSliderComponent implements OnInit {
     if (follow) {
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
       this.isFollowing = false;
+      this.profileObject.follwerCount -= 1;
     }else {
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle  });
       this.isFollowing = true;
+      this.profileObject.follwerCount += 1;
     }
   }
 

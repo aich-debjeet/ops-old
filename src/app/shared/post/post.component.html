@@ -16,7 +16,7 @@
           <img *ngIf="mediaData?.access === 1" src="/assets/img/svg/ico_private.svg" alt="" class="c-status__options">
           <img *ngIf="mediaData?.access === 0" src="/assets/img/svg/ico_public.svg" alt="" class="c-status__options">
         </a>
-        <div appDropdown >
+        <div appDropdown *ngIf="mediaData?.isOwner" >
           <a class="dropdown-toggle" appDropdownOpen>
            <img src="/assets/img/svg/ico_options.svg" alt="" class="c-card__options drop-postion__icon">
           </a>
