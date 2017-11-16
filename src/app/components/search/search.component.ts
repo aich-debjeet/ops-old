@@ -2,7 +2,10 @@ import { Component, OnInit, ViewChild, Inject, HostListener, AfterViewInit } fro
 import { DOCUMENT } from '@angular/platform-browser';
 
 import { SearchActions } from './../../actions/search.action';
+import { ProfileActions } from './../../actions/profile.action';
+
 import { SearchModel } from './../../models/search.model';
+import { ProfileModal, initialTag } from '../../models/profile.model';
 
 import { environment } from './../../../environments/environment.prod';
 
@@ -41,8 +44,13 @@ export class SearchComponent implements AfterViewInit {
 
   constructor(
     private store: Store<SearchModel>,
+    private profileStore: Store<ProfileModal>,
     @Inject(DOCUMENT) private document: Document
   ) {
+
+    /* ================== load current user ========= */
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    /* ================== load current user ========= */
 
     this.baseUrl = environment.API_IMAGE;
 
@@ -50,7 +58,6 @@ export class SearchComponent implements AfterViewInit {
 
     // observe the store value
     this.searchState$.subscribe((state) => {
-      console.log('searchState', state);
       this.searchState = state;
       if (state && state.searching_people === false && state.searching_post === false && state.searching_channel === false) {
         this.isSearching = false;
