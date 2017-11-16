@@ -198,4 +198,9 @@ export class SearchComponent implements AfterViewInit {
 
   }
 
+  onTabClick(tabId: any) {
+    // console.log('PARENT recieved onTabClick', tabId);
+    this.selectTab(tabId);
+  }
+
 }
