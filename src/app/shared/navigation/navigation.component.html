@@ -95,7 +95,7 @@
                         <img src="{{ baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive header-prof-img">
                       </a>
                       <a *ngIf="this.profileType == 'org'" routerLink="/org/page" class=" opsheader-lineheight30">
-                        <img src="{{ baseUrl + orgProfile.orgProfileDetails?.organizationImage }}" class="img-responsive header-prof-img">
+                        <img src="{{ baseUrl + orgProfile.org_profile_details?.profileImage }}" class="img-responsive header-prof-img">
                       </a>
                     </li>
                     <li class="dropdown opsheader-paddingt6" appDropdown>
@@ -107,15 +107,15 @@
                               <ul class="list-inline head_drop_thumb">
                                   <li class="list-inline-item">
                                       <img *ngIf="this.profileType == 'user'" src="{{ baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
-                                      <img *ngIf="this.profileType == 'org'" src="{{ baseUrl + orgProfile.orgProfileDetails?.organizationImage }}" class="img-responsive img-circle">
+                                      <img *ngIf="this.profileType == 'org'" src="{{ baseUrl + orgProfile.org_profile_details?.profileImage }}" class="img-responsive img-circle">
                                   </li>
                                   <li *ngIf="this.profileType == 'user'" class="list-inline-item">
                                       <h4 routerLink="/profile">{{ userProfile.profileUser?.name }} </h4>
                                       <p>@{{ userProfile.profileUser?.username }}</p>
                                   </li>
                                   <li *ngIf="this.profileType == 'org'" class="list-inline-item">
-                                      <h4 routerLink="/profile">{{ orgProfile.orgProfileDetails?.organizationName }} </h4>
-                                      <p>@{{ orgProfile.orgProfileDetails?.extras?.username }}</p>
+                                      <h4 routerLink="/profile">{{ orgProfile.org_profile_details?.name }} </h4>
+                                      <p>@{{ orgProfile.org_profile_details?.extra?.username }}</p>
                                   </li>
                               </ul>
                           </li>
