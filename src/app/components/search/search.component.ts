@@ -119,10 +119,6 @@ export class SearchComponent implements AfterViewInit {
    */
   selectTab(tabId: string) {
     this.activeTab = tabId;
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-      // console.log('scrolling top');
-    }, 500);
   }
 
   // switchTab(tabId: string) {
@@ -204,8 +200,21 @@ export class SearchComponent implements AfterViewInit {
   }
 
   onTabClick(tabId: any) {
+    window.scrollTo(0, 0);
+    // this.scrollToTop(100);
     // console.log('PARENT recieved onTabClick', tabId);
     this.selectTab(tabId);
   }
+
+  // scrollToTop(scrollDuration) {
+  //   const scrollStep = -window.scrollY / (scrollDuration / 15),
+  //   scrollInterval = setInterval(function() {
+  //   if (window.scrollY !== 0) {
+  //     window.scrollBy( 0, scrollStep);
+  //   } else {
+  //     clearInterval(scrollInterval);
+  //   }
+  //   }, 15);
+  // }
 
 }
