@@ -1,433 +1,148 @@
 @import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_helpers.scss';
+@import './src/assets/scss/components/_form.scss';
 
-@import "~ngx-chips/dist/modules/core/styles/core/_core.scss";
-
-// Chips
-$ops-theme: (
-  container-border-bottom: 1px solid #c1c1c1
-);
-
-.ng2-tag-input.ops-theme {
-  @include tag-input-theme($ops-theme);
-}
+.pop-container-sm{
+    width: 100%;
+    margin: 0px auto;
+    background:#fff;
+    border-radius:3px;
+    position:relative;
+    display: inline-block;
+  }
+  
+  
+  // for pop up head sec
+  
+  .pop-head{
+    width: 100%;
+    float: left;
+  }
+  
+  // for pop up close
+  
+  .pop-close {
+    margin: 10px;
+    width: 20px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+  }
 
 // create channel style start
-.create_channel_main {
-    background-color: transparent;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1033;
-    overflow-y: auto;
-    padding-top:40px;
-    .create_channel_container{
-        width:800px;
-        margin: 0px auto;
-        background:#fff;
-        border-radius:3px;
-        .create_channel__head{
-            width: 100%;
-            text-align: center;
-            padding:24px 0px;
-            position:relative;
-            .search_close {
-                margin: 10px;
-                width: 20px;
-                position: absolute;
-                top: 0px;
-                right: 0px;
-            }
-        }
-        // create channel content style start
-        .create_channel__content{
-            width: 100%;
-            text-align: center;
-            h2.heading_2{
-                color: #333333;
-                text-align: center;
-                padding:34px 0px;
-            }
-            ul{
-                list-style: none;
-                width: 440px;
-                margin: 0px auto;
-                display: inline-block;
-                text-align: center;
-                padding-bottom:24px;
-                li{
-                    list-style-type:none;
-                    display: block;
-                    padding:8px;
-                    border: 1px solid rgba(102,45,145,0.1);
-                    border-radius:3px;
-                    float: left;
-                    margin:8px 0px;
-                    transition:.25s;
-                    text-align: left;
-                    &:hover{
-                        box-shadow: 0 5px 14px 0 rgba(102,45,145,0.28);
-                    }
-                    .channel_ico{
-                        width: 70px;
-                        height: 70px;
-                        float: left;
-                        overflow: hidden;
-                        img{
-                            width: 100%;
-                        }
-                    }
-                    .channel_title_and_short_det{
-                        width: 350px;
-                        height: 70px;
-                        float: left;
-                        padding:16px 18px;
-                        h3{
-                            font-size: 14px;
-                            color: #333333;
-                        }
-                        p{
-                            font-size: 12px;
-                            color:#979797;
-                            margin-top:8px;
-                        }
-                    }
-                }
-            }
-            .create_channel_form{
-                width: 638px;
-                margin: 0px auto;
-                padding-top:48px;
-                text-align: left;
-                .form_group{
-                    position:relative;
-                    margin-bottom: 28px;
-                    .form_input {
-                        font-size: 14px;
-                        padding: 10px 10px 5px 0px;
-                        display: block;
-                        width: 100%;
-                        border: none;
-                        color: #000;
-                        border-bottom: 1px solid #c1c1c1;
-                        font-weight: 700;
-                    }
-                    .form_textarea{
-                        font-size: 14px;
-                        padding: 10px 10px 5px 0px;
-                        display: block;
-                        width: 100%;
-                        border: none;
-                        color: #000;
-                        border-bottom: 1px solid #c1c1c1;
-                        font-weight: 700;
-                        height: 72px;
-                        &:focus{
-                            outline: none;
-                        }
-                    }
-                    .form-control{
-                        width: 100%;
-                        border-radius: 0px;
-                        border: none;
-                        border-bottom: 1px solid #c1c1c1;
-                        box-shadow: none;
-                        padding: 8px 0px;
-                        font-weight: 700;
-                    }
-                    .close_tag{
-                        margin-top:-60px;
-                        .btn-tag-close {
-                            padding: 0px 7px 0px 3px;
-                            font-weight: 500;
-                            font-size: 12px;
-                            border-radius: 5px;
-                            width: 110px;
-                            height: 32px;
-                            background: #FFF7F8 !important;
-                            border-color: #FF7B84 !important;
-                            &:hover {
-                                .btn-label-skill {
-                                    background: none;
-                                }
-                            }
-                            .btn-label-tag {
-                                color: #333333;
-                                font-size: 12px;
-                              img {
-                                width: 11px;
-                                margin-top: 6px;
-                                vertical-align: middle;
-                                margin-left: 6px;
-                                float: right;
-                              }
-                            }
-                        }
-                    }
-                }
-                .ops_radio_sm{
-                    padding-top:8px;
-                }
-                .add_media_plus{
-                    width: 140px;
-                    height: 140px;
-                    overflow: hidden;
-                    float: left;
-                    border:4px #ccc solid;
-                    display: flex;
-                    justify-content: center;
-                    flex-direction:column;
-                    text-align:center;
-                    border-radius:3px;
-                    input{
-                        width: 140px;
-                        height: 140px;
-                        opacity: 0;
-                        display: block;
-                        position: absolute;
-                        z-index: 1;
-                        cursor: pointer;
-                    }
-                    .add_media_plus_ico{
-                        width:100%;
-                        text-align: center;
-                        img{
-                            width: 28px;
-                            height: 65px
-                        }
-                    }
-                    .add_more_media{
-                        width: 100%;
-                        margin-top: 0px;
-                        p{
-                            color: #979797;
-                            font-size: 12px;
-                        }
-                    }
-                }
-            }
-            .create_channel_btn{
-                width: 100%;
-                padding: 24px 78px;
-                text-align: right;
-            }
-        }
+.create-channel--pop{
+    padding:40px;
+  }
+  .create-channel--form{
+    padding:32px;
+  }
+  // content block
+  .create_channel__content{
+    width: 100%;
+    text-align: center;
+  }
+  .create_channel__content-form{
+    width: 100%;
+    text-align: left;
+    float: left;
+  }
+  .channel-type{
+    list-style: none;
+    width: 100%;
+    margin: 0px auto;
+    display: inline-block;
+    text-align: center;
+  }
+  .channel-type__list{
+    list-style-type:none;
+    display: block;
+    padding:8px;
+    border-radius:3px;
+    float: left;
+    margin:8px 0px;
+    transition:.25s;
+    text-align: left;
+    &:hover{
+      background: $color-grey-light;
     }
-}
-
-
-.createchannel{
-  background-color: #fff;
-  &:after {
-    content: '';
-    float: none;
-    display: table;
   }
-}
-
-// channer inner page -- add channel style ------------------------------------------
-.modal_add_channel {
-  .modal-lg {
-      width: 800px;
-      margin-top: 68px;
-      .modal-content {
-          border-radius: 3px;
-          .modal-header {
-              padding: 24px 32px;
-              border-bottom: 1px solid rgba(102, 45, 145, 0.1);
-              .modal-title {
-                  color: #333333;
-                  font-size: 14px;
-                  font-weight: bold;
-                  line-height: 26px;
-                  text-transform: uppercase;
-              }
-              .close {
-                  img {
-                      width: 16px;
-                  }
-              }
-          }
-          .modal-footer {
-              padding: 24px 32px;
-              border-top: 1px solid rgba(102, 45, 145, 0.1);
-              .channel_success_msg {
-                  color: #FF7B84;
-                  font-size: 14px;
-                  line-height: 19px;
-                  display: inline;
-                  float: left;
-              }
-          }
-          .modal-body {
-              margin: 0px;
-              padding: 0px;
-              .add_channel_left {
-                  width: 50%;
-                  float: left;
-                  .channel_left_top {
-                      padding: 24px 32px;
-                      .left_top_block {
-                          width: 65%;
-                          color: #333333;
-                          font-size: 14px;
-                          font-weight: bold;
-                          line-height: 19px;
-                      }
-                  }
-                  .left_bottom_block {
-                      padding: 24px 32px;
-                      .channel_close {
-                          color: #333333;
-                          font-size: 14px;
-                          font-weight: bold;
-                          line-height: 19px;
-                          position: relative;
-                          margin-bottom: 16px;
-                          img {
-                              width: 24px;
-                          }
-                          .channel_close_txt {
-                              display: inline;
-                              position: absolute;
-                              margin: 4px 0 0 14px;
-                          }
-                      }
-                      .form-control {
-                          width: 100%;
-                          border-radius: 0px;
-                          border: none;
-                          border-bottom: 1px solid #c1c1c1;
-                          box-shadow: none;
-                          padding: 8px 0px;
-                          font-weight: 500;
-                      }
-                      .add_channel_btn {
-                          width: 50%;
-                          .btn {
-                              padding: 3px 12px;
-                              text-transform: uppercase;
-                              font-weight: 700;
-                          }
-                      }
-                  }
-              }
-              .add_channel_right {
-                  width: 50%;
-                  float: left;
-                  border-left: 1px solid rgba(102, 45, 145, 0.1);
-                  .choose_channel {
-                      li > ul {
-                          width: 100%;
-                          padding: 16px 24px;
-                          color: #333333;
-                          font-size: 14px;
-                          font-weight: bold;
-                          line-height: 19px;
-                          display: inline-flex;
-                      }
-                      .choose_channel_cont {
-                          width: 65%;
-                          float: left;
-                          line-height: 44px;
-                          padding-left: 16px;
-                      }
-                      .choose_channel_btn {
-                          line-height: 40px;
-                          .btn-primary {
-                              padding: 6px 12px;
-                              font-size: 12px;
-                          }
-                      }
-                  }
-              }
-          }
-      }
+  .channel-type__ico{
+    width: 56px;
+    height: 56px;
+    float: left;
+    overflow: hidden;
+    img{
+        width: 100%;
+    }
   }
-  .avatar_choose_channel {
-      width: 40px;
-      height: 40px;
-      display: inline-block;
-      vertical-align: middle;
-      overflow: hidden;
-      position: relative;
-      box-sizing: border-box;
+  .channel-type__title{
+    width: 280px;
+    height: 56px;
+    float: left;
+    padding-left: 16px;
+    padding-top: 8px;
+  }
+  
+  // create channel form
+  
+  .modal-dialog_form{
+    width:446px;
+    margin: 0px auto;
+    margin-top: 6%;
+  }
+  .channel-industry__block{
+    width: 49%;
+    float: left;
+    padding-right: 4px;
+  }
+  .channel-public__block{
+    width: 49%;
+    float: left;
+    margin-left: 4px;
+  }
+  
+  // create channel done
+  
+  .create-channel__done-tic{
+    width: 135px;
+    height: 135px;
+    margin: 0px auto;
+    border-radius: 50%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    img{
+      width: 100%;
+    }
+  }
+  // create channel content style start
+  .create_channel__content{
+      width: 100%;
       text-align: center;
-      line-height: 2.5;
-      border-radius: 3px;
-      background-color: #f8f8f8;
-      padding: 0px;
-      img {
+      h2.heading_2{
+          color: #333333;
+          text-align: center;
+          padding:34px 0px;
+      }
+      .create_channel_btn{
           width: 100%;
+          padding: 24px 78px;
+          text-align: right;
       }
   }
-  .avatar_add_channel {
-      width: 97px;
-      height: 78px;
-      display: inline-block;
-      vertical-align: middle;
-      overflow: hidden;
-      position: relative;
-      box-sizing: border-box;
-      text-align: center;
-      line-height: 2.5;
-      border-radius: 3px;
-      background-color: #f8f8f8;
-      img {
-          width: 100%;
-      }
+
+  .modal-dialog {
+      width: 500px;
   }
-}
 
-.channel_search_box {
-  ul {
-      padding: 10px 24px !important;
-      img {
-          width: 14px !important;
-          float: left !important;
-          margin-top: 12px;
-      }
-      .form_input:focus ~ label,
-      .form_input:valid ~ label {
-          display: none;
-      }
-      .form_group {
-          margin-bottom: 0px;
-      }
-      .search_input {
-          width: 90%;
-      }
-      .form_group .form_input {
-          border-bottom: none;
-      }
-      label {
-          font-size: 14px;
-          font-weight: bold;
-          text-align: left;
-      }
+  .modal.fade.in {
+    background-color: rgba(243,245,247,.95);
   }
-}
+  
+  .channel-type__list {
+      width: 100%;
+      cursor: pointer;
+  }
 
-// .width45 {
-//     width: 45%;
-//     float: left;
-// }
-
-// .float-right {
-//     float: right;
-// }
-
-// .display-inline-block {
-//     display: inline-block;
-// }
-
-// .width100 {
-//     width: 100%;
-// }
-
-// textarea {
-//     width: 100%;
-//     height: 80px;
-//     // resize: none;
-// }
+  .pop-head {
+    margin-bottom: 20px;
+  }

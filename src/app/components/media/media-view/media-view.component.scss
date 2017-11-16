@@ -1,17 +1,13 @@
 @import './src/assets/scss/helpers/_variables.scss';
 // ---------------  Media modal style ---------------------- //
 .media_modal {
-    .modal-lg {
+    .over-block {
         width: 1070px;
+        background: #fff
     }
-    .modal-body {
+    .over-block__padding {
         padding: 0px;
         margin: 0px;
-    }
-    .modal-content {
-        border-radius: 5px;
-        -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     }
     .media_left {
         margin: 0px;
@@ -19,6 +15,7 @@
         width: 708px;
         height: 575px;
         overflow: hidden;
+        float: left;
     }
     .media_right {
         margin: 0px;
@@ -598,4 +595,12 @@ li.list-inline-item a {
         text-decoration: underline;
         cursor: pointer;
     }
+}
+
+.media-popup__text{
+    margin: 10px 0;
+    color: #333;
+    font-weight: normal;
+    line-height: 21px;
+    font-size: 11px;
 }

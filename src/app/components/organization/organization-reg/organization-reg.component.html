@@ -1,0 +1,199 @@
+<section class="o-org-hero">
+  <div class="container">
+    <div class="col-md-6">
+      <div class="o-hero__head-container">
+        <div class="o-hero-logo">
+          <img class="o-logo__img" src="/assets/img/logo_white.svg" alt="">
+        </div>
+        <div class="o-hero-head-title">
+          <h3 class="c-h3 o-head--title">Organization</h3>
+        </div>
+      </div>
+      <div class="o-hero__content-container">
+        <h2 class="c-h2 o-hero-content__title">Lorem ipsum dolor</h2>
+        <p class="c-text_md-light o-hero-content__det">
+          Internal motivation in performing a task occurs when the task in itself is experienced as rewarding and there is no need for any external reward before it is performed. Examples are love of the task, self-satisfaction, sense of achievement and relaxation.
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="o-hero">
+        <img class="o-hero__img" src="/assets/img/organization/hero.png" alt="">
+      </div>
+    </div>
+  </div>
+</section><!-- hero end -->
+
+<section class="o-org-container">
+  <div class="container">
+      <div class="col-md-8 col-md-offset-2 o-org-content-block">
+        <h3 class="c-h3 o-org__create-head">Create Organization</h3>
+        <div class="o-org-reg-block">
+          <form [formGroup]="orgReg" novalidate (ngSubmit) = "submitForm(orgReg.value)"  #orgForm="ngForm">
+            <div class="c-form__group">
+              <input class="c-form__input" required="" type="text" formControlName="org_name">
+              <span class="c-form__highlight"></span>
+              <span class="c-form__bar"></span>
+              <label>Name of organization</label>
+              <p class="error_alert" *ngIf="orgReg.controls['org_name'].errors?.required && orgForm.submitted">Name of organization is required</p>
+            </div>
+            <div class="c-form__group">
+              <input class="c-form__input" required="" type="text" formControlName="org_username">
+              <span class="c-form__highlight"></span>
+              <span class="c-form__bar"></span>
+              <label>Username</label>
+              <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.required && orgForm.submitted">Username is required</p>
+              <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.isUsernameUnique">This organization username is already taken</p>
+            </div>
+            <h6 class="c-text_md o-org--type">Choose type of your organization</h6>
+            <div class="o-org-reg__choose">
+              <ul class="o-org-choose-block">
+                <li class="o-org-choose__list">
+                  <label class="choose-org-block" >
+                    <input type="radio" name="org_type" value="university" formControlName="org_type" />
+                    <span class="choose-org__box">
+                      <span class="choose-box__ico">
+                        <img width="32px" src="/assets/img/organization/univ.svg" alt="">
+                      </span>
+                      <span class="choose-box__title">
+                        University
+                      </span>
+                    </span>
+                  </label>
+                </li>
+                <li class="o-org-choose__list">
+                  <label class="choose-org-block" >
+                    <input type="radio" name="org_type" value="band_or_brand" formControlName="org_type"/>
+                    <span class="choose-org__box">
+                      <span class="choose-box__ico">
+                        <img src="/assets/img/organization/band1.svg" alt="">
+                      </span>
+                      <span class="choose-box__title">
+                        Band or Brand
+                      </span>
+                    </span>
+                  </label>
+                </li>
+                <li class="o-org-choose__list">
+                  <label class="choose-org-block" >
+                    <input type="radio" name="org_type" value="production_house" formControlName="org_type" />
+                    <span class="choose-org__box">
+                      <span class="choose-box__ico">
+                        <img width="32" src="/assets/img/organization/prod1.svg" alt="">
+                      </span>
+                      <span class="choose-box__title">
+                        Production House
+                      </span>
+                    </span>
+                  </label>
+                </li>
+                <li class="o-org-choose__list">
+                  <label class="choose-org-block" >
+                    <input type="radio" name="org_type" value="theatre" formControlName="org_type" />
+                    <span class="choose-org__box">
+                      <span class="choose-box__ico">
+                        <img width="32" src="/assets/img/organization/theat1.svg" alt="">
+                      </span>
+                      <span class="choose-box__title">
+                        Theatre
+                      </span>
+                    </span>
+                  </label>
+                </li>
+                <li class="o-org-choose__list">
+                  <label class="choose-org-block" >
+                    <input type="radio" name="org_type" value="charity" formControlName="org_type" />
+                    <span class="choose-org__box">
+                      <span class="choose-box__ico">
+                        <img width="32" src="/assets/img/organization/char1.svg" alt="">
+                      </span>
+                      <span class="choose-box__title">
+                        Charity
+                      </span>
+                    </span>
+                  </label>
+                </li>
+                <li class="o-org-choose__list">
+                  <label class="choose-org-block" >
+                    <input type="radio"  name="org_type" value="studio" formControlName="org_type" />
+                    <span class="choose-org__box">
+                      <span class="choose-box__ico">
+                        <img width="32" src="/assets/img/organization/stud1.svg" alt="">
+                      </span>
+                      <span class="choose-box__title">
+                        Studio
+                      </span>
+                    </span>
+                  </label>
+                </li>
+                <li class="o-org-choose__list">
+                  <label class="choose-org-block" >
+                    <input type="radio" name="org_type" value="management" formControlName="org_type" />
+                    <span class="choose-org__box">
+                      <span class="choose-box__ico">
+                        <img width="32" src="/assets/img/organization/mana1.svg" alt="">
+                      </span>
+                      <span class="choose-box__title">
+                        Management
+                      </span>
+                    </span>
+                  </label>
+                </li>
+              </ul>
+              <p class="error_alert" *ngIf="orgReg.controls['org_type'].errors?.required && orgForm.submitted">Type of organization is required</p>
+            </div>
+            <div class="c-form__group margin_b_32">
+              <input class="c-form__input" required="" type="text"   >
+              <span class="c-form__highlight"></span>
+              <span class="c-form__bar"></span>
+              <label>Add organization industry</label>
+              <div class="eg">eg: Music, Dance, Drama</div>
+            </div>
+            <div class="c-form__group margin_b_32">
+              <input class="c-form__input" required="" type="text" formControlName="org_service">
+              <span class="c-form__highlight"></span>
+              <span class="c-form__bar"></span>
+              <label>Add services</label>
+              <div class="eg">eg:UI Design, UX Design, Branding</div>
+              <p class="error_alert" *ngIf="orgReg.controls['org_service'].errors?.required && orgForm.submitted">Services is required</p>
+            </div>
+            <div class="c-form__group margin_b_32">
+              <input class="c-form__input" required="" placeholder="" type="text" autocorrect="off" autocapitalize="off" spellcheck="off" #search formControlName="org_location">
+              <span class="c-form__highlight"></span>
+              <span class="c-form__bar"></span>
+              <label>Location</label>
+              <p class="error_alert" *ngIf="orgReg.controls['org_location'].errors?.required && orgForm.submitted">Location is required</p>
+            </div>
+            <!-- <div class="add-product-block">
+              <div class="add-product__head">
+                <div class="add-product-head__ico">
+                  <img src="img/organization/Group4.svg" alt="">
+                </div>
+                <div class="add-product-head__title">
+                  Add  your product
+                </div>
+              </div>
+              <div class="c-form__group margin_b_32">
+                <input class="c-form__input" required="" type="text">
+                <span class="c-form__highlight"></span>
+                <span class="c-form__bar"></span>
+                <label>Product name</label>
+              </div>
+              <div class="c-form__group margin_b_32">
+                <input class="c-form__input" required="" type="text">
+                <span class="c-form__highlight"></span>
+                <span class="c-form__bar"></span>
+                <label>Product Category</label>
+              </div>
+              <div class="c-form__group">
+                <textarea class="c-textarea__block c-textarea--style" rows="4" data-min-rows="0" placeholder="Description"></textarea>
+              </div>
+            </div> -->
+            <div class="create-btn">
+               <button [className]="'btn btn-primary btn-md'" type="submit">Create</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+</section>

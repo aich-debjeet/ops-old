@@ -5,7 +5,7 @@
           <img src="/assets/img/avatar.jpg" class="c-artist__img">
       </ng-template>
     </a>
-    <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="c-artist__name margin_t_16">{{ artist?.name }}</a>
+    <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="c-artist__name margin_t_16">{{ artist?.name | truncate:[12, '...'] }}</a>
     <div class="c-artist__username">
         @{{ artist?.extra?.username }}
     </div>

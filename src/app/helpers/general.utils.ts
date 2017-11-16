@@ -24,4 +24,29 @@ export class GeneralUtilities {
         return link;
     }
 
+    /**
+     * Search hashatgs
+     * @Param: string
+     * @Return: string array
+     */
+    public findHashtags(searchText) {
+        const regexp = /\B\#\w\w+\b/g
+        const result = searchText.match(regexp);
+        if (result) {
+            return result;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @param: array and the length to trim
+     */
+    public getArrayWithLimitedLength(arr, len) {
+        // console.log('before', arr);
+        const newArr = arr.slice(0, len);
+        // console.log('after', newArr);
+        return newArr;
+    }
+
 }

@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { SharedModule } from '../../shared/shared.module';
-import { ReadMoreDirective } from '../../helpers/read-more.directive';
+import { ReadMoreComponent } from '../../helpers/read-more.component';
 import { MediaComponent } from './media.component';
 
 
@@ -95,11 +95,12 @@ const routes: Routes = [
     ChannelSelectorComponent,
     CreateChannelComponent,
     EditChannelComponent,
-    ReadMoreDirective,
-    SearchUniquePipe
+    SearchUniquePipe,
+    ReadMoreComponent
   ],
   exports: [
-    MediaComponent
+    MediaComponent,
+    ReadMoreComponent
   ]
 })
 

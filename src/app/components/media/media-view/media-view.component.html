@@ -1,96 +1,84 @@
-<app-modal [modalTitle]="'Some title'" [open]="true" [blocking]='false' (onClose)="doClose($event)"  modalId='ViewMedia' class="media__modal" size="tiny__mediapopup">
-  <div id="imgModal" class=" media_modal">
-      <div class="modal-dialog modal-lg">
-          <!-- Modal content-->
-          <div class="modal-content">
-              <div class="modal-body">
-                  <div class="row">
-                      <div class="col-md-8 col-sm-8 media_left with_border_right">
-                          <div class="media_img_block">
-                              <figure class="avatar_media_img">
-                                  <app-videplayer *ngIf="checkFileType(data?.repopath, 'Video')" src="{{ imageLink + data?.repopath }}"></app-videplayer>
-                                  <img *ngIf="checkFileType(data?.repopath, 'Image')" src="{{ imageLink + data?.repopath }}" class="img-responsive">
-                                  <app-audioplayer *ngIf="checkFileType(data?.repopath, 'Audio')" src="{{ imageLink + data?.repopath }}"></app-audioplayer>
-                              </figure>
-                          </div>
-                      </div>
-                      <div class="col-md-4 col-sm-4 media_right">
-                          <div class="media_img_content">
-                              <ul class="width100">
-                                  <li class="list_style_none">
-                                      <ul class="list-inline">
-                                          <li class="list-inline-item float-left">
-                                              <figure class="avatar_media_user">
-                                                  <img src="{{ imageLink + data?.ownerImage }}">
-                                              </figure>
-                                          </li>
-                                          <li class="list-inline-item float-left">
-                                              <div class="media_name">{{ data?.ownerName }}</div>
-                                              <div routerLink="channels/x" class="media_sub_head">{{ data?.channelName }} <span class="media_time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span></div>
-                                          </li>
-                                          <li class="list-inline-item media_user_icons">
-                                              <!--<a ><img src="/assets/img/svg/ico_edit.svg"></a>
-                                              <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                                  <img src="/assets/img/svg/ico_options.svg">
-                                              </a>
-                                                  <ul class="dropdown-menu report_block_drop">
-                                                      <li>
-                                                          <a href="#" data-toggle="modal" data-target="#reportmodal">Report</a>
-                                                      </li>
-                                                  </ul>-->
+<app-route-modal  (onClose)="closeFunction()" modalClass="modal-cus__md">
+    <modal-content>
+        <div id="imgModal" class=" media_modal">
+            <div class="over-block">
+                <div class="over-block__padding">
+                    <div class="row">
+                        <div class="media_left with_border_right">
+                            <div class="media_img_block">
+                                <figure class="avatar_media_img">
+                                    <app-videplayer [play]="'true'" *ngIf="checkFileType(data?.repopath, 'Video')" src="{{ imageLink + data?.repopath }}"></app-videplayer>
+                                    <img *ngIf="checkFileType(data?.repopath, 'Image')" src="{{ imageLink + data?.repopath }}" class="img-responsive">
+                                    <app-audioplayer *ngIf="checkFileType(data?.repopath, 'Audio')" src="{{ imageLink + data?.repopath }}"></app-audioplayer>
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="media_right">
+                            <div class="media_img_content">
+                                <ul class="width100">
+                                    <li class="list_style_none">
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item float-left">
+                                                <figure class="avatar_media_user">
+                                                    <img src="{{ imageLink + data?.ownerImage }}">
+                                                </figure>
+                                            </li>
+                                            <li class="list-inline-item float-left">
+                                                <div class="media_name">{{ data?.ownerName }}</div>
+                                                <div routerLink="channels/x" class="media_sub_head">{{ data?.channelName }} <span class="media_time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span></div>
+                                            </li>
+                                            <li class="list-inline-item media_user_icons">
+                                                <!--<a ><img src="/assets/img/svg/ico_edit.svg"></a>
+                                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                                    <img src="/assets/img/svg/ico_options.svg">
+                                                </a>
+                                                    <ul class="dropdown-menu report_block_drop">
+                                                        <li>
+                                                            <a href="#" data-toggle="modal" data-target="#reportmodal">Report</a>
+                                                        </li>
+                                                    </ul>-->
 
-                                          </li>
-                                      </ul>
-                                  </li>
-                                  <li class="list_style_none float-left">
-                                      <div class="media_detail_block">
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="list_style_none float-left">
+                                        <div class="media_detail_block">
                                         <h2 class="ops_heading">{{ data?.title }}</h2>
-                                        <p class="ops_subheading" #textsContent id="read-more" >
-                                            <!--There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.-->
-                                            {{data?.description}}
-                                            <!--<span class="text-theme pull-right">More..</span>-->
-                                        </p>
-                                        <div class="read-more-link">
-                                            <a readMore [readMore-length]="250" [readMore-text]="data?.description" [readMore-element]="textsContent">
-                                                <span class="less">Less </span>
-                                                <span class="more">More </span>
-                                            </a>
+                                         <read-more [class]="'media-popup__text'" [text]="data?.description" [maxLength]=250 ></read-more>
+                                        <a *ngFor="let tag of data?.tags" type="button" class="btn btn-tag btn-sm">{{ tag }}</a>
                                         </div>
-                                          <a *ngFor="let tag of data?.tags" type="button" class="btn btn-tag btn-sm">{{ tag }}</a>
-                                      </div>
-                                  </li>
-                              </ul>
-                          </div>
-                          <div class="media_like_count">
-                              <ul class="list-inline">
-                                  <li class="list-inline-item">
-                                      <a (click)="spotMedia(data?.id)" class="spot__btn">
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="media_like_count">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a (click)="spotMedia(data?.id)" class="spot__btn">
                                         <img *ngIf="spot===false" src="/assets/img/svg/ico_lik.svg">
                                         <img *ngIf="spot===true" src="http://d33wubrfki0l68.cloudfront.net/8d58c78cd26eb1d103bb24ec6c1d786a0964b8b4/63aa4/img/svg/ico_spot.svg" width="14px">
-                                      </a>
-                                      <div class="like_count">{{ spotCount }}</div>
-                                  </li>
-                                  <li class="list-inline-item">
-                                      <a ><img src="/assets/img/svg/ico_comment.svg"></a>
-                                      <div class="like_count">{{ commentCount }}</div>
-                                  </li>
-                                  <li class="list-inline-item pull-right">
-                                      <a ><img src="/assets/img/svg/ico_share-02.svg"></a>
-                                  </li>
-                                  <li class="list-inline-item pull-right">
-                                      <a ><img src="/assets/img/svg/ico_addtochannel.svg"></a>
-                                  </li>
-                              </ul>
-                          </div>
-                          
-                          <div class="media_comments_section" id="ops_scrollbar">
+                                        </a>
+                                        <div class="like_count">{{ spotCount }}</div>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a ><img src="/assets/img/svg/ico_comment.svg"></a>
+                                        <div class="like_count">{{ commentCount }}</div>
+                                    </li>
+                                    <li class="list-inline-item pull-right">
+                                        <a ><img src="/assets/img/svg/ico_share-02.svg"></a>
+                                    </li>
+                                    <li class="list-inline-item pull-right">
+                                        <a ><img src="/assets/img/svg/ico_addtochannel.svg"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="media_comments_section" id="ops_scrollbar">
                                 <app-comment [mediaId]="mediaId" [commentsType]="'media-popup'" [comments]="comments" [mediaType]="mediaType" (submitComment)="sbComment($event)"></app-comment>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-      </div>
-  </div>
-</app-modal>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </modal-content>
+</app-route-modal>

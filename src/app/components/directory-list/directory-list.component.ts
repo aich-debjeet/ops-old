@@ -27,7 +27,7 @@ export class DirectoryListComponent implements OnInit {
   page_start = 0;
   page_end = 20;
   scrolling = 0;
-  scrollingLoad = 2000;
+  scrollingLoad = 1800;
   baseUrl = environment.API_IMAGE;
   searchText: string;
   profileType: any = 1;
@@ -53,6 +53,7 @@ export class DirectoryListComponent implements OnInit {
   }
 
   updateCheckedOptions(option, event) {
+    console.log(option)
     this.selectedOption = this.options.filter(opt => opt.checked).map(opt => opt.value);
     this.page_start = 0
     this.loadDir();
@@ -84,7 +85,7 @@ export class DirectoryListComponent implements OnInit {
       searchText: this.searchText,
       status: this.selectedOption,
       offset: this.page_start,
-      limit: this.page_end
+      limit: 20
     }
     this._store.dispatch({ type: ProfileActions.LOAD_DIRECTORY, payload: data });
   }

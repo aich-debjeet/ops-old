@@ -2,7 +2,10 @@ import { Component, OnInit, ViewChild, Inject, HostListener, AfterViewInit } fro
 import { DOCUMENT } from '@angular/platform-browser';
 
 import { SearchActions } from './../../actions/search.action';
+import { ProfileActions } from './../../actions/profile.action';
+
 import { SearchModel } from './../../models/search.model';
+import { ProfileModal, initialTag } from '../../models/profile.model';
 
 import { environment } from './../../../environments/environment.prod';
 
@@ -13,6 +16,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 
 import { Store } from '@ngrx/store';
+import { setTimeout } from 'core-js/library/web/timers';
 
 @Component({
   selector: 'app-search',
@@ -40,8 +44,13 @@ export class SearchComponent implements AfterViewInit {
 
   constructor(
     private store: Store<SearchModel>,
+    private profileStore: Store<ProfileModal>,
     @Inject(DOCUMENT) private document: Document
   ) {
+
+    /* ================== load current user ========= */
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    /* ================== load current user ========= */
 
     this.baseUrl = environment.API_IMAGE;
 
@@ -49,7 +58,6 @@ export class SearchComponent implements AfterViewInit {
 
     // observe the store value
     this.searchState$.subscribe((state) => {
-      console.log('searchState', state);
       this.searchState = state;
       if (state && state.searching_people === false && state.searching_post === false && state.searching_channel === false) {
         this.isSearching = false;
@@ -197,5 +205,23 @@ export class SearchComponent implements AfterViewInit {
     }
 
   }
+
+  onTabClick(tabId: any) {
+    window.scrollTo(0, 0);
+    // this.scrollToTop(100);
+    // console.log('PARENT recieved onTabClick', tabId);
+    this.selectTab(tabId);
+  }
+
+  // scrollToTop(scrollDuration) {
+  //   const scrollStep = -window.scrollY / (scrollDuration / 15),
+  //   scrollInterval = setInterval(function() {
+  //   if (window.scrollY !== 0) {
+  //     window.scrollBy( 0, scrollStep);
+  //   } else {
+  //     clearInterval(scrollInterval);
+  //   }
+  //   }, 15);
+  // }
 
 }

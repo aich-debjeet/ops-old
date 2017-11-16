@@ -9,7 +9,7 @@
     <!-- if posts found -->
     <ng-template #posts_found>
 
-        <masonry>
+        <masonry [useImagesLoaded]="true">
             <masonry-brick class="col-md-3" *ngFor="let post of posts">
                 <app-post-card (onClick)="mediaOpenPopup(post.id)" [mediaData]="post"></app-post-card>
             </masonry-brick>

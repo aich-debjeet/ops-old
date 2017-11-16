@@ -34,6 +34,7 @@ import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 
 
+
 // Guard
 import { AuthGuard } from './guard/auth.guard';
 
@@ -50,26 +51,27 @@ export const routes: Routes = [
  { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule', canActivate: [AuthGuard] },
 //  { path: 'media', loadChildren: './components/media/media.module#ProfileModule' },
  { path: 'message', component: MessageComponent, canActivate: [AuthGuard] },
- { path: 'user/status/list', component: StatusListComponent },
- { path: 'user/media/list', loadChildren: './components/media-list/media-list.module#MediaListModule'},
- { path: 'spotfeed/:id', component: SpotfeedComponent },
- { path: 'spotfeed-premium', component: SpotfeedPremiumComponent },
- { path: 'directory', component: DirectoryListComponent },
- { path: 'notification', component: NotificationComponent },
- { path: 'portfolio', component: PortfolioComponent },
- { path: 'planner', component: PlannerComponent },
- { path: 'network', component: NetworkComponent },
- { path: 'project', component: ProjectComponent },
+ { path: 'user/status/list', component: StatusListComponent, canActivate: [AuthGuard] },
+ { path: 'user/media/list', loadChildren: './components/media-list/media-list.module#MediaListModule', canActivate: [AuthGuard]},
+ { path: 'spotfeed/:id', component: SpotfeedComponent, canActivate: [AuthGuard] },
+ { path: 'spotfeed-premium', component: SpotfeedPremiumComponent, canActivate: [AuthGuard] },
+ { path: 'directory', component: DirectoryListComponent, canActivate: [AuthGuard] },
+ { path: 'notification', component: NotificationComponent, canActivate: [AuthGuard] },
+ { path: 'portfolio', component: PortfolioComponent, canActivate: [AuthGuard] },
+ { path: 'planner', component: PlannerComponent, canActivate: [AuthGuard] },
+ { path: 'network', component: NetworkComponent, canActivate: [AuthGuard] },
+ { path: 'project', component: ProjectComponent, canActivate: [AuthGuard] },
  { path: 'opportunity', component: OpportunityComponent, canActivate: [AuthGuard] },
- { path: 'jobs', component: JobsComponent },
- { path: 'job-details', component: JobDetailsComponent },
+ { path: 'jobs', component: JobsComponent, canActivate: [AuthGuard] },
+ { path: 'job-details', component: JobDetailsComponent, canActivate: [AuthGuard] },
  { path: 'events', component: EventsComponent, canActivate: [AuthGuard] },
- { path: 'user/settings', component: SettingsComponent },
+ { path: 'user/settings', component: SettingsComponent, canActivate: [AuthGuard] },
  { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard] },
- { path: 'channel', component: ChannelListComponent },
+ { path: 'channel', component: ChannelListComponent, canActivate: [AuthGuard] },
  { path: 'resources', component: ResourceComponent, canActivate: [AuthGuard] },
  { path: 'communities', component: CommunitiesComponent, canActivate: [AuthGuard] },
- { path: 'search', loadChildren: './components/search/search.module#SearchModule' },
+ { path: 'search', loadChildren: './components/search/search.module#SearchModule', canActivate: [AuthGuard] },
+ { path: 'org', loadChildren: './components/organization/organization.module#OrganizationModule'},
  { path: 'page-not-found', component: NotFoundPageComponent },
- { path: '**', redirectTo: 'page-not-found' }
+ { path: '**', redirectTo: 'page-not-found' },
 ];

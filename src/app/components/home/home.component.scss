@@ -71,13 +71,14 @@
 .home_tabs {
     margin-top: 8px;
     .nav-tabs > li > a {
-        font-size: 14px;
-        font-weight: bold;
+        font-size: 13px;
+        font-weight: normal;
         text-align: left;
-        color: #979797;
+        color: #929292;
         background: transparent;
         border: none;
-        text-transform: uppercase;
+        text-transform: capitalize;
+        cursor: pointer !important;
     }
     .nav-tabs li .active a {
         color: #000000;
