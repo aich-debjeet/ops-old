@@ -35,7 +35,7 @@ export class OrgCoverblockComponent implements OnInit {
     this.orgState$ = this.store.select('organizationTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      console.log('this.orgProfile', this.orgProfile);
+      // console.log('this.orgProfile', this.orgProfile);
     });
     /* org state */
 
