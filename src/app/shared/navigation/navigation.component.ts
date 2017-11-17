@@ -73,7 +73,7 @@ export class NavigationComponent implements OnInit {
       // console.log('accountStatus avaibale, localStore', localStore);
       if (localStore.profileType === 'org') {
         this.profileType = 'org';
-        this.switchToOrg(localStore.username);
+        this.switchToOrg(localStore.username, localStore.handle);
       } else {
         this.profileType = 'user';
       }
@@ -245,7 +245,7 @@ export class NavigationComponent implements OnInit {
   /* =================================== notification =================================== */
 
   // switch to the org
-  switchToOrg(username: string) {
+  switchToOrg(username: string, handle: string) {
     let orgHandle, orgUsername;
 
     // check for org handle
