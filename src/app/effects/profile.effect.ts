@@ -619,6 +619,63 @@ export class ProfileEffect {
       }))
     );
 
+  /**
+   * Get List of Block Users
+   */
+  @Effect()
+  loadBlockedUsers$ = this.actions$
+    .ofType(ProfileActions.LOAD_BLOCK_USERS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getBlockedUsers( payload )
+      .map(res => ({ type: ProfileActions.LOAD_BLOCK_USERS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.LOAD_BLOCK_USERS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
+   * unBlock Users
+   */
+  @Effect()
+  UnBlockUsers$ = this.actions$
+  .ofType(ProfileActions.UNBLOCK_USER)
+  .map(toPayload)
+  .switchMap((payload) => this.profileService.unBlockUser( payload )
+    .map(res => ({ type: ProfileActions.UNBLOCK_USER_SUCCESS, payload: res }))
+    .catch((res) => Observable.of({
+      type: ProfileActions.UNBLOCK_USER_FAILED,
+      payload: { errorStatus: res.status }
+    }))
+  );
+
+  // @Effect()
+  // UpdateblockedUsers$ = this.actions$
+  // .ofType(ProfileActions.UNBLOCK_USER_SUCCESS)
+  // .map(toPayload)
+  // .switchMap((payload) => this.profileService.getBlockedUsers( payload )
+  //   .map(res => ({ type: ProfileActions.LOAD_BLOCK_USERS_SUCCESS, payload: res }))
+  //   .catch((res) => Observable.of({
+  //     type: ProfileActions.LOAD_BLOCK_USERS_FAILED,
+  //     payload: { errorStatus: res.status }
+  //   }))
+  // );
+
+  /**
+   * Get default notification settings
+   */
+  @Effect()
+  getDeafultNotifi$ = this.actions$
+    .ofType(ProfileActions.DEFAULT_NOTIFICATION_SETTINGS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getdefaultNotifications()
+      .map(res => ({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
   constructor(
     private actions$: Actions,
     private router: Router,

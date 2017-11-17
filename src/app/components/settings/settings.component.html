@@ -428,46 +428,58 @@
                         <!-- general end -->
                         <div class="tab-pane active" id="Security_Privacy" *ngIf="this.selectedView === 'Security'">
                             <h6 class="c-text_lg m-b-24 p-l-8">Security & Privacy</h6>
-                            <div class="o-set-change-pass o-set-change-pass--active">
+                            <div class="o-set-change-pass o-set-list_items">
                                 <div class="col-md-3 p-0">
                                     <span class="o-set-item__title c-text_md">
                                         Change password
                                     </span>
                                 </div>
                                 <div class="col-md-9 p-0">
-                                    <div id="pass-change" class="o-set-list__data">
-                                        <span class="c-h3 line-height15 color-grey-dark" onclick="switchVisiblepass();">………………</span>
-                                    </div>
-                                    <!-- data end -->
-                                    <div id="pass-change__edit" class="o-set-list__edit">
-                                        <div class="col-md-6 p-0">
-                                            <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                <input class="c-form__input" required="" type="password">
-                                                <span class="c-form__highlight"></span>
-                                                <span class="c-form__bar"></span>
-                                                <label>Current Password</label>
+                                    <form [formGroup]="pwdForm" novalidate (ngSubmit)="submitForm(pwdForm.value)" #passform="ngForm">
+                                        <div id="pass-change" class="o-set-list__data" *ngIf="!passwordActive">
+                                            <span class="c-h3 line-height15 color-grey-dark">………………</span>
+                                            <span class="o-set-list__edit-btn">
+                                                <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="passwordToggle()" >
+                                                    <span class="o-set-list-edit__icon"><img src="img/svg/editpencil.svg" alt=""></span> Change
+                                            </a>
+                                            </span>
+                                        </div>
+                                        <!-- data end -->
+                                        <div id="pass-change__edit" class="o-set-list__edit" *ngIf="passwordActive">
+                                            <div class="col-md-6 p-0">
+                                                <div class="c-form__group c-form--sm c-form--noeffect m-0">
+                                                    <input class="c-form__input" required="" type="password" formControlName="currentpassword">
+                                                    <span class="c-form__highlight"></span>
+                                                    <span class="c-form__bar"></span>
+                                                    <label>Current Password</label>
+                                                    <p class="error_alert" *ngIf="pwdForm.controls['currentpassword'].errors?.required && passform.submitted">Current password is required</p>
+                                                </div>
+                                                <div class="c-form__group c-form--sm c-form--noeffect m-0">
+                                                    <input class="c-form__input" required="" type="password" formControlName="newpassword">
+                                                    <span class="c-form__highlight"></span>
+                                                    <span class="c-form__bar"></span>
+                                                    <label>New Password</label>
+                                                    <p class="error_alert" *ngIf="pwdForm.controls['newpassword'].errors?.required && passform.submitted">New Password is required</p>
+                                                    <p class="error_alert" *ngIf="pwdForm.controls['newpassword'].errors?.isWeakPassword">Weak password! Please use special char, numbers and capital letters</p>
+                                                </div>
+                                                <div class="c-form__group c-form--sm c-form--noeffect m-0">
+                                                    <input class="c-form__input" required="" type="password" formControlName="confirmpassword">
+                                                    <span class="c-form__highlight"></span>
+                                                    <span class="c-form__bar"></span>
+                                                    <label>Confirm New Password</label>
+                                                    <p class="error_alert" *ngIf="pwdForm.controls['confirmpassword'].errors?.required && passform.submitted">Confirm password is required</p>
+                                                    <p class="error_alert" *ngIf="pwdForm.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password does not match</p>
+                                                </div>
                                             </div>
-                                            <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                <input class="c-form__input" required="" type="password">
-                                                <span class="c-form__highlight"></span>
-                                                <span class="c-form__bar"></span>
-                                                <label>New Password</label>
-                                            </div>
-                                            <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                <input class="c-form__input" required="" type="password">
-                                                <span class="c-form__highlight"></span>
-                                                <span class="c-form__bar"></span>
-                                                <label>Confirm New Password</label>
+                                            <div class="col-md-6 p-0">
+                                                <div class="o-set-list-edit__actions">
+                                                    <button type="button" class="btn btn-primary btn-sm" [type]="'submit'">Save</button>
+                                                    <button type="button" class="btn btn-default btn-sm" (click)="passwordToggle()">Cancel</button>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 p-0">
-                                            <div class="o-set-list-edit__actions">
-                                                <button type="button" class="btn btn-primary btn-sm">Save</button>
-                                                <button type="button" class="btn btn-default btn-sm">Cancel</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- edit data end -->
+                                        <!-- edit data end -->
+                                    </form>
                                 </div>
                             </div>
                             <!-- change pass end -->
@@ -537,19 +549,19 @@
                             <div class="c-text_md m-b-16">
                                 Block Users
                             </div>
-                            <div class="o-set-single-block  m-b-16">
+                            <div class="o-set-single-block  m-b-16" *ngFor="let users of blockedUsers">
                                 <div class="col-md-3 p-0">
                                     <span class="c-text_md color-grey-dark">
-                                       Lola Mason
+                                       {{users.name}}
                                     </span>
                                 </div>
                                 <div class="col-md-3 p-0">
                                     <span class="c-text_md">
-                                      <a href="#" class="c-text_md color-theme">Unblock</a>
+                                      <a href="javascript:void(0)" class="c-text_md color-theme" (click)="unBlock(users.handle)">Unblock</a>
                                     </span>
                                 </div>
                             </div>
-                            <!-- block list 1 -->
+                            <!-- block list 1
                             <div class="o-set-single-block  m-b-16">
                                 <div class="col-md-3 p-0">
                                     <span class="c-text_md color-grey-dark">
@@ -563,7 +575,7 @@
                                 </div>
                             </div>
                             <!-- block list 2 -->
-                            <div class="o-set-single-block  m-b-16">
+                            <!-- <div class="o-set-single-block  m-b-16">
                                 <div class="col-md-3 p-0">
                                     <span class="c-text_md color-grey-dark">
                                         Harriett Drake
@@ -574,7 +586,7 @@
                                         <a href="#" class="c-text_md color-theme">Unblock</a>
                                     </span>
                                 </div>
-                            </div>
+                            </div>  -->
                             <!-- block list 2 -->
                         </div>
                         <!-- Security & Privacy end -->

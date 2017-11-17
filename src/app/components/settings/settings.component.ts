@@ -35,16 +35,20 @@ export class SettingsComponent implements OnInit {
   genderActive: boolean;
   dobActive: boolean;
   profileTypeActive: boolean;
+  passwordActive: boolean;
   selectedView: string;
   private apiLink: string = environment.API_ENDPOINT;
+  userHandle: any;
+  blockedUsers = [];
+  default: any;
 
-  commentsOption = {name: 'Comments', value: 'Comments', checked: true};
-  spotsOption = {name: 'Spots', value: 'Spots', checked: true};
-  mentionOption = {name: 'Mention', value: 'Mention', checked: true};
-  followersOption = {name: 'Followers', value: 'Followers', checked: true};
-  channelsOption = {name: 'Channels', value: 'Channels', checked: true};
-  donateOption = {name: 'Donate', value: 'Donate', checked: true};
-  networkOption = {name: 'Network', value: 'Network', checked: true};
+  commentsOption: any // = {name: 'Comments', value: 'Comments', checked: true};
+  spotsOption: any // = {name: 'Spots', value: 'Spots', checked: true};
+  mentionOption: any // = {name: 'Mention', value: 'Mention', checked: true};
+  followersOption: any // = {name: 'Followers', value: 'Followers', checked: true};
+  channelsOption: any // = {name: 'Channels', value: 'Channels', checked: true};
+  donateOption: any // = {name: 'Donate', value: 'Donate', checked: true};
+  networkOption: any // = {name: 'Network', value: 'Network', checked: true};
 
   constructor(
     private _modalService: ModalService,
@@ -59,6 +63,29 @@ export class SettingsComponent implements OnInit {
      this.storeState$.subscribe((state) => {
       this.userProfile = state['profileDetails'];
       console.log(this.userProfile)
+      this.userHandle = state['profileDetails'].handle;
+      console.log(this.userHandle)
+      this.blockedUsers = state.blockedUsers;
+      console.log(this.blockedUsers)
+      if (state.default_notification) {
+         this.default = state.default_notification;
+        this. commentsOption = {name: 'Comments', value: 'Comments', checked: this.default.comments};
+        this.spotsOption = {name: 'Spots', value: 'Spots', checked: this.default.spots};
+        this.mentionOption = {name: 'Mention', value: 'Mention', checked: this.default.mention};
+        this.followersOption = {name: 'Followers', value: 'Followers', checked: this.default.newFollower};
+        this.channelsOption = {name: 'Channels', value: 'Channels', checked: this.default.channels};
+        this.donateOption = {name: 'Donate', value: 'Donate', checked: this.default.donate};
+        this.networkOption = {name: 'Network', value: 'Network', checked: this.default.network};
+      //   console.log(this.default)
+      //   this.commentsOption.checked = this.default.comments;
+      //   this.spotsOption = this.default.spots;
+      //   // this.mentionOption = this.default;
+      //   this.followersOption = this.default.newFollower;
+      //   this.channelsOption = this.default.channels;
+      //   this.donateOption = this.default.donate;
+      //   this.networkOption = this.default.network;
+       }
+
     });
 
     // Username update form init
@@ -74,11 +101,13 @@ export class SettingsComponent implements OnInit {
     this.genderActive = false;
     this.dobActive = false;
     this.profileTypeActive = false;
+    this.passwordActive = false;
    }
 
   ngOnInit() {
     this.selectedView = 'General';
     this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+    this._store.dispatch({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS });
   }
 
   /**
@@ -107,6 +136,7 @@ export class SettingsComponent implements OnInit {
       }
       this._store.dispatch({ type: ProfileActions.USER_PASSWORD_UPDATE, payload: body });
       this.passwordformInit();
+      this.passwordActive = false;
     }
   }
 
@@ -211,6 +241,16 @@ export class SettingsComponent implements OnInit {
       username: this.userProfile['extra'].username,
     });
   }
+  /**
+   * password toggle field
+   */
+  passwordToggle() {
+    if (this.passwordActive === true) {
+      this.passwordActive = false;
+    }else {
+      this.passwordActive = true;
+    }
+  }
 
   /**
    * Checking for the password if matches with the confirm password on register form
@@ -231,6 +271,7 @@ export class SettingsComponent implements OnInit {
 
   displayView(tab: string) {
     this.selectedView = tab;
+    this._store.dispatch({type: ProfileActions.LOAD_BLOCK_USERS, payload: this.userHandle});
   }
 
   updateCheckedOptions(option, event) {
@@ -336,5 +377,21 @@ export class SettingsComponent implements OnInit {
         console.log('finally its a success' + response)
       });
     }
+  }
+  unBlock(handle: any) {
+    console.log(handle);
+    const form = {
+      'blockedHandle': handle
+    }
+    console.log(form)
+    const headers = this.tokenService.getAuthHeader();
+    this.http.put(this.apiLink + '/portal/network/block/unblock' , form, { headers: headers })
+   .map((data: Response) => data.json())
+   .subscribe(response => {
+     console.log('finally its a success' + response)
+     this._store.dispatch({type: ProfileActions.LOAD_BLOCK_USERS, payload: this.userHandle});
+   });
+    // this._store.dispatch({type: ProfileActions.UNBLOCK_USER, payload: form});
+    // this._store.dispatch({type: ProfileActions.LOAD_BLOCK_USERS, payload: this.userHandle});
   }
 }
