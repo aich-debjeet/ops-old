@@ -53,16 +53,16 @@ export class OrganizationProfileComponent implements OnInit {
       }
     }
 
-    this.orgState = this.orgStore.select('organizationTags');
-    this.orgState.subscribe((state) => {
-      this.orgProfile = state;
-      console.log('this.orgProfile', this.orgProfile);
-    });
+    // this.orgState = this.orgStore.select('organizationTags');
+    // this.orgState.subscribe((state) => {
+    //   this.orgProfile = state;
+    //   console.log('this.orgProfile', this.orgProfile);
+    // });
 
-    this.orgStore.dispatch({
-      type: OrganizationActions.LOAD_ORG_CHANNELS,
-      payload: this.profileHandle
-    });
+    // this.orgStore.dispatch({
+    //   type: OrganizationActions.LOAD_ORG_CHANNELS,
+    //   payload: this.profileHandle
+    // });
 
    }
 
