@@ -79,13 +79,15 @@ export class OrgChannelComponent implements OnInit {
    * @param file
    */
   removeChannel(channelId: any) {
+    // console.log('before ', this.channels);
+    // console.log('remove ', channelId);
     const list = _remove(this.channels, function(n){
       return n.spotfeedId === channelId;
     });
-
     if (list) {
       this.channels = list;
     }
+    // console.log('after ', this.channels);
   }
 
   // @Input() userName: string;
