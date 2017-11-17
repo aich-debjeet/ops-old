@@ -43,7 +43,7 @@
                 <p>{{ '@' + profileObject?.userHandle }}</p>
                 <p class="profession">{{ profileObject?.extra?.profession }}</p>
                 <div *ngIf="!this.isOwner" class="share__follow">
-                    <button (click)="userFollow(isFollowing, profileObject?.userDetails?.handle )" *ngIf="!profileObject?.extra?.isImported" type="button" class="btn btn-xs btn-basic btn-small" [ngClass]="(isFollowing) ? 'btn-following' : 'btn-primary'">
+                    <button [disabled]="disableFollowForSelf(profileObject?.extra?.username)" (click)="userFollow(isFollowing, profileObject?.userDetails?.handle )" *ngIf="!profileObject?.extra?.isImported" type="button" class="btn btn-xs btn-basic btn-small" [ngClass]="(isFollowing) ? 'btn-following' : 'btn-primary'">
                         <span class="btn-label-follow ">{{ (isFollowing)? 'Unfollow' : 'Follow'}} </span>
                     </button>
                     <button *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-xs btn-basic btn-small btn-following">
