@@ -7,7 +7,10 @@ import { ToastrService } from 'ngx-toastr';
 
 // action
 import { OrganizationActions } from '../../../../actions/organization.action';
+import { ProfileActions } from '../../../../actions/profile.action';
 import { SharedActions } from '../../../../actions/shared.action';
+
+import { ProfileModal } from '../../../../models/profile.model';
 
 import { LocalStorageService } from '../../../../services/local-storage.service';
 
@@ -33,7 +36,9 @@ export class OrgChannelComponent implements OnInit {
 
   constructor(
     private orgStore: Store<any>,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private toastr: ToastrService,
+    private _store: Store<ProfileModal>
   ) {
 
     this.orgState = this.orgStore.select('organizationTags');
@@ -59,6 +64,29 @@ export class OrgChannelComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  /**
+   * Delete a channel
+   */
+  deleteChannel(channelId: string) {
+    this._store.dispatch({ type: ProfileActions.CHANNEL_DELETE, payload: channelId });
+    this.removeChannel(channelId);
+    this.toastr.warning('Channel Deleted');
+  }
+
+  /**
+   * Remove a channel from list
+   * @param file
+   */
+  removeChannel(channelId: any) {
+    const list = _remove(this.channels, function(n){
+      return n.spotfeedId === channelId;
+    });
+
+    if (list) {
+      this.channels = list;
+    }
+  }
 
   // @Input() userName: string;
   // tagState$: Observable<ProfileModal>;
@@ -151,29 +179,6 @@ export class OrgChannelComponent implements OnInit {
   //     state: e.state
   //   };
   //   this._store.dispatch({ type: ProfileActions.CHANNEL_FOLLOW, payload: req });
-  // }
-
-  // /**
-  //  * Delete a channel
-  //  */
-  // deleteChannel(channelId: string) {
-  //   this._store.dispatch({ type: ProfileActions.CHANNEL_DELETE, payload: channelId });
-  //   this.removeChannel(channelId);
-  //   this.toastr.warning('Channel Deleted');
-  // }
-
-  // /**
-  //  * Remove a channel from list
-  //  * @param file
-  //  */
-  // removeChannel(channelId: any) {
-  //   const list = _remove(this.channels, function(n){
-  //     return n.spotfeedId === channelId;
-  //   });
-
-  //   if (list) {
-  //     this.channels = list;
-  //   }
   // }
 
 }
