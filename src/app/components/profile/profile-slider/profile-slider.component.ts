@@ -77,7 +77,8 @@ export class ProfileSliderComponent implements OnInit {
     private utils: ProfileHelper,
     private toastr: ToastrService
   ) {
-  document.body.scrollTop = 0;
+
+    document.body.scrollTop = 0;
     this.baseUrl = environment.API_IMAGE;
 
     this.tagState$ = this.profileStore.select('profileTags');
@@ -112,6 +113,13 @@ export class ProfileSliderComponent implements OnInit {
         this.isFollowing = data['profile_other'].extra.isFollowing;
         this.followers = data['profile_other'].followersCount;
       });
+  }
+
+  disableFollowForSelf(username: string) {
+    if (this.userProfile && this.userProfile['profileUser']['username'] === username) {
+      return true;
+    }
+    return false;
   }
 
   /**
