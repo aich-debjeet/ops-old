@@ -21,22 +21,16 @@
           </a>
           <a routerLink="{{ '/profile/u/' + mediaData?.ownerUserName }}" class="c-user__name2">{{ mediaData?.ownerName }}</a>
         </div>
-        <!--<div *ngIf="mediaData?.isOwner" appDropdown>
-            <span class="com-head" appDropdownOpen>
+        <div class="dropdown" *ngIf="mediaData?.isOwner">
+          <div class="dropup" appDropdown>
+            <a href="javascript:void(0);" appDropdownOpen>
               <img src="/assets/img/svg/ico_option_white.svg" class="c-status__options pull-right m-t-8">
-            </span>
-            <ul class="dropdown-menu drop-postion__right">
-               <li>
-                <a class="c-opsdropdown__list" (click)="onContentDelete($event)">
-                  <img src="http://d33wubrfki0l68.cloudfront.net/b3dd9a5fe04c6921b6c04fd3d4647f713a92b32c/a4a4a/img/svg/ico_delete.svg" class="c-opsdropdown--icons">
-                  <span class="c-opsdropdown--text">Delete</span>
-                </a>
-               </li>
+            </a>
+            <ul class="dropdown-menu pull-right">
+              <li><a href="javascript:void(0);" (click)="onContentDelete($event)">Delete</a></li>
             </ul>
-          </div>-->
-        <!--<a href="javascript:void(0);">
-          <img src="/assets/img/svg/ico_option_white.svg" alt="" class="c-status__options pull-right m-t-8">
-        </a>-->
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -50,8 +44,8 @@
   <!-- //card body -->
   <!-- card footer links -->
   <div class="c-card__links p-t-0">
-    <div class="c-links" (click)="spotMedia(mediaData?.id)">
-      <div class="c-links__spots">
+    <div class="c-links">
+      <div class="c-links__spots" (click)="spotMedia(mediaData?.id)">
         <img *ngIf="following === false" src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
         <img *ngIf="following === true" src="http://d33wubrfki0l68.cloudfront.net/8d58c78cd26eb1d103bb24ec6c1d786a0964b8b4/63aa4/img/svg/ico_spot.svg" class="c-links__image" width="14px!important">
         <span class="c-links__count">{{ followingCount }}</span>

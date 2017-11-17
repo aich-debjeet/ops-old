@@ -469,7 +469,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Current user Profile
      */
     case ProfileActions.CURRENT_PROFILE_USER:
-     console.log(JSON.stringify(payload))
       return Object.assign({}, state, {
         current_user_profile: payload,
         profile_user_info : payload
@@ -499,7 +498,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     // Get single spotfeed details
     case ProfileActions.GET_SPOTFEED_DETAILS:
       if (payload.page_start === 0) {
-        // console.log('truncate');
         return Object.assign({}, state, {
           success: true,
           spotfeed_loading: false,
@@ -507,7 +505,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
           spotfeed_detail: []
         });
       } else {
-        // console.log('append');
         return Object.assign({}, state, {
           success: true,
           spotfeed_loading: false,
@@ -518,14 +515,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.GET_SPOTFEED_DETAILS_SUCCESS:
       const new_spotfeed = payload['SUCCESS'] || [];
       if (state.spotfeed_request_params.page_start === 0) {
-        // console.log('initial load');
         // appending the new spotfeeds and profile to the existing records in the state
         return Object.assign({}, state, {
           spotfeed_loading: false,
           spotfeed_detail: new_spotfeed
         });
       } else {
-        // console.log('load more');
         // appending the new spotfeeds and profile to the existing records in the state
         state.spotfeed_detail.spotfeedMedia = [...state.spotfeed_detail.spotfeedMedia, ...new_spotfeed.spotfeedMedia];
         state.spotfeed_detail.spotfeedProfiles = [...state.spotfeed_detail.spotfeedProfiles, ...new_spotfeed.spotfeedProfiles];

@@ -86,14 +86,14 @@
                                 <div class="editarea_rightbar">
                                     <div class="form_group">
                                         <input class="form_input" type="hidden" formControlName="id">
-                                        <input class="form_input" type="text" formControlName="company" required>
+                                        <input class="form_input" type="text" formControlName="company" required maxlength="40">
                                         <span class="form_highlight"></span>
                                         <span class="form_bar"></span>
                                         <label>Company</label>
                                         <p class="error_alert" *ngIf="workForm.controls['company'].errors?.required && myform.submitted">Company is required</p>
                                     </div>
                                     <div class="form_group">
-                                        <input class="form_input" type="text" formControlName="position" required>
+                                        <input class="form_input" type="text" formControlName="position" required maxlength="40" required>
                                         <span class="form_highlight"></span>
                                         <span class="form_bar"></span>
                                         <label>Position</label>

@@ -4,11 +4,10 @@
         <div class="loader">Loading...</div>
       </div>
   </div>
-  <masonry [useImagesLoaded]="true">
-      <masonry-brick class="col-md-3 col-sm-6 c-card padding_8" *ngFor="let channel of channels; let i = index">
-          <app-channel [currentUser]="isOwner" [channelData]="channel" (onFollow)="followChannel($event)" (onDelete)="deleteChannel($event)"></app-channel>
-      </masonry-brick>
-  </masonry>
+
+  <div class="col-md-3 col-sm-6 c-card padding_8" *ngFor="let channel of (tagState$ | async).other_channel; let i = index">
+      <app-channel [currentUser]="isOwner" [channelData]="channel" (onFollow)="followChannel($event)" (onDelete)="deleteChannel($event)"></app-channel>
+  </div>
 
   <div *ngIf="!profileChannel?.other_channels_loading&& channels.length < 1 && isOwner === true " class="empty__state">
     <h4>You have no channels</h4>
