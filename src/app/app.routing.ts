@@ -72,4 +72,5 @@ export const routes: Routes = [
  { path: 'org', loadChildren: './components/organization/organization.module#OrganizationModule'},
  { path: 'page-not-found', component: NotFoundPageComponent },
  { path: '**', redirectTo: 'page-not-found' },
+ { path: 'opportunity', loadChildren: './components/opportunity/opportunity.module#OpportunityModule', canActivate: [AuthGuard] },
 ];
