@@ -249,11 +249,12 @@ export class NavigationComponent implements OnInit {
     let orgHandle, orgUsername;
 
     // check for org handle
-    if (username) {
+    if (username && handle) {
       orgUsername = username;
-    } else if (this.userProfile.profileUser.organization.organizationUserName) {
-      orgHandle = this.userProfile.profileUser.organization.organizationHandle;
+      orgHandle = handle;
+    } else if (this.userProfile && this.userProfile.profileUser && this.userProfile.profileUser.organization && this.userProfile.profileUser.organization.organizationUserName) {
       orgUsername = this.userProfile.profileUser.organization.organizationUserName;
+      orgHandle = this.userProfile.profileUser.organization.organizationHandle;
     }
 
     if (orgHandle !== '') {
