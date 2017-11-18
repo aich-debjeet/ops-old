@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 
 import { OpportunityModel } from './../../../models/opportunity.model';
 
+import { LocalStorageService } from './../../../services/local-storage.service';
+
 @Component({
   selector: 'app-opportunity-create',
   templateUrl: './opportunity-create.component.html',
@@ -14,10 +16,12 @@ import { OpportunityModel } from './../../../models/opportunity.model';
 export class OpportunityCreateComponent implements OnInit {
 
   createOppFrm: FormGroup;
+  orgHandle = '';
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<OpportunityModel>
+    private store: Store<OpportunityModel>,
+    private localStorageService: LocalStorageService
   ) {
 
     this.createOppFrm = fb.group({
@@ -38,6 +42,14 @@ export class OpportunityCreateComponent implements OnInit {
       country: [null],
       attachments: [null]
     });
+
+    // check if creator is user or organization
+    if (localStorage.getItem('accountStatus') !== null) {
+      const localStore = JSON.parse(this.localStorageService.theAccountStatus);
+      if (localStore.profileType === 'org') {
+        this.orgHandle = localStore.handle;
+      }
+    }
 
   }
 
@@ -80,7 +92,8 @@ export class OpportunityCreateComponent implements OnInit {
         salaryType: formData.salaryType,
         currency: formData.salaryCurrency
       },
-      organization: formData.orgName,
+      organization: this.orgHandle,
+      // organizationName: formData.orgName,
       jobType: formData.oppType,
       skills: skillsArr,
       attachment: [''],
