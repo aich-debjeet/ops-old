@@ -1,4 +1,4 @@
-<p>
+<!-- <p>
   opportunity-search works!
 </p>
 <ul class="nav nav-tabs">
@@ -6,4 +6,1508 @@
   <li routerLinkActive="active"><a [routerLink]="['applied']" >Applied</a></li>
   <li routerLinkActive="active"><a [routerLink]="['created']" >Created</a></li>
 </ul>
-<router-outlet></router-outlet>
+<router-outlet></router-outlet> -->
+
+<section class="o-opportunity-top-block">
+  <div class="container p-0">
+
+  	<h3 class="c-h3 o-top-main__title color-white">
+	  	Notes are very powerful. They express your thanks, encouragement, sympathy, apology, 
+	  </h3>
+
+	  <div class="o-opportunity-search m-t-32">
+	  	<form action="">
+        <input class="o-opp-search__input" required="" type="text" placeholder="Search opportunities">
+        <select class="c-form-control o-opp-search__select m-0">
+          <option>Industry</option>
+          <option>Select list 2</option>
+        </select>
+        <div class="o-opp-search__icon">
+        	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" data-name="Layer 1" viewBox="0 0 74 74">
+        		<defs><style>.cls-1,.cls-2,.cls-4{fill:#FF7B84;}.cls-1{clip-rule:evenodd;}.cls-2{fill-rule:evenodd;}.cls-3{clip-path:url(#clip-path);}.cls-5{clip-path:url(#clip-path-2);}.cls-6{clip-path:url(#clip-path-3);}</style><clipPath id="clip-path"><path class="cls-1" d="M-218,46.06v-9a27,27,0,0,0-20-26V8.23a7.13,7.13,0,0,0-5.46-7.06A7,7,0,0,0-252,8v3.06a27,27,0,0,0-20,26v9a9,9,0,0,0-8.9,10.31A9.16,9.16,0,0,0-271.74,64H-254a9,9,0,0,0,9,9,9,9,0,0,0,9-9h17.74a9.16,9.16,0,0,0,9.16-7.64A9,9,0,0,0-218,46.06ZM-247,8a2,2,0,0,1,2.66-1.89,2.05,2.05,0,0,1,1.34,2v2c-.66,0-1.33-.08-2-.08s-1.34,0-2,.08Zm-20,29a22,22,0,0,1,25.28-21.71C-230.86,16.91-223,26.55-223,37.52V46h-44Zm21.91,31a4,4,0,0,1-4-4h8A4,4,0,0,1-245.09,68Zm30.91-12.15A4.1,4.1,0,0,1-218.24,59h-53.7A4.1,4.1,0,0,1-276,55.86,4,4,0,0,1-272.09,51h54A4,4,0,0,1-214.18,55.86Z"/></clipPath><clipPath id="clip-path-2"><path class="cls-1" d="M2149.06-3141h-43a10,10,0,0,0-10,10v8.06a10,10,0,0,0-9,10v34a10,10,0,0,0,10,10h43a10,10,0,0,0,10-10V-3087a10,10,0,0,0,9-10v-34A10,10,0,0,0,2149.06-3141ZM2097-3118h43a5,5,0,0,1,5,5v1l-27,19.8-26-19.76v-1A5,5,0,0,1,2097-3118Zm43,44h-43a5,5,0,0,1-5-5v-26.5l26,19.72,27.09-19.84v26.62A5,5,0,0,1,2140.05-3073.93Zm14-23a5,5,0,0,1-4,4.9V-3113a10,10,0,0,0-10-10h-39v-8a5,5,0,0,1,5-5h43a5,5,0,0,1,5,5Z"/></clipPath><clipPath id="clip-path-3"><path class="cls-1" d="M-125,1h-43a10,10,0,0,0-10,10V19a10,10,0,0,0-9,10V63a10,10,0,0,0,10,10h43a10,10,0,0,0,10-10V55a10,10,0,0,0,9-10V11A10,10,0,0,0-125,1ZM-177,24h43a5,5,0,0,1,5,5v1l-27,19.8L-182,30V29A5,5,0,0,1-177,24Zm43,44h-43a5,5,0,0,1-5-5V36.53l26,19.72L-129,36.41V63A5,5,0,0,1-134,68Zm14-23a5,5,0,0,1-4,4.9V29a10,10,0,0,0-10-10h-39V11a5,5,0,0,1,5-5h43a5,5,0,0,1,5,5Z"/></clipPath></defs><title>ico</title><path class="cls-2" d="M-218,46.06v-9a27,27,0,0,0-20-26V8.23a7.13,7.13,0,0,0-5.46-7.06A7,7,0,0,0-252,8v3.06a27,27,0,0,0-20,26v9a9,9,0,0,0-8.9,10.31A9.16,9.16,0,0,0-271.74,64H-254a9,9,0,0,0,9,9,9,9,0,0,0,9-9h17.74a9.16,9.16,0,0,0,9.16-7.64A9,9,0,0,0-218,46.06ZM-247,8a2,2,0,0,1,2.66-1.89,2.05,2.05,0,0,1,1.34,2v2c-.66,0-1.33-.08-2-.08s-1.34,0-2,.08Zm-20,29a22,22,0,0,1,25.28-21.71C-230.86,16.91-223,26.55-223,37.52V46h-44Zm21.91,31a4,4,0,0,1-4-4h8A4,4,0,0,1-245.09,68Zm30.91-12.15A4.1,4.1,0,0,1-218.24,59h-53.7A4.1,4.1,0,0,1-276,55.86,4,4,0,0,1-272.09,51h54A4,4,0,0,1-214.18,55.86Z"/><g class="cls-3"><rect class="cls-4" x="-5628" y="-106.98" width="6497" height="6624"/></g><path class="cls-2" d="M2149.06-3141h-43a10,10,0,0,0-10,10v8.06a10,10,0,0,0-9,10v34a10,10,0,0,0,10,10h43a10,10,0,0,0,10-10V-3087a10,10,0,0,0,9-10v-34A10,10,0,0,0,2149.06-3141ZM2097-3118h43a5,5,0,0,1,5,5v1l-27,19.8-26-19.76v-1A5,5,0,0,1,2097-3118Zm43,44h-43a5,5,0,0,1-5-5v-26.5l26,19.72,27.09-19.84v26.62A5,5,0,0,1,2140.05-3073.93Zm14-23a5,5,0,0,1-4,4.9V-3113a10,10,0,0,0-10-10h-39v-8a5,5,0,0,1,5-5h43a5,5,0,0,1,5,5Z"/><g class="cls-5"><rect class="cls-4" x="-3405.83" y="-3248.61" width="6456.88" height="6582.43"/></g><path class="cls-2" d="M-125,1h-43a10,10,0,0,0-10,10V19a10,10,0,0,0-9,10V63a10,10,0,0,0,10,10h43a10,10,0,0,0,10-10V55a10,10,0,0,0,9-10V11A10,10,0,0,0-125,1ZM-177,24h43a5,5,0,0,1,5,5v1l-27,19.8L-182,30V29A5,5,0,0,1-177,24Zm43,44h-43a5,5,0,0,1-5-5V36.53l26,19.72L-129,36.41V63A5,5,0,0,1-134,68Zm14-23a5,5,0,0,1-4,4.9V29a10,10,0,0,0-10-10h-39V11a5,5,0,0,1,5-5h43a5,5,0,0,1,5,5Z"/><g class="cls-6"><rect class="cls-4" x="-5679.87" y="-106.65" width="6456.88" height="6582.43"/></g><path class="cls-4" d="M31.5,62A30.5,30.5,0,1,1,62,31.5,30.54,30.54,0,0,1,31.5,62Zm0-56.12A25.62,25.62,0,1,0,57.12,31.5,25.65,25.65,0,0,0,31.5,5.88Z"/><rect class="cls-4" x="58.86" y="47.2" width="4.88" height="28.21" transform="translate(-25.39 61.3) rotate(-45)"/>
+        	</svg>
+        </div>
+	  	</form>
+	  </div><!-- search end -->
+
+  	<div class="o-top-quicklink">
+  		<ul class="o-quicklink-list">
+  			<li class="o-quicklink__item">
+  				<input type="radio" name="audition" value="Option1" id="1"/>
+				  <label for="1">
+				  	<span class="o-quicklink__ico">
+				  		<img width="62" src="/assets/img/opportunities/audition.png" alt="">
+				  	</span>
+				  	<span class="o-quicklink__title">
+				  		<p class="c-text_lg">Audition</p>
+				  		<p class="c-text_sm color-grey-dark">14 Oppurtunities</p>
+				  	</span>
+				  	<span class="o-quicklink__title-show">
+				  		<p class="c-text_md color-theme">Audition</p>
+				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
+				  	</span>
+				  </label>
+  			</li><!-- audition end -->
+  			<li class="o-quicklink__item">
+  				<input type="radio" name="audition" value="Option1" id="1"/>
+				  <label for="1">
+				  	<span class="o-quicklink__ico">
+				  		<img width="62" src="/assets/img/opportunities/projects.png" alt="">
+				  	</span>
+				  	<span class="o-quicklink__title">
+				  		<p class="c-text_lg">Projects</p>
+				  		<p class="c-text_sm color-grey-dark">14 Oppurtunities</p>
+				  	</span>
+				  	<span class="o-quicklink__title-show">
+				  		<p class="c-text_md color-theme">Projects</p>
+				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
+				  	</span>
+				  </label>
+  			</li><!-- Projects end -->
+  			<li class="o-quicklink__item">
+  				<input type="radio" name="audition" value="Option1" id="1"/>
+				  <label for="1">
+				  	<span class="o-quicklink__ico">
+				  		<img width="62" src="/assets/img/opportunities/job.png" alt="">
+				  	</span>
+				  	<span class="o-quicklink__title">
+				  		<p class="c-text_lg">Jobs</p>
+				  		<p class="c-text_sm color-grey-dark">14 Oppurtunities</p>
+				  	</span>
+				  	<span class="o-quicklink__title-show">
+				  		<p class="c-text_md color-theme">Jobs</p>
+				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
+				  	</span>
+				  </label>
+  			</li><!-- Jobs end -->
+  			<li class="o-quicklink__item">
+  				<input type="radio" name="audition" value="Option1" id="1"/>
+				  <label for="1">
+				  	<span class="o-quicklink__ico">
+				  		<img width="62" src="/assets/img/opportunities/internship.png" alt="">
+				  	</span>
+				  	<span class="o-quicklink__title">
+				  		<p class="c-text_lg">Internship</p>
+				  		<p class="c-text_sm color-grey-dark">14 Oppurtunities</p>
+				  	</span>
+				  	<span class="o-quicklink__title-show">
+				  		<p class="c-text_md color-theme">Internship</p>
+				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
+				  	</span>
+				  </label>
+  			</li><!-- Internship end -->
+  			<li class="o-quicklink__item">
+  				<input type="radio" name="audition" value="Option1" id="1"/>
+				  <label for="1">
+				  	<span class="o-quicklink__ico">
+				  		<img width="62" src="/assets/img/opportunities/freelance.png" alt="">
+				  	</span>
+				  	<span class="o-quicklink__title">
+				  		<p class="c-text_lg">Freelance</p>
+				  		<p class="c-text_sm color-grey-dark">14 Oppurtunities</p>
+				  	</span>
+				  	<span class="o-quicklink__title-show">
+				  		<p class="c-text_md color-theme">Freelance</p>
+				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
+				  	</span>
+				  </label>
+  			</li><!-- Freelance end -->
+  			<li class="o-quicklink__item m-r-0">
+  				<input type="radio" name="audition" value="Option1" id="1"/>
+				  <label for="1">
+				  	<span class="o-quicklink__ico">
+				  		<img width="62" src="/assets/img/opportunities/volunteer.png" alt="">
+				  	</span>
+				  	<span class="o-quicklink__title">
+				  		<p class="c-text_lg">Volunteer</p>
+				  		<p class="c-text_sm color-grey-dark">14 Oppurtunities</p>
+				  	</span>
+				  	<span class="o-quicklink__title-show">
+				  		<p class="c-text_md color-theme">Volunteer</p>
+				  		<p class="c-text_sm color-theme">What does it take to be successful?</p>
+				  	</span>
+				  </label>
+  			</li><!-- Volunteer end -->
+  		</ul>
+  	</div><!-- quick link end -->
+
+  	<div class="o-opp-taglist">
+  		<span class="c-skill__tags color-white">#web</span>
+      <span class="c-skill__tags color-white">#entertainment</span>
+      <span class="c-skill__tags color-white">#projects</span>
+      <span class="c-skill__tags color-white">#uiux</span>
+      <span class="c-skill__tags color-white">#artlovers</span>
+      <span class="c-skill__tags color-white">#artdirection</span>
+      <span class="c-skill__tags color-white">#art</span>
+      <span class="c-skill__tags color-white">#branding</span>
+      <span class="c-skill__tags color-white">#typography</span>
+      <span class="c-skill__tags color-white">#webdesign</span>
+      <span class="c-skill__tags color-white">#web</span>
+      <span class="c-skill__tags color-white">#entertainment</span>
+      <span class="c-skill__tags color-white">#projects</span>
+      <span class="c-skill__tags color-white">#uiux</span>
+      <span class="c-skill__tags color-white">#artlovers</span>
+      <span class="c-skill__tags color-white">#artdirection</span>
+      <span class="c-skill__tags color-white">#art</span>
+      
+  	</div><!--tag list end -->
+
+  </div>
+</section><!---- opportunity top block end ---->
+
+<section class="o-opportunity-list-block">
+	<div class="container p-0">
+		<div class="o-oppertunity-filter-sec with_border_top c-ops__tabs o-opportunity-tabs p-t-b-16">
+  		<div class="col-md-6 p-0">
+  			<ul class="nav nav-tabs">
+          <li class="active"><a class="p-l-0" data-toggle="tab" href="#recommended" aria-expanded="true">Recommended</a></li>
+          <li class=""><a data-toggle="tab" href="#applied" aria-expanded="false">Applied</a></li>
+          <li class=""><a data-toggle="tab" href="#created" aria-expanded="false">Created</a></li>
+        </ul>
+  		</div>
+  		<div class="col-md-6 p-0">
+  			<ul class="o-filter-list-block">
+  				<li class="o-filter-list__item">
+  					<a href="#" class="o-filter-item__location">
+  						<span class="o-select-location c-text_md color-grey-dark">
+  							<span class="o-select-location__ico">
+  								<img src="/assets/img/svg/location.svg" alt="">
+  							</span>
+  							Select Location
+  						</span>
+  					</a>
+  				</li><!-- select location end -->
+  				<li class="o-filter-list__item">
+  					<div class="o-filter__fil-icon">
+  						<img width="17" src="/assets/img/svg/fiter.svg" alt="">
+  					</div>
+  				</li> <!-- filter ico end -->
+  				<li class="o-filter-list__item m-r-0">
+  					<a href="opportunities_form.html" class="btn btn-primary btn-md ">Create job</a>
+  				</li><!-- create button end -->
+  			</ul>
+  		</div>
+  	</div><!-- filter section end -->
+		<div class="tab-content">
+	      <div id="recommended" class="tab-pane fade  active in">
+	        <div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_inner2.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_inner2.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_inner2.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_inner2.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_inner2.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_inner2.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_inner2.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_inner2.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+	      </div>
+	      <div id="applied" class="tab-pane fade">
+	        <div class="col-md-3 p-8">
+			      <div class="c-card">
+			        <!-- card media (img, video & audio) -->
+			        <div class="c-card__opportunity">
+			            <a href="" data-toggle="modal" data-target="#imgModal">
+			              <img src="/assets/img/photography3.jpg" alt="" class="c-card__image">
+			            </a>
+			            <div class="c-media--hover">
+			              <div class="">
+			                <div class="c-user">
+			                  <a href="javascript:void(0);" class="c-user__avatar c-avatar--feed2">
+			                    <img class="c-user__image" src="/assets/img/avatar.jpg">
+			                  </a>
+			                  <a class="c-user__name2">Tobias Van1</a>
+			                </div>
+			                <a href="javascript:void(0);">
+			                  <img src="/assets/img/svg/ico_option_white.svg" alt="" class="c-status__options pull-right m-t-8">
+			                </a>
+			              </div>
+			            </div>
+			        </div>
+			        <!-- //card media (img, video & audio) -->
+			        <div class="c-card__project p-l-r-16 p-t-16">Projects</div>
+			        <!-- card body -->
+			        <div class="c-card__body">
+			            <div class="c-card__project--des">
+			                MEAN stack developer with front end and UI/UX skills
+			            </div>
+			        </div>
+			        <!-- //card body -->
+			        <div class="c-card__location p-b-16 with_border_bottom">
+			            <img src="/assets/img/svg/ico_location2.svg"> <p class="c-card__location--text">Bangalore, India</p>
+			        </div>
+			        <!-- card footer links -->
+			        <div class="c-card__links">
+			            <div class="c-links">
+			                <div class="c-links__spots">
+			                    <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+			                    <span class="c-links__count">705</span>
+			                </div>
+			                <div class="c-links__comments">
+			                    <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+			                </div>
+			                <div class="c-links__actions">
+			                    <a href="opportunities_inner2.html" class="c-card__opportunity--view">View</a>
+			                </div>
+			            </div>
+			        </div>
+			        <!-- //card footer links -->
+			      </div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+			        <!-- card media (img, video & audio) -->
+			        <div class="c-card__opportunity">
+			            <a href="" data-toggle="modal" data-target="#imgModal">
+			              <img src="/assets/img/photography3.jpg" alt="" class="c-card__image">
+			            </a>
+			            <div class="c-media--hover">
+			              <div class="">
+			                <div class="c-user">
+			                  <a href="javascript:void(0);" class="c-user__avatar c-avatar--feed2">
+			                    <img class="c-user__image" src="/assets/img/avatar.jpg">
+			                  </a>
+			                  <a class="c-user__name2">Tobias Van1</a>
+			                </div>
+			                <a href="javascript:void(0);">
+			                  <img src="/assets/img/svg/ico_option_white.svg" alt="" class="c-status__options pull-right m-t-8">
+			                </a>
+			              </div>
+			            </div>
+			        </div>
+			        <!-- //card media (img, video & audio) -->
+			        <div class="c-card__project p-l-r-16 p-t-16">Projects</div>
+			        <!-- card body -->
+			        <div class="c-card__body">
+			            <div class="c-card__project--des">
+			                MEAN stack developer with front end and UI/UX skills
+			            </div>
+			        </div>
+			        <!-- //card body -->
+			        <div class="c-card__location p-b-16 with_border_bottom">
+			            <img src="/assets/img/svg/ico_location2.svg"> <p class="c-card__location--text">Bangalore, India</p>
+			        </div>
+			        <!-- card footer links -->
+			        <div class="c-card__links">
+			            <div class="c-links">
+			                <div class="c-links__spots">
+			                    <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+			                    <span class="c-links__count">705</span>
+			                </div>
+			                <div class="c-links__comments">
+			                    <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+			                </div>
+			                <div class="c-links__actions">
+			                    <a href="javascript:void(0);" class="c-card__opportunity--view">View</a>
+			                </div>
+			            </div>
+			        </div>
+			        <!-- //card footer links -->
+			      </div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+			        <!-- card media (img, video & audio) -->
+			        <div class="c-card__opportunity">
+			            <a href="" data-toggle="modal" data-target="#imgModal">
+			              <img src="/assets/img/photography3.jpg" alt="" class="c-card__image">
+			            </a>
+			            <div class="c-media--hover">
+			              <div class="">
+			                <div class="c-user">
+			                  <a href="javascript:void(0);" class="c-user__avatar c-avatar--feed2">
+			                    <img class="c-user__image" src="/assets/img/avatar.jpg">
+			                  </a>
+			                  <a class="c-user__name2">Tobias Van1</a>
+			                </div>
+			                <a href="javascript:void(0);">
+			                  <img src="/assets/img/svg/ico_option_white.svg" alt="" class="c-status__options pull-right m-t-8">
+			                </a>
+			              </div>
+			            </div>
+			        </div>
+			        <!-- //card media (img, video & audio) -->
+			        <div class="c-card__project p-l-r-16 p-t-16">Projects</div>
+			        <!-- card body -->
+			        <div class="c-card__body">
+			            <div class="c-card__project--des">
+			                MEAN stack developer with front end and UI/UX skills
+			            </div>
+			        </div>
+			        <!-- //card body -->
+			        <div class="c-card__location p-b-16 with_border_bottom">
+			            <img src="/assets/img/svg/ico_location2.svg"> <p class="c-card__location--text">Bangalore, India</p>
+			        </div>
+			        <!-- card footer links -->
+			        <div class="c-card__links">
+			            <div class="c-links">
+			                <div class="c-links__spots">
+			                    <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+			                    <span class="c-links__count">705</span>
+			                </div>
+			                <div class="c-links__comments">
+			                    <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+			                </div>
+			                <div class="c-links__actions">
+			                    <a href="javascript:void(0);" class="c-card__opportunity--view">View</a>
+			                </div>
+			            </div>
+			        </div>
+			        <!-- //card footer links -->
+			      </div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+			        <!-- card media (img, video & audio) -->
+			        <div class="c-card__opportunity">
+			            <a href="" data-toggle="modal" data-target="#imgModal">
+			              <img src="/assets/img/photography3.jpg" alt="" class="c-card__image">
+			            </a>
+			            <div class="c-media--hover">
+			              <div class="">
+			                <div class="c-user">
+			                  <a href="javascript:void(0);" class="c-user__avatar c-avatar--feed2">
+			                    <img class="c-user__image" src="/assets/img/avatar.jpg">
+			                  </a>
+			                  <a class="c-user__name2">Tobias Van1</a>
+			                </div>
+			                <a href="javascript:void(0);">
+			                  <img src="/assets/img/svg/ico_option_white.svg" alt="" class="c-status__options pull-right m-t-8">
+			                </a>
+			              </div>
+			            </div>
+			        </div>
+			        <!-- //card media (img, video & audio) -->
+			        <div class="c-card__project p-l-r-16 p-t-16">Projects</div>
+			        <!-- card body -->
+			        <div class="c-card__body">
+			            <div class="c-card__project--des">
+			                MEAN stack developer with front end and UI/UX skills
+			            </div>
+			        </div>
+			        <!-- //card body -->
+			        <div class="c-card__location p-b-16 with_border_bottom">
+			            <img src="/assets/img/svg/ico_location2.svg"> <p class="c-card__location--text">Bangalore, India</p>
+			        </div>
+			        <!-- card footer links -->
+			        <div class="c-card__links">
+			            <div class="c-links">
+			                <div class="c-links__spots">
+			                    <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+			                    <span class="c-links__count">705</span>
+			                </div>
+			                <div class="c-links__comments">
+			                    <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+			                </div>
+			                <div class="c-links__actions">
+			                    <a href="javascript:void(0);" class="c-card__opportunity--view">View</a>
+			                </div>
+			            </div>
+			        </div>
+			        <!-- //card footer links -->
+			      </div>
+			  	</div>
+
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+			        <!-- card media (img, video & audio) -->
+			        <div class="c-card__opportunity">
+			            <a href="" data-toggle="modal" data-target="#imgModal">
+			              <img src="/assets/img/photography3.jpg" alt="" class="c-card__image">
+			            </a>
+			            <div class="c-media--hover">
+			              <div class="">
+			                <div class="c-user">
+			                  <a href="javascript:void(0);" class="c-user__avatar c-avatar--feed2">
+			                    <img class="c-user__image" src="/assets/img/avatar.jpg">
+			                  </a>
+			                  <a class="c-user__name2">Tobias Van1</a>
+			                </div>
+			                <a href="javascript:void(0);">
+			                  <img src="/assets/img/svg/ico_option_white.svg" alt="" class="c-status__options pull-right m-t-8">
+			                </a>
+			              </div>
+			            </div>
+			        </div>
+			        <!-- //card media (img, video & audio) -->
+			        <div class="c-card__project p-l-r-16 p-t-16">Projects</div>
+			        <!-- card body -->
+			        <div class="c-card__body">
+			            <div class="c-card__project--des">
+			                MEAN stack developer with front end and UI/UX skills
+			            </div>
+			        </div>
+			        <!-- //card body -->
+			        <div class="c-card__location p-b-16 with_border_bottom">
+			            <img src="/assets/img/svg/ico_location2.svg"> <p class="c-card__location--text">Bangalore, India</p>
+			        </div>
+			        <!-- card footer links -->
+			        <div class="c-card__links">
+			            <div class="c-links">
+			                <div class="c-links__spots">
+			                    <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+			                    <span class="c-links__count">705</span>
+			                </div>
+			                <div class="c-links__comments">
+			                    <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+			                </div>
+			                <div class="c-links__actions">
+			                    <a href="javascript:void(0);" class="c-card__opportunity--view">View</a>
+			                </div>
+			            </div>
+			        </div>
+			        <!-- //card footer links -->
+			      </div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+			        <!-- card media (img, video & audio) -->
+			        <div class="c-card__opportunity">
+			            <a href="" data-toggle="modal" data-target="#imgModal">
+			              <img src="/assets/img/photography3.jpg" alt="" class="c-card__image">
+			            </a>
+			            <div class="c-media--hover">
+			              <div class="">
+			                <div class="c-user">
+			                  <a href="javascript:void(0);" class="c-user__avatar c-avatar--feed2">
+			                    <img class="c-user__image" src="/assets/img/avatar.jpg">
+			                  </a>
+			                  <a class="c-user__name2">Tobias Van1</a>
+			                </div>
+			                <a href="javascript:void(0);">
+			                  <img src="/assets/img/svg/ico_option_white.svg" alt="" class="c-status__options pull-right m-t-8">
+			                </a>
+			              </div>
+			            </div>
+			        </div>
+			        <!-- //card media (img, video & audio) -->
+			        <div class="c-card__project p-l-r-16 p-t-16">Projects</div>
+			        <!-- card body -->
+			        <div class="c-card__body">
+			            <div class="c-card__project--des">
+			                MEAN stack developer with front end and UI/UX skills
+			            </div>
+			        </div>
+			        <!-- //card body -->
+			        <div class="c-card__location p-b-16 with_border_bottom">
+			            <img src="/assets/img/svg/ico_location2.svg"> <p class="c-card__location--text">Bangalore, India</p>
+			        </div>
+			        <!-- card footer links -->
+			        <div class="c-card__links">
+			            <div class="c-links">
+			                <div class="c-links__spots">
+			                    <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+			                    <span class="c-links__count">705</span>
+			                </div>
+			                <div class="c-links__comments">
+			                    <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+			                </div>
+			                <div class="c-links__actions">
+			                    <a href="javascript:void(0);" class="c-card__opportunity--view">View</a>
+			                </div>
+			            </div>
+			        </div>
+			        <!-- //card footer links -->
+			      </div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+			        <!-- card media (img, video & audio) -->
+			        <div class="c-card__opportunity">
+			            <a href="" data-toggle="modal" data-target="#imgModal">
+			              <img src="/assets/img/photography3.jpg" alt="" class="c-card__image">
+			            </a>
+			            <div class="c-media--hover">
+			              <div class="">
+			                <div class="c-user">
+			                  <a href="javascript:void(0);" class="c-user__avatar c-avatar--feed2">
+			                    <img class="c-user__image" src="/assets/img/avatar.jpg">
+			                  </a>
+			                  <a class="c-user__name2">Tobias Van1</a>
+			                </div>
+			                <a href="javascript:void(0);">
+			                  <img src="/assets/img/svg/ico_option_white.svg" alt="" class="c-status__options pull-right m-t-8">
+			                </a>
+			              </div>
+			            </div>
+			        </div>
+			        <!-- //card media (img, video & audio) -->
+			        <div class="c-card__project p-l-r-16 p-t-16">Projects</div>
+			        <!-- card body -->
+			        <div class="c-card__body">
+			            <div class="c-card__project--des">
+			                MEAN stack developer with front end and UI/UX skills
+			            </div>
+			        </div>
+			        <!-- //card body -->
+			        <div class="c-card__location p-b-16 with_border_bottom">
+			            <img src="/assets/img/svg/ico_location2.svg"> <p class="c-card__location--text">Bangalore, India</p>
+			        </div>
+			        <!-- card footer links -->
+			        <div class="c-card__links">
+			            <div class="c-links">
+			                <div class="c-links__spots">
+			                    <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+			                    <span class="c-links__count">705</span>
+			                </div>
+			                <div class="c-links__comments">
+			                    <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+			                </div>
+			                <div class="c-links__actions">
+			                    <a href="javascript:void(0);" class="c-card__opportunity--view">View</a>
+			                </div>
+			            </div>
+			        </div>
+			        <!-- //card footer links -->
+			      </div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+			        <!-- card media (img, video & audio) -->
+			        <div class="c-card__opportunity">
+			            <a href="" data-toggle="modal" data-target="#imgModal">
+			              <img src="/assets/img/photography3.jpg" alt="" class="c-card__image">
+			            </a>
+			            <div class="c-media--hover">
+			              <div class="">
+			                <div class="c-user">
+			                  <a href="javascript:void(0);" class="c-user__avatar c-avatar--feed2">
+			                    <img class="c-user__image" src="/assets/img/avatar.jpg">
+			                  </a>
+			                  <a class="c-user__name2">Tobias Van1</a>
+			                </div>
+			                <a href="javascript:void(0);">
+			                  <img src="/assets/img/svg/ico_option_white.svg" alt="" class="c-status__options pull-right m-t-8">
+			                </a>
+			              </div>
+			            </div>
+			        </div>
+			        <!-- //card media (img, video & audio) -->
+			        <div class="c-card__project p-l-r-16 p-t-16">Projects</div>
+			        <!-- card body -->
+			        <div class="c-card__body">
+			            <div class="c-card__project--des">
+			                MEAN stack developer with front end and UI/UX skills 
+			            </div>
+			        </div>
+			        <!-- //card body -->
+			        <div class="c-card__location p-b-16 with_border_bottom">
+			            <img src="/assets/img/svg/ico_location2.svg"> <p class="c-card__location--text">Bangalore, India</p>
+			        </div>
+			        <!-- card footer links -->
+			        <div class="c-card__links">
+			            <div class="c-links">
+			                <div class="c-links__spots">
+			                    <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+			                    <span class="c-links__count">705</span>
+			                </div>
+			                <div class="c-links__comments">
+			                    <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+			                </div>
+			                <div class="c-links__actions">
+			                    <a href="javascript:void(0);" class="c-card__opportunity--view">View</a>
+			                </div>
+			            </div>
+			        </div>
+			        <!-- //card footer links -->
+			      </div>
+			  	</div>
+	      </div>
+	      <div id="created" class="tab-pane fade">
+	        <div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_my_inner.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_my_inner.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_my_inner.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_my_inner.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_my_inner.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_my_inner.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_my_inner.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_my_inner.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+			  	<div class="col-md-3 p-8">
+			      <div class="c-card">
+                       
+              <div class="c-card__project p-l-r-16 p-t-16">
+                  <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
+              <!-- card body -->
+              <div class="c-card__body">
+                  <div class="c-card__project--des">
+                      Project and Program Management
+                  </div>
+                  <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
+              </div>
+              <div class="c-card__opportunity__details">
+                  <div class="col-md-4">
+                      <p class="c-text_sm color-grey">Experience:</p>
+                      <p class="c-text_md">2-5 years</p>
+                  </div>
+                  <div class="col-md-8">
+                      <p class="c-text_sm color-grey">Salary:</p>
+                      <p class="c-text_md">500K - 800K</p>
+                  </div>
+              </div>
+               <div class="c-card__location p-b-16 with_border_bottom">
+                  <img src="/assets/img/svg/ico_location2.svg">
+                  <p class="c-card__location--text">Bangalore, India</p>
+              </div>
+
+              <div class="c-card__opportunity__user with_border_bottom">
+                  <a class="c-user__avatar c-avatar--feed">
+                      <img class="c-user__image" src="/assets/img/avatar.jpg">
+                  </a>
+                  <a class="c-card__opportunity__username">Tobias Van Schneider</a>
+              </div>
+              <!-- //card body -->
+             
+              <!-- card footer links -->
+              <div class="c-card__links">
+                  <div class="c-links">
+                      <div class="c-links__spots">
+                          <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                          <span class="c-links__count">705</span>
+                      </div>
+                      <div class="c-links__comments">
+                          <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                      </div>
+                      <div class="c-links__actions">
+                          <a href="opportunities_my_inner.html" class="c-card__opportunity--view">View</a>
+                      </div>
+                  </div>
+              </div>
+              <!-- //card footer links -->
+          	</div>
+			  	</div>
+	      </div>
+	  </div>
+	</div>
+</section>
+
+<div class="clearfix"></div>
