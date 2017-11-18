@@ -1,4 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -35,9 +36,11 @@ const opportunityRoutes: Routes = [
 
 @NgModule({
   imports: [
+    FormsModule,
     CommonModule,
     SharedModule,
     MasonryModule,
+    ReactiveFormsModule,
     RouterModule.forChild(opportunityRoutes)
   ],
   declarations: [
