@@ -47,5 +47,14 @@ export class OpportunityService {
     return this.api.get('/portal/jobs/0/10');
   }
 
+  /**
+   * Get opportunity by id
+   * @param id
+   */
+  getOpportunity(jobId: string) {
+    this.updateToken();
+    return this.api.get('/portal/job/', jobId);
+  }
+
 
 }

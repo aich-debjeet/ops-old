@@ -14,7 +14,7 @@ import { OpportunityService } from '../services/opportunity.service';
 export class OpportunityEffect {
 
   /**
-   * Create opportunities effect
+   * Create opportunity effect
    */
   @Effect()
   createOpportunity$ = this.actions$
@@ -26,7 +26,7 @@ export class OpportunityEffect {
     );
 
   /**
-   * Create opportunities effect
+   * Search opportunities effect
    */
   @Effect()
   searchOpportunities$ = this.actions$
@@ -35,6 +35,18 @@ export class OpportunityEffect {
     .switchMap((payload) => this.opportunityService.searchOpportunities(payload)
       .map((res) => ({ type: OpportunityActions.SEARCH_OPPORTUNITIES_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: OpportunityActions.SEARCH_OPPORTUNITIES_FAILED, payload: res }))
+    );
+
+  /**
+   * Get opportunity by id effect
+   */
+  @Effect()
+  getOpportunity$ = this.actions$
+    .ofType(OpportunityActions.GET_OPPORTUNITY)
+    .map(toPayload)
+    .switchMap((payload) => this.opportunityService.getOpportunity(payload)
+      .map((res) => ({ type: OpportunityActions.GET_OPPORTUNITY_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: OpportunityActions.GET_OPPORTUNITY_FAILED, payload: res }))
     );
 
   constructor(

@@ -29,6 +29,8 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
       });
     /* create opportunity */
 
+
+
     /* search opportunities */
     case OpportunityActions.SEARCH_OPPORTUNITIES:
       return Object.assign({}, state, {
@@ -57,6 +59,30 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
         search_opportunities_success: false
       });
     /* search opportunities */
+
+
+
+    /* get opportunity */
+    case OpportunityActions.GET_OPPORTUNITY:
+      return Object.assign({}, state, {
+        getting_opportunity: true,
+        get_opportunity_params: payload,
+        get_opportunity_success: false
+      });
+
+    case OpportunityActions.GET_OPPORTUNITY_SUCCESS:
+      return Object.assign({}, state, {
+        getting_opportunity: false,
+        get_opportunity_data: payload,
+        get_opportunity_success: true
+      });
+
+    case OpportunityActions.GET_OPPORTUNITY_FAILED:
+      return Object.assign({}, state, {
+        getting_opportunity: false,
+        get_opportunity_success: false
+      });
+    /* get opportunity */
 
     default:
       return state;
