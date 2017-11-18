@@ -1,0 +1,69 @@
+// opportunity form css
+
+.o-opportunities-form{
+	width: 100%;
+	padding-top: 80px;
+}
+.o-opportunities-form-container{
+	width: 100%;
+	float: left;
+	background: #fff;
+}
+.o-opportunities-form-block{
+	width: 767px;
+	margin:0px auto;
+	min-height: 1000px;
+}
+.o-oppo-form__subtitle{
+	border-bottom: 1px solid #F3F5F7;
+}
+.o-oppo-form__single{
+	width: 100%;
+	float: left;
+	padding-bottom: 8px;
+}
+.o-oppo-form-title{
+	padding:10px 0px;
+}
+
+// for attachment
+
+.o-oppo-form__file-type{
+	width: 120px;
+	height: 120px;
+	float: left;
+	display: flex;
+	align-items:center;
+	justify-content:center;
+	border: 1px solid #C1C1C1;	
+	border-radius: 3px;
+	position: relative;
+	float: left;
+}
+.o-oppo-file{
+	opacity: 0;
+	width: 120px;
+	height: 120px;
+	margin-left: 35px;
+}
+.o-oppo-file__text{
+	position: absolute;
+	left: 0px;
+	width: 100%;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+// img lilst
+
+.o-oppo-form__img-show{
+	width: 150px;
+	height: 120px;
+	overflow: hidden;
+	border-radius: 3px;
+	background: url(/assets/img/quick3.jpg) no-repeat;
+	background-size: cover;
+	margin-left: 16px;
+	float: left;
+}
