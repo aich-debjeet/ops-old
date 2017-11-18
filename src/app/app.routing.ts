@@ -12,7 +12,6 @@ import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
-import { OpportunityComponent } from './components/opportunity/opportunity.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
 import { EventsComponent } from './components/events/events.component';
@@ -61,7 +60,6 @@ export const routes: Routes = [
  { path: 'planner', component: PlannerComponent, canActivate: [AuthGuard] },
  { path: 'network', component: NetworkComponent, canActivate: [AuthGuard] },
  { path: 'project', component: ProjectComponent, canActivate: [AuthGuard] },
- { path: 'opportunity', component: OpportunityComponent, canActivate: [AuthGuard] },
  { path: 'jobs', component: JobsComponent, canActivate: [AuthGuard] },
  { path: 'job-details', component: JobDetailsComponent, canActivate: [AuthGuard] },
  { path: 'events', component: EventsComponent, canActivate: [AuthGuard] },
@@ -72,6 +70,7 @@ export const routes: Routes = [
  { path: 'communities', component: CommunitiesComponent, canActivate: [AuthGuard] },
  { path: 'search', loadChildren: './components/search/search.module#SearchModule', canActivate: [AuthGuard] },
  { path: 'org', loadChildren: './components/organization/organization.module#OrganizationModule'},
+ { path: 'opportunity', loadChildren: './components/opportunity/opportunity.module#OpportunityModule', canActivate: [AuthGuard] },
  { path: 'page-not-found', component: NotFoundPageComponent },
  { path: '**', redirectTo: 'page-not-found' },
 ];

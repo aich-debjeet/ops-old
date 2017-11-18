@@ -80,7 +80,6 @@ import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
-import { OpportunityComponent } from './components/opportunity/opportunity.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
 import { EventsComponent } from './components/events/events.component';
@@ -127,7 +126,6 @@ import { AgmCoreModule } from '@agm/core';
     SpotfeedPremiumComponent,
     NotificationComponent,
     PortfolioComponent,
-    OpportunityComponent,
     JobsComponent,
     JobDetailsComponent,
     EventsComponent,
@@ -181,7 +179,6 @@ import { AgmCoreModule } from '@agm/core';
     EffectsModule.run(MediaEffect),
     EffectsModule.run(SearchEffect),
     EffectsModule.run(OrganizationEffect),
-    
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
