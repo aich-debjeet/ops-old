@@ -28,6 +28,8 @@ export class SettingsComponent implements OnInit {
   userProfile = initialTag;
   pwdForm: FormGroup;
   private usernameForm: FormGroup;
+  private nameForm: FormGroup;
+  private dateForm: FormGroup;
   emailActive: boolean;
   phoneActive: boolean;
   userActive: boolean;
@@ -92,6 +94,14 @@ export class SettingsComponent implements OnInit {
     this.usernameForm = this._fb.group({
       'username' : ['' , [Validators.required, Validators.minLength(4), FormValidation.noWhitespaceValidator], this.profileUpdateValidator.userNameValidation.bind(this.profileUpdateValidator)],
     });
+    // name update
+    this.nameForm = this._fb.group({
+      'name' : ['', [Validators.required]]
+    });
+    // date update
+    this.dateForm = this._fb.group({
+      'dob' : ['', [Validators.required]]
+    });
 
     this.passwordformInit();
 
@@ -120,6 +130,36 @@ export class SettingsComponent implements OnInit {
       const form =  {
         'username': value.username.toLowerCase()
       }
+      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+    }
+  }
+
+
+  /**
+   * name Update
+   */
+  nameUpdate(value) {
+    console.log(this.nameForm.valid);
+    console.log(value);
+    if ( this.nameForm.valid === true ) {
+      const form =  {
+        'name': value.name.toLowerCase()
+      }
+      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+    }
+  }
+
+   /**
+   * dob form Update
+   */
+  dateFormUpdate(value) {
+    console.log(this.dateForm.valid);
+    console.log(value);
+    if ( this.dateForm.valid === true ) {
+      const form =  {'physical': {
+        'dateOfBirth': value.dob.toLowerCase()
+      }
+    }
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
     }
   }
@@ -194,6 +234,9 @@ export class SettingsComponent implements OnInit {
     }else {
       this.nameActive = true;
     }
+    this.nameForm.setValue({
+      name: this.userProfile['name'],
+    });
   }
 
   /**
@@ -216,6 +259,11 @@ export class SettingsComponent implements OnInit {
     }else {
       this.dobActive = true;
     }
+    // const s = this.removeUtc(this.userProfile['physical'].dateOfBirth)
+    // console.log('here' , s)
+    this.dateForm.setValue({
+      dob: this.removeUtc(this.userProfile['physical'].dateOfBirth),
+    });
   }
   /**
    * profileType toggle field
@@ -252,6 +300,14 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+  removeUtc(string) {
+    const s1 = string.slice(0, 10);
+    console.log(s1);
+    return this.reverseDate(s1);
+  }
+  reverseDate(string) {
+    return string.split('-').reverse().join('-');
+  }
   /**
    * Checking for the password if matches with the confirm password on register form
    * @param control: Form confirm password input

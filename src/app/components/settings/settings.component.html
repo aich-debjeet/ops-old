@@ -59,14 +59,15 @@
                                         </div>
                                         <!-- data end -->
                                         <div id="acc-info-name__edit" class="o-set-list__edit" *ngIf="nameActive">
-                                            <div class="col-md-4 p-0">
-                                                <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                    <input class="c-form__input p-0" type="text" value="{{ userProfile?.name }}">
+                                            <form [formGroup]="nameForm" novalidate (ngSubmit)="nameUpdate(nameForm.value)" #nameform="ngForm">
+                                                <div class="col-md-4 p-0">
+                                                    <div class="c-form__group c-form--sm c-form--noeffect m-0">
+                                                        <input class="c-form__input p-0" type="text" formControlName="name">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-2 p-0">
-                                                <div class="dropdown margin_l_16">
-                                                    <span class="com-head" data-toggle="dropdown" aria-expanded="true">
+                                                <div class="col-md-2 p-0">
+                                                    <div class="dropdown margin_l_16">
+                                                        <span class="com-head" data-toggle="dropdown" aria-expanded="true">
                                                 <div class="o-action__ico">
                                                     <img src="/assets/img/svg/ico-public.svg" alt="">
                                                 </div>
@@ -79,28 +80,29 @@
                                                     </svg>
                                                 </div>
                                                 </span>
-                                                    <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                                                        <li>
-                                                            <a href="#" class="c-opsdropdown__list">
-                                                                <img src="/assets/img/svg/ico-public.svg" class="c-opsdropdown--icons">
-                                                                <span class="c-opsdropdown--text">Public</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" class="c-opsdropdown__list">
-                                                                <img src="/assets/img/svg/Ico-private.svg" class="c-opsdropdown--icons">
-                                                                <span class="c-opsdropdown--text">Private</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
+                                                        <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
+                                                            <li>
+                                                                <a href="#" class="c-opsdropdown__list">
+                                                                    <img src="/assets/img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                                                                    <span class="c-opsdropdown--text">Public</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" class="c-opsdropdown__list">
+                                                                    <img src="/assets/img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                                                                    <span class="c-opsdropdown--text">Private</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6 p-0">
-                                                <div class="o-set-list-edit__actions">
-                                                    <button type="button" class="btn btn-primary btn-sm">Save</button>
-                                                    <button type="button" class="btn btn-default btn-sm" (click)="nameToggle()">Cancel</button>
+                                                <div class="col-md-6 p-0">
+                                                    <div class="o-set-list-edit__actions">
+                                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                                        <button type="button" class="btn btn-default btn-sm" (click)="nameToggle()">Cancel</button>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
                                         <!-- edit data end -->
                                     </div>
@@ -123,14 +125,15 @@
                                         </div>
                                         <!-- data end -->
                                         <div id="acc-info-dob__edit" class="o-set-list__edit" *ngIf="dobActive">
-                                            <div class="col-md-4 p-0">
-                                                <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                    <input class="c-form__input p-0" type="text" value="{{ userProfile?.physical?.dateOfBirth | date:'longDate'}}">
+                                            <form [formGroup]="dateForm" novalidate (ngSubmit)="dateFormUpdate(dateForm.value)" #dobform="ngForm">
+                                                <div class="col-md-4 p-0">
+                                                    <div class="c-form__group c-form--sm c-form--noeffect m-0">
+                                                        <input class="c-form__input p-0" type="text" formControlName="dob">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-2 p-0">
-                                                <div class="dropdown margin_l_16">
-                                                    <span class="com-head" data-toggle="dropdown" aria-expanded="true">
+                                                <div class="col-md-2 p-0">
+                                                    <div class="dropdown margin_l_16">
+                                                        <span class="com-head" data-toggle="dropdown" aria-expanded="true">
                                                         <div class="o-action__ico">
                                                             <img src="/assets/img/svg/ico-public.svg" alt="">
                                                         </div>
@@ -143,28 +146,29 @@
                                                             </svg>
                                                         </div>
                                                     </span>
-                                                    <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                                                        <li>
-                                                            <a href="#" class="c-opsdropdown__list">
-                                                                <img src="/assets/img/svg/ico-public.svg" class="c-opsdropdown--icons">
-                                                                <span class="c-opsdropdown--text">Public</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#" class="c-opsdropdown__list">
-                                                                <img src="/assets/img/svg/Ico-private.svg" class="c-opsdropdown--icons">
-                                                                <span class="c-opsdropdown--text">Private</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
+                                                        <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
+                                                            <li>
+                                                                <a href="#" class="c-opsdropdown__list">
+                                                                    <img src="/assets/img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                                                                    <span class="c-opsdropdown--text">Public</span>
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#" class="c-opsdropdown__list">
+                                                                    <img src="/assets/img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                                                                    <span class="c-opsdropdown--text">Private</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6 p-0">
-                                                <div class="o-set-list-edit__actions">
-                                                    <button type="button" class="btn btn-primary btn-sm">Save</button>
-                                                    <button type="button" class="btn btn-default btn-sm" (click)="dobToggle()">Cancel</button>
+                                                <div class="col-md-6 p-0">
+                                                    <div class="o-set-list-edit__actions">
+                                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                                        <button type="button" class="btn btn-default btn-sm" (click)="dobToggle()">Cancel</button>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
                                         <!-- edit data end -->
                                     </div>
@@ -764,113 +768,6 @@
             </div>
         </div>
     </section>
-
-    <!-- <script>
-        function switchVisible() {
-        if (document.getElementById('acc_info-name')) {
-
-        if (document.getElementById('acc_info-name').style.display == 'none') {
-            document.getElementById('acc_info-name').style.display = 'block';
-            document.getElementById('acc-info-name__edit').style.display = 'none';
-        }
-        else {
-        document.getElementById('acc_info-name').style.display = 'none';
-        document.getElementById('acc-info-name__edit').style.display = 'block';
-        }
-        }
-        }
-        function switchVisibledob() {
-        if (document.getElementById('acc_info-dob')) {
-
-        if (document.getElementById('acc_info-dob').style.display == 'none') {
-            document.getElementById('acc_info-dob').style.display = 'block';
-            document.getElementById('acc-info-dob__edit').style.display = 'none';
-        }
-        else {
-        document.getElementById('acc_info-dob').style.display = 'none';
-        document.getElementById('acc-info-dob__edit').style.display = 'block';
-        }
-        }
-        }
-        function switchVisiblegender() {
-        if (document.getElementById('acc_info-gender')) {
-
-        if (document.getElementById('acc_info-gender').style.display == 'none') {
-            document.getElementById('acc_info-gender').style.display = 'block';
-            document.getElementById('acc-info-gender__edit').style.display = 'none';
-        }
-        else {
-        document.getElementById('acc_info-gender').style.display = 'none';
-        document.getElementById('acc-info-gender__edit').style.display = 'block';
-        }
-        }
-        }
-        function switchVisibleusername() {
-        if (document.getElementById('acc_info-username')) {
-
-        if (document.getElementById('acc_info-username').style.display == 'none') {
-            document.getElementById('acc_info-username').style.display = 'block';
-            document.getElementById('acc-info-username__edit').style.display = 'none';
-        }
-        else {
-        document.getElementById('acc_info-username').style.display = 'none';
-        document.getElementById('acc-info-username__edit').style.display = 'block';
-        }
-        }
-        }
-        function switchVisiblemail() {
-        if (document.getElementById('acc_info-mail')) {
-
-        if (document.getElementById('acc_info-mail').style.display == 'none') {
-            document.getElementById('acc_info-mail').style.display = 'block';
-            document.getElementById('acc-info-mail__edit').style.display = 'none';
-        }
-        else {
-        document.getElementById('acc_info-mail').style.display = 'none';
-        document.getElementById('acc-info-mail__edit').style.display = 'block';
-        }
-        }
-        }
-        function switchVisiblephone() {
-        if (document.getElementById('acc_info-phone')) {
-
-        if (document.getElementById('acc_info-phone').style.display == 'none') {
-            document.getElementById('acc_info-phone').style.display = 'block';
-            document.getElementById('acc-info-phone__edit').style.display = 'none';
-        }
-        else {
-        document.getElementById('acc_info-phone').style.display = 'none';
-        document.getElementById('acc-info-phone__edit').style.display = 'block';
-        }
-        }
-        }
-        function switchVisibleprotype() {
-        if (document.getElementById('acc_info-protype')) {
-
-        if (document.getElementById('acc_info-protype').style.display == 'none') {
-            document.getElementById('acc_info-protype').style.display = 'block';
-            document.getElementById('acc-info-protype__edit').style.display = 'none';
-        }
-        else {
-        document.getElementById('acc_info-protype').style.display = 'none';
-        document.getElementById('acc-info-protype__edit').style.display = 'block';
-        }
-        }
-        }
-        function switchVisiblepass() {
-        if (document.getElementById('pass-change')) {
-
-        if (document.getElementById('pass-change').style.display == 'none') {
-            document.getElementById('pass-change').style.display = 'block';
-            document.getElementById('pass-change__edit').style.display = 'none';
-        }
-        else {
-        document.getElementById('pass-change').style.display = 'none';
-        document.getElementById('pass-change__edit').style.display = 'block';
-        }
-        }
-        }
-        </script> -->
 
     <!-- email verification -->
     <div class="modal fade" id="email-verify" role="dialog">
