@@ -33,7 +33,7 @@ export class OpportunityService {
    * @param request body
    */
   createOpportunity(reqBody: any) {
-    console.log('service createOpportunity', reqBody);
+    // console.log('service createOpportunity', reqBody);
     this.updateToken();
     return this.api.post('/portal/job/create', reqBody);
   }
