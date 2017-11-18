@@ -10,9 +10,9 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
     /* search opportunities */
     case OpportunityActions.SEARCH_OPPORTUNITIES:
       return Object.assign({}, state, {
-        searching_people: true,
-        search_people_params: payload,
-        search_people_success: false
+        searching_opportunities: true,
+        search_opportunities_params: payload,
+        search_opportunities_success: false
       });
 
     case OpportunityActions.SEARCH_OPPORTUNITIES_SUCCESS:
@@ -24,15 +24,15 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
         opportunity_payload = [...state.search_opportunities_data, ...payload];
       }
       return Object.assign({}, state, {
-        searching_people: false,
-        search_people_data: opportunity_payload,
-        search_people_success: true
+        searching_opportunities: false,
+        search_opportunities_data: opportunity_payload,
+        search_opportunities_success: true
       });
 
     case OpportunityActions.SEARCH_OPPORTUNITIES_FAILED:
       return Object.assign({}, state, {
-        searching_people: false,
-        search_people_success: false
+        searching_opportunities: false,
+        search_opportunities_success: false
       });
     /* search opportunities */
 
