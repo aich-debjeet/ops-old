@@ -35,7 +35,8 @@ export class OpportunityCreateComponent implements OnInit {
       userSkills: [null],
       userQualifications: [null],
       orgName: [null],
-      country: [null]
+      country: [null],
+      attachments: [null]
     });
 
   }
