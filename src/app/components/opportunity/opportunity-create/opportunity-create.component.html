@@ -15,24 +15,25 @@
             <div class="col-md-9 p-0">
               <div class="c-radio__sm">
                 <label class="col-md-2 p-0">
-                  <input name="demo" type="radio" class="c-form__bar2"><span></span>Audition
+                  <input type="radio" formControlName="oppType" class="c-form__bar2"><span></span>Audition
                 </label>
                 <label class="col-md-2 p-0">
-                  <input name="demo" type="radio" class="c-form__bar2"><span></span>Projects
+                  <input type="radio" formControlName="oppType" class="c-form__bar2"><span></span>Projects
                 </label>
                 <label class="col-md-2 p-0">
-                  <input name="demo" type="radio"><span></span>Jobs
+                  <input type="radio" formControlName="oppType"><span></span>Jobs
                 </label>
                 <label class="col-md-2 p-0">
-                  <input name="demo" type="radio"><span></span>Internship
+                  <input type="radio" formControlName="oppType"><span></span>Internship
                 </label>
                 <label class="col-md-2 p-0">
-                  <input name="demo" type="radio"><span></span>Freelance
+                  <input type="radio" formControlName="oppType"><span></span>Freelance
                 </label>
                 <label class="col-md-2 p-0">
-                  <input name="demo" type="radio"><span></span>Volunteer
+                  <input type="radio" formControlName="oppType"><span></span>Volunteer
                 </label>
               </div>
+              <p class="error_alert" *ngIf="createOppFrm.controls['oppType'].errors?.required">Opportunity type is required</p>
             </div>
           </div><!-- Opportunity type end -->
           
@@ -42,11 +43,12 @@
             </div>
             <div class="col-md-9 p-0">
               <div class="c-form__group c-form--sm c-form--noeffect">
-                <input class="c-form__input" required="" type="text">
+                <input class="c-form__input" type="text" formControlName="role">
                 <span class="c-form__highlight"></span>
                 <span class="c-form__bar"></span>
                 <label>eg: Manager/Director</label>
               </div>
+              <p class="error_alert" *ngIf="createOppFrm.controls['role']?.errors?.required && createOppFrm.controls['role'].touched">Role is required</p>
             </div>
           </div><!-- Role end -->
 
@@ -56,9 +58,10 @@
             </div>
             <div class="col-md-9 p-0">
               <div class="c-form__group c-form--sm">
-                <textarea class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
+                <textarea formControlName="description" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
               </div>
             </div>
+            <p class="error_alert" *ngIf="createOppFrm.controls['description']?.errors?.required && createOppFrm.controls['description'].touched">Description is required</p>
           </div><!-- Description end -->
 
           <div class="o-oppo-form__single">
@@ -68,11 +71,17 @@
             <div class="col-md-9 p-0">
               <div class="col-md-2 p-0">
                 <div class="c-form__group">
-                  <select class="c-form-control p-l-0">
+                  <select class="c-form-control p-l-0" formControlName="yearsExpFrom">
+                    <option>0</option>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
-                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
                   </select>
                 </div>
               </div>
@@ -81,13 +90,21 @@
               </div>
               <div class="col-md-2 p-0">
                 <div class="c-form__group">
-                  <select class="c-form-control p-l-0">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
+                  <select class="c-form-control p-l-0" formControlName="yearsExpTo">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>5</option>
+                      <option>6</option>
+                      <option>7</option>
+                      <option>8</option>
+                      <option>9</option>
+                      <option>10</option>
                   </select>
                 </div>
+              </div>
+              <div class="col-md-1">
+                <div class="c-text_md color-grey-dark p-8">years</div>
               </div>
             </div>
           </div><!-- Experience end -->
@@ -99,29 +116,26 @@
             <div class="col-md-9 p-0">
               <div class="col-md-4 p-l-0">
                 <div class="c-form__group c-form--sm c-form--noeffect">
-                  <input class="c-form__input" required="" type="text">
+                  <input class="c-form__input" type="text" formControlName="salaryAmount">
                   <span class="c-form__highlight"></span>
                   <span class="c-form__bar"></span>
-                  <label>eg: Manager/Director</label>
+                  <label>500K, 7,50,000</label>
                 </div>
               </div>
               <div class="col-md-3 ">
                 <div class="c-form__group">
-                  <select class="c-form-control p-l-0">
+                  <select class="c-form-control p-l-0" formControlName="salaryDuration">
                     <option>Annualy</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
+                    <option>Monthly</option>
                   </select>
                 </div>
               </div>
               <div class="col-md-3 ">
                 <div class="c-form__group">
-                  <select class="c-form-control p-l-0">
+                  <select class="c-form-control p-l-0" formControlName="salaryCurrency">
                     <option>Currency</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
+                    <option>INR</option>
+                    <option>USD</option>
                   </select>
                 </div>
               </div>
@@ -135,9 +149,9 @@
             <div class="col-md-9 p-0">
               <div class="col-md-4 p-0">
                 <div class="c-form__group">
-                  <select class="c-form-control p-l-0">
-                    <option>Full time</option>
-                    <option>part time</option>
+                  <select class="c-form-control p-l-0" formControlName="oppDuration">
+                    <option value="full-time">Full time</option>
+                    <option value="part-time">Part time</option>
                   </select>
                 </div>
               </div>
@@ -150,7 +164,7 @@
             </div>
             <div class="col-md-9 p-0">
               <div class="c-form__group c-form--sm c-form--noeffect">
-                <input class="c-form__input" required="" type="text">
+                <input class="c-form__input" type="text" formControlName="oppLocation">
                 <span class="c-form__highlight"></span>
                 <span class="c-form__bar"></span>
                 <label>Where is the opportunity</label>
@@ -166,16 +180,16 @@
               <div class="col-md-2 p-0">
                 <div class="c-radio__sm p-t-8 float_left width100">
                   <label class="col-md-6 p-0 p-t-8">
-                    <input name="demo" type="radio" class="c-form__bar2"><span></span>yes
+                    <input formControlName="oppLevel" type="radio" class="c-form__bar2"><span></span>yes
                   </label>
                   <label class="col-md-6 p-0 p-t-8">
-                    <input name="demo" type="radio" class="c-form__bar2"><span></span>No
+                    <input formControlName="oppLevel" type="radio" class="c-form__bar2"><span></span>No
                   </label>
                 </div>
               </div>
               <div class="col-md-9 p-r-0">
                 <div class="c-form__group c-form--sm c-form--noeffect">
-                  <input class="c-form__input" required="" type="text">
+                  <input class="c-form__input" type="text" formControlName="country">
                   <span class="c-form__highlight"></span>
                   <span class="c-form__bar"></span>
                   <label>Country</label>
@@ -194,7 +208,7 @@
             </div>
             <div class="col-md-9 p-0">
               <div class="c-form__group c-form--sm c-form--noeffect">
-                <input class="c-form__input" required="" type="text">
+                <input class="c-form__input" type="text" formControlName="userSkills">
                 <span class="c-form__highlight"></span>
                 <span class="c-form__bar"></span>
                 <label>eg: #Uidesign #photoshop #sketch</label>
@@ -208,7 +222,7 @@
             </div>
             <div class="col-md-9 p-0">
               <div class="c-form__group c-form--sm c-form--noeffect">
-                <input class="c-form__input" required="" type="text">
+                <input class="c-form__input" type="text"  formControlName="userQualifications">
                 <span class="c-form__highlight"></span>
                 <span class="c-form__bar"></span>
                 <label>eg: Garduate </label>
@@ -226,7 +240,7 @@
             </div>
             <div class="col-md-9 p-0">
               <div class="c-form__group c-form--sm c-form--noeffect">
-                <input class="c-form__input" required="" type="text">
+                <input class="c-form__input" type="text" formControlName="orgName">
                 <span class="c-form__highlight"></span>
                 <span class="c-form__bar"></span>
                 <label>Name of organization </label>
@@ -240,7 +254,7 @@
             </div>
             <div class="col-md-9 p-0">
               <div class="o-oppo-form__file-type">
-                <input class="o-oppo-file" type="file">
+                <input class="o-oppo-file" type="file" formControlName="attachments">
                 <p class="c-text_sm o-oppo-file__text"> upload<br>image or video</p>
               </div>
               <div class="o-oppo-form__img-show">
