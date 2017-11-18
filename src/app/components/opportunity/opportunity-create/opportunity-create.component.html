@@ -15,22 +15,22 @@
             <div class="col-md-9 p-0">
               <div class="c-radio__sm">
                 <label class="col-md-2 p-0">
-                  <input type="radio" formControlName="oppType" class="c-form__bar2"><span></span>Audition
+                  <input type="radio" name="oppType" formControlName="oppType" class="c-form__bar2"><span></span>Audition
                 </label>
                 <label class="col-md-2 p-0">
-                  <input type="radio" formControlName="oppType" class="c-form__bar2"><span></span>Projects
+                  <input type="radio" name="oppType" formControlName="oppType" class="c-form__bar2"><span></span>Projects
                 </label>
                 <label class="col-md-2 p-0">
-                  <input type="radio" formControlName="oppType"><span></span>Jobs
+                  <input type="radio" name="oppType" formControlName="oppType"><span></span>Jobs
                 </label>
                 <label class="col-md-2 p-0">
-                  <input type="radio" formControlName="oppType"><span></span>Internship
+                  <input type="radio" name="oppType" formControlName="oppType"><span></span>Internship
                 </label>
                 <label class="col-md-2 p-0">
-                  <input type="radio" formControlName="oppType"><span></span>Freelance
+                  <input type="radio" name="oppType" formControlName="oppType"><span></span>Freelance
                 </label>
                 <label class="col-md-2 p-0">
-                  <input type="radio" formControlName="oppType"><span></span>Volunteer
+                  <input type="radio" name="oppType" formControlName="oppType"><span></span>Volunteer
                 </label>
               </div>
               <p class="error_alert" *ngIf="createOppFrm.controls['oppType'].errors?.required">Opportunity type is required</p>
@@ -61,7 +61,7 @@
                 <textarea formControlName="description" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
               </div>
             </div>
-            <p class="error_alert" *ngIf="createOppFrm.controls['description']?.errors?.required && createOppFrm.controls['description'].touched">Description is required</p>
+            <p class="error_alert" *ngIf="createOppFrm.controls['description']?.errors?.required && createOppFrm.submitted">Description is required</p>
           </div><!-- Description end -->
 
           <div class="o-oppo-form__single">

@@ -50,15 +50,22 @@ export class OpportunityCreateComponent implements OnInit {
     // validation step
     if (!this.createOppFrm.valid) {
       console.log('invalid form');
+      return;
     } else {
       console.log('submit form');
     }
 
     // preparing skills for req body
-    const skillsArr = formData.userSkills.split(',');
+    let skillsArr = [];
+    if (formData.userSkills && formData.userSkills.length > 0) {
+      skillsArr = formData.userSkills.split(',');
+    }
 
     // preparing qualifications for req body
-    const qualificationsArr = formData.userQualifications.split(',');
+    let qualificationsArr = [];
+    if (formData.userQualifications && formData.userQualifications.length > 0) {
+      qualificationsArr = formData.userQualifications.split(',');
+    }
 
     const reqObj = {
       title: formData.oppType,
@@ -90,6 +97,7 @@ export class OpportunityCreateComponent implements OnInit {
       type: OpportunityActions.CREATE_OPPORTUNITY,
       payload: reqObj
     });
+
   }
 
 }

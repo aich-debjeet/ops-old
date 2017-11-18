@@ -33,8 +33,9 @@ export class OpportunityService {
    * @param request body
    */
   createOpportunity(reqBody: any) {
+    console.log('service createOpportunity', reqBody);
     this.updateToken();
-    return this.api.get('https://jsonplaceholder.typicode.com/');
+    return this.api.post('/portal/job/create', reqBody);
   }
 
   /**
