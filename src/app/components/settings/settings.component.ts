@@ -30,6 +30,10 @@ export class SettingsComponent implements OnInit {
   private usernameForm: FormGroup;
   private nameForm: FormGroup;
   private dateForm: FormGroup;
+  private genderForm: FormGroup;
+  private emailForm: FormGroup;
+  private phoneForm: FormGroup;
+  private profileForm: FormGroup;
   emailActive: boolean;
   phoneActive: boolean;
   userActive: boolean;
@@ -102,6 +106,22 @@ export class SettingsComponent implements OnInit {
     this.dateForm = this._fb.group({
       'dob' : ['', [Validators.required]]
     });
+    // gender update
+    this.genderForm = this._fb.group({
+      'gender' : ['', [Validators.required]]
+    });
+    // email update
+    this.emailForm = this._fb.group({
+    'email' : ['', [Validators.required]]
+    });
+    // phone update
+    this.phoneForm = this._fb.group({
+    'mobile' : ['', [Validators.required]]
+    });
+    // profile Type update
+    // this.genderForm = this._fb.group({
+    // 'profile' : ['', [Validators.required]]
+    // });
 
     this.passwordformInit();
 
@@ -165,6 +185,65 @@ export class SettingsComponent implements OnInit {
   }
 
   /**
+   * gender update
+   */
+  genderFormUpdate(value) {
+    console.log(this.dateForm.valid);
+    console.log(value);
+    if ( this.dateForm.valid === true ) {
+      const form =  {'physical': {
+        'gender': value.gender
+      }
+    }
+      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+    }
+  }
+
+  /**
+   * email form update
+   */
+  emailFormUpdate(value) {
+    console.log(this.emailForm.valid);
+    console.log(value);
+    if ( this.emailForm.valid === true ) {
+      const form =  {
+        'email': value.email
+      }
+      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+    }
+  }
+  /**
+   * phone form update
+   */
+  phoneFormUpdate(value) {
+    console.log(this.phoneForm.valid);
+    console.log(value);
+    if ( this.phoneForm.valid === true ) {
+      const form =  {
+         contact: {
+          mobile:
+          {
+            'mobile': value.mobile
+          }
+        }
+      }
+      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+    }
+  }
+  /**
+   * profile type form update
+   */
+  profileTypeFormUpdate(value) {
+    console.log(this.emailForm.valid);
+    console.log(value);
+    if ( this.emailForm.valid === true ) {
+      const form =  {
+        'email': value.email
+      }
+      this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+    }
+  }
+  /**
    * Password form submit
    */
   submitForm(value) {
@@ -212,6 +291,9 @@ export class SettingsComponent implements OnInit {
     }else {
       this.emailActive = true;
     }
+    this.emailForm.setValue({
+      email: this.userProfile['email'],
+    });
   }
 
   /**
@@ -223,6 +305,9 @@ export class SettingsComponent implements OnInit {
     }else {
       this.phoneActive = true;
     }
+    this.phoneForm.setValue({
+      mobile: this.userProfile['contact']['mobile'].mobile,
+    });
   }
 
   /**
@@ -248,6 +333,9 @@ export class SettingsComponent implements OnInit {
     }else {
       this.genderActive = true;
     }
+    this.genderForm.setValue({
+      gender: this.userProfile['physical'].gender,
+    });
   }
 
   /**
@@ -259,8 +347,6 @@ export class SettingsComponent implements OnInit {
     }else {
       this.dobActive = true;
     }
-    // const s = this.removeUtc(this.userProfile['physical'].dateOfBirth)
-    // console.log('here' , s)
     this.dateForm.setValue({
       dob: this.removeUtc(this.userProfile['physical'].dateOfBirth),
     });

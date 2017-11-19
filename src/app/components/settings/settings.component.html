@@ -191,19 +191,21 @@
                                         </div>
                                         <!-- data end -->
                                         <div id="acc-info-gender__edit" class="o-set-list__edit" *ngIf="genderActive">
-                                            <div class="col-md-4 p-0">
-                                                <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                    <input class="c-form__input p-0" type="text" value="{{ userProfile?.physical?.gender }}">
+                                            <form [formGroup]="genderForm" novalidate (ngSubmit)="genderFormUpdate(genderForm.value)" #gendForm="ngForm">
+                                                <div class="col-md-4 p-0">
+                                                    <div class="c-form__group c-form--sm c-form--noeffect m-0">
+                                                        <input class="c-form__input p-0" type="text" formControlName="gender">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-2 p-0">
-                                            </div>
-                                            <div class="col-md-6 p-0">
-                                                <div class="o-set-list-edit__actions">
-                                                    <button type="button" class="btn btn-primary btn-sm">Save</button>
-                                                    <button type="button" class="btn btn-default btn-sm" (click)="genderToggle()">Cancel</button>
+                                                <div class="col-md-2 p-0">
                                                 </div>
-                                            </div>
+                                                <div class="col-md-6 p-0">
+                                                    <div class="o-set-list-edit__actions">
+                                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                                        <button type="button" class="btn btn-default btn-sm" (click)="genderToggle()">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                         <!-- edit data end -->
                                     </div>
@@ -268,20 +270,22 @@
                                         </div>
                                         <!-- data end -->
                                         <div id="acc-info-mail__edit" class="o-set-list__edit" *ngIf="emailActive">
-                                            <div class="col-md-8 p-0">
-                                                <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                    <input class="c-form__input p-0" required="" type="email" value="{{ userProfile?.email }}">
+                                            <form [formGroup]="emailForm" novalidate (ngSubmit)="emailFormUpdate(emailForm.value)" #eform="ngForm">
+                                                <div class="col-md-8 p-0">
+                                                    <div class="c-form__group c-form--sm c-form--noeffect m-0">
+                                                        <input class="c-form__input p-0" required="" type="email" formControlName="email">
+                                                    </div>
+                                                    <p class="c-text_sm color-grey-dark">Verify your mail by clicking the link sent to your mail id</p>
                                                 </div>
-                                                <p class="c-text_sm color-grey-dark">Verify your mail by clicking the link sent to your mail id</p>
-                                            </div>
-                                            <div class="col-md- p-0">
-                                            </div>
-                                            <div class="col-md-4 p-0">
-                                                <div class="o-set-list-edit__actions">
-                                                    <button type="button" class="btn btn-primary btn-sm">Verify</button>
-                                                    <button type="button" class="btn btn-default btn-sm" (click)="emailToggle()">Cancel</button>
+                                                <div class="col-md- p-0">
                                                 </div>
-                                            </div>
+                                                <div class="col-md-4 p-0">
+                                                    <div class="o-set-list-edit__actions">
+                                                        <button type="button" class="btn btn-primary btn-sm">Verify</button>
+                                                        <button type="button" class="btn btn-default btn-sm" (click)="emailToggle()">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                         <!-- edit data end -->
                                     </div>
@@ -304,19 +308,21 @@
                                         </div>
                                         <!-- data end -->
                                         <div id="acc-info-phone__edit" class="o-set-list__edit" *ngIf="phoneActive">
-                                            <div class="col-md-4 p-0">
-                                                <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                    <input class="c-form__input p-0" required="" type="Phone" value="{{ userProfile?.contact?.mobile?.mobile }}">
+                                            <form [formGroup]="phoneForm" novalidate (ngSubmit)="phoneFormUpdate(phoneForm.value)" #pform="ngForm">
+                                                <div class="col-md-4 p-0">
+                                                    <div class="c-form__group c-form--sm c-form--noeffect m-0">
+                                                        <input class="c-form__input p-0" required="" type="Phone" formControlName="mobile">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-2 p-0">
-                                            </div>
-                                            <div class="col-md-6 p-0">
-                                                <div class="o-set-list-edit__actions">
-                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#phone-verify" (click)="sendOtp()">verify</button>
-                                                    <button type="button" class="btn btn-default btn-sm" (click)="phoneToggle()">Cancel</button>
+                                                <div class="col-md-2 p-0">
                                                 </div>
-                                            </div>
+                                                <div class="col-md-6 p-0">
+                                                    <div class="o-set-list-edit__actions">
+                                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#phone-verify" (click)="sendOtp()">verify</button>
+                                                        <button type="button" class="btn btn-default btn-sm" (click)="phoneToggle()">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
                                         <!-- edit data end -->
                                     </div>
