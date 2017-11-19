@@ -2,6 +2,7 @@ import { ActionReducer, Action } from '@ngrx/store';
 
 import { OpportunityModel } from '../models/opportunity.model';
 import { OpportunityActions } from '../actions/opportunity.action';
+import { concat } from 'rxjs/observable/concat';
 
 export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
 
@@ -40,6 +41,7 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
       });
 
     case OpportunityActions.SEARCH_OPPORTUNITIES_SUCCESS:
+      console.log('SUCCESS');
       // update state for pagination
       // let opportunity_payload;
       // if (state.search_opportunities_params.offset === 0) {
