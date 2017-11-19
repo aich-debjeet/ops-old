@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OpportunityActions } from 'app/actions/opportunity.action';
 
+// store
 import { Store } from '@ngrx/store';
 
+// models
 import { OpportunityModel } from './../../../models/opportunity.model';
 
+// services
 import { LocalStorageService } from './../../../services/local-storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-opportunity-create',
@@ -17,17 +21,50 @@ export class OpportunityCreateComponent implements OnInit {
 
   createOppFrm: FormGroup;
   orgHandle = '';
+  opportunityState$: any;
+  opportunityState: any;
 
   constructor(
     private fb: FormBuilder,
+    private toastr: ToastrService,
     private store: Store<OpportunityModel>,
     private localStorageService: LocalStorageService
   ) {
 
-    this.createOppFrm = fb.group({
-      oppType: [null],
-      role: [null],
-      description: [null],
+    // state listener
+    this.opportunityState$ = this.store.select('opportunityTags');
+    this.opportunityState$.subscribe((state) => {
+      this.opportunityState = state;
+      console.log('state', state);
+      // check if opportunity created successfully
+      if (this.opportunityState && this.opportunityState.create_opportunity_data && this.opportunityState.create_opportunity_data.SUCCESS) {
+        this.toastr.success('Opportunity has been created successfully!');
+        console.log('opportunity created successfully')
+      }
+    });
+
+    // create form
+    this.createOppForm();
+
+    // check if creator is user or organization
+    if (localStorage.getItem('accountStatus') !== null) {
+      const localStore = JSON.parse(this.localStorageService.theAccountStatus);
+      if (localStore.profileType === 'org') {
+        this.orgHandle = localStore.handle;
+      }
+    }
+
+  }
+
+  /**
+   * Creating the reactive form
+   */
+  createOppForm() {
+    // reactive from group
+    this.createOppFrm = this.fb.group({
+      oppType: ['Internship'],
+      role: ['Sr. Engineer'],
+      description: ['Job description'],
       yearsExpFrom: [null],
       yearsExpTo: [null],
       salaryAmount: [null],
@@ -42,20 +79,19 @@ export class OpportunityCreateComponent implements OnInit {
       country: [null],
       attachments: [null]
     });
+  }
 
-    // check if creator is user or organization
-    if (localStorage.getItem('accountStatus') !== null) {
-      const localStore = JSON.parse(this.localStorageService.theAccountStatus);
-      if (localStore.profileType === 'org') {
-        this.orgHandle = localStore.handle;
-      }
-    }
-
+  /**
+   * Reset the form to empty/default values
+   */
+  resetOppForm() {
+    this.createOppForm();
   }
 
   ngOnInit() {
   }
 
+  // opp create form submit
   postOpportunity(formData: any) {
     console.log('formData', formData);
 
@@ -79,8 +115,10 @@ export class OpportunityCreateComponent implements OnInit {
       qualificationsArr = formData.userQualifications.split(',');
     }
 
+    // create opp request object
     const reqObj = {
-      title: formData.oppType,
+      // title: formData.oppType,
+      title: 'Audition',
       role: formData.role,
       description: formData.description,
       experience: {
@@ -92,7 +130,8 @@ export class OpportunityCreateComponent implements OnInit {
         salaryType: formData.salaryType,
         currency: formData.salaryCurrency
       },
-      organization: this.orgHandle,
+      // organization: this.orgHandle,
+      organization: 'R_E6C2F53D_F5AE_4755_B5FB_D12F9C56315E',
       // organizationName: formData.orgName,
       jobType: formData.oppType,
       skills: skillsArr,
@@ -101,11 +140,11 @@ export class OpportunityCreateComponent implements OnInit {
       count: {
         like: [],
         spots: [],
-        channel: ['']
+        channel: ['j_a14589f8-8c69-46b3-a83a-5555ed54f180']
       }
     };
 
-    // trigger dispatch for creating the opportunity
+    // create the opportunity
     this.store.dispatch({
       type: OpportunityActions.CREATE_OPPORTUNITY,
       payload: reqObj

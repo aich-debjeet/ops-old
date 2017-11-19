@@ -26,6 +26,7 @@ export class OpportunityService {
   updateToken() {
     this.headers = this.api.getHeaders();
     this.handle = this.api.getHandle();
+    // console.log('this.headers', this.headers);
   }
 
   /**
@@ -43,7 +44,7 @@ export class OpportunityService {
    * @param request body
    */
   searchOpportunities(reqBody: any) {
-    // this.updateToken();
+    this.updateToken();
     return this.api.get('/portal/jobs/0/10');
   }
 
