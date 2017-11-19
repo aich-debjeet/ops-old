@@ -13,6 +13,8 @@ import { OpportunityModel } from './../../../models/opportunity.model';
 // services
 import { LocalStorageService } from './../../../services/local-storage.service';
 
+import { environment } from '../../../../environments/environment';
+
 @Component({
   selector: 'app-opportunity-view',
   templateUrl: './opportunity-view.component.html',
@@ -23,6 +25,8 @@ export class OpportunityViewComponent implements OnInit {
   opportunityState$: any;
   opportunityState: any;
   opportunity: any;
+
+  baseUrl = environment.API_IMAGE;
 
   constructor(
     private route: ActivatedRoute,

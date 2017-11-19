@@ -34,7 +34,7 @@
         </div><!-- cmpny address end -->
         <div class="o-job-post__short-det">
           <span class="o-job-post__det c-text_md color-grey-dark m-r-24">
-            Experience Required : <span class="color-grey-darker">{{ opportunity?.experience.experienceFrom }}-{{ opportunity?.experience.experienceTo }} years</span>
+            Experience Required : <span class="color-grey-darker">{{ opportunity?.experience?.experienceFrom }}-{{ opportunity?.experience?.experienceTo }} years</span>
           </span>
           <span *ngIf="opportunity?.salary?.amount && opportunity?.salary?.currency" class="o-job-post__det c-text_md color-grey-dark m-r-24">
             Salary : <span class="color-grey-darker">
@@ -77,63 +77,26 @@
         <div class="o-job-post__description with_border_top p-b-24">
           <h6 class="c-text_lg m-t-24">Description</h6>
           <p class="c-text_md color-grey-dark m-t-8">
-            The Chief Designer position is responsible for the creation and maintenance of visual assets and content to support the product and other marketing goals. From concept creation through to execution, this candidate will create illustrations, design concepts and improve user experience, across various touchpoints. 
-          </p>
-          <p class="c-text_md color-grey-dark m-t-8">
-            Responsibilities: 
-          </p>
-          <p class="c-text_md color-grey-dark m-t-8">
-            - Create exemplary visual assets and illustrations (sketches, design concepts, product blow-ups and exploded shots with components etc.) 
-          </p>
-          <p class="c-text_md color-grey-dark m-t-8">
-            - Collaborate with marketing and product marketing teammates to support our website design and content marketing (blog, social media assets, and more). 
-          </p>
-          <p class="c-text_md color-grey-dark m-t-8">
-            - Help bring new ideas for design and content creation to the team using your expertise and eye for great design. 
-          </p>
-          <p class="c-text_md color-grey-dark m-t-8">
-            - Scope and create visual assets for social media, blog, email, and other channels. 
-          </p>
-          <p class="c-text_md color-grey-dark m-t-8">
-            - Manage other design needs such as presentations, signage, and trade show collateral as needed. 
-          </p>
-          <p class="c-text_md color-grey-dark m-t-8">
-            Requirements: 
-          </p>
-          <p class="c-text_md color-grey-dark m-t-8">
-            - Industrial design background from a Tier 1 institution (NID, IIT etc.) 
-          </p>
-          <p class="c-text_md color-grey-dark m-t-8">
-            - Previous experience in the capacity of an in-house designer or at a marketing agency. We require work samples to be shared. 
-          </p>
-          <p class="c-text_md color-grey-dark m-t-8">
-            - Expert in Adobe Creative Suite, CorelDraw, Photoshop or similar technologies. 
-          </p>
-          <p class="c-text_md color-grey-dark m-t-8">
-            - Knowledge of HTML, CSS, and JavaScript a major plus.
-          </p>
-          <h6 class="c-text_lg m-t-24">Company Profile</h6>
-          <p class="c-text_md color-grey-dark m-t-8">
-            Technosoft Corporation is an IT and BPO services provider with headquarters in Southfield, MI, USA and delivery centers in India. We provide information technology, business process outsourcing and consulting services to companies in North America, Australia and New Zealand and Asia-Pacific Regions. As a privately owned company we answer to only two constituencies â€“ our customers and our employees. Our customers rely on us to provide services and solutions that leverage our industry and domain expertise combined with our technology prowess, delivery focus and quality. Our collaborative culture and work environment helps attract and retain exceptional talent which is a key ingredient of our sustained growth. To see how Technosoft can go â€˜Beyond Possibleâ€™ for your organizational needs, email us at wecanhelp@technosoftcorp.com or visit us at www.technosoftcorp.com.
+            {{ opportunity?.description }}
           </p>
           <h6 class="c-text_lg m-t-24">Expertised in</h6>
           <p class="c-text_md color-grey-dark m-t-8">
-            Html, css, Javascript, Photoshop, sketch
+            <span *ngFor="let item of opportunity?.skills; let isLast=last">
+              {{item}}{{isLast ? '' : ', '}}
+            </span>
           </p>
           <h6 class="c-text_lg m-t-24">Education</h6>
           <p class="c-text_md color-grey-dark m-t-8">
-            Undergraduate: Any graduates
+            <span *ngFor="let item of opportunity?.qualification; let isLast=last">
+              {{item}}{{isLast ? '' : ', '}}
+            </span>
           </p>
         </div>
         <div class="o-job-post__description with_border_top">
           <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
           <ul class="o-job-post__media-list">
-            <li class="o-job-post__media-item">
-              
-            </li>
-            <li class="o-job-post__media-item">
-              
-            </li>
+            <li class="o-job-post__media-item"></li>
+            <li class="o-job-post__media-item"></li>
           </ul>
           <div class="o-job-post__media-action">
             <div class="o-job-post__action-icons float_left ">
@@ -163,7 +126,7 @@
         <p class="c-text_sm ltr-space color-grey-dark">Posted By</p>
         <div class="o-opportunity-post-user-detail m-t-16">
           <div class="o-post-user__avatar">
-            <img src="/assets/img/avatar2.jpg" alt="">
+            <img src="{{ baseUrl + opportunity?.postedByImage }}" alt="">
           </div>
           <div class="o-post-user__info">
             <div class="o-post-user__name c-text_lg">{{ opportunity?.postedByName }}</div>
