@@ -1,5 +1,24 @@
 // opportunity inner page style
 
+.c-links__image {
+  width: 24px;
+  float: left;
+}
+
+.c-links__spots {
+  display: inline;
+  float: left;
+  margin-right: 16px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #929292;
+}
+
+.o-action-icons__link {
+  padding: 4px 0px;
+  float: left;
+}
+
 .o-opportunity-inner-block{
   width: 100%;
   padding-top: 3.5%;
