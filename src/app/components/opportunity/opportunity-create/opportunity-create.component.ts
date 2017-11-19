@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+
+// actions
 import { OpportunityActions } from 'app/actions/opportunity.action';
 
 // store
