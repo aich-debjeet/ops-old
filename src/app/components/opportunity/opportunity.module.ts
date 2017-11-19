@@ -33,7 +33,7 @@ const opportunityRoutes: Routes = [
         ]
       },
       { path: 'create', component: OpportunityCreateComponent },
-      { path: 'view', component: OpportunityViewComponent }
+      { path: 'view/:id', component: OpportunityViewComponent, pathMatch: 'full' }
     ]
   }
 ]

@@ -1,11 +1,10 @@
 <section class="o-opportunity-inner-block">
   <div class="container">
-
     <div class="col-md-9 m-t-16">
       <div class="o-opportunity-detail">
         <div class="o-job-post__head color-grey-dark">Jobs</div>
         <div class="o-job-post__title m-t-8">
-          <h4 class="c-h4 o-job-post--title-width">Chief Web/ Graphics Designer - Photoshop/ Coreldraw</h4>
+          <h4 class="c-h4 o-job-post--title-width">{{ opportunity?.role }}</h4>
           <div class="o-job-post__edit">
             <div class="dropdown">
               <span class="com-head" data-toggle="dropdown" aria-expanded="true">
@@ -27,18 +26,22 @@
           </div>
         </div><!-- job title end -->
         <div class="o-job-post__address m-t-8">
-          <span class="o-job-post__cmpny-name float_left c-text_lg color-grey-dark m-r-16">Technosoft Global Services Pvt Ltd</span>
+          <span class="o-job-post__cmpny-name float_left c-text_lg color-grey-dark m-r-16">{{ opportunity?.postedByName }}</span>
           <span class="o-job-post__cmpny-location float_left c-text_md color-grey-dark">
             <span class="o-job-post__location-icon"><img src="/assets/img/svg/ico_location2.svg" alt=""></span>
-            Bengaluru, Karnataka, India
+            {{ opportunity?.location }}
           </span>
         </div><!-- cmpny address end -->
         <div class="o-job-post__short-det">
           <span class="o-job-post__det c-text_md color-grey-dark m-r-24">
-            Experience Required : <span class="color-grey-darker">3-4 years</span>
+            Experience Required : <span class="color-grey-darker">{{ opportunity?.experience.experienceFrom }}-{{ opportunity?.experience.experienceTo }} years</span>
           </span>
-          <span class="o-job-post__det c-text_md color-grey-dark m-r-24">
-            Annual salary : <span class="color-grey-darker">3.5 lac - 4 lac</span>
+          <span *ngIf="opportunity?.salary?.amount && opportunity?.salary?.currency" class="o-job-post__det c-text_md color-grey-dark m-r-24">
+            Salary : <span class="color-grey-darker">
+                {{ opportunity?.salary?.amount }} {{ opportunity?.salary?.currency }} / 
+                <ng-container *ngIf="opportunity?.salary?.salaryType == 'annual'; else monthly_salary">Year</ng-container>
+                <ng-template #monthly_salary>Month</ng-template>
+            </span>
           </span>
           <span class="o-job-post__det c-text_md color-grey-dark m-r-24">
             Type: <span class="color-grey-darker">Full time</span>
@@ -163,7 +166,7 @@
             <img src="/assets/img/avatar2.jpg" alt="">
           </div>
           <div class="o-post-user__info">
-            <div class="o-post-user__name c-text_lg">Ethel Kennedy</div>
+            <div class="o-post-user__name c-text_lg">{{ opportunity?.postedByName }}</div>
             <div class="o-post-user__desigination c-text_md color-grey-dark">Manager</div>
           </div>
         </div>
