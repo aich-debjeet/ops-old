@@ -1,407 +1,197 @@
-// opportunity styles
+// opportunity inner page style
 
-p.result-not-found {
-  font-size: 15px;
-  text-align: center;
-  padding-top: 200px;
-}
-
-.o-opportunity-top-block{
-	width: 100%;
-	height: 385px;
-	background-color: #fff;
-	float: left;
-	box-shadow: 0 2px 4px 0 rgba(102,45,145,0.1);
-	background: url(/assets/img/opportunities/opportunities_bg.jpg) no-repeat;
-	background-size: cover;
-    margin-top: 3.5%;
-}
-// top text and search
-
-.o-top-main__title{
-	text-align: center;	
-	text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-	margin-top: 40px;
-	font-weight: normal;
-}
-.o-opportunity-search{
-	width: 564px;
-	margin:0px auto;
-	background: #fff;
-	height: 46px;
-	border-radius: 3px;
-	box-shadow: 0 11px 4px 0 rgba(102,45,145,0.1);
-	padding:8px 16px;
-}
-.o-opp-search__input{
-	width: 400px;
-	font-size: 15px;	
-	font-weight: 300;	
-	line-height: 24px;
-	border :none;
-	float: left;
-}
-.o-opp-search__select{
-	width: 100px!important;
-	float: left;
-	border:none!important;
-}
-.o-opp-search__icon{
-	width: 19px;
-	height: 19px;
-	float: right;
-	margin-top: 8px;
-	svg{
-		width: 19px;
-	}
+.c-links__image {
+  width: 24px;
+  float: left;
 }
 
-// tag
-
-.o-opp-taglist{
-	width: 1020px;
-	margin:0px auto 24px auto;
-	text-align: center;
-	height: 40px;
-}
-
-// top quick link
-
-.o-top-quicklink{
-	width: 100%;
-	// float: left;
-	padding:32px 0px 24px 0px;
-}
-.o-quicklink-list{
-	width: 100%;
-	list-style: none;
-	overflow: hidden;
-}
-.o-quicklink__item{
-	list-style-type: none;
-	width: 181px;
-	height: 78px;
-	position: relative;
-	float: left;
-	margin-right: 16px;
-}
-.o-quicklink__item [type="radio"]:not(:checked),
-.o-quicklink__item [type="radio"]:checked {
-  opacity: 0;
-  position: absolute;
-  width: 181px;
-	height: 78px;
-}
-.o-quicklink__item [type="radio"] + label {
+.c-links__spots {
+  display: inline;
+  float: left;
+  margin-right: 16px;
   cursor: pointer;
-  position: absolute;
-  width: 181px;
-	height: 78px;
-	top: 0;
-	border-radius: 3px;
-	border: 1px solid #fff;	
-	transition:.25s;
-}
-.o-quicklink__item label {
-  padding: .75em;
-  box-sizing: border-box;
-  user-select: none;
-  display: flex;
-  align-items:center;
-	background: #fff;
-
-}
-.o-quicklink__item:hover label {
-	background-color: #F3F5F7;
-	border-radius: 3px;
-}
-.o-quicklink__item [type="radio"]:checked + label {
-	border: 1px solid #FF7B84;	
-	border-radius: 3px;	
-	background-color: #FFFFFF;	
-	background-color: #F3F5F7;
-}
-.o-quicklink__ico{
-	width: 62px;
-	float: left;
-	margin-right: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  img{
-  	width: 42px;
-  }
-}
-.o-quicklink__title{
-	float: left;
-	transition:.25s;
-	width: 100px;
-}
-.o-quicklink__title-show{
-	float: left;
-	display: none;
-	transition:.25s;
-	width: 100px;
-}
-.o-quicklink__item [type="radio"]:checked + label .o-quicklink__title{
-	display: none;
-}
-.o-quicklink__item [type="radio"]:checked + label .o-quicklink__title-show{
-	display: block;
+  font-weight: 500;
+  color: #929292;
 }
 
-// filter section
-
-.o-oppertunity-filter-sec{
-  width: 100%;
+.o-action-icons__link {
+  padding: 4px 0px;
   float: left;
-  background: #fff;
-  padding: 16px 24px;
-}
-.o-filter-list-block{
-	list-style: none;
-	float: right;
-}
-.o-filter-list__item{
-	list-style-type: none;
-	margin-right: 8px;
-	float: left;
-	margin:0px 8px;
-}
-.o-filter-item__location{
-	width: 100%;
-	float: left;
-	padding-top: 5px;
-}
-.o-select-location__ico{
-	width: 24px;
-	height: 24px;
-	vertical-align: middle;
-	padding-right: 8px;
-	float: left;
 }
 
-// filter icon
-
-.o-filter__fil-icon{
-	width: 17px;
-	padding-top: 8px;
-}
-
-// oppertunity card list block
-
-.o-opportunity-list-block{
-	float: left;
-	width: 100%;
-	margin-top: -35px;
-}
-
-// tabs
-
-.o-opportunity-tabs {
-	.nav-tabs > li > a {
-    font-size: 13px!important;
-    font-weight: 600!important;
-    text-align: left;
-    color: #929292;
-    background: transparent;
-    border: none;
-    text-transform: uppercase!important;
-    letter-spacing: 1px;
-  }
-}
-
-.c-skill__tags {
-    color: #333333;
-    font-size: 11px;
-    line-height: 15px;
-    cursor: pointer;
-    margin-right: 4px;
-}
-
-.c-ops__tabs {
-    // margin-top: 8px;
-    .nav-tabs > li > a {
-        font-size: 15px;
-        font-weight: normal;
-        text-align: left;
-        color: #929292;
-        background: transparent;
-        border: none;
-        text-transform: capitalize;
-    }
-    .nav-tabs li .active a {
-        color: #333;
-    }
-    .nav-tabs > li.active > a,
-    .nav-tabs > li.active > a:hover,
-    .nav-tabs > li.active > a:focus {
-        color: #333;
-        background-color: transparent;
-        border: none;
-        border-bottom-color: transparent;
-        cursor: default;
-    }
-    .nav > li > a {
-        position: relative;
-        display: block;
-        padding: 8px 12px 8px 12px;
-    }
-    .nav-tabs {
-        border-bottom: none;
-    }
-}
-
-.c-skill__tags {
-    color: #333333;
-    font-size: 11px;
-    line-height: 15px;
-    cursor: pointer;
-    margin-right: 4px;
-}
-
-.c-card {
-    width: 100%;
-    height: auto;
-    float: left;
-    border-radius: 3px;
-    box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
-    background-color: #ffffff;
-    overflow: hidden;
-}
-
-.c-card__project {
-    font-size: 13px;
-    letter-spacing: 1px;
-    font-weight: 600;
-    line-height: 24px;
-    color: #929292;
-    text-transform: uppercase;
-}
-
-.c-card__project--icon {
-    height: 24px;
-    float: left;
-}
-
-.c-card__body {
-  width: 100%;
+.c-links__count {
   float: left;
-  clear: both;
-  padding: 16px;
+  margin-left: 6px;
+  font-weight: 500;
+  color: #929292;
+  font-size: 11px;
+  line-height: 18px;
+  top: 4px;
   position: relative;
 }
 
-.c-card__project--des {
-  font-size: 20px;
-  line-height: 30px;
-  color: #333333;
+.o-opportunity-inner-block{
+  width: 100%;
+  padding-top: 3.5%;
 }
 
-
-.c-card__opportunity__details {
-    clear: both;
-    margin-bottom: 16px;
-    display: flex;
+.o-opportunity-post-user-detail{
+	width: 100%;
 }
-.c-card__location {
-    clear: both;
-    margin: 0 16px;
-    position: relative;
+.o-post-user__avatar{
+	width: 60px;
+	height: 60px;
+	float: left;
+	border-radius: 50%;
+	overflow: hidden;
+	img{
+		width: 100%;
+	}
 }
-.c-card__location--text {
-    font-size: 13px;
-    line-height: 20px;
-    color: #929292;
-    display: inline;
-    top: 1px;
-    position: absolute;
-    padding-left: 8px;
+.o-post-user__info{
+	width: 70%;
+	float: left;
+	padding: 8px 0px 0px 16px;
 }
-.c-card__opportunity__user {
-    display: flex;
-    margin: 0 16px;
-    padding: 8px 0;
+.o-post-user__name{
+	width: 100%;
 }
-.c-avatar--feed {
-    width: 24px;
-    height: 24px;
-}
-.c-user__avatar {
-    display: inline-block;
-    vertical-align: middle;
-    overflow: hidden;
-    position: relative;
-    box-sizing: border-box;
-    background: #f8f8f8;
-    cursor: pointer;
-    border-radius: 50px;
-    float: left;
-}
-.c-user__image {
-    width: 100%;
-}
-.c-card__opportunity__username {
-    font-size: 13px;
-    color: #808080;
-    line-height: 24px;
-    margin-left: 8px;
+.o-post-user__desigination{
+	width: 100%;
 }
 
-.c-card__links {
-    width: 100%;
-    float: left;
-    padding: 16px;
+// detail sec
+
+.o-opportunity-detail{
+	width: 100%;
+	background: #fff;
+	min-height: 600px;
+	padding: 16px 24px 32px 24px;
+	border-radius: 3px;
+	float: left;
 }
-.c-links {
-    font-size: 12px;
-    font-weight: 600;
-    text-align: left;
-    color: #333333;
-    line-height: 17px;
+.o-job-post__head{
+	width: 100%;
+	float: left;
+	font-size: 13px;
+	font-weight: 600;
+	text-transform: uppercase;
 }
-.c-links__spots {
-    display: inline;
-    float: left;
-    margin-right: 16px;
-    cursor: pointer;
-    font-weight: 500;
-    color: #929292;
+.o-job-post__title{
+	width: 100%;
+	float: left;
 }
-.c-links__image {
-    width: 24px;
-    float: left;
+.o-job-post--title-width{
+	width: 90%;
+	float: left;
 }
-.c-links__count {
-    float: left;
-    margin-left: 6px;
-    font-weight: 500;
-    color: #929292;
-    font-size: 11px;
-    line-height: 18px;
-    top: 4px;
-    position: relative;
+// dropdown
+
+.o-job-post__edit{
+	float: right;
+	margin-top: 8px;
 }
-.c-links__comments {
-    display: inline;
-    float: left;
-    margin-right: 24px;
-    cursor: pointer;
+.c-opsdropdown--size-job{
+	max-width: 80px;
+	min-width: 80px;
+	padding :16px!important;
+	border-radius: 3px;	
+	background-color: #FFFFFF;	
+	box-shadow: 0 1px 4px 0 rgba(0,0,0,0.18);
+	border:none!important;
+	left: -60px;
 }
-.c-links__image {
-    width: 24px;
-    float: left;
+.o-job-edit__drop{
+	padding:5px 0px!important;
 }
-.c-links__actions {
-    text-align: right;
+
+// address
+
+.o-job-post__address{
+	width: 100%;
+	float: left;
 }
-.c-card__opportunity--view {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    line-height: 18px;
-    color: #FC6371;
-    text-transform: uppercase;
+.o-job-post__location-icon{
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin: 3px;
+}
+
+// job short det
+
+.o-job-post__short-det{
+	margin-top: 24px;
+	width: 100%;
+	float: left;
+}
+.o-job-post__det{
+	float: left;
+}
+
+// actions
+
+.o-job-post__actions{
+	width: 100%;
+	float: left;
+}
+.o-job-post__uplod-info{
+	float: right;
+	margin-top: 6px;
+}
+.o-action-icons__link{
+  padding: 4px 0px;
+  float: left;
+}
+
+// description
+
+.o-job-post__description{
+	width: 100%;
+	float: left;
+}
+.btn-label-icon-opportunity{
+	background: url(/assets/img/svg/add_channel_theme_color.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -1px;
+}
+
+// attachment
+
+
+.o-job-post__media-list{
+	list-style: none;
+}
+.o-job-post__media-item{
+	list-style-type: none;
+	float: left;
+	margin-right: 16px;
+	border-radius: 3px;
+	background: url(/assets/img/quick3.jpg) no-repeat;
+	background-size: cover;
+	width: 200px;
+	height: 150px;
+}
+
+.o-job-post__media-action{
+	width: 100%;
+	float: left;
+	margin-top: 24px;
+}
+
+// right block
+
+.o-job-post-right-block{
+	width: 100%;
+	float: left;
+	padding:16px;
+	background: #fff;
+	border-radius: 3px;
 }
 
 // ===================================== PADDING ============================================

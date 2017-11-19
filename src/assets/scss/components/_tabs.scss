@@ -1,0 +1,71 @@
+/* -------------------- spotfeed style ---------------------*/
+.c-ops__tabs {
+    // margin-top: 8px;
+    .nav-tabs > li > a {
+        font-size: 15px;
+        font-weight: normal;
+        text-align: left;
+        color: #929292;
+        background: transparent;
+        border: none;
+        text-transform: capitalize;
+    }
+    .nav-tabs li .active a {
+        color: #333;
+    }
+    .nav-tabs > li.active > a,
+    .nav-tabs > li.active > a:hover,
+    .nav-tabs > li.active > a:focus {
+        color: #333;
+        background-color: transparent;
+        border: none;
+        border-bottom-color: transparent;
+        cursor: default;
+    }
+    .nav > li > a {
+        position: relative;
+        display: block;
+        padding: 8px 12px 8px 12px;
+    }
+    .nav-tabs {
+        border-bottom: none;
+    }
+}
+
+
+// old style -----------------
+.ops_tabs {
+    // margin-top: 8px;
+    .nav-tabs > li > a {
+        font-size: 13px;
+        font-weight: normal;
+        text-align: left;
+        color: #929292;
+        background: transparent;
+        border: none;
+        text-transform: capitalize;
+    }
+    .nav-tabs li .active a {
+        color: #333;
+    }
+    .nav-tabs > li.active > a,
+    .nav-tabs > li.active > a:hover,
+    .nav-tabs > li.active > a:focus {
+        color: #333;
+        background-color: transparent;
+        border: none;
+        border-bottom-color: transparent;
+        cursor: default;
+    }
+    .nav > li > a {
+        position: relative;
+        display: block;
+        padding: 8px 12px 8px 12px;
+    }
+    .nav-tabs {
+        border-bottom: none;
+    }
+    #home_channel, #home_feed, #home_spotfeed {
+        margin-left: -19px;
+    }
+}

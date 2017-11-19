@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <path id="fiter-a" d="M0,3 L0,0 L16.166,0 L16.166,3 L0,3 Z M3.958,9.562 L3.958,6.562 L12.208,6.562 L12.208,9.562 L3.958,9.562 Z M5.958,15.979 L5.958,12.979 L10.208,12.979 L10.208,15.979 L5.958,15.979 Z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(4 4)">
+    <mask id="fiter-b" fill="#fff">
+      <use xlink:href="#fiter-a"/>
+    </mask>
+    <use fill="#333" xlink:href="#fiter-a"/>
+    <g fill="#929292" mask="url(#fiter-b)">
+      <rect width="24" height="24" rx="2" transform="translate(-4 -4)"/>
+    </g>
+  </g>
+</svg>
