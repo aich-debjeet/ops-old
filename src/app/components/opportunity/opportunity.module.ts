@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { OpportunityComponent } from './opportunity.component';
+import { OpportunityViewComponent } from './opportunity-view/opportunity-view.component';
 import { OpportunityCreateComponent } from './opportunity-create/opportunity-create.component';
 import { OpportunitySearchComponent } from './opportunity-search/opportunity-search.component';
 import { OpportunitySearchRecommendedComponent } from './opportunity-search/opportunity-search-recommended/opportunity-search-recommended.component';
@@ -29,7 +30,8 @@ const opportunityRoutes: Routes = [
           { path: 'created', component: OpportunitySearchCreatedComponent }
         ]
       },
-      { path: 'create', component: OpportunityCreateComponent }
+      { path: 'create', component: OpportunityCreateComponent },
+      { path: 'view', component: OpportunityViewComponent }
     ]
   }
 ]
@@ -49,7 +51,8 @@ const opportunityRoutes: Routes = [
     OpportunitySearchComponent,
     OpportunitySearchRecommendedComponent,
     OpportunitySearchAppliedComponent,
-    OpportunitySearchCreatedComponent
+    OpportunitySearchCreatedComponent,
+    OpportunityViewComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
