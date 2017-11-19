@@ -41,7 +41,7 @@ export class OpportunityCreateComponent implements OnInit {
       // check if opportunity created successfully
       if (this.opportunityState && this.opportunityState.create_opportunity_data && this.opportunityState.create_opportunity_data.SUCCESS) {
         this.toastr.success('Opportunity has been created successfully!');
-        console.log('opportunity created successfully')
+        // console.log('opportunity created successfully')
       }
     });
 
@@ -64,7 +64,7 @@ export class OpportunityCreateComponent implements OnInit {
   createOppForm() {
     // reactive from group
     this.createOppFrm = this.fb.group({
-      oppType: ['Internship'],
+      oppType: [null],
       role: ['Sr. Engineer'],
       description: ['Job description'],
       yearsExpFrom: [null],
@@ -119,17 +119,16 @@ export class OpportunityCreateComponent implements OnInit {
 
     // create opp request object
     const reqObj = {
-      // title: formData.oppType,
-      title: 'Audition',
+      title: formData.oppType,
       role: formData.role,
       description: formData.description,
       experience: {
-        experienceFrom: formData.experienceFrom,
-        experienceTo: formData.experienceTo
+        experienceFrom: Number(formData.yearsExpFrom),
+        experienceTo: Number(formData.yearsExpTo)
       },
       salary: {
-        amount: formData.salaryAmount,
-        salaryType: formData.salaryType,
+        amount: Number(formData.salaryAmount),
+        salaryType: formData.salaryDuration,
         currency: formData.salaryCurrency
       },
       // organization: this.orgHandle,
@@ -142,10 +141,11 @@ export class OpportunityCreateComponent implements OnInit {
       count: {
         like: [],
         spots: [],
-        channel: ['j_a14589f8-8c69-46b3-a83a-5555ed54f180']
+        channel: ['']
       }
     };
 
+    // console.log(reqObj);
     // create the opportunity
     this.store.dispatch({
       type: OpportunityActions.CREATE_OPPORTUNITY,

@@ -15,22 +15,28 @@
             <div class="col-md-9 p-0">
               <div class="c-radio__sm">
                 <label class="col-md-2 p-0">
-                  <input type="radio" name="oppType" formControlName="oppType" class="c-form__bar2"><span></span>Audition
+                  <input type="radio" value="Audition" name="oppType" formControlName="oppType" class="c-form__bar2">
+                  <span></span>Audition
                 </label>
                 <label class="col-md-2 p-0">
-                  <input type="radio" name="oppType" formControlName="oppType" class="c-form__bar2"><span></span>Projects
+                  <input type="radio" value="Projects" name="oppType" formControlName="oppType" class="c-form__bar2">
+                  <span></span>Projects
                 </label>
                 <label class="col-md-2 p-0">
-                  <input type="radio" name="oppType" formControlName="oppType"><span></span>Jobs
+                  <input type="radio" value="Jobs" name="oppType" formControlName="oppType">
+                  <span></span>Jobs
                 </label>
                 <label class="col-md-2 p-0">
-                  <input type="radio" name="oppType" formControlName="oppType"><span></span>Internship
+                  <input type="radio" value="Internship" name="oppType" formControlName="oppType">
+                  <span></span>Internship
                 </label>
                 <label class="col-md-2 p-0">
-                  <input type="radio" name="oppType" formControlName="oppType"><span></span>Freelance
+                  <input type="radio" value="Freelance" name="oppType" formControlName="oppType">
+                  <span></span>Freelance
                 </label>
                 <label class="col-md-2 p-0">
-                  <input type="radio" name="oppType" formControlName="oppType"><span></span>Volunteer
+                  <input type="radio" value="Volunteer" name="oppType" formControlName="oppType">
+                  <span></span>Volunteer
                 </label>
               </div>
               <p class="error_alert" *ngIf="createOppFrm.controls['oppType'].errors?.required">Opportunity type is required</p>
@@ -180,10 +186,10 @@
               <div class="col-md-2 p-0">
                 <div class="c-radio__sm p-t-8 float_left width100">
                   <label class="col-md-6 p-0 p-t-8">
-                    <input formControlName="oppLevel" type="radio" class="c-form__bar2"><span></span>yes
+                    <input formControlName="oppLevel" name="oppLevel" value="Yes" type="radio" class="c-form__bar2"><span></span>Yes
                   </label>
                   <label class="col-md-6 p-0 p-t-8">
-                    <input formControlName="oppLevel" type="radio" class="c-form__bar2"><span></span>No
+                    <input formControlName="oppLevel" name="oppLevel" value="No" type="radio" class="c-form__bar2"><span></span>No
                   </label>
                 </div>
               </div>

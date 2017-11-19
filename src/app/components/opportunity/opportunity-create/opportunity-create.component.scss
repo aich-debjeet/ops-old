@@ -1,5 +1,16 @@
 // opportunity form css
 
+.c-radio__sm input span, .c-radio__sm input[type="radio"] + span {
+  text-align: center;
+}
+
+.c-radio__sm label {
+  text-align: left;
+}
+
+select {
+  color: #333333 !important;
+}
 .o-opportunities-form{
 	width: 100%;
 	padding: 50px 0 80px 0;
