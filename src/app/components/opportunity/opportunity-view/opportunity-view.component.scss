@@ -1,0 +1,502 @@
+// opportunity inner page style
+
+.o-opportunity-inner-block{
+	width: 100%;
+}
+
+.o-opportunity-post-user-detail{
+	width: 100%;
+}
+.o-post-user__avatar{
+	width: 60px;
+	height: 60px;
+	float: left;
+	border-radius: 50%;
+	overflow: hidden;
+	img{
+		width: 100%;
+	}
+}
+.o-post-user__info{
+	width: 70%;
+	float: left;
+	padding: 8px 0px 0px 16px;
+}
+.o-post-user__name{
+	width: 100%;
+}
+.o-post-user__desigination{
+	width: 100%;
+}
+
+// detail sec
+
+.o-opportunity-detail{
+	width: 100%;
+	background: #fff;
+	min-height: 600px;
+	padding: 16px 24px 32px 24px;
+	border-radius: 3px;
+	float: left;
+}
+.o-job-post__head{
+	width: 100%;
+	float: left;
+	font-size: 13px;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+.o-job-post__title{
+	width: 100%;
+	float: left;
+}
+.o-job-post--title-width{
+	width: 90%;
+	float: left;
+}
+// dropdown
+
+.o-job-post__edit{
+	float: right;
+	margin-top: 8px;
+}
+.c-opsdropdown--size-job{
+	max-width: 80px;
+	min-width: 80px;
+	padding :16px!important;
+	border-radius: 3px;	
+	background-color: #FFFFFF;	
+	box-shadow: 0 1px 4px 0 rgba(0,0,0,0.18);
+	border:none!important;
+	left: -60px;
+}
+.o-job-edit__drop{
+	padding:5px 0px!important;
+}
+
+// address
+
+.o-job-post__address{
+	width: 100%;
+	float: left;
+}
+.o-job-post__location-icon{
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin: 3px;
+}
+
+// job short det
+
+.o-job-post__short-det{
+	margin-top: 24px;
+	width: 100%;
+	float: left;
+}
+.o-job-post__det{
+	float: left;
+}
+
+// actions
+
+.o-job-post__actions{
+	width: 100%;
+	float: left;
+}
+.o-job-post__uplod-info{
+	float: right;
+	margin-top: 6px;
+}
+.o-action-icons__link{
+  padding: 4px 0px;
+  float: left;
+}
+
+// description
+
+.o-job-post__description{
+	width: 100%;
+	float: left;
+}
+.btn-label-icon-opportunity{
+	background: url(/assets/img/svg/add_channel_theme_color.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -1px;
+}
+
+// attachment
+
+
+.o-job-post__media-list{
+	list-style: none;
+}
+.o-job-post__media-item{
+	list-style-type: none;
+	float: left;
+	margin-right: 16px;
+	border-radius: 3px;
+	background: url(/assets/img/quick3.jpg) no-repeat;
+	background-size: cover;
+	width: 200px;
+	height: 150px;
+}
+
+.o-job-post__media-action{
+	width: 100%;
+	float: left;
+	margin-top: 24px;
+}
+
+// right block
+
+.o-job-post-right-block{
+	width: 100%;
+	float: left;
+	padding:16px;
+	background: #fff;
+	border-radius: 3px;
+}
+
+// ===================================== PADDING ============================================
+
+// padding 0, 8, 16, 24 =========================
+.p-0 {
+	padding: 0 !important;
+  }
+  .p-8 {
+	padding: 8px !important;
+  }
+  .p-16 {
+	padding: 16px !important;
+  }
+  .p-24 {
+	padding: 24px !important;
+  }
+  .p-32 {
+	padding: 32px !important;
+  }
+  // padding-top 0, 8, 16, 24 ======================
+  .p-t-0 {
+	padding-top: 0 !important;
+  }
+  .p-t-8 {
+	padding-top: 8px !important;
+  }
+  .p-t-16 {
+	padding-top: 16px !important;
+  }
+  .p-t-24 {
+	padding-top: 24px !important;
+  }
+  .p-t-32 {
+	padding-top: 32px !important;
+  }
+  // padding-right 0, 8, 16, 24 ======================
+  .p-r-0 {
+	padding-right: 0 !important;
+  }
+  .p-r-8 {
+	padding-right: 8px !important;
+  }
+  .p-r-16 {
+	padding-right: 16px !important;
+  }
+  .p-r-24 {
+	padding-right: 24px !important;
+  }
+  // padding-bottom 0, 8, 16, 24 ======================
+  .p-b-0 {
+	padding-bottom: 0 !important;
+  }
+  .p-b-8 {
+	padding-bottom: 8px !important;
+  }
+  .p-b-16 {
+	padding-bottom: 16px !important;
+  }
+  .p-b-24 {
+	padding-bottom: 24px !important;
+  }
+  // padding-left 0, 8, 16, 24 ======================
+  .p-l-0 {
+	padding-left: 0 !important;
+  }
+  .p-l-8 {
+	padding-left: 8px !important;
+  }
+  .p-l-16 {
+	padding-left: 16px !important;
+  }
+  .p-l-24 {
+	padding-left: 24px !important;
+  }
+  .p-l-32 {
+	padding-left: 32px !important;
+  }
+  // padding left right 8, 16, 24 ===============================================
+  .p-l-r-8 {
+	padding-left: 8px !important;
+	padding-right: 8px !important;
+  }
+  .p-l-r-16 {
+	padding-left: 16px !important;
+	padding-right: 16px !important;
+  }
+  .p-l-r-24 {
+	padding-left: 24px !important;
+	padding-right: 24px !important;
+  }
+  // padding top bottom 8, 16, 24 ===============================================
+  .p-t-b-8 {
+	padding-top: 8px !important;
+	padding-bottom: 8px !important;
+  }
+  .p-t-b-16 {
+	padding-top: 16px !important;
+	padding-bottom: 16px !important;
+  }
+  .p-t-b-24 {
+	padding-top: 24px !important;
+	padding-bottom: 24px !important;
+  }
+  // padding-top minus -8, -16, -24 ===============================================
+  .p-t--8 {
+	padding-top: -8px !important;
+  }
+  .p-t--16 {
+	padding-top: -16px !important;
+  }
+  .p-t--24 {
+	padding-top: -24px !important;
+  }
+  .p-t--32 {
+	padding-top: -32px !important;
+  }
+  // padding-right minus -8, -16, -24 ===============================================
+  .p-r--8 {
+	padding-right: -8px !important;
+  }
+  .p-r--16 {
+	padding-right: -16px !important;
+  }
+  .p-r--24 {
+	padding-right: -24px !important;
+  }
+  .p-r--32 {
+	padding-right: -32px !important;
+  }
+  // padding-bottom minus -8, -16, -24 ===============================================
+  .p-b--8 {
+	padding-bottom: -8px !important;
+  }
+  .p-b--16 {
+	padding-bottom: -16px !important;
+  }
+  .p-b--24 {
+	padding-bottom: -24px !important;
+  }
+  .p-b--32 {
+	padding-bottom: -32px !important;
+  }
+  // padding-left minus -8, -16, -24 ===============================================
+  .p-l--8 {
+	padding-left: -8px !important;
+  }
+  .p-l--16 {
+	padding-left: -16px !important;
+  }
+  .p-l--24 {
+	padding-left: -24px !important;
+  }
+  .p-l--32 {
+	padding-left: -32px !important;
+  }
+  
+  
+  
+  // ===================================== MARGIN ============================================
+  
+  // margin 0, 8, 16, 24 =========================
+  .m-0 {
+	margin: 0 !important;
+  }
+  .m-8 {
+	margin: 8px !important;
+  }
+  .m-16 {
+	margin: 16px !important;
+  }
+  .m-24 {
+	margin: 24px !important;
+  }
+  // margin-top 0, 8, 16, 24 ======================
+  .m-t-0 {
+	margin-top: 0 !important;
+  }
+  .m-t-8 {
+	margin-top: 8px !important;
+  }
+  .m-t-16 {
+	margin-top: 16px !important;
+  }
+  .m-t-24 {
+	margin-top: 24px !important;
+  }
+  .m-t-32 {
+	margin-top: 32px !important;
+  }
+  // margin-right 0, 8, 16, 24 ======================
+  .m-r-0 {
+	margin-right: 0 !important;
+  }
+  .m-r-8 {
+	margin-right: 8px !important;
+  }
+  .m-r-16 {
+	margin-right: 16px !important;
+  }
+  .m-r-24 {
+	margin-right: 24px !important;
+  }
+  // margin-bottom 0, 8, 16, 24 ======================
+  .m-b-0 {
+	margin-bottom: 0 !important;
+  }
+  .m-b-8 {
+	margin-bottom: 8px !important;
+  }
+  .m-b-16 {
+	margin-bottom: 16px !important;
+  }
+  .m-b-24 {
+	margin-bottom: 24px !important;
+  }
+  .m-b-32 {
+	margin-bottom: 32px !important;
+  }
+  // margin-left 0, 8, 16, 24 ======================
+  .m-l-0 {
+	margin-left: 0 !important;
+  }
+  .m-l-8 {
+	margin-left: 8px !important;
+  }
+  .m-l-16 {
+	margin-left: 16px !important;
+  }
+  .m-l-24 {
+	margin-left: 24px !important;
+  }
+  // margin left right 8, 16, 24 ===============================================
+  .m-l-r-8 {
+	margin-left: 8px !important;
+	margin-right: 8px !important;
+  }
+  .m-l-r-16 {
+	margin-left: 16px !important;
+	margin-right: 16px !important;
+  }
+  .m-l-r-24 {
+	margin-left: 24px !important;
+	margin-right: 24px !important;
+  }
+  // margin top bottom 8, 16, 24 ===============================================
+  .m-t-b-8 {
+	margin-top: 8px !important;
+	margin-bottom: 8px !important;
+  }
+  .m-t-b-16 {
+	margin-top: 16px !important;
+	margin-bottom: 16px !important;
+  }
+  .m-t-b-24 {
+	margin-top: 24px !important;
+	margin-bottom: 24px !important;
+  }
+  .m-t-b-32 {
+	margin-top: 32px !important;
+	margin-bottom: 32px !important;
+  }
+  // margin-top minus -8, -16, -24 ===============================================
+  .m-t--8 {
+	margin-top: -8px !important;
+  }
+  .m-t--16 {
+	margin-top: -16px !important;
+  }
+  .m-t--24 {
+	margin-top: -24px !important;
+  }
+  .m-t--32 {
+	margin-top: -32px !important;
+  }
+  // margin-right minus -8, -16, -24 ===============================================
+  .m-r--8 {
+	margin-right: -8px !important;
+  }
+  .m-r--16 {
+	margin-right: -16px !important;
+  }
+  .m-r--24 {
+	margin-right: -24px !important;
+  }
+  .m-r--32 {
+	margin-right: -32px !important;
+  }
+  // margin-bottom minus -8, -16, -24 ===============================================
+  .m-b--8 {
+	margin-bottom: -8px !important;
+  }
+  .m-b--16 {
+	margin-bottom: -16px !important;
+  }
+  .m-b--24 {
+	margin-bottom: -24px !important;
+  }
+  .m-b--32 {
+	margin-bottom: -32px !important;
+  }
+  // margin left -8, -16, -24 ===============================================
+  .m-l--8 {
+	margin-left: -8px !important;
+  }
+  .m-l--16 {
+	margin-left: -16px !important;
+  }
+  .m-l--24 {
+	margin-left: -24px !important;
+  }
+  .m-l--32 {
+	margin-left: -32px !important;
+  }
+  // ============================================================================== //
+  
+  // ===================================== WIDTH ====================================
+  
+  .width9{
+	width: 9px;
+  } 
+  .width11{
+	width: 11px;
+  } 
+  .width12{
+	width: 12px;
+  } 
+  .width14{
+	width: 14px;
+  } 
+  .width20{
+	width: 20px;
+  } 
+  .width24{
+	width: 24px;
+  } 
+  .width100{
+	width: 100%;
+  } 
