@@ -38,7 +38,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
     this.opportunityState$ = this.store.select('opportunityTags');
     this.opportunityState$.subscribe((state) => {
       this.opportunityState = state;
-      console.log('state', state);
+      // console.log('state', state);
     });
   }
 

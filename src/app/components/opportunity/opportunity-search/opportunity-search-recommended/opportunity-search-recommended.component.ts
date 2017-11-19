@@ -21,7 +21,7 @@ export class OpportunitySearchRecommendedComponent implements OnInit {
   opportunityState$: Observable<OpportunityModel>;
   baseUrl: string;
 
-  recomm_oppos: any[];
+  opportunities: any[];
 
   constructor(
     private store: Store<OpportunityModel>
@@ -37,8 +37,9 @@ export class OpportunitySearchRecommendedComponent implements OnInit {
     // observe the store value
     this.opportunityState$.subscribe((state) => {
       // console.log('opportunityState', state);
-      if (state && state.search_opportunities_data) {
-        this.recomm_oppos = state.search_opportunities_data;
+      if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
+        this.opportunities = state.search_opportunities_data.SUCCESS;
+        console.log('this.opportunities', this.opportunities);
       }
     });
 

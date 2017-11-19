@@ -21,10 +21,12 @@ const opportunityRoutes: Routes = [
     path: '',
     component: OpportunityComponent,
     children: [
+      { path: '', redirectTo: 'search', pathMatch: 'full' },
       {
         path: 'search',
         component: OpportunitySearchComponent,
         children: [
+          { path: '', redirectTo: 'recommended', pathMatch: 'full' },
           { path: 'recommended', component: OpportunitySearchRecommendedComponent },
           { path: 'applied', component: OpportunitySearchAppliedComponent },
           { path: 'created', component: OpportunitySearchCreatedComponent }
