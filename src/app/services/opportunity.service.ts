@@ -43,9 +43,9 @@ export class OpportunityService {
    * Get opportunities
    * @param request body
    */
-  searchOpportunities(searchStr: any) {
+  searchOpportunities(params: any) {
     this.updateToken();
-    return this.api.get('/portal/job/' + searchStr + '/search/0/10');
+    return this.api.get('/portal/job/' + params.query + '/search/' + params.offset + '/' + params.limit);
   }
 
   /**

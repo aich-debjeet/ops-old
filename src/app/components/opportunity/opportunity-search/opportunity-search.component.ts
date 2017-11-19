@@ -28,6 +28,9 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
   searchString: string;
   isSearching = false;
 
+  recordsPerPage = 10;
+  showPreloader = false;
+
   constructor(
     private store: Store<OpportunityModel>
   ) {
@@ -52,15 +55,21 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
     .subscribe(() => {
 
       this.searchString = this.searchInput.value;
-      console.log('searching: ', this.searchString);
+      // console.log('searching: ', this.searchString);
 
       // search if string is available
       if (this.searchString && this.searchString.length > 0) {
-        console.log('new search', this.searchString);
+        // console.log('new search', this.searchString);
         this.isSearching = true;
 
+        const searchParams = {
+          query: this.searchString,
+          offset: 0,
+          limit: this.recordsPerPage
+        }
+
         // search opportunities
-        this.store.dispatch({ type: OpportunityActions.SEARCH_OPPORTUNITIES, payload: this.searchString });
+        this.store.dispatch({ type: OpportunityActions.SEARCH_OPPORTUNITIES, payload: searchParams });
       }
 
     });

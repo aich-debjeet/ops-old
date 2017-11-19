@@ -41,7 +41,6 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
       });
 
     case OpportunityActions.SEARCH_OPPORTUNITIES_SUCCESS:
-      console.log('SUCCESS');
       // update state for pagination
       // let opportunity_payload;
       // if (state.search_opportunities_params.offset === 0) {

@@ -1,5 +1,9 @@
 // opportunity styles
 
+.nav.nav-tabs li a {
+  cursor: pointer;
+}
+
 .o-opportunity-top-block{
 	width: 100%;
 	height: 385px;
@@ -35,6 +39,7 @@
 	border :none;
   float: left;
   color: #000;
+  outline: none;
 }
 .o-opp-search__select{
 	width: 100px!important;
