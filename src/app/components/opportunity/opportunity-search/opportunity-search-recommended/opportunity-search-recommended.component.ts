@@ -39,7 +39,7 @@ export class OpportunitySearchRecommendedComponent implements OnInit {
       // console.log('opportunityState', state);
       if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
         this.opportunities = state.search_opportunities_data.SUCCESS;
-        console.log('this.opportunities', this.opportunities);
+        // console.log('this.opportunities', this.opportunities);
       }
     });
 

@@ -39,6 +39,10 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
     this.opportunityState$.subscribe((state) => {
       this.opportunityState = state;
       // console.log('state', state);
+      if (state && state.searching_opportunities === false) {
+        this.isSearching = false;
+        this.showPreloader = false;
+      }
     });
   }
 
