@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 // actions
 import { OpportunityActions } from 'app/actions/opportunity.action';
@@ -11,16 +11,22 @@ import { OpportunityModel } from './../../../models/opportunity.model';
 
 // services
 import { LocalStorageService } from './../../../services/local-storage.service';
+import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-opportunity-search',
   templateUrl: './opportunity-search.component.html',
   styleUrls: ['./opportunity-search.component.scss']
 })
-export class OpportunitySearchComponent implements OnInit {
+export class OpportunitySearchComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('searchInput') searchInput;
+  @ViewChild('searchQueryElement') searchQueryElement;
 
   opportunityState$: any;
   opportunityState: any;
+  searchString: string;
+  isSearching = false;
 
   constructor(
     private store: Store<OpportunityModel>
@@ -34,6 +40,31 @@ export class OpportunitySearchComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+
+    /**
+     * Observing the search input change
+     */
+    this.searchInput.valueChanges
+    .debounceTime(500)
+    .subscribe(() => {
+
+      this.searchString = this.searchInput.value;
+      console.log('searching: ', this.searchString);
+
+      // search if string is available
+      if (this.searchString && this.searchString.length > 0) {
+        console.log('new search', this.searchString);
+        this.isSearching = true;
+
+        // search opportunities
+        this.store.dispatch({ type: OpportunityActions.SEARCH_OPPORTUNITIES, payload: this.searchString });
+      }
+
+    });
+
   }
 
 }
