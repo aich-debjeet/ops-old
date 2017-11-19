@@ -13,6 +13,7 @@ import { OpportunityModel } from './../../../models/opportunity.model';
 // services
 import { LocalStorageService } from './../../../services/local-storage.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-opportunity-create',
@@ -27,6 +28,7 @@ export class OpportunityCreateComponent implements OnInit {
   opportunityState: any;
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private toastr: ToastrService,
     private store: Store<OpportunityModel>,
@@ -37,11 +39,18 @@ export class OpportunityCreateComponent implements OnInit {
     this.opportunityState$ = this.store.select('opportunityTags');
     this.opportunityState$.subscribe((state) => {
       this.opportunityState = state;
-      console.log('state', state);
+      // console.log('state', state);
       // check if opportunity created successfully
       if (this.opportunityState && this.opportunityState.create_opportunity_data && this.opportunityState.create_opportunity_data.SUCCESS) {
         this.toastr.success('Opportunity has been created successfully!');
         // console.log('opportunity created successfully')
+        this.resetOppForm();
+
+        // redirecting to the created job
+        const jobId = this.opportunityState.create_opportunity_data.SUCCESS.id;
+        setTimeout(() => {
+          this.router.navigate(['/opportunity/view/' + jobId]);
+        }, 2000);
       }
     });
 
