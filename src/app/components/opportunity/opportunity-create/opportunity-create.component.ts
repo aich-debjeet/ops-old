@@ -39,8 +39,10 @@ export class OpportunityCreateComponent implements OnInit {
     // state listener
     this.opportunityState$ = this.store.select('opportunityTags');
     this.opportunityState$.subscribe((state) => {
+
       this.opportunityState = state;
       // console.log('state', state);
+
       // check if opportunity created successfully
       if (this.opportunityState && this.opportunityState.create_opportunity_data && this.opportunityState.create_opportunity_data.SUCCESS) {
         if (this.isSaved === false) {
@@ -55,6 +57,7 @@ export class OpportunityCreateComponent implements OnInit {
         setTimeout(() => {
           this.router.navigate(['/opportunity/view/' + jobId]);
         }, 2000);
+
       }
     });
 
@@ -78,8 +81,8 @@ export class OpportunityCreateComponent implements OnInit {
     // reactive from group
     this.createOppFrm = this.fb.group({
       oppType: [null],
-      role: ['Sr. Engineer'],
-      description: ['Job description'],
+      role: [null],
+      description: [null],
       yearsExpFrom: [null],
       yearsExpTo: [null],
       salaryAmount: [null],
