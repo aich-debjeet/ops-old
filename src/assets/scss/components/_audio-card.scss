@@ -1,0 +1,216 @@
+// audio card controller block style ----------------------------------------------------
+.c-audio__controller {
+    float: left;
+    width: 100%;
+    padding: 16px;
+  }
+  
+  .c-controller__heading {
+    color: #333333;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+  }
+  
+  .c-controller--audio {
+    width: 90%;
+    float: left;
+  }
+  
+  .c-controller--align {
+    padding-top: 9px;
+    padding-left: 2px;
+    vertical-align: middle;
+  }
+  
+  .c-controller__bar {
+    margin: 16px 0;
+    background-color: #555555;
+    position: relative;
+  }
+  
+  .c-controller__bar1 {
+    width: 52%;
+    height: 3px;
+    background-color: #979797;
+    position: absolute;
+    top: 0px;
+  }
+  
+  .c-controller__bar2 {
+    width: 33%;
+    height: 3px;
+    background-color: #FF7B84;
+    position: inherit;
+  }
+  
+  .c-controller__bar3 {
+    width: 9px;
+    height: 9px;
+    border: 1px solid rgba(102, 45, 145, 0.1);
+    background-color: #FFFFFF;
+    position: absolute;
+    box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.1);
+    top: -3px;
+    left: 30%;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .c-controller__bar4 {
+    width: 52%;
+    height: 3px;
+    background-color: #D4D4D5;
+    position: absolute;
+    top: 0px;
+  }
+  
+  .c-controller__vol {
+    width: 10%;
+    float: left;
+  }
+  
+  .c-controller__icon {
+    width: 15px;
+  }
+  
+  .c-controller__timer {
+    width: 90%;
+    float: left;
+    font-size: 12px;
+    color: #C1C1C1;
+    line-height: 17px;
+  }
+  
+  // audio card list style --------------------------------------
+  .c-list--block {
+    width: 100%;
+    float: left;
+    height: 206px;
+    overflow-y: scroll;
+  }
+  
+  .c-list {
+    height: 52px;
+    padding: 8px;
+    font-size: 12px;
+    color: #C1C1C1;
+    border: 1px solid rgba(102, 45, 145, 0.1);
+  }
+  
+  .c-list_icon {
+    vertical-align: middle;
+    padding: 9px;
+  }
+  
+  .c-list--active {
+    color: #333333;
+    font-weight: bold;
+  }
+  
+  .c-video_action {
+    width: 36px;
+    height: 36px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 3px;
+  }
+  
+  .c-video_action--img {
+    width: 100%;
+  }
+  
+  .c-video_action--icon {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    width: 12px;
+  }
+  
+  .c-video_name {
+    position: relative;
+    top: -12px;
+  }
+  
+  .c-list_time {
+    margin-top: 10px;
+  }
+  
+  // audio card media block style -----------------------------------------
+  .c-card__media {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background-color: #f8f8f8;
+  }
+  .c-card__opportunity {
+    @extend .c-card__media;
+    height: 175px;
+  }
+  .c-card__opportunity--view {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 18px;
+    color: #FC6371;
+    text-transform: uppercase;
+    &:hover {
+      color: #FC6371;
+    }
+  }
+  .c-card__opportunity__details {
+   clear: both;
+   margin-bottom: 16px;
+   display: flex;
+  }
+  .c-card__opportunity__user{
+    display: flex;
+    margin: 0 16px;
+    padding: 8px 0;
+    // border-top: 1px solid #F3F5F7;  
+    // border-bottom: 1px solid #F3F5F7;  
+  }
+  .c-card__opportunity__username{
+    font-size: 13px;
+    color: #808080;
+        line-height: 24px;
+      margin-left: 8px;
+  }
+  .c-card__image {
+    width: 100%;
+    vertical-align: middle;
+    outline: none;
+  }
+  
+  .c-card__icon {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    margin: 10px;
+    line-height: 0px;
+    width: 22px;
+    filter: drop-shadow(0px 0px 3px #222);
+  }
+  
+  // ------------------------------------
+  .c-card__media {
+    &:hover {
+        .c-media--hover {
+        display: block;
+      }
+    }
+  }
+  .c-media--hover {
+    width: 100%;
+    height: 52px;
+    display: none;
+    position: absolute;
+    transition: .25s;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000000 100%);
+    z-index: 3;
+    bottom: 0;
+    padding: 16px;
+  }

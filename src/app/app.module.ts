@@ -38,6 +38,7 @@ import { SharedReducer } from './reducers/shared.reducer';
 import { ProfileReducer } from './reducers/profile.reducer';
 import { MessageReducer } from './reducers/messages.reducer';
 import { UserSearchReducer } from './reducers/user-search.reducer';
+import { OpportunityReducer } from './reducers/opportunity.reducer';
 import { reducer } from './app.reducer';
 
 // Effects
@@ -67,6 +68,7 @@ import { MessageService } from './services/message.service';
 import { NotificationService } from './services/notification.service';
 import { SearchService } from './services/search.service';
 import { LocalStorageService } from './services/local-storage.service';
+import { OpportunityService } from './services/opportunity.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
@@ -80,7 +82,6 @@ import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
-import { OpportunityComponent } from './components/opportunity/opportunity.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
 import { EventsComponent } from './components/events/events.component';
@@ -116,6 +117,8 @@ import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 
 import { AgmCoreModule } from '@agm/core';
+import { OpportunityEffect } from 'app/effects/opportunity.effect';
+import { OpportunityModule } from 'app/components/opportunity/opportunity.module';
 
 @NgModule({
   declarations: [
@@ -127,7 +130,6 @@ import { AgmCoreModule } from '@agm/core';
     SpotfeedPremiumComponent,
     NotificationComponent,
     PortfolioComponent,
-    OpportunityComponent,
     JobsComponent,
     JobDetailsComponent,
     EventsComponent,
@@ -181,7 +183,7 @@ import { AgmCoreModule } from '@agm/core';
     EffectsModule.run(MediaEffect),
     EffectsModule.run(SearchEffect),
     EffectsModule.run(OrganizationEffect),
-    
+    EffectsModule.run(OpportunityEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
@@ -189,6 +191,7 @@ import { AgmCoreModule } from '@agm/core';
     VgOverlayPlayModule,
     VgBufferingModule,
     SearchModule,
+    OpportunityModule,
     AgmCoreModule.forRoot({
       libraries: ['places'],
       apiKey: 'AIzaSyDHx_cyWUg9okHlTH8M_kvduvWFSV3nShc'
@@ -207,7 +210,8 @@ import { AgmCoreModule } from '@agm/core';
     NotificationService,
     SearchService,
     GeneralUtilities,
-    LocalStorageService
+    LocalStorageService,
+    OpportunityService
   ],
   bootstrap: [AppComponent]
 })
