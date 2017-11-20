@@ -31,8 +31,8 @@ export class UploadItem {
   repoPath: string;
   type?: string;
 }
-
-const base = 'http://devservices.greenroom6.com:9000/api/1.0/portal/cdn/media/upload/multiple';
+const api_path = environment.API_ENDPOINT;
+const base = api_path + '/portal/cdn/media/upload/multiple';
 
 @Component({
   selector: 'app-media-selector',
@@ -47,7 +47,7 @@ export class MediaSelectorComponent implements OnInit {
   uploaded: any[];
   uploadedFiles: UploadItem[];
   editingFile: UploadItem;
-  apiLink: 'http://devservices.greenroom6.com:9000/api/1.0';
+  apiLink = api_path + ' /api/1.0';
   channels: any[];
   chosenChannel: any = 0;
   channelForm: FormGroup;

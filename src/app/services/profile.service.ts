@@ -140,7 +140,7 @@ export class ProfileService {
    */
   coverImageUploader(payload: any) {
     const fileData = this.buildImageForm(payload);
-	fileData.append('upload_for','coverImage');
+    fileData.append('upload_for', 'coverImage');
     return this.uploadImage(fileData, payload.handle);
   }
   // coverImageUploader(payload: any) {

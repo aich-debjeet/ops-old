@@ -67,7 +67,7 @@
                 <textarea formControlName="description" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
               </div>
             </div>
-            <p class="error_alert" *ngIf="createOppFrm.controls['description']?.errors?.required && createOppFrm.submitted">Description is required</p>
+            <p class="error_alert" *ngIf="createOppFrm.controls['description']?.errors?.required">Description is required</p>
           </div><!-- Description end -->
 
           <div class="o-oppo-form__single">
