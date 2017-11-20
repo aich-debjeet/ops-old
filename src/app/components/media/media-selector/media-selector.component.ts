@@ -32,7 +32,7 @@ export class UploadItem {
   type?: string;
 }
 const api_path = environment.API_ENDPOINT;
-const base = api_path + '/api/1.0/portal/cdn/media/upload/multiple';
+const base = api_path + '/portal/cdn/media/upload/multiple';
 
 @Component({
   selector: 'app-media-selector',
