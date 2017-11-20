@@ -26,6 +26,7 @@ export class OpportunityService {
   updateToken() {
     this.headers = this.api.getHeaders();
     this.handle = this.api.getHandle();
+    // console.log('this.headers', this.headers);
   }
 
   /**
@@ -33,17 +34,27 @@ export class OpportunityService {
    * @param request body
    */
   createOpportunity(reqBody: any) {
+    // console.log('service createOpportunity', reqBody);
     this.updateToken();
-    return this.api.get('https://jsonplaceholder.typicode.com/');
+    return this.api.post('/portal/job/create', reqBody);
   }
 
   /**
    * Get opportunities
    * @param request body
    */
-  searchOpportunities(reqBody: any) {
+  searchOpportunities(params: any) {
     this.updateToken();
-    return this.api.get('https://jsonplaceholder.typicode.com/posts');
+    return this.api.get('/portal/job/' + params.query + '/search/' + params.offset + '/' + params.limit);
+  }
+
+  /**
+   * Get opportunity by id
+   * @param id
+   */
+  getOpportunity(jobId: string) {
+    this.updateToken();
+    return this.api.get('/portal/job/', jobId);
   }
 
 

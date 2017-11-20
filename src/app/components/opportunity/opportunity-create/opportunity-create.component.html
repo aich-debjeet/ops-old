@@ -1,3 +1,284 @@
-<p>
-  opportunity-create works!
-</p>
+<section class="o-opportunities-form">
+  <div class="container">
+    <div class="o-opportunities-form-container m-t-32">
+      <form [formGroup]="createOppFrm" (ngSubmit)="postOpportunity(createOppFrm.value)" >
+        <div class="o-opportunities-form-block p-t-32">
+          <h4 class="c-h4 text-center">Create Opportunity</h4>
+          <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-24 text_uppercase ltr-space">
+            Opportunity details
+          </div><!-- subtitle end -->
+
+          <div class="o-oppo-form__single">
+            <div class="col-md-3 p-0">
+              <span class="c-text_md">Opportunity type</span>
+            </div>
+            <div class="col-md-9 p-0">
+              <div class="c-radio__sm">
+                <label class="col-md-2 p-0">
+                  <input type="radio" value="Audition" name="oppType" formControlName="oppType" class="c-form__bar2">
+                  <span></span>Audition
+                </label>
+                <label class="col-md-2 p-0">
+                  <input type="radio" value="Projects" name="oppType" formControlName="oppType" class="c-form__bar2">
+                  <span></span>Projects
+                </label>
+                <label class="col-md-2 p-0">
+                  <input type="radio" value="Jobs" name="oppType" formControlName="oppType">
+                  <span></span>Jobs
+                </label>
+                <label class="col-md-2 p-0">
+                  <input type="radio" value="Internship" name="oppType" formControlName="oppType">
+                  <span></span>Internship
+                </label>
+                <label class="col-md-2 p-0">
+                  <input type="radio" value="Freelance" name="oppType" formControlName="oppType">
+                  <span></span>Freelance
+                </label>
+                <label class="col-md-2 p-0">
+                  <input type="radio" value="Volunteer" name="oppType" formControlName="oppType">
+                  <span></span>Volunteer
+                </label>
+              </div>
+              <p class="error_alert" *ngIf="createOppFrm.controls['oppType'].errors?.required">Opportunity type is required</p>
+            </div>
+          </div><!-- Opportunity type end -->
+          
+          <div class="o-oppo-form__single">
+            <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Role</div>
+            </div>
+            <div class="col-md-9 p-0">
+              <div class="c-form__group c-form--sm c-form--noeffect">
+                <input class="c-form__input" type="text" formControlName="role">
+                <span class="c-form__highlight"></span>
+                <span class="c-form__bar"></span>
+                <label>eg: Manager/Director</label>
+              </div>
+              <p class="error_alert" *ngIf="createOppFrm.controls['role']?.errors?.required && createOppFrm.controls['role'].touched">Role is required</p>
+            </div>
+          </div><!-- Role end -->
+
+          <div class="o-oppo-form__single">
+            <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Description</div>
+            </div>
+            <div class="col-md-9 p-0">
+              <div class="c-form__group c-form--sm">
+                <textarea formControlName="description" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
+              </div>
+            </div>
+            <p class="error_alert" *ngIf="createOppFrm.controls['description']?.errors?.required && createOppFrm.submitted">Description is required</p>
+          </div><!-- Description end -->
+
+          <div class="o-oppo-form__single">
+            <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Experience</div>
+            </div>
+            <div class="col-md-9 p-0">
+              <div class="col-md-2 p-0">
+                <div class="c-form__group">
+                  <select class="c-form-control p-l-0" formControlName="yearsExpFrom">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <div class="c-text_md color-grey-dark p-8">to</div>
+              </div>
+              <div class="col-md-2 p-0">
+                <div class="c-form__group">
+                  <select class="c-form-control p-l-0" formControlName="yearsExpTo">
+                      <option value="">1</option>
+                      <option value="">2</option>
+                      <option value="">3</option>
+                      <option value="">5</option>
+                      <option value="">6</option>
+                      <option value="">7</option>
+                      <option value="">8</option>
+                      <option value="">9</option>
+                      <option value="">10</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <div class="c-text_md color-grey-dark p-8">years</div>
+              </div>
+            </div>
+          </div><!-- Experience end -->
+
+          <div class="o-oppo-form__single">
+            <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Salary</div>
+            </div>
+            <div class="col-md-9 p-0">
+              <div class="col-md-4 p-l-0">
+                <div class="c-form__group c-form--sm c-form--noeffect">
+                  <input class="c-form__input" type="number" formControlName="salaryAmount">
+                  <span class="c-form__highlight"></span>
+                  <span class="c-form__bar"></span>
+                  <label>500K, 7,50,000</label>
+                </div>
+              </div>
+              <div class="col-md-3 ">
+                <div class="c-form__group">
+                  <select class="c-form-control p-l-0" formControlName="salaryDuration">
+                    <option value="Annualy">Annualy</option>
+                    <option value="Monthly">Monthly</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-3 ">
+                <div class="c-form__group">
+                  <select class="c-form-control p-l-0" formControlName="salaryCurrency">
+                    <option value="">Currency</option>
+                    <option value="INR">INR</option>
+                    <option value="USD">USD</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div><!-- Salary end -->
+
+          <div class="o-oppo-form__single">
+            <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Duration</div>
+            </div>
+            <div class="col-md-9 p-0">
+              <div class="col-md-4 p-0">
+                <div class="c-form__group">
+                  <select class="c-form-control p-l-0" formControlName="oppDuration">
+                    <option value="full-time">Full time</option>
+                    <option value="part-time">Part time</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div><!-- Duration end -->
+
+          <div class="o-oppo-form__single">
+            <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Location</div>
+            </div>
+            <div class="col-md-9 p-0">
+              <div class="c-form__group c-form--sm c-form--noeffect">
+                <input class="c-form__input" type="text" formControlName="oppLocation">
+                <span class="c-form__highlight"></span>
+                <span class="c-form__bar"></span>
+                <label>Where is the opportunity</label>
+              </div>
+            </div>
+          </div><!-- Location end -->
+
+          <div class="o-oppo-form__single">
+            <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Includes travel</div>
+            </div>
+            <div class="col-md-9 p-0">
+              <div class="col-md-2 p-0">
+                <div class="c-radio__sm p-t-8 float_left width100">
+                  <label class="col-md-6 p-0 p-t-8">
+                    <input formControlName="oppLevel" name="oppLevel" value="Yes" type="radio" class="c-form__bar2"><span></span>Yes
+                  </label>
+                  <label class="col-md-6 p-0 p-t-8">
+                    <input formControlName="oppLevel" name="oppLevel" value="No" type="radio" class="c-form__bar2"><span></span>No
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-9 p-r-0">
+                <div class="c-form__group c-form--sm c-form--noeffect">
+                  <input class="c-form__input" type="text" formControlName="country">
+                  <span class="c-form__highlight"></span>
+                  <span class="c-form__bar"></span>
+                  <label>Country</label>
+                </div>
+              </div>
+            </div>
+          </div><!-- Location end -->
+
+          <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+            Candidate details
+          </div><!-- subtitle end -->
+
+          <div class="o-oppo-form__single">
+            <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Skills</div>
+            </div>
+            <div class="col-md-9 p-0">
+              <div class="c-form__group c-form--sm c-form--noeffect">
+                <input class="c-form__input" type="text" formControlName="userSkills">
+                <span class="c-form__highlight"></span>
+                <span class="c-form__bar"></span>
+                <label>eg: #Uidesign #photoshop #sketch</label>
+              </div>
+            </div>
+          </div><!-- Skills end -->
+
+          <div class="o-oppo-form__single">
+            <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Qualifications</div>
+            </div>
+            <div class="col-md-9 p-0">
+              <div class="c-form__group c-form--sm c-form--noeffect">
+                <input class="c-form__input" type="text"  formControlName="userQualifications">
+                <span class="c-form__highlight"></span>
+                <span class="c-form__bar"></span>
+                <label>eg: Garduate </label>
+              </div>
+            </div>
+          </div><!-- Qualifications end -->
+
+          <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+            organization details
+          </div><!-- subtitle end -->
+
+          <div class="o-oppo-form__single">
+            <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Organization Name</div>
+            </div>
+            <div class="col-md-9 p-0">
+              <div class="c-form__group c-form--sm c-form--noeffect">
+                <input class="c-form__input" type="text" formControlName="orgName">
+                <span class="c-form__highlight"></span>
+                <span class="c-form__bar"></span>
+                <label>Name of organization </label>
+              </div>
+            </div>
+          </div><!-- Organization Name end -->
+
+          <div class="o-oppo-form__single">
+            <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Attach files</div>
+            </div>
+            <div class="col-md-9 p-0">
+              <div class="o-oppo-form__file-type">
+                <input class="o-oppo-file" type="file" formControlName="attachments">
+                <p class="c-text_sm o-oppo-file__text"> upload<br>image or video</p>
+              </div>
+              <div class="o-oppo-form__img-show">
+                
+              </div>
+            </div>
+          </div><!-- file attach end -->
+
+          <div class="o-oppo-form__single">
+            <div class="col-md-3 p-0"></div>
+            <div class="col-md-9 p-0 ">
+              <button type="submit" class="btn btn-primary btn-md m-t-16">Create</button>
+            </div>
+          </div><!-- btn end -->
+
+        </div><!-- form block end -->
+      </form>
+    </div>
+  </div>
+</section>

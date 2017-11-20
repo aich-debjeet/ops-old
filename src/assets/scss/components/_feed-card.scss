@@ -62,8 +62,42 @@
   color: #333;
   text-transform: uppercase;
   &:hover {
-    color: #333;
+      color: #333;
   }
+}
+
+.c-card__project {
+  font-size: 13px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #929292;
+  text-transform: uppercase;
+}
+.c-card__project--icon {
+  height: 24px;
+  float: left;
+}
+.c-card__project--des {
+  font-size: 20px;
+  line-height: 30px;
+  color: #333333;
+}
+
+.c-card__location {
+  clear: both;
+  margin: 0 16px;
+  position: relative;
+}
+
+.c-card__location--text {
+  font-size: 13px;
+  line-height: 20px;
+  color: #929292;
+  display: inline;
+  top: 1px;
+  position: absolute;
+  padding-left: 8px;
 }
 
 .c-card__desc {
@@ -85,8 +119,7 @@
 .c-card__links {
   width: 100%;
   float: left;
-  padding: 16px;
-  // border-top: 1px solid #EFEFEF;
+  padding: 16px; // border-top: 1px solid #EFEFEF;
 }
 
 .c-links {
@@ -100,14 +133,14 @@
 .c-links__spots {
   display: inline;
   float: left;
-  margin-right: 24px;
+  margin-right: 16px;
   cursor: pointer;
   font-weight: 500;
-      color: #929292;
+  color: #929292;
 }
 
 .c-links__image {
-  width: 18px;
+  width: 24px;
   float: left;
 }
 
@@ -115,7 +148,11 @@
   float: left;
   margin-left: 6px;
   font-weight: 500;
-      color: #929292;
+  color: #929292;
+  font-size: 11px;
+  line-height: 18px;
+  top: 4px;
+  position: relative;
 }
 
 .c-links__comments {
@@ -130,7 +167,7 @@
 }
 
 .c-action__image {
-  width: 18px;
+  width: 24px;
   margin-left: 8px;
 }
 
@@ -163,6 +200,7 @@
   width: 24px;
   height: 24px;
 }
+
 .c-avatar--feed2 {
   width: 24px;
   height: 24px;
@@ -183,9 +221,10 @@
   float: left;
   cursor: pointer;
   &:hover {
-    color: #000;
+      color: #000;
   }
 }
+
 .c-user__name2 {
   font-size: 13px;
   font-weight: 500;
@@ -196,7 +235,7 @@
   float: left;
   cursor: pointer;
   &:hover {
-    color: #fff;
+      color: #fff;
   }
 }
 
@@ -209,7 +248,7 @@
   clear: both;
   cursor: pointer;
   &:hover {
-    color: #979797;
+      color: #979797;
   }
 }
 
@@ -258,7 +297,6 @@
   float: right;
   color: #ff7b84;
   &:hover {
-    color: red;
+      color: red;
   }
-
 }
