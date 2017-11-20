@@ -59,10 +59,11 @@
                                         </div>
                                         <!-- data end -->
                                         <div id="acc-info-name__edit" class="o-set-list__edit" *ngIf="nameActive">
-                                            <form [formGroup]="nameForm" novalidate (ngSubmit)="nameUpdate(nameForm.value)" #nameform="ngForm">
+                                            <form [formGroup]="nameForm" novalidate (ngSubmit)="nameUpdate(nameForm.value)" #nform="ngForm">
                                                 <div class="col-md-4 p-0">
                                                     <div class="c-form__group c-form--sm c-form--noeffect m-0">
                                                         <input class="c-form__input p-0" type="text" formControlName="name">
+                                                        <p class="c-form__validation" *ngIf="nameForm.controls['name'].errors?.required && nform.submitted">Name is required</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 p-0">
@@ -98,7 +99,7 @@
                                                 </div>
                                                 <div class="col-md-6 p-0">
                                                     <div class="o-set-list-edit__actions">
-                                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                                        <button type="button" class="btn btn-primary btn-sm" [type]="'submit'">Save</button>
                                                         <button type="button" class="btn btn-default btn-sm" (click)="nameToggle()">Cancel</button>
                                                     </div>
                                                 </div>
@@ -129,6 +130,10 @@
                                                 <div class="col-md-4 p-0">
                                                     <div class="c-form__group c-form--sm c-form--noeffect m-0">
                                                         <input class="c-form__input p-0" type="text" formControlName="dob">
+                                                        <p class="c-form__validation" *ngIf="dateForm.controls['dob'].errors?.required && dobform.submitted">DOB is required</p>
+                                                        <p class="c-form__validation" *ngIf="dateForm.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
+                                                        <p class="c-form__validation" *ngIf="dateForm.controls['dob'].errors?.isUnderAge">You should be above 13</p>
+                                                        <p class="c-form__validation" *ngIf="dateForm.controls['dob'].errors?.isOverAge">You should be below 100</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 p-0">
@@ -164,7 +169,7 @@
                                                 </div>
                                                 <div class="col-md-6 p-0">
                                                     <div class="o-set-list-edit__actions">
-                                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                                        <button type="button" class="btn btn-primary btn-sm" [type]="'submit'">Save</button>
                                                         <button type="button" class="btn btn-default btn-sm" (click)="dobToggle()">Cancel</button>
                                                     </div>
                                                 </div>
@@ -201,7 +206,7 @@
                                                 </div>
                                                 <div class="col-md-6 p-0">
                                                     <div class="o-set-list-edit__actions">
-                                                        <button type="button" class="btn btn-primary btn-sm">Save</button>
+                                                        <button type="button" class="btn btn-primary btn-sm" [type]="'submit'">Save</button>
                                                         <button type="button" class="btn btn-default btn-sm" (click)="genderToggle()">Cancel</button>
                                                     </div>
                                                 </div>
@@ -236,7 +241,12 @@
                                                         <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.required && userform.submitted">Username is required</p>
                                                         <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.whitespace">White Space Not Allowed</p>
                                                         <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.minlength">Username must be min length 4</p>
-                                                        <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
+                                                        <!-- <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.isUsernameUnique">This username is already taken</p> -->
+                                                        <!-- <ul class="username_error" *ngIf="petTag.user_unique">
+                                                            <li *ngFor="let username of petTag?.user_exsist; let isLast=last">
+                                                                <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
+                                                            </li>
+                                                        </ul> -->
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 p-0">
@@ -274,6 +284,9 @@
                                                 <div class="col-md-8 p-0">
                                                     <div class="c-form__group c-form--sm c-form--noeffect m-0">
                                                         <input class="c-form__input p-0" required="" type="email" formControlName="email">
+                                                        <p class="c-form__validation" *ngIf="emailForm.controls['email'].errors?.isEmailUnique ">Mail account already exists</p>
+                                                        <p class="c-form__validation" *ngIf="emailForm.controls['email'].errors?.email || emailForm.controls['email'].errors?.isInvalidEmail && eform.submitted">Email is not valid</p>
+                                                        <p class="c-form__validation" *ngIf="emailForm.controls['email'].errors?.required && eform.submitted">Email is required</p>
                                                     </div>
                                                     <p class="c-text_sm color-grey-dark">Verify your mail by clicking the link sent to your mail id</p>
                                                 </div>
@@ -281,7 +294,7 @@
                                                 </div>
                                                 <div class="col-md-4 p-0">
                                                     <div class="o-set-list-edit__actions">
-                                                        <button type="button" class="btn btn-primary btn-sm">Verify</button>
+                                                        <button type="button" class="btn btn-primary btn-sm" [type]="'submit'">Verify</button>
                                                         <button type="button" class="btn btn-default btn-sm" (click)="emailToggle()">Cancel</button>
                                                     </div>
                                                 </div>
@@ -308,7 +321,7 @@
                                         </div>
                                         <!-- data end -->
                                         <div id="acc-info-phone__edit" class="o-set-list__edit" *ngIf="phoneActive">
-                                            <form [formGroup]="phoneForm" novalidate (ngSubmit)="phoneFormUpdate(phoneForm.value)" #pform="ngForm">
+                                            <form [formGroup]="phoneForm" novalidate (ngSubmit)="resendOtpOnNewNumber(phoneForm.value)" #pform="ngForm">
                                                 <div class="col-md-4 p-0">
                                                     <div class="c-form__group c-form--sm c-form--noeffect m-0">
                                                         <input class="c-form__input p-0" required="" type="Phone" formControlName="mobile">
@@ -318,7 +331,7 @@
                                                 </div>
                                                 <div class="col-md-6 p-0">
                                                     <div class="o-set-list-edit__actions">
-                                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#phone-verify" (click)="sendOtp()">verify</button>
+                                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#phone-verify" [type]="'submit'">verify</button>
                                                         <button type="button" class="btn btn-default btn-sm" (click)="phoneToggle()">Cancel</button>
                                                     </div>
                                                 </div>
@@ -775,78 +788,56 @@
         </div>
     </section>
 
-    <!-- email verification -->
-    <div class="modal fade" id="email-verify" role="dialog">
-        <div class="modal-content o-settings-pop-contianer">
-            <div class="o-s-pop_content">
-                <h3 class="o-s-pop-head">Check your mail</h3>
-                <p class="ops_heading2 o-s-pop--text">
-                    We've texted a code to the email ending in ‘re*************@g****.***’. Once you receive the code, enter it below to change email.
-                </p>
-                <form action="">
-                    <div class="o-s-pop-form">
-                        <div class="c-form__group">
-                            <input class="c-form__input" required="" type="text" placeholder="Type the code">
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-primary btn-sm o-s-pop_btn capitalize">submit</button>
-                </form>
-                <a href="#" class="o-s-pop-resend">Resend code</a>
-            </div>
-        </div>
-    </div>
 
-    <!-- phone verification -->
-    <div class="modal fade" id="phone-verify" role="dialog">
-        <div class="modal-content o-settings-pop-contianer">
-            <div class="o-s-pop_content">
-                <h3 class="o-s-pop-head m-b-24">Enter OTP</h3>
-                <p class="o-s-pop--text c-text_md">
-                    Enter the 6 digit OTP that you received
-                    <BR>in your phone
-                </p>
-                <form action="">
-                    <div class="o-s-pop-form">
-                        <div class="c-form__group">
-                            <input class="c-form__input" required="" type="text" placeholder="Type the code">
-                            <span>00:59</span>
-                        </div>
-                    </div>
-                    <a href="#" class="o-s-pop-resend m-b-24">Resend OTP</a>
-                    <button type="button" class="btn btn-primary btn-md">Verify</button>
-                </form>
-            </div>
-        </div>
-    </div>
 </main>
 <footer class="footer">
     <div class="container">
         <p>© Copyright 2017 One Page Spotlight</p>
     </div>
 </footer>
+<!-- OTP Confirm Modal -->
+<app-modal [modalTitle]="'Success'" [blocking]='false' modalId='otpSuccess'>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 text-center">
+            <h3>Thank you for joining us</h3>
+        </div>
+    </div>
+</app-modal>
+<!-- OTP Confirm Modal -->
 
-
-
-
-<!-- email verification -->
-<app-modal [blocking]='false' modalId='otpValidatePopup'>
-    <div id="phone-verify" role="dialog">
-        <div class="modal-content o-settings-pop-contianer">
-            <div class="o-s-pop_content">
-                <h3 class="o-s-pop-head">Check your phone</h3>
-                <p class="ops_heading2 o-s-pop--text">
-                    We've texted a code to the phone number ending in '16'. Once you receive the code, enter it below to change your phone number
-                </p>
-                <form action="">
-                    <div class="form_group o-s-pop-form">
-                        <input class="form_input o-s-pop-form--input" type="text" placeholder="Type the code" required>
-                        <span class="form_highlight"></span>
-                        <span class="form_bar"></span>
-                        <!--<span>00:59</span>-->
+<!-- OTP Modal-->
+<app-modal [modalTitle]="'OTP'" [blocking]='false' modalId='otpWindow' class="otp__modal" size="small">
+    <div name="otp" class="otp__modal">
+        <div class="x reg_step1_otp" id="otpModal2" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header" style="border: none;">
+                        <h4 class="modal-title text-center"><img width="120px" src="/assets/img/logo_black.svg"></h4>
                     </div>
-                    <button type="button" class="btn btn-primary btn-sm o-s-pop_btn capitalize">submit</button>
-                </form>
-                <a href="#" class="o-s-pop-resend">Resend OTP</a>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                            <h5 class="text-center">Enter the 6 digit OTP that you have received <br> by phone </h5>
+                            <p class="text-center">
+                                <a href="javascript:void(0)" *ngIf="!resendingOtp" class="pointer" (click)="resendOtp()">Resend OTP</a>
+                                <a *ngIf="resendingOtp">Sending OTP, please wait...</a>
+                            </p>
+                            <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #oform="ngForm">
+                                <div class="form_group">
+                                    <input class="form_input" type="text" formControlName="otpNumber" required>
+                                    <span class="form_highlight"></span>
+                                    <span class="form_bar"></span>
+                                    <label>Enter OTP</label>
+                                </div>
+                                <p class="c-form__validation" *ngIf="petTag?.user_otp_failed">Invalid OTP</p>
+                                <p class="c-form__validation" *ngIf="otpForm.controls['otpNumber'].errors?.invalid && oform.submitted">Please enter your 6 digit OTP number</p>
+
+                                <div class="text-center">
+                                    <button [className]="'btn btn-default btn-sm'" [type]="'submit'">Validate OTP</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../models/profile.model';
+import {initialBasicRegTag, BasicRegTag} from '../../models/auth.model';
 import { ModalService } from '../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { FormValidation, ProfileUpdateValidator } from '../../helpers/form.validator';
+import { FormValidation, ProfileUpdateValidator, DatabaseValidator } from '../../helpers/form.validator';
 import { DatePipe } from '@angular/common';
 import { Http, Headers, Response } from '@angular/http';
 import { TokenService } from './../../helpers/token.service';
@@ -12,6 +13,7 @@ import { environment } from '../../../environments/environment';
 
 // action
 import { ProfileActions } from '../../actions/profile.action';
+import { AuthActions } from '../../actions/auth.action'
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -20,12 +22,15 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  providers: [ModalService, ProfileUpdateValidator],
+  providers: [ModalService, ProfileUpdateValidator, DatabaseValidator],
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
   storeState$: Observable<ProfileModal>;
   userProfile = initialTag;
+  tagState$: Observable<BasicRegTag>;
+  // private tagStateSubscription: Subscription;
+  petTag = initialBasicRegTag;
   pwdForm: FormGroup;
   private usernameForm: FormGroup;
   private nameForm: FormGroup;
@@ -34,6 +39,7 @@ export class SettingsComponent implements OnInit {
   private emailForm: FormGroup;
   private phoneForm: FormGroup;
   private profileForm: FormGroup;
+  private otpForm: FormGroup;
   emailActive: boolean;
   phoneActive: boolean;
   userActive: boolean;
@@ -47,6 +53,7 @@ export class SettingsComponent implements OnInit {
   userHandle: any;
   blockedUsers = [];
   default: any;
+  resendingOtp = false;
 
   commentsOption: any // = {name: 'Comments', value: 'Comments', checked: true};
   spotsOption: any // = {name: 'Spots', value: 'Spots', checked: true};
@@ -62,8 +69,15 @@ export class SettingsComponent implements OnInit {
     private _fb: FormBuilder,
     private profileUpdateValidator: ProfileUpdateValidator,
     private tokenService: TokenService,
-    private _store: Store<ProfileModal>
+    private _store: Store<ProfileModal>,
+    private store: Store<BasicRegTag>,
+    private databaseValidator: DatabaseValidator,
   ) {
+    this.tagState$ = store.select('loginTags');
+    this.tagState$.subscribe((state) => {
+      console.log(state);
+        this.petTag = state;
+    });
     this.storeState$ = this._store.select('profileTags');
 
      this.storeState$.subscribe((state) => {
@@ -96,7 +110,8 @@ export class SettingsComponent implements OnInit {
 
     // Username update form init
     this.usernameForm = this._fb.group({
-      'username' : ['' , [Validators.required, Validators.minLength(4), FormValidation.noWhitespaceValidator], this.profileUpdateValidator.userNameValidation.bind(this.profileUpdateValidator)],
+      'username' : ['', [ Validators.required]]
+      // 'username' : ['' , [Validators.required, Validators.minLength(4), FormValidation.noWhitespaceValidator], this.profileUpdateValidator.userNameValidation.bind(this.profileUpdateValidator)],
     });
     // name update
     this.nameForm = this._fb.group({
@@ -104,7 +119,7 @@ export class SettingsComponent implements OnInit {
     });
     // date update
     this.dateForm = this._fb.group({
-      'dob' : ['', [Validators.required]]
+      'dob' : ['', [Validators.required], this.databaseValidator.validAge.bind(this.databaseValidator)]
     });
     // gender update
     this.genderForm = this._fb.group({
@@ -112,7 +127,13 @@ export class SettingsComponent implements OnInit {
     });
     // email update
     this.emailForm = this._fb.group({
-    'email' : ['', [Validators.required]]
+    'email' : ['',  [
+      Validators.required,
+      Validators.min(1),
+      // Validators.email
+      FormValidation.validEmail
+      ],
+      this.databaseValidator.checkEmail.bind(this.databaseValidator)]
     });
     // phone update
     this.phoneForm = this._fb.group({
@@ -122,7 +143,13 @@ export class SettingsComponent implements OnInit {
     // this.genderForm = this._fb.group({
     // 'profile' : ['', [Validators.required]]
     // });
-
+    // OTP Form Builder
+    this.otpForm = this._fb.group({
+      'otpNumber': ['', [
+          FormValidation.validOtp.bind(this)
+        ],
+      ]
+    })
     this.passwordformInit();
 
     this.emailActive = false;
@@ -148,12 +175,28 @@ export class SettingsComponent implements OnInit {
     console.log(value);
     if ( this.usernameForm.valid === true ) {
       const form =  {
-        'username': value.username.toLowerCase()
+        'username': value.username
       }
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+      this.userActive = false;
     }
   }
+  // User user exists
+  // userExisitCheck(value) {
+  //   console.log(value)
+  //   if (value.length >= 4) {
+  //     this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
+  //   } else {
+  //     if (this.petTag && this.petTag.user_unique) {
+  //       console.log('now i am here')
+  //       this.petTag.user_unique = false;
+  //     }
+  //   }
+  // }
 
+  // useThisUsername(selectUsername: string) {
+  //   this.usernameForm.controls['username'].setValue(selectUsername);
+  // }
 
   /**
    * name Update
@@ -163,9 +206,10 @@ export class SettingsComponent implements OnInit {
     console.log(value);
     if ( this.nameForm.valid === true ) {
       const form =  {
-        'name': value.name.toLowerCase()
+        'name': value.name
       }
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+      this.nameActive = false;
     }
   }
 
@@ -177,10 +221,11 @@ export class SettingsComponent implements OnInit {
     console.log(value);
     if ( this.dateForm.valid === true ) {
       const form =  {'physical': {
-        'dateOfBirth': value.dob.toLowerCase()
+        'dateOfBirth': this.reverseDate(value.dob) + 'T05:00:00',
       }
     }
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+      this.dobActive = false;
     }
   }
 
@@ -188,14 +233,15 @@ export class SettingsComponent implements OnInit {
    * gender update
    */
   genderFormUpdate(value) {
-    console.log(this.dateForm.valid);
+    console.log(this.genderForm.valid);
     console.log(value);
-    if ( this.dateForm.valid === true ) {
+    if ( this.genderForm.valid === true ) {
       const form =  {'physical': {
         'gender': value.gender
       }
     }
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+      this.genderActive = false;
     }
   }
 
@@ -210,6 +256,7 @@ export class SettingsComponent implements OnInit {
         'email': value.email
       }
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+      this.emailActive = false;
     }
   }
   /**
@@ -228,8 +275,71 @@ export class SettingsComponent implements OnInit {
         }
       }
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
+      this._modalService.close('thankyouModal')
+    //   this._store.select('profileTags').subscribe((state) => {
+    //     if (state['profileUpdateSuccess'] === true) {
+    //       console.log('success')
+    //     }
+    // })
+  }
+}
+
+  // OTP Validation
+  otpSubmit(value) {
+    if (this.otpForm.valid === true) {
+      let number = null;
+      if (this.phoneForm.value.mobile !== undefined && this.phoneForm.value.mobile.length > 5) {
+        number = this.phoneForm.value.mobile;
+      } else {
+        number = this.phoneForm.value.mobile;
+      }
+      const send = {
+        'number': number,
+        'otp': value.otpNumber
+      }
+      this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: send });
+      this.store.select('loginTags').take(2).subscribe(data => {
+        if (data['user_otp_success'] === true ) {
+          // this.otpLogin()
+          this.otpForm.controls['otpNumber'].setValue('')
+          this._modalService.close('otpWindow');
+          this.phoneFormUpdate(value);
+          this._modalService.open('thankyouModal');
+        }
+      })
+      // this.otpValidate(number, value.otpNumber);
+    }
+    this.phoneActive = false;
+  }
+resendOtpOnNewNumber(value) {
+  const reqBody = {
+    contact: {
+      contactNumber: value.mobile
     }
   }
+console.log(value)
+  this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: reqBody });
+  this.store.select('loginTags').take(2).subscribe(data => {
+    if (data['user_number_cng_success'] === true ) {
+      // this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
+      // this.modalService.close('otpChangeNumber');
+      console.log('trying to open window')
+      this._modalService.open('otpWindow');
+    }
+  })
+}
+
+  resendOtp() {
+    this.resendingOtp = true;
+    const number = this.phoneForm.value.mobile;
+    this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT, payload: number });
+    this.store.select('loginTags').subscribe(data => {
+      setTimeout(() => {
+        this.resendingOtp = false;
+      }, 1500);
+    })
+  }
+
   /**
    * profile type form update
    */
@@ -278,9 +388,9 @@ export class SettingsComponent implements OnInit {
   /**
    * send OTP Form
    */
-  sendOtp() {
-    this._modalService.open('otpValidatePopup');
-  }
+  // sendOtp() {
+  //   this._modalService.open('otpValidatePopup');
+  // }
 
   /**
    * toggle of email
