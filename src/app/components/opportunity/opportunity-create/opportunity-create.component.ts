@@ -153,7 +153,7 @@ export class OpportunityCreateComponent implements OnInit {
       jobType: formData.oppType,
       skills: skillsArr,
       attachment: [''],
-      qualifications: qualificationsArr,
+      qualification: qualificationsArr,
       count: {
         like: [],
         spots: [],
