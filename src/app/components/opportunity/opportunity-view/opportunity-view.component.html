@@ -49,8 +49,8 @@
         </div><!-- job short det end -->
         <div class="o-job-post__actions m-t-b-24">
           <div class="o-job-post__apply float_left m-r-16">
-              <button type="button" class="btn btn-primary btn-md" *ngIf="hasApplied" (click)="applyForJob()">Apply</button>
-              <button type="button" class="btn btn-primary btn-md" *ngIf="!hasApplied" [disabled]="hasApplied" >Applied</button>
+              <button type="button" class="btn btn-primary btn-md" *ngIf="!hasApplied" (click)="applyForJob()">Apply</button>
+              <button type="button" class="btn btn-primary btn-md" *ngIf="hasApplied" [disabled]="hasApplied" >Applied</button>
           </div>
           <div class="o-job-post__action-icons float_left ">
             <!-- <a href="" class="o-action-icons__link m-r-16">
@@ -104,8 +104,8 @@
           </ul>
           <div class="o-job-post__media-action">
             <div class="o-job-post__apply float_left m-r-16">
-              <button type="button" class="btn btn-primary btn-md" *ngIf="hasApplied" (click)="applyForJob()">Apply</button>
-              <button type="button" class="btn btn-primary btn-md" *ngIf="!hasApplied" [disabled]="hasApplied" >Applied</button>
+              <button type="button" class="btn btn-primary btn-md" *ngIf="!hasApplied" (click)="applyForJob()">Apply</button>
+              <button type="button" class="btn btn-primary btn-md" *ngIf="hasApplied" [disabled]="hasApplied" >Applied</button>
             </div>
             <div class="o-job-post__action-icons float_left ">
               <!-- <a href="" class="o-action-icons__link m-r-16">

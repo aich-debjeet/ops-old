@@ -290,7 +290,7 @@
         <div class="col-md-12 p-0">
           <div class="o-add-media-channel__head">
             <div class="col-md-4 p-0">
-              <a class="c-text_lg o-add-media-channel__link" href="opportunities_form.html">
+              <a class="c-text_lg o-add-media-channel__link" (click)="createClicked = false">
                 <div class="o-back-arrow"><img src="/assets/img/svg/back_arrow.svg" alt=""></div>
               </a>
             </div>
@@ -448,16 +448,16 @@
             </div>
           </div><!-- add to channel container end -->
           <div class="o-create-channel m-t-8 m-l-8 p-t-16">
-            <a href="#" class="o-create-channel__link" onclick="showDiv()">
+            <a class="o-create-channel__link cursor-pointer" (click)="showCreateChannel = true">
               <span class="o-create-channel__ico"><img width="17" src="/assets/img/svg/ico_create-plus.svg"></span>
               <span class="o-create-channel__title">Create Channel</span>
             </a>
-            <div id="create-channel" class="o-create-channel-container" style="display: none;">
+            <div id="create-channel" class="o-create-channel-container" *ngIf="showCreateChannel">
               <div class="col-md-12 p-0">
                 <div class="o-add-media-channel__head m-b-16">
                   <div class="col-md-4 p-0">
-                    <a class="c-text_lg o-add-media-channel__link" href="opportunities_form.html">
-                      <div class="o-back-arrow" onclick="hideDiv()"><img src="/assets/img/svg/back_arrow.svg" alt=""></div>
+                    <a class="c-text_lg o-add-media-channel__link cursor-pointer" (click)="showCreateChannel = false">
+                      <div class="o-back-arrow"><img src="/assets/img/svg/back_arrow.svg" alt=""></div>
                     </a>
                   </div>
                   <div class="col-md-4">
@@ -536,7 +536,7 @@
                     </div>
                   </div>
                   <div class="o-create-channel__btn">
-                    <button type="button" class="btn btn-default btn-md m-r-8 float_left" onclick="hideDiv()">Cancel</button>
+                    <button type="button" class="btn btn-default btn-md m-r-8 float_left" (click)="showCreateChannel = false">Cancel</button>
                     <a href="channel_inner.html" class="btn btn-primary btn-md float_right">Save</a>
                   </div>
                 </form>

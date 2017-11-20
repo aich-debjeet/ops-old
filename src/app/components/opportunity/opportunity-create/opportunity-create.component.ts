@@ -29,6 +29,7 @@ export class OpportunityCreateComponent implements OnInit {
   isSaved = false;
   formData: any;
   createClicked = false;
+  showCreateChannel = false;
 
   constructor(
     private router: Router,
