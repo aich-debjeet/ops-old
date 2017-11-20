@@ -27,6 +27,8 @@ export class OpportunityCreateComponent implements OnInit {
   opportunityState$: any;
   opportunityState: any;
   isSaved = false;
+  formData: any;
+  createClicked = false;
 
   constructor(
     private router: Router,
@@ -109,6 +111,14 @@ export class OpportunityCreateComponent implements OnInit {
   ngOnInit() {
   }
 
+  // channel select
+  channelSelection(formData: any) {
+    this.createClicked = true;
+    this.formData = formData;
+    console.log('channel selection');
+    // this.postOpportunity(this.formData);
+  }
+
   // opp create form submit
   postOpportunity(formData: any) {
     console.log('formData', formData);
@@ -147,9 +157,8 @@ export class OpportunityCreateComponent implements OnInit {
         salaryType: formData.salaryDuration,
         currency: formData.salaryCurrency
       },
-      // organization: this.orgHandle,
-      organization: 'R_E6C2F53D_F5AE_4755_B5FB_D12F9C56315E',
-      // organizationName: formData.orgName,
+      organization: this.orgHandle,
+      organizationName: formData.orgName,
       jobType: formData.oppType,
       skills: skillsArr,
       attachment: [''],
