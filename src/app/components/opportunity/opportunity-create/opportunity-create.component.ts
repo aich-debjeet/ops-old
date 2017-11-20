@@ -26,6 +26,7 @@ export class OpportunityCreateComponent implements OnInit {
   orgHandle = '';
   opportunityState$: any;
   opportunityState: any;
+  isSaved = false;
 
   constructor(
     private router: Router,
@@ -42,7 +43,10 @@ export class OpportunityCreateComponent implements OnInit {
       // console.log('state', state);
       // check if opportunity created successfully
       if (this.opportunityState && this.opportunityState.create_opportunity_data && this.opportunityState.create_opportunity_data.SUCCESS) {
-        this.toastr.success('Opportunity has been created successfully!');
+        if (this.isSaved === false) {
+          this.isSaved = true;
+          this.toastr.success('Opportunity has been created successfully!');
+        }
         // console.log('opportunity created successfully')
         this.resetOppForm();
 
