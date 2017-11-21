@@ -43,7 +43,7 @@
 
 .c-form__group {
   position: relative;
-  margin-bottom: 14px;
+  margin-bottom: 0 !important;
 }
 
 .o-channel-input {
@@ -182,7 +182,7 @@ select {
 .o-oppo-form__single{
 	width: 100%;
 	float: left;
-	padding-bottom: 8px;
+	padding-bottom: 25px;
 }
 .o-oppo-form-title{
 	padding:10px 0px;

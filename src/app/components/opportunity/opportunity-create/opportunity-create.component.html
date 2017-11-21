@@ -172,11 +172,12 @@
             </div>
             <div class="col-md-9 p-0">
               <div class="c-form__group c-form--sm c-form--noeffect">
-                <input class="c-form__input" type="text" formControlName="oppLocation">
+                <input class="c-form__input" type="text" formControlName="oppLocation" autocorrect="off" autocapitalize="off" spellcheck="off" #search>
                 <span class="c-form__highlight"></span>
                 <span class="c-form__bar"></span>
                 <label>Where is the opportunity</label>
               </div>
+              <p class="error_alert" *ngIf="createOppFrm.controls['oppLocation'].errors?.required && crOppFrm.submitted">Location is required</p>
             </div>
           </div><!-- Location end -->
 

@@ -144,7 +144,7 @@ export class OpportunityCreateComponent implements OnInit {
       salaryDuration: [''],
       salaryCurrency: [''],
       oppDuration: [''],
-      oppLocation: [''],
+      oppLocation: ['', [Validators.required]],
       oppLevel: [''],
       userSkills: [''],
       userQualifications: [''],
@@ -168,6 +168,7 @@ export class OpportunityCreateComponent implements OnInit {
   channelSelection(formData: any) {
     // validation step
     if (!this.createOppFrm.valid) {
+      window.scrollTo(0, 0);
       console.log('invalid form');
       return;
     } else {
