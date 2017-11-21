@@ -67,7 +67,6 @@ export class SettingsComponent implements OnInit {
     private _modalService: ModalService,
     private http: Http,
     private _fb: FormBuilder,
-    private profileUpdateValidator: ProfileUpdateValidator,
     private tokenService: TokenService,
     private _store: Store<ProfileModal>,
     private store: Store<BasicRegTag>,
@@ -75,7 +74,7 @@ export class SettingsComponent implements OnInit {
   ) {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-      console.log(state);
+       console.log(state);
         this.petTag = state;
     });
     this.storeState$ = this._store.select('profileTags');
@@ -110,8 +109,12 @@ export class SettingsComponent implements OnInit {
 
     // Username update form init
     this.usernameForm = this._fb.group({
-      'username' : ['', [ Validators.required]]
-      // 'username' : ['' , [Validators.required, Validators.minLength(4), FormValidation.noWhitespaceValidator], this.profileUpdateValidator.userNameValidation.bind(this.profileUpdateValidator)],
+       'username' : ['' , [
+             Validators.required,
+             Validators.minLength(4),
+             FormValidation.noWhitespaceValidator],
+             this.databaseValidator.userNameValidation.bind(this.databaseValidator)
+            ],
     });
     // name update
     this.nameForm = this._fb.group({
@@ -181,22 +184,6 @@ export class SettingsComponent implements OnInit {
       this.userActive = false;
     }
   }
-  // User user exists
-  // userExisitCheck(value) {
-  //   console.log(value)
-  //   if (value.length >= 4) {
-  //     this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
-  //   } else {
-  //     if (this.petTag && this.petTag.user_unique) {
-  //       console.log('now i am here')
-  //       this.petTag.user_unique = false;
-  //     }
-  //   }
-  // }
-
-  // useThisUsername(selectUsername: string) {
-  //   this.usernameForm.controls['username'].setValue(selectUsername);
-  // }
 
   /**
    * name Update
@@ -265,17 +252,20 @@ export class SettingsComponent implements OnInit {
   phoneFormUpdate(value) {
     console.log(this.phoneForm.valid);
     console.log(value);
-    if ( this.phoneForm.valid === true ) {
-      const form =  {
-         contact: {
-          mobile:
-          {
-            'mobile': value.mobile
-          }
-        }
+    if ( value !== 'undefined' ) {
+      const form =   {
+        'extras': {
+            'contact': {
+              'mobile':
+              {
+                'mobile': value
+              }
+            }
       }
+    }
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
-      this._modalService.close('thankyouModal')
+     // this._modalService.close('otpSuccess')
+      this.phoneActive = false;
     //   this._store.select('profileTags').subscribe((state) => {
     //     if (state['profileUpdateSuccess'] === true) {
     //       console.log('success')
@@ -297,37 +287,41 @@ export class SettingsComponent implements OnInit {
         'number': number,
         'otp': value.otpNumber
       }
+      console.log(send)
       this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: send });
       this.store.select('loginTags').take(2).subscribe(data => {
         if (data['user_otp_success'] === true ) {
-          // this.otpLogin()
           this.otpForm.controls['otpNumber'].setValue('')
           this._modalService.close('otpWindow');
-          this.phoneFormUpdate(value);
-          this._modalService.open('thankyouModal');
+         // this._modalService.open('otpSuccess');
+          this.phoneFormUpdate(number);
+        }
+        if (data['user_otp_failed'] === true ) {
+          console.log('invalid')
         }
       })
-      // this.otpValidate(number, value.otpNumber);
-    }
-    this.phoneActive = false;
-  }
-resendOtpOnNewNumber(value) {
-  const reqBody = {
-    contact: {
-      contactNumber: value.mobile
     }
   }
-console.log(value)
-  this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: reqBody });
-  this.store.select('loginTags').take(2).subscribe(data => {
-    if (data['user_number_cng_success'] === true ) {
-      // this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
-      // this.modalService.close('otpChangeNumber');
-      console.log('trying to open window')
-      this._modalService.open('otpWindow');
+
+  resendOtpOnNewNumber(value) {
+    if ( this.phoneForm.valid === true ) {
+      const reqBody = {
+        contact: {
+          'contactNumber': value.mobile
+        }
+      }
+      console.log(value)
+      this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: reqBody });
     }
-  })
-}
+    this.store.select('loginTags').take(2).subscribe(data => {
+      if (data['user_number_cng_success'] === true ) {
+        // this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
+        // this.modalService.close('otpChangeNumber');
+        console.log('trying to open window')
+        this._modalService.open('otpWindow');
+      }
+    })
+  }
 
   resendOtp() {
     this.resendingOtp = true;
@@ -384,13 +378,6 @@ console.log(value)
       ]
     });
   }
-
-  /**
-   * send OTP Form
-   */
-  // sendOtp() {
-  //   this._modalService.open('otpValidatePopup');
-  // }
 
   /**
    * toggle of email

@@ -241,7 +241,7 @@
                                                         <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.required && userform.submitted">Username is required</p>
                                                         <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.whitespace">White Space Not Allowed</p>
                                                         <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.minlength">Username must be min length 4</p>
-                                                        <!-- <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.isUsernameUnique">This username is already taken</p> -->
+                                                        <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
                                                         <!-- <ul class="username_error" *ngIf="petTag.user_unique">
                                                             <li *ngFor="let username of petTag?.user_exsist; let isLast=last">
                                                                 <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
@@ -799,7 +799,7 @@
 <app-modal [modalTitle]="'Success'" [blocking]='false' modalId='otpSuccess'>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 text-center">
-            <h3>Thank you for joining us</h3>
+            <h3>Your number has been verified</h3>
         </div>
     </div>
 </app-modal>
