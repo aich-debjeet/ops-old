@@ -1,7 +1,7 @@
 <section class="o-opportunities-form" *ngIf="!createClicked">
   <div class="container">
     <div class="o-opportunities-form-container m-t-32">
-      <form [formGroup]="createOppFrm" (ngSubmit)="channelSelection(createOppFrm.value)" >
+      <form #crOppFrm="ngForm" [formGroup]="createOppFrm" (ngSubmit)="channelSelection(createOppFrm.value)" >
         <div class="o-opportunities-form-block p-t-32">
           <h4 class="c-h4 text-center">Create Opportunity</h4>
           <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-24 text_uppercase ltr-space">
@@ -39,7 +39,7 @@
                   <span></span>Volunteer
                 </label>
               </div>
-              <p class="error_alert" *ngIf="createOppFrm.controls['oppType'].errors?.required">Opportunity type is required</p>
+              <p class="error_alert" *ngIf="createOppFrm.controls['oppType'].errors?.required && crOppFrm.submitted">Opportunity type is required</p>
             </div>
           </div><!-- Opportunity type end -->
           
@@ -54,7 +54,7 @@
                 <span class="c-form__bar"></span>
                 <label>eg: Manager/Director</label>
               </div>
-              <p class="error_alert" *ngIf="createOppFrm.controls['role']?.errors?.required && createOppFrm.controls['role'].touched">Role is required</p>
+              <p class="error_alert" *ngIf="createOppFrm.controls['role']?.errors?.required && crOppFrm.submitted">Role is required</p>
             </div>
           </div><!-- Role end -->
 
@@ -66,8 +66,8 @@
               <div class="c-form__group c-form--sm">
                 <textarea formControlName="description" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
               </div>
+              <p class="error_alert" *ngIf="createOppFrm.controls['description']?.errors?.required && crOppFrm.submitted">Description is required</p>
             </div>
-            <p class="error_alert" *ngIf="createOppFrm.controls['description']?.errors?.required">Description is required</p>
           </div><!-- Description end -->
 
           <div class="o-oppo-form__single">

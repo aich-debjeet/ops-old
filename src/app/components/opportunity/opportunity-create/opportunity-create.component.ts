@@ -77,13 +77,14 @@ export class OpportunityCreateComponent implements OnInit {
         // console.log('this.channelList', this.channelList);
       }
 
-      console.log('this.channelSavedHere', this.channelSavedHere);
-      console.log('this.channelSaved', this.channelSaved);
       // Success message
       if (this.channelSavedHere && this.channelSaved === true ) {
         this.toastr.success('Channel and opportunity has been added to the channel');
         this.createChannelForm();
         this.channelSavedHere = false;
+
+        // submitting opportunity
+        this.postOpportunity(this.formData);
       }
     });
 
@@ -134,9 +135,9 @@ export class OpportunityCreateComponent implements OnInit {
   createOppForm() {
     // reactive from group
     this.createOppFrm = this.fb.group({
-      oppType: [''],
-      role: [''],
-      description: [''],
+      oppType: ['', [Validators.required]],
+      role: ['', [Validators.required]],
+      description: ['', [Validators.required]],
       yearsExpFrom: [''],
       yearsExpTo: [''],
       salaryAmount: [''],
@@ -165,6 +166,13 @@ export class OpportunityCreateComponent implements OnInit {
 
   // channel select
   channelSelection(formData: any) {
+    // validation step
+    if (!this.createOppFrm.valid) {
+      console.log('invalid form');
+      return;
+    } else {
+      console.log('submit form');
+    }
     this.createClicked = true;
     this.formData = formData;
     // console.log('channel selection');
@@ -184,7 +192,7 @@ export class OpportunityCreateComponent implements OnInit {
   }
 
   /**
-   * Load current user channels
+   * Load industries
    */
   loadIndustries() {
     this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
