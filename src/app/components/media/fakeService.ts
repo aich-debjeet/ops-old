@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptionsArgs, Headers } from '@angular/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class FileUploadService {
 
-    baseUrl = 'http://devservices.greenroom6.com:9000/api/1.0/portal';
+    baseUrl = environment.API_ENDPOINT + '/api/1.0/portal';
 
     constructor(private _http: Http) { }
 

@@ -18,7 +18,7 @@ import { MasonryModule } from 'angular2-masonry';
 // opportunity module routes
 const opportunityRoutes: Routes = [
   {
-    path: '',
+    path: 'opportunity',
     component: OpportunityComponent,
     children: [
       { path: '', redirectTo: 'search', pathMatch: 'full' },
