@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angula
 
 // actions
 import { OpportunityActions } from 'app/actions/opportunity.action';
+import { ProfileActions } from 'app/actions/profile.action';
 
 // store
 import { Store } from '@ngrx/store';
@@ -30,6 +31,9 @@ export class OpportunityCreateComponent implements OnInit {
   formData: any;
   createClicked = false;
   showCreateChannel = false;
+  userProfileState$: any;
+  userProfile: any;
+  channelList: any[];
 
   constructor(
     private router: Router,
@@ -38,6 +42,18 @@ export class OpportunityCreateComponent implements OnInit {
     private store: Store<OpportunityModel>,
     private localStorageService: LocalStorageService
   ) {
+
+    this.userProfileState$ = store.select('profileTags');
+    this.userProfileState$.subscribe(data => {
+      if (data && data.profileUser) {
+        this.userProfile = data.profileUser;
+        // console.log('this.userProfile', this.userProfile);
+      }
+      if (data && data.user_following_channels_loaded) {
+        this.channelList = data.user_following_channel;
+        console.log('this.channelList', this.channelList);
+      }
+    });
 
     // state listener
     this.opportunityState$ = this.store.select('opportunityTags');
@@ -117,7 +133,17 @@ export class OpportunityCreateComponent implements OnInit {
     this.createClicked = true;
     this.formData = formData;
     console.log('channel selection');
+
+    // loading channels
+    this.loadChannels();
     // this.postOpportunity(this.formData);
+  }
+
+  /**
+   * Load current user channels
+   */
+  loadChannels() {
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: 'asd' });
   }
 
   // opp create form submit
@@ -178,6 +204,14 @@ export class OpportunityCreateComponent implements OnInit {
       payload: reqObj
     });
 
+  }
+
+  /**
+   * Choose a channel
+   * @param channel
+   */
+  chooseChannel(channel: any) {
+    console.log('channel selected', channel);
   }
 
 }

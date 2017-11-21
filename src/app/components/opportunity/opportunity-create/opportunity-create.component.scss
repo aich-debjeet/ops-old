@@ -4,12 +4,20 @@
   cursor: pointer;
 }
 
+.show {
+  display: block !important;
+}
+
 // opportunity form css
 .o-add-media-channel {
   width: 100%;
   background: #fff;
   padding: 24px 32px;
   float: left;
+}
+
+.o-add-media-channel__link {
+  cursor: pointer;
 }
 
 .o-add-media-channel-main {
