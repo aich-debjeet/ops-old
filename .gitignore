@@ -32,8 +32,6 @@ build/
 /libpeerconnection.log
 npm-debug.log
 testem.log
-stage.sh
-deploy.sh
 /typings
 
 # e2e
