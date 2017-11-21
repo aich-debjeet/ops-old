@@ -363,10 +363,10 @@
               <div class=" c-text_lg o-add-media-channel__link">
               </div>
               <div class="o-create-channel__form">
-                <form action="">
+                <form [formGroup]="channelForm" novalidate #myform="ngForm">
                   <div class="col-md-12 p-0 m-b-16" >
                     <div class="c-form__group ">
-                        <input class="c-form__input" required="" type="text">
+                        <input class="c-form__input" formControlName="title" type="text">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <label>Name of channel</label>
@@ -374,7 +374,7 @@
                   </div>
                   <div class="col-md-12 p-0 m-b-16">
                     <div class="c-form__group">
-                      <input class="c-form__input" required="" type="text">
+                      <input class="c-form__input" formControlName="desc" type="text">
                       <span class="c-form__highlight"></span>
                       <span class="c-form__bar"></span>
                       <label>Description</label>
@@ -382,52 +382,21 @@
                   </div>
                   <div class="col-md-12 p-0 m-b-16">
                     <div class="c-form__group o-create-channel__input">
-                      <select class="c-form-control p-l-0">
-                          <option>Industry</option>
-                          <option>Select list 2</option>
-                          <option>Select list 3</option>
-                          <option>Select list 4</option>
+                      <select class="c-form-control p-l-0" formControlName="type">
+                        <option value="" selected="">Industry</option>
+                        <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
                       </select>
                     </div>
-
-                    <div class="o-create-channel__action">
-                      <div class="dropdown">   
-                        <span class="com-head" data-toggle="dropdown" aria-expanded="true">
-                          <div class="o-action__ico">
-                            <img src="/assets/img/svg/ico_web.svg">
-                          </div>
-                          <div class="o-action__ico-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                                <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
-                                <title>Path 2 Copy</title>
-                                <desc>Created with Sketch.</desc>
-                                <defs/>
-                                <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"/>
-                                </g>
-                            </svg>
-                          </div>
-                        </span>
-                        <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                          <li>
-                            <a href="#" class="c-opsdropdown__list">
-                              <img src="/assets/img/svg/ico-public.svg" class="c-opsdropdown--icons">
-                              <span class="c-opsdropdown--text">Public</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#" class="c-opsdropdown__list">
-                              <img src="/assets/img/svg/Ico-private.svg" class="c-opsdropdown--icons">
-                              <span class="c-opsdropdown--text">Private</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
+                    <div class="c-form__group pen">
+                        <select formControlName="privacy" class="c-form-control p-0" id="sel1">
+                            <option value="0">Public</option>
+                            <option value="1">Private</option>
+                        </select>
                     </div>
                   </div>
                   <div class="o-create-channel__btn">
                     <button type="button" class="btn btn-default btn-md m-r-8 float_left" (click)="showCreateChannel = false">Cancel</button>
-                    <a href="channel_inner.html" class="btn btn-primary btn-md float_right">Save</a>
+                    <a class="btn btn-primary btn-md float_right" (click)="createChannel(channelForm.value)" >Save</a>
                   </div>
                 </form>
               </div>

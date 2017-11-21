@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angula
 // actions
 import { OpportunityActions } from 'app/actions/opportunity.action';
 import { ProfileActions } from 'app/actions/profile.action';
+import { AuthActions } from '../../../actions/auth.action';
 
 // store
 import { Store } from '@ngrx/store';
@@ -15,6 +16,11 @@ import { OpportunityModel } from './../../../models/opportunity.model';
 import { LocalStorageService } from './../../../services/local-storage.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+
+import { Media } from '../../../models/media.model';
+
+// rx
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-opportunity-create',
@@ -35,24 +41,49 @@ export class OpportunityCreateComponent implements OnInit {
   userProfile: any;
   channelList: any[];
   selectedChannelId: string;
+  channelForm: FormGroup;
+  loginTagState$: Observable<any>;
+  industries: any[];
+  channelSavedHere: boolean;
+  channelSaved = false;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private toastr: ToastrService,
     private store: Store<OpportunityModel>,
+    private mediaStore: Store<Media>,
     private localStorageService: LocalStorageService
   ) {
+    this.channelSaved = false;
+    this.channelSavedHere = false;
 
-    this.userProfileState$ = store.select('profileTags');
+    this.loginTagState$ = store.select('loginTags');
+    this.loginTagState$.subscribe((state) => {
+      this.industries = state.industries;
+      console.log('industries', this.industries);
+    });
+
+    this.userProfileState$ = this.mediaStore.select('profileTags');
     this.userProfileState$.subscribe(data => {
       if (data && data.profileUser) {
         this.userProfile = data.profileUser;
-        // console.log('this.userProfile', this.userProfile);
+        if (data.channel_saved) {
+          this.channelSaved = data.channel_saved;
+        }
       }
       if (data && data.user_following_channels_loaded) {
         this.channelList = data.user_following_channel;
-        console.log('this.channelList', this.channelList);
+        // console.log('this.channelList', this.channelList);
+      }
+
+      console.log('this.channelSavedHere', this.channelSavedHere);
+      console.log('this.channelSaved', this.channelSaved);
+      // Success message
+      if (this.channelSavedHere && this.channelSaved === true ) {
+        this.toastr.success('Channel and opportunity has been added to the channel');
+        this.createChannelForm();
+        this.channelSavedHere = false;
       }
     });
 
@@ -81,8 +112,11 @@ export class OpportunityCreateComponent implements OnInit {
       }
     });
 
-    // create form
+    // create opp form
     this.createOppForm();
+
+    // create channel form
+    this.createChannelForm();
 
     // check if creator is user or organization
     if (localStorage.getItem('accountStatus') !== null) {
@@ -137,6 +171,9 @@ export class OpportunityCreateComponent implements OnInit {
 
     // loading channels
     this.loadChannels();
+
+    // loading indutries
+    this.loadIndustries();
   }
 
   /**
@@ -144,6 +181,13 @@ export class OpportunityCreateComponent implements OnInit {
    */
   loadChannels() {
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: 'user' });
+  }
+
+  /**
+   * Load current user channels
+   */
+  loadIndustries() {
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   // opp create form submit
@@ -215,6 +259,62 @@ export class OpportunityCreateComponent implements OnInit {
 
     // create the opportunity with the selected channel id
     this.postOpportunity(this.formData);
+  }
+
+  /**
+   * Create channel form builder
+   */
+  createChannelForm() {
+    // Empty initiate form
+    this.channelForm = this.fb.group({
+      title: ['', Validators.required ],
+      type: ['', Validators.required ],
+      desc: ['', Validators.required ],
+      privacy: [0, Validators.required ]
+    })
+  }
+
+  /**
+   * Create channel
+   */
+  createChannel(value: any) {
+    const userHandle = this.userProfile.handle || '';
+    const mediaTypeList = [];
+
+    // set profile handle to user handle
+    let profileHandle = userHandle;
+
+    // check if creator is user or organization
+    if (localStorage.getItem('accountStatus') !== null) {
+      const localStore = JSON.parse(this.localStorageService.theAccountStatus);
+      if (localStore.profileType === 'org') {
+        profileHandle = localStore.handle;
+      }
+    }
+
+    console.log('this.channelForm', this.channelForm);
+
+    if ( this.channelForm.valid === true && profileHandle !== '' ) {
+
+      const hashTags = [];
+
+      const channelObj = {
+        name: value.title,
+        owner: profileHandle,
+        mediaTypes: mediaTypeList,
+        industryList: [ value.type ],
+        superType: 'channel',
+        access: Number(value.privacy),
+        description: value.desc,
+        accessSettings : { access : Number(value.privacy) },
+        hashTags: hashTags
+      }
+
+      this.channelSavedHere = true;
+      this.mediaStore.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
+    } else {
+      this.toastr.warning('Please fill all required fields');
+    }
   }
 
 }

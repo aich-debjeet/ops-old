@@ -1,5 +1,9 @@
 @import './src/assets/scss/helpers/_variables.scss';
 
+.pen {
+  pointer-events: none;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
