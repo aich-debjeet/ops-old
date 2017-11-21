@@ -198,6 +198,7 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
       if (this.listData) {
         this.listData = _uniq(this.listData, 'id');
         const reqBody = { listData: this.listData };
+        console.log(this.listData)
         this.http.post(this.apiLink + '/portal/auth/handleDisplayData', reqBody, { headers: headers })
         .map((response: Response) => response.json())
         .subscribe(response => {
