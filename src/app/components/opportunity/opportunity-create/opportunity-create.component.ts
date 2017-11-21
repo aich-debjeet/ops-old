@@ -34,6 +34,7 @@ export class OpportunityCreateComponent implements OnInit {
   userProfileState$: any;
   userProfile: any;
   channelList: any[];
+  selectedChannelId: string;
 
   constructor(
     private router: Router,
@@ -99,22 +100,22 @@ export class OpportunityCreateComponent implements OnInit {
   createOppForm() {
     // reactive from group
     this.createOppFrm = this.fb.group({
-      oppType: [null],
-      role: [null],
-      description: [null],
-      yearsExpFrom: [null],
-      yearsExpTo: [null],
-      salaryAmount: [null],
-      salaryDuration: [null],
-      salaryCurrency: [null],
-      oppDuration: [null],
-      oppLocation: [null],
-      oppLevel: [null],
-      userSkills: [null],
-      userQualifications: [null],
-      orgName: [null],
-      country: [null],
-      attachments: [null]
+      oppType: [''],
+      role: [''],
+      description: [''],
+      yearsExpFrom: [''],
+      yearsExpTo: [''],
+      salaryAmount: [''],
+      salaryDuration: [''],
+      salaryCurrency: [''],
+      oppDuration: [''],
+      oppLocation: [''],
+      oppLevel: [''],
+      userSkills: [''],
+      userQualifications: [''],
+      orgName: [''],
+      country: [''],
+      attachments: ['']
     });
   }
 
@@ -132,23 +133,21 @@ export class OpportunityCreateComponent implements OnInit {
   channelSelection(formData: any) {
     this.createClicked = true;
     this.formData = formData;
-    console.log('channel selection');
+    // console.log('channel selection');
 
     // loading channels
     this.loadChannels();
-    // this.postOpportunity(this.formData);
   }
 
   /**
    * Load current user channels
    */
   loadChannels() {
-    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: 'asd' });
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: 'user' });
   }
 
   // opp create form submit
   postOpportunity(formData: any) {
-    console.log('formData', formData);
 
     // validation step
     if (!this.createOppFrm.valid) {
@@ -193,11 +192,11 @@ export class OpportunityCreateComponent implements OnInit {
       count: {
         like: [],
         spots: [],
-        channel: ['']
+        channel: [this.selectedChannelId]
       }
     };
 
-    // console.log(reqObj);
+    // console.log('reqObj', reqObj);
     // create the opportunity
     this.store.dispatch({
       type: OpportunityActions.CREATE_OPPORTUNITY,
@@ -211,7 +210,11 @@ export class OpportunityCreateComponent implements OnInit {
    * @param channel
    */
   chooseChannel(channel: any) {
-    console.log('channel selected', channel);
+    // adding reference of the selected channel
+    this.selectedChannelId = channel.spotfeedId;
+
+    // create the opportunity with the selected channel id
+    this.postOpportunity(this.formData);
   }
 
 }
