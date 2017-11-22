@@ -41,7 +41,7 @@ export class OpportunityCreateComponent implements OnInit {
   userProfileState$: any;
   userProfile: any;
   channelList: any[];
-  selectedChannelId: string;
+  selectedChannelId = '';
   channelForm: FormGroup;
   loginTagState$: Observable<any>;
   industries: any[];
@@ -63,11 +63,12 @@ export class OpportunityCreateComponent implements OnInit {
     this.loginTagState$ = store.select('loginTags');
     this.loginTagState$.subscribe((state) => {
       this.industries = state.industries;
-      console.log('industries', this.industries);
+      // console.log('industries', this.industries);
     });
 
     this.userProfileState$ = this.mediaStore.select('profileTags');
     this.userProfileState$.subscribe(data => {
+      console.log('porfile state', data);
       if (data && data.profileUser) {
         this.userProfile = data.profileUser;
         if (data.channel_saved) {
@@ -78,13 +79,14 @@ export class OpportunityCreateComponent implements OnInit {
         this.channelList = data.user_following_channel;
         // console.log('this.channelList', this.channelList);
       }
-
-      // Success message
+      if (data && data.channel_created_details && data.channel_created_details.SUCCESS && data.channel_created_details.SUCCESS.id) {
+        this.selectedChannelId = data.channel_created_details.SUCCESS.id;
+      }
+      // success message
       if (this.channelSavedHere && this.channelSaved === true ) {
         this.toastr.success('Channel and opportunity has been added to the channel');
         this.createChannelForm();
         this.channelSavedHere = false;
-
         // submitting opportunity
         this.postOpportunity(this.formData);
       }
@@ -94,7 +96,7 @@ export class OpportunityCreateComponent implements OnInit {
     this.opportunityState$ = this.store.select('opportunityTags');
     this.opportunityState$
     .first(state => {
-      console.log('first', state);
+      // console.log('first', state);
       this.opportunityState = state;
       // console.log('state', state);
       // check if opportunity created successfully
@@ -238,7 +240,7 @@ export class OpportunityCreateComponent implements OnInit {
         salaryType: formData.salaryDuration,
         currency: formData.salaryCurrency
       },
-      // organization: this.orgHandle,
+      organization: this.orgHandle,
       organizationName: formData.orgName,
       jobType: formData.oppType,
       skills: skillsArr,

@@ -190,6 +190,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
   case ProfileActions.CHANNEL_SAVE_SUCCESS:
     return Object.assign({}, state, {
+      channel_created_details: payload,
       channel_saved: true
     });
 

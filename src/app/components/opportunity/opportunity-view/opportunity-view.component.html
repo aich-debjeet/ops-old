@@ -138,7 +138,7 @@
           </div>
           <div class="o-post-user__info">
             <div class="o-post-user__name c-text_lg">{{ opportunity?.postedByName }}</div>
-            <div class="o-post-user__desigination c-text_md color-grey-dark">Manager</div>
+            <div *ngIf="opportunity?.position" class="o-post-user__desigination c-text_md color-grey-dark">{{ opportunity?.position }}</div>
           </div>
         </div>
       </div>
