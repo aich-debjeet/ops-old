@@ -92,7 +92,7 @@ export class OpportunityCreateComponent implements OnInit {
 
     this.userProfileState$ = this.mediaStore.select('profileTags');
     this.userProfileState$.subscribe(data => {
-      console.log('porfile state', data);
+      // console.log('porfile state', data);
       if (data && data.profileUser) {
         this.userProfile = data.profileUser;
         if (data.channel_saved) {
@@ -198,10 +198,10 @@ export class OpportunityCreateComponent implements OnInit {
     // validation step
     if (!this.createOppFrm.valid) {
       window.scrollTo(0, 0);
-      console.log('invalid form');
+      // console.log('invalid form');
       return;
     } else {
-      console.log('submit form');
+      // console.log('submit form');
     }
     this.createClicked = true;
     this.formData = formData;
@@ -233,10 +233,10 @@ export class OpportunityCreateComponent implements OnInit {
 
     // validation step
     if (!this.createOppFrm.valid) {
-      console.log('invalid form');
+      // console.log('invalid form');
       return;
     } else {
-      console.log('submit form');
+      // console.log('submit form');
     }
 
     // preparing skills for req body
@@ -330,7 +330,7 @@ export class OpportunityCreateComponent implements OnInit {
       }
     }
 
-    console.log('this.channelForm', this.channelForm);
+    // console.log('this.channelForm', this.channelForm);
 
     if ( this.channelForm.valid === true && profileHandle !== '' ) {
 
@@ -385,7 +385,7 @@ export class OpportunityCreateComponent implements OnInit {
       const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
 
       });
-      console.log(autocomplete);
+      // console.log(autocomplete);
       const componentForm = {
         street_number: 'short_name',
         route: 'long_name',
@@ -403,7 +403,7 @@ export class OpportunityCreateComponent implements OnInit {
 
           for (let i = 0; i < place.address_components.length; i++) {
             const addressType = place.address_components[i].types[0];
-            console.log(addressType);
+            // console.log(addressType);
             if (componentForm[addressType]) {
               const val = place.address_components[i][componentForm[addressType]];
               if ( addressType === 'country') {
@@ -452,7 +452,7 @@ export class OpportunityCreateComponent implements OnInit {
    * Set the privacy value for the form reference
    */
   selectPrivacy(value: any) {
-    console.log('privacy ', value)
+    // console.log('privacy ', value)
     this.privacyValue = value;
     this.togglePrivacyOptions();
   }
