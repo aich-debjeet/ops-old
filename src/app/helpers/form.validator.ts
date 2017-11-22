@@ -158,6 +158,7 @@ export class ProfileUpdateValidator {
 
     // User already Exsist check on DB
     userNameValidation(control: AbstractControl) {
+        console.log('called');
         const q = new Promise((resolve, reject) => {
             // check current email for user
             if (this.profileDetails.profileDetails['extra'].username !== control.value) {
