@@ -36,7 +36,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
     Freelance: '0'
   };
 
-  recordsPerPage = 10;
+  recordsPerPage = 2;
   showPreloader = false;
 
   constructor(
