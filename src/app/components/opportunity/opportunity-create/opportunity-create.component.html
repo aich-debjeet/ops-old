@@ -388,11 +388,43 @@
                         <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
                       </select>
                     </div>
-                    <div class="c-form__group pen">
+                    <!-- <div class="c-form__group pen">
                         <select formControlName="privacy" class="c-form-control p-0" id="sel1">
                             <option value="0">Public</option>
                             <option value="1">Private</option>
                         </select>
+                    </div> -->
+                    <div class="o-create-channel__action" >
+                      <div class="dropdown">   
+                        <span class="com-head" (click)="togglePrivacyOptions()" data-toggle="dropdown" aria-expanded="true">
+                          <div class="o-action__ico" >
+                            <img *ngIf="privacyValue == 0" src="/assets/img/svg/ico-public.svg">
+                            <img *ngIf="privacyValue == 1" src="/assets/img/svg/Ico-private.svg">
+                          </div>
+                          <div class="o-action__ico-arrow">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
+                                <defs></defs>
+                                <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
+                                </g>
+                            </svg>
+                          </div>
+                        </span>
+                        <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space" *ngIf="showPrivacyOptions">
+                          <li>
+                            <a (click)="selectPrivacy(0)" class="c-opsdropdown__list">
+                              <img src="/assets/img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                              <span class="c-opsdropdown--text">Public</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a (click)="selectPrivacy(1)" class="c-opsdropdown__list">
+                              <img src="/assets/img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                              <span class="c-opsdropdown--text">Private</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                   <div class="o-create-channel__btn">

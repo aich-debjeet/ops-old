@@ -4,6 +4,74 @@
   pointer-events: none;
 }
 
+.dropdown-menu {
+  display: block;
+}
+
+.c-opsdropdown--size1 {
+  width: 109px;
+}
+
+.o-action-list--space {
+  margin-top: 24px;
+}
+
+.dropdown-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.428571429;
+  color: #333333;
+  white-space: nowrap;
+}
+
+.dropdown-menu > li > a {
+  font-size: 12px;
+  text-align: left;
+  color: #979797;
+  padding: 10px 20px;
+}
+
+.c-opsdropdown--icons {
+  width: 12px;
+  display: inline;
+  margin: 0 !important;
+  float: left;
+  padding-top: 3px;
+}
+
+.c-opsdropdown--text {
+  font-size: 12px;
+  text-align: left;
+  color: #979797;
+  padding: 10px 20px;
+}
+
+.o-create-channel__action {
+  float: right;
+  margin-left: 16px;
+  margin-top: 12px;
+}
+
+.o-action__ico img {
+  width: 100%;
+}
+
+.o-action__ico-arrow {
+  width: 10px;
+  height: 6px;
+  float: left;
+  margin-top: 3px;
+  margin-left: 8px;
+}
+
+.o-action__ico {
+  width: 12px;
+  height: 12px;
+  float: left;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }

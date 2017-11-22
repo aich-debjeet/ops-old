@@ -53,6 +53,9 @@ export class OpportunityCreateComponent implements OnInit {
   channelSaved = false;
   baseUrl = environment.API_IMAGE;
 
+  showPrivacyOptions = false;
+  privacyValue = 0;
+
   public latitude: number;
   public longitude: number;
   public searchControl: FormControl;
@@ -305,7 +308,7 @@ export class OpportunityCreateComponent implements OnInit {
       title: ['', Validators.required ],
       type: ['', Validators.required ],
       desc: ['', Validators.required ],
-      privacy: [0, Validators.required ]
+      // privacy: [0, Validators.required ]
     })
   }
 
@@ -339,9 +342,9 @@ export class OpportunityCreateComponent implements OnInit {
         mediaTypes: mediaTypeList,
         industryList: [ value.type ],
         superType: 'channel',
-        access: Number(value.privacy),
+        access: Number(this.privacyValue),
         description: value.desc,
-        accessSettings : { access : Number(value.privacy) },
+        accessSettings : { access : Number(this.privacyValue) },
         hashTags: hashTags
       }
 
@@ -432,6 +435,26 @@ export class OpportunityCreateComponent implements OnInit {
       });
     });
 
+  }
+
+  /**
+   * Display privacy option on channel selection
+   */
+  togglePrivacyOptions() {
+    if (this.showPrivacyOptions === true) {
+      this.showPrivacyOptions = false;
+    } else {
+      this.showPrivacyOptions = true;
+    }
+  }
+
+  /**
+   * Set the privacy value for the form reference
+   */
+  selectPrivacy(value: any) {
+    console.log('privacy ', value)
+    this.privacyValue = value;
+    this.togglePrivacyOptions();
   }
 
 }
