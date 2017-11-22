@@ -5,6 +5,7 @@ import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { UserMedia } from '../../../models/user-media.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import {DatabaseValidator } from '../../../helpers/form.validator';
 import { DatePipe } from '@angular/common';
 
 // action
@@ -20,7 +21,7 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-about-work',
   templateUrl: './about-work.component.html',
-  providers: [ModalService, DatePipe],
+  providers: [ModalService, DatePipe, DatabaseValidator],
   styleUrls: ['./about-work.component.scss']
 })
 export class AboutWorkComponent implements OnInit {
@@ -41,6 +42,7 @@ export class AboutWorkComponent implements OnInit {
     private fb: FormBuilder,
     public datepipe: DatePipe,
     private profileStore: Store<ProfileModal>,
+    private databaseValidator: DatabaseValidator,
     private toastr: ToastrService
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
@@ -99,8 +101,8 @@ export class AboutWorkComponent implements OnInit {
     this.workForm = this.fb.group({
       'company' : ['' , [Validators.required]],
       'position' : ['' , [Validators.required]],
-      'from' : ['' , [Validators.required]],
-      'to' : ['' , [Validators.required]],
+      'from' : ['' , [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
+      'to' : ['' , [Validators.required], this.databaseValidator.validWorkToDate.bind(this.databaseValidator)],
       'currentWork' : '',
       'id' : '',
       'publicWork': '0'
@@ -166,6 +168,7 @@ export class AboutWorkComponent implements OnInit {
    */
   deleteCurrentWork(id) {
     this.profileStore.dispatch({ type: ProfileActions.DELETE_USER_WORK, payload: id});
+    this.toastr.success('Your work has been deleted successfully!');
   }
 
   /**

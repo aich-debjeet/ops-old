@@ -13,11 +13,10 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class DatabaseValidator {
-
+    fromDate: any;
     constructor(
         private authService: AuthService,
     ) {}
-
     checkEmail(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -118,6 +117,101 @@ export class DatabaseValidator {
         const ageDate = new Date(ageDifMs); // miliseconds from epoch
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
+    /**
+     * Checking for the valid age input on register form
+     * @param control: Form birth date input
+     */
+    validWorkToDate(control: AbstractControl) {
+        const q = new Promise((resolve, reject) => {
+            // if (control.value.indexOf('_') !== -1 || control.value === '') {
+            // // console.log('incomplete date');
+            // return resolve(null);
+            // }
+
+            const dateArr =  control.value.split('-');
+
+            const day = dateArr[0];
+            const month = dateArr[1];
+            const year = dateArr[2];
+
+            // check for valid day number
+            if (parseInt(day, 10) > 31) {
+                resolve({ 'invalidWorkDate': true });
+            }
+
+            // check for valid month number
+            if (parseInt(month, 10) > 12) {
+                resolve({ 'invalidWorkDate': true });
+            }
+
+            // check if year is not greater that current
+            if (new Date().getUTCFullYear() < year) {
+                resolve({ 'invalidWorkDate': true });
+            }
+
+             const toDate = new Date(year, month, day);
+            //  console.log(toDate)
+            //  console.log(this.fromDate)
+             if (this.fromDate > toDate) {
+                resolve({ 'isvalid': true });
+             }
+
+            // const age = this.calculateAge(birthDate);
+
+            // if (age <= 13) {
+            //     resolve({ 'isUnderAge': true });
+            // } else if (age >= 100) {
+            //     resolve({ 'isOverAge': true });
+            // }
+            resolve(null);
+        });
+        return q;
+    }
+    /**
+     * Checking for the valid age input on register form
+     * @param control: Form birth date input
+     */
+    validWorkFromDate(control: AbstractControl) {
+        const q = new Promise((resolve, reject) => {
+            // if (control.value.indexOf('_') !== -1 || control.value === '') {
+            // // console.log('incomplete date');
+            // return resolve(null);
+            // }
+
+            const dateArr =  control.value.split('-');
+
+            const day = dateArr[0];
+            const month = dateArr[1];
+            const year = dateArr[2];
+
+            // check for valid day number
+            if (parseInt(day, 10) > 31) {
+                resolve({ 'invalidWorkDate': true });
+            }
+
+            // check for valid month number
+            if (parseInt(month, 10) > 12) {
+                resolve({ 'invalidWorkDate': true });
+            }
+
+            // check if year is not greater that current
+            if (new Date().getUTCFullYear() < year) {
+                resolve({ 'invalidWorkDate': true });
+            }
+
+             this.fromDate = new Date(year, month, day);
+            // const age = this.calculateAge(birthDate);
+
+            // if (age <= 13) {
+            //     resolve({ 'isUnderAge': true });
+            // } else if (age >= 100) {
+            //     resolve({ 'isOverAge': true });
+            // }
+            resolve(null);
+        });
+        return q;
+    }
+
 }
 
 // Update Profile validation
