@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 // actions
 import { OpportunityActions } from 'app/actions/opportunity.action';
@@ -22,6 +22,10 @@ import { Media } from '../../../models/media.model';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { environment } from 'environments/environment.staging';
+
+// google location api
+import {} from '@types/googlemaps';
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 
 @Component({
   selector: 'app-opportunity-create',
@@ -49,10 +53,27 @@ export class OpportunityCreateComponent implements OnInit {
   channelSaved = false;
   baseUrl = environment.API_IMAGE;
 
+  public latitude: number;
+  public longitude: number;
+  public searchControl: FormControl;
+  public zoom: number;
+
+  // Address --
+  address: string;
+  country: string;
+  state: string;
+  postalCode: string;
+  city: string;
+
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+
   constructor(
     private router: Router,
+    private ngZone: NgZone,
     private fb: FormBuilder,
     private toastr: ToastrService,
+    private mapsAPILoader: MapsAPILoader,
     private store: Store<OpportunityModel>,
     private mediaStore: Store<Media>,
     private localStorageService: LocalStorageService
@@ -84,7 +105,7 @@ export class OpportunityCreateComponent implements OnInit {
       }
       // success message
       if (this.channelSavedHere && this.channelSaved === true ) {
-        this.toastr.success('Channel and opportunity has been added to the channel');
+        this.toastr.success('Channel has been created successfully!');
         this.createChannelForm();
         this.channelSavedHere = false;
         // submitting opportunity
@@ -328,6 +349,88 @@ export class OpportunityCreateComponent implements OnInit {
     } else {
       this.toastr.warning('Please fill all required fields');
     }
+  }
+
+  private setCurrentPosition() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 12;
+      });
+    }
+  }
+
+  /**
+   * Location find from google
+   */
+  getLocationGoogle() {
+    // set google maps defaults
+    this.zoom = 4;
+    this.latitude = 39.8282;
+    this.longitude = -98.5795;
+
+    // create search FormControl
+    this.searchControl = new FormControl();
+
+    // set current position
+    this.setCurrentPosition();
+
+    // load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+
+      });
+      console.log(autocomplete);
+      const componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'long_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+
+      autocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          // console.log(place);
+
+          for (let i = 0; i < place.address_components.length; i++) {
+            const addressType = place.address_components[i].types[0];
+            console.log(addressType);
+            if (componentForm[addressType]) {
+              const val = place.address_components[i][componentForm[addressType]];
+              if ( addressType === 'country') {
+                this.country = val;
+              }
+              if ( addressType === 'postal_code') {
+                this.postalCode = val;
+              }
+              if ( addressType === 'locality') {
+                this.city = val
+              }
+              if ( addressType === 'administrative_area_level_1') {
+                this.state = val
+              }
+            }
+          }
+
+          // verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          // set latitude, longitude and zoom
+          this.address = place.formatted_address;
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        });
+      });
+    });
+
   }
 
 }
