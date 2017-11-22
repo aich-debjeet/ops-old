@@ -21,6 +21,7 @@ import { Media } from '../../../models/media.model';
 
 // rx
 import { Observable } from 'rxjs/Observable';
+import { environment } from 'environments/environment.staging';
 
 @Component({
   selector: 'app-opportunity-create',
@@ -46,6 +47,7 @@ export class OpportunityCreateComponent implements OnInit {
   industries: any[];
   channelSavedHere: boolean;
   channelSaved = false;
+  baseUrl = environment.API_IMAGE;
 
   constructor(
     private router: Router,
@@ -90,11 +92,11 @@ export class OpportunityCreateComponent implements OnInit {
 
     // state listener
     this.opportunityState$ = this.store.select('opportunityTags');
-    this.opportunityState$.subscribe((state) => {
-
+    this.opportunityState$
+    .first(state => {
+      console.log('first', state);
       this.opportunityState = state;
       // console.log('state', state);
-
       // check if opportunity created successfully
       if (this.opportunityState && this.opportunityState.create_opportunity_data && this.opportunityState.create_opportunity_data.SUCCESS) {
         if (this.isSaved === false) {
@@ -109,9 +111,9 @@ export class OpportunityCreateComponent implements OnInit {
         setTimeout(() => {
           this.router.navigate(['/opportunity/view/' + jobId]);
         }, 2000);
-
       }
-    });
+    })
+    .subscribe((state) => { });
 
     // create opp form
     this.createOppForm();
@@ -236,7 +238,7 @@ export class OpportunityCreateComponent implements OnInit {
         salaryType: formData.salaryDuration,
         currency: formData.salaryCurrency
       },
-      organization: this.orgHandle,
+      // organization: this.orgHandle,
       organizationName: formData.orgName,
       jobType: formData.oppType,
       skills: skillsArr,
