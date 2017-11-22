@@ -231,7 +231,7 @@ export class AuthService {
       const token = localStorage.getItem('access_token');
       const head = new Headers({ 'Content-Type': 'application/json'});
       head.append('Authorization', 'Bearer ' + token);
-      return this.http.put(this.apiLink + '/portal/auth/user/update', value, { headers: head })
+      return this.http.put(this.apiLink + '/portal/auth/user/update', value, { headers: this.headers }) // removed headers: head
         .map((data: Response) => data.json());
     }
 
