@@ -1,5 +1,6 @@
 import { environment } from '../../../../environments/environment';
-import { Component, OnInit, Input, ViewChild} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
+import { Modal } from '../../../shared/modal-new/Modal';
 import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
@@ -64,6 +65,9 @@ export class ProfileSliderComponent implements OnInit {
   // profileObject: ProfileCard;
 
   hasFollowed: boolean;
+
+
+  @ViewChild('skillModal') UsertypeModal: Modal;
 
   constructor(
     private http: Http,
@@ -178,6 +182,11 @@ export class ProfileSliderComponent implements OnInit {
 
   isClosed(event) {
     this.changingImage = event;
+  }
+
+  testClick() {
+    console.log('onclick');
+    this.UsertypeModal.open();
   }
 
   /**

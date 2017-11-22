@@ -8,8 +8,8 @@
 }
 
 .modal.fade .modal-block {
-    -webkit-transform: translate(0, -25%);
-    transform: translate(0, -25%);
+    // -webkit-transform: translate(0, -25%);
+    // transform: translate(0, -25%);
     transition: -webkit-transform 0.3s ease-out;
     transition: transform 0.3s ease-out;
     transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
@@ -24,10 +24,16 @@
 .modal-cus__md{
     width: 1075px;
     margin: 0 auto;
-    margin-top: 200px;
+    margin-top: 50px;
     display: table;
 }
 
 .modal-cus-body{
     position: relative;
+}
+
+.c-modal--size1 {
+    width: 1170px;
+    margin: auto;
+    margin-top: 47px;
 }
