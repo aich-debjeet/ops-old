@@ -47,6 +47,7 @@ import { UserCardComponent } from './user-card/user-card.component';
 // modal new
 import {Modal, ModalContent} from './modal-new/Modal';
 import {RouteModal} from './modal-new/RouteModal';
+import { ScrollToDirective } from './scrollto/scroll-to.directive';
 
 @NgModule({
   imports: [
@@ -90,6 +91,7 @@ import {RouteModal} from './modal-new/RouteModal';
     Modal,
     RouteModal,
     ModalContent,
+    ScrollToDirective,
   ],
   exports: [
     AuthRightBlockComponent,
