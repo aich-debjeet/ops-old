@@ -1,3 +1,148 @@
+// // ====================== New typo ======================================
+// @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
+
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6 {
+//     color: $color-base;
+// }
+
+// p {
+//     font-size: $font-11;
+//     font-weight: $font-500;
+//     color: $color-base;
+// }
+
+// a {
+//     color: $color-base;
+//     text-decoration: none!important;
+//     outline: none;
+//     &:hover {
+//         color: $color-base;
+//         text-decoration: none!important;
+//         outline: none;
+//     }
+// }
+// // heading h1 to h6
+// .c-h1, h1 {
+//     color: $color-base-dark;
+//     font-size: $font-h1;
+//     font-weight: $font-300;
+//     line-height: $line-height-62;
+// }
+
+// .c-h2, h2 {
+//     color: $color-base-dark;
+//     font-size: $font-h2;
+//     font-weight: $font-300;
+//     line-height: $line-height-48;
+// }
+
+// .c-h3, h3 {
+//     color: $color-base-dark;
+//     font-size: $font-h3;
+//     font-weight: $font-300;
+//     line-height: $line-height-34;
+// }
+
+// .c-h4, h4 {
+//     color: $color-base-dark;
+//     font-size: $font-h4;
+//     font-weight: $font-500;
+//     line-height: $line-height-30;
+// }
+
+// .c-h5, h5 {
+//     color: $color-base-dark;
+//     font-size: $font-h5;
+//     font-weight: $font-500;
+//     line-height: $line-height-27;
+// }
+
+// .c-h6, h6 {
+//     color: $color-base-dark;
+//     font-size: $font-h6;
+//     font-weight: $font-500;
+//     line-height: $line-height-25;
+// }
+
+// // text large
+// .c-text_lg {
+//     color: $color-base-dark;
+//     font-size: $font-15;
+//     line-height: $line-height-22;
+//     font-weight: $font-500;
+// }
+// .c-text_lg-light {
+//     color: $color-base-dark;
+//     font-size: $font-15;
+//     line-height: $line-height-22;
+//     font-weight: $font-300;
+// }
+// .c-text_lg-bold {
+//     color: $color-base-dark;
+//     font-size: $font-15;
+//     line-height: $line-height-22;
+//     font-weight: $font-700;
+// }
+
+// // text medium
+// .c-text_md {
+//     color: $color-base-dark;
+//     font-size: $font-13;
+//     line-height: $line-height-20;
+//     font-weight: $font-500;
+// }
+// .c-text_md-light {
+//     color: $color-base-dark;
+//     font-size: $font-13;
+//     line-height: $line-height-20;
+//     font-weight: $font-300;
+// }
+// .c-text_md-bold {
+//     color: $color-base-dark;
+//     font-size: $font-13;
+//     line-height: $line-height-20;
+//     font-weight: $font-700;
+// }
+
+// // text small
+// .c-text_sm {
+//     color: $color-base-dark;
+//     font-size: $font-11;
+//     line-height: $line-height-18;
+//     font-weight: $font-500;
+// }
+// .c-text_sm-light {
+//     color: $color-base-dark;
+//     font-size: $font-11;
+//     line-height: $line-height-18;
+//     font-weight: $font-300;
+// }
+// .c-text_sm-bold {
+//     color: $color-base-dark;
+//     font-size: $font-11;
+//     line-height: $line-height-18;
+//     font-weight: $font-700;
+// }
+
+// // font weight
+// .c-text-light {
+//     font-weight: $font-300;
+// }
+// .c-text-regular {
+//     font-weight: $font-500;
+// }
+// .c-text-semibold {
+//     font-weight: $font-600;
+// }
+// .c-text-bold {
+//     font-weight: $font-700;
+// }
+
 // ====================== New typo ======================================
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
 
@@ -35,16 +180,14 @@ a {
 }
 
 .c-h2, h2 {
-    color: $color-base-dark;
+    @extend .c-h1;
     font-size: $font-h2;
-    font-weight: $font-300;
     line-height: $line-height-48;
 }
 
 .c-h3, h3 {
-    color: $color-base-dark;
+     @extend .c-h1;
     font-size: $font-h3;
-    font-weight: $font-300;
     line-height: $line-height-34;
 }
 
@@ -56,16 +199,14 @@ a {
 }
 
 .c-h5, h5 {
-    color: $color-base-dark;
+    @extend .c-h4;
     font-size: $font-h5;
-    font-weight: $font-500;
     line-height: $line-height-27;
 }
 
 .c-h6, h6 {
-    color: $color-base-dark;
+    @extend .c-h4;
     font-size: $font-h6;
-    font-weight: $font-500;
     line-height: $line-height-25;
 }
 
@@ -77,15 +218,11 @@ a {
     font-weight: $font-500;
 }
 .c-text_lg-light {
-    color: $color-base-dark;
-    font-size: $font-15;
-    line-height: $line-height-22;
+    @extend .c-text_lg;
     font-weight: $font-300;
 }
 .c-text_lg-bold {
-    color: $color-base-dark;
-    font-size: $font-15;
-    line-height: $line-height-22;
+    @extend .c-text_lg;
     font-weight: $font-700;
 }
 
@@ -97,15 +234,11 @@ a {
     font-weight: $font-500;
 }
 .c-text_md-light {
-    color: $color-base-dark;
-    font-size: $font-13;
-    line-height: $line-height-20;
+    @extend .c-text_md;
     font-weight: $font-300;
 }
 .c-text_md-bold {
-    color: $color-base-dark;
-    font-size: $font-13;
-    line-height: $line-height-20;
+    @extend .c-text_md;
     font-weight: $font-700;
 }
 
@@ -117,15 +250,11 @@ a {
     font-weight: $font-500;
 }
 .c-text_sm-light {
-    color: $color-base-dark;
-    font-size: $font-11;
-    line-height: $line-height-18;
+    @extend .c-text_sm;
     font-weight: $font-300;
 }
 .c-text_sm-bold {
-    color: $color-base-dark;
-    font-size: $font-11;
-    line-height: $line-height-18;
+    @extend .c-text_sm;
     font-weight: $font-700;
 }
 

@@ -260,6 +260,21 @@ export class ProfileActions {
   static LOAD_DIRECTORY_SUCCESS = 'LOAD_DIRECTORY_SUCCESS';
   static LOAD_DIRECTORY_FAILED = 'LOAD_DIRECTORY_FAILED';
 
+  // Get list of block users
+  static LOAD_BLOCK_USERS = 'LOAD_BLOCK_USERS';
+  static LOAD_BLOCK_USERS_SUCCESS = 'LOAD_BLOCK_USERS_SUCCESS';
+  static LOAD_BLOCK_USERS_FAILED = 'LOAD_BLOCK_USERS_FAILED';
+
+  // block user
+  static UNBLOCK_USER = 'UNBLOCK_USER';
+  static UNBLOCK_USER_SUCCESS = 'UNBLOCK_USER_SUCCESS';
+  static UNBLOCK_USER_FAILED = 'UNBLOCK_USER_FAILED';
+
+  // GET DEFAULT NOTIFICATION SETTINGS
+  static DEFAULT_NOTIFICATION_SETTINGS = 'DEFAULT_NOTIFICATION_SETTINGS';
+  static DEFAULT_NOTIFICATION_SETTINGS_SUCCESS = 'DEFAULT_NOTIFICATION_SETTINGS_SUCCESS';
+  static DEFAULT_NOTIFICATION_SETTINGS_FAILED = 'DEFAULT_NOTIFICATION_SETTINGS_FAILED';
+
   /**
    * Load Current user profile
    */
@@ -677,5 +692,49 @@ export class ProfileActions {
       payload: error
     };
   }
+
+    /**
+   * Load list of blocked users
+   */
+    getBlockedUsers(): Action {
+      return {
+        type: ProfileActions.LOAD_BLOCK_USERS
+      };
+    }
+    
+    getBlockedUsersSuccess(value): Action {
+      return {
+        type: ProfileActions.LOAD_BLOCK_USERS_SUCCESS,
+        payload: { value }
+      };
+    }
+    
+    getBlockedUsersFailed(error: any): Action {
+      return {
+        type: ProfileActions.LOAD_BLOCK_USERS_FAILED,
+        payload: error
+      };
+    }
+
+    /**
+     * Block users
+     */
+    unblockUser(): Action {
+      return {
+        type: ProfileActions.UNBLOCK_USER
+      };
+    }
+    unblockUserSuccess(value): Action {
+      return {
+        type: ProfileActions.UNBLOCK_USER_SUCCESS,
+        payload: { value }
+      };
+    }
+    unblockUserFailed(error: any): Action {
+      return {
+        type: ProfileActions.UNBLOCK_USER_FAILED,
+        payload: error
+      };
+    }
 
 }
