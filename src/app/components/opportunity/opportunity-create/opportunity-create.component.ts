@@ -134,6 +134,7 @@ export class OpportunityCreateComponent implements OnInit {
         setTimeout(() => {
           this.router.navigate(['/opportunity/view/' + jobId]);
         }, 2000);
+        this.opportunityState.create_opportunity_data = [];
       }
     })
     .subscribe((state) => { });
