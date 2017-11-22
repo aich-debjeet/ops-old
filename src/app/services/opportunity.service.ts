@@ -57,5 +57,14 @@ export class OpportunityService {
     return this.api.get('/portal/job/', jobId);
   }
 
+  /**
+   * Apply for an opportunity
+   * @param job id
+   */
+  applyForAnOpportunity(reqBody: any) {
+    this.updateToken();
+    return this.api.post('/portal/job/apply', reqBody);
+  }
+
 
 }

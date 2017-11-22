@@ -85,6 +85,30 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
       });
     /* get opportunity */
 
+
+
+    /* apply for an opportunity */
+    case OpportunityActions.APPLY_FOR_AN_OPPORTUNITY:
+      return Object.assign({}, state, {
+        applying_for_an_opportunity: true,
+        apply_for_an_opportunity_params: payload,
+        apply_for_an_opportunity_success: false
+      });
+
+    case OpportunityActions.APPLY_FOR_AN_OPPORTUNITY_SUCCESS:
+      return Object.assign({}, state, {
+        applying_for_an_opportunity: false,
+        apply_for_an_opportunity_data: payload,
+        apply_for_an_opportunity_success: true
+      });
+
+    case OpportunityActions.APPLY_FOR_AN_OPPORTUNITY_FAILED:
+      return Object.assign({}, state, {
+        applying_for_an_opportunity: false,
+        apply_for_an_opportunity_success: false
+      });
+    /* apply for an opportunity */
+
     default:
       return state;
 
