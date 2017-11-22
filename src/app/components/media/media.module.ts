@@ -30,8 +30,7 @@ import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { UtcDatePipe } from './../../pipes/utcdate.pipe';
-import { SearchUniquePipe } from './../../pipes/uniquesearch.pipe';
-
+import { SharedPipesModule } from './../../pipes/shared-pipes.module';
 
 const routes: Routes = [
   {
@@ -84,6 +83,7 @@ const routes: Routes = [
     NgxfUploaderModule.forRoot(),
     FormsModule,
     TagInputModule,
+    SharedPipesModule,
     BrowserAnimationsModule
   ],
   declarations: [
@@ -95,7 +95,6 @@ const routes: Routes = [
     ChannelSelectorComponent,
     CreateChannelComponent,
     EditChannelComponent,
-    SearchUniquePipe,
     ReadMoreComponent
   ],
   exports: [
