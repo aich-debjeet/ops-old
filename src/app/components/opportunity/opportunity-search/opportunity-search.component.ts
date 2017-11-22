@@ -27,6 +27,14 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
   opportunityState: any;
   searchString: string;
   isSearching = false;
+  opportunitiesCount = {
+    Audition: '0',
+    Projects: '0',
+    Jobs: '0',
+    Internship: '0',
+    Volunteer: '0',
+    Freelance: '0'
+  };
 
   recordsPerPage = 10;
   showPreloader = false;
@@ -43,6 +51,38 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
         this.isSearching = false;
         this.showPreloader = false;
       }
+      // if (state && state.getting_opportunity_type_count === true) {
+      //   console.log('requesting opp type count');
+      // }
+      if (state && state.get_opportunity_type_success && state.get_opportunity_type_success === true) {
+        this.prepareOppCount(state.get_opportunity_type_data.SUCCESS);
+      }
+    });
+
+    // get opportunity type count
+    this.store.dispatch({ type: OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT });
+  }
+
+  /**
+   * Preparing opp counts to display
+   */
+  prepareOppCount(oppTypes: any) {
+    oppTypes.forEach((oppType, index) => {
+      if (oppType.jobType === 'Audition') {
+        this.opportunitiesCount.Audition = String(oppType.count);
+      } else if (oppType.jobType === 'Projects') {
+        this.opportunitiesCount.Projects = String(oppType.count);
+      } else if (oppType.jobType === 'Jobs') {
+        this.opportunitiesCount.Jobs = String(oppType.count);
+      } else if (oppType.jobType === 'Internship') {
+        this.opportunitiesCount.Internship = String(oppType.count);
+      } else if (oppType.jobType === 'Volunteer') {
+        this.opportunitiesCount.Volunteer = String(oppType.count);
+      } else if (oppType.jobType === 'Freelance') {
+        this.opportunitiesCount.Freelance = String(oppType.count);
+      }
+      // console.log(oppType.jobType);
+      // console.log(oppType.count);
     });
   }
 

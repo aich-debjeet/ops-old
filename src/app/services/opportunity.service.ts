@@ -66,5 +66,12 @@ export class OpportunityService {
     return this.api.post('/portal/job/apply', reqBody);
   }
 
+  /**
+   * Get opportunity type count
+   */
+  getOpportunityTypeCount() {
+    this.updateToken();
+    return this.api.get('/portal/job/allType/counts');
+  }
 
 }
