@@ -54,7 +54,7 @@ export class SettingsComponent implements OnInit {
   blockedUsers = [];
   default: any;
   resendingOtp = false;
-
+  private number: any;
   commentsOption: any // = {name: 'Comments', value: 'Comments', checked: true};
   spotsOption: any // = {name: 'Spots', value: 'Spots', checked: true};
   mentionOption: any // = {name: 'Mention', value: 'Mention', checked: true};
@@ -76,6 +76,22 @@ export class SettingsComponent implements OnInit {
     this.tagState$.subscribe((state) => {
        console.log(state);
         this.petTag = state;
+        if (state['user_number_cng_success'] === true ) {
+              // this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
+              // this.modalService.close('otpChangeNumber');
+              console.log('trying to open window')
+              this._modalService.open('otpWindow');
+            }
+
+            if (state['user_otp_success'] === true ) {
+                  this.otpForm.controls['otpNumber'].setValue('')
+                  this._modalService.close('otpWindow');
+                 // this._modalService.open('otpSuccess');
+                   this.phoneFormUpdate();
+                }
+                if (state['user_otp_failed'] === true ) {
+                  console.log('invalid')
+                }
     });
     this.storeState$ = this._store.select('profileTags');
 
@@ -140,7 +156,11 @@ export class SettingsComponent implements OnInit {
     });
     // phone update
     this.phoneForm = this._fb.group({
-    'mobile' : ['', [Validators.required]]
+    'mobile' : ['', [Validators.required,
+       Validators.minLength(4)
+      ],
+    this.databaseValidator.checkMobile.bind(this.databaseValidator)
+  ],
     });
     // profile Type update
     // this.genderForm = this._fb.group({
@@ -249,16 +269,16 @@ export class SettingsComponent implements OnInit {
   /**
    * phone form update
    */
-  phoneFormUpdate(value) {
+  phoneFormUpdate() {
     console.log(this.phoneForm.valid);
-    console.log(value);
-    if ( value !== 'undefined' ) {
+    console.log(this.number);
+    if ( this.number !== 'undefined' ) {
       const form =   {
         'extras': {
             'contact': {
               'mobile':
               {
-                'mobile': value
+                'mobile': this.number
               }
             }
       }
@@ -277,34 +297,35 @@ export class SettingsComponent implements OnInit {
   // OTP Validation
   otpSubmit(value) {
     if (this.otpForm.valid === true) {
-      let number = null;
+       let number = null;
       if (this.phoneForm.value.mobile !== undefined && this.phoneForm.value.mobile.length > 5) {
-        number = this.phoneForm.value.mobile;
+        this.number = this.phoneForm.value.mobile;
       } else {
-        number = this.phoneForm.value.mobile;
+        number = this.number;
       }
       const send = {
-        'number': number,
+        'number': this.number,
         'otp': value.otpNumber
       }
       console.log(send)
       this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: send });
-      this.store.select('loginTags').take(2).subscribe(data => {
-        if (data['user_otp_success'] === true ) {
-          this.otpForm.controls['otpNumber'].setValue('')
-          this._modalService.close('otpWindow');
-         // this._modalService.open('otpSuccess');
-          this.phoneFormUpdate(number);
-        }
-        if (data['user_otp_failed'] === true ) {
-          console.log('invalid')
-        }
-      })
+      // this.store.select('loginTags').take(2).subscribe(data => {
+      //   if (data['user_otp_success'] === true ) {
+      //     this.otpForm.controls['otpNumber'].setValue('')
+      //     this._modalService.close('otpWindow');
+      //    // this._modalService.open('otpSuccess');
+      //     this.phoneFormUpdate(number);
+      //   }
+      //   if (data['user_otp_failed'] === true ) {
+      //     console.log('invalid')
+      //   }
+      // })
     }
   }
 
   resendOtpOnNewNumber(value) {
     if ( this.phoneForm.valid === true ) {
+      this.number = value.mobile;
       const reqBody = {
         contact: {
           'contactNumber': value.mobile
@@ -313,14 +334,14 @@ export class SettingsComponent implements OnInit {
       console.log(value)
       this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: reqBody });
     }
-    this.store.select('loginTags').take(2).subscribe(data => {
-      if (data['user_number_cng_success'] === true ) {
-        // this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
-        // this.modalService.close('otpChangeNumber');
-        console.log('trying to open window')
-        this._modalService.open('otpWindow');
-      }
-    })
+    // this.store.select('loginTags').take(2).subscribe(data => {
+    //   if (data['user_number_cng_success'] === true ) {
+    //     // this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
+    //     // this.modalService.close('otpChangeNumber');
+    //     console.log('trying to open window')
+    //     this._modalService.open('otpWindow');
+    //   }
+    // })
   }
 
   resendOtp() {
