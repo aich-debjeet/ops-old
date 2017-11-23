@@ -18,58 +18,7 @@
     clear: both;
   }
 }
-// comments block -----------------------------
-.c-post__comment {
-  padding: 16px 24px;
-  @include clearfix;
-  position: relative;
-  overflow: auto;
-}
 
-.c-post--unread {
-  background-color: #F5F5F5;
-}
-
-.c-post__comment--time {
-  color: #979797;
-  font-size: 10px;
-  line-height: 17px;
-  margin-top: 3px;
-  padding-right: 8px;
-}
-
-.c-post__commenter {
-  color: #333333;
-  font-size: 12px;
-  font-weight: bold;
-  line-height: 17px;
-  margin-left: 12px;
-  cursor: pointer;
-  &:hover {
-    color: #333;
-  }
-}
-
-.c-post__comment_text {
-  color: #333333;
-  font-size: 12px;
-  line-height: 21px;
-  margin-left: 46px;
-}
-
-.c-post__input {
-  width: 90%;
-  float: left;
-  margin-left: 8px;
-}
-
-.form__bottom--0 {
-  margin-bottom: 0px;
-  .form_input:focus~label,
-  .form_input:valid~label {
-    display: none;
-  }
-}
 
 // post with comments block style -----------------------------------
 .c-avatar--status {
