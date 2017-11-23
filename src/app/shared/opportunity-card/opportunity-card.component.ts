@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { environment } from './../../../environments/environment.prod';
 
 @Component({
   selector: 'app-opportunity-card',
@@ -8,8 +9,11 @@ import { Component, OnInit, Input } from '@angular/core';
 export class OpportunityCardComponent implements OnInit {
 
   @Input() opportunity;
+  baseUrl: string;
 
-  constructor() { }
+  constructor() {
+    this.baseUrl = environment.API_IMAGE;
+  }
 
   ngOnInit() {
   }

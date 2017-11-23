@@ -1,0 +1,146 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_helpers.scss';
+
+.c-card {
+    width: 100%;
+    height: auto;
+    float: left;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+.c-card__project {
+    font-size: 13px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    line-height: 24px;
+    color: #929292;
+    text-transform: uppercase;
+}
+
+.c-card__project--icon {
+    height: 24px;
+    float: left;
+}
+
+.c-card__body {
+  width: 100%;
+  float: left;
+  clear: both;
+  padding: 16px;
+  position: relative;
+}
+
+.c-card__project--des {
+  font-size: 20px;
+  line-height: 30px;
+  color: #333333;
+}
+
+
+.c-card__opportunity__details {
+    clear: both;
+    margin-bottom: 16px;
+    display: flex;
+}
+.c-card__location {
+    clear: both;
+    margin: 0 16px;
+    position: relative;
+}
+.c-card__location--text {
+    font-size: 13px;
+    line-height: 20px;
+    color: #929292;
+    display: inline;
+    top: 1px;
+    position: absolute;
+    padding-left: 8px;
+}
+.c-card__opportunity__user {
+    display: flex;
+    margin: 0 16px;
+    padding: 8px 0;
+}
+.c-avatar--feed {
+    width: 24px;
+    height: 24px;
+}
+.c-user__avatar {
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    background: #f8f8f8;
+    cursor: pointer;
+    border-radius: 50px;
+    float: left;
+}
+.c-user__image {
+    width: 100%;
+}
+.c-card__opportunity__username {
+    font-size: 13px;
+    color: #808080;
+    line-height: 24px;
+    margin-left: 8px;
+}
+
+.c-card__links {
+    width: 100%;
+    float: left;
+    padding: 16px;
+}
+.c-links {
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+    color: #333333;
+    line-height: 17px;
+}
+.c-links__spots {
+    display: inline;
+    float: left;
+    margin-right: 16px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #929292;
+}
+.c-links__image {
+    width: 24px;
+    float: left;
+}
+.c-links__count {
+    float: left;
+    margin-left: 6px;
+    font-weight: 500;
+    color: #929292;
+    font-size: 11px;
+    line-height: 18px;
+    top: 4px;
+    position: relative;
+}
+.c-links__comments {
+    display: inline;
+    float: left;
+    margin-right: 24px;
+    cursor: pointer;
+}
+.c-links__image {
+    width: 24px;
+    float: left;
+}
+.c-links__actions {
+    text-align: right;
+}
+.c-card__opportunity--view {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 18px;
+    color: #FC6371;
+    text-transform: uppercase;
+}
