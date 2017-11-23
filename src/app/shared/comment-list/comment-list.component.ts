@@ -13,6 +13,7 @@ export class CommentListComponent implements OnInit {
   @Input() commentData: any;
   @Output() commentDelete = new EventEmitter();
   @Output() commentEdited = new EventEmitter();
+  @Input() commentsListType: string = 'media-list';
   imageLink: string = environment.API_IMAGE;
   isEdit: boolean;
   messageText: string;

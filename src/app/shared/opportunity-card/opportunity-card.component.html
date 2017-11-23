@@ -1,0 +1,69 @@
+<div class="col-md-3 p-8">
+    <div class="c-card">
+                
+        <div class="c-card__project p-l-r-16 p-t-16">    
+            <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> 
+            <span class="m-l-8">{{ opportunity.title }}</span>
+        </div>
+        
+        <!-- card body -->
+        <div class="c-card__body">
+            <div class="c-card__project--des">
+                <a routerLink="/opportunity/view/{{ opportunity.id }}">{{ opportunity.role }}</a>
+            </div>
+            <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">
+                {{ opportunity.postedByName }}
+            </div>
+        </div>
+        
+        <div class="c-card__opportunity__details">
+            <div class="col-md-4">
+                <p class="c-text_sm color-grey">Experience:</p>
+                <p class="c-text_md">
+                    {{ opportunity.experience.experienceFrom }}-{{ opportunity.experience.experienceTo }} years
+                </p>
+            </div>
+            <div class="col-md-8">
+                <p class="c-text_sm color-grey">Salary:</p>
+                <p class="c-text_md">
+                    {{ opportunity.salary.amount }} {{ opportunity.salary.currency }} / 
+                    <ng-container *ngIf="opportunity.salary.salaryType == 'annual'; else monthly_salary">Year</ng-container>
+                    <ng-template #monthly_salary>Month</ng-template>
+                </p>
+            </div>
+        </div>
+        
+        <div class="c-card__location p-b-16 with_border_bottom">
+            <img src="/assets/img/svg/ico_location2.svg">
+            <p class="c-card__location--text">
+                {{ opportunity.location }}
+            </p>
+        </div>
+
+        <div class="c-card__opportunity__user with_border_bottom">
+            <a class="c-user__avatar c-avatar--feed" [routerLink]="['', 'profile', 'u', opportunity.postedByUserName, 'user']">
+                <img class="c-user__image" src="{{ baseUrl + opportunity.postedByImage }}">
+            </a>
+            <a class="c-card__opportunity__username" [routerLink]="['', 'profile', 'u', opportunity.postedByUserName, 'user']">{{ opportunity.postedByName }}</a>
+        </div>
+        <!-- //card body -->
+    
+        <!-- card footer links -->
+        <div class="c-card__links">
+            <div class="c-links">
+                <!-- <div class="c-links__spots">
+                    <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                    <span class="c-links__count">705</span>
+                </div> -->
+                <div class="c-links__comments">
+                    <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                </div>
+                <div class="c-links__actions">
+                    <a routerLink="/opportunity/view/{{ opportunity.id }}" class="c-card__opportunity--view">View</a>
+                </div>
+            </div>
+        </div>
+        <!-- //card footer links -->
+        
+    </div>
+</div>

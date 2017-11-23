@@ -1,3 +1,16 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_helpers.scss';
+@import './src/assets/scss/components/_feed-card.scss';
+
+.c-mediamodal__comment {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+}
+.c-mediamodal__input {
+    padding: 10px 0 0 16px;
+}
+
 @mixin clearfix {
   &:after {
     content: "";
@@ -306,4 +319,155 @@
     width: 84%;
   }
 
+}
+
+
+// post with comments block style -----------------------------------
+.c-avatar--status {
+    width: 34px;
+    height: 34px;
+}
+
+.c-avatar--status2 {
+    width: 24px;
+    height: 24px;
+}
+.c-avatar--status3 {
+    width: 40px;
+    height: 40px;
+}
+
+.c-avatar--artist {
+    width: 90px;
+    height: 90px;
+}
+
+.c-user--align {
+    margin-left: 16px; // margin-top: 8px;
+}
+
+.c-user__channel-align {
+    margin-top: 24px;
+    position: absolute;
+    margin-left: 50px;
+}
+
+.c-status--block {
+    width: 100%;
+    float: left;
+    clear: both;
+    padding: 16px 24px;
+    position: relative;
+}
+
+.c-post__time {
+    float: left;
+    color: #b4b4b4;
+    font-size: 11px;
+    line-height: 18px; // margin-right: 8px;
+    margin-top: 8px;
+}
+
+.c-status__options {
+    width: 14px;
+    height: 14px;
+    float: left;
+    margin-top: 9px;
+    margin-left: 8px;
+}
+
+
+
+// comments block -----------------------------
+.c-post__comment--left {
+    width: 7%;
+    float: left;
+}
+
+.c-post__comment--right {
+    width: 90%;
+    float: left;
+}
+
+.c-post__comment__blank {
+    height: 49vh;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: #808080;
+    font-weight: 300;
+    line-height: 24px;
+}
+
+.c-post__comment {
+    padding: 8px 16px;
+    @include clearfix;
+    position: relative;
+    clear: both;
+}
+
+.c-post--unread {
+    background-color: #F5F5F5;
+}
+
+.c-post__comment--time {
+    color: #c1c1c1;
+    font-size: 11px;
+    line-height: 18px;
+    margin-top: 3px;
+    padding-right: 8px;
+}
+
+.c-post__commenter {
+    color: #333333;
+    font-size: 12px;
+    line-height: 17px;
+    cursor: pointer;
+    &:hover {
+        color: #333;
+    }
+}
+
+.c-post__comment_text {
+    color: #929292;
+    font-size: 11px;
+    line-height: 18px;
+    margin-left: 8px;
+    display: inline;
+}
+
+.c-post__input {
+    width: 90%;
+    float: left;
+    margin-left: 8px;
+}
+
+.form__bottom--0 {
+    margin-bottom: 0px;
+    .form_input:focus~label,
+    .form_input:valid~label {
+        display: none;
+    }
+}
+
+.c-mediamodal__inputfixed {
+    position: fixed;
+    bottom: 0;
+    background: white;
+    width: 406px;
+    padding: 0 16px;
+}
+
+.c-post__comment__blank {
+    height: 49vh;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: #808080;
+    font-weight: 300;
+    line-height: 24px;
 }
