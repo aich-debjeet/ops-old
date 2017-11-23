@@ -72,6 +72,21 @@
 
           <div class="o-oppo-form__single">
             <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Industry</div>
+            </div>
+            <div class="col-md-9 p-0">
+              <div class="c-form__group c-form--sm">
+                <select class="c-form-control p-l-0" formControlName="industry">
+                  <option value="">Industry</option>
+                  <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
+                </select>
+              </div>
+              <p class="error_alert" *ngIf="createOppFrm.controls['industry']?.errors?.required && crOppFrm.submitted">Industry is required</p>
+            </div>
+          </div><!-- industry end -->
+
+          <div class="o-oppo-form__single">
+            <div class="col-md-3 p-0">
               <div class="c-text_md o-oppo-form-title">Experience</div>
             </div>
             <div class="col-md-9 p-0">
