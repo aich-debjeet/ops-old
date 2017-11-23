@@ -136,7 +136,6 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     SettingsComponent,
     PopularArtistsComponent,
     NearestEventsComponent,
-    OpportunitiesComponent,
     ExploreComponent,
     ChannelListComponent,
     LogoutHomeComponent,
