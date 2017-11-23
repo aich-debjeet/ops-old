@@ -71,10 +71,10 @@
           </div><!-- action icons end -->
           <div class="o-job-post__uplod-info">
             <span class="o-job-post__det c-text_sm color-grey-dark m-l-24">
-              <span class="ltr-space text_uppercase">Applicants: </span><span class="color-grey-darker">309</span>
+              <span class="ltr-space text_uppercase">Applicants: </span><span class="color-grey-darker">{{ opportunity?.ApplicantsCount }}</span>
             </span>
             <span class="o-job-post__det c-text_sm color-grey-dark m-l-24">
-              <span class="ltr-space text_uppercase">Posted: </span><span class="color-grey-darker">2 hours ago</span>
+              <span class="ltr-space text_uppercase">Posted: </span><span class="color-grey-darker">{{ opportunity?.createdDate | utcDate | date:'d MMM hh:mm a' }}</span>
             </span>
           </div>
         </div><!-- job post actions end -->
