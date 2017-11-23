@@ -179,7 +179,8 @@ export class OpportunityCreateComponent implements OnInit {
       userQualifications: [''],
       orgName: [''],
       country: [''],
-      attachments: ['']
+      attachments: [''],
+      industry: ['', Validators.required]
     });
   }
 
@@ -191,6 +192,8 @@ export class OpportunityCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    // loading indutries
+    this.loadIndustries();
   }
 
   // channel select
@@ -209,9 +212,6 @@ export class OpportunityCreateComponent implements OnInit {
 
     // loading channels
     this.loadChannels();
-
-    // loading indutries
-    this.loadIndustries();
   }
 
   /**
@@ -275,7 +275,8 @@ export class OpportunityCreateComponent implements OnInit {
         like: [],
         spots: [],
         channel: [this.selectedChannelId]
-      }
+      },
+      industry: [ formData.industry ]
     };
 
     // console.log('reqObj', reqObj);
