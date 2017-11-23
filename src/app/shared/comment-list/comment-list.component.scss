@@ -1,3 +1,8 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_helpers.scss';
+@import './src/assets/scss/components/_feed-card.scss';
+@import './src/assets/scss/components/_dropdowns.scss';
+
 @mixin clearfix {
   &:after {
     content: "";
@@ -11,6 +16,49 @@
   @include clearfix;
   position: relative;
   overflow: auto;
+}
+
+.c-post__comment {
+    padding: 8px 16px;
+    @include clearfix;
+    position: relative;
+    clear: both;
+}
+
+.c-post--unread {
+    background-color: #F5F5F5;
+}
+
+.c-post__comment--time {
+    color: #c1c1c1;
+    font-size: 11px;
+    line-height: 18px;
+    margin-top: 3px;
+    padding-right: 8px;
+}
+
+.c-post__commenter {
+    color: #333333;
+    font-size: 12px;
+    line-height: 17px;
+    cursor: pointer;
+    &:hover {
+        color: #333;
+    }
+}
+
+.c-post__comment_text-mpop {
+    color: #929292;
+    font-size: 11px;
+    line-height: 18px;
+    margin-left: 8px;
+    display: inline;
+}
+
+.c-post__input {
+    width: 90%;
+    float: left;
+    margin-left: 8px;
 }
 
 .c-post--unread {
@@ -210,4 +258,92 @@
 }
 .c-channel-option a{
     background: transparent;
+}
+
+.c-avatar--status2 {
+    width: 24px;
+    height: 24px;
+}
+
+
+// comments block -----------------------------
+.c-post__comment--left {
+    width: 7%;
+    float: left;
+}
+
+.c-post__comment--right {
+    width: 90%;
+    float: left;
+}
+
+.c-post__comment__blank {
+    height: 49vh;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: #808080;
+    font-weight: 300;
+    line-height: 24px;
+}
+
+.c-post__comment {
+    padding: 8px 16px;
+    @include clearfix;
+    position: relative;
+    clear: both;
+}
+
+.c-post--unread {
+    background-color: #F5F5F5;
+}
+
+.c-post__comment--time {
+    color: #c1c1c1;
+    font-size: 11px;
+    line-height: 18px;
+    margin-top: 3px;
+    padding-right: 8px;
+}
+
+.c-post__commenter {
+    color: #333333;
+    font-size: 12px;
+    line-height: 17px;
+    cursor: pointer;
+    &:hover {
+        color: #333;
+    }
+}
+
+.c-post__comment_text {
+    color: #929292;
+    font-size: 11px;
+    line-height: 18px;
+    margin-left: 8px;
+    display: inline;
+}
+
+.c-post__input {
+    width: 90%;
+    float: left;
+    margin-left: 8px;
+}
+
+.form__bottom--0 {
+    margin-bottom: 0px;
+    .form_input:focus~label,
+    .form_input:valid~label {
+        display: none;
+    }
+}
+
+.c-post__commenter-mpop{
+  margin-left: 0px;
+}
+.c-options--img{
+    width: 10px;
+    cursor: pointer;
 }

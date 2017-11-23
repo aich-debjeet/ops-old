@@ -1,84 +1,85 @@
-<app-route-modal  (onClose)="closeFunction()" modalClass="modal-cus__md">
+<app-route-modal  (onClose)="closeFunction()" modalClass="c-modal--size1">
     <modal-content>
-        <div id="imgModal" class=" media_modal">
-            <div class="over-block">
-                <div class="over-block__padding">
-                    <div class="row">
-                        <div class="media_left with_border_right">
-                            <div class="media_img_block">
-                                <figure class="avatar_media_img">
-                                    <app-videplayer [play]="'true'" *ngIf="checkFileType(data?.repopath, 'Video')" src="{{ imageLink + data?.repopath }}"></app-videplayer>
-                                    <img *ngIf="checkFileType(data?.repopath, 'Image')" src="{{ imageLink + data?.repopath }}" class="img-responsive">
-                                    <app-audioplayer *ngIf="checkFileType(data?.repopath, 'Audio')" src="{{ imageLink + data?.repopath }}"></app-audioplayer>
-                                </figure>
-                            </div>
-                        </div>
-                        <div class="media_right">
-                            <div class="media_img_content">
-                                <ul class="width100">
-                                    <li class="list_style_none">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item float-left">
-                                                <figure class="avatar_media_user">
-                                                    <img src="{{ imageLink + data?.ownerImage }}">
-                                                </figure>
-                                            </li>
-                                            <li class="list-inline-item float-left">
-                                                <div class="media_name">{{ data?.ownerName }}</div>
-                                                <div routerLink="channels/x" class="media_sub_head">{{ data?.channelName }} <span class="media_time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span></div>
-                                            </li>
-                                            <li class="list-inline-item media_user_icons">
-                                                <!--<a ><img src="/assets/img/svg/ico_edit.svg"></a>
-                                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                                    <img src="/assets/img/svg/ico_options.svg">
-                                                </a>
-                                                    <ul class="dropdown-menu report_block_drop">
-                                                        <li>
-                                                            <a href="#" data-toggle="modal" data-target="#reportmodal">Report</a>
-                                                        </li>
-                                                    </ul>-->
 
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="list_style_none float-left">
-                                        <div class="media_detail_block">
-                                        <h2 class="ops_heading">{{ data?.title }}</h2>
-                                         <read-more [class]="'media-popup__text'" [text]="data?.description" [maxLength]=250 ></read-more>
-                                        <a *ngFor="let tag of data?.tags" type="button" class="btn btn-tag btn-sm">{{ tag }}</a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="media_like_count">
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <a (click)="spotMedia(data?.id)" class="spot__btn">
-                                        <img *ngIf="spot===false" src="/assets/img/svg/ico_lik.svg">
-                                        <img *ngIf="spot===true" src="http://d33wubrfki0l68.cloudfront.net/8d58c78cd26eb1d103bb24ec6c1d786a0964b8b4/63aa4/img/svg/ico_spot.svg" width="14px">
-                                        </a>
-                                        <div class="like_count">{{ spotCount }}</div>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a ><img src="/assets/img/svg/ico_comment.svg"></a>
-                                        <div class="like_count">{{ commentCount }}</div>
-                                    </li>
-                                    <li class="list-inline-item pull-right">
-                                        <a ><img src="/assets/img/svg/ico_share-02.svg"></a>
-                                    </li>
-                                    <li class="list-inline-item pull-right">
-                                        <a ><img src="/assets/img/svg/ico_addtochannel.svg"></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            
-                            <div class="media_comments_section" id="ops_scrollbar">
-                                <app-comment [mediaId]="mediaId" [commentsType]="'media-popup'" [comments]="comments" [mediaType]="mediaType" (submitComment)="sbComment($event)"></app-comment>
-                            </div>
-                        </div>
+        <div class="c-mediamodal__left">
+            <div class="c-mediamodal__left__block">
+                <figure class="c-mediamodal--img">
+                    <app-videplayer [play]="'true'" *ngIf="checkFileType(data?.repopath, 'Video')" src="{{ imageLink + data?.repopath }}"></app-videplayer>
+                    <img *ngIf="checkFileType(data?.repopath, 'Image')" src="{{ imageLink + data?.repopath }}" class="img-responsive">
+                    <app-audioplayer *ngIf="checkFileType(data?.repopath, 'Audio')" src="{{ imageLink + data?.repopath }}"></app-audioplayer>
+                </figure>
+                <div class="c-mediamodal__l-arrow">
+                    <div class="c-mediamodal__arrow--icon">
+                        <a href="#">
+                            <img src="/assets/img/svg/arrow-left.svg" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="c-mediamodal__r-arrow">
+                    <div class="c-mediamodal__arrow--icon">
+                        <a href="#">
+                            <img src="/assets/img/svg/Arrow.svg" alt="">
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="c-mediamodal__right" id="ops_scrollbar">
+            <div class="fill-white">
+                <div class="c-mediamodal__user p-16">
+                    <a class="c-user__avatar c-avatar--status3">
+                        <img class="c-user__image" src="{{ imageLink + data?.ownerImage }}">
+                    </a>
+                    <a class="c-user__name">{{ data?.ownerName }}</a>
+                    <div class="c-mediamodal__subhead">{{ data?.channelName }}
+                        <span class="c-mediamodal__time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span>
+                    </div>
+                    <!--<div class="c-mediamodal__opt dropdown c-dropdown">
+                        <a href="">
+                            <img src="/assets/img/svg/ico_private.svg">
+                        </a>
+                        <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <img src="/assets/img/svg/ico_options.svg" class="c-options--img">
+                            </span>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#">Edit</a></li>
+                            <li><a href="#">Delete</a></li>
+                        </ul>
+                    </div>-->
+                </div>
+                <div class="c-text_sm p-16">
+                    <read-more [class]="'media-popup__text'" [text]="data?.description" [maxLength]=250 ></read-more>
+                </div>
+                <div class="c-card__links c-float--none p-t-0">
+                    <div class="c-links">
+                        <div class="c-links__spots" (click)="spotMedia(data?.id)">
+                            <img *ngIf="spot===false" src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                            <img *ngIf="spot===true" src="/assets/img/svg/spot_icon.svg" class="c-links__image">
+                            <span class="c-links__count">{{ spotCount }}</span>
+                        </div>
+                        <div class="c-links__comments">
+                            <img src="/assets/img/svg/ico_comment.svg" class="c-links__image">
+                            <span class="c-links__count">{{ commentCount }}</span>
+                        </div>
+                        <div class="c-links__actions">
+                            <span class="c-links__add">
+                                <a >
+                                    <img src="/assets/img/svg/ico_addtochannel.svg" class="c-action__image">
+                                </a>
+                            </span>
+                            <span class="c-links__share">
+                                <a>
+                                    <img src="/assets/img/svg/ico_share-02.svg" class="c-action__image">
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="c-media__right--feed">
+                <app-comment [mediaId]="mediaId" [commentsType]="'media-popup'" [comments]="comments" [mediaType]="mediaType" (submitComment)="sbComment($event)"></app-comment>
+            </div>
+        </div>
+
     </modal-content>
 </app-route-modal>
