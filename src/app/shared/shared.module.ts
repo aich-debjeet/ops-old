@@ -96,6 +96,7 @@ import { OpportunityCardComponent } from './opportunity-card/opportunity-card.co
     OpportunityCardComponent,
   ],
   exports: [
+    OpportunityCardComponent,
     AuthRightBlockComponent,
     AppButtonComponent,
     QuickAccessComponent,
