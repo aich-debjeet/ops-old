@@ -95,7 +95,6 @@ import { LogoutComponent } from './components/logout/logout.component';
 
 import { PopularArtistsComponent } from './shared/popular-artists/popular-artists.component';
 import { NearestEventsComponent } from './shared/nearest-events/nearest-events.component';
-import { OpportunitiesComponent } from './shared/opportunities/opportunities.component';
 
 import { MediaComponent } from './components/media/media.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
