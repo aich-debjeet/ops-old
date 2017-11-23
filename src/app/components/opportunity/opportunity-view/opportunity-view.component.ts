@@ -46,7 +46,7 @@ export class OpportunityViewComponent implements OnInit {
       if (state && state.get_opportunity_data && state.get_opportunity_data.SUCCESS) {
         this.opportunity = state.get_opportunity_data.SUCCESS;
         this.hasApplied = state.get_opportunity_data.SUCCESS.hasApplied;
-        console.log('hasApplied', this.hasApplied);
+        // console.log('this.opportunity', this.opportunity);
       }
 
       // check if job application successful
@@ -58,13 +58,25 @@ export class OpportunityViewComponent implements OnInit {
     /**
      * check user state
      */
-    // this.userState$ = this.store.select('profileTags');
-    // this.userState$.subscribe((state) => {
-    //   if (state && state.profileUser) {
-    //     this.userProfile = state.profileUser;
-    //     console.log('this.userProfile', this.userProfile);
-    //   }
-    // });
+    this.userState$ = this.store.select('profileTags');
+    this.userState$.subscribe((state) => {
+      if (state && state.profileUser) {
+        this.userProfile = state.profileUser;
+        // console.log('this.userProfile', this.userProfile);
+      }
+    });
+  }
+
+  /**
+   * Disable appy for opportunity for self
+   */
+  disableApplicationForSelf(username: string) {
+    // console.log('this.userProfile.username', this.userProfile['username']);
+    // console.log('username', username);
+    if (this.userProfile && (this.userProfile['username'] === username)) {
+      return true;
+    }
+    return false;
   }
 
   ngOnInit() {
