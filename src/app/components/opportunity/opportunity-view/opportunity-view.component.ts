@@ -46,7 +46,7 @@ export class OpportunityViewComponent implements OnInit {
       if (state && state.get_opportunity_data && state.get_opportunity_data.SUCCESS) {
         this.opportunity = state.get_opportunity_data.SUCCESS;
         this.hasApplied = state.get_opportunity_data.SUCCESS.hasApplied;
-        console.log('this.opportunity', this.opportunity);
+        // console.log('this.opportunity', this.opportunity);
       }
 
       // check if job application successful
