@@ -7,27 +7,26 @@
   <div class="c-post__comment--right p-l-8">
     <a class="c-post__commenter c-post__commenter-mpop">{{ commentData?.ownerName }}</a>
     <div class="c-post__comment_text-mpop">
-      <div *ngIf="!isEdit"> {{ messageText }} </div>
-      <input type="text" *ngIf="isEdit" [(ngModel)]="messageText" (keyup.enter)="onContentSaved()" value="{{ commentData?.comment }}">
+      <div class="c-post__comment_text-inline" *ngIf="!isEdit"> {{ messageText }} </div>
+      <div contenteditable="true" *ngIf="isEdit" [textContent]="messageText" [(ngModel)]="messageText" name="messageText" class="c-post__comment_text c-contenteditable" ngDefaultControl (keyup.enter)="onContentSaved()" (input)="messageText=$event.target.textContent">
+
+     </div>
+      <!--<input type="text" class="c-post__comment_text c-contenteditable" *ngIf="isEdit" [(ngModel)]="messageText" (keyup.enter)="onContentSaved()" value="{{ commentData?.comment }}">-->
     </div>
     <div class="c-post__comment--time">{{ commentData?.createdDate | utcDate | date: 'hh:mm a ' }}</div>
   </div>
-  <div class="dropdown c-options--dropdown " appDropdown *ngIf="commentData?.isOwner">
-    <span class="com-head" appDropdownOpen>
-      <img src="/assets/img/svg/ico_options.svg" class="c-options--img">
-    </span>
-    <ul class="dropdown-menu c-opsdropdown--size dropdown-menu--right">
-      <li>
-        <a class="c-opsdropdown__list" (click)="onContentEdit($event)">
-          <span class="c-opsdropdown--text" (click)="onContentEdit($event)">Edit</span>
-        </a>
-      </li>
-      <li>
-        <a (click)="onContentDelete($event)" class="c-opsdropdown__list">
-          <span class="c-opsdropdown--text">Delete</span>
-        </a>
-      </li>
-    </ul>
+  <div class="dropdown c-dropdown c-dropdown__options m-r-16" appDropdown *ngIf="commentData?.isOwner">
+      <span class="dropdown-toggle" appDropdownOpen>
+          <img src="/assets/img/svg/ico_options.svg" class="c-options--img">
+      </span>
+      <ul class="dropdown-menu dropdown-menu-right">
+          <li>
+              <a (click)="onContentEdit($event)">Edit</a>
+          </li>
+          <li>
+              <a (click)="onContentDelete($event)">Delete</a>
+          </li>
+      </ul>
   </div>
 </div>
 

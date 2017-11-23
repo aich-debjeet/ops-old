@@ -15,7 +15,6 @@
   padding: 16px 24px;
   @include clearfix;
   position: relative;
-  overflow: auto;
 }
 
 .c-post__comment {
@@ -346,4 +345,16 @@
 .c-options--img{
     width: 10px;
     cursor: pointer;
+}
+
+.c-post__comment_text-inline{
+  display: inline;
+}
+
+.c-contenteditable {
+    -webkit-user-modify: read-write;
+    -moz-user-modify: read-write;
+    user-modify: read-write;
+    border-bottom: 1px solid #c1c1c1;
+    color:#000000;
 }
