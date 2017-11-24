@@ -47,6 +47,10 @@ export class OrgAboutComponent implements OnInit {
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
       // console.log('this.orgProfile ABOUT ORG', this.orgProfile);
+      if (this.orgProfile && this.orgProfile.org_profile_update_success === true) {
+        this.orgProfile.org_profile_update_success = false;
+        this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: 'panorama' });
+      }
       // for mobile
       if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.contact.mobile) {
         this.aboutMobile = this.orgProfile.org_profile_details.contact.mobile.mobile;

@@ -144,7 +144,7 @@ export class OrganizationService {
    * Get channels of logged in org
    */
   loadOrgChannels(value: string, page: number = 1) {
-    console.log('loadOrgChannels', value);
+    // console.log('loadOrgChannels', value);
     const perPage = 30;
     const offset = page === 1 ? 0 : page * perPage;
     const body = {
