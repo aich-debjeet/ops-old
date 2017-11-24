@@ -39,7 +39,7 @@ export class SettingsComponent implements OnInit {
   private emailForm: FormGroup;
   private phoneForm: FormGroup;
   private profileForm: FormGroup;
-  private otpForm: FormGroup;
+  otpForm: FormGroup;
   emailActive: boolean;
   phoneActive: boolean;
   userActive: boolean;
