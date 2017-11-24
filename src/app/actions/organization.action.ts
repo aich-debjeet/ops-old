@@ -47,6 +47,10 @@ export class OrganizationActions {
     static GET_ORGANIZATION_BY_HANDLE_SUCCESS = 'GET_ORGANIZATION_BY_HANDLE_SUCCESS';
     static GET_ORGANIZATION_BY_HANDLE_FAILED = 'GET_ORGANIZATION_BY_HANDLE_FAILED';
 
+    static LOAD_ORG_CHANNELS = 'LOAD_ORG_CHANNELS';
+    static LOAD_ORG_CHANNELS_SUCCESS = 'LOAD_ORG_CHANNELS_SUCCESS';
+    static LOAD_ORG_CHANNELS_FAILED = 'LOAD_ORG_CHANNELS_FAILED';
+
     /*------------------------ get receipient details---------------------------------*/
 
   getReceipient(value) {
