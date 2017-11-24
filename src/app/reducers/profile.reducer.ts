@@ -190,6 +190,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
   case ProfileActions.CHANNEL_SAVE_SUCCESS:
     return Object.assign({}, state, {
+      channel_created_details: payload,
       channel_saved: true
     });
 
@@ -633,6 +634,61 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         dir_list: dir_list
       });
 
+    /**
+     *  Get List of Block Users
+     */
+    case ProfileActions.LOAD_BLOCK_USERS:
+    console.log('LOAD_BLOCK_USERS')
+      return Object.assign({}, state, {
+        blockedUsers: []
+      });
+
+    case ProfileActions.LOAD_BLOCK_USERS_SUCCESS:
+    console.log('LOAD_BLOCK_USERS_Success')
+      return Object.assign({}, state, {
+        blockedUsers: payload
+      });
+    case ProfileActions.LOAD_BLOCK_USERS_FAILED:
+    console.log('LOAD_BLOCK_USERS_FAILED')
+      return Object.assign({}, state, {
+      });
+
+    /**
+     *  UnBlock Users
+     */
+    case ProfileActions.UNBLOCK_USER:
+    console.log('UNBLOCK_USERS')
+      return Object.assign({}, state, {
+      });
+
+    case ProfileActions.UNBLOCK_USER_SUCCESS:
+    console.log('UNBLOCK_USERS_Success')
+      return Object.assign({}, state, {
+      });
+    case ProfileActions.UNBLOCK_USER_FAILED:
+    console.log('UNBLOCK_USERS_FAILED')
+      return Object.assign({}, state, {
+      });
+
+    /**
+     *  Get default notification
+     */
+    case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS:
+    console.log('notififaction')
+    return Object.assign({}, state, {
+      default_notification: []
+    });
+    case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_SUCCESS:
+    console.log('notififaction default settings success')
+    console.log(JSON.stringify(payload))
+    return Object.assign({}, state, {
+      default_notification: payload.settings.notificationSettings
+    });
+
+    case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_FAILED:
+    console.log('notififaction default settings failure')
+    return Object.assign({}, state, {
+    });
     default:
       return state;
   }

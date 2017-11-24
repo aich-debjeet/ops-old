@@ -7,7 +7,7 @@
       <img *ngIf="checkFileType(mediaData?.repopath, 'Image')" src="{{ imageLink + mediaData?.repopath }}" class="img-responsive c-card__image">
       <app-audioplayer class="audio" *ngIf="checkFileType(mediaData?.repopath, 'Audio')" src="{{ imageLink + mediaData?.repopath }}" type="simple"></app-audioplayer>
     </a>
-    <span *ngIf="mediaData?.mtype === 'audio'">
+    <span *ngIf="checkFileType(mediaData?.repopath, 'Audio')">
       <img src="/assets/img/svg/ico_audio.svg" class="c-card__icon">
     </span>
     <span *ngIf="checkFileType(mediaData?.repopath, 'Video')">
@@ -47,7 +47,7 @@
     <div class="c-links">
       <div class="c-links__spots" (click)="spotMedia(mediaData?.id)">
         <img *ngIf="following === false" src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
-        <img *ngIf="following === true" src="http://d33wubrfki0l68.cloudfront.net/8d58c78cd26eb1d103bb24ec6c1d786a0964b8b4/63aa4/img/svg/ico_spot.svg" class="c-links__image" width="14px!important">
+        <img *ngIf="following === true" src="/assets/img/svg/spot_icon.svg" class="c-links__image">
         <span class="c-links__count">{{ followingCount }}</span>
       </div>
       <div class="c-links__comments">

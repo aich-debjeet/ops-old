@@ -48,13 +48,17 @@
           </span>
         </div><!-- job short det end -->
         <div class="o-job-post__actions m-t-b-24">
+          <div class="o-job-post__apply float_left m-r-16">
+              <button type="button" class="btn btn-primary btn-md" *ngIf="!hasApplied" (click)="applyForJob()" [disabled]="disableApplicationForSelf(opportunity?.postedByUserName)" >Apply</button>
+              <button type="button" class="btn btn-primary btn-md" *ngIf="hasApplied" [disabled]="hasApplied" >Applied</button>
+          </div>
           <div class="o-job-post__action-icons float_left ">
-            <a href="" class="o-action-icons__link m-r-16">
+            <!-- <a href="" class="o-action-icons__link m-r-16">
               <div class="c-links__spots m-0">
                 <img src="/assets/img/svg/spot_icon.svg" class="c-links__image">
                 <span class="c-links__count">705</span>
               </div>
-            </a>
+            </a> -->
             <a href="#" class="o-action-icons__link m-r-16">
               <img width="24" src="/assets/img/svg/ico_addtochannel.svg">
             </a>
@@ -67,10 +71,10 @@
           </div><!-- action icons end -->
           <div class="o-job-post__uplod-info">
             <span class="o-job-post__det c-text_sm color-grey-dark m-l-24">
-              <span class="ltr-space text_uppercase">Applicants: </span><span class="color-grey-darker">309</span>
+              <span class="ltr-space text_uppercase">Applicants: </span><span class="color-grey-darker">{{ opportunity?.ApplicantsCount }}</span>
             </span>
             <span class="o-job-post__det c-text_sm color-grey-dark m-l-24">
-              <span class="ltr-space text_uppercase">Posted: </span><span class="color-grey-darker">2 hours ago</span>
+              <span class="ltr-space text_uppercase">Posted: </span><span class="color-grey-darker">{{ opportunity?.createdDate | utcDate | date:'d MMM hh:mm a' }}</span>
             </span>
           </div>
         </div><!-- job post actions end -->
@@ -99,13 +103,17 @@
             <li class="o-job-post__media-item"></li>
           </ul>
           <div class="o-job-post__media-action">
+            <div class="o-job-post__apply float_left m-r-16">
+              <button type="button" class="btn btn-primary btn-md" *ngIf="!hasApplied" (click)="applyForJob()" [disabled]="disableApplicationForSelf(opportunity?.postedByUserName)" >Apply</button>
+              <button type="button" class="btn btn-primary btn-md" *ngIf="hasApplied" [disabled]="hasApplied" >Applied</button>
+            </div>
             <div class="o-job-post__action-icons float_left ">
-              <a href="" class="o-action-icons__link m-r-16">
+              <!-- <a href="" class="o-action-icons__link m-r-16">
                 <div class="c-links__spots m-0">
                   <img src="/assets/img/svg/spot_icon.svg" class="c-links__image">
                   <span class="c-links__count">705</span>
                 </div>
-              </a>
+              </a> -->
               <a href="#" class="o-action-icons__link m-r-16">
                 <img width="24" src="/assets/img/svg/ico_addtochannel.svg">
               </a>
@@ -130,7 +138,7 @@
           </div>
           <div class="o-post-user__info">
             <div class="o-post-user__name c-text_lg">{{ opportunity?.postedByName }}</div>
-            <div class="o-post-user__desigination c-text_md color-grey-dark">Manager</div>
+            <div *ngIf="opportunity?.position" class="o-post-user__desigination c-text_md color-grey-dark">{{ opportunity?.position }}</div>
           </div>
         </div>
       </div>

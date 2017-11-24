@@ -19,15 +19,12 @@ import { Store } from '@ngrx/store';
 export class OpportunitySearchRecommendedComponent implements OnInit {
 
   opportunityState$: Observable<OpportunityModel>;
-  baseUrl: string;
-
   opportunities: any[];
 
   constructor(
     private store: Store<OpportunityModel>
   ) {
 
-    this.baseUrl = environment.API_IMAGE;
     this.opportunityState$ = this.store.select('opportunityTags');
 
   }

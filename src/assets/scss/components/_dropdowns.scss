@@ -1,5 +1,33 @@
 // @ dropdowns style ----------------------------------------------------
 // dropdown 01
+// @dropdowns style ----------------------------------------------------
+
+.c-dropdown {
+    .dropdown-menu > li > a {
+        padding: 4px 20px;
+    }
+    .dropdown-menu {
+        min-width: auto;
+    }
+}
+.c-dropup {
+    .dropdown-menu > li > a {
+        padding: 4px 20px;
+    }
+}
+
+//
+.c-dropdown__options {
+    position: absolute;
+    right: 0;
+}
+
+
+// old
+
+
+
+// dropdown 01
 .c-opsdropdown--size1 {
     width: 109px;
 }
@@ -8,7 +36,7 @@
     width: 200px;
 }
 
-.c-opsdropdown__list {
+.c-dropdown__list {
     font-size: 12px;
     text-align: left;
     color: #979797;
@@ -24,20 +52,37 @@
 }
 
 .c-opsdropdown--text {
-  font-size: 12px;
+    font-size: 12px;
     text-align: left;
     color: #979797;
     padding: 10px 20px;
     &:hover {
-      color: #000000;
+        color: #000000;
     }
 }
 
 .c-opsdropdown--text2 {
-  font-size: 12px;
+    font-size: 12px;
     text-align: left;
     color: #979797;
     &:hover {
-      color: #000000;
+        color: #000000;
     }
+}
+
+.dropup {
+    .dropdown-menu {
+        min-width: 100px;
+    }
+    .dropdown-menu>li>a {
+        font-size: 12px;
+        text-align: left;
+        color: #979797;
+        padding: 2px 20px;
+    }
+}
+
+.dropdown-menu--right{
+    right: 0!important;
+    left: inherit;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FooterComponent } from './../../shared/footer/footer.component';
 import { Store } from '@ngrx/store';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -17,10 +17,11 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './logout-home.component.html',
   styleUrls: ['./logout-home.component.scss']
 })
-export class LogoutHomeComponent implements OnInit {
+export class LogoutHomeComponent implements OnInit, OnDestroy {
 
   tagState$: Observable<ProfileModal>;
   userDetails = initialTag;
+  private subscription: Subscription;
 
   constructor(
     private profileStore: Store<ProfileModal>,
@@ -30,24 +31,18 @@ export class LogoutHomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    const currentUrl = this.router.url;
-    // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
 
-    // this.tagState$.subscribe((state) => {
-    //   this.userDetails = state;
-    //   if (currentUrl === '/' && typeof this.userDetails.profileUser.username !== 'undefined') {
-    //     this.router.navigate(['/profile/user']);
-    //     currentUrl = '';
-    //   }
-    // });
+    this.subscription = this.profileStore.select('profileTags')
+      .first(profile => profile['profileUser'].username)
+      .subscribe( datas => {
+        console.log(datas);
+        this.router.navigate(['/home']);
+      });
+  }
 
-    // this.profileStore.select('profileTags')
-    //   .first(profile => profile['profileUser'].username)
-    //   .subscribe( datas => {
-    //     console.log('logout compontent');
-    //     console.log(currentUrl);
-    //     this.router.navigate(['/profile/user']);
-    //   });
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
