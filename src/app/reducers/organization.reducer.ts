@@ -25,7 +25,6 @@ export const OrganizationReducer: ActionReducer<any> = (state = initialOrganizat
 
     /* Load Org */
     case OrganizationActions.LOAD_ORGANIZATION:
-      // localStorage.setItem('accountStatus', JSON.stringify({ 'profileType': 'org', 'handle': payload }));
       return Object.assign({}, state, {
         status: 'laoding',
         orgHandle: payload,
@@ -167,8 +166,34 @@ export const OrganizationReducer: ActionReducer<any> = (state = initialOrganizat
           success: false
         });
 
-    default:
-      return state;
+      /**
+       * Get current Org channels
+       */
+      case OrganizationActions.LOAD_ORG_CHANNELS:
+        console.log('OrganizationActions.LOAD_ORG_CHANNELS', payload);
+        return Object.assign({}, state, {
+          org_channels_loading: true,
+          org_channels_loaded: false,
+          org_channels: []
+        });
+
+      case OrganizationActions.LOAD_ORG_CHANNELS_SUCCESS:
+        console.log('OrganizationActions.LOAD_ORG_CHANNELS_SUCCESS', payload);
+        return Object.assign({}, state, {
+          org_channels: payload,
+          org_channels_loading: false,
+          org_channels_loaded: true
+        });
+
+      case OrganizationActions.LOAD_ORG_CHANNELS_FAILED:
+        console.log('OrganizationActions.LOAD_ORG_CHANNELS_FAILED', payload);
+        return Object.assign({}, state, {
+          org_channels_loading: false,
+          org_channels_loaded: false
+        });
+
+      default:
+        return state;
   }
 
 }

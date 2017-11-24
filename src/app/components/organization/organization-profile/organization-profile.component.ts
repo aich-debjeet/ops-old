@@ -9,6 +9,8 @@ import { OrganizationActions } from '../../../actions/organization.action';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
+import { LocalStorageService } from '../../../services/local-storage.service';
+
 import { Store } from '@ngrx/store';
 import {} from '@types/googlemaps';
 
@@ -19,19 +21,20 @@ import {} from '@types/googlemaps';
 })
 export class OrganizationProfileComponent implements OnInit {
 
+  profileHandle: string;
+  profileUsername: string;
+  orgProfile: Observable<any>;
+  orgState: any;
+
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private toastr: ToastrService,
     private ngZone: NgZone,
     private store: Store<Login>,
+    private orgStore: Store<any>,
     private router: Router,
+    private localStorageService: LocalStorageService
   ) {
-
-    // Get own user handle
-    this.store.select('profileTags')
-      .subscribe( data => {
-      });
-
     // check organziation page already created
     this.store.select('profileTags')
       .first(profile => profile['current_user_profile_loading'] === true)
@@ -40,9 +43,32 @@ export class OrganizationProfileComponent implements OnInit {
           this.router.navigateByUrl('/org/registration');
         }
       });
+
+    // check if creator is user or organization
+    if (localStorage.getItem('accountStatus') !== null) {
+      const localStore = JSON.parse(this.localStorageService.theAccountStatus);
+      if (localStore.profileType === 'org') {
+        this.profileHandle = localStore.handle;
+        this.profileUsername = localStore.username;
+      }
+    }
+
+    // this.orgState = this.orgStore.select('organizationTags');
+    // this.orgState.subscribe((state) => {
+    //   this.orgProfile = state;
+    //   console.log('this.orgProfile', this.orgProfile);
+    // });
+
+    // this.orgStore.dispatch({
+    //   type: OrganizationActions.LOAD_ORG_CHANNELS,
+    //   payload: this.profileHandle
+    // });
+
    }
 
   ngOnInit() {
+    // load org channels
+
   }
 
 }

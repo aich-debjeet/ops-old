@@ -63,20 +63,17 @@ export class NavigationComponent implements OnInit {
       profile: { open: false }
     };
 
-    // localStorageService.accountStatusValue.subscribe((accountStatus) => {
-    //   console.log('accountStatus NAV SERVICE', accountStatus);
-    // });
     // check for account type in localStorage
     if (localStorage.getItem('accountStatus') === null) {
+      // console.log('accountStatus is not available');
       this.profileType = 'user';
       localStorageService.theAccountStatus = JSON.stringify({ 'profileType': 'user' });
-      // localStorage.setItem('accountStatus', JSON.stringify({ 'profileType': 'user' }));
     } else {
-      // const localStore = JSON.parse(localStorage.getItem('accountStatus'));
       const localStore = JSON.parse(localStorageService.theAccountStatus);
+      // console.log('accountStatus avaibale, localStore', localStore);
       if (localStore.profileType === 'org') {
         this.profileType = 'org';
-        this.switchToOrg(localStore.handle);
+        this.switchToOrg(localStore.username, localStore.handle);
       } else {
         this.profileType = 'user';
       }
@@ -248,23 +245,29 @@ export class NavigationComponent implements OnInit {
   /* =================================== notification =================================== */
 
   // switch to the org
-  switchToOrg(handle: string) {
-    let orgHandle = '';
+  switchToOrg(username: string, handle: string) {
+    let orgHandle, orgUsername;
 
     // check for org handle
-    if (handle) {
+    if (username && handle) {
+      orgUsername = username;
       orgHandle = handle;
-    } else if (this.userProfile.profileUser.organization.organizationHandle) {
+    } else if (this.userProfile && this.userProfile.profileUser && this.userProfile.profileUser.organization && this.userProfile.profileUser.organization.organizationUserName) {
+      orgUsername = this.userProfile.profileUser.organization.organizationUserName;
       orgHandle = this.userProfile.profileUser.organization.organizationHandle;
     }
 
     if (orgHandle !== '') {
       // console.log('org handle found', orgHandle);
-      this.store.dispatch({ type: OrganizationActions.LOAD_ORGANIZATION, payload: orgHandle });
+      this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
     }
 
     this.profileType = 'org';
-    this.localStorageService.theAccountStatus = JSON.stringify({ 'profileType': 'org', 'handle': orgHandle });
+    this.localStorageService.theAccountStatus = JSON.stringify({
+      profileType: 'org',
+      handle: orgHandle,
+      username: orgUsername
+    });
 
   }
 

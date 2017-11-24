@@ -140,4 +140,21 @@ export class OrganizationService {
       .map((data: Response) => data.json());
     }
 
+  /**
+   * Get channels of logged in org
+   */
+  loadOrgChannels(value: string, page: number = 1) {
+    console.log('loadOrgChannels', value);
+    const perPage = 30;
+    const offset = page === 1 ? 0 : page * perPage;
+    const body = {
+      'offset': offset,
+      'limit': perPage,
+      'superType': 'channel',
+      'owner': value
+    }
+
+    return this.api.post('/portal/network/spotfeed/search', body);
+  }
+
 }
