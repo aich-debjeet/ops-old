@@ -77,21 +77,22 @@ export class SettingsComponent implements OnInit {
        console.log(state);
         this.petTag = state;
         if (state['user_number_cng_success'] === true ) {
-              // this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
-              // this.modalService.close('otpChangeNumber');
-              console.log('trying to open window')
-              this._modalService.open('otpWindow');
-            }
+          // this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
+          // this.modalService.close('otpChangeNumber');
+          console.log('trying to open window')
+          this._modalService.open('otpWindow');
+        }
 
-            if (state['user_otp_success'] === true ) {
-                  this.otpForm.controls['otpNumber'].setValue('')
-                  this._modalService.close('otpWindow');
-                 // this._modalService.open('otpSuccess');
-                   this.phoneFormUpdate();
-                }
-                if (state['user_otp_failed'] === true ) {
-                  console.log('invalid')
-                }
+        if (state && state['user_otp_success'] && state['user_otp_success'] === true) {
+          this.otpForm.controls['otpNumber'].setValue('')
+          this._modalService.close('otpWindow');
+          // this._modalService.open('otpSuccess');
+            this.phoneFormUpdate();
+        }
+
+        if ( state && state['user_otp_failed'] && state['user_otp_failed'] === true ) {
+          console.log('invalid')
+        }
     });
     this.storeState$ = this._store.select('profileTags');
 
