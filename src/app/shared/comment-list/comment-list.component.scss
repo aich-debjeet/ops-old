@@ -15,7 +15,6 @@
   padding: 16px 24px;
   @include clearfix;
   position: relative;
-  overflow: auto;
 }
 
 .c-post__comment {
@@ -73,17 +72,6 @@
   padding-right: 8px;
 }
 
-.c-post__commenter {
-  color: #333333;
-  font-size: 12px;
-  font-weight: bold;
-  line-height: 17px;
-  margin-left: 12px;
-  cursor: pointer;
-  &:hover {
-    color: #333;
-  }
-}
 
 .c-post__comment_text {
   color: #333333;
@@ -346,4 +334,16 @@
 .c-options--img{
     width: 10px;
     cursor: pointer;
+}
+
+.c-post__comment_text-inline{
+  display: inline;
+}
+
+.c-contenteditable {
+    -webkit-user-modify: read-write;
+    -moz-user-modify: read-write;
+    user-modify: read-write;
+    border-bottom: 1px solid #c1c1c1;
+    color:#000000;
 }

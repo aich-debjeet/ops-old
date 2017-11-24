@@ -82,6 +82,10 @@ export class ChannelInnerComponent implements OnInit {
     // this.isfollowing = this.channel.isFollowing || false;
   }
 
+  mediaNext($event) {
+    console.log('button press');
+    console.log($event);
+  }
    /**
    * Form initial value
    */

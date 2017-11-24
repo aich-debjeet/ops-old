@@ -55,6 +55,7 @@ export class ProfileComponent implements OnInit {
    */
 
   ngOnInit() {
+    console.log('prfile page');
     this.sub = this.route.params
       .subscribe(params => {
         this.userName = params['id'];

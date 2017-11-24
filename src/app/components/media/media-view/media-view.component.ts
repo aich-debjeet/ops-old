@@ -31,6 +31,7 @@ export class MediaViewComponent {
   @Input() userChannels;
   @Input() profileImage;
   @Output() onComment: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onMediaNext: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('firstModal') modal: any;
   messageText: string;
   statusForm: FormGroup;
@@ -77,6 +78,11 @@ export class MediaViewComponent {
 
   closeFunction() {
     this.doClose(event);
+  }
+
+  mediaNext(value) {
+    console.log(value);
+    this.onMediaNext.emit(value);
   }
 
 
