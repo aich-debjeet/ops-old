@@ -130,6 +130,7 @@ export class BasicRegTag {
   user_basic_reg_succs?: boolean;
   fb_pass_create_scs: boolean;
   user_otp_failed: boolean;
+  user_otp_success: boolean;
 }
 
 export const initialBasicRegTag: BasicRegTag = {
@@ -138,5 +139,6 @@ export const initialBasicRegTag: BasicRegTag = {
   success: true,
   user_unique: false,
   fb_pass_create_scs: false,
-  user_otp_failed: false
+  user_otp_failed: false,
+  user_otp_success: false
 }
