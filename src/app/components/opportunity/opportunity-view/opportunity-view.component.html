@@ -49,7 +49,7 @@
         </div><!-- job short det end -->
         <div class="o-job-post__actions m-t-b-24">
           <div class="o-job-post__apply float_left m-r-16">
-              <button type="button" class="btn btn-primary btn-md" *ngIf="!hasApplied" (click)="applyForJob()">Apply</button>
+              <button type="button" class="btn btn-primary btn-md" *ngIf="!hasApplied" (click)="applyForJob()" [disabled]="disableApplicationForSelf(opportunity?.postedByUserName)" >Apply</button>
               <button type="button" class="btn btn-primary btn-md" *ngIf="hasApplied" [disabled]="hasApplied" >Applied</button>
           </div>
           <div class="o-job-post__action-icons float_left ">
@@ -71,10 +71,10 @@
           </div><!-- action icons end -->
           <div class="o-job-post__uplod-info">
             <span class="o-job-post__det c-text_sm color-grey-dark m-l-24">
-              <span class="ltr-space text_uppercase">Applicants: </span><span class="color-grey-darker">309</span>
+              <span class="ltr-space text_uppercase">Applicants: </span><span class="color-grey-darker">{{ opportunity?.ApplicantsCount }}</span>
             </span>
             <span class="o-job-post__det c-text_sm color-grey-dark m-l-24">
-              <span class="ltr-space text_uppercase">Posted: </span><span class="color-grey-darker">2 hours ago</span>
+              <span class="ltr-space text_uppercase">Posted: </span><span class="color-grey-darker">{{ opportunity?.createdDate | utcDate | date:'d MMM hh:mm a' }}</span>
             </span>
           </div>
         </div><!-- job post actions end -->
@@ -104,7 +104,7 @@
           </ul>
           <div class="o-job-post__media-action">
             <div class="o-job-post__apply float_left m-r-16">
-              <button type="button" class="btn btn-primary btn-md" *ngIf="!hasApplied" (click)="applyForJob()">Apply</button>
+              <button type="button" class="btn btn-primary btn-md" *ngIf="!hasApplied" (click)="applyForJob()" [disabled]="disableApplicationForSelf(opportunity?.postedByUserName)" >Apply</button>
               <button type="button" class="btn btn-primary btn-md" *ngIf="hasApplied" [disabled]="hasApplied" >Applied</button>
             </div>
             <div class="o-job-post__action-icons float_left ">

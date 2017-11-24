@@ -325,13 +325,16 @@
                                                 <div class="col-md-4 p-0">
                                                     <div class="c-form__group c-form--sm c-form--noeffect m-0">
                                                         <input class="c-form__input p-0" required="" type="Phone" formControlName="mobile">
+                                                        <p class="c-form__validation" *ngIf="phoneForm.controls['mobile'].errors?.required && pform.submitted">Phone is required</p>
+                                                        <p class="c-form__validation" *ngIf="phoneForm.controls['mobile'].errors?.isMobileUnique">This phone number is already registered</p>
+                                                        <p class="c-form__validation" *ngIf="phoneForm.controls['mobile'].errors?.minlength">Phone number must be min length 4</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 p-0">
                                                 </div>
                                                 <div class="col-md-6 p-0">
                                                     <div class="o-set-list-edit__actions">
-                                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#phone-verify" [type]="'submit'">verify</button>
+                                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#phone-verify" [type]="'submit'" [disabled]="!phoneForm.valid">verify</button>
                                                         <button type="button" class="btn btn-default btn-sm" (click)="phoneToggle()">Cancel</button>
                                                     </div>
                                                 </div>
@@ -806,39 +809,52 @@
 <!-- OTP Confirm Modal -->
 
 <!-- OTP Modal-->
-<app-modal [modalTitle]="'OTP'" [blocking]='false' modalId='otpWindow' class="otp__modal" size="small">
+<app-modal [modalTitle]="'OTP'" [blocking]='false' modalId='otpWindow'>
     <div name="otp" class="otp__modal">
-        <div class="x reg_step1_otp" id="otpModal2" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header" style="border: none;">
-                        <h4 class="modal-title text-center"><img width="120px" src="/assets/img/logo_black.svg"></h4>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
-                            <h5 class="text-center">Enter the 6 digit OTP that you have received <br> by phone </h5>
-                            <p class="text-center">
-                                <a href="javascript:void(0)" *ngIf="!resendingOtp" class="pointer" (click)="resendOtp()">Resend OTP</a>
-                                <a *ngIf="resendingOtp">Sending OTP, please wait...</a>
-                            </p>
-                            <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #oform="ngForm">
-                                <div class="form_group">
-                                    <input class="form_input" type="text" formControlName="otpNumber" required>
-                                    <span class="form_highlight"></span>
-                                    <span class="form_bar"></span>
-                                    <label>Enter OTP</label>
-                                </div>
-                                <p class="c-form__validation" *ngIf="petTag?.user_otp_failed">Invalid OTP</p>
-                                <p class="c-form__validation" *ngIf="otpForm.controls['otpNumber'].errors?.invalid && oform.submitted">Please enter your 6 digit OTP number</p>
-
-                                <div class="text-center">
-                                    <button [className]="'btn btn-default btn-sm'" [type]="'submit'">Validate OTP</button>
-                                </div>
-                            </form>
+        <!-- <div class="modal fade" id="phone-verify" role="dialog"> -->
+        <div class="modal-content o-settings-pop-contianer">
+            <div class="o-s-pop_content">
+                <h3 class="o-s-pop-head m-b-24">Enter OTP</h3>
+                <p class="o-s-pop--text c-text_md">
+                    Enter the 6 digit OTP that you received
+                    <BR>in your phone
+                </p>
+                <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #oform="ngForm">
+                    <div class="o-s-pop-form">
+                        <div class="c-form__group">
+                            <input class="c-form__input" required="" type="text" formControlName="otpNumber" placeholder="Type the code">
+                            <!-- <span>00:59</span> -->
                         </div>
+                        <p class="c-form__validation" *ngIf="!petTag?.user_otp_success && petTag?.user_otp_success !== 'undefined'">Invalid OTP</p>
+                        <p class="c-form__validation" *ngIf="otpForm.controls['otpNumber'].errors?.invalid && oform.submitted">Please enter your 6 digit OTP number</p>
                     </div>
-                </div>
+                    <a href="javascript:void(0)" *ngIf="!resendingOtp" (click)="resendOtp()" class="o-s-pop-resend m-b-24">Resend OTP</a>
+                    <a *ngIf="resendingOtp">Sending OTP, please wait...</a>
+                    <button type="button" class="btn btn-primary btn-md" [type]="'submit'">Verify</button>
+                </form>
             </div>
         </div>
+        <!-- </div> -->
     </div>
 </app-modal>
+
+<!-- <div class="modal fade" id="phone-verify" role="dialog">
+    <div class="modal-content o-settings-pop-contianer">
+        <div class="o-s-pop_content">
+            <h3 class="o-s-pop-head m-b-24">Enter OTP</h3>
+            <p class="o-s-pop--text c-text_md">
+               Enter the 6 digit OTP that you received<BR>in your phone
+            </p>
+            <form action="">
+                <div class="o-s-pop-form">
+                    <div class="c-form__group">
+                        <input class="c-form__input" required="" type="text" placeholder="Type the code">
+                        <span>00:59</span>
+                    </div>
+                </div>
+                <a href="#" class="o-s-pop-resend m-b-24">Resend OTP</a>
+                <button type="button" class="btn btn-primary btn-md">Verify</button>
+            </form>
+        </div>
+    </div>
+</div> -->
