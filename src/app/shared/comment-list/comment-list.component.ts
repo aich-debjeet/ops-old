@@ -27,6 +27,7 @@ export class CommentListComponent implements OnInit {
 
   onContentEdit() {
     this.isEdit = true;
+    console.log(this.isEdit);
   }
 
   onContentSaved(content) {
