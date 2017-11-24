@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 // actions
 import { OpportunityActions } from 'app/actions/opportunity.action';
+import { AuthActions } from 'app/actions/auth.action';
 
 // store
 import { Store } from '@ngrx/store';
@@ -13,6 +14,9 @@ import { OpportunityModel } from './../../../models/opportunity.model';
 import { LocalStorageService } from './../../../services/local-storage.service';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
+// rx
+import { Observable } from 'rxjs/Observable';
+
 @Component({
   selector: 'app-opportunity-search',
   templateUrl: './opportunity-search.component.html',
@@ -23,9 +27,11 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
   @ViewChild('searchInput') searchInput;
   @ViewChild('searchQueryElement') searchQueryElement;
 
+  loginTagState$: Observable<any>;
   opportunityState$: any;
   opportunityState: any;
   searchString: string;
+  insdustryType: 'Industry';
   isSearching = false;
   opportunitiesCount = {
     Audition: '0',
@@ -35,6 +41,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
     Volunteer: '0',
     Freelance: '0'
   };
+  industries: any[];
 
   recordsPerPage = 10;
   showPreloader = false;
@@ -61,6 +68,18 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
 
     // get opportunity type count
     this.store.dispatch({ type: OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT });
+
+    /**
+     * load and watch industries
+     */
+    this.loginTagState$ = store.select('loginTags');
+    this.loginTagState$.subscribe((state) => {
+      this.industries = state.industries;
+      console.log('industries', this.industries);
+    });
+
+    // loading industry list
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   /**
@@ -86,8 +105,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   ngAfterViewInit() {
 
