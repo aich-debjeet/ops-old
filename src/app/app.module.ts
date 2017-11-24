@@ -84,7 +84,6 @@ import { NotificationComponent } from './components/notification/notification.co
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
-import { EventsComponent } from './components/events/events.component';
 // import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ExploreComponent } from './components/explore/explore.component';
@@ -131,7 +130,6 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     PortfolioComponent,
     JobsComponent,
     JobDetailsComponent,
-    EventsComponent,
     // SearchComponent,
     SettingsComponent,
     PopularArtistsComponent,
