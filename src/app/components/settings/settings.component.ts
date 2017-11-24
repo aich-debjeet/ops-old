@@ -32,13 +32,13 @@ export class SettingsComponent implements OnInit {
   // private tagStateSubscription: Subscription;
   petTag = initialBasicRegTag;
   pwdForm: FormGroup;
-  private usernameForm: FormGroup;
-  private nameForm: FormGroup;
-  private dateForm: FormGroup;
-  private genderForm: FormGroup;
-  private emailForm: FormGroup;
-  private phoneForm: FormGroup;
-  private profileForm: FormGroup;
+  usernameForm: FormGroup;
+  nameForm: FormGroup;
+  dateForm: FormGroup;
+  genderForm: FormGroup;
+  emailForm: FormGroup;
+  phoneForm: FormGroup;
+  profileForm: FormGroup;
   otpForm: FormGroup;
   emailActive: boolean;
   phoneActive: boolean;
@@ -54,7 +54,7 @@ export class SettingsComponent implements OnInit {
   blockedUsers = [];
   default: any;
   resendingOtp = false;
-  private number: any;
+  number: any;
   commentsOption: any // = {name: 'Comments', value: 'Comments', checked: true};
   spotsOption: any // = {name: 'Spots', value: 'Spots', checked: true};
   mentionOption: any // = {name: 'Mention', value: 'Mention', checked: true};
@@ -77,8 +77,6 @@ export class SettingsComponent implements OnInit {
        console.log(state);
         this.petTag = state;
         if (state['user_number_cng_success'] === true ) {
-          // this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
-          // this.modalService.close('otpChangeNumber');
           console.log('trying to open window')
           this._modalService.open('otpWindow');
         }

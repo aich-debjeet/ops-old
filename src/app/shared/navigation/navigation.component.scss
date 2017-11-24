@@ -607,3 +607,7 @@ app-modal.media__modal .ng-modal {
         border-left: 6px solid transparent;
     }   
 }
+
+ul.dropdown-menu li a {
+    cursor: pointer;
+}
