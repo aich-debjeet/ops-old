@@ -20,4 +20,9 @@ export class OpportunityModel {
     get_opportunity_type_data: any;
     get_opportunity_type_success: boolean;
 
+    getting_opportunities: boolean;
+    get_opportunities_params: any;
+    get_opportunities_data: any;
+    get_opportunities_success: boolean;
+
 }
