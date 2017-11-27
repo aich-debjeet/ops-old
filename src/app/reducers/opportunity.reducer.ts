@@ -110,6 +110,29 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
     /* get opportunities by filter */
 
 
+    /* get opportunities by filter (applied) */
+    case OpportunityActions.GET_APPLIED_OPPORTUNITIES:
+      return Object.assign({}, state, {
+        getting_opportunities: true,
+        get_opportunities_params: payload,
+        get_opportunities_success: false
+      });
+
+    case OpportunityActions.GET_APPLIED_OPPORTUNITIES_SUCCESS:
+      return Object.assign({}, state, {
+        getting_opportunities: false,
+        get_opportunities_data: payload,
+        get_opportunities_success: true
+      });
+
+    case OpportunityActions.GET_APPLIED_OPPORTUNITIES_FAILED:
+      return Object.assign({}, state, {
+        getting_opportunities: false,
+        get_opportunities_success: false
+      });
+    /* get opportunities by filter (applied) */
+
+
 
     /* apply for an opportunity */
     case OpportunityActions.APPLY_FOR_AN_OPPORTUNITY:

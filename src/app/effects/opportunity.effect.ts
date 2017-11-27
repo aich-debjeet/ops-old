@@ -86,6 +86,18 @@ export class OpportunityEffect {
       .catch((res) => Observable.of({ type: OpportunityActions.GET_OPPORTUNITIES_FAILED, payload: res }))
     );
 
+  /**
+   * Get opportunities by filter i.e. recommended
+   */
+  @Effect()
+  getAppliedOpportunities$ = this.actions$
+    .ofType(OpportunityActions.GET_APPLIED_OPPORTUNITIES)
+    .map(toPayload)
+    .switchMap((payload) => this.opportunityService.getAppliedOpportunities(payload)
+      .map((res) => ({ type: OpportunityActions.GET_APPLIED_OPPORTUNITIES_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: OpportunityActions.GET_APPLIED_OPPORTUNITIES_FAILED, payload: res }))
+    );
+
   constructor(
       private actions$: Actions,
       private opportunityService: OpportunityService

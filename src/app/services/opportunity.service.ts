@@ -78,9 +78,19 @@ export class OpportunityService {
    * Get opportunities by filters like recommended, created opps
    */
   getOpportunities(reqParams: any) {
-    console.log('reqParams', reqParams);
+    // console.log('reqParams', reqParams);
     this.updateToken();
     return this.api.put('/portal/job', reqParams);
+  }
+
+
+  /**
+   * Get applied opportunities
+   */
+  getAppliedOpportunities(profileHandle: string) {
+    console.log('profileHandle', profileHandle);
+    this.updateToken();
+    return this.api.get('/portal/job/applications/' + profileHandle + '/user');
   }
 
 }

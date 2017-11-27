@@ -24,8 +24,6 @@ export class OpportunitySearchCreatedComponent implements OnInit {
   userState$: Observable<Media>;
   userState: any;
   opportunities: any[];
-  skillCodes = [];
-  loadedCreatedOpps = false;
 
   /* pagination settings */
   recordsPerPage = 10;
