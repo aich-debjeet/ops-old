@@ -44,18 +44,6 @@ export class OpportunitySearchRecommendedComponent implements OnInit {
 
   ngOnInit() {
 
-    // const recomSearchParams = {
-    //   industry: [],
-    //   offset: 0, // initial request
-    //   limit: this.recordsPerPage
-    // }
-
-    // console.log('dispatch recommended opportunities');
-    // this.store.dispatch({
-    //   type: OpportunityActions.GET_OPPORTUNITY,
-    //   payload: recomSearchParams
-    // });
-
     // observe the opportunity state
     this.opportunityState$.subscribe((state) => {
       console.log('opportunityState', state);
@@ -72,22 +60,15 @@ export class OpportunitySearchRecommendedComponent implements OnInit {
 
       // check for user skills
       if (this.userState && this.userState['profileUser'] && this.userState['profileUser']['skills'] && this.userState['profileUser']['skills'].length > 0) {
-        // console.log('skills', state['profileUser']['skills']);
-
         // fetching skills in a local var
         const skillsLoaded = this.userState['profileUser']['skills'];
-        const self = this;
-
         // preparing skills as an array of string
-        // this.skillCodes =
         skillsLoaded.forEach((skill, index) => {
           // console.log('skill.code', skill.code);
           if (skill && skill.code) {
             this.skillCodes.push(skill.code);
           }
-          if (skillsLoaded.length - 1 === index) {
-            // console.log('skills', this.skillCodes);
-
+          if ((skillsLoaded.length - 1) === index) {
             if (!this.loadedRecomOpps) {
               this.loadRecomOpps();
             }
