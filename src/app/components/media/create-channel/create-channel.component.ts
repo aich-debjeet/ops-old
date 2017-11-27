@@ -165,7 +165,8 @@ export class CreateChannelComponent implements OnInit {
     // check if creator is user or organization
     if (localStorage.getItem('accountStatus') !== null) {
       const localStore = JSON.parse(this.localStorageService.theAccountStatus);
-      if (localStore.profileType === 'org') {
+      // console.log('localStore', localStore);
+      if (localStore && localStore.handle && localStore.handle.length > 0) {
         profileHandle = localStore.handle;
       }
     }

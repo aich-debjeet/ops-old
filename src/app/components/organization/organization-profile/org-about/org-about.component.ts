@@ -12,6 +12,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { Organization, initialOrganization } from '../../../../models/organization.model';
 import { UtcDatePipe } from './../../../../pipes/utcdate.pipe';
 
+import { LocalStorageService } from './../../../../services/local-storage.service';
+
 import { initialTag, Follow } from '../../../../models/auth.model';
 import * as _ from 'lodash';
 
@@ -35,10 +37,25 @@ export class OrgAboutComponent implements OnInit {
   aboutDescription: string;
   aboutServices: string;
   // services: any[];
+  profileUsername = '';
+  profileHandle = '';
 
   constructor(
-    private store: Store<Organization>
+    private store: Store<Organization>,
+    private localStorageService: LocalStorageService
   ) {
+
+    // check if creator is user or organization
+    if (localStorage.getItem('accountStatus') !== null) {
+      const localStore = JSON.parse(this.localStorageService.theAccountStatus);
+      console.log('localStore', localStore);
+      if (localStore.handle && localStore.handle.length > 0) {
+        this.profileHandle = localStore.handle;
+      }
+      if (localStore.username && localStore.username.length > 0) {
+        this.profileUsername = localStore.username;
+      }
+    }
 
     // this.services = ['UI design', 'Web Application Development', 'Social Media'];
 
@@ -49,7 +66,7 @@ export class OrgAboutComponent implements OnInit {
       // console.log('this.orgProfile ABOUT ORG', this.orgProfile);
       if (this.orgProfile && this.orgProfile.org_profile_update_success === true) {
         this.orgProfile.org_profile_update_success = false;
-        this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: 'panorama' });
+        this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.profileUsername });
       }
       // for mobile
       if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.contact.mobile) {
