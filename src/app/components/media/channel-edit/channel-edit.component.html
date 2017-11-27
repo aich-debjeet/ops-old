@@ -1,75 +1,81 @@
 <div id="create_channel_pop" class="modal fade in" role="dialog" style="display: block; padding-right: 15px;">
-        
-        <div class="modal-dialog">
-    
-            <!-- step 2 -->
-            <div *ngIf="stepNumber === 2" id="create-channel-step-2" class="modal-body p-0">
-                <div class="pop-container-sm create-channel--form">
-                    <div class="pop-head m-b-32">
-                        <h5 class="c-text_lg text-center">Update Channel</h5>
-                        <span class="pop-close" (click)="closeChannelUpdate()">
+
+    <div class="modal-dialog">
+
+        <!-- step 2 -->
+        <div *ngIf="stepNumber === 2" id="create-channel-step-2" class="modal-body p-0">
+            <div class="pop-container-sm create-channel--form">
+                <div class="pop-head m-b-32">
+                    <h5 class="c-text_lg text-center">Update Channel</h5>
+                    <span class="pop-close" (click)="closeChannelUpdate()">
                             <a href="javascript:void(0)"><img src="http://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
                         </span>
-                    </div><!-- create channel head -->
-                    <div class="create_channel__content-form">
-                        <form [formGroup]="channelForm" novalidate #myform="ngForm">
-                            <div class="c-form__group m-b-16">
-                                <input class="c-form__input" formControlName="title" type="text">
-                                <span class="c-form__highlight"></span>
-                                <span class="c-form__bar"></span>
-                                <label>Channel Name</label>
-                            </div>
-                            <div class="c-form__group m-b-16">
-                                <textarea formControlName="desc" class="c-textarea__block c-textarea--style " rows="4" data-min-rows="0" placeholder="About channel"></textarea>
-                                <span class="c-form__highlight"></span>
-                                <span class="c-form__bar"></span>
-                                <!-- <label>About channel</label> -->
-                            </div>
-                            <div class="channel-industry__block ">
-                                <div class="c-form__group">
-                                    <select formControlName="type" class="c-form-control p-0" id="sel1" [(ngModel)]="selectedIndustry">
+                </div>
+                <!-- create channel head -->
+                <div class="create_channel__content-form">
+                    <form [formGroup]="channelForm" novalidate #myform="ngForm">
+                        <div class="c-form__group m-b-16">
+                            <input class="c-form__input" formControlName="title" type="text">
+                            <span class="c-form__highlight"></span>
+                            <span class="c-form__bar"></span>
+                            <label>Channel Name</label>
+                        </div>
+                        <div class="c-form__group m-b-16">
+                            <textarea formControlName="desc" class="c-textarea__block c-textarea--style " rows="4" data-min-rows="0" placeholder="About channel"></textarea>
+                            <span class="c-form__highlight"></span>
+                            <span class="c-form__bar"></span>
+                            <!-- <label>About channel</label> -->
+                        </div>
+                        <div class="channel-industry__block ">
+                            <div class="c-form__group">
+                                <select formControlName="type" class="c-form-control p-0" id="sel1" [(ngModel)]="selectedIndustry">
                                         <option value="" selected="">Industry</option>
                                         <option *ngFor="let industry of forIndustries.industries" [value]="industry.code" >{{ industry.name }}</option>
                                     </select>
-                                </div>
                             </div>
-                            <div class="channel-public__block p-0">
-                                <div class="c-form__group">
-                                    <select formControlName="privacy" class="c-form-control p-0" id="sel1">
+                        </div>
+                        <div class="channel-public__block p-0">
+                            <div class="c-form__group">
+                                <select formControlName="privacy" class="c-form-control p-0" id="sel1">
                                         <option value="0">Public</option>
                                         <option value="1">Private</option>
                                     </select>
-                                </div>
                             </div>
-                            <div class="col-md-12 p-0 text-right m-t-32">
-                                <button type="button" class="btn btn-default btn-md m-r-16" (click)="closeChannelUpdate()">Cancel</button>
-                                <button type="button" class="btn btn-primary btn-md" (click)="updateChannel(channelForm.value)">Update</button>
-                            </div>
-                        </form>
-                    </div><!-- create channel content end -->
-                </div><!-- create channel container end -->
+                        </div>
+                        <div class="col-md-12 p-0 text-right m-t-32">
+                            <button type="button" class="btn btn-default btn-md m-r-16" (click)="closeChannelUpdate()">Cancel</button>
+                            <button type="button" class="btn btn-primary btn-md" (click)="updateChannel(channelForm.value)">Update</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- create channel content end -->
             </div>
-            <!-- step 2 -->
-    
-            <!-- step 3 -->
-            <div *ngIf="stepNumber === 3" id="create-channel-step-2" class="modal-body p-0">
-                <div class="pop-container-sm create-channel--form">
-                    <div class="pop-head m-b-32">
-                        <h5 class="c-text_lg text-center"></h5>
-                        <span class="pop-close" (click)="closeChannelUpdate()">
+            <!-- create channel container end -->
+        </div>
+        <!-- step 2 -->
+
+        <!-- step 3 -->
+        <div *ngIf="stepNumber === 3" id="create-channel-step-2" class="modal-body p-0">
+            <div class="pop-container-sm create-channel--form">
+                <div class="pop-head m-b-32">
+                    <h5 class="c-text_lg text-center"></h5>
+                    <span class="pop-close" (click)="closeChannelUpdate()">
                             <a href="javascript:void(0)"><img src="http://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
                         </span>
-                    </div><!-- create channel head -->
-                    <div class="create_channel__content">
-                        <div class="create-channel__done-tic">
-                            <img width="135" src="/assets/img/svg/channeltic.svg" alt="">
-                        </div>
-                        <h5 class="c-h5 m-b-32">Channel has been updated<br>successfully</h5>
-                    </div><!-- create channel content end -->
-                </div><!-- create channel container end -->
+                </div>
+                <!-- create channel head -->
+                <div class="create_channel__content">
+                    <div class="create-channel__done-tic">
+                        <img width="135" src="/assets/img/svg/channeltic.svg" alt="">
+                    </div>
+                    <h5 class="c-h5 m-b-32">Channel has been updated<br>successfully</h5>
+                </div>
+                <!-- create channel content end -->
             </div>
-            <!-- step 3 -->
-    
+            <!-- create channel container end -->
         </div>
-    
+        <!-- step 3 -->
+
     </div>
+
+</div>

@@ -123,8 +123,8 @@
                           </li>
                           <li role="separator" class="divider"></li>
                           <li *ngIf="this.profileType == 'user' && !userProfile.profileUser?.isOrganization" ><a routerLink="/org/registration">Create Organization</a></li>
-                          <li *ngIf="this.profileType == 'user' && userProfile.profileUser?.isOrganization" ><a (click)="switchToOrg()">{{ userProfile.profileUser?.organization?.organizationName }}</a></li>
-                          <li *ngIf="this.profileType == 'org'" ><a (click)="switchToUser()">@{{ userProfile.profileUser?.username }}</a></li>
+                          <li *ngIf="this.profileType == 'user' && userProfile.profileUser?.isOrganization" ><a (click)="setProfileToOrg()">{{ userProfile.profileUser?.organization?.organizationName }}</a></li>
+                          <li *ngIf="this.profileType == 'org'" ><a (click)="setProfileToUser()">@{{ userProfile.profileUser?.username }}</a></li>
                           <li><a routerLink="/user/settings">Settings</a></li>
                           <li role="separator" class="divider"></li>
                           <li><a routerLink="/about">About One Page Spotlight</a></li>

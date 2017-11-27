@@ -162,10 +162,11 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
     if (!handle) {
       return false;
     }
-     this.messageStore.dispatch({ type: MessageActions.LOAD_USER_PROFILE_DATA, payload: handle });
+    //  this.messageStore.dispatch({ type: MessageActions.LOAD_USER_PROFILE_DATA, payload: handle });
     this.timer
     .takeWhile(() => this.alive)
     .subscribe(() => {
+      this.messageStore.dispatch({ type: MessageActions.LOAD_USER_PROFILE_DATA, payload: handle });
       const headers = this.tokenService.getAuthHeader();
       return this.http.get(this.apiLink + '/portal/message/combined/sent/received', { headers: headers })
       .map((data: Response) => data.json())
