@@ -31,6 +31,7 @@ import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
+import { DwcComponent } from './components/dwc/dwc.component';
 
 
 
@@ -68,6 +69,7 @@ export const routes: Routes = [
  { path: 'channel', component: ChannelListComponent, canActivate: [AuthGuard] },
  { path: 'resources', component: ResourceComponent, canActivate: [AuthGuard] },
  { path: 'communities', component: CommunitiesComponent, canActivate: [AuthGuard] },
+ { path: 'dwc', component: DwcComponent, canActivate: [AuthGuard] },
  { path: 'search', loadChildren: './components/search/search.module#SearchModule', canActivate: [AuthGuard] },
  { path: 'org', loadChildren: './components/organization/organization.module#OrganizationModule'},
  { path: 'opportunity', loadChildren: './components/opportunity/opportunity.module#OpportunityModule', canActivate: [AuthGuard] },

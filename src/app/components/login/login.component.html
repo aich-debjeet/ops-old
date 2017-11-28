@@ -10,7 +10,7 @@
             <div class="col-md-6 ops_signup_left">
                 <img src="/assets/img/login_illustration.png" alt="">
                 <div class="ops_heading text-center">
-                    Don't have an account ? <a [routerLink]="['/reg/information']" [queryParams]="redrectUrl ? { next: this.route.snapshot.queryParams['next'] } : ''" class="text-theme">Sign up</a>
+                    Don't have an account ? <a [routerLink]="['/reg/information']" [queryParams]="queryParam ? this.route.snapshot.queryParams : ''" class="text-theme">Sign up</a>
                 </div>
             </div>
             <div class="col-md-6 ops_signup_right">
