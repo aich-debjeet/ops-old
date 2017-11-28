@@ -43,6 +43,7 @@
 }
 .o-form__add-btn{
 	display: block;
+    cursor: pointer;
 }
 .o-form__add-ico{
 	width: 16px;
@@ -63,6 +64,7 @@
 .o-form-trash__ico{
 	width: 24px;
 	height: 24px;
+    cursor: pointer;
 	img{
 		width: 100%;
 	}

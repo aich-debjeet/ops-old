@@ -417,3 +417,26 @@ vg-scrub-bar {
   height: auto !important;
   line-height: normal !important;
 }
+
+
+.dp-material{
+  color: #000;
+  font-size: 12px;
+  span.dp-calendar-weekday{
+    font-size: 12px;
+    background: #fff;
+  }
+  .dp-calendar-nav-container{
+    color: #333;
+    height: 45px!important;
+  }
+  .dp-calendar-day.dp-selected{
+    background: #ff7b84;
+  }
+  .dp-material .dp-current-day{
+      border: 1px solid #ff7b84;
+  }
+}
+.dp-material .dp-calendar-wrapper{
+  padding: 1rem;
+}
