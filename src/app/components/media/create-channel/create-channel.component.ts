@@ -136,10 +136,10 @@ export class CreateChannelComponent implements OnInit {
         flag = ['image'];
         break;
       case 2:
-        flag = ['video'];
+        flag = ['audio'];
         break;
       case 3:
-        flag = ['audio'];
+        flag = ['video'];
         break;
       case 4:
         flag = ['text'];
@@ -189,8 +189,11 @@ export class CreateChannelComponent implements OnInit {
         hashTags: this.hashTags
       }
 
-      this.channelSavedHere = true;
-      this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
+      console.log(channelObj);
+      return;
+
+      // this.channelSavedHere = true;
+      // this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
     } else {
       this.toastr.warning('Please fill all required fields');
     }

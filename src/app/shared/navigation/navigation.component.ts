@@ -98,7 +98,7 @@ export class NavigationComponent implements OnInit {
     this.orgState$ = this.store.select('organizationTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      console.log('orgProfile', this.orgProfile);
+      // console.log('orgProfile', this.orgProfile);
     });
     /* org state */
 
