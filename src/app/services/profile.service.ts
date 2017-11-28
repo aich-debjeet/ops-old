@@ -390,7 +390,8 @@ export class ProfileService {
    * [TEMP] Get all profiles
    */
   getAllProfiles() {
-    return this.api.get('/portal/profile/0/50', '');
+    // return this.api.get('/portal/profile/0/50', '');
+    return this.api.get('/portal/profile/by/postCount/profileResponse');
   }
 
   /**
