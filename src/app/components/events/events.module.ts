@@ -5,7 +5,8 @@ import { EventsComponent } from './events.component';
 import { SharedModule } from '../../shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
 import { EventsCreateComponent } from './events-create/events-create.component';
-import {DpDatePickerModule} from 'ng2-date-picker';
+import { DpDatePickerModule } from 'ng2-date-picker';
+import { EventsInnerComponent } from './events-inner/events-inner.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,12 @@ const routes: Routes = [
   {
     path: 'create',
     component: EventsCreateComponent
+  },
+  {
+    path: 'inner',
+    component: EventsInnerComponent
   }
+
 ]
 
 @NgModule({
@@ -30,7 +36,8 @@ const routes: Routes = [
   ],
   declarations: [
     EventsComponent,
-    EventsCreateComponent
+    EventsCreateComponent,
+    EventsInnerComponent
   ]
 })
 export class EventsModule { }
