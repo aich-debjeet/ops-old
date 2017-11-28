@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EventsCreateComponent } from './events-create/events-create.component';
 import { DpDatePickerModule } from 'ng2-date-picker';
 import { EventsInnerComponent } from './events-inner/events-inner.component';
+import { EventsLandingComponent } from './events-landing/events-landing.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'inner',
     component: EventsInnerComponent
+  },
+  {
+    path: 'landing',
+    component: EventsLandingComponent
   }
 
 ]
@@ -37,7 +42,8 @@ const routes: Routes = [
   declarations: [
     EventsComponent,
     EventsCreateComponent,
-    EventsInnerComponent
+    EventsInnerComponent,
+    EventsLandingComponent
   ]
 })
 export class EventsModule { }
