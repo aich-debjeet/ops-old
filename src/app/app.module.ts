@@ -10,6 +10,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { ImageCropperModule } from 'ng2-img-cropper/index';
 import { ToastrModule } from 'ngx-toastr';
+import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 
 
 // Pipes
@@ -156,6 +157,7 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     DirectoryListComponent
   ],
   imports: [
+    DragulaModule,
     SharedPipesModule,
     SharedModule,
     MediaModule,

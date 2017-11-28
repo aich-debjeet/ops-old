@@ -1,3 +1,4 @@
+import { AddTagsToVaultInput } from 'aws-sdk/clients/glacier';
 import { ActionReducer, Action } from '@ngrx/store';
 import { initialTag, ProfileModal } from '../models/profile.model';
 
@@ -681,8 +682,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_SUCCESS:
     console.log('notififaction default settings success')
     console.log(JSON.stringify(payload))
+    console.log(JSON.stringify(payload.settings.allowARC))
     return Object.assign({}, state, {
-      default_notification: payload.settings.notificationSettings
+      default_notification: payload.settings.notificationSettings,
+      adult_Content: payload.settings.allowARC,
+      settings: payload,
+      preferences: payload.settings.homePagePreferences.preferences
     });
 
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_FAILED:
