@@ -74,7 +74,7 @@ export class OpportunitySearchCreatedComponent implements OnInit {
    */
   loadCreatedOpps(profileHandle: any) {
     const createdSearchParams = {
-      createdBy: profileHandle,
+      postedBy: profileHandle,
       offset: 0, // initial request
       limit: this.recordsPerPage
     }
