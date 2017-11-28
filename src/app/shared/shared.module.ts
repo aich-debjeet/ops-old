@@ -49,6 +49,7 @@ import {Modal, ModalContent} from './modal-new/Modal';
 import {RouteModal} from './modal-new/RouteModal';
 import { ScrollToDirective } from './scrollto/scroll-to.directive';
 import { OpportunityCardComponent } from './opportunity-card/opportunity-card.component';
+import { EventCardComponent } from './event-card/event-card.component';
 
 @NgModule({
   imports: [
@@ -94,6 +95,7 @@ import { OpportunityCardComponent } from './opportunity-card/opportunity-card.co
     ModalContent,
     ScrollToDirective,
     OpportunityCardComponent,
+    EventCardComponent,
   ],
   exports: [
     OpportunityCardComponent,
