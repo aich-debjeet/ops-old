@@ -17,7 +17,7 @@ export class EventEffect {
   constructor(
     private actions$: Actions,
     private router: Router,
-    private profileService: EventService
+    private eventService: EventService
   ) { }
 
 }
