@@ -119,6 +119,7 @@ import { AgmCoreModule } from '@agm/core';
 import { OpportunityEffect } from 'app/effects/opportunity.effect';
 import { OpportunityModule } from 'app/components/opportunity/opportunity.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,

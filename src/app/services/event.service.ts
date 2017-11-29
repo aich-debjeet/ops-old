@@ -13,6 +13,6 @@ export class EventService {
     private api: ApiService,
     private http: Http
     ) {
-      // Thanal
+
     }
 }

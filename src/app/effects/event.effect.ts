@@ -10,7 +10,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/filter';
 
 import { EventService } from '../services/event.service';
-import { ProfileActions } from '../actions/profile.action';
+import { EventActions } from '../actions/event.action';
 
 @Injectable()
 export class EventEffect {

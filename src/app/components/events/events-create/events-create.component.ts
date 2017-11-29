@@ -1,7 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import {IDatePickerConfig} from 'ng2-date-picker';
+import {ActivatedRoute} from '@angular/router';
+import { Store } from '@ngrx/store';
 
+// Model
+import { EventModal, initialTag  } from '../../../models/event.model';
+
+// action
+import { EventActions } from '../../../actions/event.action';
+
+// rx
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-events-create',
@@ -10,6 +21,7 @@ import {IDatePickerConfig} from 'ng2-date-picker';
 })
 export class EventsCreateComponent implements OnInit {
   public eventForm: FormGroup;
+  tagState$: Observable<EventModal>;
 
   config: IDatePickerConfig = {
     firstDayOfWeek: 'su',
@@ -48,6 +60,8 @@ export class EventsCreateComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private store: Store<EventModal>,
+    private route: ActivatedRoute,
   ) {
 
   }
@@ -57,7 +71,7 @@ export class EventsCreateComponent implements OnInit {
   }
 
   /**
-   * Form init
+   * Init Form Action
    */
   buildForm() {
     this.eventForm = this.fb.group({
@@ -71,13 +85,16 @@ export class EventsCreateComponent implements OnInit {
         [this.ticketItem('')]
       ),
       'ts_startTime': '',
+      'event_brief' : ['', [Validators.required]],
       'ts_endTime': ''
     })
 
   }
 
 
-
+  /**
+   * More Agenda Item push to Form
+   */
   agendaItem(val: string) {
     return new FormGroup({
       startTime: new FormControl(val, Validators.required),
@@ -85,6 +102,9 @@ export class EventsCreateComponent implements OnInit {
     })
   }
 
+  /**
+   * More Ticket Item push to Form
+   */
   ticketItem(val: string) {
     return new FormGroup({
       paymentType: new FormControl(val, Validators.required),
@@ -94,8 +114,73 @@ export class EventsCreateComponent implements OnInit {
     })
   }
 
+  /**
+   * Event Creatation Sybmit
+   * @param value value of form
+   */
   submitForm(value) {
     console.log(value);
+
+    // struct of backend
+    const data = {
+        title : value.event_name,
+        eventTiming: {
+          startDate : this.reverseDate(value.event_startdate) + 'T05:00:00',
+          endDate : this.reverseDate(value.event_enddate) + 'T05:00:00',
+        },
+        venue : {
+            line1 : 'BANGALORE',
+            line2 : 'BANGALORE',
+            city : 'BANGALORE',
+            state : 'KARANATAKA',
+            country : 'INDIA',
+            postalCode : '560075',
+            latitude: '',
+            longitude: ''
+        },
+        industry : [
+            'FILM'
+        ],
+        event_agenda: value.event_agenda,
+        brief: value.event_brief,
+        event_media: [''],
+        access : 0,
+        active : true,
+        ratedBy : [],
+        Type: {
+          EntryType : 'Free',
+          eventType : 'Theatre'
+        },
+        // extras: {
+        //   "ticket":
+        //   [{
+        //   "ticketType":[{"name":"Gold",
+        //   "price":0.0,
+        //   "quantity":0,
+        //   "ticketType":"Free"}],
+
+        //   "startDate":"2017-09-10T05:00:00",
+        //   "endDate":"2017-09-10T05:00:00",
+        //   "maximum":2
+        // }
+        // ]},
+        // "isFeatured" : true
+    }
+
+
+
+    const ss = this.reverseDate(value.event_startdate) + 'T05:00:00';
+    console.log(ss);
+
+    // Dispatch to form value to server
+    // this._store.dispatch({ type: ProfileActions.LOAD_DIRECTORY, payload: data });
+  }
+
+  /**
+   * Date put to reverse formate
+   */
+  reverseDate(string) {
+    return string.split('-').reverse().join('-');
   }
 
 }
