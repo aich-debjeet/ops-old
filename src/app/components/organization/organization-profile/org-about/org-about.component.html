@@ -99,16 +99,17 @@
                                     <a class="o-org-form__edit-ico" (click)="editField('services')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
                                 <p *ngIf="editingField != 'services'" id="o-org-about-serv" class="c-text_sm color-grey-dark m-t-8">
-                                    {{ aboutServices }}
+                                    {{ aboutServicesStr }}
                                 </p>
                                 <div *ngIf="editingField == 'services'" id="o-org-about-serv_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input" type="text" [(ngModel)]="aboutServices" [ngModelOptions]="{standalone: true}">
-                                        <!-- <tag-input [(ngModel)]='services'
-                                        [placeholder]="'Add Services'"
-                                        [theme]="'ops-theme'"
-                                        [ngModelOptions]="{standalone: true}">
-                                        </tag-input> -->
+                                        <!-- <input class="c-form__input" type="text" [(ngModel)]="aboutServices" [ngModelOptions]="{standalone: true}"> -->
+                                        <tag-input [(ngModel)]='aboutServices'
+                                            [placeholder]="'Add Services'"
+                                            [theme]="'ops-theme'"
+                                            [ngModelOptions]="{standalone: true}"
+                                            ngDefaultControl>
+                                        </tag-input>
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
@@ -148,7 +149,8 @@
                                 </p>
                                 <div *ngIf="editingField == 'activeFrom'" id="o-org-about-foundyr_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group ">
-                                        <input #aboutActiveFrom class="c-form__input" type="text" value="{{ orgProfile?.org_profile_details?.activeFrom }}">
+                                        <!-- <input [dpDayPicker]="datePickerConfig" #aboutActiveFrom class="c-form__input" type="text" value="{{ orgProfile?.org_profile_details?.activeFrom }}"> -->
+                                        <dp-date-picker [(ngModel)]="aboutFoundedDate" [ngModelOptions]="{standalone: true}" [config]="datePickerConfig" theme="dp-material"></dp-date-picker>
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>

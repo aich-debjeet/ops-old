@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Organization, initialOrganization } from '../../../../models/organization.model';
 import { UtcDatePipe } from './../../../../pipes/utcdate.pipe';
+import { DatePipe } from '@angular/common';
 
 import { LocalStorageService } from './../../../../services/local-storage.service';
 
@@ -20,7 +21,8 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-org-about',
   templateUrl: './org-about.component.html',
-  styleUrls: ['./org-about.component.scss']
+  styleUrls: ['./org-about.component.scss'],
+  providers: [ UtcDatePipe, DatePipe ]
 })
 export class OrgAboutComponent implements OnInit {
 
@@ -35,20 +37,23 @@ export class OrgAboutComponent implements OnInit {
   aboutWebsite: any;
   aboutEmail: any;
   aboutDescription: string;
-  aboutServices: string;
+  aboutServices: any[];
+  aboutServicesStr: string;
+  aboutFoundedDate: any;
   // services: any[];
   profileUsername = '';
   profileHandle = '';
 
   constructor(
     private store: Store<Organization>,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private datePipe: DatePipe
   ) {
 
     // check if creator is user or organization
     if (localStorage.getItem('accountStatus') !== null) {
       const localStore = JSON.parse(this.localStorageService.theAccountStatus);
-      console.log('localStore', localStore);
+      // console.log('localStore', localStore);
       if (localStore.handle && localStore.handle.length > 0) {
         this.profileHandle = localStore.handle;
       }
@@ -63,7 +68,7 @@ export class OrgAboutComponent implements OnInit {
     this.orgState$ = this.store.select('organizationTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      // console.log('this.orgProfile ABOUT ORG', this.orgProfile);
+      console.log('this.orgProfile ABOUT ORG', this.orgProfile);
       if (this.orgProfile && this.orgProfile.org_profile_update_success === true) {
         this.orgProfile.org_profile_update_success = false;
         this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.profileUsername });
@@ -86,7 +91,8 @@ export class OrgAboutComponent implements OnInit {
       }
       // for services
       if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.languages) {
-        this.aboutServices = this.orgProfile.org_profile_details.languages.join(', ');
+        this.aboutServices = this.orgProfile.org_profile_details.languages;
+        this.aboutServicesStr = this.orgProfile.org_profile_details.languages.join(', ');
         // console.log('aboutServices', this.aboutServices);
       }
       // loading industries
@@ -97,6 +103,11 @@ export class OrgAboutComponent implements OnInit {
           this.aboutIndustryCode = this.aboutIndustry['code'];
           // console.log('this.aboutIndustry', this.aboutIndustry);
         }, 1000);
+      }
+      // for founded date
+      if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.activeFrom) {
+        console.log('this.orgProfile.org_profile_details.activeFrom', this.orgProfile.org_profile_details.activeFrom);
+        this.aboutFoundedDate = this.datePipe.transform(this.orgProfile.org_profile_details.activeFrom, 'dd-MM-yyyy');
       }
     });
     /* org state */
@@ -175,11 +186,15 @@ export class OrgAboutComponent implements OnInit {
       reqBody = {
         services: [],
       };
-      const aboutServicesArr = this.aboutServices.split(',');
+      const aboutServicesArr = this.aboutServices;
       aboutServicesArr.forEach((service, index) => {
-        reqBody.services.push(service);
-        // console.log('index', index);
+        if (typeof service === 'string') {
+          reqBody.services.push(service);
+        } else {
+          reqBody.services.push(service.value);
+        }
         if (index >= (aboutServicesArr.length - 1)) {
+          // console.log('update services', reqBody.services);
           this.dispatchAboutUpdate(reqBody);
           return;
         }
@@ -198,6 +213,14 @@ export class OrgAboutComponent implements OnInit {
       reqBody.industryList.push(newIndustry);
     }
 
+    if (fieldName === 'activeFrom' && this.aboutFoundedDate.length > 0) {
+      reqBody = {
+        extras: {
+          foundedYear: this.reverseDate(this.aboutFoundedDate) + 'T05:00:00'
+        }
+      };
+    }
+
     this.dispatchAboutUpdate(reqBody);
   }
 
@@ -206,10 +229,16 @@ export class OrgAboutComponent implements OnInit {
       handle: this.orgProfile.org_profile_details.handle,
       body: reqData
     }
-    // console.log('req body', data);
+    // console.log('req body', data); return;
     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_UPDATE, payload: data });
-
     this.closeEditor();
+  }
+
+  /**
+   * @param string prepare date to send
+   */
+  reverseDate(string) {
+    return string.split('-').reverse().join('-');
   }
 
 }
