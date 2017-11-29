@@ -8,6 +8,8 @@ import { EventsCreateComponent } from './events-create/events-create.component';
 import { DpDatePickerModule } from 'ng2-date-picker';
 import { EventsInnerComponent } from './events-inner/events-inner.component';
 import { EventsLandingComponent } from './events-landing/events-landing.component';
+import { NgxCarouselModule } from 'ngx-carousel';
+import 'hammerjs';
 
 
 const routes: Routes = [
@@ -37,7 +39,8 @@ const routes: Routes = [
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
-    DpDatePickerModule
+    DpDatePickerModule,
+    NgxCarouselModule
   ],
   declarations: [
     EventsComponent,

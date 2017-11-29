@@ -124,6 +124,7 @@ import { EventCardComponent } from './event-card/event-card.component';
     Modal,
     RouteModal,
     ModalContent,
+    EventCardComponent
   ]
 
 })
