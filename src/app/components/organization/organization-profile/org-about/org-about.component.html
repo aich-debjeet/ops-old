@@ -149,7 +149,8 @@
                                 </p>
                                 <div *ngIf="editingField == 'activeFrom'" id="o-org-about-foundyr_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group ">
-                                        <input #aboutActiveFrom class="c-form__input" type="text" value="{{ orgProfile?.org_profile_details?.activeFrom }}">
+                                        <!-- <input [dpDayPicker]="datePickerConfig" #aboutActiveFrom class="c-form__input" type="text" value="{{ orgProfile?.org_profile_details?.activeFrom }}"> -->
+                                        <dp-date-picker [(ngModel)]="aboutFoundedDate" [ngModelOptions]="{standalone: true}" [config]="datePickerConfig" theme="dp-material"></dp-date-picker>
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
