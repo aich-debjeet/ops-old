@@ -1,1 +1,14 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 74 74"><defs><style>.cls-1,.cls-2,.cls-4{fill:#979797;}.cls-1{clip-rule:evenodd;}.cls-2{fill-rule:evenodd;}.cls-3{clip-path:url(#clip-path);}.cls-5{fill:#fff;}</style><clipPath id="clip-path"><path class="cls-1" d="M1210.06-3141h-43a10,10,0,0,0-10,10v8.06a10,10,0,0,0-9,10v34a10,10,0,0,0,10,10h43a10,10,0,0,0,10-10V-3087a10,10,0,0,0,9-10v-34A10,10,0,0,0,1210.06-3141ZM1158-3118h43a5,5,0,0,1,5,5v1l-27,19.8-26-19.76v-1A5,5,0,0,1,1158-3118Zm43,44h-43a5,5,0,0,1-5-5v-26.5l26,19.72,27.09-19.84v26.62A5,5,0,0,1,1201.05-3073.93Zm14-23a5,5,0,0,1-4,4.9V-3113a10,10,0,0,0-10-10h-39v-8a5,5,0,0,1,5-5h43a5,5,0,0,1,5,5Z"/></clipPath></defs><title>ico</title><path class="cls-2" d="M1210.06-3141h-43a10,10,0,0,0-10,10v8.06a10,10,0,0,0-9,10v34a10,10,0,0,0,10,10h43a10,10,0,0,0,10-10V-3087a10,10,0,0,0,9-10v-34A10,10,0,0,0,1210.06-3141ZM1158-3118h43a5,5,0,0,1,5,5v1l-27,19.8-26-19.76v-1A5,5,0,0,1,1158-3118Zm43,44h-43a5,5,0,0,1-5-5v-26.5l26,19.72,27.09-19.84v26.62A5,5,0,0,1,1201.05-3073.93Zm14-23a5,5,0,0,1-4,4.9V-3113a10,10,0,0,0-10-10h-39v-8a5,5,0,0,1,5-5h43a5,5,0,0,1,5,5Z"/><g class="cls-3"><rect class="cls-4" x="-4344.83" y="-3248.61" width="6456.88" height="6582.43"/></g><path class="cls-5" d="M25.77,36.06l-2.29-7.5H12L9.7,36.06H2.5L13.63,4.4H21.8L33,36.06ZM21.88,22.95q-3.17-10.2-3.57-11.54T17.74,9.3Q17,12.06,13.67,22.95Z"/><rect class="cls-5" x="38" y="1.5" width="35" height="7.5"/><rect class="cls-5" x="38" y="17.5" width="35" height="7.5"/><rect class="cls-5" x="38" y="33.5" width="35" height="7.5"/><rect class="cls-5" x="2" y="49.5" width="71" height="7.5"/><rect class="cls-5" x="2" y="65.5" width="71" height="7.5"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <path id="blog-a" d="M5.841,4.5 L12,4.5 L12,3.5 L5.841,3.5 L5.841,4.5 Z M4,6.5 L12,6.5 L12,5.5 L4,5.5 L4,6.5 Z M4,8.5 L12,8.5 L12,7.5 L4,7.5 L4,8.5 Z M4,10.5 L12,10.5 L12,9.5 L4,9.5 L4,10.5 Z M4,12.5 L9.703,12.5 L9.703,11.5 L4,11.5 L4,12.5 Z M15,0 L1,0 C0.447,0 0,0.448 0,1 L0,15 C0,15.552 0.447,16 1,16 L15,16 C15.553,16 16,15.552 16,15 L16,1 C16,0.448 15.553,0 15,0 L15,0 Z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(4 4)">
+    <mask id="blog-b" fill="#fff">
+      <use xlink:href="#blog-a"/>
+    </mask>
+    <use fill="#333" xlink:href="#blog-a"/>
+    <g fill="#FFF" mask="url(#blog-b)">
+      <rect width="24" height="24" rx="2" transform="translate(-4 -4)"/>
+    </g>
+  </g>
+</svg>

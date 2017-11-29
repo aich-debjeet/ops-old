@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileService } from '../services/profile.service';
 import { OrganizationService } from '../services/organization.service';
+import { EventService } from '../services/event.service';
 
 @NgModule({
   providers: [
     ProfileService,
-    OrganizationService
+    OrganizationService,
+    EventService
   ],
   imports: [
     CommonModule
