@@ -44,10 +44,10 @@ const childRoutes = [
     path: 'about',
     component: OrgAboutComponent,
   },
-  {
-    path: 'settings',
-    component: OrgSettingsComponent,
-  },
+  // {
+  //   path: 'settings',
+  //   component: OrgSettingsComponent,
+  // },
 ];
 
 const routes: Routes = [

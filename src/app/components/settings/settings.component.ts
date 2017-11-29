@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import { Http, Headers, Response } from '@angular/http';
 import { TokenService } from './../../helpers/token.service';
 import { environment } from '../../../environments/environment';
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 
 // action
@@ -22,7 +23,7 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  providers: [ModalService, ProfileUpdateValidator, DatabaseValidator],
+  providers: [ModalService, ProfileUpdateValidator, DatabaseValidator, DragulaService],
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
@@ -52,16 +53,20 @@ export class SettingsComponent implements OnInit {
   private apiLink: string = environment.API_ENDPOINT;
   userHandle: any;
   blockedUsers = [];
+  preferences = [];
   default: any;
   resendingOtp = false;
   number: any;
-  commentsOption: any // = {name: 'Comments', value: 'Comments', checked: true};
-  spotsOption: any // = {name: 'Spots', value: 'Spots', checked: true};
-  mentionOption: any // = {name: 'Mention', value: 'Mention', checked: true};
-  followersOption: any // = {name: 'Followers', value: 'Followers', checked: true};
-  channelsOption: any // = {name: 'Channels', value: 'Channels', checked: true};
-  donateOption: any // = {name: 'Donate', value: 'Donate', checked: true};
-  networkOption: any // = {name: 'Network', value: 'Network', checked: true};
+  notificationOption = []
+  // commentsOption: any; // = {name: 'Comments', value: 'Comments', checked: true};
+  // spotsOption: any; // = {name: 'Spots', value: 'Spots', checked: true};
+  // mentionOption: any; // = {name: 'Mention', value: 'Mention', checked: true};
+  // followersOption: any; // = {name: 'Followers', value: 'Followers', checked: true};
+  // channelsOption: any; // = {name: 'Channels', value: 'Channels', checked: true};
+  // donateOption: any; // = {name: 'Donate', value: 'Donate', checked: true};
+  // networkOption: any; // = {name: 'Network', value: 'Network', checked: true};
+  adult: any;
+  privateAccount: any;
 
   constructor(
     private _modalService: ModalService,
@@ -71,11 +76,17 @@ export class SettingsComponent implements OnInit {
     private _store: Store<ProfileModal>,
     private store: Store<BasicRegTag>,
     private databaseValidator: DatabaseValidator,
+    private dragula: DragulaService,
   ) {
+    this.dragula.drop.subscribe((value) => {
+      console.log(`drop: ${value[0]}`);
+      this.onDrop(value.slice(1));
+    });
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
        console.log(state);
         this.petTag = state;
+        // console.log(this.petTag)
         if (state['user_number_cng_success'] === true ) {
           console.log('trying to open window')
           this._modalService.open('otpWindow');
@@ -95,6 +106,7 @@ export class SettingsComponent implements OnInit {
     this.storeState$ = this._store.select('profileTags');
 
      this.storeState$.subscribe((state) => {
+       console.log(state)
       this.userProfile = state['profileDetails'];
       console.log(this.userProfile)
       this.userHandle = state['profileDetails'].handle;
@@ -102,24 +114,24 @@ export class SettingsComponent implements OnInit {
       this.blockedUsers = state.blockedUsers;
       console.log(this.blockedUsers)
       if (state.default_notification) {
-         this.default = state.default_notification;
-        this. commentsOption = {name: 'Comments', value: 'Comments', checked: this.default.comments};
-        this.spotsOption = {name: 'Spots', value: 'Spots', checked: this.default.spots};
-        this.mentionOption = {name: 'Mention', value: 'Mention', checked: this.default.mention};
-        this.followersOption = {name: 'Followers', value: 'Followers', checked: this.default.newFollower};
-        this.channelsOption = {name: 'Channels', value: 'Channels', checked: this.default.channels};
-        this.donateOption = {name: 'Donate', value: 'Donate', checked: this.default.donate};
-        this.networkOption = {name: 'Network', value: 'Network', checked: this.default.network};
-      //   console.log(this.default)
-      //   this.commentsOption.checked = this.default.comments;
-      //   this.spotsOption = this.default.spots;
-      //   // this.mentionOption = this.default;
-      //   this.followersOption = this.default.newFollower;
-      //   this.channelsOption = this.default.channels;
-      //   this.donateOption = this.default.donate;
-      //   this.networkOption = this.default.network;
-       }
-
+        console.log('default notifications')
+        this.default = state.default_notification;
+        this.notificationOption = [{name: 'Comments', description: 'Receive an e-mail when other people comment on your posts.' , value: 'Comments', checked: this.default.comments},
+                                  {name: 'Spots', description: 'Receive an e-mail when other people Spot on your posts.' , value: 'Spots', checked: this.default.spots},
+                                  {name: 'Mention', description: 'Receive an e-mail when other people mention you.' , value: 'Mention', checked: this.default.mentions},
+                                  {name: 'Followers', description: 'Receive an e-mail when other people follow you.' , value: 'Followers', checked: this.default.newFollower},
+                                  {name: 'Channels', description: 'Receive an e-mail when other people add you in a channel.' , value: 'Channels', checked: this.default.channels},
+                                  {name: 'Donate', description: 'Receive an e-mail when other people donate you.' , value: 'Donate', checked: this.default.donate},
+                                  {name: 'Network', description: 'Receive an e-mail when other people send you network request.' , value: 'Network', checked: this.default.network}
+        ]
+        }
+      this.adult = {name: 'adult', value: 'adult', checked: state.adult_Content};
+      this.privateAccount = {name: 'private', value: 'private', checked: state['privateAccount']}
+      if (state.preferences !== 'undefined') {
+        console.log(state.preferences)
+        this.preferences = state.preferences;
+        console.log(this.preferences)
+      }
     });
 
     // Username update form init
@@ -184,11 +196,42 @@ export class SettingsComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.selectedView = 'General';
+    // this.selectedView = 'General';
+    this.displayView('General')
     this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
     this._store.dispatch({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS });
-  }
+  //   this.dragula
+  //   .drag
+  //   .subscribe(value => {
+  //     // this.msg = `Dragging the ${ value[1].innerText }!`;
+  //     console.log(value)
+  //   });
 
+  // this.dragula
+  //   .drop
+  //   .subscribe(value => {
+  //     // this.msg = `Dropped the ${ value[1].innerText }!`;
+  //     console.log(value)
+  //     console.log(this.preferences)
+  //   });
+  }
+  private onDrop(args) {
+    const [e, el] = args;
+    console.log('here + ', args , this.preferences)
+    const form = {
+      'homePagePreferences': {
+      'preferences': this.preferences
+      }
+    }
+    console.log(form)
+    const headers = this.tokenService.getAuthHeader();
+      this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
+    .map((data: Response) => data.json())
+    .subscribe(response => {
+      console.log('finally its a success' + response)
+    });
+
+  }
   /**
    * User Form Update
    */
@@ -308,17 +351,6 @@ export class SettingsComponent implements OnInit {
       }
       console.log(send)
       this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: send });
-      // this.store.select('loginTags').take(2).subscribe(data => {
-      //   if (data['user_otp_success'] === true ) {
-      //     this.otpForm.controls['otpNumber'].setValue('')
-      //     this._modalService.close('otpWindow');
-      //    // this._modalService.open('otpSuccess');
-      //     this.phoneFormUpdate(number);
-      //   }
-      //   if (data['user_otp_failed'] === true ) {
-      //     console.log('invalid')
-      //   }
-      // })
     }
   }
 
@@ -333,14 +365,6 @@ export class SettingsComponent implements OnInit {
       console.log(value)
       this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: reqBody });
     }
-    // this.store.select('loginTags').take(2).subscribe(data => {
-    //   if (data['user_number_cng_success'] === true ) {
-    //     // this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
-    //     // this.modalService.close('otpChangeNumber');
-    //     console.log('trying to open window')
-    //     this._modalService.open('otpWindow');
-    //   }
-    // })
   }
 
   resendOtp() {
@@ -529,7 +553,21 @@ export class SettingsComponent implements OnInit {
   }
 
   displayView(tab: string) {
-    this.selectedView = tab;
+    console.log(tab)
+    // if (tab === 'General') {
+    //   this.selectedView = tab;
+    // }
+    // if (tab === 'Security') {
+    //   this.selectedView = tab;
+    // }
+    // if (tab === 'Notification') {
+    //   this.selectedView = tab;
+    //   this._store.dispatch({type: ProfileActions.LOAD_BLOCK_USERS, payload: this.userHandle});
+    // }
+    // if (tab === 'Home') {
+    //   this.selectedView = tab;
+    // }
+   this.selectedView = tab;
     this._store.dispatch({type: ProfileActions.LOAD_BLOCK_USERS, payload: this.userHandle});
   }
 
@@ -569,7 +607,7 @@ export class SettingsComponent implements OnInit {
     if (option.name === 'Mention') {
       const form =  {
         'notificationSettings': {
-          'mention' : option.checked
+          'mentions' : option.checked
         }
       }
       console.log(form)
@@ -627,6 +665,30 @@ export class SettingsComponent implements OnInit {
         'notificationSettings': {
           'network' : option.checked
         }
+      }
+      console.log(form)
+      const headers = this.tokenService.getAuthHeader();
+       this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
+      .map((data: Response) => data.json())
+      .subscribe(response => {
+        console.log('finally its a success' + response)
+      });
+    }
+    if (option.name === 'adult') {
+      const form =  {
+          'allowARC' : option.checked
+      }
+      console.log(form)
+      const headers = this.tokenService.getAuthHeader();
+       this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
+      .map((data: Response) => data.json())
+      .subscribe(response => {
+        console.log('finally its a success' + response)
+      });
+    }
+    if (option.name === 'private') {
+      const form =  {
+          'privateAccount' : option.checked
       }
       console.log(form)
       const headers = this.tokenService.getAuthHeader();

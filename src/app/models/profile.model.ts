@@ -43,6 +43,9 @@ export class ProfileModal {
   user_profiles_all?: any;
   blockedUsers: string[];
   default_notification?: any;
+  adult_Content?: boolean;
+  settings?: any;
+  preferences?: any;
 }
 
 export class ProfileForm {
@@ -94,7 +97,7 @@ export const initialTag: ProfileModal = {
   user_profiles_all_loaded: false,
   user_profiles_all: [],
   // list of block users
-  blockedUsers: []
+  blockedUsers: [],
 };
 
 export class ProfileCard {
