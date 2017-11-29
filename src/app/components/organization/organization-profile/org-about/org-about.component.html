@@ -103,12 +103,13 @@
                                 </p>
                                 <div *ngIf="editingField == 'services'" id="o-org-about-serv_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input" type="text" [(ngModel)]="aboutServices" [ngModelOptions]="{standalone: true}">
-                                        <!-- <tag-input [(ngModel)]='services'
-                                        [placeholder]="'Add Services'"
-                                        [theme]="'ops-theme'"
-                                        [ngModelOptions]="{standalone: true}">
-                                        </tag-input> -->
+                                        <!-- <input class="c-form__input" type="text" [(ngModel)]="aboutServices" [ngModelOptions]="{standalone: true}"> -->
+                                        <tag-input [(ngModel)]='aboutServices'
+                                            [placeholder]="'Add Services'"
+                                            [theme]="'ops-theme'"
+                                            [ngModelOptions]="{standalone: true}"
+                                            ngDefaultControl>
+                                        </tag-input>
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>

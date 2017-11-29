@@ -35,7 +35,7 @@ export class OrgAboutComponent implements OnInit {
   aboutWebsite: any;
   aboutEmail: any;
   aboutDescription: string;
-  aboutServices: string;
+  aboutServices: ['Movies', 'Events', 'Entertainment'];
   // services: any[];
   profileUsername = '';
   profileHandle = '';
@@ -175,7 +175,7 @@ export class OrgAboutComponent implements OnInit {
       reqBody = {
         services: [],
       };
-      const aboutServicesArr = this.aboutServices.split(',');
+      const aboutServicesArr = this.aboutServices;
       aboutServicesArr.forEach((service, index) => {
         reqBody.services.push(service);
         // console.log('index', index);

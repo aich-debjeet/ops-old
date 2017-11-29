@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ImageCropperModule } from 'ng2-img-cropper';
@@ -124,6 +124,9 @@ const routes: Routes = [
     OrgSettingsComponent,
     OrgImageComponent,
     OrgCoverComponent
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ]
 })
 export class OrganizationModule { }
