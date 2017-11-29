@@ -429,7 +429,7 @@
                             <div class="col-md-12 p-0 p-l-8 m-b-24">
                                 <div class="switch_btn">
                                     <label class="switch">
-                                        <input type="checkbox" checked>
+                                        <input type="checkbox" value="adult.value" checked [(ngModel)]="adult.checked" (change)="updateCheckedOptions(adult, $event)">
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
@@ -560,7 +560,7 @@
                             <div class="col-md-12 p-0 m-b-24">
                                 <div class="switch_btn">
                                     <label class="switch">
-                                        <input type="checkbox" checked="">
+                                        <input type="checkbox" name="private" value="{{privateAccount.value}}" checked [(ngModel)]="privateAccount.checked" (change)="updateCheckedOptions(privateAccount, $event)">
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
@@ -587,54 +587,27 @@
                                     </span>
                                 </div>
                             </div>
-                            <!-- block list 1
-                            <div class="o-set-single-block  m-b-16">
-                                <div class="col-md-3 p-0">
-                                    <span class="c-text_md color-grey-dark">
-                                      Ida Lawrence
-                                    </span>
-                                </div>
-                                <div class="col-md-3 p-0">
-                                    <span class="c-text_md">
-                                      <a href="#" class="c-text_md color-theme">Unblock</a>
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- block list 2 -->
-                            <!-- <div class="o-set-single-block  m-b-16">
-                                <div class="col-md-3 p-0">
-                                    <span class="c-text_md color-grey-dark">
-                                        Harriett Drake
-                                    </span>
-                                </div>
-                                <div class="col-md-3 p-0">
-                                    <span class="c-text_md">
-                                        <a href="#" class="c-text_md color-theme">Unblock</a>
-                                    </span>
-                                </div>
-                            </div>  -->
-                            <!-- block list 2 -->
                         </div>
                         <!-- Security & Privacy end -->
                         <div class="tab-pane active" id="set_notification" *ngIf="this.selectedView === 'Notification'">
                             <h6 class="c-text_lg m-b-24">Notification</h6>
-                            <div class="o-set-single-block  m-b-24">
+                            <div class="o-set-single-block  m-b-24" *ngFor="let item of notificationOption; let i=index">
                                 <h6 class="c-text_md m-b-8">
-                                    Comments
+                                    {{item.name}}
                                 </h6>
                                 <div class="switch_btn">
                                     <label class="switch">
-                                    <input type="checkbox" name="commentsOption" value="{{commentsOption.value}}" checked [(ngModel)]="commentsOption.checked" (change)="updateCheckedOptions(commentsOption, $event)">
+                                    <input type="checkbox" name="item.name" value="{{item.value}}" checked [(ngModel)]="item.checked" (change)="updateCheckedOptions(item, $event)">
                                     <!-- <input type="checkbox" checked=""> -->
                                     <span class="slider round"></span>
                                     </label>
                                 </div>
                                 <p class="c-text_md color-grey-dark">
-                                    Receive an e-mail when other people comment on your posts.
+                                    {{item.description}}
                                 </p>
                             </div>
                             <!-- comments end -->
-                            <div class="o-set-single-block  m-b-24">
+                            <!-- <div class="o-set-single-block  m-b-24">
                                 <h6 class="c-text_md m-b-8">
                                     Spots
                                 </h6>
@@ -647,9 +620,9 @@
                                 <p class="c-text_md color-grey-dark">
                                     Receive an e-mail when other people Spot on your posts.
                                 </p>
-                            </div>
+                            </div> -->
                             <!-- Spots end -->
-                            <div class="o-set-single-block  m-b-24">
+                            <!-- <div class="o-set-single-block  m-b-24">
                                 <h6 class="c-text_md m-b-8">
                                     Mentions
                                 </h6>
@@ -662,9 +635,9 @@
                                 <p class="c-text_md color-grey-dark">
                                     Receive an e-mail when other people mention you.
                                 </p>
-                            </div>
+                            </div> -->
                             <!-- Mentions end -->
-                            <div class="o-set-single-block  m-b-24">
+                            <!-- <div class="o-set-single-block  m-b-24">
                                 <h6 class="c-text_md m-b-8">
                                     New Follower
                                 </h6>
@@ -677,9 +650,9 @@
                                 <p class="c-text_md color-grey-dark">
                                     Receive an e-mail when other people follow you.
                                 </p>
-                            </div>
+                            </div> -->
                             <!-- New Follower end -->
-                            <div class="o-set-single-block  m-b-24">
+                            <!-- <div class="o-set-single-block  m-b-24">
                                 <h6 class="c-text_md m-b-8">
                                     Channels
                                 </h6>
@@ -692,9 +665,9 @@
                                 <p class="c-text_md color-grey-dark">
                                     Receive an e-mail when other people add you in a channel.
                                 </p>
-                            </div>
+                            </div> -->
                             <!-- Channels end -->
-                            <div class="o-set-single-block  m-b-24">
+                            <!-- <div class="o-set-single-block  m-b-24">
                                 <h6 class="c-text_md m-b-8">
                                     Donate
                                 </h6>
@@ -707,9 +680,9 @@
                                 <p class="c-text_md color-grey-dark">
                                     Receive an e-mail when other people donate you.
                                 </p>
-                            </div>
+                            </div> -->
                             <!-- Donate end -->
-                            <div class="o-set-single-block  m-b-24">
+                            <!-- <div class="o-set-single-block  m-b-24">
                                 <h6 class="c-text_md m-b-8">
                                     Network
                                 </h6>
@@ -722,7 +695,7 @@
                                 <p class="c-text_md color-grey-dark">
                                     Receive an e-mail when other people send you network request.
                                 </p>
-                            </div>
+                            </div> -->
                             <!-- Network end -->
                         </div>
                         <!-- notification end -->
@@ -737,22 +710,22 @@
                                 </p>
                                 <div class="col-md-12 p-0 m-b-24">
                                     <div class="o-set-prefer-block p-0">
-                                        <div class="o-set-single-block fill-grey-light p-8">
-                                            <a href="#" class="o-set-prefer__drag-btn c-text_md">
+                                        <div class="o-set-single-block fill-grey-light p-8" [dragula]='"bag-one"' [dragulaModel]='preferences'>
+                                            <a href="javascript:void(0)" class="o-set-prefer__drag-btn c-text_md" *ngFor="let item of preferences; let i=index">
                                                 <span class="drag-btn__ico">
                                                     <img src="/assets/img/svg/drag_ico.svg" alt="">
-                                                </span> Spot feed
+                                                </span> {{item}}
                                             </a>
-                                            <a href="#" class="o-set-prefer__drag-btn c-text_md m-l-r-8">
+                                            <!-- <a href="javascript:void(0)" class="o-set-prefer__drag-btn c-text_md">
                                                 <span class="drag-btn__ico">
                                                     <img src="/assets/img/svg/drag_ico.svg" alt="">
                                                 </span> Channel
                                             </a>
-                                            <a href="#" class="o-set-prefer__drag-btn c-text_md">
+                                            <a href="javascript:void(0)" class="o-set-prefer__drag-btn c-text_md">
                                                 <span class="drag-btn__ico">
                                                     <img src="/assets/img/svg/drag_ico.svg" alt="">
                                                 </span> Post
-                                            </a>
+                                            </a> -->
                                         </div>
                                     </div>
                                 </div>
