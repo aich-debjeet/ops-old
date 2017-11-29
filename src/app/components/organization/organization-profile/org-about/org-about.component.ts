@@ -35,7 +35,7 @@ export class OrgAboutComponent implements OnInit {
   aboutWebsite: any;
   aboutEmail: any;
   aboutDescription: string;
-  aboutServices: ['Movies', 'Events', 'Entertainment'];
+  aboutServices: any[];
   aboutServicesStr: string;
   // services: any[];
   profileUsername = '';
@@ -87,6 +87,7 @@ export class OrgAboutComponent implements OnInit {
       }
       // for services
       if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.languages) {
+        this.aboutServices = this.orgProfile.org_profile_details.languages;
         this.aboutServicesStr = this.orgProfile.org_profile_details.languages.join(', ');
         // console.log('aboutServices', this.aboutServices);
       }
@@ -178,9 +179,13 @@ export class OrgAboutComponent implements OnInit {
       };
       const aboutServicesArr = this.aboutServices;
       aboutServicesArr.forEach((service, index) => {
-        reqBody.services.push(service);
-        // console.log('index', index);
+        if (typeof service === 'string') {
+          reqBody.services.push(service);
+        } else {
+          reqBody.services.push(service.value);
+        }
         if (index >= (aboutServicesArr.length - 1)) {
+          // console.log('update services', reqBody.services);
           this.dispatchAboutUpdate(reqBody);
           return;
         }
