@@ -18,6 +18,7 @@ import { OrgSettingsComponent } from './organization-profile/org-settings/org-se
 import { OrgImageComponent } from './organization-profile/org-image/org-image.component';
 import { OrgCoverComponent } from './organization-profile/org-cover/org-cover.component';
 
+import { TagInputModule } from 'ngx-chips';
 
 const childRoutes = [
   {
@@ -109,7 +110,8 @@ const routes: Routes = [
     FormsModule,
     SharedModule,
     ImageCropperModule,
-    MasonryModule
+    MasonryModule,
+    TagInputModule
   ],
   declarations: [
     OrganizationRegComponent,

@@ -36,6 +36,7 @@ export class OrgAboutComponent implements OnInit {
   aboutEmail: any;
   aboutDescription: string;
   aboutServices: ['Movies', 'Events', 'Entertainment'];
+  aboutServicesStr: string;
   // services: any[];
   profileUsername = '';
   profileHandle = '';
@@ -86,7 +87,7 @@ export class OrgAboutComponent implements OnInit {
       }
       // for services
       if (this.orgProfile && this.orgProfile.org_profile_details && this.orgProfile.org_profile_details.languages) {
-        this.aboutServices = this.orgProfile.org_profile_details.languages.join(', ');
+        this.aboutServicesStr = this.orgProfile.org_profile_details.languages.join(', ');
         // console.log('aboutServices', this.aboutServices);
       }
       // loading industries
