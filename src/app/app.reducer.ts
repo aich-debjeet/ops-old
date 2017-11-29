@@ -9,6 +9,7 @@ import { UserSearchReducer } from './reducers/user-search.reducer';
 import { MediaReducer } from './reducers/media.reducer';
 import { OrganizationReducer } from './reducers/organization.reducer';
 import { OpportunityReducer } from './reducers/opportunity.reducer';
+import { EventReducer } from './reducers/event.reducer';
 
 import { combineReducers, ActionReducer } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
@@ -27,7 +28,8 @@ const reducers = {
   opportunityTags: OpportunityReducer,
   receivedMessagesTags: MessageReducer,
   notificationTags: NotificationReducer,
-  organizationTags: OrganizationReducer
+  organizationTags: OrganizationReducer,
+  eventTags: EventReducer
 }
 
 /**

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <path id="volume-a" d="M11.1543,0.106 L4.5083,5 L1.0313,5 C0.4623,5 0.0003,5.461 0.0003,6.031 L0.0003,11.969 C0.0003,12.539 0.4623,13 1.0313,13 L4.5083,13 L11.1543,17.894 C11.4933,18.144 12.0003,17.925 12.0003,17.529 L12.0003,0.471 C12.0003,0.075 11.4933,-0.144 11.1543,0.106"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(6 3)">
+    <mask id="volume-b" fill="#fff">
+      <use xlink:href="#volume-a"/>
+    </mask>
+    <use fill="#333" xlink:href="#volume-a"/>
+    <g fill="#FFF" mask="url(#volume-b)">
+      <rect width="24" height="24" rx="2" transform="translate(-6 -3)"/>
+    </g>
+  </g>
+</svg>
