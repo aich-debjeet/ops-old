@@ -52,6 +52,7 @@ import { NotificationEffect } from './effects/notification.effect';
 import { UserSearchEffect } from './effects/user-search.effect';
 import { SearchEffect } from './effects/search.effect';
 import { OrganizationEffect } from './effects/organization.effect';
+import { EventEffect } from './effects/event.effect';
 
 
 // Services
@@ -180,6 +181,7 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     EffectsModule.run(SearchEffect),
     EffectsModule.run(OrganizationEffect),
     EffectsModule.run(OpportunityEffect),
+    EffectsModule.run(EventEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
