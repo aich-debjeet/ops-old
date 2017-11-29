@@ -14,7 +14,6 @@ import { NotificationComponent } from './components/notification/notification.co
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
-import { EventsComponent } from './components/events/events.component';
 import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
@@ -62,7 +61,7 @@ export const routes: Routes = [
  { path: 'project', component: ProjectComponent, canActivate: [AuthGuard] },
  { path: 'jobs', component: JobsComponent, canActivate: [AuthGuard] },
  { path: 'job-details', component: JobDetailsComponent, canActivate: [AuthGuard] },
- { path: 'events', component: EventsComponent, canActivate: [AuthGuard] },
+ { path: 'events', loadChildren: './components/events/events.module#EventsModule'},
  { path: 'user/settings', component: SettingsComponent, canActivate: [AuthGuard] },
  { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard] },
  { path: 'channel', component: ChannelListComponent, canActivate: [AuthGuard] },

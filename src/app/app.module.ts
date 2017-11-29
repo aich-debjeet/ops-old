@@ -52,6 +52,7 @@ import { NotificationEffect } from './effects/notification.effect';
 import { UserSearchEffect } from './effects/user-search.effect';
 import { SearchEffect } from './effects/search.effect';
 import { OrganizationEffect } from './effects/organization.effect';
+import { EventEffect } from './effects/event.effect';
 
 
 // Services
@@ -84,7 +85,6 @@ import { NotificationComponent } from './components/notification/notification.co
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
-import { EventsComponent } from './components/events/events.component';
 // import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ExploreComponent } from './components/explore/explore.component';
@@ -119,6 +119,7 @@ import { AgmCoreModule } from '@agm/core';
 import { OpportunityEffect } from 'app/effects/opportunity.effect';
 import { OpportunityModule } from 'app/components/opportunity/opportunity.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -131,7 +132,6 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     PortfolioComponent,
     JobsComponent,
     JobDetailsComponent,
-    EventsComponent,
     // SearchComponent,
     SettingsComponent,
     PopularArtistsComponent,
@@ -182,6 +182,7 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     EffectsModule.run(SearchEffect),
     EffectsModule.run(OrganizationEffect),
     EffectsModule.run(OpportunityEffect),
+    EffectsModule.run(EventEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
