@@ -686,7 +686,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     return Object.assign({}, state, {
       default_notification: payload.settings.notificationSettings,
       adult_Content: payload.settings.allowARC,
-      settings: payload,
+      privateAccount: payload.settings.privateAccount,
       preferences: payload.settings.homePagePreferences.preferences
     });
 
