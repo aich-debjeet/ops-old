@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import {IDatePickerConfig} from 'ng2-date-picker';
 import {ActivatedRoute} from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -76,21 +76,24 @@ export class EventsCreateComponent implements OnInit {
   buildForm() {
     this.eventForm = this.fb.group({
       'event_name' : ['', [Validators.required]],
-      'event_startdate' : '',
-      'event_enddate' : '',
+      'event_genres': ['', [Validators.required]],
+      'event_industry': ['', [Validators.required]],
+      'event_venue': ['', [Validators.required]],
+      'event_startdate' : ['', [Validators.required]],
+      'event_enddate' : ['', [Validators.required]],
       'event_agenda' : this.fb.array(
         [this.agendaItem('')]
       ),
       'event_ts_type' : this.fb.array(
         [this.ticketItem('')]
       ),
-      'ts_startTime': '',
       'event_brief' : ['', [Validators.required]],
-      'ts_endTime': ''
+      'ts_startTime': '',
+      'ts_endTime': '',
+      'ts_quantity': '',
     })
 
   }
-
 
   /**
    * More Agenda Item push to Form
@@ -102,14 +105,24 @@ export class EventsCreateComponent implements OnInit {
     })
   }
 
+  pushAgenda() {
+    const control = <FormArray>this.eventForm.controls['event_agenda'];
+    control.push(this.agendaItem(''));
+  }
+
+  pushTicket() {
+    const control = <FormArray>this.eventForm.controls['event_ts_type'];
+    control.push(this.ticketItem(''));
+  }
+
   /**
    * More Ticket Item push to Form
    */
   ticketItem(val: string) {
     return new FormGroup({
-      paymentType: new FormControl(val, Validators.required),
-      ticketName: new FormControl(val, Validators.required),
-      ticketPrice: new FormControl(val),
+      name: new FormControl(val, Validators.required),
+      price: new FormControl(val, Validators.required),
+      quantity: new FormControl(val),
       ticketQuantiy: new FormControl(val, Validators.required)
     })
   }
@@ -120,57 +133,49 @@ export class EventsCreateComponent implements OnInit {
    */
   submitForm(value) {
     console.log(value);
-
+    console.log(this.eventForm.valid);
     // struct of backend
-    const data = {
-        title : value.event_name,
-        eventTiming: {
-          startDate : this.reverseDate(value.event_startdate) + 'T05:00:00',
-          endDate : this.reverseDate(value.event_enddate) + 'T05:00:00',
-        },
-        venue : {
-            line1 : 'BANGALORE',
-            line2 : 'BANGALORE',
-            city : 'BANGALORE',
-            state : 'KARANATAKA',
-            country : 'INDIA',
-            postalCode : '560075',
-            latitude: '',
-            longitude: ''
-        },
-        industry : [
-            'FILM'
-        ],
-        event_agenda: value.event_agenda,
-        brief: value.event_brief,
-        event_media: [''],
-        access : 0,
-        active : true,
-        ratedBy : [],
-        Type: {
-          EntryType : 'Free',
-          eventType : 'Theatre'
-        },
-        // extras: {
-        //   "ticket":
-        //   [{
-        //   "ticketType":[{"name":"Gold",
-        //   "price":0.0,
-        //   "quantity":0,
-        //   "ticketType":"Free"}],
+    // const data = {
+    //     title : value.event_name,
+    //     eventTiming: {
+    //       startDate : this.reverseDate(value.event_startdate) + 'T05:00:00',
+    //       endDate : this.reverseDate(value.event_enddate) + 'T05:00:00',
+    //     },
+    //     venue : {
+    //         line1 : 'BANGALORE',
+    //         line2 : 'BANGALORE',
+    //         city : 'BANGALORE',
+    //         state : 'KARANATAKA',
+    //         country : 'INDIA',
+    //         postalCode : '560075',
+    //         latitude: '',
+    //         longitude: ''
+    //     },
+    //     industry : [
+    //         value.event_industry
+    //     ],
+    //     event_agenda: value.event_agenda,
+    //     brief: value.event_brief,
+    //     event_media: [''],
+    //     access : 0,
+    //     active : true,
+    //     ratedBy : [],
+    //     Type: {
+    //       EntryType : 'Free',
+    //       eventType : 'Theatre'
+    //     },
+    //     extras: {
+    //       Genre:[value.event_genres],
+    //       ticket: [{
+    //         ticketType: value.event_ts_type,
+    //         startDate: this.reverseDate(value.ts_startTime) + 'T05:00:00',
+    //         endDate: this.reverseDate(value.ts_endTime) + 'T05:00:00',
+    //         maximum: value.ts_quantity
+    //       }]
+    //     },
+    //     isFeatured: false
+    // }
 
-        //   "startDate":"2017-09-10T05:00:00",
-        //   "endDate":"2017-09-10T05:00:00",
-        //   "maximum":2
-        // }
-        // ]},
-        // "isFeatured" : true
-    }
-
-
-
-    const ss = this.reverseDate(value.event_startdate) + 'T05:00:00';
-    console.log(ss);
 
     // Dispatch to form value to server
     // this._store.dispatch({ type: ProfileActions.LOAD_DIRECTORY, payload: data });
