@@ -7,7 +7,7 @@
         <div class="o-events-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-24 text_uppercase ltr-space">
           Event details
         </div><!-- subtitle end -->
-        <form [formGroup]="eventForm" novalidate (ngSubmit) = "submitForm(eventForm.value)"  #eventCreate="ngForm">
+        <form [formGroup]="eventForm" novalidate (ngSubmit) = "submitForm(eventForm.value)"  #ecfrom="ngForm">
           <div class="col-md-8 p-0">
 
               <div class="o-events-form__single">
@@ -21,6 +21,7 @@
                     <span class="c-form__bar"></span>
                     <label>Name of event</label>
                   </div>
+                  <p class="error_alert" *ngIf="eventForm.controls['event_name'].errors?.required && ecfrom.submitted">Event Name is required</p>
                 </div>
               </div><!-- Event name end -->
 
@@ -30,7 +31,7 @@
                 </div>
                 <div class="col-md-5 p-0">
                   <div class="c-form__group">
-                    <select class="c-form-control p-l-0">
+                    <select class="c-form-control p-l-0" formControlName="event_genres">
                       <option value="" disabled selected hidden>Select Genre</option>
                       <option value="Concert or Performance">Concert or Performance</option>
                       <option value="Festival or Fair">Festival or Fair</option>
@@ -49,6 +50,7 @@
                       <option value="Conference">Tradeshow, Consumer Show, or Expo</option>
                     </select>
                   </div>
+                  <p class="error_alert" *ngIf="eventForm.controls['event_genres'].errors?.required && ecfrom.submitted">Genres is required</p>
                 </div>
               </div><!-- Genres end -->
 
@@ -58,12 +60,13 @@
                 </div>
                 <div class="col-md-5 p-0">
                   <div class="c-form__group">
-                    <select class="c-form-control p-l-0">
+                    <select class="c-form-control p-l-0" formControlName="event_industry">
                       <option value="" disabled selected hidden>Select Industry</option>
-                      <option>all</option>
-                      <option>Select list 2</option>
+                      <option>Film</option>
+                      <option>Dance</option>
                     </select>
                   </div>
+                  <p class="error_alert" *ngIf="eventForm.controls['event_industry'].errors?.required && ecfrom.submitted">Industry is required</p>
                 </div>
               </div><!-- Industry end -->
                
@@ -74,11 +77,12 @@
                 </div>
                 <div class="col-md-9 p-0">
                   <div class="c-form__group c-form--sm c-form--noeffect">
-                    <input class="c-form__input" required="" type="text">
+                    <input class="c-form__input" required="" type="text" formControlName="event_venue">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                     <label>Event location</label>
                   </div>
+                  <p class="error_alert" *ngIf="eventForm.controls['event_venue'].errors?.required && ecfrom.submitted">Industry is required</p>
                 </div>
               </div><!-- Venue end -->
 
@@ -99,7 +103,7 @@
                 </div>
                 <div class="col-md-3 p-0">
                   <div class="c-form__group c-form--sm c-form--noeffect">
-                    <input class="c-form__input" required formControlName="event_startdate" [(ngModel)]="event_startdate" [dpDayPicker]="config" theme="dp-material">
+                    <input class="c-form__input" required formControlName="event_startdate"  [dpDayPicker]="config" theme="dp-material">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                     <label>Start date</label>
@@ -108,11 +112,16 @@
                 <div class="col-md-1"><p class="c-text_md m-t-16 text-center">to</p></div>
                 <div class="col-md-3 p-0">
                   <div class="c-form__group c-form--sm c-form--noeffect">
-                    <input class="c-form__input" required formControlName="event_enddate" [(ngModel)]="event_endtdate" [dpDayPicker]="config" theme="dp-material" >
+                    <input class="c-form__input" required formControlName="event_enddate" [dpDayPicker]="config" theme="dp-material" >
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                     <label>End date</label>
                   </div>
+                </div>
+                <div class="col-md-3 p-0">
+                </div>
+                <div class="col-md-9 offset-md-3 p-0">
+                  <p class="error_alert" *ngIf="eventForm.controls['event_startdate'].errors?.required && ecfrom.submitted">Start Date and End Date is required</p>
                 </div>
               </div><!-- Date end -->
 
@@ -121,7 +130,7 @@
                   <div class="c-text_md o-events-form-title">Agenda</div>
                 </div>
                 <div class="col-md-9 p-0">
-                  <div class="o-form-add-det-sec"  *ngFor="let event_agenda of eventForm.get('event_agenda').controls; let i=index"
+                  <div class="o-form-add-det-sec"  *ngFor="let event_agenda of eventForm.controls.event_agenda['controls']; let i=index"
               [formGroup]="event_agenda">
                     <div class="col-md-4 p-l-0">
                       <div class="c-form__group c-form--sm c-form--noeffect">
@@ -148,7 +157,7 @@
                     </div>
                   </div><!-- agenda add det sec end -->
                   <div class="o-form-add-link">
-                    <a (click)="eventForm.get('event_agenda').push(agendaItem(''))" class="o-form__add-btn">
+                    <a (click)="pushAgenda()" class="o-form__add-btn">
                       <span class="o-form__add-ico"><img src="/assets/img/svg/plus-red.svg" alt=""></span>
                       <p class="c-text_md color-theme m-l-8 o-form__add-title" >Add more agenda</p>
                     </a>
@@ -200,7 +209,7 @@
                   <div class="c-text_md o-events-form-title">Ticket type</div>
                 </div>
                 <div class="col-md-9 p-0">
-                  <div class="o-form-add-det-sec" *ngFor="let event_ts_type of eventForm.get('event_ts_type').controls; let i=index"
+                  <div class="o-form-add-det-sec" *ngFor="let event_ts_type of  eventForm.controls.event_ts_type['controls']; let i=index"
               [formGroup]="event_ts_type">
                     <div class="col-md-12 p-0 p-t-b-16">
                       <button type="button" class="btn btn-default btn-sm">free</button>
@@ -209,7 +218,7 @@
                     </div>
                     <div class="col-md-4 p-0">
                       <div class="c-form__group c-form--sm c-form--noeffect">
-                        <input class="c-form__input" required type="text" formControlName="ticketName">
+                        <input class="c-form__input" required type="text" formControlName="name">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <label>Ticket name</label>
@@ -217,7 +226,7 @@
                     </div>
                     <div class="col-md-3 p-r-0">
                       <div class="c-form__group c-form--sm c-form--noeffect">
-                        <input class="c-form__input" required type="text" formControlName="ticketPrice">
+                        <input class="c-form__input" required type="text" formControlName="price">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <label>Price</label>
@@ -225,7 +234,7 @@
                     </div>
                     <div class="col-md-3 p-r-0">
                       <div class="c-form__group c-form--sm c-form--noeffect">
-                        <input class="c-form__input" required type="number" formControlName="ticketQuantiy">
+                        <input class="c-form__input" required type="number" formControlName="quantity">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <label>Qunatity</label>
@@ -239,8 +248,8 @@
                       </div>
                     </div>
                   </div><!-- Ticket type add det sec end -->
-                  <div class="o-form-add-link m-t-b-8">
-                    <a (click)="eventForm.get('event_ts_type').push(ticketItem(''))"  class="o-form__add-btn">
+                  <div class="o-form-add-link m-t-b-8">pushTicket()
+                    <a (click)="pushTicket()"  class="o-form__add-btn">
                       <span class="o-form__add-ico"><img src="/assets/img/svg/plus-red.svg" alt=""></span>
                       <p class="c-text_md color-theme m-l-8 o-form__add-title">Add more ticket type</p>
                     </a>
@@ -277,7 +286,7 @@
               </div>
               <div class="col-md-5 p-0">
                 <div class="c-form__group c-form--sm c-form--noeffect">
-                  <input class="c-form__input" required type="number">
+                  <input class="c-form__input" required type="number" formControlName="ts_quantity">
                   <span class="c-form__highlight"></span>
                   <span class="c-form__bar"></span>
                   <label>Qunatity</label>
