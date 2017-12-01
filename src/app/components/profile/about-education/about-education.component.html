@@ -1,129 +1,132 @@
 <div id="about_education">
-  <div class="row">
-      <div class="col-md-6 col-sm-6 overview_section">
-          <div class="row sm_panel_body" *ngIf="ownProfile">
-              <div class="col-md-2 sm_panel_left">
-                  <a (click)="addEducationUser()">
-                      <div class="add_plus">+</div>
-                  </a>
-              </div>
-              <div class="col-md-8 sm_panel_right">
-                  <h3 class="padd_t12">Add Education Details</h3>
-              </div>
-          </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-6 overview_section">
+            <div class="row sm_panel_body" *ngIf="ownProfile">
+                <div class="col-md-2 sm_panel_left">
+                    <a (click)="addEducationUser()">
+                        <div class="add_plus">+</div>
+                    </a>
+                </div>
+                <div class="col-md-8 sm_panel_right">
+                    <h3 class="padd_t12">Add Education Details</h3>
+                </div>
+            </div>
 
-          <div class="row sm_panel_body" *ngFor="let work of userProfile?.academics">
-              <div class="col-md-2 sm_panel_left">
-                  <figure class="avatar_overview">
-                      <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
-                  </figure>
-              </div>
-              <div class="col-md-8 sm_panel_right">
+            <div class="row sm_panel_body" *ngFor="let work of userProfile?.academics">
+                <div class="col-md-2 sm_panel_left">
+                    <figure class="avatar_overview">
+                        <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
+                    </figure>
+                </div>
+                <div class="col-md-8 sm_panel_right">
                     <div class="work-group">
                         <h3>{{ work.name }}<span> at </span> {{ work.institute }}</h3>
                         <p>From {{ work.from | date:'MMMM, y'}}</p>
                     </div>
                     <div class="workplace_edit_remove_ico" *ngIf="ownProfile">
-                        <a (click) = "editCurrentEducation(work)" class="edit_remove_ico"><img src="http://d33wubrfki0l68.cloudfront.net/8acba050eb7fc142849496e9d39c31e6ec848ebc/3b55c/img/svg/ico_edit.svg" alt=""></a>
-                        <a (click) = "deleteCurrentEducation(work.id)" class="edit_remove_ico"><img src="http://d33wubrfki0l68.cloudfront.net/b3dd9a5fe04c6921b6c04fd3d4647f713a92b32c/a4a4a/img/svg/ico_delete.svg"></a>
+                        <a (click)="editCurrentEducation(work)" class="edit_remove_ico"><img src="http://d33wubrfki0l68.cloudfront.net/8acba050eb7fc142849496e9d39c31e6ec848ebc/3b55c/img/svg/ico_edit.svg" alt=""></a>
+                        <a (click)="deleteCurrentEducation(work.id)" class="edit_remove_ico"><img src="http://d33wubrfki0l68.cloudfront.net/b3dd9a5fe04c6921b6c04fd3d4647f713a92b32c/a4a4a/img/svg/ico_delete.svg"></a>
                     </div>
-              </div>
+                </div>
 
-          </div>
-      </div>
+            </div>
+        </div>
 
-  </div>
+    </div>
 </div>
 
 <app-modal [modalTitle]="''" [blocking]='false' modalId='userEducationkAdd' *ngIf="ownProfile" size="tiny__form">
-    
-        <form [formGroup]="educationForm" novalidate #myform="ngForm" (submit)= "educationSubmit(educationForm.value)">
-            <div class="edit-profile_main">
-                <div class="edit-profile_head">
-                    <div class="col-md-6 padding_none">
-                        <h2>Education</h2>
-                    </div>
-                    <div class="col-md-6 padding_none text-right">
-                    <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click) = "educationFormClose()">Cancel</app-button>
+
+    <form [formGroup]="educationForm" novalidate #myform="ngForm" (submit)="educationSubmit(educationForm.value)">
+        <div class="edit-profile_main">
+            <div class="edit-profile_head">
+                <div class="col-md-6 padding_none">
+                    <h2>Education</h2>
+                </div>
+                <div class="col-md-6 padding_none text-right">
+                    <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="educationFormClose()">Cancel</app-button>
                     <app-button *ngIf="!editFormPopup" [className]="'btn btn-primary btn-sm'" [type]="'submit'">Add</app-button>
                     <app-button *ngIf="editFormPopup" [className]="'btn btn-primary btn-sm'" [type]="'submit'">Update</app-button>
-                    </div>
                 </div>
-                <!-- edit profile head end -->
+            </div>
+            <!-- edit profile head end -->
 
 
-                <!-- contact info end -->
+            <!-- contact info end -->
 
-                <div class="edit-profile_sec_block">
-                    <!-- edit profile sec head -->
-                    <div id="work" class="edit-profile_content_block show" style="display: none;">
-                        <div class="edit-profile_add_sec">
-                            <div id="add_workplace" class="profile_add_det" >
-                            
-                                <div class="editarea">
-                                    <div class="editarea_leftbar">
-                                        <div class="add_workplace_logo">
-                                            <input type="file"  name="photo" id="upload-photo">
-                                            <div class="add_media_plus_ico">
-                                                <img src="/assets/img/svg/ico_add-grey.svg" alt="">
-                                            </div>
-                                        </div>
-                                        <span class="add_logo_txt">Add Photo</span>
-                                    </div>
-                                    <!-- left bar end -->
-                                    <div class="editarea_rightbar">
-                                        <div class="form_group">
-                                            <input class="form_input"  type="hidden" formControlName="id">
-                                            <input class="form_input"  type="text" maxlength="40" formControlName="institute" required>
-                                            <span class="form_highlight"></span>
-                                            <span class="form_bar"></span>
-                                            <label>Institute</label>
-                                            <p class="error_alert" *ngIf="educationForm.controls['institute'].errors?.required && myform.submitted" required>Institute is required</p>
-                                        </div>
-                                        <div class="form_group">
-                                            <input class="form_input" type="text" maxlength="40" formControlName="course" required>
-                                            <span class="form_highlight"></span>
-                                            <span class="form_bar"></span>
-                                            <label>Course</label>
-                                            <p class="error_alert" *ngIf="educationForm.controls['course'].errors?.required && myform.submitted">Course is required</p>
-                                        </div>
-                                        <div class="add_workplace_time_period">
-                                            <h4>Time Period</h4>
-                                            <div class="form_group">
-                                                <input class="form_input" type="text" formControlName="from" [textMask]="{mask: dateMask}" required>
-                                                <span class="form_highlight"></span>
-                                                <span class="form_bar"></span>
-                                                <label>from</label>
-                                                <p class="error_alert" *ngIf="educationForm.controls['from'].errors?.required && myform.submitted">From Date is required</p>
-                                            </div>
-                                            <div class="form_group">
-                                                <input class="form_input" type="text" formControlName="to" [textMask]="{mask: dateMask}" required>
-                                                <span class="form_highlight"></span>
-                                                <span class="form_bar"></span>
-                                                <label>To</label>
-                                                <p class="error_alert" *ngIf="educationForm.controls['to'].errors?.required && myform.submitted">To Date is required</p>
-                                            </div>
+            <div class="edit-profile_sec_block">
+                <!-- edit profile sec head -->
+                <div id="work" class="edit-profile_content_block show" style="display: none;">
+                    <div class="edit-profile_add_sec">
+                        <div id="add_workplace" class="profile_add_det">
+
+                            <div class="editarea">
+                                <div class="editarea_leftbar">
+                                    <div class="add_workplace_logo">
+                                        <input type="file" name="photo" id="upload-photo">
+                                        <div class="add_media_plus_ico">
+                                            <img src="/assets/img/svg/ico_add-grey.svg" alt="">
                                         </div>
                                     </div>
-                                    <!-- right bar end -->
-                                    <div class="bottom_actions">
+                                    <span class="add_logo_txt">Add Photo</span>
+                                </div>
+                                <!-- left bar end -->
+                                <div class="editarea_rightbar">
+                                    <div class="form_group">
+                                        <input class="form_input" type="hidden" formControlName="id">
+                                        <input class="form_input" type="text" maxlength="40" formControlName="institute" required>
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label>Institute</label>
+                                        <p class="error_alert" *ngIf="educationForm.controls['institute'].errors?.required && myform.submitted" required>Institute is required</p>
+                                    </div>
+                                    <div class="form_group">
+                                        <input class="form_input" type="text" maxlength="40" formControlName="course" required>
+                                        <span class="form_highlight"></span>
+                                        <span class="form_bar"></span>
+                                        <label>Course</label>
+                                        <p class="error_alert" *ngIf="educationForm.controls['course'].errors?.required && myform.submitted">Course is required</p>
+                                    </div>
+                                    <div class="add_workplace_time_period">
+                                        <h4>Time Period</h4>
                                         <div class="form_group">
-                                            <select class="form-control" id="sel1" formControlName="publicWork">
+                                            <input class="form_input" type="text" formControlName="from" [textMask]="{mask: dateMask}" required>
+                                            <span class="form_highlight"></span>
+                                            <span class="form_bar"></span>
+                                            <label>from</label>
+                                            <p class="error_alert" *ngIf="educationForm.controls['from'].errors?.required && myform.submitted">From Date is required</p>
+                                            <p class="error_alert" *ngIf="educationForm.controls['from'].errors?.invalidWorkDate">Invalid Date</p>
+                                        </div>
+                                        <div class="form_group">
+                                            <input class="form_input" type="text" formControlName="to" [textMask]="{mask: dateMask}" required>
+                                            <span class="form_highlight"></span>
+                                            <span class="form_bar"></span>
+                                            <label>To</label>
+                                            <p class="error_alert" *ngIf="educationForm.controls['to'].errors?.required && myform.submitted">To Date is required</p>
+                                            <p class="error_alert" *ngIf="educationForm.controls['to'].errors?.invalidWorkDate">Invalid Date</p>
+                                            <p class="error_alert" *ngIf="educationForm.controls['to'].errors?.isvalid">From Date can not be greater than To Date</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- right bar end -->
+                                <div class="bottom_actions">
+                                    <div class="form_group">
+                                        <select class="form-control" id="sel1" formControlName="publicWork">
                                                 <option value="1">Private</option>
                                                 <option value="0">Public</option>
                                             </select>
-                                        </div>
-                                        <!--<div class="action_btn">
+                                    </div>
+                                    <!--<div class="action_btn">
                                             <button type="button" class="btn btn-primary btn-sm">Save</button>
                                             <button type="button" class="btn btn-default btn-sm">Cancel</button>
                                         </div>-->
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- edit profile content block end -->
                 </div>
+                <!-- edit profile content block end -->
             </div>
-        </form>
+        </div>
+    </form>
 </app-modal>
