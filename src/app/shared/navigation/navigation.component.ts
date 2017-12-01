@@ -5,6 +5,7 @@ import { ProfileModal, initialTag } from '../../models/profile.model';
 import { Organization, initialOrganization } from '../../models/organization.model';
 
 import { LocalStorageService } from './../../services/local-storage.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // action
 import { ProfileActions } from '../../actions/profile.action';
@@ -52,7 +53,8 @@ export class NavigationComponent implements OnInit {
     private el: ElementRef,
     private renderer: Renderer,
     public generalHelper: GeneralUtilities,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private router: Router
   ) {
 
     this.topNav = {
@@ -98,6 +100,7 @@ export class NavigationComponent implements OnInit {
     this.orgState$ = this.store.select('organizationTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
+      // this.router.navigate(['org/page']);
       // console.log('orgProfile', this.orgProfile);
     });
     /* org state */
@@ -253,6 +256,7 @@ export class NavigationComponent implements OnInit {
   /* =================================== notification =================================== */
 
   setProfileToOrg() {
+    console.log('comming again and again')
     let orgHandle, orgUsername;
     if (this.userProfile && this.userProfile.profileUser && this.userProfile.profileUser.organization && this.userProfile.profileUser.organization.organizationUserName) {
       orgUsername = this.userProfile.profileUser.organization.organizationUserName;
@@ -265,9 +269,12 @@ export class NavigationComponent implements OnInit {
       username: orgUsername
     });
     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
+    // this.router.navigate(['org/page']);
+    // this.router.navigateByUrl('org/page');
   }
 
   setProfileToUser() {
+    console.log('comming again and again')
     let userHandle, usersUsername;
     if (this.userProfile && this.userProfile.profileUser && this.userProfile.profileUser.username && this.userProfile.profileUser.handle) {
       usersUsername = this.userProfile.profileUser.username;
@@ -279,6 +286,8 @@ export class NavigationComponent implements OnInit {
       handle: userHandle,
       username: usersUsername
     });
+    // this.router.navigate(['profile']);
+    // this.router.navigateByUrl('profile');
   }
 
 }

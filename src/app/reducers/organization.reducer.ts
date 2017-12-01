@@ -91,6 +91,7 @@ export const OrganizationReducer: ActionReducer<any> = (state = initialOrganizat
      * Get Org Profile Deatils
      */
     case OrganizationActions.ORG_PROFILE_DETAILS_SUCCESS:
+      // this.router.navigate(['org/page']);
       return Object.assign({}, state, {
         org_profile_details: payload
       });
