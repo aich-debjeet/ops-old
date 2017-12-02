@@ -96,10 +96,7 @@
                     </li>
                     <li>
                         <a *ngIf="this.profileType == 'user'" routerLink="/profile" class=" opsheader-lineheight30">
-                            <img src="{{ baseUrl + userProfile.profile_navigation_details?.profileImage }}" class="img-responsive header-prof-img">
-                        </a>
-                        <a *ngIf="this.profileType == 'org'" routerLink="/org/page" class=" opsheader-lineheight30">
-                            <img src="{{ baseUrl + orgProfile.org_profile_details?.profileImage }}" class="img-responsive header-prof-img">
+                            <img src="{{ baseUrl + activeProfileState.profile_navigation_details?.profileImage }}" class="img-responsive header-prof-img">
                         </a>
                     </li>
                     <li class="dropdown opsheader-paddingt6" appDropdown>
@@ -110,23 +107,22 @@
                             <li>
                                 <ul class="list-inline head_drop_thumb">
                                     <li class="list-inline-item">
-                                        <img *ngIf="this.profileType == 'user'" src="{{ baseUrl + userProfile.profile_navigation_details?.profileImage }}" class="img-responsive img-circle">
-                                        <img *ngIf="this.profileType == 'org'" src="{{ baseUrl + orgProfile.org_profile_details?.profileImage }}" class="img-responsive img-circle">
+                                        <img *ngIf="this.profileType == 'user'" src="{{ baseUrl + activeProfileState.profile_navigation_details?.profileImage }}" class="img-responsive img-circle">
                                     </li>
                                     <li *ngIf="this.profileType == 'user'" class="list-inline-item">
-                                        <h4 routerLink="/profile">{{ userProfile.profile_navigation_details?.name }} </h4>
-                                        <p>@{{ userProfile.profile_navigation_details?.username }}</p>
+                                        <h4 routerLink="/profile">{{ activeProfileState.profile_navigation_details?.name }} </h4>
+                                        <p>@{{ activeProfileState.profile_navigation_details?.username }}</p>
                                     </li>
                                     <li *ngIf="this.profileType == 'org'" class="list-inline-item">
-                                        <h4 routerLink="/profile">{{ orgProfile.org_profile_details?.name }} </h4>
-                                        <p>@{{ orgProfile.org_profile_details?.extra?.username }}</p>
+                                        <h4 routerLink="/profile">{{ activeProfileState.profile_details?.name }} </h4>
+                                        <p>@{{ activeProfileState.profile_details?.extra?.username }}</p>
                                     </li>
                                 </ul>
                             </li>
                             <li role="separator" class="divider"></li>
-                            <li *ngIf="this.profileType == 'user' && !userProfile.profile_navigation_details?.isOrganization"><a routerLink="/org/registration">Create Organization</a></li>
-                            <li *ngIf="this.profileType == 'user' && userProfile.profile_navigation_details?.isOrganization"><a routerLink="/org/page" (click)="setProfileToOrg()">{{ userProfile.profile_navigation_details?.organization?.organizationName }}</a></li>
-                            <li *ngIf="this.profileType == 'org'"><a routerLink="/profile" (click)="setProfileToUser()">@{{ userProfile.profile_navigation_details?.username }}</a></li>
+                            <li *ngIf="this.profileType == 'user' && !activeProfileState.profile_navigation_details?.isOrganization"><a routerLink="/org/registration">Create Organization</a></li>
+                            <li *ngIf="this.profileType == 'user' && activeProfileState.profile_navigation_details?.isOrganization"><a routerLink="/org/page" (click)="setProfileToOrg()">{{ activeProfileState.profile_navigation_details?.organization?.organizationName }}</a></li>
+                            <li *ngIf="this.profileType == 'org'"><a routerLink="/profile" (click)="setProfileToUser()">@{{ activeProfileState.profile_navigation_details?.username }}</a></li>
                             <li>
                                 <a *ngIf="this.profileType == 'user'" routerLink="/user/settings">Settings</a>
                                 <a *ngIf="this.profileType == 'org'" routerLink="/org/settings">Settings</a>

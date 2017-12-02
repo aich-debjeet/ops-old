@@ -2,7 +2,7 @@ import { Component, Directive, OnInit, HostListener, Renderer, ElementRef, HostB
 import { ModalService } from '../modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../models/profile.model';
-import { Organization, initialOrganization } from '../../models/organization.model';
+import { Organization } from '../../models/organization.model';
 
 import { LocalStorageService } from './../../services/local-storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -29,14 +29,9 @@ import { GeneralUtilities } from '../../helpers/general.utils';
 export class NavigationComponent implements OnInit {
 
   topNav: any;
-
   baseUrl: string;
-  showMenu: boolean;
-  tagState$: Observable<ProfileModal>;
-  orgState$: Observable<Organization>;
-  private tagStateSubscription: Subscription;
-  userProfile = initialTag;
-  orgProfile;
+  profileState$: Observable<ProfileModal>;
+  activeProfileState = initialTag;
   profileType: string;
   isProfileSet = false;
 
@@ -67,11 +62,11 @@ export class NavigationComponent implements OnInit {
     };
 
     this.baseUrl = environment.API_IMAGE;
-    this.tagState$ = this.store.select('profileTags');
+    this.profileState$ = this.store.select('profileTags');
 
     /* user state */
-    this.tagState$.subscribe((state) => {
-      this.userProfile = state;
+    this.profileState$.subscribe((state) => {
+      this.activeProfileState = state;
       console.log('profile state', state);
 
       if (!this.isProfileSet && state && state.profile_navigation_details && state.profile_navigation_details.profileImage) {
@@ -95,15 +90,6 @@ export class NavigationComponent implements OnInit {
     /* user state */
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-
-    /* org state */
-    this.orgState$ = this.store.select('organizationTags');
-    this.orgState$.subscribe((state) => {
-      this.orgProfile = state;
-      // this.router.navigate(['org/page']);
-      // console.log('orgProfile', this.orgProfile);
-    });
-    /* org state */
 
     /* ========================== notification ========================== */
     // loading notifications
@@ -257,9 +243,9 @@ export class NavigationComponent implements OnInit {
 
   setProfileToOrg() {
     let orgHandle, orgUsername;
-    if (this.userProfile && this.userProfile['profile_navigation_details']['organization']['organizationUserName']) {
-      orgUsername = this.userProfile['profile_navigation_details']['organization']['organizationUserName'];
-      orgHandle = this.userProfile['profile_navigation_details']['organization']['organizationHandle'];
+    if (this.activeProfileState && this.activeProfileState['profile_navigation_details']['organization']['organizationUserName']) {
+      orgUsername = this.activeProfileState['profile_navigation_details']['organization']['organizationUserName'];
+      orgHandle = this.activeProfileState['profile_navigation_details']['organization']['organizationHandle'];
     }
     this.profileType = 'org';
     this.localStorageService.theAccountStatus = JSON.stringify({
@@ -272,9 +258,9 @@ export class NavigationComponent implements OnInit {
 
   setProfileToUser() {
     let userHandle, usersUsername;
-    if (this.userProfile && this.userProfile['profile_navigation_details'] && this.userProfile['profile_navigation_details']['username'] && this.userProfile['profile_navigation_details']['handle']) {
-      usersUsername = this.userProfile['profile_navigation_details']['username'];
-      userHandle = this.userProfile['profile_navigation_details']['handle'];
+    if (this.activeProfileState && this.activeProfileState['profile_navigation_details'] && this.activeProfileState['profile_navigation_details']['username'] && this.activeProfileState['profile_navigation_details']['handle']) {
+      usersUsername = this.activeProfileState['profile_navigation_details']['username'];
+      userHandle = this.activeProfileState['profile_navigation_details']['handle'];
     }
     this.profileType = 'user';
     this.localStorageService.theAccountStatus = JSON.stringify({
