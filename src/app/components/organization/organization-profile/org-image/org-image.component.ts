@@ -61,7 +61,7 @@ export class OrgImageComponent implements OnInit {
       console.log(state);
     });
 
-    this._store.select('organizationTags').subscribe((state) => {
+    this._store.select('profileTags').subscribe((state) => {
       this.stateOrg = state;
     });
 
@@ -176,7 +176,7 @@ export class OrgImageComponent implements OnInit {
     }
 
     // Get own user handle
-    this._store.select('organizationTags')
+    this._store.select('profileTags')
       .first(org => org['image_upload_success'] === true)
       .subscribe( data => {
         console.log('upload sucess');
@@ -199,7 +199,7 @@ export class OrgImageComponent implements OnInit {
     this._store.dispatch({ type: OrganizationActions.ORG_PROFILE_UPDATE, payload: data });
 
     // profile update sucess
-    this._store.select('organizationTags')
+    this._store.select('profileTags')
       .first(org => org['org_profile_update_success'] === true)
       .subscribe( orgUpdate => {
         console.log('profile upload sucess');

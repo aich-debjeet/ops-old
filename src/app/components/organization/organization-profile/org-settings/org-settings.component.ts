@@ -68,7 +68,7 @@ export class OrgSettingsComponent implements OnInit {
       }
     });
 
-    this.orgStates$ = this.store.select('organizationTags')
+    this.orgStates$ = this.store.select('profileTags')
     this.orgStates$.subscribe((state) => {
       this.orgProfile = state;
       console.log(this.orgProfile)

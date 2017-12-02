@@ -53,7 +53,7 @@ export class OrganizationProfileComponent implements OnInit {
       }
     }
 
-    // this.orgState = this.orgStore.select('organizationTags');
+    // this.orgState = this.orgStore.select('profileTags');
     // this.orgState.subscribe((state) => {
     //   this.orgProfile = state;
     //   console.log('this.orgProfile', this.orgProfile);

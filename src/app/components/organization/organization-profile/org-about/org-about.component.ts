@@ -65,7 +65,7 @@ export class OrgAboutComponent implements OnInit {
     // this.services = ['UI design', 'Web Application Development', 'Social Media'];
 
     /* org state */
-    this.orgState$ = this.store.select('organizationTags');
+    this.orgState$ = this.store.select('profileTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
       console.log('this.orgProfile ABOUT ORG', this.orgProfile);
