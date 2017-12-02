@@ -62,8 +62,7 @@
                   <div class="c-form__group">
                     <select class="c-form-control p-l-0" formControlName="event_industry">
                       <option value="" disabled selected hidden>Select Industry</option>
-                      <option>Film</option>
-                      <option>Dance</option>
+                      <option *ngFor="let industry of industryList" value="{{ industry?.code }}">{{ industry?.name }}</option>
                     </select>
                   </div>
                   <p class="error_alert" *ngIf="eventForm.controls['event_industry'].errors?.required && ecfrom.submitted">Industry is required</p>
@@ -103,7 +102,7 @@
                 </div>
                 <div class="col-md-3 p-0">
                   <div class="c-form__group c-form--sm c-form--noeffect">
-                    <input class="c-form__input" required formControlName="event_startdate"  [dpDayPicker]="config" theme="dp-material">
+                    <input class="c-form__input" required formControlName="event_startdate"  [dpDayPicker]="config"   theme="dp-material">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                     <label>Start date</label>
@@ -134,7 +133,7 @@
               [formGroup]="event_agenda">
                     <div class="col-md-4 p-l-0">
                       <div class="c-form__group c-form--sm c-form--noeffect">
-                        <input class="c-form__input" required="" type="text" formControlName="startTime"   [dpDayPicker]="config" theme="dp-material">
+                        <input class="c-form__input" required=""  formControlName="startTime"  type="datetime-local" >
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <label>Date</label>
@@ -172,12 +171,12 @@
                 <div class="col-md-9 p-0">
                   <div class="c-radio__sm p-t-16">
                     <label class="col-md-2 p-l-0">
-                      <input name="demo" type="radio">
+                      <input name="access" type="radio" value="0" formControlName="access">
                       <span></span>
                       <div class="c-radio--label c-text_md color-grey-dark">Public</div>
                     </label>
                     <label class="col-md-2 p-0">
-                      <input name="demo" type="radio">
+                      <input name="access" type="radio" value="1" formControlName="access">
                       <span></span>
                       <div class="c-radio--label c-text_md color-grey-dark">Private</div>
                     </label>
@@ -185,12 +184,32 @@
                 </div>
               </div><!-- Event type end -->
 
+              <div class="o-events-form__single">
+                <div class="col-md-3 p-0">
+                  <div class="c-text_md o-events-form-title">Entry Type</div>
+                </div>
+                <div class="col-md-9 p-0">
+                  <div class="c-radio__sm p-t-16">
+                    <label class="col-md-2 p-l-0">
+                      <input name="event_type" type="radio" value="Free" formControlName="event_type">
+                      <span></span>
+                      <div class="c-radio--label c-text_md color-grey-dark">Free</div>
+                    </label>
+                    <label class="col-md-2 p-0">
+                      <input name="event_type" #paid type="radio" value="Paid" disabled formControlName="event_type">
+                      <span></span>
+                      <div class="c-radio--label c-text_md color-grey-dark">Paid</div>
+                    </label>
+                  </div>
+                </div>
+              </div><!-- Event type end -->
           </div>
           <div class="col-md-4">
             <div class="o-event-form-upload-img">
-              <input type="file" class="o-event-upload__file">
+              <input type="file" class="o-event-upload__file" (change)="fileChangeListener($event)">
               <div class="o-event-form-upload__container">
-                <div class="c-text_md f-w_600 text_uppercase color-theme ltr-space">Upload event image</div>
+                <img *ngIf="image" class="event-image" src="{{image}}">
+                <div *ngIf="!image" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">Upload event image</div>
               </div>
             </div>
             <p class="c-text_sm text-center color-grey-dark o-event-upload__info">
@@ -204,57 +223,10 @@
 
           <div class="col-md-8 p-0">
 
-            <div class="o-events-form__single">
-                <div class="col-md-3 p-0">
-                  <div class="c-text_md o-events-form-title">Ticket type</div>
-                </div>
-                <div class="col-md-9 p-0">
-                  <div class="o-form-add-det-sec" *ngFor="let event_ts_type of  eventForm.controls.event_ts_type['controls']; let i=index"
-              [formGroup]="event_ts_type">
-                    <div class="col-md-12 p-0 p-t-b-16">
-                      <button type="button" class="btn btn-default btn-sm">free</button>
-                      <button type="button" class="btn btn-primary btn-sm">Paid</button>
-                      
-                    </div>
-                    <div class="col-md-4 p-0">
-                      <div class="c-form__group c-form--sm c-form--noeffect">
-                        <input class="c-form__input" required type="text" formControlName="name">
-                        <span class="c-form__highlight"></span>
-                        <span class="c-form__bar"></span>
-                        <label>Ticket name</label>
-                      </div>
-                    </div>
-                    <div class="col-md-3 p-r-0">
-                      <div class="c-form__group c-form--sm c-form--noeffect">
-                        <input class="c-form__input" required type="text" formControlName="price">
-                        <span class="c-form__highlight"></span>
-                        <span class="c-form__bar"></span>
-                        <label>Price</label>
-                      </div>
-                    </div>
-                    <div class="col-md-3 p-r-0">
-                      <div class="c-form__group c-form--sm c-form--noeffect">
-                        <input class="c-form__input" required type="number" formControlName="quantity">
-                        <span class="c-form__highlight"></span>
-                        <span class="c-form__bar"></span>
-                        <label>Qunatity</label>
-                      </div>
-                    </div>
-                    <div class="col-md-2 p-l-0">
-                      <div class="o-form-trash m-t-8">
-                        <div class="o-form-trash__ico">
-                          <img src="/assets/img/svg/delete.svg" (click)="eventForm.get('event_ts_type').removeAt(i)">
-                        </div>
-                      </div>
-                    </div>
-                  </div><!-- Ticket type add det sec end -->
-                  <div class="o-form-add-link m-t-b-8">pushTicket()
-                    <a (click)="pushTicket()"  class="o-form__add-btn">
-                      <span class="o-form__add-ico"><img src="/assets/img/svg/plus-red.svg" alt=""></span>
-                      <p class="c-text_md color-theme m-l-8 o-form__add-title">Add more ticket type</p>
-                    </a>
-                  </div><!-- Ticket type add link end -->
-                </div>
+            <div class="o-events-form__single" *ngIf="paid.checked">
+              <div class="col-md-12 p-0">
+                <label>Comming Soon</label>
+              </div>
             </div><!-- Ticket type end -->
 
             <div class="o-events-form__single">

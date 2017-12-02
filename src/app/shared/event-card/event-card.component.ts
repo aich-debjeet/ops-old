@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { environment } from './../../../environments/environment';
 
 @Component({
   selector: 'app-event-card',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./event-card.component.scss']
 })
 export class EventCardComponent implements OnInit {
+  @Input() eventData;
+  baseUrl = environment.API_IMAGE;
 
   constructor() { }
 
