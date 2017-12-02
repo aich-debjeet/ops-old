@@ -67,12 +67,13 @@ export class NavigationComponent implements OnInit {
     /* profile state */
     this.profileState$.subscribe((state) => {
       this.activeProfileState = state;
-      console.log('profile state', state);
+      // console.log('profile state', state);
 
       if (!this.isProfileSet && state && state.profile_navigation_details && state.profile_navigation_details.profileImage) {
         this.isProfileSet = true;
         // check for account type in localStorage
         if (localStorage.getItem('active_profile') === null) {
+          this.profileType = 'user';
           this.setProfileToUser();
         } else {
           const localStore = JSON.parse(localStorageService.theAccountStatus);
@@ -85,6 +86,7 @@ export class NavigationComponent implements OnInit {
           }
         }
       }
+      console.log('this.profileType', this.profileType);
 
     });
     /* profile state */
