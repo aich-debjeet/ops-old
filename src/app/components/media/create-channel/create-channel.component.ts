@@ -163,7 +163,7 @@ export class CreateChannelComponent implements OnInit {
     let profileHandle = userHandle;
 
     // check if creator is user or organization
-    if (localStorage.getItem('accountStatus') !== null) {
+    if (localStorage.getItem('active_profile') !== null) {
       const localStore = JSON.parse(this.localStorageService.theAccountStatus);
       // console.log('localStore', localStore);
       if (localStore && localStore.handle && localStore.handle.length > 0) {

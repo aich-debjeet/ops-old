@@ -77,7 +77,7 @@ export class NavigationComponent implements OnInit {
       if (!this.isProfileSet && state && state.profile_navigation_details && state.profile_navigation_details.profileImage) {
         this.isProfileSet = true;
         // check for account type in localStorage
-        if (localStorage.getItem('accountStatus') === null) {
+        if (localStorage.getItem('active_profile') === null) {
           this.setProfileToUser();
         } else {
           const localStore = JSON.parse(localStorageService.theAccountStatus);

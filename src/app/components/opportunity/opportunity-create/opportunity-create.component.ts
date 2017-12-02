@@ -149,7 +149,7 @@ export class OpportunityCreateComponent implements OnInit {
     this.createChannelForm();
 
     // check if creator is user or organization
-    if (localStorage.getItem('accountStatus') !== null) {
+    if (localStorage.getItem('active_profile') !== null) {
       const localStore = JSON.parse(this.localStorageService.theAccountStatus);
       if (localStore.profileType === 'org') {
         this.orgHandle = localStore.handle;
@@ -324,7 +324,7 @@ export class OpportunityCreateComponent implements OnInit {
     let profileHandle = userHandle;
 
     // check if creator is user or organization
-    if (localStorage.getItem('accountStatus') !== null) {
+    if (localStorage.getItem('active_profile') !== null) {
       const localStore = JSON.parse(this.localStorageService.theAccountStatus);
       if (localStore.profileType === 'org') {
         profileHandle = localStore.handle;

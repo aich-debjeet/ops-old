@@ -45,7 +45,7 @@ export class OrganizationProfileComponent implements OnInit {
       });
 
     // check if creator is user or organization
-    if (localStorage.getItem('accountStatus') !== null) {
+    if (localStorage.getItem('active_profile') !== null) {
       const localStore = JSON.parse(this.localStorageService.theAccountStatus);
       if (localStore.profileType === 'org') {
         this.profileHandle = localStore.handle;
