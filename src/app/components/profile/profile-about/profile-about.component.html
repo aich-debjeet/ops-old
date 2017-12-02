@@ -62,10 +62,10 @@
             <div class="col-md-4 col-sm-4 overview_section">
               <div class="row sm_panel_body">
                 <div class="col-md-8 sm_panel_right">
-                  <h3 class="margin_tb_16"><span *ngIf="userProfile.profileDetails?.extra.address.city !== ''">Live in </span>{{ userProfile.profileDetails?.extra.address.city }}, {{ userProfile.profileDetails?.extra.address.country }}</h3>
-                  <h3 class="margin_tb_16" *ngIf="userProfile.profileDetails?.contact.website !== ''">{{ userProfile.profileDetails?.contact.website }}</h3>
-                  <h3 class="margin_tb_16" *ngIf="userProfile.profileDetails?.contact.mobile !== ''">{{ userProfile.profileDetails?.contact.mobile }}</h3>
-                  <h3 class="margin_tb_16" *ngIf="userProfile.profileDetails?.email !== ''">{{ userProfile.profileDetails?.email }}</h3>
+                  <h3 class="margin_tb_16"><span *ngIf="userProfile.profile_details?.extra.address.city !== ''">Live in </span>{{ userProfile.profile_details?.extra.address.city }}, {{ userProfile.profile_details?.extra.address.country }}</h3>
+                  <h3 class="margin_tb_16" *ngIf="userProfile.profile_details?.contact.website !== ''">{{ userProfile.profile_details?.contact.website }}</h3>
+                  <h3 class="margin_tb_16" *ngIf="userProfile.profile_details?.contact.mobile !== ''">{{ userProfile.profile_details?.contact.mobile }}</h3>
+                  <h3 class="margin_tb_16" *ngIf="userProfile.profile_details?.email !== ''">{{ userProfile.profile_details?.email }}</h3>
                 </div>
               </div>
             </div>

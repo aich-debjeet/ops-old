@@ -58,4 +58,4 @@ export function reducer(state: any, action: any) {
 // }
 
 // export const getMyChannel = (state: State) => state.profile.user_channel;
-// export const getMyProfile = (state: State) => state.profile.profileUser;
+// export const getMyProfile = (state: State) => state.profile.profile_navigation_details;

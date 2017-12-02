@@ -60,8 +60,8 @@ export class OpportunityViewComponent implements OnInit {
      */
     this.userState$ = this.store.select('profileTags');
     this.userState$.subscribe((state) => {
-      if (state && state.profileUser) {
-        this.userProfile = state.profileUser;
+      if (state && state.profile_navigation_details) {
+        this.userProfile = state.profile_navigation_details;
         // console.log('this.userProfile', this.userProfile);
       }
     });

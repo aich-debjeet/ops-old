@@ -67,10 +67,10 @@ export class OrganizationRegComponent implements OnInit {
     this.store.select('profileTags')
       .first(profile => profile['current_user_profile_loading'] === true)
       .subscribe( data => {
-        if (data['profileUser'].isOrganization === true) {
+        if (data['profile_navigation_details'].isOrganization === true) {
           this.router.navigateByUrl('/org/page/profile');
         }
-        this.userHandle = data['profileUser'].handle;
+        this.userHandle = data['profile_navigation_details'].handle;
       });
    }
 

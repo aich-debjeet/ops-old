@@ -17,7 +17,7 @@ export class ProfileHelper {
     if (type === 'other') {
       profile = profileData.profile_other;
     } else {
-      profile = profileData.profileDetails;
+      profile = profileData.profile_details;
     }
 
     maps  = new ProfileCard();

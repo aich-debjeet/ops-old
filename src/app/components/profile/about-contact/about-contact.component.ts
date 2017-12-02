@@ -37,7 +37,7 @@ export class AboutContactComponent implements OnInit {
           this.userProfile = this.stateProfile.profile_other;
         }else {
           this.ownProfile = true;
-          this.userProfile = this.stateProfile.profileDetails;
+          this.userProfile = this.stateProfile.profile_details;
         }
       }
     });

@@ -65,9 +65,9 @@ export class OpportunitySearchRecommendedComponent implements OnInit {
       // console.log('this.userState', this.userState);
 
       // check for user skills
-      if (this.userState && this.userState['profileUser'] && this.userState['profileUser']['skills'] && this.userState['profileUser']['skills'].length > 0) {
+      if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['skills'] && this.userState['profile_navigation_details']['skills'].length > 0) {
         // fetching skills in a local var
-        const skillsLoaded = this.userState['profileUser']['skills'];
+        const skillsLoaded = this.userState['profile_navigation_details']['skills'];
         // preparing skills as an array of string
         skillsLoaded.forEach((skill, index) => {
           // console.log('skill.code', skill.code);

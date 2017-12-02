@@ -28,8 +28,8 @@ export class QuickAccessComponent {
     this.storeState$ = this._store.select('profileTags');
 
      this.storeState$.subscribe((state) => {
-       this.userHandle = state['profileDetails'].handle;
-      // this.userProfile = state['profileDetails'];
+       this.userHandle = state['profile_details'].handle;
+      // this.userProfile = state['profile_details'];
     });
   }
 

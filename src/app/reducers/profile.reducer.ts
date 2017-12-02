@@ -9,7 +9,7 @@ export interface State {
   user_channels_loaded: boolean,
   user_channels_loading: boolean,
   current_user_profile: any,
-  profileUser: any
+  profile_navigation_details: any
 };
 
 export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
@@ -48,7 +48,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_SUCCESS:
       return Object.assign({}, state, {
-        profileUser: payload,
+        profile_navigation_details: payload,
         profile_loaded: true,
         current_user_profile_loading: true
       });
@@ -66,13 +66,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS:
       return Object.assign({}, state, {
         success: true,
-        profileDetails: [],
+        profile_details: [],
         profile_loaded: false
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_SUCCESS:
       return Object.assign({}, state, {
-        profileDetails: payload,
+        profile_details: payload,
         success: true,
         profile_loaded: true
       });

@@ -72,9 +72,9 @@ export class NavigationComponent implements OnInit {
     /* user state */
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      // console.log('user', state);
+      console.log('profile state', state);
 
-      if (!this.isProfileSet && state && state.profileUser && state.profileUser.profileImage) {
+      if (!this.isProfileSet && state && state.profile_navigation_details && state.profile_navigation_details.profileImage) {
         this.isProfileSet = true;
         // check for account type in localStorage
         if (localStorage.getItem('accountStatus') === null) {
@@ -258,9 +258,9 @@ export class NavigationComponent implements OnInit {
   setProfileToOrg() {
     console.log('comming again and again')
     let orgHandle, orgUsername;
-    if (this.userProfile && this.userProfile.profileUser && this.userProfile.profileUser.organization && this.userProfile.profileUser.organization.organizationUserName) {
-      orgUsername = this.userProfile.profileUser.organization.organizationUserName;
-      orgHandle = this.userProfile.profileUser.organization.organizationHandle;
+    if (this.userProfile && this.userProfile.profile_navigation_details && this.userProfile.profile_navigation_details.organization && this.userProfile.profile_navigation_details.organization.organizationUserName) {
+      orgUsername = this.userProfile.profile_navigation_details.organization.organizationUserName;
+      orgHandle = this.userProfile.profile_navigation_details.organization.organizationHandle;
     }
     this.profileType = 'org';
     this.localStorageService.theAccountStatus = JSON.stringify({
@@ -276,9 +276,9 @@ export class NavigationComponent implements OnInit {
   setProfileToUser() {
     console.log('comming again and again')
     let userHandle, usersUsername;
-    if (this.userProfile && this.userProfile.profileUser && this.userProfile.profileUser.username && this.userProfile.profileUser.handle) {
-      usersUsername = this.userProfile.profileUser.username;
-      userHandle = this.userProfile.profileUser.handle;
+    if (this.userProfile && this.userProfile.profile_navigation_details && this.userProfile.profile_navigation_details.username && this.userProfile.profile_navigation_details.handle) {
+      usersUsername = this.userProfile.profile_navigation_details.username;
+      userHandle = this.userProfile.profile_navigation_details.handle;
     }
     this.profileType = 'user';
     this.localStorageService.theAccountStatus = JSON.stringify({

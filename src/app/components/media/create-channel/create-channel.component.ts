@@ -156,7 +156,7 @@ export class CreateChannelComponent implements OnInit {
    */
   createChannel(value: any) {
     this.prepareHashtags(value.desc);
-    const userHandle = this.profileChannel.profileUser.handle || '';
+    const userHandle = this.profileChannel.profile_navigation_details.handle || '';
     const mediaTypeList = this.channelTypeConfig(this.channelType);
 
     // set profile handle to user handle

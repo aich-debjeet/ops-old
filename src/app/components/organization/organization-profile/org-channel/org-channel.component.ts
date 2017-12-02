@@ -128,10 +128,10 @@ export class OrgChannelComponent implements OnInit {
   // checkUserType() {
   //   // console.log('channel');
   //   this._store.select('profileTags')
-  //     .first(profile => profile['profileUser'].handle)
+  //     .first(profile => profile['profile_navigation_details'].handle)
   //     .subscribe( data => {
   //       // console.log(data);
-  //       const handle = this.profileChannel.profileUser.handle;
+  //       const handle = this.profileChannel.profile_navigation_details.handle;
   //         this.isOwner = true;
   //         this.channels = [];
   //         this.loadChannel(handle);

@@ -130,8 +130,8 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
           this.otherProfile(this.otherUserProfile);
         }
       }
-      if (typeof this.currentUserDetails.profileUser !== 'undefined') {
-      this.userHandle = this.currentUserDetails.profileUser.handle;
+      if (typeof this.currentUserDetails.profile_navigation_details !== 'undefined') {
+      this.userHandle = this.currentUserDetails.profile_navigation_details.handle;
       this.initMessaging(this.userHandle);
       }
     });
