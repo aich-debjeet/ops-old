@@ -773,10 +773,19 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     /**
      * Get Org Profile Deatils
      */
+    case OrganizationActions.ORG_PROFILE_SUCCESS:
+      return Object.assign({}, state, {
+        profile_navigation_details: payload
+      });
+
+    /**
+     * Get Org Profile Deatils
+     */
     case OrganizationActions.ORG_PROFILE_DETAILS_SUCCESS:
       return Object.assign({}, state, {
         profile_details: payload
       });
+
     case OrganizationActions.ORGANIZATION_DELETE:
       return Object.assign({}, state, {
         status_saved: false

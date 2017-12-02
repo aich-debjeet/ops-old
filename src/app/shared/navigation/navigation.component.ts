@@ -64,7 +64,7 @@ export class NavigationComponent implements OnInit {
     this.baseUrl = environment.API_IMAGE;
     this.profileState$ = this.store.select('profileTags');
 
-    /* user state */
+    /* profile state */
     this.profileState$.subscribe((state) => {
       this.activeProfileState = state;
       console.log('profile state', state);
@@ -87,7 +87,7 @@ export class NavigationComponent implements OnInit {
       }
 
     });
-    /* user state */
+    /* profile state */
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
 
@@ -253,7 +253,7 @@ export class NavigationComponent implements OnInit {
       handle: orgHandle,
       username: orgUsername
     });
-    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
+    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: orgUsername });
   }
 
   setProfileToUser() {
@@ -268,6 +268,7 @@ export class NavigationComponent implements OnInit {
       handle: userHandle,
       username: usersUsername
     });
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
   }
 
 }
