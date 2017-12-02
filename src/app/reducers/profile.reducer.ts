@@ -3,6 +3,7 @@ import { ActionReducer, Action } from '@ngrx/store';
 import { initialTag, ProfileModal } from '../models/profile.model';
 
 import { ProfileActions } from '../actions/profile.action';
+import { OrganizationActions } from '../actions/organization.action';
 
 export interface State {
   user_channel: any,

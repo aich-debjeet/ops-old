@@ -256,11 +256,10 @@ export class NavigationComponent implements OnInit {
   /* =================================== notification =================================== */
 
   setProfileToOrg() {
-    console.log('comming again and again')
     let orgHandle, orgUsername;
-    if (this.userProfile && this.userProfile.profile_navigation_details && this.userProfile.profile_navigation_details.organization && this.userProfile.profile_navigation_details.organization.organizationUserName) {
-      orgUsername = this.userProfile.profile_navigation_details.organization.organizationUserName;
-      orgHandle = this.userProfile.profile_navigation_details.organization.organizationHandle;
+    if (this.userProfile && this.userProfile['profile_navigation_details']['organization']['organizationUserName']) {
+      orgUsername = this.userProfile['profile_navigation_details']['organization']['organizationUserName'];
+      orgHandle = this.userProfile['profile_navigation_details']['organization']['organizationHandle'];
     }
     this.profileType = 'org';
     this.localStorageService.theAccountStatus = JSON.stringify({
@@ -269,16 +268,13 @@ export class NavigationComponent implements OnInit {
       username: orgUsername
     });
     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
-    // this.router.navigate(['org/page']);
-    // this.router.navigateByUrl('org/page');
   }
 
   setProfileToUser() {
-    console.log('comming again and again')
     let userHandle, usersUsername;
-    if (this.userProfile && this.userProfile.profile_navigation_details && this.userProfile.profile_navigation_details.username && this.userProfile.profile_navigation_details.handle) {
-      usersUsername = this.userProfile.profile_navigation_details.username;
-      userHandle = this.userProfile.profile_navigation_details.handle;
+    if (this.userProfile && this.userProfile['profile_navigation_details'] && this.userProfile['profile_navigation_details']['username'] && this.userProfile['profile_navigation_details']['handle']) {
+      usersUsername = this.userProfile['profile_navigation_details']['username'];
+      userHandle = this.userProfile['profile_navigation_details']['handle'];
     }
     this.profileType = 'user';
     this.localStorageService.theAccountStatus = JSON.stringify({
@@ -286,8 +282,6 @@ export class NavigationComponent implements OnInit {
       handle: userHandle,
       username: usersUsername
     });
-    // this.router.navigate(['profile']);
-    // this.router.navigateByUrl('profile');
   }
 
 }

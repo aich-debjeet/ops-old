@@ -7,7 +7,6 @@ import { NotificationReducer } from './reducers/notification.reducer';
 import { SearchReducer } from './reducers/search.reducer';
 import { UserSearchReducer } from './reducers/user-search.reducer';
 import { MediaReducer } from './reducers/media.reducer';
-import { OrganizationReducer } from './reducers/organization.reducer';
 import { OpportunityReducer } from './reducers/opportunity.reducer';
 import { EventReducer } from './reducers/event.reducer';
 
@@ -28,7 +27,6 @@ const reducers = {
   opportunityTags: OpportunityReducer,
   receivedMessagesTags: MessageReducer,
   notificationTags: NotificationReducer,
-  organizationTags: OrganizationReducer,
   eventTags: EventReducer
 }
 
