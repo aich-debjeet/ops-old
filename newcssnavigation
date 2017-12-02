@@ -1,12 +1,7 @@
-@import './src/assets/scss/helpers/_variables.scss';
-@import './src/assets/scss/helpers/_functions.scss';
-@import './src/assets/scss/helpers/_mixins.scss';
-@import '~sass-mq/_mq.scss';
-
-/* landing page */
-
 // new style for top nav
+
 // top nav left side
+
 // top nav right side
 .nav__right {
     float: right !important;
@@ -233,7 +228,6 @@
     bottom: 6px;
     right: 12px
 }
-
 .msg__time2 {
     color: #B4B4B4;
     font-size: 11px;
@@ -263,7 +257,6 @@
     color: #FC6371;
     text-transform: uppercase;
 }
-
 .dropdown__arrow {
     width: 100%;
     text-align: right;
@@ -274,7 +267,6 @@
         filter: drop-shadow(0px -2px 1px #f3f5f7);
     }
 }
-
 .dropdown__arrow2 {
     width: 100%;
     text-align: right;
@@ -285,7 +277,6 @@
         filter: drop-shadow(0px -2px 1px #f3f5f7);
     }
 }
-
 .dropdown__arrow3 {
     width: 100%;
     text-align: right;
@@ -296,11 +287,51 @@
         filter: drop-shadow(0px -2px 1px #f3f5f7);
     }
 }
-
 // ends -------------------------------------
 
-/* landing page */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* landing page */
 .lheader {
     width: 100%;
     padding-top: 25px;
@@ -507,6 +538,8 @@
     width: 20%;
 }
 
+
+
 .opsheader-notification {
     .messsage_dropdown {
         width: 420px !important;
@@ -610,3 +643,4 @@
         float: right;
     }
 }
+
