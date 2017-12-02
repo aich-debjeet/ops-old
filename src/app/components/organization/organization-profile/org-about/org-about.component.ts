@@ -68,46 +68,46 @@ export class OrgAboutComponent implements OnInit {
     this.orgState$ = this.store.select('profileTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      console.log('this.orgProfile ABOUT ORG', this.orgProfile);
-      if (this.orgProfile && this.orgProfile.org_profile_update_success === true) {
+      // console.log('this.orgProfile ABOUT ORG', this.orgProfile);
+      if (this.orgProfile && this.orgProfile['org_profile_update_success'] === true) {
         this.orgProfile.org_profile_update_success = false;
         this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.profileUsername });
       }
       // for mobile
-      if (this.orgProfile && this.orgProfile.profile_details && this.orgProfile.profile_details.contact.mobile) {
-        this.aboutMobile = this.orgProfile.profile_details.contact.mobile.mobile;
+      if (this.orgProfile && this.orgProfile['profile_details']['contact']['mobile']['mobile']) {
+        this.aboutMobile = this.orgProfile['profile_details']['contact']['mobile']['mobile'];
       }
       // for website
-      if (this.orgProfile && this.orgProfile.profile_details && this.orgProfile.profile_details.contact.website) {
-        this.aboutWebsite = this.orgProfile.profile_details.contact.website.website;
+      if (this.orgProfile && this.orgProfile['profile_details']['contact']['website']) {
+        this.aboutWebsite = this.orgProfile['profile_details']['contact']['website'];
       }
       // for email
-      if (this.orgProfile && this.orgProfile.profile_details && this.orgProfile.profile_details.email) {
-        this.aboutEmail = this.orgProfile.profile_details.email;
+      if (this.orgProfile && this.orgProfile['profile_details']['email']) {
+        this.aboutEmail = this.orgProfile['profile_details']['email'];
       }
       // for description
-      if (this.orgProfile && this.orgProfile.profile_details && this.orgProfile.profile_details.description) {
-        this.aboutDescription = this.orgProfile.profile_details.description;
+      if (this.orgProfile && this.orgProfile['profile_details']['description']) {
+        this.aboutDescription = this.orgProfile['profile_details']['description'];
       }
       // for services
-      if (this.orgProfile && this.orgProfile.profile_details && this.orgProfile.profile_details.languages) {
-        this.aboutServices = this.orgProfile.profile_details.languages;
-        this.aboutServicesStr = this.orgProfile.profile_details.languages.join(', ');
+      if (this.orgProfile && this.orgProfile['profile_details']['languages']) {
+        this.aboutServices = this.orgProfile['profile_details']['languages'];
+        this.aboutServicesStr = this.orgProfile['profile_details']['languages'].join(', ');
         // console.log('aboutServices', this.aboutServices);
       }
       // loading industries
-      if (this.orgProfile && this.orgProfile.profile_details && this.orgProfile.profile_details.extra['industryList'].length > 0) {
+      if (this.orgProfile && this.orgProfile['profile_details']['extra']['industryList'].length > 0) {
         setTimeout(() => {
-          const industryArrLen = this.orgProfile.profile_details.extra['industryList'].length;
-          this.aboutIndustry = this.orgProfile.profile_details.extra['industryList'][industryArrLen - 1];
+          const industryArrLen = this.orgProfile['profile_details']['extra']['industryList'].length;
+          this.aboutIndustry = this.orgProfile['profile_details']['extra']['industryList'][industryArrLen - 1];
           this.aboutIndustryCode = this.aboutIndustry['code'];
           // console.log('this.aboutIndustry', this.aboutIndustry);
         }, 1000);
       }
       // for founded date
-      if (this.orgProfile && this.orgProfile.profile_details && this.orgProfile.profile_details.activeFrom) {
-        console.log('this.orgProfile.profile_details.activeFrom', this.orgProfile.profile_details.activeFrom);
-        this.aboutFoundedDate = this.datePipe.transform(this.orgProfile.profile_details.activeFrom, 'dd-MM-yyyy');
+      if (this.orgProfile && this.orgProfile['profile_details']['activeFrom']) {
+        console.log('this.orgProfile.profile_details.activeFrom', this.orgProfile['profile_details']['activeFrom']);
+        this.aboutFoundedDate = this.datePipe.transform(this.orgProfile['profile_details']['activeFrom'], 'dd-MM-yyyy');
       }
     });
     /* org state */

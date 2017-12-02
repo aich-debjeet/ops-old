@@ -40,7 +40,7 @@ export class OrganizationProfileComponent implements OnInit {
       .first(profile => profile['current_user_profile_loading'] === true)
       .subscribe( data => {
         if (data['profile_navigation_details'].isOrganization === false) {
-          this.router.navigateByUrl('/org/registration');
+          // this.router.navigateByUrl('/org/registration');
         }
       });
 
