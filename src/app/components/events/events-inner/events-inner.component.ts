@@ -25,7 +25,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
   totalTicket: any = 0;
   totalAmount: any = 0;
   tagState$: Observable<EventModal>;
-  eventDetail = initialTag ;
+  eventDetail: any ;
   baseUrl = environment.API_IMAGE;
 
   constructor(
@@ -35,8 +35,6 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
     this.tagState$ = this.store.select('eventTags');
     this.tagState$.subscribe((state) => {
       this.eventDetail = state['event_detail'];
-      console.log(this.eventDetail);
-      console.log(state);
     });
 
   }

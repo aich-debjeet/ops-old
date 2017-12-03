@@ -94,6 +94,11 @@
                     <textarea rows="4" class="c-textarea__block c-textarea--style" formControlName="event_brief" placeholder="Describe your event"></textarea>
                   </div>
                 </div>
+                <div class="col-md-3 p-0">
+                </div>
+                <div class="col-md-9 offset-md-3 p-0">
+                  <p class="error_alert" *ngIf="eventForm.controls['event_brief'].errors?.required && ecfrom.submitted">Event Brief is required</p>
+                </div>
               </div><!-- Event Brief end -->
 
               <div class="o-events-form__single">
@@ -102,7 +107,7 @@
                 </div>
                 <div class="col-md-3 p-0">
                   <div class="c-form__group c-form--sm c-form--noeffect">
-                    <input class="c-form__input" required formControlName="event_startdate"  [dpDayPicker]="config"   theme="dp-material">
+                    <input class="c-form__input" required formControlName="event_startdate"  [dpDayPicker]="configs"   theme="dp-material">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                     <label>Start date</label>
@@ -120,6 +125,10 @@
                 <div class="col-md-3 p-0">
                 </div>
                 <div class="col-md-9 offset-md-3 p-0">
+                  <p class="error_alert" *ngIf="eventForm.controls['event_startdate'].errors?.oldate">Please choose upcomming date</p>
+                  <p class="error_alert" *ngIf="eventForm.controls['event_enddate'].errors?.startdate">Please choose start date </p>
+                  <p class="error_alert" *ngIf="eventForm.controls['event_enddate'].errors?.old_even_end_date">Please choose upcomming date </p>
+                  <p class="error_alert" *ngIf="eventForm.controls['event_enddate'].errors?.oldate">Please choose upcomming date</p>
                   <p class="error_alert" *ngIf="eventForm.controls['event_startdate'].errors?.required && ecfrom.submitted">Start Date and End Date is required</p>
                 </div>
               </div><!-- Date end -->
@@ -133,7 +142,7 @@
               [formGroup]="event_agenda">
                     <div class="col-md-4 p-l-0">
                       <div class="c-form__group c-form--sm c-form--noeffect">
-                        <input class="c-form__input" required=""  formControlName="startTime"  type="datetime-local" >
+                        <input class="c-form__input" required=""  formControlName="startTime"  type="text" [dpDayPicker]="config" theme="dp-material" mode="daytime">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <label>Date</label>
@@ -154,6 +163,13 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-3 p-0">
+                  </div>
+                <div class="col-md-9 offset-md-3 p-0">
+                   <p class="error_alert" *ngIf="eventForm.controls.event_agenda.controls[i].controls.startTime.errors?.required && ecfrom.submitted">Date is required</p>
+                   <p class="error_alert" *ngIf="eventForm.controls.event_agenda.controls[i].controls.description.errors?.required && ecfrom.submitted">Program  is required</p>
+                  <!--<p class="error_alert" *ngIf="eventForm.controls['description'].errors?.required && ecfrom.submitted">Program is required</p>-->
+                </div>
                   </div><!-- agenda add det sec end -->
                   <div class="o-form-add-link">
                     <a (click)="pushAgenda()" class="o-form__add-btn">
@@ -162,6 +178,7 @@
                     </a>
                   </div><!-- agenda add link end -->
                 </div>
+               
               </div><!-- Agenda end -->
 
               <div class="o-events-form__single">
@@ -196,7 +213,7 @@
                       <div class="c-radio--label c-text_md color-grey-dark">Free</div>
                     </label>
                     <label class="col-md-2 p-0">
-                      <input name="event_type" #paid type="radio" value="Paid" disabled formControlName="event_type">
+                      <input name="event_type" #paid type="radio" value="Paid" formControlName="event_type">
                       <span></span>
                       <div class="c-radio--label c-text_md color-grey-dark">Paid</div>
                     </label>
@@ -208,7 +225,7 @@
             <div class="o-event-form-upload-img">
               <input type="file" class="o-event-upload__file" (change)="fileChangeListener($event)">
               <div class="o-event-form-upload__container">
-                <img *ngIf="image" class="event-image" src="{{image}}">
+                <img *ngIf="eventCoverImage" class="event-image" src="{{ baseUrl + eventCoverImage}}">
                 <div *ngIf="!image" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">Upload event image</div>
               </div>
             </div>
@@ -250,6 +267,12 @@
                     <label>End date</label>
                   </div>
                 </div>
+                <div class="col-md-3 p-0">
+                </div>
+                <div class="col-md-9 offset-md-3 p-0">
+                  <p class="error_alert" *ngIf="eventForm.controls['ts_startTime'].errors?.required && ecfrom.submitted">Start date is required</p>
+                  <p class="error_alert" *ngIf="eventForm.controls['ts_endTime'].errors?.required && ecfrom.submitted">End date is required</p>
+                </div>
             </div><!-- Ticket sales end -->
 
             <div class="o-events-form__single">
@@ -264,6 +287,13 @@
                   <label>Qunatity</label>
                 </div>
               </div>
+              <div class="col-md-3 p-0">
+                </div>
+                <div class="col-md-9 offset-md-3 p-0">
+                  <p class="error_alert" *ngIf="eventForm.controls['ts_quantity'].errors?.required && ecfrom.submitted">Qunatity is required</p>
+                  <p class="error_alert" *ngIf="imageUpload">Event Cover is required</p>
+                </div>
+                <!--<input type="hidden" name="coverimage" value="{{eventCoverImage}}" formControlName="event_cover">-->
             </div><!-- Maximum tickets end -->
 
             <div class="o-events-form__single">
@@ -273,7 +303,6 @@
                 <button type="submit" class="btn btn-primary btn-md">Create</button>
               </div>
             </div><!-- create btn end -->
-
           </div>
         </form>
       </div><!-- form block end -->
