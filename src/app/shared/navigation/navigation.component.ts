@@ -33,7 +33,6 @@ export class NavigationComponent implements OnInit {
   profileState$: Observable<ProfileModal>;
   activeProfileState = initialTag;
   profileType: string;
-  profilerOwnersUsername: string;
   isProfileSet = false;
 
   /* ========================== notification ========================== */
@@ -80,7 +79,6 @@ export class NavigationComponent implements OnInit {
           const localStore = JSON.parse(localStorageService.theAccountStatus);
           if (localStore.profileType === 'org') {
             this.profileType = 'org';
-            this.setProfileToOrg();
           } else {
             this.profileType = 'user';
             this.setProfileToUser();
@@ -257,10 +255,9 @@ export class NavigationComponent implements OnInit {
       username: orgUsername,
       ownersUsername: this.activeProfileState['profile_navigation_details']['username']
     });
-    this.profilerOwnersUsername = this.activeProfileState['profile_navigation_details']['username'];
     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: orgUsername });
     // this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
-    this.router.navigate(['org/page']);
+    // this.router.navigate(['org/page']);
   }
 
   setProfileToUser() {
@@ -277,7 +274,7 @@ export class NavigationComponent implements OnInit {
     });
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     // this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
-    this.router.navigate(['profile/user']);
+    // this.router.navigate(['profile/user']);
   }
 
 }
