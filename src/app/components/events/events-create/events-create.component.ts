@@ -286,7 +286,7 @@ export class EventsCreateComponent implements OnInit {
     // }
 
     if (this.eventForm.valid) {
-      if (this.eventCoverImage !== '') {
+      if (this.eventCoverImage === '') {
         this.imageUpload = true;
         return
       }
@@ -312,6 +312,7 @@ export class EventsCreateComponent implements OnInit {
               maximum: value.ts_quantity
             }]
           },
+          brief: value.event_brief,
           industry : [
               value.event_industry
           ],

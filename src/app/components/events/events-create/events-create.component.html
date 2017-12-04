@@ -33,21 +33,16 @@
                   <div class="c-form__group">
                     <select class="c-form-control p-l-0" formControlName="event_genres">
                       <option value="" disabled selected hidden>Select Genre</option>
-                      <option value="Concert or Performance">Concert or Performance</option>
-                      <option value="Festival or Fair">Festival or Fair</option>
-                      <option value="Attraction">Attraction</option>
-                      <option value="Camp, Trip, or Retreat">Camp, Trip, or Retreat</option>
-                      <option value="Class, Training, or Workshop">Class, Training, or Workshop</option>
-                      <option value="Conference">Conference</option>
-                      <option value="Conference">Convention</option>
-                      <option value="Conference">Dinner or Gala</option>
-                      <option value="Conference">Game or Competition</option>
-                      <option value="Conference">Meetup or Networking Event</option>
-                      <option value="Conference">Party or Social Gathering</option>
-                      <option value="Conference">Rally</option>
-                      <option value="Conference">Screening</option>
-                      <option value="Conference">Tour</option>
-                      <option value="Conference">Tradeshow, Consumer Show, or Expo</option>
+                      <option value="Performance">Performance</option>
+                      <option value="Movies">Movies</option>
+                      <option value="Festivals">Festivals</option>
+                      <option value="Trade Shows">Trade Shows</option>
+                      <option value="Conference or WorkShops">Conference or WorkShops</option>
+                      <option value="Museums">Museums</option>
+                      <option value="Concert">Concert</option>
+                      <option value="Exhibition">Exhibition</option>
+                      <option value="Film">Film</option>
+                      <option value="Wine Tasting">Wine Tasting</option>
                     </select>
                   </div>
                   <p class="error_alert" *ngIf="eventForm.controls['event_genres'].errors?.required && ecfrom.submitted">Event Type is required</p>
