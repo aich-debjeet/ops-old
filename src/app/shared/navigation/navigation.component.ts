@@ -34,6 +34,7 @@ export class NavigationComponent implements OnInit {
   activeProfileState = initialTag;
   profileType: string;
   isProfileSet = false;
+  profilerOwnersUsername: string;
 
   /* ========================== notification ========================== */
   notificationsState$: Observable<Notification>;
@@ -255,6 +256,7 @@ export class NavigationComponent implements OnInit {
       username: orgUsername,
       ownersUsername: this.activeProfileState['profile_navigation_details']['username']
     });
+    this.profilerOwnersUsername = this.activeProfileState['profile_navigation_details']['username'];
     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: orgUsername });
     // this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
     // this.router.navigate(['org/page']);

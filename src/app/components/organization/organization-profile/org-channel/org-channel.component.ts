@@ -44,7 +44,7 @@ export class OrgChannelComponent implements OnInit {
     this.orgState = this.orgStore.select('profileTags');
     this.orgState.subscribe((state) => {
       this.orgProfile = state;
-      console.log('org tags', this.orgProfile);
+      // console.log('org tags', this.orgProfile);
       this.channels = this.orgProfile.org_channels;
     });
 
