@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import {IDatePickerConfig} from 'ng2-date-picker';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -32,7 +32,7 @@ import * as moment from 'moment';
   styleUrls: ['./events-create.component.scss'],
   providers: [DatePipe, EventValidator]
 })
-export class EventsCreateComponent implements OnInit {
+export class EventsCreateComponent implements OnInit, OnDestroy {
   public eventForm: FormGroup;
   tagState$: Observable<EventModal>;
   profileState$: Observable<ProfileModal>;
@@ -44,6 +44,9 @@ export class EventsCreateComponent implements OnInit {
   dateExpires;
   baseUrl = environment.API_IMAGE;
   imageUpload: boolean;
+  id: any;
+  private sub: any;
+  eventDetail: any;
 
   datePickerConfig: IDatePickerConfig = {
     firstDayOfWeek: 'mo',
@@ -83,6 +86,8 @@ export class EventsCreateComponent implements OnInit {
     this.tagState$ = this.store.select('eventTags');
     this.tagState$.subscribe((state) => {
       this.industryList = state['all_industry'];
+      this.eventDetail = state['event_detail'];
+      console.log(state);
     });
 
     this.profileState$ = this.store.select('profileTags');
@@ -100,7 +105,19 @@ export class EventsCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.sub = this.route.params.subscribe(params => {
+      this.id = params['id'];
+      console.log(params['id']);
+      this.store.dispatch({ type: EventActions.EVENT_DETAILS_LOAD, payload: this.id });
+    });
+
+
+
     this.buildForm();
+    // this.eventForm.setValue({
+    //   event_name: 'title'
+    // });
   }
 
   fileChangeListener($event) {
@@ -138,10 +155,9 @@ export class EventsCreateComponent implements OnInit {
   }
 
 
-
-
-
-
+  ngOnDestroy() {
+      this.sub.unsubscribe();
+  }
 
   /**
    * Init Form Action
