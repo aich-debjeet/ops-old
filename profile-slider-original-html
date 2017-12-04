@@ -1,0 +1,286 @@
+<div class="c-timeline__img" *ngIf="profileObject !== null" [ngStyle]="coverImageStyle(profileObject)">
+    <div class="container" *ngIf="this.isOwner">
+        <span class="c-timeline__imgchange" appDropdown>
+            <a  class="dropdown-toggle" appDropdownOpen>
+                <img src="/assets/img/svg/ico_edit_white.svg" class="c-timeline__icon">
+            </a>
+            <ul class="dropdown-menu c-timeline__icondrop">
+                <li>
+                    <a routerLink="/profile/about/cover_image">
+                        Upload cover images
+                    </a>
+                </li>
+            </ul>
+        </span>
+    </div>
+</div>
+
+
+
+<div class="container o-profile__cont" *ngIf="profileObject !== null">
+
+    <div class="row">
+        <!-- -->
+        <div class="col-md-12 col-sm-12 p-0">
+            <div class="c-profile__userblock">
+                <img src="{{ (baseUrl + profileObject?.image?.profile) || defaultImage }}" class="img-responsive img-circle c-profile__userimg">
+                <span *ngIf="this.isOwner" appDropdown class="c-profile__imgchange">
+                    <a class="dropdown-toggle" appDropdownOpen>
+                        <img src="/assets/img/svg/ico_edit_white.svg" class="c-profile__imgchange--icon">
+                    </a>
+                    <ul class="dropdown-menu c-profile__imgchange--dropdown">
+                        <li>
+                            <a routerLink="/profile/about/image">
+                                Upload Profile image
+                            </a>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+            <div class="c-profile__userdetail">
+                <h2 class="c-profile__username"><a routerLink="{{ !this.isOwner ? '/profile/u/' + profileObject?.userHandle : '/profile' }}">{{ profileObject?.name }} </a><img src="/assets/img/svg/profile.svg" class="c-profile__usericon"></h2>
+                <span class="c-profile__userhandle">{{ '@' + profileObject?.userHandle }}</span>
+                <span class="c-profile__userprofession">{{ profileObject?.extra?.profession }}</span>
+                <!-- <div class="c-profile__maintags" routerLink="{{ '/spotfeed/' + skill.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:8">#{{ skill.name }}
+                    <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more" data-toggle="modal" data-target="#tag-pop">More</a>
+                </div> -->
+                <span routerLink="{{ '/spotfeed/' + skill.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:8" class="c-skill__tags">#{{ skill.name }} </span>
+                <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags c-skill__tags--more">More</a>
+            </div>
+            <div class="c-profile_buttons" *ngIf="!this.isOwner">
+                <button *ngIf="!profileObject?.extra?.isImported" (click)="userFollow(isFollowing, profileObject?.userDetails?.handle )" type="button" [ngClass]="(isFollowing) ? 'btn-following' : 'btn-primary'" class="btn btn-primary btn-md">{{ (isFollowing)? 'Unfollow' : 'Follow'}}</button>
+                <button *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-primary btn-md">Claim</button>
+                <button type="button" class="btn btn-primary btn-md btn-inverse">Network</button>
+                <button type="button" (click)="donatePopup()" class="btn btn-primary btn-md btn-inverse">Support</button>
+            </div>
+        </div>
+        <!-- -->
+    </div>
+    <div class="row o-profile__details">
+        <div [ngClass]="(profileObject?.extra?.isImported) ? 'blur-main': ''">
+            <div class="col-md-9 col-sm-9">
+                <ul class="list-inline o-profile__nav">
+                    <li class="list-line-item">
+                        <a [routerLink]="['about']">About</a>
+                    </li>
+                    <li class="list-line-item">
+                        <a routerLink="/portfolio">Portfolio</a>
+                    </li>
+                    <li class="list-line-item">
+                        <a routerLink="/planner">Planner</a>
+                    </li>
+                    <li class="list-line-item">
+                        <a routerLink="/network">Network</a>
+                    </li>
+                    <li class="list-line-item">
+                        <a routerLink="/project">Project</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <ul class="list-inline o-profile__nav--icon">
+                    <!--<li class="list-line-item" *ngIf="!this.isOwner">
+                        <a><img src="/assets/img/svg/ico_options.svg"></a>
+                    </li>-->
+                    <li class="list-line-item">
+                        <a><img src="/assets/img/svg/ico_share.svg"></a>
+                    </li>
+                    <li class="list-line-item" *ngIf="!this.isOwner">
+                        <a routerLink="/message" routerLinkActive="active"><img src="/assets/img/svg/ico_message.svg"></a>
+                    </li>
+                    <li class="list-line-item" *ngIf="this.isOwner">
+                        <a (click)="profileEdit()"><img src="/assets/img/svg/ico_edit.svg"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-12 col-sm-12 o-profile__detail__cont">
+                <div class="col-md-4 col-sm-4 text-center o-profile__detail__block with_border_right">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 o-profile__followers">
+                            <div class="o-profile--count">{{ profileObject?.follwerCount }}</div>
+                            <p>Followers</p>
+                        </div>
+                        <div class="col-md-4 col-sm-4 o-profile__following">
+                            <div class="o-profile--count">{{ profileObject?.followingCount }}</div>
+                            <p>Following</p>
+                        </div>
+                        <div class="col-md-3 col-sm-4 o-profile__spot">
+                            <div class="o-profile--count">{{ profileObject?.extra?.spotsCount }}</div>
+                            <p>Spots</p>
+                        </div>
+                        <div class="row">
+                            <div class="o-profile__spotscore">
+                                Spotscore Coming Soon <span class="p-l-r-8"><img src="/assets/img/svg/ico_i.svg" alt="" class="o-profile__spotscore--icon"></span>
+                            </div>
+                            <div class="o-profile__channelpost">
+                                <div class="o-profile__channelpost--count">{{ profileObject?.extra?.postCount }} <small>Posts</small></div>
+                                <div class="o-profile__channelpost--count">{{ profileObject?.extra?.channelCount }} <small>Channels</small></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 o-profile__detail__block with_border_right p-24">
+                    <div class="o-profile__detail--heading">Bio</div>
+                    <button *ngIf="profileObject?.userBio == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button>
+                    <p>{{ profileObject?.userBio | slice:0:220}}</p>
+                </div>
+                <div class="col-md-4 col-sm-4 o-profile__detail__block p-24">
+                    <div class="o-profile__detail--heading">Skills</div>
+                    <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
+                    <span routerLink="{{ '/spotfeed/' + skill.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:8" class="c-skill__tags">#{{ skill.name }} </span>
+                    <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags c-skill__tags--more">More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<router-outlet></router-outlet>
+
+<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow' *ngIf="this.isOwner" size="profile_update">
+    <div>
+        <form [formGroup]="profileForm" novalidate #myform="ngForm" (submit)="profileFormSubmit(profileForm.value)">
+            <div class="edit-profile_main">
+                <!-- <div class="modal-header" style="border: none;">
+                <button type="button" class="close" data-dismiss="modal"></button>
+            </div> -->
+                <div class="edit-profile_head">
+                    <div class="col-md-6 padding_none">
+                        <h2>Edit Profile</h2>
+                    </div>
+                    <div class="col-md-6 padding_none text-right">
+                        <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="profileFormClose()">Close</app-button>
+                        <app-button [className]="'btn btn-primary btn-sm'" [type]="'submit'">Save</app-button>
+                    </div>
+                </div>
+                <!-- edit profile head end -->
+
+                <div class="edit-profile_sec_block">
+                    <div class="edit-profile_sec_head" data-toggle="collapse " data-target="#basic_info">
+                        <h3 class="edit-profile_subtitle">Basic Info</h3>
+                        <!-- <div class="edit-profile_iconbox">
+                            <img src="/assets/img/svg/ico-arrow-down.svg" alt="">
+                        </div> -->
+                    </div>
+                    <!-- edit profile sec head -->
+                    <div id="basic_info" class="edit-profile_content_block show" style="display: none;">
+                        <div class="editarea">
+                            <div class="form_group">
+                                <input class="form_input" required="" type="text" formControlName="name">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Name</label>
+                                <p class="error_alert" *ngIf="profileForm.controls['name'].errors?.required && myform.submitted">Name is required</p>
+                            </div>
+                            <div class="form_group">
+                                <textarea class="form_input form_textarea" name="" formControlName="bio"></textarea>
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Bio</label>
+                                <p class="error_alert" *ngIf="profileForm.controls['bio'].errors?.required && myform.submitted">Bio is required</p>
+                            </div>
+                            <div class="form_group">
+                                <input class="form_input" required="" type="text" formControlName="username">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Username</label>
+                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.required && myform.submitted">Username is required</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.whitespace">White Space Not Allowed</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.minlength">Username must be min length 4</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
+                            </div>
+                            <div class="form_group">
+                                <input class="form_input" type="text" [ngModel]="mymodel" formControlName="skill" (ngModelChange)="onSearchChange($event)" placeholder="Search skill">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Skills</label>
+
+                                <div class="selected_skill">
+                                    <button *ngFor="let skill of selectedSkills" (click)="toggleSelectSkill(skill.code)" type="button" class="btn btn-tag btn-primary btn-sm btn-skill">
+                                        <span >
+                                            {{skill.name}}
+                                        </span>
+
+                                    </button>
+                                </div>
+                                <div class="selected_tags">
+                                    <div *ngIf="findSkill.skills_loaded===false">
+                                        <span class="loading">Loading...</span>
+                                    </div>
+                                    <span *ngFor="let skill of findSkill.skills">
+                                        <button type="button" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" class="btn btn-tag btn-sm">
+                                            {{skill.name}}
+                                        </button>
+                                    </span>
+                                    <!--<div *ngIf='skillSelectionPage.skills_loaded===true && skillSelectionPage.skills && skillSelectionPage.skills.length === 0'>
+                                        <a class="adder" (click)="addNewSkill(search)">Add <span class="adder__name">{{search}}?</span></a>
+                                    </div>-->
+                                </div>
+                            </div>
+                            <div class="form_group">
+                                <input class="form_input" type="text" required [textMask]="{mask: dateMask}" formControlName="dob">
+                                <span class="form_highlight"></span>
+                                <span class="form_bar"></span>
+                                <label>Date of birth</label>
+                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.required && myform.submitted">Date of Brith is required</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.isUnderAge">You should be above 13</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['dob'].errors?.isOverAge">You should be below 100</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- edit profile content block end -->
+                </div>
+            </div>
+        </form>
+    </div>
+</app-modal>
+
+<!--Skill more -->
+
+<app-modal-new #skillModal modalClass="modal-cus__sm">
+    <modal-content>
+        <div class="modal-content o-tag-pop o-skills__popup">
+            <div class="o-tag-head">
+                <h2 class="o-tag__title">More Skills
+                    <span class="pop-close" (click)="skillModal.close()">
+                  <a ><img src="/assets/img/svg/ico_close-38.svg" alt=""></a>
+                </span>
+                </h2>
+            </div>
+            <div class="o-tag-list">
+                <span *ngFor="let skill of profileObject?.userSkill" class="c-skill__tags">#{{ skill.name }}</span>
+            </div>
+        </div>
+    </modal-content>
+</app-modal-new>
+
+<app-modal [blocking]='false' modalId='donationPopup' *ngIf="!this.isOwner" size="tiny__donation">
+    <div id="donation_pop">
+        <div id="report_thank">
+            <!-- Modal content-->
+            <div class="donation_container">
+                <span class="search_close">
+                    <a (click)="donatePopup()" data-dismiss="modal"><img src="/assets/img/svg/ico_close-38.svg" alt=""></a>
+                </span>
+
+                <div class="donation_content">
+                    <h2>Support<br>Coming Soon</h2>
+                    <div class="donation_illustration">
+                        <img src="http://d33wubrfki0l68.cloudfront.net/d652cd5f626ee7982b86e0eff837e8d9de21c71f/d59d4/img/svg/asset2.svg" alt="">
+                    </div>
+                    <div class="donation_msg">
+                        <p>
+                            We're working on this feature to help<br>our fellow artists.
+                            <span class="stay_tuned">Stay tuned.</span>
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <app-button [className]="'btn btn-default btn-sm'" [type]="'button'" (click)="donationClose()">Okay</app-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- report confirm end -->
+    </div>
+</app-modal>

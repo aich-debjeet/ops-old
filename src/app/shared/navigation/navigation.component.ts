@@ -72,7 +72,7 @@ export class NavigationComponent implements OnInit {
     /* user state */
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      // console.log('user', state);
+       console.log('user', state);
 
       if (!this.isProfileSet && state && state.profileUser && state.profileUser.profileImage) {
         this.isProfileSet = true;
