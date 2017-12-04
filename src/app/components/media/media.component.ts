@@ -86,7 +86,7 @@ export class MediaComponent implements OnInit, AfterViewInit {
       // this.profileState$.subscribe((state) => {
 
       //   this.profileStore = state;
-      //   const userHandle = this.profileStore.profileUser.handle;
+      //   const userHandle = this.profileStore.profile_navigation_details.handle;
 
       //   if (userHandle) {
       //     if (this.profileStore.user_channel.length < 1) {

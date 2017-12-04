@@ -156,14 +156,14 @@ export class CreateChannelComponent implements OnInit {
    */
   createChannel(value: any) {
     this.prepareHashtags(value.desc);
-    const userHandle = this.profileChannel.profileUser.handle || '';
+    const userHandle = this.profileChannel.profile_navigation_details.handle || '';
     const mediaTypeList = this.channelTypeConfig(this.channelType);
 
     // set profile handle to user handle
     let profileHandle = userHandle;
 
     // check if creator is user or organization
-    if (localStorage.getItem('accountStatus') !== null) {
+    if (localStorage.getItem('active_profile') !== null) {
       const localStore = JSON.parse(this.localStorageService.theAccountStatus);
       // console.log('localStore', localStore);
       if (localStore && localStore.handle && localStore.handle.length > 0) {
@@ -189,11 +189,11 @@ export class CreateChannelComponent implements OnInit {
         hashTags: this.hashTags
       }
 
-      console.log(channelObj);
-      return;
+      // console.log(channelObj);
+      // return;
 
-      // this.channelSavedHere = true;
-      // this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
+      this.channelSavedHere = true;
+      this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
     } else {
       this.toastr.warning('Please fill all required fields');
     }

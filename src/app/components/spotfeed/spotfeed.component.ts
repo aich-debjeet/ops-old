@@ -49,7 +49,7 @@ export class SpotfeedComponent {
       if (this.spotfeedDetails && typeof this.spotfeedDetails.spotfeedProfiles !== 'undefined') {
         // remove loggedn in user profile
         // filtering artists duplicate profiles
-        const currentUserHandle = this.userState.profileUser.handle;
+        const currentUserHandle = this.userState.profile_navigation_details.handle;
         this.spotfeedDetails.spotfeedProfiles = _.remove(this.spotfeedDetails.spotfeedProfiles, function(currentObject) {
             return currentObject.handle !== currentUserHandle;
         });
@@ -74,7 +74,7 @@ export class SpotfeedComponent {
   }
 
   disableFollowForSelf(username: string) {
-    if (username === this.userState.profileUser.username) {
+    if (username === this.userState.profile_navigation_details.username) {
       return true;
     }
     return false;

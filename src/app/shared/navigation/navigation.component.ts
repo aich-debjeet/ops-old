@@ -2,7 +2,7 @@ import { Component, Directive, OnInit, HostListener, Renderer, ElementRef, HostB
 import { ModalService } from '../modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../models/profile.model';
-import { Organization, initialOrganization } from '../../models/organization.model';
+import { Organization } from '../../models/organization.model';
 
 import { LocalStorageService } from './../../services/local-storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -29,16 +29,12 @@ import { GeneralUtilities } from '../../helpers/general.utils';
 export class NavigationComponent implements OnInit {
 
   topNav: any;
-
   baseUrl: string;
-  showMenu: boolean;
-  tagState$: Observable<ProfileModal>;
-  orgState$: Observable<Organization>;
-  private tagStateSubscription: Subscription;
-  userProfile = initialTag;
-  orgProfile;
+  profileState$: Observable<ProfileModal>;
+  activeProfileState = initialTag;
   profileType: string;
   isProfileSet = false;
+  profilerOwnersUsername: string;
 
   /* ========================== notification ========================== */
   notificationsState$: Observable<Notification>;
@@ -67,43 +63,38 @@ export class NavigationComponent implements OnInit {
     };
 
     this.baseUrl = environment.API_IMAGE;
-    this.tagState$ = this.store.select('profileTags');
+    this.profileState$ = this.store.select('profileTags');
 
-    /* user state */
-    this.tagState$.subscribe((state) => {
-      this.userProfile = state;
-       console.log('user', state);
+    /* profile state */
+    this.profileState$.subscribe((state) => {
+      this.activeProfileState = state;
+      console.log('profile state', state);
 
-      if (!this.isProfileSet && state && state.profileUser && state.profileUser.profileImage) {
+      if (!this.isProfileSet && state && state.profile_navigation_details && state.profile_navigation_details.profileImage) {
         this.isProfileSet = true;
         // check for account type in localStorage
-        if (localStorage.getItem('accountStatus') === null) {
+        if (localStorage.getItem('active_profile') === null) {
+          this.profileType = 'user';
           this.setProfileToUser();
         } else {
           const localStore = JSON.parse(localStorageService.theAccountStatus);
           if (localStore.profileType === 'org') {
             this.profileType = 'org';
-            this.setProfileToOrg();
+            this.profilerOwnersUsername = localStore.ownersUsername;
+            // console.log('localStorage', localStore);
+            // this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: localStore.username });
           } else {
             this.profileType = 'user';
             this.setProfileToUser();
           }
         }
+        console.log('this.profileType', this.profileType);
       }
 
     });
-    /* user state */
+    /* profile state */
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-
-    /* org state */
-    this.orgState$ = this.store.select('organizationTags');
-    this.orgState$.subscribe((state) => {
-      this.orgProfile = state;
-      // this.router.navigate(['org/page']);
-      // console.log('orgProfile', this.orgProfile);
-    });
-    /* org state */
 
     /* ========================== notification ========================== */
     // loading notifications
@@ -256,29 +247,29 @@ export class NavigationComponent implements OnInit {
   /* =================================== notification =================================== */
 
   setProfileToOrg() {
-    console.log('comming again and again')
     let orgHandle, orgUsername;
-    if (this.userProfile && this.userProfile.profileUser && this.userProfile.profileUser.organization && this.userProfile.profileUser.organization.organizationUserName) {
-      orgUsername = this.userProfile.profileUser.organization.organizationUserName;
-      orgHandle = this.userProfile.profileUser.organization.organizationHandle;
+    if (this.activeProfileState && this.activeProfileState['profile_navigation_details']['organization']['organizationUserName']) {
+      orgUsername = this.activeProfileState['profile_navigation_details']['organization']['organizationUserName'];
+      orgHandle = this.activeProfileState['profile_navigation_details']['organization']['organizationHandle'];
     }
     this.profileType = 'org';
     this.localStorageService.theAccountStatus = JSON.stringify({
       profileType: 'org',
       handle: orgHandle,
-      username: orgUsername
+      username: orgUsername,
+      ownersUsername: this.activeProfileState['profile_navigation_details']['username']
     });
-    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
+    this.profilerOwnersUsername = this.activeProfileState['profile_navigation_details']['username'];
+    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: orgUsername });
+    // this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
     // this.router.navigate(['org/page']);
-    // this.router.navigateByUrl('org/page');
   }
 
   setProfileToUser() {
-    console.log('comming again and again')
     let userHandle, usersUsername;
-    if (this.userProfile && this.userProfile.profileUser && this.userProfile.profileUser.username && this.userProfile.profileUser.handle) {
-      usersUsername = this.userProfile.profileUser.username;
-      userHandle = this.userProfile.profileUser.handle;
+    if (this.activeProfileState && this.activeProfileState['profile_navigation_details'] && this.activeProfileState['profile_navigation_details']['username'] && this.activeProfileState['profile_navigation_details']['handle']) {
+      usersUsername = this.activeProfileState['profile_navigation_details']['username'];
+      userHandle = this.activeProfileState['profile_navigation_details']['handle'];
     }
     this.profileType = 'user';
     this.localStorageService.theAccountStatus = JSON.stringify({
@@ -286,8 +277,9 @@ export class NavigationComponent implements OnInit {
       handle: userHandle,
       username: usersUsername
     });
-    // this.router.navigate(['profile']);
-    // this.router.navigateByUrl('profile');
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    // this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+    // this.router.navigate(['profile/user']);
   }
 
 }
