@@ -21,7 +21,11 @@
                     <span class="c-form__bar"></span>
                     <label>Name of event</label>
                   </div>
-                  <p class="error_alert" *ngIf="eventForm.controls['event_name'].errors?.required && ecfrom.submitted">Event Name is required</p>
+                  <p class="c-form__validation" *ngIf="eventForm.controls['event_name'].errors?.required && ecfrom.submitted">Event Name is required
+                        <span class="pull-right">
+                            <img src="/assets/img/svg/stop_red.svg" class="c-form__validation--img">
+                        </span>
+                  </p>
                 </div>
               </div><!-- Event name end -->
 
@@ -45,7 +49,11 @@
                       <option value="Wine Tasting">Wine Tasting</option>
                     </select>
                   </div>
-                  <p class="error_alert" *ngIf="eventForm.controls['event_genres'].errors?.required && ecfrom.submitted">Event Type is required</p>
+                  <p class="c-form__validation" *ngIf="eventForm.controls['event_genres'].errors?.required && ecfrom.submitted">Event Type is required
+                        <span class="pull-right">
+                            <img src="/assets/img/svg/stop_red.svg" class="c-form__validation--img">
+                        </span>
+                  </p>
                 </div>
               </div><!-- Genres end -->
 
@@ -60,7 +68,11 @@
                       <option *ngFor="let industry of industryList" value="{{ industry?.code }}">{{ industry?.name }}</option>
                     </select>
                   </div>
-                  <p class="error_alert" *ngIf="eventForm.controls['event_industry'].errors?.required && ecfrom.submitted">Industry is required</p>
+                  <p class="c-form__validation" *ngIf="eventForm.controls['event_industry'].errors?.required && ecfrom.submitted">Industry is required
+                    <span class="pull-right">
+                      <img src="/assets/img/svg/stop_red.svg" class="c-form__validation--img">
+                    </span>
+                  </p>
                 </div>
               </div><!-- Industry end -->
                
@@ -76,7 +88,11 @@
                     <span class="c-form__bar"></span>
                     <label>Event location</label>
                   </div>
-                  <p class="error_alert" *ngIf="eventForm.controls['event_venue'].errors?.required && ecfrom.submitted">Venue is required</p>
+                  <p class="c-form__validation" *ngIf="eventForm.controls['event_venue'].errors?.required && ecfrom.submitted">Venue is required
+                    <span class="pull-right">
+                      <img src="/assets/img/svg/stop_red.svg" class="c-form__validation--img">
+                    </span>
+                  </p>
                 </div>
               </div><!-- Venue end -->
 
@@ -88,11 +104,11 @@
                   <div class="c-form__group c-form--sm">
                     <textarea rows="4" class="c-textarea__block c-textarea--style" formControlName="event_brief" placeholder="Describe your event"></textarea>
                   </div>
-                </div>
-                <div class="col-md-3 p-0">
-                </div>
-                <div class="col-md-9 offset-md-3 p-0">
-                  <p class="error_alert" *ngIf="eventForm.controls['event_brief'].errors?.required && ecfrom.submitted">Event Brief is required</p>
+                  <p class="c-form__validation" *ngIf="eventForm.controls['event_brief'].errors?.required && ecfrom.submitted">Event Brief is required
+                    <span class="pull-right">
+                      <img src="/assets/img/svg/stop_red.svg" class="c-form__validation--img">
+                    </span>
+                  </p>
                 </div>
               </div><!-- Event Brief end -->
 
@@ -120,11 +136,11 @@
                 <div class="col-md-3 p-0">
                 </div>
                 <div class="col-md-9 offset-md-3 p-0">
-                  <p class="error_alert" *ngIf="eventForm.controls['event_startdate'].errors?.oldate">Please choose upcomming date</p>
-                  <p class="error_alert" *ngIf="eventForm.controls['event_enddate'].errors?.startdate">Please choose start date </p>
-                  <p class="error_alert" *ngIf="eventForm.controls['event_enddate'].errors?.old_even_end_date">Please choose upcoming date </p>
-                  <p class="error_alert" *ngIf="eventForm.controls['event_enddate'].errors?.oldate">Please choose upcomming date</p>
-                  <p class="error_alert" *ngIf="eventForm.controls['event_startdate'].errors?.required && ecfrom.submitted">Start Date and End Date is required</p>
+                  <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.oldate">Please choose upcomming date</p>
+                  <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.startdate">Please choose start date </p>
+                  <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.old_even_end_date">Please choose upcoming date </p>
+                  <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.oldate">Please choose upcomming date</p>
+                  <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.required && ecfrom.submitted">Start Date and End Date is required</p>
                 </div>
               </div><!-- Date end -->
 
@@ -161,8 +177,8 @@
                     <div class="col-md-3 p-0">
                   </div>
                 <div class="col-md-9 offset-md-3 p-0">
-                   <p class="error_alert" *ngIf="eventForm.controls.event_agenda.controls[i].controls.startTime.errors?.required && ecfrom.submitted">Date is required</p>
-                   <p class="error_alert" *ngIf="eventForm.controls.event_agenda.controls[i].controls.description.errors?.required && ecfrom.submitted">Program  is required</p>
+                   <p class="c-form__validation" *ngIf="eventForm.controls.event_agenda.controls[i].controls.startTime.errors?.required && ecfrom.submitted">Date is required</p>
+                   <!--<p class="c-form__validation" *ngIf="eventForm.controls.event_agenda.controls[i].controls.description.errors?.required && ecfrom.submitted">Program  is required</p>-->
                   <!--<p class="error_alert" *ngIf="eventForm.controls['description'].errors?.required && ecfrom.submitted">Program is required</p>-->
                 </div>
                   </div><!-- agenda add det sec end -->
@@ -265,8 +281,8 @@
                 <div class="col-md-3 p-0">
                 </div>
                 <div class="col-md-9 offset-md-3 p-0">
-                  <p class="error_alert" *ngIf="eventForm.controls['ts_startTime'].errors?.required && ecfrom.submitted">Start date is required</p>
-                  <p class="error_alert" *ngIf="eventForm.controls['ts_endTime'].errors?.required && ecfrom.submitted">End date is required</p>
+                  <p class="c-form__validation" *ngIf="eventForm.controls['ts_startTime'].errors?.required && ecfrom.submitted">Start Date and End Date is required</p>
+                  <!--<p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.required && ecfrom.submitted">End date is required</p>-->
                 </div>
             </div><!-- Ticket sales end -->
 
@@ -281,13 +297,9 @@
                   <span class="c-form__bar"></span>
                   <label>Quantity</label>
                 </div>
+                <p class="c-form__validation" *ngIf="eventForm.controls['ts_quantity'].errors?.required && ecfrom.submitted">Quantity is required</p>
+                <p class="c-form__validation" *ngIf="imageUpload">Event Cover is required</p>
               </div>
-              <div class="col-md-3 p-0">
-                </div>
-                <div class="col-md-9 offset-md-3 p-0">
-                  <p class="error_alert" *ngIf="eventForm.controls['ts_quantity'].errors?.required && ecfrom.submitted">Quantity is required</p>
-                  <p class="error_alert" *ngIf="imageUpload">Event Cover is required</p>
-                </div>
                 <!--<input type="hidden" name="coverimage" value="{{eventCoverImage}}" formControlName="event_cover">-->
             </div><!-- Maximum tickets end -->
 

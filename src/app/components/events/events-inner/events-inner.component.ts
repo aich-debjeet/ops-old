@@ -35,6 +35,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
     this.tagState$ = this.store.select('eventTags');
     this.tagState$.subscribe((state) => {
       this.eventDetail = state['event_detail'];
+      console.log(this.eventDetail);
     });
 
   }
