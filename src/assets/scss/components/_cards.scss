@@ -291,7 +291,26 @@
   margin: 8px;
 }
 
+.c-card__event{
+  height: 111px;
+  overflow: hidden;
+  img{
+    width: 100%;
+  }
+}
+.c-card__event-title{
+  height: 50px;
+}
+.c-card__event-address{
+  height: 40px;
+}
+
 // channel header block style  ----------------------------------------
+.c-channel__card {
+  width: 24%;
+  float: left;
+  margin: 5px;
+}
 .c-channel__heading {
   color: #333333;
   font-size: 15px;
@@ -300,48 +319,66 @@
       color: #000;
   }
 }
-
+.c-channel__name {
+  background: linear-gradient(180deg, #000000 0%, rgba(0,0,0,0) 100%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  padding: 8px;
+}
+.c-channel_heading2 {
+  font-size: 15px;
+  line-height: 24px;
+  color: #FFFFFF;
+}
 // channel media block style  ----------------------------------------
 .c-channel__media {
   width: 100%;
+  position: relative;
 }
 
-.c-channel__sec {
-  width: 50%;
+.c-channel__sec-l {
+  width: 66%;
+  float: left;
+}
+.c-channel__sec-r {
+  width: 34%;
   float: left;
 }
 
 .c-channel__left {
-  width: 98%;
-  height: 122px;
+  width: 99%;
+  height: 139px;
   display: inline-block;
   vertical-align: middle;
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
   background: #f8f8f8;
-  background: url(/assets/img/travel.jpg);
+  background: url(/assets/img/new/l12.jpg);
   background-size: cover;
   background-position: inherit;
 }
 
 .c-channel__right1 {
   width: 100%;
-  height: 60px;
+  height: 69px;
   display: inline-block;
   vertical-align: middle;
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
   background: #f8f8f8;
-  background: url(/assets/img/art1.jpg);
+  background: url(/assets/img/new/s06.jpg);
   background-size: cover;
   background-position: inherit;
 }
 
 .c-channel__right2 {
   width: 100%;
-  height: 60px;
+  height: 68px;
   display: inline-block;
   vertical-align: middle;
   overflow: hidden;
@@ -349,7 +386,7 @@
   box-sizing: border-box;
   margin-top: 2px;
   background: #f8f8f8;
-  background: url(/assets/img/dog2.jpg);
+  background: url(/assets/img/new/s05.jpg);
   background-size: cover;
   background-position: inherit;
 }
@@ -418,6 +455,8 @@
   border-radius: 3px;
   box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
   background-color: #ffffff;
+}
+.c-card--overflow {
   overflow: hidden;
 }
 
@@ -526,12 +565,25 @@
   line-height: 0px;
   width: 14px; // background: #ffffff;
 }
+.c-card__options2 {
+  position: absolute;
+  top: 4px;
+  right: 0px;
+  margin: 10px;
+  line-height: 0px;
+  height: 14px; // background: #ffffff;
+}
 
 //feed card footer (links) block style --------------------------
 .c-card__links {
   width: 100%;
   float: left;
   padding: 16px; // border-top: 1px solid #EFEFEF;
+}
+.c-card__links2 {
+  width: 100%;
+  float: left;
+  padding: 8px 16px; // border-top: 1px solid #EFEFEF;
 }
 
 .c-links {
@@ -662,6 +714,18 @@
       color: #979797;
   }
 }
+.c-user__channel2 {
+  font-size: 11px;
+  line-height: 18px;
+  color: #979797;
+  display: block;
+  margin-left: 42px;
+  clear: both;
+  cursor: pointer;
+  &:hover {
+      color: #979797;
+  }
+}
 
 // feed card video ------------------------
 .c-feed__video {
@@ -751,6 +815,15 @@
   display: inline-block;
 }
 
+.pop-container-md{
+  width:564px;
+  margin: 0px auto;
+  background:#fff;
+  border-radius:3px;
+  position:relative;
+  display: inline-block;
+}
+
 
 // for pop up head sec
 
@@ -768,8 +841,30 @@
   right: 0px;
   top: 0px;
 }
-
-
-
-
-// All cards style ends ----------------------------------------------------------------------
+//featured artist card
+.c-featured__card {
+  width: 12.5%;
+  float: left;
+}
+.c-featured__userblock {
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.c-featured__userimg {
+  width: 100%
+}
+.c-featured__username {
+font-size: 13px;
+line-height: 20px;
+text-align: center;
+color: #333333;
+}
+.c-featured__userhandle {
+font-size: 11px;
+line-height: 18px;
+text-align: center;
+color: #808080;
+}
