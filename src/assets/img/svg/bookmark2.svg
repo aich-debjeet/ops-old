@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="17" viewBox="0 0 12 17">
+  <defs>
+    <path id="addtochannel-copy-a" d="M12,17 L6.17142857,12.2497778 L0,17 L0,0.940444444 C0,0.421333333 0.448914286,0 1.00297143,0 L10.9970286,0 C11.552,0 12,0.421333333 12,0.940444444 L12,17 Z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <mask id="addtochannel-copy-b" fill="#fff">
+      <use xlink:href="#addtochannel-copy-a"/>
+    </mask>
+    <use fill="#000" xlink:href="#addtochannel-copy-a"/>
+    <g fill="#929292" mask="url(#addtochannel-copy-b)">
+      <rect width="24" height="24" rx="2" transform="translate(-6 -4)"/>
+    </g>
+  </g>
+</svg>
