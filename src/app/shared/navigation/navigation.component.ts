@@ -68,7 +68,7 @@ export class NavigationComponent implements OnInit {
     /* profile state */
     this.profileState$.subscribe((state) => {
       this.activeProfileState = state;
-      // console.log('profile state', state);
+      console.log('profile state', state);
 
       if (!this.isProfileSet && state && state.profile_navigation_details && state.profile_navigation_details.profileImage) {
         this.isProfileSet = true;
@@ -85,8 +85,8 @@ export class NavigationComponent implements OnInit {
             this.setProfileToUser();
           }
         }
+        console.log('this.profileType', this.profileType);
       }
-      console.log('this.profileType', this.profileType);
 
     });
     /* profile state */

@@ -189,11 +189,11 @@ export class CreateChannelComponent implements OnInit {
         hashTags: this.hashTags
       }
 
-      console.log(channelObj);
-      return;
+      // console.log(channelObj);
+      // return;
 
-      // this.channelSavedHere = true;
-      // this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
+      this.channelSavedHere = true;
+      this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
     } else {
       this.toastr.warning('Please fill all required fields');
     }
