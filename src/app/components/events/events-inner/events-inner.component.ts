@@ -27,6 +27,8 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
   tagState$: Observable<EventModal>;
   eventDetail: any ;
   baseUrl = environment.API_IMAGE;
+  eventTag: any;
+  isAttend: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +39,16 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
       this.eventDetail = state['event_detail'];
       console.log(this.eventDetail);
     });
+
+    // Event tag
+    this.store.select('eventTags')
+      .first(attend => attend['event_detail'])
+      .subscribe( data => {
+        if (data['event_detail']) {
+          this.isAttend = data['event_detail'].isGoing;
+        }
+        console.log(data)
+      });
 
   }
 
@@ -63,6 +75,28 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  attendEvent() {
+    if (this.isAttend) {
+      this.isAttend = false;
+      const data = {
+        id: this.id,
+        status: 'NotGoing'
+      }
+      this.updateAttend(data);
+    }else {
+      this.isAttend = true;
+      const data = {
+        id: this.id,
+        status: 'Going'
+      }
+      this.updateAttend(data);
+    }
+  }
+
+  updateAttend(data) {
+    this.store.dispatch({ type: EventActions.EVENT_ATTEND, payload: data });
   }
 
 }

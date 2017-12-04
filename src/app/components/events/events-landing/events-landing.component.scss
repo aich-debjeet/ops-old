@@ -1,37 +1,7 @@
-// event landing css
 
-.bannerStyle h1 {
-        background-color: #ccc;
-        min-height: 300px;
-        text-align: center;
-        line-height: 300px;
-    }
-    .leftRs {
-        position: absolute;
-        margin: auto;
-        top: 0;
-        bottom: 0;
-        width: 50px;
-        height: 50px;
-        box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, .3);
-        border-radius: 999px;
-        left: 0;
-    }
-
-    .rightRs {
-        position: absolute;
-        margin: auto;
-        top: 0;
-        bottom: 0;
-        width: 50px;
-        height: 50px;
-        box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, .3);
-        border-radius: 999px;
-        right: 0;
-    }
-
-
-
+.nav-tabs{
+	border: none;
+}
 
 // slider
 .o-event-top-slider{
@@ -40,10 +10,9 @@
 	float: left;
 	background: #333;
 	overflow: hidden;
-  position: relative;
-  z-index: -1;
-  margin-top: -8px;
-  margin-top: 50px;
+  	position: relative;
+  	z-index: -1;
+	margin-top: 50px;
 }
 .o-event-slider__media{
 	width: 750px!important;
@@ -62,13 +31,14 @@
   bottom: 0px;
   z-index: 2;
   width: 100%;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 40%);
-  padding-bottom: 40px;
+  background-color: rgba(51,51,51,0.84);
+  padding-bottom: 32px;
   float: left;
-  padding-left: 24px;
 }
 .o-event-slider__date{
 	float: left;
+  padding:16px 24px!important;
+  background: #fff;
 }
 .o-event-slider__det-text{
 	float: left;
@@ -100,7 +70,7 @@
   width: 100%;
   float: left;
   background: #fff;
-  padding: 16px 24px;
+  padding: 8px 24px;
 }
 .o-event-filter-list-block{
 	list-style: none;
@@ -154,11 +124,10 @@
 //sort link
 
 .o-event-sort-link{
-	width: 100%;
+	width: 88%;
 	float: left;
 	display: flex;
 	align-items:center;
-	justify-content:center;
 	position: relative;
 }
 .o-event-sort__a{
@@ -173,16 +142,17 @@
 }
 
 .event-drop{
-  width: 100%;
+  width: 150px;
   margin: 0px auto;
   background: none;
   border: none;
   box-shadow: none;
-  text-align: center !important;
+  text-align: left !important;
   top: 50px;
+  background: #fff;
+  left: auto;
   li{
   	list-style-type: none;
-  	display: inline-block;
   	a{
 			font-size: 13px;
 			text-transform: uppercase;
@@ -190,11 +160,74 @@
 			color: #929292;
 			background: none;
 			letter-spacing: 1px;
-			padding:0px 8px!important;
+			padding:8px 24px!important;
 			&:hover{
 				color: #333;
 				background: none;
 			}
   	}
   }
+}
+.o-select-loc{
+	position: relative;
+}
+.o-location--drop{
+	width: 254px !important;
+  right: 0;
+  padding: 16px;
+}
+// calendar
+
+.o-calendar{
+	list-style: none;
+}
+.o-calendar__list{
+	list-style-type: none;
+	float: left;
+	border-radius: 3px;
+	overflow: hidden;
+	width: 86px;
+	padding:8px;
+	transition:.25s;
+	margin-right:8px;
+}
+.o-calendar__list:hover{
+	background-color: #FF7B84;
+}
+.o-calendar__list:hover .o-calendar--color{
+	color: #fff;
+}
+.o-calander__date{
+}
+.o-calendar--color{
+	color: #929292;
+	line-height:20px;
+	transition:.25s;
+	width: 100%;
+	float: left;
+}
+.o-calendar--active{
+	background-color: #FF7B84;
+}
+.o-calendar--active .o-calendar--color{
+	color:#fff;
+}
+.o-calendar__list--icon{
+	list-style-type: none;
+	float: left;
+	border-radius: 3px;
+	overflow: hidden;
+	width: 60px;
+	padding:8px;
+	transition:.25s;
+	margin-right:8px;
+	display: flex;
+	justify-content:center;
+	align-items:center;
+}
+.o-calendar__icon{
+	width: 30px;
+	img{
+		width: 100%;
+	}
 }

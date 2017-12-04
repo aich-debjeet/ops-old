@@ -41,6 +41,10 @@ const routes: Routes = [
   {
     path: 'landing',
     component: EventsLandingComponent
+  },
+  {
+    path: ':id/edit',
+    component: EventsCreateComponent
   }
 
 ]
