@@ -141,24 +141,24 @@
                                     <div class="navdrop__userhandal">@{{ activeProfileState.profile_navigation_details?.username }}</div>
                                 </a>
                             </div>
-                            <div class="dropdown__item with_border_bottom p-t-b-16" *ngIf="this.profileType == 'user' && userProfile?.profileUser?.isOrganization">
+                            <div class="dropdown__item with_border_bottom p-t-b-16" *ngIf="this.profileType == 'user' && activeProfileState.profile_navigation_details?.isOrganization">
                                 <div class="navdrop__switchto">Switch to</div>
                                 <div class="navdrop__imgblock2">
-                                    <img class="navdrop__img" src="{{ baseUrl + userProfile?.profileUser?.organization?.organizationImage }}">
+                                    <img class="navdrop__img" src="{{ baseUrl + activeProfileState.profile_navigation_details?.organization?.organizationImage }}">
                                 </div>
-                                <div class="navdrop__name2"><a routerLink="/org/page" (click)="setProfileToOrg()">{{ userProfile.profileUser?.organization?.organizationName }}</a></div>
+                                <div class="navdrop__name2"><a routerLink="/org/page" (click)="setProfileToOrg()">{{ activeProfileState.profile_navigation_details?.organization?.organizationName }}</a></div>
                             </div>
                             <div class="dropdown__item with_border_bottom p-t-b-16" *ngIf="this.profileType == 'org'">
                                 <div class="navdrop__switchto">Switch to</div>
                                 <div class="navdrop__imgblock2">
-                                    <img class="navdrop__img" src="{{ baseUrl + userProfile?.profileUser?.profileImage }}">
+                                    <img class="navdrop__img" src="{{ baseUrl + activeProfileState.profile_navigation_details?.name  }}">
                                 </div>
-                                <div class="navdrop__name2"><a routerLink="/profile" (click)="setProfileToUser()">@{{ userProfile.profileUser?.username }}</a></div>
+                                <div class="navdrop__name2"><a routerLink="/profile" (click)="setProfileToUser()">@{{ profilerOwnersUsername }}</a></div>
                             </div>
-                            <div class="dropdown__item p-t-b-16" *ngIf="this.profileType == 'user' && !userProfile?.profileUser?.isOrganization">
+                            <div class="dropdown__item p-t-b-16" *ngIf="this.profileType == 'user' && !activeProfileState.profile_navigation_details?.isOrganization">
                                 <a routerLink="/org/registration">Create Organisation</a>
                             </div>
-                            <div class="dropdown__item p-b-16 with_border_bottom">
+                            <div class="dropdown__item p-t-b-16 with_border_bottom">
                                 <a *ngIf="this.profileType == 'user'" routerLink="/user/settings">Settings</a>
                                 <a *ngIf="this.profileType == 'org'" routerLink="/org/settings">Settings</a>
                             </div>
