@@ -56,9 +56,11 @@
                                 <a (click)="markAllAsRead()" class="pull-right">Mark all as read</a>
                                 <div class="dropdown__arrow"><img src="/assets/img/arrow.png"></div>
                             </div>
-                            <div class="dropdown__item p-16 msg__unread">
+                            <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications" [ngClass]="{'fill_grey': !notification.isRead}">
                                 <div class="dropnoti__avatar">
-                                    <img class="navdrop__img" src="/assets/img/new/avatar2.png">
+                                    <!-- <img class="navdrop__img" src="/assets/img/new/avatar2.png"> -->
+                                    <img *ngIf="!notification.profileImage" src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                    <img *ngIf="notification.profileImage" src="{{ baseUrl + notification.profileImage }}" class="img-responsive">
                                 </div>
                                 <div class="dropnoti__detail">
                                     <span class="dropnoti__bold">Tommy Russell, John Mayer and 50 other people recently liked your photo</span>
@@ -68,7 +70,7 @@
                                 </div>
                                 <p class="msg__time">10:08 PM</p>
                             </div>
-                            <div class="dropdown__item p-16 msg__unread">
+                            <!-- <div class="dropdown__item p-16 msg__unread">
                                 <div class="dropnoti__avatar">
                                     <img class="navdrop__img" src="">
                                 </div>
@@ -98,7 +100,7 @@
                                     <a href="" class="color-theme">Accept</a>
                                     <a href="">Decline</a>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="dropdown__item p-16 msg__read">
                                 <p class="dropnoti__viewall">View All</p>
                             </div>
