@@ -53,6 +53,16 @@ export class EventService {
     return this.api.postFile('/portal/cdn/media/upload?handle=' + handle, value);
   }
 
+  /**
+   * Load my status
+   */
+  attendUpdate(id: any) {
+    const body = {
+      status: 'Going'
+    }
+    return this.api.put( '/portal/event/attend/' + id, body);
+  }
+
 
   fileUpload(formValue: any) {
     const fileData = this.buildImageForm(formValue);

@@ -65,4 +65,8 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
+  attendEvent() {
+    this.store.dispatch({ type: EventActions.EVENT_ATTEND, payload: this.id });
+  }
+
 }
