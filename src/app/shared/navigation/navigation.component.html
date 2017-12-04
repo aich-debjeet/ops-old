@@ -63,7 +63,10 @@
                                     <img *ngIf="notification.profileImage" src="{{ baseUrl + notification.profileImage }}" class="img-responsive">
                                 </div>
                                 <div class="dropnoti__detail">
-                                    <span class="dropnoti__bold">Tommy Russell, John Mayer and 50 other people recently liked your photo</span>
+                                    <span><a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                                        <span class="dropnoti__bold"> {{ notification.name }}</span>
+                                    </a>{{ notification.message }}
+                                    </span>
                                 </div>
                                 <div class="dropnoti__icon">
                                     <img src="/assets/img/svg/spot_icon.svg">
@@ -106,11 +109,11 @@
                             </div>
                         </div>
                     </li>
-                    <li class="dropdown" appDropdown>
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+                    <li class="dropdown">
+                        <a routerLink="/message" routerLinkActive="active" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                             <img src="/assets/img/svg/ico_message.svg">
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right nav__dropdown4">
+                        <!-- <div class="dropdown-menu dropdown-menu-right nav__dropdown4">
                             <div class="dropdown__item dropnoti__head msg__read">
                                 Your Messages
                                 <a href="" class="pull-right">Compose</a>
@@ -159,7 +162,7 @@
                             <div class="dropdown__item p-16 msg__read">
                                 <p class="dropnoti__viewall">View All</p>
                             </div>
-                        </div>
+                        </div> -->
                     </li>
 
                     <li class="dropdown" appDropdown>
@@ -189,7 +192,7 @@
                             <div class="dropdown__item with_border_bottom p-t-b-16" *ngIf="this.profileType == 'user' && userProfile.profileUser?.isOrganization">
                                 <div class="navdrop__switchto">Switch to</div>
                                 <div class="navdrop__imgblock2">
-                                    <img class="navdrop__img" src="{{ baseUrl + orgProfile.org_profile_details?.profileImage }}">
+                                    <img class="navdrop__img" src="{{ baseUrl + userProfile.profileUser?.organization?.organizationImage }}">
                                 </div>
                                 <div class="navdrop__name2"><a routerLink="/org/page" (click)="setProfileToOrg()">{{ userProfile.profileUser?.organization?.organizationName }}</a></div>
                             </div>
