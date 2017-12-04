@@ -1,19 +1,19 @@
 <div class="c-event__card">
   <!-- card media (img, video & audio) -->
   <div class="c-card__opportunity">
-      <a href="" data-toggle="modal" data-target="#imgModal">
-          <img src="https://ops-v2.netlify.com/img/photography8.jpg" alt="" class="c-card__image">
+      <a routerLink="{{ '/events/inner/' + eventData?.id }}" data-toggle="modal" data-target="#imgModal">
+          <img src="{{ baseUrl + eventData?.event_media}}" alt="" class="c-card__image">
       </a>
   </div>
   <!-- //card media (img, video & audio) -->
-  <div class="c-card__project p-l-r-16 p-t-8">Performance</div>
+  <div class="c-card__project p-l-r-16 p-t-8">{{eventData?.industry}}</div>
   <!-- card body -->
   <div class="c-card__body p-t-8">
       <div class="c-text_lg">
-          Learn To Love Growth
+          {{eventData?.title}}
       </div>
-      <div class="c-text_md color-grey-dark m-t-8">30, Jan - 1 Jan</div>
-      <div class="c-text_sm color-grey-dark m-t-16">7th Main Rd, Indiranagar, Bengaluru, Karnataka 560038</div>
+      <div class="c-text_md color-grey-dark m-t-8">{{ eventData?.eventTiming?.startDate | utcDate | date: 'dd, MMM'}} - {{ eventData?.eventTiming?.endDate | utcDate | date: 'dd, MMM'}}</div>
+      <div class="c-text_sm color-grey-dark m-t-16">{{ eventData?.venue?.location }}</div>
   </div>
   <!-- //card body -->
   
@@ -28,7 +28,7 @@
               <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
           </div>
           <div class="c-links__actions">
-              <a href="events_inner.html" class="c-card__opportunity--view">View</a>
+              <a routerLink="{{ '/events/inner/' + eventData?.id }}"class="c-card__opportunity--view">View</a>
           </div>
       </div>
   </div>

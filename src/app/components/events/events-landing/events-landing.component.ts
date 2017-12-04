@@ -1,5 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
+import { Store } from '@ngrx/store';
+import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
+
+// Model
+import { EventModal, initialTag  } from '../../../models/event.model';
+
+// action
+import { EventActions } from '../../../actions/event.action';
+
+// rx
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-events-landing',
@@ -8,7 +20,18 @@ import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
 })
 export class EventsLandingComponent implements OnInit {
   carouselOne: NgxCarousel;
-  constructor() { }
+  tagState$: Observable<EventModal>;
+  eventList = initialTag ;
+  constructor(
+    private store: Store<EventModal>
+  ) {
+    this.tagState$ = this.store.select('eventTags');
+    this.tagState$.subscribe((state) => {
+      this.eventList = state['event_list'];
+      console.log(this.eventList);
+    });
+    this.store.dispatch({ type: EventActions.EVENT_LIST });
+  }
 
   ngOnInit() {
 
@@ -56,12 +79,12 @@ export class EventsLandingComponent implements OnInit {
 
   /* This will be triggered after carousel viewed */
   afterCarouselViewedFn(data) {
-    console.log(data);
+    // console.log(data);
   }
 
   /* It will be triggered on every slide*/
   onmoveFn(data: NgxCarouselStore) {
-    console.log(data);
+    // console.log(data);
   }
 
 

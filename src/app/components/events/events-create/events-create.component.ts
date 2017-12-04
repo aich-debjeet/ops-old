@@ -1,74 +1,147 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import {IDatePickerConfig} from 'ng2-date-picker';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { NgxfUploaderService, UploadEvent, UploadStatus, FileError } from 'ngxf-uploader';
+import { DatePipe } from '@angular/common';
+import { EventValidator, FormValidation } from '../../../helpers/event.validator';
+import {Moment} from 'moment';
+
+
 
 // Model
 import { EventModal, initialTag  } from '../../../models/event.model';
+import { ProfileModal } from '../../../models/profile.model';
 
 // action
 import { EventActions } from '../../../actions/event.action';
+import { ProfileActions } from '../../../actions/profile.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { environment } from './../../../../environments/environment';
+
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-events-create',
   templateUrl: './events-create.component.html',
-  styleUrls: ['./events-create.component.scss']
+  styleUrls: ['./events-create.component.scss'],
+  providers: [DatePipe, EventValidator]
 })
 export class EventsCreateComponent implements OnInit {
   public eventForm: FormGroup;
   tagState$: Observable<EventModal>;
+  profileState$: Observable<ProfileModal>;
+  today = Date.now();
+  industryList = initialTag ;
+  image: any;
+  eventCoverImage: any;
+  minDate = new Date();
+  dateExpires;
+  baseUrl = environment.API_IMAGE;
+  imageUpload: boolean;
 
-  config: IDatePickerConfig = {
-    firstDayOfWeek: 'su',
-    monthFormat: 'MMM, YYYY',
+  datePickerConfig: IDatePickerConfig = {
+    firstDayOfWeek: 'mo',
+    // format: 'YYYY-MM-DDThh:mmTZD',
     disableKeypress: false,
-    allowMultiSelect: false,
-    closeOnSelect: undefined,
-    closeOnSelectDelay: 100,
-    openOnFocus: true,
-    openOnClick: true,
-    onOpenDelay: 0,
-    weekDayFormat: 'ddd',
-    appendTo: document.body,
-    showNearMonthDays: true,
-    showWeekNumbers: false,
-    enableMonthSelector: true,
-    yearFormat: 'YYYY',
-    showGoToCurrent: true,
-    dayBtnFormat: 'DD',
-    monthBtnFormat: 'MMM',
-    hours12Format: 'hh',
-    hours24Format: 'HH',
-    meridiemFormat: 'A',
-    minutesFormat: 'mm',
-    minutesInterval: 1,
-    secondsFormat: 'ss',
-    secondsInterval: 1,
-    showSeconds: false,
-    showTwentyFourHours: false,
-    timeSeparator: ':',
-    multipleYearsNavigateBy: 10,
-    showMultipleYearsNavigation: false,
-    hideInputContainer: false,
+    showSeconds: true
   };
 
+  private configDateTime = {
+    locale: 'en',
+    format: 'DD/MM/YYYY hh:mm A',
+    min: moment().format('MM/DD/YYYY'),
+    closeOnSelect: true,
+    disableKeypress: 'Disabled',
+    returnedValueType: 'Moment'
+
+  };
+
+  config: IDatePickerConfig = {
+    locale: 'en'
+  };
+
+  process: number[] = [];
+  fileData: File;
+  userHandle: any;
 
   constructor(
     private fb: FormBuilder,
     private store: Store<EventModal>,
     private route: ActivatedRoute,
+    private router: Router,
+    private Upload: NgxfUploaderService,
+    private datePipe: DatePipe,
+    private eventValidator: EventValidator,
   ) {
 
+    this.tagState$ = this.store.select('eventTags');
+    this.tagState$.subscribe((state) => {
+      this.industryList = state['all_industry'];
+    });
+
+    this.profileState$ = this.store.select('profileTags');
+    this.profileState$.subscribe((state) => {
+      // console.log(state);
+    });
+
+    this.store.select('profileTags')
+      .first(profile => profile['profileUser'].handle )
+      .subscribe( data => {
+        this.userHandle = data['profileUser'].handle
+      });
+
+    this.store.dispatch({ type: EventActions.GET_ALL_INDUSTRY });
   }
 
   ngOnInit() {
     this.buildForm();
   }
+
+  fileChangeListener($event) {
+      let image: any = new Image();
+      let file: File = $event.target.files[0];
+      let myReader: FileReader = new FileReader();
+      let that = this;
+      let val: any;
+      myReader.onloadend = function (loadEvent: any) {
+          image.src = loadEvent.target.result;
+          val = loadEvent.target.result;
+          that.image = loadEvent.target.result;
+          that.uploadCoverImage(loadEvent.target.result);
+      };
+
+      myReader.readAsDataURL(file);
+  }
+
+   /**
+   * Upload Cover image
+   */
+  uploadCoverImage(val) {
+      const imageData = {
+        handle: this.userHandle,
+        image: this.image.split((/,(.+)/)[1])
+      };
+      this.store.dispatch({ type: EventActions.FILE_UPLOAD, payload: imageData });
+
+    this.store.select('eventTags')
+      .first(file => file['fileupload_success'] === true )
+      .subscribe( data => {
+        this.eventCoverImage = data['fileUpload'].repoPath
+        console.log(data);
+      });
+  }
+
+
+
+
+
+
 
   /**
    * Init Form Action
@@ -79,21 +152,25 @@ export class EventsCreateComponent implements OnInit {
       'event_genres': ['', [Validators.required]],
       'event_industry': ['', [Validators.required]],
       'event_venue': ['', [Validators.required]],
-      'event_startdate' : ['', [Validators.required]],
-      'event_enddate' : ['', [Validators.required]],
-      'event_agenda' : this.fb.array(
-        [this.agendaItem('')]
-      ),
-      'event_ts_type' : this.fb.array(
-        [this.ticketItem('')]
-      ),
+      'event_startdate' : ['', [Validators.required, FormValidation.datevalidation]],
+      'event_enddate' : ['', [Validators.required, FormValidation.oldEndDatevalidation]],
+      'access': '0',
+      'event_type': 'Free',
+      'event_agenda' : this.fb.array([]),
+      // 'event_ts_type' : this.fb.array(
+      //   [this.ticketItem('')]
+      // ),
       'event_brief' : ['', [Validators.required]],
-      'ts_startTime': '',
-      'ts_endTime': '',
-      'ts_quantity': '',
+      'ts_startTime': ['', [Validators.required]],
+      'ts_endTime': ['', [Validators.required]],
+      'ts_quantity': ['', [Validators.required]]
+    }, {
+      validators: [FormValidation.endateValidation]
     })
 
   }
+
+  // this.eventValidator.datevalidation.bind(this.eventValidator)
 
   /**
    * More Agenda Item push to Form
@@ -123,23 +200,52 @@ export class EventsCreateComponent implements OnInit {
       name: new FormControl(val, Validators.required),
       price: new FormControl(val, Validators.required),
       quantity: new FormControl(val),
-      ticketQuantiy: new FormControl(val, Validators.required)
+      ticketQuantiy: new FormControl(val, Validators.required),
+      ticketType: new FormControl(val)
     })
   }
+
+  // onCheckChange(event) {
+  // const formArray: FormArray = this.eventForm.get('event_ts_type') as FormArray;
+
+  // /* Selected */
+  // if(event.target.checked){
+  //   // Add a new control in the arrayForm
+  //   formArray.push(new FormControl(event.target.value));
+  // }
+  // /* unselected */
+  // else{
+  //   // find the unselected element
+  //   let i: number = 0;
+
+  //   formArray.controls.forEach((ctrl: FormControl) => {
+  //     if(ctrl.value == event.target.value) {
+  //       // Remove the unselected element from the arrayForm
+  //       formArray.removeAt(i);
+  //       return;
+  //     }
+
+  //     i++;
+  //   });
+  // }
+
 
   /**
    * Event Creatation Sybmit
    * @param value value of form
    */
   submitForm(value) {
+    console.log(this.eventForm);
     console.log(value);
-    console.log(this.eventForm.valid);
+    console.log('Form validation' + this.eventForm.valid);
     // struct of backend
     // const data = {
     //     title : value.event_name,
     //     eventTiming: {
     //       startDate : this.reverseDate(value.event_startdate) + 'T05:00:00',
     //       endDate : this.reverseDate(value.event_enddate) + 'T05:00:00',
+    //       startTime : this.reverseDate(value.event_startdate) + 'T05:00:00',
+    //       endTime : this.reverseDate(value.event_enddate) + 'T05:00:00',
     //     },
     //     venue : {
     //         line1 : 'BANGALORE',
@@ -165,7 +271,7 @@ export class EventsCreateComponent implements OnInit {
     //       eventType : 'Theatre'
     //     },
     //     extras: {
-    //       Genre:[value.event_genres],
+    //       Genre: [value.event_genres],
     //       ticket: [{
     //         ticketType: value.event_ts_type,
     //         startDate: this.reverseDate(value.ts_startTime) + 'T05:00:00',
@@ -176,9 +282,54 @@ export class EventsCreateComponent implements OnInit {
     //     isFeatured: false
     // }
 
+    if (this.eventForm.valid) {
+      if (this.eventCoverImage === '') {
+        this.imageUpload = true;
+        return
+      }
+      this.imageUpload = false;
+      const data = {
+          title : value.event_name,
+          access :  Number(value.access),
+          active : true,
+          isFeatured: false,
+          eventTiming: {
+            startDate : this.reverseDate(value.event_startdate) + 'T05:00:00',
+            endDate : this.reverseDate(value.event_enddate) + 'T05:00:00',
+          },
+          venue : {
+            location: value.event_venue
+          },
+          event_agenda: value.event_agenda,
+          extras: {
+            Genre: [value.event_genres],
+            ticket: [{
+              startDate: this.reverseDate(value.ts_startTime) + 'T05:00:00',
+              endDate: this.reverseDate(value.ts_endTime) + 'T05:00:00',
+              maximum: value.ts_quantity
+            }]
+          },
+          brief: value.event_brief,
+          industry : [
+              value.event_industry
+          ],
+          Type: {
+            EntryType : value.event_type,
+          },
+          event_media: [this.eventCoverImage]
+      }
 
-    // Dispatch to form value to server
-    // this._store.dispatch({ type: ProfileActions.LOAD_DIRECTORY, payload: data });
+      // Dispatch to form value to server
+      this.store.dispatch({ type: EventActions.EVENT_REG, payload: data });
+
+      this.store.select('eventTags')
+        .first(regevent => regevent['event_create_success'] === true )
+        .subscribe( reg => {
+          console.log(reg);
+          const id = reg['event_id'];
+          this.router.navigate(['/events/inner/' + id]);
+        });
+    }
   }
 
   /**

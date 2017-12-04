@@ -43,6 +43,7 @@
   position: relative;
   z-index: -1;
   margin-top: -8px;
+  margin-top: 50px;
 }
 .o-event-slider__media{
 	width: 750px!important;
@@ -58,7 +59,7 @@
 }
 .o-event-slider_info-txt{
   position: absolute;
-  bottom: 120px;
+  bottom: 0px;
   z-index: 2;
   width: 100%;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 40%);

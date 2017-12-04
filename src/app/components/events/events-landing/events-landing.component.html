@@ -3,7 +3,7 @@
 
 
 
-<div class="o-event-top-slider">
+<!--<div class="o-event-top-slider">
 	<div class="eventslider">
 	  
 	  	<div class="o-event-slider__media" >
@@ -62,104 +62,9 @@
 	  		</div>
 	  	</div>
 	</div>
-</div>
+</div>-->
 
-<div class="o-event-contentarea">
-	<div class="container">
-
-		<div class="o-event-filter-sec with_border_top c-ops__tabs o-event-tabs p-t-b-16 m-t--32">
-  		<div class="col-md-6 p-0">
-  			<ul class="nav nav-tabs">
-          <li class="active"><a class="p-l-0" data-toggle="tab" href="#recommended" aria-expanded="true">Recommended</a></li>
-          <li class=""><a data-toggle="tab" href="#attend" aria-expanded="false">attending</a></li>
-          <li class=""><a data-toggle="tab" href="#created" aria-expanded="false">Created</a></li>
-        </ul>
-  		</div>
-  		<div class="col-md-6 p-0">
-  			<ul class="o-event-filter-list-block">
-  				<li class="o-event-filter-list__item">
-  					<a href="#" class="o-event-filter-item__location">
-  						<span class="o-event-select-location c-text_md color-grey-dark">
-  							<span class="o-event-select-location__ico">
-  								<img src="/assets/img/svg/location.svg" alt="">
-  							</span>
-  							Select Location
-  						</span>
-  					</a>
-  				</li><!-- select location end -->
-  				<li class="o-event-filter-list__item">
-  					<div class="o-event-filter__fil-icon">
-  						<img width="17" src="/assets/img/svg/fiter.svg" alt="">
-  					</div>
-  				</li> <!-- filter ico end -->
-  				<li class="o-event-filter-list__item m-r-0">
-  					<a href="events_form.html" class="btn btn-primary btn-md ">Create</a>
-  				</li><!-- create button end -->
-  			</ul>
-  		</div>
-  	</div><!-- event tab end -->
-
-  	<div class="o-event-sort-link">
-  		
-      <div class=" c-dropdown">
-	  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-	  			All
-	  		</a>
-	  		<ul class="dropdown-menu event-drop">
-          <li><a href="#">HTML</a></li>
-          <li><a href="#">CSS</a></li>
-          <li><a href="#">JavaScript</a></li>
-        </ul>
-	  	</div><!-- all link end-->
-
-	  	<div class=" c-dropdown">
-	  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-	  			Comedy
-	  		</a>
-	  		<ul class="dropdown-menu event-drop">
-          <li><a href="#">Standup</a></li>
-          <li><a href="#">comedy</a></li>
-        </ul>
-	  	</div><!-- Comedy link end-->
-
-	  	<div class=" c-dropdown">
-	  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-	  			Conferences & Workshops
-	  		</a>
-	  		<ul class="dropdown-menu event-drop">
-          <li><a href="#">Test</a></li>
-          <li><a href="#">test2</a></li>
-        </ul>
-	  	</div><!-- Conferences & Workshops link end-->
-
-	  	<div class=" c-dropdown">
-	  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-	  			Exhibition & Performances
-	  		</a>
-	  		<ul class="dropdown-menu event-drop">
-          <li><a href="#">WORKSHOPS</a></li>
-          <li><a href="#">CONFERENCES</a></li>
-          <li><a href="#">TALKS</a></li>
-        </ul>
-	  	</div><!-- Exhibition & Performances link end-->
-  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a">Food & Drink</a>
-  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a">Music</a>
-  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a">Travel & Activities</a>
-  	</div>
-
-  	<div class="col-md-12 p-0">
-  		<div class="tab-content m-t-32">
-
-	      <div id="recommended" class="tab-pane fade  active in">
-	      	<div class="row">
-            <app-event-card></app-event-card>
-	      	</div>
-	    </div>
-  	</div>
-
-	</div>
-</div>
-
+<div class="o-event-top-slider">
 <ngx-carousel
       [inputs]="carouselOne"
       [moveToSlide]="1"
@@ -249,3 +154,101 @@
           <button NgxCarouselPrev class='leftRs'>&lt;</button>
           <button NgxCarouselNext class='rightRs'>&gt;</button>
     </ngx-carousel>
+</div>
+
+<div class="o-event-contentarea">
+	<div class="container">
+
+		<div class="o-event-filter-sec with_border_top c-ops__tabs o-event-tabs p-t-b-16 m-t--32">
+  		<div class="col-md-6 p-0">
+  			<ul class="nav nav-tabs">
+          <li class="active"><a class="p-l-0" data-toggle="tab"  aria-expanded="true">Recommended</a></li>
+          <li class=""><a data-toggle="tab" aria-expanded="false">attending</a></li>
+          <li class=""><a data-toggle="tab" aria-expanded="false">Created</a></li>
+        </ul>
+  		</div>
+  		<div class="col-md-6 p-0">
+  			<ul class="o-event-filter-list-block">
+  				<li class="o-event-filter-list__item">
+  					<a class="o-event-filter-item__location">
+  						<span class="o-event-select-location c-text_md color-grey-dark">
+  							<span class="o-event-select-location__ico">
+  								<img src="/assets/img/svg/location.svg" alt="">
+  							</span>
+  							Select Location
+  						</span>
+  					</a>
+  				</li><!-- select location end -->
+  				<li class="o-event-filter-list__item">
+  					<div class="o-event-filter__fil-icon">
+  						<img width="17" src="/assets/img/svg/fiter.svg" alt="">
+  					</div>
+  				</li> <!-- filter ico end -->
+  				<li class="o-event-filter-list__item m-r-0">
+  					<a routerLink="/events/create" class="btn btn-primary btn-md ">Create</a>
+  				</li><!-- create button end -->
+  			</ul>
+  		</div>
+  	</div><!-- event tab end -->
+
+  	<div class="o-event-sort-link">
+  		
+      <div class=" c-dropdown">
+	  		<a class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+	  			All
+	  		</a>
+	  		<ul class="dropdown-menu event-drop">
+          <li><a href="#">HTML</a></li>
+          <li><a href="#">CSS</a></li>
+          <li><a href="#">JavaScript</a></li>
+        </ul>
+	  	</div><!-- all link end-->
+
+	  	<div class=" c-dropdown">
+	  		<a class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+	  			Comedy
+	  		</a>
+	  		<ul class="dropdown-menu event-drop">
+          <li><a href="#">Standup</a></li>
+          <li><a href="#">comedy</a></li>
+        </ul>
+	  	</div><!-- Comedy link end-->
+
+	  	<div class=" c-dropdown">
+	  		<a class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+	  			Conferences & Workshops
+	  		</a>
+	  		<ul class="dropdown-menu event-drop">
+          <li><a href="#">Test</a></li>
+          <li><a href="#">test2</a></li>
+        </ul>
+	  	</div><!-- Conferences & Workshops link end-->
+
+	  	<div class=" c-dropdown">
+	  		<a class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+	  			Exhibition & Performances
+	  		</a>
+	  		<ul class="dropdown-menu event-drop">
+          <li><a href="#">WORKSHOPS</a></li>
+          <li><a href="#">CONFERENCES</a></li>
+          <li><a href="#">TALKS</a></li>
+        </ul>
+	  	</div><!-- Exhibition & Performances link end-->
+  		<a class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a">Food & Drink</a>
+  		<a class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a">Music</a>
+  		<a class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a">Travel & Activities</a>
+  	</div>
+
+  	<div class="col-md-12 p-0">
+  		<div class="tab-content m-t-32">
+
+	      <div id="recommended" class="tab-pane fade  active in">
+	      	<div class="row">
+            <app-event-card *ngFor="let event of eventList" [eventData]="event"></app-event-card>
+	      	</div>
+	    </div>
+  	</div>
+
+	</div>
+</div>
+
