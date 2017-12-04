@@ -56,11 +56,11 @@ export class EventService {
   /**
    * Load my status
    */
-  attendUpdate(id: any) {
+  attendUpdate(data: any) {
     const body = {
-      status: 'Going'
+      status: data.status
     }
-    return this.api.put( '/portal/event/attend/' + id, body);
+    return this.api.put( '/portal/event/attend/' + data.id, body);
   }
 
 

@@ -49,7 +49,7 @@
         <!--<div class="o-eventinner__ticket__total">Ticket <span class="pull-right">Total</span></div>
         <div class="o-eventinner__ticket__totalmrp">{{  totalTicket }}<span class="pull-right">Rs. {{ totalAmount }}</span></div>
         <button type="button" class="btn btn-primary btn-lg btn-block m-t-16" disabled>Buy Tickets</button>-->
-        <button type="button" (click)="attendEvent()" class="btn btn-primary btn-lg btn-block m-t-16">ATTEND</button>
+        <button type="button" (click)="attendEvent()" class="btn btn-primary btn-lg btn-block m-t-16">{{isAttend ? 'ATTENDING' : 'ATTEND'}}</button>
     </div>
   </div>
 </section>
