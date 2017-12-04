@@ -80,6 +80,9 @@ export class NavigationComponent implements OnInit {
           const localStore = JSON.parse(localStorageService.theAccountStatus);
           if (localStore.profileType === 'org') {
             this.profileType = 'org';
+            this.profilerOwnersUsername = localStore.ownersUsername;
+            // console.log('localStorage', localStore);
+            // this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: localStore.username });
           } else {
             this.profileType = 'user';
             this.setProfileToUser();
