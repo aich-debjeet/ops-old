@@ -82,10 +82,10 @@ export class ProfilePostComponent implements OnInit {
   userType() {
 
     this._store.select('profileTags')
-      .first(profile => profile['profile_user_info'] && profile['profileUser'].handle)
+      .first(profile => profile['profile_user_info'] && profile['profile_navigation_details'].handle)
       .subscribe( data => {
         if (data['profile_user_info'].isCurrentUser === true) {
-          const handle = this.userMedia.profileUser.handle;
+          const handle = this.userMedia.profile_navigation_details.handle;
           this.isOwner = true;
           this.posts = [];
           this.postLoad(handle);

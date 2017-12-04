@@ -22,7 +22,7 @@ import {} from '@types/googlemaps';
 export class OrganizationProfileComponent implements OnInit {
 
   profileHandle: string;
-  profileUsername: string;
+  prfileUsername: string;
   orgProfile: Observable<any>;
   orgState: any;
 
@@ -39,21 +39,21 @@ export class OrganizationProfileComponent implements OnInit {
     this.store.select('profileTags')
       .first(profile => profile['current_user_profile_loading'] === true)
       .subscribe( data => {
-        if (data['profileUser'].isOrganization === false) {
-          this.router.navigateByUrl('/org/registration');
+        if (data['profile_navigation_details'].isOrganization === false) {
+          // this.router.navigateByUrl('/org/registration');
         }
       });
 
     // check if creator is user or organization
-    if (localStorage.getItem('accountStatus') !== null) {
+    if (localStorage.getItem('active_profile') !== null) {
       const localStore = JSON.parse(this.localStorageService.theAccountStatus);
       if (localStore.profileType === 'org') {
         this.profileHandle = localStore.handle;
-        this.profileUsername = localStore.username;
+        this.prfileUsername = localStore.username;
       }
     }
 
-    // this.orgState = this.orgStore.select('organizationTags');
+    // this.orgState = this.orgStore.select('profileTags');
     // this.orgState.subscribe((state) => {
     //   this.orgProfile = state;
     //   console.log('this.orgProfile', this.orgProfile);
@@ -67,8 +67,12 @@ export class OrganizationProfileComponent implements OnInit {
    }
 
   ngOnInit() {
-    // load org channels
-
+    if (localStorage.getItem('active_profile') !== null) {
+      const localStore = JSON.parse(this.localStorageService.theAccountStatus);
+      // load org
+      this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: localStore.username });
+      this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: localStore.username });
+    }
   }
 
 }

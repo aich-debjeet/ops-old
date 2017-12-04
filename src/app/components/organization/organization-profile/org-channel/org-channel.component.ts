@@ -41,15 +41,15 @@ export class OrgChannelComponent implements OnInit {
     private _store: Store<ProfileModal>
   ) {
 
-    this.orgState = this.orgStore.select('organizationTags');
+    this.orgState = this.orgStore.select('profileTags');
     this.orgState.subscribe((state) => {
       this.orgProfile = state;
-      console.log('org tags', this.orgProfile);
+      // console.log('org tags', this.orgProfile);
       this.channels = this.orgProfile.org_channels;
     });
 
     // check if creator is user or organization
-    if (localStorage.getItem('accountStatus') !== null) {
+    if (localStorage.getItem('active_profile') !== null) {
       const localStore = JSON.parse(this.localStorageService.theAccountStatus);
       if (localStore.profileType === 'org') {
         this.profileHandle = localStore.handle;
@@ -128,10 +128,10 @@ export class OrgChannelComponent implements OnInit {
   // checkUserType() {
   //   // console.log('channel');
   //   this._store.select('profileTags')
-  //     .first(profile => profile['profileUser'].handle)
+  //     .first(profile => profile['profile_navigation_details'].handle)
   //     .subscribe( data => {
   //       // console.log(data);
-  //       const handle = this.profileChannel.profileUser.handle;
+  //       const handle = this.profileChannel.profile_navigation_details.handle;
   //         this.isOwner = true;
   //         this.channels = [];
   //         this.loadChannel(handle);

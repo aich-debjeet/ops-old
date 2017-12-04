@@ -75,7 +75,7 @@ export class AboutImageComponent implements OnInit {
 
   ngOnInit() {
     this.tagState$
-      .first(profile => this.stateProfile.profileUser.profileImage)
+      .first(profile => this.stateProfile.profile_navigation_details.profileImage)
       .subscribe( data => {
         this.loadImage();
       });
@@ -91,8 +91,8 @@ export class AboutImageComponent implements OnInit {
     };
 
     let profileImageURL;
-    if (typeof this.stateProfile.profileUser.profileImage !== 'undefined') {
-      profileImageURL = this.baseUrl + this.stateProfile.profileUser.profileImage;
+    if (typeof this.stateProfile.profile_navigation_details.profileImage !== 'undefined') {
+      profileImageURL = this.baseUrl + this.stateProfile.profile_navigation_details.profileImage;
     } else {
       profileImageURL = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
     }
@@ -147,7 +147,7 @@ export class AboutImageComponent implements OnInit {
    * Attach image url to Profile
    */
   saveImageClick() {
-    const userHandle = this.stateProfile.profileUser.handle || '';
+    const userHandle = this.stateProfile.profile_navigation_details.handle || '';
     if (this.data && this.data.image && userHandle !== '') {
       const imageData = {
         handle: userHandle,

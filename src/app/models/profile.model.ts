@@ -3,9 +3,9 @@ export class ProfileModal {
   completed: string[];
   loading: false;
   success: true;
-  profileUser?: any;
+  profile_navigation_details?: any;
   editWork?: string[];
-  profileDetails?: any;
+  profile_details?: any;
   profileUpdateSuccess?: boolean
   editWorksuccess?: boolean;
   channelEntity?: any;
@@ -56,8 +56,8 @@ export const initialTag: ProfileModal = {
   completed: [],
   loading:  false,
   success: true,
-  profileDetails: [],
-  profileUser: [],
+  profile_details: [],
+  profile_navigation_details: [],
   channelEntity: false,
   profile_loaded: false,
   userQuickAccess: [],

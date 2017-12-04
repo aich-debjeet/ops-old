@@ -34,7 +34,7 @@ export class LogoutHomeComponent implements OnInit, OnDestroy {
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
 
     this.subscription = this.profileStore.select('profileTags')
-      .first(profile => profile['profileUser'].username)
+      .first(profile => profile['profile_navigation_details'].username)
       .subscribe( datas => {
         console.log(datas);
         this.router.navigate(['/home']);

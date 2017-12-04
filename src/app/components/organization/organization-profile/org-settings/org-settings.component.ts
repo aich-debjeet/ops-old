@@ -62,13 +62,13 @@ export class OrgSettingsComponent implements OnInit {
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
       console.log(this.userProfile)
-      if (state.profileUser.isOrganization === true) {
-        this.organizationHandle = state.profileUser.organization.organizationHandle;
+      if (state.profile_navigation_details.isOrganization === true) {
+        this.organizationHandle = state.profile_navigation_details.organization.organizationHandle;
         this.store.dispatch({type: OrganizationActions.GET_ORGANIZATION_BY_HANDLE, payload: this.organizationHandle});
       }
     });
 
-    this.orgStates$ = this.store.select('organizationTags')
+    this.orgStates$ = this.store.select('profileTags')
     this.orgStates$.subscribe((state) => {
       this.orgProfile = state;
       console.log(this.orgProfile)

@@ -120,7 +120,7 @@ export class ProfileSliderComponent implements OnInit {
   }
 
   disableFollowForSelf(username: string) {
-    if (this.userProfile && this.userProfile['profileUser']['username'] === username) {
+    if (this.userProfile && this.userProfile['profile_navigation_details']['username'] === username) {
       return true;
     }
     return false;
@@ -213,12 +213,12 @@ export class ProfileSliderComponent implements OnInit {
   profileEdit() {
     this.loadSkill();
     this.modalService.open('profileEditWindow');
-    const date = this.datepipe.transform(this.userProfile.profileDetails['physical'].dateOfBirth, 'dd-MM-yyyy');
+    const date = this.datepipe.transform(this.userProfile.profile_details['physical'].dateOfBirth, 'dd-MM-yyyy');
     this.profileForm.setValue({
-      name: this.userProfile.profileDetails['name'],
-      bio: this.userProfile.profileUser['bio'],
+      name: this.userProfile.profile_details['name'],
+      bio: this.userProfile.profile_navigation_details['bio'],
       skill: '',
-      username: this.userProfile.profileDetails['extra'].username,
+      username: this.userProfile.profile_details['extra'].username,
       dob: date
     });
   }
@@ -302,7 +302,7 @@ export class ProfileSliderComponent implements OnInit {
       'dob' : ['' , [Validators.required], this.profileUpdateValidator.validAge.bind(this.profileUpdateValidator)],
 
     });
-    const nameValue = this.userProfile.profileUser['name'];
+    const nameValue = this.userProfile.profile_navigation_details['name'];
   }
 
   /**
@@ -348,7 +348,7 @@ export class ProfileSliderComponent implements OnInit {
    * Exsist update skill push selected skill array
    */
   loadSkill() {
-    const skill = this.userProfile.profileDetails['profileType'];
+    const skill = this.userProfile.profile_details['profileType'];
     this.selectedSkills = [];
 
     for (let i = 0; i < skill.length; i++) {

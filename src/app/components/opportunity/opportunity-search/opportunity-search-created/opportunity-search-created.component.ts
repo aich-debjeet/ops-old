@@ -62,8 +62,8 @@ export class OpportunitySearchCreatedComponent implements OnInit {
       this.userState = state;
       // console.log('this.userState', this.userState);
       // check for user skills
-      if (this.userState && this.userState['profileUser'] && this.userState['profileUser']['handle'] && this.userState['profileUser']['handle'].length > 0) {
-        this.loadCreatedOpps(this.userState['profileUser']['handle']);
+      if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['handle'] && this.userState['profile_navigation_details']['handle'].length > 0) {
+        this.loadCreatedOpps(this.userState['profile_navigation_details']['handle']);
       }
     });
 

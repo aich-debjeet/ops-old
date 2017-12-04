@@ -107,9 +107,9 @@ export class SettingsComponent implements OnInit {
 
      this.storeState$.subscribe((state) => {
        console.log(state)
-      this.userProfile = state['profileDetails'];
+      this.userProfile = state['profile_details'];
       console.log(this.userProfile)
-      this.userHandle = state['profileDetails'].handle;
+      this.userHandle = state['profile_details'].handle;
       console.log(this.userHandle)
       this.blockedUsers = state.blockedUsers;
       console.log(this.blockedUsers)

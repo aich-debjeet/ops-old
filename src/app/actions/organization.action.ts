@@ -51,6 +51,11 @@ export class OrganizationActions {
     static LOAD_ORG_CHANNELS_SUCCESS = 'LOAD_ORG_CHANNELS_SUCCESS';
     static LOAD_ORG_CHANNELS_FAILED = 'LOAD_ORG_CHANNELS_FAILED';
 
+    // Get Organization profile navigation details
+    static ORG_PROFILE = 'ORG_PROFILE';
+    static ORG_PROFILE_SUCCESS = 'ORG_PROFILE_SUCCESS';
+    static ORG_PROFILE_FAILED = 'ORG_PROFILE_FAILED';
+
     /*------------------------ get receipient details---------------------------------*/
 
   getReceipient(value) {

@@ -3,13 +3,14 @@ import { ActionReducer, Action } from '@ngrx/store';
 import { initialTag, ProfileModal } from '../models/profile.model';
 
 import { ProfileActions } from '../actions/profile.action';
+import { OrganizationActions } from '../actions/organization.action';
 
 export interface State {
   user_channel: any,
   user_channels_loaded: boolean,
   user_channels_loading: boolean,
   current_user_profile: any,
-  profileUser: any
+  profile_navigation_details: any
 };
 
 export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
@@ -48,7 +49,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_SUCCESS:
       return Object.assign({}, state, {
-        profileUser: payload,
+        profile_navigation_details: payload,
         profile_loaded: true,
         current_user_profile_loading: true
       });
@@ -66,13 +67,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS:
       return Object.assign({}, state, {
         success: true,
-        profileDetails: [],
         profile_loaded: false
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS_SUCCESS:
       return Object.assign({}, state, {
-        profileDetails: payload,
+        profile_details: payload,
         success: true,
         profile_loaded: true
       });
@@ -694,6 +694,181 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     console.log('notififaction default settings failure')
     return Object.assign({}, state, {
     });
+
+
+    /* Create Org */
+    case OrganizationActions.ORGANIZATION_REGISTRATION:
+      return Object.assign({}, state, {
+        status_saved: false
+      });
+    case OrganizationActions.ORGANIZATION_REGISTRATION_SUCCESS:
+      return Object.assign({}, state, {
+        org_registration_success: true
+      });
+    case OrganizationActions.ORGANIZATION_REGISTRATION_FAILED:
+      return Object.assign({}, state, {
+        org_registration_failed: true
+      });
+    /* Create Org */
+
+    /* Load Org */
+    case OrganizationActions.LOAD_ORGANIZATION:
+      return Object.assign({}, state, {
+        status: 'laoding',
+        orgHandle: payload,
+      });
+    case OrganizationActions.LOAD_ORGANIZATION_SUCCESS:
+      return Object.assign({}, state, {
+        status: 'loaded',
+        profile_details: payload,
+      });
+    case OrganizationActions.LOAD_ORGANIZATION_FAILED:
+      return Object.assign({}, state, {
+        status: 'failed'
+      });
+    /* Load Org */
+
+    /**
+     * Load image to database
+     */
+    case OrganizationActions.IMAGE_UPLOAD_SERVER:
+      return Object.assign({}, state, {
+        profile_img_upload_loading: true,
+        image_upload_starting: true,
+        image_upload_success: false,
+        success: true
+      });
+    case OrganizationActions.IMAGE_UPLOAD_SERVER_SUCCESS:
+      return Object.assign({}, state, {
+        profileImage: payload['SUCCESS'],
+        image_upload_success: true,
+        image_upload_starting: false,
+        profile_img_upload_loading: false,
+        success: true
+      });
+    case OrganizationActions.IMAGE_UPLOAD_SERVER_FAILED:
+      return Object.assign({}, state, {
+        image_upload_starting: false,
+        success: false
+      });
+
+    /**
+     * Org Profile Update
+     */
+    case OrganizationActions.ORG_PROFILE_UPDATE:
+      return Object.assign({}, state, {
+        org_profile_update_success: false,
+        org_profile_update_req_body: payload
+      });
+    case OrganizationActions.ORG_PROFILE_UPDATE_SUCCESS:
+      return Object.assign({}, state, {
+        org_profile_update_success: true
+      });
+    case OrganizationActions.ORG_PROFILE_UPDATE_FAILED:
+      return Object.assign({}, state, {
+        org_profile_update_failed: true
+      });
+
+    /**
+     * Get Org Profile Deatils
+     */
+    case OrganizationActions.ORG_PROFILE_SUCCESS:
+      return Object.assign({}, state, {
+        profile_navigation_details: payload
+      });
+
+    /**
+     * Get Org Profile Deatils
+     */
+    case OrganizationActions.ORG_PROFILE_DETAILS_SUCCESS:
+      return Object.assign({}, state, {
+        profile_details: payload
+      });
+
+    case OrganizationActions.ORGANIZATION_DELETE:
+      return Object.assign({}, state, {
+        status_saved: false
+      });
+    case OrganizationActions.ORGANIZATION_DELETE_SUCCESS:
+      return Object.assign({}, state, {
+        org_deletion_success: true
+      });
+    case OrganizationActions.ORGANIZATION_DELETE_FAILED:
+      return Object.assign({}, state, {
+        org_deletion_failed: true
+      });
+
+    case OrganizationActions.GET_RECEIPIENT:
+      return Object.assign({}, state, {
+        receipients: [],
+        receipients_loaded: false
+      });
+    case OrganizationActions.GET_RECEIPIENT_SUCCESS:
+      return Object.assign({}, state, {
+        receipients: payload,
+        receipients_loaded: true
+      });
+    case OrganizationActions.GET_RECEIPIENT_FAILED:
+      return Object.assign({}, state, {
+        success: false,
+        receipients_loaded: false
+      });
+
+    case OrganizationActions.GET_MEMBERS:
+      return Object.assign({}, state, {
+        members_loading: false
+      });
+    case OrganizationActions.GET_MEMBERS_SUCCESS:
+      return Object.assign({}, state, {
+        members_loading: true,
+        organizationMembers: payload
+      });
+    case OrganizationActions.GET_MEMBERS_FAILED:
+      return Object.assign({}, state, {
+        members_loading: false
+      });
+
+    /**
+    * get default settings of an organization
+    */
+    case OrganizationActions.GET_ORGANIZATION_BY_HANDLE:
+    return Object.assign({}, state, {
+        defaultSettings: []
+
+    });
+    case OrganizationActions.GET_ORGANIZATION_BY_HANDLE_SUCCESS:
+    return Object.assign({}, state, {
+        defaultSettings: payload.extras.settings
+    });
+
+    case OrganizationActions.GET_ORGANIZATION_BY_HANDLE_FAILED:
+    return Object.assign({}, state, {
+        success: false
+    });
+
+    /**
+    * Get current Org channels
+    */
+    case OrganizationActions.LOAD_ORG_CHANNELS:
+    return Object.assign({}, state, {
+        org_channels_loading: true,
+        org_channels_loaded: false,
+        org_channels: []
+    });
+
+    case OrganizationActions.LOAD_ORG_CHANNELS_SUCCESS:
+    return Object.assign({}, state, {
+        org_channels: payload,
+        org_channels_loading: false,
+        org_channels_loaded: true
+    });
+
+    case OrganizationActions.LOAD_ORG_CHANNELS_FAILED:
+    return Object.assign({}, state, {
+        org_channels_loading: false,
+        org_channels_loaded: false
+    });
+
     default:
       return state;
   }

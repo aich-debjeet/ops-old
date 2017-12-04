@@ -66,22 +66,17 @@ export class ProfileComponent implements OnInit {
 
 
     this.profileStore.select('profileTags')
-      .first(profile => profile['profileUser'].name )
+      .first(profile => profile['profile_navigation_details'].name )
       .subscribe( data => {
-        console.log(data['profileUser'].username)
-        if (data['profileUser'].username === this.userName) {
+        console.log(data['profile_navigation_details'].username)
+        if (data['profile_navigation_details'].username === this.userName) {
           console.log('current user');
           this.loadProfile('');
-        }
-        else {
+        } else {
           console.log('other User');
           this.loadProfile(this.userName);
         }
-
       });
-
-
-    
 
   }
   /**

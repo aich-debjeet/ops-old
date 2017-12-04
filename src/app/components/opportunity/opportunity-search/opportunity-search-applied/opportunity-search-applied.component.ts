@@ -60,7 +60,7 @@ export class OpportunitySearchAppliedComponent implements OnInit {
     this.userState$.subscribe((state) => {
       this.userState = state;
       // console.log('this.userState', this.userState);
-      if (this.userState && this.userState.profileUser && this.userState.profileUser.handle) {
+      if (this.userState && this.userState.profile_navigation_details && this.userState.profile_navigation_details.handle) {
         this.loadappliedOpps();
       }
     });
@@ -74,7 +74,7 @@ export class OpportunitySearchAppliedComponent implements OnInit {
     // console.log('dispatch applied opportunities');
     this.store.dispatch({
       type: OpportunityActions.GET_APPLIED_OPPORTUNITIES,
-      payload: this.userState.profileUser.handle
+      payload: this.userState.profile_navigation_details.handle
     });
   }
 
