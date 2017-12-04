@@ -68,7 +68,7 @@ export class NavigationComponent implements OnInit {
     /* profile state */
     this.profileState$.subscribe((state) => {
       this.activeProfileState = state;
-      console.log('profile state', state);
+      // console.log('profile state', state);
 
       if (!this.isProfileSet && state && state.profile_navigation_details && state.profile_navigation_details.profileImage) {
         this.isProfileSet = true;
@@ -259,7 +259,8 @@ export class NavigationComponent implements OnInit {
     });
     this.profilerOwnersUsername = this.activeProfileState['profile_navigation_details']['username'];
     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: orgUsername });
-    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
+    // this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
+    this.router.navigate(['org/page']);
   }
 
   setProfileToUser() {
@@ -275,7 +276,8 @@ export class NavigationComponent implements OnInit {
       username: usersUsername
     });
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+    // this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+    this.router.navigate(['profile/user']);
   }
 
 }

@@ -67,7 +67,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS:
       return Object.assign({}, state, {
         success: true,
-        profile_details: [],
         profile_loaded: false
       });
 

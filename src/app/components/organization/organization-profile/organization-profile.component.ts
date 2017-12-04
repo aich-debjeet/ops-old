@@ -67,8 +67,12 @@ export class OrganizationProfileComponent implements OnInit {
    }
 
   ngOnInit() {
-    // load org channels
-
+    if (localStorage.getItem('active_profile') !== null) {
+      const localStore = JSON.parse(this.localStorageService.theAccountStatus);
+      // load org
+      this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: localStore.username });
+      this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: localStore.username });
+    }
   }
 
 }
