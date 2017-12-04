@@ -49,7 +49,7 @@ export class EventsCreateComponent implements OnInit {
     firstDayOfWeek: 'mo',
     // format: 'YYYY-MM-DDThh:mmTZD',
     disableKeypress: false,
-    showSeconds: true,
+    showSeconds: true
   };
 
   private configDateTime = {
@@ -63,8 +63,7 @@ export class EventsCreateComponent implements OnInit {
   };
 
   config: IDatePickerConfig = {
-    locale: 'en',
-    min: moment().format('MM/DD/YYYY'),
+    locale: 'en'
   };
 
   process: number[] = [];
@@ -157,9 +156,7 @@ export class EventsCreateComponent implements OnInit {
       'event_enddate' : ['', [Validators.required, FormValidation.oldEndDatevalidation]],
       'access': '0',
       'event_type': 'Free',
-      'event_agenda' : this.fb.array(
-        [this.agendaItem('')]
-      ),
+      'event_agenda' : this.fb.array([]),
       // 'event_ts_type' : this.fb.array(
       //   [this.ticketItem('')]
       // ),
@@ -286,7 +283,7 @@ export class EventsCreateComponent implements OnInit {
     // }
 
     if (this.eventForm.valid) {
-      if (this.eventCoverImage !== '') {
+      if (this.eventCoverImage === '') {
         this.imageUpload = true;
         return
       }
@@ -312,6 +309,7 @@ export class EventsCreateComponent implements OnInit {
               maximum: value.ts_quantity
             }]
           },
+          brief: value.event_brief,
           industry : [
               value.event_industry
           ],

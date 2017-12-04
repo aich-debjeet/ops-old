@@ -27,17 +27,19 @@
               <img src="/assets/img/svg/calendar.svg" class="o-eventinner__detail--img"> {{ eventDetail?.eventTiming?.startDate | utcDate | date: 'dd, LLLL'}}
           </div>
           <div class="o-eventinner__address">
-            <img src="/assets/img/svg/ico_location2.svg" class="o-eventinner__detail--img"> 7th Main Rd, Indiranagar, Bengaluru, Karnataka 560038
+            <img src="/assets/img/svg/ico_location2.svg" class="o-eventinner__detail--img"> {{ eventDetail?.venue?.location }}
           </div>
       </div>
 
       <div class="c-text_lg">Event Brief</div>
       <div class="c-text_md color-grey-dark m-t-b-8">{{ eventDetail?.brief }}</div>
-      <div class="c-text_lg m-t-b-16">Event Agenda</div>
       
-      <ul class="list-group o-eventinner__agenda">
-          <li class="list-group-item" *ngFor="let agenda of eventDetail?.event_agenda">{{ agenda?.startDate | utcDate | date: 'dd/MM/yyyy'}} <span class="m-l-16">{{ agenda?.startDate | utcDate | date: 'h:mm a'}}</span> <span class="m-l-16">{{ agenda?.description }}</span> </li> 
-      </ul>
+      <div *ngIf="eventDetail?.event_agenda.length > 0">
+        <div class="c-text_lg m-t-b-16">Event Agenda</div>
+        <ul class="list-group o-eventinner__agenda">
+            <li class="list-group-item" *ngFor="let agenda of eventDetail?.event_agenda">{{ agenda?.startTime }} <span class="m-l-16">{{ agenda?.startDate | utcDate | date: 'h:mm a'}}</span> <span class="m-l-16">{{ agenda?.description }}</span> </li> 
+        </ul>
+      </div>
     </div>
 
     <div class="o-eventinner_right m-t-16 p-16">
