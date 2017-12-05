@@ -119,6 +119,7 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
 import { AgmCoreModule } from '@agm/core';
 import { OpportunityEffect } from 'app/effects/opportunity.effect';
 import { OpportunityModule } from 'app/components/opportunity/opportunity.module';
+import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world-cup.component';
 
 
 @NgModule({
@@ -154,7 +155,8 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     PlannerComponent,
     NetworkComponent,
     ProjectComponent,
-    DirectoryListComponent
+    DirectoryListComponent,
+    DanceWorldCupComponent
   ],
   imports: [
     DragulaModule,

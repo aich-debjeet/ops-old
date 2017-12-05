@@ -1,0 +1,75 @@
+
+// dwc
+
+.o-dwc-detail{
+	width: 100%;
+	float: left;
+	margin-top: 24px;
+}
+.o-dwc-list{
+	list-style: none;
+  display: block;
+  position: fixed;
+  width: 20%;
+}
+.o-dwc-list__items{
+	list-style-type: none;
+	float: left;
+	width: 100%;
+	display: block;
+	margin-bottom: 8px;
+	border-radius: 3px;
+}
+.o-dwc-list__link{
+	padding:8px;
+	width: 100%;
+	float: left;
+}
+.o-dwc-list__link:hover{
+	background: #fff;
+}
+.o-dwc-list__link:hover .o-dwc-link__txt{
+	font-weight: 600;
+}
+.o-dwc-list__link:hover .o-dwc-link__arrow{
+	opacity: 1;
+}
+.o-dwc-link__txt{
+	float: left;
+	transition:.25s;
+}
+.o-dwc-link__arrow{
+	width: 20px;
+	height: 20px;
+	float: right;
+	opacity: 0.5;
+	img{
+		width: 100%;
+	}
+}
+.o-dwc-list__item--active{
+	background: #fff;
+}
+.o-dwc-list__item--active .o-dwc-link__txt{
+	font-weight: 600;
+}
+.o-dwc-list__item--active .o-dwc-link__arrow{
+	opacity: 1;
+}
+
+// right block
+
+.o-dwc-right-block{
+	width: 100%;
+	float: left;
+	background: #fff;
+	padding:40px 32px 32px 32px;
+	height: 88vh;
+	overflow: hidden;
+	overflow-y:scroll;
+}
+.o-dwc__block{
+	width: 100%;
+	float: left;
+	padding-top: 10px;
+}
