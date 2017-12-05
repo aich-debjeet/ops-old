@@ -66,9 +66,9 @@ export class NavigationComponent implements OnInit {
     this.profileState$ = this.store.select('profileTags');
 
     // check for the profile type in local store
-    if (localStorage.getItem('active_profile') === null || localStorage.getItem('active_profile') === '') {
-      this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-    }
+    // if (localStorage.getItem('active_profile') === null || localStorage.getItem('active_profile') === '') {
+    //   this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    // }
 
     /* profile state */
     this.profileState$.subscribe((state) => {
@@ -98,6 +98,8 @@ export class NavigationComponent implements OnInit {
 
     });
     /* profile state */
+
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
 
     /* ========================== notification ========================== */
     // loading notifications
