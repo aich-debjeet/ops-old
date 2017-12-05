@@ -100,7 +100,9 @@ export class OrgAboutComponent implements OnInit {
         setTimeout(() => {
           const industryArrLen = this.orgProfile['profile_details']['extra']['industryList'].length;
           this.aboutIndustry = this.orgProfile['profile_details']['extra']['industryList'][industryArrLen - 1];
-          this.aboutIndustryCode = this.aboutIndustry['code'];
+          if (this.aboutIndustry && this.aboutIndustry['code']) {
+            this.aboutIndustryCode = this.aboutIndustry['code'];
+          }
           // console.log('this.aboutIndustry', this.aboutIndustry);
         }, 1000);
       }

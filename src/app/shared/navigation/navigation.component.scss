@@ -610,3 +610,14 @@
         float: right;
     }
 }
+
+.o-nav__star {
+    position: absolute;
+    width: 12px !important;
+    top: 12px;
+    right: 2px;
+}
+
+.o-nav__dwc a {
+    color: #FC6371 !important;
+}
