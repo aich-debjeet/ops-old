@@ -2,56 +2,56 @@
     <div class="container">
         <div class="col-md-3 p-0">
             <ul class="o-dwc-list">
-                <li class="o-dwc-list__items o-dwc-list__item--active">
-                    <a href="#" class="o-dwc-list__link">
+                <li [ngClass]="{'o-dwc-list__item--active': navItem == ''}" class="o-dwc-list__items">
+                    <a href="/dwc#" (click)="navigateTo('')" class="o-dwc-list__link">
                         <div class="c-text_lg o-dwc-link__txt">About DWC</div>
                         <div class="o-dwc-link__arrow">
                             <img src="/assets/img/svg/arrow.svg" alt="">
                         </div>
                     </a>
                 </li>
-                <li class="o-dwc-list__items">
-                    <a href="#competition" class="o-dwc-list__link">
+                <li [ngClass]="{'o-dwc-list__item--active': navItem == 'competition'}" class="o-dwc-list__items">
+                    <a href="/dwc#competition" (click)="navigateTo('competition')" class="o-dwc-list__link">
                         <div class="c-text_lg o-dwc-link__txt">Competition Details</div>
                         <div class="o-dwc-link__arrow">
                             <img src="/assets/img/svg/arrow.svg" alt="">
                         </div>
                     </a>
                 </li>
-                <li class="o-dwc-list__items">
-                    <a href="#music" class="o-dwc-list__link">
+                <li [ngClass]="{'o-dwc-list__item--active': navItem == 'music'}" class="o-dwc-list__items">
+                    <a href="/dwc#music" (click)="navigateTo('music')" class="o-dwc-list__link">
                         <div class="c-text_lg o-dwc-link__txt">Music</div>
                         <div class="o-dwc-link__arrow">
                             <img src="/assets/img/svg/arrow.svg" alt="">
                         </div>
                     </a>
                 </li>
-                <li class="o-dwc-list__items">
-                    <a href="#travel" class="o-dwc-list__link">
+                <li [ngClass]="{'o-dwc-list__item--active': navItem == 'travel'}" class="o-dwc-list__items">
+                    <a href="/dwc#travel" (click)="navigateTo('travel')" class="o-dwc-list__link">
                         <div class="c-text_lg o-dwc-link__txt">Travel</div>
                         <div class="o-dwc-link__arrow">
                             <img src="/assets/img/svg/arrow.svg" alt="">
                         </div>
                     </a>
                 </li>
-                <li class="o-dwc-list__items">
-                    <a href="#class_explanations" class="o-dwc-list__link">
+                <li [ngClass]="{'o-dwc-list__item--active': navItem == 'class_explanations'}" class="o-dwc-list__items">
+                    <a href="/dwc#class_explanations" (click)="navigateTo('class_explanations')" class="o-dwc-list__link">
                         <div class="c-text_lg o-dwc-link__txt">Class Explanations</div>
                         <div class="o-dwc-link__arrow">
                             <img src="/assets/img/svg/arrow.svg" alt="">
                         </div>
                     </a>
                 </li>
-                <li class="o-dwc-list__items">
-                    <a href="#country_awards" class="o-dwc-list__link">
+                <li [ngClass]="{'o-dwc-list__item--active': navItem == 'country_awards'}" class="o-dwc-list__items">
+                    <a href="/dwc#country_awards" (click)="navigateTo('country_awards')" class="o-dwc-list__link">
                         <div class="c-text_lg o-dwc-link__txt">Country Awards</div>
                         <div class="o-dwc-link__arrow">
                             <img src="/assets/img/svg/arrow.svg" alt="">
                         </div>
                     </a>
                 </li>
-                <li class="o-dwc-list__items">
-                    <a href="#dwc_finals" class="o-dwc-list__link">
+                <li [ngClass]="{'o-dwc-list__item--active': navItem == 'dwc_finals'}" class="o-dwc-list__items">
+                    <a href="/dwc#dwc_finals" (click)="navigateTo('dwc_finals')" class="o-dwc-list__link">
                         <div class="c-text_lg o-dwc-link__txt">DWC finals</div>
                         <div class="o-dwc-link__arrow">
                             <img src="/assets/img/svg/arrow.svg" alt="">

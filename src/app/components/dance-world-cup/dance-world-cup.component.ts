@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DanceWorldCupComponent implements OnInit {
 
+  navItem = '';
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  navigateTo(id: string) {
+    this.navItem = id;
   }
 
 }
