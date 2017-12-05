@@ -1,13 +1,14 @@
 <!-- right home feed -->
-  <div class="col-md-3 col-sm-3">
+<div class="col-md-3 p-0">
 
-      <!-- communities -->
-      <div class="relative">
+    <!-- communities -->
+
+    <!-- <div class="relative">
         <div class="panel-group">
           <div class="panel panel-default">
             <div class="panel-heading">
                 Users to follow
-                <!--<span><a href="">See More</a></span>-->
+                <!--<span><a href="">See More</a></span>-
             </div>
             <div class="panel-body r-body__heigth">
             <ul class="user-list">
@@ -26,133 +27,204 @@
             </div>
           </div>
         </div>
-      </div>
-      <br>
-      <div class="relative">
-            <div class="coming_soon_txt">Coming Soon</div>
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        COMMUNITIES
-                        <!--<span><a href="">See More</a></span>-->
-                    </div>
-                    <div class="panel-body blur-main">
-                        <div class="row sm_panel_body">
-                            <div class="col-md-4 col-sm-12 sm_panel_left">
+      </div> -->
+
+    <div class="c-card m-t-8">
+        <div class="c-text_md p-16 color-grey-dark f-w_600 text_uppercase ltr-space">People to follow</div>
+        <div class="c-follow__sec">
+            <div class="c-invite__block" *ngFor="let profileItem of this.profiles">
+                <a class="c-user__avatar c-avatar--status">
+                    <img *ngIf="profileItem.profileImage" class="c-user__image" [src]="'http://d206s58i653k1q.cloudfront.net/' + profileItem.profileImage" width="24px" />
+                </a>
+                <a class="c-text_md c-invite--user" routerLink="/profile/u/{{ profileItem?.extra?.username }}">{{ profileItem?.name }}</a>
+                <div class="c-invite--btn">
+                    <button type="button" class="btn btn-default btn-sm">Follow</button>
+                </div>
+            </div>
+            <!-- <div class="c-invite__block">
+            <a class="c-user__avatar c-avatar--status">
+              <img src="img/avatar.jpg" class="c-user__image">
+            </a>
+            <a class="c-text_md c-invite--user">Annie Weaver</a>
+            <div class="c-invite--btn">
+              <button type="button" class="btn btn-default btn-sm">Follow</button>
+            </div>
+          </div>
+          <div class="c-invite__block">
+            <a class="c-user__avatar c-avatar--status">
+              <img src="img/avatar.jpg" class="c-user__image">
+            </a>
+            <a class="c-text_md c-invite--user">Randall Van</a>
+            <div class="c-invite--btn">
+              <button type="button" class="btn btn-default btn-sm">Follow</button>
+            </div>
+          </div>
+          <div class="c-invite__block">
+            <a class="c-user__avatar c-avatar--status">
+              <img src="img/avatar.jpg" class="c-user__image">
+            </a>
+            <a class="c-text_md c-invite--user">Tobias Van</a>
+            <div class="c-invite--btn">
+              <button type="button" class="btn btn-default btn-sm">Follow</button>
+            </div>
+          </div>
+          <div class="c-invite__block">
+            <a class="c-user__avatar c-avatar--status">
+              <img src="img/avatar.jpg" class="c-user__image">
+            </a>
+            <a class="c-text_md c-invite--user">Tobias Van</a>
+            <div class="c-invite--btn">
+              <button type="button" class="btn btn-default btn-sm">Follow</button>
+            </div>
+          </div>
+          <div class="c-invite__block">
+            <a class="c-user__avatar c-avatar--status">
+              <img src="img/avatar.jpg" class="c-user__image">
+            </a>
+            <a class="c-text_md c-invite--user">Tobias Van</a>
+            <div class="c-invite--btn">
+              <button type="button" class="btn btn-default btn-sm">Follow</button>
+            </div>
+          </div>
+          <div class="c-invite__block">
+            <a class="c-user__avatar c-avatar--status">
+              <img src="img/avatar.jpg" class="c-user__image">
+            </a>
+            <a class="c-text_md c-invite--user">Tobias Van</a>
+            <div class="c-invite--btn">
+              <button type="button" class="btn btn-default btn-sm">Follow</button>
+            </div>
+          </div> -->
+            <div class="c-follow__seeall">See All</div>
+        </div>
+    </div>
+    <!-- people to follow end -->
+    <br>
+    <!-- <div class="relative">
+        <div class="coming_soon_txt">Coming Soon</div>
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    COMMUNITIES
+                    <!--<span><a href="">See More</a></span>--
+                </div>
+                <div class="panel-body blur-main">
+                    <div class="row sm_panel_body">
+                        <div class="col-md-4 col-sm-12 sm_panel_left">
                             <figure class="avatar_community2">
                                 <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
                             </figure>
-                            </div>
-                            <div class="col-md-8 col-sm-12 sm_panel_right">
+                        </div>
+                        <div class="col-md-8 col-sm-12 sm_panel_right">
                             <h3>UI Designer Club, Bangalore</h3>
                             <button type="button" class="btn btn-xs btn-normal btn-plus">
                                 <span class="btn-label-follow">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                 </span> JOIN
                             </button>
-                            </div>
                         </div>
-                        <br>
-                        <div class="row sm_panel_body">
-                            <div class="col-md-4 col-sm-12 sm_panel_left">
+                    </div>
+                    <br>
+                    <div class="row sm_panel_body">
+                        <div class="col-md-4 col-sm-12 sm_panel_left">
                             <figure class="avatar_community2">
                                 <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
                             </figure>
-                            </div>
-                            <div class="col-md-8 col-sm-12 sm_panel_right">
+                        </div>
+                        <div class="col-md-8 col-sm-12 sm_panel_right">
                             <h3>Color and Font Future Design</h3>
                             <button type="button" class="btn btn-xs btn-normal btn-plus">
                                 <span class="btn-label-follow">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                 </span> JOIN
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <!-- nearest event --
+    <div class="relative">
+        <div class="coming_soon_txt">Coming Soon</div>
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Nearest Events
+                    <!--<span><a href="">See More</a></span>--
+                </div>
+                <div class="blur-main">
+                    <div class="panel-body">
+                        <div class="row sm_panel_body">
+                            <div class="col-md-12 padding_012">
+                                <figure class="avatar_near_event">
+                                    <img src="http://d33wubrfki0l68.cloudfront.net/338649e262dccbc7aa62661a21311a612e5dc06f/553cd/img/art_color.jpg" class="img-responsive">
+                                </figure>
+                                <h3 class="ops_heading">Dj Night BY DJ Khaled</h3>
+                                <p class="ops_subheading">12, Jul, 2017</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row sm_panel_body">
+                            <div class="col-md-12 padding_012">
+                                <figure class="avatar_near_event">
+                                    <img src="http://d33wubrfki0l68.cloudfront.net/338649e262dccbc7aa62661a21311a612e5dc06f/553cd/img/art_color.jpg" class="img-responsive">
+                                </figure>
+                                <h3 class="ops_heading">Dj Night BY DJ Khaled</h3>
+                                <p class="ops_subheading">12, Jul, 2017</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-      </div>
-      <br>
+        </div>
+    </div>
+    <br>
 
-      <!-- nearest event -->
-      <div class="relative" >
-            <div class="coming_soon_txt">Coming Soon</div>
-            <div class="panel-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Nearest Events
-                            <!--<span><a href="">See More</a></span>-->
-                        </div>
-                        <div class="blur-main">
-                            <div class="panel-body">
-                                <div class="row sm_panel_body">
-                                    <div class="col-md-12 padding_012">
-                                        <figure class="avatar_near_event">
-                                            <img src="http://d33wubrfki0l68.cloudfront.net/338649e262dccbc7aa62661a21311a612e5dc06f/553cd/img/art_color.jpg" class="img-responsive">
-                                        </figure>
-                                        <h3 class="ops_heading">Dj Night BY DJ Khaled</h3>
-                                        <p class="ops_subheading">12, Jul, 2017</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row sm_panel_body">
-                                    <div class="col-md-12 padding_012">
-                                        <figure class="avatar_near_event">
-                                            <img src="http://d33wubrfki0l68.cloudfront.net/338649e262dccbc7aa62661a21311a612e5dc06f/553cd/img/art_color.jpg" class="img-responsive">
-                                        </figure>
-                                        <h3 class="ops_heading">Dj Night BY DJ Khaled</h3>
-                                        <p class="ops_subheading">12, Jul, 2017</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <!-- opportunities --
+    <div class="relative">
+        <div class="coming_soon_txt">Coming Soon</div>
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    opportunities
+                    <!--<span><a href="">See More</a></span>--
                 </div>
-      </div>
-      <br>
-
-      <!-- opportunities -->
-      <div class="relative" >
-            <div class="coming_soon_txt">Coming Soon</div>
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        opportunities
-                        <!--<span><a href="">See More</a></span>-->
-                    </div>
-                    <div class="blur-main">
-                        <div class="panel-body">
-                            <div class="row sm_panel_body">
-                                <div class="col-md-4 sm_panel_left">
-                                    <figure class="avatar_community2">
-                                        <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
-                                    </figure>
-                                </div>
-                                <div class="col-md-8 sm_panel_right">
-                                    <h3>Senior Art Designer</h3>
-                                    <p class="ops_subheading">Flypay</p>
-                                    <button type="button" class="btn btn-default btn-xs">APPLY</button>
-                                </div>
+                <div class="blur-main">
+                    <div class="panel-body">
+                        <div class="row sm_panel_body">
+                            <div class="col-md-4 sm_panel_left">
+                                <figure class="avatar_community2">
+                                    <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
+                                </figure>
                             </div>
-                            <br>
-                            <div class="row sm_panel_body">
-                                <div class="col-md-4 sm_panel_left">
-                                    <figure class="avatar_community2">
-                                        <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
-                                    </figure>
-                                </div>
-                                <div class="col-md-8 sm_panel_right">
-                                    <h3>UX/UI Designer</h3>
-                                    <p class="ops_subheading">Headout</p>
-                                    <button type="button" class="btn btn-default btn-xs">APPLY</button>
-                                </div>
+                            <div class="col-md-8 sm_panel_right">
+                                <h3>Senior Art Designer</h3>
+                                <p class="ops_subheading">Flypay</p>
+                                <button type="button" class="btn btn-default btn-xs">APPLY</button>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row sm_panel_body">
+                            <div class="col-md-4 sm_panel_left">
+                                <figure class="avatar_community2">
+                                    <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
+                                </figure>
+                            </div>
+                            <div class="col-md-8 sm_panel_right">
+                                <h3>UX/UI Designer</h3>
+                                <p class="ops_subheading">Headout</p>
+                                <button type="button" class="btn btn-default btn-xs">APPLY</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-      </div>
-  </div>
-  <!-- //right home feed -->
+    </div> -->
+</div>
+<!-- //right home feed -->
