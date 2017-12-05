@@ -92,13 +92,13 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
 
     this.profileState$ = this.store.select('profileTags');
     this.profileState$.subscribe((state) => {
-      // console.log(state);
+       console.log(state);
     });
 
     this.store.select('profileTags')
-      .first(profile => profile['profileUser'].handle )
+      .first(profile => profile['profile_navigation_details'].handle )
       .subscribe( data => {
-        this.userHandle = data['profileUser'].handle
+        this.userHandle = data['profile_navigation_details'].handle
       });
 
     this.store.dispatch({ type: EventActions.GET_ALL_INDUSTRY });
