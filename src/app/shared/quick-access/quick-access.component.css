@@ -1,0 +1,85 @@
+.o-quickaccess-list {
+  width: 100%;
+  list-style: none;
+  display: flex;
+}
+
+.o-quickaccess__item {
+  list-style-type: none;
+  width: 220px;
+  height: 90px;
+  position: relative;
+  float: left;
+  margin-right: 16px;
+  background: #fff;
+  padding: 24px 32px;
+  box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.18);
+  border-radius: 3px;
+}
+
+.o-quickaccess__item:hover .o-quickaccess__option {
+  display: block;
+}
+
+.o-quickaccess__link:focus {
+  outline: none;
+  color: inherit;
+}
+
+.o-quickaccess__icon {
+  width: 42px;
+  height: 42px;
+  float: left;
+}
+
+.o-quickaccess__icon img {
+  width: 42px;
+}
+
+.o-quickaccess__title {
+  width: 60%;
+  float: left;
+  margin-left: 16px;
+}
+
+.c-text_lg {
+  color: #333333;
+  font-size: 15px;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+.c-text_sm {
+  color: grey;
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: 500;
+}
+
+.color-grey-dark {
+  color: grey !important;
+}
+
+.o-quickaccess__option {
+  width: 14px;
+  position: absolute;
+  top: 24px;
+  right: 16px;
+  display: none;
+}
+
+.o-quickaccess__item:hover .o-quickaccess__option {
+  display: block;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  min-width: auto;
+}
+
+.dropdown-menu .li .a {
+  padding: 4px 20px;
+}

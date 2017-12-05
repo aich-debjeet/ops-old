@@ -1,23 +1,39 @@
-<ul class="list-inline quick_section">
-  <li class="list-inline-item">
-    <a [routerLink]="(quickAccessData?.name =='My Status') ? ['/user/status/list'] : ['/channel', quickAccessData?.handle] && (quickAccessData?.name =='My Media') ? ['/user/media/list'] : ['/channel', quickAccessData?.handle]"> 
-      <div class="quick_access_img">
-        <img src="http://d33wubrfki0l68.cloudfront.net/e977c51b7704e478aec7e38934c5096e9b4db080/192b8/img/quick2.jpg">
-      </div>
-      <div class="quick_access_text">
-        <p class="quick_access_text_name">{{ quickAccessData?.name }}</p>
-        <p class="quick_access_text_post">{{ quickAccessData?.count }} Post</p>
-      </div>
-    </a>
-    <span class="quick_tag_option" appDropdown *ngIf="quickAccessData?.name !='My Status' && quickAccessData?.name !='My Media'">
-      <a class="dropdown-toggle" appDropdownOpen><img src="/assets/img/svg/ico_option_white.svg"></a>
-      <ul class="dropdown-menu quick_acess_drop">
-          <li>
-              <a (click)="unpinQuickAccess(quickAccessData?.handle)" >
-                  Remove from Quick Access
-              </a>
-          </li>
-      </ul>
-    </span>
-  </li>
+<ul class="o-quickaccess-list">
+    <li class="o-quickaccess__item">
+        <a class="o-quickaccess__link" [routerLink]="(quickAccessData?.name =='My Status') ? ['/user/status/list'] : ['/channel', quickAccessData?.handle] && (quickAccessData?.name =='My Media') ? ['/user/media/list'] : ['/channel', quickAccessData?.handle]">
+            <!-- <div class="quick_access_img">
+      <img src="http://d33wubrfki0l68.cloudfront.net/e977c51b7704e478aec7e38934c5096e9b4db080/192b8/img/quick2.jpg">
+    </div> -->
+            <div class="o-quickaccess__icon">
+                <img src="/assets/img/quickaccess/status.png" alt="" *ngIf="quickAccessData?.name ==='My Status'">
+                <img src="/assets/img/quickaccess/my_media.png" alt="" *ngIf="quickAccessData?.name ==='My Media'">
+                <img src="/assets/img/quickaccess/planner.png" alt="" *ngIf="quickAccessData?.name ==='Planner'">
+                <img src="/assets/img/quickaccess/channel.png" alt="" *ngIf="quickAccessData?.name ==='Channel'">
+            </div>
+            <div class="o-quickaccess__title">
+                <h6 class="c-text_lg">{{ quickAccessData?.name }}</h6>
+                <p class="c-text_sm color-grey-dark">{{ quickAccessData?.count }} Post</p>
+            </div>
+        </a>
+        <!-- <span class="quick_tag_option" appDropdown *ngIf="quickAccessData?.name !='My Status' && quickAccessData?.name !='My Media'">
+    <a class="dropdown-toggle" appDropdownOpen><img src="/assets/img/svg/ico_option_white.svg"></a>
+    <ul class="dropdown-menu dropdown-menu-right">
+        <li>
+            <a (click)="unpinQuickAccess(quickAccessData?.handle)" >
+                Remove from Quick Access
+            </a>
+        </li>
+    </ul>
+  </span> -->
+        <div class="o-quickaccess__option" appDropdown *ngIf="quickAccessData?.name !='My Status' && quickAccessData?.name !='My Media'">
+            <div class="dropdown c-dropdown" appDropdownOpen>
+                <a class=" dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="/assets/img/svg/ico_option_white.svg">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a (click)="unpinQuickAccess(quickAccessData?.handle)">Remove</a></li>
+                </ul>
+            </div>
+        </div>
+    </li>
 </ul>

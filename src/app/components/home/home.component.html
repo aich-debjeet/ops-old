@@ -27,36 +27,36 @@
 <!---- opportunity top block end ---->
 
 <section class="o-home-content">
-    <div class="container home_feed_container">
-        <div class="row home_feed">
-            <!-- left home feed -->
-            <div class="col-md-9 col-sm-9">
-                <div class="row">
-                    <div class="col-md-12 col-md-12 padding-l6">
-                        <div class="quick_access home_quick">
-                            <h2 class="feed-heading">
-                                Quick Access
-                                <!--<a href><img src="/assets/img/svg/ico_options.svg" class="right_options"></a>-->
-                            </h2>
-                            <app-quick-access *ngFor="let quickAccess of userQuickAccess.userQuickAccess; let i = index" [quickAccessData]="quickAccess"></app-quick-access>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="home_tabs">
-                            <ul class="nav nav-tabs">
-                                <li routerLinkActive="active"><a [routerLink]="['spotfeed']">Spotfeed</a></li>
-                                <li routerLinkActive="active"><a [routerLink]="['channel']">Channel</a></li>
-                            </ul>
-                            <router-outlet></router-outlet>
-                        </div>
-                    </div>
-                </div>
+    <div class="container">
+        <!-- left home feed -->
+        <div class="o-quickacces">
+            <div class="col-md-12 p-0">
+                <div class="col-md-6 c-text_md ltr-space text_uppercase p-0 m-b-16 o-top-quick-access">Quick access</div>
             </div>
-            <!-- //left home feed -->
-            <home-right-block></home-right-block>
+            <app-quick-access *ngFor="let quickAccess of userQuickAccess.userQuickAccess; let i = index" [quickAccessData]="quickAccess"></app-quick-access>
         </div>
+        <div class="o-home-tab-sec with_border_top c-ops__tabs o-opportunity-tabs">
+            <div class="col-md-6 p-0">
+                <!-- <div class="home_tabs"> -->
+                <ul class="nav nav-tabs">
+                    <li class="active" routerLinkActive="active"><a data-toggle="tab" aria-expanded="true" [routerLink]="['channel']">Channel</a></li>
+                    <li class="" routerLinkActive="active"><a data-toggle="tab" [routerLink]="['spotfeed']">Spotfeed</a></li>
+                </ul>
+                <!-- <router-outlet></router-outlet> -->
+                <!-- <div class="col-md-9 p-0">
+                    <div class="tab-content">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div> -->
+                <!-- </div> -->
+            </div>
+        </div>
+        <div class="col-md-9 p-0">
+            <div class="tab-content">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <!-- //left home feed -->
+        <home-right-block></home-right-block>
     </div>
 </section>
