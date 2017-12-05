@@ -10,11 +10,18 @@
         @{{ artist?.extra?.username }}
     </div>
     <div class="c-artist--btn">
-        <button (click)="unfollowUser(artist)" *ngIf="artist.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist?.extra?.username)" >
-          <span class="btn-label-follow"> UNFOLLOW </span>
-        </button>
-        <button (click)="followUser(artist)" *ngIf="!artist.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist?.extra?.username)" >
-          <span class="btn-label-follow"> FOLLOW </span>
-        </button>
+        <div *ngIf="artist.extra.isImported; else not_imported">
+            <button (click)="claimProfile(artist)" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist?.extra?.username)" >
+                <span class="btn-label-follow"> CLAIM </span>
+            </button>
+        </div>
+        <ng-template #not_imported>
+            <button (click)="unfollowUser(artist)" *ngIf="artist.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist?.extra?.username)" >
+                <span class="btn-label-follow"> UNFOLLOW </span>
+            </button>
+            <button (click)="followUser(artist)" *ngIf="!artist.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist?.extra?.username)" >
+                <span class="btn-label-follow"> FOLLOW </span>
+            </button>
+        </ng-template>
     </div>
 </div>
