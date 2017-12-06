@@ -42,15 +42,17 @@ export class DwcComponent implements OnInit {
 
 // dwc_event_reg_success
   submitForm(value) {
-    const form = {
-      schoolName: value.school_name,
-      schoolOwner: value.school_owner,
-      address: value.school_address,
-      category: value.school_category,
-      teamates: value.school_teammates,
+    if (this.eventForm.valid) {
+      const form = {
+        schoolName: value.school_name,
+        schoolOwner: value.school_owner,
+        address: value.school_address,
+        category: value.school_category,
+        teamates: value.school_teammates,
+      }
+      this.store.dispatch({ type: AuthActions.DWC_EVENT_REG, payload: form});
+      this.router.navigateByUrl('/profile/user');
     }
-    this.store.dispatch({ type: AuthActions.DWC_EVENT_REG, payload: form});
-    this.router.navigateByUrl('/profile/user');
   }
 
 }

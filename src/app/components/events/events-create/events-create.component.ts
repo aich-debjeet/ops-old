@@ -251,9 +251,6 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    * @param value value of form
    */
   submitForm(value) {
-    console.log(this.eventForm);
-    console.log(value);
-    console.log('Form validation' + this.eventForm.valid);
     // struct of backend
     // const data = {
     //     title : value.event_name,
