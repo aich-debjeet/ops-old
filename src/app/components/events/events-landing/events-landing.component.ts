@@ -55,7 +55,6 @@ export class EventsLandingComponent implements OnInit {
     this.day =  moment().format();
     this.tomorrow = moment().add('days', 1);
     this.weekend = moment().weekday(5);
-    console.log(moment().format('dd, LLLL'));
   }
 
   ngOnInit() {
