@@ -8,21 +8,21 @@ export const ExploreReducer: ActionReducer<any> = (state, {payload, type}: Actio
 
     switch (type) {
 
-        case ExploreActions.EXPLORE:
+        case ExploreActions.LOAD_SPOTFEEDS:
           return Object.assign({}, state, {
             searching_spotfeeds: true,
             search_complete: false,
             search_body: payload
           });
 
-        case ExploreActions.EXPLORE_SUCCESS:
+        case ExploreActions.LOAD_SPOTFEEDS_SUCCESS:
           return Object.assign({}, state, {
             searching_spotfeeds: false,
             search_complete: true,
             spotfeeds: payload
           });
 
-        case ExploreActions.EXPLORE_FAILED:
+        case ExploreActions.LOAD_SPOTFEEDS_FAILED:
           return Object.assign({}, state, {
             searching_spotfeeds: false,
             search_complete: true

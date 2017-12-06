@@ -13,11 +13,25 @@ import { ExploreService } from '../services/explore.service';
 import { ExploreActions } from '../actions/explore.action';
 
 @Injectable()
-export class EventEffect {
+export class ExploreEffect {
+
+   /**
+   * Get spotfeeds
+   */
+  @Effect()
+  exploreSpotfeeds$ = this.actions$
+    .ofType(ExploreActions.LOAD_SPOTFEEDS)
+    .map(toPayload)
+    .switchMap((payload) => this.exploreService.getSpotfeeds()
+      .map(res => ({ type: ExploreActions.LOAD_SPOTFEEDS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ExploreActions.LOAD_SPOTFEEDS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
 
     constructor(
         private actions$: Actions,
-        private router: Router,
         private exploreService: ExploreService
     ) { }
 

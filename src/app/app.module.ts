@@ -55,6 +55,7 @@ import { UserSearchEffect } from './effects/user-search.effect';
 import { SearchEffect } from './effects/search.effect';
 import { OrganizationEffect } from './effects/organization.effect';
 import { EventEffect } from './effects/event.effect';
+import { ExploreEffect } from './effects/explore.effect';
 
 
 // Services
@@ -191,6 +192,7 @@ import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world
     EffectsModule.run(OrganizationEffect),
     EffectsModule.run(OpportunityEffect),
     EffectsModule.run(EventEffect),
+    EffectsModule.run(ExploreEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,

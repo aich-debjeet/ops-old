@@ -16,8 +16,8 @@
 <section class="o-explore-catagory-sec">
   <div *ngFor="let spotfeed of spotfeeds;" class="o-explore-catagory-block m-r-8">
     <div (click)="gotoSpotfeed('spotfeed.code')">
-      <div class="o-explore-catagory__thumb">
-        <img src="{{ baseUrl + spotfeed.image }}" alt="">
+      <div class="o-explore-catagory__thumb" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed.image + ')', 'background-size': 'cover', 'background-position': 'center'}">
+        <!-- <img src="{{ baseUrl + spotfeed.image }}" alt=""> -->
       </div>
       <div class="o-explore-catagory__title c-text_sm p-l-8">
         {{ spotfeed.name }}

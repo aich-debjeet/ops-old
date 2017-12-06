@@ -30,4 +30,12 @@ export class ExploreService {
         // console.log('this.headers', this.headers);
     }
 
+    /**
+     * Get spotfeeds
+     */
+    getSpotfeeds() {
+        this.updateToken();
+        return this.api.get('/portal/cdn/explore/getFeeds');
+    }
+
 }
