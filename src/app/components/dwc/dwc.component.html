@@ -26,27 +26,32 @@
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                     <label>Dance School’s Name *</label>
+                    <p class="c-form__validation" *ngIf="eventForm.controls['school_name'].errors?.required && eventCreate.submitted">Dance School's name is required</p>
                 </div>
                 <div class="c-form__group c-form--lg m-b-32">
                     <input class="c-form__input" required type="text" formControlName="school_owner">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                     <label>Dancer School owner’s / Choreographer’s name *</label>
+                    <p class="c-form__validation" *ngIf="eventForm.controls['school_owner'].errors?.required && eventCreate.submitted">Dancer School owner’s / Choreographer’s name is required</p>
                 </div>
                 <div class="c-form__group c-form--lg m-b-32">
                     <textarea class="c-textarea__block c-textarea--style o-wcq-textarea " rows="0" data-min-rows="0" placeholder="Address *" formControlName="school_address"></textarea>
+                    <p class="c-form__validation" *ngIf="eventForm.controls['school_address'].errors?.required && eventCreate.submitted">Address is required</p>
                 </div>
                 <div class="c-form__group c-form--lg m-b-32">
                     <input class="c-form__input" required type="text" formControlName="school_category">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                     <label>Category/classes competing in: *</label>
+                    <p class="c-form__validation" *ngIf="eventForm.controls['school_category'].errors?.required && eventCreate.submitted">Category/classes competing is required</p>
                 </div>
                 <div class="c-form__group c-form--lg">
                     <input class="c-form__input" required="" type="text" formControlName="school_teammates">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
-                    <label>Teammates name/s for duets, trios, small and large groups*</label>
+                    <label>Teammates name/s for duets, trios, small and large groups *</label>
+                    <p class="c-form__validation" *ngIf="eventForm.controls['school_teammates'].errors?.required && eventCreate.submitted">Teammates name/s for duets, trios, small and large groups is required</p>
                 </div>
                 <p class="c-text_sm color-grey-dark">Please fill one form for each category/class</p>
                 

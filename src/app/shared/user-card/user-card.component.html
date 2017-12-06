@@ -11,7 +11,7 @@
     </div>
     <div class="c-artist--btn">
         <div *ngIf="artist.extra.isImported; else not_imported">
-            <button (click)="claimProfile(artist)" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist?.extra?.username)" >
+            <button routerLink="{{ '/profile/u/' + artist?.extra?.username }}" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist?.extra?.username)" >
                 <span class="btn-label-follow"> CLAIM </span>
             </button>
         </div>
