@@ -14,84 +14,14 @@
 </section>
 
 <section class="o-explore-catagory-sec">
-  <div class="o-explore-catagory-block m-r-8">
-    <div class="o-explore-catagory__thumb">
-      <img src="/assets/img/new/l01.jpg" alt="">
-    </div>
-    <div class="o-explore-catagory__title c-text_sm p-l-8">
-      Music
-    </div>
-  </div>
-  <div class="o-explore-catagory-block m-r-8">
-    <div class="o-explore-catagory__thumb">
-      <img src="/assets/img/new/l02.jpg" alt="">
-    </div>
-    <div class="o-explore-catagory__title c-text_sm p-l-8">
-      Music
-    </div>
-  </div>
-  <div class="o-explore-catagory-block m-r-8">
-    <div class="o-explore-catagory__thumb">
-      <img src="/assets/img/new/l03.jpg" alt="">
-    </div>
-    <div class="o-explore-catagory__title c-text_sm p-l-8">
-      Music
-    </div>
-  </div>
-  <div class="o-explore-catagory-block m-r-8">
-    <div class="o-explore-catagory__thumb">
-      <img src="/assets/img/new/l04.jpg" alt="">
-    </div>
-    <div class="o-explore-catagory__title c-text_sm p-l-8">
-      Music
-    </div>
-  </div>
-  <div class="o-explore-catagory-block m-r-8">
-    <div class="o-explore-catagory__thumb">
-      <img src="/assets/img/new/l05.jpg" alt="">
-    </div>
-    <div class="o-explore-catagory__title c-text_sm p-l-8">
-      Music
-    </div>
-  </div>
-  <div class="o-explore-catagory-block m-r-8">
-    <div class="o-explore-catagory__thumb">
-      <img src="/assets/img/new/l06.jpg" alt="">
-    </div>
-    <div class="o-explore-catagory__title c-text_sm p-l-8">
-      Music
-    </div>
-  </div>
-  <div class="o-explore-catagory-block m-r-8">
-    <div class="o-explore-catagory__thumb">
-      <img src="/assets/img/new/l07.jpg" alt="">
-    </div>
-    <div class="o-explore-catagory__title c-text_sm p-l-8">
-      Music
-    </div>
-  </div>
-  <div class="o-explore-catagory-block m-r-8">
-    <div class="o-explore-catagory__thumb">
-      <img src="/assets/img/new/l08.jpg" alt="">
-    </div>
-    <div class="o-explore-catagory__title c-text_sm p-l-8">
-      Music
-    </div>
-  </div>
-  <div class="o-explore-catagory-block m-r-8">
-    <div class="o-explore-catagory__thumb">
-      <img src="/assets/img/new/l07.jpg" alt="">
-    </div>
-    <div class="o-explore-catagory__title c-text_sm p-l-8">
-      Music
-    </div>
-  </div>
-  <div class="o-explore-catagory-block m-r-8">
-    <div class="o-explore-catagory__thumb">
-      <img src="/assets/img/new/l08.jpg" alt="">
-    </div>
-    <div class="o-explore-catagory__title c-text_sm p-l-8">
-      Music
+  <div *ngFor="let spotfeed of spotfeeds;" class="o-explore-catagory-block m-r-8">
+    <div (click)="gotoSpotfeed('spotfeed.code')">
+      <div class="o-explore-catagory__thumb">
+        <img src="{{ baseUrl + spotfeed.image }}" alt="">
+      </div>
+      <div class="o-explore-catagory__title c-text_sm p-l-8">
+        {{ spotfeed.name }}
+      </div>
     </div>
   </div>
 </section>
