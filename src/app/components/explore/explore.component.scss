@@ -1,338 +1,150 @@
-/* -------------------- spotfeed style ---------------------*/
-
-.ops_spotfeed {
-    padding: 0 8px;
-    margin: 8px 0;
-    .ops_spotfeed_cont {
-        padding: 0px;
-    }
-    .pro_channel_card {
-    padding: 0 8px;
-    margin: 8px 0;
-        }
-    .pro_channel_block {
-        height: 360px;
-        border-radius: 3px;
-        background-color: #ffffff;
-        box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
-        .pro_channel_img1 {
-                  padding: 0;
-              }
-        .spotfeed_img {
-            padding: 0px;
-            img {
-                border-radius: 5px;
-            }
-        }
-    }
-    .pro_channel_name {
-        line-height: 28px;
-        //height: 50px;
-        //margin: 15px;
-    }
-    .pro_channel_cont {
-    padding: 0;
-    .pro_channel_name {
-    height: 50px;
-    margin: 15px;
-}
-}
-}
-
-.avatar_spotfeed {
-    width: 100%;
-    height: 265px;
-    display: inline-block;
-    vertical-align: middle;
-    overflow: hidden;
-    position: relative;
-    box-sizing: border-box;
-    background: #f8f8f8;
-    img {
-        width: 100%;
-    }
-}
-
 /* ------------------------- explore style --------------------------- */
-.ops_explore {
-      margin-top: 64px;
-      .ops_explore_head {
-            margin: 16px 8px;
-      }
-}
-// --------------------------- find spotfeed --------------------------------
-.find_spotfeed {
-  height: 234px;
-  .ops_h1 {
-        margin-bottom: 16px;
-  }
-}
 
-/* -------------------- artist follow style ---------------------*/
-.ops_artist_follow {
-  padding: 0 8px;
-
-  .panel20 {
-    width: 216px;
-    height: auto;
+.o-explore-top-sec{
+    width: 100%;
+    height: 300px;
+    background-color: #fff;
     float: left;
-    background: #fff;
-    border: 1px solid rgba(102,45,145,0.1);
-    border-radius: 3px;
-    padding: 24px;
-    margin: 0 10px;
-    .btn-label-follow {
-    position: relative;
-    left: -6px;
-    display: inline-block;
-    padding: 1px 0 1px 10px;
-    border-radius: 3px 0 0 3px;
+    box-shadow: 0 2px 4px 0 rgba(102,45,145,0.1);
+    background: url(/assets/img/explore.jpg) center no-repeat;
+    background-size: cover;
+    margin-top: 30px;
 }
-.btn-follow .btn-label-follow img {
-    width: 11px!important;
-    margin-top: 0;
-    vertical-align: middle;
-    margin-left: 6px;
-    height: auto;
-    box-shadow: none;
-    border: none;
+.o-explore-post-by{
+    float: right;
 }
-.btn-basic {
-    color: #fff;
-    background-color: #5c5b5b;
-    border-color: #5c5b5b;
-}
-.btn-following {
-    font-weight: 500;
-    font-size: 12px;
-    border-radius: 3px;
-}
-    .text-center {
-    text-align: center;
-}
-    &:first-child {
-          margin: 0 5px 0 0;
+.o-explore-post__avatar{
+    width: 24px;
+    height: 24px;
+    float: left;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.69);
+    img{
+        width: 100%;
     }
-    &:last-child {
-          margin: 0 0 0 5px;
-    }
-    .ops_heading {
-          margin-top: 8px;
-    }
-    .ops_heading12 {
-          margin: 8px 0 16px 0;
-    }
-  }
+}
+.o-explore-post__info{
+    float: left;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.69);
 }
 
-.avatar_artist_follow {
-    width: 57px;
-    height: 57px;
-    border-radius: 50%;
-    display: inline-block;
-    vertical-align: middle;
+// content area
+
+.o-explore-content-sec{
+    width: 100%;
+    float: left;
+    margin-top: 24px;
+}
+.o-explore-main{
+    width: 100%;
+    float: left;
+    border-radius: 5px;	
+    box-shadow: 0 3px 15px 0 rgba(102,45,145,0.17);
+    min-height: 282px;
+}
+.o-explore-card-left{
+    width: 276px;
+    height: 266px;
+    float: left;
     overflow: hidden;
     position: relative;
-    box-sizing: border-box;
-    text-align: center;
-    line-height: 2.5;
-    border: 0.2px solid #f8f8f8;
-    img {
-      width: 100%
-    }
+    border-radius: 3px;
+}
+.o-explore-card-right{
+    width: 276px;
+    height: 266px;
+    float: left;
+    overflow: hidden;
+}
+.o-explore-img-title{
+    height: 72px;	
+    width: 100%;	
+    border-radius: 3px;	
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000000 100%);
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items:flex-end;
+    padding: 0px 0px 16px 16px;
 }
 
+// card
 
-// ------------------------ channel card style -------------------------------
-.ops_channel_card {
-    padding: 0 8px;
-    margin: 8px 0;
-    .ops_channel_block {
-        //margin: 0 10px;
-        height: 390px;
-        border-radius: 5px;
-        background-color: #ffffff;
-        box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
-        .ops_channel_top {
-            padding: 0px;
-            img {
-                border-radius: 5px;
-            }
-        }
-        .ops_channel_bottom1 {
-            padding: 4px 2px 0 0;
-        }
-        .ops_channel_bottom2 {
-            padding: 4px 0 0 2px;
-        }
-    }
-    .pro_channel_cont {
-        //margin: 15px 0;
-        padding: 0px;
-        span {
-            width: 5%;
-            display: inline-block;
-            img {
-                width: 14px;
-            }
-        }
-        .feed-heading {
-            width: 95%;
-            font-size: 14px;
-            font-weight: bold;
-            line-height: 1.36;
-            text-align: left;
-            margin: 0;
-            padding: 0;
-        }
-        p {
-            float: right;
-            width: 20%;
-        }
-        .channel_name {
-            height: 50px;
-            margin: 15px;
-            .channel_heading {
-                width: 95%;
-                font-size: 14px;
-                font-weight: bold;
-                line-height: 1.36;
-                text-align: left;
-                margin: 0;
-                padding: 0;
-                color: #333333;
-            }
-        }
-        .channel-thumb {
-            border-bottom: solid 1px #efefef;
-            padding: 0 10px 10px 15px;
-            img {
-                width: 23px;
-                border-radius: 50%;
-                background-color: #ffffff;
-                box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
-            }
-            p {
-                font-size: 14px;
-                font-weight: 600;
-                text-align: left;
-                color: #979797;
-                width: 85%;
-            }
-        }
-        .channel_count {
-            font-size: 12px;
-            font-weight: bold;
-            text-align: left;
-            color: #333333;
-            padding: 15px;
-            .btn-follow {
-                span {
-                    margin: 0px;
-                    width: auto;
-                }
-            }
-            span {
-                margin: 0 5px;
-                width: 20%;
-            }
-        }
-        .pro_channel-thumb {
-            border-bottom: solid 1px #efefef;
-            padding: 0 10px 10px 15px;
-            img {
-                width: 23px;
-                border-radius: 50%;
-                background-color: #ffffff;
-                box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
-            }
-            p {
-                font-size: 14px;
-                font-weight: 600;
-                text-align: left;
-                color: #979797;
-                width: 85%;
-            }
-        }
-        .pro_channel_count {
-            img {
-                width: 14px;
-            }
-            span {
-                margin: 0 5px;
-                width: 20%;
-            }
-            font-size: 12px;
-            font-weight: bold;
-            text-align: left;
-            color: #333333;
-            padding: 15px;
-        }
-    }
-    .channel_avatar_full {
-        width: 100%;
-        height: 113px;
-        display: inline-block;
-        vertical-align: middle;
-        overflow: hidden;
-        position: relative;
-        box-sizing: border-box;
-        img {
-            width: 100%;
-            border-radius: 5px;
-        }
-    }
-    .channel_avatar_helf {
-        width: 100%;
-        height: 104px;
-        display: inline-block;
-        vertical-align: middle;
-        overflow: hidden;
-        position: relative;
-        box-sizing: border-box;
-        background: #f8f8f8;
-        img {
-            width: 100%;
-        }
-    }
+.o-explore-card{
+    width: 130px;
+    height: 129px;
+    float: left;
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+    float: left;
+}
+.o-explore-card__media{
+    width: 100%;
+    height: 129px;
+    cursor: pointer !important;
+}
+.o-explore-img-title--sm{
+    height: 46px;	
+    width: 100%;	
+    border-radius: 3px;	
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000000 100%);
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items:flex-end;
+    padding: 0px 0px 8px 8px;
 }
 
-// small channel card (registratio page)
-.ops_channel_card {
-    padding: 0 4px;
-    .ops_channel_block {
-        height: 324px;
-    }
-    .channel_avatar_full {
-        height: 94px;
-    }
-    .channel_avatar_helf {
-        height: 84px;
-    }
-    .pro_channel_cont {
-        .channel_name {
-            height: 32px;
-        }
-        .channel_count {
-            padding: 8px;
-            .btn-follow {
-                padding: 0 9px 0 1px;
-                font-weight: 500;
-                font-size: 12px;
-                border-radius: 3px;
-            }
-            .btn-primary {
-                color: #fff;
-                background-color: #ff7b84;
-                border-color: #ff7b84;
-            }
-        }
-    }
-}
+// catagory
 
-footer {
+.o-explore-catagory-sec{
+    width: 100%;
+    float: left;
+    background: linear-gradient(139.48deg, #FF7B84 0%, #F7D022 100%);
+    padding:24px 8px;
+    display: block;
+    justify-content:center;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.o-explore-catagory-block{
+    height: 56px;
+    float: left;
+    padding:8px;
+    border-radius: 3px;
     background: #fff;
-    color: #555;
-    text-align: center;
-    padding: 10px 0;
+    box-shadow: 0 4px 9px 0 rgba(97,53,129,0.21);
+}
+.o-explore-catagory__thumb{
+    width: 40px;
+    height: 40px;
+    border-radius: 2px;
+    overflow: hidden;
+    float: left;
+    img{
+        width: 100%;
+    }
+}
+.o-explore-catagory__title{
+    height: 40px;
+    display: flex;
+    align-items:center;
+    float: left;
+}
+
+// catagory main
+
+.o-explore-catagory-main{
+    width: 100%;
+    float: left;
+}
+
+.m-r-8 {
+    margin-bottom: 8px;
+}
+
+.pointer {
+    cursor: pointer !important;
 }
