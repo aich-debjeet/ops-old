@@ -54,7 +54,7 @@ export class ExploreComponent implements OnInit {
       // get current profiles spotfeeds
       if (state && state.home_spotfeeds && state.home_spotfeeds.SUCCESS) {
         this.profileSpotfeeds = state.home_spotfeeds.SUCCESS;
-        console.log('profile spotfeeds', this.profileSpotfeeds);
+        // console.log('profile spotfeeds', this.profileSpotfeeds);
       }
     });
 
@@ -69,7 +69,7 @@ export class ExploreComponent implements OnInit {
       // get all spotfeeds
       if (state && state.spotfeeds && state.spotfeeds.SUCCESS) {
         this.allSpotfeeds = state.spotfeeds.SUCCESS;
-        console.log('all spotfeeds', this.allSpotfeeds);
+        // console.log('all spotfeeds', this.allSpotfeeds);
       }
     })
 

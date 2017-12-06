@@ -2,31 +2,31 @@
 
 <section class="o-explore-top-sec">
   <div class="container">
-      <div class="o-explore-post-by m-t-32">
+      <!-- <div class="o-explore-post-by m-t-32">
         <div class="o-explore-post__info m-r-8">
           <span class="c-text_sm color-white">Posted by @zanelowe</span>
         </div>
         <div class="o-explore-post__avatar">
-          <img src="/assets/img/new/avatar.png" alt="">
+          <img src="/assets/img/avatar.png" alt="">
         </div>
-      </div>
+      </div> -->
   </div>
 </section>
 
 <section class="o-explore-catagory-sec">
   <div *ngFor="let spotfeed of profileSpotfeeds;" class="o-explore-catagory-block m-r-8">
-    <div (click)="gotoSpotfeed('spotfeed.code')">
-      <div class="o-explore-catagory__thumb" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed.image + ')', 'background-size': 'cover', 'background-position': 'center'}">
+    <div (click)="gotoSpotfeed('spotfeed?.code')">
+      <div class="o-explore-catagory__thumb" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed?.image + ')', 'background-size': 'cover', 'background-position': 'center'}">
         <!-- <img src="{{ baseUrl + spotfeed.image }}" alt=""> -->
       </div>
       <div class="o-explore-catagory__title c-text_sm p-l-8">
-        {{ spotfeed.name }}
+        {{ spotfeed?.name }}
       </div>
     </div>
   </div>
 </section>
 
-<section class="o-explore-content-sec">
+<!-- <section class="o-explore-content-sec">
   <div class="container p-0">
     <div class="col-md-6 p-l-0">
       <h6 class="c-text_lg f-w_600">For you</h6>
@@ -36,7 +36,7 @@
           <div class="o-explore-img-title c-text_lg color-white">
             Bollywood hits
           </div>
-        </div><!-- left-card end -->
+        </div>
         <div class="o-explore-card-right">
           <div class="o-explore-card m-l-8">
             <div class="o-explore-card__media" style="background: url(img/new/s03.jpg); background-size: cover; background-position: center;">
@@ -70,7 +70,7 @@
               A R Rahmans
             </div>
           </div>
-        </div><!-- right-card end -->
+        </div>
       </div>
     </div>
     <div class="col-md-6 p-l-0">
@@ -81,7 +81,7 @@
           <div class="o-explore-img-title c-text_lg color-white">
             Bollywood hits
           </div>
-        </div><!-- left-card end -->
+        </div>
         <div class="o-explore-card-right">
           <div class="o-explore-card m-l-8">
             <div class="o-explore-card__media" style="background: url(img/new/s02.jpg); background-size: cover; background-position: center;">
@@ -115,290 +115,24 @@
               A R Rahmans
             </div>
           </div>
-        </div><!-- right-card end -->
+        </div>
       </div>
     </div>
+  </div>
+</section> -->
+
+<!-- category start -->
+<section *ngFor="let category of allSpotfeeds" class="o-explore-catagory-main m-t-24">
+  <div class="container p-0">
+    <h6 class="c-text_lg f-w_600">{{ category?.industry }}<span class="c-text_lg float_right m-r-16">More</span></h6>
+    <!-- spotfeed start -->
+    <div *ngFor="let spotfeed of category?.feeds" class="o-explore-card m-r-16 m-t-8">
+      <div class="o-explore-card__media" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed?.image + ')', 'background-size': 'cover', 'background-position': 'center'}"></div>
+      <div class="o-explore-img-title--sm c-text_sm color-white">{{ spotfeed?.name }}</div>
+    </div>
+    <!-- spotfeed start -->
   </div>
 </section>
-
-<section class="o-explore-catagory-main m-t-24">
-  <div class="container p-0">
-    <h6 class="c-text_lg f-w_600">Dance <span class="c-text_lg float_right m-r-16">More</span></h6>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s03.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s06.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s05.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s07.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s03.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s06.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s05.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s07.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-  </div>
-</section><!-- dance end -->
-
-<section class="o-explore-catagory-main m-t-24">
-  <div class="container p-0">
-    <h6 class="c-text_lg f-w_600">Music <span class="c-text_lg float_right m-r-16">More</span></h6>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/l01.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/l02.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/l03.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/l04.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/l05.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/l06.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s01.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s02.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-  </div>
-</section><!-- music end -->
-
-<section class="o-explore-catagory-main m-t-24">
-  <div class="container p-0">
-    <h6 class="c-text_lg f-w_600">Photography <span class="c-text_lg float_right m-r-16">More</span></h6>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s07.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s08.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s09.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s10.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s11.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s12.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s13.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s14.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-  </div>
-</section><!-- photography end -->
-
-<section class="o-explore-catagory-main m-t-24 m-b-32">
-  <div class="container p-0">
-    <h6 class="c-text_lg f-w_600">Art <span class="c-text_lg float_right m-r-16">More</span></h6>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s03.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s06.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s05.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s07.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s03.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s06.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s05.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-    <div class="o-explore-card m-r-16 m-t-8">
-      <div class="o-explore-card__media" style="background: url(img/new/s07.jpg); background-size: cover; background-position: center;">
-        
-      </div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">
-        A R Rahmans
-      </div>
-    </div>
-  </div>
-</section><!-- photography end -->
+<!-- category end -->
 
 <app-footer></app-footer>
