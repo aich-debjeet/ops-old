@@ -317,6 +317,15 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.USER_LOGGED_IN_FAILED, payload: res }))
     );
 
+  @Effect()
+  eventDwcReg$ = this.actions$
+    .ofType(AuthActions.DWC_EVENT_REG)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.dwcReg(payload)
+      .map(res => ({ type: AuthActions.DWC_EVENT_REG_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.DWC_EVENT_REG_FAILED, payload: res }))
+    );
+
   constructor(
       private actions$: Actions,
       private authService: AuthService,

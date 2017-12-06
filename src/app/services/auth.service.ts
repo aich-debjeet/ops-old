@@ -266,4 +266,12 @@ export class AuthService {
       this.updateAuthHeaders();
       return this.http.get(`${this.apiLink}/portal/auth/loggedUser`, { headers: this.headers });
     }
+
+    /**
+     * DWC Form Reg @param value
+     */
+    dwcReg(value: any) {
+        return this.http.post(`${this.apiLink}/portal/application/postApplication`, value, { headers: this.headers })
+        .map((data: Response) => data.json());
+    }
 }

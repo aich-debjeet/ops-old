@@ -119,6 +119,7 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
 import { AgmCoreModule } from '@agm/core';
 import { OpportunityEffect } from 'app/effects/opportunity.effect';
 import { OpportunityModule } from 'app/components/opportunity/opportunity.module';
+import { DwcComponent } from './components/dwc/dwc.component';
 import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world-cup.component';
 
 
@@ -156,6 +157,7 @@ import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world
     NetworkComponent,
     ProjectComponent,
     DirectoryListComponent,
+    DwcComponent,
     DanceWorldCupComponent
   ],
   imports: [
