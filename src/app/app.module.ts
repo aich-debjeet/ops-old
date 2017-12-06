@@ -157,11 +157,8 @@ import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world
     NetworkComponent,
     ProjectComponent,
     DirectoryListComponent,
-<<<<<<< HEAD
-    DwcComponent
-=======
+    DwcComponent,
     DanceWorldCupComponent
->>>>>>> 18bd84549179b9a7a9d61742a49b386e5e9f8bb0
   ],
   imports: [
     DragulaModule,

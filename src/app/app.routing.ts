@@ -30,11 +30,8 @@ import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
-<<<<<<< HEAD
 import { DwcComponent } from './components/dwc/dwc.component';
-=======
 import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world-cup.component';
->>>>>>> 18bd84549179b9a7a9d61742a49b386e5e9f8bb0
 
 
 
