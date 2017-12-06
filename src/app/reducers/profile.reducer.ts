@@ -1,6 +1,6 @@
 import { AddTagsToVaultInput } from 'aws-sdk/clients/glacier';
 import { ActionReducer, Action } from '@ngrx/store';
-import { initialTag, ProfileModal } from '../models/profile.model';
+import { initialTag, ProfileModal, ProfileCards, UserCard} from '../models/profile.model';
 
 import { ProfileActions } from '../actions/profile.action';
 import { OrganizationActions } from '../actions/organization.action';
@@ -12,6 +12,64 @@ export interface State {
   current_user_profile: any,
   profile_navigation_details: any
 };
+
+/**
+ * Convert Profile to UserCard
+ */
+function genUserCard(profile: any, isOrg: boolean = true) {
+  if (!isOrg && profile['isOrganization'] === true) {
+    const org  = profile['organization'];
+    const oCard: UserCard = {
+      name: org.organizationName,
+      image: org.organizationCoverImage,
+      username: org.organizationUserName,
+      handle: org.organizationHandle,
+      isOrg: true,
+      page_path: '/org/page',
+    }
+    return oCard;
+  } else {
+    const uCard: UserCard = {
+      name: profile.name,
+      image: profile.profileImage,
+      username: profile.username,
+      handle: profile.handle,
+      isOrg: false,
+      page_path: '/profile',
+    }
+    return uCard;
+  }
+}
+
+/**
+ * Get active profile type state
+ * @param profile_type Profile type; profile or organizaiton
+ */
+function getActiveProfile(profile_details: any, profile_type: string = 'profile') {
+  // Profile data is empty, try to get in from component state, or else fail miserably
+  let active, inactive, profile, organization;
+  profile = genUserCard(profile_details);
+  organization = genUserCard(profile_details, false)
+
+  // Unless organization default active is profile
+  switch (profile_type) {
+    case 'organization':
+      active = organization;
+      inactive = profile;
+      break;
+    default:
+      active = profile;
+      inactive = organization;
+  }
+
+  // Construct a Struct
+  const userCardsList: ProfileCards = {
+    active: active,
+    other: inactive
+  }
+
+  return userCardsList;
+}
 
 export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
@@ -41,6 +99,9 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Load Current User Profile
      */
     case ProfileActions.LOAD_CURRENT_USER_PROFILE:
+
+      //
+
       return Object.assign({}, state, {
         success: true,
         profile_loaded: false,
@@ -48,10 +109,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_SUCCESS:
+      const cards = getActiveProfile(payload);
+
       return Object.assign({}, state, {
         profile_navigation_details: payload,
         profile_loaded: true,
-        current_user_profile_loading: true
+        current_user_profile_loading: true,
+        profile_cards: cards
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_FAILED:
@@ -864,10 +928,24 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
     case OrganizationActions.LOAD_ORG_CHANNELS_FAILED:
-    return Object.assign({}, state, {
+      return Object.assign({}, state, {
         org_channels_loading: false,
         org_channels_loaded: false
-    });
+      });
+
+
+    case ProfileActions.CHANGE_PROFILE:
+      // Switch to the other profile
+      let profileType = 'profile';
+      if (payload.other.isOrg === true) {
+        profileType = 'organization';
+      }
+
+      const profileData =  getActiveProfile(state.profile_navigation_details, profileType )
+
+      return Object.assign({}, state, {
+        profile_cards: profileData
+      });
 
     default:
       return state;
