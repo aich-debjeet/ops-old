@@ -40,6 +40,7 @@ import { ProfileReducer } from './reducers/profile.reducer';
 import { MessageReducer } from './reducers/messages.reducer';
 import { UserSearchReducer } from './reducers/user-search.reducer';
 import { OpportunityReducer } from './reducers/opportunity.reducer';
+import { ExploreReducer } from './reducers/explore.reducer';
 import { reducer } from './app.reducer';
 
 // Effects
@@ -71,6 +72,7 @@ import { NotificationService } from './services/notification.service';
 import { SearchService } from './services/search.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { OpportunityService } from './services/opportunity.service';
+import { ExploreService } from './services/explore.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
@@ -216,7 +218,8 @@ import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world
     SearchService,
     GeneralUtilities,
     LocalStorageService,
-    OpportunityService
+    OpportunityService,
+    ExploreService
   ],
   bootstrap: [AppComponent]
 })
