@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
+import { ActivatedRoute } from '@angular/router';
 
 // Model
 import { EventModal, initialTag  } from '../../../models/event.model';
@@ -29,23 +30,39 @@ export class EventsLandingComponent implements OnInit {
   tagState$: Observable<EventModal>;
   eventList = initialTag ;
   constructor(
+    private route: ActivatedRoute,
     private store: Store<EventModal>
   ) {
     this.tagState$ = this.store.select('eventTags');
     this.tagState$.subscribe((state) => {
       this.eventList = state['event_list'];
-      console.log(this.eventList);
+      // console.log(this.eventList);
     });
     this.store.dispatch({ type: EventActions.EVENT_LIST });
+
+    // const data = {
+    //   title : '',
+    //   organizer : '',
+    //   startDate : '',
+    //   endDate : '',
+    //   startTime : '',
+    //   endTime : ''
+    // }
+
+    // this.store.dispatch({ type: EventActions.EVENT_SEARCH, payload: data });
 
     // day
     this.day =  moment().format();
     this.tomorrow = moment().add('days', 1);
     this.weekend = moment().weekday(5);
-    console.log(moment().format('dd, LLLL'));
   }
 
   ngOnInit() {
+
+   this.route.params.subscribe(params => {
+     console.log(params['category']);
+    });
+
 
     this.carouselOne = {
       grid: {xs: 3, sm: 3, md: 3, lg: 3, all: 0},

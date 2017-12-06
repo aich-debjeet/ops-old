@@ -1,22 +1,88 @@
 import { Component, OnInit } from '@angular/core';
 
+// actions
+import { ExploreActions } from 'app/actions/explore.action';
+import { ProfileActions } from 'app/actions/profile.action';
+
+// store
+import { Store } from '@ngrx/store';
+
+// models
+import { ExploreModel } from 'app/models/explore.model';
+
+// services
+
+// rx
+import { Observable } from 'rxjs/Observable';
+import { environment } from 'environments/environment.prod';
+
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',
   styleUrls: ['./explore.component.scss']
 })
 export class ExploreComponent implements OnInit {
-  comingsoon: any;
-  constructor() {}
+
+  userState$: Observable<any>;
+  userProfile: any;
+  exploreState$: Observable<any>;
+  exploreState: any;
+  profileSpotfeeds: any[];
+  allSpotfeeds: any[];
+  baseUrl: string;
+
+  constructor(
+    private store: Store<ExploreModel>
+  ) {
+
+    this.baseUrl = environment.API_IMAGE;
+
+    // load user specific spotfeeds
+    this.store.dispatch({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS });
+
+    // load category wise spotfeeds
+    this.store.dispatch({ type: ExploreActions.LOAD_SPOTFEEDS });
+
+    /**
+     * check user state
+     */
+    this.userState$ = this.store.select('profileTags');
+    this.userState$.subscribe((state) => {
+      this.userProfile = state;
+      // console.log('this.userProfile', this.userProfile);
+
+      // get current profiles spotfeeds
+      if (state && state.home_spotfeeds && state.home_spotfeeds.SUCCESS) {
+        this.profileSpotfeeds = state.home_spotfeeds.SUCCESS;
+        // console.log('profile spotfeeds', this.profileSpotfeeds);
+      }
+    });
+
+    /**
+     * check explore state
+     */
+    this.exploreState$ = this.store.select('exploreTags');
+    this.exploreState$.subscribe((state) => {
+      this.exploreState = state;
+      // console.log('this.exploreState', this.exploreState);
+
+      // get all spotfeeds
+      if (state && state.spotfeeds && state.spotfeeds.SUCCESS) {
+        this.allSpotfeeds = state.spotfeeds.SUCCESS;
+        // console.log('all spotfeeds', this.allSpotfeeds);
+      }
+    })
+
+  }
 
   ngOnInit() {
-    this.comingsoon = {
-      mainTitle: 'Explore <br> Coming Soon.',
-      description: 'Our Explorers are working up the map. Feel free to browse through our other pages.',
-      buttonLink: '/home',
-      buttonText: 'Go to Home',
-      img: 'https://d33wubrfki0l68.cloudfront.net/aa7151c6bd31e22c19fee9e6753360fe77abcb99/7b1df/img/svg/404/explore_coming_soon_02.png'
-    };
+  }
+
+  /**
+   * Navigate to the spotfeed
+   */
+  gotoSpotfeed(spotfeedId: string) {
+    console.log('goto ', spotfeedId);
   }
 
 }

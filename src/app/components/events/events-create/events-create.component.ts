@@ -340,7 +340,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
         .subscribe( reg => {
           console.log(reg);
           const id = reg['event_id'];
-          this.router.navigate(['/events/inner/' + id]);
+          this.router.navigate(['/event/inner/' + id]);
         });
     }
   }

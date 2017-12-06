@@ -63,6 +63,13 @@ export class EventService {
     return this.api.put( '/portal/event/attend/' + data.id, body);
   }
 
+  /**
+   * Event search data
+   */
+  eventSearchData(data: any) {
+    return this.api.put( '/portal/event/advancesearch', data);
+  }
+
 
   fileUpload(formValue: any) {
     const fileData = this.buildImageForm(formValue);
