@@ -73,6 +73,7 @@ export class NavigationComponent implements OnInit {
     /* Profile state */
     this.profileState$.subscribe((state) => {
       this.activeProfileState = state;
+      this.userCards = this.activeProfileState['profile_cards'];
     });
 
     /* profile state */
@@ -130,14 +131,7 @@ export class NavigationComponent implements OnInit {
     this.store.select('profileTags')
     .first(profile => profile['profile_navigation_details'].name )
     .subscribe( data => {
-      console.log(data);
-      // const profile_details = data['profile_navigation_details'];
-      // this.profile_details = profile_details;
-      // // If we have Profile Details
-      // if (profile_details) {
-      //   this.isProfileSet = true;
-      //   this.userCards = this.getActiveProfile(profileType);
-      // }
+      this.isProfileSet = true;
     });
 
   }
@@ -147,82 +141,81 @@ export class NavigationComponent implements OnInit {
   }
 
   /**
-   * Convert Profile to UserCard
-   */
-  genUserCard(profile: any, isOrg: boolean = true) {
-    if (!isOrg && profile['isOrganization'] === true) {
-      const org  = profile['organization'];
-      const oCard: UserCard = {
-        name: org.organizationName,
-        image: org.organizationCoverImage,
-        username: org.organizationUserName,
-        handle: org.organizationHandle,
-        isOrg: true,
-        page_path: '/org/page',
-      }
-      return oCard;
-    } else {
-      const uCard: UserCard = {
-        name: profile.name,
-        image: profile.profileImage,
-        username: profile.username,
-        handle: profile.handle,
-        isOrg: false,
-        page_path: '/profile',
-      }
-      return uCard;
-    }
-  }
-
-  /**
    * Swap Organization with Profile
    */
   changeProfile(user_cards: any, e: MouseEvent) {
-    // Dispatch change
     this.store.dispatch({ type: ProfileActions.CHANGE_PROFILE, payload: user_cards });
-    e.stopPropagation();
+    return false;
   }
 
+  // /**
+  //  * Convert Profile to UserCard
+  //  */
+  // genUserCard(profile: any, isOrg: boolean = true) {
+  //   if (!isOrg && profile['isOrganization'] === true) {
+  //     const org  = profile['organization'];
+  //     const oCard: UserCard = {
+  //       name: org.organizationName,
+  //       image: org.organizationCoverImage,
+  //       username: org.organizationUserName,
+  //       handle: org.organizationHandle,
+  //       isOrg: true,
+  //       page_path: '/org/page',
+  //     }
+  //     return oCard;
+  //   } else {
+  //     const uCard: UserCard = {
+  //       name: profile.name,
+  //       image: profile.profileImage,
+  //       username: profile.username,
+  //       handle: profile.handle,
+  //       isOrg: false,
+  //       page_path: '/profile',
+  //     }
+  //     return uCard;
+  //   }
+  // }
 
-  /**
-   * Swap profile with Organization
-   */
-  setProfileToUser() {
-    this.profileType = 'profile';
-    this.userCards = this.getActiveProfile('profile');
-    localStorage.setItem('active_profileType', 'profile');
-  }
 
-  /**
-   * Get active profile type state
-   * @param profile_type Profile type; profile or organizaiton
-   */
-  getActiveProfile(profile_type: string = 'profile') {
+  // /**
+  //  * Swap profile with Organization
+  //  */
+  // setProfileToUser() {
+  //   this.profileType = 'profile';
+  //   this.userCards = this.getActiveProfile('profile');
+  //   localStorage.setItem('active_profileType', 'profile');
+  // }
 
-    // Profile data is empty, try to get in from component state, or else fail miserably
-    let active, inactive, profile, organization;
-    profile = this.genUserCard(this.profile_details);
-    organization = this.genUserCard(this.profile_details, false)
+  // /**
+  //  * Get active profile type state
+  //  * @param profile_type Profile type; profile or organizaiton
+  //  */
+  // getActiveProfile(profile_type: string = 'profile') {
 
-    // Unless organization default active is profile
-    switch (profile_type) {
-      case 'organization':
-        active = organization;
-        inactive = profile;
-        break;
-      default:
-        active = profile;
-        inactive = organization;
-    }
+  //   // Profile data is empty, try to get in from component state, or else fail miserably
+  //   let active, inactive, profile, organization;
+  //   profile = this.genUserCard(this.profile_details);
+  //   organization = this.genUserCard(this.profile_details, false)
 
-    // Construct a Struct
-    const userCardsList: ProfileCards = {
-      active: active,
-      other: inactive
-    }
+  //   // Unless organization default active is profile
+  //   switch (profile_type) {
+  //     case 'organization':
+  //       active = organization;
+  //       inactive = profile;
+  //       break;
+  //     default:
+  //       active = profile;
+  //       inactive = organization;
+  //   }
 
-    return userCardsList;
-  }
+  //   // Construct a Struct
+  //   const userCardsList: ProfileCards = {
+  //     active: active,
+  //     other: inactive
+  //   }
+
+  //   return userCardsList;
+  // }
 
 
   /* =================================== notification =================================== */
