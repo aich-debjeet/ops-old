@@ -63,7 +63,7 @@ export const routes: Routes = [
  { path: 'project', component: ProjectComponent, canActivate: [AuthGuard] },
  { path: 'jobs', component: JobsComponent, canActivate: [AuthGuard] },
  { path: 'job-details', component: JobDetailsComponent, canActivate: [AuthGuard] },
- { path: 'events', loadChildren: './components/events/events.module#EventsModule'},
+ { path: 'event', loadChildren: './components/events/events.module#EventsModule'},
  { path: 'user/settings', component: SettingsComponent, canActivate: [AuthGuard] },
  { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard] },
  { path: 'channel', component: ChannelListComponent, canActivate: [AuthGuard] },
