@@ -15,7 +15,7 @@
 
 <section class="o-explore-catagory-sec">
   <div *ngFor="let spotfeed of profileSpotfeeds;" class="o-explore-catagory-block m-r-8">
-    <div (click)="gotoSpotfeed('spotfeed?.code')">
+    <div class="pointer" [routerLink]="['/spotfeed', spotfeed.name]">
       <div class="o-explore-catagory__thumb" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed?.image + ')', 'background-size': 'cover', 'background-position': 'center'}">
         <!-- <img src="{{ baseUrl + spotfeed.image }}" alt=""> -->
       </div>
@@ -126,7 +126,7 @@
   <div class="container p-0">
     <h6 class="c-text_lg f-w_600">{{ category?.industry }}<span class="c-text_lg float_right m-r-16">More</span></h6>
     <!-- spotfeed start -->
-    <div *ngFor="let spotfeed of category?.feeds" class="o-explore-card m-r-16 m-t-8">
+    <div *ngFor="let spotfeed of category?.feeds" class="o-explore-card m-r-16 m-t-8" [routerLink]="['/spotfeed', spotfeed.name]" >
       <div class="o-explore-card__media" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed?.image + ')', 'background-size': 'cover', 'background-position': 'center'}"></div>
       <div class="o-explore-img-title--sm c-text_sm color-white">{{ spotfeed?.name }}</div>
     </div>

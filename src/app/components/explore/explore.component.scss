@@ -83,6 +83,7 @@
 .o-explore-card__media{
     width: 100%;
     height: 129px;
+    cursor: pointer !important;
 }
 .o-explore-img-title--sm{
     height: 46px;	
@@ -142,4 +143,8 @@
 
 .m-r-8 {
     margin-bottom: 8px;
+}
+
+.pointer {
+    cursor: pointer !important;
 }
