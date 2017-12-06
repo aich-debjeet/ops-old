@@ -42,7 +42,6 @@ export class DwcComponent implements OnInit {
 
 // dwc_event_reg_success
   submitForm(value) {
-    console.log(value);
     const form = {
       schoolName: value.school_name,
       schoolOwner: value.school_owner,
@@ -51,7 +50,7 @@ export class DwcComponent implements OnInit {
       teamates: value.school_teammates,
     }
     this.store.dispatch({ type: AuthActions.DWC_EVENT_REG, payload: form});
-    // this.router.navigateByUrl('/profile/user');
+    this.router.navigateByUrl('/profile/user');
   }
 
 }

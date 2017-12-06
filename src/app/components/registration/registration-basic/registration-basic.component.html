@@ -109,12 +109,12 @@
                             <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.required && regform.submitted">Confirm password is required</p>
                             <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password does not match</p>
                         </div>
-                        <div class="form_group ops_radio_sm" *ngIf="dwc">
+                        <div class="form_group ops_radio_sm">                            
                             <label class="width100">
-                                <label class="col-md-2 signup_gender">Interest</label>
-                                <label class="col-md-3 gender_single">
-                                    <input type="checkbox" #saveUserNameCheckBox [checked]="saveUsername" (change)="onSaveUsernameChanged(saveUserNameCheckBox.checked)"><span></span>Interest
+                                <label class="gender_single">
+                                    <input type="checkbox" #saveUserNameCheckBox [checked]="saveUsername" (change)="onSaveUsernameChanged(saveUserNameCheckBox.checked)">
                                 </label>
+                                <label class="signup_gender">I'm signing up for Dance World Cup India Audition</label>
                             </label>
                         </div>
                         <div class="signup_privacy">
