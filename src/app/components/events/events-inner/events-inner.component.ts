@@ -29,6 +29,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
   baseUrl = environment.API_IMAGE;
   eventTag: any;
   isAttend: boolean;
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -49,6 +50,8 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
         }
         console.log(data)
       });
+
+      
 
   }
 
