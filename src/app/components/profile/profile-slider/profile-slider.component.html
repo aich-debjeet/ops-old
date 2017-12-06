@@ -28,7 +28,7 @@
                 <div class="c-profile__userdetail">
                     <h2 class="c-profile__username">{{ profileObject?.name }}<span class="c-profile__userskill">artist</span></h2>
                     <span class="c-profile__userhandle">{{ '@' + profileObject?.userHandle }}</span>
-                    <span class="c-profile__userprofession">{{ profileObject?.extra?.profession }}r</span>
+                    <span class="c-profile__userprofession">{{ profileObject?.extra?.profession }}</span>
                     <div class="c-profile__maintags">
                         <a routerLink="{{ '/spotfeed/' + skill.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:5">#{{ skill.name }}</a>
                         <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more" data-toggle="modal" data-target="#tag-pop">More</a>
