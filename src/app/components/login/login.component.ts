@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   petTag = initialTag;
   loginForm: FormGroup;
   redrectUrl: any;
+  queryParam: any;
 
   constructor(
     fb: FormBuilder,
@@ -49,6 +50,11 @@ export class LoginComponent implements OnInit {
     // if redriect url there
     if (this.route.snapshot.queryParams['next']) {
       this.redrectUrl = this.route.snapshot.queryParams['next'];
+    }
+
+    // redrection query param
+    if (this.route.snapshot.queryParams) {
+      this.queryParam = this.route.snapshot.queryParams;
     }
     // this.redrectUrl = '';
     this.rightCom = {

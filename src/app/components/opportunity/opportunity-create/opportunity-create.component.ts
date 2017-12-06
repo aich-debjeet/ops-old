@@ -93,8 +93,8 @@ export class OpportunityCreateComponent implements OnInit {
     this.userProfileState$ = this.mediaStore.select('profileTags');
     this.userProfileState$.subscribe(data => {
       // console.log('porfile state', data);
-      if (data && data.profileUser) {
-        this.userProfile = data.profileUser;
+      if (data && data.profile_navigation_details) {
+        this.userProfile = data.profile_navigation_details;
         if (data.channel_saved) {
           this.channelSaved = data.channel_saved;
         }
@@ -149,7 +149,7 @@ export class OpportunityCreateComponent implements OnInit {
     this.createChannelForm();
 
     // check if creator is user or organization
-    if (localStorage.getItem('accountStatus') !== null) {
+    if (localStorage.getItem('active_profile') !== null) {
       const localStore = JSON.parse(this.localStorageService.theAccountStatus);
       if (localStore.profileType === 'org') {
         this.orgHandle = localStore.handle;
@@ -324,7 +324,7 @@ export class OpportunityCreateComponent implements OnInit {
     let profileHandle = userHandle;
 
     // check if creator is user or organization
-    if (localStorage.getItem('accountStatus') !== null) {
+    if (localStorage.getItem('active_profile') !== null) {
       const localStore = JSON.parse(this.localStorageService.theAccountStatus);
       if (localStore.profileType === 'org') {
         profileHandle = localStore.handle;

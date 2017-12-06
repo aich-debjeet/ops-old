@@ -2,9 +2,10 @@ import { Component, Directive, OnInit, HostListener, Renderer, ElementRef, HostB
 import { ModalService } from '../modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../models/profile.model';
-import { Organization, initialOrganization } from '../../models/organization.model';
+import { Organization } from '../../models/organization.model';
 
 import { LocalStorageService } from './../../services/local-storage.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // action
 import { ProfileActions } from '../../actions/profile.action';
@@ -28,15 +29,12 @@ import { GeneralUtilities } from '../../helpers/general.utils';
 export class NavigationComponent implements OnInit {
 
   topNav: any;
-
   baseUrl: string;
-  showMenu: boolean;
-  tagState$: Observable<ProfileModal>;
-  orgState$: Observable<Organization>;
-  private tagStateSubscription: Subscription;
-  userProfile = initialTag;
-  orgProfile;
+  profileState$: Observable<ProfileModal>;
+  activeProfileState = initialTag;
   profileType: string;
+  isProfileSet = false;
+  profilerOwnersUsername: string;
 
   /* ========================== notification ========================== */
   notificationsState$: Observable<Notification>;
@@ -51,7 +49,8 @@ export class NavigationComponent implements OnInit {
     private el: ElementRef,
     private renderer: Renderer,
     public generalHelper: GeneralUtilities,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private router: Router
   ) {
 
     this.topNav = {
@@ -63,36 +62,44 @@ export class NavigationComponent implements OnInit {
       profile: { open: false }
     };
 
-    // check for account type in localStorage
-    if (localStorage.getItem('accountStatus') === null) {
-      // console.log('accountStatus is not available');
-      this.profileType = 'user';
-      localStorageService.theAccountStatus = JSON.stringify({ 'profileType': 'user' });
-    } else {
-      const localStore = JSON.parse(localStorageService.theAccountStatus);
-      // console.log('accountStatus avaibale, localStore', localStore);
-      if (localStore.profileType === 'org') {
-        this.profileType = 'org';
-        this.switchToOrg(localStore.username, localStore.handle);
-      } else {
-        this.profileType = 'user';
-      }
-    }
     this.baseUrl = environment.API_IMAGE;
-    this.tagState$ = this.store.select('profileTags');
+    this.profileState$ = this.store.select('profileTags');
 
-    this.tagState$.subscribe((state) => {
-      this.userProfile = state;
+    // check for the profile type in local store
+    // if (localStorage.getItem('active_profile') === null || localStorage.getItem('active_profile') === '') {
+    //   this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    // }
+
+    /* profile state */
+    this.profileState$.subscribe((state) => {
+      this.activeProfileState = state;
+      console.log('profile state', state);
+
+      if (!this.isProfileSet && state && state.profile_navigation_details && state.profile_navigation_details.profileImage) {
+        this.isProfileSet = true;
+        // check for account type in localStorage
+        if (localStorage.getItem('active_profile') === null) {
+          this.profileType = 'user';
+          this.setProfileToUser();
+        } else {
+          const localStore = JSON.parse(localStorageService.theAccountStatus);
+          if (localStore.profileType === 'org') {
+            this.profileType = 'org';
+            this.profilerOwnersUsername = localStore.ownersUsername;
+            // console.log('localStorage', localStore);
+            // this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: localStore.username });
+          } else {
+            this.profileType = 'user';
+            this.setProfileToUser();
+          }
+        }
+        console.log('this.profileType', this.profileType);
+      }
+
     });
+    /* profile state */
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-
-    /* org state */
-    this.orgState$ = this.store.select('organizationTags');
-    this.orgState$.subscribe((state) => {
-      this.orgProfile = state;
-    });
-    /* org state */
 
     /* ========================== notification ========================== */
     // loading notifications
@@ -244,38 +251,40 @@ export class NavigationComponent implements OnInit {
   }
   /* =================================== notification =================================== */
 
-  // switch to the org
-  switchToOrg(username: string, handle: string) {
+  setProfileToOrg() {
     let orgHandle, orgUsername;
-
-    // check for org handle
-    if (username && handle) {
-      orgUsername = username;
-      orgHandle = handle;
-    } else if (this.userProfile && this.userProfile.profileUser && this.userProfile.profileUser.organization && this.userProfile.profileUser.organization.organizationUserName) {
-      orgUsername = this.userProfile.profileUser.organization.organizationUserName;
-      orgHandle = this.userProfile.profileUser.organization.organizationHandle;
+    if (this.activeProfileState && this.activeProfileState['profile_navigation_details']['organization']['organizationUserName']) {
+      orgUsername = this.activeProfileState['profile_navigation_details']['organization']['organizationUserName'];
+      orgHandle = this.activeProfileState['profile_navigation_details']['organization']['organizationHandle'];
     }
-
-    if (orgHandle !== '') {
-      // console.log('org handle found', orgHandle);
-      this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
-    }
-
     this.profileType = 'org';
     this.localStorageService.theAccountStatus = JSON.stringify({
       profileType: 'org',
       handle: orgHandle,
-      username: orgUsername
+      username: orgUsername,
+      ownersUsername: this.activeProfileState['profile_navigation_details']['username']
     });
-
+    this.profilerOwnersUsername = this.activeProfileState['profile_navigation_details']['username'];
+    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: orgUsername });
+    // this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
+    // this.router.navigate(['org/page']);
   }
 
-  switchToUser() {
+  setProfileToUser() {
+    let userHandle, usersUsername;
+    if (this.activeProfileState && this.activeProfileState['profile_navigation_details'] && this.activeProfileState['profile_navigation_details']['username'] && this.activeProfileState['profile_navigation_details']['handle']) {
+      usersUsername = this.activeProfileState['profile_navigation_details']['username'];
+      userHandle = this.activeProfileState['profile_navigation_details']['handle'];
+    }
     this.profileType = 'user';
-    this.localStorageService.theAccountStatus = JSON.stringify({ 'profileType': 'user' });
-    // localStorage.setItem('accountStatus', JSON.stringify({ 'profileType': 'user' }));
-    // this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    this.localStorageService.theAccountStatus = JSON.stringify({
+      profileType: 'user',
+      handle: userHandle,
+      username: usersUsername
+    });
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    // this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+    // this.router.navigate(['profile/user']);
   }
 
 }

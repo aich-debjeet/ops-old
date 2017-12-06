@@ -1,6 +1,6 @@
 <section class="o-org-cover">
     <div class="o-org-cover__img">
-        <img width="100%" src="{{ baseUrl + orgProfile?.org_profile_details?.coverImage }}" alt="">
+        <img width="100%" src="{{ baseUrl + orgProfile?.profile_details?.coverImage }}" alt="">
     </div>
     <div class="o-org-cover__edit p-t-16">
         <div class="container p-0">
@@ -10,13 +10,14 @@
             </button>
         </div>
     </div>
-</section><!-- cover end -->
+</section>
+<!-- cover end -->
 <section class="o-org-prof-block">
     <div class="container">
         <div class="o-org-prof-det">
             <div class="o-org-prof__img">
                 <div class="o-org-prof__media">
-                    <img width="100%;" height="100%" src="{{ baseUrl + orgProfile?.org_profile_details?.profileImage }}" alt="">
+                    <img width="100%;" height="100%" src="{{ baseUrl + orgProfile?.profile_details?.profileImage }}" alt="">
                 </div>
                 <div class="o-org-prof__btn">
                     <button type="button" class="btn btn-primary btn-sm btn-inverse" routerLink="/org/page/profile/image-upload">
@@ -25,12 +26,12 @@
                     </button>
                 </div>
             </div>
-            <div class="o-org-prof__name">
-                <h3 class="c-h3 o-org-prof--white">{{ orgProfile?.org_profile_details?.name }}
+            <div class="o-org-prof__name c-profile__username">
+                <h3 class="c-h3 o-org-prof--white">{{ orgProfile?.profile_details?.name }}
                     <span class="org-label-ico"><img width="24" src="/assets/img/svg/Organization.svg" alt=""></span>
                 </h3>
-                <span class="c-text_md o-org-prof--white">@{{ orgProfile?.org_profile_details?.extra.username }}</span>
-                <span class="c-text_md o-org-prof--white margin_l_16">{{ orgProfile?.org_profile_details?.accountType?.name }}</span>
+                <span class="c-text_md o-org-prof--white">@{{ orgProfile?.profile_details?.extra?.username }}</span>
+                <span class="c-text_md o-org-prof--white margin_l_16">{{ orgProfile?.profile_details?.accountType?.name }}</span>
             </div>
             <div class="o-org-prof__account-det">
                 <div class="col-md-6 padding_none">
@@ -69,11 +70,11 @@
             <div class="o-org-navigation fill-white">
                 <div class="col-md-9 padding_none">
                     <ul class="list-inline pro_nav_list">
-                        <li class="list-line-item" >
+                        <li class="list-line-item">
                             <a routerLinkActive="activein" [routerLink]="['profile']">Profile</a>
                         </li>
                         <li class="list-line-item">
-                            <a routerLinkActive="activein"  [routerLink]="['about']">About</a>
+                            <a routerLinkActive="activein" [routerLink]="['about']">About</a>
                         </li>
                         <li class="list-line-item">
                             <a>Network</a>
@@ -87,9 +88,9 @@
                         <li class="list-line-item">
                             <a>Messages</a>
                         </li>
-                        <li class="list-line-item">
+                        <!-- <li class="list-line-item">
                             <a routerLinkActive="activein"  [routerLink]="['settings']">Settings</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
                 <div class="col-md-3 padding_none">
@@ -105,7 +106,9 @@
                     </ul>
                 </div>
             </div>
-        </div><!-- org prof det -->
+        </div>
+        <!-- org prof det -->
     </div>
-</section><!-- org prof end -->
- <router-outlet></router-outlet>
+</section>
+<!-- org prof end -->
+<router-outlet></router-outlet>

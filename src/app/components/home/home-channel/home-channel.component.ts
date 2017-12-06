@@ -58,8 +58,8 @@ export class HomeChannelComponent implements OnInit {
     this.myProfile$.subscribe(event => {
       this.myProfileData = event;
       let isUserReady;
-      if (event.profileUser && event.profileUser.handle) {
-        this.handle = event.profileUser.handle;
+      if (event.profile_navigation_details && event.profile_navigation_details.handle) {
+        this.handle = event.profile_navigation_details.handle;
         isUserReady = true;
         this.loadChannels(this.handle);
       }

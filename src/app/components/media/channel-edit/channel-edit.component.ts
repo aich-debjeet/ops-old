@@ -130,7 +130,7 @@ export class EditChannelComponent implements OnInit {
       // console.log(params);
       if (typeof params['id'] !== 'undefined') {
         this.channelId = params['id'];
-        // this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
       }
     });
 

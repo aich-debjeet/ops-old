@@ -6,6 +6,7 @@ import { UserMedia } from '../../../models/user-media.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import {DatabaseValidator } from '../../../helpers/form.validator';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -20,7 +21,7 @@ import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-about-education',
   templateUrl: './about-education.component.html',
-  providers: [ModalService, DatePipe],
+  providers: [ModalService, DatePipe, DatabaseValidator],
   styleUrls: ['./about-education.component.scss']
 })
 export class AboutEducationComponent implements OnInit {
@@ -41,6 +42,7 @@ export class AboutEducationComponent implements OnInit {
     private fb: FormBuilder,
     private datepipe: DatePipe,
     private profileStore: Store<ProfileModal>,
+    private databaseValidator: DatabaseValidator,
     private toastr: ToastrService
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
@@ -52,7 +54,7 @@ export class AboutEducationComponent implements OnInit {
           this.userProfile = this.stateProfile.profile_other;
         }else {
           this.ownProfile = true;
-          this.userProfile = this.stateProfile.profileDetails;
+          this.userProfile = this.stateProfile.profile_details;
         }
       }
     });
@@ -89,8 +91,8 @@ export class AboutEducationComponent implements OnInit {
     this.educationForm = this.fb.group({
       'institute' : ['' , [Validators.required]],
       'course' : ['' , [Validators.required]],
-      'from' : ['' , [Validators.required]],
-      'to' : ['' , [Validators.required]],
+      'from' : ['' , [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
+      'to' : ['' , [Validators.required], this.databaseValidator.validWorkToDate.bind(this.databaseValidator)],
       'publicWork': '0',
       'id': ''
     })

@@ -1,55 +1,8 @@
-<div id="created" class="tab-pane fade">
-    <div class="col-md-3 p-8">
-        <div class="c-card">
-                    
-        <div class="c-card__project p-l-r-16 p-t-16">
-            <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span></div>
-        <!-- card body -->
-        <div class="c-card__body">
-            <div class="c-card__project--des">
-                Project and Program Management
-            </div>
-            <div class="c-text_lg with_border_bottom p-t-b-16 color-grey-dark">Technosoft India PVT LTD</div>
-        </div>
-        <div class="c-card__opportunity__details">
-            <div class="col-md-4">
-                <p class="c-text_sm color-grey">Experience:</p>
-                <p class="c-text_md">2-5 years</p>
-            </div>
-            <div class="col-md-8">
-                <p class="c-text_sm color-grey">Salary:</p>
-                <p class="c-text_md">500K - 800K</p>
-            </div>
-        </div>
-            <div class="c-card__location p-b-16 with_border_bottom">
-            <img src="/assets/img/svg/ico_location2.svg">
-            <p class="c-card__location--text">Bangalore, India</p>
-        </div>
-
-        <div class="c-card__opportunity__user with_border_bottom">
-            <a class="c-user__avatar c-avatar--feed">
-                <img class="c-user__image" src="/assets/img/avatar.jpg">
-            </a>
-            <a class="c-card__opportunity__username">Tobias Van Schneider</a>
-        </div>
-        <!-- //card body -->
-        
-        <!-- card footer links -->
-        <div class="c-card__links">
-            <div class="c-links">
-                <div class="c-links__spots">
-                    <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
-                    <span class="c-links__count">705</span>
-                </div>
-                <div class="c-links__comments">
-                    <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
-                </div>
-                <div class="c-links__actions">
-                    <a href="opportunities_my_inner.html" class="c-card__opportunity--view">View</a>
-                </div>
-            </div>
-        </div>
-        <!-- //card footer links -->
-        </div>
+<div id="created" class="tab-pane">
+    <div *ngIf="opportunities && opportunities.length === 0; else opportunities_found;">
+        <p class="result-not-found">No records found!</p>
     </div>
+    <ng-template #opportunities_found>
+        <app-opportunity-card *ngFor="let opportunityDetails of opportunities" [opportunity]="opportunityDetails" ></app-opportunity-card>
+    </ng-template>
 </div>

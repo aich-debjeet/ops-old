@@ -10,6 +10,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { ImageCropperModule } from 'ng2-img-cropper/index';
 import { ToastrModule } from 'ngx-toastr';
+import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 
 
 // Pipes
@@ -39,6 +40,7 @@ import { ProfileReducer } from './reducers/profile.reducer';
 import { MessageReducer } from './reducers/messages.reducer';
 import { UserSearchReducer } from './reducers/user-search.reducer';
 import { OpportunityReducer } from './reducers/opportunity.reducer';
+import { ExploreReducer } from './reducers/explore.reducer';
 import { reducer } from './app.reducer';
 
 // Effects
@@ -52,6 +54,8 @@ import { NotificationEffect } from './effects/notification.effect';
 import { UserSearchEffect } from './effects/user-search.effect';
 import { SearchEffect } from './effects/search.effect';
 import { OrganizationEffect } from './effects/organization.effect';
+import { EventEffect } from './effects/event.effect';
+import { ExploreEffect } from './effects/explore.effect';
 
 
 // Services
@@ -69,6 +73,7 @@ import { NotificationService } from './services/notification.service';
 import { SearchService } from './services/search.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { OpportunityService } from './services/opportunity.service';
+import { ExploreService } from './services/explore.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
@@ -84,7 +89,6 @@ import { NotificationComponent } from './components/notification/notification.co
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
-import { EventsComponent } from './components/events/events.component';
 // import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ExploreComponent } from './components/explore/explore.component';
@@ -118,6 +122,9 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
 import { AgmCoreModule } from '@agm/core';
 import { OpportunityEffect } from 'app/effects/opportunity.effect';
 import { OpportunityModule } from 'app/components/opportunity/opportunity.module';
+import { DwcComponent } from './components/dwc/dwc.component';
+import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world-cup.component';
+
 
 @NgModule({
   declarations: [
@@ -131,7 +138,6 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     PortfolioComponent,
     JobsComponent,
     JobDetailsComponent,
-    EventsComponent,
     // SearchComponent,
     SettingsComponent,
     PopularArtistsComponent,
@@ -153,9 +159,12 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     PlannerComponent,
     NetworkComponent,
     ProjectComponent,
-    DirectoryListComponent
+    DirectoryListComponent,
+    DwcComponent,
+    DanceWorldCupComponent
   ],
   imports: [
+    DragulaModule,
     SharedPipesModule,
     SharedModule,
     MediaModule,
@@ -182,6 +191,8 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     EffectsModule.run(SearchEffect),
     EffectsModule.run(OrganizationEffect),
     EffectsModule.run(OpportunityEffect),
+    EffectsModule.run(EventEffect),
+    EffectsModule.run(ExploreEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
@@ -209,7 +220,8 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     SearchService,
     GeneralUtilities,
     LocalStorageService,
-    OpportunityService
+    OpportunityService,
+    ExploreService
   ],
   bootstrap: [AppComponent]
 })

@@ -199,6 +199,7 @@
     background-color: #FFFFFF;
     box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.1);
     float: left;
+    margin-top: 50px;
 }
 
 // left bar
@@ -235,21 +236,33 @@
 }
 
 .o-settings-tabs {
-    .active {
-        //background-color: #F3F5F7;
-        border-radius: 3px;
-        &:hover {
-            // color: #333;
-            background-color: #F3F5F7
-        }
-        // overflow: hidden;
+    &:hover {
+        // color: #333;
+        background-color: #F3F5F7
     }
+    // .active {
+    //     // background-color: #F3F5F7;
+    //     // border-radius: 3px;
+    //     // &:hover {
+    //     //     // color: #333;
+    //     //     background-color: #F3F5F7
+    //     // }
+    //     // overflow: hidden;
+    // }
 }
 
 .o-settings-tab_list {
     float: left;
     width: 84%;
     margin: 8px 32px;
+    &:hover {
+        // color: #333;
+        background-color: #F3F5F7
+    }
+    .active {
+        background-color: #F3F5F7;
+        border-radius: 3px;
+    }
 }
 
 .o-settings-tab_links {
@@ -694,5 +707,42 @@ input:checked+.slider:before {
         line-height: 17px;
         margin-left: 52px;
         cursor: pointer;
+    }
+}
+
+.o-set-admin-list {
+    list-style: none;
+}
+
+.o-set-admin__item {
+    list-style-type: none;
+    display: block;
+    width: 100%;
+    margin: 8px 0px;
+    float: left;
+    padding: 8px;
+    cursor: pointer;
+    &:hover {
+        background: #f3f5f7;
+    }
+}
+
+.o-set-admin__avatar {
+    width: 38px;
+    height: 38px;
+    background: #c1c1c1;
+    border-radius: 50%;
+    float: left;
+    overflow: hidden;
+    img {
+        width: 100%;
+    }
+}
+
+.o-set-admin__user-info {
+    float: left;
+    margin-left: 8px;
+    span {
+        display: block;
     }
 }

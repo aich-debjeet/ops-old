@@ -1,7 +1,55 @@
+@import '~sass-mq/_mq.scss';
 @import './src/assets/scss/helpers/_variables.scss';
 @import './src/assets/scss/helpers/_functions.scss';
 @import './src/assets/scss/helpers/_mixins.scss';
-@import '~sass-mq/_mq.scss';
+@import './src/assets/scss/helpers/_helpers.scss';
+@import './src/assets/scss/base/_base.scss';
+
+
+.o-hero{
+  width: 100%;
+  height: 100vh;
+}
+.o-platform-sec{
+    background: #fff;
+}
+.o-logo{
+  width: 100%;
+  float: left;
+  margin-top: 72px;
+  margin-bottom: 102px;
+  img {
+    width: 306px;
+  }
+}
+.o-dance-wc-logo{
+  width: 100%;
+  margin-top: 106px;
+  float: left;
+}
+.o-dance-wc__logo-container{
+  width: 100%;
+  img{
+    width: 252px;
+  }
+}
+
+// hero right block
+
+.o-log-reg-btn{
+  width: 100%;
+  text-align: right;
+  margin-top: 72px;
+  float: left;
+}
+.o-landing-hero__img{
+  width: 100%;
+  float: left;
+  img{
+    width: 100%;
+  }
+}
+
 .landing_top {
     background: linear-gradient(135.82deg, #F7D022 0%, #E56E86 26.1%, #662D91 100%);
     // background: url(../img/landing/bg.svg);

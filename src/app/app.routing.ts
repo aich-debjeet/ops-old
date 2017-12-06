@@ -14,7 +14,6 @@ import { NotificationComponent } from './components/notification/notification.co
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { JobsComponent } from './components/jobs/jobs.component';
 import { JobDetailsComponent } from './components/job-details/job-details.component';
-import { EventsComponent } from './components/events/events.component';
 import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
@@ -31,6 +30,8 @@ import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
+import { DwcComponent } from './components/dwc/dwc.component';
+import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world-cup.component';
 
 
 
@@ -62,15 +63,17 @@ export const routes: Routes = [
  { path: 'project', component: ProjectComponent, canActivate: [AuthGuard] },
  { path: 'jobs', component: JobsComponent, canActivate: [AuthGuard] },
  { path: 'job-details', component: JobDetailsComponent, canActivate: [AuthGuard] },
- { path: 'events', component: EventsComponent, canActivate: [AuthGuard] },
+ { path: 'event', loadChildren: './components/events/events.module#EventsModule'},
  { path: 'user/settings', component: SettingsComponent, canActivate: [AuthGuard] },
  { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard] },
  { path: 'channel', component: ChannelListComponent, canActivate: [AuthGuard] },
  { path: 'resources', component: ResourceComponent, canActivate: [AuthGuard] },
  { path: 'communities', component: CommunitiesComponent, canActivate: [AuthGuard] },
+ { path: 'dwc', component: DwcComponent, canActivate: [AuthGuard] },
  { path: 'search', loadChildren: './components/search/search.module#SearchModule', canActivate: [AuthGuard] },
  { path: 'org', loadChildren: './components/organization/organization.module#OrganizationModule'},
  { path: 'opportunity', loadChildren: './components/opportunity/opportunity.module#OpportunityModule', canActivate: [AuthGuard] },
+ { path: 'danceworldcup', component: DanceWorldCupComponent },
  { path: 'page-not-found', component: NotFoundPageComponent },
  { path: '**', redirectTo: 'page-not-found' },
 ];

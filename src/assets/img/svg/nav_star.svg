@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12" viewBox="0 0 12 12">
+  <defs>
+    <polygon id="star-a" points="4.125 0 2.854 2.582 0 2.999 2.067 5.008 1.572 7.842 4.125 6.503 6.678 7.842 6.183 5.008 8.25 2.999 5.396 2.582"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <rect width="12" height="12" fill="#DF6A72" rx="6"/>
+    <g transform="translate(1.708 2.083)">
+      <mask id="star-b" fill="#fff">
+        <use xlink:href="#star-a"/>
+      </mask>
+      <use fill="#000" xlink:href="#star-a"/>
+      <g fill="#FFF" mask="url(#star-b)">
+        <rect width="30" height="30" rx="2" transform="translate(-9.375 -7.125)"/>
+      </g>
+    </g>
+  </g>
+</svg>

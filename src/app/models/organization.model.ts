@@ -15,6 +15,9 @@ export class Organization {
     defaultSettings: string[];
     org_deletion_success: boolean;
     org_deletion_failed: boolean;
+    org_channels_loading: boolean;
+    org_channels_loaded: boolean;
+    org_channels: any[];
 }
 
 export const initialOrganization: Organization = {
@@ -34,5 +37,8 @@ export const initialOrganization: Organization = {
     defaultSettings: [],
     org_deletion_success: false,
     org_deletion_failed: false,
+    org_channels_loading: false,
+    org_channels_loaded: false,
+    org_channels: []
 };
 

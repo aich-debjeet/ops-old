@@ -22,7 +22,7 @@ export class OrgLeftblockComponent implements OnInit {
   constructor(
     private store: Store<Organization>
   ) {
-    this.orgState$ = this.store.select('organizationTags');
+    this.orgState$ = this.store.select('profileTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
       // console.log('this.orgProfile LEFT', this.orgProfile);

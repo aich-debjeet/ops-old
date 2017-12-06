@@ -218,7 +218,7 @@ export class DatabaseValidator {
 @Injectable()
 export class ProfileUpdateValidator {
     tagState$: Observable<ProfileModal>;
-    profileDetails = initialTag ;
+    profileState = initialTag ;
 
     constructor(
         private authService: AuthService,
@@ -226,7 +226,7 @@ export class ProfileUpdateValidator {
     ) {
         this.tagState$ = this.profileStore.select('profileTags');
         this.tagState$.subscribe((state) => {
-            this.profileDetails = state;
+            this.profileState = state;
         });
     }
 
@@ -234,7 +234,7 @@ export class ProfileUpdateValidator {
     emailValidation(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
             // check current email for user
-            if (this.profileDetails.profileDetails['email'] !== control.value) {
+            if (this.profileState.profile_details['email'] !== control.value) {
                 setTimeout(() => {
                     this.authService.emailUser(control.value).subscribe( data => {
                         if (data.SUCCESS.code === 1) {
@@ -255,7 +255,7 @@ export class ProfileUpdateValidator {
         console.log('called');
         const q = new Promise((resolve, reject) => {
             // check current email for user
-            if (this.profileDetails.profileDetails['extra'].username !== control.value) {
+            if (this.profileState.profile_details['extra'].username !== control.value) {
                 if (control.value.length >= 4) {
                     setTimeout(() => {
                         this.authService.userExists(control.value).subscribe( data => {
@@ -277,7 +277,7 @@ export class ProfileUpdateValidator {
     mobileValidation(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
             // check current email for user
-            if (this.profileDetails.profileDetails['contact'].mobile.mobile !== control.value) {
+            if (this.profileState.profile_details['contact'].mobile.mobile !== control.value) {
                 setTimeout(() => {
                     this.authService.mobilelUser(control.value).subscribe( data => {
                         if (data.SUCCESS.code === 1) {

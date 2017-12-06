@@ -1,148 +1,152 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/components/_form.scss';
-
-.pop-container-sm{
+.pop-container-sm {
     width: 100%;
     margin: 0px auto;
-    background:#fff;
-    border-radius:3px;
-    position:relative;
+    background: #fff;
+    border-radius: 3px;
+    position: relative;
     display: inline-block;
-  }
-  
-  
-  // for pop up head sec
-  
-  .pop-head{
+}
+
+// for pop up head sec
+.pop-head {
     width: 100%;
     float: left;
-  }
-  
-  // for pop up close
-  
-  .pop-close {
+}
+
+// for pop up close
+.pop-close {
     margin: 10px;
     width: 20px;
     position: absolute;
     right: 0px;
     top: 0px;
-  }
+}
 
 // create channel style start
-.create-channel--pop{
-    padding:40px;
-  }
-  .create-channel--form{
-    padding:32px;
-  }
-  // content block
-  .create_channel__content{
+.create-channel--pop {
+    padding: 40px;
+}
+
+.create-channel--form {
+    padding: 32px;
+}
+
+// content block
+.create_channel__content {
     width: 100%;
     text-align: center;
-  }
-  .create_channel__content-form{
+}
+
+.create_channel__content-form {
     width: 100%;
     text-align: left;
     float: left;
-  }
-  .channel-type{
+}
+
+.channel-type {
     list-style: none;
     width: 100%;
     margin: 0px auto;
     display: inline-block;
     text-align: center;
-  }
-  .channel-type__list{
-    list-style-type:none;
+}
+
+.channel-type__list {
+    list-style-type: none;
     display: block;
-    padding:8px;
-    border-radius:3px;
+    padding: 8px;
+    border-radius: 3px;
     float: left;
-    margin:8px 0px;
-    transition:.25s;
+    margin: 8px 0px;
+    transition: .25s;
     text-align: left;
-    &:hover{
-      background: $color-grey-light;
+    &:hover {
+        background: $color-grey-light;
     }
-  }
-  .channel-type__ico{
+}
+
+.channel-type__ico {
     width: 56px;
     height: 56px;
     float: left;
     overflow: hidden;
-    img{
+    img {
         width: 100%;
     }
-  }
-  .channel-type__title{
+}
+
+.channel-type__title {
     width: 280px;
     height: 56px;
     float: left;
     padding-left: 16px;
     padding-top: 8px;
-  }
-  
-  // create channel form
-  
-  .modal-dialog_form{
-    width:446px;
+}
+
+// create channel form
+.modal-dialog_form {
+    width: 446px;
     margin: 0px auto;
     margin-top: 6%;
-  }
-  .channel-industry__block{
+}
+
+.channel-industry__block {
     width: 49%;
     float: left;
     padding-right: 4px;
-  }
-  .channel-public__block{
+}
+
+.channel-public__block {
     width: 49%;
     float: left;
     margin-left: 4px;
-  }
-  
-  // create channel done
-  
-  .create-channel__done-tic{
+}
+
+// create channel done
+.create-channel__done-tic {
     width: 135px;
     height: 135px;
     margin: 0px auto;
     border-radius: 50%;
     margin-top: 50px;
     margin-bottom: 50px;
-    img{
-      width: 100%;
+    img {
+        width: 100%;
     }
-  }
-  // create channel content style start
-  .create_channel__content{
-      width: 100%;
-      text-align: center;
-      h2.heading_2{
-          color: #333333;
-          text-align: center;
-          padding:34px 0px;
-      }
-      .create_channel_btn{
-          width: 100%;
-          padding: 24px 78px;
-          text-align: right;
-      }
-  }
+}
 
-  .modal-dialog {
-      width: 500px;
-  }
+// create channel content style start
+.create_channel__content {
+    width: 100%;
+    text-align: center;
+    h2.heading_2 {
+        color: #333333;
+        text-align: center;
+        padding: 34px 0px;
+    }
+    .create_channel_btn {
+        width: 100%;
+        padding: 24px 78px;
+        text-align: right;
+    }
+}
 
-  .modal.fade.in {
-    background-color: rgba(243,245,247,.95);
-  }
+.modal-dialog {
+    width: 500px;
+}
 
-  .channel-type__list {
-      width: 100%;
-      cursor: pointer;
-  }
+.modal.fade.in {
+    background-color: rgba(243, 245, 247, .95);
+}
 
-  .pop-head {
+.channel-type__list {
+    width: 100%;
+    cursor: pointer;
+}
+
+.pop-head {
     margin-bottom: 20px;
-  }
+}

@@ -19,13 +19,13 @@ export class MessageEffect {
     userProfile$ = this.actions$
     .ofType(MessageActions.LOAD_USER_PROFILE_DATA)
     .map(toPayload)
-    .switchMap((payload) => Observable
-      .timer(0 , 5000)
-      .switchMap(() => this.messageService.getUserProfileDetails(payload)
+    // .switchMap((payload) => Observable
+    //   .timer(0 , 5000)
+      .switchMap((payload) => this.messageService.getUserProfileDetails(payload)
         .map(res => ({ type: MessageActions.LOAD_USER_PROFILE_DATA_SUCCESS, payload: res }))
         .catch((res) => Observable.of({ type: MessageActions.LOAD_USER_PROFILE_DATA_FAILED, payload: res }))
-      )
-    );
+      );
+    // );
 
   @Effect()
     nonUserProfile$ = this.actions$

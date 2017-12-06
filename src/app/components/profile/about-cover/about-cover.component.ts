@@ -76,7 +76,7 @@ export class AboutCoverComponent implements OnInit {
 
   ngOnInit() {
     this.tagState$
-    .first(profile => this.stateProfile.profileDetails.coverImage)
+    .first(profile => this.stateProfile.profile_details.coverImage)
     .subscribe( data => {
       this.loadCoverImage();
       this.stateProfile.cover_img_upload_success = false;
@@ -105,7 +105,7 @@ export class AboutCoverComponent implements OnInit {
    * Upload Cover image
    */
   uploadCoverImage() {
-    const userHandle = this.stateProfile.profileUser.handle || '';
+    const userHandle = this.stateProfile.profile_navigation_details.handle || '';
     if (this.data && this.data.image && userHandle !== '') {
       const imageData = {
         handle: userHandle,
@@ -129,8 +129,8 @@ export class AboutCoverComponent implements OnInit {
     };
 
     let coverImageURL;
-    if (typeof this.stateProfile.profileDetails.coverImage !== 'undefined') {
-      coverImageURL = this.baseUrl + this.stateProfile.profileDetails.coverImage;
+    if (typeof this.stateProfile.profile_details.coverImage !== 'undefined') {
+      coverImageURL = this.baseUrl + this.stateProfile.profile_details.coverImage;
     } else {
       coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
     }

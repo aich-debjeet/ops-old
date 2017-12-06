@@ -89,9 +89,9 @@
                                         </li>
                                         <li class="list-inline-item">
                                             <div class="msg_friend_name">{{message.name}}</div>
-                                            <div class="msg_friend_text">{{message.latestmessage}}</div>
+                                            <div class="msg_friend_text">{{message.latestmessage | truncate:[20, '...']}}</div>
                                         </li>
-                                        <li class="list-inline-item pull-right">
+                                        <li class="list-inline-item pull-right time">
                                             <div class="pull-right msg_time">{{message.latestmessagetime | date:'medium'}}</div>
                                         </li>
                                     </ul>
@@ -109,9 +109,9 @@
                                         </li>
                                         <li class="list-inline-item">
                                             <div class="msg_friend_name">{{message.name}}</div>
-                                            <div class="msg_friend_text">{{message.latestmessage}}</div>
+                                            <div class="msg_friend_text">{{message.latestmessage | truncate:[20, '...']}}</div>
                                         </li>
-                                        <li class="list-inline-item pull-right">
+                                        <li class="list-inline-item pull-right time">
                                             <div class="pull-right msg_time">{{message.latestmessagetime | date:'medium'}}</div>
                                         </li>
                                     </ul>

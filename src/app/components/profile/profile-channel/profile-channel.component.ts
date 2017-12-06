@@ -60,10 +60,10 @@ export class ProfileChannelComponent implements OnInit {
 
   checkUserType() {
     this._store.select('profileTags')
-      .first(profile => profile['profile_user_info'] && profile['profileUser'].handle)
+      .first(profile => profile['profile_user_info'] && profile['profile_navigation_details'].handle)
       .subscribe( data => {
         if (data['profile_user_info'].isCurrentUser === true) {
-          const handle = this.profileChannel.profileUser.handle;
+          const handle = this.profileChannel.profile_navigation_details.handle;
           this.isOwner = true;
           this.channels = [];
           this.loadChannel(handle);

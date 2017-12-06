@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <path id="group-copy-2-a" d="M13.5647891,7.85968487 L3.10187754,7.85968487 C2.86151721,7.85968487 2.66666667,8.05626594 2.66666667,8.29876097 C2.66666667,8.54125601 2.86151721,8.73783707 3.10187754,8.73783707 L13.5647891,8.73783707 C13.8051495,8.73783707 14,8.54125601 14,8.29876097 C14,8.05626594 13.8051495,7.85968487 13.5647891,7.85968487 Z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
+    <g transform="translate(1 1)">
+      <mask id="group-copy-2-b" fill="#fff">
+        <use xlink:href="#group-copy-2-a"/>
+      </mask>
+      <use fill="#FFF" xlink:href="#group-copy-2-a"/>
+      <g fill="#929292" mask="url(#group-copy-2-b)">
+        <rect width="53" height="53" rx="2" transform="translate(-36 -14.667)"/>
+      </g>
+    </g>
+    <circle cx="9" cy="9" r="9" stroke="#929292"/>
+  </g>
+</svg>

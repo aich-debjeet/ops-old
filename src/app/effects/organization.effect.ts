@@ -102,6 +102,17 @@ export class OrganizationEffect {
             .catch((res) => Observable.of({ type: OrganizationActions.IMAGE_UPLOAD_SERVER_FAILED, payload: res }))
         );
 
+    /**
+     *  Get organization profile navigation details
+     */
+    @Effect()
+    orgNavDetails$ = this._actions$
+        .ofType(OrganizationActions.ORG_PROFILE)
+        .map(toPayload)
+        .switchMap((payload) => this._orgService.orgNavigationDetails(payload)
+            .map(res => ({ type: OrganizationActions.ORG_PROFILE_SUCCESS, payload: res }))
+            .catch((res) => Observable.of({ type: OrganizationActions.ORG_PROFILE_FAILED, payload: res }))
+        );
 
 
 //   /**

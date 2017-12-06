@@ -144,7 +144,7 @@ export class OrganizationService {
    * Get channels of logged in org
    */
   loadOrgChannels(value: string, page: number = 1) {
-    console.log('loadOrgChannels', value);
+    // console.log('loadOrgChannels', value);
     const perPage = 30;
     const offset = page === 1 ? 0 : page * perPage;
     const body = {
@@ -155,6 +155,13 @@ export class OrganizationService {
     }
 
     return this.api.post('/portal/network/spotfeed/search', body);
+  }
+
+  /**
+   * Org get navigation details
+   */
+  orgNavigationDetails(orgUsername: string) {
+    return this.api.get('/portal/network/spotfeed/organization/withCounts/' + orgUsername);
   }
 
 }
