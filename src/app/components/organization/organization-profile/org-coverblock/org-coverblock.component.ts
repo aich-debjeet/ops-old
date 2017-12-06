@@ -32,7 +32,7 @@ export class OrgCoverblockComponent implements OnInit {
   ) {
 
     /* org state */
-    this.orgState$ = this.store.select('organizationTags');
+    this.orgState$ = this.store.select('profileTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
       // console.log('this.orgProfile', this.orgProfile);

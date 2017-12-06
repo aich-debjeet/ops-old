@@ -157,4 +157,11 @@ export class OrganizationService {
     return this.api.post('/portal/network/spotfeed/search', body);
   }
 
+  /**
+   * Org get navigation details
+   */
+  orgNavigationDetails(orgUsername: string) {
+    return this.api.get('/portal/network/spotfeed/organization/withCounts/' + orgUsername);
+  }
+
 }

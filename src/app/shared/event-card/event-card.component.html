@@ -1,0 +1,40 @@
+<div class="c-event__card">
+    <!-- card media (img, video & audio) -->
+    <div class="c-card__event">
+        <a routerLink="{{ '/events/inner/' + eventData?.id }}"  data-toggle="modal" data-target="#imgModal">
+            <img src="{{ baseUrl + eventData?.event_media}}" alt="" class="c-card__image">
+        </a>
+    </div>
+    <!-- //card media (img, video & audio) -->
+    <div class="c-card__project p-l-r-16 p-t-16">{{eventData?.industry}}</div>
+    <!-- card body -->
+    <div class="c-card__body p-t-0">
+        <div class="c-text_lg c-card__event-title">
+            {{eventData?.title | truncate:[40, '...']}}
+        </div>
+        <div class="c-text_md color-grey-dark m-t-8">{{ eventData?.eventTiming?.startDate | utcDate | date: 'dd, MMM'}} - {{ eventData?.eventTiming?.endDate | utcDate | date: 'dd, MMM'}}</div>
+        <div class="c-text_sm color-grey-dark m-t-8 c-card__event-address">{{ eventData?.venue?.location }}</div>
+    </div>
+    <!-- //card body -->
+    <!-- card footer links -->
+    <div class="c-card__links p-t-0">
+        <div class="c-links">
+            <!-- <div class="c-links__spots">
+                        <img src="img/svg/spot_icon_default.svg" class="c-links__image">
+                        <span class="c-links__count">705</span>
+                    </div> -->
+            <div class="c-links__comments">
+                <a >
+                    <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                </a>
+                <a>
+                    <img src="/assets/img/svg/ico_addtochannel.svg" class="c-action__image">
+                </a>
+            </div>
+            <div class="c-links__actions">
+                <a routerLink="{{ '/events/inner/' + eventData?.id }}" class="c-card__opportunity--view">View</a>
+            </div>
+        </div>
+    </div>
+    <!-- //card footer links -->
+</div>

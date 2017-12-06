@@ -149,9 +149,9 @@ export class MediaSelectorComponent implements OnInit {
       // If user is got
 
       let isUserReady;
-      if (event.profileUser && event.profileUser.handle) {
+      if (event.profile_navigation_details && event.profile_navigation_details.handle) {
         // console.log('[-]');
-        this.handle = event.profileUser.handle;
+        this.handle = event.profile_navigation_details.handle;
         isUserReady = true;
         this.loadChannel(this.handle);
       } else {
@@ -218,7 +218,7 @@ export class MediaSelectorComponent implements OnInit {
     }
 
     if (this.profileChannel.profile_loaded === true ) {
-      userHandle = this.profileChannel.profileUser.handle;
+      userHandle = this.profileChannel.profile_navigation_details.handle;
     }
 
     // 1. Get choosen file
@@ -289,7 +289,7 @@ export class MediaSelectorComponent implements OnInit {
 
     // let userHandle;
     // if (this.profileChannel.profile_loaded === true ) {
-    //   userHandle = this.profileChannel.profileUser.handle;
+    //   userHandle = this.profileChannel.profile_navigation_details.handle;
     // }
 
     // if ( isUploadReady ) {
@@ -611,8 +611,8 @@ export class MediaSelectorComponent implements OnInit {
     // Subscribe to current user object
     this.myProfile$.subscribe(event => {
       this.myProfileData = event;
-      if (event.profileUser && event.profileUser.handle) {
-        this.handle = event.profileUser.handle;
+      if (event.profile_navigation_details && event.profile_navigation_details.handle) {
+        this.handle = event.profile_navigation_details.handle;
       }
     });
 

@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ImageCropperModule } from 'ng2-img-cropper';
 import { MasonryModule } from 'angular2-masonry';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DpDatePickerModule } from 'ng2-date-picker';
+
 import { OrganizationRegComponent } from './organization-reg/organization-reg.component';
 import { OrganizationProfileComponent } from './organization-profile/organization-profile.component';
 import { SharedModule } from '../../shared/shared.module';
@@ -18,6 +20,7 @@ import { OrgSettingsComponent } from './organization-profile/org-settings/org-se
 import { OrgImageComponent } from './organization-profile/org-image/org-image.component';
 import { OrgCoverComponent } from './organization-profile/org-cover/org-cover.component';
 
+import { TagInputModule } from 'ngx-chips';
 
 const childRoutes = [
   {
@@ -41,43 +44,11 @@ const childRoutes = [
     path: 'about',
     component: OrgAboutComponent,
   },
-  {
-    path: 'settings',
-    component: OrgSettingsComponent,
-  },
+  // {
+  //   path: 'settings',
+  //   component: OrgSettingsComponent,
+  // },
 ];
-
-// const childRoutes = [
-//   {
-//     path: '',
-//     redirectTo: 'user',
-//     pathMatch: 'full'
-//   },
-//   {
-//     path: 'user',
-//     component: ProfileBlockComponent,
-//     children: [
-//       { path: '', component: OrgChannelComponent },
-//       { path: 'channel', component: OrgChannelComponent },
-//       { path: 'post', component: ProfilePostComponent },
-//       { path: 'spotfeed', component: ProfileSpotfeedComponent }
-//     ]
-//   },
-//   // {
-//   //   path: 'about',
-//   //   component: ProfileAboutComponent,
-//   //   children: [
-//   //     { path: '', component: AboutBioComponent },
-//   //     { path: 'image', component: AboutImageComponent },
-//   //     { path: 'cover_image', component: AboutCoverComponent },
-//   //     { path: 'bio', component: AboutBioComponent },
-//   //     { path: 'work', component: AboutWorkComponent },
-//   //     { path: 'awards', component: AboutAwardsComponent },
-//   //     { path: 'education', component: AboutEducationComponent },
-//   //     { path: 'contact', component: AboutContactComponent }
-//   //   ]
-//   // },
-// ];
 
 const routes: Routes = [
   {
@@ -94,11 +65,6 @@ const routes: Routes = [
     component: OrganizationProfileComponent,
     children: childRoutes
   }
-  // {
-  //   path: 'u/:id',
-  //   component: ProfileComponent,
-  //   children: childRoutes,
-  // }
 ]
 
 @NgModule({
@@ -109,7 +75,9 @@ const routes: Routes = [
     FormsModule,
     SharedModule,
     ImageCropperModule,
-    MasonryModule
+    MasonryModule,
+    TagInputModule,
+    DpDatePickerModule
   ],
   declarations: [
     OrganizationRegComponent,
@@ -124,6 +92,9 @@ const routes: Routes = [
     OrgSettingsComponent,
     OrgImageComponent,
     OrgCoverComponent
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ]
 })
 export class OrganizationModule { }

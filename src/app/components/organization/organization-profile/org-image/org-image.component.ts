@@ -61,16 +61,16 @@ export class OrgImageComponent implements OnInit {
       console.log(state);
     });
 
-    this._store.select('organizationTags').subscribe((state) => {
+    this._store.select('profileTags').subscribe((state) => {
       this.stateOrg = state;
     });
 
     // Get own user handle
     this._store.select('profileTags')
-      .first(profile => profile['profileUser'].organization )
+      .first(profile => profile['profile_navigation_details'].organization )
       .subscribe( data => {
-        if (data['profileUser'].organization) {
-          this.orgHandle = data['profileUser'].organization.organizationHandle;
+        if (data['profile_navigation_details'].organization) {
+          this.orgHandle = data['profile_navigation_details'].organization.organizationHandle;
         }
       });
 
@@ -92,7 +92,7 @@ export class OrgImageComponent implements OnInit {
 
   ngOnInit() {
     this.tagState$
-      .first(profile => this.stateProfile.profileUser.profileImage)
+      .first(profile => this.stateProfile.profile_navigation_details.profileImage)
       .subscribe( data => {
         this.loadImage();
       });
@@ -108,8 +108,8 @@ export class OrgImageComponent implements OnInit {
     };
 
     let profileImageURL;
-    if (typeof this.stateProfile.profileUser.organization.organizationImage !== 'undefined') {
-      profileImageURL = this.baseUrl + this.stateProfile.profileUser.organization.organizationImage;
+    if (typeof this.stateProfile.profile_navigation_details.organization.organizationImage !== 'undefined') {
+      profileImageURL = this.baseUrl + this.stateProfile.profile_navigation_details.organization.organizationImage;
     } else {
       profileImageURL = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
     }
@@ -176,7 +176,7 @@ export class OrgImageComponent implements OnInit {
     }
 
     // Get own user handle
-    this._store.select('organizationTags')
+    this._store.select('profileTags')
       .first(org => org['image_upload_success'] === true)
       .subscribe( data => {
         console.log('upload sucess');
@@ -199,7 +199,7 @@ export class OrgImageComponent implements OnInit {
     this._store.dispatch({ type: OrganizationActions.ORG_PROFILE_UPDATE, payload: data });
 
     // profile update sucess
-    this._store.select('organizationTags')
+    this._store.select('profileTags')
       .first(org => org['org_profile_update_success'] === true)
       .subscribe( orgUpdate => {
         console.log('profile upload sucess');

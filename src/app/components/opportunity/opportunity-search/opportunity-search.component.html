@@ -6,9 +6,9 @@
 	  <div class="o-opportunity-search m-t-32">
 	  	<form action="">
         <input #searchQueryElement #searchInput="ngModel" type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}" class="o-opp-search__input" placeholder="Search opportunities">
-        <select class="c-form-control o-opp-search__select m-0">
-          <option>Industry</option>
-          <option>Select list 2</option>
+        <select class="c-form-control o-opp-search__select m-0" [ngModel]="insdustryType" [ngModelOptions]="{standalone: true}">
+		  <option value="Industry">Industry</option>
+		  <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
         </select>
         <div class="o-opp-search__icon">
 			<img *ngIf="isSearching" src="/assets/img/spinner.gif" class="search-spinner" >

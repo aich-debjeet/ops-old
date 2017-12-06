@@ -99,16 +99,17 @@
                                     <a class="o-org-form__edit-ico" (click)="editField('services')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
                                 <p *ngIf="editingField != 'services'" id="o-org-about-serv" class="c-text_sm color-grey-dark m-t-8">
-                                    {{ aboutServices }}
+                                    {{ aboutServicesStr }}
                                 </p>
                                 <div *ngIf="editingField == 'services'" id="o-org-about-serv_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input" type="text" [(ngModel)]="aboutServices" [ngModelOptions]="{standalone: true}">
-                                        <!-- <tag-input [(ngModel)]='services'
-                                        [placeholder]="'Add Services'"
-                                        [theme]="'ops-theme'"
-                                        [ngModelOptions]="{standalone: true}">
-                                        </tag-input> -->
+                                        <!-- <input class="c-form__input" type="text" [(ngModel)]="aboutServices" [ngModelOptions]="{standalone: true}"> -->
+                                        <tag-input [(ngModel)]='aboutServices'
+                                            [placeholder]="'Add Services'"
+                                            [theme]="'ops-theme'"
+                                            [ngModelOptions]="{standalone: true}"
+                                            ngDefaultControl>
+                                        </tag-input>
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
@@ -121,7 +122,7 @@
                                     <a class="o-org-form__edit-ico" (click)="editField('industries')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
                                 <p *ngIf="editingField != 'industries'" id="o-org-about-ind" class="c-text_sm color-grey-dark m-t-8">
-                                    <!-- <ng-container *ngFor="let industry of orgProfile?.org_profile_details?.extra?.industryList; let isLast = last;">
+                                    <!-- <ng-container *ngFor="let industry of orgProfile?.profile_details?.extra?.industryList; let isLast = last;">
                                         {{ industry.name }} {{isLast ? '' : ', '}}
                                     </ng-container> -->
                                     {{ aboutIndustryCode }}
@@ -144,11 +145,12 @@
                                     <a class="o-org-form__edit-ico" (click)="editField('activeFrom')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </h6>
                                 <p *ngIf="editingField != 'activeFrom'" id="o-org-about-foundyr" class="c-text_sm color-grey-dark m-t-8">
-                                    {{ orgProfile?.org_profile_details?.activeFrom | utcDate | date: 'dd MMM, yyyy' }}
+                                    {{ orgProfile?.profile_details?.activeFrom | utcDate | date: 'dd MMM, yyyy' }}
                                 </p>
                                 <div *ngIf="editingField == 'activeFrom'" id="o-org-about-foundyr_edit" class="o-org-form__edit-sec">
                                     <div class="c-form__group ">
-                                        <input #aboutActiveFrom class="c-form__input" type="text" value="{{ orgProfile?.org_profile_details?.activeFrom }}">
+                                        <!-- <input [dpDayPicker]="datePickerConfig" #aboutActiveFrom class="c-form__input" type="text" value="{{ orgProfile?.profile_details?.activeFrom }}"> -->
+                                        <dp-date-picker [(ngModel)]="aboutFoundedDate" [ngModelOptions]="{standalone: true}" [config]="datePickerConfig" theme="dp-material"></dp-date-picker>
                                     </div>
                                     <div class="o-org-form__actions">
                                         <button type="button" class="btn btn-default btn-sm" (click)="cancelEdit()" >Cancel</button>
@@ -167,13 +169,13 @@
                                         <img src="/assets/img/svg/ico_receiver.svg" alt="">
                                     </span>
                                     <span class="o-org-about__contact-txt c-text_sm color-grey-dark">
-                                        {{ orgProfile?.org_profile_details?.contact?.mobile?.mobile }}
+                                        {{ orgProfile?.profile_details?.contact?.mobile?.mobile }}
                                     </span>
                                     <a class="o-org-form__edit-ico" (click)="editField('mobile')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </div>
                                 <div *ngIf="editingField == 'mobile'" id="o-org-about-contact-ph-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutMobile" [ngModelOptions]="{standalone: true}" value="{{ orgProfile?.org_profile_details?.mobile }}">
+                                        <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutMobile" [ngModelOptions]="{standalone: true}" value="{{ orgProfile?.profile_details?.mobile }}">
                                         <span><img src="/assets/img/svg/ico_receiver.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">
@@ -188,13 +190,13 @@
                                         <img src="/assets/img/svg/ico_envelope.svg" alt="">
                                     </span>
                                     <span class="o-org-about__contact-txt c-text_sm color-grey-dark">
-                                        {{ orgProfile?.org_profile_details?.email }}
+                                        {{ orgProfile?.profile_details?.email }}
                                     </span>
                                     <a class="o-org-form__edit-ico" (click)="editField('email')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </div>
                                 <div *ngIf="editingField == 'email'" id="o-org-about-contact-mail-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutEmail" [ngModelOptions]="{standalone: true}" value="{{ orgProfile?.org_profile_details?.email }}">
+                                        <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutEmail" [ngModelOptions]="{standalone: true}" value="{{ orgProfile?.profile_details?.email }}">
                                         <span><img src="/assets/img/svg/ico_envelope.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">
@@ -209,13 +211,13 @@
                                         <img src="/assets/img/svg/ico_public_grey.svg" alt="">
                                     </span>
                                     <span class="o-org-about__contact-txt c-text_sm color-grey-dark" contenteditable="true">
-                                        {{ orgProfile?.org_profile_details?.contact?.website.website }}
+                                        {{ orgProfile?.profile_details?.contact?.website.website }}
                                     </span>
                                     <a class="o-org-form__edit-ico" (click)="editField('website')"><img src="/assets/img/svg/ico_edit.svg"></a>
                                 </div>
                                 <div *ngIf="editingField == 'website'" id="o-org-about-contact-web-edit" class="o-org-about__contact-ph-edit ">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutWebsite" [ngModelOptions]="{standalone: true}" value="{{ orgProfile?.org_profile_details?.contact?.website.website }}">
+                                        <input class="c-form__input fpadding_l32" type="text" [(ngModel)]="aboutWebsite" [ngModelOptions]="{standalone: true}" value="{{ orgProfile?.profile_details?.contact?.website.website }}">
                                         <span><img src="/assets/img/svg/ico_public_grey.svg" class="c-form__input--lefticon"></span>
                                     </div>
                                     <div class="o-org-form__actions">

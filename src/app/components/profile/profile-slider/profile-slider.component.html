@@ -1,136 +1,192 @@
-<div class="c-timeline__img" *ngIf="profileObject !== null"  [ngStyle]="coverImageStyle(profileObject)">
-    <div class="container" *ngIf="this.isOwner">
-        <span class="c-timeline__imgchange"  appDropdown>
-            <a  class="dropdown-toggle" appDropdownOpen>
-                <img src="/assets/img/svg/ico_edit_white.svg" class="c-timeline__icon">
-            </a>
-            <ul class="dropdown-menu c-timeline__icondrop">
-                <li>
-                    <a routerLink="/profile/about/cover_image">
-                        Upload cover images
-                    </a>
-                </li>
-            </ul>
-        </span>
+<section>
+    <div class="c-timeline__img" *ngIf="profileObject !== null" [ngStyle]="coverImageStyle(profileObject)">
+        <div class="container" *ngIf="this.isOwner">
+            <span class="c-timeline__imgchange" appDropdown>
+               <a data-toggle="modal" data-target="#cover-upload" appDropdownOpen>
+                    <div class="c-timeline__changecover">
+                        <a routerLink="/profile/about/cover_image"><img src="/assets/img/svg/edit_red.svg" class="c-timeline__icon">Change cover</a>
+                    </div>
+                </a>
+            </span>
+        </div>
+        <div class="c-timeline__gradient">
+        </div>
     </div>
-</div>
-
-
-
-<div class="container o-profile__cont" *ngIf="profileObject !== null">
-
-    <div class="row">
-        <!-- -->
-        <div class="col-md-12 col-sm-12 p-0">
-            <div class="c-profile__userblock">
-                <img src="{{ (baseUrl + profileObject?.image?.profile) || defaultImage }}"  class="img-responsive img-circle c-profile__userimg">
-                <span *ngIf="this.isOwner" appDropdown class="c-profile__imgchange">
-                    <a class="dropdown-toggle" appDropdownOpen>
-                        <img src="/assets/img/svg/ico_edit_white.svg" class="c-profile__imgchange--icon">
-                    </a>
-                    <ul class="dropdown-menu c-profile__imgchange--dropdown">
-                        <li>
-                            <a routerLink="/profile/about/image">
-                                Upload Profile image
-                            </a>
+    <!-- -->
+    <div class="container o-profile__cont" *ngIf="profileObject !== null">
+        <div class="row">
+            <!-- -->
+            <div class="col-md-8 col-sm-12 p-0">
+                <div class="c-profile__userblock">
+                    <img src="{{ (baseUrl + profileObject?.image?.profile) || defaultImage }}" class="img-responsive img-circle c-profile__userimg">
+                    <span *ngIf="this.isOwner" class="c-profile__imgchange">
+                        <a  data-toggle="modal" data-target="#profile-upload">
+                           <a routerLink="/profile/about/image"> <img src="/assets/img/svg/edit_red.svg" class="c-profile__imgchange--icon"></a>
+                        </a>
+                    </span>
+                </div>
+                <div class="c-profile__userdetail">
+                    <h2 class="c-profile__username">{{ profileObject?.name }}<span class="c-profile__userskill">artist</span></h2>
+                    <span class="c-profile__userhandle">{{ '@' + profileObject?.userHandle }}</span>
+                    <span class="c-profile__userprofession">{{ profileObject?.extra?.profession }}r</span>
+                    <div class="c-profile__maintags">
+                        <a routerLink="{{ '/spotfeed/' + skill.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:5">#{{ skill.name }}</a>
+                        <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more" data-toggle="modal" data-target="#tag-pop">More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+            <!-- -->
+        </div>
+        <div class="row o-profile__details">
+            <div [ngClass]="(profileObject?.extra?.isImported) ? 'blur-main': ''">
+                <div class="col-md-9 col-sm-9">
+                    <ul class="list-inline o-profile__nav">
+                        <li class="list-line-item">
+                            <a class="activein" [routerLink]="['about']">About</a>
+                        </li>
+                        <li class="list-line-item">
+                            <a routerLink="/portfolio">Portfolio</a>
+                        </li>
+                        <li class="list-line-item">
+                            <a routerLink="/planner">Planner</a>
+                        </li>
+                        <li class="list-line-item">
+                            <a routerLink="/network">Network</a>
+                        </li>
+                        <li class="list-line-item">
+                            <a routerLink="/project">Project</a>
                         </li>
                     </ul>
-                </span>
-            </div>
-            <div class="c-profile__userdetail">
-                <h2 class="c-profile__username"><a routerLink="{{ !this.isOwner ? '/profile/u/' + profileObject?.userHandle : '/profile' }}">{{ profileObject?.name }} </a><img src="/assets/img/svg/profile.svg" class="c-profile__usericon"></h2>
-                <span class="c-profile__userhandle">{{ '@' + profileObject?.userHandle }}</span>
-                <span class="c-profile__userprofession">{{ profileObject?.extra?.profession }}</span>
-            </div>
-            <div class="c-profile_buttons" *ngIf="!this.isOwner">
-                <button  *ngIf="!profileObject?.extra?.isImported" (click)="userFollow(isFollowing, profileObject?.userDetails?.handle )" type="button" [ngClass]="(isFollowing) ? 'btn-following' : 'btn-primary'" class="btn btn-primary btn-md">{{ (isFollowing)? 'Unfollow' : 'Follow'}}</button>
-                <button *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-primary btn-md">Claim</button>
-                <button type="button" class="btn btn-primary btn-md btn-inverse">Network</button>
-                <button type="button" (click)="donatePopup()" class="btn btn-primary btn-md btn-inverse">Support</button>
-            </div>
-        </div>
-        <!-- -->
-    </div>
-    <div class="row o-profile__details">
-        <div [ngClass]="(profileObject?.extra?.isImported) ? 'blur-main': ''">
-            <div class="col-md-9 col-sm-9">
-                <ul class="list-inline o-profile__nav">
-                    <li class="list-line-item">
-                        <a [routerLink]="['about']">About</a>
-                    </li>
-                    <li class="list-line-item">
-                        <a routerLink="/portfolio">Portfolio</a>
-                    </li>
-                    <li class="list-line-item">
-                        <a routerLink="/planner">Planner</a>
-                    </li>
-                    <li class="list-line-item">
-                        <a routerLink="/network">Network</a>
-                    </li>
-                    <li class="list-line-item">
-                        <a routerLink="/project">Project</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-3 col-sm-3">
-                <ul class="list-inline o-profile__nav--icon">
-                    <!--<li class="list-line-item" *ngIf="!this.isOwner">
-                        <a><img src="/assets/img/svg/ico_options.svg"></a>
-                    </li>-->
-                    <li class="list-line-item">
-                        <a><img src="/assets/img/svg/ico_share.svg"></a>
-                    </li>
-                    <li class="list-line-item" *ngIf="!this.isOwner">
-                        <a routerLink="/message" routerLinkActive="active"><img src="/assets/img/svg/ico_message.svg"></a>
-                    </li>
-                    <li class="list-line-item" *ngIf="this.isOwner">
-                        <a (click)="profileEdit()"><img src="/assets/img/svg/ico_edit.svg"></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-12 col-sm-12 o-profile__detail__cont">
-                <div class="col-md-4 col-sm-4 text-center o-profile__detail__block with_border_right">
-                    <div class="row">
-                        <div class="col-md-4 col-sm-4 o-profile__followers">
-                            <div class="o-profile--count">{{ profileObject?.follwerCount }}</div>
-                            <p>Followers</p>
-                        </div>
-                        <div class="col-md-4 col-sm-4 o-profile__following">
-                            <div class="o-profile--count">{{ profileObject?.followingCount }}</div>
-                            <p>Following</p>
-                        </div>
-                        <div class="col-md-3 col-sm-4 o-profile__spot">
-                            <div class="o-profile--count">{{ profileObject?.extra?.spotsCount }}</div>
-                            <p>Spots</p>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <ul class="list-inline o-profile__nav--icon">
+                        <li class="list-line-item dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <img src="/assets/img/svg/ico_share.svg" class="o-profile__nav--img">
+                            </a>
+                            <!-- <div class="dropdown-menu dropdown-menu-right o-share__profile p-16">
+                                <div class="o-share__arrow"><img src="img/arrow.png"></div>
+                                <div class="c-text_md p-b-8">Share this Profile</div>
+                                <div class="c-invite--search m-0">
+                                    <form class="fill-grey-light">
+                                        <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm">
+                                            <input class="c-form__input p-l-24" required="" type="text">
+                                            <label class="p-l-16">Input with icon</label>
+                                            <span>
+                                            <img src="img/svg/ico_search.svg" class="c-form__input--lefticon">
+                                        </span>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="o-share__recent m-t-b-16">Recent Contacts</div>
+                                <div class="c-invite__block">
+                                    <a class="c-user__avatar c-avatar--status">
+                                        <img src="img/new/avatar.png" class="o-share__avatar">
+                                    </a>
+                                    <a class="c-text_md c-invite--user">Seth Chevz1</a>
+                                </div>
+                                <div class="c-invite__block">
+                                    <a class="c-user__avatar c-avatar--status">
+                                        <img src="img/new/avatar2.png" class="o-share__avatar">
+                                    </a>
+                                    <a class="c-text_md c-invite--user">Seth Chevz2</a>
+                                </div>
+                                <div class="c-invite__block">
+                                    <a class="c-user__avatar c-avatar--status">
+                                        <img src="img/new/avatar3.png" class="o-share__avatar">
+                                    </a>
+                                    <a class="c-text_md c-invite--user">Seth Chevz3</a>
+                                </div>
+                                <div class="c-invite__block">
+                                    <a class="c-user__avatar c-avatar--status">
+                                        <img src="img/new/avatar2.png" class="o-share__avatar">
+                                    </a>
+                                    <a class="c-text_md c-invite--user">Seth Chevz4</a>
+                                </div>
+
+                                <div class="o-share__social">
+                                    <div class="o-share__social-icon p-l-0">
+                                        <img src="img/svg/googleplus.svg">
+                                    </div>
+                                    <div class="o-share__social-icon">
+                                        <img src="img/svg/twitter.svg">
+                                    </div>
+                                    <div class="o-share__social-icon">
+                                        <img src="img/svg/facebook.svg">
+                                    </div>
+                                    <div class="o-share__social-icon p-r-0">
+                                        <img src="img/svg/envelope.svg">
+                                    </div>
+                                </div>
+                            </div> -->
+                        </li>
+                        <li class="list-line-item" *ngIf="this.isOwner">
+                            <a (click)="profileEdit()" data-toggle="modal" data-target="#edit_profile_pop">
+                                <img src="/assets/img/svg/ico_edit.svg" class="o-profile__nav--img">
+                            </a>
+                        </li>
+                        <li class="list-line-item" *ngIf="!this.isOwner">
+                            <a routerLink="/message" routerLinkActive="active"><img src="/assets/img/svg/ico_message.svg"></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-12 col-sm-12 o-profile__detail__cont">
+                    <div class="col-md-4 col-sm-4 text-center o-profile__detail__block with_border_right">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 o-profile__followers">
+                                <a href="javascript:void(0)" class="o-follow-and-following" data-toggle="modal" data-target="#followers">
+                                    <div class="o-profile--count">{{ profileObject?.follwerCount }}</div>
+                                    <p>Followers</p>
+                                </a>
+                            </div>
+                            <div class="col-md-4 col-sm-4 o-profile__following">
+                                <a href="javascript:void(0)" class="o-follow-and-following" data-toggle="modal" data-target="#o-following">
+                                    <div class="o-profile--count">{{ profileObject?.followingCount }}</div>
+                                    <p>Following</p>
+                                </a>
+                            </div>
+                            <div class="col-md-3 col-sm-4 o-profile__spot">
+                                <div class="o-profile--count">{{ profileObject?.extra?.spotsCount }}</div>
+                                <p>Spots</p>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="o-profile__spotscore">
-                                Spotscore Coming Soon <span class="p-l-r-8"><img src="/assets/img/svg/ico_i.svg" alt="" class="o-profile__spotscore--icon"></span>
+                                Spotscore Coming Soon
+                                <span class="p-l-r-8">
+                                <img src="/assets/img/svg/ico_i.svg" alt="" class="o-profile__spotscore--icon">
+                            </span>
                             </div>
                             <div class="o-profile__channelpost">
-                                <div class="o-profile__channelpost--count">{{ profileObject?.extra?.postCount }} <small>Posts</small></div>
-                                <div class="o-profile__channelpost--count">{{ profileObject?.extra?.channelCount }} <small>Channels</small></div>
+                                <div class="o-profile__channelpost--count">{{ profileObject?.extra?.postCount }}
+                                    <small>Posts</small>
+                                </div>
+                                <div class="o-profile__channelpost--count">{{ profileObject?.extra?.channelCount }}
+                                    <small>Channels</small>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-4 o-profile__detail__block with_border_right p-24">
-                    <div class="o-profile__detail--heading">Bio</div>
-                    <button *ngIf="profileObject?.userBio == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button>
-                    <p>{{ profileObject?.userBio | slice:0:220}}</p>
-                </div>
-                <div class="col-md-4 col-sm-4 o-profile__detail__block p-24">
-                    <div class="o-profile__detail--heading">Skills</div>
-                    <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
-                    <span routerLink="{{ '/spotfeed/' + skill.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:8" class="c-skill__tags">#{{ skill.name }} </span>
-                    <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags c-skill__tags--more">More</a>
+                    <div class="col-md-4 col-sm-4 o-profile__detail__block with_border_right p-24">
+                        <div class="o-profile__detail--heading">Bio</div>
+                        <button *ngIf="profileObject?.userBio == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button>
+                        <p class="o-profile__detail--text">{{ profileObject?.userBio | slice:0:220}}</p>
+                    </div>
+                    <div class="col-md-4 col-sm-4 o-profile__detail__block p-24">
+                        <div class="o-profile__detail--heading">Interest
+                            <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
+                        </div>
+                        <a routerLink="{{ '/spotfeed/' + skill.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:5" class="c-skill__tags">#{{ skill.name }}</a>
+                        <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more" data-toggle="modal" data-target="#tag-pop">More</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <router-outlet></router-outlet>
+</section>
 
-<router-outlet></router-outlet>
 
 <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow' *ngIf="this.isOwner" size="profile_update">
     <div>

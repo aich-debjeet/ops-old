@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="16" viewBox="0 0 20 16">
+  <defs>
+    <path id="envelope-a" d="M20,4 L4,4 C2.9,4 2.01,4.9 2.01,6 L2,18 C2,19.1 2.9,20 4,20 L20,20 C21.1,20 22,19.1 22,18 L22,6 C22,4.9 21.1,4 20,4 L20,4 Z M20,8 L12,13 L4,8 L4,6 L12,11 L20,6 L20,8 L20,8 Z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(-2 -4)">
+    <mask id="envelope-b" fill="#fff">
+      <use xlink:href="#envelope-a"/>
+    </mask>
+    <use fill="#D8D8D8" xlink:href="#envelope-a"/>
+    <g fill="#FF7B84" mask="url(#envelope-b)">
+      <rect width="80" height="80" rx="2" transform="translate(-52 -24)"/>
+    </g>
+  </g>
+</svg>

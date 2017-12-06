@@ -1,0 +1,55 @@
+//right block
+.o-eventinner_right {
+    width: 23.5%;
+    float: left;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.15);
+    margin-left: 16px;
+}
+.o-eventinner__ticket {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 18px;
+    color: #333333;
+    text-transform: uppercase;
+}
+.o-eventinner__ticket--block {
+    background-color: #F3F5F7;
+    border-radius: 3px;
+    color: #333333;
+    padding: 8px 16px 16px 16px;
+    margin-bottom: 16px;
+}
+.o-eventinner__ticket__type {
+    font-size: 20px;
+    line-height: 30px;
+}
+.o-eventinner__ticket__price {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 18px;
+}
+.o-eventinner__ticket__count {
+    float: right;
+    .pagination {
+        margin: 0;
+    }
+    .pagination > li > a, .pagination > li > span {
+        padding: 0px 3px;
+        background-color: transparent;
+        border: none;
+        color: #333;
+    }
+}
+.o-eventinner__ticket__total {
+    font-size: 13px;
+    color: #929292;
+    line-height: 20px;
+}
+.o-eventinner__ticket__totalmrp {
+    font-size: 24px;
+    color: #333333;
+    line-height: 34px;
+}

@@ -55,17 +55,17 @@ export class OrgCoverComponent implements OnInit {
       // console.log(state);
     });
 
-    this._store.select('organizationTags').subscribe((state) => {
+    this._store.select('profileTags').subscribe((state) => {
       this.stateOrg = state;
     });
 
 
     // Get own user handle
     this._store.select('profileTags')
-      .first(profile => profile['profileUser'].organization )
+      .first(profile => profile['profile_navigation_details'].organization )
       .subscribe( data => {
-        if (data['profileUser'].organization) {
-          this.orgHandle = data['profileUser'].organization.organizationHandle;
+        if (data['profile_navigation_details'].organization) {
+          this.orgHandle = data['profile_navigation_details'].organization.organizationHandle;
         }
       });
 
@@ -85,7 +85,7 @@ export class OrgCoverComponent implements OnInit {
 
   ngOnInit() {
     this.tagState$
-    .first(profile => this.stateProfile.profileUser.organization)
+    .first(profile => this.stateProfile.profile_navigation_details.organization)
     .subscribe( data => {
       this.loadCoverImage();
       this.stateProfile.cover_img_upload_success = false;
@@ -126,7 +126,7 @@ export class OrgCoverComponent implements OnInit {
     }
 
     // Get own user handle
-    this._store.select('organizationTags')
+    this._store.select('profileTags')
       .first(org => org['image_upload_success'] === true)
       .subscribe( data => {
         console.log('upload sucess');
@@ -147,9 +147,9 @@ export class OrgCoverComponent implements OnInit {
     };
 
      let coverImageURL;
-    console.log(this.stateProfile.profileUser.organization.organizationCoverImage);
-    if (typeof this.stateProfile.profileUser.organization.organizationCoverImage !== 'undefined') {
-      coverImageURL = this.baseUrl + this.stateProfile.profileUser.organization.organizationCoverImage;
+    console.log(this.stateProfile.profile_navigation_details.organization.organizationCoverImage);
+    if (typeof this.stateProfile.profile_navigation_details.organization.organizationCoverImage !== 'undefined') {
+      coverImageURL = this.baseUrl + this.stateProfile.profile_navigation_details.organization.organizationCoverImage;
     } else {
       coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
     }
@@ -173,7 +173,7 @@ export class OrgCoverComponent implements OnInit {
     this._store.dispatch({ type: OrganizationActions.ORG_PROFILE_UPDATE, payload: data });
 
     // profile update sucess
-    this._store.select('organizationTags')
+    this._store.select('profileTags')
       .first(org => org['org_profile_update_success'] === true)
       .subscribe( orgUpdate => {
         console.log('profile upload sucess');

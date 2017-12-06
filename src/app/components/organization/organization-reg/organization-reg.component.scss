@@ -1,5 +1,10 @@
 // organization page style
 // hero section start
+
+.c-form__group .label {
+  color: #929292 !important;
+}
+
 .o-org-hero{
   background: radial-gradient(circle, #FF7B84 0%, #662D91 100%);
   background-size: cover;

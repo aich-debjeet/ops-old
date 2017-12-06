@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../../models/profile.model';
 import { Organization, initialOrganization } from '../../../../models/organization.model';
@@ -12,6 +12,7 @@ import { FormValidation, ProfileUpdateValidator } from '../../../../helpers/form
 import { environment } from '../../../../../environments/environment';
 import { TokenService } from './../../../../helpers/token.service';
 import { Http, Headers, Response } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-org-settings',
@@ -49,6 +50,8 @@ export class OrgSettingsComponent implements OnInit {
     private toastr: ToastrService,
     private _fb: FormBuilder,
     private tokenService: TokenService,
+    private router: Router,
+    private render: Renderer
   ) {
     this.adminNameForm = this._fb.group({
       'adminName' : ['' , [Validators.required]],
@@ -59,13 +62,13 @@ export class OrgSettingsComponent implements OnInit {
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
       console.log(this.userProfile)
-      if (state.profileUser.isOrganization === true) {
-        this.organizationHandle = state.profileUser.organization.organizationHandle;
+      if (state.profile_navigation_details.isOrganization === true) {
+        this.organizationHandle = state.profile_navigation_details.organization.organizationHandle;
         this.store.dispatch({type: OrganizationActions.GET_ORGANIZATION_BY_HANDLE, payload: this.organizationHandle});
       }
     });
 
-    this.orgStates$ = this.store.select('organizationTags')
+    this.orgStates$ = this.store.select('profileTags')
     this.orgStates$.subscribe((state) => {
       this.orgProfile = state;
       console.log(this.orgProfile)
@@ -83,14 +86,14 @@ export class OrgSettingsComponent implements OnInit {
         this.networkOption.checked = this.defaultSettings.network;
         this.messageOption.checked = this.defaultSettings.message;
       }
-      if (state.org_deletion_success) {
-        console.log('success')
-        this.toastr.success('Organization deletion Success');
-      }
-      if (state.org_deletion_failed) {
-        console.log('failed')
-        this.toastr.success('Organization deletion failed');
-      }
+      // if (state.org_deletion_success) {
+      //   console.log('success')
+      //   this.toastr.success('Organization deletion Success');
+      // }
+      // if (state.org_deletion_failed) {
+      //   console.log('failed')
+      //   this.toastr.success('Organization deletion failed');
+      // }
     });
   }
 
@@ -104,27 +107,36 @@ export class OrgSettingsComponent implements OnInit {
     this.membersLoading = false;
   }
 
-  toggleView(tab: String) {
+  toggleView(event: any, tab: String) {
+    console.log(event)
+    event.preventDefault();
+    // this.render.setElementClass(event.target, 'active', true);
     console.log(this.selectedView)
     if (tab === 'general') {
       console.log('true')
+      this.render.setElementClass(event.target, 'active', true);
       this.selectedView = true;
     }
     if (tab === 'admin') {
       console.log('false')
       this.store.dispatch({type: OrganizationActions.GET_MEMBERS, payload: this.organizationHandle});
+      this.render.setElementClass(event.target, 'active', true);
       this.selectedView = false;
     }
   }
   display() {
     if (!this.show) {
       this.show = true;
+    } else {
+      this.show = false;
     }
   }
 
   display1() {
     if (!this.show1) {
       this.show1 = true;
+    } else {
+      this.show1 = false;
     }
   }
   adminUpdate(value) {
@@ -188,7 +200,9 @@ export class OrgSettingsComponent implements OnInit {
       this.http.delete(this.apiLink + '/portal/organization/' + this.organizationHandle, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        console.log('finally its a success' + response)
+        this.toastr.success('Organization deletion Success');
+        // console.log('finally its a success' + response)
+        this.router.navigate(['profile']);
       });
       // this.store.dispatch({ type: OrganizationActions.ORGANIZATION_DELETE, payload: this.organizationHandle });
   }
@@ -209,6 +223,7 @@ removeMember(handle: any) {
    return this.http.put(this.apiLink + '/portal/organization/remove/member/deleteResponse', form , { headers: headers })
   .map((data: Response) => data.json())
   .subscribe(response => {
+    this.toastr.success('This member has been successfully been removed');
     console.log('finally its a success' + response)
   });
 }

@@ -1,3 +1,4 @@
+<app-navigation></app-navigation>
 <section class="o-settings">
     <div class="container">
         <div class="o-settings-container">
@@ -12,15 +13,15 @@
                 </div>
                 <!-- Nav tabs -->
                 <ul class=" o-settings-tabs">
-                    <li class=" o-settings-tab_list active">
-                        <a class="o-settings-tab_links " href="javascript:void(0)" data-toggle="tab" (click)="toggleView('general')">
+                    <li class=" o-settings-tab_list">
+                        <a class="o-settings-tab_links active" href="javascript:void(0)" data-toggle="tab" (click)="toggleView($event,'general')">
                             General 
                             <span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt="">
                             </span>
                         </a>
                     </li>
-                    <li class=" o-settings-tab_list active">
-                        <a class="o-settings-tab_links " href="javascript:void(0)" data-toggle="tab" (click)="toggleView('admin')">Admin Access
+                    <li class=" o-settings-tab_list">
+                        <a class="o-settings-tab_links" href="javascript:void(0)" data-toggle="tab" (click)="toggleView($event,'admin')">Admin Access
                             <span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt="">
                             </span>
                         </a>
@@ -173,10 +174,10 @@
                                         </div>
                                         <div class="col-md-4 p-0">
                                             <div class="o-set-list-edit__actions">
-                                                <button type="button" class="btn btn-primary btn-sm">
+                                                <button type="button" class="btn btn-primary btn-sm" (click)="display()">
                                                     Save
                                                 </button>
-                                                <button type="button" class="btn btn-default btn-sm">
+                                                <button type="button" class="btn btn-default btn-sm" (click)="display()">
                                                   Cancel
                                                 </button>
                                             </div>
@@ -221,10 +222,10 @@
                                         </div>
                                         <div class="col-md-6 p-0">
                                             <div class="o-set-list-edit__actions">
-                                                <button type="button" class="btn btn-primary btn-sm">
+                                                <button type="button" class="btn btn-primary btn-sm" (click)="display1()">
                                                   Save
                                                 </button>
-                                                <button type="button" class="btn btn-default btn-sm">
+                                                <button type="button" class="btn btn-default btn-sm" (click)="display1()">
                                                   Cancel
                                                 </button>
                                             </div>
@@ -249,7 +250,7 @@
                     </div>
                     <!-- general end -->
 
-                    <div class="tab-pane" id="admin_access" (click)="hideList()" *ngIf="!selectedView">
+                    <div class="tab-pane active" id="admin_access" (click)="hideList()" *ngIf="!selectedView">
                         <h6 class="c-text_lg m-b-24">
                             Admin Access
                         </h6>
@@ -267,15 +268,20 @@
                                         <!-- <p class="error_alert" *ngIf="adminNameForm.controls['adminName'].errors?.required && userform.submitted">Admin name is required</p>
                                         <p class="error_alert" *ngIf="adminNameForm.controls['adminName'].errors?.whitespace">White Space Not Allowed</p>
                                         <p class="error_alert" *ngIf="adminNameForm.controls['adminName'].errors?.minlength">Admin name must be min length 4</p> -->
-                                        <ul class="dropdown-menu show" *ngIf="recipientsListState">
-                                            <li class="c-post__comment" *ngFor="let skill of receipientList | slice:0:5" (click)="toggleSelectSkill(skill.handle)">
-                                                <a class="c-user__avatar c-avatar--status">
-                                                    <img class="c-user__image" src="{{baseUrl +skill.profileImage}}" style="width:20%;">
-                                                    <p class="c-post__commenter msg_to_name2">{{skill.name}}</p>
-                                                    <p class="c-post__comment_text">
+                                        <ul class="dropdown-menu show o-set-admin-list" *ngIf="recipientsListState">
+                                            <li class="o-set-admin__item" *ngFor="let skill of receipientList | slice:0:5" (click)="toggleSelectSkill(skill.handle)">
+                                                <!-- <a class="c-user__avatar c-avatar--status"> -->
+                                                <div class="o-set-admin__avatar">
+                                                    <img class="c-user__image" src="{{baseUrl +skill.profileImage}}">
+                                                </div>
+                                                <div class="o-set-admin__user-info">
+                                                    <span class="c-text_md">{{skill.name}}</span>
+                                                    <span class="c-text_sm color-grey-dark ">
                                                         {{ '@' + skill.extra.username }}
-                                                    </p>
-                                                </a>
+                                                    </span>
+                                                </div>
+                                                <!-- </a> -->
+
                                             </li>
                                         </ul>
                                     </div>
@@ -308,7 +314,7 @@
                         </div> -->
                         <div class="o-set-single-block  m-b-16" *ngIf="existingMembers">
                             <div class="col-md-12 p-0" *ngFor="let members of existingMembers; let i = index;">
-                                <div class="col-md-5">
+                                <div class="col-md-5 p-0">
                                     <div class="c-user">
                                         <a class="c-user__avatar c-avatar--feed">
                                             <img class="c-user__image" src="{{baseUrl + members.profileImage}}">

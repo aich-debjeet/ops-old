@@ -1,145 +1,185 @@
 <header class="opsheader">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-           <span class="sr-only">Toggle navigation</span>
-           <span class="icon-bar"></span>
-           <span class="icon-bar"></span>
-           <span class="icon-bar"></span>
-           </button>
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <a class="navbar-brand" routerLink="/home"><img src="/assets/img/ops_icon.png"></a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
                     <li><a routerLink="/explore" routerLinkActive="active">Explore</a></li>
                     <li><a routerLink="/opportunity/search" routerLinkActive="active">Opportunity</a></li>
-                    <li><a routerLink="/events" routerLinkActive="active">Event</a></li>
+                    <li><a routerLink="/events/landing" routerLinkActive="active">Event</a></li>
                     <li><a routerLink="/learn" routerLinkActive="active">Learn</a></li>
                     <li><a routerLink="/resources" routerLinkActive="active">Resource</a></li>
                     <li><a routerLink="/communities" routerLinkActive="active">Community</a></li>
                     <li><a routerLink="/directory" routerLinkActive="active">Directory</a></li>
+                    <li class="o-nav__dwc">
+                        <a routerLink="/dwc">dwc <img src="/assets/img/svg/nav_star.svg" class="o-nav__star"></a>
+                    </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right nav_right">
+              
+                <ul class="nav navbar-nav nav__right">
                     <li>
                         <a routerLink="/post"><img src="/assets/img/svg/ico_create-post.svg"></a>
                     </li>
-                    <li appDropdown>
-                        <a class="drop-down-value" appDropdownOpen>
-                            <img src="/assets/img/svg/ico_add.svg">
+                    <li class="dropdown" appDropdown>
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+                        	<img src="/assets/img/svg/ico_add.svg">
                         </a>
-                        <ul class="dropdown-menu create_drop">
-                            <li><a [routerLink]="['', { outlets: { media : ['channel', 'add'] } } ]">Create Channel</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a (click)="createCommunity()">Create Community</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a  routerLink="/opportunity/create">Create Opportunity</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/search"><img src="/assets/img/svg/ico_search.svg"></a></li>
-                    <li appDropdown class="opsheader-notification">
-                        <a class="drop-down-value" appDropdownOpen>
-                            <img src="/assets/img/svg/ico_notification.svg">
-                        </a>
-                        <ul class="dropdown-menu messsage_dropdown">
-                            <li class="with_border_bottom">
-                                <ul class="list-inline head_drop_thumb">
-                                    <li class="list-inline-item header_ym">
-                                        <a routerLink="/notification">Your Notification</a>
-                                    </li>
-                                    <li class="list-inline-item pull-right header_compose">
-                                        <a (click)="markAllAsRead()">Mark all as read</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="with_border_bottom" *ngFor="let notification of notifications" [ngClass]="{'fill_grey': !notification.isRead}">
-                                <ul class="list-inline">
-                                    <li class="list-inline-item float_left noti_avatar">
-                                        <img *ngIf="!notification.profileImage" src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
-                                        <img *ngIf="notification.profileImage" src="{{ baseUrl + notification.profileImage }}" class="img-responsive">
-                                    </li>
-                                    <!-- <li class="list-inline-item noti_cont cursor-pointer" (click)="openLink(notifIndex, notification.notificationId)" > -->
-                                    <li class="list-inline-item noti_cont cursor-pointer">
-                                        <div class="head_msg_name">
-                                            <a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
-                                                {{ notification.name }}
-                                            </a>
-                                        </div>
-                                        <div class="head_msg_short">{{ notification.message }}</div>
-                                        <div class="noti_cont_footer">
-                                            <img src="http://d33wubrfki0l68.cloudfront.net/a3d195e63eb47ac4e99fa4c55be8bac10abccdd9/ceb5d/img/svg/ico_comment.svg" class="noti_cont_footer_img"><span>10:08 PM</span>
-                                        </div>
-                                    </li>
-                                    <li class="list-inline-item noti_cont_time">
-                                        <div class="msg_time">
-                                            <img src="http://d33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="img-responsive">
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <ul class="list-inline head_drop_thumb text-center">
-                                    <li class="list-inline-item">
-                                        <a routerLink="/notification" class="msg_viewall">view all</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                        <div class="dropdown-menu dropdown-menu-right nav__dropdown2">
+                            <div class="dropdown__item p-b-16">
+                                <a [routerLink]="['', { outlets: { media : ['channel', 'add'] } } ]">Create Channel</a>
+                            </div>
+                            <!--<div class="dropdown__item p-b-16">
+                                <a (click)="createCommunity()">Create Community</a>
+                            </div>-->
+                            <div class="dropdown__item p-b-16">
+                                <a  routerLink="/opportunity/create">Create Opportunity</a>
+                            </div>
+                            <div class="dropdown__item">
+                                <a  routerLink="/events/create">Create Event</a>
+                            </div>
+                        </div>
                     </li>
                     <li>
-                        <a routerLink="/message" routerLinkActive="active"><img src="/assets/img/svg/ico_message.svg"></a>
+                        <a href="/search"><img src="/assets/img/svg/ico_search.svg"></a>
                     </li>
-                    <li>
-                      <a *ngIf="this.profileType == 'user'" routerLink="/profile" class=" opsheader-lineheight30">
-                        <img src="{{ baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive header-prof-img">
-                      </a>
-                      <a *ngIf="this.profileType == 'org'" routerLink="/org/page" class=" opsheader-lineheight30">
-                        <img src="{{ baseUrl + orgProfile.org_profile_details?.profileImage }}" class="img-responsive header-prof-img">
-                      </a>
+                   <li class="dropdown" appDropdown>
+                        <a class="dropdown-toggle" appDropdownOpen>
+                        	<img src="/assets/img/svg/ico_notification.svg">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right nav__dropdown3">
+                            <div class="dropdown__item dropnoti__head msg__read">
+                                <a routerLink="/notification">Your Notification</a>
+                                <a (click)="markAllAsRead()" class="pull-right">Mark all as read</a>
+                                <div class="dropdown__arrow"><img src="/assets/img/arrow.png"></div>
+                            </div>
+                            <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications" [ngClass]="{'fill_grey': !notification.isRead}">
+                                <div class="dropnoti__avatar">
+                                    <!-- <img class="navdrop__img" src="/assets/img/new/avatar2.png"> -->
+                                    <img *ngIf="!notification.profileImage" src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                    <img *ngIf="notification.profileImage" src="{{ baseUrl + notification.profileImage }}" class="img-responsive">
+                                </div>
+                                <div class="dropnoti__detail">
+                                    <span><a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                                        <span class="dropnoti__bold"> {{ notification.name }}</span>
+                                    </a>{{ notification.message }}
+                                    </span>
+                                </div>
+                                <div class="dropnoti__icon">
+                                    <img src="/assets/img/svg/spot_icon.svg">
+                                </div>
+                                <p class="msg__time">10:08 PM</p>
+                            </div>
+                            <!-- <div class="dropdown__item p-16 msg__unread">
+                                <div class="dropnoti__avatar">
+                                    <img class="navdrop__img" src="">
+                                </div>
+                                <div class="dropnoti__detail">
+                                    <span class="dropnoti__bold">Tommy Russell</span> add your post to <span class="dropnoti__bold">Paper Work</span></div>
+                                <div class="dropnoti__icon">
+                                    <img src="/assets/img/svg/ico_addtochannel.svg">
+                                </div>
+                                <p class="msg__time">10:05 PM</p>
+                            </div>
+                            <div class="dropdown__item p-16 msg__read">
+                                <div class="dropnoti__avatar">
+                                    <img class="navdrop__img" src="/assets/img/new/avatar3.png">
+                                </div>
+                                <div class="dropnoti__detail">
+                                    <span class="dropnoti__bold">Prince Keshav</span> and <span class="dropnoti__bold">Anie Ukim</span> have their birthdays today. Wish them all the best!</div>
+                                <p class="msg__time">10:01 PM</p>
+                            </div>
+                            <div class="dropdown__item p-16 msg__read">
+                                <div class="dropnoti__avatar">
+                                    <img class="navdrop__img" src="/assets/img/new/avatar.png">
+                                </div>
+                                <div class="dropnoti__detail">
+                                    <span class="dropnoti__bold">Tobis Russell</span> added you a member of organization <span class="dropnoti__bold">Prapt Institutions</span></div>
+                                <p class="msg__time">10:01 PM</p>
+                                <div class="dropnoti__permission">
+                                    <a href="" class="color-theme">Accept</a>
+                                    <a href="">Decline</a>
+                                </div>
+                            </div> -->
+                            <div class="dropdown__item p-16 msg__read">
+                                <p class="dropnoti__viewall">View All</p>
+                            </div>
+                        </div>
                     </li>
-                    <li class="dropdown opsheader-paddingt6" appDropdown>
-                      <a class="dropdown-toggle opsheader-lineheight30 account-opt" appDropdownOpen>
-							          <span class="caret"></span>
-                      </a>
-                      <ul class="dropdown-menu" [ngClass]="{'open': this.topNav['profile'].open }">
-                          <li>
-                              <ul class="list-inline head_drop_thumb">
-                                  <li class="list-inline-item">
-                                      <img *ngIf="this.profileType == 'user'" src="{{ baseUrl + userProfile.profileUser?.profileImage }}" class="img-responsive img-circle">
-                                      <img *ngIf="this.profileType == 'org'" src="{{ baseUrl + orgProfile.org_profile_details?.profileImage }}" class="img-responsive img-circle">
-                                  </li>
-                                  <li *ngIf="this.profileType == 'user'" class="list-inline-item">
-                                      <h4 routerLink="/profile">{{ userProfile.profileUser?.name }} </h4>
-                                      <p>@{{ userProfile.profileUser?.username }}</p>
-                                  </li>
-                                  <li *ngIf="this.profileType == 'org'" class="list-inline-item">
-                                      <h4 routerLink="/profile">{{ orgProfile.org_profile_details?.name }} </h4>
-                                      <p>@{{ orgProfile.org_profile_details?.extra?.username }}</p>
-                                  </li>
-                              </ul>
-                          </li>
-                          <li role="separator" class="divider"></li>
-                          <li *ngIf="this.profileType == 'user' && !userProfile.profileUser?.isOrganization" ><a routerLink="/org/registration">Create Organization</a></li>
-                          <li *ngIf="this.profileType == 'user' && userProfile.profileUser?.isOrganization" ><a (click)="setProfileToOrg()">{{ userProfile.profileUser?.organization?.organizationName }}</a></li>
-                          <li *ngIf="this.profileType == 'org'" ><a (click)="setProfileToUser()">@{{ userProfile.profileUser?.username }}</a></li>
-                          <li><a routerLink="/user/settings">Settings</a></li>
-                          <li role="separator" class="divider"></li>
-                          <li><a routerLink="/about">About One Page Spotlight</a></li>
-                          <li role="separator" class="divider"></li>
-                          <li><a routerLink="/logout">Sign out</a></li>
-                      </ul>
-                  </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" routerLink="/message" routerLinkActive="active">
+                            <img src="/assets/img/svg/ico_message.svg">
+                        </a>
+                    </li>
+                   
+                    <li class="dropdown" appDropdown>
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+                            <img src="{{ baseUrl + activeProfileState.profile_navigation_details?.profileImage }}" class="nav__avatar__img" *ngIf="this.profileType == 'user'">
+                            <img src="{{ baseUrl + activeProfileState.profile_navigation_details?.profileImage }}" class="nav__avatar__img" *ngIf="this.profileType == 'org'">
+                            <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right nav__dropdown" [ngClass]="{'open': this.topNav['profile'].open }">
+                            <div class="dropdown__item with_border_bottom p-b-16">
+                                <div class="dropdown__arrow3"><img src="img/arrow.png"></div>
+                                <a routerLink="/profile" *ngIf="this.profileType == 'user'">
+                                    <div class="navdrop__imgblock">
+                                        <img class="navdrop__img" src="{{ baseUrl + activeProfileState.profile_navigation_details?.profileImage }}">
+                                    </div>
+                                    <div class="navdrop__name">{{ activeProfileState.profile_navigation_details?.name }}</div>
+                                    <div class="navdrop__userhandal">@{{ activeProfileState.profile_navigation_details?.username }}</div>
+                                </a>
+                                <a routerLink="/org/page" *ngIf="this.profileType == 'org'">
+                                    <div class="navdrop__imgblock">
+                                        <img class="navdrop__img" src="{{ baseUrl + activeProfileState.profile_navigation_details?.profileImage }}">
+                                    </div>
+                                    <div class="navdrop__name" routerLink="/profile">{{ activeProfileState.profile_navigation_details?.name }}</div>
+                                    <div class="navdrop__userhandal">@{{ activeProfileState.profile_navigation_details?.username }}</div>
+                                </a>
+                            </div>
+                            <div class="dropdown__item with_border_bottom p-t-b-16" *ngIf="this.profileType == 'user' && activeProfileState.profile_navigation_details?.isOrganization">
+                                <div class="navdrop__switchto">Switch to</div>
+                                <div class="navdrop__imgblock2">
+                                    <img class="navdrop__img" src="{{ baseUrl + activeProfileState.profile_navigation_details?.organization?.organizationImage }}">
+                                </div>
+                                <div class="navdrop__name2"><a routerLink="/org/page" (click)="setProfileToOrg()">{{ activeProfileState.profile_navigation_details?.organization?.organizationName }}</a></div>
+                            </div>
+                            <div class="dropdown__item with_border_bottom p-t-b-16" *ngIf="this.profileType == 'org'">
+                                <div class="navdrop__switchto">Switch to</div>
+                                <div class="navdrop__imgblock2">
+                                    <img class="navdrop__img" src="{{ baseUrl + activeProfileState.profile_navigation_details?.name  }}">
+                                </div>
+                                <div class="navdrop__name2"><a routerLink="/profile" (click)="setProfileToUser()">@{{ profilerOwnersUsername }}</a></div>
+                            </div>
+                            <div class="dropdown__item p-t-b-16" *ngIf="this.profileType == 'user' && !activeProfileState.profile_navigation_details?.isOrganization">
+                                <a routerLink="/org/registration">Create Organisation</a>
+                            </div>
+                            <div class="dropdown__item p-t-b-16 with_border_bottom">
+                                <a *ngIf="this.profileType == 'user'" routerLink="/user/settings">Settings</a>
+                                <a *ngIf="this.profileType == 'org'" routerLink="/org/settings">Settings</a>
+                            </div>
+                            <div class="dropdown__item p-t-b-16">
+                                <a href="">Invite Friends</a>
+                            </div>
+                            <div class="dropdown__item p-b-16 with_border_bottom">
+                                <a routerLink="/about">About One Page Spotlight</a>
+                            </div>
+                            <div class="dropdown__item p-t-16">
+                                <a routerLink="/logout">Signout</a>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
-            <!-- button dropdown -->
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
     </nav>
 </header>
-<app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='CreateChannel' class="media__modal" size="large">
-    <app-create-channel></app-create-channel>
-</app-modal>

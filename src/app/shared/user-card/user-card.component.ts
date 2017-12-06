@@ -89,7 +89,7 @@ export class UserCardComponent implements OnInit {
   }
 
   disableFollowForSelf(username: string) {
-    if (this.userProfile && (this.userProfile['profileUser']['username']) === username) {
+    if (this.userProfile && (this.userProfile['profile_navigation_details']['username']) === username) {
       return true;
     }
     return false;

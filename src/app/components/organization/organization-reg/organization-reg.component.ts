@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { Store } from '@ngrx/store';
 import {} from '@types/googlemaps';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-organization-reg',
@@ -40,7 +41,7 @@ export class OrganizationRegComponent implements OnInit {
   // -----
   search: String;
   userHandle: string;
-
+  industries: any;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -61,16 +62,21 @@ export class OrganizationRegComponent implements OnInit {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       this.skillSelectionPage = state;
+      if (state && state.industries) {
+        this.industries = state.industries;
+      }
     });
+
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
 
     // Get own user handle
     this.store.select('profileTags')
       .first(profile => profile['current_user_profile_loading'] === true)
       .subscribe( data => {
-        if (data['profileUser'].isOrganization === true) {
+        if (data['profile_navigation_details'].isOrganization === true) {
           this.router.navigateByUrl('/org/page/profile');
         }
-        this.userHandle = data['profileUser'].handle;
+        this.userHandle = data['profile_navigation_details'].handle;
       });
    }
 
@@ -92,6 +98,7 @@ export class OrganizationRegComponent implements OnInit {
         this.databaseValidator.userNameValidation.bind(this.databaseValidator)
       ],
       'org_type': ['', Validators.required],
+      'org_industry_type': ['', Validators.required],
       'org_location': ['', Validators.required],
       'org_service': ['', Validators.required]
     })
@@ -108,20 +115,24 @@ export class OrganizationRegComponent implements OnInit {
   }
 
   submitForm(value) {
+    const industrySelected = _.find(this.industries, { code: value.org_industry_type });
+    // console.log('industrySelected', industrySelected);
+    let industryObj = {};
+    if (industrySelected && industrySelected.name) {
+      industryObj = {
+        name : industrySelected.name,
+        code : industrySelected.code,
+        active : true
+      }
+    }
+    // console.log('industryObj', industryObj); return;
     if (!this.orgReg.valid) {
       return false;
     }
-    // console.log(this.searchElementRef.nativeElement.value);
     const org_servive = value.org_service.split(/\s*,\s*/);
 
     const data = {
-        industryList : [
-            {
-                name : 'Film',
-                code : 'FILM',
-                active : true
-            }
-        ],
+        industryList : [ industryObj ],
         organizationName : value.org_name,
         services: org_servive,
         address : {
@@ -149,22 +160,24 @@ export class OrganizationRegComponent implements OnInit {
         active : true
     }
 
+    // console.log('form body ', data); return;
+
     this.store.dispatch({ type: OrganizationActions.ORGANIZATION_REGISTRATION, payload: data });
 
     // Org Registration successfully
-    this.store.select('organizationTags')
+    this.store.select('profileTags')
       .first(profile => profile['org_registration_success'] === true)
       .subscribe( datas => {
         this.toastr.success('Successfully registered organization');
         this.router.navigateByUrl('/org/page');
       });
 
-      // Org Registration Failed
-      this.store.select('organizationTags')
-        .first(profile => profile['org_registration_failed'] === true)
-        .subscribe( datas => {
-          this.toastr.success('Organization registration failed');
-        });
+    // Org Registration Failed
+    this.store.select('organizationTags')
+      .first(profile => profile['org_registration_failed'] === true)
+      .subscribe( datas => {
+        this.toastr.success('Organization registration failed');
+      });
 
   }
 

@@ -1,23 +1,21 @@
 <div class="row mar-top-bot-40">
-
-    <div *ngIf="channels && channels.length === 0; else channels_found;">
-        <p class="result-not-found">Channels not found!</p>
+        
+    <div *ngIf="artists && artists.length === 0; else artists_found;">
+        <p class="result-not-found">Artists not found!</p>
     </div>
 
-    <ng-template #channels_found>
+    <ng-template #artists_found>
             
-        <ul class="list-inline ops_explore_head" *ngIf="channels && channels.length > 0;" >
-            <li class="list-inline-item ops_heading text_uppercase">Channel</li>
-            <li class="list-inline-item ops_heading2 text_uppercase pull-right"><a (click)="selectTab('tab-channel')">See more</a></li>
+        <ul class="list-inline ops_explore_head" *ngIf="artists && artists.length > 0;" >
+            <li class="list-inline-item ops_heading text_uppercase">Artists</li>
+            <li class="list-inline-item ops_heading2 text_uppercase pull-right"><a (click)="selectTab('tab-people')">See more</a></li>
         </ul>
 
-        <masonry [useImagesLoaded]="true">
-            <masonry-brick class="col-md-3" *ngFor="let channel of channels; let i = index;">
-                <ng-container *ngIf="(i <= 3)">
-                    <app-channel [channelData]="channel" ></app-channel>
-                </ng-container>
-            </masonry-brick>
-        </masonry>
+        <div class="col-md-2 pad-bot-25" *ngFor="let artist of artists; let i = index;">
+            <ng-container *ngIf="(i <= 5)">
+                <app-user-card [artist]="artist" ></app-user-card>
+            </ng-container>
+        </div>
 
     </ng-template>
 
@@ -52,26 +50,28 @@
 
 </div>
 
+        
 <div class="row mar-top-bot-40">
 
-    <div *ngIf="artists && artists.length === 0; else artists_found;">
-        <p class="result-not-found">Artists not found!</p>
+    <div *ngIf="channels && channels.length === 0; else channels_found;">
+        <p class="result-not-found">Channels not found!</p>
     </div>
 
-    <ng-template #artists_found>
+    <ng-template #channels_found>
             
-        <ul class="list-inline ops_explore_head" *ngIf="artists && artists.length > 0;" >
-            <li class="list-inline-item ops_heading text_uppercase">Artists</li>
-            <li class="list-inline-item ops_heading2 text_uppercase pull-right"><a (click)="selectTab('tab-people')">See more</a></li>
+        <ul class="list-inline ops_explore_head" *ngIf="channels && channels.length > 0;" >
+            <li class="list-inline-item ops_heading text_uppercase">Channel</li>
+            <li class="list-inline-item ops_heading2 text_uppercase pull-right"><a (click)="selectTab('tab-channel')">See more</a></li>
         </ul>
 
-        <div class="col-md-2 pad-bot-25" *ngFor="let artist of artists; let i = index;">
-            <ng-container *ngIf="(i <= 5)">
-                <app-user-card [artist]="artist" ></app-user-card>
-            </ng-container>
-        </div>
+        <masonry [useImagesLoaded]="true">
+            <masonry-brick class="col-md-3" *ngFor="let channel of channels; let i = index;">
+                <ng-container *ngIf="(i <= 3)">
+                    <app-channel [channelData]="channel" ></app-channel>
+                </ng-container>
+            </masonry-brick>
+        </masonry>
 
     </ng-template>
 
 </div>
-

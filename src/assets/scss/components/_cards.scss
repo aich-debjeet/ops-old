@@ -1,0 +1,870 @@
+// All cards style ---------------------------------------------------------------------------
+
+// feed card (image, audio, video & article)
+.c-card--artist {
+  padding: 16px;
+  text-align: center;
+}
+
+.c-artist__avatar {
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+}
+
+.c-artist__img {
+  // width: 100%;
+  width: 89px;
+  height: 89px;
+  border-radius: 50%;
+}
+
+.c-artist__name {
+  color: #333333;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 19px;
+  text-align: center;
+}
+
+.c-artist__username {
+  color: #333333;
+  font-size: 12px;
+  line-height: 17px;
+}
+
+.c-artist--btn {
+  margin-top: 16px;
+}
+// audio card controller block style ----------------------------------------------------
+.c-audio__controller {
+  float: left;
+  width: 100%;
+  padding: 16px;
+}
+
+.c-controller__heading {
+  color: #333333;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.c-controller--audio {
+  width: 90%;
+  float: left;
+}
+
+.c-controller--align {
+  padding-top: 9px;
+  padding-left: 2px;
+  vertical-align: middle;
+}
+
+.c-controller__bar {
+  margin: 16px 0;
+  background-color: #555555;
+  position: relative;
+}
+
+.c-controller__bar1 {
+  width: 52%;
+  height: 3px;
+  background-color: #979797;
+  position: absolute;
+  top: 0px;
+}
+
+.c-controller__bar2 {
+  width: 33%;
+  height: 3px;
+  background-color: #FF7B84;
+  position: inherit;
+}
+
+.c-controller__bar3 {
+  width: 9px;
+  height: 9px;
+  border: 1px solid rgba(102, 45, 145, 0.1);
+  background-color: #FFFFFF;
+  position: absolute;
+  box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.1);
+  top: -3px;
+  left: 30%;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.c-controller__bar4 {
+  width: 52%;
+  height: 3px;
+  background-color: #D4D4D5;
+  position: absolute;
+  top: 0px;
+}
+
+.c-controller__vol {
+  width: 10%;
+  float: left;
+}
+
+.c-controller__icon {
+  width: 15px;
+}
+
+.c-controller__timer {
+  width: 90%;
+  float: left;
+  font-size: 12px;
+  color: #C1C1C1;
+  line-height: 17px;
+}
+
+// audio card list style --------------------------------------
+.c-list--block {
+  width: 100%;
+  float: left;
+  height: 206px;
+  overflow-y: scroll;
+}
+
+.c-list {
+  height: 52px;
+  padding: 8px;
+  font-size: 12px;
+  color: #C1C1C1;
+  border: 1px solid rgba(102, 45, 145, 0.1);
+}
+
+.c-list_icon {
+  vertical-align: middle;
+  padding: 9px;
+}
+
+.c-list--active {
+  color: #333333;
+  font-weight: bold;
+}
+
+.c-video_action {
+  width: 36px;
+  height: 36px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 3px;
+}
+
+.c-video_action--img {
+  width: 100%;
+}
+
+.c-video_action--icon {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  width: 12px;
+}
+
+.c-video_name {
+  position: relative;
+  top: -12px;
+}
+
+.c-list_time {
+  margin-top: 10px;
+}
+
+// audio card media block style -----------------------------------------
+.c-card__media {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background-color: #f8f8f8;
+}
+.c-card__opportunity {
+  @extend .c-card__media;
+  height: 175px;
+}
+.c-card__opportunity--view {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 18px;
+  color: #FC6371;
+  text-transform: uppercase;
+  &:hover {
+    color: #FC6371;
+  }
+}
+.c-card__opportunity__details {
+ clear: both;
+ margin-bottom: 16px;
+ display: flex;
+ width: 100%;
+ float: left;
+}
+.c-card__opportunity__user{
+  display: flex;
+  margin: 0 16px;
+  padding: 8px 0;
+  // border-top: 1px solid #F3F5F7;  
+  // border-bottom: 1px solid #F3F5F7;  
+}
+.c-card__opportunity__username{
+  font-size: 13px;
+  color: #808080;
+      line-height: 24px;
+    margin-left: 8px;
+}
+.c-card__Communities--link {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 18px;
+  color: #FC6371;
+  text-transform: uppercase;
+  position: absolute;
+  right: 0px;
+  top: 4px;
+  &:hover {
+    color: #FC6371;
+  }
+}
+.c-comm__followers {
+  width: 100%;
+  position: relative;
+  display: flex;
+   margin-top: 8px;
+   float: left;
+}
+.c-card__image {
+  width: 100%;
+  vertical-align: middle;
+  outline: none;
+}
+
+.c-card__icon {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  margin: 10px;
+  line-height: 0px;
+  width: 22px;
+  filter: drop-shadow(0px 0px 3px #222);
+}
+
+// ------------------------------------
+.c-card__media {
+  &:hover {
+      .c-media--hover {
+      display: block;
+    }
+  }
+}
+.c-media--hover {
+  width: 100%;
+  height: 52px;
+  display: none;
+  position: absolute;
+  transition: .25s;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000000 100%);
+  z-index: 3;
+  bottom: 0;
+  padding: 16px;
+}
+// ------------------------
+.c-event__card {
+  width: 217px;
+  height: auto;
+  float: left;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+  background-color: #ffffff;
+  overflow: hidden;
+  margin: 8px;
+}
+
+.c-card__event{
+  height: 111px;
+  overflow: hidden;
+  img{
+    width: 100%;
+  }
+}
+.c-card__event-title{
+  height: 50px;
+}
+.c-card__event-address{
+  height: 40px;
+}
+
+// channel header block style  ----------------------------------------
+.c-channel__card {
+  width: 24%;
+  float: left;
+  margin: 5px;
+}
+.c-channel__heading {
+  color: #333333;
+  font-size: 15px;
+  line-height: 24px;
+  &:hover {
+      color: #000;
+  }
+}
+.c-channel__name {
+  background: linear-gradient(180deg, #000000 0%, rgba(0,0,0,0) 100%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  padding: 8px;
+}
+.c-channel_heading2 {
+  font-size: 15px;
+  line-height: 24px;
+  color: #FFFFFF;
+}
+// channel media block style  ----------------------------------------
+.c-channel__media {
+  width: 100%;
+  position: relative;
+}
+
+.c-channel__sec-l {
+  width: 66%;
+  float: left;
+}
+.c-channel__sec-r {
+  width: 34%;
+  float: left;
+}
+
+.c-channel__left {
+  width: 99%;
+  height: 139px;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  background: #f8f8f8;
+  background: url(/assets/img/new/l12.jpg);
+  background-size: cover;
+  background-position: inherit;
+}
+
+.c-channel__right1 {
+  width: 100%;
+  height: 69px;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  background: #f8f8f8;
+  background: url(/assets/img/new/s06.jpg);
+  background-size: cover;
+  background-position: inherit;
+}
+
+.c-channel__right2 {
+  width: 100%;
+  height: 68px;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  margin-top: 2px;
+  background: #f8f8f8;
+  background: url(/assets/img/new/s05.jpg);
+  background-size: cover;
+  background-position: inherit;
+}
+
+// channel footer block style ------------------------------
+.c-links__post {
+  color: #929292;
+  font-size: 11px;
+  line-height: 18px;
+  margin-right: 8px;
+}
+
+
+.c-followers {
+  width: 50%;
+  display: flex;
+  margin-top: 8px;
+  float: left;
+}
+
+.c-followers__img {
+  height: 25px;
+  width: 25px;
+  border: 1px solid #FFFFFF;
+  overflow: hidden;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.c-followers__count {
+  color: #929292;
+  font-size: 11px;
+  line-height: 28px;
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.c-channel__btn {
+  width: 50%;
+  float: left;
+  margin-top: 10px;
+  display: none;
+  transition : .25s;
+}
+.c-channel__btn2 {
+  width: 50%;
+  float: left;
+  margin-top: 10px;
+}
+
+// -------------------------
+.c-my__card {
+  :hover {
+      .c-channel__btn {
+          display: block;
+          transition : .25s;
+      }
+  }
+}
+
+// feed Card style ----------------------------------------------------
+.c-card {
+  width: 100%;
+  height: auto;
+  float: left;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+  background-color: #ffffff;
+}
+.c-card--overflow {
+  overflow: hidden;
+}
+
+.c-card--feed {
+  width: 25%;
+  height: auto;
+  float: left;
+  padding: 8px;
+}
+
+// feed card media block style ----------------------------
+.c-audio__media {
+  width: 94%;
+  height: 256px;
+  overflow: hidden;
+  margin: 0 8px;
+  position: relative;
+  border-radius: 3px;
+}
+
+.c-audio__image {
+  width: 100%;
+}
+
+.c-audio__icons {
+  width: 100%;
+  position: absolute;
+  top: 110px;
+  text-align: center
+}
+
+.c-audio__action {
+  vertical-align: middle;
+  margin: 0 16px;
+  filter: drop-shadow(0px 0px 3px #222);
+}
+
+// feed card body block style ------------------------------------
+.c-card__body {
+  width: 100%;
+  float: left;
+  clear: both;
+  padding: 16px;
+  position: relative;
+}
+
+.c-card__heading {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.36;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  text-transform: uppercase;
+  &:hover {
+      color: #333;
+  }
+}
+
+.c-card__project {
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #929292;
+  text-transform: uppercase;
+}
+.c-card__project--icon {
+  height: 24px;
+  float: left;
+}
+.c-card__project--des {
+  font-size: 20px;
+  line-height: 30px;
+  color: #333333;
+}
+
+.c-card__location {
+  clear: both;
+  margin: 0 16px;
+  position: relative;
+}
+
+.c-card__location--text {
+  font-size: 13px;
+  line-height: 20px;
+  color: #929292;
+  display: inline;
+  top: 1px;
+  position: absolute;
+  padding-left: 8px;
+}
+
+.c-card__desc {
+  font-size: 11px;
+  font-weight: 600;
+  color: #979797;
+}
+
+.c-card__options {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  margin: 10px;
+  line-height: 0px;
+  width: 14px; // background: #ffffff;
+}
+.c-card__options2 {
+  position: absolute;
+  top: 4px;
+  right: 0px;
+  margin: 10px;
+  line-height: 0px;
+  height: 14px; // background: #ffffff;
+}
+
+//feed card footer (links) block style --------------------------
+.c-card__links {
+  width: 100%;
+  float: left;
+  padding: 16px; // border-top: 1px solid #EFEFEF;
+}
+.c-card__links2 {
+  width: 100%;
+  float: left;
+  padding: 8px 16px; // border-top: 1px solid #EFEFEF;
+}
+
+.c-links {
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  color: #333333;
+  line-height: 17px;
+}
+
+.c-links__spots {
+  display: inline;
+  float: left;
+  margin-right: 16px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #929292;
+}
+
+.c-links__image {
+  width: 24px;
+  float: left;
+}
+
+.c-links__count {
+  float: left;
+  margin-left: 6px;
+  font-weight: 500;
+  color: #929292;
+  font-size: 11px;
+  line-height: 18px;
+  top: 4px;
+  position: relative;
+}
+
+.c-links__comments {
+  display: inline;
+  float: left;
+  margin-right: 24px;
+  cursor: pointer;
+}
+
+.c-links__actions {
+  text-align: right;
+}
+
+.c-action__image {
+  width: 24px;
+  margin-left: 8px;
+}
+
+//feed card status block style --------------------------
+.c-user__status {
+  color: #333;
+  font-size: 15px;
+  line-height: 24px;
+}
+
+// card user block ------------------
+.c-card__user {
+  margin-top: 16px;
+}
+
+.c-user__avatar {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  background: #f8f8f8;
+  cursor: pointer;
+  border-radius: 50px;
+  float: left;
+}
+
+.c-avatar--feed {
+  width: 24px;
+  height: 24px;
+}
+
+.c-avatar--feed2 {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #FFFFFF;
+}
+
+.c-user__image {
+  width: 100%
+}
+
+.c-user__name {
+  font-size: 15px;
+  line-height: 24px;
+  text-align: left;
+  color: #000;
+  margin-left: 8px;
+  margin-top: 2px;
+  float: left;
+  cursor: pointer;
+  &:hover {
+      color: #000;
+  }
+}
+
+.c-user__name2 {
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  color: #ffffff;
+  margin-left: 8px;
+  margin-top: 4px;
+  float: left;
+  cursor: pointer;
+  &:hover {
+      color: #fff;
+  }
+}
+
+.c-user__channel {
+  font-size: 11px;
+  line-height: 18px;
+  color: #979797;
+  display: block;
+  margin-left: 32px;
+  clear: both;
+  cursor: pointer;
+  &:hover {
+      color: #979797;
+  }
+}
+.c-user__channel2 {
+  font-size: 11px;
+  line-height: 18px;
+  color: #979797;
+  display: block;
+  margin-left: 42px;
+  clear: both;
+  cursor: pointer;
+  &:hover {
+      color: #979797;
+  }
+}
+
+// feed card video ------------------------
+.c-feed__video {
+  width: 100%;
+}
+
+.c-feed__video-heading {
+  color: #333333;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 19px;
+  padding: 16px 24px;
+  clear: both;
+}
+
+.c-feed__video-status {
+  color: #333333;
+  font-size: 13px;
+  line-height: 20px;
+  padding: 16px 24px;
+}
+
+.c-feed__img {
+  width: 100%;
+}
+
+.c-feed__img-heading {
+  color: #333333;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 19px;
+  padding: 16px 24px;
+  clear: both;
+}
+
+.c-feed__img-status {
+  color: #333333;
+  font-size: 13px;
+  line-height: 20px;
+  padding: 16px 24px;
+}
+
+.c-feed__img-readmore {
+  float: right;
+  color: #ff7b84;
+  &:hover {
+      color: red;
+  }
+}
+
+// video card style ----------------------------------------------------
+.c-video__media {
+  width: 94%;
+  height: 185px;
+  overflow: hidden;
+  margin: 0 8px;
+  position: relative;
+  border-radius: 3px;
+}
+
+.c-video__controller {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.34);
+}
+
+.c-controller--video {
+  width: 68%;
+  float: left;
+}
+
+
+
+
+// pop up common main contianers
+
+// size 446
+
+.pop-container-sm{
+  width:446px;
+  margin: 0px auto;
+  background:#fff;
+  border-radius:3px;
+  position:relative;
+  display: inline-block;
+}
+
+.pop-container-md{
+  width:564px;
+  margin: 0px auto;
+  background:#fff;
+  border-radius:3px;
+  position:relative;
+  display: inline-block;
+}
+
+
+// for pop up head sec
+
+.pop-head{
+  width: 100%;
+  float: left;
+}
+
+// for pop up close
+
+.pop-close {
+  margin: 10px;
+  width: 14px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+//featured artist card
+.c-featured__card {
+  width: 12.5%;
+  float: left;
+}
+.c-featured__userblock {
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.c-featured__userimg {
+  width: 100%
+}
+.c-featured__username {
+font-size: 13px;
+line-height: 20px;
+text-align: center;
+color: #333333;
+}
+.c-featured__userhandle {
+font-size: 11px;
+line-height: 18px;
+text-align: center;
+color: #808080;
+}

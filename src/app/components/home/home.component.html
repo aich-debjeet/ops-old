@@ -1,36 +1,62 @@
 <app-navigation></app-navigation>
 <!-- primary navigation -->
-<section>
-    <div class="container home_feed_container">
-        <div class="row home_feed">
-            <!-- left home feed -->
-            <div class="col-md-9 col-sm-9">
-                <div class="row">
-                    <div class="col-md-12 col-md-12 padding-l6">
-                        <div class="quick_access home_quick">
-                            <h2 class="feed-heading">
-                                Quick Access 
-                                <!--<a href><img src="/assets/img/svg/ico_options.svg" class="right_options"></a>-->
-                             </h2>
-                             <app-quick-access *ngFor="let quickAccess of userQuickAccess.userQuickAccess; let i = index" [quickAccessData]="quickAccess"></app-quick-access>
-                        </div>
-                    </div>
-                </div>
+<section class="o-home-top-block">
+    <div class="container">
+        <!-- <img src="/assets/img/home/Banner.jpg"> -->
+        <h2 class="c-h2 o-home-main__title color-white">
+            Dance world cup 2018
+        </h2>
+        <p class="c-text_lg color-white m-t-8">
+            This is the greatest all-genre dance competition in the world for children and young adults.
+        </p>
 
-                <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="home_tabs">
-                            <ul class="nav nav-tabs">
-                                <li routerLinkActive="active"><a [routerLink]="['spotfeed']">Spotfeed</a></li>
-                                <li routerLinkActive="active"><a [routerLink]="['channel']" >Channel</a></li>
-                            </ul>
-                            <router-outlet></router-outlet>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- //left home feed -->
-            <home-right-block></home-right-block>
+        <button type="button" class="btn btn-primary btn-sm btn-inverse m-t-8"> Read More</button>
+
+        <div class="o-hosted-by m-t-32">
+            <p class="c-text_sm color-white text_uppercase m-b-8">Hosted by</p>
+            <a href="" class="o-hosted-logos">
+                <img width="154" src="/assets/img/home/dwc_world_logo.png" alt="">
+            </a>
+            <a href="" class="o-hosted-logos m-l-32">
+                <img width="36" src="/assets/img/home/lvds_logo.png" alt="">
+            </a>
         </div>
+
+    </div>
+</section>
+<!---- opportunity top block end ---->
+
+<section class="o-home-content">
+    <div class="container">
+        <!-- left home feed -->
+        <div class="o-quickacces">
+            <div class="col-md-12 p-0">
+                <div class="col-md-6 c-text_md ltr-space text_uppercase p-0 m-b-16 o-top-quick-access">Quick access</div>
+            </div>
+            <app-quick-access *ngFor="let quickAccess of userQuickAccess.userQuickAccess; let i = index" [quickAccessData]="quickAccess"></app-quick-access>
+        </div>
+        <div class="o-home-tab-sec with_border_top c-ops__tabs o-opportunity-tabs">
+            <div class="col-md-6 p-0">
+                <!-- <div class="home_tabs"> -->
+                <ul class="nav nav-tabs">
+                    <li class="active" routerLinkActive="active"><a data-toggle="tab" aria-expanded="true" [routerLink]="['channel']">Channel</a></li>
+                    <li class="" routerLinkActive="active"><a data-toggle="tab" [routerLink]="['spotfeed']">Spotfeed</a></li>
+                </ul>
+                <!-- <router-outlet></router-outlet> -->
+                <!-- <div class="col-md-9 p-0">
+                    <div class="tab-content">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div> -->
+                <!-- </div> -->
+            </div>
+        </div>
+        <div class="col-md-9 p-0">
+            <div class="tab-content">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <!-- //left home feed -->
+        <home-right-block></home-right-block>
     </div>
 </section>
