@@ -25,7 +25,10 @@ export class ExploreComponent implements OnInit {
 
   userState$: Observable<any>;
   userProfile: any;
-  spotfeeds: any[];
+  exploreState$: Observable<any>;
+  exploreState: any;
+  profileSpotfeeds: any[];
+  allSpotfeeds: any[];
   baseUrl: string;
 
   constructor(
@@ -45,17 +48,30 @@ export class ExploreComponent implements OnInit {
      */
     this.userState$ = this.store.select('profileTags');
     this.userState$.subscribe((state) => {
-      if (state && state.profile_navigation_details) {
-        this.userProfile = state.profile_navigation_details;
-        // console.log('this.userProfile', this.userProfile);
-      }
+      this.userProfile = state;
+      // console.log('this.userProfile', this.userProfile);
 
       // get current profiles spotfeeds
       if (state && state.home_spotfeeds && state.home_spotfeeds.SUCCESS) {
-        this.spotfeeds = state.home_spotfeeds.SUCCESS;
-        // console.log('spotfeeds', this.spotfeeds);
+        this.profileSpotfeeds = state.home_spotfeeds.SUCCESS;
+        console.log('profile spotfeeds', this.profileSpotfeeds);
       }
     });
+
+    /**
+     * check explore state
+     */
+    this.exploreState$ = this.store.select('exploreTags');
+    this.exploreState$.subscribe((state) => {
+      this.exploreState = state;
+      // console.log('this.exploreState', this.exploreState);
+
+      // get all spotfeeds
+      if (state && state.spotfeeds && state.spotfeeds.SUCCESS) {
+        this.allSpotfeeds = state.spotfeeds.SUCCESS;
+        console.log('all spotfeeds', this.allSpotfeeds);
+      }
+    })
 
   }
 
