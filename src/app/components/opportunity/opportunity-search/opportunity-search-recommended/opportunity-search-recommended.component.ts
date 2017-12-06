@@ -46,7 +46,7 @@ export class OpportunitySearchRecommendedComponent implements OnInit {
 
     // observe the opportunity state
     this.opportunityState$.subscribe((state) => {
-      // console.log('opportunityState', state);
+       console.log('opportunityState', state);
       if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
         this.opportunities = state.search_opportunities_data.SUCCESS;
         // console.log('this.opportunities', this.opportunities);
@@ -62,7 +62,7 @@ export class OpportunitySearchRecommendedComponent implements OnInit {
     // observe the user state
     this.userState$.subscribe((state) => {
       this.userState = state;
-      // console.log('this.userState', this.userState);
+       console.log('this.userState', this.userState);
 
       // check for user skills
       if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['skills'] && this.userState['profile_navigation_details']['skills'].length > 0) {

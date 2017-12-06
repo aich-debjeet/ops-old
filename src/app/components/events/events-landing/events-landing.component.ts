@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
 import { Store } from '@ngrx/store';
 import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
+import { DatePipe } from '@angular/common';
+import * as moment from 'moment';
 
 // Model
 import { EventModal, initialTag  } from '../../../models/event.model';
@@ -19,6 +21,10 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./events-landing.component.scss']
 })
 export class EventsLandingComponent implements OnInit {
+  date = new Date();
+  day: any;
+  tomorrow: any;
+  weekend: any;
   carouselOne: NgxCarousel;
   tagState$: Observable<EventModal>;
   eventList = initialTag ;
@@ -31,6 +37,12 @@ export class EventsLandingComponent implements OnInit {
       console.log(this.eventList);
     });
     this.store.dispatch({ type: EventActions.EVENT_LIST });
+
+    // day
+    this.day =  moment().format();
+    this.tomorrow = moment().add('days', 1);
+    this.weekend = moment().weekday(5);
+    console.log(moment().format('dd, LLLL'));
   }
 
   ngOnInit() {
