@@ -1,0 +1,64 @@
+<header class="opsheader">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><img src="/assets/img/ops_icon.png"></a>
+            </div>
+        </div>
+    </nav>
+</header>
+<section class="o-dance-qualifier-form">
+    <div class="container">
+        <div class="o-dance-wcq-form-block">
+            <h3 class="c-h3 f-w_500 text-center m-t-32">Dance World Cup Qualifier- India</h3>
+            <p class="c-text_lg text-center m-t-8 color-grey-dark m-b-32">Add Attendee details </p>
+
+            <form [formGroup]="eventForm" novalidate (ngSubmit) = "submitForm(eventForm.value)"  #eventCreate="ngForm">
+                <div class="c-form__group c-form--lg m-b-32">
+                    <input class="c-form__input" required type="text" formControlName="school_name">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <label>Dance School’s Name *</label>
+                    <p class="c-form__validation" *ngIf="eventForm.controls['school_name'].errors?.required && eventCreate.submitted">Dance School's name is required</p>
+                </div>
+                <div class="c-form__group c-form--lg m-b-32">
+                    <input class="c-form__input" required type="text" formControlName="school_owner">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <label>Dancer School owner’s / Choreographer’s name *</label>
+                    <p class="c-form__validation" *ngIf="eventForm.controls['school_owner'].errors?.required && eventCreate.submitted">Dancer School owner’s / Choreographer’s name is required</p>
+                </div>
+                <div class="c-form__group c-form--lg m-b-32">
+                    <textarea class="c-textarea__block c-textarea--style o-wcq-textarea " rows="0" data-min-rows="0" placeholder="Address *" formControlName="school_address"></textarea>
+                    <p class="c-form__validation" *ngIf="eventForm.controls['school_address'].errors?.required && eventCreate.submitted">Address is required</p>
+                </div>
+                <div class="c-form__group c-form--lg m-b-32">
+                    <input class="c-form__input" required type="text" formControlName="school_category">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <label>Category/classes competing in: *</label>
+                    <p class="c-form__validation" *ngIf="eventForm.controls['school_category'].errors?.required && eventCreate.submitted">Category/classes competing is required</p>
+                </div>
+                <div class="c-form__group c-form--lg">
+                    <input class="c-form__input" required="" type="text" formControlName="school_teammates">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <label>Teammates name/s for duets, trios, small and large groups *</label>
+                    <p class="c-form__validation" *ngIf="eventForm.controls['school_teammates'].errors?.required && eventCreate.submitted">Teammates name/s for duets, trios, small and large groups is required</p>
+                </div>
+                <p class="c-text_sm color-grey-dark">Please fill one form for each category/class</p>
+                
+                <div class="col-md-12 m-t-32 text-center">
+                    <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
