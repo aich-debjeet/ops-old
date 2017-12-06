@@ -45,11 +45,19 @@ export class RegistrationAddSkillComponent implements OnInit {
   search: String;
   activateSubmitBtn = false;
   redrectUrl: any;
+  interest: any;
+  routeQuery: any;
 
   constructor(fb: FormBuilder, private http: Http, private router: Router, private store: Store<Login>, private route: ActivatedRoute) {
     // if redriect url there
     if (this.route.snapshot.queryParams['next']) {
       this.redrectUrl = this.route.snapshot.queryParams['next'];
+    }
+
+    // if redriect url there
+    if (this.route.snapshot.queryParams['dwc2017']) {
+      console.log(this.route.snapshot.queryParams);
+      this.interest = this.route.snapshot.queryParams['dwc2017'];
     }
 
     this.tagState$ = store.select('loginTags');
@@ -78,19 +86,25 @@ export class RegistrationAddSkillComponent implements OnInit {
    */
   saveSkills() {
     this.store.dispatch({ type: AuthActions.USER_SUBMIT_SKILLS, payload: this.selectedSkills });
-    this.tagState$.subscribe(
-      data => {
-        if (data.success === true) {
-          if (this.redrectUrl !== undefined) {
-            this.router.navigate([this.redrectUrl]);
-            return
-          }else {
-            this.router.navigateByUrl('/profile/user');
-            return
-          }
+
+    // After Skill Submit Check status and redrect to next page
+    this.store.select('loginTags')
+      .first(auth => auth['userSkillsSaveSuccess'] )
+      .subscribe( data => {
+        if (this.interest === 'true') {
+          this.router.navigateByUrl('/dwc');
+          return
         }
-      }
-    )
+
+        if (this.redrectUrl !== undefined) {
+          this.router.navigate([this.redrectUrl]);
+          return
+        }else {
+          this.router.navigateByUrl('/profile/user');
+          return
+        }
+
+      });
   }
 
   /**

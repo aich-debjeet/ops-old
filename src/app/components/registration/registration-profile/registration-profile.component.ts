@@ -30,12 +30,14 @@ export class RegistrationProfileComponent implements OnInit {
   artistType = [];
   activateSubmitBtn = false;
   redrectUrl: any;
+  routeQuery: any;
+  interest: any;
 
   constructor(fb: FormBuilder, private store: Store<AuthModel>, private router: Router, private route: ActivatedRoute) {
 
     // if redriect url there
-    if (this.route.snapshot.queryParams['next']) {
-      this.redrectUrl = this.route.snapshot.queryParams['next'];
+    if (this.route.snapshot.queryParams) {
+      this.routeQuery = Object.assign({}, this.route.snapshot.queryParams);
     }
 
     this.artistType = [{
@@ -70,13 +72,6 @@ export class RegistrationProfileComponent implements OnInit {
       description: 'Eg: Followers of Art Forms & Artists, Entertainment Seekers, Connoisseurs.'
     }];
 
-    this.tagState$ = store.select('loginTags');
-    this.tagState$.subscribe((state) => {
-        //this.artistType = state;
-
-        //  console.log(state);
-        // this.done = !!(this.petTag.shape && this.petTag.text);
-      });
 
     this.rForm = fb.group({
       'artistList' : fb.array([]),
@@ -109,25 +104,22 @@ export class RegistrationProfileComponent implements OnInit {
         }
       }
 
-      console.log(form);
 
-      localStorage.setItem('userType', JSON.stringify(value.artistList));
-      this.store.dispatch({ type: AuthActions.USER_REGISTRATION_PROFILE, payload: form});
+    localStorage.setItem('userType', JSON.stringify(value.artistList));
+    this.store.dispatch({ type: AuthActions.USER_REGISTRATION_PROFILE, payload: form});
 
-      this.tagState$.subscribe(
-      data => {
-        console.log(data.success);
-        if (data.success === true) {
-          if (this.redrectUrl !== undefined) {
-            this.router.navigate(['/reg/addskill'], { queryParams: { next: this.redrectUrl }});
-            return
-          }else {
-            this.router.navigateByUrl('/reg/addskill');
-            return
-          }
+    // After Skill Submit Check status and redrect to next page
+    this.store.select('loginTags')
+      .first(auth => auth['stepTwoRegSuccess'] )
+      .subscribe( data => {
+        if (this.routeQuery) {
+          this.router.navigate(['/reg/addskill'], { queryParams: this.routeQuery });
+          return
+        }else {
+          this.router.navigateByUrl('/reg/addskill');
+          return
         }
-      }
-    )
+      });
   }
 
   onChange(value: string, type: string, isChecked: boolean) {
