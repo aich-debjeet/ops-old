@@ -50,6 +50,7 @@ export class ChannelComponent implements OnInit {
 
   ngOnInit() {
     this.isfollowing = this.channelData.isFollowing || false;
+    console.log(this.channelData)
     this.showEdit = false;
     this.ispin = this.channelData.isPinned || false;
     const defaultImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';

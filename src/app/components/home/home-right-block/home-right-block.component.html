@@ -38,8 +38,10 @@
                 </a>
                 <a class="c-text_md c-invite--user" routerLink="/profile/u/{{ profileItem?.extra?.username }}">{{ profileItem?.name }}</a>
                 <div class="c-invite--btn">
-                    <button type="button" (click)="followUser(profileItem)" *ngIf="!profileItem.extra.isFollowing" class="btn btn-default btn-sm" [disabled]="disableFollowForSelf(profileItem?.extra?.username)">FOLLOW</button>
-                    <button type="button" (click)="unfollowUser(profileItem)" *ngIf="profileItem.extra.isFollowing" class="btn btn-default btn-sm" [disabled]="disableFollowForSelf(profileItem?.extra?.username)">UNFOLLOW</button>
+                    <!-- <button type="button" (click)="followUser(profileItem)" *ngIf="!profileItem.extra.isFollowing" class="btn btn-default btn-sm" [disabled]="disableFollowForSelf(profileItem?.extra?.username)">FOLLOW</button>
+                    <button type="button" (click)="unfollowUser(profileItem)" *ngIf="profileItem.extra.isFollowing" class="btn btn-default btn-sm" [disabled]="disableFollowForSelf(profileItem?.extra?.username)">UNFOLLOW</button> -->
+                    <a (click)="followUser(profileItem)" *ngIf="!profileItem.extra.isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">FOLLOW</a>
+                    <a (click)="unfollowUser(profileItem)" *ngIf="profileItem.extra.isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">UNFOLLOW</a>
                 </div>
             </div>
             <!-- <div class="c-invite__block">

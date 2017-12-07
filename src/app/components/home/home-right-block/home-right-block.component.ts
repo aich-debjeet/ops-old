@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TruncatePipe } from '../../../pipes/truncate.pipe';
 
 import { ProfileActions } from '../../../actions/profile.action';
 

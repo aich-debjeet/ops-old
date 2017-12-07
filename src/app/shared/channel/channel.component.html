@@ -1,95 +1,129 @@
-<div class="c-card">
-    <!-- card body -->
-    <div class="c-card__body">
-        <a class="c-channel__heading" [routerLink]="['/channel', channelData?.spotfeedId]" >{{channelData?.spotfeedName | truncate:[19, '...'] }}</a>
-        <div appDropdown *ngIf="currentUser">
-          <a class="dropdown-toggle" appDropdownOpen>
-            <img src="http://d33wubrfki0l68.cloudfront.net/cf9538cfd93f7d5f6f99e6e9b005fbf3e2620e1d/ae13e/img/svg/ico_options.svg" alt="" class="c-card__options">
-          </a>
-          <ul class="dropdown-menu c-channel-option">
-            <!--  Only if current user -->
-            <li><a (click)="deleteChannel(channelData?.spotfeedId)">Delete</a></li>
-            <li><a [routerLink]="['', { outlets: { media : ['channel', channelData?.spotfeedId, 'edit' ] } } ]">Edit</a></li>
-            <li><a (click)="pinChannel(channelData?.spotfeedId)">{{ ispin? 'Unpin from Quick Access' : 'Pin to Quick Access' }}</a></li>
-          </ul>
-        </div>
-    </div>
-    <!-- //card body -->
+<div class="c-card c-card--overflow">
     <div class="c-channel__media" *ngIf="(channelData?.media)?.length > 0">
         <div *ngFor="let item of channelData?.media | slice:0:3; let i=index">
-            <div class="c-channel__sec" *ngIf="i===0">
+            <div class="c-channel__sec-l" *ngIf="i===0">
                 <div class="c-channel__left" *ngIf="item?.mediaType !== 'image'">
-                    <app-videplayer *ngIf="item?.mediaType === 'video'" src="{{ image_base_url + item?.repoPath }}" class="c-card__image"></app-videplayer>
-                    <app-audioplayer type="simple" *ngIf="item?.mediaType === 'audio'" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item?.repoPath }}" class="c-card__image"></app-audioplayer>
+                    <app-videplayer *ngIf="item?.mediaType === 'video'" src="{{ image_base_url + item?.repoPath }}"></app-videplayer>
+                    <app-audioplayer type="simple" *ngIf="item?.mediaType === 'audio'" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item?.repoPath }}"></app-audioplayer>
                 </div>
                 <div class="c-channel__left" *ngIf="item?.mediaType === 'image'" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}">
                 </div>
             </div>
-            <div class="c-channel__sec">
-                <div class="c-channel__right1"  *ngIf="i===1 && item?.mediaType === 'image'" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}">
+            <div class="c-channel__sec-r">
+                <div class="c-channel__right1" *ngIf="i===1 && item?.mediaType === 'image'" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}">
                 </div>
                 <div class="c-channel__right1" *ngIf="i===1 && item?.mediaType !== 'image'">
                     <app-videplayer *ngIf="item?.mediaType === 'video'" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-videplayer>
                     <app-audioplayer type="simple" *ngIf="item?.mediaType === 'audio'" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-audioplayer>
                 </div>
-                <div class="c-channel__right1"  *ngIf="i===0 && (channelData?.media)?.length === 1">
+                <div class="c-channel__right1" *ngIf="i===0 && (channelData?.media)?.length === 1">
                     <div class="c-card__image"></div>
                 </div>
 
-                <!--Right block botton-->
                 <div class="c-channel__right2" *ngIf="i===2 && item?.mediaType === 'image'" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}">
                 </div>
                 <div class="c-channel__right2" *ngIf="i===2 && item?.mediaType !== 'image'">
                     <app-videplayer *ngIf="item?.mediaType === 'video'" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-videplayer>
                     <app-audioplayer type="simple" *ngIf="item?.mediaType === 'audio'" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-audioplayer>
                 </div>
-                <div class="c-channel__right2"  *ngIf="i===1 && (channelData?.media)?.length === 2">
+                <div class="c-channel__right2" *ngIf="i===1 && (channelData?.media)?.length === 2">
                     <div class="c-card__image"></div>
                 </div>
-                <div class="c-channel__right2"  *ngIf="i===0 && (channelData?.media)?.length === 1">
+                <div class="c-channel__right2" *ngIf="i===0 && (channelData?.media)?.length === 1">
                     <div class="c-card__image"></div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- channel media -->
+
+
     <div class="c-channel__media" *ngIf="(channelData?.media)?.length === 0">
-        <div class="c-channel__sec">
+        <div class="c-channel__sec-l">
             <div class="c-channel__left">
-                <img src="" class="c-card__image">
             </div>
         </div>
-        <div class="c-channel__sec">
+        <div class="c-channel__sec-r">
             <div class="c-channel__right1">
-                <img src="" class="c-card__image">
             </div>
             <div class="c-channel__right2">
-                <img src="" class="c-card__image">
             </div>
         </div>
+        <div class="c-channel__name">
+            <a href="javascript:void(0)" class="c-text_lg color-white">Know Yourself Yo...</a>
+            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <img src="img/svg/ico_option_white.svg" alt="" class="c-card__options2">
+            </a>
+            <ul class="dropdown-menu o-channel__option">
+                <li>
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#edit_channel_pop">
+                        Edit
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        Pin to Quick Access
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <!-- //channel media -->
-    <!-- card footer links -->
+
+
+
+    <div class="c-channel__name">
+        <a [routerLink]="['/channel', channelData?.spotfeedId]" class="c-text_lg color-white">{{channelData?.spotfeedName | truncate:[19, '...'] }}</a>
+        <div appDropdown *ngIf="currentUser">
+            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
+                <img src="/assets/img/svg/ico_option_white.svg" alt="" class="c-card__options2">
+            </a>
+            <ul class="dropdown-menu o-channel__option">
+                <li>
+                    <a [routerLink]="['', { outlets: { media : ['channel', channelData?.spotfeedId, 'edit' ] } } ]" data-toggle="modal" data-target="#edit_channel_pop">
+                        Edit
+                    </a>
+                </li>
+                <li>
+                    <a (click)="pinChannel(channelData?.spotfeedId)">
+                        {{ ispin? 'Unpin from Quick Access' : 'Pin to Quick Access' }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div appDropdown *ngIf="!currentUser">
+            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
+                <img src="/assets/img/svg/ico_option_white.svg" alt="" class="c-card__options2">
+            </a>
+            <ul class="dropdown-menu o-channel__option">
+                <!-- <li>
+                    <a [routerLink]="['', { outlets: { media : ['channel', channelData?.spotfeedId, 'edit' ] } } ]" data-toggle="modal" data-target="#edit_channel_pop">
+                        Edit
+                    </a>
+                </li> -->
+                <li>
+                    <a (click)="pinChannel(channelData?.spotfeedId)">
+                        {{ ispin? 'Unpin from Quick Access' : 'Pin to Quick Access' }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
     <div class="c-card__links">
         <span class="c-links__post">{{ channelData?.media?.length }} Post</span>
         <span class="c-links__post">{{ channelData?.followersCount }} Followers</span>
         <div class="c-followers">
-          <div class="c-followers__img">
-            <img class="c-user__image" src="{{ image_base_url + channelData?.ownerImage }}">
-          </div>
+            <div class="c-followers__img">
+                <img class="c-user__image" src="{{ image_base_url + channelData?.ownerImage }}">
+            </div>
+            <!-- <div class="c-followers__img m-l--8">
+                        <img class="c-user__image" src="img/new/avatar3.png">
+                    </div>
+                    <p class="c-followers__count">+82</p> -->
         </div>
-
-        <!--<div class="c-channel__btn" *ngIf="currentUser">
-          <a>
-            <img src="/assets/img/svg/ico_edit.svg" class="width24 pull-right">
-          </a>
-        </div>-->
-
-        <div class="c-channel__btn" *ngIf="!currentUser">
-            <a class="btn btn-default btn-sm pull-right" (click)="toggleFollowBtn($event)">{{ isfollowing ? 'Unfollow' : 'Follow' }}</a>
+        <div class="c-channel__btn2" *ngIf="!currentUser">
+            <a (click)="toggleFollowBtn($event)" class="btn btn-primary btn-sm pull-right">{{ isfollowing ? 'Unfollow' : 'Follow' }}</a>
         </div>
     </div>
-    <!-- //card footer links -->
 </div>
-
-
