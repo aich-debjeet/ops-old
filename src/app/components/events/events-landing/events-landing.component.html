@@ -142,51 +142,7 @@
   	</div><!-- event tab end -->
 
   	<div class="o-event-sort-link">
-  		
-      <div class=" c-dropdown">
-	  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle p-l-0" data-toggle="dropdown" aria-expanded="true">
-	  			All
-	  		</a>
-	  		<ul class="dropdown-menu event-drop">
-          <li><a href="#">HTML</a></li>
-          <li><a href="#">CSS</a></li>
-          <li><a href="#">JavaScript</a></li>
-        </ul>
-	  	</div><!-- all link end-->
-
-	  	<div class=" c-dropdown">
-	  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-	  			Comedy
-	  		</a>
-	  		<ul class="dropdown-menu event-drop">
-          <li><a href="#">Standup</a></li>
-          <li><a href="#">comedy</a></li>
-        </ul>
-	  	</div><!-- Comedy link end-->
-
-	  	<div class=" c-dropdown">
-	  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-	  			Conferences & Workshops
-	  		</a>
-	  		<ul class="dropdown-menu event-drop">
-          <li><a href="#">Test</a></li>
-          <li><a href="#">test2</a></li>
-        </ul>
-	  	</div><!-- Conferences & Workshops link end-->
-
-	  	<div class=" c-dropdown">
-	  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-	  			Exhibition & Performances
-	  		</a>
-	  		<ul class="dropdown-menu event-drop">
-          <li><a href="#">WORKSHOPS</a></li>
-          <li><a href="#">CONFERENCES</a></li>
-          <li><a href="#">TALKS</a></li>
-        </ul>
-	  	</div><!-- Exhibition & Performances link end-->
-  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a">Food & Drink</a>
-  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a">Music</a>
-  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a">Travel & Activities</a>
+  		<a  class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a" *ngFor="let type of eventType">{{ type }}</a>
   	</div>
 		<div class="o-select-loc float_right">
 	  	<div class=" c-dropdown  p-t-b-16">

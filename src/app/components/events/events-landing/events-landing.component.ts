@@ -29,6 +29,7 @@ export class EventsLandingComponent implements OnInit {
   carouselOne: NgxCarousel;
   tagState$: Observable<EventModal>;
   eventList = initialTag ;
+  eventType: any;
 
   category: string;
   myQueryParms: any;
@@ -48,8 +49,11 @@ export class EventsLandingComponent implements OnInit {
     this.tagState$ = this.store.select('eventTags');
     this.tagState$.subscribe((state) => {
       this.eventList = state['event_list'];
+      this.eventType = state['event_type'];
     });
     // this.store.dispatch({ type: EventActions.EVENT_LIST });
+
+    this.store.dispatch({ type: EventActions.EVENT_TYPE_LOAD });
 
     this.route
       .queryParams
