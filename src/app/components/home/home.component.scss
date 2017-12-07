@@ -55,6 +55,12 @@
 .o-home-tab-sec {
     width: 100%;
     float: left;
+    .nav-tabs {
+      margin-top: 1rem;
+      a:first-child{
+        padding-left: 0 !important;
+      }
+    }
 }
 
 .o-opportunity-tabs {
