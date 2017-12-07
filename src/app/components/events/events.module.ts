@@ -28,7 +28,7 @@ import { NgxfUploaderModule } from 'ngxf-uploader';
 const routes: Routes = [
   {
     path: '',
-    component: EventsComponent
+    component: EventsLandingComponent
   },
   {
     path: 'create',
@@ -37,10 +37,6 @@ const routes: Routes = [
   {
     path: 'inner/:id',
     component: EventsInnerComponent
-  },
-  {
-    path: 'landing',
-    component: EventsLandingComponent
   },
   {
     path: ':id/edit',

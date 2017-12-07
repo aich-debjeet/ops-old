@@ -75,6 +75,26 @@ export class EventEffect {
       .catch((res) => Observable.of({ type: EventActions.EVENT_ATTENDT_FAILED, payload: res }))
     );
 
+  // Event Search data
+  @Effect()
+    eventSearch$ = this.actions$
+    .ofType(EventActions.EVENT_SEARCH)
+    .map(toPayload)
+    .switchMap((payload) => this.eventService.eventSearchData(payload)
+      .map(res => ({ type: EventActions.EVENT_SEARCH_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: EventActions.EVENT_ATTENDT_FAILED, payload: res }))
+    );
+
+  // Get Event type
+  @Effect()
+    eventType$ = this.actions$
+    .ofType(EventActions.EVENT_TYPE_LOAD)
+    .map(toPayload)
+    .switchMap((payload) => this.eventService.getAllEventType()
+      .map(res => ({ type: EventActions.EVENT_TYPE_LOAD_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: EventActions.EVENT_TYPE_LOAD_FAILED, payload: res }))
+    );
+
   constructor(
     private actions$: Actions,
     private router: Router,

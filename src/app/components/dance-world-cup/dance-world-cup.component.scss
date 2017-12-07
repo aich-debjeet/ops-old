@@ -57,8 +57,75 @@
 	opacity: 1;
 }
 
+
 // right block
 
+.o-dwc-banner{
+	width: 100%;
+	height: 200px;
+	float: left;
+	background: #ccc;
+	margin-bottom: 24px;
+	position: relative;
+	background: url(/assets/img/home/Banner.jpg) no-repeat;
+    background-size: cover;
+    background-position: right;
+    padding :32px;
+}
+.dwc-btn{
+	padding:8px 12px;
+	font-size: 11px;
+	color: #FF7B84;
+	font-weight: normal;
+	background: #fff;
+	border-radius: 2px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	margin-top: 16px;
+	float: left;
+	&:hover{
+		color: #FF7B84;
+	}
+	&:focus{
+		color: #FF7B84;
+	}
+}
+.o-dwc-top-txt{
+	width: 575px;
+	float: left;
+}
+.o-dwc-top-download{
+	width: 130px;
+	float: right;
+}
+.o-dwc-pdf__icon{
+	width: 50px;
+	img{
+		width: 100%;
+	}
+}
+.o-dwc-pdf{
+	width: 126px;
+	float: right;
+	display: flex;
+	justify-content:center;
+	align-items:center;
+	flex-direction:column;
+}
+.dwc-share-icon{
+	width: 16px;
+    height: 16px;
+    float: left;
+    margin-right: 8px;
+    margin-top: -1px;
+	img{
+		width: 16px;
+	}
+}
+.o-dwc-share{
+	margin-top: 50px;
+	left:-87px;
+}
 .o-dwc-right-block{
 	width: 100%;
 	float: left;
@@ -73,3 +140,4 @@
 	float: left;
 	padding-top: 10px;
 }
+

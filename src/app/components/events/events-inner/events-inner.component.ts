@@ -37,7 +37,6 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
     this.tagState$ = this.store.select('eventTags');
     this.tagState$.subscribe((state) => {
       this.eventDetail = state['event_detail'];
-      console.log(this.eventDetail);
     });
 
     // Event tag
@@ -47,9 +46,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
         if (data['event_detail']) {
           this.isAttend = data['event_detail'].isGoing;
         }
-        console.log(data)
       });
-
   }
 
   ngOnInit() {
@@ -57,12 +54,9 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
       this.id = params['id'];
       this.loadDetail();
     });
-
-    console.log(this.id);
   }
 
   totalCountChange(value) {
-    console.log(this.totalTicket)
     // if (this.totalTicket > 0) {
       this.totalTicket += value.count
       this.totalAmount += value.amount

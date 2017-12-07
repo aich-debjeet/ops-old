@@ -8,20 +8,6 @@
                     <img *ngIf="checkFileType(data?.repopath, 'Image')" src="{{ imageLink + data?.repopath }}" class="img-responsive">
                     <app-audioplayer *ngIf="checkFileType(data?.repopath, 'Audio')" src="{{ imageLink + data?.repopath }}"></app-audioplayer>
                 </figure>
-                <!--<div class="c-mediamodal__l-arrow">
-                    <div class="c-mediamodal__arrow--icon">
-                        <a (click)="mediaNext('pre')">
-                            <img src="/assets/img/svg/arrow-left.svg" alt="">
-                        </a>
-                    </div>
-                </div>
-                <div class="c-mediamodal__r-arrow">
-                    <div class="c-mediamodal__arrow--icon">
-                        <a (click)="mediaNext('next')">
-                            <img src="/assets/img/svg/Arrow.svg" alt="">
-                        </a>
-                    </div>
-                </div>-->
             </div>
         </div>
         <div class="c-mediamodal__right" id="ops_scrollbar">

@@ -583,7 +583,7 @@ export class MediaSelectorComponent implements OnInit {
   }
 
   /**
-   * Identify Group
+   * Identify File
    * @param files
    */
   getFileType(fileName: string) {

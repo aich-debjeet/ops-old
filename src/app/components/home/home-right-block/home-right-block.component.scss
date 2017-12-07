@@ -156,9 +156,10 @@
 }
 
 .c-follow__sec {
-    height: auto;
+    height: 350px;
     padding-right: 8px;
     margin: 0 8px 16px 16px;
+    overflow-y: scroll;
 }
 
 .c-invite__block {
@@ -212,7 +213,7 @@
 }
 
 .c-card {
-    width: 100%;
+    width: 110%;
     height: auto;
     float: left;
     border-radius: 3px;
@@ -222,6 +223,7 @@
 
 .m-t-8 {
     margin-top: 8px !important;
+    margin-bottom: 30px;
 }
 
 .color-grey-dark {
@@ -255,4 +257,66 @@
 
 .col-md-3 {
     float: right;
+}
+
+.c-card__project {
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    line-height: 24px;
+    color: #929292;
+    text-transform: uppercase;
+}
+
+.c-card__project--icon {
+    height: 24px;
+    float: left;
+}
+
+.c-card__project--des {
+    font-size: 20px;
+    line-height: 30px;
+    color: #333333;
+}
+
+.m-t-16 {
+    margin-top: 16px !important;
+}
+
+.padding_16 {
+    padding: 16px;
+}
+
+.p-l-r-16 {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+}
+
+.o-home-org-list__title {
+    width: 100%;
+    float: left;
+    padding: 16px;
+}
+
+.p-t-b-8 {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+}
+
+.c-card__location {
+    clear: both;
+    margin: 0 16px;
+    position: relative;
+}
+
+.with_border_bottom {
+    border-bottom: solid 1px #F3F5F7;
+}
+
+.m-b-16 {
+    margin-bottom: 16px !important;
+}
+
+.p-b-16 {
+    padding-bottom: 16px !important;
 }

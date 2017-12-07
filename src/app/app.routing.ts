@@ -30,6 +30,7 @@ import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
+import { DwcComponent } from './components/dwc/dwc.component';
 import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world-cup.component';
 
 
@@ -62,16 +63,17 @@ export const routes: Routes = [
  { path: 'project', component: ProjectComponent, canActivate: [AuthGuard] },
  { path: 'jobs', component: JobsComponent, canActivate: [AuthGuard] },
  { path: 'job-details', component: JobDetailsComponent, canActivate: [AuthGuard] },
- { path: 'events', loadChildren: './components/events/events.module#EventsModule'},
+ { path: 'event', loadChildren: './components/events/events.module#EventsModule'},
  { path: 'user/settings', component: SettingsComponent, canActivate: [AuthGuard] },
  { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard] },
  { path: 'channel', component: ChannelListComponent, canActivate: [AuthGuard] },
  { path: 'resources', component: ResourceComponent, canActivate: [AuthGuard] },
  { path: 'communities', component: CommunitiesComponent, canActivate: [AuthGuard] },
+ { path: 'dwc', component: DwcComponent, canActivate: [AuthGuard] },
  { path: 'search', loadChildren: './components/search/search.module#SearchModule', canActivate: [AuthGuard] },
  { path: 'org', loadChildren: './components/organization/organization.module#OrganizationModule'},
  { path: 'opportunity', loadChildren: './components/opportunity/opportunity.module#OpportunityModule', canActivate: [AuthGuard] },
- { path: 'dwc', component: DanceWorldCupComponent },
+ { path: 'danceworldcup', component: DanceWorldCupComponent },
  { path: 'page-not-found', component: NotFoundPageComponent },
  { path: '**', redirectTo: 'page-not-found' },
 ];

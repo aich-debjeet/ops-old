@@ -46,6 +46,13 @@ export class EventService {
       return this.api.get('/portal/industry', '');
   }
 
+  /**
+   * Event Get all industry
+   */
+  getAllEventType() {
+      return this.api.get('/portal/event/get/eventType', '');
+  }
+
    /**
    * Upload Image to CDN
    */
@@ -61,6 +68,13 @@ export class EventService {
       status: data.status
     }
     return this.api.put( '/portal/event/attend/' + data.id, body);
+  }
+
+  /**
+   * Event search data
+   */
+  eventSearchData(data: any) {
+    return this.api.put( '/portal/event/advancesearch', data);
   }
 
 

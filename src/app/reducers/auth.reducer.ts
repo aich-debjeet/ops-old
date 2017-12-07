@@ -138,13 +138,14 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.USER_REGISTRATION_PROFILE:
       // console.log(payload);
       return Object.assign({}, state, {
-        success: true
+        success: true,
       });
 
     case AuthActions.USER_REGISTRATION_PROFILE_SUCCESS:
       // console.log('registration step2');
       return Object.assign({}, state, {
         completed: payload,
+        stepTwoRegSuccess: true,
         success: true
       });
 
@@ -436,6 +437,12 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.USER_LOGGED_IN_FAILED:
       return Object.assign({}, state, {
         login_status: false
+      });
+
+    // dwc event reg
+    case AuthActions.DWC_EVENT_REG_SUCCESS:
+      return Object.assign({}, state, {
+        dwc_event_reg_success: true
       });
 
     default:

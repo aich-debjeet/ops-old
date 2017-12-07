@@ -8,6 +8,7 @@ import { SearchReducer } from './reducers/search.reducer';
 import { UserSearchReducer } from './reducers/user-search.reducer';
 import { MediaReducer } from './reducers/media.reducer';
 import { OpportunityReducer } from './reducers/opportunity.reducer';
+import { ExploreReducer } from './reducers/explore.reducer';
 import { EventReducer } from './reducers/event.reducer';
 
 import { combineReducers, ActionReducer } from '@ngrx/store';
@@ -27,6 +28,7 @@ const reducers = {
   opportunityTags: OpportunityReducer,
   receivedMessagesTags: MessageReducer,
   notificationTags: NotificationReducer,
+  exploreTags: ExploreReducer,
   eventTags: EventReducer
 }
 

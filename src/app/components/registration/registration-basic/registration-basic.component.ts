@@ -45,6 +45,9 @@ export class RegistrationBasicComponent implements OnInit {
   isPhotoAdded: boolean;
   passwordShow = false;
   country: any;
+  saveUsername: boolean = true;
+  routeQuery: any;
+
 
   rightCom: RightBlockTag;
   tagState$: Observable<BasicRegTag>;
@@ -60,6 +63,7 @@ export class RegistrationBasicComponent implements OnInit {
   public otpForm: FormGroup;
   public newNumberForm: FormGroup;
   redrectUrl: any;
+  dwc: boolean;
 
   passwordShowToggle() {
     if (this.passwordShow === true) {
@@ -81,9 +85,23 @@ export class RegistrationBasicComponent implements OnInit {
     public tokenService: TokenService
     ) {
     // if redriect url there
-    if (this.route.snapshot.queryParams['next']) {
-      this.redrectUrl = this.route.snapshot.queryParams['next'];
+    if (this.route.snapshot.queryParams) {
+      this.routeQuery = Object.assign({}, this.route.snapshot.queryParams);
     }
+
+    if (this.route.snapshot.queryParams['ev']) {
+      if (this.route.snapshot.queryParams['ev'] === 'dwc2017') {
+        this.dwc = true;
+        this.routeQuery['dwc2017'] = 'true';
+        console.log(this.routeQuery);
+      }
+    }
+
+    const currentUrl = this.router.url;
+
+    console.log(currentUrl);
+
+
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       console.log(state);
@@ -262,8 +280,8 @@ export class RegistrationBasicComponent implements OnInit {
 
   // reg next step
   gotoRegProfile() {
-    if (this.redrectUrl !== undefined) {
-      this.router.navigate(['/reg/profile'], { queryParams: { next: this.redrectUrl }});
+    if (this.routeQuery) {
+      this.router.navigate(['/reg/profile'], { queryParams: this.routeQuery });
       return
     }else {
       this.router.navigate(['/reg/profile']);
@@ -309,6 +327,12 @@ export class RegistrationBasicComponent implements OnInit {
     this.modalService.open('termsAndConditions');
   }
 
+  onSaveUsernameChanged(value: boolean) {
+    this.saveUsername = value;
+    this.routeQuery['dwc2017'] = value;
+    console.log(this.routeQuery);
+  }
+
   /**
    * Submit new number for OTP
    */
@@ -323,7 +347,7 @@ export class RegistrationBasicComponent implements OnInit {
    * @param value
    */
   submitForm(value) {
-
+    console.log(this.regFormBasic.valid);
     // checking if all required fields with valid info available before submitting the form
     if (!this.regFormBasic.valid) {
       // console.log('invalid form');

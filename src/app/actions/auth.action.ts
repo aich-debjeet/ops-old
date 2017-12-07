@@ -121,6 +121,11 @@ export class AuthActions {
   static USER_AUTHENTICATED_SUCCESS = 'USER_AUTHENTICATED_SUCCESS';
   static USER_AUTHENTICATED_FAILED = 'USER_AUTHENTICATED_FAILED';
 
+  // event dwc reg
+  static DWC_EVENT_REG = 'DWC_EVENT_REG';
+  static DWC_EVENT_REG_SUCCESS = 'DWC_EVENT_REG_SUCCESS';
+  static DWC_EVENT_REG_FAILED = 'DWC_EVENT_REG_FAILED';
+
 
    // ===================================
   //  Get all skill step3

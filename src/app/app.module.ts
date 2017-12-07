@@ -40,6 +40,7 @@ import { ProfileReducer } from './reducers/profile.reducer';
 import { MessageReducer } from './reducers/messages.reducer';
 import { UserSearchReducer } from './reducers/user-search.reducer';
 import { OpportunityReducer } from './reducers/opportunity.reducer';
+import { ExploreReducer } from './reducers/explore.reducer';
 import { reducer } from './app.reducer';
 
 // Effects
@@ -54,6 +55,7 @@ import { UserSearchEffect } from './effects/user-search.effect';
 import { SearchEffect } from './effects/search.effect';
 import { OrganizationEffect } from './effects/organization.effect';
 import { EventEffect } from './effects/event.effect';
+import { ExploreEffect } from './effects/explore.effect';
 
 
 // Services
@@ -71,6 +73,7 @@ import { NotificationService } from './services/notification.service';
 import { SearchService } from './services/search.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { OpportunityService } from './services/opportunity.service';
+import { ExploreService } from './services/explore.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
@@ -119,6 +122,7 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
 import { AgmCoreModule } from '@agm/core';
 import { OpportunityEffect } from 'app/effects/opportunity.effect';
 import { OpportunityModule } from 'app/components/opportunity/opportunity.module';
+import { DwcComponent } from './components/dwc/dwc.component';
 import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world-cup.component';
 
 
@@ -156,6 +160,7 @@ import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world
     NetworkComponent,
     ProjectComponent,
     DirectoryListComponent,
+    DwcComponent,
     DanceWorldCupComponent
   ],
   imports: [
@@ -187,8 +192,7 @@ import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world
     EffectsModule.run(OrganizationEffect),
     EffectsModule.run(OpportunityEffect),
     EffectsModule.run(EventEffect),
-    // Share
-    // ShareButtonsModule.forRoot(),
+    EffectsModule.run(ExploreEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
@@ -216,7 +220,8 @@ import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world
     SearchService,
     GeneralUtilities,
     LocalStorageService,
-    OpportunityService
+    OpportunityService,
+    ExploreService
   ],
   bootstrap: [AppComponent]
 })
