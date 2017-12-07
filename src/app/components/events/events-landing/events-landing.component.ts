@@ -48,24 +48,16 @@ export class EventsLandingComponent implements OnInit {
     this.tagState$ = this.store.select('eventTags');
     this.tagState$.subscribe((state) => {
       this.eventList = state['event_list'];
-      // console.log(this.eventList);
     });
     // this.store.dispatch({ type: EventActions.EVENT_LIST });
-
-
-
-  
 
     this.route
       .queryParams
       .subscribe(params => {
-
         // Defaults to 0 if no query param provided.
         if (params['status']) {
           this.filterStatus = params['status'];
-          console.log(params['status']);
         }
-        console.log(this.myQueryParms);
         this.serachApi();
       });
 
@@ -83,22 +75,9 @@ export class EventsLandingComponent implements OnInit {
       searchText: this.filterSearchText || '',
       eventType: this.filterEventType || '',
     }
-
-    
-    
   }
 
   ngOnInit() {
-
-    
-
-
-
-  //  this.route.params.subscribe(params => {
-  //    console.log(params['category']);
-  //   });
-
-
     this.carouselOne = {
       grid: {xs: 3, sm: 3, md: 3, lg: 3, all: 0},
       slide: 1,
