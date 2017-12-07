@@ -61,12 +61,12 @@ export class EventsLandingComponent implements OnInit {
       .subscribe(params => {
 
         // Defaults to 0 if no query param provided.
-        if (params['cate']) {
-          this.filterStatus = params['cate'];
-          console.log(params['cate']);
+        if (params['status']) {
+          this.filterStatus = params['status'];
+          console.log(params['status']);
         }
-        this.serachApi();
         console.log(this.myQueryParms);
+        this.serachApi();
       });
 
 
@@ -140,6 +140,7 @@ export class EventsLandingComponent implements OnInit {
       touch: true
     }
   }
+
 
   serachApi() {
     const data = {
