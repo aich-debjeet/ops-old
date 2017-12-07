@@ -255,7 +255,10 @@ export class SettingsComponent implements OnInit {
     console.log(value);
     if ( this.nameForm.valid === true ) {
       const form =  {
-        'name': value.name
+        'name': {
+          'firstName': value.name,
+        'displayName': value.name
+        }
       }
       this._store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
       this.nameActive = false;
