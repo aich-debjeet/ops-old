@@ -9,6 +9,7 @@
                 <img src="/assets/img/quickaccess/my_media.png" alt="" *ngIf="quickAccessData?.name ==='My Media'">
                 <img src="/assets/img/quickaccess/planner.png" alt="" *ngIf="quickAccessData?.name ==='Planner'">
                 <img src="/assets/img/quickaccess/channel.png" alt="" *ngIf="quickAccessData?.name ==='Channel'">
+                <img src="/assets/img/quickaccess/channel.png" alt="" *ngIf="quickAccessData?.name !=='Channel' && quickAccessData?.name !=='Planner' && quickAccessData?.name !=='My Status' && quickAccessData?.name !=='My Media'">
             </div>
             <div class="o-quickaccess__title">
                 <h6 class="c-text_lg">{{ quickAccessData?.name }}</h6>
@@ -25,10 +26,10 @@
         </li>
     </ul>
   </span> -->
-        <div class="o-quickaccess__option" appDropdown *ngIf="quickAccessData?.name !='My Status' && quickAccessData?.name !='My Media'">
-            <div class="dropdown c-dropdown" appDropdownOpen>
-                <a class=" dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="/assets/img/svg/ico_option_white.svg">
+        <div class="o-quickaccess__option" *ngIf="quickAccessData?.name !='My Status' && quickAccessData?.name !='My Media'">
+            <div class="dropdown c-dropdown" appDropdown>
+                <a class=" dropdown-toggle" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
+                    <img src="/assets/img/svg/ico_options.svg">
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li><a (click)="unpinQuickAccess(quickAccessData?.handle)">Remove</a></li>

@@ -251,9 +251,6 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    * @param value value of form
    */
   submitForm(value) {
-    console.log(this.eventForm);
-    console.log(value);
-    console.log('Form validation' + this.eventForm.valid);
     // struct of backend
     // const data = {
     //     title : value.event_name,
@@ -343,7 +340,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
         .subscribe( reg => {
           console.log(reg);
           const id = reg['event_id'];
-          this.router.navigate(['/events/inner/' + id]);
+          this.router.navigate(['/event/inner/' + id]);
         });
     }
   }

@@ -84,29 +84,29 @@
 		<div class="o-event-filter-sec with_border_top c-ops__tabs o-event-tabs m-t--32">
   		<div class="col-md-6 p-0">
   			<ul class="nav nav-tabs">
-          <li class="active"><a class="p-l-0 p-t-b-16" data-toggle="tab"  aria-expanded="true">Recommended</a></li>
-          <li class=""><a class="p-t-b-16" data-toggle="tab"  aria-expanded="false">attending</a></li>
-          <li class=""><a class="p-t-b-16" data-toggle="tab"  aria-expanded="false">Created</a></li>
+          <li class="active"><a class="p-l-0 p-t-b-16" [routerLink]="['/event']" [queryParams]="{ cate: 'recommended' }">Recommended</a></li>
+          <li class=""><a class="p-t-b-16" [routerLink]="['/event']" [queryParams]="{ cate: 'attending' }">Attending</a></li>
+          <li class=""><a class="p-t-b-16" [routerLink]="['/event']" [queryParams]="{ cate: 'created' }">Created</a></li>
         </ul>
   		</div>
   		<div class="col-md-6 p-0">
-  			<a routerLink="/events/create" class="btn btn-primary btn-md float_right m-t-8 m-l-8">Create</a>
+  			<a routerLink="/event/create" class="btn btn-primary btn-md float_right m-t-8 m-l-8">Create</a>
   			<ul class="o-calendar float_right">
-  				<li class="o-calendar__list o-calendar--active">
-  					<div class="o-calander__date">
-  						<span class="c-h5 o-calendar--color">13, Dec</span>
+  				<li class="o-calendar__list">
+  					<div class="o-calander__date" [routerLink]="['/event']" [queryParams]='myQueryParms'>
+  						<span class="c-h5 o-calendar--color"> {{ day | date:"dd, MMM" }}</span>
   						<span class="c-text_sm text_uppercase ltr-space o-calendar--color">Today</span>
   					</div>
   				</li>
-  				<li class="o-calendar__list">
+  				<li class="o-calendar__list o-calendar--active">
   					<div class="o-calander__date">
-  						<span class="c-h5 o-calendar--color">14, Dec</span>
+  						<span class="c-h5 o-calendar--color">{{ tomorrow | date:"dd, MMM" }}</span>
   						<span class="c-text_sm text_uppercase ltr-space o-calendar--color">tomorrow</span>
   					</div>
   				</li>
   				<li class="o-calendar__list">
   					<div class="o-calander__date">
-  						<span class="c-h5 o-calendar--color">18, Dec</span>
+  						<span class="c-h5 o-calendar--color">{{ weekend | date:"dd, MMM" }}</span>
   						<span class="c-text_sm text_uppercase ltr-space o-calendar--color">Weekend</span>
   					</div>
   				</li>

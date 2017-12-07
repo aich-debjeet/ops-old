@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
+import { DatePipe } from '@angular/common';
+import * as moment from 'moment';
 
 // Model
 import { EventModal, initialTag  } from '../../../models/event.model';
@@ -19,21 +22,82 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./events-landing.component.scss']
 })
 export class EventsLandingComponent implements OnInit {
+  date = new Date();
+  day: any;
+  tomorrow: any;
+  weekend: any;
   carouselOne: NgxCarousel;
   tagState$: Observable<EventModal>;
   eventList = initialTag ;
+
+  category: string;
+  myQueryParms: any;
+
+  filterStartDate: string;
+  filterEndDate: string;
+  filterLocation: string;
+  filterStatus: string;
+  filterSearchText: string;
+  filterEventType: string;
+
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private store: Store<EventModal>
   ) {
     this.tagState$ = this.store.select('eventTags');
     this.tagState$.subscribe((state) => {
       this.eventList = state['event_list'];
-      console.log(this.eventList);
+      // console.log(this.eventList);
     });
-    this.store.dispatch({ type: EventActions.EVENT_LIST });
+    // this.store.dispatch({ type: EventActions.EVENT_LIST });
+
+
+
+  
+
+    this.route
+      .queryParams
+      .subscribe(params => {
+
+        // Defaults to 0 if no query param provided.
+        if (params['cate']) {
+          this.filterStatus = params['cate'];
+          console.log(params['cate']);
+        }
+        this.serachApi();
+        console.log(this.myQueryParms);
+      });
+
+
+    // day
+    this.day =  moment().format();
+    this.tomorrow = moment().add('days', 1);
+    this.weekend = moment().weekday(5);
+
+    this.myQueryParms = {
+      startDate:  this.filterStartDate || '',
+      endDate: this.filterEndDate || '',
+      location: this.filterLocation || '',
+      status: this.filterStatus || '',
+      searchText: this.filterSearchText || '',
+      eventType: this.filterEventType || '',
+    }
+
+    
+    
   }
 
   ngOnInit() {
+
+    
+
+
+
+  //  this.route.params.subscribe(params => {
+  //    console.log(params['category']);
+  //   });
+
 
     this.carouselOne = {
       grid: {xs: 3, sm: 3, md: 3, lg: 3, all: 0},
@@ -75,6 +139,21 @@ export class EventsLandingComponent implements OnInit {
       loop: false,
       touch: true
     }
+  }
+
+  serachApi() {
+    const data = {
+      startDate: '',
+      endDate: '',
+      location: '',
+      status: this.filterStatus || '',
+      searchText: '',
+      eventType: '',
+      offset: 0,
+      limit: 50,
+    }
+
+    this.store.dispatch({ type: EventActions.EVENT_SEARCH, payload: data });
   }
 
   /* This will be triggered after carousel viewed */

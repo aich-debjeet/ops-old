@@ -1,18 +1,18 @@
 <div class="c-event__card">
     <!-- card media (img, video & audio) -->
     <div class="c-card__event">
-        <a routerLink="{{ '/events/inner/' + eventData?.id }}"  data-toggle="modal" data-target="#imgModal">
-            <img src="{{ baseUrl + eventData?.event_media}}" alt="" class="c-card__image">
+        <a routerLink="{{ '/event/inner/' + eventData?.eventId }}"  data-toggle="modal" data-target="#imgModal">
+            <img src="{{ baseUrl + eventData?.eventImage }}" alt="" class="c-card__image">
         </a>
     </div>
     <!-- //card media (img, video & audio) -->
-    <div class="c-card__project p-l-r-16 p-t-16">{{eventData?.industry}}</div>
+    <div class="c-card__project p-l-r-16 p-t-16">{{eventData?.eventType?.eventType }}</div>
     <!-- card body -->
     <div class="c-card__body p-t-0">
         <div class="c-text_lg c-card__event-title">
-            {{eventData?.title | truncate:[40, '...']}}
+            {{eventData?.eventTitle | truncate:[40, '...']}}
         </div>
-        <div class="c-text_md color-grey-dark m-t-8">{{ eventData?.eventTiming?.startDate | utcDate | date: 'dd, MMM'}} - {{ eventData?.eventTiming?.endDate | utcDate | date: 'dd, MMM'}}</div>
+        <div class="c-text_md color-grey-dark m-t-8">{{ eventData?.eventStartDate | utcDate | date: 'dd, MMM'}} - {{ eventData?.eventEndDate | utcDate | date: 'dd, MMM'}}</div>
         <div class="c-text_sm color-grey-dark m-t-8 c-card__event-address">{{ eventData?.venue?.location }}</div>
     </div>
     <!-- //card body -->
@@ -32,7 +32,7 @@
                 </a>
             </div>
             <div class="c-links__actions">
-                <a routerLink="{{ '/events/inner/' + eventData?.id }}" class="c-card__opportunity--view">View</a>
+                <a routerLink="{{ '/event/inner/' + eventData?.eventId }}" class="c-card__opportunity--view">View</a>
             </div>
         </div>
     </div>
