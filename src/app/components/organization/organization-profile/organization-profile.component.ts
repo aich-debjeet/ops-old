@@ -13,6 +13,7 @@ import { LocalStorageService } from '../../../services/local-storage.service';
 
 import { Store } from '@ngrx/store';
 import {} from '@types/googlemaps';
+import { UserCard } from 'app/models/profile.model';
 
 @Component({
   selector: 'app-organization-profile',
@@ -25,54 +26,52 @@ export class OrganizationProfileComponent implements OnInit {
   prfileUsername: string;
   orgProfile: Observable<any>;
   orgState: any;
+  activeProfile: UserCard;
+
+  // Org states
+  private sub: any;
+  private mode: string;
+  isCurrentUser: boolean;
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private toastr: ToastrService,
     private ngZone: NgZone,
     private store: Store<Login>,
+    public route: ActivatedRoute,
     private orgStore: Store<any>,
     private router: Router,
-    private localStorageService: LocalStorageService
   ) {
-    // check organziation page already created
-    this.store.select('profileTags')
-      .first(profile => profile['current_user_profile_loading'] === true)
-      .subscribe( data => {
-        if (data['profile_navigation_details'].isOrganization === false) {
-          // this.router.navigateByUrl('/org/registration');
-        }
-      });
-
-    // check if creator is user or organization
-    if (localStorage.getItem('active_profile') !== null) {
-      const localStore = JSON.parse(this.localStorageService.theAccountStatus);
-      if (localStore.profileType === 'org') {
-        this.profileHandle = localStore.handle;
-        this.prfileUsername = localStore.username;
-      }
-    }
-
-    // this.orgState = this.orgStore.select('profileTags');
-    // this.orgState.subscribe((state) => {
-    //   this.orgProfile = state;
-    //   console.log('this.orgProfile', this.orgProfile);
-    // });
-
-    // this.orgStore.dispatch({
-    //   type: OrganizationActions.LOAD_ORG_CHANNELS,
-    //   payload: this.profileHandle
-    // });
+      //
 
    }
 
   ngOnInit() {
-    if (localStorage.getItem('active_profile') !== null) {
-      const localStore = JSON.parse(this.localStorageService.theAccountStatus);
-      // load org
-      this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: localStore.username });
-      this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: localStore.username });
-    }
+    // check for userhandles
+    this.sub = this.route.params
+    .subscribe(params => {
+      const orgParam = params['id'];
+      if (orgParam !== undefined) {
+        this.prfileUsername = orgParam
+      }
+    });
+
+    // check organziation page already created
+    this.store.select('profileTags')
+    .first(profile => profile['current_user_profile_loading'] === true)
+    .subscribe( data => {
+      this.activeProfile = data['profile_cards'].active;
+      this.prfileUsername = this.activeProfile.username;
+
+      //
+      this.orgStore.dispatch({
+        type: OrganizationActions.LOAD_ORG_CHANNELS,
+        payload: this.activeProfile.handle
+      });
+    });
+
+    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: this.prfileUsername });
+    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.prfileUsername });
   }
 
 }

@@ -64,6 +64,11 @@ const routes: Routes = [
     path: 'page',
     component: OrganizationProfileComponent,
     children: childRoutes
+  },
+  {
+    path: 'p/:id',
+    component: OrganizationProfileComponent,
+    children: childRoutes
   }
 ]
 

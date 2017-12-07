@@ -3680,6 +3680,10 @@ ngx-infinite-scroll@^0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-0.5.2.tgz#f31aefc5e78e6b352e68f286f16c4dead180d43c"
 
+ngx-sharebuttons@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-sharebuttons/-/ngx-sharebuttons-3.0.0.tgz#942a7610387523ffc9b78bc3b46868ea035ce0a8"
+
 ngx-toastr@^6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-6.3.0.tgz#03860ceeb189d51e60e49ee74157296b7e102af1"

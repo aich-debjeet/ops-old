@@ -21,7 +21,7 @@ function genUserCard(profile: any, isOrg: boolean = true) {
     const org  = profile['organization'];
     const oCard: UserCard = {
       name: org.organizationName,
-      image: org.organizationCoverImage,
+      image: org.organizationImage,
       username: org.organizationUserName,
       handle: org.organizationHandle,
       isOrg: true,
@@ -936,7 +936,10 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
 
     case ProfileActions.CHANGE_PROFILE:
-      // Switch to the other profile
+      /**
+       * @TODO
+       * Make sure it is pure function
+       */
       let profileType = 'profile';
       if (payload.other.isOrg === true) {
         profileType = 'organization';

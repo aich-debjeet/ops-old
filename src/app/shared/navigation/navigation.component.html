@@ -156,8 +156,8 @@
                                 <a routerLink="/org/registration">Create Organisation</a>
                             </div>
                             <div class="dropdown__item p-t-b-16 with_border_bottom">
-                                <a *ngIf="this.profileType == 'profile'" routerLink="/user/settings">Settings</a>
-                                <a *ngIf="this.profileType == 'organization'" routerLink="/org/settings">Settings</a>
+                                <a *ngIf="this.userCards.active.isOrg === false" routerLink="/user/settings">Settings</a>
+                                <a *ngIf="this.userCards.active.isOrg === true" routerLink="/org/settings">Settings</a>
                             </div>
                             <div class="dropdown__item p-t-b-16">
                                 <a routerLink="/invite/friends">Invite Friends</a>

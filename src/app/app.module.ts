@@ -11,7 +11,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ImageCropperModule } from 'ng2-img-cropper/index';
 import { ToastrModule } from 'ngx-toastr';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
-
+// import { ShareButtonsModule } from 'ngx-sharebuttons';
 
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
@@ -187,6 +187,8 @@ import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world
     EffectsModule.run(OrganizationEffect),
     EffectsModule.run(OpportunityEffect),
     EffectsModule.run(EventEffect),
+    // Share
+    // ShareButtonsModule.forRoot(),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
