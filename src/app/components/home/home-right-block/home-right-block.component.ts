@@ -43,7 +43,7 @@ export class HomeRightBlockComponent implements OnInit {
 
     // observe the opportunity state
     this.opportunityState$.subscribe((state) => {
-      console.log('opportunityState', state);
+      // console.log('opportunityState', state);
      // check for the result of recommended opportunities
      if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
        this.opportunities = state.get_opportunities_data.SUCCESS;

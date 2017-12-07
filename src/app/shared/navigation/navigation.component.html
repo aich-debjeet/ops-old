@@ -24,10 +24,14 @@
                         <a routerLink="/danceworldcup">dwc <img src="/assets/img/svg/nav_star.svg" class="o-nav__star"></a>
                     </li>
                 </ul>
-              
-                <ul class="nav navbar-nav nav__right">
+                <ul class="nav navbar-nav nav__right" *ngIf="isProfileSet === false">
+                  <a class="signIn" routerLink="/login">
+                    Sign in
+                  </a>
+                </ul>
+                <ul class="nav navbar-nav nav__right" *ngIf="isProfileSet === true">
                     <li>
-                        <a routerLink="/post"><img src="/assets/img/svg/ico_create-post.svg"></a>
+                      <a routerLink="/post"><img src="/assets/img/svg/ico_create-post.svg"></a>
                     </li>
                     <li class="dropdown" appDropdown>
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
@@ -119,7 +123,7 @@
                             <img src="/assets/img/svg/ico_message.svg">
                         </a>
                     </li>
-                   
+
                     <li class="dropdown" appDropdown>
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
                             <img src="{{ baseUrl + activeProfileState.profile_navigation_details?.profileImage }}" class="nav__avatar__img" *ngIf="this.profileType == 'user'">

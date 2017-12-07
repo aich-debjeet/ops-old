@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Register, UserTag, initialTag, AuthModel, RightBlockTag } from '../../models/auth.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Modal } from '../../shared/modal-new/Modal';
 
 // Action
 import { AuthActions } from '../../actions/auth.action'
@@ -14,6 +15,7 @@ import { AuthActions } from '../../actions/auth.action'
 })
 export class DwcComponent implements OnInit {
   public eventForm: FormGroup;
+  @ViewChild('dwcModal') DwctypeModal: Modal;
   constructor(
     private fb: FormBuilder,
     private store: Store<AuthModel>,
@@ -24,6 +26,11 @@ export class DwcComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+  }
+
+  testClick() {
+    console.log('onclick');
+    
   }
 
   /**
@@ -50,9 +57,16 @@ export class DwcComponent implements OnInit {
         category: value.school_category,
         teamates: value.school_teammates,
       }
-      this.store.dispatch({ type: AuthActions.DWC_EVENT_REG, payload: form});
-      this.router.navigateByUrl('/profile/user');
+      this.DwctypeModal.open();
+
+      // Plz enable this code after payment implementation
+      // this.store.dispatch({ type: AuthActions.DWC_EVENT_REG, payload: form});
+      // this.router.navigateByUrl('/profile/user');
     }
+  }
+
+  policySubmit() {
+    this.router.navigateByUrl('/profile/user');
   }
 
 }
