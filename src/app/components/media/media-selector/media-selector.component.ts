@@ -156,7 +156,8 @@ export class MediaSelectorComponent implements OnInit {
       this.postSuccessActive = this.profileChannel.media_channel_posting;
 
       if (state['profile_cards'].active && (this.activeUser.handle !== state['profile_cards'].active.handle)) {
-        this.loadChannel(state['profile_cards'].active.handle);
+        console.log('x');
+        // this.loadChannel(state['profile_cards'].active.handle);
       }
 
       if (this.postSuccessActive === true) {
