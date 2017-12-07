@@ -41,7 +41,7 @@ export class HomeRightBlockComponent implements OnInit {
 
     // observe the opportunity state
     this.opportunityState$.subscribe((state) => {
-      console.log('opportunityState', state);
+      // console.log('opportunityState', state);
      // check for the result of recommended opportunities
      if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
        this.opportunities = state.get_opportunities_data.SUCCESS;
@@ -52,7 +52,6 @@ export class HomeRightBlockComponent implements OnInit {
     this.myProfile$.subscribe(event => {
       this.profiles = event.user_profiles_all;
       this.userState = event;
-      console.log('user state' , this.userState)
             // check for user skills
             if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['skills'] && this.userState['profile_navigation_details']['skills'].length > 0) {
               // fetching skills in a local var
