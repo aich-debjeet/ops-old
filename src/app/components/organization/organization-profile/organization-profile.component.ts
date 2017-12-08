@@ -60,6 +60,11 @@ export class OrganizationProfileComponent implements OnInit {
     this.store.select('profileTags')
     .first(profile => profile['current_user_profile_loading'] === true)
     .subscribe( data => {
+      /**
+       * @TODO
+       * What happens if the current user,
+       * without switching to org comes here?
+       */
       this.activeProfile = data['profile_cards'].active;
       this.prfileUsername = this.activeProfile.username;
 
