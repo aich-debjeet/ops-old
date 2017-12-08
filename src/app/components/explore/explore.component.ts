@@ -10,10 +10,6 @@ import { Store } from '@ngrx/store';
 // models
 import { ExploreModel } from 'app/models/explore.model';
 
-// importing slider plugin
-// import { NgxCarouselModule } from 'ngx-carousel';
-// import { NgxCarousel } from 'ngx-carousel';
-
 // pipes
 import { TruncatePipe } from 'app/pipes/truncate.pipe';
 
@@ -90,13 +86,6 @@ export class ExploreComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  /**
-   * Navigate to the spotfeed
-   */
-  gotoSpotfeed(spotfeedId: string) {
-    console.log('goto ', spotfeedId);
   }
 
 }
