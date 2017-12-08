@@ -97,9 +97,6 @@ export class ExploreComponent implements OnInit {
             };
             this.pagination.push(refData);
           });
-          // setTimeout(() => {
-          //   console.log(this.pagination);
-          // }, 1000);
         }
       }
 
