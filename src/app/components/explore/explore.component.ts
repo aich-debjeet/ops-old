@@ -30,6 +30,7 @@ export class ExploreComponent implements OnInit {
   profileSpotfeeds: any[];
   allSpotfeeds: any[];
   baseUrl: string;
+  showPreloader = true;
 
   constructor(
     private store: Store<ExploreModel>
@@ -64,12 +65,17 @@ export class ExploreComponent implements OnInit {
     this.exploreState$ = this.store.select('exploreTags');
     this.exploreState$.subscribe((state) => {
       this.exploreState = state;
-      // console.log('this.exploreState', this.exploreState);
+      console.log('this.exploreState', this.exploreState);
 
       // get all spotfeeds
       if (state && state.spotfeeds && state.spotfeeds.SUCCESS) {
         this.allSpotfeeds = state.spotfeeds.SUCCESS;
-        // console.log('all spotfeeds', this.allSpotfeeds);
+        console.log('all spotfeeds', this.allSpotfeeds);
+      }
+
+      // check if loaded
+      if (state && state.searching_spotfeeds === false && state.search_complete === true) {
+        this.showPreloader = false;
       }
     })
 
