@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxCarousel } from 'ngx-carousel';
+// import { NgxCarousel } from 'ngx-carousel';
 
 // actions
 import { ExploreActions } from 'app/actions/explore.action';
@@ -9,7 +9,7 @@ import { ProfileActions } from 'app/actions/profile.action';
 import { Store } from '@ngrx/store';
 
 // models
-import { ExploreModel } from 'app/models/explore.model';
+import { ExploreModel, initialExploreTag } from 'app/models/explore.model';
 
 // pipes
 import { TruncatePipe } from 'app/pipes/truncate.pipe';
@@ -31,15 +31,15 @@ export class ExploreComponent implements OnInit {
   userState$: Observable<any>;
   userProfile: any;
   exploreState$: Observable<any>;
-  exploreState: any;
-  profileSpotfeeds: any[];
-  allSpotfeeds: any[];
+  exploreState = initialExploreTag;
+  profileSpotfeeds: any;
+  allSpotfeeds: any;
   baseUrl: string;
   showPreloader = true;
   recordsPerPage = 10;
   pagination = [];
 
-  public carouselOne: NgxCarousel;
+  // public carouselOne: NgxCarousel;
 
   constructor(
     private store: Store<ExploreModel>
