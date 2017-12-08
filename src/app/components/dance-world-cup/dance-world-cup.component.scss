@@ -6,6 +6,9 @@
 	float: left;
 	margin-top: 80px;
 }
+// .o-dwc-detail .container {
+// 	margin-bottom: 30px;
+// }
 .o-dwc-list{
 	list-style: none;
   display: block;
@@ -65,12 +68,12 @@
 	height: 200px;
 	float: left;
 	background: #ccc;
-	margin-bottom: 24px;
 	position: relative;
 	background: url(/assets/img/home/Banner.jpg) no-repeat;
     background-size: cover;
     background-position: right;
-    padding :32px;
+	padding :32px;
+	margin-bottom: 24px;
 }
 .dwc-btn{
 	padding:8px 12px;
@@ -130,10 +133,10 @@
 	width: 100%;
 	float: left;
 	background: #fff;
-	padding:40px 32px 32px 32px;
 	height: 88vh;
 	overflow: hidden;
 	overflow-y:scroll;
+	padding-bottom: 30px;
 }
 .o-dwc__block{
 	width: 100%;
@@ -141,3 +144,6 @@
 	padding-top: 10px;
 }
 
+.right-block-padding {
+	padding:40px 32px 32px 32px;
+}
