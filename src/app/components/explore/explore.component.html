@@ -26,6 +26,26 @@
   </div>
 </section>
 
+<!-- <section class="o-explore-catagory-sec">
+    <ngx-carousel
+      [inputs]="carouselOne"
+      (carouselLoad)="myfunc($event)">
+      <ngx-item NgxCarouselItem *ngFor="let spotfeed of profileSpotfeeds;">
+        <div class="o-explore-catagory-block m-r-8">
+          <div class="pointer" [routerLink]="['/spotfeed', spotfeed.name]">
+            <div class="o-explore-catagory__thumb" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed?.image + ')', 'background-size': 'cover', 'background-position': 'center'}">
+            </div>
+            <div class="o-explore-catagory__title c-text_sm p-l-8">
+              {{ spotfeed?.name | truncate:[10, '...'] }}
+            </div>
+          </div>
+        </div>
+      </ngx-item>
+      <button NgxCarouselPrev class='leftRs'>&lt;</button>
+      <button NgxCarouselNext class='rightRs'>&gt;</button>
+    </ngx-carousel>
+  </section> -->
+
 <section class="o-explore-catagory-main m-t-24 ptop-50"></section>
 
 <!-- category start -->

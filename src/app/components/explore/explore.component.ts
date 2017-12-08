@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxCarousel } from 'ngx-carousel';
 
 // actions
 import { ExploreActions } from 'app/actions/explore.action';
@@ -35,6 +36,8 @@ export class ExploreComponent implements OnInit {
   allSpotfeeds: any[];
   baseUrl: string;
   showPreloader = true;
+
+  public carouselOne: NgxCarousel;
 
   constructor(
     private store: Store<ExploreModel>
@@ -86,6 +89,25 @@ export class ExploreComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.carouselOne = {
+    //   grid: {xs: 5, sm: 5, md: 5, lg: 5, all: 5},
+    //   slide: 5,
+    //   load: 5,
+    //   speed: 400,
+    //   interval: 4000,
+    //   point: {
+    //     visible: false
+    //   },
+    //   touch: true,
+    //   loop: true,
+    //   custom: 'banner'
+    // }
+  }
+
+  public myfunc(event: Event) {
+     // carouselLoad will trigger this funnction when your load value reaches
+     // it is helps to load the data by parts to increase the performance of the app
+     // must use feature to all carousel
   }
 
 }
