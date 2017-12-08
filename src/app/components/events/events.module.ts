@@ -31,10 +31,6 @@ const routes: Routes = [
     component: EventsLandingComponent
   },
   {
-    path: ':category',
-    component: EventsLandingComponent
-  },
-  {
     path: 'create',
     component: EventsCreateComponent
   },

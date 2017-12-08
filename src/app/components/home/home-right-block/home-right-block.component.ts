@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TruncatePipe } from '../../../pipes/truncate.pipe';
 
 import { ProfileActions } from '../../../actions/profile.action';
 
@@ -29,6 +30,7 @@ export class HomeRightBlockComponent implements OnInit {
   recordsPerPage = 2;
   opportunities: any[];
 
+
   constructor(
     private store: Store<ProfileModal>
   ) {
@@ -41,7 +43,7 @@ export class HomeRightBlockComponent implements OnInit {
 
     // observe the opportunity state
     this.opportunityState$.subscribe((state) => {
-      console.log('opportunityState', state);
+      // console.log('opportunityState', state);
      // check for the result of recommended opportunities
      if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
        this.opportunities = state.get_opportunities_data.SUCCESS;
@@ -53,6 +55,7 @@ export class HomeRightBlockComponent implements OnInit {
       this.profiles = event.user_profiles_all;
       this.userState = event;
       console.log('user state' , this.userState)
+      console.log('this.profiles ', this.profiles)
             // check for user skills
             if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['skills'] && this.userState['profile_navigation_details']['skills'].length > 0) {
               // fetching skills in a local var
@@ -93,6 +96,33 @@ export class HomeRightBlockComponent implements OnInit {
       type: OpportunityActions.GET_OPPORTUNITIES,
       payload: recomSearchParams
     });
+  }
+
+  /**
+   * Follow an artist
+   * @param user obj
+   */
+  followUser(user: any) {
+    console.log(user)
+    this.store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
+    user.extra.isFollowing = true;
+  }
+
+  /**
+   * Unfollow an artist
+   * @param user obj
+   */
+  unfollowUser(user: any) {
+    console.log(user)
+    this.store.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.handle });
+    user.extra.isFollowing = false;
+  }
+
+  disableFollowForSelf(username: string) {
+    if (this.userState && (this.userState['profile_navigation_details']['username']) === username) {
+      return true;
+    }
+    return false;
   }
 
 }

@@ -63,18 +63,90 @@
         </div>
         <div class="col-md-9">
             <div id="ops_scrollbar" class="o-dwc-right-block">
-                <h3 class="c-h3 f-w_500 m-b-16">
-                    Dance World Cup Qualifier India- 2018
-                    <a [routerLink]="['/dwc']" class="btn btn-primary btn-md float_right">Register</a>
-                </h3>
-                <p class="c-text_lg">
-                    The Indian Society for Performers and Teachers of Dance (ISPTD) in association with Lourd Vijay's Dance Studio
-                    (LVDS)  and One Page Spotlight will be hosting the Dance World Cup - India Qualifiers.
-                </p>
-                <p class="c-text_md color-grey-dark m-t-8 m-b-24">
-                    India will be hosting the first ever Dance World Cup qualifier in Bangalore on 4th February 2018. 
-                    2018â€™s Dance World Cup finals will be held in Spain.
-                </p>
+                <div class="o-dwc-banner">
+                    <h2 class="c-h2 color-white ">Dance World Cup</h2>
+                    <h4 class="c-h4 m-t-8 color-white">Qualifier India- 2018</h4>
+                    <a [routerLink]="['/dwc']"  class="dwc-btn">Register</a>
+                    <span class="c-links__share  dropdown">
+                        <a  class="dwc-btn m-l-8 dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> 
+                            <span class="dwc-share-icon"><img src="/assets/img/svg/share_theme.svg" alt=""></span>Share
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right o-share__profile o-dwc-share p-16">
+                            <div class="c-text_md p-b-8">Share this Profile</div>
+                            <div class="c-invite--search m-0">
+                                <form class="fill-grey-light">
+                                    <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm">
+                                        <input class="c-form__input p-l-24" required="" type="text">
+                                        <label class="p-l-16">Input with icon</label>
+                                        <span>
+                                            <img src="/assets/img/svg/ico_search.svg" class="c-form__input--lefticon">
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="o-share__recent m-t-b-16">Recent Contacts</div>
+                            <div class="c-invite__block">
+                                <a class="c-user__avatar c-avatar--status">
+                                    <img src="/assets/img/new/avatar.png" class="o-share__avatar">
+                                </a>
+                                <a class="c-text_md c-invite--user">Seth Chevz1</a>
+                            </div>
+                            <div class="c-invite__block">
+                                <a class="c-user__avatar c-avatar--status">
+                                    <img src="/assets/img/new/avatar2.png" class="o-share__avatar">
+                                </a>
+                                <a class="c-text_md c-invite--user">Seth Chevz2</a>
+                            </div>
+                            <div class="c-invite__block">
+                                <a class="c-user__avatar c-avatar--status">
+                                    <img src="/assets/img/new/avatar3.png" class="o-share__avatar">
+                                </a>
+                                <a class="c-text_md c-invite--user">Seth Chevz3</a>
+                            </div>
+                            <div class="c-invite__block">
+                                <a class="c-user__avatar c-avatar--status">
+                                    <img src="/assets/img/new/avatar2.png" class="o-share__avatar">
+                                </a>
+                                <a class="c-text_md c-invite--user">Seth Chevz4</a>
+                            </div>
+                            <div class="o-share__social">
+                                <div class="o-share__social-icon p-l-0">
+                                    <img src="/assets/img/svg/googleplus.svg">
+                                </div>
+                                <div class="o-share__social-icon">
+                                    <img src="/assets/img/svg/twitter.svg">
+                                </div>
+                                <div class="o-share__social-icon">
+                                    <img src="/assets/img/svg/facebook.svg">
+                                </div>
+                                <div class="o-share__social-icon p-r-0">
+                                    <img src="/assets/img/svg/envelope.svg">
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+
+                <div class="o-dwc-top-txt">
+                    <p class="c-text_lg">
+                        The Indian Society for Performers and Teachers of Dance (ISPTD) in association with Lourd Vijay's Dance Studio
+                        (LVDS)  and One Page Spotlight will be hosting the Dance World Cup - India Qualifiers.
+                    </p>
+                    <p class="c-text_md color-grey-dark m-t-24 m-b-24">
+                        India will be hosting the first ever Dance World Cup qualifier in Bangalore on 4th February 2018. 
+                        2018’s Dance World Cup finals will be held in Spain.
+                    </p>
+                </div>
+                <div class="o-dwc-top-download">
+                    <div class="o-dwc-pdf">
+                        <span class="o-dwc-pdf__icon">
+                            <img src="/assets/img/invite/book.svg" alt="">
+                        </span>
+                        <h6 class="c-text_lg f-w_600 color-theme text-center">Dance World Cup Rules Booklet </h6>
+                        <a href="/assets/pdf/dwc.pdf" target="_blank" class="btn btn-primary btn-sm m-t-16">Click to read</a>
+                    </div>
+                </div>
+
                 <div class="o-dwc__block">
                     <h6 class="c-text_lg f-w_600">About Dance world cup</h6>
                     <p class="c-text_md color-grey-dark m-t-b-8">
@@ -377,8 +449,9 @@
                        Venue: MeliÃ£ Carrer de Joan Salvat Papasseit 38, 08870 Sitges, Barcelona, Spain
                     </p>
                 </div><!-- DWC Finals end -->
-
-                <a [routerLink]="['/dwc']" class="btn btn-primary btn-md m-t-16">Register</a>
+                <span class="width100 float_left">
+                    <a [routerLink]="['/dwc']" class="btn btn-primary btn-md m-t-16">Register</a>
+                </span>
             </div>
         </div>
     </div>
