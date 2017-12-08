@@ -10,6 +10,13 @@ import { Store } from '@ngrx/store';
 // models
 import { ExploreModel } from 'app/models/explore.model';
 
+// importing slider plugin
+// import { NgxCarouselModule } from 'ngx-carousel';
+// import { NgxCarousel } from 'ngx-carousel';
+
+// pipes
+import { TruncatePipe } from 'app/pipes/truncate.pipe';
+
 // services
 
 // rx
@@ -19,7 +26,8 @@ import { environment } from 'environments/environment.prod';
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',
-  styleUrls: ['./explore.component.scss']
+  styleUrls: ['./explore.component.scss'],
+  providers: [ TruncatePipe ]
 })
 export class ExploreComponent implements OnInit {
 

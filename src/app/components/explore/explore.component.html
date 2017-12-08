@@ -20,7 +20,7 @@
         <!-- <img src="{{ baseUrl + spotfeed.image }}" alt=""> -->
       </div>
       <div class="o-explore-catagory__title c-text_sm p-l-8">
-        {{ spotfeed?.name }}
+        {{ spotfeed?.name | truncate:[10, '...'] }}
       </div>
     </div>
   </div>
