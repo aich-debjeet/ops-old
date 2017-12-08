@@ -1,3 +1,14 @@
+<!-- <div class="c-profile_buttons" *ngIf="!this.isOwner">
+    <button *ngIf="!profileObject?.extra?.isImported" (click)="userFollow(isFollowing, profileObject?.userDetails?.handle )" type="button" [ngClass]="(isFollowing) ? 'btn-following' : 'btn-primary'" class="btn btn-primary btn-md">{{ (isFollowing)? 'Unfollow' : 'Follow'}}</button>
+    <button *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-primary btn-md">Claim</button>
+    <button type="button" class="btn btn-primary btn-md btn-inverse">Network</button>
+    <button type="button" (click)="donatePopup()" class="btn btn-primary btn-md btn-inverse">Support</button>
+</div> -->
+
+
+
+
+
 <section>
     <div class="c-timeline__img" *ngIf="profileObject !== null" [ngStyle]="coverImageStyle(profileObject)">
         <div class="container" *ngIf="this.isOwner">
@@ -26,7 +37,13 @@
                     </span>
                 </div>
                 <div class="c-profile__userdetail">
-                    <h2 class="c-profile__username">{{ profileObject?.name }}<span class="c-profile__userskill">artist</span></h2>
+                    <h2 class="c-profile__username" *ngIf="this.isOwner">{{ profileObject?.name }}<span class="c-profile__userskill">artist</span></h2>
+                    <h2 class="c-profile__username" *ngIf="!this.isOwner">{{ profileObject?.name }}<span class="c-profile__userskill">artist</span>
+                        <button type="button" *ngIf="!profileObject?.extra?.isImported" (click)="userFollow(isFollowing, profileObject?.userDetails?.handle )" [ngClass]="(isFollowing) ? 'btn-following' : 'btn-primary'" class="btn btn-primary btn-md m-l-8">{{ (isFollowing)? 'Unfollow' : 'Follow'}}</button>
+                        <!-- <button *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-primary btn-md m-l-8">Claim</button> -->
+                        <a type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#createNetwork">Network</a>
+                        <button type="button" (click)="donatePopup()" class="btn btn-default btn-md">Support</button>
+                    </h2>
                     <span class="c-profile__userhandle">{{ '@' + profileObject?.userHandle }}</span>
                     <span class="c-profile__userprofession">{{ profileObject?.extra?.profession }}</span>
                     <div class="c-profile__maintags">

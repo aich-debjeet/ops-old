@@ -33,9 +33,9 @@ export class ExploreService {
     /**
      * Get spotfeeds
      */
-    getSpotfeeds() {
+    getSpotfeeds(params: any) {
         this.updateToken();
-        return this.api.get('/portal/cdn/explore/getFeeds');
+        return this.api.get('/portal/cdn/explore/getFeeds/' + params.offset + '/' + params.limit + '?industryType=' + params.industryType);
     }
 
 }
