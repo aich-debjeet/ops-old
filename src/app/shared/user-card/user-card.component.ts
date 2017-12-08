@@ -76,7 +76,7 @@ export class UserCardComponent implements OnInit {
    */
   followUser(user: any) {
     this.store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
-    user.isFollowing = true;
+    user.extra.isFollowing = true;
   }
 
   /**
@@ -85,7 +85,7 @@ export class UserCardComponent implements OnInit {
    */
   unfollowUser(user: any) {
     this.store.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.handle });
-    user.isFollowing = false;
+    user.extra.isFollowing = false;
   }
 
   disableFollowForSelf(username: string) {
