@@ -36,6 +36,8 @@ export class ExploreComponent implements OnInit {
   allSpotfeeds: any[];
   baseUrl: string;
   showPreloader = true;
+  recordsPerPage = 10;
+  pagination = [];
 
   public carouselOne: NgxCarousel;
 
@@ -49,7 +51,12 @@ export class ExploreComponent implements OnInit {
     this.store.dispatch({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS });
 
     // load category wise spotfeeds
-    this.store.dispatch({ type: ExploreActions.LOAD_SPOTFEEDS });
+    const params = {
+      industryType: '',
+      offset: 0,
+      limit: this.recordsPerPage
+    };
+    this.store.dispatch({ type: ExploreActions.LOAD_SPOTFEEDS, payload: params });
 
     /**
      * check user state
@@ -78,6 +85,22 @@ export class ExploreComponent implements OnInit {
       if (state && state.spotfeeds && state.spotfeeds.SUCCESS) {
         this.allSpotfeeds = state.spotfeeds.SUCCESS;
         console.log('all spotfeeds', this.allSpotfeeds);
+
+        // preparing the pagination reference var
+        if (this.pagination && this.pagination.length === 0) {
+          // console.log('set pagination');
+          this.allSpotfeeds.forEach((value, index) => {
+            const refData = {
+              limit: 0,
+              type: value.industry,
+              offset: this.recordsPerPage
+            };
+            this.pagination.push(refData);
+          });
+          // setTimeout(() => {
+          //   console.log(this.pagination);
+          // }, 1000);
+        }
       }
 
       // check if loaded
@@ -86,6 +109,13 @@ export class ExploreComponent implements OnInit {
       }
     })
 
+  }
+
+  /**
+   * Load more spotfeeds
+   */
+  dispatchLoadMore(industryType: string) {
+    console.log();
   }
 
   ngOnInit() {
@@ -104,10 +134,6 @@ export class ExploreComponent implements OnInit {
     // }
   }
 
-  public myfunc(event: Event) {
-     // carouselLoad will trigger this funnction when your load value reaches
-     // it is helps to load the data by parts to increase the performance of the app
-     // must use feature to all carousel
-  }
+  // public myfunc(event: Event) { }
 
 }
