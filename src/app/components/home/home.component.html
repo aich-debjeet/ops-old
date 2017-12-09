@@ -29,11 +29,13 @@
 <section class="o-home-content">
     <div class="container">
         <!-- left home feed -->
-        <div class="o-quickacces">
-            <div class="col-md-12 p-0">
-                <div class="col-md-6 c-text_md ltr-space text_uppercase p-0 m-b-16 o-top-quick-access">Quick access</div>
+        <div class="row m-t-16">
+            <div class="c-text_lg">
+                Quick Access
             </div>
-            <app-quick-access *ngFor="let quickAccess of userQuickAccess.userQuickAccess; let i = index" [quickAccessData]="quickAccess"></app-quick-access>
+            <div class="c-qt">
+                <app-quick-access *ngFor="let quickAccess of userQuickAccess.userQuickAccess; let i = index" [quickAccessData]="quickAccess"></app-quick-access>
+            </div>
         </div>
         <div class="o-home-tab-sec with_border_top c-ops__tabs o-opportunity-tabs">
             <div class="col-md-6 p-0">
