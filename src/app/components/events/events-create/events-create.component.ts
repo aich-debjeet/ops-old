@@ -47,6 +47,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   id: any;
   private sub: any;
   eventDetail: any;
+  eventCover: File;
 
   datePickerConfig: IDatePickerConfig = {
     firstDayOfWeek: 'mo',
@@ -116,29 +117,48 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    */
 
   fileChangeListener($event) {
-    const image: any = new Image();
-    const file: File = $event.target.files[0];
-    const myReader: FileReader = new FileReader();
-    const that = this;
-    let val: any;
+    const data = new FormData();
 
-    myReader.onloadend = function (loadEvent: any) {
-      image.src = loadEvent.target.result;
-      val = loadEvent.target.result;
-      that.image = loadEvent.target.result;
-      that.uploadCoverImage(loadEvent.target.result);
-    };
+    if ($event.target.files.length > 0) {
+      const randm = Math.random().toString(36).slice(2);
+      const fileName = 'prof_' + randm + '.' + 'jpg';
 
-    myReader.readAsDataURL(file);
+      let file = $event.target.files[0];
+
+      const data = new FormData();
+      data.append('file', file, fileName );
+
+      // Display the key/value pairs
+
+      // Upload files
+      // console.log(data);
+      this.uploadCoverImage(data);
+    }
+
+
+    // const image: any = new Image();
+    // const file: File = $event.target.files[0];
+    // const myReader: FileReader = new FileReader();
+    // const that = this;
+    // let val: any;
+
+    // myReader.onloadend = function (loadEvent: any) {
+    //   image.src = loadEvent.target.result;
+    //   val = loadEvent.target.result;
+    //   that.image = loadEvent.target.result;
+    //   that.uploadCoverImage(loadEvent.target.result);
+    // };
+
+    // myReader.readAsDataURL(file);
   }
 
    /**
    * Upload Cover image
    */
-  uploadCoverImage(val) {
+  uploadCoverImage(fileObj) {
     const imageData = {
       handle: this.userHandle,
-      image: this.image.split((/,(.+)/)[1])
+      image: fileObj
     };
 
     this.store.dispatch({ type: EventActions.FILE_UPLOAD, payload: imageData });
@@ -146,7 +166,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     this.store.select('eventTags')
       .first(file => file['fileupload_success'] === true )
       .subscribe( data => {
-        this.eventCoverImage = data['fileUpload'].repoPath
+        this.eventCoverImage = data['fileUpload'][0].repoPath
       });
   }
 

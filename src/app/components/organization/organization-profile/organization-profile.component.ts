@@ -22,11 +22,12 @@ import { UserCard } from 'app/models/profile.model';
 })
 export class OrganizationProfileComponent implements OnInit {
 
-  profileHandle: string;
-  prfileUsername: string;
+  profileCard: UserCard;
   orgProfile: Observable<any>;
-  orgState: any;
   activeProfile: UserCard;
+  hasNoOrg: boolean;
+  isOtherProfile: boolean;
+  orgState$: Observable<any>;
 
   // Org states
   private sub: any;
@@ -43,16 +44,40 @@ export class OrganizationProfileComponent implements OnInit {
     private router: Router,
   ) {
       //
+      this.hasNoOrg = false;
+      this.isOtherProfile = false;
 
+      //
+      this.orgState$ = this.orgStore.select('profileTags');
+      // observe the store value
+      this.orgState$.subscribe((state) => {
+        console.log('XX', 'XXX');
+      });
    }
+  /**
+   * Checks if the active profile is an organization
+   */
+  checkIfProfileActive() {
+    // Check if current active profile is organization
+    if (this.activeProfile && this.activeProfile.isOrg === false) {
+      this.hasNoOrg = true;
+      // Route to create Organization page
+    }
+  }
 
   ngOnInit() {
+
     // check for userhandles
     this.sub = this.route.params
     .subscribe(params => {
       const orgParam = params['id'];
-      if (orgParam !== undefined) {
-        this.prfileUsername = orgParam
+
+      if (orgParam !== undefined || orgParam !== 'undefined') {
+        this.isOtherProfile = true;
+        // this.profileCard = orgParam
+        // console.log('CURRENT PROFILE', orgParam);
+      } else {
+        // console.log('OTHER PROFILE', orgParam);
       }
     });
 
@@ -66,7 +91,7 @@ export class OrganizationProfileComponent implements OnInit {
        * without switching to org comes here?
        */
       this.activeProfile = data['profile_cards'].active;
-      this.prfileUsername = this.activeProfile.username;
+      this.profileCard = this.activeProfile;
 
       //
       this.orgStore.dispatch({
@@ -75,8 +100,18 @@ export class OrganizationProfileComponent implements OnInit {
       });
     });
 
-    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: this.prfileUsername });
-    this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.prfileUsername });
+    //
+    // console.log('E', this.profileCard);
+    // this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: this.profileCard });
+
+    /**
+     * Load Organization Profile Details if handle present
+     */
+
+    if (this.profileCard) {
+      console.log('X', '888');
+      this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.profileCard });
+    }
   }
 
 }
