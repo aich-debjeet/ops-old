@@ -20,7 +20,7 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.elRef.nativeElement.querySelector('a.btn-share').addEventListener('click', this.handleClick.bind(this));
+    this.elRef.nativeElement.querySelector('a.btn-fb-share').addEventListener('click', this.handleClick.bind(this));
   }
 
   handleClick() {
