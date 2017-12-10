@@ -28,8 +28,10 @@
         <div class="o-job-post__address m-t-8">
           <span class="o-job-post__cmpny-name float_left c-text_lg color-grey-dark m-r-16">{{ opportunity?.postedByName }}</span>
           <span class="o-job-post__cmpny-location float_left c-text_md color-grey-dark">
-            <span class="o-job-post__location-icon"><img src="/assets/img/svg/ico_location2.svg" alt=""></span>
-            {{ opportunity?.location }}
+            <span class="o-job-post__location-icon">
+              <img src="/assets/img/svg/ico_location2.svg" alt="">
+            </span>
+            {{ opportunity | json  }}
           </span>
         </div><!-- cmpny address end -->
         <div class="o-job-post__short-det">
@@ -38,7 +40,7 @@
           </span>
           <span *ngIf="opportunity?.salary?.amount && opportunity?.salary?.currency" class="o-job-post__det c-text_md color-grey-dark m-r-24">
             Salary : <span class="color-grey-darker">
-                {{ opportunity?.salary?.amount }} {{ opportunity?.salary?.currency }} / 
+                {{ opportunity?.salary?.amount }} {{ opportunity?.salary?.currency }} /
                 <ng-container *ngIf="opportunity?.salary?.salaryType == 'annual'; else monthly_salary">Year</ng-container>
                 <ng-template #monthly_salary>Month</ng-template>
             </span>
