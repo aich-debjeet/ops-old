@@ -51,7 +51,7 @@ export class OrganizationProfileComponent implements OnInit {
       this.orgState$ = this.orgStore.select('profileTags');
       // observe the store value
       this.orgState$.subscribe((state) => {
-        console.log('XX', 'XXX');
+        this.profileCard = state['profile_cards'].active;
       });
    }
   /**
@@ -66,20 +66,6 @@ export class OrganizationProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    // check for userhandles
-    this.sub = this.route.params
-    .subscribe(params => {
-      const orgParam = params['id'];
-
-      if (orgParam !== undefined || orgParam !== 'undefined') {
-        this.isOtherProfile = true;
-        // this.profileCard = orgParam
-        // console.log('CURRENT PROFILE', orgParam);
-      } else {
-        // console.log('OTHER PROFILE', orgParam);
-      }
-    });
 
     // check organziation page already created
     this.store.select('profileTags')
@@ -100,18 +86,25 @@ export class OrganizationProfileComponent implements OnInit {
       });
     });
 
-    //
-    // console.log('E', this.profileCard);
-    // this.store.dispatch({ type: OrganizationActions.ORG_PROFILE, payload: this.profileCard });
+    // check for userhandles
+    this.sub = this.route.params
+    .subscribe(params => {
+      const orgParam = params['id'];
 
-    /**
-     * Load Organization Profile Details if handle present
-     */
+      if (orgParam !== undefined || orgParam !== 'undefined') {
+        this.isOtherProfile = false;
 
-    if (this.profileCard) {
-      console.log('X', '888');
-      this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.profileCard });
-    }
+        console.log('PPP', this.profileCard);
+        /**
+         * Load Organization Profile Details if handle present
+         */
+        this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: 'aurutco' });
+      }
+
+      if (orgParam && orgParam.length > 0) {
+        this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgParam });
+      }
+    });
   }
 
 }

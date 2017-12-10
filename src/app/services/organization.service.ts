@@ -43,6 +43,7 @@ export class OrganizationService {
    * Get org profile details
    */
   detailOrganization(username: any) {
+      console.log(username);
       return this.api.get(`/portal/organization/user/username/${username}`);
   }
 
