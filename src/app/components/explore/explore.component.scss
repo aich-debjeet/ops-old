@@ -116,6 +116,7 @@
     border-radius: 3px;
     background: #fff;
     box-shadow: 0 4px 9px 0 rgba(97,53,129,0.21);
+    min-width: 137px;
 }
 .o-explore-catagory__thumb{
     width: 40px;
@@ -127,18 +128,23 @@
         width: 100%;
     }
 }
+.ptop-50 {
+    padding-top: 50px;
+}
 .o-explore-catagory__title{
     height: 40px;
     display: flex;
     align-items:center;
     float: left;
+    max-width: 80px;
+    overflow: hidden;
 }
 
 // catagory main
 
 .o-explore-catagory-main{
     width: 100%;
-    float: left;
+    clear: both;
 }
 
 .m-r-8 {
