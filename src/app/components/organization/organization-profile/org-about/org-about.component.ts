@@ -71,7 +71,9 @@ export class OrgAboutComponent implements OnInit {
       console.log('this.orgProfile ABOUT ORG', this.orgProfile);
       if (this.orgProfile && this.orgProfile['org_profile_update_success'] === true) {
         this.orgProfile.org_profile_update_success = false;
-        this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.profileUsername });
+        if (this.orgProfile && this.orgProfile['profile_navigation_details']['isOrganization'] === true) {
+          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.orgProfile['profile_organization']['extra']['username'] });
+        }
       }
       // for mobile
       if (this.orgProfile && this.orgProfile['profile_details']['contact']['mobile']['mobile']) {
