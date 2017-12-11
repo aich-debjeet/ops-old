@@ -1,4 +1,4 @@
-
+@import './src/assets/scss/components/_tabs.scss';
 .nav-tabs{
 	border: none;
 }
@@ -190,6 +190,7 @@
 	padding:8px;
 	transition:.25s;
 	margin-right:8px;
+	cursor: pointer;
 }
 .o-calendar__list:hover{
 	background-color: #FF7B84;

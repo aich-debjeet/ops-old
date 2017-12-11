@@ -142,6 +142,10 @@
 //     color: #333;
 //     text-transform: capitalize;
 // }
+.color-theme {
+    color: #FF7B84 !important;
+}
+
 .user-list__li {
     border-bottom: 1px solid #f3f3f3;
     padding: 8px 0px;
@@ -213,7 +217,7 @@
 }
 
 .c-card {
-    width: 110%;
+    width: 100%;
     height: auto;
     float: left;
     border-radius: 3px;
@@ -222,8 +226,9 @@
 }
 
 .m-t-8 {
-    margin-top: 8px !important;
+    margin-top: 6px !important;
     margin-bottom: 30px;
+    margin-left: 0px;
 }
 
 .color-grey-dark {

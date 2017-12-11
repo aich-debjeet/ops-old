@@ -84,27 +84,27 @@
 		<div class="o-event-filter-sec with_border_top c-ops__tabs o-event-tabs m-t--32">
   		<div class="col-md-6 p-0">
   			<ul class="nav nav-tabs">
-          <li class="active"><a class="p-l-0 p-t-b-16" data-toggle="tab"  aria-expanded="true">Recommended</a></li>
-          <li class=""><a class="p-t-b-16" data-toggle="tab"  aria-expanded="false">attending</a></li>
-          <li class=""><a class="p-t-b-16" data-toggle="tab"  aria-expanded="false">Created</a></li>
+          <li routerLinkActive="active"><a class="p-l-0 p-t-b-16" [routerLink]="['/event']" [queryParams]="{ status: 'recommended', stat: '' }" >Recommended</a></li>
+          <li routerLinkActive="active"><a class="p-t-b-16" [routerLink]="['/event']" [queryParams]="{ status: 'attending' }">Attending</a></li>
+          <li routerLinkActive="active"><a class="p-t-b-16" [routerLink]="['/event']" [queryParams]="{ status: 'created' }">Created</a></li>
         </ul>
   		</div>
   		<div class="col-md-6 p-0">
   			<a routerLink="/event/create" class="btn btn-primary btn-md float_right m-t-8 m-l-8">Create</a>
   			<ul class="o-calendar float_right">
-  				<li class="o-calendar__list o-calendar--active">
+  				<li class="o-calendar__list" routerLinkActive="o-calendar--active">
   					<div class="o-calander__date">
   						<span class="c-h5 o-calendar--color"> {{ day | date:"dd, MMM" }}</span>
   						<span class="c-text_sm text_uppercase ltr-space o-calendar--color">Today</span>
   					</div>
   				</li>
-  				<li class="o-calendar__list">
-  					<div class="o-calander__date">
+  				<li class="o-calendar__list" routerLinkActive="o-calendar--active">
+  					<div class="o-calander__date" >
   						<span class="c-h5 o-calendar--color">{{ tomorrow | date:"dd, MMM" }}</span>
   						<span class="c-text_sm text_uppercase ltr-space o-calendar--color">tomorrow</span>
   					</div>
   				</li>
-  				<li class="o-calendar__list">
+  				<li class="o-calendar__list" routerLinkActive="o-calendar--active">
   					<div class="o-calander__date">
   						<span class="c-h5 o-calendar--color">{{ weekend | date:"dd, MMM" }}</span>
   						<span class="c-text_sm text_uppercase ltr-space o-calendar--color">Weekend</span>
@@ -142,51 +142,7 @@
   	</div><!-- event tab end -->
 
   	<div class="o-event-sort-link">
-  		
-      <div class=" c-dropdown">
-	  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle p-l-0" data-toggle="dropdown" aria-expanded="true">
-	  			All
-	  		</a>
-	  		<ul class="dropdown-menu event-drop">
-          <li><a href="#">HTML</a></li>
-          <li><a href="#">CSS</a></li>
-          <li><a href="#">JavaScript</a></li>
-        </ul>
-	  	</div><!-- all link end-->
-
-	  	<div class=" c-dropdown">
-	  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-	  			Comedy
-	  		</a>
-	  		<ul class="dropdown-menu event-drop">
-          <li><a href="#">Standup</a></li>
-          <li><a href="#">comedy</a></li>
-        </ul>
-	  	</div><!-- Comedy link end-->
-
-	  	<div class=" c-dropdown">
-	  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-	  			Conferences & Workshops
-	  		</a>
-	  		<ul class="dropdown-menu event-drop">
-          <li><a href="#">Test</a></li>
-          <li><a href="#">test2</a></li>
-        </ul>
-	  	</div><!-- Conferences & Workshops link end-->
-
-	  	<div class=" c-dropdown">
-	  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-	  			Exhibition & Performances
-	  		</a>
-	  		<ul class="dropdown-menu event-drop">
-          <li><a href="#">WORKSHOPS</a></li>
-          <li><a href="#">CONFERENCES</a></li>
-          <li><a href="#">TALKS</a></li>
-        </ul>
-	  	</div><!-- Exhibition & Performances link end-->
-  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a">Food & Drink</a>
-  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a">Music</a>
-  		<a href="#" class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a">Travel & Activities</a>
+  		<a  class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a" *ngFor="let type of eventType">{{ type }}</a>
   	</div>
 		<div class="o-select-loc float_right">
 	  	<div class=" c-dropdown  p-t-b-16">

@@ -11,6 +11,7 @@ import { HomeComponent } from './home.component';
 import { HomeChannelComponent } from './home-channel/home-channel.component';
 import { HomeSpotfeedComponent } from './home-spotfeed/home-spotfeed.component';
 import { HomeRightBlockComponent } from './home-right-block/home-right-block.component';
+import { SharedPipesModule } from '../../pipes/shared-pipes.module'
 
 // Guard
 import { AuthGuard } from './../../guard/auth.guard';
@@ -32,6 +33,7 @@ const routes: Routes = [
     CommonModule,
     SharedModule,
     MasonryModule,
+    SharedPipesModule,
     RouterModule.forChild(routes)
   ],
   declarations: [

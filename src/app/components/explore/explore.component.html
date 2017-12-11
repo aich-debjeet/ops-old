@@ -20,119 +20,68 @@
         <!-- <img src="{{ baseUrl + spotfeed.image }}" alt=""> -->
       </div>
       <div class="o-explore-catagory__title c-text_sm p-l-8">
-        {{ spotfeed?.name }}
+        {{ spotfeed?.name | truncate:[10, '...'] }}
       </div>
     </div>
   </div>
 </section>
 
-<!-- <section class="o-explore-content-sec">
-  <div class="container p-0">
-    <div class="col-md-6 p-l-0">
-      <h6 class="c-text_lg f-w_600">For you</h6>
-      <p class="c-text_sm color-grey-dark">Spotfeeds Based on your interest and skills</p>
-      <div class="o-explore-main fill-white m-t-8 p-8">
-        <div class="o-explore-card-left" style="background: url(img/new/s02.jpg); background-size: cover; background-position: center;">
-          <div class="o-explore-img-title c-text_lg color-white">
-            Bollywood hits
-          </div>
-        </div>
-        <div class="o-explore-card-right">
-          <div class="o-explore-card m-l-8">
-            <div class="o-explore-card__media" style="background: url(img/new/s03.jpg); background-size: cover; background-position: center;">
-              
+<!-- <section class="o-explore-catagory-sec">
+    <ngx-carousel
+      [inputs]="carouselOne"
+      (carouselLoad)="myfunc($event)">
+      <ngx-item NgxCarouselItem *ngFor="let spotfeed of profileSpotfeeds;">
+        <div class="o-explore-catagory-block m-r-8">
+          <div class="pointer" [routerLink]="['/spotfeed', spotfeed.name]">
+            <div class="o-explore-catagory__thumb" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed?.image + ')', 'background-size': 'cover', 'background-position': 'center'}">
             </div>
-            <div class="o-explore-img-title--sm c-text_sm color-white">
-              A R Rahmans
-            </div>
-          </div>
-          <div class="o-explore-card m-l-8">
-            <div class="o-explore-card__media" style="background: url(img/new/s06.jpg); background-size: cover; background-position: center;">
-              
-            </div>
-            <div class="o-explore-img-title--sm c-text_sm color-white">
-              A R Rahmans
-            </div>
-          </div>
-          <div class="o-explore-card m-l-8 m-t-8">
-            <div class="o-explore-card__media" style="background: url(img/new/s05.jpg); background-size: cover; background-position: center;">
-              
-            </div>
-            <div class="o-explore-img-title--sm c-text_sm color-white">
-              A R Rahmans
-            </div>
-          </div>
-          <div class="o-explore-card m-l-8 m-t-8">
-            <div class="o-explore-card__media" style="background: url(img/new/s07.jpg); background-size: cover; background-position: center;">
-              
-            </div>
-            <div class="o-explore-img-title--sm c-text_sm color-white">
-              A R Rahmans
+            <div class="o-explore-catagory__title c-text_sm p-l-8">
+              {{ spotfeed?.name | truncate:[10, '...'] }}
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="col-md-6 p-l-0">
-      <h6 class="c-text_lg f-w_600">Recommended</h6>
-      <p class="c-text_sm color-grey-dark">Handpicked spotfeeds for you</p>
-      <div class="o-explore-main fill-white m-t-8 p-8">
-        <div class="o-explore-card-left" style="background: url(img/new/s01.jpg); background-size: cover; background-position: center;">
-          <div class="o-explore-img-title c-text_lg color-white">
-            Bollywood hits
-          </div>
-        </div>
-        <div class="o-explore-card-right">
-          <div class="o-explore-card m-l-8">
-            <div class="o-explore-card__media" style="background: url(img/new/s02.jpg); background-size: cover; background-position: center;">
-              
-            </div>
-            <div class="o-explore-img-title--sm c-text_sm color-white">
-              A R Rahmans
-            </div>
-          </div>
-          <div class="o-explore-card m-l-8">
-            <div class="o-explore-card__media" style="background: url(img/new/s04.jpg); background-size: cover; background-position: center;">
-              
-            </div>
-            <div class="o-explore-img-title--sm c-text_sm color-white">
-              A R Rahmans
-            </div>
-          </div>
-          <div class="o-explore-card m-l-8 m-t-8">
-            <div class="o-explore-card__media" style="background: url(img/new/s08.jpg); background-size: cover; background-position: center;">
-              
-            </div>
-            <div class="o-explore-img-title--sm c-text_sm color-white">
-              A R Rahmans
-            </div>
-          </div>
-          <div class="o-explore-card m-l-8 m-t-8">
-            <div class="o-explore-card__media" style="background: url(img/new/s09.jpg); background-size: cover; background-position: center;">
-              
-            </div>
-            <div class="o-explore-img-title--sm c-text_sm color-white">
-              A R Rahmans
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section> -->
+      </ngx-item>
+      <button NgxCarouselPrev class='leftRs'>&lt;</button>
+      <button NgxCarouselNext class='rightRs'>&gt;</button>
+    </ngx-carousel>
+  </section> -->
+
+<section class="o-explore-catagory-main m-t-24 ptop-50"></section>
 
 <!-- category start -->
 <section *ngFor="let category of allSpotfeeds" class="o-explore-catagory-main m-t-24">
+  
   <div class="container p-0">
-    <h6 class="c-text_lg f-w_600">{{ category?.industry }}<span class="c-text_lg float_right m-r-16">More</span></h6>
-    <!-- spotfeed start -->
-    <div *ngFor="let spotfeed of category?.feeds" class="o-explore-card m-r-16 m-t-8" [routerLink]="['/spotfeed', spotfeed.name]" >
-      <div class="o-explore-card__media" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed?.image + ')', 'background-size': 'cover', 'background-position': 'center'}"></div>
-      <div class="o-explore-img-title--sm c-text_sm color-white">{{ spotfeed?.name }}</div>
+    <!-- <h6 class="c-text_lg f-w_600">{{ category?.industry }}<span class="c-text_lg float_right m-r-16">More</span></h6> -->
+    <h6 class="c-text_lg f-w_600">{{ category?.industry }}</h6>
+
+    <div *ngIf="category?.feeds.length > 0; else spotfeeds_not_found;" >
+      <div *ngFor="let spotfeed of category?.feeds" class="o-explore-card m-r-16 m-t-8" [routerLink]="['/spotfeed', spotfeed.name]" >
+        <div class="o-explore-card__media" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed?.image + ')', 'background-size': 'cover', 'background-position': 'center'}"></div>
+        <div class="o-explore-img-title--sm c-text_sm color-white">{{ spotfeed?.name }}</div>
+      </div>
     </div>
-    <!-- spotfeed start -->
+
+    <ng-template #spotfeeds_not_found>
+      <p class="result-not-found">Spotfeeds not found!</p>
+    </ng-template>
   </div>
+
 </section>
 <!-- category end -->
+
+<!-- preloader -->
+<div *ngIf="showPreloader === true">
+  <div class="sticky">
+      <div class="loader">Loading...</div>
+  </div>
+</div>
+<!-- preloader -->
+
+<!-- if spotfeeds not found -->
+<div *ngIf="allSpotfeeds && allSpotfeeds?.spotfeeds?.length === 0;">
+  <p class="result-not-found">Spotfeeds not found!</p>
+</div>
+<!-- if spotfeeds not found -->
 
 <app-footer></app-footer>

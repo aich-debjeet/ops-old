@@ -22,7 +22,7 @@ export class ExploreEffect {
   exploreSpotfeeds$ = this.actions$
     .ofType(ExploreActions.LOAD_SPOTFEEDS)
     .map(toPayload)
-    .switchMap((payload) => this.exploreService.getSpotfeeds()
+    .switchMap((payload) => this.exploreService.getSpotfeeds(payload)
       .map(res => ({ type: ExploreActions.LOAD_SPOTFEEDS_SUCCESS, payload: res }))
       .catch((res) => Observable.of({
         type: ExploreActions.LOAD_SPOTFEEDS_FAILED,

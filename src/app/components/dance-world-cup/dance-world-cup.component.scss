@@ -1,11 +1,86 @@
+.full-screen {
+    width: 100%;
+	height: 99vh;
+}
 
+.location {
+  color: #8a281d;
+  font-weight: 100;
+  font-size: 13px;
+  margin-top: 3px;
+  display: block;
+}
+// Header
+.Header {
+  text-align: right;
+  overflow: hidden;
+  height: 130px;
+  color: #000;
+  padding-top: 57px;
+  background: url(/assets/img/home/Banner.jpg) no-repeat;
+  background-size: cover;
+
+  .btn {
+    padding: 8px 12px;
+    font-size: 11px;
+    color: #FF7B84;
+    font-weight: normal;
+    background: #fff;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 16px;
+    float: left;
+    i {
+      margin-right: 11px;
+    }
+  }
+  .btn-share,
+  .btn-download,
+  .btn-left {
+    border: 0;
+    margin-right: 8px;
+  }
+
+  .btn-left {
+    margin-right: 0;
+  }
+
+  .btn-primary {
+    color: #ffffff;
+    background-color: #FF7B84;
+    border-color: #FF7B84;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px rgba(0, 0, 0, 0.25);
+  }
+
+  &__block {
+    text-align: left;
+    padding-top: 8px;
+  }
+  &__title {
+    font-weight: bold;
+    text-align: left;
+    color: #fff;
+    font-size: 16px;
+    margin-top: 9px;
+    margin-bottom: 0;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    display: inline-block;
+    padding-top: 4px;
+  }
+}
 // dwc
-
 .o-dwc-detail{
 	width: 100%;
 	float: left;
 	margin-top: 80px;
 }
+// .o-dwc-detail .container {
+// 	margin-bottom: 30px;
+// }
 .o-dwc-list{
 	list-style: none;
   display: block;
@@ -57,19 +132,90 @@
 	opacity: 1;
 }
 
+
 // right block
 
+.o-dwc-banner{
+	width: 100%;
+	height: 200px;
+	float: left;
+	background: #ccc;
+	position: relative;
+	background: url(/assets/img/home/Banner.jpg) no-repeat;
+    background-size: cover;
+    background-position: right;
+	padding :32px;
+	margin-bottom: 24px;
+}
+.dwc-btn{
+	padding:8px 12px;
+	font-size: 11px;
+	color: #FF7B84;
+	font-weight: normal;
+	background: #fff;
+	border-radius: 2px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	margin-top: 16px;
+	float: left;
+	&:hover{
+		color: #FF7B84;
+	}
+	&:focus{
+		color: #FF7B84;
+	}
+}
+.o-dwc-top-txt{
+	width: 575px;
+	float: left;
+}
+.o-dwc-top-download{
+	width: 130px;
+	float: right;
+}
+.o-dwc-pdf__icon{
+	width: 50px;
+	img{
+		width: 100%;
+	}
+}
+.o-dwc-pdf{
+	width: 126px;
+	float: right;
+	display: flex;
+	justify-content:center;
+	align-items:center;
+	flex-direction:column;
+}
+.dwc-share-icon{
+	width: 16px;
+    height: 16px;
+    float: left;
+    margin-right: 8px;
+    margin-top: -1px;
+	img{
+		width: 16px;
+	}
+}
+.o-dwc-share{
+	margin-top: 50px;
+	left:-87px;
+}
 .o-dwc-right-block{
 	width: 100%;
 	float: left;
 	background: #fff;
-	padding:40px 32px 32px 32px;
 	height: 88vh;
 	overflow: hidden;
 	overflow-y:scroll;
+	padding-bottom: 30px;
 }
 .o-dwc__block{
 	width: 100%;
 	float: left;
 	padding-top: 10px;
+}
+
+.right-block-padding {
+	padding:40px 32px 32px 32px;
 }

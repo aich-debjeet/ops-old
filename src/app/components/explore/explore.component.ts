@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import { NgxCarousel } from 'ngx-carousel';
 
 // actions
 import { ExploreActions } from 'app/actions/explore.action';
@@ -8,7 +9,10 @@ import { ProfileActions } from 'app/actions/profile.action';
 import { Store } from '@ngrx/store';
 
 // models
-import { ExploreModel } from 'app/models/explore.model';
+import { ExploreModel, initialExploreTag } from 'app/models/explore.model';
+
+// pipes
+import { TruncatePipe } from 'app/pipes/truncate.pipe';
 
 // services
 
@@ -19,17 +23,23 @@ import { environment } from 'environments/environment.prod';
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',
-  styleUrls: ['./explore.component.scss']
+  styleUrls: ['./explore.component.scss'],
+  providers: [ TruncatePipe ]
 })
 export class ExploreComponent implements OnInit {
 
   userState$: Observable<any>;
   userProfile: any;
   exploreState$: Observable<any>;
-  exploreState: any;
-  profileSpotfeeds: any[];
-  allSpotfeeds: any[];
+  exploreState = initialExploreTag;
+  profileSpotfeeds: any;
+  allSpotfeeds: any;
   baseUrl: string;
+  showPreloader = true;
+  recordsPerPage = 10;
+  pagination = [];
+
+  // public carouselOne: NgxCarousel;
 
   constructor(
     private store: Store<ExploreModel>
@@ -41,7 +51,12 @@ export class ExploreComponent implements OnInit {
     this.store.dispatch({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS });
 
     // load category wise spotfeeds
-    this.store.dispatch({ type: ExploreActions.LOAD_SPOTFEEDS });
+    const params = {
+      industryType: '',
+      offset: 0,
+      limit: this.recordsPerPage
+    };
+    this.store.dispatch({ type: ExploreActions.LOAD_SPOTFEEDS, payload: params });
 
     /**
      * check user state
@@ -64,25 +79,58 @@ export class ExploreComponent implements OnInit {
     this.exploreState$ = this.store.select('exploreTags');
     this.exploreState$.subscribe((state) => {
       this.exploreState = state;
-      // console.log('this.exploreState', this.exploreState);
+      console.log('this.exploreState', this.exploreState);
 
       // get all spotfeeds
       if (state && state.spotfeeds && state.spotfeeds.SUCCESS) {
         this.allSpotfeeds = state.spotfeeds.SUCCESS;
-        // console.log('all spotfeeds', this.allSpotfeeds);
+        console.log('all spotfeeds', this.allSpotfeeds);
+
+        // preparing the pagination reference var
+        if (this.pagination && this.pagination.length === 0) {
+          // console.log('set pagination');
+          this.allSpotfeeds.forEach((value, index) => {
+            const refData = {
+              limit: 0,
+              type: value.industry,
+              offset: this.recordsPerPage
+            };
+            this.pagination.push(refData);
+          });
+        }
+      }
+
+      // check if loaded
+      if (state && state.searching_spotfeeds === false && state.search_complete === true) {
+        this.showPreloader = false;
       }
     })
 
   }
 
-  ngOnInit() {
+  /**
+   * Load more spotfeeds
+   */
+  dispatchLoadMore(industryType: string) {
+    console.log();
   }
 
-  /**
-   * Navigate to the spotfeed
-   */
-  gotoSpotfeed(spotfeedId: string) {
-    console.log('goto ', spotfeedId);
+  ngOnInit() {
+    // this.carouselOne = {
+    //   grid: {xs: 5, sm: 5, md: 5, lg: 5, all: 5},
+    //   slide: 5,
+    //   load: 5,
+    //   speed: 400,
+    //   interval: 4000,
+    //   point: {
+    //     visible: false
+    //   },
+    //   touch: true,
+    //   loop: true,
+    //   custom: 'banner'
+    // }
   }
+
+  // public myfunc(event: Event) { }
 
 }

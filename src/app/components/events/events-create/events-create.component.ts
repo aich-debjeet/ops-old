@@ -87,12 +87,6 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     this.tagState$.subscribe((state) => {
       this.industryList = state['all_industry'];
       this.eventDetail = state['event_detail'];
-      console.log(state);
-    });
-
-    this.profileState$ = this.store.select('profileTags');
-    this.profileState$.subscribe((state) => {
-       console.log(state);
     });
 
     this.store.select('profileTags')
@@ -108,16 +102,11 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
 
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
-      console.log(params['id']);
       this.store.dispatch({ type: EventActions.EVENT_DETAILS_LOAD, payload: this.id });
     });
 
-
-
+    // Form Build
     this.buildForm();
-    // this.eventForm.setValue({
-    //   event_name: 'title'
-    // });
   }
 
   fileChangeListener($event) {
@@ -150,7 +139,6 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       .first(file => file['fileupload_success'] === true )
       .subscribe( data => {
         this.eventCoverImage = data['fileUpload'].repoPath
-        console.log(data);
       });
   }
 
@@ -221,80 +209,12 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     })
   }
 
-  // onCheckChange(event) {
-  // const formArray: FormArray = this.eventForm.get('event_ts_type') as FormArray;
-
-  // /* Selected */
-  // if(event.target.checked){
-  //   // Add a new control in the arrayForm
-  //   formArray.push(new FormControl(event.target.value));
-  // }
-  // /* unselected */
-  // else{
-  //   // find the unselected element
-  //   let i: number = 0;
-
-  //   formArray.controls.forEach((ctrl: FormControl) => {
-  //     if(ctrl.value == event.target.value) {
-  //       // Remove the unselected element from the arrayForm
-  //       formArray.removeAt(i);
-  //       return;
-  //     }
-
-  //     i++;
-  //   });
-  // }
-
 
   /**
    * Event Creatation Sybmit
    * @param value value of form
    */
   submitForm(value) {
-    // struct of backend
-    // const data = {
-    //     title : value.event_name,
-    //     eventTiming: {
-    //       startDate : this.reverseDate(value.event_startdate) + 'T05:00:00',
-    //       endDate : this.reverseDate(value.event_enddate) + 'T05:00:00',
-    //       startTime : this.reverseDate(value.event_startdate) + 'T05:00:00',
-    //       endTime : this.reverseDate(value.event_enddate) + 'T05:00:00',
-    //     },
-    //     venue : {
-    //         line1 : 'BANGALORE',
-    //         line2 : 'BANGALORE',
-    //         city : 'BANGALORE',
-    //         state : 'KARANATAKA',
-    //         country : 'INDIA',
-    //         postalCode : '560075',
-    //         latitude: '',
-    //         longitude: ''
-    //     },
-    //     industry : [
-    //         value.event_industry
-    //     ],
-    //     event_agenda: value.event_agenda,
-    //     brief: value.event_brief,
-    //     event_media: [''],
-    //     access : 0,
-    //     active : true,
-    //     ratedBy : [],
-    //     Type: {
-    //       EntryType : 'Free',
-    //       eventType : 'Theatre'
-    //     },
-    //     extras: {
-    //       Genre: [value.event_genres],
-    //       ticket: [{
-    //         ticketType: value.event_ts_type,
-    //         startDate: this.reverseDate(value.ts_startTime) + 'T05:00:00',
-    //         endDate: this.reverseDate(value.ts_endTime) + 'T05:00:00',
-    //         maximum: value.ts_quantity
-    //       }]
-    //     },
-    //     isFeatured: false
-    // }
-
     if (this.eventForm.valid) {
       if (this.eventCoverImage === '') {
         this.imageUpload = true;
