@@ -8,6 +8,7 @@ import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 export class DanceWorldCupComponent implements OnInit, AfterViewInit {
 
   navItem = '';
+  activeTab = 'tab-1';
   // window: Window;
 
   constructor(private elRef: ElementRef) { }
@@ -17,6 +18,14 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
 
   navigateTo(id: string) {
     this.navItem = id;
+  }
+
+  tabChange(tabId: string) {
+    this.activeTab = tabId;
+  }
+
+  submitForm(value: any) {
+
   }
 
   ngAfterViewInit() {

@@ -1,3 +1,227 @@
+.o-dwc-detail{
+	width: 100%;
+	float: left;
+	margin-top: 24px;
+}
+.o-dwc-list{
+	list-style: none;
+  display: block;
+  position: fixed;
+  width: 20%;
+}
+.o-dwc-list__items{
+	list-style-type: none;
+	float: left;
+	width: 100%;
+	display: block;
+	margin-bottom: 8px;
+	border-radius: 3px;
+}
+.o-dwc-list__link{
+	padding:8px;
+	width: 100%;
+	float: left;
+}
+.o-dwc-list__link:hover{
+	background: #fff;
+}
+.o-dwc-list__link:hover .o-dwc-link__txt{
+	font-weight: 600;
+}
+.o-dwc-list__link:hover .o-dwc-link__arrow{
+	opacity: 1;
+}
+.o-dwc-link__txt{
+	float: left;
+	transition:.25s;
+}
+.o-dwc-link__arrow{
+	width: 20px;
+	height: 20px;
+	float: right;
+	opacity: 0.5;
+	img{
+		width: 100%;
+	}
+}
+.o-dwc-list__item--active{
+	background: #fff;
+}
+.o-dwc-list__item--active .o-dwc-link__txt{
+	font-weight: 600;
+}
+.o-dwc-list__item--active .o-dwc-link__arrow{
+	opacity: 1;
+}
+
+// right block
+
+.o-dwc-banner{
+	width: 100%;
+	height: 200px;
+	float: left;
+	background: #ccc;
+	margin-bottom: 24px;
+	position: relative;
+	background: url(/assets/img/home/Banner.jpg) no-repeat;
+    background-size: cover;
+    background-position: right;
+    padding :32px;
+}
+.dwc-btn{
+	padding:8px 12px;
+	font-size: 11px;
+	color: #FF7B84;
+	font-weight: normal;
+	background: #fff;
+	border-radius: 2px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	margin-top: 16px;
+	float: left;
+	&:hover{
+		color: #FF7B84;
+	}
+	&:focus{
+		color: #FF7B84;
+	}
+}
+.o-dwc-top-txt{
+	width: 575px;
+	float: left;
+}
+.o-dwc-top-download{
+	width: 130px;
+	float: right;
+}
+.o-dwc-pdf__icon{
+	width: 50px;
+	img{
+		width: 100%;
+	}
+}
+.o-dwc-pdf{
+	width: 126px;
+	float: right;
+	display: flex;
+	justify-content:center;
+	align-items:center;
+	flex-direction:column;
+}
+.dwc-share-icon{
+	width: 16px;
+    height: 16px;
+    float: left;
+    margin-right: 8px;
+    margin-top: -1px;
+	img{
+		width: 16px;
+	}
+}
+.o-dwc-share{
+	margin-top: 50px;
+	left:-87px;
+}
+.o-dwc-right-content-block{
+	padding:40px 32px 32px 32px;
+	.c-text_md{
+		line-height: 24px;
+	}
+}
+.o-dwc-right-block{
+	width: 100%;
+	float: left;
+	background: #fff;
+}
+.o-dwc__block{
+	width: 100%;
+	float: left;
+	padding-top: 10px;
+}
+
+// radio
+
+.c-radio--dwc{
+	font-size: 15px;
+	margin-top: -2px;
+}
+.c-form-select--lg{
+	font-size: 15px;
+}
+
+
+
+// dwc main page style
+.o-dwc-top-tab-sec{
+	z-index: 99;
+	position: fixed;
+	margin-top: 50px;
+	width: 100%;
+	height: 74px;
+	background: linear-gradient(174.63deg, #F7D022 0%, #FF7B84 38%, #662D91 100%);
+	.c-ops__tabs2 {
+    text-align: center;
+    width: 450px;
+    float: left;
+	margin-top: 20px;
+	.container {
+		padding-top: 75px;
+	}
+    .nav-tabs > li > a {
+		cursor: pointer;
+        font-size: 13px;
+        font-weight: normal;
+        text-align: left;
+        color: #fff;
+        background: transparent;
+        border: none;
+        text-transform: uppercase;
+    }
+    .nav-tabs li .active a {
+        color: #fff;
+        font-weight: 600;
+    }
+    .nav-tabs > li.active > a,
+    .nav-tabs > li.active > a:hover,
+    .nav-tabs > li.active > a:focus {
+        color: #fff;
+        background-color: transparent;
+        border: none;
+        border-bottom-color: transparent;
+        cursor: pointer;
+        border-bottom: 2px solid #fff;
+    }
+    .nav > li > a {
+        position: relative;
+        display: block;
+        padding: 8px 12px 8px 12px;
+    }
+    .nav-tabs {
+        border-bottom: none;
+    }
+	}
+}
+
+.o-dwc-contact-form-container{
+	width: 475px;
+	margin:0px auto;
+	padding-top: 55px;
+}
+
+.o-dwc__form{
+	width: 350px;
+	margin:32px auto;
+}
+.o-dwc-main-btn{
+float: right;
+}
+.o-dwc-textarea{
+	margin-top: 10px;
+	&::placeholder{
+		color:#929292;
+	}
+}
+
 .full-screen {
     width: 100%;
 	height: 99vh;
@@ -76,7 +300,7 @@
 .o-dwc-detail{
 	width: 100%;
 	float: left;
-	margin-top: 80px;
+	margin-top: 150px;
 }
 // .o-dwc-detail .container {
 // 	margin-bottom: 30px;
@@ -205,9 +429,6 @@
 	width: 100%;
 	float: left;
 	background: #fff;
-	height: 88vh;
-	overflow: hidden;
-	overflow-y:scroll;
 	padding-bottom: 30px;
 }
 .o-dwc__block{
