@@ -58,7 +58,7 @@ export class OrgImageComponent implements OnInit {
     this.tagState$ = this._store.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.stateProfile = state;
-      console.log(state);
+      this.orgHandle = state.profile_cards.active.handle;
     });
 
     this._store.select('profileTags').subscribe((state) => {
@@ -70,7 +70,7 @@ export class OrgImageComponent implements OnInit {
       .first(profile => profile['profile_navigation_details'].organization )
       .subscribe( data => {
         if (data['profile_navigation_details'].organization) {
-          this.orgHandle = data['profile_navigation_details'].organization.organizationHandle;
+          this.orgHandle = data['profile_cards'].active.handle;
         }
       });
 
@@ -165,6 +165,7 @@ export class OrgImageComponent implements OnInit {
    */
   saveImageClick() {
     const userHandle = this.orgHandle;
+
     if (this.data && this.data.image && userHandle !== '') {
       const imageData = {
         handle: userHandle,

@@ -424,6 +424,6 @@ export class ProfileService {
 
   getdefaultNotifications() {
     console.log('here is the default notifications')
-   return this.api.get('/portal/profile/profileSettings/default/settings', '' );
+    return this.api.get('/portal/profile/profileSettings/default/settings', '' );
   }
 }

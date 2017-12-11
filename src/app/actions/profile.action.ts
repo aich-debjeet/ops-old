@@ -10,6 +10,11 @@ export class ProfileActions {
   static LOAD_CURRENT_USER_PROFILE_FAILED = 'LOAD_CURRENT_USER_PROFILE_FAILED';
 
   /**
+   * Change Between Profile & Organization
+   */
+  static CHANGE_PROFILE = 'CHANGE_PROFILE';
+
+  /**
    * Load spotfeed details
    */
   static GET_SPOTFEED_DETAILS = 'GET_SPOTFEED_DETAILS';
@@ -281,6 +286,16 @@ export class ProfileActions {
   static DEFAULT_NOTIFICATION_SETTINGS = 'DEFAULT_NOTIFICATION_SETTINGS';
   static DEFAULT_NOTIFICATION_SETTINGS_SUCCESS = 'DEFAULT_NOTIFICATION_SETTINGS_SUCCESS';
   static DEFAULT_NOTIFICATION_SETTINGS_FAILED = 'DEFAULT_NOTIFICATION_SETTINGS_FAILED';
+
+  // /**
+  //  * Change Profile
+  //  */
+  // changeProfile(value): Action {
+  //   return {
+  //     type: ProfileActions.CHANGE_PROFILE,
+  //     payload: { value }
+  //   };
+  // }
 
   /**
    * Load Current user profile
@@ -733,14 +748,14 @@ export class ProfileActions {
         type: ProfileActions.LOAD_BLOCK_USERS
       };
     }
-    
+
     getBlockedUsersSuccess(value): Action {
       return {
         type: ProfileActions.LOAD_BLOCK_USERS_SUCCESS,
         payload: { value }
       };
     }
-    
+
     getBlockedUsersFailed(error: any): Action {
       return {
         type: ProfileActions.LOAD_BLOCK_USERS_FAILED,

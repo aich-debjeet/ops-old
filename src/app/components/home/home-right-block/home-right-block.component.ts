@@ -55,8 +55,8 @@ export class HomeRightBlockComponent implements OnInit {
     this.myProfile$.subscribe(event => {
       this.profiles = event.user_profiles_all;
       this.userState = event;
-      console.log('user state' , this.userState)
-      console.log('this.profiles ', this.profiles)
+      // console.log('user state' , this.userState)
+      // console.log('this.profiles ', this.profiles)
             // check for user skills
             if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['skills'] && this.userState['profile_navigation_details']['skills'].length > 0) {
               // fetching skills in a local var

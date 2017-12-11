@@ -109,3 +109,20 @@
     transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 
+.c-invite__sec {
+	height: auto;
+	overflow: hidden;
+}
+
+.c-artist__img {
+	width: 100%;
+}
+
+.invite-div {
+	max-height: 300px;
+	overflow: auto;
+}
+
+a {
+	cursor: pointer;
+}

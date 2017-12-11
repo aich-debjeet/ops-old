@@ -50,7 +50,7 @@ export class EventEffect {
     fileUpload$ = this.actions$
     .ofType(EventActions.FILE_UPLOAD)
     .map(toPayload)
-    .switchMap((payload) => this.eventService.fileUpload(payload)
+    .switchMap((payload) => this.eventService.fileUpload(payload, 'file')
       .map(res => ({ type: EventActions.FILE_UPLOAD_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: EventActions.FILE_UPLOAD_FAILED, payload: res }))
     );

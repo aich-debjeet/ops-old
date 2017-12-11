@@ -34,6 +34,7 @@ npm-debug.log
 testem.log
 deploy.sh
 /typings
+/src/private/
 
 # e2e
 /e2e/*.js
