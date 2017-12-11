@@ -383,6 +383,7 @@ export class ProfileService {
    * Pin channel
    */
   userChannelPin(body: any) {
+    console.log(body)
     return this.api.put('/portal/network/spotfeed/pinspotfeed/pin', body);
   }
 
