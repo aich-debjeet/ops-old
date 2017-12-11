@@ -675,11 +675,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Pin channel
      */
     case ProfileActions.PIN_CHANNEL_SUCCESS:
+    console.log('success')
       return Object.assign({}, state, {
         channel_pin_success: true
       });
 
     case ProfileActions.PIN_CHANNEL_FAILED:
+    console.log('failure')
       return Object.assign({}, state, {
         channel_pin_failed: true
       });
