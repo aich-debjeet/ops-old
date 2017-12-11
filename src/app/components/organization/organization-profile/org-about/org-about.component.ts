@@ -13,12 +13,14 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 
 import { SearchModel } from 'app/models/search.model';
+import { environment } from './../../../../../environments/environment.prod';
 
 import { Organization, initialOrganization } from '../../../../models/organization.model';
 import { UtcDatePipe } from './../../../../pipes/utcdate.pipe';
 import { DatePipe } from '@angular/common';
 
 import { LocalStorageService } from './../../../../services/local-storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 import { initialTag, Follow } from '../../../../models/auth.model';
 import * as _ from 'lodash';
@@ -58,9 +60,12 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
   searchString: string;
   people = [];
 
+  baseUrl = environment.API_IMAGE;
+
   constructor(
     private store: Store<Organization>,
     private localStorageService: LocalStorageService,
+    private toastr: ToastrService,
     private datePipe: DatePipe,
     private searchStore: Store<SearchModel>,
   ) {

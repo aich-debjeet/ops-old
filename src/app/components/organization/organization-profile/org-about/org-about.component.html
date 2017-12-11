@@ -1,7 +1,7 @@
 <div class="o-org-content">
     <div class="container">
         <div class="col-md-3 col-sm-3 p-0">
-            <div class="c-card m-t-16">
+            <div class="c-card m-t-16 invite-div">
                 <div class="c-text_lg padding_16">Invite to the Organization</div>
                 <div class="c-invite--search">
                     <form class="fill-grey-light">
@@ -26,7 +26,7 @@
                                     <img src="/assets/img/avatar.jpg" class="c-artist__img">
                                 </ng-template>
                             </a>
-                            <a class="c-text_md c-invite--user">@{{ person?.extra?.username }}</a>
+                            <a routerLink="{{ '/profile/u/' + person?.extra?.username }}" class="c-text_md c-invite--user">@{{ person?.extra?.username }}</a>
                             <div class="c-invite--btn">
                                 <button type="button" class="btn btn-default btn-sm" (click)="sendInvitation(person)" >invite</button>
                             </div>
