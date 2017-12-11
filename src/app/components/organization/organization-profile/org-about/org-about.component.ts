@@ -1,13 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 // action
 import { ProfileActions } from '../../../../actions/profile.action';
 import { OrganizationActions } from '../../../../actions/organization.action';
+import { SearchActions } from '../../../../actions/search.action';
 import { AuthActions } from '../../../../actions/auth.action';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+
+import { SearchModel } from 'app/models/search.model';
 
 import { Organization, initialOrganization } from '../../../../models/organization.model';
 import { UtcDatePipe } from './../../../../pipes/utcdate.pipe';
@@ -24,7 +29,9 @@ import * as _ from 'lodash';
   styleUrls: ['./org-about.component.scss'],
   providers: [ UtcDatePipe, DatePipe ]
 })
-export class OrgAboutComponent implements OnInit {
+export class OrgAboutComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('searchInput') searchInput;
 
   orgState$: Observable<Organization>;
   loginTagState$: Observable<any>;
@@ -44,11 +51,34 @@ export class OrgAboutComponent implements OnInit {
   profileUsername = '';
   profileHandle = '';
 
+  searchState$: Observable<SearchModel>;
+  searchState: any;
+  isSearching = false;
+  showPreloader = false;
+  searchString: string;
+  people = [];
+
   constructor(
     private store: Store<Organization>,
     private localStorageService: LocalStorageService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private searchStore: Store<SearchModel>,
   ) {
+
+    /* member search */
+    this.searchState$ = this.searchStore.select('searchTags');
+    // observe the store value
+    this.searchState$.subscribe((state) => {
+      this.searchState = state;
+      if (state && state.searching_people === false) {
+        this.isSearching = false;
+        this.showPreloader = false;
+      }
+      if (state && state.search_people_data) {
+        this.people = state.search_people_data;
+      }
+    });
+    /* member search */
 
     // check if creator is user or organization
     if (localStorage.getItem('active_profile') !== null) {
@@ -243,6 +273,44 @@ export class OrgAboutComponent implements OnInit {
    */
   reverseDate(string) {
     return string.split('-').reverse().join('-');
+  }
+
+  ngAfterViewInit() {
+
+    /**
+     * Observing the search input change
+     */
+    this.searchInput.valueChanges
+    .debounceTime(500)
+    .subscribe(() => {
+
+      this.searchString = this.searchInput.value;
+      // console.log('searching: ', this.searchString);
+
+      // search if string is available
+      if (this.searchString && this.searchString.length > 0) {
+        // console.log('new search', this.searchString);
+        this.isSearching = true;
+
+        const searchParams = {
+          query: this.searchString,
+          offset: 0,
+          limit: 20
+        }
+
+        // search people
+        this.searchStore.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
+      }
+
+    });
+
+  }
+
+  /**
+   * Sending an invitation to the person
+   */
+  sendInvitation(person: any) {
+    console.log('send an invite ', person);
   }
 
 }
