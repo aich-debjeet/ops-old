@@ -126,7 +126,7 @@ export class NavigationComponent implements OnInit {
    */
   ngOnInit() {
 
-    const profileType = localStorage.getItem('active_profileType') || 'profile';
+    const profileType = localStorage.getItem('profileType') || 'profile';
 
     this.store.select('profileTags')
     .first(profile => profile['profile_navigation_details'].name )

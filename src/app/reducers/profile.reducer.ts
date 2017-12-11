@@ -109,7 +109,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       let cards;
 
       // Get state from localstorage
-      const pType = localStorage.getItem('active_profileType') || 'profile';
+      const pType = localStorage.getItem('profileType') || 'profile';
       cards = getActiveProfile(payload, pType);
 
       return Object.assign({}, state, {
@@ -944,9 +944,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       let profileType = 'profile';
       if (payload.other.isOrg === true) {
         profileType = 'organization';
+        localStorage.setItem('profileHandle', state.profile_navigation_details['organization']['organizationHandle']);
+        localStorage.setItem('profileUsername', state.profile_navigation_details['organization']['organizationUserName']);
+      } else {
+        localStorage.setItem('profileHandle', state.profile_navigation_details.handle);
+        localStorage.setItem('profileUsername', state.profile_navigation_details.username);
       }
 
-      localStorage.setItem('active_profileType', profileType);
+      localStorage.setItem('profileType', profileType);
       const profileData =  getActiveProfile(state.profile_navigation_details, profileType )
 
       return Object.assign({}, state, {
