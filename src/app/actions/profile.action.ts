@@ -65,6 +65,13 @@ export class ProfileActions {
   static LOAD_USER_MEDIA_SUCCESS = 'LOAD_USER_MEDIA_SUCCESS';
   static LOAD_USER_MEDIA_FAILED = 'LOAD_USER_MEDIA_FAILED';
 
+    /**
+   * Load logged in users foolowing posts
+   */
+  static LOAD_USER_FOLLOWING_POSTS = 'LOAD_USER_FOLLOWING_POSTS';
+  static LOAD_USER_FOLLOWING_POSTS_SUCCESS = 'LOAD_USER_FOLLOWING_POSTS_SUCCESS';
+  static LOAD_USER_FOLLOWING_POSTS_FAILED = 'LOAD_USER_FOLLOWING_POSTS_FAILED';
+
   /**
    * Load logged in profile update
    */
@@ -366,6 +373,31 @@ export class ProfileActions {
   getUserMediaFailed(error: any): Action {
     return {
       type: ProfileActions.LOAD_USER_MEDIA_FAILED,
+      payload: error
+    };
+  }
+
+    /**
+   * Get logged in users following posts
+   * @param value
+   */
+  getUserFollowingPosts(value): Action {
+    return {
+      type: ProfileActions.LOAD_USER_FOLLOWING_POSTS,
+      payload: { value }
+    };
+  }
+
+  getUserFollowingPostsSuccess(value): Action {
+    return {
+      type: ProfileActions.LOAD_USER_FOLLOWING_POSTS_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  getUserFollowingPostsFailed(error: any): Action {
+    return {
+      type: ProfileActions.LOAD_USER_FOLLOWING_POSTS_FAILED,
       payload: error
     };
   }
