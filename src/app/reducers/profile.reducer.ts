@@ -180,6 +180,41 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         user_posts_loading: false
       });
 
+     /**
+     * Get User following Media Post
+     */
+    case ProfileActions.LOAD_USER_FOLLOWING_POSTS:
+    if (payload.page_start === 0) {
+      return Object.assign({}, state, {
+        user_following_posts_loading: true,
+        user_following_posts_loaded: false,
+        user_following_posts: []
+      });
+    }
+    return Object.assign({}, state, {
+      user_following_posts_loading: true,
+      user_following_posts_loaded: false
+    });
+
+
+  case ProfileActions.LOAD_USER_FOLLOWING_POSTS_SUCCESS:
+  console.log(payload)
+    const followingPosts = payload;
+    const following_new_post = state.user_following_posts.concat(followingPosts)
+    return Object.assign({}, state, {
+      mediaEntity: payload,
+      user_following_posts_loaded: true,
+      user_following_posts_loading: false,
+      user_following_posts: following_new_post
+    });
+
+  case ProfileActions.LOAD_USER_FOLLOWING_POSTS_FAILED:
+
+  return Object.assign({}, state, {
+    user_following_posts_loaded: false,
+      user_following_posts_loading: false
+    });
+
     /**
      * Get current User channel of profile
      */
