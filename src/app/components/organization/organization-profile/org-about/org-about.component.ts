@@ -59,6 +59,7 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
   showPreloader = false;
   searchString: string;
   people = [];
+  inviteSent: boolean;
 
   baseUrl = environment.API_IMAGE;
 
@@ -150,8 +151,9 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
       }
 
       // check for invite status
-      if (this.orgProfile && this.orgProfile['invite_sent'] === true) {
+      if (this.orgProfile && this.orgProfile['invite_sent'] === true && this.inviteSent === true) {
         this.toastr.success('Invite sent successfully');
+        this.inviteSent = false;
         // console.log(this.orgProfile['org_invite_req_data']);
         const invitedUserHandle = this.orgProfile['org_invite_req_data'].userHandle;
         // remove user from the list
@@ -329,6 +331,8 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
 
     // get org handle
     const orgHandle = localStorage.getItem('profileHandle');
+
+    this.inviteSent = true;
 
     this.store.dispatch({
       type: OrganizationActions.INVITE_MEMBER,
