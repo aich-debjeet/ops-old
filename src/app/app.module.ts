@@ -11,7 +11,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ImageCropperModule } from 'ng2-img-cropper/index';
 import { ToastrModule } from 'ngx-toastr';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
-
+import { ShareButtonsModule } from 'ngx-sharebuttons';
+import { NgxCarouselModule } from 'ngx-carousel';
 
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
@@ -179,6 +180,7 @@ import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
     ToastrModule.forRoot(), // ToastrModule added
+    ShareButtonsModule.forRoot(),
     // StoreRouterConnectingModule,
     EffectsModule.run(AuthEffect),
     EffectsModule.run(HomeEffect),
@@ -205,6 +207,7 @@ import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world
       libraries: ['places'],
       apiKey: 'AIzaSyDHx_cyWUg9okHlTH8M_kvduvWFSV3nShc'
     }),
+    NgxCarouselModule
   ],
   providers: [
     AuthService,

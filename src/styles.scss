@@ -442,6 +442,70 @@ vg-scrub-bar {
   padding: 1rem;
 }
 
-.ngxcarousel-items .item{
+.eventslider .ngxcarousel-items .item{
     width: 750px!important;
+}
+
+button.sb-wrapper.sb-facebook {
+  border: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 0;
+  margin-top: 16px;
+  margin-right: 8px;
+}
+
+.sb-content {
+  display: inline-block;
+}
+
+.sb-text {
+  display: none;
+}
+
+.sb-template {
+  display: inline-block;
+}
+
+//slider home page
+.hero{
+    .leftRs{
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        border-radius: 50%;
+        width: 52px;
+        height: 52px;
+        border: 1px #fff solid;
+        background: none;
+        text-align: center;
+        svg{
+          margin-top:8px;
+        }
+        &:hover{
+          background-color:rgba( 250, 250, 250, 0.5);
+        }
+        
+    }
+    .rightRs{
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        border-radius: 50%;
+        width: 52px;
+        height: 52px;
+        border: 1px #fff solid;
+        background: none;
+        text-align: center;
+        svg{
+          margin-top:8px;
+        }
+        &:hover{
+          background-color:rgba( 250, 250, 250, 0.5);
+        }
+    }
 }
