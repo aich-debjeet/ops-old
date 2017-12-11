@@ -148,6 +148,16 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
         console.log('this.orgProfile.profile_details.activeFrom', this.orgProfile['profile_details']['activeFrom']);
         this.aboutFoundedDate = this.datePipe.transform(this.orgProfile['profile_details']['activeFrom'], 'dd-MM-yyyy');
       }
+
+      // check for invite status
+      if (this.orgProfile && this.orgProfile['invite_sent'] === true) {
+        this.toastr.success('Invite sent successfully');
+        // console.log(this.orgProfile['org_invite_req_data']);
+        const invitedUserHandle = this.orgProfile['org_invite_req_data'].userHandle;
+        // remove user from the list
+        this.people = _.filter(this.people, function(person) { return person.handle !== invitedUserHandle; });
+        // console.log('this.people', this.people);
+      }
     });
     /* org state */
 
@@ -316,6 +326,17 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
    */
   sendInvitation(person: any) {
     console.log('send an invite ', person);
+
+    // get org handle
+    const orgHandle = localStorage.getItem('profileHandle');
+
+    this.store.dispatch({
+      type: OrganizationActions.INVITE_MEMBER,
+      payload: {
+        userHandle: person.handle,
+        orgHandle: orgHandle
+      }
+    });
   }
 
 }

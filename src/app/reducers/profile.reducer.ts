@@ -958,6 +958,28 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         profile_cards: profileData
       });
 
+    /**
+     * Member invitation to join org
+     */
+    case OrganizationActions.INVITE_MEMBER:
+    return Object.assign({}, state, {
+        sending_invite: true,
+        invite_sent: false,
+        org_invite_req_data: payload
+    });
+
+    case OrganizationActions.INVITE_MEMBER_SUCCESS:
+    return Object.assign({}, state, {
+        sending_invite: false,
+        invite_sent: true
+    });
+
+    case OrganizationActions.INVITE_MEMBER_FAILED:
+    return Object.assign({}, state, {
+        sending_invite: false,
+        invite_sent: false
+    });
+
     default:
       return state;
   }

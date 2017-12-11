@@ -165,4 +165,17 @@ export class OrganizationService {
     return this.api.get('/portal/network/spotfeed/organization/withCounts/' + orgUsername);
   }
 
+  /**
+   * Invite members to join org
+   */
+  inviteMember(data: any) {
+    // this.updateToken();
+    const reqBody = {
+      memberHandle: data.userHandle,
+      isAdmin: true,
+      status: ''
+    };
+    return this.api.put('/portal/organization/inviteMember/' + data.orgHandle, reqBody);
+  }
+
 }
