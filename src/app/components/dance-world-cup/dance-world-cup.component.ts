@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dance-world-cup',
@@ -8,10 +9,17 @@ import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 export class DanceWorldCupComponent implements OnInit, AfterViewInit {
 
   navItem = '';
-  activeTab = 'tab-1';
+  activeTab = 'tab-3';
+  contactForm: FormGroup;
   // window: Window;
 
-  constructor(private elRef: ElementRef) { }
+  constructor(
+    private elRef: ElementRef,
+    private fb: FormBuilder
+  ) {
+
+    this.createContactForm();
+  }
 
   ngOnInit() {
   }
@@ -24,8 +32,25 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
     this.activeTab = tabId;
   }
 
-  submitForm(value: any) {
+  submitContactForm(value: any) {
+    console.log(value);
+    if (this.contactForm.valid) {
+      console.log('submit valid form');
+    } else {
+      console.log('invalid form');
+    }
+  }
 
+  /**
+   * Submit contact form
+   */
+  createContactForm() {
+    // Empty initiate form
+    this.contactForm = this.fb.group({
+      name: ['', Validators.required ],
+      email: ['', Validators.required ],
+      message: ['']
+    })
   }
 
   ngAfterViewInit() {

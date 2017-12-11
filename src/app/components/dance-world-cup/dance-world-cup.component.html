@@ -492,11 +492,7 @@
             <!-- tab 1 -->
             <!-- tab 2 -->
             <div [ngClass]="{'active in': activeTab == 'tab-2'}" class="tab-pane fade m-l-r-16">
-                <h3>Why do we use it? 02</h3>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                    the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                    of type and scrambled it to make a type specimen book.
-                </p>
+                <iframe src="http://www.dwcworld.com/" class="full-screen" frameborder="0"></iframe>
             </div>
             <!-- tab 2 -->
             <!-- tab 3 -->
@@ -504,26 +500,31 @@
                 <div class="o-dwc-contact-form-container">
                     <h2 class="c-h2 text-center">Contact us</h2>
                     <p class="c-text_lg text-center color-grey-dark m-t-16">Send us a message and we'll get back to you as soon as we can.</p>
-                    <div class="o-dwc__form">
-                    <div class="c-form__group m-t-16">
-                        <input class="c-form__input" required="" type="text">
-                        <span class="c-form__highlight"></span>
-                        <span class="c-form__bar"></span>
-                        <label>Name</label>
-                    </div>
-                    <div class="c-form__group m-t-16">
-                        <input class="c-form__input" required="" type="text">
-                        <span class="c-form__highlight"></span>
-                        <span class="c-form__bar"></span>
-                        <label>Email</label>
-                    </div>
-                    <div class="c-form__group m-t-16">
-                        <textarea class="c-textarea__block c-textarea--style o-dwc-textarea" rows="1" data-min-rows="0" placeholder="Message"></textarea>
-                    </div>
-                    <div class="row text-center">
-                        <button type="button" class="btn btn-primary btn-lg m-t-32">Send</button>
-                    </div>
-                    </div>
+                    <form #contactFrm="ngForm" [formGroup]="contactForm" (ngSubmit)="submitContactForm(contactForm.value)" >
+                        <div class="o-dwc__form">
+                            <div class="c-form__group m-t-16">
+                                <input class="c-form__input" formControlName="name" type="text">
+                                <span class="c-form__highlight"></span>
+                                <span class="c-form__bar"></span>
+                                <label>Name</label>
+                            </div>
+                            <p class="error_alert" *ngIf="contactForm.controls['name'].errors?.required && contactFrm.submitted">Name is required</p>
+                            <div class="c-form__group m-t-16">
+                                <input class="c-form__input" formControlName="email" type="text" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                                <span class="c-form__highlight"></span>
+                                <span class="c-form__bar"></span>
+                                <label>Email</label>
+                            </div>
+                            <p class="error_alert" *ngIf="contactForm.controls['email'].errors?.required && contactFrm.submitted">Email is required</p>
+                            <p class="error_alert" *ngIf="contactForm.controls['email'].errors?.pattern && contactFrm.submitted">Invalid email id</p>
+                            <div class="c-form__group m-t-16">
+                                <textarea formControlName="message" class="c-textarea__block c-textarea--style o-dwc-textarea" rows="1" data-min-rows="0" placeholder="Message"></textarea>
+                            </div>
+                            <div class="row text-center">
+                                <button type="submit" class="btn btn-primary btn-lg m-t-32">Send</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             <!-- tab 3 -->
