@@ -8,7 +8,7 @@ import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 export class DanceWorldCupComponent implements OnInit, AfterViewInit {
 
   navItem = '';
-  window: Window;
+  // window: Window;
 
   constructor(private elRef: ElementRef) { }
 
@@ -20,18 +20,18 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.elRef.nativeElement.querySelector('a.btn-share').addEventListener('click', this.handleClick.bind(this));
+    // this.elRef.nativeElement.querySelector('a.btn-fb-share').addEventListener('click', this.handleClick.bind(this));
   }
 
   handleClick() {
-    const shareUrl = 'http://aurut.com';
-    console.log('called');
-    const windowObj = window.open();
-    let popUp;
-    if (shareUrl) {
-      /** Open share dialog */
-      popUp = window.open(shareUrl, 'newwindow', '800x800');
-    }
+    // const shareUrl = 'http://aurut.com';
+    // console.log('called');
+    // const windowObj = window.open();
+    // let popUp;
+    // if (shareUrl) {
+    //   /** Open share dialog */
+    //   popUp = window.open(shareUrl, 'newwindow', '800x800');
+    // }
   }
 
 }
