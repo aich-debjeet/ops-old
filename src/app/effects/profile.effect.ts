@@ -74,6 +74,22 @@ export class ProfileEffect {
       }))
     );
 
+
+      /**
+   * Get current user following posts
+   */
+  @Effect()
+  loadUserFollowingPost$ = this.actions$
+    .ofType(ProfileActions.LOAD_USER_FOLLOWING_POSTS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getUserFollowingPosts(payload)
+      .map(res => ({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.LOAD_USER_FOLLOWING_POSTS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
   /**
    * Get home page spotfeed
    */

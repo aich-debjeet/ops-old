@@ -55,9 +55,10 @@ export class EventService {
 
    /**
    * Upload Image to CDN
+   * @TODO: check why it is failing on for single file end point
    */
   uploadImage(value: any, handle: string = '') {
-    return this.api.postFile('/portal/cdn/media/upload?handle=' + handle, value);
+    return this.api.postFile('/portal/cdn/media/upload/multiple?handle=' + handle, value.image);
   }
 
   /**
@@ -77,9 +78,22 @@ export class EventService {
     return this.api.put( '/portal/event/advancesearch', data);
   }
 
+  /**
+   * File Uploader
+   * @TODO DONT DONT DRY, reuse this function ?
+   * @param formValue
+   * @param type
+   */
+  fileUpload(formValue: any, type: string = 'base64') {
 
-  fileUpload(formValue: any) {
-    const fileData = this.buildImageForm(formValue);
+    console.log(formValue);
+
+    let fileData;
+    if (type === 'base64') {
+      fileData = this.buildImageForm(formValue);
+    } else {
+      fileData = formValue;
+    }
     return this.uploadImage(fileData, formValue.handle);
   }
 
@@ -125,5 +139,12 @@ export class EventService {
     }
 
     return new Blob([ia], {type: mimeString});
+  }
+
+  /**
+   * dwc contact form submit
+   */
+  dwcContactUs(data: any) {
+    return this.api.post( '/portal/contactus', data);
   }
 }

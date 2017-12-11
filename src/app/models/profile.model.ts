@@ -4,6 +4,7 @@ export class ProfileModal {
   loading: false;
   success: true;
   profile_navigation_details?: any;
+  profile_cards?: any;
   editWork?: string[];
   profile_details?: any;
   profileUpdateSuccess?: boolean
@@ -27,6 +28,9 @@ export class ProfileModal {
   user_posts: any;
   user_posts_loading: boolean;
   user_posts_loaded: boolean;
+  user_following_posts: any;
+  user_following_posts_loading: boolean;
+  user_following_posts_loaded: boolean;
   media_channel_posting: boolean;
   media_channel_posted: boolean;
   channel_saved: boolean;
@@ -58,6 +62,7 @@ export const initialTag: ProfileModal = {
   success: true,
   profile_details: [],
   profile_navigation_details: [],
+  profile_cards: [],
   channelEntity: false,
   profile_loaded: false,
   userQuickAccess: [],
@@ -81,6 +86,10 @@ export const initialTag: ProfileModal = {
   user_posts: [],
   user_posts_loading: false,
   user_posts_loaded: false,
+  // User foolowing Posts
+  user_following_posts: [],
+  user_following_posts_loading: false,
+  user_following_posts_loaded: false,
   // Post Media to Channel
   media_channel_posting: false,
   media_channel_posted: false,
@@ -119,4 +128,19 @@ export class ProfileCard {
 export class Spotfeed {
   spotfeed_detail?: any[];
   spotfeed_loading: false;
+}
+
+
+export class UserCard {
+  name: string;
+  image: string;
+  username: string;
+  handle: string;
+  isOrg: boolean;
+  page_path: string;
+}
+
+export class ProfileCards {
+  active: UserCard;
+  other: UserCard;
 }

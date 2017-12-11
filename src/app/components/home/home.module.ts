@@ -15,15 +15,17 @@ import { SharedPipesModule } from '../../pipes/shared-pipes.module'
 
 // Guard
 import { AuthGuard } from './../../guard/auth.guard';
+import { HomePostComponent } from './home-post/home-post.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     children: [
-      { path: '', redirectTo: 'spotfeed'},
+      { path: '', redirectTo: 'channel'},
       { path: 'spotfeed', component: HomeSpotfeedComponent},
-      { path: 'channel', component: HomeChannelComponent}
+      { path: 'channel', component: HomeChannelComponent},
+      { path: 'post', component: HomePostComponent}
     ]
   }
 ]
@@ -41,6 +43,7 @@ const routes: Routes = [
     HomeChannelComponent,
     HomeSpotfeedComponent,
     HomeRightBlockComponent,
+    HomePostComponent,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 

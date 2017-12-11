@@ -25,7 +25,7 @@ export class HomeRightBlockComponent implements OnInit {
   private tagStateSubscription: Subscription;
   myProfile$: Observable<any>;
   userState: any;
-  profiles: any;
+  profiles = [];
   skillCodes = [];
   loadedRecomOpps = false;
   recordsPerPage = 2;
@@ -53,31 +53,44 @@ export class HomeRightBlockComponent implements OnInit {
    });
 
     this.myProfile$.subscribe(event => {
-      this.profiles = event.user_profiles_all;
       this.userState = event;
-      console.log('user state' , this.userState)
-      console.log('this.profiles ', this.profiles)
-            // check for user skills
-            if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['skills'] && this.userState['profile_navigation_details']['skills'].length > 0) {
-              // fetching skills in a local var
-              const skillsLoaded = this.userState['profile_navigation_details']['skills'];
-              // console.log(skillsLoaded)
-              // preparing skills as an array of string
-              skillsLoaded.forEach((skill, index) => {
-                // console.log('skill.code', skill.code);
-                if (skill && skill.code) {
-                  this.skillCodes.push(skill.code);
-                }
-                if ((skillsLoaded.length - 1) === index) {
-                  if (!this.loadedRecomOpps) {
-                    this.loadRecomOpps();
-                  }
-                }
-              });
+      if (event['user_profiles_all'] !== 'undefined') {
+        this.profiles = event.user_profiles_all;
+        // this.filterProfiles(profiles);
+      }
+      // console.log('user state' , this.userState)
+      // console.log('this.profiles ', this.profiles)
+      // check for user skills
+      if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['skills'] && this.userState['profile_navigation_details']['skills'].length > 0) {
+        // fetching skills in a local var
+        const skillsLoaded = this.userState['profile_navigation_details']['skills'];
+        // console.log(skillsLoaded)
+        // preparing skills as an array of string
+        skillsLoaded.forEach((skill, index) => {
+          // console.log('skill.code', skill.code);
+          if (skill && skill.code) {
+            this.skillCodes.push(skill.code);
+          }
+          if ((skillsLoaded.length - 1) === index) {
+            if (!this.loadedRecomOpps) {
+              this.loadRecomOpps();
+              this.loadedRecomOpps = true;
             }
+          }
+        });
+      }
     });
   }
 
+  // filterProfiles(profile) {
+  //   console.log(profile)
+  //   for (let i = 0; i < profile.length; i++) {
+  //     if (!profile[i].extra.isFollowing) {
+  //       this.profiles.push(profile[i])
+  //     }
+  //   }
+  //   console.log(this.profiles)
+  // }
   getProfileImage() {
     return _filter(this.profiles, function(item) {
       return item.profileImage !== '';

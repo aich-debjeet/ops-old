@@ -1,35 +1,156 @@
-<section class="o-landing-hero fill-grey-light">
-  <div class="container">
-    <div class="col-md-6 p-0">
-      <div class="o-logo">
-        <img src="/assets/img/landing/logo_black.svg" class="img-responsive">
-      </div>
-      <h2 class="c-h2 m-b-32">Sign up on One Page Spotlight to<br>register for Dance world cup</h2>
-      <div class="o-register-area">
-        <div class="col-md-12 p-l-0">
-        <a [routerLink]="['reg']" [queryParams]="{ ev: 'dwc2017' }" class="btn btn-primary btn-lg float_left">Register</a>
-        <a [routerLink]="['danceworldcup']" class="btn btn-default btn-lg float_left m-l-16">read more</a>
-      </div>
-        <div class="col-md-12 c-text_md color-grey-dark p-l-0 m-t-16"> Already a member? <a [routerLink]="['login']" [queryParams]="{ next: 'dwc' }" class="color-theme">Log in </a>to register </div>
-      </div>
-      <div class="o-dance-wc-logo">
-        <p class="c-text_sm color-grey-dark text_uppercase">Hosted by</p>
-        <div class="o-dance-wc__logo-container m-t-16">
-          <img src="/assets/img/landing/dwc_world_logo.png" alt="">
+<header class="opsheader_landing">
+    <div class="container">
+        <div class="o-logo">
+            <img src="/assets/img/landing/logobetawhite.svg" class="img-responsive">
         </div>
-      </div>
-    </div><!-- hero left block end -->
-    <div class="col-md-6 p-0">
-      <div class="o-log-reg-btn">
-        <a [routerLink]="['reg']" class="btn btn-primary btn-lg m-r-8">Sign Up</a>
-        <a [routerLink]="['login']" class="btn btn-default btn-lg m-l-8">login</a>
-      </div>
-      <div class="o-landing-hero__img">
-        <img src="/assets/img/landing/hero_img.png" alt="">
-      </div>
-    </div><!-- hero right block end -->
-  </div>
-</section><!-- hero section end -->
+        <div class="o-log-reg-btn">
+            <a [routerLink]="['reg']" class="btn btn-primary btn-lg btn-inverse m-r-8">Sign Up</a>
+            <a [routerLink]="['login']"  class="o-landing-more-btn m-l-8">login</a>
+        </div>
+    </div>
+</header>
+
+<div class="hero">
+    <ngx-carousel
+      [inputs]="homeSlider"
+      [moveToSlide]="1"
+      (onMove)="onmoveFn($event)"
+      (afterCarouselViewed)="afterCarouselViewedFn($event)">
+
+        <ngx-item NgxCarouselItem class="bannerStyle" >
+            <div class="o-landing-hero fill-grey-light">
+                <div class="container">
+                <div class="col-md-6 p-0">
+                    <h2 class="c-h2 m-b-32 color-white o-hero-main__title">Sign up on One page spotlight to<br>register for Dance World Cup</h2>
+                    <div class="o-register-area">
+                    <div class="col-md-12 p-l-0">
+                    <a [routerLink]="['reg']" [queryParams]="{ ev: 'dwc2017' }"  class="btn btn-primary btn-lg btn-inverse float_left">Register</a>
+                    <a [routerLink]="['danceworldcup']" class="o-landing-more-btn float_left m-l-16">read more</a>
+                    </div>
+                    <div class="col-md-12 c-text_md color-white p-l-0 m-t-16"> Already a member? <a [routerLink]="['login']" [queryParams]="{ next: 'dwc' }" class="color-white"><u>Log in</u> </a>to register </div>
+                    </div>
+
+                    <div class="col-md-6">
+                    <div class="o-dance-wc-logo">
+                        <div class="o-dance-wc__logo-container">
+                        <img src="/assets/img/landing/dwc_world_logo.png" alt="">
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-3 p-0">
+                    <div class="o-dance-wc-logo">
+                        <p class="c-text_sm color-white text_uppercase">Hosted by</p>
+                        <div class="o-dance-wc__hosted-logo-container m-t-16">
+                        <img src="/assets/img/landing/isptd.jpg" alt="">
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-3">
+                    <div class="o-dance-wc-logo">
+                        <p class="c-text_sm color-white text_uppercase">Powered By</p>
+                        <div class="o-dance-wc__powered-logo-container m-t-16">
+                        <img src="/assets/img/landing/lvds.png" alt="">
+                        </div>
+                    </div>
+                    </div>
+
+                </div><!-- hero left block end -->
+                <div class="col-md-6 p-0">
+                    <div class="o-landing-hero__img">
+                    <img src="/assets/img/landing/banner2.png" alt="">
+                    </div>
+                </div><!-- hero right block end -->
+                </div>
+            </div><!-- hero section end -->
+        </ngx-item>
+        <ngx-item NgxCarouselItem class="bannerStyle" >
+            <div class="o-landing-hero2 fill-grey-light">
+                <div class="container">
+                <div class="col-md-6 p-0">
+                    <h2 class="c-h2 m-b-32 color-white o-hero-main__title">Sign up on One page spotlight to<br>register for Dance World Cup</h2>
+                    <div class="o-register-area">
+                    <div class="col-md-12 p-l-0">
+                    <a [routerLink]="['reg']" [queryParams]="{ ev: 'dwc2017' }" class="btn btn-primary btn-lg btn-inverse float_left">Register</a>
+                    <a [routerLink]="['danceworldcup']" class="o-landing-more-btn float_left m-l-16">read more</a>
+                    </div>
+                    <div class="col-md-12 c-text_md color-white p-l-0 m-t-16"> Already a member? <a [routerLink]="['login']" [queryParams]="{ next: 'dwc' }" class="color-white"><u>Log in</u> </a>to register </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                    <div class="o-dance-wc-logo">
+                        <div class="o-dance-wc__logo-container">
+                        <img src="/assets/img/landing/dwc_world_logo.png" alt="">
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-3 p-0">
+                    <div class="o-dance-wc-logo">
+                        <p class="c-text_sm color-white text_uppercase">Hosted by</p>
+                        <div class="o-dance-wc__hosted-logo-container m-t-16">
+                        <img src="/assets/img/landing/isptd.jpg" alt="">
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-md-3">
+                    <div class="o-dance-wc-logo">
+                        <p class="c-text_sm color-white text_uppercase">Powered By</p>
+                        <div class="o-dance-wc__powered-logo-container m-t-16">
+                        <img src="/assets/img/landing/lvds.png" alt="">
+                        </div>
+                    </div>
+                    </div>
+                </div><!-- hero left block end -->
+                <div class="col-md-6 p-0">
+                    <div class="o-landing-hero__img">
+                    <img src="/assets/img/landing/banner.png" alt="">
+                    </div>
+                </div><!-- hero right block end -->
+                </div>
+            </div><!-- hero section end -->
+        </ngx-item>
+        <button NgxCarouselPrev class='leftRs'>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                <defs>
+                    <polygon id="arrow-copy-6-a" points="15.276 4.001 8 11.942 15.276 19.882 16.75 18.531 10.713 11.942 16.75 5.351"/>
+                </defs>
+                <g fill="none" fill-rule="evenodd">
+                    <use fill="#fff" xlink:href="#arrow-copy-6-a"/>
+                </g>
+            </svg>
+        </button>
+        <button NgxCarouselNext class='rightRs'>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                <defs>
+                    <polygon id="arrow-copy-5-a" points="15.526 4.119 8.25 12.06 15.526 20 17 18.649 10.963 12.06 17 5.469"/>
+                </defs>
+                <g fill="none" fill-rule="evenodd">
+                    <use fill="#fff" transform="rotate(-180 12.625 12.06)" xlink:href="#arrow-copy-5-a"/>
+                </g>
+            </svg>
+        </button>
+    </ngx-carousel>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <section class="o-platform-sec">
     <div class="container">
         <div class="row landing_for_artist">

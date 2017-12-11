@@ -5,9 +5,9 @@
             <div class="c-card__user">
                 <div class="c-user">
                     <a class="c-user__avatar c-avatar--feed">
-                        <img class="c-user__image" src="{{ baseUrl + profileStore.profile_navigation_details?.profileImage }}">
+                        <img class="c-user__image" src="{{ baseUrl + activeUser?.image }}">
                     </a>
-                    <a class="c-user__name c-user__name--addpost">{{ profileStore.profile_navigation_details?.name }}</a>
+                    <a class="c-user__name c-user__name--addpost">{{ activeUser?.name }}</a>
                 </div>
             </div>
             <div class="o-add-status__txt">

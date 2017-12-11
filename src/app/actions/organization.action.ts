@@ -56,6 +56,11 @@ export class OrganizationActions {
     static ORG_PROFILE_SUCCESS = 'ORG_PROFILE_SUCCESS';
     static ORG_PROFILE_FAILED = 'ORG_PROFILE_FAILED';
 
+    // invite people to join organisation
+    static INVITE_MEMBER = 'INVITE_MEMBER';
+    static INVITE_MEMBER_SUCCESS = 'INVITE_MEMBER_SUCCESS';
+    static INVITE_MEMBER_FAILED = 'INVITE_MEMBER_FAILED';
+
     /*------------------------ get receipient details---------------------------------*/
 
   getReceipient(value) {

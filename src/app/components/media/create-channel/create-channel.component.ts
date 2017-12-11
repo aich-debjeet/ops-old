@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 // import { FileUploadService } from '../media/fakeService';
-import { ProfileModal, initialTag } from '../../../models/profile.model';
+import { ProfileModal, initialTag, UserCard } from '../../../models/profile.model';
 import { ProfileActions } from '../../../actions/profile.action';
 import { environment } from './../../../../environments/environment';
 
@@ -52,6 +52,7 @@ export class CreateChannelComponent implements OnInit {
   industries: any[];
   selectedIndustry = '';
   hashTags: string[];
+  activeUser: UserCard;
 
   constructor(
     private fb: FormBuilder,
@@ -83,9 +84,10 @@ export class CreateChannelComponent implements OnInit {
         this.profileChannel = state;
         this.channelSaved = this.profileChannel.channel_saved;
 
-        // Success message
+        const activeUser = this.profileChannel.profile_cards.active;
+        this.activeUser = activeUser;
+
         if (this.channelSavedHere && this.channelSaved === true ) {
-          // this.toastr.success('Channel Created');
           this.switchToStep(3);
           this.createChannelForm();
           this.channelSavedHere = false;
@@ -156,20 +158,11 @@ export class CreateChannelComponent implements OnInit {
    */
   createChannel(value: any) {
     this.prepareHashtags(value.desc);
-    const userHandle = this.profileChannel.profile_navigation_details.handle || '';
+    // const userHandle = this.profileChannel.profile_navigation_details.handle || '';
     const mediaTypeList = this.channelTypeConfig(this.channelType);
 
     // set profile handle to user handle
-    let profileHandle = userHandle;
-
-    // check if creator is user or organization
-    if (localStorage.getItem('active_profile') !== null) {
-      const localStore = JSON.parse(this.localStorageService.theAccountStatus);
-      // console.log('localStore', localStore);
-      if (localStore && localStore.handle && localStore.handle.length > 0) {
-        profileHandle = localStore.handle;
-      }
-    }
+    const profileHandle = this.activeUser.handle;
 
     if ( this.channelForm.valid === true && profileHandle !== '' ) {
 
@@ -189,9 +182,6 @@ export class CreateChannelComponent implements OnInit {
         hashTags: this.hashTags
       }
 
-      // console.log(channelObj);
-      // return;
-
       this.channelSavedHere = true;
       this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
     } else {
@@ -209,8 +199,8 @@ export class CreateChannelComponent implements OnInit {
   }
 
   ngOnInit() {
-      // loading industry list
-      this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
+    // Loading industry list
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   /**

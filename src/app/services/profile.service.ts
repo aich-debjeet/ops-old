@@ -333,7 +333,14 @@ export class ProfileService {
     const params = payload.handle + '/' + payload.page_start + '/' + payload.page_end;
     return this.api.get('/portal/cdn/media/otherProfile/', params);
   }
-
+  /**
+   *
+   * @param payload get posts followed by the user
+   */
+  getUserFollowingPosts(payload: any) {
+    const params = payload.handle + '/' + payload.page_start + '/' + payload.page_end;
+    return this.api.get('/portal/network/spotfeed/following/posts/spotfeeds/', params);
+  }
   /**
    * Post to Media
    */
@@ -376,6 +383,7 @@ export class ProfileService {
    * Pin channel
    */
   userChannelPin(body: any) {
+    console.log(body)
     return this.api.put('/portal/network/spotfeed/pinspotfeed/pin', body);
   }
 
@@ -417,6 +425,6 @@ export class ProfileService {
 
   getdefaultNotifications() {
     console.log('here is the default notifications')
-   return this.api.get('/portal/profile/profileSettings/default/settings', '' );
+    return this.api.get('/portal/profile/profileSettings/default/settings', '' );
   }
 }

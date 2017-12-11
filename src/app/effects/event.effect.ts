@@ -50,7 +50,7 @@ export class EventEffect {
     fileUpload$ = this.actions$
     .ofType(EventActions.FILE_UPLOAD)
     .map(toPayload)
-    .switchMap((payload) => this.eventService.fileUpload(payload)
+    .switchMap((payload) => this.eventService.fileUpload(payload, 'file')
       .map(res => ({ type: EventActions.FILE_UPLOAD_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: EventActions.FILE_UPLOAD_FAILED, payload: res }))
     );
@@ -94,6 +94,16 @@ export class EventEffect {
       .map(res => ({ type: EventActions.EVENT_TYPE_LOAD_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: EventActions.EVENT_TYPE_LOAD_FAILED, payload: res }))
     );
+
+  // dwc contact form submit
+  @Effect()
+  dwcContact$ = this.actions$
+  .ofType(EventActions.DWC_CONTACT_FORM)
+  .map(toPayload)
+  .switchMap((payload) => this.eventService.dwcContactUs(payload)
+    .map(res => ({ type: EventActions.DWC_CONTACT_FORM_SUCCESS, payload: res }))
+    .catch((res) => Observable.of({ type: EventActions.DWC_CONTACT_FORM_FAILED, payload: res }))
+  );
 
   constructor(
     private actions$: Actions,

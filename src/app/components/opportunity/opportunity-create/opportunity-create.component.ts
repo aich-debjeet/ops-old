@@ -26,6 +26,7 @@ import { environment } from 'environments/environment.staging';
 // google location api
 import {} from '@types/googlemaps';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import { UserCard } from 'app/models/profile.model';
 
 @Component({
   selector: 'app-opportunity-create',
@@ -67,6 +68,7 @@ export class OpportunityCreateComponent implements OnInit {
   state: string;
   postalCode: string;
   city: string;
+  activeProfile: UserCard;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -147,15 +149,6 @@ export class OpportunityCreateComponent implements OnInit {
 
     // create channel form
     this.createChannelForm();
-
-    // check if creator is user or organization
-    if (localStorage.getItem('active_profile') !== null) {
-      const localStore = JSON.parse(this.localStorageService.theAccountStatus);
-      if (localStore.profileType === 'org') {
-        this.orgHandle = localStore.handle;
-      }
-    }
-
   }
 
   /**
@@ -194,6 +187,29 @@ export class OpportunityCreateComponent implements OnInit {
   ngOnInit() {
     // loading indutries
     this.loadIndustries();
+
+    // check organziation page already created
+    this.store.select('profileTags')
+    .first(profile => profile['current_user_profile_loading'] === true)
+    .subscribe( data => {
+      /**
+       * @TODO
+       * What happens if the current user,
+       * without switching to org comes here?
+       */
+      this.activeProfile = data['profile_cards'].active;
+      // bad logics
+      if (this.activeProfile.isOrg) {
+        console.log('L1', this.activeProfile);
+        this.orgHandle = this.activeProfile.handle;
+      } else {
+        console.log('L2', this.activeProfile);
+        if (data['profile_cards'].other && data['profile_cards'].other.isOrg) {
+          this.orgHandle = data['profile_cards'].other.isOrg;
+        }
+      }
+
+    });
   }
 
   // channel select

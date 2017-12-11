@@ -80,7 +80,7 @@
                                 <div class="dropnoti__icon">
                                     <img src="/assets/img/svg/spot_icon.svg">
                                 </div>
-                                <p class="msg__time">10:08 PM</p>
+                                <p class="msg__time">--</p>
                             </div>
                             <!-- <div class="dropdown__item p-16 msg__unread">
                                 <div class="dropnoti__avatar">
@@ -126,51 +126,40 @@
 
                     <li class="dropdown" appDropdown>
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                            <img src="{{ baseUrl + activeProfileState.profile_navigation_details?.profileImage }}" class="nav__avatar__img" *ngIf="this.profileType == 'user'">
-                            <img src="{{ baseUrl + activeProfileState.profile_navigation_details?.profileImage }}" class="nav__avatar__img" *ngIf="this.profileType == 'org'">
+                            <img src="{{ baseUrl + this.userCards.active.image }}" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === false">
+                            <img src="{{ baseUrl + this.userCards.active.image }}" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === true">
                             <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right nav__dropdown" [ngClass]="{'open': this.topNav['profile'].open }">
                             <div class="dropdown__item with_border_bottom p-b-16">
-                                <div class="dropdown__arrow3"><img src="img/arrow.png"></div>
-                                <a routerLink="/profile" *ngIf="this.profileType == 'user'">
-                                    <div class="navdrop__imgblock">
-                                        <img class="navdrop__img" src="{{ baseUrl + activeProfileState.profile_navigation_details?.profileImage }}">
-                                    </div>
-                                    <div class="navdrop__name">{{ activeProfileState.profile_navigation_details?.name }}</div>
-                                    <div class="navdrop__userhandal">@{{ activeProfileState.profile_navigation_details?.username }}</div>
-                                </a>
-                                <a routerLink="/org/page" *ngIf="this.profileType == 'org'">
-                                    <div class="navdrop__imgblock">
-                                        <img class="navdrop__img" src="{{ baseUrl + activeProfileState.profile_navigation_details?.profileImage }}">
-                                    </div>
-                                    <div class="navdrop__name" routerLink="/profile">{{ activeProfileState.profile_navigation_details?.name }}</div>
-                                    <div class="navdrop__userhandal">@{{ activeProfileState.profile_navigation_details?.username }}</div>
+                                <a routerLink="{{ this.userCards.active.page_path }}">
+                                  <div class="navdrop__imgblock">
+                                    <img class="navdrop__img" src="{{ baseUrl + this.userCards.active.image }}">
+                                  </div>
+                                  <div class="navdrop__name">{{ this.userCards.active.name }}</div>
+                                  <div class="navdrop__userhandal">@{{ this.userCards.active.username }}</div>
                                 </a>
                             </div>
-                            <div class="dropdown__item with_border_bottom p-t-b-16" *ngIf="this.profileType == 'user' && activeProfileState.profile_navigation_details?.isOrganization">
+                            <div class="dropdown__item with_border_bottom p-t-b-16">
                                 <div class="navdrop__switchto">Switch to</div>
                                 <div class="navdrop__imgblock2">
-                                    <img class="navdrop__img" src="{{ baseUrl + activeProfileState.profile_navigation_details?.organization?.organizationImage }}">
+                                  <img class="navdrop__img" src="{{ baseUrl + this.userCards.other.image }}">
                                 </div>
-                                <div class="navdrop__name2"><a routerLink="/org/page" (click)="setProfileToOrg()">{{ activeProfileState.profile_navigation_details?.organization?.organizationName }}</a></div>
-                            </div>
-                            <div class="dropdown__item with_border_bottom p-t-b-16" *ngIf="this.profileType == 'org'">
-                                <div class="navdrop__switchto">Switch to</div>
-                                <div class="navdrop__imgblock2">
-                                    <img class="navdrop__img" src="{{ baseUrl + activeProfileState.profile_navigation_details?.name  }}">
+                                <div class="navdrop__name2">
+                                  <a (click)="changeProfile(this.userCards, $event)">
+                                    {{ this.userCards.other.name }}
+                                  </a>
                                 </div>
-                                <div class="navdrop__name2"><a routerLink="/profile" (click)="setProfileToUser()">@{{ profilerOwnersUsername }}</a></div>
                             </div>
-                            <div class="dropdown__item p-t-b-16" *ngIf="this.profileType == 'user' && !activeProfileState.profile_navigation_details?.isOrganization">
+                            <div class="dropdown__item p-t-b-16" *ngIf="!this.userCards.other">
                                 <a routerLink="/org/registration">Create Organisation</a>
                             </div>
                             <div class="dropdown__item p-t-b-16 with_border_bottom">
-                                <a *ngIf="this.profileType == 'user'" routerLink="/user/settings">Settings</a>
-                                <a *ngIf="this.profileType == 'org'" routerLink="/org/settings">Settings</a>
+                                <a *ngIf="this.userCards.active.isOrg === false" routerLink="/user/settings">Settings</a>
+                                <a *ngIf="this.userCards.active.isOrg === true" routerLink="/org/settings">Settings</a>
                             </div>
                             <div class="dropdown__item p-t-b-16">
-                                <a href="">Invite Friends</a>
+                                <a routerLink="/invite/friends">Invite Friends</a>
                             </div>
                             <div class="dropdown__item p-b-16 with_border_bottom">
                                 <a routerLink="/about">About One Page Spotlight</a>

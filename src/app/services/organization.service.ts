@@ -43,6 +43,7 @@ export class OrganizationService {
    * Get org profile details
    */
   detailOrganization(username: any) {
+      console.log(username);
       return this.api.get(`/portal/organization/user/username/${username}`);
   }
 
@@ -162,6 +163,19 @@ export class OrganizationService {
    */
   orgNavigationDetails(orgUsername: string) {
     return this.api.get('/portal/network/spotfeed/organization/withCounts/' + orgUsername);
+  }
+
+  /**
+   * Invite members to join org
+   */
+  inviteMember(data: any) {
+    // this.updateToken();
+    const reqBody = {
+      memberHandle: data.userHandle,
+      isAdmin: true,
+      status: ''
+    };
+    return this.api.put('/portal/organization/inviteMember/' + data.orgHandle, reqBody);
   }
 
 }
