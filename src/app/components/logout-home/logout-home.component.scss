@@ -5,6 +5,146 @@
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/base/_base.scss';
 
+// for landing header
+
+.opsheader_landing{
+    position: absolute;
+    width: 100%;
+    float: left;
+    top: 0px;
+    background: none;
+    z-index: 100;
+}
+.o-logo{
+    width: 40%;
+    float: left;
+    margin-top: 40px;
+    margin-bottom: 0px;
+  img {
+    width: 277px;
+  }
+}
+.o-log-reg-btn{
+    width: 40%;
+    text-align: right;
+    margin-top: 40px;
+    float: right;
+}
+
+
+// landing page css
+.o-landing-hero{
+	width: 100%;
+	// height: 100vh;
+	float: left;
+	padding-bottom: 67px;
+  background: url(/assets/img/landing/banner2.jpg) no-repeat;
+  background-size: 100%;
+  background-position: left;
+}
+.o-landing-hero2{
+  width: 100%;
+  // height: 100vh;
+  float: left;
+  padding-bottom: 67px;
+  background: url(/assets/img/landing/banner1.jpg) no-repeat;
+  background-size: 100%;
+  background-position: left top;
+}
+.o-dance-wc-logo{
+	width: 100%;
+	margin-top: 150px;
+	float: left;
+}
+.o-dance-wc__logo-container{
+	width: 100%;
+  margin-top: 40px;
+	img{
+		width: 204px;
+	}
+}
+.o-dance-wc__powered-logo-container{
+  width: 100%;
+  img{
+    width: 47px;
+  }
+}
+.o-dance-wc__hosted-logo-container{
+  width: 100%;
+  img{
+    width: 104px;
+  }
+}
+
+.o-landing-more-btn{
+  border: 1px solid #FFFFFF;  
+  padding: 7px 14px;
+  font-size: 13px;
+  line-height: 18px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: #fff;
+}
+.o-hero-main__title{
+  margin-top: 238px;
+}
+
+// hero right block
+
+.o-landing-hero__img{
+	width: 100%;
+	float: left;
+  margin-top: 100px;
+	img{
+		width: 100%;
+	}
+}
+
+// platform sec
+
+.o-platform-det-block{
+	padding-bottom: 200px;
+}
+.o-platform-sec{
+	width: 100%;
+	background: #fff;
+}
+.o-platform-title--margin{
+  margin-top: 100px;
+}
+.o-platform-block{
+  background: #fff;
+  height: 152px;
+  width: 152px;
+  border-radius: 50%;
+  overflow: hidden;
+  // -webkit-box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
+  // -moz-box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
+  // box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
+  transition:.25s;
+  margin:0px auto;
+  &:hover{
+    transform: scale(1.1, 1.1);
+    margin-top: -5px;
+  }
+}
+.o-platform-block--img{
+  width: 100%;
+}
+.o-platform-block-title{
+  font-size: 15px;
+  font-weight: normal;
+  color: #333;
+  margin-top: 24px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+
+
+
 
 .o-hero{
   width: 100%;
@@ -13,15 +153,7 @@
 .o-platform-sec{
     background: #fff;
 }
-.o-logo{
-  width: 100%;
-  float: left;
-  margin-top: 72px;
-  margin-bottom: 102px;
-  img {
-    width: 306px;
-  }
-}
+
 .o-dance-wc-logo{
   width: 100%;
   margin-top: 106px;
@@ -36,12 +168,6 @@
 
 // hero right block
 
-.o-log-reg-btn{
-  width: 100%;
-  text-align: right;
-  margin-top: 72px;
-  float: left;
-}
 .o-landing-hero__img{
   width: 100%;
   float: left;
