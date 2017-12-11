@@ -47,6 +47,25 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
         event_type: payload,
       });
 
+    case EventActions.DWC_CONTACT_FORM:
+      return Object.assign({}, state, {
+        dwc_contact_form_uploading: true,
+        dwc_contact_form_req_body: payload
+      });
+
+    case EventActions.DWC_CONTACT_FORM_SUCCESS:
+      return Object.assign({}, state, {
+        dwc_contact_form_uploading: false,
+        dwc_contact_form_res_body: payload,
+        dwc_contact_form_upload_success: true
+      });
+
+    case EventActions.DWC_CONTACT_FORM_FAILED:
+      return Object.assign({}, state, {
+        dwc_contact_form_uploading: false,
+        dwc_contact_form_upload_success: false
+      });
+
     default:
       return state;
 

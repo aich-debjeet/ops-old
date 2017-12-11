@@ -95,6 +95,16 @@ export class EventEffect {
       .catch((res) => Observable.of({ type: EventActions.EVENT_TYPE_LOAD_FAILED, payload: res }))
     );
 
+  // dwc contact form submit
+  @Effect()
+  dwcContact$ = this.actions$
+  .ofType(EventActions.DWC_CONTACT_FORM)
+  .map(toPayload)
+  .switchMap((payload) => this.eventService.dwcContactUs(payload)
+    .map(res => ({ type: EventActions.DWC_CONTACT_FORM_SUCCESS, payload: res }))
+    .catch((res) => Observable.of({ type: EventActions.DWC_CONTACT_FORM_FAILED, payload: res }))
+  );
+
   constructor(
     private actions$: Actions,
     private router: Router,

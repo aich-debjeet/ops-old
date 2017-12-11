@@ -140,4 +140,11 @@ export class EventService {
 
     return new Blob([ia], {type: mimeString});
   }
+
+  /**
+   * dwc contact form submit
+   */
+  dwcContactUs(data: any) {
+    return this.api.post( '/portal/contactus', data);
+  }
 }
