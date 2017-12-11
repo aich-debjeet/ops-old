@@ -1,76 +1,23 @@
 @import './src/assets/scss/helpers/_variables.scss';
-@import './src/assets/scss/helpers/_helpers.scss';
-@import './src/assets/scss/components/_feed-card.scss';
-@import './src/assets/scss/components/_dropdowns.scss';
-// @mixin clearfix {
-//     &:after {
-//         content: "";
-//         display: table;
-//         clear: both;
-//     }
-// }
-// // post with comments block style -----------------------------------
-// .c-avatar--status {
-//     width: 34px;
-//     height: 34px;
-// }
-// .c-avatar--status2 {
-//     width: 24px;
-//     height: 24px;
-// }
-// .c-avatar--status3 {
-//     width: 40px;
-//     height: 40px;
-// }
-// .c-avatar--artist {
-//     width: 90px;
-//     height: 90px;
-// }
-// .c-user--align {
-//     margin-left: 16px; // margin-top: 8px;
-// }
-// .c-user__channel-align {
-//     margin-top: 24px;
-//     position: absolute;
-//     margin-left: 50px;
-// }
-// .c-status--block {
-//     width: 100%;
-//     float: left;
-//     clear: both;
-//     padding: 16px 24px;
-//     position: relative;
-// }
-// .c-post__time {
-//     float: left;
-//     color: #b4b4b4;
-//     font-size: 11px;
-//     line-height: 18px; // margin-right: 8px;
-//     margin-top: 8px;
-// }
-// .c-status__options {
-//     width: 14px;
-//     height: 14px;
-//     float: left;
-//     margin-top: 9px;
-//     margin-left: 8px;
-// }
-// .c-feed__img img{
-//   margin: auto
-// }
-// .c-card{
-//   margin-bottom: 15px;
-// }
-// .c-user__name {
-//     font-size: 15px;
-//     line-height: 24px;
-//     text-align: left;
-//     color: #000;
-//     margin-left: 8px;
-//     margin-top: 2px;
-//     float: left;
-//     cursor: pointer;
-// }
+@import './src/assets/scss/helpers/_functions.scss';
+@import './src/assets/scss/helpers/_mixins.scss';
+@import '~sass-mq/_mq.scss';
+.tab-content>.active {
+    display: block;
+}
+
+.fade.in {
+    opacity: 1;
+}
+
+.col-md-3 {
+    width: 25%;
+}
+
+.col-md-9 {
+    width: 75%;
+}
+
 .m-t-16 {
     margin-top: 16px !important;
 }
