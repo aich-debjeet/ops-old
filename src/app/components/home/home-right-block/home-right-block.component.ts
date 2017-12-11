@@ -15,7 +15,8 @@ import { OpportunityActions } from '../../../actions/opportunity.action';
 @Component({
   selector: 'home-right-block',
   templateUrl: './home-right-block.component.html',
-  styleUrls: ['./home-right-block.component.scss']
+  styleUrls: ['./home-right-block.component.scss'],
+  // providers: [ TruncatePipe ]
 })
 
 export class HomeRightBlockComponent implements OnInit {
