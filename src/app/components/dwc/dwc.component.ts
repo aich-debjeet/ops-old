@@ -42,7 +42,10 @@ export class DwcComponent implements OnInit {
       'school_owner' : ['', [Validators.required]],
       'school_address' : ['', [Validators.required]],
       'school_category' : ['', [Validators.required]],
-      'school_teammates' : ['', [Validators.required]]
+      'school_teammates' : ['', [Validators.required]],
+      'otherInformation' : ['Solo', [Validators.required]],
+      'category_dance' : ['', [Validators.required]],
+      'age_group' : ['', [Validators.required]]
     })
 
   }
@@ -50,13 +53,13 @@ export class DwcComponent implements OnInit {
 // dwc_event_reg_success
   submitForm(value) {
     if (this.eventForm.valid) {
-      const form = {
-        schoolName: value.school_name,
-        schoolOwner: value.school_owner,
-        address: value.school_address,
-        category: value.school_category,
-        teamates: value.school_teammates,
-      }
+      // const form = {
+      //   schoolName: value.school_name,
+      //   schoolOwner: value.school_owner,
+      //   address: value.school_address,
+      //   category: value.school_category,
+      //   teamates: value.school_teammates,
+      // }
       this.DwctypeModal.open();
 
       // Plz enable this code after payment implementation
@@ -65,8 +68,20 @@ export class DwcComponent implements OnInit {
     }
   }
 
-  policySubmit() {
+  policySubmit(value) {
+    console.log(value);
+    const form = {
+        schoolName: value.school_name,
+        schoolOwner: value.school_owner,
+        address: value.school_address,
+        category: value.school_category,
+        teamates: value.school_teammates,
+        otherInformation: value.otherInformation,
+        ageGroup: value.age_group,
+        danceCategory: value.category_dance,
+      }
     this.router.navigateByUrl('/profile/user');
+    this.store.dispatch({ type: AuthActions.DWC_EVENT_REG, payload: form});
   }
 
 }
