@@ -4,6 +4,7 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/base/_base.scss';
+@import './src/assets/scss/components/_buttons.scss';
 
 // for landing header
 
@@ -21,7 +22,7 @@
     margin-top: 40px;
     margin-bottom: 0px;
   img {
-    width: 277px;
+    width: 175px;
   }
 }
 .o-log-reg-btn{
@@ -37,8 +38,8 @@
 	width: 100%;
 	// height: 100vh;
 	float: left;
-	padding-bottom: 67px;
-  background: url(/assets/img/landing/banner2.jpg) no-repeat;
+  height: 610px;
+  background: url(/assets/img/landing/1.jpg) no-repeat;
   background-size: 100%;
   background-position: left;
 }
@@ -46,25 +47,52 @@
   width: 100%;
   // height: 100vh;
   float: left;
-  padding-bottom: 67px;
-  background: url(/assets/img/landing/banner1.jpg) no-repeat;
+  height: 610px;
+  background: url(/assets/img/landing/2.jpg) no-repeat;
   background-size: 100%;
-  background-position: left top;
+  background-position: left;
+}
+.o-landing-hero3{
+  width: 100%;
+  // height: 100vh;
+  float: left;
+  height: 610px;
+  background: url(/assets/img/landing/3.jpg) no-repeat;
+  background-size: 100%;
+  background-position: left;
+}
+.o-landing-hero4{
+  width: 100%;
+  // height: 100vh;
+  float: left;
+  height: 610px;
+  background: url(/assets/img/landing/4.jpg) no-repeat;
+  background-size: 100%;
+  background-position: left;
+}
+.o-landing-inner__black{
+  width: 100%;
+  height: 610px;
+  background: rgba(0,0,0,0.5);
+}
+.o-landing-log{
+  margin-bottom: 72px;
 }
 .o-dance-wc-logo{
 	width: 100%;
-	margin-top: 150px;
 	float: left;
+  text-align: right;
 }
 .o-dance-wc__logo-container{
-	width: 100%;
-  margin-top: 40px;
+	width: 50%;
+  float: left;
 	img{
-		width: 204px;
+		width: 259px;
 	}
 }
 .o-dance-wc__powered-logo-container{
   width: 100%;
+  text-align: right;
   img{
     width: 47px;
   }
@@ -91,6 +119,15 @@
   margin-top: 238px;
 }
 
+.o-register-area{
+  text-align: center;
+}
+.o-dwc-bnglr{
+  float: right;
+  width: 32%;
+}
+
+
 // hero right block
 
 .o-landing-hero__img{
@@ -101,6 +138,10 @@
 		width: 100%;
 	}
 }
+.o-hosted__logo{
+  background: #fff;
+  padding:24px 0px;
+}
 
 // platform sec
 
@@ -109,7 +150,6 @@
 }
 .o-platform-sec{
 	width: 100%;
-	background: #fff;
 }
 .o-platform-title--margin{
   margin-top: 100px;
@@ -142,29 +182,6 @@
   margin-bottom: 24px;
 }
 
-
-
-
-
-.o-hero{
-  width: 100%;
-  height: 100vh;
-}
-.o-platform-sec{
-    background: #fff;
-}
-
-.o-dance-wc-logo{
-  width: 100%;
-  margin-top: 106px;
-  float: left;
-}
-.o-dance-wc__logo-container{
-  width: 100%;
-  img{
-    width: 252px;
-  }
-}
 
 // hero right block
 
@@ -316,71 +333,7 @@
     margin-top: 80px;
 }
 
-// .top_section {
-//     background: url('../img/home_top_bg.png') no-repeat;
-//     background-size: cover;
-//     background-position: center;
-//     min-height: 100vh;
-//     height: 100%;
-//     padding-bottom: 70px;
-// }
-//
-// .top_banner {
-//     width: 80%;
-//     margin: 0 auto;
-// }
-//
-// .top_banner_heading {
-//     line-height: 65px;
-//     margin-bottom: 25px;
-//     color: #ffffff;
-//     font-weight: 300;
-//     font-size: 48px;
-// }
-//
-// .top_banner_button {
-//     margin-top: 30px;
-// }
-//
-// .top_banner_video {
-//     border-radius: 10px;
-//     margin: 8% 0 -25% 0;
-// }
-//
-// .button_tranparent {
-//     padding: 5px 15px;
-//     border-radius: 5px;
-//     text-transform: capitalize;
-//     font-weight: bold;
-//     display: inline-block;
-//     border: 1px solid #ffffff;
-//     color: #ffffff;
-//     font-size: 14px;
-//     cursor: pointer;
-// }
-//
-// .button_tranparent:hover {
-//     background-color: #FF7B84;
-//     color: #ffffff;
-//     border: 1px solid #FF7B84;
-// }
-//
-// .button_white {
-//     padding: 5px 15px;
-//     border-radius: 5px;
-//     text-transform: capitalize;
-//     display: inline-block;
-//     font-weight: bold;
-//     color: #FF7B84;
-//     background-color: #ffffff;
-//     font-size: 14px;
-//     cursor: pointer;
-// }
-//
-// .button_white:hover {
-//     background-color: #ff7b84;
-//     color: #ffffff;
-// }
+
 // landing page new styles
 .login_btn {
     background: transparent;
