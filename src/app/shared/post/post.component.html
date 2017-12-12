@@ -15,12 +15,12 @@
                 <img *ngIf="mediaData?.access === 1" src="/asset/img/svg/ico_private.svg" alt="" class="c-status__options">
                 <img *ngIf="mediaData?.access === 0" src="/assets/img/svg/ico_public.svg" alt="" class="c-status__options">
             </a>
-            <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+            <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen *ngIf="mediaData?.isOwner">
                     <img src="/assets/img/svg/ico_options.svg" class="c-status__options">
-                </span>
-            <ul class="dropdown-menu dropdown-menu-right">
+            </span>
+            <ul class="dropdown-menu dropdown-menu-right" *ngIf="mediaData?.isOwner">
                 <li>
-                    <a (click)="onContentEdit($event)" *ngIf="mediaData?.isOwner">Edit</a>
+                    <a (click)="onContentEdit($event)">Edit</a>
                 </li>
                 <li>
                     <a (click)="onContentDelete($event)">Delete</a>

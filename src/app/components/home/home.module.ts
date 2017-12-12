@@ -12,6 +12,7 @@ import { HomeChannelComponent } from './home-channel/home-channel.component';
 import { HomeSpotfeedComponent } from './home-spotfeed/home-spotfeed.component';
 import { HomeRightBlockComponent } from './home-right-block/home-right-block.component';
 import { SharedPipesModule } from '../../pipes/shared-pipes.module'
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // Guard
 import { AuthGuard } from './../../guard/auth.guard';
@@ -36,6 +37,7 @@ const routes: Routes = [
     SharedModule,
     MasonryModule,
     SharedPipesModule,
+    InfiniteScrollModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
