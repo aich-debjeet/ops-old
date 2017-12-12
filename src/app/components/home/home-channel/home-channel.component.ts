@@ -50,7 +50,7 @@ export class HomeChannelComponent implements OnInit {
     this.tagState$.subscribe((state) => {
       this.userState = state;
     });
-
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS })
   }
 
   ngOnInit() {

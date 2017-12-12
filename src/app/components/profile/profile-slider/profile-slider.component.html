@@ -27,7 +27,7 @@
     <div class="container o-profile__cont" *ngIf="profileObject !== null">
         <div class="row">
             <!-- -->
-            <div class="col-md-8 col-sm-12 p-0">
+            <div class="col-md-12 col-sm-12 p-0">
                 <div class="c-profile__userblock">
                     <img src="{{ (baseUrl + profileObject?.image?.profile) || defaultImage }}" class="img-responsive img-circle c-profile__userimg">
                     <span *ngIf="this.isOwner" class="c-profile__imgchange">
