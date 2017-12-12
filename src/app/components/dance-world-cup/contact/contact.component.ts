@@ -1,29 +1,21 @@
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { EventModal, initialTag  } from '../../models/event.model';
+import { EventModal, initialTag  } from '../../../models/event.model';
 import { Store } from '@ngrx/store';
 import { EventActions } from 'app/actions/event.action';
-import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
 
 import { ToastrService } from 'ngx-toastr';
-
 @Component({
-  selector: 'app-dance-world-cup',
-  templateUrl: './dance-world-cup.component.html',
-  styleUrls: ['./dance-world-cup.component.scss']
+  selector: 'app-contact',
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.scss']
 })
-export class DanceWorldCupComponent implements OnInit, AfterViewInit {
-
-  navItem = '';
-  activeTab = 'tab-1';
+export class ContactComponent implements OnInit {
   contactForm: FormGroup;
   contactFormState$: any;
   contactFormState: any;
   formSubmitted = false;
-  // window: Window;
-  dwcSlider: NgxCarousel;
-
   constructor(
     private elRef: ElementRef,
     private fb: FormBuilder,
@@ -48,54 +40,6 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.dwcSlider = {
-      grid: {xs: 1, sm: 1, md: 1, lg: 1, all: 0},
-      slide: 1,
-      speed: 4000,
-      interval: 4000,
-      custom: 'banner',
-      point: {
-        visible: false,
-        pointStyles: `
-          .ngxcarouselPoint {
-            list-style-type: none;
-            text-align: center;
-            padding: 12px;
-            margin: 0;
-            white-space: nowrap;
-            overflow: auto;
-            position: absolute;
-            width: 100%;
-            bottom: 20px;
-            left: 0;
-            box-sizing: border-box;
-          }
-          .ngxcarouselPoint li {
-            display: inline-block;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.55);
-            padding: 5px;
-            margin: 0 3px;
-            transition: .4s ease all;
-          }
-          .ngxcarouselPoint li.active {
-              background: white;
-              width: 10px;
-          }
-        `
-      },
-      load: 1,
-      loop: true,
-      touch: true
-    }
-  }
-
-  navigateTo(id: string) {
-    this.navItem = id;
-  }
-
-  tabChange(tabId: string) {
-    this.activeTab = tabId;
   }
 
   submitContactForm(value: any) {
@@ -143,31 +87,6 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
       email: [null, Validators.required ],
       message: [null]
     })
-  }
-
-  ngAfterViewInit() {
-    // this.elRef.nativeElement.querySelector('a.btn-fb-share').addEventListener('click', this.handleClick.bind(this));
-  }
-
-  handleClick() {
-    // const shareUrl = 'http://aurut.com';
-    // console.log('called');
-    // const windowObj = window.open();
-    // let popUp;
-    // if (shareUrl) {
-    //   /** Open share dialog */
-    //   popUp = window.open(shareUrl, 'newwindow', '800x800');
-    // }
-  }
-
-  /* This will be triggered after carousel viewed */
-  afterCarouselViewedFn(data) {
-    // console.log(data);
-  }
-
-  /* It will be triggered on every slide*/
-  onmoveFn(data: NgxCarouselStore) {
-    // console.log(data);
   }
 
 }
