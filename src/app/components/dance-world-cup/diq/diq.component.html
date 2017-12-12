@@ -1,0 +1,375 @@
+<div id="01" class="tab-pane fade active in">
+      <div class="o-dwc-right-block">
+          <div class="o-dwc-right-content-block">
+              <div class="c-ops__tabs2">
+                  <ul class="nav nav-tabs">
+                      <li (click)="tabChange('tab-1')" [ngClass]="{'active': activeTab == 'tab-1'}">
+                          <a >About DWC</a>
+                      </li>
+                      <li (click)="tabChange('tab-2')" [ngClass]="{'active': activeTab == 'tab-2'}">
+                          <a >Competition Details</a>
+                      </li>
+                      <li (click)="tabChange('tab-3')" [ngClass]="{'active': activeTab == 'tab-3'}">
+                          <a aria-expanded="false">Music</a>
+                      </li>
+                      <li (click)="tabChange('tab-4')" [ngClass]="{'active': activeTab == 'tab-4'}">
+                          <a aria-expanded="false">Travel</a>
+                      </li>
+                      <li (click)="tabChange('tab-5')" [ngClass]="{'active': activeTab == 'tab-5'}">
+                          <a aria-expanded="false">Class Explanations</a>
+                      </li>
+                      <li (click)="tabChange('tab-6')" [ngClass]="{'active': activeTab == 'tab-6'}">
+                          <a aria-expanded="false">Country Awards & Finals</a>
+                      </li>
+                  </ul>
+              </div>
+
+              <div class="col-md-10 p-l-0">
+                  <div class="tab-content">
+                      <div id="04" [ngClass]="{'active in': activeTab == 'tab-1'}" class="tab-pane fade">
+                          <div class="o-dwc__block">
+                              <h2 class="m-t-24">About Dance world cup</h2>
+                              <p class="c-text_lg m-t-b-8">
+                                  The Indian Society for Performers and Teachers of Dance (ISPTD) in association with Lourd Vijay's Dance Studio (LVDS)  and One Page Spotlight will be hosting the Dance World Cup - India Qualifiers.
+                              </p>
+                              <p class="c-text_md m-t-b-8 o-dwc-detail__txt">
+                                  India will be hosting the first ever Dance World Cup qualifier in Bangalore on 4th February 2018. <br>
+                                  2018’s Dance World Cup finals will be held in Spain.
+                              </p>
+                              <p class="c-text_md m-t-b-8 o-dwc-detail__txt">
+                                  Dance World Cup has over 12,000 children around the world aged from 4 to 25 trying to qualify for our final which is held annually in a different location, previous locations for Dance World Cup include Jersey, Sardinia, France, Paris and Austria, Villach.
+                              </p>
+                              <p class="c-text_md m-t-b-8 o-dwc-detail__txt">
+                                  Dance World Cup is open to anyone who attends a dance school that is not state run. The standard is high and we encourage group dances so that as many children as possible can participate.
+                              </p>
+                              <p class="c-text_md m-t-b-8 o-dwc-detail__txt">
+                                  Join our ever-growing family and experience the phenomenon of Dance World Cup which the private dance schools are describing as “the best quality children and youths dance competition in the World”. With well-known judges and competitions held in the genres of Classical Ballet, Modern, Tap, Song and Dance, Street/Hip-Hop and National, we cater for all dance schools around the world.
+                              </p>
+                          </div><!-- about -->
+                      </div>
+
+                      <div id="05" [ngClass]="{'active in': activeTab == 'tab-2'}" class="tab-pane fade">
+                          <h2 class="m-t-24">Competition details</h2>
+                          <div id="competition" class="o-dwc__block">
+                              <p class="c-text_md   m-t-b-8">
+                                  All dancers must qualify to take part in the Dance World Cup Finals. Dancers must receive 70 marks or above at their national qualifying to compete at the Dance World Cup Finals. Each country can enter a maximum of THREE routines per class. For more information about qualifying in your country, please contact your local qualifier organiser listed below - www.lvds.in
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  To download the full Rules and Regulations go here - http://lvds.in/dance-world-cup/
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Participants of DWC must not be paid professional dancers, dance teachers or choreographers.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  DWC participants must qualify at their home national dance competition/qualifier to attend the DWC finals.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+
+                                  If your country has a national dance competition/qualifier associated with DWC this is the only way you can apply to qualify for the DWC finals.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  The qualification mark at a DWC qualifier is 70 marks or above, please refer to the DWC scoring system detailed in Attachment 2.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  In duets, trios, quartets, and groups the age of the oldest competitor will determine the class age category.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  DWC reserves the right to ask for proof of age on the day of competition by checking the participants’ passport.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  In all solo classes, competitors must dance in the class for their age.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Groups must contain a minimum of 5 dancers - Ballet, National, Modern, Jazz and Show
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Dance sections.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Groups must contain a minimum of 4 dancers - Acro Dance, Song, and Dance, Tap, Hip Hop/Street, Commercial sections.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Dancers can perform once in duet/trio or quartet in a particular genre and class at the DWC Finals.
+                              </p>
+                          </div><!-- competition end -->
+                      </div>
+
+                      <div id="06" [ngClass]="{'active in': activeTab == 'tab-3'}" class="tab-pane fade">
+                          <h2 class="m-t-24">Music</h2>
+                          <div id="music" class="o-dwc__block">
+                              <p class="c-text_md   m-t-b-8">
+                                  Any music may be used at the Dance World Cup competition.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  If music contains swearing or offensive language the dance may be disqualified or points may be deducted.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Music must be recorded onto CD and brought by the teacher/dancer to the competition.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Each dance entry must be recorded onto a separate CD at the DWC Finals.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Competitors must have two copies of their music on CD with them at the DWC Finals
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Each CD must clearly detail the following:
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Name of Performer, Dance School, Country
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Class Code Letter i.e. KST
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Title of Dance
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  “P” if the performance starts with the performer On Stage
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  “M” if the performer starts Off Stage
+                              </p>
+                          </div><!-- music end -->
+                      </div>
+
+                      <div id="07"  [ngClass]="{'active in': activeTab == 'tab-4'}" class="tab-pane fade">
+                          <h2 class="m-t-24">Travel</h2>
+                          <div id="travel" class="o-dwc__block">
+                              <p class="c-text_md   m-t-b-8">
+                                  DWC Limited is not responsible for any travel and accommodation costs in relation to the DWC Finals.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  It is the dance schools/parents responsibility to ensure that all travel and accommodation is booked and paid for.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  DWC Limited cannot assist in the organization of any visa applications, it is the responsibility of the dance school/parent to arrange these if needed.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  (For details please refer http://lvds.in/dance-world-cup/)
+                              </p>
+                          </div><!-- Travel end -->
+                      </div>
+
+                      <div id="08" [ngClass]="{'active in': activeTab == 'tab-5'}" class="tab-pane fade">
+                          <h2 class="m-t-24">Class Explanations</h2>
+                          <div id="class_explanations" class="o-dwc__block">
+                              <p class="c-text_lg m-t-8">Classical Ballet</p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Classical ballet, contemporary ballet, fusion ballet or stylised ballet are permitted at DWC.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Classical ballets steps must be shown throughout the dance to suit the age of the dancer.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  A character/stylised ballet follows a theme i.e. a Spanish Ballet, or is an interpretation or an idea, i.e. Autumn Leaves, Ice, Trapped, Ecstasy. Steps must be classical.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Soft ballet shoes, pointe shoes and bare feet are permitted in ballet classes at DWC.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  In classes JSB, SnSB, JDB, SnDB all female dancers aged 14 or over must wear pointe shoes. In JDB and SnDB girls aged 12-13 have the choice to wear pointe shoes or not. Dancers under the age of 12 years must NOT wear pointe shoes.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  In the JUNIOR and SENIOR ballet group classes it is recommended but not compulsory that some of the girls dancing in the group performances wear pointe shoes. The jury may take this in to account in their scoring. Please note rule 9.1 applies.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Original repertoire choreographies or variations of any kind are not permitted in any of the MINI classes.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  In the CHILDREN age group it is recommended not to use traditional classical choreography from a repertoire but it is permitted.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  In the JUNIOR and SENIOR age group traditional classical repertoire is allowed but not compulsory.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  If the steps of the dance show more modern movements then the dance should be entered into the relevant modern class, it is the responsibility of the dance teacher to enter the dance into the correct category. Failure to comply with this result will be reflected in the marks received at the Finals.
+                              </p>
+
+                              <p class="c-text_lg m-t-8">National, Folklore, Character</p>
+                              <p class="c-text_md   m-t-b-8">
+
+                                  The dance will show the typical style of dance from a certain country/countries.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Traditional national steps displaying the correct characterisation and authentic footwear must be used.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  The music used in the performance must be relevant to that country. The music must be national/folklore music that shows the typical sound of music in that country
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  National or folklore dances from any country may be presented by dance students from any country.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  A traditional dance wearing traditional shoes should be entered into the national and folklore sections and not into the tap section.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  The official entry form must contain in the title of the dance the name of the country where the dance originates from, e.g. Tarantella (Southern Italian Dance)
+                              </p>
+
+                              <p class="c-text_lg m-t-8">Modern, Contemporary</p>
+                              <p class="c-text_md   m-t-b-8">
+                                  The dance will show the typical style of dance from a certain country/countries.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Traditional national steps displaying the correct characterisation and authentic footwear must be used.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  The music used in the performance must be relevant to that country. The music must be national/folklore music that shows the typical sound of music in that country
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  National or folklore dances from any country may be presented by dance students from any country.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  A traditional dance wearing traditional shoes should be entered into the national and folklore sections and not into the tap section.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  The official entry form must contain in the title of the dance the name of the country where the dance originates from, e.g. Tarantella (Southern Italian Dance)
+                              </p>
+
+                              <p class="c-text_lg m-t-8">Jazz and show dance</p>
+                              <p class="c-text_md   m-t-b-8">
+                                  These are all dances which use music of any of the styles mentioned above and with the relevant movements.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  All dances must be age appropriate.
+                              </p>
+
+
+                              <p class="c-text_lg m-t-8">Hip Hop, Street Dance and Commercial</p>
+                              <p class="c-text_md   m-t-b-8">
+                                  All dances that are performed in these classes should be in the typical style and accompanied by the music of this genre.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  All dances must be age appropriate.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Music must contain no swearing or offensive language. If this type of music is played the dance may be disqualified or points may be deducted.
+                              </p>
+
+
+                              <p class="c-text_lg m-t-8">Song and Dance</p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Any song and any dance style is permitted in this section.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  All dances that are performed in these classes should portray a singing technique that is suitable for the performer’s age.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  The dance and movement should be suitable to match the song and there should be a balance in the performance to support the song.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  The performance should show emotional feeling, presentation and acting ability to highlight characterisation or comedy required.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  The music on the entrants CD must NOT contain any vocals performed or pre-recorded by the entrant or any backing vocals.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Microphones will be supplied at the DWC finals. Dancers will have the choice of headset microphones or hand held microphones. A maximum of 3 microphones may be used for groups, these can be headset, handheld or a combination of both.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  For Song and Dance entries DWC is not responsible for gaining permission or paying royalty fees for a particular performance, this onus is on the teacher/dance school having the correct PRS/PPL Licences in place.
+
+                              </p>
+
+
+                              <p class="c-text_lg m-t-8">Tap</p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Tap shoes must be worn in the tap section. Hard Irish shoes are not permitted in the tap
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  section. If hard Irish shoes are worn, the dance should be entered into the National section.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Tap may be performed without music during the performance.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  A tacit section may be used at any point in a tap performance and the dance will always be timed from the first sound of the performance made on stage.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Timing commences from the very first step of the tap dance or the first note of the music whichever is first. Timing ends with the end of the music or with the last tap beat whichever is last.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  The music on the entrants CD must be musical only, no pre-recording of tap beats is allowed.
+                              </p>
+
+
+                              <p class="c-text_lg m-t-8">Fusion Ballet</p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Any shoes and bare feet are permitted in the fusion ballet group classes at DWC.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  The fusion ballet group class is aimed at the innovative choreographer and any balletic style is accepted in this class.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  A mixture of styles is permitted in the fusion ballet classes. Dances must include some ballet steps but may include steps from other genres e.g. a combination of ballet and Hip Hop.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  For more information about fusion ballet, please visit the DWC website (www.dwcworld.com).
+                              </p>
+
+
+
+                              <p class="c-text_lg m-t-8">Acro Dance</p>
+                              <p class="c-text_md   m-t-b-8">
+                                  All dances that are performed in these classes must combine classical dance technique with precision acrobatic elements.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Acrobatic elements in this style should blend seamlessly into the dance. The performance should be a dance first and foremost.
+                              </p>
+                          </div><!-- class explanations end -->
+                      </div>
+
+                      <div id="09" [ngClass]="{'active in': activeTab == 'tab-6'}" class="tab-pane fade">
+                          <h2 class="m-t-24">Country Awards & Finals</h2>
+                          <div id="country_awards" class="o-dwc__block">
+                              <p class="c-text_md   m-t-b-8">
+                                  The rules for the country award will be released in May of the competition year.
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  DWC genres:
+                                  http://www.dwcworld.com/genres
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  DWC rules:
+                                  http://www.dwcworld.com/rules
+                              </p>
+                          </div><!-- Country Awards end -->
+
+                          <div id="dwc_finals" class="o-dwc__block">
+                              <p class="c-text_md   m-t-b-8">
+                                  Dates: Friday 22 June 2018 to Sunday 1 July 2018 - World Finals
+
+                              </p>
+                              <p class="c-text_md   m-t-b-8">
+                                  Venue: Meliã Carrer de Joan Salvat Papasseit 38, 08870 Sitges, Barcelona, Spain
+                              </p>
+                          </div><!-- DWC Finals end -->
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col-md-2 p-0">
+                  <div class="o-dwc-top-download m-t-16">
+                      <div class="o-dwc-pdf">
+                          <span class="o-dwc-pdf__icon">
+                              <img src="/assets/img/dwc/qualifier.svg" alt="">
+                          </span>
+                          <h6 class="c-text_lg f-w_600 color-theme text-center">Dance World Cup Qualifiers Booklet</h6>
+                          <a href="/assets/pdf/dwc.pdf" target="_blank" class="btn btn-primary btn-sm m-t-16">Click to read</a>
+                      </div>
+                  </div>
+                  <div class="o-dwc-top-download m-t-16">
+                      <div class="o-dwc-pdf">
+                          <span class="o-dwc-pdf__icon">
+                              <img src="/assets/img/dwc/finals.svg" alt="">
+                          </span>
+                          <h6 class="c-text_lg f-w_600 color-theme text-center">Dance World Cup Finals Booklet</h6>
+                          <a href="/assets/pdf/dwc.pdf" target="_blank" class="btn btn-primary btn-sm m-t-16">Click to read</a>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  </div>
