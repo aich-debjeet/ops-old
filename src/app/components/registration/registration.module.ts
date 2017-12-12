@@ -18,7 +18,6 @@ import { ChannelFollowComponent } from './registration-add-skill/channel-follow/
 import { ShareBottonComponent } from './registration-add-skill/share-botton/share-botton.component';
 
 import { SharedModule } from '../../shared/shared.module';
-import { RegistrationDwcComponent } from './registration-dwc/registration-dwc.component';
 
 @NgModule({
   imports: [
@@ -37,8 +36,7 @@ import { RegistrationDwcComponent } from './registration-dwc/registration-dwc.co
     RegistrationWelcomeComponent,
     SearchFilterPipe,
     ChannelFollowComponent,
-    ShareBottonComponent,
-    RegistrationDwcComponent
+    ShareBottonComponent
   ],
 })
 export class RegistrationModule { }
