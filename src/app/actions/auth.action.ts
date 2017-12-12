@@ -126,6 +126,11 @@ export class AuthActions {
   static DWC_EVENT_REG_SUCCESS = 'DWC_EVENT_REG_SUCCESS';
   static DWC_EVENT_REG_FAILED = 'DWC_EVENT_REG_FAILED';
 
+  // Dance Get industry
+  static DANCE_GET_INDUSTRY = 'DANCE_GET_INDUSTRY';
+  static DANCE_GET_INDUSTRY_SUCCESS = 'DANCE_GET_INDUSTRY_SUCCESS';
+  static DANCE_GET_INDUSTRY_FAILED = 'DANCE_GET_INDUSTRY_FAILED';
+
 
    // ===================================
   //  Get all skill step3

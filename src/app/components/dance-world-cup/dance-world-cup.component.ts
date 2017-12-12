@@ -33,6 +33,7 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
 
     this.createContactForm();
 
+
     this.contactFormState$ = this.store.select('eventTags');
     this.contactFormState$.subscribe(state => {
       this.contactFormState = state;
@@ -88,6 +89,7 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
       loop: true,
       touch: true
     }
+
   }
 
   navigateTo(id: string) {
@@ -97,6 +99,7 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
   tabChange(tabId: string) {
     this.activeTab = tabId;
   }
+
 
   submitContactForm(value: any) {
     // console.log(value);

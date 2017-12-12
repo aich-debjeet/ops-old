@@ -445,6 +445,11 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         dwc_event_reg_success: true
       });
 
+    case AuthActions.DANCE_GET_INDUSTRY_SUCCESS:
+      return Object.assign({}, state, {
+        dance_cat: payload
+      });
+
     default:
       return state;
 

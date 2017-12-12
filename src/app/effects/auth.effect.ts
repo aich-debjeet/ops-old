@@ -326,6 +326,16 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.DWC_EVENT_REG_FAILED, payload: res }))
     );
 
+  // Dance Industry
+  @Effect()
+  danceIindustry$ = this.actions$
+    .ofType(AuthActions.DANCE_GET_INDUSTRY)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.danceIndustry()
+      .map(res => ({ type: AuthActions.DANCE_GET_INDUSTRY_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.DANCE_GET_INDUSTRY_FAILED, payload: res }))
+    );
+
   constructor(
       private actions$: Actions,
       private authService: AuthService,

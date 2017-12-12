@@ -274,4 +274,9 @@ export class AuthService {
         return this.http.post(`${this.apiLink}/portal/application/postApplication`, value, { headers: this.headers })
         .map((data: Response) => data.json());
     }
+
+    danceIndustry() {
+      this.updateAuthHeaders();
+      return this.http.get(`${this.apiLink}/portal/industry?industryType=dwc`, { headers: this.headers });
+    }
 }
