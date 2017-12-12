@@ -23,13 +23,13 @@ export class HomePostComponent implements OnInit {
   isOwner: boolean;
   posts: any;
   page_start = 0;
-  page_end = 20;
+  page_end = 50;
   handle: any;
   postsLoaded = false;
   sum = 10;
   total_pages = 10;
   scrolling = 0;
-  scrollingLoad = 8000;
+  scrollingLoad = 10000;
 
   constructor(
     private http: Http,
@@ -73,6 +73,7 @@ export class HomePostComponent implements OnInit {
       page_start: this.page_start,
       page_end: this.page_end
     }
+    console.log(data)
     this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
   }
   postDelete(post) {
@@ -84,15 +85,17 @@ export class HomePostComponent implements OnInit {
     }
   }
   onScroll(e) {
-
-        this.scrolling = e.currentScrollPosition;
-        if (this.scrollingLoad <= this.scrolling) {
-          this.scrollingLoad += 8000
-          this.page_start = this.page_end + 1;
-          this.page_end += 10;
-          this.postLoad(this.handle);
-        }
-      }
+  console.log('here')
+    this.scrolling = e.currentScrollPosition;
+    console.log(this.scrolling)
+    if (this.scrollingLoad <= this.scrolling) {
+      console.log('here too')
+      this.scrollingLoad += 10000
+      this.page_start = this.page_end + 1;
+      this.page_end += 10;
+      this.postLoad(this.handle);
+    }
+  }
 /**
    * Check if object is empty
    * @param obj

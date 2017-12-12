@@ -1,7 +1,7 @@
-<div id="posts" class="tab-pane fade active in">
+<div id="posts" class="tab-pane fade active in" infinite-scroll (scrolled)="onScroll($event)">
 
     <div class="col-md-3"></div>
-    <div class="col-md-9" infinite-scroll (scrolled)="onScroll($event)">
+    <div class="col-md-9">
         <app-post *ngFor="let userMedia of posts; let i = index" [className]="'c-card m-t-16'" [mediaData]="userMedia"></app-post>
         <!-- <div class="c-card m-t-16">
             <div class="c-status--block">

@@ -263,7 +263,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
 
   case ProfileActions.LOAD_USER_FOLLOWING_POSTS_SUCCESS:
-  console.log(payload)
     const followingPosts = payload;
     const following_new_post = state.user_following_posts.concat(followingPosts)
     return Object.assign({}, state, {
@@ -675,13 +674,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Pin channel
      */
     case ProfileActions.PIN_CHANNEL_SUCCESS:
-    console.log('success')
       return Object.assign({}, state, {
         channel_pin_success: true
       });
 
     case ProfileActions.PIN_CHANNEL_FAILED:
-    console.log('failure')
       return Object.assign({}, state, {
         channel_pin_failed: true
       });
@@ -741,18 +738,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      *  Get List of Block Users
      */
     case ProfileActions.LOAD_BLOCK_USERS:
-    console.log('LOAD_BLOCK_USERS')
       return Object.assign({}, state, {
         blockedUsers: []
       });
 
     case ProfileActions.LOAD_BLOCK_USERS_SUCCESS:
-    console.log('LOAD_BLOCK_USERS_Success')
       return Object.assign({}, state, {
         blockedUsers: payload
       });
     case ProfileActions.LOAD_BLOCK_USERS_FAILED:
-    console.log('LOAD_BLOCK_USERS_FAILED')
       return Object.assign({}, state, {
       });
 
@@ -760,16 +754,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      *  UnBlock Users
      */
     case ProfileActions.UNBLOCK_USER:
-    console.log('UNBLOCK_USERS')
       return Object.assign({}, state, {
       });
 
     case ProfileActions.UNBLOCK_USER_SUCCESS:
-    console.log('UNBLOCK_USERS_Success')
       return Object.assign({}, state, {
       });
     case ProfileActions.UNBLOCK_USER_FAILED:
-    console.log('UNBLOCK_USERS_FAILED')
       return Object.assign({}, state, {
       });
 
