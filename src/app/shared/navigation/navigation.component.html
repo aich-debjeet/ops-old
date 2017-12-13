@@ -140,7 +140,7 @@
                                   <div class="navdrop__userhandal">@{{ this.userCards.active.username }}</div>
                                 </a>
                             </div>
-                            <div class="dropdown__item with_border_bottom p-t-b-16">
+                            <div *ngIf="!showCreateOrg" class="dropdown__item with_border_bottom p-t-b-16">
                                 <div class="navdrop__switchto">Switch to</div>
                                 <div class="navdrop__imgblock2">
                                   <img class="navdrop__img" src="{{ baseUrl + this.userCards.other.image }}">
@@ -151,7 +151,7 @@
                                   </a>
                                 </div>
                             </div>
-                            <div class="dropdown__item p-t-b-16" *ngIf="!this.userCards.other">
+                            <div class="dropdown__item p-t-16" *ngIf="showCreateOrg">
                                 <a routerLink="/org/registration">Create Organisation</a>
                             </div>
                             <div class="dropdown__item p-t-b-16 with_border_bottom">
