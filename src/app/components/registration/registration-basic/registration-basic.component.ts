@@ -52,6 +52,8 @@ export class RegistrationBasicComponent implements OnInit {
   saveUsername = true;
   routeQuery: any;
   claimProfile: any;
+  userSearchEnabled = true;
+  hideProfiles = false;
 
   rightCom: RightBlockTag;
   tagState$: Observable<BasicRegTag>;
@@ -114,6 +116,7 @@ export class RegistrationBasicComponent implements OnInit {
     this.claimProfileState$ = claimProfileStore.select('claimProfileTags');
     this.claimProfileState$.subscribe((state) => {
       this.claimProfileState = state;
+      this.hideProfiles = false;
       console.log('this.claimProfileState', this.claimProfileState);
     });
 
@@ -152,12 +155,14 @@ export class RegistrationBasicComponent implements OnInit {
     /**
      * Listening for the name value
      */
-    this.regFormBasic.get('name').valueChanges.debounceTime(500).subscribe((searchProfileName) => {
-      console.log('trigger search', searchProfileName);
-      this.claimProfileStore.dispatch({
-        type: ClaimProfileActions.SEARCH_PROFILE,
-        payload: searchProfileName
-      });
+    this.regFormBasic.get('name').valueChanges.debounceTime(200).subscribe((searchProfileName) => {
+      if (this.userSearchEnabled) {
+        // console.log('trigger search', searchProfileName);
+        this.claimProfileStore.dispatch({
+          type: ClaimProfileActions.SEARCH_PROFILE,
+          payload: searchProfileName
+        });
+      }
     });
 
 
@@ -455,13 +460,29 @@ export class RegistrationBasicComponent implements OnInit {
    * Select the profile from the list
    */
   selectProfile(profileHandle: string) {
+    this.userSearchEnabled = false;
+    // console.log('disable search');
+    setTimeout(() => {
+      this.userSearchEnabled = true;
+      // console.log('enable search');
+    }, 3000);
     if (profileHandle && this.claimProfileState.claim_profiles.length > 0) {
-      this.claimProfile = _.find(this.claimProfileState.claim_profiles, 'handle', profileHandle);
+      this.claimProfile = _.find(this.claimProfileState.claim_profiles, { 'handle': profileHandle });
       // console.log('profile found', this.claimProfile);
 
-      this.regFormBasic.controls['name'].setValue(this.claimProfile['name']['displayName']);
-      // this.regFormBasic.controls['username'].setValue(this.claimProfile['username']);
+      this.regFormBasic.controls['name'].setValue(this.claimProfile['name']);
+      this.regFormBasic.controls['username'].setValue(this.claimProfile['extra']['username']);
       this.regFormBasic.controls['email'].setValue(this.claimProfile['email']);
+
+      this.claimProfileState.claim_profiles = [];
     }
+    this.triggerHideProfiles();
+  }
+
+  triggerHideProfiles() {
+    setTimeout(() => {
+      this.hideProfiles = true;
+    }, 500);
+    // console.log('hide profiles');
   }
 }

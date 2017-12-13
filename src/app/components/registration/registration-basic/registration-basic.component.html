@@ -20,15 +20,15 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <div class="form_group">
-                                    <input class="form_input" type="text" formControlName="name" required>
+                                    <input class="form_input" type="text" formControlName="name" required (focusout)="triggerHideProfiles()">
                                     <span class="form_highlight"></span>
                                     <span class="form_bar"></span>
                                     <label>Name</label>
                                     <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.required && regform.submitted">Name is required</p>
-                                    <ul class="claim-profile-list" *ngIf="claimProfileState?.claim_profiles && claimProfileState?.claim_profiles.length > 0">
+                                    <ul [ngClass]="{'hide': hideProfiles }" class="claim-profile-list" *ngIf="claimProfileState?.claim_profiles && claimProfileState?.claim_profiles.length > 0">
                                         <ng-container *ngFor="let profile of claimProfileState?.claim_profiles">
-                                            <li *ngIf="profile.extras?.contact?.mobile?.mobile" (click)="selectProfile(profile.handle)" >{{ profile.name.displayName }} ({{ profile.extras?.contact?.mobile?.mobile }})</li>
-                                            <li *ngIf="!profile.extras?.contact?.mobile?.mobile" (click)="selectProfile(profile.handle)" >{{ profile.name.displayName }}</li>
+                                            <li *ngIf="profile.contact?.mobile?.mobile" (click)="selectProfile(profile.handle)" >{{ profile.name }} ({{ profile.contact?.mobile?.mobile }})</li>
+                                            <li *ngIf="!profile.contact?.mobile?.mobile" (click)="selectProfile(profile.handle)" >{{ profile.name }}</li>
                                         </ng-container>
                                     </ul>
                                 </div>
