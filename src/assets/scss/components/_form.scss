@@ -2,6 +2,492 @@
 .c-form__group {
     position: relative;
     margin-bottom: 14px;
+}
+
+.c-form__input {
+    font-size: 13px;
+    padding: 10px 10px 2px 0px;
+    display: block;
+    width: 100%;
+    border: none;
+    color: $color-grey-darker;
+    border-bottom: 1px solid $color-grey-dark;
+    background: none;
+    line-height: 20px;
+}
+
+.c-form__input--alert {
+    color: #FF7B84;
+}
+
+.c-form__input--lefticon {
+    margin-top: -21px;
+    position: absolute;
+    width: 12px;
+    margin-left: 8px;
+}
+
+.c-form__input--righticon {
+    margin-top: -21px;
+    position: static;
+    float: right;
+    width: 12px;
+}
+
+.c-form__input:focus {
+    outline: none;
+}
+
+.fpadding_l32 {
+    padding-left: 32px;
+}
+
+label {
+    color: $color-grey-dark;
+    font-size: 13px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    top: 13px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.c-form__input:focus~label,
+.c-form__input:valid~label {
+    top: -8px;
+    font-size: 11px;
+    color: $color-grey-dark;
+}
+
+.c-form__bar {
+    position: relative;
+    display: block;
+    &:before,
+    &:after {
+        content: '';
+        height: 1.5px;
+        width: 0;
+        bottom: 0px;
+        position: absolute;
+        background: $color-grey-dark;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+    }
+    &:before {
+        left: 50%;
+    }
+    &:after {
+        right: 50%;
+    }
+}
+
+.c-form__bar2 {
+    border-bottom: 1.5px solid $color-grey-dark;
+}
+
+//form noeffect
+.c-form--noeffect {
+    .c-form__input:focus~label,
+    .c-form__input:valid~label {
+        top: -8px;
+        font-size: 11px;
+        color: $color-grey-dark;
+        display: none;
+    }
+
+    .c-form__bar {
+        margin-top: 1px;
+    }
+}
+
+
+
+
+/* active state */
+
+.c-form__input:focus~.c-form__bar:before,
+.c-form__input:focus~.c-form__bar:after {
+    width: 50%;
+}
+
+.c-form__bar--alert {
+    position: relative;
+    display: block;
+    &:before,
+    &:after {
+        content: '';
+        height: 2px;
+        width: 0;
+        bottom: 0px;
+        position: absolute;
+        background: $theme_red;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+    }
+    &:before {
+        left: 50%;
+    }
+    &:after {
+        right: 50%;
+    }
+}
+
+
+
+
+/* active state */
+
+.c-form__input:focus~.c-form__bar--alert:before,
+.c-form__input:focus~.c-form__bar--alert:after {
+    width: 50%;
+}
+
+.c-form__input:focus~.c-form__highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+}
+
+
+
+
+/* ANIMATIONS ================ */
+
+@-webkit-keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@-moz-keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+
+$transition: all 0.3s;
+$shadow-L1: 0 1px 3px rgba(0, 0, 0, 0.12),
+0 1px 2px rgba(0, 0, 0, 0.24);
+$shadow-L2: 0 3px 6px rgba(0, 0, 0, 0.16),
+0 3px 6px rgba(0, 0, 0, 0.23);
+$shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
+0 6px 6px rgba(0, 0, 0, 0.23);
+
+.error_alert {
+    color: $theme_red;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.username_error li {
+    color: $green;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+//textarea block-------------
+.c-textarea__block {
+    width: 100%;
+    border: none;
+    height: auto;
+    outline: none;
+}
+
+.c-textarea__block::-webkit-input-placeholder {
+    color: #333;
+}
+
+.c-textarea--style {
+    color: #333333;
+    font-size: 13px;
+    font-weight: normal;
+    background: none;
+    border-bottom: 1px solid $color-grey-dark;
+}
+
+// select box
+.c-form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 13px;
+    line-height: 1.428571429;
+    color: #333333;
+    background: none;
+    background-image: none;
+    border: none;
+    border-radius: 4px;
+    border-bottom: 1px solid $color-grey-dark;
+    border-radius: 0px;
+    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    outline: none;
+}
+
+//check box
+// .c-form__checkbox {
+//     position: static;
+//     text-align: center;
+//     pointer-events: auto;
+//     font-weight: 600;
+//     font-size: 13px;
+//     color: #000;
+//     line-height: 17px;
+// }
+// validation msg
+.c-form__validation {
+    color: #FF7B84;
+    font-size: 11px;
+    line-height: 15px;
+    margin-top: 4px;
+}
+
+.c-form__validation--img {
+    width: 8px;
+}
+
+.c-form--diabled {
+    opacity: 0.4;
+}
+
+// form size
+.c-form--sm {
+    .c-form__input {
+        font-size: 11px;
+        // line-height: 16px;
+    }
+    .c-textarea--style {
+        font-size: 11px;
+    }
+    label {
+        font-size: 11px;
+    }
+    .c-form__input:focus~label,
+    .c-form__input:valid~label {
+        top: -4px;
+        font-size: 9px;
+        color: #929292;
+    }
+    .c-form__input--lefticon {
+        margin-top: -18px;
+    }
+}
+
+.c-form--lg {
+    .c-form__input {
+        font-size: 15px;
+        line-height: 24px;
+    }
+    .c-textarea--style {
+        font-size: 15px;
+    }
+    label {
+        font-size: 15px;
+    }
+    .c-form__input--lefticon {
+        margin-top: -23px;
+    }
+}
+
+// fadeed form
+.c-form__faded--sm {
+    input {
+        border-radius: 3px;
+        background-color: #F3F5F7;
+        border: none;
+        padding: 5px 8px;
+    }
+    label {
+        top: 9px;
+        left: 8px;
+    }
+}
+
+.c-form__faded--md {
+    input {
+        border-radius: 3px;
+        background-color: #F3F5F7;
+        border: none;
+        padding: 7px 8px;
+    }
+    label {
+        top: 8px;
+        left: 8px;
+    }
+}
+
+.c-form__faded--lg {
+    input {
+        border-radius: 3px;
+        background-color: #F3F5F7;
+        border: none;
+        padding: 7px 8px;
+    }
+    label {
+        top: 8px;
+        left: 8px;
+    }
+}
+
+//old form css
+/* form */
+.form_group        {
+  position:relative;
+  margin-bottom: 18px;
+}
+.form_input{
+  font-size:14px;
+  padding:10px 10px 5px 0px;
+  display:block;
+  width:100%;
+  border:none;
+  color: #000000;
+  border-bottom:1px solid #c1c1c1;
+}
+.form_input:focus{
+  outline:none;
+}
+label          {
+  color:#333333;
+  font-size:14px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  top:10px;
+  transition:0.2s ease all;
+  -moz-transition:0.2s ease all;
+  -webkit-transition:0.2s ease all;
+}
+
+.form_input:focus ~ label, .form_input:valid ~ label    {
+  top:-10px;
+  font-size:12px;
+  color: #c1c1c1;
+}
+
+.form_bar{
+  position:relative;
+  display:block;
+  &:before, &:after   {
+    content:'';
+    height:2px;
+    width:0;
+    bottom:1px;
+    position:absolute;
+    background: #888;
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+  }
+  &:before {
+    left:50%;
+  }
+  &:after {
+    right:50%;
+  }
+}
+/* active state */
+.form_input:focus ~ .form_bar:before, .form_input:focus ~ .form_bar:after {
+  width:50%;
+}
+
+.form_bar_alert{
+  position:relative;
+  display:block;
+  &:before, &:after   {
+    content:'';
+    height:2px;
+    width:0;
+    bottom:1px;
+    position:absolute;
+    background: $theme_red;
+    transition:0.2s ease all;
+    -moz-transition:0.2s ease all;
+    -webkit-transition:0.2s ease all;
+  }
+  &:before {
+    left:50%;
+  }
+  &:after {
+    right:50%;
+  }
+}
+/* active state */
+.form_input:focus ~ .form_bar_alert:before, .form_input:focus ~ .form_bar_alert:after {
+  width:50%;
+}
+
+
+/* active state */
+.form_input:focus ~ .form_highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+  from { background:#5264AE; }
+  to  { width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+  from { background:#5264AE; }
+  to  { width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+  from { background:#5264AE; }
+  to  { width:0; background:transparent; }
+}
+
+
+$transition: all 0.3s;
+$shadow-L1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+$shadow-L2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+$shadow-L3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+.error_alert{
+  color: $theme_red;
+  font-size: 12px;
+  font-weight: 600;
+}
+.username_error li{
+  color: $green;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+
+
+// New form style ----------------------------------------------------
+.c-form__group {
+    position: relative;
+    margin-bottom: 14px;
     select {
         option {
             color: #929292;

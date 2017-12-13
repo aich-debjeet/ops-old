@@ -154,4 +154,12 @@ export class EventService {
   dwcPaymentRequest() {
     return this.api.get( '/portal/dcw/application/payment/request', '');
   }
+
+  /**
+   * DWC Form Reg @param value
+   */
+  dwcReg(value: any) {
+      return this.http.post(`${this.apiLink}/portal/application/postApplication`, value, { headers: this.headers })
+      .map((data: Response) => data.json());
+  }
 }

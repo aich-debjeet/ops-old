@@ -7,7 +7,7 @@ import { Modal } from '../../shared/modal-new/Modal';
 
 
 // Action
-import { AuthActions } from '../../actions/auth.action'
+import { EventActions } from '../../actions/event.action'
 
 @Component({
   selector: 'app-dwc',
@@ -31,14 +31,12 @@ export class DwcComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.pushMember()
-    // console.log(this.Performance);
+    this.pushMember();
   }
 
   testClick() {
     console.log('onclick');
   }
-  
 
   /**
    * Form init
@@ -92,38 +90,29 @@ export class DwcComponent implements OnInit {
       Age_Group: this.convertToValue('Age_Group'),
       Dance_Style: this.convertToValue('Dance_Style')
     });
-    console.log(this.valueStore);
     if (this.eventForm.valid) {
-      console.log('valid')
-      // const form = {
-      //   schoolName: value.school_name,
-      //   schoolOwner: value.school_owner,
-      //   address: value.school_address,
-      //   category: value.school_category,
-      //   teamates: value.school_teammates,
-      // }
-      this.DwctypeModal.open();
-      // Plz enable this code after payment implementation
-      // this.store.dispatch({ type: AuthActions.DWC_EVENT_REG, payload: form});
-      // this.router.navigateByUrl('/profile/user');
+      this.policySubmit(value);
     }
   }
 
   policySubmit(value) {
-    console.log(value);
     const form = {
-        schoolName: value.school_name,
-        schoolOwner: value.school_owner,
-        address: value.school_address,
-        performance: this.valueStore.Performance,
-        ageGroup: this.valueStore.Age_Group,
-        danceStyle: this.valueStore.Dance_Style,
-        member: Boolean(value.member),
-        teamates: value.team_member
-      }
-      console.log(form)
-    this.router.navigateByUrl('/profile/user');
-    this.store.dispatch({ type: AuthActions.DWC_EVENT_REG, payload: form});
+      schoolName: value.school_name,
+      schoolOwner: value.school_owner,
+      address: value.school_address,
+      performance: this.valueStore.Performance,
+      ageGroup: this.valueStore.Age_Group,
+      danceStyle: this.valueStore.Dance_Style,
+      member: Boolean(value.member),
+      teamates: value.team_member
+    }
+    this.store.dispatch({ type: EventActions.DWC_EVENT_REG, payload: form});
+
+    this.store.select('eventTags')
+      .first(profile => profile['dwc_event_reg_success'] === true )
+      .subscribe( data => {
+        this.router.navigateByUrl('/danceworldcup/payment');
+      });
   }
 
 }

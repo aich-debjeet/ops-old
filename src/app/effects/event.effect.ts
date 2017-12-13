@@ -115,6 +115,16 @@ export class EventEffect {
     .catch((res) => Observable.of({ type: EventActions.DWC_PAYMENT_REQUEST_FAILED, payload: res }))
   );
 
+  // DWC Registration
+  @Effect()
+  eventDwcReg$ = this.actions$
+    .ofType(EventActions.DWC_EVENT_REG)
+    .map(toPayload)
+    .switchMap((payload) => this.eventService.dwcReg(payload)
+      .map(res => ({ type: EventActions.DWC_EVENT_REG_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: EventActions.DWC_EVENT_REG_FAILED, payload: res }))
+    );
+
   constructor(
     private actions$: Actions,
     private router: Router,

@@ -11,6 +11,7 @@ import { NgxCarouselModule } from 'ngx-carousel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DwcProgressBarComponent } from './dwc-progress-bar/dwc-progress-bar.component';
 import { DwcPaymentComponent } from './dwc-payment/dwc-payment.component';
+import { DwcSuccessComponent } from './dwc-success/dwc-success.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
   path: 'payment',
   component: DwcPaymentComponent,
+  },
+  {
+    path: 'success',
+    component: DwcSuccessComponent,
   }
 ]
 
@@ -46,7 +51,8 @@ const routes: Routes = [
     DowComponent,
     ContactComponent,
     DwcProgressBarComponent,
-    DwcPaymentComponent
+    DwcPaymentComponent,
+    DwcSuccessComponent
   ]
 })
 export class DanceWorldCupModule { }
