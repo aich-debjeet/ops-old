@@ -42,6 +42,7 @@ import { MessageReducer } from './reducers/messages.reducer';
 import { UserSearchReducer } from './reducers/user-search.reducer';
 import { OpportunityReducer } from './reducers/opportunity.reducer';
 import { ExploreReducer } from './reducers/explore.reducer';
+import { ClaimProfileReducer } from './reducers/claim-profile.reducer';
 import { reducer } from './app.reducer';
 
 // Effects
@@ -57,6 +58,7 @@ import { SearchEffect } from './effects/search.effect';
 import { OrganizationEffect } from './effects/organization.effect';
 import { EventEffect } from './effects/event.effect';
 import { ExploreEffect } from './effects/explore.effect';
+import { ClaimProfileEffect } from './effects/claim-profile.effect';
 
 
 // Services
@@ -192,6 +194,7 @@ import { DwcComponent } from './components/dwc/dwc.component';
     EffectsModule.run(OpportunityEffect),
     EffectsModule.run(EventEffect),
     EffectsModule.run(ExploreEffect),
+    EffectsModule.run(ClaimProfileEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
