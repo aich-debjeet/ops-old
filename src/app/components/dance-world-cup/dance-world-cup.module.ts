@@ -9,6 +9,8 @@ import { ContactComponent } from './contact/contact.component';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
 import { NgxCarouselModule } from 'ngx-carousel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DwcProgressBarComponent } from './dwc-progress-bar/dwc-progress-bar.component';
+import { DwcPaymentComponent } from './dwc-payment/dwc-payment.component';
 
 const routes: Routes = [
   {
@@ -19,7 +21,11 @@ const routes: Routes = [
       { path: 'dwc-indian-qualifiers', component: DiqComponent},
       { path: 'dwc-official-website', component: DowComponent},
       { path: 'contact', component: ContactComponent}
-    ]
+    ],
+  },
+  {
+  path: 'payment',
+  component: DwcPaymentComponent,
   }
 ]
 
@@ -38,7 +44,9 @@ const routes: Routes = [
     DanceWorldCupComponent,
     DiqComponent,
     DowComponent,
-    ContactComponent
+    ContactComponent,
+    DwcProgressBarComponent,
+    DwcPaymentComponent
   ]
 })
 export class DanceWorldCupModule { }

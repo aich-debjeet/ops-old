@@ -504,6 +504,9 @@ button.sb-wrapper.sb-facebook {
         &:hover {
             background-color: rgba( 250, 250, 250, 0.5);
         }
+        &:foucs{
+            outline: none!important;
+        }
     }
     .rightRs {
         display: block;
@@ -522,6 +525,9 @@ button.sb-wrapper.sb-facebook {
         }
         &:hover {
             background-color: rgba( 250, 250, 250, 0.5);
+        }
+        &:foucs{
+            outline: none!important;
         }
     }
 }
@@ -543,6 +549,9 @@ button.sb-wrapper.sb-facebook {
     &:hover {
         background-color: rgba( 250, 250, 250, 0.5);
     }
+    &:foucs{
+        outline: none!important;
+    }
 }
 
 .rightRs {
@@ -561,6 +570,9 @@ button.sb-wrapper.sb-facebook {
     }
     &:hover {
         background-color: rgba( 250, 250, 250, 0.5);
+    }
+    &:foucs{
+        outline: none!important;
     }
 }
 
