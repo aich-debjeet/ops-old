@@ -209,11 +209,12 @@
                                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.9863164034696!2d77.63703341474799!3d12.972726890855197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae16a6f8666621%3A0x8a0eaab208105e27!2sAbove+Solutions+India+Pvt.+Ltd.!5e0!3m2!1sen!2sin!4v1509367207866" width="393" height="165" frameborder="0" style="border:0" allowfullscreen></iframe>
                                 </div>
                                 <p id="o-org-about-address" class="c-text_sm color-grey-dark m-t-8">
-                                    200 Willoughby Ave, Brooklyn, NY 11205, USA
+                                    {{ orgProfile?.profile_details?.extra?.address?.line1 }}
                                 </p>
-                                <div *ngIf="editingField == 'address'" id="o-org-about-address_edit" class="o-org-form__edit-sec">
+                                <!-- <div *ngIf="editingField == 'address'" id="o-org-about-address_edit" class="o-org-form__edit-sec"> -->
+                                <div [ngClass]="{'show': editingField == 'address'}" id="o-org-about-address_edit" class="o-org-form__edit-sec hide">
                                     <div class="c-form__group c-form--sm c-form--noeffect">
-                                        <input #aboutAddress class="c-form__input" type="text" value="200 Willoughby Ave, Brooklyn, NY 11205, USA">
+                                        <input #searchLocation class="c-form__input" type="text" autocorrect="off" autocapitalize="off" spellcheck="off">
                                     </div>
                                 </div>
                                 <div *ngIf="editingField == 'address'" class="o-org-form__actions">
