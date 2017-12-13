@@ -16,7 +16,7 @@
                 <div class="col-md-6 ops_signup_right">
                     <!-- form -->
                     <div class="ops_h1">Create Your Account</div>
-                    <form [formGroup]="regFormBasic" novalidate (ngSubmit) = "submitForm(regFormBasic.value)" #regform="ngForm">
+                    <form [formGroup]="regFormBasic" novalidate (ngSubmit)="submitForm(regFormBasic.value)" #regform="ngForm">
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <div class="form_group">
@@ -62,9 +62,6 @@
                                 </label>
                             </label>
                         </div>
-
-                        
-
                         <div class="form_group">
                             <input class="form_input" type="text" formControlName="dob" [textMask]="{mask: dateMask}" placeholder="DD-MM-YYYY">
                             <span class="form_highlight"></span>
