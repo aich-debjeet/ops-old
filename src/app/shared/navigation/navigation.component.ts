@@ -37,6 +37,7 @@ export class NavigationComponent implements OnInit {
   isProfileSet = false;
   profilerOwnersUsername: string;
   profile_details: any;
+  showCreateOrg = false;
 
   // userCard: UserCard;
   userCards: ProfileCards;
@@ -74,6 +75,16 @@ export class NavigationComponent implements OnInit {
     this.profileState$.subscribe((state) => {
       this.activeProfileState = state;
       this.userCards = this.activeProfileState['profile_cards'];
+      // console.log('state', state);
+      if (this.userCards
+        && this.userCards['other']
+        && this.userCards['other']['username']
+        && this.userCards['active']
+        && this.userCards['active']['username']
+        && this.userCards['other']['username'] === this.userCards['active']['username']
+      ) {
+        this.showCreateOrg = true;
+      }
     });
 
     /* profile state */
