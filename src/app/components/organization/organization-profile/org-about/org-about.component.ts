@@ -1,5 +1,10 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, NgZone, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { FormControl, AbstractControl } from '@angular/forms';
+
+// maps
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import {} from '@types/googlemaps';
 
 // action
 import { ProfileActions } from '../../../../actions/profile.action';
@@ -49,6 +54,7 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
   aboutServices: any[];
   aboutServicesStr: string;
   aboutFoundedDate: any;
+  aboutAddress: any;
   // services: any[];
   profileUsername = '';
   profileHandle = '';
@@ -63,7 +69,25 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
 
   baseUrl = environment.API_IMAGE;
 
+  // map vars
+  public latitude: number;
+  public longitude: number;
+  public searchControl: FormControl;
+  public zoom: number;
+
+  // address
+  address: string;
+  country: string;
+  state: string;
+  postalCode: string;
+  city: string;
+  // searchLocation: String;
+
+  @ViewChild('searchLocation') searchLocation;
+
   constructor(
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
     private store: Store<Organization>,
     private localStorageService: LocalStorageService,
     private toastr: ToastrService,
@@ -146,8 +170,12 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
       }
       // for founded date
       if (this.orgProfile && this.orgProfile['profile_details']['activeFrom']) {
-        console.log('this.orgProfile.profile_details.activeFrom', this.orgProfile['profile_details']['activeFrom']);
+        // console.log('this.orgProfile.profile_details.activeFrom', this.orgProfile['profile_details']['activeFrom']);
         this.aboutFoundedDate = this.datePipe.transform(this.orgProfile['profile_details']['activeFrom'], 'dd-MM-yyyy');
+      }
+      // for address
+      if (this.orgProfile && this.orgProfile['profile_details']['extra']['address']['line1']) {
+        this.aboutAddress = this.orgProfile['profile_details']['extra']['address']['line1'];
       }
 
       // check for invite status
@@ -174,6 +202,7 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.getLocationGoogle();
   }
 
   /**
@@ -293,7 +322,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-
     /**
      * Observing the search input change
      */
@@ -341,6 +369,87 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
         orgHandle: orgHandle
       }
     });
+  }
+
+  /**
+   * Location find from google
+   */
+  getLocationGoogle() {
+    // set google maps defaults
+    this.zoom = 4;
+    this.latitude = 39.8282;
+    this.longitude = -98.5795;
+
+    // create search FormControl
+    this.searchControl = new FormControl();
+
+    // set current position
+    this.setCurrentPosition();
+
+    // load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchLocation.nativeElement, {
+
+      });
+      console.log(autocomplete);
+      const componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'long_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+
+      autocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          // console.log(place);
+
+          for (let i = 0; i < place.address_components.length; i++) {
+            const addressType = place.address_components[i].types[0];
+            console.log(addressType);
+            if (componentForm[addressType]) {
+              const val = place.address_components[i][componentForm[addressType]];
+              if ( addressType === 'country') {
+                this.country = val;
+              }
+              if ( addressType === 'postal_code') {
+                this.postalCode = val;
+              }
+              if ( addressType === 'locality') {
+                this.city = val
+              }
+              if ( addressType === 'administrative_area_level_1') {
+                this.state = val
+              }
+            }
+          }
+
+          // verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          // set latitude, longitude and zoom
+          this.address = place.formatted_address;
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        });
+      });
+    });
+  }
+
+  private setCurrentPosition() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 12;
+      });
+    }
   }
 
 }

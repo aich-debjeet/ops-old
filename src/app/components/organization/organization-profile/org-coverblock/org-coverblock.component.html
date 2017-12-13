@@ -37,7 +37,7 @@
                 <div class="col-md-6 padding_none">
                     <div class="o-org-account-stat">
                         <span class="c-text_lg-bold c-text-semibold">
-                            {{ orgProfile?.followersCount }}
+                            {{ orgProfile?.profile_details?.followersCount }}
                         </span>
                         <span class="c-text_sm color-grey-dark">
                             Followers
@@ -45,7 +45,7 @@
                     </div>
                     <div class="o-org-account-stat">
                         <span class="c-text_lg-bold c-text-semibold">
-                             {{ orgProfile?.followingCount }}
+                            {{ orgProfile?.profile_details?.followingCount }}
                         </span>
                         <span class="c-text_sm color-grey-dark">
                             Folllowing
@@ -53,7 +53,7 @@
                     </div>
                     <div class="o-org-account-stat">
                         <span class="c-text_lg-bold c-text-semibold">
-                            0
+                            {{ orgProfile?.profile_details?.spotCount }}
                         </span>
                         <span class="c-text_sm color-grey-dark">
                             Spots
