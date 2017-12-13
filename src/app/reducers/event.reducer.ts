@@ -77,6 +77,12 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
         dwc_event_reg_success: true
       });
 
+    case EventActions.DWC_EVENT_REG_FAILED:
+      return Object.assign({}, state, {
+        dwc_event_reg_success: false,
+        err_msg: payload.statusText
+      });
+
     case EventActions.DWC_EVENT_REG:
       return Object.assign({}, state, {
         dwc_event_reg_success: false
