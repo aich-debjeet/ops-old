@@ -59,12 +59,6 @@
                                 <span class="c-text_md color-grey-dark">{{perform}}</span>
                                 <input id="people" type="checkbox" class="c-form__bar2" [formControlName]="i">
                             </label>
-                            <!-- <label for="people"><span class="c-text_md color-grey-dark">Couple/Trio</span>
-                                <input id="people" type="checkbox" class="c-form__bar2" formControlName="otherInformation" value="Couple/Trio">
-                            </label>
-                            <label for="people"><span class="c-text_md color-grey-dark">Group</span>
-                                <input id="people" type="checkbox" class="c-form__bar2" formControlName="otherInformation" value="Group">
-                            </label> -->
                         </div>
 
                         <p class="c-text_md color-grey-dark m-t-16 float_left">Age Group</p>
@@ -73,15 +67,6 @@
                                 <span class="c-text_md color-grey-dark">{{age}}</span>
                                     <input id="people" type="checkbox" class="c-form__bar2" [formControlName]="i">
                             </label>
-                            <!-- <label for="people"><span class="c-text_md color-grey-dark">Junior section - 17 years and under</span>
-                                    <input id="people" type="checkbox" class="c-form__bar2" formControlName="age_group" value="Junior section - 17 years and under">
-                                </label>
-                            <label for="people"><span class="c-text_md color-grey-dark">Children – 13 years and under</span>
-                                    <input id="people" type="checkbox" class="c-form__bar2" formControlName="age_group" value="Children – 13 years and under">
-                                </label>
-                            <label for="people"><span class="c-text_md color-grey-dark">Senior section - 25 years and under</span>
-                                    <input id="people" type="checkbox" class="c-form__bar2" formControlName="age_group" value="Senior section - 25 years and under">
-                                </label> -->
                             <p class="c-form__validation" *ngIf="eventForm.controls['Age_Group'].errors?.required && eventCreate.submitted">Age Group</p>
                         </div>
                     </div>
@@ -91,95 +76,11 @@
                             <label for="people" *ngFor="let dance of Dance_Style; let i = index" formArrayName="Dance_Style">
                                 <span class="c-text_md color-grey-dark">{{dance}}</span>
                                     <input id="people" type="checkbox" class="c-form__bar2" [formControlName]="i" value="">
-                                </label>
-                            <!-- <label for="people"><span class="c-text_md color-grey-dark">National, Folklore, Character</span>
-                                    <input name="N_F_C" type="checkbox" class="c-form__bar2" formControlName="N_F_C" value="National">
-                                </label>
-                            <label for="people"><span class="c-text_md color-grey-dark">Modern, Contemporary</span>
-                                    <input name="M_C" type="checkbox" class="c-form__bar2" formControlName="M_C" value="Contemporary">
-                                </label>
-                            <label for="people"><span class="c-text_md color-grey-dark">Jazz and show dance</span>
-                                    <input inamed="j_s_d" type="checkbox" class="c-form__bar2" formControlName="j_s_d" value="Jazz">
-                                </label>
-                            <label for="people"><span class="c-text_md color-grey-dark">Hip Hop, Street Dance and Commercial</span>
-                                    <input name="h_s_c" type="checkbox" class="c-form__bar2" formControlName="h_s_c" value="Commercial" >
-                                </label>
-                            <label for="people"><span class="c-text_md color-grey-dark">Song and Dance</span>
-                                    <input name="s_d" type="checkbox" class="c-form__bar2" formControlName="s_d" value="Song">
-                                </label>
-                            <label for="people"><span class="c-text_md color-grey-dark">Tap</span>
-                                    <input name="tap" type="checkbox" class="c-form__bar2" formControlName="tap" value="Tap">
-                                </label>
-                            <label for="people"><span class="c-text_md color-grey-dark">Fusion Ballet</span>
-                                    <input name="f_b" type="checkbox" class="c-form__bar2" formControlName="f_b" value="Fusion">
-                                </label> -->
+                            </label>
                         </div>
                         <p class="c-form__validation" *ngIf="eventForm.controls['Dance_Style'].errors?.required && eventCreate.submitted">Category of Dance</p>
                     </div>
                 </div>
-                <!-- <div class="row m-0">
-                    <div class="col-md-12 c-form__group p-0 float_left">
-                        <div class="c-radio__sm width100 float_left">
-                            <label class="col-md-2 p-0">
-                                <input name="otherInformation" type="radio" class="c-form__bar2" formControlName="otherInformation" value="Solo">
-                                <span></span>
-                                <div class="c-radio--label c-radio--dwc">Solo</div>
-                            </label>
-                            <label class="col-md-4">
-                                <input name="otherInformation" type="radio" formControlName="otherInformation" value="Multiple">
-                                <span></span>
-                                <div class="c-radio--label c-radio--dwc">Multiple</div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="c-form__group">
-                    <select class="c-form-control c-form-select--lg p-l-0 m-b-24" formControlName="category_dance">
-                        <option style="color:#929292" value="" disabled selected hidden>Category of Dance</option>
-                        <option value="Ballet">Ballet</option>
-                        <option value="National and Folklore">National and Folklore</option>
-                        <option value="Modern, Jazz, Show dance, Contemporary and Acro">Modern, Jazz, Show dance, Contemporary and Acro</option>
-                        <option value="Song and Dance">Song and Dance</option>
-                        <option value="Tap">Tap</option>
-                    </select>
-                    <p class="c-form__validation" *ngIf="eventForm.controls['category_dance'].errors?.required && eventCreate.submitted">Category of Dance</p>
-                </div>
-                <div class="c-form__group">
-                    <select class="c-form-control c-form-select--lg p-l-0 m-b-24" formControlName="age_group">
-                        <option value="" disabled selected hidden>Age Group</option>
-                        <option value="MINI – 9 YEARS AND UNDER">MINI – 9 YEARS AND UNDER</option>
-                        <option value="CHILDREN – 13 YEARS AND UNDER">CHILDREN – 13 YEARS AND UNDER</option>
-                        <option value="JUNIOR SECTION – 17 YEARS AND UNDER">JUNIOR SECTION – 17 YEARS AND UNDER</option>
-                        <option value="SENIOR SECTION – 25 YEARS AND UNDER">SENIOR SECTION – 25 YEARS AND UNDER</option>
-                    </select>
-                    <p class="c-form__validation" *ngIf="eventForm.controls['age_group'].errors?.required && eventCreate.submitted">Age Group</p>
-                </div>
-                <div class="c-form__group c-form--lg m-b-32">
-                    <input class="c-form__input" required type="text" formControlName="school_owner">
-                    <span class="c-form__highlight"></span>
-                    <span class="c-form__bar"></span>
-                    <label>Dancer School owner’s / Choreographer’s name *</label>
-                    <p class="c-form__validation" *ngIf="eventForm.controls['school_owner'].errors?.required && eventCreate.submitted">Dancer School owner’s / Choreographer’s name is required</p>
-                </div>
-                <div class="c-form__group c-form--lg m-b-32">
-                    <textarea class="c-textarea__block c-textarea--style o-wcq-textarea " rows="0" data-min-rows="0" placeholder="Address *" formControlName="school_address"></textarea>
-                    <p class="c-form__validation" *ngIf="eventForm.controls['school_address'].errors?.required && eventCreate.submitted">Address is required</p>
-                </div>
-                <div class="c-form__group c-form--lg m-b-32">
-                    <input class="c-form__input" required type="text" formControlName="school_category">
-                    <span class="c-form__highlight"></span>
-                    <span class="c-form__bar"></span>
-                    <label>Category/classes competing in: *</label>
-                    <p class="c-form__validation" *ngIf="eventForm.controls['school_category'].errors?.required && eventCreate.submitted">Category/classes competing is required</p>
-                </div>
-                <div class="c-form__group c-form--lg">
-                    <input class="c-form__input" required="" type="text" formControlName="school_teammates">
-                    <span class="c-form__highlight"></span>
-                    <span class="c-form__bar"></span>
-                    <label>Teammates name/s for duets, trios, small and large groups *</label>
-                    <p class="c-form__validation" *ngIf="eventForm.controls['school_teammates'].errors?.required && eventCreate.submitted">Teammates name/s for duets, trios, small and large groups is required</p>
-                </div>
-                <p class="c-text_sm color-grey-dark">Please fill one form for each category/class</p> -->
                 <div class="row m-0">
                     <div class="col-md-12 c-form__group p-0 float_left">
                         <p class="c-text_md color-grey-dark m-b-8">Are you a member of a dance school?</p>
@@ -213,35 +114,45 @@
 
                 <p class="c-text_md color-grey-dark m-b-16">Team member details</p>
 
-                <div class="row m-0">
-                    <div class="col-md-4 p-l-0">
-                        <div class="c-form__group c-form--md m-b-8">
-                            <input class="c-form__input" required="" type="text" formControlName="teammates_Name">
-                            <span class="c-form__highlight"></span>
-                            <span class="c-form__bar"></span>
-                            <label>Name</label>
+                <div class="row m-0" *ngFor="let team_member of eventForm.controls.team_member['controls']; let i=index"
+              [formGroup]="team_member">
+                    <div class="col-md-11 p-0">
+                        <div class="col-md-4 p-l-0">
+                            <div class="c-form__group c-form--md m-b-8">
+                                <input class="c-form__input" required="" type="text" formControlName="name">
+                                <span class="c-form__highlight"></span>
+                                <span class="c-form__bar"></span>
+                                <label>Name</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 p-l-0">
+                            <div class="c-form__group c-form--md m-b-8">
+                                <input class="c-form__input" required="" type="email" formControlName="email">
+                                <span class="c-form__highlight"></span>
+                                <span class="c-form__bar"></span>
+                                <label>Email</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 p-l-0">
+                            <div class="c-form__group c-form--md m-b-8">
+                                <input class="c-form__input" required="" type="text" formControlName="phone">
+                                <span class="c-form__highlight"></span>
+                                <span class="c-form__bar"></span>
+                                <label>Phone number</label>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4 p-l-0">
-                        <div class="c-form__group c-form--md m-b-8">
-                            <input class="c-form__input" required="" type="email" formControlName="teammates_Email">
-                            <span class="c-form__highlight"></span>
-                            <span class="c-form__bar"></span>
-                            <label>Email</label>
+                    <div class="col-md-1 p-0" *ngIf="i > 0">
+                      <div class="o-form-trash m-t-8">
+                        <div class="o-form-trash__ico" (click)="eventForm.get('team_member').removeAt(i)">
+                          <img src="/assets/img/svg/delete.svg" >
                         </div>
-                    </div>
-                    <div class="col-md-4 p-l-0">
-                        <div class="c-form__group c-form--md m-b-8">
-                            <input class="c-form__input" required="" type="text" formControlName="teammates_Phone">
-                            <span class="c-form__highlight"></span>
-                            <span class="c-form__bar"></span>
-                            <label>Phone number</label>
-                        </div>
+                      </div>
                     </div>
                     <p class="c-form__validation" *ngIf="eventForm.controls['teammates_Name'].errors?.required && eventCreate.submitted">Teammates name/s for duets, trios, small and large groups is required</p>
                 </div>
 
-                <a href="javascript:void(0)" class="o-dwc-form-add">
+                <a (click)="pushMember()" class="o-dwc-form-add">
                     <span class="o-dwc-form-add__icon"><img src="/assets/img/svg/plus-red.svg" alt=""></span>
                     <span class="c-text_md m-l-8 float_left color-theme">Add more</span>
                 </a>

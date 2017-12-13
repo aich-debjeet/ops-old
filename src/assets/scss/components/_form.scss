@@ -2,6 +2,16 @@
 .c-form__group {
     position: relative;
     margin-bottom: 14px;
+    select {
+        option {
+            color: #929292;
+            margin: 8px 0;
+            &:hover {
+                color: #000000;
+                background: #555;
+            }
+        }
+    }
 }
 
 .c-form__input {
@@ -76,9 +86,11 @@ label {
         -moz-transition: 0.2s ease all;
         -webkit-transition: 0.2s ease all;
     }
+
     &:before {
         left: 50%;
     }
+
     &:after {
         right: 50%;
     }
@@ -106,6 +118,8 @@ label {
 
 
 
+
+
 /* active state */
 
 .c-form__input:focus~.c-form__bar:before,
@@ -128,13 +142,17 @@ label {
         -moz-transition: 0.2s ease all;
         -webkit-transition: 0.2s ease all;
     }
+
     &:before {
         left: 50%;
     }
+
     &:after {
         right: 50%;
     }
 }
+
+
 
 
 
@@ -155,12 +173,15 @@ label {
 
 
 
+
+
 /* ANIMATIONS ================ */
 
 @-webkit-keyframes inputHighlighter {
     from {
         background: #5264AE;
     }
+
     to {
         width: 0;
         background: transparent;
@@ -171,6 +192,7 @@ label {
     from {
         background: #5264AE;
     }
+
     to {
         width: 0;
         background: transparent;
@@ -181,6 +203,7 @@ label {
     from {
         background: #5264AE;
     }
+
     to {
         width: 0;
         background: transparent;
@@ -215,10 +238,20 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
     border: none;
     height: auto;
     outline: none;
+    position: relative;
+    padding-top: 10px;
+    label{
+        top: 0px;
+    }
 }
 
 .c-textarea__block::-webkit-input-placeholder {
-    color: #333;
+    color: #929292;
+}
+.c-textarea__block:focus~label{
+    top: -10px;
+    font-size: 13px;
+    color: #c1c1c1;
 }
 
 .c-textarea--style {
@@ -278,23 +311,29 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
 // form size
 .c-form--sm {
     .c-form__input {
-        font-size: 11px;
-        // line-height: 16px;
+        font-size: 11px; // line-height: 16px;
     }
+
     .c-textarea--style {
         font-size: 11px;
     }
+
     label {
         font-size: 11px;
     }
+
     .c-form__input:focus~label,
     .c-form__input:valid~label {
         top: -4px;
         font-size: 9px;
         color: #929292;
     }
+
     .c-form__input--lefticon {
-        margin-top: -18px;
+        margin-top: -20px;
+    }
+    .c-form-control {
+        font-size: 11px;
     }
 }
 
@@ -303,14 +342,21 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
         font-size: 15px;
         line-height: 24px;
     }
+
     .c-textarea--style {
         font-size: 15px;
     }
+
     label {
         font-size: 15px;
     }
+
     .c-form__input--lefticon {
         margin-top: -23px;
+    }
+    .c-form-control {
+        font-size: 15px;
+        line-height: 24px;
     }
 }
 
@@ -320,8 +366,9 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
         border-radius: 3px;
         background-color: #F3F5F7;
         border: none;
-        padding: 5px 8px;
+        padding: 6px 8px;
     }
+
     label {
         top: 9px;
         left: 8px;
@@ -335,6 +382,7 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
         border: none;
         padding: 7px 8px;
     }
+
     label {
         top: 8px;
         left: 8px;
@@ -348,136 +396,194 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
         border: none;
         padding: 7px 8px;
     }
+
     label {
         top: 8px;
         left: 8px;
     }
 }
 
-//old form css
-/* form */
-.form_group        {
-  position:relative;
-  margin-bottom: 18px;
+// form checked
+.c-form__check {
+  font-size: 13px;
+  margin: 16px 0px 0px 0px;
+  position: relative;
 }
-.form_input{
-  font-size:14px;
-  padding:10px 10px 5px 0px;
-  display:block;
-  width:100%;
-  border:none;
-  color: #000000;
-  border-bottom:1px solid #c1c1c1;
+.c-form__check label {
+  cursor: pointer;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  font-size: 11px;
+  font-weight: normal;
+  color: #929292;
+  // text-transform: uppercase;
+  // letter-spacing: 1px;
+  pointer-events: auto;
+  top: 0;
 }
-.form_input:focus{
-  outline:none;
+.c-form__check input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0 9px 0 0;
+  position: relative;
+  outline: 0;
+  left: 0;
+  background-image: url(/assets/img/svg/checkboxdisabled.svg);
+  float: left;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-size: cover;
+  border:none!important;
 }
-label          {
-  color:#333333;
-  font-size:14px;
-  font-weight:normal;
-  position:absolute;
-  pointer-events:none;
-  top:10px;
-  transition:0.2s ease all;
-  -moz-transition:0.2s ease all;
-  -webkit-transition:0.2s ease all;
-}
-
-.form_input:focus ~ label, .form_input:valid ~ label    {
-  top:-10px;
-  font-size:12px;
-  color: #c1c1c1;
-}
-
-.form_bar{
-  position:relative;
-  display:block;
-  &:before, &:after   {
-    content:'';
-    height:2px;
-    width:0;
-    bottom:1px;
-    position:absolute;
-    background: #888;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
-  }
-  &:before {
-    left:50%;
-  }
-  &:after {
-    right:50%;
-  }
-}
-/* active state */
-.form_input:focus ~ .form_bar:before, .form_input:focus ~ .form_bar:after {
-  width:50%;
-}
-
-.form_bar_alert{
-  position:relative;
-  display:block;
-  &:before, &:after   {
-    content:'';
-    height:2px;
-    width:0;
-    bottom:1px;
-    position:absolute;
-    background: $theme_red;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
-  }
-  &:before {
-    left:50%;
-  }
-  &:after {
-    right:50%;
-  }
-}
-/* active state */
-.form_input:focus ~ .form_bar_alert:before, .form_input:focus ~ .form_bar_alert:after {
-  width:50%;
+.c-form__check input[type="checkbox"]:checked{
+  background: url(/assets/img/svg/checkboxactived.svg);
+  background-size: cover;
 }
 
 
-/* active state */
-.form_input:focus ~ .form_highlight {
-  -webkit-animation:inputHighlighter 0.3s ease;
-  -moz-animation:inputHighlighter 0.3s ease;
-  animation:inputHighlighter 0.3s ease;
-}
 
-/* ANIMATIONS ================ */
-@-webkit-keyframes inputHighlighter {
-  from { background:#5264AE; }
-  to  { width:0; background:transparent; }
-}
-@-moz-keyframes inputHighlighter {
-  from { background:#5264AE; }
-  to  { width:0; background:transparent; }
-}
-@keyframes inputHighlighter {
-  from { background:#5264AE; }
-  to  { width:0; background:transparent; }
-}
-
-
-$transition: all 0.3s;
-$shadow-L1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-$shadow-L2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-$shadow-L3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-
-.error_alert{
-  color: $theme_red;
-  font-size: 12px;
-  font-weight: 600;
-}
-.username_error li{
-  color: $green;
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 500;
-}
+// // old form style ----------------------------------------------------
+// .form_group {
+//     position: relative;
+//     margin-bottom: 18px;
+// }
+// .form_input {
+//     font-size: 14px;
+//     padding: 10px 10px 5px 0px;
+//     display: block;
+//     width: 100%;
+//     border: none;
+//     color: #333333;
+//     border-bottom: 1px solid #c1c1c1;
+//     background: none;
+// }
+// .form_input:focus {
+//     outline: none;
+// }
+// label {
+//     color: #333333;
+//     font-size: 14px;
+//     font-weight: normal;
+//     position: absolute;
+//     pointer-events: none;
+//     top: 10px;
+//     transition: 0.2s ease all;
+//     -moz-transition: 0.2s ease all;
+//     -webkit-transition: 0.2s ease all;
+// }
+// .form_input:focus~label,
+// .form_input:valid~label {
+//     top: -10px;
+//     font-size: 13px;
+//     color: #c1c1c1;
+// }
+// .form_bar {
+//     position: relative;
+//     display: block;
+//     &:before,
+//     &:after {
+//         content: '';
+//         height: 2px;
+//         width: 0;
+//         bottom: 1px;
+//         position: absolute;
+//         background: #888;
+//         transition: 0.2s ease all;
+//         -moz-transition: 0.2s ease all;
+//         -webkit-transition: 0.2s ease all;
+//     }
+//     &:before {
+//         left: 50%;
+//     }
+//     &:after {
+//         right: 50%;
+//     }
+// }
+// /* active state */
+// .form_input:focus~.form_bar:before,
+// .form_input:focus~.form_bar:after {
+//     width: 50%;
+// }
+// .form_bar_alert {
+//     position: relative;
+//     display: block;
+//     &:before,
+//     &:after {
+//         content: '';
+//         height: 2px;
+//         width: 0;
+//         bottom: 1px;
+//         position: absolute;
+//         background: $theme_red;
+//         transition: 0.2s ease all;
+//         -moz-transition: 0.2s ease all;
+//         -webkit-transition: 0.2s ease all;
+//     }
+//     &:before {
+//         left: 50%;
+//     }
+//     &:after {
+//         right: 50%;
+//     }
+// }
+// /* active state */
+// .form_input:focus~.form_bar_alert:before,
+// .form_input:focus~.form_bar_alert:after {
+//     width: 50%;
+// }
+// /* active state */
+// .form_input:focus~.form_highlight {
+//     -webkit-animation: inputHighlighter 0.3s ease;
+//     -moz-animation: inputHighlighter 0.3s ease;
+//     animation: inputHighlighter 0.3s ease;
+// }
+// /* ANIMATIONS ================ */
+// @-webkit-keyframes inputHighlighter {
+//     from {
+//         background: #5264AE;
+//     }
+//     to {
+//         width: 0;
+//         background: transparent;
+//     }
+// }
+// @-moz-keyframes inputHighlighter {
+//     from {
+//         background: #5264AE;
+//     }
+//     to {
+//         width: 0;
+//         background: transparent;
+//     }
+// }
+// @keyframes inputHighlighter {
+//     from {
+//         background: #5264AE;
+//     }
+//     to {
+//         width: 0;
+//         background: transparent;
+//     }
+// }
+// $transition: all 0.3s;
+// $shadow-L1: 0 1px 3px rgba(0, 0, 0, 0.12),
+// 0 1px 2px rgba(0, 0, 0, 0.24);
+// $shadow-L2: 0 3px 6px rgba(0, 0, 0, 0.16),
+// 0 3px 6px rgba(0, 0, 0, 0.23);
+// $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
+// 0 6px 6px rgba(0, 0, 0, 0.23);
+// .error_alert {
+//     color: $theme_red;
+//     font-size: 11px;
+//     font-weight: 600;
+// }
+// .username_error li {
+//     color: $green;
+//     display: inline-block;
+//     font-size: 11px;
+//     font-weight: 500;
+// }

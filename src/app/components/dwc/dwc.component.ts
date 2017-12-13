@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import { Register, UserTag, initialTag, AuthModel, RightBlockTag } from '../../models/auth.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -32,6 +32,7 @@ export class DwcComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.loadScript('https://js.instamojo.com/v1/button.js');
+    this.pushMember()
     console.log(this.Performance);
   }
 
@@ -64,6 +65,7 @@ export class DwcComponent implements OnInit {
       'teammates_Name': ['', [Validators.required]],
       'teammates_Email': ['', [Validators.required]],
       'teammates_Phone': ['', [Validators.required]],
+      'team_member' : this.fb.array([]),
       // 'event_agenda' : this.fb.array([]),
     });
 
@@ -74,6 +76,24 @@ export class DwcComponent implements OnInit {
     console.log(this.eventForm.value)
     return this.eventForm.value[key].map((x, i) => x && this[key][i]).filter(x => !!x);
   }
+
+  /**
+   * More Agenda Item push to Form
+   */
+  memberItem(val: string) {
+    return new FormGroup({
+      name: new FormControl(val, Validators.required),
+      email: new FormControl(val, Validators.required),
+      phone: new FormControl(val, Validators.required)
+    })
+  }
+
+  pushMember() {
+    const control = <FormArray>this.eventForm.controls['team_member'];
+    control.push(this.memberItem(''));
+  }
+
+
 // dwc_event_reg_success
   submitForm(value) {
     this.valueStore = Object.assign({}, this.eventForm.value, {
