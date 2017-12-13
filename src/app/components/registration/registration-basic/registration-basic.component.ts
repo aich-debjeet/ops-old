@@ -415,7 +415,7 @@ export class RegistrationBasicComponent implements OnInit {
 
     this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
     this.store.select('loginTags').take(2).subscribe(data => {
-        if (data['user_basic_reg_succs'] === true ) {
+        if (data['user_basic_reg_success'] === true ) {
           console.log('success otp');
           if (data && data['user_token']) {
               localStorage.setItem('access_token', data['user_token']);
