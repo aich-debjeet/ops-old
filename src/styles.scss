@@ -579,8 +579,15 @@ button.sb-wrapper.sb-facebook {
 .im-checkout {
     margin: auto;
     max-width: 200px!important;
+    display: inline-block;
+    float: inherit;
+    margin-top: 15px;
     a {
         background-color: #ff7b84!important;
         border-radius: 0!important;
+        padding: 0.3em 1em!important;
+        &:hover{
+            color: #fff!important;
+        }
     }
 }

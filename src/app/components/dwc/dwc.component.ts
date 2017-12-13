@@ -31,7 +31,6 @@ export class DwcComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.loadScript('https://js.instamojo.com/v1/button.js');
     this.pushMember()
     // console.log(this.Performance);
   }
@@ -39,13 +38,7 @@ export class DwcComponent implements OnInit {
   testClick() {
     console.log('onclick');
   }
-
-  loadScript(url) {
-    const node = document.createElement('script');
-    node.src = url;
-    node.type = 'text/javascript';
-    document.getElementsByTagName('head')[0].appendChild(node);
- }
+  
 
   /**
    * Form init
@@ -110,7 +103,6 @@ export class DwcComponent implements OnInit {
       //   teamates: value.school_teammates,
       // }
       this.DwctypeModal.open();
-      this.loadScript('https://js.instamojo.com/v1/button.js');
       // Plz enable this code after payment implementation
       // this.store.dispatch({ type: AuthActions.DWC_EVENT_REG, payload: form});
       // this.router.navigateByUrl('/profile/user');
