@@ -17,12 +17,6 @@ const routes: Routes = [
   {
     path: '',
     component: DanceWorldCupComponent,
-    children: [
-      { path: '', redirectTo: 'dwc-indian-qualifiers'},
-      { path: 'dwc-indian-qualifiers', component: DiqComponent},
-      { path: 'dwc-official-website', component: DowComponent},
-      { path: 'contact', component: ContactComponent}
-    ],
   },
   {
   path: 'payment',
