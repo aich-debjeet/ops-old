@@ -47,7 +47,7 @@ export class LogoutHomeComponent implements OnInit, OnDestroy {
       grid: {xs: 1, sm: 1, md: 1, lg: 1, all: 0},
       slide: 1,
       speed: 4000,
-      interval: 4000,
+      // interval: 4000,
       custom: 'banner',
       point: {
         visible: false,
