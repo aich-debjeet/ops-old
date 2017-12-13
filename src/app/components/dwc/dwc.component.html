@@ -1,7 +1,7 @@
 <header class="opsheader">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
+            Brand and toggle get grouped for better mobile display
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
@@ -14,13 +14,36 @@
         </div>
     </nav>
 </header>
-<section class="o-dance-qualifier-form">
+<section class="o-dwc-progress-sec">
     <div class="container">
+        <div class="o-dws-progress-block">
+            <span class="c-text_md float_left m-r-8">DWC participation process completion</span>
+            <div class="o-dws-progress__bar">
+                <a href="" class="o-dws-progress__link o-dwc-progress--active"></a>
+                <div class="o-dws-progress__white"></div>
+                <a href="" class="o-dws-progress__link"></a>
+                <div class="o-dws-progress__white"></div>
+                <a href="" class="o-dws-progress__link"></a>
+                <div class="o-dws-progress__white"></div>
+                <a href="" class="o-dws-progress__link"></a>
+            </div>
+            <div class="o-dws-progress__txt float_right">
+                <a href="" class="o-dws-progress__link c-text_sm text-center">Sign up</a>
+                <a href="" class="o-dws-progress__link c-text_sm text-center">Register DWC</a>
+                <a href="" class="o-dws-progress__link c-text_sm text-center">Upload Media</a>
+                <a href="" class="o-dws-progress__link c-text_sm text-center">Payment</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="o-dance-qualifier-form">
+    <div class="container fill-white">
         <div class="o-dance-wcq-form-block">
             <h3 class="c-h3 f-w_500 text-center m-t-32">Dance World Cup Qualifier- India</h3>
             <p class="c-text_lg text-center m-t-8 color-grey-dark m-b-32">Add Attendee details </p>
 
-            <form [formGroup]="eventForm" novalidate (ngSubmit) = "submitForm(eventForm.value)"  #eventCreate="ngForm">
+            <form [formGroup]="eventForm" novalidate (ngSubmit)="submitForm(eventForm.value)" #eventCreate="ngForm">
                 <div class="c-form__group c-form--lg m-b-32">
                     <input class="c-form__input" required type="text" formControlName="school_name">
                     <span class="c-form__highlight"></span>
@@ -28,7 +51,73 @@
                     <label>Dance School’s Name *</label>
                     <p class="c-form__validation" *ngIf="eventForm.controls['school_name'].errors?.required && eventCreate.submitted">Dance School's name is required</p>
                 </div>
-                <div class="row m-0">
+                <div class="o-dwc-reg-check">
+                    <div class="col-md-6 p-0">
+                        <p class="c-text_md color-grey-dark float_left">Performance</p>
+                        <div class="c-form__check">
+                            <label for="people" *ngFor="let perform of Performance; let i = index" formArrayName="Performance">
+                                <span class="c-text_md color-grey-dark">{{perform}}</span>
+                                <input id="people" type="checkbox" class="c-form__bar2" [formControlName]="i">
+                            </label>
+                            <!-- <label for="people"><span class="c-text_md color-grey-dark">Couple/Trio</span>
+                                <input id="people" type="checkbox" class="c-form__bar2" formControlName="otherInformation" value="Couple/Trio">
+                            </label>
+                            <label for="people"><span class="c-text_md color-grey-dark">Group</span>
+                                <input id="people" type="checkbox" class="c-form__bar2" formControlName="otherInformation" value="Group">
+                            </label> -->
+                        </div>
+
+                        <p class="c-text_md color-grey-dark m-t-16 float_left">Age Group</p>
+                        <div class="c-form__check">
+                            <label for="people" *ngFor="let age of Age_Group; let i = index" formArrayName="Age_Group">
+                                <span class="c-text_md color-grey-dark">{{age}}</span>
+                                    <input id="people" type="checkbox" class="c-form__bar2" [formControlName]="i">
+                            </label>
+                            <!-- <label for="people"><span class="c-text_md color-grey-dark">Junior section - 17 years and under</span>
+                                    <input id="people" type="checkbox" class="c-form__bar2" formControlName="age_group" value="Junior section - 17 years and under">
+                                </label>
+                            <label for="people"><span class="c-text_md color-grey-dark">Children – 13 years and under</span>
+                                    <input id="people" type="checkbox" class="c-form__bar2" formControlName="age_group" value="Children – 13 years and under">
+                                </label>
+                            <label for="people"><span class="c-text_md color-grey-dark">Senior section - 25 years and under</span>
+                                    <input id="people" type="checkbox" class="c-form__bar2" formControlName="age_group" value="Senior section - 25 years and under">
+                                </label> -->
+                            <p class="c-form__validation" *ngIf="eventForm.controls['Age_Group'].errors?.required && eventCreate.submitted">Age Group</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 p-0">
+                        <p class="c-text_md color-grey-dark">Dance style</p>
+                        <div class="c-form__check">
+                            <label for="people" *ngFor="let dance of Dance_Style; let i = index" formArrayName="Dance_Style">
+                                <span class="c-text_md color-grey-dark">{{dance}}</span>
+                                    <input id="people" type="checkbox" class="c-form__bar2" [formControlName]="i" value="">
+                                </label>
+                            <!-- <label for="people"><span class="c-text_md color-grey-dark">National, Folklore, Character</span>
+                                    <input name="N_F_C" type="checkbox" class="c-form__bar2" formControlName="N_F_C" value="National">
+                                </label>
+                            <label for="people"><span class="c-text_md color-grey-dark">Modern, Contemporary</span>
+                                    <input name="M_C" type="checkbox" class="c-form__bar2" formControlName="M_C" value="Contemporary">
+                                </label>
+                            <label for="people"><span class="c-text_md color-grey-dark">Jazz and show dance</span>
+                                    <input inamed="j_s_d" type="checkbox" class="c-form__bar2" formControlName="j_s_d" value="Jazz">
+                                </label>
+                            <label for="people"><span class="c-text_md color-grey-dark">Hip Hop, Street Dance and Commercial</span>
+                                    <input name="h_s_c" type="checkbox" class="c-form__bar2" formControlName="h_s_c" value="Commercial" >
+                                </label>
+                            <label for="people"><span class="c-text_md color-grey-dark">Song and Dance</span>
+                                    <input name="s_d" type="checkbox" class="c-form__bar2" formControlName="s_d" value="Song">
+                                </label>
+                            <label for="people"><span class="c-text_md color-grey-dark">Tap</span>
+                                    <input name="tap" type="checkbox" class="c-form__bar2" formControlName="tap" value="Tap">
+                                </label>
+                            <label for="people"><span class="c-text_md color-grey-dark">Fusion Ballet</span>
+                                    <input name="f_b" type="checkbox" class="c-form__bar2" formControlName="f_b" value="Fusion">
+                                </label> -->
+                        </div>
+                        <p class="c-form__validation" *ngIf="eventForm.controls['Dance_Style'].errors?.required && eventCreate.submitted">Category of Dance</p>
+                    </div>
+                </div>
+                <!-- <div class="row m-0">
                     <div class="col-md-12 c-form__group p-0 float_left">
                         <div class="c-radio__sm width100 float_left">
                             <label class="col-md-2 p-0">
@@ -90,8 +179,72 @@
                     <label>Teammates name/s for duets, trios, small and large groups *</label>
                     <p class="c-form__validation" *ngIf="eventForm.controls['school_teammates'].errors?.required && eventCreate.submitted">Teammates name/s for duets, trios, small and large groups is required</p>
                 </div>
-                <p class="c-text_sm color-grey-dark">Please fill one form for each category/class</p>
-                
+                <p class="c-text_sm color-grey-dark">Please fill one form for each category/class</p> -->
+                <div class="row m-0">
+                    <div class="col-md-12 c-form__group p-0 float_left">
+                        <p class="c-text_md color-grey-dark m-b-8">Are you a member of a dance school?</p>
+                        <div class="c-radio__sm width100 float_left">
+                            <label class="col-md-2 p-0">
+                                <input name="member" type="radio" class="c-form__bar2" formControlName="member" value="yes">
+                                <span></span>
+                                <div class="c-radio--label c-radio--dwc">Yes</div>
+                            </label>
+                            <label class="col-md-4 p-0">
+                                <input name="member" type="radio" formControlName="member" value="no">
+                                <span></span>
+                                <div class="c-radio--label c-radio--dwc">No</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-form__group c-form--md m-b-32">
+                    <input class="c-form__input" required="" type="text" formControlName="school_owner">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <label>Dancer School Owner’s / Choreographer’s Name *</label>
+                    <p class="c-form__validation" *ngIf="eventForm.controls['school_owner'].errors?.required && eventCreate.submitted">Dancer School owner’s / Choreographer’s name is required</p>
+                </div>
+
+                <div class="c-form__group c-form--md m-b-32">
+                    <textarea class="c-textarea__block c-textarea--style o-wcq-textarea " rows="0" data-min-rows="0" formControlName="school_address"></textarea>
+                    <label>Address *</label>
+                    <p class="c-form__validation" *ngIf="eventForm.controls['school_address'].errors?.required && eventCreate.submitted">Address is required</p>
+                </div>
+
+                <p class="c-text_md color-grey-dark m-b-16">Team member details</p>
+
+                <div class="row m-0">
+                    <div class="col-md-4 p-l-0">
+                        <div class="c-form__group c-form--md m-b-8">
+                            <input class="c-form__input" required="" type="text" formControlName="teammates_Name">
+                            <span class="c-form__highlight"></span>
+                            <span class="c-form__bar"></span>
+                            <label>Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-l-0">
+                        <div class="c-form__group c-form--md m-b-8">
+                            <input class="c-form__input" required="" type="email" formControlName="teammates_Email">
+                            <span class="c-form__highlight"></span>
+                            <span class="c-form__bar"></span>
+                            <label>Email</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p-l-0">
+                        <div class="c-form__group c-form--md m-b-8">
+                            <input class="c-form__input" required="" type="text" formControlName="teammates_Phone">
+                            <span class="c-form__highlight"></span>
+                            <span class="c-form__bar"></span>
+                            <label>Phone number</label>
+                        </div>
+                    </div>
+                    <p class="c-form__validation" *ngIf="eventForm.controls['teammates_Name'].errors?.required && eventCreate.submitted">Teammates name/s for duets, trios, small and large groups is required</p>
+                </div>
+
+                <a href="javascript:void(0)" class="o-dwc-form-add">
+                    <span class="o-dwc-form-add__icon"><img src="/assets/img/svg/plus-red.svg" alt=""></span>
+                    <span class="c-text_md m-l-8 float_left color-theme">Add more</span>
+                </a>
                 <div class="col-md-12 m-t-32 text-center">
                     <button type="submit" class="btn btn-primary btn-md">Submit</button>
                 </div>
@@ -122,18 +275,14 @@
                         Why read motivational sayings? For motivation! You might need a bit, if you can use last year’s list of goals this year because it’s as good as new. All of us can benefit from inspirational thoughts, so here are ten great ones.
                     </p>
                     <p class="c-text_md m-b-16 color-grey-dark">
-                        “Be more concerned with your character than with your reputation. Your character is what you really are while your reputation is merely what others think you are.” – Dale Carnegie
-
-                        “Do not wait; the time will never be ‘just right.’ Start where you stand, and work with whatever tools you may have at your command, and better tools will be found as you go along.” – Napoleon Hill
-
-                        “What lies behind us and what lies before us are tiny matters compared to what lies within us.” – Ralph Waldo Emerson
-
-                        “Some men see things as they are and say, “Why?” I dream of things that never were and say, “Why not?” – George Bernard Shaw
+                        “Be more concerned with your character than with your reputation. Your character is what you really are while your reputation is merely what others think you are.” – Dale Carnegie “Do not wait; the time will never be ‘just right.’ Start where you stand,
+                        and work with whatever tools you may have at your command, and better tools will be found as you go along.” – Napoleon Hill “What lies behind us and what lies before us are tiny matters compared to what lies within us.” – Ralph
+                        Waldo Emerson “Some men see things as they are and say, “Why?” I dream of things that never were and say, “Why not?” – George Bernard Shaw
                     </p>
                 </div>
                 <div class="o-dance-pop-footer m-t-16 text-center">
                     <!--<button type="button" (click)="policySubmit(eventForm.value)" class="btn btn-primary btn-md">Done</button>-->
-                    
+
                     <a href="https://www.instamojo.com/@onepagespotlight/f74ae1c55f1949eeac29b7d6d7d5bff3" rel="im-checkout" data-behaviour="remote" data-style="flat" data-text="Payment"></a>
                 </div>
             </div>
