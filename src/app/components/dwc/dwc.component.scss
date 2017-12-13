@@ -14,7 +14,8 @@
     width: 565px;
     margin: 0px auto;
     display: table;
-    margin-bottom: 50px;;
+    margin-bottom: 50px;
+    ;
 }
 
 .o-wcq-textarea::placeholder {
@@ -618,63 +619,72 @@
 }
 
 // for reg check box
-
-.o-dwc-reg-check{
-	float: left;
-	margin-bottom: 16px;
-	.c-form__check {
-	  font-size: 13px;
-	  margin: 4px 0px 0px 0px;
-	  position: relative;
-	}
-	.c-form__check label {
-	  cursor: pointer;
-	  -moz-user-select: none;
-	  -webkit-user-select: none;
-	  -ms-user-select: none;
-	  user-select: none;
-	  position: relative;
-	  font-size: 11px;
-	  font-weight: normal;
-	  color: #929292;
-	  width: 100%;
-	  float: left;
-	  // text-transform: uppercase;
-	  // letter-spacing: 1px;
-	  pointer-events: auto;
-	  top: 0;
-	}
-	.c-form__check input[type="checkbox"] {
-	  width: 16px;
-	  height: 16px;
-	  margin: 4 9px 0 0;
-	  position: relative;
-	  outline: 0;
-	  left: 0;
-	  top: 2px;
-	  background-image: url(/assets/img/svg/checkboxdisabled.svg);
-	  float: left;
-	  cursor: pointer;
-	  -webkit-appearance: none;
-	  -moz-appearance: none;
-	  background-size: cover;
-	  border:none!important;
-	}
-	.c-form__check input[type="checkbox"]:checked{
-	  background: url(/assets/img/svg/checkboxactived.svg);
-	  background-size: cover;
-	}
+.o-dwc-reg-check {
+    float: left;
+    margin-bottom: 16px;
+    .c-form__check {
+        font-size: 13px;
+        margin: 4px 0px 0px 0px;
+        position: relative;
+    }
+    .c-form__check label {
+        cursor: pointer;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        position: relative;
+        font-size: 11px;
+        font-weight: normal;
+        color: #929292;
+        width: 100%;
+        float: left;
+        // text-transform: uppercase;
+        // letter-spacing: 1px;
+        pointer-events: auto;
+        top: 0;
+    }
+    .c-form__check input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        margin: 4 9px 0 0;
+        position: relative;
+        outline: 0;
+        left: 0;
+        top: 2px;
+        background-image: url(/assets/img/svg/checkboxdisabled.svg);
+        float: left;
+        cursor: pointer;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-size: cover;
+        border: none!important;
+    }
+    .c-form__check input[type="checkbox"]:checked {
+        background: url(/assets/img/svg/checkboxactived.svg);
+        background-size: cover;
+    }
 }
 
-.o-dwc-form-add{
-	margin-top: 20px;
-	float: left;
+.o-dwc-form-add {
+    margin-top: 20px;
+    float: left;
 }
-.o-dwc-form-add__icon{
-	width: 24px;
-	height: 24px;
-	float: left;
-	img{
-		width: 24px;
-	}
+
+.o-dwc-form-add__icon {
+    width: 24px;
+    height: 24px;
+    float: left;
+    img {
+        width: 24px;
+    }
+}
+
+.c-radio--dwc {
+    font-size: 15px;
+    margin-top: -2px;
+}
+
+.c-radio--label {
+    text-align: left;
 }
