@@ -74,7 +74,7 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
     // dwc event reg
     case EventActions.DWC_EVENT_REG_SUCCESS:
       return Object.assign({}, state, {
-        dwc_event_reg_success: true
+        dwc_event_reg_success: true,
       });
 
     case EventActions.DWC_EVENT_REG_FAILED:
@@ -85,7 +85,8 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
 
     case EventActions.DWC_EVENT_REG:
       return Object.assign({}, state, {
-        dwc_event_reg_success: false
+        dwc_event_reg_success: false,
+        err_msg: null
       });
 
     default:
