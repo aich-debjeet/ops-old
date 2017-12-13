@@ -4,6 +4,7 @@
 @import './src/assets/scss/components/_cards.scss';
 @import './src/assets/scss/components/_dropdowns.scss';
 @import './src/assets/scss/components/_radio-checkbox.scss';
+@import './src/assets/scss/base/_base.scss';
 .o-dance-qualifier-form {
     width: 100%;
     margin-top: 50px;
@@ -12,6 +13,8 @@
 .o-dance-wcq-form-block {
     width: 565px;
     margin: 0px auto;
+    display: table;
+    margin-bottom: 50px;;
 }
 
 .o-wcq-textarea::placeholder {
