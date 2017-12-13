@@ -26,6 +26,8 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/take'
 import { ClaimProfileActions } from 'app/actions/claim-profile.action';
 
+import * as _ from 'lodash';
+
 export class RegValue {
   mainTitle: string;
   description: string;
@@ -49,7 +51,7 @@ export class RegistrationBasicComponent implements OnInit {
   country: any;
   saveUsername = true;
   routeQuery: any;
-
+  claimProfile: any;
 
   rightCom: RightBlockTag;
   tagState$: Observable<BasicRegTag>;
@@ -109,7 +111,7 @@ export class RegistrationBasicComponent implements OnInit {
     /**
      * Claim profile state check
      */
-    this.claimProfileState$ = claimProfileStore.select('claimProfiletags');
+    this.claimProfileState$ = claimProfileStore.select('claimProfileTags');
     this.claimProfileState$.subscribe((state) => {
       this.claimProfileState = state;
       console.log('this.claimProfileState', this.claimProfileState);
@@ -150,7 +152,7 @@ export class RegistrationBasicComponent implements OnInit {
     /**
      * Listening for the name value
      */
-    this.regFormBasic.get('name').valueChanges.debounceTime(1000).subscribe((searchProfileName) => {
+    this.regFormBasic.get('name').valueChanges.debounceTime(500).subscribe((searchProfileName) => {
       console.log('trigger search', searchProfileName);
       this.claimProfileStore.dispatch({
         type: ClaimProfileActions.SEARCH_PROFILE,
@@ -447,5 +449,15 @@ export class RegistrationBasicComponent implements OnInit {
   saveCountry(country: any) {
     console.log(country);
     this.country = country;
+  }
+
+  /**
+   * Select the profile from the list
+   */
+  selectProfile(profileHandle: string) {
+    if (profileHandle && this.claimProfileState.claim_profiles.length > 0) {
+      this.claimProfile = _.find(this.claimProfileState.claim_profiles, 'handle', profileHandle);
+      // console.log('profile found', this.claimProfile);
+    }
   }
 }

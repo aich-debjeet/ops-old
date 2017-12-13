@@ -25,6 +25,9 @@
                                     <span class="form_bar"></span>
                                     <label>Name</label>
                                     <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.required && regform.submitted">Name is required</p>
+                                    <ul class="claim-profile-list" *ngIf="claimProfileState?.claim_profiles && claimProfileState?.claim_profiles.length > 0">
+                                        <li *ngFor="let profile of claimProfileState?.claim_profiles" (click)="selectProfile(profile.handle)" >{{ profile.name.displayName }} ({{ profile.extras?.contact?.mobile?.mobile }})</li>
+                                    </ul>
                                 </div>
                                 <div class="form_group">
                                     <input class="form_input" type="text" (ngModelChange)="userExisitCheck($event)" formControlName="username" required>

@@ -3,6 +3,21 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
 
+.claim-profile-list {
+    position: absolute;
+    max-height: 120px;
+    z-index: 99;
+    width: 100%;
+    padding: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #e6e6ee;
+    color: black;
+}
+.claim-profile-list li {
+    cursor: pointer;
+}
+
 /* ------------------ Registration step 1 thankyou -------------------------- */
 
 .reg_thankyou {
