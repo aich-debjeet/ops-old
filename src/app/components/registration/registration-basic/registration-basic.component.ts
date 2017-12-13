@@ -458,6 +458,10 @@ export class RegistrationBasicComponent implements OnInit {
     if (profileHandle && this.claimProfileState.claim_profiles.length > 0) {
       this.claimProfile = _.find(this.claimProfileState.claim_profiles, 'handle', profileHandle);
       // console.log('profile found', this.claimProfile);
+
+      this.regFormBasic.controls['name'].setValue(this.claimProfile['name']['displayName']);
+      // this.regFormBasic.controls['username'].setValue(this.claimProfile['username']);
+      this.regFormBasic.controls['email'].setValue(this.claimProfile['email']);
     }
   }
 }
