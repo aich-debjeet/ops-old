@@ -147,4 +147,11 @@ export class EventService {
   dwcContactUs(data: any) {
     return this.api.post( '/portal/contactus', data);
   }
+
+  /**
+   * dwc payment request
+   */
+  dwcPaymentRequest() {
+    return this.api.get( '/portal/dcw/application/payment/request', '');
+  }
 }

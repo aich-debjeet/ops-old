@@ -66,6 +66,11 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
         dwc_contact_form_upload_success: false
       });
 
+    case EventActions.DWC_PAYMENT_REQUEST_SUCCESS:
+      return Object.assign({}, state, {
+        dwc_payment_url: payload,
+      });
+
     default:
       return state;
 
