@@ -16,6 +16,7 @@ import { AuthActions } from '../../actions/auth.action'
 })
 export class DwcComponent implements OnInit {
   public eventForm: FormGroup;
+  valueStore: any;
   Performance = ['Solo', 'Couple/Trio', 'Group'];
   Age_Group = ['Mini - 9 years and under', 'Junior section - 17 years and under', 'Children – 13 years and under', 'Senior section - 25 years and under']
   Dance_Style = ['Classical Ballet', 'National, Folklore, Character', 'Modern, Contemporary', 'Jazz and show dance', 'Hip Hop, Street Dance and Commercial', 'Song and Dance', 'Tap', 'Fusion Ballet'];
@@ -75,12 +76,12 @@ export class DwcComponent implements OnInit {
   }
 // dwc_event_reg_success
   submitForm(value) {
-    const valueToStore = Object.assign({}, this.eventForm.value, {
+    this.valueStore = Object.assign({}, this.eventForm.value, {
       Performance: this.convertToValue('Performance'),
       Age_Group: this.convertToValue('Age_Group'),
       Dance_Style: this.convertToValue('Dance_Style'),
     });
-    console.log(valueToStore);
+    console.log(this.valueStore);
     if (this.eventForm.valid) {
       // const form = {
       //   schoolName: value.school_name,
@@ -108,14 +109,19 @@ export class DwcComponent implements OnInit {
         // otherInformation: value.otherInformation,
         // ageGroup: value.age_group,
         // danceCategory: value.category_dance,
-        performance: value.Performance,
-        ageGroup: value.Age_Group,
-        danceStyle: value.Dance_Style,
+        performance: this.valueStore.Performance,
+        ageGroup: this.valueStore.Age_Group,
+        danceStyle: this.valueStore.Dance_Style,
         member: value.member,
         teamates: {
           name: value.teammates_Name,
           email: value.teammates_Name,
-          phone: value.teammates_Name
+          phone: value.teammates_Name,
+          // Object.assign({}, this.eventForm.value, {
+          //   Performance: this.convertToValue('Performance'),
+          //   Age_Group: this.convertToValue('Age_Group'),
+          //   Dance_Style: this.convertToValue('Dance_Style'),
+          // });
         },
       }
       console.log(form)
