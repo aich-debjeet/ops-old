@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
-import { Register, UserTag, initialTag, AuthModel, RightBlockTag } from '../../models/auth.model';
+import { Register, UserTag, initialTag, AuthModel, RightBlockTag, danceWorldTag, Dwc } from '../../models/auth.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Modal } from '../../shared/modal-new/Modal';
+import { ToastrService } from 'ngx-toastr';
 
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 // Action
 import { AuthActions } from '../../actions/auth.action'
@@ -15,6 +18,10 @@ import { AuthActions } from '../../actions/auth.action'
   styleUrls: ['./dwc.component.scss']
 })
 export class DwcComponent implements OnInit {
+
+  err = false;
+  tagState$: Observable<Dwc>;
+  private tagStateSubscription: Subscription;
   public eventForm: FormGroup;
   valueStore: any;
   Performance = ['Solo', 'Couple/Trio', 'Group'];
@@ -24,9 +31,18 @@ export class DwcComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private store: Store<AuthModel>,
-    private router: Router
-  ) {
-
+    private router: Router,
+    private toastr: ToastrService,
+    private _store: Store<Dwc>
+    ) {
+  this.tagState$ = _store.select('loginTags')
+  this.tagState$.subscribe((state) => {
+    console.log(state)
+    if (state['err_msg'] === 'Bad Request' && !this.err) {
+      this.err = true;
+      this.toastr.error('You Have Already applied')
+    }
+  })
   }
 
   ngOnInit() {
