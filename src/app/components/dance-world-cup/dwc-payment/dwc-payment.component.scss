@@ -1,0 +1,68 @@
+// payment sec
+
+.o-dwc-payment-sec{
+	width: 100%;
+	float: left;
+	margin-top: 16px;
+}
+.o-dwc-payment-contianer{
+	width: 100%;
+	background: #fff;
+	padding: 24px 32px 50px 32px;
+	float: left;
+	border-radius: 3px;
+}
+.o-dwc-price-list__container{
+	width: 100%;
+	float: left;
+	border-radius: 3px;
+	overflow: hidden;
+}
+.o-dwc-price__chart{
+	border-radius: 0 0 3px 3px;	
+	background-color: #FFFFFF;	
+	box-shadow: 0 2px 4px 0 rgba(102,45,145,0.1);
+	border:1px #c1c1c1 solid;
+	padding:0px 16px;
+	width: 100%;
+	float: left;
+}
+.o-dwc-price__block{
+	width: 100%;
+	padding:16px 0px;
+	border-bottom: 1px solid #F3F5F7;
+	float: left;
+}
+.o-dwc-chart__title{
+	float: left;
+	width: 470px;
+}
+.o-dwc-chart__count{
+	width: 100px;
+	float: left;
+}
+.o-dwc-chart__price{
+	float: left;
+	width: 470px;
+	text-align: right;
+}
+.o-dwc-price__main{
+	width: 330px;
+	float: right;
+	margin-right: 16px;
+}
+.o-dwc-price__total{
+	float: left;
+	width: 150px;
+	text-align: right;
+}
+.o-dwc-price__title{
+	width: 180px;
+	float: left;
+	text-align: right;
+}
+.o-dwc-pric-main__block{
+	width: 100%;
+	float: left;
+	padding-top: 16px;
+}
