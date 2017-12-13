@@ -86,12 +86,12 @@
                         <p class="c-text_md color-grey-dark m-b-8">Are you a member of a dance school?</p>
                         <div class="c-radio__sm width100 float_left">
                             <label class="col-md-2 p-0">
-                                <input name="member" type="radio" class="c-form__bar2" formControlName="member" value="yes">
+                                <input name="member" type="radio" class="c-form__bar2" formControlName="member" value="true">
                                 <span></span>
                                 <div class="c-radio--label c-radio--dwc">Yes</div>
                             </label>
                             <label class="col-md-4 p-0">
-                                <input name="member" type="radio" formControlName="member" value="no">
+                                <input name="member" type="radio" formControlName="member" value="fa;se">
                                 <span></span>
                                 <div class="c-radio--label c-radio--dwc">No</div>
                             </label>
@@ -114,8 +114,7 @@
 
                 <p class="c-text_md color-grey-dark m-b-16">Team member details</p>
 
-                <div class="row m-0" *ngFor="let team_member of eventForm.controls.team_member['controls']; let i=index"
-              [formGroup]="team_member">
+                <div class="row m-0" *ngFor="let team_member of eventForm.controls.team_member['controls']; let i=index" [formGroup]="team_member">
                     <div class="col-md-11 p-0">
                         <div class="col-md-4 p-l-0">
                             <div class="c-form__group c-form--md m-b-8">
@@ -123,6 +122,7 @@
                                 <span class="c-form__highlight"></span>
                                 <span class="c-form__bar"></span>
                                 <label>Name</label>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.name.errors?.required && eventCreate.submitted">Name is required</p>
                             </div>
                         </div>
                         <div class="col-md-4 p-l-0">
@@ -131,6 +131,7 @@
                                 <span class="c-form__highlight"></span>
                                 <span class="c-form__bar"></span>
                                 <label>Email</label>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.required && eventCreate.submitted">Email is required</p>
                             </div>
                         </div>
                         <div class="col-md-4 p-l-0">
@@ -139,17 +140,19 @@
                                 <span class="c-form__highlight"></span>
                                 <span class="c-form__bar"></span>
                                 <label>Phone number</label>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.errors?.required && eventCreate.submitted">Phone is required</p>
                             </div>
                         </div>
                     </div>
+                    <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.name.errors?.required && eventCreate.submitted">Name, Email and Phone Number is required</p> -->
                     <div class="col-md-1 p-0" *ngIf="i > 0">
-                      <div class="o-form-trash m-t-8">
-                        <div class="o-form-trash__ico" (click)="eventForm.get('team_member').removeAt(i)">
-                          <img src="/assets/img/svg/delete.svg" >
+                        <div class="o-form-trash m-t-8">
+                            <div class="o-form-trash__ico" (click)="eventForm.get('team_member').removeAt(i)">
+                                <img src="/assets/img/svg/delete.svg">
+                            </div>
                         </div>
-                      </div>
                     </div>
-                    <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.name.errors?.required && eventCreate.submitted">Date is required</p>
+                    <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.name.errors?.required && eventCreate.submitted">Date is required</p> -->
                 </div>
 
                 <a (click)="pushMember()" class="o-dwc-form-add">
@@ -192,7 +195,7 @@
                     </p>
                 </div>
                 <div class="o-dance-pop-footer m-t-16 text-center">
-                    <!--<button type="button" (click)="policySubmit(eventForm.value)" class="btn btn-primary btn-md">Done</button>-->
+                    <button type="button" (click)="policySubmit(eventForm.value)" class="btn btn-primary btn-md">Done</button>
 
                     <a href="https://www.instamojo.com/@onepagespotlight/f74ae1c55f1949eeac29b7d6d7d5bff3" rel="im-checkout" data-behaviour="remote" data-style="flat" data-text="Payment"></a>
                 </div>

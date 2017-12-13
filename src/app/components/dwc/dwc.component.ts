@@ -33,7 +33,7 @@ export class DwcComponent implements OnInit {
     this.buildForm();
     this.loadScript('https://js.instamojo.com/v1/button.js');
     this.pushMember()
-    console.log(this.Performance);
+    // console.log(this.Performance);
   }
 
   testClick() {
@@ -59,12 +59,9 @@ export class DwcComponent implements OnInit {
       Age_Group : this.fb.array(this.Age_Group.map(x => defaultAge_Group.indexOf(x) > -1)),
       Dance_Style: this.fb.array(this.Dance_Style.map(x => defaultDance_Style.indexOf(x) > -1)),
       'school_name' : ['', [Validators.required]],
-      'member' : ['', [Validators.required]],
+      'member' : '',
       'school_owner' : ['', [Validators.required]],
       'school_address' : ['', [Validators.required]],
-      'teammates_Name': ['', [Validators.required]],
-      'teammates_Email': ['', [Validators.required]],
-      'teammates_Phone': ['', [Validators.required]],
       'team_member' : this.fb.array([]),
       // 'event_agenda' : this.fb.array([]),
     });
@@ -96,13 +93,15 @@ export class DwcComponent implements OnInit {
 
 // dwc_event_reg_success
   submitForm(value) {
+    console.log(value)
     this.valueStore = Object.assign({}, this.eventForm.value, {
       Performance: this.convertToValue('Performance'),
       Age_Group: this.convertToValue('Age_Group'),
-      Dance_Style: this.convertToValue('Dance_Style'),
+      Dance_Style: this.convertToValue('Dance_Style')
     });
     console.log(this.valueStore);
     if (this.eventForm.valid) {
+      console.log('valid')
       // const form = {
       //   schoolName: value.school_name,
       //   schoolOwner: value.school_owner,
@@ -124,25 +123,11 @@ export class DwcComponent implements OnInit {
         schoolName: value.school_name,
         schoolOwner: value.school_owner,
         address: value.school_address,
-        // category: value.school_category,
-        // teamates: value.school_teammates,
-        // otherInformation: value.otherInformation,
-        // ageGroup: value.age_group,
-        // danceCategory: value.category_dance,
         performance: this.valueStore.Performance,
         ageGroup: this.valueStore.Age_Group,
         danceStyle: this.valueStore.Dance_Style,
-        member: value.member,
-        teamates: {
-          name: value.teammates_Name,
-          email: value.teammates_Name,
-          phone: value.teammates_Name,
-          // Object.assign({}, this.eventForm.value, {
-          //   Performance: this.convertToValue('Performance'),
-          //   Age_Group: this.convertToValue('Age_Group'),
-          //   Dance_Style: this.convertToValue('Dance_Style'),
-          // });
-        },
+        member: Boolean(value.member),
+        teamates: value.team_member
       }
       console.log(form)
     this.router.navigateByUrl('/profile/user');
