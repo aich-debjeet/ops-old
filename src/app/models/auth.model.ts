@@ -146,3 +146,13 @@ export const initialBasicRegTag: BasicRegTag = {
   user_number_cng_success: false,
   user_number_cng_failed: false
 }
+
+export class Dwc {
+  dwc_event_reg_success: boolean;
+  err_msg: String
+}
+
+export const danceWorldTag: Dwc = {
+  dwc_event_reg_success: false,
+  err_msg: null
+}
