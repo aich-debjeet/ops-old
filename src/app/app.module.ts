@@ -77,6 +77,7 @@ import { SearchService } from './services/search.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { OpportunityService } from './services/opportunity.service';
 import { ExploreService } from './services/explore.service';
+import { ClaimProfileService } from './services/claim-profile.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
@@ -224,7 +225,8 @@ import { DwcComponent } from './components/dwc/dwc.component';
     GeneralUtilities,
     LocalStorageService,
     OpportunityService,
-    ExploreService
+    ExploreService,
+    ClaimProfileService
   ],
   bootstrap: [AppComponent]
 })
