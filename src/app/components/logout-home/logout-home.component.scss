@@ -5,10 +5,8 @@
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/base/_base.scss';
 @import './src/assets/scss/components/_buttons.scss';
-
 // for landing header
-
-.opsheader_landing{
+.opsheader_landing {
     position: absolute;
     width: 100%;
     float: left;
@@ -16,181 +14,194 @@
     background: none;
     z-index: 100;
 }
-.o-logo{
+
+.o-logo {
     width: 40%;
     float: left;
     margin-top: 40px;
     margin-bottom: 0px;
-  img {
-    width: 175px;
-  }
+    img {
+        width: 175px;
+    }
 }
-.o-log-reg-btn{
+
+.o-log-reg-btn {
     width: 40%;
     text-align: right;
     margin-top: 40px;
     float: right;
 }
 
-
 // landing page css
-.o-landing-hero{
-	width: 100%;
-	// height: 100vh;
-	float: left;
-  height: 610px;
-  background: url(/assets/img/landing/1.jpg) no-repeat;
-  background-size: 100%;
-  background-position: left;
-}
-.o-landing-hero2{
-  width: 100%;
-  // height: 100vh;
-  float: left;
-  height: 610px;
-  background: url(/assets/img/landing/2.jpg) no-repeat;
-  background-size: 100%;
-  background-position: left;
-}
-.o-landing-hero3{
-  width: 100%;
-  // height: 100vh;
-  float: left;
-  height: 610px;
-  background: url(/assets/img/landing/3.jpg) no-repeat;
-  background-size: 100%;
-  background-position: left;
-}
-.o-landing-hero4{
-  width: 100%;
-  // height: 100vh;
-  float: left;
-  height: 610px;
-  background: url(/assets/img/landing/4.jpg) no-repeat;
-  background-size: 100%;
-  background-position: left;
-}
-.o-landing-inner__black{
-  width: 100%;
-  height: 610px;
-  background: rgba(0,0,0,0.5);
-}
-.o-landing-log{
-  margin-bottom: 72px;
-}
-.o-dance-wc-logo{
-	width: 100%;
-	float: left;
-  text-align: right;
-}
-.o-dance-wc__logo-container{
-	width: 50%;
-  float: left;
-	img{
-		width: 259px;
-	}
-}
-.o-dance-wc__powered-logo-container{
-  width: 100%;
-  text-align: right;
-  img{
-    width: 47px;
-  }
-}
-.o-dance-wc__hosted-logo-container{
-  width: 100%;
-  img{
-    width: 104px;
-  }
+.o-landing-hero {
+    width: 100%;
+    // height: 100vh;
+    float: left;
+    height: 610px;
+    background: url(/assets/img/landing/1.jpg) no-repeat;
+    background-size: 100%;
+    background-position: left;
 }
 
-.o-landing-more-btn{
-  border: 1px solid #FFFFFF;  
-  padding: 7px 14px;
-  font-size: 13px;
-  line-height: 18px;
-  border-radius: 2px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 600;
-  color: #fff;
-}
-.o-hero-main__title{
-  margin-top: 238px;
+.o-landing-hero2 {
+    width: 100%;
+    // height: 100vh;
+    float: left;
+    height: 610px;
+    background: url(/assets/img/landing/2.jpg) no-repeat;
+    background-size: 100%;
+    background-position: left;
 }
 
-.o-register-area{
-  text-align: center;
-}
-.o-dwc-bnglr{
-  float: right;
-  width: 32%;
+.o-landing-hero3 {
+    width: 100%;
+    // height: 100vh;
+    float: left;
+    height: 610px;
+    background: url(/assets/img/landing/3.jpg) no-repeat;
+    background-size: 100%;
+    background-position: left;
 }
 
+.o-landing-hero4 {
+    width: 100%;
+    // height: 100vh;
+    float: left;
+    height: 610px;
+    background: url(/assets/img/landing/4.jpg) no-repeat;
+    background-size: 100%;
+    background-position: left;
+}
+
+.o-landing-inner__black {
+    width: 100%;
+    height: 610px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.o-landing-log {
+    margin-bottom: 72px;
+}
+
+.o-dance-wc-logo {
+    width: 100%;
+    float: left;
+    text-align: right;
+}
+
+.o-dance-wc__logo-container {
+    width: 50%;
+    float: left;
+    img {
+        width: 259px;
+    }
+}
+
+.o-dance-wc__powered-logo-container {
+    width: 100%;
+    text-align: right;
+    img {
+        width: 47px;
+    }
+}
+
+.o-dance-wc__hosted-logo-container {
+    width: 100%;
+    img {
+        width: 104px;
+    }
+}
+
+.o-landing-more-btn {
+    border: 1px solid #FFFFFF;
+    padding: 7px 14px;
+    font-size: 13px;
+    line-height: 18px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.o-hero-main__title {
+    margin-top: 142px;
+}
+
+.o-register-area {
+    text-align: center;
+}
+
+.o-dwc-bnglr {
+    float: right;
+    width: 32%;
+}
 
 // hero right block
-
-.o-landing-hero__img{
-	width: 100%;
-	float: left;
-  margin-top: 100px;
-	img{
-		width: 100%;
-	}
+.o-landing-hero__img {
+    width: 100%;
+    float: left;
+    margin-top: 100px;
+    img {
+        width: 100%;
+    }
 }
-.o-hosted__logo{
-  background: #fff;
-  padding:24px 0px;
+
+.o-hosted__logo {
+    background: #fff;
+    padding: 24px 0px;
 }
 
 // platform sec
-
-.o-platform-det-block{
-	padding-bottom: 200px;
-}
-.o-platform-sec{
-	width: 100%;
-}
-.o-platform-title--margin{
-  margin-top: 100px;
-}
-.o-platform-block{
-  background: #fff;
-  height: 152px;
-  width: 152px;
-  border-radius: 50%;
-  overflow: hidden;
-  // -webkit-box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
-  // -moz-box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
-  // box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
-  transition:.25s;
-  margin:0px auto;
-  &:hover{
-    transform: scale(1.1, 1.1);
-    margin-top: -5px;
-  }
-}
-.o-platform-block--img{
-  width: 100%;
-}
-.o-platform-block-title{
-  font-size: 15px;
-  font-weight: normal;
-  color: #333;
-  margin-top: 24px;
-  text-align: center;
-  margin-bottom: 24px;
+.o-platform-det-block {
+    padding-bottom: 200px;
 }
 
+.o-platform-sec {
+    width: 100%;
+}
+
+.o-platform-title--margin {
+    margin-top: 100px;
+}
+
+.o-platform-block {
+    background: #fff;
+    height: 152px;
+    width: 152px;
+    border-radius: 50%;
+    overflow: hidden;
+    // -webkit-box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
+    // -moz-box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
+    // box-shadow: 0px 7px 15px 0px rgba(102,45,145,0.16);
+    transition: .25s;
+    margin: 0px auto;
+    &:hover {
+        transform: scale(1.1, 1.1);
+        margin-top: -5px;
+    }
+}
+
+.o-platform-block--img {
+    width: 100%;
+}
+
+.o-platform-block-title {
+    font-size: 15px;
+    font-weight: normal;
+    color: #333;
+    margin-top: 24px;
+    text-align: center;
+    margin-bottom: 24px;
+}
 
 // hero right block
-
-.o-landing-hero__img{
-  width: 100%;
-  float: left;
-  img{
+.o-landing-hero__img {
     width: 100%;
-  }
+    float: left;
+    img {
+        width: 100%;
+    }
 }
 
 .landing_top {
@@ -332,7 +343,6 @@
 .landing_heading--margin {
     margin-top: 80px;
 }
-
 
 // landing page new styles
 .login_btn {
@@ -514,4 +524,10 @@
 
 .padding_none {
     padding: 0px !important;
+}
+
+.o-hero-section {
+    position: relative;
+    width: 100%;
+    height: 610px !important;
 }
