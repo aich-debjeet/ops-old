@@ -21,21 +21,21 @@
                     <li><a routerLink="/communities" routerLinkActive="active">Community</a></li>
                     <li><a routerLink="/directory" routerLinkActive="active">Directory</a></li>
                     <li class="o-nav__dwc">
-                        <a routerLink="/danceworldcup">dwc <img src="/assets/img/svg/nav_star.svg" class="o-nav__star"></a>
+                        <a routerLink="/dwc">dwc <img src="/assets/img/svg/nav_star.svg" class="o-nav__star"></a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav nav__right" *ngIf="isProfileSet === false">
-                  <a class="signIn" routerLink="/login">
+                    <a class="signIn" routerLink="/login">
                     Sign in
                   </a>
                 </ul>
                 <ul class="nav navbar-nav nav__right" *ngIf="isProfileSet === true">
                     <li>
-                      <a routerLink="/post"><img src="/assets/img/svg/ico_create-post.svg"></a>
+                        <a routerLink="/post"><img src="/assets/img/svg/ico_create-post.svg"></a>
                     </li>
                     <li class="dropdown" appDropdown>
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                        	<img src="/assets/img/svg/ico_add.svg">
+                            <img src="/assets/img/svg/ico_add.svg">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right nav__dropdown2">
                             <div class="dropdown__item p-b-16">
@@ -45,19 +45,19 @@
                                 <a (click)="createCommunity()">Create Community</a>
                             </div>-->
                             <div class="dropdown__item p-b-16">
-                                <a  routerLink="/opportunity/create">Create Opportunity</a>
+                                <a routerLink="/opportunity/create">Create Opportunity</a>
                             </div>
                             <div class="dropdown__item">
-                                <a  routerLink="/events/create">Create Event</a>
+                                <a routerLink="/events/create">Create Event</a>
                             </div>
                         </div>
                     </li>
                     <li>
                         <a href="/search"><img src="/assets/img/svg/ico_search.svg"></a>
                     </li>
-                   <li class="dropdown" appDropdown>
+                    <li class="dropdown" appDropdown>
                         <a class="dropdown-toggle" appDropdownOpen>
-                        	<img src="/assets/img/svg/ico_notification.svg">
+                            <img src="/assets/img/svg/ico_notification.svg">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right nav__dropdown3">
                             <div class="dropdown__item dropnoti__head msg__read">
@@ -133,20 +133,20 @@
                         <div class="dropdown-menu dropdown-menu-right nav__dropdown" [ngClass]="{'open': this.topNav['profile'].open }">
                             <div class="dropdown__item with_border_bottom p-b-16">
                                 <a routerLink="{{ this.userCards.active.page_path }}">
-                                  <div class="navdrop__imgblock">
-                                    <img class="navdrop__img" src="{{ baseUrl + this.userCards.active.image }}">
-                                  </div>
-                                  <div class="navdrop__name">{{ this.userCards.active.name }}</div>
-                                  <div class="navdrop__userhandal">@{{ this.userCards.active.username }}</div>
+                                    <div class="navdrop__imgblock">
+                                        <img class="navdrop__img" src="{{ baseUrl + this.userCards.active.image }}">
+                                    </div>
+                                    <div class="navdrop__name">{{ this.userCards.active.name }}</div>
+                                    <div class="navdrop__userhandal">@{{ this.userCards.active.username }}</div>
                                 </a>
                             </div>
                             <div *ngIf="!showCreateOrg" class="dropdown__item with_border_bottom p-t-b-16">
                                 <div class="navdrop__switchto">Switch to</div>
                                 <div class="navdrop__imgblock2">
-                                  <img class="navdrop__img" src="{{ baseUrl + this.userCards.other.image }}">
+                                    <img class="navdrop__img" src="{{ baseUrl + this.userCards.other.image }}">
                                 </div>
                                 <div class="navdrop__name2">
-                                  <a (click)="changeProfile(this.userCards, $event)">
+                                    <a (click)="changeProfile(this.userCards, $event)">
                                     {{ this.userCards.other.name }}
                                   </a>
                                 </div>
