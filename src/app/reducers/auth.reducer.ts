@@ -441,8 +441,15 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     // dwc event reg
     case AuthActions.DWC_EVENT_REG_SUCCESS:
+    console.log(payload)
       return Object.assign({}, state, {
         dwc_event_reg_success: true
+      });
+
+    case AuthActions.DWC_EVENT_REG_FAILED:
+    console.log(payload)
+      return Object.assign({}, state, {
+        dwc_event_reg_success: false
       });
 
     case AuthActions.DANCE_GET_INDUSTRY_SUCCESS:
