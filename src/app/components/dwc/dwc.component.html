@@ -149,7 +149,7 @@
                         </div>
                       </div>
                     </div>
-                    <p class="c-form__validation" *ngIf="eventForm.controls['teammates_Name'].errors?.required && eventCreate.submitted">Teammates name/s for duets, trios, small and large groups is required</p>
+                    <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.name.errors?.required && eventCreate.submitted">Date is required</p>
                 </div>
 
                 <a (click)="pushMember()" class="o-dwc-form-add">
