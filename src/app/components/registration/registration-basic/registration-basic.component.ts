@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { Register, UserTag, initialTag, RightBlockTag, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
+import { ClaimProfileModel } from 'app/models/claim-profile.model';
 import { AuthRightBlockComponent } from '../../../shared/auth-right-block/auth-right-block.component';
 import { CountrySelectorComponent } from '../../../shared/country-selector/country-selector.component';
 
@@ -23,6 +24,7 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/timer'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/take'
+import { ClaimProfileActions } from 'app/actions/claim-profile.action';
 
 export class RegValue {
   mainTitle: string;
@@ -45,12 +47,14 @@ export class RegistrationBasicComponent implements OnInit {
   isPhotoAdded: boolean;
   passwordShow = false;
   country: any;
-  saveUsername: boolean = true;
+  saveUsername = true;
   routeQuery: any;
 
 
   rightCom: RightBlockTag;
   tagState$: Observable<BasicRegTag>;
+  claimProfileState$: Observable<ClaimProfileModel>;
+  claimProfileState: any;
   private tagStateSubscription: Subscription;
   petTag = initialBasicRegTag;
   Suggested: String[];
@@ -76,6 +80,7 @@ export class RegistrationBasicComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private store: Store<BasicRegTag>,
+    private claimProfileStore: Store<ClaimProfileModel>,
     private element: ElementRef,
     private databaseValidator: DatabaseValidator,
     private http: Http,
@@ -101,6 +106,14 @@ export class RegistrationBasicComponent implements OnInit {
 
     console.log(currentUrl);
 
+    /**
+     * Claim profile state check
+     */
+    this.claimProfileState$ = claimProfileStore.select('claimProfiletags');
+    this.claimProfileState$.subscribe((state) => {
+      this.claimProfileState = state;
+      console.log('this.claimProfileState', this.claimProfileState);
+    });
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
@@ -133,6 +146,19 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    /**
+     * Listening for the name value
+     */
+    this.regFormBasic.get('name').valueChanges.debounceTime(1000).subscribe((searchProfileName) => {
+      console.log('trigger search', searchProfileName);
+      this.claimProfileStore.dispatch({
+        type: ClaimProfileActions.SEARCH_PROFILE,
+        payload: searchProfileName
+      });
+    });
+
+
     this.rightCom = {
       mainTitle: 'Create Your Account',
       secondHead: '',

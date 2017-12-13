@@ -1,10 +1,10 @@
 export class ClaimProfileModel {
-    profiles: any;
+    claim_profiles: any;
     search_body?: any;
     search_complete?: boolean;
     searching_profiles?: boolean;
 }
 
 export const initialClaimProfileTag: ClaimProfileModel = {
-    profiles: []
+    claim_profiles: []
 }

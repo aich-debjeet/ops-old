@@ -18,7 +18,7 @@ export const ClaimProfileReducer: ActionReducer<any> = (state, {payload, type}: 
           return Object.assign({}, state, {
             searching_profiles: false,
             search_complete: true,
-            profiles: payload
+            claim_profiles: payload
           });
 
         case ClaimProfileActions.SEARCH_PROFILE_FAILED:
