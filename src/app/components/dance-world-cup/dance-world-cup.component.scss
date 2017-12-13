@@ -3,57 +3,6 @@
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/base/_base.scss';
 @import './src/assets/scss/components/_form.scss';
-// dwc
-
-// new style
-
-.o-dwc-top-banner{
-	width: 100%;
-	float: left;
-	background: url(/assets/img/dwc/db1.jpg) no-repeat;
-	background-size: cover;
-	background-position: top left;
-	height: 300px;
-}
-.o-dwc-top-banner2{
-	width: 100%;
-	float: left;
-	background: url(/assets/img/dwc/db2.jpg) no-repeat;
-	background-size: cover;
-	background-position: top left;
-	height: 300px;
-}
-.o-dwc-top-banner3{
-	width: 100%;
-	float: left;
-	background: url(/assets/img/dwc/db3.jpg) no-repeat;
-	background-size: cover;
-	background-position: top left;
-	height: 300px;
-}
-.o-dwc-top-banner4{
-	width: 100%;
-	float: left;
-	background: url(/assets/img/dwc/db4.jpg) no-repeat;
-	background-size: cover;
-	background-position: top left;
-	height: 300px;
-}
-.o-dwc-banner-img{
-	width: 100%;
-	img{
-		width: 100%;
-	}
-}
-.o-dwc-top-banner__dark{
-	width: 100%;
-	float: left;
-	height: 300px;
-	background-color: rgba(0,0,0,0.42);
-}
-
-
-
 
 // dwc
 
@@ -462,10 +411,11 @@ float: right;
 // dws new
 
 .o-dwc-logo{
-	width: 100%;
-	margin-bottom: 40px;
+	width: 58%;
+    float: left;
+    margin-top: 12px;
 	img{
-		width: 251px;
+		width: 200px;
 	}
 }
 .o-dwc__media{
@@ -489,3 +439,49 @@ float: right;
 	width: 100%;
 	float: left;
 }
+.o-dwc-entry-process{
+	list-style:none;
+}
+.o-dwc-entry__list{
+	width: 100%;
+	float: left;
+	list-style-type: none;
+}
+.o-dwc-entry-icon{
+    height: 13px;
+    width: 13px;
+    border: 1px solid #979797;
+    border-radius: 50%;
+    float: left;
+    margin-top: 6px;
+    margin-right: 8px;
+}
+
+// video timings
+
+.o-dwc-video-timing-container{
+	width: 646px;
+	float: left;
+	border: 1px solid #F3F5F7;	
+	border-radius: 3px;
+	margin-left: 20px;
+}
+.o-dwc-video-timing__head{
+	width: 100%;
+	background-color: #F3F5F7;
+	padding:8px 16px;
+	float: left;
+}
+.o-dwc-video-timing__single{
+	width: 100%;
+	padding:8px 16px;
+	border-bottom: 1px solid #F3F5F7;
+	float: left;
+}
+.o-dwc-video-timing__single-sepration{
+	width: 100%;
+	height: 2px;
+	background: #F3F5F7;
+	float: left;
+}
+
