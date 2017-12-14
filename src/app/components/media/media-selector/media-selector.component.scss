@@ -9,6 +9,7 @@
   width: 100%;
   float: left;
 }
+
 .o-add-status__txt{
   float: left;
   margin-top: 8px;
@@ -133,13 +134,13 @@
   margin-top: 24px;
 }
 .o-add-media__block{
-  // height: 112px;
   border-radius: 3px;
   background-color: #FFFFFF;
-  padding:24px 24px;
-  margin:0px auto;
+  padding: 24px 24px;
+  margin: 0px auto;
   float: left;
   width: 100%;
+  height: 145px;
 }
 .o-add-post--textarea{
   padding: 16px 0px;
@@ -286,6 +287,7 @@
   width: 100%;
   background-color: #FF7B84;
   padding:24px 32px 32px 32px;
+  height: 145px;
 }
 .c-form-control--color{
   color: #fff!important;
@@ -405,11 +407,12 @@
     display: block;
   }
 }
-.o-file_item:nth-child(5n+1){
-  margin-left: 0px;
-}
+// .o-file_item:nth-child(5n+1){
+//   margin-left: 0px;
+// }
+
 .o-media-block{
-  width: 138px;
+  width: auto;
   height: 138px;
   overflow: hidden;
   float: left;
@@ -428,8 +431,10 @@
 .o-media__info{
   width: 100%;
   position: absolute;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+  background: linear-gradient(0deg, transparent 0%, #000 60%);
   top: 0px;
+  left: 0;
+  right: 0;
   height: 40px;
 }
 .o-media_delet{
@@ -441,11 +446,13 @@
   height: 19px;
 }
 .o-media_img{
-  width: 138px;
+  width: auto;
   overflow: hidden;
+  height: 138px;
   .obj-fit-fill{
-      object-fit: fill;
-      width: 100%;
+    width: auto;
+    overflow: hidden;
+    height: 138px;
   }
 }
 .o-media_type{
@@ -683,4 +690,9 @@
     font-weight: bold;
     display: block;
   }
+}
+
+.o-channel-content__thumb img {
+  width: 100%;
+  height: auto;
 }

@@ -84,6 +84,16 @@ export class MediaSelectorComponent implements OnInit {
   chooseChannelToggleState: boolean;
   activeUser: UserCard;
 
+  explandshowChannelsList: boolean;
+  uploadState: number;
+  // Upload States 1 = normal, 2 = select channel, 3 = create channel
+
+
+  // Form Values
+  mediaPrivacy: number;
+  license: string;
+  isNSFW: boolean;
+
   constructor(
     private Upload: NgxfUploaderService,
     private fb: FormBuilder,
@@ -102,12 +112,19 @@ export class MediaSelectorComponent implements OnInit {
       this.formMessages = [];
 
       this.chosenChannel = 0;
+      this.uploadState = 1;
       this.chooseChannelToggleState = false;
+      this.explandshowChannelsList = false;
 
       // If there's input assign, other wise, reload channel list
       if (this.userChannels) {
         this.channeList = this.userChannels;
       }
+
+      // Default Form Values
+      this.license = 'none';
+      this.mediaPrivacy = 0;
+      this.isNSFW = false;
 
       // X
       this.postSuccess = false;
@@ -170,6 +187,28 @@ export class MediaSelectorComponent implements OnInit {
       }
     });
 
+  }
+
+  /**
+   * Get thumb image
+   */
+  getThumb(src: string, showThumb: boolean = false) {
+    const basePath = 'http://d206s58i653k1q.cloudfront.net/';
+    const patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+    const m3 = (src).match(patt1);
+    if (showThumb === true) {
+      return basePath + src.replace(m3[0], '_thumb_250.jpeg');
+    } else {
+      return basePath + src;
+    }
+  }
+
+  /**
+   * Switch View
+   */
+  changeState(state: number) {
+    console.log('Clicked', state);
+    this.uploadState = state;
   }
 
   /**
@@ -493,6 +532,8 @@ export class MediaSelectorComponent implements OnInit {
    */
   onChannelSelection(channel: any) {
     this.chosenChannel = channel;
+
+    // do the post as well
   }
 
   /**
@@ -726,6 +767,34 @@ export class MediaSelectorComponent implements OnInit {
    */
   chooseChannelToggle() {
     this.chooseChannelToggleState = !this.chooseChannelToggleState;
+  }
+
+  /**
+   * Expand the Channels Selector View
+   */
+  showChannelsList(isExpanded: any) {
+    // this.explandshowChannelsList = true;
+    this.uploadState = 2;
+  }
+
+  /**
+   * Toggle Privacy Value
+   */
+  mediaPrivacyToggle(value) {
+    this.mediaPrivacy = value
+  }
+
+  /**
+   * Channel Selection Page Navigation
+   */
+  formNext() {
+    const formValues = {
+      privacy: this.mediaPrivacy,
+      isNSFW: this.mediaPrivacy,
+      license: this.license,
+    }
+
+    this.changeState(2);
   }
 }
 
