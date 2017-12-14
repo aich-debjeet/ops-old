@@ -380,17 +380,19 @@ export class RegistrationBasicComponent implements OnInit {
    * @param value
    */
   submitForm(value) {
-    console.log(this.regFormBasic.valid);
+
+    // console.log(this.regFormBasic.valid);
     // checking if all required fields with valid info available before submitting the form
     if (!this.regFormBasic.valid) {
       // console.log('invalid form');
       return false;
     }
 
+    // console.log('user type normal');
     // form object
     const form =  {
       'name': {
-      'firstName': value.name
+        'firstName': value.name
       },
       'username': value.username,
       'profileImage': '',
@@ -411,9 +413,23 @@ export class RegistrationBasicComponent implements OnInit {
           }],
         'dateOfBirth': this.reverseDate(value.dob) + 'T05:00:00',
       }
+    };
+
+    if (typeof this.claimProfile !== 'undefined') {
+      console.log('user type claimed', this.claimProfile);
+
+      form.other['isImported'] = false;
+      form['handle'] = this.claimProfile.handle;
+      // claim user profile
+      this.store.dispatch({ type: AuthActions.USER_PROFILE_CLAIM, payload: form });
+
+    } else {
+
+      // register new user
+      this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
+
     }
 
-    this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
     this.store.select('loginTags').take(2).subscribe(data => {
         if (data['user_basic_reg_success'] === true ) {
           console.log('success otp');
@@ -473,6 +489,7 @@ export class RegistrationBasicComponent implements OnInit {
       this.regFormBasic.controls['name'].setValue(this.claimProfile['name']);
       this.regFormBasic.controls['username'].setValue(this.claimProfile['extra']['username']);
       this.regFormBasic.controls['email'].setValue(this.claimProfile['email']);
+      this.regFormBasic.controls['phone'].setValue(this.claimProfile['contact']['mobile']['mobile']);
 
       this.claimProfileState.claim_profiles = [];
     }

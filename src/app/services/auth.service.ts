@@ -77,7 +77,7 @@ export class AuthService {
      * claiming user porfile
      */
     claimUserProfile(reqBody: any) {
-      return this.api.post('/portal/auth/user', reqBody);
+      return this.api.put('/portal/auth/user/update/handle/' + reqBody.handle, JSON.stringify(reqBody));
     }
 
     registerProfile(req: any) {
