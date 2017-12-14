@@ -3,7 +3,7 @@
         <div class="o-dws-progress-block">
             <span class="c-text_sm float_left m-r-8">DWC participation process completion</span>
             <div class="o-dws-progress__bar">
-                <a href="" class="o-dws-progress__link" [ngClass]="{'o-dwc-progress--active': dataDwc?.profile_navigation_details?.DWCcompleteStatus >= 0}"></a>
+                <a href="" class="o-dws-progress__link" [ngClass]="{'o-dwc-progress--active': (isAuthed === true) && dataDwc?.profile_navigation_details?.DWCcompleteStatus >= 0}"></a>
                 <div class="o-dws-progress__white"></div>
                 <a href="" class="o-dws-progress__link" [ngClass]="{'o-dwc-progress--active': dataDwc?.profile_navigation_details?.DWCcompleteStatus >= 1}"></a>
                 <div class="o-dws-progress__white"></div>

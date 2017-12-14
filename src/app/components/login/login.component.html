@@ -8,7 +8,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 ops_signup_left">
-                <img src="/assets/img/login_illustration.png" alt="">
+                <a routerLink="/">
+                  <img src="/assets/img/login_illustration.png" alt="">
+                </a>
                 <div class="ops_heading text-center">
                     Don't have an account ? <a [routerLink]="['/reg/information']" [queryParams]="queryParam ? this.route.snapshot.queryParams : ''" class="text-theme">Sign up</a>
                 </div>

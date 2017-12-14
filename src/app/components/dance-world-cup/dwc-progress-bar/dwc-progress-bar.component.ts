@@ -15,6 +15,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class DwcProgressBarComponent implements OnInit {
   tagState$: Observable<any>;
   dataDwc: any;
+  isAuthed: boolean;
   constructor(
     private store: Store<any>,
     private router: Router,
@@ -24,10 +25,25 @@ export class DwcProgressBarComponent implements OnInit {
     //    this.dataDwc = state
     //   console.log(state)
     // })
+    this.isAuthed = false;
 
+    /**
+     * Check currenct status
+     */
+
+     this.store.select('profileTags')
+    .first(profile => profile['profile_navigation_details'].handle)
+    .subscribe( data => {
+      this.isAuthed = true;
+    });
+
+    /**
+     * Check currenct status
+     */
     this.store.select('profileTags')
       .first(profile => profile['profile_navigation_details'].DWCcompleteStatus)
       .subscribe( data => {
+
         this.dataDwc = data
         if (this.router.url !== '/dwc/details') {
           if (data['profile_navigation_details'].DWCcompleteStatus === 2) {
