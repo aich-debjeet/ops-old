@@ -42,6 +42,7 @@ import { MessageReducer } from './reducers/messages.reducer';
 import { UserSearchReducer } from './reducers/user-search.reducer';
 import { OpportunityReducer } from './reducers/opportunity.reducer';
 import { ExploreReducer } from './reducers/explore.reducer';
+import { ClaimProfileReducer } from './reducers/claim-profile.reducer';
 import { reducer } from './app.reducer';
 
 // Effects
@@ -57,6 +58,7 @@ import { SearchEffect } from './effects/search.effect';
 import { OrganizationEffect } from './effects/organization.effect';
 import { EventEffect } from './effects/event.effect';
 import { ExploreEffect } from './effects/explore.effect';
+import { ClaimProfileEffect } from './effects/claim-profile.effect';
 
 
 // Services
@@ -75,6 +77,7 @@ import { SearchService } from './services/search.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { OpportunityService } from './services/opportunity.service';
 import { ExploreService } from './services/explore.service';
+import { ClaimProfileService } from './services/claim-profile.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
@@ -191,6 +194,7 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     EffectsModule.run(OpportunityEffect),
     EffectsModule.run(EventEffect),
     EffectsModule.run(ExploreEffect),
+    EffectsModule.run(ClaimProfileEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
@@ -220,7 +224,8 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     GeneralUtilities,
     LocalStorageService,
     OpportunityService,
-    ExploreService
+    ExploreService,
+    ClaimProfileService
   ],
   bootstrap: [AppComponent]
 })
