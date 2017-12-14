@@ -72,7 +72,7 @@ export const routes: Routes = [
  { path: 'org', loadChildren: './components/organization/organization.module#OrganizationModule'},
  { path: 'opportunity', loadChildren: './components/opportunity/opportunity.module#OpportunityModule', canActivate: [AuthGuard] },
 //  { path: 'danceworldcup', component: DanceWorldCupComponent },
- { path: 'dwc', loadChildren: './components/dance-world-cup/dance-world-cup.module#DanceWorldCupModule', canActivate: [AuthGuard] },
+ { path: 'dwc', loadChildren: './components/dance-world-cup/dance-world-cup.module#DanceWorldCupModule'},
  { path: 'page-not-found', component: NotFoundPageComponent },
  { path: '**', redirectTo: 'page-not-found' },
 ];

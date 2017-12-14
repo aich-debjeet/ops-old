@@ -2,7 +2,12 @@
 <app-dwc-progress-bar></app-dwc-progress-bar>
 <section class="o-dance-qualifier-form">
     <div class="container fill-white">
-        <div class="o-dance-wcq-form-block">
+        <div class="o-dance-wcq-form-block" *ngIf="isAuthed !== true">
+          <div class="placeholder">
+            <h4>You need to signed in to view this!</h4>
+          </div>
+        </div>
+        <div class="o-dance-wcq-form-block" *ngIf="isAuthed !== false">
             <h3 class="c-h3 f-w_500 text-center m-t-32">Dance World Cup Qualifier- India</h3>
             <p class="c-text_lg text-center m-t-8 color-grey-dark m-b-32">Add Attendee details </p>
 
@@ -11,7 +16,7 @@
                     <input class="c-form__input" required type="text" formControlName="school_name">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
-                    <label>Dance School’s Name *</label>
+                    <label>Name *</label>
                     <p class="c-form__validation" *ngIf="eventForm.controls['school_name'].errors?.required && eventCreate.submitted">Dance School's name is required</p>
                 </div>
                 <div class="o-dwc-reg-check">

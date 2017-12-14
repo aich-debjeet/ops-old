@@ -37,7 +37,6 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
     this.contactFormState$ = this.store.select('eventTags');
     this.contactFormState$.subscribe(state => {
       this.contactFormState = state;
-      // console.log(this.contactFormState);
 
       // check if form is submitted
       if (this.formSubmitted && this.contactFormState && this.contactFormState.dwc_contact_form_upload_success === true) {

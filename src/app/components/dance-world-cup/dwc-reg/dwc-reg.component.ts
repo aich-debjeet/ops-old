@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import { Register, UserTag, initialTag, AuthModel, RightBlockTag, danceWorldTag, Dwc } from '../../../models/auth.model';
+import { ProfileModal, initialTag as profileTag, UserCard, ProfileCards } from '../../../models/profile.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Modal } from '../../../shared/modal-new/Modal';
@@ -11,6 +12,8 @@ import { Subscription } from 'rxjs/Subscription';
 
 // Action
 import { EventActions } from '../../../actions/event.action'
+import { Profile } from 'selenium-webdriver/firefox';
+import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
 
 @Component({
   selector: 'app-dwc-reg',
@@ -21,34 +24,87 @@ export class DwcRegComponent implements OnInit {
 
   err = false;
   tagState$: Observable<Dwc>;
+  profileState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
   public eventForm: FormGroup;
+  isAuthed: boolean;
   valueStore: any;
   Performance = ['Solo', 'Couple/Trio', 'Group'];
   Age_Group = ['Mini - 9 years and under', 'Junior section - 17 years and under', 'Children – 13 years and under', 'Senior section - 25 years and under']
   Dance_Style = ['Classical Ballet', 'National, Folklore, Character', 'Modern, Contemporary', 'Jazz and show dance', 'Hip Hop, Street Dance and Commercial', 'Song and Dance', 'Tap', 'Fusion Ballet'];
   @ViewChild('dwcModal') DwctypeModal: Modal;
+  dwcSlider: NgxCarousel;
   constructor(
     private fb: FormBuilder,
     private store: Store<AuthModel>,
+    private __store: Store<ProfileModal>,
     private router: Router,
     private toastr: ToastrService,
     private _store: Store<Dwc>
     ) {
-  this.tagState$ = _store.select('eventTags')
-  this.tagState$.subscribe((state) => {
-    console.log(state)
-    if (state['err_msg'] === 'Bad Request' && !this.err) {
-      this.err = true;
-      this.toastr.error('You Have Already applied')
-    }
-  })
+      this.isAuthed = false;
+      this.tagState$ = _store.select('eventTags');
+      this.profileState$ = __store.select('profileTags');
+
+      // X
+      this.profileState$.subscribe((state) => {
+        console.log('reg', state );
+      });
+
+      this.tagState$.subscribe((state) => {
+        // console.log(state)
+        if (state['err_msg'] === 'Bad Request' && !this.err) {
+          this.err = true;
+          this.toastr.error('You Have Already applied')
+        }
+    })
 
   }
 
   ngOnInit() {
     this.buildForm();
     this.pushMember();
+
+    this.dwcSlider = {
+      grid: {xs: 1, sm: 1, md: 1, lg: 1, all: 0},
+      slide: 1,
+      speed: 4000,
+      interval: 4000,
+      custom: 'banner',
+      point: {
+        visible: false,
+        pointStyles: `
+          .ngxcarouselPoint {
+            list-style-type: none;
+            text-align: center;
+            padding: 12px;
+            margin: 0;
+            white-space: nowrap;
+            overflow: auto;
+            position: absolute;
+            width: 100%;
+            bottom: 20px;
+            left: 0;
+            box-sizing: border-box;
+          }
+          .ngxcarouselPoint li {
+            display: inline-block;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.55);
+            padding: 5px;
+            margin: 0 3px;
+            transition: .4s ease all;
+          }
+          .ngxcarouselPoint li.active {
+              background: white;
+              width: 10px;
+          }
+        `
+      },
+      load: 1,
+      loop: true,
+      touch: true
+    }
   }
 
   testClick() {
