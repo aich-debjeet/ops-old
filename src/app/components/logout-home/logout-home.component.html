@@ -13,8 +13,8 @@
             <h1 class="c-h1 m-b-32 color-white o-hero-main__title text-center">Sign up on One Page Spotlight to<br>register for Dance World Cup</h1>
             <div class="o-register-area">
                 <a [routerLink]="['reg']" [queryParams]="{ ev: 'dwc2017' }" class="btn btn-primary btn-lg btn-inverse">Register</a>
-                <a [routerLink]="['danceworldcup']" class="o-landing-more-btn m-l-16">read more</a>
-                <div class="col-md-12 c-text_md color-white p-l-0 m-t-16 o-landing-log"> Already a member? <a [routerLink]="['login']" [queryParams]="{ next: 'dwc' }" class="color-white"><u>Log in</u> </a>to register </div>
+                <a [routerLink]="['dwc/details']" class="o-landing-more-btn m-l-16">read more</a>
+                <div class="col-md-12 c-text_md color-white p-l-0 m-t-16 o-landing-log"> Already a member? <a [routerLink]="['login']" [queryParams]="{ next: 'dwc/reg' }" class="color-white"><u>Log in</u> </a>to register </div>
             </div>
 
         </div>

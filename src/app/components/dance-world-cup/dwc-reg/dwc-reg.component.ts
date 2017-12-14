@@ -1,23 +1,23 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
-import { Register, UserTag, initialTag, AuthModel, RightBlockTag, danceWorldTag, Dwc } from '../../models/auth.model';
+import { Register, UserTag, initialTag, AuthModel, RightBlockTag, danceWorldTag, Dwc } from '../../../models/auth.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Modal } from '../../shared/modal-new/Modal';
+import { Modal } from '../../../shared/modal-new/Modal';
 import { ToastrService } from 'ngx-toastr';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 // Action
-import { EventActions } from '../../actions/event.action'
+import { EventActions } from '../../../actions/event.action'
 
 @Component({
-  selector: 'app-dwc',
-  templateUrl: './dwc.component.html',
-  styleUrls: ['./dwc.component.scss']
+  selector: 'app-dwc-reg',
+  templateUrl: './dwc-reg.component.html',
+  styleUrls: ['./dwc-reg.component.scss']
 })
-export class DwcComponent implements OnInit {
+export class DwcRegComponent implements OnInit {
 
   err = false;
   tagState$: Observable<Dwc>;

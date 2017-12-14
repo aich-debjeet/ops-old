@@ -12,11 +12,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DwcProgressBarComponent } from './dwc-progress-bar/dwc-progress-bar.component';
 import { DwcPaymentComponent } from './dwc-payment/dwc-payment.component';
 import { DwcSuccessComponent } from './dwc-success/dwc-success.component';
+import { DwcRegComponent } from './dwc-reg/dwc-reg.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'details',
     component: DanceWorldCupComponent,
+  },
+  {
+    path: 'reg',
+    component: DwcRegComponent,
   },
   {
   path: 'payment',
@@ -46,7 +51,8 @@ const routes: Routes = [
     ContactComponent,
     DwcProgressBarComponent,
     DwcPaymentComponent,
-    DwcSuccessComponent
+    DwcSuccessComponent,
+    DwcRegComponent
   ]
 })
 export class DanceWorldCupModule { }

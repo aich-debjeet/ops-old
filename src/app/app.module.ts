@@ -123,7 +123,7 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
 import { AgmCoreModule } from '@agm/core';
 import { OpportunityEffect } from 'app/effects/opportunity.effect';
 import { OpportunityModule } from 'app/components/opportunity/opportunity.module';
-import { DwcComponent } from './components/dwc/dwc.component';
+
 
 @NgModule({
   declarations: [
@@ -159,7 +159,6 @@ import { DwcComponent } from './components/dwc/dwc.component';
     NetworkComponent,
     ProjectComponent,
     DirectoryListComponent,
-    DwcComponent,
   ],
   imports: [
     DragulaModule,
