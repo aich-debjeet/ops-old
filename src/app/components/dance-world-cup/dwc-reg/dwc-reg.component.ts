@@ -48,7 +48,11 @@ export class DwcRegComponent implements OnInit {
 
       // X
       this.profileState$.subscribe((state) => {
-        // console.log('reg', state );
+        // If nav component has profile details
+        const user = state.profile_navigation_details.handle;
+        if (state.profile_navigation_details && state.profile_navigation_details.handle) {
+          this.isAuthed = true;
+        }
       });
 
       this.tagState$.subscribe((state) => {

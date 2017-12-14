@@ -475,6 +475,9 @@
 .o-dance-wcq-form-block {
     width: 565px;
     margin: 0px auto;
+    label {
+      left: 0;
+    }
 }
 
 .o-wcq-textarea::placeholder {
