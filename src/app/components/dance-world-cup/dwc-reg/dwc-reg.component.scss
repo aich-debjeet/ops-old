@@ -901,6 +901,7 @@
 
 .placeholder {
   margin-top: 2rem;
+  text-align: center;
   h4 {
     margin-top: 2rem;
     margin-bottom: 1rem;
@@ -910,4 +911,10 @@
 
 .btn-secondary {
   color: #ff7b84;
+}
+
+.btn.btn-secondary.cleared {
+  display: block;
+  margin-top: 1rem;
+  color: #999;
 }
