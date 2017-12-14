@@ -17,8 +17,6 @@ export class DwcPaymentComponent implements OnInit, AfterViewInit {
     this.dwcState$ = this.store.select('eventTags');
     this.dwcState$.subscribe(state => {
       this.dataState = state
-      console.log(state);
-      // this.contactFormState = state;
     });
 
     this.store.dispatch({ type: EventActions.DWC_PAYMENT_REQUEST });

@@ -43,6 +43,7 @@ export class DwcRegComponent implements OnInit {
       this.toastr.error('You Have Already applied')
     }
   })
+
   }
 
   ngOnInit() {
@@ -127,7 +128,7 @@ export class DwcRegComponent implements OnInit {
     this.store.select('eventTags')
       .first(profile => profile['dwc_event_reg_success'] === true )
       .subscribe( data => {
-        this.router.navigateByUrl('/danceworldcup/payment');
+        this.router.navigateByUrl('/dwc/payment');
       });
   }
 
