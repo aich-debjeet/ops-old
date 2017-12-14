@@ -264,6 +264,22 @@ export class ProfileEffect {
     .ofType(ProfileActions.UPDATE_USER_EDUCATION_SUCCESS)
     .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS  }))
 
+  /**
+   * DWC Media Update
+   */
+  CHANGE_DWC_MEDIA_STATE
+
+  /**
+   * Delete Current user Award
+   */
+  @Effect()
+  updateDWCStatus$ = this.actions$
+    .ofType(ProfileActions.CHANGE_DWC_MEDIA_STATE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.changeMediaState(payload)
+      .map(res => ({ type: 'NONE', payload: res }))
+      .catch((res) => Observable.of({ type: 'NONE', payload: res }))
+    );
 
   /**
    * Edit Current user Award

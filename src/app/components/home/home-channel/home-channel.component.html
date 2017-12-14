@@ -7,7 +7,7 @@
         </masonry>
     </div>
 </div> -->
-<div *ngIf="!userState.user_following_channels_loaded && channelList.length < 1" class="empty__state">
+<div *ngIf="userState.user_following_channels_loaded === true && channelList.length < 1" class="empty__state">
   <h4>You have not followed any channels</h4>
 </div>
 

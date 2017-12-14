@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import MediaPlayer from 'app/models/mediaplayer.model';
 import { environment } from '../../../../environments/environment';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgModel } from '@angular/forms';
 import { NgxfUploaderService, UploadEvent, UploadStatus, FileError } from 'ngxf-uploader';
@@ -28,6 +28,7 @@ import { remove as _remove, merge as _merge, uniqBy as _uniqBy, flatten } from '
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/from';
+import 'rxjs/add/operator/filter';
 
 export class UploadItem {
   fileName: string;
@@ -103,6 +104,7 @@ export class MediaSelectorComponent implements OnInit {
   channelCreatebtn: boolean = false;
   channelDesc: string;
   channelSaved: boolean;
+  eventName: string;
 
   constructor(
     private Upload: NgxfUploaderService,
@@ -110,6 +112,7 @@ export class MediaSelectorComponent implements OnInit {
     private api: TokenService,
     private toastr: ToastrService,
     private router: Router,
+    private route: ActivatedRoute,
     private profileStore: Store<ProfileModal>,
     private store: Store<Media>,
     private _store: Store<fromRoot.State>,
@@ -121,6 +124,7 @@ export class MediaSelectorComponent implements OnInit {
       this.uploaded = [];
       this.uploadedFiles = [];
       this.formMessages = [];
+      this.eventName = '';
 
       this.chosenChannel = 0;
       this.uploadState = 1;
@@ -177,6 +181,13 @@ export class MediaSelectorComponent implements OnInit {
       } else {
         // console.log('[x]');
       }
+
+      // Check if it has query params
+      this.route.queryParams
+      .filter(params => params.event)
+      .subscribe(params => {
+        this.eventName = params.event;
+      });
     });
 
     /**
@@ -600,25 +611,51 @@ export class MediaSelectorComponent implements OnInit {
   seperateTags(tags: any) {
     const tagList = [];
     if (tags) {
+
+      // If it has dwc, send an update to make it Active
       for (const tag of tags) {
+
         tagList.push(tag.value);
       }
     }
     return tagList;
   }
 
+  /**
+   * Send an Update
+   */
+  updateStatus(state: number) {
+    this.profileStore.dispatch({ type: ProfileActions.CHANGE_DWC_MEDIA_STATE, payload: state });
+  }
+
+  /**
+   * Extract Tag from Body
+   */
+
   extractTags() {
     const REGEX_HASHTAG = /\B(#[Ã¡-ÃºÃ-ÃÃ¤-Ã¼Ã-Ãa-zA-Z0-9_]+)/g;
     const string = this.desc
-    const results = string.match(REGEX_HASHTAG)
+    const results = string.match(REGEX_HASHTAG);
+
+    let isDwcThing = 0;
 
     const tag = [];
     if (results) {
       results.forEach(function(element) {
         const newVal = element.replace('#', '');
         tag.push(newVal);
+
+        console.log('tag', tag);
+        if (newVal === 'dwc') {
+          isDwcThing = 2;
+        }
       });
     }
+
+    if (isDwcThing === 2 ) {
+      this.updateStatus(2);
+    }
+
     return tag
   }
 

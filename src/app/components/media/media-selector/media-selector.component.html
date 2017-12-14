@@ -1,4 +1,9 @@
 <div class="Overlay">
+  <!-- <div class="Overlay__status" *ngIf="eventName === 'dwc'">
+      <div class="container">
+        <a [routerLink]="['/dwc/details']">Back to Dance World Cup</a>
+      </div>
+  </div> -->
   <span class="Overlay__status" *ngIf="status >1 && status <100">
     Uploading {{ status }}%
   </span>

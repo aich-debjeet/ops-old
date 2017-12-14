@@ -51,7 +51,7 @@ export class DwcProgressBarComponent implements OnInit {
           }
 
           if (data['profile_navigation_details'].DWCcompleteStatus === 1) {
-            this.router.navigateByUrl('/dwc/payment');
+            this.router.navigate(['/post'], { queryParams: { event: 'dwc' } });
           }
 
           if (data['profile_navigation_details'].DWCcompleteStatus === 3) {

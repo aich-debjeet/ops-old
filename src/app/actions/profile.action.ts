@@ -3,6 +3,11 @@ import { Action } from '@ngrx/store';
 export class ProfileActions {
 
   /**
+   * Chnage
+   */
+  static CHANGE_DWC_MEDIA_STATE = 'CHANGE_DWC_MEDIA_STATE';
+
+  /**
    * Load logged in users profile
    */
   static LOAD_CURRENT_USER_PROFILE = 'LOAD_CURRENT_USER_PROFILE';
