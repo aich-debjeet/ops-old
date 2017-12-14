@@ -45,10 +45,8 @@ export class ContactComponent implements OnInit {
   submitContactForm(value: any) {
     // console.log(value);
     if (this.contactForm.valid) {
-
       this.formSubmitted = true;
 
-      // console.log('submit valid form');
       const reqBody = {
         contactName: value.name,
         contactPhone: '',
@@ -57,18 +55,12 @@ export class ContactComponent implements OnInit {
       };
       this.store.dispatch({ type: EventActions.DWC_CONTACT_FORM, payload: reqBody });
     }
-    // else {
-    //   console.log('invalid form');
-    // }
   }
 
   /**
    * Reset form
    */
   resetContactForm() {
-    // this.contactForm.controls['name'].setValue('');
-    // this.contactForm.controls['email'].setValue('');
-    // this.contactForm.controls['message'].setValue('');
     // Empty initiate form
     this.contactForm = this.fb.group({
       name: [null],

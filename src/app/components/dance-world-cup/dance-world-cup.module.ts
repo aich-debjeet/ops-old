@@ -9,17 +9,32 @@ import { ContactComponent } from './contact/contact.component';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
 import { NgxCarouselModule } from 'ngx-carousel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DwcProgressBarComponent } from './dwc-progress-bar/dwc-progress-bar.component';
+import { DwcPaymentComponent } from './dwc-payment/dwc-payment.component';
+import { DwcSuccessComponent } from './dwc-success/dwc-success.component';
+import { DwcRegComponent } from './dwc-reg/dwc-reg.component';
+import { DwcCompletedComponent } from './dwc-completed/dwc-completed.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'details',
     component: DanceWorldCupComponent,
-    children: [
-      { path: '', redirectTo: 'dwc-indian-qualifiers'},
-      { path: 'dwc-indian-qualifiers', component: DiqComponent},
-      { path: 'dwc-official-website', component: DowComponent},
-      { path: 'contact', component: ContactComponent}
-    ]
+  },
+  {
+    path: 'reg',
+    component: DwcRegComponent,
+  },
+  {
+  path: 'payment',
+  component: DwcPaymentComponent,
+  },
+  {
+    path: 'success',
+    component: DwcSuccessComponent,
+  },
+  {
+    path: 'completed',
+    component: DwcCompletedComponent,
   }
 ]
 
@@ -38,7 +53,12 @@ const routes: Routes = [
     DanceWorldCupComponent,
     DiqComponent,
     DowComponent,
-    ContactComponent
+    ContactComponent,
+    DwcProgressBarComponent,
+    DwcPaymentComponent,
+    DwcSuccessComponent,
+    DwcRegComponent,
+    DwcCompletedComponent
   ]
 })
 export class DanceWorldCupModule { }

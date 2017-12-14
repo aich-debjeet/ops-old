@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DwcComponent } from './dwc.component';
+import { DwcCompletedComponent } from './dwc-completed.component';
 
-describe('DwcComponent', () => {
-  let component: DwcComponent;
-  let fixture: ComponentFixture<DwcComponent>;
+describe('DwcCompletedComponent', () => {
+  let component: DwcCompletedComponent;
+  let fixture: ComponentFixture<DwcCompletedComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DwcComponent ]
+      declarations: [ DwcCompletedComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DwcComponent);
+    fixture = TestBed.createComponent(DwcCompletedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,27 +1,6 @@
 <app-navigation></app-navigation>
 
-<section class="o-dwc-progress-sec m-t-50">
-    <div class="container">
-        <div class="o-dws-progress-block">
-            <span class="c-text_sm float_left m-r-8">DWC participation process completion</span>
-            <div class="o-dws-progress__bar">
-                <a href="" class="o-dws-progress__link o-dwc-progress--active"></a>
-                <div class="o-dws-progress__white"></div>
-                <a href="" class="o-dws-progress__link o-dwc-progress--active"></a>
-                <div class="o-dws-progress__white"></div>
-                <a href="" class="o-dws-progress__link o-dwc-progress--active"></a>
-                <div class="o-dws-progress__white"></div>
-                <a href="" class="o-dws-progress__link"></a>
-            </div>
-            <div class="o-dws-progress__txt float_right">
-                <a class="o-dws-progress__link c-text_sm text-center color-grey-dark">Sign up</a>
-                <a class="o-dws-progress__link c-text_sm text-center color-grey-dark">Register DWC</a>
-                <a class="o-dws-progress__link c-text_sm text-center color-grey-dark">Upload Media</a>
-                <a class="o-dws-progress__link c-text_sm text-center color-grey-dark">Payment</a>
-            </div>
-        </div>
-    </div>
-</section>
+<app-dwc-progress-bar></app-dwc-progress-bar>
 
 <div class="o-dwc-detail-top-slider">
     <section class="dwc">
@@ -38,7 +17,7 @@
                                 <div class="col-md-9">
                                     <h2 class="c-h2 color-white ">Dance World Cup</h2>
                                     <h4 class="c-h4 m-t-8 color-white">Qualifier India- 2018</h4>
-                                    <a href="dance_form.html" class="dwc-btn float_left">Register</a>
+                                    <a routerLink="/dwc/reg" class="dwc-btn float_left">Register</a>
                                     
                                 </div>
                             </div>
@@ -54,7 +33,7 @@
                                 <div class="col-md-9">
                                     <h2 class="c-h2 color-white ">Dance World Cup</h2>
                                     <h4 class="c-h4 m-t-8 color-white">Qualifier India- 2018</h4>
-                                    <a href="dance_form.html" class="dwc-btn float_left">Register</a>
+                                    <a routerLink="/dwc/reg" class="dwc-btn float_left">Register</a>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +48,7 @@
                                 <div class="col-md-9">
                                     <h2 class="c-h2 color-white ">Dance World Cup</h2>
                                     <h4 class="c-h4 m-t-8 color-white">Qualifier India- 2018</h4>
-                                    <a href="dance_form.html" class="dwc-btn float_left">Register</a>
+                                    <a routerLink="/dwc/reg" class="dwc-btn float_left">Register</a>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +63,7 @@
                                 <div class="col-md-9">
                                     <h2 class="c-h2 color-white ">Dance World Cup</h2>
                                     <h4 class="c-h4 m-t-8 color-white">Qualifier India- 2018</h4>
-                                    <a href="dance_form.html" class="dwc-btn float_left">Register</a>
+                                    <a routerLink="/dwc/reg" class="dwc-btn float_left">Register</a>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +130,9 @@
             </div>
         </div>
         <div class="col-md-4 float_right text-right">
-            
+            <div class="o-dwc-logo">
+                <img src="/assets/img/dwc/dwc_logo.png" alt="">
+            </div>
             <span class="c-links__share  dropdown">
                 <a shareButton="facebook" [sbUrl]="'http://prettylinks.co/ejwdFy+'"  class="dwc-btn m-l-8 dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> 
                     <span class="dwc-share-icon"><img src="/assets/img/svg/share_theme.svg" alt=""></span>Share
@@ -224,10 +205,7 @@
                         <div class="tab-content">
                             <div id="04" [ngClass]="{'active in': activeTab == 'tab-1'}" class="tab-pane fade">
                                 <div class="o-dwc__block ">
-                                    <div class="o-dwc-logo m-t-16">
-                                        <img src="/assets/img/dwc/dwc_logo.png" alt="">
-                                    </div>
-                                    <h2 class="m-b-8">Talented • Professional • International</h2>
+                                    <h2 class="m-t-24">Talented • Professional • International</h2>
                                     <p class="c-text_md m-t-b-8">
                                         Dance World Cup is the leading international dancing event in which thousands of dancers from around the world participate in a variety of competitions. This competition includes 11 genres and all age groups are involved.
                                     </p>
@@ -248,10 +226,7 @@
                             </div>
 
                             <div id="05" [ngClass]="{'active in': activeTab == 'tab-2'}" class="tab-pane fade">
-                                <div class="o-dwc-logo m-t-16">
-                                    <img src="/assets/img/dwc/dwc_logo.png" alt="">
-                                </div>
-                                <h2 class="">Announcement</h2>
+                                <h2 class="m-t-24">Announcement</h2>
                                 <div id="competition" class="o-dwc__block">
                                     <p class="c-text_md   m-t-b-8">
                                         Dance World Cup is the leading international dancing event in which thousands of dancers from around the world participate in a variety of competitions. This competition includes 11 genres and all age groups are involved.
@@ -272,11 +247,9 @@
                                 </div><!-- competition end -->
                             </div>
 
-                            <div id="06" [ngClass]="{'active in': activeTab == 'tab-3'}" class="tab-pane fade">
-                                <div class="o-dwc-logo m-t-16">
-                                    <img src="/assets/img/dwc/dwc_logo.png" alt="">
-                                </div>
-                                <h2 class="">2018 - Spain</h2>
+                            <div id="06"  [ngClass]="{'active in': activeTab == 'tab-3'}" class="tab-pane fade" class="tab-pane fade">
+                                
+                                <h2 class="m-t-24">2018 - Spain</h2>
                                 <div class="o-dwc__block">
                                     <p class="c-text_md   m-t-b-8">
                                         Dance World Cup is very excited to announce the second Asian Dance World Cup qualifier for 2018. John Grimshaw, Chairman of Dance World Cup, will be attending this qualifier to greet you all and we hope that this will be a start of a new era in international competition for dance in this region.
@@ -286,47 +259,30 @@
                                         All dancers must qualify to take part in the Dance World Cup Finals. If there is a qualifying competition in your country of residence, you must qualify through this competition. Dancers must receive 70 marks or above at their national qualifying to compete at the Dance World Cup Finals. Each country can enter a maximum of THREE routines per class. For more information about qualifying in your country, please contact your local qualifier organizer at the email address listed below.
                                     </p>
                                     <div class="col-md-7 p-l-0">
-                                        <h4 class="c-h4 m-t-16">Asian Dance World Cup Qualifier 2018</h4>
+                                        <h4 class="c-h4 m-t-16">India Dance World Cup Qualifier 2018</h4>
                                         <p class="c-text_md f-w_600 text_uppercase color-grey-dark m-t-8">
                                             Date
                                         </p>
                                         <p class="c-text_lg f-w_600 m-b-24">
-                                            28 – 30 March 2018
-                                        </p>
-
-                                        <p class="c-text_md f-w_600 text_uppercase color-grey-dark m-t-8">
-                                            Participating Nations
-                                        </p>
-                                        <p class="c-text_lg f-w_600 m-b-24">
-                                            Asian Countries, Hong Kong, Macau, Mainland China
+                                            21 – 22 January 2018
                                         </p>
 
                                         <p class="c-text_md f-w_600 text_uppercase color-grey-dark m-t-8">
                                             venue
                                         </p>
                                         <p class="c-text_lg f-w_600 m-b-24">
-                                            Y Theatre, Youth Square, Chai Wan, Hong Kong
+                                            Bangalore - Phoenix Marketcity
                                         </p>
 
                                         <p class="c-text_md f-w_600 text_uppercase color-grey-dark m-t-8">
                                             contact
-                                        </p>
-                                        <p class="c-text_lg f-w_600 m-b-24">
-                                           DWC Asia Company
                                         </p>
 
                                         <p class="c-text_md f-w_600 text_uppercase color-grey-dark m-t-8">
                                             Email
                                         </p>
                                         <p class="c-text_lg f-w_600 m-b-24">
-                                           info@dwc-asiancup.com
-                                        </p>
-
-                                        <p class="c-text_md f-w_600 text_uppercase color-grey-dark m-t-8">
-                                            WhatsApp & Hotline
-                                        </p>
-                                        <p class="c-text_lg f-w_600 m-b-24">
-                                           +852 5526 8858
+                                           contact@onepagespotlight.com
                                         </p>
 
                                     </div>
@@ -373,10 +329,7 @@
                             </div>
 
                             <div id="07" [ngClass]="{'active in': activeTab == 'tab-4'}" class="tab-pane fade">
-                                <div class="o-dwc-logo m-t-16">
-                                    <img src="/assets/img/dwc/dwc_logo.png" alt="">
-                                </div>
-                                <h2 class="">Rules</h2>
+                                <h2 class="m-t-24">Rules</h2>
                                 <h3 class="c-h3 f-w_500 m-t-16">
                                     The general rules of participation for both India qualifiers and DWC finals are the same
                                 </h3>
@@ -398,10 +351,7 @@
                             </div>
 
                             <div id="08" [ngClass]="{'active in': activeTab == 'tab-5'}" class="tab-pane fade">
-                                <div class="o-dwc-logo m-t-16">
-                                    <img src="/assets/img/dwc/dwc_logo.png" alt="">
-                                </div>
-                                <h2 class="">Genres and Classes</h2>
+                                <h2 class="m-t-24">Genres and Classes</h2>
                                 <div class="o-dwc__block">
                                     <div class="col-md-2 p-l-0">
                                         <p class="c-text_md f-w_600 text_uppercase color-grey-dark ltr-space">Classes</p>
@@ -437,35 +387,169 @@
                             </div>
 
                             <div id="09" [ngClass]="{'active in': activeTab == 'tab-6'}" class="tab-pane fade">
-                                <div class="o-dwc-logo m-t-16">
-                                    <img src="/assets/img/dwc/dwc_logo.png" alt="">
-                                </div>
-                                <h2 class="">Entry Details</h2>
+                                
+                                <h2 class="m-t-24">Entry Detais for India Qualifiers</h2>
+                                <p class="c-text_md m-t-32" >
+                                    An entry fee of <span class="color-theme">Rs. 350</span> will be charge for every applicant to participate in the DWC india Qualifiers.
+                                </p>
                                 <h4 class="c-h4 m-t-24">DWC India cup 2018 Entry Process </h4>
                                 <div class="o-dwc__block">
-                                    <p class="c-text_md   m-t-b-8">
-                                        Sign Up on One Page Spotlight
-                                    </p>
-                                    <p class="c-text_md   m-t-b-8">
-                                        Register for Dance World Cup Qualifiers
-                                    </p>
-                                    <p class="c-text_md   m-t-b-8">
-                                        Upload video using the hastag <span class="color-theme">#DWCIQ</span> and with your dance style code (eg. #)
-                                    </p>
-                                    <p class="c-text_md   m-t-b-8">
-                                        Complete payment
-                                    </p>
+                                    <ul class="o-dwc-entry-process">
+                                        <li class="o-dwc-entry__list">
+                                            <p class="c-text_md   m-t-b-8">
+                                                <span class="o-dwc-entry-icon"></span>
+                                                <span class="color-theme">Sign Up</span> on One Page Spotlight
+                                            </p>
+                                        </li>
 
-                                    <p class="c-text_lg m-t-24 f-w_600">Entry Fees for Qualifier – Dance World Cup India Cup</p>
-                                    <p class="c-text_md m-t-b-8">Entry fees for the Qualifier is Rs.350 </p>
+                                        <li class="o-dwc-entry__list">
+                                            <p class="c-text_md   m-t-b-8">
+                                                <span class="o-dwc-entry-icon"></span>
+                                                <span class="color-theme">Register</span> for Dance World Cup Qualifiers
+                                            </p>
+                                        </li>
+
+                                        <li class="o-dwc-entry__list">
+                                            <p class="c-text_md">
+                                                <span class="o-dwc-entry-icon"></span>
+                                                <span class="color-theme">Video Shortlist</span> - All applicants will be go through a first round of shortlisting through videos.
+                                            </p> 
+                                            <p class="c-text_md   m-t-b-8 m-l-16">
+                                                
+                                                A video of the dance style the applicant chooses to compete in should be uploaded on to One Page Spotlight using hashtags describing the dance style. <span class="color-theme">Eg.#DWCIQHIPHOP #DWICIQCLASSICAL #DWICIQFOLK DWCIQBALLET</span>
+                                            </p>
+
+                                            <p class="c-text_md m-l-16">
+                                                Following is the time length allowed for each video. Note: These time limits will remain the same for the actual performance during the event. Kindly read the rules to avoid any penalties.
+                                            </p>
+
+
+                                            <h6 class="c-text_lg f-w_600 m-t-b-16 m-l-16">
+                                                Video length for different age group
+                                            </h6>
+
+                                            <div class="o-dwc-video-timing-container">
+                                                <div class="o-dwc-video-timing__head">
+                                                    <div class="col-md-6 p-0">
+                                                        <span class="c-text_md f-w_600">Category<br>age & performance</span>
+                                                    </div>
+                                                    <div class="col-md-4 p-0">
+                                                        <span class="c-text_md f-w_600">
+                                                            All Dance Styles<br>
+                                                            <span class="c-text_sm color-grey-dark text_uppercase ltr-space">Except song and dance</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-2 p-0">
+                                                        <span class="c-text_md f-w_600">Song and Dance</span>
+                                                    </div>
+                                                </div>
+                                                <div class="o-dwc-video-timing__single">
+                                                    <div class="col-md-6 p-0">
+                                                        <span class="c-text_md">Mini and Children Solo, Duet and Trio</span>
+                                                    </div>
+                                                    <div class="col-md-4 p-0">
+                                                        <span class="c-text_md">2 min</span>
+                                                    </div>
+                                                    <div class="col-md-2 p-0">
+                                                        <span class="c-text_md">2 min 30 sec</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="o-dwc-video-timing__single">
+                                                    <div class="col-md-6 p-0">
+                                                        <span class="c-text_md">Mini and Children Small Group</span>
+                                                    </div>
+                                                    <div class="col-md-4 p-0">
+                                                        <span class="c-text_md">2 min 30 sec</span>
+                                                    </div>
+                                                    <div class="col-md-2 p-0">
+                                                        <span class="c-text_md">3 min</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="o-dwc-video-timing__single">
+                                                    <div class="col-md-6 p-0">
+                                                        <span class="c-text_md">Mini and Children Large Group</span>
+                                                    </div>
+                                                    <div class="col-md-4 p-0">
+                                                        <span class="c-text_md">3 min </span>
+                                                    </div>
+                                                    <div class="col-md-2 p-0">
+                                                        <span class="c-text_md">3 min 30 sec</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="o-dwc-video-timing__single-sepration">
+                                                </div>
+
+                                                <div class="o-dwc-video-timing__single">
+                                                    <div class="col-md-6 p-0">
+                                                        <span class="c-text_md">Junior and Senior Solo</span>
+                                                    </div>
+                                                    <div class="col-md-4 p-0">
+                                                        <span class="c-text_md">2 min  </span>
+                                                    </div>
+                                                    <div class="col-md-2 p-0">
+                                                        <span class="c-text_md">2 min 30 sec</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="o-dwc-video-timing__single">
+                                                    <div class="col-md-6 p-0">
+                                                        <span class="c-text_md">Junior and Senior Duet and Trio</span>
+                                                    </div>
+                                                    <div class="col-md-4 p-0">
+                                                        <span class="c-text_md">2 min 30 sec</span>
+                                                    </div>
+                                                    <div class="col-md-2 p-0">
+                                                        <span class="c-text_md">3 min</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="o-dwc-video-timing__single">
+                                                    <div class="col-md-6 p-0">
+                                                        <span class="c-text_md">Junior and Senior Senior Small Group</span>
+                                                    </div>
+                                                    <div class="col-md-4 p-0">
+                                                        <span class="c-text_md">3 min </span>
+                                                    </div>
+                                                    <div class="col-md-2 p-0">
+                                                        <span class="c-text_md">3 min 30 sec</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="o-dwc-video-timing__single">
+                                                    <div class="col-md-6 p-0">
+                                                        <span class="c-text_md">Junior and Senior Senior Large Group</span>
+                                                    </div>
+                                                    <div class="col-md-4 p-0">
+                                                        <span class="c-text_md">3 min 30 </span>
+                                                    </div>
+                                                    <div class="col-md-2 p-0">
+                                                        <span class="c-text_md">4 min 30 sec</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </li>
+
+                                        <li class="o-dwc-entry__list">
+                                            <p class="c-text_md width100 color-theme float_left  m-t-b-8">
+                                                <span class="o-dwc-entry-icon"></span>
+                                                Complete payment
+                                            </p>
+                                        </li>
+
+                                    </ul>
+                                    
                                 </div>
+                                <p class="c-text_lg m-t-24 width100 float_left f-w_600">
+                                    Note: The details in the forms will be saved only on the click of Submit button at the end of each step in the registration process. It is advised to complete the registration process in one sitting.
+                                </p>
                             </div>
 
                             <div id="10" [ngClass]="{'active in': activeTab == 'tab-7'}" class="tab-pane fade">
-                                <div class="o-dwc-logo m-t-16">
-                                    <img src="/assets/img/dwc/dwc_logo.png" alt="">
-                                </div>
-                                <h2 class="">Dance World Cup 2014 Finals Portugal Recap</h2>
+                                <h2 class="m-t-24">Dance World Cup 2014 Finals Portugal Recap</h2>
                                 <div class="o-dwc__block">
                                     <div class="o-dwc__media m-t-16">
                                         <img src="/assets/img/new/s03.jpg" alt="">
@@ -478,9 +562,6 @@
                             </div>
 
                             <div id="11" [ngClass]="{'active in': activeTab == 'tab-8'}" class="tab-pane fade">
-                                <div class="o-dwc-logo m-t-16">
-                                    <img src="/assets/img/dwc/dwc_logo.png" alt="">
-                                </div>
 
                                 <div class="o-dwc-gallery__media m-8">
                                     <img src="/assets/img/dwc/1.jpg" alt="">
@@ -524,10 +605,7 @@
                             </div>
 
                             <div id="12" [ngClass]="{'active in': activeTab == 'tab-9'}" class="tab-pane fade">
-                                <div class="o-dwc-logo m-t-16">
-                                    <img src="/assets/img/dwc/dwc_logo.png" alt="">
-                                </div>
-                                <h2 class="">Contact us</h2>
+                                <h2 class="m-t-24">Contact us</h2>
                                 <p class="c-text_lg color-grey-dark">
                                     Send us a message and we’ll get back to you as soon as we can.
                                 </p>
