@@ -48,7 +48,7 @@ export class DwcRegComponent implements OnInit {
 
       // X
       this.profileState$.subscribe((state) => {
-        console.log('reg', state );
+        // console.log('reg', state );
       });
 
       this.tagState$.subscribe((state) => {
@@ -108,7 +108,7 @@ export class DwcRegComponent implements OnInit {
   }
 
   testClick() {
-    console.log('onclick');
+    // console.log('onclick');
   }
 
   /**
@@ -133,8 +133,6 @@ export class DwcRegComponent implements OnInit {
   }
 
   convertToValue(key: string) {
-    console.log(key)
-    console.log(this.eventForm.value)
     return this.eventForm.value[key].map((x, i) => x && this[key][i]).filter(x => !!x);
   }
 
@@ -157,7 +155,7 @@ export class DwcRegComponent implements OnInit {
 
 // dwc_event_reg_success
   submitForm(value) {
-    console.log(value)
+    // console.log(value)
     this.valueStore = Object.assign({}, this.eventForm.value, {
       Performance: this.convertToValue('Performance'),
       Age_Group: this.convertToValue('Age_Group'),
