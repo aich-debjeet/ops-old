@@ -10,6 +10,7 @@ import { MediaReducer } from './reducers/media.reducer';
 import { OpportunityReducer } from './reducers/opportunity.reducer';
 import { ExploreReducer } from './reducers/explore.reducer';
 import { EventReducer } from './reducers/event.reducer';
+import { ClaimProfileReducer } from './reducers/claim-profile.reducer';
 
 import { combineReducers, ActionReducer } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
@@ -27,6 +28,7 @@ const reducers = {
   userSearchTags: UserSearchReducer,
   opportunityTags: OpportunityReducer,
   receivedMessagesTags: MessageReducer,
+  claimProfileTags: ClaimProfileReducer,
   notificationTags: NotificationReducer,
   exploreTags: ExploreReducer,
   eventTags: EventReducer
@@ -52,10 +54,3 @@ export function reducer(state: any, action: any) {
     return developmentReducer(state, action);
   }
 }
-
-// export function reducer(state: any, action: any) {
-//   return productionReducer(state, action);
-// }
-
-// export const getMyChannel = (state: State) => state.profile.user_channel;
-// export const getMyProfile = (state: State) => state.profile.profile_navigation_details;

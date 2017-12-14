@@ -159,7 +159,6 @@ export class EventService {
    * DWC Form Reg @param value
    */
   dwcReg(value: any) {
-      return this.http.post(`${this.apiLink}/portal/application/postApplication`, value, { headers: this.headers })
-      .map((data: Response) => data.json());
+      return this.api.post( '/portal/application/postApplication', value);
   }
 }

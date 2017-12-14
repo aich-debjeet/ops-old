@@ -13,6 +13,7 @@ import { DwcProgressBarComponent } from './dwc-progress-bar/dwc-progress-bar.com
 import { DwcPaymentComponent } from './dwc-payment/dwc-payment.component';
 import { DwcSuccessComponent } from './dwc-success/dwc-success.component';
 import { DwcRegComponent } from './dwc-reg/dwc-reg.component';
+import { DwcCompletedComponent } from './dwc-completed/dwc-completed.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path: 'success',
     component: DwcSuccessComponent,
+  },
+  {
+    path: 'completed',
+    component: DwcCompletedComponent,
   }
 ]
 
@@ -52,7 +57,8 @@ const routes: Routes = [
     DwcProgressBarComponent,
     DwcPaymentComponent,
     DwcSuccessComponent,
-    DwcRegComponent
+    DwcRegComponent,
+    DwcCompletedComponent
   ]
 })
 export class DanceWorldCupModule { }
