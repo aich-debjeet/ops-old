@@ -17,6 +17,7 @@ import { ChannelSelectorComponent } from './channel-selector/channel-selector.co
 import { MediaViewComponent } from './media-view/media-view.component';
 import { CreateChannelComponent } from './create-channel/create-channel.component';
 import { EditChannelComponent } from './channel-edit/channel-edit.component';
+import { ChannelListComponent } from './channel-list/channel-list.component';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -95,7 +96,8 @@ const routes: Routes = [
     ChannelSelectorComponent,
     CreateChannelComponent,
     EditChannelComponent,
-    ReadMoreComponent
+    ReadMoreComponent,
+    ChannelListComponent
   ],
   exports: [
     MediaComponent,

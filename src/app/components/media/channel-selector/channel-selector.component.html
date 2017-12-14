@@ -1,218 +1,109 @@
-<div class="o-add-post-rightbar" [ngClass]="(settingDisable)? 'o-block__fade' : ''">
-  <div class="o-add-post__block">
-    <h4 class="c-text_lg-bold c-text-semibold">Add to Channel</h4>
-    <div class="o-channel-search">
-      <div class="c-form__group">
-        <input class="c-form__input"  type="text" #search>
-        <span class="c-form__highlight"></span>
-        <span class="c-form__bar"></span>
-        <label>Search</label>
-        <span><img src="/assets/img/svg/ico_search.svg" class="c-form__input--righticon"></span>
+<div class="o-add-media-channel">
+  <div class="col-md-12 p-0">
+    <div class="o-add-media-channel__head">
+      <div class="col-md-4 p-0">
+        <a class="c-text_lg o-add-media-channel__link" href="addmedia_more.html">
+          <div class="o-back-arrow"><img src="img/svg/back_arrow.svg" alt=""></div>
+        </a>
       </div>
-    </div>
-    <div class="o-channel-list-container">
-      <ul class="o-channel-block">
-        <li class="o-channel-items" *ngFor="let channel of userChannels | searchunique: 'spotfeedName' : search.value; let i = index">
-          <input class="" type="radio" name="channel" id="{{ 'channel_'+ i }}"   [disabled]="settingDisable" (click)="chooseChannel(channel)"/>
-          <label for="{{ 'channel_' + i }}" class="o-channel-label">
-            <span class="o-channel-content">
-              <span class="o-channel-content__thumb" *ngFor="let media of channel?.media | slice:0:1">
-                <img width="32" height="32" src="{{ baseUrl + media?.repoPath}}" alt="">
-              </span>
-              <span class="o-channel-content__thumb" *ngIf="(channel?.media).length === 0">
-                <img width="32" height="32" src="" alt="">
-              </span>
-              <span class="o-channel-content__name">
-                <p class="c-text_sm-light color-grey-dark">{{ channel?.spotfeedName}}</p>
-              </span>
-            </span>
-          </label>
-        </li>
-      </ul>
-    </div>
-    <div class="o-create-channel">
-      <a (click)="channelButton()" class="o-create-channel__link" >
-        <span class="o-create-channel__ico"><img width="17" src="/assets/img/svg/ico_create-plus.svg"></span>
-        <span class="o-create-channel__title">Create Channel</span>
-      </a>
-      <div id="create-channel" class="o-create-channel-container" *ngIf="channelCreatebtn">
-        <div class="o-create-channel__heading c-text_md">
-          Create Channel
-          <a class="o-media-pop__close" (click)="channelButton()"><img src="/assets/img/svg/ico_close-line.svg"></a>
+      <div class="col-md-4">
+        <div class="o-add-media-channel__head text-center">
+          <span class="c-text_lg o-add-media-channel__link">Select Channel</span>
         </div>
-        <div class="o-create-channel__form">
-          <div class="c-form__group o-create-channel__input">
-              <input class="c-form__input"  type="text" [(ngModel)]="channelName">
-              <span class="c-form__highlight"></span>
-              <span class="c-form__bar"></span>
-              <label>Name of channel</label>
-          </div>
-          <div class="o-create-channel__action">
-            <div class="dropdown" appDropdown>
-              <span class="com-head" appDropdownOpen>
-                <div class="o-action__ico">
-                  <img src="{{ (channelPrivacy == 0) ? '/assets/img/svg/ico_web.svg': '/assets/img/svg/Ico-private.svg' }}">
-                </div>
-                <div class="o-action__ico-arrow">
-                  <img src="/assets/img/svg/ico-arrow-down.svg">
-                </div>
-              </span>
-              <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                <li>
-                  <a class="c-opsdropdown__list" (click)="choosePrivacy(0)">
-                    <img src="/assets/img/svg/ico-public.svg" class="c-opsdropdown--icons">
-                    <span class="c-opsdropdown--text">Public</span>
-                  </a>
-                </li>
-                <li>
-                  <a  class="c-opsdropdown__list" (click)="choosePrivacy(1)">
-                    <img src="/assets/img/svg/Ico-private.svg" class="c-opsdropdown--icons">
-                    <span class="c-opsdropdown--text">Private</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="o-create-channel__btn">
-            <button type="button" class="btn btn-default btn-sm"  (click)="createChannel()">Save</button>
-          </div>
-        </div>
+      </div>
+      <div class="col-md-4 p-0 text-right">
       </div>
     </div>
   </div>
-  <div class="o-rightbar-footer with_border_top">
-    <div class="c-form__group">
-      <select class="c-form-control c-form-control--color">
-        <option value="1">Copyright and License type</option>
-        <option value="2">CC: Attribution Share Alike</option>
-        <option value="3">CC: Attribution Non-Derivative</option>
-        <option value="4">CC: Attribution-NonCommercial</option>
-        <option value="5">CC: Attribution-NonCommercial-ShareAlike</option>
-        <option value="6">CC: Attribution-NonCommercial-NoDerivs No License</option>
-      </select>
-    </div>
-    <div class="o-add-post-right__actions">
-      <div class="o-add-post__switch_btn">
-        <label class="o-add-post__switch">
-          <input type="checkbox" value="0">
-          <span class="o-add-post__slider o-add-post__round"></span>
-        </label>
+  <div class="col-md-12 p-0">
+    <div class="o-channel-search m-t-16">
+      <div class="c-form__group fill-grey-light">
+          <input class="c-form__input fpadding_l32 o-channel-input" required="" placeholder="Search" type="text">
+          <span><img src="/assets/ico_search.svg" class="c-form__input--lefticon"></span>
       </div>
-      <ul class="o-status-action ">
-        <li class="o-action-list">
-          <a class="o-action-help" href="javascript:void(0)" title="Contains nudity, Not Suitable For Work">NSFW <span class="help_ico">?</span></a>
-        </li>
-        <li class="o-action-list">
-          <div class="dropdown margin_l_16" appDropdown>
-            <span class="com-head" appDropdownOpen>
-              <div class="o-action__ico">
-                <img src="{{ (mediaPrivacy == 0) ? '/assets/img/svg/ico_web.svg': '/assets/img/svg/Ico-private.svg' }}">
-              </div>
-              <div class="o-action__ico-arrow">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="10px" viewBox="0 0 16 10" version="1.1"><defs/><g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><polyline id="Path-2-Copy" stroke="#ffffff" stroke-width="2" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"/></g></svg>
-              </div>
+    </div>
+    <ul class="o-channel-block">
+      <li class="o-channel-items" *ngFor="let channel of userChannels; let i = index">
+        <input class="" type="radio" name="channel" id="{{ 'channel_'+ i }}"   [disabled]="settingDisable" (click)="chooseChannel(channel)"/>
+        <label for="{{ 'channel_' + i }}" class="o-channel-label">
+          <span class="o-channel-content">
+            <span class="o-channel-content__thumb" *ngFor="let media of channel?.media | slice:0:1">
+              <img width="32" height="32" src="{{ baseUrl + media?.repoPath}}" alt="">
             </span>
-            <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-              <li>
-                <a (click)="mediaPrivacyToggle(0)" class="c-opsdropdown__list">
-                  <img src="/assets/img/svg/ico-public.svg" class="c-opsdropdown--icons">
-                  <span class="c-opsdropdown--text">Public</span>
-                </a>
+            <span class="o-channel-content__thumb" *ngIf="(channel?.media).length === 0">
+              <img width="32" height="32" src="" alt="">
+            </span>
+            <span class="o-channel-content__name">
+              <p class="c-text_sm-light color-grey-dark">{{ channel?.spotfeedName}}</p>
+            </span>
+            <span class="o-channel__private float_right">
+              <img src="img/svg/lock.svg" alt="" class="o-channel-private__img">
+              <img src="img/svg/ico_tick_white.svg" class="o-channel-private__img-tic">
+            </span>
+          </span>
+        </label>
+      </li>
+    </ul>
+    <div class="o-add-post-rightbar" [ngClass]="(settingDisable)? 'o-block__fade' : ''">
+        <div class="o-add-post__block" *ngIf="readyForChannels">
+          <h4 class="c-text_lg-bold c-text-semibold">Select Channel</h4>
+          <div class="o-channel-list-container">
+          </div>
+        </div>
+        <div class="o-rightbar-footer with_border_top" *ngIf="showNext === true">
+          <div class="c-form__group">
+            <select class="c-form-control c-form-control--color">
+              <option value="1">Copyright and License type</option>
+              <option value="2">CC: Attribution Share Alike</option>
+              <option value="3">CC: Attribution Non-Derivative</option>
+              <option value="4">CC: Attribution-NonCommercial</option>
+              <option value="5">CC: Attribution-NonCommercial-ShareAlike</option>
+              <option value="6">CC: Attribution-NonCommercial-NoDerivs No License</option>
+            </select>
+          </div>
+          <div class="o-add-post-right__actions">
+            <div class="o-add-post__switch_btn">
+              <label class="o-add-post__switch">
+                <input type="checkbox" value="0">
+                <span class="o-add-post__slider o-add-post__round"></span>
+              </label>
+            </div>
+            <ul class="o-status-action ">
+              <li class="o-action-list">
+                <a class="o-action-help" href="javascript:void(0)" title="Contains nudity, Not Suitable For Work">NSFW <span class="help_ico">?</span></a>
               </li>
-              <li>
-                <a (click)="mediaPrivacyToggle(1)" class="c-opsdropdown__list">
-                  <img src="/assets/img/svg/Ico-private.svg" class="c-opsdropdown--icons">
-                  <span class="c-opsdropdown--text">Private</span>
-                </a>
+              <li class="o-action-list">
+                <div class="dropdown margin_l_16" appDropdown>
+                  <span class="com-head" appDropdownOpen>
+                    <div class="o-action__ico">
+                      <img src="{{ (mediaPrivacy == 0) ? '/assets/img/svg/ico_web.svg': '/assets/img/svg/Ico-private.svg' }}">
+                    </div>
+                    <div class="o-action__ico-arrow">
+                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="10px" viewBox="0 0 16 10" version="1.1"><defs/><g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><polyline id="Path-2-Copy" stroke="#ffffff" stroke-width="2" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"/></g></svg>
+                    </div>
+                  </span>
+                  <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
+                    <li>
+                      <a (click)="mediaPrivacyToggle(0)" class="c-opsdropdown__list">
+                        <img src="/assets/img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                        <span class="c-opsdropdown--text">Public</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a (click)="mediaPrivacyToggle(1)" class="c-opsdropdown__list">
+                        <img src="/assets/img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                        <span class="c-opsdropdown--text">Private</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="o-action-list float-right">
+                <button type="button" class="btn btn-primary btn-md btn-inverse" [disabled]="settingDisable" (click)="postMedia($event)">Next</button>
               </li>
             </ul>
           </div>
-        </li>
-        <li class="o-action-list float-right">
-          <button type="button" class="btn btn-primary btn-md btn-inverse" [disabled]="settingDisable" (click)="postMedia($event)">POST</button>
-        </li>
-
-      </ul>
-    </div>
-  </div>
-</div>
-
-
-
-<!--<div id="choose_channel_details" style="">
-  <div class="add-post_choosechannel">
-    <div class="createchannel with_border_bottom">
-      <div class="createchannel">
-        <div (click)="showChannelForm()" class="icon__holder">
-          <span class="ico__add">
-            <img width="24" src="http://d33wubrfki0l68.cloudfront.net/ecd156ec380d4f55a1b0b797ccdef45d2fca54df/494c4/img/svg/ico_create-plus.svg">
-          </span>
-          <span class="ico__label">Create Channel</span>
-        </div>
-        <div *ngIf="addChannel" class="o-block_2 o-create_channel">
-          <form class="createchannelForm" [formGroup]="channelForm" novalidate #myform="ngForm">
-              <ul class="channel__form">
-                  <li class="channel_title">
-                    <div class="form_group">
-                      <input formControlName="title" class="form_input" required="" type="text">
-                      <span class="form_highlight"></span>
-                      <span class="form_bar"></span>
-                      <label>Title</label>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="form_group">
-                      <select formControlName="type" class="form-control form__select" id="sel1">
-                        <option value="">Industry</option>
-                        <option value="DANCE">Dance</option>
-                        <option value="MUSIC">Music</option>
-                        <option value="THEATRE">Theatre</option>
-                        <option value="CINEMA">Cinema</option>
-                        <option value="GRAPHICS">Graphics</option>
-                        <option value="FASHION">Fashion</option>
-                        <option value="TELEVISION">Television.</option>
-                        <option value="FINE_ARTS">Fine Arts</option>
-                        <option value="PHOTOGRAPHY">Photography</option>
-                        <option value="PRODUCTION">Production</option>
-                      </select>
-                    </div>
-                  </li>
-                  <li class="channel_desc">
-                    <div class="form_group">
-                      <textarea placeholder="Description" class="form__textarea" formControlName="desc" name="desc" id="" cols="30" rows="2"></textarea>
-                    </div>
-                  </li>
-                  <li class="list-inline-item discussion_post_topic">
-                    <div class="form_group">
-                      <select formControlName="privacy" class="form-control form__select" name="access"><br>
-                        <option value="0">Public</option>
-                        <option value="1">Private</option>
-                      </select>
-                    </div>
-                  </li>
-                  <li class="create_btn">
-                    <button class="btn btn-primary btn-sm" type="submit" (click)="createChannel(channelForm.value)">Create Channel</button>
-                  </li>
-              </ul>
-            </form>
         </div>
       </div>
-    </div>
   </div>
-  <div *ngFor="let channel of userChannels; let i = index" class="channel-list-show with_border_bottom">
-    <div class="channel-list-show_img">
-      <figure class="channel-list-show_img">
-          <a (click)="chooseChannel(channel)">
-            <img class="channel-list-show_img__img" *ngIf="channel.media[0]?.repoPath" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + channel.media[0]?.repoPath }}"/>
-            <div class="channel-list-show_img__empty" *ngIf="!channel.media[0]?.repoPath"></div>
-          </a>
-      </figure>
-    </div>
-    <div class="channel-list-show_txt">
-        <p>{{ channel.spotfeedName }}</p>
-    </div>
-    <div class="channel-list-show_btn" [ngClass]="{ 'sel': isChosenChannel(channel) === true }">
-        <a (click)="chooseChannel(channel)" type="button" class="btn btn-normal btn-sm">Select</a>
-    </div>
-  </div>
-</div>-->
+</div>

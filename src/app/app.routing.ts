@@ -42,7 +42,7 @@ export const routes: Routes = [
  { path: 'logout', component: LogoutComponent },
  { path: 'login', component: LoginComponent },
  { path: 'learn', component: LearnComponent, canActivate: [AuthGuard] },
- { path: 'channel/:id', component: ChannelInnerComponent },
+ { path: 'channel/:id', component: ChannelInnerComponent, canActivate: [AuthGuard] },
  { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },
  { path: 'account', loadChildren: './components/forgot-password/forgot-password.module#ForgotPasswordModule'},
  { path: 'home', loadChildren: './components/home/home.module#HomeModule', canActivate: [AuthGuard] },
@@ -72,7 +72,7 @@ export const routes: Routes = [
  { path: 'org', loadChildren: './components/organization/organization.module#OrganizationModule'},
  { path: 'opportunity', loadChildren: './components/opportunity/opportunity.module#OpportunityModule', canActivate: [AuthGuard] },
 //  { path: 'danceworldcup', component: DanceWorldCupComponent },
- { path: 'dwc', loadChildren: './components/dance-world-cup/dance-world-cup.module#DanceWorldCupModule' },
+ { path: 'dwc', loadChildren: './components/dance-world-cup/dance-world-cup.module#DanceWorldCupModule'},
  { path: 'page-not-found', component: NotFoundPageComponent },
  { path: '**', redirectTo: 'page-not-found' },
 ];

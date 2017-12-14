@@ -9,6 +9,7 @@ import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 export class BlogEditorComponent {
   chosenChannel: any = 0;
   @Input() userChannels;
+  isActive = false;
   constructor() {}
 
   getConfig() {

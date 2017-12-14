@@ -26,18 +26,19 @@ export class ChannelSelectorComponent implements OnInit {
   isChosen: boolean;
   @Output() onSelection: EventEmitter<any> = new EventEmitter();
   @Output() onChannelCreate: EventEmitter<any> = new EventEmitter();
+  @Output() onDone: EventEmitter<any> = new EventEmitter();
   @Output() onPostMedia: EventEmitter<any> = new EventEmitter();
   @Input() userChannels: any;
   @Input() settingDisable: boolean;
   counter: number;
-  channelCreatebtn: boolean = false;
+  channelCreatebtn: boolean;
   baseUrl = environment.API_IMAGE;
 
   channelName: String;
   channelPrivacy: any = 0;
-
   mediaPrivacy: any = 0;
-
+  readyForChannels: boolean;
+  showNext: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -45,6 +46,9 @@ export class ChannelSelectorComponent implements OnInit {
   ) {
       this.chosenChannel = null;
       this.counter = 0;
+      this.readyForChannels = false;
+      this.channelCreatebtn = false;
+      this.showNext = true;
       // this.createChannelForm();
   }
 
@@ -56,7 +60,7 @@ export class ChannelSelectorComponent implements OnInit {
   chooseChannel(channel: any) {
     this.chosenChannel = channel;
     this.onSelection.emit(channel);
-    console.log(this.chosenChannel);
+    this.onPostMedia.emit({});
   }
 
   choosePrivacy(value) {
@@ -68,11 +72,17 @@ export class ChannelSelectorComponent implements OnInit {
     console.log(value);
   }
 
+  /**
+   * Post Media
+   */
   postMedia(value) {
     const data = {
       privacy: this.mediaPrivacy,
     }
-    this.onPostMedia.emit(data);
+
+    this.readyForChannels = true;
+    this.showNext = false;
+    this.onDone.emit(this.readyForChannels);
   }
 
   /**
