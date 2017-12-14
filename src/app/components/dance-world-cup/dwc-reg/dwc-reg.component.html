@@ -4,9 +4,9 @@
     <div class="" *ngIf="isAuthed === false">
       <div class="container">
         <div class="placeholder">
-          <h4>You need to signed in to apply for Dance World Cup Qualifiers.</h4>
-          <a [routerLink]="['reg']" [queryParams]="{ ev: 'dwc2017' }" class="btn btn-primary">Signup</a>
-          <a [routerLink]="['login']" [queryParams]="{ next: 'dwc/reg' }" class="btn btn-secondary">Login</a>
+          <h4>You need to be signed in to apply for Dance World Cup India Qualifiers.</h4>
+          <a [routerLink]="['/reg']" [queryParams]="{ ev: 'dwc2017' }" class="btn btn-primary">Signup</a>
+          <a [routerLink]="['/login']" [queryParams]="{ next: 'dwc/reg' }" class="btn btn-secondary">Login</a>
           <a routerLink="/dwc/details" class="btn btn-secondary cleared">Back to Dance World Cup Details Page</a>
         </div>
       </div>

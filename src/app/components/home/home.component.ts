@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { Store } from '@ngrx/store';
 import { Channel } from '../../models/home.model';
 
@@ -10,11 +9,9 @@ import { SharedActions } from '../../actions/shared.action';
 
 import { ProfileModal, initialTag } from '../../models/profile.model';
 
-
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-
 
 
 @Component({
@@ -43,9 +40,7 @@ export class HomeComponent {
     // Own Profile
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
-      // console.log('state', state)
       this.userQuickAccess = state;
-      // console.log(this.userQuickAccess)
     });
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
