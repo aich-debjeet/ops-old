@@ -25,9 +25,7 @@ export class DwcProgressBarComponent implements OnInit {
     //   console.log(state)
     // })
 
-    this.store.select('profileTags')
-      .first(profile => profile['profile_navigation_details'].handle)
-      .subscribe( data => {
+    this.store.select('profileTags').take(3).subscribe(data => {
         this.dataDwc = data
         if (this.router.url !== '/dwc/details') {
           if (data['profile_navigation_details'].DWCcompleteStatus === 2) {
