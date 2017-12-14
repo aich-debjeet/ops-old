@@ -1,19 +1,31 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, NgZone, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { FormControl, AbstractControl } from '@angular/forms';
+
+// maps
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import {} from '@types/googlemaps';
 
 // action
 import { ProfileActions } from '../../../../actions/profile.action';
 import { OrganizationActions } from '../../../../actions/organization.action';
+import { SearchActions } from '../../../../actions/search.action';
 import { AuthActions } from '../../../../actions/auth.action';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+
+import { SearchModel } from 'app/models/search.model';
+import { environment } from './../../../../../environments/environment.prod';
 
 import { Organization, initialOrganization } from '../../../../models/organization.model';
 import { UtcDatePipe } from './../../../../pipes/utcdate.pipe';
 import { DatePipe } from '@angular/common';
 
 import { LocalStorageService } from './../../../../services/local-storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 import { initialTag, Follow } from '../../../../models/auth.model';
 import * as _ from 'lodash';
@@ -24,7 +36,9 @@ import * as _ from 'lodash';
   styleUrls: ['./org-about.component.scss'],
   providers: [ UtcDatePipe, DatePipe ]
 })
-export class OrgAboutComponent implements OnInit {
+export class OrgAboutComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('searchInput') searchInput;
 
   orgState$: Observable<Organization>;
   loginTagState$: Observable<any>;
@@ -40,15 +54,61 @@ export class OrgAboutComponent implements OnInit {
   aboutServices: any[];
   aboutServicesStr: string;
   aboutFoundedDate: any;
+  aboutAddress: any;
   // services: any[];
   profileUsername = '';
   profileHandle = '';
 
+  searchState$: Observable<SearchModel>;
+  searchState: any;
+  isSearching = false;
+  showPreloader = false;
+  searchString: string;
+  people = [];
+  inviteSent: boolean;
+
+  baseUrl = environment.API_IMAGE;
+
+  // map vars
+  public latitude: number;
+  public longitude: number;
+  public searchControl: FormControl;
+  public zoom: number;
+
+  // address
+  address: string;
+  country: string;
+  state: string;
+  postalCode: string;
+  city: string;
+  // searchLocation: String;
+
+  @ViewChild('searchLocation') searchLocation;
+
   constructor(
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
     private store: Store<Organization>,
     private localStorageService: LocalStorageService,
-    private datePipe: DatePipe
+    private toastr: ToastrService,
+    private datePipe: DatePipe,
+    private searchStore: Store<SearchModel>,
   ) {
+
+    /* member search */
+    this.searchState$ = this.searchStore.select('searchTags');
+    // observe the store value
+    this.searchState$.subscribe((state) => {
+      this.searchState = state;
+      if (state && state.searching_people === false) {
+        this.isSearching = false;
+        this.showPreloader = false;
+      }
+      if (state && state.search_people_data) {
+        this.people = state.search_people_data;
+      }
+    });
+    /* member search */
 
     // check if creator is user or organization
     if (localStorage.getItem('active_profile') !== null) {
@@ -68,10 +128,12 @@ export class OrgAboutComponent implements OnInit {
     this.orgState$ = this.store.select('profileTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      // console.log('this.orgProfile ABOUT ORG', this.orgProfile);
+      console.log('this.orgProfile ABOUT ORG', this.orgProfile);
       if (this.orgProfile && this.orgProfile['org_profile_update_success'] === true) {
         this.orgProfile.org_profile_update_success = false;
-        this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.profileUsername });
+        if (this.orgProfile && this.orgProfile['profile_navigation_details']['isOrganization'] === true) {
+          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.orgProfile['profile_organization']['extra']['username'] });
+        }
       }
       // for mobile
       if (this.orgProfile && this.orgProfile['profile_details']['contact']['mobile']['mobile']) {
@@ -108,8 +170,23 @@ export class OrgAboutComponent implements OnInit {
       }
       // for founded date
       if (this.orgProfile && this.orgProfile['profile_details']['activeFrom']) {
-        console.log('this.orgProfile.profile_details.activeFrom', this.orgProfile['profile_details']['activeFrom']);
+        // console.log('this.orgProfile.profile_details.activeFrom', this.orgProfile['profile_details']['activeFrom']);
         this.aboutFoundedDate = this.datePipe.transform(this.orgProfile['profile_details']['activeFrom'], 'dd-MM-yyyy');
+      }
+      // for address
+      if (this.orgProfile && this.orgProfile['profile_details']['extra']['address']['line1']) {
+        this.aboutAddress = this.orgProfile['profile_details']['extra']['address']['line1'];
+      }
+
+      // check for invite status
+      if (this.orgProfile && this.orgProfile['invite_sent'] === true && this.inviteSent === true) {
+        this.toastr.success('Invite sent successfully');
+        this.inviteSent = false;
+        // console.log(this.orgProfile['org_invite_req_data']);
+        const invitedUserHandle = this.orgProfile['org_invite_req_data'].userHandle;
+        // remove user from the list
+        this.people = _.filter(this.people, function(person) { return person.handle !== invitedUserHandle; });
+        // console.log('this.people', this.people);
       }
     });
     /* org state */
@@ -125,6 +202,7 @@ export class OrgAboutComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getLocationGoogle();
   }
 
   /**
@@ -241,6 +319,137 @@ export class OrgAboutComponent implements OnInit {
    */
   reverseDate(string) {
     return string.split('-').reverse().join('-');
+  }
+
+  ngAfterViewInit() {
+    /**
+     * Observing the search input change
+     */
+    this.searchInput.valueChanges
+    .debounceTime(500)
+    .subscribe(() => {
+
+      this.searchString = this.searchInput.value;
+      // console.log('searching: ', this.searchString);
+
+      // search if string is available
+      if (this.searchString && this.searchString.length > 0) {
+        // console.log('new search', this.searchString);
+        this.isSearching = true;
+
+        const searchParams = {
+          query: this.searchString,
+          offset: 0,
+          limit: 20
+        }
+
+        // search people
+        this.searchStore.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
+      }
+
+    });
+
+  }
+
+  /**
+   * Sending an invitation to the person
+   */
+  sendInvitation(person: any) {
+    console.log('send an invite ', person);
+
+    // get org handle
+    const orgHandle = localStorage.getItem('profileHandle');
+
+    this.inviteSent = true;
+
+    this.store.dispatch({
+      type: OrganizationActions.INVITE_MEMBER,
+      payload: {
+        userHandle: person.handle,
+        orgHandle: orgHandle
+      }
+    });
+  }
+
+  /**
+   * Location find from google
+   */
+  getLocationGoogle() {
+    // set google maps defaults
+    this.zoom = 4;
+    this.latitude = 39.8282;
+    this.longitude = -98.5795;
+
+    // create search FormControl
+    this.searchControl = new FormControl();
+
+    // set current position
+    this.setCurrentPosition();
+
+    // load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchLocation.nativeElement, {
+
+      });
+      console.log(autocomplete);
+      const componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'long_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+
+      autocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          // console.log(place);
+
+          for (let i = 0; i < place.address_components.length; i++) {
+            const addressType = place.address_components[i].types[0];
+            console.log(addressType);
+            if (componentForm[addressType]) {
+              const val = place.address_components[i][componentForm[addressType]];
+              if ( addressType === 'country') {
+                this.country = val;
+              }
+              if ( addressType === 'postal_code') {
+                this.postalCode = val;
+              }
+              if ( addressType === 'locality') {
+                this.city = val
+              }
+              if ( addressType === 'administrative_area_level_1') {
+                this.state = val
+              }
+            }
+          }
+
+          // verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          // set latitude, longitude and zoom
+          this.address = place.formatted_address;
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        });
+      });
+    });
+  }
+
+  private setCurrentPosition() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 12;
+      });
+    }
   }
 
 }

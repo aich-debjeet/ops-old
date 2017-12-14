@@ -47,6 +47,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   id: any;
   private sub: any;
   eventDetail: any;
+  eventCover: File;
 
   datePickerConfig: IDatePickerConfig = {
     firstDayOfWeek: 'mo',
@@ -89,16 +90,17 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       this.eventDetail = state['event_detail'];
     });
 
-    this.store.select('profileTags')
-      .first(profile => profile['profile_navigation_details'].handle )
-      .subscribe( data => {
-        this.userHandle = data['profile_navigation_details'].handle
-      });
-
     this.store.dispatch({ type: EventActions.GET_ALL_INDUSTRY });
   }
 
   ngOnInit() {
+    // load stuffs
+    this.store.select('profileTags')
+    .first(profile => profile['profile_navigation_details'].handle )
+    .subscribe( data => {
+      this.userHandle = data['profile_cards'].active.handle;
+      console.log(this.userHandle);
+    });
 
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -109,36 +111,62 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     this.buildForm();
   }
 
-  fileChangeListener($event) {
-      let image: any = new Image();
-      let file: File = $event.target.files[0];
-      let myReader: FileReader = new FileReader();
-      let that = this;
-      let val: any;
-      myReader.onloadend = function (loadEvent: any) {
-          image.src = loadEvent.target.result;
-          val = loadEvent.target.result;
-          that.image = loadEvent.target.result;
-          that.uploadCoverImage(loadEvent.target.result);
-      };
+  /**
+   * File Change Binder
+   * @param  $event
+   */
 
-      myReader.readAsDataURL(file);
+  fileChangeListener($event) {
+    const data = new FormData();
+
+    if ($event.target.files.length > 0) {
+      const randm = Math.random().toString(36).slice(2);
+      const fileName = 'prof_' + randm + '.' + 'jpg';
+
+      let file = $event.target.files[0];
+
+      const data = new FormData();
+      data.append('file', file, fileName );
+
+      // Display the key/value pairs
+
+      // Upload files
+      // console.log(data);
+      this.uploadCoverImage(data);
+    }
+
+
+    // const image: any = new Image();
+    // const file: File = $event.target.files[0];
+    // const myReader: FileReader = new FileReader();
+    // const that = this;
+    // let val: any;
+
+    // myReader.onloadend = function (loadEvent: any) {
+    //   image.src = loadEvent.target.result;
+    //   val = loadEvent.target.result;
+    //   that.image = loadEvent.target.result;
+    //   that.uploadCoverImage(loadEvent.target.result);
+    // };
+
+    // myReader.readAsDataURL(file);
   }
 
    /**
    * Upload Cover image
    */
-  uploadCoverImage(val) {
-      const imageData = {
-        handle: this.userHandle,
-        image: this.image.split((/,(.+)/)[1])
-      };
-      this.store.dispatch({ type: EventActions.FILE_UPLOAD, payload: imageData });
+  uploadCoverImage(fileObj) {
+    const imageData = {
+      handle: this.userHandle,
+      image: fileObj
+    };
+
+    this.store.dispatch({ type: EventActions.FILE_UPLOAD, payload: imageData });
 
     this.store.select('eventTags')
       .first(file => file['fileupload_success'] === true )
       .subscribe( data => {
-        this.eventCoverImage = data['fileUpload'].repoPath
+        this.eventCoverImage = data['fileUpload'][0].repoPath
       });
   }
 

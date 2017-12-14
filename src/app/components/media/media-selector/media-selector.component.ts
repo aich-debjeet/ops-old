@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { ProfileModal, initialTag } from '../../../models/profile.model';
+import { ProfileModal, initialTag, UserCard } from '../../../models/profile.model';
 import { ProfileActions } from '../../../actions/profile.action';
 import { SharedActions } from '../../../actions/shared.action';
 import FilesHelper from '../../.../../../helpers/fileUtils';
@@ -72,8 +72,8 @@ export class MediaSelectorComponent implements OnInit {
   submitEnabled: number;
   formMessages: string[];
 
-  tagState$: Observable<ProfileModal>;
-  private tagStateSubscription: Subscription;
+  profileState$: Observable<ProfileModal>;
+  private profileStateSubscription: Subscription;
   profileChannel = initialTag ;
   channeList: any;
 
@@ -82,6 +82,8 @@ export class MediaSelectorComponent implements OnInit {
   myProfileData: any;
   fileFormData: any;
   chooseChannelToggleState: boolean;
+  activeUser: UserCard;
+
   constructor(
     private Upload: NgxfUploaderService,
     private fb: FormBuilder,
@@ -120,25 +122,7 @@ export class MediaSelectorComponent implements OnInit {
       this.handle = '';
 
       this.myProfile$ = _store.select('profileTags').take(3);
-      this.tagState$ = this.profileStore.select('profileTags');
-      // this.test = 'salabeel';
-      this.tagState$.subscribe((state) => {
-        this.profileChannel = state;
-        // // Post states
-        this.postSuccess = this.profileChannel.media_channel_posted;
-        this.postSuccessActive = this.profileChannel.media_channel_posting;
-
-        if (this.postSuccessActive === true) {
-          this.toastr.success('Your media has been successfully posted to your channel', 'Upload');
-        }
-
-        if (this.profileChannel.user_channels_loaded) {
-          // console.log('CHANNEL', 'LOADED');
-          this.channeList = this.profileChannel.user_channel;
-        } else {
-          // console.log('CHANNEL', 'NOT LOADED');
-        }
-      });
+      this.profileState$ = this.profileStore.select('profileTags');
   }
 
   ngOnInit() {
@@ -146,18 +130,46 @@ export class MediaSelectorComponent implements OnInit {
     // this.myChannels$.subscribe(event => this.channeListx = event);
     this.myProfile$.subscribe(event => {
       this.myProfileData = event;
-      // If user is got
+
+      const activeUser = event.profile_cards.active;
+      this.activeUser = activeUser;
 
       let isUserReady;
       if (event.profile_navigation_details && event.profile_navigation_details.handle) {
-        // console.log('[-]');
-        this.handle = event.profile_navigation_details.handle;
+        this.handle = event.profile_cards.active.handle;
         isUserReady = true;
         this.loadChannel(this.handle);
       } else {
         // console.log('[x]');
       }
     });
+
+    /**
+     * Watch out for changes in store
+     */
+
+    this.profileState$.subscribe((state) => {
+
+      this.profileChannel = state;
+      // Post states
+      this.postSuccess = this.profileChannel.media_channel_posted;
+      this.postSuccessActive = this.profileChannel.media_channel_posting;
+
+      if (state['profile_cards'].active && (this.activeUser.handle !== state['profile_cards'].active.handle)) {
+        console.log('x');
+        // this.loadChannel(state['profile_cards'].active.handle);
+      }
+
+      if (this.postSuccessActive === true) {
+        this.toastr.success('Your media has been successfully posted to your channel', 'Upload');
+        this.postSuccessActive = false; // job done
+      }
+
+      if (this.profileChannel.user_channels_loaded) {
+        this.channeList = this.profileChannel.user_channel;
+      }
+    });
+
   }
 
   /**
@@ -369,12 +381,10 @@ export class MediaSelectorComponent implements OnInit {
    * onChannelCreation
    */
   onChannelCreation(event: any) {
-    console.log('ORDER RECIEVED TO CREATE CHANNEL', event);
-
     if (event) {
       // If handle is empty, append current handle
       // Give away what you have, humanity dear!
-      let newObj = event;
+      const newObj = event;
       newObj.owner = this.handle;
 
       if (newObj.owner) {
@@ -402,7 +412,6 @@ export class MediaSelectorComponent implements OnInit {
     this.profileStore.select('profileTags')
       .first(profile => profile['channel_saved'] === true )
       .subscribe( data => {
-        console.log('channel created');
         this.loadChannel(this.handle);
       });
   }
@@ -467,9 +476,6 @@ export class MediaSelectorComponent implements OnInit {
    * @param fileName
    */
   isSelectedFile(fileName) {
-    console.log('File Selected');
-    console.log(fileName);
-    console.log(fileName.type);
     if (this.editingFile.fileName !== null) {
       const selectedFile = this.editingFile.fileName;
       if (fileName === selectedFile) {
@@ -630,7 +636,6 @@ export class MediaSelectorComponent implements OnInit {
       this.uploadFile(files, this.token, userHandle)
     } else {
       this.uploadStatus = 0;
-      console.log('UPLOAD ERROR', this.uploadStatus);
     }
   }
 
@@ -665,10 +670,10 @@ export class MediaSelectorComponent implements OnInit {
         }
       },
       (err) => {
-        console.log(err);
+        //
       },
       () => {
-        console.log(' UPLOAD : COMPLETE ', userHandle);
+        //
       });
   }
 
@@ -676,8 +681,8 @@ export class MediaSelectorComponent implements OnInit {
    * Push to Upload List
    */
   addToUploads(uploads: any) {
-    let uploadsList = [];
-    for (let file of uploads) {
+    const uploadsList = [];
+    for (const file of uploads) {
       const thisFile = this.formatFile(file);
       uploadsList.push(thisFile);
     }

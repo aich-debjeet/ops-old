@@ -115,13 +115,13 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.USER_REGISTRATION_BASIC:
       return Object.assign({}, state, {
         success: true,
-        user_basic_reg_succs: false,
+        user_basic_reg_success: false,
       });
 
     case AuthActions.USER_REGISTRATION_BASIC_SUCCESS:
       return Object.assign({}, state, {
         completed: payload,
-        user_basic_reg_succs: true,
+        user_basic_reg_success: true,
         success: true,
         user_token: payload.access_Token
       });
@@ -130,7 +130,33 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       // console.log('registration Faild');
       // console.log(payload);
       return Object.assign({}, state, {
-        user_basic_reg_succs: false,
+        user_basic_reg_success: false,
+        success: false,
+        completed: payload
+      });
+
+    /**
+     * claiming exiting user
+     */
+    case AuthActions.USER_PROFILE_CLAIM:
+      return Object.assign({}, state, {
+        success: true,
+        user_basic_reg_success: false,
+      });
+
+    case AuthActions.USER_PROFILE_CLAIM_SUCCESS:
+      return Object.assign({}, state, {
+        completed: payload,
+        user_basic_reg_success: true,
+        success: true,
+        user_token: payload.access_Token
+      });
+
+    case AuthActions.USER_PROFILE_CLAIM_FAILED:
+      // console.log('registration Faild');
+      // console.log(payload);
+      return Object.assign({}, state, {
+        user_basic_reg_success: false,
         success: false,
         completed: payload
       });
@@ -439,10 +465,9 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         login_status: false
       });
 
-    // dwc event reg
-    case AuthActions.DWC_EVENT_REG_SUCCESS:
+    case AuthActions.DANCE_GET_INDUSTRY_SUCCESS:
       return Object.assign({}, state, {
-        dwc_event_reg_success: true
+        dance_cat: payload
       });
 
     default:

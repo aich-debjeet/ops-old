@@ -1,6 +1,6 @@
 import { AddTagsToVaultInput } from 'aws-sdk/clients/glacier';
 import { ActionReducer, Action } from '@ngrx/store';
-import { initialTag, ProfileModal } from '../models/profile.model';
+import { initialTag, ProfileModal, ProfileCards, UserCard} from '../models/profile.model';
 
 import { ProfileActions } from '../actions/profile.action';
 import { OrganizationActions } from '../actions/organization.action';
@@ -12,6 +12,64 @@ export interface State {
   current_user_profile: any,
   profile_navigation_details: any
 };
+
+/**
+ * Convert Profile to UserCard
+ */
+function genUserCard(profile: any, isOrg: boolean = true) {
+  if (!isOrg && profile['isOrganization'] === true) {
+    const org  = profile['organization'];
+    const oCard: UserCard = {
+      name: org.organizationName,
+      image: org.organizationImage,
+      username: org.organizationUserName,
+      handle: org.organizationHandle,
+      isOrg: true,
+      page_path: '/org/page',
+    }
+    return oCard;
+  } else {
+    const uCard: UserCard = {
+      name: profile.name,
+      image: profile.profileImage,
+      username: profile.username,
+      handle: profile.handle,
+      isOrg: false,
+      page_path: '/profile',
+    }
+    return uCard;
+  }
+}
+
+/**
+ * Get active profile type state
+ * @param profile_type Profile type; profile or organizaiton
+ */
+function getActiveProfile(profile_details: any, profile_type: string = 'profile') {
+  // Profile data is empty, try to get in from component state, or else fail miserably
+  let active, inactive, profile, organization;
+  profile = genUserCard(profile_details);
+  organization = genUserCard(profile_details, false)
+
+  // Unless organization default active is profile
+  switch (profile_type) {
+    case 'organization':
+      active = organization;
+      inactive = profile;
+      break;
+    default:
+      active = profile;
+      inactive = organization;
+  }
+
+  // Construct a Struct
+  const userCardsList: ProfileCards = {
+    active: active,
+    other: inactive
+  }
+
+  return userCardsList;
+}
 
 export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
@@ -48,10 +106,17 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_SUCCESS:
+      let cards;
+
+      // Get state from localstorage
+      const pType = localStorage.getItem('profileType') || 'profile';
+      cards = getActiveProfile(payload, pType);
+
       return Object.assign({}, state, {
         profile_navigation_details: payload,
         profile_loaded: true,
-        current_user_profile_loading: true
+        current_user_profile_loading: true,
+        profile_cards: cards
       });
 
     case ProfileActions.LOAD_CURRENT_USER_PROFILE_FAILED:
@@ -179,6 +244,40 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         user_posts_loaded: false,
         user_posts_loading: false
       });
+
+     /**
+     * Get User following Media Post
+     */
+    case ProfileActions.LOAD_USER_FOLLOWING_POSTS:
+    if (payload.page_start === 0) {
+      return Object.assign({}, state, {
+        user_following_posts_loading: true,
+        user_following_posts_loaded: false,
+        user_following_posts: []
+      });
+    }
+    return Object.assign({}, state, {
+      user_following_posts_loading: true,
+      user_following_posts_loaded: false
+    });
+
+
+  case ProfileActions.LOAD_USER_FOLLOWING_POSTS_SUCCESS:
+    const followingPosts = payload;
+    const following_new_post = state.user_following_posts.concat(followingPosts)
+    return Object.assign({}, state, {
+      mediaEntity: payload,
+      user_following_posts_loaded: true,
+      user_following_posts_loading: false,
+      user_following_posts: following_new_post
+    });
+
+  case ProfileActions.LOAD_USER_FOLLOWING_POSTS_FAILED:
+
+  return Object.assign({}, state, {
+    user_following_posts_loaded: false,
+      user_following_posts_loading: false
+    });
 
     /**
      * Get current User channel of profile
@@ -639,18 +738,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      *  Get List of Block Users
      */
     case ProfileActions.LOAD_BLOCK_USERS:
-    console.log('LOAD_BLOCK_USERS')
       return Object.assign({}, state, {
         blockedUsers: []
       });
 
     case ProfileActions.LOAD_BLOCK_USERS_SUCCESS:
-    console.log('LOAD_BLOCK_USERS_Success')
       return Object.assign({}, state, {
         blockedUsers: payload
       });
     case ProfileActions.LOAD_BLOCK_USERS_FAILED:
-    console.log('LOAD_BLOCK_USERS_FAILED')
       return Object.assign({}, state, {
       });
 
@@ -658,16 +754,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      *  UnBlock Users
      */
     case ProfileActions.UNBLOCK_USER:
-    console.log('UNBLOCK_USERS')
       return Object.assign({}, state, {
       });
 
     case ProfileActions.UNBLOCK_USER_SUCCESS:
-    console.log('UNBLOCK_USERS_Success')
       return Object.assign({}, state, {
       });
     case ProfileActions.UNBLOCK_USER_FAILED:
-    console.log('UNBLOCK_USERS_FAILED')
       return Object.assign({}, state, {
       });
 
@@ -782,7 +875,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case OrganizationActions.ORG_PROFILE_DETAILS_SUCCESS:
       return Object.assign({}, state, {
-        profile_details: payload
+        profile_details: payload,
+        profile_organization: payload
       });
 
     case OrganizationActions.ORGANIZATION_DELETE:
@@ -864,9 +958,54 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
     case OrganizationActions.LOAD_ORG_CHANNELS_FAILED:
-    return Object.assign({}, state, {
+      return Object.assign({}, state, {
         org_channels_loading: false,
         org_channels_loaded: false
+      });
+
+
+    case ProfileActions.CHANGE_PROFILE:
+      /**
+       * @TODO
+       * Make sure it is pure function
+       */
+      let profileType = 'profile';
+      if (payload.other.isOrg === true) {
+        profileType = 'organization';
+        localStorage.setItem('profileHandle', state.profile_navigation_details['organization']['organizationHandle']);
+        localStorage.setItem('profileUsername', state.profile_navigation_details['organization']['organizationUserName']);
+      } else {
+        localStorage.setItem('profileHandle', state.profile_navigation_details.handle);
+        localStorage.setItem('profileUsername', state.profile_navigation_details.username);
+      }
+
+      localStorage.setItem('profileType', profileType);
+      const profileData =  getActiveProfile(state.profile_navigation_details, profileType )
+
+      return Object.assign({}, state, {
+        profile_cards: profileData
+      });
+
+    /**
+     * Member invitation to join org
+     */
+    case OrganizationActions.INVITE_MEMBER:
+    return Object.assign({}, state, {
+        sending_invite: true,
+        invite_sent: false,
+        org_invite_req_data: payload
+    });
+
+    case OrganizationActions.INVITE_MEMBER_SUCCESS:
+    return Object.assign({}, state, {
+        sending_invite: false,
+        invite_sent: true
+    });
+
+    case OrganizationActions.INVITE_MEMBER_FAILED:
+    return Object.assign({}, state, {
+        sending_invite: false,
+        invite_sent: false
     });
 
     default:

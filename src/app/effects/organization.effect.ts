@@ -151,6 +151,18 @@ export class OrganizationEffect {
             .catch((res) => Observable.of({ type: OrganizationActions.LOAD_ORG_CHANNELS_FAILED, payload: res }))
         );
 
+    /**
+     * Sending invitation to join org
+     */
+    @Effect()
+    inviteMember$ = this._actions$
+        .ofType(OrganizationActions.INVITE_MEMBER)
+        .map(toPayload)
+        .switchMap((payload) => this._orgService.inviteMember(payload)
+            .map(res => ({ type: OrganizationActions.INVITE_MEMBER_SUCCESS, payload: res }))
+            .catch((res) => Observable.of({ type: OrganizationActions.INVITE_MEMBER_FAILED, payload: res }))
+        );
+
    constructor(
     private _actions$: Actions,
     private _orgService: OrganizationService,

@@ -38,7 +38,7 @@ case $DISTR in
           ng build --prod --aot --output-path=build/prod/
           echo "🚧   ---  Deploying Files   [ production ]"
           scp -i  $pem_path -r build/prod/* ec2-user@54.241.168.25:/var/www/onepagespotlight.com/public_html
-          ;; 
+          ;;
      *)
           echo "Not really an option"
           ;;

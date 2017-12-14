@@ -47,6 +47,48 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
         event_type: payload,
       });
 
+    case EventActions.DWC_CONTACT_FORM:
+      return Object.assign({}, state, {
+        dwc_contact_form_uploading: true,
+        dwc_contact_form_req_body: payload
+      });
+
+    case EventActions.DWC_CONTACT_FORM_SUCCESS:
+      return Object.assign({}, state, {
+        dwc_contact_form_uploading: false,
+        dwc_contact_form_res_body: payload,
+        dwc_contact_form_upload_success: true
+      });
+
+    case EventActions.DWC_CONTACT_FORM_FAILED:
+      return Object.assign({}, state, {
+        dwc_contact_form_uploading: false,
+        dwc_contact_form_upload_success: false
+      });
+
+    case EventActions.DWC_PAYMENT_REQUEST_SUCCESS:
+      return Object.assign({}, state, {
+        dwc_payment_url: payload,
+      });
+
+    // dwc event reg
+    case EventActions.DWC_EVENT_REG_SUCCESS:
+      return Object.assign({}, state, {
+        dwc_event_reg_success: true,
+      });
+
+    case EventActions.DWC_EVENT_REG_FAILED:
+      return Object.assign({}, state, {
+        dwc_event_reg_success: false,
+        err_msg: payload.statusText
+      });
+
+    case EventActions.DWC_EVENT_REG:
+      return Object.assign({}, state, {
+        dwc_event_reg_success: false,
+        err_msg: null
+      });
+
     default:
       return state;
 

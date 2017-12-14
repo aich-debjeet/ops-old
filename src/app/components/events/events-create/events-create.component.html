@@ -75,7 +75,7 @@
                   </p>
                 </div>
               </div><!-- Industry end -->
-               
+
 
               <div class="o-events-form__single">
                 <div class="col-md-3 p-0">
@@ -189,7 +189,7 @@
                     </a>
                   </div><!-- agenda add link end -->
                 </div>
-               
+
               </div><!-- Agenda end -->
 
               <div class="o-events-form__single">
@@ -234,17 +234,17 @@
           </div>
           <div class="col-md-4">
             <div class="o-event-form-upload-img">
-              <input type="file" class="o-event-upload__file" (change)="fileChangeListener($event)">
+              <input type="file" #fileupload [(ngModel)]="eventCover" [ngModelOptions]="{standalone: true}" class="o-event-upload__file" name="eventCover" (change)="fileChangeListener($event)">
               <div class="o-event-form-upload__container">
                 <img *ngIf="eventCoverImage" class="event-image" src="{{ baseUrl + eventCoverImage}}">
-                <div *ngIf="!image" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">Upload event image</div>
+                <div *ngIf="!eventCoverImage" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">Upload event image</div>
               </div>
             </div>
             <p class="c-text_sm text-center color-grey-dark o-event-upload__info">
               We recommend using at least a 800x400px (2:1)<br>image that's no larger than 10MB.
             </p>
           </div>
-              
+
           <div class="o-events-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-24 width100 float_left text_uppercase ltr-space">
             Ticket details
           </div><!-- subtitle end -->

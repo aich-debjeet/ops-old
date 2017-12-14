@@ -127,7 +127,7 @@ export class BasicRegTag {
   success = true;
   user_unique= false;
   access_Token?: String;
-  user_basic_reg_succs?: boolean;
+  user_basic_reg_success?: boolean;
   fb_pass_create_scs: boolean;
   user_otp_failed: boolean;
   user_otp_success: boolean;
@@ -145,4 +145,14 @@ export const initialBasicRegTag: BasicRegTag = {
   user_otp_success: false,
   user_number_cng_success: false,
   user_number_cng_failed: false
+}
+
+export class Dwc {
+  dwc_event_reg_success: boolean;
+  err_msg: String
+}
+
+export const danceWorldTag: Dwc = {
+  dwc_event_reg_success: false,
+  err_msg: null
 }

@@ -12,18 +12,21 @@ import { HomeChannelComponent } from './home-channel/home-channel.component';
 import { HomeSpotfeedComponent } from './home-spotfeed/home-spotfeed.component';
 import { HomeRightBlockComponent } from './home-right-block/home-right-block.component';
 import { SharedPipesModule } from '../../pipes/shared-pipes.module'
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // Guard
 import { AuthGuard } from './../../guard/auth.guard';
+import { HomePostComponent } from './home-post/home-post.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     children: [
-      { path: '', redirectTo: 'spotfeed'},
+      { path: '', redirectTo: 'channel'},
       { path: 'spotfeed', component: HomeSpotfeedComponent},
-      { path: 'channel', component: HomeChannelComponent}
+      { path: 'channel', component: HomeChannelComponent},
+      { path: 'post', component: HomePostComponent}
     ]
   }
 ]
@@ -34,6 +37,7 @@ const routes: Routes = [
     SharedModule,
     MasonryModule,
     SharedPipesModule,
+    InfiniteScrollModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
@@ -41,6 +45,7 @@ const routes: Routes = [
     HomeChannelComponent,
     HomeSpotfeedComponent,
     HomeRightBlockComponent,
+    HomePostComponent,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 

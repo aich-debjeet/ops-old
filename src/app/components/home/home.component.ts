@@ -43,12 +43,13 @@ export class HomeComponent {
     // Own Profile
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
-      console.log('state', state)
+      // console.log('state', state)
       this.userQuickAccess = state;
-      console.log(this.userQuickAccess)
+      // console.log(this.userQuickAccess)
     });
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
+    // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
   }
 
   /**

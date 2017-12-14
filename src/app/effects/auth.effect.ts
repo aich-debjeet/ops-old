@@ -110,6 +110,15 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.USER_REGISTRATION_BASIC_FAILED, payload: res }))
     );
 
+  @Effect()
+  claimUserProfile$ = this.actions$
+    .ofType(AuthActions.USER_PROFILE_CLAIM)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.claimUserProfile(payload)
+      .map(res => ({ type: AuthActions.USER_PROFILE_CLAIM_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.USER_PROFILE_CLAIM_FAILED, payload: res }))
+    );
+
 
   @Effect()
   checkOtp$ = this.actions$
@@ -317,13 +326,14 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.USER_LOGGED_IN_FAILED, payload: res }))
     );
 
+  // Dance Industry
   @Effect()
-  eventDwcReg$ = this.actions$
-    .ofType(AuthActions.DWC_EVENT_REG)
+  danceIindustry$ = this.actions$
+    .ofType(AuthActions.DANCE_GET_INDUSTRY)
     .map(toPayload)
-    .switchMap((payload) => this.authService.dwcReg(payload)
-      .map(res => ({ type: AuthActions.DWC_EVENT_REG_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: AuthActions.DWC_EVENT_REG_FAILED, payload: res }))
+    .switchMap((payload) => this.authService.danceIndustry()
+      .map(res => ({ type: AuthActions.DANCE_GET_INDUSTRY_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.DANCE_GET_INDUSTRY_FAILED, payload: res }))
     );
 
   constructor(

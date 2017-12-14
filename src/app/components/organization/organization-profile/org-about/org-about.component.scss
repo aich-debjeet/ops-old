@@ -5,12 +5,17 @@
 @import './src/assets/scss/base/_typography.scss';
 // about
 
+.show {
+	display: block !important;
+}
+
 .o-org-about{
 	width: 98%;
 	background: #fff;
 	padding:16px 16px 32px;
 	border-radius: $border-radius3;
 	float: left;
+	margin-bottom: 200px;
 }
 
 // form containers
@@ -109,3 +114,20 @@
     transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 
+.c-invite__sec {
+	height: auto;
+	overflow: hidden;
+}
+
+.c-artist__img {
+	width: 100%;
+}
+
+.invite-div {
+	max-height: 300px;
+	overflow: auto;
+}
+
+a {
+	cursor: pointer;
+}

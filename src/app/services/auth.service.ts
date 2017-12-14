@@ -73,6 +73,13 @@ export class AuthService {
       return this.api.post('/portal/auth/user', req);
     }
 
+    /**
+     * claiming user porfile
+     */
+    claimUserProfile(reqBody: any) {
+      return this.api.put('/portal/auth/user/update/handle/' + reqBody.handle, JSON.stringify(reqBody));
+    }
+
     registerProfile(req: any) {
       return this.api.put('/portal/auth/user/update', JSON.stringify(req) );
     }
@@ -267,11 +274,8 @@ export class AuthService {
       return this.http.get(`${this.apiLink}/portal/auth/loggedUser`, { headers: this.headers });
     }
 
-    /**
-     * DWC Form Reg @param value
-     */
-    dwcReg(value: any) {
-        return this.http.post(`${this.apiLink}/portal/application/postApplication`, value, { headers: this.headers })
-        .map((data: Response) => data.json());
+    danceIndustry() {
+      this.updateAuthHeaders();
+      return this.http.get(`${this.apiLink}/portal/industry?industryType=dwc`, { headers: this.headers });
     }
 }

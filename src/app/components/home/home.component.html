@@ -2,16 +2,13 @@
 <!-- primary navigation -->
 <section class="o-home-top-block">
     <div class="container">
-        <!-- <img src="/assets/img/home/Banner.jpg"> -->
         <h2 class="c-h2 o-home-main__title color-white">
             Dance world cup 2018
         </h2>
         <p class="c-text_lg color-white m-t-8">
             This is the greatest all-genre dance competition in the world for children and young adults.
         </p>
-
         <button type="button" [routerLink]="['/danceworldcup']" class="btn btn-primary btn-sm btn-inverse m-t-8"> Read More</button>
-
         <div class="o-hosted-by m-t-32">
             <p class="c-text_sm color-white text_uppercase m-b-8">Hosted by</p>
             <a class="o-hosted-logos">
@@ -21,7 +18,6 @@
                 <img width="36" src="/assets/img/home/lvds_logo.png" alt="">
             </a>
         </div>
-
     </div>
 </section>
 <!---- opportunity top block end ---->
@@ -34,7 +30,7 @@
                 Quick Access
             </div>
             <div class="c-qt">
-                <app-quick-access *ngFor="let quickAccess of userQuickAccess.userQuickAccess; let i = index" [quickAccessData]="quickAccess"></app-quick-access>
+                <app-quick-access *ngFor="let quickAccess of userQuickAccess.userQuickAccess | slice:0:10; let i = index" [quickAccessData]="quickAccess"></app-quick-access>
             </div>
         </div>
         <div class="o-home-tab-sec with_border_top c-ops__tabs o-opportunity-tabs">
@@ -42,7 +38,8 @@
                 <!-- <div class="home_tabs"> -->
                 <ul class="nav nav-tabs">
                     <li class="" routerLinkActive="active"><a data-toggle="tab" aria-expanded="true" [routerLink]="['channel']">Channel</a></li>
-                    <li class="" routerLinkActive="active"><a data-toggle="tab" [routerLink]="['spotfeed']">Spotfeed</a></li>
+                    <!-- <li class="" routerLinkActive="active"><a data-toggle="tab" [routerLink]="['spotfeed']">Spotfeed</a></li> -->
+                    <li class="" routerLinkActive="active"><a data-toggle="tab" [routerLink]="['post']">Post</a></li>
                 </ul>
                 <!-- <router-outlet></router-outlet> -->
                 <!-- <div class="col-md-9 p-0">

@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
-import { ProfileModal, initialTag } from '../../../models/profile.model';
+import { ProfileModal, initialTag, UserCard } from '../../../models/profile.model';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -32,6 +32,7 @@ export class StatusEditorComponent {
   baseUrl = environment.API_IMAGE;
   privacy: any = 0;
   statusMessage: string;
+  activeUser: UserCard;
 
   profileState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
@@ -51,7 +52,8 @@ export class StatusEditorComponent {
     // Profile
     this.profileState$.subscribe((state) => {
       this.profileStore = state;
-      console.log(this.profileStore);
+      const activeUser = this.profileStore.profile_cards.active;
+      this.activeUser = activeUser;
     });
     // Media
     this.mediaState$.subscribe((state) => {

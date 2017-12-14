@@ -10,6 +10,11 @@ export class ProfileActions {
   static LOAD_CURRENT_USER_PROFILE_FAILED = 'LOAD_CURRENT_USER_PROFILE_FAILED';
 
   /**
+   * Change Between Profile & Organization
+   */
+  static CHANGE_PROFILE = 'CHANGE_PROFILE';
+
+  /**
    * Load spotfeed details
    */
   static GET_SPOTFEED_DETAILS = 'GET_SPOTFEED_DETAILS';
@@ -64,6 +69,13 @@ export class ProfileActions {
   static LOAD_USER_MEDIA = 'LOAD_USER_MEDIA';
   static LOAD_USER_MEDIA_SUCCESS = 'LOAD_USER_MEDIA_SUCCESS';
   static LOAD_USER_MEDIA_FAILED = 'LOAD_USER_MEDIA_FAILED';
+
+    /**
+   * Load logged in users foolowing posts
+   */
+  static LOAD_USER_FOLLOWING_POSTS = 'LOAD_USER_FOLLOWING_POSTS';
+  static LOAD_USER_FOLLOWING_POSTS_SUCCESS = 'LOAD_USER_FOLLOWING_POSTS_SUCCESS';
+  static LOAD_USER_FOLLOWING_POSTS_FAILED = 'LOAD_USER_FOLLOWING_POSTS_FAILED';
 
   /**
    * Load logged in profile update
@@ -275,6 +287,16 @@ export class ProfileActions {
   static DEFAULT_NOTIFICATION_SETTINGS_SUCCESS = 'DEFAULT_NOTIFICATION_SETTINGS_SUCCESS';
   static DEFAULT_NOTIFICATION_SETTINGS_FAILED = 'DEFAULT_NOTIFICATION_SETTINGS_FAILED';
 
+  // /**
+  //  * Change Profile
+  //  */
+  // changeProfile(value): Action {
+  //   return {
+  //     type: ProfileActions.CHANGE_PROFILE,
+  //     payload: { value }
+  //   };
+  // }
+
   /**
    * Load Current user profile
    */
@@ -366,6 +388,31 @@ export class ProfileActions {
   getUserMediaFailed(error: any): Action {
     return {
       type: ProfileActions.LOAD_USER_MEDIA_FAILED,
+      payload: error
+    };
+  }
+
+    /**
+   * Get logged in users following posts
+   * @param value
+   */
+  getUserFollowingPosts(value): Action {
+    return {
+      type: ProfileActions.LOAD_USER_FOLLOWING_POSTS,
+      payload: { value }
+    };
+  }
+
+  getUserFollowingPostsSuccess(value): Action {
+    return {
+      type: ProfileActions.LOAD_USER_FOLLOWING_POSTS_SUCCESS,
+      payload: { value }
+    };
+  }
+
+  getUserFollowingPostsFailed(error: any): Action {
+    return {
+      type: ProfileActions.LOAD_USER_FOLLOWING_POSTS_FAILED,
       payload: error
     };
   }
@@ -701,14 +748,14 @@ export class ProfileActions {
         type: ProfileActions.LOAD_BLOCK_USERS
       };
     }
-    
+
     getBlockedUsersSuccess(value): Action {
       return {
         type: ProfileActions.LOAD_BLOCK_USERS_SUCCESS,
         payload: { value }
       };
     }
-    
+
     getBlockedUsersFailed(error: any): Action {
       return {
         type: ProfileActions.LOAD_BLOCK_USERS_FAILED,

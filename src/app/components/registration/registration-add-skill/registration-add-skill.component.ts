@@ -92,7 +92,7 @@ export class RegistrationAddSkillComponent implements OnInit {
       .first(auth => auth['userSkillsSaveSuccess'] )
       .subscribe( data => {
         if (this.interest === 'true') {
-          this.router.navigateByUrl('/dwc');
+          this.router.navigateByUrl('/dwc/reg');
           return
         }
 
