@@ -226,7 +226,7 @@ export class MediaSelectorComponent implements OnInit {
    * Get thumb image
    */
   getThumb(src: string, showThumb: boolean = false) {
-    const basePath = 'http://d206s58i653k1q.cloudfront.net/';
+    const basePath = this.baseUrl;
     const patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
     const m3 = (src).match(patt1);
     if (showThumb === true) {
