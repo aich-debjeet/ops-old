@@ -36,13 +36,17 @@
                         <label for="{{ 'channel_' + i }}" class="o-channel-label" (click)="chooseChannel(channel)">
                           <span class="o-channel-content">
                             <span class="o-channel-content__thumb" *ngFor="let media of channel?.media | slice:0:1">
-                              <img width="32" height="32" src="{{ getThumb(media?.repoPath, true) }}" alt="">
+                              <div class="emptyImage">
+                                <div *ngIf="media?.repoPath">
+                                  <img width="32" height="32" src="{{ getThumb(media?.repoPath, true) }}" alt="">
+                                </div>
+                              </div>
                             </span>
+                            <span class="o-channel-content__thumb" *ngIf="channel?.media.length < 1"></span>
                             <span class="o-channel-content__name">
                               <p class="c-text_lg o-channel__font--color">{{ channel?.spotfeedName}}</p>
                             </span>
                             <span class="o-channel__private float_right">
-                              <img src="http://ops-v2.netlify.com/img/svg/lock.svg" alt="" class="o-channel-private__img">
                               <img src="http://ops-v2.netlify.com/img/svg/ico_tick_white.svg" class="o-channel-private__img-tic">
                             </span>
                           </span>
@@ -53,8 +57,8 @@
             </div>
 
 
-            <a class="o-create-channel__link">
-              <span class="o-create-channel__ico"><img src="img/svg/ico_create-plus.svg" width="17"></span>
+            <a class="o-create-channel__link" (click)="changeFrame(3)">
+              <span class="o-create-channel__ico"><img src="http://ops-v2.netlify.com/img/svg/ico_create-plus.svg" width="17"></span>
               <span class="o-create-channel__title">Create Channel</span>
             </a>
           </div>

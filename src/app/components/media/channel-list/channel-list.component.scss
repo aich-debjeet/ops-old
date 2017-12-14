@@ -39,10 +39,11 @@
 .fpadding_l32 {
   padding-left: 32px;
 }
-.c-form__input {
+
+.c-form__input{
   font-size: 13px;
   padding: 10px 10px 2px 0px;
-  padding-left: 0px;
+  padding-left: 32px;
   display: block;
   width: 100%;
   border: none;
@@ -50,6 +51,8 @@
   border-bottom: 1px solid #929292;
   background: none;
   line-height: 20px;
+  padding-top: 10px;
+  padding-bottom: 8px;
 }
 
 .o-channel-label {
@@ -64,7 +67,7 @@
   border-radius: 3px;
   overflow: hidden;
   margin-right: 16px;
-  background: #333;
+  background: #eee;
 }
 
 .c-text_lg,
@@ -137,4 +140,62 @@ input[type="radio"] + label {
   width: 100%;
   border-radius: 3px;
   padding: 8px;
+}
+
+.emptyImage {
+  width: 32px;
+  height:32px;
+  background-color: #eee;
+}
+
+.o-channel-private__img-tic {
+  display: none;
+}
+.o-channel-items:hover {
+  label{
+    background-color: #FF7B84;
+  }
+  .o-channel-private__img-tic {
+    display: block;
+  }
+}
+
+
+.o-channel-content__thumb img {
+  width: auto;
+  height: 100%;
+}
+
+
+
+.o-create-channel__link {
+  padding-left: 100px;
+  border-top: solid 1px #eee;
+  width: 100%;
+  display: block;
+  overflow: auto;
+  padding-top: 18px;
+}
+
+.o-create-channel__title {
+  font-size: 14px;
+  color: #FF7B84;
+  font-weight: normal;
+  float: left;
+  padding-left: 7px;
+  margin-top: -1px;
+}
+
+.o-create-channel__ico {
+  display: inline-block;
+  float: left;
+  margin-right: 0.5rem;
+}
+
+
+.c-form__input--lefticon {
+  margin-top: -25px;
+  position: absolute;
+  width: 12px;
+  margin-left: 12px;
 }

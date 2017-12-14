@@ -11,7 +11,6 @@
 <section class="o-add-media" *ngIf="uploadState === 1">
   <div class="container">
     <div class="row">
-        <div class="col-md-1"></div>
         <div class="col-md-7 p-0" *ngIf="uploadState === 1">
           <div class="o-add-media__block" [ngClass]="(uploadedFiles.length === 0)? 'o-block__fade' : ''">
             <div class="">
@@ -170,13 +169,72 @@
 
 <section class="Select__channel" *ngIf="uploadState === 2">
   <div class="container">
-    <app-channel-list
-      [userChannels]="channeList"
-      [settingDisable]="uploadedFiles.length === 0"
-      (onPostMedia)="postAllMedia($event)"
-      (onSelection)="onChannelSelection($event)"
-      (onChangeContext)="changeState($event)"></app-channel-list>
+    <div class="o-add-media">
+      <app-channel-list
+        [userChannels]="channeList"
+        [settingDisable]="uploadedFiles.length === 0"
+        (onPostMedia)="postAllMedia($event)"
+        (onSelection)="onChannelSelection($event)"
+        (onChangeContext)="changeState($event)"></app-channel-list>
+      </div>
   </div>
+</section>
+
+
+<section class="Select__channel" *ngIf="uploadState === 3">
+    <div class="container">
+        <div class="o-add-media">
+          <div class="o-add-media-channel-main">
+          <div class="o-create-channel">
+          <div id="create-channel" class="o-create-channel-container">
+            <a class="c-text_lg o-add-media-channel__link" (click)="changeState(2)">
+              <div class="o-back-arrow">
+                <img src="http://ops-v2.netlify.com/img/svg/back_arrow.svg" alt="">
+              </div>
+            </a>
+            <div class="o-create-channel__heading c-text_md">Create Channel</div>
+            <form [formGroup]="channelForm" novalidate #myform="ngForm">
+              <div class="o-create-channel__form">
+                <div class="c-form__group m-b-16">
+                    <input class="c-form__input" formControlName="title" type="text">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <label>Channel Name</label>
+                </div>
+                <div class="c-form__group m-b-16">
+                    <textarea formControlName="desc" class="c-textarea__block c-textarea--style " rows="4" data-min-rows="0" placeholder="About channel"></textarea>
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <!-- <label>About channel</label> -->
+                </div>
+                <div class="channel-industry__block ">
+                    <div class="c-form__group">
+                        <select formControlName="type" class="c-form-control p-0" id="sel1">
+                            <option selected="selected">Industry</option>
+                            <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="channel-public__block p-0">
+                    <div class="c-form__group">
+                        <select formControlName="privacy" class="c-form-control p-0" id="sel1">
+                            <option value="0">Public</option>
+                            <option value="1">Private</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12 p-0 text-right m-t-32">
+                    <button type="button" class="btn btn-default btn-md m-r-16" (click)="changeState(2)">Cancel</button>
+                    <button type="button" class="btn btn-primary btn-md" (click)="createChannel(channelForm.value)">Create</button>
+                </div>
+            </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+      </div>
+    </div>
 </section>
 
 

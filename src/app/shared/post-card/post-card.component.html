@@ -3,8 +3,7 @@
   <!-- card media (img, video & audio) -->
   <div class="c-card__media">
     <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
-      <img *ngIf="checkFileType(mediaData?.repopath, 'Video')" src="{{ getThumb(mediaData?.repopath, true) }}" class="img-responsive c-card__image">
-      <!-- <app-videplayer *ngIf="checkFileType(mediaData?.repopath, 'Video')" src="{{ getThumb(mediaData?.repopath, true) }}"></app-videplayer> -->
+      <app-videplayer *ngIf="checkFileType(mediaData?.repopath, 'Video')" src="{{ imageLink + mediaData?.repopath }}"></app-videplayer>
       <img *ngIf="checkFileType(mediaData?.repopath, 'Image')" src="{{ imageLink + mediaData?.repopath }}" class="img-responsive c-card__image">
       <app-audioplayer class="audio" *ngIf="checkFileType(mediaData?.repopath, 'Audio')" src="{{ imageLink + mediaData?.repopath }}" type="simple"></app-audioplayer>
     </a>
