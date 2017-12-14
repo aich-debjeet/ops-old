@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { Register, UserTag, initialTag, RightBlockTag, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
+import { ClaimProfileModel } from 'app/models/claim-profile.model';
 import { AuthRightBlockComponent } from '../../../shared/auth-right-block/auth-right-block.component';
 import { CountrySelectorComponent } from '../../../shared/country-selector/country-selector.component';
 
@@ -23,6 +24,9 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/timer'
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/take'
+import { ClaimProfileActions } from 'app/actions/claim-profile.action';
+
+import * as _ from 'lodash';
 
 export class RegValue {
   mainTitle: string;
@@ -45,12 +49,16 @@ export class RegistrationBasicComponent implements OnInit {
   isPhotoAdded: boolean;
   passwordShow = false;
   country: any;
-  saveUsername: boolean = true;
+  saveUsername = true;
   routeQuery: any;
-
+  claimProfile: any;
+  userSearchEnabled = true;
+  hideProfiles = false;
 
   rightCom: RightBlockTag;
   tagState$: Observable<BasicRegTag>;
+  claimProfileState$: Observable<ClaimProfileModel>;
+  claimProfileState: any;
   private tagStateSubscription: Subscription;
   petTag = initialBasicRegTag;
   Suggested: String[];
@@ -76,6 +84,7 @@ export class RegistrationBasicComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private store: Store<BasicRegTag>,
+    private claimProfileStore: Store<ClaimProfileModel>,
     private element: ElementRef,
     private databaseValidator: DatabaseValidator,
     private http: Http,
@@ -101,6 +110,15 @@ export class RegistrationBasicComponent implements OnInit {
 
     console.log(currentUrl);
 
+    /**
+     * Claim profile state check
+     */
+    this.claimProfileState$ = claimProfileStore.select('claimProfileTags');
+    this.claimProfileState$.subscribe((state) => {
+      this.claimProfileState = state;
+      this.hideProfiles = false;
+      console.log('this.claimProfileState', this.claimProfileState);
+    });
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
@@ -133,6 +151,21 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    /**
+     * Listening for the name value
+     */
+    this.regFormBasic.get('name').valueChanges.debounceTime(200).subscribe((searchProfileName) => {
+      if (this.userSearchEnabled) {
+        // console.log('trigger search', searchProfileName);
+        this.claimProfileStore.dispatch({
+          type: ClaimProfileActions.SEARCH_PROFILE,
+          payload: searchProfileName
+        });
+      }
+    });
+
+
     this.rightCom = {
       mainTitle: 'Create Your Account',
       secondHead: '',
@@ -347,17 +380,19 @@ export class RegistrationBasicComponent implements OnInit {
    * @param value
    */
   submitForm(value) {
-    console.log(this.regFormBasic.valid);
+
+    // console.log(this.regFormBasic.valid);
     // checking if all required fields with valid info available before submitting the form
     if (!this.regFormBasic.valid) {
       // console.log('invalid form');
       return false;
     }
 
+    // console.log('user type normal');
     // form object
     const form =  {
       'name': {
-      'firstName': value.name
+        'firstName': value.name
       },
       'username': value.username,
       'profileImage': '',
@@ -378,11 +413,25 @@ export class RegistrationBasicComponent implements OnInit {
           }],
         'dateOfBirth': this.reverseDate(value.dob) + 'T05:00:00',
       }
+    };
+
+    if (typeof this.claimProfile !== 'undefined') {
+      console.log('user type claimed', this.claimProfile);
+
+      form.other['isImported'] = false;
+      form['handle'] = this.claimProfile.handle;
+      // claim user profile
+      this.store.dispatch({ type: AuthActions.USER_PROFILE_CLAIM, payload: form });
+
+    } else {
+
+      // register new user
+      this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
+
     }
 
-    this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
     this.store.select('loginTags').take(2).subscribe(data => {
-        if (data['user_basic_reg_succs'] === true ) {
+        if (data['user_basic_reg_success'] === true ) {
           console.log('success otp');
           if (data && data['user_token']) {
               localStorage.setItem('access_token', data['user_token']);
@@ -421,5 +470,36 @@ export class RegistrationBasicComponent implements OnInit {
   saveCountry(country: any) {
     console.log(country);
     this.country = country;
+  }
+
+  /**
+   * Select the profile from the list
+   */
+  selectProfile(profileHandle: string) {
+    this.userSearchEnabled = false;
+    // console.log('disable search');
+    setTimeout(() => {
+      this.userSearchEnabled = true;
+      // console.log('enable search');
+    }, 3000);
+    if (profileHandle && this.claimProfileState.claim_profiles.length > 0) {
+      this.claimProfile = _.find(this.claimProfileState.claim_profiles, { 'handle': profileHandle });
+      // console.log('profile found', this.claimProfile);
+
+      this.regFormBasic.controls['name'].setValue(this.claimProfile['name']);
+      this.regFormBasic.controls['username'].setValue(this.claimProfile['extra']['username']);
+      this.regFormBasic.controls['email'].setValue(this.claimProfile['email']);
+      this.regFormBasic.controls['phone'].setValue(this.claimProfile['contact']['mobile']['mobile']);
+
+      this.claimProfileState.claim_profiles = [];
+    }
+    this.triggerHideProfiles();
+  }
+
+  triggerHideProfiles() {
+    setTimeout(() => {
+      this.hideProfiles = true;
+    }, 500);
+    // console.log('hide profiles');
   }
 }

@@ -110,6 +110,15 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.USER_REGISTRATION_BASIC_FAILED, payload: res }))
     );
 
+  @Effect()
+  claimUserProfile$ = this.actions$
+    .ofType(AuthActions.USER_PROFILE_CLAIM)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.claimUserProfile(payload)
+      .map(res => ({ type: AuthActions.USER_PROFILE_CLAIM_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.USER_PROFILE_CLAIM_FAILED, payload: res }))
+    );
+
 
   @Effect()
   checkOtp$ = this.actions$
