@@ -82,21 +82,33 @@ export class ExploreComponent implements OnInit {
       console.log('this.exploreState', this.exploreState);
 
       // get all spotfeeds
-      if (state && state.spotfeeds && state.spotfeeds.SUCCESS) {
-        this.allSpotfeeds = state.spotfeeds.SUCCESS;
+      if (state && state.explore_spotfeeds && state.explore_spotfeeds) {
+        this.allSpotfeeds = state.explore_spotfeeds;
         console.log('all spotfeeds', this.allSpotfeeds);
 
         // preparing the pagination reference var
         if (this.pagination && this.pagination.length === 0) {
           // console.log('set pagination');
-          this.allSpotfeeds.forEach((value, index) => {
+          // this.allSpotfeeds.forEach((value, index) => {
+          //   const refData = {
+          //     limit: 0,
+          //     type: value.industry,
+          //     offset: this.recordsPerPage
+          //   };
+          //   this.pagination.push(refData);
+          // });
+          for (let i = 0; this.allSpotfeeds.length > i; i++) {
+            console.log('this.allSpotfeeds[i]', this.allSpotfeeds[i]);
             const refData = {
               limit: 0,
-              type: value.industry,
+              type: this.allSpotfeeds[i].industryType,
               offset: this.recordsPerPage
             };
             this.pagination.push(refData);
-          });
+            if (i >= (this.allSpotfeeds.length - 1)) {
+              console.log(this.pagination);
+            }
+          }
         }
       }
 
@@ -112,7 +124,7 @@ export class ExploreComponent implements OnInit {
    * Load more spotfeeds
    */
   dispatchLoadMore(industryType: string) {
-    console.log();
+    console.log('load more', industryType);
   }
 
   ngOnInit() {

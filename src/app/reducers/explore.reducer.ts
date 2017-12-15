@@ -16,10 +16,30 @@ export const ExploreReducer: ActionReducer<any> = (state, {payload, type}: Actio
           });
 
         case ExploreActions.LOAD_SPOTFEEDS_SUCCESS:
+
+          const spotfeed_categories = [];
+          const response = payload.SUCCESS;
+          if (response) {
+            for (let i = 0, len = response.length; i < len; i++) {
+              spotfeed_categories.push({
+                // [response[i].industry]: response[i].feeds
+                industryType: response[i].industry,
+                feeds: response[i].feeds
+              });
+              if (i >= (response.length - 1)) {
+                // console.log('finish');
+                return Object.assign({}, state, {
+                  searching_spotfeeds: false,
+                  search_complete: true,
+                  explore_spotfeeds: spotfeed_categories
+                });
+              }
+            }
+          }
           return Object.assign({}, state, {
             searching_spotfeeds: false,
             search_complete: true,
-            spotfeeds: payload
+            explore_spotfeeds: spotfeed_categories
           });
 
         case ExploreActions.LOAD_SPOTFEEDS_FAILED:
