@@ -76,8 +76,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="c-form__group c-form--md m-b-32 width50">
-                    <input class="c-form__input" required="" type="text" formControlName="school_owner">
+                <div class="c-form__group c-form--md m-b-32 width50" *ngIf="hideSchoolName">
+                    <input class="c-form__input" type="text" required="" formControlName="school_owner">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                     <label>Dancer School Owner’s / Choreographer’s Name *</label>
@@ -90,7 +90,7 @@
                     <p class="c-form__validation" *ngIf="eventForm.controls['school_address'].errors?.required && eventCreate.submitted">Address is required</p>
                 </div>
 
-                <p class="c-text_md color-grey-dark m-b-16">Team member details</p>
+                <p class="c-text_md color-grey-dark m-b-16">Team participant details</p>
 
                 <div class="row m-0" *ngFor="let team_member of eventForm.controls.team_member['controls']; let i=index" [formGroup]="team_member">
                     <div class="col-md-3 p-l-0">

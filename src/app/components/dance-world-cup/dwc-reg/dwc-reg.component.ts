@@ -40,6 +40,7 @@ export class DwcRegComponent implements OnInit {
   Dance_Style = ['Hip Hop, Street Dance and Commercial', 'National, Folklore, Classical, Tribal', 'Modern, Contemporary', 'Classical Ballet, Jazz, Tap, Acro', 'Song and Dance'];
   @ViewChild('dwcModal') DwctypeModal: Modal;
   dwcSlider: NgxCarousel;
+  hideSchoolName: boolean = false;
   constructor(
     private fb: FormBuilder,
     private store: Store<AuthModel>,
@@ -116,6 +117,26 @@ export class DwcRegComponent implements OnInit {
       loop: true,
       touch: true
     }
+
+
+    this.eventForm.get('member').valueChanges.subscribe(
+      (validateBy: string) => {
+        console.log(validateBy);
+        if (validateBy === 'true') {
+          this.hideSchoolName = true;
+          this.eventForm.get('school_owner').setValidators([Validators.required]);
+          this.eventForm.get('school_owner').updateValueAndValidity();
+        }
+
+        if (validateBy === 'false') {
+          this.hideSchoolName = false;
+          this.eventForm.get('school_owner').clearValidators();
+          this.eventForm.get('school_owner').updateValueAndValidity();
+        }
+      }
+    )
+
+
   }
 
   testClick() {
@@ -135,7 +156,7 @@ export class DwcRegComponent implements OnInit {
       Dance_Style: this.fb.array(this.Dance_Style.map(x => defaultDance_Style.indexOf(x) > -1)),
       'school_name' : ['', [Validators.required]],
       'member' : '',
-      'school_owner' : ['', [Validators.required]],
+      'school_owner' : [''],
       'school_address' : ['', [Validators.required]],
       'team_member' : this.fb.array([]),
     });
@@ -163,6 +184,8 @@ export class DwcRegComponent implements OnInit {
     const control = <FormArray>this.eventForm.controls['team_member'];
     control.push(this.memberItem(''));
   }
+
+ 
 
 
 // dwc_event_reg_success
@@ -234,7 +257,7 @@ export class DwcRegComponent implements OnInit {
     this.store.select('eventTags')
       .first(profile => profile['dwc_event_reg_success'] === true )
       .subscribe( data => {
-        this.router.navigateByUrl('/post?event=dwc');
+        this.router.navigateByUrl('/dwc/payment');
       });
   }
 
