@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
+import { FormValidation, DatabaseValidator } from '../../../helpers/form.validator';
+
 // Action
 import { EventActions } from '../../../actions/event.action'
 import { Profile } from 'selenium-webdriver/firefox';
@@ -18,6 +20,7 @@ import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
 @Component({
   selector: 'app-dwc-reg',
   templateUrl: './dwc-reg.component.html',
+  providers: [DatabaseValidator],
   styleUrls: ['./dwc-reg.component.scss']
 })
 export class DwcRegComponent implements OnInit {
@@ -43,7 +46,8 @@ export class DwcRegComponent implements OnInit {
     private __store: Store<ProfileModal>,
     private router: Router,
     private toastr: ToastrService,
-    private _store: Store<Dwc>
+    private _store: Store<Dwc>,
+    private databaseValidator: DatabaseValidator,
     ) {
       this.isAuthed = false;
       this.tagState$ = _store.select('eventTags');
@@ -148,6 +152,7 @@ export class DwcRegComponent implements OnInit {
   memberItem(val: string) {
     return new FormGroup({
       name: new FormControl(val, Validators.required),
+      // email: new FormControl(val, Validators.compose([Validators.min(1), Validators.required, FormValidation.validEmail, this.databaseValidator.checkEmail.bind(this.databaseValidator)])),
       email: new FormControl(val, Validators.required),
       phone: new FormControl(val, Validators.required),
       dob: new FormControl(val, Validators.required)
@@ -181,7 +186,9 @@ export class DwcRegComponent implements OnInit {
 
       if (this.isPeformanceSelected && this.isAgeGroupSelected && this.isDanceStyle) {
         console.log('true')
-      this.policySubmit(value);
+        this.policySubmit(value);
+    } else {
+      console.log('invalid')
     }
     } else {
       console.log('invalid form');
