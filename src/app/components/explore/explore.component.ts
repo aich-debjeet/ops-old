@@ -98,7 +98,7 @@ export class ExploreComponent implements OnInit {
             };
             this.pagination.push(refData);
             if (i >= (this.allSpotfeeds.length - 1)) {
-              console.log(this.pagination);
+              // console.log(this.pagination);
             }
           }
         }
@@ -120,7 +120,7 @@ export class ExploreComponent implements OnInit {
     const typeIndex = _.findIndex(this.pagination, { 'industryType': industryType });
     this.pagination[typeIndex].limit = this.recordsPerPage;
     this.pagination[typeIndex].offset += this.recordsPerPage;
-    console.log('req params', this.pagination[typeIndex]);
+    // console.log('req params', this.pagination[typeIndex]);
 
     this.store.dispatch({ type: ExploreActions.LOAD_SPOTFEEDS, payload: this.pagination[typeIndex] });
   }
