@@ -104,11 +104,13 @@
                     </div>
                     <div class="col-md-3 p-l-0">
                         <div class="c-form__group c-form--md m-b-8">
-                            <input class="c-form__input" required="" type="email" formControlName="email">
+                            <input class="c-form__input" required="" type="text" formControlName="email">
                             <span class="c-form__highlight"></span>
                             <span class="c-form__bar"></span>
                             <label>Email</label>
                             <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.required && eventCreate.submitted">Email is required</p>
+                            <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.isEmailUnique ">Mail account already exists</p>
+                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.email || eventForm.controls.team_member.controls[i].controls.email.errors?.isInvalidEmail && eventCreate.submitted">Email is not valid</p> -->
                         </div>
                     </div>
                     <div class="col-md-3 p-l-0">
@@ -145,7 +147,7 @@
                     <span class="c-text_md m-l-8 float_left color-theme">Add more</span>
                 </a>
                 <div class="col-md-12 m-t-32 text-center">
-                    <button type="submit" class="btn btn-primary btn-md" [disabled]="!isPeformanceSelected && !isAgeGroupSelected && !isDanceStyle && !eventForm.valid">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-md">Submit</button>
                 </div>
             </form>
         </div>
