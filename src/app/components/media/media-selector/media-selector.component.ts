@@ -647,13 +647,13 @@ export class MediaSelectorComponent implements OnInit {
 
         console.log('tag', tag);
         if (newVal === 'dwc') {
-          isDwcThing = 2;
+          isDwcThing = 3;
         }
       });
     }
 
-    if (isDwcThing === 2 ) {
-      this.updateStatus(2);
+    if (isDwcThing === 3 ) {
+      this.updateStatus(3);
     }
 
     return tag
