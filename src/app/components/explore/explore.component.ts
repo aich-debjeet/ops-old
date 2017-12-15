@@ -93,8 +93,8 @@ export class ExploreComponent implements OnInit {
           for (let i = 0; this.allSpotfeeds.length > i; i++) {
             const refData = {
               industryType: this.allSpotfeeds[i].industryType,
-              offset: this.recordsPerPage,
-              limit: 0
+              limit: this.recordsPerPage,
+              offset: 0
             };
             this.pagination.push(refData);
             if (i >= (this.allSpotfeeds.length - 1)) {
