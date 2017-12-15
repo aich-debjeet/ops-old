@@ -1,7 +1,7 @@
 export class ExploreModel {
     spotfeed_for_user: any[];
     spotfeed_recommended: any[];
-    spotfeed_categories: any[];
+    categorised_spotfeeds: any[];
     spotfeed_category?: object;
     explore_spotfeeds: any;
     search_body?: any;
@@ -12,6 +12,6 @@ export class ExploreModel {
 export const initialExploreTag: ExploreModel = {
     spotfeed_for_user: [],
     spotfeed_recommended: [],
-    spotfeed_categories: [],
+    categorised_spotfeeds: [],
     explore_spotfeeds: []
 }
