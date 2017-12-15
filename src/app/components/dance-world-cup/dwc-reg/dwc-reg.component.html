@@ -15,44 +15,48 @@
     <div class="container fill-white">
         <div class="o-dance-wcq-form-block" *ngIf="isAuthed === true">
             <h3 class="c-h3 f-w_500 text-center m-t-32">Dance World Cup Qualifier- India</h3>
-            <p class="c-text_lg text-center m-t-8 color-grey-dark m-b-32">Add Attendee details </p>
+            <p class="c-text_lg text-center m-t-8 color-grey-dark m-b-32">Add Attendee Details </p>
 
             <form [formGroup]="eventForm" novalidate (ngSubmit)="submitForm(eventForm.value)" #eventCreate="ngForm">
-                <div class="c-form__group c-form--lg m-b-32">
+                <div class="c-form__group c-form--md m-b-32 width50">
                     <input class="c-form__input" required type="text" formControlName="school_name">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
-                    <label>Name *</label>
+                    <label>Applicant Name *</label>
                     <p class="c-form__validation" *ngIf="eventForm.controls['school_name'].errors?.required && eventCreate.submitted">Dance School's name is required</p>
                 </div>
                 <div class="o-dwc-reg-check">
-                    <div class="col-md-6 p-0">
-                        <p class="c-text_md color-grey-dark float_left">Performance</p>
-                        <div class="c-form__check">
+                    <div class="col-md-3 p-0">
+                        <p class="c-text_md color-grey-dark float_left m-l-32">Performance</p>
+                        <div class="c-form__check m-l-32">
                             <label for="people-{{i}}" *ngFor="let perform of Performance; let i = index" formArrayName="Performance">
                                 <span class="c-text_md color-grey-dark">{{perform}}</span>
                                 <input id="people-{{i}}" type="checkbox" class="c-form__bar2" [formControlName]="i">
                             </label>
+                            <p class="c-form__validation" *ngIf="!isPeformanceSelected && eventCreate.submitted">Please select atleast one</p>
                         </div>
-
-                        <p class="c-text_md color-grey-dark m-t-16 float_left">Age Group</p>
-                        <div class="c-form__check">
+                        <!-- <p class="c-form__validation" *ngIf="!isPeformanceSelected && eventCreate.submitted">Atleast one should be checked</p> -->
+                    </div>
+                    <div class="col-md-5 p-0">
+                        <p class="c-text_md color-grey-dark float_left m-l-16">Age Group</p>
+                        <div class="c-form__check  m-l-16">
                             <label for="age-{{i}}" *ngFor="let age of Age_Group; let i = index" formArrayName="Age_Group">
                                 <span class="c-text_md color-grey-dark">{{age}}</span>
                                 <input id="age-{{i}}" type="checkbox" class="c-form__bar2" [formControlName]="i">
                             </label>
-                            <p class="c-form__validation" *ngIf="eventForm.controls['Age_Group'].errors?.required && eventCreate.submitted">Age Group</p>
+                            <p class="c-form__validation" *ngIf="!isAgeGroupSelected && eventCreate.submitted">Please select atleast one</p>
                         </div>
                     </div>
-                    <div class="col-md-6 p-0">
-                        <p class="c-text_md color-grey-dark">Dance style</p>
-                        <div class="c-form__check">
+                    <div class="col-md-4 p-0">
+                        <p class="c-text_md color-grey-dark  m-l-16">Dance style</p>
+                        <div class="c-form__check  m-l-16">
                             <label for="dance-{{i}}" *ngFor="let dance of Dance_Style; let i = index" formArrayName="Dance_Style">
                                 <span class="c-text_md color-grey-dark">{{dance}}</span>
                                     <input id="dance-{{i}}" type="checkbox" class="c-form__bar2" [formControlName]="i" value="">
                             </label>
+                            <p class="c-form__validation" *ngIf="!isDanceStyle && eventCreate.submitted">Please select atleast one</p>
                         </div>
-                        <p class="c-form__validation" *ngIf="eventForm.controls['Dance_Style'].errors?.required && eventCreate.submitted">Category of Dance</p>
+                        <!-- <p class="c-form__validation" *ngIf="eventForm.controls['Dance_Style'].errors?.required && eventCreate.submitted">Category of Dance</p> -->
                     </div>
                 </div>
                 <div class="row m-0">
@@ -72,7 +76,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="c-form__group c-form--md m-b-32">
+                <div class="c-form__group c-form--md m-b-32 width50">
                     <input class="c-form__input" required="" type="text" formControlName="school_owner">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
@@ -80,7 +84,7 @@
                     <p class="c-form__validation" *ngIf="eventForm.controls['school_owner'].errors?.required && eventCreate.submitted">Dancer School owner’s / Choreographer’s name is required</p>
                 </div>
 
-                <div class="c-form__group c-form--md m-b-32">
+                <div class="c-form__group c-form--md m-b-32 width50">
                     <textarea class="c-textarea__block c-textarea--style o-wcq-textarea " rows="0" data-min-rows="0" formControlName="school_address"></textarea>
                     <label>Address *</label>
                     <p class="c-form__validation" *ngIf="eventForm.controls['school_address'].errors?.required && eventCreate.submitted">Address is required</p>
@@ -89,33 +93,40 @@
                 <p class="c-text_md color-grey-dark m-b-16">Team member details</p>
 
                 <div class="row m-0" *ngFor="let team_member of eventForm.controls.team_member['controls']; let i=index" [formGroup]="team_member">
-                    <div class="col-md-11 p-0">
-                        <div class="col-md-4 p-l-0">
-                            <div class="c-form__group c-form--md m-b-8">
-                                <input class="c-form__input" required="" type="text" formControlName="name">
-                                <span class="c-form__highlight"></span>
-                                <span class="c-form__bar"></span>
-                                <label>Name</label>
-                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.name.errors?.required && eventCreate.submitted">Name is required</p>
-                            </div>
+                    <div class="col-md-3 p-l-0">
+                        <div class="c-form__group c-form--md m-b-8">
+                            <input class="c-form__input" required="" type="text" formControlName="name">
+                            <span class="c-form__highlight"></span>
+                            <span class="c-form__bar"></span>
+                            <label>Name</label>
+                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.name.errors?.required && eventCreate.submitted">Name is required</p>
                         </div>
-                        <div class="col-md-4 p-l-0">
-                            <div class="c-form__group c-form--md m-b-8">
-                                <input class="c-form__input" required="" type="email" formControlName="email">
-                                <span class="c-form__highlight"></span>
-                                <span class="c-form__bar"></span>
-                                <label>Email</label>
-                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.required && eventCreate.submitted">Email is required</p>
-                            </div>
+                    </div>
+                    <div class="col-md-3 p-l-0">
+                        <div class="c-form__group c-form--md m-b-8">
+                            <input class="c-form__input" required="" type="email" formControlName="email">
+                            <span class="c-form__highlight"></span>
+                            <span class="c-form__bar"></span>
+                            <label>Email</label>
+                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.required && eventCreate.submitted">Email is required</p>
                         </div>
-                        <div class="col-md-4 p-l-0">
-                            <div class="c-form__group c-form--md m-b-8">
-                                <input class="c-form__input" required="" type="text" formControlName="phone">
-                                <span class="c-form__highlight"></span>
-                                <span class="c-form__bar"></span>
-                                <label>Phone number</label>
-                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.errors?.required && eventCreate.submitted">Phone is required</p>
-                            </div>
+                    </div>
+                    <div class="col-md-3 p-l-0">
+                        <div class="c-form__group c-form--md m-b-8">
+                            <input class="c-form__input" required="" type="text" formControlName="phone">
+                            <span class="c-form__highlight"></span>
+                            <span class="c-form__bar"></span>
+                            <label>Phone number</label>
+                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.errors?.required && eventCreate.submitted">Phone is required</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 p-0">
+                        <div class="c-form__group c-form--md m-b-8">
+                            <input class="c-form__input" required="" type="text" formControlName="dob">
+                            <span class="c-form__highlight"></span>
+                            <span class="c-form__bar"></span>
+                            <label>Date of birth (DD-MM-YY)</label>
+                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.dob.errors?.required && eventCreate.submitted">DOB is required</p>
                         </div>
                     </div>
                     <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.name.errors?.required && eventCreate.submitted">Name, Email and Phone Number is required</p> -->
@@ -134,7 +145,7 @@
                     <span class="c-text_md m-l-8 float_left color-theme">Add more</span>
                 </a>
                 <div class="col-md-12 m-t-32 text-center">
-                    <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-md" [disabled]="!isPeformanceSelected && !isAgeGroupSelected && !isDanceStyle && !eventForm.valid">Submit</button>
                 </div>
             </form>
         </div>

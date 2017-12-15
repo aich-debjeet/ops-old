@@ -29,9 +29,12 @@ export class DwcRegComponent implements OnInit {
   public eventForm: FormGroup;
   isAuthed: boolean;
   valueStore: any;
+  isPeformanceSelected: boolean;
+  isAgeGroupSelected: boolean;
+  isDanceStyle: boolean;
   Performance = ['Solo', 'Couple/Trio', 'Group'];
   Age_Group = ['Mini - 9 years and under', 'Junior section - 17 years and under', 'Children – 13 years and under', 'Senior section - 25 years and under']
-  Dance_Style = ['Classical Ballet', 'National, Folklore, Character', 'Modern, Contemporary', 'Jazz and show dance', 'Hip Hop, Street Dance and Commercial', 'Song and Dance', 'Tap', 'Fusion Ballet'];
+  Dance_Style = ['Hip Hop, Street Dance and Commercial', 'National, Folklore, Classical, Tribal', 'Modern, Contemporary', 'Classical Ballet, Jazz, Tap, Acro', 'Song and Dance'];
   @ViewChild('dwcModal') DwctypeModal: Modal;
   dwcSlider: NgxCarousel;
   constructor(
@@ -131,7 +134,6 @@ export class DwcRegComponent implements OnInit {
       'school_owner' : ['', [Validators.required]],
       'school_address' : ['', [Validators.required]],
       'team_member' : this.fb.array([]),
-      // 'event_agenda' : this.fb.array([]),
     });
 
   }
@@ -147,7 +149,8 @@ export class DwcRegComponent implements OnInit {
     return new FormGroup({
       name: new FormControl(val, Validators.required),
       email: new FormControl(val, Validators.required),
-      phone: new FormControl(val, Validators.required)
+      phone: new FormControl(val, Validators.required),
+      dob: new FormControl(val, Validators.required)
     })
   }
 
@@ -159,14 +162,51 @@ export class DwcRegComponent implements OnInit {
 
 // dwc_event_reg_success
   submitForm(value) {
-    // console.log(value)
-    this.valueStore = Object.assign({}, this.eventForm.value, {
-      Performance: this.convertToValue('Performance'),
-      Age_Group: this.convertToValue('Age_Group'),
-      Dance_Style: this.convertToValue('Dance_Style')
-    });
+
     if (this.eventForm.valid) {
+      console.log('valid form');
+      this.valueStore = Object.assign({}, this.eventForm.value, {
+          Performance: this.convertToValue('Performance'),
+          Age_Group: this.convertToValue('Age_Group'),
+          Dance_Style: this.convertToValue('Dance_Style')
+        });
+      this.isPeformanceSelected = this.checkAtLeastOneSelection(this.Performance, 'people');
+      console.log('isPeformanceSelected', this.isPeformanceSelected);
+
+      this.isAgeGroupSelected = this.checkAtLeastOneSelection(this.Age_Group, 'age');
+      console.log('isAgeGroupSelected', this.isAgeGroupSelected);
+
+      this.isDanceStyle = this.checkAtLeastOneSelection(this.Dance_Style, 'dance');
+      console.log('isDanceStyle', this.isDanceStyle);
+
+      if (this.isPeformanceSelected && this.isAgeGroupSelected && this.isDanceStyle) {
+        console.log('true')
       this.policySubmit(value);
+    }
+    } else {
+      console.log('invalid form');
+    }
+    // console.log(value)
+    // this.valueStore = Object.assign({}, this.eventForm.value, {
+    //   Performance: this.convertToValue('Performance'),
+    //   Age_Group: this.convertToValue('Age_Group'),
+    //   Dance_Style: this.convertToValue('Dance_Style')
+    // });
+    // if (this.eventForm.valid) {
+    //   this.policySubmit(value);
+    // }
+  }
+
+  checkAtLeastOneSelection(arr, elem) {
+    for (let i = 0; i < arr.length; i++) {
+      const isChecked = (<HTMLInputElement>document.getElementById(elem + '-' + i)).checked;
+      // console.log(elem + '-' + i + ' isChecked', isChecked);
+      if (isChecked === true) {
+        return true;
+      }
+      if (i >= (arr.length - 1)) {
+        return false;
+      }
     }
   }
 

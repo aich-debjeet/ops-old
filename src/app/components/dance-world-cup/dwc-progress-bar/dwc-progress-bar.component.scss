@@ -3,63 +3,76 @@
 @import './src/assets/scss/base/_base.scss';
 @import './src/assets/scss/components/_form.scss';
 // progress bar
-
-.o-dwc-progress-sec{
-	width: 100%;
-	height: 64px;
-	background-color: #F3F5F7;	
-	box-shadow: 0 2px 4px 0 rgba(102,45,145,0.1);
-}
-.o-dws-progress-block{
-	width:60%;
-	padding: 24px 0px;
-	margin:0px auto;
-}
-.o-dws-progress__bar{
-	width: 64%;
-	background: #c1c1c1;
-	border-radius: 6px;
-	height: 10px;
-	float: left;
-	margin:4px 0px 2px 0px;
-	overflow: hidden;
-}
-.o-dws-progress__link{
-	width: 24.7%;
-	float: left;
-	height: 10px;
-	&:hover{
-		color:#333;
-	}
-	&:focus{
-		color:#333;
-		outline: none;
-	}
-}
-.o-dwc-progress--active{
-	background: $color-theme;
-}
-.o-dws-progress__white{
-	width: 3px;
-	height: 10px;
-	background: #fff;
-	float: left;
-}
-.o-dws-progress__txt{
-	float: left;
-	width: 64%;
+.o-dwc-progress-sec {
+    width: 100%;
+    height: 64px;
+    background-color: #F3F5F7;
+    box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.1);
 }
 
-.o-dwc-payment-sec{
-	width: 100%;
-	float: left;
-	margin-top: 16px;
+.o-dws-progress-block {
+    width: 60%;
+    padding: 24px 0px;
+    margin: 0px auto;
 }
-.o-dwc-payment-contianer{
-	width: 100%;
-	background: #fff;
-	padding: 24px 32px 50px 32px;
-	float: left;
-	border-radius: 3px;
+
+.o-dws-progress__bar {
+    width: 64%;
+    background: #c1c1c1;
+    border-radius: 6px;
+    height: 10px;
+    float: left;
+    margin: 4px 0px 2px 0px;
+    overflow: hidden;
+}
+
+.o-dws-progress__link {
+    width: 24.7%;
+    float: left;
+    height: 10px;
+    &:hover {
+        color: #333;
+    }
+    &:focus {
+        color: #333;
+        outline: none;
+    }
+}
+
+.o-dwc-progress--active {
+    background: $color-theme;
+}
+
+.o-dws-progress__white {
+    width: 3px;
+    height: 10px;
+    background: #fff;
+    float: left;
+}
+
+.o-dws-progress__txt {
+    float: left;
+    width: 64%;
+}
+
+.o-dwc-payment-sec {
+    width: 100%;
+    float: left;
+    margin-top: 16px;
+}
+
+.o-dwc-payment-contianer {
+    width: 100%;
+    background: #fff;
+    padding: 24px 32px 50px 32px;
+    float: left;
+    border-radius: 3px;
     text-align: center
+}
+
+.c-text_sm {
+    color: #333333;
+    font-size: 11px;
+    line-height: 18px;
+    font-weight: 500;
 }
