@@ -27,6 +27,7 @@
     "@ngrx/effects": "^2.0.4",
     "@ngrx/store": "^2.2.3",
     "@ngrx/store-devtools": "^3.2.4",
+    "@types/google.analytics": "^0.0.36",
     "@types/googlemaps": "^3.29.2",
     "@types/medium-editor": "5.0.1",
     "angular2-masonry": "^0.4.0",
