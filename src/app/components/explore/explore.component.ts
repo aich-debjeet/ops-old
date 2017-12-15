@@ -38,7 +38,7 @@ export class ExploreComponent implements OnInit {
   allSpotfeeds: any;
   baseUrl: string;
   showPreloader = true;
-  recordsPerPage = 2;
+  recordsPerPage = 10;
   pagination = [];
 
   // public carouselOne: NgxCarousel;
