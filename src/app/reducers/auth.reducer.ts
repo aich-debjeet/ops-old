@@ -470,6 +470,25 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         dance_cat: payload
       });
 
+    case AuthActions.SEARCH_USER_BY_USERNAME:
+      return Object.assign({}, state, {
+        claim_user_info_loading: true,
+        claim_user_info_loadded: false
+      });
+
+    case AuthActions.SEARCH_USER_BY_USERNAME_SUCCESS:
+      return Object.assign({}, state, {
+        claim_user_info: payload,
+        claim_user_info_loading: false,
+        claim_user_info_loadded: true
+      });
+
+    case AuthActions.SEARCH_USER_BY_USERNAME_FAILED:
+      return Object.assign({}, state, {
+        claim_user_info_loading: false,
+        claim_user_info_loadded: false
+      });
+
     default:
       return state;
 

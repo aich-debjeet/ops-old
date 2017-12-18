@@ -27,6 +27,7 @@ import 'rxjs/add/operator/take'
 import { ClaimProfileActions } from 'app/actions/claim-profile.action';
 
 import * as _ from 'lodash';
+import { ProfileActions } from 'app/actions/profile.action';
 
 export class RegValue {
   mainTitle: string;
@@ -93,10 +94,6 @@ export class RegistrationBasicComponent implements OnInit {
     public modalService: ModalService,
     public tokenService: TokenService
     ) {
-    // if redriect url there
-    if (this.route.snapshot.queryParams) {
-      this.routeQuery = Object.assign({}, this.route.snapshot.queryParams);
-    }
 
     if (this.route.snapshot.queryParams['ev']) {
       if (this.route.snapshot.queryParams['ev'] === 'dwc2017') {
@@ -126,6 +123,19 @@ export class RegistrationBasicComponent implements OnInit {
         this.petTag = state;
     });
     this.isPhotoAdded = false;
+
+    // if redriect url there
+    if (this.route.snapshot.queryParams) {
+      this.routeQuery = Object.assign({}, this.route.snapshot.queryParams);
+
+      if (this.routeQuery && this.routeQuery['action'] === 'claim_profile') {
+        const importedUsername = this.routeQuery['username'];
+        // console.log('claim profile username: ', importedUsername);
+        // search for user details
+        this.store.dispatch({ type: AuthActions.SEARCH_USER_BY_USERNAME, payload: importedUsername });
+        // console.log('claim profile username: ', importedUsername);
+      }
+    }
 
     this.buildForm();
   }

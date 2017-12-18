@@ -70,10 +70,10 @@ export class ProfileComponent implements OnInit {
       .subscribe( data => {
         console.log(data['profile_navigation_details'].username)
         if (data['profile_navigation_details'].username === this.userName) {
-          console.log('current user');
+          // console.log('current user');
           this.loadProfile('');
         } else {
-          console.log('other User');
+          // console.log('other User');
           this.loadProfile(this.userName);
         }
       });

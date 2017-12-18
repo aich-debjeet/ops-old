@@ -336,6 +336,18 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.DANCE_GET_INDUSTRY_FAILED, payload: res }))
     );
 
+  /**
+   * Search user by username
+   */
+  @Effect()
+  searchUserWithUserName$ = this.actions$
+    .ofType(AuthActions.SEARCH_USER_BY_USERNAME)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.searchUserWithUsername(payload)
+      .map(res => ({ type: AuthActions.SEARCH_USER_BY_USERNAME_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.SEARCH_USER_BY_USERNAME_FAILED, payload: res }))
+    );
+
   constructor(
       private actions$: Actions,
       private authService: AuthService,
