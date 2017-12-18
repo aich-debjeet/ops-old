@@ -64,7 +64,6 @@ export class HomeChannelComponent implements OnInit {
       if (event.profile_navigation_details && event.profile_navigation_details.handle) {
         this.handle = event.profile_navigation_details.handle;
         isUserReady = true;
-        console.log('handle', this.handle);
         this.loadChannels(this.handle);
       }
     });
@@ -76,7 +75,6 @@ export class HomeChannelComponent implements OnInit {
   loadChannels(userHandle: string) {
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: userHandle });
     this.tagState$.subscribe(data => {
-      console.log('channels', data);
       if (data.user_following_channels_loaded) {
         this.channelList = data.user_following_channel;
       }

@@ -81,12 +81,10 @@ export class ExploreComponent implements OnInit {
     this.exploreState$ = this.store.select('exploreTags');
     this.exploreState$.subscribe((state) => {
       this.exploreState = state;
-      console.log('this.exploreState', this.exploreState);
 
       // get all spotfeeds
       if (state && state.explore_spotfeeds && state.explore_spotfeeds) {
         this.allSpotfeeds = state.explore_spotfeeds;
-        // console.log('all spotfeeds', this.allSpotfeeds);
 
         // preparing the pagination reference var
         if (this.pagination && this.pagination.length === 0) {
@@ -116,11 +114,9 @@ export class ExploreComponent implements OnInit {
    * Load more spotfeeds
    */
   dispatchLoadMore(industryType: string) {
-    // console.log('load more industry ', industryType);
     const typeIndex = _.findIndex(this.pagination, { 'industryType': industryType });
     this.pagination[typeIndex].limit = this.recordsPerPage;
     this.pagination[typeIndex].offset += this.recordsPerPage;
-    // console.log('req params', this.pagination[typeIndex]);
 
     this.store.dispatch({ type: ExploreActions.LOAD_SPOTFEEDS, payload: this.pagination[typeIndex] });
   }

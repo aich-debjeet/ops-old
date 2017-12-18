@@ -76,9 +76,6 @@ export class LoginComponent implements OnInit {
 
 
   submitForm(value: any) {
-    console.log(this.redrectUrl);
-    // this.router.navigateByUrl(this.redrectUrl);
-
     if ( this.loginForm.valid === true ) {
       const form =  {
         'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
@@ -89,14 +86,10 @@ export class LoginComponent implements OnInit {
       }
 
       this.store.dispatch({ type: AuthActions.USER_LOGIN, payload: form});
-      console.log('submit button');
     // Org Registration successfully
     this.store.select('loginTags')
       .first(login => login['login_success'] === true)
       .subscribe( datas => {
-        console.log('sucess login');
-        // this.router.navigate([this.redrectUrl]);
-        // // co
         if (this.redrectUrl !== undefined) {
           this.router.navigateByUrl(this.redrectUrl);
           return
@@ -104,7 +97,6 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/home');
           return
         }
-
       });
     }
   }

@@ -54,15 +54,18 @@ export class NotificationService {
    * @param page number
    */
   paginate(page: number) {
-    let beginItem: number;
-    let endItem: number;
-    let itemsPerPage = 10;
-    if (page === 1 ) {
-        beginItem = 0;
-    } else {
-        beginItem = (page - 1) * itemsPerPage;
-    } return {
-        offset: beginItem, limit: itemsPerPage
+    // let beginItem: number;
+    // let endItem: number;
+    // let itemsPerPage = 10;
+    // if (page === 1 ) {
+    //     beginItem = 0;
+    // } else {
+    //     beginItem = (page - 1) * itemsPerPage;
+    // } return {
+    //     offset: beginItem, limit: itemsPerPage
+    // }
+    return {
+        offset: 0, limit: 30
     }
   }
 
