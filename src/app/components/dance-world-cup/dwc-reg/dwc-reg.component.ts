@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormA
 import { Register, UserTag, initialTag, AuthModel, RightBlockTag, danceWorldTag, Dwc } from '../../../models/auth.model';
 import { ProfileModal, initialTag as profileTag, UserCard, ProfileCards } from '../../../models/profile.model';
 import { Router, ActivatedRoute } from '@angular/router';
+import {IDatePickerConfig} from 'ng2-date-picker';
 import { Store } from '@ngrx/store';
 import { Modal } from '../../../shared/modal-new/Modal';
 import { ToastrService } from 'ngx-toastr';
@@ -30,7 +31,7 @@ export class DwcRegComponent implements OnInit {
   profileState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
   public eventForm: FormGroup;
-  isAuthed: boolean;
+  isAuthed: boolean = false;
   valueStore: any;
   isPeformanceSelected: boolean;
   isAgeGroupSelected: boolean;
@@ -41,6 +42,15 @@ export class DwcRegComponent implements OnInit {
   @ViewChild('dwcModal') DwctypeModal: Modal;
   dwcSlider: NgxCarousel;
   hideSchoolName: boolean = false;
+
+
+  config: IDatePickerConfig = {
+    firstDayOfWeek: 'mo',
+    // format: 'YYYY-MM-DDThh:mmTZD',
+    // disableKeypress: true,
+    showSeconds: true
+  };
+
   constructor(
     private fb: FormBuilder,
     private store: Store<AuthModel>,
