@@ -90,17 +90,14 @@ export class OrganizationRegComponent implements OnInit {
    */
   buildForm() {
     this.orgReg = this.fb.group({
-      'org_name' : ['', [Validators.required]],
-      'org_username' : ['', [
-        Validators.required,
-        FormValidation.noWhitespaceValidator
-        ],
+      'org_name': ['GPL Design Studio', [Validators.required]],
+      'org_username': ['', [Validators.required, FormValidation.noWhitespaceValidator],
         this.databaseValidator.userNameValidation.bind(this.databaseValidator)
       ],
       'org_type': ['', Validators.required],
       'org_industry_type': ['', Validators.required],
       'org_location': ['', Validators.required],
-      'org_service': ['', Validators.required]
+      'org_service': ['Skill1, Skill2, Skill3', Validators.required]
     })
   }
 
@@ -150,7 +147,9 @@ export class OrganizationRegComponent implements OnInit {
               isAdmin: true,
               status: 'accept'
             }],
-          location: ''
+          location: '',
+          // latitude: this.latitude,
+          // longitude: this.longitude
         },
         accountType : [{
           'name': value.org_type,
