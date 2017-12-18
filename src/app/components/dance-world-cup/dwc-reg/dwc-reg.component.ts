@@ -25,6 +25,7 @@ import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
 })
 export class DwcRegComponent implements OnInit {
 
+  public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   err = false;
   tagState$: Observable<Dwc>;
   profileState$: Observable<ProfileModal>;
@@ -173,10 +174,10 @@ export class DwcRegComponent implements OnInit {
   memberItem(val: string) {
     return new FormGroup({
       name: new FormControl(val, Validators.required),
-      // email: new FormControl(val, Validators.compose([Validators.min(1), Validators.required, FormValidation.validEmail, this.databaseValidator.checkEmail.bind(this.databaseValidator)])),
-      email: new FormControl(val, Validators.required),
+      email: new FormControl(val, Validators.compose([Validators.min(1), Validators.required, FormValidation.validEmail, this.databaseValidator.checkEmail.bind(this.databaseValidator)])),
+      // email: new FormControl(val, Validators.required),
       phone: new FormControl(val, Validators.required),
-      dob: new FormControl(val, Validators.required)
+      dob: new FormControl(val , Validators.required)
     })
   }
 

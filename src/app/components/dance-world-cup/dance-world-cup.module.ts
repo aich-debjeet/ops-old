@@ -14,6 +14,7 @@ import { DwcPaymentComponent } from './dwc-payment/dwc-payment.component';
 import { DwcSuccessComponent } from './dwc-success/dwc-success.component';
 import { DwcRegComponent } from './dwc-reg/dwc-reg.component';
 import { DwcCompletedComponent } from './dwc-completed/dwc-completed.component';
+import { TextMaskModule } from 'angular2-text-mask';
 
 const routes: Routes = [
   {
@@ -46,6 +47,7 @@ const routes: Routes = [
     ShareButtonsModule,
     NgxCarouselModule,
     ReactiveFormsModule,
+    TextMaskModule,
     FormsModule
 
   ],
