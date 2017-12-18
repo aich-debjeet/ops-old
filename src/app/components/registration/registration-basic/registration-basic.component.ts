@@ -123,10 +123,10 @@ export class RegistrationBasicComponent implements OnInit {
       // console.log(state);
       this.petTag = state;
 
-      if (state && state['claim_user_info']['SUCCESS']['user']) {
-        this.claimUserProfileDetails = state['claim_user_info']['SUCCESS']['user'];
-        // CONTINUE HERE
-      }
+      // if (state && state['claim_user_info']['SUCCESS']['user']) {
+      //   this.claimUserProfileDetails = state['claim_user_info']['SUCCESS']['user'];
+      //   // CONTINUE HERE
+      // }
     });
     this.isPhotoAdded = false;
 
