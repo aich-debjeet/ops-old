@@ -43,7 +43,7 @@
               <span class="c-form__bar"></span>
               <label>Username</label>
               <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.required && orgForm.submitted">Username is required</p>
-              <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.isUsernameUnique">This organization username is already taken</p>
+              <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.isUsernameUnique">This username is already taken</p>
             </div>
             <h6 class="c-text_md o-org--type">Choose organization type</h6>
             <div class="o-org-reg__choose">

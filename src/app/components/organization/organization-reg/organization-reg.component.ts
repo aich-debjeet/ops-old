@@ -165,7 +165,7 @@ export class OrganizationRegComponent implements OnInit {
 
     // Org Registration successfully
     this.store.select('profileTags')
-      .first(profile => profile['org_registration_success'] === true)
+      .first(profile => profile && profile['org_registration_success'] === true)
       .subscribe( datas => {
         this.toastr.success('Successfully registered organization');
         this.router.navigateByUrl('/org/page');
@@ -173,7 +173,7 @@ export class OrganizationRegComponent implements OnInit {
 
     // Org Registration Failed
     this.store.select('organizationTags')
-      .first(profile => profile['org_registration_failed'] === true)
+      .first(profile => profile && profile['org_registration_failed'] === true)
       .subscribe( datas => {
         this.toastr.success('Organization registration failed');
       });
