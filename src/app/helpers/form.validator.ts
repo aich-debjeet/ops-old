@@ -415,6 +415,55 @@ export class FormValidation {
         return null;
     }
 
+    static dwcValidDOB(control: AbstractControl) {
+
+        const dateArr =  control.value.split('-');
+        console.log(dateArr)
+
+        const day = dateArr[0];
+        const month = dateArr[1];
+        const year = dateArr[2];
+        // console.log(year)
+        // check for valid day number
+        if (parseInt(day, 10) > 31) {
+            console.log('invalid day')
+            return { invalidDOB: true };
+        }
+
+        // check for valid month number
+        if (parseInt(month, 10) > 12) {
+            console.log('invalid month')
+            return { invalidDOB: true };
+        }
+
+        // check if year is not greater that current
+        if (new Date().getUTCFullYear() < year) {
+            return { invalidDOB: true };
+        }
+
+        const birthday = new Date(year, month, day);
+
+        console.log(birthday)
+        const date: any = new Date('01/01/2018');
+        // console.log(date);
+        // console.log(Date.now);
+        const ageDiff = date - birthday.getTime();
+        console.log(ageDiff)
+        const ageDate = new Date(ageDiff);
+        console.log(ageDate)
+        const age =  Math.abs(ageDate.getUTCFullYear() - 1970);
+
+        console.log(age);
+        if (age >= 25) {
+            console.log('age is greater than 25');
+            return { isOverAge: true };
+        } else {
+            console.log('age is less than 25');
+        }
+        return null;
+
+    }
+
     /**
      * checking for valid otp length
      */

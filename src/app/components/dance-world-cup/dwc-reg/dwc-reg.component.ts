@@ -176,8 +176,9 @@ export class DwcRegComponent implements OnInit {
       name: new FormControl(val, Validators.required),
       email: new FormControl(val, Validators.compose([Validators.min(1), Validators.required, FormValidation.validEmail, this.databaseValidator.checkEmail.bind(this.databaseValidator)])),
       // email: new FormControl(val, Validators.required),
-      phone: new FormControl(val, Validators.required),
-      dob: new FormControl(val , Validators.required)
+      phone: new FormControl(val, Validators.compose([ Validators.required, this.databaseValidator.checkMobile.bind(this.databaseValidator)])),
+      // phone: new FormControl(val, Validators.required),
+      dob: new FormControl(val , Validators.compose([ Validators.required, FormValidation.dwcValidDOB]))
     })
   }
 
