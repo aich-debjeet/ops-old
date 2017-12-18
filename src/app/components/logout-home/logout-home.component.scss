@@ -5,6 +5,18 @@
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/base/_base.scss';
 @import './src/assets/scss/components/_buttons.scss';
+p.new-copy {
+    //   color:   
+}
+
+.text-shadow-none {
+    text-shadow: none !important;
+}
+
+.font-weight-500 {
+    font-weight: 500 !important;
+}
+
 // for landing header
 .opsheader_landing {
     position: absolute;
@@ -84,9 +96,12 @@
 }
 
 .o-dance-wc-logo {
-    width: 100%;
+    width: auto;
     float: left;
-    text-align: right;
+}
+
+.p-l-32-px {
+    padding-left: 32px;
 }
 
 .o-dance-wc__logo-container {
@@ -99,7 +114,6 @@
 
 .o-dance-wc__powered-logo-container {
     width: 100%;
-    text-align: right;
     img {
         width: 47px;
     }
@@ -128,12 +142,17 @@
     margin-top: 142px;
 }
 
+.w-11-ps {
+    width: 11% !important;
+}
+
 .o-register-area {
     text-align: center;
 }
 
 .o-dwc-bnglr {
     float: right;
+    text-align: right;
     width: 32%;
 }
 
@@ -354,10 +373,8 @@
 }
 
 .o-block {
-    background: #fff;
     height: 152px;
     width: 152px;
-    border-radius: 50%;
     overflow: hidden;
     // -webkit-box-shadow: 0px 7px 15px 0px rgba(102, 45, 145, 0.16);
     // -moz-box-shadow: 0px 7px 15px 0px rgba(102, 45, 145, 0.16);
@@ -394,6 +411,7 @@
     margin-top: -100px;
     float: left;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .organization_padd {
@@ -401,7 +419,6 @@
 }
 
 .organization-img {
-    overflow: hidden;
     width: 100%;
     padding-top: 50px;
     margin: 0px auto;
@@ -453,6 +470,7 @@
     font-weight: normal;
     margin-top: 8px;
     line-height: 22px;
+    font-weight: 300;
 }
 
 .view_btn {

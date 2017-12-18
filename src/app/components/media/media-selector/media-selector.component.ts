@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import MediaPlayer from 'app/models/mediaplayer.model';
 import { environment } from '../../../../environments/environment';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgModel } from '@angular/forms';
 import { NgxfUploaderService, UploadEvent, UploadStatus, FileError } from 'ngxf-uploader';
@@ -11,8 +11,11 @@ import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { ProfileModal, initialTag, UserCard } from '../../../models/profile.model';
+import { initialMedia, Media } from '../../../models/media.model';
+
 import { ProfileActions } from '../../../actions/profile.action';
 import { SharedActions } from '../../../actions/shared.action';
+import { AuthActions } from '../../../actions/auth.action';
 import FilesHelper from '../../.../../../helpers/fileUtils';
 
 import { TokenService } from '../../../helpers/token.service';
@@ -25,6 +28,7 @@ import { remove as _remove, merge as _merge, uniqBy as _uniqBy, flatten } from '
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/from';
+import 'rxjs/add/operator/filter';
 
 export class UploadItem {
   fileName: string;
@@ -65,6 +69,7 @@ export class MediaSelectorComponent implements OnInit {
   baseUrl = environment.API_IMAGE;
   desc: string;
   addFileData: boolean;
+  industries: any[];
 
   //
   postSuccess: boolean;
@@ -79,10 +84,27 @@ export class MediaSelectorComponent implements OnInit {
 
   myChannels$: Observable<any>;
   myProfile$: Observable<any>;
+  loginTagState$: Observable<any>;
   myProfileData: any;
   fileFormData: any;
   chooseChannelToggleState: boolean;
   activeUser: UserCard;
+
+  explandshowChannelsList: boolean;
+  uploadState: number;
+  // Upload States 1 = normal, 2 = select channel, 3 = create channel
+
+
+  // Form Values
+  mediaPrivacy: number;
+  license: string;
+  isNSFW: boolean;
+  channelName: String;
+  channelPrivacy: any = 0;
+  channelCreatebtn: boolean = false;
+  channelDesc: string;
+  channelSaved: boolean;
+  eventName: string;
 
   constructor(
     private Upload: NgxfUploaderService,
@@ -90,7 +112,9 @@ export class MediaSelectorComponent implements OnInit {
     private api: TokenService,
     private toastr: ToastrService,
     private router: Router,
+    private route: ActivatedRoute,
     private profileStore: Store<ProfileModal>,
+    private store: Store<Media>,
     private _store: Store<fromRoot.State>,
     private http: Http) {
 
@@ -100,21 +124,31 @@ export class MediaSelectorComponent implements OnInit {
       this.uploaded = [];
       this.uploadedFiles = [];
       this.formMessages = [];
+      this.eventName = '';
 
       this.chosenChannel = 0;
+      this.uploadState = 1;
       this.chooseChannelToggleState = false;
+      this.explandshowChannelsList = false;
+      this.channelSaved = false;
 
       // If there's input assign, other wise, reload channel list
       if (this.userChannels) {
         this.channeList = this.userChannels;
       }
 
+      // Default Form Values
+      this.license = 'none';
+      this.mediaPrivacy = 0;
+      this.isNSFW = false;
+      this.channelCreatebtn = false;
+      this.channelDesc = 'No Description';
+
       // X
       this.postSuccess = false;
       this.postSuccessActive = false;
 
-      this.createChannelForm(); // Create Channel Form
-      // this.createMediaForm(); // Media Info
+      this.createChannelForm();
 
       this.uploadStatus = 0;
       this.submitEnabled = 0;
@@ -123,6 +157,11 @@ export class MediaSelectorComponent implements OnInit {
 
       this.myProfile$ = _store.select('profileTags').take(3);
       this.profileState$ = this.profileStore.select('profileTags');
+
+      this.loginTagState$ = store.select('loginTags');
+      this.loginTagState$.subscribe((state) => {
+        this.industries = state.industries;
+      });
   }
 
   ngOnInit() {
@@ -142,6 +181,13 @@ export class MediaSelectorComponent implements OnInit {
       } else {
         // console.log('[x]');
       }
+
+      // Check if it has query params
+      this.route.queryParams
+      .filter(params => params.event)
+      .subscribe(params => {
+        this.eventName = params.event;
+      });
     });
 
     /**
@@ -155,9 +201,18 @@ export class MediaSelectorComponent implements OnInit {
       this.postSuccess = this.profileChannel.media_channel_posted;
       this.postSuccessActive = this.profileChannel.media_channel_posting;
 
+      // if new channel saved
+
+      if (this.profileChannel.channel_saved === true) {
+        this.channelSaved = true;
+        if (this.channelSaved === true) {
+          this.channelSaved = false;
+          this.changeState(2);
+        }
+      }
+
       if (state['profile_cards'].active && (this.activeUser.handle !== state['profile_cards'].active.handle)) {
-        console.log('x');
-        // this.loadChannel(state['profile_cards'].active.handle);
+        // nothing
       }
 
       if (this.postSuccessActive === true) {
@@ -170,6 +225,33 @@ export class MediaSelectorComponent implements OnInit {
       }
     });
 
+    // Forms
+
+    // Loading industry list
+    this._store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
+    this.createChannelForm();
+
+  }
+
+  /**
+   * Get thumb image
+   */
+  getThumb(src: string, showThumb: boolean = false) {
+    const basePath = this.baseUrl;
+    const patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+    const m3 = (src).match(patt1);
+    if (showThumb === true) {
+      return basePath + src.replace(m3[0], '_thumb_250.jpeg');
+    } else {
+      return basePath + src;
+    }
+  }
+
+  /**
+   * Switch View
+   */
+  changeState(state: number) {
+    this.uploadState = state;
   }
 
   /**
@@ -179,7 +261,8 @@ export class MediaSelectorComponent implements OnInit {
     this.channelForm = this.fb.group({
       title: ['', Validators.required ],
       desc: ['', Validators.required ],
-      privacy: [0, Validators.required ]
+      privacy: [0, Validators.required ],
+      type: [0, Validators.required ]
     })
   }
 
@@ -192,7 +275,8 @@ export class MediaSelectorComponent implements OnInit {
       desc: ['', Validators.required ],
       privacy: [0, Validators.required ],
       copyright: [0, Validators.required ],
-      isAdult: [0]
+      isAdult: [0],
+      type: [0, Validators.required ]
     })
   }
 
@@ -207,8 +291,8 @@ export class MediaSelectorComponent implements OnInit {
    * Media Upload Multiple
    */
   mediaInfoUpdateAll(value: any) {
-    console.log(value);
-    console.log(this.uploaded);
+    // console.log(value);
+    // console.log(this.uploaded);
   }
 
   /**
@@ -216,8 +300,8 @@ export class MediaSelectorComponent implements OnInit {
    * @param formValue
    */
   postAllMedia(value) {
-    console.log('post all media');
-    console.log(value);
+    // console.log('post all media');
+    // console.log(value);
 
     let isReady = false;
     let userHandle = '';
@@ -242,19 +326,19 @@ export class MediaSelectorComponent implements OnInit {
     // const chosenFile = this.editingFile;
 
     for (const nowFile of this.uploadedFiles) {
-      console.log(nowFile);
+      // console.log(nowFile);
       if (nowFile) {
         // Build Media Object
         const mediaItem = this.formatMedia( nowFile, formData, chosenChannel, userHandle, value.privacy);
-        console.log(mediaItem);
+        // console.log(mediaItem);
         const media = [ mediaItem ];
         multipleMedias.push(mediaItem);
-        console.log(multipleMedias);
+        // console.log(multipleMedias);
       }
     }
 
     if ( isReady && userHandle !== '') {
-      console.log('MULTIPLE', multipleMedias);
+      // console.log('MULTIPLE', multipleMedias);
       this.postMediaToChannel(chosenChannel.spotfeedId, multipleMedias);
     }
   }
@@ -293,7 +377,7 @@ export class MediaSelectorComponent implements OnInit {
    * Media Info Update
    */
   mediaInfoUpdate(formValue: any) {
-    console.log('media upload');
+    // console.log('media upload');
     // console.log('formVlaue', formValue);
     // const mediaType = this.getFileType(this.editingFile.fileName);
     // const postTime = this.currentTime();
@@ -343,14 +427,14 @@ export class MediaSelectorComponent implements OnInit {
       channelId: channelId,
       req: { media: req }
     };
-    console.log('req body', req);
-    console.log('Sucess Post');
+    // console.log('req body', req);
+    // console.log('Sucess Post');
     this.profileStore.dispatch({ type: ProfileActions.POST_CHANNEL_MEDIA, payload: payload })
 
     this._store.select('profileTags')
       .first(media => media['media_channel_posted'] === true)
       .subscribe( data => {
-        console.log('save success');
+        // console.log('save success');
          this.router.navigate(['/channel/' + channelId]);
       });
   }
@@ -360,15 +444,15 @@ export class MediaSelectorComponent implements OnInit {
    */
   createChannel(value: any) {
 
-    const accessVal = parseInt(value.privacy, 0);
+    const accessVal = parseInt(this.channelPrivacy, 1);
 
     if ( this.channelForm.valid === true ) {
       const channelObj = {
         name: value.title,
-        access: Number(value.privacy),
+        access: Number(this.channelPrivacy),
         description: value.desc,
         superType: 'channel',
-        accessSettings : { access : accessVal },
+        accessSettings : { access : 1 },
         owner: this.handle,
         industryList: [ 'DANCE'] /** @TODO - To be removed! */
       }
@@ -388,7 +472,7 @@ export class MediaSelectorComponent implements OnInit {
       newObj.owner = this.handle;
 
       if (newObj.owner) {
-        console.log('OWNER', newObj.owner);
+        // console.log('OWNER', newObj.owner);
         this.saveChannel( newObj );
         // Recollect channel details
         this.loadChannel(this.handle);
@@ -493,6 +577,8 @@ export class MediaSelectorComponent implements OnInit {
    */
   onChannelSelection(channel: any) {
     this.chosenChannel = channel;
+
+    // do the post as well
   }
 
   /**
@@ -501,7 +587,7 @@ export class MediaSelectorComponent implements OnInit {
 
   fileDetails(file) {
     this.editingFile = this.formatFile(file);
-    console.log(this.editingFile);
+    // console.log(this.editingFile);
     this.addFileData = true;
   }
 
@@ -525,25 +611,51 @@ export class MediaSelectorComponent implements OnInit {
   seperateTags(tags: any) {
     const tagList = [];
     if (tags) {
+
+      // If it has dwc, send an update to make it Active
       for (const tag of tags) {
+
         tagList.push(tag.value);
       }
     }
     return tagList;
   }
 
+  /**
+   * Send an Update
+   */
+  updateStatus(state: number) {
+    this.profileStore.dispatch({ type: ProfileActions.CHANGE_DWC_MEDIA_STATE, payload: state });
+  }
+
+  /**
+   * Extract Tag from Body
+   */
+
   extractTags() {
     const REGEX_HASHTAG = /\B(#[Ã¡-ÃºÃ-ÃÃ¤-Ã¼Ã-Ãa-zA-Z0-9_]+)/g;
     const string = this.desc
-    const results = string.match(REGEX_HASHTAG)
+    const results = string.match(REGEX_HASHTAG);
+
+    let isDwcThing = 0;
 
     const tag = [];
     if (results) {
       results.forEach(function(element) {
         const newVal = element.replace('#', '');
         tag.push(newVal);
+
+        console.log('tag', tag);
+        if (newVal === 'dwc') {
+          isDwcThing = 3;
+        }
       });
     }
+
+    if (isDwcThing === 3 ) {
+      this.updateStatus(3);
+    }
+
     return tag
   }
 
@@ -556,7 +668,7 @@ export class MediaSelectorComponent implements OnInit {
     const isUploadReady = this.uploadMeta();
 
     const tags = this.extractTags();
-    console.log(tags);
+    // console.log(tags);
 
     const files = {
       fileName: file.fileName,
@@ -658,7 +770,7 @@ export class MediaSelectorComponent implements OnInit {
         if (event.status === UploadStatus.Uploading) {
           this.status = event.percent;
         }else {
-          console.log('Finished ', userHandle);
+          // console.log('Finished ', userHandle);
           if (event.data) {
 
             // @TODO__URGENT Make list appendable for files
@@ -726,6 +838,48 @@ export class MediaSelectorComponent implements OnInit {
    */
   chooseChannelToggle() {
     this.chooseChannelToggleState = !this.chooseChannelToggleState;
+  }
+
+  /**
+   * Expand the Channels Selector View
+   */
+  showChannelsList(isExpanded: any) {
+    // this.explandshowChannelsList = true;
+    this.uploadState = 2;
+  }
+
+  /**
+   * Toggle Privacy Value
+   */
+  mediaPrivacyToggle(value) {
+    this.mediaPrivacy = value
+  }
+
+  /**
+   * Channel Selection Page Navigation
+   */
+  formNext() {
+    const formValues = {
+      privacy: this.mediaPrivacy,
+      isNSFW: this.mediaPrivacy,
+      license: this.license,
+    }
+
+    this.changeState(2);
+  }
+  /**
+   * Toggle Create Channel Form
+   */
+  channelButton() {
+    if (this.channelCreatebtn === true) {
+      this.channelCreatebtn = false;
+    }else {
+      this.channelCreatebtn = true;
+    }
+  }
+
+  choosePrivacy(value) {
+    this.channelPrivacy = value
   }
 }
 

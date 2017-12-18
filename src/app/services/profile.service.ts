@@ -69,6 +69,16 @@ export class ProfileService {
     return this.api.post('/portal/network/spotfeed/search', body);
   }
 
+  /**
+   * Update DWC Media state
+   */
+  changeMediaState(state: number) {
+    const body = {
+      completeStatus: state
+    }
+    return this.api.put('/portal/dwc/update/application', body);
+  }
+
 
   /**
    * Get loggedin users channels.

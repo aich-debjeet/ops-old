@@ -1,5 +1,10 @@
-<div class="blog__editor row">
-  <div class="col-md-8">
+<div class="temp">
+  <div class="container">
+    <h5>Coming soon</h5>
+  </div>
+</div>
+<div class="blog__editor row" *ngIf="isActive === true">
+  <div class="col-md-8" >
     <div class="BlogAdd">
       <div class="BlogAdd--title">
           <div class="form_group">
@@ -30,7 +35,7 @@
                 <div class="add_media_plus">
                     <input type="file" name="photo" id="upload-photo">
                     <div class="add_media_plus_ico">
-                        <img width="28" height="28" src="http://d33wubrfki0l68.cloudfront.net/b2db74eef243b31664217b57fa83bfb74e5c8105/fec5e/img/svg/ico_add-grey.svg" alt="">
+                        <img width="28" height="28" src="https://d33wubrfki0l68.cloudfront.net/b2db74eef243b31664217b57fa83bfb74e5c8105/fec5e/img/svg/ico_add-grey.svg" alt="">
                     </div>
                     <div class="add_more_media">
                         <p>Upload Cover</p>

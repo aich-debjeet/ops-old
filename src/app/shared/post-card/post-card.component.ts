@@ -23,6 +23,8 @@ import { ToastrService } from 'ngx-toastr';
 export class PostCardComponent implements OnInit {
   @Input() mediaData;
   @Input() type: string;
+  // @Input() userThumb: string;
+  @Input() userThumb: boolean = false;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() imageLoad: EventEmitter<any> = new EventEmitter<any>();
   @Output() postDelete = new EventEmitter();
@@ -52,6 +54,7 @@ export class PostCardComponent implements OnInit {
     this.following = this.mediaData.isSpotted;
     this.followingCount = this.mediaData.spotsCount;
     this.mediaType = this.mediaData.mtype;
+    // this.useThumb = false;
   }
 
   /**
@@ -75,6 +78,22 @@ export class PostCardComponent implements OnInit {
 
   onContentDelete(content) {
     this.postDelete.next(content);
+  }
+
+  /**
+   * Get thumb image
+   */
+  getThumb(src: string, showThumb: boolean = false) {
+    const basePath = this.imageLink;
+    const patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+    const m3 = (src).match(patt1);
+    if (showThumb === true) {
+      console.log('p', src.replace(m3[0], '_thumb_250.jpeg'));
+      return basePath + src.replace(m3[0], '_thumb_250.jpeg');
+    } else {
+      console.log('p', basePath + src);
+      return basePath + src;
+    }
   }
 
   /**
