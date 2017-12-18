@@ -73,6 +73,7 @@ export class RegistrationBasicComponent implements OnInit {
   public newNumberForm: FormGroup;
   redrectUrl: any;
   dwc: boolean;
+  claimUserProfileDetails: any;
 
   passwordShowToggle() {
     if (this.passwordShow === true) {
@@ -119,8 +120,13 @@ export class RegistrationBasicComponent implements OnInit {
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-      console.log(state);
-        this.petTag = state;
+      // console.log(state);
+      this.petTag = state;
+
+      if (state && state['claim_user_info']['SUCCESS']['user']) {
+        this.claimUserProfileDetails = state['claim_user_info']['SUCCESS']['user'];
+        // CONTINUE HERE
+      }
     });
     this.isPhotoAdded = false;
 
