@@ -78,7 +78,7 @@ export class AuthService {
      */
     searchUserWithUsername(username: string) {
       console.log('api call username', username);
-      return this.api.get('/portal/auth/user/' + username);
+      return this.api.get('/portal/auth/user/username/' + username);
     }
 
     /**

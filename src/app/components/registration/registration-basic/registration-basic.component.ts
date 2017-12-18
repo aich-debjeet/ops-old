@@ -130,10 +130,8 @@ export class RegistrationBasicComponent implements OnInit {
 
       if (this.routeQuery && this.routeQuery['action'] === 'claim_profile') {
         const importedUsername = this.routeQuery['username'];
-        // console.log('claim profile username: ', importedUsername);
         // search for user details
         this.store.dispatch({ type: AuthActions.SEARCH_USER_BY_USERNAME, payload: importedUsername });
-        // console.log('claim profile username: ', importedUsername);
       }
     }
 
