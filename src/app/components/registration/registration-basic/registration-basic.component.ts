@@ -55,6 +55,8 @@ export class RegistrationBasicComponent implements OnInit {
   claimProfile: any;
   userSearchEnabled = true;
   hideProfiles = false;
+  claimingUserSet = false;
+  inputNameListener: any;
 
   rightCom: RightBlockTag;
   tagState$: Observable<BasicRegTag>;
@@ -123,10 +125,12 @@ export class RegistrationBasicComponent implements OnInit {
       // console.log(state);
       this.petTag = state;
 
-      // if (state && state['claim_user_info']['SUCCESS']['user']) {
-      //   this.claimUserProfileDetails = state['claim_user_info']['SUCCESS']['user'];
-      //   // CONTINUE HERE
-      // }
+      if (!this.claimingUserSet && state && state['claim_user_info'] && state['claim_user_info']['SUCCESS']['user']) {
+        this.claimingUserSet = true;
+        this.claimUserProfileDetails = state['claim_user_info']['SUCCESS']['user'];
+        // console.log('fill user info and disable name input listener');
+        this.inputNameListener.unsubscribe();
+      }
     });
     this.isPhotoAdded = false;
 
@@ -169,7 +173,7 @@ export class RegistrationBasicComponent implements OnInit {
     /**
      * Listening for the name value
      */
-    this.regFormBasic.get('name').valueChanges.debounceTime(200).subscribe((searchProfileName) => {
+    this.inputNameListener = this.regFormBasic.get('name').valueChanges.debounceTime(200).subscribe((searchProfileName) => {
       if (this.userSearchEnabled) {
         // console.log('trigger search', searchProfileName);
         this.claimProfileStore.dispatch({
