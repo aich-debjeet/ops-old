@@ -128,8 +128,14 @@ export class RegistrationBasicComponent implements OnInit {
       if (!this.claimingUserSet && state && state['claim_user_info'] && state['claim_user_info']['SUCCESS']['user']) {
         this.claimingUserSet = true;
         this.claimUserProfileDetails = state['claim_user_info']['SUCCESS']['user'];
+        console.log('this.claimUserProfileDetails', this.claimUserProfileDetails);
         // console.log('fill user info and disable name input listener');
         this.inputNameListener.unsubscribe();
+        this.buildForm();
+        this.regFormBasic.controls['name'].setValue(this.claimUserProfileDetails['name']['firstName'] + ' ' + this.claimUserProfileDetails['name']['lastName']);
+        this.regFormBasic.controls['username'].setValue(this.claimUserProfileDetails['username']);
+        this.regFormBasic.controls['email'].setValue(this.claimUserProfileDetails['email']);
+        this.regFormBasic.controls['phone'].setValue(this.claimUserProfileDetails['contact']['contactNumber']);
       }
     });
     this.isPhotoAdded = false;

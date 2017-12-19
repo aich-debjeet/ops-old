@@ -122,8 +122,13 @@
                         </div>
                         <div class="signup_privacy">
                             <p class="text-grey">By clicking, I agree to the <a  (click)="showTerms()" class="text-theme">Terms & Conditions</a></p>
-                            <button *ngIf="!claimingUserSet" [className]="'btn btn-primary btn-sm pull-right'" type="submit">SIGN UP</button>
-                            <button *ngIf="claimingUserSet" [className]="'btn btn-primary btn-sm pull-right'" type="submit">CLAIM PROFILE</button>
+                            <button [className]="'btn btn-primary btn-sm pull-right'" type="submit">SIGN UP</button>
+                            <!-- <button *ngIf="!claimingUserSet" [className]="'btn btn-primary btn-sm pull-right'" type="submit">SIGN UP</button>
+                            <button *ngIf="claimingUserSet" [className]="'btn btn-primary btn-sm pull-right'" type="submit">CLAIM PROFILE</button> -->
+                            <!-- <button *ngIf="claimingUserSet" [className]="'btn btn-primary btn-sm pull-right'" type="submit">
+                                <ng-template *ngIf="!claimingUserSet" >SIGN UP</ng-template>
+                                <ng-template *ngIf="claimingUserSet" >CLAIM PROFILE</ng-template>
+                            </button> -->
                         </div>
                     </form>
                     <!-- //form -->
