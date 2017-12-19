@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormA
 import { Register, UserTag, initialTag, AuthModel, RightBlockTag, danceWorldTag, Dwc } from '../../../models/auth.model';
 import { ProfileModal, initialTag as profileTag, UserCard, ProfileCards } from '../../../models/profile.model';
 import { Router, ActivatedRoute } from '@angular/router';
+import {IDatePickerConfig} from 'ng2-date-picker';
 import { Store } from '@ngrx/store';
 import { Modal } from '../../../shared/modal-new/Modal';
 import { ToastrService } from 'ngx-toastr';
@@ -25,12 +26,13 @@ import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
 })
 export class DwcRegComponent implements OnInit {
 
+  public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   err = false;
   tagState$: Observable<Dwc>;
   profileState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
   public eventForm: FormGroup;
-  isAuthed: boolean;
+  isAuthed: boolean = false;
   valueStore: any;
   isPeformanceSelected: boolean;
   isAgeGroupSelected: boolean;
@@ -41,6 +43,15 @@ export class DwcRegComponent implements OnInit {
   @ViewChild('dwcModal') DwctypeModal: Modal;
   dwcSlider: NgxCarousel;
   hideSchoolName: boolean = false;
+
+
+  config: IDatePickerConfig = {
+    firstDayOfWeek: 'mo',
+    // format: 'YYYY-MM-DDThh:mmTZD',
+    // disableKeypress: true,
+    showSeconds: true
+  };
+
   constructor(
     private fb: FormBuilder,
     private store: Store<AuthModel>,
@@ -173,10 +184,11 @@ export class DwcRegComponent implements OnInit {
   memberItem(val: string) {
     return new FormGroup({
       name: new FormControl(val, Validators.required),
-      // email: new FormControl(val, Validators.compose([Validators.min(1), Validators.required, FormValidation.validEmail, this.databaseValidator.checkEmail.bind(this.databaseValidator)])),
-      email: new FormControl(val, Validators.required),
-      phone: new FormControl(val, Validators.required),
-      dob: new FormControl(val, Validators.required)
+      email: new FormControl(val, Validators.compose([Validators.min(1), Validators.required, FormValidation.validEmail, this.databaseValidator.checkEmail.bind(this.databaseValidator)])),
+      // email: new FormControl(val, Validators.required),
+      phone: new FormControl(val, Validators.compose([ Validators.required, this.databaseValidator.checkMobile.bind(this.databaseValidator)])),
+      // phone: new FormControl(val, Validators.required),
+      dob: new FormControl(val , Validators.compose([ Validators.required, FormValidation.dwcValidDOB]))
     })
   }
 
