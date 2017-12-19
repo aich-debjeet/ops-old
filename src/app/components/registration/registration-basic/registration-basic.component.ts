@@ -52,7 +52,6 @@ export class RegistrationBasicComponent implements OnInit {
   country: any;
   saveUsername = true;
   routeQuery: any;
-  claimProfile: any;
   userSearchEnabled = true;
   hideProfiles = false;
   claimingUserSet = false;
@@ -439,11 +438,11 @@ export class RegistrationBasicComponent implements OnInit {
       }
     };
 
-    if (typeof this.claimProfile !== 'undefined') {
-      console.log('user type claimed', this.claimProfile);
+    if (typeof this.claimUserProfileDetails !== 'undefined') {
+      console.log('user type claimed', this.claimUserProfileDetails);
 
       form.other['isImported'] = false;
-      form['handle'] = this.claimProfile.handle;
+      form['handle'] = this.claimUserProfileDetails.handle;
       // claim user profile
       this.store.dispatch({ type: AuthActions.USER_PROFILE_CLAIM, payload: form });
 
@@ -507,13 +506,13 @@ export class RegistrationBasicComponent implements OnInit {
       // console.log('enable search');
     }, 3000);
     if (profileHandle && this.claimProfileState.claim_profiles.length > 0) {
-      this.claimProfile = _.find(this.claimProfileState.claim_profiles, { 'handle': profileHandle });
-      // console.log('profile found', this.claimProfile);
+      this.claimUserProfileDetails = _.find(this.claimProfileState.claim_profiles, { 'handle': profileHandle });
+      // console.log('profile found', this.claimUserProfileDetails);
 
-      this.regFormBasic.controls['name'].setValue(this.claimProfile['name']);
-      this.regFormBasic.controls['username'].setValue(this.claimProfile['extra']['username']);
-      this.regFormBasic.controls['email'].setValue(this.claimProfile['email']);
-      this.regFormBasic.controls['phone'].setValue(this.claimProfile['contact']['mobile']['mobile']);
+      this.regFormBasic.controls['name'].setValue(this.claimUserProfileDetails['name']);
+      this.regFormBasic.controls['username'].setValue(this.claimUserProfileDetails['extra']['username']);
+      this.regFormBasic.controls['email'].setValue(this.claimUserProfileDetails['email']);
+      this.regFormBasic.controls['phone'].setValue(this.claimUserProfileDetails['contact']['mobile']['mobile']);
 
       this.claimProfileState.claim_profiles = [];
     }
