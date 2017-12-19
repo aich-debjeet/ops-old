@@ -15,6 +15,7 @@ import { DwcSuccessComponent } from './dwc-success/dwc-success.component';
 import { DwcRegComponent } from './dwc-reg/dwc-reg.component';
 import { DwcCompletedComponent } from './dwc-completed/dwc-completed.component';
 import { TextMaskModule } from 'angular2-text-mask';
+import { DpDatePickerModule } from 'ng2-date-picker';
 
 const routes: Routes = [
   {
@@ -48,7 +49,8 @@ const routes: Routes = [
     NgxCarouselModule,
     ReactiveFormsModule,
     TextMaskModule,
-    FormsModule
+    FormsModule,
+    DpDatePickerModule
 
   ],
   declarations: [

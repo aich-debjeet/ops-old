@@ -75,7 +75,6 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
     this.loginTagState$ = store.select('loginTags');
     this.loginTagState$.subscribe((state) => {
       this.industries = state.industries;
-      console.log('industries', this.industries);
     });
 
     // loading industry list
