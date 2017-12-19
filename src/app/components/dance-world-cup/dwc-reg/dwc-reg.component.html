@@ -93,48 +93,49 @@
                 <p class="c-text_md color-grey-dark m-b-16">Team participant details</p>
 
                 <div class="row m-0" *ngFor="let team_member of eventForm.controls.team_member['controls']; let i=index" [formGroup]="team_member">
-                    <div class="col-md-3 p-l-0">
-                        <div class="c-form__group c-form--md m-b-8">
-                            <input class="c-form__input" required="" type="text" formControlName="name">
-                            <span class="c-form__highlight"></span>
-                            <span class="c-form__bar"></span>
-                            <label>Name</label>
-                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.name.errors?.required && eventCreate.submitted">Name is required</p>
+                    <div class="col-md-11 p-l-0">
+
+                        <div class="col-md-3 p-l-0">
+                            <div class="c-form__group c-form--md m-b-8">
+                                <input class="c-form__input" required="" type="text" formControlName="name">
+                                <span class="c-form__highlight"></span>
+                                <span class="c-form__bar"></span>
+                                <label>Name</label>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.name.errors?.required && eventCreate.submitted">Name is required</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 p-l-0">
-                        <div class="c-form__group c-form--md m-b-8">
-                            <input class="c-form__input" required="" type="text" formControlName="email">
-                            <span class="c-form__highlight"></span>
-                            <span class="c-form__bar"></span>
-                            <label>Email</label>
-                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.required && eventCreate.submitted">Email is required</p>
-                            <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.isEmailUnique ">Mail account already exists</p>
-                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.email || eventForm.controls.team_member.controls[i].controls.email.errors?.isInvalidEmail && eventCreate.submitted">Email is not valid</p> -->
-                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.isEmailUnique ">Mail account already exists</p>
-                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['email'].errors?.isInvalidEmail">Email not valid</p>
+                        <div class="col-md-3 p-l-0">
+                            <div class="c-form__group c-form--md m-b-8">
+                                <input class="c-form__input" required="" type="text" formControlName="email">
+                                <span class="c-form__highlight"></span>
+                                <span class="c-form__bar"></span>
+                                <label>Email</label>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.required && eventCreate.submitted">Email is required</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.isEmailUnique ">Mail account already exists</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['email'].errors?.isInvalidEmail">Email not valid</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 p-l-0">
-                        <div class="c-form__group c-form--md m-b-8">
-                            <input class="c-form__input" required="" type="text" formControlName="phone" pattern="[0-9]*">
-                            <span class="c-form__highlight"></span>
-                            <span class="c-form__bar"></span>
-                            <label>Phone number</label>
-                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.errors?.required && eventCreate.submitted">Phone is required</p>
-                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.hasError('pattern')">Only numbers allowed</p>
-                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.errors?.isMobileUnique">This phone number already registered</p>
+                        <div class="col-md-3 p-l-0">
+                            <div class="c-form__group c-form--md m-b-8">
+                                <input class="c-form__input" required="" type="text" formControlName="phone" pattern="[0-9]*">
+                                <span class="c-form__highlight"></span>
+                                <span class="c-form__bar"></span>
+                                <label>Phone number</label>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.errors?.required && eventCreate.submitted">Phone is required</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.hasError('pattern')">Only numbers allowed</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.errors?.isMobileUnique">This phone number already registered</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3 p-0">
-                        <div class="c-form__group c-form--md m-b-8">
-                            <input class="c-form__input" required="" type="text" formControlName="dob" [textMask]="{mask: dateMask}">
-                            <span class="c-form__highlight"></span>
-                            <span class="c-form__bar"></span>
-                            <label>Date of birth (DD-MM-YY)</label>
-                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['dob'].errors?.required && eventCreate.submitted">DOB is required</p>
-                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
-                            <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['dob'].errors?.isOverAge">Age should be less than or equal to 25</p>
+                        <div class="col-md-3 p-0">
+                            <div class="c-form__group c-form--md m-b-8">
+                                <input class="c-form__input" required="" type="text" formControlName="dob" [textMask]="{mask: dateMask}">
+                                <span class="c-form__highlight"></span>
+                                <span class="c-form__bar"></span>
+                                <label>Date of birth (DD-MM-YY)</label>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['dob'].errors?.required && eventCreate.submitted">DOB is required</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['dob'].errors?.isOverAge">Age should be less than or equal to 25</p>
+                            </div>
                         </div>
                     </div>
                     <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.name.errors?.required && eventCreate.submitted">Name, Email and Phone Number is required</p> -->
