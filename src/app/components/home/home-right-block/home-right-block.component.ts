@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { filter as _filter } from 'lodash';
 import { OpportunityActions } from '../../../actions/opportunity.action';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'home-right-block',
@@ -24,13 +25,14 @@ export class HomeRightBlockComponent implements OnInit {
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
   myProfile$: Observable<any>;
+  baseUrl = environment.API_IMAGE;
   userState: any;
   profiles = [];
   skillCodes = [];
   loadedRecomOpps = false;
   recordsPerPage = 2;
   opportunities: any[];
-
+  imageBaseUrl: string = environment.API_IMAGE;
 
   constructor(
     private store: Store<ProfileModal>
