@@ -89,7 +89,7 @@ export class RegistrationProfileComponent implements OnInit {
       button_text: 'Login',
       button_link: '/login',
       page: false,
-      img: 'http://d33wubrfki0l68.cloudfront.net/8116a57b8fb73beafbe44c518c398f1cc01d79d1/24877/img/registration_acc_type_illustration.png'
+      img: 'https://d33wubrfki0l68.cloudfront.net/8116a57b8fb73beafbe44c518c398f1cc01d79d1/24877/img/registration_acc_type_illustration.png'
     };
   }
 
