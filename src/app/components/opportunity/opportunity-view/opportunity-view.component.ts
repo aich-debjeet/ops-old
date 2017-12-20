@@ -40,13 +40,11 @@ export class OpportunityViewComponent implements OnInit {
     this.opportunityState$ = this.store.select('opportunityTags');
     this.opportunityState$.subscribe((state) => {
       this.opportunityState = state;
-      // console.log('view opp comp state', state);
 
       // get opp data
       if (state && state.get_opportunity_data && state.get_opportunity_data.SUCCESS) {
         this.opportunity = state.get_opportunity_data.SUCCESS;
         this.hasApplied = state.get_opportunity_data.SUCCESS.hasApplied;
-        // console.log('this.opportunity', this.opportunity);
       }
 
       // check if job application successful
@@ -62,7 +60,6 @@ export class OpportunityViewComponent implements OnInit {
     this.userState$.subscribe((state) => {
       if (state && state.profile_navigation_details) {
         this.userProfile = state.profile_navigation_details;
-        // console.log('this.userProfile', this.userProfile);
       }
     });
   }
@@ -71,8 +68,6 @@ export class OpportunityViewComponent implements OnInit {
    * Disable appy for opportunity for self
    */
   disableApplicationForSelf(username: string) {
-    // console.log('this.userProfile.username', this.userProfile['username']);
-    // console.log('username', username);
     if (this.userProfile && (this.userProfile['username'] === username)) {
       return true;
     }
@@ -81,7 +76,6 @@ export class OpportunityViewComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      console.log(params['id']);
       if (params['id']) {
         // search job with id
         this.jobId = params['id'];

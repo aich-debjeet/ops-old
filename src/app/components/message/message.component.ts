@@ -121,7 +121,6 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
   ngOnInit() {
     // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     this.userO$.subscribe((val) => {
-      console.log(val)
       this.currentUserDetails = val;
       if (val.profile_user_info) {
         if (this.currentUserDetails.profile_user_info.isCurrentUser === false && this.currentUserDetails.profile_other_loaded === true) {
@@ -156,8 +155,7 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
   /**
    * This method will get user profile details and also get all the user sent and receive messages
    * @param handle
- */
-
+  */
   initMessaging(handle: string) {
     if (!handle) {
       return false;
@@ -180,8 +178,7 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
   /**
    *This method will take the merged messages and filter out all the handles of different users to get their user information
    * @param mergedMessages
- */
-
+  */
   fetchProfileByHandle(mergedMessages: any) {
     const headers = this.tokenService.getAuthHeader();
     const data = [];
@@ -199,7 +196,6 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
       if (this.listData) {
         this.listData = _uniq(this.listData, 'id');
         const reqBody = { listData: this.listData };
-        console.log(this.listData)
         this.http.post(this.apiLink + '/portal/auth/handleDisplayData', reqBody, { headers: headers })
         .map((response: Response) => response.json())
         .subscribe(response => {
@@ -212,11 +208,9 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
   /**
    *This method will get all the user information according to handles and will filter out the latest message received w.r.t the user and will list out the user with their latest message on the left hand side.
    * @param data
- */
-
+  */
   orderProfileMessage(data: any) {
     if (!data) {
-      console.log('no data')
       return false;
     } else {
     const handleDataMap = data;
@@ -255,8 +249,6 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
             messageContacts[i].latestmessage = this.selfProfile.extra.messages.received[j].content;
             messageContacts[i].latestmessagetime = this.selfProfile.extra.messages.received[j].time;
             messageContacts[i].isLastMessageSentByMe = false;
-            } else {
-              console.log('message already set isread true..')
             }
           }
         }
@@ -287,8 +279,7 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
    *this method is usd to select the view and also to select a particular user to get all its conversation with the logged in user
    * @param tab
    * @param nonUserHandle
- */
-
+  */
   toggleView(tab: any, nonUserHandle: any) {
       // toggle view
     this.selectedView = tab;
@@ -301,13 +292,9 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
           if (this.orderedMessageContacts[i].handle === nonUserHandle) {
             indexOfNonUserHandle = i;
             break;
-          } else {
-            console.log('not present')
           }
         }
         this.selectUserData(this.orderedMessageContacts[indexOfNonUserHandle])
-      } else {
-        console.log(nonUserHandle)
       }
     }
   }
@@ -315,8 +302,7 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
   /**
    *
    *  @param selectUser passing the selected user to mark all its messages read w.r.t the logged in user
- */
-
+  */
   selectUserData(selectUser) {
     const headers = this.tokenService.getAuthHeader();
     selectUser.read = true;
@@ -349,10 +335,9 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
     })
   }
 
- /**
-   *this method will get the conversation between the logged in user and the selected user and will have conversation messages sorted with time
- */
-
+  /**
+    *this method will get the conversation between the logged in user and the selected user and will have conversation messages sorted with time
+  */
   sortedMessages() {
     this.messagesbytime.length = 0;
     if ( this.selectedUserHandle !== this.userHandle) {
@@ -374,8 +359,7 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
   /**
    *
    * @param value add messages to an ongoing conversation between two users
- */
-
+  */
   addMessage(value: any) {
     const headers = this.tokenService.getAuthHeader();
     if (this.messageForm.valid === true) {
@@ -397,7 +381,6 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
   /**
    *put the latest conversation on the left hand side with respect to the selected user
   */
-
   manageAddMessages(response) {
     if (response.SUCCESS.to === this.selectedUserHandle && response.SUCCESS.by === this.userHandle) {
       if (!_find(this.messagesbytime, {id: response.SUCCESS.id})) {
@@ -418,7 +401,6 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
    *
    * @param value used to send message to a receipient on custom search using the compose button
   */
-
   sentMessageToRecipient(value: any ) {
     this.messagesbytime.length = 0;
     const headers = this.tokenService.getAuthHeader();
@@ -431,7 +413,7 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
       subject : value.message_term,
       content : value.message_term,
     }
-    console.log('this is the current user converstaion to' + this.nonUserProfile.handle + '' + this.nonUserProfile.name)
+
     this.http.post(this.apiLink + '/portal/message', messageBody, { headers: headers })
     .map((response: Response) => response.json())
     .subscribe(response => {
@@ -444,7 +426,6 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
       this.toggleView('readMessage', this.nonUserProfile.handle)
     })
     if (this.ownProfile !== true) {
-      console.log(this.ownProfile)
       this.ownProfile = true;
     }
   }
@@ -461,7 +442,6 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
 
     if (handle !== this.userHandle && handle !== undefined) {
-      console.log('this is the chosen handle' + handle);
      // const headers = this.tokenService.getAuthHeader();
       this.messageStore.dispatch({ type: MessageActions.LOAD_NON_USER_PROFILE2_DATA, payload: handle });
       for (const i in this.receipientList) {
@@ -482,9 +462,7 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
   */
 
   onSearch (value) {
-    console.log(value)
     if (value) {
-      console.log('its here')
       this.recipientsListState = true;
       this.messageStore.dispatch({ type: MessageActions.GET_RECEIPIENT, payload: value });
     } else {
@@ -494,7 +472,6 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   hideList() {
-    console.log('close');
     this.recipientsListState = false;
   }
 
@@ -506,11 +483,9 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   scrollToBottom(): void {
     if (this.disableScrollDown) {
-      console.log('false')
       return
-  }
+    }
     try {
-      console.log('after false')
         this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     } catch (err) { }
   }
@@ -519,19 +494,16 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
     const element = this.myScrollContainer.nativeElement
     const atBottom = element.scrollHeight - element.scrollTop === element.clientHeight
     if (this.disableScrollDown && atBottom) {
-      console.log(this.disableScrollDown)
         this.disableScrollDown = false
     } else {
-      console.log('here' + this.disableScrollDown)
         this.disableScrollDown = true
     }
 }
 
-otherProfile (user: any) {
-// console.log(JSON.stringify(this.otherUserProfile))
-// console.log(JSON.stringify(user))
-this.composeMessage.searchUser = user.name;
-// this.ownProfile = true;
- this.messageStore.dispatch({ type: MessageActions.LOAD_NON_USER_PROFILE2_DATA, payload: user.handle});
-}
+  otherProfile (user: any) {
+
+  this.composeMessage.searchUser = user.name;
+  // this.ownProfile = true;
+  this.messageStore.dispatch({ type: MessageActions.LOAD_NON_USER_PROFILE2_DATA, payload: user.handle});
+  }
 }

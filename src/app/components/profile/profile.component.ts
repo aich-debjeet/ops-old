@@ -45,7 +45,6 @@ export class ProfileComponent implements OnInit {
     this.isCurrentUser = false;
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      // console.log(state);
       // this.current_user_value = this.checkUserType(this.userProfile);
     });
 
@@ -60,20 +59,15 @@ export class ProfileComponent implements OnInit {
     this.sub = this.route.params
       .subscribe(params => {
         this.userName = params['id'];
-         // Load corresponding user
-        // console.log(this.userProfile);
     });
 
 
     this.profileStore.select('profileTags')
       .first(profile => profile['profile_navigation_details'].name )
       .subscribe( data => {
-        console.log(data['profile_navigation_details'].username)
         if (data['profile_navigation_details'].username === this.userName) {
-          console.log('current user');
           this.loadProfile('');
         } else {
-          console.log('other User');
           this.loadProfile(this.userName);
         }
       });

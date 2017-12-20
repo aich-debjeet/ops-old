@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { filter as _filter } from 'lodash';
 import { OpportunityActions } from '../../../actions/opportunity.action';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'home-right-block',
@@ -24,13 +25,14 @@ export class HomeRightBlockComponent implements OnInit {
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
   myProfile$: Observable<any>;
+  baseUrl = environment.API_IMAGE;
   userState: any;
   profiles = [];
   skillCodes = [];
   loadedRecomOpps = false;
   recordsPerPage = 2;
   opportunities: any[];
-
+  imageBaseUrl: string = environment.API_IMAGE;
 
   constructor(
     private store: Store<ProfileModal>
@@ -44,11 +46,9 @@ export class HomeRightBlockComponent implements OnInit {
 
     // observe the opportunity state
     this.opportunityState$.subscribe((state) => {
-      // console.log('opportunityState', state);
      // check for the result of recommended opportunities
      if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
        this.opportunities = state.get_opportunities_data.SUCCESS;
-       // console.log('this.opportunities', this.opportunities);
      }
    });
 
@@ -56,18 +56,14 @@ export class HomeRightBlockComponent implements OnInit {
       this.userState = event;
       if (event['user_profiles_all'] !== 'undefined') {
         this.profiles = event.user_profiles_all;
-        // this.filterProfiles(profiles);
       }
-      // console.log('user state' , this.userState)
-      // console.log('this.profiles ', this.profiles)
+
       // check for user skills
       if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['skills'] && this.userState['profile_navigation_details']['skills'].length > 0) {
         // fetching skills in a local var
         const skillsLoaded = this.userState['profile_navigation_details']['skills'];
-        // console.log(skillsLoaded)
         // preparing skills as an array of string
         skillsLoaded.forEach((skill, index) => {
-          // console.log('skill.code', skill.code);
           if (skill && skill.code) {
             this.skillCodes.push(skill.code);
           }
@@ -82,15 +78,6 @@ export class HomeRightBlockComponent implements OnInit {
     });
   }
 
-  // filterProfiles(profile) {
-  //   console.log(profile)
-  //   for (let i = 0; i < profile.length; i++) {
-  //     if (!profile[i].extra.isFollowing) {
-  //       this.profiles.push(profile[i])
-  //     }
-  //   }
-  //   console.log(this.profiles)
-  // }
   getProfileImage() {
     return _filter(this.profiles, function(item) {
       return item.profileImage !== '';
@@ -105,7 +92,7 @@ export class HomeRightBlockComponent implements OnInit {
       offset: 0, // initial request
       limit: this.recordsPerPage
     }
-    // console.log('dispatch recommended opportunities');
+
     this.store.dispatch({
       type: OpportunityActions.GET_OPPORTUNITIES,
       payload: recomSearchParams
@@ -117,7 +104,6 @@ export class HomeRightBlockComponent implements OnInit {
    * @param user obj
    */
   followUser(user: any) {
-    console.log(user)
     this.store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
     user.extra.isFollowing = true;
   }
@@ -127,7 +113,6 @@ export class HomeRightBlockComponent implements OnInit {
    * @param user obj
    */
   unfollowUser(user: any) {
-    console.log(user)
     this.store.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.handle });
     user.extra.isFollowing = false;
   }

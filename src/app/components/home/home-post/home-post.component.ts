@@ -41,7 +41,6 @@ export class HomePostComponent implements OnInit {
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
        this.posts = this.userProfile.user_following_posts;
-       console.log(this.posts)
     });
   }
 
@@ -49,10 +48,8 @@ export class HomePostComponent implements OnInit {
     this.tagState$ = this.profileStore.select('profileTags')
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      console.log('state', state)
       if (state['profile_navigation_details'].handle) {
         this.handle = this.userProfile.profile_navigation_details.handle;
-        console.log(this.handle)
          this.isOwner = true;
         // this.posts = [];
         if (this.handle && !this.postsLoaded) {
@@ -60,10 +57,6 @@ export class HomePostComponent implements OnInit {
           this.postLoad(this.handle);
         }
       }
-      // if (state['user_following_posts']) {
-      //   this.posts = this.userProfile.user_following_posts;
-      //   console.log(this.posts)
-      // }
     });
   }
 
@@ -73,7 +66,6 @@ export class HomePostComponent implements OnInit {
       page_start: this.page_start,
       page_end: this.page_end
     }
-    console.log(data)
     this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
   }
   postDelete(post) {
@@ -85,11 +77,8 @@ export class HomePostComponent implements OnInit {
     }
   }
   onScroll(e) {
-  console.log('here')
     this.scrolling = e.currentScrollPosition;
-    console.log(this.scrolling)
     if (this.scrollingLoad <= this.scrolling) {
-      console.log('here too')
       this.scrollingLoad += 10000
       this.page_start = this.page_end + 1;
       this.page_end += 10;

@@ -53,14 +53,11 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
     this.opportunityState$ = this.store.select('opportunityTags');
     this.opportunityState$.subscribe((state) => {
       this.opportunityState = state;
-      // console.log('state', state);
       if (state && state.searching_opportunities === false) {
         this.isSearching = false;
         this.showPreloader = false;
       }
-      // if (state && state.getting_opportunity_type_count === true) {
-      //   console.log('requesting opp type count');
-      // }
+
       if (state && state.get_opportunity_type_success && state.get_opportunity_type_success === true) {
         this.prepareOppCount(state.get_opportunity_type_data.SUCCESS);
       }
@@ -99,8 +96,6 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
       } else if (oppType.jobType === 'Freelance') {
         this.opportunitiesCount.Freelance = String(oppType.count);
       }
-      // console.log(oppType.jobType);
-      // console.log(oppType.count);
     });
   }
 
@@ -116,11 +111,9 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
     .subscribe(() => {
 
       this.searchString = this.searchInput.value;
-      // console.log('searching: ', this.searchString);
 
       // search if string is available
       if (this.searchString && this.searchString.length > 0) {
-        // console.log('new search', this.searchString);
         this.isSearching = true;
 
         const searchParams = {

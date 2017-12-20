@@ -12,18 +12,13 @@ export class ShareBottonComponent implements OnInit {
 
   ngOnInit() {
   }
-  
-  toggleFollowBtn(i){
+
+  toggleFollowBtn(i) {
     // this.onClose.emit(i);
-    return this.trip[i].follow == true? this.trip[i].follow = false : this.trip[i].follow = true
+    return this.trip[i].follow === true ? this.trip[i].follow = false : this.trip[i].follow = true
   }
 
   tripFollowState() {
-    console.log(this.trip.follow);
-    
-    return this.trip.follow? 'active' : 'inactive';
+    return this.trip.follow ? 'active' : 'inactive';
   }
-
-  
-
 }

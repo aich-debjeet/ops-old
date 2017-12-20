@@ -178,8 +178,6 @@ export class MediaSelectorComponent implements OnInit {
         this.handle = event.profile_cards.active.handle;
         isUserReady = true;
         this.loadChannel(this.handle);
-      } else {
-        // console.log('[x]');
       }
 
       // Check if it has query params
@@ -291,8 +289,6 @@ export class MediaSelectorComponent implements OnInit {
    * Media Upload Multiple
    */
   mediaInfoUpdateAll(value: any) {
-    // console.log(value);
-    // console.log(this.uploaded);
   }
 
   /**
@@ -300,9 +296,6 @@ export class MediaSelectorComponent implements OnInit {
    * @param formValue
    */
   postAllMedia(value) {
-    // console.log('post all media');
-    // console.log(value);
-
     let isReady = false;
     let userHandle = '';
 
@@ -326,19 +319,15 @@ export class MediaSelectorComponent implements OnInit {
     // const chosenFile = this.editingFile;
 
     for (const nowFile of this.uploadedFiles) {
-      // console.log(nowFile);
       if (nowFile) {
         // Build Media Object
         const mediaItem = this.formatMedia( nowFile, formData, chosenChannel, userHandle, value.privacy);
-        // console.log(mediaItem);
         const media = [ mediaItem ];
         multipleMedias.push(mediaItem);
-        // console.log(multipleMedias);
       }
     }
 
     if ( isReady && userHandle !== '') {
-      // console.log('MULTIPLE', multipleMedias);
       this.postMediaToChannel(chosenChannel.spotfeedId, multipleMedias);
     }
   }
@@ -645,7 +634,6 @@ export class MediaSelectorComponent implements OnInit {
         const newVal = element.replace('#', '');
         tag.push(newVal);
 
-        console.log('tag', tag);
         if (newVal === 'dwc') {
           isDwcThing = 3;
         }

@@ -102,7 +102,6 @@ export class StatusEditorComponent {
     this.store.select('mediaStore')
       .first(post => post['status_saved'] === true)
       .subscribe( data => {
-        console.log('save success');
         this.toastr.success('Successfully posted your status');
         this.router.navigate(['/user/status/list']);
       });
