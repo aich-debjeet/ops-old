@@ -125,16 +125,20 @@ export class RegistrationBasicComponent implements OnInit {
       this.petTag = state;
 
       if (!this.claimingUserSet && state && state['claim_user_info'] && state['claim_user_info']['SUCCESS']['user']) {
-        this.claimingUserSet = true;
         this.claimUserProfileDetails = state['claim_user_info']['SUCCESS']['user'];
         console.log('this.claimUserProfileDetails', this.claimUserProfileDetails);
-        // console.log('fill user info and disable name input listener');
-        this.inputNameListener.unsubscribe();
-        this.buildForm();
-        this.regFormBasic.controls['name'].setValue(this.claimUserProfileDetails['name']['firstName'] + ' ' + this.claimUserProfileDetails['name']['lastName']);
-        this.regFormBasic.controls['username'].setValue(this.claimUserProfileDetails['username']);
-        this.regFormBasic.controls['email'].setValue(this.claimUserProfileDetails['email']);
-        this.regFormBasic.controls['phone'].setValue(this.claimUserProfileDetails['contact']['contactNumber']);
+        // check if imported user
+        if (this.claimUserProfileDetails && this.claimUserProfileDetails['other']['isImported'] === true) {
+          // console.log('imported profile');
+          // console.log('fill user info and disable name input listener');
+          this.claimingUserSet = true;
+          this.inputNameListener.unsubscribe();
+          this.buildForm();
+          this.regFormBasic.controls['name'].setValue(this.claimUserProfileDetails['name']['firstName'] + ' ' + this.claimUserProfileDetails['name']['lastName']);
+          this.regFormBasic.controls['username'].setValue(this.claimUserProfileDetails['username']);
+          this.regFormBasic.controls['email'].setValue(this.claimUserProfileDetails['email']);
+          this.regFormBasic.controls['phone'].setValue(this.claimUserProfileDetails['contact']['contactNumber']);
+        }
       }
     });
     this.isPhotoAdded = false;
@@ -438,30 +442,32 @@ export class RegistrationBasicComponent implements OnInit {
       }
     };
 
-    if (typeof this.claimUserProfileDetails !== 'undefined') {
-      console.log('user type claimed', this.claimUserProfileDetails);
+    console.log('form body', form);
 
-      form.other['isImported'] = false;
-      form['handle'] = this.claimUserProfileDetails.handle;
-      // claim user profile
-      this.store.dispatch({ type: AuthActions.USER_PROFILE_CLAIM, payload: form });
+    // if (typeof this.claimUserProfileDetails !== 'undefined') {
+    //   console.log('user type claimed', this.claimUserProfileDetails);
 
-    } else {
+    //   form.other['isImported'] = false;
+    //   form['handle'] = this.claimUserProfileDetails.handle;
+    //   // claim user profile
+    //   this.store.dispatch({ type: AuthActions.USER_PROFILE_CLAIM, payload: form });
 
-      // register new user
-      this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
+    // } else {
 
-    }
+    //   // register new user
+    //   this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
 
-    this.store.select('loginTags').take(2).subscribe(data => {
-        if (data['user_basic_reg_success'] === true ) {
-          console.log('success otp');
-          if (data && data['user_token']) {
-              localStorage.setItem('access_token', data['user_token']);
-          }
-          this.modalService.open('otpWindow');
-        }
-    })
+    // }
+
+    // this.store.select('loginTags').take(2).subscribe(data => {
+    //     if (data['user_basic_reg_success'] === true ) {
+    //       console.log('success otp');
+    //       if (data && data['user_token']) {
+    //           localStorage.setItem('access_token', data['user_token']);
+    //       }
+    //       this.modalService.open('otpWindow');
+    //     }
+    // });
   }
 
 
@@ -506,9 +512,10 @@ export class RegistrationBasicComponent implements OnInit {
       // console.log('enable search');
     }, 3000);
     if (profileHandle && this.claimProfileState.claim_profiles.length > 0) {
+      this.claimingUserSet = true;
       this.claimUserProfileDetails = _.find(this.claimProfileState.claim_profiles, { 'handle': profileHandle });
       // console.log('profile found', this.claimUserProfileDetails);
-
+      this.buildForm();
       this.regFormBasic.controls['name'].setValue(this.claimUserProfileDetails['name']);
       this.regFormBasic.controls['username'].setValue(this.claimUserProfileDetails['extra']['username']);
       this.regFormBasic.controls['email'].setValue(this.claimUserProfileDetails['email']);
