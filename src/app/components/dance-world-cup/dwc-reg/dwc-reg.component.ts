@@ -48,7 +48,7 @@ export class DwcRegComponent implements OnInit {
   config: IDatePickerConfig = {
     firstDayOfWeek: 'mo',
     // format: 'YYYY-MM-DDThh:mmTZD',
-    // disableKeypress: true,
+    disableKeypress: true,
     showSeconds: true
   };
 
