@@ -89,12 +89,10 @@ export class OpportunityCreateComponent implements OnInit {
     this.loginTagState$ = store.select('loginTags');
     this.loginTagState$.subscribe((state) => {
       this.industries = state.industries;
-      // console.log('industries', this.industries);
     });
 
     this.userProfileState$ = this.mediaStore.select('profileTags');
     this.userProfileState$.subscribe(data => {
-      // console.log('porfile state', data);
       if (data && data.profile_navigation_details) {
         this.userProfile = data.profile_navigation_details;
         if (data.channel_saved) {
@@ -103,7 +101,6 @@ export class OpportunityCreateComponent implements OnInit {
       }
       if (data && data.user_following_channels_loaded) {
         this.channelList = data.user_following_channel;
-        // console.log('this.channelList', this.channelList);
       }
       if (data && data.channel_created_details && data.channel_created_details.SUCCESS && data.channel_created_details.SUCCESS.id) {
         this.selectedChannelId = data.channel_created_details.SUCCESS.id;
@@ -122,16 +119,13 @@ export class OpportunityCreateComponent implements OnInit {
     this.opportunityState$ = this.store.select('opportunityTags');
     this.opportunityState$
     .first(state => {
-      // console.log('first', state);
       this.opportunityState = state;
-      // console.log('state', state);
       // check if opportunity created successfully
       if (this.opportunityState && this.opportunityState.create_opportunity_data && this.opportunityState.create_opportunity_data.SUCCESS) {
         if (this.isSaved === false) {
           this.isSaved = true;
           this.toastr.success('Opportunity has been created successfully!');
         }
-        // console.log('opportunity created successfully')
         this.resetOppForm();
 
         // redirecting to the created job
@@ -200,10 +194,8 @@ export class OpportunityCreateComponent implements OnInit {
       this.activeProfile = data['profile_cards'].active;
       // bad logics
       if (this.activeProfile.isOrg) {
-        console.log('L1', this.activeProfile);
         this.orgHandle = this.activeProfile.handle;
       } else {
-        console.log('L2', this.activeProfile);
         if (data['profile_cards'].other && data['profile_cards'].other.isOrg) {
           this.orgHandle = data['profile_cards'].other.isOrg;
         }
@@ -217,14 +209,11 @@ export class OpportunityCreateComponent implements OnInit {
     // validation step
     if (!this.createOppFrm.valid) {
       window.scrollTo(0, 0);
-      // console.log('invalid form');
       return;
-    } else {
-      // console.log('submit form');
     }
+
     this.createClicked = true;
     this.formData = formData;
-    // console.log('channel selection');
 
     // loading channels
     this.loadChannels();
@@ -249,10 +238,7 @@ export class OpportunityCreateComponent implements OnInit {
 
     // validation step
     if (!this.createOppFrm.valid) {
-      // console.log('invalid form');
       return;
-    } else {
-      // console.log('submit form');
     }
 
     // preparing skills for req body
@@ -295,7 +281,6 @@ export class OpportunityCreateComponent implements OnInit {
       industry: [ formData.industry ]
     };
 
-    // console.log('reqObj', reqObj);
     // create the opportunity
     this.store.dispatch({
       type: OpportunityActions.CREATE_OPPORTUNITY,
@@ -346,8 +331,6 @@ export class OpportunityCreateComponent implements OnInit {
         profileHandle = localStore.handle;
       }
     }
-
-    // console.log('this.channelForm', this.channelForm);
 
     if ( this.channelForm.valid === true && profileHandle !== '' ) {
 
@@ -400,9 +383,8 @@ export class OpportunityCreateComponent implements OnInit {
     // load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+    });
 
-      });
-      // console.log(autocomplete);
       const componentForm = {
         street_number: 'short_name',
         route: 'long_name',
@@ -416,11 +398,9 @@ export class OpportunityCreateComponent implements OnInit {
         this.ngZone.run(() => {
           // get the place result
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          // console.log(place);
 
           for (let i = 0; i < place.address_components.length; i++) {
             const addressType = place.address_components[i].types[0];
-            // console.log(addressType);
             if (componentForm[addressType]) {
               const val = place.address_components[i][componentForm[addressType]];
               if ( addressType === 'country') {
@@ -469,7 +449,6 @@ export class OpportunityCreateComponent implements OnInit {
    * Set the privacy value for the form reference
    */
   selectPrivacy(value: any) {
-    // console.log('privacy ', value)
     this.privacyValue = value;
     this.togglePrivacyOptions();
   }

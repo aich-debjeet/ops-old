@@ -68,7 +68,6 @@ export class ChannelInnerComponent implements OnInit {
       this._store.select('mediaStore')
         .first(data => data['channel_detail'].ownerName)
         .subscribe( data => {
-          // console.log(data);
           this.isfollowing = data['channel_detail'].isFollowing;
           if (data['channel_detail'].contributorProfile) {
             this.contributors = this.generalHelper.getArrayWithLimitedLength(data['channel_detail'].contributorProfile, 3);
@@ -78,13 +77,10 @@ export class ChannelInnerComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.channel);
     // this.isfollowing = this.channel.isFollowing || false;
   }
 
   mediaNext($event) {
-    console.log('button press');
-    console.log($event);
   }
    /**
    * Form initial value
@@ -136,8 +132,6 @@ export class ChannelInnerComponent implements OnInit {
    * Follow this channel
    */
   followChannel(type, channelId) {
-    console.log(channelId);
-    console.log(type);
     if (this.isfollowing === true) {
       this.following (type = false, channelId)
       this.isfollowing = false;

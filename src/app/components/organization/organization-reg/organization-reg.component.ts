@@ -116,7 +116,6 @@ export class OrganizationRegComponent implements OnInit {
 
   submitForm(value) {
     const industrySelected = _.find(this.industries, { code: value.org_industry_type });
-    // console.log('industrySelected', industrySelected);
     let industryObj = {};
     if (industrySelected && industrySelected.name) {
       industryObj = {
@@ -125,7 +124,7 @@ export class OrganizationRegComponent implements OnInit {
         active : true
       }
     }
-    // console.log('industryObj', industryObj); return;
+
     if (!this.orgReg.valid) {
       return false;
     }
@@ -160,8 +159,6 @@ export class OrganizationRegComponent implements OnInit {
         active : true
     }
 
-    // console.log('form body ', data); return;
-
     this.store.dispatch({ type: OrganizationActions.ORGANIZATION_REGISTRATION, payload: data });
 
     // Org Registration successfully
@@ -186,7 +183,6 @@ export class OrganizationRegComponent implements OnInit {
    * @param query
    */
   onSearchChange(query) {
-    console.log(query);
     if (query || query !== '') {
       this.store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
     }
@@ -210,56 +206,52 @@ export class OrganizationRegComponent implements OnInit {
     // load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+    });
+    const componentForm = {
+      street_number: 'short_name',
+      route: 'long_name',
+      locality: 'long_name',
+      administrative_area_level_1: 'long_name',
+      country: 'long_name',
+      postal_code: 'short_name'
+    };
 
-      });
-      console.log(autocomplete);
-      const componentForm = {
-        street_number: 'short_name',
-        route: 'long_name',
-        locality: 'long_name',
-        administrative_area_level_1: 'long_name',
-        country: 'long_name',
-        postal_code: 'short_name'
-      };
-
-      autocomplete.addListener('place_changed', () => {
-        this.ngZone.run(() => {
-          // get the place result
-          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          // console.log(place);
-
-          for (let i = 0; i < place.address_components.length; i++) {
-            const addressType = place.address_components[i].types[0];
-            console.log(addressType);
-            if (componentForm[addressType]) {
-              const val = place.address_components[i][componentForm[addressType]];
-              if ( addressType === 'country') {
-                this.country = val;
-              }
-              if ( addressType === 'postal_code') {
-                this.postalCode = val;
-              }
-              if ( addressType === 'locality') {
-                this.city = val
-              }
-              if ( addressType === 'administrative_area_level_1') {
-                this.state = val
-              }
+    autocomplete.addListener('place_changed', () => {
+      this.ngZone.run(() => {
+        // get the place result
+        const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+        
+        for (let i = 0; i < place.address_components.length; i++) {
+          const addressType = place.address_components[i].types[0];
+          if (componentForm[addressType]) {
+            const val = place.address_components[i][componentForm[addressType]];
+            if ( addressType === 'country') {
+              this.country = val;
+            }
+            if ( addressType === 'postal_code') {
+              this.postalCode = val;
+            }
+            if ( addressType === 'locality') {
+              this.city = val
+            }
+            if ( addressType === 'administrative_area_level_1') {
+              this.state = val
             }
           }
+        }
 
-          // verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
+        // verify result
+        if (place.geometry === undefined || place.geometry === null) {
+          return;
+        }
 
-          // set latitude, longitude and zoom
-          this.address = place.formatted_address;
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.zoom = 12;
-        });
+        // set latitude, longitude and zoom
+        this.address = place.formatted_address;
+        this.latitude = place.geometry.location.lat();
+        this.longitude = place.geometry.location.lng();
+        this.zoom = 12;
       });
+    });
     });
   }
 

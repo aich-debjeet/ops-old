@@ -180,7 +180,6 @@ export class OrgImageComponent implements OnInit {
     this._store.select('profileTags')
       .first(org => org['image_upload_success'] === true)
       .subscribe( data => {
-        console.log('upload sucess');
         const image = data['profileImage'].repoPath;
         this.updateProfileImage(image);
       });
@@ -203,7 +202,6 @@ export class OrgImageComponent implements OnInit {
     this._store.select('profileTags')
       .first(org => org['org_profile_update_success'] === true)
       .subscribe( orgUpdate => {
-        console.log('profile upload sucess');
         this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
         this.uploadCompeleted();
       });
@@ -215,7 +213,6 @@ export class OrgImageComponent implements OnInit {
     this._store.select('profileTags')
       .first(profile => profile['current_user_profile_loading'] === true )
       .subscribe( data => {
-        console.log('upload compeleted');
         this._location.back();
         this.toastr.success('Organization profile image updated');
       });

@@ -11,11 +11,6 @@ export class ResetPasswordComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    // subscribe to router event
-    // this.activatedRoute.params.subscribe((params: Params) => {
-    //     let email = params['email'];
-    //     console.log(email);
-    //   });
   }
 
 }

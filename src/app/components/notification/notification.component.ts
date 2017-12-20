@@ -45,7 +45,6 @@ export class NotificationComponent implements OnInit {
 
     // observe the store value
     this.notificationsState$.subscribe((state) => {
-      console.log(state);
       if (typeof state['recieved_notifications'] !== 'undefined') {
         this.notifications = state['recieved_notifications'];
 
@@ -53,7 +52,6 @@ export class NotificationComponent implements OnInit {
         setTimeout(() => {
           // check if unread notification is available
           const allNotifsRead = _.every(this.notifications, ['isRead', true]);
-          // console.log('allNotifsRead', allNotifsRead);
           if (allNotifsRead) {
             this.alreadyReadAll = true;
           } else {
@@ -75,7 +73,6 @@ export class NotificationComponent implements OnInit {
   }
 
   @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
-    // console.log('scrolling', $event);
     const scrolledValue = window.pageYOffset;
     let scrollDirection = '';
     if (scrolledValue > this.lastScrollTop) {
@@ -84,7 +81,6 @@ export class NotificationComponent implements OnInit {
       scrollDirection = 'up';
     }
     this.lastScrollTop = scrolledValue;
-    // console.log('scrolling direction', scrollDirection);
 
     if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
       // reached the bottom of the page
@@ -118,10 +114,8 @@ export class NotificationComponent implements OnInit {
       && this.notifications.length > 0) {
         for (let readNotifIndex = 0; readNotifIndex < this.notificationIds.length; readNotifIndex++) {
           const readNotif = this.notificationIds[readNotifIndex];
-          // console.log('readNotif', readNotif);
           for (let notifIndex = 0; notifIndex < this.notifications.length; notifIndex++) {
             if (this.notifications[notifIndex].notificationId === this.notificationIds[readNotifIndex]) {
-              // console.log('mark read: ', this.notifications[notifIndex].notificationId);
               this.notifications[notifIndex].isRead = true;
             }
           }
@@ -162,8 +156,6 @@ export class NotificationComponent implements OnInit {
    */
   openLink(notifIndex: any, notificationId: string) {
     const notifDetails = this.notifications[notifIndex];
-    console.log('notifDetails', notifDetails.notificationType);
-
     // redirecting to the respective link
     switch (notifDetails.notificationType) {
 
@@ -193,7 +185,6 @@ export class NotificationComponent implements OnInit {
    */
   markAsRead(notificationId: string) {
     this.notificationIds = [notificationId];
-    console.log('this.notificationIds', this.notificationIds);
     this.dispatchReadNotifications();
   }
 
@@ -222,7 +213,6 @@ export class NotificationComponent implements OnInit {
         }
         if (index === (this.notifications.length - 1)) {
           this.notificationIds = data;
-          // console.log('collection this.notificationIds', this.notificationIds);
           callback();
         }
       });
@@ -235,7 +225,6 @@ export class NotificationComponent implements OnInit {
   markAllAsRead() {
     const self = this;
     this.getAllNotificationIds(function() {
-      // console.log('mark all read', self.notificationIds);
       self.dispatchReadNotifications();
     });
   }

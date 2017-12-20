@@ -81,15 +81,8 @@ export class MediaViewComponent {
   }
 
   mediaNext(value) {
-    console.log(value);
     this.onMediaNext.emit(value);
   }
-
-
-  // ngOnChanges() {
-  //   console.log('ngonchange');
-  //   console.log(this.mediaStore.media_detail.commentsCount);
-  // }
 
   checkEmpty(obj: Object) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;

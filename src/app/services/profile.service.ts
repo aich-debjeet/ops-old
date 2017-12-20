@@ -393,7 +393,6 @@ export class ProfileService {
    * Pin channel
    */
   userChannelPin(body: any) {
-    console.log(body)
     return this.api.put('/portal/network/spotfeed/pinspotfeed/pin', body);
   }
 
@@ -422,19 +421,14 @@ export class ProfileService {
    * Get Blocked Users
    */
   getBlockedUsers(handle: any) {
-    console.log('its here')
-    console.log(handle);
     return this.api.get('/portal/network/block/list/' , handle);
   }
 
   unBlockUser(body: any) {
-    console.log(body)
-    console.log('its here')
     return this.api.put('/portal/network/block/unblock', body);
   }
 
   getdefaultNotifications() {
-    console.log('here is the default notifications')
     return this.api.get('/portal/profile/profileSettings/default/settings', '' );
   }
 }

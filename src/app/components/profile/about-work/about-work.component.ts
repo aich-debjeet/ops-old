@@ -153,7 +153,7 @@ export class AboutWorkComponent implements OnInit {
           'access': Number(value.publicWork),
           'id': value.id,
         }
-        console.log('i am here' + JSON.stringify(body))
+
         this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
         this.toastr.success('Your work has been updated successfully!');
         this.modalService.close('userWorkAdd');

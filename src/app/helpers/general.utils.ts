@@ -7,10 +7,8 @@ export class GeneralUtilities {
 
     isEmpty(obj: any) {
         if (obj == null || obj === undefined || obj.length === undefined) {
-            // console.log('obj is empty yes. len:' + obj.length, obj);
             return true;
         } else {
-            // console.log('obj is empty no. len:' + obj.length, obj);
             return false;
         }
     }
@@ -43,9 +41,7 @@ export class GeneralUtilities {
      * @param: array and the length to trim
      */
     public getArrayWithLimitedLength(arr, len) {
-        // console.log('before', arr);
         const newArr = arr.slice(0, len);
-        // console.log('after', newArr);
         return newArr;
     }
 

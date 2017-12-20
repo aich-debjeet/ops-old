@@ -52,7 +52,6 @@ export class OrgCoverComponent implements OnInit {
     this.tagState$ = this._store.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.stateProfile = state;
-      // console.log(state);
     });
 
     this._store.select('profileTags').subscribe((state) => {
@@ -129,7 +128,6 @@ export class OrgCoverComponent implements OnInit {
     this._store.select('profileTags')
       .first(org => org['image_upload_success'] === true)
       .subscribe( data => {
-        console.log('upload sucess');
         const image = data['profileImage'].repoPath;
         this.updateCoverImage(image);
       });
@@ -146,8 +144,7 @@ export class OrgCoverComponent implements OnInit {
       self.drawImageProp(ctx, this, 0, 0, self.cropperSettings.canvasWidth, self.cropperSettings.canvasHeight, 0.1, 0.5);
     };
 
-     let coverImageURL;
-    console.log(this.stateProfile.profile_navigation_details.organization.organizationCoverImage);
+    let coverImageURL;
     if (typeof this.stateProfile.profile_navigation_details.organization.organizationCoverImage !== 'undefined') {
       coverImageURL = this.baseUrl + this.stateProfile.profile_navigation_details.organization.organizationCoverImage;
     } else {
@@ -176,7 +173,6 @@ export class OrgCoverComponent implements OnInit {
     this._store.select('profileTags')
       .first(org => org['org_profile_update_success'] === true)
       .subscribe( orgUpdate => {
-        console.log('profile upload sucess');
         this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
         this.uploadCompeleted();
       });
@@ -187,7 +183,6 @@ export class OrgCoverComponent implements OnInit {
     this._store.select('profileTags')
       .first(profile => profile['current_user_profile_loading'] === true )
       .subscribe( data => {
-        console.log('upload compeleted');
         this._location.back();
         this.toastr.success('Organization cover image updated');
       });

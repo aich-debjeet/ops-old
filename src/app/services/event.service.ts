@@ -85,9 +85,6 @@ export class EventService {
    * @param type
    */
   fileUpload(formValue: any, type: string = 'base64') {
-
-    console.log(formValue);
-
     let fileData;
     if (type === 'base64') {
       fileData = this.buildImageForm(formValue);

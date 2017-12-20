@@ -16,7 +16,6 @@ export class EventsCarditemComponent implements OnInit {
   }
 
   increment(amount: any) {
-    console.log(amount)
     this.count++;
     const data = {
       count: +1,

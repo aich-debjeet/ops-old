@@ -66,12 +66,10 @@ export class ExploreComponent implements OnInit {
     this.userState$ = this.store.select('profileTags');
     this.userState$.subscribe((state) => {
       this.userProfile = state;
-      // console.log('this.userProfile', this.userProfile);
 
       // get current profiles spotfeeds
       if (state && state.home_spotfeeds && state.home_spotfeeds.SUCCESS) {
         this.profileSpotfeeds = state.home_spotfeeds.SUCCESS;
-        // console.log('profile spotfeeds', this.profileSpotfeeds);
       }
     });
 
@@ -96,7 +94,6 @@ export class ExploreComponent implements OnInit {
             };
             this.pagination.push(refData);
             if (i >= (this.allSpotfeeds.length - 1)) {
-              // console.log(this.pagination);
             }
           }
         }
@@ -122,21 +119,7 @@ export class ExploreComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.carouselOne = {
-    //   grid: {xs: 5, sm: 5, md: 5, lg: 5, all: 5},
-    //   slide: 5,
-    //   load: 5,
-    //   speed: 400,
-    //   interval: 4000,
-    //   point: {
-    //     visible: false
-    //   },
-    //   touch: true,
-    //   loop: true,
-    //   custom: 'banner'
-    // }
   }
 
-  // public myfunc(event: Event) { }
 
 }

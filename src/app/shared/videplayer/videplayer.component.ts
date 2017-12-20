@@ -14,7 +14,6 @@ export class VideplayerComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log(this.src);
   }
 
 }

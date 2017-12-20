@@ -75,7 +75,6 @@ export class DwcRegComponent implements OnInit {
       });
 
       this.tagState$.subscribe((state) => {
-        // console.log(state)
         if (state['err_msg'] === 'Bad Request' && !this.err) {
           this.err = true;
           this.toastr.error('You Have Already applied')
@@ -132,7 +131,6 @@ export class DwcRegComponent implements OnInit {
 
     this.eventForm.get('member').valueChanges.subscribe(
       (validateBy: string) => {
-        console.log(validateBy);
         if (validateBy === 'true') {
           this.hideSchoolName = true;
           this.eventForm.get('school_owner').setValidators([Validators.required]);
@@ -151,7 +149,6 @@ export class DwcRegComponent implements OnInit {
   }
 
   testClick() {
-    // console.log('onclick');
   }
 
   /**
@@ -204,31 +201,22 @@ export class DwcRegComponent implements OnInit {
   submitForm(value) {
 
     if (this.eventForm.valid) {
-      console.log('valid form');
       this.valueStore = Object.assign({}, this.eventForm.value, {
-          Performance: this.convertToValue('Performance'),
-          Age_Group: this.convertToValue('Age_Group'),
-          Dance_Style: this.convertToValue('Dance_Style')
-        });
+        Performance: this.convertToValue('Performance'),
+        Age_Group: this.convertToValue('Age_Group'),
+        Dance_Style: this.convertToValue('Dance_Style')
+      });
+
       this.isPeformanceSelected = this.checkAtLeastOneSelection(this.Performance, 'people');
-      console.log('isPeformanceSelected', this.isPeformanceSelected);
 
       this.isAgeGroupSelected = this.checkAtLeastOneSelection(this.Age_Group, 'age');
-      console.log('isAgeGroupSelected', this.isAgeGroupSelected);
 
       this.isDanceStyle = this.checkAtLeastOneSelection(this.Dance_Style, 'dance');
-      console.log('isDanceStyle', this.isDanceStyle);
 
       if (this.isPeformanceSelected && this.isAgeGroupSelected && this.isDanceStyle) {
-        console.log('true')
         this.policySubmit(value);
-    } else {
-      console.log('invalid')
+      }
     }
-    } else {
-      console.log('invalid form');
-    }
-    // console.log(value)
     // this.valueStore = Object.assign({}, this.eventForm.value, {
     //   Performance: this.convertToValue('Performance'),
     //   Age_Group: this.convertToValue('Age_Group'),
@@ -242,7 +230,6 @@ export class DwcRegComponent implements OnInit {
   checkAtLeastOneSelection(arr, elem) {
     for (let i = 0; i < arr.length; i++) {
       const isChecked = (<HTMLInputElement>document.getElementById(elem + '-' + i)).checked;
-      // console.log(elem + '-' + i + ' isChecked', isChecked);
       if (isChecked === true) {
         return true;
       }

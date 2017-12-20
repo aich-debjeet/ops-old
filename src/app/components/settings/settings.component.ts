@@ -79,16 +79,12 @@ export class SettingsComponent implements OnInit {
     private dragula: DragulaService,
   ) {
     this.dragula.drop.subscribe((value) => {
-      console.log(`drop: ${value[0]}`);
       this.onDrop(value.slice(1));
     });
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-       console.log(state);
         this.petTag = state;
-        // console.log(this.petTag)
         if (state['user_number_cng_success'] === true ) {
-          console.log('trying to open window')
           this._modalService.open('otpWindow');
         }
 
@@ -100,21 +96,15 @@ export class SettingsComponent implements OnInit {
         }
 
         if ( state && state['user_otp_failed'] && state['user_otp_failed'] === true ) {
-          console.log('invalid')
         }
     });
     this.storeState$ = this._store.select('profileTags');
 
      this.storeState$.subscribe((state) => {
-       console.log(state)
       this.userProfile = state['profile_details'];
-      console.log(this.userProfile)
       this.userHandle = state['profile_details'].handle;
-      console.log(this.userHandle)
       this.blockedUsers = state.blockedUsers;
-      console.log(this.blockedUsers)
       if (state.default_notification) {
-        console.log('default notifications')
         this.default = state.default_notification;
         this.notificationOption = [{name: 'Comments', description: 'Receive an e-mail when other people comment on your posts.' , value: 'Comments', checked: this.default.comments},
                                   {name: 'Spots', description: 'Receive an e-mail when other people Spot on your posts.' , value: 'Spots', checked: this.default.spots},
@@ -128,9 +118,7 @@ export class SettingsComponent implements OnInit {
       this.adult = {name: 'adult', value: 'adult', checked: state.adult_Content};
       this.privateAccount = {name: 'private', value: 'private', checked: state['privateAccount']}
       if (state.preferences !== 'undefined') {
-        console.log(state.preferences)
         this.preferences = state.preferences;
-        console.log(this.preferences)
       }
     });
 
@@ -200,35 +188,18 @@ export class SettingsComponent implements OnInit {
     this.displayView('General')
     this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
     this._store.dispatch({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS });
-  //   this.dragula
-  //   .drag
-  //   .subscribe(value => {
-  //     // this.msg = `Dragging the ${ value[1].innerText }!`;
-  //     console.log(value)
-  //   });
-
-  // this.dragula
-  //   .drop
-  //   .subscribe(value => {
-  //     // this.msg = `Dropped the ${ value[1].innerText }!`;
-  //     console.log(value)
-  //     console.log(this.preferences)
-  //   });
   }
   private onDrop(args) {
     const [e, el] = args;
-    console.log('here + ', args , this.preferences)
     const form = {
       'homePagePreferences': {
       'preferences': this.preferences
       }
     }
-    console.log(form)
     const headers = this.tokenService.getAuthHeader();
       this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
     .map((data: Response) => data.json())
     .subscribe(response => {
-      console.log('finally its a success' + response)
     });
 
   }
@@ -236,8 +207,6 @@ export class SettingsComponent implements OnInit {
    * User Form Update
    */
   userFormUpdate(value) {
-    console.log(this.usernameForm.valid);
-    console.log(value);
     if ( this.usernameForm.valid === true ) {
       const form =  {
         'username': value.username
@@ -251,8 +220,6 @@ export class SettingsComponent implements OnInit {
    * name Update
    */
   nameUpdate(value) {
-    console.log(this.nameForm.valid);
-    console.log(value);
     if ( this.nameForm.valid === true ) {
       const form =  {
         'name': {
@@ -269,8 +236,6 @@ export class SettingsComponent implements OnInit {
    * dob form Update
    */
   dateFormUpdate(value) {
-    console.log(this.dateForm.valid);
-    console.log(value);
     if ( this.dateForm.valid === true ) {
       const form =  {'physical': {
         'dateOfBirth': this.reverseDate(value.dob) + 'T05:00:00',
@@ -285,8 +250,6 @@ export class SettingsComponent implements OnInit {
    * gender update
    */
   genderFormUpdate(value) {
-    console.log(this.genderForm.valid);
-    console.log(value);
     if ( this.genderForm.valid === true ) {
       const form =  {'physical': {
         'gender': value.gender
@@ -301,8 +264,6 @@ export class SettingsComponent implements OnInit {
    * email form update
    */
   emailFormUpdate(value) {
-    console.log(this.emailForm.valid);
-    console.log(value);
     if ( this.emailForm.valid === true ) {
       const form =  {
         'email': value.email
@@ -315,8 +276,6 @@ export class SettingsComponent implements OnInit {
    * phone form update
    */
   phoneFormUpdate() {
-    console.log(this.phoneForm.valid);
-    console.log(this.number);
     if ( this.number !== 'undefined' ) {
       const form =   {
         'extras': {
@@ -333,7 +292,6 @@ export class SettingsComponent implements OnInit {
       this.phoneActive = false;
     //   this._store.select('profileTags').subscribe((state) => {
     //     if (state['profileUpdateSuccess'] === true) {
-    //       console.log('success')
     //     }
     // })
   }
@@ -352,7 +310,6 @@ export class SettingsComponent implements OnInit {
         'number': this.number,
         'otp': value.otpNumber
       }
-      console.log(send)
       this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: send });
     }
   }
@@ -365,7 +322,6 @@ export class SettingsComponent implements OnInit {
           'contactNumber': value.mobile
         }
       }
-      console.log(value)
       this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: reqBody });
     }
   }
@@ -385,8 +341,6 @@ export class SettingsComponent implements OnInit {
    * profile type form update
    */
   profileTypeFormUpdate(value) {
-    console.log(this.emailForm.valid);
-    console.log(value);
     if ( this.emailForm.valid === true ) {
       const form =  {
         'email': value.email
@@ -398,7 +352,6 @@ export class SettingsComponent implements OnInit {
    * Password form submit
    */
   submitForm(value) {
-    console.log(value);
     if (this.pwdForm.valid === true) {
       const body = {
         'currentPassword': value.currentpassword,
@@ -532,7 +485,6 @@ export class SettingsComponent implements OnInit {
 
   removeUtc(string) {
     const s1 = string.slice(0, 10);
-    console.log(s1);
     return this.reverseDate(s1);
   }
   reverseDate(string) {
@@ -543,12 +495,10 @@ export class SettingsComponent implements OnInit {
    * @param control: Form confirm password input
    */
   passwordMatchCheck(control: AbstractControl) {
-    // console.log(control.value);
     if (control.value === '') {
       return;
     }
     const pass = this.pwdForm.controls['newpassword'].value;
-    // console.log('pass: ' + pass);
     if (control.value !== pass) {
       return { passwordDoesNotMatch: true };
     }
@@ -556,41 +506,22 @@ export class SettingsComponent implements OnInit {
   }
 
   displayView(tab: string) {
-    console.log(tab)
-    // if (tab === 'General') {
-    //   this.selectedView = tab;
-    // }
-    // if (tab === 'Security') {
-    //   this.selectedView = tab;
-    // }
-    // if (tab === 'Notification') {
-    //   this.selectedView = tab;
-    //   this._store.dispatch({type: ProfileActions.LOAD_BLOCK_USERS, payload: this.userHandle});
-    // }
-    // if (tab === 'Home') {
-    //   this.selectedView = tab;
-    // }
    this.selectedView = tab;
     this._store.dispatch({type: ProfileActions.LOAD_BLOCK_USERS, payload: this.userHandle});
   }
 
   updateCheckedOptions(option, event) {
-    console.log(option);
     const val = option.name;
-    console.log(val)
-    console.log(event);
     if (option.name === 'Comments') {
       const form =  {
         'notificationSettings': {
           'comments' : option.checked
         }
       }
-      console.log(form)
       const headers = this.tokenService.getAuthHeader();
        this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        console.log('finally its a success' + response)
       });
     }
     if (option.name === 'Spots') {
@@ -599,12 +530,10 @@ export class SettingsComponent implements OnInit {
           'spots' : option.checked
         }
       }
-      console.log(form)
       const headers = this.tokenService.getAuthHeader();
        this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        console.log('finally its a success' + response)
       });
     }
     if (option.name === 'Mention') {
@@ -613,12 +542,10 @@ export class SettingsComponent implements OnInit {
           'mentions' : option.checked
         }
       }
-      console.log(form)
       const headers = this.tokenService.getAuthHeader();
        this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        console.log('finally its a success' + response)
       });
     }
     if (option.name === 'Followers') {
@@ -627,12 +554,10 @@ export class SettingsComponent implements OnInit {
           'newFollower' : option.checked
         }
       }
-      console.log(form)
       const headers = this.tokenService.getAuthHeader();
        this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        console.log('finally its a success' + response)
       });
     }
     if (option.name === 'Channels') {
@@ -641,12 +566,10 @@ export class SettingsComponent implements OnInit {
           'channels' : option.checked
         }
       }
-      console.log(form)
       const headers = this.tokenService.getAuthHeader();
        this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        console.log('finally its a success' + response)
       });
     }
     if (option.name === 'Donate') {
@@ -655,12 +578,10 @@ export class SettingsComponent implements OnInit {
           'donate' : option.checked
         }
       }
-      console.log(form)
       const headers = this.tokenService.getAuthHeader();
        this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        console.log('finally its a success' + response)
       });
     }
     if (option.name === 'Network') {
@@ -669,50 +590,41 @@ export class SettingsComponent implements OnInit {
           'network' : option.checked
         }
       }
-      console.log(form)
       const headers = this.tokenService.getAuthHeader();
        this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        console.log('finally its a success' + response)
       });
     }
     if (option.name === 'adult') {
       const form =  {
           'allowARC' : option.checked
       }
-      console.log(form)
       const headers = this.tokenService.getAuthHeader();
        this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        console.log('finally its a success' + response)
       });
     }
     if (option.name === 'private') {
       const form =  {
           'privateAccount' : option.checked
       }
-      console.log(form)
       const headers = this.tokenService.getAuthHeader();
        this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        console.log('finally its a success' + response)
       });
     }
   }
   unBlock(handle: any) {
-    console.log(handle);
     const form = {
       'blockedHandle': handle
     }
-    console.log(form)
     const headers = this.tokenService.getAuthHeader();
     this.http.put(this.apiLink + '/portal/network/block/unblock' , form, { headers: headers })
    .map((data: Response) => data.json())
    .subscribe(response => {
-     console.log('finally its a success' + response)
      this._store.dispatch({type: ProfileActions.LOAD_BLOCK_USERS, payload: this.userHandle});
    });
     // this._store.dispatch({type: ProfileActions.UNBLOCK_USER, payload: form});
