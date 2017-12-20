@@ -15,7 +15,7 @@ export class NetworkComponent implements OnInit {
       description: '“Hello? Sorry, what?! I’m sorry, but you seem to have the wrong number.” <br> <br> Feel free to browse through our other pages.',
       buttonLink: '/home',
       buttonText: 'Go to Home',
-      img: 'http://d33wubrfki0l68.cloudfront.net/d6452c28932efa78006b38938c187c8ff908bedf/d64bf/img/svg/404/network.png'
+      img: 'https://d33wubrfki0l68.cloudfront.net/d6452c28932efa78006b38938c187c8ff908bedf/d64bf/img/svg/404/network.png'
     };
   }
 

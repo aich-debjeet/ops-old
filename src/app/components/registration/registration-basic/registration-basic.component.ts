@@ -175,7 +175,7 @@ export class RegistrationBasicComponent implements OnInit {
       button_text: 'Login',
       button_link: '/login',
       page: false,
-      img: 'http://d33wubrfki0l68.cloudfront.net/2e71b712243279d510245bad8c3e48eeab00690d/7f58a/img/registration_signup_illustration.png'
+      img: 'https://d33wubrfki0l68.cloudfront.net/2e71b712243279d510245bad8c3e48eeab00690d/7f58a/img/registration_signup_illustration.png'
     };
   }
 

@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
       button_text: 'Sign Up',
       button_link: '/reg',
       page: false,
-      img: 'http://d33wubrfki0l68.cloudfront.net/ea59992e07375eec923510dbbab1cbd94a16acc2/261fd/img/login_illustration.png'
+      img: 'https://d33wubrfki0l68.cloudfront.net/ea59992e07375eec923510dbbab1cbd94a16acc2/261fd/img/login_illustration.png'
     };
 
     const user = JSON.parse(localStorage.getItem('currentUser'));

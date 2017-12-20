@@ -32,7 +32,7 @@ export class HomeRightBlockComponent implements OnInit {
   loadedRecomOpps = false;
   recordsPerPage = 2;
   opportunities: any[];
-
+  imageBaseUrl: string = environment.API_IMAGE;
 
   constructor(
     private store: Store<ProfileModal>
