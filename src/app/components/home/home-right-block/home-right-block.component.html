@@ -15,7 +15,7 @@
                 <li *ngFor="let profileItem of this.profiles" class="user-list__li">
                     <a routerLink="/profile/u/{{ profileItem?.extra?.username }}">
                         <div class="user-follow_img">
-                            <img *ngIf="profileItem.profileImage" class="userImage" [src]="'http://d206s58i653k1q.cloudfront.net/' + profileItem.profileImage" width="24px"/>
+                            <img *ngIf="profileItem.profileImage" class="userImage" [src]="imageBaseUrl + profileItem.profileImage" width="24px"/>
                         </div>
                         <div class="user-follow_text">
                             <div class="user-follow_name">{{ profileItem?.name }}</div>
@@ -34,7 +34,7 @@
         <div class="c-follow__sec">
             <div class="c-invite__block" *ngFor="let profileItem of profiles">
                 <a class="c-user__avatar c-avatar--status">
-                    <img *ngIf="profileItem.profileImage" class="c-user__image" [src]="'http://d206s58i653k1q.cloudfront.net/' + profileItem.profileImage" width="24px" />
+                    <img *ngIf="profileItem.profileImage" class="c-user__image" [src]="imageBaseUrl + profileItem.profileImage" width="24px" />
                 </a>
                 <a class="c-text_md c-invite--user" routerLink="/profile/u/{{ profileItem?.extra?.username }}">{{ profileItem?.name | truncate:[10, '...']}}</a>
                 <div class="c-invite--btn">
@@ -115,7 +115,7 @@
                     <div class="row sm_panel_body">
                         <div class="col-md-4 col-sm-12 sm_panel_left">
                             <figure class="avatar_community2">
-                                <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
+                                <img src="https://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
                             </figure>
                         </div>
                         <div class="col-md-8 col-sm-12 sm_panel_right">
@@ -131,7 +131,7 @@
                     <div class="row sm_panel_body">
                         <div class="col-md-4 col-sm-12 sm_panel_left">
                             <figure class="avatar_community2">
-                                <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
+                                <img src="https://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
                             </figure>
                         </div>
                         <div class="col-md-8 col-sm-12 sm_panel_right">
@@ -163,7 +163,7 @@
                         <div class="row sm_panel_body">
                             <div class="col-md-12 padding_012">
                                 <figure class="avatar_near_event">
-                                    <img src="http://d33wubrfki0l68.cloudfront.net/338649e262dccbc7aa62661a21311a612e5dc06f/553cd/img/art_color.jpg" class="img-responsive">
+                                    <img src="https://d33wubrfki0l68.cloudfront.net/338649e262dccbc7aa62661a21311a612e5dc06f/553cd/img/art_color.jpg" class="img-responsive">
                                 </figure>
                                 <h3 class="ops_heading">Dj Night BY DJ Khaled</h3>
                                 <p class="ops_subheading">12, Jul, 2017</p>
@@ -174,7 +174,7 @@
                         <div class="row sm_panel_body">
                             <div class="col-md-12 padding_012">
                                 <figure class="avatar_near_event">
-                                    <img src="http://d33wubrfki0l68.cloudfront.net/338649e262dccbc7aa62661a21311a612e5dc06f/553cd/img/art_color.jpg" class="img-responsive">
+                                    <img src="https://d33wubrfki0l68.cloudfront.net/338649e262dccbc7aa62661a21311a612e5dc06f/553cd/img/art_color.jpg" class="img-responsive">
                                 </figure>
                                 <h3 class="ops_heading">Dj Night BY DJ Khaled</h3>
                                 <p class="ops_subheading">12, Jul, 2017</p>
@@ -201,7 +201,7 @@
                         <div class="row sm_panel_body">
                             <div class="col-md-4 sm_panel_left">
                                 <figure class="avatar_community2">
-                                    <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
+                                    <img src="https://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
                                 </figure>
                             </div>
                             <div class="col-md-8 sm_panel_right">
@@ -214,7 +214,7 @@
                         <div class="row sm_panel_body">
                             <div class="col-md-4 sm_panel_left">
                                 <figure class="avatar_community2">
-                                    <img src="http://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
+                                    <img src="https://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
                                 </figure>
                             </div>
                             <div class="col-md-8 sm_panel_right">
