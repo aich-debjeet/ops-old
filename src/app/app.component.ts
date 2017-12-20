@@ -11,7 +11,6 @@ declare let ga;
 })
 export class AppComponent {
   title = 'app';
-  
   constructor(
     public router: Router
   ) {
