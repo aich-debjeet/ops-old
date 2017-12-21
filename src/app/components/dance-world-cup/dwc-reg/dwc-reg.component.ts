@@ -32,7 +32,7 @@ export class DwcRegComponent implements OnInit {
   profileState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
   public eventForm: FormGroup;
-  isAuthed: boolean = false;
+  isAuthed = false;
   valueStore: any;
   isPeformanceSelected: boolean;
   isAgeGroupSelected: boolean;
@@ -42,7 +42,7 @@ export class DwcRegComponent implements OnInit {
   Dance_Style = ['Hip Hop, Street Dance and Commercial', 'National, Folklore, Classical, Tribal', 'Modern, Contemporary', 'Classical Ballet, Jazz, Tap, Acro', 'Song and Dance'];
   @ViewChild('dwcModal') DwctypeModal: Modal;
   dwcSlider: NgxCarousel;
-  hideSchoolName: boolean = false;
+  hideSchoolName = false;
 
 
   config: IDatePickerConfig = {
@@ -181,11 +181,9 @@ export class DwcRegComponent implements OnInit {
   memberItem(val: string) {
     return new FormGroup({
       name: new FormControl(val, Validators.required),
-      email: new FormControl(val, Validators.required),
-      // email: new FormControl(val, Validators.required),
+      email: new FormControl(val, Validators.compose([Validators.min(1), Validators.required, FormValidation.validEmail ])),
       phone: new FormControl(val, Validators.required),
-      // phone: new FormControl(val, Validators.required),
-      dob: new FormControl(val , Validators.required)
+      dob: new FormControl(val , Validators.compose([ Validators.required, FormValidation.dwcValidDOB]))
     })
   }
 
@@ -199,32 +197,19 @@ export class DwcRegComponent implements OnInit {
 
 // dwc_event_reg_success
   submitForm(value) {
-
+    this.isPeformanceSelected = this.checkAtLeastOneSelection(this.Performance, 'people');
+    this.isAgeGroupSelected = this.checkAtLeastOneSelection(this.Age_Group, 'age');
+    this.isDanceStyle = this.checkAtLeastOneSelection(this.Dance_Style, 'dance');
     if (this.eventForm.valid) {
       this.valueStore = Object.assign({}, this.eventForm.value, {
         Performance: this.convertToValue('Performance'),
         Age_Group: this.convertToValue('Age_Group'),
         Dance_Style: this.convertToValue('Dance_Style')
       });
-
-      this.isPeformanceSelected = this.checkAtLeastOneSelection(this.Performance, 'people');
-
-      this.isAgeGroupSelected = this.checkAtLeastOneSelection(this.Age_Group, 'age');
-
-      this.isDanceStyle = this.checkAtLeastOneSelection(this.Dance_Style, 'dance');
-
       if (this.isPeformanceSelected && this.isAgeGroupSelected && this.isDanceStyle) {
         this.policySubmit(value);
       }
     }
-    // this.valueStore = Object.assign({}, this.eventForm.value, {
-    //   Performance: this.convertToValue('Performance'),
-    //   Age_Group: this.convertToValue('Age_Group'),
-    //   Dance_Style: this.convertToValue('Dance_Style')
-    // });
-    // if (this.eventForm.valid) {
-    //   this.policySubmit(value);
-    // }
   }
 
   checkAtLeastOneSelection(arr, elem) {
