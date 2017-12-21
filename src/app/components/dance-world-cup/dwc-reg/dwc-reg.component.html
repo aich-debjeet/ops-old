@@ -69,7 +69,7 @@
                                 <div class="c-radio--label c-radio--dwc">Yes</div>
                             </label>
                             <label class="col-md-4 p-0">
-                                <input name="member" type="radio" formControlName="member" value="false">
+                                <input name="member" type="radio" formControlName="member" value="false" [checked]="true">
                                 <span></span>
                                 <div class="c-radio--label c-radio--dwc">No</div>
                             </label>
@@ -85,8 +85,8 @@
                 </div>
 
                 <div class="c-form__group c-form--md m-b-32 width50">
-                    <textarea class="c-textarea__block c-textarea--style o-wcq-textarea " rows="0" data-min-rows="0" formControlName="school_address"></textarea>
-                    <label>Address *</label>
+                    <textarea placeholder="Address *" class="c-textarea__block c-textarea--style o-wcq-textarea " rows="0" data-min-rows="0" formControlName="school_address"></textarea>
+                    <!-- <label>Address *</label> -->
                     <p class="c-form__validation" *ngIf="eventForm.controls['school_address'].errors?.required && eventCreate.submitted">Address is required</p>
                 </div>
 
@@ -110,22 +110,20 @@
                                 <span class="c-form__highlight"></span>
                                 <span class="c-form__bar"></span>
                                 <!-- <label>Email</label> -->
-                                <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.required && eventCreate.submitted">Email is required</p> -->
-                                <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.isEmailUnique ">Mail account already exists</p> -->
-                                <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['email'].errors?.isInvalidEmail">Email not valid</p> -->
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.required && eventCreate.submitted">Email is required</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['email'].errors?.isInvalidEmail && eventCreate.submitted">Email not valid</p>
                             </div>
                         </div>
                         <div class="col-md-3 p-l-0">
                             <div class="c-form__group c-form--md m-b-8">
-                                <input class="c-form__input" required="" type="text" formControlName="phone" pattern="[0-9]*" minlength="10" maxlength="10" placeholder="Phone number">
+                                <input class="c-form__input" required="" type="text" formControlName="phone" pattern="[0-9]*" minlength="10" maxlength="10" placeholder="Mobile number">
                                 <span class="c-form__highlight"></span>
                                 <span class="c-form__bar"></span>
                                 <!-- <label>Phone number</label> -->
-                                <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.errors?.required && eventCreate.submitted">Phone is required</p> -->
-                                <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.hasError('pattern')">Only numbers allowed</p> -->
-                                <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.hasError('minlength')">Phone number should be 10 digits</p> -->
-                                <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.hasError('maxlength')">Phone number should be 10 digits</p> -->
-                                <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.errors?.isMobileUnique">This phone number already registered</p> -->
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.errors?.required && eventCreate.submitted">Phone is required</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.hasError('pattern') && eventCreate.submitted">Only numbers allowed</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.hasError('minlength')">Phone number should be 10 digits</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.hasError('maxlength')">Phone number should be 10 digits</p>
                             </div>
                         </div>
                         <div class="col-md-3 p-0">
@@ -133,17 +131,9 @@
                                 <input class="c-form__input" required="" type="text" formControlName="dob" placeholder="Date of birth (DD-MM-YY)" [textMask]="{mask: dateMask}">
                                 <span class="c-form__highlight"></span>
                                 <span class="c-form__bar"></span>
-                                <!-- <label>Date of birth (DD-MM-YY)</label> -->
-                                <!-- <input class="c-form__input" required="" type="text" formControlName="dob" [textMask]="{mask: dateMask}">
-                                <span class="c-form__highlight"></span>
-                                <span class="c-form__bar"></span>
-                                <label>Date of birth (DD-MM-YY)</label>
-                                <span>
-                                    <img src="/assets/img/svg/calendar.svg" class="c-form__input--righticon" [dpDayPicker]="config" theme="dp-material">
-                                </span> -->
-                                <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['dob'].errors?.required && eventCreate.submitted">DOB is required</p> -->
-                                <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p> -->
-                                <!-- <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['dob'].errors?.isOverAge">Age should be less than or equal to 25</p> -->
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['dob'].errors?.required && eventCreate.submitted">DOB is required</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['dob'].errors?.isOverAge">Age should be less than or equal to 25</p>
                             </div>
                         </div>
                     </div>
