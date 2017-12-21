@@ -178,6 +178,8 @@ export class MediaSelectorComponent implements OnInit {
         this.handle = event.profile_cards.active.handle;
         isUserReady = true;
         this.loadChannel(this.handle);
+      } else {
+        // console.log('[x]');
       }
 
       // Check if it has query params
@@ -289,6 +291,8 @@ export class MediaSelectorComponent implements OnInit {
    * Media Upload Multiple
    */
   mediaInfoUpdateAll(value: any) {
+    // console.log(value);
+    // console.log(this.uploaded);
   }
 
   /**
@@ -296,6 +300,9 @@ export class MediaSelectorComponent implements OnInit {
    * @param formValue
    */
   postAllMedia(value) {
+    // console.log('post all media');
+    // console.log(value);
+
     let isReady = false;
     let userHandle = '';
 
@@ -319,6 +326,14 @@ export class MediaSelectorComponent implements OnInit {
     // const chosenFile = this.editingFile;
 
     for (const nowFile of this.uploadedFiles) {
+
+      if (!this.desc) {
+        console.log('you need a desc to continue');
+        isReady = false;
+        this.changeState(1);
+      }
+
+      // console.log(nowFile);
       if (nowFile) {
         // Build Media Object
         const mediaItem = this.formatMedia( nowFile, formData, chosenChannel, userHandle, value.privacy);
@@ -328,6 +343,7 @@ export class MediaSelectorComponent implements OnInit {
     }
 
     if ( isReady && userHandle !== '') {
+      // console.log('MULTIPLE', multipleMedias);
       this.postMediaToChannel(chosenChannel.spotfeedId, multipleMedias);
     }
   }
@@ -622,26 +638,38 @@ export class MediaSelectorComponent implements OnInit {
    */
 
   extractTags() {
+    const tag = [];
+    // return null if no desc
+    if (!this.desc) {
+      return tag;
+    }
+
     const REGEX_HASHTAG = /\B(#[Ã¡-ÃºÃ-ÃÃ¤-Ã¼Ã-Ãa-zA-Z0-9_]+)/g;
     const string = this.desc
     const results = string.match(REGEX_HASHTAG);
 
+    //  DWC Specific things
     let isDwcThing = 0;
+    const dwcList = ['DWCIQHIPHOP', 'DWICIQCLASSICAL', 'DWICIQFOLK', 'DWCIQBALLET'];
 
-    const tag = [];
+    // const tag = [];
     if (results) {
       results.forEach(function(element) {
         const newVal = element.replace('#', '');
         tag.push(newVal);
 
+        //
+        // console.log(dwcList.includes(newVal));
+
+        console.log('tag', tag);
         if (newVal === 'dwc') {
-          isDwcThing = 3;
+          isDwcThing = 2;
         }
       });
     }
 
-    if (isDwcThing === 3 ) {
-      this.updateStatus(3);
+    if (isDwcThing === 2 ) {
+      this.updateStatus(2);
     }
 
     return tag
@@ -853,7 +881,11 @@ export class MediaSelectorComponent implements OnInit {
       license: this.license,
     }
 
-    this.changeState(2);
+    if (!this.desc) {
+      this.toastr.error('Please add relevant descriptions or tags', 'Missing Description');
+    } else {
+      this.changeState(2);
+    }
   }
   /**
    * Toggle Create Channel Form
