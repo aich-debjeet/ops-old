@@ -101,13 +101,12 @@ export class RegistrationBasicComponent implements OnInit {
       if (this.route.snapshot.queryParams['ev'] === 'dwc2017') {
         this.dwc = true;
         this.routeQuery['dwc2017'] = 'true';
-        console.log(this.routeQuery);
+        // console.log(this.routeQuery);
       }
     }
 
     const currentUrl = this.router.url;
-
-    console.log(currentUrl);
+    // console.log(currentUrl);
 
     /**
      * Claim profile state check
@@ -126,7 +125,7 @@ export class RegistrationBasicComponent implements OnInit {
 
       if (!this.claimingUserSet && state && state['claim_user_info'] && state['claim_user_info']['SUCCESS']['user']) {
         this.claimUserProfileDetails = state['claim_user_info']['SUCCESS']['user'];
-        console.log('this.claimUserProfileDetails', this.claimUserProfileDetails);
+        // console.log('this.claimUserProfileDetails', this.claimUserProfileDetails);
         // check if imported user
         if (this.claimUserProfileDetails && this.claimUserProfileDetails['other']['isImported'] === true) {
           // console.log('imported profile');
@@ -411,11 +410,9 @@ export class RegistrationBasicComponent implements OnInit {
     // console.log(this.regFormBasic.valid);
     // checking if all required fields with valid info available before submitting the form
     if (!this.regFormBasic.valid) {
-      // console.log('invalid form');
       return false;
     }
 
-    // console.log('user type normal');
     // form object
     const form =  {
       'name': {
@@ -443,31 +440,31 @@ export class RegistrationBasicComponent implements OnInit {
     };
 
     console.log('form body', form);
+    // return;
 
-    // if (typeof this.claimUserProfileDetails !== 'undefined') {
-    //   console.log('user type claimed', this.claimUserProfileDetails);
+    if (typeof this.claimUserProfileDetails !== 'undefined' && this.claimingUserSet === true) {
 
-    //   form.other['isImported'] = false;
-    //   form['handle'] = this.claimUserProfileDetails.handle;
-    //   // claim user profile
-    //   this.store.dispatch({ type: AuthActions.USER_PROFILE_CLAIM, payload: form });
+      form.other['isImported'] = false;
+      form['handle'] = this.claimUserProfileDetails.handle || this.claimUserProfileDetails.profileId;
+      // claim user profile
+      this.store.dispatch({ type: AuthActions.USER_PROFILE_CLAIM, payload: form });
 
-    // } else {
+    } else {
 
-    //   // register new user
-    //   this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
+      // register new user
+      this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
 
-    // }
+    }
 
-    // this.store.select('loginTags').take(2).subscribe(data => {
-    //     if (data['user_basic_reg_success'] === true ) {
-    //       console.log('success otp');
-    //       if (data && data['user_token']) {
-    //           localStorage.setItem('access_token', data['user_token']);
-    //       }
-    //       this.modalService.open('otpWindow');
-    //     }
-    // });
+    this.store.select('loginTags').take(2).subscribe(data => {
+        if (data['user_basic_reg_success'] === true ) {
+          console.log('success otp');
+          if (data && data['user_token']) {
+              localStorage.setItem('access_token', data['user_token']);
+          }
+          this.modalService.open('otpWindow');
+        }
+    });
   }
 
 
