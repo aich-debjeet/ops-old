@@ -638,10 +638,22 @@ export class MediaSelectorComponent implements OnInit {
    */
 
   extractTags() {
+    let isDwcThing = 0;
     const tag = [];
     // return null if no desc
     if (!this.desc) {
       return tag;
+    }
+
+    /**
+     * If its it has an event param
+     * push that param as an hashtag
+     */
+    const eventName = this.eventName;
+    if (eventName) {
+      console.log('e', eventName);
+      tag.push(eventName);
+      isDwcThing = 2;
     }
 
     const REGEX_HASHTAG = /\B(#[Ã¡-ÃºÃ-ÃÃ¤-Ã¼Ã-Ãa-zA-Z0-9_]+)/g;
@@ -649,7 +661,6 @@ export class MediaSelectorComponent implements OnInit {
     const results = string.match(REGEX_HASHTAG);
 
     //  DWC Specific things
-    let isDwcThing = 0;
     const dwcList = ['DWCIQHIPHOP', 'DWICIQCLASSICAL', 'DWICIQFOLK', 'DWCIQBALLET'];
 
     // const tag = [];
@@ -657,19 +668,14 @@ export class MediaSelectorComponent implements OnInit {
       results.forEach(function(element) {
         const newVal = element.replace('#', '');
         tag.push(newVal);
-
-        //
-        // console.log(dwcList.includes(newVal));
-
-        console.log('tag', tag);
         if (newVal === 'dwc') {
           isDwcThing = 2;
         }
       });
     }
 
-    if (isDwcThing === 2 ) {
-      this.updateStatus(2);
+    if (isDwcThing >  1 ) {
+      this.updateStatus(3);
     }
 
     return tag

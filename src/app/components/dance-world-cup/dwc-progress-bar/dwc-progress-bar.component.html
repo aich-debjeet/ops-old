@@ -8,8 +8,8 @@
                 <a class="o-dws-progress__link" [ngClass]="{'o-dwc-progress--active': dataDwc?.profile_navigation_details?.DWCcompleteStatus >= 1}"></a>
                 <div class="o-dws-progress__white"></div>
                 <a class="o-dws-progress__link" [ngClass]="{'o-dwc-progress--active': dataDwc?.profile_navigation_details?.DWCcompleteStatus >= 2}"></a>
-                <div class="o-dws-progress__white" [ngClass]="{'o-dwc-progress--active': dataDwc?.profile_navigation_details?.DWCcompleteStatus >= 3}"></div>
-                <a class="o-dws-progress__link"></a>
+                <div class="o-dws-progress__white"></div>
+                <a class="o-dws-progress__link" [ngClass]="{'o-dwc-progress--active': dataDwc?.profile_navigation_details?.DWCcompleteStatus >= 3}"></a>
             </div>
             <div class="o-dws-progress__txt float_right">
                 <a routerLink="/dwc/reg" class="o-dws-progress__link c-text_sm text-center">Sign up</a>
