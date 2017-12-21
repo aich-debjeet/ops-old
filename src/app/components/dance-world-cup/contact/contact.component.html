@@ -1,31 +1,31 @@
 <div id="03" class="tab-pane">
     <div class="o-dwc-contact-form-container">
-      <h2 class="c-h2 text-center">Contact us</h2>
-      <p class="c-text_lg text-center color-grey-dark m-t-16">Send us a message and we’ll get back to you as soon as we can.</p>
-      <form #contactFrm="ngForm" [formGroup]="contactForm" (ngSubmit)="submitContactForm(contactForm.value)" >
-        <div class="o-dwc__form">
-            <div class="c-form__group m-t-16">
-                <input class="c-form__input" formControlName="name" required type="text">
-                <span class="c-form__highlight"></span>
-                <span class="c-form__bar"></span>
-                <label>Name</label>
+        <h2 class="c-h2 text-center">Contact us</h2>
+        <p class="c-text_lg text-center color-grey-dark m-t-16">Send us a message and we’ll get back to you as soon as we can.</p>
+        <form #contactFrm="ngForm" [formGroup]="contactForm" (ngSubmit)="submitContactForm(contactForm.value)">
+            <div class="o-dwc__form">
+                <div class="c-form__group m-t-16">
+                    <input class="c-form__input" formControlName="name" required type="text" placeholder="Name">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <!-- <label>Name</label> -->
+                </div>
+                <p class="error_alert" *ngIf="contactForm.controls['name'].errors?.required && contactFrm.submitted">Name is required</p>
+                <div class="c-form__group m-t-16">
+                    <input class="c-form__input" formControlName="email" required type="text" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" placeholder="Email">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <!-- <label>Email</label> -->
+                </div>
+                <p class="error_alert" *ngIf="contactForm.controls['email'].errors?.required && contactFrm.submitted">Email is required</p>
+                <p class="error_alert" *ngIf="contactForm.controls['email'].errors?.pattern && contactFrm.submitted">Invalid email id</p>
+                <div class="c-form__group m-t-16">
+                    <textarea formControlName="message" required class="c-textarea__block c-textarea--style o-dwc-textarea" rows="1" data-min-rows="0" placeholder="Message"></textarea>
+                </div>
+                <div class="row text-center">
+                    <button type="submit" class="btn btn-primary btn-lg m-t-32">Send</button>
+                </div>
             </div>
-            <p class="error_alert" *ngIf="contactForm.controls['name'].errors?.required && contactFrm.submitted">Name is required</p>
-            <div class="c-form__group m-t-16">
-                <input class="c-form__input" formControlName="email" required type="text" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-                <span class="c-form__highlight"></span>
-                <span class="c-form__bar"></span>
-                <label>Email</label>
-            </div>
-            <p class="error_alert" *ngIf="contactForm.controls['email'].errors?.required && contactFrm.submitted">Email is required</p>
-            <p class="error_alert" *ngIf="contactForm.controls['email'].errors?.pattern && contactFrm.submitted">Invalid email id</p>
-            <div class="c-form__group m-t-16">
-                <textarea formControlName="message" required class="c-textarea__block c-textarea--style o-dwc-textarea" rows="1" data-min-rows="0" placeholder="Message"></textarea>
-            </div>
-            <div class="row text-center">
-                <button type="submit" class="btn btn-primary btn-lg m-t-32">Send</button>
-            </div>
-        </div>
-      </form>
+        </form>
     </div>
 </div>
