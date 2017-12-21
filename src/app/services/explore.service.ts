@@ -27,7 +27,6 @@ export class ExploreService {
     updateToken() {
         this.headers = this.api.getHeaders();
         this.handle = this.api.getHandle();
-        // console.log('this.headers', this.headers);
     }
 
     /**

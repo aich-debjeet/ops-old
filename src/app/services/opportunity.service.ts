@@ -26,7 +26,6 @@ export class OpportunityService {
   updateToken() {
     this.headers = this.api.getHeaders();
     this.handle = this.api.getHandle();
-    // console.log('this.headers', this.headers);
   }
 
   /**
@@ -34,7 +33,6 @@ export class OpportunityService {
    * @param request body
    */
   createOpportunity(reqBody: any) {
-    // console.log('service createOpportunity', reqBody);
     this.updateToken();
     return this.api.post('/portal/job/create', reqBody);
   }
@@ -78,7 +76,6 @@ export class OpportunityService {
    * Get opportunities by filters like recommended, created opps
    */
   getOpportunities(reqParams: any) {
-    // console.log('reqParams', reqParams);
     this.updateToken();
     return this.api.put('/portal/job', reqParams);
   }
@@ -88,7 +85,6 @@ export class OpportunityService {
    * Get applied opportunities
    */
   getAppliedOpportunities(profileHandle: string) {
-    console.log('profileHandle', profileHandle);
     this.updateToken();
     return this.api.get('/portal/job/applications/' + profileHandle + '/user');
   }

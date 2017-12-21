@@ -40,7 +40,6 @@ export class SearchAllComponent implements OnInit {
 
     // observe the store value
     this.searchState$.subscribe((state) => {
-      // console.log('state', state);
       if (state && state.search_people_data) {
         this.artists = state.search_people_data;
       }
@@ -56,7 +55,6 @@ export class SearchAllComponent implements OnInit {
 
   // trigger selected tab
   public selectTab(tabId: string) {
-    // console.log('child called', tabId);
     this.tabClicked.emit(tabId);
   }
 

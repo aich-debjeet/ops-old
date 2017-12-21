@@ -8,7 +8,6 @@ export class UserSearchActions {
 
   /* -------------------------------- load sent messages -------------------------------- */
   userSearch(value): Action {
-    console.log('USER_SEARCH action triggred');
     return {
       type: UserSearchActions.USER_SEARCH,
       payload: { value }
@@ -16,7 +15,6 @@ export class UserSearchActions {
   }
 
   userSearchSuccess(value): Action {
-    console.log('USER_SEARCH_SUCCESS action triggred');
     return {
       type: UserSearchActions.USER_SEARCH_SUCCESS,
       payload: { value }
@@ -24,7 +22,6 @@ export class UserSearchActions {
   }
 
   userSearchFailed(error: any): Action {
-    console.log('USER_SEARCH_FAILED action triggred');
     return {
       type: UserSearchActions.USER_SEARCH_FAILED,
       payload: error

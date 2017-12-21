@@ -8,13 +8,11 @@ export class LocalStorageService {
   constructor() { }
 
   set theAccountStatus(value) {
-    // console.log('local storage SET called', value);
     this.accountStatusValue.next(value); // this will make sure to tell every subscriber about the change.
     localStorage.setItem('active_profile', value);
   }
 
   get theAccountStatus() {
-    // console.log('local storage GET called');
     return localStorage.getItem('active_profile');
   }
 

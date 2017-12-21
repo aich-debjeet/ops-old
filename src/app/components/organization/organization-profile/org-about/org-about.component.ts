@@ -113,7 +113,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
     // check if creator is user or organization
     if (localStorage.getItem('active_profile') !== null) {
       const localStore = JSON.parse(this.localStorageService.theAccountStatus);
-      // console.log('localStore', localStore);
       if (localStore.handle && localStore.handle.length > 0) {
         this.profileHandle = localStore.handle;
       }
@@ -128,7 +127,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
     this.orgState$ = this.store.select('profileTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      console.log('this.orgProfile ABOUT ORG', this.orgProfile);
       if (this.orgProfile && this.orgProfile['org_profile_update_success'] === true) {
         this.orgProfile.org_profile_update_success = false;
         if (this.orgProfile && this.orgProfile['profile_navigation_details']['isOrganization'] === true) {
@@ -155,7 +153,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
       if (this.orgProfile && this.orgProfile['profile_details']['languages']) {
         this.aboutServices = this.orgProfile['profile_details']['languages'];
         this.aboutServicesStr = this.orgProfile['profile_details']['languages'].join(', ');
-        // console.log('aboutServices', this.aboutServices);
       }
       // loading industries
       if (this.orgProfile && this.orgProfile['profile_details']['extra']['industryList'].length > 0) {
@@ -165,12 +162,10 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
           if (this.aboutIndustry && this.aboutIndustry['code']) {
             this.aboutIndustryCode = this.aboutIndustry['code'];
           }
-          // console.log('this.aboutIndustry', this.aboutIndustry);
         }, 1000);
       }
       // for founded date
       if (this.orgProfile && this.orgProfile['profile_details']['activeFrom']) {
-        // console.log('this.orgProfile.profile_details.activeFrom', this.orgProfile['profile_details']['activeFrom']);
         this.aboutFoundedDate = this.datePipe.transform(this.orgProfile['profile_details']['activeFrom'], 'dd-MM-yyyy');
       }
       // for address
@@ -182,11 +177,9 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
       if (this.orgProfile && this.orgProfile['invite_sent'] === true && this.inviteSent === true) {
         this.toastr.success('Invite sent successfully');
         this.inviteSent = false;
-        // console.log(this.orgProfile['org_invite_req_data']);
         const invitedUserHandle = this.orgProfile['org_invite_req_data'].userHandle;
         // remove user from the list
         this.people = _.filter(this.people, function(person) { return person.handle !== invitedUserHandle; });
-        // console.log('this.people', this.people);
       }
     });
     /* org state */
@@ -194,7 +187,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
     this.loginTagState$ = store.select('loginTags');
     this.loginTagState$.subscribe((state) => {
       this.forIndustries = state;
-      // console.log('this.forIndustries', this.forIndustries);
     });
 
     this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
@@ -230,7 +222,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
    * Update about individual field
    */
   updateAbout(fieldName: string) {
-    // console.log('update org field', fieldName);
     let reqBody;
 
     // for mobile update
@@ -274,7 +265,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
           reqBody.services.push(service.value);
         }
         if (index >= (aboutServicesArr.length - 1)) {
-          // console.log('update services', reqBody.services);
           this.dispatchAboutUpdate(reqBody);
           return;
         }
@@ -283,10 +273,7 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
 
     // for indusrty update
     if (fieldName === 'industries' && this.aboutIndustryCode.length > 0) {
-      console.log('selected', this.aboutIndustryCode);
       const newIndustry = _.find(this.forIndustries.industries, { 'code': this.aboutIndustryCode });
-      // console.log('newIndustry', newIndustry);
-      // console.log('this.forIndustries.industries', this.forIndustries.industries);
       reqBody = {
         industryList: []
       };
@@ -309,7 +296,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
       handle: this.orgProfile.profile_details.handle,
       body: reqData
     }
-    // console.log('req body', data); return;
     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_UPDATE, payload: data });
     this.closeEditor();
   }
@@ -330,11 +316,9 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
     .subscribe(() => {
 
       this.searchString = this.searchInput.value;
-      // console.log('searching: ', this.searchString);
 
       // search if string is available
       if (this.searchString && this.searchString.length > 0) {
-        // console.log('new search', this.searchString);
         this.isSearching = true;
 
         const searchParams = {
@@ -355,8 +339,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
    * Sending an invitation to the person
    */
   sendInvitation(person: any) {
-    console.log('send an invite ', person);
-
     // get org handle
     const orgHandle = localStorage.getItem('profileHandle');
 
@@ -391,7 +373,6 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
       const autocomplete = new google.maps.places.Autocomplete(this.searchLocation.nativeElement, {
 
       });
-      console.log(autocomplete);
       const componentForm = {
         street_number: 'short_name',
         route: 'long_name',
@@ -405,11 +386,9 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
         this.ngZone.run(() => {
           // get the place result
           const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          // console.log(place);
 
           for (let i = 0; i < place.address_components.length; i++) {
             const addressType = place.address_components[i].types[0];
-            console.log(addressType);
             if (componentForm[addressType]) {
               const val = place.address_components[i][componentForm[addressType]];
               if ( addressType === 'country') {

@@ -102,7 +102,6 @@ export class CreateChannelComponent implements OnInit {
   }
 
   selectChannelType(channelType: number) {
-    // console.log(channelType);
     this.channelType = channelType;
     this.switchToStep(2);
   }

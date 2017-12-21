@@ -93,12 +93,10 @@ export class OrganizationProfileComponent implements OnInit {
 
       if (orgParam !== undefined || orgParam !== 'undefined') {
         this.isOtherProfile = false;
-        // console.log('PPP', this.profileCard);
         /**
          * Load Organization Profile Details if handle present
          */
         if (this.profileCard && this.profileCard.username) {
-          // console.log('org username', this.profileCard.username);
           this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.profileCard.username });
         }
       }

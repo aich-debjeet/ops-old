@@ -69,7 +69,6 @@ export class ChannelSelectorComponent implements OnInit {
 
   mediaPrivacyToggle(value) {
     this.mediaPrivacy = value
-    console.log(value);
   }
 
   /**

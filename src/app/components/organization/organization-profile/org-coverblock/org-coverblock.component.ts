@@ -35,7 +35,6 @@ export class OrgCoverblockComponent implements OnInit {
     this.orgState$ = this.store.select('profileTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
-      // console.log('this.orgProfile', this.orgProfile);
     });
     /* org state */
 
@@ -43,7 +42,6 @@ export class OrgCoverblockComponent implements OnInit {
     // users own profile
     this.tagState$ = this.store.select('profileTags');
     this.tagState$.subscribe((state) => {
-      // console.log('user state', state);
     });
 
    }

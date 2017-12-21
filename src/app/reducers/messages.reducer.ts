@@ -30,7 +30,6 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
     });
 
     case MessageActions.UNLOAD_USER_PROFILE_DATA_SUCCESS:
-    console.log('its here');
     return
 
     case MessageActions.LOAD_NON_USER_PROFILE_DATA:
