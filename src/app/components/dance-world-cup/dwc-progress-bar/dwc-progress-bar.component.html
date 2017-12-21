@@ -12,10 +12,10 @@
                 <a class="o-dws-progress__link"></a>
             </div>
             <div class="o-dws-progress__txt float_right">
-                <a class="o-dws-progress__link c-text_sm text-center">Sign up</a>
-                <a class="o-dws-progress__link c-text_sm text-center">Register DWC</a>
-                <a class="o-dws-progress__link c-text_sm text-center">Payment</a>
-                <a class="o-dws-progress__link c-text_sm text-center">Upload Media</a>
+                <a routerLink="/dwc/reg" class="o-dws-progress__link c-text_sm text-center">Sign up</a>
+                <a routerLink="/dwc/reg" class="o-dws-progress__link c-text_sm text-center">Register DWC</a>
+                <a routerLink="/dwc/payment" class="o-dws-progress__link c-text_sm text-center">Payment</a>
+                <a [routerLink]="['/post']" [queryParams]="{ event: 'dwc' }" class="o-dws-progress__link c-text_sm text-center">Upload Media</a>
             </div>
         </div>
     </div>
