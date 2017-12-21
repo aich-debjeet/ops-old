@@ -72,11 +72,11 @@
                     </ul>
                     <div class="msg_friend_list" id="ops_scrollbar">
                         <a href="javascript:void(0)" *ngFor="let message of orderedMessageContacts | searchfilter : searchText">
-                            <div *ngIf="message.length === 0">
+                            <!-- <div *ngIf="message.length === 0">
                                 <div class="sticky">
                                     <div class="loader">Loading...</div>
                                 </div>
-                            </div>
+                            </div> -->
                             <ul class="msg_name_list msg_unread fill_grey" *ngIf="message.isRead == false" (click)="toggleView('readMessage', message.handle)">
                                 <li class="with_border_bottom" *ngIf="message.handle != userHandle">
                                     <ul class="list-inline">
@@ -87,12 +87,17 @@
                                             <img *ngIf="message.profileImage" src="{{ baseUrl + message.profileImage }}" class="img-responsive">
                                             <img *ngIf="!message.profileImage" src="{{ baseUrl + 'images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png' }}" class="img-responsive">
                                         </li>
-                                        <li class="list-inline-item">
-                                            <div class="msg_friend_name">{{message.name}}</div>
-                                            <div class="msg_friend_text">{{message.latestmessage | truncate:[20, '...']}}</div>
+                                        <li class="list-inline-item" style="width: 77%">
+                                            <div class="col-md-12 p-0">
+                                                <div class="msg_friend_name">{{message.name | truncate:[7, '..']}}</div>
+                                                <div class=" pull-right time">
+                                                    <div class="pull-right msg_time">{{message.latestmessagetime | date:'medium'}}</div>
+                                                </div>
+                                            </div>
+
                                         </li>
-                                        <li class="list-inline-item pull-right time">
-                                            <div class="pull-right msg_time">{{message.latestmessagetime | date:'medium'}}</div>
+                                        <li class="list-inline-item">
+                                            <div class="msg_friend_text">{{message.latestmessage | truncate:[20, '...']}}</div>
                                         </li>
                                     </ul>
                                 </li>
@@ -107,13 +112,19 @@
                                             <img *ngIf="message.profileImage" src="{{ baseUrl + message.profileImage }}" class="img-responsive">
                                             <img *ngIf="!message.profileImage" src="{{ baseUrl + 'images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png' }}" class="img-responsive">
                                         </li>
+                                        <li class="list-inline-item" style="width: 77%">
+                                            <div class="col-md-12 p-0">
+                                                <div class="msg_friend_name">{{message.name | truncate:[7, '..']}}</div>
+                                                <div class=" pull-right time">
+                                                    <div class="pull-right msg_time">{{message.latestmessagetime | date:'medium'}}</div>
+                                                </div>
+                                            </div>
+
+                                        </li>
                                         <li class="list-inline-item">
-                                            <div class="msg_friend_name">{{message.name}}</div>
                                             <div class="msg_friend_text">{{message.latestmessage | truncate:[20, '...']}}</div>
                                         </li>
-                                        <li class="list-inline-item pull-right time">
-                                            <div class="pull-right msg_time">{{message.latestmessagetime | date:'medium'}}</div>
-                                        </li>
+
                                     </ul>
                                 </li>
                             </ul>
@@ -360,11 +371,9 @@
                                 <ul class="list-inline" *ngIf="message.to == userHandle && selectedUserHandle != userHandle">
                                     <li class="list-inline-item avatar_msg_input float_left">
                                         <img *ngIf="nonUserProfile.profileImage" src="{{ baseUrl + nonUserProfile.profileImage}}" class="img-responsive">
-<<<<<<< HEAD
-                                        <img *ngIf="!nonUserProfile.profileImage" src="{{ baseUrl + 'images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png' }}" class="img-responsive">
-=======
-                                        <img *ngIf="!nonUserProfile.profileImage" src="https://d206s58i653k1q.cloudfront.net/images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png" class="img-responsive">
->>>>>>> 6b7037d285ca2ef403bb33e3d085b1dd8b8750e7
+                                        <<<<<<< HEAD <img *ngIf="!nonUserProfile.profileImage" src="{{ baseUrl + 'images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png' }}" class="img-responsive">
+                                            =======
+                                            <img *ngIf="!nonUserProfile.profileImage" src="https://d206s58i653k1q.cloudfront.net/images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png" class="img-responsive"> >>>>>>> 6b7037d285ca2ef403bb33e3d085b1dd8b8750e7
                                     </li>
                                     <li class="list-inline-item msg_cont_block">
                                         <p class="ops_msg_aero">

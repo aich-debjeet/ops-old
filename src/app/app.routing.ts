@@ -50,7 +50,7 @@ export const routes: Routes = [
  { path: 'reset-password', component: ResetPasswordComponent },
  { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule', canActivate: [AuthGuard] },
 //  { path: 'media', loadChildren: './components/media/media.module#ProfileModule' },
- { path: 'message', component: MessageComponent, canActivate: [AuthGuard] },
+ { path: 'user/message', component: MessageComponent, canActivate: [AuthGuard] },
  { path: 'user/status/list', component: StatusListComponent, canActivate: [AuthGuard] },
  { path: 'user/media/list', loadChildren: './components/media-list/media-list.module#MediaListModule', canActivate: [AuthGuard]},
  { path: 'spotfeed/:id', component: SpotfeedComponent, canActivate: [AuthGuard] },
