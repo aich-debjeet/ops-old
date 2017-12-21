@@ -20,11 +20,7 @@ export class DwcProgressBarComponent implements OnInit {
     private store: Store<any>,
     private router: Router,
   ) {
-    // this.tagState$ = store.select('profileTags')
-    //  this.tagState$.subscribe((state) => {
-    //    this.dataDwc = state
-    //   console.log(state)
-    // })
+
     this.isAuthed = false;
 
     /**

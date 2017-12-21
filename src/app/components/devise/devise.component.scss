@@ -1,0 +1,32 @@
+.o-mob__logo{
+    width: 160px;  
+  }
+  .o-mob__logo img{
+      width: 100%;
+  }
+  .o-mob-container{
+      width: 320px;
+      margin: 0px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 93vh;
+  }
+  .o-mob__media{
+      width: 128px;
+      margin-top: 95px;
+  }
+  .o-mob__title{
+      width: 313px;
+      font-size: 13px;
+      color: #333;
+      text-align: center;
+      margin-top: 53px;
+  }
+  .o-mob__sub-title{
+      font-size: 13px;
+      text-align: center;
+      color: #929292;
+      margin-top: 16px;
+  }

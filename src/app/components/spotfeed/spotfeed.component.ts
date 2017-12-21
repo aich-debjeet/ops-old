@@ -41,7 +41,6 @@ export class SpotfeedComponent {
 
     this.userState$.subscribe((state) => {
       this.userState = state;
-      // console.log(state.spotfeed_detail['spotfeedMedia']);
       this.spotfeedDetails = state['spotfeed_detail'];
       // this.spotfeedPosts = this.spotfeedDetails.spotfeedMedia;
 

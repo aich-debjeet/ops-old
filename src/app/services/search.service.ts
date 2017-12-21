@@ -33,7 +33,6 @@ export class SearchService {
    * @param search query
    */
   getPeople(params: any) {
-    // console.log('search params', params);
     this.updateToken();
     return this.api.get('/portal/searchprofiles/1/' + params.query + '/' + params.offset + '/' + params.limit);
   }
@@ -43,7 +42,6 @@ export class SearchService {
    * @param search query
    */
   getPosts(params: any) {
-    // console.log('search params', params);
     this.updateToken();
     return this.api.get('/portal/cdn/media/postByText/' + params.query + '/' + params.offset + '/' + params.limit);
   }
@@ -53,7 +51,6 @@ export class SearchService {
    * @param search query
    */
   getChannels(params: any) {
-    // console.log('search params', params);
     this.updateToken();
     return this.api.get('/portal/network/spotfeed/searchByText/' + params.query + '/' + params.offset + '/' + params.limit);
   }

@@ -44,23 +44,19 @@ export class OpportunitySearchCreatedComponent implements OnInit {
 
     // observe the opportunity state
     this.opportunityState$.subscribe((state) => {
-      // console.log('opportunityState', state);
       if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
         this.opportunities = state.search_opportunities_data.SUCCESS;
-        // console.log('this.opportunities', this.opportunities);
       }
 
       // check for the result of created opportunities
       if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
         this.opportunities = state.get_opportunities_data.SUCCESS;
-        // console.log('this.opportunities', this.opportunities);
       }
     });
 
     // observe the user state
     this.userState$.subscribe((state) => {
       this.userState = state;
-      // console.log('this.userState', this.userState);
       // check for user skills
       if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['handle'] && this.userState['profile_navigation_details']['handle'].length > 0) {
         this.loadCreatedOpps(this.userState['profile_navigation_details']['handle']);
@@ -78,7 +74,6 @@ export class OpportunitySearchCreatedComponent implements OnInit {
       offset: 0, // initial request
       limit: this.recordsPerPage
     }
-    // console.log('dispatch created opportunities');
     this.store.dispatch({
       type: OpportunityActions.GET_OPPORTUNITIES,
       payload: createdSearchParams

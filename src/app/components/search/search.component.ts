@@ -77,11 +77,9 @@ export class SearchComponent implements AfterViewInit {
     .subscribe(() => {
 
       this.searchString = this.searchInput.value;
-      // console.log('searching: ', this.searchString);
 
       // search if string is available
       if (this.searchString && this.searchString.length > 0) {
-        // console.log('new search', this.searchString);
         this.isSearching = true;
 
         const searchParams = {
@@ -138,7 +136,6 @@ export class SearchComponent implements AfterViewInit {
    * Scroll event listener
    */
   @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
-    // console.log('scrolling', $event);
     const scrolledValue = window.pageYOffset;
     let scrollDirection = '';
     if (scrolledValue > this.lastScrollTop) {
@@ -147,7 +144,6 @@ export class SearchComponent implements AfterViewInit {
       scrollDirection = 'up';
     }
     this.lastScrollTop = scrolledValue;
-    // console.log('scrolling direction', scrollDirection);
 
     if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
       // reached the bottom of the page
@@ -163,8 +159,6 @@ export class SearchComponent implements AfterViewInit {
    * Load more results for active tab
    */
   dispatchLoadMore() {
-    // console.log('load more: ' + this.activeTab);
-    // console.log('state: ', this.searchState);
     if (this.searchQueryElement.nativeElement.value && this.searchQueryElement.nativeElement.value.length > 0 && this.activeTab !== 'tab-all') {
       this.showPreloader = true;
     } else {
@@ -177,7 +171,6 @@ export class SearchComponent implements AfterViewInit {
         offset: this.searchState.search_people_params.offset + this.recordsPerPage,
         limit: this.recordsPerPage
       }
-      // console.log('req params', searchParams);
       // search people
       this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
     }
@@ -188,7 +181,6 @@ export class SearchComponent implements AfterViewInit {
         offset: this.searchState.search_post_params.offset + this.recordsPerPage,
         limit: this.recordsPerPage
       }
-      // console.log('req params', searchParams);
       // search post
       this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchParams });
     }
@@ -199,7 +191,6 @@ export class SearchComponent implements AfterViewInit {
         offset: this.searchState.search_channel_params.offset + this.recordsPerPage,
         limit: this.recordsPerPage
       }
-      // console.log('req params', searchParams);
       // search channel
       this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchParams });
     }
@@ -209,7 +200,6 @@ export class SearchComponent implements AfterViewInit {
   onTabClick(tabId: any) {
     window.scrollTo(0, 0);
     // this.scrollToTop(100);
-    // console.log('PARENT recieved onTabClick', tabId);
     this.selectTab(tabId);
   }
 

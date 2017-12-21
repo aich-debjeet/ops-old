@@ -13,7 +13,6 @@ export class AudioPlayerComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log(this.src);
   }
 
 }

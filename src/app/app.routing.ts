@@ -31,7 +31,7 @@ import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world-cup.component';
-
+import { DeviseComponent } from './components/devise/devise.component';
 
 
 // Guard
@@ -41,6 +41,7 @@ export const routes: Routes = [
  { path: '', component: LogoutHomeComponent },
  { path: 'logout', component: LogoutComponent },
  { path: 'login', component: LoginComponent },
+ { path: 'device', component: DeviseComponent },
  { path: 'learn', component: LearnComponent, canActivate: [AuthGuard] },
  { path: 'channel/:id', component: ChannelInnerComponent, canActivate: [AuthGuard] },
  { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },
@@ -49,7 +50,7 @@ export const routes: Routes = [
  { path: 'reset-password', component: ResetPasswordComponent },
  { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule', canActivate: [AuthGuard] },
 //  { path: 'media', loadChildren: './components/media/media.module#ProfileModule' },
- { path: 'message', component: MessageComponent, canActivate: [AuthGuard] },
+ { path: 'user/message', component: MessageComponent, canActivate: [AuthGuard] },
  { path: 'user/status/list', component: StatusListComponent, canActivate: [AuthGuard] },
  { path: 'user/media/list', loadChildren: './components/media-list/media-list.module#MediaListModule', canActivate: [AuthGuard]},
  { path: 'spotfeed/:id', component: SpotfeedComponent, canActivate: [AuthGuard] },

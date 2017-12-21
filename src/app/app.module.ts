@@ -126,6 +126,7 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
 import { AgmCoreModule } from '@agm/core';
 import { OpportunityEffect } from 'app/effects/opportunity.effect';
 import { OpportunityModule } from 'app/components/opportunity/opportunity.module';
+import { DeviseComponent } from './components/devise/devise.component';
 
 
 @NgModule({
@@ -162,6 +163,7 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     NetworkComponent,
     ProjectComponent,
     DirectoryListComponent,
+    DeviseComponent,
   ],
   imports: [
     DragulaModule,

@@ -25,7 +25,6 @@ export class MessageActions {
 
   /* -------------------------------- load current user profile data -------------------------------- */
   loadUserProfile(value): Action {
-    console.log('LOAD_USER_PROFILE_DATA ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_USER_PROFILE_DATA,
       payload: { value }
@@ -33,7 +32,6 @@ export class MessageActions {
   }
 
   loadUserProfileSuccess(value): Action {
-    console.log('LOAD_USER_PROFILE_DATA_SUCCESS ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_USER_PROFILE_DATA_SUCCESS,
       payload: { value }
@@ -41,7 +39,6 @@ export class MessageActions {
   }
 
   loadUserProfileFailed(error: any): Action {
-    console.log('LOAD_USER_PROFILE_DATA_FAILED ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_USER_PROFILE_DATA_FAILED,
       payload: error
@@ -53,7 +50,6 @@ export class MessageActions {
 
   /* -------------------------------- load non user profile data -------------------------------- */
   loadNonUserProfile(value): Action {
-    console.log('LOAD_NON_USER_PROFILE_DATA ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_NON_USER_PROFILE_DATA,
       payload: { value }
@@ -61,7 +57,6 @@ export class MessageActions {
   }
 
   loadNonUserProfileSuccess(value): Action {
-    console.log('LOAD_NON_USER_PROFILE_DATA_SUCCESS ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_NON_USER_PROFILE_DATA_SUCCESS,
       payload: { value }
@@ -69,7 +64,6 @@ export class MessageActions {
   }
 
   loadNonUserProfileFailed(error: any): Action {
-    console.log('LOAD_NON_USER_PROFILE_DATA_FAILED ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_NON_USER_PROFILE_DATA_FAILED,
       payload: error
@@ -80,21 +74,18 @@ export class MessageActions {
   /*------------------------ get receipient details---------------------------------*/
 
   getReceipient(value) {
-    console.log('GET_RECEIPIENT action triggred');
     return {
       type: MessageActions.GET_RECEIPIENT,
       payload: { value }
     };
   }
   getReceipientSuccess (value) {
-    console.log('GET_RECEIPIENT_SUCCESS action triggred');
     return {
       type: MessageActions.GET_RECEIPIENT_SUCCESS,
       payload: { value }
     };
   }
   getReceipientFailure (value) {
-    console.log('GET_RECEIPIENT_FAIlURE action triggred');
     return {
       type: MessageActions.GET_RECEIPIENT_FAILED,
       payload: { value }
@@ -105,7 +96,6 @@ export class MessageActions {
 
    /* -------------------------------- load non user profile2 data -------------------------------- */
    loadNonUserProfile2(value): Action {
-    console.log('LOAD_NON_USER_PROFILE2_DATA ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_NON_USER_PROFILE2_DATA,
       payload: { value }
@@ -113,7 +103,6 @@ export class MessageActions {
   }
 
   loadNonUserProfile2Success(value): Action {
-    console.log('LOAD_NON_USER_PROFILE2_DATA_SUCCESS ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_NON_USER_PROFILE2_DATA_SUCCESS,
       payload: { value }
@@ -121,7 +110,6 @@ export class MessageActions {
   }
 
   loadNonUserProfile2Failed(error: any): Action {
-    console.log('LOAD_NON_USER_PROFILE2_DATA_FAILED ACTION TRIGGERED');
     return {
       type: MessageActions.LOAD_NON_USER_PROFILE2_DATA_FAILED,
       payload: error

@@ -88,10 +88,8 @@ export class PostCardComponent implements OnInit {
     const patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
     const m3 = (src).match(patt1);
     if (showThumb === true) {
-      console.log('p', src.replace(m3[0], '_thumb_250.jpeg'));
       return basePath + src.replace(m3[0], '_thumb_250.jpeg');
     } else {
-      console.log('p', basePath + src);
       return basePath + src;
     }
   }

@@ -28,11 +28,9 @@ export class ContactComponent implements OnInit {
     this.contactFormState$ = this.store.select('eventTags');
     this.contactFormState$.subscribe(state => {
       this.contactFormState = state;
-      // console.log(this.contactFormState);
 
       // check if form is submitted
       if (this.formSubmitted && this.contactFormState && this.contactFormState.dwc_contact_form_upload_success === true) {
-        // console.log();
         this.toastr.success('Your details has been submitted successfully');
         this.resetContactForm();
       }
@@ -43,7 +41,6 @@ export class ContactComponent implements OnInit {
   }
 
   submitContactForm(value: any) {
-    // console.log(value);
     if (this.contactForm.valid) {
       this.formSubmitted = true;
 

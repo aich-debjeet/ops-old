@@ -115,7 +115,6 @@ export class RegistrationBasicComponent implements OnInit {
     this.claimProfileState$.subscribe((state) => {
       this.claimProfileState = state;
       this.hideProfiles = false;
-      console.log('this.claimProfileState', this.claimProfileState);
     });
 
     this.tagState$ = store.select('loginTags');
@@ -183,7 +182,6 @@ export class RegistrationBasicComponent implements OnInit {
      */
     this.inputNameListener = this.regFormBasic.get('name').valueChanges.debounceTime(200).subscribe((searchProfileName) => {
       if (this.userSearchEnabled) {
-        // console.log('trigger search', searchProfileName);
         this.claimProfileStore.dispatch({
           type: ClaimProfileActions.SEARCH_PROFILE,
           payload: searchProfileName
@@ -264,12 +262,10 @@ export class RegistrationBasicComponent implements OnInit {
 
   // User user exists
   userExisitCheck(value) {
-    console.log(value)
     if (value.length >= 4) {
       this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
     } else {
       if (this.petTag && this.petTag.user_unique) {
-        console.log('now i am here')
         this.petTag.user_unique = false;
       }
     }
@@ -325,12 +321,10 @@ export class RegistrationBasicComponent implements OnInit {
    * @param control: Form confirm password input
    */
   passwordMatchCheck(control: AbstractControl) {
-    // console.log(control.value);
     if (control.value === '') {
       return;
     }
     const pass = this.regFormBasic.controls['password'].value;
-    // console.log('pass: ' + pass);
     if (control.value !== pass) {
       return { passwordDoesNotMatch: true };
     }
@@ -389,7 +383,6 @@ export class RegistrationBasicComponent implements OnInit {
   onSaveUsernameChanged(value: boolean) {
     this.saveUsername = value;
     this.routeQuery['dwc2017'] = value;
-    console.log(this.routeQuery);
   }
 
   /**
@@ -406,13 +399,10 @@ export class RegistrationBasicComponent implements OnInit {
    * @param value
    */
   submitForm(value) {
-
-    // console.log(this.regFormBasic.valid);
     // checking if all required fields with valid info available before submitting the form
     if (!this.regFormBasic.valid) {
       return false;
     }
-
     // form object
     const form =  {
       'name': {
@@ -458,7 +448,6 @@ export class RegistrationBasicComponent implements OnInit {
 
     this.store.select('loginTags').take(2).subscribe(data => {
         if (data['user_basic_reg_success'] === true ) {
-          console.log('success otp');
           if (data && data['user_token']) {
               localStorage.setItem('access_token', data['user_token']);
           }
@@ -478,8 +467,6 @@ export class RegistrationBasicComponent implements OnInit {
    * Is it a valid phone number
    */
   isPhoneValid(event: any) {
-    //
-    console.log(event);
   }
 
 
@@ -487,14 +474,12 @@ export class RegistrationBasicComponent implements OnInit {
    * Get Phone number state
    */
   getNumberState(e: any) {
-    console.log('phone state', e);
   }
 
   /**
    * Save country
    */
   saveCountry(country: any) {
-    console.log(country);
     this.country = country;
   }
 
@@ -503,10 +488,8 @@ export class RegistrationBasicComponent implements OnInit {
    */
   selectProfile(profileHandle: string) {
     this.userSearchEnabled = false;
-    // console.log('disable search');
     setTimeout(() => {
       this.userSearchEnabled = true;
-      // console.log('enable search');
     }, 3000);
     if (profileHandle && this.claimProfileState.claim_profiles.length > 0) {
       this.claimingUserSet = true;
@@ -527,6 +510,5 @@ export class RegistrationBasicComponent implements OnInit {
     setTimeout(() => {
       this.hideProfiles = true;
     }, 500);
-    // console.log('hide profiles');
   }
 }

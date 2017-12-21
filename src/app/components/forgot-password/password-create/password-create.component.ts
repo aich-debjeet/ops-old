@@ -54,8 +54,6 @@ export class PasswordCreateComponent implements OnInit {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       this.forgotP = state;
-      console.log('initial state: ');
-      console.log(this.forgotP);
     });
   }
 
@@ -69,7 +67,6 @@ export class PasswordCreateComponent implements OnInit {
 
   submitForm(value: any) {
     if (this.createPass.valid === true) {
-      // console.log(value);
       const form = {
         password: value.password,
         activationCode: this.activationCode,
@@ -85,12 +82,10 @@ export class PasswordCreateComponent implements OnInit {
    * @param control: Form confirm password input
    */
   passwordMatchCheck(control: AbstractControl) {
-    // console.log(control.value);
     if (control.value === '') {
       return;
     }
     const pass = this.createPass.controls['password'].value;
-    // console.log('pass: ' + pass);
     if (control.value !== pass) {
       return { passwordDoesNotMatch: true };
     }
