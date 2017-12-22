@@ -27,6 +27,7 @@ import 'rxjs/add/operator/take'
 import { ClaimProfileActions } from 'app/actions/claim-profile.action';
 
 import * as _ from 'lodash';
+import { ProfileActions } from 'app/actions/profile.action';
 
 export class RegValue {
   mainTitle: string;
@@ -51,9 +52,10 @@ export class RegistrationBasicComponent implements OnInit {
   country: any;
   saveUsername = true;
   routeQuery: any;
-  claimProfile: any;
   userSearchEnabled = true;
   hideProfiles = false;
+  claimingUserSet = false;
+  inputNameListener: any;
 
   rightCom: RightBlockTag;
   tagState$: Observable<BasicRegTag>;
@@ -72,6 +74,7 @@ export class RegistrationBasicComponent implements OnInit {
   public newNumberForm: FormGroup;
   redrectUrl: any;
   dwc: boolean;
+  claimUserProfileDetails: any;
 
   passwordShowToggle() {
     if (this.passwordShow === true) {
@@ -93,19 +96,17 @@ export class RegistrationBasicComponent implements OnInit {
     public modalService: ModalService,
     public tokenService: TokenService
     ) {
-    // if redriect url there
-    if (this.route.snapshot.queryParams) {
-      this.routeQuery = Object.assign({}, this.route.snapshot.queryParams);
-    }
 
     if (this.route.snapshot.queryParams['ev']) {
       if (this.route.snapshot.queryParams['ev'] === 'dwc2017') {
         this.dwc = true;
         this.routeQuery['dwc2017'] = 'true';
+        // console.log(this.routeQuery);
       }
     }
 
     const currentUrl = this.router.url;
+    // console.log(currentUrl);
 
     /**
      * Claim profile state check
@@ -118,9 +119,38 @@ export class RegistrationBasicComponent implements OnInit {
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
+      // console.log(state);
       this.petTag = state;
+
+      if (!this.claimingUserSet && state && state['claim_user_info'] && state['claim_user_info']['SUCCESS']['user']) {
+        this.claimUserProfileDetails = state['claim_user_info']['SUCCESS']['user'];
+        // console.log('this.claimUserProfileDetails', this.claimUserProfileDetails);
+        // check if imported user
+        if (this.claimUserProfileDetails && this.claimUserProfileDetails['other']['isImported'] === true) {
+          // console.log('imported profile');
+          // console.log('fill user info and disable name input listener');
+          this.claimingUserSet = true;
+          this.inputNameListener.unsubscribe();
+          this.buildForm();
+          this.regFormBasic.controls['name'].setValue(this.claimUserProfileDetails['name']['firstName'] + ' ' + this.claimUserProfileDetails['name']['lastName']);
+          this.regFormBasic.controls['username'].setValue(this.claimUserProfileDetails['username']);
+          this.regFormBasic.controls['email'].setValue(this.claimUserProfileDetails['email']);
+          this.regFormBasic.controls['phone'].setValue(this.claimUserProfileDetails['contact']['contactNumber']);
+        }
+      }
     });
     this.isPhotoAdded = false;
+
+    // if redriect url there
+    if (this.route.snapshot.queryParams) {
+      this.routeQuery = Object.assign({}, this.route.snapshot.queryParams);
+
+      if (this.routeQuery && this.routeQuery['action'] === 'claim_profile') {
+        const importedUsername = this.routeQuery['username'];
+        // search for user details
+        this.store.dispatch({ type: AuthActions.SEARCH_USER_BY_USERNAME, payload: importedUsername });
+      }
+    }
 
     this.buildForm();
   }
@@ -150,7 +180,7 @@ export class RegistrationBasicComponent implements OnInit {
     /**
      * Listening for the name value
      */
-    this.regFormBasic.get('name').valueChanges.debounceTime(200).subscribe((searchProfileName) => {
+    this.inputNameListener = this.regFormBasic.get('name').valueChanges.debounceTime(200).subscribe((searchProfileName) => {
       if (this.userSearchEnabled) {
         this.claimProfileStore.dispatch({
           type: ClaimProfileActions.SEARCH_PROFILE,
@@ -398,10 +428,12 @@ export class RegistrationBasicComponent implements OnInit {
         'dateOfBirth': this.reverseDate(value.dob) + 'T05:00:00',
       }
     };
+    // console.log('form body', form);
 
-    if (typeof this.claimProfile !== 'undefined') {
+    if (typeof this.claimUserProfileDetails !== 'undefined' && this.claimingUserSet === true) {
+
       form.other['isImported'] = false;
-      form['handle'] = this.claimProfile.handle;
+      form['handle'] = this.claimUserProfileDetails.handle || this.claimUserProfileDetails.profileId;
       // claim user profile
       this.store.dispatch({ type: AuthActions.USER_PROFILE_CLAIM, payload: form });
 
@@ -419,7 +451,7 @@ export class RegistrationBasicComponent implements OnInit {
           }
           this.modalService.open('otpWindow');
         }
-    })
+    });
   }
 
 
@@ -458,12 +490,14 @@ export class RegistrationBasicComponent implements OnInit {
       this.userSearchEnabled = true;
     }, 3000);
     if (profileHandle && this.claimProfileState.claim_profiles.length > 0) {
-      this.claimProfile = _.find(this.claimProfileState.claim_profiles, { 'handle': profileHandle });
-
-      this.regFormBasic.controls['name'].setValue(this.claimProfile['name']);
-      this.regFormBasic.controls['username'].setValue(this.claimProfile['extra']['username']);
-      this.regFormBasic.controls['email'].setValue(this.claimProfile['email']);
-      this.regFormBasic.controls['phone'].setValue(this.claimProfile['contact']['mobile']['mobile']);
+      this.claimingUserSet = true;
+      this.claimUserProfileDetails = _.find(this.claimProfileState.claim_profiles, { 'handle': profileHandle });
+      // console.log('profile found', this.claimUserProfileDetails);
+      this.buildForm();
+      this.regFormBasic.controls['name'].setValue(this.claimUserProfileDetails['name']);
+      this.regFormBasic.controls['username'].setValue(this.claimUserProfileDetails['extra']['username']);
+      this.regFormBasic.controls['email'].setValue(this.claimUserProfileDetails['email']);
+      this.regFormBasic.controls['phone'].setValue(this.claimUserProfileDetails['contact']['mobile']['mobile']);
 
       this.claimProfileState.claim_profiles = [];
     }
