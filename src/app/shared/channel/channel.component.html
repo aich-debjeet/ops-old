@@ -72,14 +72,14 @@
 
 
         <div class="c-channel__name">
-            <a [routerLink]="['/channel', channelData?.spotfeedId]" class="c-text_lg color-white">{{channelData?.spotfeedName | truncate:[19, '...'] }}</a>
+            <a [routerLink]="['/channel', channelData?.spotfeedId]" class="c-text_lg color-white">{{channelData?.spotfeedName | truncate:[12, '...'] }}</a>
             <div appDropdown *ngIf="currentUser">
                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
                     <img src="/assets/img/svg/ico_option_white.svg" alt="" class="c-card__options2">
                 </a>
                 <ul class="dropdown-menu o-channel__option">
                     <li>
-                        <a [routerLink]="['', { outlets: { media : ['channel', channelData?.spotfeedId, 'edit' ] } } ]" data-toggle="modal" data-target="#edit_channel_pop">
+                        <a [routerLink]="['', { outlets: { media : ['channel', channelData?.spotfeedId, 'edit' ] } } ]" data-toggle="modal">
                             Edit
                         </a>
                     </li>
