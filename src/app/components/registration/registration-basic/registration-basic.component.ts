@@ -428,9 +428,7 @@ export class RegistrationBasicComponent implements OnInit {
         'dateOfBirth': this.reverseDate(value.dob) + 'T05:00:00',
       }
     };
-
-    console.log('form body', form);
-    // return;
+    // console.log('form body', form);
 
     if (typeof this.claimUserProfileDetails !== 'undefined' && this.claimingUserSet === true) {
 
