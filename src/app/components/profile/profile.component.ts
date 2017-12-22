@@ -66,8 +66,10 @@ export class ProfileComponent implements OnInit {
       .first(profile => profile['profile_navigation_details'].name )
       .subscribe( data => {
         if (data['profile_navigation_details'].username === this.userName) {
+          // console.log('current user');
           this.loadProfile('');
         } else {
+          // console.log('other User');
           this.loadProfile(this.userName);
         }
       });

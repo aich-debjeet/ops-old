@@ -73,6 +73,14 @@ export class AuthService {
     }
 
     /**
+     * Search user bu user id
+     */
+    searchUserWithUsername(username: string) {
+      console.log('api call username', username);
+      return this.api.get('/portal/auth/user/username/' + username);
+    }
+
+    /**
      * claiming user porfile
      */
     claimUserProfile(reqBody: any) {

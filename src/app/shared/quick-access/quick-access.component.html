@@ -53,6 +53,6 @@
             <img src="/assets/img/quickaccess/channel.png" alt="" *ngIf="quickAccessData?.name ==='Channel'" class="c-qt__block__img">
             <img src="/assets/img/quickaccess/channel.png" alt="" *ngIf="quickAccessData?.name !=='Channel' && quickAccessData?.name !=='Planner' && quickAccessData?.name !=='My Status' && quickAccessData?.name !=='My Media'" class="c-qt__block__img">
         </div>
-        <div class="c-qt__block__text m-t-8">{{ quickAccessData?.name }}</div>
+        <div class="c-qt__block__text m-t-8">{{ quickAccessData?.name | truncate:[9, '...'] }}</div>
     </a>
 </div>
