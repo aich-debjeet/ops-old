@@ -42,32 +42,32 @@ export class RegistrationProfileComponent implements OnInit {
 
     this.artistType = [{
       name: 'Talent',
-      image: 'http://d33wubrfki0l68.cloudfront.net/b355c589dfbae4393aadb50108572b18de8ea6db/b990b/img/step2a.png',
+      image: 'https://d33wubrfki0l68.cloudfront.net/b355c589dfbae4393aadb50108572b18de8ea6db/b990b/img/step2a.png',
       typeName: 'individual',
       description: 'Eg: Performing Arts, Movement Arts, Audio Arts, Visual Arts, Fine Arts, Applied Arts.'
     }, {
       name: 'Stagecrafters',
-      image: 'http://d33wubrfki0l68.cloudfront.net/6720dad7dde30d80dc21425c4588130190355289/4d023/img/step2b.png',
+      image: 'https://d33wubrfki0l68.cloudfront.net/6720dad7dde30d80dc21425c4588130190355289/4d023/img/step2b.png',
       typeName: 'individual',
       description: 'Eg: Sound Engineer, Light Engineer, Wardrobe Supervisor.'
     }, {
       name: 'Techies',
-      image: 'http://d33wubrfki0l68.cloudfront.net/ff38e007eebacc82c0fac15fb173639a6ba24cb3/ebbd3/img/step2c.png',
+      image: 'https://d33wubrfki0l68.cloudfront.net/ff38e007eebacc82c0fac15fb173639a6ba24cb3/ebbd3/img/step2c.png',
       typeName: 'individual',
       description: 'Eg: VR, Game Programmers, Software Developers, Editors.'
     }, {
       name: 'Corporates',
-      image: 'http://d33wubrfki0l68.cloudfront.net/c95d739609696b659843aec4892903037ee0c9e0/1927a/img/step2d.png',
+      image: 'https://d33wubrfki0l68.cloudfront.net/c95d739609696b659843aec4892903037ee0c9e0/1927a/img/step2d.png',
       typeName: 'individual',
       description: 'Eg: Theatre Manger, Account Mangaer, Marketing, Legal, Finance & Accounting.'
     }, {
       name: 'Teachers',
-      image: 'http://d33wubrfki0l68.cloudfront.net/88d55591b8fd71d7b250043903558303b655e987/c97e7/img/step2e.png',
+      image: 'https://d33wubrfki0l68.cloudfront.net/88d55591b8fd71d7b250043903558303b655e987/c97e7/img/step2e.png',
       typeName: 'individual',
       description: 'Eg: Trainers, Coaches, Mentors, Guides.'
     }, {
       name: 'Art Lovers',
-      image: 'http://d33wubrfki0l68.cloudfront.net/fa189f3145c47fa27ca876caff6f452993c52079/fa717/img/step2f.png',
+      image: 'https://d33wubrfki0l68.cloudfront.net/fa189f3145c47fa27ca876caff6f452993c52079/fa717/img/step2f.png',
       typeName: 'individual',
       description: 'Eg: Followers of Art Forms & Artists, Entertainment Seekers, Connoisseurs.'
     }];
@@ -89,7 +89,7 @@ export class RegistrationProfileComponent implements OnInit {
       button_text: 'Login',
       button_link: '/login',
       page: false,
-      img: 'http://d33wubrfki0l68.cloudfront.net/8116a57b8fb73beafbe44c518c398f1cc01d79d1/24877/img/registration_acc_type_illustration.png'
+      img: 'https://d33wubrfki0l68.cloudfront.net/8116a57b8fb73beafbe44c518c398f1cc01d79d1/24877/img/registration_acc_type_illustration.png'
     };
   }
 

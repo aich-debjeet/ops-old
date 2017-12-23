@@ -61,7 +61,6 @@ export class OrgSettingsComponent implements OnInit {
     this.tagState$ = this.store.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      console.log(this.userProfile)
       if (state.profile_navigation_details.isOrganization === true) {
         this.organizationHandle = state.profile_navigation_details.organization.organizationHandle;
         this.store.dispatch({type: OrganizationActions.GET_ORGANIZATION_BY_HANDLE, payload: this.organizationHandle});
@@ -71,7 +70,6 @@ export class OrgSettingsComponent implements OnInit {
     this.orgStates$ = this.store.select('profileTags')
     this.orgStates$.subscribe((state) => {
       this.orgProfile = state;
-      console.log(this.orgProfile)
       if (state && state.receipients) {
         this.receipientList = state.receipients;
       }
@@ -108,17 +106,13 @@ export class OrgSettingsComponent implements OnInit {
   }
 
   toggleView(event: any, tab: String) {
-    console.log(event)
     event.preventDefault();
     // this.render.setElementClass(event.target, 'active', true);
-    console.log(this.selectedView)
     if (tab === 'general') {
-      console.log('true')
       this.render.setElementClass(event.target, 'active', true);
       this.selectedView = true;
     }
     if (tab === 'admin') {
-      console.log('false')
       this.store.dispatch({type: OrganizationActions.GET_MEMBERS, payload: this.organizationHandle});
       this.render.setElementClass(event.target, 'active', true);
       this.selectedView = false;
@@ -140,22 +134,17 @@ export class OrgSettingsComponent implements OnInit {
     }
   }
   adminUpdate(value) {
-    console.log(this.adminNameForm.valid);
-    console.log(value);
     if ( this.adminNameForm.valid === true ) {
-      console.log('valid')
       const form =  {
         'memberHandle': this.memberHandle,
         'isAdmin': value.publicWork,
         'status': 'pending'
       }
-      console.log(JSON.stringify(form))
       const headers = this.tokenService.getAuthHeader();
       // this.store.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
        this.http.put(this.apiLink + '/portal/organization/inviteMember/' + this.organizationHandle, form, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        console.log('finally its a success' + response)
       });
       this.adminNameForm.reset();
     }
@@ -170,10 +159,8 @@ export class OrgSettingsComponent implements OnInit {
   onSearch() {
   if (this.admin !== null || this.admin !== '') {
     this.recipientsListState = true;
-    console.log('searching')
     this.store.dispatch({ type: OrganizationActions.GET_RECEIPIENT, payload: this.admin});
   } else {
-    console.log('not searching')
     this.recipientsListState = !this.recipientsListState;
   }
  }
@@ -194,14 +181,11 @@ export class OrgSettingsComponent implements OnInit {
 
   deleteOrganization() {
     if (this.organizationHandle !== 'undefined') {
-      console.log('here')
       const headers = this.tokenService.getAuthHeader();
-      console.log(this.apiLink)
       this.http.delete(this.apiLink + '/portal/organization/' + this.organizationHandle, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
         this.toastr.success('Organization deletion Success');
-        // console.log('finally its a success' + response)
         this.router.navigate(['profile']);
       });
       // this.store.dispatch({ type: OrganizationActions.ORGANIZATION_DELETE, payload: this.organizationHandle });
@@ -224,76 +208,68 @@ removeMember(handle: any) {
   .map((data: Response) => data.json())
   .subscribe(response => {
     this.toastr.success('This member has been successfully been removed');
-    console.log('finally its a success' + response)
   });
 }
   updateCheckedOptions(option, event) {
-    console.log(option);
     const val = option.name;
-    console.log(val)
-    console.log(event);
     if (option.name === 'Follow') {
       const form =  {
         'extras': {
-        'settings': {
-          follow : option.checked
+          'settings': {
+            follow : option.checked
+          }
         }
       }
-      }
-      console.log(form)
-      const headers = this.tokenService.getAuthHeader();
-       this.http.put(this.apiLink + '/portal/organization/' + this.organizationHandle, form, { headers: headers })
+
+     const headers = this.tokenService.getAuthHeader();
+      this.http.put(this.apiLink + '/portal/organization/' + this.organizationHandle, form, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        console.log('finally its a success' + response)
       });
     }
     if (option.name === 'Donation') {
       const form =  {
         'extras': {
-        'settings': {
-          donation : option.checked
+          'settings': {
+            donation : option.checked
+          }
         }
       }
-      }
-      console.log(form)
+
       const headers = this.tokenService.getAuthHeader();
        this.http.put(this.apiLink + '/portal/organization/' + this.organizationHandle, form, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        console.log('finally its a success' + response)
       });
     }
     if (option.name === 'Network') {
       const form =  {
         'extras': {
-        'settings': {
-          network : option.checked
+          'settings': {
+            network : option.checked
+          }
         }
       }
-      }
-      console.log(form)
+
       const headers = this.tokenService.getAuthHeader();
        this.http.put(this.apiLink + '/portal/organization/' + this.organizationHandle, form, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        console.log('finally its a success' + response)
       });
     }
     if (option.name === 'Message') {
       const form =  {
         'extras': {
-        'settings': {
-          message : option.checked
+          'settings': {
+            message : option.checked
+          }
         }
       }
-      }
-      console.log(form)
+
       const headers = this.tokenService.getAuthHeader();
        this.http.put(this.apiLink + '/portal/organization/' + this.organizationHandle, form, { headers: headers })
       .map((data: Response) => data.json())
       .subscribe(response => {
-        console.log('finally its a success' + response)
       });
     }
   }

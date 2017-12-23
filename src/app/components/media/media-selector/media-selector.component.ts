@@ -326,14 +326,19 @@ export class MediaSelectorComponent implements OnInit {
     // const chosenFile = this.editingFile;
 
     for (const nowFile of this.uploadedFiles) {
+
+      if (!this.desc) {
+        console.log('you need a desc to continue');
+        isReady = false;
+        this.changeState(1);
+      }
+
       // console.log(nowFile);
       if (nowFile) {
         // Build Media Object
         const mediaItem = this.formatMedia( nowFile, formData, chosenChannel, userHandle, value.privacy);
-        // console.log(mediaItem);
         const media = [ mediaItem ];
         multipleMedias.push(mediaItem);
-        // console.log(multipleMedias);
       }
     }
 
@@ -633,26 +638,43 @@ export class MediaSelectorComponent implements OnInit {
    */
 
   extractTags() {
+    let isDwcThing = 0;
+    const tag = [];
+    // return null if no desc
+    if (!this.desc) {
+      return tag;
+    }
+
+    /**
+     * If its it has an event param
+     * push that param as an hashtag
+     */
+    const eventName = this.eventName;
+    if (eventName) {
+      console.log('e', eventName);
+      tag.push(eventName);
+      isDwcThing = 2;
+    }
+
     const REGEX_HASHTAG = /\B(#[Ã¡-ÃºÃ-ÃÃ¤-Ã¼Ã-Ãa-zA-Z0-9_]+)/g;
     const string = this.desc
     const results = string.match(REGEX_HASHTAG);
 
-    let isDwcThing = 0;
+    //  DWC Specific things
+    const dwcList = ['DWCIQHIPHOP', 'DWICIQCLASSICAL', 'DWICIQFOLK', 'DWCIQBALLET'];
 
-    const tag = [];
+    // const tag = [];
     if (results) {
       results.forEach(function(element) {
         const newVal = element.replace('#', '');
         tag.push(newVal);
-
-        console.log('tag', tag);
         if (newVal === 'dwc') {
-          isDwcThing = 3;
+          isDwcThing = 2;
         }
       });
     }
 
-    if (isDwcThing === 3 ) {
+    if (isDwcThing >  1 ) {
       this.updateStatus(3);
     }
 
@@ -865,7 +887,11 @@ export class MediaSelectorComponent implements OnInit {
       license: this.license,
     }
 
-    this.changeState(2);
+    if (!this.desc) {
+      this.toastr.error('Please add relevant descriptions or tags', 'Missing Description');
+    } else {
+      this.changeState(2);
+    }
   }
   /**
    * Toggle Create Channel Form

@@ -185,7 +185,6 @@ export class ProfileSliderComponent implements OnInit {
   }
 
   testClick() {
-    console.log('onclick');
     this.UsertypeModal.open();
   }
 

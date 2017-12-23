@@ -48,13 +48,11 @@ export class OpportunitySearchRecommendedComponent implements OnInit {
     this.opportunityState$.subscribe((state) => {
       if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
         this.opportunities = state.search_opportunities_data.SUCCESS;
-        // console.log('this.opportunities', this.opportunities);
       }
 
       // check for the result of recommended opportunities
       if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
         this.opportunities = state.get_opportunities_data.SUCCESS;
-        // console.log('this.opportunities', this.opportunities);
       }
     });
 
@@ -67,7 +65,6 @@ export class OpportunitySearchRecommendedComponent implements OnInit {
         const skillsLoaded = this.userState['profile_navigation_details']['skills'];
         // preparing skills as an array of string
         skillsLoaded.forEach((skill, index) => {
-          // console.log('skill.code', skill.code);
           if (skill && skill.code) {
             this.skillCodes.push(skill.code);
           }
@@ -92,7 +89,7 @@ export class OpportunitySearchRecommendedComponent implements OnInit {
       offset: 0, // initial request
       limit: this.recordsPerPage
     }
-    // console.log('dispatch recommended opportunities');
+
     this.store.dispatch({
       type: OpportunityActions.GET_OPPORTUNITIES,
       payload: recomSearchParams

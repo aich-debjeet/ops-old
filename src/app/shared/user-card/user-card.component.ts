@@ -41,7 +41,6 @@ export class UserCardComponent implements OnInit {
     this.userState$ = this.store.select('profileTags');
     this.userState$.subscribe((state) => {
       this.userProfile = state;
-      // console.log('user card this.userProfile', this.userProfile);
     });
     // this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     /* ================== current user ========= */

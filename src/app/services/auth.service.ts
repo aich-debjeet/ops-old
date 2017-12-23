@@ -62,7 +62,6 @@ export class AuthService {
       .map((response: Response) => {
           const user = response.json();
           if (user.profileId) {
-            // console.log(user.profileId);
           }
           localStorage.setItem('currentUserID', user.profileId);
           this.router.navigate(['/profile']);
@@ -71,6 +70,14 @@ export class AuthService {
 
     registerStepBasic(req: any) {
       return this.api.post('/portal/auth/user', req);
+    }
+
+    /**
+     * Search user bu user id
+     */
+    searchUserWithUsername(username: string) {
+      console.log('api call username', username);
+      return this.api.get('/portal/auth/user/username/' + username);
     }
 
     /**

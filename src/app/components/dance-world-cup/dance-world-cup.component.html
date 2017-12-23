@@ -2,80 +2,46 @@
 
 <app-dwc-progress-bar></app-dwc-progress-bar>
 
+<div class="o-dwc-top-banner__dark">
+    <div class="container">
+        <div class="o-dwc-banner">
+            <div class="col-md-9">
+                <h2 class="c-h2 color-white ">Dance World Cup</h2>
+                <h4 class="c-h4 m-t-8 color-white">India Qualifiers - 2018</h4>
+                <a routerLink="/dwc/reg" class="dwc-btn float_left">Register</a>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="o-dwc-detail-top-slider">
     <section class="dwc">
         <ngx-carousel [inputs]="dwcSlider" [moveToSlide]="1" (onMove)="onmoveFn($event)" (afterCarouselViewed)="afterCarouselViewedFn($event)">
             <ngx-item NgxCarouselItem class="bannerStyle">
                 <div class="o-dwc-top-banner">
-                    <div class="o-dwc-top-banner__dark">
-                        <div class="container">
-                            <div class="o-dwc-banner">
-                                <div class="col-md-9">
-                                    <h2 class="c-h2 color-white ">Dance World Cup</h2>
-                                    <h4 class="c-h4 m-t-8 color-white">India Qualifiers - 2018</h4>
-                                    <a routerLink="/dwc/reg" class="dwc-btn float_left">Register</a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </ngx-item>
             <ngx-item NgxCarouselItem class="bannerStyle">
                 <div class="o-dwc-top-banner2">
-                    <div class="o-dwc-top-banner__dark">
-                        <div class="container">
-                            <div class="o-dwc-banner">
-                                <div class="col-md-9">
-                                    <h2 class="c-h2 color-white ">Dance World Cup</h2>
-                                    <h4 class="c-h4 m-t-8 color-white">India Qualifiers - 2018</h4>
-                                    <a routerLink="/dwc/reg" class="dwc-btn float_left">Register</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </ngx-item>
             <ngx-item NgxCarouselItem class="bannerStyle">
                 <div class="o-dwc-top-banner3">
-                    <div class="o-dwc-top-banner__dark">
-                        <div class="container">
-                            <div class="o-dwc-banner">
-                                <div class="col-md-9">
-                                    <h2 class="c-h2 color-white ">Dance World Cup</h2>
-                                    <h4 class="c-h4 m-t-8 color-white">India Qualifiers - 2018</h4>
-                                    <a routerLink="/dwc/reg" class="dwc-btn float_left">Register</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </ngx-item>
             <ngx-item NgxCarouselItem class="bannerStyle">
                 <div class="o-dwc-top-banner3">
-                    <div class="o-dwc-top-banner__dark">
-                        <div class="container">
-                            <div class="o-dwc-banner">
-                                <div class="col-md-9">
-                                    <h2 class="c-h2 color-white ">Dance World Cup</h2>
-                                    <h4 class="c-h4 m-t-8 color-white">India Qualifiers - 2018</h4>
-                                    <a routerLink="/dwc/reg" class="dwc-btn float_left">Register</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </ngx-item>
             <button NgxCarouselPrev class='leftRs'>
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
-                <defs>
-                    <polygon id="arrow-copy-6-a" points="15.276 4.001 8 11.942 15.276 19.882 16.75 18.531 10.713 11.942 16.75 5.351"/>
-                </defs>
-                <g fill="none" fill-rule="evenodd">
-                    <use fill="#fff" xlink:href="#arrow-copy-6-a"/>
-                </g>
-            </svg>
-        </button>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                    <defs>
+                        <polygon id="arrow-copy-6-a" points="15.276 4.001 8 11.942 15.276 19.882 16.75 18.531 10.713 11.942 16.75 5.351"/>
+                    </defs>
+                    <g fill="none" fill-rule="evenodd">
+                        <use fill="#fff" xlink:href="#arrow-copy-6-a"/>
+                    </g>
+                </svg>
+            </button>
             <button NgxCarouselNext class='rightRs'>
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
                 <defs>
@@ -98,9 +64,9 @@
                     <li (click)="tabChange('tab-1')" [ngClass]="{'active': activeTab == 'tab-1'}">
                         <a class="m-l-0" aria-expanded="true">Home</a>
                     </li>
-                    <li (click)="tabChange('tab-2')" [ngClass]="{'active': activeTab == 'tab-2'}">
+                    <!-- <li (click)="tabChange('tab-2')" [ngClass]="{'active': activeTab == 'tab-2'}">
                         <a>announcement</a>
-                    </li>
+                    </li> -->
                     <li (click)="tabChange('tab-3')" [ngClass]="{'active': activeTab == 'tab-3'}">
                         <a>2018-spain</a>
                     </li>
@@ -130,7 +96,7 @@
                 <img src="/assets/img/dwc/dwc_logo.png" alt="">
             </div>
             <span class="c-links__share  dropdown">
-                <a shareButton="facebook" [sbUrl]="'http://prettylinks.co/q5Fjl3+'"  class="dwc-btn m-l-8 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <a shareButton="facebook" [sbUrl]="'http://pretty.link/FFFt7F'"  class="dwc-btn m-l-8 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <span class="dwc-share-icon"><img src="/assets/img/svg/share_theme.svg" alt=""></span>Share
             </a>
             <div class="dropdown-menu dropdown-menu-right o-share__profile o-dwc-share p-16">
@@ -208,7 +174,7 @@
 
                                     <p class="c-text_md m-t-b-8 o-dwc-detail__txt">
                                         Since 2009, the Dance World Cup Finals have been held every year in different countries, such as Italy, France, Austria, Portugal, Romania and England. Over 12,000 dancers compete in the qualifying matches in their home countries, before they are qualified
-                                        to the finals. In the Dance World Cup Final 2017, which was held in Offenburg, Germany, over 4,000 dancers representing 47 countries compete at the competition.
+                                        to the finals. In the Dance World Cup Final 2017, which was held in Offenburg, Germany, over 4,000 dancers representing 47 countries competed at the competition.
                                     </p>
                                     <p class="c-text_md m-t-b-8 o-dwc-detail__txt">
                                         Last year, Hong Kong Qualifying Match was held for the first time. Over 60 dancers joined the Finals in Germany. All dancers achieved satisfactory results, with one dancer winning the bronze medal in National and Folklore Dance.
@@ -218,8 +184,7 @@
                                         knows much; Those who seized the opportunity to explore, knows more.” Dancers who participated last year had a fruitful experience of acquiring stronger dancing skills, and establishing friendship with one another.
                                     </p>
                                     <p class="c-text_md m-t-b-8 o-dwc-detail__txt">
-                                        This year, we aim to provide a platform for dancers to unleash their potential. We are now looking for sponsorships to promote this opportunity to more dancers. The Dance World Cup Final 2018 will be held in Spain. We look forward to your participation.
-                                        See you at the event!
+                                        The Dance World Cup Final 2018 will be held in Spain. We look forward to your participation. See you at the event!
                                     </p>
                                 </div>
                                 <!-- about -->
@@ -314,10 +279,9 @@
                                         <p class="c-text_md f-w_600 text_uppercase color-grey-dark m-t-8">
                                             contact
                                         </p>
-                                        <p class="c-text_lg color-theme f-w_600 m-b-24">
+                                        <a class="c-text_lg color-theme f-w_600 m-b-24 cursor-pointer" target="_blank" href="http://www.dwcworld.com">
                                             www.dwcworld.com
-                                        </p>
-
+                                        </a>
                                     </div>
 
                                 </div>
@@ -546,15 +510,11 @@
                             </div>
 
                             <div id="10" [ngClass]="{'active in': activeTab == 'tab-7'}" class="tab-pane fade">
-                                <h2 class="m-t-24">Dance World Cup 2014 Finals Portugal Recap</h2>
+                                <h2 class="m-t-24">Dance World Cup 2017 Finals Germany Recap</h2>
                                 <div class="o-dwc__block">
                                     <div class="o-dwc__media m-t-16">
                                         <iframe width="840" height="630" src="https://www.youtube.com/embed/Vgo2ngLgZsI"></iframe>
                                     </div>
-                                    <!-- <h2 class="m-t-32 float_left width100">Dance World Cup 2014 Finals Portugal Recap</h2>
-                                    <div class="o-dwc__media m-t-16">
-                                        <img src="/assets/img/new/s03.jpg" alt="">
-                                    </div> -->
                                 </div>
                             </div>
 
@@ -690,3 +650,4 @@
         </div> -->
     </div>
 </section>
+<app-footer></app-footer>

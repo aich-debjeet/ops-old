@@ -68,7 +68,7 @@
                             <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications" [ngClass]="{'fill_grey': !notification.isRead}">
                                 <div class="dropnoti__avatar">
                                     <!-- <img class="navdrop__img" src="/assets/img/new/avatar2.png"> -->
-                                    <img *ngIf="!notification.profileImage" src="http://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
+                                    <img *ngIf="!notification.profileImage" src="https://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
                                     <img *ngIf="notification.profileImage" src="{{ baseUrl + notification.profileImage }}" class="img-responsive">
                                 </div>
                                 <div class="dropnoti__detail">
@@ -119,7 +119,7 @@
                         </div>
                     </li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" routerLink="/message" routerLinkActive="active">
+                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" routerLink="/user/message" routerLinkActive="active">
                             <img src="/assets/img/svg/ico_message.svg">
                         </a>
                     </li>

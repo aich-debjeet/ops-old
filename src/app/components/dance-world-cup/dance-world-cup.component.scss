@@ -4,6 +4,10 @@
 @import './src/assets/scss/components/_form.scss';
 // dwc
 // new style
+
+.leftRs, .rightRs{
+    z-index: 4;
+}
 .o-dwc-top-banner {
     width: 100%;
     float: left;
@@ -11,6 +15,10 @@
     background-size: cover;
     background-position: top left;
     height: 300px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
 
 .o-dwc-top-banner2 {
@@ -48,9 +56,11 @@
 }
 
 .o-dwc-top-banner__dark {
+    position: absolute;
     width: 100%;
-    float: left;
-    height: 300px;
+    top: 64px;
+    background: none;
+    z-index: 2;
     background-color: rgba(0, 0, 0, 0.42);
 }
 

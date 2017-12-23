@@ -44,7 +44,6 @@ export class OrgChannelComponent implements OnInit {
     this.orgState = this.orgStore.select('profileTags');
     this.orgState.subscribe((state) => {
       this.orgProfile = state;
-      // console.log('org tags', this.orgProfile);
       this.channels = this.orgProfile.org_channels;
     });
 
@@ -54,7 +53,6 @@ export class OrgChannelComponent implements OnInit {
       if (localStore.profileType === 'org') {
         this.profileHandle = localStore.handle;
         this.profileUsername = localStore.username;
-        // console.log('org channel load trigger', this.orgProfile);
         this.orgStore.dispatch({
           type: OrganizationActions.LOAD_ORG_CHANNELS,
           payload: this.profileHandle
@@ -79,15 +77,12 @@ export class OrgChannelComponent implements OnInit {
    * @param file
    */
   removeChannel(channelId: any) {
-    // console.log('before ', this.channels);
-    // console.log('remove ', channelId);
     const list = _remove(this.channels, function(n){
       return n.spotfeedId === channelId;
     });
     if (list) {
       this.channels = list;
     }
-    // console.log('after ', this.channels);
   }
 
   // @Input() userName: string;

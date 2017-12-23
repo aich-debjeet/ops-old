@@ -29,7 +29,6 @@ export const ExploreReducer: ActionReducer<any> = (state, {payload, type}: Actio
                 feeds: response[i].feeds
               });
               if (i >= (response.length - 1)) {
-                // console.log('finish');
                 return Object.assign({}, state, {
                   searching_spotfeeds: false,
                   search_complete: true,
@@ -38,10 +37,8 @@ export const ExploreReducer: ActionReducer<any> = (state, {payload, type}: Actio
               }
             }
           } else {
-            // console.log('before load more state', state);
             const typeIndex = _.findIndex(state.explore_spotfeeds, { 'industryType': state.search_body.industryType });
             // const newArr = state.explore_spotfeeds[typeIndex].feeds.concat(response[0].feeds);
-            // console.log('new state for type' + state.search_body.industryType, newArr);
             state.explore_spotfeeds[typeIndex].feeds = state.explore_spotfeeds[typeIndex].feeds.concat(response[0].feeds);
             return Object.assign({}, state, {
               searching_spotfeeds: false,

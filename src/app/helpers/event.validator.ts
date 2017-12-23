@@ -24,23 +24,9 @@ export class EventValidator {
             if (control.value === '') {
                 return;
             }
-
             if (currentDate > chooseDate ) {
-                console.log('old date ');
                 return { oldate: true };
             }
-            // return null;
-            // // check current email for user
-            // if (control.value.length >= 4) {
-            //     setTimeout(() => {
-            //         this.authService.userExists(control.value).subscribe( data => {
-            //             if (data.code === 0) {
-            //                 resolve({ 'isUsernameUnique': true });
-            //             }
-            //             resolve(null);
-            //             });
-            //     }, 500);
-            // }
         });
         return q;
     }
@@ -79,8 +65,6 @@ export class FormValidation {
 
     // Stat date and End date validation
     static endateValidation(AC: AbstractControl) {
-
-        console.log(AC.get('event_startdate').value);
         const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
         const endData = AC.get('event_enddate').value.split('-').reverse().join('-');
         const ts_startDate = AC.get('ts_startTime').value.split('-').reverse().join('-');
@@ -89,14 +73,9 @@ export class FormValidation {
         const startSelect = moment(startDate).format('YYYYMMDD');
         const endSelect = moment(endData).format('YYYYMMDD');
 
-        console.log(startSelect);
-        console.log(AC.value);
-
-
         // Event end Date choose
         // if (endData !== '') {
         //     if (startDate === '') {
-        //         console.log('blank');
         //         AC.get('event_enddate').setErrors( {startdate: true} )
         //         return
         //     }
@@ -108,7 +87,6 @@ export class FormValidation {
              return
         }
         // if (startDate > ts_startDate || endData < ts_startDate ) {
-        //     console.log('ticket date true');
         // }
         return null
     }
@@ -116,8 +94,6 @@ export class FormValidation {
     // Event End state validation
     // Stat date and End date validation
     static eventEndDateValidation(AC: AbstractControl) {
-
-        console.log(AC.get('event_startdate').value);
         const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
         const endData = AC.get('event_enddate').value.split('-').reverse().join('-');
         const ts_startDate = AC.get('ts_startTime').value.split('-').reverse().join('-');
@@ -126,14 +102,9 @@ export class FormValidation {
         const startSelect = moment(startDate).format('YYYYMMDD');
         const endSelect = moment(endData).format('YYYYMMDD');
 
-        console.log(startSelect);
-        console.log(AC.value);
-
-
         // Event end Date choose
         if (endData !== '') {
             if (startDate === '') {
-                console.log('blank');
                 AC.get('event_enddate').setErrors( {startdate: true} )
                 return
             }
@@ -145,7 +116,6 @@ export class FormValidation {
              return
         }
         if (startDate > ts_startDate || endData < ts_startDate ) {
-            console.log('ticket date true');
         }
         return null
     }

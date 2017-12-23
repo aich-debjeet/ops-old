@@ -99,7 +99,6 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     .first(profile => profile['profile_navigation_details'].handle )
     .subscribe( data => {
       this.userHandle = data['profile_cards'].active.handle;
-      console.log(this.userHandle);
     });
 
     this.sub = this.route.params.subscribe(params => {
@@ -131,7 +130,6 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       // Display the key/value pairs
 
       // Upload files
-      // console.log(data);
       this.uploadCoverImage(data);
     }
 
@@ -286,7 +284,6 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       this.store.select('eventTags')
         .first(regevent => regevent['event_create_success'] === true )
         .subscribe( reg => {
-          console.log(reg);
           const id = reg['event_id'];
           this.router.navigate(['/event/inner/' + id]);
         });

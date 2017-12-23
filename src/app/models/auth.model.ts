@@ -133,6 +133,9 @@ export class BasicRegTag {
   user_otp_success: boolean;
   user_number_cng_success: boolean;
   user_number_cng_failed: boolean;
+  claim_user_info_loading: boolean;
+  claim_user_info_loadded: boolean;
+  claim_user_info: any;
 }
 
 export const initialBasicRegTag: BasicRegTag = {
@@ -144,7 +147,10 @@ export const initialBasicRegTag: BasicRegTag = {
   user_otp_failed: false,
   user_otp_success: false,
   user_number_cng_success: false,
-  user_number_cng_failed: false
+  user_number_cng_failed: false,
+  claim_user_info_loading: false,
+  claim_user_info_loadded: false,
+  claim_user_info: []
 }
 
 export class Dwc {

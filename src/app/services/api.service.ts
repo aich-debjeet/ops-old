@@ -43,7 +43,6 @@ export class GeneralService {
 
     return this.http.put(`${this.apiLink}/portal/network/spotfeed/pinspotfeed/pin`, reqBody, reqOptions)
         .map((response: Response) => {
-            //console.log(response.json());
         });
   }
 
@@ -60,7 +59,6 @@ export class GeneralService {
 
     return this.http.put(`${this.apiLink}/portal/network/spotfeed/unpinspotfeed/unpin`, reqBody, reqOptions)
         .map((response: Response) => {
-            //console.log(response.json());
         });
   }
   /* ------------------------- pin/unpin channel ------------------------- */
@@ -73,8 +71,6 @@ export class GeneralService {
     let headers = new Headers();
     let reqOptions = new RequestOptions({ headers: headers });
     let reqBody = JSON.stringify(req);
-
-    console.log('api req params: '+reqBody);
 
     headers.append('Authorization', this.accessToken);
     headers.append('Content-Type', 'application/json');

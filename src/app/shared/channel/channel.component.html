@@ -5,7 +5,7 @@
                 <div class="c-channel__sec-l" *ngIf="i===0">
                     <div class="c-channel__left" *ngIf="item?.mediaType !== 'image'">
                         <app-videplayer *ngIf="item?.mediaType === 'video'" src="{{ image_base_url + item?.repoPath }}"></app-videplayer>
-                        <app-audioplayer type="simple" *ngIf="item?.mediaType === 'audio'" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item?.repoPath }}"></app-audioplayer>
+                        <app-audioplayer type="simple" *ngIf="item?.mediaType === 'audio'" src="{{ image_base_url + item?.repoPath }}"></app-audioplayer>
                     </div>
                     <div class="c-channel__left" *ngIf="item?.mediaType === 'image'" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}">
                     </div>
@@ -14,8 +14,8 @@
                     <div class="c-channel__right1" *ngIf="i===1 && item?.mediaType === 'image'" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}">
                     </div>
                     <div class="c-channel__right1" *ngIf="i===1 && item?.mediaType !== 'image'">
-                        <app-videplayer *ngIf="item?.mediaType === 'video'" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-videplayer>
-                        <app-audioplayer type="simple" *ngIf="item?.mediaType === 'audio'" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-audioplayer>
+                        <app-videplayer *ngIf="item?.mediaType === 'video'" src="{{ image_base_url + item.repoPath }}" class="c-card__image"></app-videplayer>
+                        <app-audioplayer type="simple" *ngIf="item?.mediaType === 'audio'" src="{{ image_base_url + item.repoPath }}" class="c-card__image"></app-audioplayer>
                     </div>
                     <div class="c-channel__right1" *ngIf="i===0 && (channelData?.media)?.length === 1">
                         <div class="c-card__image"></div>
@@ -24,8 +24,8 @@
                     <div class="c-channel__right2" *ngIf="i===2 && item?.mediaType === 'image'" [ngStyle]="{'background-image': 'url(' + image_base_url + item?.repoPath + ')'}">
                     </div>
                     <div class="c-channel__right2" *ngIf="i===2 && item?.mediaType !== 'image'">
-                        <app-videplayer *ngIf="item?.mediaType === 'video'" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-videplayer>
-                        <app-audioplayer type="simple" *ngIf="item?.mediaType === 'audio'" src="{{ 'http://d206s58i653k1q.cloudfront.net/' + item.repoPath }}" class="c-card__image"></app-audioplayer>
+                        <app-videplayer *ngIf="item?.mediaType === 'video'" src="{{ image_base_url + item.repoPath }}" class="c-card__image"></app-videplayer>
+                        <app-audioplayer type="simple" *ngIf="item?.mediaType === 'audio'" src="{{ image_base_url + item.repoPath }}" class="c-card__image"></app-audioplayer>
                     </div>
                     <div class="c-channel__right2" *ngIf="i===1 && (channelData?.media)?.length === 2">
                         <div class="c-card__image"></div>
@@ -72,14 +72,14 @@
 
 
         <div class="c-channel__name">
-            <a [routerLink]="['/channel', channelData?.spotfeedId]" class="c-text_lg color-white">{{channelData?.spotfeedName | truncate:[19, '...'] }}</a>
+            <a [routerLink]="['/channel', channelData?.spotfeedId]" class="c-text_lg color-white">{{channelData?.spotfeedName | truncate:[12, '...'] }}</a>
             <div appDropdown *ngIf="currentUser">
                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
                     <img src="/assets/img/svg/ico_option_white.svg" alt="" class="c-card__options2">
                 </a>
                 <ul class="dropdown-menu o-channel__option">
                     <li>
-                        <a [routerLink]="['', { outlets: { media : ['channel', channelData?.spotfeedId, 'edit' ] } } ]" data-toggle="modal" data-target="#edit_channel_pop">
+                        <a [routerLink]="['', { outlets: { media : ['channel', channelData?.spotfeedId, 'edit' ] } } ]" data-toggle="modal">
                             Edit
                         </a>
                     </li>

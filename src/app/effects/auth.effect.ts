@@ -261,22 +261,6 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.USER_SUBMIT_SKILLS_FAILED, payload: res }))
     );
 
-  // @Effect()
-  // userSubmitSkillsSuccess$ = this.actions$
-  //   .ofType(AuthActions.USER_SUBMIT_SKILLS_SUCCESS)
-  //   .mergeMap(reachedThreshold => {
-  //     this.router.navigateByUrl('/profile');
-  //     return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
-  //   });
-
-    // .map((response) => {
-    //   if (response.payload.SUCCESS !== null || response.payload.SUCCESS !== undefined) {
-    //     console.log('done!');
-    //     this.router.navigateByUrl('/profile');
-    //   }
-    //   return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
-    // })
-
   /* Reg otp submit */
   @Effect()
   regSubmitOtp$ = this.actions$
@@ -334,6 +318,18 @@ export class AuthEffect {
     .switchMap((payload) => this.authService.danceIndustry()
       .map(res => ({ type: AuthActions.DANCE_GET_INDUSTRY_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: AuthActions.DANCE_GET_INDUSTRY_FAILED, payload: res }))
+    );
+
+  /**
+   * Search user by username
+   */
+  @Effect()
+  searchUserWithUserName$ = this.actions$
+    .ofType(AuthActions.SEARCH_USER_BY_USERNAME)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.searchUserWithUsername(payload)
+      .map(res => ({ type: AuthActions.SEARCH_USER_BY_USERNAME_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.SEARCH_USER_BY_USERNAME_FAILED, payload: res }))
     );
 
   constructor(

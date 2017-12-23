@@ -50,7 +50,6 @@ export class ChannelComponent implements OnInit {
 
   ngOnInit() {
     this.isfollowing = this.channelData.isFollowing || false;
-     console.log(this.channelData)
     this.showEdit = false;
     this.ispin = this.channelData.isPinned || false;
     const defaultImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
@@ -67,7 +66,6 @@ export class ChannelComponent implements OnInit {
    */
 
   toggleFollowBtn(event) {
-    console.log(event);
     const followState = this.isfollowing;
     this.isfollowing = !followState;
 
@@ -98,7 +96,6 @@ export class ChannelComponent implements OnInit {
         'spotfeedId': spotfeedId,
         'profileHandle': this.userHandle
       }
-      console.log(data)
       this._store.dispatch({ type: ProfileActions.PIN_CHANNEL, payload: data });
     }else {
       this.ispin = false;
@@ -115,7 +112,6 @@ export class ChannelComponent implements OnInit {
    */
   deleteChannel(channelId: string) {
     this.onDelete.emit(channelId);
-    // console.log('Deleting ' + channelId);
   }
 
 }

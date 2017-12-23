@@ -768,14 +768,10 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      *  Get default notification
      */
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS:
-    console.log('notififaction')
     return Object.assign({}, state, {
       default_notification: []
     });
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_SUCCESS:
-    console.log('notififaction default settings success')
-    console.log(JSON.stringify(payload))
-    console.log(JSON.stringify(payload.settings.allowARC))
     return Object.assign({}, state, {
       default_notification: payload.settings.notificationSettings,
       adult_Content: payload.settings.allowARC,
@@ -784,7 +780,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_FAILED:
-    console.log('notififaction default settings failure')
     return Object.assign({}, state, {
     });
 

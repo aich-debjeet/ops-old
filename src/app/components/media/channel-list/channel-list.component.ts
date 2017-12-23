@@ -29,7 +29,6 @@ export class ChannelListComponent {
    * Get thumb image
    */
   getThumb(src: string, showThumb: boolean = false) {
-    // console.log('SRC', src);
     const basePath = this.baseUrl;
     const patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
     const m3 = (src).match(patt1);
@@ -57,7 +56,6 @@ export class ChannelListComponent {
    * Create Channel
    */
   createChannel() {
-    console.log('clicked');
     this.onChangeContext.emit(3);
   }
 
