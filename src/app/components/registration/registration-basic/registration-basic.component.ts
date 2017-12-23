@@ -100,7 +100,9 @@ export class RegistrationBasicComponent implements OnInit {
     if (this.route.snapshot.queryParams['ev']) {
       if (this.route.snapshot.queryParams['ev'] === 'dwc2017') {
         this.dwc = true;
-        this.routeQuery['dwc2017'] = 'true';
+        if (this.routeQuery) {
+          this.routeQuery['dwc2017'] = 'true';
+        }
         // console.log(this.routeQuery);
       }
     }
