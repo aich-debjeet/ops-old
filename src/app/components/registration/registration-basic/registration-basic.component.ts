@@ -97,19 +97,6 @@ export class RegistrationBasicComponent implements OnInit {
     public tokenService: TokenService
     ) {
 
-    if (this.route.snapshot.queryParams['ev']) {
-      if (this.route.snapshot.queryParams['ev'] === 'dwc2017') {
-        this.dwc = true;
-        if (this.routeQuery) {
-          this.routeQuery['dwc2017'] = 'true';
-        }
-        // console.log(this.routeQuery);
-      }
-    }
-
-    const currentUrl = this.router.url;
-    // console.log(currentUrl);
-
     /**
      * Claim profile state check
      */
@@ -178,6 +165,19 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    if (this.route.snapshot.queryParams['ev']) {
+      if (this.route.snapshot.queryParams['ev'] === 'dwc2017') {
+        this.dwc = true;
+        if (this.routeQuery) {
+          this.routeQuery['dwc2017'] = 'true';
+        }
+        // console.log(this.routeQuery);
+      }
+    }
+
+    const currentUrl = this.router.url;
+    // console.log(currentUrl);
 
     /**
      * Listening for the name value
