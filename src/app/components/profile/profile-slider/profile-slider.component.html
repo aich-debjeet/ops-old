@@ -191,7 +191,7 @@
             </div>
         </div>
     </div>
-    <div class="claim-text">
+    <div class="claim-text" *ngIf="profileObject?.extra?.isImported">
         <h2 class="c-h2 color-grey o-claim__account">Claim your account to post your works</h2>
     </div>
     <router-outlet></router-outlet>
