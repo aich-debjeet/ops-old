@@ -1,4 +1,4 @@
-<app-route-modal  (onClose)="closeFunction()" modalClass="c-modal--size1">
+<app-route-modal (onClose)="closeFunction()" modalClass="c-modal--size1">
     <modal-content>
 
         <div class="c-mediamodal__left">
@@ -34,7 +34,7 @@
                     </div>-->
                 </div>
                 <div class="c-text_sm p-16">
-                    <read-more [class]="'media-popup__text'" [text]="data?.description" [maxLength]=250 ></read-more>
+                    <read-more [class]="'media-popup__text'" [text]="data?.description" [maxLength]=250></read-more>
                 </div>
                 <div class="c-card__links c-float--none p-t-0">
                     <div class="c-links">
@@ -47,7 +47,8 @@
                             <img src="/assets/img/svg/ico_comment.svg" class="c-links__image">
                             <span class="c-links__count">{{ commentCount }}</span>
                         </div>
-                        <a href="https://www.facebook.com/dialog/share?app_id=206450069899832&href=&display=popup">Share</a>
+                        <a href="https://www.facebook.com/dialog/share?app_id=206450069899832&href=&display=popup" style="vertical-align: middle;
+                        line-height: 25px;">Share</a>
                         <div class="c-links__actions">
                             <span class="c-links__add">
                                 <a >
