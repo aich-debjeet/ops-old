@@ -48,7 +48,7 @@ export const routes: Routes = [
  { path: 'account', loadChildren: './components/forgot-password/forgot-password.module#ForgotPasswordModule'},
  { path: 'home', loadChildren: './components/home/home.module#HomeModule', canActivate: [AuthGuard] },
  { path: 'reset-password', component: ResetPasswordComponent },
- { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule', canActivate: [AuthGuard] },
+ { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule' },
 //  { path: 'media', loadChildren: './components/media/media.module#ProfileModule' },
  { path: 'user/message', component: MessageComponent, canActivate: [AuthGuard] },
  { path: 'user/status/list', component: StatusListComponent, canActivate: [AuthGuard] },
