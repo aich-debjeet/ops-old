@@ -18,7 +18,8 @@
             <!-- -->
             <div class="col-md-12 col-sm-12 p-0">
                 <div class="c-profile__userblock">
-                    <img src="{{ (baseUrl + profileObject?.image?.profile) || defaultImage }}" class="img-responsive img-circle c-profile__userimg">
+                    <img *ngIf="profileObject?.image?.profile" src="{{ baseUrl + profileObject?.image?.profile }}" class="img-responsive img-circle c-profile__userimg">
+                    <img *ngIf="!profileObject?.image?.profile" src="{{ defaultImage }}" class="img-responsive img-circle c-profile__userimg">
                     <span *ngIf="this.isOwner" class="c-profile__imgchange">
                         <a  data-toggle="modal" data-target="#profile-upload">
                            <a routerLink="/profile/about/image"> <img src="/assets/img/svg/edit_red.svg" class="c-profile__imgchange--icon"></a>
@@ -44,7 +45,7 @@
             <div class="col-md-4"></div>
             <!-- -->
         </div>
-        <div class="row o-profile__details">
+        <div class="row o-profile__details" *ngIf="!profileObject?.extra?.isImported" >
             <div [ngClass]="(profileObject?.extra?.isImported) ? 'blur-main': ''">
                 <div class="col-md-9 col-sm-9">
                     <ul class="list-inline o-profile__nav">
@@ -190,9 +191,11 @@
             </div>
         </div>
     </div>
+    <div class="claim-text">
+        <h2 class="c-h2 color-grey o-claim__account">Claim your account to post your works</h2>
+    </div>
     <router-outlet></router-outlet>
 </section>
-
 
 <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow' *ngIf="this.isOwner" size="profile_update">
     <div>
