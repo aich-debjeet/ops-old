@@ -62,12 +62,14 @@ export class ProfileComponent implements OnInit {
       .subscribe(params => {
         this.userName = params['id'];
         // console.log('this.userName', this.userName);
-        const userdata = {
-          isCurrentUser: false,
-          username: this.userName,
+        if (this.userName && this.userName.length > 0) {
+          const userdata = {
+            isCurrentUser: false,
+            username: this.userName,
+          }
+          this.profileStore.dispatch({ type: ProfileActions.GET_IMPORTED_PROFILE, payload: this.userName });
+          this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: userdata });
         }
-        this.profileStore.dispatch({ type: ProfileActions.GET_IMPORTED_PROFILE, payload: this.userName });
-        this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: userdata });
     });
 
 
