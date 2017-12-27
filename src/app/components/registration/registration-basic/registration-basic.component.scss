@@ -6,6 +6,10 @@
     display: none;
 }
 
+.form_group {
+    margin-bottom: 12px;
+}
+
 .claim-profile-list {
     position: absolute;
     max-height: 120px;
@@ -139,6 +143,7 @@
 
 // step 1 -------------------
 .ops_signup {
+    margin-top: -40px;
     background-color: #ffffff;
     // padding-top: 64px;
     height: 100vh;
@@ -157,8 +162,10 @@
     .ops_signup_right {
         padding: 0 80px;
         .ops_h1 {
-            font-weight: 600;
+            font-weight: 300;
             margin-bottom: 24px;
+            line-height: 20px;
+            font-size: 25px;
         }
         .ops_radio_sm {
             margin-top: 16px;
