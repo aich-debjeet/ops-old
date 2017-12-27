@@ -56,6 +56,7 @@ export class RegistrationBasicComponent implements OnInit {
   hideProfiles = false;
   claimingUserSet = false;
   inputNameListener: any;
+  showTerms = false;
 
   rightCom: RightBlockTag;
   tagState$: Observable<BasicRegTag>;
@@ -145,13 +146,23 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   // showing terms
-  showTerms() {
-    this.modalService.open('termsAndConditions');
-  }
+  // showTerms() {
+  //   this.modalService.open('termsAndConditions');
+  // }
 
   // closeing terms
   closeTerms() {
     this.modalService.close('termsAndConditions');
+  }
+
+  // terms show/hide
+  termsAction(action: string) {
+    // console.log('terms value', this.showTerms);
+    if (action === 'hide') {
+      this.showTerms = false;
+    } else {
+      this.showTerms = true;
+    }
   }
 
   // showing thank you popup

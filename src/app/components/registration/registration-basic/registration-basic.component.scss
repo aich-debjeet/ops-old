@@ -503,3 +503,39 @@
 //     display: block;
 //     overflow: hidden;
 // }
+.terms_and_condition {
+    width: 900px;
+    margin: 3% auto;
+    min-height: 500px;
+    .terms_txt {
+        width: 800px;
+        margin: 0px auto;
+        padding-bottom: 30px;
+        h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+        }
+        h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+        p {
+            font-size: 12px;
+            font-weight: 500;
+            color: #333;
+        }
+        .sub_head {
+            color: #979797;
+        }
+    }
+}
+
+#termsandcondition {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.db {
+    display: block;
+}
