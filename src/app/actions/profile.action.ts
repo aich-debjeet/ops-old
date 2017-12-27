@@ -3,6 +3,13 @@ import { Action } from '@ngrx/store';
 export class ProfileActions {
 
   /**
+   * Get imported profile by username
+   */
+  static GET_IMPORTED_PROFILE = 'GET_IMPORTED_PROFILE';
+  static GET_IMPORTED_PROFILE_SUCCESS = 'GET_IMPORTED_PROFILE_SUCCESS';
+  static GET_IMPORTED_PROFILE_FAILED = 'GET_IMPORTED_PROFILE_FAILED';
+
+  /**
    * Chnage
    */
   static CHANGE_DWC_MEDIA_STATE = 'CHANGE_DWC_MEDIA_STATE';
