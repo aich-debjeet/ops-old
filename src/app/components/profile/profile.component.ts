@@ -13,6 +13,7 @@ import { ProfileHelper } from '../../helpers/profile.helper';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { ClaimProfileActions } from 'app/actions/claim-profile.action';
 
 @Component({
   selector: 'app-profile',
@@ -45,6 +46,7 @@ export class ProfileComponent implements OnInit {
     this.isCurrentUser = false;
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
+      // console.log('state', state);
       // this.current_user_value = this.checkUserType(this.userProfile);
     });
 
@@ -59,6 +61,13 @@ export class ProfileComponent implements OnInit {
     this.sub = this.route.params
       .subscribe(params => {
         this.userName = params['id'];
+        // console.log('this.userName', this.userName);
+        const userdata = {
+          isCurrentUser: false,
+          username: this.userName,
+        }
+        this.profileStore.dispatch({ type: ProfileActions.GET_IMPORTED_PROFILE, payload: this.userName });
+        this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: userdata });
     });
 
 

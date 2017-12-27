@@ -79,6 +79,10 @@
                 </a>
                 <ul class="dropdown-menu o-channel__option">
                     <li>
+                        <a (click)="deleteChannel(channelData?.spotfeedId)">Delete</a>
+                    </li>
+
+                    <li>
                         <a [routerLink]="['', { outlets: { media : ['channel', channelData?.spotfeedId, 'edit' ] } } ]" data-toggle="modal">
                             Edit
                         </a>

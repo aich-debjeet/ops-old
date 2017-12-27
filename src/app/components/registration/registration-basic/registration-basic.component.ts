@@ -149,6 +149,11 @@ export class RegistrationBasicComponent implements OnInit {
     this.modalService.open('termsAndConditions');
   }
 
+  // closeing terms
+  closeTerms() {
+    this.modalService.close('termsAndConditions');
+  }
+
   // showing thank you popup
   showThankyou() {
     this.modalService.open('thankyouModal');
@@ -374,12 +379,6 @@ export class RegistrationBasicComponent implements OnInit {
         this.modalService.open('otpWindow');
       }
     })
-  }
-
-
-
-  closeTerms() {
-    this.modalService.open('termsAndConditions');
   }
 
   onSaveUsernameChanged(value: boolean) {

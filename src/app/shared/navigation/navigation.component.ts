@@ -86,27 +86,33 @@ export class NavigationComponent implements OnInit {
       }
     });
 
-    /* profile state */
-    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    // if logged in user then get details
+    if (localStorage.getItem('currentUser') != null) {
+      console.log('logged in user');
+      /* profile state */
+      this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
 
-    /** -- NOTIFICATIONS -- **/
-    this.notificationStore.dispatch({
-      type: NotificationActions.LOAD_NOTIFICATIONS,
-      payload: null
-    });
+      /** -- NOTIFICATIONS -- **/
+      this.notificationStore.dispatch({
+        type: NotificationActions.LOAD_NOTIFICATIONS,
+        payload: null
+      });
 
-    this.notificationsState$ = this.notificationStore.select('notificationTags');
-    // observe the store value
-    this.notificationsState$.subscribe((state) => {
-      if (typeof state['recieved_notifications'] !== 'undefined') {
-        this.notifications = state['recieved_notifications'];
-        this.processNotifications();
-      }
-      if (typeof state['marking_as_read_response'] !== 'undefined') {
-        // upadte notification as marked
-        this.updateNotifications();
-      }
-    });
+      this.notificationsState$ = this.notificationStore.select('notificationTags');
+      // observe the store value
+      this.notificationsState$.subscribe((state) => {
+        if (typeof state['recieved_notifications'] !== 'undefined') {
+          this.notifications = state['recieved_notifications'];
+          this.processNotifications();
+        }
+        if (typeof state['marking_as_read_response'] !== 'undefined') {
+          // upadte notification as marked
+          this.updateNotifications();
+        }
+      });
+    } else {
+      console.log('guest user');
+    }
 
   }
 

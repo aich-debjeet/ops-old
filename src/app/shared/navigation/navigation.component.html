@@ -126,15 +126,22 @@
 
                     <li class="dropdown" appDropdown>
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                            <img src="{{ baseUrl + this.userCards.active.image }}" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === false">
-                            <img src="{{ baseUrl + this.userCards.active.image }}" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === true">
+                            <div *ngIf="userCards?.active?.image !== ''; else profile_image_empty" >
+                                <img src="{{ baseUrl + this.userCards.active.image }}" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === false">
+                                <img src="{{ baseUrl + this.userCards.active.image }}" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === true">
+                            </div>
+                            <ng-template #profile_image_empty>
+                                <img src="https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === false">
+                                <img src="https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === true">
+                            </ng-template>
                             <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right nav__dropdown" [ngClass]="{'open': this.topNav['profile'].open }">
                             <div class="dropdown__item with_border_bottom p-b-16">
                                 <a routerLink="{{ this.userCards.active.page_path }}">
                                     <div class="navdrop__imgblock">
-                                        <img class="navdrop__img" src="{{ baseUrl + this.userCards.active.image }}">
+                                        <img *ngIf="userCards?.active?.image !== ''" class="navdrop__img" src="{{ baseUrl + this.userCards.active.image }}">
+                                        <img *ngIf="userCards?.active?.image === ''" class="navdrop__img" src="https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png">
                                     </div>
                                     <div class="navdrop__name">{{ this.userCards.active.name }}</div>
                                     <div class="navdrop__userhandal">@{{ this.userCards.active.username }}</div>
