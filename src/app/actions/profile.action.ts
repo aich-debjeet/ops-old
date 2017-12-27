@@ -225,9 +225,9 @@ export class ProfileActions {
   static CHANNEL_FOLLOW_FAILED = 'CHANNEL_FOLLOW_FAILED';
 
   /**
-   * Follow a Channel
+   * Deletel a Channel
    */
-  static CHANNEL_DELETE = 'CHANNEL_DELETE_FOLLOW';
+  static CHANNEL_DELETE = 'CHANNEL_DELETE';
   static CHANNEL_DELETE_SUCCESS = 'CHANNEL_DELETE_SUCCESS';
   static CHANNEL_DELETE_FAILED = 'CHANNEL_DELETE_FAILED';
 
