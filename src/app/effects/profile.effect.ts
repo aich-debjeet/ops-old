@@ -708,6 +708,18 @@ export class ProfileEffect {
       }))
     );
 
+  /**
+   * Get imported profile by username
+   */
+  @Effect()
+  getImportedProfile$ = this.actions$
+    .ofType(ProfileActions.GET_IMPORTED_PROFILE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getImportedProfile(payload)
+      .map(res => ({ type: ProfileActions.GET_IMPORTED_PROFILE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.GET_IMPORTED_PROFILE_FAILED, payload: res }))
+    );
+
   constructor(
     private actions$: Actions,
     private router: Router,

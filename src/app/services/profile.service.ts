@@ -431,4 +431,11 @@ export class ProfileService {
   getdefaultNotifications() {
     return this.api.get('/portal/profile/profileSettings/default/settings', '' );
   }
+
+  /**
+   * Get imported profile by username
+   */
+  getImportedProfile(username: string) {
+    return this.api.get('/portal/profile/validate/claim/profile/' + username);
+  }
 }

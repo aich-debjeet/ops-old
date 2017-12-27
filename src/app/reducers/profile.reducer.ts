@@ -1003,6 +1003,28 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         invite_sent: false
     });
 
+    /**
+     * Load an imported profile
+     */
+    case ProfileActions.GET_IMPORTED_PROFILE:
+      return Object.assign({}, state, {
+        profile_other: [],
+        profile_other_loading: true,
+      });
+
+    case ProfileActions.GET_IMPORTED_PROFILE_SUCCESS:
+      return Object.assign({}, state, {
+        profile_other_loading: false,
+        profile_other_loaded: true,
+        profile_other: payload.STATUS[0]
+      });
+
+    case ProfileActions.GET_IMPORTED_PROFILE_FAILED:
+      return Object.assign({}, state, {
+        profile_other: [],
+        profile_other_loading: false
+      });
+
     default:
       return state;
   }
