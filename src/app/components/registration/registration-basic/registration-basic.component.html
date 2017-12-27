@@ -123,7 +123,7 @@
                         </label>
                     </div>
                     <div class="signup_privacy">
-                        <p class="text-grey">By clicking, I agree to the <a (click)="showTerms()" class="text-theme">Terms & Conditions</a></p>
+                        <p class="text-grey">By clicking, I agree to the <a (click)="termsAction('show')" class="text-theme">Terms & Conditions</a></p>
                         <!-- <button [className]="'btn btn-primary btn-sm pull-right'" type="submit">SIGN UP</button> -->
                         <button *ngIf="!claimingUserSet" [className]="'btn btn-primary btn-sm pull-right'" type="submit">SIGN UP</button>
                         <button *ngIf="claimingUserSet" [className]="'btn btn-primary btn-sm pull-right'" type="submit">CLAIM PROFILE</button>
@@ -140,347 +140,350 @@
 </section>
 
 <!-- Terms Modal -->
-<app-modal [modalTitle]="'Terms'" [blocking]='false' modalId='termsAndConditions' class="media__modal" size="terms">
-    <!-- term and condition pop up -->
-    <div class="terms-wrapper">
-        <span class="pop-close">
-                <a (click)="closeTerms()"><img src="/assets/img/svg/ico_close-38.svg" alt=""></a>
-            </span>
-        <div class="terms_txt">
-            <!-- <h2>Terms and Conditions</h2> -->
+<div class="modal fade in db" id="termsandcondition" role="dialog" *ngIf="showTerms" (click)="termsAction('hide')">
+    <div class="modal-dialog modal-lg terms_and_condition">
+        <!-- Modal content-->
+        <div class="modal-content modal-container">
+            <div class="modal-header" style="border: none;">
+                <button type="button" class="close" data-dismiss="modal" (click)="termsAction('hide')">x</button>
+            </div>
+            <div class="terms_txt">
+                <!-- <h2>Terms and Conditions</h2> -->
 
-            <h3>One Page Spotlight</h3>
-            <h2>Privacy Policy</h2>
-            <p>Updated: 14th August, 2017</p>
-            <br>
-            <p>
-                <strong>INTRODUCTION</strong>
+                <h3>One Page Spotlight</h3>
+                <h2>Privacy Policy</h2>
+                <p>Updated: 14th August, 2017</p>
                 <br>
-                <br> We are an online platform and social network for the arts and entertainment industry. Our services may be used by creative performing & non-performing artists and organisations to network, co-create and explore opportunities to meet/advance
-                their profession/career/ objectives.
-            </p>
-            <br>
-            <p>
-                This policy explains how we collect, use, share and protect information in relation to our website located at www.onepagespotlight.com or mobile services, off-site services like ad services and plug-ins, and any software provided on or in connection with
-                One Page Spotlight services (collectively, the "Service"), and your choices about the collection and use of your information
-            </p>
-            <br>
-            <p>
-                By using our Service you understand and agree that we are providing a platform for you to post content, including videos, photos, audio, messages, comments and other materials ("User Content"), to the Service and to share User Content publicly. This means
-                that other Users may search for, see, use, or share any of the content that you make publicly available through the Service, consistent with the terms and conditions of this Privacy Policy and our Terms of Use.
-            </p>
-            <br>
-            <h2>INFORMATION THAT WE COLLECT</h2>
-            <p>information that you provide us</p>
-            <br>
-            <p>
-                <strong>When Signing Up & Using Paid Services</strong>
-                <br> To register with us you provide us with your name, email address and/or mobile number, and a password. If you register for a paid Service, we ask you for payment (e.g., credit card) and billing information. If you were to buy or use
-                a service on behalf of someone else, you’d also provide us their shipping details and contact information.
-            </p>
-            <br>
-            <p>
-                <strong>When You Update Your Profile</strong>
-                <br> To update your profile, you may choose to provide us information such as age, gender, ethnicity, physique, body proportions, qualifications, work experience, skills, awards, achievements and contact information such as email address,
-                telephone number, physical location, and any other information you provide us. Profile information helps you to get more from our Service, including helping potential collaborators, recruiters and opportunity providers to find you. If
-                you use our mobile Service, you can choose to share your location data. It’s your choice whether to include sensitive information on your profile. Please do not post or add personal data to your profile that you would not want to be publicly
-                available.
-            </p>
-            <br>
-            <p>
-                <strong>When You are Posting and Uploading</strong>
-                <br> We collect personal data from you when you provide, post or upload it to our Services, such as when you create channels/spotfeeds that may consist of writings, compositions, photos, audio clips and/or videos that you make available.
-                We also collect data when you create events, use our scheduler/calendar, fill out a form/survey, respond to a networking request, submit a resume and apply for or save jobs or send invitations. If you opt to import your address book, we
-                receive your contacts (including contact information of your service provider(s) or app automatically added to your address book when you communicated with addresses or numbers not already in your list). If you sync your email or calendars
-                with our Services, we will collect your “email header” and calendar meeting information (e.g. times, places, attendees and contacts).
-            </p>
-            <br>
-            <p>
-                <strong>When using messaging services</strong>
-                <br> We collect information about you when you send, receive, or engage with our messaging service. For example, if you get a networking request, we track whether you have acted on it and will send you reminders. We also use automatic
-                scanning technology on messages.
-            </p>
-            <br>
-            <p>
-                information from others
+                <p>
+                    <strong>INTRODUCTION</strong>
+                    <br>
+                    <br> We are an online platform and social network for the arts and entertainment industry. Our services may be used by creative performing &amp; non-performing artists and organisations to network, co-create and explore opportunities
+                    to meet/advance their profession/career/ objectives.
+                </p>
                 <br>
-                <strong>In Content or in the News</strong>
-                <br> You and others may post content that includes information about you on our Services (as part of channels, feed updates and comments). Unless you opt-out, we may collect public information about you, such as profession-related news
-                and accomplishments and make it available as part of our Services (e.g. suggestions for your profile, trending profiles/channels, or notifications of mentions in the news).
-            </p>
-            <br>
-            <p>
-                <strong>From Contact Lists and Calendar Information</strong>
-                <br> We may receive personal data about you when others import or sync their address book or calendar with our Services, or send messages using our Services (including invites or networking requests). From Other Registered Users, Customers
-                or Partners
-            </p>
-            <br>
-            <p>
-                We receive personal data about you when you use the services of our customers and partners, such as prospective employers. Online advertisers typically share information with the websites or apps where they run ads to measure and/or improve those ads.
-                We also receive this information, which may include information like whether clicks on ads led to purchases or a list of criteria to use in targeting ads.
-            </p>
-            <br>
-            <p>
-                technical information when you use our services
+                <p>
+                    This policy explains how we collect, use, share and protect information in relation to our website located at www.onepagespotlight.com or mobile services, off-site services like ad services and plug-ins, and any software provided on or in connection with
+                    One Page Spotlight services (collectively, the "Service"), and your choices about the collection and use of your information
+                </p>
                 <br>
-                <strong>Analytics Information</strong>
-                <br> We use third-party analytics tools to help us measure traffic and usage trends for the Service. These tools collect information sent by your device or our Service, including the web pages you visit, add-ons, and other information
-                that assists us in improving the Service. We collect and use this analytics information with analytics information from other Users so that it cannot reasonably be used to identify any individual User. We offer our users the option to
-                opt-out of analytics tracking on the user settings page. We also respect “Do Not Track” browser settings. If you choose either of these options, we make best efforts not to send any data about your user behaviour, anonymized or otherwise,
-                to any other third party service provider. Please be aware that there may be other services that you are using that may continue to send information to Google when you use the Site, even if you have asked us not to send information through
-                our services.
-            </p>
-            <br>
-            <p>
-                <strong>Cookies & Similar Technologies</strong>
-                <br> When you visit the Service, we may use cookies and similar technologies like pixels, web beacons, and local storage to collect information about how you use One Page Spotlight and provide features to you. We may ask advertisers or
-                other partners to serve ads or services to your devices, which may use cookies or similar technologies placed by us or the third party. More information is available in our About Cookies section
-            </p>
-            <br>
-            <p>
-                <strong>Usage Log Files </strong>
-                <br> Log file information is automatically reported by your browser each time you make a request to access (i.e., visit) a web page or app. It can also be provided when the content of the webpage or app is downloaded to your browser or
-                device. When you use our Service, our servers automatically record certain log file information, including your web request, Internet Protocol ("IP") address, browser type, referring / exit pages and URLs, number of clicks and how you
-                interact with links on the Service, domain names, landing pages, pages viewed, and other such information. We may also collect similar information from emails sent to our Users which then help us track which emails are opened and which
-                links are clicked by recipients. The information allows for more accurate reporting and improvement of the Service.
+                <p>
+                    By using our Service you understand and agree that we are providing a platform for you to post content, including videos, photos, audio, messages, comments and other materials ("User Content"), to the Service and to share User Content publicly. This means
+                    that other Users may search for, see, use, or share any of the content that you make publicly available through the Service, consistent with the terms and conditions of this Privacy Policy and our Terms of Use.
+                </p>
+                <br>
+                <h2>INFORMATION THAT WE COLLECT</h2>
+                <p>information that you provide us</p>
+                <br>
+                <p>
+                    <strong>When Signing Up &amp; Using Paid Services</strong>
+                    <br> To register with us you provide us with your name, email address and/or mobile number, and a password. If you register for a paid Service, we ask you for payment (e.g., credit card) and billing information. If you were to buy
+                    or use a service on behalf of someone else, you’d also provide us their shipping details and contact information.
+                </p>
+                <br>
+                <p>
+                    <strong>When You Update Your Profile</strong>
+                    <br> To update your profile, you may choose to provide us information such as age, gender, ethnicity, physique, body proportions, qualifications, work experience, skills, awards, achievements and contact information such as email address,
+                    telephone number, physical location, and any other information you provide us. Profile information helps you to get more from our Service, including helping potential collaborators, recruiters and opportunity providers to find you.
+                    If you use our mobile Service, you can choose to share your location data. It’s your choice whether to include sensitive information on your profile. Please do not post or add personal data to your profile that you would not want to
+                    be publicly available.
+                </p>
+                <br>
+                <p>
+                    <strong>When You are Posting and Uploading</strong>
+                    <br> We collect personal data from you when you provide, post or upload it to our Services, such as when you create channels/spotfeeds that may consist of writings, compositions, photos, audio clips and/or videos that you make available.
+                    We also collect data when you create events, use our scheduler/calendar, fill out a form/survey, respond to a networking request, submit a resume and apply for or save jobs or send invitations. If you opt to import your address book,
+                    we receive your contacts (including contact information of your service provider(s) or app automatically added to your address book when you communicated with addresses or numbers not already in your list). If you sync your email or
+                    calendars with our Services, we will collect your “email header” and calendar meeting information (e.g. times, places, attendees and contacts).
+                </p>
+                <br>
+                <p>
+                    <strong>When using messaging services</strong>
+                    <br> We collect information about you when you send, receive, or engage with our messaging service. For example, if you get a networking request, we track whether you have acted on it and will send you reminders. We also use automatic
+                    scanning technology on messages.
+                </p>
+                <br>
+                <p>
+                    information from others
+                    <br>
+                    <strong>In Content or in the News</strong>
+                    <br> You and others may post content that includes information about you on our Services (as part of channels, feed updates and comments). Unless you opt-out, we may collect public information about you, such as profession-related
+                    news and accomplishments and make it available as part of our Services (e.g. suggestions for your profile, trending profiles/channels, or notifications of mentions in the news).
+                </p>
+                <br>
+                <p>
+                    <strong>From Contact Lists and Calendar Information</strong>
+                    <br> We may receive personal data about you when others import or sync their address book or calendar with our Services, or send messages using our Services (including invites or networking requests). From Other Registered Users, Customers
+                    or Partners
+                </p>
+                <br>
+                <p>
+                    We receive personal data about you when you use the services of our customers and partners, such as prospective employers. Online advertisers typically share information with the websites or apps where they run ads to measure and/or improve those ads.
+                    We also receive this information, which may include information like whether clicks on ads led to purchases or a list of criteria to use in targeting ads.
+                </p>
+                <br>
+                <p>
+                    technical information when you use our services
+                    <br>
+                    <strong>Analytics Information</strong>
+                    <br> We use third-party analytics tools to help us measure traffic and usage trends for the Service. These tools collect information sent by your device or our Service, including the web pages you visit, add-ons, and other information
+                    that assists us in improving the Service. We collect and use this analytics information with analytics information from other Users so that it cannot reasonably be used to identify any individual User. We offer our users the option
+                    to opt-out of analytics tracking on the user settings page. We also respect “Do Not Track” browser settings. If you choose either of these options, we make best efforts not to send any data about your user behaviour, anonymized or
+                    otherwise, to any other third party service provider. Please be aware that there may be other services that you are using that may continue to send information to Google when you use the Site, even if you have asked us not to send
+                    information through our services.
+                </p>
+                <br>
+                <p>
+                    <strong>Cookies &amp; Similar Technologies</strong>
+                    <br> When you visit the Service, we may use cookies and similar technologies like pixels, web beacons, and local storage to collect information about how you use One Page Spotlight and provide features to you. We may ask advertisers
+                    or other partners to serve ads or services to your devices, which may use cookies or similar technologies placed by us or the third party. More information is available in our About Cookies section
+                </p>
+                <br>
+                <p>
+                    <strong>Usage Log Files </strong>
+                    <br> Log file information is automatically reported by your browser each time you make a request to access (i.e., visit) a web page or app. It can also be provided when the content of the webpage or app is downloaded to your browser
+                    or device. When you use our Service, our servers automatically record certain log file information, including your web request, Internet Protocol ("IP") address, browser type, referring / exit pages and URLs, number of clicks and how
+                    you interact with links on the Service, domain names, landing pages, pages viewed, and other such information. We may also collect similar information from emails sent to our Users which then help us track which emails are opened and
+                    which links are clicked by recipients. The information allows for more accurate reporting and improvement of the Service.
 
-            </p>
-            <br>
-            <p>
-                <strong>Device & Location Identifiers</strong>
-                <br> When you use a mobile device like a tablet or phone to access our Service, we may access, collect, monitor, store on your device, and/or remotely store one or more "device identifiers." Device identifiers are small data files or similar
-                data structures stored on or associated with your mobile device, which uniquely identify your mobile device. A device identifier may be data stored in connection with the device hardware, data stored in connection with the device's operating
-                system or other software, or data sent to the device by One Page Spotlight. A device identifier may deliver information to us or to a third party partner about how you browse and use the Service and may help us or others provide reports
-                or personalized content and ads. Most devices allow you to prevent location data from being sent to us and we honor your settings.
-            </p>
-            <br>
-            <p>
-                <strong>Metadata</strong>
-                <br> Metadata is usually technical data that is associated with User Content. For example, Metadata can describe how, when and by whom a piece of User Content was collected and how that content is formatted. Users can add or may have Metadata
-                added to their User Content including a hashtag (e.g., to mark keywords when you post a video), geotag (e.g., to mark your location to a photo), comments or other data. This makes your User Content more searchable by others and more interactive.
-                If you geotag your photo or tag your photo using other's APIs then, your latitude and longitude will be stored with the photo and searchable (e.g., through a location or map feature) if your photo is made public by you in accordance with
-                your privacy settings.
-            </p>
-            <br>
+                </p>
+                <br>
+                <p>
+                    <strong>Device &amp; Location Identifiers</strong>
+                    <br> When you use a mobile device like a tablet or phone to access our Service, we may access, collect, monitor, store on your device, and/or remotely store one or more "device identifiers." Device identifiers are small data files
+                    or similar data structures stored on or associated with your mobile device, which uniquely identify your mobile device. A device identifier may be data stored in connection with the device hardware, data stored in connection with the
+                    device's operating system or other software, or data sent to the device by One Page Spotlight. A device identifier may deliver information to us or to a third party partner about how you browse and use the Service and may help us or
+                    others provide reports or personalized content and ads. Most devices allow you to prevent location data from being sent to us and we honor your settings.
+                </p>
+                <br>
+                <p>
+                    <strong>Metadata</strong>
+                    <br> Metadata is usually technical data that is associated with User Content. For example, Metadata can describe how, when and by whom a piece of User Content was collected and how that content is formatted. Users can add or may have
+                    Metadata added to their User Content including a hashtag (e.g., to mark keywords when you post a video), geotag (e.g., to mark your location to a photo), comments or other data. This makes your User Content more searchable by others
+                    and more interactive. If you geotag your photo or tag your photo using other's APIs then, your latitude and longitude will be stored with the photo and searchable (e.g., through a location or map feature) if your photo is made public
+                    by you in accordance with your privacy settings.
+                </p>
+                <br>
 
-            <h2>HOW WE USE INFORMATION THAT WE COLLECT</h2>
-            <br>
-            <p>
-                to provide services – both our own & other service providers
-                <br> We use the information we collect to provide our Services to you and make them better, develop new products/services, and to protect our users. If you make a purchase on One Page Spotlight, we’ll save your payment information and
-                contact information so that you can use them the next time you want to buy something on our website.
-            </p>
-            <br>
-            <p>
-                We may sell premium Services that provide our customers enhanced-search functionality and tools. These subscribers can export information provided on your profile page like name, occupation, skills, location and contact information that you have made
-                accessible for everyone to view on your profile. If you have opted out of providing any such information, we do not provide them to these subscribers as part of these premium Services without your consent. Under no circumstance do we enable
-                other customers the ability to export any content posted by you, other than your profile information.
-            </p>
-            <br>
-            <p>
-                We also may share your information as well as information from tools like cookies, log files, and device identifiers and location data, with third-party organizations that help us provide the Service to you ("Service Providers"). Our Service Providers
-                will be given access to your information as is reasonably necessary to provide the Service under reasonable confidentiality terms.
+                <h2>HOW WE USE INFORMATION THAT WE COLLECT</h2>
+                <br>
+                <p>
+                    to provide services – both our own &amp; other service providers
+                    <br> We use the information we collect to provide our Services to you and make them better, develop new products/services, and to protect our users. If you make a purchase on One Page Spotlight, we’ll save your payment information
+                    and contact information so that you can use them the next time you want to buy something on our website.
+                </p>
+                <br>
+                <p>
+                    We may sell premium Services that provide our customers enhanced-search functionality and tools. These subscribers can export information provided on your profile page like name, occupation, skills, location and contact information that you have made
+                    accessible for everyone to view on your profile. If you have opted out of providing any such information, we do not provide them to these subscribers as part of these premium Services without your consent. Under no circumstance do
+                    we enable other customers the ability to export any content posted by you, other than your profile information.
+                </p>
+                <br>
+                <p>
+                    We also may share your information as well as information from tools like cookies, log files, and device identifiers and location data, with third-party organizations that help us provide the Service to you ("Service Providers"). Our Service Providers
+                    will be given access to your information as is reasonably necessary to provide the Service under reasonable confidentiality terms.
 
-            </p>
-            <br>
-            <p>
-                for communications
-                <br> We also use the information we collect to offer you customized content, including suggested channels/spotfeeds, profiles, opportunities or events based on your interest. We may contact you through email, notices posted on our websites
-                or apps, messages to your inbox, and other ways through our Services, including text messages and push notifications. We will send you messages about the availability of our Services, security, or other service-related issues. You may
-                change your communication preferences at any time. Please be aware that you cannot opt out of receiving service messages from us, including security and legal notices.
-            </p>
-            <p>
-                We also enable communications between you and others through our Services, including through likes, posts, invitations & messages between connections.
-            </p>
-            <br>
-            <p>
-                <span class="sub_head">for advertising & marketing</span>
+                </p>
                 <br>
-                <br> We may also share certain information such as cookie data with third-party advertising partners. This information would allow third-party ad networks to, among other things, deliver targeted advertisements that they believe will be
-                of most interest to you.
-                <br> We measure the performance of ads to subscribers and visitors to our website through a variety of ad networks and exchanges, using data collected through the following means, whether separately or combined: a. Cookies, device/location
-                identifiers and similar technologies, b. Subscriber provided information, c. Data from your use of our Services (e.g., search history, content you read, who you follow or is following you, connections, participation, page visits, videos
-                you watch, clicking on an ad, etc.) d. Information from others (e.g. advertising partners, publishers and data aggregators).
-                <br> We will show you ads called sponsored content or sponsored profiles which look like similar non-sponsored content, except that they are labeled ads or sponsored. If you take an action (such as like, comment or share) on these ads,
-                your action is associated with your name and viewable by others, including the ad provider.
-                <br> We adhere to self-regulatory principles for interest-based advertising and participate in industry opt outs from such ads. This does not opt you out of receiving advertising - you will continue to get generic ads or ads by advertisers
-                not listed with these self regulatory tools. You can also opt out specifically from interest-based advertising served through our platform for third parties. For non-Members, this setting is here.
-            </p>
-            <br>
-            <p>
-                <span class="sub_head">for research & further product development</span>
+                <p>
+                    for communications
+                    <br> We also use the information we collect to offer you customized content, including suggested channels/spotfeeds, profiles, opportunities or events based on your interest. We may contact you through email, notices posted on our
+                    websites or apps, messages to your inbox, and other ways through our Services, including text messages and push notifications. We will send you messages about the availability of our Services, security, or other service-related issues.
+                    You may change your communication preferences at any time. Please be aware that you cannot opt out of receiving service messages from us, including security and legal notices.
+                </p>
+                <p>
+                    We also enable communications between you and others through our Services, including through likes, posts, invitations &amp; messages between connections.
+                </p>
                 <br>
-                <br> We seek to create economic opportunity for members of the arts and entertainment industry and to help them be more productive and successful. We use the data available to us to research social, economic and geographical trends in
-                the industry. In some cases, we may work with trusted third parties to perform this research, under controls that are designed to protect your privacy. We may publish or allow others to publish economic insights, presented as aggregated
-                data rather than personal data.
-            </p>
-            <br>
-            <p>
-                <span class="sub_head">for customer support</span>
+                <p>
+                    <span class="sub_head">for advertising &amp; marketing</span>
+                    <br>
+                    <br> We may also share certain information such as cookie data with third-party advertising partners. This information would allow third-party ad networks to, among other things, deliver targeted advertisements that they believe will
+                    be of most interest to you.
+                    <br> We measure the performance of ads to subscribers and visitors to our website through a variety of ad networks and exchanges, using data collected through the following means, whether separately or combined: a. Cookies, device/location
+                    identifiers and similar technologies, b. Subscriber provided information, c. Data from your use of our Services (e.g., search history, content you read, who you follow or is following you, connections, participation, page visits, videos
+                    you watch, clicking on an ad, etc.) d. Information from others (e.g. advertising partners, publishers and data aggregators).
+                    <br> We will show you ads called sponsored content or sponsored profiles which look like similar non-sponsored content, except that they are labeled ads or sponsored. If you take an action (such as like, comment or share) on these
+                    ads, your action is associated with your name and viewable by others, including the ad provider.
+                    <br> We adhere to self-regulatory principles for interest-based advertising and participate in industry opt outs from such ads. This does not opt you out of receiving advertising - you will continue to get generic ads or ads by advertisers
+                    not listed with these self regulatory tools. You can also opt out specifically from interest-based advertising served through our platform for third parties. For non-Members, this setting is here.
+                </p>
                 <br>
-                <br> We may use the data (which can include your contact information) needed to investigate, respond to and resolve complaints and Service issues.
-            </p>
-            <br>
-            <p>
-                <span class="sub_head">for analytics</span>
+                <p>
+                    <span class="sub_head">for research &amp; further product development</span>
+                    <br>
+                    <br> We seek to create economic opportunity for members of the arts and entertainment industry and to help them be more productive and successful. We use the data available to us to research social, economic and geographical trends
+                    in the industry. In some cases, we may work with trusted third parties to perform this research, under controls that are designed to protect your privacy. We may publish or allow others to publish economic insights, presented as aggregated
+                    data rather than personal data.
+                </p>
                 <br>
-                <br> We may use your information to produce aggregate insights that do not identify you. For example we may use your data to generate statistics about our users, their profession and skills or industry, the number of ad impressions served
-                or clicked on, or the demographic distribution of visitors to our site.
+                <p>
+                    <span class="sub_head">for customer support</span>
+                    <br>
+                    <br> We may use the data (which can include your contact information) needed to investigate, respond to and resolve complaints and Service issues.
+                </p>
+                <br>
+                <p>
+                    <span class="sub_head">for analytics</span>
+                    <br>
+                    <br> We may use your information to produce aggregate insights that do not identify you. For example we may use your data to generate statistics about our users, their profession and skills or industry, the number of ad impressions
+                    served or clicked on, or the demographic distribution of visitors to our site.
 
-            </p>
-            <br>
-            <p>
-                <span class="sub_head">for security </span>
+                </p>
                 <br>
-                <br> We may use your data (including your communications) if we think it’s necessary for security purposes or to investigate possible fraud or other violations of our User Agreement or this Privacy Policy and/or attempts to harm our Subscribers
-                or Visitors.
-            </p>
-            <br>
-            <h2>INFORMATION THAT WE PROVIDE</h2>
-            <br>
-            <p>
-                <span class="sub_head">through our services</span>
+                <p>
+                    <span class="sub_head">for security </span>
+                    <br>
+                    <br> We may use your data (including your communications) if we think it’s necessary for security purposes or to investigate possible fraud or other violations of our User Agreement or this Privacy Policy and/or attempts to harm our
+                    Subscribers or Visitors.
+                </p>
                 <br>
-                <strong>Profile Information:</strong>
-                <br> Your profile is fully visible to all Subscribers and customers of our Services. As per your privacy settings, degree of connection with the viewing Member, the subscriptions they may have, their usage of our Services, access channels
-                and search types (e.g., by name or by keyword) impact the availability of your profile and certain fields.
-            </p>
-            <br>
-            <p>
-                <strong>Posts, Likes, Follows, Comments, Messages: </strong> Our Services allow viewing and sharing information including through posts, follows, likes and comments. When you share a post (e.g., create a Channel/Spotfeed), the default
-                (which you can change) is to share it publicly. Others who are not your connections will be able to find (including through search engines) and see your post. When you like, comment on or share another’s post, others will see it, including
-                the person who initiated the post. In a Channel/Spotfeed, posts are visible to others following the Channel/Spotfeed. Your following a Channel/Spotfeed is public and part of your profile unless you change the default settings. When you
-                follow a person or organization, you are visible to others and that “profile owner” as a follower. We provide aggregate insights about the followers and viewers to the respective profile owners. We let senders know when you act on their
-                message, subject to your settings where applicable.
+                <h2>INFORMATION THAT WE PROVIDE</h2>
+                <br>
+                <p>
+                    <span class="sub_head">through our services</span>
+                    <br>
+                    <strong>Profile Information:</strong>
+                    <br> Your profile is fully visible to all Subscribers and customers of our Services. As per your privacy settings, degree of connection with the viewing Member, the subscriptions they may have, their usage of our Services, access channels
+                    and search types (e.g., by name or by keyword) impact the availability of your profile and certain fields.
+                </p>
+                <br>
+                <p>
+                    <strong>Posts, Likes, Follows, Comments, Messages: </strong> Our Services allow viewing and sharing information including through posts, follows, likes and comments. When you share a post (e.g., create a Channel/Spotfeed), the default
+                    (which you can change) is to share it publicly. Others who are not your connections will be able to find (including through search engines) and see your post. When you like, comment on or share another’s post, others will see it, including
+                    the person who initiated the post. In a Channel/Spotfeed, posts are visible to others following the Channel/Spotfeed. Your following a Channel/Spotfeed is public and part of your profile unless you change the default settings. When
+                    you follow a person or organization, you are visible to others and that “profile owner” as a follower. We provide aggregate insights about the followers and viewers to the respective profile owners. We let senders know when you act
+                    on their message, subject to your settings where applicable.
 
-            </p>
-            <br>
-            <p>
-                <span class="sub_head">through others’ Services</span>
+                </p>
                 <br>
-                <br> Subject to your privacy settings, information on your profile may appear in services of others like search engine results. If you were to share links to your profile and content on One Page Spotlight in other social media or anywhere
-                online, others are likely to look-up the same. We are not responsible for the practices employed by any websites or services linked to or from our Service, including the information or content contained within them. Please remember that
-                when you use a link to go from our Service to another website or service, our Privacy Policy does not apply to those third-party websites or services. Your browsing and interaction on any third-party website or service, including those
-                that have a link on our website, are subject to that third party's own rules and policies. In addition, we are not responsible and do not have control over any third-parties that you authorize to access your User Content. If you are using
-                a third-party website or service and you allow them to access your User Content you do so at your own risk.
+                <p>
+                    <span class="sub_head">through others’ Services</span>
+                    <br>
+                    <br> Subject to your privacy settings, information on your profile may appear in services of others like search engine results. If you were to share links to your profile and content on One Page Spotlight in other social media or anywhere
+                    online, others are likely to look-up the same. We are not responsible for the practices employed by any websites or services linked to or from our Service, including the information or content contained within them. Please remember
+                    that when you use a link to go from our Service to another website or service, our Privacy Policy does not apply to those third-party websites or services. Your browsing and interaction on any third-party website or service, including
+                    those that have a link on our website, are subject to that third party's own rules and policies. In addition, we are not responsible and do not have control over any third-parties that you authorize to access your User Content. If
+                    you are using a third-party website or service and you allow them to access your User Content you do so at your own risk.
 
-            </p>
-            <br>
-            <p>
-                <span class="sub_head">to third party service providers</span>
+                </p>
                 <br>
-                <br> We use others to help us provide our Services (e.g., maintenance, analysis, audit, payments, fraud detection, marketing and development). They will have access to your information as reasonably necessary to perform these tasks on
-                our behalf and are obligated to not to disclose or use it for other purposes.
+                <p>
+                    <span class="sub_head">to third party service providers</span>
+                    <br>
+                    <br> We use others to help us provide our Services (e.g., maintenance, analysis, audit, payments, fraud detection, marketing and development). They will have access to your information as reasonably necessary to perform these tasks
+                    on our behalf and are obligated to not to disclose or use it for other purposes.
 
-            </p>
-            <br>
-            <p>
-                <span class="sub_head">for legal disclosures & law enforcement</span>
+                </p>
                 <br>
-                <br> We may access, preserve and share your information in response to a legal request (like a search warrant, court order or subpoena) if we have a good faith belief that the law requires us to do so. This may include responding to legal
-                requests from jurisdictions outside of the United States where we have a good faith belief that the response is required by law in that jurisdiction, affects users in that jurisdiction, and is consistent with internationally recognized
-                standards. We may also access, preserve and share information when we have a good faith belief it is necessary to: detect, prevent and address fraud and other illegal activity; to protect ourselves, you and others, including as part of
-                investigations; and to prevent death or imminent bodily harm. Information we receive about you may be accessed, processed and retained for an extended period of time when it is the subject of a legal request or obligation, governmental
-                investigation, or investigations concerning possible violations of our terms or policies, or otherwise to prevent harm.
+                <p>
+                    <span class="sub_head">for legal disclosures &amp; law enforcement</span>
+                    <br>
+                    <br> We may access, preserve and share your information in response to a legal request (like a search warrant, court order or subpoena) if we have a good faith belief that the law requires us to do so. This may include responding to
+                    legal requests from jurisdictions outside of the United States where we have a good faith belief that the response is required by law in that jurisdiction, affects users in that jurisdiction, and is consistent with internationally
+                    recognized standards. We may also access, preserve and share information when we have a good faith belief it is necessary to: detect, prevent and address fraud and other illegal activity; to protect ourselves, you and others, including
+                    as part of investigations; and to prevent death or imminent bodily harm. Information we receive about you may be accessed, processed and retained for an extended period of time when it is the subject of a legal request or obligation,
+                    governmental investigation, or investigations concerning possible violations of our terms or policies, or otherwise to prevent harm.
 
-            </p>
-            <br>
-            <p>
-                <span class="sub_head">in case of change in management control</span>
+                </p>
                 <br>
-                <br> If we sell or otherwise transfer part or the whole of One Page Spotlight or our assets to another organization (e.g., in the course of a transaction like a merger, acquisition, bankruptcy, dissolution, liquidation), your information
-                such as name and email address, User Content and any other information collected through the Service may be among the items sold or transferred. You will continue to own your User Content. The buyer or transferee will have to honor the
-                commitments we have made in this Privacy Policy.
+                <p>
+                    <span class="sub_head">in case of change in management control</span>
+                    <br>
+                    <br> If we sell or otherwise transfer part or the whole of One Page Spotlight or our assets to another organization (e.g., in the course of a transaction like a merger, acquisition, bankruptcy, dissolution, liquidation), your information
+                    such as name and email address, User Content and any other information collected through the Service may be among the items sold or transferred. You will continue to own your User Content. The buyer or transferee will have to honor
+                    the commitments we have made in this Privacy Policy.
 
-            </p>
-            <br>
-            <h2>YOUR CHOICES ABOUT YOUR INFORMATION</h2>
-            <p>
-                <span class="sub_head">you control your data</span>
+                </p>
                 <br>
-                <br> Access and change information in your profile at any time, you can choose whether your profile available to search engines, or choose whether others can find your One Page Spotlight account using your email address/contact number.
-                You can login and update your privacy settings anytime. Unsubscribe from email communications from us by clicking on the "unsubscribe link" provided in such communications. You cannot opt out of Service-related communications (e.g., account
-                verification, purchase and billing confirmations and reminders, changes/updates to features of the Service, technical and security notices).
+                <h2>YOUR CHOICES ABOUT YOUR INFORMATION</h2>
+                <p>
+                    <span class="sub_head">you control your data</span>
+                    <br>
+                    <br> Access and change information in your profile at any time, you can choose whether your profile available to search engines, or choose whether others can find your One Page Spotlight account using your email address/contact number.
+                    You can login and update your privacy settings anytime. Unsubscribe from email communications from us by clicking on the "unsubscribe link" provided in such communications. You cannot opt out of Service-related communications (e.g.,
+                    account verification, purchase and billing confirmations and reminders, changes/updates to features of the Service, technical and security notices).
 
-            </p>
-            <br>
-            <p>
-                <span class="sub_head">your spotfeeds & spotscore</span>
+                </p>
                 <br>
-                <br> Create or control who can access each of your Spotfeeds/Channels. Public Spotfeeds/Channels are visible to all. For Public Spotfeeds/Channels, any members may choose to make the contents available for viewing and sharing to anyone
-                else. If you choose to mark a Spotfeed/Channel as ‘Private’, they are visible to you by default and those specific members or your list of followers with whom you have shared the content. For Private Spotfeeds/Channels, members or followers
-                with whom you have shared the Spotfeed/Channel will be unable to share the content with anyone else. However please remember that another member or follower may just take an image from the Spotfeed/Channel and email it to their friends.
-                You have the choice of who can see your Spotscore. You may decide to keep the Spotscore private (viewable only to you) or provide limited access (to specific members and followers only) or make it public (viewable by all). For more information
-                on Spotscore please click here.
+                <p>
+                    <span class="sub_head">your spotfeeds &amp; spotscore</span>
+                    <br>
+                    <br> Create or control who can access each of your Spotfeeds/Channels. Public Spotfeeds/Channels are visible to all. For Public Spotfeeds/Channels, any members may choose to make the contents available for viewing and sharing to anyone
+                    else. If you choose to mark a Spotfeed/Channel as ‘Private’, they are visible to you by default and those specific members or your list of followers with whom you have shared the content. For Private Spotfeeds/Channels, members or
+                    followers with whom you have shared the Spotfeed/Channel will be unable to share the content with anyone else. However please remember that another member or follower may just take an image from the Spotfeed/Channel and email it to
+                    their friends. You have the choice of who can see your Spotscore. You may decide to keep the Spotscore private (viewable only to you) or provide limited access (to specific members and followers only) or make it public (viewable by
+                    all). For more information on Spotscore please click here.
 
-            </p>
-            <br>
-            <p>
-                <span class="sub_head">account closure & data retention </span>
+                </p>
                 <br>
-                <br> If you choose to close your One Page Spotlight account or if your account is deactivated or terminated, your personal data will generally stop being visible to others on our Services within 24 hours. We delete closed account information
-                within 30 days of account closure (or a commercially reasonable time). However, we will retain your personal information if reasonably necessary to comply with our legal obligations (including law enforcement requests), meet regulatory
-                requirements, resolve disputes, maintain security, prevent fraud, spam and abuse, enforce our User Agreement, or fulfil your request to “unsubscribe” from further messages from us. We will retain de-personalized information after your
-                account has been closed. Information you have shared with others (e.g., through messages, likes, updates or group posts) will remain visible after you closed your account or deleted the information from your own profile or mailbox, and
-                we do not control data that other members copied out of our Services. Your profile may continue to be displayed in the services of others (e.g., search engine results) until they refresh their cache.
+                <p>
+                    <span class="sub_head">account closure &amp; data retention </span>
+                    <br>
+                    <br> If you choose to close your One Page Spotlight account or if your account is deactivated or terminated, your personal data will generally stop being visible to others on our Services within 24 hours. We delete closed account information
+                    within 30 days of account closure (or a commercially reasonable time). However, we will retain your personal information if reasonably necessary to comply with our legal obligations (including law enforcement requests), meet regulatory
+                    requirements, resolve disputes, maintain security, prevent fraud, spam and abuse, enforce our User Agreement, or fulfil your request to “unsubscribe” from further messages from us. We will retain de-personalized information after your
+                    account has been closed. Information you have shared with others (e.g., through messages, likes, updates or group posts) will remain visible after you closed your account or deleted the information from your own profile or mailbox,
+                    and we do not control data that other members copied out of our Services. Your profile may continue to be displayed in the services of others (e.g., search engine results) until they refresh their cache.
 
-            </p>
-            <br>
-            <h2>OUR POLICY ON CHILDREN’S INFORMATION</h2>
-            <p>
-                One Page Spotlight does not knowingly collect or solicit any information from anyone under the age of 13 or knowingly allow such persons to register for the Service. The Service and its content are not directed at children under the age of 13. In the
-                event that we learn that we have collected personal information from a child under age 13 without parental consent, we will delete that information as quickly as possible. If you believe that we might have any information from or about
-                a child under 13, please contact us.
+                </p>
+                <br>
+                <h2>OUR POLICY ON CHILDREN’S INFORMATION</h2>
+                <p>
+                    One Page Spotlight does not knowingly collect or solicit any information from anyone under the age of 13 or knowingly allow such persons to register for the Service. The Service and its content are not directed at children under the age of 13. In the
+                    event that we learn that we have collected personal information from a child under age 13 without parental consent, we will delete that information as quickly as possible. If you believe that we might have any information from or about
+                    a child under 13, please contact us.
+                </p>
                 <p>
                     <br>
-                    <p>
-                        We recognize the need to provide further privacy protections with respect to personal information we may collect from or about children on our sites and applications. Some of the features or content on our sites and applications are age-gated so that
-                        they are not available for use by children, and we do not knowingly collect personal information from children in connection with those features. COPPA requires that we inform parents and legal guardians about how we collect, use,
-                        and disclose personal information from children under 13 years of age.
+                </p>
+                <p>
+                    We recognize the need to provide further privacy protections with respect to personal information we may collect from or about children on our sites and applications. Some of the features or content on our sites and applications are age-gated so that
+                    they are not available for use by children, and we do not knowingly collect personal information from children in connection with those features. COPPA requires that we inform parents and legal guardians about how we collect, use,
+                    and disclose personal information from children under 13 years of age.
 
-                    </p>
-                    <br>
-                    <h2>DATA TRANSFER</h2>
-                    <br>
-                    <p>
-                        Your information collected through the Service may be stored and processed in the United States or any other country in which One Page Spotlight, its Affiliates or Service Providers maintain facilities.
-                    </p>
-                    <br>
-                    <p>
-                        One Page Spotlight, its Affiliates, or Service Providers may transfer information that we collect about you, including personal information across borders and from your country or jurisdiction to other countries or jurisdictions around the world. If you
-                        are located in the European Union or other regions with laws governing data collection and use that may differ from U.S. law, please note that we may transfer information, including personal information, to a country and jurisdiction
-                        that does not have the same data protection laws as your jurisdiction. By registering for and using the Service you consent to the transfer of information to the U.S. or to any other country in which One Page Spotlight, its Affiliates
-                        or Service Providers maintain facilities and the use and disclosure of information about you as described in this Privacy Policy.
-                    </p>
-                    <br>
-                    <p>
-                        We use commercially reasonable safeguards to help keep the information collected through the Service secure and take reasonable steps (such as requesting a unique password & One Time Password verification) to verify your identity before granting you access
-                        to your account. However, One Page Spotlight cannot ensure the security of any information you transmit to One Page Spotlight or guarantee that information on the Service may not be accessed, disclosed, altered, or destroyed.
-                    </p>
-                    <br>
-                    <p>
-                        Please do your part to help us. You are responsible for maintaining the secrecy of your unique password and account information.
-                    </p>
-                    <br>
+                </p>
+                <br>
+                <h2>DATA TRANSFER</h2>
+                <br>
+                <p>
+                    Your information collected through the Service may be stored and processed in the United States or any other country in which One Page Spotlight, its Affiliates or Service Providers maintain facilities.
+                </p>
+                <br>
+                <p>
+                    One Page Spotlight, its Affiliates, or Service Providers may transfer information that we collect about you, including personal information across borders and from your country or jurisdiction to other countries or jurisdictions around the world. If you
+                    are located in the European Union or other regions with laws governing data collection and use that may differ from U.S. law, please note that we may transfer information, including personal information, to a country and jurisdiction
+                    that does not have the same data protection laws as your jurisdiction. By registering for and using the Service you consent to the transfer of information to the U.S. or to any other country in which One Page Spotlight, its Affiliates
+                    or Service Providers maintain facilities and the use and disclosure of information about you as described in this Privacy Policy.
+                </p>
+                <br>
+                <p>
+                    We use commercially reasonable safeguards to help keep the information collected through the Service secure and take reasonable steps (such as requesting a unique password &amp; One Time Password verification) to verify your identity before granting you
+                    access to your account. However, One Page Spotlight cannot ensure the security of any information you transmit to One Page Spotlight or guarantee that information on the Service may not be accessed, disclosed, altered, or destroyed.
+                </p>
+                <br>
+                <p>
+                    Please do your part to help us. You are responsible for maintaining the secrecy of your unique password and account information.
+                </p>
+                <br>
 
-                    <h2>CHANGES TO PRIVACY POLICY</h2>
-                    <br>
-                    <p>
-                        One Page Spotlight may modify or update this Privacy Policy from time to time, so please review it periodically. We may provide you additional forms of notice of modifications or updates as appropriate under the circumstances. Your continued use of One
-                        Page Spotlight or the Service after any modification to this Privacy Policy will constitute your acceptance of such modification.
-                    </p>
-                    <br>
-                    <h2>CONTACT INFORMATION</h2>
-                    <br>
-                    <p>
-                        If you have any questions about this Privacy Policy or the Service, please find the appropriate support channel in the Help Center at which to contact us.
-                    </p>
-                    <br>
+                <h2>CHANGES TO PRIVACY POLICY</h2>
+                <br>
+                <p>
+                    One Page Spotlight may modify or update this Privacy Policy from time to time, so please review it periodically. We may provide you additional forms of notice of modifications or updates as appropriate under the circumstances. Your continued use of One
+                    Page Spotlight or the Service after any modification to this Privacy Policy will constitute your acceptance of such modification.
+                </p>
+                <br>
+                <h2>CONTACT INFORMATION</h2>
+                <br>
+                <p>
+                    If you have any questions about this Privacy Policy or the Service, please find the appropriate support channel in the Help Center at which to contact us.
+                </p>
+                <br>
 
+            </div>
         </div>
     </div>
-    <!-- // term and conditoins -->
-</app-modal>
+</div>
 <!-- Terms Modal -->
 
 <!-- OTP Modal -->
