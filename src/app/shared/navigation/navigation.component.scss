@@ -24,6 +24,7 @@
             border-right: 6px solid transparent;
             border-left: 6px solid transparent;
             margin-left: 8px;
+            height: 36px;
         }
     }
 }
@@ -623,15 +624,15 @@
 }
 
 .signIn {
-  display: inline-block;
-  border: solid 1px #FFACB2;
-  color: #FFACB2;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 8px;
-  padding-right: 8px;
-  border-radius: 4px;
-  margin-top: 10px;
-  font-size: 11px;
-  text-transform: uppercase;
+    display: inline-block;
+    border: solid 1px #FFACB2;
+    color: #FFACB2;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-size: 11px;
+    text-transform: uppercase;
 }
