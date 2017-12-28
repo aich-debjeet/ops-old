@@ -19,7 +19,7 @@
     .ops_signup_right {
         padding: 0 80px;
         @include mq($from: $mobile_sm, $until: $desktop_sm) {
-            padding:0px 40px;
+            padding:0px 16px 16px 16px;
         }
         .ops_h1 {
             margin-bottom: 48px;
@@ -31,7 +31,7 @@
 .ops_signup {
     background-color: #ffffff;
     // padding-top: 64px;
-    height: 94vh;
+    height: 85vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
