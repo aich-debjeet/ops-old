@@ -38,7 +38,6 @@ export class LogoutHomeComponent implements OnInit, OnDestroy {
     this.subscription = this.profileStore.select('profileTags')
       .first(profile => profile['profile_navigation_details'].username)
       .subscribe( datas => {
-        console.log(datas);
         this.router.navigate(['/home']);
       });
 
@@ -91,12 +90,10 @@ export class LogoutHomeComponent implements OnInit, OnDestroy {
 
   /* This will be triggered after carousel viewed */
   afterCarouselViewedFn(data) {
-    // console.log(data);
   }
 
   /* It will be triggered on every slide*/
   onmoveFn(data: NgxCarouselStore) {
-    // console.log(data);
   }
 
 }

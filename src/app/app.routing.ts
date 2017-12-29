@@ -31,7 +31,7 @@ import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world-cup.component';
-
+import { DeviseComponent } from './components/devise/devise.component';
 
 
 // Guard
@@ -41,15 +41,16 @@ export const routes: Routes = [
  { path: '', component: LogoutHomeComponent },
  { path: 'logout', component: LogoutComponent },
  { path: 'login', component: LoginComponent },
+ { path: 'device', component: DeviseComponent },
  { path: 'learn', component: LearnComponent, canActivate: [AuthGuard] },
- { path: 'channel/:id', component: ChannelInnerComponent },
+ { path: 'channel/:id', component: ChannelInnerComponent, canActivate: [AuthGuard] },
  { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },
  { path: 'account', loadChildren: './components/forgot-password/forgot-password.module#ForgotPasswordModule'},
  { path: 'home', loadChildren: './components/home/home.module#HomeModule', canActivate: [AuthGuard] },
  { path: 'reset-password', component: ResetPasswordComponent },
- { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule', canActivate: [AuthGuard] },
+ { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule' },
 //  { path: 'media', loadChildren: './components/media/media.module#ProfileModule' },
- { path: 'message', component: MessageComponent, canActivate: [AuthGuard] },
+ { path: 'user/message', component: MessageComponent, canActivate: [AuthGuard] },
  { path: 'user/status/list', component: StatusListComponent, canActivate: [AuthGuard] },
  { path: 'user/media/list', loadChildren: './components/media-list/media-list.module#MediaListModule', canActivate: [AuthGuard]},
  { path: 'spotfeed/:id', component: SpotfeedComponent, canActivate: [AuthGuard] },
@@ -72,7 +73,7 @@ export const routes: Routes = [
  { path: 'org', loadChildren: './components/organization/organization.module#OrganizationModule'},
  { path: 'opportunity', loadChildren: './components/opportunity/opportunity.module#OpportunityModule', canActivate: [AuthGuard] },
 //  { path: 'danceworldcup', component: DanceWorldCupComponent },
- { path: 'dwc', loadChildren: './components/dance-world-cup/dance-world-cup.module#DanceWorldCupModule' },
+ { path: 'dwc', loadChildren: './components/dance-world-cup/dance-world-cup.module#DanceWorldCupModule'},
  { path: 'page-not-found', component: NotFoundPageComponent },
  { path: '**', redirectTo: 'page-not-found' },
 ];

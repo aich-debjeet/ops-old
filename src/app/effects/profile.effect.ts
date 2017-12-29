@@ -264,6 +264,22 @@ export class ProfileEffect {
     .ofType(ProfileActions.UPDATE_USER_EDUCATION_SUCCESS)
     .map(res => ({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS  }))
 
+  /**
+   * DWC Media Update
+   */
+  CHANGE_DWC_MEDIA_STATE
+
+  /**
+   * Delete Current user Award
+   */
+  @Effect()
+  updateDWCStatus$ = this.actions$
+    .ofType(ProfileActions.CHANGE_DWC_MEDIA_STATE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.changeMediaState(payload)
+      .map(res => ({ type: 'NONE', payload: res }))
+      .catch((res) => Observable.of({ type: 'NONE', payload: res }))
+    );
 
   /**
    * Edit Current user Award
@@ -690,6 +706,18 @@ export class ProfileEffect {
         type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_FAILED,
         payload: { errorStatus: res.status }
       }))
+    );
+
+  /**
+   * Get imported profile by username
+   */
+  @Effect()
+  getImportedProfile$ = this.actions$
+    .ofType(ProfileActions.GET_IMPORTED_PROFILE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getImportedProfile(payload)
+      .map(res => ({ type: ProfileActions.GET_IMPORTED_PROFILE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.GET_IMPORTED_PROFILE_FAILED, payload: res }))
     );
 
   constructor(

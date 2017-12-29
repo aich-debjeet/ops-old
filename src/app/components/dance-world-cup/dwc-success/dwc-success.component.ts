@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProfileActions } from '../../../actions/profile.action';
 
 @Component({
   selector: 'app-dwc-success',
@@ -8,8 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class DwcSuccessComponent implements OnInit {
 
   constructor() { }
-
   ngOnInit() {
+    
   }
 
 }

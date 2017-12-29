@@ -9,6 +9,7 @@ import { AuthRightBlockComponent } from './auth-right-block/auth-right-block.com
 import { AppButtonComponent } from './button/button.component';
 import { QuickAccessComponent } from './quick-access/quick-access.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { NavigationLogoComponent } from './navigation-logo/navigation-logo.component';
 import { ChannelComponent } from './channel/channel.component';
 import { SpotfeedCardComponent } from './spotfeed-card/spotfeed-card.component';
 import { FooterComponent } from './footer/footer.component';
@@ -71,6 +72,7 @@ import { EventCardComponent } from './event-card/event-card.component';
     AppButtonComponent,
     QuickAccessComponent,
     NavigationComponent,
+    NavigationLogoComponent,
     ChannelComponent,
     SpotfeedCardComponent,
     FooterComponent,
@@ -103,6 +105,7 @@ import { EventCardComponent } from './event-card/event-card.component';
     AppButtonComponent,
     QuickAccessComponent,
     NavigationComponent,
+    NavigationLogoComponent,
     ChannelComponent,
     SpotfeedCardComponent,
     FooterComponent,
@@ -126,6 +129,5 @@ import { EventCardComponent } from './event-card/event-card.component';
     ModalContent,
     EventCardComponent
   ]
-
 })
 export class SharedModule { }

@@ -56,7 +56,6 @@ export class RegistrationAddSkillComponent implements OnInit {
 
     // if redriect url there
     if (this.route.snapshot.queryParams['dwc2017']) {
-      console.log(this.route.snapshot.queryParams);
       this.interest = this.route.snapshot.queryParams['dwc2017'];
     }
 

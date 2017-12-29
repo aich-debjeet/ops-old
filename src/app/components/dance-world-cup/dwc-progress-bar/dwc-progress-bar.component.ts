@@ -15,25 +15,41 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class DwcProgressBarComponent implements OnInit {
   tagState$: Observable<any>;
   dataDwc: any;
+  isAuthed: boolean;
   constructor(
     private store: Store<any>,
     private router: Router,
   ) {
-    // this.tagState$ = store.select('profileTags')
-    //  this.tagState$.subscribe((state) => {
-    //    this.dataDwc = state
-    //   console.log(state)
-    // })
 
-    this.store.select('profileTags').take(3).subscribe(data => {
+    this.isAuthed = false;
+
+    /**
+     * Check currenct status
+     */
+
+     this.store.select('profileTags')
+    .first(profile => profile['profile_navigation_details'].handle)
+    .subscribe( data => {
+      this.isAuthed = true;
+    });
+
+  }
+
+  ngOnInit() {
+    /**
+     * Check currenct status
+     */
+    this.store.select('profileTags')
+      .take(2)
+      .subscribe( data => {
         this.dataDwc = data
         if (this.router.url !== '/dwc/details') {
-          if (data['profile_navigation_details'].DWCcompleteStatus === 2) {
+          if (data['profile_navigation_details'].DWCcompleteStatus === 1) {
             this.router.navigateByUrl('/dwc/payment');
           }
 
-          if (data['profile_navigation_details'].DWCcompleteStatus === 1) {
-            this.router.navigateByUrl('/dwc/payment');
+          if (data['profile_navigation_details'].DWCcompleteStatus === 2) {
+            this.router.navigate(['/post'], { queryParams: { event: 'dwc' } });
           }
 
           if (data['profile_navigation_details'].DWCcompleteStatus === 3) {
@@ -47,7 +63,10 @@ export class DwcProgressBarComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
+  mediaClick(step) {
+    if (step >= 2) {
+      this.router.navigate(['/post/media'], { queryParams: { event: 'dwc' } });
+    }
   }
 
 }

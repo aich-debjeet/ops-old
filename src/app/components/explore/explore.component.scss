@@ -85,6 +85,9 @@
     height: 129px;
     cursor: pointer !important;
 }
+.cursor-pointer {
+    cursor: pointer !important;
+}
 .o-explore-img-title--sm{
     height: 46px;	
     width: 100%;	
@@ -153,4 +156,11 @@
 
 .pointer {
     cursor: pointer !important;
+}
+
+app-footer{
+    margin-top: 32px;
+    float: left;
+    display: inline-block;
+    width: 100%;
 }

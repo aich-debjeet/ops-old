@@ -26,7 +26,6 @@ export class QuickAccessComponent {
     private _store: Store<ProfileModal>
   ) {
     this.storeState$ = this._store.select('profileTags');
-      console.log(this.quickAccessData)
      this.storeState$.subscribe((state) => {
        this.userHandle = state['profile_details'].handle;
       // this.userProfile = state['profile_details'];

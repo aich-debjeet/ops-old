@@ -381,3 +381,11 @@ label {
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
 }
+
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    overflow: hidden;
+    min-width: 100%;
+}

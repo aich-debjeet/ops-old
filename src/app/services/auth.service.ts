@@ -62,7 +62,6 @@ export class AuthService {
       .map((response: Response) => {
           const user = response.json();
           if (user.profileId) {
-            // console.log(user.profileId);
           }
           localStorage.setItem('currentUserID', user.profileId);
           this.router.navigate(['/profile']);
@@ -71,6 +70,14 @@ export class AuthService {
 
     registerStepBasic(req: any) {
       return this.api.post('/portal/auth/user', req);
+    }
+
+    /**
+     * Search user bu user id
+     */
+    searchUserWithUsername(username: string) {
+      console.log('api call username', username);
+      return this.api.get('/portal/auth/user/username/' + username);
     }
 
     /**
@@ -238,7 +245,7 @@ export class AuthService {
       const token = localStorage.getItem('access_token');
       const head = new Headers({ 'Content-Type': 'application/json'});
       head.append('Authorization', 'Bearer ' + token);
-      return this.http.put(this.apiLink + '/portal/auth/user/update', value, { headers: this.headers }) // removed headers: head
+      return this.http.put(this.apiLink + '/portal/auth/user/update', value, { headers: head }) // removed headers: head
         .map((data: Response) => data.json());
     }
 

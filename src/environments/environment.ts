@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  API_ENDPOINT: 'http://dev.api.onepagespotlight.com:9000/api/1.0',
-  API_IMAGE: 'http://d206s58i653k1q.cloudfront.net/'
+  API_ENDPOINT: 'https://dev.api.onepagespotlight.com/api/1.0',
+  API_IMAGE: 'https://d206s58i653k1q.cloudfront.net/'
 };

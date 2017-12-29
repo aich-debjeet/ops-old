@@ -27,6 +27,7 @@ import { ApiService } from '../../../helpers/api.service';
   templateUrl: './home-channel.component.html',
   styleUrls: ['./home-channel.component.scss']
 })
+
 export class HomeChannelComponent implements OnInit {
 
   tagState$: Observable<ProfileModal>;
@@ -44,12 +45,14 @@ export class HomeChannelComponent implements OnInit {
   ) {
 
     this.loadMoreParams = { offset: -10, limit: 10 };
+    this.channelList = [];
 
     this.tagState$ = store.select('profileTags');
     this.myProfile$ = store.select('profileTags').take(3);
     this.tagState$.subscribe((state) => {
       this.userState = state;
     });
+
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS })
   }
 

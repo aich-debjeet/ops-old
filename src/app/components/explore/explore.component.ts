@@ -20,6 +20,8 @@ import { TruncatePipe } from 'app/pipes/truncate.pipe';
 import { Observable } from 'rxjs/Observable';
 import { environment } from 'environments/environment.prod';
 
+import * as _ from 'lodash';
+
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',
@@ -36,7 +38,7 @@ export class ExploreComponent implements OnInit {
   allSpotfeeds: any;
   baseUrl: string;
   showPreloader = true;
-  recordsPerPage = 10;
+  recordsPerPage = 8;
   pagination = [];
 
   // public carouselOne: NgxCarousel;
@@ -64,12 +66,10 @@ export class ExploreComponent implements OnInit {
     this.userState$ = this.store.select('profileTags');
     this.userState$.subscribe((state) => {
       this.userProfile = state;
-      // console.log('this.userProfile', this.userProfile);
 
       // get current profiles spotfeeds
       if (state && state.home_spotfeeds && state.home_spotfeeds.SUCCESS) {
         this.profileSpotfeeds = state.home_spotfeeds.SUCCESS;
-        // console.log('profile spotfeeds', this.profileSpotfeeds);
       }
     });
 
@@ -79,24 +79,23 @@ export class ExploreComponent implements OnInit {
     this.exploreState$ = this.store.select('exploreTags');
     this.exploreState$.subscribe((state) => {
       this.exploreState = state;
-      console.log('this.exploreState', this.exploreState);
 
       // get all spotfeeds
-      if (state && state.spotfeeds && state.spotfeeds.SUCCESS) {
-        this.allSpotfeeds = state.spotfeeds.SUCCESS;
-        console.log('all spotfeeds', this.allSpotfeeds);
+      if (state && state.explore_spotfeeds && state.explore_spotfeeds) {
+        this.allSpotfeeds = state.explore_spotfeeds;
 
         // preparing the pagination reference var
         if (this.pagination && this.pagination.length === 0) {
-          // console.log('set pagination');
-          this.allSpotfeeds.forEach((value, index) => {
+          for (let i = 0; this.allSpotfeeds.length > i; i++) {
             const refData = {
-              limit: 0,
-              type: value.industry,
-              offset: this.recordsPerPage
+              industryType: this.allSpotfeeds[i].industryType,
+              limit: this.recordsPerPage,
+              offset: 0
             };
             this.pagination.push(refData);
-          });
+            if (i >= (this.allSpotfeeds.length - 1)) {
+            }
+          }
         }
       }
 
@@ -112,25 +111,15 @@ export class ExploreComponent implements OnInit {
    * Load more spotfeeds
    */
   dispatchLoadMore(industryType: string) {
-    console.log();
+    const typeIndex = _.findIndex(this.pagination, { 'industryType': industryType });
+    this.pagination[typeIndex].limit = this.recordsPerPage;
+    this.pagination[typeIndex].offset += this.recordsPerPage;
+
+    this.store.dispatch({ type: ExploreActions.LOAD_SPOTFEEDS, payload: this.pagination[typeIndex] });
   }
 
   ngOnInit() {
-    // this.carouselOne = {
-    //   grid: {xs: 5, sm: 5, md: 5, lg: 5, all: 5},
-    //   slide: 5,
-    //   load: 5,
-    //   speed: 400,
-    //   interval: 4000,
-    //   point: {
-    //     visible: false
-    //   },
-    //   touch: true,
-    //   loop: true,
-    //   custom: 'banner'
-    // }
   }
 
-  // public myfunc(event: Event) { }
 
 }

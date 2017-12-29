@@ -2,8 +2,6 @@
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/components/_feed-card.scss';
 // ---------------  Media modal style ---------------------- //
-
-
 // post with comments block style -----------------------------------
 .c-avatar--status {
     width: 34px;
@@ -14,6 +12,7 @@
     width: 24px;
     height: 24px;
 }
+
 .c-avatar--status3 {
     width: 40px;
     height: 40px;
@@ -57,8 +56,6 @@
     margin-top: 9px;
     margin-left: 8px;
 }
-
-
 
 .c-modal {
     .modal-body {
@@ -154,7 +151,6 @@
     }
 }
 
-
 // right block
 .c-mediamodal__right {
     width: 406px;
@@ -193,21 +189,25 @@
     line-height: 14px;
     margin-left: 8px;
 }
+
 .c-float--none {
-  float: none !important; 
+    float: none !important;
 }
+
 .c-mediamodal__opt {
     float: right;
     position: relative;
     img {
         width: 13px;
-  }
+    }
 }
+
 .c-mediamodal__comment {
     bottom: 0;
     position: absolute;
     width: 100%;
 }
+
 .c-mediamodal__input {
     padding: 4px 0 0 16px;
 }
@@ -226,8 +226,9 @@
     -moz-user-modify: read-write;
     user-modify: read-write;
     border-bottom: 1px solid #c1c1c1;
-    color:#000000;
+    color: #000000;
 }
+
 .c-options--img {
     width: 10px;
     cursor: pointer;
@@ -256,11 +257,11 @@
     margin: 0 auto;
     clear: both;
 }
- 
 
-
-
-
+.c-links__actions {
+    text-align: right;
+    float: right;
+}
 
 // .media_modal {
 //     .over-block {
@@ -287,7 +288,6 @@
 //         overflow-y: scroll;
 //     }
 // }
-
 // // ---------------  image modal style ---------------------- //
 // .media_img_block {
 //     width: 100%;
@@ -295,7 +295,6 @@
 //     background-color: #050505;
 //     display: table;
 // }
-
 // .media_img_content {
 //     padding: 16px;
 //     color: #333333;
@@ -337,7 +336,6 @@
 //         }
 //     }
 // }
-
 // .media_like_count {
 //     width: 100%;
 //     float: left;
@@ -355,7 +353,6 @@
 //         width: 12px;
 //     }
 // }
-
 // .media_comment_input {
 //     width: 100%;
 //     float: left;
@@ -384,7 +381,6 @@
 //         }
 //     }
 // }
-
 // // .media_comments_section {
 // //     width: 100%;
 // //     float: left;
@@ -396,7 +392,6 @@
 //   float: left; // height: 203px;
 //   // overflow-y: scroll;
 // }
-
 // .media_img_comments {
 //     width: 100%;
 //     float: left;
@@ -428,7 +423,6 @@
 //         clear: both;
 //     }
 // }
-
 // //user name avatar
 // .avatar_media_user {
 //     width: 33px;
@@ -446,7 +440,6 @@
 //         width: 100%;
 //     }
 // }
-
 // //user name avatar
 // .avatar_media_user2 {
 //     width: 25px;
@@ -464,7 +457,6 @@
 //         width: 100%;
 //     }
 // }
-
 // // left big img
 // .avatar_media_img {
 //     width: 100%;
@@ -500,11 +492,9 @@
 //         max-width: 100%;
 //     }
 // }
-
 // // ---------------  Video modal style ---------------------- //
 // // ---------------  Audio modal style ---------------------- //
 // // ---------------  Article modal style -------------------- //
-
 // .article_modal_content {
 //     .media_left {
 //     height: auto;
@@ -514,7 +504,6 @@
 //     height: auto;
 //     overflow-y: auto;
 //     }
-
 //     .media_article_block {
 //     height: 100%;
 //     background-color: #fff;
@@ -532,10 +521,8 @@
 //        color: #333333;
 //        margin: 16px 0;
 //     }
-
 //     }
 // }
-
 // .messages_block {
 //     background: #f1f1f1;
 //     min-height: 82vh;
@@ -544,7 +531,6 @@
 //     justify-content: center;
 //     flex-direction: column;
 // }
-
 // .messages_block_container {
 //     border-radius: 5px;
 //     background-color: $white;
@@ -554,7 +540,6 @@
 //     overflow: hidden;
 //     position: relative;
 // }
-
 // // message left section style
 // .msg_left {
 //     background-color: #ffffff;
@@ -690,7 +675,6 @@
 //   height: 380px;
 // overflow-y: scroll;
 // }
-
 // // message right section style
 // .msg_right {
 //     background-color: #ffffff;
@@ -703,7 +687,6 @@
 //         margin-top: 250px;
 //     }
 // }
-
 // // message02 style ---------------------------------------
 // .msg_to_list {
 //     .msg_with {
@@ -737,12 +720,10 @@
 //         }
 //     }
 // }
-
 // .msg_container_block {
 //     height: 400px;
 //     overflow-y: scroll;
 // }
-
 // .msg_container {
 //     padding: 16px;
 //     float: left;
@@ -775,7 +756,6 @@
 //         }
 //     }
 // }
-
 // .msg_footer_input {
 //     // background-color: #f8f8f8;
 //     position: absolute;
@@ -787,7 +767,6 @@
 //         margin-top: 5px;
 //     }
 // }
-
 // .avatar_msg_input {
 //     img {
 //         width: 40px !important;
@@ -831,24 +810,18 @@
 //             }
 //   }
 // }
-
 // li.list-inline-item a img {
 //   margin-left: 5px;
 // }
-
 // li.list-inline-item a {
 //   display: inline-block;
 // }
-
-
 // .spot__btn{
 //   //
 // }
-
 // .btn-tag {
 //   margin-right: 4px;
 // }
-
 // .read-more-link{
 //     float: right;
 //     span{
@@ -858,7 +831,6 @@
 //         cursor: pointer;
 //     }
 // }
-
 // .media-popup__text{
 //     margin: 10px 0;
 //     color: #333;

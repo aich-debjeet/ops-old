@@ -70,7 +70,6 @@ export class DatabaseValidator {
     validAge(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
             // if (control.value.indexOf('_') !== -1 || control.value === '') {
-            // // console.log('incomplete date');
             // return resolve(null);
             // }
 
@@ -124,7 +123,6 @@ export class DatabaseValidator {
     validWorkToDate(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
             // if (control.value.indexOf('_') !== -1 || control.value === '') {
-            // // console.log('incomplete date');
             // return resolve(null);
             // }
 
@@ -150,8 +148,6 @@ export class DatabaseValidator {
             }
 
              const toDate = new Date(year, month, day);
-            //  console.log(toDate)
-            //  console.log(this.fromDate)
              if (this.fromDate > toDate) {
                 resolve({ 'isvalid': true });
              }
@@ -174,7 +170,6 @@ export class DatabaseValidator {
     validWorkFromDate(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
             // if (control.value.indexOf('_') !== -1 || control.value === '') {
-            // // console.log('incomplete date');
             // return resolve(null);
             // }
 
@@ -252,7 +247,6 @@ export class ProfileUpdateValidator {
 
     // User already Exsist check on DB
     userNameValidation(control: AbstractControl) {
-        console.log('called');
         const q = new Promise((resolve, reject) => {
             // check current email for user
             if (this.profileState.profile_details['extra'].username !== control.value) {
@@ -299,11 +293,6 @@ export class ProfileUpdateValidator {
      */
     validAge(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
-            // if (control.value.indexOf('_') !== -1 || control.value === '') {
-            // // console.log('incomplete date');
-            // return resolve(null);
-            // }
-
             const dateArr =  control.value.split('-');
 
             const day = dateArr[0];
@@ -369,6 +358,33 @@ export class FormValidation {
         return isWhitespace ? { whitespace: true } : null
     }
 
+    static noCapitalLettersValidator (control: AbstractControl) {
+        const value = control.value;
+        if (/[A-Z]/.test(value)) {
+            return { capitalLetters: true }
+        }
+        return null;
+    }
+
+    static usernameLengthValidator (control: AbstractControl) {
+        const value = control.value;
+        if (value.length === 0) {
+            return null;
+        }
+        if (value.length < 3 || value.length > 15) {
+            return { invalidLength: true }
+        }
+        return null;
+    }
+
+    static noSpecialCharsValidator (control: AbstractControl) {
+        const value = control.value;
+        if (/[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value)) {
+            return { specialChars: true }
+        }
+        return null;
+    }
+
     /**
      * Checking for the password strength on register form
      * @param control: Form password input
@@ -405,12 +421,47 @@ export class FormValidation {
      */
     static validEmail(control: AbstractControl) {
         if (control.value === '') {
-        // console.log('empty email');
-        return;
+            return;
         }
         const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!emailRegex.test(control.value)) {
-        return { isInvalidEmail: true };
+            return { isInvalidEmail: true };
+        }
+        return null;
+    }
+
+    static dwcValidDOB(control: AbstractControl) {
+
+        const dateArr =  control.value.split('-');
+        const day = dateArr[0];
+        const month = dateArr[1];
+        const year = dateArr[2];
+
+        // check for valid day number
+        if (parseInt(day, 10) > 31) {
+
+            return { invalidDOB: true };
+        }
+
+        // check for valid month number
+        if (parseInt(month, 10) > 12) {
+            return { invalidDOB: true };
+        }
+
+        // check if year is not greater that current
+        if (new Date().getUTCFullYear() < year) {
+            return { invalidDOB: true };
+        }
+
+        const birthday = new Date(year, month, day);
+
+        const date: any = new Date('01/01/2018');
+        const ageDiff = date - birthday.getTime();
+        const ageDate = new Date(ageDiff);
+        const age =  Math.abs(ageDate.getUTCFullYear() - 1970);
+
+        if (age >= 25) {
+            return { isOverAge: true };
         }
         return null;
     }
@@ -420,7 +471,7 @@ export class FormValidation {
      */
     static validOtp(control: AbstractControl) {
         if (control.value === '' || control.value.length !== 6) {
-        return { invalid: true };
+            return { invalid: true };
         }
         return null;
     }

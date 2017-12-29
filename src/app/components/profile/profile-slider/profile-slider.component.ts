@@ -149,6 +149,10 @@ export class ProfileSliderComponent implements OnInit {
     }
 
     let coverImageURL;
+
+    // if (profile && profile['extra'] && profile['extra']['isImported'] === true) {
+    //   coverImageURL = this.baseUrl + '/assets/img/new/s14.jpg';
+    // } else
     if (!profile.image.cover || profile.image.cover === '') {
       coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
     } else {
@@ -185,7 +189,6 @@ export class ProfileSliderComponent implements OnInit {
   }
 
   testClick() {
-    console.log('onclick');
     this.UsertypeModal.open();
   }
 

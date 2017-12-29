@@ -2,6 +2,7 @@
 .c-form__group {
     position: relative;
     margin-bottom: 14px;
+    margin-top: 16px;
 }
 
 .c-form__input {
@@ -97,13 +98,10 @@ label {
         color: $color-grey-dark;
         display: none;
     }
-
     .c-form__bar {
         margin-top: 1px;
     }
 }
-
-
 
 
 /* active state */
@@ -137,8 +135,6 @@ label {
 }
 
 
-
-
 /* active state */
 
 .c-form__input:focus~.c-form__bar--alert:before,
@@ -151,8 +147,6 @@ label {
     -moz-animation: inputHighlighter 0.3s ease;
     animation: inputHighlighter 0.3s ease;
 }
-
-
 
 
 /* ANIMATIONS ================ */
@@ -187,7 +181,6 @@ label {
     }
 }
 
-
 $transition: all 0.3s;
 $shadow-L1: 0 1px 3px rgba(0, 0, 0, 0.12),
 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -195,7 +188,6 @@ $shadow-L2: 0 3px 6px rgba(0, 0, 0, 0.16),
 0 3px 6px rgba(0, 0, 0, 0.23);
 $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
 0 6px 6px rgba(0, 0, 0, 0.23);
-
 .error_alert {
     color: $theme_red;
     font-size: 13px;
@@ -265,6 +257,7 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
     font-size: 11px;
     line-height: 15px;
     margin-top: 4px;
+    clear: both;
 }
 
 .c-form__validation--img {
@@ -355,134 +348,170 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
 }
 
 //old form css
+
 /* form */
-.form_group        {
-  position:relative;
-  margin-bottom: 18px;
-}
-.form_input{
-  font-size:14px;
-  padding:10px 10px 5px 0px;
-  display:block;
-  width:100%;
-  border:none;
-  color: #000000;
-  border-bottom:1px solid #c1c1c1;
-}
-.form_input:focus{
-  outline:none;
-}
-label          {
-  color:#333333;
-  font-size:14px;
-  font-weight:normal;
-  position:absolute;
-  pointer-events:none;
-  top:10px;
-  transition:0.2s ease all;
-  -moz-transition:0.2s ease all;
-  -webkit-transition:0.2s ease all;
+
+.form_group {
+    position: relative;
+    margin-bottom: 18px;
 }
 
-.form_input:focus ~ label, .form_input:valid ~ label    {
-  top:-10px;
-  font-size:12px;
-  color: #c1c1c1;
+.form_input {
+    font-size: 14px;
+    padding: 10px 10px 5px 0px;
+    display: block;
+    width: 100%;
+    border: none;
+    color: #000000;
+    border-bottom: 1px solid #c1c1c1;
 }
 
-.form_bar{
-  position:relative;
-  display:block;
-  &:before, &:after   {
-    content:'';
-    height:2px;
-    width:0;
-    bottom:1px;
-    position:absolute;
-    background: #888;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
-  }
-  &:before {
-    left:50%;
-  }
-  &:after {
-    right:50%;
-  }
-}
-/* active state */
-.form_input:focus ~ .form_bar:before, .form_input:focus ~ .form_bar:after {
-  width:50%;
+.form_input:focus {
+    outline: none;
 }
 
-.form_bar_alert{
-  position:relative;
-  display:block;
-  &:before, &:after   {
-    content:'';
-    height:2px;
-    width:0;
-    bottom:1px;
-    position:absolute;
-    background: $theme_red;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
-  }
-  &:before {
-    left:50%;
-  }
-  &:after {
-    right:50%;
-  }
+label {
+    color: #333333;
+    font-size: 14px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
 }
-/* active state */
-.form_input:focus ~ .form_bar_alert:before, .form_input:focus ~ .form_bar_alert:after {
-  width:50%;
+
+.form_input:focus~label,
+.form_input:valid~label {
+    top: -10px;
+    font-size: 12px;
+    color: #c1c1c1;
+}
+
+.form_bar {
+    position: relative;
+    display: block;
+    &:before,
+    &:after {
+        content: '';
+        height: 2px;
+        width: 0;
+        bottom: 1px;
+        position: absolute;
+        background: #888;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+    }
+    &:before {
+        left: 50%;
+    }
+    &:after {
+        right: 50%;
+    }
 }
 
 
 /* active state */
-.form_input:focus ~ .form_highlight {
-  -webkit-animation:inputHighlighter 0.3s ease;
-  -moz-animation:inputHighlighter 0.3s ease;
-  animation:inputHighlighter 0.3s ease;
+
+.form_input:focus~.form_bar:before,
+.form_input:focus~.form_bar:after {
+    width: 50%;
 }
+
+.form_bar_alert {
+    position: relative;
+    display: block;
+    &:before,
+    &:after {
+        content: '';
+        height: 2px;
+        width: 0;
+        bottom: 1px;
+        position: absolute;
+        background: $theme_red;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+    }
+    &:before {
+        left: 50%;
+    }
+    &:after {
+        right: 50%;
+    }
+}
+
+
+/* active state */
+
+.form_input:focus~.form_bar_alert:before,
+.form_input:focus~.form_bar_alert:after {
+    width: 50%;
+}
+
+
+/* active state */
+
+.form_input:focus~.form_highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+}
+
 
 /* ANIMATIONS ================ */
+
 @-webkit-keyframes inputHighlighter {
-  from { background:#5264AE; }
-  to  { width:0; background:transparent; }
-}
-@-moz-keyframes inputHighlighter {
-  from { background:#5264AE; }
-  to  { width:0; background:transparent; }
-}
-@keyframes inputHighlighter {
-  from { background:#5264AE; }
-  to  { width:0; background:transparent; }
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
 }
 
+@-moz-keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@keyframes inputHighlighter {
+    from {
+        background: #5264AE;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
 
 $transition: all 0.3s;
-$shadow-L1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-$shadow-L2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-$shadow-L3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-
-.error_alert{
-  color: $theme_red;
-  font-size: 12px;
-  font-weight: 600;
-}
-.username_error li{
-  color: $green;
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 500;
+$shadow-L1: 0 1px 3px rgba(0, 0, 0, 0.12),
+0 1px 2px rgba(0, 0, 0, 0.24);
+$shadow-L2: 0 3px 6px rgba(0, 0, 0, 0.16),
+0 3px 6px rgba(0, 0, 0, 0.23);
+$shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
+0 6px 6px rgba(0, 0, 0, 0.23);
+.error_alert {
+    color: $theme_red;
+    font-size: 12px;
+    font-weight: 600;
 }
 
-
+.username_error li {
+    color: $green;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+}
 
 // New form style ----------------------------------------------------
 .c-form__group {
@@ -572,11 +601,9 @@ label {
         -moz-transition: 0.2s ease all;
         -webkit-transition: 0.2s ease all;
     }
-
     &:before {
         left: 50%;
     }
-
     &:after {
         right: 50%;
     }
@@ -595,15 +622,10 @@ label {
         color: $color-grey-dark;
         display: none;
     }
-
     .c-form__bar {
         margin-top: 1px;
     }
 }
-
-
-
-
 
 
 /* active state */
@@ -628,19 +650,13 @@ label {
         -moz-transition: 0.2s ease all;
         -webkit-transition: 0.2s ease all;
     }
-
     &:before {
         left: 50%;
     }
-
     &:after {
         right: 50%;
     }
 }
-
-
-
-
 
 
 /* active state */
@@ -657,17 +673,12 @@ label {
 }
 
 
-
-
-
-
 /* ANIMATIONS ================ */
 
 @-webkit-keyframes inputHighlighter {
     from {
         background: #5264AE;
     }
-
     to {
         width: 0;
         background: transparent;
@@ -678,7 +689,6 @@ label {
     from {
         background: #5264AE;
     }
-
     to {
         width: 0;
         background: transparent;
@@ -689,13 +699,11 @@ label {
     from {
         background: #5264AE;
     }
-
     to {
         width: 0;
         background: transparent;
     }
 }
-
 
 $transition: all 0.3s;
 $shadow-L1: 0 1px 3px rgba(0, 0, 0, 0.12),
@@ -704,7 +712,6 @@ $shadow-L2: 0 3px 6px rgba(0, 0, 0, 0.16),
 0 3px 6px rgba(0, 0, 0, 0.23);
 $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
 0 6px 6px rgba(0, 0, 0, 0.23);
-
 .error_alert {
     color: $theme_red;
     font-size: 13px;
@@ -726,7 +733,7 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
     outline: none;
     position: relative;
     padding-top: 10px;
-    label{
+    label {
         top: 0px;
     }
 }
@@ -734,7 +741,8 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
 .c-textarea__block::-webkit-input-placeholder {
     color: #929292;
 }
-.c-textarea__block:focus~label{
+
+.c-textarea__block:focus~label {
     top: -10px;
     font-size: 13px;
     color: #c1c1c1;
@@ -799,22 +807,18 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
     .c-form__input {
         font-size: 11px; // line-height: 16px;
     }
-
     .c-textarea--style {
         font-size: 11px;
     }
-
     label {
         font-size: 11px;
     }
-
     .c-form__input:focus~label,
     .c-form__input:valid~label {
         top: -4px;
         font-size: 9px;
         color: #929292;
     }
-
     .c-form__input--lefticon {
         margin-top: -20px;
     }
@@ -828,15 +832,12 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
         font-size: 15px;
         line-height: 24px;
     }
-
     .c-textarea--style {
         font-size: 15px;
     }
-
     label {
         font-size: 15px;
     }
-
     .c-form__input--lefticon {
         margin-top: -23px;
     }
@@ -854,7 +855,6 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
         border: none;
         padding: 6px 8px;
     }
-
     label {
         top: 9px;
         left: 8px;
@@ -868,7 +868,6 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
         border: none;
         padding: 7px 8px;
     }
-
     label {
         top: 8px;
         left: 8px;
@@ -882,7 +881,6 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
         border: none;
         padding: 7px 8px;
     }
-
     label {
         top: 8px;
         left: 8px;
@@ -891,46 +889,47 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
 
 // form checked
 .c-form__check {
-  font-size: 13px;
-  margin: 16px 0px 0px 0px;
-  position: relative;
+    font-size: 13px;
+    margin: 16px 0px 0px 0px;
+    position: relative;
 }
+
 .c-form__check label {
-  cursor: pointer;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  position: relative;
-  font-size: 11px;
-  font-weight: normal;
-  color: #929292;
-  // text-transform: uppercase;
-  // letter-spacing: 1px;
-  pointer-events: auto;
-  top: 0;
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position: relative;
+    font-size: 11px;
+    font-weight: normal;
+    color: #929292;
+    // text-transform: uppercase;
+    // letter-spacing: 1px;
+    pointer-events: auto;
+    top: 0;
 }
+
 .c-form__check input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  margin: 0 9px 0 0;
-  position: relative;
-  outline: 0;
-  left: 0;
-  background-image: url(/assets/img/svg/checkboxdisabled.svg);
-  float: left;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-size: cover;
-  border:none!important;
-}
-.c-form__check input[type="checkbox"]:checked{
-  background: url(/assets/img/svg/checkboxactived.svg);
-  background-size: cover;
+    width: 16px;
+    height: 16px;
+    margin: 0 9px 0 0;
+    position: relative;
+    outline: 0;
+    left: 0;
+    background-image: url(/assets/img/svg/checkboxdisabled.svg);
+    float: left;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-size: cover;
+    border: none!important;
 }
 
-
+.c-form__check input[type="checkbox"]:checked {
+    background: url(/assets/img/svg/checkboxactived.svg);
+    background-size: cover;
+}
 
 // // old form style ----------------------------------------------------
 // .form_group {

@@ -3,6 +3,18 @@ import { Action } from '@ngrx/store';
 export class ProfileActions {
 
   /**
+   * Get imported profile by username
+   */
+  static GET_IMPORTED_PROFILE = 'GET_IMPORTED_PROFILE';
+  static GET_IMPORTED_PROFILE_SUCCESS = 'GET_IMPORTED_PROFILE_SUCCESS';
+  static GET_IMPORTED_PROFILE_FAILED = 'GET_IMPORTED_PROFILE_FAILED';
+
+  /**
+   * Chnage
+   */
+  static CHANGE_DWC_MEDIA_STATE = 'CHANGE_DWC_MEDIA_STATE';
+
+  /**
    * Load logged in users profile
    */
   static LOAD_CURRENT_USER_PROFILE = 'LOAD_CURRENT_USER_PROFILE';
@@ -213,9 +225,9 @@ export class ProfileActions {
   static CHANNEL_FOLLOW_FAILED = 'CHANNEL_FOLLOW_FAILED';
 
   /**
-   * Follow a Channel
+   * Deletel a Channel
    */
-  static CHANNEL_DELETE = 'CHANNEL_DELETE_FOLLOW';
+  static CHANNEL_DELETE = 'CHANNEL_DELETE';
   static CHANNEL_DELETE_SUCCESS = 'CHANNEL_DELETE_SUCCESS';
   static CHANNEL_DELETE_FAILED = 'CHANNEL_DELETE_FAILED';
 

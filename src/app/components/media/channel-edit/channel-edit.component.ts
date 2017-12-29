@@ -67,8 +67,6 @@ export class EditChannelComponent implements OnInit {
 
     this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
-      // console.log('state');
-      // console.log(this.mediaStore);
       if (typeof this.mediaStore.channel_detail['isOwner'] !== 'undefined' && this.mediaStore.channel_detail['isOwner'] !== true) {
         this.doClose(0);
       }
@@ -76,10 +74,8 @@ export class EditChannelComponent implements OnInit {
         setTimeout(() => {
           const industryArrLen = this.mediaStore.channel_detail['industryList'].length;
           this.selectedIndustry = this.mediaStore.channel_detail['industryList'][industryArrLen - 1];
-          // console.log('selectedIndustry', this.selectedIndustry);
         }, 1000);
         this.selectedPrivacy = this.mediaStore.channel_detail['accessSeetings'].access;
-        // console.log('selectedPrivacy', this.selectedPrivacy);
       }
     });
 
@@ -91,12 +87,10 @@ export class EditChannelComponent implements OnInit {
     this.tagState$ = this.store.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.profileChannel = state;
-      console.log(state);
       this.channelSaved = this.profileChannel.channel_updated;
 
       // Success message
       if (this.channelSavedHere && this.channelSaved === true ) {
-        // this.toastr.success('Channel Updated');
         this.switchToStep(3);
         this.channelSavedHere = false;
         this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
@@ -127,7 +121,6 @@ export class EditChannelComponent implements OnInit {
 
     // reading route
     this.route.params.subscribe(params => {
-      // console.log(params);
       if (typeof params['id'] !== 'undefined') {
         this.channelId = params['id'];
         this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
@@ -154,7 +147,6 @@ export class EditChannelComponent implements OnInit {
    * Close
    */
   doClose(event) {
-    // console.log('do close');
     this.router.navigate(['.', { outlets: { media: null } }], {
       relativeTo: this.route.parent
     });
@@ -184,7 +176,6 @@ export class EditChannelComponent implements OnInit {
         hashTags: this.hashTags
       }
 
-      // console.log('UPDATE CHANNEL', channelObj);
       this.channelSavedHere = true;
 
       const reqParams = {

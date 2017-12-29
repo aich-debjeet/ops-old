@@ -69,6 +69,16 @@ export class ProfileService {
     return this.api.post('/portal/network/spotfeed/search', body);
   }
 
+  /**
+   * Update DWC Media state
+   */
+  changeMediaState(state: number) {
+    const body = {
+      completeStatus: state
+    }
+    return this.api.put('/portal/dwc/update/application', body);
+  }
+
 
   /**
    * Get loggedin users channels.
@@ -383,7 +393,6 @@ export class ProfileService {
    * Pin channel
    */
   userChannelPin(body: any) {
-    console.log(body)
     return this.api.put('/portal/network/spotfeed/pinspotfeed/pin', body);
   }
 
@@ -412,19 +421,21 @@ export class ProfileService {
    * Get Blocked Users
    */
   getBlockedUsers(handle: any) {
-    console.log('its here')
-    console.log(handle);
     return this.api.get('/portal/network/block/list/' , handle);
   }
 
   unBlockUser(body: any) {
-    console.log(body)
-    console.log('its here')
     return this.api.put('/portal/network/block/unblock', body);
   }
 
   getdefaultNotifications() {
-    console.log('here is the default notifications')
     return this.api.get('/portal/profile/profileSettings/default/settings', '' );
+  }
+
+  /**
+   * Get imported profile by username
+   */
+  getImportedProfile(username: string) {
+    return this.api.get('/portal/profile/validate/claim/profile/' + username);
   }
 }

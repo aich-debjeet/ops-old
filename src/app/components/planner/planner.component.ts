@@ -16,7 +16,7 @@ export class PlannerComponent implements OnInit {
       description: 'Does 2011 look like 2017? I guess not. Yo Johnny, we gotta print these calendars again. Feel free to browse through our other pages.',
       buttonLink: '/home',
       buttonText: 'Go to Home',
-      img: 'http://d33wubrfki0l68.cloudfront.net/46c397b33cf7a3ed3dd796666394c1d96ed23631/70ad4/img/svg/404/project.png'
+      img: 'https://d33wubrfki0l68.cloudfront.net/46c397b33cf7a3ed3dd796666394c1d96ed23631/70ad4/img/svg/404/project.png'
     };
   }
 

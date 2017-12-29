@@ -26,7 +26,7 @@
                             <div class="c-text_md color-grey-dark">Entry Fee</div>
                         </div>
                         <div class="o-dwc-price__total">
-                            <div class="c-text_md color-grey-dark">INR {{ (dataState?.dwc_payment_url?.quantity *  dataState?.dwc_payment_url?.amount) - ((dataState?.dwc_payment_url?.quantity *  dataState?.dwc_payment_url?.amount) * 18/100 )  }}</div>
+                            <div class="c-text_md color-grey-dark">INR {{ (dataState?.dwc_payment_url?.quantity *  dataState?.dwc_payment_url?.amount) }}</div>
                         </div>
                     </div>
                     <div class="o-dwc-pric-main__block">
@@ -42,7 +42,7 @@
                             <div class="c-text_md ">Sub Total</div>
                         </div>
                         <div class="o-dwc-price__total">
-                            <div class="c-text_md color-theme">INR {{ dataState?.dwc_payment_url?.quantity *  dataState?.dwc_payment_url?.amount }}</div>
+                            <div class="c-text_md color-theme">INR {{ dataState?.dwc_payment_url?.quantity *  dataState?.dwc_payment_url?.amount + ((dataState?.dwc_payment_url?.quantity *  dataState?.dwc_payment_url?.amount) * 18/100 ) }}</div>
                         </div>
                     </div>
                     <button (click)="Payment(dataState?.dwc_payment_url?.Success?.payment_request?.longurl)" class="btn btn-primary btn-lg payment-button">Payment</button>

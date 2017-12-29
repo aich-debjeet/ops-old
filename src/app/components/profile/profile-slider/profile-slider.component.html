@@ -1,14 +1,3 @@
-<!-- <div class="c-profile_buttons" *ngIf="!this.isOwner">
-    <button *ngIf="!profileObject?.extra?.isImported" (click)="userFollow(isFollowing, profileObject?.userDetails?.handle )" type="button" [ngClass]="(isFollowing) ? 'btn-following' : 'btn-primary'" class="btn btn-primary btn-md">{{ (isFollowing)? 'Unfollow' : 'Follow'}}</button>
-    <button *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-primary btn-md">Claim</button>
-    <button type="button" class="btn btn-primary btn-md btn-inverse">Network</button>
-    <button type="button" (click)="donatePopup()" class="btn btn-primary btn-md btn-inverse">Support</button>
-</div> -->
-
-
-
-
-
 <section>
     <div class="c-timeline__img" *ngIf="profileObject !== null" [ngStyle]="coverImageStyle(profileObject)">
         <div class="container" *ngIf="this.isOwner">
@@ -29,7 +18,8 @@
             <!-- -->
             <div class="col-md-12 col-sm-12 p-0">
                 <div class="c-profile__userblock">
-                    <img src="{{ (baseUrl + profileObject?.image?.profile) || defaultImage }}" class="img-responsive img-circle c-profile__userimg">
+                    <img *ngIf="profileObject?.image?.profile" src="{{ baseUrl + profileObject?.image?.profile }}" class="img-responsive img-circle c-profile__userimg">
+                    <img *ngIf="!profileObject?.image?.profile" src="{{ defaultImage }}" class="img-responsive img-circle c-profile__userimg">
                     <span *ngIf="this.isOwner" class="c-profile__imgchange">
                         <a  data-toggle="modal" data-target="#profile-upload">
                            <a routerLink="/profile/about/image"> <img src="/assets/img/svg/edit_red.svg" class="c-profile__imgchange--icon"></a>
@@ -40,9 +30,9 @@
                     <h2 class="c-profile__username" *ngIf="this.isOwner">{{ profileObject?.name }}<span class="c-profile__userskill">artist</span></h2>
                     <h2 class="c-profile__username" *ngIf="!this.isOwner">{{ profileObject?.name }}<span class="c-profile__userskill">artist</span>
                         <button type="button" *ngIf="!profileObject?.extra?.isImported" (click)="userFollow(isFollowing, profileObject?.userDetails?.handle )" [ngClass]="(isFollowing) ? 'btn-following' : 'btn-primary'" class="btn btn-primary btn-md m-l-8">{{ (isFollowing)? 'Unfollow' : 'Follow'}}</button>
-                        <!-- <button *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-primary btn-md m-l-8">Claim</button> -->
-                        <a type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#createNetwork">Network</a>
-                        <button type="button" (click)="donatePopup()" class="btn btn-default btn-md">Support</button>
+                        <a [routerLink]="['/reg/information']" [queryParams]="{ action: 'claim_profile', username: profileObject?.extra?.username }" *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-primary btn-md m-l-8">Claim</a>
+                        <!-- <a type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#createNetwork">Network</a>
+                        <button type="button" (click)="donatePopup()" class="btn btn-default btn-md">Support</button> -->
                     </h2>
                     <span class="c-profile__userhandle">{{ '@' + profileObject?.userHandle }}</span>
                     <span class="c-profile__userprofession">{{ profileObject?.extra?.profession }}</span>
@@ -55,7 +45,7 @@
             <div class="col-md-4"></div>
             <!-- -->
         </div>
-        <div class="row o-profile__details">
+        <div class="row o-profile__details" *ngIf="!profileObject?.extra?.isImported" >
             <div [ngClass]="(profileObject?.extra?.isImported) ? 'blur-main': ''">
                 <div class="col-md-9 col-sm-9">
                     <ul class="list-inline o-profile__nav">
@@ -201,9 +191,11 @@
             </div>
         </div>
     </div>
+    <div class="claim-text" *ngIf="profileObject?.extra?.isImported">
+        <h2 class="c-h2 color-grey o-claim__account">Claim your account to post your works</h2>
+    </div>
     <router-outlet></router-outlet>
 </section>
-
 
 <app-modal [modalTitle]="'Some title'" [blocking]='false' modalId='profileEditWindow' *ngIf="this.isOwner" size="profile_update">
     <div>
@@ -335,7 +327,7 @@
                 <div class="donation_content">
                     <h2>Support<br>Coming Soon</h2>
                     <div class="donation_illustration">
-                        <img src="http://d33wubrfki0l68.cloudfront.net/d652cd5f626ee7982b86e0eff837e8d9de21c71f/d59d4/img/svg/asset2.svg" alt="">
+                        <img src="https://d33wubrfki0l68.cloudfront.net/d652cd5f626ee7982b86e0eff837e8d9de21c71f/d59d4/img/svg/asset2.svg" alt="">
                     </div>
                     <div class="donation_msg">
                         <p>

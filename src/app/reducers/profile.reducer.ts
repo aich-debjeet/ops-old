@@ -768,14 +768,10 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      *  Get default notification
      */
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS:
-    console.log('notififaction')
     return Object.assign({}, state, {
       default_notification: []
     });
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_SUCCESS:
-    console.log('notififaction default settings success')
-    console.log(JSON.stringify(payload))
-    console.log(JSON.stringify(payload.settings.allowARC))
     return Object.assign({}, state, {
       default_notification: payload.settings.notificationSettings,
       adult_Content: payload.settings.allowARC,
@@ -784,7 +780,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_FAILED:
-    console.log('notififaction default settings failure')
     return Object.assign({}, state, {
     });
 
@@ -1007,6 +1002,28 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         sending_invite: false,
         invite_sent: false
     });
+
+    /**
+     * Load an imported profile
+     */
+    case ProfileActions.GET_IMPORTED_PROFILE:
+      return Object.assign({}, state, {
+        profile_other: [],
+        profile_other_loading: true,
+      });
+
+    case ProfileActions.GET_IMPORTED_PROFILE_SUCCESS:
+      return Object.assign({}, state, {
+        profile_other_loading: false,
+        profile_other_loaded: true,
+        profile_other: payload.STATUS[0]
+      });
+
+    case ProfileActions.GET_IMPORTED_PROFILE_FAILED:
+      return Object.assign({}, state, {
+        profile_other: [],
+        profile_other_loading: false
+      });
 
     default:
       return state;

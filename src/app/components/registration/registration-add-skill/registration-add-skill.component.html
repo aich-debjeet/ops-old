@@ -4,12 +4,12 @@
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                    </button>
+                    </button> -->
                     <a class="navbar-brand" ><img src="/assets/img/ops_logo.png"></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -22,12 +22,12 @@
         </nav>
     </header>
     <section class="container-fluid skills_section">
-        <div class="container">
+        <div class="container sm-fw">
             <div class="row ptop100">
                 <h1 class="add-your-skills">Add your skills</h1>
             </div>
             <div class="row">
-                <div class="col-md-6 padding_none with_border_right">
+                <div class="col-md-6 padding_none with_border_right hidden-xs">
                     <!-- add skill block start -->
                     <ul class="add_skill_block">
                         <li *ngFor="let industry of skillSelectionPage.industries">
@@ -54,7 +54,7 @@
                         <div class="selected_skill">
                             <button *ngFor="let skill of selectedSkills" type="button" class="btn btn-xs btn-primary btn-tag-close">
                                 <span class="btn-label-tag" (click)="toggleSelectSkill(skill.code)">
-                                    {{skill.name}} <img src="http://d33wubrfki0l68.cloudfront.net/4bfecd878a6e9fec4f1edef66625ef13f7b4cdb0/32216/img/svg/ico_close-white.svg">
+                                    {{skill.name}} <img src="https://d33wubrfki0l68.cloudfront.net/4bfecd878a6e9fec4f1edef66625ef13f7b4cdb0/32216/img/svg/ico_close-white.svg">
                                 </span>
                             </button>
                         </div>

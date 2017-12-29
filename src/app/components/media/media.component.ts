@@ -90,7 +90,6 @@ export class MediaComponent implements OnInit, AfterViewInit {
 
       //   if (userHandle) {
       //     if (this.profileStore.user_channel.length < 1) {
-      //       console.log('LENGHT < 0');
       //     }
       //   }
       // });
@@ -99,14 +98,11 @@ export class MediaComponent implements OnInit, AfterViewInit {
     }
 
   ngAfterViewInit() {
-    // console.log('media modal');
   }
 
   loadChannels(handle: string) {
     if (handle) {
       this.profStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
-    } else {
-      console.log('NO HANDLE', handle);
     }
   }
 
@@ -158,7 +154,6 @@ export class MediaComponent implements OnInit, AfterViewInit {
    * @param req
    */
   postStatus(req: any) {
-    console.log(req);
     this.store.dispatch({ type: MediaActions.STATUS_SAVE, payload: req });
   }
 

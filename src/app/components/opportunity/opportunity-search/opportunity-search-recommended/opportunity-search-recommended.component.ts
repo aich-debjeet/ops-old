@@ -46,31 +46,25 @@ export class OpportunitySearchRecommendedComponent implements OnInit {
 
     // observe the opportunity state
     this.opportunityState$.subscribe((state) => {
-       console.log('opportunityState', state);
       if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
         this.opportunities = state.search_opportunities_data.SUCCESS;
-        // console.log('this.opportunities', this.opportunities);
       }
 
       // check for the result of recommended opportunities
       if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
         this.opportunities = state.get_opportunities_data.SUCCESS;
-        // console.log('this.opportunities', this.opportunities);
       }
     });
 
     // observe the user state
     this.userState$.subscribe((state) => {
       this.userState = state;
-       console.log('this.userState', this.userState);
-
       // check for user skills
       if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['skills'] && this.userState['profile_navigation_details']['skills'].length > 0) {
         // fetching skills in a local var
         const skillsLoaded = this.userState['profile_navigation_details']['skills'];
         // preparing skills as an array of string
         skillsLoaded.forEach((skill, index) => {
-          // console.log('skill.code', skill.code);
           if (skill && skill.code) {
             this.skillCodes.push(skill.code);
           }
@@ -95,7 +89,7 @@ export class OpportunitySearchRecommendedComponent implements OnInit {
       offset: 0, // initial request
       limit: this.recordsPerPage
     }
-    // console.log('dispatch recommended opportunities');
+
     this.store.dispatch({
       type: OpportunityActions.GET_OPPORTUNITIES,
       payload: recomSearchParams

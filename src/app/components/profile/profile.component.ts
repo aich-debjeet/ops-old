@@ -13,6 +13,7 @@ import { ProfileHelper } from '../../helpers/profile.helper';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { ClaimProfileActions } from 'app/actions/claim-profile.action';
 
 @Component({
   selector: 'app-profile',
@@ -45,7 +46,7 @@ export class ProfileComponent implements OnInit {
     this.isCurrentUser = false;
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      // console.log(state);
+      // console.log('state', state);
       // this.current_user_value = this.checkUserType(this.userProfile);
     });
 
@@ -60,20 +61,26 @@ export class ProfileComponent implements OnInit {
     this.sub = this.route.params
       .subscribe(params => {
         this.userName = params['id'];
-         // Load corresponding user
-        // console.log(this.userProfile);
+        // console.log('this.userName', this.userName);
+        if (this.userName && this.userName.length > 0) {
+          const userdata = {
+            isCurrentUser: false,
+            username: this.userName,
+          }
+          this.profileStore.dispatch({ type: ProfileActions.GET_IMPORTED_PROFILE, payload: this.userName });
+          this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: userdata });
+        }
     });
 
 
     this.profileStore.select('profileTags')
       .first(profile => profile['profile_navigation_details'].name )
       .subscribe( data => {
-        console.log(data['profile_navigation_details'].username)
         if (data['profile_navigation_details'].username === this.userName) {
-          console.log('current user');
+          // console.log('current user');
           this.loadProfile('');
         } else {
-          console.log('other User');
+          // console.log('other User');
           this.loadProfile(this.userName);
         }
       });

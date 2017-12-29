@@ -191,6 +191,10 @@
   version "0.9.43"
   resolved "https://registry.yarnpkg.com/@types/core-js/-/core-js-0.9.43.tgz#65d646c5e8c0cd1bdee37065799f9d3d48748253"
 
+"@types/google.analytics@^0.0.36":
+  version "0.0.36"
+  resolved "https://registry.yarnpkg.com/@types/google.analytics/-/google.analytics-0.0.36.tgz#2a71cfc91a7a7e2adc9777e051278bc8d667fa2c"
+
 "@types/googlemaps@^3.29.2":
   version "3.29.2"
   resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.29.2.tgz#6af8b3f6b94a2d4f590b95c738b905a49b97aa91"

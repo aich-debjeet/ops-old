@@ -2,85 +2,47 @@
 
 <app-dwc-progress-bar></app-dwc-progress-bar>
 
+<div class="o-dwc-top-banner__dark">
+    <div class="container">
+        <div class="o-dwc-banner">
+            <div class="col-md-9">
+                <h2 class="c-h2 color-white ">Dance World Cup</h2>
+                <h4 class="c-h4 m-t-8 color-white">India Qualifiers - 2018</h4>
+                <a routerLink="/dwc/reg" class="dwc-btn float_left">Register</a>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="o-dwc-detail-top-slider">
     <section class="dwc">
-        <ngx-carousel
-      [inputs]="dwcSlider"
-      [moveToSlide]="1"
-      (onMove)="onmoveFn($event)"
-      (afterCarouselViewed)="afterCarouselViewedFn($event)">
-            <ngx-item NgxCarouselItem class="bannerStyle" >
+        <ngx-carousel [inputs]="dwcSlider" [moveToSlide]="1" (onMove)="onmoveFn($event)" (afterCarouselViewed)="afterCarouselViewedFn($event)">
+            <ngx-item NgxCarouselItem class="bannerStyle">
                 <div class="o-dwc-top-banner">
-                    <div class="o-dwc-top-banner__dark">
-                        <div class="container">
-                            <div class="o-dwc-banner">
-                                <div class="col-md-9">
-                                    <h2 class="c-h2 color-white ">Dance World Cup</h2>
-                                    <h4 class="c-h4 m-t-8 color-white">Qualifier India- 2018</h4>
-                                    <a routerLink="/dwc/reg" class="dwc-btn float_left">Register</a>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-             </ngx-item>
-            <ngx-item NgxCarouselItem class="bannerStyle" >
+            </ngx-item>
+            <ngx-item NgxCarouselItem class="bannerStyle">
                 <div class="o-dwc-top-banner2">
-                    <div class="o-dwc-top-banner__dark">
-                        <div class="container">
-                            <div class="o-dwc-banner">
-                                <div class="col-md-9">
-                                    <h2 class="c-h2 color-white ">Dance World Cup</h2>
-                                    <h4 class="c-h4 m-t-8 color-white">Qualifier India- 2018</h4>
-                                    <a routerLink="/dwc/reg" class="dwc-btn float_left">Register</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </ngx-item>
-            <ngx-item NgxCarouselItem class="bannerStyle" >
+            <ngx-item NgxCarouselItem class="bannerStyle">
                 <div class="o-dwc-top-banner3">
-                    <div class="o-dwc-top-banner__dark">
-                        <div class="container">
-                            <div class="o-dwc-banner">
-                                <div class="col-md-9">
-                                    <h2 class="c-h2 color-white ">Dance World Cup</h2>
-                                    <h4 class="c-h4 m-t-8 color-white">Qualifier India- 2018</h4>
-                                    <a routerLink="/dwc/reg" class="dwc-btn float_left">Register</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </ngx-item>
-            <ngx-item NgxCarouselItem class="bannerStyle" >
+            <ngx-item NgxCarouselItem class="bannerStyle">
                 <div class="o-dwc-top-banner3">
-                    <div class="o-dwc-top-banner__dark">
-                        <div class="container">
-                            <div class="o-dwc-banner">
-                                <div class="col-md-9">
-                                    <h2 class="c-h2 color-white ">Dance World Cup</h2>
-                                    <h4 class="c-h4 m-t-8 color-white">Qualifier India- 2018</h4>
-                                    <a routerLink="/dwc/reg" class="dwc-btn float_left">Register</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </ngx-item>
-        <button NgxCarouselPrev class='leftRs'>
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
-                <defs>
-                    <polygon id="arrow-copy-6-a" points="15.276 4.001 8 11.942 15.276 19.882 16.75 18.531 10.713 11.942 16.75 5.351"/>
-                </defs>
-                <g fill="none" fill-rule="evenodd">
-                    <use fill="#fff" xlink:href="#arrow-copy-6-a"/>
-                </g>
-            </svg>
-        </button>
-        <button NgxCarouselNext class='rightRs'>
+            <button NgxCarouselPrev class='leftRs'>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                    <defs>
+                        <polygon id="arrow-copy-6-a" points="15.276 4.001 8 11.942 15.276 19.882 16.75 18.531 10.713 11.942 16.75 5.351"/>
+                    </defs>
+                    <g fill="none" fill-rule="evenodd">
+                        <use fill="#fff" xlink:href="#arrow-copy-6-a"/>
+                    </g>
+                </svg>
+            </button>
+            <button NgxCarouselNext class='rightRs'>
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
                 <defs>
                     <polygon id="arrow-copy-5-a" points="15.526 4.119 8.25 12.06 15.526 20 17 18.649 10.963 12.06 17 5.469"/>
@@ -90,7 +52,7 @@
                 </g>
             </svg>
         </button>
-    </ngx-carousel>
+        </ngx-carousel>
     </section>
 </div>
 
@@ -102,14 +64,14 @@
                     <li (click)="tabChange('tab-1')" [ngClass]="{'active': activeTab == 'tab-1'}">
                         <a class="m-l-0" aria-expanded="true">Home</a>
                     </li>
-                    <li (click)="tabChange('tab-2')" [ngClass]="{'active': activeTab == 'tab-2'}">
+                    <!-- <li (click)="tabChange('tab-2')" [ngClass]="{'active': activeTab == 'tab-2'}">
                         <a>announcement</a>
-                    </li>
+                    </li> -->
                     <li (click)="tabChange('tab-3')" [ngClass]="{'active': activeTab == 'tab-3'}">
-                        <a >2018-spain</a>
+                        <a>2018-spain</a>
                     </li>
                     <li (click)="tabChange('tab-4')" [ngClass]="{'active': activeTab == 'tab-4'}">
-                        <a >Rules</a>
+                        <a>Rules</a>
                     </li>
                     <li (click)="tabChange('tab-5')" [ngClass]="{'active': activeTab == 'tab-5'}">
                         <a>genres</a>
@@ -118,13 +80,13 @@
                         <a>Entry</a>
                     </li>
                     <li (click)="tabChange('tab-7')" [ngClass]="{'active': activeTab == 'tab-7'}">
-                        <a >Previous Finals</a>
+                        <a>Previous Finals</a>
                     </li>
                     <li (click)="tabChange('tab-8')" [ngClass]="{'active': activeTab == 'tab-8'}">
-                        <a >Gallery</a>
+                        <a>Gallery</a>
                     </li>
                     <li (click)="tabChange('tab-9')" [ngClass]="{'active': activeTab == 'tab-9'}">
-                        <a >Contact</a>
+                        <a>Contact</a>
                     </li>
                 </ul>
             </div>
@@ -134,62 +96,62 @@
                 <img src="/assets/img/dwc/dwc_logo.png" alt="">
             </div>
             <span class="c-links__share  dropdown">
-                <a shareButton="facebook" [sbUrl]="'http://prettylinks.co/ejwdFy+'"  class="dwc-btn m-l-8 dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> 
+                <a shareButton="facebook" [sbUrl]="'http://pretty.link/FFFt7F'"  class="dwc-btn m-l-8 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <span class="dwc-share-icon"><img src="/assets/img/svg/share_theme.svg" alt=""></span>Share
-                </a>
-                <div class="dropdown-menu dropdown-menu-right o-share__profile o-dwc-share p-16">
-                    <div class="c-text_md p-b-8">Share this Profile</div>
-                    <div class="c-invite--search m-0">
-                        <form class="fill-grey-light">
-                            <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm">
-                                <input class="c-form__input p-l-24" required="" type="text">
-                                <label class="p-l-16">Input with icon</label>
-                                <span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right o-share__profile o-dwc-share p-16">
+                <div class="c-text_md p-b-8">Share this Profile</div>
+                <div class="c-invite--search m-0">
+                    <form class="fill-grey-light">
+                        <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm">
+                            <input class="c-form__input p-l-24" required="" type="text">
+                            <label class="p-l-16">Input with icon</label>
+                            <span>
                                     <img src="/assets/img/svg/ico_search.svg" class="c-form__input--lefticon">
                                 </span>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="o-share__recent m-t-b-16">Recent Contacts</div>
-                    <div class="c-invite__block">
-                        <a class="c-user__avatar c-avatar--status">
-                            <img src="/assets/img/new/avatar.png" class="o-share__avatar">
-                        </a>
-                        <a class="c-text_md c-invite--user">Seth Chevz1</a>
-                    </div>
-                    <div class="c-invite__block">
-                        <a class="c-user__avatar c-avatar--status">
-                            <img src="/assets/img/new/avatar2.png" class="o-share__avatar">
-                        </a>
-                        <a class="c-text_md c-invite--user">Seth Chevz2</a>
-                    </div>
-                    <div class="c-invite__block">
-                        <a class="c-user__avatar c-avatar--status">
-                            <img src="/assets/img/new/avatar3.png" class="o-share__avatar">
-                        </a>
-                        <a class="c-text_md c-invite--user">Seth Chevz3</a>
-                    </div>
-                    <div class="c-invite__block">
-                        <a class="c-user__avatar c-avatar--status">
-                            <img src="/assets/img/new/avatar2.png" class="o-share__avatar">
-                        </a>
-                        <a class="c-text_md c-invite--user">Seth Chevz4</a>
-                    </div>
-                    <div class="o-share__social">
-                        <div class="o-share__social-icon p-l-0">
-                            <img src="/assets/img/svg/googleplus.svg">
                         </div>
-                        <div class="o-share__social-icon">
-                            <img src="/assets/img/svg/twitter.svg">
-                        </div>
-                        <div class="o-share__social-icon">
-                            <img src="/assets/img/svg/facebook.svg">
-                        </div>
-                        <div class="o-share__social-icon p-r-0">
-                            <img src="/assets/img/svg/envelope.svg">
-                        </div>
+                    </form>
+                </div>
+                <div class="o-share__recent m-t-b-16">Recent Contacts</div>
+                <div class="c-invite__block">
+                    <a class="c-user__avatar c-avatar--status">
+                        <img src="/assets/img/new/avatar.png" class="o-share__avatar">
+                    </a>
+                    <a class="c-text_md c-invite--user">Seth Chevz1</a>
+                </div>
+                <div class="c-invite__block">
+                    <a class="c-user__avatar c-avatar--status">
+                        <img src="/assets/img/new/avatar2.png" class="o-share__avatar">
+                    </a>
+                    <a class="c-text_md c-invite--user">Seth Chevz2</a>
+                </div>
+                <div class="c-invite__block">
+                    <a class="c-user__avatar c-avatar--status">
+                        <img src="/assets/img/new/avatar3.png" class="o-share__avatar">
+                    </a>
+                    <a class="c-text_md c-invite--user">Seth Chevz3</a>
+                </div>
+                <div class="c-invite__block">
+                    <a class="c-user__avatar c-avatar--status">
+                        <img src="/assets/img/new/avatar2.png" class="o-share__avatar">
+                    </a>
+                    <a class="c-text_md c-invite--user">Seth Chevz4</a>
+                </div>
+                <div class="o-share__social">
+                    <div class="o-share__social-icon p-l-0">
+                        <img src="/assets/img/svg/googleplus.svg">
+                    </div>
+                    <div class="o-share__social-icon">
+                        <img src="/assets/img/svg/twitter.svg">
+                    </div>
+                    <div class="o-share__social-icon">
+                        <img src="/assets/img/svg/facebook.svg">
+                    </div>
+                    <div class="o-share__social-icon p-r-0">
+                        <img src="/assets/img/svg/envelope.svg">
                     </div>
                 </div>
+            </div>
             </span>
         </div>
     </div>
@@ -204,59 +166,47 @@
                     <div class="col-md-12 p-l-r-0">
                         <div class="tab-content">
                             <div id="04" [ngClass]="{'active in': activeTab == 'tab-1'}" class="tab-pane fade">
-                                <div class="o-dwc__block ">
-                                    <h2 class="m-t-24">Talented • Professional • International</h2>
+                                <div class="o-dwc__block m-t-24">
+                                    <h2 class="m-b-8">Talented • Professional • International</h2>
                                     <p class="c-text_md m-t-b-8">
                                         Dance World Cup is the leading international dancing event in which thousands of dancers from around the world participate in a variety of competitions. This competition includes 11 genres and all age groups are involved.
                                     </p>
-                                        
+
                                     <p class="c-text_md m-t-b-8 o-dwc-detail__txt">
-                                        Since 2009, the Dance World Cup Finals has been held every year in different countries, such as Italy, France, Austria, Portugal, Romania and England. Over 12,000 dancers compete in the qualifying matches in their home countries, before they are qualified to the finals. In the Dance World Cup Final 2017, which was held in Offenburg, Germany, over 4,000 dancers representing 47 countries compete at the competition.
+                                        Since 2009, the Dance World Cup Finals have been held every year in different countries, such as Italy, France, Austria, Portugal, Romania and England. Over 12,000 dancers compete in the qualifying matches in their home countries, before they are qualified
+                                        to the finals. In the Dance World Cup Final 2017, which was held in Offenburg, Germany, over 4,000 dancers representing 47 countries competed at the competition.
                                     </p>
                                     <p class="c-text_md m-t-b-8 o-dwc-detail__txt">
                                         Last year, Hong Kong Qualifying Match was held for the first time. Over 60 dancers joined the Finals in Germany. All dancers achieved satisfactory results, with one dancer winning the bronze medal in National and Folklore Dance.
                                     </p>
                                     <p class="c-text_md m-t-b-8 o-dwc-detail__txt">
-                                        Dance World Cup is different from local competitions. Before attending the finals, dancers were required to be qualified from the qualifying match. We aim to provide an opportunity for cultural exchange between dancers. We believe “he that travels far knows much”, those who seized the opportunity to explore, knows more. Dancers who participated last year all had a fruitful experience of acquiring stronger dancing skills, and establishing friendship with one another.
+                                        Dance World Cup is different from local competitions. Before attending the finals, dancers were required to be qualified from the qualifying match. We aim to provide an opportunity for cultural exchange between dancers. We believe “He who travels far,
+                                        knows much; Those who seized the opportunity to explore, knows more.” Dancers who participated last year had a fruitful experience of acquiring stronger dancing skills, and establishing friendship with one another.
                                     </p>
                                     <p class="c-text_md m-t-b-8 o-dwc-detail__txt">
-                                        Next year, we aim to provide a platform for dancers to unleash their potential. We are now looking for sponsorships to promote this opportunity to more dancers. The Dance World Cup Final 2018 will be held in Spain. We are looking forward to your participation, see you at the event!
+                                        The Dance World Cup Final 2018 will be held in Spain. We look forward to your participation. See you at the event!
                                     </p>
-                                </div><!-- about -->
+                                </div>
+                                <!-- about -->
                             </div>
 
                             <div id="05" [ngClass]="{'active in': activeTab == 'tab-2'}" class="tab-pane fade">
                                 <h2 class="m-t-24">Announcement</h2>
                                 <div id="competition" class="o-dwc__block">
-                                    <p class="c-text_md   m-t-b-8">
-                                        Dance World Cup is the leading international dancing event in which thousands of dancers from around the world participate in a variety of competitions. This competition includes 11 genres and all age groups are involved.
-                                    </p>
-                                    <p class="c-text_md   m-t-b-8">
-                                        Since 2009, the Dance World Cup Finals has been held every year in different countries, such as Italy, France, Austria, Portugal, Romania and England. Over 12,000 dancers compete in the qualifying matches in their home countries, before they are qualified to the finals. In the Dance World Cup Final 2017, which was held in Offenburg, Germany, over 4,000 dancers representing 47 countries compete at the competition.
-                                    </p>
-                                    <p class="c-text_md   m-t-b-8">
-                                        Last year, Hong Kong Qualifying Match was held for the first time. Over 60 dancers joined the Finals in Germany. All dancers achieved satisfactory results, with one dancer winning the bronze medal in National and Folklore Dance.
-                                    </p>
-                                    <p class="c-text_md   m-t-b-8">
-                                        Dance World Cup is different from local competitions. Before attending the finals, dancers were required to be qualified from the qualifying match. We aim to provide an opportunity for cultural exchange between dancers. We believe “he that travels far knows much”, those who seized the opportunity to explore, knows more. Dancers who participated last year all had a fruitful experience of acquiring stronger dancing skills, and establishing friendship with one another.
-                                    </p>
-                                    <p class="c-text_md   m-t-b-8">
-                                        Next year, we aim to provide a platform for dancers to unleash their potential. We are now looking for sponsorships to promote this opportunity to more dancers. The Dance World Cup Final 2018 will be held in Spain. We are looking forward to your participation, see you at the event!
-                                    </p>
-                                    
-                                </div><!-- competition end -->
+
+                                </div>
+                                <!-- competition end -->
                             </div>
 
-                            <div id="06"  [ngClass]="{'active in': activeTab == 'tab-3'}" class="tab-pane fade" class="tab-pane fade">
-                                
+                            <div id="06" [ngClass]="{'active in': activeTab == 'tab-3'}" class="tab-pane fade" class="tab-pane fade">
+
                                 <h2 class="m-t-24">2018 - Spain</h2>
                                 <div class="o-dwc__block">
-                                    <p class="c-text_md   m-t-b-8">
-                                        Dance World Cup is very excited to announce the second Asian Dance World Cup qualifier for 2018. John Grimshaw, Chairman of Dance World Cup, will be attending this qualifier to greet you all and we hope that this will be a start of a new era in international competition for dance in this region.
-                                    </p>
                                     <h4 class="c-h4 m-t-16">How to qualify for the World Finals</h4>
                                     <p class="c-text_md   m-t-b-8">
-                                        All dancers must qualify to take part in the Dance World Cup Finals. If there is a qualifying competition in your country of residence, you must qualify through this competition. Dancers must receive 70 marks or above at their national qualifying to compete at the Dance World Cup Finals. Each country can enter a maximum of THREE routines per class. For more information about qualifying in your country, please contact your local qualifier organizer at the email address listed below.
+                                        All dancers must qualify to take part in the Dance World Cup Finals. If there is a qualifying competition in your country of residence, you must qualify through this competition. Dancers must receive 70 marks or above at their national qualifying event
+                                        to compete at the Dance World Cup Finals. Each country can enter a maximum of THREE routines per class. For more information about qualifying in your country, please contact your local qualifier organizer at the
+                                        email address listed below.
                                     </p>
                                     <div class="col-md-7 p-l-0">
                                         <h4 class="c-h4 m-t-16">India Dance World Cup Qualifier 2018</h4>
@@ -264,25 +214,35 @@
                                             Date
                                         </p>
                                         <p class="c-text_lg f-w_600 m-b-24">
-                                            21 – 22 January 2018
+                                            20 - 21 January, 2018
                                         </p>
 
                                         <p class="c-text_md f-w_600 text_uppercase color-grey-dark m-t-8">
-                                            venue
+                                            Venue
                                         </p>
                                         <p class="c-text_lg f-w_600 m-b-24">
-                                            Bangalore - Phoenix Marketcity
+                                            Bangalore Phoenix Market City
                                         </p>
 
                                         <p class="c-text_md f-w_600 text_uppercase color-grey-dark m-t-8">
-                                            contact
-                                        </p>
-
-                                        <p class="c-text_md f-w_600 text_uppercase color-grey-dark m-t-8">
-                                            Email
+                                            Contact - Registration
                                         </p>
                                         <p class="c-text_lg f-w_600 m-b-24">
-                                           contact@onepagespotlight.com
+                                            One Page Spotlight <br> contact@onepagespotlight.com
+                                        </p>
+
+                                        <p class="c-text_md f-w_600 text_uppercase color-grey-dark m-t-8">
+                                            Contact - Event/ Performances
+                                        </p>
+                                        <p class="c-text_lg f-w_600 m-b-24">
+                                            info@lvds.in <br> lourdvijay@lvds.in
+                                        </p>
+
+                                        <p class="c-text_md f-w_600 text_uppercase color-grey-dark m-t-8">
+                                            What’sApp Hotline
+                                        </p>
+                                        <p class="c-text_lg f-w_600 m-b-24">
+                                            +91 7338 343 123<br> +91 8904 073 584
                                         </p>
 
                                     </div>
@@ -292,7 +252,7 @@
                                             Date
                                         </p>
                                         <p class="c-text_lg f-w_600 m-b-24">
-                                            22 June – 1 July 2018
+                                            22 June - 1 July, 2018
                                         </p>
 
                                         <p class="c-text_md f-w_600 text_uppercase color-grey-dark m-t-8">
@@ -303,7 +263,7 @@
                                         </p>
 
                                         <p class="c-text_md f-w_600 text_uppercase color-grey-dark m-t-8">
-                                            venue
+                                            Venue
                                         </p>
                                         <p class="c-text_lg f-w_600 m-b-24">
                                             Melia Hotel Sitges
@@ -313,39 +273,40 @@
                                             Date of Opening Ceremony
                                         </p>
                                         <p class="c-text_lg f-w_600 m-b-24">
-                                           22 June 2018
+                                            22 June 2018
                                         </p>
 
                                         <p class="c-text_md f-w_600 text_uppercase color-grey-dark m-t-8">
                                             contact
                                         </p>
-                                        <p class="c-text_lg color-theme f-w_600 m-b-24">
-                                           www.dwcworld.com
-                                        </p>
-
+                                        <a class="c-text_lg color-theme f-w_600 m-b-24 cursor-pointer" target="_blank" href="http://www.dwcworld.com">
+                                            www.dwcworld.com
+                                        </a>
                                     </div>
-                                    
-                                </div><!-- music end -->
+
+                                </div>
+                                <!-- music end -->
                             </div>
 
                             <div id="07" [ngClass]="{'active in': activeTab == 'tab-4'}" class="tab-pane fade">
                                 <h2 class="m-t-24">Rules</h2>
                                 <h3 class="c-h3 f-w_500 m-t-16">
-                                    The general rules of participation for both India qualifiers and DWC finals are the same
+                                    The general rules of performance for both the India qualifiers and Dance World Cup finals are the same. However participation with respect to event dates, location, payment structure and dance styles (referred to as dance classes) are different. Kindly
+                                    download both documents and read through carefully to avoid any confusion and penalties.
                                 </h3>
                                 <div class="o-dwc__block">
-                                    <p class="c-text_md   m-t-b-8">
-                                        The Rules of Dance World Cup India Qualifiers should be read carefully and applied to the entries submitted to our competitions so that the participants are not penalised. 
-                                    </p>
+                                    <!-- <p class="c-text_md   m-t-b-8">
+                                        The Rules of Dance World Cup India Qualifiers should be read carefully and applied to the entries submitted to our competitions so that the participants are not penalised.
+                                    </p> -->
                                     <a href="/assets/pdf/dwc.pdf" target="_blank" class="c-text_md f-w_600 color-theme text_uppercase ">
-                                        download qualifiers rule book
+                                        <img class="icon-download" src="/assets/img/svg/Download.svg">Download Qualifier Rule Book
                                     </a>
-                                    
+
                                     <p class="c-text_md   m-b-8 m-t-24">
                                         For the Official Rules and Regulations of DWC Finals, please refers to:
                                     </p>
                                     <a href="/assets/pdf/dwc.pdf" target="_blank" class="c-text_md f-w_600 color-theme text_uppercase">
-                                        download Finals rule book
+                                        <img class="icon-download" src="/assets/img/svg/Download.svg">Download Finals Rule Book
                                     </a>
                                 </div>
                             </div>
@@ -353,17 +314,18 @@
                             <div id="08" [ngClass]="{'active in': activeTab == 'tab-5'}" class="tab-pane fade">
                                 <h2 class="m-t-24">Genres and Classes</h2>
                                 <div class="o-dwc__block">
-                                    <div class="col-md-2 p-l-0">
-                                        <p class="c-text_md f-w_600 text_uppercase color-grey-dark ltr-space">Classes</p>
+                                    <p class="c-text_md f-w_600 text_uppercase color-grey-dark ltr-space">
+                                        Ages (Age as at 1st January 2018)
+                                    </p>
+                                    <div class="col-md-2 col-sm-4 col-xs-4  p-l-0">
+                                        <!-- <p class="c-text_md f-w_600 text_uppercase color-grey-dark ltr-space">Classes</p> -->
                                         <p class="c-text_md m-t-8">Mini</p>
                                         <p class="c-text_md m-t-8">Children</p>
                                         <p class="c-text_md m-t-8">Junior</p>
                                         <p class="c-text_md m-t-8">Senior</p>
                                     </div>
-                                    <div class="col-md-6">
-                                        <p class="c-text_md f-w_600 text_uppercase color-grey-dark ltr-space">
-                                            Ages (Age as at 1st January 2018)
-                                        </p>
+                                    <div class="col-md-6 col-sm-8 col-xs-8">
+
                                         <p class="c-text_md m-t-8">9 yrs & under</p>
                                         <p class="c-text_md m-t-8">13 yrs & under</p>
                                         <p class="c-text_md m-t-8">17 yrs & under</p>
@@ -373,26 +335,26 @@
                                     <div class="col-md-12 p-l-0">
                                         <p class="c-text_md f-w_600 text_uppercase color-grey-dark ltr-space m-t-24">Categories</p>
                                         <p class="c-text_md m-t-8">Solo, Duet/Trio, Quartet/Quad, Group</p>
-                                        <h4 class="c-h4 m-t-24">Acro Dance</h4>
+                                        <h4 class="c-h4 m-t-24">Dance Style</h4>
                                         <p class="c-text_md m-t-8">
-                                            Combination of classical dance technique and precision acrobatic elements
+                                            Hip-Hop, Street, Commercial and Freestyle <br> National, Bollywood, Classical, Folk, Tribal<br> Contemporary & Modern<br> Ballet, Jazz, Tap, Acro<br> Song and Dance<br>
                                         </p>
-                                        <h4 class="c-h4 m-t-24">Ballet and Demi-Character</h4>
+                                        <!-- <h4 class="c-h4 m-t-24">Ballet and Demi-Character</h4>
                                         <p class="c-text_md m-t-8">
                                             Ballet and Demi Character is telling a story through ballet. It can be the story of Sleeping Beauty, where the dancer acts out the scene while dancing beautiful ballet, or the story of a new born deer, or the story of a milkmaid，etc.
-                                        </p>
+                                        </p> -->
                                     </div>
                                 </div>
-                                
+
                             </div>
 
                             <div id="09" [ngClass]="{'active in': activeTab == 'tab-6'}" class="tab-pane fade">
-                                
-                                <h2 class="m-t-24">Entry Detais for India Qualifiers</h2>
-                                <p class="c-text_md m-t-32" >
-                                    An entry fee of <span class="color-theme">Rs. 350</span> will be charge for every applicant to participate in the DWC india Qualifiers.
+
+                                <h2 class="m-t-24">Entry Details for India Qualifiers</h2>
+                                <p class="c-text_md m-t-32">
+                                    An entry fee of <span class="color-theme">Rs. 354 (Incl.GST)</span> will be charged for every applicant to participate in the DWC india Qualifiers.
                                 </p>
-                                <h4 class="c-h4 m-t-24">DWC India cup 2018 Entry Process </h4>
+                                <h4 class="c-h4 m-t-24">DWC India Qualifier 2018 Entry Process </h4>
                                 <div class="o-dwc__block">
                                     <ul class="o-dwc-entry-process">
                                         <li class="o-dwc-entry__list">
@@ -405,18 +367,18 @@
                                         <li class="o-dwc-entry__list">
                                             <p class="c-text_md   m-t-b-8">
                                                 <span class="o-dwc-entry-icon"></span>
-                                                <span class="color-theme">Register</span> for Dance World Cup Qualifiers
+                                                <span class="color-theme">Register</span> for Dance World Cup Qualifiers.
                                             </p>
                                         </li>
 
                                         <li class="o-dwc-entry__list">
                                             <p class="c-text_md">
                                                 <span class="o-dwc-entry-icon"></span>
-                                                <span class="color-theme">Video Shortlist</span> - All applicants will be go through a first round of shortlisting through videos.
-                                            </p> 
+                                                <span class="color-theme">Video Shortlist</span> - All applicants will go through a first round of shortlisting through videos.
+                                            </p>
                                             <p class="c-text_md   m-t-b-8 m-l-16">
-                                                
-                                                A video of the dance style the applicant chooses to compete in should be uploaded on to One Page Spotlight using hashtags describing the dance style. <span class="color-theme">Eg.#DWCIQHIPHOP #DWICIQCLASSICAL #DWICIQFOLK DWCIQBALLET</span>
+
+                                                A video of the dance style the applicant chooses to compete in should be uploaded onto One Page Spotlight using hashtags describing the dance style. <span class="color-theme">Eg.#DWCIQHIPHOP, #DWCIQCLASSICAL, #DWCIQFOLK, #DWCIQBALLET</span>
                                             </p>
 
                                             <p class="c-text_md m-l-16">
@@ -431,7 +393,7 @@
                                             <div class="o-dwc-video-timing-container">
                                                 <div class="o-dwc-video-timing__head">
                                                     <div class="col-md-6 p-0">
-                                                        <span class="c-text_md f-w_600">Category<br>age & performance</span>
+                                                        <span class="c-text_md f-w_600">Category<br>Age & Performance</span>
                                                     </div>
                                                     <div class="col-md-4 p-0">
                                                         <span class="c-text_md f-w_600">
@@ -535,28 +497,23 @@
 
                                         <li class="o-dwc-entry__list">
                                             <p class="c-text_md width100 color-theme float_left  m-t-b-8">
-                                                <span class="o-dwc-entry-icon"></span>
-                                                Complete payment
+                                                <span class="o-dwc-entry-icon"></span> Complete Payment
                                             </p>
                                         </li>
 
                                     </ul>
-                                    
+
                                 </div>
                                 <p class="c-text_lg m-t-24 width100 float_left f-w_600">
-                                    Note: The details in the forms will be saved only on the click of Submit button at the end of each step in the registration process. It is advised to complete the registration process in one sitting.
+                                    Note: The details in the forms will be saved only on the click of the Submit button at the end of each step in the registration process. It is advised to complete the registration process in one sitting.
                                 </p>
                             </div>
 
                             <div id="10" [ngClass]="{'active in': activeTab == 'tab-7'}" class="tab-pane fade">
-                                <h2 class="m-t-24">Dance World Cup 2014 Finals Portugal Recap</h2>
+                                <h2 class="m-t-24">Dance World Cup 2017 Finals Germany Recap</h2>
                                 <div class="o-dwc__block">
                                     <div class="o-dwc__media m-t-16">
-                                        <img src="/assets/img/new/s03.jpg" alt="">
-                                    </div>
-                                    <h2 class="m-t-32 float_left width100">Dance World Cup 2014 Finals Portugal Recap</h2>
-                                    <div class="o-dwc__media m-t-16">
-                                        <img src="/assets/img/new/s03.jpg" alt="">
+                                        <iframe width="840" height="630" src="https://www.youtube.com/embed/Vgo2ngLgZsI"></iframe>
                                     </div>
                                 </div>
                             </div>
@@ -610,7 +567,7 @@
                                     Send us a message and we’ll get back to you as soon as we can.
                                 </p>
                                 <div class="o-dwc__block">
-                                    <form #contactFrm="ngForm" [formGroup]="contactForm" (ngSubmit)="submitContactForm(contactForm.value)" >
+                                    <form #contactFrm="ngForm" [formGroup]="contactForm" (ngSubmit)="submitContactForm(contactForm.value)">
                                         <div class="col-md-7 p-0">
                                             <div class="c-form__group m-t-32">
                                                 <input class="c-form__input" required="" formControlName="name" type="text">
@@ -693,5 +650,4 @@
         </div> -->
     </div>
 </section>
-
-
+<app-footer></app-footer>

@@ -52,8 +52,8 @@
 <section *ngFor="let category of allSpotfeeds" class="o-explore-catagory-main m-t-24">
   
   <div class="container p-0">
-    <!-- <h6 class="c-text_lg f-w_600">{{ category?.industry }}<span class="c-text_lg float_right m-r-16">More</span></h6> -->
-    <h6 class="c-text_lg f-w_600">{{ category?.industry }}</h6>
+    <h6 class="c-text_lg f-w_600">{{ category?.industryType }}<span class="c-text_lg float_right m-r-16 cursor-pointer" (click)="dispatchLoadMore(category?.industryType)" >More</span></h6>
+    <!-- <h6 class="c-text_lg f-w_600">{{ category?.industryType }}</h6> -->
 
     <div *ngIf="category?.feeds.length > 0; else spotfeeds_not_found;" >
       <div *ngFor="let spotfeed of category?.feeds" class="o-explore-card m-r-16 m-t-8" [routerLink]="['/spotfeed', spotfeed.name]" >
@@ -79,7 +79,7 @@
 <!-- preloader -->
 
 <!-- if spotfeeds not found -->
-<div *ngIf="allSpotfeeds && allSpotfeeds?.spotfeeds?.length === 0;">
+<div *ngIf="allSpotfeeds && allSpotfeeds?.explore_spotfeeds?.length === 0;">
   <p class="result-not-found">Spotfeeds not found!</p>
 </div>
 <!-- if spotfeeds not found -->

@@ -16,7 +16,7 @@ export class CommunitiesComponent implements OnInit {
       description: 'We can\'t find John Doe! We can\'t start without him now, can we? We\'ll be back as soon as we find him. Feel free to browse through our other pages.',
       buttonLink: '/home',
       buttonText: 'Go to Home',
-      img: 'http://d33wubrfki0l68.cloudfront.net/2a115820a1270ca0fd7016179883918dbf09e21f/83879/img/svg/404/communitiescomingsoon2.png'
+      img: 'https://d33wubrfki0l68.cloudfront.net/2a115820a1270ca0fd7016179883918dbf09e21f/83879/img/svg/404/communitiescomingsoon2.png'
     };
   }
 }
