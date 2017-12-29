@@ -366,10 +366,13 @@ export class FormValidation {
         return null;
     }
 
-    static usernameMaxlengthValidator (control: AbstractControl) {
+    static usernameLengthValidator (control: AbstractControl) {
         const value = control.value;
-        if (value.length > 15) {
-            return { maxLengthExceeds: true }
+        if (value.length === 0) {
+            return null;
+        }
+        if (value.length < 3 || value.length > 15) {
+            return { invalidLength: true }
         }
         return null;
     }

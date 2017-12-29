@@ -44,7 +44,7 @@
                                 <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.capitalLetters">Capital letters are not allowed</p> -->
                                 <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && regform.submitted">Username is required</p>
                                 <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
-                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.maxLengthExceeds">Maximum 15 characters are allowed</p>
+                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.invalidLength && regform.submitted">Username length limit is 3 to 15 characters</p>
                                 <ul class="username_error" *ngIf="petTag.user_unique">
                                     <li *ngFor="let username of petTag?.user_exsist; let isLast=last">
                                         <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>

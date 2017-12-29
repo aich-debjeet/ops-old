@@ -228,8 +228,8 @@ export class RegistrationBasicComponent implements OnInit {
       'username' : ['', [
           Validators.required,
           FormValidation.noWhitespaceValidator,
-          FormValidation.noCapitalLettersValidator,
-          FormValidation.usernameMaxlengthValidator
+          FormValidation.usernameLengthValidator,
+          FormValidation.noCapitalLettersValidator
         ],
         this.databaseValidator.userNameValidation.bind(this.databaseValidator)
       ],
