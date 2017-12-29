@@ -114,7 +114,9 @@
                                 </div>
                             </div> -->
                             <div class="dropdown__item p-16 msg__read">
-                                <p class="dropnoti__viewall">View All</p>
+                                <a routerLink="/notification">
+                                    <p class="dropnoti__viewall">View All </p>
+                                </a>
                             </div>
                         </div>
                     </li>
@@ -126,15 +128,17 @@
 
                     <li class="dropdown" appDropdown>
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                            <div *ngIf="userCards?.active?.image !== ''; else profile_image_empty" >
+                            <div *ngIf="userCards?.active?.image !== ''; else profile_image_empty">
                                 <img src="{{ baseUrl + this.userCards.active.image }}" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === false">
                                 <img src="{{ baseUrl + this.userCards.active.image }}" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === true">
+                                <span class="caret"></span>
                             </div>
                             <ng-template #profile_image_empty>
                                 <img src="https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === false">
                                 <img src="https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === true">
+                                <span class="caret"></span>
                             </ng-template>
-                            <span class="caret"></span>
+
                         </a>
                         <div class="dropdown-menu dropdown-menu-right nav__dropdown" [ngClass]="{'open': this.topNav['profile'].open }">
                             <div class="dropdown__item with_border_bottom p-b-16">
