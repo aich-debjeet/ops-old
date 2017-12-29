@@ -56,13 +56,13 @@
                     <div class="form_group ops_radio_sm ops_radio_gender">
                         <label class="width100">
                             <label class="col-md-2 signup_gender">Gender</label>
-                            <label class="col-md-3 gender_single">
+                            <label class="col-md-3 gender_single p-r-0">
                                 <input type="radio" value="M" name="gender" formControlName="gender" [checked]="true"><span></span>Male
                             </label>
-                            <label class="col-md-3 gender_single">
+                            <label class="col-md-3 gender_single p-r-0">
                                 <input type="radio" value="F" name="gender" formControlName="gender"><span></span>Female
                             </label>
-                            <label class="col-md-3 gender_single">
+                            <label class="col-md-3 gender_single p-r-0">
                                 <input type="radio" value="O" name="gender" formControlName="gender"><span></span>Other
                             </label>
                         </label>
@@ -117,7 +117,7 @@
                         <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password does not match</p>
                     </div>
                     <div class="form_group ops_radio_sm">
-                        <label class="width100">
+                        <label class="width100 reg-checkbox">
                                 <label class="gender_single">
                                     <input type="checkbox" #saveUserNameCheckBox [checked]="saveUsername" (change)="onSaveUsernameChanged(saveUserNameCheckBox.checked)">
                                 </label>

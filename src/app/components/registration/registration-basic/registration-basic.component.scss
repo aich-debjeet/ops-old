@@ -93,6 +93,19 @@
     width: 100%;
 }
 
+.reg-checkbox {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        display: table;
+        float: left;
+    }
+    label {
+        @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            display: table-cell;
+            vertical-align: middle;
+        }   
+    }
+}
+
 .reg_step1_otp {
     .modal-lg {
         width: 850px;
@@ -108,6 +121,10 @@
         line-height: 26px;
         font-size: 18px;
         font-weight: 500;
+        @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            font-size: 15px;
+            padding: 0 15px;
+        }
     }
     a {
         color: #ff7b84;
