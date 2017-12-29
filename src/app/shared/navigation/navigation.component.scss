@@ -636,3 +636,15 @@
     font-size: 11px;
     text-transform: uppercase;
 }
+
+.o-logout__btn {
+    float: right;
+    margin: 9px;
+    right: 0;
+    position: absolute;
+    display: none;
+    
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        display: block;
+    } 
+}

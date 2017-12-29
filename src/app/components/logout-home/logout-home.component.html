@@ -3,10 +3,14 @@
         <div class="o-logo">
             <img src="/assets/img/landing/logobetawhite.svg" class="">
         </div>
-        <div class="o-log-reg-btn">
-            <a [routerLink]="['reg']" class="o-landing-signup-btn">Sign Up</a>
-            <a [routerLink]="['login']" class="o-landing-more-btn m-l-8">login</a>
+        <div class="o-log-reg-btn hidden-xs hidden-sm visible-md visible-lg">
+            <a [routerLink]="['reg']" class="o-landing-signup-btn ">Sign Up</a>
+            <a [routerLink]="['login']" class="o-landing-more-btn m-l-8 ">login</a>
         </div>
+        <div class="o-log-reg-btn hidden-lg hidden-md visible-sm visible-xs">
+                <a [routerLink]="['reg']" [queryParams]="{ ev: 'dwc2017' }" class="o-landing-signup-btn ">Sign Up</a>
+                <a [routerLink]="['login']" [queryParams]="{ next: 'dwc/reg' }" class="o-landing-more-btn m-l-8 ">login</a>
+            </div>
     </div>
     <div class="container">
             <div class="col-md-12 p-0">
