@@ -128,12 +128,12 @@
                         </div>
                         <div class="col-md-3 p-0">
                             <div class="c-form__group c-form--md m-b-8">
-                                <input class="c-form__input" required="" type="text" formControlName="dob" placeholder="Date of birth (DD-MM-YY)" [textMask]="{mask: dateMask}">
+                                <input class="c-form__input" required="" type="text" formControlName="date_of_birth" placeholder="Date of birth (DD-MM-YY)" [textMask]="{mask: dateMask}">
                                 <span class="c-form__highlight"></span>
                                 <span class="c-form__bar"></span>
-                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['dob'].errors?.required && eventCreate.submitted">DOB is required</p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['dob'].errors?.isOverAge">Age should be less than or equal to 25</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['date_of_birth'].errors?.required && eventCreate.submitted">DOB is required</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['date_of_birth'].errors?.invalidDOB">Invalid Date of Birth</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['date_of_birth'].errors?.isOverAge">Age should be less than or equal to 25</p>
                             </div>
                         </div>
                     </div>

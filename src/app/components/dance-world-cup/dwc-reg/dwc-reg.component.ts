@@ -183,7 +183,7 @@ export class DwcRegComponent implements OnInit {
       name: new FormControl(val, Validators.required),
       email: new FormControl(val, Validators.compose([Validators.min(1), Validators.required, FormValidation.validEmail ])),
       phone: new FormControl(val, Validators.required),
-      dob: new FormControl(val , Validators.compose([ Validators.required, FormValidation.dwcValidDOB]))
+      date_of_birth: new FormControl(val , Validators.compose([ Validators.required, FormValidation.dwcValidDOB]))
     })
   }
 
@@ -228,14 +228,15 @@ export class DwcRegComponent implements OnInit {
     const form = {
       schoolName: value.school_name,
       schoolOwner: value.school_owner,
-      address: value.school_address,
+      address: {
+        'line1': value.school_address
+      },
       performance: this.valueStore.Performance,
       ageGroup: this.valueStore.Age_Group,
       danceStyle: this.valueStore.Dance_Style,
       member: Boolean(value.member),
       teamates: value.team_member
     }
-
     this.store.dispatch({ type: EventActions.DWC_EVENT_REG, payload: form});
 
     this.store.select('eventTags')
