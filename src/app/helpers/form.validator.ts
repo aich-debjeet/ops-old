@@ -358,6 +358,25 @@ export class FormValidation {
         return isWhitespace ? { whitespace: true } : null
     }
 
+    static noCapitalLettersValidator (control: AbstractControl) {
+        const value = control.value;
+        if (/[A-Z]/.test(value)) {
+            return { capitalLetters: true }
+        }
+        return null;
+    }
+
+    static usernameLengthValidator (control: AbstractControl) {
+        const value = control.value;
+        if (value.length === 0) {
+            return null;
+        }
+        if (value.length < 3 || value.length > 15) {
+            return { invalidLength: true }
+        }
+        return null;
+    }
+
     /**
      * Checking for the password strength on register form
      * @param control: Form password input

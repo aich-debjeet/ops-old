@@ -235,7 +235,6 @@ export class DwcRegComponent implements OnInit {
       member: Boolean(value.member),
       teamates: value.team_member
     }
-
     this.store.dispatch({ type: EventActions.DWC_EVENT_REG, payload: form});
 
     this.store.select('eventTags')

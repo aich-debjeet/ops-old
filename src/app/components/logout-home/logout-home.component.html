@@ -1,41 +1,28 @@
 <header class="opsheader_landing">
     <div class="container">
         <div class="o-logo">
-            <img src="/assets/img/landing/logobetawhite.svg" class="img-responsive">
+            <img src="/assets/img/landing/logobetawhite.svg" class="">
         </div>
         <div class="o-log-reg-btn">
-            <a [routerLink]="['reg']" class="btn btn-primary btn-lg btn-inverse m-r-8 text-shadow-none font-weight-500">Sign Up</a>
-            <a [routerLink]="['login']" class="o-landing-more-btn m-l-8 font-weight-500">login</a>
+            <a [routerLink]="['reg']" class="o-landing-signup-btn">Sign Up</a>
+            <a [routerLink]="['login']" class="o-landing-more-btn m-l-8">login</a>
         </div>
     </div>
     <div class="container">
-        <div class="col-md-12 p-0">
-            <h1 class="c-h1 m-b-32 color-white o-hero-main__title text-center">Sign up on One Page Spotlight to<br>register for Dance World Cup</h1>
-            <div class="o-register-area">
-                <a [routerLink]="['reg']" [queryParams]="{ ev: 'dwc2017' }" class="btn btn-primary btn-lg btn-inverse text-shadow-none font-weight-500">Register</a>
-                <a [routerLink]="['dwc/details']" class="o-landing-more-btn m-l-16 font-weight-500">read more</a>
-                <div class="col-md-12 c-text_md color-white p-l-0 m-t-16 o-landing-log"> Already a member? <a [routerLink]="['login']" [queryParams]="{ next: 'dwc/reg' }" class="color-white"><u>Log in</u> </a>to register </div>
-            </div>
-
-        </div>
-        <!-- hero left block end -->
-    </div>
-</header>
-<!-- <div class="o-landing-inner__black">
-        <div class="container">
             <div class="col-md-12 p-0">
                 <h1 class="c-h1 m-b-32 color-white o-hero-main__title text-center">Sign up on One Page Spotlight to<br>register for Dance World Cup</h1>
                 <div class="o-register-area">
-                    <a [routerLink]="['reg']" [queryParams]="{ ev: 'dwc2017' }" class="btn btn-primary btn-lg btn-inverse">Register</a>
-                    <a [routerLink]="['danceworldcup']" class="o-landing-more-btn m-l-16">read more</a>
-                    <div class="col-md-12 c-text_md color-white p-l-0 m-t-16 o-landing-log"> Already a member? <a [routerLink]="['login']" [queryParams]="{ next: 'dwc' }" class="color-white"><u>Log in</u> </a>to register </div>
+                    <a [routerLink]="['reg']" [queryParams]="{ ev: 'dwc2017' }" class="o-landing-signup-btn">Register</a>
+                    <a [routerLink]="['dwc/details']" class="o-landing-more-btn m-l-16 font-weight-500">read more</a>
+                    <div class="col-md-12 c-text_md color-white p-l-0 m-t-16 o-landing-log"> Already a member? <a [routerLink]="['login']" [queryParams]="{ next: 'dwc/reg' }" class="color-white"><u>Log in</u> </a>to register </div>
                 </div>
-
+    
             </div>
-            hero left block end
+            <!-- hero left block end -->
         </div>
-    </div> -->
-<!-- <section class="o-hero-section"> -->
+</header>
+
+
 <div class="hero">
     <ngx-carousel [inputs]="homeSlider" [moveToSlide]="1" (onMove)="onmoveFn($event)" (afterCarouselViewed)="afterCarouselViewedFn($event)">
         <ngx-item NgxCarouselItem class="bannerStyle">
@@ -136,92 +123,107 @@
 
 <section class="o-hosted__logo">
     <div class="container">
-        <div class="col-md-8">
-            <div class="o-dance-wc-logo p-l-32-px">
-                <div class="o-dance-wc__logo-container text-left">
-                    <img src="/assets/img/landing/dwc_world_logo.png" alt="">
-                    <p class="c-text_md f-w_600 color-grey-dark text_uppercase m-t-8">Dance World Cup 2018 India Qualifiers</p>
-                </div>
-                <span class="o-dwc-bnglr">
-          <span class="c-h4 width100 float_left m-t-16">January 20 - 21, 2018</span>
-                <span class="c-text_lg width100 float_left color-grey-dark">Phoenix Market City, Bangalore</span>
-                </span>
+        <div class="col-md-9 col-sm-12 col-xs-12">
+        <div class="o-dance-wc-logo">
+            <div class="o-dance-wc__logo-container text-left">
+            <img src="/assets/img/landing/dwc_world_logo.png" alt="">
+            <p class="c-text_md f-w_600 color-grey-dark text_uppercase m-t-8 o-dwc-q__txt">Dance World Cup 2018 Qualifiers</p>
+            </div>
+            <span class="o-dwc-bnglr">
+            <span class="c-h4 width100 m-t-16 o-dwc-q__date">January 21 - 22, 2018</span><br>
+            <span class="c-text_lg width100 color-grey-dark o-dwc-q__location">Pheonix market city, Bangalore</span>
+            </span>
+        </div>
+        </div>
+    
+        <div class="col-md-2 col-sm-4 col-xs-6 with_border_left o-dwc-hosted-container">
+        <div class="o-dance-wc-logo">
+            <p class="c-text_sm text_uppercase color-grey-dark">Hosted by</p>
+            <div class="o-dance-wc__hosted-logo-container m-t-16">
+            <img src="/assets/img/landing/isptd.jpg" alt="">
             </div>
         </div>
-        <div class="col-md-2 with_border_left">
-            <div class="o-dance-wc-logo p-l-32-px">
-                <p class="c-text_sm text_uppercase color-grey-dark">Hosted by</p>
-                <div class="o-dance-wc__hosted-logo-container m-t-16">
-                    <img src="/assets/img/landing/isptd.jpg" alt="">
-                </div>
+        </div>
+    
+        <div class="col-md-1 col-sm-3 col-xs-6 p-r-0 with_border_left o-dwc-powered-container">
+        <div class="o-dance-wc-logo">
+            <p class="c-text_sm text_uppercase color-grey-dark">Powered By</p>
+            <div class="o-dance-wc__powered-logo-container m-t-16">
+            <img src="/assets/img/landing/lvds.png" alt="">
             </div>
         </div>
-        <div class="col-md-1 p-r-0 with_border_left w-11-ps">
-            <div class="o-dance-wc-logo p-l-32-px">
-                <p class="c-text_sm text_uppercase color-grey-dark">Powered By</p>
-                <div class="o-dance-wc__powered-logo-container m-t-16">
-                    <img src="/assets/img/landing/lvds.png" alt="">
-                </div>
-            </div>
         </div>
     </div>
 </section>
+
 
 <section class="o-platform-sec">
     <div class="container">
-        <div class="row landing_for_artist">
-            <div class="col-md-12 col-sm-12">
-                <div class="landing_heading landing_heading--margin text-center margin_b_32">
+        <div class="row o-platform-det-block">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="c-h2 o-platform-title--margin text-center margin_b_32">
                     Platform for all
                 </div>
                 <div class="row landing_for_artist">
-                    <div class="col-md-2">
-                        <div class="o-block">
-                            <img src="/assets/img/landing/talent.png" class="o-block--img" alt="">
+                    <div class="col-md-2 col-sm-4 col-xs-4">
+                    <div class="o-platform-container">
+                        <div class="o-platform-block">
+                        <img src="/assets/img/landing/talent.png" class="o-platform-block--img" alt="">
                         </div>
-                        <div class="o-block-title">
-                            Talent
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="o-block">
-                            <img src="/assets/img/landing/stagecraft.png" class="o-block--img" alt="">
-                        </div>
-                        <div class="o-block-title">
-                            Stagecrafts
+                        <div class="o-platform-block-title">
+                        Talent
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="o-block">
-                            <img src="/assets/img/landing/techies.png" class="o-block--img" alt="">
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-4">
+                    <div class="o-platform-container">
+                        <div class="o-platform-block">
+                        <img src="/assets/img/landing/stagecraft.png" class="o-platform-block--img" alt="">
                         </div>
-                        <div class="o-block-title">
-                            Techies
+                        <div class="o-platform-block-title">
+                        Stagecrafts
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="o-block">
-                            <img src="/assets/img/landing/corporates.png" class="o-block--img" alt="">
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-4">
+                    <div class="o-platform-container">
+                        <div class="o-platform-block">
+                        <img src="/assets/img/landing/techies.png" class="o-platform-block--img" alt="">
                         </div>
-                        <div class="o-block-title">
-                            Corporates
+                        <div class="o-platform-block-title">
+                        Techies
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="o-block">
-                            <img src="/assets/img/landing/teachers.png" class="o-block--img" alt="">
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-4">
+                    <div class="o-platform-container">
+                        <div class="o-platform-block">
+                        <img src="/assets/img/landing/corporates.png" class="o-platform-block--img" alt="">
                         </div>
-                        <div class="o-block-title">
-                            Teachers
+                        <div class="o-platform-block-title">
+                        Corporates
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="o-block">
-                            <img src="/assets/img/landing/artlovers.png" class="o-block--img" alt="">
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-4">
+                    <div class="o-platform-container">
+                        <div class="o-platform-block">
+                        <img src="/assets/img/landing/teachers.png" class="o-platform-block--img" alt="">
                         </div>
-                        <div class="o-block-title">
-                            Art Lovers
+                        <div class="o-platform-block-title">
+                        Teachers
                         </div>
+                    </div>  
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-4">
+                    <div class="o-platform-container">
+                        <div class="o-platform-block">
+                        <img src="/assets/img/landing/artlovers.png" class="o-platform-block--img" alt="">
+                        </div>
+                        <div class="o-platform-block-title">
+                        Art Lovers
+                        </div>
+                    </div>
                     </div>
 
                 </div>
@@ -229,34 +231,28 @@
         </div>
     </div>
 </section>
-<section class="white_block">
+
+<section class="fill-white">
     <div class="container">
-        <div class="o-box-block">
-            <div class="col-md-7 organization_padd">
-                <div class="landing_heading margin_b_16">
-                    Organization
-                </div>
-                <p class="landing_text">
-                    Always be on the lookout for new talent. Network and discover artists and art
-                    <br>lovers across all disciplines.
-                </p>
-                <a [routerLink]="['login']" [queryParams]="{ next: 'org/page/profile' }" type="button" class="btn btn-primary btn-md text_uppercase margin_t_16 text-shadow-none font-weight-500">Try Organization</a>
+        <div class="o-landing-org-block">
+        <div class="col-md-7 col-sm-12 col-xs-12 organization_padd">
+            <div class="c-h2 margin_b_16 o-landing-organization__title">
+            Organization
             </div>
-            <div class="col-md-5 padding_none">
-                <div class="organization-img">
-                    <img src="/assets/img/landing/Castle.png" alt="">
-                </div>
+            <p class=" c-text_lg o-organization__txt">
+            Always be on the lookout for new talent. Network and discover artists and art lovers across all disciplines.
+            </p>
+            <a [routerLink]="['login']" [queryParams]="{ next: 'org/page/profile' }" type="button" class="btn btn-primary btn-lg margin_t_16">Try Organization</a>
+        </div>
+        <div class="col-md-5 col-sm-12 col-xs-12 padding_none">
+            <div class="organization-img">
+            <img src="/assets/img/landing/Castle.png" alt="">
             </div>
         </div>
-    </div>
-</section>
-<section class="white_block">
-    <div class="container">
-        <div class="landing_heading landing_heading--margin text-center product-heading">
-            Product Features
         </div>
-        <div class="row">
-            <div class="col-md-4">
+        <h2 class="c-h2 o-landing-product--margin text-center float_left">Product Features</h2>
+        <div class="row float_left">
+            <div class="col-md-4 col-sm-6 col-xs-6">
                 <div class="o-product">
                     <div class="o-product_media">
                         <img src="/assets/img/landing/group13.png" alt="">
@@ -266,12 +262,12 @@
                             Channel
                         </div>
                         <p class="o-product-det__txt">
-                            Channels are like folders to organize and share multimedia content based on your specific skills to ensure you reach the right audience with similar interests.
+                        Channels are like folders to organize and share multi media content based on your specific skills to ensure you reach the right audience with similar interests.
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-6 col-xs-6">
                 <div class="o-product">
                     <div class="o-product_media">
                         <img src="/assets/img/landing/spotfeed.png" alt="">
@@ -281,12 +277,12 @@
                             Spotfeed
                         </div>
                         <p class="o-product-det__txt">
-                            Feeds designed, categorized & curated into multimedia channels of personal interests.
+                            Feeds designed, categorized & curated into multimedia channels of personal interests
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-6 col-xs-6">
                 <div class="o-product">
                     <div class="o-product_media">
                         <img src="/assets/img/landing/opportunity.png" alt="">
@@ -296,13 +292,13 @@
                             Opportunity
                         </div>
                         <p class="o-product-det__txt">
-                            Artists can collaborate on projects with multiple forms of talents across all industries. Companies can post jobs full time or part time. Charity organizations can seek volunteers and performers for events.
+                            Artists can collaborate on projects with multiple forms of talents across all industries. Companies can post jobs full time or part time. Charity organizationscan seek volunteers and performers for events.
                         </p>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-6 col-xs-6">
                 <div class="o-product">
                     <div class="o-product_media">
                         <img src="/assets/img/landing/event.png" alt="">
@@ -312,12 +308,12 @@
                             Event
                         </div>
                         <p class="o-product-det__txt">
-                            Users can create, invite, share & attend events which can be categorized into workshops, performances and movies that may be ticketed or offer free entry.
+                            Users can create, invite, share & attend events which can be categorized into workshops, performances and movies that may be ticketed or offer free entry. 
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-6 col-xs-6">
                 <div class="o-product">
                     <div class="o-product_media">
                         <img src="/assets/img/landing/community.png" alt="">
@@ -327,12 +323,12 @@
                             Community
                         </div>
                         <p class="o-product-det__txt">
-                            Create groups with your peers or fans with similar interests and skills to exchange ideas, thoughts and discuss issues related to the industry openly and respectfully. The forums can be public or private and moderated by the admins to maintain decorum.
+                            Hypnosis or Hypnotism, these words often puts, not surprisingly the layman in predicament. Stretch your swinging imagination and we see wild images of  
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-sm-6 col-xs-6">
                 <div class="o-product">
                     <div class="o-product_media">
                         <img src="/assets/img/landing/pedia.png" alt="">
@@ -342,16 +338,14 @@
                             Pedia
                         </div>
                         <p class="o-product-det__txt">
-                            Curated content for all art forms, crafts & skills required in the arts industry for any one aspiring to learn and progress in their fields, careers or interests.
+                            Curated content for all art forms, crafts & skills required in the arts industry for any one aspiring to learn and progress in their fields, careers or interests. 
                         </p>
                     </div>
                 </div>
             </div>
 
         </div>
-        <div class="row text-center">
-            <!--<a href="" class="btn btn-primary btn-md text_uppercase view_btn">View All</a>-->
-        </div>
     </div>
 </section>
+
 <app-footer></app-footer>

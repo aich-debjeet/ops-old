@@ -6,47 +6,52 @@
   </div>
 </div>
 
-<section class="container-fluid ops_signup ops_signin main_ht_fix">
+
+<section class="container-fluid ops_signup ops_signin">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 ops_signup_left">
-                <a routerLink="/">
-                  <img src="/assets/img/login_illustration.png" alt="">
-                </a>
+            <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_left">
+                <img width="100%;" src="/assets/img/login_illustration.png" alt="">
                 <div class="ops_heading text-center">
                     Don't have an account ? <a [routerLink]="['/reg/information']" [queryParams]="queryParam ? this.route.snapshot.queryParams : ''" class="text-theme">Sign up</a>
                 </div>
             </div>
-            <div class="col-md-6 ops_signup_right">
-                <div class="ops_h1">Log in to your account</div>
+            <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_right">
+                <!-- form -->
+                <div class="ops_h1 c-h3">Log in to your account</div>
                 <form [formGroup]="loginForm" novalidate (submit)="submitForm(loginForm.value)"  #myform="ngForm">
-                        <p class="error_alert text-center" *ngIf="petTag?.error_description">{{petTag?.error_description}}</p>
-                        <div class="row">
-                        <div class="col-md-12 col-sm-12">
-                            <div class="form_group">
-                                <input class="form_input" type="text" formControlName="email" required>
-                                <span class="form_highlight"></span>
-                                <span class="form_bar"></span>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="c-form__group c-form--lg">
+                                <input class="c-form__input" type="text" formControlName="email" required>
+                                <span class="c-form__highlight"></span>
+                                <span class="c-form__bar"></span>
                                 <label>Username/ Phone Number/ Email</label>
-                                <p class="error_alert" *ngIf="loginForm.controls['email'].errors?.required && myform.submitted">Username is required</p>
+                                <p class="c-form__validation"  *ngIf="loginForm.controls['email'].errors?.required && myform.submitted">Username is required</p>
                             </div>
                         </div>
                     </div>
-                    <div class="form_group margin_tb_16">
-                        <input class="form_input" type="password" formControlName="password" required>
-                        <span class="form_highlight"></span>
-                        <span class="form_bar"></span>
+                    <div class="c-form__group c-form--lg pass-margin">
+                        <input class="c-form__input" type="password" formControlName="password" required>
+                        <span class="c-form__highlight"></span>
+                        <span class="c-form__bar"></span>
                         <label>Password</label>
-                        <p class="error_alert" *ngIf="loginForm.controls['password'].errors?.required && myform.submitted">Password is required</p>
+                        <p class="c-form__validation" *ngIf="loginForm.controls['password'].errors?.required && myform.submitted">Password is required</p>
                     </div>
+                    <p class="c-form__validation m-t-b-8"  *ngIf="petTag?.error_description">{{petTag?.error_description}}</p>
+                    
                     <div class="signup_privacy">
                         <p class="text-grey">
                             <a routerLink="/account/password_reset" class="text-theme">Forgot Password ?</a>
                         </p>
-						<button type="button" [className]="'btn btn-primary btn-sm pull-right margin_t_16'" [type]="'submit'">LOG IN</button>
+                        <button type="button" [className]="'btn btn-primary btn-lg pull-right'" [type]="'submit'">LOG IN</button>
                     </div>
+
                 </form>
+                <!-- //form -->
             </div>
         </div>
     </div>
 </section>
+
+<app-footer></app-footer>
