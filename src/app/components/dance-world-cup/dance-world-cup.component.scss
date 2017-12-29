@@ -2,12 +2,14 @@
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/base/_base.scss';
 @import './src/assets/scss/components/_form.scss';
+@import '~sass-mq/_mq.scss';
 // dwc
 // new style
-
-.leftRs, .rightRs{
+.leftRs,
+.rightRs {
     z-index: 4;
 }
+
 .o-dwc-top-banner {
     width: 100%;
     float: left;
@@ -62,6 +64,11 @@
     background: none;
     z-index: 2;
     background-color: rgba(0, 0, 0, 0.42);
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        width: 100%;
+        height: 300px;
+        top: 100px;
+    }
 }
 
 .o-dwc-detail {
@@ -268,6 +275,10 @@
     height: 64px;
     background: linear-gradient(128.71deg, #FF7B84 0%, #F7D022 100%);
     box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.1);
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        width: 100%;
+        height: 100%;
+    }
     .c-ops__tabs2 {
         text-align: center;
         width: 830px;
@@ -275,6 +286,9 @@
         margin-top: 14px;
         li {
             margin-right: 24px;
+            @include mq($from: $mobile_sm, $until: $desktop_sm) {
+                margin-right: 20px;
+            }
         }
         .nav-tabs>li>a {
             font-size: 11px;
@@ -299,6 +313,9 @@
             cursor: pointer;
             // text-shadow: 0 5px 6px rgba(51,51,51,0.39);
             border-bottom: 8px #fff solid;
+            @include mq($from: $mobile_sm, $until: $desktop_sm) {
+                border: 0px;
+            }
         }
         .nav>li>a {
             position: relative;
@@ -307,6 +324,10 @@
         }
         .nav-tabs {
             border-bottom: none;
+        }
+        @include mq($from: $mobile_sm, $until: $desktop_sm) {
+            width: 100%;
+            height: 100%;
         }
     }
 }
@@ -458,6 +479,9 @@
 .o-dwc-detail-top-slider {
     width: 100%;
     float: left;
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        height: 300px;
+    }
 }
 
 .o-dwc-entry-process {
