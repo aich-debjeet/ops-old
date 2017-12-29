@@ -23,6 +23,8 @@ import { Media } from '../../../models/media.model';
 import { Observable } from 'rxjs/Observable';
 import { environment } from 'environments/environment.staging';
 
+import { QuillEditorComponent } from 'ngx-quill/src/quill-editor.component';
+
 // google location api
 import {} from '@types/googlemaps';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
@@ -34,6 +36,8 @@ import { UserCard } from 'app/models/profile.model';
   styleUrls: ['./opportunity-create.component.scss']
 })
 export class OpportunityCreateComponent implements OnInit {
+
+  // @ViewChild('editor') editor: QuillEditorComponent;
 
   createOppFrm: FormGroup;
   orgHandle = '';

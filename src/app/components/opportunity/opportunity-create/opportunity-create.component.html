@@ -64,8 +64,10 @@
             </div>
             <div class="col-md-9 p-0">
               <div class="c-form__group c-form--sm">
-                <textarea formControlName="description" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
+                <!-- <textarea formControlName="description" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea> -->
+                <quill-editor #editor formControlName="description"></quill-editor>
               </div>
+              <!-- <p>{{ createOppFrm.controls['description'].value }}</p> -->
               <p class="error_alert" *ngIf="createOppFrm.controls['description']?.errors?.required && crOppFrm.submitted">Description is required</p>
             </div>
           </div><!-- Description end -->
