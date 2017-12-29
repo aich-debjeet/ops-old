@@ -1,3 +1,9 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_helpers.scss';
+@import './src/assets/scss/base/_base.scss';
+@import './src/assets/scss/components/_form.scss';
+@import '~sass-mq/_mq.scss';
+
 // payment sec
 
 .o-dwc-payment-sec{
@@ -70,4 +76,30 @@
 .payment-button{
     float: right;
     margin-top: 10px;
+}
+
+/** Mobile only --- **/
+.o-dwc-payment-contianer {
+	h3{
+		@include mq($from: $mobile_sm, $until: $mobile_lg) {
+			font-size: 18px;
+		}
+	}
+}
+
+.xs-message {    
+	@include mq($from: $mobile_sm, $until: $mobile_lg) {
+		background-color: #ebf9ed;
+		padding-top: 2rem;
+		padding-bottom: 2rem;
+		padding-left: 2rem;
+		text-align: left;
+		padding-right: 1rem;
+
+		p {
+			font-size: 13px;
+			line-height: 1.5;
+		}
+				
+	}
 }
