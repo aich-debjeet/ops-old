@@ -39,12 +39,12 @@
                                 <span class="form_highlight"></span>
                                 <span class="form_bar_alert"></span>
                                 <label>Username</label>
-                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace || regFormBasic.controls['username'].errors?.capitalLetters">White spaces and Capital letters are not allowed</p>
+                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace || regFormBasic.controls['username'].errors?.capitalLetters || regFormBasic.controls['username'].errors?.specialChars">Capital letters, spaces and special characters are not allowed</p>
                                 <!-- <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace">White spaces are not allowed</p>
                                 <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.capitalLetters">Capital letters are not allowed</p> -->
                                 <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && regform.submitted">Username is required</p>
                                 <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
-                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.invalidLength && regform.submitted">Username length limit is 3 to 15 characters</p>
+                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.invalidLength">Username length limit is 3 to 15 characters</p>
                                 <ul class="username_error" *ngIf="petTag.user_unique">
                                     <li *ngFor="let username of petTag?.user_exsist; let isLast=last">
                                         <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
