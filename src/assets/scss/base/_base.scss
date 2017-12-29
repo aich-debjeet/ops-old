@@ -1,3 +1,4 @@
+@import '~sass-mq/_mq.scss';
 .outer_container {
     margin-top: 50px;
     // margin-bottom: 4%;
@@ -308,3 +309,9 @@ select {
 }
 
 // common block
+.width50 {
+    width: 50%!important;
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        width: 100%!important;
+    }
+}

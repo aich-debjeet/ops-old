@@ -5,6 +5,7 @@
 @import './src/assets/scss/components/_dropdowns.scss';
 @import './src/assets/scss/components/_radio-checkbox.scss';
 @import './src/assets/scss/base/_base.scss';
+@import '~sass-mq/_mq.scss';
 .o-dance-qualifier-form {
     width: 100%;
     float: left;
@@ -23,7 +24,9 @@
     margin: 0px auto;
     display: table;
     margin-bottom: 50px;
-    ;
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        width: 100%;
+    }
 }
 
 .o-wcq-textarea::placeholder {
@@ -913,4 +916,11 @@
     width: 420px;
     margin: 100px auto;
     text-align: center;
+}
+
+.width50 {
+    width: 50%!important;
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        width: 100%!important;
+    }
 }
