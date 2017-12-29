@@ -2,18 +2,26 @@
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/base/_base.scss';
 @import './src/assets/scss/components/_form.scss';
+@import '~sass-mq/_mq.scss';
+// progress bar
 // progress bar
 .o-dwc-progress-sec {
     width: 100%;
     height: 64px;
     background-color: #F3F5F7;
     box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.1);
+    @include mq($from: $mobile_sm, $until: $desktop) {
+        height: 100px;
+    }
 }
 
 .o-dws-progress-block {
     width: 60%;
     padding: 24px 0px;
     margin: 0px auto;
+    @include mq($from: $mobile_sm, $until: $desktop) {
+        width: 100%;
+    }
 }
 
 .o-dws-progress__bar {
@@ -24,10 +32,13 @@
     float: left;
     margin: 4px 0px 2px 0px;
     overflow: hidden;
+    @include mq($from: $mobile_sm, $until: $desktop) {
+        width: 100%;
+    }
 }
 
 .o-dws-progress__link {
-    width: 24.45%;
+    width: 24.7%;
     float: left;
     height: 10px;
     &:hover {
@@ -51,8 +62,11 @@
 }
 
 .o-dws-progress__txt {
-    float: left;
+    float: right;
     width: 64%;
+    @include mq($from: $mobile_sm, $until: $desktop) {
+        width: 100%;
+    }
 }
 
 .o-dwc-payment-sec {
