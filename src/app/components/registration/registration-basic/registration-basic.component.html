@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 ops_signup_left">
-                <img src="/assets/img/registration_signup_illustration.png" alt="">
+                <img class="w-100" src="/assets/img/registration_signup_illustration.png" alt="">
                 <div class="ops_heading text-center">
                     Welcome to One Page Spotlight. We are committed to grow together.
                 </div>
@@ -53,16 +53,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form_group ops_radio_sm">
+                    <div class="form_group ops_radio_sm ops_radio_gender">
                         <label class="width100">
                             <label class="col-md-2 signup_gender">Gender</label>
-                            <label class="col-md-3 gender_single">
+                            <label class="col-md-3 gender_single p-r-0">
                                 <input type="radio" value="M" name="gender" formControlName="gender" [checked]="true"><span></span>Male
                             </label>
-                            <label class="col-md-3 gender_single">
+                            <label class="col-md-3 gender_single p-r-0">
                                 <input type="radio" value="F" name="gender" formControlName="gender"><span></span>Female
                             </label>
-                            <label class="col-md-3 gender_single">
+                            <label class="col-md-3 gender_single p-r-0">
                                 <input type="radio" value="O" name="gender" formControlName="gender"><span></span>Other
                             </label>
                         </label>
@@ -117,7 +117,7 @@
                         <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password does not match</p>
                     </div>
                     <div class="form_group ops_radio_sm">
-                        <label class="width100">
+                        <label class="width100 reg-checkbox">
                                 <label class="gender_single">
                                     <input type="checkbox" #saveUserNameCheckBox [checked]="saveUsername" (change)="onSaveUsernameChanged(saveUserNameCheckBox.checked)">
                                 </label>
@@ -586,7 +586,7 @@
                         <h4 class="modal-title text-center"><img src="https://d33wubrfki0l68.cloudfront.net/0532c099d59ca6db3235d5463c57edbed77345bd/072ec/img/logo_black.png"></h4>
                     </div>
                     <div class="row">
-                        <div class="row">
+                        <div class="row mar-auto">
                             <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 text-center">
                                 <h3>Thank you for joining us</h3>
                                 <p>Select your profile type and get started</p>
