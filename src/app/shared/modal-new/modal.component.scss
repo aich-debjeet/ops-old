@@ -1,3 +1,7 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_mixins.scss';
+@import '~sass-mq/_mq.scss';
+
 .modal-block{
 
 }
@@ -27,6 +31,12 @@
     display: table;
 }
 
+.modal-cus__footer{
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100% !important;
+    }
+}
+
 .modal-cus__md{
     width: 1075px;
     margin: 0 auto;
@@ -36,6 +46,12 @@
 
 .modal-cus-body{
     position: relative;
+}
+
+.modal-cus-body{
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin: 10px;
+    }
 }
 
 .c-modal--size1 {

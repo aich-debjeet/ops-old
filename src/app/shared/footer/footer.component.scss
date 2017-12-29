@@ -115,3 +115,33 @@
       }
   }
 }
+
+.modal-header {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        padding: 0;
+    }
+}
+
+.terms_and_condition .terms_txt {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+    }
+}
+
+.terms_and_condition {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+    }
+}
+
+.modal-content{
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        padding: 10px;
+    }
+}
+
+.terms-close {
+    height: 25px;
+    width: 25px;
+    float: right;
+}
