@@ -228,6 +228,9 @@
     width: 70%;
     float: left;
     padding-top: 10px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+    }
 }
 
 // radio
@@ -548,4 +551,8 @@
 
 .p-l-0 {
     padding-left: 0 !important;
+}
+
+.m-b-8 {
+    font-size: 32px;
 }
