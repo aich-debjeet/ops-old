@@ -1,45 +1,4 @@
-$theme_red: 		#ff7b84;
-$theme_black:		#333333;
-$theme_gray:	 	#c1c1c1;
-$white: 			#ffffff !default;
-$black:				#000000;
-$light_violet: 		rgba(29, 9, 45, 0.66);
-$dark_violet: 		rgba(30, 11, 43, 0.76);
-$theme_gradient:	linear-gradient(143deg, #ffe7e7, #ff7b84);
-$theme_gradient2:	-webkit-linear-gradient(143deg, #ff7b84, #ffe7e7);
-
-$theme_red_dark:  	#f0616b;
-$black_color: 		#000000;
-$basic_color : 		#5c5b5b;
-$gray_color:		#e5e5e5;
-$green:             #68dd7c;
-
-$desktop_imac: 	2600px;
-$desktop_lg: 	1400px;
-$desktop_sm: 	992px;
-$tablet:		768px;
-$mobile_lg: 	480px;
-$mobile_sm: 	320px;
-
-// new breakpoint
-$break2600 : 2600px; // imac
-$break2240 : 2240px;
-$break1824 : 1824px;
-$break1440 : 1440px; // macbook pro
-$break1366 : 1366px; // smart laptop
-$break1280 : 1280px; //macbook air
-$break1024 : 1024px; //ipad, most netbook
-$break960 : 960px;
-$break800 : 800px;
-$break768 : 768px; //ipad
-$break640 : 640px; // iphone
-$break480 : 480px; //Meizu M8, google nexus
-$break320 : 320px; //iphone, 3G, 3GS
-
-
-// new variables
-$text_gray : #979797;
-
+// ============================== New variables ====================================
 
 // Colors -------------------------------
 $color-base:          #979797 !default;
@@ -58,7 +17,6 @@ $color-grey-darker:   #333333 !default;
 
 $color-black:         #000000 !default;
 $color-white:         #ffffff !default;
-
 
 // font size  ---------------------------------------------
 $font-base: 11px !default;
@@ -107,3 +65,91 @@ $border-radius50  : 50%;
 
 // letter spacing
 $letter-spacing1: 1px;
+
+// new breakpoint -----------------
+$desktop_imac : 2600px;
+$desktop_lg : 1400px;
+$desktop : 1080px;
+$desktop_sm : 992px;
+$tablet: 767px;
+$mobile_lg : 480px;
+$mobile_sm : 320px;
+$mobile_landscape :812px;
+
+// ------------------------------
+
+
+// old
+$break2600: 2600px; // imac
+$break2240: 2240px;
+$break1824: 1824px;
+$break1440: 1440px; // macbook pro
+$break1366: 1366px; // smart laptop
+$break1280: 1280px; //macbook air
+$break1024: 1024px; //ipad, most netbook
+$break960: 960px;
+$break800: 800px;
+$break768: 768px; //ipad
+$break640: 640px; // iphone
+$break480: 480px; //Meizu M8, google nexus
+$break320: 320px; //iphone, 3G, 3GS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ============================== old variables ====================================
+$theme_red: #ff7b84;
+$theme_black: #333333;
+$theme_gray : #c1c1c1;
+$white: #ffffff !default;
+$black: #000000;
+$light_violet: rgba(29, 9, 45, 0.66);
+$dark_violet: rgba(30, 11, 43, 0.76);
+$theme_gradient: linear-gradient(143deg, #ffe7e7, #ff7b84);
+$theme_gradient2: -webkit-linear-gradient(143deg, #ff7b84, #ffe7e7);
+
+$theme_red_dark : #f0616b;
+$black_color: #000000;
+$basic_color: #5c5b5b;
+$gray_color: #e5e5e5;
+$green : #68dd7c;
+
+// new variables
+$text_gray: #979797;
+

@@ -37,6 +37,7 @@ export class PasswordSmsComponent {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       this.forgotP = state;
+      console.log(state);
 
       // send back to forgot page landing directly on this page
       if (!this.forgotP.fp_user_options) {
@@ -71,7 +72,7 @@ export class PasswordSmsComponent {
   resentSms() {
     const data = {
       'value': this.forgotP.fp_user_input,
-      'cType': 'email'
+      'cType': 'phone'
     }
     this.store.dispatch({ type: AuthActions.OTP_RESEND_FORGET_USER, payload: data });
   }
