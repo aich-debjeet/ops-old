@@ -24,7 +24,10 @@
           <!-- Modal content-->
           <div class="modal-content">
               <div class="modal-header" style="border: none;">
-                  <button type="button" class="close" data-dismiss="modal"></button>
+                  <!-- <button type="button" class="close" (click)="closeTerms()" >x</button> -->
+                  <span class="pop-close terms-close" (click)="termsandcondition.close()">
+                    <a ><img src="/assets/img/svg/ico_close-38.svg" alt=""></a>
+                  </span>
               </div>
               <div class="row terms_txt">
                   <!-- <h2>Terms and Conditions</h2> -->
