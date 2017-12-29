@@ -194,7 +194,8 @@
 
                 <div class="navbar-header hidden-md hidden-lg ">
                     <a class="navbar-brand" href="/"><img src="/assets/img/ops_icon.png"></a>
-                    <button type="button" routerLink="/logout" class="btn btn-default btn-md o-logout__btn">logout</button>
+                    <button type="button" [routerLink]="['/logout']" [queryParams]="{ next: 'dwc/reg' }" class="btn btn-default btn-md o-logout__btn" *ngIf="isProfileSet === true">logout</button>
+                    <a [routerLink]="['/login']" [queryParams]="{ next: 'dwc/reg' }" class="btn btn-default btn-md o-logout__btn" *ngIf="isProfileSet === false">Sign In</a>
                 </div>
                 <!-- /.navbar-collapse -->
             </div>
