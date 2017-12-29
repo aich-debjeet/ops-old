@@ -26,9 +26,9 @@
                     <p class="c-form__validation" *ngIf="eventForm.controls['school_name'].errors?.required && eventCreate.submitted">Applicant's Name is required</p>
                 </div>
                 <div class="o-dwc-reg-check">
-                    <div class="col-md-3 p-0">
-                        <p class="c-text_md color-grey-dark float_left m-l-32">Performance</p>
-                        <div class="c-form__check m-l-32">
+                    <div class="col-md-3 col-sm-2 col-xs-12 p-0 m-b-16">
+                        <p class="c-text_md color-grey-dark float_left o-dwc-performance">Performance</p>
+                        <div class="c-form__check o-dwc-performance">
                             <label for="people-{{i}}" *ngFor="let perform of Performance; let i = index" formArrayName="Performance">
                                 <span class="c-text_md color-grey-dark">{{perform}}</span>
                                 <input id="people-{{i}}" type="checkbox" class="c-form__bar2" [formControlName]="i">
@@ -37,7 +37,7 @@
                         </div>
                         <!-- <p class="c-form__validation" *ngIf="!isPeformanceSelected && eventCreate.submitted">Atleast one should be checked</p> -->
                     </div>
-                    <div class="col-md-5 p-0">
+                    <div class="col-md-5 col-sm-5 col-xs-12 p-0 m-b-16">
                         <p class="c-text_md color-grey-dark float_left m-l-16">Age Group</p>
                         <div class="c-form__check  m-l-16">
                             <label for="age-{{i}}" *ngFor="let age of Age_Group; let i = index" formArrayName="Age_Group">
@@ -47,7 +47,7 @@
                             <p class="c-form__validation" *ngIf="!isAgeGroupSelected && eventCreate.submitted">Please select atleast one</p>
                         </div>
                     </div>
-                    <div class="col-md-4 p-0">
+                    <div class="col-md-4 col-sm-5 col-xs-12 p-0 m-b-16">
                         <p class="c-text_md color-grey-dark  m-l-16">Dance style</p>
                         <div class="c-form__check  m-l-16">
                             <label for="dance-{{i}}" *ngFor="let dance of Dance_Style; let i = index" formArrayName="Dance_Style">
@@ -63,12 +63,12 @@
                     <div class="col-md-12 c-form__group p-0 float_left">
                         <p class="c-text_md color-grey-dark m-b-8">Are you a member of a dance school?</p>
                         <div class="c-radio__sm width100 float_left">
-                            <label class="col-md-2 p-0">
+                            <label class="col-md-2 col-xs-4 p-0">
                                 <input name="member" type="radio" class="c-form__bar2" formControlName="member" value="true">
                                 <span></span>
                                 <div class="c-radio--label c-radio--dwc">Yes</div>
                             </label>
-                            <label class="col-md-4 p-0">
+                            <label class="col-md-4 col-xs-6 p-0">
                                 <input name="member" type="radio" formControlName="member" value="false" [checked]="true">
                                 <span></span>
                                 <div class="c-radio--label c-radio--dwc">No</div>
@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="c-form__group c-form--md m-b-32 width50">
-                    <textarea placeholder="Address *" class="c-textarea__block c-textarea--style o-wcq-textarea " rows="0" data-min-rows="0" formControlName="school_address"></textarea>
+                    <textarea placeholder="Address *" class="c-textarea__block c-textarea--style o-wcq-textarea c-form__input " rows="0" data-min-rows="0" formControlName="school_address"></textarea>
                     <!-- <label>Address *</label> -->
                     <p class="c-form__validation" *ngIf="eventForm.controls['school_address'].errors?.required && eventCreate.submitted">Address is required</p>
                 </div>
@@ -94,7 +94,6 @@
 
                 <div class="row m-0" *ngFor="let team_member of eventForm.controls.team_member['controls']; let i=index" [formGroup]="team_member">
                     <div class="col-md-11 p-l-0">
-
                         <div class="col-md-3 p-l-0">
                             <div class="c-form__group c-form--md m-b-8">
                                 <input class="c-form__input" required="" type="text" formControlName="name" placeholder="Name">
@@ -127,7 +126,7 @@
                             </div>
                         </div>
                         <div class="col-md-3 p-0">
-                            <div class="c-form__group c-form--md m-b-8">
+                            <div class="c-form__group">
                                 <input class="c-form__input" required="" type="text" formControlName="dob" placeholder="Date of birth (DD-MM-YY)" [textMask]="{mask: dateMask}">
                                 <span class="c-form__highlight"></span>
                                 <span class="c-form__bar"></span>
@@ -152,7 +151,7 @@
                     <span class="o-dwc-form-add__icon"><img src="/assets/img/svg/plus-red.svg" alt=""></span>
                     <span class="c-text_md m-l-8 float_left color-theme">Add more</span>
                 </a>
-                <div class="col-md-12 m-t-32 text-center">
+                <div class="col-md-12 m-t-b-24 text-center float_left width_100">
                     <button type="submit" class="btn btn-primary btn-md">Submit</button>
                 </div>
             </form>

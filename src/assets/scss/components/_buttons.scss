@@ -339,7 +339,6 @@ fieldset[disabled] .btn {
 }
 
 
-
 /* ------------------------------ Button ------------------------------ */
 
 .btn-plus {
@@ -462,13 +461,11 @@ fieldset[disabled] .btn {
 }
 
 
-
-
 /* --------------------------- Default Button ------------------------- */
 
 .btn-default {
     color: $color-theme;
-    background: none;
+    background: #ffffff;
     border-color: $color-theme;
     &:focus {
         color: $color-white;
@@ -504,14 +501,14 @@ fieldset[disabled] .btn {
         border-color: $color-white;
         &:focus {
             color: $color-white;
-            background-color: rgba(255,255,255,0.2);
+            background-color: rgba(255, 255, 255, 0.2);
             border-color: $color-white;
             outline: 0px !important;
             box-shadow: 0px 1.1px 1px rgba(51, 51, 51, 0.25);
         }
         &:hover {
             color: $color-white;
-            background-color: rgba(255,255,255,0.2);
+            background-color: rgba(255, 255, 255, 0.2);
             border-color: $color-white;
             outline: 0px !important;
             box-shadow: 0px 1.1px 1px rgba(51, 51, 51, 0.25);
@@ -537,12 +534,6 @@ fieldset[disabled] .btn {
         }
     }
 }
-
-
-
-
-
-
 
 
 /* --------------------------- login Button ------------------------- */
@@ -582,12 +573,6 @@ fieldset[disabled] .btn {
 }
 
 
-
-
-
-
-
-
 /* --------------------------- network Button ------------------------- */
 
 .btn-network {
@@ -623,13 +608,6 @@ fieldset[disabled] .btn {
         }
     }
 }
-
-
-
-
-
-
-
 
 
 /* --------------------------- Registration tag ------------------------- */
@@ -713,12 +691,6 @@ fieldset[disabled] .btn {
 }
 
 
-
-
-
-
-
-
 /* --------------------------- sign up Button ------------------------- */
 
 .btn-signup {
@@ -754,13 +726,6 @@ fieldset[disabled] .btn {
         }
     }
 }
-
-
-
-
-
-
-
 
 
 /* --------------------------- Primary Button ------------------------- */
@@ -843,13 +808,11 @@ fieldset[disabled] .btn {
         .btn-label-icon2 {
             background-image: url(/assets/img/svg/plus-red.svg);
             &:hover {
-              background-image: url(/assets/img/svg/ico_plus_white.svg);
+                background-image: url(/assets/img/svg/ico_plus_white.svg);
             }
         }
     }
 }
-
-
 
 
 /* --------------------------- Basic Button ------------------------- */
@@ -886,13 +849,6 @@ fieldset[disabled] .btn {
         }
     }
 }
-
-
-
-
-
-
-
 
 
 /* --------------------------- Basic Button ------------------------- */
@@ -936,13 +892,6 @@ fieldset[disabled] .btn {
 }
 
 
-
-
-
-
-
-
-
 /* --------------------------- Normal2 Button ------------------------- */
 
 .btn-normal2 {
@@ -979,13 +928,6 @@ fieldset[disabled] .btn {
 }
 
 
-
-
-
-
-
-
-
 /* --------------------------- Normal Button ------------------------- */
 
 .btn-normal {
@@ -1020,7 +962,6 @@ fieldset[disabled] .btn {
         }
     }
 }
-
 
 // tag -- username
 .tag__username {
