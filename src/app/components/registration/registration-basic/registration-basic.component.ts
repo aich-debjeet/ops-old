@@ -226,8 +226,10 @@ export class RegistrationBasicComponent implements OnInit {
     this.regFormBasic = this.fb.group({
       'name' : ['', [Validators.required]],
       'username' : ['', [
-        Validators.required,
-        FormValidation.noWhitespaceValidator
+          Validators.required,
+          FormValidation.noWhitespaceValidator,
+          FormValidation.noCapitalLettersValidator,
+          FormValidation.usernameMaxlengthValidator
         ],
         this.databaseValidator.userNameValidation.bind(this.databaseValidator)
       ],
@@ -413,8 +415,14 @@ export class RegistrationBasicComponent implements OnInit {
   submitForm(value) {
     // checking if all required fields with valid info available before submitting the form
     if (!this.regFormBasic.valid) {
+      console.log('invalid form');
       return false;
     }
+    // } else {
+    //   console.log('valid form');
+    //   return false;
+    // }
+
     // form object
     const form =  {
       'name': {

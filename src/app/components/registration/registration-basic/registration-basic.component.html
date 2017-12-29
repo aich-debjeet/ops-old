@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="form_group">
-                                <input class="form_input" type="text" formControlName="name" required (focusout)="triggerHideProfiles()">
+                                <input tabindex="1" class="form_input" type="text" formControlName="name" required (focusout)="triggerHideProfiles()">
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
                                 <label>Name</label>
@@ -35,13 +35,16 @@
                                 </ul>
                             </div>
                             <div class="form_group">
-                                <input class="form_input" type="text" (ngModelChange)="userExisitCheck($event)" formControlName="username" required>
+                                <input tabindex="2" class="form_input" type="text" (ngModelChange)="userExisitCheck($event)" formControlName="username" required>
                                 <span class="form_highlight"></span>
                                 <span class="form_bar_alert"></span>
                                 <label>Username</label>
-                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace">White Space Not Allowed</p>
+                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace || regFormBasic.controls['username'].errors?.capitalLetters">White spaces and Capital letters are not allowed</p>
+                                <!-- <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace">White spaces are not allowed</p>
+                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.capitalLetters">Capital letters are not allowed</p> -->
                                 <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && regform.submitted">Username is required</p>
                                 <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
+                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.maxLengthExceeds">Maximum 15 characters are allowed</p>
                                 <ul class="username_error" *ngIf="petTag.user_unique">
                                     <li *ngFor="let username of petTag?.user_exsist; let isLast=last">
                                         <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
@@ -52,20 +55,20 @@
                     </div>
                     <div class="form_group ops_radio_sm">
                         <label class="width100">
-                                <label class="col-md-2 signup_gender">Gender</label>
-                        <label class="col-md-3 gender_single">
-                                    <input type="radio" value="M" name="gender" formControlName="gender" [checked]="true"><span></span>Male
-                                </label>
-                        <label class="col-md-3 gender_single">
-                                    <input type="radio" value="F" name="gender" formControlName="gender"><span></span>Female
-                                </label>
-                        <label class="col-md-3 gender_single">
-                                    <input type="radio" value="O" name="gender" formControlName="gender"><span></span>Other
-                                </label>
+                            <label class="col-md-2 signup_gender">Gender</label>
+                            <label class="col-md-3 gender_single">
+                                <input type="radio" value="M" name="gender" formControlName="gender" [checked]="true"><span></span>Male
+                            </label>
+                            <label class="col-md-3 gender_single">
+                                <input type="radio" value="F" name="gender" formControlName="gender"><span></span>Female
+                            </label>
+                            <label class="col-md-3 gender_single">
+                                <input type="radio" value="O" name="gender" formControlName="gender"><span></span>Other
+                            </label>
                         </label>
                     </div>
                     <div class="form_group">
-                        <input class="form_input" type="text" formControlName="dob" [textMask]="{mask: dateMask}" placeholder="DD-MM-YYYY">
+                        <input tabindex="3" class="form_input" type="text" formControlName="dob" [textMask]="{mask: dateMask}" placeholder="DD-MM-YYYY">
                         <span class="form_highlight"></span>
                         <span class="form_bar"></span>
                         <label>Date of Birth</label>
@@ -75,7 +78,7 @@
                         <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isOverAge">You should be below 100</p>
                     </div>
                     <div class="form_group">
-                        <input class="form_input" type="text" formControlName="email" required>
+                        <input tabindex="4" class="form_input" type="text" formControlName="email" required>
                         <span class="form_highlight"></span>
                         <span class="form_bar"></span>
                         <label>Email</label>
@@ -85,8 +88,7 @@
                     </div>
                     <div class="form_group form__phone">
                         <!--<span id="phone" type="tel"></span>-->
-
-                        <input class="form_input" type="text" formControlName="phone" required style="padding-left: 60px;">
+                        <input tabindex="5" class="form_input" type="text" formControlName="phone" required style="padding-left: 60px;">
                         <span class="form_highlight"></span>
                         <app-country-selector (onCountrySelection)="saveCountry($event)"></app-country-selector>
                         <span class="form_bar"></span>
@@ -97,9 +99,9 @@
 
                     <div class="form_group pwd-cls">
                         <button class="password-toggle pos-abs" type="button" (click)="passwordShowToggle()" title="{{ passwordShow ? 'Hide Password' : 'Show Password' }}">
-                                <span class="fa {{ passwordShow ? 'fa-eye' : 'fa-eye-slash' }}"></span>
-                            </button>
-                        <input class="form_input" type="{{ passwordShow ? 'text' : 'password' }}" formControlName="password" required>
+                            <span class="fa {{ passwordShow ? 'fa-eye' : 'fa-eye-slash' }}"></span>
+                        </button>
+                        <input tabindex="6" class="form_input" type="{{ passwordShow ? 'text' : 'password' }}" formControlName="password" required>
                         <span class="form_highlight"></span>
                         <span class="form_bar"></span>
                         <label>Password</label>
@@ -107,7 +109,7 @@
                         <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Weak password! Please use special characters, numbers and capital letters</p>
                     </div>
                     <div class="form_group">
-                        <input class="form_input" type="password" formControlName="confirmpassword" required>
+                        <input tabindex="7" class="form_input" type="password" formControlName="confirmpassword" required>
                         <span class="form_highlight"></span>
                         <span class="form_bar"></span>
                         <label>Confirm Password</label>
@@ -124,13 +126,8 @@
                     </div>
                     <div class="signup_privacy">
                         <p class="text-grey">By clicking, I agree to the <a (click)="termsAction('show')" class="text-theme">Terms & Conditions</a></p>
-                        <!-- <button [className]="'btn btn-primary btn-sm pull-right'" type="submit">SIGN UP</button> -->
-                        <button *ngIf="!claimingUserSet" [className]="'btn btn-primary btn-sm pull-right'" type="submit">SIGN UP</button>
-                        <button *ngIf="claimingUserSet" [className]="'btn btn-primary btn-sm pull-right'" type="submit">CLAIM PROFILE</button>
-                        <!-- <button *ngIf="claimingUserSet" [className]="'btn btn-primary btn-sm pull-right'" type="submit">
-                                <ng-template *ngIf="!claimingUserSet" >SIGN UP</ng-template>
-                                <ng-template *ngIf="claimingUserSet" >CLAIM PROFILE</ng-template>
-                            </button> -->
+                        <button tabindex="8" *ngIf="!claimingUserSet" [className]="'btn btn-primary btn-sm pull-right'" type="submit">SIGN UP</button>
+                        <button tabindex="8" *ngIf="claimingUserSet" [className]="'btn btn-primary btn-sm pull-right'" type="submit">CLAIM PROFILE</button>
                     </div>
                 </form>
                 <!-- //form -->
