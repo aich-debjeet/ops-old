@@ -229,6 +229,7 @@ export class RegistrationBasicComponent implements OnInit {
           Validators.required,
           FormValidation.noWhitespaceValidator,
           FormValidation.usernameLengthValidator,
+          FormValidation.noSpecialCharsValidator,
           FormValidation.noCapitalLettersValidator
         ],
         this.databaseValidator.userNameValidation.bind(this.databaseValidator)
