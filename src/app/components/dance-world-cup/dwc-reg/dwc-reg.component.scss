@@ -11,6 +11,13 @@
     padding-bottom: 50px;
 }
 
+.o-dwc-performance {
+    margin-left: 32px;
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        margin-left: 16px!important;
+    }
+}
+
 .o-dance-wcq-form-block {
     width: 848px;
     margin: 0px auto;
