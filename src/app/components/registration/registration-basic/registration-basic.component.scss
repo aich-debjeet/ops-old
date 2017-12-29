@@ -72,7 +72,7 @@
         clear: both;
         margin-top: 7%;
         @include mq($from: $mobile_sm, $until: $mobile_lg) {
-            font-size: 30px;
+            font-size: 27px;
         }
     }
     p {
