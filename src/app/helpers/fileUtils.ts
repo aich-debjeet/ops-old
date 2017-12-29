@@ -25,8 +25,8 @@ export default class FilesHelper {
   static fileType(filename: string, fileGroup: string) {
 
     // List of Image files
-    const ImageList = ['jpg', 'jpeg', 'png', 'JPG'];
-    const VideoList = ['mp4', 'webm'];
+    const ImageList = ['jpg', 'jpeg', 'png', 'JPG', 'JPEG'];
+    const VideoList = ['MP4', 'mp4', 'webm', 'WEBM', 'AVI', 'avi', 'mov', 'MOV'];
     const AudioList = ['mp3', 'ogg'];
 
     const fileType = (/[.]/.exec(filename)) ? /[^.]+$/.exec(filename) : undefined;
