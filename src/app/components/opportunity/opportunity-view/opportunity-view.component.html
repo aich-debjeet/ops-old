@@ -81,9 +81,7 @@
         </div><!-- job post actions end -->
         <div class="o-job-post__description with_border_top p-b-24">
           <h6 class="c-text_lg m-t-24">Description</h6>
-          <p class="c-text_md color-grey-dark m-t-8">
-            {{ opportunity?.description }}
-          </p>
+          <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.description"></p>
           <h6 class="c-text_lg m-t-24">Expertised in</h6>
           <p class="c-text_md color-grey-dark m-t-8">
             <span *ngFor="let item of opportunity?.skills; let isLast=last">
@@ -129,7 +127,8 @@
         <p class="c-text_sm ltr-space color-grey-dark">Posted By</p>
         <div class="o-opportunity-post-user-detail m-t-16">
           <div class="o-post-user__avatar">
-            <img src="{{ baseUrl + opportunity?.postedByImage }}" alt="">
+            <img *ngIf="!opportunity?.postedByImage" src="https://d206s58i653k1q.cloudfront.net/images/defaultMale/03eed8d4-5659-463a-8fbf-9aa71034c19a.png" class="img-responsive">
+            <img *ngIf="opportunity?.postedByImage" src="{{ baseUrl + opportunity?.postedByImage }}" alt="">
           </div>
           <div class="o-post-user__info">
             <div class="o-post-user__name c-text_lg">{{ opportunity?.postedByName }}</div>
