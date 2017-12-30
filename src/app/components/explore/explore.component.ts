@@ -21,6 +21,7 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from 'environments/environment.prod';
 
 import * as _ from 'lodash';
+import { allSettled } from 'q';
 
 @Component({
   selector: 'app-explore',
@@ -35,7 +36,7 @@ export class ExploreComponent implements OnInit {
   exploreState$: Observable<any>;
   exploreState = initialExploreTag;
   profileSpotfeeds: any;
-  allSpotfeeds: any;
+  mergedSpotfeeds: any;
   baseUrl: string;
   showPreloader = true;
   recordsPerPage = 8;
@@ -82,21 +83,10 @@ export class ExploreComponent implements OnInit {
 
       // get all spotfeeds
       if (state && state.explore_spotfeeds && state.explore_spotfeeds) {
-        this.allSpotfeeds = state.explore_spotfeeds;
 
-        // preparing the pagination reference var
-        if (this.pagination && this.pagination.length === 0) {
-          for (let i = 0; this.allSpotfeeds.length > i; i++) {
-            const refData = {
-              industryType: this.allSpotfeeds[i].industryType,
-              limit: this.recordsPerPage,
-              offset: 0
-            };
-            this.pagination.push(refData);
-            if (i >= (this.allSpotfeeds.length - 1)) {
-            }
-          }
-        }
+        // merge all categories here
+        this.mergedSpotfeeds = this.mergeAllSpotfeeds(state.explore_spotfeeds);
+        console.log(this.mergedSpotfeeds);
       }
 
       // check if loaded
@@ -105,6 +95,22 @@ export class ExploreComponent implements OnInit {
       }
     })
 
+  }
+
+  /**
+   * mergin all spotfeeds
+   */
+  mergeAllSpotfeeds(categorisedSpotfeeds) {
+    let allSpotFeeds = [];
+    for (let i = 0; i < categorisedSpotfeeds.length; i++) {
+      console.log(categorisedSpotfeeds[i]);
+      allSpotFeeds = allSpotFeeds.concat(categorisedSpotfeeds[i].feeds);
+
+      if (i >= (categorisedSpotfeeds.length - 1)) {
+        // console.log('last');
+        return allSpotFeeds;
+      }
+    }
   }
 
   /**
