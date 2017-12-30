@@ -26,49 +26,16 @@
   </div>
 </section>
 
-<!-- <section class="o-explore-catagory-sec">
-    <ngx-carousel
-      [inputs]="carouselOne"
-      (carouselLoad)="myfunc($event)">
-      <ngx-item NgxCarouselItem *ngFor="let spotfeed of profileSpotfeeds;">
-        <div class="o-explore-catagory-block m-r-8">
-          <div class="pointer" [routerLink]="['/spotfeed', spotfeed.name]">
-            <div class="o-explore-catagory__thumb" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed?.image + ')', 'background-size': 'cover', 'background-position': 'center'}">
-            </div>
-            <div class="o-explore-catagory__title c-text_sm p-l-8">
-              {{ spotfeed?.name | truncate:[10, '...'] }}
-            </div>
-          </div>
-        </div>
-      </ngx-item>
-      <button NgxCarouselPrev class='leftRs'>&lt;</button>
-      <button NgxCarouselNext class='rightRs'>&gt;</button>
-    </ngx-carousel>
-  </section> -->
-
 <section class="o-explore-catagory-main m-t-24 ptop-50"></section>
 
-<!-- category start -->
-<section *ngFor="let category of allSpotfeeds" class="o-explore-catagory-main m-t-24">
-  
+<section class="o-explore-catagory-main m-t-24">
   <div class="container p-0">
-    <h6 class="c-text_lg f-w_600">{{ category?.industryType }}<span class="c-text_lg float_right m-r-16 cursor-pointer" (click)="dispatchLoadMore(category?.industryType)" >More</span></h6>
-    <!-- <h6 class="c-text_lg f-w_600">{{ category?.industryType }}</h6> -->
-
-    <div *ngIf="category?.feeds.length > 0; else spotfeeds_not_found;" >
-      <div *ngFor="let spotfeed of category?.feeds" class="o-explore-card m-r-16 m-t-8" [routerLink]="['/spotfeed', spotfeed.name]" >
-        <div class="o-explore-card__media" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed?.image + ')', 'background-size': 'cover', 'background-position': 'center'}"></div>
-        <div class="o-explore-img-title--sm c-text_sm color-white">{{ spotfeed?.name }}</div>
-      </div>
+    <div *ngFor="let spotfeed of mergedSpotfeeds" class="o-explore-card m-r-16 m-t-16" [routerLink]="['/spotfeed', spotfeed.name]" >
+      <div class="o-explore-card__media" [ngStyle]="{'background-image': 'url(' + baseUrl + spotfeed?.image + ')', 'background-size': 'cover', 'background-position': 'center'}"></div>
+      <div class="o-explore-img-title--sm c-text_sm color-white">{{ spotfeed?.name }}</div>
     </div>
-
-    <ng-template #spotfeeds_not_found>
-      <p class="result-not-found">Spotfeeds not found!</p>
-    </ng-template>
   </div>
-
 </section>
-<!-- category end -->
 
 <!-- preloader -->
 <div *ngIf="showPreloader === true">
@@ -79,7 +46,7 @@
 <!-- preloader -->
 
 <!-- if spotfeeds not found -->
-<div *ngIf="allSpotfeeds && allSpotfeeds?.explore_spotfeeds?.length === 0;">
+<div *ngIf="mergedSpotfeeds && mergedSpotfeeds?.length === 0;">
   <p class="result-not-found">Spotfeeds not found!</p>
 </div>
 <!-- if spotfeeds not found -->
