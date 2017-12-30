@@ -45,7 +45,7 @@ export class OpportunityCreateComponent implements OnInit {
   opportunityState: any;
   isSaved = false;
   formData: any;
-  createClicked = false;
+  createOppsStep = 1;
   showCreateChannel = false;
   userProfileState$: any;
   userProfile: any;
@@ -216,7 +216,7 @@ export class OpportunityCreateComponent implements OnInit {
       return;
     }
 
-    this.createClicked = true;
+    this.createOppsStep = 2;
     this.formData = formData;
 
     // loading channels

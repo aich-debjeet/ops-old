@@ -1,4 +1,4 @@
-<section class="o-opportunities-form" *ngIf="!createClicked">
+<section class="o-opportunities-form" *ngIf="createOppsStep === 1">
   <div class="container">
     <div class="o-opportunities-form-container m-t-32">
       <form #crOppFrm="ngForm" [formGroup]="createOppFrm" (ngSubmit)="channelSelection(createOppFrm.value)" >
@@ -300,7 +300,7 @@
   </div>
 </section>
 
-<section class="o-add-to-channel-sec " *ngIf="createClicked" >
+<section class="o-add-to-channel-sec " *ngIf="createOppsStep === 2" >
   <div class="container">
     <!-- add media channel  -->
     <div class="o-add-media-channel-main p-0">
@@ -308,7 +308,7 @@
         <div class="col-md-12 p-0">
           <div class="o-add-media-channel__head">
             <div class="col-md-4 p-0">
-              <a class="c-text_lg o-add-media-channel__link" (click)="createClicked = false">
+              <a class="c-text_lg o-add-media-channel__link" (click)="createOppsStep = 1">
                 <div class="o-back-arrow"><img src="/assets/img/svg/back_arrow.svg" alt=""></div>
               </a>
             </div>
