@@ -15,7 +15,7 @@
     float: left;
     background: url(/assets/img/dwc/db1.jpg) no-repeat;
     background-size: cover;
-    background-position: top left;
+    background-position: top;
     height: 300px;
 }
 
@@ -28,7 +28,7 @@
     float: left;
     background: url(/assets/img/dwc/db2.jpg) no-repeat;
     background-size: cover;
-    background-position: top left;
+    background-position: top;
     height: 300px;
 }
 
@@ -37,7 +37,7 @@
     float: left;
     background: url(/assets/img/dwc/db3.jpg) no-repeat;
     background-size: cover;
-    background-position: top left;
+    background-position: top;
     height: 300px;
 }
 
@@ -46,7 +46,7 @@
     float: left;
     background: url(/assets/img/dwc/db4.jpg) no-repeat;
     background-size: cover;
-    background-position: top left;
+    background-position: top;
     height: 300px;
 }
 
@@ -84,6 +84,9 @@
     float: left;
     .c-h2 {
         padding-top: 102px;
+    }
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+        padding-left:34px;
     }
 }
 
