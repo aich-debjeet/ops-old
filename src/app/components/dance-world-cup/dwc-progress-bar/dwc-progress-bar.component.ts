@@ -65,7 +65,7 @@ export class DwcProgressBarComponent implements OnInit {
 
   mediaClick(step) {
     if (step >= 2) {
-      this.router.navigate(['/post'], { queryParams: { event: 'dwc' } });
+      this.router.navigate(['/post/media'], { queryParams: { event: 'dwc' } });
     }
   }
 

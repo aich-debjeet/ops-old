@@ -234,3 +234,16 @@ a.adder {
         min-height: 100% !important;
     }
 }
+
+.sm-fw {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin: auto;
+        width: 100%;
+    }
+}
+
+.skills_section .o-search-block {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        padding:0 10px;
+    }
+}

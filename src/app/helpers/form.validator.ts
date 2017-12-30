@@ -377,6 +377,14 @@ export class FormValidation {
         return null;
     }
 
+    static noSpecialCharsValidator (control: AbstractControl) {
+        const value = control.value;
+        if (/[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value)) {
+            return { specialChars: true }
+        }
+        return null;
+    }
+
     /**
      * Checking for the password strength on register form
      * @param control: Form password input
