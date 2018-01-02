@@ -163,7 +163,6 @@ export class MediaViewComponent {
       this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
       this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
       this.toastr.warning('Channel Deleted');
-      
       // this.doClose(event);
     }
   }
