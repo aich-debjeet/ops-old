@@ -160,6 +160,7 @@ export class NavigationComponent implements OnInit {
    * Swap Organization with Profile
    */
   changeProfile(user_cards: any, e: MouseEvent) {
+    console.log('user_cards', user_cards)
     this.store.dispatch({ type: ProfileActions.CHANGE_PROFILE, payload: user_cards });
     return false;
   }
