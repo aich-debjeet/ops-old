@@ -70,6 +70,13 @@ export class MediaViewComponent {
       this.mediaId = this.mediaStore.media_detail.id;
       this.spot = this.mediaStore.media_detail.isSpotted;
       console.log('Data ', this.data)
+      if (state['media_delete_msg'] !== 'undefined') {
+        if (state['media_delete_msg'] !== 'undefined') {
+          this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+          this.toastr.warning('Channel Deleted');
+          this.doClose(event);
+        }
+      }
     });
 
     store.select('mediaStore').take(6).subscribe((state) => {
@@ -161,9 +168,9 @@ export class MediaViewComponent {
       const id = data.id;
       console.log('channelid', this.channelId)
       this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
-      this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-      this.toastr.warning('Channel Deleted');
-      // this.doClose(event);
+      // this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+      // this.toastr.warning('Channel Deleted');
+      // // this.doClose(event);
     }
   }
 }
