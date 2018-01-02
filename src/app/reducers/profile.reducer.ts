@@ -1016,7 +1016,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         profile_other_loading: false,
         profile_other_loaded: true,
-        profile_other: payload.STATUS[0]
+        profile_other: payload.SUCCESS.user
       });
 
     case ProfileActions.GET_IMPORTED_PROFILE_FAILED:

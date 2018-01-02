@@ -436,6 +436,6 @@ export class ProfileService {
    * Get imported profile by username
    */
   getImportedProfile(username: string) {
-    return this.api.get('/portal/profile/validate/claim/profile/' + username);
+    return this.api.get('/portal/auth/user/username/' + username);
   }
 }

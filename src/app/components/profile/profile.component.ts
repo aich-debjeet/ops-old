@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
   private mode: string;
 
   test: string;
-  userProfile = initialTag ;
+  userProfile = initialTag;
   router: any;
   isCurrentUser: boolean;
   userName: string;
@@ -62,11 +62,13 @@ export class ProfileComponent implements OnInit {
       .subscribe(params => {
         this.userName = params['id'];
         // console.log('this.userName', this.userName);
-        if (this.userName && this.userName.length > 0) {
+        if (this.userName && this.userName.length > 0 && localStorage.getItem('currentUser') === null) {
           const userdata = {
             isCurrentUser: false,
+            isClaimForGuest: true,
             username: this.userName,
           }
+          // console.log('guest user');
           this.profileStore.dispatch({ type: ProfileActions.GET_IMPORTED_PROFILE, payload: this.userName });
           this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: userdata });
         }
