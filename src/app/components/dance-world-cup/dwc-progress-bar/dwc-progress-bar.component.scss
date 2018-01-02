@@ -90,3 +90,14 @@
     line-height: 18px;
     font-weight: 500;
 }
+
+.o-dwc-progress--active{
+    background: $color-theme;
+    width: 24.4%;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+        width: 24.2%;
+    }
+    @include mq($from: $tablet, $until: $desktop){
+        width: 24.6%;
+    }
+}
