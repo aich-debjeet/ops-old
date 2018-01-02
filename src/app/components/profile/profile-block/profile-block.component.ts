@@ -52,8 +52,29 @@ export class ProfileBlockComponent implements OnInit {
       if (state.profile_user_info) {
         if (state.profile_user_info.isCurrentUser) {
           this.profileObject = this.loadProfile( state, 'own' );
-        }else {
-          this.profileObject = this.loadProfile( state, 'other' );
+        } else {
+          if (state.profile_user_info.isClaimForGuest && state.profile_user_info.isClaimForGuest === true) {
+            // console.log('state.profile_other', state.profile_other);
+            if (state.profile_other && state.profile_other.length !== 0) {
+              const profile = state.profile_other;
+              this.profileObject = {
+                name: profile.name.firstName + ' ' + profile.name.lastName,
+                image: { profile: '', cover: '' },
+                userHandle: profile.username,
+                userBio: '',
+                userSkill: '',
+                userDetails: profile,
+                followingCount: 0,
+                follwerCount: 0,
+                extra: { isImported: true },
+                isFollowing: false
+              };
+              console.log('claim');
+            }
+          } else {
+            console.log('other');
+            this.profileObject = this.loadProfile( state, 'other' );
+          }
         }
       }
     });
