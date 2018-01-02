@@ -15,6 +15,7 @@ import { initialMedia, Media } from '../../../models/media.model';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
 
 import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
 
@@ -47,10 +48,12 @@ export class MediaViewComponent {
   spot: boolean;
   spotCount: number;
   message: boolean;
+  channelId: string;
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private toastr: ToastrService,
     private store: Store<Media>
   ) {
 
@@ -58,12 +61,15 @@ export class MediaViewComponent {
     this.mediaState$ = store.select('mediaStore');
 
     this.mediaState$.subscribe((state) => {
+      console.log('state', state)
       this.mediaStore = state;
+      this.channelId = this.mediaStore.channel_detail['channelId']
       this.data = this.mediaStore.media_detail;
       this.spotCount = this.mediaStore.media_detail.spotsCount;
       this.mediaType = this.mediaStore.media_detail.mtype;
       this.mediaId = this.mediaStore.media_detail.id;
       this.spot = this.mediaStore.media_detail.isSpotted;
+      console.log('Data ', this.data)
     });
 
     store.select('mediaStore').take(6).subscribe((state) => {
@@ -133,6 +139,7 @@ export class MediaViewComponent {
    * Close
    */
   doClose(event) {
+    console.log('event', event)
     this.router.navigate(['.', { outlets: { media: null } }], {
       relativeTo: this.route.parent
     });
@@ -146,6 +153,18 @@ export class MediaViewComponent {
       this.commentCount--
     }else {
       this.commentCount++
+    }
+  }
+  deletePost(data) {
+    console.log('data', data)
+    if (data.id !== 'undefined') {
+      const id = data.id;
+      console.log('channelid', this.channelId)
+      this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+      this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+      this.toastr.warning('Channel Deleted');
+      
+      // this.doClose(event);
     }
   }
 }
