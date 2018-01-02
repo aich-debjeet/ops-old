@@ -102,18 +102,7 @@ export class ProfileSliderComponent implements OnInit {
             // console.log('state.profile_other', state.profile_other);
             if (state.profile_other && state.profile_other.length !== 0) {
               const profile = state.profile_other;
-              this.profileObject = {
-                name: profile.name.firstName + ' ' + profile.name.lastName,
-                image: { profile: '', cover: '' },
-                userHandle: profile.username,
-                userBio: '',
-                userSkill: '',
-                userDetails: profile,
-                followingCount: 0,
-                follwerCount: 0,
-                extra: { isImported: true, username: profile.username },
-                isFollowing: false
-              };
+              this.profileObject = this.utils.claimProfileValueMapping(profile);
               // console.log('claim');
             }
           } else {
