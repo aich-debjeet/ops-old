@@ -379,7 +379,7 @@ export class FormValidation {
 
     static noSpecialCharsValidator (control: AbstractControl) {
         const value = control.value;
-        if (/[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value)) {
+        if (/[ !@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?]/.test(value)) {
             return { specialChars: true }
         }
         return null;
