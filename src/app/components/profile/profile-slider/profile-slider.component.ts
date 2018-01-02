@@ -111,7 +111,7 @@ export class ProfileSliderComponent implements OnInit {
                 userDetails: profile,
                 followingCount: 0,
                 follwerCount: 0,
-                extra: { isImported: true },
+                extra: { isImported: true, username: profile.username },
                 isFollowing: false
               };
               // console.log('claim');
