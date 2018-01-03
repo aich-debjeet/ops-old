@@ -917,7 +917,7 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
     position: relative;
     outline: 0;
     left: 0;
-    background-image: url(/assets/img/svg/checkboxdisabled.svg);
+    background-image: url(https://cdn.onepagespotlight.com/img/svg/checkboxdisabled.svg);
     float: left;
     cursor: pointer;
     -webkit-appearance: none;
@@ -927,7 +927,7 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
 }
 
 .c-form__check input[type="checkbox"]:checked {
-    background: url(/assets/img/svg/checkboxactived.svg);
+    background: url(https://cdn.onepagespotlight.com/img/svg/checkboxactived.svg);
     background-size: cover;
 }
 

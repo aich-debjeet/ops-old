@@ -13,7 +13,7 @@
 .o-dwc-top-banner {
     width: 100%;
     float: left;
-    background: url(/assets/img/dwc/db1.jpg) no-repeat;
+    background: url(https://cdn.onepagespotlight.com/img/dwc/db1.jpg) no-repeat;
     background-size: cover;
     background-position: top;
     height: 300px;
@@ -26,7 +26,7 @@
 .o-dwc-top-banner2 {
     width: 100%;
     float: left;
-    background: url(/assets/img/dwc/db2.jpg) no-repeat;
+    background: url(https://cdn.onepagespotlight.com/img/dwc/db2.jpg) no-repeat;
     background-size: cover;
     background-position: top;
     height: 300px;
@@ -35,7 +35,7 @@
 .o-dwc-top-banner3 {
     width: 100%;
     float: left;
-    background: url(/assets/img/dwc/db3.jpg) no-repeat;
+    background: url(https://cdn.onepagespotlight.com/img/dwc/db3.jpg) no-repeat;
     background-size: cover;
     background-position: top;
     height: 300px;
@@ -44,7 +44,7 @@
 .o-dwc-top-banner4 {
     width: 100%;
     float: left;
-    background: url(/assets/img/dwc/db4.jpg) no-repeat;
+    background: url(https://cdn.onepagespotlight.com/img/dwc/db4.jpg) no-repeat;
     background-size: cover;
     background-position: top;
     height: 300px;
@@ -159,7 +159,7 @@
     width: 100%;
     height: 64px;
     overflow: hidden;
-    background: url(/assets/img/dwc/db3.jpg) no-repeat;
+    background: url(https://cdn.onepagespotlight.com/img/dwc/db3.jpg) no-repeat;
     background-size: cover;
     border-radius: 3px;
 }
@@ -425,7 +425,7 @@
         outline: 0;
         left: 0;
         top: 2px;
-        background-image: url(/assets/img/svg/checkboxdisabled.svg);
+        background-image: url(https://cdn.onepagespotlight.com/img/svg/checkboxdisabled.svg);
         float: left;
         cursor: pointer;
         -webkit-appearance: none;
@@ -434,7 +434,7 @@
         border: none!important;
     }
     .c-form__check input[type="checkbox"]:checked {
-        background: url(/assets/img/svg/checkboxactived.svg);
+        background: url(https://cdn.onepagespotlight.com/img/svg/checkboxactived.svg);
         background-size: cover;
     }
 }

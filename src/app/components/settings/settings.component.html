@@ -6,7 +6,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 o-settings-leftbar ">
                     <div class="o-settings_head">
                         <div class="o-settings_ico">
-                            <img src="/assets/img/svg/ico_settings.svg" class="msg_setting_icon">
+                            <img src="{{ imageBaseLink }}img/svg/ico_settings.svg" class="msg_setting_icon">
                         </div>
                         <div class="settings_head_txt">
                             Settings
@@ -16,22 +16,22 @@
                     <ul class=" o-settings-tabs">
                         <li class=" o-settings-tab_list active">
                             <a class="o-settings-tab_links " href="javascript:void(0)" data-toggle="tab" (click)="displayView('General')">
-                                General <span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
+                                General <span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt=""></span>
                             </a>
                         </li>
                         <li class=" o-settings-tab_list">
                             <a class="o-settings-tab_links " href="javascript:void(0)" data-toggle="tab" (click)="displayView('Security')">
-                                Security & Privacy <span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
+                                Security & Privacy <span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt=""></span>
                             </a>
                         </li>
                         <li class="o-settings-tab_list">
                             <a class="o-settings-tab_links" href="javascript:void(0)" data-toggle="tab" (click)="displayView('Notification')">
-                                Notification<span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
+                                Notification<span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt=""></span>
                             </a>
                         </li>
                         <li class="o-settings-tab_list">
                             <a class="o-settings-tab_links" href="javascript:void(0)" data-toggle="tab" (click)="displayView('Home')">
-                                Home Page Preference<span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
+                                Home Page Preference<span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt=""></span>
                             </a>
                         </li>
                     </ul>
@@ -53,7 +53,7 @@
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.name }}</span>
                                             <span class="o-set-list__edit-btn">
                                             <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="nameToggle()" >
-                                                <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
+                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
@@ -70,7 +70,7 @@
                                                     <div class="dropdown margin_l_16">
                                                         <span class="com-head" data-toggle="dropdown" aria-expanded="true">
                                                 <div class="o-action__ico">
-                                                    <img src="/assets/img/svg/ico-public.svg" alt="">
+                                                    <img src="{{ imageBaseLink }}img/svg/ico-public.svg" alt="">
                                                 </div>
                                                 <div class="o-action__ico-arrow">
                                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10px" height="6px" viewBox="0 0 16 10" version="1.1">
@@ -84,13 +84,13 @@
                                                         <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                                                             <li>
                                                                 <a href="#" class="c-opsdropdown__list">
-                                                                    <img src="/assets/img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                                                                    <img src="{{ imageBaseLink }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
                                                                     <span class="c-opsdropdown--text">Public</span>
                                                                 </a>
                                                             </li>
                                                             <li>
                                                                 <a href="#" class="c-opsdropdown__list">
-                                                                    <img src="/assets/img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                                                                    <img src="{{ imageBaseLink }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
                                                                     <span class="c-opsdropdown--text">Private</span>
                                                                 </a>
                                                             </li>
@@ -120,7 +120,7 @@
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.physical?.dateOfBirth | date:'longDate'}}</span>
                                             <span class="o-set-list__edit-btn">
                                               <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="dobToggle()" >
-                                                    <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
+                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
@@ -140,7 +140,7 @@
                                                     <div class="dropdown margin_l_16">
                                                         <span class="com-head" data-toggle="dropdown" aria-expanded="true">
                                                         <div class="o-action__ico">
-                                                            <img src="/assets/img/svg/ico-public.svg" alt="">
+                                                            <img src="{{ imageBaseLink }}img/svg/ico-public.svg" alt="">
                                                         </div>
                                                         <div class="o-action__ico-arrow">
                                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10px" height="6px" viewBox="0 0 16 10" version="1.1">
@@ -154,13 +154,13 @@
                                                         <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                                                             <li>
                                                                 <a href="#" class="c-opsdropdown__list">
-                                                                    <img src="/assets/img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                                                                    <img src="{{ imageBaseLink }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
                                                                     <span class="c-opsdropdown--text">Public</span>
                                                                 </a>
                                                             </li>
                                                             <li>
                                                                 <a href="#" class="c-opsdropdown__list">
-                                                                    <img src="/assets/img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                                                                    <img src="{{ imageBaseLink }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
                                                                     <span class="c-opsdropdown--text">Private</span>
                                                                 </a>
                                                             </li>
@@ -190,7 +190,7 @@
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.physical?.gender }}</span>
                                             <span class="o-set-list__edit-btn">
                                             <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="genderToggle()" >
-                                                <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
+                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
@@ -227,7 +227,7 @@
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.extra?.username }}</span>
                                             <span class="o-set-list__edit-btn">
                                             <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="userToggle()" >
-                                                <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
+                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
@@ -274,7 +274,7 @@
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.email }}</span>
                                             <span class="o-set-list__edit-btn">
                                                 <a href="javascrpit:void(0)" class="o-set-list-edit__link c-text_md" (click)="emailToggle()" >
-                                                    <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
+                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
@@ -315,7 +315,7 @@
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.contact?.mobile?.mobile }}</span>
                                             <span class="o-set-list__edit-btn">
                                             <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="phoneToggle()" >
-                                                <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
+                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
@@ -355,7 +355,7 @@
                                             <span class="c-text_md color-grey-dark">Talent, Stagecraft </span>
                                             <span class="o-set-list__edit-btn">
                                             <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="profileTypeToggle()" >
-                                                <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
+                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
@@ -713,17 +713,17 @@
                                         <div class="o-set-single-block fill-grey-light p-8" [dragula]='"bag-one"' [dragulaModel]='preferences'>
                                             <a href="javascript:void(0)" class="o-set-prefer__drag-btn c-text_md" *ngFor="let item of preferences; let i=index">
                                                 <span class="drag-btn__ico">
-                                                    <img src="/assets/img/svg/drag_ico.svg" alt="">
+                                                    <img src="{{ imageBaseLink }}img/svg/drag_ico.svg" alt="">
                                                 </span> {{item}}
                                             </a>
                                             <!-- <a href="javascript:void(0)" class="o-set-prefer__drag-btn c-text_md">
                                                 <span class="drag-btn__ico">
-                                                    <img src="/assets/img/svg/drag_ico.svg" alt="">
+                                                    <img src="{{ imageBaseLink }}img/svg/drag_ico.svg" alt="">
                                                 </span> Channel
                                             </a>
                                             <a href="javascript:void(0)" class="o-set-prefer__drag-btn c-text_md">
                                                 <span class="drag-btn__ico">
-                                                    <img src="/assets/img/svg/drag_ico.svg" alt="">
+                                                    <img src="{{ imageBaseLink }}img/svg/drag_ico.svg" alt="">
                                                 </span> Post
                                             </a> -->
                                         </div>
@@ -735,10 +735,10 @@
                                 <div class="col-md-12 p-0">
                                     <div class="o-set-prefer-block p-0">
                                         <div class="o-set-single-block o-set-single-block--flex  fill-grey-light p-8">
-                                            <img src="/assets/img/svg/quick.svg" alt="" class="drag-change-img">
-                                            <img src="/assets/img/svg/quick.svg" alt="" class="drag-change-img">
-                                            <img src="/assets/img/svg/quick.svg" alt="" class="drag-change-img">
-                                            <img src="/assets/img/svg/quick.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/quick.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/quick.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/quick.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/quick.svg" alt="" class="drag-change-img">
                                         </div>
                                         <div class="o-set-single-block o-set-single-block--flex  fill-grey-light p-8">
                                             <span class="drag__name c-text_sm">Spotfeeds</span>
@@ -746,10 +746,10 @@
                                             <span class="drag__name c-text_sm">Posts</span>
                                         </div>
                                         <div class="o-set-single-block o-set-single-block--flex  fill-grey-light p-8">
-                                            <img src="/assets/img/svg/spotfeed.svg" alt="" class="drag-change-img">
-                                            <img src="/assets/img/svg/spotfeed.svg" alt="" class="drag-change-img">
-                                            <img src="/assets/img/svg/spotfeed.svg" alt="" class="drag-change-img">
-                                            <img src="/assets/img/svg/spotfeed.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/spotfeed.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/spotfeed.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/spotfeed.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/spotfeed.svg" alt="" class="drag-change-img">
                                         </div>
                                     </div>
                                 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 import { EventModal, initialTag  } from '../../models/event.model';
 import { Store } from '@ngrx/store';
@@ -23,6 +24,7 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
   formSubmitted = false;
   // window: Window;
   dwcSlider: NgxCarousel;
+  imageBaseUrl = environment.API_IMAGE;
 
   constructor(
     private elRef: ElementRef,

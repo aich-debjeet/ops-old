@@ -10,6 +10,7 @@ import { ProfileActions } from '../../../actions/profile.action';
 import { OrganizationActions } from '../../../actions/organization.action';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../../environments/environment';
 
 import { Store } from '@ngrx/store';
 import {} from '@types/googlemaps';
@@ -31,6 +32,7 @@ export class OrganizationRegComponent implements OnInit {
   public zoom: number;
   tagState$: Observable<Follow>;
   skillSelectionPage: any;
+  imageBaseLink: string = environment.API_IMAGE;
 
   // Address --
   address: string;

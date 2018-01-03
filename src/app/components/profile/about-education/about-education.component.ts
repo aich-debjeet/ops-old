@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-about-education',
@@ -35,7 +36,7 @@ export class AboutEducationComponent implements OnInit {
   stateProfile = initialTag;
   userProfile: any;
   ownProfile: boolean;
-
+  imageBaseUrl = environment.API_IMAGE;
   constructor(
     private http: Http,
     public modalService: ModalService,

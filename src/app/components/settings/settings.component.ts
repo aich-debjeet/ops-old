@@ -51,6 +51,7 @@ export class SettingsComponent implements OnInit {
   passwordActive: boolean;
   selectedView: string;
   private apiLink: string = environment.API_ENDPOINT;
+  imageBaseLink: string = environment.API_IMAGE;
   userHandle: any;
   blockedUsers = [];
   preferences = [];

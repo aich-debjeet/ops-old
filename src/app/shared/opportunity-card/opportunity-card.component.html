@@ -2,7 +2,7 @@
     <div class="c-card">
                 
         <div class="c-card__project p-l-r-16 p-t-16">    
-            <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> 
+            <img src="{{ baseUrl }}img/svg/audition.svg" class="c-card__project--icon"> 
             <span class="m-l-8">{{ opportunity?.title }}</span>
         </div>
         
@@ -34,7 +34,7 @@
         </div>
         
         <div *ngIf="opportunity?.location" class="c-card__location p-b-16 with_border_bottom">
-            <img src="/assets/img/svg/ico_location2.svg">
+            <img src="{{ baseUrl }}img/svg/ico_location2.svg">
             <p class="c-card__location--text">
                 {{ opportunity?.location }}
             </p>
@@ -52,11 +52,11 @@
         <div class="c-card__links">
             <div class="c-links">
                 <!-- <div class="c-links__spots">
-                    <img src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
+                    <img src="{{ baseUrl }}img/svg/spot_icon_default.svg" class="c-links__image">
                     <span class="c-links__count">705</span>
                 </div> -->
                 <div class="c-links__comments">
-                    <img src="/assets/img/svg/ico_share-02.svg" class="c-links__image">
+                    <img src="{{ baseUrl }}img/svg/ico_share-02.svg" class="c-links__image">
                 </div>
                 <div class="c-links__actions">
                     <a routerLink="/opportunity/view/{{ opportunity?.id }}" class="c-card__opportunity--view">View</a>

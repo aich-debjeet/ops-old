@@ -12,8 +12,6 @@ import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
-import { JobsComponent } from './components/jobs/jobs.component';
-import { JobDetailsComponent } from './components/job-details/job-details.component';
 import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
@@ -31,8 +29,6 @@ import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world-cup.component';
-import { DeviseComponent } from './components/devise/devise.component';
-
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -41,7 +37,6 @@ export const routes: Routes = [
  { path: '', component: LogoutHomeComponent },
  { path: 'logout', component: LogoutComponent },
  { path: 'login', component: LoginComponent },
-//  { path: 'device', component: DeviseComponent },
  { path: 'learn', component: LearnComponent, canActivate: [AuthGuard] },
  { path: 'channel/:id', component: ChannelInnerComponent, canActivate: [AuthGuard] },
  { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },
@@ -61,8 +56,6 @@ export const routes: Routes = [
  { path: 'planner', component: PlannerComponent, canActivate: [AuthGuard] },
  { path: 'network', component: NetworkComponent, canActivate: [AuthGuard] },
  { path: 'project', component: ProjectComponent, canActivate: [AuthGuard] },
- { path: 'jobs', component: JobsComponent, canActivate: [AuthGuard] },
- { path: 'job-details', component: JobDetailsComponent, canActivate: [AuthGuard] },
  { path: 'event', loadChildren: './components/events/events.module#EventsModule'},
  { path: 'user/settings', component: SettingsComponent, canActivate: [AuthGuard] },
  { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard] },

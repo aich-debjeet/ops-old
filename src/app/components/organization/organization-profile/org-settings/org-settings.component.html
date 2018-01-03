@@ -5,7 +5,7 @@
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 o-settings-leftbar ">
                 <div class="o-settings_head">
                     <div class="o-settings_ico">
-                        <img src="/assets/img/svg/ico_settings.svg" class="msg_setting_icon">
+                        <img src="{{ imageBaseLink }}img/svg/ico_settings.svg" class="msg_setting_icon">
                     </div>
                     <div class="settings_head_txt">
                         Settings
@@ -16,13 +16,13 @@
                     <li class=" o-settings-tab_list">
                         <a class="o-settings-tab_links active" href="javascript:void(0)" data-toggle="tab" (click)="toggleView($event,'general')">
                             General 
-                            <span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt="">
+                            <span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt="">
                             </span>
                         </a>
                     </li>
                     <li class=" o-settings-tab_list">
                         <a class="o-settings-tab_links" href="javascript:void(0)" data-toggle="tab" (click)="toggleView($event,'admin')">Admin Access
-                            <span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt="">
+                            <span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt="">
                             </span>
                         </a>
                     </li>
@@ -139,7 +139,7 @@
                                     <div id="acc_country" class="o-set-list__data">
                                         <span class="o-set-list__edit-btn">
                                         <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md">
-                                          <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt="" (click)="display()"></span> Edit
+                                          <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt="" (click)="display()"></span> Edit
                                         </a>
                                         </span>
                                     </div>
@@ -195,7 +195,7 @@
                                     <div id="acc_info-age" class="o-set-list__data">
                                         <span class="o-set-list__edit-btn">
                                         <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="display1()">
-                                          <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt="">
+                                          <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt="">
                                           </span> Edit
                                         </a>
                                         </span>

@@ -10,14 +10,14 @@
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <div class="msg_inbox_name">
-                                    <img src="/assets/img/svg/ico_message.svg">
+                                    <img src="{{ imageBaseLink }}img/svg/ico_message.svg">
                                     <span>INBOX</span>
                                 </div>
                             </li>
                             <li class="list-inline-item float_right">
                                 <a href="javascript:void(0)" (click)="toggleView('composeMessage', null)" class="btn btn-xs btn-primary btn-follow">
                                     <span class="btn-label-follow">
-                                        <img src="/assets/img/svg/ico_plus_white.svg">
+                                        <img src="{{ imageBaseLink }}img/svg/ico_plus_white.svg">
                                     </span> COMPOSE
                                 </a>
                             </li>
@@ -30,7 +30,7 @@
                             <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <div class="msg_inbox_name">
-                                        <img src="/assets/img/svg/ico_search.svg">
+                                        <img src="{{ imageBaseLink }}img/svg/ico_search.svg">
                                         <div class="form_group ang_msg--search">
                                             <input class="form_input" [(ngModel)]="searchText" name="searchText" type="text" required="" placeholder="Search">
                                         </div>
@@ -43,7 +43,7 @@
                         <li class="with_border_bottom">
                             <ul class="list-inline">
                                 <li class="list-inline-item msg_online float_left">
-                                    <img src="/assets/img/svg/ico_lik_hover.svg" class="img-responsive">
+                                    <img src="{{ imageBaseLink }}img/svg/ico_lik_hover.svg" class="img-responsive">
                                 </li>
                                 <li class="list-inline-item">
                                     <div class="msg_friend_name">Select All</div>
@@ -54,13 +54,13 @@
                                         <ul class="dropdown-menu" [ngClass]="{'open': this.msgNav['action'].open }">
                                             <li class="with_border_bottom">
                                                 <a href="javascript:void(0)">
-                                                    <img src="/assets/img/svg/ico_archive.svg">
+                                                    <img src="{{ imageBaseLink }}img/svg/ico_archive.svg">
                                                     <span>Archive</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="javascript:void(0)">
-                                                    <img src="/assets/img/svg/ico_delete.svg">
+                                                    <img src="{{ imageBaseLink }}img/svg/ico_delete.svg">
                                                     <span>Delete</span>
                                                 </a>
                                             </li>
@@ -81,7 +81,7 @@
                                 <li class="with_border_bottom" *ngIf="message.handle != userHandle">
                                     <ul class="list-inline">
                                         <li class="list-inline-item msg_online float_left">
-                                            <img src="/assets/img/svg/ico_lik.svg" class="img-responsive">
+                                            <img src="{{ imageBaseLink }}img/svg/ico_lik.svg" class="img-responsive">
                                         </li>
                                         <li class="list-inline-item msg_avatar float_left">
                                             <img *ngIf="message.profileImage" src="{{ baseUrl + message.profileImage }}" class="img-responsive">
@@ -106,7 +106,7 @@
                                 <li class="with_border_bottom" *ngIf="message.handle != userHandle">
                                     <ul class="list-inline">
                                         <li class="list-inline-item msg_online float_left">
-                                            <img src="/assets/img/svg/ico_lik.svg" class="img-responsive">
+                                            <img src="{{ imageBaseLink }}img/svg/ico_lik.svg" class="img-responsive">
                                         </li>
                                         <li class="list-inline-item msg_avatar float_left">
                                             <img *ngIf="message.profileImage" src="{{ baseUrl + message.profileImage }}" class="img-responsive">
@@ -148,18 +148,18 @@
                                 <li class="list-inline-item float_right msg_setting">
                                     <div class="dropdown pull-right" appDropdown>
                                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" appDropdownOpen>
-                                            <img src="/assets/img/svg/ico_settings.svg" class="msg_setting_icon">
+                                            <img src="{{ imageBaseLink }}img/svg/ico_settings.svg" class="msg_setting_icon">
                                         </a>
                                         <ul class="dropdown-menu" [ngClass]="{'open': this.msgNav['setting'].open }">
                                             <li class="with_border_bottom">
                                                 <a href="#">
-                                                    <img src="/assets/img/svg/ico_archive.svg">
+                                                    <img src="{{ imageBaseLink }}img/svg/ico_archive.svg">
                                                     <span>Archive</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#">
-                                                    <img src="/assets/img/svg/ico_delete.svg">
+                                                    <img src="{{ imageBaseLink }}img/svg/ico_delete.svg">
                                                     <span>Delete</span>
                                                 </a>
                                             </li>
@@ -267,18 +267,18 @@
                                     <li class="list-inline-item float_right msg_setting">
                                         <div class="dropdown pull-right" appDropdown>
                                             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" appDropdownOpen>
-                                                <img src="/assets/img/svg/ico_settings.svg" class="msg_setting_icon">
+                                                <img src="{{ imageBaseLink }}img/svg/ico_settings.svg" class="msg_setting_icon">
                                             </a>
                                             <ul class="dropdown-menu" [ngClass]="{'open': this.msgNav['setting'].open }">
                                                 <li>
                                                     <a href="#">
-                                                        <img src="assets/img/svg/ico_archive.svg">
+                                                        <img src="{{ imageBaseLink }}img/svg/ico_archive.svg">
                                                         <span>Archive</span>
                                                     </a>
                                                 </li>
                                                 <li class="with_border_bottom">
                                                     <a href="#">
-                                                        <img src="/assets/img/svg/ico_delete.svg">
+                                                        <img src="{{ imageBaseLink }}img/svg/ico_delete.svg">
                                                         <span>Delete</span>
                                                     </a>
                                                 </li>
@@ -343,18 +343,18 @@
                                 <li class="list-inline-item float_right msg_setting">
                                     <div class="dropdown pull-right" appDropdown>
                                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" appDropdownOpen>
-                                            <img src="/assets/img/svg/ico_settings.svg" class="msg_setting_icon">
+                                            <img src="{{ imageBaseLink }}img/svg/ico_settings.svg" class="msg_setting_icon">
                                         </a>
                                         <ul class="dropdown-menu" [ngClass]="{'open': this.msgNav['setting'].open }">
                                             <li class="with_border_bottom">
                                                 <a href="#">
-                                                    <img src="/assets/img/svg/ico_archive.svg">
+                                                    <img src="{{ imageBaseLink }}img/svg/ico_archive.svg">
                                                     <span>Archive</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#">
-                                                    <img src="/assets/img/svg/ico_delete.svg">
+                                                    <img src="{{ imageBaseLink }}img/svg/ico_delete.svg">
                                                     <span>Delete</span>
                                                 </a>
                                             </li>
@@ -464,18 +464,18 @@
                                     <li class="list-inline-item float_right msg_setting">
                                         <div class="dropdown pull-right" appDropdown>
                                             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" appDropdownOpen>
-                                                <img src="/assets/img/svg/ico_settings.svg" class="msg_setting_icon">
+                                                <img src="{{ imageBaseLink }}img/svg/ico_settings.svg" class="msg_setting_icon">
                                             </a>
                                             <ul class="dropdown-menu" [ngClass]="{'open': this.msgNav['setting'].open }">
                                                 <li>
                                                     <a href="#">
-                                                        <img src="assets/img/svg/ico_archive.svg">
+                                                        <img src="{{ imageBaseLink }}img/svg/ico_archive.svg">
                                                         <span>Archive</span>
                                                     </a>
                                                 </li>
                                                 <li class="with_border_bottom">
                                                     <a href="#">
-                                                        <img src="/assets/img/svg/ico_delete.svg">
+                                                        <img src="{{ imageBaseLink }}img/svg/ico_delete.svg">
                                                         <span>Delete</span>
                                                     </a>
                                                 </li>

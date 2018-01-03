@@ -7,6 +7,7 @@ import {IDatePickerConfig} from 'ng2-date-picker';
 import { Store } from '@ngrx/store';
 import { Modal } from '../../../shared/modal-new/Modal';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../../environments/environment';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -43,7 +44,7 @@ export class DwcRegComponent implements OnInit {
   @ViewChild('dwcModal') DwctypeModal: Modal;
   dwcSlider: NgxCarousel;
   hideSchoolName = false;
-
+  imageBaseUrl = environment.API_IMAGE;
 
   config: IDatePickerConfig = {
     firstDayOfWeek: 'mo',

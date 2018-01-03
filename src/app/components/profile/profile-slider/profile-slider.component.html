@@ -4,7 +4,7 @@
             <span class="c-timeline__imgchange" appDropdown>
                <a data-toggle="modal" data-target="#cover-upload" appDropdownOpen>
                     <div class="c-timeline__changecover">
-                        <a routerLink="/profile/about/cover_image"><img src="/assets/img/svg/edit_red.svg" class="c-timeline__icon">Change cover</a>
+                        <a routerLink="/profile/about/cover_image"><img src="{{ baseUrl }}img/svg/edit_red.svg" class="c-timeline__icon">Change cover</a>
                     </div>
                 </a>
             </span>
@@ -22,7 +22,7 @@
                     <img *ngIf="!profileObject?.image?.profile" src="{{ defaultImage }}" class="img-responsive img-circle c-profile__userimg">
                     <span *ngIf="this.isOwner" class="c-profile__imgchange">
                         <a  data-toggle="modal" data-target="#profile-upload">
-                           <a routerLink="/profile/about/image"> <img src="/assets/img/svg/edit_red.svg" class="c-profile__imgchange--icon"></a>
+                           <a routerLink="/profile/about/image"> <img src="{{ baseUrl }}img/svg/edit_red.svg" class="c-profile__imgchange--icon"></a>
                         </a>
                     </span>
                 </div>
@@ -37,7 +37,7 @@
                     <span class="c-profile__userhandle">{{ '@' + profileObject?.userHandle }}</span>
                     <span class="c-profile__userprofession">{{ profileObject?.extra?.profession }}</span>
                     <div class="c-profile__maintags">
-                        <a routerLink="{{ '/spotfeed/' + skill.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:5">#{{ skill.name }}</a>
+                        <a routerLink="{{ '/spotfeed/' + skill?.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:5">#{{ skill?.name }}</a>
                         <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more" data-toggle="modal" data-target="#tag-pop">More</a>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                     <ul class="list-inline o-profile__nav--icon">
                         <li class="list-line-item dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <img src="/assets/img/svg/ico_share.svg" class="o-profile__nav--img">
+                                <img src="{{ baseUrl }}img/svg/ico_share.svg" class="o-profile__nav--img">
                             </a>
                             <!-- <div class="dropdown-menu dropdown-menu-right o-share__profile p-16">
                                 <div class="o-share__arrow"><img src="img/arrow.png"></div>
@@ -130,11 +130,11 @@
                         </li>
                         <li class="list-line-item" *ngIf="this.isOwner">
                             <a (click)="profileEdit()" data-toggle="modal" data-target="#edit_profile_pop">
-                                <img src="/assets/img/svg/ico_edit.svg" class="o-profile__nav--img">
+                                <img src="{{ baseUrl }}img/svg/ico_edit.svg" class="o-profile__nav--img">
                             </a>
                         </li>
                         <li class="list-line-item" *ngIf="!this.isOwner">
-                            <a routerLink="/message" routerLinkActive="active"><img src="/assets/img/svg/ico_message.svg"></a>
+                            <a routerLink="/message" routerLinkActive="active"><img src="{{ baseUrl }}img/svg/ico_message.svg"></a>
                         </li>
                     </ul>
                 </div>
@@ -162,7 +162,7 @@
                             <div class="o-profile__spotscore">
                                 Spotscore Coming Soon
                                 <span class="p-l-r-8">
-                                <img src="/assets/img/svg/ico_i.svg" alt="" class="o-profile__spotscore--icon">
+                                <img src="{{ baseUrl }}img/svg/ico_i.svg" alt="" class="o-profile__spotscore--icon">
                             </span>
                             </div>
                             <div class="o-profile__channelpost">
@@ -184,7 +184,7 @@
                         <div class="o-profile__detail--heading">Interest
                             <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
                         </div>
-                        <a routerLink="{{ '/spotfeed/' + skill.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:5" class="c-skill__tags">#{{ skill.name }}</a>
+                        <a routerLink="{{ '/spotfeed/' + skill?.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:5" class="c-skill__tags">#{{ skill?.name }}</a>
                         <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more" data-toggle="modal" data-target="#tag-pop">More</a>
                     </div>
                 </div>
@@ -219,7 +219,7 @@
                     <div class="edit-profile_sec_head" data-toggle="collapse " data-target="#basic_info">
                         <h3 class="edit-profile_subtitle">Basic Info</h3>
                         <!-- <div class="edit-profile_iconbox">
-                            <img src="/assets/img/svg/ico-arrow-down.svg" alt="">
+                            <img src="{{ baseUrl }}img/svg/ico-arrow-down.svg" alt="">
                         </div> -->
                     </div>
                     <!-- edit profile sec head -->
@@ -258,7 +258,7 @@
                                 <div class="selected_skill">
                                     <button *ngFor="let skill of selectedSkills" (click)="toggleSelectSkill(skill.code)" type="button" class="btn btn-tag btn-primary btn-sm btn-skill">
                                         <span >
-                                            {{skill.name}}
+                                            {{skill?.name}}
                                         </span>
 
                                     </button>
@@ -267,9 +267,9 @@
                                     <div *ngIf="findSkill.skills_loaded===false">
                                         <span class="loading">Loading...</span>
                                     </div>
-                                    <span *ngFor="let skill of findSkill.skills">
+                                    <span *ngFor="let skill of findSkill?.skills">
                                         <button type="button" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" class="btn btn-tag btn-sm">
-                                            {{skill.name}}
+                                            {{skill?.name}}
                                         </button>
                                     </span>
                                     <!--<div *ngIf='skillSelectionPage.skills_loaded===true && skillSelectionPage.skills && skillSelectionPage.skills.length === 0'>
@@ -304,12 +304,12 @@
             <div class="o-tag-head">
                 <h2 class="o-tag__title">More Skills
                     <span class="pop-close" (click)="skillModal.close()">
-                  <a ><img src="/assets/img/svg/ico_close-38.svg" alt=""></a>
+                  <a ><img src="{{ baseUrl }}img/svg/ico_close-38.svg" alt=""></a>
                 </span>
                 </h2>
             </div>
             <div class="o-tag-list">
-                <span *ngFor="let skill of profileObject?.userSkill" class="c-skill__tags">#{{ skill.name }}</span>
+                <span *ngFor="let skill of profileObject?.userSkill" class="c-skill__tags">#{{ skill?.name }}</span>
             </div>
         </div>
     </modal-content>
@@ -321,7 +321,7 @@
             <!-- Modal content-->
             <div class="donation_container">
                 <span class="search_close">
-                    <a (click)="donatePopup()" data-dismiss="modal"><img src="/assets/img/svg/ico_close-38.svg" alt=""></a>
+                    <a (click)="donatePopup()" data-dismiss="modal"><img src="{{ baseUrl }}img/svg/ico_close-38.svg" alt=""></a>
                 </span>
 
                 <div class="donation_content">

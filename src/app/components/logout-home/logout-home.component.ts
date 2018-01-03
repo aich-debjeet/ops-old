@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
 
 import { ProfileModal, initialTag, ProfileCard } from '../../models/profile.model';
+import { environment } from '../../../environments/environment';
 
 // action
 import { ProfileActions } from '../../actions/profile.action';
@@ -24,6 +25,7 @@ export class LogoutHomeComponent implements OnInit, OnDestroy {
   userDetails = initialTag;
   private subscription: Subscription;
   homeSlider: NgxCarousel;
+  base_image = environment.API_IMAGE;
 
   constructor(
     private profileStore: Store<ProfileModal>,

@@ -8,6 +8,7 @@ import { LocalStorageService } from './../../../services/local-storage.service';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
+import { environment } from '../../../../environments/environment';
 
 // rx
 import { Observable } from 'rxjs/Observable';

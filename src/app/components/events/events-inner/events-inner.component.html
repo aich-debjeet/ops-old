@@ -10,7 +10,7 @@
       <div class="o-eventinner__heading">{{ eventDetail?.title }}
           <div class="pull-right dropdown c-dropdown">
               <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                  <img src="/assets/img/svg/ico_options.svg" class="c-status__options">
+                  <img src="{{ baseUrl }}img/svg/ico_options.svg" class="c-status__options">
               </span>
               <ul class="dropdown-menu dropdown-menu-right m-r-8">
                   <li>
@@ -24,10 +24,10 @@
       </div>
       <div class="o-eventinner__detail">
           <div class="o-eventinner__date">
-              <img src="/assets/img/svg/calendar.svg" class="o-eventinner__detail--img"> {{ eventDetail?.eventTiming?.startDate | utcDate | date: 'dd, LLLL'}}
+              <img src="{{ baseUrl }}img/svg/calendar.svg" class="o-eventinner__detail--img"> {{ eventDetail?.eventTiming?.startDate | utcDate | date: 'dd, LLLL'}}
           </div>
           <div class="o-eventinner__address">
-            <img src="/assets/img/svg/ico_location2.svg" class="o-eventinner__detail--img"> {{ eventDetail?.venue?.location }}
+            <img src="{{ baseUrl }}img/svg/ico_location2.svg" class="o-eventinner__detail--img"> {{ eventDetail?.venue?.location }}
           </div>
       </div>
 

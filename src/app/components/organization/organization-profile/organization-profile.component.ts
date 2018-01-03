@@ -7,6 +7,7 @@ import { AuthActions } from '../../../actions/auth.action';
 import { ProfileActions } from '../../../actions/profile.action';
 import { OrganizationActions } from '../../../actions/organization.action';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 
 import { LocalStorageService } from '../../../services/local-storage.service';
@@ -28,6 +29,7 @@ export class OrganizationProfileComponent implements OnInit {
   hasNoOrg: boolean;
   isOtherProfile: boolean;
   orgState$: Observable<any>;
+  imageBaseLink: string = environment.API_IMAGE;
 
   // Org states
   private sub: any;

@@ -1,6 +1,6 @@
 <div class="ops_search" id="search-popup">
     <p class="search_close">
-        <a href="/home"><img src="/assets/img/svg/ico_close.svg" alt=""></a>
+        <a href="/home"><img src="{{ baseUrl }}img/svg/ico_close.svg" alt=""></a>
     </p>
     <div class="container">
         <div class="row">
@@ -10,8 +10,8 @@
                         <input #searchQueryElement #searchInput="ngModel" (focus)="searchOnFocus()" (blur)="searchOnBlur()" class="form_input" type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}" >
                         <label id="search-placeholder" *ngIf="showSearchPlaceholder" >Search</label>
                         <p class="search_top_icon">
-                            <img *ngIf="!isSearching" src="/assets/img/svg/ico_search.svg">
-                            <img *ngIf="isSearching" src="/assets/img/spinner.gif">
+                            <img *ngIf="!isSearching" src="{{ baseUrl }}img/svg/ico_search.svg">
+                            <img *ngIf="isSearching" src="{{ baseUrl }}img/spinner.gif">
                         </p>
                     </div>
                 </form>

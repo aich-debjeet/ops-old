@@ -91,8 +91,6 @@ import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
-import { JobsComponent } from './components/jobs/jobs.component';
-import { JobDetailsComponent } from './components/job-details/job-details.component';
 // import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ExploreComponent } from './components/explore/explore.component';
@@ -126,7 +124,6 @@ import { DirectoryListComponent } from './components/directory-list/directory-li
 import { AgmCoreModule } from '@agm/core';
 import { OpportunityEffect } from 'app/effects/opportunity.effect';
 import { OpportunityModule } from 'app/components/opportunity/opportunity.module';
-import { DeviseComponent } from './components/devise/devise.component';
 
 
 @NgModule({
@@ -139,8 +136,6 @@ import { DeviseComponent } from './components/devise/devise.component';
     SpotfeedPremiumComponent,
     NotificationComponent,
     PortfolioComponent,
-    JobsComponent,
-    JobDetailsComponent,
     // SearchComponent,
     SettingsComponent,
     PopularArtistsComponent,
@@ -162,8 +157,7 @@ import { DeviseComponent } from './components/devise/devise.component';
     PlannerComponent,
     NetworkComponent,
     ProjectComponent,
-    DirectoryListComponent,
-    DeviseComponent,
+    DirectoryListComponent
   ],
   imports: [
     DragulaModule,

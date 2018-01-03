@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
+import { environment } from '../../../../environments/environment';
 
 // Model
 import { EventModal, initialTag  } from '../../../models/event.model';
@@ -30,6 +31,7 @@ export class EventsLandingComponent implements OnInit {
   tagState$: Observable<EventModal>;
   eventList = initialTag ;
   eventType: any;
+  baseUrl = environment.API_IMAGE;
 
   category: string;
   myQueryParms: any;
