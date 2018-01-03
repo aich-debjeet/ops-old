@@ -70,19 +70,23 @@ export class MediaViewComponent {
       this.mediaId = this.mediaStore.media_detail.id;
       this.spot = this.mediaStore.media_detail.isSpotted;
       console.log('Data ', this.data)
-      if (state['media_delete_msg'] !== 'undefined') {
-        if (state['media_delete_msg'] !== 'undefined') {
-          this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-          this.toastr.warning('Channel Deleted');
-          this.doClose(event);
-        }
-      }
+      // if (state['media_delete_msg'] !== 'undefined') {
+      //     console.log('delete masg')
+      //     this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+      //     this.toastr.warning('Channel Deleted');
+      //     this.doClose(event);
+      // }
     });
 
     store.select('mediaStore').take(6).subscribe((state) => {
       this.commentCount = this.mediaStore.media_detail.commentsCount;
       this.comments = this.mediaStore.media_comment;
-
+      if (state['media_delete_msg']) {
+            console.log('delete masg')
+            this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+            this.toastr.warning('Channel Deleted');
+            this.doClose(event);
+        }
     });
 
 
