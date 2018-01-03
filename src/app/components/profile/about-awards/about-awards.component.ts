@@ -6,6 +6,7 @@ import { UserMedia } from '../../../models/user-media.model';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { environment } from '../../../../environments/environment';
 
 
 // action
@@ -34,6 +35,7 @@ export class AboutAwardsComponent implements OnInit {
   stateProfile = initialTag;
   userProfile: any;
   ownProfile: boolean;
+  imageBaseUrl = environment.API_IMAGE;
 
   constructor(
     private http: Http,

@@ -7,6 +7,7 @@ import { ModalService } from '../../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import {DatabaseValidator } from '../../../helpers/form.validator';
 import { DatePipe } from '@angular/common';
+import { environment } from '../../../../environments/environment';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -35,6 +36,7 @@ export class AboutWorkComponent implements OnInit {
   userProfile: any;
   ownProfile: boolean;
   hideTo: boolean;
+  imageBaseUrl = environment.API_IMAGE;
 
   constructor(
     private http: Http,

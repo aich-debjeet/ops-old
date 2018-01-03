@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" routerLink="/home"><img src="/assets/img/ops_icon.png"></a>
+                <a class="navbar-brand" routerLink="/home"><img src="{{ imageBaseUrl }}img/ops_icon.png"></a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -21,7 +21,7 @@
                     <li routerLinkActive="active"><a routerLink="/communities">Community</a></li>
                     <li routerLinkActive="active"><a routerLink="/directory">Directory</a></li>
                     <li class="o-nav__dwc">
-                        <a routerLink="/dwc/details">dwc <img src="/assets/img/svg/nav_star.svg" class="o-nav__star"></a>
+                        <a routerLink="/dwc/details">dwc <img src="{{ imageBaseUrl }}img/svg/nav_star.svg" class="o-nav__star"></a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav nav__right" *ngIf="isProfileSet === false">
@@ -31,11 +31,11 @@
                 </ul>
                 <ul class="nav navbar-nav nav__right" *ngIf="isProfileSet === true">
                     <li>
-                        <a routerLink="/post"><img src="/assets/img/svg/ico_create-post.svg"></a>
+                        <a routerLink="/post"><img src="{{ imageBaseUrl }}img/svg/ico_create-post.svg"></a>
                     </li>
                     <li class="dropdown" appDropdown>
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                            <img src="/assets/img/svg/ico_add.svg">
+                            <img src="{{ imageBaseUrl }}img/svg/ico_add.svg">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right nav__dropdown2">
                             <div class="dropdown__item p-b-16">
@@ -53,23 +53,23 @@
                         </div>
                     </li>
                     <li>
-                        <a href="/search"><img src="/assets/img/svg/ico_search.svg"></a>
+                        <a href="/search"><img src="{{ imageBaseUrl }}img/svg/ico_search.svg"></a>
                     </li>
                     <li class="dropdown" appDropdown>
                         <a class="dropdown-toggle" appDropdownOpen>
-                            <img src="/assets/img/svg/ico_notification.svg">
+                            <img src="{{ imageBaseUrl }}img/svg/ico_notification.svg">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right nav__dropdown3">
                             <div class="dropdown__item dropnoti__head msg__read">
                                 <a routerLink="/notification">Your Notification</a>
                                 <a (click)="markAllAsRead()" class="pull-right">Mark all as read</a>
-                                <div class="dropdown__arrow"><img src="/assets/img/arrow.png"></div>
+                                <div class="dropdown__arrow"><img src="{{ imageBaseUrl }}img/arrow.png"></div>
                             </div>
                             <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications" [ngClass]="{'fill_grey': !notification.isRead}">
                                 <div class="dropnoti__avatar">
-                                    <!-- <img class="navdrop__img" src="/assets/img/new/avatar2.png"> -->
+                                    <!-- <img class="navdrop__img" src="{{ imageBaseUrl }}img/new/avatar2.png"> -->
                                     <img *ngIf="!notification.profileImage" src="https://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg" class="img-responsive">
-                                    <img *ngIf="notification.profileImage" src="{{ baseUrl + notification.profileImage }}" class="img-responsive">
+                                    <img *ngIf="notification.profileImage" src="{{ imageBaseUrl + notification.profileImage }}" class="img-responsive">
                                 </div>
                                 <div class="dropnoti__detail">
                                     <span><a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
@@ -78,41 +78,10 @@
                                     </span>
                                 </div>
                                 <div class="dropnoti__icon">
-                                    <img src="/assets/img/svg/spot_icon.svg">
+                                    <img src="{{ imageBaseUrl }}img/svg/spot_icon.svg">
                                 </div>
                                 <p class="msg__time">--</p>
                             </div>
-                            <!-- <div class="dropdown__item p-16 msg__unread">
-                                <div class="dropnoti__avatar">
-                                    <img class="navdrop__img" src="">
-                                </div>
-                                <div class="dropnoti__detail">
-                                    <span class="dropnoti__bold">Tommy Russell</span> add your post to <span class="dropnoti__bold">Paper Work</span></div>
-                                <div class="dropnoti__icon">
-                                    <img src="/assets/img/svg/ico_addtochannel.svg">
-                                </div>
-                                <p class="msg__time">10:05 PM</p>
-                            </div>
-                            <div class="dropdown__item p-16 msg__read">
-                                <div class="dropnoti__avatar">
-                                    <img class="navdrop__img" src="/assets/img/new/avatar3.png">
-                                </div>
-                                <div class="dropnoti__detail">
-                                    <span class="dropnoti__bold">Prince Keshav</span> and <span class="dropnoti__bold">Anie Ukim</span> have their birthdays today. Wish them all the best!</div>
-                                <p class="msg__time">10:01 PM</p>
-                            </div>
-                            <div class="dropdown__item p-16 msg__read">
-                                <div class="dropnoti__avatar">
-                                    <img class="navdrop__img" src="/assets/img/new/avatar.png">
-                                </div>
-                                <div class="dropnoti__detail">
-                                    <span class="dropnoti__bold">Tobis Russell</span> added you a member of organization <span class="dropnoti__bold">Prapt Institutions</span></div>
-                                <p class="msg__time">10:01 PM</p>
-                                <div class="dropnoti__permission">
-                                    <a href="" class="color-theme">Accept</a>
-                                    <a href="">Decline</a>
-                                </div>
-                            </div> -->
                             <div class="dropdown__item p-16 msg__read">
                                 <a routerLink="/notification">
                                     <p class="dropnoti__viewall">View All </p>
@@ -122,20 +91,20 @@
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" routerLink="/user/message" routerLinkActive="active">
-                            <img src="/assets/img/svg/ico_message.svg">
+                            <img src="{{ imageBaseUrl }}img/svg/ico_message.svg">
                         </a>
                     </li>
 
                     <li class="dropdown" appDropdown>
                         <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
                             <div *ngIf="userCards?.active?.image !== ''; else profile_image_empty">
-                                <img src="{{ baseUrl + this.userCards.active.image }}" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === false">
-                                <img src="{{ baseUrl + this.userCards.active.image }}" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === true">
+                                <img src="{{ imageBaseUrl + this.userCards.active.image }}" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === false">
+                                <img src="{{ imageBaseUrl + this.userCards.active.image }}" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === true">
                                 <span class="caret"></span>
                             </div>
                             <ng-template #profile_image_empty>
-                                <img src="https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === false">
-                                <img src="https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === true">
+                                <img src="{{imageBaseUrl}}avatars/user-avatar-male.png" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === false">
+                                <img src="{{imageBaseUrl}}avatars/user-avatar-male.png" class="nav__avatar__img" *ngIf="this.userCards.active.isOrg === true">
                                 <span class="caret"></span>
                             </ng-template>
 
@@ -144,8 +113,8 @@
                             <div routerLink="{{ this.userCards.active.page_path }}" class="dropdown__item with_border_bottom p-b-16">
                                 <a>
                                     <div class="navdrop__imgblock">
-                                        <img *ngIf="userCards?.active?.image !== ''" class="navdrop__img" src="{{ baseUrl + this.userCards.active.image }}">
-                                        <img *ngIf="userCards?.active?.image === ''" class="navdrop__img" src="https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png">
+                                        <img *ngIf="userCards?.active?.image !== ''" class="navdrop__img" src="{{ imageBaseUrl + this.userCards.active.image }}">
+                                        <img *ngIf="userCards?.active?.image === ''" class="navdrop__img" src="{{imageBaseUrl}}avatars/user-avatar-male.png">
                                     </div>
                                     <div class="navdrop__name">{{ this.userCards.active.name }}</div>
                                     <div class="navdrop__userhandal">@{{ this.userCards.active.username }}</div>
@@ -154,7 +123,7 @@
                             <div *ngIf="!showCreateOrg" class="dropdown__item with_border_bottom p-t-b-16">
                                 <div class="navdrop__switchto">Switch to</div>
                                 <div class="navdrop__imgblock2">
-                                    <img class="navdrop__img" src="{{ baseUrl + this.userCards.other.image }}">
+                                    <img class="navdrop__img" src="{{ imageBaseUrl + this.userCards.other.image }}">
                                 </div>
                                 <div class="navdrop__name2">
                                     <a (click)="changeProfile(this.userCards, $event)">
@@ -195,9 +164,8 @@
 <header class="opsheader visible-xs visible-sm">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-
             <div class="navbar-header hidden-md hidden-lg ">
-                <a class="navbar-brand" href="/"><img src="/assets/img/ops_icon.png"></a>
+                <a class="navbar-brand" href="/"><img src="{{ imageBaseUrl }}img/ops_icon.png"></a>
                 <button type="button" [routerLink]="['/logout']" [queryParams]="{ next: 'dwc/reg' }" class="btn btn-default btn-md o-logout__btn" *ngIf="isProfileSet === true">logout</button>
                 <a [routerLink]="['/login']" [queryParams]="{ next: 'dwc/reg' }" class="btn btn-default btn-md o-logout__btn" *ngIf="isProfileSet === false">Sign In</a>
             </div>

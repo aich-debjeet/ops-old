@@ -30,7 +30,7 @@ import { Profile } from 'selenium-webdriver/firefox';
 export class NavigationComponent implements OnInit {
 
   topNav: any;
-  baseUrl: string;
+  imageBaseUrl: string  = environment.API_IMAGE;
   profileState$: Observable<ProfileModal>;
   activeProfileState = initialTag;
   profileType: string;
@@ -38,6 +38,7 @@ export class NavigationComponent implements OnInit {
   profilerOwnersUsername: string;
   profile_details: any;
   showCreateOrg = false;
+  
 
   // userCard: UserCard;
   userCards: ProfileCards;
@@ -68,7 +69,6 @@ export class NavigationComponent implements OnInit {
       profile: { open: false },
     };
 
-    this.baseUrl = environment.API_IMAGE;
     this.profileState$ = this.store.select('profileTags');
 
     /* Profile state */

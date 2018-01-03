@@ -28,7 +28,7 @@
             </div>
             <div class="o-org-prof__name c-profile__username">
                 <h3 class="c-h3 o-org-prof--white">{{ orgProfile?.profile_details?.name }}
-                    <span class="org-label-ico"><img width="24" src="/assets/img/svg/Organization.svg" alt=""></span>
+                    <span class="org-label-ico"><img width="24" src="{{ baseUrl }}img/svg/Organization.svg" alt=""></span>
                 </h3>
                 <span class="c-text_md o-org-prof--white">@{{ orgProfile?.profile_details?.extra?.username }}</span>
                 <span class="c-text_md o-org-prof--white margin_l_16">{{ orgProfile?.profile_details?.accountType?.name }}</span>
@@ -96,11 +96,11 @@
                 <div class="col-md-3 padding_none">
                     <!-- <ul class="list-inline pro_nav_icon">
                         <li class="list-line-item">
-                            <a href="#"><img src="/assets/img/svg/ico_share.svg"></a>
+                            <a href="#"><img src="{{ baseUrl }}img/svg/ico_share.svg"></a>
                         </li>
                         <li class="list-line-item">
                             <a href="#" data-toggle="modal" data-target="#edit_profile_pop">
-                                <img src="/assets/img/svg/ico_edit.svg">
+                                <img src="{{ baseUrl }}img/svg/ico_edit.svg">
                             </a>
                         </li>
                     </ul> -->

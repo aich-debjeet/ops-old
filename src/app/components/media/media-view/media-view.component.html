@@ -25,7 +25,7 @@
                             <img src="/assets/img/svg/ico_private.svg">
                         </a> -->
                         <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
-                                <img src="/assets/img/svg/ico_options.svg" class="c-options--img">
+                                <img src="{{ imageLink }}img/svg/ico_options.svg" class="c-options--img">
                         </span>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <!-- <li><a href="javascript:void(0)">Edit</a></li> -->
@@ -39,12 +39,12 @@
                 <div class="c-card__links c-float--none p-t-0">
                     <div class="c-links">
                         <div class="c-links__spots" (click)="spotMedia(data?.id)">
-                            <img *ngIf="spot===false" src="/assets/img/svg/spot_icon_default.svg" class="c-links__image">
-                            <img *ngIf="spot===true" src="/assets/img/svg/spot_icon.svg" class="c-links__image">
+                            <img *ngIf="spot===false" src="{{ imageLink }}img/svg/spot_icon_default.svg" class="c-links__image">
+                            <img *ngIf="spot===true" src="{{ imageLink }}img/svg/spot_icon.svg" class="c-links__image">
                             <span class="c-links__count">{{ spotCount }}</span>
                         </div>
                         <div class="c-links__comments">
-                            <img src="/assets/img/svg/ico_comment.svg" class="c-links__image">
+                            <img src="{{ imageLink }}img/svg/ico_comment.svg" class="c-links__image">
                             <span class="c-links__count">{{ commentCount }}</span>
                         </div>
                         <a href="https://www.facebook.com/dialog/share?app_id=206450069899832&href=&display=popup" style="vertical-align: middle;
@@ -52,12 +52,12 @@
                         <div class="c-links__actions">
                             <span class="c-links__add">
                                 <a >
-                                    <img src="/assets/img/svg/ico_addtochannel.svg" class="c-action__image">
+                                    <img src="{{ imageLink }}img/svg/ico_addtochannel.svg" class="c-action__image">
                                 </a>
                             </span>
                             <span class="c-links__share">
                               <a>
-                                <img src="/assets/img/svg/ico_share-02.svg" class="c-action__image">
+                                <img src="{{ imageLink }}img/svg/ico_share-02.svg" class="c-action__image">
                               </a>
                             </span>
                         </div>

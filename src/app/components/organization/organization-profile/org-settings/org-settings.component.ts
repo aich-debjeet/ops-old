@@ -35,6 +35,7 @@ export class OrgSettingsComponent implements OnInit {
   admin: any;
   memberHandle: string;
   private apiLink: string = environment.API_ENDPOINT;
+  imageBaseLink: string = environment.API_IMAGE;
   existingMembers: any = [];
   membersLoading: boolean;
   selectedOption = [];

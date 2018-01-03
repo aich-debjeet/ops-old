@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { environment } from './../../../../environments/environment';
 
 @Component({
   selector: 'app-events-carditem',
@@ -9,6 +10,7 @@ export class EventsCarditemComponent implements OnInit {
   count: number = 0;
   @Input() cartItem;
   @Output() countChange: EventEmitter<any> = new EventEmitter<any>();
+  baseUrl = environment.API_IMAGE;
 
   constructor() { }
 

@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 // actions
 import { OpportunityActions } from 'app/actions/opportunity.action';
 import { AuthActions } from 'app/actions/auth.action';
+import { environment } from '../../../../environments/environment';
 
 // store
 import { Store } from '@ngrx/store';
@@ -45,6 +46,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
 
   recordsPerPage = 10;
   showPreloader = false;
+  baseUrl = environment.API_IMAGE;
 
   constructor(
     private store: Store<OpportunityModel>

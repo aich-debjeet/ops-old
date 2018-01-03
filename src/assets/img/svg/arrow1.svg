@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
-  <defs>
-    <polygon id="arrow-copy-6-a" points="15.276 4.001 8 11.942 15.276 19.882 16.75 18.531 10.713 11.942 16.75 5.351"/>
-  </defs>
-  <g fill="none" fill-rule="evenodd">
-    <use fill="#333" xlink:href="#arrow-copy-6-a"/>
-  </g>
-</svg>

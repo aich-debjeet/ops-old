@@ -14,6 +14,7 @@ import { CountrySelectorComponent } from '../../../shared/country-selector/count
 import { passwordConfirmation } from '../../../helpers/password.validator';
 import { FormValidation, DatabaseValidator } from '../../../helpers/form.validator';
 import { TokenService } from '../../../helpers/token.service';
+import { environment } from '../../../../environments/environment';
 
 // Action
 import { AuthActions } from '../../../actions/auth.action'
@@ -68,6 +69,7 @@ export class RegistrationBasicComponent implements OnInit {
   modals: any;
   resendingOtp = false;
   phone: string;
+  imageBaseLink: string = environment.API_IMAGE;
 
   public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public regFormBasic: FormGroup;

@@ -3,9 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { DanceWorldCupComponent } from './dance-world-cup.component';
 import { SharedModule } from '../../shared/shared.module';
-import { DiqComponent } from './diq/diq.component';
-import { DowComponent } from './dow/dow.component';
-import { ContactComponent } from './contact/contact.component';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
 import { NgxCarouselModule } from 'ngx-carousel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -55,9 +52,6 @@ const routes: Routes = [
   ],
   declarations: [
     DanceWorldCupComponent,
-    DiqComponent,
-    DowComponent,
-    ContactComponent,
     DwcProgressBarComponent,
     DwcPaymentComponent,
     DwcSuccessComponent,

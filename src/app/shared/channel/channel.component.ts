@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../models/profile.model';
 import FilesHelper from '../../helpers/fileUtils';
 
+
 // action
 import { ProfileActions } from '../../actions/profile.action';
 
@@ -25,6 +26,7 @@ export class ChannelComponent implements OnInit {
   @Output() onFollow: EventEmitter<any> = new EventEmitter<any>();
   @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();
   @Output() onEdit: EventEmitter<any> = new EventEmitter<any>();
+  imageBaseLink: string = environment.API_IMAGE;
 
   // Its for admin spefic edit option
   @Input() type: boolean;

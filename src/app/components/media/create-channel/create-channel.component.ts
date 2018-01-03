@@ -49,6 +49,7 @@ export class CreateChannelComponent implements OnInit {
   channelSavedHere: boolean;
   channelSaved = false;
   private apiLink: string = environment.API_ENDPOINT;
+  baseImageLink: string = environment.API_IMAGE;
   industries: any[];
   selectedIndustry = '';
   hashTags: string[];

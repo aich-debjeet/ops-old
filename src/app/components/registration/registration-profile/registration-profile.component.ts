@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@ang
 import { Store } from '@ngrx/store';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Register, UserTag, initialTag, AuthModel, RightBlockTag } from '../../../models/auth.model';
+import { environment } from '../../../../environments/environment';
 
 
 // Action
@@ -32,6 +33,7 @@ export class RegistrationProfileComponent implements OnInit {
   redrectUrl: any;
   routeQuery: any;
   interest: any;
+  imageBaseLink: string = environment.API_IMAGE;
 
   constructor(fb: FormBuilder, private store: Store<AuthModel>, private router: Router, private route: ActivatedRoute) {
 

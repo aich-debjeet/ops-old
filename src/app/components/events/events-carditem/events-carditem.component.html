@@ -1,14 +1,14 @@
 <div class="o-eventinner__ticket--block">
   <div class="o-eventinner__ticket__type">{{ cartItem?.name }} 
-    <span class="pull-right"><img src="/assets/img/svg/info.svg" alt="">
+    <span class="pull-right"><img src="{{ baseUrl }}img/svg/info.svg" alt="">
     </span>
   </div>
   <div class="o-eventinner__ticket__price m-t-8">{{ (cartItem?.ticketType === 'Free') ? 'Free' : 'Rs. '+ cartItem?.price }} 
       <div class="o-eventinner__ticket__count">
           <ul class="pagination">
-            <li><a (click)="decrement(- cartItem?.price)"><img src="/assets/img/svg/minus.svg" ></a></li>
+            <li><a (click)="decrement(- cartItem?.price)"><img src="{{ baseUrl }}img/svg/minus.svg" ></a></li>
             <li><a>{{ count }}</a></li>
-            <li><a (click)="increment(+ cartItem?.price)"><img src="/assets/img/svg/plus.svg" ></a></li>
+            <li><a (click)="increment(+ cartItem?.price)"><img src="{{ baseUrl }}img/svg/plus.svg" ></a></li>
           </ul>
         </div>
   </div>

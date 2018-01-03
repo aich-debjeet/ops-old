@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Media, initialMedia  } from '../../../models/media.model';
 
 import { ModalService } from '../../../shared/modal/modal.component.service';
+import { environment } from '../../../../environments/environment';
 
 // action
 import { MediaActions } from '../../../actions/media.action';
@@ -30,6 +31,7 @@ export class PopularListComponent implements OnInit {
   scrolling = 0;
   scrollingLoad = 1500;
   mediaType = 'all';
+  imageBaseUrl = environment.API_IMAGE;
 
   constructor(
     private _store: Store<Media>,

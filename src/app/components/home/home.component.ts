@@ -8,6 +8,7 @@ import { ProfileActions } from '../../actions/profile.action';
 import { SharedActions } from '../../actions/shared.action';
 
 import { ProfileModal, initialTag } from '../../models/profile.model';
+import { environment } from '../../../environments/environment';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -28,6 +29,7 @@ export class HomeComponent {
 
   loadMoreParams: any;
   userProfileHandle: string;
+  imageBaseUrl: string = environment.API_IMAGE;
 
   constructor(
     private store: Store<Channel>,

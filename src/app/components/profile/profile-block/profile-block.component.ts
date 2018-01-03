@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { Router, ActivatedRoute, RoutesRecognized } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -35,6 +36,7 @@ export class ProfileBlockComponent implements OnInit {
   userId: string;
   channels: any;
   profileObject: any;
+  imageBaseUrl = environment.API_IMAGE;
   constructor(
     private http: Http,
     private _router: Router,

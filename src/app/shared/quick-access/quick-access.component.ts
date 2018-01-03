@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../models/profile.model';
 
@@ -21,6 +22,7 @@ export class QuickAccessComponent {
   storeState$: Observable<ProfileModal>;
   userProfile = initialTag;
   userHandle: any;
+  imageBaseUrl: string = environment.API_IMAGE;
 
   constructor(
     private _store: Store<ProfileModal>

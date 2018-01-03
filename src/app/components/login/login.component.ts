@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 import { Store } from '@ngrx/store';
 import { Login, UserTag, initialTag, RightBlockTag } from '../../models/auth.model';
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   redrectUrl: any;
   queryParam: any;
+  imageBaseUrl = environment.API_IMAGE;
 
   constructor(
     fb: FormBuilder,

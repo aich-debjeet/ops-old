@@ -53,6 +53,7 @@ export class EditChannelComponent implements OnInit {
   channelSavedHere: boolean;
 
   private apiLink: string = environment.API_ENDPOINT;
+  imageBaseLink: string = environment.API_IMAGE;
   constructor(
     private fb: FormBuilder,
     private router: Router,
