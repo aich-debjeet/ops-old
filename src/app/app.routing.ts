@@ -41,7 +41,7 @@ export const routes: Routes = [
  { path: '', component: LogoutHomeComponent },
  { path: 'logout', component: LogoutComponent },
  { path: 'login', component: LoginComponent },
- { path: 'device', component: DeviseComponent },
+//  { path: 'device', component: DeviseComponent },
  { path: 'learn', component: LearnComponent, canActivate: [AuthGuard] },
  { path: 'channel/:id', component: ChannelInnerComponent, canActivate: [AuthGuard] },
  { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },

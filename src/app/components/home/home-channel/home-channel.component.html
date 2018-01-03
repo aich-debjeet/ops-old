@@ -8,13 +8,13 @@
     </div>
 </div> -->
 <div *ngIf="userState.user_following_channels_loaded === true && channelList.length < 1" class="empty__state">
-  <h4>You have not followed any channels</h4>
+    <h4>You have not followed any channels</h4>
 </div>
 
-<div id="channel" class="tab-pane fade in active in m-r-8">
-  <masonry [useImagesLoaded]="true">
-      <masonry-brick class="col-md-3 p-r-16 p-l-0 m-t-b-8" *ngFor="let channel of channelList; let i = index">
-        <app-channel [channelData]="channel" (onFollow)="followChannel($event)"></app-channel>
-      </masonry-brick>
-  </masonry>
+<div id="channel" class="tab-pane fade in active in m-r-8" infinite-scroll (scrolled)="onScroll($event)">
+    <masonry [useImagesLoaded]="true">
+        <masonry-brick class="col-md-3 p-r-16 p-l-0 m-t-b-8" *ngFor="let channel of channelList; let i = index">
+            <app-channel [channelData]="channel" (onFollow)="followChannel($event)"></app-channel>
+        </masonry-brick>
+    </masonry>
 </div>

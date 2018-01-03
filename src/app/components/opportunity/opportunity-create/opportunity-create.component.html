@@ -65,7 +65,18 @@
             <div class="col-md-9 p-0">
               <div class="c-form__group c-form--sm">
                 <!-- <textarea formControlName="description" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea> -->
-                <quill-editor #editor formControlName="description"></quill-editor>
+                <quill-editor #editor formControlName="description">
+                  <div quill-editor-toolbar>
+                    <span class="ql-formats">
+                      <button class="ql-bold" [title]="'Bold'"></button>
+                      <button class="ql-italic" [title]="'Italic'"></button>
+                      <button class="ql-underline" [title]="'Underline'"></button>
+                    </span>
+                    <!-- <span class="ql-formats">
+                      <button class="ql-list" [title]="'List'"></button>
+                    </span> -->
+                  </div>
+                </quill-editor>
               </div>
               <!-- <p>{{ createOppFrm.controls['description'].value }}</p> -->
               <p class="error_alert" *ngIf="createOppFrm.controls['description']?.errors?.required && crOppFrm.submitted">Description is required</p>

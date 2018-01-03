@@ -6,6 +6,25 @@ import { ProfileCard } from './../models/profile.model';
 @Injectable()
 export class ProfileHelper {
   constructor(private router: Router) { }
+
+  /**
+   * Get claim profile object
+  */
+  claimProfileValueMapping(profileData: any) {
+    return {
+      name: profileData.name.firstName + ' ' + profileData.name.lastName,
+      image: { profile: '', cover: '' },
+      userHandle: profileData.username,
+      userBio: '',
+      userSkill: '',
+      userDetails: profileData,
+      followingCount: 0,
+      follwerCount: 0,
+      extra: { isImported: true, username: profileData.username },
+      isFollowing: false
+    };
+  }
+
   /**
    * Map API response to Profile Card Model
    * @param profile

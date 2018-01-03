@@ -39,6 +39,12 @@ export class HomeChannelComponent implements OnInit {
   handle: string;
   loadMoreParams: any;
 
+  page_start = 0;
+  page_end = 10;
+ // total_pages = 10;
+  scrolling = 0;
+  scrollingLoad = 1000;
+
   constructor(
     private http: Http,
     private store: Store<ProfileModal>
@@ -73,10 +79,17 @@ export class HomeChannelComponent implements OnInit {
    * Check and Load Channels
    */
   loadChannels(userHandle: string) {
-    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: userHandle });
+    // console.log(userHandle)
+    const datas = {
+      handle: userHandle,
+      page_start: this.page_start,
+      page_end: this.page_end
+    }
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: datas });
     this.tagState$.subscribe(data => {
       if (data.user_following_channels_loaded) {
         this.channelList = data.user_following_channel;
+        // console.log(this.channelList)
       }
     });
   }
@@ -90,5 +103,17 @@ export class HomeChannelComponent implements OnInit {
       state: e.state
     };
     this.store.dispatch({ type: ProfileActions.CHANNEL_FOLLOW, payload: req });
+  }
+
+  onScroll(e) {
+    // console.log(e)
+    this.scrolling = e.currentScrollPosition;
+    // console.log(this.scrolling)
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 500
+      this.page_start = this.page_end + 1;
+      this.page_end += 10;
+      this.loadChannels(this.handle);
+    }
   }
 }

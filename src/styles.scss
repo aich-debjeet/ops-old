@@ -504,8 +504,16 @@ button.sb-wrapper.sb-facebook {
         &:hover {
             background-color: rgba( 250, 250, 250, 0.5);
         }
-        &:foucs{
+        &:focus{
             outline: none!important;
+        }
+        @include mq($from: $mobile_sm, $until: $tablet){
+            width: 30px;
+            height: 30px;
+            svg{
+                margin-top:2px;
+                margin-left: -6px;
+            }
         }
     }
     .rightRs {
@@ -526,8 +534,16 @@ button.sb-wrapper.sb-facebook {
         &:hover {
             background-color: rgba( 250, 250, 250, 0.5);
         }
-        &:foucs{
+        &:focus{
             outline: none!important;
+        }
+        @include mq($from: $mobile_sm, $until: $tablet){
+            width: 30px;
+            height: 30px;
+            svg{
+                margin-top:2px;
+                margin-left: -6px;
+            }
         }
     }
 }
@@ -552,6 +568,14 @@ button.sb-wrapper.sb-facebook {
     &:foucs{
         outline: none!important;
     }
+    @include mq($from: $mobile_sm, $until: $tablet){
+        width: 30px;
+        height: 30px;
+        svg{
+            margin-top:2px;
+            margin-left: -6px;
+        }
+    }
 }
 
 .rightRs {
@@ -573,6 +597,14 @@ button.sb-wrapper.sb-facebook {
     }
     &:foucs{
         outline: none!important;
+    }
+    @include mq($from: $mobile_sm, $until: $tablet){
+        width: 30px;
+        height: 30px;
+        svg{
+            margin-top:2px;
+            margin-left: -6px;
+        }
     }
 }
 
