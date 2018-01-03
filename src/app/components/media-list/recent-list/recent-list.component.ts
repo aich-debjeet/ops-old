@@ -31,6 +31,7 @@ export class RecentListComponent implements OnInit {
   scrollingLoad = 1500;
   mediaType = 'all';
   imageBaseUrl = environment.API_IMAGE;
+  delMedia: any;
 
   constructor(
     private _store: Store<Media>,
@@ -38,8 +39,13 @@ export class RecentListComponent implements OnInit {
       this.pageLoading = false;
       this.tagState$ = this._store.select('mediaStore');
       this.tagState$.subscribe((state) => {
+        console.log('state', state)
         this.channel = state;
         this.pageLoading = this.channel.channel_loading;
+        if (state['channel_detail']) {
+          console.log(state.channel_detail)
+          console.log(this.channel.channel_detail['channelId'])
+        }
       });
 
       // Get my media status
@@ -69,13 +75,19 @@ export class RecentListComponent implements OnInit {
    * Delete Post
    */
   deletePost(media) {
-    const posts = this.channel.channel_detail['media']
-    const index: number = posts.indexOf(media);
-    if (index !== -1) {
-      posts.splice(index, 1);
-      const id = media.id;
-      this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
-    }
+    console.log('deleting media', media)
+    this.channelId = media.channelId;
+    this.delMedia = media;
+    this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+    // const posts = this.channel.channel_detail['media']
+    // console.log('posts', posts)
+    // const index: number = posts.indexOf(media);
+    // console.log('index', index)
+    // if (index !== -1) {
+    //   posts.splice(index, 1);
+    //   const id = media.id;
+    //   this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+    // }
   }
 
   mediaClosePopup() {
