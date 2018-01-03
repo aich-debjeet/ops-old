@@ -369,6 +369,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get current user following channel
      */
     case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL:
+    if (payload.page_start === 0) {
+      return Object.assign({}, state, {
+        user_following_channels_loading: true,
+        user_following_channels_loaded: false,
+        user_following_channel: []
+      });
+    }
       return Object.assign({}, state, {
         // success: true,
         user_following_channels_loading: true,
@@ -376,8 +383,10 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL_SUCCESS:
+    const followingChannel = payload;
+    const following_new_channel = state.user_following_channel.concat(followingChannel)
       return Object.assign({}, state, {
-        user_following_channel: payload,
+        user_following_channel: following_new_channel,
         user_following_channels_loaded: true,
         user_following_channels_loading: false
       });

@@ -393,8 +393,16 @@ export class FormValidation {
         if (control.value === '') {
             return;
         }
-        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6,20}$/;
-        if (!passwordRegex.test(control.value)) {
+        if (control.value.length <= 4) {
+            return { isWeakPassword: true };
+        }
+        // const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6,20}$/;
+        const numberCheck = /\d/;
+        if (!numberCheck.test(control.value)) {
+            return { isWeakPassword: true };
+        }
+        const charCheck = /[a-z]/i;
+        if (!charCheck.test(control.value)) {
             return { isWeakPassword: true };
         }
         return null;
