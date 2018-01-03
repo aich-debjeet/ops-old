@@ -88,7 +88,7 @@ export class NavigationComponent implements OnInit {
 
     // if logged in user then get details
     if (localStorage.getItem('currentUser') != null) {
-      console.log('logged in user');
+      // console.log('logged in user');
       /* profile state */
       this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
 
@@ -111,7 +111,7 @@ export class NavigationComponent implements OnInit {
         }
       });
     } else {
-      console.log('guest user');
+      // console.log('guest user');
     }
 
   }
