@@ -12,6 +12,7 @@ export class Media {
   media_comment?: any;
   channel_loading: boolean;
   my_media?: any;
+  media_delete_msg?: String;
 }
 
 export const initialMedia: Media = {

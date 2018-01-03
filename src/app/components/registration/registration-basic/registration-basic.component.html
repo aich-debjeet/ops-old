@@ -106,7 +106,8 @@
                         <span class="form_bar"></span>
                         <label>Password</label>
                         <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.required && regform.submitted">Password is required</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Weak password! Please use special characters, numbers and capital letters</p>
+                        <!-- <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Weak password! Please use special characters, numbers and capital letters</p> -->
+                        <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Password should contain atleast 5 alphanumeric characters</p>
                     </div>
                     <div class="form_group">
                         <input tabindex="7" class="form_input" type="password" formControlName="confirmpassword" required>

@@ -110,8 +110,8 @@
 
                         </a>
                         <div class="dropdown-menu dropdown-menu-right nav__dropdown" [ngClass]="{'open': this.topNav['profile'].open }">
-                            <div class="dropdown__item with_border_bottom p-b-16">
-                                <a routerLink="{{ this.userCards.active.page_path }}">
+                            <div routerLink="{{ this.userCards.active.page_path }}" class="dropdown__item with_border_bottom p-b-16">
+                                <a>
                                     <div class="navdrop__imgblock">
                                         <img *ngIf="userCards?.active?.image !== ''" class="navdrop__img" src="{{ imageBaseUrl + this.userCards.active.image }}">
                                         <img *ngIf="userCards?.active?.image === ''" class="navdrop__img" src="{{imageBaseUrl}}avatars/user-avatar-male.png">
@@ -131,21 +131,25 @@
                                   </a>
                                 </div>
                             </div>
-                            <div class="dropdown__item p-t-16" *ngIf="showCreateOrg">
-                                <a routerLink="/org/registration">Create Organisation</a>
+                            <div class="dropdown__item p-t-16" routerLink="/org/registration" *ngIf="showCreateOrg">
+                                <a>Create Organisation</a>
                             </div>
-                            <div class="dropdown__item p-t-b-16 with_border_bottom">
-                                <a *ngIf="this.userCards.active.isOrg === false" routerLink="/user/settings">Settings</a>
-                                <a *ngIf="this.userCards.active.isOrg === true" routerLink="/org/settings">Settings</a>
+                            <div *ngIf="this.userCards.active.isOrg === false" routerLink="/user/settings" class="dropdown__item p-t-b-16 with_border_bottom">
+                                <a>Settings</a>
+                                <!-- <a *ngIf="this.userCards.active.isOrg === true" routerLink="/org/settings">Settings</a> -->
                             </div>
-                            <div class="dropdown__item p-t-b-16">
-                                <a routerLink="/invite/friends">Invite Friends</a>
+                            <div *ngIf="this.userCards.active.isOrg === true" routerLink="/org/settings" class="dropdown__item p-t-b-16 with_border_bottom">
+                                <!-- <a *ngIf="this.userCards.active.isOrg === false" routerLink="/user/settings">Settings</a> -->
+                                <a>Settings</a>
                             </div>
-                            <div class="dropdown__item p-b-16 with_border_bottom">
-                                <a routerLink="/about">About One Page Spotlight</a>
+                            <div routerLink="/invite/friends" class="dropdown__item p-t-b-16">
+                                <a>Invite Friends</a>
                             </div>
-                            <div class="dropdown__item p-t-16">
-                                <a routerLink="/logout">Signout</a>
+                            <div routerLink="/about" class="dropdown__item p-b-16 with_border_bottom">
+                                <a>About One Page Spotlight</a>
+                            </div>
+                            <div routerLink="/logout" class="dropdown__item p-t-16">
+                                <a>Signout</a>
                             </div>
                         </div>
                     </li>
@@ -158,17 +162,16 @@
 </header>
 
 <header class="opsheader visible-xs visible-sm">
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-
-                <div class="navbar-header hidden-md hidden-lg ">
-                    <a class="navbar-brand" href="/"><img src="{{ imageBaseUrl }}img/ops_icon.png"></a>
-                    <button type="button" [routerLink]="['/logout']" [queryParams]="{ next: 'dwc/reg' }" class="btn btn-default btn-md o-logout__btn" *ngIf="isProfileSet === true">logout</button>
-                    <a [routerLink]="['/login']" [queryParams]="{ next: 'dwc/reg' }" class="btn btn-default btn-md o-logout__btn" *ngIf="isProfileSet === false">Sign In</a>
-                </div>
-                <!-- /.navbar-collapse -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header hidden-md hidden-lg ">
+                <a class="navbar-brand" href="/"><img src="{{ imageBaseUrl }}img/ops_icon.png"></a>
+                <button type="button" [routerLink]="['/logout']" [queryParams]="{ next: 'dwc/reg' }" class="btn btn-default btn-md o-logout__btn" *ngIf="isProfileSet === true">logout</button>
+                <a [routerLink]="['/login']" [queryParams]="{ next: 'dwc/reg' }" class="btn btn-default btn-md o-logout__btn" *ngIf="isProfileSet === false">Sign In</a>
             </div>
-            <!-- /.container-fluid -->
-        </nav>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
 
-    </header>
+</header>

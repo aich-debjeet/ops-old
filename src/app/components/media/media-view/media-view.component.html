@@ -20,18 +20,18 @@
                     <div class="c-mediamodal__subhead">{{ data?.channelName }}
                         <span class="c-mediamodal__time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span>
                     </div>
-                    <!--<div class="c-mediamodal__opt dropdown c-dropdown">
-                        <a href="">
-                            <img src="{{ imageLink }}img/svg/ico_private.svg">
-                        </a>
-                        <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                    <div class="c-mediamodal__opt dropdown c-dropdown" *ngIf="data.isOwner" appDropdown>
+                        <!-- <a href="">
+                            <img src="/assets/img/svg/ico_private.svg">
+                        </a> -->
+                        <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
                                 <img src="{{ imageLink }}img/svg/ico_options.svg" class="c-options--img">
-                            </span>
+                        </span>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="#">Edit</a></li>
-                            <li><a href="#">Delete</a></li>
+                            <!-- <li><a href="javascript:void(0)">Edit</a></li> -->
+                            <li><a (click)="deletePost(data)">Delete</a></li>
                         </ul>
-                    </div>-->
+                    </div>
                 </div>
                 <div class="c-text_sm p-16">
                     <read-more [class]="'media-popup__text'" [text]="data?.description" [maxLength]=250></read-more>
