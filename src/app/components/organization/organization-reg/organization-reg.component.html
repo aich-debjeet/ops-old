@@ -76,10 +76,11 @@
               <p class="error_alert" *ngIf="orgReg.controls['org_industry_type'].errors?.required && orgForm.submitted">Type of industry is required</p>
             </div>
             <div class="c-form__group margin_b_32">
-              <input class="c-form__input" required="" type="text" formControlName="org_service">
+              <!-- <input class="c-form__input" required="" type="text" formControlName="org_service"> -->
+              <tag-input [(ngModel)]='org_service' formControlName="org_service" [placeholder]="'Add Services'"></tag-input>
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
-              <label>Add your skills</label>
+              <!-- <label>Add your skills</label> -->
               <div class="eg">eg:UI Design, UX Design, Branding</div>
               <p class="error_alert" *ngIf="orgReg.controls['org_service'].errors?.required && orgForm.submitted">Services are required</p>
             </div>
