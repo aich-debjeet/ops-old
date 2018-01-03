@@ -49,6 +49,7 @@ export class MediaViewComponent {
   spotCount: number;
   message: boolean;
   channelId: string;
+  deleteMsg: boolean;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -70,23 +71,20 @@ export class MediaViewComponent {
       this.mediaId = this.mediaStore.media_detail.id;
       this.spot = this.mediaStore.media_detail.isSpotted;
       console.log('Data ', this.data)
-      // if (state['media_delete_msg'] !== 'undefined') {
-      //     console.log('delete masg')
-      //     this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-      //     this.toastr.warning('Channel Deleted');
-      //     this.doClose(event);
-      // }
     });
 
     store.select('mediaStore').take(6).subscribe((state) => {
       this.commentCount = this.mediaStore.media_detail.commentsCount;
       this.comments = this.mediaStore.media_comment;
       if (state['media_delete_msg']) {
-            console.log('delete masg')
-            this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-            this.toastr.warning('Channel Deleted');
-            this.doClose(event);
+        if (this.deleteMsg) {
+          console.log('delete masg')
+          this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+          this.toastr.warning('Channel Deleted');
+          this.doClose(event);
         }
+        this.deleteMsg = false;
+      }
     });
 
 
@@ -167,14 +165,12 @@ export class MediaViewComponent {
     }
   }
   deletePost(data) {
+    this.deleteMsg = true;
     console.log('data', data)
     if (data.id !== 'undefined') {
       const id = data.id;
       console.log('channelid', this.channelId)
       this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
-      // this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-      // this.toastr.warning('Channel Deleted');
-      // // this.doClose(event);
     }
   }
 }
