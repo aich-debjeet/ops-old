@@ -120,7 +120,7 @@
     width: 100%;
     text-align: right;
     img{
-      width: 47px;
+      // width: 47px;
     }
     @include mq($from: $mobile_sm, $until: $mobile_lg){
       text-align: left;
