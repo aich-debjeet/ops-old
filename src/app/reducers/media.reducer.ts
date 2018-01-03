@@ -143,7 +143,14 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       return Object.assign({}, state, {
         my_media: new_media
       });
-
+  /**
+   * MEDIA_POST_DELETE
+   */
+    case MediaActions.MEDIA_POST_DELETE_SUCCESS:
+    console.log(payload)
+      return Object.assign({}, state, {
+        media_delete_msg: payload.SUCCESS
+      });
 
     default:
       return state;
