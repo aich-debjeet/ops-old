@@ -12,6 +12,7 @@ import { SharedActions } from '../../../actions/shared.action';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-recent-list',
@@ -28,18 +29,31 @@ export class RecentListComponent implements OnInit {
   page_start = 0;
   page_end = 20;
   scrolling = 0;
-  scrollingLoad = 1500;
+  scrollingLoad = 1000;
   mediaType = 'all';
   imageBaseUrl = environment.API_IMAGE;
+  deleteMsg = true;
+  mediaList: any;
 
   constructor(
     private _store: Store<Media>,
+    private toastr: ToastrService,
     private modalService: ModalService) {
       this.pageLoading = false;
       this.tagState$ = this._store.select('mediaStore');
       this.tagState$.subscribe((state) => {
+        // console.log('state', state)
         this.channel = state;
+        this.mediaList = this.channel.my_media;
         this.pageLoading = this.channel.channel_loading;
+        if (state['media_delete_msg']) {
+          if (!this.deleteMsg) {
+            // console.log('delete masg')
+            this.getMedia();
+            this.toastr.warning('Post Deleted');
+          }
+          this.deleteMsg = true;
+        }
       });
 
       // Get my media status
@@ -52,9 +66,9 @@ export class RecentListComponent implements OnInit {
   onScroll(e) {
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
-      this.scrollingLoad += 1500
-      this.page_start = this.page_end + 1;
-      this.page_end += 15;
+      this.scrollingLoad += 600
+      this.page_start = this.page_start + 20;
+      this.page_end = 20;
       this.getMedia();
     }
   }
@@ -69,12 +83,11 @@ export class RecentListComponent implements OnInit {
    * Delete Post
    */
   deletePost(media) {
-    const posts = this.channel.channel_detail['media']
-    const index: number = posts.indexOf(media);
+    this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: media.id});
+    this.deleteMsg = false;
+    const index: number = this.mediaList.indexOf(media);
     if (index !== -1) {
-      posts.splice(index, 1);
-      const id = media.id;
-      this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+      this.mediaList.splice(index, 1);
     }
   }
 
@@ -86,7 +99,7 @@ export class RecentListComponent implements OnInit {
     this.page_start = 0;
     this.page_end = 20;
     this.scrolling = 0;
-    this.scrollingLoad = 1500;
+    this.scrollingLoad = 1000;
     this.mediaType = filter;
     this.getMedia();
   }

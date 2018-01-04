@@ -23,7 +23,7 @@ export class HomePostComponent implements OnInit {
   isOwner: boolean;
   posts: any;
   page_start = 0;
-  page_end = 50;
+  page_end = 30;
   handle: any;
   postsLoaded = false;
   sum = 10;
@@ -80,8 +80,8 @@ export class HomePostComponent implements OnInit {
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
       this.scrollingLoad += 10000
-      this.page_start = this.page_end + 1;
-      this.page_end += 10;
+      this.page_start = this.page_start + 30;
+      this.page_end = 30;
       this.postLoad(this.handle);
     }
   }

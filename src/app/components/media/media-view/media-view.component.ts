@@ -57,12 +57,12 @@ export class MediaViewComponent {
     private toastr: ToastrService,
     private store: Store<Media>
   ) {
-
+    // console.log(this.router.url)
     this.spot = false;
     this.mediaState$ = store.select('mediaStore');
 
     this.mediaState$.subscribe((state) => {
-      console.log('state', state)
+      // console.log('state', state)
       this.mediaStore = state;
       this.channelId = this.mediaStore.channel_detail['channelId']
       this.data = this.mediaStore.media_detail;
@@ -70,7 +70,7 @@ export class MediaViewComponent {
       this.mediaType = this.mediaStore.media_detail.mtype;
       this.mediaId = this.mediaStore.media_detail.id;
       this.spot = this.mediaStore.media_detail.isSpotted;
-      console.log('Data ', this.data)
+      // console.log('Data ', this.data)
     });
 
     store.select('mediaStore').take(6).subscribe((state) => {
@@ -78,9 +78,9 @@ export class MediaViewComponent {
       this.comments = this.mediaStore.media_comment;
       if (state['media_delete_msg']) {
         if (this.deleteMsg) {
-          console.log('delete masg')
+          // console.log('delete masg')
           this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-          this.toastr.warning('Channel Deleted');
+          this.toastr.warning('Post Deleted');
           this.doClose(event);
         }
         this.deleteMsg = false;
@@ -148,7 +148,7 @@ export class MediaViewComponent {
    * Close
    */
   doClose(event) {
-    console.log('event', event)
+    // console.log('event', event)
     this.router.navigate(['.', { outlets: { media: null } }], {
       relativeTo: this.route.parent
     });
@@ -166,10 +166,10 @@ export class MediaViewComponent {
   }
   deletePost(data) {
     this.deleteMsg = true;
-    console.log('data', data)
+    // console.log('data', data)
     if (data.id !== 'undefined') {
       const id = data.id;
-      console.log('channelid', this.channelId)
+      // console.log('channelid', this.channelId)
       this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
     }
   }

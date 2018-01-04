@@ -29,6 +29,12 @@
     }
 }
 
+.notif-scroll {
+    height: 50vh;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
 .nav__avatar__img {
     width: 34px !important;
     height: 34px;
@@ -643,8 +649,7 @@
     right: 0;
     position: absolute;
     display: none;
-    
     @include mq($from: $mobile_sm, $until: $desktop_sm) {
         display: block;
-    } 
+    }
 }
