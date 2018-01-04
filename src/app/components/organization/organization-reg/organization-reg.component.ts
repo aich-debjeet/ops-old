@@ -94,7 +94,13 @@ export class OrganizationRegComponent implements OnInit {
   buildForm() {
     this.orgReg = this.fb.group({
       'org_name': ['', [Validators.required]],
-      'org_username': ['', [Validators.required, FormValidation.noWhitespaceValidator],
+      'org_username': ['', [
+        Validators.required,
+        FormValidation.noWhitespaceValidator,
+        FormValidation.usernameLengthValidator,
+        FormValidation.noSpecialCharsValidator,
+        FormValidation.noCapitalLettersValidator
+      ],
         this.databaseValidator.userNameValidation.bind(this.databaseValidator)
       ],
       'org_type': ['', Validators.required],
@@ -178,6 +184,7 @@ export class OrganizationRegComponent implements OnInit {
       .subscribe( datas => {
         this.uploadingData = false;
         this.toastr.success('Successfully registered organization');
+        this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
         // this.router.navigateByUrl('/org/page');
       });
 

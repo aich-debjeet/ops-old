@@ -74,6 +74,7 @@ export class NavigationComponent implements OnInit {
     /* Profile state */
     this.profileState$.subscribe((state) => {
       this.activeProfileState = state;
+      console.log('this.activeProfileState.profile_cards', this.activeProfileState['profile_cards']);
       this.userCards = this.activeProfileState['profile_cards'];
       if (this.userCards
         && this.userCards['other']

@@ -1,3 +1,5 @@
+<app-navigation></app-navigation>
+
 <section class="o-org-hero">
   <div class="container">
     <div class="col-md-6">
@@ -42,8 +44,12 @@
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
               <label>Username</label>
+              <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.whitespace || orgReg.controls['org_username'].errors?.capitalLetters || orgReg.controls['org_username'].errors?.specialChars">Capital letters, spaces and special characters are not allowed</p>
+              <!-- <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.whitespace">White spaces are not allowed</p>
+              <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.capitalLetters">Capital letters are not allowed</p> -->
               <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.required && orgForm.submitted">Username is required</p>
               <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.isUsernameUnique">This username is already taken</p>
+              <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.invalidLength">Username length limit is 3 to 15 characters</p>
             </div>
             <h6 class="c-text_md o-org--type">Choose organization type</h6>
             <div class="o-org-reg__choose">
