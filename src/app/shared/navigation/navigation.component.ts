@@ -38,6 +38,7 @@ export class NavigationComponent implements OnInit {
   profilerOwnersUsername: string;
   profile_details: any;
   showCreateOrg = false;
+  redirectedToCreatedOrg = false;
   
 
   // userCard: UserCard;
@@ -74,7 +75,7 @@ export class NavigationComponent implements OnInit {
     /* Profile state */
     this.profileState$.subscribe((state) => {
       this.activeProfileState = state;
-      console.log('this.activeProfileState.profile_cards', this.activeProfileState['profile_cards']);
+      // console.log('state', state);
       this.userCards = this.activeProfileState['profile_cards'];
       if (this.userCards
         && this.userCards['other']
@@ -84,6 +85,22 @@ export class NavigationComponent implements OnInit {
         && this.userCards['other']['username'] === this.userCards['active']['username']
       ) {
         this.showCreateOrg = true;
+      } else {
+        console.log('org data recieved');
+
+        // // if org just cerated switch the profile and redirect to the org profile
+        // // if (state && state['org_registration_success'] && state['org_registration_success'] === true) {
+        // if (!this.redirectedToCreatedOrg) {
+        //   console.log('switching to cerated org');
+        //   if (state && state['org_registration_success'] && state['org_registration_success'] === true) {
+        //     console.log('user cards', this.userCards);
+        //     this.redirectedToCreatedOrg = true;
+        //     this.changeProfile(this.userCards, null);
+        //     // this.router.navigateByUrl('/org/page/profile');
+        //   }
+        // } else {
+        //   // console.log('not yet switching');
+        // }
       }
     });
 
