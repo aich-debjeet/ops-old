@@ -59,7 +59,7 @@ export class ChannelInnerComponent implements OnInit {
       this.tagState$ = this._store.select('mediaStore');
       this.userState$ = this._store.select('profileTags');
       this.tagState$.subscribe((state) => {
-        console.log('state', state)
+        // console.log('state', state)
         this.channel = state;
         this.pageLoading = this.channel.channel_loading;
       });
@@ -120,12 +120,8 @@ export class ChannelInnerComponent implements OnInit {
    * Delete Post
    */
   deletePost(media) {
-    console.log('media', media)
-    console.log('channel detail', this.channel.channel_detail['media'])
-    const posts = this.channel.channel_detail['media']
-    console.log('posts', posts)
+    const posts = this.channel.channel_detail['media'];
     const index: number = posts.indexOf(media);
-    console.log('index', index)
     if (index !== -1) {
       posts.splice(index, 1);
       const id = media.id;

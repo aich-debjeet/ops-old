@@ -12,6 +12,7 @@ import { SharedActions } from '../../../actions/shared.action';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-recent-list',
@@ -31,20 +32,27 @@ export class RecentListComponent implements OnInit {
   scrollingLoad = 1500;
   mediaType = 'all';
   imageBaseUrl = environment.API_IMAGE;
-  delMedia: any;
+  deleteMsg = true;
+  mediaList: any;
 
   constructor(
     private _store: Store<Media>,
+    private toastr: ToastrService,
     private modalService: ModalService) {
       this.pageLoading = false;
       this.tagState$ = this._store.select('mediaStore');
       this.tagState$.subscribe((state) => {
-        console.log('state', state)
+        // console.log('state', state)
         this.channel = state;
+        this.mediaList = this.channel.my_media;
         this.pageLoading = this.channel.channel_loading;
-        if (state['channel_detail']) {
-          console.log(state.channel_detail)
-          console.log(this.channel.channel_detail['channelId'])
+        if (state['media_delete_msg']) {
+          if (!this.deleteMsg) {
+            // console.log('delete masg')
+            this.getMedia();
+            this.toastr.warning('Post Deleted');
+          }
+          this.deleteMsg = true;
         }
       });
 
@@ -75,19 +83,12 @@ export class RecentListComponent implements OnInit {
    * Delete Post
    */
   deletePost(media) {
-    console.log('deleting media', media)
-    this.channelId = media.channelId;
-    this.delMedia = media;
-    this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-    // const posts = this.channel.channel_detail['media']
-    // console.log('posts', posts)
-    // const index: number = posts.indexOf(media);
-    // console.log('index', index)
-    // if (index !== -1) {
-    //   posts.splice(index, 1);
-    //   const id = media.id;
-    //   this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
-    // }
+    this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: media.id});
+    this.deleteMsg = false;
+    const index: number = this.mediaList.indexOf(media);
+    if (index !== -1) {
+      this.mediaList.splice(index, 1);
+    }
   }
 
   mediaClosePopup() {

@@ -12,6 +12,7 @@ import { SharedActions } from '../../../actions/shared.action';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-popular-list',
@@ -32,15 +33,28 @@ export class PopularListComponent implements OnInit {
   scrollingLoad = 1500;
   mediaType = 'all';
   imageBaseUrl = environment.API_IMAGE;
+  deleteMsg = true;
+  mediaList: any;
 
   constructor(
     private _store: Store<Media>,
+    private toastr: ToastrService,
     private modalService: ModalService) {
       this.pageLoading = false;
       this.tagState$ = this._store.select('mediaStore');
       this.tagState$.subscribe((state) => {
+        // console.log('state', state)
         this.channel = state;
+        this.mediaList = this.channel.my_media;
         this.pageLoading = this.channel.channel_loading;
+        if (state['media_delete_msg']) {
+          if (!this.deleteMsg) {
+            // console.log('delete masg')
+            this.getMedia();
+            this.toastr.warning('Post Deleted');
+          }
+          this.deleteMsg = true;
+        }
       });
 
       // Get my media status
@@ -70,12 +84,13 @@ export class PopularListComponent implements OnInit {
    * Delete Post
    */
   deletePost(media) {
-    const posts = this.channel.channel_detail['media']
-    const index: number = posts.indexOf(media);
+    this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: media.id});
+    // console.log(this.mediaList)
+    // console.log(media)
+    this.deleteMsg = false;
+     const index: number = this.mediaList.indexOf(media);
     if (index !== -1) {
-      posts.splice(index, 1);
-      const id = media.id;
-      this._store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+      this.mediaList.splice(index, 1);
     }
   }
 
