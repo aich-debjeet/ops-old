@@ -30,7 +30,7 @@ export class PopularListComponent implements OnInit {
   page_start = 0;
   page_end = 20;
   scrolling = 0;
-  scrollingLoad = 1500;
+  scrollingLoad = 1000;
   mediaType = 'all';
   imageBaseUrl = environment.API_IMAGE;
   deleteMsg = true;
@@ -67,9 +67,9 @@ export class PopularListComponent implements OnInit {
   onScroll(e) {
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
-      this.scrollingLoad += 1500
-      this.page_start = this.page_end + 1;
-      this.page_end += 15;
+      this.scrollingLoad += 500
+      this.page_start = this.page_start + 20;
+      this.page_end = 20;
       this.getMedia();
     }
   }
@@ -102,7 +102,7 @@ export class PopularListComponent implements OnInit {
     this.page_start = 0;
     this.page_end = 20;
     this.scrolling = 0;
-    this.scrollingLoad = 1500;
+    this.scrollingLoad = 1000;
     this.mediaType = filter;
     this.getMedia();
   }
