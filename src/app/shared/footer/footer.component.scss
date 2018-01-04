@@ -122,13 +122,19 @@
     }
 }
 
-.terms_and_condition .terms_txt {
+.terms_and_condition .terms_txt, .privacy-policy .terms_txt {
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
         width: 100%;
     }
 }
 
 .terms_and_condition {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+    }
+}
+
+.privacy-policy {
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
         width: 100%;
     }

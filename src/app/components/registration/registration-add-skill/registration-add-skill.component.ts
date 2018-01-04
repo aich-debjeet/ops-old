@@ -30,7 +30,7 @@ export class Channel {
 
 export class RegistrationAddSkillComponent implements OnInit {
   private apiLink: string = environment.API_ENDPOINT;
-  private image_base_url: string = environment.API_IMAGE;
+  image_base_url: string = environment.API_IMAGE;
 
   channelList: any;
   is_skill_open: false;
