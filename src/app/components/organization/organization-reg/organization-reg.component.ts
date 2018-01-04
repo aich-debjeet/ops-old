@@ -182,9 +182,11 @@ export class OrganizationRegComponent implements OnInit {
     this.store.select('profileTags')
       .first(profile => profile && profile['org_registration_success'] === true)
       .subscribe( datas => {
-        this.uploadingData = false;
-        this.toastr.success('Successfully registered organization');
         this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+        setTimeout(() => {
+          this.uploadingData = false;
+          this.toastr.success('Successfully registered organization');
+        }, 1000);
         // this.router.navigateByUrl('/org/page');
       });
 
