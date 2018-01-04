@@ -111,8 +111,8 @@ export class HomeChannelComponent implements OnInit {
     // console.log(this.scrolling)
     if (this.scrollingLoad <= this.scrolling) {
       this.scrollingLoad += 500
-      this.page_start = this.page_end + 1;
-      this.page_end += 10;
+      this.page_start = this.page_start + 10;
+      this.page_end = 10;
       this.loadChannels(this.handle);
     }
   }
