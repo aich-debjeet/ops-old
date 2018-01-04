@@ -92,8 +92,15 @@
               <p class="error_alert" *ngIf="orgReg.controls['org_location'].errors?.required && orgForm.submitted">Location is required</p>
             </div>
             <div class="create-btn">
-               <button [className]="'btn btn-primary btn-md'" type="submit">Create</button>
+               <button *ngIf="!uploadingData" [className]="'btn btn-primary btn-md'" type="submit">Create</button>
             </div>
+            <!-- preloader -->
+            <div *ngIf="uploadingData">
+              <div class="sticky">
+                  <div class="loader">Loading...</div>
+              </div>
+            </div>
+            <!-- preloader -->
           </form>
         </div>
       </div>

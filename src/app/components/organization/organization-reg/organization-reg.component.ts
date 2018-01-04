@@ -44,6 +44,7 @@ export class OrganizationRegComponent implements OnInit {
   search: String;
   userHandle: string;
   industries: any;
+  uploadingData = false;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -152,8 +153,8 @@ export class OrganizationRegComponent implements OnInit {
               status: 'accept'
             }],
           location: '',
-          // latitude: this.latitude,
-          // longitude: this.longitude
+          latitude: String(this.latitude),
+          longitude: String(this.longitude)
         },
         accountType : [{
           'name': value.org_type,
@@ -163,20 +164,28 @@ export class OrganizationRegComponent implements OnInit {
         active : true
     }
 
+    // console.log('payload', data);
+    // return;
+
+    // show preloader
+    this.uploadingData = true;
+
     this.store.dispatch({ type: OrganizationActions.ORGANIZATION_REGISTRATION, payload: data });
 
     // Org Registration successfully
     this.store.select('profileTags')
       .first(profile => profile && profile['org_registration_success'] === true)
       .subscribe( datas => {
+        this.uploadingData = false;
         this.toastr.success('Successfully registered organization');
-        this.router.navigateByUrl('/org/page');
+        // this.router.navigateByUrl('/org/page');
       });
 
     // Org Registration Failed
     this.store.select('organizationTags')
       .first(profile => profile && profile['org_registration_failed'] === true)
       .subscribe( datas => {
+        this.uploadingData = false;
         this.toastr.success('Organization registration failed');
       });
 
@@ -224,7 +233,7 @@ export class OrganizationRegComponent implements OnInit {
       this.ngZone.run(() => {
         // get the place result
         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-        
+
         for (let i = 0; i < place.address_components.length; i++) {
           const addressType = place.address_components[i].types[0];
           if (componentForm[addressType]) {
