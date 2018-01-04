@@ -121,7 +121,7 @@ export class OrganizationRegComponent implements OnInit {
   }
 
   submitForm(value) {
-    console.log('form value', value);
+    // console.log('form value', value);
     const industrySelected = _.find(this.industries, { code: value.org_industry_type });
     let industryObj = {};
     if (industrySelected && industrySelected.name) {

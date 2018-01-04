@@ -105,7 +105,7 @@ export class NavigationComponent implements OnInit {
 
     // if logged in user then get details
     if (localStorage.getItem('currentUser') != null) {
-      console.log('logged in user');
+      // console.log('logged in user');
       /* profile state */
       this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
 
