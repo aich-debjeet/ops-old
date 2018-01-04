@@ -92,20 +92,32 @@ export class OrganizationProfileComponent implements OnInit {
     this.sub = this.route.params
     .subscribe(params => {
       const orgParam = params['id'];
+      // console.log('checking for org params', orgParam);
 
-      if (orgParam !== undefined || orgParam !== 'undefined') {
-        this.isOtherProfile = false;
-        /**
-         * Load Organization Profile Details if handle present
-         */
-        if (this.profileCard && this.profileCard.username) {
-          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.profileCard.username });
+      // load org profile details if owned profile
+      if (this.router.url === '/org/page/profile') {
+        console.log('owned org profile');
+        // check if username available in local storage
+        const orgUsername = localStorage.getItem('profileUsername');
+        if (localStorage.getItem('profileType') !== undefined && orgUsername !== undefined && orgUsername.length > 0) {
+          // console.log('get org', orgUsername);
+          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
         }
       }
 
-      if (orgParam && orgParam.length > 0) {
-        this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgParam });
-      }
+      // if (orgParam !== undefined || orgParam !== 'undefined') {
+      //   this.isOtherProfile = false;
+      //   /**
+      //    * Load Organization Profile Details if handle present
+      //    */
+      //   if (this.profileCard && this.profileCard.username) {
+      //     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.profileCard.username });
+      //   }
+      // }
+
+      // if (orgParam && orgParam.length > 0) {
+      //   this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgParam });
+      // }
     });
   }
 

@@ -19,6 +19,7 @@ import { environment } from '../../../environments/environment';
 import { _ } from 'lodash';
 import { GeneralUtilities } from '../../helpers/general.utils';
 import { Profile } from 'selenium-webdriver/firefox';
+import { AuthActions } from 'app/actions/auth.action';
 
 @Component({
   selector: 'app-navigation',
@@ -75,7 +76,7 @@ export class NavigationComponent implements OnInit {
     /* Profile state */
     this.profileState$.subscribe((state) => {
       this.activeProfileState = state;
-      // console.log('state', state);
+      // console.log('app state', state);
       this.userCards = this.activeProfileState['profile_cards'];
       if (this.userCards
         && this.userCards['other']
@@ -86,7 +87,7 @@ export class NavigationComponent implements OnInit {
       ) {
         this.showCreateOrg = true;
       } else {
-        console.log('org data recieved');
+        // console.log('org data recieved');
 
         // // if org just cerated switch the profile and redirect to the org profile
         // // if (state && state['org_registration_success'] && state['org_registration_success'] === true) {
@@ -106,7 +107,7 @@ export class NavigationComponent implements OnInit {
 
     // if logged in user then get details
     if (localStorage.getItem('currentUser') != null) {
-      // console.log('logged in user');
+      console.log('logged in user');
       /* profile state */
       this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
 
@@ -160,6 +161,16 @@ export class NavigationComponent implements OnInit {
    */
   ngOnInit() {
 
+    // check if on org page
+    // const activeRoute = this.router.url;
+    // console.log('activeRoute', activeRoute);
+    // // if activated route is org profile page then load org details
+    // if (activeRoute === '/org/page/profile') {
+    //   this.store.dispatch({
+    //     type: OrganizationActions.LOAD_ORGANIZATION,
+    //   });
+    // }
+
     const profileType = localStorage.getItem('profileType') || 'profile';
 
     this.store.select('profileTags')
@@ -178,7 +189,7 @@ export class NavigationComponent implements OnInit {
    * Swap Organization with Profile
    */
   changeProfile(user_cards: any, e: MouseEvent) {
-    console.log('user_cards', user_cards)
+    // console.log('user_cards', user_cards)
     this.store.dispatch({ type: ProfileActions.CHANGE_PROFILE, payload: user_cards });
     return false;
   }
