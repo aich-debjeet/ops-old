@@ -296,7 +296,9 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header" style="border: none;">
-                <button type="button" class="close" data-dismiss="modal"></button>
+                <span class="pop-close terms-close" (click)="privacyPolicy.close()">
+                  <a ><img src="{{ imageBaseUrl }}img/svg/ico_close-38.svg" alt=""></a>
+                </span>
             </div>
             <div class="row terms_txt">
                 <!-- <h2>Terms and Conditions</h2> -->
