@@ -3,6 +3,11 @@ import { Action } from '@ngrx/store';
 export class ProfileActions {
 
   /**
+   * Reset org created success value to prevent redirections
+   * */
+  static ORG_REG_SUCCESS_RESET = 'ORG_REG_SUCCESS_RESET';
+
+  /**
    * Get imported profile by username
    */
   static GET_IMPORTED_PROFILE = 'GET_IMPORTED_PROFILE';

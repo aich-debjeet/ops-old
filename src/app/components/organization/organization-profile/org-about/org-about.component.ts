@@ -127,6 +127,7 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
     this.orgState$ = this.store.select('profileTags');
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
+      // console.log('this.orgProfile', this.orgProfile);
       if (this.orgProfile && this.orgProfile['org_profile_update_success'] === true) {
         this.orgProfile.org_profile_update_success = false;
         if (this.orgProfile && this.orgProfile['profile_navigation_details']['isOrganization'] === true) {
@@ -138,8 +139,8 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
         this.aboutMobile = this.orgProfile['profile_details']['contact']['mobile']['mobile'];
       }
       // for website
-      if (this.orgProfile && this.orgProfile['profile_details']['contact']['website']) {
-        this.aboutWebsite = this.orgProfile['profile_details']['contact']['website'];
+      if (this.orgProfile && this.orgProfile['profile_details']['contact']['website']['website']) {
+        this.aboutWebsite = this.orgProfile['profile_details']['contact']['website']['website'];
       }
       // for email
       if (this.orgProfile && this.orgProfile['profile_details']['email']) {

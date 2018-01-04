@@ -19,6 +19,7 @@ import { environment } from '../../../environments/environment';
 import { _ } from 'lodash';
 import { GeneralUtilities } from '../../helpers/general.utils';
 import { Profile } from 'selenium-webdriver/firefox';
+import { AuthActions } from 'app/actions/auth.action';
 
 @Component({
   selector: 'app-navigation',
@@ -38,7 +39,7 @@ export class NavigationComponent implements OnInit {
   profilerOwnersUsername: string;
   profile_details: any;
   showCreateOrg = false;
-  
+  redirectedToCreatedOrg = false;
 
   // userCard: UserCard;
   userCards: ProfileCards;
@@ -74,6 +75,7 @@ export class NavigationComponent implements OnInit {
     /* Profile state */
     this.profileState$.subscribe((state) => {
       this.activeProfileState = state;
+      // console.log('app state', state);
       this.userCards = this.activeProfileState['profile_cards'];
       if (this.userCards
         && this.userCards['other']
@@ -83,6 +85,21 @@ export class NavigationComponent implements OnInit {
         && this.userCards['other']['username'] === this.userCards['active']['username']
       ) {
         this.showCreateOrg = true;
+      } else {
+        // console.log('org data recieved');
+
+        // if org just cerated switch the profile and redirect to the org profile
+        if (!this.redirectedToCreatedOrg) {
+          // console.log('switching to cerated org');
+          if (state && state['org_registration_success'] && state['org_registration_success'] === true) {
+            this.redirectedToCreatedOrg = true;
+            this.changeProfile(this.userCards, null);
+            this.router.navigateByUrl('/org/page/profile');
+            this.store.dispatch({ type: ProfileActions.ORG_REG_SUCCESS_RESET });
+          }
+        } else {
+          // console.log('not yet switching');
+        }
       }
     });
 
@@ -142,6 +159,16 @@ export class NavigationComponent implements OnInit {
    */
   ngOnInit() {
 
+    // check if on org page
+    // const activeRoute = this.router.url;
+    // console.log('activeRoute', activeRoute);
+    // // if activated route is org profile page then load org details
+    // if (activeRoute === '/org/page/profile') {
+    //   this.store.dispatch({
+    //     type: OrganizationActions.LOAD_ORGANIZATION,
+    //   });
+    // }
+
     const profileType = localStorage.getItem('profileType') || 'profile';
 
     this.store.select('profileTags')
@@ -160,7 +187,7 @@ export class NavigationComponent implements OnInit {
    * Swap Organization with Profile
    */
   changeProfile(user_cards: any, e: MouseEvent) {
-    console.log('user_cards', user_cards)
+    // console.log('user_cards', user_cards)
     this.store.dispatch({ type: ProfileActions.CHANGE_PROFILE, payload: user_cards });
     return false;
   }

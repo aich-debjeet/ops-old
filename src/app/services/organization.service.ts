@@ -28,7 +28,7 @@ export class OrganizationService {
    * Registration of Organization
    */
   regOrganization(body: any) {
-      console.log(body);
+      // console.log(body);
       return this.api.post('/portal/organization', body);
   }
 
@@ -43,7 +43,7 @@ export class OrganizationService {
    * Get org profile details
    */
   detailOrganization(username: any) {
-      console.log(username);
+      // console.log(username);
       return this.api.get(`/portal/organization/user/username/${username}`);
   }
 
@@ -118,7 +118,7 @@ export class OrganizationService {
     }
 
     delOrganization(handle: any) {
-      console.log(handle);
+      // console.log(handle);
       return this.api.delete('/portal/organization', handle);
     }
 
@@ -127,7 +127,7 @@ export class OrganizationService {
       .map((data: Response) => data.json());
     }
     getOrganizationMembers(handle: any) {
-      console.log('api callin')
+      // console.log('api callin')
       return this.http.get(this.apiLink + '/portal/organization/members/' + handle + '/0/10', { headers: this.headers })
       .map((data: Response) => data.json());
     }
@@ -136,7 +136,7 @@ export class OrganizationService {
      * getting default settings of an Organization
      */
     getDefaultSettings(handle: any) {
-      console.log('api callin')
+      // console.log('api callin')
       return this.http.get(this.apiLink + '/portal/organization/get/settings/' + handle , { headers: this.headers })
       .map((data: Response) => data.json());
     }

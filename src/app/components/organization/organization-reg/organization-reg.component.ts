@@ -44,6 +44,7 @@ export class OrganizationRegComponent implements OnInit {
   search: String;
   userHandle: string;
   industries: any;
+  uploadingData = false;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -92,11 +93,14 @@ export class OrganizationRegComponent implements OnInit {
    */
   buildForm() {
     this.orgReg = this.fb.group({
-      'org_name' : ['', [Validators.required]],
-      'org_username' : ['', [
+      'org_name': ['', [Validators.required]],
+      'org_username': ['', [
         Validators.required,
-        FormValidation.noWhitespaceValidator
-        ],
+        FormValidation.noWhitespaceValidator,
+        FormValidation.usernameLengthValidator,
+        FormValidation.noSpecialCharsValidator,
+        FormValidation.noCapitalLettersValidator
+      ],
         this.databaseValidator.userNameValidation.bind(this.databaseValidator)
       ],
       'org_type': ['', Validators.required],
@@ -117,6 +121,7 @@ export class OrganizationRegComponent implements OnInit {
   }
 
   submitForm(value) {
+    // console.log('form value', value);
     const industrySelected = _.find(this.industries, { code: value.org_industry_type });
     let industryObj = {};
     if (industrySelected && industrySelected.name) {
@@ -130,12 +135,14 @@ export class OrganizationRegComponent implements OnInit {
     if (!this.orgReg.valid) {
       return false;
     }
-    const org_servive = value.org_service.split(/\s*,\s*/);
+    // const org_services = value.org_service.split(/\s*,\s*/);
+    const org_services = value.org_service.map(a => a.value);
+    // console.log('org_services', org_services)
 
     const data = {
         industryList : [ industryObj ],
         organizationName : value.org_name,
-        services: org_servive,
+        services: org_services,
         address : {
             line1 : this.address,
             line2 : '',
@@ -151,7 +158,9 @@ export class OrganizationRegComponent implements OnInit {
               isAdmin: true,
               status: 'accept'
             }],
-          location: ''
+          location: '',
+          latitude: String(this.latitude),
+          longitude: String(this.longitude)
         },
         accountType : [{
           'name': value.org_type,
@@ -161,20 +170,28 @@ export class OrganizationRegComponent implements OnInit {
         active : true
     }
 
+    // console.log('payload', data);
+    // return;
+
+    // show preloader
+    this.uploadingData = true;
+
     this.store.dispatch({ type: OrganizationActions.ORGANIZATION_REGISTRATION, payload: data });
 
     // Org Registration successfully
     this.store.select('profileTags')
-      .first(profile => profile['org_registration_success'] === true)
+      .first(profile => profile && profile['org_registration_success'] === true)
       .subscribe( datas => {
+        this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+        this.uploadingData = false;
         this.toastr.success('Successfully registered organization');
-        this.router.navigateByUrl('/org/page');
       });
 
     // Org Registration Failed
     this.store.select('organizationTags')
-      .first(profile => profile['org_registration_failed'] === true)
+      .first(profile => profile && profile['org_registration_failed'] === true)
       .subscribe( datas => {
+        this.uploadingData = false;
         this.toastr.success('Organization registration failed');
       });
 
@@ -222,7 +239,7 @@ export class OrganizationRegComponent implements OnInit {
       this.ngZone.run(() => {
         // get the place result
         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-        
+
         for (let i = 0; i < place.address_components.length; i++) {
           const addressType = place.address_components[i].types[0];
           if (componentForm[addressType]) {
