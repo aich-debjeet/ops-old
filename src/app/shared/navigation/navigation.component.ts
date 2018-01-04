@@ -40,7 +40,6 @@ export class NavigationComponent implements OnInit {
   profile_details: any;
   showCreateOrg = false;
   redirectedToCreatedOrg = false;
-  
 
   // userCard: UserCard;
   userCards: ProfileCards;
@@ -90,15 +89,13 @@ export class NavigationComponent implements OnInit {
         // console.log('org data recieved');
 
         // if org just cerated switch the profile and redirect to the org profile
-        // if (state && state['org_registration_success'] && state['org_registration_success'] === true) {
         if (!this.redirectedToCreatedOrg) {
           // console.log('switching to cerated org');
           if (state && state['org_registration_success'] && state['org_registration_success'] === true) {
-            console.log('user cards before switch', this.userCards);
             this.redirectedToCreatedOrg = true;
             this.changeProfile(this.userCards, null);
-            console.log('user cards after switch', this.userCards);
             this.router.navigateByUrl('/org/page/profile');
+            this.store.dispatch({ type: ProfileActions.ORG_REG_SUCCESS_RESET });
           }
         } else {
           // console.log('not yet switching');

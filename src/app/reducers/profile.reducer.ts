@@ -75,6 +75,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
   switch (type) {
 
+    /* reset org created success value to false */
+    case ProfileActions.ORG_REG_SUCCESS_RESET:
+      console.log('ORG_REG_SUCCESS_RESET');
+      return Object.assign({}, state, {
+        org_registration_success: false
+      });
+
     case ProfileActions.PROFILE_COVER_UPDATE:
       return Object.assign({}, state, {
         cover_updating: true,
