@@ -502,7 +502,7 @@
                             </p>
                             <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #myform="ngForm">
                                 <div class="form_group">
-                                    <input class="form_input" type="text" formControlName="otpNumber" required>
+                                    <input class="form_input" type="number" formControlName="otpNumber" required>
                                     <span class="form_highlight"></span>
                                     <span class="form_bar"></span>
                                     <label>Enter OTP</label>
