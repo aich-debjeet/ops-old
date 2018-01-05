@@ -75,12 +75,12 @@
             font-size: 27px;
         }
     }
-    p {
-        color: #333;
-        margin: 5%;
-        font-size: 18px;
-        font-weight: 700;
-    }
+    // p {
+    //     color: #333;
+    //     margin: 5%;
+    //     font-size: 18px;
+    //     font-weight: 700;
+    // }
     .btn {
         margin: 4% 0 18%;
     }
@@ -966,4 +966,9 @@
 
 .w-100 {
     width: 100%;
+}
+
+.no-p-m-errors .error_alert {
+    margin: 0;
+    padding: 0;
 }

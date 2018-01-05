@@ -83,7 +83,7 @@ export class HomeChannelComponent implements OnInit {
     const datas = {
       handle: userHandle,
       page_start: this.page_start,
-      page_end: this.page_end
+      page_end: 10
     }
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: datas });
     this.tagState$.subscribe(data => {
