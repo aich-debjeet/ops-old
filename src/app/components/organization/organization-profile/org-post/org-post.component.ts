@@ -23,7 +23,7 @@ export class OrgPostComponent implements OnInit {
   counter: number;
   posts: any;
   userMedia = initialTag;
-  isOwner = false;
+  isOwner: boolean;
   page_start = 0;
   page_end = 20;
 
