@@ -166,7 +166,6 @@ export class DwcRegComponent implements OnInit {
       'school_name' : ['', [Validators.required]],
       'member' : '',
       'school_owner' : [''],
-      'school_address' : ['', [Validators.required]],
       'team_member' : this.fb.array([]),
     });
 
@@ -182,8 +181,6 @@ export class DwcRegComponent implements OnInit {
   memberItem(val: string) {
     return new FormGroup({
       name: new FormControl(val, Validators.required),
-      email: new FormControl(val, Validators.compose([Validators.min(1), Validators.required, FormValidation.validEmail ])),
-      phone: new FormControl(val, Validators.required),
       dob: new FormControl(val , Validators.compose([ Validators.required, FormValidation.dwcValidDOB]))
     })
   }
@@ -192,9 +189,6 @@ export class DwcRegComponent implements OnInit {
     const control = <FormArray>this.eventForm.controls['team_member'];
     control.push(this.memberItem(''));
   }
-
- 
-
 
 // dwc_event_reg_success
   submitForm(value) {

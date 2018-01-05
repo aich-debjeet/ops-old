@@ -33,6 +33,7 @@ export class OrganizationRegComponent implements OnInit {
   tagState$: Observable<Follow>;
   skillSelectionPage: any;
   imageBaseLink: string = environment.API_IMAGE;
+  org_service;
 
   // Address --
   address: string;
