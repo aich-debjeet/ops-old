@@ -276,7 +276,8 @@ export class RegistrationBasicComponent implements OnInit {
     this.newNumberForm = this.fb.group({
       'newNumber': ['', [
           Validators.required,
-          Validators.minLength(4)
+          Validators.minLength(4),
+          FormValidation.validPhone.bind(this)
         ],
         this.databaseValidator.checkMobile.bind(this.databaseValidator)
       ]
@@ -381,20 +382,21 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   resendOtpOnNewNumber() {
-    const reqBody = {
-      contact: {
-        contactNumber: this.newNumberForm.value.newNumber
+    if (this.newNumberForm.valid === true ) {
+      const reqBody = {
+        contact: {
+          contactNumber: this.newNumberForm.value.newNumber
+        }
       }
+      this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: reqBody });
+      this.store.select('loginTags').take(2).subscribe(data => {
+        if (data['user_number_cng_success'] === true ) {
+          this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
+          this.modalService.close('otpChangeNumber');
+          this.modalService.open('otpWindow');
+        }
+      })
     }
-
-    this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: reqBody });
-    this.store.select('loginTags').take(2).subscribe(data => {
-      if (data['user_number_cng_success'] === true ) {
-        this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
-        this.modalService.close('otpChangeNumber');
-        this.modalService.open('otpWindow');
-      }
-    })
   }
 
   onSaveUsernameChanged(value: boolean) {

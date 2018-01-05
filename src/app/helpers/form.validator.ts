@@ -408,6 +408,15 @@ export class FormValidation {
         return null;
     }
 
+    static validPhone (control: AbstractControl) {
+        const phoneNumber = control.value;
+        if (phoneNumber.match(/[a-z][A-Z]/i)) {
+            // console.log('number contains chars');
+            return { isInvalidPhoneNumber: true };
+        }
+        return null;
+    }
+
     /**
      * Checking for the password if matches with the confirm password on register form
      * @param control: Form confirm password input
