@@ -1,3 +1,18 @@
-<p>
-  org-feed works!
-</p>
+<div id="home_spotfeed" class="tab-pane fade active in">
+  <div *ngIf="userState?.home_spotfeeds_loading">
+      <div class="msg__loading">
+        <div class="loader">Loading...</div>
+      </div>
+  </div>
+  <div class="c-spotfeed">
+    <div class="c-spotfeed-block">
+      <div>
+        <div class="c-spotfeed-block__item-4" *ngFor="let spotfeed of spotfeeds">
+          <a class="c-spotfeed-item__single" [routerLink]="['/spotfeed', spotfeed.name]">
+            <app-spotfeed-card  [spotfeedData]="spotfeed" ></app-spotfeed-card>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div><!-- c-spotfeed end -->
+</div>
