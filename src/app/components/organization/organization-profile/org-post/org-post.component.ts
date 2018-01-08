@@ -74,4 +74,7 @@ export class OrgPostComponent implements OnInit {
     this._store.dispatch({ type: ProfileActions.LOAD_USER_MEDIA, payload: data });
   }
 
+  onScroll(e) {
+  }
+
 }
