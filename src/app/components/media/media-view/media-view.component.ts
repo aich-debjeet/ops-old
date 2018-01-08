@@ -50,6 +50,8 @@ export class MediaViewComponent {
   message: boolean;
   channelId: string;
   deleteMsg: boolean;
+  isEdit: boolean;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -62,7 +64,7 @@ export class MediaViewComponent {
     this.mediaState$ = store.select('mediaStore');
 
     this.mediaState$.subscribe((state) => {
-      // console.log('state', state)
+       console.log('state', state)
       this.mediaStore = state;
       this.channelId = this.mediaStore.channel_detail['channelId']
       this.data = this.mediaStore.media_detail;
@@ -70,7 +72,7 @@ export class MediaViewComponent {
       this.mediaType = this.mediaStore.media_detail.mtype;
       this.mediaId = this.mediaStore.media_detail.id;
       this.spot = this.mediaStore.media_detail.isSpotted;
-      // console.log('Data ', this.data)
+      console.log('Data ', this.data)
     });
 
     store.select('mediaStore').take(6).subscribe((state) => {
@@ -172,5 +174,29 @@ export class MediaViewComponent {
       // console.log('channelid', this.channelId)
       this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
     }
+  }
+
+  onContentEdit() {
+    this.isEdit = true;
+  }
+  // onContentSaved(content) {
+  //   this.isEdit = false;
+  // }
+  onCommentEdit(comment, message) {
+    this.isEdit = false;
+    console.log('comment', comment, '+ message', message)
+    const data = {
+      'id' : this.data.id,
+      'handle' : this.data.ownerHandle,
+      'fileName' : '5c7410a2-e106-4ff8-a00c-5b3cbe5c7122.jpg',
+      'mtype' : this.data.mtype,
+      'description' : message,
+      'contentType' : this.data.contentType,
+      'repoPath' : this.data.repopath,
+      'createdBy' : this.data.ownerHandle,
+      'active' : true
+    }
+    console.log(data)
+    // this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
   }
 }
