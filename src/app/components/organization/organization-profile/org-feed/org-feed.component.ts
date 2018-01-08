@@ -18,26 +18,26 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class OrgFeedComponent implements OnInit {
 
-  tagState$: Observable<UserSpotfeeds>;
-  private tagStateSubscription: Subscription;
-  userState;
-  spotfeeds: any = [];
-  baseUrl: String;
+  // tagState$: Observable<UserSpotfeeds>;
+  // private tagStateSubscription: Subscription;
+  // userState;
+  // spotfeeds: any = [];
+  // baseUrl: String;
 
-  constructor(
-    private http: Http,
-    private store: Store<UserSpotfeeds>
-  ) {
+  // constructor(
+  //   private http: Http,
+  //   private store: Store<UserSpotfeeds>
+  // ) {
 
-    this.tagState$ = this.store.select('profileTags');
-    this.tagState$.subscribe((state) => {
-      this.userState = state;
-      if (this.userState.home_spotfeeds !== undefined && this.userState.home_spotfeeds.SUCCESS !== undefined) {
-        this.spotfeeds = this.userState.home_spotfeeds.SUCCESS;
-      }
-    });
-    this.store.dispatch({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS });
-  }
+  //   this.tagState$ = this.store.select('profileTags');
+  //   this.tagState$.subscribe((state) => {
+  //     this.userState = state;
+  //     if (this.userState.home_spotfeeds !== undefined && this.userState.home_spotfeeds.SUCCESS !== undefined) {
+  //       this.spotfeeds = this.userState.home_spotfeeds.SUCCESS;
+  //     }
+  //   });
+  //   this.store.dispatch({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS });
+  // }
 
   ngOnInit() {
   }
