@@ -43,7 +43,7 @@ export class PasswordCreateComponent implements OnInit {
     this.createPass = fb.group({
       'password' : ['', [
         Validators.required,
-        FormValidation.passwordStrength
+        FormValidation.passwordStrength.bind(this)
       ]],
       'confirmpassword' : ['', [
         Validators.required,
