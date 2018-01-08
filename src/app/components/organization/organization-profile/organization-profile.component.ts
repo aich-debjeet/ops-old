@@ -95,11 +95,11 @@ export class OrganizationProfileComponent implements OnInit {
       // console.log('checking for org params', orgParam);
 
       // load org profile details if owned profile
-      if (this.router.url === '/org/page/profile') {
-        console.log('owned org profile');
+      if (this.router.url.includes('/org/')) {
+        // console.log('owned org profile');
         // check if username available in local storage
         const orgUsername = localStorage.getItem('profileUsername');
-        if (localStorage.getItem('profileType') !== undefined && orgUsername !== undefined && orgUsername.length > 0) {
+        if (localStorage.getItem('profileType') !== undefined && localStorage.getItem('profileType') === 'organization' && orgUsername !== undefined && orgUsername.length > 0) {
           // console.log('get org', orgUsername);
           this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
         }
