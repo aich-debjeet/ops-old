@@ -55,7 +55,7 @@ export class PasswordCreateComponent implements OnInit {
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       this.forgotP = state;
-      console.log('this.forgotP', this.forgotP);
+      // console.log('this.forgotP', this.forgotP);
 
       // check if password has been successfully updated
       if (!this.pwdCreateChecked && this.forgotP && this.forgotP['fp_create_success'] && this.forgotP['fp_create_success'] === true) {
