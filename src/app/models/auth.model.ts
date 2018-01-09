@@ -9,7 +9,7 @@ export class Login {
  fp_userdata_resp?: any;
  page_loading: boolean;
  error_description?: any;
- fb_pass_create_scs?: boolean;
+ fp_create_success?: boolean;
  fp_sumit_otp_failed?: boolean;
  fp_userdata_loading_failed: boolean;
  otp_forget_user_success?: boolean;
@@ -71,7 +71,7 @@ export const initialTag: Login = {
   fp_user_exists: false,
   fp_userdata_resp: [],
   fp_sumit_otp_failed: false,
-  fb_pass_create_scs: false,
+  fp_create_success: false,
   fp_userdata_loading_failed: false,
   page_loading: false
 };
@@ -117,6 +117,7 @@ export const initialArtistFollow: ArtistFollow = {
   is_follow: true,
 }
 
+
 export class RegCode {
   Code: number;
 }
@@ -128,7 +129,7 @@ export class BasicRegTag {
   user_unique= false;
   access_Token?: String;
   user_basic_reg_success?: boolean;
-  fb_pass_create_scs: boolean;
+  fp_create_success: boolean;
   user_otp_failed: boolean;
   user_otp_success: boolean;
   user_number_cng_success: boolean;
@@ -143,7 +144,7 @@ export const initialBasicRegTag: BasicRegTag = {
   loading: false,
   success: true,
   user_unique: false,
-  fb_pass_create_scs: false,
+  fp_create_success: false,
   user_otp_failed: false,
   user_otp_success: false,
   user_number_cng_success: false,
