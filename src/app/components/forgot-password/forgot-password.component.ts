@@ -41,7 +41,7 @@ export class ForgotPasswordComponent {
 
     const form = {
       'forgetPasswordtype': 'userCheck',
-      'value': value.identity
+      'value': value.identity.trim()
     }
 
     this.store.dispatch({ type: AuthActions.FP_USER_EXISTS, payload: form });
