@@ -84,6 +84,7 @@ export class SettingsComponent implements OnInit {
     });
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
+      if (typeof state !== 'undefined') {
         this.petTag = state;
         if (state['user_number_cng_success'] === true ) {
           this._modalService.open('otpWindow');
@@ -98,28 +99,31 @@ export class SettingsComponent implements OnInit {
 
         if ( state && state['user_otp_failed'] && state['user_otp_failed'] === true ) {
         }
+      }
     });
     this.storeState$ = this._store.select('profileTags');
 
-     this.storeState$.subscribe((state) => {
-      this.userProfile = state['profile_details'];
-      this.userHandle = state['profile_details'].handle;
-      this.blockedUsers = state.blockedUsers;
-      if (state.default_notification) {
-        this.default = state.default_notification;
-        this.notificationOption = [{name: 'Comments', description: 'Receive an e-mail when other people comment on your posts.' , value: 'Comments', checked: this.default.comments},
-                                  {name: 'Spots', description: 'Receive an e-mail when other people Spot on your posts.' , value: 'Spots', checked: this.default.spots},
-                                  {name: 'Mention', description: 'Receive an e-mail when other people mention you.' , value: 'Mention', checked: this.default.mentions},
-                                  {name: 'Followers', description: 'Receive an e-mail when other people follow you.' , value: 'Followers', checked: this.default.newFollower},
-                                  {name: 'Channels', description: 'Receive an e-mail when other people add you in a channel.' , value: 'Channels', checked: this.default.channels},
-                                  {name: 'Donate', description: 'Receive an e-mail when other people donate you.' , value: 'Donate', checked: this.default.donate},
-                                  {name: 'Network', description: 'Receive an e-mail when other people send you network request.' , value: 'Network', checked: this.default.network}
-        ]
+    this.storeState$.subscribe((state) => {
+      if (typeof state !== 'undefined') {
+        this.userProfile = state['profile_details'];
+        this.userHandle = state['profile_details'].handle;
+        this.blockedUsers = state.blockedUsers;
+        if (state.default_notification) {
+          this.default = state.default_notification;
+          this.notificationOption = [{name: 'Comments', description: 'Receive an e-mail when other people comment on your posts.' , value: 'Comments', checked: this.default.comments},
+                                    {name: 'Spots', description: 'Receive an e-mail when other people Spot on your posts.' , value: 'Spots', checked: this.default.spots},
+                                    {name: 'Mention', description: 'Receive an e-mail when other people mention you.' , value: 'Mention', checked: this.default.mentions},
+                                    {name: 'Followers', description: 'Receive an e-mail when other people follow you.' , value: 'Followers', checked: this.default.newFollower},
+                                    {name: 'Channels', description: 'Receive an e-mail when other people add you in a channel.' , value: 'Channels', checked: this.default.channels},
+                                    {name: 'Donate', description: 'Receive an e-mail when other people donate you.' , value: 'Donate', checked: this.default.donate},
+                                    {name: 'Network', description: 'Receive an e-mail when other people send you network request.' , value: 'Network', checked: this.default.network}
+          ]
+          }
+        this.adult = {name: 'adult', value: 'adult', checked: state.adult_Content};
+        this.privateAccount = {name: 'private', value: 'private', checked: state['privateAccount']}
+        if (state.preferences !== 'undefined') {
+          this.preferences = state.preferences;
         }
-      this.adult = {name: 'adult', value: 'adult', checked: state.adult_Content};
-      this.privateAccount = {name: 'private', value: 'private', checked: state['privateAccount']}
-      if (state.preferences !== 'undefined') {
-        this.preferences = state.preferences;
       }
     });
 

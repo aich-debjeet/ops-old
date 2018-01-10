@@ -59,7 +59,7 @@ export class NotificationService {
     if (page === 1 ) {
         beginItem = 0;
     } else {
-        beginItem = (page - 1) * itemsPerPage;
+        beginItem = (page + 1) * itemsPerPage;
     } return {
         offset: beginItem, limit: itemsPerPage
     }
