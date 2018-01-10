@@ -68,6 +68,11 @@ export class MediaActions {
   static LOAD_MY_MEDIA_SUCCESS = 'LOAD_MY_MEDIA_SUCCESS';
   static LOAD_MY_MEDIA_FAILED = 'LOAD_MY_MEDIA_FAILED';
 
+  // edit media
+  static MEDIA_EDIT = 'MEDIA_EDIT';
+  static MEDIA_EDIT_SUCCESS = 'MEDIA_EDIT_SUCCESS';
+  static MEDIA_EDIT_FAILED = 'MEDIA_EDIT_FAILED';
+
 
   /**
    * Upload status
