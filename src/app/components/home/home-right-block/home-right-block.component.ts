@@ -53,27 +53,29 @@ export class HomeRightBlockComponent implements OnInit {
    });
 
     this.myProfile$.subscribe(event => {
-      this.userState = event;
-      if (event['user_profiles_all'] !== 'undefined') {
-        this.profiles = event.user_profiles_all;
-      }
+      if (typeof event !== 'undefined') {
+        this.userState = event;
+        if (event['user_profiles_all'] !== 'undefined') {
+          this.profiles = event.user_profiles_all;
+        }
 
-      // check for user skills
-      if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['skills'] && this.userState['profile_navigation_details']['skills'].length > 0) {
-        // fetching skills in a local var
-        const skillsLoaded = this.userState['profile_navigation_details']['skills'];
-        // preparing skills as an array of string
-        skillsLoaded.forEach((skill, index) => {
-          if (skill && skill.code) {
-            this.skillCodes.push(skill.code);
-          }
-          if ((skillsLoaded.length - 1) === index) {
-            if (!this.loadedRecomOpps) {
-              this.loadRecomOpps();
-              this.loadedRecomOpps = true;
+        // check for user skills
+        if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['skills'] && this.userState['profile_navigation_details']['skills'].length > 0) {
+          // fetching skills in a local var
+          const skillsLoaded = this.userState['profile_navigation_details']['skills'];
+          // preparing skills as an array of string
+          skillsLoaded.forEach((skill, index) => {
+            if (skill && skill.code) {
+              this.skillCodes.push(skill.code);
             }
-          }
-        });
+            if ((skillsLoaded.length - 1) === index) {
+              if (!this.loadedRecomOpps) {
+                this.loadRecomOpps();
+                this.loadedRecomOpps = true;
+              }
+            }
+          });
+        }
       }
     });
   }

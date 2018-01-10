@@ -68,13 +68,23 @@ export class AuthEffect {
     );
 
   @Effect()
-  loadGallery$ = this.actions$
+  userLogin$ = this.actions$
     .ofType(AuthActions.USER_LOGIN)
     .map(toPayload)
     .switchMap((payload) => this.authService.login(payload)
       .map(res => ({ type: AuthActions.USER_LOGIN_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: AuthActions.USER_LOGIN_FAILED, payload: res }))
     );
+
+  @Effect()
+    userLogout$ = this.actions$
+      .ofType(AuthActions.USER_LOGOUT)
+      .mergeMap(reachedThreshold => {
+        localStorage.clear();
+        this.router.navigate(['/']);
+        return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
+      });
+
 
   @Effect()
   loadArtist$ = this.actions$

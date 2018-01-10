@@ -92,30 +92,34 @@ export class OpportunityCreateComponent implements OnInit {
 
     this.loginTagState$ = store.select('loginTags');
     this.loginTagState$.subscribe((state) => {
-      this.industries = state.industries;
+      if (typeof state !== 'undefined') {
+        this.industries = state.industries;
+      }
     });
 
     this.userProfileState$ = this.mediaStore.select('profileTags');
     this.userProfileState$.subscribe(data => {
-      if (data && data.profile_navigation_details) {
-        this.userProfile = data.profile_navigation_details;
-        if (data.channel_saved) {
-          this.channelSaved = data.channel_saved;
+      if (typeof data !== 'undefined') {
+        if (data && data.profile_navigation_details) {
+          this.userProfile = data.profile_navigation_details;
+          if (data.channel_saved) {
+            this.channelSaved = data.channel_saved;
+          }
         }
-      }
-      if (data && data.user_following_channels_loaded) {
-        this.channelList = data.user_following_channel;
-      }
-      if (data && data.channel_created_details && data.channel_created_details.SUCCESS && data.channel_created_details.SUCCESS.id) {
-        this.selectedChannelId = data.channel_created_details.SUCCESS.id;
-      }
-      // success message
-      if (this.channelSavedHere && this.channelSaved === true ) {
-        this.toastr.success('Channel has been created successfully!');
-        this.createChannelForm();
-        this.channelSavedHere = false;
-        // submitting opportunity
-        this.postOpportunity(this.formData);
+        if (data && data.user_following_channels_loaded) {
+          this.channelList = data.user_following_channel;
+        }
+        if (data && data.channel_created_details && data.channel_created_details.SUCCESS && data.channel_created_details.SUCCESS.id) {
+          this.selectedChannelId = data.channel_created_details.SUCCESS.id;
+        }
+        // success message
+        if (this.channelSavedHere && this.channelSaved === true ) {
+          this.toastr.success('Channel has been created successfully!');
+          this.createChannelForm();
+          this.channelSavedHere = false;
+          // submitting opportunity
+          this.postOpportunity(this.formData);
+        }
       }
     });
 

@@ -192,10 +192,9 @@ export class AuthService {
       return this.api.get('/portal/tree/' + query + '/0/100');
     }
 
-    logout() {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
-        this.router.navigate(['/login']);
+    logout(value) {
+      localStorage.clear();
+      this.router.navigate(['/login']);
     }
 
     getArtistFollow(value) {
