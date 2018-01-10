@@ -76,7 +76,7 @@ export class StatusEditorComponent {
    * Status Form
    */
   submitStatusForm() {
-    const userHandle = this.profileStore.profile_navigation_details.handle || '';
+    const userHandle = this.profileStore.profile_cards.active.handle || '';
     const message = (this.statusMessage || '').trim().length === 0;
 
     if ( !message && userHandle !== '') {

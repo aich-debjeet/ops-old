@@ -30,6 +30,8 @@ import { ToastrService } from 'ngx-toastr';
 import { initialTag, Follow } from '../../../../models/auth.model';
 import * as _ from 'lodash';
 
+import { Router, ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-org-about',
   templateUrl: './org-about.component.html',
@@ -93,6 +95,7 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
     private toastr: ToastrService,
     private datePipe: DatePipe,
     private searchStore: Store<SearchModel>,
+    private router: Router
   ) {
 
     /* member search */
@@ -128,6 +131,15 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
     this.orgState$.subscribe((state) => {
       this.orgProfile = state;
       // console.log('this.orgProfile', this.orgProfile);
+
+      // redirect home if profile details are unavailable
+      if (this.orgProfile && this.orgProfile['profile_details'] && this.orgProfile['profile_details'].hasOwnProperty('handle')) {
+        // console.log('not empty');
+      } else {
+        this.router.navigateByUrl('/org/page/profile');
+        return;
+      }
+
       if (this.orgProfile && this.orgProfile['org_profile_update_success'] === true) {
         this.orgProfile.org_profile_update_success = false;
         if (this.orgProfile && this.orgProfile['profile_navigation_details']['isOrganization'] === true) {
@@ -196,6 +208,19 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getLocationGoogle();
+
+    // console.log('this.router.url', this.router.url);
+
+    // // load org profile details if owned profile
+    // if (this.router.url.includes('/org/')) {
+    //   console.log('owned org profile');
+    //   // check if username available in local storage
+    //   const orgUsername = localStorage.getItem('profileUsername');
+    //   if (localStorage.getItem('profileType') !== undefined && localStorage.getItem('profileType') === 'organization' && orgUsername !== undefined && orgUsername.length > 0) {
+    //     // console.log('get org', orgUsername);
+    //     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
+    //   }
+    // }
   }
 
   /**

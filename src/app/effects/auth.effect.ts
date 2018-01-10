@@ -224,13 +224,13 @@ export class AuthEffect {
   /**
    * Forget password create sucess redirect login page
    */
-  @Effect()
-  fpCreatePassSucess$ = this.actions$
-    .ofType(AuthActions.FP_CREATE_PASS_SUCCESS)
-    .mergeMap(reachedThreshold => {
-        this.router.navigateByUrl('/login');
-        return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
-      });
+  // @Effect()
+  // fpCreatePassSucess$ = this.actions$
+  //   .ofType(AuthActions.FP_CREATE_PASS_SUCCESS)
+  //   .mergeMap(reachedThreshold => {
+  //       this.router.navigateByUrl('/login');
+  //       return Observable.of({ type: 'NOTHING', payload: 'NOTHING' });
+  //     });
 
   // OTP RESENT FORGET USER
   @Effect()
