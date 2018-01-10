@@ -51,6 +51,7 @@ export class MediaViewComponent {
   channelId: string;
   deleteMsg: boolean;
   isEdit: boolean;
+  editMsg: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -72,19 +73,22 @@ export class MediaViewComponent {
       this.mediaType = this.mediaStore.media_detail.mtype;
       this.mediaId = this.mediaStore.media_detail.id;
       this.spot = this.mediaStore.media_detail.isSpotted;
+      if (state['media_edit_msg'] && this.editMsg) {
+       this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+       this.toastr.success('Post Edited');
+       this.doClose(event);
+       this.editMsg = false;
+     }
       console.log('Data ', this.data)
     });
 
     store.select('mediaStore').take(6).subscribe((state) => {
       this.commentCount = this.mediaStore.media_detail.commentsCount;
       this.comments = this.mediaStore.media_comment;
-      if (state['media_delete_msg']) {
-        if (this.deleteMsg) {
-          // console.log('delete masg')
-          this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-          this.toastr.warning('Post Deleted');
-          this.doClose(event);
-        }
+      if (state['media_delete_msg'] && this.deleteMsg) {
+        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+        this.toastr.warning('Post Deleted');
+        this.doClose(event);
         this.deleteMsg = false;
       }
     });
@@ -179,24 +183,16 @@ export class MediaViewComponent {
   onContentEdit() {
     this.isEdit = true;
   }
-  // onContentSaved(content) {
-  //   this.isEdit = false;
-  // }
+
   onCommentEdit(comment, message) {
     this.isEdit = false;
+    this.editMsg = true;
     console.log('comment', comment, '+ message', message)
     const data = {
       'id' : this.data.id,
-      'handle' : this.data.ownerHandle,
-      'fileName' : '5c7410a2-e106-4ff8-a00c-5b3cbe5c7122.jpg',
-      'mtype' : this.data.mtype,
-      'description' : message,
-      'contentType' : this.data.contentType,
-      'repoPath' : this.data.repopath,
-      'createdBy' : this.data.ownerHandle,
-      'active' : true
+      'description' : message
     }
     console.log(data)
-    // this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
+    this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data});
   }
 }

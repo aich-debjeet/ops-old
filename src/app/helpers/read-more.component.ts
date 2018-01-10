@@ -5,7 +5,7 @@ import { Component, EventEmitter, Output, Input, ElementRef, OnChanges} from '@a
     template: `
         <div>
             <p *ngIf="!isEdit" [innerHTML]="currentText" [class]="class"></p>
-            <p contenteditable="true" *ngIf="isEdit" [textContent]="text" [(ngModel)]="text" [class]="class" ngDefaultControl (keyup.enter)="onContentSaved()" (input)="text=$event.target.textContent"></p>
+            <p contenteditable="true" *ngIf="isEdit" [textContent]="text" [(ngModel)]="text" [class]="class" ngDefaultControl (keyup.enter)="onContentSaved()" (input)="text=$event.target.textContent" [ngClass]="{'fill_grey': isEdit}"></p>
         </div>
         <a [class.hidden]="hideToggle" (click)="toggleView()">Read {{isCollapsed? 'more':'less'}}</a>
     `,
@@ -23,6 +23,11 @@ import { Component, EventEmitter, Output, Input, ElementRef, OnChanges} from '@a
         }
         .media_channel--text{
             font-size: 12px;
+        }
+        .fill_grey {
+                color: #979797;
+                font-weight: 600;
+                display: inline;
         }
     `],
 })
