@@ -86,7 +86,6 @@ export class ExploreComponent implements OnInit {
 
         // merge all categories here
         this.mergedSpotfeeds = this.mergeAllSpotfeeds(state.explore_spotfeeds);
-        console.log(this.mergedSpotfeeds);
       }
 
       // check if loaded
@@ -103,7 +102,6 @@ export class ExploreComponent implements OnInit {
   mergeAllSpotfeeds(categorisedSpotfeeds) {
     let allSpotFeeds = [];
     for (let i = 0; i < categorisedSpotfeeds.length; i++) {
-      console.log(categorisedSpotfeeds[i]);
       allSpotFeeds = allSpotFeeds.concat(categorisedSpotfeeds[i].feeds);
 
       if (i >= (categorisedSpotfeeds.length - 1)) {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Channel } from '../../models/home.model';
 
@@ -20,7 +20,7 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, AfterViewInit{
 
   tagState$: Observable<ProfileModal>;
   userQuickAccess = initialTag;
@@ -35,7 +35,6 @@ export class HomeComponent {
     private store: Store<Channel>,
     private profileStore: Store<ProfileModal>
   ) {
-    document.body.scrollTop = 0;
     this.cards = [];
     this.loadMoreParams = { offset: -10, limit: 10 };
 
@@ -48,6 +47,16 @@ export class HomeComponent {
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
     // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
   }
+
+  ngOnInit() {
+    console.log(document.body.scrollTop);
+    // document.body.scrollTop = 0;
+    window.scrollTo(0, 0);
+  }
+
+  ngAfterViewInit() {
+    
+ }
 
   /**
    * Unpin Channels from Quick Access

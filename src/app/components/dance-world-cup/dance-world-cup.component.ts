@@ -49,6 +49,7 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.dwcSlider = {
       grid: {xs: 1, sm: 1, md: 1, lg: 1, all: 0},
       slide: 1,

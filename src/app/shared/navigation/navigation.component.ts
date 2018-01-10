@@ -1,4 +1,4 @@
-import { Component, Directive, OnInit, HostListener, Renderer, ElementRef, HostBinding } from '@angular/core';
+import { Component, Directive, ChangeDetectionStrategy, OnInit, HostListener, Renderer, ElementRef, HostBinding } from '@angular/core';
 import { ModalService } from '../modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag, UserCard, ProfileCards } from '../../models/profile.model';
@@ -24,6 +24,7 @@ import { AuthActions } from 'app/actions/auth.action';
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ ModalService ],
   styleUrls: ['./navigation.component.scss']
 })
@@ -157,7 +158,7 @@ export class NavigationComponent implements OnInit {
    * On init
    */
   ngOnInit() {
-
+    document.body.scrollTop = 0;
     // check if on org page
     // const activeRoute = this.router.url;
     // console.log('activeRoute', activeRoute);
