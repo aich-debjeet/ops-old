@@ -54,14 +54,16 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
     // state listener
     this.opportunityState$ = this.store.select('opportunityTags');
     this.opportunityState$.subscribe((state) => {
-      this.opportunityState = state;
-      if (state && state.searching_opportunities === false) {
-        this.isSearching = false;
-        this.showPreloader = false;
-      }
+      if (typeof state !== 'undefined') {
+        this.opportunityState = state;
+        if (state && state.searching_opportunities === false) {
+          this.isSearching = false;
+          this.showPreloader = false;
+        }
 
-      if (state && state.get_opportunity_type_success && state.get_opportunity_type_success === true) {
-        this.prepareOppCount(state.get_opportunity_type_data.SUCCESS);
+        if (state && state.get_opportunity_type_success && state.get_opportunity_type_success === true) {
+          this.prepareOppCount(state.get_opportunity_type_data.SUCCESS);
+        }
       }
     });
 
@@ -73,7 +75,9 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
      */
     this.loginTagState$ = store.select('loginTags');
     this.loginTagState$.subscribe((state) => {
-      this.industries = state.industries;
+      if (typeof state !== 'undefined') {
+        this.industries = state.industries;
+      }
     });
 
     // loading industry list

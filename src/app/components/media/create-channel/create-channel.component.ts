@@ -77,21 +77,25 @@ export class CreateChannelComponent implements OnInit {
 
       this.loginTagState$ = store.select('loginTags');
       this.loginTagState$.subscribe((state) => {
-        this.industries = state.industries;
+        if (typeof state !== 'undefined') {
+          this.industries = state.industries;
+        }
       });
 
       this.tagState$ = this.store.select('profileTags');
       this.tagState$.subscribe((state) => {
-        this.profileChannel = state;
-        this.channelSaved = this.profileChannel.channel_saved;
+        if (typeof state !== 'undefined') {
+          this.profileChannel = state;
+          this.channelSaved = this.profileChannel.channel_saved;
 
-        const activeUser = this.profileChannel.profile_cards.active;
-        this.activeUser = activeUser;
+          const activeUser = this.profileChannel.profile_cards.active;
+          this.activeUser = activeUser;
 
-        if (this.channelSavedHere && this.channelSaved === true ) {
-          this.switchToStep(3);
-          this.createChannelForm();
-          this.channelSavedHere = false;
+          if (this.channelSavedHere && this.channelSaved === true ) {
+            this.switchToStep(3);
+            this.createChannelForm();
+            this.channelSavedHere = false;
+          }
         }
       });
     }

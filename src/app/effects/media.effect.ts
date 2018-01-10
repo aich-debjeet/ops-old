@@ -188,6 +188,22 @@ export class MediaEffect {
       );
 
   /**
+   * media edit
+   */
+  @Effect()
+  mediaEdit$ = this.actions$
+    .ofType(MediaActions.MEDIA_EDIT)
+    .map(toPayload)
+    .switchMap((payload) => this.mediaService.mediaEdit(payload)
+      .map(res => ({ type: MediaActions.MEDIA_EDIT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: MediaActions.MEDIA_EDIT_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+
+  /**
    * Un Spot a Media
    */
   @Effect()

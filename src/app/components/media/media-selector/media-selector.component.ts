@@ -170,26 +170,28 @@ export class MediaSelectorComponent implements OnInit {
     // If there's input assign, other wise, reload channel list
     // this.myChannels$.subscribe(event => this.channeListx = event);
     this.myProfile$.subscribe(event => {
-      this.myProfileData = event;
+      if (typeof event !== 'undefined') {
+        this.myProfileData = event;
 
-      const activeUser = event.profile_cards.active;
-      this.activeUser = activeUser;
+        const activeUser = event.profile_cards.active;
+        this.activeUser = activeUser;
 
-      let isUserReady;
-      if (event.profile_navigation_details && event.profile_navigation_details.handle) {
-        this.handle = event.profile_cards.active.handle;
-        isUserReady = true;
-        this.loadChannel(this.handle);
-      } else {
-        // console.log('[x]');
+        let isUserReady;
+        if (event.profile_navigation_details && event.profile_navigation_details.handle) {
+          this.handle = event.profile_cards.active.handle;
+          isUserReady = true;
+          this.loadChannel(this.handle);
+        } else {
+          // console.log('[x]');
+        }
+
+        // Check if it has query params
+        this.route.queryParams
+        .filter(params => params.event)
+        .subscribe(params => {
+          this.eventName = params.event;
+        });
       }
-
-      // Check if it has query params
-      this.route.queryParams
-      .filter(params => params.event)
-      .subscribe(params => {
-        this.eventName = params.event;
-      });
     });
 
     /**

@@ -50,6 +50,9 @@ export class MediaViewComponent {
   message: boolean;
   channelId: string;
   deleteMsg: boolean;
+  isEdit: boolean;
+  editMsg: boolean;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -62,7 +65,7 @@ export class MediaViewComponent {
     this.mediaState$ = store.select('mediaStore');
 
     this.mediaState$.subscribe((state) => {
-      // console.log('state', state)
+      //  console.log('state', state)
       this.mediaStore = state;
       this.channelId = this.mediaStore.channel_detail['channelId']
       this.data = this.mediaStore.media_detail;
@@ -70,19 +73,22 @@ export class MediaViewComponent {
       this.mediaType = this.mediaStore.media_detail.mtype;
       this.mediaId = this.mediaStore.media_detail.id;
       this.spot = this.mediaStore.media_detail.isSpotted;
+      if (state['media_edit_msg'] && this.editMsg) {
+       this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+       this.toastr.success('Post Edited');
+       this.doClose(event);
+       this.editMsg = false;
+     }
       // console.log('Data ', this.data)
     });
 
     store.select('mediaStore').take(6).subscribe((state) => {
       this.commentCount = this.mediaStore.media_detail.commentsCount;
       this.comments = this.mediaStore.media_comment;
-      if (state['media_delete_msg']) {
-        if (this.deleteMsg) {
-          // console.log('delete masg')
-          this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-          this.toastr.warning('Post Deleted');
-          this.doClose(event);
-        }
+      if (state['media_delete_msg'] && this.deleteMsg) {
+        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+        this.toastr.warning('Post Deleted');
+        this.doClose(event);
         this.deleteMsg = false;
       }
     });
@@ -172,5 +178,21 @@ export class MediaViewComponent {
       // console.log('channelid', this.channelId)
       this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
     }
+  }
+
+  onContentEdit() {
+    this.isEdit = true;
+  }
+
+  onCommentEdit(message) {
+    this.isEdit = false;
+    this.editMsg = true;
+    // console.log('comment', '+ message', message)
+    const data = {
+      'id' : this.data.id,
+      'description' : message
+    }
+    // console.log(data)
+    this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data});
   }
 }

@@ -32,11 +32,13 @@ import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
+import { AuthlogoutGuard } from './guard/authlogout.guard';
 
 export const routes: Routes = [
- { path: '', component: LogoutHomeComponent },
+//  { path: '',  pathMatch: 'full', redirectTo: 'main-home'},
+ { path: '', component: LogoutHomeComponent, canActivate: [AuthlogoutGuard] },
  { path: 'logout', component: LogoutComponent },
- { path: 'login', component: LoginComponent },
+ { path: 'login', component: LoginComponent, canActivate: [AuthlogoutGuard] },
  { path: 'learn', component: LearnComponent, canActivate: [AuthGuard] },
  { path: 'channel/:id', component: ChannelInnerComponent, canActivate: [AuthGuard] },
  { path: 'reg', loadChildren: './components/registration/registration.module#RegistrationModule' },

@@ -1,12 +1,13 @@
-import { Component, Input, ElementRef, OnChanges} from '@angular/core';
+import { Component, EventEmitter, Output, Input, ElementRef, OnChanges} from '@angular/core';
 
 @Component({
     selector: 'read-more',
     template: `
         <div>
-            <p [innerHTML]="currentText" [class]="class"></p>
+            <p *ngIf="!isEdit" [innerHTML]="currentText" [class]="class"></p>
+            <p contenteditable="true" *ngIf="isEdit" [textContent]="text" [(ngModel)]="text" [class]="class" ngDefaultControl (keyup.enter)="onContentSaved()" (input)="text=$event.target.textContent" [ngClass]="{'fill_grey': isEdit}"></p>
         </div>
-            <a [class.hidden]="hideToggle" (click)="toggleView()">Read {{isCollapsed? 'more':'less'}}</a>
+        <a [class.hidden]="hideToggle" (click)="toggleView()">Read {{isCollapsed? 'more':'less'}}</a>
     `,
     styles: [`
         a{
@@ -23,13 +24,20 @@ import { Component, Input, ElementRef, OnChanges} from '@angular/core';
         .media_channel--text{
             font-size: 12px;
         }
+        .fill_grey {
+                color: #979797;
+                font-weight: 600;
+                display: inline;
+        }
     `],
 })
 
 export class ReadMoreComponent implements OnChanges {
     @Input() text: string;
     @Input() class: string;
+    @Input() isEdit: boolean;
     @Input() maxLength: number = 100;
+    @Output() commentEdited = new EventEmitter();
     currentText: string;
     hideToggle: boolean = true;
 
@@ -59,6 +67,10 @@ export class ReadMoreComponent implements OnChanges {
         }
 
     }
+    onContentSaved(content) {
+        this.isEdit = false;
+        this.commentEdited.next(this.text);
+      }
     ngOnChanges() {
         this.determineView();
     }
