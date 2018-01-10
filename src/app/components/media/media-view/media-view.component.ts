@@ -65,7 +65,7 @@ export class MediaViewComponent {
     this.mediaState$ = store.select('mediaStore');
 
     this.mediaState$.subscribe((state) => {
-       console.log('state', state)
+      //  console.log('state', state)
       this.mediaStore = state;
       this.channelId = this.mediaStore.channel_detail['channelId']
       this.data = this.mediaStore.media_detail;
@@ -79,7 +79,7 @@ export class MediaViewComponent {
        this.doClose(event);
        this.editMsg = false;
      }
-      console.log('Data ', this.data)
+      // console.log('Data ', this.data)
     });
 
     store.select('mediaStore').take(6).subscribe((state) => {
@@ -184,15 +184,15 @@ export class MediaViewComponent {
     this.isEdit = true;
   }
 
-  onCommentEdit(comment, message) {
+  onCommentEdit(message) {
     this.isEdit = false;
     this.editMsg = true;
-    console.log('comment', comment, '+ message', message)
+    // console.log('comment', '+ message', message)
     const data = {
       'id' : this.data.id,
       'description' : message
     }
-    console.log(data)
+    // console.log(data)
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data});
   }
 }

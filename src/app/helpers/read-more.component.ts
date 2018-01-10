@@ -68,12 +68,10 @@ export class ReadMoreComponent implements OnChanges {
 
     }
     onContentSaved(content) {
-        console.log(this.text)
         this.isEdit = false;
         this.commentEdited.next(this.text);
       }
     ngOnChanges() {
-        console.log('calling')
         this.determineView();
     }
 }

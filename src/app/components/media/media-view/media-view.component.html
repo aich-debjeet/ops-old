@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="c-text_sm p-16">
-                    <read-more [class]="'media-popup__text'" [isEdit]="isEdit" [text]="data?.description" [maxLength]=250 (commentEdited)="onCommentEdit(comment, $event)"></read-more>
+                    <read-more [class]="'media-popup__text'" [isEdit]="isEdit" [text]="data?.description" [maxLength]=250 (commentEdited)="onCommentEdit($event)"></read-more>
                 </div>
                 <div class="c-card__links c-float--none p-t-0">
                     <div class="c-links">
