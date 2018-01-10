@@ -67,16 +67,18 @@ export class EditChannelComponent implements OnInit {
     this.editState$ = store.select('mediaStore').take(5);
 
     this.mediaState$.subscribe((state) => {
-      this.mediaStore = state;
-      if (typeof this.mediaStore.channel_detail['isOwner'] !== 'undefined' && this.mediaStore.channel_detail['isOwner'] !== true) {
-        this.doClose(0);
-      }
-      if (typeof this.mediaStore.channel_detail['industryList'] !== 'undefined') {
-        setTimeout(() => {
-          const industryArrLen = this.mediaStore.channel_detail['industryList'].length;
-          this.selectedIndustry = this.mediaStore.channel_detail['industryList'][industryArrLen - 1];
-        }, 1000);
-        this.selectedPrivacy = this.mediaStore.channel_detail['accessSeetings'].access;
+      if (typeof state !== 'undefined') {
+        this.mediaStore = state;
+        if (typeof this.mediaStore.channel_detail['isOwner'] !== 'undefined' && this.mediaStore.channel_detail['isOwner'] !== true) {
+          this.doClose(0);
+        }
+        if (typeof this.mediaStore.channel_detail['industryList'] !== 'undefined') {
+          setTimeout(() => {
+            const industryArrLen = this.mediaStore.channel_detail['industryList'].length;
+            this.selectedIndustry = this.mediaStore.channel_detail['industryList'][industryArrLen - 1];
+          }, 1000);
+          this.selectedPrivacy = this.mediaStore.channel_detail['accessSeetings'].access;
+        }
       }
     });
 

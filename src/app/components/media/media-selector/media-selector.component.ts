@@ -160,7 +160,9 @@ export class MediaSelectorComponent implements OnInit {
 
       this.loginTagState$ = store.select('loginTags');
       this.loginTagState$.subscribe((state) => {
-        this.industries = state.industries;
+        if (typeof state !== 'undefined') {
+          this.industries = state.industries;
+        }
       });
   }
 

@@ -83,6 +83,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
 
     case AuthActions.USER_LOGIN:
+      console.log(state);
       return Object.assign({}, state, {
         success: false,
         login_completed: false,
@@ -91,6 +92,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
 
     case AuthActions.USER_LOGIN_SUCCESS:
+    console.log(state);
       return Object.assign({}, state, {
         completed: payload,
         login_completed: true,
@@ -465,9 +467,18 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         claim_user_info_loadded: false
       });
 
+    case AuthActions.USER_LOGOUT:
+    console.log(state);
+      return state = undefined
+
     default:
       return state;
 
   }
 }
 
+export function logout(reducer) {
+  return function (state, action) {
+    return reducer(action.type === AuthActions.USER_LOGOUT ? undefined : state, action);
+  }
+}

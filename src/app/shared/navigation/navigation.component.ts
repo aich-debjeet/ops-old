@@ -71,6 +71,7 @@ export class NavigationComponent implements OnInit {
     };
 
     this.profileState$ = this.store.select('profileTags');
+    this.notificationsState$ = this.store.select('notificationTags');
 
     /* Profile state */
     this.profileState$.subscribe((state) => {
@@ -108,27 +109,6 @@ export class NavigationComponent implements OnInit {
       // console.log('logged in user');
       /* profile state */
       this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-
-      /** -- NOTIFICATIONS -- **/
-      this.notificationStore.dispatch({
-        type: NotificationActions.LOAD_NOTIFICATIONS,
-        payload: null
-      });
-
-      this.notificationsState$ = this.notificationStore.select('notificationTags');
-      // observe the store value
-      this.notificationsState$.subscribe((state) => {
-        if (typeof state['recieved_notifications'] !== 'undefined') {
-          this.notifications = state['recieved_notifications'];
-          this.processNotifications();
-        }
-        if (typeof state['marking_as_read_response'] !== 'undefined') {
-          // upadte notification as marked
-          this.updateNotifications();
-        }
-      });
-    } else {
-      // console.log('guest user');
     }
 
   }
@@ -140,6 +120,25 @@ export class NavigationComponent implements OnInit {
     this.modalService.open('AddMedia');
   }
 
+  notificationPopup() {
+      this.notificationStore.dispatch({
+        type: NotificationActions.LOAD_NOTIFICATIONS,
+        payload: null
+      });
+      // observe the store value
+      this.notificationsState$.subscribe((state) => {
+        if (typeof state !== 'undefined') {
+          if (typeof state['recieved_notifications'] !== 'undefined') {
+            this.notifications = state['recieved_notifications'];
+            this.processNotifications();
+          }
+          if (typeof state['marking_as_read_response'] !== 'undefined') {
+            // upadte notification as marked
+            this.updateNotifications();
+          }
+        }
+      });
+  }
   /**
    * Create channel
    */
