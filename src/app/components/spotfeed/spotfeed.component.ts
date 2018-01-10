@@ -40,24 +40,26 @@ export class SpotfeedComponent {
     this.userState$ = this._store.select('profileTags');
 
     this.userState$.subscribe((state) => {
-      this.userState = state;
-      this.spotfeedDetails = state['spotfeed_detail'];
-      // this.spotfeedPosts = this.spotfeedDetails.spotfeedMedia;
+      if (typeof state !== 'undefined') {
+        this.userState = state;
+        this.spotfeedDetails = state['spotfeed_detail'];
+        // this.spotfeedPosts = this.spotfeedDetails.spotfeedMedia;
 
-      // filtering artists
-      if (this.spotfeedDetails && typeof this.spotfeedDetails.spotfeedProfiles !== 'undefined') {
-        // remove loggedn in user profile
-        // filtering artists duplicate profiles
-        const currentUserHandle = this.userState.profile_navigation_details.handle;
-        this.spotfeedDetails.spotfeedProfiles = _.remove(this.spotfeedDetails.spotfeedProfiles, function(currentObject) {
-            return currentObject.handle !== currentUserHandle;
-        });
-        // filtering artists duplicate profiles
-        this.spotfeedDetails.spotfeedProfiles = _.uniqBy(this.spotfeedDetails.spotfeedProfiles, 'handle');
-      }
-      // filtering media duplicate profiles
-      if (this.spotfeedDetails && typeof this.spotfeedDetails.spotfeedMedia !== 'undefined') {
-        this.spotfeedDetails.spotfeedMedia = _.uniqBy(this.spotfeedDetails.spotfeedMedia, 'id');
+        // filtering artists
+        if (this.spotfeedDetails && typeof this.spotfeedDetails.spotfeedProfiles !== 'undefined') {
+          // remove loggedn in user profile
+          // filtering artists duplicate profiles
+          const currentUserHandle = this.userState.profile_navigation_details.handle;
+          this.spotfeedDetails.spotfeedProfiles = _.remove(this.spotfeedDetails.spotfeedProfiles, function(currentObject) {
+              return currentObject.handle !== currentUserHandle;
+          });
+          // filtering artists duplicate profiles
+          this.spotfeedDetails.spotfeedProfiles = _.uniqBy(this.spotfeedDetails.spotfeedProfiles, 'handle');
+        }
+        // filtering media duplicate profiles
+        if (this.spotfeedDetails && typeof this.spotfeedDetails.spotfeedMedia !== 'undefined') {
+          this.spotfeedDetails.spotfeedMedia = _.uniqBy(this.spotfeedDetails.spotfeedMedia, 'id');
+        }
       }
     });
 

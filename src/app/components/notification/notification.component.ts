@@ -45,29 +45,31 @@ export class NotificationComponent implements OnInit {
 
     // observe the store value
     this.notificationsState$.subscribe((state) => {
-      if (typeof state['recieved_notifications'] !== 'undefined') {
-        this.notifications = state['recieved_notifications'];
+      if (typeof state !== 'undefined') {
+        if (typeof state['recieved_notifications'] !== 'undefined') {
+          this.notifications = state['recieved_notifications'];
 
-        // check is unread notification exits else mark all notifications as read
-        setTimeout(() => {
-          // check if unread notification is available
-          const allNotifsRead = _.every(this.notifications, ['isRead', true]);
-          if (allNotifsRead) {
-            this.alreadyReadAll = true;
-          } else {
-            this.alreadyReadAll = false;
-            this.markAllAsRead();
-          }
-        }, 1000);
+          // check is unread notification exits else mark all notifications as read
+          setTimeout(() => {
+            // check if unread notification is available
+            const allNotifsRead = _.every(this.notifications, ['isRead', true]);
+            if (allNotifsRead) {
+              this.alreadyReadAll = true;
+            } else {
+              this.alreadyReadAll = false;
+              this.markAllAsRead();
+            }
+          }, 1000);
 
-        this.processNotifications();
-      }
-      if (typeof state['marking_as_read_response'] !== 'undefined') {
-        // upadte notification as marked
-        this.updateNotifications();
-      }
-      if (state && state['recieved_notifications_success'] === true) {
-        this.showPreloader = false;
+          this.processNotifications();
+        }
+        if (typeof state['marking_as_read_response'] !== 'undefined') {
+          // upadte notification as marked
+          this.updateNotifications();
+        }
+        if (state && state['recieved_notifications_success'] === true) {
+          this.showPreloader = false;
+        }
       }
     });
   }
