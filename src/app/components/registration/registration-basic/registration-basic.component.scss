@@ -477,15 +477,15 @@
 }
 
 .ops_radio_sm input[type=radio]+span {
-    border: 2px solid #c1c1c1;
+    // border: 2px solid #c1c1c1;
     border-radius: 50px;
     display: inline-block;
     float: left;
     margin-right: 7px;
     position: relative;
     -webkit-appearance: none;
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     margin-top: 3px;
 }
 
@@ -497,8 +497,6 @@
     top: -2px;
     width: 15px;
     height: 15px;
-    font-family: FontAwesome;
-    content: "\f10c";
     color: #fff;
     font-size: 12px;
 }
