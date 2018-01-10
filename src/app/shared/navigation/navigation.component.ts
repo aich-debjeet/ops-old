@@ -287,4 +287,9 @@ export class NavigationComponent implements OnInit {
     });
   }
 
+  logoutSubmit() {
+    this.router.navigate(['/']);
+    this.store.dispatch({ type: AuthActions.USER_LOGOUT, payload: ''});
+  }
+
 }

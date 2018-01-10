@@ -37,12 +37,6 @@ export class LogoutHomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
 
-    this.subscription = this.profileStore.select('profileTags')
-      .first(profile => profile['profile_navigation_details'].username)
-      .subscribe( datas => {
-        this.router.navigate(['/home']);
-      });
-
 
     this.homeSlider = {
       grid: {xs: 1, sm: 1, md: 1, lg: 1, all: 0},
@@ -87,7 +81,7 @@ export class LogoutHomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
   /* This will be triggered after carousel viewed */

@@ -23,6 +23,7 @@ import { SharedPipesModule } from './pipes/shared-pipes.module';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
+import { AuthlogoutGuard } from './guard/authlogout.guard';
 
 // components
 import { AppComponent } from './app.component';
@@ -209,6 +210,7 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     AuthService,
     MessageService,
     AuthGuard,
+    AuthlogoutGuard,
     GeneralService,
     ApiService,
     TokenService,
