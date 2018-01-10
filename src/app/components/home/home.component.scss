@@ -56,10 +56,10 @@
     width: 100%;
     float: left;
     .nav-tabs {
-      margin-top: 1rem;
-      a:first-child{
-        padding-left: 0 !important;
-      }
+        margin-top: 1rem;
+        a:first-child {
+            padding-left: 0 !important;
+        }
     }
     padding-top: 8px;
 }
@@ -110,7 +110,7 @@
     }
     .nav-tabs {
         border-bottom: none;
-        margin-left: -12px;
+        // margin-left: -12px;
     }
 }
 
@@ -144,12 +144,13 @@
     font-weight: 500;
 }
 
-app-footer{
+app-footer {
     margin-top: 32px;
     float: left;
     display: inline-block;
     width: 100%;
 }
+
 // home page style ------------------------------------------------------
 // .home_feed {
 //     margin-top: 32px;

@@ -1,39 +1,42 @@
 <div class="o-add-media-channel-main p-0">
-        <div class="o-add-media-channel">
-          <div class="col-md-12 p-0">
+    <div class="o-add-media-channel">
+        <div class="col-md-12 p-0">
             <div class="o-add-media-channel__head">
-              <div class="col-md-4 p-0">
-                <a class="c-text_lg o-add-media-channel__link" (click)="changeFrame(1)">
-                  <div class="o-back-arrow">
-                    <img src="{{ baseUrl }}img/svg/back_arrow.svg" alt="">
-                  </div>
-                </a>
-              </div>
-              <div class="col-md-4">
-                <div class="o-add-media-channel__head text-center">
-                  <span class="c-text_lg o-add-media-channel__link">Select Channel</span>
-                </div><!-- add media channel head sec end -->
-              </div>
-              <div class="col-md-4 p-0 text-right">
-                <!-- <p class="c-text_sm color-grey-dark">12 Media selected</p> -->
-              </div>
-            </div><!-- add media channel head sec end -->
-          </div>
-          <div class="col-md-12 p-0">
+                <div class="col-md-4 p-0">
+                    <a class="c-text_lg o-add-media-channel__link" (click)="changeFrame(1)">
+                        <div class="o-back-arrow">
+                            <img src="{{ baseUrl }}img/svg/back_arrow.svg" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <div class="o-add-media-channel__head text-center">
+                        <span class="c-text_lg o-add-media-channel__link">Select Channel</span>
+                    </div>
+                    <!-- add media channel head sec end -->
+                </div>
+                <div class="col-md-4 p-0 text-right">
+                    <!-- <p class="c-text_sm color-grey-dark">12 Media selected</p> -->
+                </div>
+            </div>
+            <!-- add media channel head sec end -->
+        </div>
+        <div class="col-md-12 p-0">
             <div class="o-channel-search m-t-16">
-              <div class="c-form__group fill-grey-light">
-                  <input class="c-form__input fpadding_l32 o-channel-input" required="" placeholder="Search" type="text">
-                  <span>
+                <div class="c-form__group fill-grey-light">
+                    <input class="c-form__input fpadding_l32 o-channel-input" [(ngModel)]="searchChannel" required="" placeholder="Search" type="text">
+                    <span>
                     <img src="{{ baseUrl }}img/svg/ico_search.svg" class="c-form__input--lefticon">
                   </span>
-              </div>
-            </div><!-- channel search end -->
+                </div>
+            </div>
+            <!-- channel search end -->
             <div id="ops_scrollbar" class="o-add-channel-container">
-              <div class="o-channel-list-container">
-                  <ul class="o-channel-block">
-                      <li class="o-channel-items" *ngFor="let channel of userChannels; let i = index" (click)="chooseChannel(channel)">
-                        <input class="" type="radio" name="channel" id="{{ 'channel_'+ i }}" [disabled]="settingDisable" (click)="chooseChannel(channel)"/>
-                        <label for="{{ 'channel_' + i }}" class="o-channel-label" (click)="chooseChannel(channel)">
+                <div class="o-channel-list-container">
+                    <ul class="o-channel-block">
+                        <li class="o-channel-items" *ngFor="let channel of userChannels | channelFilter : searchChannel; let i = index" (click)="chooseChannel(channel)">
+                            <input class="" type="radio" name="channel" id="{{ 'channel_'+ i }}" [disabled]="settingDisable" (click)="chooseChannel(channel)" />
+                            <label for="{{ 'channel_' + i }}" class="o-channel-label" (click)="chooseChannel(channel)">
                           <span class="o-channel-content">
                             <span class="o-channel-content__thumb" *ngFor="let media of channel?.media | slice:0:1">
                               <div class="emptyImage">
@@ -51,16 +54,16 @@
                             </span>
                           </span>
                         </label>
-                      </li>
+                        </li>
                     </ul>
-              </div>
+                </div>
             </div>
 
 
             <a class="o-create-channel__link" (click)="changeFrame(3)">
-              <span class="o-create-channel__ico"><img src="{{ baseUrl }}img/svg/ico_create-plus.svg" width="17"></span>
-              <span class="o-create-channel__title">Create Channel</span>
+                <span class="o-create-channel__ico"><img src="{{ baseUrl }}img/svg/ico_create-plus.svg" width="17"></span>
+                <span class="o-create-channel__title">Create Channel</span>
             </a>
-          </div>
         </div>
     </div>
+</div>
