@@ -68,7 +68,9 @@
   
   <section class="o-search-result-container">
       <div class="container">
-          <div class="o-search-empty">
+          
+          <!-- search message -->
+          <div class="o-search-empty" *ngIf="searchString?.length === 0">
               <div class="o-search-empty__icon"><img src="{{ baseUrl }}img/svg/ico_search.svg"></div>
               <div class="o-search-empty__txt p-t-32">
                   <h3 class="c-h3 m-b-16 f-w_500">Search One Page Spotlight </h3>
@@ -78,6 +80,24 @@
                   </p>
               </div>
           </div>
+          <!-- search message -->
+
+          <!-- search result -->
+            <div class="o-search-result-block m-t-16 p-b-24" *ngIf="searchString?.length > 0">
+
+                <!-- people -->
+                <div class="col-md-6 p-l-0">
+                    <app-search-people ></app-search-people>
+                </div><!-- people -->
+
+                <!-- posts -->
+                <div class="col-md-6 p-r-0">
+                    <app-search-post ></app-search-post>
+                </div><!-- posts -->
+                
+            </div>
+          <!-- search result -->
+
       </div>
   </section>
 

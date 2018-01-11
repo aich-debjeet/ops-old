@@ -34,7 +34,7 @@ export class SearchComponent implements AfterViewInit {
   isSearching = false;
   searchState$: Observable<SearchModel>;
   searchState: any;
-  searchString: string;
+  searchString = '';
 
   lastScrollTop = 0;
   canScroll = true;
