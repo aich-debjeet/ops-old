@@ -43,7 +43,7 @@ import { PostComponent } from './post/post.component';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { CommentComponent } from './comment/comment.component';
 import { UserCardComponent } from './user-card/user-card.component';
-
+import { UserCardNewComponent } from './user-card-new/user-card-new.component';
 
 // modal new
 import {Modal, ModalContent} from './modal-new/Modal';
@@ -92,6 +92,7 @@ import { EventCardComponent } from './event-card/event-card.component';
     CommentListComponent,
     CommentComponent,
     UserCardComponent,
+    UserCardNewComponent,
     Modal,
     RouteModal,
     ModalContent,
@@ -123,6 +124,7 @@ import { EventCardComponent } from './event-card/event-card.component';
     PostComponent,
     CommentComponent,
     UserCardComponent,
+    UserCardNewComponent,
     UtcDatePipe,
     Modal,
     RouteModal,
