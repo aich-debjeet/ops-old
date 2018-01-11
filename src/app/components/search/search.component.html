@@ -3,7 +3,7 @@
     <div class="container">
       <div class="o-search m-t-32">
         <form action="">
-          <input class="o-search__input" required="" type="text" placeholder="What are you looking for?">
+          <input placeholder="What are you looking for?" #searchQueryElement #searchInput="ngModel" (focus)="searchOnFocus()" (blur)="searchOnBlur()" class="o-search__input" type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}" >
           <div class="o-search__icon">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" data-name="Layer 1" viewBox="0 0 74 74">
                 <defs>
