@@ -72,33 +72,33 @@ export class SearchComponent implements AfterViewInit {
     /**
      * Observing the search input change
      */
-    this.searchInput.valueChanges
-    .debounceTime(500)
-    .subscribe(() => {
+    // this.searchInput.valueChanges
+    // .debounceTime(500)
+    // .subscribe(() => {
 
-      this.searchString = this.searchInput.value;
+    //   this.searchString = this.searchInput.value;
 
-      // search if string is available
-      if (this.searchString && this.searchString.length > 0) {
-        this.isSearching = true;
+    //   // search if string is available
+    //   if (this.searchString && this.searchString.length > 0) {
+    //     this.isSearching = true;
 
-        const searchParams = {
-          query: this.searchString,
-          offset: 0,
-          limit: this.recordsPerPage
-        }
+    //     const searchParams = {
+    //       query: this.searchString,
+    //       offset: 0,
+    //       limit: this.recordsPerPage
+    //     }
 
-        // search people
-        this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
+    //     // search people
+    //     this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
 
-        // search post
-        this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchParams });
+    //     // search post
+    //     this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchParams });
 
-        // search channel
-        this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchParams });
-      }
+    //     // search channel
+    //     this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchParams });
+    //   }
 
-    });
+    // });
 
   }
 
