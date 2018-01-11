@@ -14,17 +14,32 @@
 
 </div> -->
 
-
 <h6 class="c-text_lg p-b-16 with_border_bottom">People <a href="#" class="color-theme float_right">See all</a></h6>
-<div class="o-people-result-block">
-    <div class="o-people-result__prof-pic">
-        <img src="assets/demo/avatar2.jpg" alt="">
+
+<div *ngIf="artists && artists.length === 0; else artists_found;">
+    <p class="result-not-found">Artists not found!</p>
+</div>
+
+<ng-template #artists_found>
+        
+    <!-- <div *ngFor="let artist of artists" class="o-people-result-block">
+        <div class="o-people-result__prof-pic">
+            <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist?.profileImage }}" class="c-artist__img">
+            <ng-template #default_profile_image>
+                <img src="{{ baseUrl }}img/avatar.jpg" class="c-artist__img">
+            </ng-template>
+        </div>
+        <div class="o-people-result__name">
+            <span class="c-text_lg">{{ artist?.name | truncate:[12, '...'] }}</span>
+            <span class="c-text_sm color-grey-dark">@{{ artist?.extra?.username }}</span>
+        </div>
+        <div class="o-people-result__btn">
+            <a href="#" class="o-people-result__follow-btn">Follow</a>
+        </div>
+    </div> -->
+
+    <div class="col-md-2 pad-bot-25" *ngFor="let artist of artists">
+        <app-user-card [artist]="artist" ></app-user-card>    
     </div>
-    <div class="o-people-result__name">
-        <span class="c-text_lg">John Mann</span>
-        <span class="c-text_sm color-grey-dark">@Jeremiah</span>
-    </div>
-    <div class="o-people-result__btn">
-        <a href="#" class="o-people-result__follow-btn">Follow</a>
-    </div>
-</div><!-- people result 1st block end -->
+
+</ng-template>
