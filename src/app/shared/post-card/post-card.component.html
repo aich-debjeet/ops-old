@@ -46,23 +46,23 @@
   <div class="c-card__links p-t-0">
     <div class="c-links">
       <div class="c-links__spots" (click)="spotMedia(mediaData?.id)">
-        <img *ngIf="following === false" src="{{ imageLink }}img/svg/spot_icon_default.svg" class="c-links__image">
-        <img *ngIf="following === true" src="{{ imageLink }}img/svg/spot_icon.svg" class="c-links__image">
+        <img *ngIf="following === false" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
+        <img *ngIf="following === true" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
         <span class="c-links__count">{{ followingCount }}</span>
       </div>
       <div class="c-links__comments">
-        <img src="assets/img/svg/ico_comment.svg" class="c-links__image">
+        <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
         <span class="c-links__count">{{ mediaData?.commentsCount }}</span>
       </div>
       <div class="c-links__actions">
         <span class="c-links__add">
           <a href="javascript:void(0);">
-            <img src="{{ imageLink }}img/svg/ico_addtochannel.svg" class="c-action__image">
+            <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">
           </a>
         </span>
         <span class="c-links__share">
           <a href="javascript:void(0);"s>
-            <img src="{{ imageLink }}img/svg/ico_share-02.svg" class="c-action__image">
+            <img [src]="imageLink + 'img/svg/ico_share-02.svg'" class="c-action__image">
           </a>
         </span>
       </div>
