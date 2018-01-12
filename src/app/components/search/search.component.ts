@@ -103,89 +103,69 @@ export class SearchComponent implements AfterViewInit {
   }
 
   /**
-   * Select tab
-   * @param tab id: string
-   */
-  selectTab(tabId: string) {
-    this.activeTab = tabId;
-  }
-
-  // switchTab(tabId: string) {
-  //   this.document.body.scrollTop = 0;
-  //   // window.scrollTo(0, 0);
-  //   this.selectTab(tabId);
-  // }
-
-  /**
    * Scroll event listener
    */
-  @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
-    const scrolledValue = window.pageYOffset;
-    let scrollDirection = '';
-    if (scrolledValue > this.lastScrollTop) {
-      scrollDirection = 'down';
-    } else {
-      scrollDirection = 'up';
-    }
-    this.lastScrollTop = scrolledValue;
+  // @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
+  //   const scrolledValue = window.pageYOffset;
+  //   let scrollDirection = '';
+  //   if (scrolledValue > this.lastScrollTop) {
+  //     scrollDirection = 'down';
+  //   } else {
+  //     scrollDirection = 'up';
+  //   }
+  //   this.lastScrollTop = scrolledValue;
 
-    if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
-      // reached the bottom of the page
-      this.canScroll = false;
-      setTimeout(() => {
-        this.canScroll = true;
-      }, 1000);
-      this.dispatchLoadMore();
-    }
-  }
+  //   if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
+  //     // reached the bottom of the page
+  //     this.canScroll = false;
+  //     setTimeout(() => {
+  //       this.canScroll = true;
+  //     }, 1000);
+  //     this.dispatchLoadMore();
+  //   }
+  // }
 
   /**
    * Load more results for active tab
    */
-  dispatchLoadMore() {
-    if (this.searchQueryElement.nativeElement.value && this.searchQueryElement.nativeElement.value.length > 0 && this.activeTab !== 'tab-all') {
-      this.showPreloader = true;
-    } else {
-      return;
-    }
+  // dispatchLoadMore() {
+  //   if (this.searchQueryElement.nativeElement.value && this.searchQueryElement.nativeElement.value.length > 0 && this.activeTab !== 'tab-all') {
+  //     this.showPreloader = true;
+  //   } else {
+  //     return;
+  //   }
 
-    if (this.activeTab === 'tab-people') {
-      const searchParams = {
-        query: this.searchQueryElement.nativeElement.value,
-        offset: this.searchState.search_people_params.offset + this.recordsPerPage,
-        limit: this.recordsPerPage
-      }
-      // search people
-      this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
-    }
+  //   if (this.activeTab === 'tab-people') {
+  //     const searchParams = {
+  //       query: this.searchQueryElement.nativeElement.value,
+  //       offset: this.searchState.search_people_params.offset + this.recordsPerPage,
+  //       limit: this.recordsPerPage
+  //     }
+  //     // search people
+  //     this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
+  //   }
 
-    if (this.activeTab === 'tab-post') {
-      const searchParams = {
-        query: this.searchQueryElement.nativeElement.value,
-        offset: this.searchState.search_post_params.offset + this.recordsPerPage,
-        limit: this.recordsPerPage
-      }
-      // search post
-      this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchParams });
-    }
+  //   if (this.activeTab === 'tab-post') {
+  //     const searchParams = {
+  //       query: this.searchQueryElement.nativeElement.value,
+  //       offset: this.searchState.search_post_params.offset + this.recordsPerPage,
+  //       limit: this.recordsPerPage
+  //     }
+  //     // search post
+  //     this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchParams });
+  //   }
 
-    if (this.activeTab === 'tab-channel') {
-      const searchParams = {
-        query: this.searchQueryElement.nativeElement.value,
-        offset: this.searchState.search_channel_params.offset + this.recordsPerPage,
-        limit: this.recordsPerPage
-      }
-      // search channel
-      this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchParams });
-    }
+  //   if (this.activeTab === 'tab-channel') {
+  //     const searchParams = {
+  //       query: this.searchQueryElement.nativeElement.value,
+  //       offset: this.searchState.search_channel_params.offset + this.recordsPerPage,
+  //       limit: this.recordsPerPage
+  //     }
+  //     // search channel
+  //     this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchParams });
+  //   }
 
-  }
-
-  onTabClick(tabId: any) {
-    window.scrollTo(0, 0);
-    // this.scrollToTop(100);
-    this.selectTab(tabId);
-  }
+  // }
 
   // scrollToTop(scrollDuration) {
   //   const scrollStep = -window.scrollY / (scrollDuration / 15),
