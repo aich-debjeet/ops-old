@@ -369,3 +369,9 @@
       margin: 16px 8px;
     }
 }
+
+.h-50-auto {
+  height: 50vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
