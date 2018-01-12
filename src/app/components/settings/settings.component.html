@@ -15,22 +15,22 @@
                     <!-- Nav tabs -->
                     <ul class=" o-settings-tabs">
                         <li class=" o-settings-tab_list active">
-                            <a class="o-settings-tab_links " href="javascript:void(0)" data-toggle="tab" (click)="displayView('General')">
+                            <a class="o-settings-tab_links " data-toggle="tab" (click)="displayView('General')" [ngClass]="{'active': selectedView == 'General'}">
                                 General <span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt=""></span>
                             </a>
                         </li>
                         <li class=" o-settings-tab_list">
-                            <a class="o-settings-tab_links " href="javascript:void(0)" data-toggle="tab" (click)="displayView('Security')">
+                            <a class="o-settings-tab_links " data-toggle="tab" (click)="displayView('Security')" [ngClass]="{'active': selectedView == 'Security'}">
                                 Security & Privacy <span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt=""></span>
                             </a>
                         </li>
                         <li class="o-settings-tab_list">
-                            <a class="o-settings-tab_links" href="javascript:void(0)" data-toggle="tab" (click)="displayView('Notification')">
+                            <a class="o-settings-tab_links" data-toggle="tab" (click)="displayView('Notification')" [ngClass]="{'active': selectedView == 'Notification'}">
                                 Notification<span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt=""></span>
                             </a>
                         </li>
                         <li class="o-settings-tab_list">
-                            <a class="o-settings-tab_links" href="javascript:void(0)" data-toggle="tab" (click)="displayView('Home')">
+                            <a class="o-settings-tab_links" data-toggle="tab" (click)="displayView('Home')" [ngClass]="{'active': selectedView == 'Home'}">
                                 Home Page Preference<span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt=""></span>
                             </a>
                         </li>
@@ -766,11 +766,12 @@
 
 
 </main>
-<footer class="footer">
+<app-footer></app-footer>
+<!-- <footer class="footer">
     <div class="container">
         <p>© Copyright 2017 One Page Spotlight</p>
     </div>
-</footer>
+</footer> -->
 <!-- OTP Confirm Modal -->
 <app-modal [modalTitle]="'Success'" [blocking]='false' modalId='otpSuccess'>
     <div class="row">

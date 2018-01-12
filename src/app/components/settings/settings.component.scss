@@ -71,9 +71,14 @@
 
 .o-settings-tabs {
     .active {
-        background-color: #F3F5F7;
+        // background-color: #F3F5F7;
         border-radius: 3px;
         // overflow: hidden;
+    }
+    >li>a.active {
+        color: #333;
+        background-color: whitesmoke;
+        // background: none;
     }
 }
 
@@ -87,10 +92,10 @@
 }
 
 .o-settings-tab_links {
-    background: none;
+    // background: none;
     border: none;
     font-size: 14px;
-    color: #333;
+    // color: #333;
     font-weight: normal;
     position: relative;
     padding: 8px;
