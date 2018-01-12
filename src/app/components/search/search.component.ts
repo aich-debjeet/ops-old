@@ -35,6 +35,7 @@ export class SearchComponent implements AfterViewInit {
   searchState$: Observable<SearchModel>;
   searchState: any;
   searchString = '';
+  beforeSearch = true;
 
   lastScrollTop = 0;
   canScroll = true;
@@ -61,6 +62,7 @@ export class SearchComponent implements AfterViewInit {
       this.searchState = state;
       if (state && state.searching_people === false && state.searching_post === false && state.searching_channel === false) {
         this.isSearching = false;
+        this.beforeSearch = false;
         this.showPreloader = false;
       }
     });
