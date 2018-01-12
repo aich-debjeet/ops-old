@@ -23,7 +23,7 @@ import { setTimeout } from 'core-js/library/web/timers';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements AfterViewInit {
+export class SearchComponent implements OnInit, AfterViewInit {
 
   @ViewChild('searchInput') searchInput;
   @ViewChild('searchQueryElement') searchQueryElement;
@@ -35,7 +35,7 @@ export class SearchComponent implements AfterViewInit {
   searchState$: Observable<SearchModel>;
   searchState: any;
   searchString = '';
-  beforeSearch = true;
+  beforeSearch: boolean;
 
   lastScrollTop = 0;
   canScroll = true;
@@ -67,6 +67,10 @@ export class SearchComponent implements AfterViewInit {
       }
     });
 
+  }
+
+  ngOnInit() {
+    this.beforeSearch = true;
   }
 
   ngAfterViewInit() {
