@@ -103,22 +103,6 @@ export class SearchComponent implements AfterViewInit {
   }
 
   /**
-   * Search input on focus
-   */
-  searchOnFocus() {
-    this.showSearchPlaceholder = false;
-  }
-
-  /**
-   * Search input on blur
-   */
-  searchOnBlur() {
-    if (this.searchQueryElement.nativeElement.value === '') {
-      this.showSearchPlaceholder = true;
-    }
-  }
-
-  /**
    * Select tab
    * @param tab id: string
    */

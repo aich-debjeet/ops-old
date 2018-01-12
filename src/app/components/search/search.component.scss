@@ -45,12 +45,13 @@
   color: $color-grey;
 }
 .o-search__icon{
-  width: 19px;
-  height: 19px;
+  width: 20px;
+  height: 20px;
   float: right;
-  margin-top: 8px;
-  svg{
-    width: 19px;
+  margin-top: 6px;
+  svg, img {
+    width: 20px;
+    height: 20px;
   }
 }
 .o-search-empty__txt{
