@@ -1,16 +1,16 @@
 <div class="c-qt__block c-qt--align m-l-0">
     <div class="c-qt__close" *ngIf="quickAccessData?.name !='My Status' && quickAccessData?.name !='My Media'">
-        <img src="{{ imageBaseUrl }}img/svg/ico_close-line.svg" (click)="unpinQuickAccess(quickAccessData?.handle)">
+        <img [src]="imageBaseUrl + 'img/svg/ico_close-line.svg'" (click)="unpinQuickAccess(quickAccessData?.handle)">
         <!-- <a (click)="unpinQuickAccess(quickAccessData?.handle)"><img src="{{ imageBaseUrl }}img/svg/ico_close-line.svg"></a> -->
     </div>
     <a [routerLink]="(quickAccessData?.name =='My Status') ? ['/user/status/list'] : ['/channel', quickAccessData?.handle] && (quickAccessData?.name =='My Media') ? ['/user/media/list'] : ['/channel', quickAccessData?.handle]">
         <div class="c-qt__imgblock">
             <!-- <img src="img/quickaccess/status.png" class="c-qt__block__img"> -->
-            <img src="{{ imageBaseUrl }}img/quickaccess/status.png" alt="" *ngIf="quickAccessData?.name ==='My Status'" class="c-qt__block__img">
-            <img src="{{ imageBaseUrl }}img/quickaccess/my_media.png" alt="" *ngIf="quickAccessData?.name ==='My Media'" class="c-qt__block__img">
-            <img src="{{ imageBaseUrl }}img/quickaccess/planner.png" alt="" *ngIf="quickAccessData?.name ==='Planner'" class="c-qt__block__img">
-            <img src="{{ imageBaseUrl }}img/quickaccess/channel.png" alt="" *ngIf="quickAccessData?.name ==='Channel'" class="c-qt__block__img">
-            <img src="{{ imageBaseUrl }}img/quickaccess/channel.png" alt="" *ngIf="quickAccessData?.name !=='Channel' && quickAccessData?.name !=='Planner' && quickAccessData?.name !=='My Status' && quickAccessData?.name !=='My Media'" class="c-qt__block__img">
+            <img [src]="imageBaseUrl + 'img/quickaccess/status.png'" alt="" *ngIf="quickAccessData?.name ==='My Status'" class="c-qt__block__img">
+            <img [src]="imageBaseUrl + 'img/quickaccess/my_media.png'" alt="" *ngIf="quickAccessData?.name ==='My Media'" class="c-qt__block__img">
+            <img [src]="imageBaseUrl + 'img/quickaccess/planner.png'" alt="" *ngIf="quickAccessData?.name ==='Planner'" class="c-qt__block__img">
+            <img [src]="imageBaseUrl + 'img/quickaccess/channel.png'" alt="" *ngIf="quickAccessData?.name ==='Channel'" class="c-qt__block__img">
+            <img [src]="imageBaseUrl + 'img/quickaccess/channel.png'" alt="" *ngIf="quickAccessData?.name !=='Channel' && quickAccessData?.name !=='Planner' && quickAccessData?.name !=='My Status' && quickAccessData?.name !=='My Media'" class="c-qt__block__img">
         </div>
         <div class="c-qt__block__text m-t-8">{{ quickAccessData?.name | truncate:[9, '...'] }}</div>
     </a>
