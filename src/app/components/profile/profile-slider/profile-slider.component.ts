@@ -299,7 +299,7 @@ export class ProfileSliderComponent implements OnInit {
       }
 
       this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
-      this.toastr.success('You profile has been updated successfully!');
+      this.toastr.success('Your profile has been updated successfully!');
       this.modalService.close('profileEditWindow');
     }
 
