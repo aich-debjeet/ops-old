@@ -3,6 +3,7 @@
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/components/_app.scss';
 @import './src/assets/scss/base/_typography.scss';
+@import '~sass-mq/_mq.scss';
 .o-set-single-block {
     width: 100%;
     float: left;
@@ -43,6 +44,9 @@
     width: 100%;
     padding: 24px 32px;
     float: left;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        padding: 15px;
+    }
 }
 
 .o-settings_ico {
@@ -67,9 +71,14 @@
 
 .o-settings-tabs {
     .active {
-        background-color: #F3F5F7;
+        // background-color: #F3F5F7;
         border-radius: 3px;
         // overflow: hidden;
+    }
+    >li>a.active {
+        color: #333;
+        background-color: whitesmoke;
+        // background: none;
     }
 }
 
@@ -77,13 +86,16 @@
     float: left;
     width: 84%;
     margin: 8px 32px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin: 15px;
+    }
 }
 
 .o-settings-tab_links {
-    background: none;
+    // background: none;
     border: none;
     font-size: 14px;
-    color: #333;
+    // color: #333;
     font-weight: normal;
     position: relative;
     padding: 8px;
@@ -111,6 +123,9 @@
     min-height: 600px;
     float: left;
     padding: 24px 32px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        padding: 15px;
+    }
 }
 
 .o-set-list {
@@ -156,6 +171,9 @@
     &:focus {
         color: #333;
     }
+    @include mq($from:$mobile_sm, $until: $mobile_lg) {
+        display: block;
+    }
 }
 
 .o-set-list-edit__icon {
@@ -174,6 +192,9 @@
 
 .o-set-list-edit__actions {
     float: right;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin-top: 8px;
+    }
 }
 
 // settings pop
