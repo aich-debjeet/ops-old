@@ -14,7 +14,7 @@ import { ChannelComponent } from './channel/channel.component';
 import { SpotfeedCardComponent } from './spotfeed-card/spotfeed-card.component';
 import { FooterComponent } from './footer/footer.component';
 import { PostCardComponent } from './post-card/post-card.component';
-import { PostCardNewComponent } from './post-card-new/post-card-new.component';
+import { PostCardSearchComponent } from './post-card-search/post-card-search.component';
 import { ModalComponent } from './modal/modal.component';
 import { CountrySelectorComponent } from './country-selector/country-selector.component';
 import { SharedPipesModule } from './../pipes/shared-pipes.module';
@@ -78,7 +78,7 @@ import { EventCardComponent } from './event-card/event-card.component';
     SpotfeedCardComponent,
     FooterComponent,
     PostCardComponent,
-    PostCardNewComponent,
+    PostCardSearchComponent,
     CountrySelectorComponent,
     VideplayerComponent,
     AudioPlayerComponent,
@@ -113,7 +113,7 @@ import { EventCardComponent } from './event-card/event-card.component';
     SpotfeedCardComponent,
     FooterComponent,
     PostCardComponent,
-    PostCardNewComponent,
+    PostCardSearchComponent,
     ModalComponent,
     CountrySelectorComponent,
     VideplayerComponent,
