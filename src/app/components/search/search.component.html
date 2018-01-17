@@ -84,19 +84,200 @@
           <!-- search message -->
 
           <!-- search result -->
-            <div class="o-search-result-block m-t-16 p-b-24" *ngIf="searchString?.length > 0 && !isSearching">
-
-                <!-- people -->
-                <div class="col-md-6 p-l-0 h-50-auto">
-                    <app-search-people></app-search-people>
-                </div><!-- people -->
-
-                <!-- posts -->
-                <div class="col-md-6 p-r-0 h-50-auto">
-                    <app-search-post></app-search-post>
-                </div><!-- posts -->
-                
+          <div *ngIf="searchString?.length > 0 && !isSearching">
+            <div class="col-md-3 p-l-0 m-t--32">
+                <div class="o-search-left-block p-24">
+                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space">All</h6>
+                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">profiles</h6>
+                    <div class="o-search-filter-block p-l-8">
+                        <div class="form-check">
+                            <label for="people">people <input id="people" type="checkbox"></label>
+                        </div>
+                        <div class="form-check">
+                            <label for="organization">organization <input id="organization" type="checkbox"></label>
+                        </div>
+                    </div><!-- profile end -->
+                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">POST</h6>
+                    <div class="o-search-filter-block p-l-8">
+                        <div class="col-md-6 p-0">
+                            <div class="form-check">
+                                <label for="Images">Images <input id="Images" type="checkbox"></label>
+                            </div>
+                            <div class="form-check">
+                                <label for="Blog">Blog <input id="Blog" type="checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-0">
+                            <div class="form-check">
+                                <label for="Video">Video <input id="Video" type="checkbox"></label>
+                            </div>
+                            <div class="form-check">
+                                <label for="Audio">Audio <input id="Audio" type="checkbox"></label>
+                            </div>
+                        </div>
+                    </div><!-- post end -->
+                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">CHANNEL</h6>
+                    <div class="o-search-filter-block p-l-8">
+                        <div class="col-md-6 p-0">
+                            <div class="form-check">
+                                <label for="Images2">Images <input id="Images2" type="checkbox"></label>
+                            </div>
+                            <div class="form-check">
+                                <label for="Blog2">Blog <input id="Blog2" type="checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-0">
+                            <div class="form-check">
+                                <label for="Video2">Video <input id="Video2" type="checkbox"></label>
+                            </div>
+                            <div class="form-check">
+                                <label for="Audio2">Audio <input id="Audio2" type="checkbox"></label>
+                            </div>
+                        </div>
+                    </div><!-- CHANNEL end -->
+                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">SPOTFEED</h6>
+                    <div class="o-search-filter-block p-l-8">
+                        <div class="col-md-12 p-0">
+                            <div class="c-form__group m-0">
+                                <select class="c-form-control o-search-select--box p-l-0">
+                                    <option>
+                                        Industry
+                                    </option>
+                                    <option>
+                                        Select list 2
+                                    </option>
+                                    <option>
+                                        Select list 3
+                                    </option>
+                                    <option>
+                                        Select list 4
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div><!-- SPOTFEED end -->
+                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">opportunity</h6>
+                    <div class="o-search-filter-block p-l-8">
+                        <div class="col-md-6 p-0">
+                            <div class="form-check">
+                                <label for="Audition">Audition <input id="Audition" type="checkbox"></label>
+                            </div>
+                            <div class="form-check">
+                                <label for="jobs">jobs <input id="jobs" type="checkbox"></label>
+                            </div>
+                            <div class="form-check">
+                                <label for="Freelance">Freelance <input id="Freelance" type="checkbox"></label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-0">
+                            <div class="form-check">
+                                <label for="internship">internship <input id="internship" type="checkbox"></label>
+                            </div>
+                            <div class="form-check">
+                                <label for="projects">projects <input id="projects" type="checkbox"></label>
+                            </div>
+                            <div class="form-check">
+                                <label for="volunteer">volunteer <input id="volunteer" type="checkbox"></label>
+                            </div>
+                        </div>
+                    </div><!-- opportunity end -->
+                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">Event</h6>
+                    <div class="o-search-filter-block p-l-8">
+                        <div class="col-md-12 p-0">
+                            <div class="c-form__group m-0">
+                                <select class="c-form-control o-search-select--box p-l-0">
+                                    <option>
+                                        Event type
+                                    </option>
+                                    <option>
+                                        Select list 2
+                                    </option>
+                                    <option>
+                                        Select list 3
+                                    </option>
+                                    <option>
+                                        Select list 4
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div><!-- Event end -->
+                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">COMMUNITY</h6>
+                    <div class="o-search-filter-block p-l-8">
+                        <div class="col-md-12 p-0">
+                            <div class="c-form__group m-0">
+                                <select class="c-form-control o-search-select--box p-l-0">
+                                    <option>
+                                        Industry
+                                    </option>
+                                    <option>
+                                        Select list 2
+                                    </option>
+                                    <option>
+                                        Select list 3
+                                    </option>
+                                    <option>
+                                        Select list 4
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div><!-- COMMUNITY end -->
+                </div>
             </div>
+            <div class="col-md-9 m-t--32">
+
+                <div class="o-search-result-block">
+                    <div class="o-search-info-top">
+                        <span class="o-search-info_txt">Showing results for “<span class="c-text_md">{{ searchString }}</span>”</span> <span class="o-search-result_count">1200 Results Found</span>
+                    </div><!-- search info top -->
+                    <div class="o-top-result-block">
+                        <h6 class="c-text_lg p-t-b-16">Top result</h6>
+                        <!-- <div class="o-search-top-result__container">
+                            <div class="c-search__block p-l-r-8">
+                                <div class="c-searchprofile__imgblock m-t-b-8"><img class="c-searchprofile__img" src="assets/demo/new/avatar.png"></div><a class="c-searchprofile__name" href="">John Mayer1</a> <a class="c-searchprofile__prof" href="">Profile</a>
+                            </div>
+                            <div class="c-search__block p-l-r-8">
+                                <div class="c-searchprofile__postblock m-t-b-8">
+                                    <img class="c-searchprofile__postblock" src="assets/demo/new/l05.jpg"> <span><img alt="" class="c-card__icon" src="assets/svg/ico_video.svg"></span>
+                                </div><a class="c-searchprofile__name2 m-l-8" href="">John M</a> <a class="c-searchprofile__post m-l-8" href="">Public Post</a>
+                            </div>
+                            <div class="c-search__block p-l-r-8">
+                                <div class="c-searchprofile__postblock m-t-b-8">
+                                    <div class="c-searchchannel_left"><img src="assets/demo/new/l08.jpg"></div>
+                                    <div class="c-searchchannel_right">
+                                        <div class="c-searchchannel_r-t"><img class="c-searchprofile__postimg" src="assets/demo/new/l09.jpg"></div>
+                                        <div class="c-searchchannel_r-b"><img class="c-searchprofile__postimg" src="assets/demo/new/l07.jpg"></div>
+                                    </div>
+                                </div><a class="c-searchprofile__name2 m-l-8" href="">John Mayer Coll...</a> <a class="c-searchprofile__post m-l-8" href="">Channel</a>
+                            </div>
+                            <div class="c-search__block p-l-r-8">
+                                <div class="c-searchprofile__postblock m-t-b-8"><img class="c-searchprofile__postimg" src="assets/demo/new/l06.jpg"></div><a class="c-searchprofile__name2 m-l-8" href="">A list: John M</a> <a class="c-searchprofile__post m-l-8" href="">Spotfeed</a>
+                            </div>
+                            <div class="c-search__block p-l-r-8">
+                                <div class="c-searchprofile__postblock m-t-b-8">
+                                    <img class="c-searchprofile__postimg" src="assets/demo/new/l05.jpg"> <span class="c-searchprofile__eventicon">30, Dec</span>
+                                </div><a class="c-searchprofile__name2 m-l-8" href="">John Mayer Live...</a> <a class="c-searchprofile__post m-l-8" href="">Event</a>
+                            </div>
+                        </div> -->
+                    </div>
+                    <!-- top result block end -->
+                </div>
+                
+                <div class="o-search-result-block m-t-16 p-b-24">
+                    <!-- people -->
+                    <div class="col-md-6 p-l-0 h-50-auto">
+                        <app-search-people></app-search-people>
+                    </div><!-- people -->
+
+                    <!-- posts -->
+                    <div class="col-md-6 p-r-0 h-50-auto">
+                        <app-search-post></app-search-post>
+                    </div><!-- posts -->
+                </div>
+
+            </div>
+          </div>
           <!-- search result -->
 
           <!-- search prelaoder -->
