@@ -16,3 +16,35 @@
 .o-post-result__prof-pic img {
     width: 100%;
 }
+
+.o-post-result__name {
+    width: 80%;
+    float: left;
+    margin-left: 16px;
+}
+
+.c-text_lg, .c-text_lg-light, .c-text_lg-bold {
+    color: #333333;
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 500;
+}
+
+.o-post-result__name span {
+    display: block;
+}
+
+.color-grey-dark {
+    color: #929292 !important;
+}
+
+.float_right {
+    float: right;
+}
+
+.c-text_sm, .c-text_sm-light, .c-text_sm-bold {
+    color: #333333;
+    font-size: 11px;
+    line-height: 18px;
+    font-weight: 500;
+}
