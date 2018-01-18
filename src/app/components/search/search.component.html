@@ -235,28 +235,28 @@
                         <h6 class="c-text_lg p-t-b-16">Top result</h6>
                         <!-- <div class="o-search-top-result__container">
                             <div class="c-search__block p-l-r-8">
-                                <div class="c-searchprofile__imgblock m-t-b-8"><img class="c-searchprofile__img" src="assets/demo/new/avatar.png"></div><a class="c-searchprofile__name" href="">John Mayer1</a> <a class="c-searchprofile__prof" href="">Profile</a>
+                                <div class="c-searchprofile__imgblock m-t-b-8"><img class="c-searchprofile__img" src="{{ baseUrl }}assets/new/avatar.png"></div><a class="c-searchprofile__name" href="">John Mayer1</a> <a class="c-searchprofile__prof" href="">Profile</a>
                             </div>
                             <div class="c-search__block p-l-r-8">
                                 <div class="c-searchprofile__postblock m-t-b-8">
-                                    <img class="c-searchprofile__postblock" src="assets/demo/new/l05.jpg"> <span><img alt="" class="c-card__icon" src="assets/svg/ico_video.svg"></span>
+                                    <img class="c-searchprofile__postblock" src="{{ baseUrl }}assets/new/l05.jpg"> <span><img alt="" class="c-card__icon" src="assets/svg/ico_video.svg"></span>
                                 </div><a class="c-searchprofile__name2 m-l-8" href="">John M</a> <a class="c-searchprofile__post m-l-8" href="">Public Post</a>
                             </div>
                             <div class="c-search__block p-l-r-8">
                                 <div class="c-searchprofile__postblock m-t-b-8">
-                                    <div class="c-searchchannel_left"><img src="assets/demo/new/l08.jpg"></div>
+                                    <div class="c-searchchannel_left"><img src="{{ baseUrl }}assets/new/l08.jpg"></div>
                                     <div class="c-searchchannel_right">
-                                        <div class="c-searchchannel_r-t"><img class="c-searchprofile__postimg" src="assets/demo/new/l09.jpg"></div>
-                                        <div class="c-searchchannel_r-b"><img class="c-searchprofile__postimg" src="assets/demo/new/l07.jpg"></div>
+                                        <div class="c-searchchannel_r-t"><img class="c-searchprofile__postimg" src="{{ baseUrl }}assets/new/l09.jpg"></div>
+                                        <div class="c-searchchannel_r-b"><img class="c-searchprofile__postimg" src="{{ baseUrl }}assets/new/l07.jpg"></div>
                                     </div>
                                 </div><a class="c-searchprofile__name2 m-l-8" href="">John Mayer Coll...</a> <a class="c-searchprofile__post m-l-8" href="">Channel</a>
                             </div>
                             <div class="c-search__block p-l-r-8">
-                                <div class="c-searchprofile__postblock m-t-b-8"><img class="c-searchprofile__postimg" src="assets/demo/new/l06.jpg"></div><a class="c-searchprofile__name2 m-l-8" href="">A list: John M</a> <a class="c-searchprofile__post m-l-8" href="">Spotfeed</a>
+                                <div class="c-searchprofile__postblock m-t-b-8"><img class="c-searchprofile__postimg" src="{{ baseUrl }}assets/new/l06.jpg"></div><a class="c-searchprofile__name2 m-l-8" href="">A list: John M</a> <a class="c-searchprofile__post m-l-8" href="">Spotfeed</a>
                             </div>
                             <div class="c-search__block p-l-r-8">
                                 <div class="c-searchprofile__postblock m-t-b-8">
-                                    <img class="c-searchprofile__postimg" src="assets/demo/new/l05.jpg"> <span class="c-searchprofile__eventicon">30, Dec</span>
+                                    <img class="c-searchprofile__postimg" src="{{ baseUrl }}assets/new/l05.jpg"> <span class="c-searchprofile__eventicon">30, Dec</span>
                                 </div><a class="c-searchprofile__name2 m-l-8" href="">John Mayer Live...</a> <a class="c-searchprofile__post m-l-8" href="">Event</a>
                             </div>
                         </div> -->
@@ -274,6 +274,12 @@
                     <div class="col-md-6 h-50-auto">
                         <app-search-post></app-search-post>
                     </div><!-- posts -->
+                </div>
+
+                <div class="o-search-result-single-block">
+                    <div class="o-search-result-single-block">
+                        <app-search-channel></app-search-channel>
+                    </div>
                 </div>
 
             </div>

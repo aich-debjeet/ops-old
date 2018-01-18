@@ -53,6 +53,7 @@ import { ScrollToDirective } from './scrollto/scroll-to.directive';
 import { OpportunityCardComponent } from './opportunity-card/opportunity-card.component';
 import { EventCardComponent } from './event-card/event-card.component';
 import { ChannelSearchComponent } from './channel-search/channel-search.component';
+import { SearchChannelCardComponent } from './search-channel-card/search-channel-card.component';
 
 @NgModule({
   imports: [
@@ -103,6 +104,7 @@ import { ChannelSearchComponent } from './channel-search/channel-search.componen
     OpportunityCardComponent,
     EventCardComponent,
     ChannelSearchComponent,
+    SearchChannelCardComponent,
   ],
   exports: [
     OpportunityCardComponent,
@@ -134,7 +136,8 @@ import { ChannelSearchComponent } from './channel-search/channel-search.componen
     Modal,
     RouteModal,
     ModalContent,
-    EventCardComponent
+    EventCardComponent,
+    SearchChannelCardComponent
   ]
 })
 export class SharedModule { }

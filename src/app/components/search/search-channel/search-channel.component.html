@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
 
     <div *ngIf="channels && channels.length === 0; else channels_found;">
         <p class="result-not-found">Channels not found!</p>
@@ -14,4 +14,22 @@
 
     </ng-template>
 
+</div> -->
+
+
+
+<h6 class="c-text_lg m-t-24">Channel
+    <a href="#" class="color-theme float_right">See all</a>
+</h6>
+
+<div *ngIf="channels && channels.length === 0; else channels_found;">
+    <p class="result-not-found">Channels not found!</p>
 </div>
+
+<ng-template #channels_found>
+    <div class="row m-0">
+        <div *ngFor="let channel of channels" class="o-post-result-block">
+            <app-search-channel-card [channel]="channel"></app-search-channel-card>
+        </div>
+    </div>
+</ng-template>
