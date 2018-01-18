@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, Renderer } from '@angular/core';
 
 @Component({
   selector: 'app-videplayer',
@@ -10,14 +10,37 @@ export class VideplayerComponent implements OnInit, AfterViewInit {
   @Input() play: boolean = false;
   source: any;
   isPortrait = false; // assuming video is landscape by default
-  constructor() {
+  constructor(
+    // private renderer: Renderer
+  ) {
     this.source = this.src;
+    // console.log('trigger again constructor');
   }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
+
+    // const self = this;
+    // console.log('trigger again view init');
+
+    // const videoElem: HTMLVideoElement = <HTMLVideoElement>document.getElementById('singleVideo');
+    // this.renderer.listen(videoElem, 'loadeddata', (event) => {
+    //   // console.log('video event', event);
+    //   // console.log('videoElem loaded');
+    //     const vidH = videoElem.videoHeight;
+    //     const vidW = videoElem.videoWidth;
+    //     console.log(vidH, vidW);
+    //     // check if video is portrait
+    //     if (vidH > vidW) {
+    //       self.isPortrait = true;
+    //       // console.log('video portrait');
+    //     } else {
+    //       // console.log('video lanscape');
+    //     }
+    // });
+
     const videoElem: HTMLVideoElement = <HTMLVideoElement>document.getElementById('singleVideo');
     // console.log('videoElem', videoElem);
     const self = this;
