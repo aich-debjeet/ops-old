@@ -7,7 +7,7 @@
         <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
     </vg-scrub-bar>
 
-    <video [vgMedia]="media" #media id="singleVideo" preload="auto">
+    <video [ngClass]="{'portrait-video': isPortrait === true }" [vgMedia]="media" #media id="singleVideo" preload="auto">
         <source [src]="src" type="video/mp4">
     </video>
 </vg-player>

@@ -19,10 +19,10 @@ export class VideplayerComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     const videoElem: HTMLVideoElement = <HTMLVideoElement>document.getElementById('singleVideo');
-    console.log('videoElem', videoElem);
+    // console.log('videoElem', videoElem);
     const self = this;
     videoElem.addEventListener('loadeddata', function() {
-      console.log('videoElem loaded');
+      // console.log('videoElem loaded');
       const vidH = videoElem.videoHeight;
       const vidW = videoElem.videoWidth;
       console.log(vidH, vidW);
@@ -30,9 +30,9 @@ export class VideplayerComponent implements OnInit, AfterViewInit {
       // check if video is portrait
       if (vidH > vidW) {
         self.isPortrait = true;
-        console.log('video portrait');
+        // console.log('video portrait');
       } else {
-        console.log('video lanscape');
+        // console.log('video lanscape');
       }
     });
   }
