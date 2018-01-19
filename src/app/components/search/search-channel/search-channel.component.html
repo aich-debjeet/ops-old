@@ -1,23 +1,3 @@
-<!-- <div class="row">
-
-    <div *ngIf="channels && channels.length === 0; else channels_found;">
-        <p class="result-not-found">Channels not found!</p>
-    </div>
-
-    <ng-template #channels_found>
-
-        <masonry [useImagesLoaded]="true">
-            <masonry-brick class="col-md-3 col-sm-6 c-card padding_8" *ngFor="let channel of channels; let i = index">
-                <app-channel [channelData]="channel" ></app-channel>
-            </masonry-brick>
-        </masonry>
-
-    </ng-template>
-
-</div> -->
-
-
-
 <h6 class="c-text_lg m-t-24">Channel
     <a href="#" class="color-theme float_right">See all</a>
 </h6>
@@ -28,8 +8,8 @@
 
 <ng-template #channels_found>
     <div class="row m-0">
-        <div *ngFor="let channel of channels | slice:0:6" class="o-post-result-block">
-            <app-search-channel-card [channelData]="channel"></app-search-channel-card>
+        <div *ngFor="let channel of channels | slice:0:4" class="col-md-3 p-0 p-r-10 p-b-10">
+            <app-channel [channelData]="channel"></app-channel>
         </div>
     </div>
 </ng-template>
