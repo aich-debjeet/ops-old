@@ -28,8 +28,8 @@
 
 <ng-template #channels_found>
     <div class="row m-0">
-        <div *ngFor="let channel of channels" class="o-post-result-block">
-            <app-search-channel-card [channel]="channel"></app-search-channel-card>
+        <div *ngFor="let channel of channels | slice:0:6" class="o-post-result-block">
+            <app-search-channel-card [channelData]="channel"></app-search-channel-card>
         </div>
     </div>
 </ng-template>
