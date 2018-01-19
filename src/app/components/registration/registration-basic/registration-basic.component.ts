@@ -1,7 +1,8 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef , Inject, OnDestroy} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DOCUMENT } from '@angular/platform-browser';
 
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Store } from '@ngrx/store';
@@ -45,7 +46,7 @@ export class RegValue {
   styleUrls: ['./registration-basic.component.scss']
 })
 
-export class RegistrationBasicComponent implements OnInit {
+export class RegistrationBasicComponent implements OnInit, OnDestroy {
   countDown;
   counter = 60;
   isPhotoAdded: boolean;
@@ -88,6 +89,7 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   constructor(
+    @Inject(DOCUMENT) private document: Document,
     private fb: FormBuilder,
     private store: Store<BasicRegTag>,
     private claimProfileStore: Store<ClaimProfileModel>,
@@ -186,6 +188,7 @@ export class RegistrationBasicComponent implements OnInit {
   }
 
   ngOnInit() {
+    document.body.style.overflow = 'hidden';
 
     if (this.route.snapshot.queryParams['ev']) {
       if (this.route.snapshot.queryParams['ev'] === 'dwc2017') {
@@ -536,5 +539,8 @@ export class RegistrationBasicComponent implements OnInit {
     setTimeout(() => {
       this.hideProfiles = true;
     }, 500);
+  }
+  ngOnDestroy() {
+    document.body.style.overflow = null;
   }
 }
