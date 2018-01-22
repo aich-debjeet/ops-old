@@ -3,95 +3,106 @@
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/components/_app.scss';
 @import './src/assets/scss/base/_typography.scss';
+@import '~sass-mq/_mq.scss';
 // about
-
 .show {
-	display: block !important;
+    display: block !important;
 }
 
-.o-org-about{
-	width: 98%;
-	background: #fff;
-	padding:16px 16px 32px;
-	border-radius: $border-radius3;
-	float: left;
-	margin-bottom: 200px;
+.o-org-about {
+    width: 98%;
+    background: #fff;
+    padding: 16px 16px 32px;
+    border-radius: $border-radius3;
+    float: left;
+    margin-bottom: 200px;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        margin-left: 0px!important;
+    }
 }
 
 // form containers
-.o-org-about-form{
-	list-style:none;
+.o-org-about-form {
+    list-style: none;
 }
-.o-org-form__item{
-	list-style-type: none;
-  padding: 8px;
-  transition: 0.25s;
-  float: left;
-  width: 100%;
-}
-.o-org-form__item:hover{
-	background: $color-grey-light;
-}
-.o-org-form__item:hover .o-org-form__edit-ico{
-	display: block;
-}
-.o-org-form__edit-ico{
-	width: 13px;
-	height: 13px;
-	float: right;
-	display: none;
-	transition:.25s;
-}
-// form
 
-.o-org-about__breif{
-	width: 100%;
-	color: $color-base-dark;
-	border:none;
-	background: none;
-	min-height: 110px;
-	border-bottom: 1px solid #333333;
-	&:focus{
-		outline: none;
-	}
+.o-org-form__item {
+    list-style-type: none;
+    padding: 8px;
+    transition: 0.25s;
+    float: left;
+    width: 100%;
 }
-.o-org-form__edit-sec{
-	width: 100%;
-	float: left;
+
+.o-org-form__item:hover {
+    background: $color-grey-light;
 }
-.o-org-form__actions{
-	width: 100%;
-	float: left;
-	text-align: right;
+
+.o-org-form__item:hover .o-org-form__edit-ico {
+    display: block;
+}
+
+.o-org-form__edit-ico {
+    width: 13px;
+    height: 13px;
+    float: right;
+    display: none;
+    transition: .25s;
+}
+
+// form
+.o-org-about__breif {
+    width: 100%;
+    color: $color-base-dark;
+    border: none;
+    background: none;
+    min-height: 110px;
+    border-bottom: 1px solid #333333;
+    &:focus {
+        outline: none;
+    }
+}
+
+.o-org-form__edit-sec {
+    width: 100%;
+    float: left;
+}
+
+.o-org-form__actions {
+    width: 100%;
+    float: left;
+    text-align: right;
 }
 
 // about contact section
+.o-org-about__contact-ph {
+    width: 100%;
+    float: left;
+}
 
-.o-org-about__contact-ph{
-	width: 100%;
-	float: left;
+.o-org-about__contact-ico {
+    width: 12px;
+    height: 12px;
+    float: left;
+    margin-right: 8px;
 }
-.o-org-about__contact-ico{
-	width: 12px;
-	height: 12px;
-	float: left;
-	margin-right: 8px;
+
+.o-org-about__contact-txt {
+    float: left;
 }
-.o-org-about__contact-txt{
-	float: left;
+
+.o-org-about__address-map {
+    width: 100%;
+    height: 165px;
+    float: left;
+    border: 1px solid rgba(102, 45, 145, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
 }
-.o-org-about__address-map{
-	width: 385px;
-	height: 165px;
-	float: left;
-	border: 1px solid rgba(102,45,145,0.1);
-	border-radius: 3px;
-	overflow: hidden;
-}	
 
 .c-avatar--status {
-	width: 34px;
-	height: 34px; 
+    width: 34px;
+    height: 34px;
 }
 
 .fpadding_l32 {
@@ -115,19 +126,19 @@
 }
 
 .c-invite__sec {
-	height: auto;
-	overflow: hidden;
+    height: auto;
+    overflow: hidden;
 }
 
 .c-artist__img {
-	width: 100%;
+    width: 100%;
 }
 
 .invite-div {
-	max-height: 300px;
-	overflow: auto;
+    max-height: 300px;
+    overflow: auto;
 }
 
 a {
-	cursor: pointer;
+    cursor: pointer;
 }

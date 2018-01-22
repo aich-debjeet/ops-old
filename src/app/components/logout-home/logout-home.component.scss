@@ -7,6 +7,58 @@
 @import './src/assets/scss/components/_buttons.scss';
 
 
+
+
+.landing_top {
+  background: linear-gradient(135.82deg, #F7D022 0%, #E56E86 26.1%, #662D91 100%);
+  background: url(https://cdn.onepagespotlight.com/img/landing/hero.svg) no-repeat;
+ background-size: cover;
+ background-position: center;
+  min-height: 100vh;
+ height: 100%;
+ // padding-bottom: 70px;
+ .landing_header_button {
+     padding: 32px 0;
+ }
+ .landing_logo {
+     img {
+         width: 305px;
+     }
+ }
+ .landing_top_block {
+     margin: 90px 0 134px;
+     .landing_slider {
+         .slider_heading {
+             color: #fff;
+             margin-top: 32px;
+         }
+         .slider_text {
+             color: #fff;
+             line-height: 24px;
+             margin: 16px 0;
+         }
+     }
+     .btn {
+       margin-top: 8px;
+     }
+     .landing_top_art {
+       img {
+         width: 100%;
+         // margin-left: 52px;
+       }
+         .landing_art_text {
+             color: #FFFFFF;
+             font-size: 22px;
+             font-weight: bold;
+             line-height: 24px;
+             text-align: center;
+             margin-top: 24px;
+             text-transform: uppercase;
+         }
+     }
+ }
+}
+
 // landing page css
 .o-hero-section{
     position: relative;
@@ -450,14 +502,14 @@
 
 // for landing header
 
-.opsheader_landing{
-    position: absolute;
-    width: 100%;
-    float: left;
-    top: 0px;
-    background: none;
-    z-index: 100;
-}
+// .opsheader_landing{
+//     position: absolute;
+//     width: 100%;
+//     float: left;
+//     top: 0px;
+//     background: none;
+//     z-index: 100;
+// }
 .o-logo{
     width: 50%;
     float: left;

@@ -16,12 +16,12 @@
     <div class="col-md-6" *ngFor="let channel of ChannelFollow; let i=index">
       <div class="reg_add_skills_channel">
           <div class="reg_channel_img">
-              <img src="{{channel.conver_image}}">
+              <img [src]="channel.conver_image">
           </div>
           <div class="reg_channel_contant">
               <h3>{{channel.handle_name}}</h3>
               <div class="reg_channel_contant_img">
-                  <img src="{{channel.owner_image}}" class="img-circle img-responsive">
+                  <img [src]="channel.owner_image" class="img-circle img-responsive">
               </div>
               <h4>{{channel.owner_name}}</h4>
           </div>

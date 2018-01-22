@@ -19,22 +19,22 @@ const routes: Routes = [
     path: 'details',
     component: DanceWorldCupComponent,
   },
-  {
-    path: 'reg',
-    component: DwcRegComponent,
-  },
-  {
-  path: 'payment',
-  component: DwcPaymentComponent,
-  },
-  {
-    path: 'success',
-    component: DwcSuccessComponent,
-  },
-  {
-    path: 'completed',
-    component: DwcCompletedComponent,
-  }
+  // {
+  //   path: 'reg',
+  //   component: DwcRegComponent,
+  // },
+  // {
+  // path: 'payment',
+  // component: DwcPaymentComponent,
+  // },
+  // {
+  //   path: 'success',
+  //   component: DwcSuccessComponent,
+  // },
+  // {
+  //   path: 'completed',
+  //   component: DwcCompletedComponent,
+  // }
 ]
 
 @NgModule({
