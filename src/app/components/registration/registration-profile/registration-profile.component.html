@@ -5,21 +5,9 @@
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <div class="navbar-header">
-                        <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button> -->
-                        <a class="navbar-brand"><img src="{{ imageBaseLink }}img/ops_logo.png"></a>
+                        <a class="navbar-brand"><img [src]="imageBaseLink + 'img/ops_logo.png'"></a>
                     </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <!-- <div class="signup_next">
-                        <button [className]="'btn btn-network btn-sm'" [type]="'submit'" [disabled]="!activateSubmitBtn" [ngClass]="{'active-btn': activateSubmitBtn}" >CONTINUE</button>
-                    </div> -->
-                    <!-- /.navbar-collapse -->
                 </div>
-                <!-- /.container-fluid -->
             </nav>
         </header>
         <section class="container-fluid ops_signup2">
@@ -32,10 +20,10 @@
                             <div class="col-md-12">
                                 <div class="step2_selection small_pen" *ngFor="let artist of artistType; let i=index" >
                                     <label for="{{'check'+i}}">
-                                        <input type="checkbox" id="{{'check'+i}}" value="{{artist.name}}" (change)="onChange(artist.name, artist.typeName, $event.target.checked)">
+                                        <input type="checkbox" [attr.id]="'check'+i" [value]="artist.name" (change)="onChange(artist.name, artist.typeName, $event.target.checked)">
                                         <div class="reg_profile_types">
                                             <div class="reg_step2_box">
-                                            <img src="{{artist.image}}" class="img-responsive margin_t_16">
+                                            <img [src]="artist.image" class="img-responsive margin_t_16">
                                                 <div class="step2_heading">{{artist.name}}</div>
                                                 <div class="step2_txt">{{artist.description}}</div>
                                             </div>

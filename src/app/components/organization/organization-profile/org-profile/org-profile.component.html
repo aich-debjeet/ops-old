@@ -4,17 +4,18 @@
             <app-org-leftblock></app-org-leftblock>
         </div>
         <!-- right feed -->
-        <div class="col-md-9 col-sm-9 pro_feed-right">
-            <div class="home_tabs">
+        <div class="col-md-9 col-sm-7 col-xs-12 pro_feed-right">
+            <!-- <div class="home_tabs"> -->
+            <div class="c-ops__tabs o-org-tabs m-t-8">
                 <ul class="nav nav-tabs">
-                  <li routerLinkActive="active"><a [routerLink]="['channel']">Channel</a></li>
-                  <li routerLinkActive="active"><a [routerLink]="['post']">Posts</a></li>
-                  <li routerLinkActive="active"><a [routerLink]="['spotfeed']">spotfeed</a></li>
+                    <li routerLinkActive="active"><a [routerLink]="['channel']">Channel</a></li>
+                    <li routerLinkActive="active"><a [routerLink]="['post']">Posts</a></li>
+                    <li routerLinkActive="active"><a [routerLink]="['spotfeed']">spotfeed</a></li>
                 </ul>
                 <div class="tab-content">
                     <router-outlet></router-outlet>
                 </div>
-            </div>            
+            </div>
         </div>
         <!-- //right feed -->
     </div>
