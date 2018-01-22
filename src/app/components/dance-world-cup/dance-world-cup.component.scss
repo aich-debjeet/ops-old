@@ -60,7 +60,7 @@
 .o-dwc-top-banner__dark {
     position: absolute;
     width: 100%;
-    top: 64px;
+    top: 50px;
     background: none;
     z-index: 2;
     background-color: rgba(0, 0, 0, 0.42);
@@ -485,6 +485,7 @@
 .o-dwc-detail-top-slider {
     width: 100%;
     float: left;
+    margin-top: 50px;
     @include mq($from: $mobile_sm, $until: $desktop_sm) {
         height: 300px;
     }
