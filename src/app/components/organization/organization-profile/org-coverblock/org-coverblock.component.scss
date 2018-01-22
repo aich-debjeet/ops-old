@@ -1,3 +1,9 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/components/_feed-card.scss';
+@import './src/assets/scss/helpers/_helpers.scss';
+@import './src/assets/scss/components/_app.scss';
+@import './src/assets/scss/base/_typography.scss';
+@import '~sass-mq/_mq.scss';
 // nav
 .pro_nav_list {
     width: 100%;
@@ -10,10 +16,13 @@
     text-align: left;
     text-transform: capitalize;
     padding: 16px 16px;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        padding: 16px 12px;
+    }
     a {
         color: #929292;
     }
-    .activein{
+    .activein {
         color: #333333;
     }
 }
@@ -27,7 +36,7 @@
 .pro_nav_icon li {
     float: right;
     padding: 16px 12px;
-    .report_block_drop{
+    .report_block_drop {
         right: 24px;
         left: auto;
         top: 56px;
@@ -45,10 +54,10 @@
         //     border-left: 1px #ccc solid;
         //     border-top: 1px #ccc solid;
         // }
-        li{
+        li {
             width: 100%;
-            padding:0px;
-            a{
+            padding: 0px;
+            a {
                 font-weight: 600;
                 font-size: 14px;
                 color: #333333;
@@ -57,146 +66,210 @@
     }
 }
 
-.o-org-prof--white{
-	color: #fff!important;
+.o-org-prof--white {
+    color: #fff!important;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        color: #333!important;
+    }
 }
 
 // cover
-.o-org-cover{
-	width: 100%;
-	float: left;
-	min-height: 350px;
-	max-height: 350px;
-	overflow: hidden;
-	margin-top: 50px;
-	position: relative;
-	cursor: pointer;
+.o-org-cover {
+    width: 100%;
+    float: left;
+    min-height: 350px;
+    max-height: 350px;
+    overflow: hidden;
+    margin-top: 50px;
+    position: relative;
+    cursor: pointer;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        min-height: 120px;
+        max-height: 120px;
+    }
 }
-.o-org-cover__img{
-	position: absolute;
-	width: 100%;
-	height: 100%;
+
+.o-org-cover__img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
-.o-org-cover__edit{
-	position: absolute;
-  top: 0px;
-  background: linear-gradient(360deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, .7) 100%);
-  width: 100%;
-  height: 165px;
-  transition: .25s;
-  text-align: right;
-  display: none;
+
+.o-org-cover__edit {
+    position: absolute;
+    top: 0px;
+    background: linear-gradient(360deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, .7) 100%);
+    width: 100%;
+    height: 165px;
+    transition: .25s;
+    text-align: right;
+    display: none;
 }
-.o-org-cover:hover .o-org-cover__edit{
-	display: block;
+
+.o-org-cover:hover .o-org-cover__edit {
+    display: block;
 }
+
 // profile
-.o-org-prof-block{
-	width: 100%;
-	float: left;
-	margin-top: -150px;
-	position: relative;
+.o-org-prof-block {
+    width: 100%;
+    float: left;
+    margin-top: -150px;
+    position: relative;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        margin-top: -90px;
+    }
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        margin-top: -162px;
+    }
 }
-.o-org-prof__img{
-	height: 165px;	
-	width: 160px;	
-	border: 2px solid #FFFFFF;
-	border-radius: 3px;	
-	background: #747474;
-	overflow: hidden;
-	position: relative;
-	float: left;
+
+.o-org-prof__img {
+    height: 165px;
+    width: 160px;
+    border: 2px solid #FFFFFF;
+    border-radius: 3px;
+    background: #747474;
+    overflow: hidden;
+    position: relative;
+    float: left;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        height: 77px;
+        width: 75px;
+        margin-left: 16px;
+    }
 }
-.o-org-prof__media{
-	width: 100%;
-	height: 100%;
-	float: left;
-	img{
-		width: 100%;
-	}
+
+.o-org-prof__media {
+    width: 100%;
+    height: 100%;
+    float: left;
+    img {
+        width: 100%;
+    }
 }
-.o-org-prof-edit-ico{
-  background-image: url(https://cdn.onepagespotlight.com/img/svg/edit-red.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 11px;
-  height: 11px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-top: -1px;
+
+.o-org-prof-edit-ico {
+    background-image: url(https://cdn.onepagespotlight.com/img/svg/edit-red.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 11px;
+    height: 11px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -1px;
 }
-.o-org-prof__btn{
-  position: absolute;
-  bottom: 0px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, .7) 100%);
-  width: 100%;
-  height: 40px;
-  padding: 8px;
-  display: none;
-  transition:.25s;
+
+.o-org-prof__btn {
+    position: absolute;
+    bottom: 0px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, .7) 100%);
+    width: 100%;
+    height: 40px;
+    padding: 8px;
+    display: none;
+    transition: .25s;
 }
-.o-org-prof__img:hover .o-org-prof__btn{
-	display: block;
+
+.o-org-prof__img:hover .o-org-prof__btn {
+    display: block;
 }
 
 // prof name
-.o-org-prof__name{
-  width: 85.9%;
-  float: left;
-  padding:16px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+.o-org-prof__name {
+    width: 85.9%;
+    float: left;
+    padding: 16px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        padding: 16px 0px 16px 16px;
+    }
+    @include mq($from: $tablet, $until: $desktop) {
+        width: 76.9%;
+    }
 }
-.org-label-ico{
-	width: 24px;
-	height: 24px;
-	overflow: hidden;
-	margin-left: 8px;
+
+.org-label-ico {
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    margin-left: 8px;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        display: none;
+    }
 }
+
 // prof account det
-.o-org-prof__account-det{
-	width: 85.9%;
-  float: left;
-  padding:16px 16px 21px 16px;
-  background: #fff;
-  border-bottom: 1px solid rgba(102,45,145,0.1);
+.o-org-prof__account-det {
+    width: 85.9%;
+    float: left;
+    padding: 16px 16px 21px 16px;
+    background: #fff;
+    border-bottom: 1px solid rgba(102, 45, 145, 0.1);
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        width: 100%;
+    }
+    @include mq($from: $tablet, $until: $desktop) {
+        width: 77.7%;
+    }
+    @include mq($break1024) {
+        width: 82.9%;
+    }
+    @include mq($from: $desktop, $until: $desktop_imac) {
+        width: 100%;
+        margin-top: -79px;
+        padding-left: 185px;
+    }
 }
-.o-org-account-stat{
-	margin-right: 32px;
-	float: left;
-	span{
-		display: block;
-	}
+
+.o-org-account-stat {
+    margin-right: 32px;
+    float: left;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        margin-right: 24px;
+    }
+    span {
+        display: block;
+        @include mq($from: $mobile_sm, $until: $tablet) {
+            display: inline-block;
+        }
+    }
 }
-.btn-label-icon--message{
-	background-image: url(https://cdn.onepagespotlight.com/img/svg/message-theme.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 15px;
-  height: 15px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-top: -1px;
+
+.btn-label-icon--message {
+    background-image: url(https://cdn.onepagespotlight.com/img/svg/message-theme.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -1px;
 }
+
 .btn-md:hover .btn-label-icon--message {
-  background-image: url(https://cdn.onepagespotlight.com/img/svg/message-white.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 15px;
-  height: 15px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-top: -1px;
+    background-image: url(https://cdn.onepagespotlight.com/img/svg/message-white.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -1px;
 }
 
 // org navigation
-.o-org-navigation{
-	width: 100%;
-	padding:0px 24px;
-	float: left;
+.o-org-navigation {
+    width: 100%;
+    padding: 0px 24px;
+    float: left;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        padding: 0px 16px;
+    }
 }
 
 // org content
-.o-org-content{
-	width: 100%;
-	float: left;
+.o-org-content {
+    width: 100%;
+    float: left;
 }
