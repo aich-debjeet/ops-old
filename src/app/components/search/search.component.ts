@@ -60,11 +60,17 @@ export class SearchComponent implements OnInit, AfterViewInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       this.searchState = state;
-      if (state && state.searching_people === false && state.searching_post === false && state.searching_channel === false) {
-        this.isSearching = false;
-        this.beforeSearch = false;
-        this.showPreloader = false;
+      console.log(this.searchState);
+      if (state && state.searching_all === false) {
+          this.isSearching = false;
+          this.beforeSearch = false;
+          this.showPreloader = false;
       }
+      // if (state && state.searching_people === false && state.searching_post === false && state.searching_channel === false) {
+      //   this.isSearching = false;
+      //   this.beforeSearch = false;
+      //   this.showPreloader = false;
+      // }
     });
 
   }
@@ -89,19 +95,13 @@ export class SearchComponent implements OnInit, AfterViewInit {
         this.isSearching = true;
 
         const searchParams = {
-          query: this.searchString,
-          offset: 0,
+          searchText: this.searchString,
+          from: 0,
           limit: this.recordsPerPage
         }
 
-        // search people
-        this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
-
-        // search post
-        this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchParams });
-
-        // search channel
-        this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchParams });
+        // search all
+        this.store.dispatch({ type: SearchActions.SEARCH_ALL, payload: searchParams });
       }
 
     });
