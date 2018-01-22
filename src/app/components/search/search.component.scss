@@ -156,8 +156,8 @@
 .o-search-info-top{
   width: 100%;
   float: left;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #F3F5F7;
+  // padding-bottom: 16px;
+  // border-bottom: 1px solid #F3F5F7;
 }
 .o-search-info_txt{
   font-size: 13px;
@@ -369,13 +369,6 @@
   height: 50vh;
   overflow-x: hidden;
   overflow-y: auto;
-}
-
-.o-search-info-top {
-  width: 100%;
-  float: left;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #F3F5F7;
 }
 
 .o-top-result-block {

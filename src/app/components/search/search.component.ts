@@ -62,7 +62,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       this.searchState = state;
-      console.log(this.searchState);
+      // console.log(this.searchState);
       if (state && state.searching_all === false) {
           this.isSearching = false;
           this.beforeSearch = false;
@@ -75,7 +75,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
         && state['search_all_data']['totalChannelResults'] !== undefined
         && state['search_all_data']['totalProfileResults'] !== undefined) {
         this.resultCount = state['search_all_data']['totalChannelResults'] + state['search_all_data']['totalMediaResults'] + state['search_all_data']['totalProfileResults'];
-        console.log(state['search_all_data']['totalChannelResults'] + state['search_all_data']['totalMediaResults'] + state['search_all_data']['totalProfileResults']);
+        // console.log(state['search_all_data']['totalChannelResults'] + state['search_all_data']['totalMediaResults'] + state['search_all_data']['totalProfileResults']);
       }
       // if (state && state.searching_people === false && state.searching_post === false && state.searching_channel === false) {
       //   this.isSearching = false;
