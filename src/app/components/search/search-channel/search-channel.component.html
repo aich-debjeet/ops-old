@@ -8,7 +8,7 @@
 
 <ng-template #channels_found>
     <div class="row m-0">
-        <div *ngFor="let channel of channels | slice:0:4" class="col-md-3 p-0 p-r-10 p-b-10">
+        <div *ngFor="let channel of channels | slice:0:5" class="col-md-2 p-0 p-r-10 p-b-10">
             <app-channel [channelData]="channel"></app-channel>
         </div>
     </div>
