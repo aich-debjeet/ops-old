@@ -43,6 +43,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
   recordsPerPage = 10;
   showPreloader = false;
 
+  resultCount = 0;
+
   constructor(
     private store: Store<SearchModel>,
     private profileStore: Store<ProfileModal>,
@@ -65,6 +67,15 @@ export class SearchComponent implements OnInit, AfterViewInit {
           this.isSearching = false;
           this.beforeSearch = false;
           this.showPreloader = false;
+      }
+
+      if (state
+        && state['search_all_data']
+        && state['search_all_data']['totalMediaResults'] !== undefined
+        && state['search_all_data']['totalChannelResults'] !== undefined
+        && state['search_all_data']['totalProfileResults'] !== undefined) {
+        this.resultCount = state['search_all_data']['totalChannelResults'] + state['search_all_data']['totalMediaResults'] + state['search_all_data']['totalProfileResults'];
+        console.log(state['search_all_data']['totalChannelResults'] + state['search_all_data']['totalMediaResults'] + state['search_all_data']['totalProfileResults']);
       }
       // if (state && state.searching_people === false && state.searching_post === false && state.searching_channel === false) {
       //   this.isSearching = false;

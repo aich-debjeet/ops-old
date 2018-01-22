@@ -7,7 +7,9 @@
 </div>
 
 <ng-template #artists_found>
-    <div *ngFor="let artist of artists" class="o-people-result-block">
-        <app-user-card-new [artist]="artist" class="width-100" ></app-user-card-new>
+    <div class="o-people-result-block2">
+        <div *ngFor="let artist of artists" class="o-people-result-block">
+            <app-user-card-new [artist]="artist" class="width-100" ></app-user-card-new>
+        </div>
     </div>
 </ng-template>

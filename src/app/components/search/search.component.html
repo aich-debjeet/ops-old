@@ -231,7 +231,7 @@
 
                 <div class="o-search-result-block">
                     <div class="o-search-info-top">
-                        <span class="o-search-info_txt">Showing results for “<span class="c-text_md">{{ searchString }}</span>”</span> <span class="o-search-result_count">1200 Results Found</span>
+                        <span *ngIf="resultCount" class="o-search-info_txt">Showing results for “<span class="c-text_md">{{ searchString }}</span>”</span> <span class="o-search-result_count">{{ resultCount }} Results Found</span>
                     </div><!-- search info top -->
                     <div class="o-top-result-block">
                         <!-- <h6 class="c-text_lg p-t-b-16">Top result</h6>
@@ -268,12 +268,12 @@
                 
                 <div class="o-search-result-block m-t-16 p-b-24">
                     <!-- people -->
-                    <div class="col-md-6 p-l-0 h-50-auto">
+                    <div class="col-md-6 p-l-0">
                         <app-search-people></app-search-people>
                     </div><!-- people -->
 
                     <!-- posts -->
-                    <div class="col-md-6 h-50-auto">
+                    <div class="col-md-6">
                         <app-search-post></app-search-post>
                     </div><!-- posts -->
                 </div>

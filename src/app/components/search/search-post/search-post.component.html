@@ -7,7 +7,9 @@
 </div>
 
 <ng-template #posts_found>
-    <div *ngFor="let post of posts" class="o-post-result-block">
-        <app-post-card-search [post]="post"></app-post-card-search>
+    <div class="o-post-result-block2">
+        <div *ngFor="let post of posts" class="o-post-result-block">
+            <app-post-card-search [post]="post"></app-post-card-search>
+        </div>
     </div>
 </ng-template>
