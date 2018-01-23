@@ -354,38 +354,46 @@
                     <a href="" data-dismiss="modal"><img src="{{ baseUrl }}img/svg/ico_close.svg" alt=""></a>
                 </span>
             </div>
-            <!-- pop head -->
-            <div class="o-following__search">
+            <!-- <div class="o-following__search">
                 <div class="c-form__group  fill-grey-light">
                     <input class="c-form__input c-form__input--border-none fpadding_l32" required="" type="text" placeholder="Search">
                     <span>
                         <img src="{{ imageBaseUrl }}img/svg/ico_search.svg" class="c-form__input--lefticon">
                     </span>
                 </div>
+            </div> -->
+            <div *ngIf="showPreloader === true">
+                <div class="sticky">
+                    <div class="loader">Loading...</div>
+                </div>
             </div>
-            <div id="ops_scrollbar" class="o-following__container">
+            <p *ngIf="profileObject?.follwerCount === 0" >No followers found!</p>
+            <div *ngIf="showPreloader === false && followersProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
                 <ul class="o-follow-people">
-                    <li class="o-follow-people__list">
-                        <a href="profile_others.html">
+                    <li *ngFor="let follower of followersProfiles" class="o-follow-people__list">
+                        <a href="">
                             <div class="o-follow-people__avatar">
-                                <img src="assets/demo/new/l01.jpg" alt="">
+                                <img src="{{ baseUrl + follower?.profileImage }}" alt="">
                             </div>
                             <div class="o-follow-people__info">
-                                <h6 class="c-text_md">Lillie Vargas</h6>
-                                <p class="c-text_sm color-grey-dark">@lillie</p>
+                                <h6 class="c-text_md">{{ follower?.name | truncate:[10, '...'] }}</h6>
+                                <p class="c-text_sm color-grey-dark">@{{ follower?.extra?.username | truncate:[10, '...'] }}</p>
                             </div>
                         </a>
-                        <button type="button" class="btn btn-primary btn-sm m-t-8">follow</button>
-                    </li>
-                    <li class="o-follow-people__list">
-                        <div class="o-follow-people__avatar">
-                            <img src="assets/demo/new/l01.jpg" alt="">
+                        <!-- <button type="button" class="btn btn-primary btn-sm m-t-8">follow</button> -->
+                        <div *ngIf="follower?.extra.isImported; else not_imported">
+                            <button routerLink="{{ '/profile/u/' + follower?.extra?.username }}" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)" >
+                                <span class="btn-label-follow"> CLAIM </span>
+                            </button>
                         </div>
-                        <div class="o-follow-people__info">
-                            <h6 class="c-text_md">Lillie Vargas</h6>
-                            <p class="c-text_sm color-grey-dark">@lillie</p>
-                        </div>
-                        <button type="button" class="btn btn-default btn-sm m-t-8">unfollow</button>
+                        <ng-template #not_imported>
+                            <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)" >
+                                <span class="btn-label-follow"> UNFOLLOW </span>
+                            </button>
+                            <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)" >
+                                <span class="btn-label-follow"> FOLLOW </span>
+                            </button>
+                        </ng-template>
                     </li>
                 </ul>
             </div>

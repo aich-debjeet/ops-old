@@ -62,6 +62,9 @@ export class ProfileSliderComponent implements OnInit {
   isFollowing: boolean;
   defaultImage: string;
   followers: string;
+  followersProfiles = [];
+  followingProfiles = [];
+  showPreloader: boolean;
   // profileObject: ProfileCard;
 
   hasFollowed: boolean;
@@ -92,6 +95,18 @@ export class ProfileSliderComponent implements OnInit {
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
       console.log('state', state);
+      // get followers
+      if (state) {
+        if (state['searching_follower_profiles'] === false && state['searching_follower_profiles_success'] === true) {
+          this.showPreloader = false;
+        }
+        if (state['follower_profiles']) {
+          this.followersProfiles = state['follower_profiles'];
+        }
+        if (state['following_profiles']) {
+          this.followingProfiles = state['following_profiles'];
+        }
+      }
       // console.log('state.profile_user_info', state.profile_user_info);
       if (state.profile_user_info) {
         if (state.profile_user_info.isCurrentUser) {
@@ -463,6 +478,7 @@ export class ProfileSliderComponent implements OnInit {
    * Open modal for following/followers
    * */
   showModal(action: string) {
+    this.showPreloader = true;
     let profileHandle;
     if (this.userProfile && this.userProfile['profile_details'] && this.userProfile['profile_details']['handle']) {
       profileHandle = this.userProfile['profile_details']['handle'];
@@ -473,6 +489,24 @@ export class ProfileSliderComponent implements OnInit {
       this.followersModal.open();
       this.profileStore.dispatch({ type: ProfileActions.GET_FOLLOWER_PROFILES, payload: profileHandle });
     }
+  }
+
+  /**
+   * Follow an artist
+   * @param user obj
+   */
+  followUser(user: any) {
+    this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
+    user.extra.isFollowing = true;
+  }
+
+  /**
+   * Unfollow an artist
+   * @param user obj
+   */
+  unfollowUser(user: any) {
+    this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.handle });
+    user.extra.isFollowing = false;
   }
 
 }
