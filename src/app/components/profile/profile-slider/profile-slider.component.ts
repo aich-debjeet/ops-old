@@ -479,12 +479,20 @@ export class ProfileSliderComponent implements OnInit {
    * Open modal for following/followers
    * */
   showModal(action: string) {
+
     this.showPreloader = true;
-    // console.log('showPreloader', this.showPreloader);
     let profileHandle;
-    if (this.userProfile && this.userProfile['profile_details'] && this.userProfile['profile_details']['handle']) {
+
+    // get user handle
+    if (this.userProfile && this.userProfile['profile_user_info'] && this.userProfile['profile_user_info']['isCurrentUser'] === true) {
+      // console.log('current user');
       profileHandle = this.userProfile['profile_details']['handle'];
+    } else {
+      // console.log('other user');
+      profileHandle = this.userProfile['profile_other']['handle'];
     }
+    // console.log('handle', profileHandle);
+    // console.log('showPreloader', this.showPreloader);
     if (action === 'following') {
       this.followingModal.open();
       this.profileStore.dispatch({ type: ProfileActions.GET_FOLLOWING_PROFILES, payload: profileHandle });

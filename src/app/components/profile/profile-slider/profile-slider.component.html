@@ -370,7 +370,7 @@
             <div *ngIf="showPreloader === false && followersProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
                 <ul class="o-follow-people">
                     <li *ngFor="let follower of followersProfiles" class="o-follow-people__list">
-                        <a href="">
+                        <a routerLink="{{ '/profile/u/' + follower?.extra?.username }}">
                             <div class="o-follow-people__avatar">
                                 <img src="{{ baseUrl + follower?.profileImage }}" alt="">
                             </div>
@@ -425,7 +425,7 @@
             <div *ngIf="showPreloader === false && followingProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
                 <ul class="o-follow-people">
                     <li *ngFor="let follower of followingProfiles" class="o-follow-people__list">
-                        <a href="">
+                        <a routerLink="{{ '/profile/u/' + follower?.extra?.username }}">
                             <div class="o-follow-people__avatar">
                                 <img src="{{ baseUrl + follower?.profileImage }}" alt="">
                             </div>
