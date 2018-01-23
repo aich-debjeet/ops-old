@@ -23,14 +23,14 @@ export class ProfileService {
    * Get followings by handle
    */
   getFollowingProfiles(handle: string) {
-    return this.api.get('/portal/profile/followers/list/followers/' + handle + '/0/10');
+    return this.api.get('/portal/profile/followers/list/following/' + handle + '/0/20');
   }
 
   /**
    * Get followers by handle
    */
   getFollowerProfiles(handle: string) {
-    return this.api.get('/portal/profile/followers/list/followers/' + handle + '/0/10');
+    return this.api.get('/portal/profile/followers/list/followers/' + handle + '/0/20');
   }
 
   /**

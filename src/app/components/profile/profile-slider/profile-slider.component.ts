@@ -71,6 +71,7 @@ export class ProfileSliderComponent implements OnInit {
 
   @ViewChild('skillModal') UsertypeModal: Modal;
   @ViewChild('followersModal') followersModal: Modal;
+  @ViewChild('followingModal') followingModal: Modal;
 
   constructor(
     private http: Http,
@@ -97,7 +98,7 @@ export class ProfileSliderComponent implements OnInit {
       console.log('state', state);
       // get followers
       if (state) {
-        if (state['searching_follower_profiles'] === false && state['searching_follower_profiles_success'] === true) {
+        if ((state['searching_following_profiles'] === false && state['searching_following_profiles_success'] === true) || (state['searching_follower_profiles'] === false && state['searching_follower_profiles_success'] === true)) {
           this.showPreloader = false;
         }
         if (state['follower_profiles']) {
@@ -479,11 +480,13 @@ export class ProfileSliderComponent implements OnInit {
    * */
   showModal(action: string) {
     this.showPreloader = true;
+    // console.log('showPreloader', this.showPreloader);
     let profileHandle;
     if (this.userProfile && this.userProfile['profile_details'] && this.userProfile['profile_details']['handle']) {
       profileHandle = this.userProfile['profile_details']['handle'];
     }
     if (action === 'following') {
+      this.followingModal.open();
       this.profileStore.dispatch({ type: ProfileActions.GET_FOLLOWING_PROFILES, payload: profileHandle });
     } else {
       this.followersModal.open();
@@ -496,6 +499,7 @@ export class ProfileSliderComponent implements OnInit {
    * @param user obj
    */
   followUser(user: any) {
+    // this.profileObject.follwerCount = this.profileObject.follwerCount + 1;
     this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
     user.extra.isFollowing = true;
   }
@@ -505,6 +509,7 @@ export class ProfileSliderComponent implements OnInit {
    * @param user obj
    */
   unfollowUser(user: any) {
+    // this.profileObject.follwerCount = this.profileObject.follwerCount - 1;
     this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.handle });
     user.extra.isFollowing = false;
   }
