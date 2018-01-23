@@ -13,7 +13,7 @@
 
 <div id="channel" class="tab-pane fade in active in m-r-8" infinite-scroll (scrolled)="onScroll($event)">
     <masonry [useImagesLoaded]="true">
-        <masonry-brick class="col-md-3 p-r-16 p-l-0 m-t-b-8" *ngFor="let channel of channelList; let i = index">
+        <masonry-brick class="col-md-3 p-r-16 p-l-0 m-t-b-8 m-home_channel" *ngFor="let channel of channelList; let i = index">
             <app-channel [channelData]="channel" (onFollow)="followChannel($event)"></app-channel>
         </masonry-brick>
     </masonry>
