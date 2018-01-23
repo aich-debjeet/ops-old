@@ -66,8 +66,8 @@ export class ProfileSliderComponent implements OnInit {
 
   hasFollowed: boolean;
 
-
   @ViewChild('skillModal') UsertypeModal: Modal;
+  @ViewChild('followersModal') followersModal: Modal;
 
   constructor(
     private http: Http,
@@ -91,7 +91,7 @@ export class ProfileSliderComponent implements OnInit {
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      // console.log('state', state);
+      console.log('state', state);
       // console.log('state.profile_user_info', state.profile_user_info);
       if (state.profile_user_info) {
         if (state.profile_user_info.isCurrentUser) {
@@ -457,6 +457,22 @@ export class ProfileSliderComponent implements OnInit {
 
   donationClose() {
     this.modalService.close('donationPopup');
+  }
+
+  /**
+   * Open modal for following/followers
+   * */
+  showModal(action: string) {
+    let profileHandle;
+    if (this.userProfile && this.userProfile['profile_details'] && this.userProfile['profile_details']['handle']) {
+      profileHandle = this.userProfile['profile_details']['handle'];
+    }
+    if (action === 'following') {
+      this.profileStore.dispatch({ type: ProfileActions.GET_FOLLOWING_PROFILES, payload: profileHandle });
+    } else {
+      this.followersModal.open();
+      this.profileStore.dispatch({ type: ProfileActions.GET_FOLLOWER_PROFILES, payload: profileHandle });
+    }
   }
 
 }
