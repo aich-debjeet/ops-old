@@ -724,10 +724,10 @@ export class ProfileEffect {
    * Get following profiles by handle
    */
   @Effect()
-  getFollowings$ = this.actions$
+  getFollowingProfiles$ = this.actions$
     .ofType(ProfileActions.GET_FOLLOWING_PROFILES)
     .map(toPayload)
-    .switchMap((payload) => this.profileService.getFollowings(payload)
+    .switchMap((payload) => this.profileService.getFollowingProfiles(payload)
       .map(res => ({ type: ProfileActions.GET_FOLLOWING_PROFILES_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.GET_FOLLOWING_PROFILES_FAILED, payload: res }))
     );
@@ -736,10 +736,10 @@ export class ProfileEffect {
    * Get followers profiles by handle
    */
   @Effect()
-  getFollowers$ = this.actions$
+  getFollowerProfiles$ = this.actions$
     .ofType(ProfileActions.GET_FOLLOWER_PROFILES)
     .map(toPayload)
-    .switchMap((payload) => this.profileService.getFollowers(payload)
+    .switchMap((payload) => this.profileService.getFollowerProfiles(payload)
       .map(res => ({ type: ProfileActions.GET_FOLLOWER_PROFILES_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.GET_FOLLOWER_PROFILES_FAILED, payload: res }))
     );
