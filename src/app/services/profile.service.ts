@@ -14,10 +14,25 @@ export class ProfileService {
   constructor(
     private api: ApiService,
     private http: Http
-    ) {
-      this.handle = this.api.getHandle();
-      this.headers = this.api.getHeaders();
-    }
+  ) {
+    this.handle = this.api.getHandle();
+    this.headers = this.api.getHeaders();
+  }
+
+  /**
+   * Get followings by handle
+   */
+  getFollowings(handle: string) {
+    return this.api.get('/portal/profile/followers/list/followers/' + handle + '/0/10');
+  }
+
+  /**
+   * Get followers by handle
+   */
+  getFollowers(handle: string) {
+    return this.api.get('/portal/profile/followers/list/followers/' + handle + '/0/10');
+  }
+
   /**
    * Current LoggedIn User Profile.
    */

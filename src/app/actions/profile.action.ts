@@ -2,6 +2,14 @@ import { Action } from '@ngrx/store';
 
 export class ProfileActions {
 
+  static GET_FOLLOWING_PROFILES = 'GET_FOLLOWING_PROFILES';
+  static GET_FOLLOWING_PROFILES_SUCCESS = 'GET_FOLLOWING_PROFILES_SUCCESS';
+  static GET_FOLLOWING_PROFILES_FAILED = 'GET_FOLLOWING_PROFILES_FAILED';
+
+  static GET_FOLLOWER_PROFILES = 'GET_FOLLOWER_PROFILES';
+  static GET_FOLLOWER_PROFILES_SUCCESS = 'GET_FOLLOWER_PROFILES_SUCCESS';
+  static GET_FOLLOWER_PROFILES_FAILED = 'GET_FOLLOWER_PROFILES_FAILED';
+
   /**
    * Reset org created success value to prevent redirections
    * */

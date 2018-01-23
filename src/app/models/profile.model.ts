@@ -50,6 +50,14 @@ export class ProfileModal {
   adult_Content?: boolean;
   settings?: any;
   preferences?: any;
+
+  searching_following_profiles?: boolean;
+  searching_follower_profiles?: boolean;
+  searching_following_profiles_success?: boolean;
+  searching_follower_profiles_success?: boolean;
+  searching_handle?: string;
+  following_profiles?: any;
+  follower_profiles?: any;
 }
 
 export class ProfileForm {
