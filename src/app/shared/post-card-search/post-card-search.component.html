@@ -1,8 +1,8 @@
 <div class="o-post-result-block">
   <div class="o-post-result__prof-pic">
     <a routerLink="{{ '/profile/u/' + post?.ownerUserName }}" class="c-artist__avatar">
-        <img *ngIf="post?.ownerImage; else default_profile_image" src="{{ baseUrl + post?.ownerImage }}" class="c-artist__img">
-        <ng-template #default_profile_image>
+        <img *ngIf="post?.repopath; else no_post_image" src="{{ baseUrl + post?.repopath }}" class="c-artist__img">
+        <ng-template #no_post_image>
           <img src="{{ baseUrl }}img/avatar.jpg" class="c-artist__img">
         </ng-template>
     </a>
@@ -12,7 +12,7 @@
       <a class="c-text_lg" routerLink="{{ '/profile/u/' + post?.ownerUserName }}">
         {{ post?.ownerName }}
       </a>
-      <span class="c-text_sm float_right color-grey-dark">2 min ago</span>
+      <span class="c-text_sm float_right color-grey-dark">{{ post?.createdDate | utcDate | date:'d MMM h:m a'}}</span>
     </h6>
     <p class="c-text_sm">
       <a [routerLink]="['', { outlets: { media : ['media', post?.id] } }]">
