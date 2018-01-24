@@ -256,7 +256,7 @@
 .o-profile__rightbar {
     padding: 0px 0px 0px 24px;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        padding: 0px;
+        // padding: 0px;
     }
 }
 
