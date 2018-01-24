@@ -65,6 +65,7 @@ export class ProfileSliderComponent implements OnInit {
   followersProfiles = [];
   followingProfiles = [];
   showPreloader: boolean;
+  recordsPerPage = 2;
   // profileObject: ProfileCard;
 
   hasFollowed: boolean;
@@ -495,10 +496,24 @@ export class ProfileSliderComponent implements OnInit {
     // console.log('showPreloader', this.showPreloader);
     if (action === 'following') {
       this.followingModal.open();
-      this.profileStore.dispatch({ type: ProfileActions.GET_FOLLOWING_PROFILES, payload: profileHandle });
+      this.profileStore.dispatch({
+        type: ProfileActions.GET_FOLLOWING_PROFILES,
+        payload: {
+          limit: this.recordsPerPage,
+          handle: profileHandle,
+          offset: 0
+        }
+      });
     } else {
       this.followersModal.open();
-      this.profileStore.dispatch({ type: ProfileActions.GET_FOLLOWER_PROFILES, payload: profileHandle });
+      this.profileStore.dispatch({
+        type: ProfileActions.GET_FOLLOWER_PROFILES,
+        payload: {
+          limit: this.recordsPerPage,
+          handle: profileHandle,
+          offset: 0
+        }
+      });
     }
   }
 

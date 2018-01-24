@@ -80,7 +80,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         searching_following_profiles: true,
         searching_following_profiles_success: false,
-        searching_handle: payload,
+        searching_following_params: payload,
         following_profiles: []
       });
 
@@ -101,7 +101,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         searching_follower_profiles: true,
         searching_follower_profiles_success: false,
-        searching_handle: payload,
+        searching_follower_params: payload,
         follower_profiles: []
       });
 

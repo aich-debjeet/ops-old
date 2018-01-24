@@ -55,7 +55,8 @@ export class ProfileModal {
   searching_follower_profiles?: boolean;
   searching_following_profiles_success?: boolean;
   searching_follower_profiles_success?: boolean;
-  searching_handle?: string;
+  searching_following_params?: string;
+  searching_follower_params?: string;
   following_profiles?: any;
   follower_profiles?: any;
 }
