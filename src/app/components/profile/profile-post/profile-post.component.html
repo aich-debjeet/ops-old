@@ -1,5 +1,5 @@
 <div>
-    <div class="search-results" infinite-scroll (scrolled)="onScroll($event)" class="col-md-8">
+    <div class="search-results" infinite-scroll (scrolled)="onScroll($event)" class="col-md-8 col-sm-8 m-t-8 p-r-0 p-l-0">
         <app-post *ngFor="let userMedia of posts; let i = index" [className]="'col-md-8'" (postDelete)="postDelete(userMedia)" [mediaData]="userMedia"></app-post>
     </div>
 
