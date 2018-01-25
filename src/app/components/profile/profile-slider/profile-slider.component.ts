@@ -1,5 +1,5 @@
 import { environment } from '../../../../environments/environment';
-import { Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Modal } from '../../../shared/modal-new/Modal';
 import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
@@ -65,8 +65,9 @@ export class ProfileSliderComponent implements OnInit {
   followersProfiles = [];
   followingProfiles = [];
   showPreloader: boolean;
-  recordsPerPage = 2;
+  recordsPerPage = 50;
   // profileObject: ProfileCard;
+  activeProfileHandle = '';
 
   hasFollowed: boolean;
 
@@ -482,17 +483,16 @@ export class ProfileSliderComponent implements OnInit {
   showModal(action: string) {
 
     this.showPreloader = true;
-    let profileHandle;
 
     // get user handle
     if (this.userProfile && this.userProfile['profile_user_info'] && this.userProfile['profile_user_info']['isCurrentUser'] === true) {
       // console.log('current user');
-      profileHandle = this.userProfile['profile_details']['handle'];
+      this.activeProfileHandle = this.userProfile['profile_details']['handle'];
     } else {
       // console.log('other user');
-      profileHandle = this.userProfile['profile_other']['handle'];
+      this.activeProfileHandle = this.userProfile['profile_other']['handle'];
     }
-    // console.log('handle', profileHandle);
+    // console.log('handle', activeProfileHandle);
     // console.log('showPreloader', this.showPreloader);
     if (action === 'following') {
       this.followingModal.open();
@@ -500,7 +500,7 @@ export class ProfileSliderComponent implements OnInit {
         type: ProfileActions.GET_FOLLOWING_PROFILES,
         payload: {
           limit: this.recordsPerPage,
-          handle: profileHandle,
+          handle: this.activeProfileHandle,
           offset: 0
         }
       });
@@ -510,7 +510,7 @@ export class ProfileSliderComponent implements OnInit {
         type: ProfileActions.GET_FOLLOWER_PROFILES,
         payload: {
           limit: this.recordsPerPage,
-          handle: profileHandle,
+          handle: this.activeProfileHandle,
           offset: 0
         }
       });
@@ -535,6 +535,34 @@ export class ProfileSliderComponent implements OnInit {
     // this.profileObject.follwerCount = this.profileObject.follwerCount - 1;
     this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.handle });
     user.extra.isFollowing = false;
+  }
+
+  onFollowerScroll(event: any) {
+    // if (event.srcElement.scrollTop >= event.srcElement.scrollHeight - event.srcElement.offsetHeight) {
+    //   console.log('load more');
+    //   this.profileStore.dispatch({
+    //     type: ProfileActions.GET_FOLLOWER_PROFILES,
+    //     payload: {
+    //       limit: this.recordsPerPage,
+    //       handle: this.activeProfileHandle,
+    //       offset: this.userProfile.searching_follower_params['offset'] + this.recordsPerPage
+    //     }
+    //   });
+    // }
+  }
+
+  onFollowingScroll(event: any) {
+    // if (event.srcElement.scrollTop >= event.srcElement.scrollHeight - event.srcElement.offsetHeight) {
+    //   console.log('load more');
+    //   this.profileStore.dispatch({
+    //     type: ProfileActions.GET_FOLLOWING_PROFILES,
+    //     payload: {
+    //       limit: this.recordsPerPage,
+    //       handle: this.activeProfileHandle,
+    //       offset: this.userProfile.searching_following_params['offset'] + this.recordsPerPage
+    //     }
+    //   });
+    // }
   }
 
 }
