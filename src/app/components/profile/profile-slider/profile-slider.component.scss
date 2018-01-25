@@ -7,8 +7,74 @@
 
 /* --------------------- profile -------------------------------- */
 
+.modal.in .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+.o-following-pop {
+    padding: 24px 16px 24px 32px;
+}
+.pop-container-md {
+    width: 575px;
+    margin: 0px auto;
+    background: #fff;
+    border-radius: 3px;
+    position: relative;
+    display: inline-block;
+}
+.pop-head {
+    width: 100%;
+    float: left;
+}
+.pop-close {
+    margin: 10px;
+    width: 14px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+.o-following__search {
+    width: 98%;
+    float: left;
+}
+.o-following__container {
+    width: 100%;
+    min-height: 500px;
+    max-height: 500px;
+    float: left;
+    overflow-y: auto;
+}
+.fill-grey-light {
+    background-color: #F3F5F7 !important;
+}
+.c-form__group {
+    position: relative;
+    margin-bottom: 14px;
+    margin-top: 16px;
+}
+.o-follow-people {
+    width: 100%;
+    list-style: none;
+}
+.o-follow-people__list {
+    list-style-type: none;
+    float: left;
+    width: 113px;
+    margin-right: 14px;
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .o-profile__cont {
     margin-top: -208px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin-top: -87px;
+    }
 }
 
 .claim-text {
@@ -23,6 +89,9 @@
     margin-top: 8px;
     margin-bottom: 8px;
     position: relative;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        box-shadow: none;
+    }
 }
 
 .o-profile__nav {
@@ -43,6 +112,11 @@
         .activein {
             color: #333333;
         }
+        @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 10px 4px;
+        }
     }
 }
 
@@ -50,6 +124,9 @@
     li {
         float: right;
         padding: 16px 12px;
+        @include mq($from: $mobile_sm, $until: $desktop_sm) {
+            padding: 8px 4px;
+        }
     }
 }
 
@@ -64,17 +141,45 @@
     width: 100%; // height: 136px;
     padding: 16px;
     background-color: $white;
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        float: left;
+    }
     @include mq($from: $tablet, $until: $desktop_sm) {
-        // height: 200px;
+        margin-top: 35px;
     }
 }
 
-// .o-profile__detail__block {
-//     height: 136px;
-// }
+.o-profile__detail__block {
+    // height: 136px;
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        padding: 0px 0px 16px 0px!important;
+        border: none;
+    }
+}
+
 .o-profile__followers {
     padding: 8px 0 16px 6px;
     text-align: left;
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        padding: 0px;
+    }
+}
+
+.o-follow-and-following {
+    width: 72px;
+    height: 72px;
+    display: inline-block;
+    padding: 0px 8px;
+    &:hover {
+        background: $color-grey-light;
+    }
+    &:focus {
+        outline: none;
+    }
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .o-profile__following {
@@ -90,6 +195,29 @@
     color: #333333;
     line-height: 48px;
     font-weight: 300;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        font-size: 13px;
+        line-height: 20px;
+        font-weight: 500;
+        float: left;
+    }
+    @include mq($from: $tablet, $until: $desktop_imac) {
+        font-size: 24px;
+        line-height: 20px;
+        font-weight: 500;
+        width: 100%;
+    }
+}
+
+.o-follow__title {
+    float: left;
+    font-size: 13px;
+    line-height: 20px;
+    margin-left: 3px;
+    @include mq($from: $tablet, $until: $desktop_imac) {
+        font-size: 12px;
+        margin: 0px;
+    }
 }
 
 .o-profile__spotscore {
@@ -369,6 +497,9 @@
     height: 360px;
     width: 100%;
     position: relative;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        height: 140px;
+    }
     &:hover {
         .c-timeline__imgchange {
             display: block;
@@ -456,6 +587,10 @@
     border: solid 3px #ffffff;
     float: left;
     background-color: #f8f8f8;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 73px;
+        height: 73px;
+    }
 }
 
 .c-profile__imgchange {
@@ -478,6 +613,12 @@
     background-color: #FFFFFF;
     border-radius: 2px;
     padding: 6px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 24px;
+        height: 24px;
+        top: 24px;
+        left: 24px;
+    }
 }
 
 .c-profile__imgchange--dropdown {
@@ -523,10 +664,14 @@
     line-height: 18px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     margin-top: 6px;
-    a {
-        color: #ffffff;
-        padding: 2px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        color: #929292;
+        text-shadow: none;
     }
+    // a {
+    //     color: #ffffff;
+    //     padding: 2px;
+    // }
 }
 
 .c-profile__userdetail {
@@ -537,6 +682,12 @@
     justify-content: flex-end;
     align-items: flex-start;
     flex-direction: column;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        height: 100%;
+        margin-top: 10px;
+        margin-left: 0px;
+        padding-left: 0px;
+    }
     @include mq($from: $tablet, $until: $desktop_sm) {
         margin-top: 14%;
     }
@@ -568,6 +719,12 @@
     font-weight: 500;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     color: #fff;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        font-size: 15px;
+        color: #333;
+        font-weight: 600;
+        text-shadow: none;
+    }
 }
 
 .c-profile__userhandle {
@@ -575,6 +732,10 @@
     font-size: 13px;
     line-height: 18px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        color: #333;
+        text-shadow: none;
+    }
 }
 
 .c-profile__userprofession {
@@ -1030,4 +1191,45 @@
     color: #FF7B84;
     background: #fff;
     border-color: #FF7B84;
+}
+
+.o-follow-people__list {
+    list-style-type: none;
+    float: left;
+    width: 113px;
+    margin-right: 14px;
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.o-follow-people__avatar img {
+    width: 72px;
+}
+
+.o-follow-people__avatar {
+    width: 72px;
+    height: 72px;
+    // height: 200vh;
+    background: #c1c1c1;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.o-follow-people__info {
+    width: 100%;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.color-grey-dark {
+    color: #929292 !important;
+}
+
+.o-profile__info-main {
+    @include mq ($from: $mobile_sm, $until: $tablet) {
+        float: left;
+    }
 }
