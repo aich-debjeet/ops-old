@@ -7,6 +7,69 @@
 
 /* --------------------- profile -------------------------------- */
 
+.modal.in .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+.o-following-pop {
+    padding: 24px 16px 24px 32px;
+}
+.pop-container-md {
+    width: 575px;
+    margin: 0px auto;
+    background: #fff;
+    border-radius: 3px;
+    position: relative;
+    display: inline-block;
+}
+.pop-head {
+    width: 100%;
+    float: left;
+}
+.pop-close {
+    margin: 10px;
+    width: 14px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+.o-following__search {
+    width: 98%;
+    float: left;
+}
+.o-following__container {
+    width: 100%;
+    min-height: 500px;
+    max-height: 500px;
+    float: left;
+    overflow-y: auto;
+}
+.fill-grey-light {
+    background-color: #F3F5F7 !important;
+}
+.c-form__group {
+    position: relative;
+    margin-bottom: 14px;
+    margin-top: 16px;
+}
+.o-follow-people {
+    width: 100%;
+    list-style: none;
+}
+.o-follow-people__list {
+    list-style-type: none;
+    float: left;
+    width: 113px;
+    margin-right: 14px;
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .o-profile__cont {
     margin-top: -208px;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
@@ -1128,6 +1191,41 @@
     color: #FF7B84;
     background: #fff;
     border-color: #FF7B84;
+}
+
+.o-follow-people__list {
+    list-style-type: none;
+    float: left;
+    width: 113px;
+    margin-right: 14px;
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.o-follow-people__avatar img {
+    width: 72px;
+}
+
+.o-follow-people__avatar {
+    width: 72px;
+    height: 72px;
+    // height: 200vh;
+    background: #c1c1c1;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.o-follow-people__info {
+    width: 100%;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.color-grey-dark {
+    color: #929292 !important;
 }
 
 .o-profile__info-main {
