@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { SharedModule } from '../../shared/shared.module';
+import { SharedPipesModule } from '../../pipes/shared-pipes.module';
 import { ProfileComponent } from './profile.component';
 import { ProfileChannelComponent } from './profile-channel/profile-channel.component';
 import { ProfilePostComponent } from './profile-post/profile-post.component';
@@ -81,6 +82,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
+    SharedPipesModule,
     RouterModule.forChild(routes),
     MasonryModule,
     ReactiveFormsModule,
