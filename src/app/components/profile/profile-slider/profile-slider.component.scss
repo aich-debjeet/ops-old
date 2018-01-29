@@ -1031,3 +1031,87 @@
     background: #fff;
     border-color: #FF7B84;
 }
+
+// following and followers
+
+.o-follow-and-following{
+	width: 72px;
+	height: 72px;
+	display: inline-block;
+	padding: 0px 8px;
+	&:hover{
+		background: $color-grey-light;
+	}  
+	&:focus{
+		outline: none;
+	}
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+    	width: 100%;
+	    height: 100%;
+	}
+}
+
+.o-following-pop{
+	padding:24px 16px 24px 32px;
+}
+.o-following__search{
+	width: 98%;
+	float: left;
+}
+.c-form__input--border-none{
+  border: none !important;
+  padding-top: 2px;
+  height: 36px;
+}
+
+.o-following__container{
+	width: 100%;
+	min-height: 500px;
+	max-height: 500px;
+	// padding-top: 16px;
+	float: left;
+	overflow-y: scroll;
+	// border-bottom: 1px solid #F3F5F7;
+}
+.o-follow-people{
+	width: 100%;
+	list-style: none;
+}
+.o-follow-people__list{
+	list-style-type: none;
+	float: left;
+	width: 113px;
+	margin-right: 14px;
+	margin-top: 16px;
+	display: flex;
+	justify-content:center;
+	align-items:center;
+	flex-direction:column;
+}
+.o-follow-people__avatar{
+	width: 72px;
+	height: 72px;
+	background: #c1c1c1;
+	border-radius: 50%;
+	overflow: hidden;
+	img{
+		width: 72px;
+	}
+}
+.o-follow-people__info{
+	width: 100%;
+	text-align: center;
+	margin-top: 8px;
+}
+
+.pop-container-md{
+    width:564px;
+    margin: 0px auto;
+    background:#fff;
+    border-radius:3px;
+    position:relative;
+    display: inline-block;
+    @include mq($from: $mobile_sm, $until: $tablet){
+      width: 100%;
+    }
+  }

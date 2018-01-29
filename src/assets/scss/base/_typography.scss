@@ -145,6 +145,7 @@
 
 // ====================== New typo ======================================
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
+@import '~sass-mq/_mq.scss';
 
 h1,
 h2,
@@ -177,18 +178,36 @@ a {
     font-size: $font-h1;
     font-weight: $font-300;
     line-height: $line-height-62;
+    @include mq($from: $mobile_sm, $until: $tablet){
+        color: $color-base-dark;
+        font-size: $font-h4;
+        font-weight: $font-500;
+        line-height: $line-height-30;
+    }
 }
 
 .c-h2, h2 {
     @extend .c-h1;
     font-size: $font-h2;
     line-height: $line-height-48;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        color: $color-base-dark;
+        font-size: $font-h5;
+        font-weight: $font-500;
+        line-height: $line-height-30;
+    }
 }
 
 .c-h3, h3 {
      @extend .c-h1;
     font-size: $font-h3;
     line-height: $line-height-34;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        color: $color-base-dark;
+        font-size: $font-h6;
+        font-weight: $font-500;
+        line-height: $line-height-30;
+    }
 }
 
 .c-h4, h4 {

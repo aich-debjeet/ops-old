@@ -79,6 +79,7 @@ import { LocalStorageService } from './services/local-storage.service';
 import { OpportunityService } from './services/opportunity.service';
 import { ExploreService } from './services/explore.service';
 import { ClaimProfileService } from './services/claim-profile.service';
+import { FileService } from './services/file.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
@@ -223,7 +224,8 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     LocalStorageService,
     OpportunityService,
     ExploreService,
-    ClaimProfileService
+    ClaimProfileService,
+    FileService
   ],
   bootstrap: [AppComponent]
 })

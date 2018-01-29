@@ -65,8 +65,6 @@ export class ProfileSliderComponent implements OnInit {
   // profileObject: ProfileCard;
 
   hasFollowed: boolean;
-
-
   @ViewChild('skillModal') UsertypeModal: Modal;
 
   constructor(
