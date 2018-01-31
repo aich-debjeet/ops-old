@@ -158,6 +158,13 @@
     cursor: pointer !important;
 }
 
+.o-explore-card {
+    img{
+        width: 100%;
+        height: auto;
+    }
+}
+
 app-footer{
     margin-top: 32px;
     float: left;

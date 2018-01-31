@@ -41,6 +41,9 @@ export class ExploreComponent implements OnInit {
   showPreloader = true;
   recordsPerPage = 8;
   pagination = [];
+  offset = 100;
+    defaultImage = 'https://www.placecage.com/1000/1000';
+    images = `https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?fm=jpg 700w`;
 
   // public carouselOne: NgxCarousel;
 
@@ -85,7 +88,8 @@ export class ExploreComponent implements OnInit {
       if (state && state.explore_spotfeeds && state.explore_spotfeeds) {
 
         // merge all categories here
-        this.mergedSpotfeeds = this.mergeAllSpotfeeds(state.explore_spotfeeds);
+        this.mergedSpotfeeds = state.explore_spotfeeds
+        console.log(this.mergedSpotfeeds);
       }
 
       // check if loaded
