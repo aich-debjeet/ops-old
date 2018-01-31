@@ -185,6 +185,37 @@
     display: inline;
 }
 
+.leftRs {
+    display: block;
+    outline: none;
+    top: -12%;
+    right: 46px;
+    left: inherit;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: none;
+    text-align: center;
+    color: #777;
+    float: right;
+}
+
+.rightRs {
+    display: block;
+    outline: none;
+    position: absolute;
+    top: -12%;
+    right: 20px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: none;
+    text-align: center;
+    color: #777;
+}
+
 // home page style ------------------------------------------------------
 // .home_feed {
 //     margin-top: 32px;
