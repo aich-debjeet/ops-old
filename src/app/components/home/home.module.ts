@@ -13,6 +13,8 @@ import { HomeSpotfeedComponent } from './home-spotfeed/home-spotfeed.component';
 import { HomeRightBlockComponent } from './home-right-block/home-right-block.component';
 import { SharedPipesModule } from '../../pipes/shared-pipes.module'
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxCarouselModule } from 'ngx-carousel';
+import 'hammerjs';
 
 // Guard
 import { AuthGuard } from './../../guard/auth.guard';
@@ -38,6 +40,7 @@ const routes: Routes = [
     MasonryModule,
     SharedPipesModule,
     InfiniteScrollModule,
+    NgxCarouselModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
