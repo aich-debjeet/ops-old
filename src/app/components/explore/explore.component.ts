@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 // import { NgxCarousel } from 'ngx-carousel';
 
 // actions
@@ -27,7 +27,8 @@ import { allSettled } from 'q';
   selector: 'app-explore',
   templateUrl: './explore.component.html',
   styleUrls: ['./explore.component.scss'],
-  providers: [ TruncatePipe ]
+  providers: [ TruncatePipe ],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExploreComponent implements OnInit {
 
@@ -41,9 +42,6 @@ export class ExploreComponent implements OnInit {
   showPreloader = true;
   recordsPerPage = 8;
   pagination = [];
-  offset = 100;
-    defaultImage = 'https://www.placecage.com/1000/1000';
-    images = `https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?fm=jpg 700w`;
 
   // public carouselOne: NgxCarousel;
 
