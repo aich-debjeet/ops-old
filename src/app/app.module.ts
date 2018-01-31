@@ -13,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
 import { NgxCarouselModule } from 'ngx-carousel';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
@@ -205,7 +206,8 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
       libraries: ['places'],
       apiKey: 'AIzaSyDHx_cyWUg9okHlTH8M_kvduvWFSV3nShc'
     }),
-    NgxCarouselModule
+    NgxCarouselModule,
+    LazyLoadImageModule
   ],
   providers: [
     AuthService,
