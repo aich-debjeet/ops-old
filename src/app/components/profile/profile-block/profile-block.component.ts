@@ -37,6 +37,8 @@ export class ProfileBlockComponent implements OnInit {
   channels: any;
   profileObject: any;
   imageBaseUrl = environment.API_IMAGE;
+  userHandle: string;
+
   constructor(
     private http: Http,
     private _router: Router,
@@ -54,6 +56,9 @@ export class ProfileBlockComponent implements OnInit {
       if (state.profile_user_info) {
         if (state.profile_user_info.isCurrentUser) {
           this.profileObject = this.loadProfile( state, 'own' );
+          // console.log(this.profileObject)
+          this.userHandle = this.profileObject.userDetails.handle;
+          // console.log(this.userHandle)
         } else {
           if (state.profile_user_info.isClaimForGuest && state.profile_user_info.isClaimForGuest === true) {
             // console.log('state.profile_other', state.profile_other);
@@ -99,5 +104,13 @@ export class ProfileBlockComponent implements OnInit {
           this.isCurrentUser = false;
         }
       });
+  }
+
+  pinChannel(spotfeedId) {
+        const data = {
+       'spotfeedId': spotfeedId,
+       'profileHandle': this.userHandle
+     }
+     this.profileStore.dispatch({ type: ProfileActions.PIN_CHANNEL, payload: data });
   }
 }

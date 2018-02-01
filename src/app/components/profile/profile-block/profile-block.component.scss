@@ -1,7 +1,11 @@
 @import './src/assets/scss/helpers/_variables.scss';
-// @import './src/assets/scss/helpers/_functions.scss';
+@import './src/assets/scss/components/_app.scss';
+@import './src/assets/scss/components/_dropdowns.scss';
 @import './src/assets/scss/helpers/_mixins.scss';
 @import './src/assets/scss/helpers/_helpers.scss';
+@import './src/assets/scss/components/_form.scss';
+@import './src/assets/scss/components/_cards.scss';
+@import './src/assets/scss/base/_typography.scss';
 @import '~sass-mq/_mq.scss';
 // Profile and other profile timeline style -----------------------------------
 // profile timeline -----
@@ -362,4 +366,73 @@
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
     top: 66px;
     left: 36px;
+}
+
+.o-share__avatar {
+    width: 100% !important;
+}
+
+.c-invite--search {
+    margin: 0 16px;
+    background-color: #F3F5F7;
+    border-radius: 3px;
+    .c-form__input {
+        border-color: transparent;
+    }
+}
+
+.c-form__group {
+    position: relative;
+    margin-bottom: 14px;
+    margin-top: 16px;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        margin-top: 0px;
+    }
+    select {
+        option {
+            color: #929292;
+            margin: 8px 0;
+            &:hover {
+                color: #000000;
+                background: #555;
+            }
+        }
+    }
+}
+
+.c-form--sm {
+    .c-form__input {
+        font-size: 11px; // line-height: 16px;
+    }
+    .c-textarea--style {
+        font-size: 11px;
+    }
+    label {
+        font-size: 11px;
+    }
+    .c-form__input:focus~label,
+    .c-form__input:valid~label {
+        top: -4px;
+        font-size: 9px;
+        color: #929292;
+    }
+    .c-form__input--lefticon {
+        margin-top: -20px;
+    }
+    .c-form-control {
+        font-size: 11px;
+    }
+}
+
+.c-form__input--lefticon {
+    margin-top: -21px;
+    position: absolute;
+    width: 12px;
+    margin-left: 8px;
+}
+
+.c-avatar--status2 {
+    width: 32px;
+    height: 32px;
+    // border-radius: 3px;
 }
