@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Channel } from '../../models/home.model';
 import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
@@ -13,15 +13,14 @@ import { environment } from '../../../environments/environment';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   tagState$: Observable<ProfileModal>;
   userQuickAccess = initialTag;
@@ -34,6 +33,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   userProfileHandle: string;
   imageBaseUrl: string = environment.API_IMAGE;
 
+  private subscription: ISubscription;
+
+
   constructor(
     private store: Store<Channel>,
     private profileStore: Store<ProfileModal>
@@ -43,14 +45,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     // Own Profile
     this.tagState$ = this.profileStore.select('profileTags');
-    this.tagState$.subscribe((state) => {
+    this.subscription = this.tagState$
+    .subscribe((state) => {
       this.userQuickAccess = state;
       this.quickList = state.userQuickAccess;
-      console.log(this.quickList)
     });
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
-    // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
   }
 
   ngOnInit() {
@@ -129,13 +130,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
 
   }
-  /* This will be triggered after carousel viewed */
-  afterCarouselViewedFn(data) {
-  }
-  
-  /* It will be triggered on every slide*/
-  onmoveFn(data: NgxCarouselStore) {
-  }
 
   // carouselTileLoad(evt: any) {
   //   console.log(event)
@@ -146,4 +140,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   //     // }
   //   // }
   // }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
