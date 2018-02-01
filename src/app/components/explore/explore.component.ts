@@ -87,7 +87,6 @@ export class ExploreComponent implements OnInit {
 
         // merge all categories here
         this.mergedSpotfeeds = state.explore_spotfeeds
-        console.log(this.mergedSpotfeeds);
       }
 
       // check if loaded
@@ -96,21 +95,6 @@ export class ExploreComponent implements OnInit {
       }
     })
 
-  }
-
-  /**
-   * mergin all spotfeeds
-   */
-  mergeAllSpotfeeds(categorisedSpotfeeds) {
-    let allSpotFeeds = [];
-    for (let i = 0; i < categorisedSpotfeeds.length; i++) {
-      allSpotFeeds = allSpotFeeds.concat(categorisedSpotfeeds[i].feeds);
-
-      if (i >= (categorisedSpotfeeds.length - 1)) {
-        // console.log('last');
-        return allSpotFeeds;
-      }
-    }
   }
 
   /**

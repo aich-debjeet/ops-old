@@ -129,20 +129,21 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
 
   }
-    /* This will be triggered after carousel viewed */
-    afterCarouselViewedFn(data) {
-    }
+  /* This will be triggered after carousel viewed */
+  afterCarouselViewedFn(data) {
+  }
   
-    /* It will be triggered on every slide*/
-    onmoveFn(data: NgxCarouselStore) {
-    }
-    public carouselTileLoad(evt: any) {
-      console.log(event)
-      // const len = this.carouselTileItems.length
-      // if (len <= 30) {
-      //   for (let i = len; i < len + 10; i++) {
-      //     this.carouselTileItems.push(i);
-        // }
-      // }
-    }
+  /* It will be triggered on every slide*/
+  onmoveFn(data: NgxCarouselStore) {
+  }
+
+  // carouselTileLoad(evt: any) {
+  //   console.log(event)
+  //   // const len = this.carouselTileItems.length
+  //   // if (len <= 30) {
+  //   //   for (let i = len; i < len + 10; i++) {
+  //   //     this.carouselTileItems.push(i);
+  //     // }
+  //   // }
+  // }
 }

@@ -43,6 +43,7 @@ import { PostComponent } from './post/post.component';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { CommentComponent } from './comment/comment.component';
 import { UserCardComponent } from './user-card/user-card.component';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 // modal new
@@ -62,7 +63,8 @@ import { EventCardComponent } from './event-card/event-card.component';
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
-    SharedPipesModule
+    SharedPipesModule,
+    LazyLoadImageModule
   ],
   declarations: [
     // TruncatePipe,
