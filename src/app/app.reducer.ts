@@ -24,7 +24,7 @@ const reducers = {
   searchTags: SearchReducer,
   messageTags: MessageReducer,
   profileTags: ProfileReducer,
-  userMediaTags: ProfileReducer,
+  // userMediaTags: ProfileReducer,
   userSearchTags: UserSearchReducer,
   opportunityTags: OpportunityReducer,
   receivedMessagesTags: MessageReducer,

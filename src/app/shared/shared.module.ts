@@ -45,6 +45,8 @@ import { CommentListComponent } from './comment-list/comment-list.component';
 import { CommentComponent } from './comment/comment.component';
 import { UserCardComponent } from './user-card/user-card.component';
 import { UserCardNewComponent } from './user-card-new/user-card-new.component';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+
 
 // modal new
 import {Modal, ModalContent} from './modal-new/Modal';
@@ -65,7 +67,8 @@ import { SearchChannelCardComponent } from './search-channel-card/search-channel
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
-    SharedPipesModule
+    SharedPipesModule,
+    LazyLoadImageModule
   ],
   declarations: [
     // TruncatePipe,

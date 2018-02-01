@@ -720,6 +720,30 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.GET_IMPORTED_PROFILE_FAILED, payload: res }))
     );
 
+  /**
+   * Get following profiles by handle
+   */
+  @Effect()
+  getFollowingProfiles$ = this.actions$
+    .ofType(ProfileActions.GET_FOLLOWING_PROFILES)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getFollowingProfiles(payload)
+      .map(res => ({ type: ProfileActions.GET_FOLLOWING_PROFILES_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.GET_FOLLOWING_PROFILES_FAILED, payload: res }))
+    );
+
+  /**
+   * Get followers profiles by handle
+   */
+  @Effect()
+  getFollowerProfiles$ = this.actions$
+    .ofType(ProfileActions.GET_FOLLOWER_PROFILES)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getFollowerProfiles(payload)
+      .map(res => ({ type: ProfileActions.GET_FOLLOWER_PROFILES_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.GET_FOLLOWER_PROFILES_FAILED, payload: res }))
+    );
+
   constructor(
     private actions$: Actions,
     private router: Router,

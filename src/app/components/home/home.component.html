@@ -28,10 +28,21 @@
         <div class="row m-t-16">
             <div class="c-text_md-bold text-uppercase m-l-8">
                 Quick Access
+                <!-- <span class="pull-right c-qt__icon">
+                    <a href=""><img src="assets/svg/arrow1.svg"></a>
+                    <a href=""><img src="assets/svg/arrow2.svg" class="m-l-8"></a>
+                </span> -->
             </div>
-            <div class="c-qt">
-                <app-quick-access *ngFor="let quickAccess of userQuickAccess.userQuickAccess | slice:0:10; let i = index" [quickAccessData]="quickAccess"></app-quick-access>
-            </div>
+            <ngx-carousel [inputs]="carouselOne">
+                <button NgxCarouselPrev class='leftRs'>&lt;</button>
+                <button NgxCarouselNext class='rightRs'>&gt;</button>
+                <ngx-tile NgxCarouselItem *ngFor="let quickAccess of quickList; let i = index">
+                    <div class="c-qt">
+                        <app-quick-access [quickAccessData]="quickAccess"></app-quick-access>
+                    </div>
+                </ngx-tile>
+            </ngx-carousel>
+
         </div>
         <div class="o-home-tab-sec with_border_top c-ops__tabs o-opportunity-tabs">
             <div class="col-md-6 p-0">

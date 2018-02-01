@@ -20,9 +20,6 @@
                     <li routerLinkActive="active"><a routerLink="/resources">Resource</a></li>
                     <li routerLinkActive="active"><a routerLink="/communities">Community</a></li>
                     <li routerLinkActive="active"><a routerLink="/directory">Directory</a></li>
-                    <li class="o-nav__dwc">
-                        <a routerLink="/dwc/details">dwc <img [src]="imageBaseUrl + 'img/svg/nav_star.svg'" class="o-nav__star"></a>
-                    </li>
                 </ul>
                 <ul class="nav navbar-nav nav__right" *ngIf="isProfileSet === false">
                     <a class="signIn" routerLink="/login">

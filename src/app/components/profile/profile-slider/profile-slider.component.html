@@ -14,9 +14,9 @@
     </div>
     <!-- -->
     <div class="container o-profile__cont" *ngIf="profileObject !== null">
-        <div class="row">
+        <div class="row m-0">
             <!-- -->
-            <div class="col-md-12 col-sm-12 p-0">
+            <div class="col-md-8 col-sm-12 p-0">
                 <div class="c-profile__userblock">
                     <img *ngIf="profileObject?.image?.profile" src="{{ baseUrl + profileObject?.image?.profile }}" class="img-responsive img-circle c-profile__userimg">
                     <img *ngIf="!profileObject?.image?.profile" src="{{ defaultImage }}" class="img-responsive img-circle c-profile__userimg">
@@ -26,28 +26,31 @@
                         </a>
                     </span>
                 </div>
+
                 <div class="c-profile__userdetail">
-                    <h2 class="c-profile__username" *ngIf="this.isOwner">{{ profileObject?.name }}<span class="c-profile__userskill">artist</span></h2>
-                    <h2 class="c-profile__username" *ngIf="!this.isOwner">{{ profileObject?.name }}<span class="c-profile__userskill">artist</span>
-                        <button type="button" *ngIf="!profileObject?.extra?.isImported" (click)="userFollow(isFollowing, profileObject?.userDetails?.handle )" [ngClass]="(isFollowing) ? 'btn-following' : 'btn-primary'" class="btn btn-primary btn-md m-l-8">{{ (isFollowing)? 'Unfollow' : 'Follow'}}</button>
+                    <h2 class="c-profile__username" *ngIf="this.isOwner">{{ profileObject?.name }}</h2>
+                    <h2 class="c-profile__username" *ngIf="!this.isOwner">{{ profileObject?.name }}
                         <a [routerLink]="['/reg/information']" [queryParams]="{ action: 'claim_profile', username: profileObject?.extra?.username }" *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-primary btn-md m-l-8">Claim</a>
-                        <!-- <a type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#createNetwork">Network</a>
-                        <button type="button" (click)="donatePopup()" class="btn btn-default btn-md">Support</button> -->
                     </h2>
                     <span class="c-profile__userhandle">{{ '@' + profileObject?.userHandle }}</span>
                     <span class="c-profile__userprofession">{{ profileObject?.extra?.profession }}</span>
+                    <div class="o-profile__others-follow-btn">
+                        <button type="button" *ngIf="!profileObject?.extra?.isImported && !this.isOwner" (click)="userFollow(profileObject?.extra?.isFollowing, profileObject?.userDetails?.handle )" [ngClass]="(profileObject?.extra?.isFollowing) ? 'btn-following' : 'btn-primary'" class="btn btn-primary btn-md">{{ (profileObject?.extra?.isFollowing)? 'Unfollow' : 'Follow'}}</button>
+                        <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" (click)="networkModal.open()">Network</a>
+                        <!-- <button *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md">Donate</button> -->
+                    </div>
                     <div class="c-profile__maintags">
                         <a routerLink="{{ '/spotfeed/' + skill?.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:5">#{{ skill?.name }}</a>
-                        <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more" data-toggle="modal" data-target="#tag-pop">More</a>
+                        <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more" >More</a>
                     </div>
-                </div>
+                </div>                  
             </div>
             <div class="col-md-4"></div>
             <!-- -->
         </div>
-        <div class="row o-profile__details" *ngIf="!profileObject?.extra?.isImported" >
-            <div [ngClass]="(profileObject?.extra?.isImported) ? 'blur-main': ''">
-                <div class="col-md-9 col-sm-9">
+        <div class="row o-profile__details" *ngIf="!profileObject?.extra?.isImported">
+            <div class="o-profile__info-main" [ngClass]="(profileObject?.extra?.isImported) ? 'blur-main': ''">
+                <div class="col-md-9 col-sm-9 col-xs-9 p-r-0">
                     <ul class="list-inline o-profile__nav">
                         <li class="list-line-item">
                             <a class="activein" [routerLink]="['about']">About</a>
@@ -55,18 +58,18 @@
                         <li class="list-line-item">
                             <a routerLink="/portfolio">Portfolio</a>
                         </li>
-                        <li class="list-line-item">
+                        <li class="list-line-item hidden-xs">
                             <a routerLink="/planner">Planner</a>
                         </li>
                         <li class="list-line-item">
                             <a routerLink="/network">Network</a>
                         </li>
-                        <li class="list-line-item">
+                        <li class="list-line-item hidden-xs">
                             <a routerLink="/project">Project</a>
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-3 col-sm-3">
+                <div class="col-md-3 col-sm-3 col-xs-3 p-l-0">
                     <ul class="list-inline o-profile__nav--icon">
                         <li class="list-line-item dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -142,30 +145,30 @@
                     <div class="col-md-4 col-sm-4 text-center o-profile__detail__block with_border_right">
                         <div class="row">
                             <div class="col-md-4 col-sm-4 o-profile__followers">
-                                <a href="javascript:void(0)" class="o-follow-and-following" data-toggle="modal" data-target="#followers">
+                                <a (click)="showModal('followers')" class="o-follow-and-following" data-toggle="modal" data-target="#followers">
                                     <div class="o-profile--count">{{ profileObject?.follwerCount }}</div>
-                                    <p>Followers</p>
+                                    <p class="o-follow__title">Followers</p>
                                 </a>
                             </div>
                             <div class="col-md-4 col-sm-4 o-profile__following">
-                                <a href="javascript:void(0)" class="o-follow-and-following" data-toggle="modal" data-target="#o-following">
+                                <a (click)="showModal('following')" class="o-follow-and-following" data-toggle="modal" data-target="#o-following">
                                     <div class="o-profile--count">{{ profileObject?.followingCount }}</div>
-                                    <p>Following</p>
+                                    <p class="o-follow__title">Following</p>
                                 </a>
                             </div>
-                            <div class="col-md-3 col-sm-4 o-profile__spot">
+                            <div class="col-md-3 col-sm-4 col-xs-4 o-profile__spot">
                                 <div class="o-profile--count">{{ profileObject?.extra?.spotsCount }}</div>
-                                <p>Spots</p>
+                                <p class="o-follow__title">Spots</p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="o-profile__spotscore">
+                        <div class="row hidden-xs">
+                            <div class="o-profile__spotscore hidden-xs">
                                 Spotscore Coming Soon
                                 <span class="p-l-r-8">
                                 <img src="{{ baseUrl }}img/svg/ico_i.svg" alt="" class="o-profile__spotscore--icon">
                             </span>
                             </div>
-                            <div class="o-profile__channelpost">
+                            <div class="o-profile__channelpost hidden-xs hidden-sm">
                                 <div class="o-profile__channelpost--count">{{ profileObject?.extra?.postCount }}
                                     <small>Posts</small>
                                 </div>
@@ -180,7 +183,7 @@
                         <button *ngIf="profileObject?.userBio == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button>
                         <p class="o-profile__detail--text">{{ profileObject?.userBio | slice:0:220}}</p>
                     </div>
-                    <div class="col-md-4 col-sm-4 o-profile__detail__block p-24">
+                    <div class="col-md-4 col-sm-4 o-profile__detail__block p-24 hidden-xs">
                         <div class="o-profile__detail--heading">Interest
                             <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
                         </div>
@@ -344,3 +347,171 @@
         <!-- report confirm end -->
     </div>
 </app-modal>
+
+
+<!--NetWork-->
+<app-modal-new #networkModal modalClass="pop-container-md" >
+    <modal-content>
+        <div class="modal-body p-0">
+            <div class="pop-container-md o-following-pop">
+                <div class="pop-head m-b-16">
+                    <div class="c-text_lg c-text-semibold text-center">Network with {{ profileObject?.name }}</div>
+                    <span class="pop-close">
+                        <a href="" data-dismiss="modal"><img src="assets/svg/ico_close-38.svg" alt=""></a>
+                    </span>
+                </div>
+                <div class="col-md-12">
+                    <div class="c-text_lg m-t-16">
+                        What's the network about
+                    </div>
+                    <form>
+                        <div class="c-form__group c-form--lg">
+                    <select class="c-form-control p-l-0">
+                        <option>Want to hire</option>
+                        <option>Select list 2</option>
+                        <option>Select list 3</option>
+                        <option>Select list 4</option>
+                    </select>
+                </div>
+                <div class="c-form__group c-form--lg">
+                    <textarea class="c-form__input" required="" rows="2" cols="10"></textarea>
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <label>Note</label>
+                </div>
+                <div class="c-form__group c-form--lg">
+                    <input class="c-form__input" required="" type="text">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <label>Location</label>
+                </div>
+                <div class="m-t-24">
+                <a href="" class="btn btn-default btn-md">
+                    <span class="btn-label-icon m-r-5">
+                    </span> add attachment
+                </a>
+                </div>
+                <div class="c-form__check m-t-24">
+                    <label for="people">
+                        <input id="people" type="checkbox"> I confirm that i would like to work and this is not a random connection request.
+                    </label>
+                    </div>
+                <div class="col-md-12 text-center m-t-24">
+                    <button type="button" class="btn btn-primary btn-md">Network</button>
+                </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </modal-content>
+</app-modal-new>
+
+<app-modal-new #followersModal modalClass="modal-profile-followers">
+    <modal-content>
+        <div class="pop-container-md o-following-pop">
+            <div class="pop-head m-b-16">
+                <h5 class="c-text_lg f-w_600">Followers <span class="f-w_500 color-grey-dark">{{ profileObject?.follwerCount }}</span></h5>
+                <span class="pop-close">
+                    <a (click)="followersModal.close()" data-dismiss="modal"><img src="{{ baseUrl }}img/svg/ico_close-38.svg" alt=""></a>
+                </span>
+            </div>
+            <!-- <div class="o-following__search">
+                <div class="c-form__group  fill-grey-light">
+                    <input class="c-form__input c-form__input--border-none fpadding_l32" required="" type="text" placeholder="Search">
+                    <span>
+                        <img src="{{ imageBaseUrl }}img/svg/ico_search.svg" class="c-form__input--lefticon">
+                    </span>
+                </div>
+            </div> -->
+            <div *ngIf="showPreloader === true">
+                <div class="sticky">
+                    <div class="loader">Loading...</div>
+                </div>
+            </div>
+            <div (scroll)="onFollowerScroll($event)"  *ngIf="showPreloader === false && followersProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
+                <ul class="o-follow-people">
+                    <li *ngFor="let follower of followersProfiles" class="o-follow-people__list">
+                        <a routerLink="{{ '/profile/u/' + follower?.extra?.username }}">
+                            <div class="o-follow-people__avatar">
+                                <img src="{{ baseUrl + follower?.profileImage }}" alt="">
+                            </div>
+                            <div class="o-follow-people__info">
+                                <h6 class="c-text_md">{{ follower?.name | truncate:[10, '...'] }}</h6>
+                                <p class="c-text_sm color-grey-dark">@{{ follower?.extra?.username | truncate:[10, '...'] }}</p>
+                            </div>
+                        </a>
+                        <!-- <button type="button" class="btn btn-primary btn-sm m-t-8">follow</button> -->
+                        <div *ngIf="follower?.extra.isImported; else not_imported">
+                            <button routerLink="{{ '/profile/u/' + follower?.extra?.username }}" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)" >
+                                <span class="btn-label-follow"> CLAIM </span>
+                            </button>
+                        </div>
+                        <ng-template #not_imported>
+                            <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)" >
+                                <span class="btn-label-follow"> UNFOLLOW </span>
+                            </button>
+                            <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)" >
+                                <span class="btn-label-follow"> FOLLOW </span>
+                            </button>
+                        </ng-template>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </modal-content>
+</app-modal-new>
+
+<app-modal-new #followingModal modalClass="modal-profile-followers">
+    <modal-content>
+        <div class="pop-container-md o-following-pop">
+            <div class="pop-head m-b-16">
+                <h5 class="c-text_lg f-w_600">Following <span class="f-w_500 color-grey-dark">{{ profileObject?.followingCount }}</span></h5>
+                <span class="pop-close">
+                    <a (click)="followingModal.close()" data-dismiss="modal"><img src="{{ baseUrl }}img/svg/ico_close-38.svg" alt=""></a>
+                </span>
+            </div>
+            <!-- <div class="o-following__search">
+                <div class="c-form__group  fill-grey-light">
+                    <input class="c-form__input c-form__input--border-none fpadding_l32" required="" type="text" placeholder="Search">
+                    <span>
+                        <img src="{{ imageBaseUrl }}img/svg/ico_search.svg" class="c-form__input--lefticon">
+                    </span>
+                </div>
+            </div> -->
+            <div *ngIf="showPreloader === true">
+                <div class="sticky">
+                    <div class="loader">Loading...</div>
+                </div>
+            </div>
+            <div (scroll)="onFollowingScroll($event)" *ngIf="showPreloader === false && followingProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
+                <ul class="o-follow-people">
+                    <li *ngFor="let follower of followingProfiles" class="o-follow-people__list">
+                        <a routerLink="{{ '/profile/u/' + follower?.extra?.username }}">
+                            <div class="o-follow-people__avatar">
+                                <img src="{{ baseUrl + follower?.profileImage }}" alt="">
+                            </div>
+                            <div class="o-follow-people__info">
+                                <h6 class="c-text_md">{{ follower?.name | truncate:[10, '...'] }}</h6>
+                                <p class="c-text_sm color-grey-dark">@{{ follower?.extra?.username | truncate:[10, '...'] }}</p>
+                            </div>
+                        </a>
+                        <!-- <button type="button" class="btn btn-primary btn-sm m-t-8">follow</button> -->
+                        <div *ngIf="follower?.extra.isImported; else not_imported">
+                            <button routerLink="{{ '/profile/u/' + follower?.extra?.username }}" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)" >
+                                <span class="btn-label-follow"> CLAIM </span>
+                            </button>
+                        </div>
+                        <ng-template #not_imported>
+                            <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)" >
+                                <span class="btn-label-follow"> UNFOLLOW </span>
+                            </button>
+                            <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)" >
+                                <span class="btn-label-follow"> FOLLOW </span>
+                            </button>
+                        </ng-template>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </modal-content>
+</app-modal-new>
