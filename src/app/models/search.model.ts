@@ -1,5 +1,9 @@
 export class SearchModel {
 
+    search_all_data: any[];
+    searching_all: boolean;
+    search_all_success: boolean;
+
     search_people_data: any[];
     searching_people: boolean;
     search_people_success: boolean;
