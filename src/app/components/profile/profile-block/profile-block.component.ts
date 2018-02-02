@@ -17,6 +17,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { TabComponents  } from '../../../shared/tabs/tabset';
 import { ProfileHelper } from '../../../helpers/profile.helper';
 
+import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
+
 @Component({
   selector: 'app-profile-block',
   templateUrl: './profile-block.component.html',
@@ -38,6 +40,9 @@ export class ProfileBlockComponent implements OnInit {
   profileObject: any;
   imageBaseUrl = environment.API_IMAGE;
   userHandle: string;
+  channelPinSuccess = false;
+  carouselOne: NgxCarousel;
+  openChannel: boolean;
 
   constructor(
     private http: Http,
@@ -48,11 +53,13 @@ export class ProfileBlockComponent implements OnInit {
   ) {
     this.router = _router;
     this.userId = '';
+    this.openChannel = false;
 
     // Own Profile
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.userQuickAccess = state;
+      console.log('state', state)
       if (state.profile_user_info) {
         if (state.profile_user_info.isCurrentUser) {
           this.profileObject = this.loadProfile( state, 'own' );
@@ -73,11 +80,56 @@ export class ProfileBlockComponent implements OnInit {
           }
         }
       }
+      if (state.channel_pin_success && this.channelPinSuccess) {
+        this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_CHANNEL, payload: this.userHandle });
+        this.channelPinSuccess = false;
+      }
     });
   }
 
   ngOnInit(): void {
     this.checkProfile();
+    this.carouselOne = {
+      grid: {xs: 3, sm: 3, md: 5, lg: 5, all: 0},
+      slide: 2,
+      speed: 4000,
+      // interval: 400000,
+      // custom: 'banner',
+      point: {
+        visible: true,
+        pointStyles: `
+          .ngxcarouselPoint {
+            list-style-type: none;
+            text-align: center;
+            padding: 12px;
+            margin: 0;
+            white-space: nowrap;
+            overflow: auto;
+            position: absolute;
+            width: 100%;
+            bottom: 20px;
+            left: 0;
+            box-sizing: border-box;
+            display: none;
+          }
+          .ngxcarouselPoint li {
+            display: inline;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.55);
+            padding: 5px;
+            margin: 0 3px;
+            transition: .4s ease all;
+          }
+          .ngxcarouselPoint li.active {
+              background: white;
+              width: 10px;
+          }
+        `
+      },
+      load: 2,
+      loop: true,
+      touch: true
+    }
   }
 
   checkEmpty(obj: Object) {
@@ -112,5 +164,13 @@ export class ProfileBlockComponent implements OnInit {
        'profileHandle': this.userHandle
      }
      this.profileStore.dispatch({ type: ProfileActions.PIN_CHANNEL, payload: data });
+     this.channelPinSuccess = true;
+  }
+  channelList() {
+    console.log('its hre')
+    if (this.openChannel) {
+    this.openChannel = false;
+    }
+    this.openChannel = true;
   }
 }
