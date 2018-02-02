@@ -1,15 +1,15 @@
-<div class="row">
+<h6 class="c-text_lg p-b-16 with_border_bottom">People
+    <a href="#" class="color-theme float_right">See all</a>
+</h6>
 
-    <div *ngIf="artists && artists.length === 0; else artists_found;">
-        <p class="result-not-found">Artists not found!</p>
-    </div>
-
-    <ng-template #artists_found>
-        
-        <div class="col-md-2 pad-bot-25" *ngFor="let artist of artists">
-            <app-user-card [artist]="artist" ></app-user-card>    
-        </div>
-
-    </ng-template>
-
+<div *ngIf="artists && artists.length === 0; else artists_found;">
+    <p class="result-not-found">Artists not found!</p>
 </div>
+
+<ng-template #artists_found>
+    <div class="o-people-result-block2">
+        <div *ngFor="let artist of artists" class="o-people-result-block">
+            <app-user-card-new [artist]="artist" class="width-100" ></app-user-card-new>
+        </div>
+    </div>
+</ng-template>

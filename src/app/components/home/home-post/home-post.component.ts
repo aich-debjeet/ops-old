@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,8 +16,9 @@ import { MediaActions } from '../../../actions/media.action';
   templateUrl: './home-post.component.html',
   styleUrls: ['./home-post.component.scss']
 })
-export class HomePostComponent implements OnInit {
+export class HomePostComponent implements OnInit, OnDestroy {
 
+  private subscription: ISubscription;
   tagState$: Observable<ProfileModal>;
   userProfile = initialTag ;
   isOwner: boolean;
@@ -38,16 +39,10 @@ export class HomePostComponent implements OnInit {
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
     this.posts = [];
-    this.tagState$.subscribe((state) => {
+    this.subscription = this.tagState$.subscribe((state) => {
       this.userProfile = state;
-       this.posts = this.userProfile.user_following_posts;
-    });
-  }
+      this.posts = this.userProfile.user_following_posts;
 
-  ngOnInit() {
-    this.tagState$ = this.profileStore.select('profileTags')
-    this.tagState$.subscribe((state) => {
-      this.userProfile = state;
       if (state['profile_navigation_details'].handle) {
         this.handle = this.userProfile.profile_navigation_details.handle;
          this.isOwner = true;
@@ -58,6 +53,23 @@ export class HomePostComponent implements OnInit {
         }
       }
     });
+  }
+
+  ngOnInit() {
+    // this.tagState$ = this.profileStore.select('profileTags')
+    // this.tagState$.subscribe((state) => {
+    //   console.log(state)
+    //   this.userProfile = state;
+    //   if (state['profile_navigation_details'].handle) {
+    //     this.handle = this.userProfile.profile_navigation_details.handle;
+    //      this.isOwner = true;
+    //     // this.posts = [];
+    //     if (this.handle && !this.postsLoaded) {
+    //       this.postsLoaded = true;
+    //       this.postLoad(this.handle);
+    //     }
+    //   }
+    // });
   }
 
   postLoad(handle) {
@@ -85,12 +97,18 @@ export class HomePostComponent implements OnInit {
       this.postLoad(this.handle);
     }
   }
-/**
+
+  /**
    * Check if object is empty
    * @param obj
    */
-      checkEmpty(obj: Object) {
-        return Object.keys(obj).length === 0 && obj.constructor === Object;
-      }
+    checkEmpty(obj: Object) {
+      return Object.keys(obj).length === 0 && obj.constructor === Object;
+    }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
 
 }
