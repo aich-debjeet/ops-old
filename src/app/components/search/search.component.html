@@ -269,18 +269,54 @@
                 <div class="o-search-result-block m-t-16 p-b-24">
                     <!-- people -->
                     <div class="col-md-6 p-l-0">
-                        <app-search-people></app-search-people>
+                        <h6 class="c-text_lg p-b-16 with_border_bottom">People
+                            <a href="#" class="color-theme float_right">See all</a>
+                        </h6>
+                        <div *ngIf="artists && artists.length === 0; else artists_found;">
+                            <p class="result-not-found">Artists not found!</p>
+                        </div>
+                        <ng-template #artists_found>
+                            <div class="o-people-result-block2">
+                                <div *ngFor="let artist of artists" class="o-people-result-block">
+                                    <app-user-card-new [artist]="artist" class="width-100" ></app-user-card-new>
+                                </div>
+                            </div>
+                        </ng-template>
                     </div><!-- people -->
 
                     <!-- posts -->
                     <div class="col-md-6">
-                        <app-search-post></app-search-post>
+                        <h6 class="c-text_lg p-b-16 with_border_bottom">Post
+                            <a href="#" class="color-theme float_right">See all</a>
+                        </h6>
+                        <div *ngIf="posts && posts.length === 0; else posts_found;">
+                            <p class="result-not-found">Posts not found!</p>
+                        </div>
+                        <ng-template #posts_found>
+                            <div class="o-post-result-block2">
+                                <div *ngFor="let post of posts" class="o-post-result-block">
+                                    <app-post-card-search [post]="post"></app-post-card-search>
+                                </div>
+                            </div>
+                        </ng-template>
                     </div><!-- posts -->
                 </div>
 
                 <div class="o-search-result-single-block">
                     <div class="o-search-result-single-block">
-                        <app-search-channel></app-search-channel>
+                        <h6 class="c-text_lg m-t-24">Channel
+                            <a href="#" class="color-theme float_right">See all</a>
+                        </h6>
+                        <div *ngIf="channels && channels.length === 0; else channels_found;">
+                            <p class="result-not-found">Channels not found!</p>
+                        </div>
+                        <ng-template #channels_found>
+                            <div class="row m-0">
+                                <div *ngFor="let channel of channels | slice:0:6" class="col-md-2 p-0 p-r-10 p-b-10">
+                                    <app-channel [channelData]="channel"></app-channel>
+                                </div>
+                            </div>
+                        </ng-template>
                     </div>
                 </div>
 
