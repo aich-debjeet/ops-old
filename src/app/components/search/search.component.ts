@@ -3,7 +3,9 @@ import { DOCUMENT } from '@angular/platform-browser';
 
 import { SearchActions } from './../../actions/search.action';
 import { ProfileActions } from './../../actions/profile.action';
+import { MediaActions } from '../../actions/media.action';
 
+import { Media, initialMedia  } from '../../models/media.model';
 import { SearchModel } from './../../models/search.model';
 import { ProfileModal, initialTag } from '../../models/profile.model';
 
@@ -45,8 +47,15 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   resultCount = 0;
 
+  /* result store */
+  channels: any[];
+  artists: any[];
+  posts: any[];
+  /* result store */
+
   constructor(
     private store: Store<SearchModel>,
+    private mediaStore: Store<Media>,
     private profileStore: Store<ProfileModal>,
     @Inject(DOCUMENT) private document: Document
   ) {
@@ -67,6 +76,21 @@ export class SearchComponent implements OnInit, AfterViewInit {
           this.isSearching = false;
           this.beforeSearch = false;
           this.showPreloader = false;
+      }
+      
+      // load artists
+      if (state && state['search_all_data'] && state['search_all_data']['profiles']) {
+        this.artists = state['search_all_data']['profiles'];
+      }
+      
+      // load posts
+      if (state && state['search_all_data'] && state['search_all_data']['posts']) {
+        this.posts = state['search_all_data']['posts'];
+      }
+
+      // load channels
+      if (state && state['search_all_data'] && state['search_all_data']['channels']) {
+        this.channels = state['search_all_data']['channels'];
       }
 
       if (state
@@ -117,6 +141,12 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
     });
 
+  }
+
+  // Media Popup
+  mediaOpenPopup(id) {
+    this.mediaStore.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id });
+    this.mediaStore.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id });
   }
 
   /**
