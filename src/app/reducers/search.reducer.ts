@@ -37,34 +37,35 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
       });
     /* search all reducers */
 
-    // /* search people reducers */
-    // case SearchActions.SEARCH_PEOPLE:
-    //   return Object.assign({}, state, {
-    //     searching_people: true,
-    //     search_people_params: payload,
-    //     search_people_success: false
-    //   });
+    /* search people reducers */
+    case SearchActions.SEARCH_PEOPLE:
+      return Object.assign({}, state, {
+        searching_people: true,
+        search_people_params: payload,
+        search_people_success: false
+      });
 
-    // case SearchActions.SEARCH_PEOPLE_SUCCESS:
-    //   // update state for pagination
-    //   let people_payload;
-    //   if (state.search_people_params.offset === 0) {
-    //     people_payload = payload;
-    //   } else {
-    //     people_payload = [...state.search_people_data, ...payload];
-    //   }
-    //   return Object.assign({}, state, {
-    //     searching_people: false,
-    //     search_people_data: people_payload,
-    //     search_people_success: true
-    //   });
+    case SearchActions.SEARCH_PEOPLE_SUCCESS:
+      // // update state for pagination
+      // let people_payload;
+      // if (state.search_people_params.offset === 0) {
+      //   people_payload = payload;
+      // } else {
+      //   people_payload = [...state.search_people_data, ...payload];
+      // }
+      return Object.assign({}, state, {
+        searching_people: false,
+        // search_people_data: people_payload,
+        search_people_data: payload,
+        search_people_success: true
+      });
 
-    // case SearchActions.SEARCH_PEOPLE_FAILED:
-    //   return Object.assign({}, state, {
-    //     searching_people: false,
-    //     search_people_success: false
-    //   });
-    // /* search people reducers */
+    case SearchActions.SEARCH_PEOPLE_FAILED:
+      return Object.assign({}, state, {
+        searching_people: false,
+        search_people_success: false
+      });
+    /* search people reducers */
 
     // /* search post reducers */
     // case SearchActions.SEARCH_POST:

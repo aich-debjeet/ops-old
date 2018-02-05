@@ -36,14 +36,13 @@ export class SearchService {
     return this.api.post('/portal/global/search/', params);
   }
 
-  // /**
-  //  * Get people by search query
-  //  * @param search query
-  //  */
-  // getPeople(params: any) {
-  //   this.updateToken();
-  //   return this.api.get('/portal/searchprofiles/1/' + params.query + '/' + params.offset + '/' + params.limit);
-  // }
+  /**
+   * Get people by search query
+   * @param search query
+   */
+  getPeople(params: any) {
+    return this.api.put('/portal/searchprofiles', params);
+  }
 
   // /**
   //  * Get posts by search query

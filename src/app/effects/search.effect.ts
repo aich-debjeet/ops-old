@@ -23,15 +23,15 @@ export class SearchEffect {
       .catch((res) => Observable.of({ type: SearchActions.SEARCH_ALL, payload: res }))
     );
 
-  // @Effect()
-  // userSearch$ = this.actions$
-  //   .ofType(SearchActions.SEARCH_PEOPLE)
-  //   .debounceTime(500)
-  //   .map(toPayload)
-  //   .switchMap((payload) => this.apiService.getPeople(payload)
-  //     .map(res => ({ type: SearchActions.SEARCH_PEOPLE_SUCCESS, payload: res }))
-  //     .catch((res) => Observable.of({ type: SearchActions.SEARCH_PEOPLE_FAILED, payload: res }))
-  //   );
+  @Effect()
+  peopleSearch$ = this.actions$
+    .ofType(SearchActions.SEARCH_PEOPLE)
+    .debounceTime(500)
+    .map(toPayload)
+    .switchMap((payload) => this.apiService.getPeople(payload)
+      .map(res => ({ type: SearchActions.SEARCH_PEOPLE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: SearchActions.SEARCH_PEOPLE_FAILED, payload: res }))
+    );
 
   // @Effect()
   // postSearch$ = this.actions$

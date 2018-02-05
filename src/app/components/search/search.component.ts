@@ -78,12 +78,12 @@ export class SearchComponent implements OnInit, AfterViewInit {
           this.beforeSearch = false;
           this.showPreloader = false;
       }
-      
+
       // load artists
       if (state && state['search_all_data'] && state['search_all_data']['profiles']) {
         this.artists = state['search_all_data']['profiles'];
       }
-      
+
       // load posts
       if (state && state['search_all_data'] && state['search_all_data']['posts']) {
         this.posts = state['search_all_data']['posts'];
@@ -127,17 +127,29 @@ export class SearchComponent implements OnInit, AfterViewInit {
       this.searchString = this.searchInput.value;
 
       // search if string is available
-      if (this.searchString && this.searchString.length > 0) {
+      if (this.searchString && this.searchString.length > 0 && this.searchType === 'all') {
         this.isSearching = true;
-
-        const searchParams = {
+        const searchAllParams = {
           searchText: this.searchString,
           from: 0,
           limit: this.recordsPerPage
         }
-
         // search all
-        this.store.dispatch({ type: SearchActions.SEARCH_ALL, payload: searchParams });
+        this.store.dispatch({ type: SearchActions.SEARCH_ALL, payload: searchAllParams });
+      }
+
+      // search if string is available
+      if (this.searchString && this.searchString.length > 0 && this.searchType === 'people') {
+        this.isSearching = true;
+        const searchPeopleParams = {
+          isHuman: '1',
+          status: [],
+          offset: 0,
+          limit: 50,
+          searchText: this.searchString
+        }
+        // search people
+        this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchPeopleParams });
       }
 
     });
@@ -153,6 +165,18 @@ export class SearchComponent implements OnInit, AfterViewInit {
   seeAll(sType: string) {
     this.searchType = sType;
     console.log('this.searchType', this.searchType);
+
+    if (this.searchType === 'people') {
+      const searchPeopleParams = {
+        isHuman: '1',
+        status: [],
+        offset: 0,
+        limit: 50,
+        searchText: this.searchString
+      }
+      this.isSearching = true;
+      this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchPeopleParams });
+    }
   }
 
   /**
