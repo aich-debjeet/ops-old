@@ -59,6 +59,9 @@ export class ProfileModal {
   searching_follower_params?: string;
   following_profiles?: any;
   follower_profiles?: any;
+  channel_pin_success: boolean;
+  channel_pin_failed: boolean;
+  channel_unpin_success: boolean;
 }
 
 export class ProfileForm {
@@ -116,6 +119,9 @@ export const initialTag: ProfileModal = {
   user_profiles_all: [],
   // list of block users
   blockedUsers: [],
+  channel_pin_success: false,
+  channel_unpin_success: false,
+  channel_pin_failed: false,
 };
 
 export class ProfileCard {

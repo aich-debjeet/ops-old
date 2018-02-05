@@ -1,7 +1,11 @@
 @import './src/assets/scss/helpers/_variables.scss';
-// @import './src/assets/scss/helpers/_functions.scss';
+@import './src/assets/scss/components/_app.scss';
+@import './src/assets/scss/components/_dropdowns.scss';
 @import './src/assets/scss/helpers/_mixins.scss';
 @import './src/assets/scss/helpers/_helpers.scss';
+@import './src/assets/scss/components/_form.scss';
+@import './src/assets/scss/components/_cards.scss';
+@import './src/assets/scss/base/_typography.scss';
 @import '~sass-mq/_mq.scss';
 // Profile and other profile timeline style -----------------------------------
 // profile timeline -----
@@ -306,4 +310,193 @@
     width: 100%;
     float: left;
     position: relative;
+}
+
+.c-qt__block {
+    display: inline;
+    float: left;
+    cursor: pointer;
+    position: relative;
+    &:hover {
+        .c-qt__block__text {
+            color: #000000;
+        }
+        .c-qt__imgblock {
+            box-shadow: 0 11px 17px 0 rgba(102, 45, 145, 0.1);
+        }
+    }
+}
+
+.c-qt__block__img {
+    width: 42px;
+    margin-top: 28px;
+    display: inline-block !important;
+}
+
+.c-qt__block__text {
+    font-size: 13px;
+    line-height: 20px;
+    text-align: center;
+    color: #929292;
+}
+
+.c-qt__imgblock {
+    width: 95px;
+    height: 95px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(102, 45, 145, 0.1);
+    transition: .25s;
+    margin: 0 auto;
+}
+
+.c-qt--align {
+    margin: 12px;
+    margin-right: 12px !important;
+}
+
+.o-share__profile3 {
+    width: 248px;
+    border: none;
+    color: #808080;
+    font-size: 13px;
+    line-height: 20px;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
+    top: 66px;
+    left: 36px;
+}
+
+.o-share__avatar {
+    width: 100% !important;
+}
+
+.c-invite--search {
+    margin: 0 16px;
+    background-color: #F3F5F7;
+    border-radius: 3px;
+    .c-form__input {
+        border-color: transparent;
+    }
+}
+
+.c-form__group {
+    position: relative;
+    margin-bottom: 14px;
+    margin-top: 16px;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        margin-top: 0px;
+    }
+    select {
+        option {
+            color: #929292;
+            margin: 8px 0;
+            &:hover {
+                color: #000000;
+                background: #555;
+            }
+        }
+    }
+}
+
+.c-form--sm {
+    .c-form__input {
+        font-size: 11px; // line-height: 16px;
+    }
+    .c-textarea--style {
+        font-size: 11px;
+    }
+    label {
+        font-size: 11px;
+    }
+    .c-form__input:focus~label,
+    .c-form__input:valid~label {
+        top: -4px;
+        font-size: 9px;
+        color: #929292;
+    }
+    .c-form__input--lefticon {
+        margin-top: -20px;
+    }
+    .c-form-control {
+        font-size: 11px;
+    }
+}
+
+.c-form__input--lefticon {
+    margin-top: -21px;
+    position: absolute;
+    width: 12px;
+    margin-left: 8px;
+}
+
+.c-avatar--status2 {
+    width: 32px;
+    height: 32px;
+    // border-radius: 3px;
+}
+
+.leftRs {
+    display: block;
+    outline: none;
+    top: -12%;
+    right: 46px;
+    left: inherit;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: none;
+    text-align: center;
+    color: #777;
+    float: right;
+}
+
+.rightRs {
+    display: block;
+    outline: none;
+    position: absolute;
+    top: -12%;
+    right: 20px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: none;
+    text-align: center;
+    color: #777;
+}
+
+.ngx-item {
+    display: inline;
+}
+
+.c-skill_act-tick {
+    display: none;
+    img {
+        width: 16px;
+        height: 16px;
+        margin-top: 9px;
+        position: absolute;
+        right: 22px;
+    }
+}
+
+.c-invite__block {
+    margin-bottom: 16px;
+    margin-top: 8px;
+}
+
+.c-invite__block:hover {
+    .c-skill_act-tick {
+        display: block;
+        img {
+            width: 16px;
+            height: 16px;
+            margin-top: -15px;
+            position: absolute;
+            right: 22px;
+        }
+    }
 }
