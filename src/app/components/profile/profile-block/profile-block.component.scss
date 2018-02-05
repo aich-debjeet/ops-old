@@ -471,3 +471,32 @@
 .ngx-item {
     display: inline;
 }
+
+.c-skill_act-tick {
+    display: none;
+    img {
+        width: 16px;
+        height: 16px;
+        margin-top: 9px;
+        position: absolute;
+        right: 22px;
+    }
+}
+
+.c-invite__block {
+    margin-bottom: 16px;
+    margin-top: 8px;
+}
+
+.c-invite__block:hover {
+    .c-skill_act-tick {
+        display: block;
+        img {
+            width: 16px;
+            height: 16px;
+            margin-top: -15px;
+            position: absolute;
+            right: 22px;
+        }
+    }
+}
