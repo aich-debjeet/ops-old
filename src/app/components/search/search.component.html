@@ -7,33 +7,7 @@
           <div class="o-search__icon">
             <svg *ngIf="!isSearching" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" data-name="Layer 1" viewBox="0 0 74 74">
                 <defs>
-                    <style>
-                        .cls-1,
-                        .cls-2,
-                        .cls-4 {
-                            fill: #333;
-                        }
-  
-                        .cls-1 {
-                            clip-rule: evenodd;
-                        }
-  
-                        .cls-2 {
-                            fill-rule: evenodd;
-                        }
-  
-                        .cls-3 {
-                            clip-path: url(#clip-path);
-                        }
-  
-                        .cls-5 {
-                            clip-path: url(#clip-path-2);
-                        }
-  
-                        .cls-6 {
-                            clip-path: url(#clip-path-3);
-                        }
-                    </style>
+                    <style>.cls-1,.cls-2,.cls-4{fill:#333}.cls-1{clip-rule:evenodd}.cls-2{fill-rule:evenodd}.cls-3{clip-path:url(#clip-path)}.cls-5{clip-path:url(#clip-path-2)}.cls-6{clip-path:url(#clip-path-3)}</style>
                     <clipPath id="clip-path">
                         <path class="cls-1" d="M-218,46.06v-9a27,27,0,0,0-20-26V8.23a7.13,7.13,0,0,0-5.46-7.06A7,7,0,0,0-252,8v3.06a27,27,0,0,0-20,26v9a9,9,0,0,0-8.9,10.31A9.16,9.16,0,0,0-271.74,64H-254a9,9,0,0,0,9,9,9,9,0,0,0,9-9h17.74a9.16,9.16,0,0,0,9.16-7.64A9,9,0,0,0-218,46.06ZM-247,8a2,2,0,0,1,2.66-1.89,2.05,2.05,0,0,1,1.34,2v2c-.66,0-1.33-.08-2-.08s-1.34,0-2,.08Zm-20,29a22,22,0,0,1,25.28-21.71C-230.86,16.91-223,26.55-223,37.52V46h-44Zm21.91,31a4,4,0,0,1-4-4h8A4,4,0,0,1-245.09,68Zm30.91-12.15A4.1,4.1,0,0,1-218.24,59h-53.7A4.1,4.1,0,0,1-276,55.86,4,4,0,0,1-272.09,51h54A4,4,0,0,1-214.18,55.86Z"></path>
                     </clipPath>
@@ -83,8 +57,8 @@
           </div>
           <!-- search message -->
 
-          <!-- search result -->
-          <div *ngIf="searchString?.length > 0 && !isSearching">
+          <!-- search all result -->
+          <div *ngIf="searchString?.length > 0 && !isSearching && searchType === 'all'">
             
             <!-- <div class="col-md-3 p-l-0 m-t--32">
                 <div class="o-search-left-block p-24">
@@ -270,7 +244,7 @@
                     <!-- people -->
                     <div class="col-md-6 p-l-0">
                         <h6 class="c-text_lg p-b-16 with_border_bottom">People
-                            <a href="#" class="color-theme float_right">See all</a>
+                            <a (click)="seeAll('people')" class="color-theme float_right">See all</a>
                         </h6>
                         <div *ngIf="artists && artists.length === 0; else artists_found;">
                             <p class="result-not-found">Artists not found!</p>
@@ -287,7 +261,7 @@
                     <!-- posts -->
                     <div class="col-md-6">
                         <h6 class="c-text_lg p-b-16 with_border_bottom">Post
-                            <a href="#" class="color-theme float_right">See all</a>
+                            <a (click)="seeAll('post')" class="color-theme float_right">See all</a>
                         </h6>
                         <div *ngIf="posts && posts.length === 0; else posts_found;">
                             <p class="result-not-found">Posts not found!</p>
@@ -305,7 +279,7 @@
                 <div class="o-search-result-single-block">
                     <div class="o-search-result-single-block">
                         <h6 class="c-text_lg m-t-24">Channel
-                            <a href="#" class="color-theme float_right">See all</a>
+                            <a (click)="seeAll('channel')" class="color-theme float_right">See all</a>
                         </h6>
                         <div *ngIf="channels && channels.length === 0; else channels_found;">
                             <p class="result-not-found">Channels not found!</p>
@@ -322,7 +296,19 @@
 
             </div>
           </div>
-          <!-- search result -->
+          <!-- search all result -->
+
+          <!-- search channels result -->
+          <app-search-channel *ngIf="searchString?.length > 0 && !isSearching && searchType === 'channel'"></app-search-channel>
+          <!-- search channels result -->
+
+          <!-- search posts result -->
+          <app-search-post *ngIf="searchString?.length > 0 && !isSearching && searchType === 'post'"></app-search-post>
+          <!-- search posts result -->
+
+          <!-- search people result -->
+          <app-search-people *ngIf="searchString?.length > 0 && !isSearching && searchType === 'people'"></app-search-people>
+          <!-- search people result -->
 
           <!-- search prelaoder -->
           <div *ngIf="showPreloader">

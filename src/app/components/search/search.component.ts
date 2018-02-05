@@ -46,6 +46,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   showPreloader = false;
 
   resultCount = 0;
+  searchType = 'all';
 
   /* result store */
   channels: any[];
@@ -147,6 +148,11 @@ export class SearchComponent implements OnInit, AfterViewInit {
   mediaOpenPopup(id) {
     this.mediaStore.dispatch({ type: MediaActions.MEDIA_DETAILS, payload: id });
     this.mediaStore.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id });
+  }
+
+  seeAll(sType: string) {
+    this.searchType = sType;
+    console.log('this.searchType', this.searchType);
   }
 
   /**
