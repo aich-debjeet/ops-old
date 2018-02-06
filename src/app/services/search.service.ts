@@ -33,7 +33,7 @@ export class SearchService {
    * @param search request params
    */
   getAllSearchResult(params: any) {
-    return this.api.post('/portal/global/search/', params);
+    return this.api.post('/portal/global/search', params);
   }
 
   /**

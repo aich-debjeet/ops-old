@@ -20,7 +20,7 @@ export class SearchEffect {
     .map(toPayload)
     .switchMap((payload) => this.apiService.getAllSearchResult(payload)
       .map(res => ({ type: SearchActions.SEARCH_ALL_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: SearchActions.SEARCH_ALL, payload: res }))
+      .catch((res) => Observable.of({ type: SearchActions.SEARCH_ALL_FAILED, payload: res }))
     );
 
   @Effect()
