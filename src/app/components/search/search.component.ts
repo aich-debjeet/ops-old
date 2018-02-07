@@ -48,11 +48,15 @@ export class SearchComponent implements OnInit, AfterViewInit {
   resultCount = 0;
   searchType = 'all';
 
-  /* result store */
+  /* global result store */
+  all_channels: any[];
+  all_artists: any[];
+  all_posts: any[];
+  /* global result store */
+
   channels: any[];
   artists: any[];
   posts: any[];
-  /* result store */
 
   constructor(
     private store: Store<SearchModel>,
@@ -72,26 +76,29 @@ export class SearchComponent implements OnInit, AfterViewInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       this.searchState = state;
-      // console.log(this.searchState);
+      console.log(this.searchState);
       if (state && state.searching_all === false) {
           this.isSearching = false;
           this.beforeSearch = false;
           this.showPreloader = false;
       }
 
-      // load artists
+      // load global artists
       if (state && state['search_all_data'] && state['search_all_data']['profiles']) {
-        this.artists = state['search_all_data']['profiles'];
+        this.all_artists = state['search_all_data']['profiles'];
+      }
+      if (state && state['search_people_data'] && state['search_people_data']['profileResponse']) {
+        this.artists = state['search_people_data']['profileResponse'];
       }
 
-      // load posts
+      // load global posts
       if (state && state['search_all_data'] && state['search_all_data']['posts']) {
-        this.posts = state['search_all_data']['posts'];
+        this.all_posts = state['search_all_data']['posts'];
       }
 
-      // load channels
+      // load global channels
       if (state && state['search_all_data'] && state['search_all_data']['channels']) {
-        this.channels = state['search_all_data']['channels'];
+        this.all_channels = state['search_all_data']['channels'];
       }
 
       if (state
