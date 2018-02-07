@@ -53,13 +53,12 @@ export class SearchService {
   //   return this.api.get('/portal/cdn/media/postByText/' + params.query + '/' + params.offset + '/' + params.limit);
   // }
 
-  // /**
-  //  * Get channels by search query
-  //  * @param search query
-  //  */
-  // getChannels(params: any) {
-  //   this.updateToken();
-  //   return this.api.get('/portal/network/spotfeed/searchByText/' + params.query + '/' + params.offset + '/' + params.limit);
-  // }
+  /**
+   * Get channels by search query
+   * @param search query
+   */
+  getChannels(params: any) {
+    return this.api.post('/portal/network/spotfeed/esearch', params);
+  }
 
 }

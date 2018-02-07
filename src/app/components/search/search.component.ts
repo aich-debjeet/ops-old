@@ -100,6 +100,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
       if (state && state['search_all_data'] && state['search_all_data']['channels']) {
         this.all_channels = state['search_all_data']['channels'];
       }
+      if (state && state['search_channel_data'] && state['search_channel_data']['spotFeedResponse']) {
+        this.channels = state['search_channel_data']['spotFeedResponse'];
+      }
 
       if (state
         && state['search_all_data']
@@ -183,6 +186,16 @@ export class SearchComponent implements OnInit, AfterViewInit {
       }
       this.isSearching = true;
       this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchPeopleParams });
+    }
+
+    if (this.searchType === 'channel') {
+      const searchChannelParams = {
+        offset: 0,
+        limit: 50,
+        searchText: this.searchString
+      }
+      this.isSearching = true;
+      this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchChannelParams });
     }
   }
 

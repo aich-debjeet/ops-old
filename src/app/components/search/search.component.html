@@ -333,8 +333,12 @@
                 <!-- search people result -->
 
                 <!-- search channels result -->
-                <div *ngIf="searchString?.length > 0 && !isSearching && searchType === 'channel'">
-                    CHANNELS LISTING
+                <div *ngIf="searchString?.length > 0 && !isSearching && searchType === 'channel'" class="m-0 row p-t-16 float_left">
+                    <div class="col-12">
+                        <div *ngFor="let channel of channels" class="col-md-3 p-0 p-r-10 p-b-10">
+                            <app-channel [channelData]="channel"></app-channel>
+                        </div>
+                    </div>
                 </div>
                 <!-- search channels result -->
 
