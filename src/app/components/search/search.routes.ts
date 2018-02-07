@@ -17,11 +17,11 @@ export const SearchRoutes = [
     canActivate: [AuthGuard],
     component: SearchComponent,
     children: [
-      { path: 'channel', component: SearchChannelComponent },
-      { path: 'community', component: SearchCommunityComponent },
-      { path: 'people', component: SearchPeopleComponent },
-      { path: 'post', component: SearchPostComponent },
-      { path: 'spotfeed', component: SearchSpotfeedComponent }
+      // { path: 'channel', component: SearchChannelComponent },
+      // { path: 'community', component: SearchCommunityComponent },
+      // { path: 'people', component: SearchPeopleComponent },
+      // { path: 'post', component: SearchPostComponent },
+      // { path: 'spotfeed', component: SearchSpotfeedComponent }
     ]
  }
 ]
