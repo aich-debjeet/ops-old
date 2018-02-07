@@ -57,10 +57,10 @@
           </div>
           <!-- search message -->
 
-          <!-- search all result -->
-          <div *ngIf="searchString?.length > 0 && !isSearching && searchType === 'all'">
+          <!-- search wrapper -->
+          <div *ngIf="searchString?.length > 0 && !isSearching">
             
-            <!-- <div class="col-md-3 p-l-0 m-t--32">
+            <div class="col-md-3 p-l-0 m-t--32">
                 <div class="o-search-left-block p-24">
                     <h6 class="c-text_md f-w_600 text_uppercase ltr-space">All</h6>
                     <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">profiles</h6>
@@ -199,9 +199,9 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
 
-            <div class="col-md-12 m-t--32">
+            <div class="col-md-9 m-t--32">
 
                 <div class="o-search-result-block">
                     <div class="o-search-info-top">
@@ -241,63 +241,66 @@
                     <!-- top result block end -->
                 </div>
                 
-                <div class="o-search-result-block m-t-16 p-b-24">
-                    <!-- people -->
-                    <div class="col-md-6 p-l-0">
-                        <h6 class="c-text_lg p-b-16 with_border_bottom">People
-                            <a (click)="seeAll('people')" class="color-theme float_right">See all</a>
-                        </h6>
-                        <div *ngIf="artists && artists.length === 0; else artists_found;">
-                            <p class="result-not-found">Artists not found!</p>
-                        </div>
-                        <ng-template #artists_found>
-                            <div class="o-people-result-block2">
-                                <div *ngFor="let artist of artists" class="o-people-result-block">
-                                    <app-user-card-new [artist]="artist" class="width-100" ></app-user-card-new>
-                                </div>
+                <div *ngIf="searchType === 'all'">
+                    <div class="o-search-result-block m-t-16 p-b-24">
+                        <!-- people -->
+                        <div class="col-md-6 p-l-0">
+                            <h6 class="c-text_lg p-b-16 with_border_bottom">People
+                                <a (click)="seeAll('people')" class="color-theme float_right">See all</a>
+                            </h6>
+                            <div *ngIf="artists && artists.length === 0; else artists_found;">
+                                <p class="result-not-found">Artists not found!</p>
                             </div>
-                        </ng-template>
-                    </div><!-- people -->
-
-                    <!-- posts -->
-                    <div class="col-md-6">
-                        <h6 class="c-text_lg p-b-16 with_border_bottom">Post
-                            <a (click)="seeAll('post')" class="color-theme float_right">See all</a>
-                        </h6>
-                        <div *ngIf="posts && posts.length === 0; else posts_found;">
-                            <p class="result-not-found">Posts not found!</p>
-                        </div>
-                        <ng-template #posts_found>
-                            <div class="o-post-result-block2">
-                                <div *ngFor="let post of posts" class="o-post-result-block">
-                                    <app-post-card-search [post]="post"></app-post-card-search>
+                            <ng-template #artists_found>
+                                <div class="o-people-result-block2">
+                                    <div *ngFor="let artist of artists" class="o-people-result-block">
+                                        <app-user-card-new [artist]="artist" class="width-100" ></app-user-card-new>
+                                    </div>
                                 </div>
+                            </ng-template>
+                        </div><!-- people -->
+    
+                        <!-- posts -->
+                        <div class="col-md-6">
+                            <h6 class="c-text_lg p-b-16 with_border_bottom">Post
+                                <a (click)="seeAll('post')" class="color-theme float_right">See all</a>
+                            </h6>
+                            <div *ngIf="posts && posts.length === 0; else posts_found;">
+                                <p class="result-not-found">Posts not found!</p>
                             </div>
-                        </ng-template>
-                    </div><!-- posts -->
-                </div>
-
-                <div class="o-search-result-single-block">
-                    <div class="o-search-result-single-block">
-                        <h6 class="c-text_lg m-t-24">Channel
-                            <a (click)="seeAll('channel')" class="color-theme float_right">See all</a>
-                        </h6>
-                        <div *ngIf="channels && channels.length === 0; else channels_found;">
-                            <p class="result-not-found">Channels not found!</p>
-                        </div>
-                        <ng-template #channels_found>
+                            <ng-template #posts_found>
+                                <div class="o-post-result-block2">
+                                    <div *ngFor="let post of posts" class="o-post-result-block">
+                                        <app-post-card-search [post]="post"></app-post-card-search>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </div><!-- posts -->
+                    </div>
+    
+                    <div *ngIf="channels && channels.length > 0;" class="o-search-result-single-block">
+                        <div class="o-search-result-single-block">
+                            <h6 class="c-text_lg m-t-24">Channel
+                                <a (click)="seeAll('channel')" class="color-theme float_right">See all</a>
+                            </h6>
                             <div class="row m-0">
                                 <div *ngFor="let channel of channels | slice:0:6" class="col-md-2 p-0 p-r-10 p-b-10">
                                     <app-channel [channelData]="channel"></app-channel>
                                 </div>
                             </div>
-                        </ng-template>
+                        </div>
                     </div>
                 </div>
 
             </div>
           </div>
-          <!-- search all result -->
+          <!-- search wrapper -->
+
+          <!-- search people result -->
+          <div *ngIf="searchString?.length > 0 && !isSearching && searchType === 'people'">
+            <h2>HERE</h2>
+          </div>
+          <!-- search people result -->
 
           <!-- search channels result -->
           <app-search-channel *ngIf="searchString?.length > 0 && !isSearching && searchType === 'channel'"></app-search-channel>
@@ -306,10 +309,6 @@
           <!-- search posts result -->
           <app-search-post *ngIf="searchString?.length > 0 && !isSearching && searchType === 'post'"></app-search-post>
           <!-- search posts result -->
-
-          <!-- search people result -->
-          <app-search-people *ngIf="searchString?.length > 0 && !isSearching && searchType === 'people'"></app-search-people>
-          <!-- search people result -->
 
           <!-- search prelaoder -->
           <div *ngIf="showPreloader">
