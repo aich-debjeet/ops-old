@@ -95,6 +95,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
       if (state && state['search_all_data'] && state['search_all_data']['posts']) {
         this.all_posts = state['search_all_data']['posts'];
       }
+      if (state && state['search_post_data'] && state['search_post_data']['mediaResponse']) {
+        this.posts = state['search_post_data']['mediaResponse'];
+      }
 
       // load global channels
       if (state && state['search_all_data'] && state['search_all_data']['channels']) {
@@ -196,6 +199,16 @@ export class SearchComponent implements OnInit, AfterViewInit {
       }
       this.isSearching = true;
       this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchChannelParams });
+    }
+
+    if (this.searchType === 'post') {
+      const searchPostParams = {
+        offset: 0,
+        limit: 50,
+        searchText: this.searchString
+      }
+      this.isSearching = true;
+      this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchPostParams });
     }
   }
 
