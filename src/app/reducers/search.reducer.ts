@@ -67,34 +67,35 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
       });
     /* search people reducers */
 
-    // /* search post reducers */
-    // case SearchActions.SEARCH_POST:
-    //   return Object.assign({}, state, {
-    //     searching_post: true,
-    //     search_post_params: payload,
-    //     search_post_success: false
-    //   });
+    /* search post reducers */
+    case SearchActions.SEARCH_POST:
+      return Object.assign({}, state, {
+        searching_post: true,
+        search_post_params: payload,
+        search_post_success: false
+      });
 
-    // case SearchActions.SEARCH_POST_SUCCESS:
-    //   // update state for pagination
-    //   let post_payload;
-    //   if (state.search_post_params.offset === 0) {
-    //     post_payload = payload;
-    //   } else {
-    //     post_payload = [...state.search_post_data, ...payload];
-    //   }
-    //   return Object.assign({}, state, {
-    //     searching_post: false,
-    //     search_post_data: post_payload,
-    //     search_post_success: true
-    //   });
+    case SearchActions.SEARCH_POST_SUCCESS:
+      // update state for pagination
+      // let post_payload;
+      // if (state.search_post_params.offset === 0) {
+      //   post_payload = payload;
+      // } else {
+      //   post_payload = [...state.search_post_data, ...payload];
+      // }
+      return Object.assign({}, state, {
+        searching_post: false,
+        // search_post_data: post_payload,
+        search_post_data: payload,
+        search_post_success: true
+      });
 
-    // case SearchActions.SEARCH_POST_FAILED:
-    //   return Object.assign({}, state, {
-    //     searching_post: false,
-    //     search_post_success: false
-    //   });
-    // /* search post reducers */
+    case SearchActions.SEARCH_POST_FAILED:
+      return Object.assign({}, state, {
+        searching_post: false,
+        search_post_success: false
+      });
+    /* search post reducers */
 
     /* search channel reducers */
     case SearchActions.SEARCH_CHANNEL:

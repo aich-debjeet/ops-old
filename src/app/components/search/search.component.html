@@ -343,6 +343,80 @@
                 <!-- search channels result -->
 
                 <!-- search posts result -->
+                <div *ngIf="searchString?.length > 0 && !isSearching && searchType === 'post'"  class="col-md-9 p-0 m-t--32">
+
+                    <!-- single entity -->
+                    <div *ngFor="let post of posts" class="col-md-4 p-l-r-8 m-b-16">
+                        <div class="c-card">
+                            <!-- card media (img, video & audio) -->
+                            <div class="c-card__media">
+                                <a href="" data-toggle="modal" data-target="#imgModal">
+                                    <img src="{{ baseUrl }}img/demo/new/s05.jpg" class="c-card__image">
+                                </a>
+                                <span>
+                                    <img src="{{ baseUrl }}img/svg/ico_image.svg" alt="" class="c-card__icon">
+                                </span>
+                                <div class="c-media--hover">
+                                    <div class="c-user">
+                                        <a href="javascript:void(0);" class="c-user__avatar c-avatar--feed2">
+                                            <img class="c-user__image" src="{{ baseUrl }}img/demo/avatar.jpg">
+                                        </a>
+                                        <a class="c-user__name2">Tobias Van1</a>
+                                    </div>
+                                    <div class="dropup c-dropdown c-dropdown__options">
+                                        <span class="dropdown-toggle" data-toggle="dropdown">
+                                            <img src="{{ baseUrl }}img/svg/ico_option_white.svg" class="c-status__options m-r-16">
+                                        </span>
+                                        <ul class="dropdown-menu dropdown-menu-right m-r-16">
+                                            <li>
+                                                <a href="#">Edit</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Delete</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //card media (img, video & audio) -->
+                            <!-- card body -->
+                            <div class="c-card__body">
+                                <div class="c-text_sm">
+                                    There are many variations of passages of Lorem Ipsum available, but the majority...
+                                </div>
+                            </div>
+                            <!-- //card body -->
+                            <!-- card footer links -->
+                            <div class="c-card__links p-t-0">
+                                <div class="c-links">
+                                    <div class="c-links__spots">
+                                        <img src="{{ baseUrl }}img/svg/spot_icon_default.svg" class="c-links__image">
+                                        <span class="c-links__count">705</span>
+                                    </div>
+                                    <div class="c-links__comments">
+                                        <img src="{{ baseUrl }}img/svg/ico_comment.svg" class="c-links__image">
+                                        <span class="c-links__count">24</span>
+                                    </div>
+                                    <div class="c-links__actions">
+                                        <span class="c-links__add">
+                                            <a href="">
+                                                <img src="{{ baseUrl }}img/svg/ico_addtochannel.svg" class="c-action__image">
+                                            </a>
+                                        </span>
+                                        <span class="c-links__share">
+                                            <a href="">
+                                                <img src="{{ baseUrl }}img/svg/ico_share-02.svg" class="c-action__image">
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- //card footer links -->
+                        </div>
+                    </div>
+                    <!-- single entity -->
+                
+                </div>
                 <!-- search posts result -->
 
             </div>

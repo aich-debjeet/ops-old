@@ -44,14 +44,13 @@ export class SearchService {
     return this.api.put('/portal/searchprofiles', params);
   }
 
-  // /**
-  //  * Get posts by search query
-  //  * @param search query
-  //  */
-  // getPosts(params: any) {
-  //   this.updateToken();
-  //   return this.api.get('/portal/cdn/media/postByText/' + params.query + '/' + params.offset + '/' + params.limit);
-  // }
+  /**
+   * Get posts by search query
+   * @param search query
+   */
+  getPosts(params: any) {
+    return this.api.post('/portal/cdn/media/search', params);
+  }
 
   /**
    * Get channels by search query

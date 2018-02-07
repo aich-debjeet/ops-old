@@ -33,15 +33,15 @@ export class SearchEffect {
       .catch((res) => Observable.of({ type: SearchActions.SEARCH_PEOPLE_FAILED, payload: res }))
     );
 
-  // @Effect()
-  // postSearch$ = this.actions$
-  //   .ofType(SearchActions.SEARCH_POST)
-  //   .debounceTime(500)
-  //   .map(toPayload)
-  //   .switchMap((payload) => this.apiService.getPosts(payload)
-  //     .map(res => ({ type: SearchActions.SEARCH_POST_SUCCESS, payload: res }))
-  //     .catch((res) => Observable.of({ type: SearchActions.SEARCH_POST_FAILED, payload: res }))
-  //   );
+  @Effect()
+  postSearch$ = this.actions$
+    .ofType(SearchActions.SEARCH_POST)
+    .debounceTime(500)
+    .map(toPayload)
+    .switchMap((payload) => this.apiService.getPosts(payload)
+      .map(res => ({ type: SearchActions.SEARCH_POST_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: SearchActions.SEARCH_POST_FAILED, payload: res }))
+    );
 
   @Effect()
   channelSearch$ = this.actions$
