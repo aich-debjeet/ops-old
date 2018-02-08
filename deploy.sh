@@ -30,7 +30,7 @@ case $DISTR in
           ;;
     2)
           echo "🚧   ---  Building Project  [ dev2 ]"
-          ng build --aot --output-path=build/dev2/
+          ng build --environment=dev2 --aot --output-path=build/dev2/
           echo "🚧   ---  Deploying Files   [ dev2 ]"
           scp -i  $pem_path -r build/dev2/* ec2-user@54.241.168.25:/var/www/dev2.onepagespotlight.com/public_html
           ;;
