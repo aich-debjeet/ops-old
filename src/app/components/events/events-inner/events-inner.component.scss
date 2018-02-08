@@ -1,22 +1,41 @@
-.event-main{
+@import '~sass-mq/_mq.scss';
+@import './src/assets/scss/helpers/_variables.scss';
+.event-main {
     margin-top: 50px;
 }
+
 //left block
 .o-eventinner_left {
     width: 75%;
     float: left;
     background-color: #FFFFFF;
-    box-shadow: 0 2px 4px 0 rgba(102,45,145,0.15);
+    box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.15);
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        width: 100%;
+        padding: 0px;
+    }
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        width: 65%;
+    }
+    @include mq($from: $desktop_sm, $until: $desktop) {
+        width: 69%;
+    }
 }
+
 .o-eventinner__imgblock {
     width: 100%;
     height: 370px;
     background: #f8f8f8;
     overflow: hidden;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        height: 100%;
+    }
 }
+
 .o-eventinner__img {
     width: 100%;
 }
+
 .o-eventinner__cat {
     font-size: 13px;
     font-weight: 600;
@@ -24,31 +43,53 @@
     line-height: 18px;
     color: #808080;
     margin: 16px 0;
-    text-transform: uppercase
+    text-transform: uppercase;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
 }
+
 .o-eventinner__heading {
     color: #333333;
     font-size: 24px;
     line-height: 34px;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
 }
+
 .o-eventinner__detail {
     clear: both;
     margin-bottom: 16px;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
 }
+
 .o-eventinner__date {
     color: #808080;
     font-size: 13px;
     line-height: 20px;
     display: inline;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
 }
+
 .o-eventinner__address {
     @extend .o-eventinner__date;
     margin-left: 24px;
 }
+
 .o-eventinner__detail--img {
     height: 12px;
     margin-right: 4px;
 }
+
 .o-eventinner__agenda {
     color: #333333;
     font-size: 13px;
@@ -67,7 +108,18 @@
     background-color: #FFFFFF;
     box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.15);
     margin-left: 16px;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        width: 100%;
+        margin: 0px;
+    }
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        width: 32.5%;
+    }
+    @include mq($from: $desktop_sm, $until: $desktop) {
+        width: 28.5%;
+    }
 }
+
 .o-eventinner__ticket {
     font-size: 13px;
     font-weight: 600;
@@ -76,6 +128,7 @@
     color: #333333;
     text-transform: uppercase;
 }
+
 .o-eventinner__ticket--block {
     background-color: #F3F5F7;
     border-radius: 3px;
@@ -83,33 +136,39 @@
     padding: 8px 16px 16px 16px;
     margin-bottom: 16px;
 }
+
 .o-eventinner__ticket__type {
     font-size: 20px;
     line-height: 30px;
 }
+
 .o-eventinner__ticket__price {
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 1px;
     line-height: 18px;
 }
+
 .o-eventinner__ticket__count {
     float: right;
     .pagination {
         margin: 0;
     }
-    .pagination > li > a, .pagination > li > span {
+    .pagination>li>a,
+    .pagination>li>span {
         padding: 0px 3px;
         background-color: transparent;
         border: none;
         color: #333;
     }
 }
+
 .o-eventinner__ticket__total {
     font-size: 13px;
     color: #929292;
     line-height: 20px;
 }
+
 .o-eventinner__ticket__totalmrp {
     font-size: 24px;
     color: #333333;
