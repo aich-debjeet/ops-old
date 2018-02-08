@@ -70,7 +70,6 @@ export class ProfileSliderComponent implements OnInit {
   activeProfileHandle = '';
 
   hasFollowed: boolean;
-
   @ViewChild('skillModal') UsertypeModal: Modal;
   @ViewChild('followersModal') followersModal: Modal;
   @ViewChild('followingModal') followingModal: Modal;
@@ -97,7 +96,7 @@ export class ProfileSliderComponent implements OnInit {
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      console.log('state', state);
+      // console.log('state', state);
       // get followers
       if (state) {
         if ((state['searching_following_profiles'] === false && state['searching_following_profiles_success'] === true) || (state['searching_follower_profiles'] === false && state['searching_follower_profiles_success'] === true)) {
@@ -109,6 +108,7 @@ export class ProfileSliderComponent implements OnInit {
         if (state['following_profiles']) {
           this.followingProfiles = state['following_profiles'];
         }
+        // this.isFollowing = state['profile_other'].extra.isFollowing;
       }
       // console.log('state.profile_user_info', state.profile_user_info);
       if (state.profile_user_info) {
@@ -141,12 +141,12 @@ export class ProfileSliderComponent implements OnInit {
     this.router = _router;
 
 
-    this.profileStore.select('profileTags')
-      .first(profile => profile['profile_other'].handle )
-      .subscribe( data => {
-        this.isFollowing = data['profile_other'].extra.isFollowing;
-        this.followers = data['profile_other'].followersCount;
-      });
+    // this.profileStore.select('profileTags')
+    //   .first(profile => profile['profile_other'].handle )
+    //   .subscribe( data => {
+    //     this.isFollowing = data['profile_other'].extra.isFollowing;
+    //     this.followers = data['profile_other'].followersCount;
+    //   });
   }
 
   disableFollowForSelf(username: string) {
@@ -230,12 +230,12 @@ export class ProfileSliderComponent implements OnInit {
   userFollow(follow: boolean, handle: string) {
     if (follow) {
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
-      this.isFollowing = false;
-      this.profileObject.follwerCount -= 1;
+      // this.isFollowing = false;
+      // this.profileObject.follwerCount -= 1;
     }else {
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle  });
-      this.isFollowing = true;
-      this.profileObject.follwerCount += 1;
+      // this.isFollowing = true;
+      // this.profileObject.follwerCount += 1;
     }
   }
 

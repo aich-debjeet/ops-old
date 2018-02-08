@@ -233,7 +233,6 @@ export class MediaEffect {
       }))
     );
 
-  
 
   constructor(
       private actions$: Actions,

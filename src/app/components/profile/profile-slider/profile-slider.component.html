@@ -26,19 +26,23 @@
                         </a>
                     </span>
                 </div>
+
                 <div class="c-profile__userdetail">
-                    <h2 class="c-profile__username" *ngIf="this.isOwner">{{ profileObject?.name }}<span class="c-profile__userskill hidden-xs">artist</span></h2>
-                    <h2 class="c-profile__username" *ngIf="!this.isOwner">{{ profileObject?.name }}<span class="c-profile__userskill hidden-xs">artist</span>
-                        <button type="button" *ngIf="!profileObject?.extra?.isImported" (click)="userFollow(isFollowing, profileObject?.userDetails?.handle )" [ngClass]="(isFollowing) ? 'btn-following' : 'btn-primary'" class="btn btn-primary btn-md m-l-8">{{ (isFollowing)? 'Unfollow' : 'Follow'}}</button>
+                    <h2 class="c-profile__username" *ngIf="this.isOwner">{{ profileObject?.name }}</h2>
+                    <h2 class="c-profile__username" *ngIf="!this.isOwner">{{ profileObject?.name }}
                         <a [routerLink]="['/reg/information']" [queryParams]="{ action: 'claim_profile', username: profileObject?.extra?.username }" *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-primary btn-md m-l-8">Claim</a>
-                        <!-- <a type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#createNetwork">Network</a>
-                        <button type="button" (click)="donatePopup()" class="btn btn-default btn-md">Support</button> -->
                     </h2>
                     <span class="c-profile__userhandle">{{ '@' + profileObject?.userHandle }}</span>
                     <span class="c-profile__userprofession">{{ profileObject?.extra?.profession }}</span>
+                    <div class="o-profile__others-follow-btn">
+                        <button type="button" *ngIf="!profileObject?.extra?.isImported && !this.isOwner" (click)="userFollow(profileObject?.extra?.isFollowing, profileObject?.userDetails?.handle )" [ngClass]="(profileObject?.extra?.isFollowing) ? 'btn-following' : 'btn-primary'"
+                            class="btn btn-primary btn-md">{{ (profileObject?.extra?.isFollowing)? 'Unfollow' : 'Follow'}}</button>
+                        <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" (click)="networkModal.open()">Network</a>
+                        <!-- <button *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md">Donate</button> -->
+                    </div>
                     <div class="c-profile__maintags">
                         <a routerLink="{{ '/spotfeed/' + skill?.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:5">#{{ skill?.name }}</a>
-                        <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more" data-toggle="modal" data-target="#tag-pop">More</a>
+                        <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more">More</a>
                     </div>
                 </div>
             </div>
@@ -141,13 +145,13 @@
                 <div class="col-md-12 col-sm-12 o-profile__detail__cont">
                     <div class="col-md-4 col-sm-4 text-center o-profile__detail__block with_border_right">
                         <div class="row">
-                            <div class="col-md-4 col-sm-4 o-profile__followers">
+                            <div class="col-md-4 col-sm-4 col-xs-4 o-profile__followers">
                                 <a (click)="showModal('followers')" class="o-follow-and-following" data-toggle="modal" data-target="#followers">
                                     <div class="o-profile--count">{{ profileObject?.follwerCount }}</div>
                                     <p class="o-follow__title">Followers</p>
                                 </a>
                             </div>
-                            <div class="col-md-4 col-sm-4 o-profile__following">
+                            <div class="col-md-4 col-sm-4 col-xs-4 o-profile__following">
                                 <a (click)="showModal('following')" class="o-follow-and-following" data-toggle="modal" data-target="#o-following">
                                     <div class="o-profile--count">{{ profileObject?.followingCount }}</div>
                                     <p class="o-follow__title">Following</p>
@@ -345,6 +349,64 @@
     </div>
 </app-modal>
 
+
+<!--NetWork-->
+<app-modal-new #networkModal modalClass="pop-container-md">
+    <modal-content>
+        <div class="modal-body p-0">
+            <div class="pop-container-md o-following-pop">
+                <div class="pop-head m-b-16">
+                    <div class="c-text_lg c-text-semibold text-center">Network with {{ profileObject?.name }}</div>
+                    <span class="pop-close">
+                        <a href="" data-dismiss="modal"><img src="assets/svg/ico_close-38.svg" alt=""></a>
+                    </span>
+                </div>
+                <div class="col-md-12">
+                    <div class="c-text_lg m-t-16">
+                        What's the network about
+                    </div>
+                    <form>
+                        <div class="c-form__group c-form--lg">
+                            <select class="c-form-control p-l-0">
+                        <option>Want to hire</option>
+                        <option>Select list 2</option>
+                        <option>Select list 3</option>
+                        <option>Select list 4</option>
+                    </select>
+                        </div>
+                        <div class="c-form__group c-form--lg">
+                            <textarea class="c-form__input" required="" rows="2" cols="10"></textarea>
+                            <span class="c-form__highlight"></span>
+                            <span class="c-form__bar"></span>
+                            <label>Note</label>
+                        </div>
+                        <div class="c-form__group c-form--lg">
+                            <input class="c-form__input" required="" type="text">
+                            <span class="c-form__highlight"></span>
+                            <span class="c-form__bar"></span>
+                            <label>Location</label>
+                        </div>
+                        <div class="m-t-24">
+                            <a href="" class="btn btn-default btn-md">
+                                <span class="btn-label-icon m-r-5">
+                    </span> add attachment
+                            </a>
+                        </div>
+                        <div class="c-form__check m-t-24">
+                            <label for="people">
+                        <input id="people" type="checkbox"> I confirm that i would like to work and this is not a random connection request.
+                    </label>
+                        </div>
+                        <div class="col-md-12 text-center m-t-24">
+                            <button type="button" class="btn btn-primary btn-md">Network</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </modal-content>
+</app-modal-new>
+
 <app-modal-new #followersModal modalClass="modal-profile-followers">
     <modal-content>
         <div class="pop-container-md o-following-pop">
@@ -367,7 +429,7 @@
                     <div class="loader">Loading...</div>
                 </div>
             </div>
-            <div (scroll)="onFollowerScroll($event)"  *ngIf="showPreloader === false && followersProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
+            <div (scroll)="onFollowerScroll($event)" *ngIf="showPreloader === false && followersProfiles.length > 0" id="ops_scrollbar" class="o-following__container">
                 <ul class="o-follow-people">
                     <li *ngFor="let follower of followersProfiles" class="o-follow-people__list">
                         <a routerLink="{{ '/profile/u/' + follower?.extra?.username }}">
@@ -381,15 +443,15 @@
                         </a>
                         <!-- <button type="button" class="btn btn-primary btn-sm m-t-8">follow</button> -->
                         <div *ngIf="follower?.extra.isImported; else not_imported">
-                            <button routerLink="{{ '/profile/u/' + follower?.extra?.username }}" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)" >
+                            <button routerLink="{{ '/profile/u/' + follower?.extra?.username }}" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
                                 <span class="btn-label-follow"> CLAIM </span>
                             </button>
                         </div>
                         <ng-template #not_imported>
-                            <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)" >
+                            <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
                                 <span class="btn-label-follow"> UNFOLLOW </span>
                             </button>
-                            <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)" >
+                            <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
                                 <span class="btn-label-follow"> FOLLOW </span>
                             </button>
                         </ng-template>
@@ -436,15 +498,15 @@
                         </a>
                         <!-- <button type="button" class="btn btn-primary btn-sm m-t-8">follow</button> -->
                         <div *ngIf="follower?.extra.isImported; else not_imported">
-                            <button routerLink="{{ '/profile/u/' + follower?.extra?.username }}" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)" >
+                            <button routerLink="{{ '/profile/u/' + follower?.extra?.username }}" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
                                 <span class="btn-label-follow"> CLAIM </span>
                             </button>
                         </div>
                         <ng-template #not_imported>
-                            <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)" >
+                            <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
                                 <span class="btn-label-follow"> UNFOLLOW </span>
                             </button>
-                            <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)" >
+                            <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
                                 <span class="btn-label-follow"> FOLLOW </span>
                             </button>
                         </ng-template>

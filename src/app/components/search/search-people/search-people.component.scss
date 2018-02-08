@@ -78,11 +78,28 @@
 .result-not-found {
     margin-top: 80px;
     text-align: center;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 15px;
     color: #000;
 }
 
 .pad-bot-25 {
     padding-bottom: 25px;
+}
+
+.o-people-result-block {
+    width: 100%;
+    float: left;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+}
+
+
+.width-100 {
+    width: 100%;
+}
+
+.o-people-result-block2 {
+    height: 50vh;
+    overflow-y: auto;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 // import { NgxCarousel } from 'ngx-carousel';
 
 // actions
@@ -27,7 +27,8 @@ import { allSettled } from 'q';
   selector: 'app-explore',
   templateUrl: './explore.component.html',
   styleUrls: ['./explore.component.scss'],
-  providers: [ TruncatePipe ]
+  providers: [ TruncatePipe ],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExploreComponent implements OnInit {
 
@@ -85,7 +86,7 @@ export class ExploreComponent implements OnInit {
       if (state && state.explore_spotfeeds && state.explore_spotfeeds) {
 
         // merge all categories here
-        this.mergedSpotfeeds = this.mergeAllSpotfeeds(state.explore_spotfeeds);
+        this.mergedSpotfeeds = state.explore_spotfeeds
       }
 
       // check if loaded
@@ -94,21 +95,6 @@ export class ExploreComponent implements OnInit {
       }
     })
 
-  }
-
-  /**
-   * mergin all spotfeeds
-   */
-  mergeAllSpotfeeds(categorisedSpotfeeds) {
-    let allSpotFeeds = [];
-    for (let i = 0; i < categorisedSpotfeeds.length; i++) {
-      allSpotFeeds = allSpotFeeds.concat(categorisedSpotfeeds[i].feeds);
-
-      if (i >= (categorisedSpotfeeds.length - 1)) {
-        // console.log('last');
-        return allSpotFeeds;
-      }
-    }
   }
 
   /**

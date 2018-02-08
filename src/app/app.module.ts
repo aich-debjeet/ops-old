@@ -13,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
 import { NgxCarouselModule } from 'ngx-carousel';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
@@ -79,6 +80,7 @@ import { LocalStorageService } from './services/local-storage.service';
 import { OpportunityService } from './services/opportunity.service';
 import { ExploreService } from './services/explore.service';
 import { ClaimProfileService } from './services/claim-profile.service';
+import { FileService } from './services/file.service';
 
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
@@ -204,7 +206,8 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
       libraries: ['places'],
       apiKey: 'AIzaSyDHx_cyWUg9okHlTH8M_kvduvWFSV3nShc'
     }),
-    NgxCarouselModule
+    NgxCarouselModule,
+    LazyLoadImageModule
   ],
   providers: [
     AuthService,
@@ -223,7 +226,8 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     LocalStorageService,
     OpportunityService,
     ExploreService,
-    ClaimProfileService
+    ClaimProfileService,
+    FileService
   ],
   bootstrap: [AppComponent]
 })

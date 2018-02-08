@@ -1,0 +1,56 @@
+.o-search-result-block {
+    width: 100%;
+    float: left;
+    background: #fff;
+    min-height: 300px;
+    border-radius: 3px;
+    padding: 16px 24px;
+}
+
+.o-people-result-block {
+    width: 100%;
+    float: left;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.o-people-result__prof-pic {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #c1c1c1;
+    overflow: hidden;
+    float: left;
+}
+
+.o-people-result__prof-pic img {
+    width: 100%;
+    cursor: pointer;
+}
+
+.o-people-result__name {
+    width: 70%;
+    float: left;
+    margin-left: 16px;
+    cursor: pointer;
+}
+
+.o-people-result__name span {
+    display: block;
+}
+
+.o-people-result__btn {
+    float: right;
+    text-align: right;
+}
+
+.o-people-result__follow-btn {
+    color: #FF7B84;
+    font-size: 11px;
+    letter-spacing: 1px;
+    line-height: 15px;
+    text-align: right;
+    text-transform: uppercase;
+    cursor: pointer;
+}

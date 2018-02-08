@@ -99,18 +99,18 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
   ) {
 
     /* member search */
-    this.searchState$ = this.searchStore.select('searchTags');
-    // observe the store value
-    this.searchState$.subscribe((state) => {
-      this.searchState = state;
-      if (state && state.searching_people === false) {
-        this.isSearching = false;
-        this.showPreloader = false;
-      }
-      if (state && state.search_people_data) {
-        this.people = state.search_people_data;
-      }
-    });
+    // this.searchState$ = this.searchStore.select('searchTags');
+    // // observe the store value
+    // this.searchState$.subscribe((state) => {
+    //   this.searchState = state;
+    //   if (state && state.searching_people === false) {
+    //     this.isSearching = false;
+    //     this.showPreloader = false;
+    //   }
+    //   if (state && state.search_people_data) {
+    //     this.people = state.search_people_data;
+    //   }
+    // });
     /* member search */
 
     // check if creator is user or organization
@@ -354,7 +354,7 @@ export class OrgAboutComponent implements OnInit, AfterViewInit {
         }
 
         // search people
-        this.searchStore.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
+        // this.searchStore.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
       }
 
     });
