@@ -136,8 +136,12 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
         // check if params available
         if (params && params.q && params.q.length > 0) {
+
+          // giving back the search value
           this.searchString = params.q;
-          if (params && params.type && params.type === 'all') {
+
+          // check if search is global
+          if ((params.type && params.type === 'all') || !params.type) {
             this.isSearching = true;
             const searchAllParams = {
               searchText: this.searchString,
@@ -146,7 +150,51 @@ export class SearchComponent implements OnInit, AfterViewInit {
             }
             // search all
             this.store.dispatch({ type: SearchActions.SEARCH_ALL, payload: searchAllParams });
+            return;
           }
+
+          // check if search type is available
+          if (params.type && params.type.length > 0) {
+
+            // giving back the search type
+            this.searchType = params.type;
+            console.log('this.searchType', this.searchType);
+
+            // making a dispatch depending on the search type
+            if (this.searchType === 'people') {
+              const searchPeopleParams = {
+                isHuman: '1',
+                status: [],
+                offset: 0,
+                limit: 50,
+                searchText: this.searchString
+              }
+              this.isSearching = true;
+              this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchPeopleParams });
+            }
+
+            if (this.searchType === 'channel') {
+              const searchChannelParams = {
+                offset: 0,
+                limit: 50,
+                searchText: this.searchString
+              }
+              this.isSearching = true;
+              this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchChannelParams });
+            }
+
+            if (this.searchType === 'post') {
+              const searchPostParams = {
+                offset: 0,
+                limit: 50,
+                searchText: this.searchString
+              }
+              this.isSearching = true;
+              this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchPostParams });
+            }
+
+          }
+
         }
 
       });
@@ -178,39 +226,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   seeAll(sType: string) {
     this.searchType = sType;
-    console.log('this.searchType', this.searchType);
-
-    if (this.searchType === 'people') {
-      const searchPeopleParams = {
-        isHuman: '1',
-        status: [],
-        offset: 0,
-        limit: 50,
-        searchText: this.searchString
-      }
-      this.isSearching = true;
-      this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchPeopleParams });
-    }
-
-    if (this.searchType === 'channel') {
-      const searchChannelParams = {
-        offset: 0,
-        limit: 50,
-        searchText: this.searchString
-      }
-      this.isSearching = true;
-      this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchChannelParams });
-    }
-
-    if (this.searchType === 'post') {
-      const searchPostParams = {
-        offset: 0,
-        limit: 50,
-        searchText: this.searchString
-      }
-      this.isSearching = true;
-      this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchPostParams });
-    }
+    // console.log('this.searchType', this.searchType);
+    this.router.navigate(['/search'], { queryParams: { q: this.searchString, type: this.searchType } });
   }
 
   /**
