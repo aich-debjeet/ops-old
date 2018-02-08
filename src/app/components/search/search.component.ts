@@ -10,6 +10,7 @@ import { SearchModel } from './../../models/search.model';
 import { ProfileModal, initialTag } from '../../models/profile.model';
 
 import { environment } from './../../../environments/environment.prod';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -18,7 +19,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 
 import { Store } from '@ngrx/store';
-import { setTimeout } from 'core-js/library/web/timers';
 
 @Component({
   selector: 'app-search',
@@ -38,6 +38,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   searchState: any;
   searchString = '';
   beforeSearch: boolean;
+  routeSub: any;
 
   lastScrollTop = 0;
   canScroll = true;
@@ -59,6 +60,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
   posts: any[];
 
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private store: Store<SearchModel>,
     private mediaStore: Store<Media>,
     private profileStore: Store<ProfileModal>,
@@ -126,6 +129,27 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.beforeSearch = true;
+
+    this.routeSub = this.route.queryParams
+      .subscribe(params => {
+        console.log(params);
+
+        // check if params available
+        if (params && params.q && params.q.length > 0) {
+          this.searchString = params.q;
+          if (params && params.type && params.type === 'all') {
+            this.isSearching = true;
+            const searchAllParams = {
+              searchText: this.searchString,
+              from: 0,
+              limit: this.recordsPerPage
+            }
+            // search all
+            this.store.dispatch({ type: SearchActions.SEARCH_ALL, payload: searchAllParams });
+          }
+        }
+
+      });
   }
 
   ngAfterViewInit() {
@@ -138,32 +162,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
     .subscribe(() => {
 
       this.searchString = this.searchInput.value;
-
-      // search if string is available
-      if (this.searchString && this.searchString.length > 0 && this.searchType === 'all') {
-        this.isSearching = true;
-        const searchAllParams = {
-          searchText: this.searchString,
-          from: 0,
-          limit: this.recordsPerPage
-        }
-        // search all
-        this.store.dispatch({ type: SearchActions.SEARCH_ALL, payload: searchAllParams });
-      }
-
-      // search if string is available
-      if (this.searchString && this.searchString.length > 0 && this.searchType === 'people') {
-        this.isSearching = true;
-        const searchPeopleParams = {
-          isHuman: '1',
-          status: [],
-          offset: 0,
-          limit: 50,
-          searchText: this.searchString
-        }
-        // search people
-        this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchPeopleParams });
-      }
+      // console.log('this.searchString', this.searchString);
+      if (this.searchString.length === 0) { return; }
+      this.router.navigate(['/search'], { queryParams: { q: this.searchString, type: this.searchType } });
 
     });
 
