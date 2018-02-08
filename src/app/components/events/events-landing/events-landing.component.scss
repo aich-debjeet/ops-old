@@ -129,6 +129,9 @@
         border: none;
         text-transform: uppercase!important;
         letter-spacing: 1px;
+        @include mq($from: $mobile_sm, $until: $tablet) {
+            padding: 8px 6px;
+        }
     }
 }
 
@@ -259,4 +262,9 @@
     img {
         width: 100%;
     }
+}
+
+// for mob
+.o-contianer--p_none {
+    padding: 0px!important;
 }

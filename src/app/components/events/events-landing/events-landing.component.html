@@ -75,17 +75,17 @@
 </div>
 
 <div class="o-event-contentarea">
-    <div class="container">
+    <div class="container o-contianer--p_none">
 
         <div class="o-event-filter-sec with_border_top c-ops__tabs o-event-tabs m-t--32">
-            <div class="col-md-6 p-0">
+            <div class="col-md-6 col-sm-6 col-xs-12 p-0">
                 <ul class="nav nav-tabs">
                     <li routerLinkActive="active"><a class="p-l-0 p-t-b-16" [routerLink]="['/event']" [queryParams]="{ status: 'recommended', stat: '' }">Recommended</a></li>
                     <li routerLinkActive="active"><a class="p-t-b-16" [routerLink]="['/event']" [queryParams]="{ status: 'attending' }">Attending</a></li>
-                    <li routerLinkActive="active"><a class="p-t-b-16" [routerLink]="['/event']" [queryParams]="{ status: 'created' }">Created</a></li>
+                    <li routerLinkActive="active"><a class="p-t-b-16 p-r-0" [routerLink]="['/event']" [queryParams]="{ status: 'created' }">Created</a></li>
                 </ul>
             </div>
-            <div class="col-md-6 p-0">
+            <div class="col-md-6 col-sm-6 col-xs-12 p-0">
                 <a routerLink="/event/create" class="btn btn-primary btn-md float_right m-t-8 m-l-8">Create</a>
                 <ul class="o-calendar float_right">
                     <li class="o-calendar__list" routerLinkActive="o-calendar--active">
@@ -162,8 +162,8 @@
         </div>
         <!-- location end-->
 
-        <div class="col-md-12 p-0">
-            <div class="tab-content m-t-32">
+        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+            <div class="tab-content">
                 <div id="recommended" class="tab-pane fade  active in">
                     <div class="row">
                         <app-event-card *ngFor="let event of eventList" [eventData]="event"></app-event-card>
