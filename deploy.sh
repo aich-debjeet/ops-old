@@ -14,8 +14,9 @@ pem_path="~/Downloads/DevMongoCluster.pem"
 printf 'Where do you want to deploy'
 printf '\n ------ \n'
 printf '\n1. dev'
-printf '\n2. staging'
-printf '\n3. production [ orappalle?] \n'
+printf '\n2. dev2'
+printf '\n3. staging'
+printf '\n4. production [ orappalle? ] \n'
 printf '\n ~ Team Aeione \n'
 
 read DISTR
