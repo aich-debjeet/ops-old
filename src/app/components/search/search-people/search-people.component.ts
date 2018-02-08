@@ -19,9 +19,12 @@ import { Store } from '@ngrx/store';
 export class SearchPeopleComponent implements OnInit {
 
   searchState$: Observable<SearchModel>;
+  searchState: any;
   baseUrl: string;
 
   artists: any[];
+  searchString = '';
+  resultCount = '';
 
   constructor(
     private store: Store<SearchModel>
@@ -29,18 +32,27 @@ export class SearchPeopleComponent implements OnInit {
 
     this.baseUrl = environment.API_IMAGE;
     this.searchState$ = this.store.select('searchTags');
-
   }
 
   ngOnInit() {
 
     // observe the store value
     this.searchState$.subscribe((state) => {
-      if (state && state['search_all_data'] && state['search_all_data']['profiles']) {
-        this.artists = state['search_all_data']['profiles'];
+      this.searchState = state;
+      console.log(this.searchState);
+      if (state && state['search_people_data'] && state['search_people_data']['profileResponse']) {
+        this.artists = state['search_people_data']['profileResponse'];
       }
     });
 
+  }
+
+  disableFollowForSelf(username: string) {
+    return false;
+    // if (this.searchState && (this.searchState['profile_navigation_details']['username']) === username) {
+    //   return true;
+    // }
+    // return false;
   }
 
 }

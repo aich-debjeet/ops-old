@@ -20,38 +20,38 @@ export class SearchEffect {
     .map(toPayload)
     .switchMap((payload) => this.apiService.getAllSearchResult(payload)
       .map(res => ({ type: SearchActions.SEARCH_ALL_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: SearchActions.SEARCH_ALL, payload: res }))
+      .catch((res) => Observable.of({ type: SearchActions.SEARCH_ALL_FAILED, payload: res }))
     );
 
-  // @Effect()
-  // userSearch$ = this.actions$
-  //   .ofType(SearchActions.SEARCH_PEOPLE)
-  //   .debounceTime(500)
-  //   .map(toPayload)
-  //   .switchMap((payload) => this.apiService.getPeople(payload)
-  //     .map(res => ({ type: SearchActions.SEARCH_PEOPLE_SUCCESS, payload: res }))
-  //     .catch((res) => Observable.of({ type: SearchActions.SEARCH_PEOPLE_FAILED, payload: res }))
-  //   );
+  @Effect()
+  peopleSearch$ = this.actions$
+    .ofType(SearchActions.SEARCH_PEOPLE)
+    .debounceTime(500)
+    .map(toPayload)
+    .switchMap((payload) => this.apiService.getPeople(payload)
+      .map(res => ({ type: SearchActions.SEARCH_PEOPLE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: SearchActions.SEARCH_PEOPLE_FAILED, payload: res }))
+    );
 
-  // @Effect()
-  // postSearch$ = this.actions$
-  //   .ofType(SearchActions.SEARCH_POST)
-  //   .debounceTime(500)
-  //   .map(toPayload)
-  //   .switchMap((payload) => this.apiService.getPosts(payload)
-  //     .map(res => ({ type: SearchActions.SEARCH_POST_SUCCESS, payload: res }))
-  //     .catch((res) => Observable.of({ type: SearchActions.SEARCH_POST_FAILED, payload: res }))
-  //   );
+  @Effect()
+  postSearch$ = this.actions$
+    .ofType(SearchActions.SEARCH_POST)
+    .debounceTime(500)
+    .map(toPayload)
+    .switchMap((payload) => this.apiService.getPosts(payload)
+      .map(res => ({ type: SearchActions.SEARCH_POST_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: SearchActions.SEARCH_POST_FAILED, payload: res }))
+    );
 
-  // @Effect()
-  // channelSearch$ = this.actions$
-  //   .ofType(SearchActions.SEARCH_CHANNEL)
-  //   .debounceTime(500)
-  //   .map(toPayload)
-  //   .switchMap((payload) => this.apiService.getChannels(payload)
-  //     .map(res => ({ type: SearchActions.SEARCH_CHANNEL_SUCCESS, payload: res }))
-  //     .catch((res) => Observable.of({ type: SearchActions.SEARCH_CHANNEL_FAILED, payload: res }))
-  //   );
+  @Effect()
+  channelSearch$ = this.actions$
+    .ofType(SearchActions.SEARCH_CHANNEL)
+    .debounceTime(500)
+    .map(toPayload)
+    .switchMap((payload) => this.apiService.getChannels(payload)
+      .map(res => ({ type: SearchActions.SEARCH_CHANNEL_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: SearchActions.SEARCH_CHANNEL_FAILED, payload: res }))
+    );
 
   constructor(
       private actions$: Actions,
