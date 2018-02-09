@@ -44,6 +44,7 @@ export class OrgSettingsComponent implements OnInit {
   networkOption = {name: 'Network', value: 'Network', checked: true};
   messageOption = {name: 'Message', value: 'Message', checked: true};
   defaultSettings: any;
+  orgDetails = true;
 
   constructor(
     private http: Http,
@@ -62,9 +63,11 @@ export class OrgSettingsComponent implements OnInit {
     this.tagState$ = this.store.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      if (state.profile_navigation_details.isOrganization === true) {
+      if (state.profile_navigation_details.isOrganization === true && this.orgDetails) {
         this.organizationHandle = state.profile_navigation_details.organization.organizationHandle;
+        console.log('organization handle', this.organizationHandle)
         this.store.dispatch({type: OrganizationActions.GET_ORGANIZATION_BY_HANDLE, payload: this.organizationHandle});
+        this.orgDetails = false;
       }
     });
 
