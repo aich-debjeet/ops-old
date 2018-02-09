@@ -29,30 +29,38 @@ export class SearchService {
   }
 
   /**
-   * Get people by search query
-   * @param search query
+   * Get search result
+   * @param search request params
    */
-  getPeople(params: any) {
-    this.updateToken();
-    return this.api.get('/portal/searchprofiles/1/' + params.query + '/' + params.offset + '/' + params.limit);
+  getAllSearchResult(params: any) {
+    return this.api.post('/portal/global/search/', params);
   }
 
-  /**
-   * Get posts by search query
-   * @param search query
-   */
-  getPosts(params: any) {
-    this.updateToken();
-    return this.api.get('/portal/cdn/media/postByText/' + params.query + '/' + params.offset + '/' + params.limit);
-  }
+  // /**
+  //  * Get people by search query
+  //  * @param search query
+  //  */
+  // getPeople(params: any) {
+  //   this.updateToken();
+  //   return this.api.get('/portal/searchprofiles/1/' + params.query + '/' + params.offset + '/' + params.limit);
+  // }
 
-  /**
-   * Get channels by search query
-   * @param search query
-   */
-  getChannels(params: any) {
-    this.updateToken();
-    return this.api.get('/portal/network/spotfeed/searchByText/' + params.query + '/' + params.offset + '/' + params.limit);
-  }
+  // /**
+  //  * Get posts by search query
+  //  * @param search query
+  //  */
+  // getPosts(params: any) {
+  //   this.updateToken();
+  //   return this.api.get('/portal/cdn/media/postByText/' + params.query + '/' + params.offset + '/' + params.limit);
+  // }
+
+  // /**
+  //  * Get channels by search query
+  //  * @param search query
+  //  */
+  // getChannels(params: any) {
+  //   this.updateToken();
+  //   return this.api.get('/portal/network/spotfeed/searchByText/' + params.query + '/' + params.offset + '/' + params.limit);
+  // }
 
 }

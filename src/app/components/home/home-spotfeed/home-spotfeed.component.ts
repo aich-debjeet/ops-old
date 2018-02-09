@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -12,15 +12,16 @@ import { environment } from '../../../../environments/environment';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-home-spotfeed',
   templateUrl: './home-spotfeed.component.html',
   styleUrls: ['./home-spotfeed.component.scss']
 })
-export class HomeSpotfeedComponent implements OnInit {
+export class HomeSpotfeedComponent implements OnInit, OnDestroy {
 
+  private subscription: ISubscription;
   tagState$: Observable<UserSpotfeeds>;
   private tagStateSubscription: Subscription;
   userState;
@@ -34,16 +35,20 @@ export class HomeSpotfeedComponent implements OnInit {
   ) {
 
     this.tagState$ = this.store.select('profileTags');
-    this.tagState$.subscribe((state) => {
+    this.subscription = this.tagState$.subscribe((state) => {
       this.userState = state;
       if (this.userState.home_spotfeeds !== undefined && this.userState.home_spotfeeds.SUCCESS !== undefined) {
         this.spotfeeds = this.userState.home_spotfeeds.SUCCESS;
       }
     });
-    this.store.dispatch({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS });
   }
 
   ngOnInit() {
+    this.store.dispatch({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

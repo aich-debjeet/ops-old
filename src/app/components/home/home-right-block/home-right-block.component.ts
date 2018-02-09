@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TruncatePipe } from '../../../pipes/truncate.pipe';
 
 import { ProfileActions } from '../../../actions/profile.action';
 
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 import { OpportunityModel } from '../../../models/opportunity.model';
 import { Store } from '@ngrx/store';
 
@@ -20,7 +20,9 @@ import { environment } from '../../../../environments/environment';
   // providers: [ TruncatePipe ]
 })
 
-export class HomeRightBlockComponent implements OnInit {
+export class HomeRightBlockComponent implements OnInit, OnDestroy {
+  private subscription: ISubscription;
+  private profilesubscription: ISubscription;
   opportunityState$: Observable<OpportunityModel>;
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
@@ -45,14 +47,14 @@ export class HomeRightBlockComponent implements OnInit {
     this.store.dispatch({ type: ProfileActions.LOAD_ALL_PROFILES, payload: '' });
 
     // observe the opportunity state
-    this.opportunityState$.subscribe((state) => {
+    this.subscription = this.opportunityState$.subscribe((state) => {
      // check for the result of recommended opportunities
      if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
        this.opportunities = state.get_opportunities_data.SUCCESS;
      }
    });
 
-    this.myProfile$.subscribe(event => {
+    this.profilesubscription = this.myProfile$.subscribe(event => {
       if (typeof event !== 'undefined') {
         this.userState = event;
         if (event['user_profiles_all'] !== 'undefined') {
@@ -124,6 +126,11 @@ export class HomeRightBlockComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.profilesubscription.unsubscribe();
   }
 
 }

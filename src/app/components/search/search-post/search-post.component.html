@@ -1,21 +1,15 @@
-<div class="row">
-    
-    <!-- if posts not found -->
-    <div *ngIf="posts && posts.length === 0; else posts_found;">
-        <p class="result-not-found">Posts not found!</p>
-    </div>
-    <!-- if posts not found -->
-    
-    <!-- if posts found -->
-    <ng-template #posts_found>
+<h6 class="c-text_lg p-b-16 with_border_bottom">Post
+    <a href="#" class="color-theme float_right">See all</a>
+</h6>
 
-        <masonry [useImagesLoaded]="true">
-            <masonry-brick class="col-md-3" *ngFor="let post of posts">
-                <app-post-card (onClick)="mediaOpenPopup(post.id)" [mediaData]="post"></app-post-card>
-            </masonry-brick>
-        </masonry>
-
-    </ng-template>
-    <!-- if posts found -->
-
+<div *ngIf="posts && posts.length === 0; else posts_found;">
+    <p class="result-not-found">Posts not found!</p>
 </div>
+
+<ng-template #posts_found>
+    <div class="o-post-result-block2">
+        <div *ngFor="let post of posts" class="o-post-result-block">
+            <app-post-card-search [post]="post"></app-post-card-search>
+        </div>
+    </div>
+</ng-template>

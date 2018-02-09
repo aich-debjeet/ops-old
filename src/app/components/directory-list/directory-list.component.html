@@ -6,11 +6,11 @@
       <div class="col-md-10 padding_none">
         <input class="c-form__input--search"  (keyup)="search()" [(ngModel)]="searchText" type="text" placeholder="Search by Name, City and Proffession">
         <span class="o-dir-search__ico">
-          <img src="{{ baseUrl }}img/svg/ico_search.svg">
+          <img [src]="baseUrl + 'img/svg/ico_search.svg'">
         </span>
       </div>
       <div class="col-md-2 padding_none">
-        <a class="o-dir-link o-dir-filter"><img src="{{ baseUrl }}img/directory/filter.svg"></a>
+        <a class="o-dir-link o-dir-filter"><img [src]="baseUrl + 'img/directory/filter.svg'"></a>
       </div>
       <div class="o-dirfil-opt">
         <div class="o-dirfil-group with_border_right">
@@ -152,11 +152,11 @@
         >
         <div class="o-dir-list__user o-dir-list--box">
           <div class="c-card__user margin_none">
-            <span class="c-user-list__active-ico"><img src="{{ (dir?.extra?.isImported) ? baseUrl + 'img/directory/inactive.svg' : baseUrl + 'img/directory/active.svg' }}"></span>
+            <span class="c-user-list__active-ico"><img [src]="(dir?.extra?.isImported) ? baseUrl + 'img/directory/inactive.svg' : baseUrl + 'img/directory/active.svg'"></span>
             <div class="c-user c-user-list--dir">
                 <a class="c-user__avatar c-avatar--dir">
-                  <img *ngIf="!dir?.profileImage" class="c-user__image" src="{{ baseUrl + 'images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png' }}">
-                  <img *ngIf="dir?.profileImage" class="c-user__image" src="{{ baseUrl + dir?.profileImage }}">
+                  <img *ngIf="!dir?.profileImage" class="c-user__image"  [src]="baseUrl + 'images/defaultFemale/1a43f5d9-5798-4d6b-bde0-eb38c369cfc2.png'">
+                  <img *ngIf="dir?.profileImage" class="c-user__image" [lazyLoad]="baseUrl + dir?.profileImage">
                 </a>
                 <a class="c-user__name c-user--dir-name" routerLink="{{ '/profile/u/' + dir?.extra?.username }}">{{ dir?.name }}</a>
                 <a class="c-user__dir-sub" routerLink="{{ '/profile/u/' + dir?.extra?.username }}">{{ dir?.extra?.profession }}</a>
@@ -166,7 +166,7 @@
         <div class="o-dir-list__mail o-dir-list--box">
           <div class="o-dir-contact__det">
             <div class="o-dir-contact__ico">
-              <img width="15" src="{{ baseUrl }}img/directory/envelope.svg" alt="">
+              <img width="15" [src]="baseUrl + 'img/directory/envelope.svg'" alt="">
             </div>
             <div class="o-dir-contact__txt c-text_sm-light"  *ngIf="dir?.email">
               {{ dir?.email }}
@@ -176,7 +176,7 @@
         </div>
         <div class="o-dir-list__phone o-dir-list--box">
           <div class="o-dir-contact__ico">
-            <img width="15" src="{{ baseUrl }}img/directory/receiver.svg" alt="">
+            <img width="15" [src]="baseUrl + 'img/directory/receiver.svg'" alt="">
           </div>
           <div class="o-dir-contact__txt c-text_sm-light">
             <div *ngIf="dir?.contact?.mobile?.mobile" class="o-dir-phone margin_none">{{  dir?.contact?.mobile?.mobile }}</div>
@@ -197,7 +197,7 @@
             <button type="button" class="btn btn-default btn-md" disabled>CONTACT </button>
             <button type="button" (click)="userFollow(dir, i)" class="btn btn-md btn-primary btn-follow" *ngIf="!dir?.extra?.isImported">
                 <span class="btn-label-follow">
-                <img src="{{ baseUrl }}img/svg/ico_plus_white.svg">
+                <img [src]="baseUrl + 'img/svg/ico_plus_white.svg'">
               </span> {{(dir?.extra?.isFollowing ? 'FOLLOWING' : 'FOLLOW')}} 
             </button>
           </div>
