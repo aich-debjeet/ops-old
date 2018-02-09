@@ -564,10 +564,19 @@
     width: 900px;
     margin: 3% auto;
     min-height: 500px;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        width: 95%;
+    }
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        width: 90%;
+    }
     .terms_txt {
         width: 800px;
         margin: 0px auto;
         padding-bottom: 30px;
+        @include mq($from: $mobile_sm, $until: $desktop_sm) {
+            width: 95%;
+        }
         h2 {
             font-size: 16px;
             font-weight: 700;
