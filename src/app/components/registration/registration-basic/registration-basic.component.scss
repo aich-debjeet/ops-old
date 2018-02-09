@@ -168,291 +168,320 @@
 /* --------------------- registrationi -------------------------------- */
 
 // step 1 -------------------
-.ops_signup {
-    background-color: #ffffff;
-    // padding-top: 64px;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    .ops_signup_left {
-        padding: 0 48px;
-        .ops_heading {
-            margin: 16px 0;
-        }
-        .signup_already {
-            margin-top: 26%;
-        }
-    }
-    .ops_signup_right {
-        padding: 0 80px;
-        .ops_h1 {
-            font-weight: 300;
-            margin-bottom: 24px;
-            line-height: 20px;
-            font-size: 25px;
-        }
-        .ops_radio_sm {
-            margin-top: 16px;
-        }
-        .ops_radio_gender {
-            @include mq($from: $mobile_sm, $until: $mobile_lg) {
-                margin: 10px 0 25px 0;
-            }
-        }
-        .signup_gender {
-            width: auto;
-            padding-left: 0px;
-        }
-        .btn-primary {
-            padding: 11px 18px;
-        }
-        .signup_privacy {
-            p {
-                font-size: 12px;
-                display: inline-block;
-                margin-top: 12px;
-            }
-        }
-    }
-}
-
-// step 2 ----------------------
-.ops_signup2 {
-    background-color: #f1f1f1;
-    // padding-top: 64px;
-    height: 88vh;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    .ops_signup_step2 {
-        .step2_heading {
-            color: #333333;
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 24px;
-            text-align: center;
-            margin: 16px 0;
-        }
-        .step2_txt {
-            color: #979797;
-            font-size: 12px;
-            line-height: 23px;
-            text-align: center;
-            margin: 0 24px 24px
-        }
-        .step2_selection {
-            width: 18%;
-            float: left;
-            margin: 0 10px;
-            background: #f8f8f8;
-            box-shadow: 0 0 4px 0 rgba(102, 45, 145, 0.18);
-            background-color: #FFFFFF;
-            border-radius: 3px;
-        }
-        .step2_main_heading {
-            color: #333333;
-            font-size: 24px;
-            font-weight: 600;
-            line-height: 33px;
-        }
-        .step2_main_heading2 {
-            color: #979797;
-            font-size: 14px;
-            line-height: 19px;
-            text-align: center;
-            margin: 16px 0 32px;
-        }
-        .ops_checkbox_lg {
-            margin: 24px 0;
-            label {
-                color: #333333;
-                font-size: 16px;
-                font-weight: 600;
-                &:hover {
-                    box-shadow: none;
-                }
-                span {
-                    float: left;
-                }
-                p {
-                    color: #333333;
-                    font-size: 16px;
-                    font-weight: 600;
-                    display: inline-block;
-                    line-height: 36px;
-                }
-            }
-        }
-        label {
-            text-align: center;
-            pointer-events: auto;
-            position: static;
-            &:hover {
-                box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
-                border-radius: 3px;
-            }
-        }
-        input[type="checkbox"] {
-            display: none;
-        }
-        input[type="checkbox"]:checked+span {
-            color: #ffffff;
-        }
-        input[type="checkbox"]+.reg_profile_types {
-            display: inline-block;
-            position: relative;
-            -webkit-appearance: none;
-        }
-        input[type="checkbox"]:checked+.reg_profile_types:after {
-            border: 2px solid #ff7b84;
-            box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
-            border-radius: 3px;
-            content: " ";
-            left: 0;
-            top: 0;
-            color: #000000;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            cursor: pointer;
-        }
-    }
-}
-
-// step 3 add skills ---------------------
-.skills_section {
-    // padding-top: 60px;
-    height: 88vh;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    .add-your-skills {
-        font-size: 24px;
-        font-weight: 600;
-        color: #333;
-        text-align: center;
-        margin-bottom: 40px;
-    }
-    .add_skill_block {
-        list-style: none;
-        li {
-            list-style-type: none;
-            float: left;
-            a {
-                display: block;
-                .skill_list_container {
-                    width: 170px;
-                    height: 90px;
-                    margin: 8px;
-                    background: #979797;
-                    float: left;
-                    border-radius: 3px;
-                    position: relative;
-                    .skills_list_bg_img {
-                        position: absolute;
-                        top: 0px;
-                        left: 0px;
-                        width: 100%;
-                        height: 90px;
-                        overflow: hidden;
-                        border-radius: 3px;
-                        img {
-                            width: 100%;
-                        }
-                    }
-                    .skills_name {
-                        position: absolute;
-                        width: 100%;
-                        height: 90px;
-                        top: 0px;
-                        left: 0px;
-                        text-align: center;
-                        display: flex;
-                        justify-content: center;
-                        flex-direction: column;
-                        background-color: rgba(0, 0, 0, 0.6);
-                        border-radius: 3px;
-                        p {
-                            font-size: 14px;
-                            font-weight: 700;
-                            color: $white;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    a.selected .skills_name {
-        background-color: rgba(255, 123, 132, 0.83)!important;
-    }
-    .o-search-block {
-        padding-left: 32px;
-        .search_container {
-            width: 100%;
-            .form_input {
-                background: none;
-            }
-            label {
-                color: #979797;
-                font-size: 14px;
-            }
-            .search_top_icon img {
-                width: 16px;
-                float: right;
-                margin-top: -25px;
-            }
-            // .form_input:focus,
-            // .search_top_close_icon {
-            //     display: block!important;
-            //     outline: none;
-            // }
-            // .search_top_close_icon {
-            //     display: none;
-            //     img {
-            //         width: 16px;
-            //         float: right;
-            //         margin-top: -25px;
-            //     }
-            // }
-        }
-        .selected_skill {
-            margin: 16px 0px;
-            .btn-tag-close {
-                padding: 8px 16px;
-                font-weight: 500;
-                font-size: 14px;
-                border-radius: 3px;
-                margin-right: 8px;
-                &:hover {
-                    background: #FF7B84 !important;
-                    border-color: #FF7B84 !important;
-                    .btn-label-skill {
-                        background: none;
-                    }
-                }
-                .btn-label-tag {
-                    img {
-                        width: 11px;
-                        margin-top: 0px;
-                        vertical-align: middle;
-                        margin-left: 6px;
-                    }
-                }
-            }
-        }
-        .selected_tags {
-            .btn-reg_tag {
-                color: #333333;
-                font-size: 14px;
-                font-weight: 500;
-                margin-bottom: 8px;
-                margin-right: 8px;
-            }
-        }
-    }
-}
-
+// .ops_signup {
+//     background-color: #ffffff;
+//     // padding-top: 64px;
+//     height: 100vh;
+//     display: flex;
+//     justify-content: center;
+//     flex-direction: column;
+//     @include mq($from: $mobile_sm, $until: $mobile_lg) {
+//             // background: #fff;
+//             height: auto;
+//             // display: block;
+//             margin-top: 50px;
+//         }
+//     @include mq($from: $mobile_lg, $until: $desktop_lg) {
+//         // background: #fff;
+//         // height: 100%;
+//         // display: block;
+//     }
+//     .ops_signup_left {
+//         padding: 0 48px;
+//         @include mq($from: $mobile_sm, $until: $mobile_lg) {
+//             padding:0px;
+//         }
+//         .ops_heading {
+//             margin: 16px 0;
+//         }
+//         .signup_already {
+//             margin-top: 26%;
+//             @include mq($from: $mobile_sm, $until: $mobile_lg) {
+//                 margin-top: 13%;
+//                 margin-bottom: 10%;
+//                 }
+//             @include mq($from: $mobile_lg, $until: $desktop_sm) {
+//                 margin-top: 8%;
+//                 margin-bottom: 10%;
+//             }
+//         }
+//     }
+//     .ops_signup_right {
+//         padding: 0 80px;
+//         @include mq($from: $mobile_sm, $until: $tablet) {
+//             padding:0px;
+//         }
+//         @include mq($from: $tablet, $until: $desktop) {
+//             padding: 10px 20px;
+//         }
+//         .ops_h1 {
+//             font-weight: 300;
+//             margin-bottom: 24px;
+//             line-height: 20px;
+//             font-size: 25px;
+//             @include mq($from: $mobile_sm, $until: $desktop_sm) {
+//                 text-align: center;
+//                 margin-bottom: 20px;
+//             }
+//         }
+//         .ops_radio_sm {
+//             margin-top: 16px;
+//         }
+//         .ops_radio_gender {
+//             @include mq($from: $mobile_sm, $until: $mobile_lg) {
+//                 margin: 10px 0 25px 0;
+//             }
+//         }
+//         .signup_gender {
+//             width: auto;
+//             padding-left: 0px;
+//         }
+//         .btn-primary {
+//             padding: 11px 18px;
+//         }
+//         .signup_privacy {
+//             p {
+//                 font-size: 12px;
+//                 display: inline-block;
+//                 margin-top: 12px;
+//             }
+//         }
+//     }
+// }
+// // step 2 ----------------------
+// .ops_signup2 {
+//     background-color: #f1f1f1;
+//     // padding-top: 64px;
+//     height: 88vh;
+//     display: flex;
+//     justify-content: center;
+//     flex-direction: column;
+//     .ops_signup_step2 {
+//         .step2_heading {
+//             color: #333333;
+//             font-size: 18px;
+//             font-weight: 600;
+//             line-height: 24px;
+//             text-align: center;
+//             margin: 16px 0;
+//         }
+//         .step2_txt {
+//             color: #979797;
+//             font-size: 12px;
+//             line-height: 23px;
+//             text-align: center;
+//             margin: 0 24px 24px
+//         }
+//         .step2_selection {
+//             width: 18%;
+//             float: left;
+//             margin: 0 10px;
+//             background: #f8f8f8;
+//             box-shadow: 0 0 4px 0 rgba(102, 45, 145, 0.18);
+//             background-color: #FFFFFF;
+//             border-radius: 3px;
+//         }
+//         .step2_main_heading {
+//             color: #333333;
+//             font-size: 24px;
+//             font-weight: 600;
+//             line-height: 33px;
+//         }
+//         .step2_main_heading2 {
+//             color: #979797;
+//             font-size: 14px;
+//             line-height: 19px;
+//             text-align: center;
+//             margin: 16px 0 32px;
+//         }
+//         .ops_checkbox_lg {
+//             margin: 24px 0;
+//             label {
+//                 color: #333333;
+//                 font-size: 16px;
+//                 font-weight: 600;
+//                 &:hover {
+//                     box-shadow: none;
+//                 }
+//                 span {
+//                     float: left;
+//                 }
+//                 p {
+//                     color: #333333;
+//                     font-size: 16px;
+//                     font-weight: 600;
+//                     display: inline-block;
+//                     line-height: 36px;
+//                 }
+//             }
+//         }
+//         label {
+//             text-align: center;
+//             pointer-events: auto;
+//             position: static;
+//             &:hover {
+//                 box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
+//                 border-radius: 3px;
+//             }
+//         }
+//         input[type="checkbox"] {
+//             display: none;
+//         }
+//         input[type="checkbox"]:checked+span {
+//             color: #ffffff;
+//         }
+//         input[type="checkbox"]+.reg_profile_types {
+//             display: inline-block;
+//             position: relative;
+//             -webkit-appearance: none;
+//         }
+//         input[type="checkbox"]:checked+.reg_profile_types:after {
+//             border: 2px solid #ff7b84;
+//             box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
+//             border-radius: 3px;
+//             content: " ";
+//             left: 0;
+//             top: 0;
+//             color: #000000;
+//             width: 100%;
+//             height: 100%;
+//             position: absolute;
+//             cursor: pointer;
+//         }
+//     }
+// }
+// // step 3 add skills ---------------------
+// .skills_section {
+//     // padding-top: 60px;
+//     height: 88vh;
+//     display: flex;
+//     justify-content: center;
+//     flex-direction: column;
+//     .add-your-skills {
+//         font-size: 24px;
+//         font-weight: 600;
+//         color: #333;
+//         text-align: center;
+//         margin-bottom: 40px;
+//     }
+//     .add_skill_block {
+//         list-style: none;
+//         li {
+//             list-style-type: none;
+//             float: left;
+//             a {
+//                 display: block;
+//                 .skill_list_container {
+//                     width: 170px;
+//                     height: 90px;
+//                     margin: 8px;
+//                     background: #979797;
+//                     float: left;
+//                     border-radius: 3px;
+//                     position: relative;
+//                     .skills_list_bg_img {
+//                         position: absolute;
+//                         top: 0px;
+//                         left: 0px;
+//                         width: 100%;
+//                         height: 90px;
+//                         overflow: hidden;
+//                         border-radius: 3px;
+//                         img {
+//                             width: 100%;
+//                         }
+//                     }
+//                     .skills_name {
+//                         position: absolute;
+//                         width: 100%;
+//                         height: 90px;
+//                         top: 0px;
+//                         left: 0px;
+//                         text-align: center;
+//                         display: flex;
+//                         justify-content: center;
+//                         flex-direction: column;
+//                         background-color: rgba(0, 0, 0, 0.6);
+//                         border-radius: 3px;
+//                         p {
+//                             font-size: 14px;
+//                             font-weight: 700;
+//                             color: $white;
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     a.selected .skills_name {
+//         background-color: rgba(255, 123, 132, 0.83)!important;
+//     }
+//     .o-search-block {
+//         padding-left: 32px;
+//         .search_container {
+//             width: 100%;
+//             .form_input {
+//                 background: none;
+//             }
+//             label {
+//                 color: #979797;
+//                 font-size: 14px;
+//             }
+//             .search_top_icon img {
+//                 width: 16px;
+//                 float: right;
+//                 margin-top: -25px;
+//             }
+//             // .form_input:focus,
+//             // .search_top_close_icon {
+//             //     display: block!important;
+//             //     outline: none;
+//             // }
+//             // .search_top_close_icon {
+//             //     display: none;
+//             //     img {
+//             //         width: 16px;
+//             //         float: right;
+//             //         margin-top: -25px;
+//             //     }
+//             // }
+//         }
+//         .selected_skill {
+//             margin: 16px 0px;
+//             .btn-tag-close {
+//                 padding: 8px 16px;
+//                 font-weight: 500;
+//                 font-size: 14px;
+//                 border-radius: 3px;
+//                 margin-right: 8px;
+//                 &:hover {
+//                     background: #FF7B84 !important;
+//                     border-color: #FF7B84 !important;
+//                     .btn-label-skill {
+//                         background: none;
+//                     }
+//                 }
+//                 .btn-label-tag {
+//                     img {
+//                         width: 11px;
+//                         margin-top: 0px;
+//                         vertical-align: middle;
+//                         margin-left: 6px;
+//                     }
+//                 }
+//             }
+//         }
+//         .selected_tags {
+//             .btn-reg_tag {
+//                 color: #333333;
+//                 font-size: 14px;
+//                 font-weight: 500;
+//                 margin-bottom: 8px;
+//                 margin-right: 8px;
+//             }
+//         }
+//     }
+// }
 .password-toggle {
     background: none;
     border: none;
@@ -535,10 +564,19 @@
     width: 900px;
     margin: 3% auto;
     min-height: 500px;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        width: 95%;
+    }
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        width: 90%;
+    }
     .terms_txt {
         width: 800px;
         margin: 0px auto;
         padding-bottom: 30px;
+        @include mq($from: $mobile_sm, $until: $desktop_sm) {
+            width: 95%;
+        }
         h2 {
             font-size: 16px;
             font-weight: 700;
@@ -623,11 +661,16 @@
             padding: 10px 20px;
         }
         .ops_h1 {
-            // font-weight: 600;
-            // margin-bottom: 24px;
+            font-weight: 300;
+            margin-bottom: 24px;
+            line-height: 34px;
+            font-size: 24px;
             @include mq($from: $mobile_sm, $until: $desktop_sm) {
                 text-align: center;
                 margin-bottom: 20px;
+                font-weight: 500;
+                line-height: 30px;
+                font-size: 16px;
             }
         }
         .c-radio__sm {
@@ -672,141 +715,140 @@
 }
 
 // step 2 ----------------------
-.ops_signup2 {
-    background-color: #f1f1f1;
-    // padding-top: 64px;
-    height: 84vh;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        height: 100%;
-        display: block;
-        padding-top: 24px;
-    }
-    @include mq($from: $tablet, $until: $desktop_sm) {
-        height: 100%;
-        display: block;
-        padding-top: 24px;
-    }
-    .ops_signup_step2 {
-        .step2_heading {
-            color: #333333;
-            font-size: 15px;
-            font-weight: 600;
-            line-height: 24px;
-            text-align: center;
-            margin: 16px 0 8px;
-        }
-        .step2_txt {
-            color: #979797;
-            font-size: 11px;
-            line-height: 18px;
-            text-align: center;
-            margin: 0 16px 16px;
-        }
-        .step2_selection {
-            width: 15.3%;
-            float: left;
-            margin: 0 7px;
-            background: #f8f8f8;
-            box-shadow: 0 0 4px 0 rgba(102, 45, 145, 0.18);
-            background-color: #FFFFFF;
-            border-radius: 3px;
-            position: relative;
-            &:hover .checkbox_options {
-                display: block;
-                transition: 0.25s;
-            }
-            @include mq($from: $mobile_sm, $until: $mobile_lg) {
-                width: 45%;
-                margin: 8px 7px;
-            }
-            @include mq($from: $tablet, $until: $desktop_sm) {
-                width: 31%;
-                margin: 8px 7px;
-            }
-            @include mq($from: $break1024) {
-                width: 15%;
-                margin: 8px 7px;
-            }
-        }
-        .checkbox_options {
-            float: right;
-            width: 18px;
-            display: none;
-            right: 10px;
-            top: 10px;
-            position: absolute;
-            height: 18px;
-            text-align: center;
-            transition: .25s;
-        }
-        .step2_main_heading {
-            color: #333333;
-            font-size: 24px;
-            font-weight: 300;
-            line-height: 33px;
-        }
-        .step2_main_heading2 {
-            color: #747474;
-            font-size: 13px;
-            line-height: 19px;
-            text-align: center;
-            margin: 16px 0 32px;
-            font-weight: normal;
-        }
-        .ops_checkbox_lg {
-            margin: 24px 0;
-            p {
-                color: #747474;
-                font-size: 13px;
-                line-height: 20px;
-                text-align: center;
-                margin-bottom: 16px;
-            }
-        }
-        label {
-            height: 290px;
-            text-align: center;
-            pointer-events: auto;
-            position: static;
-            &:hover {
-                box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
-                border-radius: 3px;
-            }
-            @include mq($from: $mobile_sm, $until: $mobile_lg) {
-                height: 290px;
-            }
-        }
-        input[type="checkbox"] {
-            display: none;
-        }
-        input[type="checkbox"]:checked+span {
-            color: #ffffff;
-        }
-        input[type="checkbox"]+.reg_profile_types {
-            display: inline-block;
-            position: relative;
-            -webkit-appearance: none;
-            height: 290px;
-        }
-        input[type="checkbox"]:checked+.reg_profile_types:after {
-            border: 2px solid #ff7b84;
-            box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
-            border-radius: 3px;
-            content: " ";
-            left: 0;
-            top: 0;
-            color: #000000;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            cursor: pointer;
-        }
-    }
-}
-
+// .ops_signup2 {
+//     background-color: #f1f1f1;
+//     // padding-top: 64px;
+//     height: 84vh;
+//     display: flex;
+//     justify-content: center;
+//     flex-direction: column;
+//     @include mq($from: $mobile_sm, $until: $mobile_lg) {
+//         height: 100%;
+//         display: block;
+//         padding-top: 24px;
+//     }
+//     @include mq($from: $tablet, $until: $desktop_sm) {
+//         height: 100%;
+//         display: block;
+//         padding-top: 24px;
+//     }
+//     .ops_signup_step2 {
+//         .step2_heading {
+//             color: #333333;
+//             font-size: 15px;
+//             font-weight: 600;
+//             line-height: 24px;
+//             text-align: center;
+//             margin: 16px 0 8px;
+//         }
+//         .step2_txt {
+//             color: #979797;
+//             font-size: 11px;
+//             line-height: 18px;
+//             text-align: center;
+//             margin: 0 16px 16px;
+//         }
+//         .step2_selection {
+//             width: 15.3%;
+//             float: left;
+//             margin: 0 7px;
+//             background: #f8f8f8;
+//             box-shadow: 0 0 4px 0 rgba(102, 45, 145, 0.18);
+//             background-color: #FFFFFF;
+//             border-radius: 3px;
+//             position: relative;
+//             &:hover .checkbox_options {
+//                 display: block;
+//                 transition: 0.25s;
+//             }
+//             @include mq($from: $mobile_sm, $until: $mobile_lg) {
+//                 width: 45%;
+//                 margin: 8px 7px;
+//             }
+//             @include mq($from: $tablet, $until: $desktop_sm) {
+//                 width: 31%;
+//                 margin: 8px 7px;
+//             }
+//             @include mq($from: $break1024) {
+//                 width: 15%;
+//                 margin: 8px 7px;
+//             }
+//         }
+//         .checkbox_options {
+//             float: right;
+//             width: 18px;
+//             display: none;
+//             right: 10px;
+//             top: 10px;
+//             position: absolute;
+//             height: 18px;
+//             text-align: center;
+//             transition: .25s;
+//         }
+//         .step2_main_heading {
+//             color: #333333;
+//             font-size: 24px;
+//             font-weight: 300;
+//             line-height: 33px;
+//         }
+//         .step2_main_heading2 {
+//             color: #747474;
+//             font-size: 13px;
+//             line-height: 19px;
+//             text-align: center;
+//             margin: 16px 0 32px;
+//             font-weight: normal;
+//         }
+//         .ops_checkbox_lg {
+//             margin: 24px 0;
+//             p {
+//                 color: #747474;
+//                 font-size: 13px;
+//                 line-height: 20px;
+//                 text-align: center;
+//                 margin-bottom: 16px;
+//             }
+//         }
+//         label {
+//             height: 290px;
+//             text-align: center;
+//             pointer-events: auto;
+//             position: static;
+//             &:hover {
+//                 box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
+//                 border-radius: 3px;
+//             }
+//             @include mq($from: $mobile_sm, $until: $mobile_lg) {
+//                 height: 290px;
+//             }
+//         }
+//         input[type="checkbox"] {
+//             display: none;
+//         }
+//         input[type="checkbox"]:checked+span {
+//             color: #ffffff;
+//         }
+//         input[type="checkbox"]+.reg_profile_types {
+//             display: inline-block;
+//             position: relative;
+//             -webkit-appearance: none;
+//             height: 290px;
+//         }
+//         input[type="checkbox"]:checked+.reg_profile_types:after {
+//             border: 2px solid #ff7b84;
+//             box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
+//             border-radius: 3px;
+//             content: " ";
+//             left: 0;
+//             top: 0;
+//             color: #000000;
+//             width: 100%;
+//             height: 100%;
+//             position: absolute;
+//             cursor: pointer;
+//         }
+//     }
+// }
 // step 3 add skills ---------------------
 .skills_section {
     // padding-top: 60px;
