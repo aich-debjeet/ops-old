@@ -140,6 +140,9 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
           // giving back the search value
           this.searchString = params.q;
 
+          // scroll to top on view switch
+          this.scrollToTop(200);
+
           // check if search is global
           if ((params.type && params.type === 'all') || !params.type) {
             const searchAllParams = {
@@ -236,25 +239,37 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * Scroll event listener
    */
-  // @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
-  //   const scrolledValue = window.pageYOffset;
-  //   let scrollDirection = '';
-  //   if (scrolledValue > this.lastScrollTop) {
-  //     scrollDirection = 'down';
-  //   } else {
-  //     scrollDirection = 'up';
-  //   }
-  //   this.lastScrollTop = scrolledValue;
+  @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
+    const scrolledValue = window.pageYOffset;
+    let scrollDirection = '';
+    if (scrolledValue > this.lastScrollTop) {
+      scrollDirection = 'down';
+    } else {
+      scrollDirection = 'up';
+    }
+    this.lastScrollTop = scrolledValue;
 
-  //   if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
-  //     // reached the bottom of the page
-  //     this.canScroll = false;
-  //     setTimeout(() => {
-  //       this.canScroll = true;
-  //     }, 1000);
-  //     this.dispatchLoadMore();
-  //   }
-  // }
+    if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
+      // reached the bottom of the page
+      this.canScroll = false;
+      setTimeout(() => {
+        this.canScroll = true;
+      }, 1000);
+      // this.dispatchLoadMore();
+      console.log('reached bottom scroll more');
+    }
+  }
+
+  scrollToTop(scrollDuration) {
+    const scrollStep = -window.scrollY / (scrollDuration / 15),
+    scrollInterval = setInterval(function() {
+    if (window.scrollY !== 0) {
+      window.scrollBy( 0, scrollStep);
+    } else {
+      clearInterval(scrollInterval);
+    }
+    }, 15);
+  }
 
   /**
    * Load more results for active tab
@@ -296,17 +311,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   //     this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchParams });
   //   }
 
-  // }
-
-  // scrollToTop(scrollDuration) {
-  //   const scrollStep = -window.scrollY / (scrollDuration / 15),
-  //   scrollInterval = setInterval(function() {
-  //   if (window.scrollY !== 0) {
-  //     window.scrollBy( 0, scrollStep);
-  //   } else {
-  //     clearInterval(scrollInterval);
-  //   }
-  //   }, 15);
   // }
 
 }
