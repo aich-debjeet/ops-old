@@ -272,7 +272,7 @@
                                             <li class="o-set-admin__item" *ngFor="let skill of receipientList | slice:0:5" (click)="toggleSelectSkill(skill.handle)">
                                                 <!-- <a class="c-user__avatar c-avatar--status"> -->
                                                 <div class="o-set-admin__avatar">
-                                                    <img class="c-user__image" src="{{baseUrl +skill.profileImage}}">
+                                                    <img class="c-user__image" src="{{imageBaseLink +skill.profileImage}}">
                                                 </div>
                                                 <div class="o-set-admin__user-info">
                                                     <span class="c-text_md">{{skill.name}}</span>
@@ -317,7 +317,7 @@
                                 <div class="col-md-5 p-0">
                                     <div class="c-user">
                                         <a class="c-user__avatar c-avatar--feed">
-                                            <img class="c-user__image" src="{{baseUrl + members.profileImage}}">
+                                            <img class="c-user__image" src="{{imageBaseLink + members.profileImage}}">
                                         </a>
                                         <a class="c-user__name c-user__name--org">{{members.username}}</a>
                                     </div>
