@@ -65,7 +65,6 @@ export class OrgSettingsComponent implements OnInit {
       this.userProfile = state;
       if (state.profile_navigation_details.isOrganization === true && this.orgDetails) {
         this.organizationHandle = state.profile_navigation_details.organization.organizationHandle;
-        console.log('organization handle', this.organizationHandle)
         this.store.dispatch({type: OrganizationActions.GET_ORGANIZATION_BY_HANDLE, payload: this.organizationHandle});
         this.orgDetails = false;
       }
