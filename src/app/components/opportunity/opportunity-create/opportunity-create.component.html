@@ -1,473 +1,1094 @@
-<section class="o-opportunities-form" *ngIf="createOppsStep === 1">
-  <div class="container">
-    <div class="o-opportunities-form-container m-t-32">
-      <form #crOppFrm="ngForm" [formGroup]="createOppFrm" (ngSubmit)="channelSelection(createOppFrm.value)" >
-        <div class="o-opportunities-form-block p-t-32">
-          <h4 class="c-h4 text-center">Create Opportunity</h4>
-          <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-24 text_uppercase ltr-space">
-            Opportunity details
-          </div><!-- subtitle end -->
-
-          <div class="o-oppo-form__single">
-            <div class="col-md-3 p-0">
-              <span class="c-text_md">Opportunity type</span>
-            </div>
-            <div class="col-md-9 p-0">
-              <div class="c-radio__sm">
-                <label class="col-md-2 p-0">
-                  <input type="radio" value="Audition" name="oppType" formControlName="oppType" class="c-form__bar2">
-                  <span></span>Audition
-                </label>
-                <label class="col-md-2 p-0">
-                  <input type="radio" value="Projects" name="oppType" formControlName="oppType" class="c-form__bar2">
-                  <span></span>Projects
-                </label>
-                <label class="col-md-2 p-0">
-                  <input type="radio" value="Jobs" name="oppType" formControlName="oppType">
-                  <span></span>Jobs
-                </label>
-                <label class="col-md-2 p-0">
-                  <input type="radio" value="Internship" name="oppType" formControlName="oppType">
-                  <span></span>Internship
-                </label>
-                <label class="col-md-2 p-0">
-                  <input type="radio" value="Freelance" name="oppType" formControlName="oppType">
-                  <span></span>Freelance
-                </label>
-                <label class="col-md-2 p-0">
-                  <input type="radio" value="Volunteer" name="oppType" formControlName="oppType">
-                  <span></span>Volunteer
-                </label>
-              </div>
-              <p class="error_alert" *ngIf="createOppFrm.controls['oppType'].errors?.required && crOppFrm.submitted">Opportunity type is required</p>
-            </div>
-          </div><!-- Opportunity type end -->
-          
-          <div class="o-oppo-form__single">
-            <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Role</div>
-            </div>
-            <div class="col-md-9 p-0">
-              <div class="c-form__group c-form--sm c-form--noeffect">
-                <input class="c-form__input" type="text" formControlName="role">
-                <span class="c-form__highlight"></span>
-                <span class="c-form__bar"></span>
-                <label>eg: Manager/Director</label>
-              </div>
-              <p class="error_alert" *ngIf="createOppFrm.controls['role']?.errors?.required && crOppFrm.submitted">Role is required</p>
-            </div>
-          </div><!-- Role end -->
-
-          <div class="o-oppo-form__single">
-            <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Description</div>
-            </div>
-            <div class="col-md-9 p-0">
-              <div class="c-form__group c-form--sm">
-                <!-- <textarea formControlName="description" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea> -->
-                <quill-editor #editor formControlName="description">
-                  <div quill-editor-toolbar>
-                    <span class="ql-formats">
-                      <button class="ql-bold" [title]="'Bold'"></button>
-                      <button class="ql-italic" [title]="'Italic'"></button>
-                      <button class="ql-underline" [title]="'Underline'"></button>
-                    </span>
-                    <!-- <span class="ql-formats">
-                      <button class="ql-list" [title]="'List'"></button>
-                    </span> -->
-                  </div>
-                </quill-editor>
-              </div>
-              <!-- <p>{{ createOppFrm.controls['description'].value }}</p> -->
-              <p class="error_alert" *ngIf="createOppFrm.controls['description']?.errors?.required && crOppFrm.submitted">Description is required</p>
-            </div>
-          </div><!-- Description end -->
-
-          <div class="o-oppo-form__single">
-            <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Industry</div>
-            </div>
-            <div class="col-md-9 p-0">
-              <div class="c-form__group c-form--sm">
-                <select class="c-form-control p-l-0" formControlName="industry">
-                  <option value="">Industry</option>
-                  <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
-                </select>
-              </div>
-              <p class="error_alert" *ngIf="createOppFrm.controls['industry']?.errors?.required && crOppFrm.submitted">Industry is required</p>
-            </div>
-          </div><!-- industry end -->
-
-          <div class="o-oppo-form__single">
-            <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Experience</div>
-            </div>
-            <div class="col-md-9 p-0">
-              <div class="col-md-2 p-0">
-                <div class="c-form__group">
-                  <select class="c-form-control p-l-0" formControlName="yearsExpFrom">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-1">
-                <div class="c-text_md color-grey-dark p-8">to</div>
-              </div>
-              <div class="col-md-2 p-0">
-                <div class="c-form__group">
-                  <select class="c-form-control p-l-0" formControlName="yearsExpTo">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                      <option value="9">9</option>
-                      <option value="10">10</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-1">
-                <div class="c-text_md color-grey-dark p-8">years</div>
-              </div>
-            </div>
-          </div><!-- Experience end -->
-
-          <div class="o-oppo-form__single">
-            <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Salary</div>
-            </div>
-            <div class="col-md-9 p-0">
-              <div class="col-md-4 p-l-0">
-                <div class="c-form__group c-form--sm c-form--noeffect">
-                  <input class="c-form__input" type="number" formControlName="salaryAmount">
-                  <span class="c-form__highlight"></span>
-                  <span class="c-form__bar"></span>
-                  <label>500K, 7,50,000</label>
-                </div>
-              </div>
-              <div class="col-md-3 ">
-                <div class="c-form__group">
-                  <select class="c-form-control p-l-0" formControlName="salaryDuration">
-                    <option value="Annualy">Annualy</option>
-                    <option value="Monthly">Monthly</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-3 ">
-                <div class="c-form__group">
-                  <select class="c-form-control p-l-0" formControlName="salaryCurrency">
-                    <option value="">Currency</option>
-                    <option value="INR">INR</option>
-                    <option value="USD">USD</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div><!-- Salary end -->
-
-          <div class="o-oppo-form__single">
-            <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Duration</div>
-            </div>
-            <div class="col-md-9 p-0">
-              <div class="col-md-4 p-0">
-                <div class="c-form__group">
-                  <select class="c-form-control p-l-0" formControlName="oppDuration">
-                    <option value="full-time">Full time</option>
-                    <option value="part-time">Part time</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div><!-- Duration end -->
-
-          <div class="o-oppo-form__single">
-            <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Location</div>
-            </div>
-            <div class="col-md-9 p-0">
-              <div class="c-form__group c-form--sm c-form--noeffect">
-                <input class="c-form__input" type="text" formControlName="oppLocation" autocorrect="off" autocapitalize="off" spellcheck="off" #search >
-                <span class="c-form__highlight"></span>
-                <span class="c-form__bar"></span>
-                <label>Where is the opportunity</label>
-              </div>
-              <p class="error_alert" *ngIf="createOppFrm.controls['oppLocation'].errors?.required && crOppFrm.submitted">Location is required</p>
-            </div>
-          </div><!-- Location end -->
-
-          <div class="o-oppo-form__single">
-            <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Includes travel</div>
-            </div>
-            <div class="col-md-9 p-0">
-              <div class="col-md-2 p-0">
-                <div class="c-radio__sm p-t-8 float_left width100">
-                  <label class="col-md-6 p-0 p-t-8">
-                    <input formControlName="oppLevel" name="oppLevel" value="Yes" type="radio" class="c-form__bar2"><span></span>Yes
-                  </label>
-                  <label class="col-md-6 p-0 p-t-8">
-                    <input formControlName="oppLevel" name="oppLevel" value="No" type="radio" class="c-form__bar2"><span></span>No
-                  </label>
-                </div>
-              </div>
-              <div class="col-md-9 p-r-0">
-                <div class="c-form__group c-form--sm c-form--noeffect">
-                  <input class="c-form__input" type="text" formControlName="country">
-                  <span class="c-form__highlight"></span>
-                  <span class="c-form__bar"></span>
-                  <label>Country</label>
-                </div>
-              </div>
-            </div>
-          </div><!-- Location end -->
-
-          <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
-            Candidate details
-          </div><!-- subtitle end -->
-
-          <div class="o-oppo-form__single">
-            <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Skills</div>
-            </div>
-            <div class="col-md-9 p-0">
-              <div class="c-form__group c-form--sm c-form--noeffect">
-                <input class="c-form__input" type="text" formControlName="userSkills">
-                <span class="c-form__highlight"></span>
-                <span class="c-form__bar"></span>
-                <label>eg: #Uidesign #photoshop #sketch</label>
-              </div>
-            </div>
-          </div><!-- Skills end -->
-
-          <div class="o-oppo-form__single">
-            <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Qualifications</div>
-            </div>
-            <div class="col-md-9 p-0">
-              <div class="c-form__group c-form--sm c-form--noeffect">
-                <input class="c-form__input" type="text"  formControlName="userQualifications">
-                <span class="c-form__highlight"></span>
-                <span class="c-form__bar"></span>
-                <label>eg: Garduate </label>
-              </div>
-            </div>
-          </div><!-- Qualifications end -->
-
-          <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
-            organization details
-          </div><!-- subtitle end -->
-
-          <div class="o-oppo-form__single">
-            <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Organization Name</div>
-            </div>
-            <div class="col-md-9 p-0">
-              <div class="c-form__group c-form--sm c-form--noeffect">
-                <input class="c-form__input" type="text" formControlName="orgName">
-                <span class="c-form__highlight"></span>
-                <span class="c-form__bar"></span>
-                <label>Name of organization </label>
-              </div>
-            </div>
-          </div><!-- Organization Name end -->
-
-          <!-- <div class="o-oppo-form__single">
-            <div class="col-md-3 p-0">
-              <div class="c-text_md o-oppo-form-title">Attach files</div>
-            </div>
-            <div class="col-md-9 p-0">
-              <div class="o-oppo-form__file-type">
-                <input class="o-oppo-file" type="file" formControlName="attachments">
-                <p class="c-text_sm o-oppo-file__text"> upload<br>image or video</p>
-              </div>
-              <div class="o-oppo-form__img-show"></div>
-            </div>
-          </div> -->
-
-          <div class="o-oppo-form__single">
-            <div class="col-md-3 p-0"></div>
-            <div class="col-md-9 p-0 ">
-              <button type="submit" class="btn btn-primary btn-md m-t-16">Create</button>
-            </div>
-          </div><!-- btn end -->
-
-        </div><!-- form block end -->
-      </form>
-    </div>
-  </div>
-</section>
-
-<section class="o-add-to-channel-sec " *ngIf="createOppsStep === 2" >
-  <div class="container">
-    <!-- add media channel  -->
-    <div class="o-add-media-channel-main p-0">
-      <div class="o-add-media-channel">
-        <div class="col-md-12 p-0">
-          <div class="o-add-media-channel__head">
-            <div class="col-md-4 p-0">
-              <a class="c-text_lg o-add-media-channel__link" (click)="createOppsStep = 1">
-                <div class="o-back-arrow"><img src="{{ baseUrl }}img/svg/back_arrow.svg" alt=""></div>
-              </a>
-            </div>
-            <div class="col-md-4">
-              <div class="o-add-media-channel__head text-center">
-                <span class="c-text_lg o-add-media-channel__link">Select Channel</span>
-              </div><!-- add media channel head sec end -->
-            </div>
-            <div class="col-md-4 p-0 text-right">
-              <!-- <p class="c-text_sm color-grey-dark">12 Media selected</p> -->
-            </div>
-          </div><!-- add media channel head sec end -->
-        </div>
-        <div class="col-md-12 p-0">
-          <div class="o-channel-search m-t-16">
-            <div class="c-form__group fill-grey-light">
-                <input class="c-form__input fpadding_l32 o-channel-input" type="text" placeholder="Search" #search>
-                <span><img src="{{ baseUrl }}img/svg/ico_search.svg" class="c-form__input--lefticon"></span>
-            </div>
-          </div><!-- channel search end -->
-          <div id="ops_scrollbar" class="o-add-channel-container">
-            <div class="o-channel-list-container">
-              <ul class="o-channel-block">
-                <li class="o-channel-items" *ngFor="let channel of channelList | searchunique: 'spotfeedName' : search.value; let i = index" >
-                  <input class="" type="radio" name="channel" id="{{ 'channel_'+ i }}" (click)="chooseChannel(channel)">
-                  <label for="{{ 'channel_'+ i }}" class="o-channel-label">
-                    <span class="o-channel-content">
-                      <span class="o-channel-content__thumb"  *ngFor="let media of channel?.media | slice:0:1">
-                        <img src="{{ baseUrl + media?.repoPath }}" alt="">
-                      </span>
-                      <span class="o-channel-content__thumb" *ngIf="(channel?.media).length === 0">
-                        <img width="32" height="32" src="" alt="">
-                      </span>
-                      <span class="o-channel-content__name">
-                        <p class="c-text_lg o-channel__font--color">{{ channel?.spotfeedName }}</p>
-                      </span>
-                      <!-- <span class="o-channel__private float_right">
-                        <img src="{{ baseUrl }}img/svg/lock.svg" alt="" class="o-channel-private__img">
-                        <img src="{{ baseUrl }}img/svg/ico_tick_white.svg" class="o-channel-private__img-tic">
-                      </span> -->
-                    </span>
-                  </label>
-                </li>
-              </ul>
-            </div>
-          </div><!-- add to channel container end -->
-          <div class="o-create-channel m-t-8 m-l-8 p-t-16">
-            <a class="o-create-channel__link cursor-pointer" (click)="showCreateChannel = true">
-              <span class="o-create-channel__ico"><img width="17" src="{{ baseUrl }}img/svg/ico_create-plus.svg"></span>
-              <span class="o-create-channel__title">Create Channel</span>
-            </a>
-            <div id="create-channel" class="o-create-channel-container" *ngIf="showCreateChannel">
-              <div class="col-md-12 p-0">
-                <div class="o-add-media-channel__head m-b-16">
-                  <div class="col-md-4 p-0">
-                    <a class="c-text_lg o-add-media-channel__link cursor-pointer" (click)="showCreateChannel = false">
-                      <div class="o-back-arrow"><img src="{{ baseUrl }}img/svg/back_arrow.svg" alt=""></div>
-                    </a>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="o-add-media-channel__head text-center">
-                      <span class="c-text_lg o-add-media-channel__link"> Create Channel</span>
-                    </div><!-- add media channel head sec end -->
-                  </div>
-                  <div class="col-md-4 p-0 text-right">
-                    <!-- <p class="c-text_sm color-grey-dark">12 Media selected</p> -->
-                  </div>
-                </div><!-- add media channel head sec end -->
-              </div>
-              <div class=" c-text_lg o-add-media-channel__link">
-              </div>
-              <div class="o-create-channel__form">
-                <form [formGroup]="channelForm" novalidate #myform="ngForm">
-                  <div class="col-md-12 p-0 m-b-16" >
-                    <div class="c-form__group ">
-                        <input class="c-form__input" formControlName="title" type="text">
-                        <span class="c-form__highlight"></span>
-                        <span class="c-form__bar"></span>
-                        <label>Name of channel</label>
-                    </div>
-                  </div>
-                  <div class="col-md-12 p-0 m-b-16">
-                    <div class="c-form__group">
-                      <input class="c-form__input" formControlName="desc" type="text">
-                      <span class="c-form__highlight"></span>
-                      <span class="c-form__bar"></span>
-                      <label>Description</label>
-                    </div>
-                  </div>
-                  <div class="col-md-12 p-0 m-b-16">
-                    <div class="c-form__group o-create-channel__input">
-                      <select class="c-form-control p-l-0" formControlName="type">
-                        <option value="" selected="">Industry</option>
-                        <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
-                      </select>
-                    </div>
-                    <!-- <div class="c-form__group pen">
-                        <select formControlName="privacy" class="c-form-control p-0" id="sel1">
-                            <option value="0">Public</option>
-                            <option value="1">Private</option>
-                        </select>
-                    </div> -->
-                    <div class="o-create-channel__action" >
-                      <div class="dropdown">   
-                        <span class="com-head" (click)="togglePrivacyOptions()" data-toggle="dropdown" aria-expanded="true">
-                          <div class="o-action__ico" >
-                            <img *ngIf="privacyValue == 0" src="{{ baseUrl }}img/svg/ico-public.svg">
-                            <img *ngIf="privacyValue == 1" src="{{ baseUrl }}img/svg/Ico-private.svg">
-                          </div>
-                          <div class="o-action__ico-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
-                                <defs></defs>
-                                <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
-                                </g>
-                            </svg>
-                          </div>
-                        </span>
-                        <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space" *ngIf="showPrivacyOptions">
-                          <li>
-                            <a (click)="selectPrivacy(0)" class="c-opsdropdown__list">
-                              <img src="{{ baseUrl }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
-                              <span class="c-opsdropdown--text">Public</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a (click)="selectPrivacy(1)" class="c-opsdropdown__list">
-                              <img src="{{ baseUrl }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
-                              <span class="c-opsdropdown--text">Private</span>
-                            </a>
-                          </li>
-                        </ul>
+<main class="container-fulid outer_container">
+    <section class="o-opportunities-form">
+       <div class="container">
+          <div class="o-opportunities-form-container m-t-32">
+             <div class="o-opportunities-form-block p-t-32">
+                <h4 class="c-h4 with_border_bottom p-b-8">Create Opportunity</h4>
+                <h6 class="c-text_md m-t-32 m-b-16">Choose opportunity type</h6>
+                <div class="c-ops__tabs">
+                   <!-- opportunity type selection -->
+                   <ul class="nav o-oppo-form__tab">
+                      <li class="o-oppo-form-tab__item m-0">
+                         <a class="o-oppo-tab-link p-0" (click)="switchTo('audition')" aria-expanded="false">
+                            <div class="o-oppo-form-tab-block">
+                               <span class="o-oppo-tab__icon">
+                               <img src="{{ baseUrl }}img/opportunities/audition.png" alt="">
+                               </span>
+                               <span class="o-oppo-tab__title c-text_md">Audition</span>
+                            </div>
+                         </a>
+                      </li>
+                      <li class="o-oppo-form-tab__item">
+                         <a class="o-oppo-tab-link p-0" (click)="switchTo('projects')" aria-expanded="false">
+                            <div class="o-oppo-form-tab-block">
+                               <span class="o-oppo-tab__icon">
+                               <img src="{{ baseUrl }}img/opportunities/projects.png" alt="">
+                               </span>
+                               <span class="o-oppo-tab__title c-text_md">Projects</span>
+                            </div>
+                         </a>
+                      </li>
+                      <li class="o-oppo-form-tab__item">
+                         <a class="o-oppo-tab-link p-0" (click)="switchTo('jobs')" aria-expanded="false">
+                            <div class="o-oppo-form-tab-block">
+                               <span class="o-oppo-tab__icon">
+                               <img src="{{ baseUrl }}img/opportunities/job.png" alt="">
+                               </span>
+                               <span class="o-oppo-tab__title c-text_md">Jobs</span>
+                            </div>
+                         </a>
+                      </li>
+                      <li class="o-oppo-form-tab__item">
+                         <a class="o-oppo-tab-link p-0" (click)="switchTo('internship')" aria-expanded="false">
+                            <div class="o-oppo-form-tab-block">
+                               <span class="o-oppo-tab__icon">
+                               <img src="{{ baseUrl }}img/opportunities/internship.png" alt="">
+                               </span>
+                               <span class="o-oppo-tab__title c-text_md">Internship</span>
+                            </div>
+                         </a>
+                      </li>
+                      <li class="o-oppo-form-tab__item">
+                         <a class="o-oppo-tab-link p-0" (click)="switchTo('freelance')" aria-expanded="false">
+                            <div class="o-oppo-form-tab-block">
+                               <span class="o-oppo-tab__icon">
+                               <img src="{{ baseUrl }}img/opportunities/freelance.png" alt="">
+                               </span>
+                               <span class="o-oppo-tab__title c-text_md">Freelance</span>
+                            </div>
+                         </a>
+                      </li>
+                      <li class="o-oppo-form-tab__item active">
+                         <a class="o-oppo-tab-link p-0" (click)="switchTo('volunteer')" aria-expanded="true">
+                            <div class="o-oppo-form-tab-block">
+                               <span class="o-oppo-tab__icon">
+                               <img src="{{ baseUrl }}img/opportunities/volunteer.png" alt="">
+                               </span>
+                               <span class="o-oppo-tab__title c-text_md">Volunteer</span>
+                            </div>
+                         </a>
+                      </li>
+                   </ul>
+                   <!-- opportunity type selection -->
+                   
+                   <div class="tab-content">
+                      
+                      <!-- audition -->
+                      <div id="tab-audition" >
+                        <p class="c-text_lg color-grey-dark m-t-16">Audition Motivation will almost always beat mere talent.</p>
+                        <div class="tab-pane fade">
+                            <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                Audition details
+                            </div>
+                            <!-- subtitle end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Title</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>eg: Manager/Director</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Title end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Description</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm">
+                                    <textarea class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Description end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Category</div>
+                                </div>
+                                <div class="col-md-3 p-0">
+                                    <div class="c-form__group">
+                                    <select class="c-form-control p-l-0">
+                                        <option>Select</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- catagory end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Audition Date</div>
+                                </div>
+                                <div class="col-md-3 p-0">
+                                    <div class="c-form__group">
+                                    <select class="c-form-control p-l-0">
+                                        <option>Select</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Audition Date end -->
+                            <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                Candidate details
+                            </div>
+                            <!-- subtitle end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Gender</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-radio__sm m-t-8">
+                                    <label class="col-md-2 p-0">
+                                        <input name="demo" type="radio" class="c-form__bar2">
+                                        <span></span>
+                                        <div class="c-radio--label c-text_md color-grey-dark">Male</div>
+                                    </label>
+                                    <label class="col-md-2 p-0">
+                                        <input name="demo" type="radio" class="c-form__bar2">
+                                        <span></span>
+                                        <div class="c-radio--label c-text_md color-grey-dark">Female</div>
+                                    </label>
+                                    <label class="col-md-2 p-0">
+                                        <input name="demo" type="radio" class="c-form__bar2">
+                                        <span></span>
+                                        <div class="c-radio--label c-text_md color-grey-dark">Both</div>
+                                    </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- gender end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Ethnicity</div>
+                                </div>
+                                <div class="col-md-6 p-0">
+                                    <div class="c-form__group">
+                                    <select class="c-form-control p-l-0">
+                                        <option>Select</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Ethnicity end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Complexion</div>
+                                </div>
+                                <div class="col-md-6 p-0">
+                                    <div class="c-form__group">
+                                    <select class="c-form-control p-l-0">
+                                        <option>Select</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Completion end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Age limit</div>
+                                </div>
+                                <div class="col-md-6 p-0">
+                                    <div class="c-form__group">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                        <input class="c-form__input" required="" type="number">
+                                        <span class="c-form__highlight"></span>
+                                        <span class="c-form__bar"></span>
+                                        <label></label>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Age limit end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Height</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="col-md-3 p-l-0">
+                                    <div class="c-form__group">
+                                        <div class="c-form__group c-form--sm c-form--noeffect">
+                                            <input class="c-form__input" required="" type="number">
+                                            <span class="c-form__highlight"></span>
+                                            <span class="c-form__bar"></span>
+                                            <label>From</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3 p-l-0">
+                                    <div class="c-form__group">
+                                        <div class="c-form__group c-form--sm c-form--noeffect">
+                                            <input class="c-form__input" required="" type="number">
+                                            <span class="c-form__highlight"></span>
+                                            <span class="c-form__bar"></span>
+                                            <label>To</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-2 p-0">
+                                    <p class="c-text_md color-grey-dark m-t-16">cm</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Height end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Weight</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="col-md-3 p-l-0">
+                                    <div class="c-form__group">
+                                        <div class="c-form__group c-form--sm c-form--noeffect">
+                                            <input class="c-form__input" required="" type="number">
+                                            <span class="c-form__highlight"></span>
+                                            <span class="c-form__bar"></span>
+                                            <label>From</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3 p-l-0">
+                                    <div class="c-form__group">
+                                        <div class="c-form__group c-form--sm c-form--noeffect">
+                                            <input class="c-form__input" required="" type="number">
+                                            <span class="c-form__highlight"></span>
+                                            <span class="c-form__bar"></span>
+                                            <label>To</label>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-2 p-0">
+                                    <p class="c-text_md color-grey-dark m-t-16">Kg</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Weight end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                </div>
+                                <div class="col-md-9 p-0 ">
+                                    <p class="c-text_sm color-grey-dark m-t-24">
+                                    By clicking ‘Create’, you agree to the Terms and condition and Privacy policy
+                                    </p>
+                                    <a href="add_to_channel.html" class="btn btn-primary btn-md m-t-16 m-b-16">Create</a>
+                                </div>
+                            </div>
+                            <!-- btn end -->
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="o-create-channel__btn">
-                    <button type="button" class="btn btn-default btn-md m-r-8 float_left" (click)="showCreateChannel = false">Cancel</button>
-                    <a class="btn btn-primary btn-md float_right" (click)="createChannel(channelForm.value)" >Save</a>
-                  </div>
-                </form>
-              </div>
-            </div>
+                      <!-- audition -->
+                      
+                      <!-- projects -->
+                      <div id="tab-projects" >
+                        <p class="c-text_lg color-grey-dark m-t-16">Projects.</p>
+                        <div id="02" class="tab-pane fade">
+                            <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                Projects details
+                            </div>
+                            <!-- subtitle end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Title</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Name of your project</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Title end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Description</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm">
+                                    <textarea class="c-textarea__block c-textarea--style" placeholder="Describe audition"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Description end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Skills </div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Skills looking for</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Skills end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Add Collaborators</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Name of collaborators</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add Collaborators end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                </div>
+                                <div class="col-md-9 p-0 ">
+                                    <p class="c-text_sm color-grey-dark m-t-24">
+                                    By clicking ‘Create’, you agree to the Terms and condition and Privacy policy
+                                    </p>
+                                    <a href="add_to_channel.html" class="btn btn-primary btn-md m-t-16 m-b-16">Create</a>
+                                </div>
+                            </div>
+                            <!-- btn end -->
+                        </div>
+                      </div>
+                      <!-- projects -->
+                      
+                      <!-- jobs -->
+                      <div id="tab-jobs" >
+                        <p class="c-text_lg color-grey-dark m-t-16">Jobs.</p>
+                        <div id="03" class="tab-pane fade">
+                            <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                Jobs details
+                            </div>
+                            <!-- subtitle end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Role</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>eg: Manager/Director</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Role end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Description</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm">
+                                    <textarea class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Description end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Industry</div>
+                                </div>
+                                <div class="col-md-6 p-0">
+                                    <div class="c-form__group">
+                                    <select class="c-form-control p-l-0">
+                                        <option>Industry</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Description end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Experience</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="col-md-2 p-0">
+                                    <div class="c-form__group">
+                                        <select class="c-form-control p-l-0">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                    <div class="c-text_md color-grey-dark p-8">to</div>
+                                    </div>
+                                    <div class="col-md-2 p-0">
+                                    <div class="c-form__group">
+                                        <select class="c-form-control p-l-0">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Experience end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Salary</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="col-md-4 p-l-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                        <input class="c-form__input" required="" type="text">
+                                        <span class="c-form__highlight"></span>
+                                        <span class="c-form__bar"></span>
+                                        <label>eg: Manager/Director</label>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3 ">
+                                    <div class="c-form__group">
+                                        <select class="c-form-control p-l-0">
+                                            <option>Annualy</option>
+                                            <option>Monthly</option>
+                                            <option>Contract</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3 ">
+                                    <div class="c-form__group">
+                                        <select class="c-form-control p-l-0">
+                                            <option>Currency</option>
+                                            <option>INR</option>
+                                            <option>DOLLOR</option>
+                                            <option>EURO</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Salary end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Duration</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="col-md-4 p-0">
+                                    <div class="c-form__group">
+                                        <select class="c-form-control p-l-0">
+                                            <option>Full time</option>
+                                            <option>part time</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Duration end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Location</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Where is the opportunity</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Location end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Includes travel</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="col-md-2 p-0">
+                                    <div class="c-radio__sm p-t-8 float_left width100">
+                                        <label class="col-md-6 p-0 p-t-8">
+                                        <input name="demo" type="radio" class="c-form__bar2"><span></span>yes
+                                        </label>
+                                        <label class="col-md-6 p-0 p-t-8">
+                                        <input name="demo" type="radio" class="c-form__bar2"><span></span>No
+                                        </label>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-9 p-r-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                        <input class="c-form__input" required="" type="text">
+                                        <span class="c-form__highlight"></span>
+                                        <span class="c-form__bar"></span>
+                                        <label>Country</label>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Location end -->
+                            <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                Candidate details
+                            </div>
+                            <!-- subtitle end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Skills</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>eg: #Uidesign #photoshop #sketch</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Skills end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Qualifications</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>eg: Garduate </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Qualifications end -->
+                            <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                organization details
+                            </div>
+                            <!-- subtitle end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Organization Name</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Name of organization </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Organization Name end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Attach files</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="o-oppo-form__file-type">
+                                    <input class="o-oppo-file" type="file">
+                                    <p class="c-text_sm o-oppo-file__text"> upload<br>image or video</p>
+                                    </div>
+                                    <div class="o-oppo-form__img-show">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- file attach end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                </div>
+                                <div class="col-md-9 p-0 ">
+                                    <a href="add_to_channel.html" class="btn btn-primary btn-md m-t-16 m-b-16">Create</a>
+                                </div>
+                            </div>
+                            <!-- btn end -->
+                        </div>
+                      </div>
+                      <!-- jobs -->
+
+                      <!-- internship -->
+                      <div id="tab-internship">
+                        <p class="c-text_lg color-grey-dark m-t-16">Internship.</p>
+                        <div id="04" class="tab-pane fade">
+                            <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                Internship details
+                            </div>
+                            <!-- subtitle end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Role</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>eg: Manager/Director</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Role end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Description</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm">
+                                    <textarea class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Description end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Industry</div>
+                                </div>
+                                <div class="col-md-6 p-0">
+                                    <div class="c-form__group">
+                                    <select class="c-form-control p-l-0">
+                                        <option>Industry</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Description end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Experience</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="col-md-2 p-0">
+                                    <div class="c-form__group">
+                                        <select class="c-form-control p-l-0">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                    <div class="c-text_md color-grey-dark p-8">to</div>
+                                    </div>
+                                    <div class="col-md-2 p-0">
+                                    <div class="c-form__group">
+                                        <select class="c-form-control p-l-0">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Experience end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Salary</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="col-md-4 p-l-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                        <input class="c-form__input" required="" type="text">
+                                        <span class="c-form__highlight"></span>
+                                        <span class="c-form__bar"></span>
+                                        <label>eg: Manager/Director</label>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3 ">
+                                    <div class="c-form__group">
+                                        <select class="c-form-control p-l-0">
+                                            <option>Annualy</option>
+                                            <option>Monthly</option>
+                                            <option>Contract</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3 ">
+                                    <div class="c-form__group">
+                                        <select class="c-form-control p-l-0">
+                                            <option>Currency</option>
+                                            <option>INR</option>
+                                            <option>DOLLOR</option>
+                                            <option>EURO</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Salary end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Duration</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="col-md-4 p-0">
+                                    <div class="c-form__group">
+                                        <select class="c-form-control p-l-0">
+                                            <option>Full time</option>
+                                            <option>part time</option>
+                                        </select>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Duration end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Location</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Where is the opportunity</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Location end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Includes travel</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="col-md-2 p-0">
+                                    <div class="c-radio__sm p-t-8 float_left width100">
+                                        <label class="col-md-6 p-0 p-t-8">
+                                        <input name="demo" type="radio" class="c-form__bar2"><span></span>yes
+                                        </label>
+                                        <label class="col-md-6 p-0 p-t-8">
+                                        <input name="demo" type="radio" class="c-form__bar2"><span></span>No
+                                        </label>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-9 p-r-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                        <input class="c-form__input" required="" type="text">
+                                        <span class="c-form__highlight"></span>
+                                        <span class="c-form__bar"></span>
+                                        <label>Country</label>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Location end -->
+                            <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                Candidate details
+                            </div>
+                            <!-- subtitle end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Skills</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>eg: #Uidesign #photoshop #sketch</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Skills end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Qualifications</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>eg: Garduate </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Qualifications end -->
+                            <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                organization details
+                            </div>
+                            <!-- subtitle end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Organization Name</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Name of organization </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Organization Name end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Attach files</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="o-oppo-form__file-type">
+                                    <input class="o-oppo-file" type="file">
+                                    <p class="c-text_sm o-oppo-file__text"> upload<br>image or video</p>
+                                    </div>
+                                    <div class="o-oppo-form__img-show">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- file attach end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                </div>
+                                <div class="col-md-9 p-0 ">
+                                    <a href="add_to_channel.html" class="btn btn-primary btn-md m-t-16 m-b-16">Create</a>
+                                </div>
+                            </div>
+                            <!-- btn end -->
+                        </div>
+                      </div>
+                      <!-- internship -->
+                      
+                      <!-- freelance -->
+                      <div id="tab-freelance">
+                        <p class="c-text_lg color-grey-dark m-t-16">Freelance.</p>
+                        <div id="05" class="tab-pane fade">
+                            <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                Freelance details
+                            </div>
+                            <!-- subtitle end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Title</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Name of your project</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Title end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Description</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm">
+                                    <textarea class="c-textarea__block c-textarea--style" placeholder="Tell us more about your project"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Description end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">How do you want to pay</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-radio__sm m-t-8">
+                                    <label class="col-md-2 p-0">
+                                        <input name="demo" type="radio" class="c-form__bar2" checked="">
+                                        <span></span>
+                                        <div class="c-radio--label c-text_md color-grey-dark">Fixed</div>
+                                    </label>
+                                    <label class="col-md-2 p-0">
+                                        <input name="demo" type="radio" class="c-form__bar2">
+                                        <span></span>
+                                        <div class="c-radio--label c-text_md color-grey-dark">Hourly</div>
+                                    </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- How do you want to pay end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Engagement</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-radio__sm m-t-8">
+                                    <label class="col-md-2 p-0">
+                                        <input name="demo" type="radio" class="c-form__bar2" checked="">
+                                        <span></span>
+                                        <div class="c-radio--label c-text_md color-grey-dark">Remote</div>
+                                    </label>
+                                    <label class="col-md-2 p-0">
+                                        <input name="demo" type="radio" class="c-form__bar2">
+                                        <span></span>
+                                        <div class="c-radio--label c-text_md color-grey-dark">Office</div>
+                                    </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Engagement end -->
+                            <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                Candidate details
+                            </div>
+                            <!-- subtitle end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Skills</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>eg: #Uidesign #photoshop #sketch</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Skills end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Attach files</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="o-oppo-form__file-type">
+                                    <input class="o-oppo-file" type="file">
+                                    <p class="c-text_sm o-oppo-file__text"> upload<br>image or video</p>
+                                    </div>
+                                    <div class="o-oppo-form__img-show">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- file attach end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                </div>
+                                <div class="col-md-9 p-0 ">
+                                    <p class="c-text_sm color-grey-dark m-t-24">
+                                    By clicking ‘Create’, you agree to the Terms and condition and Privacy policy
+                                    </p>
+                                    <a href="add_to_channel.html" class="btn btn-primary btn-md m-t-16 m-b-16">Create</a>
+                                </div>
+                            </div>
+                            <!-- btn end -->
+                        </div>
+                      </div>
+                      <!-- freelance -->
+                      
+                      <!-- volunteer -->
+                      <div id="tab-volunteer">
+                        <p class="c-text_lg color-grey-dark m-t-16">Volunteer.</p>
+                        <div id="06" class="tab-pane fade active in">
+                            <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                Location details
+                            </div>
+                            <!-- subtitle end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Title</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Name of your project</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Title end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">What causes does it relate to?</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Describe the cause</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Description end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Skills Required </div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>What skills are you looking for in volunteers</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Skills end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Location</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Location of the opportunity</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add Collaborators end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                    <div class="c-text_md o-oppo-form-title">Requirements</div>
+                                </div>
+                                <div class="col-md-9 p-0">
+                                    <div class="o-oppo-form-check float_left m-r-16">
+                                    <label for="License"> Driver's License Needed 
+                                    <input id="License" type="checkbox">
+                                    </label>
+                                    </div>
+                                    <div class="o-oppo-form-check float_left m-r-16">
+                                    <label for="Check"> Background Check
+                                    <input id="Check" type="checkbox">
+                                    </label>
+                                    </div>
+                                    <div class="o-oppo-form-check float_left">
+                                    <label for="Training"> Orientation or Training
+                                    <input id="Training" type="checkbox">
+                                    </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add Collaborators end -->
+                            <div class="o-oppo-form__single">
+                                <div class="col-md-3 p-0">
+                                </div>
+                                <div class="col-md-9 p-0 ">
+                                    <p class="c-text_sm color-grey-dark m-t-24">
+                                    By clicking ‘Create’, you agree to the Terms and condition and Privacy policy
+                                    </p>
+                                    <a href="add_to_channel.html" class="btn btn-primary btn-md m-t-16 m-b-16">Create</a>
+                                </div>
+                            </div>
+                            <!-- btn end -->
+                        </div>
+                      </div>
+                      <!-- volunteer -->
+                      
+                   </div>
+                </div>
+             </div>
+             <!-- form block end -->
           </div>
-
-
-        </div>
-      </div>
-    </div>
-    <!-- add media channel end --> 
-  </div>
-</section>
+       </div>
+    </section>
+ </main>
