@@ -187,6 +187,7 @@ export class CreateChannelComponent implements OnInit {
       }
 
       this.channelSavedHere = true;
+      // console.log(channelObj)
       this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
     } else {
       this.toastr.warning('Please fill all required fields');
