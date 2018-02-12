@@ -6,10 +6,11 @@
                 <h4 class="c-h4 with_border_bottom p-b-8">Create Opportunity</h4>
                 <h6 class="c-text_md m-t-32 m-b-16">Choose opportunity type</h6>
                 <div class="c-ops__tabs">
-                   <!-- opportunity type selection -->
+                   
+                    <!-- opportunity type selection -->
                    <ul class="nav o-oppo-form__tab">
-                      <li class="o-oppo-form-tab__item m-0">
-                         <a class="o-oppo-tab-link p-0" (click)="switchTo('audition')" aria-expanded="false">
+                      <li [ngClass]="{'active': activeTab == 'audition'}" class="o-oppo-form-tab__item m-0">
+                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('audition')" aria-expanded="false">
                             <div class="o-oppo-form-tab-block">
                                <span class="o-oppo-tab__icon">
                                <img src="{{ baseUrl }}img/opportunities/audition.png" alt="">
@@ -18,8 +19,8 @@
                             </div>
                          </a>
                       </li>
-                      <li class="o-oppo-form-tab__item">
-                         <a class="o-oppo-tab-link p-0" (click)="switchTo('projects')" aria-expanded="false">
+                      <li [ngClass]="{'active': activeTab == 'projects'}" class="o-oppo-form-tab__item">
+                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('projects')" aria-expanded="false">
                             <div class="o-oppo-form-tab-block">
                                <span class="o-oppo-tab__icon">
                                <img src="{{ baseUrl }}img/opportunities/projects.png" alt="">
@@ -28,8 +29,8 @@
                             </div>
                          </a>
                       </li>
-                      <li class="o-oppo-form-tab__item">
-                         <a class="o-oppo-tab-link p-0" (click)="switchTo('jobs')" aria-expanded="false">
+                      <li [ngClass]="{'active': activeTab == 'jobs'}" class="o-oppo-form-tab__item">
+                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('jobs')" aria-expanded="false">
                             <div class="o-oppo-form-tab-block">
                                <span class="o-oppo-tab__icon">
                                <img src="{{ baseUrl }}img/opportunities/job.png" alt="">
@@ -38,8 +39,8 @@
                             </div>
                          </a>
                       </li>
-                      <li class="o-oppo-form-tab__item">
-                         <a class="o-oppo-tab-link p-0" (click)="switchTo('internship')" aria-expanded="false">
+                      <li [ngClass]="{'active': activeTab == 'internship'}" class="o-oppo-form-tab__item">
+                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('internship')" aria-expanded="false">
                             <div class="o-oppo-form-tab-block">
                                <span class="o-oppo-tab__icon">
                                <img src="{{ baseUrl }}img/opportunities/internship.png" alt="">
@@ -48,8 +49,8 @@
                             </div>
                          </a>
                       </li>
-                      <li class="o-oppo-form-tab__item">
-                         <a class="o-oppo-tab-link p-0" (click)="switchTo('freelance')" aria-expanded="false">
+                      <li [ngClass]="{'active': activeTab == 'freelance'}" class="o-oppo-form-tab__item">
+                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('freelance')" aria-expanded="false">
                             <div class="o-oppo-form-tab-block">
                                <span class="o-oppo-tab__icon">
                                <img src="{{ baseUrl }}img/opportunities/freelance.png" alt="">
@@ -58,8 +59,8 @@
                             </div>
                          </a>
                       </li>
-                      <li class="o-oppo-form-tab__item active">
-                         <a class="o-oppo-tab-link p-0" (click)="switchTo('volunteer')" aria-expanded="true">
+                      <li [ngClass]="{'active': activeTab == 'volunteer'}" class="o-oppo-form-tab__item">
+                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('volunteer')" aria-expanded="true">
                             <div class="o-oppo-form-tab-block">
                                <span class="o-oppo-tab__icon">
                                <img src="{{ baseUrl }}img/opportunities/volunteer.png" alt="">
@@ -74,9 +75,9 @@
                    <div class="tab-content">
                       
                       <!-- audition -->
-                      <div id="tab-audition" >
+                      <div *ngIf="activeTab == 'audition'" id="tab-audition" >
                         <p class="c-text_lg color-grey-dark m-t-16">Audition Motivation will almost always beat mere talent.</p>
-                        <div class="tab-pane fade">
+                        <div class="tab-pane">
                             <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
                                 Audition details
                             </div>
@@ -293,9 +294,9 @@
                       <!-- audition -->
                       
                       <!-- projects -->
-                      <div id="tab-projects" >
+                      <div *ngIf="activeTab == 'projects'" id="tab-projects" >
                         <p class="c-text_lg color-grey-dark m-t-16">Projects.</p>
-                        <div id="02" class="tab-pane fade">
+                        <div id="02" class="tab-pane">
                             <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
                                 Projects details
                             </div>
@@ -369,9 +370,9 @@
                       <!-- projects -->
                       
                       <!-- jobs -->
-                      <div id="tab-jobs" >
+                      <div *ngIf="activeTab == 'jobs'" id="tab-jobs" >
                         <p class="c-text_lg color-grey-dark m-t-16">Jobs.</p>
-                        <div id="03" class="tab-pane fade">
+                        <div id="03" class="tab-pane">
                             <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
                                 Jobs details
                             </div>
@@ -616,9 +617,9 @@
                       <!-- jobs -->
 
                       <!-- internship -->
-                      <div id="tab-internship">
+                      <div *ngIf="activeTab == 'internship'" id="tab-internship">
                         <p class="c-text_lg color-grey-dark m-t-16">Internship.</p>
-                        <div id="04" class="tab-pane fade">
+                        <div id="04" class="tab-pane">
                             <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
                                 Internship details
                             </div>
@@ -863,9 +864,9 @@
                       <!-- internship -->
                       
                       <!-- freelance -->
-                      <div id="tab-freelance">
+                      <div *ngIf="activeTab == 'freelance'" id="tab-freelance">
                         <p class="c-text_lg color-grey-dark m-t-16">Freelance.</p>
-                        <div id="05" class="tab-pane fade">
+                        <div id="05" class="tab-pane">
                             <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
                                 Freelance details
                             </div>
@@ -983,9 +984,9 @@
                       <!-- freelance -->
                       
                       <!-- volunteer -->
-                      <div id="tab-volunteer">
+                      <div *ngIf="activeTab == 'volunteer'" id="tab-volunteer">
                         <p class="c-text_lg color-grey-dark m-t-16">Volunteer.</p>
-                        <div id="06" class="tab-pane fade active in">
+                        <div id="06" class="tab-pane">
                             <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
                                 Location details
                             </div>

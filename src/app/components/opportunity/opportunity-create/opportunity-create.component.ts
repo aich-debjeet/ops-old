@@ -10,7 +10,13 @@ import { environment } from '../../../../environments/environment';
 export class OpportunityCreateComponent implements OnInit {
 
   baseUrl = environment.API_IMAGE;
+  activeTab = 'audition';
 
   ngOnInit() {}
+
+  // change tab
+  switchTabTo(tabId: string) {
+    this.activeTab = tabId;
+  }
 
 }
