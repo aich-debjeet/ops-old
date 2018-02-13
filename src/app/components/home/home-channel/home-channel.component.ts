@@ -89,7 +89,11 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
       page_start: this.page_start,
       page_end: 10
     }
-    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: datas });
+
+    const body = {
+      limit: 2
+    }
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: body });
   }
 
   /**
