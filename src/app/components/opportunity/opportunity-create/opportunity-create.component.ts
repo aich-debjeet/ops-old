@@ -1,22 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { environment } from '../../../../environments/environment';
+import { ScrollHelper } from 'app/helpers/scroll.helper';
 
 @Component({
   selector: 'app-opportunity-create',
   templateUrl: './opportunity-create.component.html',
   styleUrls: ['./opportunity-create.component.scss']
 })
-export class OpportunityCreateComponent implements OnInit {
+export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
   baseUrl = environment.API_IMAGE;
   auditionFrm: FormGroup;
 
   activeTab = 'audition';
 
+  // location details
+  locationDetails = {
+    lat: '',
+    lng: ''
+  };
+
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private scrollHelper: ScrollHelper
   ) {
 
     // creating audition form
@@ -25,6 +33,10 @@ export class OpportunityCreateComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  ngAfterViewChecked() {
+    this.scrollHelper.doScroll();
+  }
 
   // change tab
   switchTabTo(tabId: string) {
@@ -46,18 +58,20 @@ export class OpportunityCreateComponent implements OnInit {
       auditionComplexion: ['', []],
       auditionAgeMin: ['', [Validators.required]],
       auditionAgeMax: ['', [Validators.required]],
-      auditionHeightFrom: ['', [Validators.required]],
-      auditionHeightTo: ['', [Validators.required]],
-      auditionWeightFrom: ['', [Validators.required]],
-      auditionWeightTo: ['', [Validators.required]]
+      auditionHeightFrom: ['', []],
+      auditionHeightTo: ['', []],
+      auditionWeightFrom: ['', []],
+      auditionWeightTo: ['', []]
     });
   }
 
   submitAuditionForm(formData: any) {
 
+    console.log('formData', formData);
+
     // audition form validation
     if (!this.auditionFrm.valid) {
-      window.scrollTo(0, 0);
+      this.scrollHelper.scrollToFirst('error');
       console.log('invalid form');
       return;
     }
@@ -65,27 +79,30 @@ export class OpportunityCreateComponent implements OnInit {
     const reqBody = {
       opportunityType: 'audition',
       opportunityAudition: {
-        title: 'Ariel',
-        description: 'Casting Ariel, a dark comedy short about a writers psychological struggle after experiencing writers block. There are two roles. David and Allan',
-        category: 'Film',
-        auditionDate: '25-02-2018',
-        gender: 'M',
-        ethnicity: 'Kannadika',
-        complexion: 'Fair',
-        ageLimit: '30',
+        title: formData.auditionTitle,
+        description: formData.auditionDescription,
+        category: formData.auditionCategory,
+        auditionDate: formData.auditionDate,
+        gender: formData.auditionGender,
+        ethnicity: formData.auditionEthnicity,
+        complexion: formData.auditionComplexion,
+        ageLimit: formData.auditionAgeMax,
         height: {
-          from: '151',
-          to: '165'
+          from: formData.auditionHeightFrom,
+          to: formData.auditionHeightTo
         },
         weight: {
-          from: '65',
-          to: '80'
+          from: formData.auditionWeightFrom,
+          to: formData.auditionWeightTo
         },
         location: {
-          lat: '',
-          lon: ''
+          lat: this.locationDetails.lat,
+          lon: this.locationDetails.lng
         }
       }
+
+      // submit dispatch
+      // this.
     }
   }
 

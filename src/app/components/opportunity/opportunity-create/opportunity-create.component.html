@@ -94,7 +94,7 @@
                                             <span class="c-form__bar"></span>
                                             <label>eg: Manager/Director</label>
                                         </div>
-                                        <p *ngIf="auditionFrm.controls['auditionTitle'].errors?.required && createAudFrm.submitted" class="c-form__validation">Title is required!</p>
+                                        <p *ngIf="auditionFrm.controls['auditionTitle'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Title is required!</p>
                                     </div>
                                 </div>
                                 <!-- Title end -->
@@ -106,7 +106,7 @@
                                         <div class="c-form__group m-t-0 c-form--sm">
                                             <textarea formControlName="auditionDescription" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
                                         </div>
-                                        <p *ngIf="auditionFrm.controls['auditionDescription'].errors?.required && createAudFrm.submitted" class="c-form__validation">Description is required!</p>
+                                        <p *ngIf="auditionFrm.controls['auditionDescription'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Description is required!</p>
                                     </div>
                                 </div>
                                 <!-- Description end -->
@@ -123,7 +123,7 @@
                                                 <option>4</option>
                                             </select>
                                         </div>
-                                        <p *ngIf="auditionFrm.controls['auditionCategory'].errors?.required && createAudFrm.submitted" class="c-form__validation">Please select category!</p>
+                                        <p *ngIf="auditionFrm.controls['auditionCategory'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Please select category!</p>
                                     </div>
                                 </div>
                                 <!-- catagory end -->
@@ -140,7 +140,7 @@
                                                 <label></label>
                                             </div>
                                         </div>
-                                        <p *ngIf="auditionFrm.controls['auditionDate'].errors?.required && createAudFrm.submitted" class="c-form__validation">Audition date is required!</p>
+                                        <p *ngIf="auditionFrm.controls['auditionDate'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Audition date is required!</p>
                                     </div>
                                 </div>
                                 <div class="o-oppo-form__single">
@@ -156,7 +156,7 @@
                                                 <label></label>
                                             </div>
                                         </div>
-                                        <p *ngIf="auditionFrm.controls['auditionLocation'].errors?.required && createAudFrm.submitted" class="c-form__validation">Location is required!</p>
+                                        <p *ngIf="auditionFrm.controls['auditionLocation'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Location is required!</p>
                                     </div>
                                 </div>
                                 <!-- Audition Date end -->
@@ -186,7 +186,7 @@
                                                 <div class="c-radio--label c-text_md color-grey-dark">Both</div>
                                             </label>
                                         </div>
-                                        <p *ngIf="auditionFrm.controls['auditionGender'].errors?.required && createAudFrm.submitted" class="c-form__validation">This is required!</p>
+                                        <p *ngIf="auditionFrm.controls['auditionGender'].errors?.required && createAudFrm.submitted" class="c-form__validation error">This is required!</p>
                                     </div>
                                 </div>
                                 <!-- gender end -->
@@ -203,7 +203,7 @@
                                                 <option>4</option>
                                             </select>
                                         </div>
-                                        <p *ngIf="auditionFrm.controls['auditionEthnicity'].errors?.required && createAudFrm.submitted" class="c-form__validation">This is required!</p>
+                                        <p *ngIf="auditionFrm.controls['auditionEthnicity'].errors?.required && createAudFrm.submitted" class="c-form__validation error">This is required!</p>
                                     </div>
                                 </div>
                                 <!-- Ethnicity end -->
@@ -220,7 +220,7 @@
                                                 <option>4</option>
                                             </select>
                                         </div>
-                                        <p *ngIf="auditionFrm.controls['auditionComplexion'].errors?.required && createAudFrm.submitted" class="c-form__validation">This is required!</p>
+                                        <p *ngIf="auditionFrm.controls['auditionComplexion'].errors?.required && createAudFrm.submitted" class="c-form__validation error">This is required!</p>
                                     </div>
                                 </div>
                                 <!-- Completion end -->
@@ -252,7 +252,7 @@
                                         <div class="col-md-2 p-0">
                                             <p class="c-text_md color-grey-dark m-t-16">Years</p>
                                         </div>
-                                        <p *ngIf="(auditionFrm.controls['auditionAgeMin'].errors?.required || auditionFrm.controls['auditionAgeMax'].errors?.required) && createAudFrm.submitted" class="c-form__validation">Age limits are required!</p>
+                                        <p *ngIf="(auditionFrm.controls['auditionAgeMin'].errors?.required || auditionFrm.controls['auditionAgeMax'].errors?.required) && createAudFrm.submitted" class="c-form__validation error">Age limits are required!</p>
                                     </div>
                                 </div>
                                 <!-- Age limit end -->
