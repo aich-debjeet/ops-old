@@ -333,77 +333,80 @@
                       
                       <!-- projects -->
                       <div *ngIf="activeTab == 'projects'" id="tab-projects" >
-                        <p class="c-text_lg color-grey-dark m-t-16">Projects.</p>
-                        <div id="02" class="tab-pane">
-                            <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
-                                Projects details
-                            </div>
-                            <!-- subtitle end -->
-                            <div class="o-oppo-form__single">
-                                <div class="col-md-3 p-0">
-                                    <div class="c-text_md o-oppo-form-title">Title</div>
+                        <form #createProjFrm="ngForm" [formGroup]="projectFrm" (ngSubmit)="submitProjectForm(projectFrm.value)">
+                            <p class="c-text_lg color-grey-dark m-t-16">Projects.</p>
+                            <div id="02" class="tab-pane">
+                                <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                    Projects details
                                 </div>
-                                <div class="col-md-9 p-0">
-                                    <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                                    <input class="c-form__input" type="text">
-                                    <span class="c-form__highlight"></span>
-                                    <span class="c-form__bar"></span>
-                                    <label>Name of your project</label>
+                                <!-- subtitle end -->
+                                <div class="o-oppo-form__single">
+                                    <div class="col-md-3 p-0">
+                                        <div class="c-text_md o-oppo-form-title">Title</div>
+                                    </div>
+                                    <div class="col-md-9 p-0">
+                                        <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                            <input formControlName="projectTitle" class="c-form__input" type="text">
+                                            <span class="c-form__highlight"></span>
+                                            <span class="c-form__bar"></span>
+                                            <label>Name of your project</label>
+                                        </div>
+                                        <p *ngIf="projectFrm.controls['projectTitle'].errors?.required && createProjFrm.submitted" class="c-form__validation error">Title is required!</p>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Title end -->
-                            <div class="o-oppo-form__single">
-                                <div class="col-md-3 p-0">
-                                    <div class="c-text_md o-oppo-form-title">Description</div>
-                                </div>
-                                <div class="col-md-9 p-0">
-                                    <div class="c-form__group m-t-0 c-form--sm">
-                                    <textarea class="c-textarea__block c-textarea--style" placeholder="Describe audition"></textarea>
+                                <!-- Title end -->
+                                <div class="o-oppo-form__single">
+                                    <div class="col-md-3 p-0">
+                                        <div class="c-text_md o-oppo-form-title">Description</div>
+                                    </div>
+                                    <div class="col-md-9 p-0">
+                                        <div class="c-form__group m-t-0 c-form--sm">
+                                            <textarea formControlName="projectDescription" class="c-textarea__block c-textarea--style" placeholder="Describe audition"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Description end -->
-                            <div class="o-oppo-form__single">
-                                <div class="col-md-3 p-0">
-                                    <div class="c-text_md o-oppo-form-title">Skills </div>
-                                </div>
-                                <div class="col-md-9 p-0">
-                                    <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                                    <input class="c-form__input" type="text">
-                                    <span class="c-form__highlight"></span>
-                                    <span class="c-form__bar"></span>
-                                    <label>Skills looking for</label>
+                                <!-- Description end -->
+                                <div class="o-oppo-form__single">
+                                    <div class="col-md-3 p-0">
+                                        <div class="c-text_md o-oppo-form-title">Skills </div>
+                                    </div>
+                                    <div class="col-md-9 p-0">
+                                        <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                        <input formControlName="projectSkills" class="c-form__input" type="text">
+                                        <span class="c-form__highlight"></span>
+                                        <span class="c-form__bar"></span>
+                                        <label>Skills looking for</label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Skills end -->
-                            <div class="o-oppo-form__single">
-                                <div class="col-md-3 p-0">
-                                    <div class="c-text_md o-oppo-form-title">Add Collaborators</div>
-                                </div>
-                                <div class="col-md-9 p-0">
-                                    <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                                    <input class="c-form__input" type="text">
-                                    <span class="c-form__highlight"></span>
-                                    <span class="c-form__bar"></span>
-                                    <label>Name of collaborators</label>
+                                <!-- Skills end -->
+                                <div class="o-oppo-form__single">
+                                    <div class="col-md-3 p-0">
+                                        <div class="c-text_md o-oppo-form-title">Add Collaborators</div>
+                                    </div>
+                                    <div class="col-md-9 p-0">
+                                        <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                        <input formControlName="projectCollaborators" class="c-form__input" type="text">
+                                        <span class="c-form__highlight"></span>
+                                        <span class="c-form__bar"></span>
+                                        <label>Name of collaborators</label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Add Collaborators end -->
-                            <div class="o-oppo-form__single">
-                                <div class="col-md-3 p-0">
+                                <!-- Add Collaborators end -->
+                                <div class="o-oppo-form__single">
+                                    <div class="col-md-3 p-0">
+                                    </div>
+                                    <div class="col-md-9 p-0 ">
+                                        <p class="c-text_sm color-grey-dark m-t-24">
+                                        By clicking ‘Create’, you agree to the Terms and condition and Privacy policy
+                                        </p>
+                                        <button type="submit" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
+                                    </div>
                                 </div>
-                                <div class="col-md-9 p-0 ">
-                                    <p class="c-text_sm color-grey-dark m-t-24">
-                                    By clicking ‘Create’, you agree to the Terms and condition and Privacy policy
-                                    </p>
-                                    <a href="add_to_channel.html" class="btn btn-primary btn-md m-t-16 m-b-16">Create</a>
-                                </div>
+                                <!-- btn end -->
                             </div>
-                            <!-- btn end -->
-                        </div>
+                        </form>
                       </div>
                       <!-- projects -->
                       

@@ -25,10 +25,13 @@ import { OpportunityModel } from 'app/models/opportunity.model';
 export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
   baseUrl = environment.API_IMAGE;
+
   auditionFrm: FormGroup;
+  projectFrm: FormGroup;
+
   oppState: Observable<OpportunityModel>;
 
-  activeTab = 'audition';
+  activeTab = 'projects';
   oppSaved = false;
 
   // location details
@@ -46,6 +49,9 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
     // creating audition form
     this.createAuditionForm();
+
+    // creating project form
+    this.createProjectForm();
 
     this.oppState = this.oppStore.select('opportunityTags');
     this.oppState.subscribe((state) => {
@@ -72,6 +78,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
     this.activeTab = tabId;
   }
 
+  /* =================================== audition form =================================== */
   /**
    * Creating the reactive form for audition
    */
@@ -94,6 +101,10 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  /**
+   * Submit form
+   * @param: form data
+   */
   submitAuditionForm(formData: any) {
 
     console.log('formData', formData);
@@ -132,14 +143,51 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
       }
     }
 
-    // submit dispatch
+    // submit audition details
     this.oppStore.dispatch({
       type: OpportunityActions.CREATE_OPPORTUNITY,
       payload: reqBody
     });
-
     this.oppSaved = true;
 
   }
+  /* =================================== audition form =================================== */
+
+  /* =================================== project form =================================== */
+  createProjectForm() {
+    this.projectFrm = this.fb.group({
+      projectTitle: ['', [Validators.required]],
+      projectDescription: ['', []],
+      projectSkills: ['', []],
+      projectCollaborators: ['', []],
+    });
+  }
+
+  submitProjectForm(formData: any) {
+    // validation check
+    if (!this.projectFrm.valid) {
+      console.log('invalid form');
+      return;
+    }
+
+    // else prepare and submit the form
+    const reqBody = {
+      opportunityType: 'project',
+      opportunityProject: {
+        title: formData.projectTitle,
+        description: formData.projectDescription,
+        skills: formData.projectSkills,
+        addCollaborators: [formData.projectCollaborators]
+      }
+    };
+
+    // submit project details
+    this.oppStore.dispatch({
+      type: OpportunityActions.CREATE_OPPORTUNITY,
+      payload: reqBody
+    });
+    this.oppSaved = true;
+  }
+  /* =================================== project form =================================== */
 
 }
