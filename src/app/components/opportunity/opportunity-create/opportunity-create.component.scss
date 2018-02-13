@@ -181,3 +181,15 @@
 .nav > li > a:hover {
   background-color: transparent;
 }
+
+.c-form--sm .c-form__input:focus ~ label, .c-form--sm .c-form__input:valid ~ label {
+  display: block;
+}
+
+// .c-form__group {
+//   margin-bottom: 0 !important;
+// }
+
+// .o-oppo-form__single {
+//   padding-bottom: 24px;
+// }
