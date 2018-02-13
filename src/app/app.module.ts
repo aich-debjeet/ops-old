@@ -68,6 +68,7 @@ import { ServicesModule } from './services/services.module';
 import { TokenService } from './helpers/token.service';
 import { ApiService } from './helpers/api.service';
 import { GeneralUtilities } from './helpers/general.utils';
+import { ScrollHelper } from './helpers/scroll.helper';
 import { AuthService } from './services/auth.service';
 import { MediaService } from './services/media.service';
 import { GeneralService } from './services/api.service';
@@ -223,6 +224,7 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     NotificationService,
     SearchService,
     GeneralUtilities,
+    ScrollHelper,
     LocalStorageService,
     OpportunityService,
     ExploreService,
