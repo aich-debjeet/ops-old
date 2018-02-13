@@ -1,8 +1,21 @@
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
+// toastr service
+import { ToastrService } from 'ngx-toastr';
+
+// store
+import { Store } from '@ngrx/store';
+
+// rxjs
+import { Observable } from 'rxjs/Observable';
+
 import { environment } from '../../../../environments/environment';
 import { ScrollHelper } from 'app/helpers/scroll.helper';
+
+// opportunity imports
+import { OpportunityActions } from 'app/actions/opportunity.action';
+import { OpportunityModel } from 'app/models/opportunity.model';
 
 @Component({
   selector: 'app-opportunity-create',
@@ -13,8 +26,10 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
   baseUrl = environment.API_IMAGE;
   auditionFrm: FormGroup;
+  oppState: Observable<OpportunityModel>;
 
   activeTab = 'audition';
+  oppSaved = false;
 
   // location details
   locationDetails = {
@@ -24,11 +39,24 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private fb: FormBuilder,
-    private scrollHelper: ScrollHelper
+    private toastr: ToastrService,
+    private scrollHelper: ScrollHelper,
+    private oppStore: Store<OpportunityModel>
   ) {
 
     // creating audition form
     this.createAuditionForm();
+
+    this.oppState = this.oppStore.select('opportunityTags');
+    this.oppState.subscribe((state) => {
+      console.log('app state', state);
+      if (state && state['create_opportunity_data'] && state['create_opportunity_data']['SUCCESS']) {
+        if (this.oppSaved === true) {
+          this.toastr.success('Opportunity has been created successfully!');
+          this.oppSaved = false;
+        }
+      }
+    });
 
   }
 
@@ -40,6 +68,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
   // change tab
   switchTabTo(tabId: string) {
+    this.oppSaved = false;
     this.activeTab = tabId;
   }
 
@@ -76,6 +105,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
       return;
     }
 
+    // preparing request body to submit to the api
     const reqBody = {
       opportunityType: 'audition',
       opportunityAudition: {
@@ -86,24 +116,30 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
         gender: formData.auditionGender,
         ethnicity: formData.auditionEthnicity,
         complexion: formData.auditionComplexion,
-        ageLimit: formData.auditionAgeMax,
+        ageLimit: String(formData.auditionAgeMax),
         height: {
-          from: formData.auditionHeightFrom,
-          to: formData.auditionHeightTo
+          from: String(formData.auditionHeightFrom),
+          to: String(formData.auditionHeightTo)
         },
         weight: {
-          from: formData.auditionWeightFrom,
-          to: formData.auditionWeightTo
+          from: String(formData.auditionWeightFrom),
+          to: String(formData.auditionWeightTo)
         },
         location: {
           lat: this.locationDetails.lat,
           lon: this.locationDetails.lng
         }
       }
-
-      // submit dispatch
-      // this.
     }
+
+    // submit dispatch
+    this.oppStore.dispatch({
+      type: OpportunityActions.CREATE_OPPORTUNITY,
+      payload: reqBody
+    });
+
+    this.oppSaved = true;
+
   }
 
 }

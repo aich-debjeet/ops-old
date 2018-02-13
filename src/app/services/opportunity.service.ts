@@ -34,7 +34,7 @@ export class OpportunityService {
    */
   createOpportunity(reqBody: any) {
     this.updateToken();
-    return this.api.post('/portal/job/create', reqBody);
+    return this.api.post('/portal/opportunity/create', reqBody);
   }
 
   /**
