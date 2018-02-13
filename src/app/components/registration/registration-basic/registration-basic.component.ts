@@ -188,7 +188,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    document.body.style.overflow = 'hidden';
+    // document.body.style.overflow = 'hidden';
 
     if (this.route.snapshot.queryParams['ev']) {
       if (this.route.snapshot.queryParams['ev'] === 'dwc2017') {

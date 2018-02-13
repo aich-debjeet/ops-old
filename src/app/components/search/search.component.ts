@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Inject, HostListener, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Inject, HostListener, AfterViewInit } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
 import { SearchActions } from './../../actions/search.action';
@@ -25,7 +25,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit, AfterViewInit {
+export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('searchInput') searchInput;
   @ViewChild('searchQueryElement') searchQueryElement;
@@ -79,8 +79,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       this.searchState = state;
-      console.log(this.searchState);
-      if (state && state.searching_all === false) {
+      // console.log(this.searchState);
+      if (state && (state.searching_all === false || state.searching_people === false || state.searching_post === false || state.searching_channel === false)) {
           this.isSearching = false;
           this.beforeSearch = false;
           this.showPreloader = false;
@@ -132,7 +132,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
     this.routeSub = this.route.queryParams
       .subscribe(params => {
-        console.log(params);
+        // console.log(params);
 
         // check if params available
         if (params && params.q && params.q.length > 0) {
@@ -140,17 +140,19 @@ export class SearchComponent implements OnInit, AfterViewInit {
           // giving back the search value
           this.searchString = params.q;
 
+          // scroll to top on view switch
+          this.scrollToTop(200);
+
           // check if search is global
           if ((params.type && params.type === 'all') || !params.type) {
-            this.isSearching = true;
             const searchAllParams = {
               searchText: this.searchString,
               from: 0,
               limit: this.recordsPerPage
             }
             // search all
+            this.isSearching = true;
             this.store.dispatch({ type: SearchActions.SEARCH_ALL, payload: searchAllParams });
-            return;
           }
 
           // check if search type is available
@@ -158,7 +160,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
             // giving back the search type
             this.searchType = params.type;
-            console.log('this.searchType', this.searchType);
 
             // making a dispatch depending on the search type
             if (this.searchType === 'people') {
@@ -224,34 +225,51 @@ export class SearchComponent implements OnInit, AfterViewInit {
     this.mediaStore.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: id });
   }
 
+  // see all results with the selected type
   seeAll(sType: string) {
     this.searchType = sType;
     // console.log('this.searchType', this.searchType);
     this.router.navigate(['/search'], { queryParams: { q: this.searchString, type: this.searchType } });
   }
 
+  ngOnDestroy() {
+    this.routeSub.unsubscribe();
+  }
+
   /**
    * Scroll event listener
    */
-  // @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
-  //   const scrolledValue = window.pageYOffset;
-  //   let scrollDirection = '';
-  //   if (scrolledValue > this.lastScrollTop) {
-  //     scrollDirection = 'down';
-  //   } else {
-  //     scrollDirection = 'up';
-  //   }
-  //   this.lastScrollTop = scrolledValue;
+  @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
+    const scrolledValue = window.pageYOffset;
+    let scrollDirection = '';
+    if (scrolledValue > this.lastScrollTop) {
+      scrollDirection = 'down';
+    } else {
+      scrollDirection = 'up';
+    }
+    this.lastScrollTop = scrolledValue;
 
-  //   if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
-  //     // reached the bottom of the page
-  //     this.canScroll = false;
-  //     setTimeout(() => {
-  //       this.canScroll = true;
-  //     }, 1000);
-  //     this.dispatchLoadMore();
-  //   }
-  // }
+    if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
+      // reached the bottom of the page
+      this.canScroll = false;
+      setTimeout(() => {
+        this.canScroll = true;
+      }, 1000);
+      // this.dispatchLoadMore();
+      console.log('reached bottom scroll more');
+    }
+  }
+
+  scrollToTop(scrollDuration) {
+    const scrollStep = -window.scrollY / (scrollDuration / 15),
+    scrollInterval = setInterval(function() {
+    if (window.scrollY !== 0) {
+      window.scrollBy( 0, scrollStep);
+    } else {
+      clearInterval(scrollInterval);
+    }
+    }, 15);
+  }
 
   /**
    * Load more results for active tab
@@ -293,17 +311,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
   //     this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchParams });
   //   }
 
-  // }
-
-  // scrollToTop(scrollDuration) {
-  //   const scrollStep = -window.scrollY / (scrollDuration / 15),
-  //   scrollInterval = setInterval(function() {
-  //   if (window.scrollY !== 0) {
-  //     window.scrollBy( 0, scrollStep);
-  //   } else {
-  //     clearInterval(scrollInterval);
-  //   }
-  //   }, 15);
   // }
 
 }
