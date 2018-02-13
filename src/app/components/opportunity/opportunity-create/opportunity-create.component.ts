@@ -28,10 +28,11 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
   auditionFrm: FormGroup;
   projectFrm: FormGroup;
+  jobFrm: FormGroup;
 
   oppState: Observable<OpportunityModel>;
 
-  activeTab = 'projects';
+  activeTab = 'jobs';
   oppSaved = false;
 
   // location details
@@ -52,6 +53,9 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
     // creating project form
     this.createProjectForm();
+
+    // creating job form
+    this.createJobForm();
 
     this.oppState = this.oppStore.select('opportunityTags');
     this.oppState.subscribe((state) => {
@@ -189,5 +193,76 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
     this.oppSaved = true;
   }
   /* =================================== project form =================================== */
+
+  /* =================================== job form =================================== */
+  createJobForm() {
+    this.jobFrm = this.fb.group({
+      jobRole: ['', [Validators.required]],
+      jobDescription: ['', []],
+      jobIndustry: ['', []],
+      jobExperienceFrom: ['', []],
+      jobExperienceTo: ['', []],
+      jobSalaryAmount: ['', []],
+      jobSalaryDuration: ['', []],
+      jobSalaryCurrency: ['', []],
+      jobDuration: ['', []],
+      jobLocation: ['', []],
+      jobTravelInclusive: ['', []],
+      jobCountry: ['', []],
+      jobSkills: ['', []],
+      jobQualifications: ['', []],
+      jobOrgName: ['', []]
+    });
+  }
+
+  submitJobForm(formData: any) {
+    // validation check
+    if (!this.jobFrm.valid) {
+      this.scrollHelper.scrollToFirst('error');
+      console.log('invalid form');
+      return;
+    }
+
+    // else prepare and submit the form
+    const reqBody = {
+      opportunityType: 'job',
+      opportunityJob: {
+        role: formData.jobRole,
+          description: formData.jobDescription,
+          industry: formData.jobIndustry,
+          experience: {
+            from: formData.jobExperienceFrom,
+            to: formData.jobExperienceTo
+          },
+          salary: {
+            amount: Number(formData.jobSalaryAmount),
+            salaryType: formData.jobSalaryDuration,
+            currency: formData.jobSalaryCurrency
+          },
+          duration: formData.jobDuration,
+          location: {
+            lat: formData.jobLocation,
+            lon: formData.jobLocation
+          },
+          includesTravel: {
+            option: formData.jobTravelInclusive,
+            country: formData.jobCountry
+          },
+          skills: formData.jobSkills,
+          qualifications: formData.jobQualifications,
+          organizationName: formData.jobOrgName,
+          attachFiles: []
+      }
+    };
+
+    // submit job details
+    this.oppStore.dispatch({
+      type: OpportunityActions.CREATE_OPPORTUNITY,
+      payload: reqBody
+    });
+    this.oppSaved = true;
+
+  }
+  /* =================================== job form =================================== */
 
 }
