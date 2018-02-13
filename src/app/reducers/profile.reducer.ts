@@ -437,6 +437,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     const followingChannel = payload['spotFeedResponse'];
     const following_new_channel = state.user_following_channel.concat(followingChannel)
       return Object.assign({}, state, {
+        user_channel_scroll_id: payload['scrollId'],
         user_following_channel: following_new_channel,
         user_following_channels_loaded: true,
         user_following_channels_loading: false

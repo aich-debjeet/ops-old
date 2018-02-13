@@ -22,6 +22,7 @@ export class ProfileModal {
   user_channel: any;
   user_channels_loading: boolean;
   user_channels_loaded: boolean;
+  user_channel_scroll_id: any;
   user_following_channel: any;
   user_following_channels_loading: boolean;
   user_following_channels_loaded: boolean;
@@ -91,6 +92,7 @@ export const initialTag: ProfileModal = {
   user_channels_loading: false,
   user_channels_loaded: false,
   // User following channels
+  user_channel_scroll_id: '',
   user_following_channel: [],
   user_following_channels_loading: false,
   user_following_channels_loaded: false,
