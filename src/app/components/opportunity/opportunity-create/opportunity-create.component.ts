@@ -30,10 +30,11 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
   projectFrm: FormGroup;
   jobFrm: FormGroup;
   internshipFrm: FormGroup;
+  freelanceFrm: FormGroup;
 
   oppState: Observable<OpportunityModel>;
 
-  activeTab = 'internships';
+  activeTab = 'freelance';
   oppSaved = false;
 
   // location details
@@ -60,6 +61,9 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
     // creating internship form
     this.createInternshipForm();
+
+    // creating freelance form
+    this.createFreelanceForm();
 
     this.oppState = this.oppStore.select('opportunityTags');
     this.oppState.subscribe((state) => {
@@ -339,5 +343,47 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
   }
   /* =================================== internship form =================================== */
+
+  /* =================================== freelance form =================================== */
+  createFreelanceForm() {
+    this.freelanceFrm = this.fb.group({
+      freelanceTitle: ['', [Validators.required]],
+      freelanceDescription: ['', []],
+      freelancePaymentMethod: ['', [Validators.required]],
+      freelanceEngagement: ['', [Validators.required]],
+      freelanceSkills: ['', []],
+    });
+  }
+
+  submitFreelanceForm(formData: any) {
+    // validation check
+    if (!this.freelanceFrm.valid) {
+      this.scrollHelper.scrollToFirst('error');
+      console.log('invalid form');
+      return;
+    }
+
+    // else prepare and submit the form
+    const reqBody = {
+      opportunityType: 'freelance',
+      opportunityFreelance: {
+        title: formData.freelanceTitle,
+        description: formData.freelanceDescription,
+        payType: formData.freelancePaymentMethod,
+        engagement: formData.freelanceEngagement,
+        skills: formData.freelanceSkills,
+        attachFiles: []
+      }
+    };
+
+    // submit freelance details
+    this.oppStore.dispatch({
+      type: OpportunityActions.CREATE_OPPORTUNITY,
+      payload: reqBody
+    });
+    this.oppSaved = true;
+
+  }
+  /* =================================== freelance form =================================== */
 
 }

@@ -910,121 +910,125 @@
                       
                       <!-- freelance -->
                       <div *ngIf="activeTab == 'freelance'" id="tab-freelance">
-                        <p class="c-text_lg color-grey-dark m-t-16">Freelance.</p>
-                        <div id="05" class="tab-pane">
-                            <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
-                                Freelance details
-                            </div>
-                            <!-- subtitle end -->
-                            <div class="o-oppo-form__single">
-                                <div class="col-md-3 p-0">
-                                    <div class="c-text_md o-oppo-form-title">Title</div>
+                        <form #createFrlFrm="ngForm" [formGroup]="freelanceFrm" (ngSubmit)="submitFreelanceForm(freelanceFrm.value)">
+                            <p class="c-text_lg color-grey-dark m-t-16">Freelance.</p>
+                            <div id="05" class="tab-pane">
+                                <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                    Freelance details
                                 </div>
-                                <div class="col-md-9 p-0">
-                                    <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                                    <input class="c-form__input" type="text">
-                                    <span class="c-form__highlight"></span>
-                                    <span class="c-form__bar"></span>
-                                    <label>Name of your project</label>
+                                <!-- subtitle end -->
+                                <div class="o-oppo-form__single">
+                                    <div class="col-md-3 p-0">
+                                        <div class="c-text_md o-oppo-form-title">Title</div>
+                                    </div>
+                                    <div class="col-md-9 p-0">
+                                        <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                            <input formControlName="freelanceTitle" class="c-form__input" type="text">
+                                            <span class="c-form__highlight"></span>
+                                            <span class="c-form__bar"></span>
+                                            <label>Name of your project</label>
+                                        </div>
+                                        <p *ngIf="freelanceFrm.controls['freelanceTitle'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">Title is required!</p>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Title end -->
-                            <div class="o-oppo-form__single">
-                                <div class="col-md-3 p-0">
-                                    <div class="c-text_md o-oppo-form-title">Description</div>
-                                </div>
-                                <div class="col-md-9 p-0">
-                                    <div class="c-form__group m-t-0 c-form--sm">
-                                    <textarea class="c-textarea__block c-textarea--style" placeholder="Tell us more about your project"></textarea>
+                                <!-- Title end -->
+                                <div class="o-oppo-form__single">
+                                    <div class="col-md-3 p-0">
+                                        <div class="c-text_md o-oppo-form-title">Description</div>
+                                    </div>
+                                    <div class="col-md-9 p-0">
+                                        <div class="c-form__group m-t-0 c-form--sm">
+                                            <textarea formControlName="freelanceDescription" class="c-textarea__block c-textarea--style" placeholder="Tell us more about your project"></textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Description end -->
-                            <div class="o-oppo-form__single">
-                                <div class="col-md-3 p-0">
-                                    <div class="c-text_md o-oppo-form-title">How do you want to pay</div>
-                                </div>
-                                <div class="col-md-9 p-0">
-                                    <div class="c-radio__sm m-t-8">
-                                    <label class="col-md-2 p-0">
-                                        <input name="demo" type="radio" class="c-form__bar2" checked="">
-                                        <span></span>
-                                        <div class="c-radio--label c-text_md color-grey-dark">Fixed</div>
-                                    </label>
-                                    <label class="col-md-2 p-0">
-                                        <input name="demo" type="radio" class="c-form__bar2">
-                                        <span></span>
-                                        <div class="c-radio--label c-text_md color-grey-dark">Hourly</div>
-                                    </label>
+                                <!-- Description end -->
+                                <div class="o-oppo-form__single">
+                                    <div class="col-md-3 p-0">
+                                        <div class="c-text_md o-oppo-form-title">How do you want to pay</div>
+                                    </div>
+                                    <div class="col-md-9 p-0">
+                                        <div class="c-radio__sm m-t-8">
+                                        <label class="col-md-2 p-0">
+                                            <input formControlName="freelancePaymentMethod" value="Fixed" type="radio" class="c-form__bar2" checked="">
+                                            <span></span>
+                                            <div class="c-radio--label c-text_md color-grey-dark">Fixed</div>
+                                        </label>
+                                        <label class="col-md-2 p-0">
+                                            <input formControlName="freelancePaymentMethod" value="Hourly" type="radio" class="c-form__bar2">
+                                            <span></span>
+                                            <div class="c-radio--label c-text_md color-grey-dark">Hourly</div>
+                                        </label>
+                                        </div>
+                                        <p *ngIf="freelanceFrm.controls['freelancePaymentMethod'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">This is required!</p>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- How do you want to pay end -->
-                            <div class="o-oppo-form__single">
-                                <div class="col-md-3 p-0">
-                                    <div class="c-text_md o-oppo-form-title">Engagement</div>
-                                </div>
-                                <div class="col-md-9 p-0">
-                                    <div class="c-radio__sm m-t-8">
-                                    <label class="col-md-2 p-0">
-                                        <input name="demo" type="radio" class="c-form__bar2" checked="">
-                                        <span></span>
-                                        <div class="c-radio--label c-text_md color-grey-dark">Remote</div>
-                                    </label>
-                                    <label class="col-md-2 p-0">
-                                        <input name="demo" type="radio" class="c-form__bar2">
-                                        <span></span>
-                                        <div class="c-radio--label c-text_md color-grey-dark">Office</div>
-                                    </label>
+                                <!-- How do you want to pay end -->
+                                <div class="o-oppo-form__single">
+                                    <div class="col-md-3 p-0">
+                                        <div class="c-text_md o-oppo-form-title">Engagement</div>
+                                    </div>
+                                    <div class="col-md-9 p-0">
+                                        <div class="c-radio__sm m-t-8">
+                                            <label class="col-md-2 p-0">
+                                                <input formControlName="freelanceEngagement" value="Remote" type="radio" class="c-form__bar2" checked="">
+                                                <span></span>
+                                                <div class="c-radio--label c-text_md color-grey-dark">Remote</div>
+                                            </label>
+                                            <label class="col-md-2 p-0">
+                                                <input formControlName="freelanceEngagement" value="Office" type="radio" class="c-form__bar2">
+                                                <span></span>
+                                                <div class="c-radio--label c-text_md color-grey-dark">Office</div>
+                                            </label>
+                                        </div>
+                                        <p *ngIf="freelanceFrm.controls['freelanceEngagement'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">This is required!</p>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Engagement end -->
-                            <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
-                                Candidate details
-                            </div>
-                            <!-- subtitle end -->
-                            <div class="o-oppo-form__single">
-                                <div class="col-md-3 p-0">
-                                    <div class="c-text_md o-oppo-form-title">Skills</div>
+                                <!-- Engagement end -->
+                                <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                    Candidate details
                                 </div>
-                                <div class="col-md-9 p-0">
-                                    <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                                    <input class="c-form__input" type="text">
-                                    <span class="c-form__highlight"></span>
-                                    <span class="c-form__bar"></span>
-                                    <label>eg: #Uidesign #photoshop #sketch</label>
+                                <!-- subtitle end -->
+                                <div class="o-oppo-form__single">
+                                    <div class="col-md-3 p-0">
+                                        <div class="c-text_md o-oppo-form-title">Skills</div>
+                                    </div>
+                                    <div class="col-md-9 p-0">
+                                        <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                            <input formControlName="freelanceSkills" class="c-form__input" type="text">
+                                            <span class="c-form__highlight"></span>
+                                            <span class="c-form__bar"></span>
+                                            <label>eg: #Uidesign #photoshop #sketch</label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Skills end -->
-                            <div class="o-oppo-form__single">
-                                <div class="col-md-3 p-0">
-                                    <div class="c-text_md o-oppo-form-title">Attach files</div>
-                                </div>
-                                <div class="col-md-9 p-0">
-                                    <div class="o-oppo-form__file-type">
-                                    <input class="o-oppo-file" type="file">
-                                    <p class="c-text_sm o-oppo-file__text"> upload<br>image or video</p>
+                                <!-- Skills end -->
+                                <div class="o-oppo-form__single">
+                                    <div class="col-md-3 p-0">
+                                        <div class="c-text_md o-oppo-form-title">Attach files</div>
                                     </div>
-                                    <div class="o-oppo-form__img-show">
+                                    <div class="col-md-9 p-0">
+                                        <div class="o-oppo-form__file-type">
+                                            <input class="o-oppo-file" type="file">
+                                            <p class="c-text_sm o-oppo-file__text"> upload<br>image or video</p>
+                                        </div>
+                                        <div class="o-oppo-form__img-show"></div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- file attach end -->
-                            <div class="o-oppo-form__single">
-                                <div class="col-md-3 p-0">
+                                <!-- file attach end -->
+                                <div class="o-oppo-form__single">
+                                    <div class="col-md-3 p-0">
+                                    </div>
+                                    <div class="col-md-9 p-0 ">
+                                        <p class="c-text_sm color-grey-dark m-t-24">
+                                        By clicking ‘Create’, you agree to the Terms and condition and Privacy policy
+                                        </p>
+                                        <button type="submit" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
+                                    </div>
                                 </div>
-                                <div class="col-md-9 p-0 ">
-                                    <p class="c-text_sm color-grey-dark m-t-24">
-                                    By clicking ‘Create’, you agree to the Terms and condition and Privacy policy
-                                    </p>
-                                    <a href="add_to_channel.html" class="btn btn-primary btn-md m-t-16 m-b-16">Create</a>
-                                </div>
+                                <!-- btn end -->
                             </div>
-                            <!-- btn end -->
-                        </div>
+                        </form>
                       </div>
                       <!-- freelance -->
                       
