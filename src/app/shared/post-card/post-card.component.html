@@ -1,71 +1,73 @@
-
 <div class="c-card">
-  <!-- card media (img, video & audio) -->
-  <div class="c-card__media">
-    <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
-      <app-videplayer *ngIf="checkFileType(mediaData?.repopath, 'Video')" src="{{ imageLink + mediaData?.repopath }}"></app-videplayer>
-      <img *ngIf="checkFileType(mediaData?.repopath, 'Image')" src="{{ imageLink + mediaData?.repopath }}" class="img-responsive c-card__image">
-      <app-audioplayer class="audio" *ngIf="checkFileType(mediaData?.repopath, 'Audio')" src="{{ imageLink + mediaData?.repopath }}" type="simple"></app-audioplayer>
-    </a>
-    <span *ngIf="checkFileType(mediaData?.repopath, 'Audio')">
+    <!-- card media (img, video & audio) -->
+    <div class="c-card__media">
+        <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
+            <app-videplayer *ngIf="checkFileType(mediaData?.repopath, 'Video')" src="{{ imageLink + mediaData?.repopath }}"></app-videplayer>
+            <img *ngIf="checkFileType(mediaData?.repopath, 'Image')" src="{{ imageLink + mediaData?.repopath }}" class="img-responsive c-card__image">
+            <app-audioplayer class="audio" *ngIf="checkFileType(mediaData?.repopath, 'Audio')" src="{{ imageLink + mediaData?.repopath }}" type="simple"></app-audioplayer>
+        </a>
+        <span *ngIf="checkFileType(mediaData?.repopath, 'Audio')">
       <img src="{{ imageLink }}img/svg/ico_audio.svg" class="c-card__icon">
     </span>
-    <span *ngIf="checkFileType(mediaData?.repopath, 'Video')">
-      <img src="{{ imageLink }}img/svg/ico_audio.svg" class="c-card__icon">
+        <span *ngIf="checkFileType(mediaData?.repopath, 'Video')">
+      <img src="{{ imageLink }}img/svg/ico_video.svg" class="c-card__icon">
     </span>
-    <div class="c-media--hover">
-      <div class="">
-        <div class="c-user">
-          <a routerLink="{{ '/profile/u/' + mediaData?.ownerUserName }}" class="c-user__avatar c-avatar--feed2">
-            <img class="c-user__image" [src]="userImage">
-          </a>
-          <a routerLink="{{ '/profile/u/' + mediaData?.ownerUserName }}" class="c-user__name2">{{ mediaData?.ownerName }}</a>
+        <span *ngIf="checkFileType(mediaData?.repopath, 'Image')">
+      <img src="{{ imageLink }}img/svg/ico_image.svg" class="c-card__icon">
+    </span>
+        <div class="c-media--hover">
+            <div class="">
+                <div class="c-user">
+                    <a routerLink="{{ '/profile/u/' + mediaData?.ownerUserName }}" class="c-user__avatar c-avatar--feed2">
+                        <img class="c-user__image" [src]="userImage">
+                    </a>
+                    <a routerLink="{{ '/profile/u/' + mediaData?.ownerUserName }}" class="c-user__name2">{{ mediaData?.ownerName }}</a>
+                </div>
+                <div class="dropdown" *ngIf="mediaData?.isOwner">
+                    <div class="dropup" appDropdown>
+                        <a href="javascript:void(0);" appDropdownOpen>
+                            <img src="{{ imageLink }}img/svg/ico_option_white.svg" class="c-status__options pull-right m-t-8">
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:void(0);" (click)="onContentDelete($event)">Delete</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="dropdown" *ngIf="mediaData?.isOwner">
-          <div class="dropup" appDropdown>
-            <a href="javascript:void(0);" appDropdownOpen>
-              <img src="{{ imageLink }}img/svg/ico_option_white.svg" class="c-status__options pull-right m-t-8">
-            </a>
-            <ul class="dropdown-menu pull-right">
-              <li><a href="javascript:void(0);" (click)="onContentDelete($event)">Delete</a></li>
-            </ul>
-          </div>
+    </div>
+    <!-- //card media (img, video & audio) -->
+    <!-- card body -->
+    <div class="c-card__body">
+        <div class="c-text_sm">
+            {{ mediaData?.description | truncate:[70, '...'] }}
         </div>
-      </div>
     </div>
-  </div>
-  <!-- //card media (img, video & audio) -->
-  <!-- card body -->
-  <div class="c-card__body">
-    <div class="c-text_sm">
-        {{ mediaData?.description | truncate:[70, '...'] }}
-    </div>
-  </div>
-  <!-- //card body -->
-  <!-- card footer links -->
-  <div class="c-card__links p-t-0">
-    <div class="c-links">
-      <div class="c-links__spots" (click)="spotMedia(mediaData?.id)">
-        <img *ngIf="following === false" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
-        <img *ngIf="following === true" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
-        <span class="c-links__count">{{ followingCount }}</span>
-      </div>
-      <div class="c-links__comments">
-        <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
-        <span class="c-links__count">{{ mediaData?.commentsCount }}</span>
-      </div>
-      <div class="c-links__actions">
-        <span class="c-links__add">
+    <!-- //card body -->
+    <!-- card footer links -->
+    <div class="c-card__links p-t-0">
+        <div class="c-links">
+            <div class="c-links__spots" (click)="spotMedia(mediaData?.id)">
+                <img *ngIf="following === false" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
+                <img *ngIf="following === true" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
+                <span class="c-links__count">{{ followingCount }}</span>
+            </div>
+            <div class="c-links__comments">
+                <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
+                <span class="c-links__count">{{ mediaData?.commentsCount }}</span>
+            </div>
+            <div class="c-links__actions">
+                <span class="c-links__add">
           <a href="javascript:void(0);">
             <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">
           </a>
         </span>
-        <span class="c-links__share">
+                <span class="c-links__share">
           <a href="javascript:void(0);"s>
             <img [src]="imageLink + 'img/svg/ico_share-02.svg'" class="c-action__image">
           </a>
         </span>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
