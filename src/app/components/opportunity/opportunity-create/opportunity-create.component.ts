@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../../../../environments/environment';
-import { ScrollHelper } from 'app/helpers/scroll.helper';
+import { ScrollHelper } from '../../../helpers/scroll.helper';
 
 // opportunity imports
 import { OpportunityActions } from 'app/actions/opportunity.action';
