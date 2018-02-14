@@ -31,10 +31,11 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
   jobFrm: FormGroup;
   internshipFrm: FormGroup;
   freelanceFrm: FormGroup;
+  volunteerFrm: FormGroup;
 
   oppState: Observable<OpportunityModel>;
 
-  activeTab = 'freelance';
+  activeTab = 'volunteer';
   oppSaved = false;
 
   // location details
@@ -64,6 +65,9 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
     // creating freelance form
     this.createFreelanceForm();
+
+    // creating vulunteer form
+    this.createVolunteerForm();
 
     this.oppState = this.oppStore.select('opportunityTags');
     this.oppState.subscribe((state) => {
@@ -124,7 +128,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
     // audition form validation
     if (!this.auditionFrm.valid) {
       this.scrollHelper.scrollToFirst('error');
-      console.log('invalid form');
+      // console.log('invalid form');
       return;
     }
 
@@ -178,7 +182,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
   submitProjectForm(formData: any) {
     // validation check
     if (!this.projectFrm.valid) {
-      console.log('invalid form');
+      // console.log('invalid form');
       return;
     }
 
@@ -227,7 +231,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
     // validation check
     if (!this.jobFrm.valid) {
       this.scrollHelper.scrollToFirst('error');
-      console.log('invalid form');
+      // console.log('invalid form');
       return;
     }
 
@@ -298,7 +302,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
     // validation check
     if (!this.internshipFrm.valid) {
       this.scrollHelper.scrollToFirst('error');
-      console.log('invalid form');
+      // console.log('invalid form');
       return;
     }
 
@@ -359,7 +363,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
     // validation check
     if (!this.freelanceFrm.valid) {
       this.scrollHelper.scrollToFirst('error');
-      console.log('invalid form');
+      // console.log('invalid form');
       return;
     }
 
@@ -385,5 +389,62 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
   }
   /* =================================== freelance form =================================== */
+
+  /* =================================== volunteer form =================================== */
+  createVolunteerForm() {
+    this.volunteerFrm = this.fb.group({
+      volunteerTitle: ['', [Validators.required]],
+      volunteerCause: ['', []],
+      volunteerLocation: ['', []],
+      volunteerSkills: ['', []],
+      volunteerDL: [false, []],
+      volunteerBGC: [false, []],
+      volunteerORTR: [false, []],
+    });
+  }
+
+  submitVolunteerForm(formData: any) {
+    // validation check
+    if (!this.volunteerFrm.valid) {
+      this.scrollHelper.scrollToFirst('error');
+      // console.log('invalid form');
+      return;
+    }
+
+    const volunteerRequirements = [];
+    if (formData.volunteerBGC && formData.volunteerBGC === true) {
+      volunteerRequirements.push('Background Check');
+    }
+    if (formData.volunteerDL && formData.volunteerDL === true) {
+      volunteerRequirements.push('Driver\'s License Needed');
+    }
+    if (formData.volunteerORTR && formData.volunteerORTR === true) {
+      volunteerRequirements.push('Orientation or Training');
+    }
+
+    // else prepare and submit the form
+    const reqBody = {
+      opportunityType: 'volunteer',
+      opportunityVolunteer: {
+        title: formData.volunteerTitle,
+        cause: formData.volunteerCause,
+        skills: formData.volunteerSkills,
+        location: {
+          lat: formData.volunteerLocation,
+          lon: formData.volunteerLocation
+        },
+        requirements: volunteerRequirements
+      }
+    };
+
+    // submit volunteer details
+    this.oppStore.dispatch({
+      type: OpportunityActions.CREATE_OPPORTUNITY,
+      payload: reqBody
+    });
+    this.oppSaved = true;
+
+  }
+  /* =================================== volunteer form =================================== */
 
 }
