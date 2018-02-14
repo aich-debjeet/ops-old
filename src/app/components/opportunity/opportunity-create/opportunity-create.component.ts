@@ -29,6 +29,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
   auditionFrm: FormGroup;
   projectFrm: FormGroup;
   jobFrm: FormGroup;
+  internshipFrm: FormGroup;
 
   oppState: Observable<OpportunityModel>;
 
@@ -56,6 +57,9 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
     // creating job form
     this.createJobForm();
+
+    // creating internship form
+    this.createInternshipForm();
 
     this.oppState = this.oppStore.select('opportunityTags');
     this.oppState.subscribe((state) => {
@@ -264,5 +268,76 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
   }
   /* =================================== job form =================================== */
+
+  /* =================================== internship form =================================== */
+  createInternshipForm() {
+    this.internshipFrm = this.fb.group({
+      internshipRole: ['', [Validators.required]],
+      internshipDescription: ['', []],
+      internshipIndustry: ['', []],
+      internshipExperienceFrom: ['', [Validators.required]],
+      internshipExperienceTo: ['', [Validators.required]],
+      internshipSalaryAmount: ['', []],
+      internshipSalaryDuration: ['', []],
+      internshipSalaryCurrency: ['', []],
+      internshipDuration: ['', []],
+      internshipLocation: ['', []],
+      internshipTravelInclusive: ['', []],
+      internshipCountry: ['', []],
+      internshipSkills: ['', []],
+      internshipQualifications: ['', []],
+      internshipOrgName: ['', []]
+    });
+  }
+
+  submitInternshipForm(formData: any) {
+    // validation check
+    if (!this.internshipFrm.valid) {
+      this.scrollHelper.scrollToFirst('error');
+      console.log('invalid form');
+      return;
+    }
+
+    // else prepare and submit the form
+    const reqBody = {
+      opportunityType: 'internship',
+      opportunityInternship: {
+        role: formData.internshipRole,
+          description: formData.internshipDescription,
+          industry: formData.internshipIndustry,
+          experience: {
+            from: formData.internshipExperienceFrom,
+            to: formData.internshipExperienceTo
+          },
+          salary: {
+            amount: Number(formData.internshipSalaryAmount),
+            salaryType: formData.internshipSalaryDuration,
+            currency: formData.internshipSalaryCurrency
+          },
+          duration: formData.internshipDuration,
+          location: {
+            lat: formData.internshipLocation,
+            lon: formData.internshipLocation
+          },
+          includesTravel: {
+            option: formData.internshipTravelInclusive,
+            country: formData.internshipCountry
+          },
+          skills: formData.internshipSkills,
+          qualifications: formData.internshipQualifications,
+          organizationName: formData.internshipOrgName,
+          attachFiles: []
+      }
+    };
+
+    // submit internship details
+    this.oppStore.dispatch({
+      type: OpportunityActions.CREATE_OPPORTUNITY,
+      payload: reqBody
+    });
+    this.oppSaved = true;
+
+  }
+  /* =================================== internship form =================================== */
 
 }
