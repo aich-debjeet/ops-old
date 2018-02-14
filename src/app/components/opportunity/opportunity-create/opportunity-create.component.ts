@@ -33,7 +33,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
   oppState: Observable<OpportunityModel>;
 
-  activeTab = 'jobs';
+  activeTab = 'internships';
   oppSaved = false;
 
   // location details
