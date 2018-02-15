@@ -160,10 +160,10 @@ export class AboutImageComponent implements OnInit {
   }
 
   fileChangeListener($event) {
-      let image: any = new Image();
-      let file: File = $event.target.files[0];
-      let myReader: FileReader = new FileReader();
-      let that = this;
+      const image: any = new Image();
+      const file: File = $event.target.files[0];
+      const myReader: FileReader = new FileReader();
+      const that = this;
       myReader.onloadend = function (loadEvent: any) {
           image.src = loadEvent.target.result;
           that.cropper.setImage(image);
@@ -208,7 +208,7 @@ export class AboutImageComponent implements OnInit {
    */
   buildImageForm(formValue: any) {
     // let fileData:FormData = new FormData();
-    let data = new FormData();
+    const data = new FormData();
     // Check if image is present
     if (formValue.image && formValue.image[0]) {
       const imageData = formValue.image[0];
