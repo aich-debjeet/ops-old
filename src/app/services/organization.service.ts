@@ -55,6 +55,8 @@ export class OrganizationService {
    */
   uploadImageServer(formValue: any) {
     const fileData = this.buildImageForm(formValue);
+    fileData.append('upload_for', formValue.imageType);
+    fileData.append('owner_type', 'organization');
     return this.uploadImage(fileData, formValue.handle);
   }
 
@@ -105,7 +107,7 @@ export class OrganizationService {
    * Upload Image to CDN
    */
   uploadImage(value: any, handle: string = '') {
-    return this.api.postFile('/portal/cdn/media/upload?handle=' + handle, value);
+    return this.api.postFile('/portal/cdn/media/auth/upload?handle=' + handle, value);
   }
 
   // ------- DONE --------
