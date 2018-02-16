@@ -34,7 +34,7 @@ export class OpportunityService {
    */
   createOpportunity(reqBody: any) {
     this.updateToken();
-    return this.api.post('/portal/job/create', reqBody);
+    return this.api.post('/portal/opportunity/create', reqBody);
   }
 
   /**
@@ -87,6 +87,21 @@ export class OpportunityService {
   getAppliedOpportunities(profileHandle: string) {
     this.updateToken();
     return this.api.get('/portal/job/applications/' + profileHandle + '/user');
+  }
+
+  /**
+   * File Uploader
+   */
+  fileUpload(formValue: any) {
+    return this.uploadImage(formValue, formValue.handle);
+  }
+
+  /**
+   * Upload Image to CDN
+   * @TODO: check why it is failing on for single file end point
+   */
+  uploadImage(value: any, handle: string = '') {
+    return this.api.postFile('/portal/cdn/media/upload/multiple?handle=' + handle, value.image);
   }
 
 }

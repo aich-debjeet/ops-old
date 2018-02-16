@@ -51,7 +51,7 @@ export class OpportunityEffect {
 
   /**
    * Apply for the opportunity
-   * @param job id
+   * @params job id
    */
   @Effect()
   applyForAnOpportunity$ = this.actions$
@@ -97,6 +97,16 @@ export class OpportunityEffect {
       .map((res) => ({ type: OpportunityActions.GET_APPLIED_OPPORTUNITIES_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: OpportunityActions.GET_APPLIED_OPPORTUNITIES_FAILED, payload: res }))
     );
+
+   // File Upload
+   @Effect()
+   fileUpload$ = this.actions$
+   .ofType(OpportunityActions.FILE_UPLOAD)
+   .map(toPayload)
+   .switchMap((payload) => this.opportunityService.fileUpload(payload)
+     .map(res => ({ type: OpportunityActions.FILE_UPLOAD_SUCCESS, payload: res }))
+     .catch((res) => Observable.of({ type: OpportunityActions.FILE_UPLOAD_FAILED, payload: res }))
+   );
 
   constructor(
       private actions$: Actions,
