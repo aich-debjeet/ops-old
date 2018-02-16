@@ -14,14 +14,14 @@
                 <!-- Nav tabs -->
                 <ul class=" o-settings-tabs">
                     <li class=" o-settings-tab_list">
-                        <a class="o-settings-tab_links active" href="javascript:void(0)" data-toggle="tab" (click)="toggleView($event,'general')">
+                        <a class="o-settings-tab_links" href="javascript:void(0)" data-toggle="tab" (click)="toggleView($event,'general')" [ngClass]="{'active': selectedView == true}">
                             General 
                             <span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt="">
                             </span>
                         </a>
                     </li>
                     <li class=" o-settings-tab_list">
-                        <a class="o-settings-tab_links" href="javascript:void(0)" data-toggle="tab" (click)="toggleView($event,'admin')">Admin Access
+                        <a class="o-settings-tab_links" href="javascript:void(0)" data-toggle="tab" (click)="toggleView($event,'admin')" [ngClass]="{'active': selectedView == false}">Admin Access
                             <span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt="">
                             </span>
                         </a>

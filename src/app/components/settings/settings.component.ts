@@ -79,9 +79,9 @@ export class SettingsComponent implements OnInit {
     private databaseValidator: DatabaseValidator,
     private dragula: DragulaService,
   ) {
-    this.dragula.drop.subscribe((value) => {
-      this.onDrop(value.slice(1));
-    });
+    // this.dragula.drop.subscribe((value) => {
+    //   this.onDrop(value.slice(1));
+    // });
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
@@ -104,12 +104,14 @@ export class SettingsComponent implements OnInit {
     this.storeState$ = this._store.select('profileTags');
 
     this.storeState$.subscribe((state) => {
+      console.log('state', state)
       if (typeof state !== 'undefined') {
         this.userProfile = state['profile_details'];
         this.userHandle = state['profile_details'].handle;
         this.blockedUsers = state.blockedUsers;
         if (state.default_notification) {
           this.default = state.default_notification;
+          console.log('default', this.default)
           this.notificationOption = [{name: 'Comments', description: 'Receive an e-mail when other people comment on your posts.' , value: 'Comments', checked: this.default.comments},
                                     {name: 'Spots', description: 'Receive an e-mail when other people Spot on your posts.' , value: 'Spots', checked: this.default.spots},
                                     {name: 'Mention', description: 'Receive an e-mail when other people mention you.' , value: 'Mention', checked: this.default.mentions},
@@ -194,20 +196,24 @@ export class SettingsComponent implements OnInit {
     this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
     this._store.dispatch({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS });
   }
-  private onDrop(args) {
-    const [e, el] = args;
-    const form = {
-      'homePagePreferences': {
-      'preferences': this.preferences
-      }
-    }
-    const headers = this.tokenService.getAuthHeader();
-      this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
-    .map((data: Response) => data.json())
-    .subscribe(response => {
-    });
+  /**
+   * drag and drop method
+   * @param args
+   */
+  // private onDrop(args) {
+  //   const [e, el] = args;
+  //   const form = {
+  //     'homePagePreferences': {
+  //     'preferences': this.preferences
+  //     }
+  //   }
+  //   const headers = this.tokenService.getAuthHeader();
+  //     this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
+  //   .map((data: Response) => data.json())
+  //   .subscribe(response => {
+  //   });
 
-  }
+  // }
   /**
    * User Form Update
    */
