@@ -89,4 +89,19 @@ export class OpportunityService {
     return this.api.get('/portal/job/applications/' + profileHandle + '/user');
   }
 
+  /**
+   * File Uploader
+   */
+  fileUpload(formValue: any) {
+    return this.uploadImage(formValue, formValue.handle);
+  }
+
+  /**
+   * Upload Image to CDN
+   * @TODO: check why it is failing on for single file end point
+   */
+  uploadImage(value: any, handle: string = '') {
+    return this.api.postFile('/portal/cdn/media/upload/multiple?handle=' + handle, value.image);
+  }
+
 }

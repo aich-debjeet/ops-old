@@ -180,6 +180,24 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
       });
     /* get opportunity type count */
 
+    case OpportunityActions.FILE_UPLOAD:
+      return Object.assign({}, state, {
+        fileuploading: true,
+        fileupload_success: false
+      });
+
+    case OpportunityActions.FILE_UPLOAD_SUCCESS:
+      return Object.assign({}, state, {
+        fileupload_response: payload['SUCCESS'],
+        fileupload_success: true
+      });
+
+    case OpportunityActions.FILE_UPLOAD_FAILED:
+      return Object.assign({}, state, {
+        fileuploading: false,
+        fileupload_success: false
+      });
+
     default:
       return state;
 
