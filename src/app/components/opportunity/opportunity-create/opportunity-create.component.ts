@@ -38,7 +38,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
   oppState: Observable<OpportunityModel>;
 
   oppSaved = false;
-  activeTab = 'jobs';
+  activeTab = 'audition';
   uploadedFile = false;
   uploadingFile = false;
   uploadedFileSrc = 'https://cdn.onepagespotlight.com/img/default/opp-thumb.png';
