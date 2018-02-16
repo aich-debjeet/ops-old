@@ -640,8 +640,10 @@
                                     </div>
                                     <div class="col-md-9 p-0">
                                         <div class="o-oppo-form__file-type">
-                                            <input class="o-oppo-file" type="file">
-                                            <p class="c-text_sm o-oppo-file__text"> upload<br>image or video</p>
+                                            <input *ngIf="!uploadedFile" class="o-oppo-file" type="file" accept="image/*" (change)="fileSelectedAction($event)">
+                                            <p *ngIf="!uploadingFile" class="c-text_sm o-oppo-file__text">upload<br>image</p>
+                                            <img *ngIf="uploadingFile" src="{{ baseUrl }}img/search-preloader.gif" class="opp-prel-image" alt="">
+                                            <img *ngIf="uploadedFile" src="{{ uploadedFileSrc }}" class="opp-prev-image" alt="">
                                         </div>
                                         <div class="o-oppo-form__img-show"></div>
                                     </div>
@@ -889,8 +891,10 @@
                                     </div>
                                     <div class="col-md-9 p-0">
                                         <div class="o-oppo-form__file-type">
-                                            <input class="o-oppo-file" type="file">
-                                            <p class="c-text_sm o-oppo-file__text"> upload<br>image or video</p>
+                                            <input *ngIf="!uploadedFile" class="o-oppo-file" type="file" accept="image/*" (change)="fileSelectedAction($event)">
+                                            <p *ngIf="!uploadingFile" class="c-text_sm o-oppo-file__text">upload<br>image</p>
+                                            <img *ngIf="uploadingFile" src="{{ baseUrl }}img/search-preloader.gif" class="opp-prel-image" alt="">
+                                            <img *ngIf="uploadedFile" src="{{ uploadedFileSrc }}" class="opp-prev-image" alt="">
                                         </div>
                                         <div class="o-oppo-form__img-show"></div>
                                     </div>
@@ -1009,8 +1013,10 @@
                                     </div>
                                     <div class="col-md-9 p-0">
                                         <div class="o-oppo-form__file-type">
-                                            <input class="o-oppo-file" type="file">
-                                            <p class="c-text_sm o-oppo-file__text"> upload<br>image or video</p>
+                                            <input *ngIf="!uploadedFile" class="o-oppo-file" type="file" accept="image/*" (change)="fileSelectedAction($event)">
+                                            <p *ngIf="!uploadingFile" class="c-text_sm o-oppo-file__text">upload<br>image</p>
+                                            <img *ngIf="uploadingFile" src="{{ baseUrl }}img/search-preloader.gif" class="opp-prel-image" alt="">
+                                            <img *ngIf="uploadedFile" src="{{ uploadedFileSrc }}" class="opp-prev-image" alt="">
                                         </div>
                                         <div class="o-oppo-form__img-show"></div>
                                     </div>

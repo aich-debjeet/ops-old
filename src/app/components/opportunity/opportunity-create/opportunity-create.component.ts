@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../../../../environments/environment';
 import { ScrollHelper } from '../../../helpers/scroll.helper';
+import { GeneralUtilities } from '../../../helpers/general.utils';
 
 // opportunity imports
 import { OpportunityActions } from 'app/actions/opportunity.action';
@@ -25,6 +26,7 @@ import { OpportunityModel } from 'app/models/opportunity.model';
 export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
   baseUrl = environment.API_IMAGE;
+  userHandle: any;
 
   auditionFrm: FormGroup;
   projectFrm: FormGroup;
@@ -35,8 +37,11 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
   oppState: Observable<OpportunityModel>;
 
-  activeTab = 'volunteer';
   oppSaved = false;
+  activeTab = 'jobs';
+  uploadedFile = false;
+  uploadingFile = false;
+  uploadedFileSrc = 'https://cdn.onepagespotlight.com/img/default/opp-thumb.png';
 
   // location details
   locationDetails = {
@@ -48,6 +53,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
+    private generalUtils: GeneralUtilities,
     private oppStore: Store<OpportunityModel>
   ) {
 
@@ -72,6 +78,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
     this.oppState = this.oppStore.select('opportunityTags');
     this.oppState.subscribe((state) => {
       console.log('app state', state);
+      console.log('this.uploadedFile', this.uploadedFile);
       if (state && state['create_opportunity_data'] && state['create_opportunity_data']['SUCCESS']) {
         if (this.oppSaved === true) {
           this.toastr.success('Opportunity has been created successfully!');
@@ -82,7 +89,14 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // load stuffs
+    this.oppStore.select('profileTags')
+    .first(profile => profile['profile_navigation_details'].handle )
+    .subscribe( data => {
+      this.userHandle = data['profile_cards'].active.handle;
+    });
+  }
 
   ngAfterViewChecked() {
     this.scrollHelper.doScroll();
@@ -92,6 +106,43 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
   switchTabTo(tabId: string) {
     this.oppSaved = false;
     this.activeTab = tabId;
+  }
+
+  fileSelectedAction($event) {
+    const imgObj = this.generalUtils.fileChangeListener($event);
+    this.uploadImage(imgObj);
+    this.uploadingFile = true;
+    this.uploadedFile = false;
+  }
+
+  /**
+   * Upload image
+   */
+  uploadImage(fileObj) {
+    const imageData = {
+      handle: this.userHandle,
+      image: fileObj
+    };
+
+    this.oppStore.dispatch({ type: OpportunityActions.FILE_UPLOAD, payload: imageData });
+
+    this.oppStore.select('opportunityTags')
+      .first(file => file['fileupload_success'] === true )
+      .subscribe( data => {
+        // console.log(data);
+        if (data && data['fileupload_response'] && data['fileupload_response'][0] && data['fileupload_response'][0].repoPath) {
+          // console.log('IN');
+          this.uploadingFile = false;
+          this.uploadedFile = true;
+          // const file = data['fileupload_response'][0].repoPath;
+          // this.uploadedFileSrc = file.substr(0, file.lastIndexOf('.')) + '_thumb_250.jpeg';
+          // console.log(this.baseUrl + this.uploadedFileSrc);
+        } else {
+          // console.log('OUT');
+          this.uploadingFile = false;
+          this.uploadedFile = false;
+        }
+      });
   }
 
   /* =================================== audition form =================================== */

@@ -154,7 +154,8 @@
   opacity: 0;
   width: 120px;
   height: 120px;
-  margin-left: 35px;
+  // margin-left: 35px;
+  z-index: 999;
 }
 
 .o-oppo-file__text {
@@ -193,3 +194,15 @@
 // .o-oppo-form__single {
 //   padding-bottom: 24px;
 // }
+
+.o-oppo-form__file-type .opp-prel-image {
+  position: absolute;
+  width: 50%;
+  left: 25%;
+}
+
+.o-oppo-form__file-type .opp-prev-image {
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
