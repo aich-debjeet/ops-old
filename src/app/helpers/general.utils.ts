@@ -45,4 +45,22 @@ export class GeneralUtilities {
         return newArr;
     }
 
+    /**
+     * File Change Binder
+     * @param  $event
+     */
+    fileChangeListener($event) {
+        if ($event.target.files.length > 0) {
+            const randm = Math.random().toString(36).slice(2);
+            const fileName = 'prof_' + randm + '.' + 'jpg';
+            const file = $event.target.files[0];
+            const data = new FormData();
+            data.append('file', file, fileName );
+            // Display the key/value pairs
+            // Upload files
+            return data;
+        }
+        return null;
+    }
+
 }

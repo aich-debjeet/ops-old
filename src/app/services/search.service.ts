@@ -33,34 +33,31 @@ export class SearchService {
    * @param search request params
    */
   getAllSearchResult(params: any) {
-    return this.api.post('/portal/global/search/', params);
+    return this.api.post('/portal/global/search', params);
   }
 
-  // /**
-  //  * Get people by search query
-  //  * @param search query
-  //  */
-  // getPeople(params: any) {
-  //   this.updateToken();
-  //   return this.api.get('/portal/searchprofiles/1/' + params.query + '/' + params.offset + '/' + params.limit);
-  // }
+  /**
+   * Get people by search query
+   * @param search query
+   */
+  getPeople(params: any) {
+    return this.api.put('/portal/searchprofiles', params);
+  }
 
-  // /**
-  //  * Get posts by search query
-  //  * @param search query
-  //  */
-  // getPosts(params: any) {
-  //   this.updateToken();
-  //   return this.api.get('/portal/cdn/media/postByText/' + params.query + '/' + params.offset + '/' + params.limit);
-  // }
+  /**
+   * Get posts by search query
+   * @param search query
+   */
+  getPosts(params: any) {
+    return this.api.post('/portal/cdn/media/search', params);
+  }
 
-  // /**
-  //  * Get channels by search query
-  //  * @param search query
-  //  */
-  // getChannels(params: any) {
-  //   this.updateToken();
-  //   return this.api.get('/portal/network/spotfeed/searchByText/' + params.query + '/' + params.offset + '/' + params.limit);
-  // }
+  /**
+   * Get channels by search query
+   * @param search query
+   */
+  getChannels(params: any) {
+    return this.api.post('/portal/network/spotfeed/esearch', params);
+  }
 
 }
