@@ -157,7 +157,7 @@ export class ProfileService {
    * Upload Image to CDN
    */
   uploadImage(value: any, handle: string = '') {
-    return this.api.postFile('/portal/cdn/media/upload?handle=' + handle, value);
+    return this.api.postFile('/portal/cdn/media/auth/upload?handle=' + handle, value);
   }
 
   /**
@@ -166,6 +166,7 @@ export class ProfileService {
   coverImageUploader(payload: any) {
     const fileData = this.buildImageForm(payload);
     fileData.append('upload_for', 'coverImage');
+    fileData.append('owner_type', 'profile');
     return this.uploadImage(fileData, payload.handle);
   }
   // coverImageUploader(payload: any) {
@@ -177,7 +178,7 @@ export class ProfileService {
    * Handle File
    */
   imageHandler(formValue: any) {
-    let formData = new FormData();
+    const formData = new FormData();
     if (formValue.files && formValue.files[0]) {
       formData.append('file', formValue.files[0]);
     }
@@ -191,7 +192,8 @@ export class ProfileService {
    */
   uploadProfileImage(formValue: any) {
     const fileData = this.buildImageForm(formValue);
-	fileData.append('upload_for','profile');
+    fileData.append('upload_for', 'profile');
+    fileData.append('owner_type', 'profile');
     return this.uploadImage(fileData, formValue.handle);
   }
 

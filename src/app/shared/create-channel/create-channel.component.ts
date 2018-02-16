@@ -109,7 +109,7 @@ export class CreateChannelComponent {
         owner: this.tokenService.getHandle(),
         industryList: [ value.type ] /** @TODO - To be removed! */
       }
-
+// console.log(channelObj)
       this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
     }
   }
