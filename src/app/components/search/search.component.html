@@ -60,6 +60,7 @@
           <!-- search wrapper -->
           <div *ngIf="searchString?.length > 0 && !isSearching">
             
+            <!-- search filters -->
             <div class="col-md-3 col-sm-4 col-xs-12 p-l-0 m-t--32">
                 <div class="o-search-left-block p-24">
                     <h6 class="c-text_md f-w_600 text_uppercase ltr-space">All</h6>
@@ -200,7 +201,9 @@
                     </div>
                 </div>
             </div>
-
+            <!-- search filters -->
+            
+            <!-- search result -->
             <div class="col-md-9 col-sm-8 col-xs-12 p-0 m-t--32">
 
                 <div class="o-search-result-block">
@@ -278,7 +281,6 @@
                             </ng-template>
                         </div><!-- posts -->
                     </div>
-    
                     <div *ngIf="all_channels && all_channels.length > 0;" class="o-search-result-single-block">
                         <div class="o-search-result-single-block">
                             <h6 class="c-text_lg m-t-24">Channel
@@ -307,7 +309,7 @@
                             <div class="o-search-people__name width100 c-text_lg f-w_600">{{ artist?.name | truncate:[12, '...'] }}</div>
                             <div class="o-search-people__det width100 c-text_md color-grey-dark m-b-8">@{{ artist?.extra?.username }}</div>
                             <div class="o-search-people__followers width100">
-                                <div class="c-text_sm float_left text_uppercase ltr-space">{{ artist?.followersCount }}<span class="color-grey-dark">followers</span></div>
+                                <div class="c-text_sm float_left text_uppercase ltr-space">{{ artist?.followersCount }}<span class="color-grey-dark">Followers</span></div>
                                 <div class="c-text_sm float_left text_uppercase ltr-space p-l-16">{{ artist?.extra?.postCount }} <span class="color-grey-dark">Posts</span></div>
                             </div>
                             <!-- <button type="button" class="btn btn-primary btn-sm m-t-8">Unfollow</button> -->
@@ -357,6 +359,8 @@
                 <!-- search posts result -->
 
             </div>
+            <!-- search result -->
+            
           </div>
           <!-- search wrapper -->
 

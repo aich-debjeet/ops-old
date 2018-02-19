@@ -59,7 +59,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   page_start = 0;
   page_end = 20;
   scrolling = 0;
-  scrollingLoad = 100;
+  scrollingLoad = 900;
   /* scroll */
 
   channels: any[];
@@ -235,6 +235,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   // see all results with the selected type
   seeAll(sType: string) {
     this.searchType = sType;
+    // window.scrollTo(0, 0);
     // console.log('this.searchType', this.searchType);
     this.router.navigate(['/search'], { queryParams: { q: this.searchString, type: this.searchType } });
   }
@@ -248,10 +249,10 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   onScroll(e) {
     this.scrolling = e.currentScrollPosition;
-    console.log('scrolling', this.scrolling);
-    console.log('scrollingLoad', this.scrollingLoad);
-    if (this.scrollingLoad <= this.scrolling) {
-      this.scrollingLoad += 1500
+    console.log('scrolling: ', this.scrolling);
+    console.log('scrollingLoad: ', this.scrollingLoad);
+    if (this.searchType !== 'all' && this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 1500;
       this.page_start = this.page_end + 1;
       this.page_end += 15;
       console.log('LOAD MORE');
