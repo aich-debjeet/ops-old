@@ -60,7 +60,7 @@
           <!-- search wrapper -->
           <div *ngIf="searchString?.length > 0 && !isSearching">
             
-            <div class="col-md-3 p-l-0 m-t--32">
+            <div class="col-md-3 col-sm-4 col-xs-12 p-l-0 m-t--32">
                 <div class="o-search-left-block p-24">
                     <h6 class="c-text_md f-w_600 text_uppercase ltr-space">All</h6>
                     <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">profiles</h6>
@@ -201,7 +201,7 @@
                 </div>
             </div>
 
-            <div class="col-md-9 m-t--32">
+            <div class="col-md-9 col-sm-8 col-xs-12 p-0 m-t--32">
 
                 <div class="o-search-result-block">
                     <div class="o-search-info-top">
@@ -295,7 +295,7 @@
                 <!-- search all -->
                 
                 <!-- search people result -->
-                <div *ngIf="searchString?.length > 0 && !isSearching && searchType === 'people'">
+                <div *ngIf="searchString?.length > 0 && !isSearching && searchType === 'people'" class="o-search-result-block m-t-16 p-b-24">
                     <div *ngFor="let artist of artists" class="o-search-people-single">
                         <div class="o-search-people__prof-pic">
                             <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist?.profileImage }}" alt="">

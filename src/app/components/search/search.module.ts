@@ -15,6 +15,7 @@ import { SearchComponent } from './search.component';
 import { SharedPipesModule } from './../../pipes/shared-pipes.module';
 import { SharedModule } from './../../shared/shared.module';
 import { MasonryModule } from 'angular2-masonry';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { MasonryModule } from 'angular2-masonry';
     RouterModule.forChild(routes),
     SharedPipesModule,
     SharedModule,
-    MasonryModule
+    MasonryModule,
+    InfiniteScrollModule
   ],
   declarations: [
     SearchComponent,

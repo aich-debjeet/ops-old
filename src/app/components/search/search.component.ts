@@ -55,6 +55,13 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   all_posts: any[];
   /* global result store */
 
+  /* scroll */
+  page_start = 0;
+  page_end = 20;
+  scrolling = 0;
+  scrollingLoad = 100;
+  /* scroll */
+
   channels: any[];
   artists: any[];
   posts: any[];
@@ -141,7 +148,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
           this.searchString = params.q;
 
           // scroll to top on view switch
-          this.scrollToTop(200);
+          // this.scrollToTop(200);
 
           // check if search is global
           if ((params.type && params.type === 'all') || !params.type) {
@@ -237,39 +244,54 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   /**
-   * Scroll event listener
+   * While Scrolling trigger next api call
    */
-  @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
-    const scrolledValue = window.pageYOffset;
-    let scrollDirection = '';
-    if (scrolledValue > this.lastScrollTop) {
-      scrollDirection = 'down';
-    } else {
-      scrollDirection = 'up';
-    }
-    this.lastScrollTop = scrolledValue;
-
-    if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
-      // reached the bottom of the page
-      this.canScroll = false;
-      setTimeout(() => {
-        this.canScroll = true;
-      }, 1000);
-      // this.dispatchLoadMore();
-      console.log('reached bottom scroll more');
+  onScroll(e) {
+    this.scrolling = e.currentScrollPosition;
+    console.log('scrolling', this.scrolling);
+    console.log('scrollingLoad', this.scrollingLoad);
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 1500
+      this.page_start = this.page_end + 1;
+      this.page_end += 15;
+      console.log('LOAD MORE');
     }
   }
 
-  scrollToTop(scrollDuration) {
-    const scrollStep = -window.scrollY / (scrollDuration / 15),
-    scrollInterval = setInterval(function() {
-    if (window.scrollY !== 0) {
-      window.scrollBy( 0, scrollStep);
-    } else {
-      clearInterval(scrollInterval);
-    }
-    }, 15);
-  }
+  // /**
+  //  * Scroll event listener
+  //  */
+  // @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
+  //   const scrolledValue = window.pageYOffset;
+  //   let scrollDirection = '';
+  //   if (scrolledValue > this.lastScrollTop) {
+  //     scrollDirection = 'down';
+  //   } else {
+  //     scrollDirection = 'up';
+  //   }
+  //   this.lastScrollTop = scrolledValue;
+
+  //   if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
+  //     // reached the bottom of the page
+  //     this.canScroll = false;
+  //     setTimeout(() => {
+  //       this.canScroll = true;
+  //     }, 1000);
+  //     // this.dispatchLoadMore();
+  //     console.log('reached bottom scroll more');
+  //   }
+  // }
+
+  // scrollToTop(scrollDuration) {
+  //   const scrollStep = -window.scrollY / (scrollDuration / 15),
+  //   scrollInterval = setInterval(function() {
+  //   if (window.scrollY !== 0) {
+  //     window.scrollBy( 0, scrollStep);
+  //   } else {
+  //     clearInterval(scrollInterval);
+  //   }
+  //   }, 15);
+  // }
 
   /**
    * Load more results for active tab
