@@ -39,6 +39,7 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
   myProfileData: any;
   handle: string;
   loadMoreParams: any;
+  channel_scroll_id: any = '';
 
   page_start = 0;
   page_end = 10;
@@ -60,6 +61,7 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
       this.userState = state;
       if (state.user_following_channels_loaded) {
         this.channelList = state.user_following_channel;
+        this.channel_scroll_id = state.user_channel_scroll_id;
       }
     });
 
@@ -84,12 +86,17 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
    */
   loadChannels(userHandle: string) {
     // console.log(userHandle)
-    const datas = {
-      handle: userHandle,
-      page_start: this.page_start,
-      page_end: 10
+    // const datas = {
+    //   handle: userHandle,
+    //   page_start: this.page_start,
+    //   page_end: 10
+    // }
+
+    const body = {
+      limit: 9,
+      scrollId: this.channel_scroll_id,
     }
-    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: datas });
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: body });
   }
 
   /**
