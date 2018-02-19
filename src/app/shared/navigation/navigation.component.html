@@ -1,14 +1,217 @@
-<header class="opsheader hidden-xs hidden-sm">
+<header class="opsheader">
     <nav class="navbar navbar-default navbar-fixed-top ">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" routerLink="/"><img  [src]="imageBaseUrl + 'img/ops_icon.png'"></a>
+                </button> -->
+                <a class="navbar-brand" routerLink="/"><img [src]="imageBaseUrl + 'img/ops_icon.png'"></a>
+                <!-- for mobile -->
+                <div class="m-nav">
+                    <div class="m-nav__icons" *ngIf="isProfileSet === false">
+                        <a class="signIn" routerLink="/login">
+                        Sign in
+                        </a>
+                    </div>
+                    <div *ngIf="isProfileSet === true">
+                        <a class="m-nav__icons" routerLink="/post">
+                            <img [src]="imageBaseUrl + 'img/svg/ico_create-post.svg'">
+                        </a>
+                        <div class="m-nav__dropdown dropdown" appDropdown>
+                            <a class="m-nav__icons dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+                                <img [src]="imageBaseUrl + 'img/svg/ico_add.svg'">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right nav__dropdown2">
+                                <div class="dropdown__item p-b-16">
+                                    <!-- <a href="#" data-toggle="modal" data-target="#create_channel_pop">Channel Create</a> -->
+                                    <a [routerLink]="['', { outlets: { media : ['channel', 'add'] } } ]">Create Channel</a>
+                                </div>
+                                <div class="dropdown__item p-b-16">
+                                    <a routerLink="/opportunity/create">Create Opportunity</a>
+                                </div>
+                                <div class="dropdown__item">
+                                    <a routerLink="/event/create">Create Event</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <a class="m-nav__icons" href="search.html"><img src="assets/svg/ico_search.svg"></a> -->
+                        <a class="m-nav__icons" routerLink="/search"><img [src]="imageBaseUrl + 'img/svg/ico_search.svg'"></a>
+                        <div class="m-nav__dropdown dropdown" appDropdown>
+                            <a class="m-nav__icons dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen (click)="notificationPopup()">
+                                <!-- <img src="assets/svg/ico_notification.svg"> -->
+                                <img [src]="imageBaseUrl + 'img/svg/ico_notification.svg'">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right nav__dropdown3">
+                                <div class="dropdown__item dropnoti__head msg__read">
+                                    <a routerLink="/notification">Your Notification</a>
+                                    <a (click)="markAllAsRead()" class="pull-right">Mark all as read</a>
+                                    <div class="dropdown__arrow"><img [src]="imageBaseUrl + 'img/arrow.png'"></div>
+                                </div>
+                                <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications" [ngClass]="{'fill_grey': !notification.isRead}">
+                                    <div class="dropnoti__avatar">
+                                        <!-- <img class="navdrop__img" [src]="imageBaseUrl + 'img/new/avatar2.png'"> -->
+                                        <img *ngIf="!notification.profileImage" [src]="'https://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg'" class="navdrop__img">
+                                        <img *ngIf="notification.profileImage" [src]="imageBaseUrl + notification.profileImage" class="navdrop__img">
+                                    </div>
+                                    <div class="dropnoti__detail">
+                                        <span><a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                                            <span class="dropnoti__bold"> {{ notification.name }}</span>
+                                        </a>{{ notification.message }}
+                                        </span>
+                                    </div>
+                                    <div class="dropnoti__icon">
+                                        <img [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
+                                    </div>
+                                    <p class="msg__time">--</p>
+                                </div>
+                                <div class="dropdown__item p-16 msg__read">
+                                    <a routerLink="/notification">
+                                        <p class="dropnoti__viewall">View All</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-nav__dropdown dropdown">
+                            <a class="m-nav__icons dropdown-toggle" data-toggle="dropdown" aria-expanded="true" routerLink="/user/message" routerLinkActive="active">
+                                <img [src]="imageBaseUrl + 'img/svg/ico_message.svg'">
+                            </a>
+                            <!-- <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" routerLink="/user/message" routerLinkActive="active">
+                                <img [src]="imageBaseUrl + 'img/svg/ico_message.svg'">
+                            </a> -->
+                            <!-- <div class="dropdown-menu dropdown-menu-right nav__dropdown4">
+                                <div class="dropdown__item dropnoti__head msg__read">
+                                    Your Messages
+                                    <a href="" class="pull-right">Compose</a>
+                                    <div class="dropdown__arrow2"><img src="assets/arrow.png"></div>
+                                </div>
+                                <div class="dropdown__item p-16 msg__unread">
+                                    <div class="dropnoti__avatar">
+                                        <img class="navdrop__img" src="assets/demo/new/avatar2.png">
+                                    </div>
+                                    <div class="dropnoti__detail">
+                                        <p class="dropnoti__bold">Tommy Russell</p>
+                                        <p>Do dreams serve as a premonition</p>
+                                    </div>
+                                    <p class="msg__time2">10:08 PM</p>
+                                </div>
+                                <div class="dropdown__item p-16 msg__unread">
+                                    <div class="dropnoti__avatar">
+                                        <img class="navdrop__img" src="assets/demo/new/avatar3.png">
+                                    </div>
+                                    <div class="dropnoti__detail">
+                                        <p class="dropnoti__bold">Janie Glover</p>
+                                        <p>Motivate yourself</p>
+                                    </div>
+                                    <p class="msg__time2">10:05 PM</p>
+                                </div>
+                                <div class="dropdown__item p-16 msg__read">
+                                    <div class="dropnoti__avatar">
+                                        <img class="navdrop__img" src="assets/demo/new/avatar.png">
+                                    </div>
+                                    <div class="dropnoti__detail">
+                                        <p class="dropnoti__bold">Tommy Russell</p>
+                                        <p>Do dreams serve as a premonition</p>
+                                    </div>
+                                    <p class="msg__time2">10:08 PM</p>
+                                </div>
+                                <div class="dropdown__item p-16 msg__read">
+                                    <div class="dropnoti__avatar">
+                                        <img class="navdrop__img" src="assets/demo/new/avatar3.png">
+                                    </div>
+                                    <div class="dropnoti__detail">
+                                        <p class="dropnoti__bold">Tommy Russell</p>
+                                        <p>Roar with confidence</p>
+                                    </div>
+                                    <p class="msg__time2">10:08 PM</p>
+                                </div>
+                                <div class="dropdown__item p-16 msg__read">
+                                    <p class="dropnoti__viewall">View All</p>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="m-nav__dropdown dropdown" appDropdown>
+                            <a class="m-nav__icons dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+                                <span id="navOpen"><img [src]="imageBaseUrl + 'img/svg/menu2.svg'"></span>
+                                <!-- <span style="display: none;" id="navClose"><img [src]="imageBaseUrl + 'img/svg/ico_close-38.svg'"></span> -->
+                            </a>
+
+                            <!-- for mobile nav responsive -->
+                            <div class="dropdown-menu dropdown-menu-right nav__dropdown" [ngClass]="{'open': this.topNav['profile'].open }">
+                                <div class="dropdown__item with_border_bottom p-b-16" routerLink="{{ this.userCards.active.page_path }}">
+                                    <!-- <div class="dropdown__arrow3"><img src="assets/arrow.png"></div> -->
+                                    <a>
+                                        <div class="navdrop__imgblock">
+                                            <!-- <img class="navdrop__img" src="assets/demo/new/avatar.png"> -->
+                                            <img *ngIf="userCards?.active?.image !== ''" class="navdrop__img" [src]="imageBaseUrl + this.userCards.active.image">
+                                            <img *ngIf="userCards?.active?.image === ''" class="navdrop__img" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'">
+                                        </div>
+                                        <div class="navdrop__name">{{ this.userCards.active.name }}</div>
+                                        <div class="navdrop__userhandal">@{{ this.userCards.active.username }}</div>
+                                    </a>
+                                </div>
+                                <div class="dropdown__item p-t-b-8 text-uppercase">
+                                    <a routerLink="/home">Home</a>
+                                </div>
+                                <div class="dropdown__item p-b-8 text-uppercase">
+                                    <a routerLink="/explore">Explore</a>
+                                </div>
+                                <div class="dropdown__item p-b-8 text-uppercase">
+                                    <a routerLink="/opportunity/search">Opportunity</a>
+                                </div>
+                                <div class="dropdown__item p-b-8 text-uppercase">
+                                    <a routerLink="/event">Event</a>
+                                </div>
+                                <div class="dropdown__item p-b-8 text-uppercase">
+                                    <a routerLink="/learn">Learn</a>
+                                </div>
+                                <div class="dropdown__item p-b-8 text-uppercase">
+                                    <a routerLink="/resources">Resource</a>
+                                </div>
+                                <div class="dropdown__item p-b-8 text-uppercase">
+                                    <a routerLink="/communities">Community</a>
+                                </div>
+                                <div class="dropdown__item p-b-8 text-uppercase with_border_bottom">
+                                    <a routerLink="/directory">Directory</a>
+                                </div>
+                                <div *ngIf="!showCreateOrg" class="dropdown__item with_border_bottom p-t-b-8">
+                                    <div class="navdrop__switchto">Switch to</div>
+                                    <div class="navdrop__imgblock2">
+                                        <img class="navdrop__img" [src]="imageBaseUrl + this.userCards.other.image">
+                                    </div>
+                                    <div class="navdrop__name2">
+                                        <a (click)="changeProfile(this.userCards, $event)">
+                                            {{ this.userCards.other.name }}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="dropdown__item p-t-b-8" routerLink="/org/registration" *ngIf="showCreateOrg">
+                                    <a>Create Organisation</a>
+                                </div>
+                                <div *ngIf="this.userCards.active.isOrg === false" routerLink="/user/settings" class="dropdown__item p-b-8 with_border_bottom">
+                                    <a>Settings</a>
+                                    <!-- <a *ngIf="this.userCards.active.isOrg === true" routerLink="/org/settings">Settings</a> -->
+                                </div>
+                                <div *ngIf="this.userCards.active.isOrg === true" routerLink="/org/settings" class="dropdown__item p-b-8 with_border_bottom">
+                                    <!-- <a *ngIf="this.userCards.active.isOrg === false" routerLink="/user/settings">Settings</a> -->
+                                    <a>Settings</a>
+                                </div>
+                                <div routerLink="/invite/friends" class="dropdown__item p-t-b-8">
+                                    <a>Invite Friends</a>
+                                </div>
+                                <div routerLink="/about" class="dropdown__item p-b-8 with_border_bottom">
+                                    <a>About One Page Spotlight</a>
+                                </div>
+                                <div routerLink="/logout" class="dropdown__item p-t-8">
+                                    <a>Signout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- //for mobile -->
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -156,19 +359,4 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-</header>
-
-<header class="opsheader visible-xs visible-sm">
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header hidden-md hidden-lg ">
-                <a class="navbar-brand" href="/"><img [src]="imageBaseUrl + 'img/ops_icon.png'"></a>
-                <button type="button" [routerLink]="['/logout']" [queryParams]="{ next: 'dwc/reg' }" class="btn btn-default btn-md o-logout__btn" *ngIf="isProfileSet === true">logout</button>
-                <a [routerLink]="['/login']" [queryParams]="{ next: 'dwc/reg' }" class="btn btn-default btn-md o-logout__btn" *ngIf="isProfileSet === false">Sign In</a>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-
 </header>
