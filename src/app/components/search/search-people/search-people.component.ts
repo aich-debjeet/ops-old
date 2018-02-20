@@ -26,6 +26,12 @@ export class SearchPeopleComponent implements OnInit {
   searchString = '';
   resultCount = '';
 
+  /* scroll */
+  canScroll = true;
+  scrolling = 0;
+  scrollingLoad = 800;
+  /* scroll */
+
   constructor(
     private store: Store<SearchModel>
   ) {
@@ -39,6 +45,7 @@ export class SearchPeopleComponent implements OnInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       this.searchState = state;
+      console.log('this.searchState', this.searchState);
       if (state && state['search_people_data'] && state['search_people_data']['profileResponse']) {
         this.artists = state['search_people_data']['profileResponse'];
       }
@@ -54,6 +61,28 @@ export class SearchPeopleComponent implements OnInit {
     // return false;
   }
 
-  onScroll() {}
+  /**
+   * While Scrolling trigger next api call
+   */
+  onScroll(e) {
+    this.scrolling = e.currentScrollPosition;
+    if (this.canScroll === true && this.scrollingLoad <= this.scrolling) {
+      this.canScroll = false;
+      this.scrollingLoad += 500;
+      // check if it's first request
+      if (this.searchState && this.searchState['search_people_data'] && this.searchState['search_people_data']['name'] && this.searchState['search_people_data']['name']['scrollId']) {
+        this.store.dispatch({
+          type: SearchActions.SEARCH_PEOPLE,
+          payload: {
+            isHuman: '1',
+            name: { scrollId: this.searchState['search_people_data']['name']['scrollId'] }
+          }
+        });
+      }
+      setTimeout(() => {
+        this.canScroll = true;
+      }, 1000);
+    }
+  }
 
 }

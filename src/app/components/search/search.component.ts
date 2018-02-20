@@ -58,11 +58,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   all_posts: any[];
   /* global result store */
 
-  /* scroll */
-  scrolling = 0;
-  scrollingLoad = 1000;
-  /* scroll */
-
   channels: any[];
   artists: any[];
   posts: any[];
@@ -167,7 +162,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
                 isHuman: '1',
                 status: [],
                 offset: 0,
-                limit: 50,
+                limit: 10,
                 searchText: this.searchString
               }
               this.isSearching = true;
@@ -177,7 +172,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
             if (this.searchType === 'channel') {
               const searchChannelParams = {
                 offset: 0,
-                limit: 50,
+                limit: 10,
                 searchText: this.searchString
               }
               this.isSearching = true;
@@ -187,7 +182,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
             if (this.searchType === 'post') {
               const searchPostParams = {
                 offset: 0,
-                limit: 50,
+                limit: 10,
                 searchText: this.searchString
               }
               this.isSearching = true;
@@ -235,17 +230,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
-  }
-
-  /**
-   * While Scrolling trigger next api call
-   */
-  onScroll(e) {
-    this.scrolling = e.currentScrollPosition;
-    if (/* this.searchType !== 'all' &&  */ this.scrollingLoad <= this.scrolling) {
-      this.scrollingLoad += 500;
-      console.log('LOAD MORE');
-    }
   }
 
   /**

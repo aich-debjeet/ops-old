@@ -1,3 +1,5 @@
+@import './src/assets/scss/helpers/_variables.scss';
+
 // right block 
 .o-search-result-block{
     width: 100%;
@@ -69,4 +71,12 @@
 .o-search-people__info button.btn {
     float: left;
     clear: both;
+}
+.o-people-result__follow-btn{
+  color: $color-theme;
+  font-size: 11px;
+  letter-spacing: 1px;
+  line-height: 15px;
+  text-align: right;
+  text-transform: uppercase;
 }

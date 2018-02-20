@@ -47,16 +47,20 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
 
     case SearchActions.SEARCH_PEOPLE_SUCCESS:
       // // update state for pagination
-      // let people_payload;
-      // if (state.search_people_params.offset === 0) {
-      //   people_payload = payload;
-      // } else {
-      //   people_payload = [...state.search_people_data, ...payload];
-      // }
+      let people_data;
+      if (state.search_people_params && state.search_people_params.searchText) {
+        people_data = payload.profileResponse;
+      } else {
+        people_data = [...state.search_people_data.profileResponse, ...payload.profileResponse];
+      }
       return Object.assign({}, state, {
         searching_people: false,
-        // search_people_data: people_payload,
-        search_people_data: payload,
+        search_people_data: {
+          scrollId: payload.scrollId,
+          total: payload.total,
+          profileResponse: people_data
+        },
+        // search_people_data: payload,
         search_people_success: true
       });
 
