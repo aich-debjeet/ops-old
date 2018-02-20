@@ -59,10 +59,8 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   /* global result store */
 
   /* scroll */
-  page_start = 0;
-  page_end = 20;
   scrolling = 0;
-  scrollingLoad = 900;
+  scrollingLoad = 1000;
   /* scroll */
 
   channels: any[];
@@ -253,38 +251,38 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   onScroll(e) {
     this.scrolling = e.currentScrollPosition;
-    console.log('scrolling: ', this.scrolling);
-    console.log('scrollingLoad: ', this.scrollingLoad);
-    if (this.searchType !== 'all' && this.scrollingLoad <= this.scrolling) {
-      this.scrollingLoad += 1500;
-      this.page_start = this.page_end + 1;
-      this.page_end += 15;
+    if (/* this.searchType !== 'all' &&  */ this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 500;
       console.log('LOAD MORE');
     }
   }
 
-  // /**
-  //  * Scroll event listener
-  //  */
+  /**
+   * Scroll event listener
+   */
   // @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
-  //   const scrolledValue = window.pageYOffset;
-  //   let scrollDirection = '';
-  //   if (scrolledValue > this.lastScrollTop) {
-  //     scrollDirection = 'down';
-  //   } else {
-  //     scrollDirection = 'up';
-  //   }
-  //   this.lastScrollTop = scrolledValue;
+  //   // console.log('scrolling');
+  //   // console.log('window.scrollY', window.scrollY);
+  //   // console.log('window.innerHeight', window.innerHeight);
+  //   // console.log('document.body.offsetHeight', document.body.offsetHeight);
+  //   // const scrolledValue = window.pageYOffset;
+  //   // let scrollDirection = '';
+  //   // if (scrolledValue > this.lastScrollTop) {
+  //   //   scrollDirection = 'down';
+  //   // } else {
+  //   //   scrollDirection = 'up';
+  //   // }
+  //   // this.lastScrollTop = scrolledValue;
 
-  //   if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
-  //     // reached the bottom of the page
-  //     this.canScroll = false;
-  //     setTimeout(() => {
-  //       this.canScroll = true;
-  //     }, 1000);
-  //     // this.dispatchLoadMore();
-  //     console.log('reached bottom scroll more');
-  //   }
+  //   // if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
+  //   //   // reached the bottom of the page
+  //   //   this.canScroll = false;
+  //   //   setTimeout(() => {
+  //   //     this.canScroll = true;
+  //   //   }, 1000);
+  //   //   // this.dispatchLoadMore();
+  //   //   console.log('reached bottom scroll more');
+  //   // }
   // }
 
   // scrollToTop(scrollDuration) {
