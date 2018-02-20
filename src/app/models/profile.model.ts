@@ -26,6 +26,10 @@ export class ProfileModal {
   user_following_channel: any;
   user_following_channels_loading: boolean;
   user_following_channels_loaded: boolean;
+  user_directory_scroll_id: any;
+  dir_list_loading: boolean;
+  dir_list_loaded: boolean;
+  dir_list: any;
   user_posts: any;
   user_posts_loading: boolean;
   user_posts_loaded: boolean;
@@ -110,6 +114,12 @@ export const initialTag: ProfileModal = {
   channel_saved: false,
   channel_updated: false,
   profiles: [],
+
+  // directory
+  user_directory_scroll_id: '',
+  dir_list_loading: false,
+  dir_list_loaded: false,
+  dir_list: [],
 
   // Profile & Cover
   cover_upload_loading: false,

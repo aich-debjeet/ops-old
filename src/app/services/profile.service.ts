@@ -397,6 +397,7 @@ export class ProfileService {
    */
   getLoggedInUserFollowingChannel(body: any) {
     // const params = value.handle + '/' + value.page_start + '/' + value.page_end;
+    console.log(body)
     return this.api.post('/portal/network/spotfeed/homepage/channel', body);
   }
 
