@@ -12,6 +12,9 @@ import { ProfileModal, initialTag } from '../../models/profile.model';
 import { environment } from './../../../environments/environment.prod';
 import { ActivatedRoute, Router } from '@angular/router';
 
+// helper functions
+import { ScrollHelper } from '../../helpers/scroll.helper';
+
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -69,8 +72,9 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<SearchModel>,
     private mediaStore: Store<Media>,
+    private store: Store<SearchModel>,
+    private scrollHelper: ScrollHelper,
     private profileStore: Store<ProfileModal>,
     @Inject(DOCUMENT) private document: Document
   ) {
@@ -235,7 +239,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   // see all results with the selected type
   seeAll(sType: string) {
     this.searchType = sType;
-    // window.scrollTo(0, 0);
+    this.scrollHelper.scrollTop();
     // console.log('this.searchType', this.searchType);
     this.router.navigate(['/search'], { queryParams: { q: this.searchString, type: this.searchType } });
   }
