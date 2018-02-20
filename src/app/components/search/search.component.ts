@@ -127,8 +127,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.routeSub = this.route.queryParams
       .subscribe(params => {
-        // console.log(params);
-
         // check if params available
         if (params && params.q && params.q.length > 0) {
 
@@ -206,7 +204,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     .subscribe(() => {
 
       this.searchString = this.searchInput.value;
-      console.log('this.searchString', this.searchString);
       if (this.searchString.length === 0) { return; }
       this.router.navigate(['/search'], { queryParams: { q: this.searchString, type: this.searchType } });
 
@@ -224,93 +221,11 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   seeAll(sType: string) {
     this.searchType = sType;
     this.scrollHelper.scrollTop();
-    // console.log('this.searchType', this.searchType);
     this.router.navigate(['/search'], { queryParams: { q: this.searchString, type: this.searchType } });
   }
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
   }
-
-  /**
-   * Scroll event listener
-   */
-  // @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
-  //   // console.log('scrolling');
-  //   // console.log('window.scrollY', window.scrollY);
-  //   // console.log('window.innerHeight', window.innerHeight);
-  //   // console.log('document.body.offsetHeight', document.body.offsetHeight);
-  //   // const scrolledValue = window.pageYOffset;
-  //   // let scrollDirection = '';
-  //   // if (scrolledValue > this.lastScrollTop) {
-  //   //   scrollDirection = 'down';
-  //   // } else {
-  //   //   scrollDirection = 'up';
-  //   // }
-  //   // this.lastScrollTop = scrolledValue;
-
-  //   // if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
-  //   //   // reached the bottom of the page
-  //   //   this.canScroll = false;
-  //   //   setTimeout(() => {
-  //   //     this.canScroll = true;
-  //   //   }, 1000);
-  //   //   // this.dispatchLoadMore();
-  //   //   console.log('reached bottom scroll more');
-  //   // }
-  // }
-
-  // scrollToTop(scrollDuration) {
-  //   const scrollStep = -window.scrollY / (scrollDuration / 15),
-  //   scrollInterval = setInterval(function() {
-  //   if (window.scrollY !== 0) {
-  //     window.scrollBy( 0, scrollStep);
-  //   } else {
-  //     clearInterval(scrollInterval);
-  //   }
-  //   }, 15);
-  // }
-
-  /**
-   * Load more results for active tab
-   */
-  // dispatchLoadMore() {
-  //   if (this.searchQueryElement.nativeElement.value && this.searchQueryElement.nativeElement.value.length > 0 && this.activeTab !== 'tab-all') {
-  //     this.showPreloader = true;
-  //   } else {
-  //     return;
-  //   }
-
-  //   if (this.activeTab === 'tab-people') {
-  //     const searchParams = {
-  //       query: this.searchQueryElement.nativeElement.value,
-  //       offset: this.searchState.search_people_params.offset + this.recordsPerPage,
-  //       limit: this.recordsPerPage
-  //     }
-  //     // search people
-  //     this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
-  //   }
-
-  //   if (this.activeTab === 'tab-post') {
-  //     const searchParams = {
-  //       query: this.searchQueryElement.nativeElement.value,
-  //       offset: this.searchState.search_post_params.offset + this.recordsPerPage,
-  //       limit: this.recordsPerPage
-  //     }
-  //     // search post
-  //     this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchParams });
-  //   }
-
-  //   if (this.activeTab === 'tab-channel') {
-  //     const searchParams = {
-  //       query: this.searchQueryElement.nativeElement.value,
-  //       offset: this.searchState.search_channel_params.offset + this.recordsPerPage,
-  //       limit: this.recordsPerPage
-  //     }
-  //     // search channel
-  //     this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchParams });
-  //   }
-
-  // }
 
 }
