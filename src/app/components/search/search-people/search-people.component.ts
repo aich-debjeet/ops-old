@@ -70,12 +70,12 @@ export class SearchPeopleComponent implements OnInit {
       this.canScroll = false;
       this.scrollingLoad += 500;
       // check if it's first request
-      if (this.searchState && this.searchState['search_people_data'] && this.searchState['search_people_data']['name'] && this.searchState['search_people_data']['name']['scrollId']) {
+      if (this.searchState && this.searchState['search_people_data'] && this.searchState['search_people_data']['scrollId']) {
         this.store.dispatch({
           type: SearchActions.SEARCH_PEOPLE,
           payload: {
             isHuman: '1',
-            name: { scrollId: this.searchState['search_people_data']['name']['scrollId'] }
+            name: { scrollId: this.searchState['search_people_data']['scrollId'] }
           }
         });
       }
