@@ -113,17 +113,36 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
         search_channel_success: false
       });
 
+    // case SearchActions.SEARCH_CHANNEL_SUCCESS:
+    //   // update state for pagination
+    //   let channel_payload;
+    //   if (state.search_channel_params.offset === 0) {
+    //     channel_payload = payload;
+    //   } else {
+    //     channel_payload = [...state.search_channel_data, ...payload];
+    //   }
+    //   return Object.assign({}, state, {
+    //     searching_channel: false,
+    //     search_channel_data: channel_payload,
+    //     search_channel_success: true
+    //   });
+
     case SearchActions.SEARCH_CHANNEL_SUCCESS:
-      // update state for pagination
-      let channel_payload;
-      if (state.search_channel_params.offset === 0) {
-        channel_payload = payload;
+      // // update state for pagination
+      let channel_data;
+      if (state.search_channel_params && state.search_channel_params.searchText) {
+        channel_data = payload.spotFeedResponse;
       } else {
-        channel_payload = [...state.search_channel_data, ...payload];
+        channel_data = [...state.search_channel_data.spotFeedResponse, ...payload.spotFeedResponse];
       }
       return Object.assign({}, state, {
         searching_channel: false,
-        search_channel_data: channel_payload,
+        search_channel_data: {
+          scrollId: payload.scrollId,
+          total: payload.total,
+          spotFeedResponse: channel_data
+        },
+        // search_channel_data: payload,
         search_channel_success: true
       });
 
