@@ -23,8 +23,6 @@ export class SearchPeopleComponent implements OnInit {
   baseUrl: string;
 
   artists: any[];
-  searchString = '';
-  resultCount = '';
 
   /* scroll */
   canScroll = true;
@@ -45,7 +43,7 @@ export class SearchPeopleComponent implements OnInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       this.searchState = state;
-      console.log('this.searchState', this.searchState);
+      // console.log('this.searchState', this.searchState);
       if (state && state['search_people_data'] && state['search_people_data']['profileResponse']) {
         this.artists = state['search_people_data']['profileResponse'];
       }

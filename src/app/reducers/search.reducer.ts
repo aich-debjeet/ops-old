@@ -80,17 +80,21 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
       });
 
     case SearchActions.SEARCH_POST_SUCCESS:
-      // update state for pagination
-      // let post_payload;
-      // if (state.search_post_params.offset === 0) {
-      //   post_payload = payload;
-      // } else {
-      //   post_payload = [...state.search_post_data, ...payload];
-      // }
+      // // update state for pagination
+      let post_data;
+      if (state.search_post_params && state.search_post_params.searchText) {
+        post_data = payload.mediaResponse;
+      } else {
+        post_data = [...state.search_post_data.mediaResponse, ...payload.mediaResponse];
+      }
       return Object.assign({}, state, {
         searching_post: false,
-        // search_post_data: post_payload,
-        search_post_data: payload,
+        search_post_data: {
+          scrollId: payload.scrollId,
+          total: payload.total,
+          mediaResponse: post_data
+        },
+        // search_post_data: payload,
         search_post_success: true
       });
 
