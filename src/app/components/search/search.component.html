@@ -297,65 +297,15 @@
                 <!-- search all -->
                 
                 <!-- search people result -->
-                <div infinite-scroll (scrolled)="onScroll($event)" *ngIf="searchString?.length > 0 && !isSearching && searchType === 'people'" class="o-search-result-block m-t-16 p-b-24">
-                    <div *ngFor="let artist of artists" class="o-search-people-single">
-                        <div class="o-search-people__prof-pic">
-                            <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist?.profileImage }}" alt="">
-                            <ng-template #default_profile_image>
-                                <img src="{{ baseUrl }}img/avatar.jpg" class="c-artist__img">
-                            </ng-template>
-                        </div>
-                        <div class="o-search-people__info">
-                            <div class="o-search-people__name width100 c-text_lg f-w_600">{{ artist?.name | truncate:[12, '...'] }}</div>
-                            <div class="o-search-people__det width100 c-text_md color-grey-dark m-b-8">@{{ artist?.extra?.username }}</div>
-                            <div class="o-search-people__followers width100">
-                                <div class="c-text_sm float_left text_uppercase ltr-space">{{ artist?.followersCount }}<span class="color-grey-dark">Followers</span></div>
-                                <div class="c-text_sm float_left text_uppercase ltr-space p-l-16">{{ artist?.extra?.postCount }} <span class="color-grey-dark">Posts</span></div>
-                            </div>
-                            <!-- <button type="button" class="btn btn-primary btn-sm m-t-8">Unfollow</button> -->
-                            <div *ngIf="artist?.extra?.isImported; else not_imported">
-                                <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="o-people-result__follow-btn">CLAIM</a>
-                            </div>
-                            <ng-template #not_imported>
-                                <button (click)="unfollowUser(artist)" *ngIf="artist?.extra?.isFollowing" type="button" class="btn btn-xs btn-basic btn-following">UNFOLLOW</button>
-                                <button (click)="followUser(artist)" *ngIf="!artist?.extra?.isFollowing" type="button" class="btn btn-xs btn-basic btn-following">FOLLOW</button>
-                            </ng-template>
-                        </div><!-- people info end -->
-                        <div class="o-search-people__post-img">
-                            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s05.jpg); background-size: cover;"></div>
-                            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s06.jpg); background-size: cover;"></div>
-                            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s07.jpg); background-size: cover;"></div>
-                            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s08.jpg); background-size: cover;"></div>
-                            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s09.jpg); background-size: cover;">
-                                <a href="#" class="c-text_sm color-white o-search-people-post__seemore">see more</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <app-search-people *ngIf="searchString?.length > 0 && !isSearching && searchType === 'people'"></app-search-people>
                 <!-- search people result -->
 
                 <!-- search channels result -->
-                <div *ngIf="searchString?.length > 0 && !isSearching && searchType === 'channel'" class="m-0 row p-t-16 float_left">
-                    <div class="col-12">
-                        <div *ngFor="let channel of channels" class="col-md-3 p-0 p-r-10 p-b-10">
-                            <app-channel [channelData]="channel"></app-channel>
-                        </div>
-                    </div>
-                </div>
+                <app-search-channel *ngIf="searchString?.length > 0 && !isSearching && searchType === 'channel'"></app-search-channel>
                 <!-- search channels result -->
 
                 <!-- search posts result -->
-                <div *ngIf="searchString?.length > 0 && !isSearching && searchType === 'post'"  class="col-md-12 p-0 m-t-16">
-
-                    <!-- single entity -->
-                    <masonry [useImagesLoaded]="true">
-                        <masonry-brick *ngFor="let post of posts" class="col-md-4 p-l-r-8 m-b-16">
-                                <app-post-card [mediaData]="post"></app-post-card>
-                        </masonry-brick>
-                    </masonry>
-                    <!-- single entity -->
-                
-                </div>
+                <app-search-post *ngIf="searchString?.length > 0 && !isSearching && searchType === 'post'"></app-search-post>
                 <!-- search posts result -->
 
             </div>

@@ -39,7 +39,6 @@ export class SearchPeopleComponent implements OnInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       this.searchState = state;
-      console.log(this.searchState);
       if (state && state['search_people_data'] && state['search_people_data']['profileResponse']) {
         this.artists = state['search_people_data']['profileResponse'];
       }
@@ -54,5 +53,7 @@ export class SearchPeopleComponent implements OnInit {
     // }
     // return false;
   }
+
+  onScroll() {}
 
 }

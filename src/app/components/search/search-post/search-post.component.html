@@ -1,17 +1,11 @@
-<!-- <h6 class="c-text_lg p-b-16 with_border_bottom">Post
-    <a href="#" class="color-theme float_right">See all</a>
-</h6>
+<div class="col-md-12 p-0 m-t-16">
 
-<div *ngIf="posts && posts.length === 0; else posts_found;">
-    <p class="result-not-found">Posts not found!</p>
+    <!-- single entity -->
+    <masonry [useImagesLoaded]="true">
+        <masonry-brick *ngFor="let post of posts" class="col-md-4 p-l-r-8 m-b-16">
+                <app-post-card [mediaData]="post"></app-post-card>
+        </masonry-brick>
+    </masonry>
+    <!-- single entity -->
+
 </div>
-
-<ng-template #posts_found>
-    <div class="o-post-result-block2">
-        <div *ngFor="let post of posts" class="o-post-result-block">
-            <app-post-card-search [post]="post"></app-post-card-search>
-        </div>
-    </div>
-</ng-template> -->
-
-<h2>Posts Search Component</h2>

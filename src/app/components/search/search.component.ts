@@ -99,24 +99,15 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       if (state && state['search_all_data'] && state['search_all_data']['profiles']) {
         this.all_artists = state['search_all_data']['profiles'];
       }
-      if (state && state['search_people_data'] && state['search_people_data']['profileResponse']) {
-        this.artists = state['search_people_data']['profileResponse'];
-      }
 
       // load global posts
       if (state && state['search_all_data'] && state['search_all_data']['posts']) {
         this.all_posts = state['search_all_data']['posts'];
       }
-      if (state && state['search_post_data'] && state['search_post_data']['mediaResponse']) {
-        this.posts = state['search_post_data']['mediaResponse'];
-      }
 
       // load global channels
       if (state && state['search_all_data'] && state['search_all_data']['channels']) {
         this.all_channels = state['search_all_data']['channels'];
-      }
-      if (state && state['search_channel_data'] && state['search_channel_data']['spotFeedResponse']) {
-        this.channels = state['search_channel_data']['spotFeedResponse'];
       }
 
       if (state
@@ -220,7 +211,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     .subscribe(() => {
 
       this.searchString = this.searchInput.value;
-      // console.log('this.searchString', this.searchString);
+      console.log('this.searchString', this.searchString);
       if (this.searchString.length === 0) { return; }
       this.router.navigate(['/search'], { queryParams: { q: this.searchString, type: this.searchType } });
 
