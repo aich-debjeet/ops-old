@@ -68,9 +68,6 @@
                     <div *ngIf="searchFilters.profile">
                         <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Profiles</h6>
                         <div class="o-search-filter-block p-l-8">
-                            <!-- <div class="form-check">
-                                <label for="people">people <input id="people" type="checkbox"></label>
-                            </div> -->
                             <div *ngFor="let profileElems of searchFilters?.profile" >
                                 <ng-container *ngIf="profileElems?.filters?.length > 0">
                                     <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">{{ profileElems?.title }}</h6>
@@ -89,132 +86,50 @@
                     </div>
                     <!-- Profiles -->
 
-                    <!-- <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">POST</h6>
-                    <div class="o-search-filter-block p-l-8">
-                        <div class="col-md-6 p-0">
-                            <div class="form-check">
-                                <label for="Images">Images <input id="Images" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="Blog">Blog <input id="Blog" type="checkbox"></label>
-                            </div>
-                        </div>
-                        <div class="col-md-6 p-0">
-                            <div class="form-check">
-                                <label for="Video">Video <input id="Video" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="Audio">Audio <input id="Audio" type="checkbox"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">CHANNEL</h6>
-                    <div class="o-search-filter-block p-l-8">
-                        <div class="col-md-6 p-0">
-                            <div class="form-check">
-                                <label for="Images2">Images <input id="Images2" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="Blog2">Blog <input id="Blog2" type="checkbox"></label>
-                            </div>
-                        </div>
-                        <div class="col-md-6 p-0">
-                            <div class="form-check">
-                                <label for="Video2">Video <input id="Video2" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="Audio2">Audio <input id="Audio2" type="checkbox"></label>
+                    <!-- Posts -->
+                    <div *ngIf="searchFilters.post">
+                        <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Posts</h6>
+                        <div class="o-search-filter-block p-l-8">
+                            <div *ngFor="let postElems of searchFilters?.post" >
+                                <ng-container *ngIf="postElems?.filters?.length > 0">
+                                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">{{ postElems?.title }}</h6>
+                                    <div *ngFor="let filter of postElems?.filters" >
+                                        <ng-container *ngIf="filter?.name !== ''">
+                                            <div class="form-check">
+                                                <label for="{{ postElems?.title + filter?.name | strReplace:[' ', '_'] }}">{{ filter?.name }} 
+                                                    <input (change)="updateFilter($event)" id="{{ postElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
+                                                </label>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
                             </div>
                         </div>
                     </div>
-                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">SPOTFEED</h6>
-                    <div class="o-search-filter-block p-l-8">
-                        <div class="col-md-12 p-0">
-                            <div class="c-form__group m-0">
-                                <select class="c-form-control o-search-select--box p-l-0">
-                                    <option>
-                                        Industry
-                                    </option>
-                                    <option>
-                                        Select list 2
-                                    </option>
-                                    <option>
-                                        Select list 3
-                                    </option>
-                                    <option>
-                                        Select list 4
-                                    </option>
-                                </select>
+                    <!-- Posts -->
+
+                    <!-- Channels -->
+                    <div *ngIf="searchFilters.channel">
+                        <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Channels</h6>
+                        <div class="o-search-filter-block p-l-8">
+                            <div *ngFor="let channelElems of searchFilters?.channel" >
+                                <ng-container *ngIf="channelElems?.filters?.length > 0">
+                                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">{{ channelElems?.title }}</h6>
+                                    <div *ngFor="let filter of channelElems?.filters" >
+                                        <ng-container *ngIf="filter?.name !== ''">
+                                            <div class="form-check">
+                                                <label for="{{ channelElems?.title + filter?.name | strReplace:[' ', '_'] }}">{{ filter?.name }} 
+                                                    <input (change)="updateFilter($event)" id="{{ channelElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
+                                                </label>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
                             </div>
                         </div>
                     </div>
-                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">opportunity</h6>
-                    <div class="o-search-filter-block p-l-8">
-                        <div class="col-md-6 p-0">
-                            <div class="form-check">
-                                <label for="Audition">Audition <input id="Audition" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="jobs">jobs <input id="jobs" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="Freelance">Freelance <input id="Freelance" type="checkbox"></label>
-                            </div>
-                        </div>
-                        <div class="col-md-6 p-0">
-                            <div class="form-check">
-                                <label for="internship">internship <input id="internship" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="projects">projects <input id="projects" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="volunteer">volunteer <input id="volunteer" type="checkbox"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">Event</h6>
-                    <div class="o-search-filter-block p-l-8">
-                        <div class="col-md-12 p-0">
-                            <div class="c-form__group m-0">
-                                <select class="c-form-control o-search-select--box p-l-0">
-                                    <option>
-                                        Event type
-                                    </option>
-                                    <option>
-                                        Select list 2
-                                    </option>
-                                    <option>
-                                        Select list 3
-                                    </option>
-                                    <option>
-                                        Select list 4
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">COMMUNITY</h6>
-                    <div class="o-search-filter-block p-l-8">
-                        <div class="col-md-12 p-0">
-                            <div class="c-form__group m-0">
-                                <select class="c-form-control o-search-select--box p-l-0">
-                                    <option>
-                                        Industry
-                                    </option>
-                                    <option>
-                                        Select list 2
-                                    </option>
-                                    <option>
-                                        Select list 3
-                                    </option>
-                                    <option>
-                                        Select list 4
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div> -->
+                    <!-- Channels -->
+
                 </div>
             </div>
             <!-- search filters -->
