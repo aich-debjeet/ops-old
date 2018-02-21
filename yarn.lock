@@ -1022,6 +1022,15 @@ choices.js@^3.0.2:
     fuse.js "^2.2.2"
     redux "^3.3.1"
 
+"choices.js@https://github.com/jshjohnson/Choices.git#master":
+  version "3.0.3"
+  resolved "https://github.com/jshjohnson/Choices.git#5f11caae1be59271290ea993b4dc326825903aa3"
+  dependencies:
+    classnames "^2.2.5"
+    fuse.js "^2.2.2"
+    opn "^5.1.0"
+    redux "^3.3.1"
+
 chokidar@^1.4.1, chokidar@^1.6.0, chokidar@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-1.7.0.tgz#798e689778151c8076b4b360e5edd28cda2bb468"
@@ -4320,6 +4329,12 @@ opn@4.0.2:
   dependencies:
     object-assign "^4.0.1"
     pinkie-promise "^2.0.0"
+
+opn@^5.1.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/opn/-/opn-5.2.0.tgz#71fdf934d6827d676cecbea1531f95d354641225"
+  dependencies:
+    is-wsl "^1.1.0"
 
 opn@~5.1.0:
   version "5.1.0"

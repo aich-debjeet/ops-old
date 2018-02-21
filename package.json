@@ -39,7 +39,7 @@
     "angular2-masonry": "^0.4.0",
     "angular2-text-mask": "^8.0.3",
     "bootstrap-sass": "^3.3.7",
-    "choices.js": "^3.0.2",
+    "choices.js": "https://github.com/jshjohnson/Choices.git#master",
     "core-js": "^2.4.1",
     "hammerjs": "^2.0.8",
     "js-joda": "^1.5.4",
