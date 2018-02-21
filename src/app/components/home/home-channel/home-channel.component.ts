@@ -60,6 +60,7 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
     this.subscriptionOne = this.tagState$.subscribe((state) => {
       this.userState = state;
       if (state.user_following_channels_loaded) {
+        console.log('state', state)
         this.channelList = state.user_following_channel;
         this.channel_scroll_id = state.user_channel_scroll_id;
       }
@@ -96,6 +97,7 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
       limit: 9,
       scrollId: this.channel_scroll_id,
     }
+    console.log(body)
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: body });
   }
 

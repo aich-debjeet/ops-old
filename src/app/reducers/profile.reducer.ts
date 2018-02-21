@@ -804,18 +804,23 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_DIRECTORY:
       if (payload.offset === 0) {
         return Object.assign({}, state, {
-          dir_list: []
+          dir_list: [],
+          dir_list_loaded: false,
         });
       }
       return Object.assign({}, state, {
         dir_list_loading: true,
+        dir_list_loaded: false,
       });
 
     case ProfileActions.LOAD_DIRECTORY_SUCCESS:
-      const dir_list = state.dir_list.concat(payload)
+      const list = payload['profileResponse'];
+      const dir_list = state.dir_list.concat(list)
       return Object.assign({}, state, {
+        user_directory_scroll_id: payload['scrollId'],
         dir_list_loading: false,
-        dir_list: dir_list
+        dir_list_loaded: true,
+        dir_list: dir_list,
       });
 
     /**

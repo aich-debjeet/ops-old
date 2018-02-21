@@ -32,6 +32,7 @@ export class DirectoryListComponent implements OnInit, OnDestroy {
   searchText: string;
   profileType: any = 1;
   selectedOption = [];
+  dir_scroll_id: any = '';
   options = [
     {name: 'Inactive', value: 'inactive', checked: false},
     {name: 'Active', value: 'active', checked: false},
@@ -46,7 +47,10 @@ export class DirectoryListComponent implements OnInit, OnDestroy {
   ) {
       this.tagState$ = this._store.select('profileTags');
       this.subscription =  this.tagState$.subscribe((state) => {
-        this.dirList = state['dir_list']
+        if (state.dir_list_loaded ) {
+          this.dir_scroll_id = state.user_directory_scroll_id;
+          this.dirList = state.dir_list;
+        }
       });
       this.loadDir();
   }
@@ -87,7 +91,8 @@ export class DirectoryListComponent implements OnInit, OnDestroy {
       searchText: this.searchText,
       status: this.selectedOption,
       offset: this.page_start,
-      limit: 20
+      limit: 20,
+      scrollId: '',
     }
     this._store.dispatch({ type: ProfileActions.LOAD_DIRECTORY, payload: data });
   }
