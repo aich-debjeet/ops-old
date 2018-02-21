@@ -125,6 +125,16 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
+  // update filter on checking on the filter elements
+  updateFilter(e: any) {
+    // console.log(e.target.value);
+    if (e.target.checked && e.target.checked === true) {
+      console.log('checked value: ', e.target.value);
+    } else {
+      console.log('unchecked value: ', e.target.value);
+    }
+  }
+
   ngOnInit() {
     this.beforeSearch = true;
 
@@ -138,6 +148,10 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
           // scroll to top on view switch
           // this.scrollToTop(200);
+
+          if (params.filters) {
+            console.log('filters', JSON.parse(decodeURIComponent(params.filters)));
+          }
 
           // check if search is global
           if ((params.type && params.type === 'all') || !params.type) {
@@ -208,7 +222,13 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
       this.searchString = this.searchInput.value;
       if (this.searchString.length === 0) { return; }
-      this.router.navigate(['/search'], { queryParams: { q: this.searchString, type: this.searchType } });
+      this.router.navigate(['/search'], {
+        queryParams: {
+          q: this.searchString,
+          type: this.searchType,
+          filters: encodeURIComponent(JSON.stringify('{"profile":[{"key":"PROFESSION","value":"Male Artistes"},{"key":"CITY","value":"Mumbai"}],"post":[{"key":"TAGS","value":"fashion"}]}'))
+        }
+      });
 
     });
 

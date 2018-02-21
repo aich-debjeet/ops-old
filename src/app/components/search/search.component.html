@@ -78,7 +78,7 @@
                                         <ng-container *ngIf="filter?.name !== ''">
                                             <div class="form-check">
                                                 <label for="{{ profileElems?.title + filter?.name | strReplace:[' ', '_'] }}">{{ filter?.name }} 
-                                                    <input id="{{ profileElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox">
+                                                    <input (change)="updateFilter($event)" id="{{ profileElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
                                                 </label>
                                             </div>
                                         </ng-container>
