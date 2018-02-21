@@ -16,19 +16,20 @@ export const SearchReducer: ActionReducer<any> = (state, {payload, type}: Action
       });
 
     case SearchActions.SEARCH_ALL_SUCCESS:
-      // update state for pagination
-      // let data_payload;
-      // if (state.search_all_params.offset === 0) {
-      //   data_payload = payload;
-      // } else {
-      //   data_payload = [...state.search_all_data, ...payload];
-      // }
+      /* preparing filter list */
+      let searchFilters;
+      if (payload.filterList) {
+        searchFilters = payload.filterList;
+        // deleting filter listing from response payload
+        delete payload.filterList;
+      }
       return Object.assign({}, state, {
         searching_all: false,
-        // search_all_data: data_payload,
         search_all_data: payload,
+        search_filters: searchFilters, // adding filter listing to the global state
         search_all_success: true
       });
+      /* preparing filter list */
 
     case SearchActions.SEARCH_ALL_FAILED:
       return Object.assign({}, state, {

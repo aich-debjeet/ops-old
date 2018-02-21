@@ -31,17 +31,16 @@ import { Store } from '@ngrx/store';
 export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('searchInput') searchInput;
-  @ViewChild('searchQueryElement') searchQueryElement;
 
-  activeTab = 'tab-all';
   baseUrl: string;
-  showSearchPlaceholder = true;
   isSearching = false;
   searchState$: Observable<SearchModel>;
   searchState: any;
   searchString = '';
   beforeSearch: boolean;
   routeSub: any;
+
+  searchFilters: any;
 
   lastScrollTop = 0;
   canScroll = true;
@@ -84,6 +83,10 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     this.searchState$.subscribe((state) => {
       this.searchState = state;
       // console.log(this.searchState);
+      if (state && state['search_filters']) {
+        this.searchFilters = state['search_filters'];
+        console.log(this.searchFilters);
+      }
       if (state && (state.searching_all === false || state.searching_people === false || state.searching_post === false || state.searching_channel === false)) {
           this.isSearching = false;
           this.beforeSearch = false;
