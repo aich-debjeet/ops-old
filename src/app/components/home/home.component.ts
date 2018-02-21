@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Channel } from '../../models/home.model';
-import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
+import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
 
 // action
 import { HomeActions } from '../../actions/home.action';
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   userQuickAccess = initialTag;
   channelList$: Observable<Channel>;
   cards: any = [];
-  carouselOne: NgxCarousel;
+  carouselOne: NguCarousel;
   quickList: any = [];
 
   loadMoreParams: any;
@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       point: {
         visible: true,
         pointStyles: `
-          .ngxcarouselPoint {
+          .ngucarouselPoint {
             list-style-type: none;
             text-align: center;
             padding: 12px;
@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             box-sizing: border-box;
             display: none;
           }
-          .ngxcarouselPoint li {
+          .ngucarouselPoint li {
             display: inline;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.55);
@@ -89,7 +89,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
             margin: 0 3px;
             transition: .4s ease all;
           }
-          .ngxcarouselPoint li.active {
+          .ngucarouselPoint li.active {
               background: white;
               width: 10px;
           }

@@ -26,7 +26,7 @@ import { AboutCoverComponent } from './about-cover/about-cover.component';
 import { ProfileHelper } from '../../helpers/profile.helper';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-import { NgxCarouselModule } from 'ngx-carousel';
+import { NguCarouselModule } from '@ngu/carousel';
 // import 'hammerjs';
 
 
@@ -92,7 +92,7 @@ const routes: Routes = [
     FormsModule,
     TextMaskModule,
     ImageCropperModule,
-    NgxCarouselModule,
+    NguCarouselModule,
     InfiniteScrollModule
   ],
   declarations: [

@@ -12,7 +12,7 @@ import { ImageCropperModule } from 'ng2-img-cropper/index';
 import { ToastrModule } from 'ngx-toastr';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
-import { NgxCarouselModule } from 'ngx-carousel';
+import { NguCarouselModule } from '@ngu/carousel';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 // Pipes
@@ -207,7 +207,7 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
       libraries: ['places'],
       apiKey: 'AIzaSyDHx_cyWUg9okHlTH8M_kvduvWFSV3nShc'
     }),
-    NgxCarouselModule,
+    NguCarouselModule,
     LazyLoadImageModule
   ],
   providers: [

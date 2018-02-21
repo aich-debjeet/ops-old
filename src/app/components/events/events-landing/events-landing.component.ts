@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
+import { NguCarousel } from '@ngu/carousel';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
@@ -27,7 +27,7 @@ export class EventsLandingComponent implements OnInit {
   day: any;
   tomorrow: any;
   weekend: any;
-  carouselOne: NgxCarousel;
+  carouselOne: NguCarousel;
   tagState$: Observable<EventModal>;
   eventList = initialTag ;
   eventType: any;
@@ -93,7 +93,7 @@ export class EventsLandingComponent implements OnInit {
       point: {
         visible: false,
         pointStyles: `
-          .ngxcarouselPoint {
+          .ngucarouselPoint {
             list-style-type: none;
             text-align: center;
             padding: 12px;
@@ -106,7 +106,7 @@ export class EventsLandingComponent implements OnInit {
             left: 0;
             box-sizing: border-box;
           }
-          .ngxcarouselPoint li {
+          .ngucarouselPoint li {
             display: inline-block;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.55);
@@ -114,7 +114,7 @@ export class EventsLandingComponent implements OnInit {
             margin: 0 3px;
             transition: .4s ease all;
           }
-          .ngxcarouselPoint li.active {
+          .ngucarouselPoint li.active {
               background: white;
               width: 10px;
           }
@@ -141,14 +141,5 @@ export class EventsLandingComponent implements OnInit {
 
     this.store.dispatch({ type: EventActions.EVENT_SEARCH, payload: data });
   }
-
-  /* This will be triggered after carousel viewed */
-  afterCarouselViewedFn(data) {
-  }
-
-  /* It will be triggered on every slide*/
-  onmoveFn(data: NgxCarouselStore) {
-  }
-
 
 }
