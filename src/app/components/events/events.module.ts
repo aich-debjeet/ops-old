@@ -9,7 +9,7 @@ import { EventsCreateComponent } from './events-create/events-create.component';
 import { EventsInnerComponent } from './events-inner/events-inner.component';
 import { EventsLandingComponent } from './events-landing/events-landing.component';
 import { NgxCarouselModule } from 'ngx-carousel';
-import 'hammerjs';
+// import 'hammerjs';
 import { EventsCarditemComponent } from './events-carditem/events-carditem.component';
 
 import { HttpClientModule } from '@angular/common/http';

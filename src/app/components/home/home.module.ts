@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 // SharedModule
 import { SharedModule } from '../../shared/shared.module';
-import { MasonryModule } from 'angular2-masonry';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 // Component
 import { CommonModule } from '@angular/common';
@@ -14,7 +14,7 @@ import { HomeRightBlockComponent } from './home-right-block/home-right-block.com
 import { SharedPipesModule } from '../../pipes/shared-pipes.module'
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxCarouselModule } from 'ngx-carousel';
-import 'hammerjs';
+// import 'hammerjs';
 
 // Guard
 import { AuthGuard } from './../../guard/auth.guard';
@@ -37,7 +37,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
-    MasonryModule,
+    NgxMasonryModule,
     SharedPipesModule,
     InfiniteScrollModule,
     NgxCarouselModule,

@@ -21,7 +21,6 @@ import { SharedActions } from '../../actions/shared.action';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { AngularMasonry, MasonryOptions } from 'angular2-masonry';
 import { GeneralUtilities } from './../../helpers/general.utils';
 
 @Component({
@@ -31,7 +30,7 @@ import { GeneralUtilities } from './../../helpers/general.utils';
   styleUrls: ['./channel-inner.component.scss']
 })
 export class ChannelInnerComponent implements OnInit {
-  @ViewChild(AngularMasonry) masonry: AngularMasonry;
+  // @ViewChild(AngularMasonry) masonry: AngularMasonry;
   tagState$: Observable<Media>;
   userState$: Observable<Media>;
   private tagStateSubscription: Subscription;

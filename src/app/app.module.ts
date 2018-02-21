@@ -32,7 +32,7 @@ import { LoginComponent } from './components/login/login.component';
 
 // Routes
 import { routes } from './app.routing';
-import { MasonryModule } from 'angular2-masonry';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 // Reducers
 import { AuthReducer } from './reducers/auth.reducer';
@@ -174,7 +174,7 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     FormsModule,
     ServicesModule,
     HttpModule,
-    MasonryModule,
+    NgxMasonryModule,
     InfiniteScrollModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),

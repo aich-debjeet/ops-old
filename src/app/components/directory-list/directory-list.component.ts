@@ -15,7 +15,6 @@ import { SharedActions } from '../../actions/shared.action';
 import { Observable } from 'rxjs/Observable';
 import { Subscription, ISubscription } from 'rxjs/Subscription';
 
-import { AngularMasonry, MasonryOptions } from 'angular2-masonry';
 @Component({
   selector: 'app-directory-list',
   templateUrl: './directory-list.component.html',

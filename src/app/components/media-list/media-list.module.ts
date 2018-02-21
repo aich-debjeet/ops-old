@@ -5,7 +5,7 @@ import { MediaListComponent } from './media-list.component';
 import { RecentListComponent } from './recent-list/recent-list.component';
 import { PopularListComponent } from './popular-list/popular-list.component';
 import { SharedModule } from '../../shared/shared.module';
-import { MasonryModule } from 'angular2-masonry';
+import { NgxMasonryModule } from 'ngx-masonry';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 const routes: Routes = [
@@ -24,7 +24,7 @@ const routes: Routes = [
     CommonModule,
     SharedModule,
     RouterModule.forChild(routes),
-    MasonryModule,
+    NgxMasonryModule,
     InfiniteScrollModule
   ],
   declarations: [
