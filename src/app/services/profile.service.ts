@@ -425,9 +425,10 @@ export class ProfileService {
   /**
    * [TEMP] Get all profiles
    */
-  getAllProfiles() {
+  getAllProfiles(body: any) {
+    console.log(body)
     // return this.api.get('/portal/profile/0/50', '');
-    return this.api.get('/portal/profile/by/postCount/profileResponse');
+    return this.api.post('/portal/search/people/tofollow', body);
   }
 
   /**

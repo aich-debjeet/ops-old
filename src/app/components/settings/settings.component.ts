@@ -194,7 +194,7 @@ export class SettingsComponent implements OnInit {
     // this.selectedView = 'General';
     this.displayView('General')
     this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
-    this._store.dispatch({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS });
+    // this._store.dispatch({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS });
   }
   /**
    * drag and drop method
@@ -517,8 +517,14 @@ export class SettingsComponent implements OnInit {
   }
 
   displayView(tab: string) {
+    console.log('tab', tab)
    this.selectedView = tab;
+   if (tab === 'Security') {
     this._store.dispatch({type: ProfileActions.LOAD_BLOCK_USERS, payload: this.userHandle});
+   }
+   if (tab === 'Notification') {
+    this._store.dispatch({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS });
+   }
   }
 
   updateCheckedOptions(option, event) {

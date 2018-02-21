@@ -30,6 +30,7 @@ export class ProfileModal {
   dir_list_loading: boolean;
   dir_list_loaded: boolean;
   dir_list: any;
+  people_follow_scroll_id: any;
   user_posts: any;
   user_posts_loading: boolean;
   user_posts_loaded: boolean;
@@ -114,6 +115,7 @@ export const initialTag: ProfileModal = {
   channel_saved: false,
   channel_updated: false,
   profiles: [],
+  people_follow_scroll_id: '',
 
   // directory
   user_directory_scroll_id: '',

@@ -788,9 +788,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         user_profiles_all_loaded: false
       });
     case ProfileActions.LOAD_ALL_PROFILES_SUCCESS:
+    console.log(payload)
       return Object.assign({}, state, {
         user_profiles_all_loaded: true,
-        user_profiles_all: payload
+        user_profiles_all: payload.profileResponse,
+        people_follow_scroll_id: payload.scrollId
       });
 
     case ProfileActions.LOAD_ALL_PROFILES_FAILED:
@@ -861,6 +863,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       default_notification: []
     });
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_SUCCESS:
+    console.log(payload)
     return Object.assign({}, state, {
       default_notification: payload.settings.notificationSettings,
       adult_Content: payload.settings.allowARC,

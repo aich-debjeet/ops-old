@@ -631,7 +631,7 @@ export class ProfileEffect {
   loadProfiles$ = this.actions$
     .ofType(ProfileActions.LOAD_ALL_PROFILES)
     .map(toPayload)
-    .switchMap((payload) => this.profileService.getAllProfiles()
+    .switchMap((payload) => this.profileService.getAllProfiles(payload)
       .map(res => ({ type: ProfileActions.LOAD_ALL_PROFILES_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.LOAD_ALL_PROFILES_FAILED, payload: res }))
     );
