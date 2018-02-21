@@ -164,12 +164,12 @@ import { OpportunityModule } from 'app/components/opportunity/opportunity.module
     DirectoryListComponent
   ],
   imports: [
+    BrowserModule.withServerTransition({appId: 'ops-app'}),
     DragulaModule,
     SharedPipesModule,
     SharedModule,
     MediaModule,
     ImageCropperModule,
-    BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     ServicesModule,
