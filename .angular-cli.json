@@ -23,8 +23,6 @@
         "../node_modules/medium-editor/dist/css/medium-editor.min.css",
         "assets/css/choices.min.css",
         "../node_modules/ngx-toastr/toastr.css",
-        "assets/css/quill.snow.css",
-        "assets/css/quill.bubble.css",
         "styles.scss"
       ],
       "scripts": [
@@ -57,8 +55,6 @@
         "../node_modules/medium-editor/dist/css/medium-editor.min.css",
         "assets/css/choices.min.css",
         "../node_modules/ngx-toastr/toastr.css",
-        "assets/css/quill.snow.css",
-        "assets/css/quill.bubble.css",
         "styles.scss"
       ],
       "scripts": [

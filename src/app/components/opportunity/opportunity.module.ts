@@ -14,7 +14,6 @@ import { OpportunitySearchCreatedComponent } from './opportunity-search/opportun
 // shared module
 import { SharedModule } from '../../shared/shared.module';
 import { NgxMasonryModule } from 'ngx-masonry';
-import { QuillModule } from 'ngx-quill';
 
 import { SharedPipesModule } from './../../pipes/shared-pipes.module';
 
@@ -43,7 +42,6 @@ const opportunityRoutes: Routes = [
 
 @NgModule({
   imports: [
-    QuillModule,
     FormsModule,
     CommonModule,
     SharedModule,
