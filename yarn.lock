@@ -1012,9 +1012,9 @@ chardet@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.4.0.tgz#0bbe1355ac44d7a3ed4a925707c4ef70f8190f6c"
 
-"choices.js@https://github.com/jshjohnson/Choices.git#master":
+choices.js@^3.0.3:
   version "3.0.3"
-  resolved "https://github.com/jshjohnson/Choices.git#5f11caae1be59271290ea993b4dc326825903aa3"
+  resolved "https://registry.yarnpkg.com/choices.js/-/choices.js-3.0.3.tgz#28aa0e96328c22ae074be5fe6e9eda5384e54b45"
   dependencies:
     classnames "^2.2.5"
     fuse.js "^2.2.2"
@@ -1768,6 +1768,10 @@ domhandler@2.1:
   resolved "https://registry.yarnpkg.com/domhandler/-/domhandler-2.1.0.tgz#d2646f5e57f6c3bab11cf6cb05d3c0acf7412594"
   dependencies:
     domelementtype "1"
+
+domino@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/domino/-/domino-2.0.1.tgz#9e1d63215d0fe8dcb8202bff07effa1a216db504"
 
 domutils@1.1:
   version "1.1.6"
@@ -3602,6 +3606,10 @@ loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.0:
     big.js "^3.1.3"
     emojis-list "^2.0.0"
     json5 "^0.5.0"
+
+localstorage-polyfill@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/localstorage-polyfill/-/localstorage-polyfill-1.0.1.tgz#4b3083d4bc51d23b4158537e66816137413fd31a"
 
 locate-path@^2.0.0:
   version "2.0.0"
