@@ -87,7 +87,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       this.searchState = state;
-      // console.log(this.searchState);
+      console.log(this.searchState);
       if (state && state['search_filters']) {
         this.searchFilters = state['search_filters'];
         console.log(this.searchFilters);
@@ -147,6 +147,15 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     }
     // console.log('global filters status: ', this.globalFilter);
+    // preparing get query params for the search get request
+    const params = {
+      q: this.searchString,
+      type: this.searchType,
+      filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+    };
+
+    // trigger search get request
+    this.searchGetRequest(params);
   }
 
   // update filter on checking on the filter elements
@@ -244,18 +253,28 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     .debounceTime(500)
     .subscribe(() => {
 
+      // save search input ref in global var
       this.searchString = this.searchInput.value;
-      if (this.searchString.length === 0) { return; }
-      this.router.navigate(['/search'], {
-        queryParams: {
-          q: this.searchString,
-          type: this.searchType,
-          filters: encodeURIComponent(JSON.stringify('{"profile":[{"key":"PROFESSION","value":"Male Artistes"},{"key":"CITY","value":"Mumbai"}],"post":[{"key":"TAGS","value":"fashion"}]}'))
-        }
-      });
+
+      // preparing get query params for the search get request
+      const params = {
+        q: this.searchString,
+        type: this.searchType
+      };
+
+      // trigger search get request
+      this.searchGetRequest(params);
 
     });
 
+  }
+
+  // trigger search action
+  searchGetRequest(queryParams: any) {
+    if (queryParams.q && queryParams.q.length === 0) { return; }
+    this.router.navigate(['/search'], {
+      queryParams: queryParams
+    });
   }
 
   // Media Popup
