@@ -1,7 +1,10 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Channel } from '../../models/home.model';
 import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
+
+import { PLATFORM_ID } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 
 // action
 import { HomeActions } from '../../actions/home.action';
@@ -22,6 +25,7 @@ import { Subscription, ISubscription } from 'rxjs/Subscription';
 })
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  public metaShow: Meta;
   tagState$: Observable<ProfileModal>;
   userQuickAccess = initialTag;
   channelList$: Observable<Channel>;
@@ -37,8 +41,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object, meta: Meta, title: Title,
     private store: Store<Channel>,
-    private profileStore: Store<ProfileModal>
+    private profileStore: Store<ProfileModal>,
+    private metaService: Meta
   ) {
     this.cards = [];
     this.loadMoreParams = { offset: -10, limit: 10 };
@@ -52,6 +58,14 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
+
+    title.setTitle('OPS - Home page');
+    meta.addTags([
+      { name: 'keywords', content: 'dance, dance world cup 2017, dwc, dance world cup india, asia, world, dance competition, competition, dwc info, phoenix marketcity, bangalore, one page soptlight dance, dance world cup qualifiers, qualifiers'},
+      { name: 'description', content: 'OPS' },
+      { name: 'og:image', content: 'https://cdn.onepagespotlight.com/img/landing/logobetawhite.svg' },
+    ]);
+    this.metaShow = meta;
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject  } from '@angular/core';
 import { FooterComponent } from './../../shared/footer/footer.component';
 import { Store } from '@ngrx/store';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -6,6 +6,9 @@ import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
 
 import { ProfileModal, initialTag, ProfileCard } from '../../models/profile.model';
 import { environment } from '../../../environments/environment';
+
+import { PLATFORM_ID } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 
 // action
 import { ProfileActions } from '../../actions/profile.action';
@@ -21,6 +24,8 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class LogoutHomeComponent implements OnInit, OnDestroy {
 
+  public metaShow: Meta;
+
   tagState$: Observable<ProfileModal>;
   userDetails = initialTag;
   private subscription: Subscription;
@@ -28,10 +33,19 @@ export class LogoutHomeComponent implements OnInit, OnDestroy {
   base_image = environment.API_IMAGE;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object, meta: Meta, title: Title,
     private profileStore: Store<ProfileModal>,
     private router: Router
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
+
+    title.setTitle('One Page Spotlight');
+    meta.addTags([
+      { name: 'keywords', content: 'dance, dance world cup 2017, dwc, dance world cup india, asia, world, dance competition, competition, dwc info, phoenix marketcity, bangalore, one page soptlight dance, dance world cup qualifiers, qualifiers'},
+      { name: 'description', content: 'OPS' },
+      { name: 'og:image', content: 'https://cdn.onepagespotlight.com/img/landing/logobetawhite.svg' },
+    ]);
+    this.metaShow = meta;
   }
 
   ngOnInit() {
