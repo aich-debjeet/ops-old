@@ -138,8 +138,12 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   // profile filter action
   profileFilterAction(e: any, parentNode: string) {
     if (e.target.checked && e.target.checked === true) {
-      // append info the global filter
-      this.globalFilter.profile.push({ key: parentNode, value: e.target.value });
+      const profFilterOpt = { key: parentNode, value: e.target.value };
+      // check if object already available in the global filters
+      if (!_.find(this.globalFilter.profile, profFilterOpt)) {
+        this.globalFilter.profile.push(profFilterOpt);
+      }
+      // console.log('this.globalFilter.profile', this.globalFilter.profile);
     } else {
       // remove info from global filter
       this.globalFilter.profile = _.remove(this.globalFilter.profile, function(obj) {
@@ -191,7 +195,8 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
             const searchAllParams = {
               searchText: this.searchString,
               from: 0,
-              limit: this.recordsPerPage
+              limit: this.recordsPerPage,
+              filtersMap: this.globalFilter
             }
             // search all
             this.isSearching = true;
@@ -256,6 +261,11 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       // save search input ref in global var
       this.searchString = this.searchInput.value;
 
+      if (this.searchString.length === 0) {
+        // trigger search get request
+        this.searchGetRequest({});
+      }
+
       // preparing get query params for the search get request
       const params = {
         q: this.searchString,
@@ -271,10 +281,10 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // trigger search action
   searchGetRequest(queryParams: any) {
-    if (queryParams.q && queryParams.q.length === 0) { return; }
     this.router.navigate(['/search'], {
       queryParams: queryParams
     });
+    return false;
   }
 
   // Media Popup
