@@ -22,6 +22,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 
 import { Store } from '@ngrx/store';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-search',
@@ -60,6 +61,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   channels: any[];
   artists: any[];
   posts: any[];
+  globalFilter: any;
 
   constructor(
     private router: Router,
@@ -70,6 +72,9 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     private profileStore: Store<ProfileModal>,
     @Inject(DOCUMENT) private document: Document
   ) {
+
+    // init global filters
+    this.resetFilters();
 
     /* ================== load current user ========= */
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
@@ -125,9 +130,28 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
+  // reset global filters
+  resetFilters() {
+    this.globalFilter = { profile: [], channel: [], post: [] };
+  }
+
+  // profile filter action
+  profileFilterAction(e: any, parentNode: string) {
+    if (e.target.checked && e.target.checked === true) {
+      // append info the global filter
+      this.globalFilter.profile.push({ key: parentNode, value: e.target.value });
+    } else {
+      // remove info from global filter
+      this.globalFilter.profile = _.remove(this.globalFilter.profile, function(obj) {
+        return !(obj.key === parentNode && obj.value === e.target.value);
+      });
+    }
+    // console.log('global filters status: ', this.globalFilter);
+  }
+
   // update filter on checking on the filter elements
-  updateFilter(e: any) {
-    // console.log(e.target.value);
+  updateFilter(e: any, parentNode: string) {
+    console.log(parentNode);
     if (e.target.checked && e.target.checked === true) {
       console.log('checked value: ', e.target.value);
     } else {
