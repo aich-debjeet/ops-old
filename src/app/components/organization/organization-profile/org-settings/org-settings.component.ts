@@ -114,6 +114,7 @@ export class OrgSettingsComponent implements OnInit {
     if (tab === 'general') {
       this.render.setElementClass(event.target, 'active', true);
       this.selectedView = true;
+      this.store.dispatch({type: OrganizationActions.GET_ORGANIZATION_BY_HANDLE, payload: this.organizationHandle});
     }
     if (tab === 'admin') {
       this.store.dispatch({type: OrganizationActions.GET_MEMBERS, payload: this.organizationHandle});
