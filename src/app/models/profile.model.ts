@@ -31,6 +31,7 @@ export class ProfileModal {
   dir_list_loaded: boolean;
   dir_list: any;
   people_follow_scroll_id: any;
+  user_following_post_scroll_id: any;
   user_posts: any;
   user_posts_loading: boolean;
   user_posts_loaded: boolean;
@@ -105,6 +106,7 @@ export const initialTag: ProfileModal = {
   user_posts: [],
   user_posts_loading: false,
   user_posts_loaded: false,
+  user_following_post_scroll_id: '',
   // User foolowing Posts
   user_following_posts: [],
   user_following_posts_loading: false,

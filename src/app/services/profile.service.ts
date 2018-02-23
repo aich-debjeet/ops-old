@@ -365,8 +365,9 @@ export class ProfileService {
    * @param payload get posts followed by the user
    */
   getUserFollowingPosts(payload: any) {
-    const params = payload.handle + '/' + payload.page_start + '/' + payload.page_end;
-    return this.api.get('/portal/network/spotfeed/following/posts/spotfeeds/', params);
+    console.log(payload)
+    // const params = payload.handle + '/' + payload.page_start + '/' + payload.page_end;
+    return this.api.post('/portal/network/spotfeed/homepage/post', payload);
   }
   /**
    * Post to Media

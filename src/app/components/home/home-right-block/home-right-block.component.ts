@@ -37,7 +37,7 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
   imageBaseUrl: string = environment.API_IMAGE;
   people_follow_id: any = '';
   scrolling = 0;
-  scrollingLoad = 1000;
+  scrollingLoad = 100;
 
   constructor(
     private store: Store<ProfileModal>
@@ -65,6 +65,7 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
         this.userState = event;
         if (event['user_profiles_all'] !== 'undefined') {
           this.profiles = event.user_profiles_all;
+          console.log(this.profiles)
         }
 
         // check for user skills
@@ -136,18 +137,19 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
   loadProfiles() {
     this.store.dispatch({ type: ProfileActions.LOAD_ALL_PROFILES, payload: {
       'isHuman' : '1' ,
-      'limit': 10,
+      // 'limit': 10,
       'name': {
         'scrollId': this.people_follow_id
        }
       }});
   }
-  onScroll(e) {
-    // console.log(e)
+  onScrol(e) {
+     console.log(e)
     this.scrolling = e.currentScrollPosition;
-    // console.log(this.scrolling)
+    console.log(this.scrolling)
     if (this.scrollingLoad <= this.scrolling) {
-      this.scrollingLoad += 500;
+      console.log('scrolling')
+      this.scrollingLoad += 100;
       this.loadProfiles();
     }
   }

@@ -314,13 +314,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
 
   case ProfileActions.LOAD_USER_FOLLOWING_POSTS_SUCCESS:
-    const followingPosts = payload;
+  console.log(payload)
+    const followingPosts = payload.mediaResponse;
     const following_new_post = state.user_following_posts.concat(followingPosts)
     return Object.assign({}, state, {
       mediaEntity: payload,
       user_following_posts_loaded: true,
       user_following_posts_loading: false,
-      user_following_posts: following_new_post
+      user_following_posts: following_new_post,
+      user_following_post_scroll_id: payload.scrollId
     });
 
   case ProfileActions.LOAD_USER_FOLLOWING_POSTS_FAILED:
@@ -788,10 +790,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         user_profiles_all_loaded: false
       });
     case ProfileActions.LOAD_ALL_PROFILES_SUCCESS:
-    console.log(payload)
+      console.log(payload)
+      const profile_list = state.user_profiles_all.concat(payload.profileResponse)
       return Object.assign({}, state, {
         user_profiles_all_loaded: true,
-        user_profiles_all: payload.profileResponse,
+        user_profiles_all: profile_list,
         people_follow_scroll_id: payload.scrollId
       });
 

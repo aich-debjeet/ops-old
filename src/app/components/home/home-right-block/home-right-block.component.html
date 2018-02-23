@@ -29,9 +29,9 @@
         </div>
       </div> -->
 
-    <div class="c-card m-t-8" infinite-scroll (scrolled)="onScroll($event)">
+    <div class="c-card m-t-8">
         <div class="c-text_md p-16 color-grey-dark f-w_600 text_uppercase ltr-space">People to follow</div>
-        <div class="c-follow__sec">
+        <div class="c-follow__sec" infinite-scroll (scrolled)="onScrol($event)" [scrollWindow]="false">
             <div class="c-invite__block" *ngFor="let profileItem of profiles">
                 <div *ngIf="!profileItem.extra.isFollowing">
                     <a class="c-user__avatar c-avatar--status">
