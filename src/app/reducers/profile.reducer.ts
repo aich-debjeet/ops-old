@@ -791,7 +791,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
     case ProfileActions.LOAD_ALL_PROFILES_SUCCESS:
       console.log(payload)
-      const profile_list = state.user_profiles_all.concat(payload.profileResponse)
+      const resp = payload.profileResponse;
+      const profile_list = state.user_profiles_all.concat(resp)
       return Object.assign({}, state, {
         user_profiles_all_loaded: true,
         user_profiles_all: profile_list,
