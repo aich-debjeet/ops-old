@@ -820,12 +820,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.LOAD_DIRECTORY_SUCCESS:
       const list = payload['profileResponse'];
-      const dir_list = state.dir_list.concat(list)
+      const dir_lists = state.dir_list.concat(list)
       return Object.assign({}, state, {
         user_directory_scroll_id: payload['scrollId'],
         dir_list_loading: false,
         dir_list_loaded: true,
-        dir_list: dir_list,
+        dir_list: dir_lists,
       });
 
     /**
