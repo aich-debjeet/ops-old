@@ -630,12 +630,6 @@ export class MediaSelectorComponent implements OnInit {
     return tagList;
   }
 
-  /**
-   * Send an Update
-   */
-  updateStatus(state: number) {
-    this.profileStore.dispatch({ type: ProfileActions.CHANGE_DWC_MEDIA_STATE, payload: state });
-  }
 
   /**
    * Extract Tag from Body
@@ -664,22 +658,13 @@ export class MediaSelectorComponent implements OnInit {
     const string = this.desc
     const results = string.match(REGEX_HASHTAG);
 
-    //  DWC Specific things
-    const dwcList = ['DWCIQHIPHOP', 'DWICIQCLASSICAL', 'DWICIQFOLK', 'DWCIQBALLET'];
 
     // const tag = [];
     if (results) {
       results.forEach(function(element) {
         const newVal = element.replace('#', '');
         tag.push(newVal);
-        if (newVal === 'dwc') {
-          isDwcThing = 2;
-        }
       });
-    }
-
-    if (isDwcThing >  1 ) {
-      this.updateStatus(3);
     }
 
     return tag
