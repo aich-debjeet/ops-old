@@ -111,16 +111,16 @@
                         </div>
                         <div class="col-md-10">
                             <div class="col-md-12 col-sm-12 col-xs-12 p-0">
-                                <ngx-carousel [inputs]="carouselOne">
-                                    <button NgxCarouselPrev class='leftRs'>&lt;</button>
-                                    <button NgxCarouselNext class='rightRs'>&gt;</button>
-                                    <ngx-tile NgxCarouselItem *ngFor="let quickAccess of userQuickAccess.userQuickAccess; let i = index">
+                                <ngu-carousel [inputs]="carouselOne">
+                                    <button NguCarouselPrev class='leftRs'>&lt;</button>
+                                    <button NguCarouselNext class='rightRs'>&gt;</button>
+                                    <ngu-tile NguCarouselItem *ngFor="let quickAccess of userQuickAccess.userQuickAccess; let i = index">
                                         <div class="c-qt">
                                             <app-quick-access [quickAccessData]="quickAccess"></app-quick-access>
                                         </div>
-                                    </ngx-tile>
+                                    </ngu-tile>
 
-                                </ngx-carousel>
+                                </ngu-carousel>
                             </div>
                         </div>
                     </div>

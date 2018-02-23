@@ -1,4 +1,3 @@
-import { AddTagsToVaultInput } from 'aws-sdk/clients/glacier';
 import { ActionReducer, Action } from '@ngrx/store';
 import { initialTag, ProfileModal, ProfileCards, UserCard} from '../models/profile.model';
 

@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { TabComponents  } from '../../../shared/tabs/tabset';
 import { ProfileHelper } from '../../../helpers/profile.helper';
 
-import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
+import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
 
 @Component({
   selector: 'app-profile-block',
@@ -41,7 +41,7 @@ export class ProfileBlockComponent implements OnInit {
   imageBaseUrl = environment.API_IMAGE;
   userHandle: string;
   channelPinSuccess = false;
-  carouselOne: NgxCarousel;
+  carouselOne: NguCarousel;
   openChannel: boolean;
 
   constructor(
@@ -98,7 +98,7 @@ export class ProfileBlockComponent implements OnInit {
       point: {
         visible: true,
         pointStyles: `
-          .ngxcarouselPoint {
+          .ngucarouselPoint {
             list-style-type: none;
             text-align: center;
             padding: 12px;
@@ -112,7 +112,7 @@ export class ProfileBlockComponent implements OnInit {
             box-sizing: border-box;
             display: none;
           }
-          .ngxcarouselPoint li {
+          .ngucarouselPoint li {
             display: inline;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.55);
@@ -120,7 +120,7 @@ export class ProfileBlockComponent implements OnInit {
             margin: 0 3px;
             transition: .4s ease all;
           }
-          .ngxcarouselPoint li.active {
+          .ngucarouselPoint li.active {
               background: white;
               width: 10px;
           }

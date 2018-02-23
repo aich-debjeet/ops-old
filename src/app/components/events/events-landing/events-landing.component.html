@@ -1,9 +1,9 @@
 <app-navigation></app-navigation>
 <div class="o-event-top-slider">
     <div class="eventslider">
-        <ngx-carousel [inputs]="carouselOne" [moveToSlide]="1" (onMove)="onmoveFn($event)" (afterCarouselViewed)="afterCarouselViewedFn($event)">
+        <ngu-carousel [inputs]="carouselOne">
 
-            <ngx-item NgxCarouselItem class="bannerStyle">
+            <ngu-item NguCarouselItem class="bannerStyle">
                 <div class="o-event-slider__media">
                     <img src="{{ baseUrl }}img/e4.jpg">
                     <div class="o-event-slider_info-txt">
@@ -17,9 +17,9 @@
                         </div>
                     </div>
                 </div>
-            </ngx-item>
+            </ngu-item>
 
-            <ngx-item NgxCarouselItem class="bannerStyle">
+            <ngu-item NguCarouselItem class="bannerStyle">
                 <div class="o-event-slider__media">
                     <img src="{{ baseUrl }}img/e1.jpg">
                     <div class="o-event-slider_info-txt">
@@ -33,9 +33,9 @@
                         </div>
                     </div>
                 </div>
-            </ngx-item>
+            </ngu-item>
 
-            <ngx-item NgxCarouselItem class="bannerStyle">
+            <ngu-item NguCarouselItem class="bannerStyle">
                 <div class="o-event-slider__media">
                     <img src="{{ baseUrl }}img/e3.jpg">
                     <div class="o-event-slider_info-txt">
@@ -49,9 +49,9 @@
                         </div>
                     </div>
                 </div>
-            </ngx-item>
+            </ngu-item>
 
-            <ngx-item NgxCarouselItem class="bannerStyle">
+            <ngu-item NguCarouselItem class="bannerStyle">
                 <div class="o-event-slider__media">
                     <img src="{{ baseUrl }}img/e3.jpg">
                     <div class="o-event-slider_info-txt">
@@ -65,11 +65,11 @@
                         </div>
                     </div>
                 </div>
-            </ngx-item>
+            </ngu-item>
 
-            <button NgxCarouselPrev class='leftRs'>&lt;</button>
-            <button NgxCarouselNext class='rightRs'>&gt;</button>
-        </ngx-carousel>
+            <button NguCarouselPrev class='leftRs'>&lt;</button>
+            <button NguCarouselNext class='rightRs'>&gt;</button>
+        </ngu-carousel>
 
     </div>
 </div>

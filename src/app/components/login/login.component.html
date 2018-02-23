@@ -1,13 +1,10 @@
 <app-navigation-logo></app-navigation-logo>
-
 <section class="container-fluid ops_signup ops_signin">
     <div class="container">
         <div class="row">
-            <div *ngIf="petTag.page_loading">
-                <div class="sticky">
-                    <div class="loader">Loading...</div>
-                </div>
-            </div>
+            <!-- <div *ngIf="petTag.page_loading">
+                <div class="sticky"><div class="loader">Loading...</div></div>
+            </div> -->
             <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_left">
                 <img width="100%;" [src]="imageBaseUrl + 'img/login_illustration.png'" alt="">
                 <div class="ops_heading text-center">
@@ -25,7 +22,7 @@
                                 <span class="c-form__highlight"></span>
                                 <span class="c-form__bar"></span>
                                 <label>Username/ Phone Number/ Email</label>
-                                <p class="c-form__validation" *ngIf="loginForm.controls['email'].errors?.required && myform.submitted">Username is required</p>
+                                <p class="c-form__validation hide" [ngClass]="{'show' : loginForm.controls['email'].errors?.required && myform.submitted}">Username is required</p>
                             </div>
                         </div>
                     </div>
@@ -39,17 +36,13 @@
                     <p class="c-form__validation m-t-b-8" *ngIf="petTag?.error_description">{{petTag?.error_description}}</p>
 
                     <div class="signup_privacy">
-                        <p class="text-grey">
-                            <a routerLink="/account/password_reset" class="text-theme">Forgot Password ?</a>
-                        </p>
-                        <button type="button" [className]="'btn btn-primary btn-lg pull-right'" [type]="'submit'">LOG IN</button>
+                        <p class="text-grey"><a routerLink="/account/password_reset" class="text-theme">Forgot Password ?</a></p>
+                        <button type="button" [className]="'btn btn-primary btn-lg pull-right'" [disabled]="petTag.page_loading" [ngClass]="{'sending' : petTag.page_loading}" [type]="'submit'" data-disable-with="...">LOG IN</button>
                     </div>
-
                 </form>
                 <!-- //form -->
             </div>
         </div>
     </div>
 </section>
-
 <app-footer></app-footer>
