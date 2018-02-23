@@ -35,6 +35,9 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
   recordsPerPage = 2;
   opportunities: any[];
   imageBaseUrl: string = environment.API_IMAGE;
+  people_follow_id: any = '';
+  scrolling = 0;
+  scrollingLoad = 100;
 
   constructor(
     private store: Store<ProfileModal>
@@ -44,8 +47,7 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.store.dispatch({ type: ProfileActions.LOAD_ALL_PROFILES, payload: '' });
-
+    this.loadProfiles();
     // observe the opportunity state
     this.subscription = this.opportunityState$.subscribe((state) => {
      // check for the result of recommended opportunities
@@ -54,11 +56,16 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
      }
    });
 
-    this.profilesubscription = this.myProfile$.subscribe(event => {
+    this.profilesubscription = this.myProfile$.subscribe((event) => {
+      if (event.user_profiles_all_loaded) {
+        this.people_follow_id = event.people_follow_scroll_id
+        // console.log(this.people_follow_id)
+      }
       if (typeof event !== 'undefined') {
         this.userState = event;
         if (event['user_profiles_all'] !== 'undefined') {
           this.profiles = event.user_profiles_all;
+          // console.log(this.profiles)
         }
 
         // check for user skills
@@ -126,6 +133,25 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
       return true;
     }
     return false;
+  }
+  loadProfiles() {
+    this.store.dispatch({ type: ProfileActions.LOAD_ALL_PROFILES, payload: {
+      'isHuman' : '1' ,
+      // 'limit': 10,
+      'name': {
+        'scrollId': this.people_follow_id
+       }
+      }});
+  }
+  onScrol(e) {
+    //  console.log(e)
+    this.scrolling = e.currentScrollPosition;
+    // console.log(this.scrolling)
+    if (this.scrollingLoad <= this.scrolling) {
+      // console.log('scrolling')
+      this.scrollingLoad += 100;
+      this.loadProfiles();
+    }
   }
 
   ngOnDestroy() {

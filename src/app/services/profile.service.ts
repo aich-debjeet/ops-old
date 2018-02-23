@@ -365,8 +365,9 @@ export class ProfileService {
    * @param payload get posts followed by the user
    */
   getUserFollowingPosts(payload: any) {
-    const params = payload.handle + '/' + payload.page_start + '/' + payload.page_end;
-    return this.api.get('/portal/network/spotfeed/following/posts/spotfeeds/', params);
+    // console.log(payload)
+    // const params = payload.handle + '/' + payload.page_start + '/' + payload.page_end;
+    return this.api.post('/portal/network/spotfeed/homepage/post', payload);
   }
   /**
    * Post to Media
@@ -397,7 +398,7 @@ export class ProfileService {
    */
   getLoggedInUserFollowingChannel(body: any) {
     // const params = value.handle + '/' + value.page_start + '/' + value.page_end;
-    console.log(body)
+    // console.log(body)
     return this.api.post('/portal/network/spotfeed/homepage/channel', body);
   }
 
@@ -425,9 +426,10 @@ export class ProfileService {
   /**
    * [TEMP] Get all profiles
    */
-  getAllProfiles() {
+  getAllProfiles(body: any) {
+    // console.log(body)
     // return this.api.get('/portal/profile/0/50', '');
-    return this.api.get('/portal/profile/by/postCount/profileResponse');
+    return this.api.post('/portal/search/people/tofollow', body);
   }
 
   /**

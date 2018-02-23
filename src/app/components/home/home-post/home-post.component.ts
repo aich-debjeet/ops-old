@@ -30,7 +30,8 @@ export class HomePostComponent implements OnInit, OnDestroy {
   sum = 10;
   total_pages = 10;
   scrolling = 0;
-  scrollingLoad = 10000;
+  scrollingLoad = 6000;
+  post_scroll_id: any = '';
 
   constructor(
     private http: Http,
@@ -41,15 +42,19 @@ export class HomePostComponent implements OnInit, OnDestroy {
     this.posts = [];
     this.subscription = this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      this.posts = this.userProfile.user_following_posts;
-
+      if (state.user_following_posts_loaded) {
+        this.posts = this.userProfile.user_following_posts;
+        // console.log(this.posts)
+        this.post_scroll_id = state.user_following_post_scroll_id
+      }
       if (state['profile_navigation_details'].handle) {
         this.handle = this.userProfile.profile_navigation_details.handle;
          this.isOwner = true;
         // this.posts = [];
         if (this.handle && !this.postsLoaded) {
+          // console.log('post')
           this.postsLoaded = true;
-          this.postLoad(this.handle);
+          this.postLoad();
         }
       }
     });
@@ -72,11 +77,14 @@ export class HomePostComponent implements OnInit, OnDestroy {
     // });
   }
 
-  postLoad(handle) {
+  postLoad() {
+    // console.log('handle')
     const data = {
-      handle: handle,
-      page_start: this.page_start,
-      page_end: this.page_end
+      // handle: handle,
+      // page_start: this.page_start,
+      // page_end: this.page_end
+      limit: 10,
+      // scrollId: this.post_scroll_id,
     }
     this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
   }
@@ -89,12 +97,21 @@ export class HomePostComponent implements OnInit, OnDestroy {
     }
   }
   onScroll(e) {
+    // console.log(e)
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
-      this.scrollingLoad += 10000
-      this.page_start = this.page_start + 30;
-      this.page_end = 30;
-      this.postLoad(this.handle);
+      this.scrollingLoad += 6000
+      // this.page_start = this.page_start + 30;
+      // this.page_end = 30;
+      // this.postLoad();
+      const data = {
+        // handle: handle,
+        // page_start: this.page_start,
+        // page_end: this.page_end
+        // limit: 10,
+        scrollId: this.post_scroll_id,
+      }
+      this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
     }
   }
 
