@@ -65,7 +65,7 @@
                 <div class="o-search-left-block p-24">
                     
                     <!-- Profiles -->
-                    <div *ngIf="searchFilters.profile">
+                    <div *ngIf="searchFilters?.profile">
                         <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Profiles</h6>
                         <div class="o-search-filter-block p-l-8">
                             <div *ngFor="let profileElems of searchFilters?.profile" >
@@ -75,7 +75,7 @@
                                         <ng-container *ngIf="filter?.name !== ''">
                                             <div class="form-check">
                                                 <label for="{{ profileElems?.title + filter?.name | strReplace:[' ', '_'] }}">{{ filter?.name }} 
-                                                    <input (change)="profileFilterAction($event, profileElems?.title)" id="{{ profileElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
+                                                    <input (click)="profileFilterAction($event, profileElems?.title)" id="{{ profileElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
                                                 </label>
                                             </div>
                                         </ng-container>
@@ -87,7 +87,7 @@
                     <!-- Profiles -->
 
                     <!-- Posts -->
-                    <div *ngIf="searchFilters.post">
+                    <div *ngIf="searchFilters?.post">
                         <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Posts</h6>
                         <div class="o-search-filter-block p-l-8">
                             <div *ngFor="let postElems of searchFilters?.post" >
@@ -97,7 +97,7 @@
                                         <ng-container *ngIf="filter?.name !== ''">
                                             <div class="form-check">
                                                 <label for="{{ postElems?.title + filter?.name | strReplace:[' ', '_'] }}">{{ filter?.name }} 
-                                                    <input (change)="updateFilter($event)" id="{{ postElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
+                                                    <input (change)="postFilterAction($event, postElems?.title)" id="{{ postElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
                                                 </label>
                                             </div>
                                         </ng-container>
@@ -109,7 +109,7 @@
                     <!-- Posts -->
 
                     <!-- Channels -->
-                    <div *ngIf="searchFilters.channel">
+                    <div *ngIf="searchFilters?.channel">
                         <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Channels</h6>
                         <div class="o-search-filter-block p-l-8">
                             <div *ngFor="let channelElems of searchFilters?.channel" >

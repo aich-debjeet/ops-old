@@ -90,7 +90,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       console.log(this.searchState);
       if (state && state['search_filters']) {
         this.searchFilters = state['search_filters'];
-        console.log(this.searchFilters);
+        // console.log(this.searchFilters);
       }
       if (state && (state.searching_all === false || state.searching_people === false || state.searching_post === false || state.searching_channel === false)) {
           this.isSearching = false;
@@ -162,13 +162,40 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     this.searchGetRequest(params);
   }
 
+  // post filter action
+  postFilterAction(e: any, parentNode: string) {
+    if (e.target.checked && e.target.checked === true) {
+      const postFilterOpt = { key: parentNode, value: e.target.value };
+      // check if object already available in the global filters
+      if (!_.find(this.globalFilter.post, postFilterOpt)) {
+        this.globalFilter.post.push(postFilterOpt);
+      }
+      // console.log('this.globalFilter.post', this.globalFilter.post);
+    } else {
+      // remove info from global filter
+      this.globalFilter.post = _.remove(this.globalFilter.post, function(obj) {
+        return !(obj.key === parentNode && obj.value === e.target.value);
+      });
+    }
+    // console.log('global filters status: ', this.globalFilter);
+    // preparing get query params for the search get request
+    const params = {
+      q: this.searchString,
+      type: this.searchType,
+      filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+    };
+
+    // trigger search get request
+    this.searchGetRequest(params);
+  }
+
   // update filter on checking on the filter elements
   updateFilter(e: any, parentNode: string) {
-    console.log(parentNode);
+    // console.log(parentNode);
     if (e.target.checked && e.target.checked === true) {
-      console.log('checked value: ', e.target.value);
+      // console.log('checked value: ', e.target.value);
     } else {
-      console.log('unchecked value: ', e.target.value);
+      // console.log('unchecked value: ', e.target.value);
     }
   }
 
