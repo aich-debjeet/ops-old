@@ -314,7 +314,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
 
   case ProfileActions.LOAD_USER_FOLLOWING_POSTS_SUCCESS:
-  console.log(payload)
+  // console.log(payload)
     const followingPosts = payload.mediaResponse;
     const following_new_post = state.user_following_posts.concat(followingPosts)
     return Object.assign({}, state, {
@@ -790,7 +790,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         user_profiles_all_loaded: false
       });
     case ProfileActions.LOAD_ALL_PROFILES_SUCCESS:
-      console.log(payload)
+      // console.log(payload)
       const resp = payload.profileResponse;
       const profile_list = state.user_profiles_all.concat(resp)
       return Object.assign({}, state, {
@@ -867,7 +867,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       default_notification: []
     });
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_SUCCESS:
-    console.log(payload)
+    // console.log(payload)
     return Object.assign({}, state, {
       default_notification: payload.settings.notificationSettings,
       adult_Content: payload.settings.allowARC,

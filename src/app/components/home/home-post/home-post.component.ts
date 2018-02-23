@@ -44,7 +44,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
       this.userProfile = state;
       if (state.user_following_posts_loaded) {
         this.posts = this.userProfile.user_following_posts;
-        console.log(this.posts)
+        // console.log(this.posts)
         this.post_scroll_id = state.user_following_post_scroll_id
       }
       if (state['profile_navigation_details'].handle) {
@@ -52,7 +52,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
          this.isOwner = true;
         // this.posts = [];
         if (this.handle && !this.postsLoaded) {
-          console.log('post')
+          // console.log('post')
           this.postsLoaded = true;
           this.postLoad();
         }
@@ -78,7 +78,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   }
 
   postLoad() {
-    console.log('handle')
+    // console.log('handle')
     const data = {
       // handle: handle,
       // page_start: this.page_start,
@@ -97,7 +97,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
     }
   }
   onScroll(e) {
-    console.log(e)
+    // console.log(e)
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
       this.scrollingLoad += 6000

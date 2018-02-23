@@ -59,13 +59,13 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
     this.profilesubscription = this.myProfile$.subscribe((event) => {
       if (event.user_profiles_all_loaded) {
         this.people_follow_id = event.people_follow_scroll_id
-        console.log(this.people_follow_id)
+        // console.log(this.people_follow_id)
       }
       if (typeof event !== 'undefined') {
         this.userState = event;
         if (event['user_profiles_all'] !== 'undefined') {
           this.profiles = event.user_profiles_all;
-          console.log(this.profiles)
+          // console.log(this.profiles)
         }
 
         // check for user skills
@@ -144,11 +144,11 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
       }});
   }
   onScrol(e) {
-     console.log(e)
+    //  console.log(e)
     this.scrolling = e.currentScrollPosition;
-    console.log(this.scrolling)
+    // console.log(this.scrolling)
     if (this.scrollingLoad <= this.scrolling) {
-      console.log('scrolling')
+      // console.log('scrolling')
       this.scrollingLoad += 100;
       this.loadProfiles();
     }
