@@ -15,24 +15,24 @@
 </div>
 <div class="o-dwc-detail-top-slider">
     <section class="dwc">
-        <ngx-carousel [inputs]="dwcSlider" [moveToSlide]="1" (onMove)="onmoveFn($event)" (afterCarouselViewed)="afterCarouselViewedFn($event)">
-            <ngx-item NgxCarouselItem class="bannerStyle">
+        <ngu-carousel [inputs]="dwcSlider" (onMove)="onmoveFn($event)" (afterCarouselViewed)="afterCarouselViewedFn($event)">
+            <ngu-item NguCarouselItem class="bannerStyle">
                 <div class="o-dwc-top-banner">
                 </div>
-            </ngx-item>
-            <ngx-item NgxCarouselItem class="bannerStyle">
+            </ngu-item>
+            <ngu-item NguCarouselItem class="bannerStyle">
                 <div class="o-dwc-top-banner2">
                 </div>
-            </ngx-item>
-            <ngx-item NgxCarouselItem class="bannerStyle">
+            </ngu-item>
+            <ngu-item NguCarouselItem class="bannerStyle">
                 <div class="o-dwc-top-banner3">
                 </div>
-            </ngx-item>
-            <ngx-item NgxCarouselItem class="bannerStyle">
+            </ngu-item>
+            <ngu-item NguCarouselItem class="bannerStyle">
                 <div class="o-dwc-top-banner3">
                 </div>
-            </ngx-item>
-            <button NgxCarouselPrev class='leftRs'>
+            </ngu-item>
+            <button NguCarouselPrev class='leftRs'>
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
                     <defs>
                         <polygon id="arrow-copy-6-a" points="15.276 4.001 8 11.942 15.276 19.882 16.75 18.531 10.713 11.942 16.75 5.351"/>
@@ -42,7 +42,7 @@
                     </g>
                 </svg>
             </button>
-            <button NgxCarouselNext class='rightRs'>
+            <button NguCarouselNext class='rightRs'>
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
                 <defs>
                     <polygon id="arrow-copy-5-a" points="15.526 4.119 8.25 12.06 15.526 20 17 18.649 10.963 12.06 17 5.469"/>
@@ -52,7 +52,7 @@
                 </g>
             </svg>
         </button>
-        </ngx-carousel>
+        </ngu-carousel>
     </section>
 </div>
 

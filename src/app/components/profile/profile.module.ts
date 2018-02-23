@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ImageCropperModule } from 'ng2-img-cropper';
-import { MasonryModule } from 'angular2-masonry';
+import { NgxMasonryModule } from 'ngx-masonry';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 
@@ -26,8 +26,8 @@ import { AboutCoverComponent } from './about-cover/about-cover.component';
 import { ProfileHelper } from '../../helpers/profile.helper';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-import { NgxCarouselModule } from 'ngx-carousel';
-import 'hammerjs';
+import { NguCarouselModule } from '@ngu/carousel';
+// import 'hammerjs';
 
 
 
@@ -87,12 +87,12 @@ const routes: Routes = [
     SharedModule,
     SharedPipesModule,
     RouterModule.forChild(routes),
-    MasonryModule,
+    NgxMasonryModule,
     ReactiveFormsModule,
     FormsModule,
     TextMaskModule,
     ImageCropperModule,
-    NgxCarouselModule,
+    NguCarouselModule,
     InfiniteScrollModule
   ],
   declarations: [

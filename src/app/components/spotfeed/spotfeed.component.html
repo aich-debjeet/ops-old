@@ -55,11 +55,11 @@
                     [infiniteScrollThrottle]="10"
                     (scrolled)="onScroll($event)"
                     *ngIf="spotfeedDetails?.spotfeedMedia && (spotfeedDetails?.spotfeedMedia)?.length > 0" >
-                        <masonry [useImagesLoaded]="true">
-                            <masonry-brick class="col-md-3" *ngFor="let post of spotfeedDetails?.spotfeedMedia; let i = index">
+                        <ngx-masonry [useImagesLoaded]="true">
+                            <ngx-masonry-item class="col-md-3" *ngFor="let post of spotfeedDetails?.spotfeedMedia; let i = index">
                                 <app-post-card  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)" [mediaData]="post"></app-post-card>
-                            </masonry-brick>
-                        </masonry>
+                            </ngx-masonry-item>
+                        </ngx-masonry>
                     </div>
 
                     <div class="col-md-12" *ngIf="(spotfeedDetails?.spotfeedMedia)?.length == 0">
