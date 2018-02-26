@@ -14,7 +14,6 @@ import { ClaimProfileReducer } from './reducers/claim-profile.reducer';
 
 import { combineReducers, ActionReducer } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
-import { compose } from '@ngrx/core/compose';
 import { environment } from '../environments/environment';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
