@@ -180,17 +180,17 @@
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@borodean/jsonp/-/jsonp-1.2.0.tgz#c26b70c0ef34f53144a91a3f563ccbc3591bf276"
 
-"@ngrx/effects@^4.1.1":
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-4.1.1.tgz#cb758b8527964b258ea41951f59aa144e3ef9fae"
+"@ngrx/effects@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-2.0.4.tgz#418eee5e1032fa66de5bbf1855653bb1951f12a4"
 
-"@ngrx/store-devtools@^4.1.1":
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-4.1.1.tgz#20745c39c7560fdc05fa4f22638442a7ec7dd676"
+"@ngrx/store-devtools@^3.2.4":
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-3.2.4.tgz#2ce4d13bf34848a9e51ec87e3b125ed67b51e550"
 
-"@ngrx/store@^4.1.1":
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-4.1.1.tgz#680e34df2775e8852754ed777ffac95bd81b7de0"
+"@ngrx/store@^2.2.3":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-2.2.3.tgz#e7bd1149f1c44208f1cc4744353f0f98a0f1f57b"
 
 "@ngtools/json-schema@1.2.0":
   version "1.2.0"
@@ -4250,9 +4250,9 @@ ng2-utils@^0.5.0:
     "@types/js-beautify" "0.0.28"
     js-beautify "^1.6.4"
 
-ngrx-store-freeze@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/ngrx-store-freeze/-/ngrx-store-freeze-0.2.1.tgz#04fb29db33cafda0f2d6ea32adeaac4891b1b27b"
+ngrx-store-freeze@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/ngrx-store-freeze/-/ngrx-store-freeze-0.1.9.tgz#b20f18f21fd5efc4e1b1e05f6f279674d0f70c81"
   dependencies:
     deep-freeze-strict "^1.1.1"
 
