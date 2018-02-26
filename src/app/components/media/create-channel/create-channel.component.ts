@@ -127,6 +127,7 @@ export class CreateChannelComponent implements OnInit {
       title: ['', Validators.required ],
       type: ['', Validators.required ],
       desc: ['', Validators.required ],
+      mediaType: ['', Validators.required ],
       privacy: [0, Validators.required ]
     })
   }
@@ -135,7 +136,7 @@ export class CreateChannelComponent implements OnInit {
    * Limit Channel Media Type based on Selection
    * @param type
    */
-  channelTypeConfig(type: number) {
+  channelTypeConfig(type) {
     let flag;
     switch (type) {
       case 1:
@@ -162,12 +163,14 @@ export class CreateChannelComponent implements OnInit {
    */
   createChannel(value: any) {
     this.prepareHashtags(value.desc);
+    console.log(value.mediaType);
     // const userHandle = this.profileChannel.profile_navigation_details.handle || '';
-    const mediaTypeList = this.channelTypeConfig(this.channelType);
+    const mediaTypeList = this.channelTypeConfig(Number(value.mediaType));
 
     // set profile handle to user handle
     const profileHandle = this.activeUser.handle;
 
+    console.log(mediaTypeList);
     if ( this.channelForm.valid === true && profileHandle !== '' ) {
 
       if (!this.hashTags) {
@@ -194,14 +197,6 @@ export class CreateChannelComponent implements OnInit {
     }
   }
 
-  /**
-   * Close
-   */
-  closeChannelCreation(input: any) {
-    this.router.navigate(['.', { outlets: { media: null } }], {
-      relativeTo: this.route.parent
-    });
-  }
 
   ngOnInit() {
     // Loading industry list
