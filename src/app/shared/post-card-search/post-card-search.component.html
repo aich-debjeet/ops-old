@@ -1,6 +1,6 @@
 <div class="o-post-result-block">
   <div *ngIf="post?.mtype === 'image'" class="o-post-result__prof-pic">
-    <a routerLink="{{ '/profile/u/' + post?.ownerUserName }}" class="c-artist__avatar">
+    <a [routerLink]="['', { outlets: { media : ['media', post?.id] } }]" class="c-artist__avatar">
         <img *ngIf="post?.repopath; else no_post_image" src="{{ baseUrl + post?.repopath }}" class="c-artist__img">
         <ng-template #no_post_image>
           <img src="{{ baseUrl }}img/avatar.jpg" class="c-artist__img">
@@ -8,7 +8,7 @@
     </a>
   </div>
   <div *ngIf="post?.mtype === 'video'" class="o-post-result__prof-pic">
-    <a routerLink="{{ '/profile/u/' + post?.ownerUserName }}" class="c-artist__avatar">
+    <a [routerLink]="['', { outlets: { media : ['media', post?.id] } }]" class="c-artist__avatar">
         <img *ngIf="post?.thumbNail; else no_video_thumb" src="{{ baseUrl + post?.thumbNail }}" class="c-artist__img">
         <ng-template #no_video_thumb>
           <img src="{{ baseUrl }}img/avatar.jpg" class="c-artist__img">
@@ -19,7 +19,7 @@
     </span>
   </div>
   <div *ngIf="post?.mtype === 'audio'" class="o-post-result__prof-pic">
-    <a routerLink="{{ '/profile/u/' + post?.ownerUserName }}" class="c-artist__avatar">
+    <a [routerLink]="['', { outlets: { media : ['media', post?.id] } }]" class="c-artist__avatar">
         <img *ngIf="post?.thumbNail; else no_audio_thumb" src="{{ baseUrl + post?.thumbNail }}" class="c-artist__img">
         <ng-template #no_audio_thumb>
           <img src="{{ baseUrl }}img/avatar.jpg" class="c-artist__img">
