@@ -21,6 +21,7 @@ export class SearchPeopleComponent implements OnInit {
   searchState$: Observable<SearchModel>;
   searchState: any;
   baseUrl: string;
+  showPreloader = false;
 
   artists: any[];
 
@@ -44,8 +45,17 @@ export class SearchPeopleComponent implements OnInit {
     this.searchState$.subscribe((state) => {
       this.searchState = state;
       // console.log('this.searchState', this.searchState);
-      if (state && state['search_people_data'] && state['search_people_data']['profileResponse']) {
-        this.artists = state['search_people_data']['profileResponse'];
+      if (state) {
+        if (typeof state['search_people_data'] !== 'undefined' && state['search_people_data']['profileResponse']) {
+          this.artists = state['search_people_data']['profileResponse'];
+        }
+        // hide preloader
+        if (typeof state['searching_people'] !== 'undefined'
+          && state['searching_people'] === false
+          && typeof state['search_people_success'] !== 'undefined'
+          && state['search_people_success'] === true) {
+          this.showPreloader = false;
+        }
       }
     });
 
@@ -65,6 +75,7 @@ export class SearchPeopleComponent implements OnInit {
   onScroll(e) {
     this.scrolling = e.currentScrollPosition;
     if (this.canScroll === true && this.scrollingLoad <= this.scrolling) {
+      this.showPreloader = true;
       this.canScroll = false;
       this.scrollingLoad += 500;
       // check if it's first request
