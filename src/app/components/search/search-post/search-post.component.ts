@@ -24,6 +24,7 @@ export class SearchPostComponent implements OnInit {
   searchState$: Observable<SearchModel>;
   searchState: any;
   baseUrl: string;
+  showPreloader = true;
 
   posts: any[];
 
@@ -48,8 +49,17 @@ export class SearchPostComponent implements OnInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       this.searchState = state;
-      if (state && state['search_post_data'] && state['search_post_data']['mediaResponse']) {
-        this.posts = state['search_post_data']['mediaResponse'];
+      if (state) {
+        if (typeof state['search_post_data'] !== 'undefined' && state['search_post_data']['mediaResponse']) {
+          this.posts = state['search_post_data']['mediaResponse'];
+        }
+        // hide preloader
+        if (typeof state['searching_post'] !== 'undefined'
+          && state['searching_post'] === false
+          && typeof state['search_post_success'] !== 'undefined'
+          && state['search_post_success'] === true) {
+          this.showPreloader = false;
+        }
       }
     });
 
@@ -67,6 +77,7 @@ export class SearchPostComponent implements OnInit {
   onScroll(e) {
     this.scrolling = e.currentScrollPosition;
     if (this.canScroll === true && this.scrollingLoad <= this.scrolling) {
+      this.showPreloader = true;
       this.canScroll = false;
       this.scrollingLoad += 500;
       // check if it's first request
