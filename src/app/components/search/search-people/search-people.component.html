@@ -10,12 +10,12 @@
             <div class="o-search-people__name width100 c-text_lg f-w_600">{{ artist?.name | truncate:[12, '...'] }}</div>
             <div class="o-search-people__det width100 c-text_md color-grey-dark m-b-8">@{{ artist?.extra?.username }}</div>
             <div class="o-search-people__followers width100">
-                <div class="c-text_sm float_left text_uppercase ltr-space">{{ artist?.followersCount }}<span class="color-grey-dark">Followers</span></div>
+                <div class="c-text_sm float_left text_uppercase ltr-space">{{ artist?.followersCount }} <span class="color-grey-dark">Followers</span></div>
                 <div class="c-text_sm float_left text_uppercase ltr-space p-l-16">{{ artist?.extra?.postCount }} <span class="color-grey-dark">Posts</span></div>
             </div>
             <!-- <button type="button" class="btn btn-primary btn-sm m-t-8">Unfollow</button> -->
             <div *ngIf="artist?.extra?.isImported; else not_imported">
-                <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="o-people-result__follow-btn">CLAIM</a>
+                <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="o-people-result__follow-btn o-people-result__claim-btn">CLAIM</a>
             </div>
             <ng-template #not_imported>
                 <button (click)="unfollowUser(artist)" *ngIf="artist?.extra?.isFollowing" type="button" class="btn btn-xs btn-basic btn-following">UNFOLLOW</button>
