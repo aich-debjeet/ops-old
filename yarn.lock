@@ -180,6 +180,10 @@
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@borodean/jsonp/-/jsonp-1.2.0.tgz#c26b70c0ef34f53144a91a3f563ccbc3591bf276"
 
+"@ngrx/core@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/core/-/core-1.2.0.tgz#882b46abafa2e0e6d887cb71a1b2c2fa3e6d0dc6"
+
 "@ngrx/effects@^2.0.4":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-2.0.4.tgz#418eee5e1032fa66de5bbf1855653bb1951f12a4"
