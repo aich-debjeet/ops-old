@@ -52,6 +52,7 @@ export class CreateChannelComponent implements OnInit {
   baseImageLink: string = environment.API_IMAGE;
   industries: any[];
   selectedIndustry = '';
+  selectedChannel = '';
   hashTags: string[];
   activeUser: UserCard;
 
@@ -92,7 +93,6 @@ export class CreateChannelComponent implements OnInit {
           this.activeUser = activeUser;
 
           if (this.channelSavedHere && this.channelSaved === true ) {
-            this.switchToStep(3);
             this.createChannelForm();
             this.channelSavedHere = false;
           }
@@ -100,22 +100,9 @@ export class CreateChannelComponent implements OnInit {
       });
     }
 
-
-  showCreatechannelform(channelType: number) {
-    this.channelType = channelType;
-    this.typeSelected = true;
-  }
-
-  selectChannelType(channelType: number) {
-    this.channelType = channelType;
-    this.switchToStep(2);
-  }
-
-  /**
-   * switch between steps step
-   */
-  switchToStep(stepNum: any) {
-    this.stepNumber = stepNum;
+  ngOnInit() {
+    // Loading industry list
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   /**
@@ -197,11 +184,6 @@ export class CreateChannelComponent implements OnInit {
     }
   }
 
-
-  ngOnInit() {
-    // Loading industry list
-    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
-  }
 
   /**
    * Check for hashtags in Desc
