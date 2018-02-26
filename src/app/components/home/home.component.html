@@ -29,15 +29,15 @@
             <div class="c-text_md-bold text-uppercase m-l-8">
                 Quick Access
             </div>
-            <ngx-carousel [inputs]="carouselOne">
-                <button NgxCarouselPrev class='leftRs'>&lt;</button>
-                <button NgxCarouselNext class='rightRs'>&gt;</button>
-                <ngx-tile NgxCarouselItem *ngFor="let quickAccess of quickList; let i = index">
+            <ngu-carousel [inputs]="carouselOne">
+                <button NguCarouselPrev class='leftRs'>&lt;</button>
+                <button NguCarouselNext class='rightRs'>&gt;</button>
+                <ngu-tile NguCarouselItem *ngFor="let quickAccess of quickList; let i = index">
                     <div class="c-qt">
                         <app-quick-access [quickAccessData]="quickAccess"></app-quick-access>
                     </div>
-                </ngx-tile>
-            </ngx-carousel>
+                </ngu-tile>
+            </ngu-carousel>
 
         </div>
         <div class="o-home-tab-sec with_border_top c-ops__tabs o-opportunity-tabs">

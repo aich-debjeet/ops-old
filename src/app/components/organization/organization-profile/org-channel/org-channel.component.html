@@ -4,11 +4,11 @@
         <div class="loader">Loading...</div>
       </div>
   </div>
-  <masonry>
-      <masonry-brick class="col-md-3 col-sm-6 c-card padding_8" *ngFor="let channel of channels; let i = index">
+  <ngx-masonry>
+      <ngx-masonry-item class="col-md-3 col-sm-6 c-card padding_8" *ngFor="let channel of channels; let i = index">
           <app-channel [currentUser]="isOwner" [channelData]="channel" (onFollow)="followChannel($event)" (onDelete)="deleteChannel($event)"></app-channel>
-      </masonry-brick>
-  </masonry>
+      </ngx-masonry-item>
+  </ngx-masonry>
 
   <div *ngIf="orgProfile?.org_channels_loaded && channels.length < 1 && isOwner === true " class="empty__state">
     <h4>You have no channels</h4>

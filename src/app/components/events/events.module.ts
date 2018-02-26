@@ -8,8 +8,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { EventsCreateComponent } from './events-create/events-create.component';
 import { EventsInnerComponent } from './events-inner/events-inner.component';
 import { EventsLandingComponent } from './events-landing/events-landing.component';
-import { NgxCarouselModule } from 'ngx-carousel';
-import 'hammerjs';
+import { NguCarouselModule } from '@ngu/carousel';
+// import 'hammerjs';
 import { EventsCarditemComponent } from './events-carditem/events-carditem.component';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -52,7 +52,7 @@ const routes: Routes = [
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
-    NgxCarouselModule,
+    NguCarouselModule,
     DpDatePickerModule,
     HttpClientModule,
     NgxfUploaderModule.forRoot(),

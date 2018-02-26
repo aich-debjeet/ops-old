@@ -6,7 +6,7 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "dist",
+      "outDir": "dist/browser",
       "assets": [
         "assets",
         "favicon.ico"
@@ -25,13 +25,45 @@
         "../node_modules/ngx-toastr/toastr.css",
         "styles.scss"
       ],
-      "scripts": [],
+      "scripts": [
+        "assets/js/imagesloaded.pkgd.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
         "dev2": "environments/environment.dev2.ts",
         "prod": "environments/environment.prod.ts",
         "staging": "environments/environment.staging.ts"
+      }
+    },
+    {
+      "platform": "server",
+      "root": "src",
+      "outDir": "dist/server",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.server.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.server.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "../node_modules/videogular2/fonts/videogular.css",
+        "../node_modules/medium-editor/dist/css/medium-editor.min.css",
+        "assets/css/choices.min.css",
+        "../node_modules/ngx-toastr/toastr.css",
+        "styles.scss"
+      ],
+      "scripts": [
+        "assets/js/imagesloaded.pkgd.min.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
       }
     }
   ],

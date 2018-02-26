@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DanceWorldCupComponent } from './dance-world-cup.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
-import { NgxCarouselModule } from 'ngx-carousel';
+import { NguCarouselModule } from '@ngu/carousel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DwcProgressBarComponent } from './dwc-progress-bar/dwc-progress-bar.component';
 import { DwcPaymentComponent } from './dwc-payment/dwc-payment.component';
@@ -43,7 +43,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule,
     ShareButtonsModule,
-    NgxCarouselModule,
+    NguCarouselModule,
     ReactiveFormsModule,
     TextMaskModule,
     FormsModule,

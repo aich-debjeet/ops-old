@@ -15,7 +15,6 @@ import { SharedActions } from '../../actions/shared.action';
 import { Observable } from 'rxjs/Observable';
 import { Subscription, ISubscription } from 'rxjs/Subscription';
 
-import { AngularMasonry, MasonryOptions } from 'angular2-masonry';
 @Component({
   selector: 'app-directory-list',
   templateUrl: './directory-list.component.html',
@@ -92,7 +91,9 @@ export class DirectoryListComponent implements OnInit, OnDestroy {
       status: this.selectedOption,
       offset: this.page_start,
       limit: 20,
-      scrollId: '',
+      'name': {
+        'scrollId': this.dir_scroll_id
+      }
     }
     this._store.dispatch({ type: ProfileActions.LOAD_DIRECTORY, payload: data });
   }

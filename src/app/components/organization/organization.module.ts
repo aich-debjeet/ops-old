@@ -2,7 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ImageCropperModule } from 'ng2-img-cropper';
-import { MasonryModule } from 'angular2-masonry';
+import { NgxMasonryModule } from 'ngx-masonry';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DpDatePickerModule } from 'ng2-date-picker';
 
@@ -80,7 +80,7 @@ const routes: Routes = [
     FormsModule,
     SharedModule,
     ImageCropperModule,
-    MasonryModule,
+    NgxMasonryModule,
     TagInputModule,
     DpDatePickerModule
   ],

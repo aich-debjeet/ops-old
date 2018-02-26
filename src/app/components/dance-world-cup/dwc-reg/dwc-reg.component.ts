@@ -17,7 +17,7 @@ import { FormValidation, DatabaseValidator } from '../../../helpers/form.validat
 // Action
 import { EventActions } from '../../../actions/event.action'
 import { Profile } from 'selenium-webdriver/firefox';
-import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
+import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
 
 @Component({
   selector: 'app-dwc-reg',
@@ -42,7 +42,7 @@ export class DwcRegComponent implements OnInit {
   Age_Group = ['Mini - 9 years and under', 'Junior section - 17 years and under', 'Children – 13 years and under', 'Senior section - 25 years and under']
   Dance_Style = ['Hip Hop, Street Dance and Commercial', 'National, Folklore, Classical, Tribal', 'Modern, Contemporary', 'Classical Ballet, Jazz, Tap, Acro', 'Song and Dance'];
   @ViewChild('dwcModal') DwctypeModal: Modal;
-  dwcSlider: NgxCarousel;
+  dwcSlider: NguCarousel;
   hideSchoolName = false;
   imageBaseUrl = environment.API_IMAGE;
 
@@ -97,7 +97,7 @@ export class DwcRegComponent implements OnInit {
       point: {
         visible: false,
         pointStyles: `
-          .ngxcarouselPoint {
+          .ngucarouselPoint {
             list-style-type: none;
             text-align: center;
             padding: 12px;
@@ -110,7 +110,7 @@ export class DwcRegComponent implements OnInit {
             left: 0;
             box-sizing: border-box;
           }
-          .ngxcarouselPoint li {
+          .ngucarouselPoint li {
             display: inline-block;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.55);
@@ -118,7 +118,7 @@ export class DwcRegComponent implements OnInit {
             margin: 0 3px;
             transition: .4s ease all;
           }
-          .ngxcarouselPoint li.active {
+          .ngucarouselPoint li.active {
               background: white;
               width: 10px;
           }

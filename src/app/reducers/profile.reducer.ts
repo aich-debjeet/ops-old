@@ -1,4 +1,3 @@
-import { AddTagsToVaultInput } from 'aws-sdk/clients/glacier';
 import { ActionReducer, Action } from '@ngrx/store';
 import { initialTag, ProfileModal, ProfileCards, UserCard} from '../models/profile.model';
 
@@ -314,13 +313,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
 
   case ProfileActions.LOAD_USER_FOLLOWING_POSTS_SUCCESS:
-    const followingPosts = payload;
+  // console.log(payload)
+    const followingPosts = payload.mediaResponse;
     const following_new_post = state.user_following_posts.concat(followingPosts)
     return Object.assign({}, state, {
       mediaEntity: payload,
       user_following_posts_loaded: true,
       user_following_posts_loading: false,
-      user_following_posts: following_new_post
+      user_following_posts: following_new_post,
+      user_following_post_scroll_id: payload.scrollId
     });
 
   case ProfileActions.LOAD_USER_FOLLOWING_POSTS_FAILED:
@@ -788,9 +789,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         user_profiles_all_loaded: false
       });
     case ProfileActions.LOAD_ALL_PROFILES_SUCCESS:
+      // console.log(payload)
+      const resp = payload.profileResponse;
+      const profile_list = state.user_profiles_all.concat(resp)
       return Object.assign({}, state, {
         user_profiles_all_loaded: true,
-        user_profiles_all: payload
+        user_profiles_all: profile_list,
+        people_follow_scroll_id: payload.scrollId
       });
 
     case ProfileActions.LOAD_ALL_PROFILES_FAILED:
@@ -815,12 +820,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.LOAD_DIRECTORY_SUCCESS:
       const list = payload['profileResponse'];
-      const dir_list = state.dir_list.concat(list)
+      const dir_lists = state.dir_list.concat(list)
       return Object.assign({}, state, {
         user_directory_scroll_id: payload['scrollId'],
         dir_list_loading: false,
         dir_list_loaded: true,
-        dir_list: dir_list,
+        dir_list: dir_lists,
       });
 
     /**
@@ -861,6 +866,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       default_notification: []
     });
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_SUCCESS:
+    // console.log(payload)
     return Object.assign({}, state, {
       default_notification: payload.settings.notificationSettings,
       adult_Content: payload.settings.allowARC,
