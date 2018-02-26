@@ -1,7 +1,15 @@
-<div infinite-scroll (scrolled)="onScroll($event)" class="m-0 row p-t-16 float_left">
+<div infinite-scroll (scrolled)="onScroll($event)" class="m-0 row p-t-16 float_left m-b-50">
     <div class="col-12">
         <div *ngFor="let channel of channels" class="col-md-3 p-0 p-r-10 p-b-10">
             <app-channel [channelData]="channel"></app-channel>
         </div>
     </div>
 </div>
+
+<!-- preloader -->
+<div class="w100 clb" *ngIf="showPreloader === true">
+    <div class="sticky">
+        <div class="loader">Loading...</div>
+    </div>
+</div>
+<!-- preloader -->

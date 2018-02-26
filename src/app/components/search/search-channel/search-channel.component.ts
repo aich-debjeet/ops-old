@@ -21,6 +21,7 @@ export class SearchChannelComponent implements OnInit {
   searchState$: Observable<SearchModel>;
   searchState: any;
   baseUrl: string;
+  showPreloader = true;
 
   channels: any[];
 
@@ -44,8 +45,17 @@ export class SearchChannelComponent implements OnInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       this.searchState = state;
-      if (state && state['search_channel_data'] && state['search_channel_data']['spotFeedResponse']) {
-        this.channels = state['search_channel_data']['spotFeedResponse'];
+      if (state) {
+        if (typeof state['search_channel_data'] !== 'undefined' && state['search_channel_data']['spotFeedResponse']) {
+          this.channels = state['search_channel_data']['spotFeedResponse'];
+        }
+        // hide preloader
+        if (typeof state['searching_channel'] !== 'undefined'
+          && state['searching_channel'] === false
+          && typeof state['search_channel_success'] !== 'undefined'
+          && state['search_channel_success'] === true) {
+          this.showPreloader = false;
+        }
       }
     });
 
@@ -57,6 +67,7 @@ export class SearchChannelComponent implements OnInit {
   onScroll(e) {
     this.scrolling = e.currentScrollPosition;
     if (this.canScroll === true && this.scrollingLoad <= this.scrolling) {
+      this.showPreloader = true;
       this.canScroll = false;
       this.scrollingLoad += 500;
       // check if it's first request
