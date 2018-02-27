@@ -291,7 +291,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   }
 
   // User user exists
-  userExisitCheck(value) {
+  userExistCheck(value) {
     if (value.length >= 4) {
       this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
     } else {
