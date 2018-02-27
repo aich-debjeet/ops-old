@@ -744,6 +744,19 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.GET_FOLLOWER_PROFILES_FAILED, payload: res }))
     );
 
+  @Effect()
+    channelSuceess$ = this.actions$
+      .ofType(ProfileActions.CHANNEL_SAVE_SUCCESS)
+      .mergeMap((data) => {
+          console.log(data.payload.SUCCESS.owner);
+          // if (data.payload.latestLead_Id  !== null) {
+          //     return Observable.of({ type: LeadActions.LEAD_DETAIL, payload: data.payload.latestLead_Id.id });
+          this.router.navigate(['/channel/' + data.payload.SUCCESS.owner ])
+          // }
+          // return Observable.of(true);
+          return Observable.empty();
+      });
+
   constructor(
     private actions$: Actions,
     private router: Router,
