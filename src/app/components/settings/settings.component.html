@@ -243,7 +243,7 @@
                                                         <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.minlength">Username must be min length 4</p>
                                                         <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
                                                         <!-- <ul class="username_error" *ngIf="petTag.user_unique">
-                                                            <li *ngFor="let username of petTag?.user_exsist; let isLast=last">
+                                                            <li *ngFor="let username of petTag?.user_exist; let isLast=last">
                                                                 <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
                                                             </li>
                                                         </ul> -->

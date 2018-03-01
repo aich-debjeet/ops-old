@@ -117,6 +117,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
       if (typeof state !== 'undefined') {
         // console.log(state);
         this.petTag = state;
+        console.log(this.petTag['user_exist']);
 
         if (!this.claimingUserSet && state && state['claim_user_info'] && state['claim_user_info']['SUCCESS']['user']) {
           this.claimUserProfileDetails = state['claim_user_info']['SUCCESS']['user'];
