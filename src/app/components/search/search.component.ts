@@ -12,6 +12,9 @@ import { ProfileModal, initialTag } from '../../models/profile.model';
 import { environment } from './../../../environments/environment.prod';
 import { ActivatedRoute, Router } from '@angular/router';
 
+// helper functions
+import { ScrollHelper } from '../../helpers/scroll.helper';
+
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -19,6 +22,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 
 import { Store } from '@ngrx/store';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-search',
@@ -28,17 +32,16 @@ import { Store } from '@ngrx/store';
 export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('searchInput') searchInput;
-  @ViewChild('searchQueryElement') searchQueryElement;
 
-  activeTab = 'tab-all';
   baseUrl: string;
-  showSearchPlaceholder = true;
   isSearching = false;
   searchState$: Observable<SearchModel>;
   searchState: any;
   searchString = '';
   beforeSearch: boolean;
   routeSub: any;
+
+  searchFilters: any;
 
   lastScrollTop = 0;
   canScroll = true;
@@ -58,15 +61,20 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   channels: any[];
   artists: any[];
   posts: any[];
+  globalFilter: any;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private store: Store<SearchModel>,
     private mediaStore: Store<Media>,
+    private store: Store<SearchModel>,
+    private scrollHelper: ScrollHelper,
     private profileStore: Store<ProfileModal>,
     @Inject(DOCUMENT) private document: Document
   ) {
+
+    // init global filters
+    this.resetFilters();
 
     /* ================== load current user ========= */
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
@@ -79,7 +87,11 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       this.searchState = state;
-      // console.log(this.searchState);
+      console.log(this.searchState);
+      if (state && state['search_filters']) {
+        this.searchFilters = state['search_filters'];
+        // console.log(this.searchFilters);
+      }
       if (state && (state.searching_all === false || state.searching_people === false || state.searching_post === false || state.searching_channel === false)) {
           this.isSearching = false;
           this.beforeSearch = false;
@@ -90,24 +102,15 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       if (state && state['search_all_data'] && state['search_all_data']['profiles']) {
         this.all_artists = state['search_all_data']['profiles'];
       }
-      if (state && state['search_people_data'] && state['search_people_data']['profileResponse']) {
-        this.artists = state['search_people_data']['profileResponse'];
-      }
 
       // load global posts
       if (state && state['search_all_data'] && state['search_all_data']['posts']) {
         this.all_posts = state['search_all_data']['posts'];
       }
-      if (state && state['search_post_data'] && state['search_post_data']['mediaResponse']) {
-        this.posts = state['search_post_data']['mediaResponse'];
-      }
 
       // load global channels
       if (state && state['search_all_data'] && state['search_all_data']['channels']) {
         this.all_channels = state['search_all_data']['channels'];
-      }
-      if (state && state['search_channel_data'] && state['search_channel_data']['spotFeedResponse']) {
-        this.channels = state['search_channel_data']['spotFeedResponse'];
       }
 
       if (state
@@ -127,13 +130,80 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
+  // reset global filters
+  resetFilters() {
+    this.globalFilter = { profile: [], channel: [], post: [] };
+  }
+
+  // profile filter action
+  profileFilterAction(e: any, parentNode: string) {
+    if (e.target.checked && e.target.checked === true) {
+      const profFilterOpt = { key: parentNode, value: e.target.value };
+      // check if object already available in the global filters
+      if (!_.find(this.globalFilter.profile, profFilterOpt)) {
+        this.globalFilter.profile.push(profFilterOpt);
+      }
+      // console.log('this.globalFilter.profile', this.globalFilter.profile);
+    } else {
+      // remove info from global filter
+      this.globalFilter.profile = _.remove(this.globalFilter.profile, function(obj) {
+        return !(obj.key === parentNode && obj.value === e.target.value);
+      });
+    }
+    // console.log('global filters status: ', this.globalFilter);
+    // preparing get query params for the search get request
+    const params = {
+      q: this.searchString,
+      type: this.searchType,
+      filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+    };
+
+    // trigger search get request
+    this.searchGetRequest(params);
+  }
+
+  // post filter action
+  postFilterAction(e: any, parentNode: string) {
+    if (e.target.checked && e.target.checked === true) {
+      const postFilterOpt = { key: parentNode, value: e.target.value };
+      // check if object already available in the global filters
+      if (!_.find(this.globalFilter.post, postFilterOpt)) {
+        this.globalFilter.post.push(postFilterOpt);
+      }
+      // console.log('this.globalFilter.post', this.globalFilter.post);
+    } else {
+      // remove info from global filter
+      this.globalFilter.post = _.remove(this.globalFilter.post, function(obj) {
+        return !(obj.key === parentNode && obj.value === e.target.value);
+      });
+    }
+    // console.log('global filters status: ', this.globalFilter);
+    // preparing get query params for the search get request
+    const params = {
+      q: this.searchString,
+      type: this.searchType,
+      filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+    };
+
+    // trigger search get request
+    this.searchGetRequest(params);
+  }
+
+  // update filter on checking on the filter elements
+  updateFilter(e: any, parentNode: string) {
+    // console.log(parentNode);
+    if (e.target.checked && e.target.checked === true) {
+      // console.log('checked value: ', e.target.value);
+    } else {
+      // console.log('unchecked value: ', e.target.value);
+    }
+  }
+
   ngOnInit() {
     this.beforeSearch = true;
 
     this.routeSub = this.route.queryParams
       .subscribe(params => {
-        // console.log(params);
-
         // check if params available
         if (params && params.q && params.q.length > 0) {
 
@@ -141,14 +211,19 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
           this.searchString = params.q;
 
           // scroll to top on view switch
-          this.scrollToTop(200);
+          // this.scrollToTop(200);
+
+          if (params.filters) {
+            console.log('filters', JSON.parse(decodeURIComponent(params.filters)));
+          }
 
           // check if search is global
           if ((params.type && params.type === 'all') || !params.type) {
             const searchAllParams = {
               searchText: this.searchString,
               from: 0,
-              limit: this.recordsPerPage
+              limit: this.recordsPerPage,
+              filtersMap: this.globalFilter
             }
             // search all
             this.isSearching = true;
@@ -167,7 +242,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
                 isHuman: '1',
                 status: [],
                 offset: 0,
-                limit: 50,
+                limit: 10,
                 searchText: this.searchString
               }
               this.isSearching = true;
@@ -177,7 +252,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
             if (this.searchType === 'channel') {
               const searchChannelParams = {
                 offset: 0,
-                limit: 50,
+                limit: 10,
                 searchText: this.searchString
               }
               this.isSearching = true;
@@ -187,7 +262,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
             if (this.searchType === 'post') {
               const searchPostParams = {
                 offset: 0,
-                limit: 50,
+                limit: 10,
                 searchText: this.searchString
               }
               this.isSearching = true;
@@ -210,13 +285,33 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     .debounceTime(500)
     .subscribe(() => {
 
+      // save search input ref in global var
       this.searchString = this.searchInput.value;
-      // console.log('this.searchString', this.searchString);
-      if (this.searchString.length === 0) { return; }
-      this.router.navigate(['/search'], { queryParams: { q: this.searchString, type: this.searchType } });
+
+      if (this.searchString.length === 0) {
+        // trigger search get request
+        this.searchGetRequest({});
+      }
+
+      // preparing get query params for the search get request
+      const params = {
+        q: this.searchString,
+        type: this.searchType
+      };
+
+      // trigger search get request
+      this.searchGetRequest(params);
 
     });
 
+  }
+
+  // trigger search action
+  searchGetRequest(queryParams: any) {
+    this.router.navigate(['/search'], {
+      queryParams: queryParams
+    });
+    return false;
   }
 
   // Media Popup
@@ -228,89 +323,12 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   // see all results with the selected type
   seeAll(sType: string) {
     this.searchType = sType;
-    // console.log('this.searchType', this.searchType);
+    this.scrollHelper.scrollTop();
     this.router.navigate(['/search'], { queryParams: { q: this.searchString, type: this.searchType } });
   }
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
   }
-
-  /**
-   * Scroll event listener
-   */
-  @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
-    const scrolledValue = window.pageYOffset;
-    let scrollDirection = '';
-    if (scrolledValue > this.lastScrollTop) {
-      scrollDirection = 'down';
-    } else {
-      scrollDirection = 'up';
-    }
-    this.lastScrollTop = scrolledValue;
-
-    if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
-      // reached the bottom of the page
-      this.canScroll = false;
-      setTimeout(() => {
-        this.canScroll = true;
-      }, 1000);
-      // this.dispatchLoadMore();
-      console.log('reached bottom scroll more');
-    }
-  }
-
-  scrollToTop(scrollDuration) {
-    const scrollStep = -window.scrollY / (scrollDuration / 15),
-    scrollInterval = setInterval(function() {
-    if (window.scrollY !== 0) {
-      window.scrollBy( 0, scrollStep);
-    } else {
-      clearInterval(scrollInterval);
-    }
-    }, 15);
-  }
-
-  /**
-   * Load more results for active tab
-   */
-  // dispatchLoadMore() {
-  //   if (this.searchQueryElement.nativeElement.value && this.searchQueryElement.nativeElement.value.length > 0 && this.activeTab !== 'tab-all') {
-  //     this.showPreloader = true;
-  //   } else {
-  //     return;
-  //   }
-
-  //   if (this.activeTab === 'tab-people') {
-  //     const searchParams = {
-  //       query: this.searchQueryElement.nativeElement.value,
-  //       offset: this.searchState.search_people_params.offset + this.recordsPerPage,
-  //       limit: this.recordsPerPage
-  //     }
-  //     // search people
-  //     this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchParams });
-  //   }
-
-  //   if (this.activeTab === 'tab-post') {
-  //     const searchParams = {
-  //       query: this.searchQueryElement.nativeElement.value,
-  //       offset: this.searchState.search_post_params.offset + this.recordsPerPage,
-  //       limit: this.recordsPerPage
-  //     }
-  //     // search post
-  //     this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchParams });
-  //   }
-
-  //   if (this.activeTab === 'tab-channel') {
-  //     const searchParams = {
-  //       query: this.searchQueryElement.nativeElement.value,
-  //       offset: this.searchState.search_channel_params.offset + this.recordsPerPage,
-  //       limit: this.recordsPerPage
-  //     }
-  //     // search channel
-  //     this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchParams });
-  //   }
-
-  // }
 
 }

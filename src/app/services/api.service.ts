@@ -16,8 +16,8 @@ export class GeneralService {
 
   /* ------------------------- load channels ------------------------- */
   getChannels(req: any) {
-    let headers = new Headers();
-    let reqOptions = new RequestOptions({ headers: headers });
+    const headers = new Headers();
+    const reqOptions = new RequestOptions({ headers: headers });
 
     headers.append('Authorization', this.accessToken);
     headers.append('Content-Type', 'application/json');
@@ -31,11 +31,11 @@ export class GeneralService {
 
   /* ------------------------- pin/unpin channel ------------------------- */
   pinChannel(req: any) {
-    let headers = new Headers();
-    let reqOptions = new RequestOptions({ headers: headers });
-    let reqBody = JSON.stringify({
-      "spotfeedId": req.spotfeedHandle,
-      "profileHandle": req.profileHandle
+    const headers = new Headers();
+    const reqOptions = new RequestOptions({ headers: headers });
+    const reqBody = JSON.stringify({
+      spotfeedId: req.spotfeedHandle,
+      profileHandle: req.profileHandle
     });
 
     headers.append('Authorization', this.accessToken);
@@ -47,11 +47,11 @@ export class GeneralService {
   }
 
   unpinChannel(req: any) {
-    let headers = new Headers();
-    let reqOptions = new RequestOptions({ headers: headers });
-    let reqBody = JSON.stringify({
-      "spotfeedId": req.spotfeedHandle,
-      "profileHandle": req.profileHandle
+    const headers = new Headers();
+    const reqOptions = new RequestOptions({ headers: headers });
+    const reqBody = JSON.stringify({
+      spotfeedId: req.spotfeedHandle,
+      profileHandle: req.profileHandle
     });
 
     headers.append('Authorization', this.accessToken);
@@ -68,9 +68,9 @@ export class GeneralService {
 
   /* ------------------------- get logged in users media ------------------------- */
   getLoggedInUsersMedia(req: any) {
-    let headers = new Headers();
-    let reqOptions = new RequestOptions({ headers: headers });
-    let reqBody = JSON.stringify(req);
+    const headers = new Headers();
+    const reqOptions = new RequestOptions({ headers: headers });
+    const reqBody = JSON.stringify(req);
 
     headers.append('Authorization', this.accessToken);
     headers.append('Content-Type', 'application/json');
@@ -82,25 +82,25 @@ export class GeneralService {
 
   /* ------------------------- get logged in users messages ------------------------- */
   getAllMessages(param: string) {
-    let headers = new Headers();
-    let reqOptions = new RequestOptions({ headers: headers });
+    const headers = new Headers();
+    const reqOptions = new RequestOptions({ headers: headers });
 
     headers.append('Authorization', this.accessToken);
     headers.append('Content-Type', 'application/json');
 
-    return this.http.get(`${this.apiLink}/portal/message/`+param+'/'+this.userHandle, reqOptions)
+    return this.http.get(`${this.apiLink}/portal/message/` + param + '/' + this.userHandle, reqOptions)
         .map((data: Response) => { data = data.json() });
   }
   /* ------------------------- get logged in users messages ------------------------- */
 
   /* ------------------------- user search ------------------------- */
   userSearch() {
-    let headers = new Headers();
-    let reqOptions = new RequestOptions({ headers: headers });
-    let reqBody = JSON.stringify({
-      "isHuman": "1",
-      "limit": 10,
-      "offset": 0
+    const headers = new Headers();
+    const reqOptions = new RequestOptions({ headers: headers });
+    const reqBody = JSON.stringify({
+      isHuman: '1',
+      limit: 10,
+      offset: 0
     });
 
     headers.append('Authorization', this.accessToken);
@@ -114,8 +114,8 @@ export class GeneralService {
 
   /* ------------------------- send message ------------------------- */
   sendMessage(req: any) {
-    let headers = new Headers();
-    let reqOptions = new RequestOptions({ headers: headers });
+    const headers = new Headers();
+    const reqOptions = new RequestOptions({ headers: headers });
 
     headers.append('Authorization', this.accessToken);
     headers.append('Content-Type', 'application/json');

@@ -21,10 +21,15 @@ export class SearchPeopleComponent implements OnInit {
   searchState$: Observable<SearchModel>;
   searchState: any;
   baseUrl: string;
+  showPreloader = false;
 
   artists: any[];
-  searchString = '';
-  resultCount = '';
+
+  /* scroll */
+  canScroll = true;
+  scrolling = 0;
+  scrollingLoad = 800;
+  /* scroll */
 
   constructor(
     private store: Store<SearchModel>
@@ -39,9 +44,18 @@ export class SearchPeopleComponent implements OnInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       this.searchState = state;
-      console.log(this.searchState);
-      if (state && state['search_people_data'] && state['search_people_data']['profileResponse']) {
-        this.artists = state['search_people_data']['profileResponse'];
+      // console.log('this.searchState', this.searchState);
+      if (state) {
+        if (typeof state['search_people_data'] !== 'undefined' && state['search_people_data']['profileResponse']) {
+          this.artists = state['search_people_data']['profileResponse'];
+        }
+        // hide preloader
+        if (typeof state['searching_people'] !== 'undefined'
+          && state['searching_people'] === false
+          && typeof state['search_people_success'] !== 'undefined'
+          && state['search_people_success'] === true) {
+          this.showPreloader = false;
+        }
       }
     });
 
@@ -53,6 +67,31 @@ export class SearchPeopleComponent implements OnInit {
     //   return true;
     // }
     // return false;
+  }
+
+  /**
+   * While Scrolling trigger next api call
+   */
+  onScroll(e) {
+    this.scrolling = e.currentScrollPosition;
+    if (this.canScroll === true && this.scrollingLoad <= this.scrolling) {
+      this.showPreloader = true;
+      this.canScroll = false;
+      this.scrollingLoad += 500;
+      // check if it's first request
+      if (this.searchState && this.searchState['search_people_data'] && this.searchState['search_people_data']['scrollId']) {
+        this.store.dispatch({
+          type: SearchActions.SEARCH_PEOPLE,
+          payload: {
+            isHuman: '1',
+            name: { scrollId: this.searchState['search_people_data']['scrollId'] }
+          }
+        });
+      }
+      setTimeout(() => {
+        this.canScroll = true;
+      }, 1000);
+    }
   }
 
 }
