@@ -73,7 +73,7 @@
                 <div class="o-search-left-block p-24">
                     
                     <!-- Profiles -->
-                    <div *ngIf="searchFilters?.profile">
+                    <!-- <div *ngIf="searchFilters?.profile">
                         <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Profiles</h6>
                         <div class="o-search-filter-block p-l-8">
                             <div *ngFor="let profileElems of searchFilters?.profile" >
@@ -90,6 +90,30 @@
                                     </div>
                                 </ng-container>
                             </div>
+                        </div>
+                    </div> -->
+                    <!-- Profiles -->
+
+                    <!-- Profiles -->
+                    <div *ngIf="searchFilters?.profile">
+                        <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Profiles</h6>
+                        <div *ngFor="let profileElems of searchFilters?.profile" class="o-search-filter-block p-l-8">
+                            <tag-input
+                                [placeholder]="'Select Profession'"
+                                (onAdd)="profileSelectAction($event, profileElems?.title)"
+                                (onRemove)="profileDeselectAction($event, profileElems?.title)"
+                                [ngModel]="selectedProfileFilters"
+                                [secondaryPlaceholder]="'Select ' + profileElems?.title | firstCharCaps"
+                                [onlyFromAutocomplete]="true">
+                                <tag-input-dropdown
+                                    [displayBy]="'name'"
+                                    [showDropdownIfEmpty]="true"
+                                    [autocompleteItems]="profileElems?.filters">
+                                    <ng-template let-item="item" let-index="index">
+                                        {{ item.name }} ({{ item.count }})
+                                    </ng-template>
+                                </tag-input-dropdown>
+                            </tag-input>
                         </div>
                     </div>
                     <!-- Profiles -->

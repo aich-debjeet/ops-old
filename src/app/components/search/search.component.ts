@@ -132,22 +132,10 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     this.globalFilter = { profile: [], channel: [], post: [] };
   }
 
-  // profile filter action
-  profileFilterAction(e: any, parentNode: string) {
-    if (e.target.checked && e.target.checked === true) {
-      const profFilterOpt = { key: parentNode, value: e.target.value };
-      // check if object already available in the global filters
-      if (!_.find(this.globalFilter.profile, profFilterOpt)) {
-        this.globalFilter.profile.push(profFilterOpt);
-      }
-      // console.log('this.globalFilter.profile', this.globalFilter.profile);
-    } else {
-      // remove info from global filter
-      this.globalFilter.profile = _.remove(this.globalFilter.profile, function(obj) {
-        return !(obj.key === parentNode && obj.value === e.target.value);
-      });
-    }
-    // console.log('global filters status: ', this.globalFilter);
+  // profile selection
+  profileSelectAction(tag: any, parentNode: string) {
+    this.globalFilter.profile.push(tag.name);
+    console.log('global filters status: ', this.globalFilter);
     // preparing get query params for the search get request
     const params = {
       q: this.searchString,
@@ -158,6 +146,39 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     // trigger search get request
     this.searchGetRequest(params);
   }
+
+  // profile deselection
+  profileDeselectAction(tag: any, parentNode: string) {
+    console.log(tag);
+    console.log(parentNode);
+  }
+
+  // profile filter action
+  // profileFilterAction(e: any, parentNode: string) {
+  //   if (e.target.checked && e.target.checked === true) {
+  //     const profFilterOpt = { key: parentNode, value: e.target.value };
+  //     // check if object already available in the global filters
+  //     if (!_.find(this.globalFilter.profile, profFilterOpt)) {
+  //       this.globalFilter.profile.push(profFilterOpt);
+  //     }
+  //     // console.log('this.globalFilter.profile', this.globalFilter.profile);
+  //   } else {
+  //     // remove info from global filter
+  //     this.globalFilter.profile = _.remove(this.globalFilter.profile, function(obj) {
+  //       return !(obj.key === parentNode && obj.value === e.target.value);
+  //     });
+  //   }
+  //   // console.log('global filters status: ', this.globalFilter);
+  //   // preparing get query params for the search get request
+  //   const params = {
+  //     q: this.searchString,
+  //     type: this.searchType,
+  //     filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+  //   };
+
+  //   // trigger search get request
+  //   this.searchGetRequest(params);
+  // }
 
   // post filter action
   postFilterAction(e: any, parentNode: string) {
