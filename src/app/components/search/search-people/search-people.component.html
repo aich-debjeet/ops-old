@@ -1,49 +1,43 @@
-<div class="col-md-12 p-0 m-t--32">
-    <div class="o-search-result-block">
-        <div class="o-search-info-top">
-            <span *ngIf="resultCount" class="o-search-info_txt">Showing results for “<span class="c-text_md">{{ searchString }}</span>”</span>
-            <span class="o-search-result_count">{{ resultCount }} Results Found</span>
-        </div><!-- search info top -->
-
-        <div *ngIf="artists && artists.length === 0; else artists_found;">
-            <p class="result-not-found">Artists not found!</p>
+<div infinite-scroll (scrolled)="onScroll($event)" class="o-search-result-block m-t-16 p-b-24 m-b-50">
+    <div *ngFor="let artist of artists" class="o-search-people-single">
+        <div class="o-search-people__prof-pic">
+            <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist?.profileImage }}" alt="">
+            <ng-template #default_profile_image>
+                <img src="{{ baseUrl }}img/avatar.jpg" class="c-artist__img">
+            </ng-template>
         </div>
-
-        <ng-template #artists_found>
-            <div class="o-search-people-single" *ngFor="let artist of artists">
-                <div class="o-search-people__prof-pic">
-                    <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist?.profileImage }}" alt="">
-                    <ng-template #default_profile_image>
-                        <img src="{{ baseUrl }}img/avatar.jpg" class="c-artist__img">
-                    </ng-template>
-                </div>
-                <div class="o-search-people__info">
-                    <div class="o-search-people__name width100 c-text_lg f-w_600">{{ artist?.name | truncate:[12, '...'] }}</div>
-                    <div class="o-search-people__det width100 c-text_md color-grey-dark m-b-8">@{{ artist?.extra?.username }}</div>
-                    <div class="o-search-people__followers width100">
-                        <div class="c-text_sm float_left text_uppercase ltr-space">{{ artist?.followersCount }}<span class="color-grey-dark">followers</span></div>
-                        <div class="c-text_sm float_left text_uppercase ltr-space p-l-16">{{ artist?.extra?.postCount }} <span class="color-grey-dark">Posts</span></div>
-                    </div>
-                    <!-- <button type="button" class="btn btn-primary btn-sm m-t-8">Unfollow</button> -->
-                    <div *ngIf="artist?.extra?.isImported; else not_imported">
-                        <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="o-people-result__follow-btn">CLAIM</a>
-                    </div>
-                    <ng-template #not_imported>
-                        <button (click)="unfollowUser(artist)" *ngIf="artist?.extra?.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist?.extra?.username)" >UNFOLLOW</button>
-                        <button (click)="followUser(artist)" *ngIf="!artist?.extra?.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(artist?.extra?.username)" >FOLLOW</button>
-                    </ng-template>
-                </div><!-- people info end -->
-                <div class="o-search-people__post-img">
-                    <div class="o-search-people-post__block" style="background: url(assets/demo/new/s05.jpg); background-size: cover;"></div>
-                    <div class="o-search-people-post__block" style="background: url(assets/demo/new/s06.jpg); background-size: cover;"></div>
-                    <div class="o-search-people-post__block" style="background: url(assets/demo/new/s07.jpg); background-size: cover;"></div>
-                    <div class="o-search-people-post__block" style="background: url(assets/demo/new/s08.jpg); background-size: cover;"></div>
-                    <div class="o-search-people-post__block" style="background: url(assets/demo/new/s09.jpg); background-size: cover;">
-                        <a href="#" class="c-text_sm color-white o-search-people-post__seemore">see more</a>
-                    </div>
-                </div>
+        <div class="o-search-people__info">
+            <div class="o-search-people__name width100 c-text_lg f-w_600">{{ artist?.name | truncate:[12, '...'] }}</div>
+            <div class="o-search-people__det width100 c-text_md color-grey-dark m-b-8">@{{ artist?.extra?.username }}</div>
+            <div class="o-search-people__followers width100">
+                <div class="c-text_sm float_left text_uppercase ltr-space">{{ artist?.followersCount }} <span class="color-grey-dark">Followers</span></div>
+                <div class="c-text_sm float_left text_uppercase ltr-space p-l-16">{{ artist?.extra?.postCount }} <span class="color-grey-dark">Posts</span></div>
             </div>
-        </ng-template>
-        <!-- people result end -->
+            <!-- <button type="button" class="btn btn-primary btn-sm m-t-8">Unfollow</button> -->
+            <div *ngIf="artist?.extra?.isImported; else not_imported">
+                <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="o-people-result__follow-btn o-people-result__claim-btn">CLAIM</a>
+            </div>
+            <ng-template #not_imported>
+                <button (click)="unfollowUser(artist)" *ngIf="artist?.extra?.isFollowing" type="button" class="btn btn-xs btn-basic btn-following">UNFOLLOW</button>
+                <button (click)="followUser(artist)" *ngIf="!artist?.extra?.isFollowing" type="button" class="btn btn-xs btn-basic btn-following">FOLLOW</button>
+            </ng-template>
+        </div><!-- people info end -->
+        <div class="o-search-people__post-img">
+            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s05.jpg); background-size: cover;"></div>
+            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s06.jpg); background-size: cover;"></div>
+            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s07.jpg); background-size: cover;"></div>
+            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s08.jpg); background-size: cover;"></div>
+            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s09.jpg); background-size: cover;">
+                <a href="#" class="c-text_sm color-white o-search-people-post__seemore">see more</a>
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- preloader -->
+<div class="w100 clb" *ngIf="showPreloader === true">
+    <div class="sticky">
+        <div class="loader">Loading...</div>
+    </div>
+</div>
+<!-- preloader -->

@@ -35,7 +35,7 @@
                                 </ul>
                             </div>
                             <div class="form_group">
-                                <input tabindex="2" class="form_input" type="text" (ngModelChange)="userExisitCheck($event)" formControlName="username" required>
+                                <input tabindex="2" class="form_input" type="text" (ngModelChange)="userExistCheck($event)" formControlName="username" required>
                                 <span class="form_highlight"></span>
                                 <span class="form_bar_alert"></span>
                                 <label>Username</label>
@@ -46,7 +46,7 @@
                                 <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
                                 <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.invalidLength">Username length limit is 3 to 15 characters</p>
                                 <ul class="username_error" *ngIf="petTag.user_unique">
-                                    <li *ngFor="let username of petTag?.user_exsist; let isLast=last">
+                                    <li *ngFor="let username of petTag?.user_exist; let isLast=last">
                                         <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
                                     </li>
                                 </ul>
@@ -583,7 +583,7 @@
                 <div class="modal-content">
                     <div class="modal-header" style="border: none;">
                         <button type="button" class="close" data-dismiss="modal"></button>
-                        <h4 class="modal-title text-center"><img [src]="imageBaseLink + '/img/logo_black.png'" ></h4>
+                        <h4 class="modal-title text-center"><img [src]="imageBaseLink + 'img/logo_black.png'" ></h4>
                     </div>
                     <div class="row">
                         <div class="row mar-auto">

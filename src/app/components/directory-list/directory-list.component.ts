@@ -91,7 +91,9 @@ export class DirectoryListComponent implements OnInit, OnDestroy {
       status: this.selectedOption,
       offset: this.page_start,
       limit: 20,
-      scrollId: '',
+      'name': {
+        'scrollId': this.dir_scroll_id
+      }
     }
     this._store.dispatch({ type: ProfileActions.LOAD_DIRECTORY, payload: data });
   }

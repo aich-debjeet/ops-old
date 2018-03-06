@@ -10,6 +10,15 @@ export class ScrollHelper {
         this.classToScrollTo = className;
     }
 
+    scrollTop() {
+        try {
+            window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+        }
+        finally {
+            this.classToScrollTo = null;
+        }
+    }
+
     doScroll() {
         if (!this.classToScrollTo) {
             return;

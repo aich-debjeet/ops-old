@@ -195,15 +195,27 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.USER_EXISTS_SUCCESS:
       if (payload.code === 0) {
         return Object.assign({}, state, {
-          user_exsist: payload.Suggested,
           success: false,
           user_unique: true
         });
-      }else {
+      } else {
         return Object.assign({}, state, {
           completed: payload,
           success: false,
           user_unique: false
+        });
+      }
+
+    case AuthActions.USER_EXISTS_FAILED:
+      if (payload['_body']) {
+        return Object.assign({}, state, {
+          user_unique: true,
+          user_exist: JSON.parse(payload['_body']).Suggested
+        });
+      } else {
+        return Object.assign({}, state, {
+          user_unique: true,
+          success: false
         });
       }
 
