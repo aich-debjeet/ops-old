@@ -3,7 +3,7 @@
         <div class="o-search-people__prof-pic">
             <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist?.profileImage }}" alt="">
             <ng-template #default_profile_image>
-                <img src="{{ baseUrl }}img/avatar.jpg" class="c-artist__img">
+                <img src="{{ baseUrl }}img/avatar.png" class="c-artist__img">
             </ng-template>
         </div>
         <div class="o-search-people__info">
