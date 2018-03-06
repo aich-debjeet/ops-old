@@ -54,6 +54,7 @@ export class CreateChannelComponent implements OnInit {
   selectedIndustry = '';
   hashTags: string[];
   activeUser: UserCard;
+  toastrInterval = false;
 
   constructor(
     private fb: FormBuilder,
@@ -190,8 +191,15 @@ export class CreateChannelComponent implements OnInit {
       // console.log(channelObj)
       this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
     } else {
-      this.toastr.warning('Please fill all required fields');
+      if(this.toastrInterval === false){
+        this.toastrInterval = true;
+        this.toastr.warning('Please fill all required fields');
+        setTimeout(()=>{
+          this.toastrInterval = false;
+        },6000);
+      // this.toastr.warning('Please fill all required fields');
     }
+  }
   }
 
   /**
