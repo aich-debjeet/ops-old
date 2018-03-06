@@ -99,12 +99,12 @@
                         <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Profiles</h6>
                         <div *ngFor="let profileElems of searchFilters?.profile" class="o-search-filter-block p-l-8">
                             <tag-input
-                                [placeholder]="'Select Profession'"
                                 (onAdd)="profileSelectAction($event, profileElems?.title)"
                                 (onRemove)="profileDeselectAction($event, profileElems?.title)"
-                                [ngModel]="selectedProfileFilters"
+                                [ngModel]="filtersModel[profileElems?.title]"
                                 [secondaryPlaceholder]="'Select ' + profileElems?.title | firstCharCaps"
-                                [onlyFromAutocomplete]="true">
+                                [onlyFromAutocomplete]="true"
+                                [displayBy]="'label'">
                                 <tag-input-dropdown
                                     [displayBy]="'name'"
                                     [showDropdownIfEmpty]="true"

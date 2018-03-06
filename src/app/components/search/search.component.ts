@@ -61,6 +61,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   artists: any[];
   posts: any[];
   globalFilter: any;
+  filtersModel = [];
 
   constructor(
     private router: Router,
@@ -90,6 +91,18 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       if (state && state['search_filters']) {
         this.searchFilters = state['search_filters'];
         // console.log(this.searchFilters);
+      }
+      if (state && state['search_all_params'] && state['search_all_params']['filtersMap']['profile']) {
+        const profFil = state['search_all_params']['filtersMap']['profile'];
+        if (profFil.length > 0) {
+          this.filtersModel['PROFESSION'] = _.filter(profFil, (p) => p.key === 'PROFESSION');
+          this.filtersModel['PROFESSION'] = this.filtersModel['PROFESSION'].map((el) => {
+            const o = Object.assign({}, el);
+            o.label = el.value;
+            return o;
+          });
+          console.log('PROFESSION applied filters: ', this.filtersModel['PROFESSION']);
+        }
       }
       if (state && (state.searching_all === false || state.searching_people === false || state.searching_post === false || state.searching_channel === false)) {
           this.isSearching = false;
@@ -134,7 +147,8 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // profile selection
   profileSelectAction(tag: any, parentNode: string) {
-    this.globalFilter.profile.push(tag.name);
+    const profFilterOpt = { key: parentNode, value: tag.name };
+    this.globalFilter.profile.push(profFilterOpt);
     console.log('global filters status: ', this.globalFilter);
     // preparing get query params for the search get request
     const params = {
