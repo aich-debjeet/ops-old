@@ -43,6 +43,14 @@
   
   <section class="o-search-result-container">
       <div class="container">
+
+        <!-- preloader -->
+        <div *ngIf="isSearching && isSearching === true">
+            <div class="sticky">
+                <div class="loader">Loading...</div>
+            </div>
+        </div>
+        <!-- preloader -->
           
           <!-- search message -->
           <div class="o-search-empty" *ngIf="searchString?.length === 0 && !isSearching">
