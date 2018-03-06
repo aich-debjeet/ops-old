@@ -38,7 +38,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   searchState$: Observable<SearchModel>;
   searchState: any;
   searchString = '';
-  beforeSearch: boolean;
   routeSub: any;
 
   searchFilters: any;
@@ -94,7 +93,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       }
       if (state && (state.searching_all === false || state.searching_people === false || state.searching_post === false || state.searching_channel === false)) {
           this.isSearching = false;
-          this.beforeSearch = false;
           this.showPreloader = false;
       }
 
@@ -123,7 +121,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       }
       // if (state && state.searching_people === false && state.searching_post === false && state.searching_channel === false) {
       //   this.isSearching = false;
-      //   this.beforeSearch = false;
       //   this.showPreloader = false;
       // }
     });
@@ -200,7 +197,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-    this.beforeSearch = true;
 
     this.routeSub = this.route.queryParams
       .subscribe(params => {
