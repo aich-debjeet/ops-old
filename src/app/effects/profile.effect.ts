@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
+import { ToastrService } from 'ngx-toastr';
 import { Store } from '@ngrx/store';
 import {Observable} from 'rxjs/Rx'
 import 'rxjs/add/observable/of';
@@ -744,7 +745,17 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.GET_FOLLOWER_PROFILES_FAILED, payload: res }))
     );
 
+  // @Effect()
+  //   channelSuceess$ = this.actions$
+  //     .ofType(ProfileActions.CHANNEL_SAVE_SUCCESS)
+  //     .switchMap((data) => {
+  //         this.router.navigate(['/channel/' + data.payload.SUCCESS.id ])
+  //         this.toastr.success('You are awesome!', 'Success!');
+  //         return Observable.empty();
+  //     });
+
   constructor(
+    private toastr: ToastrService,
     private actions$: Actions,
     private router: Router,
     private profileService: ProfileService
