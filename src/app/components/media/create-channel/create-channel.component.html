@@ -1,124 +1,57 @@
-<div id="create_channel_pop" class="modal fade in" role="dialog" style="display: block; padding-right: 15px;">
-
-    <div class="modal-dialog">
-
-        <!-- step 1 -->
-        <div *ngIf="stepNumber === 1" id="create-channel-step-1" class="modal-body p-0">
-            <div class="pop-container-sm create-channel--pop">
-                <div class="pop-head m-b-32">
-                    <h5 class="c-h5 text-center">What is your channel about?</h5>
-                    <span class="pop-close" (click)="closeChannelCreation()">
-                        <a href="javascript:void(0)"><img src="https://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
-                    </span>
-                </div>
-                <!-- create channel head -->
-                <div class="create_channel__content">
-                    <ul class="channel-type">
-                        <li class="channel-type__list">
-                            <a (click)="selectChannelType(0)">
-                                <div class="channel-type__ico">
-                                    <img src="https://d33wubrfki0l68.cloudfront.net/f2366be80960584f4c4d6529f4ba75f75bed14d6/c563f/img/illu-all@4x.png" alt="">
-                                </div>
-                                <div class="channel-type__title">
-                                    <h3 class="c-text_md">A collection of all media type</h3>
-                                    <p class="c-text_sm color-grey-dark">Make a collection of photo, audio, video and blog</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="channel-type__list">
-                            <a (click)="selectChannelType(1)">
-                                <div class="channel-type__ico">
-                                    <img src="https://d33wubrfki0l68.cloudfront.net/526f4cd5b68d0ce27bed7c31650349673cdf9734/7391d/img/illu-image@4x.png" alt="">
-                                </div>
-                                <div class="channel-type__title">
-                                    <h3 class="c-text_md">Photo Album</h3>
-                                    <p class="c-text_sm color-grey-dark">Make an album of images</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="channel-type__list">
-                            <a (click)="selectChannelType(2)">
-                                <div class="channel-type__ico">
-                                    <img src="https://d33wubrfki0l68.cloudfront.net/9cfe36b2330d254d9d98a07c35906e5472c8fdc3/7bb7b/img/illu-audio@4x.png" alt="">
-                                </div>
-                                <div class="channel-type__title">
-                                    <h3 class="c-text_md">Audio Playlist</h3>
-                                    <p class="c-text_sm color-grey-dark">Create a playlist of your favorite Audio, Podcast etc </p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="channel-type__list">
-                            <a (click)="selectChannelType(3)">
-                                <div class="channel-type__ico">
-                                    <img src="https://d33wubrfki0l68.cloudfront.net/f554c7b812b555afa0a28e574e41334b4f308f31/82e90/img/illu-video@4x.png" alt="">
-                                </div>
-                                <div class="channel-type__title">
-                                    <h3 class="c-text_md">Video Library</h3>
-                                    <p class="c-text_sm color-grey-dark">Make a library of videos</p>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="channel-type__list m-b-0">
-                            <a (click)="selectChannelType(4)">
-                                <div class="channel-type__ico">
-                                    <img src="https://d33wubrfki0l68.cloudfront.net/623255b3fa225e1f096363dfad79e63bc5c7bdac/377c3/img/illu-blog@4x.png" alt="">
-                                </div>
-                                <div class="channel-type__title">
-                                    <h3 class="c-text_md">Publications</h3>
-                                    <p class="c-text_sm color-grey-dark">Make a collection of blogs</p>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- create channel content end -->
-            </div>
-            <!-- create channel container end -->
-        </div>
-        <!-- step 1 -->
-
-        <!-- step 2 -->
-        <div *ngIf="stepNumber === 2" id="create-channel-step-2" class="modal-body p-0">
+<app-route-modal #channelCreate modalClass="modal-channel__create">
+    <modal-content>
+        <div class="modal-body p-0">
             <div class="pop-container-sm create-channel--form">
                 <div class="pop-head m-b-32">
                     <h5 class="c-text_lg text-center">Create Channel</h5>
-                    <span class="pop-close" (click)="closeChannelCreation()">
-                        <a href="javascript:void(0)"><img src="https://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
-                    </span>
+                    <span class="pop-close">
+                    <a (click)="channelCreate.close()" ><img [src]="baseImageLink + 'img/svg/ico_close-38.svg'"></a>
+                </span>
                 </div>
                 <!-- create channel head -->
                 <div class="create_channel__content-form">
                     <form [formGroup]="channelForm" novalidate #myform="ngForm">
                         <div class="c-form__group m-b-16">
-                            <input class="c-form__input" formControlName="title" type="text">
+                            <input class="c-form__input" formControlName="title" required="" type="text">
                             <span class="c-form__highlight"></span>
                             <span class="c-form__bar"></span>
                             <label>Channel Name</label>
                         </div>
                         <div class="c-form__group m-b-16">
-                            <textarea formControlName="desc" class="c-textarea__block c-textarea--style " rows="4" data-min-rows="0" placeholder="About channel"></textarea>
+                            <textarea formControlName="desc" class="c-form__input" rows="2" required="" data-min-rows="0"></textarea>
                             <span class="c-form__highlight"></span>
                             <span class="c-form__bar"></span>
-                            <!-- <label>About channel</label> -->
+                            <label>About channel</label>
+                        </div>
+                        <p class="c-text_md color-grey-dark m-t-32" >Channel Type</p>
+                        <div class="c-form__group m-b-16">
+                            <select class="c-form-control p-0" formControlName="mediaType" [(ngModel)]="selectedChannel">
+                                <option value="" disabled="true" [selected]="!selectedChannel">Select Channel Type</option>
+                                <option value="5">Any</option>
+                                <option value="1">Image</option>
+                                <option value="2">Audio</option>
+                                <option value="3">Video</option>
+                                <option value="4">Text</option>
+                            </select>
                         </div>
                         <div class="channel-industry__block ">
                             <div class="c-form__group">
-                                <select formControlName="type" class="c-form-control p-0" id="sel1" [(ngModel)]="selectedIndustry">
-                                    <option value="" selected="">Industry</option>
+                                <select formControlName="type" class="c-form-control p-0" [(ngModel)]="selectedIndustry">
+                                    <option value="" disabled="true" [selected]="!selectedIndustry">Select Industry</option>
                                     <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="channel-public__block p-0">
                             <div class="c-form__group">
-                                <select formControlName="privacy" class="c-form-control p-0" id="sel1">
+                                <select formControlName="privacy" class="c-form-control p-0">
                                     <option value="0">Public</option>
                                     <option value="1">Private</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-12 p-0 text-right m-t-32">
-                            <button type="button" class="btn btn-default btn-md m-r-16" (click)="closeChannelCreation()">Cancel</button>
+                            <button type="button" class="btn btn-default btn-md m-r-16" (click)="channelCreate.close()">Cancel</button>
                             <button type="button" class="btn btn-primary btn-md" (click)="createChannel(channelForm.value)">Create</button>
                         </div>
                     </form>
@@ -127,30 +60,5 @@
             </div>
             <!-- create channel container end -->
         </div>
-        <!-- step 2 -->
-
-        <!-- step 3 -->
-        <div *ngIf="stepNumber === 3" id="create-channel-step-2" class="modal-body p-0">
-            <div class="pop-container-sm create-channel--form">
-                <div class="pop-head m-b-32">
-                    <h5 class="c-text_lg text-center"></h5>
-                    <span class="pop-close" (click)="closeChannelCreation()">
-                        <a href="javascript:void(0)"><img src="https://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt=""></a>
-                    </span>
-                </div>
-                <!-- create channel head -->
-                <div class="create_channel__content">
-                    <div class="create-channel__done-tic">
-                        <img width="135" src="{{ baseImageLink }}img/svg/channeltic.svg" alt="">
-                    </div>
-                    <h5 class="c-h5 m-b-32">Channel has been created<br>successfully</h5>
-                </div>
-                <!-- create channel content end -->
-            </div>
-            <!-- create channel container end -->
-        </div>
-        <!-- step 3 -->
-
-    </div>
-
-</div>
+    </modal-content>
+</app-route-modal>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
+import { ToastrService } from 'ngx-toastr';
 import { Store } from '@ngrx/store';
 import {Observable} from 'rxjs/Rx'
 import 'rxjs/add/observable/of';
@@ -745,6 +746,7 @@ export class ProfileEffect {
     );
 
   constructor(
+    private toastr: ToastrService,
     private actions$: Actions,
     private router: Router,
     private profileService: ProfileService

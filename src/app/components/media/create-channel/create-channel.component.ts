@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Router, ActivatedRoute } from '@angular/router';
@@ -13,7 +13,7 @@ import { AuthActions } from '../../../actions/auth.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
 // import { FileUploadService } from '../media/fakeService';
@@ -37,7 +37,7 @@ import { LocalStorageService } from './../../../services/local-storage.service';
   styleUrls: ['./create-channel.component.scss']
 })
 
-export class CreateChannelComponent implements OnInit {
+export class CreateChannelComponent implements OnInit, OnDestroy {
   typeSelected: boolean;
   stepNumber: number;
   channelForm: FormGroup;
@@ -52,9 +52,12 @@ export class CreateChannelComponent implements OnInit {
   baseImageLink: string = environment.API_IMAGE;
   industries: any[];
   selectedIndustry = '';
+  selectedChannel = '';
   hashTags: string[];
   activeUser: UserCard;
   toastrInterval = false;
+  private subscriptionOne: ISubscription;
+  private subscriptionTwo: ISubscription;
 
   constructor(
     private fb: FormBuilder,
@@ -77,14 +80,14 @@ export class CreateChannelComponent implements OnInit {
       }
 
       this.loginTagState$ = store.select('loginTags');
-      this.loginTagState$.subscribe((state) => {
+      this.subscriptionOne = this.loginTagState$.subscribe((state) => {
         if (typeof state !== 'undefined') {
           this.industries = state.industries;
         }
       });
 
       this.tagState$ = this.store.select('profileTags');
-      this.tagState$.subscribe((state) => {
+      this.subscriptionOne = this.tagState$.subscribe((state) => {
         if (typeof state !== 'undefined') {
           this.profileChannel = state;
           this.channelSaved = this.profileChannel.channel_saved;
@@ -93,7 +96,6 @@ export class CreateChannelComponent implements OnInit {
           this.activeUser = activeUser;
 
           if (this.channelSavedHere && this.channelSaved === true ) {
-            this.switchToStep(3);
             this.createChannelForm();
             this.channelSavedHere = false;
           }
@@ -101,22 +103,13 @@ export class CreateChannelComponent implements OnInit {
       });
     }
 
-
-  showCreatechannelform(channelType: number) {
-    this.channelType = channelType;
-    this.typeSelected = true;
+  ngOnInit() {
+    // Loading industry list
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
-  selectChannelType(channelType: number) {
-    this.channelType = channelType;
-    this.switchToStep(2);
-  }
-
-  /**
-   * switch between steps step
-   */
-  switchToStep(stepNum: any) {
-    this.stepNumber = stepNum;
+  ngOnDestroy() {
+    this.subscriptionOne.unsubscribe();
   }
 
   /**
@@ -128,6 +121,7 @@ export class CreateChannelComponent implements OnInit {
       title: ['', Validators.required ],
       type: ['', Validators.required ],
       desc: ['', Validators.required ],
+      mediaType: ['', Validators.required ],
       privacy: [0, Validators.required ]
     })
   }
@@ -136,7 +130,7 @@ export class CreateChannelComponent implements OnInit {
    * Limit Channel Media Type based on Selection
    * @param type
    */
-  channelTypeConfig(type: number) {
+  channelTypeConfig(type) {
     let flag;
     switch (type) {
       case 1:
@@ -163,8 +157,9 @@ export class CreateChannelComponent implements OnInit {
    */
   createChannel(value: any) {
     this.prepareHashtags(value.desc);
+
     // const userHandle = this.profileChannel.profile_navigation_details.handle || '';
-    const mediaTypeList = this.channelTypeConfig(this.channelType);
+    const mediaTypeList = this.channelTypeConfig(Number(value.mediaType));
 
     // set profile handle to user handle
     const profileHandle = this.activeUser.handle;
@@ -188,8 +183,16 @@ export class CreateChannelComponent implements OnInit {
       }
 
       this.channelSavedHere = true;
-      // console.log(channelObj)
       this.store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
+
+      this.store.select('profileTags')
+      .first(channel => channel['channel_create_success'] === true)
+      .subscribe( datas => {
+          this.toastr.success('successfully created channel', 'Success!');
+          this.router.navigateByUrl('/channel/' + datas['channel_created_details'].id);
+          return
+      });
+
     } else {
       if(this.toastrInterval === false){
         this.toastrInterval = true;
@@ -202,19 +205,6 @@ export class CreateChannelComponent implements OnInit {
   }
   }
 
-  /**
-   * Close
-   */
-  closeChannelCreation(input: any) {
-    this.router.navigate(['.', { outlets: { media: null } }], {
-      relativeTo: this.route.parent
-    });
-  }
-
-  ngOnInit() {
-    // Loading industry list
-    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
-  }
 
   /**
    * Check for hashtags in Desc

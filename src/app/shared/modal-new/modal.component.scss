@@ -19,6 +19,13 @@
     transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
 }
 
+// create channel form
+.modal-channel__create {
+    width: 446px;
+    margin: 100px auto;
+    display: table;
+}
+
 .modal-cus__sm{
     width: 675px;
     margin: 100px auto;
