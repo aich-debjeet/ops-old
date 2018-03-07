@@ -55,7 +55,6 @@ export class CreateChannelComponent implements OnInit, OnDestroy {
   selectedChannel = '';
   hashTags: string[];
   activeUser: UserCard;
-  toastrInterval = false;
   private subscriptionOne: ISubscription;
   private subscriptionTwo: ISubscription;
 
@@ -194,15 +193,8 @@ export class CreateChannelComponent implements OnInit, OnDestroy {
       });
 
     } else {
-      if(this.toastrInterval === false){
-        this.toastrInterval = true;
-        this.toastr.warning('Please fill all required fields');
-        setTimeout(()=>{
-          this.toastrInterval = false;
-        },6000);
-      // this.toastr.warning('Please fill all required fields');
+      this.toastr.warning('Please fill all required fields');
     }
-  }
   }
 
 
@@ -223,4 +215,3 @@ export class CreateChannelComponent implements OnInit, OnDestroy {
   }
 
 }
-
