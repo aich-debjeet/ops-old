@@ -27,11 +27,11 @@
                         <div class="c-form__group m-b-16">
                             <select class="c-form-control p-0" formControlName="mediaType" [(ngModel)]="selectedChannel">
                                 <option value="" disabled="true" [selected]="!selectedChannel">Select Channel Type</option>
+                                <option value="5">Any</option>
                                 <option value="1">Image</option>
                                 <option value="2">Audio</option>
                                 <option value="3">Video</option>
                                 <option value="4">Text</option>
-                                <option value="5">A collection of all media type</option>
                             </select>
                         </div>
                         <div class="channel-industry__block ">
