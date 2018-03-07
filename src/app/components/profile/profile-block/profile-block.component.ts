@@ -19,6 +19,8 @@ import { ProfileHelper } from '../../../helpers/profile.helper';
 
 import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
 
+import { every as _every } from 'lodash';
+
 @Component({
   selector: 'app-profile-block',
   templateUrl: './profile-block.component.html',
@@ -43,6 +45,7 @@ export class ProfileBlockComponent implements OnInit {
   channelPinSuccess = false;
   carouselOne: NguCarousel;
   openChannel: boolean;
+  pinListEmpty = true;
 
   constructor(
     private http: Http,
@@ -58,8 +61,13 @@ export class ProfileBlockComponent implements OnInit {
     // Own Profile
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
+      
+      if (state && state['other_channel']) {
+        this.pinListEmpty = _every(state['other_channel'], ['isPinned', true]);
+      }
+
       this.userQuickAccess = state;
-      console.log('state', state)
+      // console.log('state', state)
       if (state.profile_user_info) {
         if (state.profile_user_info.isCurrentUser) {
           this.profileObject = this.loadProfile( state, 'own' );

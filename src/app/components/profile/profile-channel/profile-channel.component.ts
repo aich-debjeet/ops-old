@@ -50,7 +50,7 @@ export class ProfileChannelComponent implements OnInit {
     this.tagState$.subscribe((state) => {
       this.profileChannel = state;
       this.channels = this.profileChannel.other_channel;
-      console.log(this.channels)
+      // console.log(this.channels)
     });
   }
 
