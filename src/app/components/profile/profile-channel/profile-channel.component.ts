@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -12,7 +12,7 @@ import { SharedActions } from '../../../actions/shared.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { remove as _remove } from 'lodash';
 
@@ -22,10 +22,11 @@ import { remove as _remove } from 'lodash';
   styleUrls: ['./profile-channel.component.scss']
 })
 
-export class ProfileChannelComponent implements OnInit {
+export class ProfileChannelComponent implements OnInit, OnDestroy {
   @Input() userName: string;
   tagState$: Observable<ProfileModal>;
-  private tagStateSubscription: Subscription;
+  private subscription: ISubscription;
+  private channelSubscription: ISubscription;
   profileChannel = initialTag ;
   channelList: any;
   handle: any;
@@ -47,10 +48,9 @@ export class ProfileChannelComponent implements OnInit {
     this.counter = 0;
     this.isOwner = false;
     this.tagState$ = this._store.select('profileTags');
-    this.tagState$.subscribe((state) => {
+    this.channelSubscription = this.tagState$.subscribe((state) => {
       this.profileChannel = state;
       this.channels = this.profileChannel.other_channel;
-      console.log(this.channels)
     });
   }
 
@@ -58,6 +58,10 @@ export class ProfileChannelComponent implements OnInit {
     this.checkUserType();
   }
 
+  ngOnDestroy() {
+    // this.subscription.unsubscribe();
+    this.channelSubscription.unsubscribe();
+  }
 
   checkUserType() {
     this._store.select('profileTags')
@@ -91,7 +95,7 @@ export class ProfileChannelComponent implements OnInit {
    * Check Profile state
    */
   checkProfile() {
-    this.sub = this.route.parent.parent.params.subscribe(params => {
+    this.subscription = this.sub = this.route.parent.parent.params.subscribe(params => {
       if (params['id'] && params['id'] !== null && this.handle !== null) {
         this.userName = params['id'];
         this.isOwner = false;
