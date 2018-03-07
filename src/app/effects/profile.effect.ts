@@ -745,15 +745,6 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.GET_FOLLOWER_PROFILES_FAILED, payload: res }))
     );
 
-  // @Effect()
-  //   channelSuceess$ = this.actions$
-  //     .ofType(ProfileActions.CHANNEL_SAVE_SUCCESS)
-  //     .switchMap((data) => {
-  //         this.router.navigate(['/channel/' + data.payload.SUCCESS.id ])
-  //         this.toastr.success('You are awesome!', 'Success!');
-  //         return Observable.empty();
-  //     });
-
   constructor(
     private toastr: ToastrService,
     private actions$: Actions,
