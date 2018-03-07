@@ -7,7 +7,6 @@ import { DOCUMENT } from '@angular/platform-browser';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { Register, UserTag, initialTag, RightBlockTag, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
-// import { ClaimProfileModel } from 'app/models/claim-profile.model';
 import { AuthRightBlockComponent } from '../../../shared/auth-right-block/auth-right-block.component';
 import { CountrySelectorComponent } from '../../../shared/country-selector/country-selector.component';
 
@@ -23,10 +22,9 @@ import { AuthActions } from '../../../actions/auth.action'
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/observable/timer'
-import 'rxjs/add/operator/map'
-import 'rxjs/add/operator/take'
-// import { ClaimProfileActions } from 'app/actions/claim-profile.action';
+import 'rxjs/add/observable/timer';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/take';
 
 import * as _ from 'lodash';
 import { ProfileActions } from 'app/actions/profile.action';
@@ -56,14 +54,11 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   routeQuery: any;
   userSearchEnabled = true;
   hideProfiles = false;
-  // claimingUserSet = false;
   inputNameListener: any;
   showTerms = false;
 
   rightCom: RightBlockTag;
   tagState$: Observable<BasicRegTag>;
-  // claimProfileState$: Observable<ClaimProfileModel>;
-  // claimProfileState: any;
   private tagStateSubscription: Subscription;
   petTag = initialBasicRegTag;
   Suggested: String[];
@@ -78,7 +73,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   public newNumberForm: FormGroup;
   redrectUrl: any;
   dwc: boolean;
-  // claimUserProfileDetails: any;
 
   passwordShowToggle() {
     if (this.passwordShow === true) {
@@ -92,7 +86,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: Document,
     private fb: FormBuilder,
     private store: Store<BasicRegTag>,
-    // private claimProfileStore: Store<ClaimProfileModel>,
     private element: ElementRef,
     private databaseValidator: DatabaseValidator,
     private http: Http,
@@ -102,39 +95,13 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     public tokenService: TokenService
     ) {
 
-    /**
-     * Claim profile state check
-     */
-    // this.claimProfileState$ = claimProfileStore.select('claimProfileTags');
-    // this.claimProfileState$.subscribe((state) => {
-    //   this.claimProfileState = state;
-    //   this.hideProfiles = false;
-    // });
-
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
 
       if (typeof state !== 'undefined') {
         // console.log(state);
         this.petTag = state;
-        console.log(this.petTag['user_exist']);
-
-        // if (!this.claimingUserSet && state && state['claim_user_info'] && state['claim_user_info']['SUCCESS']['user']) {
-        //   this.claimUserProfileDetails = state['claim_user_info']['SUCCESS']['user'];
-        //   // console.log('this.claimUserProfileDetails', this.claimUserProfileDetails);
-        //   // check if imported user
-        //   if (this.claimUserProfileDetails && this.claimUserProfileDetails['other']['isImported'] === true) {
-        //     // console.log('imported profile');
-        //     // console.log('fill user info and disable name input listener');
-        //     this.claimingUserSet = true;
-        //     this.inputNameListener.unsubscribe();
-        //     this.buildForm();
-        //     this.regFormBasic.controls['name'].setValue(this.claimUserProfileDetails['name']['firstName'] + ' ' + this.claimUserProfileDetails['name']['lastName']);
-        //     this.regFormBasic.controls['username'].setValue(this.claimUserProfileDetails['username']);
-        //     this.regFormBasic.controls['email'].setValue(this.claimUserProfileDetails['email']);
-        //     this.regFormBasic.controls['phone'].setValue(this.claimUserProfileDetails['contact']['contactNumber']);
-        //   }
-        // }
+        // console.log(this.petTag['user_exist']);
       }
     });
     this.isPhotoAdded = false;
@@ -142,21 +109,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     // if redriect url there
     if (this.route.snapshot.queryParams) {
       this.routeQuery = Object.assign({}, this.route.snapshot.queryParams);
-
-      if (this.routeQuery && this.routeQuery['action'] === 'claim_profile') {
-        const importedUsername = this.routeQuery['username'];
-        // search for user details
-        this.store.dispatch({ type: AuthActions.SEARCH_USER_BY_USERNAME, payload: importedUsername });
-      }
     }
 
     this.buildForm();
   }
-
-  // showing terms
-  // showTerms() {
-  //   this.modalService.open('termsAndConditions');
-  // }
 
   // closeing terms
   closeTerms() {
@@ -203,19 +159,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
 
     const currentUrl = this.router.url;
     // console.log(currentUrl);
-
-    /**
-     * Listening for the name value
-     */
-    // this.inputNameListener = this.regFormBasic.get('name').valueChanges.debounceTime(200).subscribe((searchProfileName) => {
-    //   if (this.userSearchEnabled) {
-    //     this.claimProfileStore.dispatch({
-    //       type: ClaimProfileActions.SEARCH_PROFILE,
-    //       payload: searchProfileName
-    //     });
-    //   }
-    // });
-
 
     this.rightCom = {
       mainTitle: 'Create Your Account',
@@ -427,13 +370,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   submitForm(value) {
     // checking if all required fields with valid info available before submitting the form
     if (!this.regFormBasic.valid) {
-      console.log('invalid form');
       return false;
     }
-    // } else {
-    //   console.log('valid form');
-    //   return false;
-    // }
 
     // form object
     const form =  {
@@ -462,19 +400,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     };
     // console.log('form body', form);
 
-    // if (typeof this.claimUserProfileDetails !== 'undefined' && this.claimingUserSet === true) {
-
-    //   form.other['isImported'] = false;
-    //   form['handle'] = this.claimUserProfileDetails.handle || this.claimUserProfileDetails.profileId;
-    //   // claim user profile
-    //   this.store.dispatch({ type: AuthActions.USER_PROFILE_CLAIM, payload: form });
-
-    // } else {
-
-      // register new user
-      this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
-
-    // }
+    // register new user
+    this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
 
     this.store.select('loginTags').take(2).subscribe(data => {
         if (data['user_basic_reg_success'] === true ) {
@@ -511,29 +438,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
    */
   saveCountry(country: any) {
     this.country = country;
-  }
-
-  /**
-   * Select the profile from the list
-   */
-  selectProfile(profileHandle: string) {
-    this.userSearchEnabled = false;
-    setTimeout(() => {
-      this.userSearchEnabled = true;
-    }, 3000);
-    // if (profileHandle && this.claimProfileState.claim_profiles.length > 0) {
-    //   this.claimingUserSet = true;
-    //   this.claimUserProfileDetails = _.find(this.claimProfileState.claim_profiles, { 'handle': profileHandle });
-    //   // console.log('profile found', this.claimUserProfileDetails);
-    //   this.buildForm();
-    //   this.regFormBasic.controls['name'].setValue(this.claimUserProfileDetails['name']);
-    //   this.regFormBasic.controls['username'].setValue(this.claimUserProfileDetails['extra']['username']);
-    //   this.regFormBasic.controls['email'].setValue(this.claimUserProfileDetails['email']);
-    //   this.regFormBasic.controls['phone'].setValue(this.claimUserProfileDetails['contact']['mobile']['mobile']);
-
-    //   this.claimProfileState.claim_profiles = [];
-    // }
-    this.triggerHideProfiles();
   }
 
   triggerHideProfiles() {
