@@ -61,7 +61,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   artists: any[];
   posts: any[];
   globalFilter: any;
-  filtersModel = [];
+  selectedProfileFilters: any;
 
   constructor(
     private router: Router,
@@ -88,22 +88,27 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     this.searchState$.subscribe((state) => {
       this.searchState = state;
       console.log(this.searchState);
+
+      // filtermap for reference
+      if (this.searchState
+        && this.searchState['search_all_params']
+        && this.searchState['search_all_params']['filtersMap']
+        && this.searchState['search_all_params']['filtersMap']['profile']
+      ) {
+        const prof = this.searchState['search_all_params']['filtersMap']['profile'];
+        for (let i = 0; i < prof.length; i++) {
+          // const key = prof['key'].toUppercase();
+          this.selectedProfileFilters['profile'][prof[i]['key']] = prof[i]['value'];
+        }
+      }
+
+      // search filters local for reference
       if (state && state['search_filters']) {
         this.searchFilters = state['search_filters'];
         // console.log(this.searchFilters);
       }
-      if (state && state['search_all_params'] && state['search_all_params']['filtersMap']['profile']) {
-        const profFil = state['search_all_params']['filtersMap']['profile'];
-        if (profFil.length > 0) {
-          this.filtersModel['PROFESSION'] = _.filter(profFil, (p) => p.key === 'PROFESSION');
-          this.filtersModel['PROFESSION'] = this.filtersModel['PROFESSION'].map((el) => {
-            const o = Object.assign({}, el);
-            o.label = el.value;
-            return o;
-          });
-          console.log('PROFESSION applied filters: ', this.filtersModel['PROFESSION']);
-        }
-      }
+
+      // check for the http request response status
       if (state && (state.searching_all === false || state.searching_people === false || state.searching_post === false || state.searching_channel === false)) {
           this.isSearching = false;
           this.showPreloader = false;
@@ -143,13 +148,33 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   // reset global filters
   resetFilters() {
     this.globalFilter = { profile: [], channel: [], post: [] };
+    this.selectedProfileFilters = {
+      profile: {
+        PROFESSION: '',
+        CHANNEL: '',
+        POST: '',
+      },
+      channel: [],
+      post: [],
+    };
   }
 
-  // profile selection
-  profileSelectAction(tag: any, parentNode: string) {
-    const profFilterOpt = { key: parentNode, value: tag.name };
-    this.globalFilter.profile.push(profFilterOpt);
-    console.log('global filters status: ', this.globalFilter);
+  // profile filter action
+  profileFilterSelection(filterValue: any, parentNode: string) {
+    if (filterValue.length > 0) {
+      const profFilterOpt = { key: parentNode, value: filterValue };
+      // check if object already available in the global filters
+      if (!_.find(this.globalFilter.profile, profFilterOpt)) {
+        this.globalFilter.profile.push(profFilterOpt);
+      }
+      // console.log('this.globalFilter.profile', this.globalFilter.profile);
+    } else {
+      // remove info from global filter
+      this.globalFilter.profile = _.remove(this.globalFilter.profile, function(obj) {
+        return !(obj.key === parentNode && obj.value === filterValue);
+      });
+    }
+    // console.log('global filters status: ', this.globalFilter);
     // preparing get query params for the search get request
     const params = {
       q: this.searchString,
@@ -160,39 +185,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     // trigger search get request
     this.searchGetRequest(params);
   }
-
-  // profile deselection
-  profileDeselectAction(tag: any, parentNode: string) {
-    console.log(tag);
-    console.log(parentNode);
-  }
-
-  // profile filter action
-  // profileFilterAction(e: any, parentNode: string) {
-  //   if (e.target.checked && e.target.checked === true) {
-  //     const profFilterOpt = { key: parentNode, value: e.target.value };
-  //     // check if object already available in the global filters
-  //     if (!_.find(this.globalFilter.profile, profFilterOpt)) {
-  //       this.globalFilter.profile.push(profFilterOpt);
-  //     }
-  //     // console.log('this.globalFilter.profile', this.globalFilter.profile);
-  //   } else {
-  //     // remove info from global filter
-  //     this.globalFilter.profile = _.remove(this.globalFilter.profile, function(obj) {
-  //       return !(obj.key === parentNode && obj.value === e.target.value);
-  //     });
-  //   }
-  //   // console.log('global filters status: ', this.globalFilter);
-  //   // preparing get query params for the search get request
-  //   const params = {
-  //     q: this.searchString,
-  //     type: this.searchType,
-  //     filters: encodeURIComponent(JSON.stringify(this.globalFilter))
-  //   };
-
-  //   // trigger search get request
-  //   this.searchGetRequest(params);
-  // }
 
   // post filter action
   postFilterAction(e: any, parentNode: string) {

@@ -29,8 +29,8 @@ import { NgxMasonryModule } from 'ngx-masonry';
     SharedPipesModule,
     SharedModule,
     InfiniteScrollModule,
-    TagInputModule,
-    BrowserAnimationsModule,
+    // TagInputModule,
+    // BrowserAnimationsModule,
     NgxMasonryModule
   ],
   declarations: [

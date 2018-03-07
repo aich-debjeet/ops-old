@@ -73,47 +73,19 @@
                 <div class="o-search-left-block p-24">
                     
                     <!-- Profiles -->
-                    <!-- <div *ngIf="searchFilters?.profile">
-                        <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Profiles</h6>
-                        <div class="o-search-filter-block p-l-8">
-                            <div *ngFor="let profileElems of searchFilters?.profile" >
+                    <div *ngIf="searchFilters?.profile">
+                        <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 profiles-wrapper">Profiles</h6>
+                        <div class="o-search-filter-block">
+                            <div class="c-form__group m-t-0" *ngFor="let profileElems of searchFilters?.profile">
                                 <ng-container *ngIf="profileElems?.filters?.length > 0">
-                                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">{{ profileElems?.title }}</h6>
-                                    <div *ngFor="let filter of profileElems?.filters" >
-                                        <ng-container *ngIf="filter?.name !== ''">
-                                            <div class="form-check">
-                                                <label for="{{ profileElems?.title + filter?.name | strReplace:[' ', '_'] }}">{{ filter?.name }} 
-                                                    <input (click)="profileFilterAction($event, profileElems?.title)" id="{{ profileElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
-                                                </label>
-                                            </div>
+                                    <select class="c-form-control" (change)="profileFilterSelection($event.target.value, profileElems?.title)" [(ngModel)]="selectedProfileFilters['profile'][profileElems?.title]">
+                                        <option *ngIf="!selectedProfileFilters['profile'][profileElems?.title]" value="">Select {{ profileElems?.title | firstCharCaps }}</option>
+                                        <ng-container *ngFor="let filter of profileElems?.filters">
+                                            <option *ngIf="filter?.name !== ''" [value]="filter?.name">{{ filter?.name | truncate:[20, '...'] }} ({{ filter?.count }})</option>
                                         </ng-container>
-                                    </div>
+                                    </select>
                                 </ng-container>
                             </div>
-                        </div>
-                    </div> -->
-                    <!-- Profiles -->
-
-                    <!-- Profiles -->
-                    <div *ngIf="searchFilters?.profile">
-                        <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Profiles</h6>
-                        <div *ngFor="let profileElems of searchFilters?.profile" class="o-search-filter-block p-l-8">
-                            <tag-input
-                                (onAdd)="profileSelectAction($event, profileElems?.title)"
-                                (onRemove)="profileDeselectAction($event, profileElems?.title)"
-                                [ngModel]="filtersModel[profileElems?.title]"
-                                [secondaryPlaceholder]="'Select ' + profileElems?.title | firstCharCaps"
-                                [onlyFromAutocomplete]="true"
-                                [displayBy]="'label'">
-                                <tag-input-dropdown
-                                    [displayBy]="'name'"
-                                    [showDropdownIfEmpty]="true"
-                                    [autocompleteItems]="profileElems?.filters">
-                                    <ng-template let-item="item" let-index="index">
-                                        {{ item.name }} ({{ item.count }})
-                                    </ng-template>
-                                </tag-input-dropdown>
-                            </tag-input>
                         </div>
                     </div>
                     <!-- Profiles -->
