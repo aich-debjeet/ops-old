@@ -60,148 +60,82 @@
           <!-- search wrapper -->
           <div *ngIf="searchString?.length > 0 && !isSearching">
             
-            <div class="col-md-3 p-l-0 m-t--32">
+            <!-- search filters -->
+            <div class="col-md-3 col-sm-4 col-xs-12 p-l-0 m-t--32">
                 <div class="o-search-left-block p-24">
-                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space">All</h6>
-                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">profiles</h6>
-                    <div class="o-search-filter-block p-l-8">
-                        <div class="form-check">
-                            <label for="people">people <input id="people" type="checkbox"></label>
-                        </div>
-                        <div class="form-check">
-                            <label for="organization">organization <input id="organization" type="checkbox"></label>
-                        </div>
-                    </div>
-                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">POST</h6>
-                    <div class="o-search-filter-block p-l-8">
-                        <div class="col-md-6 p-0">
-                            <div class="form-check">
-                                <label for="Images">Images <input id="Images" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="Blog">Blog <input id="Blog" type="checkbox"></label>
-                            </div>
-                        </div>
-                        <div class="col-md-6 p-0">
-                            <div class="form-check">
-                                <label for="Video">Video <input id="Video" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="Audio">Audio <input id="Audio" type="checkbox"></label>
+                    
+                    <!-- Profiles -->
+                    <div *ngIf="searchFilters?.profile">
+                        <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Profiles</h6>
+                        <div class="o-search-filter-block p-l-8">
+                            <div *ngFor="let profileElems of searchFilters?.profile" >
+                                <ng-container *ngIf="profileElems?.filters?.length > 0">
+                                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">{{ profileElems?.title }}</h6>
+                                    <div *ngFor="let filter of profileElems?.filters" >
+                                        <ng-container *ngIf="filter?.name !== ''">
+                                            <div class="form-check">
+                                                <label for="{{ profileElems?.title + filter?.name | strReplace:[' ', '_'] }}">{{ filter?.name }} 
+                                                    <input (click)="profileFilterAction($event, profileElems?.title)" id="{{ profileElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
+                                                </label>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
                             </div>
                         </div>
                     </div>
-                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">CHANNEL</h6>
-                    <div class="o-search-filter-block p-l-8">
-                        <div class="col-md-6 p-0">
-                            <div class="form-check">
-                                <label for="Images2">Images <input id="Images2" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="Blog2">Blog <input id="Blog2" type="checkbox"></label>
-                            </div>
-                        </div>
-                        <div class="col-md-6 p-0">
-                            <div class="form-check">
-                                <label for="Video2">Video <input id="Video2" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="Audio2">Audio <input id="Audio2" type="checkbox"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">SPOTFEED</h6>
-                    <div class="o-search-filter-block p-l-8">
-                        <div class="col-md-12 p-0">
-                            <div class="c-form__group m-0">
-                                <select class="c-form-control o-search-select--box p-l-0">
-                                    <option>
-                                        Industry
-                                    </option>
-                                    <option>
-                                        Select list 2
-                                    </option>
-                                    <option>
-                                        Select list 3
-                                    </option>
-                                    <option>
-                                        Select list 4
-                                    </option>
-                                </select>
+                    <!-- Profiles -->
+
+                    <!-- Posts -->
+                    <div *ngIf="searchFilters?.post">
+                        <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Posts</h6>
+                        <div class="o-search-filter-block p-l-8">
+                            <div *ngFor="let postElems of searchFilters?.post" >
+                                <ng-container *ngIf="postElems?.filters?.length > 0">
+                                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">{{ postElems?.title }}</h6>
+                                    <div *ngFor="let filter of postElems?.filters" >
+                                        <ng-container *ngIf="filter?.name !== ''">
+                                            <div class="form-check">
+                                                <label for="{{ postElems?.title + filter?.name | strReplace:[' ', '_'] }}">{{ filter?.name }} 
+                                                    <input (change)="postFilterAction($event, postElems?.title)" id="{{ postElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
+                                                </label>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
                             </div>
                         </div>
                     </div>
-                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">opportunity</h6>
-                    <div class="o-search-filter-block p-l-8">
-                        <div class="col-md-6 p-0">
-                            <div class="form-check">
-                                <label for="Audition">Audition <input id="Audition" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="jobs">jobs <input id="jobs" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="Freelance">Freelance <input id="Freelance" type="checkbox"></label>
-                            </div>
-                        </div>
-                        <div class="col-md-6 p-0">
-                            <div class="form-check">
-                                <label for="internship">internship <input id="internship" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="projects">projects <input id="projects" type="checkbox"></label>
-                            </div>
-                            <div class="form-check">
-                                <label for="volunteer">volunteer <input id="volunteer" type="checkbox"></label>
+                    <!-- Posts -->
+
+                    <!-- Channels -->
+                    <div *ngIf="searchFilters?.channel">
+                        <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Channels</h6>
+                        <div class="o-search-filter-block p-l-8">
+                            <div *ngFor="let channelElems of searchFilters?.channel" >
+                                <ng-container *ngIf="channelElems?.filters?.length > 0">
+                                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">{{ channelElems?.title }}</h6>
+                                    <div *ngFor="let filter of channelElems?.filters" >
+                                        <ng-container *ngIf="filter?.name !== ''">
+                                            <div class="form-check">
+                                                <label for="{{ channelElems?.title + filter?.name | strReplace:[' ', '_'] }}">{{ filter?.name }} 
+                                                    <input (change)="updateFilter($event)" id="{{ channelElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
+                                                </label>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
                             </div>
                         </div>
                     </div>
-                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">Event</h6>
-                    <div class="o-search-filter-block p-l-8">
-                        <div class="col-md-12 p-0">
-                            <div class="c-form__group m-0">
-                                <select class="c-form-control o-search-select--box p-l-0">
-                                    <option>
-                                        Event type
-                                    </option>
-                                    <option>
-                                        Select list 2
-                                    </option>
-                                    <option>
-                                        Select list 3
-                                    </option>
-                                    <option>
-                                        Select list 4
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 float_left">COMMUNITY</h6>
-                    <div class="o-search-filter-block p-l-8">
-                        <div class="col-md-12 p-0">
-                            <div class="c-form__group m-0">
-                                <select class="c-form-control o-search-select--box p-l-0">
-                                    <option>
-                                        Industry
-                                    </option>
-                                    <option>
-                                        Select list 2
-                                    </option>
-                                    <option>
-                                        Select list 3
-                                    </option>
-                                    <option>
-                                        Select list 4
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Channels -->
+
                 </div>
             </div>
-
-            <div class="col-md-9 m-t--32">
+            <!-- search filters -->
+            
+            <!-- search result -->
+            <div class="col-md-9 col-sm-8 col-xs-12 p-0 m-t--32">
 
                 <div class="o-search-result-block">
                     <div class="o-search-info-top">
@@ -278,7 +212,6 @@
                             </ng-template>
                         </div><!-- posts -->
                     </div>
-    
                     <div *ngIf="all_channels && all_channels.length > 0;" class="o-search-result-single-block">
                         <div class="o-search-result-single-block">
                             <h6 class="c-text_lg m-t-24">Channel
@@ -295,68 +228,20 @@
                 <!-- search all -->
                 
                 <!-- search people result -->
-                <div *ngIf="searchString?.length > 0 && !isSearching && searchType === 'people'">
-                    <div *ngFor="let artist of artists" class="o-search-people-single">
-                        <div class="o-search-people__prof-pic">
-                            <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist?.profileImage }}" alt="">
-                            <ng-template #default_profile_image>
-                                <img src="{{ baseUrl }}img/avatar.jpg" class="c-artist__img">
-                            </ng-template>
-                        </div>
-                        <div class="o-search-people__info">
-                            <div class="o-search-people__name width100 c-text_lg f-w_600">{{ artist?.name | truncate:[12, '...'] }}</div>
-                            <div class="o-search-people__det width100 c-text_md color-grey-dark m-b-8">@{{ artist?.extra?.username }}</div>
-                            <div class="o-search-people__followers width100">
-                                <div class="c-text_sm float_left text_uppercase ltr-space">{{ artist?.followersCount }}<span class="color-grey-dark">followers</span></div>
-                                <div class="c-text_sm float_left text_uppercase ltr-space p-l-16">{{ artist?.extra?.postCount }} <span class="color-grey-dark">Posts</span></div>
-                            </div>
-                            <!-- <button type="button" class="btn btn-primary btn-sm m-t-8">Unfollow</button> -->
-                            <div *ngIf="artist?.extra?.isImported; else not_imported">
-                                <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="o-people-result__follow-btn">CLAIM</a>
-                            </div>
-                            <ng-template #not_imported>
-                                <button (click)="unfollowUser(artist)" *ngIf="artist?.extra?.isFollowing" type="button" class="btn btn-xs btn-basic btn-following">UNFOLLOW</button>
-                                <button (click)="followUser(artist)" *ngIf="!artist?.extra?.isFollowing" type="button" class="btn btn-xs btn-basic btn-following">FOLLOW</button>
-                            </ng-template>
-                        </div><!-- people info end -->
-                        <div class="o-search-people__post-img">
-                            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s05.jpg); background-size: cover;"></div>
-                            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s06.jpg); background-size: cover;"></div>
-                            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s07.jpg); background-size: cover;"></div>
-                            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s08.jpg); background-size: cover;"></div>
-                            <div class="o-search-people-post__block" style="background: url(assets/demo/new/s09.jpg); background-size: cover;">
-                                <a href="#" class="c-text_sm color-white o-search-people-post__seemore">see more</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <app-search-people *ngIf="searchString?.length > 0 && !isSearching && searchType === 'people'"></app-search-people>
                 <!-- search people result -->
 
                 <!-- search channels result -->
-                <div *ngIf="searchString?.length > 0 && !isSearching && searchType === 'channel'" class="m-0 row p-t-16 float_left">
-                    <div class="col-12">
-                        <div *ngFor="let channel of channels" class="col-md-3 p-0 p-r-10 p-b-10">
-                            <app-channel [channelData]="channel"></app-channel>
-                        </div>
-                    </div>
-                </div>
+                <app-search-channel *ngIf="searchString?.length > 0 && !isSearching && searchType === 'channel'"></app-search-channel>
                 <!-- search channels result -->
 
                 <!-- search posts result -->
-                <div *ngIf="searchString?.length > 0 && !isSearching && searchType === 'post'"  class="col-md-12 p-0 m-t-16">
-
-                    <!-- single entity -->
-                    <ngx-masonry [useImagesLoaded]="true">
-                        <ngx-masonry-item *ngFor="let post of posts" class="col-md-4 p-l-r-8 m-b-16">
-                                <app-post-card [mediaData]="post"></app-post-card>
-                        </ngx-masonry-item>
-                    </ngx-masonry>
-                    <!-- single entity -->
-                
-                </div>
+                <app-search-post *ngIf="searchString?.length > 0 && !isSearching && searchType === 'post'"></app-search-post>
                 <!-- search posts result -->
 
             </div>
+            <!-- search result -->
+            
           </div>
           <!-- search wrapper -->
 

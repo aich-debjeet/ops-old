@@ -68,18 +68,6 @@
     list-style: none;
 }
 
-.o-follow-people__list {
-    list-style-type: none;
-    float: left;
-    width: 113px;
-    margin-right: 14px;
-    margin-top: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
 .o-profile__cont {
     margin-top: -208px;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
@@ -172,23 +160,6 @@
     text-align: left;
     @include mq($from: $mobile_sm, $until: $desktop_sm) {
         padding: 0px;
-    }
-}
-
-.o-follow-and-following {
-    width: 72px;
-    height: 72px;
-    display: inline-block;
-    padding: 0px 8px;
-    &:hover {
-        background: $color-grey-light;
-    }
-    &:focus {
-        outline: none;
-    }
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        width: 100%;
-        height: 100%;
     }
 }
 
@@ -1209,9 +1180,9 @@
     height: 72px;
     display: inline-block;
     padding: 0px 8px;
-    &:hover {
-        background: $color-grey-light;
-    }
+    // &:hover {
+    //     background: $color-grey-light;
+    // }
     &:focus {
         outline: none;
     }
@@ -1251,18 +1222,6 @@
     list-style: none;
 }
 
-.o-follow-people__list {
-    list-style-type: none;
-    float: left;
-    width: 113px;
-    margin-right: 14px;
-    margin-top: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
 .o-follow-people__avatar {
     width: 72px;
     height: 72px;
@@ -1295,7 +1254,7 @@
 .o-follow-people__list {
     list-style-type: none;
     float: left;
-    width: 113px;
+    width: 110px;
     margin-right: 14px;
     margin-top: 16px;
     display: flex;

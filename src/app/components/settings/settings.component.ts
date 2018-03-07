@@ -104,14 +104,14 @@ export class SettingsComponent implements OnInit {
     this.storeState$ = this._store.select('profileTags');
 
     this.storeState$.subscribe((state) => {
-      console.log('state', state)
+      // console.log('state', state)
       if (typeof state !== 'undefined') {
         this.userProfile = state['profile_details'];
         this.userHandle = state['profile_details'].handle;
         this.blockedUsers = state.blockedUsers;
         if (state.default_notification) {
           this.default = state.default_notification;
-          console.log('default', this.default)
+          // console.log('default', this.default)
           this.notificationOption = [{name: 'Comments', description: 'Receive an e-mail when other people comment on your posts.' , value: 'Comments', checked: this.default.comments},
                                     {name: 'Spots', description: 'Receive an e-mail when other people Spot on your posts.' , value: 'Spots', checked: this.default.spots},
                                     {name: 'Mention', description: 'Receive an e-mail when other people mention you.' , value: 'Mention', checked: this.default.mentions},
@@ -194,7 +194,7 @@ export class SettingsComponent implements OnInit {
     // this.selectedView = 'General';
     this.displayView('General')
     this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
-    this._store.dispatch({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS });
+    // this._store.dispatch({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS });
   }
   /**
    * drag and drop method
@@ -517,8 +517,14 @@ export class SettingsComponent implements OnInit {
   }
 
   displayView(tab: string) {
+    // console.log('tab', tab)
    this.selectedView = tab;
+   if (tab === 'Security') {
     this._store.dispatch({type: ProfileActions.LOAD_BLOCK_USERS, payload: this.userHandle});
+   }
+   if (tab === 'Notification') {
+    this._store.dispatch({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS });
+   }
   }
 
   updateCheckedOptions(option, event) {

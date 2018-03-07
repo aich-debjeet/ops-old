@@ -1,10 +1,10 @@
 <!-- <div id="home_feed" class="tab-pane fade in active">
     <div class="pro_channel2 row">
-        <masonry [useImagesLoaded]="true">
-            <masonry-brick class="col-md-3 col-sm-6 c-card padding_8" *ngFor="let channel of channelList; let i = index">
+        <ngx-masonry [useImagesLoaded]="true">
+            <ngx-masonry-brick class="col-md-3 col-sm-6 c-card padding_8" *ngFor="let channel of channelList; let i = index">
                 <app-channel [channelData]="channel" (onFollow)="followChannel($event)"></app-channel>
-            </masonry-brick>
-        </masonry>
+            </ngx-masonry-brick>
+        </ngx-masonry>
     </div>
 </div> -->
 <div *ngIf="userState.user_following_channels_loaded === true && channelList.length < 1" class="empty__state">

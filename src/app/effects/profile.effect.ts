@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
+import { ToastrService } from 'ngx-toastr';
 import { Store } from '@ngrx/store';
 import {Observable} from 'rxjs/Rx'
 import 'rxjs/add/observable/of';
@@ -631,7 +632,7 @@ export class ProfileEffect {
   loadProfiles$ = this.actions$
     .ofType(ProfileActions.LOAD_ALL_PROFILES)
     .map(toPayload)
-    .switchMap((payload) => this.profileService.getAllProfiles()
+    .switchMap((payload) => this.profileService.getAllProfiles(payload)
       .map(res => ({ type: ProfileActions.LOAD_ALL_PROFILES_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.LOAD_ALL_PROFILES_FAILED, payload: res }))
     );
@@ -745,6 +746,7 @@ export class ProfileEffect {
     );
 
   constructor(
+    private toastr: ToastrService,
     private actions$: Actions,
     private router: Router,
     private profileService: ProfileService

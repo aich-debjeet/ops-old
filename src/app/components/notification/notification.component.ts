@@ -132,6 +132,10 @@ export class NotificationComponent implements OnInit {
 
       switch (notif.notificationType) {
 
+        case 'Following':
+          this.notifications[index]['message'] = '@' + notif.username + ' has started following you';
+          break;
+
         case 'Media_Spot':
           this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your post';
           break;

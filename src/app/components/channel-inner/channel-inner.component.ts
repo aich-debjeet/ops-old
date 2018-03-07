@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import {ActivatedRoute} from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -29,7 +29,7 @@ import { GeneralUtilities } from './../../helpers/general.utils';
   providers: [ModalService, DatePipe],
   styleUrls: ['./channel-inner.component.scss']
 })
-export class ChannelInnerComponent implements OnInit {
+export class ChannelInnerComponent implements OnInit, OnDestroy {
   // @ViewChild(AngularMasonry) masonry: AngularMasonry;
   tagState$: Observable<Media>;
   userState$: Observable<Media>;
@@ -41,6 +41,7 @@ export class ChannelInnerComponent implements OnInit {
   pageLoading: boolean;
   isfollowing: boolean;
   contributors: any[];
+  subscription: Subscription;
 
   constructor(
     private http: Http,
@@ -51,10 +52,9 @@ export class ChannelInnerComponent implements OnInit {
     private router: Router,
     private generalHelper: GeneralUtilities
   ) {
+
       this.channelId = route.snapshot.params['id'];
-
       this.pageLoading = false;
-
       this.tagState$ = this._store.select('mediaStore');
       this.userState$ = this._store.select('profileTags');
       this.tagState$.subscribe((state) => {
@@ -62,22 +62,30 @@ export class ChannelInnerComponent implements OnInit {
         this.channel = state;
         this.pageLoading = this.channel.channel_loading;
       });
-      this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
-      this.buildEditForm();
 
-      this._store.select('mediaStore')
-        .first(data => data['channel_detail'].ownerName)
-        .subscribe( data => {
-          this.isfollowing = data['channel_detail'].isFollowing;
-          if (data['channel_detail'].contributorProfile) {
-            this.contributors = this.generalHelper.getArrayWithLimitedLength(data['channel_detail'].contributorProfile, 3);
-          }
-        });
+    this._store.select('mediaStore')
+      .first(data => data['channel_detail'].ownerName)
+      .subscribe( data => {
+        this.isfollowing = data['channel_detail'].isFollowing;
+        if (data['channel_detail'].contributorProfile) {
+          this.contributors = this.generalHelper.getArrayWithLimitedLength(data['channel_detail'].contributorProfile, 3);
+        }
+      });
 
   }
 
   ngOnInit() {
-    // this.isfollowing = this.channel.isFollowing || false;
+    this.subscription = this.route.params.subscribe(
+      (params: any) => {
+        this.channelId = params['id'];
+        this._store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
+        this.buildEditForm();
+      }
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   mediaNext($event) {
