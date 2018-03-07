@@ -126,6 +126,4 @@ export class HomePostComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
-
 }
