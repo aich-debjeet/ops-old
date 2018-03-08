@@ -58,7 +58,6 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
       this.tagState$ = this._store.select('mediaStore');
       this.userState$ = this._store.select('profileTags');
       this.tagState$.subscribe((state) => {
-        // console.log('state', state)
         this.channel = state;
         this.pageLoading = this.channel.channel_loading;
       });

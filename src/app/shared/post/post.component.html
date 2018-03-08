@@ -14,11 +14,11 @@
         <div class="pull-right dropdown c-dropdown" appDropdown>
             <div class="c-post__time">{{ mediaData?.createdDate | utcDate | date:'d MMM h:m a'}}</div>
             <a>
-                <img *ngIf="mediaData?.access === 1" src="{{ imageLink }}img/svg/ico_private.svg" alt="" class="c-status__options">
-                <img *ngIf="mediaData?.access === 0" src="{{ imageLink }}img/svg/ico_public.svg" alt="" class="c-status__options">
+                <img *ngIf="mediaData?.access === 1" [src]="imageLink + 'img/svg/ico_private.svg'" alt="" class="c-status__options">
+                <img *ngIf="mediaData?.access === 0" src="imageLink + 'img/svg/ico_public.svg'" alt="" class="c-status__options">
             </a>
             <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen *ngIf="mediaData?.isOwner">
-                    <img src="{{ imageLink }}img/svg/ico_options.svg" class="c-status__options">
+                    <img [src]="imageLink + 'img/svg/ico_options.svg'" class="c-status__options">
             </span>
             <ul class="dropdown-menu dropdown-menu-right" *ngIf="mediaData?.isOwner">
                 <li>
@@ -39,30 +39,28 @@
         {{ mediaData?.description }}
     </div>
     <div class="c-feed__img" *ngIf="checkFileType(mediaData?.repopath, 'Video') || checkFileType(mediaData?.repopath, 'Audio') || checkFileType(mediaData?.repopath, 'Image')">
-        <app-audioplayer class="audio" *ngIf="checkFileType(mediaData?.repopath, 'Audio')" src="{{ imageLink + mediaData?.repopath }}"></app-audioplayer>
-        <img *ngIf="checkFileType(mediaData?.repopath, 'Image')" src="{{ imageLink + mediaData?.repopath }}" class="img-responsive">
-        <app-videplayer [play]="'true'" *ngIf="checkFileType(mediaData?.repopath, 'Video')" class="{{ imageLink + mediaData?.repopath }}" src="{{ imageLink +  mediaData?.repopath }}"></app-videplayer>
+        <img [src]="imageLink + mediaData?.thumbNail" class="img-responsive">
     </div>
     <div class="c-status--block">
         <div class="c-links">
             <div class="c-links__spots" (click)="spotMedia(mediaData?.id)">
-                <img *ngIf="following" src="{{ imageLink }}img/svg/spot_icon.svg" class="c-links__image">
-                <img *ngIf="!following" src="{{ imageLink }}img/svg/spot_icon_default.svg" class="c-links__image">
+                <img *ngIf="following" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
+                <img *ngIf="!following" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
                 <span class="c-links__count">{{ followingCount }}</span>
             </div>
             <div class="c-links__comments">
-                <img src="{{ imageLink }}img/svg/ico_comment.svg" class="c-links__image">
+                <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
                 <span class="c-links__count">{{ commentCount }}</span>
             </div>
             <div class="c-links__actions">
                 <span class="c-links__add">
                     <a>
-                        <img src="{{ imageLink }}img/svg/ico_addtochannel.svg" class="c-action__image">
+                        <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">
                     </a>
                     </span>
                 <span class="c-links__share">
                     <a>
-                        <img src="{{ imageLink }}img/svg/ico_share-02.svg" class="c-action__image">
+                        <img [src]="imageLink + 'img/svg/ico_share-02.svg'" class="c-action__image">
                     </a>
                     </span>
             </div>

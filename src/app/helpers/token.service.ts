@@ -42,13 +42,19 @@ export class TokenService {
   getToken() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     let token;
-    // redirect user to the login page if access_token is not available
+    // check if currentUser is not available
     if (currentUser === null || currentUser.access_token === null) {
-      // this.router.navigate(['login']);
-      return false;
+      const aToken = localStorage.getItem('access_token');
+      if (aToken === null) { return false; }
+      token = aToken;
+    } else {
+      token = currentUser.access_token;
+      if (!token) {
+        const aToken = localStorage.getItem('access_token');
+        if (aToken === null) { return false; }
+        token = aToken;
+      }
     }
-
-    token = currentUser.access_token; // your token
     return token;
   }
 

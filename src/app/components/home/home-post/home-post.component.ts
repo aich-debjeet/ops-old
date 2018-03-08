@@ -44,15 +44,12 @@ export class HomePostComponent implements OnInit, OnDestroy {
       this.userProfile = state;
       if (state.user_following_posts_loaded) {
         this.posts = this.userProfile.user_following_posts;
-        // console.log(this.posts)
         this.post_scroll_id = state.user_following_post_scroll_id
       }
       if (state['profile_navigation_details'].handle) {
         this.handle = this.userProfile.profile_navigation_details.handle;
          this.isOwner = true;
-        // this.posts = [];
         if (this.handle && !this.postsLoaded) {
-          // console.log('post')
           this.postsLoaded = true;
           this.postLoad();
         }
@@ -61,20 +58,6 @@ export class HomePostComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.tagState$ = this.profileStore.select('profileTags')
-    // this.tagState$.subscribe((state) => {
-    //   console.log(state)
-    //   this.userProfile = state;
-    //   if (state['profile_navigation_details'].handle) {
-    //     this.handle = this.userProfile.profile_navigation_details.handle;
-    //      this.isOwner = true;
-    //     // this.posts = [];
-    //     if (this.handle && !this.postsLoaded) {
-    //       this.postsLoaded = true;
-    //       this.postLoad(this.handle);
-    //     }
-    //   }
-    // });
   }
 
   postLoad() {
