@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 // actions
@@ -15,12 +15,15 @@ import { LocalStorageService } from './../../../services/local-storage.service';
 
 import { environment } from '../../../../environments/environment';
 
+import { Observable } from 'rxjs/Observable';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
+
 @Component({
   selector: 'app-opportunity-view',
   templateUrl: './opportunity-view.component.html',
   styleUrls: ['./opportunity-view.component.scss']
 })
-export class OpportunityViewComponent implements OnInit {
+export class OpportunityViewComponent implements OnInit, OnDestroy {
 
   opportunityState$: any;
   opportunityState: any;
@@ -31,6 +34,7 @@ export class OpportunityViewComponent implements OnInit {
   hasApplied: boolean;
 
   baseUrl = environment.API_IMAGE;
+  private subscription: ISubscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +42,8 @@ export class OpportunityViewComponent implements OnInit {
   ) {
     // opportunity state listener
     this.opportunityState$ = this.store.select('opportunityTags');
-    this.opportunityState$.subscribe((state) => {
+    this.subscription = this.opportunityState$.subscribe((state) => {
+      console.log(state);
       this.opportunityState = state;
 
       // get opp data
@@ -58,6 +63,7 @@ export class OpportunityViewComponent implements OnInit {
      */
     this.userState$ = this.store.select('profileTags');
     this.userState$.subscribe((state) => {
+      console.log(state);
       if (state && state.profile_navigation_details) {
         this.userProfile = state.profile_navigation_details;
       }
@@ -82,6 +88,10 @@ export class OpportunityViewComponent implements OnInit {
         this.store.dispatch({ type: OpportunityActions.GET_OPPORTUNITY, payload: this.jobId });
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   /**
