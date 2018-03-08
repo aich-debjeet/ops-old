@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NguCarousel } from '@ngu/carousel';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -15,14 +15,14 @@ import { EventActions } from '../../../actions/event.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-events-landing',
   templateUrl: './events-landing.component.html',
   styleUrls: ['./events-landing.component.scss']
 })
-export class EventsLandingComponent implements OnInit {
+export class EventsLandingComponent implements OnInit, OnDestroy {
   date = new Date();
   day: any;
   tomorrow: any;
@@ -32,6 +32,7 @@ export class EventsLandingComponent implements OnInit {
   eventList = initialTag ;
   eventType: any;
   baseUrl = environment.API_IMAGE;
+  private subscription: ISubscription;
 
   category: string;
   myQueryParms: any;
@@ -49,7 +50,8 @@ export class EventsLandingComponent implements OnInit {
     private store: Store<EventModal>
   ) {
     this.tagState$ = this.store.select('eventTags');
-    this.tagState$.subscribe((state) => {
+    this.subscription = this.tagState$.subscribe((state) => {
+      console.log(state);
       this.eventList = state['event_list'];
       this.eventType = state['event_type'];
     });
@@ -60,6 +62,7 @@ export class EventsLandingComponent implements OnInit {
     this.route
       .queryParams
       .subscribe(params => {
+        console.log(params);
         // Defaults to 0 if no query param provided.
         if (params['status']) {
           this.filterStatus = params['status'];
@@ -124,6 +127,10 @@ export class EventsLandingComponent implements OnInit {
       loop: false,
       touch: true
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 
