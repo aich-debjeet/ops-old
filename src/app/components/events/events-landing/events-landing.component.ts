@@ -51,7 +51,6 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   ) {
     this.tagState$ = this.store.select('eventTags');
     this.subscription = this.tagState$.subscribe((state) => {
-      console.log(state);
       this.eventList = state['event_list'];
       this.eventType = state['event_type'];
     });
@@ -62,7 +61,6 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     this.route
       .queryParams
       .subscribe(params => {
-        console.log(params);
         // Defaults to 0 if no query param provided.
         if (params['status']) {
           this.filterStatus = params['status'];

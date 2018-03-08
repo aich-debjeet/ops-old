@@ -43,7 +43,6 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
     // opportunity state listener
     this.opportunityState$ = this.store.select('opportunityTags');
     this.subscription = this.opportunityState$.subscribe((state) => {
-      console.log(state);
       this.opportunityState = state;
 
       // get opp data
@@ -63,7 +62,6 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
      */
     this.userState$ = this.store.select('profileTags');
     this.userState$.subscribe((state) => {
-      console.log(state);
       if (state && state.profile_navigation_details) {
         this.userProfile = state.profile_navigation_details;
       }
