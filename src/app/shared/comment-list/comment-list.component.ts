@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-comment-list',
@@ -19,7 +21,10 @@ export class CommentListComponent implements OnInit {
   messageText: string;
   dates: any;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
     this.messageText = this.commentData.comment;
@@ -38,6 +43,15 @@ export class CommentListComponent implements OnInit {
 
   onContentDelete(content) {
     this.commentDelete.next(content);
+  }
+  navigate() {
+    if (this.commentData.isOwner) {
+      this.router.navigate([{ outlets: { media: null } }])
+      .then(() => this.router.navigate(['/profile/user/']));
+    }
+    else this.router.navigate([{ outlets: { media: null } }])
+    .then(() => this.router.navigate(['/profile/u/' + this.commentData.ownerUserName]));
+
   }
 
 }
