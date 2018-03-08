@@ -111,6 +111,12 @@ export class MediaService {
     return this.api.del( `/portal/cdn/media/delete/${id}`);
 
   }
+  /**
+   * media edit
+   */
+  mediaEdit(payload: any) {
+    return this.api.put( '/portal/cdn/media/update', payload);
+  }
 
   /**
    * Pagination Helper

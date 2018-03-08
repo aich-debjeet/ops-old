@@ -9,9 +9,10 @@
     background-color: #fff;
     float: left;
     box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.1);
-    background: url(/assets/img/home/Banner.jpg) no-repeat;
+    background: url(https://cdn.onepagespotlight.com/img/home/Banner.jpg) no-repeat;
     background-size: cover;
     margin-top: 41px;
+    background-position: top;
 }
 
 .o-home-main__title {
@@ -19,6 +20,14 @@
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     margin-top: 32px;
     font-weight: 300;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        font-size: 26px;
+    }
+    @include mq($from: $mobile_lg, $until: $desktop_sm) {}
+}
+
+.clearfix {
+    clear: both;
 }
 
 .o-top-quick-access {
@@ -56,10 +65,10 @@
     width: 100%;
     float: left;
     .nav-tabs {
-      margin-top: 1rem;
-      a:first-child{
-        padding-left: 0 !important;
-      }
+        margin-top: 1rem;
+        a:first-child {
+            padding-left: 0 !important;
+        }
     }
     padding-top: 8px;
 }
@@ -110,7 +119,7 @@
     }
     .nav-tabs {
         border-bottom: none;
-        margin-left: -12px;
+        // margin-left: -12px;
     }
 }
 
@@ -144,12 +153,69 @@
     font-weight: 500;
 }
 
-app-footer{
-    margin-top: 32px;
-    float: left;
-    display: inline-block;
-    width: 100%;
+// app-footer {
+//     margin-top: 32px;
+//     float: left;
+//     display: inline-block;
+//     width: 100%;
+// }
+.c-qt__icon {
+    a img {
+        opacity: 0.5;
+    }
+    &:hover {
+        a img {
+            opacity: 0.9;
+        }
+    }
 }
+
+.o-event-top-slider {
+    width: 100%;
+    height: 75px;
+    float: left;
+    background: #333;
+    overflow: hidden;
+    position: relative;
+    z-index: -1;
+    margin-top: 50px;
+}
+
+.ngu-item {
+    display: inline;
+}
+
+.leftRs {
+    display: block;
+    outline: none;
+    top: -12%;
+    right: 46px;
+    left: inherit;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: none;
+    text-align: center;
+    color: #777;
+    float: right;
+}
+
+.rightRs {
+    display: block;
+    outline: none;
+    position: absolute;
+    top: -12%;
+    right: 20px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: none;
+    text-align: center;
+    color: #777;
+}
+
 // home page style ------------------------------------------------------
 // .home_feed {
 //     margin-top: 32px;
@@ -430,3 +496,7 @@ app-footer{
 //     width: 100%;
 //     margin: 6px;
 // }
+
+.p-t-80 {
+    padding-top: 80px;
+}

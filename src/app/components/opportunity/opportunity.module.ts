@@ -13,7 +13,7 @@ import { OpportunitySearchCreatedComponent } from './opportunity-search/opportun
 
 // shared module
 import { SharedModule } from '../../shared/shared.module';
-import { MasonryModule } from 'angular2-masonry';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 import { SharedPipesModule } from './../../pipes/shared-pipes.module';
 
@@ -45,7 +45,7 @@ const opportunityRoutes: Routes = [
     FormsModule,
     CommonModule,
     SharedModule,
-    MasonryModule,
+    NgxMasonryModule,
     SharedPipesModule,
     ReactiveFormsModule,
     RouterModule.forChild(opportunityRoutes)

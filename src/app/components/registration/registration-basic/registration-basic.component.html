@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 ops_signup_left">
-                <img class="w-100" src="/assets/img/registration_signup_illustration.png" alt="">
+                <img class="w-100"  [src]="imageBaseLink + 'img/registration_signup_illustration.png'">
                 <div class="ops_heading text-center">
                     Welcome to One Page Spotlight. We are committed to grow together.
                 </div>
@@ -27,15 +27,9 @@
                                 <span class="form_bar"></span>
                                 <label>Name</label>
                                 <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.required && regform.submitted">Name is required</p>
-                                <ul [ngClass]="{'hide': hideProfiles }" class="claim-profile-list" *ngIf="claimProfileState?.claim_profiles && claimProfileState?.claim_profiles.length > 0">
-                                    <ng-container *ngFor="let profile of claimProfileState?.claim_profiles">
-                                        <li *ngIf="profile.contact?.mobile?.mobile" (click)="selectProfile(profile.handle)">{{ profile.name }} ({{ profile.contact?.mobile?.mobile }})</li>
-                                        <li *ngIf="!profile.contact?.mobile?.mobile" (click)="selectProfile(profile.handle)">{{ profile.name }}</li>
-                                    </ng-container>
-                                </ul>
                             </div>
                             <div class="form_group">
-                                <input tabindex="2" class="form_input" type="text" (ngModelChange)="userExisitCheck($event)" formControlName="username" required>
+                                <input tabindex="2" class="form_input" type="text" (ngModelChange)="userExistCheck($event)" formControlName="username" required>
                                 <span class="form_highlight"></span>
                                 <span class="form_bar_alert"></span>
                                 <label>Username</label>
@@ -46,14 +40,14 @@
                                 <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
                                 <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.invalidLength">Username length limit is 3 to 15 characters</p>
                                 <ul class="username_error" *ngIf="petTag.user_unique">
-                                    <li *ngFor="let username of petTag?.user_exsist; let isLast=last">
+                                    <li *ngFor="let username of petTag?.user_exist; let isLast=last">
                                         <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="form_group ops_radio_sm ops_radio_gender">
+                    <div class="form_group ops_radio_sm ops_radio_gender c-radio__sm">
                         <label class="width100">
                             <label class="col-md-2 signup_gender">Gender</label>
                             <label class="col-md-3 gender_single p-r-0">
@@ -94,7 +88,7 @@
                         <span class="form_bar"></span>
                         <label style="padding-left: 50px;">Phone Number</label>
                         <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">This phone number already registered</p>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">This phone number is already registered</p>
                     </div>
 
                     <div class="form_group pwd-cls">
@@ -106,7 +100,8 @@
                         <span class="form_bar"></span>
                         <label>Password</label>
                         <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.required && regform.submitted">Password is required</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Weak password! Please use special characters, numbers and capital letters</p>
+                        <!-- <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Weak password! Please use special characters, numbers and capital letters</p> -->
+                        <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Password should contain atleast 5 alphanumeric characters</p>
                     </div>
                     <div class="form_group">
                         <input tabindex="7" class="form_input" type="password" formControlName="confirmpassword" required>
@@ -116,18 +111,9 @@
                         <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.required && regform.submitted">Confirm password is required</p>
                         <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password does not match</p>
                     </div>
-                    <div class="form_group ops_radio_sm">
-                        <label class="width100 reg-checkbox">
-                                <label class="gender_single">
-                                    <input type="checkbox" #saveUserNameCheckBox [checked]="saveUsername" (change)="onSaveUsernameChanged(saveUserNameCheckBox.checked)">
-                                </label>
-                        <label class="signup_gender">I'm signing up for Dance World Cup India Audition</label>
-                        </label>
-                    </div>
                     <div class="signup_privacy">
                         <p class="text-grey">By clicking, I agree to the <a (click)="termsAction('show')" class="text-theme">Terms & Conditions</a></p>
-                        <button tabindex="8" *ngIf="!claimingUserSet" [className]="'btn btn-primary btn-sm pull-right'" type="submit">SIGN UP</button>
-                        <button tabindex="8" *ngIf="claimingUserSet" [className]="'btn btn-primary btn-sm pull-right'" type="submit">CLAIM PROFILE</button>
+                        <button tabindex="8" [className]="'btn btn-primary btn-sm pull-right'" type="submit">SIGN UP</button>
                     </div>
                 </form>
                 <!-- //form -->
@@ -135,6 +121,7 @@
         </div>
     </div>
 </section>
+
 
 <!-- Terms Modal -->
 <div class="modal fade in db" id="termsandcondition" role="dialog" *ngIf="showTerms" (click)="termsAction('hide')">
@@ -490,7 +477,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header" style="border: none;">
-                        <h4 class="modal-title text-center"><img width="120px" src="/assets/img/logo_black.svg"></h4>
+                        <h4 class="modal-title text-center"><img width="120px" [src]="imageBaseLink + 'img/logo_black.svg'"></h4>
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
@@ -547,20 +534,26 @@
                 <div class="modal-content">
                     <div class="modal-header" style="border: none;">
                         <button type="button" class="close" data-dismiss="modal"></button>
-                        <h4 class="modal-title text-center"><img src="https://d33wubrfki0l68.cloudfront.net/0532c099d59ca6db3235d5463c57edbed77345bd/072ec/img/logo_black.png"></h4>
+                        <h4 class="modal-title text-center"><img [src]="imageBaseLink + '/img/logo_black.png'"></h4>
                     </div>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 no-p-m-errors">
                             <h5 class="text-center">Update your phone number</h5>
-                            <form [formGroup]="newNumberForm" (ngSubmit)="resendOtpOnNewNumber()">
+                            <form [formGroup]="newNumberForm" #newNumFrm="ngForm" (ngSubmit)="resendOtpOnNewNumber()">
                                 <div class="form_group">
                                     <input class="form_input" type="text" formControlName="newNumber" required="">
                                     <span class="form_highlight"></span>
                                     <span class="form_bar"></span>
                                     <label>Phone Number</label>
                                 </div>
-                                <p class="error_alert text-center" *ngIf="newNumberForm.controls['newNumber'].errors?.isMobileUnique">
-                                    Phone number already exist
+                                <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.required && newNumFrm.submitted">
+                                    Phone number is required
+                                </p>
+                                <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.isInvalidPhoneNumber && newNumFrm.submitted">
+                                    Please enter valid phone number
+                                </p>
+                                <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.isMobileUnique">
+                                    This phone number is already registered
                                 </p>
                                 <div class="text-center">
                                     <button class="btn btn-default btn-sm" data-toggle="modal" type="submit">Resend OTP</button>
@@ -583,7 +576,7 @@
                 <div class="modal-content">
                     <div class="modal-header" style="border: none;">
                         <button type="button" class="close" data-dismiss="modal"></button>
-                        <h4 class="modal-title text-center"><img src="https://d33wubrfki0l68.cloudfront.net/0532c099d59ca6db3235d5463c57edbed77345bd/072ec/img/logo_black.png"></h4>
+                        <h4 class="modal-title text-center"><img [src]="imageBaseLink + 'img/logo_black.png'" ></h4>
                     </div>
                     <div class="row">
                         <div class="row mar-auto">

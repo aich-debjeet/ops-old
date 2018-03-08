@@ -2,7 +2,7 @@
     <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="c-artist__avatar">
       <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist?.profileImage }}" class="c-artist__img">
       <ng-template #default_profile_image>
-          <img src="/assets/img/avatar.jpg" class="c-artist__img">
+          <img src="{{ baseUrl }}img/avatar.jpg" class="c-artist__img">
       </ng-template>
     </a>
     <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="c-artist__name margin_t_16">{{ artist?.name | truncate:[12, '...'] }}</a>

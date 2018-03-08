@@ -35,7 +35,7 @@ export class PostCardComponent implements OnInit {
 
   userImage: string;
 
-  private imageLink: string = environment.API_IMAGE;
+  imageLink: string = environment.API_IMAGE;
 
   constructor(
     private router: Router,

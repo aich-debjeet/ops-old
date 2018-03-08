@@ -50,6 +50,7 @@ export class MessageComponent implements OnInit, AfterViewChecked, OnDestroy {
   userHandle;
   baseUrl: string;
   private apiLink: string = environment.API_ENDPOINT;
+  imageBaseLink: string = environment.API_IMAGE;
   composeMessage = {
     searchUser: '',
     messageToSend: ''

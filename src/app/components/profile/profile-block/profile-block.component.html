@@ -1,106 +1,148 @@
 <div class="container" *ngIf="!profileObject?.extra?.isImported">
-  <div class="row m-t-24">
-      <!-- left feed -->
-    <div class="col-md-3 col-sm-3">
-        <div class="row">
-            <!-- calender -->
-            <div class="col-md-12 col-sm-12 c-profile__calender">
-                <div class="row c-profile__calender--head">
-                    Planner
-                </div>
-                <div class="o-blur__block">
-                    <div class="c-calender__heading">JULY, 2017</div>
-                    <ul class="list-inline c-calender__date">
-                        <li class="list-inline-item active">14</li>
-                        <li class="list-inline-item">15</li>
-                        <li class="list-inline-item">16<span class="upcoming">.</span></li>
-                        <li class="list-inline-item">17<span class="upcoming">.</span></li>
-                        <li class="list-inline-item">18</li>
-                        <li class="list-inline-item">19</li>
-                    </ul>
-                    <div class="c-calender__event">
-                        <strong>10:10 AM</strong>
-                        <br> Metting with Mike Creative Mint
+    <div class="row m-t-b-24 m-l-r-0">
+        <!-- left feed -->
+        <div class="col-md-3 col-sm-3 hidden-sm hidden-xs">
+            <div class="row">
+                <!-- calender -->
+                <div class="col-md-12 col-sm-12 c-profile__calender">
+                    <div class="row c-profile__calender--head">
+                        Planner
                     </div>
-                    <div class="c-calender__event">
-                        <strong>11:10 AM - 1: 30 PM</strong>
-                        <br> Metting with stebe Aovi
+                    <div class="o-blur__block">
+                        <div class="c-calender__heading">JULY, 2017</div>
+                        <ul class="list-inline c-calender__date">
+                            <li class="list-inline-item active">14</li>
+                            <li class="list-inline-item">15</li>
+                            <li class="list-inline-item">16<span class="upcoming">.</span></li>
+                            <li class="list-inline-item">17<span class="upcoming">.</span></li>
+                            <li class="list-inline-item">18</li>
+                            <li class="list-inline-item">19</li>
+                        </ul>
+                        <div class="c-calender__event">
+                            <strong>10:10 AM</strong>
+                            <br> Metting with Mike Creative Mint
+                        </div>
+                        <div class="c-calender__event">
+                            <strong>11:10 AM - 1: 30 PM</strong>
+                            <br> Metting with stebe Aovi
+                        </div>
+                        <p class="m-l-16">SEE MORE</p>
                     </div>
-                    <p class="m-l-16">SEE MORE</p>   
-                </div> 
-                <div class="o-profile_coming">Coming Soon</div>
-            </div>
-            <!-- attend event -->
-            <div class="col-md-12 col-sm-12 c-profile__calender p-0 m-t-16">
-                <div class="c-profile__calender--head">
-                    Events
+                    <div class="o-profile_coming">Coming Soon</div>
                 </div>
-                <div class="o-blur__block">
-                <div class="row p-16">
-                    <div class="col-md-4 col-sm-12 p-l-r-16">
-                        <img src="/assets/img/event.jpg" class="img-responsive">
+                <!-- attend event -->
+                <div class="col-md-12 col-sm-12 c-profile__calender p-0 m-t-16">
+                    <div class="c-profile__calender--head">
+                        Events
                     </div>
-                    <div class="col-md-8 col-sm-12 p-0">
-                        <div class="c-text_lg">DJ Night By DJ Sun Tiesto</div>
-                        <div class="c-text_lg">12, JUL</div>
-                        <div class="c-text_md color-grey-dark">Mohegan Sun Arena</div>
-                    </div>                        
-                </div>
-                </div>
-                <div class="o-profile_coming">Coming Soon</div>
-            </div>
-            <div class="col-md-12 col-sm-12 c-profile__calender p-0 m-t-16">
-                <div class="c-profile__calender--head">
-                    Communities
-                </div>
-                <div class="o-blur__block">
-                <div class="row p-16">
-                    <div class="col-md-4 col-sm-12 p-l-r-16">
-                        <img src="/assets/img/event.jpg" class="img-responsive">
+                    <div class="o-blur__block">
+                        <div class="row p-16">
+                            <div class="col-md-4 col-sm-12 p-l-r-16">
+                                <img src="{{ imageBaseUrl }}img/event.jpg" class="img-responsive">
+                            </div>
+                            <div class="col-md-8 col-sm-12 p-0">
+                                <div class="c-text_lg">DJ Night By DJ Sun Tiesto</div>
+                                <div class="c-text_lg">12, JUL</div>
+                                <div class="c-text_md color-grey-dark">Mohegan Sun Arena</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-8 col-sm-12 p-0">
-                        <div class="c-text_lg">Semplice Moh - Designers </div>
-                        <div class="c-text_lg">Portfolio System</div>
-                        <div class="c-text_md color-grey-dark">23 Collaborators</div>
-                    </div>                        
+                    <div class="o-profile_coming">Coming Soon</div>
                 </div>
+                <div class="col-md-12 col-sm-12 c-profile__calender p-0 m-t-16">
+                    <div class="c-profile__calender--head">
+                        Communities
+                    </div>
+                    <div class="o-blur__block">
+                        <div class="row p-16">
+                            <div class="col-md-4 col-sm-12 p-l-r-16">
+                                <img src="{{ imageBaseUrl }}img/event.jpg" class="img-responsive">
+                            </div>
+                            <div class="col-md-8 col-sm-12 p-0">
+                                <div class="c-text_lg">Semplice Moh - Designers </div>
+                                <div class="c-text_lg">Portfolio System</div>
+                                <div class="c-text_md color-grey-dark">23 Collaborators</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="o-profile_coming">Coming Soon</div>
                 </div>
-                <div class="o-profile_coming">Coming Soon</div>
-            </div>
 
+            </div>
         </div>
+        <!-- //left feed -->
+        <!-- right feed -->
+        <div class="col-md-9 col-sm-12 p-r-0 o-profile__rightbar">
+            <div class="row m-0" *ngIf="isCurrentUser===true">
+                <div class="col-md-12 col-sm-12 p-0">
+                    <div class="c-text_lg m-b-8">
+                        Quick Access
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="c-qt m-t-8 hidden-xs">
+                                <div class="c-qt__block c-qt--align c-dropup m-r-0" appDropdown>
+                                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" appDropdownOpen>
+                                        <div class="c-qt__imgblock">
+                                            <img [src]="imageBaseUrl +'img/svg/plus-red.svg'" class="c-qt__block__img">
+                                        </div>
+                                        <div class="c-qt__block__text m-t-8">Add More</div>
+                                    </a>
+                                    <div class="dropdown-menu o-share__profile3 p-16">
+                                        <!-- <div class="c-invite--search m-0">
+                                            <form class="fill-grey-light">
+                                                <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm m-0">
+                                                    <input class="c-form__input p-l-24" required="" type="text">
+                                                    <label class="p-l-16">Search</label>
+                                                    <span>
+                                                        <img src="{{ imageBaseUrl }}img/svg/ico_search.svg" class="c-form__input--lefticon">
+                                                    </span>
+                                                </div>
+                                            </form>
+                                        </div> -->
+                                        <div class="c-invite__block" *ngFor="let channel of userQuickAccess?.other_channel; let i = index">
+                                            <a class="c-text_md c-invite--user" *ngIf="!channel?.isPinned" (click)="pinChannel(channel?.spotfeedId)">{{channel.spotfeedName}}</a>
+                                            <span class="c-skill_act-tick" *ngIf="!channel?.isPinned"><img [src]="imageBaseUrl + 'img/svg/ico_tick.svg'"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                <ngu-carousel [inputs]="carouselOne">
+                                    <button NguCarouselPrev class='leftRs'>&lt;</button>
+                                    <button NguCarouselNext class='rightRs'>&gt;</button>
+                                    <ngu-tile NguCarouselItem *ngFor="let quickAccess of userQuickAccess.userQuickAccess; let i = index">
+                                        <div class="c-qt">
+                                            <app-quick-access [quickAccessData]="quickAccess"></app-quick-access>
+                                        </div>
+                                    </ngu-tile>
+
+                                </ngu-carousel>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- tabs -->
+            <div class="row m-0">
+                <div class="col-md-12 col-sm-12 p-0">
+                    <div class="home_tabs">
+                        <ul class="nav nav-tabs m-t-8 m-l-8">
+                            <li routerLinkActive="active"><a [routerLink]="['channel']">Channel</a></li>
+                            <li routerLinkActive="active"><a [routerLink]="['post']">Posts</a></li>
+                            <li routerLinkActive="active" *ngIf="isCurrentUser===true"><a [routerLink]="['spotfeed']">spotfeed</a></li>
+                        </ul>
+                        <div id="home_channel" class="m-l-r-8">
+                            <router-outlet></router-outlet>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- tabs -->
+        </div>
+        <!-- //right feed -->
     </div>
-    <!-- //left feed -->
-      <!-- right feed -->
-      <div class="col-md-9 col-sm-9 p-r-0">
-        <div class="row" *ngIf="isCurrentUser===true">
-            <div class="col-md-12 col-sm-12">
-                <div class="c-text_lg">
-                    Quick Access
-                </div>
-                <div class="ops_quick_tags">
-                    <app-quick-access *ngFor="let quickAccess of userQuickAccess.userQuickAccess; let i = index" [quickAccessData]="quickAccess"></app-quick-access>
-                </div>
-            </div>
-        </div>
-        <!-- tabs -->
-        <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <div class="home_tabs">
-                    <ul class="nav nav-tabs m-t-8 m-l-8">
-                      <li routerLinkActive="active"><a [routerLink]="['channel']">Channel</a></li>
-                      <li routerLinkActive="active"><a [routerLink]="['post']">Posts</a></li>
-                      <li routerLinkActive="active" *ngIf="isCurrentUser===true"><a [routerLink]="['spotfeed']">spotfeed</a></li>
-                    </ul>
-                    <div id="home_channel">
-                        <router-outlet></router-outlet>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- tabs -->
-      </div>
-      <!-- //right feed -->
-  </div>
 </div>
-

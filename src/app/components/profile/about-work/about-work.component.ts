@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
@@ -7,6 +7,7 @@ import { ModalService } from '../../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import {DatabaseValidator } from '../../../helpers/form.validator';
 import { DatePipe } from '@angular/common';
+import { environment } from '../../../../environments/environment';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -16,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-about-work',
@@ -24,10 +25,10 @@ import { Subscription } from 'rxjs/Subscription';
   providers: [ModalService, DatePipe, DatabaseValidator],
   styleUrls: ['./about-work.component.scss']
 })
-export class AboutWorkComponent implements OnInit {
+export class AboutWorkComponent implements OnInit, OnDestroy {
 
   tagState$: Observable<ProfileModal>;
-  private tagStateSubscription: Subscription;
+  private subscription: ISubscription;
   public workForm: FormGroup;
   private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   private editFormPopup: boolean;
@@ -35,6 +36,7 @@ export class AboutWorkComponent implements OnInit {
   userProfile: any;
   ownProfile: boolean;
   hideTo: boolean;
+  imageBaseUrl = environment.API_IMAGE;
 
   constructor(
     private http: Http,
@@ -46,7 +48,7 @@ export class AboutWorkComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
-    this.tagState$.subscribe((state) => {
+    this.subscription = this.tagState$.subscribe((state) => {
       this.stateProfile = state;
       if (state.profile_user_info) {
         if (this.stateProfile.profile_user_info.isCurrentUser === false && this.stateProfile.profile_other_loaded === true) {
@@ -76,6 +78,10 @@ export class AboutWorkComponent implements OnInit {
                 }
                 this.workForm.get('to').updateValueAndValidity();
             });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   /**

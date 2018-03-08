@@ -1,4 +1,3 @@
-import { AddTagsToVaultInput } from 'aws-sdk/clients/glacier';
 import { ActionReducer, Action } from '@ngrx/store';
 import { initialTag, ProfileModal, ProfileCards, UserCard} from '../models/profile.model';
 
@@ -74,6 +73,57 @@ function getActiveProfile(profile_details: any, profile_type: string = 'profile'
 export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
   switch (type) {
+
+    /* loading followings/followers */
+    case ProfileActions.GET_FOLLOWING_PROFILES:
+      return Object.assign({}, state, {
+        searching_following_profiles: true,
+        searching_following_profiles_success: false,
+        searching_following_params: payload,
+        following_profiles: []
+      });
+
+    case ProfileActions.GET_FOLLOWING_PROFILES_SUCCESS:
+      return Object.assign({}, state, {
+        searching_following_profiles: false,
+        searching_following_profiles_success: true,
+        following_profiles: payload
+      });
+
+    case ProfileActions.GET_FOLLOWING_PROFILES_FAILED:
+      return Object.assign({}, state, {
+        searching_following_profiles: false,
+        searching_following_profiles_success: false
+      });
+
+    case ProfileActions.GET_FOLLOWER_PROFILES:
+      return Object.assign({}, state, {
+        searching_follower_profiles: true,
+        searching_follower_profiles_success: false,
+        searching_follower_params: payload,
+        follower_profiles: []
+      });
+
+    case ProfileActions.GET_FOLLOWER_PROFILES_SUCCESS:
+      return Object.assign({}, state, {
+        searching_follower_profiles: false,
+        searching_follower_profiles_success: true,
+        follower_profiles: payload
+      });
+
+    case ProfileActions.GET_FOLLOWER_PROFILES_FAILED:
+      return Object.assign({}, state, {
+        searching_follower_profiles: false,
+        searching_follower_profiles_success: false
+      });
+    /* loading followings/followers */
+
+    /* reset org created success value to false */
+    case ProfileActions.ORG_REG_SUCCESS_RESET:
+      // console.log('ORG_REG_SUCCESS_RESET');
+      return Object.assign({}, state, {
+        org_registration_success: false
+      });
 
     case ProfileActions.PROFILE_COVER_UPDATE:
       return Object.assign({}, state, {
@@ -263,13 +313,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
 
   case ProfileActions.LOAD_USER_FOLLOWING_POSTS_SUCCESS:
-    const followingPosts = payload;
+  // console.log(payload)
+    const followingPosts = payload.mediaResponse;
     const following_new_post = state.user_following_posts.concat(followingPosts)
     return Object.assign({}, state, {
       mediaEntity: payload,
       user_following_posts_loaded: true,
       user_following_posts_loading: false,
-      user_following_posts: following_new_post
+      user_following_posts: following_new_post,
+      user_following_post_scroll_id: payload.scrollId
     });
 
   case ProfileActions.LOAD_USER_FOLLOWING_POSTS_FAILED:
@@ -285,13 +337,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
   case ProfileActions.CHANNEL_SAVE:
     return Object.assign({}, state, {
       channel_saved: false,
-      user_channels_loaded: false
+      user_channels_loaded: false,
+      channel_create_success: false
     });
 
   case ProfileActions.CHANNEL_SAVE_SUCCESS:
     return Object.assign({}, state, {
-      channel_created_details: payload,
-      channel_saved: true
+      channel_created_details: payload['SUCCESS'],
+      channel_saved: true,
+      channel_create_success: true
     });
 
   case ProfileActions.CHANNEL_SAVE_FAILED:
@@ -369,6 +423,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get current user following channel
      */
     case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL:
+    if (payload.page_start === 0) {
+      return Object.assign({}, state, {
+        user_following_channels_loading: true,
+        user_following_channels_loaded: false,
+        user_following_channel: []
+      });
+    }
       return Object.assign({}, state, {
         // success: true,
         user_following_channels_loading: true,
@@ -376,8 +437,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL_SUCCESS:
+    const followingChannel = payload['spotFeedResponse'];
+    const following_new_channel = state.user_following_channel.concat(followingChannel)
       return Object.assign({}, state, {
-        user_following_channel: payload,
+        user_channel_scroll_id: payload['scrollId'],
+        user_following_channel: following_new_channel,
         user_following_channels_loaded: true,
         user_following_channels_loading: false
       });
@@ -468,6 +532,29 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         success: false
       });
+
+
+    /**
+     * Profile Follow
+     */
+    case ProfileActions.PROFILE_UNFOLLOW_SUCCESS:
+      const v = state.profile_other
+      v.extra.isFollowing = false
+      v.followersCount = state.profile_other.followersCount - 1
+
+      return Object.assign({}, state, {
+        profile_other: v
+      });
+
+    case ProfileActions.PROFILE_FOLLOW_SUCCESS:
+      const x = state.profile_other
+      x.extra.isFollowing = true
+      x.followersCount = state.profile_other.followersCount + 1
+
+      return Object.assign({}, state, {
+        profile_other: x
+      });
+
 
     /**
      * Get current work and award
@@ -704,9 +791,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         user_profiles_all_loaded: false
       });
     case ProfileActions.LOAD_ALL_PROFILES_SUCCESS:
+      // console.log(payload)
+      const resp = payload.profileResponse;
+      const profile_list = state.user_profiles_all.concat(resp)
       return Object.assign({}, state, {
         user_profiles_all_loaded: true,
-        user_profiles_all: payload
+        user_profiles_all: profile_list,
+        people_follow_scroll_id: payload.scrollId
       });
 
     case ProfileActions.LOAD_ALL_PROFILES_FAILED:
@@ -720,18 +811,23 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_DIRECTORY:
       if (payload.offset === 0) {
         return Object.assign({}, state, {
-          dir_list: []
+          dir_list: [],
+          dir_list_loaded: false,
         });
       }
       return Object.assign({}, state, {
         dir_list_loading: true,
+        dir_list_loaded: false,
       });
 
     case ProfileActions.LOAD_DIRECTORY_SUCCESS:
-      const dir_list = state.dir_list.concat(payload)
+      const list = payload['profileResponse'];
+      const dir_lists = state.dir_list.concat(list)
       return Object.assign({}, state, {
+        user_directory_scroll_id: payload['scrollId'],
         dir_list_loading: false,
-        dir_list: dir_list
+        dir_list_loaded: true,
+        dir_list: dir_lists,
       });
 
     /**
@@ -772,6 +868,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       default_notification: []
     });
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_SUCCESS:
+    // console.log(payload)
     return Object.assign({}, state, {
       default_notification: payload.settings.notificationSettings,
       adult_Content: payload.settings.allowARC,
@@ -1016,7 +1113,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       return Object.assign({}, state, {
         profile_other_loading: false,
         profile_other_loaded: true,
-        profile_other: payload.STATUS[0]
+        profile_other: payload.SUCCESS.user
       });
 
     case ProfileActions.GET_IMPORTED_PROFILE_FAILED:

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -12,7 +12,7 @@ import { SharedActions } from '../../../actions/shared.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { TabsetComponent  } from '../../../shared/tabs/tabset';
 import { ProfileActions } from '../../../actions/profile.action';
@@ -28,16 +28,24 @@ import { ApiService } from '../../../helpers/api.service';
   styleUrls: ['./home-channel.component.scss']
 })
 
-export class HomeChannelComponent implements OnInit {
+export class HomeChannelComponent implements OnInit, OnDestroy {
 
+  private subscription: ISubscription;
+  private subscriptionOne: ISubscription;
   tagState$: Observable<ProfileModal>;
-  private tagStateSubscription: Subscription;
   userState;
   channelList;
   myProfile$: Observable<any>;
   myProfileData: any;
   handle: string;
   loadMoreParams: any;
+  channel_scroll_id: any = '';
+
+  page_start = 0;
+  page_end = 10;
+ // total_pages = 10;
+  scrolling = 0;
+  scrollingLoad = 1000;
 
   constructor(
     private http: Http,
@@ -49,8 +57,12 @@ export class HomeChannelComponent implements OnInit {
 
     this.tagState$ = store.select('profileTags');
     this.myProfile$ = store.select('profileTags').take(3);
-    this.tagState$.subscribe((state) => {
+    this.subscriptionOne = this.tagState$.subscribe((state) => {
       this.userState = state;
+      if (state.user_following_channels_loaded) {
+        this.channelList = state.user_following_channel;
+        this.channel_scroll_id = state.user_channel_scroll_id;
+      }
     });
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS })
@@ -58,7 +70,7 @@ export class HomeChannelComponent implements OnInit {
 
   ngOnInit() {
     // If there's input assign, other wise, reload channel list
-    this.myProfile$.subscribe(event => {
+    this.subscription = this.myProfile$.subscribe(event => {
       this.myProfileData = event;
       let isUserReady;
       if (event.profile_navigation_details && event.profile_navigation_details.handle) {
@@ -73,12 +85,12 @@ export class HomeChannelComponent implements OnInit {
    * Check and Load Channels
    */
   loadChannels(userHandle: string) {
-    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: userHandle });
-    this.tagState$.subscribe(data => {
-      if (data.user_following_channels_loaded) {
-        this.channelList = data.user_following_channel;
-      }
-    });
+    const body = {
+      limit: 9,
+      scrollId: this.channel_scroll_id,
+    }
+
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: body });
   }
 
   /**
@@ -90,5 +102,21 @@ export class HomeChannelComponent implements OnInit {
       state: e.state
     };
     this.store.dispatch({ type: ProfileActions.CHANNEL_FOLLOW, payload: req });
+  }
+
+  onScroll(e) {
+    this.scrolling = e.currentScrollPosition;
+
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 500
+      // this.page_start = this.page_start + 10;
+      // this.page_end = 10;
+      this.loadChannels(this.handle);
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.subscriptionOne.unsubscribe();
   }
 }

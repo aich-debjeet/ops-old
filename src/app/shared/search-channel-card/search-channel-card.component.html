@@ -1,0 +1,49 @@
+<div class="col-md-2 p-0">
+  <div class="c-search__block width100 m-l-0">
+    <ng-container *ngIf="(channelData?.media)?.length > 0" class="c-searchprofile__postblock2 m-l-r-8">
+      <div *ngFor="let item of channelData?.media | slice:0:3; let i=index">
+        <div class="c-searchchannel_left2" *ngIf="i === 0">
+          <div *ngIf="item?.mediaType !== 'image'">
+            <app-videplayer *ngIf="item?.mediaType === 'video'" [src]="baseUrl + item?.repoPath"></app-videplayer>
+            <app-audioplayer type="simple" *ngIf="item?.mediaType === 'audio'" [src]="baseUrl + item?.repoPath"></app-audioplayer>
+          </div>
+          <img *ngIf="item?.mediaType === 'image' && item?.repoPath !== ''" src="{{ baseUrl + item?.repoPath }}">
+          <img *ngIf="item?.mediaType === 'image' && item?.repoPath === ''" src="{{ baseUrl }}img/l09.jpg">
+        </div>
+        <div class="c-searchchannel_right2" *ngIf="i === 1 || i === 2">
+          <div class="c-searchchannel_r-t2" *ngIf="i === 1">
+            <div *ngIf="item?.mediaType !== 'image'">
+              <app-videplayer *ngIf="item?.mediaType === 'video'" [src]="baseUrl + item?.repoPath"></app-videplayer>
+              <app-audioplayer type="simple" *ngIf="item?.mediaType === 'audio'" [src]="baseUrl + item?.repoPath"></app-audioplayer>
+            </div>
+            <img *ngIf="item?.mediaType === 'image' && item?.repoPath !== ''" src="{{ baseUrl + item?.repoPath }}" class="c-searchprofile__postimg">
+            <img *ngIf="item?.mediaType === 'image' && item?.repoPath === ''" src="{{ baseUrl }}img/l09.jpg" class="c-searchprofile__postimg">
+          </div>
+          <div class="c-searchchannel_r-b2" *ngIf="i === 2">
+            <div *ngIf="item?.mediaType !== 'image'">
+              <app-videplayer *ngIf="item?.mediaType === 'video'" [src]="baseUrl + item?.repoPath"></app-videplayer>
+              <app-audioplayer type="simple" *ngIf="item?.mediaType === 'audio'" [src]="baseUrl + item?.repoPath"></app-audioplayer>
+            </div>
+            <img *ngIf="item?.mediaType === 'image' && item?.repoPath !== ''" src="{{ baseUrl + item?.repoPath }}" class="c-searchprofile__postimg">
+            <img *ngIf="item?.mediaType === 'image' && item?.repoPath === ''" src="{{ baseUrl }}img/l09.jpg" class="c-searchprofile__postimg">
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div *ngIf="(channelData?.media)?.length === 0">
+      <div class="c-searchchannel_left2" >
+        <img src="{{ baseUrl }}img/l09.jpg">
+      </div>
+      <div class="c-searchchannel_right2">
+        <div class="c-searchchannel_r-t2">
+          <img src="{{ baseUrl }}img/l09.jpg" class="c-searchprofile__postimg">
+        </div>
+        <div class="c-searchchannel_r-b2">
+          <img src="{{ baseUrl }}img/l07.jpg" class="c-searchprofile__postimg">
+        </div>
+      </div>
+    </div>
+    <a [routerLink]="['/channel', channelData?.spotfeedId]" class="c-searchprofile__name2 m-l-8">{{ channelData?.spotfeedName }}</a>
+    <a (click)="toggleFollowBtn($event)" class="c-searchprofile__post color-theme text_uppercase m-0 m-l-8">{{ isfollowing ? 'Unfollow' : 'Follow' }}</a>
+  </div>
+</div>

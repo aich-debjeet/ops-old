@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-about-education',
@@ -35,7 +36,7 @@ export class AboutEducationComponent implements OnInit {
   stateProfile = initialTag;
   userProfile: any;
   ownProfile: boolean;
-
+  imageBaseUrl = environment.API_IMAGE;
   constructor(
     private http: Http,
     public modalService: ModalService,
@@ -112,7 +113,7 @@ export class AboutEducationComponent implements OnInit {
         }
         this.modalService.close('userEducationkAdd');
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_EDUCATION, payload: body});
-        this.toastr.success('You education details has been updated successfully!');
+        this.toastr.success('Your education details has been updated successfully!');
       } else {
         const body = {
           'institute': value.institute,
@@ -123,7 +124,7 @@ export class AboutEducationComponent implements OnInit {
         }
         this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_EDUCATION, payload: body});
         this.modalService.close('userEducationkAdd');
-        this.toastr.success('You education details has been updated successfully!');
+        this.toastr.success('Your education details has been updated successfully!');
       }
     }
 

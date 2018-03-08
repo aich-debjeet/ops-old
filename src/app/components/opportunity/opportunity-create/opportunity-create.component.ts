@@ -1,456 +1,507 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
-// actions
-import { OpportunityActions } from 'app/actions/opportunity.action';
-import { ProfileActions } from 'app/actions/profile.action';
-import { AuthActions } from '../../../actions/auth.action';
+// toastr service
+import { ToastrService } from 'ngx-toastr';
 
 // store
 import { Store } from '@ngrx/store';
 
-// models
-import { OpportunityModel } from './../../../models/opportunity.model';
-
-// services
-import { LocalStorageService } from './../../../services/local-storage.service';
-import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
-
-import { Media } from '../../../models/media.model';
-
-// rx
+// rxjs
 import { Observable } from 'rxjs/Observable';
-import { environment } from 'environments/environment.staging';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
-// google location api
-import {} from '@types/googlemaps';
-import { AgmCoreModule, MapsAPILoader } from '@agm/core';
-import { UserCard } from 'app/models/profile.model';
+import { environment } from '../../../../environments/environment';
+import { ScrollHelper } from '../../../helpers/scroll.helper';
+import { GeneralUtilities } from '../../../helpers/general.utils';
+
+// opportunity imports
+import { OpportunityActions } from 'app/actions/opportunity.action';
+import { OpportunityModel } from 'app/models/opportunity.model';
 
 @Component({
   selector: 'app-opportunity-create',
   templateUrl: './opportunity-create.component.html',
   styleUrls: ['./opportunity-create.component.scss']
 })
-export class OpportunityCreateComponent implements OnInit {
+export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnDestroy {
 
-  createOppFrm: FormGroup;
-  orgHandle = '';
-  opportunityState$: any;
-  opportunityState: any;
-  isSaved = false;
-  formData: any;
-  createClicked = false;
-  showCreateChannel = false;
-  userProfileState$: any;
-  userProfile: any;
-  channelList: any[];
-  selectedChannelId = '';
-  channelForm: FormGroup;
-  loginTagState$: Observable<any>;
-  industries: any[];
-  channelSavedHere: boolean;
-  channelSaved = false;
   baseUrl = environment.API_IMAGE;
+  userHandle: any;
 
-  showPrivacyOptions = false;
-  privacyValue = 0;
+  auditionFrm: FormGroup;
+  projectFrm: FormGroup;
+  jobFrm: FormGroup;
+  internshipFrm: FormGroup;
+  freelanceFrm: FormGroup;
+  volunteerFrm: FormGroup;
+  private subscription: ISubscription;
 
-  public latitude: number;
-  public longitude: number;
-  public searchControl: FormControl;
-  public zoom: number;
+  oppState: Observable<OpportunityModel>;
 
-  // Address --
-  address: string;
-  country: string;
-  state: string;
-  postalCode: string;
-  city: string;
-  activeProfile: UserCard;
+  oppSaved = false;
+  activeTab = 'audition';
+  uploadedFile = false;
+  uploadingFile = false;
+  uploadedFileSrc = 'https://cdn.onepagespotlight.com/img/default/opp-thumb.png';
 
-  @ViewChild('search')
-  public searchElementRef: ElementRef;
+  // location details
+  locationDetails = {
+    lat: '',
+    lng: ''
+  };
 
   constructor(
-    private router: Router,
-    private ngZone: NgZone,
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private mapsAPILoader: MapsAPILoader,
-    private store: Store<OpportunityModel>,
-    private mediaStore: Store<Media>,
-    private localStorageService: LocalStorageService
+    private scrollHelper: ScrollHelper,
+    private generalUtils: GeneralUtilities,
+    private oppStore: Store<OpportunityModel>
   ) {
-    this.channelSaved = false;
-    this.channelSavedHere = false;
 
-    this.loginTagState$ = store.select('loginTags');
-    this.loginTagState$.subscribe((state) => {
-      this.industries = state.industries;
-    });
+    // creating audition form
+    this.createAuditionForm();
 
-    this.userProfileState$ = this.mediaStore.select('profileTags');
-    this.userProfileState$.subscribe(data => {
-      if (data && data.profile_navigation_details) {
-        this.userProfile = data.profile_navigation_details;
-        if (data.channel_saved) {
-          this.channelSaved = data.channel_saved;
-        }
-      }
-      if (data && data.user_following_channels_loaded) {
-        this.channelList = data.user_following_channel;
-      }
-      if (data && data.channel_created_details && data.channel_created_details.SUCCESS && data.channel_created_details.SUCCESS.id) {
-        this.selectedChannelId = data.channel_created_details.SUCCESS.id;
-      }
-      // success message
-      if (this.channelSavedHere && this.channelSaved === true ) {
-        this.toastr.success('Channel has been created successfully!');
-        this.createChannelForm();
-        this.channelSavedHere = false;
-        // submitting opportunity
-        this.postOpportunity(this.formData);
-      }
-    });
+    // creating project form
+    this.createProjectForm();
 
-    // state listener
-    this.opportunityState$ = this.store.select('opportunityTags');
-    this.opportunityState$
-    .first(state => {
-      this.opportunityState = state;
-      // check if opportunity created successfully
-      if (this.opportunityState && this.opportunityState.create_opportunity_data && this.opportunityState.create_opportunity_data.SUCCESS) {
-        if (this.isSaved === false) {
-          this.isSaved = true;
+    // creating job form
+    this.createJobForm();
+
+    // creating internship form
+    this.createInternshipForm();
+
+    // creating freelance form
+    this.createFreelanceForm();
+
+    // creating vulunteer form
+    this.createVolunteerForm();
+
+    this.oppState = this.oppStore.select('opportunityTags');
+    this.subscription = this.oppState.subscribe((state) => {
+      console.log('app state', state);
+      console.log('this.uploadedFile', this.uploadedFile);
+      if (state && state['create_opportunity_data'] && state['create_opportunity_data']['SUCCESS']) {
+        if (this.oppSaved === true) {
           this.toastr.success('Opportunity has been created successfully!');
+          this.oppSaved = false;
         }
-        this.resetOppForm();
-
-        // redirecting to the created job
-        const jobId = this.opportunityState.create_opportunity_data.SUCCESS.id;
-        setTimeout(() => {
-          this.router.navigate(['/opportunity/view/' + jobId]);
-        }, 2000);
-        this.opportunityState.create_opportunity_data = [];
       }
-    })
-    .subscribe((state) => { });
-
-    // create opp form
-    this.createOppForm();
-
-    // create channel form
-    this.createChannelForm();
-  }
-
-  /**
-   * Creating the reactive form
-   */
-  createOppForm() {
-    // reactive from group
-    this.createOppFrm = this.fb.group({
-      oppType: ['', [Validators.required]],
-      role: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      yearsExpFrom: [''],
-      yearsExpTo: [''],
-      salaryAmount: [''],
-      salaryDuration: [''],
-      salaryCurrency: [''],
-      oppDuration: [''],
-      oppLocation: ['', [Validators.required]],
-      oppLevel: [''],
-      userSkills: [''],
-      userQualifications: [''],
-      orgName: [''],
-      country: [''],
-      attachments: [''],
-      industry: ['', Validators.required]
     });
-  }
 
-  /**
-   * Reset the form to empty/default values
-   */
-  resetOppForm() {
-    this.createOppForm();
   }
 
   ngOnInit() {
-    // loading indutries
-    this.loadIndustries();
-
-    // check organziation page already created
-    this.store.select('profileTags')
-    .first(profile => profile['current_user_profile_loading'] === true)
+    // load stuffs
+    this.oppStore.select('profileTags')
+    .first(profile => profile['profile_navigation_details'].handle )
     .subscribe( data => {
-      /**
-       * @TODO
-       * What happens if the current user,
-       * without switching to org comes here?
-       */
-      this.activeProfile = data['profile_cards'].active;
-      // bad logics
-      if (this.activeProfile.isOrg) {
-        this.orgHandle = this.activeProfile.handle;
-      } else {
-        if (data['profile_cards'].other && data['profile_cards'].other.isOrg) {
-          this.orgHandle = data['profile_cards'].other.isOrg;
-        }
-      }
-
+      this.userHandle = data['profile_cards'].active.handle;
     });
   }
 
-  // channel select
-  channelSelection(formData: any) {
-    // validation step
-    if (!this.createOppFrm.valid) {
-      window.scrollTo(0, 0);
-      return;
-    }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
-    this.createClicked = true;
-    this.formData = formData;
+  ngAfterViewChecked() {
+    this.scrollHelper.doScroll();
+  }
 
-    // loading channels
-    this.loadChannels();
+  // change tab
+  switchTabTo(tabId: string) {
+    this.oppSaved = false;
+    this.activeTab = tabId;
+  }
+
+  fileSelectedAction($event) {
+    const imgObj = this.generalUtils.fileChangeListener($event);
+    this.uploadImage(imgObj);
+    this.uploadingFile = true;
+    this.uploadedFile = false;
   }
 
   /**
-   * Load current user channels
+   * Upload image
    */
-  loadChannels() {
-    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: 'user' });
-  }
-
-  /**
-   * Load industries
-   */
-  loadIndustries() {
-    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
-  }
-
-  // opp create form submit
-  postOpportunity(formData: any) {
-
-    // validation step
-    if (!this.createOppFrm.valid) {
-      return;
-    }
-
-    // preparing skills for req body
-    let skillsArr = [];
-    if (formData.userSkills && formData.userSkills.length > 0) {
-      skillsArr = formData.userSkills.split(',');
-    }
-
-    // preparing qualifications for req body
-    let qualificationsArr = [];
-    if (formData.userQualifications && formData.userQualifications.length > 0) {
-      qualificationsArr = formData.userQualifications.split(',');
-    }
-
-    // create opp request object
-    const reqObj = {
-      title: formData.oppType,
-      role: formData.role,
-      description: formData.description,
-      experience: {
-        experienceFrom: Number(formData.yearsExpFrom),
-        experienceTo: Number(formData.yearsExpTo)
-      },
-      salary: {
-        amount: Number(formData.salaryAmount),
-        salaryType: formData.salaryDuration,
-        currency: formData.salaryCurrency
-      },
-      organization: this.orgHandle,
-      organizationName: formData.orgName,
-      jobType: formData.oppType,
-      skills: skillsArr,
-      attachment: [''],
-      qualification: qualificationsArr,
-      count: {
-        like: [],
-        spots: [],
-        channel: [this.selectedChannelId]
-      },
-      industry: [ formData.industry ]
+  uploadImage(fileObj) {
+    const imageData = {
+      handle: this.userHandle,
+      image: fileObj
     };
 
-    // create the opportunity
-    this.store.dispatch({
+    this.oppStore.dispatch({ type: OpportunityActions.FILE_UPLOAD, payload: imageData });
+
+    this.oppStore.select('opportunityTags')
+      .first(file => file['fileupload_success'] === true )
+      .subscribe( data => {
+        // console.log(data);
+        if (data && data['fileupload_response'] && data['fileupload_response'][0] && data['fileupload_response'][0].repoPath) {
+          // console.log('IN');
+          this.uploadingFile = false;
+          this.uploadedFile = true;
+          // const file = data['fileupload_response'][0].repoPath;
+          // this.uploadedFileSrc = file.substr(0, file.lastIndexOf('.')) + '_thumb_250.jpeg';
+          // console.log(this.baseUrl + this.uploadedFileSrc);
+        } else {
+          // console.log('OUT');
+          this.uploadingFile = false;
+          this.uploadedFile = false;
+        }
+      });
+  }
+
+  /* =================================== audition form =================================== */
+  /**
+   * Creating the reactive form for audition
+   */
+  createAuditionForm() {
+    this.auditionFrm = this.fb.group({
+      auditionTitle: ['', [Validators.required]],
+      auditionDescription: ['', []],
+      auditionCategory: ['', []],
+      auditionDate: ['', [Validators.required]],
+      auditionLocation: ['', [Validators.required]],
+      auditionGender: ['', [Validators.required]],
+      auditionEthnicity: ['', []],
+      auditionComplexion: ['', []],
+      auditionAgeMin: ['', [Validators.required]],
+      auditionAgeMax: ['', [Validators.required]],
+      auditionHeightFrom: ['', []],
+      auditionHeightTo: ['', []],
+      auditionWeightFrom: ['', []],
+      auditionWeightTo: ['', []]
+    });
+  }
+
+  /**
+   * Submit form
+   * @param: form data
+   */
+  submitAuditionForm(formData: any) {
+
+    console.log('formData', formData);
+
+    // audition form validation
+    if (!this.auditionFrm.valid) {
+      this.scrollHelper.scrollToFirst('error');
+      // console.log('invalid form');
+      return;
+    }
+
+    // preparing request body to submit to the api
+    const reqBody = {
+      opportunityType: 'audition',
+      opportunityAudition: {
+        title: formData.auditionTitle,
+        description: formData.auditionDescription,
+        category: formData.auditionCategory,
+        auditionDate: formData.auditionDate,
+        gender: formData.auditionGender,
+        ethnicity: formData.auditionEthnicity,
+        complexion: formData.auditionComplexion,
+        ageLimit: String(formData.auditionAgeMax),
+        height: {
+          from: String(formData.auditionHeightFrom),
+          to: String(formData.auditionHeightTo)
+        },
+        weight: {
+          from: String(formData.auditionWeightFrom),
+          to: String(formData.auditionWeightTo)
+        },
+        location: {
+          lat: this.locationDetails.lat,
+          lon: this.locationDetails.lng
+        }
+      }
+    }
+
+    // submit audition details
+    this.oppStore.dispatch({
       type: OpportunityActions.CREATE_OPPORTUNITY,
-      payload: reqObj
+      payload: reqBody
     });
+    this.oppSaved = true;
 
   }
+  /* =================================== audition form =================================== */
 
-  /**
-   * Choose a channel
-   * @param channel
-   */
-  chooseChannel(channel: any) {
-    // adding reference of the selected channel
-    this.selectedChannelId = channel.spotfeedId;
-
-    // create the opportunity with the selected channel id
-    this.postOpportunity(this.formData);
+  /* =================================== project form =================================== */
+  createProjectForm() {
+    this.projectFrm = this.fb.group({
+      projectTitle: ['', [Validators.required]],
+      projectDescription: ['', []],
+      projectSkills: ['', []],
+      projectCollaborators: ['', []],
+    });
   }
 
-  /**
-   * Create channel form builder
-   */
-  createChannelForm() {
-    // Empty initiate form
-    this.channelForm = this.fb.group({
-      title: ['', Validators.required ],
-      type: ['', Validators.required ],
-      desc: ['', Validators.required ],
-      // privacy: [0, Validators.required ]
-    })
-  }
+  submitProjectForm(formData: any) {
+    // validation check
+    if (!this.projectFrm.valid) {
+      // console.log('invalid form');
+      return;
+    }
 
-  /**
-   * Create channel
-   */
-  createChannel(value: any) {
-    const userHandle = this.userProfile.handle || '';
-    const mediaTypeList = [];
-
-    // set profile handle to user handle
-    let profileHandle = userHandle;
-
-    // check if creator is user or organization
-    if (localStorage.getItem('active_profile') !== null) {
-      const localStore = JSON.parse(this.localStorageService.theAccountStatus);
-      if (localStore.profileType === 'org') {
-        profileHandle = localStore.handle;
+    // else prepare and submit the form
+    const reqBody = {
+      opportunityType: 'project',
+      opportunityProject: {
+        title: formData.projectTitle,
+        description: formData.projectDescription,
+        skills: formData.projectSkills,
+        addCollaborators: [formData.projectCollaborators]
       }
+    };
+
+    // submit project details
+    this.oppStore.dispatch({
+      type: OpportunityActions.CREATE_OPPORTUNITY,
+      payload: reqBody
+    });
+    this.oppSaved = true;
+  }
+  /* =================================== project form =================================== */
+
+  /* =================================== job form =================================== */
+  createJobForm() {
+    this.jobFrm = this.fb.group({
+      jobRole: ['', [Validators.required]],
+      jobDescription: ['', []],
+      jobIndustry: ['', []],
+      jobExperienceFrom: ['', [Validators.required]],
+      jobExperienceTo: ['', [Validators.required]],
+      jobSalaryAmount: ['', []],
+      jobSalaryDuration: ['', []],
+      jobSalaryCurrency: ['', []],
+      jobDuration: ['', []],
+      jobLocation: ['', []],
+      jobTravelInclusive: ['', []],
+      jobCountry: ['', []],
+      jobSkills: ['', []],
+      jobQualifications: ['', []],
+      jobOrgName: ['', []]
+    });
+  }
+
+  submitJobForm(formData: any) {
+    // validation check
+    if (!this.jobFrm.valid) {
+      this.scrollHelper.scrollToFirst('error');
+      // console.log('invalid form');
+      return;
     }
 
-    if ( this.channelForm.valid === true && profileHandle !== '' ) {
-
-      const hashTags = [];
-
-      const channelObj = {
-        name: value.title,
-        owner: profileHandle,
-        mediaTypes: mediaTypeList,
-        industryList: [ value.type ],
-        superType: 'channel',
-        access: Number(this.privacyValue),
-        description: value.desc,
-        accessSettings : { access : Number(this.privacyValue) },
-        hashTags: hashTags
+    // else prepare and submit the form
+    const reqBody = {
+      opportunityType: 'job',
+      opportunityJob: {
+        role: formData.jobRole,
+          description: formData.jobDescription,
+          industry: formData.jobIndustry,
+          experience: {
+            from: formData.jobExperienceFrom,
+            to: formData.jobExperienceTo
+          },
+          salary: {
+            amount: Number(formData.jobSalaryAmount),
+            salaryType: formData.jobSalaryDuration,
+            currency: formData.jobSalaryCurrency
+          },
+          duration: formData.jobDuration,
+          location: {
+            lat: formData.jobLocation,
+            lon: formData.jobLocation
+          },
+          includesTravel: {
+            option: formData.jobTravelInclusive,
+            country: formData.jobCountry
+          },
+          skills: formData.jobSkills,
+          qualifications: formData.jobQualifications,
+          organizationName: formData.jobOrgName,
+          attachFiles: []
       }
+    };
 
-      this.channelSavedHere = true;
-      this.mediaStore.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: channelObj });
-    } else {
-      this.toastr.warning('Please fill all required fields');
-    }
-  }
-
-  private setCurrentPosition() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 12;
-      });
-    }
-  }
-
-  /**
-   * Location find from google
-   */
-  getLocationGoogle() {
-    // set google maps defaults
-    this.zoom = 4;
-    this.latitude = 39.8282;
-    this.longitude = -98.5795;
-
-    // create search FormControl
-    this.searchControl = new FormControl();
-
-    // set current position
-    this.setCurrentPosition();
-
-    // load Places Autocomplete
-    this.mapsAPILoader.load().then(() => {
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+    // submit job details
+    this.oppStore.dispatch({
+      type: OpportunityActions.CREATE_OPPORTUNITY,
+      payload: reqBody
     });
+    this.oppSaved = true;
 
-      const componentForm = {
-        street_number: 'short_name',
-        route: 'long_name',
-        locality: 'long_name',
-        administrative_area_level_1: 'long_name',
-        country: 'long_name',
-        postal_code: 'short_name'
-      };
+  }
+  /* =================================== job form =================================== */
 
-      autocomplete.addListener('place_changed', () => {
-        this.ngZone.run(() => {
-          // get the place result
-          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          for (let i = 0; i < place.address_components.length; i++) {
-            const addressType = place.address_components[i].types[0];
-            if (componentForm[addressType]) {
-              const val = place.address_components[i][componentForm[addressType]];
-              if ( addressType === 'country') {
-                this.country = val;
-              }
-              if ( addressType === 'postal_code') {
-                this.postalCode = val;
-              }
-              if ( addressType === 'locality') {
-                this.city = val
-              }
-              if ( addressType === 'administrative_area_level_1') {
-                this.state = val
-              }
-            }
-          }
-
-          // verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-
-          // set latitude, longitude and zoom
-          this.address = place.formatted_address;
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.zoom = 12;
-        });
-      });
+  /* =================================== internship form =================================== */
+  createInternshipForm() {
+    this.internshipFrm = this.fb.group({
+      internshipRole: ['', [Validators.required]],
+      internshipDescription: ['', []],
+      internshipIndustry: ['', []],
+      internshipExperienceFrom: ['', [Validators.required]],
+      internshipExperienceTo: ['', [Validators.required]],
+      internshipSalaryAmount: ['', []],
+      internshipSalaryDuration: ['', []],
+      internshipSalaryCurrency: ['', []],
+      internshipDuration: ['', []],
+      internshipLocation: ['', []],
+      internshipTravelInclusive: ['', []],
+      internshipCountry: ['', []],
+      internshipSkills: ['', []],
+      internshipQualifications: ['', []],
+      internshipOrgName: ['', []]
     });
-
   }
 
-  /**
-   * Display privacy option on channel selection
-   */
-  togglePrivacyOptions() {
-    if (this.showPrivacyOptions === true) {
-      this.showPrivacyOptions = false;
-    } else {
-      this.showPrivacyOptions = true;
+  submitInternshipForm(formData: any) {
+    // validation check
+    if (!this.internshipFrm.valid) {
+      this.scrollHelper.scrollToFirst('error');
+      // console.log('invalid form');
+      return;
     }
+
+    // else prepare and submit the form
+    const reqBody = {
+      opportunityType: 'internship',
+      opportunityInternship: {
+        role: formData.internshipRole,
+          description: formData.internshipDescription,
+          industry: formData.internshipIndustry,
+          experience: {
+            from: formData.internshipExperienceFrom,
+            to: formData.internshipExperienceTo
+          },
+          salary: {
+            amount: Number(formData.internshipSalaryAmount),
+            salaryType: formData.internshipSalaryDuration,
+            currency: formData.internshipSalaryCurrency
+          },
+          duration: formData.internshipDuration,
+          location: {
+            lat: formData.internshipLocation,
+            lon: formData.internshipLocation
+          },
+          includesTravel: {
+            option: formData.internshipTravelInclusive,
+            country: formData.internshipCountry
+          },
+          skills: formData.internshipSkills,
+          qualifications: formData.internshipQualifications,
+          organizationName: formData.internshipOrgName,
+          attachFiles: []
+      }
+    };
+
+    // submit internship details
+    this.oppStore.dispatch({
+      type: OpportunityActions.CREATE_OPPORTUNITY,
+      payload: reqBody
+    });
+    this.oppSaved = true;
+
+  }
+  /* =================================== internship form =================================== */
+
+  /* =================================== freelance form =================================== */
+  createFreelanceForm() {
+    this.freelanceFrm = this.fb.group({
+      freelanceTitle: ['', [Validators.required]],
+      freelanceDescription: ['', []],
+      freelancePaymentMethod: ['', [Validators.required]],
+      freelanceEngagement: ['', [Validators.required]],
+      freelanceSkills: ['', []],
+    });
   }
 
-  /**
-   * Set the privacy value for the form reference
-   */
-  selectPrivacy(value: any) {
-    this.privacyValue = value;
-    this.togglePrivacyOptions();
+  submitFreelanceForm(formData: any) {
+    // validation check
+    if (!this.freelanceFrm.valid) {
+      this.scrollHelper.scrollToFirst('error');
+      // console.log('invalid form');
+      return;
+    }
+
+    // else prepare and submit the form
+    const reqBody = {
+      opportunityType: 'freelance',
+      opportunityFreelance: {
+        title: formData.freelanceTitle,
+        description: formData.freelanceDescription,
+        payType: formData.freelancePaymentMethod,
+        engagement: formData.freelanceEngagement,
+        skills: formData.freelanceSkills,
+        attachFiles: []
+      }
+    };
+
+    // submit freelance details
+    this.oppStore.dispatch({
+      type: OpportunityActions.CREATE_OPPORTUNITY,
+      payload: reqBody
+    });
+    this.oppSaved = true;
+
   }
+  /* =================================== freelance form =================================== */
+
+  /* =================================== volunteer form =================================== */
+  createVolunteerForm() {
+    this.volunteerFrm = this.fb.group({
+      volunteerTitle: ['', [Validators.required]],
+      volunteerCause: ['', []],
+      volunteerLocation: ['', []],
+      volunteerSkills: ['', []],
+      volunteerDL: [false, []],
+      volunteerBGC: [false, []],
+      volunteerORTR: [false, []],
+    });
+  }
+
+  submitVolunteerForm(formData: any) {
+    // validation check
+    if (!this.volunteerFrm.valid) {
+      this.scrollHelper.scrollToFirst('error');
+      // console.log('invalid form');
+      return;
+    }
+
+    const volunteerRequirements = [];
+    if (formData.volunteerBGC && formData.volunteerBGC === true) {
+      volunteerRequirements.push('Background Check');
+    }
+    if (formData.volunteerDL && formData.volunteerDL === true) {
+      volunteerRequirements.push('Driver\'s License Needed');
+    }
+    if (formData.volunteerORTR && formData.volunteerORTR === true) {
+      volunteerRequirements.push('Orientation or Training');
+    }
+
+    // else prepare and submit the form
+    const reqBody = {
+      opportunityType: 'volunteer',
+      opportunityVolunteer: {
+        title: formData.volunteerTitle,
+        cause: formData.volunteerCause,
+        skills: formData.volunteerSkills,
+        location: {
+          lat: formData.volunteerLocation,
+          lon: formData.volunteerLocation
+        },
+        requirements: volunteerRequirements
+      }
+    };
+
+    // submit volunteer details
+    this.oppStore.dispatch({
+      type: OpportunityActions.CREATE_OPPORTUNITY,
+      payload: reqBody
+    });
+    this.oppSaved = true;
+
+  }
+  /* =================================== volunteer form =================================== */
 
 }

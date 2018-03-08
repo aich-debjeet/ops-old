@@ -8,11 +8,17 @@ import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+
+// External Service
 import { ImageCropperModule } from 'ng2-img-cropper/index';
 import { ToastrModule } from 'ngx-toastr';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
-import { NgxCarouselModule } from 'ngx-carousel';
+import { NguCarouselModule } from '@ngu/carousel';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { NgxMasonryModule } from 'ngx-masonry';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { AgmCoreModule } from '@agm/core';
 
 // Pipes
 import { OrderByPipe } from './pipes/order.pipe';
@@ -23,14 +29,10 @@ import { SharedPipesModule } from './pipes/shared-pipes.module';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
-
-// components
-import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
+import { AuthlogoutGuard } from './guard/authlogout.guard';
 
 // Routes
 import { routes } from './app.routing';
-import { MasonryModule } from 'angular2-masonry';
 
 // Reducers
 import { AuthReducer } from './reducers/auth.reducer';
@@ -59,13 +61,14 @@ import { OrganizationEffect } from './effects/organization.effect';
 import { EventEffect } from './effects/event.effect';
 import { ExploreEffect } from './effects/explore.effect';
 import { ClaimProfileEffect } from './effects/claim-profile.effect';
-
+import { OpportunityEffect } from 'app/effects/opportunity.effect';
 
 // Services
 import { ServicesModule } from './services/services.module';
 import { TokenService } from './helpers/token.service';
 import { ApiService } from './helpers/api.service';
 import { GeneralUtilities } from './helpers/general.utils';
+import { ScrollHelper } from './helpers/scroll.helper';
 import { AuthService } from './services/auth.service';
 import { MediaService } from './services/media.service';
 import { GeneralService } from './services/api.service';
@@ -78,36 +81,19 @@ import { LocalStorageService } from './services/local-storage.service';
 import { OpportunityService } from './services/opportunity.service';
 import { ExploreService } from './services/explore.service';
 import { ClaimProfileService } from './services/claim-profile.service';
+import { FileService } from './services/file.service';
 
+// Component module
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
 import { ProfileModule } from './components/profile/profile.module';
 import { SearchModule } from './components/search/search.module';
 import { TabComponents  } from './shared/tabs/tabset';
+import { OpportunityModule } from 'app/components/opportunity/opportunity.module';
 
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { MessageComponent } from './components/message/message.component';
-import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
-import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
-import { NotificationComponent } from './components/notification/notification.component';
-import { PortfolioComponent } from './components/portfolio/portfolio.component';
-import { JobsComponent } from './components/jobs/jobs.component';
-import { JobDetailsComponent } from './components/job-details/job-details.component';
-// import { SearchComponent } from './components/search/search.component';
-import { SettingsComponent } from './components/settings/settings.component';
-import { ExploreComponent } from './components/explore/explore.component';
-import { ChannelListComponent } from './components/channel-list/channel-list.component';
-import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
-import { MasonryComponent } from './components/masonry/masonry.component';
-import { LogoutComponent } from './components/logout/logout.component';
-
-import { PopularArtistsComponent } from './shared/popular-artists/popular-artists.component';
-import { NearestEventsComponent } from './shared/nearest-events/nearest-events.component';
-
-import { MediaComponent } from './components/media/media.component';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-
-// Vide Player
+// components
+import { AppComponent } from './app.component';
+import { LoginComponent } from './components/login/login.component';
 import { VgCoreModule } from 'videogular2/core';
 import { VgControlsModule } from 'videogular2/controls';
 import { VgOverlayPlayModule } from 'videogular2/overlay-play';
@@ -122,12 +108,22 @@ import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
-
-import { AgmCoreModule } from '@agm/core';
-import { OpportunityEffect } from 'app/effects/opportunity.effect';
-import { OpportunityModule } from 'app/components/opportunity/opportunity.module';
-import { DeviseComponent } from './components/devise/devise.component';
-
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { MessageComponent } from './components/message/message.component';
+import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
+import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { PortfolioComponent } from './components/portfolio/portfolio.component';
+// import { SearchComponent } from './components/search/search.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { ExploreComponent } from './components/explore/explore.component';
+import { ChannelListComponent } from './components/channel-list/channel-list.component';
+import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
+import { MasonryComponent } from './components/masonry/masonry.component';
+import { LogoutComponent } from './components/logout/logout.component';
+import { PopularArtistsComponent } from './shared/popular-artists/popular-artists.component';
+import { NearestEventsComponent } from './shared/nearest-events/nearest-events.component';
+import { MediaComponent } from './components/media/media.component';
 
 @NgModule({
   declarations: [
@@ -139,8 +135,6 @@ import { DeviseComponent } from './components/devise/devise.component';
     SpotfeedPremiumComponent,
     NotificationComponent,
     PortfolioComponent,
-    JobsComponent,
-    JobDetailsComponent,
     // SearchComponent,
     SettingsComponent,
     PopularArtistsComponent,
@@ -162,21 +156,20 @@ import { DeviseComponent } from './components/devise/devise.component';
     PlannerComponent,
     NetworkComponent,
     ProjectComponent,
-    DirectoryListComponent,
-    DeviseComponent,
+    DirectoryListComponent
   ],
   imports: [
+    BrowserModule.withServerTransition({appId: 'ops-app'}),
     DragulaModule,
     SharedPipesModule,
     SharedModule,
     MediaModule,
     ImageCropperModule,
-    BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     ServicesModule,
     HttpModule,
-    MasonryModule,
+    NgxMasonryModule,
     InfiniteScrollModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
@@ -209,12 +202,14 @@ import { DeviseComponent } from './components/devise/devise.component';
       libraries: ['places'],
       apiKey: 'AIzaSyDHx_cyWUg9okHlTH8M_kvduvWFSV3nShc'
     }),
-    NgxCarouselModule
+    NguCarouselModule,
+    LazyLoadImageModule
   ],
   providers: [
     AuthService,
     MessageService,
     AuthGuard,
+    AuthlogoutGuard,
     GeneralService,
     ApiService,
     TokenService,
@@ -224,10 +219,12 @@ import { DeviseComponent } from './components/devise/devise.component';
     NotificationService,
     SearchService,
     GeneralUtilities,
+    ScrollHelper,
     LocalStorageService,
     OpportunityService,
     ExploreService,
-    ClaimProfileService
+    ClaimProfileService,
+    FileService
   ],
   bootstrap: [AppComponent]
 })

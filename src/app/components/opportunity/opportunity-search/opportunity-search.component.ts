@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 
 // actions
 import { OpportunityActions } from 'app/actions/opportunity.action';
 import { AuthActions } from 'app/actions/auth.action';
+import { environment } from '../../../../environments/environment';
 
 // store
 import { Store } from '@ngrx/store';
@@ -16,18 +17,20 @@ import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 // rx
 import { Observable } from 'rxjs/Observable';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-opportunity-search',
   templateUrl: './opportunity-search.component.html',
   styleUrls: ['./opportunity-search.component.scss']
 })
-export class OpportunitySearchComponent implements OnInit, AfterViewInit {
+export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('searchInput') searchInput;
   @ViewChild('searchQueryElement') searchQueryElement;
 
   loginTagState$: Observable<any>;
+  private subscription: ISubscription;
   opportunityState$: any;
   opportunityState: any;
   searchString: string;
@@ -45,21 +48,24 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
 
   recordsPerPage = 10;
   showPreloader = false;
+  baseUrl = environment.API_IMAGE;
 
   constructor(
     private store: Store<OpportunityModel>
   ) {
     // state listener
     this.opportunityState$ = this.store.select('opportunityTags');
-    this.opportunityState$.subscribe((state) => {
-      this.opportunityState = state;
-      if (state && state.searching_opportunities === false) {
-        this.isSearching = false;
-        this.showPreloader = false;
-      }
+    this.subscription = this.opportunityState$.subscribe((state) => {
+      if (typeof state !== 'undefined') {
+        this.opportunityState = state;
+        if (state && state.searching_opportunities === false) {
+          this.isSearching = false;
+          this.showPreloader = false;
+        }
 
-      if (state && state.get_opportunity_type_success && state.get_opportunity_type_success === true) {
-        this.prepareOppCount(state.get_opportunity_type_data.SUCCESS);
+        if (state && state.get_opportunity_type_success && state.get_opportunity_type_success === true) {
+          this.prepareOppCount(state.get_opportunity_type_data.SUCCESS);
+        }
       }
     });
 
@@ -71,7 +77,9 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
      */
     this.loginTagState$ = store.select('loginTags');
     this.loginTagState$.subscribe((state) => {
-      this.industries = state.industries;
+      if (typeof state !== 'undefined') {
+        this.industries = state.industries;
+      }
     });
 
     // loading industry list
@@ -100,6 +108,10 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() { }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
   ngAfterViewInit() {
 

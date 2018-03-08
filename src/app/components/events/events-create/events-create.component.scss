@@ -1,108 +1,140 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import './src/assets/scss/components/_dropdowns.scss';
 @import './src/assets/scss/components/_radio-checkbox.scss';
+@import '~sass-mq/_mq.scss';
 // events form
-
-.o-events-form{
-	width: 100%;
+.o-events-form {
+    width: 100%;
     margin-top: 40px;
 }
-.o-events-form-container{
-	width: 100%;
-	float: left;
-	background: #fff;
+
+.o-events-form-container {
+    width: 100%;
+    float: left;
+    background: #fff;
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        margin-top: 0px;
+    }
 }
-.o-events-form-block{
-	width: 1025px;
-	margin:0px auto;
-	min-height: 1000px;
+
+.o-events-form-block {
+    width: 1025px;
+    margin: 0px auto;
+    min-height: 1000px;
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        width: 100%;
+        padding: 0px 15px;
+    }
+    @include mq($from: $desktop_sm, $until: $desktop) {
+        width: 100%;
+        padding: 0px 16px;
+    }
 }
-.o-events-form__subtitle{
-	border-bottom: 1px solid #F3F5F7;
+
+.o-events-form__subtitle {
+    border-bottom: 1px solid #F3F5F7;
 }
-.o-events-form__single{
-	width: 100%;
-	float: left;
-	padding-bottom: 8px;
+
+.o-events-form__single {
+    width: 100%;
+    float: left;
+    padding-bottom: 8px;
 }
-.o-events-form-title{
-	padding:10px 0px;
+
+.o-events-form-title {
+    padding: 10px 0px;
 }
 
 // for add sec
-.o-form-add-det-sec{
-	float: left;
-	width: 100%;
+.o-form-add-det-sec {
+    float: left;
+    width: 100%;
 }
-.o-form-add-link{
-	width: 100%;
-	float: left;
-}
-.o-form__add-btn{
-	display: block;
-    cursor: pointer;
-}
-.o-form__add-ico{
-	width: 16px;
-  float: left;
-  height: 16px;
-  margin-top: 2px;
 
-	img{
-		width: 100%;
-	}
+.o-form-add-link {
+    width: 100%;
+    float: left;
 }
-.o-form__add-title{
-	float: left;
-}
-.o-form-trash{
-	float: left;
-}
-.o-form-trash__ico{
-	width: 24px;
-	height: 24px;
+
+.o-form__add-btn {
+    display: block;
     cursor: pointer;
-	img{
-		width: 100%;
-	}
+}
+
+.o-form__add-ico {
+    width: 16px;
+    float: left;
+    height: 16px;
+    margin-top: 2px;
+    img {
+        width: 100%;
+    }
+}
+
+.o-form__add-title {
+    float: left;
+}
+
+.o-form-trash {
+    float: left;
+}
+
+.o-form-trash__ico {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    img {
+        width: 100%;
+    }
 }
 
 // upload img
-
-.o-event-form-upload-img{
-	width: 100%;
-	position: relative;
-	float: right;
-}
-.o-event-upload__file{
-  opacity: 0;
-  display: block;
-  position: absolute;
-  z-index: 1;
-  cursor: pointer;
-	width: 283px;
-	height: 141px;
-	right: 0;
-}
-.o-event-form-upload__container{
-  height: 141px;
-  width: 283px;
-  border: 1px solid #EFEAF4;
-  border-radius: 3px;
-  background-color: #F3F5F7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  float: right;
-}
-.o-event-upload__info{
-	float: right;
-  width: 283px;
-  margin: 0px auto;
-  padding-top: 16px;
+.o-event-form-upload-img {
+    width: 100%;
+    position: relative;
+    float: right;
 }
 
-.event-image{
-	height: 141px;
+.o-event-upload__file {
+    opacity: 0;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    cursor: pointer;
+    width: 283px;
+    height: 141px;
+    right: 0;
+}
+
+.o-event-form-upload__container {
+    height: 141px;
+    width: 283px;
+    border: 1px solid #EFEAF4;
+    border-radius: 3px;
+    background-color: #F3F5F7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: right;
+}
+
+.o-event-upload__info {
+    float: right;
+    width: 283px;
+    margin: 0px auto;
+    padding-top: 16px;
+}
+
+.event-image {
+    height: 141px;
     width: 283px;
 }
+
+.o-event-form-right {
+    float: right;
+    padding: 0px;
+}
+
+// .container {
+//     width: 1200px;
+// }

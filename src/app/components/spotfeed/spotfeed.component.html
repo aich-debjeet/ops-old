@@ -41,10 +41,10 @@
             <ul class="list-inline spot_in_head">
                 <li class="list-inline-item ops_heading text_uppercase">Post</li>
                 <li class="list-inline-item float_right hide">
-                  <a href="#"><span class="post-icons"><img src="/assets/img/svg/ico-image-black.svg" alt=""></span></a>
-                  <a href="#"><span class="post-icons"><img src="/assets/img/svg/ico-play-gray.svg" alt=""></span></a>
-                  <a href="#"><span class="post-icons"><img src="/assets/img/svg/ico-audio-black.svg" alt=""></span></a>
-                  <a href="#"><span class="post-icons"><img src="/assets/img/svg/ico-blog-black.svg" alt=""></span></a>
+                  <a href="#"><span class="post-icons"><img src="{{ baseUrl }}img/svg/ico-image-black.svg" alt=""></span></a>
+                  <a href="#"><span class="post-icons"><img src="{{ baseUrl }}img/svg/ico-play-gray.svg" alt=""></span></a>
+                  <a href="#"><span class="post-icons"><img src="{{ baseUrl }}img/svg/ico-audio-black.svg" alt=""></span></a>
+                  <a href="#"><span class="post-icons"><img src="{{ baseUrl }}img/svg/ico-blog-black.svg" alt=""></span></a>
                 </li>
             </ul>
             <div class="col-md-12">
@@ -55,11 +55,11 @@
                     [infiniteScrollThrottle]="10"
                     (scrolled)="onScroll($event)"
                     *ngIf="spotfeedDetails?.spotfeedMedia && (spotfeedDetails?.spotfeedMedia)?.length > 0" >
-                        <masonry [useImagesLoaded]="true">
-                            <masonry-brick class="col-md-3" *ngFor="let post of spotfeedDetails?.spotfeedMedia; let i = index">
+                        <ngx-masonry [useImagesLoaded]="true">
+                            <ngx-masonry-item class="col-md-3" *ngFor="let post of spotfeedDetails?.spotfeedMedia; let i = index">
                                 <app-post-card  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)" [mediaData]="post"></app-post-card>
-                            </masonry-brick>
-                        </masonry>
+                            </ngx-masonry-item>
+                        </ngx-masonry>
                     </div>
 
                     <div class="col-md-12" *ngIf="(spotfeedDetails?.spotfeedMedia)?.length == 0">

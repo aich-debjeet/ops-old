@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ImageCropperModule } from 'ng2-img-cropper';
-import { MasonryModule } from 'angular2-masonry';
+import { NgxMasonryModule } from 'ngx-masonry';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { SharedModule } from '../../shared/shared.module';
+import { SharedPipesModule } from '../../pipes/shared-pipes.module';
 import { ProfileComponent } from './profile.component';
 import { ProfileChannelComponent } from './profile-channel/profile-channel.component';
 import { ProfilePostComponent } from './profile-post/profile-post.component';
@@ -24,6 +25,9 @@ import { AboutCoverComponent } from './about-cover/about-cover.component';
 
 import { ProfileHelper } from '../../helpers/profile.helper';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
+import { NguCarouselModule } from '@ngu/carousel';
+// import 'hammerjs';
 
 
 
@@ -81,12 +85,14 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
+    SharedPipesModule,
     RouterModule.forChild(routes),
-    MasonryModule,
+    NgxMasonryModule,
     ReactiveFormsModule,
     FormsModule,
     TextMaskModule,
     ImageCropperModule,
+    NguCarouselModule,
     InfiniteScrollModule
   ],
   declarations: [

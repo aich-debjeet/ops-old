@@ -14,10 +14,25 @@ export class ProfileService {
   constructor(
     private api: ApiService,
     private http: Http
-    ) {
-      this.handle = this.api.getHandle();
-      this.headers = this.api.getHeaders();
-    }
+  ) {
+    this.handle = this.api.getHandle();
+    this.headers = this.api.getHeaders();
+  }
+
+  /**
+   * Get followings by handle
+   */
+  getFollowingProfiles(params: any) {
+    return this.api.get('/portal/profile/followers/list/following/' + params.handle + '/' + params.offset + '/' + params.limit);
+  }
+
+  /**
+   * Get followers by handle
+   */
+  getFollowerProfiles(params: any) {
+    return this.api.get('/portal/profile/followers/list/followers/' + params.handle + '/' + params.offset + '/' + params.limit);
+  }
+
   /**
    * Current LoggedIn User Profile.
    */
@@ -142,7 +157,7 @@ export class ProfileService {
    * Upload Image to CDN
    */
   uploadImage(value: any, handle: string = '') {
-    return this.api.postFile('/portal/cdn/media/upload?handle=' + handle, value);
+    return this.api.postFile('/portal/cdn/media/auth/upload?handle=' + handle, value);
   }
 
   /**
@@ -151,6 +166,7 @@ export class ProfileService {
   coverImageUploader(payload: any) {
     const fileData = this.buildImageForm(payload);
     fileData.append('upload_for', 'coverImage');
+    fileData.append('owner_type', 'profile');
     return this.uploadImage(fileData, payload.handle);
   }
   // coverImageUploader(payload: any) {
@@ -162,7 +178,7 @@ export class ProfileService {
    * Handle File
    */
   imageHandler(formValue: any) {
-    let formData = new FormData();
+    const formData = new FormData();
     if (formValue.files && formValue.files[0]) {
       formData.append('file', formValue.files[0]);
     }
@@ -176,7 +192,8 @@ export class ProfileService {
    */
   uploadProfileImage(formValue: any) {
     const fileData = this.buildImageForm(formValue);
-	fileData.append('upload_for','profile');
+    fileData.append('upload_for', 'profile');
+    fileData.append('owner_type', 'profile');
     return this.uploadImage(fileData, formValue.handle);
   }
 
@@ -348,8 +365,9 @@ export class ProfileService {
    * @param payload get posts followed by the user
    */
   getUserFollowingPosts(payload: any) {
-    const params = payload.handle + '/' + payload.page_start + '/' + payload.page_end;
-    return this.api.get('/portal/network/spotfeed/following/posts/spotfeeds/', params);
+    // console.log(payload)
+    // const params = payload.handle + '/' + payload.page_start + '/' + payload.page_end;
+    return this.api.post('/portal/network/spotfeed/homepage/post', payload);
   }
   /**
    * Post to Media
@@ -378,8 +396,10 @@ export class ProfileService {
   /*
    * Current LoggedIn user following channel
    */
-  getLoggedInUserFollowingChannel(value: string) {
-    return this.api.get('/portal/network/spotfeed/following/profile/spotfeeds/' + value + '/0/12', '');
+  getLoggedInUserFollowingChannel(body: any) {
+    // const params = value.handle + '/' + value.page_start + '/' + value.page_end;
+    // console.log(body)
+    return this.api.post('/portal/network/spotfeed/homepage/channel', body);
   }
 
   /**
@@ -406,9 +426,10 @@ export class ProfileService {
   /**
    * [TEMP] Get all profiles
    */
-  getAllProfiles() {
+  getAllProfiles(body: any) {
+    // console.log(body)
     // return this.api.get('/portal/profile/0/50', '');
-    return this.api.get('/portal/profile/by/postCount/profileResponse');
+    return this.api.post('/portal/search/people/tofollow', body);
   }
 
   /**
@@ -436,6 +457,6 @@ export class ProfileService {
    * Get imported profile by username
    */
   getImportedProfile(username: string) {
-    return this.api.get('/portal/profile/validate/claim/profile/' + username);
+    return this.api.get('/portal/auth/user/username/' + username);
   }
 }

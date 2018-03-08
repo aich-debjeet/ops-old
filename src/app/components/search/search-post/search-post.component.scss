@@ -154,8 +154,7 @@ a {
 .result-not-found {
     margin-top: 80px;
     text-align: center;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 15px;
     color: #000;
 }
 
@@ -170,4 +169,27 @@ a {
 
 .pad-bot-25 {
     padding-bottom: 25px;
+}
+
+.o-post-result-block {
+    width: 100%;
+    float: left;
+    margin-top: 16px;
+}
+
+.o-post-result-block2 {
+    height: 50vh;
+    overflow-y: auto;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.clb {
+    clear: both;
+}
+
+.m-b-50 {
+    margin-bottom: 50px;
 }

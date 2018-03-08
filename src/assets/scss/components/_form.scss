@@ -308,19 +308,18 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
 }
 
 // fadeed form
-.c-form__faded--sm {
-    input {
-        border-radius: 3px;
-        background-color: #F3F5F7;
-        border: none;
-        padding: 5px 8px;
-    }
-    label {
-        top: 9px;
-        left: 8px;
-    }
-}
-
+// .c-form__faded--sm {
+//     input {
+//         border-radius: 3px;
+//         background-color: #F3F5F7;
+//         border: none;
+//         padding: 5px 8px;
+//     }
+//     label {
+//         top: 9px;
+//         left: 8px;
+//     }
+// }
 .c-form__faded--md {
     input {
         border-radius: 3px;
@@ -917,7 +916,7 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
     position: relative;
     outline: 0;
     left: 0;
-    background-image: url(/assets/img/svg/checkboxdisabled.svg);
+    background-image: url(https://cdn.onepagespotlight.com/img/svg/checkboxdisabled.svg);
     float: left;
     cursor: pointer;
     -webkit-appearance: none;
@@ -927,7 +926,7 @@ $shadow-L3: 0 10px 20px rgba(0, 0, 0, 0.19),
 }
 
 .c-form__check input[type="checkbox"]:checked {
-    background: url(/assets/img/svg/checkboxactived.svg);
+    background: url(https://cdn.onepagespotlight.com/img/svg/checkboxactived.svg);
     background-size: cover;
 }
 

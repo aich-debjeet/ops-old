@@ -160,10 +160,10 @@
 }
 
 .c-follow__sec {
-    height: 350px;
+    max-height: 350px;
     padding-right: 8px;
     margin: 0 8px 16px 16px;
-    overflow-y: scroll;
+    overflow: auto;
 }
 
 .c-invite__block {

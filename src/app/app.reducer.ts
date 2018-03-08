@@ -24,7 +24,7 @@ const reducers = {
   searchTags: SearchReducer,
   messageTags: MessageReducer,
   profileTags: ProfileReducer,
-  userMediaTags: ProfileReducer,
+  // userMediaTags: ProfileReducer,
   userSearchTags: UserSearchReducer,
   opportunityTags: OpportunityReducer,
   receivedMessagesTags: MessageReducer,
@@ -49,8 +49,14 @@ const developmentReducer = combineReducers(reducers);
 
 export function reducer(state: any, action: any) {
   if (environment.production) {
+    if (action.type === 'USER_LOGOUT') {
+      state = undefined
+    }
     return productionReducer(state, action);
   } else {
+    if (action.type === 'USER_LOGOUT') {
+      state = undefined
+    }
     return developmentReducer(state, action);
   }
 }

@@ -1,165 +1,39 @@
-<header class="opsheader_landing">
+<section class="landing_top">
     <div class="container">
-        <div class="o-logo">
-            <img src="/assets/img/landing/logobetawhite.svg" class="">
-        </div>
-        <div class="o-log-reg-btn hidden-xs hidden-sm visible-md visible-lg">
-            <a [routerLink]="['reg']" class="o-landing-signup-btn ">Sign Up</a>
-            <a [routerLink]="['login']" class="o-landing-more-btn m-l-8 ">login</a>
-        </div>
-        <div class="o-log-reg-btn hidden-lg hidden-md visible-sm visible-xs">
-                <a [routerLink]="['reg']" [queryParams]="{ ev: 'dwc2017' }" class="o-landing-signup-btn ">Sign Up</a>
-                <a [routerLink]="['login']" [queryParams]="{ next: 'dwc/reg' }" class="o-landing-more-btn m-l-8 ">login</a>
-            </div>
-    </div>
-    <div class="container">
-            <div class="col-md-12 p-0">
-                <h1 class="c-h1 m-b-32 color-white o-hero-main__title text-center">Sign up on One Page Spotlight to<br>register for Dance World Cup</h1>
-                <div class="o-register-area">
-                    <a [routerLink]="['reg']" [queryParams]="{ ev: 'dwc2017' }" class="o-landing-signup-btn">Register</a>
-                    <a [routerLink]="['dwc/details']" class="o-landing-more-btn m-l-16 font-weight-500">read more</a>
-                    <div class="col-md-12 c-text_md color-white p-l-0 m-t-16 o-landing-log"> Already a member? <a [routerLink]="['login']" [queryParams]="{ next: 'dwc/reg' }" class="color-white"><u>Log in</u> </a>to register </div>
-                </div>
-    
-            </div>
-            <!-- hero left block end -->
-        </div>
-</header>
-
-
-<div class="hero">
-    <ngx-carousel [inputs]="homeSlider" [moveToSlide]="1" (onMove)="onmoveFn($event)" (afterCarouselViewed)="afterCarouselViewedFn($event)">
-        <ngx-item NgxCarouselItem class="bannerStyle">
-            <div class="o-landing-hero fill-grey-light">
-                <div class="o-landing-inner__black">
-                    <!-- <div class="container">
-                        <div class="col-md-12 p-0">
-                        <h1 class="c-h1 m-b-32 color-white o-hero-main__title text-center">Sign up on One Page Spotlight to<br>register for Dance World Cup</h1>
-                        <div class="o-register-area">
-                            <a [routerLink]="['reg']" [queryParams]="{ ev: 'dwc2017' }" class="btn btn-primary btn-lg btn-inverse">Register</a>
-                            <a [routerLink]="['danceworldcup']" class="o-landing-more-btn m-l-16">read more</a>
-                            <div class="col-md-12 c-text_md color-white p-l-0 m-t-16 o-landing-log"> Already a member? <a [routerLink]="['login']" [queryParams]="{ next: 'dwc' }" class="color-white"><u>Log in</u> </a>to register </div>
-                        </div>
-
-                        </div>hero left block end
-                    </div> -->
+        <!-- header -->
+        <!-- <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="landing_header_button">
+                    <a href="login.html" class="btn btn-login btn-md pull-right">Login</a>
                 </div>
             </div>
-            <!-- hero section end -->
-        </ngx-item>
-        <ngx-item NgxCarouselItem class="bannerStyle">
-            <div class="o-landing-hero2 fill-grey-light">
-                <div class="o-landing-inner__black">
-                    <!-- <div class="container">
-                        <div class="col-md-12 p-0">
-                        <h1 class="c-h1 m-b-32 color-white o-hero-main__title text-center">Sign up on One Page Spotlight to<br>register for Dance World Cup</h1>
-                        <div class="o-register-area">
-                            <a [routerLink]="['reg']" [queryParams]="{ ev: 'dwc2017' }" class="btn btn-primary btn-lg btn-inverse">Register</a>
-                            <a [routerLink]="['danceworldcup']" class="o-landing-more-btn m-l-16">read more</a>
-                            <div class="col-md-12 c-text_md color-white p-l-0 m-t-16 o-landing-log"> Already a member? <a [routerLink]="['login']" [queryParams]="{ next: 'dwc' }" class="color-white"><u>Log in</u> </a>to register </div>
-                        </div>
-
-                        </div>hero left block end
-                    </div> -->
+        </div> -->
+        <!-- //header -->
+        <div class="row landing_top_block">
+            <div class="col-md-7 col-sm-6 col-xs-12">
+                <div class="landing_logo">
+                    <img [src]="base_image + 'img/landing/logobetawhite.svg'"  class="img-responsive">
+                </div>
+                <div class="landing_slider">
+                    <div class="slider_heading c-h2 f-w_600">
+                        Empowering artists to entertain and<br>inspire the world
+                    </div>
+                    <div class="slider_text">
+                        An ecosystem for the Arts &amp; Entertainment industry providing tools to exhibit work, <br>network, collaborate on projects between the performing artists, non-performing<br>crafts and organizations. Alongside, creating an immersive and entertaining<br>experience for art lovers around the world.
+                    </div>
+                   <!--  <a href="/reg_step_1" class="btn btn-primary landing-signup btn-md org-btn text_uppercase">Sign up</a>
+                    <a href="/login" class="btn btn-default landing-login btn-md login_btn org-btn text_uppercase">Login</a> -->
+                    <a [routerLink]="['/reg']"  class="o-landing-signup-btn m-t-8">Register</a>
+                    <a [routerLink]="['/login']" class="o-landing-more-btn m-l-16 m-t-8">Login</a>
                 </div>
             </div>
-            <!-- hero section end -->
-        </ngx-item>
-        <ngx-item NgxCarouselItem class="bannerStyle">
-            <div class="o-landing-hero3 fill-grey-light">
-                <div class="o-landing-inner__black">
-                    <!-- <div class="container">
-                        <div class="col-md-12 p-0">
-                        <h1 class="c-h1 m-b-32 color-white o-hero-main__title text-center">Sign up on One Page Spotlight to<br>register for Dance World Cup</h1>
-                        <div class="o-register-area">
-                            <a [routerLink]="['reg']" [queryParams]="{ ev: 'dwc2017' }" class="btn btn-primary btn-lg btn-inverse">Register</a>
-                            <a [routerLink]="['danceworldcup']" class="o-landing-more-btn m-l-16">read more</a>
-                            <div class="col-md-12 c-text_md color-white p-l-0 m-t-16 o-landing-log"> Already a member? <a [routerLink]="['login']" [queryParams]="{ next: 'dwc' }" class="color-white"><u>Log in</u> </a>to register </div>
-                        </div>
-
-                        </div>hero left block end
-                    </div> -->
-                </div>
+            <div class="col-md-5 col-sm-6 landing_top_art">
+                <img [src]="base_image + 'img/landing/landing_art.png'" >
+                <!-- <div class="landing_art_text">Artist spotlight</div> -->
             </div>
-            <!-- hero section end -->
-        </ngx-item>
-        <ngx-item NgxCarouselItem class="bannerStyle">
-            <div class="o-landing-hero4 fill-grey-light">
-                <div class="o-landing-inner__black">
-                    <!-- <div class="container">
-                        <div class="col-md-12 p-0">
-                        <h1 class="c-h1 m-b-32 color-white o-hero-main__title text-center">Sign up on One Page Spotlight to<br>register for Dance World Cup</h1>
-                        <div class="o-register-area">
-                            <a [routerLink]="['reg']" [queryParams]="{ ev: 'dwc2017' }" class="btn btn-primary btn-lg btn-inverse">Register</a>
-                            <a [routerLink]="['danceworldcup']" class="o-landing-more-btn m-l-16">read more</a>
-                            <div class="col-md-12 c-text_md color-white p-l-0 m-t-16 o-landing-log"> Already a member? <a [routerLink]="['login']" [queryParams]="{ next: 'dwc' }" class="color-white"><u>Log in</u> </a>to register </div>
-                        </div>
-
-                        </div>hero left block end
-                    </div> -->
-                </div>
-            </div>
-            <!-- hero section end -->
-        </ngx-item>
-        <button NgxCarouselPrev class='leftRs'>
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
-                <defs>
-                    <polygon id="arrow-copy-6-a" points="15.276 4.001 8 11.942 15.276 19.882 16.75 18.531 10.713 11.942 16.75 5.351"/>
-                </defs>
-                <g fill="none" fill-rule="evenodd">
-                    <use fill="#fff" xlink:href="#arrow-copy-6-a"/>
-                </g>
-            </svg>
-        </button>
-        <button NgxCarouselNext class='rightRs'>
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
-                <defs>
-                    <polygon id="arrow-copy-5-a" points="15.526 4.119 8.25 12.06 15.526 20 17 18.649 10.963 12.06 17 5.469"/>
-                </defs>
-                <g fill="none" fill-rule="evenodd">
-                    <use fill="#fff" transform="rotate(-180 12.625 12.06)" xlink:href="#arrow-copy-5-a"/>
-                </g>
-            </svg>
-        </button>
-    </ngx-carousel>
-</div>
-<!-- </section> -->
-
-<section class="o-hosted__logo">
-    <div class="container">
-        <div class="col-md-9 col-sm-12 col-xs-12">
-        <div class="o-dance-wc-logo">
-            <div class="o-dance-wc__logo-container text-left">
-            <img src="/assets/img/landing/dwc_world_logo.png">
-            <p class="c-text_md f-w_600 color-grey-dark text_uppercase m-t-8 o-dwc-q__txt">Dance World Cup 2018 Qualifiers</p>
-            </div>
-            <span class="o-dwc-bnglr">
-            <span class="c-h4 width100 m-t-16 o-dwc-q__date">January 20 - 21, 2018</span><br>
-            <span class="c-text_lg width100 color-grey-dark o-dwc-q__location">Phoenix Market City, Bangalore</span>
-            </span>
-        </div>
-        </div>
-    
-        <div class="col-md-2 col-sm-4 col-xs-6 with_border_left o-dwc-hosted-container">
-        <div class="o-dance-wc-logo">
-            <p class="c-text_sm text_uppercase color-grey-dark">Hosted by</p>
-            <div class="o-dance-wc__hosted-logo-container m-t-16">
-            <img src="/assets/img/landing/isptd.jpg">
-            </div>
-        </div>
-        </div>
-    
-        <div class="col-md-1 col-sm-3 col-xs-6 p-r-0 with_border_left o-dwc-powered-container">
-        <div class="o-dance-wc-logo">
-            <p class="c-text_sm text_uppercase color-grey-dark">Powered By</p>
-            <div class="o-dance-wc__powered-logo-container m-t-16">
-            <img src="/assets/img/landing/lvds.png" alt="">
-            </div>
-        </div>
         </div>
     </div>
 </section>
-
 
 <section class="o-platform-sec">
     <div class="container">
@@ -172,7 +46,7 @@
                     <div class="col-md-2 col-sm-4 col-xs-4">
                     <div class="o-platform-container">
                         <div class="o-platform-block">
-                        <img src="/assets/img/landing/talent.png" class="o-platform-block--img" alt="">
+                        <img [src]="base_image + 'img/landing/talent.png'"  class="o-platform-block--img" alt="">
                         </div>
                         <div class="o-platform-block-title">
                         Talent
@@ -182,7 +56,7 @@
                     <div class="col-md-2 col-sm-4 col-xs-4">
                     <div class="o-platform-container">
                         <div class="o-platform-block">
-                        <img src="/assets/img/landing/stagecraft.png" class="o-platform-block--img" alt="">
+                        <img [src]="base_image + 'img/landing/stagecraft.png'"  class="o-platform-block--img" alt="">
                         </div>
                         <div class="o-platform-block-title">
                         Stagecrafts
@@ -192,7 +66,7 @@
                     <div class="col-md-2 col-sm-4 col-xs-4">
                     <div class="o-platform-container">
                         <div class="o-platform-block">
-                        <img src="/assets/img/landing/techies.png" class="o-platform-block--img" alt="">
+                        <img [src]="base_image + 'img/landing/techies.png'"  class="o-platform-block--img" alt="">
                         </div>
                         <div class="o-platform-block-title">
                         Techies
@@ -202,7 +76,7 @@
                     <div class="col-md-2 col-sm-4 col-xs-4">
                     <div class="o-platform-container">
                         <div class="o-platform-block">
-                        <img src="/assets/img/landing/corporates.png" class="o-platform-block--img" alt="">
+                        <img [src]="base_image + 'img/landing/corporates.png'"  class="o-platform-block--img" alt="">
                         </div>
                         <div class="o-platform-block-title">
                         Corporates
@@ -212,7 +86,7 @@
                     <div class="col-md-2 col-sm-4 col-xs-4">
                     <div class="o-platform-container">
                         <div class="o-platform-block">
-                        <img src="/assets/img/landing/teachers.png" class="o-platform-block--img" alt="">
+                        <img [src]="base_image + 'img/landing/teachers.png'" class="o-platform-block--img" alt="">
                         </div>
                         <div class="o-platform-block-title">
                         Teachers
@@ -222,7 +96,7 @@
                     <div class="col-md-2 col-sm-4 col-xs-4">
                     <div class="o-platform-container">
                         <div class="o-platform-block">
-                        <img src="/assets/img/landing/artlovers.png" class="o-platform-block--img" alt="">
+                        <img [src]="base_image + 'img/landing/artlovers.png'"  class="o-platform-block--img" alt="">
                         </div>
                         <div class="o-platform-block-title">
                         Art Lovers
@@ -250,7 +124,7 @@
         </div>
         <div class="col-md-5 col-sm-12 col-xs-12 padding_none">
             <div class="organization-img">
-            <img src="/assets/img/landing/Castle.png" alt="">
+            <img [src]="base_image + 'img/landing/castle.png'"  alt="">
             </div>
         </div>
         </div>
@@ -259,7 +133,7 @@
             <div class="col-md-4 col-sm-6 col-xs-6">
                 <div class="o-product">
                     <div class="o-product_media">
-                        <img src="/assets/img/landing/group13.png" alt="">
+                        <img [src]="base_image + 'img/landing/channel.png'" alt="">
                     </div>
                     <div class="o-product_det">
                         <div class="o-product-det__title">
@@ -274,7 +148,7 @@
             <div class="col-md-4 col-sm-6 col-xs-6">
                 <div class="o-product">
                     <div class="o-product_media">
-                        <img src="/assets/img/landing/spotfeed.png" alt="">
+                        <img [src]="base_image + 'img/landing/spotfeed.png'" alt="">
                     </div>
                     <div class="o-product_det">
                         <div class="o-product-det__title">
@@ -289,7 +163,7 @@
             <div class="col-md-4 col-sm-6 col-xs-6">
                 <div class="o-product">
                     <div class="o-product_media">
-                        <img src="/assets/img/landing/opportunity.png" alt="">
+                        <img [src]="base_image + 'img/landing/opportunity.png'"  alt="">
                     </div>
                     <div class="o-product_det">
                         <div class="o-product-det__title">
@@ -305,7 +179,7 @@
             <div class="col-md-4 col-sm-6 col-xs-6">
                 <div class="o-product">
                     <div class="o-product_media">
-                        <img src="/assets/img/landing/event.png" alt="">
+                        <img [src]="base_image + 'img/landing/event.png'" alt="">
                     </div>
                     <div class="o-product_det">
                         <div class="o-product-det__title">
@@ -320,7 +194,7 @@
             <div class="col-md-4 col-sm-6 col-xs-6">
                 <div class="o-product">
                     <div class="o-product_media">
-                        <img src="/assets/img/landing/community.png" alt="">
+                        <img [src]="base_image + 'img/landing/community.png'"  alt="">
                     </div>
                     <div class="o-product_det">
                         <div class="o-product-det__title">
@@ -335,7 +209,7 @@
             <div class="col-md-4 col-sm-6 col-xs-6">
                 <div class="o-product">
                     <div class="o-product_media">
-                        <img src="/assets/img/landing/pedia.png" alt="">
+                        <img [src]="base_image + 'img/landing/pedia.png'" alt="">
                     </div>
                     <div class="o-product_det">
                         <div class="o-product-det__title">

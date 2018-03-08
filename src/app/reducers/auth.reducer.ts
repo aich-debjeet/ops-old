@@ -195,15 +195,27 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.USER_EXISTS_SUCCESS:
       if (payload.code === 0) {
         return Object.assign({}, state, {
-          user_exsist: payload.Suggested,
           success: false,
           user_unique: true
         });
-      }else {
+      } else {
         return Object.assign({}, state, {
           completed: payload,
           success: false,
           user_unique: false
+        });
+      }
+
+    case AuthActions.USER_EXISTS_FAILED:
+      if (payload['_body']) {
+        return Object.assign({}, state, {
+          user_unique: true,
+          user_exist: JSON.parse(payload['_body']).Suggested
+        });
+      } else {
+        return Object.assign({}, state, {
+          user_unique: true,
+          success: false
         });
       }
 
@@ -290,7 +302,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.FP_CREATE_PASS_SUCCESS:
       return Object.assign({}, state, {
         fpCrPassSuccess: payload,
-        fb_pass_create_scs: true,
+        fp_create_success: true,
         success: true
       });
 
@@ -465,9 +477,17 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         claim_user_info_loadded: false
       });
 
+    case AuthActions.USER_LOGOUT:
+      return state = undefined
+
     default:
       return state;
 
   }
 }
 
+export function logout(reducer) {
+  return function (state, action) {
+    return reducer(action.type === AuthActions.USER_LOGOUT ? undefined : state, action);
+  }
+}

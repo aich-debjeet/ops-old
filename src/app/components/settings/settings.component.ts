@@ -51,6 +51,7 @@ export class SettingsComponent implements OnInit {
   passwordActive: boolean;
   selectedView: string;
   private apiLink: string = environment.API_ENDPOINT;
+  imageBaseLink: string = environment.API_IMAGE;
   userHandle: any;
   blockedUsers = [];
   preferences = [];
@@ -78,11 +79,12 @@ export class SettingsComponent implements OnInit {
     private databaseValidator: DatabaseValidator,
     private dragula: DragulaService,
   ) {
-    this.dragula.drop.subscribe((value) => {
-      this.onDrop(value.slice(1));
-    });
+    // this.dragula.drop.subscribe((value) => {
+    //   this.onDrop(value.slice(1));
+    // });
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
+      if (typeof state !== 'undefined') {
         this.petTag = state;
         if (state['user_number_cng_success'] === true ) {
           this._modalService.open('otpWindow');
@@ -97,28 +99,33 @@ export class SettingsComponent implements OnInit {
 
         if ( state && state['user_otp_failed'] && state['user_otp_failed'] === true ) {
         }
+      }
     });
     this.storeState$ = this._store.select('profileTags');
 
-     this.storeState$.subscribe((state) => {
-      this.userProfile = state['profile_details'];
-      this.userHandle = state['profile_details'].handle;
-      this.blockedUsers = state.blockedUsers;
-      if (state.default_notification) {
-        this.default = state.default_notification;
-        this.notificationOption = [{name: 'Comments', description: 'Receive an e-mail when other people comment on your posts.' , value: 'Comments', checked: this.default.comments},
-                                  {name: 'Spots', description: 'Receive an e-mail when other people Spot on your posts.' , value: 'Spots', checked: this.default.spots},
-                                  {name: 'Mention', description: 'Receive an e-mail when other people mention you.' , value: 'Mention', checked: this.default.mentions},
-                                  {name: 'Followers', description: 'Receive an e-mail when other people follow you.' , value: 'Followers', checked: this.default.newFollower},
-                                  {name: 'Channels', description: 'Receive an e-mail when other people add you in a channel.' , value: 'Channels', checked: this.default.channels},
-                                  {name: 'Donate', description: 'Receive an e-mail when other people donate you.' , value: 'Donate', checked: this.default.donate},
-                                  {name: 'Network', description: 'Receive an e-mail when other people send you network request.' , value: 'Network', checked: this.default.network}
-        ]
+    this.storeState$.subscribe((state) => {
+      // console.log('state', state)
+      if (typeof state !== 'undefined') {
+        this.userProfile = state['profile_details'];
+        this.userHandle = state['profile_details'].handle;
+        this.blockedUsers = state.blockedUsers;
+        if (state.default_notification) {
+          this.default = state.default_notification;
+          // console.log('default', this.default)
+          this.notificationOption = [{name: 'Comments', description: 'Receive an e-mail when other people comment on your posts.' , value: 'Comments', checked: this.default.comments},
+                                    {name: 'Spots', description: 'Receive an e-mail when other people Spot on your posts.' , value: 'Spots', checked: this.default.spots},
+                                    {name: 'Mention', description: 'Receive an e-mail when other people mention you.' , value: 'Mention', checked: this.default.mentions},
+                                    {name: 'Followers', description: 'Receive an e-mail when other people follow you.' , value: 'Followers', checked: this.default.newFollower},
+                                    {name: 'Channels', description: 'Receive an e-mail when other people add you in a channel.' , value: 'Channels', checked: this.default.channels},
+                                    {name: 'Donate', description: 'Receive an e-mail when other people donate you.' , value: 'Donate', checked: this.default.donate},
+                                    {name: 'Network', description: 'Receive an e-mail when other people send you network request.' , value: 'Network', checked: this.default.network}
+          ]
+          }
+        this.adult = {name: 'adult', value: 'adult', checked: state.adult_Content};
+        this.privateAccount = {name: 'private', value: 'private', checked: state['privateAccount']}
+        if (state.preferences !== 'undefined') {
+          this.preferences = state.preferences;
         }
-      this.adult = {name: 'adult', value: 'adult', checked: state.adult_Content};
-      this.privateAccount = {name: 'private', value: 'private', checked: state['privateAccount']}
-      if (state.preferences !== 'undefined') {
-        this.preferences = state.preferences;
       }
     });
 
@@ -187,22 +194,26 @@ export class SettingsComponent implements OnInit {
     // this.selectedView = 'General';
     this.displayView('General')
     this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
-    this._store.dispatch({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS });
+    // this._store.dispatch({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS });
   }
-  private onDrop(args) {
-    const [e, el] = args;
-    const form = {
-      'homePagePreferences': {
-      'preferences': this.preferences
-      }
-    }
-    const headers = this.tokenService.getAuthHeader();
-      this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
-    .map((data: Response) => data.json())
-    .subscribe(response => {
-    });
+  /**
+   * drag and drop method
+   * @param args
+   */
+  // private onDrop(args) {
+  //   const [e, el] = args;
+  //   const form = {
+  //     'homePagePreferences': {
+  //     'preferences': this.preferences
+  //     }
+  //   }
+  //   const headers = this.tokenService.getAuthHeader();
+  //     this.http.put(this.apiLink + '/portal/auth/user/update/user/settings' , form, { headers: headers })
+  //   .map((data: Response) => data.json())
+  //   .subscribe(response => {
+  //   });
 
-  }
+  // }
   /**
    * User Form Update
    */
@@ -506,8 +517,14 @@ export class SettingsComponent implements OnInit {
   }
 
   displayView(tab: string) {
+    // console.log('tab', tab)
    this.selectedView = tab;
+   if (tab === 'Security') {
     this._store.dispatch({type: ProfileActions.LOAD_BLOCK_USERS, payload: this.userHandle});
+   }
+   if (tab === 'Notification') {
+    this._store.dispatch({ type: ProfileActions.DEFAULT_NOTIFICATION_SETTINGS });
+   }
   }
 
   updateCheckedOptions(option, event) {

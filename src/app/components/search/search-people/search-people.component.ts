@@ -19,9 +19,17 @@ import { Store } from '@ngrx/store';
 export class SearchPeopleComponent implements OnInit {
 
   searchState$: Observable<SearchModel>;
+  searchState: any;
   baseUrl: string;
+  showPreloader = false;
 
   artists: any[];
+
+  /* scroll */
+  canScroll = true;
+  scrolling = 0;
+  scrollingLoad = 800;
+  /* scroll */
 
   constructor(
     private store: Store<SearchModel>
@@ -29,18 +37,61 @@ export class SearchPeopleComponent implements OnInit {
 
     this.baseUrl = environment.API_IMAGE;
     this.searchState$ = this.store.select('searchTags');
-
   }
 
   ngOnInit() {
 
     // observe the store value
     this.searchState$.subscribe((state) => {
-      if (state && state.search_people_data) {
-        this.artists = state.search_people_data;
+      this.searchState = state;
+      // console.log('this.searchState', this.searchState);
+      if (state) {
+        if (typeof state['search_people_data'] !== 'undefined' && state['search_people_data']['profileResponse']) {
+          this.artists = state['search_people_data']['profileResponse'];
+        }
+        // hide preloader
+        if (typeof state['searching_people'] !== 'undefined'
+          && state['searching_people'] === false
+          && typeof state['search_people_success'] !== 'undefined'
+          && state['search_people_success'] === true) {
+          this.showPreloader = false;
+        }
       }
     });
 
+  }
+
+  disableFollowForSelf(username: string) {
+    return false;
+    // if (this.searchState && (this.searchState['profile_navigation_details']['username']) === username) {
+    //   return true;
+    // }
+    // return false;
+  }
+
+  /**
+   * While Scrolling trigger next api call
+   */
+  onScroll(e) {
+    this.scrolling = e.currentScrollPosition;
+    if (this.canScroll === true && this.scrollingLoad <= this.scrolling) {
+      this.showPreloader = true;
+      this.canScroll = false;
+      this.scrollingLoad += 500;
+      // check if it's first request
+      if (this.searchState && this.searchState['search_people_data'] && this.searchState['search_people_data']['scrollId']) {
+        this.store.dispatch({
+          type: SearchActions.SEARCH_PEOPLE,
+          payload: {
+            isHuman: '1',
+            name: { scrollId: this.searchState['search_people_data']['scrollId'] }
+          }
+        });
+      }
+      setTimeout(() => {
+        this.canScroll = true;
+      }, 1000);
+    }
   }
 
 }

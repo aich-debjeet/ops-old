@@ -15,6 +15,7 @@ export class ChannelListComponent {
 
   baseUrl = environment.API_IMAGE;
   chosenChannel: any;
+  searchChannel: string;
   constructor() {
     //
   }

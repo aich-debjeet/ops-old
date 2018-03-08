@@ -1,6 +1,6 @@
 <app-navigation></app-navigation>
 <!-- primary navigation -->
-<section class="o-home-top-block">
+<!-- <section class="o-home-top-block">
     <div class="container">
         <h2 class="c-h2 o-home-main__title color-white">
             Dance World Cup 2018
@@ -12,45 +12,43 @@
         <div class="o-hosted-by m-t-32">
             <p class="c-text_sm color-white text_uppercase m-b-8">Hosted by</p>
             <a class="o-hosted-logos">
-                <img width="154" src="/assets/img/home/dwc_world_logo.png" alt="">
+                <img width="154" [src]="imageBaseUrl + 'img/home/dwc_world_logo.png'">
             </a>
             <a class="o-hosted-logos m-l-32">
-                <img width="36" src="/assets/img/landing/lvds.png" alt="">
+                <img width="36" [src]="imageBaseUrl + 'img/landing/lvds.png'">
             </a>
         </div>
     </div>
-</section>
-<!---- opportunity top block end ---->
+</section> -->
+<!-- opportunity top block end -->
 
-<section class="o-home-content">
+<section class="o-home-content p-t-80">
     <div class="container">
         <!-- left home feed -->
         <div class="row m-t-16">
-            <div class="c-text_lg">
+            <div class="c-text_md-bold text-uppercase m-l-8">
                 Quick Access
             </div>
-            <div class="c-qt">
-                <app-quick-access *ngFor="let quickAccess of userQuickAccess.userQuickAccess | slice:0:10; let i = index" [quickAccessData]="quickAccess"></app-quick-access>
-            </div>
+            <ngu-carousel [inputs]="carouselOne">
+                <button NguCarouselPrev class='leftRs'>&lt;</button>
+                <button NguCarouselNext class='rightRs'>&gt;</button>
+                <ngu-tile NguCarouselItem *ngFor="let quickAccess of quickList; let i = index">
+                    <div class="c-qt">
+                        <app-quick-access [quickAccessData]="quickAccess"></app-quick-access>
+                    </div>
+                </ngu-tile>
+            </ngu-carousel>
+
         </div>
         <div class="o-home-tab-sec with_border_top c-ops__tabs o-opportunity-tabs">
             <div class="col-md-6 p-0">
-                <!-- <div class="home_tabs"> -->
                 <ul class="nav nav-tabs">
                     <li class="" routerLinkActive="active"><a data-toggle="tab" aria-expanded="true" [routerLink]="['channel']">Channel</a></li>
-                    <!-- <li class="" routerLinkActive="active"><a data-toggle="tab" [routerLink]="['spotfeed']">Spotfeed</a></li> -->
                     <li class="" routerLinkActive="active"><a data-toggle="tab" [routerLink]="['post']">Post</a></li>
                 </ul>
-                <!-- <router-outlet></router-outlet> -->
-                <!-- <div class="col-md-9 p-0">
-                    <div class="tab-content">
-                        <router-outlet></router-outlet>
-                    </div>
-                </div> -->
-                <!-- </div> -->
             </div>
         </div>
-        <div class="col-md-9 p-0">
+        <div class="col-md-9 p-0 clearfix">
             <div class="tab-content">
                 <router-outlet></router-outlet>
             </div>

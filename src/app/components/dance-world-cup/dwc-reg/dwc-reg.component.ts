@@ -7,6 +7,7 @@ import {IDatePickerConfig} from 'ng2-date-picker';
 import { Store } from '@ngrx/store';
 import { Modal } from '../../../shared/modal-new/Modal';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../../environments/environment';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -16,7 +17,7 @@ import { FormValidation, DatabaseValidator } from '../../../helpers/form.validat
 // Action
 import { EventActions } from '../../../actions/event.action'
 import { Profile } from 'selenium-webdriver/firefox';
-import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
+import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
 
 @Component({
   selector: 'app-dwc-reg',
@@ -41,9 +42,9 @@ export class DwcRegComponent implements OnInit {
   Age_Group = ['Mini - 9 years and under', 'Junior section - 17 years and under', 'Children – 13 years and under', 'Senior section - 25 years and under']
   Dance_Style = ['Hip Hop, Street Dance and Commercial', 'National, Folklore, Classical, Tribal', 'Modern, Contemporary', 'Classical Ballet, Jazz, Tap, Acro', 'Song and Dance'];
   @ViewChild('dwcModal') DwctypeModal: Modal;
-  dwcSlider: NgxCarousel;
+  dwcSlider: NguCarousel;
   hideSchoolName = false;
-
+  imageBaseUrl = environment.API_IMAGE;
 
   config: IDatePickerConfig = {
     firstDayOfWeek: 'mo',
@@ -96,7 +97,7 @@ export class DwcRegComponent implements OnInit {
       point: {
         visible: false,
         pointStyles: `
-          .ngxcarouselPoint {
+          .ngucarouselPoint {
             list-style-type: none;
             text-align: center;
             padding: 12px;
@@ -109,7 +110,7 @@ export class DwcRegComponent implements OnInit {
             left: 0;
             box-sizing: border-box;
           }
-          .ngxcarouselPoint li {
+          .ngucarouselPoint li {
             display: inline-block;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.55);
@@ -117,7 +118,7 @@ export class DwcRegComponent implements OnInit {
             margin: 0 3px;
             transition: .4s ease all;
           }
-          .ngxcarouselPoint li.active {
+          .ngucarouselPoint li.active {
               background: white;
               width: 10px;
           }
@@ -165,7 +166,6 @@ export class DwcRegComponent implements OnInit {
       'school_name' : ['', [Validators.required]],
       'member' : '',
       'school_owner' : [''],
-      'school_address' : ['', [Validators.required]],
       'team_member' : this.fb.array([]),
     });
 
@@ -181,8 +181,6 @@ export class DwcRegComponent implements OnInit {
   memberItem(val: string) {
     return new FormGroup({
       name: new FormControl(val, Validators.required),
-      email: new FormControl(val, Validators.compose([Validators.min(1), Validators.required, FormValidation.validEmail ])),
-      phone: new FormControl(val, Validators.required),
       dob: new FormControl(val , Validators.compose([ Validators.required, FormValidation.dwcValidDOB]))
     })
   }
@@ -191,9 +189,6 @@ export class DwcRegComponent implements OnInit {
     const control = <FormArray>this.eventForm.controls['team_member'];
     control.push(this.memberItem(''));
   }
-
- 
-
 
 // dwc_event_reg_success
   submitForm(value) {

@@ -1,318 +1,339 @@
 <app-navigation></app-navigation>
 <section class="o-events-form">
-  <div class="container">
-    <div class="o-events-form-container m-t-32 p-b-32">
-      <div class="o-events-form-block p-t-32">
-        <h4 class="c-h4 text-center">Create Event</h4>
-        <div class="o-events-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-24 text_uppercase ltr-space">
-          Event details
-        </div><!-- subtitle end -->
-        <form [formGroup]="eventForm" novalidate (ngSubmit) = "submitForm(eventForm.value)"  #ecfrom="ngForm">
-          <div class="col-md-8 p-0">
-
-              <div class="o-events-form__single">
-                <div class="col-md-3 p-0">
-                  <div class="c-text_md o-events-form-title">Event Name *</div>
+    <div class="container">
+        <div class="o-events-form-container m-t-32 p-b-32">
+            <div class="o-events-form-block p-t-32">
+                <h4 class="c-h4 text-center">Create Event</h4>
+                <div class="o-events-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-24 text_uppercase ltr-space">
+                    Event details
                 </div>
-                <div class="col-md-9 p-0">
-                  <div class="c-form__group c-form--sm c-form--noeffect">
-                    <input class="c-form__input" required type="text" formControlName="event_name">
-                    <span class="c-form__highlight"></span>
-                    <span class="c-form__bar"></span>
-                    <label>Name of event</label>
-                  </div>
-                  <p class="c-form__validation" *ngIf="eventForm.controls['event_name'].errors?.required && ecfrom.submitted">Event Name is required
-                        <span class="pull-right">
-                            <img src="/assets/img/svg/stop_red.svg" class="c-form__validation--img">
-                        </span>
-                  </p>
-                </div>
-              </div><!-- Event name end -->
-
-              <div class="o-events-form__single">
-                <div class="col-md-3 p-0">
-                  <div class="c-text_md o-events-form-title">Event Type *</div>
-                </div>
-                <div class="col-md-5 p-0">
-                  <div class="c-form__group">
-                    <select class="c-form-control p-l-0" formControlName="event_genres">
-                      <option value="" disabled selected hidden>Select Genre</option>
-                      <option value="Performance">Performance</option>
-                      <option value="Movies">Movies</option>
-                      <option value="Festivals">Festivals</option>
-                      <option value="Trade Shows">Trade Shows</option>
-                      <option value="Conference or WorkShops">Conference or WorkShops</option>
-                      <option value="Museums">Museums</option>
-                      <option value="Concert">Concert</option>
-                      <option value="Exhibition">Exhibition</option>
-                      <option value="Film">Film</option>
-                      <option value="Wine Tasting">Wine Tasting</option>
-                    </select>
-                  </div>
-                  <p class="c-form__validation" *ngIf="eventForm.controls['event_genres'].errors?.required && ecfrom.submitted">Event Type is required
-                        <span class="pull-right">
-                            <img src="/assets/img/svg/stop_red.svg" class="c-form__validation--img">
-                        </span>
-                  </p>
-                </div>
-              </div><!-- Genres end -->
-
-              <div class="o-events-form__single">
-                <div class="col-md-3 p-0">
-                  <div class="c-text_md o-events-form-title">Industry *</div>
-                </div>
-                <div class="col-md-5 p-0">
-                  <div class="c-form__group">
-                    <select class="c-form-control p-l-0" formControlName="event_industry">
-                      <option value="" disabled selected hidden>Select Industry</option>
-                      <option *ngFor="let industry of industryList" value="{{ industry?.code }}">{{ industry?.name }}</option>
-                    </select>
-                  </div>
-                  <p class="c-form__validation" *ngIf="eventForm.controls['event_industry'].errors?.required && ecfrom.submitted">Industry is required
-                    <span class="pull-right">
-                      <img src="/assets/img/svg/stop_red.svg" class="c-form__validation--img">
-                    </span>
-                  </p>
-                </div>
-              </div><!-- Industry end -->
-
-
-              <div class="o-events-form__single">
-                <div class="col-md-3 p-0">
-                  <div class="c-text_md o-events-form-title">Venue *</div>
-                </div>
-                <div class="col-md-9 p-0">
-                  <div class="c-form__group c-form--sm c-form--noeffect">
-                    <input class="c-form__input" required="" type="text" formControlName="event_venue">
-                    <span class="c-form__highlight"></span>
-                    <span class="c-form__bar"></span>
-                    <label>Event location</label>
-                  </div>
-                  <p class="c-form__validation" *ngIf="eventForm.controls['event_venue'].errors?.required && ecfrom.submitted">Venue is required
-                    <span class="pull-right">
-                      <img src="/assets/img/svg/stop_red.svg" class="c-form__validation--img">
-                    </span>
-                  </p>
-                </div>
-              </div><!-- Venue end -->
-
-              <div class="o-events-form__single">
-                <div class="col-md-3 p-0">
-                  <div class="c-text_md o-events-form-title">Event Brief *</div>
-                </div>
-                <div class="col-md-9 p-0">
-                  <div class="c-form__group c-form--sm">
-                    <textarea rows="4" class="c-textarea__block c-textarea--style" formControlName="event_brief" placeholder="Describe your event"></textarea>
-                  </div>
-                  <p class="c-form__validation" *ngIf="eventForm.controls['event_brief'].errors?.required && ecfrom.submitted">Event Brief is required
-                    <span class="pull-right">
-                      <img src="/assets/img/svg/stop_red.svg" class="c-form__validation--img">
-                    </span>
-                  </p>
-                </div>
-              </div><!-- Event Brief end -->
-
-              <div class="o-events-form__single">
-                <div class="col-md-3 p-0">
-                  <div class="c-text_md o-events-form-title">Date *</div>
-                </div>
-                <div class="col-md-3 p-0">
-                  <div class="c-form__group c-form--sm c-form--noeffect">
-                    <input class="c-form__input" required formControlName="event_startdate"  [dpDayPicker]="config"   theme="dp-material">
-                    <span class="c-form__highlight"></span>
-                    <span class="c-form__bar"></span>
-                    <label>Start date</label>
-                  </div>
-                </div>
-                <div class="col-md-1"><p class="c-text_md m-t-16 text-center">to</p></div>
-                <div class="col-md-3 p-0">
-                  <div class="c-form__group c-form--sm c-form--noeffect">
-                    <input class="c-form__input" required formControlName="event_enddate" [dpDayPicker]="config" theme="dp-material" >
-                    <span class="c-form__highlight"></span>
-                    <span class="c-form__bar"></span>
-                    <label>End date</label>
-                  </div>
-                </div>
-                <div class="col-md-3 p-0">
-                </div>
-                <div class="col-md-9 offset-md-3 p-0">
-                  <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.oldate">Please choose upcomming date</p>
-                  <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.startdate">Please choose start date </p>
-                  <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.old_even_end_date">Please choose upcoming date </p>
-                  <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.oldate">Please choose upcomming date</p>
-                  <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.required && ecfrom.submitted">Start Date and End Date is required</p>
-                </div>
-              </div><!-- Date end -->
-
-              <div class="o-events-form__single">
-                <div class="col-md-3 p-0">
-                  <div class="c-text_md o-events-form-title">Agenda *</div>
-                </div>
-                <div class="col-md-9 p-0">
-                  <div class="o-form-add-det-sec"  *ngFor="let event_agenda of eventForm.controls.event_agenda['controls']; let i=index"
-              [formGroup]="event_agenda">
-                    <div class="col-md-4 p-l-0">
-                      <div class="c-form__group c-form--sm c-form--noeffect">
-                        <input class="c-form__input" required=""  formControlName="startTime"  type="text" [dpDayPicker]="config" theme="dp-material" mode="daytime">
-                        <span class="c-form__highlight"></span>
-                        <span class="c-form__bar"></span>
-                        <label>Date</label>
-                      </div>
-                    </div>
-                    <div class="col-md-7 p-0">
-                      <div class="c-form__group c-form--sm c-form--noeffect">
-                        <input class="c-form__input" required="" type="text" formControlName="description">
-                        <span class="c-form__highlight"></span>
-                        <span class="c-form__bar"></span>
-                        <label>Program</label>
-                      </div>
-                    </div>
-                    <div class="col-md-1 p-0">
-                      <div class="o-form-trash m-t-8">
-                        <div class="o-form-trash__ico" (click)="eventForm.get('event_agenda').removeAt(i)">
-                          <img src="/assets/img/svg/delete.svg" >
+                <!-- subtitle end -->
+                <form [formGroup]="eventForm" novalidate (ngSubmit)="submitForm(eventForm.value)" #ecfrom="ngForm">
+                    <div class="col-md-4 col-sm-12 o-event-form-right">
+                        <div class="o-event-form-upload-img">
+                            <input type="file" #fileupload [(ngModel)]="eventCover" [ngModelOptions]="{standalone: true}" class="o-event-upload__file" name="eventCover" (change)="fileChangeListener($event)">
+                            <div class="o-event-form-upload__container">
+                                <img *ngIf="eventCoverImage" class="event-image" src="{{ baseUrl + eventCoverImage}}">
+                                <div *ngIf="!eventCoverImage" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">Upload event image</div>
+                            </div>
                         </div>
-                      </div>
+                        <p class="c-text_sm text-center color-grey-dark o-event-upload__info">
+                            We recommend using at least a 800x400px (2:1)<br>image that's no larger than 10MB.
+                        </p>
                     </div>
-                    <div class="col-md-3 p-0">
-                  </div>
-                <div class="col-md-9 offset-md-3 p-0">
-                   <p class="c-form__validation" *ngIf="eventForm.controls.event_agenda.controls[i].controls.startTime.errors?.required && ecfrom.submitted">Date is required</p>
-                   <!--<p class="c-form__validation" *ngIf="eventForm.controls.event_agenda.controls[i].controls.description.errors?.required && ecfrom.submitted">Program  is required</p>-->
-                  <!--<p class="error_alert" *ngIf="eventForm.controls['description'].errors?.required && ecfrom.submitted">Program is required</p>-->
-                </div>
-                  </div><!-- agenda add det sec end -->
-                  <div class="o-form-add-link">
-                    <a (click)="pushAgenda()" class="o-form__add-btn">
-                      <span class="o-form__add-ico"><img src="/assets/img/svg/plus-red.svg" alt=""></span>
-                      <p class="c-text_md color-theme m-l-8 o-form__add-title" >Add more agenda</p>
-                    </a>
-                  </div><!-- agenda add link end -->
-                </div>
+                    <div class="col-md-8 col-sm-12 p-0">
+                        <div class="o-events-form__single">
+                            <div class="col-md-3 p-0">
+                                <div class="c-text_md o-events-form-title">Event Name *</div>
+                            </div>
+                            <div class="col-md-9 p-0">
+                                <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required type="text" formControlName="event_name">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Name of event</label>
+                                </div>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['event_name'].errors?.required && ecfrom.submitted">Event Name is required
+                                    <span class="pull-right">
+                                        <img src="{{ baseUrl }}img/svg/stop_red.svg" class="c-form__validation--img">
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Event name end -->
 
-              </div><!-- Agenda end -->
+                        <div class="o-events-form__single">
+                            <div class="col-md-3 p-0">
+                                <div class="c-text_md o-events-form-title">Event Type *</div>
+                            </div>
+                            <div class="col-md-5 p-0">
+                                <div class="c-form__group">
+                                    <select class="c-form-control p-l-0" formControlName="event_genres">
+                                      <option value="" disabled selected hidden>Select Genre</option>
+                                      <option value="Performance">Performance</option>
+                                      <option value="Movies">Movies</option>
+                                      <option value="Festivals">Festivals</option>
+                                      <option value="Trade Shows">Trade Shows</option>
+                                      <option value="Conference or WorkShops">Conference or WorkShops</option>
+                                      <option value="Museums">Museums</option>
+                                      <option value="Concert">Concert</option>
+                                      <option value="Exhibition">Exhibition</option>
+                                      <option value="Film">Film</option>
+                                      <option value="Wine Tasting">Wine Tasting</option>
+                                    </select>
+                                </div>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['event_genres'].errors?.required && ecfrom.submitted">Event Type is required
+                                    <span class="pull-right">
+                                      <img src="{{ baseUrl }}img/svg/stop_red.svg" class="c-form__validation--img">
+                                  </span>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Genres end -->
 
-              <div class="o-events-form__single">
-                <div class="col-md-3 p-0">
-                  <div class="c-text_md o-events-form-title">Listing As *</div>
-                </div>
-                <div class="col-md-9 p-0">
-                  <div class="c-radio__sm p-t-16">
-                    <label class="col-md-2 p-l-0">
-                      <input name="access" type="radio" value="0" formControlName="access">
-                      <span></span>
-                      <div class="c-radio--label c-text_md color-grey-dark">Public</div>
-                    </label>
-                    <label class="col-md-2 p-0">
-                      <input name="access" type="radio" value="1" formControlName="access">
-                      <span></span>
-                      <div class="c-radio--label c-text_md color-grey-dark">Private</div>
-                    </label>
-                  </div>
-                </div>
-              </div><!-- Event type end -->
+                        <div class="o-events-form__single">
+                            <div class="col-md-3 p-0">
+                                <div class="c-text_md o-events-form-title">Industry *</div>
+                            </div>
+                            <div class="col-md-5 p-0">
+                                <div class="c-form__group">
+                                    <select class="c-form-control p-l-0" formControlName="event_industry">
+                                      <option value="" disabled selected hidden>Select Industry</option>
+                                      <option *ngFor="let industry of industryList" value="{{ industry?.code }}">{{ industry?.name }}</option>
+                                    </select>
+                                </div>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['event_industry'].errors?.required && ecfrom.submitted">Industry is required
+                                    <span class="pull-right">
+                                      <img src="{{ baseUrl }}img/svg/stop_red.svg" class="c-form__validation--img">
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Industry end -->
 
-              <div class="o-events-form__single">
-                <div class="col-md-3 p-0">
-                  <div class="c-text_md o-events-form-title">Ticket Type *</div>
-                </div>
-                <div class="col-md-9 p-0">
-                  <div class="c-radio__sm p-t-16">
-                    <label class="col-md-2 p-l-0">
-                      <input name="event_type" type="radio" value="Free" formControlName="event_type">
-                      <span></span>
-                      <div class="c-radio--label c-text_md color-grey-dark">Free</div>
-                    </label>
-                    <label class="col-md-2 p-0">
-                      <input name="event_type" #paid type="radio" value="Paid" formControlName="event_type">
-                      <span></span>
-                      <div class="c-radio--label c-text_md color-grey-dark">Paid</div>
-                    </label>
-                  </div>
-                </div>
-              </div><!-- Event type end -->
-          </div>
-          <div class="col-md-4">
-            <div class="o-event-form-upload-img">
-              <input type="file" #fileupload [(ngModel)]="eventCover" [ngModelOptions]="{standalone: true}" class="o-event-upload__file" name="eventCover" (change)="fileChangeListener($event)">
-              <div class="o-event-form-upload__container">
-                <img *ngIf="eventCoverImage" class="event-image" src="{{ baseUrl + eventCoverImage}}">
-                <div *ngIf="!eventCoverImage" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">Upload event image</div>
-              </div>
+
+                        <div class="o-events-form__single">
+                            <div class="col-md-3 p-0">
+                                <div class="c-text_md o-events-form-title">Venue *</div>
+                            </div>
+                            <div class="col-md-9 p-0">
+                                <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text" formControlName="event_venue">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Event location</label>
+                                </div>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['event_venue'].errors?.required && ecfrom.submitted">Venue is required
+                                    <span class="pull-right">
+                                      <img src="{{ baseUrl }}img/svg/stop_red.svg" class="c-form__validation--img">
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Venue end -->
+
+                        <div class="o-events-form__single">
+                            <div class="col-md-3 p-0">
+                                <div class="c-text_md o-events-form-title">Event Brief *</div>
+                            </div>
+                            <div class="col-md-9 p-0">
+                                <div class="c-form__group c-form--sm">
+                                    <textarea rows="4" class="c-textarea__block c-textarea--style" formControlName="event_brief" placeholder="Describe your event"></textarea>
+                                </div>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['event_brief'].errors?.required && ecfrom.submitted">Event Brief is required
+                                    <span class="pull-right">
+                                      <img src="{{ baseUrl }}img/svg/stop_red.svg" class="c-form__validation--img">
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Event Brief end -->
+
+                        <div class="o-events-form__single">
+                            <div class="col-md-3 p-0">
+                                <div class="c-text_md o-events-form-title">Date *</div>
+                            </div>
+                            <div class="col-md-3 p-0">
+                                <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required formControlName="event_startdate" [dpDayPicker]="config" theme="dp-material">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Start date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <p class="c-text_md m-t-16 text-center">to</p>
+                            </div>
+                            <div class="col-md-3 p-0">
+                                <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required formControlName="event_enddate" [dpDayPicker]="config" theme="dp-material">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>End date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 p-0">
+                            </div>
+                            <div class="col-md-9 offset-md-3 p-0">
+                                <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.oldate">Please choose upcomming date</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.startdate">Please choose start date </p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.old_even_end_date">Please choose upcoming date </p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.oldate">Please choose upcomming date</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.required && ecfrom.submitted">Start Date and End Date is required</p>
+                            </div>
+                        </div>
+                        <!-- Date end -->
+
+                        <div class="o-events-form__single">
+                            <div class="col-md-3 p-0">
+                                <div class="c-text_md o-events-form-title">Agenda *</div>
+                            </div>
+                            <div class="col-md-9 p-0">
+                                <div class="o-form-add-det-sec" *ngFor="let event_agenda of eventForm.controls.event_agenda['controls']; let i=index" [formGroup]="event_agenda">
+                                    <div class="col-md-4 p-l-0">
+                                        <div class="c-form__group c-form--sm c-form--noeffect">
+                                            <input class="c-form__input" required="" formControlName="startTime" type="text" [dpDayPicker]="config" theme="dp-material" mode="daytime">
+                                            <span class="c-form__highlight"></span>
+                                            <span class="c-form__bar"></span>
+                                            <label>Date</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 p-0">
+                                        <div class="c-form__group c-form--sm c-form--noeffect">
+                                            <input class="c-form__input" required="" type="text" formControlName="description">
+                                            <span class="c-form__highlight"></span>
+                                            <span class="c-form__bar"></span>
+                                            <label>Program</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 p-0">
+                                        <div class="o-form-trash m-t-8">
+                                            <div class="o-form-trash__ico" (click)="eventForm.get('event_agenda').removeAt(i)">
+                                                <img src="{{ baseUrl }}img/svg/delete.svg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 p-0">
+                                    </div>
+                                    <div class="col-md-9 offset-md-3 p-0">
+                                        <p class="c-form__validation" *ngIf="eventForm.controls.event_agenda.controls[i].controls.startTime.errors?.required && ecfrom.submitted">Date is required</p>
+                                        <!--<p class="c-form__validation" *ngIf="eventForm.controls.event_agenda.controls[i].controls.description.errors?.required && ecfrom.submitted">Program  is required</p>-->
+                                        <!--<p class="error_alert" *ngIf="eventForm.controls['description'].errors?.required && ecfrom.submitted">Program is required</p>-->
+                                    </div>
+                                </div>
+                                <!-- agenda add det sec end -->
+                                <div class="o-form-add-link">
+                                    <a (click)="pushAgenda()" class="o-form__add-btn">
+                                        <span class="o-form__add-ico"><img src="{{ baseUrl }}img/svg/plus-red.svg" alt=""></span>
+                                        <p class="c-text_md color-theme m-l-8 o-form__add-title">Add more agenda</p>
+                                    </a>
+                                </div>
+                                <!-- agenda add link end -->
+                            </div>
+
+                        </div>
+                        <!-- Agenda end -->
+
+                        <div class="o-events-form__single">
+                            <div class="col-md-3 p-0">
+                                <div class="c-text_md o-events-form-title">Listing As *</div>
+                            </div>
+                            <div class="col-md-9 p-0">
+                                <div class="c-radio__sm p-t-16">
+                                    <label class="col-md-2 p-l-0">
+                                      <input name="access" type="radio" value="0" formControlName="access">
+                                      <span></span>
+                                      <div class="c-radio--label c-text_md color-grey-dark">Public</div>
+                                    </label>
+                                    <label class="col-md-2 p-0">
+                                      <input name="access" type="radio" value="1" formControlName="access">
+                                      <span></span>
+                                      <div class="c-radio--label c-text_md color-grey-dark">Private</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Event type end -->
+
+                        <div class="o-events-form__single">
+                            <div class="col-md-3 p-0">
+                                <div class="c-text_md o-events-form-title">Ticket Type *</div>
+                            </div>
+                            <div class="col-md-9 p-0">
+                                <div class="c-radio__sm p-t-16">
+                                    <label class="col-md-2 p-l-0">
+                                      <input name="event_type" type="radio" value="Free" formControlName="event_type">
+                                      <span></span>
+                                      <div class="c-radio--label c-text_md color-grey-dark">Free</div>
+                                    </label>
+                                    <label class="col-md-2 p-0">
+                                      <input name="event_type" #paid type="radio" value="Paid" formControlName="event_type">
+                                      <span></span>
+                                      <div class="c-radio--label c-text_md color-grey-dark">Paid</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Event type end -->
+                    </div>
+
+
+                    <div class="o-events-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-24 width100 float_left text_uppercase ltr-space">
+                        Ticket details
+                    </div>
+                    <!-- subtitle end -->
+
+                    <div class="col-md-8 p-0">
+
+                        <div class="o-events-form__single" *ngIf="paid.checked">
+                            <div class="col-md-12 p-0">
+                                <label>Comming Soon</label>
+                            </div>
+                        </div>
+                        <!-- Ticket type end -->
+
+                        <div class="o-events-form__single">
+                            <div class="col-md-3 p-0">
+                                <div class="c-text_md o-events-form-title">Ticket sales *</div>
+                            </div>
+                            <div class="col-md-3 p-0">
+                                <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text" formControlName="ts_startTime" [dpDayPicker]="config" theme="dp-material">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Start date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <p class="c-text_md m-t-16 text-center">to</p>
+                            </div>
+                            <div class="col-md-3 p-0">
+                                <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required="" type="text" formControlName="ts_endTime" [dpDayPicker]="config" theme="dp-material">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>End date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 p-0">
+                            </div>
+                            <div class="col-md-9 offset-md-3 p-0">
+                                <p class="c-form__validation" *ngIf="eventForm.controls['ts_startTime'].errors?.required && ecfrom.submitted">Start Date and End Date is required</p>
+                                <!--<p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.required && ecfrom.submitted">End date is required</p>-->
+                            </div>
+                        </div>
+                        <!-- Ticket sales end -->
+
+                        <div class="o-events-form__single">
+                            <div class="col-md-3 p-0">
+                                <div class="c-text_md o-events-form-title">Maximum tickets allow<br>per order *</div>
+                            </div>
+                            <div class="col-md-5 p-0">
+                                <div class="c-form__group c-form--sm c-form--noeffect">
+                                    <input class="c-form__input" required type="number" formControlName="ts_quantity">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Quantity</label>
+                                </div>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['ts_quantity'].errors?.required && ecfrom.submitted">Quantity is required</p>
+                                <p class="c-form__validation" *ngIf="imageUpload">Event Cover is required</p>
+                            </div>
+                            <!--<input type="hidden" name="coverimage" value="{{eventCoverImage}}" formControlName="event_cover">-->
+                        </div>
+                        <!-- Maximum tickets end -->
+
+                        <div class="o-events-form__single">
+                            <div class="col-md-3 p-0">
+                            </div>
+                            <div class="col-md-5 p-0">
+                                <button type="submit" class="btn btn-primary btn-md">Create</button>
+                            </div>
+                        </div>
+                        <!-- create btn end -->
+                    </div>
+                </form>
             </div>
-            <p class="c-text_sm text-center color-grey-dark o-event-upload__info">
-              We recommend using at least a 800x400px (2:1)<br>image that's no larger than 10MB.
-            </p>
-          </div>
-
-          <div class="o-events-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-24 width100 float_left text_uppercase ltr-space">
-            Ticket details
-          </div><!-- subtitle end -->
-
-          <div class="col-md-8 p-0">
-
-            <div class="o-events-form__single" *ngIf="paid.checked">
-              <div class="col-md-12 p-0">
-                <label>Comming Soon</label>
-              </div>
-            </div><!-- Ticket type end -->
-
-            <div class="o-events-form__single">
-                <div class="col-md-3 p-0">
-                  <div class="c-text_md o-events-form-title">Ticket sales *</div>
-                </div>
-                <div class="col-md-3 p-0">
-                  <div class="c-form__group c-form--sm c-form--noeffect">
-                    <input class="c-form__input" required="" type="text" formControlName="ts_startTime"   [dpDayPicker]="config" theme="dp-material">
-                    <span class="c-form__highlight"></span>
-                    <span class="c-form__bar"></span>
-                    <label>Start date</label>
-                  </div>
-                </div>
-                <div class="col-md-1"><p class="c-text_md m-t-16 text-center">to</p></div>
-                <div class="col-md-3 p-0">
-                  <div class="c-form__group c-form--sm c-form--noeffect">
-                    <input class="c-form__input" required="" type="text" formControlName="ts_endTime"   [dpDayPicker]="config" theme="dp-material">
-                    <span class="c-form__highlight"></span>
-                    <span class="c-form__bar"></span>
-                    <label>End date</label>
-                  </div>
-                </div>
-                <div class="col-md-3 p-0">
-                </div>
-                <div class="col-md-9 offset-md-3 p-0">
-                  <p class="c-form__validation" *ngIf="eventForm.controls['ts_startTime'].errors?.required && ecfrom.submitted">Start Date and End Date is required</p>
-                  <!--<p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.required && ecfrom.submitted">End date is required</p>-->
-                </div>
-            </div><!-- Ticket sales end -->
-
-            <div class="o-events-form__single">
-              <div class="col-md-3 p-0">
-                <div class="c-text_md o-events-form-title">Maximum tickets allow<br>per order *</div>
-              </div>
-              <div class="col-md-5 p-0">
-                <div class="c-form__group c-form--sm c-form--noeffect">
-                  <input class="c-form__input" required type="number" formControlName="ts_quantity">
-                  <span class="c-form__highlight"></span>
-                  <span class="c-form__bar"></span>
-                  <label>Quantity</label>
-                </div>
-                <p class="c-form__validation" *ngIf="eventForm.controls['ts_quantity'].errors?.required && ecfrom.submitted">Quantity is required</p>
-                <p class="c-form__validation" *ngIf="imageUpload">Event Cover is required</p>
-              </div>
-                <!--<input type="hidden" name="coverimage" value="{{eventCoverImage}}" formControlName="event_cover">-->
-            </div><!-- Maximum tickets end -->
-
-            <div class="o-events-form__single">
-              <div class="col-md-3 p-0">
-              </div>
-              <div class="col-md-5 p-0">
-                <button type="submit" class="btn btn-primary btn-md">Create</button>
-              </div>
-            </div><!-- create btn end -->
-          </div>
-        </form>
-      </div><!-- form block end -->
+            <!-- form block end -->
+        </div>
     </div>
-  </div>
 </section>

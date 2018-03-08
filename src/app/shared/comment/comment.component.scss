@@ -1,120 +1,119 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/components/_feed-card.scss';
-
 .c-mediamodal__comment {
     bottom: 0;
     position: absolute;
     width: 100%;
 }
+
 .c-mediamodal__input {
-    padding: 10px 0 0 16px;
+    padding: 0px 0 0 20px;
 }
 
 @mixin clearfix {
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 }
-
 
 // post with comments block style -----------------------------------
 .c-avatar--status {
-  width: 34px;
-  height: 34px;
+    width: 34px;
+    height: 34px;
 }
 
 .c-avatar--artist {
-  width: 90px;
-  height: 90px;
+    width: 90px;
+    height: 90px;
 }
 
 .c-user--align {
-  margin-left: 16px; // margin-top: 8px;
+    margin-left: 16px; // margin-top: 8px;
 }
 
 .c-user__channel-align {
-  margin-top: 20px;
-  position: absolute;
-  margin-left: 50px;
+    margin-top: 20px;
+    position: absolute;
+    margin-left: 50px;
 }
 
 .c-status--block {
-  width: 100%;
-  float: left;
-  clear: both;
-  padding: 16px 24px;
-  position: relative;
+    width: 100%;
+    float: left;
+    clear: both;
+    padding: 16px 24px;
+    position: relative;
 }
 
 .c-post__time {
-  float: left;
-  color: #979797;
-  font-size: 12px;
-  line-height: 17px; // margin-right: 8px;
-  margin-top: 8px;
+    float: left;
+    color: #979797;
+    font-size: 12px;
+    line-height: 17px; // margin-right: 8px;
+    margin-top: 8px;
 }
 
 .c-status__options {
-  width: 14px;
-  float: left;
-  margin-top: 9px;
-  margin-left: 8px;
+    width: 14px;
+    float: left;
+    margin-top: 9px;
+    margin-left: 8px;
 }
 
 // card user block ------------------
 .c-card__user {
-  margin-top: 16px;
+    margin-top: 16px;
 }
 
 .c-user__avatar {
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-  position: relative;
-  box-sizing: border-box;
-  background: #f8f8f8;
-  cursor: pointer;
-  border-radius: 50px;
-  float: left;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    background: #f8f8f8;
+    cursor: pointer;
+    border-radius: 50px;
+    float: left;
 }
 
 .c-avatar--feed {
-  width: 24px;
-  height: 24px;
+    width: 24px;
+    height: 24px;
 }
 
 .c-user__image {
-  width: 100%
+    width: 100%
 }
 
 .c-user__name {
-  font-size: 14px;
-  font-weight: 600;
-  text-align: left;
-  color: #000;
-  margin-left: 8px;
-  margin-top: 2px;
-  float: left;
-  cursor: pointer;
-  &:hover {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
     color: #000;
-  }
+    margin-left: 8px;
+    margin-top: 2px;
+    float: left;
+    cursor: pointer;
+    &:hover {
+        color: #000;
+    }
 }
 
 .c-user__channel {
-  font-size: 12px;
-  font-weight: 600;
-  color: #979797;
-  display: block;
-  margin-left: 32px;
-  clear: both;
-  cursor: pointer;
-  &:hover {
+    font-size: 12px;
+    font-weight: 600;
     color: #979797;
-  }
+    display: block;
+    margin-left: 32px;
+    clear: both;
+    cursor: pointer;
+    &:hover {
+        color: #979797;
+    }
 }
 
 .media_comment_input {
@@ -124,7 +123,7 @@
         border-bottom: 1px solid #c1c1c1 !important;
         background: transparent;
     }
-    .msg_to_list li > ul {
+    .msg_to_list li>ul {
         height: 56px;
     }
     .msg_to_list li img {
@@ -139,8 +138,8 @@
             font-size: 12px;
             top: 0px;
         }
-        .form_input:focus ~ label,
-        .form_input:valid ~ label {
+        .form_input:focus~label,
+        .form_input:valid~label {
             display: none;
         }
     }
@@ -241,6 +240,7 @@
         width: 100%;
     }
 }
+
 // left big article img
 .avatar_article_img {
     width: 100%;
@@ -256,20 +256,18 @@
     }
 }
 
-.media-c__popup{
-  width: 100%;
-  float: left;
-  .list-inline{
-    padding: 16px 24px;
-    list-style: none;
-    margin-left: -5px;
-  }
-  .msg_to_input{
-    width: 84%;
-  }
-
+.media-c__popup {
+    width: 100%;
+    float: left;
+    .list-inline {
+        padding: 16px 24px;
+        list-style: none;
+        margin-left: -5px;
+    }
+    .msg_to_input {
+        width: 84%;
+    }
 }
-
 
 // post with comments block style -----------------------------------
 .c-avatar--status {
@@ -281,6 +279,7 @@
     width: 24px;
     height: 24px;
 }
+
 .c-avatar--status3 {
     width: 40px;
     height: 40px;
@@ -324,8 +323,6 @@
     margin-top: 9px;
     margin-left: 8px;
 }
-
-
 
 // comments block -----------------------------
 .c-post__comment--left {
@@ -419,4 +416,8 @@
     color: #808080;
     font-weight: 300;
     line-height: 24px;
+}
+
+.m-b-0 {
+    margin-top: 0px;
 }

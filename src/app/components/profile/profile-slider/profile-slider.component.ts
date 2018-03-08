@@ -1,5 +1,5 @@
 import { environment } from '../../../../environments/environment';
-import { Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { Modal } from '../../../shared/modal-new/Modal';
 import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
@@ -62,12 +62,17 @@ export class ProfileSliderComponent implements OnInit {
   isFollowing: boolean;
   defaultImage: string;
   followers: string;
+  followersProfiles = [];
+  followingProfiles = [];
+  showPreloader: boolean;
+  recordsPerPage = 50;
   // profileObject: ProfileCard;
+  activeProfileHandle = '';
 
   hasFollowed: boolean;
-
-
   @ViewChild('skillModal') UsertypeModal: Modal;
+  @ViewChild('followersModal') followersModal: Modal;
+  @ViewChild('followingModal') followingModal: Modal;
 
   constructor(
     private http: Http,
@@ -91,12 +96,37 @@ export class ProfileSliderComponent implements OnInit {
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
+      // console.log('state', state);
+      // get followers
+      if (state) {
+        if ((state['searching_following_profiles'] === false && state['searching_following_profiles_success'] === true) || (state['searching_follower_profiles'] === false && state['searching_follower_profiles_success'] === true)) {
+          this.showPreloader = false;
+        }
+        if (state['follower_profiles']) {
+          this.followersProfiles = state['follower_profiles'];
+        }
+        if (state['following_profiles']) {
+          this.followingProfiles = state['following_profiles'];
+        }
+        // this.isFollowing = state['profile_other'].extra.isFollowing;
+      }
+      // console.log('state.profile_user_info', state.profile_user_info);
       if (state.profile_user_info) {
         if (state.profile_user_info.isCurrentUser) {
           this.profileObject = this.loadProfile( state, 'own' );
           this.isOwner = true;
-        }else {
-          this.profileObject = this.loadProfile( state, 'other' );
+        } else {
+          if (state.profile_user_info.isClaimForGuest && state.profile_user_info.isClaimForGuest === true) {
+            // console.log('state.profile_other', state.profile_other);
+            if (state.profile_other && state.profile_other.length !== 0) {
+              const profile = state.profile_other;
+              this.profileObject = this.utils.claimProfileValueMapping(profile);
+              // console.log('claim');
+            }
+          } else {
+            // console.log('other');
+            this.profileObject = this.loadProfile( state, 'other' );
+          }
           this.isOwner = false;
         }
       }
@@ -111,12 +141,12 @@ export class ProfileSliderComponent implements OnInit {
     this.router = _router;
 
 
-    this.profileStore.select('profileTags')
-      .first(profile => profile['profile_other'].handle )
-      .subscribe( data => {
-        this.isFollowing = data['profile_other'].extra.isFollowing;
-        this.followers = data['profile_other'].followersCount;
-      });
+    // this.profileStore.select('profileTags')
+    //   .first(profile => profile['profile_other'].handle )
+    //   .subscribe( data => {
+    //     this.isFollowing = data['profile_other'].extra.isFollowing;
+    //     this.followers = data['profile_other'].followersCount;
+    //   });
   }
 
   disableFollowForSelf(username: string) {
@@ -200,12 +230,12 @@ export class ProfileSliderComponent implements OnInit {
   userFollow(follow: boolean, handle: string) {
     if (follow) {
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: handle });
-      this.isFollowing = false;
-      this.profileObject.follwerCount -= 1;
+      // this.isFollowing = false;
+      // this.profileObject.follwerCount -= 1;
     }else {
       this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: handle  });
-      this.isFollowing = true;
-      this.profileObject.follwerCount += 1;
+      // this.isFollowing = true;
+      // this.profileObject.follwerCount += 1;
     }
   }
 
@@ -287,7 +317,7 @@ export class ProfileSliderComponent implements OnInit {
       }
 
       this.profileStore.dispatch({ type: ProfileActions.LOAD_PROFILE_UPDATE, payload: form});
-      this.toastr.success('You profile has been updated successfully!');
+      this.toastr.success('Your profile has been updated successfully!');
       this.modalService.close('profileEditWindow');
     }
 
@@ -445,6 +475,94 @@ export class ProfileSliderComponent implements OnInit {
 
   donationClose() {
     this.modalService.close('donationPopup');
+  }
+
+  /**
+   * Open modal for following/followers
+   * */
+  showModal(action: string) {
+
+    this.showPreloader = true;
+
+    // get user handle
+    if (this.userProfile && this.userProfile['profile_user_info'] && this.userProfile['profile_user_info']['isCurrentUser'] === true) {
+      // console.log('current user');
+      this.activeProfileHandle = this.userProfile['profile_details']['handle'];
+    } else {
+      // console.log('other user');
+      this.activeProfileHandle = this.userProfile['profile_other']['handle'];
+    }
+    // console.log('handle', activeProfileHandle);
+    // console.log('showPreloader', this.showPreloader);
+    if (action === 'following') {
+      this.followingModal.open();
+      this.profileStore.dispatch({
+        type: ProfileActions.GET_FOLLOWING_PROFILES,
+        payload: {
+          limit: this.recordsPerPage,
+          handle: this.activeProfileHandle,
+          offset: 0
+        }
+      });
+    } else {
+      this.followersModal.open();
+      this.profileStore.dispatch({
+        type: ProfileActions.GET_FOLLOWER_PROFILES,
+        payload: {
+          limit: this.recordsPerPage,
+          handle: this.activeProfileHandle,
+          offset: 0
+        }
+      });
+    }
+  }
+
+  /**
+   * Follow an artist
+   * @param user obj
+   */
+  followUser(user: any) {
+    this.profileObject.followingCount = this.profileObject.followingCount + 1;
+    this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
+    user.extra.isFollowing = true;
+  }
+
+  /**
+   * Unfollow an artist
+   * @param user obj
+   */
+  unfollowUser(user: any) {
+    this.profileObject.followingCount = this.profileObject.followingCount - 1;
+    this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.handle });
+    user.extra.isFollowing = false;
+  }
+
+  onFollowerScroll(event: any) {
+    // if (event.srcElement.scrollTop >= event.srcElement.scrollHeight - event.srcElement.offsetHeight) {
+    //   console.log('load more');
+    //   this.profileStore.dispatch({
+    //     type: ProfileActions.GET_FOLLOWER_PROFILES,
+    //     payload: {
+    //       limit: this.recordsPerPage,
+    //       handle: this.activeProfileHandle,
+    //       offset: this.userProfile.searching_follower_params['offset'] + this.recordsPerPage
+    //     }
+    //   });
+    // }
+  }
+
+  onFollowingScroll(event: any) {
+    // if (event.srcElement.scrollTop >= event.srcElement.scrollHeight - event.srcElement.offsetHeight) {
+    //   console.log('load more');
+    //   this.profileStore.dispatch({
+    //     type: ProfileActions.GET_FOLLOWING_PROFILES,
+    //     payload: {
+    //       limit: this.recordsPerPage,
+    //       handle: this.activeProfileHandle,
+    //       offset: this.userProfile.searching_following_params['offset'] + this.recordsPerPage
+    //     }
+    //   });
+    // }
   }
 
 }

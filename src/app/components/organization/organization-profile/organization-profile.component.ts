@@ -7,6 +7,7 @@ import { AuthActions } from '../../../actions/auth.action';
 import { ProfileActions } from '../../../actions/profile.action';
 import { OrganizationActions } from '../../../actions/organization.action';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 
 import { LocalStorageService } from '../../../services/local-storage.service';
@@ -28,6 +29,7 @@ export class OrganizationProfileComponent implements OnInit {
   hasNoOrg: boolean;
   isOtherProfile: boolean;
   orgState$: Observable<any>;
+  imageBaseLink: string = environment.API_IMAGE;
 
   // Org states
   private sub: any;
@@ -90,20 +92,32 @@ export class OrganizationProfileComponent implements OnInit {
     this.sub = this.route.params
     .subscribe(params => {
       const orgParam = params['id'];
+      // console.log('checking for org params', orgParam);
 
-      if (orgParam !== undefined || orgParam !== 'undefined') {
-        this.isOtherProfile = false;
-        /**
-         * Load Organization Profile Details if handle present
-         */
-        if (this.profileCard && this.profileCard.username) {
-          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.profileCard.username });
+      // load org profile details if owned profile
+      if (this.router.url.includes('/org/')) {
+        // console.log('owned org profile');
+        // check if username available in local storage
+        const orgUsername = localStorage.getItem('profileUsername');
+        if (localStorage.getItem('profileType') !== undefined && localStorage.getItem('profileType') === 'organization' && orgUsername !== undefined && orgUsername.length > 0) {
+          // console.log('get org', orgUsername);
+          this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgUsername });
         }
       }
 
-      if (orgParam && orgParam.length > 0) {
-        this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgParam });
-      }
+      // if (orgParam !== undefined || orgParam !== 'undefined') {
+      //   this.isOtherProfile = false;
+      //   /**
+      //    * Load Organization Profile Details if handle present
+      //    */
+      //   if (this.profileCard && this.profileCard.username) {
+      //     this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: this.profileCard.username });
+      //   }
+      // }
+
+      // if (orgParam && orgParam.length > 0) {
+      //   this.store.dispatch({ type: OrganizationActions.ORG_PROFILE_DETAILS, payload: orgParam });
+      // }
     });
   }
 

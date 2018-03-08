@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 import { Store } from '@ngrx/store';
 import { Login, UserTag, initialTag, RightBlockTag } from '../../models/auth.model';
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   redrectUrl: any;
   queryParam: any;
+  imageBaseUrl = environment.API_IMAGE;
 
   constructor(
     fb: FormBuilder,
@@ -56,17 +58,6 @@ export class LoginComponent implements OnInit {
     if (this.route.snapshot.queryParams) {
       this.queryParam = this.route.snapshot.queryParams;
     }
-    // this.redrectUrl = '';
-    this.rightCom = {
-      mainTitle: 'Log in to your account',
-      secondHead: '',
-      description: '',
-      loginLink: true,
-      button_text: 'Sign Up',
-      button_link: '/reg',
-      page: false,
-      img: 'https://d33wubrfki0l68.cloudfront.net/ea59992e07375eec923510dbbab1cbd94a16acc2/261fd/img/login_illustration.png'
-    };
 
     const user = JSON.parse(localStorage.getItem('currentUser'));
     if (user && user.access_token) {

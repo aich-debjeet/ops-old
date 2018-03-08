@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
+import { ToastrService } from 'ngx-toastr';
 import { Store } from '@ngrx/store';
 import {Observable} from 'rxjs/Rx'
 import 'rxjs/add/observable/of';
@@ -631,7 +632,7 @@ export class ProfileEffect {
   loadProfiles$ = this.actions$
     .ofType(ProfileActions.LOAD_ALL_PROFILES)
     .map(toPayload)
-    .switchMap((payload) => this.profileService.getAllProfiles()
+    .switchMap((payload) => this.profileService.getAllProfiles(payload)
       .map(res => ({ type: ProfileActions.LOAD_ALL_PROFILES_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.LOAD_ALL_PROFILES_FAILED, payload: res }))
     );
@@ -720,7 +721,32 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.GET_IMPORTED_PROFILE_FAILED, payload: res }))
     );
 
+  /**
+   * Get following profiles by handle
+   */
+  @Effect()
+  getFollowingProfiles$ = this.actions$
+    .ofType(ProfileActions.GET_FOLLOWING_PROFILES)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getFollowingProfiles(payload)
+      .map(res => ({ type: ProfileActions.GET_FOLLOWING_PROFILES_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.GET_FOLLOWING_PROFILES_FAILED, payload: res }))
+    );
+
+  /**
+   * Get followers profiles by handle
+   */
+  @Effect()
+  getFollowerProfiles$ = this.actions$
+    .ofType(ProfileActions.GET_FOLLOWER_PROFILES)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getFollowerProfiles(payload)
+      .map(res => ({ type: ProfileActions.GET_FOLLOWER_PROFILES_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.GET_FOLLOWER_PROFILES_FAILED, payload: res }))
+    );
+
   constructor(
+    private toastr: ToastrService,
     private actions$: Actions,
     private router: Router,
     private profileService: ProfileService

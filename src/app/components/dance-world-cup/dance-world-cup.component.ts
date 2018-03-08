@@ -1,10 +1,11 @@
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 import { EventModal, initialTag  } from '../../models/event.model';
 import { Store } from '@ngrx/store';
 import { EventActions } from 'app/actions/event.action';
-import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
+import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
 
 import { ToastrService } from 'ngx-toastr';
 
@@ -22,7 +23,8 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
   contactFormState: any;
   formSubmitted = false;
   // window: Window;
-  dwcSlider: NgxCarousel;
+  dwcSlider: NguCarousel;
+  imageBaseUrl = environment.API_IMAGE;
 
   constructor(
     private elRef: ElementRef,
@@ -47,6 +49,7 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.dwcSlider = {
       grid: {xs: 1, sm: 1, md: 1, lg: 1, all: 0},
       slide: 1,
@@ -56,7 +59,7 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
       point: {
         visible: false,
         pointStyles: `
-          .ngxcarouselPoint {
+          .ngucarouselPoint {
             list-style-type: none;
             text-align: center;
             padding: 12px;
@@ -69,7 +72,7 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
             left: 0;
             box-sizing: border-box;
           }
-          .ngxcarouselPoint li {
+          .ngucarouselPoint li {
             display: inline-block;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.55);
@@ -77,7 +80,7 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
             margin: 0 3px;
             transition: .4s ease all;
           }
-          .ngxcarouselPoint li.active {
+          .ngucarouselPoint li.active {
               background: white;
               width: 10px;
           }
@@ -148,7 +151,7 @@ export class DanceWorldCupComponent implements OnInit, AfterViewInit {
   }
 
   /* It will be triggered on every slide*/
-  onmoveFn(data: NgxCarouselStore) {
+  onmoveFn(data: NguCarouselStore) {
   }
 
 }

@@ -3,10 +3,10 @@
     <section class="o-settings">
         <div class="container">
             <div class="o-settings-container">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 o-settings-leftbar ">
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 o-settings-leftbar ">
                     <div class="o-settings_head">
                         <div class="o-settings_ico">
-                            <img src="/assets/img/svg/ico_settings.svg" class="msg_setting_icon">
+                            <img src="{{ imageBaseLink }}img/svg/ico_settings.svg" class="msg_setting_icon">
                         </div>
                         <div class="settings_head_txt">
                             Settings
@@ -15,29 +15,29 @@
                     <!-- Nav tabs -->
                     <ul class=" o-settings-tabs">
                         <li class=" o-settings-tab_list active">
-                            <a class="o-settings-tab_links " href="javascript:void(0)" data-toggle="tab" (click)="displayView('General')">
-                                General <span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
+                            <a class="o-settings-tab_links " data-toggle="tab" (click)="displayView('General')" [ngClass]="{'active': selectedView == 'General'}">
+                                General <span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt=""></span>
                             </a>
                         </li>
                         <li class=" o-settings-tab_list">
-                            <a class="o-settings-tab_links " href="javascript:void(0)" data-toggle="tab" (click)="displayView('Security')">
-                                Security & Privacy <span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
+                            <a class="o-settings-tab_links " data-toggle="tab" (click)="displayView('Security')" [ngClass]="{'active': selectedView == 'Security'}">
+                                Security & Privacy <span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt=""></span>
                             </a>
                         </li>
                         <li class="o-settings-tab_list">
-                            <a class="o-settings-tab_links" href="javascript:void(0)" data-toggle="tab" (click)="displayView('Notification')">
-                                Notification<span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
+                            <a class="o-settings-tab_links" data-toggle="tab" (click)="displayView('Notification')" [ngClass]="{'active': selectedView == 'Notification'}">
+                                Notification<span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt=""></span>
                             </a>
                         </li>
-                        <li class="o-settings-tab_list">
-                            <a class="o-settings-tab_links" href="javascript:void(0)" data-toggle="tab" (click)="displayView('Home')">
-                                Home Page Preference<span class="arrow_ico"><img src="/assets/img/svg/ico-arrow-down.svg" alt=""></span>
+                        <!-- <li class="o-settings-tab_list">
+                            <a class="o-settings-tab_links" data-toggle="tab" (click)="displayView('Home')" [ngClass]="{'active': selectedView == 'Home'}">
+                                Home Page Preference<span class="arrow_ico"><img src="{{ imageBaseLink }}img/svg/ico-arrow-down.svg" alt=""></span>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
                 <!--- setting left end -->
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 o-settings-rightbar with_border_left">
+                <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 o-settings-rightbar with_border_left">
                     <div class="tab-content">
                         <div class="tab-pane active" id="general" *ngIf="this.selectedView === 'General'">
                             <h6 class="c-text_lg m-b-24 p-l-8">General Settings</h6>
@@ -48,55 +48,55 @@
                                             Name
                                         </span>
                                     </div>
-                                    <div class="col-md-9 p-0">
+                                    <div class="col-md-9 col-xs-12 p-0">
                                         <div id="acc_info-name" class="o-set-list__data" *ngIf="!nameActive">
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.name }}</span>
                                             <span class="o-set-list__edit-btn">
                                             <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="nameToggle()" >
-                                                <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
+                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
                                         <!-- data end -->
                                         <div id="acc-info-name__edit" class="o-set-list__edit" *ngIf="nameActive">
                                             <form [formGroup]="nameForm" novalidate (ngSubmit)="nameUpdate(nameForm.value)" #nform="ngForm">
-                                                <div class="col-md-4 p-0">
+                                                <div class="col-md-6 p-0">
                                                     <div class="c-form__group c-form--sm c-form--noeffect m-0">
                                                         <input class="c-form__input p-0" type="text" formControlName="name">
                                                         <p class="c-form__validation" *ngIf="nameForm.controls['name'].errors?.required && nform.submitted">Name is required</p>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 p-0">
+                                                <!-- <div class="col-md-2 p-0">
                                                     <div class="dropdown margin_l_16">
                                                         <span class="com-head" data-toggle="dropdown" aria-expanded="true">
-                                                <div class="o-action__ico">
-                                                    <img src="/assets/img/svg/ico-public.svg" alt="">
-                                                </div>
-                                                <div class="o-action__ico-arrow">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10px" height="6px" viewBox="0 0 16 10" version="1.1">
-                                                        <defs></defs>
-                                                        <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                            <polyline id="Path-2-Copy" stroke="#333" stroke-width="2" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
-                                                        </g>
-                                                    </svg>
-                                                </div>
-                                                </span>
+                                                            <div class="o-action__ico">
+                                                                <img src="{{ imageBaseLink }}img/svg/ico-public.svg" alt="">
+                                                            </div>
+                                                            <div class="o-action__ico-arrow">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10px" height="6px" viewBox="0 0 16 10" version="1.1">
+                                                                    <defs></defs>
+                                                                    <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                        <polyline id="Path-2-Copy" stroke="#333" stroke-width="2" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"></polyline>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                        </span>
                                                         <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                                                             <li>
                                                                 <a href="#" class="c-opsdropdown__list">
-                                                                    <img src="/assets/img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                                                                    <img src="{{ imageBaseLink }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
                                                                     <span class="c-opsdropdown--text">Public</span>
                                                                 </a>
                                                             </li>
                                                             <li>
                                                                 <a href="#" class="c-opsdropdown__list">
-                                                                    <img src="/assets/img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                                                                    <img src="{{ imageBaseLink }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
                                                                     <span class="c-opsdropdown--text">Private</span>
                                                                 </a>
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="col-md-6 p-0">
                                                     <div class="o-set-list-edit__actions">
                                                         <button type="button" class="btn btn-primary btn-sm" [type]="'submit'">Save</button>
@@ -110,17 +110,17 @@
                                 </li>
                                 <!-- name end -->
                                 <li class="o-set-list_items">
-                                    <div class="col-md-3 p-0">
+                                    <div class="col-md-3 col-xs-12 p-0">
                                         <span class="o-set-item__title c-text_md">
                                         Date of Birth
                                     </span>
                                     </div>
-                                    <div class="col-md-9 p-0">
+                                    <div class="col-md-9 col-xs-12 p-0">
                                         <div id="acc_info-dob" class="o-set-list__data" *ngIf="!dobActive">
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.physical?.dateOfBirth | date:'longDate'}}</span>
                                             <span class="o-set-list__edit-btn">
                                               <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="dobToggle()" >
-                                                    <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
+                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
@@ -140,7 +140,7 @@
                                                     <div class="dropdown margin_l_16">
                                                         <span class="com-head" data-toggle="dropdown" aria-expanded="true">
                                                         <div class="o-action__ico">
-                                                            <img src="/assets/img/svg/ico-public.svg" alt="">
+                                                            <img src="{{ imageBaseLink }}img/svg/ico-public.svg" alt="">
                                                         </div>
                                                         <div class="o-action__ico-arrow">
                                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10px" height="6px" viewBox="0 0 16 10" version="1.1">
@@ -154,13 +154,13 @@
                                                         <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                                                             <li>
                                                                 <a href="#" class="c-opsdropdown__list">
-                                                                    <img src="/assets/img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                                                                    <img src="{{ imageBaseLink }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
                                                                     <span class="c-opsdropdown--text">Public</span>
                                                                 </a>
                                                             </li>
                                                             <li>
                                                                 <a href="#" class="c-opsdropdown__list">
-                                                                    <img src="/assets/img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                                                                    <img src="{{ imageBaseLink }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
                                                                     <span class="c-opsdropdown--text">Private</span>
                                                                 </a>
                                                             </li>
@@ -190,7 +190,7 @@
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.physical?.gender }}</span>
                                             <span class="o-set-list__edit-btn">
                                             <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="genderToggle()" >
-                                                <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
+                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
@@ -227,7 +227,7 @@
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.extra?.username }}</span>
                                             <span class="o-set-list__edit-btn">
                                             <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="userToggle()" >
-                                                <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
+                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
@@ -243,7 +243,7 @@
                                                         <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.minlength">Username must be min length 4</p>
                                                         <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
                                                         <!-- <ul class="username_error" *ngIf="petTag.user_unique">
-                                                            <li *ngFor="let username of petTag?.user_exsist; let isLast=last">
+                                                            <li *ngFor="let username of petTag?.user_exist; let isLast=last">
                                                                 <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
                                                             </li>
                                                         </ul> -->
@@ -274,7 +274,7 @@
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.email }}</span>
                                             <span class="o-set-list__edit-btn">
                                                 <a href="javascrpit:void(0)" class="o-set-list-edit__link c-text_md" (click)="emailToggle()" >
-                                                    <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
+                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
@@ -315,7 +315,7 @@
                                             <span class="c-text_md color-grey-dark">{{ userProfile?.contact?.mobile?.mobile }}</span>
                                             <span class="o-set-list__edit-btn">
                                             <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="phoneToggle()" >
-                                                <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
+                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
@@ -355,7 +355,7 @@
                                             <span class="c-text_md color-grey-dark">Talent, Stagecraft </span>
                                             <span class="o-set-list__edit-btn">
                                             <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="profileTypeToggle()" >
-                                                <span class="o-set-list-edit__icon"><img src="/assets/img/svg/editpencil.svg" alt=""></span> Edit
+                                                <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Edit
                                             </a>
                                             </span>
                                         </div>
@@ -426,7 +426,7 @@
                                 </li>
                                 <!-- profile type end -->
                             </ul>
-                            <div class="col-md-12 p-0 p-l-8 m-b-24">
+                            <div class="col-md-12 col-sm-12 col-xs-12 p-0 p-l-8 m-b-24">
                                 <div class="switch_btn">
                                     <label class="switch">
                                         <input type="checkbox" value="adult.value" checked [(ngModel)]="adult.checked" (change)="updateCheckedOptions(adult, $event)">
@@ -437,7 +437,7 @@
                                     Allow me to view adult rated content
                                 </p>
                             </div>
-                            <div class="col-md-12 p-0 ">
+                            <div class="col-md-12 col-sm-12 col-xs-12 p-0 ">
                                 <div class="col-md-8 p-0 p-l-8">
                                     <span class="c-text_md p-b-8">
                                       Delete Account
@@ -699,7 +699,7 @@
                             <!-- Network end -->
                         </div>
                         <!-- notification end -->
-                        <div class="tab-pane active" id="Home_Page_Preference" *ngIf="this.selectedView === 'Home'">
+                        <!-- <div class="tab-pane active" id="Home_Page_Preference" *ngIf="this.selectedView === 'Home'">
                             <h6 class="c-text_lg m-b-24">Home Page Preference</h6>
                             <div class="o-set-single-block  m-b-24">
                                 <h6 class="c-text_md m-b-8">
@@ -713,19 +713,19 @@
                                         <div class="o-set-single-block fill-grey-light p-8" [dragula]='"bag-one"' [dragulaModel]='preferences'>
                                             <a href="javascript:void(0)" class="o-set-prefer__drag-btn c-text_md" *ngFor="let item of preferences; let i=index">
                                                 <span class="drag-btn__ico">
-                                                    <img src="/assets/img/svg/drag_ico.svg" alt="">
+                                                    <img src="{{ imageBaseLink }}img/svg/drag_ico.svg" alt="">
                                                 </span> {{item}}
                                             </a>
-                                            <!-- <a href="javascript:void(0)" class="o-set-prefer__drag-btn c-text_md">
+                                            <a href="javascript:void(0)" class="o-set-prefer__drag-btn c-text_md">
                                                 <span class="drag-btn__ico">
-                                                    <img src="/assets/img/svg/drag_ico.svg" alt="">
+                                                    <img src="{{ imageBaseLink }}img/svg/drag_ico.svg" alt="">
                                                 </span> Channel
                                             </a>
                                             <a href="javascript:void(0)" class="o-set-prefer__drag-btn c-text_md">
                                                 <span class="drag-btn__ico">
-                                                    <img src="/assets/img/svg/drag_ico.svg" alt="">
+                                                    <img src="{{ imageBaseLink }}img/svg/drag_ico.svg" alt="">
                                                 </span> Post
-                                            </a> -->
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -735,10 +735,10 @@
                                 <div class="col-md-12 p-0">
                                     <div class="o-set-prefer-block p-0">
                                         <div class="o-set-single-block o-set-single-block--flex  fill-grey-light p-8">
-                                            <img src="/assets/img/svg/quick.svg" alt="" class="drag-change-img">
-                                            <img src="/assets/img/svg/quick.svg" alt="" class="drag-change-img">
-                                            <img src="/assets/img/svg/quick.svg" alt="" class="drag-change-img">
-                                            <img src="/assets/img/svg/quick.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/quick.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/quick.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/quick.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/quick.svg" alt="" class="drag-change-img">
                                         </div>
                                         <div class="o-set-single-block o-set-single-block--flex  fill-grey-light p-8">
                                             <span class="drag__name c-text_sm">Spotfeeds</span>
@@ -746,16 +746,16 @@
                                             <span class="drag__name c-text_sm">Posts</span>
                                         </div>
                                         <div class="o-set-single-block o-set-single-block--flex  fill-grey-light p-8">
-                                            <img src="/assets/img/svg/spotfeed.svg" alt="" class="drag-change-img">
-                                            <img src="/assets/img/svg/spotfeed.svg" alt="" class="drag-change-img">
-                                            <img src="/assets/img/svg/spotfeed.svg" alt="" class="drag-change-img">
-                                            <img src="/assets/img/svg/spotfeed.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/spotfeed.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/spotfeed.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/spotfeed.svg" alt="" class="drag-change-img">
+                                            <img src="{{ imageBaseLink }}img/svg/spotfeed.svg" alt="" class="drag-change-img">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- drag end -->
-                        </div>
+                             drag end 
+                        </div> -->
                         <!-- Home Page Preference end -->
                     </div>
                 </div>
@@ -766,11 +766,12 @@
 
 
 </main>
-<footer class="footer">
+<app-footer></app-footer>
+<!-- <footer class="footer">
     <div class="container">
         <p>© Copyright 2017 One Page Spotlight</p>
     </div>
-</footer>
+</footer> -->
 <!-- OTP Confirm Modal -->
 <app-modal [modalTitle]="'Success'" [blocking]='false' modalId='otpSuccess'>
     <div class="row">

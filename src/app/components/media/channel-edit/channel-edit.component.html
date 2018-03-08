@@ -30,7 +30,7 @@
                             <div class="c-form__group">
                                 <select formControlName="type" class="c-form-control p-0" id="sel1" [(ngModel)]="selectedIndustry">
                                         <option value="" selected="">Industry</option>
-                                        <option *ngFor="let industry of forIndustries.industries" [value]="industry.code" >{{ industry.name }}</option>
+                                        <option *ngFor="let industry of forIndustries?.industries" [value]="industry?.code" >{{ industry.name }}</option>
                                     </select>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                 <!-- create channel head -->
                 <div class="create_channel__content">
                     <div class="create-channel__done-tic">
-                        <img width="135" src="/assets/img/svg/channeltic.svg" alt="">
+                        <img width="135" src="{{ imageBaseLink }}img/svg/channeltic.svg" alt="">
                     </div>
                     <h5 class="c-h5 m-b-32">Channel has been updated<br>successfully</h5>
                 </div>

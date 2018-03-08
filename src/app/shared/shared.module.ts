@@ -14,6 +14,7 @@ import { ChannelComponent } from './channel/channel.component';
 import { SpotfeedCardComponent } from './spotfeed-card/spotfeed-card.component';
 import { FooterComponent } from './footer/footer.component';
 import { PostCardComponent } from './post-card/post-card.component';
+import { PostCardSearchComponent } from './post-card-search/post-card-search.component';
 import { ModalComponent } from './modal/modal.component';
 import { CountrySelectorComponent } from './country-selector/country-selector.component';
 import { SharedPipesModule } from './../pipes/shared-pipes.module';
@@ -43,6 +44,8 @@ import { PostComponent } from './post/post.component';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { CommentComponent } from './comment/comment.component';
 import { UserCardComponent } from './user-card/user-card.component';
+import { UserCardNewComponent } from './user-card-new/user-card-new.component';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 // modal new
@@ -51,6 +54,8 @@ import {RouteModal} from './modal-new/RouteModal';
 import { ScrollToDirective } from './scrollto/scroll-to.directive';
 import { OpportunityCardComponent } from './opportunity-card/opportunity-card.component';
 import { EventCardComponent } from './event-card/event-card.component';
+import { ChannelSearchComponent } from './channel-search/channel-search.component';
+import { SearchChannelCardComponent } from './search-channel-card/search-channel-card.component';
 
 @NgModule({
   imports: [
@@ -62,7 +67,8 @@ import { EventCardComponent } from './event-card/event-card.component';
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
-    SharedPipesModule
+    SharedPipesModule,
+    LazyLoadImageModule
   ],
   declarations: [
     // TruncatePipe,
@@ -77,6 +83,7 @@ import { EventCardComponent } from './event-card/event-card.component';
     SpotfeedCardComponent,
     FooterComponent,
     PostCardComponent,
+    PostCardSearchComponent,
     CountrySelectorComponent,
     VideplayerComponent,
     AudioPlayerComponent,
@@ -92,12 +99,15 @@ import { EventCardComponent } from './event-card/event-card.component';
     CommentListComponent,
     CommentComponent,
     UserCardComponent,
+    UserCardNewComponent,
     Modal,
     RouteModal,
     ModalContent,
     ScrollToDirective,
     OpportunityCardComponent,
     EventCardComponent,
+    ChannelSearchComponent,
+    SearchChannelCardComponent,
   ],
   exports: [
     OpportunityCardComponent,
@@ -110,6 +120,7 @@ import { EventCardComponent } from './event-card/event-card.component';
     SpotfeedCardComponent,
     FooterComponent,
     PostCardComponent,
+    PostCardSearchComponent,
     ModalComponent,
     CountrySelectorComponent,
     VideplayerComponent,
@@ -123,11 +134,13 @@ import { EventCardComponent } from './event-card/event-card.component';
     PostComponent,
     CommentComponent,
     UserCardComponent,
+    UserCardNewComponent,
     UtcDatePipe,
     Modal,
     RouteModal,
     ModalContent,
-    EventCardComponent
+    EventCardComponent,
+    SearchChannelCardComponent
   ]
 })
 export class SharedModule { }

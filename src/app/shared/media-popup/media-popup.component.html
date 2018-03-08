@@ -57,18 +57,18 @@
                         <div class="media_like_count">
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <a (click)="spotMedia(data?.id)"><img src="/assets/img/svg/ico_lik.svg"></a>
+                                    <a (click)="spotMedia(data?.id)"><img src="{{ imageLink }}img/svg/ico_lik.svg"></a>
                                     <div class="like_count">{{ data?.spotsCount }}</div>
                                 </li>
                                 <li class="list-inline-item">
-                                    <a href=""><img src="/assets/img/svg/ico_comment.svg"></a>
+                                    <a href=""><img src="{{ imageLink }}img/svg/ico_comment.svg"></a>
                                     <div class="like_count">{{ data?.commentsCount }}</div>
                                 </li>
                                 <li class="list-inline-item pull-right">
-                                    <a ><img src="/assets/img/svg/ico_share-02.svg"></a>
+                                    <a ><img src="{{ imageLink }}img/svg/ico_share-02.svg"></a>
                                 </li>
                                 <li class="list-inline-item pull-right">
-                                    <a ><img src="/assets/img/svg/ico_addtochannel.svg"></a>
+                                    <a ><img src="{{ imageLink }}img/svg/ico_addtochannel.svg"></a>
                                 </li>
                             </ul>
                         </div>
@@ -106,7 +106,7 @@
                                 </li>
                                 <li class="list-inline-item pull-right padding_0">
                                     <div class="comm_post_time">{{ comment.createdDate | date: 'hh:mm a' }}<span>
-                                        <a (click)="beginEdit(editText)"><img src="/assets/img/svg/ico_options.svg"></a></span>
+                                        <a (click)="beginEdit(editText)"><img src="{{ imageLink }}img/svg/ico_options.svg"></a></span>
                                     </div>
                                 </li>
                             </ul>

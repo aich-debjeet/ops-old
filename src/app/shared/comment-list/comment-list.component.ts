@@ -30,6 +30,8 @@ export class CommentListComponent implements OnInit {
   }
 
   onContentSaved(content) {
+    //console.log('content', content)
+    //console.log(this.messageText)
     this.isEdit = false;
     this.commentEdited.next(this.messageText);
   }

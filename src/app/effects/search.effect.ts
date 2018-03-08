@@ -14,7 +14,17 @@ import { SearchService } from '../services/search.service';
 export class SearchEffect {
 
   @Effect()
-  userSearch$ = this.actions$
+  allSearch$ = this.actions$
+    .ofType(SearchActions.SEARCH_ALL)
+    .debounceTime(500)
+    .map(toPayload)
+    .switchMap((payload) => this.apiService.getAllSearchResult(payload)
+      .map(res => ({ type: SearchActions.SEARCH_ALL_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: SearchActions.SEARCH_ALL_FAILED, payload: res }))
+    );
+
+  @Effect()
+  peopleSearch$ = this.actions$
     .ofType(SearchActions.SEARCH_PEOPLE)
     .debounceTime(500)
     .map(toPayload)

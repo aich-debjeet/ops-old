@@ -1,9 +1,11 @@
+<app-navigation></app-navigation>
+
 <section class="o-org-hero">
   <div class="container">
     <div class="col-md-6">
       <div class="o-hero__head-container">
         <div class="o-hero-logo">
-          <img class="o-logo__img" src="/assets/img/logo_white.svg" alt="">
+          <img class="o-logo__img" src="{{ imageBaseLink }}img/logo_white.svg" alt="">
         </div>
         <div class="o-hero-head-title">
           <h3 class="c-h3 o-head--title">Organization</h3>
@@ -18,7 +20,7 @@
     </div>
     <div class="col-md-6">
       <div class="o-hero">
-        <img class="o-hero__img" src="/assets/img/organization/hero.png" alt="">
+        <img class="o-hero__img" src="{{ imageBaseLink }}img/organization/hero.png" alt="">
       </div>
     </div>
   </div>
@@ -42,8 +44,12 @@
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
               <label>Username</label>
+              <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.whitespace || orgReg.controls['org_username'].errors?.capitalLetters || orgReg.controls['org_username'].errors?.specialChars">Capital letters, spaces and special characters are not allowed</p>
+              <!-- <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.whitespace">White spaces are not allowed</p>
+              <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.capitalLetters">Capital letters are not allowed</p> -->
               <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.required && orgForm.submitted">Username is required</p>
-              <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.isUsernameUnique">This organization username is already taken</p>
+              <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.isUsernameUnique">This username is already taken</p>
+              <p class="error_alert" *ngIf="orgReg.controls['org_username'].errors?.invalidLength">Username length limit is 3 to 15 characters</p>
             </div>
             <h6 class="c-text_md o-org--type">Choose organization type</h6>
             <div class="o-org-reg__choose">
@@ -76,12 +82,13 @@
               <p class="error_alert" *ngIf="orgReg.controls['org_industry_type'].errors?.required && orgForm.submitted">Type of industry is required</p>
             </div>
             <div class="c-form__group margin_b_32">
-              <input class="c-form__input" required="" type="text" formControlName="org_service">
+              <!-- <input class="c-form__input" required="" type="text" formControlName="org_service"> -->
+              <tag-input [(ngModel)]='org_service' formControlName="org_service" [placeholder]="'Add Services'"></tag-input>
               <span class="c-form__highlight"></span>
               <span class="c-form__bar"></span>
-              <label>Add your skills</label>
+              <!-- <label>Add your skills</label> -->
               <div class="eg">eg:UI Design, UX Design, Branding</div>
-              <p class="error_alert" *ngIf="orgReg.controls['org_service'].errors?.required && orgForm.submitted">Services is required</p>
+              <p class="error_alert" *ngIf="orgReg.controls['org_service'].errors?.required && orgForm.submitted">Services are required</p>
             </div>
             <div class="c-form__group margin_b_32">
               <input class="c-form__input" required="" placeholder="" type="text" autocorrect="off" autocapitalize="off" spellcheck="off" #search formControlName="org_location">
@@ -91,8 +98,15 @@
               <p class="error_alert" *ngIf="orgReg.controls['org_location'].errors?.required && orgForm.submitted">Location is required</p>
             </div>
             <div class="create-btn">
-               <button [className]="'btn btn-primary btn-md'" type="submit">Create</button>
+               <button *ngIf="!uploadingData" [className]="'btn btn-primary btn-md'" type="submit">Create</button>
             </div>
+            <!-- preloader -->
+            <div *ngIf="uploadingData">
+              <div class="sticky">
+                  <div class="loader">Loading...</div>
+              </div>
+            </div>
+            <!-- preloader -->
           </form>
         </div>
       </div>

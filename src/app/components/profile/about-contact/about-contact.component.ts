@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
@@ -17,9 +17,9 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './about-contact.component.html',
   styleUrls: ['./about-contact.component.scss']
 })
-export class AboutContactComponent implements OnInit {
+export class AboutContactComponent implements OnInit, OnDestroy {
   tagState$: Observable<ProfileModal>;
-  private tagStateSubscription: Subscription;
+  subscription: Subscription;
   stateProfile = initialTag;
   userProfile: any;
   ownProfile: boolean;
@@ -29,7 +29,7 @@ export class AboutContactComponent implements OnInit {
     private profileStore: Store<ProfileModal>
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
-    this.tagState$.subscribe((state) => {
+    this.subscription = this.tagState$.subscribe((state) => {
       this.stateProfile = state;
       if (state.profile_user_info) {
         if (this.stateProfile.profile_user_info.isCurrentUser === false && this.stateProfile.profile_other_loaded === true) {
@@ -44,6 +44,10 @@ export class AboutContactComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

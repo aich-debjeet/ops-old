@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag  } from '../../models/profile.model';
@@ -13,15 +13,14 @@ import { SharedActions } from '../../actions/shared.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
-import { AngularMasonry, MasonryOptions } from 'angular2-masonry';
 @Component({
   selector: 'app-directory-list',
   templateUrl: './directory-list.component.html',
   styleUrls: ['./directory-list.component.scss']
 })
-export class DirectoryListComponent implements OnInit {
+export class DirectoryListComponent implements OnInit, OnDestroy {
   tagState$: Observable<ProfileModal>;
   dirList: any;
   page_start = 0;
@@ -32,24 +31,31 @@ export class DirectoryListComponent implements OnInit {
   searchText: string;
   profileType: any = 1;
   selectedOption = [];
+  dir_scroll_id: any = '';
   options = [
     {name: 'Inactive', value: 'inactive', checked: false},
     {name: 'Active', value: 'active', checked: false},
     {name: 'verified', value: 'verified', checked: false}
   ]
 
+  private subscription: ISubscription;
+
   constructor(
     private _store: Store<ProfileModal>,
     private route: ActivatedRoute,
   ) {
       this.tagState$ = this._store.select('profileTags');
-      this.tagState$.subscribe((state) => {
-        this.dirList = state['dir_list']
+      this.subscription =  this.tagState$.subscribe((state) => {
+        if (state.dir_list_loaded ) {
+          this.dir_scroll_id = state.user_directory_scroll_id;
+          this.dirList = state.dir_list;
+        }
       });
       this.loadDir();
   }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
   }
 
   updateCheckedOptions(option, event) {
@@ -84,7 +90,10 @@ export class DirectoryListComponent implements OnInit {
       searchText: this.searchText,
       status: this.selectedOption,
       offset: this.page_start,
-      limit: 20
+      limit: 20,
+      'name': {
+        'scrollId': this.dir_scroll_id
+      }
     }
     this._store.dispatch({ type: ProfileActions.LOAD_DIRECTORY, payload: data });
   }
@@ -118,6 +127,8 @@ export class DirectoryListComponent implements OnInit {
     }
   }
 
-
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
 }

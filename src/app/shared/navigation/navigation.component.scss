@@ -1,6 +1,8 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import './src/assets/scss/helpers/_functions.scss';
 @import './src/assets/scss/helpers/_mixins.scss';
+// @import './src/assets/scss/vendors/bootstrap/stylesheets/bootstrap/_navbar.scss';
+// @import './src/assets/scss/vendors/bootstrap/stylesheets/bootstrap/_nav.scss';
 @import '~sass-mq/_mq.scss';
 
 /* landing page */
@@ -27,6 +29,12 @@
             height: 36px;
         }
     }
+}
+
+.notif-scroll {
+    max-height: 50vh;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 .nav__avatar__img {
@@ -99,7 +107,6 @@
     width: 100%;
     float: left;
     position: relative;
-    cursor: pointer;
 }
 
 .navdrop__imgblock {
@@ -643,8 +650,60 @@
     right: 0;
     position: absolute;
     display: none;
-    
     @include mq($from: $mobile_sm, $until: $desktop_sm) {
         display: block;
-    } 
+    }
+}
+
+.m-nav {
+    display: none;
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        display: block;
+        margin-top: 16px;
+        float: right;
+    }
+}
+
+.m-nav__icons {
+    padding: 10px;
+    img {
+        width: 16px;
+    }
+}
+
+.m-nav__dropdown {
+    display: inline;
+    .nav__dropdown {
+        width: 320px;
+        margin-top: 12px;
+        height: 440px;
+        overflow-y: scroll;
+    }
+    .nav__dropdown2 {
+        width: 155px;
+        font-size: 12px;
+        margin-top: 12px;
+    }
+    .nav__dropdown3 {
+        width: 310px;
+        right: -72px;
+        top: 32px;
+        .dropnoti__detail {
+            font-size: 11px;
+            font-size: 11px;
+        }
+        .dropdown__arrow {
+            right: 80px;
+        }
+    }
+    .nav__dropdown4 {
+        width: 310px;
+        right: -31px;
+        top: 32px;
+    }
+    .dropdown__arrow2 {
+        right: 40px;
+    } // .dropdown__arrow2 {
+    //     right: -18px;
+    // }
 }

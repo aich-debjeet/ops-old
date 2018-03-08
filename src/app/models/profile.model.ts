@@ -22,9 +22,16 @@ export class ProfileModal {
   user_channel: any;
   user_channels_loading: boolean;
   user_channels_loaded: boolean;
+  user_channel_scroll_id: any;
   user_following_channel: any;
   user_following_channels_loading: boolean;
   user_following_channels_loaded: boolean;
+  user_directory_scroll_id: any;
+  dir_list_loading: boolean;
+  dir_list_loaded: boolean;
+  dir_list: any;
+  people_follow_scroll_id: any;
+  user_following_post_scroll_id: any;
   user_posts: any;
   user_posts_loading: boolean;
   user_posts_loaded: boolean;
@@ -50,6 +57,18 @@ export class ProfileModal {
   adult_Content?: boolean;
   settings?: any;
   preferences?: any;
+
+  searching_following_profiles?: boolean;
+  searching_follower_profiles?: boolean;
+  searching_following_profiles_success?: boolean;
+  searching_follower_profiles_success?: boolean;
+  searching_following_params?: string;
+  searching_follower_params?: string;
+  following_profiles?: any;
+  follower_profiles?: any;
+  channel_pin_success: boolean;
+  channel_pin_failed: boolean;
+  channel_unpin_success: boolean;
 }
 
 export class ProfileForm {
@@ -79,6 +98,7 @@ export const initialTag: ProfileModal = {
   user_channels_loading: false,
   user_channels_loaded: false,
   // User following channels
+  user_channel_scroll_id: '',
   user_following_channel: [],
   user_following_channels_loading: false,
   user_following_channels_loaded: false,
@@ -86,6 +106,7 @@ export const initialTag: ProfileModal = {
   user_posts: [],
   user_posts_loading: false,
   user_posts_loaded: false,
+  user_following_post_scroll_id: '',
   // User foolowing Posts
   user_following_posts: [],
   user_following_posts_loading: false,
@@ -96,6 +117,13 @@ export const initialTag: ProfileModal = {
   channel_saved: false,
   channel_updated: false,
   profiles: [],
+  people_follow_scroll_id: '',
+
+  // directory
+  user_directory_scroll_id: '',
+  dir_list_loading: false,
+  dir_list_loaded: false,
+  dir_list: [],
 
   // Profile & Cover
   cover_upload_loading: false,
@@ -107,6 +135,9 @@ export const initialTag: ProfileModal = {
   user_profiles_all: [],
   // list of block users
   blockedUsers: [],
+  channel_pin_success: false,
+  channel_unpin_success: false,
+  channel_pin_failed: false,
 };
 
 export class ProfileCard {

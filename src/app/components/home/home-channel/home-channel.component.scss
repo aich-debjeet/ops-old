@@ -43,8 +43,18 @@
 }
 
 .empty__state h4 {
-  font-size: 15px;
+    font-size: 15px;
 }
+
 .empty__state {
-  margin-top: 2rem;
+    margin-top: 2rem;
+}
+
+.m-home_channel {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin: 0 !important;
+        padding: 0 !important;
+        margin: 8px 0 !important;
+        width: 100%;
+    }
 }

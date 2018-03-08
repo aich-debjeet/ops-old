@@ -4,6 +4,7 @@
 @import '~sass-mq/_mq.scss';
 
 /* --------------------------- registrtion step 2 ---------------------------- */
+
 // step 2 ----------------------
 .ops_signup2 {
     background-color: #f1f1f1;
@@ -23,8 +24,8 @@
         }
         .step2_txt {
             color: #979797;
-            font-size: 12px;
-            line-height: 23px;
+            font-size: 11px;
+            line-height: 18px;
             text-align: center;
             margin: 0 16px 16px;
         }
@@ -41,43 +42,56 @@
                 display: block;
                 transition: 0.25s;
             }
+            @include mq($from: $mobile_sm, $until: $mobile_lg) {
+                width: 45%;
+                margin: 8px 7px;
+            }
+            @include mq($from: $tablet, $until: $desktop_sm) {
+                width: 31%;
+                margin: 8px 7px;
+            }
+            @include mq($from: $break1024) {
+                width: 15%;
+                margin: 8px 7px;
+            }
         }
         .checkbox_options {
-                float: right;
-                width: 18px;
-                display: none;
-                right: 10px;
-                top: 10px;
-                position: absolute;
-                height: 18px;
-                text-align: center;
-                transition: .25s;
+            float: right;
+            width: 18px;
+            display: none;
+            right: 10px;
+            top: 10px;
+            position: absolute;
+            height: 18px;
+            text-align: center;
+            transition: .25s;
         }
         .step2_main_heading {
             color: #333333;
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 300;
             line-height: 33px;
         }
         .step2_main_heading2 {
-            color: #979797;
-            font-size: 14px;
+            color: #747474;
+            font-size: 13px;
             line-height: 19px;
             text-align: center;
             margin: 16px 0 32px;
+            font-weight: normal;
         }
         .ops_checkbox_lg {
             margin: 24px 0;
             p {
-                color: #333333;
-                font-size: 14px;
-                line-height: 19px;
+                color: #747474;
+                font-size: 13px;
+                line-height: 20px;
                 text-align: center;
                 margin-bottom: 16px;
-                }
+            }
         }
         label {
-            height: 316px;
+            height: 290px;
             text-align: center;
             pointer-events: auto;
             position: static;
@@ -85,21 +99,24 @@
                 box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
                 border-radius: 3px;
             }
+            @include mq($from: $mobile_sm, $until: $mobile_lg) {
+                height: 290px;
+            }
         }
         input[type="checkbox"] {
             display: none;
         }
-        input[type="checkbox"]:checked + span {
+        input[type="checkbox"]:checked+span {
             color: #ffffff;
         }
-        input[type="checkbox"] + .reg_profile_types {
+        input[type="checkbox"]+.reg_profile_types {
             display: inline-block;
             position: relative;
             -webkit-appearance: none;
-            height: 316px;
+            height: 290px;
             cursor: pointer;
         }
-        input[type="checkbox"]:checked + .reg_profile_types:after {
+        input[type="checkbox"]:checked+.reg_profile_types:after {
             border: 2px solid #ff7b84;
             box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
             border-radius: 3px;
@@ -114,14 +131,17 @@
         }
     }
 }
+
 .margin_t_16 {
     margin-top: 16px;
 }
+
 .active-btn {
     color: #ff7b84 !important;
     background-color: #fff !important;
     border-color: #ff7b84 !important;
 }
+
 // --- signup-header -----------------------------------
 .signup_next {
     .active-btn {
@@ -196,12 +216,12 @@ container {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
         height: 100%;
         display: block;
         padding-top: 24px;
     }
-    @include mq($from: $tablet, $until: $desktop_sm){
+    @include mq($from: $tablet, $until: $desktop_sm) {
         height: 100%;
         display: block;
         padding-top: 24px;
@@ -235,29 +255,29 @@ container {
                 display: block;
                 transition: 0.25s;
             }
-            @include mq($from: $mobile_sm, $until: $mobile_lg){
+            @include mq($from: $mobile_sm, $until: $mobile_lg) {
                 width: 45%;
                 margin: 8px 7px;
             }
-            @include mq($from: $tablet, $until: $desktop_sm){
+            @include mq($from: $tablet, $until: $desktop_sm) {
                 width: 31%;
                 margin: 8px 7px;
             }
-            @include mq($from: $break1024){
+            @include mq($from: $break1024) {
                 width: 15%;
                 margin: 8px 7px;
             }
         }
         .checkbox_options {
-                float: right;
-                width: 18px;
-                display: none;
-                right: 10px;
-                top: 10px;
-                position: absolute;
-                height: 18px;
-                text-align: center;
-                transition: .25s;
+            float: right;
+            width: 18px;
+            display: none;
+            right: 10px;
+            top: 10px;
+            position: absolute;
+            height: 18px;
+            text-align: center;
+            transition: .25s;
         }
         .step2_main_heading {
             color: #333333;
@@ -281,7 +301,7 @@ container {
                 line-height: 20px;
                 text-align: center;
                 margin-bottom: 16px;
-                }
+            }
         }
         label {
             height: 290px;
@@ -292,23 +312,23 @@ container {
                 box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
                 border-radius: 3px;
             }
-            @include mq($from: $mobile_sm, $until: $mobile_lg){
+            @include mq($from: $mobile_sm, $until: $mobile_lg) {
                 height: 290px;
             }
         }
         input[type="checkbox"] {
             display: none;
         }
-        input[type="checkbox"]:checked + span {
+        input[type="checkbox"]:checked+span {
             color: #ffffff;
         }
-        input[type="checkbox"] + .reg_profile_types {
+        input[type="checkbox"]+.reg_profile_types {
             display: inline-block;
             position: relative;
             -webkit-appearance: none;
             height: 290px;
         }
-        input[type="checkbox"]:checked + .reg_profile_types:after {
+        input[type="checkbox"]:checked+.reg_profile_types:after {
             border: 2px solid #ff7b84;
             box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
             border-radius: 3px;
@@ -325,13 +345,13 @@ container {
 }
 
 .small_pen {
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
         pointer-events: none;
     }
 }
 
 .small_w100-clb {
-    @include mq($from: $mobile_sm, $until: $mobile_lg){
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
         width: 100%;
         clear: both;
     }

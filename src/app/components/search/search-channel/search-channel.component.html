@@ -1,17 +1,15 @@
-<div class="row">
-
-    <div *ngIf="channels && channels.length === 0; else channels_found;">
-        <p class="result-not-found">Channels not found!</p>
+<div infinite-scroll (scrolled)="onScroll($event)" class="m-0 row p-t-16 float_left m-b-50">
+    <div class="col-12">
+        <div *ngFor="let channel of channels" class="col-md-3 p-0 p-r-10 p-b-10">
+            <app-channel [channelData]="channel"></app-channel>
+        </div>
     </div>
-
-    <ng-template #channels_found>
-
-        <masonry [useImagesLoaded]="true">
-            <masonry-brick class="col-md-3 col-sm-6 c-card padding_8" *ngFor="let channel of channels; let i = index">
-                <app-channel [channelData]="channel" ></app-channel>
-            </masonry-brick>
-        </masonry>
-
-    </ng-template>
-
 </div>
+
+<!-- preloader -->
+<div class="w100 clb" *ngIf="showPreloader === true">
+    <div class="sticky">
+        <div class="loader">Loading...</div>
+    </div>
+</div>
+<!-- preloader -->

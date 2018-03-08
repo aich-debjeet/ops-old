@@ -23,7 +23,7 @@
                         <div class="dropdown" appDropdown>
                             <span class="com-head" appDropdownOpen>
                                 <a (click)="pinEditFormPopup()"  >
-                                    <img class="opt-dot" src="/assets/img/svg/ico_options.svg">
+                                    <img class="opt-dot" src="{{ imageLink }}img/svg/ico_options.svg">
                                 </a>
                             </span>
                             <ul class="dropdown-menu c-opsdropdown--size1">
@@ -49,7 +49,7 @@
                     <div class="overlap_thumb">
                         <span class="over1_thumb" *ngFor="let contributor of contributors">
                             <img *ngIf="contributor.profileImage" src="{{ imageLink + contributor.profileImage }}">
-                            <img *ngIf="!contributor.profileImage" src="/assets/img/avatar.jpg">
+                            <img *ngIf="!contributor.profileImage" src="{{ imageLink }}img/avatar.jpg">
                         </span>
                     </div>
                 </div>
@@ -72,11 +72,11 @@
               <div class="loader">Loading...</div>
             </div>
           </div>-->
-          <masonry [useImagesLoaded]="true">
-            <masonry-brick class="col-md-3 p-l-r-8" *ngFor="let media of channel.channel_detail?.media; let i = index">
+          <ngx-masonry [useImagesLoaded]="true">
+            <ngx-masonry-item class="col-md-3 p-l-r-8" *ngFor="let media of channel.channel_detail?.media; let i = index">
                 <app-post-card  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)" [mediaData]="media"></app-post-card>
-            </masonry-brick>
-          </masonry>
+            </ngx-masonry-item>
+          </ngx-masonry>
         </div>
       </div>
     </div>

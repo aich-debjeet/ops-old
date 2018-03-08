@@ -29,12 +29,19 @@ export class SearchService {
   }
 
   /**
+   * Get search result
+   * @param search request params
+   */
+  getAllSearchResult(params: any) {
+    return this.api.post('/portal/global/search', params);
+  }
+
+  /**
    * Get people by search query
    * @param search query
    */
   getPeople(params: any) {
-    this.updateToken();
-    return this.api.get('/portal/searchprofiles/1/' + params.query + '/' + params.offset + '/' + params.limit);
+    return this.api.put('/portal/searchprofiles', params);
   }
 
   /**
@@ -42,8 +49,7 @@ export class SearchService {
    * @param search query
    */
   getPosts(params: any) {
-    this.updateToken();
-    return this.api.get('/portal/cdn/media/postByText/' + params.query + '/' + params.offset + '/' + params.limit);
+    return this.api.post('/portal/cdn/media/search', params);
   }
 
   /**
@@ -51,8 +57,7 @@ export class SearchService {
    * @param search query
    */
   getChannels(params: any) {
-    this.updateToken();
-    return this.api.get('/portal/network/spotfeed/searchByText/' + params.query + '/' + params.offset + '/' + params.limit);
+    return this.api.post('/portal/network/spotfeed/esearch', params);
   }
 
 }

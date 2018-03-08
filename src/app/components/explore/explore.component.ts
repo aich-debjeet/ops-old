@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 // import { NgxCarousel } from 'ngx-carousel';
 
 // actions
@@ -21,12 +21,14 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from 'environments/environment.prod';
 
 import * as _ from 'lodash';
+import { allSettled } from 'q';
 
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',
   styleUrls: ['./explore.component.scss'],
-  providers: [ TruncatePipe ]
+  providers: [ TruncatePipe ],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExploreComponent implements OnInit {
 
@@ -35,7 +37,7 @@ export class ExploreComponent implements OnInit {
   exploreState$: Observable<any>;
   exploreState = initialExploreTag;
   profileSpotfeeds: any;
-  allSpotfeeds: any;
+  mergedSpotfeeds: any;
   baseUrl: string;
   showPreloader = true;
   recordsPerPage = 8;
@@ -82,21 +84,9 @@ export class ExploreComponent implements OnInit {
 
       // get all spotfeeds
       if (state && state.explore_spotfeeds && state.explore_spotfeeds) {
-        this.allSpotfeeds = state.explore_spotfeeds;
 
-        // preparing the pagination reference var
-        if (this.pagination && this.pagination.length === 0) {
-          for (let i = 0; this.allSpotfeeds.length > i; i++) {
-            const refData = {
-              industryType: this.allSpotfeeds[i].industryType,
-              limit: this.recordsPerPage,
-              offset: 0
-            };
-            this.pagination.push(refData);
-            if (i >= (this.allSpotfeeds.length - 1)) {
-            }
-          }
-        }
+        // merge all categories here
+        this.mergedSpotfeeds = state.explore_spotfeeds
       }
 
       // check if loaded

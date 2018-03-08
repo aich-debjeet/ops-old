@@ -1,10 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject  } from '@angular/core';
 import { FooterComponent } from './../../shared/footer/footer.component';
 import { Store } from '@ngrx/store';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { NgxCarousel, NgxCarouselStore } from 'ngx-carousel';
+import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
 
 import { ProfileModal, initialTag, ProfileCard } from '../../models/profile.model';
+import { environment } from '../../../environments/environment';
+
+import { PLATFORM_ID } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 
 // action
 import { ProfileActions } from '../../actions/profile.action';
@@ -20,26 +24,32 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class LogoutHomeComponent implements OnInit, OnDestroy {
 
+  public metaShow: Meta;
+
   tagState$: Observable<ProfileModal>;
   userDetails = initialTag;
   private subscription: Subscription;
-  homeSlider: NgxCarousel;
+  homeSlider: NguCarousel;
+  base_image = environment.API_IMAGE;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object, meta: Meta, title: Title,
     private profileStore: Store<ProfileModal>,
     private router: Router
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
+
+    title.setTitle('One Page Spotlight');
+    meta.addTags([
+      { name: 'keywords', content: 'dance, dance world cup 2017, dwc, dance world cup india, asia, world, dance competition, competition, dwc info, phoenix marketcity, bangalore, one page soptlight dance, dance world cup qualifiers, qualifiers'},
+      { name: 'description', content: 'OPS' },
+      { name: 'og:image', content: 'https://cdn.onepagespotlight.com/img/landing/logobetawhite.svg' },
+    ]);
+    this.metaShow = meta;
   }
 
   ngOnInit() {
     this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
-
-    this.subscription = this.profileStore.select('profileTags')
-      .first(profile => profile['profile_navigation_details'].username)
-      .subscribe( datas => {
-        this.router.navigate(['/home']);
-      });
 
 
     this.homeSlider = {
@@ -51,7 +61,7 @@ export class LogoutHomeComponent implements OnInit, OnDestroy {
       point: {
         visible: false,
         pointStyles: `
-          .ngxcarouselPoint {
+          .ngucarouselPoint {
             list-style-type: none;
             text-align: center;
             padding: 12px;
@@ -64,7 +74,7 @@ export class LogoutHomeComponent implements OnInit, OnDestroy {
             left: 0;
             box-sizing: border-box;
           }
-          .ngxcarouselPoint li {
+          .ngucarouselPoint li {
             display: inline-block;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.55);
@@ -72,7 +82,7 @@ export class LogoutHomeComponent implements OnInit, OnDestroy {
             margin: 0 3px;
             transition: .4s ease all;
           }
-          .ngxcarouselPoint li.active {
+          .ngucarouselPoint li.active {
               background: white;
               width: 10px;
           }
@@ -85,7 +95,7 @@ export class LogoutHomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
   /* This will be triggered after carousel viewed */
@@ -93,7 +103,7 @@ export class LogoutHomeComponent implements OnInit, OnDestroy {
   }
 
   /* It will be triggered on every slide*/
-  onmoveFn(data: NgxCarouselStore) {
+  onmoveFn(data: NguCarouselStore) {
   }
 
 }

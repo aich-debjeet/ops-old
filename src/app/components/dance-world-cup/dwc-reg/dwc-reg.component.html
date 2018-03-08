@@ -84,17 +84,11 @@
                     <p class="c-form__validation" *ngIf="eventForm.controls['school_owner'].errors?.required && eventCreate.submitted">Dancer School owner’s / Choreographer’s name is required</p>
                 </div>
 
-                <div class="c-form__group c-form--md m-b-32 width50">
-                    <textarea placeholder="Address *" class="c-textarea__block c-textarea--style o-wcq-textarea c-form__input " rows="0" data-min-rows="0" formControlName="school_address"></textarea>
-                    <!-- <label>Address *</label> -->
-                    <p class="c-form__validation" *ngIf="eventForm.controls['school_address'].errors?.required && eventCreate.submitted">Address is required</p>
-                </div>
-
                 <p class="c-text_md color-grey-dark m-b-16">Team participant details</p>
 
                 <div class="row m-0" *ngFor="let team_member of eventForm.controls.team_member['controls']; let i=index" [formGroup]="team_member">
                     <div class="col-md-11 p-l-0">
-                        <div class="col-md-3 p-l-0">
+                        <div class="col-md-6 p-l-0">
                             <div class="c-form__group c-form--md m-b-8">
                                 <input class="c-form__input" required="" type="text" formControlName="name" placeholder="Name">
                                 <span class="c-form__highlight"></span>
@@ -103,29 +97,7 @@
                                 <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.name.errors?.required && eventCreate.submitted">Name is required</p>
                             </div>
                         </div>
-                        <div class="col-md-3 p-l-0">
-                            <div class="c-form__group c-form--md m-b-8">
-                                <input class="c-form__input" required="" type="text" formControlName="email" placeholder="Email">
-                                <span class="c-form__highlight"></span>
-                                <span class="c-form__bar"></span>
-                                <!-- <label>Email</label> -->
-                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.email.errors?.required && eventCreate.submitted">Email is required</p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls['email'].errors?.isInvalidEmail && eventCreate.submitted">Email not valid</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 p-l-0">
-                            <div class="c-form__group c-form--md m-b-8">
-                                <input class="c-form__input" required="" type="text" formControlName="phone" pattern="[0-9]*" minlength="10" maxlength="10" placeholder="Mobile number">
-                                <span class="c-form__highlight"></span>
-                                <span class="c-form__bar"></span>
-                                <!-- <label>Phone number</label> -->
-                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.errors?.required && eventCreate.submitted">Phone is required</p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.hasError('pattern') && eventCreate.submitted">Only numbers allowed</p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.hasError('minlength')">Phone number should be 10 digits</p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls.team_member.controls[i].controls.phone.hasError('maxlength')">Phone number should be 10 digits</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3 p-0">
+                        <div class="col-md-6 p-0">
                             <div class="c-form__group">
                                 <input class="c-form__input" required="" type="text" formControlName="dob" placeholder="Date of birth (DD-MM-YY)" [textMask]="{mask: dateMask}">
                                 <span class="c-form__highlight"></span>
@@ -140,7 +112,7 @@
                     <div class="col-md-1 p-0" *ngIf="i > 0">
                         <div class="o-form-trash m-t-8">
                             <div class="o-form-trash__ico" (click)="eventForm.get('team_member').removeAt(i)">
-                                <img src="/assets/img/svg/delete.svg">
+                                <img src="{{ imageBaseUrl }}img/svg/delete.svg">
                             </div>
                         </div>
                     </div>
@@ -148,7 +120,7 @@
                 </div>
 
                 <a (click)="pushMember()" class="o-dwc-form-add">
-                    <span class="o-dwc-form-add__icon"><img src="/assets/img/svg/plus-red.svg" alt=""></span>
+                    <span class="o-dwc-form-add__icon"><img src="{{ imageBaseUrl }}img/svg/plus-red.svg" alt=""></span>
                     <span class="c-text_md m-l-8 float_left color-theme">Add more</span>
                 </a>
                 <div class="col-md-12 m-t-b-24 text-center float_left width_100">

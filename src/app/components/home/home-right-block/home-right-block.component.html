@@ -1,5 +1,5 @@
 <!-- right home feed -->
-<div class="col-md-3 p-0">
+<div class="col-md-3 col-xs-12 p-0">
 
     <!-- communities -->
 
@@ -31,17 +31,19 @@
 
     <div class="c-card m-t-8">
         <div class="c-text_md p-16 color-grey-dark f-w_600 text_uppercase ltr-space">People to follow</div>
-        <div class="c-follow__sec">
+        <div class="c-follow__sec" infinite-scroll (scrolled)="onScrol($event)" [scrollWindow]="false">
             <div class="c-invite__block" *ngFor="let profileItem of profiles">
-                <a class="c-user__avatar c-avatar--status">
-                    <img *ngIf="profileItem.profileImage" class="c-user__image" [src]="baseUrl + profileItem.profileImage" width="24px" />
-                </a>
-                <a class="c-text_md c-invite--user" routerLink="/profile/u/{{ profileItem?.extra?.username }}">{{ profileItem?.name | truncate:[10, '...']}}</a>
-                <div class="c-invite--btn">
-                    <!-- <button type="button" (click)="followUser(profileItem)" *ngIf="!profileItem.extra.isFollowing" class="btn btn-default btn-sm" [disabled]="disableFollowForSelf(profileItem?.extra?.username)">FOLLOW</button>
-                    <button type="button" (click)="unfollowUser(profileItem)" *ngIf="profileItem.extra.isFollowing" class="btn btn-default btn-sm" [disabled]="disableFollowForSelf(profileItem?.extra?.username)">UNFOLLOW</button> -->
-                    <a (click)="followUser(profileItem)" *ngIf="!profileItem.extra.isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">FOLLOW</a>
-                    <a (click)="unfollowUser(profileItem)" *ngIf="profileItem.extra.isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">UNFOLLOW</a>
+                <div *ngIf="!profileItem.extra.isFollowing">
+                    <a class="c-user__avatar c-avatar--status">
+                        <img *ngIf="profileItem.profileImage" class="c-user__image" [src]="baseUrl + profileItem.profileImage" width="24px" />
+                    </a>
+                    <a class="c-text_md c-invite--user" routerLink="/profile/u/{{ profileItem?.extra?.username }}">{{ profileItem?.name | truncate:[10, '...']}}</a>
+                    <div class="c-invite--btn">
+                        <!-- <button type="button" (click)="followUser(profileItem)" *ngIf="!profileItem.extra.isFollowing" class="btn btn-default btn-sm" [disabled]="disableFollowForSelf(profileItem?.extra?.username)">FOLLOW</button>
+                        <button type="button" (click)="unfollowUser(profileItem)" *ngIf="profileItem.extra.isFollowing" class="btn btn-default btn-sm" [disabled]="disableFollowForSelf(profileItem?.extra?.username)">UNFOLLOW</button> -->
+                        <a (click)="followUser(profileItem)" *ngIf="!profileItem.extra.isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">FOLLOW</a>
+                        <!-- <a (click)="unfollowUser(profileItem)" *ngIf="profileItem.extra.isFollowing" class="c-text_md color-theme f-w_600 text_uppercase">UNFOLLOW</a> -->
+                    </div>
                 </div>
             </div>
             <!-- <div class="c-invite__block">
@@ -233,28 +235,28 @@
         <div class="c-text_md padding_16 color-grey-dark f-w_600 text_uppercase ltr-space">Opportunities for you</div>
         <a href="">
             <div class="c-card__project p-l-r-16">
-                <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span>
+                <img [src]="imageBaseUrl + 'img/svg/audition.svg'" class="c-card__project--icon"> <span class="m-l-8">Audition</span>
             </div>
             <div class="o-home-org-list__title">
                 <p class="c-text_lg">Project and Program Management</p>
             </div>
             <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">Technosoft India PVT LTD</div>
             <div class="c-card__location p-b-16 m-b-16 with_border_bottom">
-                <img src="/assets/img/svg/ico_location2.svg">
+                <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'">
                 <p class="c-card__location--text">Bangalore, India</p>
             </div>
         </a>
 
         <a href="">
             <div class="c-card__project p-l-r-16">
-                <img src="/assets/img/svg/audition.svg" class="c-card__project--icon"> <span class="m-l-8">Audition</span>
+                <img [src]="imageBaseUrl + 'img/svg/audition.svg'" class="c-card__project--icon"> <span class="m-l-8">Audition</span>
             </div>
             <div class="o-home-org-list__title">
                 <p class="c-text_lg">Project and Program Management</p>
             </div>
             <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">Technosoft India PVT LTD</div>
             <div class="c-card__location p-b-16 m-b-16 with_border_bottom">
-                <img src="/assets/img/svg/ico_location2.svg">
+                <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'">
                 <p class="c-card__location--text">Bangalore, India</p>
             </div>
         </a>

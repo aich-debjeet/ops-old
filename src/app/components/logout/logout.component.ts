@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+
+// Action
+import { AuthActions } from '../../actions/auth.action'
 
 @Component({
   selector: 'app-logout',
@@ -8,11 +12,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(
+    private store: Store<any>,
+    private router: Router
+  ) { }
 
   ngOnInit() {
-    localStorage.clear();
-    this.router.navigate(['/login']);
+    this.store.dispatch({ type: AuthActions.USER_LOGOUT, payload: ''});
   }
 
 }

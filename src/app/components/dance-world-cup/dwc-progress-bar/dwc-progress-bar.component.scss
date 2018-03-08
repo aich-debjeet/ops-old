@@ -38,7 +38,7 @@
 }
 
 .o-dws-progress__link {
-    width: 24.7%;
+    width: 24.4%;
     float: left;
     height: 10px;
     &:hover {
@@ -89,4 +89,15 @@
     font-size: 11px;
     line-height: 18px;
     font-weight: 500;
+}
+
+.o-dwc-progress--active{
+    background: $color-theme;
+    width: 24.4%;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+        width: 24.2%;
+    }
+    @include mq($from: $tablet, $until: $desktop){
+        width: 24.6%;
+    }
 }

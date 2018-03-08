@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
-  <defs>
-    <path id="spot-copy-3-a" d="M12,16 C9.791,16 8,14.209 8,12 C8,9.791 9.791,8 12,8 C14.209,8 16,9.791 16,12 C16,14.209 14.209,16 12,16 M12,4 C7.582,4 4,7.582 4,12 C4,16.418 7.582,20 12,20 C16.418,20 20,16.418 20,12 C20,7.582 16.418,4 12,4"/>
-  </defs>
-  <g fill="none" fill-rule="evenodd">
-    <use fill="#929292" xlink:href="#spot-copy-3-a"/>
-  </g>
-</svg>

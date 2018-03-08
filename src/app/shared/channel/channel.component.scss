@@ -133,8 +133,7 @@
     overflow: hidden;
     position: relative;
     box-sizing: border-box;
-    background: #f8f8f8;
-    background: url(/assets/img/new/l12.jpg);
+    background: #F3F5F7;
     background-size: cover;
     background-position: inherit;
 }
@@ -152,8 +151,7 @@
     overflow: hidden;
     position: relative;
     box-sizing: border-box;
-    background: #f8f8f8;
-    background: url(/assets/img/new/s06.jpg);
+    background: #F3F5F7;
     background-size: cover;
     background-position: inherit;
 }
@@ -167,8 +165,7 @@
     position: relative;
     box-sizing: border-box;
     margin-top: 2px;
-    background: #f8f8f8;
-    background: url(/assets/img/new/s05.jpg);
+    background: #F3F5F7;
     background-size: cover;
     background-position: inherit;
 }
@@ -188,6 +185,9 @@
     font-size: 15px;
     line-height: 24px;
     font-weight: 500;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        font-size: $font-13;
+    }
 }
 
 .color-white {
@@ -338,8 +338,16 @@ a {
 }
 
 .c-channel__card {
-    // width: 24%;
+    //width: 24%;
     float: left;
-    // margin: 5px;
+    //margin: 5px;
     position: relative;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+        margin: 5px;
+    }
+    @include mq($from: $mobile_lg, $until: $desktop_sm) {
+        width: 48%;
+        margin: 5px;
+    }
 }

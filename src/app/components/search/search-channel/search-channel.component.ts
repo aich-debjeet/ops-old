@@ -19,9 +19,17 @@ import { Store } from '@ngrx/store';
 export class SearchChannelComponent implements OnInit {
 
   searchState$: Observable<SearchModel>;
+  searchState: any;
   baseUrl: string;
+  showPreloader = true;
 
   channels: any[];
+
+  /* scroll */
+  canScroll = true;
+  scrolling = 0;
+  scrollingLoad = 800;
+  /* scroll */
 
   constructor(
     private store: Store<SearchModel>
@@ -36,11 +44,43 @@ export class SearchChannelComponent implements OnInit {
 
     // observe the store value
     this.searchState$.subscribe((state) => {
-      if (state && state.search_channel_data) {
-        this.channels = state.search_channel_data;
+      this.searchState = state;
+      if (state) {
+        if (typeof state['search_channel_data'] !== 'undefined' && state['search_channel_data']['spotFeedResponse']) {
+          this.channels = state['search_channel_data']['spotFeedResponse'];
+        }
+        // hide preloader
+        if (typeof state['searching_channel'] !== 'undefined'
+          && state['searching_channel'] === false
+          && typeof state['search_channel_success'] !== 'undefined'
+          && state['search_channel_success'] === true) {
+          this.showPreloader = false;
+        }
       }
     });
 
+  }
+
+  /**
+   * While Scrolling trigger next api call
+   */
+  onScroll(e) {
+    this.scrolling = e.currentScrollPosition;
+    if (this.canScroll === true && this.scrollingLoad <= this.scrolling) {
+      this.showPreloader = true;
+      this.canScroll = false;
+      this.scrollingLoad += 500;
+      // check if it's first request
+      if (this.searchState && this.searchState['search_channel_data'] && this.searchState['search_channel_data']['scrollId']) {
+        this.store.dispatch({
+          type: SearchActions.SEARCH_CHANNEL,
+          payload: { scrollId: this.searchState['search_channel_data']['scrollId'] }
+        });
+      }
+      setTimeout(() => {
+        this.canScroll = true;
+      }, 1000);
+    }
   }
 
 }

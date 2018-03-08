@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { SearchAllComponent } from './search-all/search-all.component';
 import { SearchSpotfeedComponent } from './search-spotfeed/search-spotfeed.component';
 import { SearchPostComponent } from './search-post/search-post.component';
 import { SearchPeopleComponent } from './search-people/search-people.component';
@@ -15,7 +14,8 @@ import { SearchComponent } from './search.component';
 
 import { SharedPipesModule } from './../../pipes/shared-pipes.module';
 import { SharedModule } from './../../shared/shared.module';
-import { MasonryModule } from 'angular2-masonry';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 @NgModule({
   imports: [
@@ -25,11 +25,11 @@ import { MasonryModule } from 'angular2-masonry';
     RouterModule.forChild(routes),
     SharedPipesModule,
     SharedModule,
-    MasonryModule
+    InfiniteScrollModule,
+    NgxMasonryModule
   ],
   declarations: [
     SearchComponent,
-    SearchAllComponent,
     SearchSpotfeedComponent,
     SearchPostComponent,
     SearchPeopleComponent,

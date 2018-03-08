@@ -3,11 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { DanceWorldCupComponent } from './dance-world-cup.component';
 import { SharedModule } from '../../shared/shared.module';
-import { DiqComponent } from './diq/diq.component';
-import { DowComponent } from './dow/dow.component';
-import { ContactComponent } from './contact/contact.component';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
-import { NgxCarouselModule } from 'ngx-carousel';
+import { NguCarouselModule } from '@ngu/carousel';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DwcProgressBarComponent } from './dwc-progress-bar/dwc-progress-bar.component';
 import { DwcPaymentComponent } from './dwc-payment/dwc-payment.component';
@@ -22,22 +19,22 @@ const routes: Routes = [
     path: 'details',
     component: DanceWorldCupComponent,
   },
-  {
-    path: 'reg',
-    component: DwcRegComponent,
-  },
-  {
-  path: 'payment',
-  component: DwcPaymentComponent,
-  },
-  {
-    path: 'success',
-    component: DwcSuccessComponent,
-  },
-  {
-    path: 'completed',
-    component: DwcCompletedComponent,
-  }
+  // {
+  //   path: 'reg',
+  //   component: DwcRegComponent,
+  // },
+  // {
+  // path: 'payment',
+  // component: DwcPaymentComponent,
+  // },
+  // {
+  //   path: 'success',
+  //   component: DwcSuccessComponent,
+  // },
+  // {
+  //   path: 'completed',
+  //   component: DwcCompletedComponent,
+  // }
 ]
 
 @NgModule({
@@ -46,7 +43,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     SharedModule,
     ShareButtonsModule,
-    NgxCarouselModule,
+    NguCarouselModule,
     ReactiveFormsModule,
     TextMaskModule,
     FormsModule,
@@ -55,9 +52,6 @@ const routes: Routes = [
   ],
   declarations: [
     DanceWorldCupComponent,
-    DiqComponent,
-    DowComponent,
-    ContactComponent,
     DwcProgressBarComponent,
     DwcPaymentComponent,
     DwcSuccessComponent,
