@@ -359,7 +359,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   seeAll(sType: string) {
     this.searchType = sType;
     this.scrollHelper.scrollTop();
-    this.router.navigate(['/search'], { queryParams: { q: this.searchString, type: this.searchType } });
+    this.searchGetRequest({ q: this.searchString, type: this.searchType });
   }
 
   ngOnDestroy() {

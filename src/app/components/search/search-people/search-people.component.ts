@@ -21,7 +21,7 @@ export class SearchPeopleComponent implements OnInit {
   searchState$: Observable<SearchModel>;
   searchState: any;
   baseUrl: string;
-  showPreloader = false;
+  showPreloader = true;
 
   artists: any[];
 
