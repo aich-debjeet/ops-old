@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { OpportunityActions } from './../../../../actions/opportunity.action';
 import { OpportunityModel } from './../../../../models/opportunity.model';
@@ -8,7 +8,7 @@ import { environment } from './../../../../../environments/environment.prod';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
 import { forEach } from '@angular/router/src/utils/collection';
@@ -18,12 +18,13 @@ import { forEach } from '@angular/router/src/utils/collection';
   templateUrl: './opportunity-search-created.component.html',
   styleUrls: ['./opportunity-search-created.component.scss']
 })
-export class OpportunitySearchCreatedComponent implements OnInit {
+export class OpportunitySearchCreatedComponent implements OnInit, OnDestroy {
 
   opportunityState$: Observable<OpportunityModel>;
   userState$: Observable<Media>;
   userState: any;
   opportunities: any[];
+  private subscription: ISubscription;
 
   /* pagination settings */
   recordsPerPage = 10;
@@ -43,7 +44,7 @@ export class OpportunitySearchCreatedComponent implements OnInit {
   ngOnInit() {
 
     // observe the opportunity state
-    this.opportunityState$.subscribe((state) => {
+    this.subscription = this.opportunityState$.subscribe((state) => {
       if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
         this.opportunities = state.search_opportunities_data.SUCCESS;
       }
@@ -78,6 +79,10 @@ export class OpportunitySearchCreatedComponent implements OnInit {
       type: OpportunityActions.GET_OPPORTUNITIES,
       payload: createdSearchParams
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

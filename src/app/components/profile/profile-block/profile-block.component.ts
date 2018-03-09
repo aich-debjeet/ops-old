@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -12,7 +12,7 @@ import { SharedActions } from '../../../actions/shared.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { TabComponents  } from '../../../shared/tabs/tabset';
 import { ProfileHelper } from '../../../helpers/profile.helper';
@@ -27,9 +27,9 @@ import { every as _every } from 'lodash';
   styleUrls: ['./profile-block.component.scss']
 })
 
-export class ProfileBlockComponent implements OnInit {
+export class ProfileBlockComponent implements OnInit, OnDestroy {
   tagState$: Observable<ProfileModal>;
-  private tagStateSubscription: Subscription;
+  private subscription: ISubscription;
   userQuickAccess = initialTag;
   router: any;
   activeUser: string;
@@ -60,14 +60,12 @@ export class ProfileBlockComponent implements OnInit {
 
     // Own Profile
     this.tagState$ = this.profileStore.select('profileTags');
-    this.tagState$.subscribe((state) => {
-      
+
+    this.subscription = this.tagState$.subscribe((state) => {
+      this.userQuickAccess = state;
       if (state && state['other_channel']) {
         this.pinListEmpty = _every(state['other_channel'], ['isPinned', true]);
       }
-
-      this.userQuickAccess = state;
-      // console.log('state', state)
       if (state.profile_user_info) {
         if (state.profile_user_info.isCurrentUser) {
           this.profileObject = this.loadProfile( state, 'own' );
@@ -138,6 +136,10 @@ export class ProfileBlockComponent implements OnInit {
       loop: true,
       touch: true
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   checkEmpty(obj: Object) {

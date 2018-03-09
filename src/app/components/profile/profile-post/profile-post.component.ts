@@ -14,7 +14,7 @@ import { environment } from '../../../../environments/environment';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
 
 @Component({
@@ -23,12 +23,12 @@ import {Subject} from 'rxjs/Subject';
   providers: [ModalService, DatePipe],
   styleUrls: ['./profile-post.component.scss']
 })
-export class ProfilePostComponent implements OnInit {
+export class ProfilePostComponent implements OnInit, OnDestroy {
   componentDestroyed$: Subject<boolean> = new Subject();
 
   tagState$: Observable<ProfileModal>;
   mediaState$: Observable<Media>;
-  private tagStateSubscription: Subscription;
+  private subscription: ISubscription;
   userMedia = initialTag;
   mediaDetails = initialMedia;
   sub: any;
@@ -57,7 +57,7 @@ export class ProfilePostComponent implements OnInit {
     // this.mediaState$ = this._store.select('mediaStore');
     this.counter = 0;
     this.posts = [];
-    this.tagState$.subscribe((state) => {
+    this.subscription = this.tagState$.subscribe((state) => {
       this.userMedia = state;
        this.posts = this.userMedia.user_posts;
     });
@@ -77,6 +77,10 @@ export class ProfilePostComponent implements OnInit {
 
   ngOnInit() {
     this.userType();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   userType() {

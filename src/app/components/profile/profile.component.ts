@@ -50,6 +50,9 @@ export class ProfileComponent implements OnInit {
       // this.current_user_value = this.checkUserType(this.userProfile);
     });
 
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+
   }
 
   /**
@@ -104,7 +107,8 @@ export class ProfileComponent implements OnInit {
         isCurrentUser: true,
         username: userName,
       }
-      this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
+      // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+      // this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS });
       this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
       this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: userdata });
     }

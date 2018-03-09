@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy  } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
@@ -14,17 +14,17 @@ import { SharedActions } from '../../../actions/shared.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-profile-about',
   templateUrl: './profile-about.component.html',
   styleUrls: ['./profile-about.component.scss']
 })
-export class ProfileAboutComponent implements OnInit {
+export class ProfileAboutComponent implements OnInit, OnDestroy {
 
   tagState$: Observable<ProfileModal>;
-  private tagStateSubscription: Subscription;
+  private subscription: ISubscription;
   userProfile = initialTag ;
   router: any;
   constructor(
@@ -35,7 +35,7 @@ export class ProfileAboutComponent implements OnInit {
     this.router = _router;
     this.tagState$ = this.profileStore.select('profileTags');
 
-    this.tagState$.subscribe((state) => {
+    this.subscription = this.tagState$.subscribe((state) => {
       this.userProfile = state;
     });
 
@@ -45,6 +45,10 @@ export class ProfileAboutComponent implements OnInit {
 
   ngOnInit() {
     //
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
