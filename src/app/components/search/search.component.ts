@@ -23,6 +23,7 @@ import 'rxjs/add/operator/debounceTime';
 
 import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
+import { GeneralUtilities } from '../../helpers/general.utils';
 
 @Component({
   selector: 'app-search',
@@ -69,6 +70,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     private mediaStore: Store<Media>,
     private store: Store<SearchModel>,
     private scrollHelper: ScrollHelper,
+    private generalHelper: GeneralUtilities,
     private profileStore: Store<ProfileModal>,
     @Inject(DOCUMENT) private document: Document
   ) {
@@ -100,6 +102,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
           // const key = prof['key'].toUppercase();
           this.selectedProfileFilters['profile'][prof[i]['key']] = prof[i]['value'];
         }
+        console.log('selectedProfileFilters', this.selectedProfileFilters);
       }
 
       // search filters local for reference
@@ -137,10 +140,19 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
         this.resultCount = state['search_all_data']['totalChannelResults'] + state['search_all_data']['totalMediaResults'] + state['search_all_data']['totalProfileResults'];
         // console.log(state['search_all_data']['totalChannelResults'] + state['search_all_data']['totalMediaResults'] + state['search_all_data']['totalProfileResults']);
       }
-      // if (state && state.searching_people === false && state.searching_post === false && state.searching_channel === false) {
-      //   this.isSearching = false;
-      //   this.showPreloader = false;
-      // }
+
+      // check if active search is people and update the count
+      if (state && state['search_people_data'] && state['search_people_data']['total'] && this.searchType === 'people') {
+        this.resultCount = state['search_people_data']['total'];
+      }
+      // check if active search is post and update the count
+      if (state && state['search_post_data'] && state['search_post_data']['total'] && this.searchType === 'post') {
+        this.resultCount = state['search_post_data']['total'];
+      }
+      // check if active search is channel and update the count
+      if (state && state['search_channel_data'] && state['search_channel_data']['total'] && this.searchType === 'channel') {
+        this.resultCount = state['search_channel_data']['total'];
+      }
     });
 
   }
@@ -151,8 +163,8 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     this.selectedProfileFilters = {
       profile: {
         PROFESSION: '',
-        CHANNEL: '',
-        POST: '',
+        SKILLS: '',
+        CITY: '',
       },
       channel: [],
       post: [],

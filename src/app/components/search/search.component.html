@@ -69,7 +69,7 @@
           <div *ngIf="searchString?.length > 0 && !isSearching">
             
             <!-- search filters -->
-            <div class="col-md-3 col-sm-4 col-xs-12 p-l-0 m-t--32">
+            <div *ngIf="searchType === 'all'" class="col-md-3 col-sm-4 col-xs-12 p-l-0 m-t--32">
                 <div class="o-search-left-block p-24">
                     
                     <!-- Profiles -->
@@ -139,7 +139,7 @@
             <!-- search filters -->
             
             <!-- search result -->
-            <div class="col-md-9 col-sm-8 col-xs-12 p-0 m-t--32">
+            <div class="col-md-9 col-sm-8 col-xs-12 p-0 m-t--32" [ngClass]="{'col-md-12 col-sm-12': searchType !== 'all'}">
 
                 <div class="o-search-result-block">
                     <div class="o-search-info-top">
