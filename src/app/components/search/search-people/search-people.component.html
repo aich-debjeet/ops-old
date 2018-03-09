@@ -1,4 +1,4 @@
-<div *ngIf="showPreloader !== true" infinite-scroll (scrolled)="onScroll($event)" class="o-search-result-block m-t-16 p-b-24 m-b-50">
+<div infinite-scroll (scrolled)="onScroll($event)" class="o-search-result-block m-t-16 p-b-24 m-b-50">
     <div *ngFor="let artist of artists" class="o-search-people-single">
         <div class="o-search-people__prof-pic">
             <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist?.profileImage }}" alt="">

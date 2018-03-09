@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { SearchActions } from './../../../actions/search.action';
 import { SearchModel } from './../../../models/search.model';
 
+import { ProfileActions } from './../../../actions/profile.action';
+import { ProfileModal } from './../../../models/profile.model';
+
 import { environment } from './../../../../environments/environment.prod';
 
 // rx
@@ -32,7 +35,8 @@ export class SearchPeopleComponent implements OnInit {
   /* scroll */
 
   constructor(
-    private store: Store<SearchModel>
+    private store: Store<SearchModel>,
+    private profileStore: Store<SearchModel>
   ) {
 
     this.baseUrl = environment.API_IMAGE;
@@ -92,6 +96,24 @@ export class SearchPeopleComponent implements OnInit {
         this.canScroll = true;
       }, 1000);
     }
+  }
+
+  /**
+   * Follow an artist
+   * @param user obj
+   */
+  followUser(user: any) {
+    this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
+    user.extra.isFollowing = true;
+  }
+
+  /**
+   * Unfollow an artist
+   * @param user obj
+   */
+  unfollowUser(user: any) {
+    this.profileStore.dispatch({ type: ProfileActions.PROFILE_UNFOLLOW, payload: user.handle });
+    user.extra.isFollowing = false;
   }
 
 }
