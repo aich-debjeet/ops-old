@@ -23,6 +23,7 @@ import 'rxjs/add/operator/debounceTime';
 
 import { Store } from '@ngrx/store';
 import * as _ from 'lodash';
+import { GeneralUtilities } from '../../helpers/general.utils';
 
 @Component({
   selector: 'app-search',
@@ -38,7 +39,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   searchState$: Observable<SearchModel>;
   searchState: any;
   searchString = '';
-  beforeSearch: boolean;
   routeSub: any;
 
   searchFilters: any;
@@ -62,6 +62,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   artists: any[];
   posts: any[];
   globalFilter: any;
+  selectedProfileFilters: any;
 
   constructor(
     private router: Router,
@@ -69,6 +70,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     private mediaStore: Store<Media>,
     private store: Store<SearchModel>,
     private scrollHelper: ScrollHelper,
+    private generalHelper: GeneralUtilities,
     private profileStore: Store<ProfileModal>,
     @Inject(DOCUMENT) private document: Document
   ) {
@@ -88,13 +90,30 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     this.searchState$.subscribe((state) => {
       this.searchState = state;
       console.log(this.searchState);
+
+      // filtermap for reference
+      if (this.searchState
+        && this.searchState['search_all_params']
+        && this.searchState['search_all_params']['filtersMap']
+        && this.searchState['search_all_params']['filtersMap']['profile']
+      ) {
+        const prof = this.searchState['search_all_params']['filtersMap']['profile'];
+        for (let i = 0; i < prof.length; i++) {
+          // const key = prof['key'].toUppercase();
+          this.selectedProfileFilters['profile'][prof[i]['key']] = prof[i]['value'];
+        }
+        console.log('selectedProfileFilters', this.selectedProfileFilters);
+      }
+
+      // search filters local for reference
       if (state && state['search_filters']) {
         this.searchFilters = state['search_filters'];
         // console.log(this.searchFilters);
       }
+
+      // check for the http request response status
       if (state && (state.searching_all === false || state.searching_people === false || state.searching_post === false || state.searching_channel === false)) {
           this.isSearching = false;
-          this.beforeSearch = false;
           this.showPreloader = false;
       }
 
@@ -121,11 +140,19 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
         this.resultCount = state['search_all_data']['totalChannelResults'] + state['search_all_data']['totalMediaResults'] + state['search_all_data']['totalProfileResults'];
         // console.log(state['search_all_data']['totalChannelResults'] + state['search_all_data']['totalMediaResults'] + state['search_all_data']['totalProfileResults']);
       }
-      // if (state && state.searching_people === false && state.searching_post === false && state.searching_channel === false) {
-      //   this.isSearching = false;
-      //   this.beforeSearch = false;
-      //   this.showPreloader = false;
-      // }
+
+      // check if active search is people and update the count
+      if (state && state['search_people_data'] && state['search_people_data']['total'] && this.searchType === 'people') {
+        this.resultCount = state['search_people_data']['total'];
+      }
+      // check if active search is post and update the count
+      if (state && state['search_post_data'] && state['search_post_data']['total'] && this.searchType === 'post') {
+        this.resultCount = state['search_post_data']['total'];
+      }
+      // check if active search is channel and update the count
+      if (state && state['search_channel_data'] && state['search_channel_data']['total'] && this.searchType === 'channel') {
+        this.resultCount = state['search_channel_data']['total'];
+      }
     });
 
   }
@@ -133,12 +160,21 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   // reset global filters
   resetFilters() {
     this.globalFilter = { profile: [], channel: [], post: [] };
+    this.selectedProfileFilters = {
+      profile: {
+        PROFESSION: '',
+        SKILLS: '',
+        CITY: '',
+      },
+      channel: [],
+      post: [],
+    };
   }
 
   // profile filter action
-  profileFilterAction(e: any, parentNode: string) {
-    if (e.target.checked && e.target.checked === true) {
-      const profFilterOpt = { key: parentNode, value: e.target.value };
+  profileFilterSelection(filterValue: any, parentNode: string) {
+    if (filterValue.length > 0) {
+      const profFilterOpt = { key: parentNode, value: filterValue };
       // check if object already available in the global filters
       if (!_.find(this.globalFilter.profile, profFilterOpt)) {
         this.globalFilter.profile.push(profFilterOpt);
@@ -147,7 +183,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       // remove info from global filter
       this.globalFilter.profile = _.remove(this.globalFilter.profile, function(obj) {
-        return !(obj.key === parentNode && obj.value === e.target.value);
+        return !(obj.key === parentNode && obj.value === filterValue);
       });
     }
     // console.log('global filters status: ', this.globalFilter);
@@ -200,7 +236,6 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-    this.beforeSearch = true;
 
     this.routeSub = this.route.queryParams
       .subscribe(params => {
@@ -324,7 +359,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   seeAll(sType: string) {
     this.searchType = sType;
     this.scrollHelper.scrollTop();
-    this.router.navigate(['/search'], { queryParams: { q: this.searchString, type: this.searchType } });
+    this.searchGetRequest({ q: this.searchString, type: this.searchType });
   }
 
   ngOnDestroy() {

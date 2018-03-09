@@ -43,9 +43,17 @@
   
   <section class="o-search-result-container">
       <div class="container">
+
+        <!-- preloader -->
+        <div *ngIf="isSearching && isSearching === true">
+            <div class="sticky">
+                <div class="loader">Loading...</div>
+            </div>
+        </div>
+        <!-- preloader -->
           
           <!-- search message -->
-          <div class="o-search-empty" *ngIf="beforeSearch">
+          <div class="o-search-empty" *ngIf="searchString?.length === 0 && !isSearching">
               <div class="o-search-empty__icon"><img src="{{ baseUrl }}img/svg/ico_search.svg"></div>
               <div class="o-search-empty__txt p-t-32">
                   <h3 class="c-h3 m-b-16 f-w_500">Search One Page Spotlight </h3>
@@ -61,25 +69,21 @@
           <div *ngIf="searchString?.length > 0 && !isSearching">
             
             <!-- search filters -->
-            <div class="col-md-3 col-sm-4 col-xs-12 p-l-0 m-t--32">
+            <div *ngIf="searchType === 'all'" class="col-md-3 col-sm-4 col-xs-12 p-l-0 m-t--32">
                 <div class="o-search-left-block p-24">
                     
                     <!-- Profiles -->
                     <div *ngIf="searchFilters?.profile">
-                        <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Profiles</h6>
-                        <div class="o-search-filter-block p-l-8">
-                            <div *ngFor="let profileElems of searchFilters?.profile" >
+                        <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16 profiles-wrapper">Profiles</h6>
+                        <div class="o-search-filter-block">
+                            <div class="c-form__group m-t-0" *ngFor="let profileElems of searchFilters?.profile">
                                 <ng-container *ngIf="profileElems?.filters?.length > 0">
-                                    <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">{{ profileElems?.title }}</h6>
-                                    <div *ngFor="let filter of profileElems?.filters" >
-                                        <ng-container *ngIf="filter?.name !== ''">
-                                            <div class="form-check">
-                                                <label for="{{ profileElems?.title + filter?.name | strReplace:[' ', '_'] }}">{{ filter?.name }} 
-                                                    <input (click)="profileFilterAction($event, profileElems?.title)" id="{{ profileElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
-                                                </label>
-                                            </div>
+                                    <select class="c-form-control" (change)="profileFilterSelection($event.target.value, profileElems?.title)" [(ngModel)]="selectedProfileFilters['profile'][profileElems?.title]">
+                                        <option *ngIf="!selectedProfileFilters['profile'][profileElems?.title]" value="">Select {{ profileElems?.title | firstCharCaps }}</option>
+                                        <ng-container *ngFor="let filter of profileElems?.filters">
+                                            <option *ngIf="filter?.name !== ''" [value]="filter?.name">{{ filter?.name | truncate:[20, '...'] }} ({{ filter?.count }})</option>
                                         </ng-container>
-                                    </div>
+                                    </select>
                                 </ng-container>
                             </div>
                         </div>
@@ -87,7 +91,7 @@
                     <!-- Profiles -->
 
                     <!-- Posts -->
-                    <div *ngIf="searchFilters?.post">
+                    <!-- <div *ngIf="searchFilters?.post">
                         <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Posts</h6>
                         <div class="o-search-filter-block p-l-8">
                             <div *ngFor="let postElems of searchFilters?.post" >
@@ -105,11 +109,11 @@
                                 </ng-container>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- Posts -->
 
                     <!-- Channels -->
-                    <div *ngIf="searchFilters?.channel">
+                    <!-- <div *ngIf="searchFilters?.channel">
                         <h6 class="c-text_md f-w_600 text_uppercase ltr-space m-t-16">Channels</h6>
                         <div class="o-search-filter-block p-l-8">
                             <div *ngFor="let channelElems of searchFilters?.channel" >
@@ -127,7 +131,7 @@
                                 </ng-container>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- Channels -->
 
                 </div>
@@ -135,7 +139,7 @@
             <!-- search filters -->
             
             <!-- search result -->
-            <div class="col-md-9 col-sm-8 col-xs-12 p-0 m-t--32">
+            <div class="col-md-9 col-sm-8 col-xs-12 p-0 m-t--32" [ngClass]="{'col-md-12 col-sm-12': searchType !== 'all'}">
 
                 <div class="o-search-result-block">
                     <div class="o-search-info-top">
