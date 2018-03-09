@@ -539,8 +539,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.PROFILE_UNFOLLOW_SUCCESS:
       const v = state.profile_other
-      v.extra.isFollowing = false
-      v.followersCount = state.profile_other.followersCount - 1
+      if (v && v.extra && v.extra.isFollowing) {
+        v.extra.isFollowing = false
+      }
+      if (v && v.followersCount) {
+        v.followersCount = state.profile_other.followersCount - 1
+      }
 
       return Object.assign({}, state, {
         profile_other: v
@@ -548,8 +552,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.PROFILE_FOLLOW_SUCCESS:
       const x = state.profile_other
-      x.extra.isFollowing = true
-      x.followersCount = state.profile_other.followersCount + 1
+      if (x && x.extra && x.extra.isFollowing) {
+        x.extra.isFollowing = true
+      }
+      if (x && x.followersCount) {
+        x.followersCount = state.profile_other.followersCount + 1
+      }
 
       return Object.assign({}, state, {
         profile_other: x
