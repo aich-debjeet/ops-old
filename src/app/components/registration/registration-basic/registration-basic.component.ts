@@ -279,14 +279,14 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
       number = this.regFormBasic.value.phone;
     }
 
-    const form =  {
-      'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
-      'client_secret': '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',
-      'username' : number.toString(),
-      'password' : this.otpForm.value.otpNumber,
-      'grant_type' : 'password'
-    }
-    this.store.dispatch({ type: AuthActions.OTP_LOGIN_SUBMIT, payload: form });
+    // const form =  {
+    //   'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
+    //   'client_secret': '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',
+    //   'username' : number.toString(),
+    //   'password' : this.otpForm.value.otpNumber,
+    //   'grant_type' : 'password'
+    // }
+    // this.store.dispatch({ type: AuthActions.OTP_LOGIN_SUBMIT, payload: form });
 
   }
 

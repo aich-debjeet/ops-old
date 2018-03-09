@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 // toastr service
@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 
 // rxjs
 import { Observable } from 'rxjs/Observable';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { environment } from '../../../../environments/environment';
 import { ScrollHelper } from '../../../helpers/scroll.helper';
@@ -23,7 +24,7 @@ import { OpportunityModel } from 'app/models/opportunity.model';
   templateUrl: './opportunity-create.component.html',
   styleUrls: ['./opportunity-create.component.scss']
 })
-export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
+export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   baseUrl = environment.API_IMAGE;
   userHandle: any;
@@ -34,6 +35,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
   internshipFrm: FormGroup;
   freelanceFrm: FormGroup;
   volunteerFrm: FormGroup;
+  private subscription: ISubscription;
 
   oppState: Observable<OpportunityModel>;
 
@@ -76,7 +78,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
     this.createVolunteerForm();
 
     this.oppState = this.oppStore.select('opportunityTags');
-    this.oppState.subscribe((state) => {
+    this.subscription = this.oppState.subscribe((state) => {
       console.log('app state', state);
       console.log('this.uploadedFile', this.uploadedFile);
       if (state && state['create_opportunity_data'] && state['create_opportunity_data']['SUCCESS']) {
@@ -96,6 +98,10 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked {
     .subscribe( data => {
       this.userHandle = data['profile_cards'].active.handle;
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   ngAfterViewChecked() {

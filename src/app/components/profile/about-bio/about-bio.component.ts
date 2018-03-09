@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-about-bio',
@@ -24,10 +24,10 @@ import { Subscription } from 'rxjs/Subscription';
   providers: [ModalService],
   styleUrls: ['./about-bio.component.scss']
 })
-export class AboutBioComponent implements OnInit {
+export class AboutBioComponent implements OnInit, OnDestroy {
   public bioForm: FormGroup;
   tagState$: Observable<ProfileModal>;
-  private tagStateSubscription: Subscription;
+  subscription: Subscription;
   stateProfile = initialTag;
   userProfile: any;
   ownProfile: boolean;
@@ -44,7 +44,7 @@ export class AboutBioComponent implements OnInit {
   ) {
     this.tagState$ = this._store.select('profileTags');
 
-    this.tagState$.subscribe((state) => {
+    this.subscription = this.tagState$.subscribe((state) => {
       this.stateProfile = state;
 
       if (state.profile_user_info) {
@@ -61,6 +61,10 @@ export class AboutBioComponent implements OnInit {
 
   ngOnInit() {
     this.bioFormIinit()
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   isClosed(event) {
