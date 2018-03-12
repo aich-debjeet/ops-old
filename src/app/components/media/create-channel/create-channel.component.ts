@@ -215,4 +215,3 @@ export class CreateChannelComponent implements OnInit, OnDestroy {
   }
 
 }
-

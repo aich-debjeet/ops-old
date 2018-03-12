@@ -43,7 +43,7 @@
                     </li>
 
                     <li class="o-action-list float-right">
-                        <button type="button" (click)="submitStatusForm()" class="btn btn-primary btn-md">POST</button>
+                        <button type="button" (click)="submitStatusForm()" class="btn btn-primary btn-md" [disabled]="statusMessage.length === 0">POST</button>
                     </li>
                     <li class="o-action-list float-right">
                         <span class="o-status-action__count">
