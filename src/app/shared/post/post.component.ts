@@ -53,6 +53,7 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.mediaData)
     if (!this.mediaData.ownerImage) {
       this.userImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
     } else {

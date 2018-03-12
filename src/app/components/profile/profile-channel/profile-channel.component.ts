@@ -51,6 +51,7 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
     this.channelSubscription = this.tagState$.subscribe((state) => {
       this.profileChannel = state;
       this.channels = this.profileChannel.other_channel;
+      // console.log(this.channels)
     });
   }
 

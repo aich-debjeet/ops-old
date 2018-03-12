@@ -74,6 +74,10 @@
 .m-t-16 {
     margin-top: 16px !important;
 }
+.c-feed__img {
+    width: 100%;
+    position: relative;
+}
 
 .c-status--block {
     width: 100%;
@@ -86,6 +90,20 @@
 .margin_none {
     margin: 0px !important;
 }
+.c-card__icon {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    margin: 10px;
+    line-height: 0px;
+    width: 22px;
+    filter: drop-shadow(0px 0px 3px #222);
+  }
+  .c-card__image {
+    width: 100%;
+    vertical-align: middle;
+    outline: none;
+  }
 
 .c-user__avatar {
     display: inline-block;

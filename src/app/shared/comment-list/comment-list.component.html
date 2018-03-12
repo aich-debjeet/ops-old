@@ -5,7 +5,7 @@
     </a>
   </div>
   <div class="c-post__comment--right p-l-8">
-    <a class="c-post__commenter c-post__commenter-mpop">{{ commentData?.ownerName }}</a>
+    <a class="c-post__commenter c-post__commenter-mpop" (click)="navigate()">{{ commentData?.ownerName }}</a>
     <div class="c-post__comment_text-mpop">
       <div class="c-post__comment_text-inline" *ngIf="!isEdit"> {{ messageText }} </div>
       <div contenteditable="true" *ngIf="isEdit" [textContent]="messageText" [(ngModel)]="messageText" name="messageText" class="c-post__comment_text c-contenteditable" ngDefaultControl (keyup.enter)="onContentSaved()" (input)="messageText=$event.target.textContent">
