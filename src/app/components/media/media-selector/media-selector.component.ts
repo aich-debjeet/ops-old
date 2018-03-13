@@ -167,6 +167,7 @@ export class MediaSelectorComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('Media');
     // If there's input assign, other wise, reload channel list
     // this.myChannels$.subscribe(event => this.channeListx = event);
     this.myProfile$.subscribe(event => {
@@ -737,7 +738,10 @@ export class MediaSelectorComponent implements OnInit {
       return;
     }
 
-    // Subscribe to current user object
+    console.log(files);
+   
+    
+    //Subscribe to current user object
     this.myProfile$.subscribe(event => {
       this.myProfileData = event;
       if (event.profile_navigation_details && event.profile_navigation_details.handle) {
@@ -753,13 +757,21 @@ export class MediaSelectorComponent implements OnInit {
       this.files = files;
     }
 
-    // this.tagState$.subscribe((state) => {
-    if (this.handle && this.handle !== '') {
-      this.uploadStatus = 2;
-      this.uploadFile(files, this.token, userHandle)
-    } else {
-      this.uploadStatus = 0;
+    for (let i = 0; i < files.length; i++) {
+      console.log('media' + i );
+      console.log(files[i]);
+      this.uploadFile(files[i], this.token, userHandle);
     }
+
+    // this.tagState$.subscribe((state) => {
+    // if (this.handle && this.handle !== '') {
+    //   this.uploadStatus = 2;
+      
+      
+  
+    // } else {
+    //   this.uploadStatus = 0;
+    // }
   }
 
 
