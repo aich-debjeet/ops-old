@@ -47,7 +47,7 @@
                                 <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications" [ngClass]="{'fill_grey': !notification.isRead}">
                                     <div class="dropnoti__avatar">
                                         <!-- <img class="navdrop__img" [src]="imageBaseUrl + 'img/new/avatar2.png'"> -->
-                                        <img *ngIf="!notification.profileImage" [src]="'https://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg'" class="navdrop__img">
+                                        <img *ngIf="!notification.profileImage" [src]="'https://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.png'" class="navdrop__img">
                                         <img *ngIf="notification.profileImage" [src]="imageBaseUrl + notification.profileImage" class="navdrop__img">
                                     </div>
                                     <div class="dropnoti__detail">
@@ -209,7 +209,7 @@
                             <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications" [ngClass]="{'fill_grey': !notification.isRead}">
                                 <div class="dropnoti__avatar">
                                     <!-- <img class="navdrop__img" [src]="imageBaseUrl + 'img/new/avatar2.png'"> -->
-                                    <img *ngIf="!notification.profileImage" [src]="'https://d33wubrfki0l68.cloudfront.net/9d6de60375507b449ad07f5acb73667fe02171fc/ea558/img/avatar.jpg'" class="img-responsive">
+                                    <img *ngIf="!notification.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="img-responsive">
                                     <img *ngIf="notification.profileImage" [src]="imageBaseUrl + notification.profileImage" class="img-responsive">
                                 </div>
                                 <div class="dropnoti__detail">

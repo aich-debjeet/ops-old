@@ -31,7 +31,7 @@ export class StatusEditorComponent {
   profileStore = initialTag;
   baseUrl = environment.API_IMAGE;
   privacy: any = 0;
-  statusMessage: string;
+  statusMessage = '';
   activeUser: UserCard;
 
   profileState$: Observable<ProfileModal>;

@@ -89,7 +89,7 @@
                                         </div>
                                         <div class="c-qt__block__text m-t-8">Add More</div>
                                     </a>
-                                    <div class="dropdown-menu o-share__profile3 p-16">
+                                    <div class="dropdown-menu o-share__profile3 p-16" *ngIf="!pinListEmpty">
                                         <!-- <div class="c-invite--search m-0">
                                             <form class="fill-grey-light">
                                                 <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm m-0">
@@ -104,6 +104,11 @@
                                         <div class="c-invite__block" *ngFor="let channel of userQuickAccess?.other_channel; let i = index">
                                             <a class="c-text_md c-invite--user" *ngIf="!channel?.isPinned" (click)="pinChannel(channel?.spotfeedId)">{{channel.spotfeedName}}</a>
                                             <span class="c-skill_act-tick" *ngIf="!channel?.isPinned"><img [src]="imageBaseUrl + 'img/svg/ico_tick.svg'"></span>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-menu o-share__profile3 p-16" *ngIf="pinListEmpty">                                            
+                                        <div class="c-invite__block">
+                                            <span class="c-text_md c-invite--user">ADD CHANNELS TO PIN</span>
                                         </div>
                                     </div>
                                 </div>
