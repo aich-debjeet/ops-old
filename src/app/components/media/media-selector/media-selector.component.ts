@@ -247,11 +247,6 @@ export class MediaSelectorComponent implements OnInit {
       return;
     }
 
-    console.log(files);
-   
-    
-    
-
     const filesList = [];
     const userHandle = this.handle;
 
@@ -282,19 +277,6 @@ export class MediaSelectorComponent implements OnInit {
     //   this.uploadStatus = 0;
     // }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   /**
    * Switch View
@@ -781,9 +763,6 @@ export class MediaSelectorComponent implements OnInit {
   }
 
 
-
-
-
   /**
    * Push to Upload List
    */
@@ -831,13 +810,6 @@ export class MediaSelectorComponent implements OnInit {
         alert('Type Error');
         break;
     }
-  }
-
-  /**
-   * Hide/Show Choose Channel
-   */
-  chooseChannelToggle() {
-    this.chooseChannelToggleState = !this.chooseChannelToggleState;
   }
 
   /**
