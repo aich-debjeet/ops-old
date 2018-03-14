@@ -520,31 +520,12 @@ export class MediaSelectorComponent implements OnInit {
     this.chosenChannel = channel;
   }
 
-  /**
-   * Helper classes
-   * @param file
-   */
-  isChosenChannel(channel: any) {
-    if (this.chosenChannel === 0) {
-      return false;
-    }else {
-      if (this.chosenChannel.spotfeedId === channel.spotfeedId) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
 
   /**
    * File Extension checker
    */
   checkFileType(fileName: string, fileType: string) {
     return FilesHelper.fileType(fileName, fileType);
-  }
-
-  checkEmpty(obj: Object) {
-    return Object.keys(obj).length === 0 && obj.constructor === Object;
   }
 
   /**
@@ -569,7 +550,6 @@ export class MediaSelectorComponent implements OnInit {
    */
   onChannelSelection(channel: any) {
     this.chosenChannel = channel;
-
     // do the post as well
   }
 
@@ -595,23 +575,6 @@ export class MediaSelectorComponent implements OnInit {
       type: fileType
     };
     return leFile;
-  }
-
-  /**
-   * Array of tags splitted by comma
-   * @param tags
-   */
-  seperateTags(tags: any) {
-    const tagList = [];
-    if (tags) {
-
-      // If it has dwc, send an update to make it Active
-      for (const tag of tags) {
-
-        tagList.push(tag.value);
-      }
-    }
-    return tagList;
   }
 
 
@@ -710,9 +673,6 @@ export class MediaSelectorComponent implements OnInit {
       return 'audio';
     }
   }
-
-  
-
 
   /**
    * Send file to file heaven
