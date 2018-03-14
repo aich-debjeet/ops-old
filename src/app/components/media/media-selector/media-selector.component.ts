@@ -841,14 +841,6 @@ export class MediaSelectorComponent implements OnInit {
   }
 
   /**
-   * Expand the Channels Selector View
-   */
-  showChannelsList(isExpanded: any) {
-    // this.explandshowChannelsList = true;
-    this.uploadState = 2;
-  }
-
-  /**
    * Toggle Privacy Value
    */
   mediaPrivacyToggle(value) {
@@ -871,19 +863,6 @@ export class MediaSelectorComponent implements OnInit {
       this.changeState(2);
     }
   }
-  /**
-   * Toggle Create Channel Form
-   */
-  channelButton() {
-    if (this.channelCreatebtn === true) {
-      this.channelCreatebtn = false;
-    }else {
-      this.channelCreatebtn = true;
-    }
-  }
 
-  choosePrivacy(value) {
-    this.channelPrivacy = value
-  }
 }
 
