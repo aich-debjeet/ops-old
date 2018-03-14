@@ -110,7 +110,7 @@
                 </div>
             </div>
 
-            <div class="o-add-media__upload text-center" *ngIf="previewUrl?.length > 0">
+            <div class="o-add-media__upload text-center" *ngIf="cards?.length > 0">
                 <ul class="o-file-list">
                     <li class="o-file_item">
                         <div class="o-media-more">
@@ -123,10 +123,10 @@
                             </div>
                         </div>
                     </li>
-                    <li class="o-file_item selected" [ngClass]="{ 'selected': isSelectedFile(file) }" *ngFor="let file of previewUrl">
+                    <li class="o-file_item selected" [ngClass]="{ 'selected': isSelectedFile(file) }" *ngFor="let file of cards">
                         <div class="o-media-block">
                             <figure class="o-media_img">
-                                <img class="obj-fit-fill" (click)="fileDetails(file)" [src]="file">
+                                <img class="obj-fit-fill" (click)="fileDetails(file)" [src]="file?.preview">
                                 <!-- <video class="obj-fit-fill" [src]="file" ></video> -->
                                 <!-- <app-audioplayer [src]="file"></app-audioplayer> -->
                             </figure>
@@ -138,6 +138,11 @@
                                     <img (click)="removeFile(file)" [src]="baseUrl + 'img/svg/ico_create-close.svg'">
                                 </div>
                             </div>
+                            <div class="o-media-progress-main">
+                                <div class="o-media-progress__bar">
+                                  <span class="o-media-progress__value" [style.width.%]="file?.pre"></span>
+                                </div>
+                              </div>
                         </div>
                     </li>
                 </ul>

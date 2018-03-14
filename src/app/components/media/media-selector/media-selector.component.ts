@@ -24,7 +24,7 @@ import { ToastrService } from 'ngx-toastr';
 import * as fromRoot from '../../../../app/app.reducer';
 import { SafeUrl } from '@angular/platform-browser';
 
-import { remove as _remove, merge as _merge, uniqBy as _uniqBy, flatten } from 'lodash';
+import { remove as _remove, merge as _merge, uniqBy as _uniqBy, flatten, findIndex as _findIndex } from 'lodash';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -96,6 +96,8 @@ export class MediaSelectorComponent implements OnInit {
   // Upload States 1 = normal, 2 = select channel, 3 = create channel
 
 
+  cards = [];
+
   // Form Values
   mediaPrivacy: number;
   license: string;
@@ -117,6 +119,7 @@ export class MediaSelectorComponent implements OnInit {
     private route: ActivatedRoute,
     private _store: Store<any>,
     private http: Http) {
+      this.cards = [];
 
       this.hasFiles = false;
       this.editingFile = new UploadItem;
@@ -260,14 +263,15 @@ export class MediaSelectorComponent implements OnInit {
       this.createPreViewImg(files[i], (url) => {
         this.files[i]['preview'] = url;
       });
-      this.addToUploads(files[i]);
-      console.log(files[i]);
-      uploadsList.push(files[i]);
+      // this.addToUploads(files[i]);
+
+      this.cards.push(files[i]);
+      // uploadsList.push(files[i]);
 
       this.uploadFile(files[i], this.token, userHandle);
     }
     this.previewUrl = uploadsList;
-    console.log(this.previewUrl);
+    console.log(this.cards);
 
     // this.tagState$.subscribe((state) => {
     // if (this.handle && this.handle !== '') {
@@ -276,6 +280,49 @@ export class MediaSelectorComponent implements OnInit {
     // } else {
     //   this.uploadStatus = 0;
     // }
+  }
+
+
+  /**
+   * Send file to file heaven
+   * @param files
+   * @param token
+   * @param userHandle
+   */
+  uploadFile(files: any, token: string, userHandle: string) {
+    this.Upload.upload({
+      url: base,
+      headers: { Authorization: 'Bearer ' + this.token },
+      params: { handle: userHandle },
+      files: files,
+      process: true
+    }).subscribe(
+      (event: UploadEvent) => {
+        console.log(files.name, event);
+        if (event.status === UploadStatus.Uploading) {
+          this.status = event.percent;
+          const test = _findIndex(this.cards, { 'name': files.name });
+          this.cards[test]['pre'] = event.percent;
+          // console.log(test);
+          console.log(this.cards);
+        }else {
+          // console.log('Finished ', userHandle);
+          if (event.data) {
+
+            // @TODO__URGENT Make list appendable for files
+            const latestUploaded = event.data['SUCCESS'];
+            this.addToUploads(latestUploaded);
+
+            this.uploadStatus = 0;
+          }
+        }
+      },
+      (err) => {
+        //
+      },
+      () => {
+        //
+      });
   }
 
   /**
@@ -672,44 +719,6 @@ export class MediaSelectorComponent implements OnInit {
     if (isAudio) {
       return 'audio';
     }
-  }
-
-  /**
-   * Send file to file heaven
-   * @param files
-   * @param token
-   * @param userHandle
-   */
-  uploadFile(files: any, token: string, userHandle: string) {
-    this.Upload.upload({
-      url: base,
-      headers: { Authorization: 'Bearer ' + this.token },
-      params: { handle: userHandle },
-      files: files,
-      process: true
-    }).subscribe(
-      (event: UploadEvent) => {
-        console.log(event);
-        if (event.status === UploadStatus.Uploading) {
-          this.status = event.percent;
-        }else {
-          // console.log('Finished ', userHandle);
-          if (event.data) {
-
-            // @TODO__URGENT Make list appendable for files
-            const latestUploaded = event.data['SUCCESS'];
-            this.addToUploads(latestUploaded);
-
-            this.uploadStatus = 0;
-          }
-        }
-      },
-      (err) => {
-        //
-      },
-      () => {
-        //
-      });
   }
 
 

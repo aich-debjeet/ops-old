@@ -869,3 +869,35 @@ div#create-channel form {
         margin-top: 8px;
     }
 }
+
+// for progress bar
+.o-media-progress-main {
+    width: 181px;
+    height: 181px;
+    overflow: hidden;
+    position: absolute;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.o-media-progress__bar {
+    height: 6.4px;
+    width: 156px;
+    background-color: #C1C1C1;
+    position: relative;
+    border-radius: 5px;
+}
+
+.o-media-progress__value {
+    height: 6.4px;
+    width: 51.83px;
+    background-color: #FFFFFF;
+    position: absolute;
+    left: 0px;
+    border-radius: 5px;
+}
