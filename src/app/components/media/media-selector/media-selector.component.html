@@ -110,6 +110,39 @@
                 </div>
             </div>
 
+            <div class="o-add-media__upload text-center" *ngIf="previewUrl?.length > 0">
+                <ul class="o-file-list">
+                    <li class="o-file_item">
+                        <div class="o-media-more">
+                            <input type="file" class="o-media_upload" name="photo" id="upload-photo" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.mp4">
+                            <div class="o-media_add-icon">
+                                <img width="42" [src]="baseUrl + 'img/svg/upload.svg'">
+                            </div>
+                            <div class="o-media_add-txt">
+                                <p>Upload More</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="o-file_item selected" [ngClass]="{ 'selected': isSelectedFile(file) }" *ngFor="let file of previewUrl">
+                        <div class="o-media-block">
+                            <figure class="o-media_img">
+                                <img class="obj-fit-fill" (click)="fileDetails(file)" [src]="file">
+                                <!-- <video class="obj-fit-fill" [src]="file" ></video> -->
+                                <!-- <app-audioplayer [src]="file"></app-audioplayer> -->
+                            </figure>
+                            <div class="o-media__info">
+                                <div class="o-media_type">
+                                    <img width="14" [src]="baseUrl + 'img/svg/ico_media_img.svg'" alt="">
+                                </div>
+                                <div class="o-media_delet">
+                                    <img (click)="removeFile(file)" [src]="baseUrl + 'img/svg/ico_create-close.svg'">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
             <div class="o-add-media__upload text-center" *ngIf="uploadedFiles.length > 0">
                 <ul class="o-file-list">
                     <li class="o-file_item">

@@ -22,6 +22,7 @@ import { TokenService } from '../../../helpers/token.service';
 import { ToastrService } from 'ngx-toastr';
 
 import * as fromRoot from '../../../../app/app.reducer';
+import { SafeUrl } from '@angular/platform-browser';
 
 import { remove as _remove, merge as _merge, uniqBy as _uniqBy, flatten } from 'lodash';
 
@@ -105,6 +106,7 @@ export class MediaSelectorComponent implements OnInit {
   channelDesc: string;
   channelSaved: boolean;
   eventName: string;
+  previewUrl: any[];
 
   constructor(
     private Upload: NgxfUploaderService,
@@ -113,9 +115,7 @@ export class MediaSelectorComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
-    private profileStore: Store<ProfileModal>,
-    private store: Store<Media>,
-    private _store: Store<fromRoot.State>,
+    private _store: Store<any>,
     private http: Http) {
 
       this.hasFiles = false;
@@ -156,9 +156,16 @@ export class MediaSelectorComponent implements OnInit {
       this.handle = '';
 
       this.myProfile$ = _store.select('profileTags').take(3);
-      this.profileState$ = this.profileStore.select('profileTags');
+      //Subscribe to current user object
+    this.myProfile$.subscribe(event => {
+      this.myProfileData = event;
+      if (event.profile_navigation_details && event.profile_navigation_details.handle) {
+        this.handle = event.profile_navigation_details.handle;
+      }
+    });
+      this.profileState$ = _store.select('profileTags');
 
-      this.loginTagState$ = store.select('loginTags');
+      this.loginTagState$ = _store.select('loginTags');
       this.loginTagState$.subscribe((state) => {
         if (typeof state !== 'undefined') {
           this.industries = state.industries;
@@ -182,16 +189,7 @@ export class MediaSelectorComponent implements OnInit {
           this.handle = event.profile_cards.active.handle;
           isUserReady = true;
           this.loadChannel(this.handle);
-        } else {
-          // console.log('[x]');
         }
-
-        // Check if it has query params
-        this.route.queryParams
-        .filter(params => params.event)
-        .subscribe(params => {
-          this.eventName = params.event;
-        });
       }
     });
 
@@ -238,19 +236,65 @@ export class MediaSelectorComponent implements OnInit {
 
   }
 
+
   /**
-   * Get thumb image
+   * Multiple File Upload
+   * @param files
    */
-  getThumb(src: string, showThumb: boolean = false) {
-    const basePath = this.baseUrl;
-    const patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-    const m3 = (src).match(patt1);
-    if (showThumb === true) {
-      return basePath + src.replace(m3[0], '_thumb_250.jpeg');
-    } else {
-      return basePath + src;
+  uploadFileList(files: File[]): void {
+    if (!(files instanceof Array)) {
+      this.alertError(files);
+      return;
     }
+
+    console.log(files);
+   
+    
+    
+
+    const filesList = [];
+    const userHandle = this.handle;
+
+    if (files.length > 0) {
+      this.hasFiles = true
+      this.files = files;
+    }
+
+    const uploadsList = [];
+    for (let i = 0; i < files.length; i++) {
+      this.createPreViewImg(files[i], (url) => {
+        this.files[i]['preview'] = url;
+      });
+      this.addToUploads(files[i]);
+      console.log(files[i]);
+      uploadsList.push(files[i]);
+
+      this.uploadFile(files[i], this.token, userHandle);
+    }
+    this.previewUrl = uploadsList;
+    console.log(this.previewUrl);
+
+    // this.tagState$.subscribe((state) => {
+    // if (this.handle && this.handle !== '') {
+    //   this.uploadStatus = 2;
+
+    // } else {
+    //   this.uploadStatus = 0;
+    // }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /**
    * Switch View
@@ -289,16 +333,9 @@ export class MediaSelectorComponent implements OnInit {
    * Load Channel
    */
   loadChannel(handle: string) {
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
+    this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
   }
 
-  /**
-   * Media Upload Multiple
-   */
-  mediaInfoUpdateAll(value: any) {
-    // console.log(value);
-    // console.log(this.uploaded);
-  }
 
   /**
    * Post all medias at once
@@ -383,43 +420,6 @@ export class MediaSelectorComponent implements OnInit {
     }
   }
 
-  /**
-   * Media Info Update
-   */
-  mediaInfoUpdate(formValue: any) {
-    // console.log('media upload');
-    // console.log('formVlaue', formValue);
-    // const mediaType = this.getFileType(this.editingFile.fileName);
-    // const postTime = this.currentTime();
-    // const isUploadReady = this.uploadMeta();
-
-    // let userHandle;
-    // if (this.profileChannel.profile_loaded === true ) {
-    //   userHandle = this.profileChannel.profile_navigation_details.handle;
-    // }
-
-    // if ( isUploadReady ) {
-    //   const formData = formValue;
-    //   const chosenChannel = this.chosenChannel;
-    //   const chosenFile = this.editingFile;
-
-    //   // Build Media Object
-    //   const mediaItem = this.formatMedia( chosenFile, formData, chosenChannel, userHandle, formValue.privacy);
-    //   const media = [ mediaItem ];
-
-    //   // Action!!
-    //   this.postMediaToChannel(this.chosenChannel.spotfeedId, media);
-    // } else {
-    //   console.log('FORM SUBMITTION ERROR');
-    // }
-  }
-
-  /**
-   * Notification Wacther
-   */
-  notificationWatcher() {
-    //
-  }
 
   /**
    * currentTime
@@ -439,7 +439,7 @@ export class MediaSelectorComponent implements OnInit {
     };
     // console.log('req body', req);
     // console.log('Sucess Post');
-    this.profileStore.dispatch({ type: ProfileActions.POST_CHANNEL_MEDIA, payload: payload })
+    this._store.dispatch({ type: ProfileActions.POST_CHANNEL_MEDIA, payload: payload })
 
     this._store.select('profileTags')
       .first(media => media['media_channel_posted'] === true)
@@ -501,9 +501,9 @@ export class MediaSelectorComponent implements OnInit {
    * Save Channel
    */
   saveChannel(req: any) {
-    this.profileStore.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: req });
+    this._store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: req });
 
-    this.profileStore.select('profileTags')
+    this._store.select('profileTags')
       .first(profile => profile['channel_saved'] === true )
       .subscribe( data => {
         this.loadChannel(this.handle);
@@ -605,6 +605,7 @@ export class MediaSelectorComponent implements OnInit {
    * Format File to Model
    */
   formatFile(file: any) {
+    console.log(file);
     const fileType = this.getFileType(file.fileName)
     const leFile: UploadItem = {
       fileName: file.fileName,
@@ -728,51 +729,7 @@ export class MediaSelectorComponent implements OnInit {
     }
   }
 
-  /**
-   * Multiple File Upload
-   * @param files
-   */
-  uploadFileList(files: File[]): void {
-    if (!(files instanceof Array)) {
-      this.alertError(files);
-      return;
-    }
-
-    console.log(files);
-   
-    
-    //Subscribe to current user object
-    this.myProfile$.subscribe(event => {
-      this.myProfileData = event;
-      if (event.profile_navigation_details && event.profile_navigation_details.handle) {
-        this.handle = event.profile_navigation_details.handle;
-      }
-    });
-
-    const filesList = [];
-    const userHandle = this.handle;
-
-    if (files.length > 0) {
-      this.hasFiles = true
-      this.files = files;
-    }
-
-    for (let i = 0; i < files.length; i++) {
-      console.log('media' + i );
-      console.log(files[i]);
-      this.uploadFile(files[i], this.token, userHandle);
-    }
-
-    // this.tagState$.subscribe((state) => {
-    // if (this.handle && this.handle !== '') {
-    //   this.uploadStatus = 2;
-      
-      
   
-    // } else {
-    //   this.uploadStatus = 0;
-    // }
-  }
 
 
   /**
@@ -790,6 +747,7 @@ export class MediaSelectorComponent implements OnInit {
       process: true
     }).subscribe(
       (event: UploadEvent) => {
+        console.log(event);
         if (event.status === UploadStatus.Uploading) {
           this.status = event.percent;
         }else {
@@ -812,15 +770,33 @@ export class MediaSelectorComponent implements OnInit {
       });
   }
 
+
+  createPreViewImg(file: File, callbake: Function) {
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => {
+      return callbake(e.target.result);
+    };
+    reader.readAsDataURL(file);
+  }
+
+
+
+
+
   /**
    * Push to Upload List
    */
   addToUploads(uploads: any) {
     const uploadsList = [];
+    console.log(uploads);
     for (const file of uploads) {
-      const thisFile = this.formatFile(file);
+      console.log('eeee');
+      const thisFile = this.formatFile(uploads);
       uploadsList.push(thisFile);
     }
+
+    console.log(uploadsList);
 
     const cleanedList = _uniqBy(uploadsList, function (e) {
       return e.repoPath;
@@ -829,6 +805,7 @@ export class MediaSelectorComponent implements OnInit {
     const newArray = flatten([nowUploads, cleanedList]);
 
     this.uploadedFiles = newArray;
+    console.log( this.uploadedFiles);
   }
 
   /**
