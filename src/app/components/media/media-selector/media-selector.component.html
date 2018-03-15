@@ -4,9 +4,6 @@
         <a [routerLink]="['/dwc/details']">Back to Dance World Cup</a>
       </div>
   </div> -->
-    <span class="Overlay__status" *ngIf="status >0 && status <100">
-    Uploading {{ status }}%
-  </span>
     <div class="Overlay__error" *ngIf="formMessages.length > 0">
         <span class="Overlay__status" *ngFor="let msg of formMessages">
       {{ msg }}
@@ -96,7 +93,7 @@
         </div>
         <!-- add media  -->
         <div class="col-md-12 padding_none">
-            <div class="o-add-media__upload text-center" *ngIf="uploadedFiles.length === 0">
+            <div class="o-add-media__upload text-center" *ngIf="cards?.length === 0">
                 <div class="o-add-media-upload__icon">
                     <img width="95" [src]="baseUrl + 'img/svg/upload.svg'" alt="">
                 </div>
@@ -126,8 +123,8 @@
                     <li class="o-file_item selected" [ngClass]="{ 'selected': isSelectedFile(file) }" *ngFor="let file of cards">
                         <div class="o-media-block">
                             <figure class="o-media_img">
-                                <img class="obj-fit-fill" (click)="fileDetails(file)" [src]="file?.preview">
-                                <!-- <video class="obj-fit-fill" [src]="file" ></video> -->
+                                <img  *ngIf="checkFileType(file.name, 'Image')" class="obj-fit-fill" (click)="fileDetails(file)" [src]="file?.preview">
+                                <video *ngIf="checkFileType(file.name, 'Video')" class="obj-fit-fill" [src]="file?.preview" ></video>
                                 <!-- <app-audioplayer [src]="file"></app-audioplayer> -->
                             </figure>
                             <div class="o-media__info">
@@ -138,71 +135,11 @@
                                     <img (click)="removeFile(file)" [src]="baseUrl + 'img/svg/ico_create-close.svg'">
                                 </div>
                             </div>
-                            <div class="o-media-progress-main">
+                            <div class="o-media-progress-main" *ngIf="file?.pre > 0 && file?.pre < 100">
                                 <div class="o-media-progress__bar">
                                   <span class="o-media-progress__value" [style.width.%]="file?.pre"></span>
                                 </div>
                               </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="o-add-media__upload text-center" *ngIf="uploadedFiles.length > 0">
-                <ul class="o-file-list">
-                    <li class="o-file_item">
-                        <div class="o-media-more">
-                            <input type="file" class="o-media_upload" name="photo" id="upload-photo" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.mp4">
-                            <div class="o-media_add-icon">
-                                <img width="42" [src]="baseUrl + 'img/svg/upload.svg'">
-                            </div>
-                            <div class="o-media_add-txt">
-                                <p>Upload More</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="o-file_item selected" [ngClass]="{ 'selected': isSelectedFile(file.fileName) }" *ngFor="let file of uploadedFiles">
-
-                        <div class="o-media-block" *ngIf="checkFileType(file.fileName, 'Image')">
-                            <figure class="o-media_img">
-                                <img class="obj-fit-fill" (click)="fileDetails(file)" [src]="getThumb(file?.repoPath)">
-                            </figure>
-                            <div class="o-media__info">
-                                <div class="o-media_type">
-                                    <img width="14" [src]="baseUrl + 'img/svg/ico_media_img.svg'" alt="">
-                                </div>
-                                <div class="o-media_delet">
-                                    <img (click)="removeFile(file)" [src]="baseUrl + 'img/svg/ico_create-close.svg'">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="o-media-block" *ngIf="checkFileType(file.fileName, 'Audio')">
-                            <figure class="o-media_img">
-                                <img class="obj-fit-fill" [src]="baseUrl + 'img/interest.jpg'" alt="">
-                            </figure>
-                            <div class="o-media__info">
-                                <div class="o-media_type">
-                                    <img [src]="baseUrl + 'img/svg/ico_audio.svg'">
-                                </div>
-                                <div class="o-media_delet">
-                                    <img [src]="baseUrl + 'img/svg/ico_create-close.svg'">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="o-media-block" *ngIf="checkFileType(file.fileName, 'Video')" (click)="fileDetails(file)">
-                            <figure class="o-media_img">
-                                <app-videplayer *ngIf="checkFileType(file?.repoPath, 'Video')" [src]="getThumb(file?.repoPath)"></app-videplayer>
-                            </figure>
-                            <div class="o-media__info">
-                                <div class="o-media_type">
-                                    <img [src]="baseUrl + 'img/svg/ico_video.svg'">
-                                </div>
-                                <div class="o-media_delet">
-                                    <img [src]="baseUrl + 'img/svg/ico_create-close.svg'">
-                                </div>
-                            </div>
                         </div>
                     </li>
                 </ul>

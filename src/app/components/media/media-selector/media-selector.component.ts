@@ -761,8 +761,8 @@ export class MediaSelectorComponent implements OnInit {
    * @param file
    */
   removeFile(file: any) {
-    this.uploadedFiles = _remove(this.uploadedFiles, function(n){
-      return n.fileName !== file.fileName;
+    this.cards = _remove(this.cards, function(n){
+      return n.name !== file.name;
     });
   }
 
