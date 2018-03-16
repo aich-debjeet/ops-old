@@ -13,6 +13,7 @@
 <section class="o-add-media" *ngIf="uploadState === 1">
     <div class="container">
         <div class="row">
+            <div class="col-md-1"></div>
             <div class="col-md-7 col-sm-7 col-xs-12 p-0" *ngIf="uploadState === 1">
                 <div class="o-add-media__block" [ngClass]="(uploadedFiles.length === 0)? 'o-block__fade' : ''">
                     <div class="">
@@ -24,8 +25,7 @@
                         </div>
                     </div>
                     <div class="o-add-status__txt">
-                        <textarea class="o-add-post--textarea c-text_lg-light with_border_bottom" rows="1" data-min-rows="0" [(ngModel)]="desc" [disabled]="uploadedFiles.length === 0" rows='1' data-min-rows='0' placeholder="Add a tag of your dance style along with a description"></textarea>
-                        <div class="o-add-status__tag"></div>
+                        <textarea class="o-add-post--textarea c-text_lg-light with_border_bottom" rows="1" data-min-rows="0" [(ngModel)]="desc" [disabled]="uploadedFiles.length === 0" rows='3' data-min-rows='0' placeholder="Add a tag of your dance style along with a description"></textarea>
                     </div>
                 </div>
             </div>
@@ -87,9 +87,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-1">
-
-            </div>
+            <div class="col-md-1"></div>
         </div>
         <!-- add media  -->
         <div class="col-md-12 padding_none">

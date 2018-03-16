@@ -263,15 +263,10 @@ export class MediaSelectorComponent implements OnInit {
       this.createPreViewImg(files[i], (url) => {
         this.files[i]['preview'] = url;
       });
-      // this.addToUploads(files[i]);
-
       this.cards.push(files[i]);
-      // uploadsList.push(files[i]);
-
       this.uploadFile(files[i], this.token, userHandle);
     }
     this.previewUrl = uploadsList;
-    console.log(this.cards);
 
     // this.tagState$.subscribe((state) => {
     // if (this.handle && this.handle !== '') {
@@ -298,19 +293,17 @@ export class MediaSelectorComponent implements OnInit {
       process: true
     }).subscribe(
       (event: UploadEvent) => {
-        console.log(files.name, event);
         if (event.status === UploadStatus.Uploading) {
           this.status = event.percent;
           const test = _findIndex(this.cards, { 'name': files.name });
           this.cards[test]['pre'] = event.percent;
-          // console.log(test);
-          console.log(this.cards);
         }else {
           // console.log('Finished ', userHandle);
           if (event.data) {
 
             // @TODO__URGENT Make list appendable for files
             const latestUploaded = event.data['SUCCESS'];
+            console.log('file upload success', latestUploaded);
             this.addToUploads(latestUploaded);
 
             this.uploadStatus = 0;
@@ -615,12 +608,14 @@ export class MediaSelectorComponent implements OnInit {
    */
   formatFile(file: any) {
     console.log(file);
+    console.log(file.fileName);
     const fileType = this.getFileType(file.fileName)
     const leFile: UploadItem = {
       fileName: file.fileName,
       repoPath: file.repoPath,
       type: fileType
     };
+    console.log(leFile);
     return leFile;
   }
 
@@ -737,15 +732,10 @@ export class MediaSelectorComponent implements OnInit {
    */
   addToUploads(uploads: any) {
     const uploadsList = [];
-    console.log(uploads);
     for (const file of uploads) {
-      console.log('eeee');
-      const thisFile = this.formatFile(uploads);
+      const thisFile = this.formatFile(file);
       uploadsList.push(thisFile);
     }
-
-    console.log(uploadsList);
-
     const cleanedList = _uniqBy(uploadsList, function (e) {
       return e.repoPath;
     });
@@ -753,7 +743,6 @@ export class MediaSelectorComponent implements OnInit {
     const newArray = flatten([nowUploads, cleanedList]);
 
     this.uploadedFiles = newArray;
-    console.log( this.uploadedFiles);
   }
 
   /**
