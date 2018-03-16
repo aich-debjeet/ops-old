@@ -80,7 +80,7 @@
                                     </div>
                                 </li>
                                 <li class="o-action-list float-right">
-                                    <button type="button" [disabled]="uploadedFiles.length === 0" class="btn btn-primary btn-md btn-inverse" (click)="formNext()">Next</button>
+                                    <button type="button" [disabled]="uploadedFiles?.length === 0 || uploadedFiles?.length !== cards?.length" class="btn btn-primary btn-md btn-inverse" (click)="formNext()">Next</button>
                                 </li>
                             </ul>
                         </div>
@@ -121,13 +121,15 @@
                     <li class="o-file_item selected" [ngClass]="{ 'selected': isSelectedFile(file) }" *ngFor="let file of cards">
                         <div class="o-media-block">
                             <figure class="o-media_img">
-                                <img  *ngIf="checkFileType(file.name, 'Image')" class="obj-fit-fill" (click)="fileDetails(file)" [src]="file?.preview">
+                                <img  *ngIf="checkFileType(file.name, 'Image') || checkFileType(file.name, 'Audio')" class="obj-fit-fill" (click)="fileDetails(file)" [src]="file?.preview">
                                 <video *ngIf="checkFileType(file.name, 'Video')" class="obj-fit-fill" [src]="file?.preview" ></video>
-                                <!-- <app-audioplayer [src]="file"></app-audioplayer> -->
+                
                             </figure>
                             <div class="o-media__info">
                                 <div class="o-media_type">
-                                    <img width="14" [src]="baseUrl + 'img/svg/ico_media_img.svg'" alt="">
+                                    <img *ngIf="checkFileType(file.name, 'Image')" width="14" [src]="baseUrl + 'img/svg/ico_media_img.svg'">
+                                    <img *ngIf="checkFileType(file.name, 'Audio')" width="14" [src]="baseUrl + 'img/svg/ico_audio.svg'">
+                                    <img *ngIf="checkFileType(file.name, 'Video')" width="14" [src]="baseUrl + 'img/svg/ico_video.svg'">
                                 </div>
                                 <div class="o-media_delet">
                                     <img (click)="removeFile(file)" [src]="baseUrl + 'img/svg/ico_create-close.svg'">

@@ -263,6 +263,8 @@ export class MediaSelectorComponent implements OnInit {
       this.createPreViewImg(files[i], (url) => {
         this.files[i]['preview'] = url;
       });
+      const createdate = new Date().getTime().toString();
+      this.files[i]['createDate'] = createdate;
       this.cards.push(files[i]);
       this.uploadFile(files[i], this.token, userHandle);
     }
@@ -294,9 +296,9 @@ export class MediaSelectorComponent implements OnInit {
     }).subscribe(
       (event: UploadEvent) => {
         if (event.status === UploadStatus.Uploading) {
-          this.status = event.percent;
-          const test = _findIndex(this.cards, { 'name': files.name });
-          this.cards[test]['pre'] = event.percent;
+          console.log(event.percent);
+          this.updateProgress(files, event.percent)
+
         }else {
           // console.log('Finished ', userHandle);
           if (event.data) {
@@ -316,6 +318,12 @@ export class MediaSelectorComponent implements OnInit {
       () => {
         //
       });
+  }
+
+  updateProgress(files, percentage) {
+    const index = _findIndex(this.cards, files);
+    this.cards[index]['pre'] = percentage;
+    console.log(this.cards);
   }
 
   /**
@@ -565,6 +573,7 @@ export class MediaSelectorComponent implements OnInit {
    * File Extension checker
    */
   checkFileType(fileName: string, fileType: string) {
+    console.log('checkFileType');
     return FilesHelper.fileType(fileName, fileType);
   }
 
