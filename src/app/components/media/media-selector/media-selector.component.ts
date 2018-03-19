@@ -491,6 +491,7 @@ export class MediaSelectorComponent implements OnInit {
    * Form Builder
    */
   createChannel(value: any) {
+    console.log(value);
 
     const accessVal = parseInt(this.channelPrivacy, 1);
 
@@ -506,6 +507,8 @@ export class MediaSelectorComponent implements OnInit {
       }
 
       this.saveChannel( channelObj );
+    }else {
+      this.toastr.warning('Please fill all required fields');
     }
   }
 
@@ -544,6 +547,8 @@ export class MediaSelectorComponent implements OnInit {
     this._store.select('profileTags')
       .first(profile => profile['channel_saved'] === true )
       .subscribe( data => {
+        this.channelForm.reset();
+        this.toastr.success('successfully created channel', 'Success!');
         this.loadChannel(this.handle);
       });
   }
