@@ -5,7 +5,7 @@
                 <div class="col-md-4 p-0">
                     <a class="c-text_lg o-add-media-channel__link" (click)="changeFrame(1)">
                         <div class="o-back-arrow">
-                            <img src="{{ baseUrl }}img/svg/back_arrow.svg" alt="">
+                            <img [src]="baseUrl + 'img/svg/back_arrow.svg'" alt="">
                         </div>
                     </a>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="c-form__group fill-grey-light">
                     <input class="c-form__input fpadding_l32 o-channel-input" [(ngModel)]="searchChannel" required="" placeholder="Search" type="text">
                     <span>
-                    <img src="{{ baseUrl }}img/svg/ico_search.svg" class="c-form__input--lefticon">
+                    <img [src]="baseUrl + 'img/svg/ico_search.svg'" class="c-form__input--lefticon">
                   </span>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                             <span class="o-channel-content__thumb" *ngFor="let media of channel?.media | slice:0:1">
                               <div class="emptyImage">
                                 <div *ngIf="media?.repoPath">
-                                  <img width="32" height="32" src="{{ getThumb(media?.repoPath, true) }}" alt="">
+                                  <img width="32" height="32" [src]="getThumb(media?.repoPath, true)">
                                 </div>
                               </div>
                             </span>
@@ -50,7 +50,7 @@
                               <p class="c-text_lg o-channel__font--color">{{ channel?.spotfeedName}}</p>
                             </span>
                             <span class="o-channel__private float_right">
-                              <img src="{{ baseUrl }}img/svg/ico_tick_white.svg" class="o-channel-private__img-tic">
+                              <img [src]="baseUrl + 'img/svg/ico_tick_white.svg'" class="o-channel-private__img-tic">
                             </span>
                           </span>
                         </label>
@@ -61,7 +61,7 @@
 
 
             <a class="o-create-channel__link" (click)="changeFrame(3)">
-                <span class="o-create-channel__ico"><img src="{{ baseUrl }}img/svg/ico_create-plus.svg" width="17"></span>
+                <span class="o-create-channel__ico"><img [src]="baseUrl + 'img/svg/ico_create-plus.svg'" width="17"></span>
                 <span class="o-create-channel__title">Create Channel</span>
             </a>
         </div>

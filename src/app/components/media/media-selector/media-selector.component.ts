@@ -222,7 +222,6 @@ export class MediaSelectorComponent implements OnInit {
       }
 
       if (this.postSuccessActive === true) {
-        this.toastr.success('Your media has been successfully posted to your channel', 'Upload');
         this.postSuccessActive = false; // job done
       }
 
@@ -477,14 +476,13 @@ export class MediaSelectorComponent implements OnInit {
       channelId: channelId,
       req: { media: req }
     };
-    // console.log('req body', req);
-    // console.log('Sucess Post');
+
     this._store.dispatch({ type: ProfileActions.POST_CHANNEL_MEDIA, payload: payload })
 
     this._store.select('profileTags')
       .first(media => media['media_channel_posted'] === true)
       .subscribe( data => {
-        // console.log('save success');
+        this.toastr.success('Your media has been successfully posted to your channel', 'Upload');
          this.router.navigate(['/channel/' + channelId]);
       });
   }
