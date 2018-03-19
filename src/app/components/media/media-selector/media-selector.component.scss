@@ -152,7 +152,7 @@
     margin: 0px auto;
     float: left;
     width: 100%;
-    // height: 145px;
+    height: 150px;
 }
 
 .o-add-post--textarea {
@@ -483,12 +483,12 @@
     }
 }
 
-.o-file_item:nth-child(6n+1) {
-    margin-left: 0px;
-    @include mq($from: $mobile_sm, $until: $desktop_sm) {
-        margin-left: 16px;
-    }
-}
+// .o-file_item:nth-child(6n+1) {
+//     margin-left: 0px;
+//     @include mq($from: $mobile_sm, $until: $desktop_sm) {
+//         margin-left: 16px;
+//     }
+// }
 
 .o-media-block {
     width: auto;
@@ -868,4 +868,36 @@ div#create-channel form {
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
         margin-top: 8px;
     }
+}
+
+// for progress bar
+.o-media-progress-main {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.o-media-progress__bar {
+    height: 6.4px;
+    width: 95%;
+    background-color: #C1C1C1;
+    position: relative;
+    border-radius: 5px;
+}
+
+.o-media-progress__value {
+    height: 6.4px;
+    width: 51.83px;
+    background-color: #FFFFFF;
+    position: absolute;
+    left: 0px;
+    border-radius: 5px;
 }
