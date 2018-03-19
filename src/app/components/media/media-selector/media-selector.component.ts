@@ -178,8 +178,8 @@ export class MediaSelectorComponent implements OnInit {
 
   ngOnInit() {
     console.log('Media');
-    // If there's input assign, other wise, reload channel list
-    // this.myChannels$.subscribe(event => this.channeListx = event);
+    this.uploadState = 1;
+
     this.myProfile$.subscribe(event => {
       if (typeof event !== 'undefined') {
         this.myProfileData = event;
@@ -266,9 +266,9 @@ export class MediaSelectorComponent implements OnInit {
         });
       }
       if (fileType === 'video') {
-        this.files[i]['preview'] = this.baseUrl + 'images-dev/T_F147F705_A379_4659_A396_F236D4F997B2/1a15284f-b1c6-403c-a2c9-e3b3e535999b.png';
+        this.files[i]['preview'] = this.baseUrl + 'img/svg/video_thumb.png';
       }else {
-        this.files[i]['preview'] = this.baseUrl + 'images-dev/T_F147F705_A379_4659_A396_F236D4F997B2/36158798-f92b-4a30-b47d-cb0f9d203a31.png';
+        this.files[i]['preview'] = this.baseUrl + 'img/svg/audio_thumb.png';
       }
       const createdate = new Date().getTime().toString();
       this.files[i]['createDate'] = createdate;
@@ -278,14 +278,6 @@ export class MediaSelectorComponent implements OnInit {
     }
 
     this.previewUrl = uploadsList;
-
-    // this.tagState$.subscribe((state) => {
-    // if (this.handle && this.handle !== '') {
-    //   this.uploadStatus = 2;
-
-    // } else {
-    //   this.uploadStatus = 0;
-    // }
   }
 
 
@@ -483,7 +475,7 @@ export class MediaSelectorComponent implements OnInit {
       .first(media => media['media_channel_posted'] === true)
       .subscribe( data => {
         this.toastr.success('Your media has been successfully posted to your channel', 'Upload');
-         this.router.navigate(['/channel/' + channelId]);
+        this.router.navigate(['/channel/' + channelId]);
       });
   }
 
@@ -491,10 +483,6 @@ export class MediaSelectorComponent implements OnInit {
    * Form Builder
    */
   createChannel(value: any) {
-    console.log(value);
-
-    const accessVal = parseInt(this.channelPrivacy, 1);
-
     if ( this.channelForm.valid === true ) {
       const channelObj = {
         name: value.title,
@@ -586,7 +574,6 @@ export class MediaSelectorComponent implements OnInit {
    * File Extension checker
    */
   checkFileType(fileName: string, fileType: string) {
-    console.log('checkFileType');
     return FilesHelper.fileType(fileName, fileType);
   }
 
