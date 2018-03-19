@@ -177,7 +177,8 @@ export class MediaSelectorComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Media');
+    // console.log('Media');
+    console.log(this.uploadState);
     this.uploadState = 1;
 
     this.myProfile$.subscribe(event => {
@@ -303,10 +304,12 @@ export class MediaSelectorComponent implements OnInit {
         }else {
           // console.log('Finished ', userHandle);
           if (event.data) {
-
             // @TODO__URGENT Make list appendable for files
             const latestUploaded = event.data['SUCCESS'];
-            console.log('file upload success', latestUploaded);
+            if (latestUploaded) {
+              this.fileUploadDone(files, latestUploaded[0]['repoPath']);
+            }
+            // this.cards['repoPath'] = latestUploaded.repoPath;            ;
             this.addToUploads(latestUploaded);
 
             this.uploadStatus = 0;
@@ -324,7 +327,11 @@ export class MediaSelectorComponent implements OnInit {
   updateProgress(files, percentage) {
     const index = _findIndex(this.cards, files);
     this.cards[index]['pre'] = percentage;
-    // console.log(this.cards);
+  }
+
+  fileUploadDone(files, percentage) {
+    const index = _findIndex(this.cards, files);
+    this.cards[index]['repoPath'] = percentage;
   }
 
   /**
@@ -373,9 +380,6 @@ export class MediaSelectorComponent implements OnInit {
    * @param formValue
    */
   postAllMedia(value) {
-    // console.log('post all media');
-    // console.log(value);
-
     let isReady = false;
     let userHandle = '';
 
@@ -748,6 +752,7 @@ export class MediaSelectorComponent implements OnInit {
     const newArray = flatten([nowUploads, cleanedList]);
 
     this.uploadedFiles = newArray;
+    console.log(this.uploadedFiles);
   }
 
   /**
@@ -757,6 +762,10 @@ export class MediaSelectorComponent implements OnInit {
   removeFile(file: any) {
     this.cards = _remove(this.cards, function(n){
       return n.name !== file.name;
+    });
+
+    this.uploadedFiles = _remove(this.uploadedFiles, function(n){
+      return n.repoPath !== file.repoPath;
     });
   }
 
