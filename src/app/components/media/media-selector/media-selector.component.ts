@@ -260,14 +260,24 @@ export class MediaSelectorComponent implements OnInit {
 
     const uploadsList = [];
     for (let i = 0; i < files.length; i++) {
-      this.createPreViewImg(files[i], (url) => {
-        this.files[i]['preview'] = url;
-      });
+      const fileType = this.getFileType(files[i].name);
+      if (fileType === 'image') {
+        this.createPreViewImg(files[i], (url) => {
+          this.files[i]['preview'] = url;
+        });
+      }
+      if (fileType === 'video') {
+        this.files[i]['preview'] = this.baseUrl + 'images-dev/T_F147F705_A379_4659_A396_F236D4F997B2/1a15284f-b1c6-403c-a2c9-e3b3e535999b.png';
+      }else {
+        this.files[i]['preview'] = this.baseUrl + 'images-dev/T_F147F705_A379_4659_A396_F236D4F997B2/36158798-f92b-4a30-b47d-cb0f9d203a31.png';
+      }
       const createdate = new Date().getTime().toString();
       this.files[i]['createDate'] = createdate;
+      this.files[i]['fileType'] = fileType;
       this.cards.push(files[i]);
       this.uploadFile(files[i], this.token, userHandle);
     }
+
     this.previewUrl = uploadsList;
 
     // this.tagState$.subscribe((state) => {
@@ -296,7 +306,7 @@ export class MediaSelectorComponent implements OnInit {
     }).subscribe(
       (event: UploadEvent) => {
         if (event.status === UploadStatus.Uploading) {
-          console.log(event.percent);
+          // console.log(event.percent);
           this.updateProgress(files, event.percent)
 
         }else {
@@ -323,7 +333,7 @@ export class MediaSelectorComponent implements OnInit {
   updateProgress(files, percentage) {
     const index = _findIndex(this.cards, files);
     this.cards[index]['pre'] = percentage;
-    console.log(this.cards);
+    // console.log(this.cards);
   }
 
   /**
@@ -616,15 +626,12 @@ export class MediaSelectorComponent implements OnInit {
    * Format File to Model
    */
   formatFile(file: any) {
-    console.log(file);
-    console.log(file.fileName);
     const fileType = this.getFileType(file.fileName)
     const leFile: UploadItem = {
       fileName: file.fileName,
       repoPath: file.repoPath,
       type: fileType
     };
-    console.log(leFile);
     return leFile;
   }
 
@@ -647,7 +654,6 @@ export class MediaSelectorComponent implements OnInit {
      */
     const eventName = this.eventName;
     if (eventName) {
-      console.log('e', eventName);
       tag.push(eventName);
       isDwcThing = 2;
     }
