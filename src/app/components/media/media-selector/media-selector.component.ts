@@ -497,12 +497,12 @@ export class MediaSelectorComponent implements OnInit {
     if ( this.channelForm.valid === true ) {
       const channelObj = {
         name: value.title,
-        access: Number(this.channelPrivacy),
         description: value.desc,
         superType: 'channel',
-        accessSettings : { access : 1 },
+        access: Number(value.privacy),
+        accessSettings : { access : Number(value.privacy) },
         owner: this.handle,
-        industryList: [ 'DANCE'] /** @TODO - To be removed! */
+        industryList: [value.type]
       }
 
       this.saveChannel( channelObj );

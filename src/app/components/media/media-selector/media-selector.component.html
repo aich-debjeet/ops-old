@@ -186,17 +186,17 @@
                                 <div class="channel-industry__block ">
                                     <div class="c-form__group">
                                         <select formControlName="type" class="c-form-control p-0" id="sel1">
-                            <option selected="selected">Industry</option>
-                            <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
-                        </select>
+                                            <option value="" disabled="true" [selected]="!selectedIndustry">Select Industry</option>
+                                            <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="channel-public__block p-0">
                                     <div class="c-form__group">
                                         <select formControlName="privacy" class="c-form-control p-0" id="sel1">
-                            <option value="0">Public</option>
-                            <option value="1">Private</option>
-                        </select>
+                                            <option value="0">Public</option>
+                                            <option value="1">Private</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-12 p-0 text-right m-t-32">
