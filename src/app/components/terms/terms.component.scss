@@ -1,0 +1,56 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_functions.scss';
+@import './src/assets/scss/helpers/_mixins.scss';
+@import '~sass-mq/_mq.scss';
+.terms_and_condition {
+    background-color: #ffffff;
+    margin: 0 16px;
+    padding: 16px;
+}
+.terms_txt{
+        padding: 16px;
+        @include mq($from: $mobile_sm, $until: $desktop_sm) {
+            width: 95%;
+        }
+
+        p, ul, li, ol {
+            color: #333333;
+            font-size: 12px;
+            line-height: 20px;
+            font-weight: 500;
+            margin : 12px 0;
+        }
+        ol {
+            margin-left: 24px;
+        }
+        ul {
+            margin-left: 16px;
+        }
+        a {
+            color: #333;
+            font-weight: 600;
+        }
+        strong {
+            font-weight: 600;
+        }
+        .sub_head{
+            color:#979797;
+        }
+    }
+
+// terms and condition popup style
+
+.tc_h3 {
+    font-size: 26px;
+    color: #333;
+}
+.tc_h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+.tc_h5 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333
+}

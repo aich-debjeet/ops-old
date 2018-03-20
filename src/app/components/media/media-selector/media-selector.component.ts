@@ -22,8 +22,9 @@ import { TokenService } from '../../../helpers/token.service';
 import { ToastrService } from 'ngx-toastr';
 
 import * as fromRoot from '../../../../app/app.reducer';
+import { SafeUrl } from '@angular/platform-browser';
 
-import { remove as _remove, merge as _merge, uniqBy as _uniqBy, flatten } from 'lodash';
+import { remove as _remove, merge as _merge, uniqBy as _uniqBy, flatten, findIndex as _findIndex } from 'lodash';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -95,6 +96,8 @@ export class MediaSelectorComponent implements OnInit {
   // Upload States 1 = normal, 2 = select channel, 3 = create channel
 
 
+  cards = [];
+
   // Form Values
   mediaPrivacy: number;
   license: string;
@@ -105,6 +108,7 @@ export class MediaSelectorComponent implements OnInit {
   channelDesc: string;
   channelSaved: boolean;
   eventName: string;
+  previewUrl: any[];
 
   constructor(
     private Upload: NgxfUploaderService,
@@ -113,10 +117,9 @@ export class MediaSelectorComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
-    private profileStore: Store<ProfileModal>,
-    private store: Store<Media>,
-    private _store: Store<fromRoot.State>,
+    private _store: Store<any>,
     private http: Http) {
+      this.cards = [];
 
       this.hasFiles = false;
       this.editingFile = new UploadItem;
@@ -156,9 +159,16 @@ export class MediaSelectorComponent implements OnInit {
       this.handle = '';
 
       this.myProfile$ = _store.select('profileTags').take(3);
-      this.profileState$ = this.profileStore.select('profileTags');
+      //Subscribe to current user object
+    this.myProfile$.subscribe(event => {
+      this.myProfileData = event;
+      if (event.profile_navigation_details && event.profile_navigation_details.handle) {
+        this.handle = event.profile_navigation_details.handle;
+      }
+    });
+      this.profileState$ = _store.select('profileTags');
 
-      this.loginTagState$ = store.select('loginTags');
+      this.loginTagState$ = _store.select('loginTags');
       this.loginTagState$.subscribe((state) => {
         if (typeof state !== 'undefined') {
           this.industries = state.industries;
@@ -167,8 +177,10 @@ export class MediaSelectorComponent implements OnInit {
   }
 
   ngOnInit() {
-    // If there's input assign, other wise, reload channel list
-    // this.myChannels$.subscribe(event => this.channeListx = event);
+    // console.log('Media');
+    console.log(this.uploadState);
+    this.uploadState = 1;
+
     this.myProfile$.subscribe(event => {
       if (typeof event !== 'undefined') {
         this.myProfileData = event;
@@ -181,16 +193,7 @@ export class MediaSelectorComponent implements OnInit {
           this.handle = event.profile_cards.active.handle;
           isUserReady = true;
           this.loadChannel(this.handle);
-        } else {
-          // console.log('[x]');
         }
-
-        // Check if it has query params
-        this.route.queryParams
-        .filter(params => params.event)
-        .subscribe(params => {
-          this.eventName = params.event;
-        });
       }
     });
 
@@ -220,7 +223,6 @@ export class MediaSelectorComponent implements OnInit {
       }
 
       if (this.postSuccessActive === true) {
-        this.toastr.success('Your media has been successfully posted to your channel', 'Upload');
         this.postSuccessActive = false; // job done
       }
 
@@ -237,18 +239,99 @@ export class MediaSelectorComponent implements OnInit {
 
   }
 
+
   /**
-   * Get thumb image
+   * Multiple File Upload
+   * @param files
    */
-  getThumb(src: string, showThumb: boolean = false) {
-    const basePath = this.baseUrl;
-    const patt1 = /\.([0-9a-z]+)(?:[\?#]|$)/i;
-    const m3 = (src).match(patt1);
-    if (showThumb === true) {
-      return basePath + src.replace(m3[0], '_thumb_250.jpeg');
-    } else {
-      return basePath + src;
+  uploadFileList(files: File[]): void {
+    if (!(files instanceof Array)) {
+      this.alertError(files);
+      return;
     }
+
+    const filesList = [];
+    const userHandle = this.handle;
+
+    if (files.length > 0) {
+      this.hasFiles = true
+      this.files = files;
+    }
+
+    const uploadsList = [];
+    for (let i = 0; i < files.length; i++) {
+      const fileType = this.getFileType(files[i].name);
+      if (fileType === 'image') {
+        this.createPreViewImg(files[i], (url) => {
+          this.files[i]['preview'] = url;
+        });
+      }
+      if (fileType === 'video') {
+        this.files[i]['preview'] = this.baseUrl + 'img/svg/video_thumb.png';
+      }else {
+        this.files[i]['preview'] = this.baseUrl + 'img/svg/audio_thumb.png';
+      }
+      const createdate = new Date().getTime().toString();
+      this.files[i]['createDate'] = createdate;
+      this.files[i]['fileType'] = fileType;
+      this.cards.push(files[i]);
+      this.uploadFile(files[i], this.token, userHandle);
+    }
+
+    this.previewUrl = uploadsList;
+  }
+
+
+  /**
+   * Send file to file heaven
+   * @param files
+   * @param token
+   * @param userHandle
+   */
+  uploadFile(files: any, token: string, userHandle: string) {
+    this.Upload.upload({
+      url: base,
+      headers: { Authorization: 'Bearer ' + this.token },
+      params: { handle: userHandle },
+      files: files,
+      process: true
+    }).subscribe(
+      (event: UploadEvent) => {
+        if (event.status === UploadStatus.Uploading) {
+          // console.log(event.percent);
+          this.updateProgress(files, event.percent)
+
+        }else {
+          // console.log('Finished ', userHandle);
+          if (event.data) {
+            // @TODO__URGENT Make list appendable for files
+            const latestUploaded = event.data['SUCCESS'];
+            if (latestUploaded) {
+              this.fileUploadDone(files, latestUploaded[0]['repoPath']);
+            }
+            // this.cards['repoPath'] = latestUploaded.repoPath;            ;
+            this.addToUploads(latestUploaded);
+
+            this.uploadStatus = 0;
+          }
+        }
+      },
+      (err) => {
+        //
+      },
+      () => {
+        //
+      });
+  }
+
+  updateProgress(files, percentage) {
+    const index = _findIndex(this.cards, files);
+    this.cards[index]['pre'] = percentage;
+  }
+
+  fileUploadDone(files, percentage) {
+    const index = _findIndex(this.cards, files);
+    this.cards[index]['repoPath'] = percentage;
   }
 
   /**
@@ -288,25 +371,15 @@ export class MediaSelectorComponent implements OnInit {
    * Load Channel
    */
   loadChannel(handle: string) {
-    this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
+    this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
   }
 
-  /**
-   * Media Upload Multiple
-   */
-  mediaInfoUpdateAll(value: any) {
-    // console.log(value);
-    // console.log(this.uploaded);
-  }
 
   /**
    * Post all medias at once
    * @param formValue
    */
   postAllMedia(value) {
-    // console.log('post all media');
-    // console.log(value);
-
     let isReady = false;
     let userHandle = '';
 
@@ -382,43 +455,6 @@ export class MediaSelectorComponent implements OnInit {
     }
   }
 
-  /**
-   * Media Info Update
-   */
-  mediaInfoUpdate(formValue: any) {
-    // console.log('media upload');
-    // console.log('formVlaue', formValue);
-    // const mediaType = this.getFileType(this.editingFile.fileName);
-    // const postTime = this.currentTime();
-    // const isUploadReady = this.uploadMeta();
-
-    // let userHandle;
-    // if (this.profileChannel.profile_loaded === true ) {
-    //   userHandle = this.profileChannel.profile_navigation_details.handle;
-    // }
-
-    // if ( isUploadReady ) {
-    //   const formData = formValue;
-    //   const chosenChannel = this.chosenChannel;
-    //   const chosenFile = this.editingFile;
-
-    //   // Build Media Object
-    //   const mediaItem = this.formatMedia( chosenFile, formData, chosenChannel, userHandle, formValue.privacy);
-    //   const media = [ mediaItem ];
-
-    //   // Action!!
-    //   this.postMediaToChannel(this.chosenChannel.spotfeedId, media);
-    // } else {
-    //   console.log('FORM SUBMITTION ERROR');
-    // }
-  }
-
-  /**
-   * Notification Wacther
-   */
-  notificationWatcher() {
-    //
-  }
 
   /**
    * currentTime
@@ -436,15 +472,14 @@ export class MediaSelectorComponent implements OnInit {
       channelId: channelId,
       req: { media: req }
     };
-    // console.log('req body', req);
-    // console.log('Sucess Post');
-    this.profileStore.dispatch({ type: ProfileActions.POST_CHANNEL_MEDIA, payload: payload })
+
+    this._store.dispatch({ type: ProfileActions.POST_CHANNEL_MEDIA, payload: payload })
 
     this._store.select('profileTags')
       .first(media => media['media_channel_posted'] === true)
       .subscribe( data => {
-        // console.log('save success');
-         this.router.navigate(['/channel/' + channelId]);
+        this.toastr.success('Your media has been successfully posted to your channel', 'Upload');
+        this.router.navigate(['/channel/' + channelId]);
       });
   }
 
@@ -452,21 +487,20 @@ export class MediaSelectorComponent implements OnInit {
    * Form Builder
    */
   createChannel(value: any) {
-
-    const accessVal = parseInt(this.channelPrivacy, 1);
-
     if ( this.channelForm.valid === true ) {
       const channelObj = {
         name: value.title,
-        access: Number(this.channelPrivacy),
         description: value.desc,
         superType: 'channel',
-        accessSettings : { access : 1 },
+        access: Number(value.privacy),
+        accessSettings : { access : Number(value.privacy) },
         owner: this.handle,
-        industryList: [ 'DANCE'] /** @TODO - To be removed! */
+        industryList: [value.type]
       }
 
       this.saveChannel( channelObj );
+    }else {
+      this.toastr.warning('Please fill all required fields');
     }
   }
 
@@ -500,11 +534,13 @@ export class MediaSelectorComponent implements OnInit {
    * Save Channel
    */
   saveChannel(req: any) {
-    this.profileStore.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: req });
+    this._store.dispatch({ type: ProfileActions.CHANNEL_SAVE, payload: req });
 
-    this.profileStore.select('profileTags')
+    this._store.select('profileTags')
       .first(profile => profile['channel_saved'] === true )
       .subscribe( data => {
+        this.channelForm.reset();
+        this.toastr.success('successfully created channel', 'Success!');
         this.loadChannel(this.handle);
       });
   }
@@ -537,31 +573,12 @@ export class MediaSelectorComponent implements OnInit {
     this.chosenChannel = channel;
   }
 
-  /**
-   * Helper classes
-   * @param file
-   */
-  isChosenChannel(channel: any) {
-    if (this.chosenChannel === 0) {
-      return false;
-    }else {
-      if (this.chosenChannel.spotfeedId === channel.spotfeedId) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  }
 
   /**
    * File Extension checker
    */
   checkFileType(fileName: string, fileType: string) {
     return FilesHelper.fileType(fileName, fileType);
-  }
-
-  checkEmpty(obj: Object) {
-    return Object.keys(obj).length === 0 && obj.constructor === Object;
   }
 
   /**
@@ -586,7 +603,6 @@ export class MediaSelectorComponent implements OnInit {
    */
   onChannelSelection(channel: any) {
     this.chosenChannel = channel;
-
     // do the post as well
   }
 
@@ -613,29 +629,6 @@ export class MediaSelectorComponent implements OnInit {
     return leFile;
   }
 
-  /**
-   * Array of tags splitted by comma
-   * @param tags
-   */
-  seperateTags(tags: any) {
-    const tagList = [];
-    if (tags) {
-
-      // If it has dwc, send an update to make it Active
-      for (const tag of tags) {
-
-        tagList.push(tag.value);
-      }
-    }
-    return tagList;
-  }
-
-  /**
-   * Send an Update
-   */
-  updateStatus(state: number) {
-    this.profileStore.dispatch({ type: ProfileActions.CHANGE_DWC_MEDIA_STATE, payload: state });
-  }
 
   /**
    * Extract Tag from Body
@@ -655,7 +648,6 @@ export class MediaSelectorComponent implements OnInit {
      */
     const eventName = this.eventName;
     if (eventName) {
-      console.log('e', eventName);
       tag.push(eventName);
       isDwcThing = 2;
     }
@@ -664,22 +656,13 @@ export class MediaSelectorComponent implements OnInit {
     const string = this.desc
     const results = string.match(REGEX_HASHTAG);
 
-    //  DWC Specific things
-    const dwcList = ['DWCIQHIPHOP', 'DWICIQCLASSICAL', 'DWICIQFOLK', 'DWCIQBALLET'];
 
     // const tag = [];
     if (results) {
       results.forEach(function(element) {
         const newVal = element.replace('#', '');
         tag.push(newVal);
-        if (newVal === 'dwc') {
-          isDwcThing = 2;
-        }
       });
-    }
-
-    if (isDwcThing >  1 ) {
-      this.updateStatus(3);
     }
 
     return tag
@@ -742,78 +725,16 @@ export class MediaSelectorComponent implements OnInit {
     }
   }
 
-  /**
-   * Multiple File Upload
-   * @param files
-   */
-  uploadFileList(files: File[]): void {
-    if (!(files instanceof Array)) {
-      this.alertError(files);
-      return;
-    }
 
-    // Subscribe to current user object
-    this.myProfile$.subscribe(event => {
-      this.myProfileData = event;
-      if (event.profile_navigation_details && event.profile_navigation_details.handle) {
-        this.handle = event.profile_navigation_details.handle;
-      }
-    });
+  createPreViewImg(file: File, callbake: Function) {
+    const reader = new FileReader();
 
-    const filesList = [];
-    const userHandle = this.handle;
-
-    if (files.length > 0) {
-      this.hasFiles = true
-      this.files = files;
-    }
-
-    // this.tagState$.subscribe((state) => {
-    if (this.handle && this.handle !== '') {
-      this.uploadStatus = 2;
-      this.uploadFile(files, this.token, userHandle)
-    } else {
-      this.uploadStatus = 0;
-    }
+    reader.onload = (e: any) => {
+      return callbake(e.target.result);
+    };
+    reader.readAsDataURL(file);
   }
 
-
-  /**
-   * Send file to file heaven
-   * @param files
-   * @param token
-   * @param userHandle
-   */
-  uploadFile(files: any, token: string, userHandle: string) {
-    this.Upload.upload({
-      url: base,
-      headers: { Authorization: 'Bearer ' + this.token },
-      params: { handle: userHandle },
-      files: files,
-      process: true
-    }).subscribe(
-      (event: UploadEvent) => {
-        if (event.status === UploadStatus.Uploading) {
-          this.status = event.percent;
-        }else {
-          // console.log('Finished ', userHandle);
-          if (event.data) {
-
-            // @TODO__URGENT Make list appendable for files
-            const latestUploaded = event.data['SUCCESS'];
-            this.addToUploads(latestUploaded);
-
-            this.uploadStatus = 0;
-          }
-        }
-      },
-      (err) => {
-        //
-      },
-      () => {
-        //
-      });
-  }
 
   /**
    * Push to Upload List
@@ -824,7 +745,6 @@ export class MediaSelectorComponent implements OnInit {
       const thisFile = this.formatFile(file);
       uploadsList.push(thisFile);
     }
-
     const cleanedList = _uniqBy(uploadsList, function (e) {
       return e.repoPath;
     });
@@ -832,6 +752,7 @@ export class MediaSelectorComponent implements OnInit {
     const newArray = flatten([nowUploads, cleanedList]);
 
     this.uploadedFiles = newArray;
+    console.log(this.uploadedFiles);
   }
 
   /**
@@ -839,8 +760,12 @@ export class MediaSelectorComponent implements OnInit {
    * @param file
    */
   removeFile(file: any) {
+    this.cards = _remove(this.cards, function(n){
+      return n.name !== file.name;
+    });
+
     this.uploadedFiles = _remove(this.uploadedFiles, function(n){
-      return n.fileName !== file.fileName;
+      return n.repoPath !== file.repoPath;
     });
   }
 
@@ -857,21 +782,6 @@ export class MediaSelectorComponent implements OnInit {
         alert('Type Error');
         break;
     }
-  }
-
-  /**
-   * Hide/Show Choose Channel
-   */
-  chooseChannelToggle() {
-    this.chooseChannelToggleState = !this.chooseChannelToggleState;
-  }
-
-  /**
-   * Expand the Channels Selector View
-   */
-  showChannelsList(isExpanded: any) {
-    // this.explandshowChannelsList = true;
-    this.uploadState = 2;
   }
 
   /**
@@ -897,19 +807,6 @@ export class MediaSelectorComponent implements OnInit {
       this.changeState(2);
     }
   }
-  /**
-   * Toggle Create Channel Form
-   */
-  channelButton() {
-    if (this.channelCreatebtn === true) {
-      this.channelCreatebtn = false;
-    }else {
-      this.channelCreatebtn = true;
-    }
-  }
 
-  choosePrivacy(value) {
-    this.channelPrivacy = value
-  }
 }
 

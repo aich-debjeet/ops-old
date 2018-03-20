@@ -28,7 +28,8 @@ import { PlannerComponent } from './components/planner/planner.component';
 import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
-import { DanceWorldCupComponent } from './components/dance-world-cup/dance-world-cup.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { TermsComponent } from './components/terms/terms.component';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -38,6 +39,8 @@ export const routes: Routes = [
 //  { path: '',  pathMatch: 'full', redirectTo: 'main-home'},
  { path: '', component: LogoutHomeComponent, canActivate: [AuthlogoutGuard] },
  { path: 'logout', component: LogoutComponent },
+ { path: 'privacy-policy', component: PrivacyPolicyComponent },
+ { path: 'terms', component: TermsComponent },
  { path: 'login', component: LoginComponent, canActivate: [AuthlogoutGuard] },
  { path: 'learn', component: LearnComponent, canActivate: [AuthGuard] },
  { path: 'channel/:id', component: ChannelInnerComponent, canActivate: [AuthGuard] },
@@ -67,7 +70,6 @@ export const routes: Routes = [
  { path: 'search', loadChildren: './components/search/search.module#SearchModule', canActivate: [AuthGuard] },
  { path: 'org', loadChildren: './components/organization/organization.module#OrganizationModule'},
  { path: 'opportunity', loadChildren: './components/opportunity/opportunity.module#OpportunityModule', canActivate: [AuthGuard] },
-//  { path: 'danceworldcup', component: DanceWorldCupComponent },
  { path: 'dwc', loadChildren: './components/dance-world-cup/dance-world-cup.module#DanceWorldCupModule'},
  { path: 'page-not-found', component: NotFoundPageComponent },
  { path: '**', redirectTo: 'page-not-found' },
