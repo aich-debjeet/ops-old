@@ -124,6 +124,9 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { PopularArtistsComponent } from './shared/popular-artists/popular-artists.component';
 import { NearestEventsComponent } from './shared/nearest-events/nearest-events.component';
 import { MediaComponent } from './components/media/media.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { TermsComponent } from './components/terms/terms.component';
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
   declarations: [
@@ -156,7 +159,10 @@ import { MediaComponent } from './components/media/media.component';
     PlannerComponent,
     NetworkComponent,
     ProjectComponent,
-    DirectoryListComponent
+    DirectoryListComponent,
+    PrivacyPolicyComponent,
+    TermsComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ops-app'}),

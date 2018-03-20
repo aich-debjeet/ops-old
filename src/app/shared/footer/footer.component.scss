@@ -3,11 +3,13 @@
 @import '~sass-mq/_mq.scss';
 
 .footer{
-  background: none!important;
-  padding: 24px 0px;
-  float: left;
-  width: 100%;
-  border-top: 1px solid rgba(102,45,145,0.1);
+    background: none!important;
+    padding: 24px 0px;
+    float: left;
+    width: 100%;
+    border-top: 1px solid rgba(102,45,145,0.1);
+    // bottom: 0;
+    // position: absolute;
 }
 .f-menu{
     list-style: none;
