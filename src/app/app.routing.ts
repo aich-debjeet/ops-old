@@ -29,6 +29,7 @@ import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { TermsComponent } from './components/terms/terms.component';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -39,6 +40,7 @@ export const routes: Routes = [
  { path: '', component: LogoutHomeComponent, canActivate: [AuthlogoutGuard] },
  { path: 'logout', component: LogoutComponent },
  { path: 'privacy-policy', component: PrivacyPolicyComponent },
+ { path: 'terms', component: TermsComponent },
  { path: 'login', component: LoginComponent, canActivate: [AuthlogoutGuard] },
  { path: 'learn', component: LearnComponent, canActivate: [AuthGuard] },
  { path: 'channel/:id', component: ChannelInnerComponent, canActivate: [AuthGuard] },
