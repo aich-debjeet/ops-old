@@ -89,7 +89,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     // observe the store value
     this.searchState$.subscribe((state) => {
       this.searchState = state;
-      console.log(this.searchState);
+      // console.log(this.searchState);
 
       // filtermap for reference
       if (this.searchState
@@ -102,7 +102,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
           // const key = prof['key'].toUppercase();
           this.selectedProfileFilters['profile'][prof[i]['key']] = prof[i]['value'];
         }
-        console.log('selectedProfileFilters', this.selectedProfileFilters);
+        // console.log('selectedProfileFilters', this.selectedProfileFilters);
       }
 
       // search filters local for reference
@@ -249,7 +249,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
           // this.scrollToTop(200);
 
           if (params.filters) {
-            console.log('filters', JSON.parse(decodeURIComponent(params.filters)));
+            // console.log('filters', JSON.parse(decodeURIComponent(params.filters)));
           }
 
           // check if search is global
@@ -364,6 +364,26 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
+  }
+
+  /**
+   * @param filterValue name of the filter to check
+   * @param filterType name of the parent filter
+   */
+  checkIfSelected(filterValue: string, filterType: string) {
+    if (filterType === 'post'
+    && this.searchState['search_all_params']['filtersMap']
+    && this.searchState['search_all_params']['filtersMap']['post']
+    && this.searchState['search_all_params']['filtersMap']['post'].length > 0) {
+      const fList = this.searchState['search_all_params']['filtersMap']['post'];
+      // console.log('filterValue', filterValue);
+      // console.log('fList', fList);
+      if (_.find(fList, { 'value': filterValue })) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 
 }
