@@ -43,6 +43,8 @@
             <!-- search filters -->
             <div *ngIf="searchType === 'all'" class="col-md-3 col-sm-4 col-xs-12 p-l-0 m-t--32">
                 <div class="o-search-left-block p-24">
+
+                    <p *ngIf="searchState?.searching_all && searchState?.searching_all === false && searchState?.searching_all_data && searchState?.searching_all_data?.channels && searchState?.searching_all_data?.channels.legth === 0 && searchState?.searching_all_data?.posts && searchState?.searching_all_data?.posts.legth === 0" >No filter applicable!</p>
                     
                     <!-- Profiles -->
                     <ng-container *ngIf="searchFilters?.profile">
@@ -95,7 +97,7 @@
                                         <ng-container *ngIf="filter?.name !== ''">
                                             <div class="form-check">
                                                 <label for="{{ channelElems?.title + filter?.name | strReplace:[' ', '_'] }}">{{ filter?.name }} 
-                                                    <input (change)="updateFilter($event)" id="{{ channelElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
+                                                    <input [checked]="checkIfSelected(filter?.name, 'channel')" (change)="channelFilterAction($event, channelElems?.title)" id="{{ channelElems?.title + filter?.name | strReplace:[' ', '_'] }}" type="checkbox" value="{{ filter?.name }}">
                                                 </label>
                                             </div>
                                         </ng-container>

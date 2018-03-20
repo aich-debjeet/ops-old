@@ -225,6 +225,33 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     this.searchGetRequest(params);
   }
 
+  // channel filter action
+  channelFilterAction(e: any, parentNode: string) {
+    if (e.target.checked && e.target.checked === true) {
+      const channelFilterOpt = { key: parentNode, value: e.target.value };
+      // check if object already available in the global filters
+      if (!_.find(this.globalFilter.channel, channelFilterOpt)) {
+        this.globalFilter.channel.push(channelFilterOpt);
+      }
+      // console.log('this.globalFilter.channel', this.globalFilter.channel);
+    } else {
+      // remove info from global filter
+      this.globalFilter.channel = _.remove(this.globalFilter.channel, function(obj) {
+        return !(obj.key === parentNode && obj.value === e.target.value);
+      });
+    }
+    // console.log('global filters status: ', this.globalFilter);
+    // preparing get query params for the search get request
+    const params = {
+      q: this.searchString,
+      type: this.searchType,
+      filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+    };
+
+    // trigger search get request
+    this.searchGetRequest(params);
+  }
+
   // update filter on checking on the filter elements
   updateFilter(e: any, parentNode: string) {
     // console.log(parentNode);
@@ -371,8 +398,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param filterType name of the parent filter
    */
   checkIfSelected(filterValue: string, filterType: string) {
-    if (filterType === 'post'
-    && this.searchState['search_all_params']['filtersMap']
+    if (this.searchState['search_all_params']['filtersMap']
     && this.searchState['search_all_params']['filtersMap']['post']
     && this.searchState['search_all_params']['filtersMap']['post'].length > 0) {
       const fList = this.searchState['search_all_params']['filtersMap']['post'];
