@@ -30,6 +30,7 @@ import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { TermsComponent } from './components/terms/terms.component';
+import { AboutComponent } from './components/about/about.component';
 
 // Guard
 import { AuthGuard } from './guard/auth.guard';
@@ -41,6 +42,7 @@ export const routes: Routes = [
  { path: 'logout', component: LogoutComponent },
  { path: 'privacy-policy', component: PrivacyPolicyComponent },
  { path: 'terms', component: TermsComponent },
+ { path: 'about', component: AboutComponent },
  { path: 'login', component: LoginComponent, canActivate: [AuthlogoutGuard] },
  { path: 'learn', component: LearnComponent, canActivate: [AuthGuard] },
  { path: 'channel/:id', component: ChannelInnerComponent, canActivate: [AuthGuard] },

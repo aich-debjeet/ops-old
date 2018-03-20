@@ -126,6 +126,7 @@ import { NearestEventsComponent } from './shared/nearest-events/nearest-events.c
 import { MediaComponent } from './components/media/media.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { TermsComponent } from './components/terms/terms.component';
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
   declarations: [
@@ -160,7 +161,8 @@ import { TermsComponent } from './components/terms/terms.component';
     ProjectComponent,
     DirectoryListComponent,
     PrivacyPolicyComponent,
-    TermsComponent
+    TermsComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ops-app'}),
