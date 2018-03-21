@@ -406,7 +406,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     this.store.select('loginTags').take(2).subscribe(data => {
         if (data['user_basic_reg_success'] === true ) {
           if (data && data['user_token']) {
-              localStorage.setItem('access_token', data['user_token']);
+             const token = {access_token: data['user_token']};
+              localStorage.setItem('currentUser', JSON.stringify(token));
           }
           this.modalService.open('otpWindow');
         }
