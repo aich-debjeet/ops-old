@@ -23,33 +23,12 @@ export class CommunitiesService {
       this.handle = this.api.getHandle();
     }
 
-  updateToken() {
-    this.headers = this.api.getHeaders();
-    this.handle = this.api.getHandle();
-  }
-
-  /**
-   * Get search result
-   * @param search request params
-   */
-  getAllSearchResult(params: any) {
-    return this.api.post('/portal/global/search', params);
-  }
-
   /**
    * Get people by search query
    * @param search query
    */
   getPeople(params: any) {
     return this.api.put('/portal/searchprofiles', params);
-  }
-
-  /**
-   * Get posts by search query
-   * @param search query
-   */
-  getPosts(params: any) {
-    return this.api.post('/portal/cdn/media/search', params);
   }
 
   /**
