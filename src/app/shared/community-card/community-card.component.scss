@@ -1,0 +1,142 @@
+
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_helpers.scss';
+@import './src/assets/scss/components/_cards.scss';
+@import './src/assets/scss/components/_dropdowns.scss';
+@import '~sass-mq/_mq.scss';
+// audio card media block style -----------------------------------------
+.c-card__media {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background-color: #f8f8f8;
+  }
+  .c-card__opportunity {
+    @extend .c-card__media;
+    height: 175px;
+  }
+  .c-card__opportunity--view {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 18px;
+    color: #FC6371;
+    text-transform: uppercase;
+    &:hover {
+      color: #FC6371;
+    }
+  }
+  .c-card__opportunity__details {
+   clear: both;
+   margin-bottom: 16px;
+   display: flex;
+   width: 100%;
+   float: left;
+  }
+  .c-card__opportunity__user{
+    display: flex;
+    margin: 0 16px;
+    padding: 8px 0;
+    // border-top: 1px solid #F3F5F7;  
+    // border-bottom: 1px solid #F3F5F7;  
+  }
+  .c-card__opportunity__username{
+    font-size: 13px;
+    color: #808080;
+        line-height: 24px;
+      margin-left: 8px;
+  }
+  .c-card__Communities--link {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 18px;
+    color: #FC6371;
+    text-transform: uppercase;
+    position: absolute;
+    right: 0px;
+    top: 4px;
+    &:hover {
+      color: #FC6371;
+    }
+  }
+  .c-comm__followers {
+    width: 100%;
+    position: relative;
+    display: flex;
+     margin-top: 8px;
+     float: left;
+  }
+  .c-card__image {
+    width: 100%;
+    vertical-align: middle;
+    outline: none;
+  }
+  
+  .c-card__icon {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    margin: 10px;
+    line-height: 0px;
+    width: 22px;
+    filter: drop-shadow(0px 0px 3px #222);
+  }
+  
+  // ------------------------------------
+  .c-card__media {
+    &:hover {
+        .c-media--hover {
+        display: block;
+      }
+    }
+  }
+  .c-media--hover {
+    width: 100%;
+    height: 52px;
+    display: none;
+    position: absolute;
+    transition: .25s;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000000 100%);
+    z-index: 3;
+    bottom: 0;
+    padding: 16px;
+  }
+  // ------------------------
+  .c-event__card {
+    width: 217px;
+    height: auto;
+    float: left;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
+    background-color: #ffffff;
+    overflow: hidden;
+    margin: 8px;
+    @include mq($from: $mobile_sm, $until: $tablet){
+      width: 96%;
+    }
+  }
+  
+  .c-card__event{
+    height: 111px;
+    overflow: hidden;
+    img{
+      width: 100%;
+    }
+  }
+  .c-card__event2{
+    height: 140px;
+    overflow: hidden;
+    img{
+      width: 100%;
+    }
+  }
+  .c-card__event-title{
+    height: 50px;
+  }
+  .c-card__event-address{
+    height: 40px;
+  }

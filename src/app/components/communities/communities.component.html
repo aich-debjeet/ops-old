@@ -113,72 +113,7 @@
         <!-- filter section end -->
         <div class="tab-content" style="margin-bottom: 18px; float: left">
             <div id="created" class="tab-pane fade  active in">
-                <div class="col-md-3 p-l-r-8 m-t-16">
-                    <div class="c-card">
-                        <!-- card media (img, video & audio) -->
-                        <div class="c-card__opportunity">
-                            <a href="" data-toggle="modal" data-target="#imgModal">
-                                <img src="https://ops-v2.netlify.com/assets/demo/article.jpg" alt="" class="c-card__image">
-                            </a>
-                        </div>
-                        <!-- //card media (img, video & audio) -->
-                        <!-- card body -->
-                        <div class="c-card__body">
-                            <div class="c-text__lg color-grey-darker">
-                                Impact of Extrinsic Motivation On Instrinsic Motivation
-                            </div>
-                        </div>
-                        <!-- //card body -->
-                        <!-- card footer links -->
-                        <div class="c-card__links p-t-0">
-                            <div class="c-comm__followers">
-                                <div class="c-followers__img">
-                                    <img class="c-user__image" src="assets/demo/avatar.jpg">
-                                </div>
-                                <div class="c-followers__img m-l--8">
-                                    <img class="c-user__image" src="assets/demo/avatar2.jpg">
-                                </div>
-                                <div class="c-followers__img m-l--8">
-                                    <img class="c-user__image" src="assets/demo/avatar.jpg">
-                                </div>
-                                <p class="c-followers__count">+78 Members</p>
-                            </div>
-                        </div>
-                        <!-- //card footer links -->
-                    </div>
-                </div>
-                <div class="col-md-3 p-l-r-8 m-t-16">
-                    <div class="c-card">
-                        <!-- card media (img, video & audio) -->
-                        <div class="c-card__opportunity">
-                            <a href="" data-toggle="modal" data-target="#imgModal">
-                            <img src="https://ops-v2.netlify.com/assets/demo/article.jpg" alt="" class="c-card__image">
-                        </a>
-                        </div>
-                        <!-- //card media (img, video & audio) -->
-                        <!-- card body -->
-                        <div class="c-card__body">
-                            <div class="c-text__lg color-grey-darker">
-                                Impact of Extrinsic Motivation On Instrinsic Motivation
-                            </div>
-                        </div>
-                        <div class="c-card__links p-t-0">
-                            <div class="c-comm__followers">
-                                <div class="c-followers__img">
-                                    <img class="c-user__image" src="assets/demo/avatar.jpg">
-                                </div>
-                                <div class="c-followers__img m-l--8">
-                                    <img class="c-user__image" src="assets/demo/avatar2.jpg">
-                                </div>
-                                <div class="c-followers__img m-l--8">
-                                    <img class="c-user__image" src="assets/demo/avatar.jpg">
-                                </div>
-                                <p class="c-followers__count">+78 Members</p>
-                            </div>
-                        </div>
-                        <!-- //card footer links -->
-                    </div>
-                </div>
+                    <app-community-card *ngFor="let number of [0,1,2,3,4,5,6,7,6,5,4]"></app-community-card>
             </div>
             <!-- Created end -->
         </div>
