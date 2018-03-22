@@ -1,0 +1,206 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import './src/assets/scss/helpers/_helpers.scss';
+@import './src/assets/scss/base/_base.scss';
+@import './src/assets/scss/components/_form.scss';
+@import './src/assets/scss/components/_tabs.scss';
+@import '~sass-mq/_mq.scss';
+/* ------------------------- community style --------------------------- */
+
+.o-community-top-block {
+    width: 100%;
+    height: 200px;
+    background-color: #fff;
+    float: left;
+    box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.1);
+    background: $color-theme;
+    background-size: cover;
+    margin-top: 3.5%;
+}
+
+// top text and search
+.o-community-search {
+    width: 564px;
+    margin: 0px auto;
+    background: #fff;
+    height: 46px;
+    border-radius: 3px;
+    box-shadow: 0 11px 4px 0 rgba(102, 45, 145, 0.1);
+    padding: 8px 16px;
+    @include mq($from: $mobile_sm, $until: $tablet){
+        width: 97%!important;
+        margin:0px 8px;
+    }
+}
+
+.o-community-search__input {
+    width: 400px;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 24px;
+    border: none;
+    float: left;
+    color: #333;
+    &:focus {
+        outline: none;
+    }
+    @include mq($from: $mobile_sm, $until: $tablet){
+        width: 90%!important;
+    }
+}
+
+.o-community-search__icon {
+    width: 19px;
+    height: 19px;
+    float: right;
+    margin-top: 8px;
+    svg {
+        width: 19px;
+    }
+}
+
+// tag
+.o-community-taglist {
+    width: 1020px;
+    margin: 0px auto 24px auto;
+    text-align: center;
+    height: 40px;
+    @include mq($from: $mobile_sm, $until: $desktop){
+        width: 100%!important;
+    }
+}
+
+// filter section
+.o-filter-list-block {
+    list-style: none;
+    float: right;
+}
+
+.o-filter-list__item {
+    list-style-type: none;
+    margin-right: 8px;
+    float: left;
+    margin: 0px 8px;
+}
+
+.o-filter-item__location {
+    width: 100%;
+    float: left;
+    padding-top: 5px;
+}
+
+.o-select-location__ico {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    padding-right: 8px;
+    float: left;
+}
+
+// filter icon
+.o-filter__fil-icon {
+    width: 17px;
+    padding-top: 8px;
+}
+
+// oppertunity card list block
+.o-community-list-block {
+    float: left;
+    width: 100%;
+    margin-top: -35px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg){
+        margin-top: 0px;
+    }
+}
+
+// tabs
+.o-community-tabs {
+    .nav-tabs>li>a {
+        font-size: 13px!important;
+        font-weight: 600!important;
+        text-align: left;
+        color: #929292;
+        background: transparent;
+        border: none;
+        text-transform: uppercase!important;
+        letter-spacing: 1px;
+    }
+}
+
+.o-c-tab-top-block{
+    margin: 0px 6px;
+    width: 99%;
+    float: left;
+    @include mq($from: $mobile_sm, $until: $tablet){
+        width: 98%!important;
+    }
+}
+
+// filter section
+
+.o-oppertunity-filter-sec{
+width: 100%;
+float: left;
+background: #fff;
+padding: 16px 24px;
+@include mq($from: $mobile_sm, $until: $mobile_lg){
+        padding:16px 10px;
+    }
+}
+.o-filter-list-block{
+    list-style: none;
+    float: right;
+    @include mq($from: $mobile_sm, $until: $desktop){
+        width: 100%;
+    }
+}
+.o-filter-list__item{
+    list-style-type: none;
+    margin-right: 8px;
+    float: left;
+    margin:0px 8px;
+}
+.o-filter-item__location{
+    width: 100%;
+    float: left;
+    padding-top: 5px;
+}
+.o-select-location__ico{
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    padding-right: 8px;
+    float: left;
+}
+
+// filter icon
+
+.o-filter__fil-icon{
+    width: 17px;
+    padding-top: 8px;
+}
+
+// oppertunity card list block
+
+.o-opportunity-list-block{
+    float: left;
+    width: 100%;
+    margin-top: -35px;
+}
+
+// tabs
+
+.o-opportunity-tabs {
+	.nav-tabs > li > a {
+    font-size: 13px!important;
+    font-weight: 600!important;
+    text-align: left;
+    color: #929292;
+    background: transparent;
+    border: none;
+    text-transform: uppercase!important;
+    letter-spacing: 1px;
+    @include mq($from: $mobile_sm, $until: $tablet){
+			font-size: 11px!important;
+		}
+  }
+}
