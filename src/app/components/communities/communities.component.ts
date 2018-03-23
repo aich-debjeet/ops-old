@@ -11,7 +11,6 @@ export class CommunitiesComponent implements OnInit {
   comingsoon: any;
   basePath = environment.API_IMAGE;
   constructor() {
-
   }
 
   ngOnInit() {

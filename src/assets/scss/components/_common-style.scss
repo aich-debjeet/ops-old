@@ -1,0 +1,226 @@
+// common style (application css) ----------------------------------------------------
+.c-skill__tags {
+    color: #333333;
+    font-size: 11px;
+    line-height: 15px;
+    cursor: pointer;
+    margin-right: 4px;
+}
+.c-skill__tags2 {
+    color: #747474;
+    font-size: 11px;
+    line-height: 15px;
+    cursor: pointer;
+    margin-right: 4px;
+}
+
+.c-background__white {
+    background-color: #ffffff;
+}
+
+.c-invite__sec {
+    height: 206px;
+    overflow-y: scroll;
+    padding-right: 8px;
+    margin: 0 8px 16px 16px;
+}
+
+.c-follow__sec {
+    padding-right: 8px;
+    margin: 0 8px 16px 16px;
+    height: 350px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.c-follow__seeall {
+    color: #FC6371;
+    font-size: 11px;
+    letter-spacing: 1px;
+    line-height: 15px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.c-invite__block {
+    margin-bottom: 16px;
+    margin-top: 8px;
+}
+
+.c-skill_active {
+    background-color: #F3F5F7;
+}
+
+.c-skill_act-tick {
+    img {
+        width: 16px;
+        height: 16px;
+        margin-top: 9px;
+        position: absolute;
+        right: 22px;
+    }
+}
+
+.c-avatar--invite {
+    width: 32px;
+    height: 32px;
+}
+
+.c-invite--user {
+    line-height: 34px;
+    padding: 8px;
+}
+
+.c-invite--btn {
+    float: right;
+    line-height: 30px;
+}
+
+.c-invite--search {
+    margin: 0 16px;
+    background-color: #F3F5F7;
+    border-radius: 3px;
+    .c-form__input {
+        border-color: transparent;
+    }
+}
+
+.c-org--seemore {
+    float: right;
+    color: $color-theme;
+    line-height: $line-height-25;
+    &:hover {
+        color: $color-theme-dark;
+    }
+}
+
+.c-invite__products {
+    border-radius: 3px;
+    height: 150px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.c-org__contact--img {
+    width: 12px;
+    vertical-align: middle;
+}
+
+// ===
+.c-profile__popup {
+    width: 274px;
+    border-radius: 3px;
+    background-color: #FFFFFF;
+    box-shadow: 0 22px 30px 0 rgba(51, 51, 51, 0.26);
+    position: relative;
+    float: left;
+}
+
+.c-popup__timeline {
+    width: 100%;
+    height: 94px;
+    overflow: hidden;
+}
+
+.c-popup__userimg {
+    width: 64px;
+    height: 64px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    border: 2px solid #FFFFFF;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+}
+
+.c-popup__follow {
+    color: #929292;
+    font-size: 11px;
+    line-height: 18px;
+    display: inline-block;
+    padding-right: 12px;
+}
+
+// image gallery block style ----------------------------------------------------
+.c-card__gallery {
+    height: 254px;
+    overflow-y: scroll;
+    margin: 0 4px;
+}
+
+.c-gallery__block {
+    width: 31%;
+    height: 80px;
+    float: left;
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 2px;
+    background-color: #f8f8f8;
+}
+
+.c-gallery_img {
+    width: 100%
+}
+
+// card header ----------------------------
+.c-card__header {
+    color: #333333;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 19px;
+    text-transform: uppercase;
+    padding: 16px;
+}
+
+// ----------------------------
+// panel style
+.panel-default>.panel-heading {
+    color: #333333;
+    background-color: $white;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 16px 24px;
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        padding: 10px;
+        font-size: 12px;
+    }
+    span {
+        float: right;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        a {
+            color: #979797;
+        }
+    }
+}
+
+.panel-default {
+    border-radius: 3px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.15);
+    border: none;
+}
+
+.panel-group {
+    margin-bottom: 0;
+}
+// scroolbar style ----------------------------------------------------
+#ops_scrollbar::-webkit-scrollbar-track {
+    background-color: #e5e5e5;
+    border-radius: 5px;
+}
+
+#ops_scrollbar::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 50px;
+    background-color: #F3F5F7;
+}
+
+#ops_scrollbar::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 50px;
+}
