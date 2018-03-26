@@ -44,6 +44,14 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       return Object.assign({}, state, {
         mark_as_read_success: false
       });
+      
+
+    case NotificationActions.ADD_PUSHER_NOTIFICATIONS:
+      let updated_push_notifications = [...state.recieved_notifications, ...payload];
+      return Object.assign({}, state, {
+        recieved_notifications: updated_push_notifications,
+        recieved_notifications_success: true
+      });
 
     default:
       return state;

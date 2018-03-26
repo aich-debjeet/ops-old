@@ -35,7 +35,7 @@ export class NotificationService {
    */
   getNotifications() {
     this.updateToken();
-    this.pageNumber ++;
+    // this.pageNumber ++;
     const pagination = this.paginate(this.pageNumber);
     return this.api.get('/portal/network/notification/getAllNotification/' + pagination.offset + '/' + pagination.limit);
   }
@@ -53,6 +53,7 @@ export class NotificationService {
    * @param page number
    */
   paginate(page: number) {
+    console.log('page',page)
     let beginItem: number;
     let endItem: number;
     let itemsPerPage = 10;
@@ -60,6 +61,7 @@ export class NotificationService {
         beginItem = 0;
     } else {
         beginItem = (page + 1) * itemsPerPage;
+        console.log('beginItem', beginItem)
     } return {
         offset: beginItem, limit: itemsPerPage
     }

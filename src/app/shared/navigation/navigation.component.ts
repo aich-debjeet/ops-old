@@ -20,6 +20,7 @@ import { _ } from 'lodash';
 import { GeneralUtilities } from '../../helpers/general.utils';
 import { Profile } from 'selenium-webdriver/firefox';
 import { AuthActions } from 'app/actions/auth.action';
+import { PusherService } from '../../services/pusher.service';
 
 @Component({
   selector: 'app-navigation',
@@ -59,7 +60,8 @@ export class NavigationComponent implements OnInit {
     private renderer: Renderer,
     public generalHelper: GeneralUtilities,
     private localStorageService: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private pusherService: PusherService
   ) {
 
     this.topNav = {
@@ -112,6 +114,19 @@ export class NavigationComponent implements OnInit {
       this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     }
 
+    this.notificationsState$.subscribe((state) => {
+      if (typeof state !== 'undefined') {
+        if (typeof state['recieved_notifications'] !== 'undefined') {
+          this.notifications = state['recieved_notifications'];
+          this.processNotifications();
+        }
+        if (typeof state['marking_as_read_response'] !== 'undefined') {
+          // upadte notification as marked
+          this.updateNotifications();
+        }
+      }
+    });
+
   }
 
   /**
@@ -122,23 +137,23 @@ export class NavigationComponent implements OnInit {
   }
 
   notificationPopup() {
-      this.notificationStore.dispatch({
-        type: NotificationActions.LOAD_NOTIFICATIONS,
-        payload: null
-      });
+      // this.notificationStore.dispatch({
+      //   type: NotificationActions.LOAD_NOTIFICATIONS,
+      //   payload: null
+      // });
       // observe the store value
-      this.notificationsState$.subscribe((state) => {
-        if (typeof state !== 'undefined') {
-          if (typeof state['recieved_notifications'] !== 'undefined') {
-            this.notifications = state['recieved_notifications'];
-            this.processNotifications();
-          }
-          if (typeof state['marking_as_read_response'] !== 'undefined') {
-            // upadte notification as marked
-            this.updateNotifications();
-          }
-        }
-      });
+      // this.notificationsState$.subscribe((state) => {
+      //   if (typeof state !== 'undefined') {
+      //     if (typeof state['recieved_notifications'] !== 'undefined') {
+      //       this.notifications = state['recieved_notifications'];
+      //       this.processNotifications();
+      //     }
+      //     if (typeof state['marking_as_read_response'] !== 'undefined') {
+      //       // upadte notification as marked
+      //       this.updateNotifications();
+      //     }
+      //   }
+      // });
   }
   /**
    * Create channel
@@ -158,6 +173,32 @@ export class NavigationComponent implements OnInit {
    * On init
    */
   ngOnInit() {
+    this.notificationStore.dispatch({
+      type: NotificationActions.LOAD_NOTIFICATIONS,
+      payload: null
+    });
+    this.pusherService.messagesChannel.bind('Media-Spot', (message) => {
+      // this.messages.push(message);
+      console.log(message)
+      // const payload = JSON.parse(message)
+      this.notificationStore.dispatch({
+        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+        payload: JSON.parse(message)
+      });
+      // this.notificationsState$.subscribe((state) => {
+      //   if (typeof state !== 'undefined') {
+      //     if (typeof state['recieved_notifications'] !== 'undefined') {
+      //       this.notifications = state['recieved_notifications'];
+      //       this.processNotifications();
+      //     }
+      //     if (typeof state['marking_as_read_response'] !== 'undefined') {
+      //       // upadte notification as marked
+      //       this.updateNotifications();
+      //     }
+      //   }
+      // });
+
+    });
     document.body.scrollTop = 0;
     // check if on org page
     // const activeRoute = this.router.url;
@@ -176,7 +217,7 @@ export class NavigationComponent implements OnInit {
     .subscribe( data => {
       this.isProfileSet = true;
     });
-
+    
   }
 
   toggleNav(name: string) {
