@@ -33,11 +33,12 @@ export class NotificationService {
    * Get notifications
    * @param req
    */
-  getNotifications() {
+  getNotifications(data) {
+    console.log(data)
     this.updateToken();
     // this.pageNumber ++;
-    const pagination = this.paginate(this.pageNumber);
-    return this.api.get('/portal/network/notification/getAllNotification/' + pagination.offset + '/' + pagination.limit);
+    //const pagination = this.paginate(this.pageNumber);
+    return this.api.get('/portal/network/notification/getAllNotification/' + data.offset + '/' + data.limit);
   }
 
   /**

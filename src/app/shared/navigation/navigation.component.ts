@@ -42,6 +42,10 @@ export class NavigationComponent implements OnInit {
   profile_details: any;
   showCreateOrg = false;
   redirectedToCreatedOrg = false;
+  notify = false;
+  scrolling = 0;
+  scrollingLoad = 100;
+  page_start = 1;
 
   // userCard: UserCard;
   userCards: ProfileCards;
@@ -116,6 +120,9 @@ export class NavigationComponent implements OnInit {
 
     this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
+        // if(typeof state['recieved_pushed_notifications_success']){
+            
+        // }
         if (typeof state['recieved_notifications'] !== 'undefined') {
           this.notifications = state['recieved_notifications'];
           this.processNotifications();
@@ -137,6 +144,9 @@ export class NavigationComponent implements OnInit {
   }
 
   notificationPopup() {
+    if (this.notify) {
+      this.notify = false;
+    }
       // this.notificationStore.dispatch({
       //   type: NotificationActions.LOAD_NOTIFICATIONS,
       //   payload: null
@@ -175,10 +185,14 @@ export class NavigationComponent implements OnInit {
   ngOnInit() {
     this.notificationStore.dispatch({
       type: NotificationActions.LOAD_NOTIFICATIONS,
-      payload: null
+      payload: {
+        limit: 10,
+        offset: 0        
+      }
     });
     this.pusherService.messagesChannel.bind('Media-Spot', (message) => {
       // this.messages.push(message);
+      this.notify = true;
       console.log(message)
       // const payload = JSON.parse(message)
       this.notificationStore.dispatch({
@@ -334,4 +348,24 @@ export class NavigationComponent implements OnInit {
     this.store.dispatch({ type: AuthActions.USER_LOGOUT, payload: ''});
   }
 
+  onScroll(e) {
+    this.scrolling = e.currentScrollPosition;
+    console.log(this.scrolling)
+    let beginItem : number;
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 50
+      console.log(this.page_start)
+       beginItem = ((this.page_start *10) + 1);
+      // this.page_end = 10;
+      const body = {
+        limit: 10,
+        offset: beginItem,
+      }
+      this.notificationStore.dispatch({
+        type: NotificationActions.LOAD_NOTIFICATIONS,
+        payload: body
+      });
+      this.page_start ++;
+    }
+  }
 }
