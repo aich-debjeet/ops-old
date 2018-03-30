@@ -17,7 +17,7 @@ export class NotificationEffect {
   notifications$ = this.actions$
     .ofType(NotificationActions.LOAD_NOTIFICATIONS)
     .map(toPayload)
-    .switchMap((payload) => this.apiService.getNotifications(payload)
+    .switchMap((payload) => this.apiService.getNotifications()
       .map(res => ({ type: NotificationActions.LOAD_NOTIFICATIONS_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: NotificationActions.LOAD_NOTIFICATIONS_FAILED, payload: res }))
     );

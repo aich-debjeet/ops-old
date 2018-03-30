@@ -38,6 +38,7 @@ export class NotificationComponent implements OnInit {
     // image path
     this.baseUrl = environment.API_IMAGE;
 
+    console.log('CONSTR dispatch');
     this.dispatchLoadNotifications();
 
     // notification sotre
@@ -90,6 +91,7 @@ export class NotificationComponent implements OnInit {
       setTimeout(() => {
         this.canScroll = true;
       }, 1000);
+      console.log('SCROLL dispatch');
       this.dispatchLoadNotifications();
     }
   }

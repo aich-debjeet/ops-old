@@ -25,11 +25,11 @@ export class PusherService {
     this.headers = this.api.getHeaders(); 
     this.accessToken = this.token.getToken();
     this.pusher = new Pusher(environment.pusher.key, {
-      authEndpoint: 'http://172.16.8.178:9000/api/1.0/portal/pusher/auth',
+      authEndpoint: this.apiLink + '/portal/pusher/auth',
       cluster: 'ap2',
       auth: { 
         params: { 
-          param1: 'fc-a17a0e2c-7410-4b6c-b96e-55956ee4f666'
+          param1: this.accessToken
         },
       }
     });
