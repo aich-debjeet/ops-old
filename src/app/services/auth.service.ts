@@ -56,11 +56,14 @@ export class AuthService {
     }
 
     validateToken() {
+      console.log('authentication purpose')
       const req = {};
       this.updateAuthHeaders();
       return this.http.get(`${this.apiLink}/portal/auth/loggedUser`, { headers: this.headers })
       .map((response: Response) => {
+        
           const user = response.json();
+          console.log(user)
           if (user.profileId) {
           }
           localStorage.setItem('currentUserID', user.profileId);

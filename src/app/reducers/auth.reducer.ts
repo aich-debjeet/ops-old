@@ -438,11 +438,13 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
      * checking if user is logged in and have the valid access token
      */
     case AuthActions.USER_LOGGED_IN:
+    console.log('loading')
       return Object.assign({}, state, {
         login_status: false
       });
 
     case AuthActions.USER_LOGGED_IN_SUCCESS:
+      console.log('payload')
       return Object.assign({}, state, {
         login_status_response: payload,
         login_status: true

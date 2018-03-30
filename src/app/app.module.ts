@@ -82,6 +82,7 @@ import { OpportunityService } from './services/opportunity.service';
 import { ExploreService } from './services/explore.service';
 import { ClaimProfileService } from './services/claim-profile.service';
 import { FileService } from './services/file.service';
+import { PusherService } from './services/pusher.service';
 
 // Component module
 import { SharedModule } from './shared/shared.module';
@@ -213,6 +214,7 @@ import { AboutComponent } from './components/about/about.component';
   ],
   providers: [
     AuthService,
+    PusherService,
     MessageService,
     AuthGuard,
     AuthlogoutGuard,

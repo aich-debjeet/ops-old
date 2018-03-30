@@ -13,7 +13,9 @@ export class NotificationService {
   handle: string;
   headers: any;
   private apiLink: string = environment.API_ENDPOINT;
-  pageNumber = -1;
+  notifsPageNumber = 0;
+  notifsPerPage = 10;
+  // notifsOffset = 0;
 
   constructor(
     private http: Http,
@@ -35,8 +37,7 @@ export class NotificationService {
    */
   getNotifications() {
     this.updateToken();
-    this.pageNumber ++;
-    const pagination = this.paginate(this.pageNumber);
+    const pagination = this.paginate();
     return this.api.get('/portal/network/notification/getAllNotification/' + pagination.offset + '/' + pagination.limit);
   }
 
@@ -52,20 +53,22 @@ export class NotificationService {
    * Pagination
    * @param page number
    */
-  paginate(page: number) {
-    let beginItem: number;
-    let endItem: number;
-    let itemsPerPage = 10;
-    if (page === 1 ) {
-        beginItem = 0;
+  paginate() {
+    let notifsOffset: number;
+    if (this.notifsPageNumber === 0) {
+      notifsOffset = 0;
     } else {
-        beginItem = (page + 1) * itemsPerPage;
-    } return {
-        offset: beginItem, limit: itemsPerPage
+      notifsOffset = (this.notifsPageNumber * this.notifsPerPage) + 1;
     }
-    // return {
-    //     offset: 0, limit: 30
-    // }
+    this.notifsPageNumber++;
+
+    const notifsPaginate = {
+      offset: notifsOffset,
+      limit: this.notifsPerPage
+    };
+
+    // console.log('notifsPaginate', notifsPaginate);
+    return notifsPaginate;
   }
 
 }

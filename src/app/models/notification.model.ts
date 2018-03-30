@@ -8,4 +8,5 @@ export class Notification {
     commentsCount: number;
     isRead: boolean;
     createdDate: string;
+    recieved_notifications: any[];
 }

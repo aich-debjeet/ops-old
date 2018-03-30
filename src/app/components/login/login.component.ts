@@ -60,7 +60,9 @@ export class LoginComponent implements OnInit {
     }
 
     const user = JSON.parse(localStorage.getItem('currentUser'));
+    console.log('calling')
     if (user && user.access_token) {
+      console.log('authentication',user.access_token)
       this.store.dispatch({ type: AuthActions.USER_AUTHENTICATED, payload: ''});
     }
   }
