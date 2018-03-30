@@ -49,7 +49,9 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
     case NotificationActions.ADD_PUSHER_NOTIFICATIONS:
       let updated_push_notifications;
       if (state && state.recieved_notifications) {
-        updated_push_notifications = [...state.recieved_notifications, ...payload];
+        const arr = [payload];
+        updated_push_notifications = arr.concat(state.recieved_notifications)
+        // updated_push_notifications = [...state.recieved_notifications, ...payload];
       } else {
         updated_push_notifications = payload;
       }

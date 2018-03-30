@@ -67,7 +67,7 @@ export class NotificationService {
       limit: this.notifsPerPage
     };
 
-    console.log('notifsPaginate', notifsPaginate);
+    // console.log('notifsPaginate', notifsPaginate);
     return notifsPaginate;
   }
 

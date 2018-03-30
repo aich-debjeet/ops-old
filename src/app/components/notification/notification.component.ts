@@ -29,6 +29,8 @@ export class NotificationComponent implements OnInit {
   canScroll = true;
   lastScrollTop = 0;
   showPreloader: boolean;
+  scrolling = 0;
+  scrollingLoad = 1000;
 
   constructor(
     private store: Store<Notification>,
@@ -38,8 +40,7 @@ export class NotificationComponent implements OnInit {
     // image path
     this.baseUrl = environment.API_IMAGE;
 
-    console.log('CONSTR dispatch');
-    this.dispatchLoadNotifications();
+    //this.dispatchLoadNotifications();
 
     // notification sotre
     this.notificationsState$ = this.store.select('notificationTags');
@@ -91,7 +92,6 @@ export class NotificationComponent implements OnInit {
       setTimeout(() => {
         this.canScroll = true;
       }, 1000);
-      console.log('SCROLL dispatch');
       this.dispatchLoadNotifications();
     }
   }

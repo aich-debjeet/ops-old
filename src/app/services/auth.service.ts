@@ -280,7 +280,6 @@ export class AuthService {
     }
 
     isLoggedIn() {
-      console.log('loogedin method')
       this.updateAuthHeaders();
       return this.http.get(`${this.apiLink}/portal/auth/loggedUser`, { headers: this.headers });
     }

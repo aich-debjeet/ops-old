@@ -118,7 +118,7 @@ export class NavigationComponent implements OnInit {
       /* profile state */
       this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     }
-
+    // observe the store value
     this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         // if(typeof state['recieved_pushed_notifications_success']){
@@ -127,9 +127,7 @@ export class NavigationComponent implements OnInit {
         if (typeof state['recieved_notifications'] !== 'undefined') {
           let noti;
           noti = state['recieved_notifications'];
-          // console.log(noti)
           this.notifications = _uniqBy(noti, noti.notificationId);
-          // console.log(this.notifications)
           this.processNotifications();
         }
         if (typeof state['marking_as_read_response'] !== 'undefined') {
@@ -193,27 +191,12 @@ export class NavigationComponent implements OnInit {
       payload: null
     });
     this.pusherService.messagesChannel.bind('Media-Spot', (message) => {
-      // this.messages.push(message);
+      // console.log(message)
       this.notify = true;
-      console.log(message)
-      // const payload = JSON.parse(message)
       this.notificationStore.dispatch({
         type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
         payload: JSON.parse(message)
       });
-      // this.notificationsState$.subscribe((state) => {
-      //   if (typeof state !== 'undefined') {
-      //     if (typeof state['recieved_notifications'] !== 'undefined') {
-      //       this.notifications = state['recieved_notifications'];
-      //       this.processNotifications();
-      //     }
-      //     if (typeof state['marking_as_read_response'] !== 'undefined') {
-      //       // upadte notification as marked
-      //       this.updateNotifications();
-      //     }
-      //   }
-      // });
-
     });
     document.body.scrollTop = 0;
     // check if on org page
@@ -276,7 +259,8 @@ export class NavigationComponent implements OnInit {
       switch (notif.notificationType) {
 
         case 'Media_Spot':
-          this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your post';
+          // this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your post';
+          this.notifications[index]['message'] = ' spotted your post';
           break;
 
         case 'Media_Comments':
@@ -349,25 +333,4 @@ export class NavigationComponent implements OnInit {
     this.router.navigate(['/']);
     this.store.dispatch({ type: AuthActions.USER_LOGOUT, payload: ''});
   }
-
-  // onScroll(e) {
-  //   this.scrolling = e.currentScrollPosition;
-  //   console.log(this.scrolling)
-  //   let beginItem : number;
-  //   if (this.scrollingLoad <= this.scrolling) {
-  //     this.scrollingLoad += 50
-  //     console.log(this.page_start)
-  //      beginItem = ((this.page_start *10) + 1);
-  //     // this.page_end = 10;
-  //     const body = {
-  //       limit: 10,
-  //       offset: beginItem,
-  //     }
-  //     this.notificationStore.dispatch({
-  //       type: NotificationActions.LOAD_NOTIFICATIONS,
-  //       payload: body
-  //     });
-  //     this.page_start ++;
-  //   }
-  // }
 }

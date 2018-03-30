@@ -21,7 +21,6 @@ export class PusherService {
     private token: TokenService
   ) {
     this.handle = localStorage.getItem('loggedInProfileHandle');
-    console.log(this.handle);
     this.headers = this.api.getHeaders(); 
     this.accessToken = this.token.getToken();
     this.pusher = new Pusher(environment.pusher.key, {
