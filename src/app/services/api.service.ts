@@ -3,7 +3,10 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
+
+import { ApiService } from '../helpers/api.service';
+import { TokenService } from '../helpers/token.service';
 
 @Injectable()
 export class GeneralService {
@@ -11,8 +14,22 @@ export class GeneralService {
   private apiLink: string = environment.API_ENDPOINT;
   accessToken: string;
   userHandle: string;
+  headers: any;
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(
+    private http: Http,
+    private router: Router,
+    private api: ApiService,
+    private tokenService: TokenService
+  ) {
+    this.headers = this.api.getHeaders();
+  }
+
+  /* ------------------------- message comp user search ------------------------- */
+  messageUserSearch(searchParams: any) {
+    return this.api.put('/portal/searchprofiles', searchParams);
+  }
+  /* ------------------------- message comp user search ------------------------- */
 
   /* ------------------------- load channels ------------------------- */
   getChannels(req: any) {

@@ -3,6 +3,14 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
 
+.empty-state-msg {
+    width: 100vw;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    height: 80vh;
+}
+
 .message-container {
     margin-top: 50px;
 }
@@ -76,6 +84,18 @@
 .c-avatar--feed3 {
     width: 33px;
     height: 33px;
+}
+
+.c-user__avatar {
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    background: #f8f8f8;
+    cursor: pointer;
+    border-radius: 50px;
+    float: left;
 }
 
 .c-user__image {

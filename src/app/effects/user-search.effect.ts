@@ -21,7 +21,16 @@ export class UserSearchEffect {
       .catch((res) => Observable.of({ type: UserSearchActions.USER_SEARCH_FAILED, payload: res }))
     );
 
-    constructor(
+  @Effect()
+  msgSearchedUsers$ = this.actions$
+    .ofType(UserSearchActions.MESSAGE_USER_SEARCH)
+    .map(toPayload)
+    .switchMap((payload) => this.apiService.messageUserSearch(payload)
+      .map(res => ({ type: UserSearchActions.MESSAGE_USER_SEARCH_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: UserSearchActions.MESSAGE_USER_SEARCH_FAILED, payload: res }))
+    );
+
+  constructor(
     private actions$: Actions,
     private apiService: GeneralService
   ) {
