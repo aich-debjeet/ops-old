@@ -21,13 +21,13 @@ export class PusherService {
     private token: TokenService
   ) {
     this.handle = localStorage.getItem('loggedInProfileHandle');
-    this.headers = this.api.getHeaders(); 
+    this.headers = this.api.getHeaders();
     this.accessToken = this.token.getToken();
     this.pusher = new Pusher(environment.pusher.key, {
       authEndpoint: this.apiLink + '/portal/pusher/auth',
-      cluster: 'ap2',
-      auth: { 
-        params: { 
+      cluster: environment.pusher.cluster,
+      auth: {
+        params: {
           param1: this.accessToken
         },
       }
