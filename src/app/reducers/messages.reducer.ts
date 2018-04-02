@@ -8,6 +8,28 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
 
   switch (type) {
 
+    /* get messages reducers */
+    case MessageActions.GET_LOGGED_USERS_MESSAGES:
+      return Object.assign({}, state, {
+        getting_messages: true,
+        getting_messages_success: false,
+        get_messages_params: payload
+      });
+
+    case MessageActions.GET_LOGGED_USERS_MESSAGES_SUCCESS:
+      return Object.assign({}, state, {
+        getting_messages: false,
+        get_messages_data: payload,
+        getting_messages_success: true
+      });
+
+    case MessageActions.GET_LOGGED_USERS_MESSAGES_FAILED:
+      return Object.assign({}, state, {
+        getting_messages: false,
+        getting_messages_success: false
+      });
+    /* get messages reducers */
+
     case MessageActions.LOAD_USER_PROFILE_DATA:
     return (<any>Object).assign({}, state, {
       success: true,

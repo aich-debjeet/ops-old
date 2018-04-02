@@ -23,6 +23,10 @@ export class MessageActions {
   static LOAD_NON_USER_PROFILE2_DATA_SUCCESS = 'LOAD_NON_USER_PROFILE2_DATA_SUCCESS';
   static LOAD_NON_USER_PROFILE2_DATA_FAILED = 'LOAD_NON_USER_PROFILE2_DATA_FAILED';
 
+  static GET_LOGGED_USERS_MESSAGES = 'GET_LOGGED_USERS_MESSAGES';
+  static GET_LOGGED_USERS_MESSAGES_SUCCESS = 'GET_LOGGED_USERS_MESSAGES_SUCCESS';
+  static GET_LOGGED_USERS_MESSAGES_FAILED = 'GET_LOGGED_USERS_MESSAGES_FAILED';
+
   /* -------------------------------- load current user profile data -------------------------------- */
   loadUserProfile(value): Action {
     return {
