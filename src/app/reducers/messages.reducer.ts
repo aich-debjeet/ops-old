@@ -52,6 +52,28 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
     /* load conversation */
 
+    /* send message */
+    case MessageActions.SEND_MESSAGE:
+      return Object.assign({}, state, {
+        sending_message: true,
+        sending_message_success: false,
+        send_message_params: payload
+      });
+
+    case MessageActions.SEND_MESSAGE_SUCCESS:
+      return Object.assign({}, state, {
+        sending_message: false,
+        send_message_data: payload,
+        sending_message_success: true
+      });
+
+    case MessageActions.SEND_MESSAGE_FAILED:
+      return Object.assign({}, state, {
+        sending_message: false,
+        sending_message_success: false
+      });
+    /* send message */
+
     case MessageActions.LOAD_USER_PROFILE_DATA:
     return (<any>Object).assign({}, state, {
       success: true,

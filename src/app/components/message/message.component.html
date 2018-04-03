@@ -134,7 +134,8 @@
                         </div>
                         <div class="col-md-11">
                             <div class="c-form__group c-form--md c-form--noeffect c-form__faded--md">
-                                <input class="c-form__input" required="" type="text">
+                                <!-- <input class="c-form__input" type="text" #inputMessageText="ngModel" [(ngModel)]="messageText" [ngModelOptions]="{standalone: true}"> -->
+                                <input class="c-form__input" type="text" [(ngModel)]="messageText" (keyup.enter)="sendMessage()">
                                 <label>Message</label>
                             </div>
                         </div>

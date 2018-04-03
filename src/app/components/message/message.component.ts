@@ -12,11 +12,15 @@ import { MessageActions } from '../../actions/message.action';
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss']
 })
-export class MessageComponent implements OnInit {
+export class MessageComponent implements OnInit, AfterViewInit {
+
+  // @ViewChild('inputMessageText') inputMessageText;
+
   imageBaseUrl = environment.API_IMAGE;
   selectedUser: any;
   messangerList = [];
   conversation = [];
+  messageText = '';
 
   messageState$: Observable<MessageModal>;
   messageState: any;
@@ -72,6 +76,14 @@ export class MessageComponent implements OnInit {
 
   ngOnInit() { }
 
+  ngAfterViewInit() {
+    // this.inputMessageText.valueChanges
+    // .debounceTime(1000)
+    // .subscribe(() => {
+    //   console.log('make a reuqet', this.messageText);
+    // });
+  }
+
   /**
    * Check if user is selected or not
    */
@@ -93,6 +105,19 @@ export class MessageComponent implements OnInit {
     this.messageStore.dispatch({
       type: MessageActions.LOAD_CONVERSATION,
       payload: userObj.handle
+    });
+  }
+
+  sendMessage() {
+    const message = {
+      to: this.selectedUser.handle,
+      subject: this.messageText,
+      content: this.messageText
+    }
+
+    this.messageStore.dispatch({
+      type: MessageActions.SEND_MESSAGE,
+      payload: message
     });
   }
 }

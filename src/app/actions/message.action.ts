@@ -31,6 +31,10 @@ export class MessageActions {
   static LOAD_CONVERSATION_SUCCESS = 'LOAD_CONVERSATION_SUCCESS';
   static LOAD_CONVERSATION_FAILED = 'LOAD_CONVERSATION_FAILED';
 
+  static SEND_MESSAGE = 'SEND_MESSAGE';
+  static SEND_MESSAGE_SUCCESS = 'SEND_MESSAGE_SUCCESS';
+  static SEND_MESSAGE_FAILED = 'SEND_MESSAGE_FAILED';
+
   /* -------------------------------- load current user profile data -------------------------------- */
   loadUserProfile(value): Action {
     return {

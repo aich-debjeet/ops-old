@@ -49,4 +49,8 @@ export class MessageService {
         // return this.http.get('http://localhost/ops-conv.json');
         return this.api.get('/portal/message/v-2/conversation/' + handle);
     }
+
+    sendMessage(message: any) {
+        return this.api.post('/portal/message/v-2/add', message);
+    }
 }
