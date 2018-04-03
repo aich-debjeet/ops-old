@@ -62,6 +62,7 @@ import { EventEffect } from './effects/event.effect';
 import { ExploreEffect } from './effects/explore.effect';
 import { ClaimProfileEffect } from './effects/claim-profile.effect';
 import { OpportunityEffect } from 'app/effects/opportunity.effect';
+import { CommunitiesEffect } from 'app/effects/communities.effect';
 
 // Services
 import { ServicesModule } from './services/services.module';
@@ -83,6 +84,7 @@ import { ExploreService } from './services/explore.service';
 import { ClaimProfileService } from './services/claim-profile.service';
 import { FileService } from './services/file.service';
 import { PusherService } from './services/pusher.service';
+import { CommunitiesService } from './services/communities.service';
 
 // Component module
 import { SharedModule } from './shared/shared.module';
@@ -195,6 +197,7 @@ import { AboutComponent } from './components/about/about.component';
     EffectsModule.run(EventEffect),
     EffectsModule.run(ExploreEffect),
     EffectsModule.run(ClaimProfileEffect),
+    EffectsModule.run(CommunitiesEffect),
     // Video
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     VgCoreModule,
@@ -230,7 +233,8 @@ import { AboutComponent } from './components/about/about.component';
     OpportunityService,
     ExploreService,
     ClaimProfileService,
-    FileService
+    FileService,
+    CommunitiesService
   ],
   bootstrap: [AppComponent]
 })

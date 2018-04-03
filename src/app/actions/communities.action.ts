@@ -1,9 +1,8 @@
 import { Action } from '@ngrx/store';
 
 export class CommunitiesActions {
-
-    // static SEARCH_PROFILE = 'SEARCH_PROFILE';
-    // static SEARCH_PROFILE_SUCCESS = 'SEARCH_PROFILE_SUCCESS';
-    // static SEARCH_PROFILE_FAILED = 'SEARCH_PROFILE_FAILED';
+    static COMMUNITY_CREATE = 'COMMUNITY_CREATE';
+    static COMMUNITY_CREATE_SUCCESS = 'COMMUNITY_CREATE_SUCCESS';
+    static COMMUNITY_CREATE_FAILED = 'COMMUNITY_CREATE_FAILED';
 
 }

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // Action
 import { AuthActions } from '../../actions/auth.action';
+import { CommunitiesActions } from '../../actions/communities.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -30,6 +32,7 @@ export class CommunitiesComponent implements OnInit {
     private fb: FormBuilder,
     private store: Store<any>,
     private toastr: ToastrService,
+    private router: Router,
   ) {
     this.industryState$ = store.select('loginTags');
     this.subscription = this.industryState$.subscribe((state) => {
@@ -66,6 +69,15 @@ export class CommunitiesComponent implements OnInit {
         industryList: [ value.industry ]
       }
       console.log(data);
+      this.store.dispatch({ type: CommunitiesActions.COMMUNITY_CREATE, payload: data });
+
+      this.store.select('communitiesTags')
+      .first(channel => channel['community_create_success'] === true)
+      .subscribe( datas => {
+          this.toastr.success('successfully created', 'Success!');
+          this.router.navigateByUrl('/communities/details');
+          return
+      });
     }else {
       this.toastr.warning('Please fill all required fields');
     }

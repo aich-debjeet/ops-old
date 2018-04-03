@@ -13,14 +13,14 @@ import { CommunitiesActions } from '../actions/communities.action';
 @Injectable()
 export class CommunitiesEffect {
 
-//   @Effect()
-//   loadChannels$ = this.actions$
-//     .ofType(CommunitiesActions.LOAD_CHANNELS)
-//     .map(toPayload)
-//     .switchMap((payload) => this.api.getChannels()
-//       .map(res => ({ type:  CommunitiesActions.LOAD_CHANNELS_SUCCESS, payload: res }))
-//       .catch((res) => Observable.of({ type: HomeActions.LOAD_CHANNELS_FAILED, payload: res }))
-//     );
+  @Effect()
+  createCommunity$ = this.actions$
+    .ofType(CommunitiesActions.COMMUNITY_CREATE)
+    .map(toPayload)
+    .switchMap((payload) => this.communitiesService.createCommnuity(payload)
+      .map(res => ({ type:  CommunitiesActions.COMMUNITY_CREATE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_CREATE_FAILED, payload: res }))
+    );
 
     constructor(
     private actions$: Actions,

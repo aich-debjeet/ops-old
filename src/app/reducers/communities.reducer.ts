@@ -6,21 +6,22 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
 
   switch (type) {
 
-    // case HomeActions.LOAD_CHANNELS:
-    //   return Object.assign({}, state, {
-    //     success: true
-    //   });
+    case CommunitiesActions.COMMUNITY_CREATE:
+      return Object.assign({}, state, {
 
-    // case HomeActions.LOAD_CHANNELS_SUCCESS:
-    //   return Object.assign({}, state, {
-    //     completed: payload,
-    //     success: true
-    //   });
+      });
 
-    // case HomeActions.LOAD_CHANNELS_FAILED:
-    //   return Object.assign({}, state, {
-    //     success: false
-    //   });
+    case CommunitiesActions.COMMUNITY_CREATE_SUCCESS:
+      console.log(payload);
+      return Object.assign({}, state, {
+        completed: payload,
+        community_create_success: true,
+      });
+
+    case CommunitiesActions.COMMUNITY_CREATE_FAILED:
+      return Object.assign({}, state, {
+        success: false
+      });
 
     default:
       return state;

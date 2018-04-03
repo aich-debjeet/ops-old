@@ -35,8 +35,8 @@ export class CommunitiesService {
    * Get channels by search query
    * @param search query
    */
-  getChannels(params: any) {
-    return this.api.post('/portal/network/spotfeed/esearch', params);
+  createCommnuity(params: any) {
+    return this.api.post('/portal/community', params);
   }
 
 }
