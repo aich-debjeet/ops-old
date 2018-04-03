@@ -10,6 +10,8 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription, ISubscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-communities',
@@ -26,7 +28,8 @@ export class CommunitiesComponent implements OnInit {
   selectedIndustry = '';
   constructor(
     private fb: FormBuilder,
-    private store: Store<any>
+    private store: Store<any>,
+    private toastr: ToastrService,
   ) {
     this.industryState$ = store.select('loginTags');
     this.subscription = this.industryState$.subscribe((state) => {
@@ -53,13 +56,18 @@ export class CommunitiesComponent implements OnInit {
 
   submitForm(value) {
     console.log(value);
-    const data = {
-      title: value.community_name,
-      brief: value.brief,
-      accessSettings: {
-        access: 0
-      },
-      industryList: []
+    if ( this.communityForm.valid === true ) {
+      const data = {
+        title: value.community_name,
+        brief: value.brief,
+        accessSettings: {
+          access: Number(value.access)
+        },
+        industryList: [ value.industry ]
+      }
+      console.log(data);
+    }else {
+      this.toastr.warning('Please fill all required fields');
     }
   }
 }
