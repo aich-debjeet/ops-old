@@ -38,53 +38,32 @@
                         </div>
                     </div>
                 </div>
-                <div class="mess_list row" id="ops_scrollbar">
-                    <div class="row with_border_bottom with_border_top msg__unread">
+                <div *ngIf="messangerList && messangerList?.length > 0" class="mess_list row" id="ops_scrollbar">
+                    <div *ngFor="let user of messangerList" class="row with_border_bottom with_border_top" [ngClass]="{'msg__unread': !user.isRead }">
                         <div class="c-checkbox__md2 col-md-2">
                             <label class="checkbox-inline pull-right m-t-24">
                                 <input type="checkbox" value="1">
                             </label>
                         </div>
                         <div class="col-md-10 p-l-0">
-                            <div class="dropdown__item p-t-b-16">
+                            <div class="dropdown__item p-t-b-16" (click)="selectUser(user)">
                                 <div class="dropnoti__avatar">
-                                    <img class="navdrop__img" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'">
+                                    <img *ngIf="user?.profileImage === ''" class="navdrop__img" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'">
+                                    <img *ngIf="user?.profileImage !== ''" class="navdrop__img" [src]="imageBaseUrl + user?.profileImage">
                                 </div>
                                 <div class="dropnoti__detail">
-                                    <p class="dropnoti__bold">Tommy Russell</p>
-                                    <p>Do dreams serve as a premonition</p>
+                                    <p class="dropnoti__bold">{{ user?.name }}</p>
+                                    <p>{{ user?.latestMessage }}</p>
                                 </div>
-                                <p class="msg__time2">10:08 PM</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row with_border_bottom with_border_top">
-                        <div class="c-checkbox__md2 col-md-2">
-                            <label class="checkbox-inline pull-right m-t-24">
-                                <input type="checkbox" value="1">
-                            </label>
-                        </div>
-                        <div class="col-md-10 p-l-0">
-                            <div class="dropdown__item p-t-b-16">
-                                <div class="dropnoti__avatar">
-                                    <img class="navdrop__img" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'">
-                                </div>
-                                <div class="dropnoti__detail">
-                                    <p class="dropnoti__bold">Tommy Russell</p>
-                                    <p>Do dreams serve as a premonition</p>
-                                </div>
-                                <p class="msg__time2">10:08 PM</p>
+                                <p class="msg__time2">{{ user?.time | utcDate | date:'d MMM hh:mm a' }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 mess_right">
-                <div class="c-text_lg p-t-b-24">
-                    Message with 
-                    <span *ngIf="isUserSelected()" >
-                        <strong>{{ selectedUser?.username }}</strong>
-                    </span>
+                <div class="c-text_lg p-t-b-24" *ngIf="isUserSelected()">
+                    Message with <strong>{{ selectedUser?.username }}</strong>
                     <div class="dropdown c-dropdown pull-right">
                         <p class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <img [src]="imageBaseUrl + 'img/svg/ico_settings.svg'" class="mess_set_icon">
@@ -105,40 +84,46 @@
                         </ul>
                     </div>
                 </div>
+
+                <!-- preloader -->
+                <div *ngIf="showPreloader === true">
+                    <div class="sticky">
+                        <div class="loader">Loading...</div>
+                    </div>
+                </div>
+                <!-- preloader -->
+                
                 <!-- message container -->
-                <div class="mess_chat_block" id="ops_scrollbar">
-                    <div class="msg_container">
-                        <div class="col-md-12">
+                <div *ngIf="conversation" class="mess_chat_block" id="ops_scrollbar">
+                    <div *ngFor="let message of conversation" class="msg_container">
+                        <div class="col-md-12" *ngIf="message?.messageType === 'sent'">
                             <ul class="list-inline">
                                 <li class="list-inline-item avatar_msg_input float_right">
-                                    <img [src]="imageBaseUrl + 'avatars/user-avatar-male.png'" class="img-responsive">
+                                    <img *ngIf="message?.profileImage === ''" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'" class="img-responsive">
+                                    <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">>
                                 </li>
                                 <li class="list-inline-item msg_cont_block2">
-                                    <p class="ops_msg_aero2">
-                                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
-                                    </p>
-                                    <div class="msg_sent_time2">11:00 PM 12/25/2017</div>
+                                    <p class="ops_msg_aero2">{{ message?.content }}</p>
+                                    <div class="msg_sent_time2">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
                                 </li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="msg_container">
-                        <div class="col-md-12">
+                        <div class="col-md-12" *ngIf="message?.messageType !== 'sent'">
                             <ul class="list-inline">
                                 <li class="list-inline-item avatar_msg_input float_left">
-                                    <img [src]="imageBaseUrl + 'avatars/user-avatar-male.png'" class="img-responsive">
+                                    <img *ngIf="message?.profileImage === ''" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'" class="img-responsive">
+                                    <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">>
                                 </li>
                                 <li class="list-inline-item msg_cont_block">
-                                    <p class="ops_msg_aero">
-                                        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
-                                    </p>
-                                    <div class="msg_sent_time">11:00 PM 12/25/2017</div>
+                                    <p class="ops_msg_aero">{{ message?.content }}</p>
+                                    <div class="msg_sent_time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <!-- //message container -->
+
                 <!-- message input block -->
                 <div class="row">
                     <div class="col-md-1">
@@ -154,6 +139,10 @@
                     </div>
                 </div>
                 <!-- //message input block -->
+
+                <!-- <ng-template *ngIf="!isUserSelected()">
+                    <p>Select user</p>
+                </ng-template> -->
             </div>
         </div>
         <!-- //registraion middle container -->

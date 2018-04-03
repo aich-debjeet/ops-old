@@ -30,6 +30,28 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
     /* get messanger list reducers */
 
+    /* load conversation */
+    case MessageActions.LOAD_CONVERSATION:
+      return Object.assign({}, state, {
+        loading_conversation: true,
+        loading_conversation_success: false,
+        load_conversation_params: payload
+      });
+
+    case MessageActions.LOAD_CONVERSATION_SUCCESS:
+      return Object.assign({}, state, {
+        loading_conversation: false,
+        load_conversation_data: payload,
+        loading_conversation_success: true
+      });
+
+    case MessageActions.LOAD_CONVERSATION_FAILED:
+      return Object.assign({}, state, {
+        loading_conversation: false,
+        loading_conversation_success: false
+      });
+    /* load conversation */
+
     case MessageActions.LOAD_USER_PROFILE_DATA:
     return (<any>Object).assign({}, state, {
       success: true,

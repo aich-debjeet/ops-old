@@ -3,6 +3,10 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
 
+.msg_container {
+    width: 100%;
+}
+
 .empty-state-msg {
     width: 100vw;
     text-align: center;

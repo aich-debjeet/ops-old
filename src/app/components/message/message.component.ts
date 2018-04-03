@@ -15,9 +15,12 @@ import { MessageActions } from '../../actions/message.action';
 export class MessageComponent implements OnInit {
   imageBaseUrl = environment.API_IMAGE;
   selectedUser: any;
+  messangerList = [];
+  conversation = [];
 
   messageState$: Observable<MessageModal>;
   messageState: any;
+  showPreloader = false;
 
   constructor(
     private messageStore: Store<MessageModal>
@@ -30,7 +33,17 @@ export class MessageComponent implements OnInit {
     this.messageState$ = this.messageStore.select('messageTags');
     this.messageState$.subscribe((state) => {
       this.messageState = state;
-      console.log('this.messageState', this.messageState);
+      // console.log('this.messageState', this.messageState);
+
+      if (this.messageState && this.messageState['get_messanger_list_data']) {
+        this.messangerList = this.messageState['get_messanger_list_data'];
+      }
+
+      if (this.messageState && this.messageState['load_conversation_data']) {
+        this.conversation = this.messageState['load_conversation_data'];
+        // console.log('this.conversation', this.conversation);
+        this.showPreloader = false;
+      }
     });
 
     // fetch logged in user messages
@@ -42,10 +55,29 @@ export class MessageComponent implements OnInit {
 
   ngOnInit() { }
 
+  /**
+   * Check if user is selected or not
+   */
   isUserSelected() {
     if (this.selectedUser && JSON.stringify(this.selectedUser) === '{}') {
       return false;
     }
     return true;
+  }
+
+  /**
+   * trigger dispatch to load conversation with the user asked
+   */
+  selectUser(userObj: any) {
+
+    this.selectedUser = userObj;
+
+    // show preloader
+    this.showPreloader = true;
+
+    this.messageStore.dispatch({
+      type: MessageActions.LOAD_CONVERSATION,
+      payload: userObj.handle
+    });
   }
 }

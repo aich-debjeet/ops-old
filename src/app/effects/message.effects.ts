@@ -63,6 +63,15 @@ export class MessageEffect {
         .catch((res) => Observable.of({ type: MessageActions.GET_MESSANGER_LIST_FAILED, payload: res }))
       );
 
+  @Effect()
+  loadConversation$ = this.actions$
+    .ofType(MessageActions.LOAD_CONVERSATION)
+    .map(toPayload)
+    .switchMap((payload) => this.messageService.loadConversation(payload)
+      .map(res => ({ type: MessageActions.LOAD_CONVERSATION_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.LOAD_CONVERSATION_FAILED, payload: res }))
+    );
+
   constructor(
   private actions$: Actions,
   private apiService: GeneralService,

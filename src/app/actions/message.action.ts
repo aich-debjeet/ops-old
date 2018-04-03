@@ -27,6 +27,10 @@ export class MessageActions {
   static GET_MESSANGER_LIST_SUCCESS = 'GET_MESSANGER_LIST_SUCCESS';
   static GET_MESSANGER_LIST_FAILED = 'GET_MESSANGER_LIST_FAILED';
 
+  static LOAD_CONVERSATION = 'LOAD_CONVERSATION';
+  static LOAD_CONVERSATION_SUCCESS = 'LOAD_CONVERSATION_SUCCESS';
+  static LOAD_CONVERSATION_FAILED = 'LOAD_CONVERSATION_FAILED';
+
   /* -------------------------------- load current user profile data -------------------------------- */
   loadUserProfile(value): Action {
     return {
