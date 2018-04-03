@@ -55,12 +55,12 @@ export class MessageEffect {
       );
 
   @Effect()
-    getLoggedUsersMessages$ = this.actions$
-      .ofType(MessageActions.GET_LOGGED_USERS_MESSAGES)
+    getMessangerList$ = this.actions$
+      .ofType(MessageActions.GET_MESSANGER_LIST)
       .map(toPayload)
-      .switchMap((payload) => this.messageService.getLoggedUsersMessages(payload)
-        .map(res => ({ type: MessageActions.GET_LOGGED_USERS_MESSAGES_SUCCESS, payload: res }))
-        .catch((res) => Observable.of({ type: MessageActions.GET_LOGGED_USERS_MESSAGES_FAILED, payload: res }))
+      .switchMap((payload) => this.messageService.getMessangerList(payload)
+        .map(res => ({ type: MessageActions.GET_MESSANGER_LIST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: MessageActions.GET_MESSANGER_LIST_FAILED, payload: res }))
       );
 
   constructor(

@@ -35,7 +35,7 @@ export class MessageComponent implements OnInit {
 
     // fetch logged in user messages
     this.messageStore.dispatch({
-      type: MessageActions.GET_LOGGED_USERS_MESSAGES,
+      type: MessageActions.GET_MESSANGER_LIST,
       payload: null
     });
   }

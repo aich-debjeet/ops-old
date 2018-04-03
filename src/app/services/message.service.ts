@@ -39,7 +39,8 @@ export class MessageService {
         .map((data: Response) => data.json());
     }
 
-    getLoggedUsersMessages(params: any) {
-        return this.api.get('/portal/message/combined/sent/received');
+    getMessangerList(params: any) {
+        // return this.api.get('/portal/message/combined/sent/received');
+        return this.api.get('/portal/message/latestMessage/p/0/10');
     }
 }
