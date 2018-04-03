@@ -46,7 +46,7 @@ import { CommentComponent } from './comment/comment.component';
 import { UserCardComponent } from './user-card/user-card.component';
 import { UserCardNewComponent } from './user-card-new/user-card-new.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // modal new
 import {Modal, ModalContent} from './modal-new/Modal';
@@ -63,6 +63,7 @@ import { CommunityCardComponent } from './community-card/community-card.componen
     CommonModule,
     RouterModule,
     FormsModule,
+    InfiniteScrollModule,
     ReactiveFormsModule,
     VgCoreModule,
     VgControlsModule,

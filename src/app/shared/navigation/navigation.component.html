@@ -199,6 +199,7 @@
                     <li class="dropdown" appDropdown>
                         <a class="dropdown-toggle" appDropdownOpen (click)="notificationPopup()">
                             <img [src]="imageBaseUrl + 'img/svg/ico_notification.svg'">
+                            <div class="o-not__alert" *ngIf = "notify"></div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right nav__dropdown3 notif-scroll">
                             <div class="dropdown__item dropnoti__head msg__read">
