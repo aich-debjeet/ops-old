@@ -39,6 +39,7 @@ export class AboutCoverComponent implements OnInit {
   changingImage: boolean;
   cropperSettings: CropperSettings;
   baseUrl: string;
+  coverImageChosen = false;
 
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
   constructor(
@@ -88,14 +89,14 @@ export class AboutCoverComponent implements OnInit {
   }
 
   fileChangeListener($event) {
-      let image: any = new Image();
-      let file: File = $event.target.files[0];
-      let myReader: FileReader = new FileReader();
-      let that = this;
+      const image: any = new Image();
+      const file: File = $event.target.files[0];
+      const myReader: FileReader = new FileReader();
+      const that = this;
       myReader.onloadend = function (loadEvent: any) {
-          image.src = loadEvent.target.result;
-          that.cropper.setImage(image);
-
+        image.src = loadEvent.target.result;
+        that.cropper.setImage(image);
+        that.coverImageChosen = true;
       };
 
       myReader.readAsDataURL(file);
