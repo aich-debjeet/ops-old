@@ -9,9 +9,8 @@ declare const Pusher: any;
 @Injectable()
 export class PusherService {
   pusher: any;
-  messagesChannel: any;
+  notificationsChannel: any;
   private handle: string;
-  private headers: any;
   private accessToken: any;
   private apiLink: string = environment.API_ENDPOINT;
 
@@ -21,7 +20,6 @@ export class PusherService {
     private token: TokenService
   ) {
     this.handle = localStorage.getItem('loggedInProfileHandle');
-    this.headers = this.api.getHeaders();
     this.accessToken = this.token.getToken();
     this.pusher = new Pusher(environment.pusher.key, {
       authEndpoint: this.apiLink + '/portal/pusher/auth',
@@ -33,7 +31,7 @@ export class PusherService {
       }
     });
 
-    this.messagesChannel = this.pusher.subscribe('private-notification-'+ this.handle);
+    this.notificationsChannel = this.pusher.subscribe('private-notification-' + this.handle);
   }
 
 }
