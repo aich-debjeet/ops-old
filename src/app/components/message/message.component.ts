@@ -33,7 +33,7 @@ export class MessageComponent implements OnInit {
     this.messageState$ = this.messageStore.select('messageTags');
     this.messageState$.subscribe((state) => {
       this.messageState = state;
-      // console.log('this.messageState', this.messageState);
+      console.log('this.messageState', this.messageState);
 
       if (this.messageState && this.messageState['get_messanger_list_data']) {
         this.messangerList = this.messageState['get_messanger_list_data'];
@@ -42,7 +42,24 @@ export class MessageComponent implements OnInit {
       if (this.messageState && this.messageState['load_conversation_data']) {
         this.conversation = this.messageState['load_conversation_data'];
         // console.log('this.conversation', this.conversation);
+      }
+
+       if (this.messageState
+        && this.messageState['loading_conversation'] === false
+        && this.messageState['loading_conversation_success'] === true
+      ) {
+        // hide preloader
         this.showPreloader = false;
+        console.log('hide preloader');
+      }
+
+      if (this.messageState
+        && this.messageState['loading_conversation'] === true
+        && this.messageState['loading_conversation_success'] === false
+      ) {
+        // show preloader
+        this.showPreloader = true;
+        console.log('show preloader');
       }
     });
 
@@ -71,9 +88,7 @@ export class MessageComponent implements OnInit {
   selectUser(userObj: any) {
 
     this.selectedUser = userObj;
-
-    // show preloader
-    this.showPreloader = true;
+    this.conversation = [];
 
     this.messageStore.dispatch({
       type: MessageActions.LOAD_CONVERSATION,

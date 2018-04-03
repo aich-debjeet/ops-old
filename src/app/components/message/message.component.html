@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 mess_right">
-                <div class="c-text_lg p-t-b-24" *ngIf="isUserSelected()">
+                <div class="c-text_lg p-t-b-24">
                     Message with <strong>{{ selectedUser?.username }}</strong>
                     <div class="dropdown c-dropdown pull-right">
                         <p class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -93,52 +93,54 @@
                 </div>
                 <!-- preloader -->
                 
-                <!-- message container -->
-                <div *ngIf="conversation" class="mess_chat_block" id="ops_scrollbar">
-                    <div *ngFor="let message of conversation" class="msg_container">
-                        <div class="col-md-12" *ngIf="message?.messageType === 'sent'">
-                            <ul class="list-inline">
-                                <li class="list-inline-item avatar_msg_input float_right">
-                                    <img *ngIf="message?.profileImage === ''" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'" class="img-responsive">
-                                    <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">>
-                                </li>
-                                <li class="list-inline-item msg_cont_block2">
-                                    <p class="ops_msg_aero2">{{ message?.content }}</p>
-                                    <div class="msg_sent_time2">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-md-12" *ngIf="message?.messageType !== 'sent'">
-                            <ul class="list-inline">
-                                <li class="list-inline-item avatar_msg_input float_left">
-                                    <img *ngIf="message?.profileImage === ''" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'" class="img-responsive">
-                                    <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">>
-                                </li>
-                                <li class="list-inline-item msg_cont_block">
-                                    <p class="ops_msg_aero">{{ message?.content }}</p>
-                                    <div class="msg_sent_time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- //message container -->
-
-                <!-- message input block -->
-                <div class="row">
-                    <div class="col-md-1">
-                        <div class="c-user__avatar c-avatar--feed3 m-t-16">
-                            <img class="c-user__image" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'">
+                <ng-container *ngIf="showPreloader === false">
+                    <!-- message container -->
+                    <div class="mess_chat_block" id="ops_scrollbar">
+                        <div *ngFor="let message of conversation" class="msg_container">
+                            <div class="col-md-12" *ngIf="message?.messageType === 'sent'">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item avatar_msg_input float_right">
+                                        <img *ngIf="message?.profileImage === ''" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'" class="img-responsive">
+                                        <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">>
+                                    </li>
+                                    <li class="list-inline-item msg_cont_block2">
+                                        <p class="ops_msg_aero2">{{ message?.content }}</p>
+                                        <div class="msg_sent_time2">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-12" *ngIf="message?.messageType !== 'sent'">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item avatar_msg_input float_left">
+                                        <img *ngIf="message?.profileImage === ''" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'" class="img-responsive">
+                                        <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">>
+                                    </li>
+                                    <li class="list-inline-item msg_cont_block">
+                                        <p class="ops_msg_aero">{{ message?.content }}</p>
+                                        <div class="msg_sent_time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-11">
-                        <div class="c-form__group c-form--md c-form--noeffect c-form__faded--md">
-                            <input class="c-form__input" required="" type="text">
-                            <label>Message</label>
+                    <!-- //message container -->
+    
+                    <!-- message input block -->
+                    <div class="row">
+                        <div class="col-md-1">
+                            <div class="c-user__avatar c-avatar--feed3 m-t-16">
+                                <img class="c-user__image" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'">
+                            </div>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="c-form__group c-form--md c-form--noeffect c-form__faded--md">
+                                <input class="c-form__input" required="" type="text">
+                                <label>Message</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- //message input block -->
+                    <!-- //message input block -->
+                </ng-container>
 
                 <!-- <ng-template *ngIf="!isUserSelected()">
                     <p>Select user</p>
