@@ -146,10 +146,9 @@
                     </select>
                 </div>
                 <div class="c-form__group m-t-24">
-                    <select class="c-form-control" formControlName="industry">
-                        <option value="1">Select Category</option>
-                        <option value="2">Select list 1</option>
-                        <option value="3">Select list 2</option>
+                    <select class="c-form-control" formControlName="industry" [(ngModel)]="selectedIndustry">
+                        <option value="" disabled="true" [selected]="!selectedIndustry">Select Industry</option>
+                        <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
                     </select>
                 </div>
                 <div class="row m-t-24">
