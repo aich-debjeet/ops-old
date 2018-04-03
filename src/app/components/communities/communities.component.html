@@ -126,34 +126,34 @@
     <modal-content>
         <div class="c-text_lg text-center p-t-16">Create Community</div>
         <div class="p-32">
-            <form>
+            <form [formGroup]="communityForm" novalidate (ngSubmit)="submitForm(communityForm.value)" #cmfrom="ngForm">
                 <div class="c-form__group">
-                    <input class="c-form__input" required="" type="text">
+                    <input class="c-form__input" required="" formControlName="community_name" type="text">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                     <label>Community Name</label>
                 </div>
                 <div class="c-form__group m-t-24">
-                    <input class="c-form__input" required="" type="text">
+                    <input class="c-form__input" required="" formControlName="brief" type="text">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                     <label>About Community</label>
                 </div>
                 <div class="c-form__group m-t-24">
-                    <select class="c-form-control">
-                        <option>Public</option>
-                        <option>Private</option>
+                    <select class="c-form-control" formControlName="access">
+                        <option value="0">Public</option>
+                        <option value="1">Private</option>
                     </select>
                 </div>
                 <div class="c-form__group m-t-24">
-                    <select class="c-form-control">
-                        <option>Select Category</option>
-                        <option>Select list 1</option>
-                        <option>Select list 2</option>
+                    <select class="c-form-control" formControlName="industry">
+                        <option value="1">Select Category</option>
+                        <option value="2">Select list 1</option>
+                        <option value="3">Select list 2</option>
                     </select>
                 </div>
                 <div class="row m-t-24">
-                    <button type="button" class="btn btn-primary btn-md pull-right">create</button>
+                    <button type="submit" class="btn btn-primary btn-md pull-right">create</button>
                     <button type="button" class="btn btn-default btn-md pull-right m-r-16" (click)="communityCreateModal.close()">cancel</button>
                 </div>
             </form>
