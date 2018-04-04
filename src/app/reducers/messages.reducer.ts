@@ -110,6 +110,20 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
     /* send message */
 
+    /* update pusher message */
+    case MessageActions.ADD_PUSHER_MESSAGE:
+      let updated_load_conversation_data = [];
+      if (state && state['load_conversation_data'] !== undefined) {
+        updated_load_conversation_data = [...state['load_conversation_data'], payload];
+      } else {
+        updated_load_conversation_data = [payload];
+      }
+      console.log('updated_load_conversation_data', updated_load_conversation_data);
+      return Object.assign({}, state, {
+        load_conversation_data: updated_load_conversation_data
+      });
+    /* update pusher message */
+
     case MessageActions.LOAD_USER_PROFILE_DATA:
     return (<any>Object).assign({}, state, {
       success: true,

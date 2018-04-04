@@ -44,7 +44,8 @@ export class MessageService {
     }
 
     loadConversation(handle: string) {
-        return this.api.get('/portal/message/v-2/conversation/' + handle);
+        return this.api.get('/portal/message/v-2/conversation/' + handle + '/0/10');
+        // return this.http.get('http://172.16.9.1:9000/api/1.0/portal/message/v-2/conversation/' + handle + '/0/10');
     }
 
     sendMessage(message: any) {

@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { MessageModal } from '../../models/message.model';
 import { ProfileModal } from '../../models/profile.model';
 import { MessageActions } from '../../actions/message.action';
+import { PusherService } from '../../services/pusher.service';
 
 @Component({
   selector: 'app-message',
@@ -34,7 +35,8 @@ export class MessageComponent implements OnInit, AfterViewInit {
 
   constructor(
     private messageStore: Store<MessageModal>,
-    private profileStore: Store<ProfileModal>
+    private profileStore: Store<ProfileModal>,
+    private pusherService: PusherService
   ) {
     this.selectedUser = {};
     // this.selectedUser = {
@@ -90,7 +92,16 @@ export class MessageComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.pusherService.messagesChannel.bind('New-Message', (message) => {
+      console.log(message);
+      // this.notify = true;
+      this.messageStore.dispatch({
+        type: MessageActions.ADD_PUSHER_MESSAGE,
+        payload: JSON.parse(message)
+      });
+    });
+  }
 
   ngAfterViewInit() {
     // this.inputMessageText.valueChanges

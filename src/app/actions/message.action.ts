@@ -35,6 +35,10 @@ export class MessageActions {
   static SEND_MESSAGE_SUCCESS = 'SEND_MESSAGE_SUCCESS';
   static SEND_MESSAGE_FAILED = 'SEND_MESSAGE_FAILED';
 
+  static ADD_PUSHER_MESSAGE = 'ADD_PUSHER_MESSAGE';
+  static ADD_PUSHER_MESSAGE_SUCCESS = 'ADD_PUSHER_MESSAGE_SUCCESS';
+  static ADD_PUSHER_MESSAGE_FAILED = 'ADD_PUSHER_MESSAGE_FAILED';
+
   /* -------------------------------- load current user profile data -------------------------------- */
   loadUserProfile(value): Action {
     return {

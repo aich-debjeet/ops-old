@@ -10,6 +10,7 @@ declare const Pusher: any;
 export class PusherService {
   pusher: any;
   notificationsChannel: any;
+  messagesChannel: any;
   private handle: string;
   private accessToken: any;
   private apiLink: string = environment.API_ENDPOINT;
@@ -31,7 +32,10 @@ export class PusherService {
       }
     });
 
+    // for notifications
     this.notificationsChannel = this.pusher.subscribe('private-notification-' + this.handle);
+    // for messages
+    this.messagesChannel = this.pusher.subscribe('private-message-' + this.handle);
   }
 
 }
