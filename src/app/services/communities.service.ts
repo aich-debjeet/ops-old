@@ -39,4 +39,8 @@ export class CommunitiesService {
     return this.api.post('/portal/community', params);
   }
 
+  listCommnuity(params: any) {
+    return this.api.get('/portal/community/landing/created/0/10' , '');
+  }
+
 }

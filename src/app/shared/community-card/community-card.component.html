@@ -10,23 +10,17 @@
         <!-- card body -->
         <div class="c-card__body">
             <div class="c-text__lg color-grey-darker">
-                Impact of Extrinsic Motivation On Instrinsic Motivation
+                {{ data?.title }}
             </div>
         </div>
         <!-- //card body -->
         <!-- card footer links -->
         <div class="c-card__links p-t-0">
             <div class="c-comm__followers">
-                <div class="c-followers__img">
-                    <img class="c-user__image" src="https://ops-v2.netlify.com/assets/demo/avatar2.jpg">
+                <div class="c-followers__img" *ngFor="let member of data?.memberList">
+                    <img class="c-user__image" [src]="imageLink + member?.profileImage">
                 </div>
-                <div class="c-followers__img m-l--8">
-                    <img class="c-user__image" src="https://ops-v2.netlify.com/assets/demo/avatar2.jpg">
-                </div>
-                <div class="c-followers__img m-l--8">
-                    <img class="c-user__image" src="https://ops-v2.netlify.com/assets/demo/avatar2.jpg">
-                </div>
-                <p class="c-followers__count">+78 Members</p>
+                <p class="c-followers__count">+ {{ data?.memberCount}} member</p>
                 <a href="javascript:void(0);" class="c-card__Communities--link">Join</a>
             </div>
         </div>

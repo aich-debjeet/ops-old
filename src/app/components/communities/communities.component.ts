@@ -26,13 +26,16 @@ export class CommunitiesComponent implements OnInit {
   basePath = environment.API_IMAGE;
   public communityForm: FormGroup;
   industryState$: Observable<any>;
+  tagState$: Observable<any>;
   private subscription: ISubscription;
   selectedIndustry = '';
+  list: any;
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
     private toastr: ToastrService,
     private router: Router,
+    private route: ActivatedRoute,
   ) {
     this.industryState$ = store.select('loginTags');
     this.subscription = this.industryState$.subscribe((state) => {
@@ -40,6 +43,28 @@ export class CommunitiesComponent implements OnInit {
         this.industries = state.industries;
       }
     });
+
+    this.tagState$ = this.store.select('communitiesTags');
+    this.subscription = this.tagState$.subscribe((state) => {
+      if (typeof state !== 'undefined') {
+        if (state['communityList']) {
+          this.list = state['communityList'];
+        console.log(state);
+        }
+      }
+    });
+
+    this.route
+      .queryParams
+      .subscribe(params => {
+        // Defaults to 0 if no query param provided.
+        if (params['status']) {
+          // this.filterStatus = params['status'];
+        }
+        // this.serachApi();
+      });
+
+    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_LIST });
   }
 
   ngOnInit() {

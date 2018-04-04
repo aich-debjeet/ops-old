@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { environment } from './../../../environments/environment';
 
 @Component({
   selector: 'app-community-card',
@@ -6,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./community-card.component.scss']
 })
 export class CommunityCardComponent implements OnInit {
-
+  @Input() data;
+  imageLink: string = environment.API_IMAGE;
   constructor() { }
 
   ngOnInit() {
