@@ -3,6 +3,7 @@ import { MessageModal, initialMessage } from '../models/message.model';
 import { unionBy as _unionBy } from 'lodash';
 import { MessageActions } from '../actions/message.action';
 
+import * as _ from 'lodash';
 
 export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
 
@@ -54,31 +55,46 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
 
     /* send message */
     case MessageActions.SEND_MESSAGE:
-      const conv_data = {
-        subject: payload.subject,
-        content: payload.subject,
-        time: '2018-04-04T06:57:44.712',
-        messageType: 'sent',
-        profileImage: 'images-dev/N_6659E6E3_92EE_4617_8C5E_A47E27E47488/5e87475b-75f3-4720-895b-e8183ba015cb.jpeg'
-      };
+
       // check if conversation array exist, if yes then add the sent message
+      let updated_conversation = [];
       if (state && state['load_conversation_data'] !== undefined) {
-        // console.log('IN', state)
-        return Object.assign({}, state, {
-          sending_message: true,
-          sending_message_success: false,
-          send_message_params: payload,
-          load_conversation_data: [...state['load_conversation_data'], conv_data]
-        });
+        updated_conversation = [...state['load_conversation_data'], payload];
       } else {
-        // console.log('OUT');
-        return Object.assign({}, state, {
-          sending_message: true,
-          sending_message_success: false,
-          send_message_params: payload,
-          load_conversation_data: conv_data
-        });
+        updated_conversation = [payload];
       }
+
+      // check if messanger list array exist, if yes then update it
+      let updated_messanger_list = [];
+      const messanger_list = state['get_messanger_list_data'];
+      if (state && messanger_list !== undefined) {
+        // remove the user with the same handle
+        const msgIndex = _.findIndex(messanger_list, (obj) => obj.handle === payload.to);
+        if (msgIndex > -1) {
+          // get the user object
+          const msgObj = messanger_list[msgIndex];
+          if (msgObj && msgObj !== undefined) {
+            // delete object
+            messanger_list.splice(msgIndex, 1);
+            // update details
+            msgObj.messageType = 'sent';
+            msgObj.latestMessage = payload.content;
+            msgObj.time = payload.time;
+            // prepare updated messanger list
+            updated_messanger_list = [msgObj].concat(messanger_list);
+          }
+        }
+      } else {
+        updated_messanger_list = [payload];
+      }
+
+      return Object.assign({}, state, {
+        sending_message: true,
+        sending_message_success: false,
+        send_message_params: payload,
+        load_conversation_data: updated_conversation,
+        get_messanger_list_data: updated_messanger_list
+      });
 
     case MessageActions.SEND_MESSAGE_SUCCESS:
       return Object.assign({}, state, {

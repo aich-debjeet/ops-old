@@ -40,13 +40,10 @@ export class MessageService {
     }
 
     getMessangerList(params: any) {
-        // return this.api.get('/portal/message/combined/sent/received');
-        // return this.api.get('/portal/message/latestMessage/p/0/10');
         return this.api.get('/portal/message/v-2/latestMessage/0/30');
     }
 
     loadConversation(handle: string) {
-        // return this.http.get('http://localhost/ops-conv.json');
         return this.api.get('/portal/message/v-2/conversation/' + handle);
     }
 

@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { MessageModal } from '../../models/message.model';
+import { ProfileModal } from '../../models/profile.model';
 import { MessageActions } from '../../actions/message.action';
 
 @Component({
@@ -28,13 +29,22 @@ export class MessageComponent implements OnInit, AfterViewInit {
   showPreloader = false;
   disableChatWindowScroll = false;
 
+  profileState$: Observable<ProfileModal>;
+  profileState: any;
+
   constructor(
-    private messageStore: Store<MessageModal>
+    private messageStore: Store<MessageModal>,
+    private profileStore: Store<ProfileModal>
   ) {
     this.selectedUser = {};
     // this.selectedUser = {
     //   username: 'abhijeet'
     // };
+
+    this.profileState$ = this.profileStore.select('profileTags');
+    this.profileState$.subscribe((state) => {
+      this.profileState = state;
+    });
 
     this.messageState$ = this.messageStore.select('messageTags');
     this.messageState$.subscribe((state) => {
@@ -56,7 +66,12 @@ export class MessageComponent implements OnInit, AfterViewInit {
       ) {
         // hide preloader
         this.showPreloader = false;
-        // this.scrollToBottom();
+        // fetch logged in user messages
+        // this.messageStore.dispatch({
+        //   type: MessageActions.GET_MESSANGER_LIST,
+        //   payload: null
+        // });
+        // console.log('update list');
       }
 
       if (this.messageState
@@ -111,12 +126,37 @@ export class MessageComponent implements OnInit, AfterViewInit {
   }
 
   sendMessage() {
-    console.log('this.selectedUser', this.selectedUser);
+    console.log('profile state', this.profileState);
+
+    let loggedUsersImage = 'avatars/user-avatar-male.png';
+    if (this.profileState
+      && this.profileState['profile_cards']
+      && this.profileState['profile_cards']['active']
+      && this.profileState['profile_cards']['active']['image']
+    ) {
+      loggedUsersImage = this.profileState['profile_cards']['active']['image']
+    }
+
+    let loggedUsersHandle = '';
+    if (this.profileState
+      && this.profileState['profile_cards']
+      && this.profileState['profile_cards']['active']
+      && this.profileState['profile_cards']['active']['handle']
+    ) {
+      loggedUsersHandle = this.profileState['profile_cards']['active']['handle']
+    }
+
     const message = {
       to: this.selectedUser.handle,
+      by: loggedUsersHandle,
       subject: this.messageText,
-      content: this.messageText
+      content: this.messageText,
+      messageType: 'sent',
+      profileImage: loggedUsersImage,
+      time: Date.now()
     }
+
+    console.log('message obj', message);
 
     this.messageStore.dispatch({
       type: MessageActions.SEND_MESSAGE,
