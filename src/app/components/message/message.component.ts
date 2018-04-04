@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 
@@ -15,6 +15,7 @@ import { MessageActions } from '../../actions/message.action';
 export class MessageComponent implements OnInit, AfterViewInit {
 
   // @ViewChild('inputMessageText') inputMessageText;
+  @ViewChild('chatWindow') private chatWindowContainer: ElementRef;
 
   imageBaseUrl = environment.API_IMAGE;
   selectedUser: any;
@@ -25,6 +26,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
   messageState$: Observable<MessageModal>;
   messageState: any;
   showPreloader = false;
+  disableChatWindowScroll = false;
 
   constructor(
     private messageStore: Store<MessageModal>
@@ -37,7 +39,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
     this.messageState$ = this.messageStore.select('messageTags');
     this.messageState$.subscribe((state) => {
       this.messageState = state;
-      console.log('this.messageState', this.messageState);
+      // console.log('this.messageState', this.messageState);
 
       if (this.messageState && this.messageState['get_messanger_list_data']) {
         this.messangerList = this.messageState['get_messanger_list_data'];
@@ -54,7 +56,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
       ) {
         // hide preloader
         this.showPreloader = false;
-        console.log('hide preloader');
+        // this.scrollToBottom();
       }
 
       if (this.messageState
@@ -63,7 +65,6 @@ export class MessageComponent implements OnInit, AfterViewInit {
       ) {
         // show preloader
         this.showPreloader = true;
-        console.log('show preloader');
       }
     });
 
@@ -82,6 +83,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
     // .subscribe(() => {
     //   console.log('make a reuqet', this.messageText);
     // });
+    this.scrollToBottom();
   }
 
   /**
@@ -109,6 +111,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
   }
 
   sendMessage() {
+    console.log('this.selectedUser', this.selectedUser);
     const message = {
       to: this.selectedUser.handle,
       subject: this.messageText,
@@ -119,5 +122,24 @@ export class MessageComponent implements OnInit, AfterViewInit {
       type: MessageActions.SEND_MESSAGE,
       payload: message
     });
+
+    this.messageText = '';
   }
+
+  scrollToBottom() {
+    if (this.chatWindowContainer && this.chatWindowContainer !== undefined) {
+      this.chatWindowContainer.nativeElement.scrollTop = this.chatWindowContainer.nativeElement.scrollHeight;
+    }
+  }
+
+  onChatWindowScroll() {
+    const element = this.chatWindowContainer.nativeElement;
+    const atBottom = element.scrollHeight - element.scrollTop === element.clientHeight;
+    if (this.disableChatWindowScroll && atBottom) {
+      this.disableChatWindowScroll = false;
+    } else {
+      this.disableChatWindowScroll = true;
+    }
+  }
+
 }
