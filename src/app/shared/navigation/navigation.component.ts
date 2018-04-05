@@ -122,7 +122,6 @@ export class NavigationComponent implements OnInit {
     this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         // if(typeof state['recieved_pushed_notifications_success']){
-            
         // }
         if (typeof state['recieved_notifications'] !== 'undefined') {
           let noti;
