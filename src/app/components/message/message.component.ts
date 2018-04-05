@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, AfterContentInit, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 
@@ -14,7 +14,7 @@ import { PusherService } from '../../services/pusher.service';
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss']
 })
-export class MessageComponent implements OnInit, AfterViewInit {
+export class MessageComponent implements OnInit, AfterContentInit {
 
   // @ViewChild('inputMessageText') inputMessageText;
   @ViewChild('chatWindow') private chatWindowContainer: ElementRef;
@@ -27,10 +27,11 @@ export class MessageComponent implements OnInit, AfterViewInit {
   messageState$: Observable<MessageModal>;
   messageState: any;
   showPreloader = false;
-  disableChatWindowScroll = false;
   profileState$: Observable<ProfileModal>;
   profileState: any;
   pagination: any;
+  disableScroll = false;
+  isConversationSelected = false;
 
   constructor(
     private messageStore: Store<MessageModal>,
@@ -55,6 +56,12 @@ export class MessageComponent implements OnInit, AfterViewInit {
 
       if (this.messageState && this.messageState['get_messanger_list_data']) {
         this.messangerList = this.messageState['get_messanger_list_data'];
+
+        // display last conversation
+        if (!this.isConversationSelected) {
+          this.selectUser(this.messangerList[0]);
+          this.isConversationSelected = true;
+        }
       }
 
       if (this.messageState && this.messageState['load_conversation_data']) {
@@ -67,7 +74,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
         && this.messageState['loading_conversation_success'] === true
       ) {
         // hide preloader
-        this.showPreloader = false;
+        // this.showPreloader = false;
       }
 
       if (this.messageState
@@ -75,7 +82,7 @@ export class MessageComponent implements OnInit, AfterViewInit {
         && this.messageState['loading_conversation_success'] === false
       ) {
         // show preloader
-        this.showPreloader = true;
+        // this.showPreloader = true;
       }
     });
 
@@ -102,8 +109,8 @@ export class MessageComponent implements OnInit, AfterViewInit {
   /**
    * scroll bottom the chat window on sending the new message
    */
-  ngAfterViewInit() {
-    this.scrollToBottom();
+  ngAfterContentInit() {
+    // this.scrollToBottom();
   }
 
   /**
@@ -123,9 +130,25 @@ export class MessageComponent implements OnInit, AfterViewInit {
     this.selectedUser = userObj;
     this.conversation = [];
 
+    // reset pagination
+    this.pagination = {
+      pageNumber: 0,
+      recordsPerPage: 10
+    };
+
+    // initial pagination on use selection
+    const pagination = this.paginateConversation();
+
+    // load selected users conversation
     this.messageStore.dispatch({
       type: MessageActions.LOAD_CONVERSATION,
-      payload: userObj.handle
+      payload: {
+        handle: userObj.handle,
+        pagination: pagination,
+        lastMessage: {
+          id: ''
+        }
+      }
     });
   }
 
@@ -179,15 +202,30 @@ export class MessageComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   *
+   * scroll lsitner to check if user reached top then trigger lod more messages
    */
   onChatWindowScroll() {
     const element = this.chatWindowContainer.nativeElement;
     const atBottom = element.scrollHeight - element.scrollTop === element.clientHeight;
-    if (this.disableChatWindowScroll && atBottom) {
-      this.disableChatWindowScroll = false;
-    } else {
-      this.disableChatWindowScroll = true;
+    const atTop = element.scrollTop === 0;
+    if (atTop) {
+      this.disableScroll = true;
+      setTimeout(() => {
+        this.disableScroll = false;
+      }, 2000);
+
+      const pagination = this.paginateConversation();
+      // load prev messages
+      this.messageStore.dispatch({
+        type: MessageActions.LOAD_CONVERSATION,
+        payload: {
+          handle: this.selectedUser.handle,
+          pagination: pagination,
+          lastMessage: {
+            id: this.conversation[0].id
+          }
+        }
+      });
     }
   }
 
@@ -195,21 +233,19 @@ export class MessageComponent implements OnInit, AfterViewInit {
    * pagination
    */
   paginateConversation() {
-    let notifsOffset: number;
+    let convOffset: number;
     if (this.pagination.pageNumber === 0) {
-      notifsOffset = 0;
+      convOffset = 0;
     } else {
-      notifsOffset = (this.pagination.pageNumber * this.pagination.recordsPerPage) + 1;
+      convOffset = (this.pagination.pageNumber * this.pagination.recordsPerPage);
     }
     this.pagination.pageNumber++;
 
-    const notifsPaginate = {
-      offset: notifsOffset,
+    const convPaginate = {
+      offset: convOffset,
       limit: this.pagination.recordsPerPage
     };
-
-    console.log('pagination', this.pagination);
-    return notifsPaginate;
+    return convPaginate;
   }
 
 }

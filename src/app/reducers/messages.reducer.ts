@@ -40,9 +40,15 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
 
     case MessageActions.LOAD_CONVERSATION_SUCCESS:
+      let updated_load_conv_data = [];
+      if (state && state['load_conversation_data'] !== undefined) {
+        updated_load_conv_data = [...payload, ...state['load_conversation_data']];
+      } else {
+        updated_load_conv_data = payload;
+      }
       return Object.assign({}, state, {
         loading_conversation: false,
-        load_conversation_data: payload,
+        load_conversation_data: updated_load_conv_data,
         loading_conversation_success: true
       });
 
@@ -118,7 +124,6 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       } else {
         updated_load_conversation_data = [payload];
       }
-      console.log('updated_load_conversation_data', updated_load_conversation_data);
       return Object.assign({}, state, {
         load_conversation_data: updated_load_conversation_data
       });

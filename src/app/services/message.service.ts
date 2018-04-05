@@ -43,9 +43,8 @@ export class MessageService {
         return this.api.get('/portal/message/v-2/latestMessage/0/30');
     }
 
-    loadConversation(handle: string) {
-        return this.api.get('/portal/message/v-2/conversation/' + handle + '/0/10');
-        // return this.http.get('http://172.16.9.1:9000/api/1.0/portal/message/v-2/conversation/' + handle + '/0/10');
+    loadConversation(data: any) {
+        return this.api.get('/portal/message/v-2/conversation/' + data.handle + '/' + data.pagination.offset + '/' + data.pagination.limit + '?prev=' + data.lastMessage.id);
     }
 
     sendMessage(message: any) {
