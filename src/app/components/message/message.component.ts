@@ -24,14 +24,13 @@ export class MessageComponent implements OnInit, AfterViewInit {
   messangerList = [];
   conversation = [];
   messageText = '';
-
   messageState$: Observable<MessageModal>;
   messageState: any;
   showPreloader = false;
   disableChatWindowScroll = false;
-
   profileState$: Observable<ProfileModal>;
   profileState: any;
+  pagination: any;
 
   constructor(
     private messageStore: Store<MessageModal>,
@@ -39,9 +38,10 @@ export class MessageComponent implements OnInit, AfterViewInit {
     private pusherService: PusherService
   ) {
     this.selectedUser = {};
-    // this.selectedUser = {
-    //   username: 'abhijeet'
-    // };
+    this.pagination = {
+      pageNumber: 0,
+      recordsPerPage: 10
+    };
 
     this.profileState$ = this.profileStore.select('profileTags');
     this.profileState$.subscribe((state) => {
@@ -68,12 +68,6 @@ export class MessageComponent implements OnInit, AfterViewInit {
       ) {
         // hide preloader
         this.showPreloader = false;
-        // fetch logged in user messages
-        // this.messageStore.dispatch({
-        //   type: MessageActions.GET_MESSANGER_LIST,
-        //   payload: null
-        // });
-        // console.log('update list');
       }
 
       if (this.messageState
@@ -92,9 +86,11 @@ export class MessageComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * initialize listeners on view available
+   */
   ngOnInit() {
     this.pusherService.messagesChannel.bind('New-Message', (message) => {
-      console.log(message);
       // this.notify = true;
       this.messageStore.dispatch({
         type: MessageActions.ADD_PUSHER_MESSAGE,
@@ -103,12 +99,10 @@ export class MessageComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * scroll bottom the chat window on sending the new message
+   */
   ngAfterViewInit() {
-    // this.inputMessageText.valueChanges
-    // .debounceTime(1000)
-    // .subscribe(() => {
-    //   console.log('make a reuqet', this.messageText);
-    // });
     this.scrollToBottom();
   }
 
@@ -126,7 +120,6 @@ export class MessageComponent implements OnInit, AfterViewInit {
    * trigger dispatch to load conversation with the user asked
    */
   selectUser(userObj: any) {
-
     this.selectedUser = userObj;
     this.conversation = [];
 
@@ -136,9 +129,10 @@ export class MessageComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * action send message
+   */
   sendMessage() {
-    console.log('profile state', this.profileState);
-
     let loggedUsersImage = 'avatars/user-avatar-male.png';
     if (this.profileState
       && this.profileState['profile_cards']
@@ -167,8 +161,6 @@ export class MessageComponent implements OnInit, AfterViewInit {
       time: Date.now()
     }
 
-    console.log('message obj', message);
-
     this.messageStore.dispatch({
       type: MessageActions.SEND_MESSAGE,
       payload: message
@@ -177,12 +169,18 @@ export class MessageComponent implements OnInit, AfterViewInit {
     this.messageText = '';
   }
 
+  /**
+   * scroll to the bottom of chat window
+   */
   scrollToBottom() {
     if (this.chatWindowContainer && this.chatWindowContainer !== undefined) {
       this.chatWindowContainer.nativeElement.scrollTop = this.chatWindowContainer.nativeElement.scrollHeight;
     }
   }
 
+  /**
+   *
+   */
   onChatWindowScroll() {
     const element = this.chatWindowContainer.nativeElement;
     const atBottom = element.scrollHeight - element.scrollTop === element.clientHeight;
@@ -191,6 +189,27 @@ export class MessageComponent implements OnInit, AfterViewInit {
     } else {
       this.disableChatWindowScroll = true;
     }
+  }
+
+  /**
+   * pagination
+   */
+  paginateConversation() {
+    let notifsOffset: number;
+    if (this.pagination.pageNumber === 0) {
+      notifsOffset = 0;
+    } else {
+      notifsOffset = (this.pagination.pageNumber * this.pagination.recordsPerPage) + 1;
+    }
+    this.pagination.pageNumber++;
+
+    const notifsPaginate = {
+      offset: notifsOffset,
+      limit: this.pagination.recordsPerPage
+    };
+
+    console.log('pagination', this.pagination);
+    return notifsPaginate;
   }
 
 }
