@@ -110,7 +110,6 @@ import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { MessageComponent } from './components/message/message.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
 import { NotificationComponent } from './components/notification/notification.component';
@@ -134,7 +133,6 @@ import { AboutComponent } from './components/about/about.component';
     AppComponent,
     LoginComponent,
     ResetPasswordComponent,
-    MessageComponent,
     SpotfeedComponent,
     SpotfeedPremiumComponent,
     NotificationComponent,
