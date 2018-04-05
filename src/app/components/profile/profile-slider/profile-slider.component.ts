@@ -9,6 +9,7 @@ import { ModalService } from '../../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { Subject }    from 'rxjs/Subject';
 
 // helper
 import { TokenService } from '../../../helpers/token.service';
@@ -68,6 +69,8 @@ export class ProfileSliderComponent implements OnInit {
   recordsPerPage = 50;
   // profileObject: ProfileCard;
   activeProfileHandle = '';
+  mymodel: string; // bind this to input with ngModel
+  txtQueryChanged: Subject<string> = new Subject<string>();
 
   hasFollowed: boolean;
   @ViewChild('skillModal') UsertypeModal: Modal;
@@ -139,6 +142,14 @@ export class ProfileSliderComponent implements OnInit {
     this.buildEditForm();
 
     this.router = _router;
+    this.txtQueryChanged
+            .debounceTime(1000) // wait 1 sec after the last event before emitting last event
+            .subscribe(model => {
+              console.log('model', model)
+              // this.mymodel = model;
+              this.profileStore.dispatch({ type: AuthActions.SEARCH_SKILL, payload: model });
+              // Call your function which calls API or do anything you would like do after a lag of 1 sec
+             });
 
 
     // this.profileStore.select('profileTags')
@@ -371,8 +382,12 @@ export class ProfileSliderComponent implements OnInit {
    * Search skill on profile Edit
    */
   onSearchChange(query) {
-    if (query || query !== '') {
-      this.profileStore.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
+    if (query) {
+      console.log('query',query)
+    //   this.profileStore.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
+    this.txtQueryChanged.next(query);
+    } else {
+      this.txtQueryChanged.next('undefined');
     }
     this.findSkill = [];
   }
