@@ -40,7 +40,7 @@ export class CommunitiesService {
   }
 
   listCommnuity(params: any) {
-    return this.api.get('/portal/community/landing/created/0/10' , '');
+    return this.api.put('/portal/community/filter/specificSearch' , params);
   }
 
 }

@@ -3,7 +3,7 @@
     <div class="container p-0">
         <div class="o-community-search m-t-32">
             <form action="">
-                <input class="o-community-search__input" required="" type="text" placeholder="Search Communities">
+                <input class="o-community-search__input" #searchInput="ngModel" [(ngModel)]="searchString" [ngModelOptions]="{standalone: true}" type="text" placeholder="Search Communities">
                 <div class="o-community-search__icon">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" data-name="Layer 1" viewBox="0 0 74 74">
                         <defs>

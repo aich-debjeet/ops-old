@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HttpParams, HttpClient } from '@angular/common/http';
 
 // Action
 import { AuthActions } from '../../actions/auth.action';
@@ -20,8 +21,10 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './communities.component.html',
   styleUrls: ['./communities.component.scss']
 })
-export class CommunitiesComponent implements OnInit {
+export class CommunitiesComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('searchInput') searchInput;
+  searchString = '';
   industries: any[];
   basePath = environment.API_IMAGE;
   public communityForm: FormGroup;
@@ -29,6 +32,8 @@ export class CommunitiesComponent implements OnInit {
   tagState$: Observable<any>;
   private subscription: ISubscription;
   selectedIndustry = '';
+  status: string;
+  query: string;
   list: any;
   constructor(
     private fb: FormBuilder,
@@ -36,7 +41,11 @@ export class CommunitiesComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
+    private httpClient: HttpClient
   ) {
+    this.status = 'recommended';
+    this.query = '';
+
     this.industryState$ = store.select('loginTags');
     this.subscription = this.industryState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
@@ -49,7 +58,6 @@ export class CommunitiesComponent implements OnInit {
       if (typeof state !== 'undefined') {
         if (state['communityList']) {
           this.list = state['communityList'];
-        console.log(state);
         }
       }
     });
@@ -59,17 +67,31 @@ export class CommunitiesComponent implements OnInit {
       .subscribe(params => {
         // Defaults to 0 if no query param provided.
         if (params['status']) {
-          // this.filterStatus = params['status'];
+          this.status = params['status'];
+          this.loadCommunity();
         }
         // this.serachApi();
       });
 
-    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_LIST });
+      this.loadCommunity();
   }
 
   ngOnInit() {
     this.buildForm();
     this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
+  }
+
+  loadCommunity() {
+    const list = {
+      title: this.searchString,
+      status: this.status,
+      industryList: [],
+      tags: [],
+      offset: 0,
+      limit: 10
+    }
+
+    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_LIST, payload: list });
   }
 
   buildForm() {
@@ -83,7 +105,6 @@ export class CommunitiesComponent implements OnInit {
   }
 
   submitForm(value) {
-    console.log(value);
     if ( this.communityForm.valid === true ) {
       const data = {
         title: value.community_name,
@@ -93,7 +114,6 @@ export class CommunitiesComponent implements OnInit {
         },
         industryList: [ value.industry ]
       }
-      console.log(data);
       this.store.dispatch({ type: CommunitiesActions.COMMUNITY_CREATE, payload: data });
 
       this.store.select('communitiesTags')
@@ -106,5 +126,18 @@ export class CommunitiesComponent implements OnInit {
     }else {
       this.toastr.warning('Please fill all required fields');
     }
+  }
+
+  ngAfterViewInit() {
+
+    /**
+     * Observing the search input change
+     */
+    this.searchInput.valueChanges
+    .debounceTime(500)
+    .subscribe(() => {
+      this.loadCommunity();
+    });
+
   }
 }
