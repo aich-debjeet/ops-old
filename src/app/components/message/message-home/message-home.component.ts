@@ -14,7 +14,7 @@ import { PusherService } from './../../../services/pusher.service';
   templateUrl: './message-home.component.html',
   styleUrls: ['./message-home.component.scss']
 })
-export class MessageHomeComponent implements OnInit {
+export class MessageHomeComponent implements OnInit, AfterContentInit {
 
   // @ViewChild('inputMessageText') inputMessageText;
   @ViewChild('chatWindow') private chatWindowContainer: ElementRef;
