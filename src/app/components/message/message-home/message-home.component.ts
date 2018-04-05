@@ -248,4 +248,12 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
     return convPaginate;
   }
 
+  onScroll() {
+    console.log('scrolling down');
+  }
+
+  onScrollUp() {
+    console.log('scrolling up');
+  }
+
 }

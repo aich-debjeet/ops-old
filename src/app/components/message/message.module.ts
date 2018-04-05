@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { SharedModule } from '../../shared/shared.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { MessageHomeComponent } from './message-home/message-home.component';
 
@@ -19,6 +20,7 @@ const routes: Routes = [
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    InfiniteScrollModule,
     RouterModule.forChild(routes),
   ],
   declarations: [MessageHomeComponent]
