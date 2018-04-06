@@ -17,11 +17,11 @@
         <!-- card footer links -->
         <div class="c-card__links p-t-0">
             <div class="c-comm__followers">
-                <div class="c-followers__img" *ngFor="let member of data?.memberList">
+                <div class="c-followers__img " *ngFor="let member of data?.memberList | slice:0:3; let index = index" [class.m-l--8]="index !== 0">
                     <img class="c-user__image" [src]="imageLink + member?.profileImage">
                 </div>
-                <p class="c-followers__count">+ {{ data?.memberCount}} member</p>
-                <a href="javascript:void(0);" class="c-card__Communities--link">Join</a>
+                <p class="c-followers__count" *ngIf="data?.memberCount > 3"> + {{ (data?.memberCount) - 3}} member</p>
+                <a href="javascript:void(0);" class="c-card__Communities--link" [class.color-grey-dark]="data?.isMember">{{(data?.isMember)? 'Joined' : 'Join'}}</a>
             </div>
         </div>
         <!-- //card footer links -->
