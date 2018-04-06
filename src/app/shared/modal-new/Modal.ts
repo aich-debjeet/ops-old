@@ -14,7 +14,7 @@ export class ModalContent {
     selector: 'app-modal-new',
     styleUrls: ['./modal.component.scss'],
     template: `
-        <div class="modal"
+        <div class="modal modal_bg"
             tabindex="-1"
             role="dialog"
             #modalRoot
