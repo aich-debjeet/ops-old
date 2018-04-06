@@ -18,7 +18,7 @@
         <div class="o-cover-media__browse">
             <div class="upload-btn-wrapper">
                 <button class="btn btn-network">Browse</button>
-                <input type="file" name="myfile" (change)="fileChangeListener($event)"/>
+                <input type="file" accept="image/*" name="myfile" (change)="fileChangeListener($event)"/>
             </div>
             <!--<span class="text">Browse</span>
             <input id="custom-input" type="file" (change)="fileChangeListener($event)">-->
@@ -27,7 +27,7 @@
             <p class="p_text" *ngIf="stateProfile.cover_img_upload_success">Successfully updated</p>
             <div class="o-cover-footer__btn">
                 <button type="button"  (click)="isClosed($event)" class="btn btn-network btn-sm text_uppercase">Cancel</button>
-                <button type="button" (click)="uploadCoverImage()" class="btn btn-primary btn-sm o-cover-btn__mod">Save</button>
+                <button type="button" (click)="uploadCoverImage()" class="btn btn-primary btn-sm o-cover-btn__mod" [disabled]="!coverImageChosen">Save</button>
             </div>
         </div>
     </div>
