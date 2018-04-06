@@ -61,7 +61,7 @@ export const routes: Routes = [
  { path: 'notification', component: NotificationComponent, canActivate: [AuthGuard] },
  { path: 'portfolio', component: PortfolioComponent, canActivate: [AuthGuard] },
  { path: 'planner', component: PlannerComponent, canActivate: [AuthGuard] },
- { path: 'network', component: NetworkComponent, canActivate: [AuthGuard] },
+//  { path: 'network', component: NetworkComponent, canActivate: [AuthGuard] },
  { path: 'project', component: ProjectComponent, canActivate: [AuthGuard] },
  { path: 'event', loadChildren: './components/events/events.module#EventsModule'},
  { path: 'user/settings', component: SettingsComponent, canActivate: [AuthGuard] },
