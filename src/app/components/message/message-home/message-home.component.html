@@ -96,7 +96,7 @@
                 <ng-container *ngIf="showPreloader === false">
                     <!-- message container -->
                     <!-- <div class="mess_chat_block" #chatWindow [scrollTop]="chatWindow.scrollHeight" -->
-                    <div class="mess_chat_block"
+                    <div class="mess_chat_block" #chatWindow [scrollTop]="chatWindow.scrollHeight"
                         infiniteScroll
                         [infiniteScrollDistance]="5"
                         [infiniteScrollThrottle]="50"
@@ -144,7 +144,8 @@
                         <div class="col-md-11">
                             <div class="c-form__group c-form--md c-form--noeffect c-form__faded--md">
                                 <!-- <input class="c-form__input" type="text" #inputMessageText="ngModel" [(ngModel)]="messageText" [ngModelOptions]="{standalone: true}"> -->
-                                <input class="c-form__input" type="text" [(ngModel)]="messageText" (keyup.enter)="sendMessage()">
+                                <!-- <input class="c-form__input" type="text" [(ngModel)]="messageText" (keyup)="userIsTyping()" (keyup.enter)="sendMessage()"> -->
+                                <input class="c-form__input" type="text" [(ngModel)]="messageText" (keyup)="userIsTyping($event)">
                                 <label>Message</label>
                             </div>
                         </div>

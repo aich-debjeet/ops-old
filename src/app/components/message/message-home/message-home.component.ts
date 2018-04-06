@@ -99,12 +99,18 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
    * initialize listeners on view available
    */
   ngOnInit() {
+
+    // pusher message listener
     this.pusherService.messagesChannel.bind('New-Message', (message) => {
-      // this.notify = true;
       this.messageStore.dispatch({
         type: MessageActions.ADD_PUSHER_MESSAGE,
         payload: JSON.parse(message)
       });
+    });
+
+    // pusher notifications listener
+    this.pusherService.notificationsChannel.bind('Message-Typing', (user) => {
+      console.log(user);
     });
   }
 
@@ -132,13 +138,16 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
     this.selectedUser = userObj;
     this.conversation = [];
 
+    // create user channel to emit typing indication
+    this.pusherService.createUserChannel(userObj);
+
     // load selected users conversation
     this.messageStore.dispatch({ type: MessageActions.RESET_CONVERSATION_STATE });
 
     // reset pagination
     this.pagination = {
       pageNumber: 0,
-      recordsPerPage: 10
+      recordsPerPage: 20
     };
 
     // initial pagination on use selection
@@ -150,9 +159,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       payload: {
         handle: userObj.handle,
         pagination: pagination,
-        lastMessage: {
-          id: ''
-        }
+        lastMessage: { id: '' }
       }
     });
   }
@@ -254,20 +261,17 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   }
 
   onScrollDown() {
-    console.log('scrolling down');
+    // console.log('scrolling down');
   }
 
   onScrollUp() {
-    console.log('scrolling up');
-
+    // console.log('scrolling up');
     if (!this.disableScroll) {
-
       this.disableScroll = true;
       setTimeout(() => {
         this.disableScroll = false;
       }, 2000);
       const pagination = this.paginateConversation();
-      console.log('load more ', pagination);
       // load prev messages
       this.messageStore.dispatch({
         type: MessageActions.LOAD_CONVERSATION,
@@ -279,6 +283,26 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
           }
         }
       });
+    }
+  }
+
+  userIsTyping(e: any) {
+    // console.log('user typing', e.keyCode);
+    // if (this.profileState
+    //   && this.profileState['profile_cards']
+    //   && this.profileState['profile_cards']['active']
+    // ) {
+    //   // console.log('user', this.profileState['profile_cards']['active']);
+    //   // this.pusherService.userChannels[this.selectedUser.handle].trigger('Message-Typing', this.profileState['profile_cards']['active']);
+    //   const otherUser = this.pusherService.userChannels[this.selectedUser.handle];
+    //   if (otherUser) {
+    //     otherUser.trigger('Message-Typing', this.profileState['profile_cards']['active'])
+    //   }
+    // }
+
+    // send message if enter pressed
+    if (e.keyCode === 13) {
+      this.sendMessage();
     }
   }
 

@@ -14,6 +14,7 @@ export class PusherService {
   private handle: string;
   private accessToken: any;
   private apiLink: string = environment.API_ENDPOINT;
+  userChannels = [];
 
   constructor(
     private api: ApiService,
@@ -38,4 +39,13 @@ export class PusherService {
     this.messagesChannel = this.pusher.subscribe('private-message-' + this.handle);
   }
 
+  // create other user channel for sending typing notification
+  createUserChannel(user: any) {
+    if (this.userChannels && this.userChannels[user.handle]) {
+      // console.log('channel found');
+    } else {
+      // console.log('channel NOT found');
+      this.userChannels[user.handle] = this.pusher.subscribe('private-notification-' + user.handle);
+    }
+  }
 }
