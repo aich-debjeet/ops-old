@@ -464,7 +464,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.LOAD_USER_CHANNEL_SUCCESS:
       return Object.assign({}, state, {
-        other_channel: payload,
+        other_channel: payload['spotFeedResponse'],
         other_channels_loading: false,
         other_channels_loaded: true
       });
