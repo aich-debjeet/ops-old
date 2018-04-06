@@ -41,7 +41,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
     this.selectedUser = {};
     this.pagination = {
       pageNumber: 0,
-      recordsPerPage: 10
+      recordsPerPage: 20
     };
 
     this.profileState$ = this.profileStore.select('profileTags');
@@ -75,6 +75,8 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       ) {
         // hide preloader
         // this.showPreloader = false;
+
+        this.scrollToBottom();
       }
 
       if (this.messageState
@@ -129,6 +131,9 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   selectUser(userObj: any) {
     this.selectedUser = userObj;
     this.conversation = [];
+
+    // load selected users conversation
+    this.messageStore.dispatch({ type: MessageActions.RESET_CONVERSATION_STATE });
 
     // reset pagination
     this.pagination = {
@@ -248,12 +253,33 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
     return convPaginate;
   }
 
-  onScroll() {
+  onScrollDown() {
     console.log('scrolling down');
   }
 
   onScrollUp() {
     console.log('scrolling up');
+
+    if (!this.disableScroll) {
+
+      this.disableScroll = true;
+      setTimeout(() => {
+        this.disableScroll = false;
+      }, 2000);
+      const pagination = this.paginateConversation();
+      console.log('load more ', pagination);
+      // load prev messages
+      this.messageStore.dispatch({
+        type: MessageActions.LOAD_CONVERSATION,
+        payload: {
+          handle: this.selectedUser.handle,
+          pagination: pagination,
+          lastMessage: {
+            id: this.conversation[0].id
+          }
+        }
+      });
+    }
   }
 
 }

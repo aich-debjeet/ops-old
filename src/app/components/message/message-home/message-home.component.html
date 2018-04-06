@@ -95,7 +95,14 @@
                 
                 <ng-container *ngIf="showPreloader === false">
                     <!-- message container -->
-                    <div class="mess_chat_block" #chatWindow (scroll)="onChatWindowScroll()" [scrollTop]="chatWindow.scrollHeight">
+                    <!-- <div class="mess_chat_block" #chatWindow [scrollTop]="chatWindow.scrollHeight" -->
+                    <div class="mess_chat_block"
+                        infiniteScroll
+                        [infiniteScrollDistance]="5"
+                        [infiniteScrollThrottle]="50"
+                        [scrollWindow]="false"
+                        (scrolled)="onScrollDown()"
+                        (scrolledUp)="onScrollUp()">
                         <ng-container *ngIf="conversation?.length > 0">
                             <div *ngFor="let message of conversation" class="msg_container">
                                 <div class="col-md-12" *ngIf="message?.messageType === 'sent'">

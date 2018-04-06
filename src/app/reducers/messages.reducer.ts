@@ -129,6 +129,12 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
     /* update pusher message */
 
+    /* reset conversation state */
+    case MessageActions.RESET_CONVERSATION_STATE:
+      return Object.assign({}, state, {
+        load_conversation_data: []
+      });
+
     case MessageActions.LOAD_USER_PROFILE_DATA:
     return (<any>Object).assign({}, state, {
       success: true,

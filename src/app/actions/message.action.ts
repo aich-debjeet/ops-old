@@ -39,6 +39,8 @@ export class MessageActions {
   static ADD_PUSHER_MESSAGE_SUCCESS = 'ADD_PUSHER_MESSAGE_SUCCESS';
   static ADD_PUSHER_MESSAGE_FAILED = 'ADD_PUSHER_MESSAGE_FAILED';
 
+  static RESET_CONVERSATION_STATE = 'RESET_CONVERSATION_STATE';
+
   /* -------------------------------- load current user profile data -------------------------------- */
   loadUserProfile(value): Action {
     return {
