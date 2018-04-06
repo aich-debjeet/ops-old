@@ -32,6 +32,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   pagination: any;
   disableScroll = false;
   isConversationSelected = false;
+  convFirstSet = true;
 
   constructor(
     private messageStore: Store<MessageModal>,
@@ -69,14 +70,18 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
         // console.log('this.conversation', this.conversation);
       }
 
-       if (this.messageState
+      if (this.messageState
         && this.messageState['loading_conversation'] === false
         && this.messageState['loading_conversation_success'] === true
       ) {
         // hide preloader
         // this.showPreloader = false;
 
-        this.scrollToBottom();
+        // check if initial set of the conversation, if yes then scroll to the last mesage in the conversation
+        if (this.convFirstSet) {
+          setTimeout(() => { this.scrollToBottom(); }, 100);
+          this.convFirstSet = false;
+        }
       }
 
       if (this.messageState
