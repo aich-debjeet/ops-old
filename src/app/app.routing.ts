@@ -7,7 +7,6 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { MessageComponent } from './components/message/message.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
 import { NotificationComponent } from './components/notification/notification.component';
@@ -52,13 +51,13 @@ export const routes: Routes = [
  { path: 'reset-password', component: ResetPasswordComponent },
  { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule' },
 //  { path: 'media', loadChildren: './components/media/media.module#ProfileModule' },
- { path: 'user/message', component: MessageComponent, canActivate: [AuthGuard] },
  { path: 'user/status/list', component: StatusListComponent, canActivate: [AuthGuard] },
  { path: 'user/media/list', loadChildren: './components/media-list/media-list.module#MediaListModule', canActivate: [AuthGuard]},
  { path: 'spotfeed/:id', component: SpotfeedComponent, canActivate: [AuthGuard] },
  { path: 'spotfeed-premium', component: SpotfeedPremiumComponent, canActivate: [AuthGuard] },
  { path: 'directory', component: DirectoryListComponent, canActivate: [AuthGuard] },
  { path: 'notification', component: NotificationComponent, canActivate: [AuthGuard] },
+ { path: 'user/message', loadChildren: './components/message/message.module#MessageModule', canActivate: [AuthGuard] },
  { path: 'portfolio', component: PortfolioComponent, canActivate: [AuthGuard] },
  { path: 'planner', component: PlannerComponent, canActivate: [AuthGuard] },
  { path: 'network', component: NetworkComponent, canActivate: [AuthGuard] },

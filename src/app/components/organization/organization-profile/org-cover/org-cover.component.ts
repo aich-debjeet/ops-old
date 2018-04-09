@@ -36,6 +36,7 @@ export class OrgCoverComponent implements OnInit {
   baseUrl: string;
   orgHandle: string;
   stateOrg: any;
+  coverImageChosen = false;
 
   @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
   constructor(
@@ -101,11 +102,10 @@ export class OrgCoverComponent implements OnInit {
       const myReader: FileReader = new FileReader();
       const that = this;
       myReader.onloadend = function (loadEvent: any) {
-          image.src = loadEvent.target.result;
-          that.cropper.setImage(image);
-
+        image.src = loadEvent.target.result;
+        that.cropper.setImage(image);
+        that.coverImageChosen = true;
       };
-
       myReader.readAsDataURL(file);
   }
 

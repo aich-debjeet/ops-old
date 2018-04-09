@@ -189,7 +189,7 @@ export class NavigationComponent implements OnInit {
       type: NotificationActions.LOAD_NOTIFICATIONS,
       payload: null
     });
-    this.pusherService.messagesChannel.bind('Media-Spot', (message) => {
+    this.pusherService.notificationsChannel.bind('Media-Spot', (message) => {
       // console.log(message)
       this.notify = true;
       this.notificationStore.dispatch({
