@@ -14,6 +14,9 @@ export class AuthGuard implements CanActivate {
 
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.authService.isLoggedIn().map(e => {
+            const data = e.json();
+            // console.log('AUTH GUARD', data);
+            localStorage.setItem('loggedInProfileHandle', data['profileId']);
             if (e) {
                 return true;
             }

@@ -17,9 +17,11 @@ import { Subscription } from 'rxjs/Subscription';
 import { environment } from '../../../environments/environment';
 
 import { _ } from 'lodash';
+import {uniqBy as _uniqBy} from 'lodash';
 import { GeneralUtilities } from '../../helpers/general.utils';
 import { Profile } from 'selenium-webdriver/firefox';
 import { AuthActions } from 'app/actions/auth.action';
+import { PusherService } from '../../services/pusher.service';
 
 @Component({
   selector: 'app-navigation',
@@ -41,6 +43,10 @@ export class NavigationComponent implements OnInit {
   profile_details: any;
   showCreateOrg = false;
   redirectedToCreatedOrg = false;
+  notify = false;
+  scrolling = 0;
+  scrollingLoad = 100;
+  page_start = 1;
 
   // userCard: UserCard;
   userCards: ProfileCards;
@@ -59,7 +65,8 @@ export class NavigationComponent implements OnInit {
     private renderer: Renderer,
     public generalHelper: GeneralUtilities,
     private localStorageService: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private pusherService: PusherService
   ) {
 
     this.topNav = {
@@ -111,6 +118,24 @@ export class NavigationComponent implements OnInit {
       /* profile state */
       this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     }
+    // observe the store value
+    this.notificationsState$.subscribe((state) => {
+      if (typeof state !== 'undefined') {
+        // if(typeof state['recieved_pushed_notifications_success']){
+            
+        // }
+        if (typeof state['recieved_notifications'] !== 'undefined') {
+          let noti;
+          noti = state['recieved_notifications'];
+          this.notifications = _uniqBy(noti, noti.notificationId);
+          this.processNotifications();
+        }
+        if (typeof state['marking_as_read_response'] !== 'undefined') {
+          // upadte notification as marked
+          this.updateNotifications();
+        }
+      }
+    });
 
   }
 
@@ -122,23 +147,26 @@ export class NavigationComponent implements OnInit {
   }
 
   notificationPopup() {
-      this.notificationStore.dispatch({
-        type: NotificationActions.LOAD_NOTIFICATIONS,
-        payload: null
-      });
+    if (this.notify) {
+      this.notify = false;
+    }
+      // this.notificationStore.dispatch({
+      //   type: NotificationActions.LOAD_NOTIFICATIONS,
+      //   payload: null
+      // });
       // observe the store value
-      this.notificationsState$.subscribe((state) => {
-        if (typeof state !== 'undefined') {
-          if (typeof state['recieved_notifications'] !== 'undefined') {
-            this.notifications = state['recieved_notifications'];
-            this.processNotifications();
-          }
-          if (typeof state['marking_as_read_response'] !== 'undefined') {
-            // upadte notification as marked
-            this.updateNotifications();
-          }
-        }
-      });
+      // this.notificationsState$.subscribe((state) => {
+      //   if (typeof state !== 'undefined') {
+      //     if (typeof state['recieved_notifications'] !== 'undefined') {
+      //       this.notifications = state['recieved_notifications'];
+      //       this.processNotifications();
+      //     }
+      //     if (typeof state['marking_as_read_response'] !== 'undefined') {
+      //       // upadte notification as marked
+      //       this.updateNotifications();
+      //     }
+      //   }
+      // });
   }
   /**
    * Create channel
@@ -158,6 +186,18 @@ export class NavigationComponent implements OnInit {
    * On init
    */
   ngOnInit() {
+    this.notificationStore.dispatch({
+      type: NotificationActions.LOAD_NOTIFICATIONS,
+      payload: null
+    });
+    this.pusherService.notificationsChannel.bind('Media-Spot', (message) => {
+      // console.log(message)
+      this.notify = true;
+      this.notificationStore.dispatch({
+        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+        payload: JSON.parse(message)
+      });
+    });
     document.body.scrollTop = 0;
     // check if on org page
     // const activeRoute = this.router.url;
@@ -176,7 +216,7 @@ export class NavigationComponent implements OnInit {
     .subscribe( data => {
       this.isProfileSet = true;
     });
-
+    
   }
 
   toggleNav(name: string) {
@@ -219,7 +259,8 @@ export class NavigationComponent implements OnInit {
       switch (notif.notificationType) {
 
         case 'Media_Spot':
-          this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your post';
+          // this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your post';
+          this.notifications[index]['message'] = ' spotted your post';
           break;
 
         case 'Media_Comments':
@@ -292,5 +333,4 @@ export class NavigationComponent implements OnInit {
     this.router.navigate(['/']);
     this.store.dispatch({ type: AuthActions.USER_LOGOUT, payload: ''});
   }
-
 }

@@ -5,6 +5,10 @@
 
 export const environment = {
   production: false,
+  pusher: {
+    cluster: 'ap2',
+    key: '1c0b6051b2d1e4977cbd',
+  },
   API_ENDPOINT: 'https://dev.api.onepagespotlight.com/api/1.0',
   API_IMAGE: 'https://cdn.onepagespotlight.com/'
 };

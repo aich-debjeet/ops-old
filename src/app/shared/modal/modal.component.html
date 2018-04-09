@@ -1,6 +1,5 @@
 <div [ngClass]="{'closed': !isOpen}">
   <div class="modal-overlay" (click)="close(true)"></div>
-
   <div class="modal">
     <div *ngIf="modalTitle">
       <span class="right-align p-r-20 " (click)="close(true)">

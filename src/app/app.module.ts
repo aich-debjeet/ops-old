@@ -82,6 +82,7 @@ import { OpportunityService } from './services/opportunity.service';
 import { ExploreService } from './services/explore.service';
 import { ClaimProfileService } from './services/claim-profile.service';
 import { FileService } from './services/file.service';
+import { PusherService } from './services/pusher.service';
 
 // Component module
 import { SharedModule } from './shared/shared.module';
@@ -109,7 +110,6 @@ import { NetworkComponent } from './components/network/network.component';
 import { ProjectComponent } from './components/project/project.component';
 import { DirectoryListComponent } from './components/directory-list/directory-list.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { MessageComponent } from './components/message/message.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
 import { NotificationComponent } from './components/notification/notification.component';
@@ -126,13 +126,13 @@ import { NearestEventsComponent } from './shared/nearest-events/nearest-events.c
 import { MediaComponent } from './components/media/media.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { TermsComponent } from './components/terms/terms.component';
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ResetPasswordComponent,
-    MessageComponent,
     SpotfeedComponent,
     SpotfeedPremiumComponent,
     NotificationComponent,
@@ -160,7 +160,8 @@ import { TermsComponent } from './components/terms/terms.component';
     ProjectComponent,
     DirectoryListComponent,
     PrivacyPolicyComponent,
-    TermsComponent
+    TermsComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ops-app'}),
@@ -211,6 +212,7 @@ import { TermsComponent } from './components/terms/terms.component';
   ],
   providers: [
     AuthService,
+    PusherService,
     MessageService,
     AuthGuard,
     AuthlogoutGuard,

@@ -56,11 +56,14 @@ export class AuthService {
     }
 
     validateToken() {
+      console.log('authentication purpose')
       const req = {};
       this.updateAuthHeaders();
       return this.http.get(`${this.apiLink}/portal/auth/loggedUser`, { headers: this.headers })
       .map((response: Response) => {
+        
           const user = response.json();
+          console.log(user)
           if (user.profileId) {
           }
           localStorage.setItem('currentUserID', user.profileId);
@@ -241,10 +244,11 @@ export class AuthService {
     }
 
     otpChangeNumber(value: any) {
-      const token = localStorage.getItem('access_token');
-      const head = new Headers({ 'Content-Type': 'application/json'});
-      head.append('Authorization', 'Bearer ' + token);
-      return this.http.put(this.apiLink + '/portal/auth/user/update', value, { headers: head }) // removed headers: head
+      // const token = localStorage.getItem('access_token');
+      // const head = new Headers({ 'Content-Type': 'application/json'});
+      // head.append('Authorization', 'Bearer ' + token);
+      this.updateAuthHeaders();
+      return this.http.put(this.apiLink + '/portal/auth/user/update', value, { headers: this.headers }) // removed headers: head
         .map((data: Response) => data.json());
     }
 
