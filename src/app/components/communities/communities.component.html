@@ -113,10 +113,13 @@
         <!-- filter section end -->
         <div class="tab-content" style="margin-bottom: 18px">
             <div id="created">
-                    <app-community-card *ngFor="let communities of list" [data]="communities" [loader]="false"></app-community-card>
-                    <div *ngIf="community_load">
+                <app-community-card *ngFor="let communities of list" [data]="communities" [loader]="false"></app-community-card>
+                <div *ngIf="community_load">
                     <app-community-card  *ngFor="let number of [0,1,2,3]"   [data]="communities" [loader]="true"></app-community-card>
-                    </div>
+                </div>
+                <div class="empty_message" *ngIf="list.length === 0 && !community_load">
+                    <p>There is no {{status}} community</p>
+                </div>
             </div>
 
             <!-- Created end -->
