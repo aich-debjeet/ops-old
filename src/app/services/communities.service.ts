@@ -44,7 +44,7 @@ export class CommunitiesService {
   }
 
   joinCommunity(params: any) {
-    return this.api.post(`/portal/community/join/${params}`, '');
+    return this.api.post(`/portal/community/joinCommunity/join`, params);
   }
 
 }

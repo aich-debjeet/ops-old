@@ -21,7 +21,10 @@ export class CommunityCardComponent implements OnInit {
 
   joinCommunity(id) {
     console.log(id);
-    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_JOIN, payload: id });
+    const data = {
+      communityId: id
+    }
+    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_JOIN, payload: data });
   }
 
 }

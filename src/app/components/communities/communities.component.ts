@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -21,7 +21,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './communities.component.html',
   styleUrls: ['./communities.component.scss']
 })
-export class CommunitiesComponent implements OnInit, AfterViewInit {
+export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('searchInput') searchInput;
   searchString = '';
@@ -49,7 +49,7 @@ export class CommunitiesComponent implements OnInit, AfterViewInit {
     this.query = '';
 
     this.industryState$ = store.select('loginTags');
-    this.subscription = this.industryState$.subscribe((state) => {
+    this.industryState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.industries = state.industries;
       }
@@ -62,11 +62,8 @@ export class CommunitiesComponent implements OnInit, AfterViewInit {
           this.list = state['communityList'];
         }
         if (state['community_loading'] !== null) {
-
           this.community_load = state['community_loading'];
-          console.log(state['community_loading']);
         }
-        console.log(state['community_loading']);
       }
     });
 
@@ -88,6 +85,11 @@ export class CommunitiesComponent implements OnInit, AfterViewInit {
     this.buildForm();
     this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
 
   loadCommunity() {
     const list = {

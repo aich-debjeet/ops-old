@@ -21,7 +21,8 @@
                     <img class="c-user__image" [src]="imageLink + member?.profileImage">
                 </div>
                 <p class="c-followers__count" *ngIf="data?.memberCount > 3"> + {{ (data?.memberCount) - 3}} member</p>
-                <a (click)="joinCommunity(data?.communityId)" class="c-card__Communities--link" [class.color-grey-dark]="data?.isMember">{{(data?.isMember)? 'Joined' : 'Join'}}</a>
+                <a (click)="joinCommunity(data?.communityId)" class="c-card__Communities--link" *ngIf="!data?.isOwner && !data?.isMember">Join</a>
+                <a href="javascript:void(0);" class="c-card__Communities--link" *ngIf="!data?.isOwner && data?.isMember" [class.color-grey-dark]="data?.isMember">Joined</a>
             </div>
         </div>
         <!-- //card footer links -->

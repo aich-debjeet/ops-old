@@ -38,7 +38,7 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
 
     case CommunitiesActions.COMMUNITY_JOIN_SUCCESS:
       return Object.assign({}, state, {
-        communityList: payload['SUCCESS'],
+        communityList: state.communityList.filter(community => community.communityId !== payload.communityId)
       });
 
     default:
