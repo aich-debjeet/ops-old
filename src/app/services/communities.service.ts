@@ -43,4 +43,8 @@ export class CommunitiesService {
     return this.api.put('/portal/community/filter/specificSearch' , params);
   }
 
+  joinCommunity(params: any) {
+    return this.api.post(`/portal/community/join/${params}`, '');
+  }
+
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { environment } from './../../../environments/environment';
-
+import { CommunitiesActions } from '../../actions/communities.action';
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-community-card',
   templateUrl: './community-card.component.html',
@@ -9,9 +10,16 @@ import { environment } from './../../../environments/environment';
 export class CommunityCardComponent implements OnInit {
   @Input() data;
   imageLink: string = environment.API_IMAGE;
-  constructor() { }
+  constructor(
+    private store: Store<any>,
+  ) { }
 
   ngOnInit() {
+  }
+
+  joinCommunity(id) {
+    console.log(id);
+    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_JOIN, payload: id });
   }
 
 }

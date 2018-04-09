@@ -21,7 +21,39 @@
                     <img class="c-user__image" [src]="imageLink + member?.profileImage">
                 </div>
                 <p class="c-followers__count" *ngIf="data?.memberCount > 3"> + {{ (data?.memberCount) - 3}} member</p>
-                <a href="javascript:void(0);" class="c-card__Communities--link" [class.color-grey-dark]="data?.isMember">{{(data?.isMember)? 'Joined' : 'Join'}}</a>
+                <a (click)="joinCommunity(data?.communityId)" class="c-card__Communities--link" [class.color-grey-dark]="data?.isMember">{{(data?.isMember)? 'Joined' : 'Join'}}</a>
+            </div>
+        </div>
+        <!-- //card footer links -->
+    </div>
+</div>
+
+<div class="col-md-3 p-l-r-8 m-t-16">
+    <div class="c-card">
+        <!-- card media (img, video & audio) -->
+        <div class="c-card__opportunity">
+        </div>
+        <!-- //card media (img, video & audio) -->
+        <!-- card body -->
+        <div class="c-card__body c-card__opportunity-head">
+            <div class="c-text__lg color-grey-darker">
+                <div class="c-card__headblank"></div>
+                <div class="c-card__headblank2"></div>
+            </div>
+        </div>
+        <!-- //card body -->
+        <!-- card footer links -->
+        <div class="c-card__links p-t-0">
+            <div class="c-comm__followers">
+                <div class="c-followers__img">
+                </div>
+                <div class="c-followers__img m-l--8">
+                </div>
+                <div class="c-followers__img m-l--8">
+                </div>
+                <div class="c-followers__count">
+                    <div class="c-card__followblank"></div>
+                </div>
             </div>
         </div>
         <!-- //card footer links -->
