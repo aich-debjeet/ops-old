@@ -35,6 +35,7 @@ export class CommunitiesComponent implements OnInit, AfterViewInit {
   status: string;
   query: string;
   list: any;
+  community_load: boolean;
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
@@ -43,6 +44,7 @@ export class CommunitiesComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private httpClient: HttpClient
   ) {
+    
     this.status = 'recommended';
     this.query = '';
 
@@ -59,6 +61,12 @@ export class CommunitiesComponent implements OnInit, AfterViewInit {
         if (state['communityList']) {
           this.list = state['communityList'];
         }
+        if (state['community_loading'] !== null) {
+
+          this.community_load = state['community_loading'];
+          console.log(state['community_loading']);
+        }
+        console.log(state['community_loading']);
       }
     });
 

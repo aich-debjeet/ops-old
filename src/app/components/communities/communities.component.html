@@ -111,10 +111,14 @@
             </div>
         </div>
         <!-- filter section end -->
-        <div class="tab-content" style="margin-bottom: 18px; float: left">
-            <div id="created" class="tab-pane fade  active in">
-                    <app-community-card *ngFor="let communities of list" [data]="communities"></app-community-card>
+        <div class="tab-content" style="margin-bottom: 18px">
+            <div id="created">
+                    <app-community-card *ngFor="let communities of list" [data]="communities" [loader]="false"></app-community-card>
+                    <div *ngIf="community_load">
+                    <app-community-card  *ngFor="let number of [0,1,2,3]"   [data]="communities" [loader]="true"></app-community-card>
+                    </div>
             </div>
+
             <!-- Created end -->
         </div>
     </div>

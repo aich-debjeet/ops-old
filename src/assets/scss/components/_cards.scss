@@ -1,5 +1,17 @@
 // All cards style ---------------------------------------------------------------------------
-
+.c-bg__effect {
+  background: linear-gradient(to right, #F3F5F7 8%, #EAEAEA 18%, #F3F5F7 33%);
+  background-size: 200% 50px;
+  animation: preloadAnimation 2s infinite;
+}
+@keyframes preloadAnimation {
+  from {
+      background-position: -280px 0
+  }
+  to {
+      background-position: 300px 0
+  }
+}
 // feed card (image, audio, video & article)
 .c-card--artist {
   padding: 16px;
@@ -168,6 +180,10 @@
   left: 12px;
   width: 12px;
 }
+.c-card__opportunity-head {
+  height: 74px;
+  overflow: hidden;
+}
 
 .c-video_name {
   position: relative;
@@ -259,7 +275,13 @@
   width: 22px;
   filter: drop-shadow(0px 0px 3px #222);
 }
-
+.c-card__followblank {
+  width: 30%;
+  height: 10px;
+  border-radius: 3px;
+  margin-top: 8px;
+  @extend .c-bg__effect;
+}
 // ------------------------------------
 .c-card__media {
   &:hover {
@@ -414,6 +436,7 @@
   overflow: hidden;
   border-radius: 50%;
   display: inline-block;
+  background-color: #F3F5F7;
 }
 
 .c-followers__count {
@@ -435,6 +458,13 @@
   width: 50%;
   float: left;
   margin-top: 10px;
+}
+.c-card__followblank {
+  width: 30%;
+  height: 10px;
+  border-radius: 3px;
+  margin-top: 8px;
+  @extend .c-bg__effect;
 }
 
 // -------------------------

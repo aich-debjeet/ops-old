@@ -9,6 +9,8 @@ import { Store } from '@ngrx/store';
 })
 export class CommunityCardComponent implements OnInit {
   @Input() data;
+  @Input() loader: boolean = false;
+
   imageLink: string = environment.API_IMAGE;
   constructor(
     private store: Store<any>,

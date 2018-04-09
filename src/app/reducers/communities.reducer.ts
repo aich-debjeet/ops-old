@@ -26,12 +26,19 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
 
     case CommunitiesActions.COMMUNITY_LIST_SUCCESS:
       return Object.assign({}, state, {
-        communityList: payload['SUCCESS']
+        communityList: payload['SUCCESS'],
+        community_loading: false
+      });
+
+      case CommunitiesActions.COMMUNITY_LIST:
+      return Object.assign({}, state, {
+        communityList: [],
+        community_loading: true
       });
 
     case CommunitiesActions.COMMUNITY_JOIN_SUCCESS:
       return Object.assign({}, state, {
-        communityList: payload['SUCCESS']
+        communityList: payload['SUCCESS'],
       });
 
     default:
