@@ -32,7 +32,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   pagination: any;
   disableScroll = false;
   isConversationSelected = false;
-  convFirstSet = true;
+  enableScrollBottom = true;
 
   constructor(
     private messageStore: Store<MessageModal>,
@@ -78,9 +78,9 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
         // this.showPreloader = false;
 
         // check if initial set of the conversation, if yes then scroll to the last mesage in the conversation
-        if (this.convFirstSet) {
-          setTimeout(() => { this.scrollToBottom(); }, 100);
-          this.convFirstSet = false;
+        if (this.enableScrollBottom) {
+          setTimeout(() => { this.scrollToBottom(); }, 200);
+          this.enableScrollBottom = false;
         }
       }
 
@@ -213,6 +213,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
    * scroll to the bottom of chat window
    */
   scrollToBottom() {
+    console.log('scrollToBottom  ');
     if (this.chatWindowContainer && this.chatWindowContainer !== undefined) {
       this.chatWindowContainer.nativeElement.scrollTop = this.chatWindowContainer.nativeElement.scrollHeight;
     }
@@ -271,7 +272,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
 
   onScrollUp() {
     // console.log('scrolling up');
-    if (!this.disableScroll) {
+    if (!this.disableScroll && this.conversation.length > 0) {
       this.disableScroll = true;
       setTimeout(() => {
         this.disableScroll = false;
