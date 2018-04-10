@@ -227,7 +227,7 @@ export class MediaSelectorComponent implements OnInit {
       }
 
       if (this.profileChannel.user_channels_loaded) {
-        this.channeList = this.profileChannel.user_channel;
+        this.channeList = this.profileChannel.user_channel['spotFeedResponse'];
       }
     });
 
