@@ -220,53 +220,17 @@
                                 <input class="c-form__input fpadding_l32" required="" type="text">
                                 <label class="fpadding_l32">Search</label>
                                 <span>
-                  <img [src]="basePath + 'img/svg/ico_search.svg'" class="c-form__input--lefticon">
-                </span>
+                                    <img [src]="basePath + 'img/svg/ico_search.svg'" class="c-form__input--lefticon">
+                                </span>
                             </div>
                         </form>
                     </div>
                     <div class="c-invite__sec" id="ops_scrollbar">
-                        <div class="c-invite__block">
+                        <div class="c-invite__block" *ngFor="let people of listInvitePeople">
                             <a class="c-user__avatar c-avatar--status">
-                <img src="https://ops-v2.netlify.com/assets/demo/avatar.jpg" class="c-user__image">
-              </a>
-                            <a class="c-text_md c-invite--user">Seth Chevz</a>
-                            <div class="c-invite--btn">
-                                <button type="button" class="btn btn-default btn-sm">invite</button>
-                            </div>
-                        </div>
-                        <div class="c-invite__block">
-                            <a class="c-user__avatar c-avatar--status">
-                <img src="https://ops-v2.netlify.com/assets/demo/avatar.jpg" class="c-user__image">
-              </a>
-                            <a class="c-text_md c-invite--user">Annie Weaver</a>
-                            <div class="c-invite--btn">
-                                <button type="button" class="btn btn-default btn-sm">invite</button>
-                            </div>
-                        </div>
-                        <div class="c-invite__block">
-                            <a class="c-user__avatar c-avatar--status">
-                <img src="https://ops-v2.netlify.com/assets/demo/avatar.jpg" class="c-user__image">
-              </a>
-                            <a class="c-text_md c-invite--user">Randall Van</a>
-                            <div class="c-invite--btn">
-                                <button type="button" class="btn btn-default btn-sm">invite</button>
-                            </div>
-                        </div>
-                        <div class="c-invite__block">
-                            <a class="c-user__avatar c-avatar--status">
-                <img src="https://ops-v2.netlify.com/assets/demo/avatar.jpg" class="c-user__image">
-              </a>
-                            <a class="c-text_md c-invite--user">Tobias Van</a>
-                            <div class="c-invite--btn">
-                                <button type="button" class="btn btn-default btn-sm">invite</button>
-                            </div>
-                        </div>
-                        <div class="c-invite__block">
-                            <a class="c-user__avatar c-avatar--status">
-                <img src="https://ops-v2.netlify.com/assets/demo/avatar.jpg" class="c-user__image">
-              </a>
-                            <a class="c-text_md c-invite--user">Tobias Van</a>
+                                <img [src]="basePath + people?.profileImage" class="c-user__image">
+                            </a>
+                            <a class="c-text_md c-invite--user">{{people?.profileName}}</a>
                             <div class="c-invite--btn">
                                 <button type="button" class="btn btn-default btn-sm">invite</button>
                             </div>

@@ -26,6 +26,7 @@ export class CommunitiesInnerComponent implements OnInit {
   tagState$: Observable<any>;
   private subscription: ISubscription;
   details: any;
+  listInvitePeople: any;
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
@@ -44,6 +45,9 @@ export class CommunitiesInnerComponent implements OnInit {
         if (state['communityDetails']) {
           this.details = state['communityDetails'];
         }
+        if (state['communityInvitePeople']) {
+          this.listInvitePeople = state['communityInvitePeople'];
+        }
       }
     });
   }
@@ -53,6 +57,7 @@ export class CommunitiesInnerComponent implements OnInit {
 
   communityDetails() {
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_DETAILS, payload: this.id });
+    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_INVITE_PEOPLE_LIST, payload: this.id });
   }
 
 }

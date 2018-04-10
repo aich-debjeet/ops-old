@@ -46,6 +46,11 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
         communityDetails: payload
       });
 
+    case CommunitiesActions.COMMUNITY_INVITE_PEOPLE_LIST_SUCCESS:
+      return Object.assign({}, state, {
+        communityInvitePeople: payload
+      });
+
     default:
       return state;
 
