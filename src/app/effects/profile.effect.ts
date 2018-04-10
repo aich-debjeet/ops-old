@@ -745,6 +745,18 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.GET_FOLLOWER_PROFILES_FAILED, payload: res }))
     );
 
+    /**
+     *get network sent receipient list 
+     */
+    @Effect()
+    getNetworkList$ = this.actions$
+      .ofType(ProfileActions.SENT_REQUEST_LIST)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.getNetworkRequestList(payload)
+        .map(res => ({ type: ProfileActions.SENT_REQUEST_LIST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.SENT_REQUEST_LIST_FAILED, payload: res }))
+      );
+
   constructor(
     private toastr: ToastrService,
     private actions$: Actions,

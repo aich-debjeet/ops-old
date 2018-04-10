@@ -312,6 +312,11 @@ export class ProfileActions {
   static DEFAULT_NOTIFICATION_SETTINGS_SUCCESS = 'DEFAULT_NOTIFICATION_SETTINGS_SUCCESS';
   static DEFAULT_NOTIFICATION_SETTINGS_FAILED = 'DEFAULT_NOTIFICATION_SETTINGS_FAILED';
 
+  //GET SENT REQUEST LIST
+  static SENT_REQUEST_LIST = 'SENT_REQUEST_LIST';
+  static SENT_REQUEST_LIST_SUCCESS = 'SENT_REQUEST_LIST_SUCCESS';
+  static SENT_REQUEST_LIST_FAILED = 'SENT_REQUEST_LIST_FAILED';
+
   // /**
   //  * Change Profile
   //  */
@@ -808,5 +813,8 @@ export class ProfileActions {
         payload: error
       };
     }
+    /**
+     * Send request list for network
+     */
 
 }

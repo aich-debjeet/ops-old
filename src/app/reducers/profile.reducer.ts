@@ -1130,6 +1130,25 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         profile_other_loading: false
       });
 
+      /**
+       * network sent requests
+       */
+    case ProfileActions.SENT_REQUEST_LIST:
+      return Object.assign({}, state, {
+        network_sent_requests: [],
+      });
+
+    case ProfileActions.SENT_REQUEST_LIST_SUCCESS:
+    console.log('payload', payload)
+      return Object.assign({}, state, {
+        network_sent_requests: payload
+      });
+
+    case ProfileActions.SENT_REQUEST_LIST_FAILED:
+      return Object.assign({}, state, {
+        network_sent_requests: [],
+      });
+
     default:
       return state;
   }
