@@ -38,10 +38,10 @@
                             <input class="" type="radio" name="channel" id="{{ 'channel_'+ i }}" [disabled]="settingDisable" (click)="chooseChannel(channel)" />
                             <label for="{{ 'channel_' + i }}" class="o-channel-label" (click)="chooseChannel(channel)">
                           <span class="o-channel-content">
-                            <span class="o-channel-content__thumb" *ngFor="let media of channel?.media | slice:0:1">
+                            <span class="o-channel-content__thumb" *ngFor="let mediaLink of channel?.media | slice:0:1">
                               <div class="emptyImage">
-                                <div *ngIf="media?.repoPath">
-                                  <img width="32" height="32" [src]="getThumb(media?.repoPath, true)">
+                                <div *ngIf="mediaLink !== ''">
+                                  <img width="32" height="32" [src]="baseUrl + mediaLink">
                                 </div>
                               </div>
                             </span>

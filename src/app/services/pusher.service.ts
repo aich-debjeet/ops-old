@@ -9,11 +9,12 @@ declare const Pusher: any;
 @Injectable()
 export class PusherService {
   pusher: any;
+  notificationsChannel: any;
   messagesChannel: any;
   private handle: string;
-  private headers: any;
   private accessToken: any;
   private apiLink: string = environment.API_ENDPOINT;
+  userChannels = [];
 
   constructor(
     private api: ApiService,
@@ -21,19 +22,30 @@ export class PusherService {
     private token: TokenService
   ) {
     this.handle = localStorage.getItem('loggedInProfileHandle');
-    this.headers = this.api.getHeaders(); 
     this.accessToken = this.token.getToken();
     this.pusher = new Pusher(environment.pusher.key, {
       authEndpoint: this.apiLink + '/portal/pusher/auth',
-      cluster: 'ap2',
-      auth: { 
-        params: { 
+      cluster: environment.pusher.cluster,
+      auth: {
+        params: {
           param1: this.accessToken
         },
       }
     });
 
-    this.messagesChannel = this.pusher.subscribe('private-notification-'+ this.handle);
+    // for notifications
+    this.notificationsChannel = this.pusher.subscribe('private-notification-' + this.handle);
+    // for messages
+    this.messagesChannel = this.pusher.subscribe('private-message-' + this.handle);
   }
 
+  // create other user channel for sending typing notification
+  createUserChannel(user: any) {
+    if (this.userChannels && this.userChannels[user.handle]) {
+      // console.log('channel found');
+    } else {
+      // console.log('channel NOT found');
+      this.userChannels[user.handle] = this.pusher.subscribe('private-notification-' + user.handle);
+    }
+  }
 }

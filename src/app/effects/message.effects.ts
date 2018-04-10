@@ -54,6 +54,33 @@ export class MessageEffect {
         .catch((res) => Observable.of({ type: MessageActions.GET_RECEIPIENT_FAILED, payload: res }))
       );
 
+  @Effect()
+    getMessangerList$ = this.actions$
+      .ofType(MessageActions.GET_MESSANGER_LIST)
+      .map(toPayload)
+      .switchMap((payload) => this.messageService.getMessangerList(payload)
+        .map(res => ({ type: MessageActions.GET_MESSANGER_LIST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: MessageActions.GET_MESSANGER_LIST_FAILED, payload: res }))
+      );
+
+  @Effect()
+  loadConversation$ = this.actions$
+    .ofType(MessageActions.LOAD_CONVERSATION)
+    .map(toPayload)
+    .switchMap((payload) => this.messageService.loadConversation(payload)
+      .map(res => ({ type: MessageActions.LOAD_CONVERSATION_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.LOAD_CONVERSATION_FAILED, payload: res }))
+    );
+
+  @Effect()
+  sendMessage$ = this.actions$
+    .ofType(MessageActions.SEND_MESSAGE)
+    .map(toPayload)
+    .switchMap((payload) => this.messageService.sendMessage(payload)
+      .map(res => ({ type: MessageActions.SEND_MESSAGE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.SEND_MESSAGE_FAILED, payload: res }))
+    );
+
   constructor(
   private actions$: Actions,
   private apiService: GeneralService,

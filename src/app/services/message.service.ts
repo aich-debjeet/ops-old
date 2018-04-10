@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../environments/environment';
-import { TokenService } from '../helpers/token.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
 import { Observable } from 'rxjs/Observable';
+
+import { ApiService } from '../helpers/api.service';
+import { TokenService } from '../helpers/token.service';
 
 @Injectable()
 export class MessageService {
@@ -15,7 +17,8 @@ export class MessageService {
 
   constructor(
     private tokenService: TokenService,
-    private http: Http
+    private http: Http,
+    private api: ApiService
     ) { }
 
     getUserProfileDetails(value: any) {
@@ -34,5 +37,17 @@ export class MessageService {
         const headers = this.tokenService.getAuthHeader();
         return this.http.get(this.apiLink + '/portal/searchprofiles/1/' + value + '/0/10', { headers: headers })
         .map((data: Response) => data.json());
+    }
+
+    getMessangerList(params: any) {
+        return this.api.get('/portal/message/v-2/latestMessage/0/30');
+    }
+
+    loadConversation(data: any) {
+        return this.api.get('/portal/message/v-2/conversation/' + data.handle + '/' + data.pagination.offset + '/' + data.pagination.limit + '?prev=' + data.lastMessage.id);
+    }
+
+    sendMessage(message: any) {
+        return this.api.post('/portal/message/v-2/add', message);
     }
 }
