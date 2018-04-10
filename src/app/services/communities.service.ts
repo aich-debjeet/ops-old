@@ -47,4 +47,8 @@ export class CommunitiesService {
     return this.api.post(`/portal/community/joinCommunity/join`, params);
   }
 
+  detailCommunity(id: any) {
+    return this.api.get('/portal/community/' + id , '');
+  }
+
 }

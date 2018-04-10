@@ -20,7 +20,6 @@ export class CommunityCardComponent implements OnInit {
   }
 
   joinCommunity(id) {
-    console.log(id);
     const data = {
       communityId: id
     }

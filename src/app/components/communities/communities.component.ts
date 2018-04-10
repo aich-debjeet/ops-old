@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular
 import { environment } from '../../../environments/environment';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HttpParams, HttpClient } from '@angular/common/http';
 
 // Action
 import { AuthActions } from '../../actions/auth.action';
@@ -42,9 +41,7 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute,
-    private httpClient: HttpClient
   ) {
-    
     this.status = 'recommended';
     this.query = '';
 
