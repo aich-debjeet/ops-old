@@ -244,7 +244,7 @@
                     <div class="o-community-show-block m-t-16" *ngFor="let community of relatedCommunity">
                         <span class="o-community-show__thumb"></span>
                         <span class="o-community-show__name m-l-8">
-                            <h6 class="c-text_md">{{community?.title}}</h6>
+                            <h6 class="c-text_md"><a [routerLink]="['/communities', community?.communityId]">{{community?.title}}</a></h6>
                             <p class="c-text_sm letter_space color-grey">{{community?.memberCount}} memberes</p>
                         </span>
                     </div>
