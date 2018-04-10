@@ -79,7 +79,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
 
         // check if initial set of the conversation, if yes then scroll to the last mesage in the conversation
         if (this.enableScrollBottom) {
-          setTimeout(() => { this.scrollToBottom(); }, 200);
+          // setTimeout(() => { this.scrollToBottom(); }, 200);
           this.enableScrollBottom = false;
         }
       }
@@ -213,7 +213,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
    * scroll to the bottom of chat window
    */
   scrollToBottom() {
-    console.log('scrollToBottom  ');
+    // console.log('scrollToBottom');
     if (this.chatWindowContainer && this.chatWindowContainer !== undefined) {
       this.chatWindowContainer.nativeElement.scrollTop = this.chatWindowContainer.nativeElement.scrollHeight;
     }
