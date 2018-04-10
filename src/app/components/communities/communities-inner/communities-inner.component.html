@@ -239,43 +239,14 @@
                 </div>
                 <div class="c-card padding_16 m-t-16">
                     <div class="c-text_lg">Related Communities
-                        <a href="" class="c-text_sm c-org--seemore">See More</a>
+                        <!-- <a href="" class="c-text_sm c-org--seemore">See More</a> -->
                     </div>
-                    <div class="o-community-show-block m-t-16">
-                        <span class="o-community-show__thumb">
-                  
-              </span>
+                    <div class="o-community-show-block m-t-16" *ngFor="let community of relatedCommunity">
+                        <span class="o-community-show__thumb"></span>
                         <span class="o-community-show__name m-l-8">
-                  <h6 class="c-text_md">The A Z Of Motivation</h6>
-                  <p class="c-text_sm letter_space color-grey">120 memberes</p>
-              </span>
-                    </div>
-                    <div class="o-community-show-block m-t-16">
-                        <span class="o-community-show__thumb">
-                  
-              </span>
-                        <span class="o-community-show__name m-l-8">
-                  <h6 class="c-text_md">Effective Ways To Smoki…</h6>
-                  <p class="c-text_sm letter_space color-grey">120 memberes</p>
-              </span>
-                    </div>
-                    <div class="o-community-show-block m-t-16">
-                        <span class="o-community-show__thumb">
-                  
-              </span>
-                        <span class="o-community-show__name m-l-8">
-                  <h6 class="c-text_md">The A Z Of Motivation</h6>
-                  <p class="c-text_sm letter_space color-grey">120 memberes</p>
-              </span>
-                    </div>
-                    <div class="o-community-show-block m-t-16">
-                        <span class="o-community-show__thumb">
-                  
-              </span>
-                        <span class="o-community-show__name m-l-8">
-                  <h6 class="c-text_md">The A Z Of Motivation</h6>
-                  <p class="c-text_sm letter_space color-grey">120 memberes</p>
-              </span>
+                            <h6 class="c-text_md">{{community?.title}}</h6>
+                            <p class="c-text_sm letter_space color-grey">{{community?.memberCount}} memberes</p>
+                        </span>
                     </div>
                 </div>
             </div>

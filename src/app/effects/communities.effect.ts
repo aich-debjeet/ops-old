@@ -58,6 +58,15 @@ export class CommunitiesEffect {
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_INVITE_PEOPLE_LIST_FAILED, payload: res }))
     );
 
+  @Effect()
+  relatedCommunity$ = this.actions$
+    .ofType(CommunitiesActions.COMMUNITY_RELATED)
+    .map(toPayload)
+    .switchMap((payload) => this.communitiesService.relatedCommunity(payload)
+      .map(res => ({ type:  CommunitiesActions.COMMUNITY_RELATED_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_RELATED_FAILED, payload: res }))
+    );
+
     constructor(
     private actions$: Actions,
     private communitiesService: CommunitiesService,
