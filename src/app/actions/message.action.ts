@@ -41,6 +41,10 @@ export class MessageActions {
 
   static RESET_CONVERSATION_STATE = 'RESET_CONVERSATION_STATE';
 
+  static MESSAGE_SEARCH_USER = 'MESSAGE_SEARCH_USER';
+  static MESSAGE_SEARCH_USER_SUCCESS = 'MESSAGE_SEARCH_USER_SUCCESS';
+  static MESSAGE_SEARCH_USER_FAILED = 'MESSAGE_SEARCH_USER_FAILED';
+
   /* -------------------------------- load current user profile data -------------------------------- */
   loadUserProfile(value): Action {
     return {

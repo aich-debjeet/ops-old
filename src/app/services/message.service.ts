@@ -50,4 +50,8 @@ export class MessageService {
     sendMessage(message: any) {
         return this.api.post('/portal/message/v-2/add', message);
     }
+
+    messageSearchUser(searchQuery: string) {
+        return this.api.get('/portal/message/v-2/search/0/10?searchString=' + searchQuery);
+    }
 }

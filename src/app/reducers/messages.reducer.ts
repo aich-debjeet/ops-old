@@ -31,6 +31,28 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
     /* get messanger list reducers */
 
+    /* get searched users */
+    case MessageActions.MESSAGE_SEARCH_USER:
+      return Object.assign({}, state, {
+        message_searching_user: true,
+        message_searching_user_success: false,
+        message_search_user_params: payload
+      });
+
+    case MessageActions.MESSAGE_SEARCH_USER_SUCCESS:
+      return Object.assign({}, state, {
+        message_searching_user: false,
+        message_search_user_data: payload,
+        message_searching_user_success: true
+      });
+
+    case MessageActions.MESSAGE_SEARCH_USER_FAILED:
+      return Object.assign({}, state, {
+        message_searching_user: false,
+        message_searching_user_success: false
+      });
+    /* get searched users */
+
     /* load conversation */
     case MessageActions.LOAD_CONVERSATION:
       return Object.assign({}, state, {
