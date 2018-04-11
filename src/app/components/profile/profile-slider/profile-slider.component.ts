@@ -52,6 +52,7 @@ export class ProfileSliderComponent implements OnInit {
   userProfile = initialTag ;
   findSkill: any;
   public profileForm: FormGroup;
+  public networkForm: FormGroup;
   baseUrl: string;
   private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   coverImage: string;
@@ -71,6 +72,9 @@ export class ProfileSliderComponent implements OnInit {
   activeProfileHandle = '';
   mymodel: string; // bind this to input with ngModel
   txtQueryChanged: Subject<string> = new Subject<string>();
+  otherProfileHandle: String;
+  otherProfileName: String;
+  error = false;
 
   hasFollowed: boolean;
   @ViewChild('skillModal') UsertypeModal: Modal;
@@ -99,7 +103,7 @@ export class ProfileSliderComponent implements OnInit {
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      // console.log('state', state);
+      //  console.log('state', state);
       // get followers
       if (state) {
         if ((state['searching_following_profiles'] === false && state['searching_following_profiles_success'] === true) || (state['searching_follower_profiles'] === false && state['searching_follower_profiles_success'] === true)) {
@@ -123,12 +127,16 @@ export class ProfileSliderComponent implements OnInit {
             // console.log('state.profile_other', state.profile_other);
             if (state.profile_other && state.profile_other.length !== 0) {
               const profile = state.profile_other;
+              // console.log(profile)
               this.profileObject = this.utils.claimProfileValueMapping(profile);
               // console.log('claim');
             }
           } else {
             // console.log('other');
             this.profileObject = this.loadProfile( state, 'other' );
+            this.otherProfileHandle = this.profileObject.userDetails.handle;
+            this.otherProfileName = this.profileObject.name;
+            
           }
           this.isOwner = false;
         }
@@ -140,12 +148,13 @@ export class ProfileSliderComponent implements OnInit {
     });
 
     this.buildEditForm();
+    this.buildNetworkForm();
 
     this.router = _router;
     this.txtQueryChanged
             .debounceTime(1000) // wait 1 sec after the last event before emitting last event
             .subscribe(model => {
-              console.log('model', model)
+              // console.log('model', model)
               // this.mymodel = model;
               this.profileStore.dispatch({ type: AuthActions.SEARCH_SKILL, payload: model });
               // Call your function which calls API or do anything you would like do after a lag of 1 sec
@@ -383,7 +392,7 @@ export class ProfileSliderComponent implements OnInit {
    */
   onSearchChange(query) {
     if (query) {
-      console.log('query',query)
+      // console.log('query',query)
     //   this.profileStore.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
     this.txtQueryChanged.next(query);
     } else {
@@ -579,6 +588,59 @@ export class ProfileSliderComponent implements OnInit {
     //   });
     // }
   }
+
+  buildNetworkForm() {
+    this.networkForm = this.fb.group({
+      request: [''],
+      message: ['']
+    });
+  }
+  onFormSubmit(value) {
+    // console.log(value)
+    // const data = this.networkForm.get('request').value;
+    // console.log('request', this.networkForm.get('request').value);
+    // console.log('message', this.networkForm.get('message').value);
+    // if (this.networkForm.valid) {
+    //   alert('Valid!');
+    // } else {
+    //   alert('Invalid!');
+    // }
+    // return false;
+    // if(this.networkForm.valid) {
+      if(value.request === ''){
+        this.error = true;
+      }
+      if(value.request === 'network'){
+          // console.log('network')
+          const data = {
+            'receiver_id': this.otherProfileHandle,
+            'questionnaire':{
+                'purpose': 'Hey '+this.otherProfileName +' I want to network with you.',
+                'brief': '',
+            }
+        }
+        this.profileStore.dispatch({ type: ProfileActions.SENT_NETWORK_REQUEST, payload: data });
+        this.toastr.success('You have successfully sent a request!');
+      }
+      if(value.request === 'personalMessage'){
+          // console.log('message')
+          if (this.networkForm.value.message === '') {
+            alert('Please enter msg!');
+            return false;
+          } else {
+            const data = {
+              'receiver_id': this.otherProfileHandle,
+              'questionnaire': {
+                  'purpose': 'Hey '+this.otherProfileName +' I want to network with you.',
+                  'brief': value.message,
+              }
+            };
+            this.profileStore.dispatch({ type: ProfileActions.SENT_NETWORK_REQUEST, payload: data});
+            this.toastr.success('You have successfully sent a request!');
+          }
+      }
+    // }
+ }
 
 }
 
