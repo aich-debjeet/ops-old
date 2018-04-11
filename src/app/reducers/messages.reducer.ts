@@ -140,15 +140,20 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
 
     /* update pusher message */
     case MessageActions.ADD_PUSHER_MESSAGE:
-      let updated_load_conversation_data = [];
-      if (state && state['load_conversation_data'] !== undefined) {
-        updated_load_conversation_data = [...state['load_conversation_data'], payload];
+      // check for the selected user handle to append the message
+      if (state && state['load_conversation_params'] !== undefined && state['load_conversation_params']['handle'] !== undefined && state['load_conversation_params']['handle'] === payload['by']) {
+        let updated_load_conversation_data = [];
+        if (state && state['load_conversation_data'] !== undefined) {
+          updated_load_conversation_data = [...state['load_conversation_data'], payload];
+        } else {
+          updated_load_conversation_data = [payload];
+        }
+        return Object.assign({}, state, {
+          load_conversation_data: updated_load_conversation_data
+        });
       } else {
-        updated_load_conversation_data = [payload];
+        return state;
       }
-      return Object.assign({}, state, {
-        load_conversation_data: updated_load_conversation_data
-      });
     /* update pusher message */
 
     /* reset conversation state */
