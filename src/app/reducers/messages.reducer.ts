@@ -14,13 +14,13 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       return Object.assign({}, state, {
         getting_messanger_list: true,
         getting_messanger_list_success: false,
-        get_messanger_list_params: payload
+        messanger_list_params: payload
       });
 
     case MessageActions.GET_MESSANGER_LIST_SUCCESS:
       return Object.assign({}, state, {
         getting_messanger_list: false,
-        get_messanger_list_data: payload,
+        messanger_list_data: payload,
         getting_messanger_list_success: true
       });
 
@@ -42,7 +42,7 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
     case MessageActions.MESSAGE_SEARCH_USER_SUCCESS:
       return Object.assign({}, state, {
         message_searching_user: false,
-        message_search_user_data: payload,
+        messanger_list_data: payload,
         message_searching_user_success: true
       });
 
@@ -94,7 +94,7 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
 
       // check if messanger list array exist, if yes then update it
       let updated_messanger_list = [];
-      const messanger_list = state['get_messanger_list_data'];
+      const messanger_list = state['messanger_list_data'];
       if (state && messanger_list !== undefined) {
         // remove the user with the same handle
         const msgIndex = _.findIndex(messanger_list, (obj) => obj.handle === payload.to);
@@ -121,7 +121,7 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
         sending_message_success: false,
         send_message_params: payload,
         load_conversation_data: updated_conversation,
-        get_messanger_list_data: updated_messanger_list
+        messanger_list_data: updated_messanger_list
       });
 
     case MessageActions.SEND_MESSAGE_SUCCESS:
