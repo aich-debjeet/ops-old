@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, AfterContentInit, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { environment } from './../../../../environments/environment';
+import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -33,6 +34,8 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   disableScroll = false;
   isConversationSelected = false;
   enableScrollBottom = true;
+  msgUserSearch = new FormControl();
+  isSearching = false;
 
   constructor(
     private messageStore: Store<MessageModal>,
@@ -55,8 +58,8 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       this.messageState = state;
       // console.log('this.messageState', this.messageState);
 
-      if (this.messageState && this.messageState['get_messanger_list_data']) {
-        this.messangerList = this.messageState['get_messanger_list_data'];
+      if (this.messageState && this.messageState['messanger_list_data']) {
+        this.messangerList = this.messageState['messanger_list_data'];
 
         // display last conversation
         if (!this.isConversationSelected) {
@@ -85,6 +88,13 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       }
 
       if (this.messageState
+        && this.messageState['message_searching_user'] === false
+        && this.messageState['message_searching_user_success'] === true
+      ) {
+        this.isSearching = false;
+      }
+
+      if (this.messageState
         && this.messageState['loading_conversation'] === true
         && this.messageState['loading_conversation_success'] === false
       ) {
@@ -93,7 +103,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       }
     });
 
-    // fetch logged in user messages
+    // fetch logged in user messanger list
     this.messageStore.dispatch({
       type: MessageActions.GET_MESSANGER_LIST,
       payload: null
@@ -116,6 +126,28 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
     // pusher notifications listener
     this.pusherService.notificationsChannel.bind('Message-Typing', (user) => {
       console.log(user);
+    });
+
+    // search user input listener
+    this.msgUserSearch.valueChanges
+    .debounceTime(500)
+    .subscribe(() => {
+      // console.log('search: ', this.msgUserSearch.value);
+      if (this.msgUserSearch.value.length === 0) {
+        this.isSearching = true;
+        // fetch logged in user messanger list
+        this.messageStore.dispatch({
+          type: MessageActions.GET_MESSANGER_LIST,
+          payload: null
+        });
+      } else {
+        this.isSearching = true;
+        // fetch messanger lsit as per query
+        this.messageStore.dispatch({
+          type: MessageActions.MESSAGE_SEARCH_USER,
+          payload: this.msgUserSearch.value
+        });
+      }
     });
   }
 
