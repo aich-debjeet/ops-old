@@ -459,4 +459,10 @@ export class ProfileService {
   getImportedProfile(username: string) {
     return this.api.get('/portal/auth/user/username/' + username);
   }
+  /**
+   * sent request for networks
+   */
+  sentNetworkRequest(body: any) {
+    return this.api.put('/portal/network/connection/request', body);
+  }
 }
