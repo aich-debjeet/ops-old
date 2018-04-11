@@ -59,4 +59,8 @@ export class CommunitiesService {
     return this.api.get('/portal/community/related/0/5/' + id , '');
   }
 
+  unjoinCommunity(params: any) {
+    return this.api.put('/portal/community/exitCommunity' , params);
+  }
+
 }

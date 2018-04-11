@@ -67,6 +67,15 @@ export class CommunitiesEffect {
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_RELATED_FAILED, payload: res }))
     );
 
+  @Effect()
+  unjoinCommunity$ = this.actions$
+    .ofType(CommunitiesActions.COMMUNITY_UNJOIN)
+    .map(toPayload)
+    .switchMap((payload) => this.communitiesService.unjoinCommunity(payload)
+      .map(res => ({ type:  CommunitiesActions.COMMUNITY_UNJOIN_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_UNJOIN_FAILED, payload: res }))
+    );
+
     constructor(
     private actions$: Actions,
     private communitiesService: CommunitiesService,

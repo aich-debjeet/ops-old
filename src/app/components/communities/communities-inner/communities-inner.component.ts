@@ -59,6 +59,17 @@ export class CommunitiesInnerComponent implements OnInit {
   ngOnInit() {
   }
 
+  userJoin(join) {
+    if (join === true) {
+      const data = {
+        communityId: this.id
+      }
+      this.store.dispatch({ type: CommunitiesActions.COMMUNITY_UNJOIN, payload: data });
+    }else {
+
+    }
+  }
+
   communityDetails() {
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_DETAILS, payload: this.id });
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_INVITE_PEOPLE_LIST, payload: this.id });

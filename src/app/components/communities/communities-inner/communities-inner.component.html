@@ -16,10 +16,10 @@
                     <div class="col-md-6 p-0">
                         <p class="c-text_md o-commu__members ltr-space text_uppercase m-t-b-16">123 <span class="color-grey-dark">Posts</span></p>
                     </div>
-                    <div class="col-md-6 p-l-0 p-r-8">
-                        <button type="button" class="btn btn-default btn-md btn-block">Join</button>
+                    <div class="col-md-6 p-l-0 p-r-8"   *ngIf="!details?.isOwner">
+                        <button type="button" (click)="userJoin(true)" class="btn btn-default btn-md btn-block">{{ (details?.isMember) ? 'Unjoin' : 'Join'}}</button>
                     </div>
-                    <div class="col-md-6 p-r-0 p-l-8">
+                    <div  [ngClass]="{'col-md-12 p-0': details?.isOwner, 'col-md-6 p-r-0 p-l-8': !details?.isOwner}">
                         <a href="addpost.html" class="btn btn-primary btn-md btn-block">Add post</a>
                     </div>
                 </div>
@@ -227,10 +227,10 @@
                     </div>
                     <div class="c-invite__sec" id="ops_scrollbar">
                         <div class="c-invite__block" *ngFor="let people of listInvitePeople">
-                            <a class="c-user__avatar c-avatar--status">
+                            <a class="c-user__avatar c-avatar--status" routerLink="/profile/u/{{ people?.profileUsername }}">
                                 <img [src]="basePath + people?.profileImage" class="c-user__image">
                             </a>
-                            <a class="c-text_md c-invite--user">{{people?.profileName}}</a>
+                            <a class="c-text_md c-invite--user" routerLink="/profile/u/{{ people?.profileUsername }}">{{people?.profileName}}</a>
                             <div class="c-invite--btn">
                                 <button type="button" class="btn btn-default btn-sm">invite</button>
                             </div>
