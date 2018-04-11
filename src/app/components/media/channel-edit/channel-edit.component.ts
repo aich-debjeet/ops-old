@@ -137,6 +137,7 @@ export class EditChannelComponent implements OnInit {
       const channel = event.channel_detail;
       this.userHandle = channel.ownerHandle;
       this.channelForm = this.fb.group({
+        id: [channel.channelId, Validators.required ],
         title: [channel.channelName, Validators.required ],
         type: ['', Validators.required ],
         desc: [channel.description, Validators.required ],
@@ -171,6 +172,7 @@ export class EditChannelComponent implements OnInit {
       }
 
       const channelObj = {
+        id: value.id,
         name: value.title,
         description: value.desc,
         industryList: [ value.type ],
