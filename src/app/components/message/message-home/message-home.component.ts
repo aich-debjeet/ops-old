@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, AfterContentInit, ElementRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { environment } from './../../../../environments/environment';
+import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -33,6 +34,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   disableScroll = false;
   isConversationSelected = false;
   enableScrollBottom = true;
+  msgUserSearch = new FormControl();
 
   constructor(
     private messageStore: Store<MessageModal>,
@@ -116,6 +118,17 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
     // pusher notifications listener
     this.pusherService.notificationsChannel.bind('Message-Typing', (user) => {
       console.log(user);
+    });
+
+    // search user input listener
+    this.msgUserSearch.valueChanges
+    .debounceTime(500)
+    .subscribe(() => {
+      // console.log('search: ', this.msgUserSearch.value);
+      this.messageStore.dispatch({
+        type: MessageActions.MESSAGE_SEARCH_USER,
+        payload: this.msgUserSearch.value
+      });
     });
   }
 
