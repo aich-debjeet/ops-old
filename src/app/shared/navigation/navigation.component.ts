@@ -128,6 +128,7 @@ export class NavigationComponent implements OnInit {
           let noti;
           noti = state['recieved_notifications'];
           this.notifications = _uniqBy(noti, noti.notificationId);
+          console.log(this.notifications)
           this.processNotifications();
         }
         if (typeof state['marking_as_read_response'] !== 'undefined') {
@@ -191,6 +192,46 @@ export class NavigationComponent implements OnInit {
       payload: null
     });
     this.pusherService.notificationsChannel.bind('Media-Spot', (message) => {
+      // console.log(message)
+      this.notify = true;
+      this.notificationStore.dispatch({
+        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+        payload: JSON.parse(message)
+      });
+    });
+    this.pusherService.notificationsChannel.bind('Blog-Spot', (message) => {
+      // console.log(message)
+      this.notify = true;
+      this.notificationStore.dispatch({
+        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+        payload: JSON.parse(message)
+      });
+    });
+    this.pusherService.notificationsChannel.bind('Status-Spot', (message) => {
+      // console.log(message)
+      this.notify = true;
+      this.notificationStore.dispatch({
+        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+        payload: JSON.parse(message)
+      });
+    });
+    this.pusherService.notificationsChannel.bind('Media-Comment', (message) => {
+      // console.log(message)
+      this.notify = true;
+      this.notificationStore.dispatch({
+        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+        payload: JSON.parse(message)
+      });
+    });
+    this.pusherService.notificationsChannel.bind('Blog-Comment', (message) => {
+      // console.log(message)
+      this.notify = true;
+      this.notificationStore.dispatch({
+        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+        payload: JSON.parse(message)
+      });
+    });
+    this.pusherService.notificationsChannel.bind('Status-Comment', (message) => {
       // console.log(message)
       this.notify = true;
       this.notificationStore.dispatch({

@@ -636,7 +636,6 @@ export class ProfileSliderComponent implements OnInit {
             }
         }
         this.profileStore.dispatch({ type: ProfileActions.SENT_NETWORK_REQUEST, payload: data });
-        // this.toastr.success('You have successfully sent a request!');
       }
       if(value.request === 'personalMessage'){
           // console.log('message')
@@ -652,7 +651,6 @@ export class ProfileSliderComponent implements OnInit {
               }
             };
             this.profileStore.dispatch({ type: ProfileActions.SENT_NETWORK_REQUEST, payload: data});
-            // this.toastr.success('You have successfully sent a request!');
           }
       }
     // }
