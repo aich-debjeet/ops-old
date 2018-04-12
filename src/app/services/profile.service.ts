@@ -465,7 +465,7 @@ export class ProfileService {
    */
   getNetworkRequestList(handle: string){
     console.log('handle', handle)
-    return this.api.get('portal/network/sent_requests'+ handle + '/0/10')  
+    return this.api.get('/portal/network/sent_requests/'+ handle + '/0/10')  
   }
   /**
    * sent request for networks

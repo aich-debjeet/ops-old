@@ -26,15 +26,24 @@ export class ProfileNetworkComponent implements OnInit {
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
       console.log('state ', state)
-      if ( state['profile_navigation_details'] && state ['profile_user_info']) {
-        if (this.userProfile.profile_user_info.isCurrentUser === true){
-          this.userHandle = this.userProfile.profile_navigation_details.handle;
-        console.log('handle', this.userHandle)
-        this.profileStore.dispatch({ type: ProfileActions.SENT_REQUEST_LIST, payload: this.userHandle });
-        }
-      }
+      // if ( state['profile_navigation_details'] && state ['profile_user_info']) {
+      //   if (this.userProfile.profile_user_info.isCurrentUser === true){
+      //     this.userHandle = this.userProfile.profile_navigation_details.handle;
+      //   console.log('handle', this.userHandle)
+      //   this.profileStore.dispatch({ type: ProfileActions.SENT_REQUEST_LIST, payload: this.userHandle });
+      //   }
+      // }
       console.log('user profile', this.userProfile)
     })
+
+    this.profileStore.select('profileTags')
+    .first(profile => profile['profile_user_info'] && profile['profile_navigation_details'].handle)
+    .subscribe( data => {
+      if (data['profile_user_info'].isCurrentUser === true) {
+        this.userHandle = this.userProfile.profile_navigation_details.handle;
+        this.profileStore.dispatch({ type: ProfileActions.SENT_REQUEST_LIST, payload: this.userHandle });
+      }
+    });
   }
 
   ngOnInit() {
