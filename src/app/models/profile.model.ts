@@ -70,7 +70,8 @@ export class ProfileModal {
   channel_pin_failed: boolean;
   channel_unpin_success: boolean;
 
-  network_sent_request_success: string[];
+  network_sent_request_success: any;
+  network_sent_request_fail: any;
 }
 
 export class ProfileForm {
@@ -142,6 +143,7 @@ export const initialTag: ProfileModal = {
   channel_pin_failed: false,
 
   network_sent_request_success: [],
+  network_sent_request_fail: [],
 };
 
 export class ProfileCard {
