@@ -467,4 +467,10 @@ export class ProfileService {
     console.log('handle', handle)
     return this.api.get('portal/network/sent_requests'+ handle + '/0/10')  
   }
+  /**
+   * sent request for networks
+   */
+  sentNetworkRequest(body: any) {
+    return this.api.put('/portal/network/connection/request', body);
+  }
 }

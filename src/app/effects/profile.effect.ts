@@ -756,6 +756,18 @@ export class ProfileEffect {
         .map(res => ({ type: ProfileActions.SENT_REQUEST_LIST_SUCCESS, payload: res }))
         .catch((res) => Observable.of({ type: ProfileActions.SENT_REQUEST_LIST_FAILED, payload: res }))
       );
+      
+    /**
+     * SENT NETWORK REQUEST
+     */
+    @Effect()
+    setNetworkRequest$ = this.actions$
+      .ofType(ProfileActions.SENT_NETWORK_REQUEST)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.sentNetworkRequest(payload)
+        .map(res => ({ type: ProfileActions.SENT_NETWORK_REQUEST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.SENT_NETWORK_REQUEST_FAILED, payload: res }))
+      );
 
   constructor(
     private toastr: ToastrService,
