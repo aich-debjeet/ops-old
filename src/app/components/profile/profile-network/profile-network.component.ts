@@ -18,6 +18,7 @@ export class ProfileNetworkComponent implements OnInit {
   userProfile = initialTag ;
   tagState$: Observable<ProfileModal>;
   userHandle: String;
+  sendRequestList: any[];
 
   constructor(
     private profileStore: Store<ProfileModal>,
@@ -26,14 +27,10 @@ export class ProfileNetworkComponent implements OnInit {
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
       console.log('state ', state)
-      // if ( state['profile_navigation_details'] && state ['profile_user_info']) {
-      //   if (this.userProfile.profile_user_info.isCurrentUser === true){
-      //     this.userHandle = this.userProfile.profile_navigation_details.handle;
-      //   console.log('handle', this.userHandle)
-      //   this.profileStore.dispatch({ type: ProfileActions.SENT_REQUEST_LIST, payload: this.userHandle });
-      //   }
-      // }
-      console.log('user profile', this.userProfile)
+      if ( state['network_sent_requests'] && state ['get_req']) {
+      this.sendRequestList = state.network_sent_requests;
+      console.log(this.sendRequestList)
+      }
     })
 
     this.profileStore.select('profileTags')
