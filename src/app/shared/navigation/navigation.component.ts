@@ -128,6 +128,7 @@ export class NavigationComponent implements OnInit {
           let noti;
           noti = state['recieved_notifications'];
           this.notifications = _uniqBy(noti, noti.notificationId);
+          // console.log(this.notifications)
           this.processNotifications();
         }
         if (typeof state['marking_as_read_response'] !== 'undefined') {
@@ -190,7 +191,55 @@ export class NavigationComponent implements OnInit {
       type: NotificationActions.LOAD_NOTIFICATIONS,
       payload: null
     });
-    this.pusherService.notificationsChannel.bind('Media-Spot', (message) => {
+    this.pusherService.notificationsChannel.bind('Media_Spot', (message) => {
+      // console.log(message)
+      this.notify = true;
+      this.notificationStore.dispatch({
+        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+        payload: JSON.parse(message)
+      });
+    });
+    this.pusherService.notificationsChannel.bind('Blog_Spot', (message) => {
+      // console.log(message)
+      this.notify = true;
+      this.notificationStore.dispatch({
+        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+        payload: JSON.parse(message)
+      });
+    });
+    this.pusherService.notificationsChannel.bind('Status_Spot', (message) => {
+      // console.log(message)
+      this.notify = true;
+      this.notificationStore.dispatch({
+        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+        payload: JSON.parse(message)
+      });
+    });
+    this.pusherService.notificationsChannel.bind('Media_Comments', (message) => {
+      // console.log(message)
+      this.notify = true;
+      this.notificationStore.dispatch({
+        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+        payload: JSON.parse(message)
+      });
+    });
+    this.pusherService.notificationsChannel.bind('Blog_Comments', (message) => {
+      // console.log(message)
+      this.notify = true;
+      this.notificationStore.dispatch({
+        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+        payload: JSON.parse(message)
+      });
+    });
+    this.pusherService.notificationsChannel.bind('Status_Comments', (message) => {
+      console.log(message)
+      this.notify = true;
+      this.notificationStore.dispatch({
+        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+        payload: JSON.parse(message)
+      });
+    });
+    this.pusherService.notificationsChannel.bind('Network_Sent', (message) => {
       // console.log(message)
       this.notify = true;
       this.notificationStore.dispatch({
@@ -259,20 +308,31 @@ export class NavigationComponent implements OnInit {
       switch (notif.notificationType) {
 
         case 'Media_Spot':
-          // this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your post';
-          this.notifications[index]['message'] = ' spotted your post';
+          this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your post';
+          // this.notifications[index]['message'] = ' spotted your post';
           break;
 
         case 'Media_Comments':
           this.notifications[index]['message'] = ' and ' + notif.commentsCount + ' others commented on your post';
+          // this.notifications[index]['message'] = ' commented on your post';
           break;
 
         case 'Status_Spot':
           this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your status';
+          // this.notifications[index]['message'] = ' spotted your status';
           break;
 
         case 'Status_Comments':
           this.notifications[index]['message'] = ' and ' + notif.commentsCount + ' others commented on your status';
+          // this.notifications[index]['message'] = ' commented on your status';
+          break;
+
+        case 'Following':
+          this.notifications[index]['message'] = '@' + notif.username + ' has started following you';
+          break;
+
+        case 'Network_Sent':
+          this.notifications[index]['message'] = ' sent you a network request';
           break;
 
       }
