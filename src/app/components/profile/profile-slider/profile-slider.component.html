@@ -355,52 +355,86 @@
         <div class="modal-body p-0">
             <div class="pop-container-md o-following-pop">
                 <div class="pop-head m-b-16">
-                    <div class="c-text_lg c-text-semibold text-center">Network with {{ profileObject?.name }}</div>
+                    <div class="c-text_lg c-text-semibold text-center">You are Networking with
+                            <br><span class="color-theme">{{ profileObject?.name }}</span></div>
                     <span class="pop-close">
-                        <a href="" data-dismiss="modal"><img src="assets/svg/ico_close-38.svg" alt=""></a>
+                        <a href="javascript:void(0)" (click)="networkModal.close()" data-dismiss="modal"><img src="{{ baseUrl }}img/svg/ico_close-38.svg"></a>
                     </span>
                 </div>
-                <div class="col-md-12">
-                    <div class="c-text_lg m-t-16">
-                        What's the network about
-                    </div>
-                    <form>
-                        <div class="c-form__group c-form--lg">
-                            <select class="c-form-control p-l-0">
-                        <option>Want to hire</option>
-                        <option>Select list 2</option>
-                        <option>Select list 3</option>
-                        <option>Select list 4</option>
-                    </select>
+                <form [formGroup]="networkForm" (ngSubmit)="onFormSubmit(networkForm.value)" #netform="ngForm">
+                    <div class="col-md-12">
+                        <div class="c-text_md m-t-16 text-center">
+                                You will be able to chat with {{ profileObject?.name }} after
+                                <br>he/she accept the network request
                         </div>
-                        <div class="c-form__group c-form--lg">
-                            <textarea class="c-form__input" required="" rows="2" cols="10"></textarea>
-                            <span class="c-form__highlight"></span>
-                            <span class="c-form__bar"></span>
-                            <label>Note</label>
+                        <div class="c-radio__sm">
+                            <label class="col-md-8 col-md-offset-2 o-network_option m-t-16">
+                                <input name="request" type="radio" class="c-form__bar2" value="network" formControlName="request">
+                                <span></span>
+                                <div class="c-radio--label">Hey {{ profileObject?.name }} I want to network with you.</div>
+                            </label>
+                            <label class="col-md-8 col-md-offset-2 o-network_option m-t-16">
+                                <input id="hereShow" name="request" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request">
+                                <span></span>
+                                <div class="c-radio--label">Personal message</div>
+                                <div id="showThis">
+                                    <input class="c-form__input" id="" type="text" formControlName="message"required placeholder="Type Message">
+                                    <p class="pull-right">200</p>
+                                    <!-- <p *ngIf="networkForm.get('message').invalid && networkForm.get('request').invalid " class="error_alert text-center"> 
+                                        Enter text
+                                   </p>	 -->
+                                   <!-- <p *ngIf="networkForm.controls['message'].errors?.required && netform.submitted" class="error_alert text-center"> 
+                                    Enter text
+                                   </p>	 -->
+                                </div>
+                            </label>
+                            
                         </div>
-                        <div class="c-form__group c-form--lg">
-                            <input class="c-form__input" required="" type="text">
-                            <span class="c-form__highlight"></span>
-                            <span class="c-form__bar"></span>
-                            <label>Location</label>
+                            <!-- <form>
+                                <div class="c-form__group c-form--lg">
+                                    <select class="c-form-control p-l-0">
+                                <option>Want to hire</option>
+                                <option>Select list 2</option>
+                                <option>Select list 3</option>
+                                <option>Select list 4</option>
+                            </select>
+                                </div>
+                                <div class="c-form__group c-form--lg">
+                                    <textarea class="c-form__input" required="" rows="2" cols="10"></textarea>
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Note</label>
+                                </div>
+                                <div class="c-form__group c-form--lg">
+                                    <input class="c-form__input" required="" type="text">
+                                    <span class="c-form__highlight"></span>
+                                    <span class="c-form__bar"></span>
+                                    <label>Location</label>
+                                </div>
+                                <div class="m-t-24">
+                                    <a href="" class="btn btn-default btn-md">
+                                        <span class="btn-label-icon m-r-5">
+                            </span> add attachment
+                                    </a>
+                                </div>
+                                <div class="c-form__check m-t-24">
+                                    <label for="people">
+                                <input id="people" type="checkbox"> I confirm that i would like to work and this is not a random connection request.
+                            </label>
+                                </div>
+                                <div class="col-md-12 text-center m-t-24">
+                                    <button type="button" class="btn btn-primary btn-md">Network</button>
+                                </div>
+                            </form> -->
                         </div>
-                        <div class="m-t-24">
-                            <a href="" class="btn btn-default btn-md">
-                                <span class="btn-label-icon m-r-5">
-                    </span> add attachment
-                            </a>
+                        <p *ngIf="error && netform.submitted" class="error_alert text-center"> 
+                            Selection of either of the two options is mandatory 
+                       </p>	
+                        <div class="col-md-12 m-t-16 text-center">
+                                <button class="btn btn-default btn-md" (click)="networkModal.close()">Close</button>
+                                <button type="submit" class="btn btn-primary btn-md">send</button>
                         </div>
-                        <div class="c-form__check m-t-24">
-                            <label for="people">
-                        <input id="people" type="checkbox"> I confirm that i would like to work and this is not a random connection request.
-                    </label>
-                        </div>
-                        <div class="col-md-12 text-center m-t-24">
-                            <button type="button" class="btn btn-primary btn-md">Network</button>
-                        </div>
-                    </form>
-                </div>
+                </form>
             </div>
         </div>
     </modal-content>
