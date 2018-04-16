@@ -128,7 +128,7 @@ export class NavigationComponent implements OnInit {
           let noti;
           noti = state['recieved_notifications'];
           this.notifications = _uniqBy(noti, noti.notificationId);
-          console.log(this.notifications)
+          // console.log(this.notifications)
           this.processNotifications();
         }
         if (typeof state['marking_as_read_response'] !== 'undefined') {
@@ -192,7 +192,7 @@ export class NavigationComponent implements OnInit {
       payload: null
     });
     this.pusherService.notificationsChannel.bind('Media_Spot', (message) => {
-      console.log(message)
+      // console.log(message)
       this.notify = true;
       this.notificationStore.dispatch({
         type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
@@ -200,7 +200,7 @@ export class NavigationComponent implements OnInit {
       });
     });
     this.pusherService.notificationsChannel.bind('Blog_Spot', (message) => {
-      console.log(message)
+      // console.log(message)
       this.notify = true;
       this.notificationStore.dispatch({
         type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
@@ -208,7 +208,7 @@ export class NavigationComponent implements OnInit {
       });
     });
     this.pusherService.notificationsChannel.bind('Status_Spot', (message) => {
-      console.log(message)
+      // console.log(message)
       this.notify = true;
       this.notificationStore.dispatch({
         type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
@@ -216,7 +216,7 @@ export class NavigationComponent implements OnInit {
       });
     });
     this.pusherService.notificationsChannel.bind('Media_Comments', (message) => {
-      console.log(message)
+      // console.log(message)
       this.notify = true;
       this.notificationStore.dispatch({
         type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
@@ -224,7 +224,7 @@ export class NavigationComponent implements OnInit {
       });
     });
     this.pusherService.notificationsChannel.bind('Blog_Comments', (message) => {
-      console.log(message)
+      // console.log(message)
       this.notify = true;
       this.notificationStore.dispatch({
         type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
@@ -240,7 +240,7 @@ export class NavigationComponent implements OnInit {
       });
     });
     this.pusherService.notificationsChannel.bind('Network_Sent', (message) => {
-      console.log(message)
+      // console.log(message)
       this.notify = true;
       this.notificationStore.dispatch({
         type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
@@ -332,7 +332,7 @@ export class NavigationComponent implements OnInit {
           break;
 
         case 'Network_Sent':
-          this.notifications[index]['message'] = ' sent you a request';
+          this.notifications[index]['message'] = ' sent you a network request';
           break;
 
       }
