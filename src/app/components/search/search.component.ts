@@ -412,4 +412,15 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  /**
+   * Follow this channel
+   */
+  followChannel(e: any) {
+    const req = {
+      channelId: e.channel.spotfeedId,
+      state: e.state
+    };
+    this.profileStore.dispatch({ type: ProfileActions.CHANNEL_FOLLOW, payload: req });
+  }
+
 }
