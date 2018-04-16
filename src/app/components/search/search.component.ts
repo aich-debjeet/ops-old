@@ -10,7 +10,7 @@ import { SearchModel } from './../../models/search.model';
 import { ProfileModal, initialTag } from '../../models/profile.model';
 
 import { environment } from './../../../environments/environment.prod';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 // helper functions
 import { ScrollHelper } from '../../helpers/scroll.helper';
@@ -263,6 +263,12 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+    // set scroll to top
+    this.router.events.subscribe((event: NavigationEnd) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    })
 
     this.routeSub = this.route.queryParams
       .subscribe(params => {
