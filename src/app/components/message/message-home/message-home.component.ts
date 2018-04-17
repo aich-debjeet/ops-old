@@ -63,8 +63,10 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
 
         // display last conversation
         if (!this.isConversationSelected) {
-          this.selectUser(this.messangerList[0]);
-          this.isConversationSelected = true;
+          if (this.messangerList[0] !== undefined) {
+            this.selectUser(this.messangerList[0]);
+            this.isConversationSelected = true;
+          }
         }
       }
 
@@ -116,10 +118,20 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   ngOnInit() {
 
     // pusher message listener
-    this.pusherService.messagesChannel.bind('New-Message', (message) => {
+    this.pusherService.messagesChannel.bind('New-Message', (data) => {
+      const message = JSON.parse(data);
+      console.log('New-Message', message);
+
+      // check if it's a network request
+      if (message && message['isNetworkRequest'] && message['isNetworkRequest'] === true) {
+        console.log('Network Request');
+      } else {
+        console.log('NOT a Network Request');
+      }
+
       this.messageStore.dispatch({
         type: MessageActions.ADD_PUSHER_MESSAGE,
-        payload: JSON.parse(message)
+        payload: message
       });
     });
 
