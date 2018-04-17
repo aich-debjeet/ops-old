@@ -142,12 +142,11 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
         // }, 200);
       } else {
         console.log('NOT a Network Request');
+        this.messageStore.dispatch({
+          type: MessageActions.ADD_PUSHER_MESSAGE,
+          payload: message
+        });
       }
-
-      this.messageStore.dispatch({
-        type: MessageActions.ADD_PUSHER_MESSAGE,
-        payload: message
-      });
     });
 
     // pusher notifications listener
@@ -379,6 +378,22 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
     if (e.keyCode === 13) {
       this.sendMessage();
     }
+  }
+
+  /**
+   * action to take for network request
+   */
+  netReqAction(action: string, data: any) {
+    const reqParams = {
+      receiver_id: data.by,
+      status: action
+    };
+    this.messageStore.dispatch({
+      type: MessageActions.NETWORK_REQUEST_ACTION,
+      payload: reqParams
+    });
+    // if (action === 'accept') {
+    // }
   }
 
 }

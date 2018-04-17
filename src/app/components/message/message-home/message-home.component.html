@@ -125,7 +125,12 @@
                                             <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">>
                                         </li>
                                         <li class="list-inline-item msg_cont_block">
-                                            <p class="ops_msg_aero">{{ message?.content }}</p>
+                                            <p class="ops_msg_aero">
+                                                {{ message?.content }}
+                                                <br>
+                                                <button (click)="netReqAction('accept', message)" type="button" class="btn btn-primary btn-sm">accept</button>
+                                                <button (click)="netReqAction('reject', message)" type="button" class="btn btn-default btn-sm">decline</button>
+                                            </p>
                                             <div class="msg_sent_time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
                                         </li>
                                     </ul>

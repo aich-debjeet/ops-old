@@ -47,6 +47,10 @@ export class MessageActions {
 
   static PREPEND_ELEMENT_TO_USER_LIST = 'PREPEND_ELEMENT_TO_USER_LIST';
 
+  static NETWORK_REQUEST_ACTION = 'NETWORK_REQUEST_ACTION';
+  static NETWORK_REQUEST_ACTION_SUCCESS = 'NETWORK_REQUEST_ACTION_SUCCESS';
+  static NETWORK_REQUEST_ACTION_FAILED = 'NETWORK_REQUEST_ACTION_FAILED';
+
   /* -------------------------------- load current user profile data -------------------------------- */
   loadUserProfile(value): Action {
     return {
