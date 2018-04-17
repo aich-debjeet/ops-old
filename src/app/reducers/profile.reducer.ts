@@ -1156,7 +1156,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     /**
      * Sent network request
      */
-    case ProfileActions.SENT_NETWORK_REQUEST:
+  case ProfileActions.SENT_NETWORK_REQUEST:
     return Object.assign({}, state, {
       network_sent_request_success: [],
       network_sent_request_fail: [],
@@ -1164,7 +1164,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
   case ProfileActions.SENT_NETWORK_REQUEST_SUCCESS:
-  console.log(payload)
+    console.log(payload)
     return Object.assign({}, state, {
       network_sent_request_success: payload,
       network_request_success: true
@@ -1179,6 +1179,45 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       network_request_success: false
     });
 
+   /**
+     * Get Pending request list
+     */
+  case ProfileActions.GET_PENDING_REQUEST_LIST:
+    return Object.assign({}, state, {
+      pending_request_list: [],
+    });
+
+  case ProfileActions.GET_PENDING_REQUEST_LIST_SUCCESS:
+    console.log(payload)
+    return Object.assign({}, state, {
+      pending_request_list: payload,
+    });
+
+  case ProfileActions.GET_PENDING_REQUEST_LIST_FAILED:
+    console.log(payload._body)
+    return Object.assign({}, state, {
+      pending_request_list: [],
+    });
+
+   /**
+     * Get Connection list
+     */
+  case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST:
+  return Object.assign({}, state, {
+    active_connection_list: [],
+  });
+
+case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_SUCCESS:
+  console.log(payload)
+  return Object.assign({}, state, {
+    active_connection_list: payload,
+  });
+
+case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_FAILED:
+  console.log(payload._body)
+  return Object.assign({}, state, {
+    active_connection_list: [],
+  });
     default:
       return state;
   }

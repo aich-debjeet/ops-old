@@ -769,6 +769,30 @@ export class ProfileEffect {
         .catch((res) => Observable.of({ type: ProfileActions.SENT_NETWORK_REQUEST_FAILED, payload: res }))
       );
 
+    /**
+     * GET PENDING REQUEST LIST
+     */
+    @Effect()
+    getPendingRequest$ = this.actions$
+      .ofType(ProfileActions.GET_PENDING_REQUEST_LIST)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.getPendingRequest(payload)
+        .map(res => ({ type: ProfileActions.GET_PENDING_REQUEST_LIST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.GET_PENDING_REQUEST_LIST_FAILED, payload: res }))
+      );
+
+    /**
+     * GET ACTIVE CONNECTIONS
+     */
+    @Effect()
+    getConnectinsList$ = this.actions$
+      .ofType(ProfileActions.GET_ACTIVE_CONNECTIONS_LIST)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.getConnectionList(payload)
+        .map(res => ({ type: ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_FAILED, payload: res }))
+      );
+
   constructor(
     private toastr: ToastrService,
     private actions$: Actions,

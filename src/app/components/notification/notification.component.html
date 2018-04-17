@@ -26,7 +26,7 @@
                               <img *ngIf="notification.profileImage" src="{{ baseUrl + notification.profileImage }}" class="img-responsive">
                             </li>
                             <!-- <li class="list-inline-item noti_cont cursor-pointer" (click)="openLink(notifIndex, notification.notificationId)" > -->
-                            <li class="list-inline-item noti_cont cursor-pointer">
+                            <li class="list-inline-item noti_cont cursor-pointer" (click)="openLink(notifIndex, notification.notificationId)">
                                 <div class="head_msg_name">
                                         <a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
                                         {{ notification.name }}

@@ -473,4 +473,19 @@ export class ProfileService {
   sentNetworkRequest(body: any) {
     return this.api.put('/portal/network/connection/request', body);
   }
+
+  /** 
+   * get pending requets list
+  */
+  getPendingRequest(handle: string) {
+    console.log(handle)
+    return this.api.get('/portal/network/pending_requests/'+ handle) 
+  }
+
+  /** 
+   * get active connection list
+  */
+  getConnectionList(handle: string){
+    return this.api.get('/portal/network/connectionslist/'+ handle) 
+  }
 }
