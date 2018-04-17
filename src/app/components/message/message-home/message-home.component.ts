@@ -61,13 +61,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       if (this.messageState && this.messageState['messanger_list_data']) {
         this.messangerList = this.messageState['messanger_list_data'];
 
-        // display last conversation
-        if (!this.isConversationSelected) {
-          if (this.messangerList[0] !== undefined) {
-            this.selectUser(this.messangerList[0]);
-            this.isConversationSelected = true;
-          }
-        }
+        this.selectLatestConversation();
       }
 
       if (this.messageState && this.messageState['load_conversation_data']) {
@@ -125,6 +119,27 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       // check if it's a network request
       if (message && message['isNetworkRequest'] && message['isNetworkRequest'] === true) {
         console.log('Network Request');
+
+        // append creat and append the new object to the user listing
+        // prepafing listing object
+        const newListObj = {
+          handle: message.by,
+          isBlocked: false,
+          isRead: message.isRead,
+          latestMessage: message.content,
+          messageType: 'received',
+          name: message.name,
+          profileImage: message.profileImage,
+          time: message.time,
+          username: message.username
+        };
+        this.messageStore.dispatch({
+          type: MessageActions.PREPEND_ELEMENT_TO_USER_LIST,
+          payload: newListObj
+        });
+        // setTimeout(() => {
+        //   this.selectLatestConversation();
+        // }, 200);
       } else {
         console.log('NOT a Network Request');
       }
@@ -161,6 +176,16 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
         });
       }
     });
+  }
+
+  /**
+   * choose latest conversation from the user listing
+   */
+  selectLatestConversation() {
+    if (!this.isConversationSelected && this.messangerList[0] !== undefined) {
+      this.selectUser(this.messangerList[0]);
+      this.isConversationSelected = true;
+    }
   }
 
   /**

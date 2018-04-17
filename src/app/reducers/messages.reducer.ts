@@ -138,6 +138,20 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
     /* send message */
 
+    /* prepend user to conv listing */
+    case MessageActions.PREPEND_ELEMENT_TO_USER_LIST:
+      let messanger_list_updated;
+      if (state && state.messanger_list_data) {
+        const new_conv_data = [payload];
+        messanger_list_updated = new_conv_data.concat(state.messanger_list_data);
+      } else {
+        messanger_list_updated = state.messanger_list_data;
+      }
+      return Object.assign({}, state, {
+        messanger_list_data: messanger_list_updated
+      });
+    /* prepend user to conv listing */
+
     /* update pusher message */
     case MessageActions.ADD_PUSHER_MESSAGE:
       // check for the selected user handle to append the message

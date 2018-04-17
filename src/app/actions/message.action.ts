@@ -45,6 +45,8 @@ export class MessageActions {
   static MESSAGE_SEARCH_USER_SUCCESS = 'MESSAGE_SEARCH_USER_SUCCESS';
   static MESSAGE_SEARCH_USER_FAILED = 'MESSAGE_SEARCH_USER_FAILED';
 
+  static PREPEND_ELEMENT_TO_USER_LIST = 'PREPEND_ELEMENT_TO_USER_LIST';
+
   /* -------------------------------- load current user profile data -------------------------------- */
   loadUserProfile(value): Action {
     return {
