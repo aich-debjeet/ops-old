@@ -1,7 +1,6 @@
-// All cards style ---------------------------------------------------------------------------
 .c-bg__effect {
   background: linear-gradient(to right, #F3F5F7 8%, #EAEAEA 18%, #F3F5F7 33%);
-  background-size: 200% 50px;
+  background-size: 200% 100px;
   animation: preloadAnimation 2s infinite;
 }
 @keyframes preloadAnimation {
@@ -12,6 +11,7 @@
       background-position: 300px 0
   }
 }
+
 // feed card (image, audio, video & article)
 .c-card--artist {
   padding: 16px;
@@ -52,6 +52,7 @@
 .c-artist--btn {
   margin-top: 16px;
 }
+
 // audio card controller block style ----------------------------------------------------
 .c-audio__controller {
   float: left;
@@ -180,10 +181,6 @@
   left: 12px;
   width: 12px;
 }
-.c-card__opportunity-head {
-  height: 74px;
-  overflow: hidden;
-}
 
 .c-video_name {
   position: relative;
@@ -204,10 +201,14 @@
   border-top-right-radius: 3px;
   background-color: #f8f8f8;
 }
+
 .c-card__opportunity {
   @extend .c-card__media;
+  @extend .c-bg__effect;
   height: 175px;
+  
 }
+
 .c-card__opportunity--view {
   font-size: 13px;
   font-weight: 600;
@@ -216,29 +217,37 @@
   color: #FC6371;
   text-transform: uppercase;
   &:hover {
-    color: #FC6371;
+      color: #FC6371;
   }
 }
-.c-card__opportunity__details {
- clear: both;
- margin-bottom: 16px;
- display: flex;
- width: 100%;
- float: left;
+
+.c-card__opportunity-head {
+  height: 74px;
+  overflow: hidden;
 }
-.c-card__opportunity__user{
+
+.c-card__opportunity__details {
+  clear: both;
+  margin-bottom: 16px;
+  display: flex;
+  width: 100%;
+  float: left;
+}
+
+.c-card__opportunity__user {
   display: flex;
   margin: 0 16px;
-  padding: 8px 0;
-  // border-top: 1px solid #F3F5F7;  
+  padding: 8px 0; // border-top: 1px solid #F3F5F7;  
   // border-bottom: 1px solid #F3F5F7;  
 }
-.c-card__opportunity__username{
+
+.c-card__opportunity__username {
   font-size: 13px;
   color: #808080;
-      line-height: 24px;
-    margin-left: 8px;
+  line-height: 24px;
+  margin-left: 8px;
 }
+
 .c-card__Communities--link {
   font-size: 13px;
   font-weight: 600;
@@ -250,16 +259,18 @@
   right: 0px;
   top: 4px;
   &:hover {
-    color: #FC6371;
+      color: #FC6371;
   }
 }
+
 .c-comm__followers {
   width: 100%;
   position: relative;
   display: flex;
-   margin-top: 8px;
-   float: left;
+  margin-top: 8px;
+  float: left;
 }
+
 .c-card__image {
   width: 100%;
   vertical-align: middle;
@@ -275,6 +286,29 @@
   width: 22px;
   filter: drop-shadow(0px 0px 3px #222);
 }
+
+.c-card__headblank {
+  width: 100%;
+  height: 18px;
+  border-radius: 3px;
+  @extend .c-bg__effect;
+}
+
+.c-card__headblank2 {
+  width: 60%;
+  height: 18px;
+  border-radius: 3px;
+  margin-top: 8px;
+  @extend .c-bg__effect;
+}
+
+.c-card__headblank3 {
+  width: 100%;
+  height: 306px;
+  border-radius: 3px;
+  @extend .c-bg__effect;
+}
+
 .c-card__followblank {
   width: 30%;
   height: 10px;
@@ -282,25 +316,28 @@
   margin-top: 8px;
   @extend .c-bg__effect;
 }
+
 // ------------------------------------
 .c-card__media {
   &:hover {
       .c-media--hover {
-      display: block;
-    }
+          display: block;
+      }
   }
 }
+
 .c-media--hover {
   width: 100%;
   height: 52px;
   display: none;
   position: absolute;
   transition: .25s;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000000 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
   z-index: 3;
   bottom: 0;
   padding: 16px;
 }
+
 // ------------------------
 .c-event__card {
   width: 217px;
@@ -311,19 +348,32 @@
   background-color: #ffffff;
   overflow: hidden;
   margin: 8px;
-}
-
-.c-card__event{
-  height: 111px;
-  overflow: hidden;
-  img{
-    width: 100%;
+  @include mq($from: $mobile_sm, $until: $tablet) {
+      width: 96%;
   }
 }
-.c-card__event-title{
+
+.c-card__event {
+  height: 111px;
+  overflow: hidden;
+  img {
+      width: 100%;
+  }
+}
+
+.c-card__event2 {
+  height: 140px;
+  overflow: hidden;
+  img {
+      width: 100%;
+  }
+}
+
+.c-card__event-title {
   height: 50px;
 }
-.c-card__event-address{
+
+.c-card__event-address {
   height: 40px;
 }
 
@@ -332,7 +382,15 @@
   width: 24%;
   float: left;
   margin: 5px;
+  position: relative;
+  @include mq($from: $mobile_sm, $until: $mobile_lg) {
+      width: 100%;
+  }
+  @include mq($from: $mobile_lg, $until: $desktop_sm) {
+      width: 48%;
+  }
 }
+
 .c-channel__heading {
   color: #333333;
   font-size: 15px;
@@ -341,8 +399,9 @@
       color: #000;
   }
 }
+
 .c-channel__name {
-  background: linear-gradient(180deg, #000000 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
   position: absolute;
   top: 0;
   left: 0;
@@ -350,11 +409,13 @@
   height: 50px;
   padding: 8px;
 }
+
 .c-channel_heading2 {
   font-size: 15px;
   line-height: 24px;
   color: #FFFFFF;
 }
+
 // channel media block style  ----------------------------------------
 .c-channel__media {
   width: 100%;
@@ -365,6 +426,7 @@
   width: 66%;
   float: left;
 }
+
 .c-channel__sec-r {
   width: 34%;
   float: left;
@@ -379,9 +441,21 @@
   position: relative;
   box-sizing: border-box;
   background: #f8f8f8;
-  background: url(https://cdn.onepagespotlight.com/img/new/l12.jpg);
+  background: url(https://cdn.onepagespotlight.com/new/l12.jpg);
   background-size: cover;
   background-position: inherit;
+}
+.c-channel__left-blank {
+  width: 99%;
+  height: 139px;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  background-size: cover;
+  background-position: inherit;
+  @extend .c-bg__effect;
 }
 
 .c-channel__right1 {
@@ -393,9 +467,21 @@
   position: relative;
   box-sizing: border-box;
   background: #f8f8f8;
-  background: url(https://cdn.onepagespotlight.com/img/new/s06.jpg);
+  background: url(https://cdn.onepagespotlight.com/new/s06.jpg);
   background-size: cover;
   background-position: inherit;
+}
+.c-channel__right1-blank {
+  width: 100%;
+  height: 69px;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  background-size: cover;
+  background-position: inherit;
+  @extend .c-bg__effect;
 }
 
 .c-channel__right2 {
@@ -408,9 +494,22 @@
   box-sizing: border-box;
   margin-top: 2px;
   background: #f8f8f8;
-  background: url(https://cdn.onepagespotlight.com/img/new/s05.jpg);
+  background: url(https://cdn.onepagespotlight.com/new/s05.jpg);
   background-size: cover;
   background-position: inherit;
+}
+.c-channel__right2-blank {
+  width: 100%;
+  height: 68px;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  margin-top: 2px;
+  background-size: cover;
+  background-position: inherit;
+  @extend .c-bg__effect;
 }
 
 // channel footer block style ------------------------------
@@ -419,6 +518,31 @@
   font-size: 11px;
   line-height: 18px;
   margin-right: 8px;
+}
+.c-links__post-blank {
+  width: 30%;
+  float: left;
+  height: 12px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  @extend .c-bg__effect;
+}
+.c-links__post-blank2 {
+  width: 80px;
+  float: left;
+  height: 14px;
+  border-radius: 3px;
+  margin-top: 4px;
+  @extend .c-bg__effect;
+}
+
+.c-post__time-blank {
+  width: 20px;
+  float: left;
+  height: 20px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  @extend .c-bg__effect;
 }
 
 
@@ -446,33 +570,42 @@
   display: inline-block;
   margin-left: 8px;
 }
+.c-followers__count-blank {
+  width: 30%;
+  float: left;
+  height: 10px;
+  border-radius: 3px;
+  margin-left: 8px;
+  margin-top: 8px;
+  @extend .c-bg__effect;
+}
 
 .c-channel__btn {
   width: 50%;
   float: left;
   margin-top: 10px;
   display: none;
-  transition : .25s;
+  transition: .25s;
 }
+
 .c-channel__btn2 {
   width: 50%;
   float: left;
   margin-top: 10px;
 }
-.c-card__followblank {
-  width: 30%;
-  height: 10px;
+.c-channel__btn2-blank {
+  width: 80%;
+  float: right;
+  height: 20fpx;
   border-radius: 3px;
-  margin-top: 8px;
   @extend .c-bg__effect;
 }
-
 // -------------------------
 .c-my__card {
-  :hover {
+   :hover {
       .c-channel__btn {
           display: block;
-          transition : .25s;
+          transition: .25s;
       }
   }
 }
@@ -486,6 +619,7 @@
   box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
   background-color: #ffffff;
 }
+
 .c-card--overflow {
   overflow: hidden;
 }
@@ -555,10 +689,12 @@
   color: #929292;
   text-transform: uppercase;
 }
+
 .c-card__project--icon {
   height: 24px;
   float: left;
 }
+
 .c-card__project--des {
   font-size: 20px;
   line-height: 30px;
@@ -595,6 +731,7 @@
   line-height: 0px;
   width: 14px; // background: #ffffff;
 }
+
 .c-card__options2 {
   position: absolute;
   top: 4px;
@@ -610,6 +747,7 @@
   float: left;
   padding: 16px; // border-top: 1px solid #EFEFEF;
 }
+
 .c-card__links2 {
   width: 100%;
   float: left;
@@ -683,15 +821,20 @@
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
-  background: #f8f8f8;
   cursor: pointer;
   border-radius: 50px;
   float: left;
+  @extend .c-bg__effect;
 }
 
 .c-avatar--feed {
   width: 24px;
   height: 24px;
+}
+
+.c-avatar--feed3 {
+  width: 33px;
+  height: 33px;
 }
 
 .c-avatar--feed2 {
@@ -701,7 +844,7 @@
 }
 
 .c-user__image {
-  width: 100%
+  width: 100%;
 }
 
 .c-user__name {
@@ -717,6 +860,16 @@
       color: #000;
   }
 }
+
+.c-user__name-blank {
+  width: 40%;
+  float: left;
+  height: 20px;
+  border-radius: 3px;
+  @extend .c-bg__effect;
+}
+
+
 
 .c-user__name2 {
   font-size: 13px;
@@ -744,6 +897,7 @@
       color: #979797;
   }
 }
+
 .c-user__channel2 {
   font-size: 11px;
   line-height: 18px;
@@ -757,6 +911,16 @@
   }
 }
 
+.c-user__channel2-blank {
+  width: 20%;
+  float: left;
+  height: 12px;
+  border-radius: 3px;
+  margin-top: 26px;
+  position: absolute;
+  left: 74px;
+  @extend .c-bg__effect;
+}
 // feed card video ------------------------
 .c-feed__video {
   width: 100%;
@@ -833,37 +997,39 @@
 
 
 // pop up common main contianers
-
 // size 446
-
-.pop-container-sm{
-  width:446px;
+.pop-container-sm {
+  width: 446px;
   margin: 0px auto;
-  background:#fff;
-  border-radius:3px;
-  position:relative;
+  background: #fff;
+  border-radius: 3px;
+  position: relative;
   display: inline-block;
+  @include mq($from: $mobile_sm, $until: $tablet) {
+      width: 100%;
+  }
 }
 
-.pop-container-md{
-  width:564px;
+.pop-container-md {
+  width: 564px;
   margin: 0px auto;
-  background:#fff;
-  border-radius:3px;
-  position:relative;
+  background: #fff;
+  border-radius: 3px;
+  position: relative;
   display: inline-block;
+  @include mq($from: $mobile_sm, $until: $tablet) {
+      width: 100%;
+  }
 }
 
 
 // for pop up head sec
-
-.pop-head{
+.pop-head {
   width: 100%;
   float: left;
 }
 
 // for pop up close
-
 .pop-close {
   margin: 10px;
   width: 14px;
@@ -871,11 +1037,17 @@
   right: 0px;
   top: 0px;
 }
+
 //featured artist card
 .c-featured__card {
   width: 12.5%;
   float: left;
+  @include mq($from: $mobile_sm, $until: $tablet) {
+      width: 50%;
+      margin-bottom: 8px;
+  }
 }
+
 .c-featured__userblock {
   width: 118px;
   height: 118px;
@@ -883,18 +1055,63 @@
   overflow: hidden;
   margin: 0 auto;
 }
+
 .c-featured__userimg {
   width: 100%
 }
+
 .c-featured__username {
-font-size: 13px;
-line-height: 20px;
-text-align: center;
-color: #333333;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: center;
+  color: #333333;
 }
+
 .c-featured__userhandle {
-font-size: 11px;
-line-height: 18px;
-text-align: center;
-color: #808080;
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+  color: #808080;
+}
+
+//
+.col-5 {
+  width: 20%;
+  float: left;
+  position: relative;
+  min-height: 1px;
+}
+
+// add channel dropdown --------
+.c-ch__drop {
+  width: 240px;
+}
+.c-status--block {
+  width: 100%;
+  float: left;
+  clear: both;
+  padding: 16px 24px;
+  position: relative;
+}
+
+.c-avatar--status {
+  width: 34px;
+  height: 34px;
+}
+
+.c-avatar--status2 {
+  width: 24px;
+  height: 24px;
+}
+.c-avatar--status3 {
+  width: 40px;
+  height: 40px;
+}
+.c-avatar--status4 {
+  width: 30px;
+  height: 30px;
+  border-radius: 2px !important;
+}
+.c-user--align {
+  margin-left: 16px;
 }

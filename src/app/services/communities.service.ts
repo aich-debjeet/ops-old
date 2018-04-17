@@ -63,4 +63,8 @@ export class CommunitiesService {
     return this.api.put('/portal/community/exitCommunity' , params);
   }
 
+  getPostCommunity(id: any) {
+    return this.api.get(`/portal/community/post/${id}/0/10`, '');
+  }
+
 }

@@ -1,4 +1,4 @@
-<div class="c-card">
+<div class="c-card" *ngIf="false">
     <!-- card media (img, video & audio) -->
     <div class="c-card__media">
         <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
@@ -68,4 +68,39 @@
             </div>
         </div>
     </div>
-</div>  
+</div>
+
+<!-- Loader  -->
+<div class="c-card" *ngIf="true">
+    <div class="c-status--block">
+        <div class="c-card__user margin_none">
+            <div class="c-user">
+                <a class="c-user__avatar c-avatar--status"></a>
+                <a class="c-user__name-blank c-user--align"></a>
+                <a class="c-user__channel2-blank"></a>
+            </div>
+        </div>
+        <div class="pull-right">
+            <div class="c-post__time-blank m-r-8"></div>
+            <div class="c-post__time-blank m-r-8"></div>
+            <div class="c-post__time-blank"></div>
+        </div>
+    </div>
+    <div class="c-feed__img-status clearfix">
+        <div class="c-card__headblank"></div>
+        <div class="c-card__headblank2"></div>
+    </div>
+    <div class="c-feed__img">
+            <div class="c-card__headblank3"></div>
+    </div>
+    <div class="c-status--block">
+        <div class="c-links">
+            <span class="c-links__post-blank2"></span>
+            <span class="c-links__post-blank2 m-l-8"></span>
+            <div class="pull-right">
+            <div class="c-post__time-blank m-r-8"></div>
+            <div class="c-post__time-blank"></div>
+        </div>
+        </div>
+    </div>
+</div>

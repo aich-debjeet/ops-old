@@ -46,14 +46,14 @@ export class PostCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!this.mediaData.ownerImage) {
-      this.userImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
-    } else {
-      this.userImage = this.imageLink + this.mediaData.ownerImage;
-    }
-    this.following = this.mediaData.isSpotted;
-    this.followingCount = this.mediaData.spotsCount;
-    this.mediaType = this.mediaData.mtype;
+    // if (!this.mediaData.ownerImage) {
+    //   this.userImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+    // } else {
+    //   this.userImage = this.imageLink + this.mediaData.ownerImage;
+    // }
+    // this.following = this.mediaData.isSpotted;
+    // this.followingCount = this.mediaData.spotsCount;
+    // this.mediaType = this.mediaData.mtype;
     // this.useThumb = false;
   }
 

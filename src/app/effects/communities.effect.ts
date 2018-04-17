@@ -76,6 +76,15 @@ export class CommunitiesEffect {
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_UNJOIN_FAILED, payload: res }))
     );
 
+  @Effect()
+  getPostCommunity$ = this.actions$
+    .ofType(CommunitiesActions.COMMUNITY_POST_GET)
+    .map(toPayload)
+    .switchMap((payload) => this.communitiesService.getPostCommunity(payload)
+      .map(res => ({ type:  CommunitiesActions.COMMUNITY_POST_GET_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_POST_GET_FAILED, payload: res }))
+    );
+
     constructor(
     private actions$: Actions,
     private communitiesService: CommunitiesService,
