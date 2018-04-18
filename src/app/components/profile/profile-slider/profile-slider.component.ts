@@ -40,6 +40,7 @@ import { ProfileHelper } from '../../../helpers/profile.helper';
 
 export class ProfileSliderComponent implements OnInit {
   // @ViewChild('profileImage') fileInput;
+  @ViewChild('networkModal') NetworktypeModal: Modal;
   @Input() profileData: any;
   @Input() isOtherProfile: any;
   @Input() userName: string;
@@ -141,7 +142,22 @@ export class ProfileSliderComponent implements OnInit {
           this.isOwner = false;
         }
       }
+      // if(state.network_sent_request_success){
+      //   console.log(state.network_sent_request_success)
+      //   if(state.network_sent_request_success.SUCCESS){
+      //     this.toastr.success('You have successfully sent a request!');
+      //   }
+      // }
+      // if(state.network_sent_request_fail){
+      //   console.log(state.network_sent_request_fail)
+      //   if(state.network_sent_request_fail.code === '0'){
+      //     this.toastr.error('You have already sent a request')
+      //   }
+      // }
+
     });
+
+    
 
     this.skillState$.subscribe((state) => {
       this.findSkill = state;
@@ -620,7 +636,6 @@ export class ProfileSliderComponent implements OnInit {
             }
         }
         this.profileStore.dispatch({ type: ProfileActions.SENT_NETWORK_REQUEST, payload: data });
-        this.toastr.success('You have successfully sent a request!');
       }
       if(value.request === 'personalMessage'){
           // console.log('message')
@@ -636,10 +651,22 @@ export class ProfileSliderComponent implements OnInit {
               }
             };
             this.profileStore.dispatch({ type: ProfileActions.SENT_NETWORK_REQUEST, payload: data});
-            this.toastr.success('You have successfully sent a request!');
           }
       }
     // }
+
+    this.profileStore.select('profileTags')
+    .first(network => network['network_request_success'] !== null)
+    .subscribe( data => {
+      console.log(data);
+      if(data['network_request_success'] === true){
+        this.toastr.success('You have successfully sent a request!');
+        this.NetworktypeModal.close();
+      }
+      if(data['network_request_success'] === false){
+        this.toastr.error('You have already sent a request')
+      }     
+    });
  }
 
 }

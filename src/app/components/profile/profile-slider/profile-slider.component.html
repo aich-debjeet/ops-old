@@ -185,9 +185,8 @@
                         <p class="o-profile__detail--text">{{ profileObject?.userBio | slice:0:220}}</p>
                     </div>
                     <div class="col-md-4 col-sm-4 o-profile__detail__block p-24 hidden-xs">
-                        <div class="o-profile__detail--heading">Interest
-                            <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
-                        </div>
+                        <div class="o-profile__detail--heading">Interest</div>
+                        <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
                         <a routerLink="{{ '/spotfeed/' + skill?.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:5" class="c-skill__tags">#{{ skill?.name }}</a>
                         <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more" data-toggle="modal" data-target="#tag-pop">More</a>
                     </div>
@@ -240,7 +239,7 @@
                                 <textarea class="form_input form_textarea" name="" formControlName="bio"></textarea>
                                 <span class="form_highlight"></span>
                                 <span class="form_bar"></span>
-                                <label>Bio</label>
+                                <label class="o-ng_bio-space">Bio</label>
                                 <p class="error_alert" *ngIf="profileForm.controls['bio'].errors?.required && myform.submitted">Bio is required</p>
                             </div>
                             <div class="form_group">

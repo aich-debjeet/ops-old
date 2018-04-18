@@ -154,6 +154,10 @@ export class NotificationComponent implements OnInit {
           this.notifications[index]['message'] = ' and ' + notif.commentsCount + ' others commented on your status';
           break;
 
+        case 'Network_Sent':
+          this.notifications[index]['message'] = ' sent you a network request';
+          break;
+
       }
     });
 
