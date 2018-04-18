@@ -49,7 +49,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         if (state['communityDetails']) {
           this.details = state['communityDetails'];
         }
-        if (state['communityInvitePeople']) {
+        if (state['communityInvitePeople']) { 
           this.listInvitePeople = state['communityInvitePeople'];
         }
         if (state['communityRelated']) {

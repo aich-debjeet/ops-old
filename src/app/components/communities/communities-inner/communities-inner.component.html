@@ -20,7 +20,7 @@
                         <button type="button" (click)="userJoin(true)" class="btn btn-default btn-md btn-block">{{ (details?.isMember) ? 'Unjoin' : 'Join'}}</button>
                     </div>
                     <div  [ngClass]="{'col-md-12 p-0': details?.isOwner, 'col-md-6 p-r-0 p-l-8': !details?.isOwner}">
-                        <a href="addpost.html" class="btn btn-primary btn-md btn-block">Add post</a>
+                        <a [routerLink]="['/post/media']" [queryParams]="{post_to: 'community', ct_id: details?.communityId}" class="btn btn-primary btn-md btn-block">Add post</a>
                     </div>
                 </div>
             </div>
