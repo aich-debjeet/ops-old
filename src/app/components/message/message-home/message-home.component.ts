@@ -10,6 +10,8 @@ import { ProfileModal } from './../../../models/profile.model';
 import { MessageActions } from './../../../actions/message.action';
 import { PusherService } from './../../../services/pusher.service';
 
+import * as _ from 'lodash';
+
 @Component({
   selector: 'app-message-home',
   templateUrl: './message-home.component.html',
@@ -36,6 +38,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   enableScrollBottom = true;
   msgUserSearch = new FormControl();
   isSearching = false;
+  enableMsgInput = false;
 
   constructor(
     private messageStore: Store<MessageModal>,
@@ -66,7 +69,10 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
 
       if (this.messageState && this.messageState['load_conversation_data']) {
         this.conversation = this.messageState['load_conversation_data'];
-        // console.log('this.conversation', this.conversation);
+        console.log('this.conversation', this.conversation);
+        if (this.conversation.length > 0) {
+          this.enableTextMessage();
+        }
       }
 
       if (this.messageState
@@ -208,6 +214,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
    * trigger dispatch to load conversation with the user asked
    */
   selectUser(userObj: any) {
+    this.disableTextMessage();
     this.selectedUser = userObj;
     this.conversation = [];
 
@@ -235,6 +242,11 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
         lastMessage: { id: '' }
       }
     });
+  }
+
+  deselectUser() {
+    this.selectedUser = {};
+    this.conversation = [];
   }
 
   /**
@@ -383,7 +395,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   /**
    * action to take for network request
    */
-  netReqAction(action: string, data: any) {
+  networkReqAction(action: string, data: any) {
     const reqParams = {
       receiver_id: data.by,
       status: action
@@ -392,8 +404,28 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       type: MessageActions.NETWORK_REQUEST_ACTION,
       payload: reqParams
     });
-    // if (action === 'accept') {
-    // }
+
+    // find the index for changin the newtwork flag
+    const index = _.findIndex(this.conversation, ['by', data.by]);
+    this.conversation[index].isNetworkRequest = false;
+
+    if (action === 'accept') {
+      this.enableTextMessage();
+    } else {
+      // remove the user from the left side listing
+      this.messangerList = _.remove(this.messangerList, (obj) => obj.by === data.by);
+      this.deselectUser();
+    }
+  }
+
+  enableTextMessage() {
+    // console.log('enableTextMessage');
+    this.enableMsgInput = true;
+  }
+
+  disableTextMessage() {
+    // console.log('disableTextMessage');
+    this.enableMsgInput = false;
   }
 
 }

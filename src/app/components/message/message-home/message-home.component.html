@@ -128,8 +128,10 @@
                                             <p class="ops_msg_aero">
                                                 {{ message?.content }}
                                                 <br>
-                                                <button (click)="netReqAction('accept', message)" type="button" class="btn btn-primary btn-sm">accept</button>
-                                                <button (click)="netReqAction('reject', message)" type="button" class="btn btn-default btn-sm">decline</button>
+                                                <ng-container *ngIf="message?.isNetworkRequest">
+                                                    <button (click)="networkReqAction('accept', message)" type="button" class="btn btn-primary btn-sm">accept</button>
+                                                    <button (click)="networkReqAction('reject', message)" type="button" class="btn btn-default btn-sm">decline</button>
+                                                </ng-container>
                                             </p>
                                             <div class="msg_sent_time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
                                         </li>
@@ -141,7 +143,7 @@
                     <!-- //message container -->
     
                     <!-- message input block -->
-                    <div class="row">
+                    <div *ngIf="enableMsgInput" class="row">
                         <div class="col-md-1">
                             <div class="c-user__avatar c-avatar--feed3 m-t-16">
                                 <img class="c-user__image" [src]="imageBaseUrl + profileState?.profile_cards?.active?.image">
@@ -149,8 +151,6 @@
                         </div>
                         <div class="col-md-11">
                             <div class="c-form__group c-form--md c-form--noeffect c-form__faded--md">
-                                <!-- <input class="c-form__input" type="text" #inputMessageText="ngModel" [(ngModel)]="messageText" [ngModelOptions]="{standalone: true}"> -->
-                                <!-- <input class="c-form__input" type="text" [(ngModel)]="messageText" (keyup)="userIsTyping()" (keyup.enter)="sendMessage()"> -->
                                 <input class="c-form__input" type="text" [(ngModel)]="messageText" (keyup)="userIsTyping($event)" placeholder="Message">
                                 <label>Message</label>
                             </div>
@@ -158,10 +158,7 @@
                     </div>
                     <!-- //message input block -->
                 </ng-container>
-
-                <!-- <ng-template *ngIf="!isUserSelected()">
-                    <p>Select user</p>
-                </ng-template> -->
+                
             </div>
         </div>
         <!-- //registraion middle container -->
