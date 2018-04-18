@@ -9,6 +9,7 @@
   right: 0;
   top: 0;
   z-index: 1500;
+  pointer-events: none;
 }
 
 .closed {
@@ -28,8 +29,8 @@
   top: 0em;
   left: 0em;
   z-index: 133100;
-  // transition: all .5s ease;
-  padding-top: 5em;
+  transition: all .5s ease;
+  padding-top: 0;;
 
   .title {
     background-color: red;

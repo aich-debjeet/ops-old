@@ -2,8 +2,8 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
 
-.modal-block{
-
+.modal {
+    background-color: rgba(51, 51, 51, 0.95);
 }
 
 .modal_bg {
@@ -28,6 +28,7 @@
     width: 446px;
     margin: 50px auto;
     display: table;
+    margin-top: 0px;
 }
 
 // create channel form

@@ -315,3 +315,19 @@ select {
         width: 100%!important;
     }
 }
+
+#ops_scrollbar::-webkit-scrollbar-track {
+    background-color: #e5e5e5;
+    border-radius: 5px;
+}
+
+#ops_scrollbar::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 50px;
+    background-color: #F3F5F7;
+}
+
+#ops_scrollbar::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 50px;
+}
