@@ -1,4 +1,4 @@
-<div class="c-card" *ngIf="false">
+<div class="c-card" *ngIf="!loader">
     <!-- card media (img, video & audio) -->
     <div class="c-card__media">
         <a [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
@@ -71,7 +71,7 @@
 </div>
 
 <!-- Loader  -->
-<div class="c-card" *ngIf="true">
+<div class="c-card" *ngIf="loader">
     <div class="c-status--block">
         <div class="c-card__user margin_none">
             <div class="c-user">

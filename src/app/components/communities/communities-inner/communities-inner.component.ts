@@ -20,15 +20,17 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './communities-inner.component.html',
   styleUrls: ['./communities-inner.component.scss']
 })
-export class CommunitiesInnerComponent implements OnInit {
+export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   basePath = environment.API_IMAGE;
   id: any;
   tagState$: Observable<any>;
   private subscription: ISubscription;
+  private routerSubscription: ISubscription;
   details: any;
   listInvitePeople: any;
   relatedCommunity: any;
   communityPost: any;
+  postLoader: boolean;
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
@@ -36,7 +38,7 @@ export class CommunitiesInnerComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.route.params.subscribe(params => {
+    this.routerSubscription = this.route.params.subscribe(params => {
       this.id = params['communitiesId'];
       this.communityDetails();
     });
@@ -56,6 +58,9 @@ export class CommunitiesInnerComponent implements OnInit {
         if (state['community_post']) {
           this.communityPost = state['community_post'];
         }
+        if (state['post_loader']) {
+          this.postLoader = state['post_loader'];
+        }
       }
     });
   }
@@ -63,6 +68,14 @@ export class CommunitiesInnerComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    // this.routerSubscription.unsubscribe();
+  }
+
+  /**
+   * Join to community
+   */
   userJoin(join) {
     if (join === true) {
       const data = {
@@ -74,11 +87,28 @@ export class CommunitiesInnerComponent implements OnInit {
     }
   }
 
+  /**
+   * Get All Community Details
+   */
   communityDetails() {
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_DETAILS, payload: this.id });
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_INVITE_PEOPLE_LIST, payload: this.id });
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_RELATED, payload: this.id });
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_POST_GET, payload: this.id });
+  }
+
+  /**
+   * Invite people to community
+   */
+  inviteToCommunity(handle) {
+    console.log(handle)
+    const sender = {
+      id: this.id,
+      data: {
+        memberList: [handle]
+      }
+    }
+    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_INVITE_PEOPLE, payload: sender });
   }
 
 }

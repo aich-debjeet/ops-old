@@ -4,6 +4,7 @@
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/components/_cards.scss';
 // ------------------------------------
+
 .c-card__media {
   width: 100%;
   height: auto;
@@ -12,6 +13,9 @@
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   background-color: #f8f8f8;
+  .c-card__image{
+    min-height: 300px;
+  }
 }
 
 .c-card__image {

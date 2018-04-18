@@ -56,9 +56,26 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
         communityRelated: payload
       });
 
+    case CommunitiesActions.COMMUNITY_POST_GET:
+      return Object.assign({}, state, {
+        community_post: [],
+        post_loding: true
+      });
+
     case CommunitiesActions.COMMUNITY_POST_GET_SUCCESS:
       return Object.assign({}, state, {
-        community_post: payload
+        community_post: payload,
+        post_loding: false
+      });
+
+    case CommunitiesActions.COMMUNITY_POST_GET_FAILED:
+      return Object.assign({}, state, {
+        post_loding: false
+      });
+
+    case CommunitiesActions.COMMUNITY_INVITE_PEOPLE:
+      return Object.assign({}, state, {
+        communityInvitePeople: state.communityInvitePeople.filter(community => community.profileHandle !== payload.profileHandle)
       });
 
     default:

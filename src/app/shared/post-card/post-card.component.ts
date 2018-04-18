@@ -25,6 +25,7 @@ export class PostCardComponent implements OnInit {
   @Input() type: string;
   // @Input() userThumb: string;
   @Input() userThumb: boolean = false;
+  @Input() loader: boolean = false;
   @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() imageLoad: EventEmitter<any> = new EventEmitter<any>();
   @Output() postDelete = new EventEmitter();
@@ -46,15 +47,17 @@ export class PostCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    // if (!this.mediaData.ownerImage) {
-    //   this.userImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
-    // } else {
-    //   this.userImage = this.imageLink + this.mediaData.ownerImage;
-    // }
-    // this.following = this.mediaData.isSpotted;
-    // this.followingCount = this.mediaData.spotsCount;
-    // this.mediaType = this.mediaData.mtype;
-    // this.useThumb = false;
+    if (this.mediaData) {
+      if (!this.mediaData.ownerImage) {
+        this.userImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+      } else {
+        this.userImage = this.imageLink + this.mediaData.ownerImage;
+      }
+      this.following = this.mediaData.isSpotted;
+      this.followingCount = this.mediaData.spotsCount;
+      this.mediaType = this.mediaData.mtype;
+      // this.useThumb = false;
+    }
   }
 
   /**

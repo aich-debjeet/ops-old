@@ -67,4 +67,9 @@ export class CommunitiesService {
     return this.api.get(`/portal/community/post/${id}/0/10`, '');
   }
 
+  invitePeopleToCommunity(params: any) {
+    return this.api.post(`/portal/community/addMembers/${params.id}`, params.data);
+  }
+
+
 }
