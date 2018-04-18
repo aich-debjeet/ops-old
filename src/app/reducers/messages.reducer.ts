@@ -9,18 +9,39 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
 
   switch (type) {
 
+    /* newtwork request action */
+    case MessageActions.NETWORK_REQUEST_ACTION:
+      return Object.assign({}, state, {
+        network_request_action_sent: true,
+        network_request_action_params: payload
+      });
+
+    case MessageActions.NETWORK_REQUEST_ACTION_SUCCESS:
+      return Object.assign({}, state, {
+        network_request_action_sent: false,
+        network_request_action_response: payload,
+        network_request_action_success: true
+      });
+
+    case MessageActions.NETWORK_REQUEST_ACTION_FAILED:
+      return Object.assign({}, state, {
+        network_request_action_sent: false,
+        network_request_action_success: false
+      });
+    /* newtwork request action */
+
     /* get messanger list reducers */
     case MessageActions.GET_MESSANGER_LIST:
       return Object.assign({}, state, {
         getting_messanger_list: true,
         getting_messanger_list_success: false,
-        get_messanger_list_params: payload
+        messanger_list_params: payload
       });
 
     case MessageActions.GET_MESSANGER_LIST_SUCCESS:
       return Object.assign({}, state, {
         getting_messanger_list: false,
-        get_messanger_list_data: payload,
+        messanger_list_data: payload,
         getting_messanger_list_success: true
       });
 
@@ -30,6 +51,28 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
         getting_messanger_list_success: false
       });
     /* get messanger list reducers */
+
+    /* get searched users */
+    case MessageActions.MESSAGE_SEARCH_USER:
+      return Object.assign({}, state, {
+        message_searching_user: true,
+        message_searching_user_success: false,
+        message_search_user_params: payload
+      });
+
+    case MessageActions.MESSAGE_SEARCH_USER_SUCCESS:
+      return Object.assign({}, state, {
+        message_searching_user: false,
+        messanger_list_data: payload,
+        message_searching_user_success: true
+      });
+
+    case MessageActions.MESSAGE_SEARCH_USER_FAILED:
+      return Object.assign({}, state, {
+        message_searching_user: false,
+        message_searching_user_success: false
+      });
+    /* get searched users */
 
     /* load conversation */
     case MessageActions.LOAD_CONVERSATION:
@@ -72,7 +115,7 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
 
       // check if messanger list array exist, if yes then update it
       let updated_messanger_list = [];
-      const messanger_list = state['get_messanger_list_data'];
+      const messanger_list = state['messanger_list_data'];
       if (state && messanger_list !== undefined) {
         // remove the user with the same handle
         const msgIndex = _.findIndex(messanger_list, (obj) => obj.handle === payload.to);
@@ -99,7 +142,7 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
         sending_message_success: false,
         send_message_params: payload,
         load_conversation_data: updated_conversation,
-        get_messanger_list_data: updated_messanger_list
+        messanger_list_data: updated_messanger_list
       });
 
     case MessageActions.SEND_MESSAGE_SUCCESS:
@@ -116,17 +159,36 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
     /* send message */
 
-    /* update pusher message */
-    case MessageActions.ADD_PUSHER_MESSAGE:
-      let updated_load_conversation_data = [];
-      if (state && state['load_conversation_data'] !== undefined) {
-        updated_load_conversation_data = [...state['load_conversation_data'], payload];
+    /* prepend user to conv listing */
+    case MessageActions.PREPEND_ELEMENT_TO_USER_LIST:
+      let messanger_list_updated;
+      if (state && state.messanger_list_data) {
+        const new_conv_data = [payload];
+        messanger_list_updated = new_conv_data.concat(state.messanger_list_data);
       } else {
-        updated_load_conversation_data = [payload];
+        messanger_list_updated = state.messanger_list_data;
       }
       return Object.assign({}, state, {
-        load_conversation_data: updated_load_conversation_data
+        messanger_list_data: messanger_list_updated
       });
+    /* prepend user to conv listing */
+
+    /* update pusher message */
+    case MessageActions.ADD_PUSHER_MESSAGE:
+      // check for the selected user handle to append the message
+      if (state && state['load_conversation_params'] !== undefined && state['load_conversation_params']['handle'] !== undefined && state['load_conversation_params']['handle'] === payload['by']) {
+        let updated_load_conversation_data = [];
+        if (state && state['load_conversation_data'] !== undefined) {
+          updated_load_conversation_data = [...state['load_conversation_data'], payload];
+        } else {
+          updated_load_conversation_data = [payload];
+        }
+        return Object.assign({}, state, {
+          load_conversation_data: updated_load_conversation_data
+        });
+      } else {
+        return state;
+      }
     /* update pusher message */
 
     /* reset conversation state */

@@ -222,7 +222,11 @@
                                 <div class="dropnoti__icon">
                                     <img [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
                                 </div>
-                                <p class="msg__time">--</p>
+                                <p class="msg__time">{{notification.createdDate |date:'short'}}</p>
+                                <!-- <div class="dropnoti__permission" *ngIf = "notification.notificationType === 'Network_Sent'">
+                                    <a href="javascript:void(0)" class="color-theme">Accept</a>
+                                    <a href="javascript:void(0)">Decline</a>
+                                </div> -->
                             </div>
                             <div class="dropdown__item p-16 msg__read">
                                 <a routerLink="/notification">
