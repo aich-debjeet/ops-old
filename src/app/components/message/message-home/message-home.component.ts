@@ -10,6 +10,8 @@ import { ProfileModal } from './../../../models/profile.model';
 import { MessageActions } from './../../../actions/message.action';
 import { PusherService } from './../../../services/pusher.service';
 
+import * as _ from 'lodash';
+
 @Component({
   selector: 'app-message-home',
   templateUrl: './message-home.component.html',
@@ -36,6 +38,8 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   enableScrollBottom = true;
   msgUserSearch = new FormControl();
   isSearching = false;
+  enableMsgInput = false;
+  isTyping = false;
 
   constructor(
     private messageStore: Store<MessageModal>,
@@ -61,16 +65,15 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       if (this.messageState && this.messageState['messanger_list_data']) {
         this.messangerList = this.messageState['messanger_list_data'];
 
-        // display last conversation
-        if (!this.isConversationSelected) {
-          this.selectUser(this.messangerList[0]);
-          this.isConversationSelected = true;
-        }
+        this.selectLatestConversation();
       }
 
       if (this.messageState && this.messageState['load_conversation_data']) {
         this.conversation = this.messageState['load_conversation_data'];
-        // console.log('this.conversation', this.conversation);
+        console.log('this.conversation', this.conversation);
+        if (this.conversation.length > 0) {
+          this.enableTextMessage();
+        }
       }
 
       if (this.messageState
@@ -116,16 +119,50 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   ngOnInit() {
 
     // pusher message listener
-    this.pusherService.messagesChannel.bind('New-Message', (message) => {
-      this.messageStore.dispatch({
-        type: MessageActions.ADD_PUSHER_MESSAGE,
-        payload: JSON.parse(message)
-      });
+    this.pusherService.messagesChannel.bind('New-Message', (data) => {
+      const message = JSON.parse(data);
+      // console.log('New-Message', message);
+
+      // check if it's a network request
+      if (message && message['isNetworkRequest'] && message['isNetworkRequest'] === true) {
+        // console.log('Network Request');
+        // append the new object to the user listing
+        // prepafing listing object
+        const newListObj = {
+          handle: message.by,
+          isBlocked: false,
+          isRead: message.isRead,
+          latestMessage: message.content,
+          messageType: 'received',
+          name: message.name,
+          profileImage: message.profileImage,
+          time: message.time,
+          username: message.username
+        };
+        this.messageStore.dispatch({
+          type: MessageActions.PREPEND_ELEMENT_TO_USER_LIST,
+          payload: newListObj
+        });
+      } else {
+        // console.log('NOT a Network Request');
+        this.messageStore.dispatch({
+          type: MessageActions.ADD_PUSHER_MESSAGE,
+          payload: message
+        });
+      }
     });
 
     // pusher notifications listener
-    this.pusherService.notificationsChannel.bind('Message-Typing', (user) => {
-      console.log(user);
+    this.pusherService.notificationsChannel.bind('Message-Typing', (userDetails) => {
+      // console.log(userDetails);
+      // console.log(this.selectedUser);
+      userDetails = JSON.parse(userDetails);
+      if (!this.isTyping && userDetails.handle === this.selectedUser.handle) {
+        this.isTyping = true;
+        setTimeout(() => {
+          this.isTyping = false;
+        }, 900);
+      }
     });
 
     // search user input listener
@@ -152,6 +189,16 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   }
 
   /**
+   * choose latest conversation from the user listing
+   */
+  selectLatestConversation() {
+    if (!this.isConversationSelected && this.messangerList[0] !== undefined) {
+      this.selectUser(this.messangerList[0]);
+      this.isConversationSelected = true;
+    }
+  }
+
+  /**
    * scroll bottom the chat window on sending the new message
    */
   ngAfterContentInit() {
@@ -172,11 +219,12 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
    * trigger dispatch to load conversation with the user asked
    */
   selectUser(userObj: any) {
+    this.disableTextMessage();
     this.selectedUser = userObj;
     this.conversation = [];
 
     // create user channel to emit typing indication
-    this.pusherService.createUserChannel(userObj);
+    // this.pusherService.createUserChannel(userObj);
 
     // load selected users conversation
     this.messageStore.dispatch({ type: MessageActions.RESET_CONVERSATION_STATE });
@@ -199,6 +247,11 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
         lastMessage: { id: '' }
       }
     });
+  }
+
+  deselectUser() {
+    this.selectedUser = {};
+    this.conversation = [];
   }
 
   /**
@@ -325,23 +378,62 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   }
 
   userIsTyping(e: any) {
-    // console.log('user typing', e.keyCode);
-    // if (this.profileState
-    //   && this.profileState['profile_cards']
-    //   && this.profileState['profile_cards']['active']
-    // ) {
-    //   // console.log('user', this.profileState['profile_cards']['active']);
-    //   // this.pusherService.userChannels[this.selectedUser.handle].trigger('Message-Typing', this.profileState['profile_cards']['active']);
-    //   const otherUser = this.pusherService.userChannels[this.selectedUser.handle];
-    //   if (otherUser) {
-    //     otherUser.trigger('Message-Typing', this.profileState['profile_cards']['active'])
-    //   }
-    // }
+    if (this.profileState
+      && this.profileState['profile_cards']
+      && this.profileState['profile_cards']['active']
+    ) {
+      // console.log('user', this.profileState['profile_cards']['active']);
+      // this.pusherService.userChannels[this.selectedUser.handle].trigger('Message-Typing', this.profileState['profile_cards']['active']);
+      // const otherUser = this.pusherService.userChannels[this.selectedUser.handle];
+      // if (otherUser) {
+      //   otherUser.trigger('Message-Typing', this.profileState['profile_cards']['active'])
+      // }
+      this.messageStore.dispatch({
+        type: MessageActions.USER_IS_TYPING,
+        payload: this.selectedUser.handle
+      });
+    }
 
     // send message if enter pressed
     if (e.keyCode === 13) {
       this.sendMessage();
     }
+  }
+
+  /**
+   * action to take for network request
+   */
+  networkReqAction(action: string, data: any) {
+    const reqParams = {
+      receiver_id: data.by,
+      status: action
+    };
+    this.messageStore.dispatch({
+      type: MessageActions.NETWORK_REQUEST_ACTION,
+      payload: reqParams
+    });
+
+    // find the index for changin the newtwork flag
+    const index = _.findIndex(this.conversation, ['by', data.by]);
+    this.conversation[index].isNetworkRequest = false;
+
+    if (action === 'accept') {
+      this.enableTextMessage();
+    } else {
+      // remove the user from the left side listing
+      this.messangerList = _.remove(this.messangerList, (obj) => obj.by === data.by);
+      this.deselectUser();
+    }
+  }
+
+  enableTextMessage() {
+    // console.log('enableTextMessage');
+    this.enableMsgInput = true;
+  }
+
+  disableTextMessage() {
+    // console.log('disableTextMessage');
+    this.enableMsgInput = false;
   }
 
 }

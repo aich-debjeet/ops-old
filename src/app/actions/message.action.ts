@@ -45,6 +45,16 @@ export class MessageActions {
   static MESSAGE_SEARCH_USER_SUCCESS = 'MESSAGE_SEARCH_USER_SUCCESS';
   static MESSAGE_SEARCH_USER_FAILED = 'MESSAGE_SEARCH_USER_FAILED';
 
+  static PREPEND_ELEMENT_TO_USER_LIST = 'PREPEND_ELEMENT_TO_USER_LIST';
+
+  static NETWORK_REQUEST_ACTION = 'NETWORK_REQUEST_ACTION';
+  static NETWORK_REQUEST_ACTION_SUCCESS = 'NETWORK_REQUEST_ACTION_SUCCESS';
+  static NETWORK_REQUEST_ACTION_FAILED = 'NETWORK_REQUEST_ACTION_FAILED';
+
+  static USER_IS_TYPING = 'USER_IS_TYPING';
+  static USER_IS_TYPING_SUCCESS = 'USER_IS_TYPING_SUCCESS';
+  static USER_IS_TYPING_FAILED = 'USER_IS_TYPING_FAILED';
+
   /* -------------------------------- load current user profile data -------------------------------- */
   loadUserProfile(value): Action {
     return {
