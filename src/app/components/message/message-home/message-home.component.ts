@@ -39,6 +39,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   msgUserSearch = new FormControl();
   isSearching = false;
   enableMsgInput = false;
+  isTyping = false;
 
   constructor(
     private messageStore: Store<MessageModal>,
@@ -120,13 +121,12 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
     // pusher message listener
     this.pusherService.messagesChannel.bind('New-Message', (data) => {
       const message = JSON.parse(data);
-      console.log('New-Message', message);
+      // console.log('New-Message', message);
 
       // check if it's a network request
       if (message && message['isNetworkRequest'] && message['isNetworkRequest'] === true) {
-        console.log('Network Request');
-
-        // append creat and append the new object to the user listing
+        // console.log('Network Request');
+        // append the new object to the user listing
         // prepafing listing object
         const newListObj = {
           handle: message.by,
@@ -143,11 +143,8 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
           type: MessageActions.PREPEND_ELEMENT_TO_USER_LIST,
           payload: newListObj
         });
-        // setTimeout(() => {
-        //   this.selectLatestConversation();
-        // }, 200);
       } else {
-        console.log('NOT a Network Request');
+        // console.log('NOT a Network Request');
         this.messageStore.dispatch({
           type: MessageActions.ADD_PUSHER_MESSAGE,
           payload: message
@@ -156,8 +153,16 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
     });
 
     // pusher notifications listener
-    this.pusherService.notificationsChannel.bind('Message-Typing', (user) => {
-      console.log(user);
+    this.pusherService.notificationsChannel.bind('Message-Typing', (userDetails) => {
+      // console.log(userDetails);
+      // console.log(this.selectedUser);
+      userDetails = JSON.parse(userDetails);
+      if (!this.isTyping && userDetails.handle === this.selectedUser.handle) {
+        this.isTyping = true;
+        setTimeout(() => {
+          this.isTyping = false;
+        }, 900);
+      }
     });
 
     // search user input listener
@@ -219,7 +224,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
     this.conversation = [];
 
     // create user channel to emit typing indication
-    this.pusherService.createUserChannel(userObj);
+    // this.pusherService.createUserChannel(userObj);
 
     // load selected users conversation
     this.messageStore.dispatch({ type: MessageActions.RESET_CONVERSATION_STATE });
@@ -373,18 +378,21 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   }
 
   userIsTyping(e: any) {
-    // console.log('user typing', e.keyCode);
-    // if (this.profileState
-    //   && this.profileState['profile_cards']
-    //   && this.profileState['profile_cards']['active']
-    // ) {
-    //   // console.log('user', this.profileState['profile_cards']['active']);
-    //   // this.pusherService.userChannels[this.selectedUser.handle].trigger('Message-Typing', this.profileState['profile_cards']['active']);
-    //   const otherUser = this.pusherService.userChannels[this.selectedUser.handle];
-    //   if (otherUser) {
-    //     otherUser.trigger('Message-Typing', this.profileState['profile_cards']['active'])
-    //   }
-    // }
+    if (this.profileState
+      && this.profileState['profile_cards']
+      && this.profileState['profile_cards']['active']
+    ) {
+      // console.log('user', this.profileState['profile_cards']['active']);
+      // this.pusherService.userChannels[this.selectedUser.handle].trigger('Message-Typing', this.profileState['profile_cards']['active']);
+      // const otherUser = this.pusherService.userChannels[this.selectedUser.handle];
+      // if (otherUser) {
+      //   otherUser.trigger('Message-Typing', this.profileState['profile_cards']['active'])
+      // }
+      this.messageStore.dispatch({
+        type: MessageActions.USER_IS_TYPING,
+        payload: this.selectedUser.handle
+      });
+    }
 
     // send message if enter pressed
     if (e.keyCode === 13) {

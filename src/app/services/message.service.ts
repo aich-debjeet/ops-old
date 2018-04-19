@@ -58,4 +58,8 @@ export class MessageService {
     networkRequestAction(params: any) {
         return this.api.put('/portal/network/connection/response', params);
     }
+
+    userTypingAction(handle: string) {
+        return this.api.get('/portal/message/v-2/trigger/typing/' + handle);
+    }
 }

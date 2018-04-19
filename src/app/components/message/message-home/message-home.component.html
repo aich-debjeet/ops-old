@@ -141,9 +141,12 @@
                         </ng-container>
                     </div>
                     <!-- //message container -->
-    
+
                     <!-- message input block -->
                     <div *ngIf="enableMsgInput" class="row">
+                        <div class="col-md-12" >
+                            <p *ngIf="isTyping" >{{ selectedUser?.name }} is typing...</p>
+                        </div>
                         <div class="col-md-1">
                             <div class="c-user__avatar c-avatar--feed3 m-t-16">
                                 <img class="c-user__image" [src]="imageBaseUrl + profileState?.profile_cards?.active?.image">
