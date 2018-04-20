@@ -81,7 +81,7 @@
                                 </li>
                                 <li class="o-action-list float-right">
                                     <button type="button" *ngIf="!community_active" [disabled]="uploadedFiles?.length === 0 || uploadedFiles?.length !== cards?.length" class="btn btn-primary btn-md btn-inverse" (click)="formNext()">Next</button>
-                                    <button type="button" *ngIf="community_active" [disabled]="uploadedFiles?.length === 0 || uploadedFiles?.length !== cards?.length" class="btn btn-primary btn-md btn-inverse" (click)="formNext()">Publish</button>
+                                    <button type="button" *ngIf="community_active" [disabled]="uploadedFiles?.length === 0 || uploadedFiles?.length !== cards?.length" class="btn btn-primary btn-md btn-inverse" (click)="publishCommunity()">Publish</button>
                                 </li>
                             </ul>
                         </div>

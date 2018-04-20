@@ -757,6 +757,15 @@ export class ProfileEffect {
         .catch((res) => Observable.of({ type: ProfileActions.SENT_NETWORK_REQUEST_FAILED, payload: res }))
       );
 
+    @Effect()
+    communityMediaPost$ = this.actions$
+      .ofType(ProfileActions.COMMUNITY_MEDIA_POST)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.communityMediaPost(payload)
+        .map(res => ({ type: ProfileActions.COMMUNITY_MEDIA_POST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.COMMUNITY_MEDIA_POST_FAILED, payload: res }))
+      );
+
   constructor(
     private toastr: ToastrService,
     private actions$: Actions,

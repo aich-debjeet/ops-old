@@ -105,7 +105,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     const sender = {
       id: this.id,
       data: {
-        memberList: [handle]
+        membersHandles: [handle]
       }
     }
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_INVITE_PEOPLE, payload: sender });

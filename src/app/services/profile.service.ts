@@ -465,4 +465,10 @@ export class ProfileService {
   sentNetworkRequest(body: any) {
     return this.api.put('/portal/network/connection/request', body);
   }
+
+  communityMediaPost(payload: any) {
+    const communityId = payload.id;
+    const req = payload.data;
+    return this.api.put(`/portal/community/add/update/mediaCommunity/${communityId}`, req);
+  }
 }
