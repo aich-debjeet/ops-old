@@ -9,6 +9,27 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
 
   switch (type) {
 
+    /* newtwork request action */
+    case MessageActions.NETWORK_REQUEST_ACTION:
+      return Object.assign({}, state, {
+        network_request_action_sent: true,
+        network_request_action_params: payload
+      });
+
+    case MessageActions.NETWORK_REQUEST_ACTION_SUCCESS:
+      return Object.assign({}, state, {
+        network_request_action_sent: false,
+        network_request_action_response: payload,
+        network_request_action_success: true
+      });
+
+    case MessageActions.NETWORK_REQUEST_ACTION_FAILED:
+      return Object.assign({}, state, {
+        network_request_action_sent: false,
+        network_request_action_success: false
+      });
+    /* newtwork request action */
+
     /* get messanger list reducers */
     case MessageActions.GET_MESSANGER_LIST:
       return Object.assign({}, state, {
@@ -137,6 +158,20 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
         sending_message_success: false
       });
     /* send message */
+
+    /* prepend user to conv listing */
+    case MessageActions.PREPEND_ELEMENT_TO_USER_LIST:
+      let messanger_list_updated;
+      if (state && state.messanger_list_data) {
+        const new_conv_data = [payload];
+        messanger_list_updated = new_conv_data.concat(state.messanger_list_data);
+      } else {
+        messanger_list_updated = state.messanger_list_data;
+      }
+      return Object.assign({}, state, {
+        messanger_list_data: messanger_list_updated
+      });
+    /* prepend user to conv listing */
 
     /* update pusher message */
     case MessageActions.ADD_PUSHER_MESSAGE:

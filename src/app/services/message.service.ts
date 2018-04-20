@@ -54,4 +54,12 @@ export class MessageService {
     messageSearchUser(searchQuery: string) {
         return this.api.get('/portal/message/v-2/search/0/10?searchString=' + searchQuery);
     }
+
+    networkRequestAction(params: any) {
+        return this.api.put('/portal/network/connection/response', params);
+    }
+
+    userTypingAction(data: any) {
+        return this.api.get('/portal/message/v-2/trigger/typing/' + data.loggedInUsersHandle + '/' + data.selectedUsersHandle);
+    }
 }
