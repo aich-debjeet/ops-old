@@ -30,6 +30,12 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
     /* newtwork request action */
 
+    case MessageActions.NETWORK_REQUEST_DECLINE:
+      const messanger_list_data_updated = _.remove(state['messanger_list_data'], (obj) => obj.handle !== payload.by);
+      return Object.assign({}, state, {
+        messanger_list_data: messanger_list_data_updated
+      });
+
     /* get messanger list reducers */
     case MessageActions.GET_MESSANGER_LIST:
       return Object.assign({}, state, {

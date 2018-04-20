@@ -55,6 +55,8 @@ export class MessageActions {
   static USER_IS_TYPING_SUCCESS = 'USER_IS_TYPING_SUCCESS';
   static USER_IS_TYPING_FAILED = 'USER_IS_TYPING_FAILED';
 
+  static NETWORK_REQUEST_DECLINE = 'NETWORK_REQUEST_DECLINE';
+
   /* -------------------------------- load current user profile data -------------------------------- */
   loadUserProfile(value): Action {
     return {
