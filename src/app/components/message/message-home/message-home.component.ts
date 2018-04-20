@@ -284,6 +284,8 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       subject: this.messageText,
       content: this.messageText,
       messageType: 'sent',
+      isNetworkRequest: false,
+      isDeleted: false,
       profileImage: loggedUsersImage,
       time: Date.now()
     }
