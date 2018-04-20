@@ -390,7 +390,10 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       // }
       this.messageStore.dispatch({
         type: MessageActions.USER_IS_TYPING,
-        payload: this.selectedUser.handle
+        payload: {
+          loggedInUsersHandle: this.profileState['profile_cards']['active']['handle'],
+          selectedUsersHandle: this.selectedUser.handle
+        }
       });
     }
 
