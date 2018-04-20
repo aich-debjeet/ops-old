@@ -17,6 +17,7 @@ export class ProfileAcceptedRequestsComponent implements OnInit {
   tagState$: Observable<ProfileModal>;
   imageBaseUrl = environment.API_IMAGE;
   userHandle: String;
+  connectionList: any[];
 
   constructor(
     private profileStore: Store<ProfileModal>,
@@ -24,6 +25,7 @@ export class ProfileAcceptedRequestsComponent implements OnInit {
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
+      this.connectionList = this.userProfile.active_connection_list;  
     })
     this.profileStore.select('profileTags')
     .first(profile => profile['profile_user_info'] && profile['profile_navigation_details'].handle)

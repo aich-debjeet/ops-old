@@ -3,6 +3,7 @@ import { initialTag, ProfileModal, ProfileCards, UserCard} from '../models/profi
 
 import { ProfileActions } from '../actions/profile.action';
 import { OrganizationActions } from '../actions/organization.action';
+import { filter as _filter } from 'lodash';
 
 export interface State {
   user_channel: any,
@@ -1194,7 +1195,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
   case ProfileActions.GET_PENDING_REQUEST_LIST_FAILED:
-    console.log(payload._body)
+    console.log(payload)
     return Object.assign({}, state, {
       pending_request_list: [],
     });
@@ -1207,32 +1208,60 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     active_connection_list: [],
   });
 
-case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_SUCCESS:
-  console.log(payload)
-  return Object.assign({}, state, {
-    active_connection_list: payload,
-  });
+  case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_SUCCESS:
+    console.log(payload)
+    return Object.assign({}, state, {
+      active_connection_list: payload,
+    });
 
-case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_FAILED:
-  console.log(payload._body)
-  return Object.assign({}, state, {
-    active_connection_list: [],
-  });
+  case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_FAILED:
+    console.log(payload._body)
+    return Object.assign({}, state, {
+      active_connection_list: [],
+    });
+
+    /**
+     * Accept network request
+     */
+  case ProfileActions.ACCEPT_NETWORK_REQUEST:
+    console.log(payload)
+    return Object.assign({}, state, {
+      accepted_request: false,
+      accepted_network_request: [],
+      accept_request_payload: payload
+
+    });
+
+  case ProfileActions.ACCEPT_NETWORK_REQUEST_SUCCESS:
+  console.log(payload)
+    return Object.assign({}, state, {
+      accepted_request: true,
+      accepted_network_request: payload,
+    });
+
+  case ProfileActions.ACCEPT_NETWORK_REQUEST_FAILED:
+    return Object.assign({}, state, {
+      accepted_request: false,
+      accepted_network_request:[]
+    });
 
      /**
      * cancel sent network request
      */
-    case ProfileActions.CANCEL_NETWORK_REQUEST:
+  case ProfileActions.CANCEL_NETWORK_REQUEST:
+    console.log(payload)
     return Object.assign({}, state, {
       cancel_network_request: false,
-      cancel_sent_reqyuest:[]
+      cancel_sent_request:[],
+      cancel_sent_request_data: payload
     });
   
   case ProfileActions.CANCEL_NETWORK_REQUEST_SUCCESS:
     console.log(payload)
     return Object.assign({}, state, {
       cancel_network_request: true,
-      cancel_sent_request:payload
+      cancel_sent_request: payload,
+      network_sent_requests: state.network_sent_requests.filter(request => request.owner.handle !== state.cancel_sent_request_data.receiver_id)
     });
   
   case ProfileActions.CANCEL_NETWORK_REQUEST_FAILED:

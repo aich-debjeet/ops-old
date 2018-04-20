@@ -63,15 +63,15 @@ export class ProfileNetworkComponent implements OnInit {
     }
     console.log('data', data)
     this.profileStore.dispatch({ type: ProfileActions.CANCEL_NETWORK_REQUEST, payload: data });
-    this.removeElements(handle);
+    // this.removeElements(handle);
   }
 
-  removeElements(handle: string){
-    this.sendRequestList =  _filter(this.sendRequestList, function(item) {
-      return item.owner.handle !== handle;
-    });
-    console.log(this.sendRequestList)
-  }
+  // removeElements(handle: string){
+  //   this.sendRequestList =  _filter(this.sendRequestList, function(item) {
+  //     return item.owner.handle !== handle;
+  //   });
+  //   console.log(this.sendRequestList)
+  // }
 
   ngOnInit() {
   }

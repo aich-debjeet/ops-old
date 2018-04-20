@@ -77,6 +77,7 @@ export class ProfileModal {
   active_connection_list: any[];
   cancel_network_request: boolean;
   cancel_sent_request: any[];
+  cancel_sent_request_data: any;
 
 }
 
@@ -155,6 +156,7 @@ export const initialTag: ProfileModal = {
   active_connection_list: [],
   cancel_network_request: false,
   cancel_sent_request: [],
+  cancel_sent_request_data: [],
 };
 
 export class ProfileCard {
