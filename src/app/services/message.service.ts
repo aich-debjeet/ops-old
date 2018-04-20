@@ -62,4 +62,8 @@ export class MessageService {
     userTypingAction(data: any) {
         return this.api.get('/portal/message/v-2/trigger/typing/' + data.loggedInUsersHandle + '/' + data.selectedUsersHandle);
     }
+
+    deleteMessage(message: any) {
+        return this.api.put('/portal/message/v-2/deleteMessage', message);
+    }
 }

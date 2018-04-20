@@ -30,6 +30,27 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
     /* newtwork request action */
 
+    /* message delete */
+    case MessageActions.DELETE_MESSAGE:
+      return Object.assign({}, state, {
+        delete_message_sent: true,
+        delete_message_params: payload
+      });
+
+    case MessageActions.DELETE_MESSAGE_SUCCESS:
+      return Object.assign({}, state, {
+        delete_message_sent: false,
+        delete_message_response: payload,
+        delete_message_success: true
+      });
+
+    case MessageActions.DELETE_MESSAGE_FAILED:
+      return Object.assign({}, state, {
+        delete_message_sent: false,
+        delete_message_success: false
+      });
+    /* message delete */
+
     case MessageActions.NETWORK_REQUEST_DECLINE:
       const messanger_list_data_updated = _.remove(state['messanger_list_data'], (obj) => obj.handle !== payload.by);
       return Object.assign({}, state, {

@@ -445,4 +445,15 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
     this.enableMsgInput = false;
   }
 
+  deleteMessage(message: any) {
+    const delMsg = {
+      messageId: message.id,
+      deleteType: 'for_me'
+    }
+    this.messageStore.dispatch({
+      type: MessageActions.DELETE_MESSAGE,
+      payload: delMsg
+    });
+  }
+
 }
