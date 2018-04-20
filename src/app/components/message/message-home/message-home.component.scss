@@ -254,3 +254,17 @@
     line-height: 20px;
     right: 80px;
 }
+
+.right-message, .left-message {
+    position: relative;
+}
+
+.del-msg {
+    position: absolute;
+    color: #909090;
+    top: 10px;
+    cursor: pointer;
+    right: 10px;
+    font-size: 10px;
+    font-weight: bold;
+}
