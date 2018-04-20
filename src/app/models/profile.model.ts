@@ -75,6 +75,9 @@ export class ProfileModal {
   network_sent_request_fail: any;
   pending_request_list: any[];
   active_connection_list: any[];
+  cancel_network_request: boolean;
+  cancel_sent_request: any[];
+
 }
 
 export class ProfileForm {
@@ -150,6 +153,8 @@ export const initialTag: ProfileModal = {
   network_sent_request_fail: [],
   pending_request_list: [],
   active_connection_list: [],
+  cancel_network_request: false,
+  cancel_sent_request: [],
 };
 
 export class ProfileCard {

@@ -26,16 +26,28 @@
           </ul>
        </li>
        <li class="with_border_bottom list_style_none" *ngFor="let request of sendRequestList">
-          <ul class="list-inline request_flex">
+          <ul class="list-inline request_flex" *ngIf = "request.questionaire.isConfirm">
              <li class="list-inline-item float_left">
-               <img src="{{ imageBaseUrl }}img/avatar.jpg" class="o-network__avatar">
+               <img src="{{ imageBaseUrl + request?.owner?.profileImage }}" class="o-network__avatar">
              </li>
              <li class="list-inline-item noti_cont">
                 <span class="c-text_sm">{{request.owner.name}}</span>
-                <span class="c-text_sm color-grey-dark">Accepted your network request</span>
-                <div class="pull-right c-text_sm color-grey-dark">10:08 PM</div>
+                <span class="c-text_sm color-grey-dark">accepted your network request</span>
+                <div class="pull-right c-text_sm color-grey-dark">{{request.questionaire.date | date:'short'}}</div>
              </li>
           </ul>
+          <ul class="list-inline request_flex" *ngIf = "!request.questionaire.isConfirm">
+            <li class="list-inline-item float_left">
+              <img src="{{ imageBaseUrl + request?.owner?.profileImage }}" class="o-network__avatar">
+            </li>
+            <li class="list-inline-item noti_cont">
+               <span class="c-text_sm">{{request.owner.name}}</span>
+               <span class="c-text_sm color-grey-dark">waiting to accept request
+                 <a class="color-theme" (click) = "cancelRequest(request.owner.handle)">Cancel Request</a>
+               </span>
+               <div class="pull-right c-text_sm color-grey-dark">{{request.questionaire.date |  date:'short'}}</div>
+            </li>
+         </ul>
        </li>
        <!-- <li class="with_border_bottom list_style_none">
           <ul class="list-inline request_flex">

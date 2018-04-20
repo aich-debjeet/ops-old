@@ -1218,6 +1218,29 @@ case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_FAILED:
   return Object.assign({}, state, {
     active_connection_list: [],
   });
+
+     /**
+     * cancel sent network request
+     */
+    case ProfileActions.CANCEL_NETWORK_REQUEST:
+    return Object.assign({}, state, {
+      cancel_network_request: false,
+      cancel_sent_reqyuest:[]
+    });
+  
+  case ProfileActions.CANCEL_NETWORK_REQUEST_SUCCESS:
+    console.log(payload)
+    return Object.assign({}, state, {
+      cancel_network_request: true,
+      cancel_sent_request:payload
+    });
+  
+  case ProfileActions.CANCEL_NETWORK_REQUEST_FAILED:
+    console.log(payload)
+    return Object.assign({}, state, {
+      cancel_network_request: false,
+      cancel_sent_request:[]
+    });
     default:
       return state;
   }

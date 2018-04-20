@@ -16,6 +16,7 @@ export class ProfileNetworkRequestsComponent implements OnInit {
   tagState$: Observable<ProfileModal>;
   imageBaseUrl = environment.API_IMAGE;
   userHandle: String;
+  requestList: any[];
 
   constructor(
     private profileStore: Store<ProfileModal>,
@@ -23,6 +24,8 @@ export class ProfileNetworkRequestsComponent implements OnInit {
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
+      console.log('this.userProfile.pending_request_list ',this.userProfile.pending_request_list)
+      this.requestList = this.userProfile.pending_request_list
     })
     this.profileStore.select('profileTags')
     .first(profile => profile['profile_user_info'] && profile['profile_navigation_details'].handle)
@@ -35,6 +38,18 @@ export class ProfileNetworkRequestsComponent implements OnInit {
     });
    }
 
+   acceptRequest(handle: string) {
+     console.log('receivers handle ', handle)
+     const data = {
+      'receiver_id': handle,
+      'status': 'accept'
+     }
+     console.log('data', data)
+     this.profileStore.dispatch({ type: ProfileActions.ACCEPT_NETWORK_REQUEST, payload: data });
+   }
+   declineRequest(handle: string) {
+    console.log('receivers handle ', handle)
+  }
   ngOnInit() {
     
   }

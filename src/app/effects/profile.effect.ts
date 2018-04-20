@@ -793,6 +793,30 @@ export class ProfileEffect {
         .catch((res) => Observable.of({ type: ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_FAILED, payload: res }))
       );
 
+    /**
+     * Accept a network request
+     */
+    @Effect()
+    acceptRequest$ = this.actions$
+      .ofType(ProfileActions.ACCEPT_NETWORK_REQUEST)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.acceptNetworkrequest(payload)
+        .map(res => ({ type: ProfileActions.ACCEPT_NETWORK_REQUEST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.ACCEPT_NETWORK_REQUEST_FAILED, payload: res }))
+      );
+
+    /**
+     * cancel a network request
+     */
+    @Effect()
+    cancelRequest$ = this.actions$
+      .ofType(ProfileActions.CANCEL_NETWORK_REQUEST)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.cancelSentrequest(payload)
+        .map(res => ({ type: ProfileActions.CANCEL_NETWORK_REQUEST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.CANCEL_NETWORK_REQUEST_FAILED, payload: res }))
+      );
+
   constructor(
     private toastr: ToastrService,
     private actions$: Actions,

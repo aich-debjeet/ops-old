@@ -479,13 +479,27 @@ export class ProfileService {
   */
   getPendingRequest(handle: string) {
     console.log(handle)
-    return this.api.get('/portal/network/pending_requests/'+ handle) 
+    return this.api.get('/portal/network/pending_requests/'+ handle + '/0/10') 
   }
 
   /** 
    * get active connection list
   */
   getConnectionList(handle: string){
-    return this.api.get('/portal/network/connectionslist/'+ handle) 
+    return this.api.get('/portal/network/connectionslist/'+ handle + '/0/10') 
+  }
+
+  /** 
+   * accept network request
+  */
+  acceptNetworkrequest(body: any){
+    return this.api.put('/portal/network/connection/response', body);
+  }
+
+  /**
+   * cancel a network request
+   */
+  cancelSentrequest(body: any){
+    return this.api.put('/portal/network/connection/cancelRequest', body);
   }
 }
