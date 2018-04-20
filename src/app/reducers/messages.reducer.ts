@@ -30,6 +30,47 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
     /* newtwork request action */
 
+    /* message delete */
+    case MessageActions.DELETE_MESSAGE:
+      let conv_list_after_del_msg;
+      const conv_list = state['load_conversation_data'];
+      const msgIndex = _.findIndex(conv_list, (obj) => obj.id === payload.messageId);
+      if (msgIndex > -1) {
+        // get the message object
+        const msgObj = conv_list[msgIndex];
+        if (msgObj && msgObj !== undefined) {
+          // update details
+          msgObj.isDeleted = true;
+          msgObj.subject = 'This message was deleted';
+          msgObj.content = 'This message was deleted';
+          // prepare updated conv list
+          conv_list_after_del_msg = [msgObj].concat(conv_list);
+          return Object.assign({}, state, {
+            delete_message_sent: true,
+            delete_message_params: payload,
+            load_conversation_data: conv_list_after_del_msg
+          });
+        }
+      }
+      return Object.assign({}, state, {
+        delete_message_sent: true,
+        delete_message_params: payload
+      });
+
+    case MessageActions.DELETE_MESSAGE_SUCCESS:
+      return Object.assign({}, state, {
+        delete_message_sent: false,
+        delete_message_response: payload,
+        delete_message_success: true
+      });
+
+    case MessageActions.DELETE_MESSAGE_FAILED:
+      return Object.assign({}, state, {
+        delete_message_sent: false,
+        delete_message_success: false
+      });
+    /* message delete */
+
     case MessageActions.NETWORK_REQUEST_DECLINE:
       const messanger_list_data_updated = _.remove(state['messanger_list_data'], (obj) => obj.handle !== payload.by);
       return Object.assign({}, state, {

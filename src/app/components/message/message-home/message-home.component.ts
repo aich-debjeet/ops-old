@@ -284,6 +284,8 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       subject: this.messageText,
       content: this.messageText,
       messageType: 'sent',
+      isNetworkRequest: false,
+      isDeleted: false,
       profileImage: loggedUsersImage,
       time: Date.now()
     }
@@ -443,6 +445,17 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   disableTextMessage() {
     // console.log('disableTextMessage');
     this.enableMsgInput = false;
+  }
+
+  deleteMessage(message: any) {
+    const delMsg = {
+      messageId: message.id,
+      deleteType: 'for_me'
+    }
+    this.messageStore.dispatch({
+      type: MessageActions.DELETE_MESSAGE,
+      payload: delMsg
+    });
   }
 
 }
