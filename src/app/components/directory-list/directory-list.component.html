@@ -195,7 +195,7 @@
         <div class="o-dir-list__actions">
           <div class="o-dir-actions">
             <button type="button" class="btn btn-default btn-md" disabled>CONTACT </button>
-            <button type="button" (click)="userFollow(dir, i)" class="btn btn-md btn-primary btn-follow" *ngIf="!dir?.extra?.isImported">
+            <button type="button" (click)="userFollow(dir, i)" class="btn btn-md btn-primary btn-follow m-l-0" *ngIf="!dir?.extra?.isImported">
                 <span class="btn-label-follow">
                 <img [src]="baseUrl + 'img/svg/ico_plus_white.svg'">
               </span> {{(dir?.extra?.isFollowing ? 'FOLLOWING' : 'FOLLOW')}} 

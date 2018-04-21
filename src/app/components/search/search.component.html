@@ -165,7 +165,7 @@
                                 <p class="result-not-found">Artists not found!</p>
                             </div>
                             <ng-template #artists_found>
-                                <div class="o-people-result-block2">
+                                <div class="o-people-result-block2" id="ops_scrollbar">
                                     <div *ngFor="let artist of all_artists" class="o-people-result-block">
                                         <app-user-card-new [artist]="artist" class="width-100" ></app-user-card-new>
                                     </div>
@@ -182,7 +182,7 @@
                                 <p class="result-not-found">Posts not found!</p>
                             </div>
                             <ng-template #posts_found>
-                                <div class="o-post-result-block2">
+                                <div class="o-post-result-block2" id="ops_scrollbar">
                                     <div *ngFor="let post of all_posts" class="o-post-result-block">
                                         <app-post-card-search [post]="post"></app-post-card-search>
                                     </div>
