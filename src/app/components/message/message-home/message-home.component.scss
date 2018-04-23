@@ -142,7 +142,7 @@
 
 .mess_list {
     height: calc(100% - 118px);
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
