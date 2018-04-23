@@ -402,8 +402,15 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       });
     }
 
+    // check if mesage is ready to send
+    // filter emtpy mesage and spaces
+    if (!this.messageText.replace(/\s/g, '').length) {
+      // string only contained whitespace (ie. spaces, tabs or line breaks)
+      return;
+    }
+
     // send message if enter pressed
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && this.messageText !== '') {
       this.sendMessage();
     }
   }
