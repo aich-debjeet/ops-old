@@ -59,7 +59,11 @@ export class MessageService {
         return this.api.put('/portal/network/connection/response', params);
     }
 
-    userTypingAction(handle: string) {
-        return this.api.get('/portal/message/v-2/trigger/typing/' + handle);
+    userTypingAction(data: any) {
+        return this.api.get('/portal/message/v-2/trigger/typing/' + data.loggedInUsersHandle + '/' + data.selectedUsersHandle);
+    }
+
+    deleteMessage(message: any) {
+        return this.api.put('/portal/message/v-2/deleteMessage', message);
     }
 }

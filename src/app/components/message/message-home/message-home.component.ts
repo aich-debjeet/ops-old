@@ -64,15 +64,17 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
 
       if (this.messageState && this.messageState['messanger_list_data']) {
         this.messangerList = this.messageState['messanger_list_data'];
-
+        console.log('select latest from', this.messangerList);
         this.selectLatestConversation();
       }
 
       if (this.messageState && this.messageState['load_conversation_data']) {
         this.conversation = this.messageState['load_conversation_data'];
-        console.log('this.conversation', this.conversation);
-        if (this.conversation.length > 0) {
+        // console.log('this.conversation', this.conversation);
+        if (this.conversation.length > 0 && this.conversation[this.conversation.length - 1].isNetworkRequest === false) {
           this.enableTextMessage();
+        } else {
+          // this.disableTextMessage();
         }
       }
 
@@ -282,6 +284,8 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       subject: this.messageText,
       content: this.messageText,
       messageType: 'sent',
+      isNetworkRequest: false,
+      isDeleted: false,
       profileImage: loggedUsersImage,
       time: Date.now()
     }
@@ -381,6 +385,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
     if (this.profileState
       && this.profileState['profile_cards']
       && this.profileState['profile_cards']['active']
+      && e.keyCode !== 13 // to prevent indication on message sent
     ) {
       // console.log('user', this.profileState['profile_cards']['active']);
       // this.pusherService.userChannels[this.selectedUser.handle].trigger('Message-Typing', this.profileState['profile_cards']['active']);
@@ -390,7 +395,10 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       // }
       this.messageStore.dispatch({
         type: MessageActions.USER_IS_TYPING,
-        payload: this.selectedUser.handle
+        payload: {
+          loggedInUsersHandle: this.profileState['profile_cards']['active']['handle'],
+          selectedUsersHandle: this.selectedUser.handle
+        }
       });
     }
 
@@ -421,8 +429,11 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       this.enableTextMessage();
     } else {
       // remove the user from the left side listing
-      this.messangerList = _.remove(this.messangerList, (obj) => obj.by === data.by);
-      this.deselectUser();
+      this.messageStore.dispatch({
+        type: MessageActions.NETWORK_REQUEST_DECLINE,
+        payload: data
+      });
+      this.isConversationSelected = false;
     }
   }
 
@@ -434,6 +445,17 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
   disableTextMessage() {
     // console.log('disableTextMessage');
     this.enableMsgInput = false;
+  }
+
+  deleteMessage(message: any) {
+    const delMsg = {
+      messageId: message.id,
+      deleteType: 'for_me'
+    }
+    this.messageStore.dispatch({
+      type: MessageActions.DELETE_MESSAGE,
+      payload: delMsg
+    });
   }
 
 }

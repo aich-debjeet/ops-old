@@ -108,6 +108,15 @@ export class MessageEffect {
       .catch((res) => Observable.of({ type: MessageActions.USER_IS_TYPING_FAILED, payload: res }))
     );
 
+  @Effect()
+  deleteMessage$ = this.actions$
+    .ofType(MessageActions.DELETE_MESSAGE)
+    .map(toPayload)
+    .switchMap((payload) => this.messageService.deleteMessage(payload)
+      .map(res => ({ type: MessageActions.DELETE_MESSAGE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.DELETE_MESSAGE_FAILED, payload: res }))
+    );
+
   constructor(
   private actions$: Actions,
   private apiService: GeneralService,
