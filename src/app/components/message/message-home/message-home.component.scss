@@ -29,12 +29,6 @@
     border-bottom: 0.5px solid #fff;
 }
 
-.mess_list {
-    height: 60vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
 .c-checkbox__md2 label {
     position: static;
     text-align: center;
@@ -129,10 +123,16 @@
     box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.15);
     overflow: hidden;
     position: relative;
-    min-height: 80vh;
+    // min-height: 80vh;
     margin-top: 16px;
     margin-left: 0px;
     margin-right: 0px;
+}
+
+.msg-input-block {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
 }
 
 .mess_left {
@@ -141,9 +141,9 @@
 }
 
 .mess_list {
-    height: 60vh;
-    overflow-y: scroll;
-    overflow-x:hidden;
+    height: calc(100% - 118px);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .mess_right {
@@ -156,7 +156,7 @@
 }
 
 .mess_chat_block {
-    height: 60vh;
+    height: calc(100% - 134px);
     overflow-y: auto;
 }
 
@@ -253,4 +253,23 @@
     font-size: 12px;
     line-height: 20px;
     right: 80px;
+}
+
+.right-message, .left-message {
+    position: relative;
+}
+
+.del-msg {
+    position: absolute;
+    color: #909090;
+    top: 10px;
+    cursor: pointer;
+    right: 10px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.typing {
+    position: absolute;
+    bottom: 55px;
 }

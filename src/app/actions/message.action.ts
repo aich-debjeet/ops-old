@@ -55,6 +55,12 @@ export class MessageActions {
   static USER_IS_TYPING_SUCCESS = 'USER_IS_TYPING_SUCCESS';
   static USER_IS_TYPING_FAILED = 'USER_IS_TYPING_FAILED';
 
+  static DELETE_MESSAGE = 'DELETE_MESSAGE';
+  static DELETE_MESSAGE_SUCCESS = 'DELETE_MESSAGE_SUCCESS';
+  static DELETE_MESSAGE_FAILED = 'DELETE_MESSAGE_FAILED';
+
+  static NETWORK_REQUEST_DECLINE = 'NETWORK_REQUEST_DECLINE';
+
   /* -------------------------------- load current user profile data -------------------------------- */
   loadUserProfile(value): Action {
     return {
