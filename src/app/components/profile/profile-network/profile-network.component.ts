@@ -30,10 +30,10 @@ export class ProfileNetworkComponent implements OnInit {
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      console.log('state ', state)
+      // console.log('state ', state)
       if ( state['network_sent_requests'] && state ['get_req']) {
       this.sendRequestList = state.network_sent_requests;
-      console.log(this.sendRequestList)
+      // console.log(this.sendRequestList)
       }
     })
 
@@ -50,18 +50,18 @@ export class ProfileNetworkComponent implements OnInit {
     .first(profile => profile['cancel_network_request'] && profile['cancel_sent_request'])
     .subscribe( data => {
       if (data['cancel_network_request'] === true) {
-        console.log('cancel rfequest')
+        // console.log('cancel rfequest')
         this.toastr.success('You have successfully cancelled the sent request');
       }
     });
   }
 
   cancelRequest(handle: string){
-    console.log('receivers handle ', handle)
+    // console.log('receivers handle ', handle)
     const data = {
      'receiver_id': handle,
     }
-    console.log('data', data)
+    // console.log('data', data)
     this.profileStore.dispatch({ type: ProfileActions.CANCEL_NETWORK_REQUEST, payload: data });
     // this.removeElements(handle);
   }

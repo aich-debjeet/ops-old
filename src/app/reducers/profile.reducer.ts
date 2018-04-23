@@ -1141,7 +1141,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.SENT_REQUEST_LIST_SUCCESS:
-    console.log('payload', payload)
+    // console.log('payload', payload)
       return Object.assign({}, state, {
         network_sent_requests: payload,
         get_req: true,
@@ -1165,7 +1165,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
   case ProfileActions.SENT_NETWORK_REQUEST_SUCCESS:
-    console.log(payload)
+    // console.log(payload)
     return Object.assign({}, state, {
       network_sent_request_success: payload,
       network_request_success: true
@@ -1173,7 +1173,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
   case ProfileActions.SENT_NETWORK_REQUEST_FAILED:
-    console.log(payload._body)
+    // console.log(payload._body)
     return Object.assign({}, state, {
       // network_sent_request_success: [],
       network_sent_request_fail: payload._body,
@@ -1189,13 +1189,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
   case ProfileActions.GET_PENDING_REQUEST_LIST_SUCCESS:
-    console.log(payload)
+    // console.log(payload)
     return Object.assign({}, state, {
       pending_request_list: payload,
     });
 
   case ProfileActions.GET_PENDING_REQUEST_LIST_FAILED:
-    console.log(payload)
+    // console.log(payload)
     return Object.assign({}, state, {
       pending_request_list: [],
     });
@@ -1209,13 +1209,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
   });
 
   case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_SUCCESS:
-    console.log(payload)
+    // console.log(payload)
     return Object.assign({}, state, {
       active_connection_list: payload,
     });
 
   case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_FAILED:
-    console.log(payload._body)
+    // console.log(payload._body)
     return Object.assign({}, state, {
       active_connection_list: [],
     });
@@ -1224,7 +1224,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Accept network request
      */
   case ProfileActions.ACCEPT_NETWORK_REQUEST:
-    console.log(payload)
+    // console.log(payload)
     return Object.assign({}, state, {
       accepted_request: false,
       accepted_network_request: [],
@@ -1233,10 +1233,11 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
   case ProfileActions.ACCEPT_NETWORK_REQUEST_SUCCESS:
-  console.log(payload)
+    // console.log(payload)
     return Object.assign({}, state, {
       accepted_request: true,
       accepted_network_request: payload,
+      pending_request_list: state.pending_request_list.filter(request => request.owner.handle !== state.accept_request_payload.receiver_id)
     });
 
   case ProfileActions.ACCEPT_NETWORK_REQUEST_FAILED:
@@ -1245,11 +1246,36 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       accepted_network_request:[]
     });
 
+    /**
+     * decline network request
+     */
+  case ProfileActions.DECLINE_NETWORK_REQUEST:
+  // console.log(payload)
+  return Object.assign({}, state, {
+    declined_request: false,
+    declined_network_request: [],
+    declined_request_payload: payload,
+  });
+
+  case ProfileActions.DECLINE_NETWORK_REQUEST_SUCCESS:
+    // console.log(payload)
+    return Object.assign({}, state, {
+      declined_request: false,
+      declined_network_request: [],
+      pending_request_list: state.pending_request_list.filter(request => request.owner.handle !== state.declined_request_payload.receiver_id)
+    });
+
+  case ProfileActions.DECLINE_NETWORK_REQUEST_FAILED:
+    return Object.assign({}, state, {
+      declined_request: false,
+      declined_network_request: [],
+    });
+
      /**
      * cancel sent network request
      */
   case ProfileActions.CANCEL_NETWORK_REQUEST:
-    console.log(payload)
+    // console.log(payload)
     return Object.assign({}, state, {
       cancel_network_request: false,
       cancel_sent_request:[],
@@ -1257,7 +1283,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
   
   case ProfileActions.CANCEL_NETWORK_REQUEST_SUCCESS:
-    console.log(payload)
+    // console.log(payload)
     return Object.assign({}, state, {
       cancel_network_request: true,
       cancel_sent_request: payload,
@@ -1265,7 +1291,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
   
   case ProfileActions.CANCEL_NETWORK_REQUEST_FAILED:
-    console.log(payload)
+    // console.log(payload)
     return Object.assign({}, state, {
       cancel_network_request: false,
       cancel_sent_request:[]

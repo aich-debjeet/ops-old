@@ -72,7 +72,7 @@ const childRoutes = [
     path: 'network',
     component: ProfileNetworkComponent,
     children: [
-      { path: '', component: ProfileNetworkRequestsComponent },
+      { path: '', redirectTo: 'networkrequests' },
       { path: 'acceptedrequests', component: ProfileAcceptedRequestsComponent },
       { path: 'networkrequests', component: ProfileNetworkRequestsComponent }
     ]

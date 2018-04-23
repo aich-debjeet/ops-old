@@ -464,7 +464,7 @@ export class ProfileService {
    * get network send request list
    */
   getNetworkRequestList(handle: string){
-    console.log('handle', handle)
+    // console.log('handle', handle)
     return this.api.get('/portal/network/sent_requests/'+ handle + '/0/10')  
   }
   /**
@@ -478,7 +478,7 @@ export class ProfileService {
    * get pending requets list
   */
   getPendingRequest(handle: string) {
-    console.log(handle)
+    // console.log(handle)
     return this.api.get('/portal/network/pending_requests/'+ handle + '/0/10') 
   }
 
@@ -501,5 +501,12 @@ export class ProfileService {
    */
   cancelSentrequest(body: any){
     return this.api.put('/portal/network/connection/cancelRequest', body);
+  }
+
+  /**
+   * decline a network request
+   */
+  declinerequest(body: any) {
+    return this.api.put('/portal/network/connection/response', body);
   }
 }

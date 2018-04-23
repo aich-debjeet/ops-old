@@ -23,8 +23,9 @@ export class ProfileNetworkRequestsComponent implements OnInit {
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
     this.tagState$.subscribe((state) => {
+      // console.log('state ', state)
       this.userProfile = state;
-      console.log('this.userProfile.pending_request_list ',this.userProfile.pending_request_list)
+      // console.log('this.userProfile.pending_request_list ',this.userProfile.pending_request_list)
       this.requestList = this.userProfile.pending_request_list
     })
     this.profileStore.select('profileTags')
@@ -32,23 +33,29 @@ export class ProfileNetworkRequestsComponent implements OnInit {
     .subscribe( data => {
       if (data['profile_user_info'].isCurrentUser === true) {
         this.userHandle = this.userProfile.profile_navigation_details.handle;
-        console.log(this.userHandle)
+        // console.log(this.userHandle)
         this.profileStore.dispatch({ type: ProfileActions.GET_PENDING_REQUEST_LIST, payload: this.userHandle });
       }
     });
    }
 
    acceptRequest(handle: string) {
-     console.log('receivers handle ', handle)
+    //  console.log('receivers handle ', handle)
      const data = {
       'receiver_id': handle,
       'status': 'accept'
      }
-     console.log('data', data)
+    //  console.log('data', data)
      this.profileStore.dispatch({ type: ProfileActions.ACCEPT_NETWORK_REQUEST, payload: data });
    }
    declineRequest(handle: string) {
-    console.log('receivers handle ', handle)
+    // console.log('receivers handle ', handle)
+    const data = {
+      'receiver_id': handle,
+      'status': 'reject'
+     }
+    //  console.log('data', data)
+     this.profileStore.dispatch({ type: ProfileActions.DECLINE_NETWORK_REQUEST, payload: data });
   }
   ngOnInit() {
     

@@ -817,6 +817,18 @@ export class ProfileEffect {
         .catch((res) => Observable.of({ type: ProfileActions.CANCEL_NETWORK_REQUEST_FAILED, payload: res }))
       );
 
+    /**
+     * cancel a network request
+     */
+    @Effect()
+    declineRequest$ = this.actions$
+      .ofType(ProfileActions.DECLINE_NETWORK_REQUEST)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.declinerequest(payload)
+        .map(res => ({ type: ProfileActions.DECLINE_NETWORK_REQUEST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.DECLINE_NETWORK_REQUEST_FAILED, payload: res }))
+      );
+
   constructor(
     private toastr: ToastrService,
     private actions$: Actions,

@@ -32,7 +32,7 @@ export class ProfileAcceptedRequestsComponent implements OnInit {
     .subscribe( data => {
       if (data['profile_user_info'].isCurrentUser === true) {
         this.userHandle = this.userProfile.profile_navigation_details.handle;
-        console.log(this.userHandle)
+        // console.log(this.userHandle)
         this.profileStore.dispatch({ type: ProfileActions.GET_ACTIVE_CONNECTIONS_LIST, payload: this.userHandle });
       }
     });
