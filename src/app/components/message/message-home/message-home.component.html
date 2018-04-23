@@ -151,8 +151,8 @@
                     <!-- //message container -->
 
                     <!-- message input block -->
-                    <div *ngIf="enableMsgInput" class="row">
-                        <div class="col-md-12" >
+                    <div *ngIf="enableMsgInput" class="row msg-input-block">
+                        <div class="col-md-12 typing" >
                             <p *ngIf="isTyping" >{{ selectedUser?.name }} is typing...</p>
                         </div>
                         <div class="col-md-1">

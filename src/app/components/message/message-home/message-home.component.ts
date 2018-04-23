@@ -17,7 +17,7 @@ import * as _ from 'lodash';
   templateUrl: './message-home.component.html',
   styleUrls: ['./message-home.component.scss']
 })
-export class MessageHomeComponent implements OnInit, AfterContentInit {
+export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy {
 
   // @ViewChild('inputMessageText') inputMessageText;
   @ViewChild('chatWindow') private chatWindowContainer: ElementRef;
@@ -64,7 +64,7 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
 
       if (this.messageState && this.messageState['messanger_list_data']) {
         this.messangerList = this.messageState['messanger_list_data'];
-        console.log('select latest from', this.messangerList);
+        // console.log('select latest from', this.messangerList);
         this.selectLatestConversation();
       }
 
@@ -402,8 +402,15 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       });
     }
 
+    // check if mesage is ready to send
+    // filter emtpy mesage and spaces
+    if (!this.messageText.replace(/\s/g, '').length) {
+      // string only contained whitespace (ie. spaces, tabs or line breaks)
+      return;
+    }
+
     // send message if enter pressed
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && this.messageText !== '') {
       this.sendMessage();
     }
   }
@@ -456,6 +463,12 @@ export class MessageHomeComponent implements OnInit, AfterContentInit {
       type: MessageActions.DELETE_MESSAGE,
       payload: delMsg
     });
+  }
+
+  ngOnDestroy() {
+    // unbind pusher listeners
+    this.pusherService.messagesChannel.unbind('New-Message');
+    this.pusherService.notificationsChannel.unbind('Message-Typing');
   }
 
 }
