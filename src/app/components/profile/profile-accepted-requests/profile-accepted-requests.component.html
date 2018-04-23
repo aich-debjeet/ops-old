@@ -1,0 +1,85 @@
+<div class="tab-content">
+  <div id="02" class="tab-pane fade m-l-r-16 active in">
+      <div *ngIf="connectionList.length < 1" class="empty__state text-center">
+          <h4>You have not accepted any requests</h4>
+      </div>
+    <ul>
+      <li class="with_border_bottom list_style_none" *ngFor = "let list of connectionList">
+        <ul class="list-inline">
+          <li class="list-inline-item float_left noti_avatar">
+            <img src="{{ imageBaseUrl + list?.owner?.profileImage}}" class="img-responsive">
+          </li>
+          <li class="list-inline-item noti_cont">
+            <span class="c-text_lg c-text-semibold">{{list.owner.name}}</span>
+            <!-- <span class="c-text_lg">{{list.questionaire.purpose}}</span> -->
+            <div class="o-network__userorg">Spot meeting</div>
+          </li>
+          <li class="list-inline-item pull-right">
+            <div class="ops_subheading"> {{list.questionaire.date | date:'short'}} </div>
+          </li>
+          <p class="o-network__reqtext m-t-b-16">
+            <!-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book -->
+            {{list.questionaire.purpose}}
+          </p>
+          <!-- <div class="network_img_map"><img src="{{ imageBaseUrl }}img/svg/ico_location2.svg" class="img-responsive"></div>
+          <span class="ops_subheading">1708 Olympic Blvd, Santa Monica, CA 90404</span> -->
+        </ul>
+      </li>
+      <!-- <li class="with_border_bottom list_style_none">
+        <ul class="list-inline">
+          <li class="list-inline-item float_left noti_avatar">
+            <img src="{{ imageBaseUrl }}img/avatar3.png" class="img-responsive">
+          </li>
+          <li class="list-inline-item noti_cont">
+            <span class="c-text_lg c-text-semibold">Dytoo Robot</span>
+            <span class="c-text_lg">want to hire you</span>
+            <div class="o-network__userorg">Spot meeting</div>
+          </li>
+          <li class="list-inline-item pull-right">
+            <div class="ops_subheading"> 7:32 PM </div>
+          </li>
+          <p class="o-network__reqtext m-t-b-16">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+          <div class="network_img_map"><img src="{{ imageBaseUrl }}img/svg/ico_location2.svg" class="img-responsive"></div>
+          <span class="ops_subheading">1708 Olympic Blvd, Santa Monica, CA 90404</span>
+          <div class="o-network__attach m-t-8"><img src="{{ imageBaseUrl }}img/channel.jpg"></div>
+        </ul>
+      </li>
+      <li class="with_border_bottom list_style_none">
+        <ul class="list-inline">
+          <li class="list-inline-item float_left noti_avatar">
+            <img src="{{ imageBaseUrl }}img/avatar.jpg" class="img-responsive">
+          </li>
+          <li class="list-inline-item noti_cont">
+            <span class="c-text_lg c-text-semibold">Dytoo Robot</span>
+            <span class="c-text_lg">want to hire you</span>
+            <div class="o-network__userorg">Spot meeting</div>
+          </li>
+          <li class="list-inline-item pull-right">
+            <div class="ops_subheading"> 7:32 PM </div>
+          </li>
+          <p class="o-network__reqtext m-t-b-16">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+          <div class="network_img_map"><img src="{{ imageBaseUrl }}img/svg/ico_location2.svg" class="img-responsive"></div>
+          <span class="ops_subheading">1708 Olympic Blvd, Santa Monica, CA 90404</span>
+        </ul>
+      </li>
+      <li class="with_border_bottom list_style_none">
+        <ul class="list-inline">
+          <li class="list-inline-item float_left noti_avatar">
+            <img src="{{ imageBaseUrl }}img/avatar.jpg" class="img-responsive">
+          </li>
+          <li class="list-inline-item noti_cont">
+            <span class="c-text_lg c-text-semibold">Dytoo Robot</span>
+            <span class="c-text_lg">want to hire you</span>
+            <div class="o-network__userorg">Spot meeting</div>
+          </li>
+          <li class="list-inline-item pull-right">
+            <div class="ops_subheading"> 7:32 PM </div>
+          </li>
+          <p class="o-network__reqtext m-t-b-16">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+          <div class="network_img_map"><img src="{{ imageBaseUrl }}img/svg/ico_location2.svg" class="img-responsive"></div>
+          <span class="ops_subheading">1708 Olympic Blvd, Santa Monica, CA 90404</span>
+        </ul>
+      </li> -->
+    </ul> 
+  </div>
+</div>

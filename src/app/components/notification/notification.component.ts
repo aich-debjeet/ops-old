@@ -187,6 +187,10 @@ export class NotificationComponent implements OnInit {
         this.router.navigate(['/user/status/list']);
         break;
 
+      case 'Network_Sent':
+      this.router.navigate(['/profile/network']);
+        break;
+
     }
 
   }
