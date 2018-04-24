@@ -1,5 +1,5 @@
 @import './src/assets/scss/helpers/_variables.scss';
-@import './src/assets/scss/vendors/bootstrap/stylesheets/bootstrap/mixins/_image.scss';
+
 // @import './src/assets/scss/vendors/bootstrap/stylesheets/bootstrap/_navs.scss';
 @import './src/assets/scss/components/_app.scss';
 @import './src/assets/scss/components/_dropdowns.scss';
@@ -10,6 +10,7 @@
 @import './src/assets/scss/base/_typography.scss';
 @import './src/assets/scss/components/_tabs.scss';
 @import '~sass-mq/_mq.scss';
+@import './src/assets/scss/vendors/bootstrap/stylesheets/bootstrap/mixins/_image.scss';
 
 .o-network__userorg {
     font-size: 11px;

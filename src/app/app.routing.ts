@@ -67,7 +67,7 @@ export const routes: Routes = [
  { path: 'explore', component: ExploreComponent, canActivate: [AuthGuard] },
  { path: 'channel', component: ChannelListComponent, canActivate: [AuthGuard] },
  { path: 'resources', component: ResourceComponent, canActivate: [AuthGuard] },
- { path: 'communities', component: CommunitiesComponent, canActivate: [AuthGuard] },
+ { path: 'communities', loadChildren: './components/communities/communities.module#CommunitiesModule', canActivate: [AuthGuard] },
  { path: 'search', loadChildren: './components/search/search.module#SearchModule', canActivate: [AuthGuard] },
  { path: 'org', loadChildren: './components/organization/organization.module#OrganizationModule'},
  { path: 'opportunity', loadChildren: './components/opportunity/opportunity.module#OpportunityModule', canActivate: [AuthGuard] },

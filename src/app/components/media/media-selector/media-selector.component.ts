@@ -109,6 +109,8 @@ export class MediaSelectorComponent implements OnInit {
   channelSaved: boolean;
   eventName: string;
   previewUrl: any[];
+  community_active: boolean = false;
+  community_id: any;
 
   constructor(
     private Upload: NgxfUploaderService,
@@ -128,6 +130,23 @@ export class MediaSelectorComponent implements OnInit {
       this.uploadedFiles = [];
       this.formMessages = [];
       this.eventName = '';
+
+      // if redriect url there
+      if (this.route.snapshot.queryParams['post_to'] === 'community') {
+
+        if (this.route.snapshot.queryParams['post_to'] && this.route.snapshot.queryParams['ct_id']) {
+          this.community_active = true;
+          this.community_id = this.route.snapshot.queryParams['ct_id'];
+          console.log(true);
+          console.log(this.route.snapshot.queryParams['post_to']);
+          // this.redrectUrl = this.route.snapshot.queryParams['next'];
+        }
+      }
+
+      if (this.route.snapshot.queryParams['ct_id']) {
+        console.log(this.route.snapshot.queryParams['ct_id']);
+        // this.redrectUrl = this.route.snapshot.queryParams['next'];
+      }
 
       this.chosenChannel = 0;
       this.uploadState = 1;
@@ -420,9 +439,57 @@ export class MediaSelectorComponent implements OnInit {
     }
 
     if ( isReady && userHandle !== '') {
-      // console.log('MULTIPLE', multipleMedias);
       this.postMediaToChannel(chosenChannel.spotfeedId, multipleMedias);
     }
+  }
+
+  publishCommunity() {
+    let isReady = false;
+    let userHandle = '';
+    this.chosenChannel = 1;
+
+    if (this.profileChannel.profile_loaded === true ) {
+      userHandle = this.profileChannel.profile_navigation_details.handle;
+    }
+
+    // 1. Get choosen file
+    const multipleMedias = [];
+    const formData = {
+      desc: this.desc,
+    }
+    const chosenChannel = this.chosenChannel;
+    // const chosenFile = this.editingFile;
+
+    for (const nowFile of this.uploadedFiles) {
+
+      if (!this.desc) {
+        console.log('you need a desc to continue');
+        isReady = false;
+        this.changeState(1);
+      }
+
+      console.log(nowFile);
+      if (nowFile) {
+        // Build Media Object
+        const mediaItem = this.formatMedia( nowFile, formData, chosenChannel, userHandle, this.mediaPrivacy.toString());
+        const media = [ mediaItem ];
+        multipleMedias.push(mediaItem);
+      }
+    }
+
+    if ( userHandle !== '') {
+      const resp = {
+        id: this.community_id,
+        data: {
+          mediaList: multipleMedias,
+        }
+      }
+      this._store.dispatch({ type: ProfileActions.COMMUNITY_MEDIA_POST, payload: resp })
+      console.log(multipleMedias);
+      // console.log('MULTIPLE', multipleMedias);
+      // this.postMediaToChannel(chosenChannel.spotfeedId, multipleMedias);
+    }
+    
   }
 
   /**

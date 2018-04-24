@@ -746,7 +746,7 @@ export class ProfileEffect {
     );
 
     /**
-     *get network sent receipient list 
+     *get network sent receipient list
      */
     @Effect()
     getNetworkList$ = this.actions$
@@ -756,7 +756,7 @@ export class ProfileEffect {
         .map(res => ({ type: ProfileActions.SENT_REQUEST_LIST_SUCCESS, payload: res }))
         .catch((res) => Observable.of({ type: ProfileActions.SENT_REQUEST_LIST_FAILED, payload: res }))
       );
-      
+
     /**
      * SENT NETWORK REQUEST
      */
@@ -769,6 +769,14 @@ export class ProfileEffect {
         .catch((res) => Observable.of({ type: ProfileActions.SENT_NETWORK_REQUEST_FAILED, payload: res }))
       );
 
+    @Effect()
+    communityMediaPost$ = this.actions$
+      .ofType(ProfileActions.COMMUNITY_MEDIA_POST)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.communityMediaPost(payload)
+        .map(res => ({ type: ProfileActions.COMMUNITY_MEDIA_POST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.COMMUNITY_MEDIA_POST_FAILED, payload: res }))
+      );
     /**
      * GET PENDING REQUEST LIST
      */
