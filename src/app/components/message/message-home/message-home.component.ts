@@ -157,6 +157,9 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
           payload: message
         });
       }
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 20);
     });
 
     // pusher notifications listener
@@ -305,6 +308,9 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
     });
 
     this.messageText = '';
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 20);
   }
 
   /**
