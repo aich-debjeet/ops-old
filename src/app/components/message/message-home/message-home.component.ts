@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, AfterContentInit, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef, AfterViewChecked } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { environment } from './../../../../environments/environment';
 import { FormControl } from '@angular/forms';
@@ -17,7 +17,7 @@ import * as _ from 'lodash';
   templateUrl: './message-home.component.html',
   styleUrls: ['./message-home.component.scss']
 })
-export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy {
+export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   // @ViewChild('inputMessageText') inputMessageText;
   @ViewChild('chatWindow') private chatWindowContainer: ElementRef;
@@ -40,6 +40,7 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
   isSearching = false;
   enableMsgInput = false;
   isTyping = false;
+  chatScrollBottom = true;
 
   constructor(
     private messageStore: Store<MessageModal>,
@@ -71,8 +72,10 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
       if (this.messageState && this.messageState['load_conversation_data']) {
         this.conversation = this.messageState['load_conversation_data'];
         // console.log('this.conversation', this.conversation);
-        if (this.conversation.length > 0 && this.conversation[this.conversation.length - 1].isNetworkRequest === false) {
-          this.enableTextMessage();
+        if (this.conversation.length > 0) {
+          if (this.conversation[this.conversation.length - 1].isNetworkRequest === false) {
+            this.enableTextMessage();
+          }
         } else {
           // this.disableTextMessage();
         }
@@ -119,6 +122,8 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
    * initialize listeners on view available
    */
   ngOnInit() {
+    // console.log('ngOnInit');
+    // this.scrollToBottom();
 
     // pusher message listener
     this.pusherService.messagesChannel.bind('New-Message', (data) => {
@@ -203,8 +208,11 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
   /**
    * scroll bottom the chat window on sending the new message
    */
-  ngAfterContentInit() {
-    // this.scrollToBottom();
+  ngAfterViewChecked() {
+    if (this.conversation.length > 0 && this.chatScrollBottom === true) {
+      this.scrollToBottom();
+      this.chatScrollBottom = false;
+    }
   }
 
   /**
@@ -221,9 +229,10 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
    * trigger dispatch to load conversation with the user asked
    */
   selectUser(userObj: any) {
+    this.conversation = [];
     this.disableTextMessage();
     this.selectedUser = userObj;
-    this.conversation = [];
+    this.chatScrollBottom = true;
 
     // create user channel to emit typing indication
     // this.pusherService.createUserChannel(userObj);
@@ -387,12 +396,6 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
       && this.profileState['profile_cards']['active']
       && e.keyCode !== 13 // to prevent indication on message sent
     ) {
-      // console.log('user', this.profileState['profile_cards']['active']);
-      // this.pusherService.userChannels[this.selectedUser.handle].trigger('Message-Typing', this.profileState['profile_cards']['active']);
-      // const otherUser = this.pusherService.userChannels[this.selectedUser.handle];
-      // if (otherUser) {
-      //   otherUser.trigger('Message-Typing', this.profileState['profile_cards']['active'])
-      // }
       this.messageStore.dispatch({
         type: MessageActions.USER_IS_TYPING,
         payload: {
