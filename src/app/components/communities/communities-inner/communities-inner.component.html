@@ -28,12 +28,12 @@
         </div>
         <!-- left-block end -->
 
-        <div class="col-md-6 o-community_empty" *ngIf="communityPost?.length === 0 && !post_loader">
+        <div class="col-md-6 o-community_empty" *ngIf="communityPost?.length === 0 && !postLoader">
             <div class="c-h4 color-grey">The Community is empty</div>
             <a [routerLink]="['/post/media']" [queryParams]="{post_to: 'community', ct_id: details?.communityId}" class="btn btn-primary btn-md m-t-16">Add post</a>
         </div>
         <div class="col-md-6" >
-            <div *ngIf="post_loader">
+            <div *ngIf="postLoader">
                 <app-post-card [loader]=true *ngFor="let number of [0,1]" ></app-post-card>
             </div>
             <div *ngFor="let media of communityPost;">
