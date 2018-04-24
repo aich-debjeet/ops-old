@@ -79,6 +79,9 @@ export class ProfileModal {
   cancel_sent_request: any[];
   cancel_sent_request_data: any;
 
+  list_loaded: boolean;
+  connection_loaded: boolean;
+
 }
 
 export class ProfileForm {
@@ -157,6 +160,8 @@ export const initialTag: ProfileModal = {
   cancel_network_request: false,
   cancel_sent_request: [],
   cancel_sent_request_data: [],
+  list_loaded: false,
+  connection_loaded: false
 };
 
 export class ProfileCard {
