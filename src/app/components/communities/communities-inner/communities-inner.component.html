@@ -30,7 +30,7 @@
 
         <div class="col-md-6 o-community_empty" *ngIf="communityPost?.length === 0 && !post_loader">
             <div class="c-h4 color-grey">The Community is empty</div>
-            <a href="addpost.html" class="btn btn-primary btn-md m-t-16">Add post</a>
+            <a [routerLink]="['/post/media']" [queryParams]="{post_to: 'community', ct_id: details?.communityId}" class="btn btn-primary btn-md m-t-16">Add post</a>
         </div>
         <div class="col-md-6" >
             <div *ngIf="post_loader">
