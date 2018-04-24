@@ -1,5 +1,6 @@
+// All cards style ---------------------------------------------------------------------------
 @import '~sass-mq/_mq.scss';
-
+// background effect 
 .c-bg__effect {
   background: linear-gradient(to right, #F3F5F7 8%, #EAEAEA 18%, #F3F5F7 33%);
   background-size: 200% 100px;
@@ -1076,18 +1077,6 @@
   color: #808080;
 }
 
-//
-.col-5 {
-  width: 20%;
-  float: left;
-  position: relative;
-  min-height: 1px;
-}
-
-// add channel dropdown --------
-.c-ch__drop {
-  width: 240px;
-}
 .c-status--block {
   width: 100%;
   float: left;
@@ -1115,5 +1104,19 @@
   border-radius: 2px !important;
 }
 .c-user--align {
-  margin-left: 16px;
+  margin-left: 16px; // margin-top: 8px;
 }
+
+//
+.col-5 {
+  width: 20%;
+  float: left;
+  position: relative;
+  min-height: 1px;
+}
+
+// add channel dropdown --------
+.c-ch__drop {
+  width: 240px;
+}
+// All cards style ends ----------------------------------------------------------------------
