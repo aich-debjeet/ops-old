@@ -56,6 +56,7 @@ import { OpportunityCardComponent } from './opportunity-card/opportunity-card.co
 import { EventCardComponent } from './event-card/event-card.component';
 import { ChannelSearchComponent } from './channel-search/channel-search.component';
 import { SearchChannelCardComponent } from './search-channel-card/search-channel-card.component';
+import { CommunityCardComponent } from './community-card/community-card.component';
 
 @NgModule({
   imports: [
@@ -109,6 +110,7 @@ import { SearchChannelCardComponent } from './search-channel-card/search-channel
     EventCardComponent,
     ChannelSearchComponent,
     SearchChannelCardComponent,
+    CommunityCardComponent,
   ],
   exports: [
     OpportunityCardComponent,
@@ -141,7 +143,8 @@ import { SearchChannelCardComponent } from './search-channel-card/search-channel
     RouteModal,
     ModalContent,
     EventCardComponent,
-    SearchChannelCardComponent
+    SearchChannelCardComponent,
+    CommunityCardComponent
   ]
 })
 export class SharedModule { }

@@ -33,7 +33,7 @@ import { GeneralUtilities } from '../../helpers/general.utils';
 export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('searchInput') searchInput;
-
+  
   baseUrl: string;
   isSearching = false;
   searchState$: Observable<SearchModel>;

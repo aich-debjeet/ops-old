@@ -19,6 +19,7 @@ import { AboutWorkComponent } from './about-work/about-work.component';
 import { AboutAwardsComponent } from './about-awards/about-awards.component';
 import { AboutEducationComponent } from './about-education/about-education.component';
 import { AboutContactComponent } from './about-contact/about-contact.component';
+import { ProfileNetworkComponent } from './profile-network/profile-network.component'
 
 import { AboutImageComponent } from './about-image/about-image.component';
 import { AboutCoverComponent } from './about-cover/about-cover.component';
@@ -34,6 +35,8 @@ import { NguCarouselModule } from '@ngu/carousel';
 // Guard
 import { AuthGuard } from './../../guard/auth.guard';
 import { ProfileSpotfeedComponent } from './profile-spotfeed/profile-spotfeed.component';
+import { ProfileNetworkRequestsComponent } from './profile-network-requests/profile-network-requests.component';
+import { ProfileAcceptedRequestsComponent } from './profile-accepted-requests/profile-accepted-requests.component';
 
 const childRoutes = [
   {
@@ -63,6 +66,15 @@ const childRoutes = [
       { path: 'awards', component: AboutAwardsComponent },
       { path: 'education', component: AboutEducationComponent },
       { path: 'contact', component: AboutContactComponent }
+    ]
+  },
+  {
+    path: 'network',
+    component: ProfileNetworkComponent,
+    children: [
+      { path: '', redirectTo: 'networkrequests' },
+      { path: 'acceptedrequests', component: ProfileAcceptedRequestsComponent },
+      { path: 'networkrequests', component: ProfileNetworkRequestsComponent }
     ]
   },
 ];
@@ -109,7 +121,10 @@ const routes: Routes = [
     AboutContactComponent,
     AboutImageComponent,
     AboutCoverComponent,
-    ProfileSpotfeedComponent
+    ProfileSpotfeedComponent,
+    ProfileNetworkComponent,
+    ProfileNetworkRequestsComponent,
+    ProfileAcceptedRequestsComponent
   ]
 })
 export class ProfileModule { }

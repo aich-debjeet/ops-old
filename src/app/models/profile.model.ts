@@ -70,8 +70,15 @@ export class ProfileModal {
   channel_pin_failed: boolean;
   channel_unpin_success: boolean;
 
+  network_sent_requests: any[];
   network_sent_request_success: any;
   network_sent_request_fail: any;
+  pending_request_list: any[];
+  active_connection_list: any[];
+  cancel_network_request: boolean;
+  cancel_sent_request: any[];
+  cancel_sent_request_data: any;
+
 }
 
 export class ProfileForm {
@@ -142,8 +149,14 @@ export const initialTag: ProfileModal = {
   channel_unpin_success: false,
   channel_pin_failed: false,
 
+  network_sent_requests: [],
   network_sent_request_success: [],
   network_sent_request_fail: [],
+  pending_request_list: [],
+  active_connection_list: [],
+  cancel_network_request: false,
+  cancel_sent_request: [],
+  cancel_sent_request_data: [],
 };
 
 export class ProfileCard {

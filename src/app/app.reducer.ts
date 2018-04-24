@@ -10,6 +10,7 @@ import { MediaReducer } from './reducers/media.reducer';
 import { OpportunityReducer } from './reducers/opportunity.reducer';
 import { ExploreReducer } from './reducers/explore.reducer';
 import { EventReducer } from './reducers/event.reducer';
+import { CommunitiesReducer } from './reducers/communities.reducer';
 import { ClaimProfileReducer } from './reducers/claim-profile.reducer';
 
 import { combineReducers, ActionReducer } from '@ngrx/store';
@@ -31,7 +32,8 @@ const reducers = {
   claimProfileTags: ClaimProfileReducer,
   notificationTags: NotificationReducer,
   exploreTags: ExploreReducer,
-  eventTags: EventReducer
+  eventTags: EventReducer,
+  communitiesTags: CommunitiesReducer
 }
 
 /**
