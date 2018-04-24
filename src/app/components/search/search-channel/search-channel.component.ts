@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SearchActions } from './../../../actions/search.action';
+import { ProfileActions } from './../../../actions/profile.action';
 import { SearchModel } from './../../../models/search.model';
 
 import { environment } from './../../../../environments/environment.prod';
@@ -10,6 +11,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
+import { ProfileModal } from '../../../models/profile.model';
 
 @Component({
   selector: 'app-search-channel',
@@ -32,6 +34,7 @@ export class SearchChannelComponent implements OnInit {
   /* scroll */
 
   constructor(
+    private profileStore: Store<ProfileModal>,
     private store: Store<SearchModel>
   ) {
 
@@ -81,6 +84,17 @@ export class SearchChannelComponent implements OnInit {
         this.canScroll = true;
       }, 1000);
     }
+  }
+
+  /**
+   * Follow this channel
+   */
+  followChannel(e: any) {
+    const req = {
+      channelId: e.channel.spotfeedId,
+      state: e.state
+    };
+    this.profileStore.dispatch({ type: ProfileActions.CHANNEL_FOLLOW, payload: req });
   }
 
 }

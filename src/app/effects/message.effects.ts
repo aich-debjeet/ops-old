@@ -90,6 +90,33 @@ export class MessageEffect {
       .catch((res) => Observable.of({ type: MessageActions.MESSAGE_SEARCH_USER_FAILED, payload: res }))
     );
 
+  @Effect()
+  networkRequest$ = this.actions$
+    .ofType(MessageActions.NETWORK_REQUEST_ACTION)
+    .map(toPayload)
+    .switchMap((payload) => this.messageService.networkRequestAction(payload)
+      .map(res => ({ type: MessageActions.NETWORK_REQUEST_ACTION_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.NETWORK_REQUEST_ACTION_FAILED, payload: res }))
+    );
+
+  @Effect()
+  userTyping$ = this.actions$
+    .ofType(MessageActions.USER_IS_TYPING)
+    .map(toPayload)
+    .switchMap((payload) => this.messageService.userTypingAction(payload)
+      .map(res => ({ type: MessageActions.USER_IS_TYPING_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.USER_IS_TYPING_FAILED, payload: res }))
+    );
+
+  @Effect()
+  deleteMessage$ = this.actions$
+    .ofType(MessageActions.DELETE_MESSAGE)
+    .map(toPayload)
+    .switchMap((payload) => this.messageService.deleteMessage(payload)
+      .map(res => ({ type: MessageActions.DELETE_MESSAGE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MessageActions.DELETE_MESSAGE_FAILED, payload: res }))
+    );
+
   constructor(
   private actions$: Actions,
   private apiService: GeneralService,

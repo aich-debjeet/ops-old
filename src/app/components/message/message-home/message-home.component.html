@@ -15,7 +15,7 @@
                 </div>
                 <div class="row p-l-r-24">
                     <div class="c-form__group c-form--md c-form--noeffect c-form__faded--sm m-0">
-                        <input class="c-form__input p-l-24" type="text" [formControl]="msgUserSearch" >
+                        <input class="c-form__input p-l-24" type="text" [formControl]="msgUserSearch" placeholder="Search">
                         <label class="p-l-16">Search</label>
                         <span>
                         <img *ngIf="!isSearching" [src]="imageBaseUrl + 'img/svg/ico_search.svg'" class="c-form__input--lefticon">
@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="row p-l-r-24 p-t-b-8">
-                    <div class="col-md-7 c-text_md c-checkbox__md2 p-l-0">
+                    <!-- <div class="col-md-7 c-text_md c-checkbox__md2 p-l-0">
                         <label class="checkbox-inline p-l-0 m-t-8">
                             <input type="checkbox" value="1"> Select all
                         </label>
@@ -37,9 +37,9 @@
                                 <option>Action3</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
-                <div *ngIf="messangerList && messangerList?.length > 0" class="mess_list row" id="ops_scrollbar">
+                <div *ngIf="messangerList && messangerList?.length > 0" class="mess_list row">
                     <div *ngFor="let user of messangerList" class="row with_border_bottom with_border_top" [ngClass]="{'msg__unread': !user.isRead }">
                         <div class="c-checkbox__md2 col-md-2">
                             <label class="checkbox-inline pull-right m-t-24">
@@ -79,7 +79,7 @@
                             <li>
                                 <a href="#">
                                     <img [src]="imageBaseUrl + 'img/svg/ico_delete.svg'" class="mess_set_icon"> &nbsp;
-                                    <span>Delete</span>
+                                    <span>x</span>
                                 </a>
                             </li>
                         </ul>
@@ -110,11 +110,15 @@
                                     <ul class="list-inline">
                                         <li class="list-inline-item avatar_msg_input float_right">
                                             <img *ngIf="message?.profileImage === ''" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'" class="img-responsive">
-                                            <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">>
+                                            <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">
                                         </li>
-                                        <li class="list-inline-item msg_cont_block2">
-                                            <p class="ops_msg_aero2">{{ message?.content }}</p>
-                                            <div class="msg_sent_time2">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
+                                        <li class="list-inline-item msg_cont_block2 right-message">
+                                            <p class="ops_msg_aero2" *ngIf="message.isDeleted === false">{{ message?.content }}</p>
+                                            <p class="ops_msg_aero2" *ngIf="message.isDeleted === true">
+                                                <i>{{ message?.content }}</i>
+                                            </p>
+                                            <div *ngIf="message.isDeleted === false" class="msg_sent_time2">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
+                                            <span title="Delete" class="del-msg" *ngIf="message.isDeleted === false" (click)="deleteMessage(message)">x</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -122,11 +126,22 @@
                                     <ul class="list-inline">
                                         <li class="list-inline-item avatar_msg_input float_left">
                                             <img *ngIf="message?.profileImage === ''" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'" class="img-responsive">
-                                            <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">>
+                                            <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">
                                         </li>
-                                        <li class="list-inline-item msg_cont_block">
-                                            <p class="ops_msg_aero">{{ message?.content }}</p>
-                                            <div class="msg_sent_time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
+                                        <li class="list-inline-item msg_cont_block left-message">
+                                            <p class="ops_msg_aero" *ngIf="message.isDeleted === true">
+                                                <i>{{ message?.content }}</i>
+                                            </p>
+                                            <p class="ops_msg_aero" *ngIf="message.isDeleted === false">
+                                                {{ message?.content }}
+                                                <br>
+                                                <ng-container *ngIf="message?.isNetworkRequest">
+                                                    <button (click)="networkReqAction('accept', message)" type="button" class="btn btn-primary btn-sm">accept</button>
+                                                    <button (click)="networkReqAction('reject', message)" type="button" class="btn btn-default btn-sm">decline</button>
+                                                </ng-container>
+                                            </p>
+                                            <div *ngIf="message.isDeleted === false" class="msg_sent_time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
+                                            <span title="Delete" class="del-msg" *ngIf="message.isDeleted === false" (click)="deleteMessage(message)">x</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -134,29 +149,27 @@
                         </ng-container>
                     </div>
                     <!-- //message container -->
-    
+
                     <!-- message input block -->
-                    <div class="row">
+                    <div *ngIf="enableMsgInput" class="row msg-input-block">
+                        <div class="col-md-12 typing" >
+                            <p *ngIf="isTyping" >{{ selectedUser?.name }} is typing...</p>
+                        </div>
                         <div class="col-md-1">
                             <div class="c-user__avatar c-avatar--feed3 m-t-16">
-                                <img class="c-user__image" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'">
+                                <img class="c-user__image" [src]="imageBaseUrl + profileState?.profile_cards?.active?.image">
                             </div>
                         </div>
                         <div class="col-md-11">
                             <div class="c-form__group c-form--md c-form--noeffect c-form__faded--md">
-                                <!-- <input class="c-form__input" type="text" #inputMessageText="ngModel" [(ngModel)]="messageText" [ngModelOptions]="{standalone: true}"> -->
-                                <!-- <input class="c-form__input" type="text" [(ngModel)]="messageText" (keyup)="userIsTyping()" (keyup.enter)="sendMessage()"> -->
-                                <input class="c-form__input" type="text" [(ngModel)]="messageText" (keyup)="userIsTyping($event)">
+                                <input class="c-form__input" type="text" [(ngModel)]="messageText" (keyup)="userIsTyping($event)" placeholder="Message">
                                 <label>Message</label>
                             </div>
                         </div>
                     </div>
                     <!-- //message input block -->
                 </ng-container>
-
-                <!-- <ng-template *ngIf="!isUserSelected()">
-                    <p>Select user</p>
-                </ng-template> -->
+                
             </div>
         </div>
         <!-- //registraion middle container -->

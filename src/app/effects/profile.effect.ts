@@ -746,6 +746,18 @@ export class ProfileEffect {
     );
 
     /**
+     *get network sent receipient list
+     */
+    @Effect()
+    getNetworkList$ = this.actions$
+      .ofType(ProfileActions.SENT_REQUEST_LIST)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.getNetworkRequestList(payload)
+        .map(res => ({ type: ProfileActions.SENT_REQUEST_LIST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.SENT_REQUEST_LIST_FAILED, payload: res }))
+      );
+
+    /**
      * SENT NETWORK REQUEST
      */
     @Effect()
@@ -764,6 +776,65 @@ export class ProfileEffect {
       .switchMap((payload) => this.profileService.communityMediaPost(payload)
         .map(res => ({ type: ProfileActions.COMMUNITY_MEDIA_POST_SUCCESS, payload: res }))
         .catch((res) => Observable.of({ type: ProfileActions.COMMUNITY_MEDIA_POST_FAILED, payload: res }))
+      );
+    /**
+     * GET PENDING REQUEST LIST
+     */
+    @Effect()
+    getPendingRequest$ = this.actions$
+      .ofType(ProfileActions.GET_PENDING_REQUEST_LIST)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.getPendingRequest(payload)
+        .map(res => ({ type: ProfileActions.GET_PENDING_REQUEST_LIST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.GET_PENDING_REQUEST_LIST_FAILED, payload: res }))
+      );
+
+    /**
+     * GET ACTIVE CONNECTIONS
+     */
+    @Effect()
+    getConnectinsList$ = this.actions$
+      .ofType(ProfileActions.GET_ACTIVE_CONNECTIONS_LIST)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.getConnectionList(payload)
+        .map(res => ({ type: ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_FAILED, payload: res }))
+      );
+
+    /**
+     * Accept a network request
+     */
+    @Effect()
+    acceptRequest$ = this.actions$
+      .ofType(ProfileActions.ACCEPT_NETWORK_REQUEST)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.acceptNetworkrequest(payload)
+        .map(res => ({ type: ProfileActions.ACCEPT_NETWORK_REQUEST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.ACCEPT_NETWORK_REQUEST_FAILED, payload: res }))
+      );
+
+    /**
+     * cancel a network request
+     */
+    @Effect()
+    cancelRequest$ = this.actions$
+      .ofType(ProfileActions.CANCEL_NETWORK_REQUEST)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.cancelSentrequest(payload)
+        .map(res => ({ type: ProfileActions.CANCEL_NETWORK_REQUEST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.CANCEL_NETWORK_REQUEST_FAILED, payload: res }))
+      );
+
+    /**
+     * cancel a network request
+     */
+    @Effect()
+    declineRequest$ = this.actions$
+      .ofType(ProfileActions.DECLINE_NETWORK_REQUEST)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.declinerequest(payload)
+        .map(res => ({ type: ProfileActions.DECLINE_NETWORK_REQUEST_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.DECLINE_NETWORK_REQUEST_FAILED, payload: res }))
       );
 
   constructor(
