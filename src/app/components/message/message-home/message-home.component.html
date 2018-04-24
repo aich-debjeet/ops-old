@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="dropnoti__detail">
                                     <p class="dropnoti__bold">{{ user?.name }}</p>
-                                    <p>{{ user?.latestMessage }}</p>
+                                    <p>{{ user?.latestMessage | truncate:[30, '...'] }}</p>
                                 </div>
                                 <p class="msg__time2">{{ user?.time | utcDate | date:'d MMM hh:mm a' }}</p>
                             </div>
@@ -96,8 +96,7 @@
                 
                 <ng-container *ngIf="showPreloader === false">
                     <!-- message container -->
-                    <!-- <div class="mess_chat_block" #chatWindow [scrollTop]="chatWindow.scrollHeight" -->
-                    <div class="mess_chat_block" #chatWindow [scrollTop]="chatWindow.scrollHeight"
+                    <div class="mess_chat_block" #chatWindow
                         infiniteScroll
                         [infiniteScrollDistance]="5"
                         [infiniteScrollThrottle]="50"

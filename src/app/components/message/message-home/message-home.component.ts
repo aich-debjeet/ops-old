@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, AfterContentInit, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef, AfterViewChecked } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { environment } from './../../../../environments/environment';
 import { FormControl } from '@angular/forms';
@@ -17,7 +17,7 @@ import * as _ from 'lodash';
   templateUrl: './message-home.component.html',
   styleUrls: ['./message-home.component.scss']
 })
-export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy {
+export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   // @ViewChild('inputMessageText') inputMessageText;
   @ViewChild('chatWindow') private chatWindowContainer: ElementRef;
@@ -40,6 +40,7 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
   isSearching = false;
   enableMsgInput = false;
   isTyping = false;
+  chatScrollBottom = true;
 
   constructor(
     private messageStore: Store<MessageModal>,
@@ -60,19 +61,18 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
     this.messageState$ = this.messageStore.select('messageTags');
     this.messageState$.subscribe((state) => {
       this.messageState = state;
-      // console.log('this.messageState', this.messageState);
-
       if (this.messageState && this.messageState['messanger_list_data']) {
         this.messangerList = this.messageState['messanger_list_data'];
-        // console.log('select latest from', this.messangerList);
         this.selectLatestConversation();
       }
 
       if (this.messageState && this.messageState['load_conversation_data']) {
         this.conversation = this.messageState['load_conversation_data'];
-        // console.log('this.conversation', this.conversation);
-        if (this.conversation.length > 0 && this.conversation[this.conversation.length - 1].isNetworkRequest === false) {
-          this.enableTextMessage();
+        if (this.conversation.length > 0) {
+          this.showPreloader = false;
+          if (this.conversation[this.conversation.length - 1].isNetworkRequest === false) {
+            this.enableTextMessage();
+          }
         } else {
           // this.disableTextMessage();
         }
@@ -82,12 +82,8 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
         && this.messageState['loading_conversation'] === false
         && this.messageState['loading_conversation_success'] === true
       ) {
-        // hide preloader
-        // this.showPreloader = false;
-
-        // check if initial set of the conversation, if yes then scroll to the last mesage in the conversation
+        // check if initial set of the conversation, if yes then scroll to the last message in the conversation
         if (this.enableScrollBottom) {
-          // setTimeout(() => { this.scrollToBottom(); }, 200);
           this.enableScrollBottom = false;
         }
       }
@@ -119,17 +115,13 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
    * initialize listeners on view available
    */
   ngOnInit() {
-
     // pusher message listener
     this.pusherService.messagesChannel.bind('New-Message', (data) => {
       const message = JSON.parse(data);
-      // console.log('New-Message', message);
-
       // check if it's a network request
       if (message && message['isNetworkRequest'] && message['isNetworkRequest'] === true) {
         // console.log('Network Request');
         // append the new object to the user listing
-        // prepafing listing object
         const newListObj = {
           handle: message.by,
           isBlocked: false,
@@ -146,18 +138,18 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
           payload: newListObj
         });
       } else {
-        // console.log('NOT a Network Request');
         this.messageStore.dispatch({
           type: MessageActions.ADD_PUSHER_MESSAGE,
           payload: message
         });
       }
+      setTimeout(() => {
+        this.scrollToBottom();
+      }, 20);
     });
 
     // pusher notifications listener
     this.pusherService.notificationsChannel.bind('Message-Typing', (userDetails) => {
-      // console.log(userDetails);
-      // console.log(this.selectedUser);
       userDetails = JSON.parse(userDetails);
       if (!this.isTyping && userDetails.handle === this.selectedUser.handle) {
         this.isTyping = true;
@@ -203,8 +195,11 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
   /**
    * scroll bottom the chat window on sending the new message
    */
-  ngAfterContentInit() {
-    // this.scrollToBottom();
+  ngAfterViewChecked() {
+    if (this.conversation.length > 0 && this.chatScrollBottom === true) {
+      this.scrollToBottom();
+      this.chatScrollBottom = false;
+    }
   }
 
   /**
@@ -221,25 +216,20 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
    * trigger dispatch to load conversation with the user asked
    */
   selectUser(userObj: any) {
+    this.showPreloader = true;
+    this.conversation = [];
     this.disableTextMessage();
     this.selectedUser = userObj;
-    this.conversation = [];
-
-    // create user channel to emit typing indication
-    // this.pusherService.createUserChannel(userObj);
-
+    this.chatScrollBottom = true;
     // load selected users conversation
     this.messageStore.dispatch({ type: MessageActions.RESET_CONVERSATION_STATE });
-
     // reset pagination
     this.pagination = {
       pageNumber: 0,
       recordsPerPage: 20
     };
-
     // initial pagination on use selection
     const pagination = this.paginateConversation();
-
     // load selected users conversation
     this.messageStore.dispatch({
       type: MessageActions.LOAD_CONVERSATION,
@@ -296,6 +286,9 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
     });
 
     this.messageText = '';
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 20);
   }
 
   /**
@@ -387,12 +380,6 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
       && this.profileState['profile_cards']['active']
       && e.keyCode !== 13 // to prevent indication on message sent
     ) {
-      // console.log('user', this.profileState['profile_cards']['active']);
-      // this.pusherService.userChannels[this.selectedUser.handle].trigger('Message-Typing', this.profileState['profile_cards']['active']);
-      // const otherUser = this.pusherService.userChannels[this.selectedUser.handle];
-      // if (otherUser) {
-      //   otherUser.trigger('Message-Typing', this.profileState['profile_cards']['active'])
-      // }
       this.messageStore.dispatch({
         type: MessageActions.USER_IS_TYPING,
         payload: {
@@ -401,14 +388,11 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
         }
       });
     }
-
-    // check if mesage is ready to send
     // filter emtpy mesage and spaces
     if (!this.messageText.replace(/\s/g, '').length) {
       // string only contained whitespace (ie. spaces, tabs or line breaks)
       return;
     }
-
     // send message if enter pressed
     if (e.keyCode === 13 && this.messageText !== '') {
       this.sendMessage();
@@ -427,7 +411,6 @@ export class MessageHomeComponent implements AfterContentInit, OnInit, OnDestroy
       type: MessageActions.NETWORK_REQUEST_ACTION,
       payload: reqParams
     });
-
     // find the index for changin the newtwork flag
     const index = _.findIndex(this.conversation, ['by', data.by]);
     this.conversation[index].isNetworkRequest = false;
