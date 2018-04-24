@@ -59,10 +59,10 @@
                         <li class="list-line-item">
                             <a routerLink="/portfolio">Portfolio</a>
                         </li>
-                        <li class="list-line-item hidden-xs">
+                        <li class="list-line-item hidden-xs" *ngIf = "isOwner">
                             <a routerLink="/planner">Planner</a>
                         </li>
-                        <li class="list-line-item">
+                        <li class="list-line-item" *ngIf = "isOwner">
                             <a [routerLink]="['network']">Network</a>
                         </li>
                         <li class="list-line-item hidden-xs">

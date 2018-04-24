@@ -1186,18 +1186,21 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
   case ProfileActions.GET_PENDING_REQUEST_LIST:
     return Object.assign({}, state, {
       pending_request_list: [],
+      list_loaded: false,
     });
 
   case ProfileActions.GET_PENDING_REQUEST_LIST_SUCCESS:
     // console.log(payload)
     return Object.assign({}, state, {
       pending_request_list: payload,
+      list_loaded: true,
     });
 
   case ProfileActions.GET_PENDING_REQUEST_LIST_FAILED:
     // console.log(payload)
     return Object.assign({}, state, {
       pending_request_list: [],
+      list_loaded: false,
     });
 
    /**
@@ -1206,18 +1209,21 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
   case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST:
   return Object.assign({}, state, {
     active_connection_list: [],
+    connection_loaded: false,
   });
 
   case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_SUCCESS:
     // console.log(payload)
     return Object.assign({}, state, {
       active_connection_list: payload,
+      connection_loaded: true,
     });
 
   case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_FAILED:
     // console.log(payload._body)
     return Object.assign({}, state, {
       active_connection_list: [],
+      connection_loaded: false,
     });
 
     /**
