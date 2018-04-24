@@ -459,10 +459,54 @@ export class ProfileService {
   getImportedProfile(username: string) {
     return this.api.get('/portal/auth/user/username/' + username);
   }
+
+  /**
+   * get network send request list
+   */
+  getNetworkRequestList(handle: string){
+    // console.log('handle', handle)
+    return this.api.get('/portal/network/sent_requests/'+ handle + '/0/10')  
+  }
   /**
    * sent request for networks
    */
   sentNetworkRequest(body: any) {
     return this.api.put('/portal/network/connection/request', body);
+  }
+
+  /** 
+   * get pending requets list
+  */
+  getPendingRequest(handle: string) {
+    // console.log(handle)
+    return this.api.get('/portal/network/pending_requests/'+ handle + '/0/10') 
+  }
+
+  /** 
+   * get active connection list
+  */
+  getConnectionList(handle: string){
+    return this.api.get('/portal/network/connectionslist/'+ handle + '/0/10') 
+  }
+
+  /** 
+   * accept network request
+  */
+  acceptNetworkrequest(body: any){
+    return this.api.put('/portal/network/connection/response', body);
+  }
+
+  /**
+   * cancel a network request
+   */
+  cancelSentrequest(body: any){
+    return this.api.put('/portal/network/connection/cancelRequest', body);
+  }
+
+  /**
+   * decline a network request
+   */
+  declinerequest(body: any) {
+    return this.api.put('/portal/network/connection/response', body);
   }
 }

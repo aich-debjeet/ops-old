@@ -63,7 +63,7 @@
                             <a routerLink="/planner">Planner</a>
                         </li>
                         <li class="list-line-item">
-                            <a routerLink="/network">Network</a>
+                            <a [routerLink]="['network']">Network</a>
                         </li>
                         <li class="list-line-item hidden-xs">
                             <a routerLink="/project">Project</a>
@@ -371,7 +371,7 @@
                             <label class="col-md-8 col-md-offset-2 o-network_option m-t-16">
                                 <input name="request" type="radio" class="c-form__bar2" value="network" formControlName="request">
                                 <span></span>
-                                <div class="c-radio--label">Hey {{ profileObject?.name }} I want to network with you.</div>
+                                <div class="c-radio--label">Hey {{ profileObject?.name }}, I want to network with you.</div>
                             </label>
                             <label class="col-md-8 col-md-offset-2 o-network_option m-t-16">
                                 <input id="hereShow" name="request" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request">
