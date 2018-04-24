@@ -1,0 +1,90 @@
+<app-navigation></app-navigation>
+<section class="o-community-inner-block">
+    <div class="container p-0">
+        <div class="col-md-3">
+            <div class="o-commu-left-block">
+                <div class="o-commu__prof-img">
+                </div>
+                <div class="o-commu__short-det p-16">
+                    <h4 class="c-h4 m-b-16">{{ details?.title }}</h4>
+                    <p class="c-text_md color-grey-dark">
+                        {{ details?.brief }}
+                    </p>
+                    <div class="col-md-6 p-0">
+                        <p class="c-text_md o-commu__members ltr-space text_uppercase m-t-b-16">{{ details?.memberCount }} <span class="color-grey-dark">Members</span></p>
+                    </div>
+                    <div class="col-md-6 p-0">
+                        <p class="c-text_md o-commu__members ltr-space text_uppercase m-t-b-16">{{details?.postsCount}} <span class="color-grey-dark">Posts</span></p>
+                    </div>
+                    <div class="col-md-6 p-l-0 p-r-8"   *ngIf="!details?.isOwner">
+                        <button type="button" (click)="userJoin(true)" class="btn btn-default btn-md btn-block">{{ (details?.isMember) ? 'Unjoin' : 'Join'}}</button>
+                    </div>
+                    <div  [ngClass]="{'col-md-12 p-0': details?.isOwner, 'col-md-6 p-r-0 p-l-8': !details?.isOwner}">
+                        <a [routerLink]="['/post/media']" [queryParams]="{post_to: 'community', ct_id: details?.communityId}" class="btn btn-primary btn-md btn-block">Add post</a>
+                    </div>
+                </div>
+            </div>
+            <!-- block end -->
+        </div>
+        <!-- left-block end -->
+
+        <div class="col-md-6 o-community_empty" *ngIf="communityPost?.length === 0 && !postLoader">
+            <div class="c-h4 color-grey">The Community is empty</div>
+            <a [routerLink]="['/post/media']" [queryParams]="{post_to: 'community', ct_id: details?.communityId}" class="btn btn-primary btn-md m-t-16">Add post</a>
+        </div>
+        <div class="col-md-6" >
+            <div *ngIf="postLoader">
+                <app-post-card [loader]=true *ngFor="let number of [0,1]" ></app-post-card>
+            </div>
+            <div *ngFor="let media of communityPost;">
+                <app-post-card  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)"  [mediaData]="media"></app-post-card>
+            </div>
+        </div>
+        <!-- center-block end -->
+        <div class="col-md-3">
+            <div class="o-commu-right-block">
+                <div class="c-card" *ngIf="listInvitePeople?.length > 0">
+                    <div class="c-text_lg padding_16">Invite to the Community</div>
+                    <div class="c-invite--search">
+                        <form class="fill-grey-light">
+                            <div class="c-form__group c-form--noeffect c-form--sm">
+                                <input class="c-form__input fpadding_l32" required="" type="text">
+                                <label class="fpadding_l32">Search</label>
+                                <span>
+                                    <img [src]="basePath + 'img/svg/ico_search.svg'" class="c-form__input--lefticon">
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="c-invite__sec" id="ops_scrollbar">
+                        <div class="c-invite__block" *ngFor="let people of listInvitePeople">
+                            <a class="c-user__avatar c-avatar--status" routerLink="/profile/u/{{ people?.profileUsername }}">
+                                <img [src]="basePath + people?.profileImage" class="c-user__image">
+                            </a>
+                            <a class="c-text_md c-invite--user" routerLink="/profile/u/{{ people?.profileUsername }}">{{people?.profileName}}</a>
+                            <div class="c-invite--btn">
+                                <button type="button" class="btn btn-default btn-sm" (click)="inviteToCommunity(people?.profileHandle)">invite</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="c-card padding_16 m-t-16" *ngIf="relatedCommunity?.length > 0">
+                    <div class="c-text_lg">Related Communities
+                        <!-- <a href="" class="c-text_sm c-org--seemore">See More</a> -->
+                    </div>
+                    <div class="o-community-show-block m-t-16" *ngFor="let community of relatedCommunity">
+                        <span class="o-community-show__thumb"></span>
+                        <span class="o-community-show__name m-l-8">
+                            <h6 class="c-text_md"><a [routerLink]="['/communities', community?.communityId]">{{community?.title}}</a></h6>
+                            <p class="c-text_sm letter_space color-grey">{{community?.memberCount}} memberes</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- right-block end -->
+    </div>
+</section>
+<div class="clearfix"></div>
+
+<app-footer></app-footer>

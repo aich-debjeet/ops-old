@@ -474,32 +474,38 @@ export class ProfileService {
     return this.api.put('/portal/network/connection/request', body);
   }
 
-  /** 
+  communityMediaPost(payload: any) {
+    const communityId = payload.id;
+    const req = payload.data;
+    return this.api.put(`/portal/community/add/update/mediaCommunity/${communityId}`, req);
+  }
+
+  /**
    * get pending requets list
   */
   getPendingRequest(handle: string) {
     // console.log(handle)
-    return this.api.get('/portal/network/pending_requests/'+ handle + '/0/10') 
+    return this.api.get('/portal/network/pending_requests/' + handle + '/0/10')
   }
 
-  /** 
+  /**
    * get active connection list
   */
-  getConnectionList(handle: string){
-    return this.api.get('/portal/network/connectionslist/'+ handle + '/0/10') 
+  getConnectionList(handle: string) {
+    return this.api.get('/portal/network/connectionslist/' + handle + '/0/10')
   }
 
-  /** 
+  /**
    * accept network request
   */
-  acceptNetworkrequest(body: any){
+  acceptNetworkrequest(body: any) {
     return this.api.put('/portal/network/connection/response', body);
   }
 
   /**
    * cancel a network request
    */
-  cancelSentrequest(body: any){
+  cancelSentrequest(body: any) {
     return this.api.put('/portal/network/connection/cancelRequest', body);
   }
 

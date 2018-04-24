@@ -3,13 +3,13 @@
 // @import './src/assets/scss/vendors/bootstrap/stylesheets/bootstrap/_navs.scss';
 @import './src/assets/scss/components/_app.scss';
 @import './src/assets/scss/components/_dropdowns.scss';
-@import './src/assets/scss/helpers/_mixins.scss';
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/components/_form.scss';
-@import './src/assets/scss/components/_cards.scss';
 @import './src/assets/scss/base/_typography.scss';
 @import './src/assets/scss/components/_tabs.scss';
+@import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
+@import './src/assets/scss/components/_cards.scss';
 
 .o-network__userorg {
     font-size: 11px;
@@ -63,5 +63,6 @@
 }
 
 .empty__state {
-    margin-top: 2rem;
+    // margin-top: 2rem;
+    padding-bottom: 20px;
 }
