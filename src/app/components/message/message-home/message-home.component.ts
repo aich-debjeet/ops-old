@@ -61,17 +61,13 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
     this.messageState$ = this.messageStore.select('messageTags');
     this.messageState$.subscribe((state) => {
       this.messageState = state;
-      // console.log('this.messageState', this.messageState);
-
       if (this.messageState && this.messageState['messanger_list_data']) {
         this.messangerList = this.messageState['messanger_list_data'];
-        // console.log('select latest from', this.messangerList);
         this.selectLatestConversation();
       }
 
       if (this.messageState && this.messageState['load_conversation_data']) {
         this.conversation = this.messageState['load_conversation_data'];
-        // console.log('this.conversation', this.conversation);
         if (this.conversation.length > 0) {
           if (this.conversation[this.conversation.length - 1].isNetworkRequest === false) {
             this.enableTextMessage();
@@ -85,12 +81,8 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
         && this.messageState['loading_conversation'] === false
         && this.messageState['loading_conversation_success'] === true
       ) {
-        // hide preloader
-        // this.showPreloader = false;
-
-        // check if initial set of the conversation, if yes then scroll to the last mesage in the conversation
+        // check if initial set of the conversation, if yes then scroll to the last message in the conversation
         if (this.enableScrollBottom) {
-          // setTimeout(() => { this.scrollToBottom(); }, 200);
           this.enableScrollBottom = false;
         }
       }
@@ -122,19 +114,13 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
    * initialize listeners on view available
    */
   ngOnInit() {
-    // console.log('ngOnInit');
-    // this.scrollToBottom();
-
     // pusher message listener
     this.pusherService.messagesChannel.bind('New-Message', (data) => {
       const message = JSON.parse(data);
-      // console.log('New-Message', message);
-
       // check if it's a network request
       if (message && message['isNetworkRequest'] && message['isNetworkRequest'] === true) {
         // console.log('Network Request');
         // append the new object to the user listing
-        // prepafing listing object
         const newListObj = {
           handle: message.by,
           isBlocked: false,
@@ -151,7 +137,6 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
           payload: newListObj
         });
       } else {
-        // console.log('NOT a Network Request');
         this.messageStore.dispatch({
           type: MessageActions.ADD_PUSHER_MESSAGE,
           payload: message
@@ -164,8 +149,6 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
 
     // pusher notifications listener
     this.pusherService.notificationsChannel.bind('Message-Typing', (userDetails) => {
-      // console.log(userDetails);
-      // console.log(this.selectedUser);
       userDetails = JSON.parse(userDetails);
       if (!this.isTyping && userDetails.handle === this.selectedUser.handle) {
         this.isTyping = true;
@@ -236,22 +219,15 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
     this.disableTextMessage();
     this.selectedUser = userObj;
     this.chatScrollBottom = true;
-
-    // create user channel to emit typing indication
-    // this.pusherService.createUserChannel(userObj);
-
     // load selected users conversation
     this.messageStore.dispatch({ type: MessageActions.RESET_CONVERSATION_STATE });
-
     // reset pagination
     this.pagination = {
       pageNumber: 0,
       recordsPerPage: 20
     };
-
     // initial pagination on use selection
     const pagination = this.paginateConversation();
-
     // load selected users conversation
     this.messageStore.dispatch({
       type: MessageActions.LOAD_CONVERSATION,
@@ -410,14 +386,11 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
         }
       });
     }
-
-    // check if mesage is ready to send
     // filter emtpy mesage and spaces
     if (!this.messageText.replace(/\s/g, '').length) {
       // string only contained whitespace (ie. spaces, tabs or line breaks)
       return;
     }
-
     // send message if enter pressed
     if (e.keyCode === 13 && this.messageText !== '') {
       this.sendMessage();
@@ -436,7 +409,6 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
       type: MessageActions.NETWORK_REQUEST_ACTION,
       payload: reqParams
     });
-
     // find the index for changin the newtwork flag
     const index = _.findIndex(this.conversation, ['by', data.by]);
     this.conversation[index].isNetworkRequest = false;
