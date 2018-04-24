@@ -1,6 +1,6 @@
 <div class="tab-content">
   <div id="01" class="tab-pane fade m-l-r-16 active in">
-      <div *ngIf="requestList.length < 1" class="empty__state text-center">
+      <div *ngIf="userProfile.list_loaded === true && requestList.length < 1" class="empty__state text-center">
           <h4>You have no requests to Accept/Decline</h4>
       </div>
     <ul>
