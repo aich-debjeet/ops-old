@@ -69,6 +69,7 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
       if (this.messageState && this.messageState['load_conversation_data']) {
         this.conversation = this.messageState['load_conversation_data'];
         if (this.conversation.length > 0) {
+          this.showPreloader = false;
           if (this.conversation[this.conversation.length - 1].isNetworkRequest === false) {
             this.enableTextMessage();
           }
@@ -215,6 +216,7 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
    * trigger dispatch to load conversation with the user asked
    */
   selectUser(userObj: any) {
+    this.showPreloader = true;
     this.conversation = [];
     this.disableTextMessage();
     this.selectedUser = userObj;
