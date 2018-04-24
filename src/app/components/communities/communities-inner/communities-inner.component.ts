@@ -31,6 +31,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   relatedCommunity: any;
   communityPost: any;
   postLoader: boolean;
+  inviteBtnActive: boolean = true;
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
@@ -60,6 +61,9 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         }
         if (state['post_loader']) {
           this.postLoader = state['post_loader'];
+        }
+        if (state['invite_button']) {
+          this.inviteBtnActive = state['invite_button'];
         }
       }
     });

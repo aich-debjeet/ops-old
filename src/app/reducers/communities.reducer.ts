@@ -73,9 +73,20 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
         post_loding: false
       });
 
+    case CommunitiesActions.COMMUNITY_INVITE_PEOPLE_SUCCESS:
+      return Object.assign({}, state, {
+        invite_button: true,
+        communityInvitePeople: state.communityInvitePeople.filter(community => community.profileHandle !== payload.SUCCESS)
+      });
+
     case CommunitiesActions.COMMUNITY_INVITE_PEOPLE:
       return Object.assign({}, state, {
-        communityInvitePeople: state.communityInvitePeople.filter(community => community.profileHandle !== payload.profileHandle)
+        invite_button: false,
+      });
+
+    case CommunitiesActions.COMMUNITY_INVITE_PEOPLE_FAILED:
+      return Object.assign({}, state, {
+        invite_button: true,
       });
 
     default:

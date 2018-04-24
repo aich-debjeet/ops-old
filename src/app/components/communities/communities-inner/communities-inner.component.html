@@ -33,7 +33,7 @@
             <a href="addpost.html" class="btn btn-primary btn-md m-t-16">Add post</a>
         </div>
         <div class="col-md-6" >
-            <div >
+            <div *ngIf="post_loader">
                 <app-post-card [loader]=true *ngFor="let number of [0,1]" ></app-post-card>
             </div>
             <div *ngFor="let media of communityPost;">
