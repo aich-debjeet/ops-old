@@ -1,4 +1,4 @@
-<div infinite-scroll (scrolled)="onScroll($event)" class="o-search-result-block m-t-16 p-b-24 m-b-50">
+<div *ngIf="artists?.length > 0" infinite-scroll (scrolled)="onScroll($event)" class="o-search-result-block m-t-16 p-b-24 m-b-50">
     <div *ngFor="let artist of artists" class="o-search-people-single">
         <div class="o-search-people__prof-pic">
             <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="c-artist__avatar">
