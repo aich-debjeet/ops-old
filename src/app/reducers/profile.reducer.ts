@@ -1287,7 +1287,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       cancel_sent_request:[],
       cancel_sent_request_data: payload
     });
-  
+
   case ProfileActions.CANCEL_NETWORK_REQUEST_SUCCESS:
     // console.log(payload)
     return Object.assign({}, state, {
@@ -1295,12 +1295,22 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       cancel_sent_request: payload,
       network_sent_requests: state.network_sent_requests.filter(request => request.owner.handle !== state.cancel_sent_request_data.receiver_id)
     });
-  
+
+  case ProfileActions.COMMUNITY_MEDIA_POST:
+    return Object.assign({}, state, {
+      community_media_success: false
+    });
+
+  case ProfileActions.COMMUNITY_MEDIA_POST_SUCCESS:
+    return Object.assign({}, state, {
+      community_media_success: true
+    });
+
   case ProfileActions.CANCEL_NETWORK_REQUEST_FAILED:
     // console.log(payload)
     return Object.assign({}, state, {
       cancel_network_request: false,
-      cancel_sent_request:[]
+      cancel_sent_request: []
     });
     default:
       return state;
