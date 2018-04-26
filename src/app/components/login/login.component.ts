@@ -34,15 +34,13 @@ export class LoginComponent implements OnInit {
     private store: Store<Login>,
     private router: Router,
     public route: ActivatedRoute,
-    ) {
-
+  ) {
     this.loginForm = fb.group({
       'email' : [null, Validators.required],
       'password': ['', Validators.required],
     })
 
     this.tagState$ = store.select('loginTags');
-
     this.tagState$.subscribe((state) => {
       this.petTag = state;
     });
@@ -60,16 +58,16 @@ export class LoginComponent implements OnInit {
     }
 
     const user = JSON.parse(localStorage.getItem('currentUser'));
-    console.log('calling')
+    // console.log('calling');
     if (user && user.access_token) {
-      console.log('authentication',user.access_token)
+      // console.log('authentication', user.access_token);
       this.store.dispatch({ type: AuthActions.USER_AUTHENTICATED, payload: ''});
     }
   }
 
 
   submitForm(value: any) {
-    if ( this.loginForm.valid === true ) {
+    if (this.loginForm.valid === true) {
       const form =  {
         'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
         'client_secret': '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',
@@ -77,20 +75,19 @@ export class LoginComponent implements OnInit {
         'password' : value.password,
         'grant_type' : 'password'
       }
-
       this.store.dispatch({ type: AuthActions.USER_LOGIN, payload: form});
-    // Org Registration successfully
-    this.store.select('loginTags')
-      .first(login => login['login_success'] === true)
-      .subscribe( datas => {
-        if (this.redrectUrl !== undefined) {
-          this.router.navigateByUrl(this.redrectUrl);
-          return
-        }else {
-          this.router.navigateByUrl('/home');
-          return
-        }
-      });
+      // Org Registration successfully
+      this.store.select('loginTags')
+        .first(login => login['login_success'] === true)
+        .subscribe( datas => {
+          if (this.redrectUrl !== undefined) {
+            this.router.navigateByUrl(this.redrectUrl);
+            return
+          } else {
+            this.router.navigateByUrl('/home');
+            return
+          }
+        });
     }
   }
 
