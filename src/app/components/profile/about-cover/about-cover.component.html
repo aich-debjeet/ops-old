@@ -2,7 +2,7 @@
   <div id="cover-upload">
     <div class="modal-content o-cover-upload">
         <div class="o-cover-upload__head">
-            <h2 class="o-cover-head--heading">EDIT COVER IMAGE</h2>
+            <h2 class="o-cover-head--heading">Edit Cover Image</h2>
             <span class="search_close" (click)="isClosed($event)" >
                 <img src="https://d33wubrfki0l68.cloudfront.net/e85a9c443cca11a2d6a6aca634490f2f2e6bdc55/44c4b/img/svg/ico_close-38.svg" alt="">
             </span>
@@ -27,7 +27,7 @@
             <p class="p_text" *ngIf="stateProfile.cover_img_upload_success">Successfully updated</p>
             <div class="o-cover-footer__btn">
                 <button type="button"  (click)="isClosed($event)" class="btn btn-network btn-sm text_uppercase">Cancel</button>
-                <button type="button" (click)="uploadCoverImage()" class="btn btn-primary btn-sm o-cover-btn__mod" [disabled]="!coverImageChosen" >Save</button>
+                <button type="button" (click)="uploadCoverImage()" class="btn btn-primary btn-sm o-cover-btn__mod" [disabled]="!coverImageChosen"> &nbsp; Save &nbsp; </button>
             </div>
         </div>
     </div>

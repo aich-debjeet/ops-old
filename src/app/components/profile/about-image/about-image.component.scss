@@ -6,7 +6,7 @@
 }
 .o-cover-upload__head{
     width: 100%;
-    padding: 16px 24px;
+    padding: 0 24px;
     float: left;
 }
 .o-cover-head--heading{
@@ -45,9 +45,9 @@
     float: right;
     text-align: right;
 }
-.o-cover-btn__mod{
-    margin-left: 16px;
-}
+// .o-cover-btn__mod{
+//     margin-left: 16px;
+// }
 // .cover_change_drop::before{
 //     width: 11px;
 //     height: 11px;
@@ -64,9 +64,10 @@
 
 .o-profile-upload{
     width: 482px;
-    height: 550px;
+    height: 520px;
     background: #fff;
-    margin: 40px auto;
+    margin: 1.2em auto;
+    border-radius: 3px;
 }
 
 
