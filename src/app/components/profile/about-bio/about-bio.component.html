@@ -59,7 +59,7 @@
                 </tr>
                 <tr *ngIf="userProfile?.physical?.height !== 0 || userProfile?.physical?.height">
                     <td class="ops_heading12">Height</td>
-                    <td class="ops_subheading">{{ userProfile?.physical?.height }}</td>
+                    <td class="ops_subheading">{{ userProfile?.physical?.height.toFixed(2) }}</td>
                 </tr>
                 <tr *ngIf="userProfile?.physical?.weight !== 0 || userProfile?.physical?.weight">
                   <td class="ops_heading12">Weight</td>
