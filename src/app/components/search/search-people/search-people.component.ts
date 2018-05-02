@@ -33,6 +33,8 @@ export class SearchPeopleComponent implements OnInit {
   scrolling = 0;
   scrollingLoad = 800;
   /* scroll */
+  userState$: any;
+  userProfile: any;
 
   constructor(
     private store: Store<SearchModel>,
@@ -41,6 +43,14 @@ export class SearchPeopleComponent implements OnInit {
 
     this.baseUrl = environment.API_IMAGE;
     this.searchState$ = this.store.select('searchTags');
+
+    /* ================== current user ========= */
+    this.userState$ = this.store.select('profileTags');
+    this.userState$.subscribe((state) => {
+      this.userProfile = state;
+    });
+    // this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
+    /* ================== current user ========= */
   }
 
   ngOnInit() {
@@ -66,11 +76,10 @@ export class SearchPeopleComponent implements OnInit {
   }
 
   disableFollowForSelf(username: string) {
+    if (this.userProfile && (this.userProfile['profile_navigation_details']['username']) === username) {
+      return true;
+    }
     return false;
-    // if (this.searchState && (this.searchState['profile_navigation_details']['username']) === username) {
-    //   return true;
-    // }
-    // return false;
   }
 
   /**
