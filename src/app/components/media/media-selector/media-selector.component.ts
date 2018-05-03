@@ -759,9 +759,9 @@ export class MediaSelectorComponent implements OnInit {
       createdDate: postTime,
       lastUpdatedDate: postTime,
       tags : tags,
-      // extras: {
-      //   access: Number(privacy)
-      // },
+      extras: {
+        access: Number(privacy)
+      },
       count : {
         likes: [], shares: [], spots: [],
         channel: channel.spotfeedId
