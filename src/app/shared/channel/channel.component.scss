@@ -212,9 +212,9 @@ a {
 
 .o-channel__option {
     position: absolute;
-    top: 36px;
-    right: 16px;
-    left: inherit;
+    top: 28px !important;
+    right: 10px;
+    left: inherit !important;
     overflow: hidden;
 }
 
@@ -242,7 +242,7 @@ a {
 
 .dropdown-menu>li>a {
     display: block;
-    padding: 3px 11px;
+    // padding: 3px 11px;
     clear: both;
     font-weight: normal;
     line-height: 1.428571429;
@@ -252,6 +252,7 @@ a {
 
 .o-channel__option a {
     background: transparent;
+    font-size: 12px;
 }
 
 .c-card__links {
