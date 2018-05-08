@@ -27,11 +27,13 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   private subscription: ISubscription;
   private routerSubscription: ISubscription;
   details: any;
+  list: any;
   listInvitePeople: any;
   relatedCommunity: any;
   communityPost: any;
   postLoader: boolean;
   inviteBtnActive: boolean = true;
+  public communityForm: FormGroup;
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
@@ -65,11 +67,16 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         if (state['invite_button']) {
           this.inviteBtnActive = state['invite_button'];
         }
+        if (state['communityList']) {
+          this.list = state['communityList'];
+        }
       }
     });
   }
 
   ngOnInit() {
+    this.buildForm();
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   ngOnDestroy() {
@@ -102,6 +109,20 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Delete community
+   */
+  communityDelete() {
+    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_DELETE, payload: this.id });
+    this.store.select('communitiesTags')
+    .first(channel => channel['communnity_delete'] === true)
+    .subscribe( datas => {
+          this.toastr.success('successfully Delete', 'Success!');
+          this.router.navigateByUrl('/communities');
+          return
+    });
+  }
+
+  /**
    * Invite people to community
    */
   inviteToCommunity(handle) {
@@ -113,6 +134,16 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       }
     }
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_INVITE_PEOPLE, payload: sender });
+  }
+
+  buildForm() {
+    this.communityForm = this.fb.group({
+      'community_name' : ['', [Validators.required]],
+      'brief': ['', [Validators.required]],
+      'access': [0, [Validators.required]],
+      'industry': ['', [Validators.required]]
+    })
+
   }
 
 }

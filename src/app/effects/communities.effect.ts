@@ -94,6 +94,15 @@ export class CommunitiesEffect {
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_INVITE_PEOPLE_FAILED, payload: res }))
     );
 
+  @Effect()
+  deleteCommunity$ = this.actions$
+    .ofType(CommunitiesActions.COMMUNITY_DELETE)
+    .map(toPayload)
+    .switchMap((payload) => this.communitiesService.deleteCommunity(payload)
+      .map(res => ({ type: CommunitiesActions.COMMUNITY_DELETE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_DELETE_FAILED, payload: res }))
+    );
+
     constructor(
     private actions$: Actions,
     private communitiesService: CommunitiesService,
