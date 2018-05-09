@@ -93,6 +93,7 @@
                                                 <span class="form_bar"></span>
                                                 <label>Date of Award</label>
                                                 <p class="error_alert" *ngIf="awardForm.controls['timeperiod'].errors?.required && myform.submitted">Date of Award is required</p>
+                                                <p class="error_alert" *ngIf="awardForm.controls['timeperiod'].errors?.invalidWorkDate">Invalid Date</p>
                                             </div>
                                         </div>
                                     </div>

@@ -8,6 +8,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { DatePipe } from '@angular/common';
 import { environment } from '../../../../environments/environment';
 
+import {DatabaseValidator } from '../../../helpers/form.validator';
+
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -21,7 +23,7 @@ import { Subscription, ISubscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-about-awards',
   templateUrl: './about-awards.component.html',
-  providers: [ModalService],
+  providers: [ModalService, DatabaseValidator],
   styleUrls: ['./about-awards.component.scss']
 })
 export class AboutAwardsComponent implements OnInit, OnDestroy {
@@ -43,12 +45,14 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private datepipe: DatePipe,
     private profileStore: Store<ProfileModal>,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private databaseValidator: DatabaseValidator,
   ) {
     this.tagState$ = this.profileStore.select('profileTags');
     // this.test = 'salabeel';
     this.subscription = this.tagState$.subscribe((state) => {
       this.stateProfile = state;
+      console.log('state', this.stateProfile)
       if (state.profile_user_info) {
         if (this.stateProfile.profile_user_info.isCurrentUser === false && this.stateProfile.profile_other_loaded === true) {
           this.ownProfile = false;
@@ -96,7 +100,7 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
     this.awardForm = this.fb.group({
       'award' : ['' , [Validators.required]],
       'organization' : ['' , [Validators.required]],
-      'timeperiod' : ['' , [Validators.required]],
+      'timeperiod' : ['' , [Validators.required], this.databaseValidator.validWorkFromDate.bind(this.databaseValidator)],
       'id': ''
     })
   }
