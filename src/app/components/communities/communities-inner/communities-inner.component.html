@@ -6,7 +6,24 @@
                 <div class="o-commu__prof-img">
                 </div>
                 <div class="o-commu__short-det p-16">
-                    <h4 class="c-h4 m-b-16">{{ details?.title }}</h4>
+                    <div class="c-h4 m-b-16">{{ details?.title }}
+                        <div class="c-mediamodal__opt dropdown c-dropdown" appDropdown *ngIf="details?.isOwner">
+                            <span class="dropdown-toggle" data-toggle="dropdown" appDropdownOpen>
+                                <img [src]="basePath + 'img/svg/ico_options.svg'" class="c-options--img">
+                            </span>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a (click)="communityCreateModal.open()">Edit</a>
+                                </li>
+                                <li>
+                                    <a (click)="communityLeaveModal.open()">Leave</a>
+                                </li>
+                                <li>
+                                    <a (click)="communityRemove.open()">Remove</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                     <p class="c-text_md color-grey-dark">
                         {{ details?.brief }}
                     </p>
@@ -88,3 +105,137 @@
 <div class="clearfix"></div>
 
 <app-footer></app-footer>
+
+
+<app-modal-new #communityCreateModal modalClass="modal-communities__create">
+    <modal-content>
+        <div class="c-text_lg text-center p-t-16">Create Community</div>
+        <div class="p-32">
+            <form [formGroup]="communityForm" novalidate (ngSubmit)="submitForm(communityForm.value)" #cmfrom="ngForm">
+                <div class="c-form__group">
+                    <input class="c-form__input" required="" formControlName="community_name" type="text">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <label>Community Name</label>
+                </div>
+                <div class="c-form__group m-t-24">
+                    <input class="c-form__input" required="" formControlName="brief" type="text">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <label>About Community</label>
+                </div>
+                <div class="c-form__group m-t-24">
+                    <select class="c-form-control" formControlName="access">
+                        <option value="0">Public</option>
+                        <option value="1">Private</option>
+                    </select>
+                </div>
+                <div class="c-form__group m-t-24">
+                    <select class="c-form-control" formControlName="industry" [(ngModel)]="selectedIndustry">
+                        <option value="" disabled="true" [selected]="!selectedIndustry">Select Industry</option>
+                        <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
+                    </select>
+                </div>
+                <div class="row m-t-24">
+                    <button type="submit" class="btn btn-primary btn-md pull-right">create</button>
+                    <button type="button" class="btn btn-default btn-md pull-right m-r-16" (click)="communityCreateModal.close()">cancel</button>
+                </div>
+            </form>
+        </div>
+    </modal-content>
+</app-modal-new>
+
+
+
+<app-modal-new #communityLeaveModal modalClass="modal-o-comodal2">
+    <modal-content>
+        <div id="changeAdmin" class="o-comodal_main" >
+                <div class="o-comodal2" id="admin_1">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" (click)="communityLeaveModal.close()">&times;</button>
+                            <div class="modal-title c-text_lg text-center m-t-8">Change Admin</div>
+                            <div class="c-text_md text-center color-grey-dark m-t-8">Select the user you want to give the admin privilage.</div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="c-form__group c-form--md c-form--noeffect c-form__faded--md">
+                                <input class="c-form__input p-l-24" required="" type="text">
+                                <label class="p-l-16">Input with icon</label>
+                                <span>
+                                    <img [src]="basePath + 'img/svg/ico_search.svg'" class="c-form__input--lefticon">
+                                </span>
+                            </div>
+                            <div class="o-cadminlist" id="ops_scrollbar">
+                            <form>
+                                <div class="o-cadmin_block">
+                                    <label>
+                                    <input type="radio" name="a">
+                                    <div class="o-cadmin_checkbox">
+                                        <div class="o-cadmin_imgblock m-t-b-8">
+                                            <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-cadmin_img">
+                                        </div>
+                                        <p class="o-cadmin_name">John Mayer1</p>
+                                        <p class="o-cadmin_prof">Profile</p>
+                                    </div>
+                                    </label>
+                                </div>
+                            </form>
+            
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default btn-sm" (click)="communityLeaveModal.close()">cancel</button>
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="nextClicked()">Done</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </modal-content>
+</app-modal-new>
+
+<app-modal-new #communityLeaveConfirmModal modalClass="modal-communities__create">
+    <modal-content>
+<div class="o-comodal" id="admin_2">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="modal-title c-text_lg text-center m-t-8">Leave Community</div>
+            </div>
+            <div class="modal-body">
+                <div class="c-text_md text-center color-grey-dark">Are you sure you want to give up your admin provilleges and leave this community? The admin role will be offered to other people in the group.</div>
+                <div class="modal-footer m-t-16">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">cancel</button>
+                    <button type="button" class="btn btn-primary btn-sm">Leave</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </modal-content>
+</app-modal-new>
+
+<app-modal-new #communityRemove modalClass="modal-communities__create">
+    <modal-content>
+        <div id="comRemove" class="o-comodal_main" >
+            <div class=" o-comodal">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" (click)="communityRemove.close()">&times;</button>
+                        <h4 class="modal-title c-text_lg text-center m-t-8">Remove Community</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="c-text_md text-center color-grey-dark">Are you sure you want to permanently remove this community</div>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                        <button type="button" class="btn btn-default btn-sm" (click)="communityRemove.close()">cancel</button>
+                        <button type="button" class="btn btn-primary btn-sm" (click)="communityDelete()">remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </modal-content>
+</app-modal-new>

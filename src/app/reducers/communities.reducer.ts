@@ -89,6 +89,16 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
         invite_button: true,
       });
 
+    case CommunitiesActions.COMMUNITY_DELETE:
+      return Object.assign({}, state, {
+        communnity_delete: false,
+      });
+
+    case CommunitiesActions.COMMUNITY_DELETE_SUCCESS:
+      return Object.assign({}, state, {
+        communnity_delete: true,
+      });
+
     default:
       return state;
 

@@ -7,6 +7,10 @@
 @import './src/assets/scss/components/_common-style.scss';
 @import './src/assets/scss/components/_cards.scss';
 
+.c-options--img {
+    width: 10px;
+    cursor: pointer;
+}
 
 .c-avatar--status {
     width: 34px;
@@ -85,3 +89,112 @@
 .letter_space {
     letter-spacing: 1px;
 }
+
+// --
+.o-comodal_main {
+    background-color: rgba(51, 51, 51, 0.93);
+}
+
+.o-comodal2 {
+    width: 564px;
+    margin-top: 50px;
+    .modal-body {
+        padding-top: 0;
+        margin: 0 24px;
+    }
+    .modal-content {
+        border-radius: 3px;
+    }
+    .modal-header {
+        border: none;
+        padding-bottom: 0;
+    }
+    .modal-header .close {
+        font-weight: 400;
+        font-size: 26px;
+    }
+    .modal-footer {
+        border: none;
+    }
+}
+
+.o-cadminlist {
+    width: 100%;
+    height: 406px;
+    overflow-y: scroll;
+    position: relative;
+}
+
+.o-cadmin_block {
+    width: 25%;
+    float: left;
+    height: 140px;
+    overflow: hidden;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    label {
+        pointer-events: auto;
+        position: static;
+    }
+    input[type="radio"] {
+        display: none;
+    }
+    input[type="radio"]+ .o-cadmin_checkbox {
+        display: inline-block;
+        position: relative;
+        -webkit-appearance: none;
+    }
+    input[type="radio"]:checked + .o-cadmin_checkbox:after {
+        border: 2px solid #ff7b84;
+        box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
+        border-radius: 3px;
+        content: " ";
+        left: -7px;
+        top: 0;
+        color: #000000;
+        width: 118%;
+        height: 100%;
+        position: absolute;
+        cursor: pointer;
+    }
+}
+
+.o-cadmin_imgblock {
+    width: 72px;
+    height: 72px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 0 auto;
+    background: #929292;
+    position: relative;
+}
+// .o-cadmin_img-tick {
+//     width: 72px;
+//     height: 72px;
+//     position: absolute;
+//     background-color: rgba(255,123,132,0.9);
+//     top: 0;
+// }
+// .o-cadmin_img-tick2 {
+//     width: 22px;
+//     margin-top: 22px;
+// }
+.o-cadmin_img {
+    width: 100%;
+}
+
+.o-cadmin_name {
+    color: #333333;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+.o-cadmin_prof {
+    width: 100%;
+    float: left;
+    color: #929292;
+    font-size: 11px;
+    line-height: 18px;
+}
+// --
