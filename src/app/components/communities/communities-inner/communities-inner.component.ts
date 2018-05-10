@@ -23,6 +23,7 @@ import { ToastrService } from 'ngx-toastr';
 export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   basePath = environment.API_IMAGE;
   id: any;
+  industries: any[];
   tagState$: Observable<any>;
   private subscription: ISubscription;
   private routerSubscription: ISubscription;
@@ -145,6 +146,33 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       'industry': ['', [Validators.required]]
     })
 
+  }
+
+  submitForm(value) {
+    if ( this.communityForm.valid === true ) {
+      const data = {
+        title: value.community_name,
+        brief: value.brief,
+        accessSettings: {
+          access: Number(value.access)
+        },
+        industryList: [ value.industry ]
+      }
+      this.store.dispatch({ type: CommunitiesActions.COMMUNITY_CREATE, payload: data });
+
+      this.store.select('communitiesTags')
+      .first(channel => channel['community_create_success'] === true)
+      .subscribe( datas => {
+          if (datas['completed']) {
+            const id = datas['completed']['SUCCESS'].id;
+            this.toastr.success('successfully created', 'Success!');
+            this.router.navigateByUrl('/communities/' + id);
+            return
+          }
+      });
+    }else {
+      this.toastr.warning('Please fill all required fields');
+    }
   }
 
 }
