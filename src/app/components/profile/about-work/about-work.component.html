@@ -109,7 +109,7 @@
                                             <p class="error_alert" *ngIf="workForm.controls['from'].errors?.required && myform.submitted">From Date is required</p>
                                             <p class="error_alert" *ngIf="workForm.controls['from'].errors?.invalidWorkDate">Invalid Date</p>
                                         </div>
-                                        <div class="form_group">
+                                        <div class="form_group" *ngIf = "hide === true">
                                             <input class="form_input" type="text" formControlName="to" [textMask]="{mask: dateMask}" required>
                                             <span class="form_highlight"></span>
                                             <span class="form_bar"></span>

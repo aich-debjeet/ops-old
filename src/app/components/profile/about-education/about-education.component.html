@@ -22,6 +22,7 @@
                     <div class="work-group">
                         <h3>{{ work.name }}<span> at </span> {{ work.institute }}</h3>
                         <p>From {{ work.from | date:'MMMM, y'}}</p>
+                        <p>To {{ work.to | date:'MMMM, y'}}</p>
                     </div>
                     <div class="workplace_edit_remove_ico" *ngIf="ownProfile">
                         <a (click)="editCurrentEducation(work)" class="edit_remove_ico"><img src="https://d33wubrfki0l68.cloudfront.net/8acba050eb7fc142849496e9d39c31e6ec848ebc/3b55c/img/svg/ico_edit.svg" alt=""></a>
