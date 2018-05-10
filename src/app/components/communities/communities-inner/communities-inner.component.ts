@@ -34,6 +34,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   postLoader: boolean;
   inviteBtnActive: boolean = true;
   public communityForm: FormGroup;
+  selectedIndustry = '';
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
