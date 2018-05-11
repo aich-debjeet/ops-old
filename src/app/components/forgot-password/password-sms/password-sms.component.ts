@@ -10,19 +10,20 @@ import { AuthActions } from '../../../actions/auth.action'
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-password-sms',
   templateUrl: './password-sms.component.html',
   styleUrls: ['./password-sms.component.scss']
 })
-export class PasswordSmsComponent  implements OnInit {
+export class PasswordSmsComponent  implements OnInit, OnDestroy {
 
   otpForm: FormGroup;
   tagState$: Observable<Login>;
   forgotP = initialTag;
   otpfailed: boolean;
+  private subscription: ISubscription;
 
   constructor(
     private fb: FormBuilder,
@@ -36,7 +37,7 @@ export class PasswordSmsComponent  implements OnInit {
     })
 
     this.tagState$ = store.select('loginTags');
-    this.tagState$.subscribe((state) => {
+    this.subscription = this.tagState$.subscribe((state) => {
       this.forgotP = state;
       // send back to forgot page landing directly on this page
       if (!this.forgotP.fp_user_options) {
@@ -50,6 +51,10 @@ export class PasswordSmsComponent  implements OnInit {
 
   ngOnInit() {
     this.otpfailed = false
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   submitForm(value: any) {
