@@ -479,6 +479,11 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         claim_user_info_loadded: false
       });
 
+    case AuthActions.FP_STATE_RESET:
+      return Object.assign({}, state, {
+        fp_user_options: null
+      });
+
     case AuthActions.USER_LOGOUT:
       return state = undefined
 

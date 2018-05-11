@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -37,7 +37,6 @@ export class PasswordSmsComponent  implements OnInit {
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-      console.log(state);
       this.forgotP = state;
       // send back to forgot page landing directly on this page
       if (!this.forgotP.fp_user_options) {
