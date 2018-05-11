@@ -88,6 +88,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         login_completed: false,
         page_loading: true,
         login_success: false,
+        error_description: null
       });
 
     case AuthActions.USER_LOGIN_SUCCESS:
