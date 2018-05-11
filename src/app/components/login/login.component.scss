@@ -42,7 +42,7 @@
     }
     @include mq($from: $tablet, $until: $desktop_sm) {
         background: #fff;
-        height: 100%;
+        height: 82vh;
         display: block;
     }
 }
