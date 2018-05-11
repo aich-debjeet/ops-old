@@ -88,6 +88,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         login_completed: false,
         page_loading: true,
         login_success: false,
+        error_description: null
       });
 
     case AuthActions.USER_LOGIN_SUCCESS:
@@ -477,6 +478,11 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       return Object.assign({}, state, {
         claim_user_info_loading: false,
         claim_user_info_loadded: false
+      });
+
+    case AuthActions.FP_STATE_RESET:
+      return Object.assign({}, state, {
+        fp_user_options: null
       });
 
     case AuthActions.USER_LOGOUT:

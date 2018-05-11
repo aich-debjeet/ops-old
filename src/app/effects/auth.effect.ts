@@ -342,6 +342,13 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.SEARCH_USER_BY_USERNAME_FAILED, payload: res }))
     );
 
+  /**
+   * forget password state
+   */
+  // @Effect()
+  // fPStateReset$ = this.actions$
+  //   .ofType(AuthActions.FP_STATE_RESET)
+
   constructor(
       private actions$: Actions,
       private authService: AuthService,
