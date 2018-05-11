@@ -50,6 +50,7 @@ export class NotificationComponent implements OnInit {
       if (typeof state !== 'undefined') {
         if (typeof state['recieved_notifications'] !== 'undefined') {
           this.notifications = state['recieved_notifications'];
+          
 
           // check is unread notification exits else mark all notifications as read
           setTimeout(() => {
@@ -156,6 +157,10 @@ export class NotificationComponent implements OnInit {
 
         case 'Network_Sent':
           this.notifications[index]['message'] = ' sent you a network request';
+          break;
+
+        case 'Network_Accepted':
+          this.notifications[index]['message'] = ' accepted your network request';
           break;
 
       }

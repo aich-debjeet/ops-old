@@ -335,3 +335,109 @@ label {
 .empty__state {
   margin-top: 2rem;
 }
+
+// trending block
+.o-trending-block {
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+}
+
+.o-trending-heading {
+    width: 100%;
+    float: left;
+    font-size: 13px;
+    font-weight: 600;
+    color: $color-grey-dark;
+    line-height: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.o-trending-list {
+    list-style: none;
+}
+
+.o-trending-items {
+    list-style-type: none;
+    margin-top: 8px;
+}
+
+.o-trending-post {
+    box-shadow: none;
+}
+
+.grid-item {
+  width: 270px;
+  float: left;
+ }
+
+.o-homefeed-posts{
+    @include mq($from: $mobile_sm, $until: $tablet){
+    padding: 0px!important;
+  }
+}
+.c-card__image {
+    width: 100%;
+    vertical-align: middle;
+    outline: none;
+}
+.c-card__media, {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    background-color: #f8f8f8;
+}
+.c-media--hover {
+    width: 100%;
+    height: 52px;
+    display: none;
+    position: absolute;
+    transition: .25s;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    z-index: 3;
+    bottom: 0;
+    padding: 16px;
+}
+
+.c-avatar--feed2 {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #FFFFFF;
+}
+.c-user__name2 {
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+    color: #ffffff;
+    margin-left: 8px;
+    margin-top: 4px;
+    float: left;
+    cursor: pointer;
+}
+
+.c-card__body {
+    width: 100%;
+    float: left;
+    clear: both;
+    padding: 16px;
+    position: relative;
+}
+.c-card__links {
+    width: 100%;
+    float: left;
+    padding: 16px;
+}
+
+.c-card__icon {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    margin: 10px;
+    line-height: 0px;
+    width: 22px;
+    filter: drop-shadow(0px 0px 3px #222);
+}
