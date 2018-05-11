@@ -72,9 +72,14 @@ export class OpportunitySearchAppliedComponent implements OnInit, OnDestroy {
    * load applied opportunities
    */
   loadappliedOpps() {
+    const createdSearchParams = {
+      // postedBy: profileHandle,
+      offset: 0, // initial request
+      limit: this.recordsPerPage
+    }
     this.store.dispatch({
       type: OpportunityActions.GET_APPLIED_OPPORTUNITIES,
-      payload: this.userState.profile_navigation_details.handle
+      payload: createdSearchParams
     });
   }
 

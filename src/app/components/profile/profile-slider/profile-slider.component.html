@@ -4,7 +4,7 @@
             <span class="c-timeline__imgchange" appDropdown>
                <a data-toggle="modal" data-target="#cover-upload" appDropdownOpen>
                     <div class="c-timeline__changecover">
-                        <a routerLink="/profile/about/cover_image"><img src="{{ baseUrl }}img/svg/edit_red.svg" class="c-timeline__icon">Change cover</a>
+                        <a routerLink="/profile/about/cover_image"><img src="{{ baseUrl }}img/svg/edit_red.svg" class="c-timeline__icon"> Change cover</a>
                     </div>
                 </a>
             </span>
@@ -374,10 +374,11 @@
                                 <div class="c-radio--label">Hey {{ profileObject?.name }}, I want to network with you.</div>
                             </label>
                             <label class="col-md-8 col-md-offset-2 o-network_option m-t-16">
-                                <input id="hereShow" name="request" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request">
+                                <!-- <input id="hereShow" name="request" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request"> -->
+                                <input id="hereShow" name="request" (click)="openMsg()" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request">
                                 <span></span>
                                 <div class="c-radio--label">Personal message</div>
-                                <div id="showThis">
+                                <div *ngIf="showThis">
                                     <input class="c-form__input" id="" type="text" formControlName="message"required placeholder="Type Message">
                                     <p class="pull-right">200</p>
                                     <!-- <p *ngIf="networkForm.get('message').invalid && networkForm.get('request').invalid " class="error_alert text-center"> 

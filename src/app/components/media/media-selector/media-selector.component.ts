@@ -467,8 +467,6 @@ export class MediaSelectorComponent implements OnInit {
         isReady = false;
         this.changeState(1);
       }
-
-      console.log(nowFile);
       if (nowFile) {
         // Build Media Object
         const mediaItem = this.formatMedia( nowFile, formData, chosenChannel, userHandle, this.mediaPrivacy.toString());
@@ -484,12 +482,15 @@ export class MediaSelectorComponent implements OnInit {
           mediaList: multipleMedias,
         }
       }
-      this._store.dispatch({ type: ProfileActions.COMMUNITY_MEDIA_POST, payload: resp })
-      console.log(multipleMedias);
-      // console.log('MULTIPLE', multipleMedias);
-      // this.postMediaToChannel(chosenChannel.spotfeedId, multipleMedias);
+      this._store.dispatch({ type: ProfileActions.COMMUNITY_MEDIA_POST, payload: resp });
+
+      this._store.select('profileTags')
+      .first(media => media['community_media_success'] === true)
+      .subscribe( data => {
+        this.toastr.success('Your media has been successfully posted to your channel', 'Upload');
+        this.router.navigateByUrl('/communities/' + this.community_id);
+      });
     }
-    
   }
 
   /**
@@ -758,9 +759,9 @@ export class MediaSelectorComponent implements OnInit {
       createdDate: postTime,
       lastUpdatedDate: postTime,
       tags : tags,
-      // extras: {
-      //   access: Number(privacy)
-      // },
+      extras: {
+        access: Number(privacy)
+      },
       count : {
         likes: [], shares: [], spots: [],
         channel: channel.spotfeedId

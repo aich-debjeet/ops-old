@@ -36,6 +36,7 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
   userProfile: any;
   ownProfile: boolean;
   hideTo: boolean;
+  hide = true;
   imageBaseUrl = environment.API_IMAGE;
 
   constructor(
@@ -72,9 +73,11 @@ export class AboutWorkComponent implements OnInit, OnDestroy {
                 if (currentWork === true) {
                     this.workForm.get('to').setValidators([]);
                     this.hideTo = true;
+                    this.hide = false;
                 } else {
                     this.workForm.get('to').setValidators(Validators.required);
                     this.hideTo = false;
+                    this.hide = true;
                 }
                 this.workForm.get('to').updateValueAndValidity();
             });

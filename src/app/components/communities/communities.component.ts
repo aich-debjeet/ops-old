@@ -126,9 +126,12 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
       this.store.select('communitiesTags')
       .first(channel => channel['community_create_success'] === true)
       .subscribe( datas => {
-          this.toastr.success('successfully created', 'Success!');
-          this.router.navigateByUrl('/communities/details');
-          return
+          if (datas['completed']) {
+            const id = datas['completed']['SUCCESS'].id;
+            this.toastr.success('successfully created', 'Success!');
+            this.router.navigateByUrl('/communities/' + id);
+            return
+          }
       });
     }else {
       this.toastr.warning('Please fill all required fields');

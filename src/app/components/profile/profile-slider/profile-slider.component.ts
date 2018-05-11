@@ -76,6 +76,7 @@ export class ProfileSliderComponent implements OnInit {
   otherProfileHandle: String;
   otherProfileName: String;
   error = false;
+  showThis = false;
 
   hasFollowed: boolean;
   @ViewChild('skillModal') UsertypeModal: Modal;
@@ -669,5 +670,8 @@ export class ProfileSliderComponent implements OnInit {
     });
  }
 
+ openMsg() {
+    this.showThis = true;
+  }
 }
 

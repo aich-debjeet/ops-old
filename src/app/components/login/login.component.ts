@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment';
@@ -11,7 +11,7 @@ import { AuthActions } from '../../actions/auth.action'
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   private tagStateSubscription: Subscription;
   tagState$: Observable<Login>;
   rightCom: RightBlockTag;
@@ -28,22 +28,21 @@ export class LoginComponent implements OnInit {
   redrectUrl: any;
   queryParam: any;
   imageBaseUrl = environment.API_IMAGE;
+  private subscription: ISubscription;
 
   constructor(
     fb: FormBuilder,
     private store: Store<Login>,
     private router: Router,
     public route: ActivatedRoute,
-    ) {
-
+  ) {
     this.loginForm = fb.group({
       'email' : [null, Validators.required],
       'password': ['', Validators.required],
     })
 
     this.tagState$ = store.select('loginTags');
-
-    this.tagState$.subscribe((state) => {
+    this.subscription = this.tagState$.subscribe((state) => {
       this.petTag = state;
     });
   }
@@ -60,16 +59,16 @@ export class LoginComponent implements OnInit {
     }
 
     const user = JSON.parse(localStorage.getItem('currentUser'));
-    console.log('calling')
+    // console.log('calling');
     if (user && user.access_token) {
-      console.log('authentication',user.access_token)
+      // console.log('authentication', user.access_token);
       this.store.dispatch({ type: AuthActions.USER_AUTHENTICATED, payload: ''});
     }
   }
 
 
   submitForm(value: any) {
-    if ( this.loginForm.valid === true ) {
+    if (this.loginForm.valid === true) {
       const form =  {
         'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
         'client_secret': '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',
@@ -77,22 +76,24 @@ export class LoginComponent implements OnInit {
         'password' : value.password,
         'grant_type' : 'password'
       }
-
       this.store.dispatch({ type: AuthActions.USER_LOGIN, payload: form});
-    // Org Registration successfully
-    this.store.select('loginTags')
-      .first(login => login['login_success'] === true)
-      .subscribe( datas => {
-        if (this.redrectUrl !== undefined) {
-          this.router.navigateByUrl(this.redrectUrl);
-          return
-        }else {
-          this.router.navigateByUrl('/home');
-          return
-        }
-      });
+      // Org Registration successfully
+      this.store.select('loginTags')
+        .first(login => login['login_success'] === true)
+        .subscribe( datas => {
+          if (this.redrectUrl !== undefined) {
+            this.router.navigateByUrl(this.redrectUrl);
+            return
+          } else {
+            this.router.navigateByUrl('/home');
+            return
+          }
+        });
     }
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
 }
