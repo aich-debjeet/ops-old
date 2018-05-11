@@ -11,6 +11,8 @@ import { Store } from '@ngrx/store';
 import { ProfileActions } from '../../../actions/profile.action';
 import { MediaActions } from '../../../actions/media.action';
 
+import { environment } from '../../../../environments/environment';
+
 @Component({
   selector: 'app-home-post',
   templateUrl: './home-post.component.html',
@@ -32,7 +34,8 @@ export class HomePostComponent implements OnInit, OnDestroy {
   scrolling = 0;
   scrollingLoad = 6000;
   post_scroll_id: any = '';
-
+  imageLink: string = environment.API_IMAGE;
+  
   constructor(
     private http: Http,
     public route: ActivatedRoute,

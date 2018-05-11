@@ -231,7 +231,7 @@ export class NavigationComponent implements OnInit {
       });
     });
     this.pusherService.notificationsChannel.bind('Status_Comments', (message) => {
-      console.log(message)
+      // console.log(message)
       this.notify = true;
       this.notificationStore.dispatch({
         type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
@@ -239,6 +239,14 @@ export class NavigationComponent implements OnInit {
       });
     });
     this.pusherService.notificationsChannel.bind('Network_Sent', (message) => {
+      // console.log(message)
+      this.notify = true;
+      this.notificationStore.dispatch({
+        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+        payload: JSON.parse(message)
+      });
+    });
+    this.pusherService.notificationsChannel.bind('Network_Accepted', (message) => {
       // console.log(message)
       this.notify = true;
       this.notificationStore.dispatch({
