@@ -17,11 +17,12 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './password-sms.component.html',
   styleUrls: ['./password-sms.component.scss']
 })
-export class PasswordSmsComponent {
+export class PasswordSmsComponent  implements OnInit {
 
   otpForm: FormGroup;
   tagState$: Observable<Login>;
   forgotP = initialTag;
+  otpfailed: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -36,14 +37,20 @@ export class PasswordSmsComponent {
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-      this.forgotP = state;
       console.log(state);
-
+      this.forgotP = state;
       // send back to forgot page landing directly on this page
       if (!this.forgotP.fp_user_options) {
         this.router.navigate(['account/password_reset']);
       }
+      if (state['fp_sumit_otp_failed']) {
+        this.otpfailed = state['fp_sumit_otp_failed'];
+      }
     });
+  }
+
+  ngOnInit() {
+    this.otpfailed = false
   }
 
   submitForm(value: any) {
