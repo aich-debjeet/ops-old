@@ -25,8 +25,7 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     children: [
-      { path: '', redirectTo: 'channel'},
-      { path: 'spotfeed', component: HomeSpotfeedComponent},
+      { path: '', redirectTo: 'post'},
       { path: 'channel', component: HomeChannelComponent},
       { path: 'post', component: HomePostComponent}
     ]

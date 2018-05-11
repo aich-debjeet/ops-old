@@ -23,15 +23,19 @@ import { ToastrService } from 'ngx-toastr';
 export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   basePath = environment.API_IMAGE;
   id: any;
+  industries: any[];
   tagState$: Observable<any>;
   private subscription: ISubscription;
   private routerSubscription: ISubscription;
   details: any;
+  list: any;
   listInvitePeople: any;
   relatedCommunity: any;
   communityPost: any;
   postLoader: boolean;
   inviteBtnActive: boolean = true;
+  public communityForm: FormGroup;
+  selectedIndustry = '';
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
@@ -65,11 +69,16 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         if (state['invite_button']) {
           this.inviteBtnActive = state['invite_button'];
         }
+        if (state['communityList']) {
+          this.list = state['communityList'];
+        }
       }
     });
   }
 
   ngOnInit() {
+    this.buildForm();
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   ngOnDestroy() {
@@ -102,6 +111,20 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Delete community
+   */
+  communityDelete() {
+    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_DELETE, payload: this.id });
+    this.store.select('communitiesTags')
+    .first(channel => channel['communnity_delete'] === true)
+    .subscribe( datas => {
+          this.toastr.success('successfully Delete', 'Success!');
+          this.router.navigateByUrl('/communities');
+          return
+    });
+  }
+
+  /**
    * Invite people to community
    */
   inviteToCommunity(handle) {
@@ -113,6 +136,43 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       }
     }
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_INVITE_PEOPLE, payload: sender });
+  }
+
+  buildForm() {
+    this.communityForm = this.fb.group({
+      'community_name' : ['', [Validators.required]],
+      'brief': ['', [Validators.required]],
+      'access': [0, [Validators.required]],
+      'industry': ['', [Validators.required]]
+    })
+
+  }
+
+  submitForm(value) {
+    if ( this.communityForm.valid === true ) {
+      const data = {
+        title: value.community_name,
+        brief: value.brief,
+        accessSettings: {
+          access: Number(value.access)
+        },
+        industryList: [ value.industry ]
+      }
+      this.store.dispatch({ type: CommunitiesActions.COMMUNITY_CREATE, payload: data });
+
+      this.store.select('communitiesTags')
+      .first(channel => channel['community_create_success'] === true)
+      .subscribe( datas => {
+          if (datas['completed']) {
+            const id = datas['completed']['SUCCESS'].id;
+            this.toastr.success('successfully created', 'Success!');
+            this.router.navigateByUrl('/communities/' + id);
+            return
+          }
+      });
+    }else {
+      this.toastr.warning('Please fill all required fields');
+    }
   }
 
 }

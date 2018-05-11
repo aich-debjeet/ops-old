@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -10,18 +10,20 @@ import { AuthActions } from '../../../actions/auth.action'
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-password-sms',
   templateUrl: './password-sms.component.html',
   styleUrls: ['./password-sms.component.scss']
 })
-export class PasswordSmsComponent {
+export class PasswordSmsComponent  implements OnInit, OnDestroy {
 
   otpForm: FormGroup;
   tagState$: Observable<Login>;
   forgotP = initialTag;
+  otpfailed: boolean;
+  private subscription: ISubscription;
 
   constructor(
     private fb: FormBuilder,
@@ -35,15 +37,24 @@ export class PasswordSmsComponent {
     })
 
     this.tagState$ = store.select('loginTags');
-    this.tagState$.subscribe((state) => {
+    this.subscription = this.tagState$.subscribe((state) => {
       this.forgotP = state;
-      console.log(state);
-
       // send back to forgot page landing directly on this page
       if (!this.forgotP.fp_user_options) {
         this.router.navigate(['account/password_reset']);
       }
+      if (state['fp_sumit_otp_failed']) {
+        this.otpfailed = state['fp_sumit_otp_failed'];
+      }
     });
+  }
+
+  ngOnInit() {
+    this.otpfailed = false
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   submitForm(value: any) {
