@@ -29,7 +29,7 @@
                                 <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.required && regform.submitted">Name is required</p>
                             </div>
                             <div class="form_group">
-                                <input tabindex="2" class="form_input" type="text" formControlName="username" [formControl]="username" required>
+                                <input tabindex="2" class="form_input" type="text" (ngModelChange)="userExistCheck($event)" formControlName="username" required>
                                 <span class="form_highlight"></span>
                                 <span class="form_bar_alert"></span>
                                 <label>Username</label>
@@ -595,5 +595,3 @@
     </div>
 </app-modal>
 <!-- Thank you Modal -->
-
-<app-footer></app-footer>
