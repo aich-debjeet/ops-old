@@ -27,7 +27,7 @@
                                 <span class="form_bar"></span>
                                 <label>Name</label>
                                 <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.required && regform.submitted">Name is required</p>
-                                <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.emptyName && regform.submitted">Invalid name</p>
+                                <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.invalidName && regform.submitted">Invalid name</p>
                             </div>
                             <div class="form_group">
                                 <input tabindex="2" class="form_input" type="text" (ngModelChange)="userExistCheck($event)" formControlName="username" required>
