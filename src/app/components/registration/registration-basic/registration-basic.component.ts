@@ -157,9 +157,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.modalService.open('otpWindow');
-    }, 5000);
+    // setTimeout(() => {
+    //   this.modalService.open('otpWindow');
+    // }, 5000);
 
     if (this.route.snapshot.queryParams['ev']) {
       if (this.route.snapshot.queryParams['ev'] === 'dwc2017') {
