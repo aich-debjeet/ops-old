@@ -233,23 +233,85 @@
 
     <div class="c-card">
         <div class="c-text_md padding_16 color-grey-dark f-w_600 text_uppercase ltr-space">Opportunities for you</div>
-        <a href="">
-            <div class="with_border_bottom m-b-16">
-            <div class="c-card__project p-l-r-16">
-                <img [src]="imageBaseUrl + 'img/svg/audition.svg'" class="c-card__project--icon"> <span class="m-l-8">Audition</span>
-            </div>
-            <div class="o-home-org-list__title">
-                <p class="c-text_lg">Project and Program Management</p>
-            </div>
-            <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">Technosoft India PVT LTD</div>
-            <div class="c-card__location p-b-16 m-b-16">
-                <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
-                <p class="c-card__location--text float_left m-l-8">Bangalore, India</p>
-            </div>
-            </div>
-        </a>
+        <div *ngIf="opportunities && opportunities.length === 0; else opportunities_found;">
+            <p class="result-not-found">No records found!</p>
+        </div>
+        <ng-template #opportunities_found>
+            <a routerLink="/opportunity/view/{{ opportunityDetails?.id }}" *ngFor="let opportunityDetails of opportunities">
+                <div class="with_border_bottom m-b-16" *ngIf = "opportunityDetails?.opportunityType === 'audition'">
+                    <div class="c-card__project p-l-r-16">
+                        <img [src]="imageBaseUrl + 'img/opportunities/audition.png'" class="c-card__project--icon"> 
+                        <span class="m-l-8">{{opportunityDetails?.opportunityType | uppercase }}</span>
+                    </div>
+                    <div class="o-home-org-list__title">
+                        <p class="c-text_lg">{{ opportunityDetails?.opportunityAudition?.title }}</p>
+                    </div>
+                    <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">{{ opportunityDetails?.opportunityAudition?.title }}</div>
+                    <div class="c-card__location p-b-16 m-b-16">
+                        <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
+                        <p class="c-card__location--text float_left m-l-8">{{ opportunityDetails?.opportunityAudition?.location .lat}}</p>
+                    </div>
+                </div>
+                <div class="with_border_bottom m-b-16" *ngIf = "opportunityDetails?.opportunityType === 'volunteer'">
+                    <div class="c-card__project p-l-r-16">
+                        <img [src]="imageBaseUrl + 'img/opportunities/volunteer.png'" class="c-card__project--icon"> 
+                        <span class="m-l-8">{{opportunityDetails?.opportunityType | uppercase }}</span>
+                    </div>
+                    <div class="o-home-org-list__title">
+                        <p class="c-text_lg">{{ opportunityDetails?.opportunityVolunteer?.title }}</p>
+                    </div>
+                    <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">{{ opportunityDetails?.opportunityVolunteer?.title }}</div>
+                    <div class="c-card__location p-b-16 m-b-16">
+                        <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
+                        <p class="c-card__location--text float_left m-l-8">{{ opportunityDetails?.opportunityVolunteer?.location?.lat }}</p>
+                    </div>
+                </div>
+                <div class="with_border_bottom m-b-16" *ngIf = "opportunityDetails?.opportunityType === 'freelance'">
+                    <div class="c-card__project p-l-r-16">
+                        <img [src]="imageBaseUrl + 'img/opportunities/freelance.png'" class="c-card__project--icon"> 
+                        <span class="m-l-8">{{opportunityDetails?.opportunityType | uppercase }}</span>
+                    </div>
+                    <div class="o-home-org-list__title">
+                        <p class="c-text_lg">{{ opportunityDetails?.opportunityFreelance?.title }}</p>
+                    </div>
+                    <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">{{ opportunityDetails?.opportunityFreelance?.title }}</div>
+                    <div class="c-card__location p-b-16 m-b-16">
+                        <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
+                        <p class="c-card__location--text float_left m-l-8">{{ opportunityDetails?.opportunityFreelance?.location?.lat }}</p>
+                    </div>
+                </div>
+                <div class="with_border_bottom m-b-16" *ngIf = "opportunityDetails?.opportunityType === 'job'">
+                    <div class="c-card__project p-l-r-16">
+                        <img [src]="imageBaseUrl + 'img/opportunities/job.png'" class="c-card__project--icon"> 
+                        <span class="m-l-8">{{opportunityDetails?.opportunityType | uppercase }}</span>
+                    </div>
+                    <div class="o-home-org-list__title">
+                        <p class="c-text_lg">{{ opportunityDetails?.opportunityJob?.role }}</p>
+                    </div>
+                    <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">{{ opportunityDetails?.organizationName }}</div>
+                    <div class="c-card__location p-b-16 m-b-16">
+                        <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
+                        <p class="c-card__location--text float_left m-l-8">{{opportunityDetails?.opportunityJob?.location?.lat}}</p>
+                    </div>
+                </div>
+                <div class="with_border_bottom m-b-16" *ngIf = "opportunityDetails?.opportunityType === 'project'">
+                    <div class="c-card__project p-l-r-16">
+                        <img [src]="imageBaseUrl + 'img/opportunities/projects.png'" class="c-card__project--icon"> 
+                        <span class="m-l-8">{{opportunityDetails?.opportunityType | uppercase }}</span>
+                    </div>
+                    <div class="o-home-org-list__title">
+                        <p class="c-text_lg">{{ opportunityDetails?.opportunityProject?.title }}</p>
+                    </div>
+                    <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">{{ opportunityDetails?.opportunityProject?.title }}</div>
+                    <div class="c-card__location p-b-16 m-b-16">
+                        <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
+                        <p class="c-card__location--text float_left m-l-8">{{opportunityDetails?.opportunityProject?.location?.lat}}</p>
+                    </div>
+                </div>
+            </a>
+        </ng-template>
 
-        <a href="">
+        <!-- <a href="">
             <div class="c-card__project p-l-r-16">
                 <img [src]="imageBaseUrl + 'img/svg/audition.svg'" class="c-card__project--icon"> <span class="m-l-8">Audition</span>
             </div>
@@ -261,7 +323,7 @@
                 <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
                 <p class="c-card__location--text float_left m-l-8">Bangalore, India</p>
             </div>
-        </a>
+        </a> -->
     </div>
 </div>
 <!-- //right home feed -->

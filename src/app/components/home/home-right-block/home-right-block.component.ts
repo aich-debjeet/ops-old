@@ -53,6 +53,7 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
      // check for the result of recommended opportunities
      if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
        this.opportunities = state.get_opportunities_data.SUCCESS;
+       console.log(this.opportunities)
      }
    });
 
@@ -99,7 +100,7 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
    */
   loadRecomOpps() {
     const recomSearchParams = {
-      industry: this.skillCodes,
+      // industry: this.skillCodes,
       offset: 0, // initial request
       limit: this.recordsPerPage
     }
