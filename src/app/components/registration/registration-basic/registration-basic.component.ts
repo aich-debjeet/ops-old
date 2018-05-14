@@ -6,7 +6,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Store } from '@ngrx/store';
-import { Register, UserTag, initialTag, RightBlockTag, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
+import { Register, UserTag, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
 import { AuthRightBlockComponent } from '../../../shared/auth-right-block/auth-right-block.component';
 import { CountrySelectorComponent } from '../../../shared/country-selector/country-selector.component';
 
@@ -57,7 +57,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   inputNameListener: any;
   showTerms = false;
 
-  rightCom: RightBlockTag;
   tagState$: Observable<BasicRegTag>;
   private tagStateSubscription: Subscription;
   petTag = initialBasicRegTag;
@@ -159,25 +158,13 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
 
     const currentUrl = this.router.url;
     // console.log(currentUrl);
-
-    this.rightCom = {
-      mainTitle: 'Create Your Account',
-      secondHead: '',
-      description: 'Welcome to One Page Spotlight family where we are committed to grow together.'
-        + ' An OTP number will be sent to your email or phone number after registration for account verification.',
-      loginLink: true,
-      button_text: 'Login',
-      button_link: '/login',
-      page: false,
-      img: 'https://d33wubrfki0l68.cloudfront.net/2e71b712243279d510245bad8c3e48eeab00690d/7f58a/img/registration_signup_illustration.png'
-    };
   }
 
   // Init Reg Form
   buildForm(): void {
     this.regFormBasic = this.fb.group({
-      'name' : ['', [Validators.required]],
-      'username' : ['', [
+      name: ['', [Validators.required]],
+      username: ['', [
           Validators.required,
           FormValidation.noWhitespaceValidator,
           FormValidation.usernameLengthValidator,
@@ -186,29 +173,29 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         ],
         this.databaseValidator.userNameValidation.bind(this.databaseValidator)
       ],
-      'dob' : ['', [Validators.required],
+      dob: ['', [Validators.required],
         this.databaseValidator.validAge.bind(this.databaseValidator)
       ],
-      'email' : ['', [
-        Validators.required,
-        Validators.min(1),
-        // Validators.email
-        FormValidation.validEmail
+      email: ['', [
+          Validators.required,
+          Validators.min(1),
+          // Validators.email
+          FormValidation.validEmail
         ],
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
-      'gender': ['M', Validators.required],
-      'phone' : ['', [
-        Validators.required,
-        Validators.minLength(4)
+      gender: ['M', Validators.required],
+      phone: ['', [
+          Validators.required,
+          Validators.minLength(4)
         ],
         this.databaseValidator.checkMobile.bind(this.databaseValidator)
       ],
-      'password' : ['', [
+      password: ['', [
         Validators.required,
         FormValidation.passwordStrength.bind(this)
       ]],
-      'confirmpassword' : ['', [
+      confirmpassword: ['', [
         Validators.required,
         this.passwordMatchCheck.bind(this)
       ]],
@@ -216,7 +203,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
 
     // OTP Form Builder
     this.otpForm = this.fb.group({
-      'otpNumber': ['', [
+      otpNumber: ['', [
           FormValidation.validOtp.bind(this)
         ],
       ]
@@ -224,7 +211,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
 
     // OTP new number
     this.newNumberForm = this.fb.group({
-      'newNumber': ['', [
+      newNumber: ['', [
           Validators.required,
           Validators.minLength(4),
           FormValidation.validPhone.bind(this)
@@ -255,8 +242,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         number = this.regFormBasic.value.phone;
       }
       const send = {
-        'number': number,
-        'otp': value.otpNumber
+        number: number,
+        otp: value.otpNumber
       }
       this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: send });
       this.store.select('loginTags').take(2).subscribe(data => {
@@ -278,16 +265,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     } else {
       number = this.regFormBasic.value.phone;
     }
-
-    // const form =  {
-    //   'client_id' : 'AKIAI7P3SOTCRBKNR3IA',
-    //   'client_secret': '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',
-    //   'username' : number.toString(),
-    //   'password' : this.otpForm.value.otpNumber,
-    //   'grant_type' : 'password'
-    // }
-    // this.store.dispatch({ type: AuthActions.OTP_LOGIN_SUBMIT, payload: form });
-
   }
 
   /**
@@ -375,27 +352,27 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
 
     // form object
     const form =  {
-      'name': {
-        'firstName': value.name
+      name: {
+        firstName: value.name
       },
-      'username': value.username,
-      'profileImage': '',
-      'gender': value.gender,
-      'email':  value.email,
-      'password': value.password,
-      'isAgent': false,
-      'location': '',
-      'contact': {
-        'contactNumber': value.phone.toString(),
-        'countryCode': this.country.callingCodes[0]
+      username: value.username,
+      profileImage: '',
+      gender: value.gender,
+      email:  value.email,
+      password: value.password,
+      isAgent: false,
+      location: '',
+      contact: {
+        contactNumber: value.phone.toString(),
+        countryCode: this.country.callingCodes[0]
       },
-      'other': {
-        'completionStatus': 1,
-        'accountType': [{
-          'name': 'Artist',
-          'typeName': 'individual'
+      other: {
+        completionStatus: 1,
+        accountType: [{
+          name: 'Artist',
+          typeName: 'individual'
           }],
-        'dateOfBirth': this.reverseDate(value.dob) + 'T05:00:00',
+        dateOfBirth: this.reverseDate(value.dob) + 'T05:00:00',
       }
     };
     // console.log('form body', form);
@@ -414,24 +391,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     });
   }
 
-
-
   otpNotRecieved() {
     this.modalService.close('otpWindow');
     this.modalService.open('otpChangeNumber');
-  }
-
-  /**
-   * Is it a valid phone number
-   */
-  isPhoneValid(event: any) {
-  }
-
-
-  /**
-   * Get Phone number state
-   */
-  getNumberState(e: any) {
   }
 
   /**
