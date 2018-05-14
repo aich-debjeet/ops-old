@@ -163,12 +163,16 @@
       </div>
     <div class="col-md-8 o-homefeed-posts">
         <app-post *ngFor="let userMedia of posts; let i = index" [className]="'c-card m-t-8'" [mediaData]="userMedia"></app-post>
+        <div *ngIf="userProfile.user_following_posts_loading">
+            <app-post-card [className]="'c-card m-t-8'" [loader]=true *ngFor="let number of [0,1]" ></app-post-card>
+        </div>
     </div>
-    <div *ngIf="userProfile.user_following_posts_loading">
+    
+    <!-- <div *ngIf="userProfile.user_following_posts_loading">
         <div class="msg__loading">
             <div class="loader">Loading...</div>
         </div>
-    </div>
+    </div> -->
 
 </div>
 <div *ngIf="!userProfile.user_following_posts_loading && posts.length < 1 && isOwner === true" class="empty__state">
