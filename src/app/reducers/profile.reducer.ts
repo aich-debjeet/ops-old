@@ -561,7 +561,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       }
 
       return Object.assign({}, state, {
-        profile_other: x
+        profile_other: x,
+        profile_other_followed: true
       });
 
 
@@ -633,11 +634,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.PROFILE_FOLLOW:
       return Object.assign({}, state, {
         profile_other_followed: false
-      });
-
-    case ProfileActions.PROFILE_FOLLOW_SUCCESS:
-      return Object.assign({}, state, {
-        profile_other_followed: true
       });
 
     case ProfileActions.PROFILE_FOLLOW_FAILED:

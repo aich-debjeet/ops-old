@@ -166,16 +166,11 @@
         <div *ngIf="userProfile.user_following_posts_loading">
             <app-post-card [className]="'c-card m-t-8'" [loader]=true *ngFor="let number of [0,1]" ></app-post-card>
         </div>
-    </div>
-    
-    <!-- <div *ngIf="userProfile.user_following_posts_loading">
-        <div class="msg__loading">
-            <div class="loader">Loading...</div>
-        </div>
-    </div> -->
 
+        <div *ngIf="!userProfile.user_following_posts_loading && posts.length < 1 && isOwner === true" class="empty__state empty__center">
+            <h4>No posts to show here</h4>
+            <p>Follow People & Channels to get updates from them here</p>
+        </div>
+    </div>
 </div>
-<div *ngIf="!userProfile.user_following_posts_loading && posts.length < 1 && isOwner === true" class="empty__state">
-    <h4>No posts to show here</h4>
-    <p>Follow People & Channels to get updates from them here</p>
-</div>
+

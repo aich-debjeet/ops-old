@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TruncatePipe } from '../../../pipes/truncate.pipe';
 
 import { ProfileActions } from '../../../actions/profile.action';
@@ -21,6 +22,7 @@ import { environment } from '../../../../environments/environment';
 })
 
 export class HomeRightBlockComponent implements OnInit, OnDestroy {
+  @Output() followUpdate: EventEmitter<any> = new EventEmitter<any>();
   private subscription: ISubscription;
   private profilesubscription: ISubscription;
   opportunityState$: Observable<OpportunityModel>;
@@ -40,7 +42,8 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
   scrollingLoad = 100;
 
   constructor(
-    private store: Store<ProfileModal>
+    private store: Store<ProfileModal>,
+    private router: Router,
   ) {
     this.myProfile$ = store.select('profileTags');
     this.opportunityState$ = this.store.select('opportunityTags');
@@ -117,6 +120,37 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
   followUser(user: any) {
     this.store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
     user.extra.isFollowing = true;
+    this.store.select('profileTags')
+      .first(state => state['profile_other_followed'] === true)
+      .subscribe( datas => {
+        console.log('Test');
+        this.postLoad();
+        this.loadChannels();
+      });
+
+    // this.router.navigateByUrl('/home/channel');
+    // console.log("home");
+  }
+
+  /**
+   * post user channel
+   */
+  postLoad() {
+    const data = {
+      limit: 10,
+    }
+    this.store.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
+  }
+
+  /**
+   * following user channel
+   */
+  loadChannels() {
+    const body = {
+      limit: 9
+    }
+
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: body });
   }
 
   /**
