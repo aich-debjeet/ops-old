@@ -83,11 +83,22 @@ export class DatabaseValidator {
      */
     validAge(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
-            // if (control.value.indexOf('_') !== -1 || control.value === '') {
-            // return resolve(null);
-            // }
+            console.log('control.value', control.value);
 
+            // check if date has entered completely
+            if (control.value.indexOf('_') > -1) {
+                // console.log('incomplete');
+                // resolve({ 'invalidDOB': true });
+                return;
+            }
             const dateArr =  control.value.split('-');
+            console.log('dateArr', dateArr);
+
+            // if (!Date.parse(control.value)) {
+            //     console.log('INVALID DATE');
+            //     resolve({ 'invalidDOB': true });
+            //     return;
+            // }
 
             const day = dateArr[0];
             const month = dateArr[1];
