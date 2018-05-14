@@ -17,6 +17,21 @@ export class DatabaseValidator {
     constructor(
         private authService: AuthService,
     ) {}
+
+
+
+  // check for valid name
+  checkForValidName(control: AbstractControl) {
+    const q = new Promise((resolve, reject) => {
+        if (!control.value.replace(/\s/g, '').length) {
+            console.log('empty name');
+            resolve({ emptyName: true });
+        }
+        resolve(null);
+    });
+    return q;
+  }
+
     checkEmail(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
         setTimeout(() => {

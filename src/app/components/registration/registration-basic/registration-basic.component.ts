@@ -163,7 +163,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   // Init Reg Form
   buildForm(): void {
     this.regFormBasic = this.fb.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required],
+        this.databaseValidator.checkForValidName.bind(this)
+      ],
       username: ['', [
           Validators.required,
           FormValidation.noWhitespaceValidator,
@@ -353,12 +355,12 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     // form object
     const form =  {
       name: {
-        firstName: value.name
+        firstName: value.name.trim()
       },
       username: value.username,
       profileImage: '',
       gender: value.gender,
-      email:  value.email,
+      email:  value.email.trim(),
       password: value.password,
       isAgent: false,
       location: '',
@@ -371,11 +373,11 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         accountType: [{
           name: 'Artist',
           typeName: 'individual'
-          }],
+        }],
         dateOfBirth: this.reverseDate(value.dob) + 'T05:00:00',
       }
     };
-    // console.log('form body', form);
+    // console.log('form body', form); return;
 
     // register new user
     this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
