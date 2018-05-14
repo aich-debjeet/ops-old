@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment';
@@ -11,7 +11,7 @@ import { AuthActions } from '../../actions/auth.action'
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   private tagStateSubscription: Subscription;
   tagState$: Observable<Login>;
   rightCom: RightBlockTag;
@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
   redrectUrl: any;
   queryParam: any;
   imageBaseUrl = environment.API_IMAGE;
+  private subscription: ISubscription;
 
   constructor(
     fb: FormBuilder,
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
     })
 
     this.tagState$ = store.select('loginTags');
-    this.tagState$.subscribe((state) => {
+    this.subscription = this.tagState$.subscribe((state) => {
       this.petTag = state;
     });
   }
@@ -91,5 +92,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
 }
