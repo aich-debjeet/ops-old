@@ -87,7 +87,7 @@ export class OpportunitySearchRecommendedComponent implements OnInit, OnDestroy 
    */
   loadRecomOpps() {
     const recomSearchParams = {
-      industry: this.skillCodes,
+      // industry: this.skillCodes,
       offset: 0, // initial request
       limit: this.recordsPerPage
     }

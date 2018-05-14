@@ -17,7 +17,7 @@ import { Login, initialTag } from '../../models/auth.model';
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
-export class ForgotPasswordComponent {
+export class ForgotPasswordComponent implements OnInit {
   forgotPass: FormGroup;
   tagState$: Observable<Login>;
   forgotP = initialTag;
@@ -30,6 +30,10 @@ export class ForgotPasswordComponent {
     this.tagState$.subscribe((state) => {
       this.forgotP = state;
     });
+  }
+
+  ngOnInit() {
+    this.store.dispatch({ type: AuthActions.FP_STATE_RESET });
   }
 
   // submit the identity
