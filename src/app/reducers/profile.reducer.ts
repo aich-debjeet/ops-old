@@ -547,7 +547,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
       return Object.assign({}, state, {
         profile_other: v,
-        user_following_posts: state.user_following_posts.filter(post => post.ownerHandle !== payload.ownerHandle)
+        user_following_posts: state.user_following_posts.filter(post => post.ownerHandle !== payload.ownerHandle),
+        user_following_channel: state.user_following_channel.filter(channel => channel.ownerHandle !== payload.ownerHandle)
       });
 
     case ProfileActions.PROFILE_FOLLOW_SUCCESS:
