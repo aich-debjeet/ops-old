@@ -1,8 +1,8 @@
 import { Component, OnInit, ElementRef , Inject, OnDestroy} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DOCUMENT } from '@angular/platform-browser';
+import { IDatePickerConfig } from 'ng2-date-picker';
 
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Store } from '@ngrx/store';
@@ -57,6 +57,13 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   inputNameListener: any;
   showTerms = false;
 
+  datePickerConfig: IDatePickerConfig = {
+    showMultipleYearsNavigation: true,
+    disableKeypress: true,
+    format: 'DD-MM-YYYY',
+    locale: 'en'
+  };
+
   tagState$: Observable<BasicRegTag>;
   private tagStateSubscription: Subscription;
   petTag = initialBasicRegTag;
@@ -66,7 +73,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   phone: string;
   imageBaseLink: string = environment.API_IMAGE;
 
-  public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  // public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public regFormBasic: FormGroup;
   public otpForm: FormGroup;
   public newNumberForm: FormGroup;
@@ -87,7 +94,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     private store: Store<BasicRegTag>,
     private element: ElementRef,
     private databaseValidator: DatabaseValidator,
-    private http: Http,
     private router: Router,
     private route: ActivatedRoute,
     public modalService: ModalService,
@@ -96,11 +102,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
-
       if (typeof state !== 'undefined') {
-        // console.log(state);
         this.petTag = state;
-        // console.log(this.petTag['user_exist']);
       }
     });
     this.isPhotoAdded = false;
@@ -120,7 +123,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
 
   // terms show/hide
   termsAction(action: string) {
-    // console.log('terms value', this.showTerms);
     if (action === 'hide') {
       this.showTerms = false;
     } else {
@@ -144,20 +146,15 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // document.body.style.overflow = 'hidden';
-
     if (this.route.snapshot.queryParams['ev']) {
       if (this.route.snapshot.queryParams['ev'] === 'dwc2017') {
         this.dwc = true;
         if (this.routeQuery) {
           this.routeQuery['dwc2017'] = 'true';
         }
-        // console.log(this.routeQuery);
       }
     }
-
     const currentUrl = this.router.url;
-    // console.log(currentUrl);
   }
 
   // Init Reg Form
@@ -175,13 +172,14 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         ],
         this.databaseValidator.userNameValidation.bind(this.databaseValidator)
       ],
-      dob: ['', [Validators.required],
-        this.databaseValidator.validAge.bind(this.databaseValidator)
+      dob: ['', [
+          Validators.required,
+          FormValidation.validateAge
+        ]
       ],
       email: ['', [
           Validators.required,
           Validators.min(1),
-          // Validators.email
           FormValidation.validEmail
         ],
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
