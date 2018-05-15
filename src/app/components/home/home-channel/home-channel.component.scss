@@ -50,6 +50,10 @@
     margin-top: 2rem;
 }
 
+.empty__center {
+    text-align: center
+}
+
 .m-home_channel {
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
         margin: 0 !important;

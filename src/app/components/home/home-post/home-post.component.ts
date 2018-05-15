@@ -35,7 +35,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   scrollingLoad = 6000;
   post_scroll_id: any = '';
   imageLink: string = environment.API_IMAGE;
-  
+
   constructor(
     private http: Http,
     public route: ActivatedRoute,
@@ -64,13 +64,8 @@ export class HomePostComponent implements OnInit, OnDestroy {
   }
 
   postLoad() {
-    // console.log('handle')
     const data = {
-      // handle: handle,
-      // page_start: this.page_start,
-      // page_end: this.page_end
       limit: 10,
-      // scrollId: this.post_scroll_id,
     }
     this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
   }
@@ -83,18 +78,10 @@ export class HomePostComponent implements OnInit, OnDestroy {
     }
   }
   onScroll(e) {
-    // console.log(e)
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
       this.scrollingLoad += 6000
-      // this.page_start = this.page_start + 30;
-      // this.page_end = 30;
-      // this.postLoad();
       const data = {
-        // handle: handle,
-        // page_start: this.page_start,
-        // page_end: this.page_end
-        // limit: 10,
         scrollId: this.post_scroll_id,
       }
       this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
