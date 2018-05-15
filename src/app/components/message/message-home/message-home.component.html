@@ -39,7 +39,7 @@
                         </div>
                     </div> -->
                 </div>
-                <div *ngIf="messangerList && messangerList?.length > 0" class="mess_list row">
+                <div *ngIf="messangerList && messangerList?.length > 0" class="mess_list row" id="ops_scrollbar">
                     <div *ngFor="let user of messangerList" class="row with_border_bottom with_border_top" [ngClass]="{'msg__unread': !user.isRead }">
                         <div class="c-checkbox__md2 col-md-2">
                             <label class="checkbox-inline pull-right m-t-24">
