@@ -56,20 +56,17 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
      // check for the result of recommended opportunities
      if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
        this.opportunities = state.get_opportunities_data.SUCCESS;
-       console.log(this.opportunities)
      }
    });
 
     this.profilesubscription = this.myProfile$.subscribe((event) => {
       if (event.user_profiles_all_loaded) {
         this.people_follow_id = event.people_follow_scroll_id
-        // console.log(this.people_follow_id)
       }
       if (typeof event !== 'undefined') {
         this.userState = event;
         if (event['user_profiles_all'] !== 'undefined') {
           this.profiles = event.user_profiles_all;
-          // console.log(this.profiles)
         }
 
         // check for user skills
@@ -124,13 +121,9 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
     this.store.select('profileTags')
       .first(state => state['profile_other_followed'] === true)
       .subscribe( datas => {
-        console.log('Test');
         this.postLoad();
         this.loadChannels();
       });
-
-    // this.router.navigateByUrl('/home/channel');
-    // console.log("home");
   }
 
   /**
@@ -172,18 +165,14 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
   loadProfiles() {
     this.store.dispatch({ type: ProfileActions.LOAD_ALL_PROFILES, payload: {
       'isHuman' : '1' ,
-      // 'limit': 10,
       'name': {
         'scrollId': this.people_follow_id
        }
       }});
   }
   onScrol(e) {
-    //  console.log(e)
     this.scrolling = e.currentScrollPosition;
-    // console.log(this.scrolling)
     if (this.scrollingLoad <= this.scrolling) {
-      // console.log('scrolling')
       this.scrollingLoad += 100;
       this.loadProfiles();
     }
