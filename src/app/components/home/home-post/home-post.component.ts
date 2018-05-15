@@ -35,7 +35,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   scrollingLoad = 6000;
   post_scroll_id: any = '';
   imageLink: string = environment.API_IMAGE;
-  
+
   constructor(
     private http: Http,
     public route: ActivatedRoute,
