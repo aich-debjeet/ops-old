@@ -27,6 +27,7 @@
                                 <span class="form_bar"></span>
                                 <label>Name</label>
                                 <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.required && regform.submitted">Name is required</p>
+                                <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.invalidName && regform.submitted">Invalid name</p>
                             </div>
                             <div class="form_group">
                                 <input tabindex="2" class="form_input" type="text" (ngModelChange)="userExistCheck($event)" formControlName="username" required>
@@ -62,7 +63,8 @@
                         </label>
                     </div>
                     <div class="form_group">
-                        <input tabindex="3" class="form_input" type="text" formControlName="dob" [textMask]="{mask: dateMask}" placeholder="DD-MM-YYYY">
+                        <!-- <input tabindex="3" class="form_input" type="text" formControlName="dob" [textMask]="{mask: dateMask}" placeholder="DD-MM-YYYY"> -->
+                        <input tabindex="3" class="form_input dib" type="text" formControlName="dob" [dpDayPicker]="datePickerConfig" theme="dp-material">
                         <span class="form_highlight"></span>
                         <span class="form_bar"></span>
                         <label>Date of Birth</label>
