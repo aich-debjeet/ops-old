@@ -55,7 +55,7 @@
     }
 }
 .o-network__right {
-    width: 330px;
+    width: 358px;
     float: left;
     @include mq($from: $mobile_sm, $until: $desktop_sm){
         width: 100%!important;

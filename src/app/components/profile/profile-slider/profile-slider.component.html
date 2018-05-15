@@ -482,10 +482,10 @@
                             </button>
                         </div>
                         <ng-template #not_imported>
-                            <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
+                            <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-default btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
                                 <span class="btn-label-follow"> UNFOLLOW </span>
                             </button>
-                            <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
+                            <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-primary btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
                                 <span class="btn-label-follow"> FOLLOW </span>
                             </button>
                         </ng-template>
@@ -537,10 +537,10 @@
                             </button>
                         </div>
                         <ng-template #not_imported>
-                            <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
+                            <button (click)="unfollowUser(follower)" *ngIf="follower?.extra.isFollowing" type="button" class="btn btn-xs btn-default btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
                                 <span class="btn-label-follow"> UNFOLLOW </span>
                             </button>
-                            <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-basic btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
+                            <button (click)="followUser(follower)" *ngIf="!follower?.extra.isFollowing" type="button" class="btn btn-xs btn-primary btn-following" [disabled]="disableFollowForSelf(follower?.extra?.username)">
                                 <span class="btn-label-follow"> FOLLOW </span>
                             </button>
                         </ng-template>
