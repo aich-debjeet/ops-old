@@ -380,13 +380,13 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
       && this.profileState['profile_cards']['active']
       && e.keyCode !== 13 // to prevent indication on message sent
     ) {
-      this.messageStore.dispatch({
-        type: MessageActions.USER_IS_TYPING,
-        payload: {
-          loggedInUsersHandle: this.profileState['profile_cards']['active']['handle'],
-          selectedUsersHandle: this.selectedUser.handle
-        }
-      });
+      // this.messageStore.dispatch({
+      //   type: MessageActions.USER_IS_TYPING,
+      //   payload: {
+      //     loggedInUsersHandle: this.profileState['profile_cards']['active']['handle'],
+      //     selectedUsersHandle: this.selectedUser.handle
+      //   }
+      // });
     }
     // filter emtpy mesage and spaces
     if (!this.messageText.replace(/\s/g, '').length) {
