@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 // action
 import { NotificationActions } from './../../actions/notification.action';
@@ -18,9 +18,10 @@ import * as _ from 'lodash';
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss']
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent implements OnInit, OnDestroy {
 
   notificationsState$: Observable<Notification>;
+  private subscription: ISubscription;
   formattedNotifications: any[];
   notificationIds: any[];
   notifications: any[];
@@ -46,11 +47,10 @@ export class NotificationComponent implements OnInit {
     this.notificationsState$ = this.store.select('notificationTags');
 
     // observe the store value
-    this.notificationsState$.subscribe((state) => {
+    this.subscription = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         if (typeof state['recieved_notifications'] !== 'undefined') {
           this.notifications = state['recieved_notifications'];
-          
 
           // check is unread notification exits else mark all notifications as read
           setTimeout(() => {
@@ -251,5 +251,9 @@ export class NotificationComponent implements OnInit {
   }
 
   ngOnInit() { }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
 }

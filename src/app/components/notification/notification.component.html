@@ -22,8 +22,8 @@
                       <li class="with_border_bottom" *ngFor="let notification of notifications; let notifIndex = index;" [ngClass]="{'fill_grey': !notification.isRead}">
                           <ul class="list-inline">
                             <li class="list-inline-item float_left noti_avatar">
-                              <img *ngIf="!notification.profileImage" src="{{ baseUrl }}img/avatar.png" class="img-responsive">
-                              <img *ngIf="notification.profileImage" src="{{ baseUrl + notification.profileImage }}" class="img-responsive">
+                              <img *ngIf="!notification.profileImage" [src]="baseUrl + 'img/avatar.png'" class="img-responsive">
+                              <img *ngIf="notification.profileImage" [src]="baseUrl + notification.profileImage" class="img-responsive">
                             </li>
                             <!-- <li class="list-inline-item noti_cont cursor-pointer" (click)="openLink(notifIndex, notification.notificationId)" > -->
                             <li class="list-inline-item noti_cont cursor-pointer" (click)="openLink(notifIndex, notification.notificationId)">
@@ -34,12 +34,14 @@
                                 </div>
                                 <div class="head_msg_short">{{ notification.message }}</div>
                                 <div class="noti_cont_footer">
-                                  <img src="{{ baseUrl }}img/svg/ico_comment.svg" class="noti_cont_footer_img"><span>{{ notification.createdDate | utcDate | date:'d MMM hh:mm a' }}</span>
+                                  <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
+                                  <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="baseUrl + 'img/svg/ico_spot.svg'" class="noti_cont_footer_img">
+                                  <span>{{ notification.createdDate | utcDate | date:'d MMM hh:mm a' }}</span>
                                 </div>
                             </li>
                             <li class="list-inline-item noti_cont_time">
                               <div class="msg_time">
-                                  <img src="https://ops33wubrfki0l68.cloudfront.net/08d8baa73a848a239ed3a47529429e84745ecf64/c4ff2/img/svg/ico_lik.svg" class="img-responsive">
+                                  <img [src]="baseUrl + 'img/svg/ico_lik.svg'" class="img-responsive">
                               </div>
                             </li>
                           </ul>
@@ -58,8 +60,4 @@
     </section>
 </main>
 
-<footer>
-    <div class="container">
-      <p>© Copyright 2017 One Page Spotlight</p>
-    </div>
-</footer>
+<app-footer></app-footer>
