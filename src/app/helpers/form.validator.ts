@@ -17,6 +17,20 @@ export class DatabaseValidator {
     constructor(
         private authService: AuthService,
     ) {}
+
+
+
+  // check for valid name
+  checkForValidName(control: AbstractControl) {
+    const q = new Promise((resolve, reject) => {
+        if (!control.value.replace(/\s/g, '').length) {
+            resolve({ invalidName: true });
+        }
+        resolve(null);
+    });
+    return q;
+  }
+
     checkEmail(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -69,11 +83,22 @@ export class DatabaseValidator {
      */
     validAge(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
-            // if (control.value.indexOf('_') !== -1 || control.value === '') {
-            // return resolve(null);
-            // }
+            console.log('control.value', control.value);
 
+            // check if date has entered completely
+            if (control.value.indexOf('_') > -1) {
+                // console.log('incomplete');
+                // resolve({ 'invalidDOB': true });
+                return;
+            }
             const dateArr =  control.value.split('-');
+            console.log('dateArr', dateArr);
+
+            // if (!Date.parse(control.value)) {
+            //     console.log('INVALID DATE');
+            //     resolve({ 'invalidDOB': true });
+            //     return;
+            // }
 
             const day = dateArr[0];
             const month = dateArr[1];
@@ -342,9 +367,45 @@ export class ProfileUpdateValidator {
 @Injectable()
 export class FormValidation {
 
+    static validateAge(control: AbstractControl) {
+        const dob = control.value;
+        const dateArr =  control.value.split('-');
+
+        const day = dateArr[0];
+        const month = dateArr[1];
+        const year = dateArr[2];
+
+        // check for valid day number
+        if (parseInt(day, 10) > 31) {
+            return { invalidDOB: true };
+        }
+
+        // check for valid month number
+        if (parseInt(month, 10) > 12) {
+            return { invalidDOB: true };
+        }
+
+        // check if year is not greater that current
+        if (new Date().getUTCFullYear() < year) {
+            return { invalidDOB: true };
+        }
+
+        const birthDate = new Date(year, month, day);
+        const ageDifMs = Date.now() - birthDate.getTime();
+        const ageDate = new Date(ageDifMs); // miliseconds from epoch
+        const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+        if (age <= 13) {
+            return { isUnderAge: true };
+        } else if (age >= 100) {
+            return { isOverAge: true };
+        }
+        return null;
+    }
+
     static matchPassword(AC: AbstractControl) {
-       const password = AC.get('password').value; // to get value in input tag
-       const confirmPassword = AC.get('confirmpassword').value; // to get value in input tag
+        const password = AC.get('password').value; // to get value in input tag
+        const confirmPassword = AC.get('confirmpassword').value; // to get value in input tag
         if (password !== confirmPassword) {
             AC.get('confirmpassword').setErrors( {MatchPassword: true} )
         } else {

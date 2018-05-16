@@ -165,7 +165,7 @@
     float: left;
     .msg_cont_block {
         background-color: #f3f5f7;
-        border: solid 1px #e4e4e4;
+        // border: solid 1px #e4e4e4;
         border-radius: 2px;
         width: 60%;
         float: left;
@@ -183,7 +183,7 @@
 
 .msg_cont_block2 {
     background-color: #c1c1c1;
-    border: solid 1px #d8d8d8;
+    // border: solid 1px #d8d8d8;
     border-radius: 2px;
     width: 60%;
     float: right;
@@ -205,8 +205,9 @@
         content: ' ';
         position: absolute;
         background: #f0f0f0;
-        left: -11px;
+        left: -10px;
         top: 3px;
+        border-radius: 1px;
         -ms-transform: rotate(46deg);
         -webkit-transform: rotate(46deg);
         transform: rotate(46deg);
@@ -220,8 +221,9 @@
         content: ' ';
         position: absolute;
         background: #c1c1c1;
-        right: -11px;
+        right: -10px;
         top: 3px;
+        border-radius: 1px;
         -ms-transform: rotate(46deg);
         -webkit-transform: rotate(46deg);
         transform: rotate(46deg);
