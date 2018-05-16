@@ -208,7 +208,7 @@
                                 <div class="dropdown__arrow"><img [src]="imageBaseUrl + 'img/arrow.png'"></div>
                             </div>
                             <div class="o-alert_scroll" id="ops_scrollbar">
-                                <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications" [ngClass]="{'fill_grey': !notification.isRead}">
+                                <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications" [ngClass]="{'msg__read': notification.isRead, 'msg__unread': !notification.isRead}">
                                     <div class="dropnoti__avatar">
                                         <!-- <img class="navdrop__img" [src]="imageBaseUrl + 'img/new/avatar2.png'"> -->
                                         <img *ngIf="!notification.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="img-responsive">

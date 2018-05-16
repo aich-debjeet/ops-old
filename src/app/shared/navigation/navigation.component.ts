@@ -1,4 +1,4 @@
-import { Component, Directive, ChangeDetectionStrategy, OnInit, HostListener, Renderer, ElementRef, HostBinding } from '@angular/core';
+import { Component, Directive, ChangeDetectionStrategy, OnInit, HostListener, Renderer, ElementRef, HostBinding, OnDestroy } from '@angular/core';
 import { ModalService } from '../modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag, UserCard, ProfileCards } from '../../models/profile.model';
@@ -13,7 +13,7 @@ import { OrganizationActions } from '../../actions/organization.action';
 import { NotificationActions } from './../../actions/notification.action';
 
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 import { environment } from '../../../environments/environment';
 
 import { _ } from 'lodash';
@@ -31,7 +31,7 @@ import { PusherService } from '../../services/pusher.service';
   styleUrls: ['./navigation.component.scss']
 })
 
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit, OnDestroy {
 
   topNav: any;
   imageBaseUrl: string  = environment.API_IMAGE;
@@ -47,6 +47,8 @@ export class NavigationComponent implements OnInit {
   scrolling = 0;
   scrollingLoad = 100;
   page_start = 1;
+  private subscription: ISubscription;
+  private subscriptionOne: ISubscription;
 
   // userCard: UserCard;
   userCards: ProfileCards;
@@ -82,7 +84,8 @@ export class NavigationComponent implements OnInit {
     this.notificationsState$ = this.store.select('notificationTags');
 
     /* Profile state */
-    this.profileState$.subscribe((state) => {
+    this.subscription = this.profileState$.subscribe((state) => {
+      console.log(state);
       this.activeProfileState = state;
       // console.log('app state', state);
       this.userCards = this.activeProfileState['profile_cards'];
@@ -399,5 +402,9 @@ export class NavigationComponent implements OnInit {
   logoutSubmit() {
     this.router.navigate(['/']);
     this.store.dispatch({ type: AuthActions.USER_LOGOUT, payload: ''});
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
