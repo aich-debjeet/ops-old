@@ -85,7 +85,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
     /* Profile state */
     this.subscription = this.profileState$.subscribe((state) => {
-      console.log(state);
       this.activeProfileState = state;
       // console.log('app state', state);
       this.userCards = this.activeProfileState['profile_cards'];
@@ -122,7 +121,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     }
     // observe the store value
-    this.notificationsState$.subscribe((state) => {
+    this.subscriptionOne = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         // if(typeof state['recieved_pushed_notifications_success']){
         // }
@@ -406,5 +405,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.subscriptionOne.unsubscribe();
   }
 }
