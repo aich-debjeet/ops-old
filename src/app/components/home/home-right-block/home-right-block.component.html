@@ -33,7 +33,7 @@
             <a routerLink="/opportunity/view/{{ opportunityDetails?.id }}" *ngFor="let opportunityDetails of opportunities">
                 <div class="with_border_bottom m-b-16" *ngIf = "opportunityDetails?.opportunityType === 'audition'">
                     <div class="c-card__project p-l-r-16">
-                        <img [src]="imageBaseUrl + 'img/opportunities/audition.png'" class="c-card__project--icon"> 
+                        <img [src]="imageBaseUrl + 'img/svg/audition.svg'" class="c-card__project--icon"> 
                         <span class="m-l-8">{{opportunityDetails?.opportunityType | uppercase }}</span>
                     </div>
                     <div class="o-home-org-list__title">
@@ -47,7 +47,7 @@
                 </div>
                 <div class="with_border_bottom m-b-16" *ngIf = "opportunityDetails?.opportunityType === 'volunteer'">
                     <div class="c-card__project p-l-r-16">
-                        <img [src]="imageBaseUrl + 'img/opportunities/volunteer.png'" class="c-card__project--icon"> 
+                        <img [src]="imageBaseUrl + 'img/svg/volunteer.svg'" class="c-card__project--icon"> 
                         <span class="m-l-8">{{opportunityDetails?.opportunityType | uppercase }}</span>
                     </div>
                     <div class="o-home-org-list__title">
@@ -61,7 +61,7 @@
                 </div>
                 <div class="with_border_bottom m-b-16" *ngIf = "opportunityDetails?.opportunityType === 'freelance'">
                     <div class="c-card__project p-l-r-16">
-                        <img [src]="imageBaseUrl + 'img/opportunities/freelance.png'" class="c-card__project--icon"> 
+                        <img [src]="imageBaseUrl + 'img/svg/Freelance.svg'" class="c-card__project--icon"> 
                         <span class="m-l-8">{{opportunityDetails?.opportunityType | uppercase }}</span>
                     </div>
                     <div class="o-home-org-list__title">
@@ -75,7 +75,7 @@
                 </div>
                 <div class="with_border_bottom m-b-16" *ngIf = "opportunityDetails?.opportunityType === 'job'">
                     <div class="c-card__project p-l-r-16">
-                        <img [src]="imageBaseUrl + 'img/opportunities/job.png'" class="c-card__project--icon"> 
+                        <img [src]="imageBaseUrl + 'img/svg/jobs.svg'" class="c-card__project--icon"> 
                         <span class="m-l-8">{{opportunityDetails?.opportunityType | uppercase }}</span>
                     </div>
                     <div class="o-home-org-list__title">
@@ -89,7 +89,7 @@
                 </div>
                 <div class="with_border_bottom m-b-16" *ngIf = "opportunityDetails?.opportunityType === 'project'">
                     <div class="c-card__project p-l-r-16">
-                        <img [src]="imageBaseUrl + 'img/opportunities/projects.png'" class="c-card__project--icon"> 
+                        <img [src]="imageBaseUrl + 'img/svg/Projects.svg'" class="c-card__project--icon"> 
                         <span class="m-l-8">{{opportunityDetails?.opportunityType | uppercase }}</span>
                     </div>
                     <div class="o-home-org-list__title">
