@@ -34,10 +34,10 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
     case MessageActions.DELETE_MESSAGE:
       let conv_list_after_del_msg;
       const conv_list = state['load_conversation_data'];
-      const msgIndex = _.findIndex(conv_list, (obj) => obj.id === payload.messageId);
-      if (msgIndex > -1) {
+      const msgIndexDel = _.findIndex(conv_list, (obj) => obj.id === payload.messageId);
+      if (msgIndexDel > -1) {
         // get the message object
-        const msgObj = conv_list[msgIndex];
+        const msgObj = conv_list[msgIndexDel];
         if (msgObj && msgObj !== undefined) {
           // update details
           msgObj.isDeleted = true;
@@ -165,13 +165,13 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       const messanger_list = state['messanger_list_data'];
       if (state && messanger_list !== undefined) {
         // remove the user with the same handle
-        const msgIndex = _.findIndex(messanger_list, (obj) => obj.handle === payload.to);
-        if (msgIndex > -1) {
+        const msgIndexSend = _.findIndex(messanger_list, (obj) => obj.handle === payload.to);
+        if (msgIndexSend > -1) {
           // get the user object
-          const msgObj = messanger_list[msgIndex];
+          const msgObj = messanger_list[msgIndexSend];
           if (msgObj && msgObj !== undefined) {
             // delete object
-            messanger_list.splice(msgIndex, 1);
+            messanger_list.splice(msgIndexSend, 1);
             // update details
             msgObj.messageType = 'sent';
             msgObj.latestMessage = payload.content;
@@ -223,19 +223,31 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
     /* update pusher message */
     case MessageActions.ADD_PUSHER_MESSAGE:
       // check for the selected user handle to append the message
+      let updated_load_conversation_data = [];
       if (state && state['load_conversation_params'] !== undefined && state['load_conversation_params']['handle'] !== undefined && state['load_conversation_params']['handle'] === payload['by']) {
-        let updated_load_conversation_data = [];
         if (state && state['load_conversation_data'] !== undefined) {
           updated_load_conversation_data = [...state['load_conversation_data'], payload];
         } else {
           updated_load_conversation_data = [payload];
         }
-        return Object.assign({}, state, {
-          load_conversation_data: updated_load_conversation_data
-        });
       } else {
-        return state;
+        updated_load_conversation_data = state.load_conversation_data;
       }
+      // update the user in listing with new message
+      const listingIndex = _.findIndex(state.messanger_list_data, (obj) => obj.handle === payload.by);
+      if (listingIndex > -1) {
+        // get the user object
+        const msgObj = state.messanger_list_data[listingIndex];
+        if (msgObj && msgObj !== undefined) {
+          msgObj.time = payload.time;
+          msgObj.latestMessage = payload.content;
+          msgObj.messageType = payload.messageType;
+          msgObj.isRead = true;
+        }
+      }
+      return Object.assign({}, state, {
+        load_conversation_data: updated_load_conversation_data
+      });
     /* update pusher message */
 
     /* reset conversation state */
