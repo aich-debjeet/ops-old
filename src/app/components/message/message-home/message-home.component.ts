@@ -277,6 +277,7 @@ export class MessageHomeComponent implements OnInit, OnDestroy, AfterViewChecked
       isNetworkRequest: false,
       isDeleted: false,
       profileImage: loggedUsersImage,
+      isSending: true,
       time: Date.now()
     }
 

@@ -193,10 +193,23 @@ export const MessageReducer: ActionReducer<any> = (state, {payload, type}: Actio
       });
 
     case MessageActions.SEND_MESSAGE_SUCCESS:
+      // mark message delivered
+      if (payload && payload.SUCCESS) {
+        // find the message
+        const sentMsgIndex = _.findIndex(state.load_conversation_data, (obj) => obj.content === payload.SUCCESS.content);
+        if (sentMsgIndex > -1) {
+          if (state.load_conversation_data[sentMsgIndex] && state.load_conversation_data[sentMsgIndex] !== undefined) {
+            // delete object
+            state.load_conversation_data[sentMsgIndex].id = payload.SUCCESS.id;
+            delete state.load_conversation_data[sentMsgIndex].isSending;
+          }
+        }
+      }
       return Object.assign({}, state, {
         sending_message: false,
         send_message_data: payload,
-        sending_message_success: true
+        sending_message_success: true,
+        // load_conversation_data: updated_conv_list
       });
 
     case MessageActions.SEND_MESSAGE_FAILED:
