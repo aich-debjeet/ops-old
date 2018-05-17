@@ -138,7 +138,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
         }
       }
     });
-
   }
 
   /**
@@ -188,10 +187,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit() {
-    this.notificationStore.dispatch({
-      type: NotificationActions.LOAD_NOTIFICATIONS,
-      payload: null
-    });
+    this.loadNotification();
     this.pusherService.notificationsChannel.bind('Media_Spot', (message) => {
       // console.log(message)
       this.notify = true;
@@ -274,11 +270,18 @@ export class NavigationComponent implements OnInit, OnDestroy {
     .subscribe( data => {
       this.isProfileSet = true;
     });
-    
   }
 
   toggleNav(name: string) {
     return ;
+  }
+
+  loadNotification() {
+    const data = {
+      limit: 10,
+      page: 0
+    }
+    this.notificationStore.dispatch({ type: NotificationActions.LOAD_NOTIFICATIONS, payload: data });
   }
 
   /**
@@ -355,6 +358,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
    * @Param: notification id
    */
   markAsRead(notificationId: string) {
+    console.log(notificationId);
     this.notificationIds = [notificationId];
     this.dispatchReadNotifications();
   }
@@ -372,29 +376,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * Get all ids of all notifications
-   */
-  getAllNotificationIds(callback) {
-    const data = [];
-    this.notifications.forEach((notif, index) => {
-      if (notif.isRead === false) {
-        data.push(notif.notificationId);
-      }
-      if (index === (this.notifications.length - 1)) {
-        this.notificationIds = data;
-        callback();
-      }
-    });
-  }
 
   /**
    * Marking all notifications as read
    */
   markAllAsRead() {
-    const self = this;
-    this.getAllNotificationIds(function() {
-      self.dispatchReadNotifications();
+    this.notificationStore.dispatch({
+      type: NotificationActions.MARK_AS_ALL_READ,
+      payload: {
+        notificationList: ''
+      }
     });
   }
 

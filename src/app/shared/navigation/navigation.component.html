@@ -57,8 +57,8 @@
                                         </span>
                                     </div>
                                     <div class="dropnoti__icon">
-                                            <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img"> -->
-                                            <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="baseUrl + 'img/svg/spot_icon.svg'">
+                                            <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="imageBaseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img"> 
+                                            <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
                                     </div>
                                     <p class="msg__time">--</p>
                                 </div>
@@ -209,7 +209,7 @@
                                 <div class="dropdown__arrow"><img [src]="imageBaseUrl + 'img/arrow.png'"></div>
                             </div>
                             <div class="o-alert_scroll" id="ops_scrollbar">
-                                <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications" [ngClass]="{'msg__read': notification.isRead, 'msg__unread': !notification.isRead}">
+                                <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications" [ngClass]="{'msg__read': notification?.isRead, 'msg__unread': !notification?.isRead}">
                                     <div class="dropnoti__avatar">
                                         <!-- <img class="navdrop__img" [src]="imageBaseUrl + 'img/new/avatar2.png'"> -->
                                         <img *ngIf="!notification.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="img-responsive">
@@ -222,8 +222,8 @@
                                         </span>
                                     </div>
                                     <div class="dropnoti__icon">
-                                        <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
-                                        <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="baseUrl + 'img/svg/spot_icon.svg'">
+                                        <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="imageBaseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
+                                        <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
                                     </div>
                                     <p class="msg__time">{{notification.createdDate |date:'short'}}</p>
                                     <!-- <div class="dropnoti__permission" *ngIf = "notification.notificationType === 'Network_Sent'">

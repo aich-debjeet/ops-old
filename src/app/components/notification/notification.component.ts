@@ -31,7 +31,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
   lastScrollTop = 0;
   showPreloader: boolean;
   scrolling = 0;
-  scrollingLoad = 1000;
+  scrollingLoad = 251;
+  page = 0;
 
   constructor(
     private store: Store<Notification>,
@@ -77,25 +78,26 @@ export class NotificationComponent implements OnInit, OnDestroy {
     });
   }
 
-  @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
-    const scrolledValue = window.pageYOffset;
-    let scrollDirection = '';
-    if (scrolledValue > this.lastScrollTop) {
-      scrollDirection = 'down';
-    } else {
-      scrollDirection = 'up';
-    }
-    this.lastScrollTop = scrolledValue;
+  // @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
+  //   const scrolledValue = window.pageYOffset;
+  //   let scrollDirection = '';
+  //   if (scrolledValue > this.lastScrollTop) {
+  //     scrollDirection = 'down';
+  //   } else {
+  //     scrollDirection = 'up';
+  //   }
+  //   this.lastScrollTop = scrolledValue;
 
-    if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
-      // reached the bottom of the page
-      this.canScroll = false;
-      setTimeout(() => {
-        this.canScroll = true;
-      }, 1000);
-      this.dispatchLoadNotifications();
-    }
-  }
+  //   if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
+  //     // reached the bottom of the page
+  //     this.canScroll = false;
+  //     console.log('scroll');
+  //     setTimeout(() => {
+  //       this.canScroll = true;
+  //     }, 1000);
+  //     this.dispatchLoadNotifications();
+  //   }
+  // }
 
   /**
    * Redux dispatch to load notifications
@@ -254,6 +256,21 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  onScroll(e) {
+    console.log(e);
+    this.scrolling = e.currentScrollPosition;
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 500
+      this.page += 10
+      const data = {
+        limit: 10,
+        page: this.page
+      }
+
+      this.store.dispatch({ type: NotificationActions.LOAD_NOTIFICATIONS, payload: data });
+    }
   }
 
 }
