@@ -129,7 +129,7 @@
                                             <form [formGroup]="dateForm" novalidate (ngSubmit)="dateFormUpdate(dateForm.value)" #dobform="ngForm">
                                                 <div class="col-md-4 p-0">
                                                     <div class="c-form__group c-form--sm c-form--noeffect m-0">
-                                                        <input class="c-form__input p-0" type="text" formControlName="dob">
+                                                        <input class="c-form__input p-0" type="text" required [textMask]="{mask: dateMask}" formControlName="dob">
                                                         <p class="c-form__validation" *ngIf="dateForm.controls['dob'].errors?.required && dobform.submitted">DOB is required</p>
                                                         <p class="c-form__validation" *ngIf="dateForm.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
                                                         <p class="c-form__validation" *ngIf="dateForm.controls['dob'].errors?.isUnderAge">You should be above 13</p>
@@ -197,11 +197,26 @@
                                         <!-- data end -->
                                         <div id="acc-info-gender__edit" class="o-set-list__edit" *ngIf="genderActive">
                                             <form [formGroup]="genderForm" novalidate (ngSubmit)="genderFormUpdate(genderForm.value)" #gendForm="ngForm">
-                                                <div class="col-md-4 p-0">
+                                                <div class="col-md-6 p-0">
+                                                    <div class="edit-about-gender c-radio__sm">
+                                                        <div class="c-radio__sm">
+                                                            <label class="col-md-4">
+                                                                <input type="radio" value="M" formControlName="gender"><span></span>Male
+                                                            </label>
+                                                            <label class="col-md-4">
+                                                                <input type="radio" value="F" formControlName="gender"><span></span>Female
+                                                            </label>
+                                                            <label class="col-md-4">
+                                                                <input type="radio" value="O" formControlName="gender"><span></span>Others
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>    
+                                                <!-- <div class="col-md-4 p-0">
                                                     <div class="c-form__group c-form--sm c-form--noeffect m-0">
                                                         <input class="c-form__input p-0" type="text" formControlName="gender">
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="col-md-2 p-0">
                                                 </div>
                                                 <div class="col-md-6 p-0">
@@ -239,8 +254,8 @@
                                                         <input class="c-form__input c-form__input--alert p-0" required="" type="text" formControlName="username">
                                                         <!-- <p class="c-form__validation">Validation Messages</p> -->
                                                         <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.required && userform.submitted">Username is required</p>
-                                                        <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.whitespace">White Space Not Allowed</p>
-                                                        <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.minlength">Username must be min length 4</p>
+                                                        <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.whitespace|| usernameForm.controls['username'].errors?.capitalLetters || usernameForm.controls['username'].errors?.specialChars">Capital letters, spaces and special characters are not allowed</p>
+                                                        <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.invalidLength">Username length limit is 3 to 15 character</p>
                                                         <p class="c-form__validation" *ngIf="usernameForm.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
                                                         <!-- <ul class="username_error" *ngIf="petTag.user_unique">
                                                             <li *ngFor="let username of petTag?.user_exist; let isLast=last">
@@ -284,7 +299,7 @@
                                                 <div class="col-md-8 p-0">
                                                     <div class="c-form__group c-form--sm c-form--noeffect m-0">
                                                         <input class="c-form__input p-0" required="" type="email" formControlName="email">
-                                                        <p class="c-form__validation" *ngIf="emailForm.controls['email'].errors?.isEmailUnique ">Mail account already exists</p>
+                                                        <p class="c-form__validation" *ngIf="emailForm.controls['email'].errors?.isEmailUnique && eform.submitted ">Mail account already exists</p>
                                                         <p class="c-form__validation" *ngIf="emailForm.controls['email'].errors?.email || emailForm.controls['email'].errors?.isInvalidEmail && eform.submitted">Email is not valid</p>
                                                         <p class="c-form__validation" *ngIf="emailForm.controls['email'].errors?.required && eform.submitted">Email is required</p>
                                                     </div>
@@ -466,7 +481,7 @@
                                             <span class="c-h3 line-height15 color-grey-dark">………………</span>
                                             <span class="o-set-list__edit-btn">
                                                 <a href="javascript:void(0)" class="o-set-list-edit__link c-text_md" (click)="passwordToggle()" >
-                                                    <span class="o-set-list-edit__icon"><img src="img/svg/editpencil.svg" alt=""></span> Change
+                                                    <span class="o-set-list-edit__icon"><img src="{{ imageBaseLink }}img/svg/editpencil.svg" alt=""></span> Change
                                             </a>
                                             </span>
                                         </div>

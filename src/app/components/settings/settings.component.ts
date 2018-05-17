@@ -59,6 +59,7 @@ export class SettingsComponent implements OnInit {
   resendingOtp = false;
   number: any;
   notificationOption = []
+  private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   // commentsOption: any; // = {name: 'Comments', value: 'Comments', checked: true};
   // spotsOption: any; // = {name: 'Spots', value: 'Spots', checked: true};
   // mentionOption: any; // = {name: 'Mention', value: 'Mention', checked: true};
@@ -133,7 +134,9 @@ export class SettingsComponent implements OnInit {
     this.usernameForm = this._fb.group({
        'username' : ['' , [
              Validators.required,
-             Validators.minLength(4),
+             FormValidation.usernameLengthValidator,
+             FormValidation.noSpecialCharsValidator,
+             FormValidation.noCapitalLettersValidator,
              FormValidation.noWhitespaceValidator],
              this.databaseValidator.userNameValidation.bind(this.databaseValidator)
             ],
