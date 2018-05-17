@@ -50,7 +50,7 @@ export class NotificationService {
    * Mark All notification as read
    */
   notificationAllMarkAsRead(reqBody: any) {
-    return this.api.put( '/network/notification/mark/read', '');
+    return this.api.get( '/portal/network/notification/mark/read');
   }
 
   /**

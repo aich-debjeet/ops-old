@@ -42,8 +42,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
     // image path
     this.baseUrl = environment.API_IMAGE;
 
-    //this.dispatchLoadNotifications();
-
     // notification sotre
     this.notificationsState$ = this.store.select('notificationTags');
 
@@ -54,23 +52,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
           this.notifications = state['recieved_notifications'];
 
           // check is unread notification exits else mark all notifications as read
-          setTimeout(() => {
-            // check if unread notification is available
-            const allNotifsRead = _.every(this.notifications, ['isRead', true]);
-            if (allNotifsRead) {
-              this.alreadyReadAll = true;
-            } else {
-              this.alreadyReadAll = false;
-              this.markAllAsRead();
-            }
-          }, 1000);
 
           this.processNotifications();
         }
-        if (typeof state['marking_as_read_response'] !== 'undefined') {
-          // upadte notification as marked
-          this.updateNotifications();
-        }
+
         if (state && state['recieved_notifications_success'] === true) {
           this.showPreloader = false;
         }
@@ -78,61 +63,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
     });
   }
 
-  // @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
-  //   const scrolledValue = window.pageYOffset;
-  //   let scrollDirection = '';
-  //   if (scrolledValue > this.lastScrollTop) {
-  //     scrollDirection = 'down';
-  //   } else {
-  //     scrollDirection = 'up';
-  //   }
-  //   this.lastScrollTop = scrolledValue;
-
-  //   if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
-  //     // reached the bottom of the page
-  //     this.canScroll = false;
-  //     console.log('scroll');
-  //     setTimeout(() => {
-  //       this.canScroll = true;
-  //     }, 1000);
-  //     this.dispatchLoadNotifications();
-  //   }
-  // }
-
-  /**
-   * Redux dispatch to load notifications
-   */
-  dispatchLoadNotifications() {
-    // showing preloader
-    this.showPreloader = true;
-    // loading notifications
-    this.store.dispatch({
-      type: NotificationActions.LOAD_NOTIFICATIONS,
-      payload: null
-    });
-  }
-
-  /**
-   * Updating notification read in UI
-   */
-  updateNotifications() {
-    if (typeof this.notifications !== 'undefined'
-      && typeof this.notificationIds !== 'undefined'
-      && this.notifications.length > 0) {
-        for (let readNotifIndex = 0; readNotifIndex < this.notificationIds.length; readNotifIndex++) {
-          const readNotif = this.notificationIds[readNotifIndex];
-          for (let notifIndex = 0; notifIndex < this.notifications.length; notifIndex++) {
-            if (this.notifications[notifIndex].notificationId === this.notificationIds[readNotifIndex]) {
-              this.notifications[notifIndex].isRead = true;
-            }
-          }
-        }
-    }
-  }
-
   // message maker
   processNotifications() {
 
+    console.log('processNotifications');
     this.notifications.forEach((notif, index) => {
 
       switch (notif.notificationType) {
@@ -224,31 +158,24 @@ export class NotificationComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * Get all ids of all notifications
-   */
-  getAllNotificationIds(callback) {
-    const data = [];
-    if (typeof this.notifications !== 'undefined') {
-      this.notifications.forEach((notif, index) => {
-        if (notif.isRead === false) {
-          data.push(notif.notificationId);
-        }
-        if (index === (this.notifications.length - 1)) {
-          this.notificationIds = data;
-          callback();
-        }
-      });
-    }
-  }
 
   /**
    * Marking all notifications as read
    */
   markAllAsRead() {
-    const self = this;
-    this.getAllNotificationIds(function() {
-      self.dispatchReadNotifications();
+    this.store.dispatch({ type: NotificationActions.MARK_AS_ALL_READ });
+
+    this.store.select('notificationTags')
+    .first(notification => notification['mark_as_all_read_success'] === true )
+    .subscribe( data => {
+      this.scrolling = 0;
+      this.scrollingLoad = 251;
+      this.page = 0;
+      const payload = {
+        limit: 10,
+        page: 0
+      }
+      this.store.dispatch({ type: NotificationActions.LOAD_NOTIFICATIONS, payload: payload });
     });
   }
 

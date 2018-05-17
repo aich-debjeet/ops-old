@@ -55,7 +55,17 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       return Object.assign({}, state, {
         mark_as_read_success: false
       });
-      
+
+    case NotificationActions.MARK_AS_ALL_READ:
+      return Object.assign({}, state, {
+        mark_as_all_read_success: false
+      });
+
+    case NotificationActions.MARK_AS_ALL_READ_SUCCESS:
+      return Object.assign({}, state, {
+        marking_as_read_response: payload,
+        mark_as_all_read_success: true
+      });
 
     case NotificationActions.ADD_PUSHER_NOTIFICATIONS:
       let updated_push_notifications;

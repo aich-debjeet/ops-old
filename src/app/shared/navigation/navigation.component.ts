@@ -381,11 +381,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
    * Marking all notifications as read
    */
   markAllAsRead() {
-    this.notificationStore.dispatch({
-      type: NotificationActions.MARK_AS_ALL_READ,
-      payload: {
-        notificationList: ''
-      }
+    this.notificationStore.dispatch({ type: NotificationActions.MARK_AS_ALL_READ });
+
+    this.store.select('notificationTags')
+    .first(notification => notification['mark_as_all_read_success'] === true )
+    .subscribe( data => {
+      this.loadNotification();
     });
   }
 
