@@ -5,22 +5,14 @@
 
 .ops_signup {
     background-color: #ffffff;
-    // padding-top: 64px;
-    height: calc(100vh - 52px);
+    height: calc(100vh - 123px);
     display: flex;
     justify-content: center;
     flex-direction: column;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        // background: #fff;
         height: auto;
-        // display: block;
         margin-top: 50px;
         margin-bottom: 100px;
-    }
-    @include mq($from: $mobile_lg, $until: $desktop_lg) {
-        // background: #fff;
-        // height: 100%;
-        // display: block;
     }
     .ops_signup_left {
         padding: 0 48px;

@@ -301,6 +301,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
    * @param value
    */
   submitForm(value) {
+    console.log('submitForm', value);
     // checking if all required fields with valid info available before submitting the form
     if (!this.regFormBasic.valid) {
       return false;

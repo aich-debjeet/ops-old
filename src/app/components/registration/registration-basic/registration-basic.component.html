@@ -54,7 +54,7 @@
             <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_right">
                 <!-- form -->
                 <div class="ops_h1 c-h3 m-b-8">Create your account</div>
-                <form action="">
+                <form [formGroup]="regFormBasic" novalidate (ngSubmit)="submitForm(regFormBasic.value)" #regform="ngForm">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="c-form__group">
@@ -139,17 +139,18 @@
                     </div>
                     <div class="signup_privacy">
                         <p class="text-grey">
-                            By clicking, I agree to the <a href="terms.html" class="text-theme">Terms & Conditions.</a></p>
-                        <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#otpModal">SIGN UP</button>
-
+                            By clicking, I agree to the <a class="text-theme">Terms & Conditions.</a>
+                        </p>
+                        <button tabindex="8" type="submit" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#otpModal">SIGN UP</button>
                     </div>
-
                 </form>
                 <!-- //form -->
             </div>
         </div>
     </div>
 </section>
+
+<app-footer></app-footer>
 
 <!-- otp popup code -->
 <div class="modal fade reg_step1_otp" id="otpModal" role="dialog">
