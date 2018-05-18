@@ -1,28 +1,27 @@
+// ng imports
 import { Component, OnInit, ElementRef, OnDestroy} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+
+// third party dependancies
 import { IDatePickerConfig } from 'ng2-date-picker';
-
-import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Store } from '@ngrx/store';
-import { Register, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
-import { CountrySelectorComponent } from '../../../shared/country-selector/country-selector.component';
-
-// helper
-import { FormValidation, DatabaseValidator } from '../../../helpers/form.validator';
-import { environment } from '../../../../environments/environment';
-
-// action
-import { AuthActions } from '../../../actions/auth.action';
-
-// rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
-
 import * as _ from 'lodash';
+
+// internal dependencies and helpers
+import { ModalService } from '../../../shared/modal/modal.component.service';
+import { FormValidation, DatabaseValidator } from '../../../helpers/form.validator';
+import { environment } from '../../../../environments/environment';
+import { CountrySelectorComponent } from '../../../shared/country-selector/country-selector.component';
+
+import { Register, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
+
+import { AuthActions } from '../../../actions/auth.action';
 import { ProfileActions } from 'app/actions/profile.action';
 
 @Component({
