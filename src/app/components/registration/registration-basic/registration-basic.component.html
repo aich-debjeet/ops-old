@@ -47,7 +47,7 @@
                     </div> 
                 </div>
                 <div class="ops_heading signup_already text-center">
-                    Already a member? <a href="login.html" class="text-theme">Log In</a>
+                    Already a member? <a routerLink="/login" class="text-theme">Log In</a>
                 </div>
 
             </div>
@@ -58,65 +58,71 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="c-form__group">
-                                <input class="c-form__input" required="" type="text">
+                                <input class="c-form__input" formControlName="name" type="text">
                                 <span class="c-form__highlight"></span>
                                 <span class="c-form__bar"></span>
                                 <label>Name</label>
+                                <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.required && regform.submitted">Name is required</p>
+                                <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.invalidName && regform.submitted">Invalid name</p>
                             </div>
-                            <!-- <div class="form_group">
-                                <input class="form_input" type="text" required>
+                            <div class="form_group">
+                                <input class="form_input" type="text" (ngModelChange)="userExistCheck($event)" formControlName="username">
                                 <span class="form_highlight"></span>
                                 <span class="form_bar_alert"></span>
                                 <label>Username</label>
-                                <p class="error_alert">Username already exists</p>
-                                        <ul class="username_error">
-                                            <li>username1</li>
-                                            <li>username2</li>
-                                            <li>username3</li>
-                                            <li>username4</li>
-                                        </ul>
-                            </div> -->
-                            <div class="c-form__group ">
-                                <input class="c-form__input" required="" type="text">
-                                <span class="c-form__highlight"></span>
-                                <span class="c-form__bar"></span>
-                                <label>Username</label>
+                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace || regFormBasic.controls['username'].errors?.capitalLetters || regFormBasic.controls['username'].errors?.specialChars">Capital letters, spaces and special characters are not allowed</p>
+                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && regform.submitted">Username is required</p>
+                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
+                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.invalidLength">Username length limit is 3 to 15 characters</p>
+                                <ul class="username_error" *ngIf="regState.user_unique">
+                                    <li *ngFor="let username of regState?.user_exist; let isLast=last">
+                                        <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
+                                    </li>
+                                </ul>
                             </div>
-
                         </div>
                     </div>
                     <div class="form_group c-radio__sm">
                         <label class="width100">
                             <label class="col-md-2 signup_gender">Gender</label>
                             <label class="col-md-3 gender_single p-r-0">
-                                <input type="radio" name="demo"><span></span>Male
+                                <input type="radio" name="gender" value="M" formControlName="gender" [checked]="true"><span></span>Male
                             </label>
                             <label class="col-md-3 gender_single p-r-0">
-                                <input type="radio" name="demo"><span></span>Female
+                                <input type="radio" name="gender" value="F" formControlName="gender"><span></span>Female
                             </label> 
                             <label class="col-md-3 gender_single p-r-0">
-                                <input type="radio" name="demo"><span></span>Other
+                                <input type="radio" name="gender" value="O" formControlName="gender"><span></span>Other
                             </label>
                         </label>
                     </div>
                     <div class="c-form__group ">
-                        <input class="c-form__input" required="" type="text" required>
+                        <input class="c-form__input" type="text" formControlName="dob" [dpDayPicker]="datePickerConfig" theme="dp-material">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <label>Date of Birth</label>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.required && regform.submitted">DOB is required</p>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isUnderAge">You should be above 13</p>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isOverAge">You should be below 100</p>
                     </div>
                     <div class="c-form__group">
-                        <input class="c-form__input" required="" type="text" required>
+                        <input class="c-form__input" type="text" formControlName="email">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <label>Email</label>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isEmailUnique ">Mail account already exists</p>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.email || regFormBasic.controls['email'].errors?.isInvalidEmail && regform.submitted">Email is not valid</p>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.required && regform.submitted">Email is required</p>
                     </div>
                     <div class="c-form__group">
                         <span id="phone" type="tel"></span>
-                        <input class="c-form__input" required="" type="text" required style="padding-left: 40px;">
+                        <input class="c-form__input p-l-40-px" type="text" formControlName="phone">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <label style="padding-left: 40px;">Phone Number</label>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">This phone number is already registered</p>
                     </div>
                     <!-- <div class="form_group">
                         <span id="phone" type="tel"></span>
@@ -126,22 +132,29 @@
                         <label style="padding-left: 40px;">Phone Number</label>
                     </div> -->
                     <div class="c-form__group  pass-margin">
-                        <input class="c-form__input" required="" type="password">
+                        <button class="password-toggle pos-abs" type="button" (click)="passwordShowToggle()" title="{{ passwordShow ? 'Hide Password' : 'Show Password' }}">
+                            <span class="fa {{ passwordShow ? 'fa-eye' : 'fa-eye-slash' }}"></span>
+                        </button>
+                        <input class="c-form__input" type="password" formControlName="password">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <label>Password</label>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.required && regform.submitted">Password is required</p>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Password should contain atleast 5 alphanumeric characters</p>
                     </div>
                     <div class="c-form__group pass-margin">
-                        <input class="c-form__input" required="" type="password">
+                        <input class="c-form__input" type="password" formControlName="confirmpassword">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <label>Confirm Password</label>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.required && regform.submitted">Confirm password is required</p>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password does not match</p>
                     </div>
                     <div class="signup_privacy">
                         <p class="text-grey">
-                            By clicking, I agree to the <a class="text-theme">Terms & Conditions.</a>
+                            By clicking, I agree to the <a (click)="termsAction('show')" class="text-theme">Terms & Conditions.</a>
                         </p>
-                        <button tabindex="8" type="submit" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#otpModal">SIGN UP</button>
+                        <button type="submit" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#otpModal">SIGN UP</button>
                     </div>
                 </form>
                 <!-- //form -->
@@ -604,7 +617,7 @@
                                     <label>Enter OTP</label>
                                     <span>{{ countDown | async }}</span>
                                 </div>
-                                <p class="error_alert text-center" *ngIf="petTag?.user_otp_failed">Invalid OTP</p>
+                                <p class="error_alert text-center" *ngIf="regState?.user_otp_failed">Invalid OTP</p>
                                 <p class="error_alert text-center" *ngIf="otpForm.controls['otpNumber'].errors?.invalid && myform.submitted">Please enter your 6 digit OTP number</p>
                                 <p class="text-center">
                                     <a class="pointer" (click)="otpNotRecieved()">Didn't get your OTP?</a>

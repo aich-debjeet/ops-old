@@ -3,6 +3,14 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
 
+.dp-material {
+    display: inherit;
+}
+
+.p-l-40-px {
+    padding-left: 40px;
+}
+
 .ops_signup {
     background-color: #ffffff;
     height: calc(100vh - 123px);
