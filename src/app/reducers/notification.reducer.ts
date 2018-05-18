@@ -2,12 +2,23 @@ import { ActionReducer, Action } from '@ngrx/store';
 
 import { Notification } from '../models/notification.model';
 import { NotificationActions } from '../actions/notification.action';
+import {Observable} from 'rxjs/Observable';
+import * as _ from 'lodash';
+
+
 
 export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: Action) =>  {
 
   switch (type) {
 
     case NotificationActions.LOAD_NOTIFICATIONS:
+      if (payload.page === 0) {
+        return Object.assign({}, state, {
+          recieved_notifications: [],
+          recieved_notifications_success: false
+        });
+      }
+
       return Object.assign({}, state, {
         recieved_notifications_success: false
       });
@@ -44,7 +55,17 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       return Object.assign({}, state, {
         mark_as_read_success: false
       });
-      
+
+    case NotificationActions.MARK_AS_ALL_READ:
+      return Object.assign({}, state, {
+        mark_as_all_read_success: false
+      });
+
+    case NotificationActions.MARK_AS_ALL_READ_SUCCESS:
+      return Object.assign({}, state, {
+        marking_as_read_response: payload,
+        mark_as_all_read_success: true
+      });
 
     case NotificationActions.ADD_PUSHER_NOTIFICATIONS:
       let updated_push_notifications;

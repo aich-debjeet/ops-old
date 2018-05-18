@@ -17,7 +17,7 @@ export class NotificationEffect {
   notifications$ = this.actions$
     .ofType(NotificationActions.LOAD_NOTIFICATIONS)
     .map(toPayload)
-    .switchMap((payload) => this.apiService.getNotifications()
+    .switchMap((payload) => this.apiService.getNotifications(payload)
       .map(res => ({ type: NotificationActions.LOAD_NOTIFICATIONS_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: NotificationActions.LOAD_NOTIFICATIONS_FAILED, payload: res }))
     );
@@ -30,6 +30,15 @@ export class NotificationEffect {
       .map(res => ({ type: NotificationActions.MARK_AS_READ_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: NotificationActions.MARK_AS_READ_FAILED, payload: res }))
     );
+
+  @Effect()
+    notificationAllRead$ = this.actions$
+      .ofType(NotificationActions.MARK_AS_ALL_READ)
+      .map(toPayload)
+      .switchMap((payload) => this.apiService.notificationAllMarkAsRead(payload)
+        .map(res => ({ type: NotificationActions.MARK_AS_ALL_READ_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: NotificationActions.MARK_AS_ALL_READ_FAILED, payload: res }))
+      );
 
   constructor(
       private actions$: Actions,

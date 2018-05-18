@@ -1,4 +1,4 @@
-import { Component, Directive, ChangeDetectionStrategy, OnInit, HostListener, Renderer, ElementRef, HostBinding } from '@angular/core';
+import { Component, Directive, ChangeDetectionStrategy, OnInit, HostListener, Renderer, ElementRef, HostBinding, OnDestroy } from '@angular/core';
 import { ModalService } from '../modal/modal.component.service';
 import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag, UserCard, ProfileCards } from '../../models/profile.model';
@@ -13,7 +13,7 @@ import { OrganizationActions } from '../../actions/organization.action';
 import { NotificationActions } from './../../actions/notification.action';
 
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 import { environment } from '../../../environments/environment';
 
 import { _ } from 'lodash';
@@ -31,7 +31,7 @@ import { PusherService } from '../../services/pusher.service';
   styleUrls: ['./navigation.component.scss']
 })
 
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit, OnDestroy {
 
   topNav: any;
   imageBaseUrl: string  = environment.API_IMAGE;
@@ -47,6 +47,8 @@ export class NavigationComponent implements OnInit {
   scrolling = 0;
   scrollingLoad = 100;
   page_start = 1;
+  private subscription: ISubscription;
+  private subscriptionOne: ISubscription;
 
   // userCard: UserCard;
   userCards: ProfileCards;
@@ -82,7 +84,7 @@ export class NavigationComponent implements OnInit {
     this.notificationsState$ = this.store.select('notificationTags');
 
     /* Profile state */
-    this.profileState$.subscribe((state) => {
+    this.subscription = this.profileState$.subscribe((state) => {
       this.activeProfileState = state;
       // console.log('app state', state);
       this.userCards = this.activeProfileState['profile_cards'];
@@ -119,7 +121,7 @@ export class NavigationComponent implements OnInit {
       this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE });
     }
     // observe the store value
-    this.notificationsState$.subscribe((state) => {
+    this.subscriptionOne = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         // if(typeof state['recieved_pushed_notifications_success']){
         // }
@@ -136,7 +138,6 @@ export class NavigationComponent implements OnInit {
         }
       }
     });
-
   }
 
   /**
@@ -186,10 +187,7 @@ export class NavigationComponent implements OnInit {
    * On init
    */
   ngOnInit() {
-    this.notificationStore.dispatch({
-      type: NotificationActions.LOAD_NOTIFICATIONS,
-      payload: null
-    });
+    this.loadNotification();
     this.pusherService.notificationsChannel.bind('Media_Spot', (message) => {
       // console.log(message)
       this.notify = true;
@@ -272,11 +270,18 @@ export class NavigationComponent implements OnInit {
     .subscribe( data => {
       this.isProfileSet = true;
     });
-    
   }
 
   toggleNav(name: string) {
     return ;
+  }
+
+  loadNotification() {
+    const data = {
+      limit: 10,
+      page: 0
+    }
+    this.notificationStore.dispatch({ type: NotificationActions.LOAD_NOTIFICATIONS, payload: data });
   }
 
   /**
@@ -353,6 +358,7 @@ export class NavigationComponent implements OnInit {
    * @Param: notification id
    */
   markAsRead(notificationId: string) {
+    console.log(notificationId);
     this.notificationIds = [notificationId];
     this.dispatchReadNotifications();
   }
@@ -370,34 +376,27 @@ export class NavigationComponent implements OnInit {
     });
   }
 
-  /**
-   * Get all ids of all notifications
-   */
-  getAllNotificationIds(callback) {
-    const data = [];
-    this.notifications.forEach((notif, index) => {
-      if (notif.isRead === false) {
-        data.push(notif.notificationId);
-      }
-      if (index === (this.notifications.length - 1)) {
-        this.notificationIds = data;
-        callback();
-      }
-    });
-  }
 
   /**
    * Marking all notifications as read
    */
   markAllAsRead() {
-    const self = this;
-    this.getAllNotificationIds(function() {
-      self.dispatchReadNotifications();
+    this.notificationStore.dispatch({ type: NotificationActions.MARK_AS_ALL_READ });
+
+    this.store.select('notificationTags')
+    .first(notification => notification['mark_as_all_read_success'] === true )
+    .subscribe( data => {
+      this.loadNotification();
     });
   }
 
   logoutSubmit() {
     this.router.navigate(['/']);
     this.store.dispatch({ type: AuthActions.USER_LOGOUT, payload: ''});
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.subscriptionOne.unsubscribe();
   }
 }
