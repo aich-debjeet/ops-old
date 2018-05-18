@@ -28,7 +28,8 @@ import { ProfileActions } from 'app/actions/profile.action';
 @Component({
   selector: 'app-registration-basic',
   templateUrl: './registration-basic.component.html',
-  styleUrls: ['./registration-basic.component.scss']
+  styleUrls: ['./registration-basic.component.scss'],
+  providers: [ DatabaseValidator ]
 })
 
 export class RegistrationBasicComponent implements OnInit, OnDestroy {
