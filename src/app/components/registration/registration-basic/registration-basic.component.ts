@@ -1,23 +1,19 @@
-import { Component, OnInit, ElementRef , Inject, OnDestroy} from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DOCUMENT } from '@angular/platform-browser';
 import { IDatePickerConfig } from 'ng2-date-picker';
 
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Store } from '@ngrx/store';
-import { Register, UserTag, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
-import { AuthRightBlockComponent } from '../../../shared/auth-right-block/auth-right-block.component';
+import { Register, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
 import { CountrySelectorComponent } from '../../../shared/country-selector/country-selector.component';
 
 // helper
-import { passwordConfirmation } from '../../../helpers/password.validator';
 import { FormValidation, DatabaseValidator } from '../../../helpers/form.validator';
-import { TokenService } from '../../../helpers/token.service';
 import { environment } from '../../../../environments/environment';
 
-// Action
-import { AuthActions } from '../../../actions/auth.action'
+// action
+import { AuthActions } from '../../../actions/auth.action';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -29,32 +25,18 @@ import 'rxjs/add/operator/take';
 import * as _ from 'lodash';
 import { ProfileActions } from 'app/actions/profile.action';
 
-export class RegValue {
-  mainTitle: string;
-  description: string;
-  loginLink: Boolean;
-  button_text: string;
-  button_link: string;
-}
-
 @Component({
   selector: 'app-registration-basic',
   templateUrl: './registration-basic.component.html',
-  providers: [DatabaseValidator, ModalService],
   styleUrls: ['./registration-basic.component.scss']
 })
 
 export class RegistrationBasicComponent implements OnInit, OnDestroy {
   countDown;
   counter = 60;
-  isPhotoAdded: boolean;
   passwordShow = false;
   country: any;
-  saveUsername = true;
   routeQuery: any;
-  userSearchEnabled = true;
-  hideProfiles = false;
-  inputNameListener: any;
   showTerms = false;
 
   datePickerConfig: IDatePickerConfig = {
@@ -65,20 +47,14 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   };
 
   tagState$: Observable<BasicRegTag>;
-  private tagStateSubscription: Subscription;
-  petTag = initialBasicRegTag;
-  Suggested: String[];
-  modals: any;
+  regState = initialBasicRegTag;
   resendingOtp = false;
-  phone: string;
   imageBaseLink: string = environment.API_IMAGE;
 
   // public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public regFormBasic: FormGroup;
   public otpForm: FormGroup;
   public newNumberForm: FormGroup;
-  redrectUrl: any;
-  dwc: boolean;
 
   passwordShowToggle() {
     if (this.passwordShow === true) {
@@ -89,24 +65,20 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    @Inject(DOCUMENT) private document: Document,
     private fb: FormBuilder,
     private store: Store<BasicRegTag>,
-    private element: ElementRef,
     private databaseValidator: DatabaseValidator,
     private router: Router,
     private route: ActivatedRoute,
-    public modalService: ModalService,
-    public tokenService: TokenService
+    public modalService: ModalService
     ) {
 
     this.tagState$ = store.select('loginTags');
     this.tagState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
-        this.petTag = state;
+        this.regState = state;
       }
     });
-    this.isPhotoAdded = false;
 
     // if redriect url there
     if (this.route.snapshot.queryParams) {
@@ -145,17 +117,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     this.regFormBasic.controls['username'].setValue(selectUsername);
   }
 
-  ngOnInit() {
-    if (this.route.snapshot.queryParams['ev']) {
-      if (this.route.snapshot.queryParams['ev'] === 'dwc2017') {
-        this.dwc = true;
-        if (this.routeQuery) {
-          this.routeQuery['dwc2017'] = 'true';
-        }
-      }
-    }
-    const currentUrl = this.router.url;
-  }
+  ngOnInit() { }
 
   // Init Reg Form
   buildForm(): void {
@@ -226,8 +188,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     if (value.length >= 4) {
       this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
     } else {
-      if (this.petTag && this.petTag.user_unique) {
-        this.petTag.user_unique = false;
+      if (this.regState && this.regState.user_unique) {
+        this.regState.user_unique = false;
       }
     }
   }
@@ -253,7 +215,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
           this.modalService.open('thankyouModal');
         }
       })
-      // this.otpValidate(number, value.otpNumber);
     }
   }
 
@@ -324,11 +285,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         }
       })
     }
-  }
-
-  onSaveUsernameChanged(value: boolean) {
-    this.saveUsername = value;
-    this.routeQuery['dwc2017'] = value;
   }
 
   /**
@@ -403,12 +359,5 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     this.country = country;
   }
 
-  triggerHideProfiles() {
-    setTimeout(() => {
-      this.hideProfiles = true;
-    }, 500);
-  }
-  ngOnDestroy() {
-    document.body.style.overflow = null;
-  }
+  ngOnDestroy() { }
 }

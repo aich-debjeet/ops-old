@@ -1,122 +1,149 @@
 <app-navigation-logo></app-navigation-logo>
 
 <section class="container-fluid ops_signup">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 ops_signup_left">
-                <img class="w-100"  [src]="imageBaseLink + 'img/registration_signup_illustration.png'">
-                <div class="ops_heading text-center">
-                    Welcome to One Page Spotlight. We are committed to grow together.
+    <div class="container p-0">
+        <div class="row m-0">
+            <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_left">
+                 <div class="ops_h1">Welcome to One Page Spotlight</div>
+                 <div class="c-text_lg text-center color-grey-dark m-t-8">A platform for all</div>
+                <div class="row m-t-24">
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="o-sign_plat-img">
+                            <img src="https://cdn.onepagespotlight.com/img/landing/talent.png" class="img-responsive">
+                        </div>
+                        <div class="c-text_lg text-center color-grey-dark m-t-16">Talent</div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="o-sign_plat-img">
+                            <img src="https://cdn.onepagespotlight.com/img/landing/stagecraft.png" class="img-responsive">
+                        </div>
+                        <div class="c-text_lg text-center color-grey-dark m-t-16">Stagecraft</div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="o-sign_plat-img">
+                            <img src="https://cdn.onepagespotlight.com/img/landing/teachers.png" class="img-responsive">
+                        </div>
+                        <div class="c-text_lg text-center color-grey-dark m-t-16">Teachers</div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="o-sign_plat-img">
+                            <img src="https://cdn.onepagespotlight.com/img/landing/corporates.png" class="img-responsive">
+                        </div>
+                        <div class="c-text_lg text-center color-grey-dark m-t-16">Corporates</div>
+                    </div>
                 </div>
-                <div class="ops_subheading text-center">
-                    An OTP number will be sent to your email or phone number after registration for account verification.
+                <div class="row m-t-24">
+                    <div class="col-sm-3 col-xs-6 col-md-offset-3">
+                        <div class="o-sign_plat-img">
+                            <img src="https://cdn.onepagespotlight.com/img/landing/teachers.png" class="img-responsive">
+                        </div>
+                        <div class="c-text_lg text-center color-grey-dark m-t-16">Teachers</div>
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="o-sign_plat-img">
+                            <img src="https://cdn.onepagespotlight.com/img/landing/artlovers.png" class="img-responsive">
+                        </div>
+                        <div class="c-text_lg text-center color-grey-dark m-t-16">Art Lovers</div>
+                    </div> 
                 </div>
                 <div class="ops_heading signup_already text-center">
-                    Already a member? <a routerLink="/login" class="text-theme">Log In</a>
+                    Already a member? <a href="login.html" class="text-theme">Log In</a>
                 </div>
+
             </div>
-            <div class="col-md-6 ops_signup_right">
+            <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_right">
                 <!-- form -->
-                <div class="ops_h1">Create Your Account</div>
-                <form [formGroup]="regFormBasic" novalidate (ngSubmit)="submitForm(regFormBasic.value)" #regform="ngForm">
+                <div class="ops_h1 c-h3 m-b-8">Create your account</div>
+                <form action="">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <div class="form_group">
-                                <input tabindex="1" class="form_input" type="text" formControlName="name" required (focusout)="triggerHideProfiles()">
-                                <span class="form_highlight"></span>
-                                <span class="form_bar"></span>
+                            <div class="c-form__group">
+                                <input class="c-form__input" required="" type="text">
+                                <span class="c-form__highlight"></span>
+                                <span class="c-form__bar"></span>
                                 <label>Name</label>
-                                <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.required && regform.submitted">Name is required</p>
-                                <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.invalidName && regform.submitted">Invalid name</p>
                             </div>
-                            <div class="form_group">
-                                <input tabindex="2" class="form_input" type="text" (ngModelChange)="userExistCheck($event)" formControlName="username" required>
+                            <!-- <div class="form_group">
+                                <input class="form_input" type="text" required>
                                 <span class="form_highlight"></span>
                                 <span class="form_bar_alert"></span>
                                 <label>Username</label>
-                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace || regFormBasic.controls['username'].errors?.capitalLetters || regFormBasic.controls['username'].errors?.specialChars">Capital letters, spaces and special characters are not allowed</p>
-                                <!-- <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace">White spaces are not allowed</p>
-                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.capitalLetters">Capital letters are not allowed</p> -->
-                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && regform.submitted">Username is required</p>
-                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.isUsernameUnique">This username is already taken</p>
-                                <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.invalidLength">Username length limit is 3 to 15 characters</p>
-                                <ul class="username_error" *ngIf="petTag.user_unique">
-                                    <li *ngFor="let username of petTag?.user_exist; let isLast=last">
-                                        <span title="{{username}}" class="suggestions" (click)="useThisUsername(username)">{{username}}{{isLast ? '' : ',&nbsp;'}}</span>
-                                    </li>
-                                </ul>
+                                <p class="error_alert">Username already exists</p>
+                                        <ul class="username_error">
+                                            <li>username1</li>
+                                            <li>username2</li>
+                                            <li>username3</li>
+                                            <li>username4</li>
+                                        </ul>
+                            </div> -->
+                            <div class="c-form__group ">
+                                <input class="c-form__input" required="" type="text">
+                                <span class="c-form__highlight"></span>
+                                <span class="c-form__bar"></span>
+                                <label>Username</label>
                             </div>
+
                         </div>
                     </div>
-                    <div class="form_group ops_radio_sm ops_radio_gender c-radio__sm">
+                    <div class="form_group c-radio__sm">
                         <label class="width100">
                             <label class="col-md-2 signup_gender">Gender</label>
                             <label class="col-md-3 gender_single p-r-0">
-                                <input type="radio" value="M" name="gender" formControlName="gender" [checked]="true"><span></span>Male
+                                <input type="radio" name="demo"><span></span>Male
                             </label>
                             <label class="col-md-3 gender_single p-r-0">
-                                <input type="radio" value="F" name="gender" formControlName="gender"><span></span>Female
-                            </label>
+                                <input type="radio" name="demo"><span></span>Female
+                            </label> 
                             <label class="col-md-3 gender_single p-r-0">
-                                <input type="radio" value="O" name="gender" formControlName="gender"><span></span>Other
+                                <input type="radio" name="demo"><span></span>Other
                             </label>
                         </label>
                     </div>
-                    <div class="form_group">
-                        <!-- <input tabindex="3" class="form_input" type="text" formControlName="dob" [textMask]="{mask: dateMask}" placeholder="DD-MM-YYYY"> -->
-                        <input tabindex="3" class="form_input dib" type="text" formControlName="dob" [dpDayPicker]="datePickerConfig" theme="dp-material">
-                        <span class="form_highlight"></span>
-                        <span class="form_bar"></span>
+                    <div class="c-form__group ">
+                        <input class="c-form__input" required="" type="text" required>
+                        <span class="c-form__highlight"></span>
+                        <span class="c-form__bar"></span>
                         <label>Date of Birth</label>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.required && regform.submitted">DOB is required</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.invalidDOB">Invalid Date of Birth</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isUnderAge">You should be above 13</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isOverAge">You should be below 100</p>
                     </div>
-                    <div class="form_group">
-                        <input tabindex="4" class="form_input" type="text" formControlName="email" required>
-                        <span class="form_highlight"></span>
-                        <span class="form_bar"></span>
+                    <div class="c-form__group">
+                        <input class="c-form__input" required="" type="text" required>
+                        <span class="c-form__highlight"></span>
+                        <span class="c-form__bar"></span>
                         <label>Email</label>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.isEmailUnique ">Mail account already exists</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.email || regFormBasic.controls['email'].errors?.isInvalidEmail && regform.submitted">Email is not valid</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.required && regform.submitted">Email is required</p>
                     </div>
-                    <div class="form_group form__phone">
-                        <!--<span id="phone" type="tel"></span>-->
-                        <input tabindex="5" class="form_input" type="text" formControlName="phone" required style="padding-left: 60px;">
-                        <span class="form_highlight"></span>
-                        <app-country-selector (onCountrySelection)="saveCountry($event)"></app-country-selector>
-                        <span class="form_bar"></span>
-                        <label style="padding-left: 50px;">Phone Number</label>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">This phone number is already registered</p>
+                    <div class="c-form__group">
+                        <span id="phone" type="tel"></span>
+                        <input class="c-form__input" required="" type="text" required style="padding-left: 40px;">
+                        <span class="c-form__highlight"></span>
+                        <span class="c-form__bar"></span>
+                        <label style="padding-left: 40px;">Phone Number</label>
                     </div>
-
-                    <div class="form_group pwd-cls">
-                        <button class="password-toggle pos-abs" type="button" (click)="passwordShowToggle()" title="{{ passwordShow ? 'Hide Password' : 'Show Password' }}">
-                            <span class="fa {{ passwordShow ? 'fa-eye' : 'fa-eye-slash' }}"></span>
-                        </button>
-                        <input tabindex="6" class="form_input" type="{{ passwordShow ? 'text' : 'password' }}" formControlName="password" required>
+                    <!-- <div class="form_group">
+                        <span id="phone" type="tel"></span>
+                        <input class="form_input" type="text" required style="padding-left: 40px;">
                         <span class="form_highlight"></span>
                         <span class="form_bar"></span>
+                        <label style="padding-left: 40px;">Phone Number</label>
+                    </div> -->
+                    <div class="c-form__group  pass-margin">
+                        <input class="c-form__input" required="" type="password">
+                        <span class="c-form__highlight"></span>
+                        <span class="c-form__bar"></span>
                         <label>Password</label>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.required && regform.submitted">Password is required</p>
-                        <!-- <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Weak password! Please use special characters, numbers and capital letters</p> -->
-                        <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Password should contain atleast 5 alphanumeric characters</p>
                     </div>
-                    <div class="form_group">
-                        <input tabindex="7" class="form_input" type="password" formControlName="confirmpassword" required>
-                        <span class="form_highlight"></span>
-                        <span class="form_bar"></span>
+                    <div class="c-form__group pass-margin">
+                        <input class="c-form__input" required="" type="password">
+                        <span class="c-form__highlight"></span>
+                        <span class="c-form__bar"></span>
                         <label>Confirm Password</label>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.required && regform.submitted">Confirm password is required</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password does not match</p>
                     </div>
                     <div class="signup_privacy">
-                        <p class="text-grey">By clicking, I agree to the <a (click)="termsAction('show')" class="text-theme">Terms & Conditions</a></p>
-                        <button tabindex="8" [className]="'btn btn-primary btn-lg pull-right m-t-8'" type="submit">SIGN UP</button>
+                        <p class="text-grey">
+                            By clicking, I agree to the <a href="terms.html" class="text-theme">Terms & Conditions.</a></p>
+                        <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#otpModal">SIGN UP</button>
+
                     </div>
+
                 </form>
                 <!-- //form -->
             </div>
@@ -124,6 +151,86 @@
     </div>
 </section>
 
+<!-- otp popup code -->
+<div class="modal fade reg_step1_otp" id="otpModal" role="dialog">
+    <!-- otp modal -->
+    <div class="modal-dialog" id="modal-test-2">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border: none;">
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                <!-- <h4 class="modal-title text-center"><img src="assets/logo_black.png"></h4> -->
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                    <h5 class="text-center">Enter the 6 digit OTP that you have received <br> by email or phone </h5>
+                    <p class="text-center m-t-16">
+                        <a href="javascript:void(0)" class="color-theme">Resend OTP</a>
+                    </p>
+                    <form action="">
+                        <div class="row">
+                            <div class="col-sm-6 c-text_md m-8 m-l-24">Enter OTP</div>
+                            <div class="col-sm-5">
+                                <div class="c-text_md pull-right color-theme m-8 m-r-16">00:50</div>
+                            </div>
+                        </div>
+                        <div class="form_group o-otp_form">
+                            <input class="form_input" type="text" maxlength="1">
+                        </div>
+                         <div class="form_group o-otp_form">
+                            <input class="form_input" type="text" maxlength="1">
+                        </div>
+                         <div class="form_group o-otp_form">
+                            <input class="form_input" type="text" maxlength="1">
+                        </div>
+                         <div class="form_group o-otp_form">
+                            <input class="form_input" type="text" maxlength="1">
+                        </div>
+                          <div class="form_group o-otp_form">
+                            <input class="form_input" type="text" maxlength="1">
+                        </div>
+                         <div class="form_group o-otp_form">
+                            <input class="form_input" type="text" maxlength="1">
+                        </div>
+                        <div class="text-center otp-dont-get">
+                            <a href="javascript:void(0)" data-toggle="modal" onclick="nextClicked2()" class="color-theme">Didn't get your OTP?</a>
+                        </div>
+                        <div class="text-center">
+                            <a href="reg_add_skill.html" class="btn btn-primary btn-lg capitalize">Validate</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //otp modal -->
+    <!-- phone number update -->
+    <div class="modal-dialog" id="modal-test-3">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border: none;">
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                    <h5 class="text-center">Update your phone number</h5>
+                    <form action="">
+                        <div class="c-form__group c-form--lg">
+                            <input class="c-form__input" required="" type="text">
+                            <span class="c-form__highlight"></span>
+                            <span class="c-form__bar"></span>
+                            <label>Enter New Phone Number</label>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-default btn-lg capitalize">Back</button>
+                            <button type="button" class="btn btn-primary btn-lg capitalize" data-toggle="modal" onclick="nextClicked3()">Validate</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //phone number update -->
+</div>
 
 <!-- Terms Modal -->
 <div class="modal fade in db" id="termsandcondition" role="dialog" *ngIf="showTerms" (click)="termsAction('hide')">
