@@ -97,7 +97,7 @@
                         </label>
                     </div>
                     <div class="c-form__group ">
-                        <input class="c-form__input" type="text" formControlName="dob" [dpDayPicker]="datePickerConfig" theme="dp-material">
+                        <input class="c-form__input d-in" type="text" formControlName="dob" [dpDayPicker]="datePickerConfig" theme="dp-material">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <label>Date of Birth</label>
@@ -119,22 +119,16 @@
                         <span id="phone" type="tel"></span>
                         <input class="c-form__input p-l-40-px" type="text" formControlName="phone">
                         <span class="c-form__highlight"></span>
+                        <app-country-selector (onCountrySelection)="saveCountry($event)"></app-country-selector>
                         <span class="c-form__bar"></span>
-                        <label style="padding-left: 40px;">Phone Number</label>
+                        <label class="p-l-40-px">Phone Number</label>
                         <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
                         <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">This phone number is already registered</p>
                     </div>
-                    <!-- <div class="form_group">
-                        <span id="phone" type="tel"></span>
-                        <input class="form_input" type="text" required style="padding-left: 40px;">
-                        <span class="form_highlight"></span>
-                        <span class="form_bar"></span>
-                        <label style="padding-left: 40px;">Phone Number</label>
-                    </div> -->
                     <div class="c-form__group  pass-margin">
-                        <button class="password-toggle pos-abs" type="button" (click)="passwordShowToggle()" title="{{ passwordShow ? 'Hide Password' : 'Show Password' }}">
+                        <!-- <button class="password-toggle pos-abs" type="button" (click)="passwordShowToggle()" title="{{ passwordShow ? 'Hide Password' : 'Show Password' }}">
                             <span class="fa {{ passwordShow ? 'fa-eye' : 'fa-eye-slash' }}"></span>
-                        </button>
+                        </button> -->
                         <input class="c-form__input" type="password" formControlName="password">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>

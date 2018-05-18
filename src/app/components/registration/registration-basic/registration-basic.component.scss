@@ -11,6 +11,36 @@
     padding-left: 40px;
 }
 
+.password-toggle {
+    background: none;
+    border: none;
+    color: black;
+    top: 5px;
+    right: 0;
+    outline: none;
+}
+
+.pos-rel {
+    position: relative;
+}
+
+.pos-abs {
+    position: absolute;
+}
+
+.pwd-cls {
+    margin-top: 20px;
+    clear: both;
+}
+
+.d-in {
+    display: inline;
+}
+
+.suggestions {
+    cursor: pointer;
+}
+
 .ops_signup {
     background-color: #ffffff;
     height: calc(100vh - 123px);
