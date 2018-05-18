@@ -141,7 +141,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
       ],
       email: ['', [
           Validators.required,
-          Validators.min(1),
+          Validators.min(3),
           FormValidation.validEmail
         ],
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
@@ -301,13 +301,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
    * @param value
    */
   submitForm(value) {
-    console.log('submit form', value);
     // checking if all required fields with valid info available before submitting the form
     if (!this.regFormBasic.valid) {
-      console.log('invalid');
+      // console.log('invalid', this.regFormBasic);
       return false;
-    } else {
-      console.log('valid');
     }
 
     // form object
@@ -341,13 +338,13 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
 
     this.store.select('loginTags').take(2).subscribe(data => {
-        if (data['user_basic_reg_success'] === true ) {
-          if (data && data['user_token']) {
-             const token = {access_token: data['user_token']};
-              localStorage.setItem('currentUser', JSON.stringify(token));
-          }
-          this.modalService.open('otpWindow');
+      if (data['user_basic_reg_success'] === true ) {
+        if (data && data['user_token']) {
+          const token = {access_token: data['user_token']};
+          localStorage.setItem('currentUser', JSON.stringify(token));
         }
+        this.modalService.open('otpWindow');
+      }
     });
   }
 

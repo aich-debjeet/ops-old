@@ -48,7 +48,11 @@ export class DatabaseValidator {
     checkMobile(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
         setTimeout(() => {
-            this.authService.mobilelUser(control.value).subscribe( data => {
+            const contactDetails = {
+                contactNumber: control.value,
+                countryCode: '91'
+            };
+            this.authService.mobileNumberCheck(contactDetails).subscribe( data => {
                 if (data.SUCCESS.code === 1) {
                     resolve({ 'isMobileUnique': true });
                 }
@@ -298,7 +302,7 @@ export class ProfileUpdateValidator {
             // check current email for user
             if (this.profileState.profile_details['contact'].mobile.mobile !== control.value) {
                 setTimeout(() => {
-                    this.authService.mobilelUser(control.value).subscribe( data => {
+                    this.authService.mobileNumberCheck(control.value).subscribe( data => {
                         if (data.SUCCESS.code === 1) {
                             resolve({ 'isMobileUnique': true });
                         }
@@ -416,7 +420,7 @@ export class FormValidation {
     static noWhitespaceValidator (control: AbstractControl) {
         const value = control.value;
         const isWhitespace =  value.indexOf(' ') >= 0;
-        return isWhitespace ? { whitespace: true } : null
+        return isWhitespace ? { whitespace: true } : null;
     }
 
     static noCapitalLettersValidator (control: AbstractControl) {

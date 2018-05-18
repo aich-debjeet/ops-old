@@ -134,9 +134,8 @@ export class AuthService {
       return this.api.get(path, '');
     }
 
-    mobilelUser(number: string) {
-      const path = '/portal/auth/' + number + '/contact';
-      return this.api.get(path, '');
+    mobileNumberCheck(contactNumber: object) {
+      return this.api.post('/portal/auth/validate/contact', contactNumber);
     }
     /**
      * Add a new Skill
