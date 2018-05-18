@@ -3,7 +3,7 @@ import { initialTag, ProfileModal, ProfileCards, UserCard} from '../models/profi
 
 import { ProfileActions } from '../actions/profile.action';
 import { OrganizationActions } from '../actions/organization.action';
-import { filter as _filter } from 'lodash';
+import * as _ from 'lodash';
 
 export interface State {
   user_channel: any,
@@ -314,12 +314,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
   case ProfileActions.LOAD_USER_FOLLOWING_POSTS_SUCCESS:
     const followingPosts = payload.mediaResponse;
-    const following_new_post = state.user_following_posts.concat(followingPosts)
+    const newPost = _.uniq(state.user_following_posts.concat(followingPosts), 'id')
     return Object.assign({}, state, {
       mediaEntity: payload,
       user_following_posts_loaded: true,
       user_following_posts_loading: false,
-      user_following_posts: following_new_post,
+      user_following_posts: newPost,
       user_following_post_scroll_id: payload.scrollId
     });
 
