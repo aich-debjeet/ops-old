@@ -89,9 +89,9 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   /**
    * selecting category to load respective result
    */
-  selectCategory(category) {
-    this.search = category.toLowerCase();
-  }
+  // selectCategory(category) {
+  //   this.search = category.toLowerCase();
+  // }
 
   /**
    * Find Skill from API Skill List
@@ -127,9 +127,11 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
     const selectedSkill = _find(this.selectedSkills, function(s) {
       return s.code === skillCode;
     });
+    console.log('selectedSkill', selectedSkill);
 
     // If skill exist then remove it from selection array
     if (selectedSkill !== undefined) {
+      console.log('skill is already selected');
       // Searching for the skill in skills array
       const skillMeta = this.findSkill(skillCode);
       // Removing skill from selected skills array
@@ -145,8 +147,9 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
       });
 
     } else {
+      console.log('skill is NOT selected');
       // Mark it selected in UI
-      this.skillSelectionState.skills = this.skillSelectionState.skills.filter(function(skill) {
+      this.skillSelectionState.skills = this.skillSelectionState.industries.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = true;
         }
