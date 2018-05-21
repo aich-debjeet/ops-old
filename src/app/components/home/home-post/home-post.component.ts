@@ -32,7 +32,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   sum = 10;
   total_pages = 10;
   scrolling = 0;
-  scrollingLoad = 6000;
+  scrollingLoad = 5000;
   post_scroll_id: any = '';
   imageLink: string = environment.API_IMAGE;
 
@@ -66,6 +66,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   postLoad() {
     const data = {
       limit: 10,
+      scrollId: null
     }
     this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
   }
@@ -78,9 +79,10 @@ export class HomePostComponent implements OnInit, OnDestroy {
     }
   }
   onScroll(e) {
+    console.log(e);
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
-      this.scrollingLoad += 6000
+      this.scrollingLoad += 5000
       const data = {
         scrollId: this.post_scroll_id,
       }
