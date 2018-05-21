@@ -15,8 +15,6 @@ import { RegistrationBasicComponent } from './registration-basic/registration-ba
 import { RegistrationProfileComponent } from './registration-profile/registration-profile.component';
 import { RegistrationAddSkillComponent } from './registration-add-skill/registration-add-skill.component';
 import { RegistrationWelcomeComponent } from './registration-welcome/registration-welcome.component';
-import { ChannelFollowComponent } from './registration-add-skill/channel-follow/channel-follow.component';
-import { ShareBottonComponent } from './registration-add-skill/share-botton/share-botton.component';
 
 import { SharedModule } from '../../shared/shared.module';
 
@@ -36,9 +34,7 @@ import { SharedModule } from '../../shared/shared.module';
     RegistrationProfileComponent,
     RegistrationAddSkillComponent,
     RegistrationWelcomeComponent,
-    SearchFilterPipe,
-    ChannelFollowComponent,
-    ShareBottonComponent
+    SearchFilterPipe
   ],
 })
 export class RegistrationModule { }
