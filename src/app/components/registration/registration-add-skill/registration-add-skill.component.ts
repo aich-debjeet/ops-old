@@ -25,6 +25,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   skills = [];
   search: String;
   activateSubmitBtn = false;
+  isSearching = false;
 
   constructor(
     fb: FormBuilder,
@@ -34,6 +35,13 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
     this.skillSelectionState$.subscribe((state) => {
       this.skillSelectionState = state;
       this.skills = this.skillSelectionState['industries'];
+
+      if (this.skillSelectionState
+        && this.skillSelectionState['skills_loading'] === false
+        && this.skillSelectionState['skills_loaded'] === true
+      ) {
+        this.isSearching = false;
+      }
     });
 
     this.searchSkillForm = fb.group({
@@ -55,11 +63,6 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
    */
   saveSkills() {
     this.store.dispatch({ type: AuthActions.USER_SUBMIT_SKILLS, payload: this.selectedSkills });
-
-    // After Skill Submit Check status and redrect to next page
-    this.store.select('loginTags')
-      .first(auth => auth['userSkillsSaveSuccess'] )
-      .subscribe( data => { });
   }
 
   /**
@@ -68,6 +71,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
    */
   onSearchChange(query) {
     if (query || query !== '') {
+      this.isSearching = true;
       this.store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
     } else {
       this.industriesList();
@@ -78,6 +82,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
    * Load List of Skills (High Level)
    */
   industriesList() {
+    this.isSearching = true;
     this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 

@@ -13,7 +13,8 @@
                         <input class="c-form__input p-l-16" type="text" formControlName="profession" [(ngModel)]="search" (ngModelChange)="onSearchChange($event)">
                         <label class="p-l-8">Search skills</label>
                         <span>
-                            <img [src]="image_base_url + 'img/svg/ico_search.svg'" class="c-form__input--righticon">
+                            <img *ngIf="!isSearching" [src]="image_base_url + 'img/svg/ico_search.svg'" class="c-form__input--righticon">
+                            <img *ngIf="isSearching" [src]="image_base_url + 'img/search-preloader.gif'" class="c-form__input--righticon">
                         </span>
                     </div>
                 </div>
@@ -32,7 +33,7 @@
                     <li class="o-add-skill__item" *ngFor="let skill of skills">
                         <a class="o-add-skill__link" (click)="selectCategory(skill.code)">
                             <span class="o-skill__list-container">
-                                <span class="o-skill__list-bg-img">
+                                <span *ngIf="skill?.background" class="o-skill__list-bg-img">
                                     <figure>
                                         <img [src]="skill.background">
                                     </figure>
