@@ -118,6 +118,7 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy, AfterViewInit
   postLoad() {
     const data = {
       limit: 10,
+      scrollId: null
     }
     this.store.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
   }
