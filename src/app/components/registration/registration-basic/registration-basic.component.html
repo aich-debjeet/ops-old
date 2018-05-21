@@ -119,13 +119,14 @@
                         <span id="phone" type="tel"></span>
                         <input class="c-form__input p-l-40-px" type="text" formControlName="phone">
                         <span class="c-form__highlight"></span>
+                        <!-- <app-country-selector [selectorId]="choices-countries-number-update" (onCountrySelection)="saveCountry($event)"></app-country-selector> -->
                         <app-country-selector (onCountrySelection)="saveCountry($event)"></app-country-selector>
                         <span class="c-form__bar"></span>
                         <label class="p-l-40-px">Phone Number</label>
                         <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
                         <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">This phone number is already registered</p>
                     </div>
-                    <div class="c-form__group  pass-margin">
+                    <div class="c-form__group pass-margin">
                         <!-- <button class="password-toggle pos-abs" type="button" (click)="passwordShowToggle()" title="{{ passwordShow ? 'Hide Password' : 'Show Password' }}">
                             <span class="fa {{ passwordShow ? 'fa-eye' : 'fa-eye-slash' }}"></span>
                         </button> -->
@@ -159,93 +160,12 @@
 
 <app-footer></app-footer>
 
-<!-- otp popup code -->
-<div class="modal fade reg_step1_otp" id="otpModal" role="dialog">
-    <!-- otp modal -->
-    <div class="modal-dialog" id="modal-test-2">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header" style="border: none;">
-                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-                <!-- <h4 class="modal-title text-center"><img src="assets/logo_black.png"></h4> -->
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
-                    <h5 class="text-center">Enter the 6 digit OTP that you have received <br> by email or phone </h5>
-                    <p class="text-center m-t-16">
-                        <a href="javascript:void(0)" class="color-theme">Resend OTP</a>
-                    </p>
-                    <form action="">
-                        <div class="row">
-                            <div class="col-sm-6 c-text_md m-8 m-l-24">Enter OTP</div>
-                            <div class="col-sm-5">
-                                <div class="c-text_md pull-right color-theme m-8 m-r-16">00:50</div>
-                            </div>
-                        </div>
-                        <div class="form_group o-otp_form">
-                            <input class="form_input" type="text" maxlength="1">
-                        </div>
-                         <div class="form_group o-otp_form">
-                            <input class="form_input" type="text" maxlength="1">
-                        </div>
-                         <div class="form_group o-otp_form">
-                            <input class="form_input" type="text" maxlength="1">
-                        </div>
-                         <div class="form_group o-otp_form">
-                            <input class="form_input" type="text" maxlength="1">
-                        </div>
-                          <div class="form_group o-otp_form">
-                            <input class="form_input" type="text" maxlength="1">
-                        </div>
-                         <div class="form_group o-otp_form">
-                            <input class="form_input" type="text" maxlength="1">
-                        </div>
-                        <div class="text-center otp-dont-get">
-                            <a href="javascript:void(0)" data-toggle="modal" onclick="nextClicked2()" class="color-theme">Didn't get your OTP?</a>
-                        </div>
-                        <div class="text-center">
-                            <a href="reg_add_skill.html" class="btn btn-primary btn-lg capitalize">Validate</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- //otp modal -->
-    <!-- phone number update -->
-    <div class="modal-dialog" id="modal-test-3">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header" style="border: none;">
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
-                    <h5 class="text-center">Update your phone number</h5>
-                    <form action="">
-                        <div class="c-form__group c-form--lg">
-                            <input class="c-form__input" required="" type="text">
-                            <span class="c-form__highlight"></span>
-                            <span class="c-form__bar"></span>
-                            <label>Enter New Phone Number</label>
-                        </div>
-                        <div class="text-center">
-                            <button type="button" class="btn btn-default btn-lg capitalize">Back</button>
-                            <button type="button" class="btn btn-primary btn-lg capitalize" data-toggle="modal" onclick="nextClicked3()">Validate</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- //phone number update -->
-</div>
-
 <!-- Terms Modal -->
 <div class="modal fade in db" id="termsandcondition" role="dialog" *ngIf="showTerms" (click)="termsAction('hide')">
     <div class="modal-dialog modal-lg terms_and_condition">
         <!-- Modal content-->
         <div class="modal-content modal-container">
-            <div class="modal-header" style="border: none;">
+            <div class="modal-header with_border_none">
                 <button type="button" class="close" data-dismiss="modal" (click)="termsAction('hide')">x</button>
             </div>
             <div class="terms_txt">
@@ -589,50 +509,69 @@
 
 <!-- OTP Modal -->
 <app-modal [modalTitle]="'OTP'" [blocking]='false' modalId='otpWindow' class="otp__modal" size="small">
-    <div name="otp" class="otp__modal">
-        <div class="x reg_step1_otp" id="otpModal2" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header" style="border: none;">
-                        <h4 class="modal-title text-center"><img width="120px" [src]="imageBaseLink + 'img/logo_black.svg'"></h4>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
-                            <h5 class="text-center">Enter the 6 digit OTP that you have received <br> by email or phone </h5>
-                            <p class="text-center">
-                                <a *ngIf="!resendingOtp" class="pointer" (click)="resendOtp()">Resend OTP</a>
-                                <a *ngIf="resendingOtp">Sending OTP, please wait...</a>
-                            </p>
-                            <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #myform="ngForm">
-                                <div class="form_group">
-                                    <input class="form_input" type="text" formControlName="otpNumber" required>
-                                    <span class="form_highlight"></span>
-                                    <span class="form_bar"></span>
-                                    <label>Enter OTP</label>
-                                    <span>{{ countDown | async }}</span>
+    <!-- otp popup code -->
+    <div class="reg_step1_otp" id="otpModal" role="dialog">
+        <!-- otp modal -->
+        <div class="modal-dialog" id="modal-test-2">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header with_border_none">
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h5 class="text-center">Enter the 6 digit OTP that you have received <br> by email or phone </h5>
+                        <p class="text-center m-t-16">
+                            <a *ngIf="!resendingOtp" (click)="resendOtp()" class="color-theme">Resend OTP</a>
+                            <a *ngIf="resendingOtp">Sending OTP, please wait...</a>
+                        </p>
+                        <form [formGroup]="otpForm" (ngSubmit)="otpSubmit(otpForm.value)" #myform="ngForm">
+                            <div class="row">
+                                <div class="col-sm-6 c-text_md m-8 m-l-24">Enter OTP</div>
+                                <div class="col-sm-5">
+                                    <!-- <div class="c-text_md pull-right color-theme m-8 m-r-16 m-r-0">00:50</div> -->
                                 </div>
-                                <p class="error_alert text-center" *ngIf="regState?.user_otp_failed">Invalid OTP</p>
-                                <p class="error_alert text-center" *ngIf="otpForm.controls['otpNumber'].errors?.invalid && myform.submitted">Please enter your 6 digit OTP number</p>
-                                <p class="text-center">
-                                    <a class="pointer" (click)="otpNotRecieved()">Didn't get your OTP?</a>
-                                </p>
-                                <div class="text-center">
-                                    <button [className]="'btn btn-default btn-sm'" [type]="'submit'">Validate OTP</button>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="form_group o-otp_form">
+                                <input #otpNum1 (keypress)="nextOtpNum(1)" class="form_input" type="number" maxlength="1" formControlName="otpNum1">
+                            </div>
+                            <div class="form_group o-otp_form">
+                                <input #otpNum2 (keypress)="nextOtpNum(2)" class="form_input" type="number" maxlength="1" formControlName="otpNum2">
+                            </div>
+                            <div class="form_group o-otp_form">
+                                <input #otpNum3 (keypress)="nextOtpNum(3)" class="form_input" type="number" maxlength="1" formControlName="otpNum3">
+                            </div>
+                            <div class="form_group o-otp_form">
+                                <input #otpNum4 (keypress)="nextOtpNum(4)" class="form_input" type="number" maxlength="1" formControlName="otpNum4">
+                            </div>
+                            <div class="form_group o-otp_form">
+                                <input #otpNum5 (keypress)="nextOtpNum(5)" class="form_input" type="number" maxlength="1" formControlName="otpNum5">
+                            </div>
+                            <div class="form_group o-otp_form">
+                                <input #otpNum6 (keypress)="nextOtpNum(6)" class="form_input" type="number" maxlength="1" formControlName="otpNum6">
+                            </div>
+                            <p class="error_alert text-center" *ngIf="regState?.user_otp_failed">Invalid OTP</p>
+                            <p class="error_alert text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum1'].errors?.required || otpForm.controls['otpNum2'].errors?.required || otpForm.controls['otpNum3'].errors?.required || otpForm.controls['otpNum4'].errors?.required || otpForm.controls['otpNum5'].errors?.required || otpForm.controls['otpNum6'].errors?.required)">Please enter your 6 digit OTP number</p>
+                            <div class="text-center otp-dont-get">
+                                <a data-toggle="modal" (click)="otpNotRecieved()" class="color-theme">Didn't get your OTP?</a>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg capitalize">Validate</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- //otp modal -->
     </div>
+    <!-- //otp popup code -->
 </app-modal>
 <!-- OTP Modal -->
 
 <!-- OTP Confirm Modal -->
 <app-modal [modalTitle]="'Success'" [blocking]='false' modalId='otpSuccess'>
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 text-center">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
             <h3>Thank you for joining us</h3>
             <p>select your profile type and get started</p>
             <div class="text-center">
@@ -645,43 +584,36 @@
 
 <!-- OTP change number -->
 <app-modal [modalTitle]="'OTP change number'" [blocking]='false' modalId='otpChangeNumber' class="otp__modal" size="small">
-    <div name="otp" class="otp__modal">
-        <div class="x reg_step1_otp reg_thankyou" id="otpModal3" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header" style="border: none;">
-                        <button type="button" class="close" data-dismiss="modal"></button>
-                        <h4 class="modal-title text-center"><img [src]="imageBaseLink + 'img/logo_black.png'"></h4>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 no-p-m-errors">
-                            <h5 class="text-center">Update your phone number</h5>
-                            <form [formGroup]="newNumberForm" #newNumFrm="ngForm" (ngSubmit)="resendOtpOnNewNumber()">
-                                <div class="form_group">
-                                    <input class="form_input" type="text" formControlName="newNumber" required="">
-                                    <span class="form_highlight"></span>
-                                    <span class="form_bar"></span>
-                                    <label>Phone Number</label>
-                                </div>
-                                <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.required && newNumFrm.submitted">
-                                    Phone number is required
-                                </p>
-                                <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.isInvalidPhoneNumber && newNumFrm.submitted">
-                                    Please enter valid phone number
-                                </p>
-                                <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.isMobileUnique">
-                                    This phone number is already registered
-                                </p>
-                                <div class="text-center">
-                                    <button class="btn btn-default btn-sm" data-toggle="modal" type="submit">Resend OTP</button>
-                                </div>
-                            </form>
+    <!-- phone number update -->
+    <div class="modal-dialog" id="modal-test-3">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border: none;">
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h5 class="text-center">Update your phone number</h5>
+                    <form [formGroup]="newNumberForm" #newNumFrm="ngForm" (ngSubmit)="resendOtpOnNewNumber()">
+                        <div class="c-form__group c-form--lg">
+                            <input class="c-form__input" type="text" formControlName="newNumber">
+                            <span class="c-form__highlight"></span>
+                            <!-- <app-country-selector [selectorId]="choices-countries-reg-basic" (onCountrySelection)="saveCountry($event)"></app-country-selector> -->
+                            <span class="c-form__bar"></span>
+                            <label>Enter New Phone Number</label>
+                            <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.required && newNumFrm.submitted">Phone number is required</p>
+                            <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.isInvalidPhoneNumber && newNumFrm.submitted">Please enter valid phone number</p>
+                            <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.isMobileUnique">This phone number is already registered</p>
                         </div>
-                    </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-default btn-lg capitalize" (click)="backToOtp()">Back</button>
+                            <button type="submit" class="btn btn-primary btn-lg capitalize" data-toggle="modal">Validate</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <!-- //phone number update -->
 </app-modal>
 <!-- OTP change number -->
 
@@ -689,15 +621,15 @@
 <app-modal [modalTitle]="'OTP'" [blocking]='false' modalId='thankyouModal' class="otp__modal" size="small">
     <div name="otp" class="otp__modal">
         <div class="x reg_step1_otp" id="otpModal2" role="dialog">
-            <div class="modal-dialog modal-lg reg_thankyou" id="modal-test-1" style="">
+            <div class="modal-dialog modal-lg reg_thankyou" id="modal-test-1">
                 <div class="modal-content">
-                    <div class="modal-header" style="border: none;">
+                    <div class="modal-header with_border_none">
                         <button type="button" class="close" data-dismiss="modal"></button>
                         <h4 class="modal-title text-center"><img [src]="imageBaseLink + 'img/logo_black.png'" ></h4>
                     </div>
                     <div class="row">
                         <div class="row mar-auto">
-                            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 text-center">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
                                 <h3>Thank you for joining us</h3>
                                 <p>Select your profile type and get started</p>
                                 <div class="text-center">

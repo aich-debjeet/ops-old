@@ -1,5 +1,5 @@
 // ng imports
-import { Component, OnInit, ElementRef, OnDestroy} from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -38,6 +38,14 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   country: any;
   routeQuery: any;
   showTerms = false;
+
+  // otp numbers
+  @ViewChild('otpNum1') otpNum1: ElementRef;
+  @ViewChild('otpNum2') otpNum2: ElementRef;
+  @ViewChild('otpNum3') otpNum3: ElementRef;
+  @ViewChild('otpNum4') otpNum4: ElementRef;
+  @ViewChild('otpNum5') otpNum5: ElementRef;
+  @ViewChild('otpNum6') otpNum6: ElementRef;
 
   datePickerConfig: IDatePickerConfig = {
     showMultipleYearsNavigation: true,
@@ -117,7 +125,11 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     this.regFormBasic.controls['username'].setValue(selectUsername);
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    setTimeout(() => {
+      this.modalService.open('otpWindow');
+    }, 1000);
+  }
 
   // Init Reg Form
   buildForm(): void {
@@ -165,10 +177,12 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
 
     // OTP Form Builder
     this.otpForm = this.fb.group({
-      otpNumber: ['', [
-          FormValidation.validOtp.bind(this)
-        ],
-      ]
+      otpNum1: ['', [Validators.required]],
+      otpNum2: ['', [Validators.required]],
+      otpNum3: ['', [Validators.required]],
+      otpNum4: ['', [Validators.required]],
+      otpNum5: ['', [Validators.required]],
+      otpNum6: ['', [Validators.required]]
     })
 
     // OTP new number
@@ -181,6 +195,15 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         this.databaseValidator.checkMobile.bind(this.databaseValidator)
       ]
     })
+  }
+
+  // focus on next otp number
+  nextOtpNum(num: number) {
+    if (num > 0 && num < 6) {
+      const nextNum = num + 1;
+      const nextOtpInput = 'otpNum' + nextNum.toString();
+      this[nextOtpInput].nativeElement.focus();
+    }
   }
 
   // User user exists
@@ -210,7 +233,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
       this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: send });
       this.store.select('loginTags').take(2).subscribe(data => {
         if (data['user_otp_success'] === true ) {
-          this.otpLogin()
+          this.otpLogin();
           this.modalService.close('otpWindow');
           this.modalService.open('thankyouModal');
         }
@@ -351,6 +374,11 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   otpNotRecieved() {
     this.modalService.close('otpWindow');
     this.modalService.open('otpChangeNumber');
+  }
+
+  backToOtp() {
+    this.modalService.close('otpChangeNumber');
+    this.modalService.open('otpWindow');
   }
 
   /**
