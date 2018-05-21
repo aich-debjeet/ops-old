@@ -110,11 +110,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     }
   }
 
-  // showing thank you popup
-  showThankyou() {
-    this.modalService.open('thankyouModal');
-  }
-
   startTimer() {
     this.countDown = Observable.timer(0, 1000)
       .take(this.counter)
@@ -126,18 +121,18 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.modalService.open('otpWindow');
-    }, 1000);
+    // setTimeout(() => {
+    //   this.modalService.open('otpWindow');
+    // }, 1000);
   }
 
   // Init Reg Form
   buildForm(): void {
     this.regFormBasic = this.fb.group({
-      name: ['', [Validators.required],
+      name: ['Abhijeet Salunkhe', [Validators.required],
         this.databaseValidator.checkForValidName.bind(this)
       ],
-      username: ['', [
+      username: ['abhijeet', [
           Validators.required,
           FormValidation.noWhitespaceValidator,
           FormValidation.usernameLengthValidator,
@@ -146,12 +141,12 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         ],
         this.databaseValidator.userNameValidation.bind(this.databaseValidator)
       ],
-      dob: ['', [
+      dob: ['18-12-1991', [
           Validators.required,
           FormValidation.validateAge
         ]
       ],
-      email: ['', [
+      email: ['abhijeet.salunkhe@aeione.com', [
           Validators.required,
           Validators.min(3),
           FormValidation.validEmail
@@ -159,13 +154,13 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
       gender: ['M', Validators.required],
-      phone: ['', [
+      phone: ['9867884320', [
           Validators.required,
           Validators.minLength(4)
         ],
         this.databaseValidator.checkMobile.bind(this.databaseValidator)
       ],
-      password: ['', [
+      password: ['admin@123', [
         Validators.required,
         FormValidation.passwordStrength.bind(this)
       ]],
@@ -226,18 +221,25 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
       } else {
         number = this.regFormBasic.value.phone;
       }
-      const send = {
+      // console.log('otp form data', value); return;
+      const otpValue = value.otpNum1.toString() +
+                       value.otpNum2.toString() +
+                       value.otpNum3.toString() +
+                       value.otpNum4.toString() +
+                       value.otpNum5.toString() +
+                       value.otpNum6.toString();
+      const otpData = {
         number: number,
-        otp: value.otpNumber
+        otp: otpValue
       }
-      this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: send });
+      this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: otpData });
       this.store.select('loginTags').take(2).subscribe(data => {
         if (data['user_otp_success'] === true ) {
           this.otpLogin();
           this.modalService.close('otpWindow');
-          this.modalService.open('thankyouModal');
+          this.router.navigate(['/reg/addskill']);
         }
-      })
+      });
     }
   }
 
@@ -264,17 +266,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
       return { passwordDoesNotMatch: true };
     }
     return null;
-  }
-
-  // reg next step
-  gotoRegProfile() {
-    if (this.routeQuery) {
-      this.router.navigate(['/reg/profile'], { queryParams: this.routeQuery });
-      return
-    }else {
-      this.router.navigate(['/reg/profile']);
-      return
-    }
   }
 
   reverseDate(string) {

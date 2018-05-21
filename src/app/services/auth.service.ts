@@ -204,25 +204,26 @@ export class AuthService {
     }
 
     fpResetTypePhone(req: any) {
-        this.updateAuthHeaders();
-        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
+      this.updateAuthHeaders();
+      return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
         .map((data: Response) => data.json());
     }
 
     fpResetTypeEmail(req: any) {
-        this.updateAuthHeaders();
-        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
+      this.updateAuthHeaders();
+      return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
         .map((data: Response) => data.json());
     }
 
     fpSubmitOtp(req: any) {
-        this.updateAuthHeaders();
-        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
+      this.updateAuthHeaders();
+      return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
         .map((data: Response) => data.json());
     }
 
-    regSubmitOtp(req: any) {
-        return this.http.get(this.apiLink + '/portal/activate/profile/' + req.number + '/' + req.otp)
+    regSubmitOtp(reqBody: any) {
+      console.log('reqBody', reqBody);
+      return this.http.get(this.apiLink + '/portal/activate/profile/' + reqBody.number + '/' + reqBody.otp)
         .map((data: Response) => data.json());
     }
 

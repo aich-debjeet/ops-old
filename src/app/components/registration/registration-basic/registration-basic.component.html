@@ -68,7 +68,6 @@
                             <div class="form_group">
                                 <input class="form_input" type="text" (ngModelChange)="userExistCheck($event)" formControlName="username">
                                 <span class="form_highlight"></span>
-                                <span class="form_bar_alert"></span>
                                 <label>Username</label>
                                 <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace || regFormBasic.controls['username'].errors?.capitalLetters || regFormBasic.controls['username'].errors?.specialChars">Capital letters, spaces and special characters are not allowed</p>
                                 <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.required && regform.submitted">Username is required</p>
@@ -568,20 +567,6 @@
 </app-modal>
 <!-- OTP Modal -->
 
-<!-- OTP Confirm Modal -->
-<app-modal [modalTitle]="'Success'" [blocking]='false' modalId='otpSuccess'>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-            <h3>Thank you for joining us</h3>
-            <p>select your profile type and get started</p>
-            <div class="text-center">
-                <a href="/reg_step_2" class="btn btn-default btn-sm">Next</a>
-            </div>
-        </div>
-    </div>
-</app-modal>
-<!-- OTP Confirm Modal -->
-
 <!-- OTP change number -->
 <app-modal [modalTitle]="'OTP change number'" [blocking]='false' modalId='otpChangeNumber' class="otp__modal" size="small">
     <!-- phone number update -->
@@ -616,31 +601,3 @@
     <!-- //phone number update -->
 </app-modal>
 <!-- OTP change number -->
-
-<!-- Thank you Modal -->
-<app-modal [modalTitle]="'OTP'" [blocking]='false' modalId='thankyouModal' class="otp__modal" size="small">
-    <div name="otp" class="otp__modal">
-        <div class="x reg_step1_otp" id="otpModal2" role="dialog">
-            <div class="modal-dialog modal-lg reg_thankyou" id="modal-test-1">
-                <div class="modal-content">
-                    <div class="modal-header with_border_none">
-                        <button type="button" class="close" data-dismiss="modal"></button>
-                        <h4 class="modal-title text-center"><img [src]="imageBaseLink + 'img/logo_black.png'" ></h4>
-                    </div>
-                    <div class="row">
-                        <div class="row mar-auto">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                                <h3>Thank you for joining us</h3>
-                                <p>Select your profile type and get started</p>
-                                <div class="text-center">
-                                    <a (click)="gotoRegProfile()" class="btn btn-default btn-sm">Next</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</app-modal>
-<!-- Thank you Modal -->
