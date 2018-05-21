@@ -3,247 +3,277 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
 
-/* --------------------------- registrtion step 3 ---------------------------- */
-.skills_section {
-    // padding-top: 60px;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    .add-your-skills {
-        font-size: 24px;
-        font-weight: 600;
-        color: #333;
-        text-align: center;
-        margin-bottom: 40px;
+// add skill css
+.o-sign_block {
+    width: 100%;
+    float: left;
+    background: $white;
+     @include mq($from: $mobile_sm, $until: $mobile_lg){
+            height: 100vh;
     }
-    .add_skill_block {
-        list-style: none;
-        li {
-            list-style-type: none;
-            float: left;
-            a {
-                display: block;
-                .skill_list_container {
-                    width: 170px;
-                    height: 90px;
-                    margin: 8px;
-                    background: #979797;
-                    float: left;
-                    border-radius: 3px;
-                    position: relative;
-                    .skills_list_bg_img {
-                        position: absolute;
-                        top: 0px;
-                        left: 0px;
-                        width: 100%;
-                        height: 90px;
-                        overflow: hidden;
-                        border-radius: 3px;
-                        img {
-                            width: 100%;
-                        }
-                    }
-                    .skills_name {
-                        position: absolute;
-                        width: 100%;
-                        height: 90px;
-                        top: 0px;
-                        left: 0px;
-                        text-align: center;
-                        display: flex;
-                        justify-content: center;
-                        flex-direction: column;
-                        background-color: rgba(0, 0, 0, 0.6);
-                        border-radius: 3px;
-                        p {
-                            font-size: 14px;
-                            font-weight: 700;
-                            color: $white;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    a.selected .skills_name {
-        background-color: rgba(255, 123, 132, 0.83)!important;
-    }
-    .o-search-block {
-        padding-left: 32px;
-        .search_container {
-            width: 100%;
-            .form_input {
-                background: none;
-            }
-            label {
-                color: #979797;
-                font-size: 14px;
-            }
-            .search_top_icon img {
-                width: 16px;
-                float: right;
-                margin-top: -25px;
-            }
-            .form_input:focus,
-            .search_top_close_icon {
-                display: block!important;
-                outline: none;
-            }
-            .search_top_close_icon {
-                display: none;
-                img {
-                    width: 16px;
-                    float: right;
-                    margin-top: -25px;
-                }
-            }
-        }
-        .selected_skill {
-            .btn-primary {
-                margin-bottom: 8px;
-            }
-            margin: 16px 0px;
-            .btn-tag-close {
-                padding: 8px 16px;
-                font-weight: 500;
-                font-size: 14px;
-                border-radius: 3px;
-                margin-right: 8px;
-                &:hover {
-                    background: #FF7B84 !important;
-                    border-color: #FF7B84 !important;
-                    .btn-label-skill {
-                        background: none;
-                    }
-                }
-                .btn-label-tag {
-                    img {
-                        width: 11px;
-                        margin-top: 0px;
-                        vertical-align: middle;
-                        margin-left: 6px;
-                    }
-                }
-            }
-        }
-        .selected_tags {
-            .btn-reg_tag {
-                color: #333333;
-                font-size: 14px;
-                font-weight: 500;
-                margin-bottom: 8px;
-                margin-right: 8px;
-            }
-        }
+}
+.o-skill-selection-top {
+    width: 100%;
+    float: left;
+    .c-form__input--righticon {
+        width: 14px;
+        margin-right: 14px;
+        margin-top: -27px;
+        background: #F3F5F7;
     }
 }
 
-// --- signup-header -----------------------------------
-.signup_next {
-    .active-btn {
-        color: #ff7b84 !important;
-        background-color: #fff !important;
-        border-color: #ff7b84 !important;
-    }
-  .btn-network {
-    color: #c1c1c1;
-    background-color: #fff;
-    border-color: #c1c1c1;
-    text-transform: uppercase;
-    margin-top: 12px;
-    &:hover {
-        color: #ff7b84;
-        background-color: #fff;
-        border-color: #ff7b84;
-    }
-  }
-  .btn-sm {
-    padding: 6px 18px;
-    font-size: 14px;
-    line-height: 1;
-    border-radius: 3px;
-    font-weight: 700;
-  }
-}
-
-.navbar-brand {
-  color: #777;
-  float: left;
-  padding: 5px 15px;
-  font-size: 18px;
-  line-height: 20px;
-  height: 50px;
-  img {
-      height: 40px;
-  }
-}
-
-.navbar-default {
-  background-color: #fff;
-  border-color: #e7e7e7;
-}
-
-.navbar-fixed-top {
-  top: 0;
-  border-width: 0 0 1px;
-}
-
-.are_you_student {
-  width: 180px;
-  text-align: center;
-}
-
-.btn-primary {
-    color: #fff;
-    background-color: #ff7b84;
-    border-color: #ff7b84;
-}
-
-a.adder {
-    border: solid 1px;
-    padding: 9px 19px;
-    display: inline-block;
-    border-radius: 2px;
-    color: #656c98;
-    margin-right: 15px;
-    cursor: pointer;
-}
-
-.loading {
-    color: #000;
-}
-
-.ptop100 {
-    padding-top: 100px;
-}
-
-.skills_section a.activeIndustry .skills_name {
-    background-color: rgba(255,123,132,.83)!important;
-}
-
-.fill {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    img {
-        flex-shrink: 0;
-        width: auto !important;
-        min-width: 100% !important;
-        min-height: 100% !important;
-    }
-}
-
-.sm-fw {
+.o-skill-search {
+    width: 564px;
+    margin: 0px auto;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        margin: auto;
         width: 100%;
     }
 }
 
-.skills_section .o-search-block {
+.o-skill-result-top {
+    border-top: 1px solid #F3F5F7;
+}
+
+
+// skills list
+.o-skill {
+    width: 100%;
+    float: left;
+    padding-bottom: 40px;
+}
+
+// skill list
+.o-select-skill-block-hide {
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        display: none;
+    }
+    @include mq($tablet) {
+        display: none;
+    }
+    @include mq($from: $desktop_sm, $until: $desktop_imac) {
+        display: block;
+    }
+}
+
+.o-skill_display-block {
+    display: block !important;
+}
+.o-add-skill-block {
+    list-style: none;
+}
+
+.o-add-skill__item {
+    list-style-type: none;
+    float: left;
+    margin-right: 8px;
+    margin-bottom: 8px;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        padding:0 10px;
+        width: 47%;
+        height: 62px;
+        margin: 7px 15px;
+        &:nth-child(2n+1) {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+        &:nth-child(2n+0) {
+            margin-right: 0px;
+        }
+    }
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        width: 23%;
+        height: 105px;
+    }
+}
+
+.o-add-skill__link {
+    display: block;
+}
+
+.o-skill__list-container {
+    width: 182px;
+    height: 105px;
+    background: #979797;
+    float: left;
+    border-radius: 3px;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(102, 45, 145, 0.1);
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        width: 100%;
+        height: 62px;
+    }
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        width: 100%;
+        height: 105px;
+    }
+}
+
+.o-skill__list-bg-img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 105px;
+    overflow: hidden;
+    border-radius: 3px;
+    img {
+        width: 100%;
+    }
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        height: 62px;
+    }
+}
+
+.o-skill__title {
+    position: absolute;
+    width: 100%;
+    height: 105px;
+    top: 0px;
+    left: 0px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 3px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        height: 62px;
+    }
+}
+
+.o-add-skill__link.selected .o-skill__title {
+    background-color: rgba(255, 123, 132, 0.83)!important;
+}
+
+// right bar more skill
+.o-select-skill-more-hide {
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        display: none;
+    }
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        display: block;
+    }
+}
+
+.o-skill-more {
+    width: 100%;
+    min-height: 380px;
+    @include mq($from: $tablet, $until: $desktop_sm) {
+        min-height: 45px;
+    }
+}
+
+.o-skill-btn {
+    padding: 8px 16px;
+    border-radius: 3px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.1);
+    border: none;
+    color: #333;
+    font-size: 13px;
+    font-weight: normal;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin-right: 4px;
+        margin-bottom: 10px;
+        padding: 4px 8px;
+    }
+    &:hover {
+        background: $color-theme;
+        color: #fff;
+        border: none;
+        outline: none;
+    }
+    &:focus {
+        background: $color-theme;
+        color: #fff;
+        border: none;
+        outline: none;
+    }
+}
+
+.o-skill-more--text {
+    margin-top: 150px;
+}
+
+.o-skill-btn-add {
+    padding: 8px 8px;
+    border-radius: 3px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.1);
+    border: none;
+    color: #333;
+    font-size: 13px;
+    font-weight: normal;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    &:hover {
+        background: #fff;
+        color: #333;
+        border: none;
+        outline: none;
+    }
+    &:focus {
+        background: #fff;
+        color: #333;
+        border: none;
+        outline: none;
+    }
+}
+
+.o-add-skill-btn-ico {
+    width: 16px;
+    height: 16px;
+    float: right;
+    img {
+        width: 100%;
+    }
+}
+
+// add skill remove
+.o-skill__remove-btn {
+    padding: 8px 0px 8px 16px;
+    border-radius: 3px;
+    background-color: $color-theme;
+    box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.1);
+    border: none;
+    color: #fff;
+    font-size: 13px;
+    font-weight: normal;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    display: inline-block;
+    &:hover {
+        color: #fff;
+        border: none;
+        outline: none;
+    }
+    &:focus {
+        color: #fff;
+        border: none;
+        outline: none;
+    }
+    
+}
+
+.o-skill__remove {
+    width: 16px;
+    height: 16px;
+    float: right;
+    margin: 2px 8px 0px 8px;
+    img {
+        width: 10px !important;
+        margin-top: 3px;
+        margin-left: 4px;
+    }
+}
+
+.o-mob-back-arrow {
+    display: none;
+    @include mq($from: $mobile_sm, $until: $desktop_sm) {
+        float: left;
+        margin-top: -2px;
+        display: block;
     }
 }

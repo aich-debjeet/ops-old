@@ -1,78 +1,54 @@
-<form [formGroup]="rForm" >
-    <header class="opsheader">
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" ><img [src]="image_base_url + 'img/ops_logo.png'"></a>
-                </div>
+<app-navigation-logo></app-navigation-logo>
+
+<section class="o-sign_block">
+    <div class="o-skill-selection-top">
+        <div class="container">
+            <h3 class="c-h3 f-w_500 text-center m-t-32">Select your skills</h3>
+            <div class="c-text_md color-grey-dark text-center m-t-8">The 12 steps to acquire mind-power is intended to build positive visuals,
+                <br> acquire mind power and help you achive your
             </div>
-        </nav>
-    </header>
-    <section class="container-fluid skills_section">
-        <div class="container sm-fw">
-            <div class="row ptop100">
-                <h1 class="add-your-skills">Add your skills</h1>
-            </div>
-            <div class="row">
-                <div class="col-md-6 padding_none with_border_right hidden-xs">
-                    <!-- add skill block start -->
-                    <ul class="add_skill_block">
-                        <li *ngFor="let industry of skillSelectionPage.industries">
-                            <a (click)="selectCategory(industry.code)" [ngClass]="industry.isSelected?'activeIndustry':''" >
-                                <span class="skill_list_container">
-                                    <span class="skills_list_bg_img">
-                                        <figure class="fill"><img [src]="industry.background"  alt=""></figure>
-                                    </span>
-                                    <span class="skills_name"><p>{{industry.name}}</p></span>
-                                </span>
-                            </a>
-                        </li><!-- skill block end -->
-                    </ul><!-- add_skill_block end -->
+            <form [formGroup]="searchSkillForm">
+                <div class="o-skill-search m-t-16">
+                    <div class="c-form__group c-form--lg c-form--noeffect c-form__faded--lg">
+                        <input class="c-form__input p-l-16" type="text" formControlName="profession" [(ngModel)]="search" (ngModelChange)="onSearchChange($event)">
+                        <label class="p-l-8">Search skills</label>
+                        <span>
+                            <img [src]="image_base_url + 'img/svg/ico_search.svg'" class="c-form__input--righticon">
+                        </span>
+                    </div>
                 </div>
-                <div class="col-md-6 padding_none">
-                    <div class="o-search-block">
-                        <div class="search_container">
-                            <div class="form_group">
-                                <input class="form_input" type="text" formControlName="profession" [(ngModel)]="search" (ngModelChange)="onSearchChange($event)">
-                                <label>Search</label>
-                                <p class="search_top_icon"><img [src]="image_base_url + 'img/svg/ico_search.svg'"></p>
-                            </div>
-                        </div>
-                        <div class="selected_skill">
-                            <button *ngFor="let skill of selectedSkills" type="button" class="btn btn-xs btn-primary btn-tag-close">
-                                <span class="btn-label-tag" (click)="toggleSelectSkill(skill.code)">
-                                    {{skill.name}} <img [src]="image_base_url + 'img/svg/ico_close-white.svg'">
-                                </span>
-                            </button>
-                        </div>
-                        <div class="selected_tags">
-                            <div *ngIf="skillSelectionPage.skills_loaded===false">
-                                <span class="loading">Loading...</span>
-                            </div>
-                            <span *ngFor="let skill of skillSelectionPage.skills" >
-                                <button type="button" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" class="btn btn-reg_tag">
-                                    {{skill.name}}
-                                </button>
-                            </span>
-                            <div *ngIf='skillSelectionPage.skills_loaded===true && skillSelectionPage.skills && skillSelectionPage.skills.length === 0'>
-                                <a class="adder" (click)="addNewSkill(search)">Add <span class="adder__name">{{search}}?</span></a>
-                            </div>
-                        </div>
-                    </div><!-- o-search-block end -->
-                </div>
+            </form>
+            <div class="o-skill-result-top m-t-8">
+                <!-- for skill slider -->
             </div>
         </div>
-    </section>
-    <footer class="opsfooter">
-        <nav class="navbar navbar-default navbar-fixed-bottom">
-            <div class="container">
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="signup_next text-center">
-                    <button [className]="'btn btn-network btn-sm'" [type]="'submit'" (click)="saveSkills()" [disabled]="!activateSubmitBtn" [ngClass]="{'active-btn': activateSubmitBtn}" >CONTINUE</button>
-                </div>
-                <!-- /.navbar-collapse -->
+    </div>
+    <!-- top sec end -->
+    <div class="o-skill">
+        <div class="container">
+            <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12 p-0">
+                <div class="c-text_md color-grey-dark text-center m-t-b-16">No skill selected</div>
+                <ul class="o-add-skill-block">
+                    <li class="o-add-skill__item" *ngFor="let skill of skills">
+                        <a class="o-add-skill__link" (click)="selectCategory(skill.code)">
+                            <span class="o-skill__list-container">
+                                <span class="o-skill__list-bg-img">
+                                    <figure>
+                                        <img [src]="skill.background">
+                                    </figure>
+                                </span>
+                                <span class="o-skill__title">
+                                    <p class="c-text_lg f-w_600 color-white">
+                                        {{ skill.name }}
+                                    </p>
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <!-- /.container-fluid -->
-        </nav>
-    </footer>
-</form>
+        </div>
+    </div>
+</section>
+
+<app-footer></app-footer>

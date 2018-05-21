@@ -60,26 +60,26 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.LOAD_INDUSTRIES:
       return Object.assign({}, state, {
-        success: false
+        load_industries_success: false
+      });
+
+    case AuthActions.LOAD_INDUSTRIES_SUCCESS:
+      return Object.assign({}, state, {
+        industries: payload,
+        load_industries_success: true
       });
 
     case AuthActions.SEARCH_SKILL:
       return Object.assign({}, state, {
-        skills: [],
+        skills_loading: true,
         skills_loaded: false
       });
 
     case AuthActions.SEARCH_SKILL_SUCCESS:
       return Object.assign({}, state, {
-        skills: payload,
-        skills_loaded: true
-      });
-
-    case AuthActions.LOAD_INDUSTRIES_SUCCESS:
-      return Object.assign({}, state, {
-        completed: payload,
         industries: payload,
-        success: true
+        skills_loading: false,
+        skills_loaded: true
       });
 
     case AuthActions.USER_LOGIN:

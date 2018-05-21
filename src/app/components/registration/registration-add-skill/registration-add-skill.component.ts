@@ -1,26 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Http, Headers, Response } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 
-import { RegValue, ArtistFollow, RightBlockTag, initialTag, Login, artistFollowTag, Follow } from '../../../models/auth.model';
-import { SearchFilterPipe } from '../../../pipes/search.pipe'
+import { Login } from '../../../models/auth.model';
 import { environment } from './../../../../environments/environment';
 import { AuthActions } from '../../../actions/auth.action'
 
 import { find as _find } from 'lodash';
-
-export class Channel {
-  follow: boolean;
-  owner_name: string;
-  handle_name: string;
-  conver_image: string;
-  owner_image: string;
-  followers: string;
-}
 
 @Component({
   selector: 'app-registration-add-skill',
@@ -28,50 +15,31 @@ export class Channel {
   styleUrls: ['./registration-add-skill.component.scss']
 })
 
-export class RegistrationAddSkillComponent implements OnInit {
-  private apiLink: string = environment.API_ENDPOINT;
-  image_base_url: string = environment.API_IMAGE;
-
-  channelList: any;
-  is_skill_open: false;
-  tagState$: Observable<Follow>;
-  private tagStateSubscription: Subscription;
-  private headers: Headers;
-  rForm: FormGroup;
-  rightCom: RightBlockTag;
-  // @TODO cleanup unwanted vars - @muneef
-  skillSelectionPage: any;
+export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
+  private apiLink = environment.API_ENDPOINT;
+  image_base_url = environment.API_IMAGE;
+  skillSelectionState$: Observable<Login>;
+  searchSkillForm: FormGroup;
+  skillSelectionState: any;
   selectedSkills = [];
+  skills = [];
   search: String;
   activateSubmitBtn = false;
-  redrectUrl: any;
-  interest: any;
-  routeQuery: any;
 
-  constructor(fb: FormBuilder, private http: Http, private router: Router, private store: Store<Login>, private route: ActivatedRoute) {
-    // if redriect url there
-    if (this.route.snapshot.queryParams['next']) {
-      this.redrectUrl = this.route.snapshot.queryParams['next'];
-    }
-
-    // if redriect url there
-    if (this.route.snapshot.queryParams['dwc2017']) {
-      this.interest = this.route.snapshot.queryParams['dwc2017'];
-    }
-
-    this.tagState$ = store.select('loginTags');
-    this.tagState$.subscribe((state) => {
-      this.skillSelectionPage = state;
+  constructor(
+    fb: FormBuilder,
+    private store: Store<Login>
+  ) {
+    this.skillSelectionState$ = store.select('loginTags');
+    this.skillSelectionState$.subscribe((state) => {
+      this.skillSelectionState = state;
+      this.skills = this.skillSelectionState['industries'];
     });
 
-    this.rForm = fb.group({
-      'profession' : [null, Validators.required],
-      'searchskills': [null, Validators.required],
+    this.searchSkillForm = fb.group({
+      profession: [null, Validators.required],
+      searchskills: [null, Validators.required],
     });
-
-    this.http = http;
-    this.headers = new Headers();
-    this.headers.append('Content-Type', 'application/json');
     this.search = '';
   }
 
@@ -79,6 +47,8 @@ export class RegistrationAddSkillComponent implements OnInit {
     // Load industries
     this.industriesList();
   }
+
+  ngOnDestroy() {}
 
   /**
    * Save skills if all selected
@@ -89,21 +59,7 @@ export class RegistrationAddSkillComponent implements OnInit {
     // After Skill Submit Check status and redrect to next page
     this.store.select('loginTags')
       .first(auth => auth['userSkillsSaveSuccess'] )
-      .subscribe( data => {
-        if (this.interest === 'true') {
-          this.router.navigateByUrl('/dwc/reg');
-          return
-        }
-
-        if (this.redrectUrl !== undefined) {
-          this.router.navigate([this.redrectUrl]);
-          return
-        }else {
-          this.router.navigateByUrl('/profile/user');
-          return
-        }
-
-      });
+      .subscribe( data => { });
   }
 
   /**
@@ -113,6 +69,8 @@ export class RegistrationAddSkillComponent implements OnInit {
   onSearchChange(query) {
     if (query || query !== '') {
       this.store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
+    } else {
+      this.industriesList();
     }
   }
 
@@ -120,7 +78,7 @@ export class RegistrationAddSkillComponent implements OnInit {
    * Load List of Skills (High Level)
    */
   industriesList() {
-    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   /**
@@ -135,7 +93,7 @@ export class RegistrationAddSkillComponent implements OnInit {
    * @param skillCode
    */
   findSkill(skillCode) {
-    return _find(this.skillSelectionPage.skills, function(s: any) {
+    return _find(this.skillSelectionState.skills, function(s: any) {
       return s.code === skillCode;
     });
   }
@@ -146,9 +104,9 @@ export class RegistrationAddSkillComponent implements OnInit {
    */
   addNewSkill(name) {
     if (name !== '') {
-      this.skillSelectionPage.skills.push({
-        'name': name,
-        'code': name.toUpperCase()
+      this.skillSelectionState.skills.push({
+        name: name,
+        code: name.toUpperCase()
       });
       this.toggleSelectSkill(name.toUpperCase());
       this.store.dispatch({ type: AuthActions.SAVE_SKILL, payload: name });
@@ -174,7 +132,7 @@ export class RegistrationAddSkillComponent implements OnInit {
         return skill.code !== skillCode;
       });
       // Mark it not selected in UI
-      this.skillSelectionPage.skills = this.skillSelectionPage.skills.filter(function(skill) {
+      this.skillSelectionState.skills = this.skillSelectionState.skills.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = false;
         }
@@ -183,7 +141,7 @@ export class RegistrationAddSkillComponent implements OnInit {
 
     } else {
       // Mark it selected in UI
-      this.skillSelectionPage.skills = this.skillSelectionPage.skills.filter(function(skill) {
+      this.skillSelectionState.skills = this.skillSelectionState.skills.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = true;
         }
@@ -195,9 +153,9 @@ export class RegistrationAddSkillComponent implements OnInit {
 
       // Adding skill to the selection array
       this.selectedSkills.push({
-        'name': skillMeta.name,
-        'code': skillMeta.code,
-        'active': true
+        name: skillMeta.name,
+        code: skillMeta.code,
+        active: true
       });
     }
 
