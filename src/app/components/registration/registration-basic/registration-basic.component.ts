@@ -1,7 +1,7 @@
 // ng imports
 import { Component, OnInit, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 // third party dependancies
 import { IDatePickerConfig } from 'ng2-date-picker';
@@ -19,10 +19,9 @@ import { FormValidation, DatabaseValidator } from '../../../helpers/form.validat
 import { environment } from '../../../../environments/environment';
 import { CountrySelectorComponent } from '../../../shared/country-selector/country-selector.component';
 
-import { Register, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
+import { initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
 
 import { AuthActions } from '../../../actions/auth.action';
-import { ProfileActions } from 'app/actions/profile.action';
 
 @Component({
   selector: 'app-registration-basic',
@@ -36,7 +35,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   counter = 60;
   passwordShow = false;
   country: any;
-  routeQuery: any;
   showTerms = false;
 
   // otp numbers
@@ -77,7 +75,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     private store: Store<BasicRegTag>,
     private databaseValidator: DatabaseValidator,
     private router: Router,
-    private route: ActivatedRoute,
     public modalService: ModalService
     ) {
 
@@ -87,11 +84,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         this.regState = state;
       }
     });
-
-    // if redriect url there
-    if (this.route.snapshot.queryParams) {
-      this.routeQuery = Object.assign({}, this.route.snapshot.queryParams);
-    }
 
     this.buildForm();
   }
@@ -120,11 +112,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     this.regFormBasic.controls['username'].setValue(selectUsername);
   }
 
-  ngOnInit() {
-    // setTimeout(() => {
-    //   this.modalService.open('otpWindow');
-    // }, 1000);
-  }
+  ngOnInit() { }
 
   // Init Reg Form
   buildForm(): void {
