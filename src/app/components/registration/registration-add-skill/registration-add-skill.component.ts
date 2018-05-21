@@ -90,7 +90,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
    * @param skillCode
    */
   findSkill(skillCode) {
-    return _find(this.skillSelectionState.skills, function(s: any) {
+    return _find(this.skillSelectionState.industries, function(s: any) {
       return s.code === skillCode;
     });
   }
@@ -99,9 +99,9 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
    * Add New Skill
    * @param name
    */
-  addNewSkill(name) {
+  addNewSkill(name: string) {
     if (name !== '') {
-      this.skillSelectionState.skills.push({
+      this.skillSelectionState.industries.push({
         name: name,
         code: name.toUpperCase()
       });
@@ -129,7 +129,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
         return skill.code !== skillCode;
       });
       // Mark it not selected in UI
-      this.skillSelectionState.skills = this.skillSelectionState.skills.filter(function(skill) {
+      this.skillSelectionState.industries = this.skillSelectionState.industries.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = false;
         }
@@ -138,7 +138,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
 
     } else {
       // Mark it selected in UI
-      this.skillSelectionState.skills = this.skillSelectionState.industries.filter(function(skill) {
+      this.skillSelectionState.industries = this.skillSelectionState.industries.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = true;
         }
