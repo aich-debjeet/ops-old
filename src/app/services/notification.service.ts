@@ -35,18 +35,22 @@ export class NotificationService {
    * Get notifications
    * @param req
    */
-  getNotifications() {
-    this.updateToken();
-    const pagination = this.paginate();
-    return this.api.get('/portal/network/notification/getAllNotification/' + pagination.offset + '/' + pagination.limit);
+  getNotifications(data: any) {
+    return this.api.get('/portal/network/notification/getAllNotification/' + data.page + '/' + data.limit);
   }
 
   /**
    * Mark notification as read
    */
   notificationMarkAsRead(reqBody: any) {
-    this.updateToken();
     return this.api.put( '/portal/network/notification/mark/read', reqBody);
+  }
+
+  /**
+   * Mark All notification as read
+   */
+  notificationAllMarkAsRead(reqBody: any) {
+    return this.api.get( '/portal/network/notification/mark/read');
   }
 
   /**

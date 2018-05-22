@@ -3,7 +3,7 @@ import { initialTag, ProfileModal, ProfileCards, UserCard} from '../models/profi
 
 import { ProfileActions } from '../actions/profile.action';
 import { OrganizationActions } from '../actions/organization.action';
-import { filter as _filter } from 'lodash';
+import * as _ from 'lodash';
 
 export interface State {
   user_channel: any,
@@ -299,7 +299,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get User following Media Post
      */
     case ProfileActions.LOAD_USER_FOLLOWING_POSTS:
-    if (payload.page_start === 0) {
+    if (payload.scrollId === null) {
       return Object.assign({}, state, {
         user_following_posts_loading: true,
         user_following_posts_loaded: false,
@@ -313,15 +313,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
 
   case ProfileActions.LOAD_USER_FOLLOWING_POSTS_SUCCESS:
-    const followingPosts = payload.mediaResponse;
-    const following_new_post = state.user_following_posts.concat(followingPosts)
-    return Object.assign({}, state, {
-      mediaEntity: payload,
-      user_following_posts_loaded: true,
-      user_following_posts_loading: false,
-      user_following_posts: following_new_post,
-      user_following_post_scroll_id: payload.scrollId
-    });
+  const followingPosts = payload.mediaResponse;
+  const following_new_post = state.user_following_posts.concat(followingPosts)
+  return Object.assign({}, state, {
+    mediaEntity: payload,
+    user_following_posts_loaded: true,
+    user_following_posts_loading: false,
+    user_following_posts: following_new_post,
+    user_following_post_scroll_id: payload.scrollId
+  });
 
   case ProfileActions.LOAD_USER_FOLLOWING_POSTS_FAILED:
 
@@ -649,7 +649,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.CHANNEL_FOLLOW_SUCCESS:
       return Object.assign({}, state, {
-        channel_followed: true
+        channel_followed: true,
+        user_following_channel: state.user_following_channel.filter(channel => channel.spotfeedId !== payload.id)
       });
 
     case ProfileActions.CHANNEL_FOLLOW_FAILED:

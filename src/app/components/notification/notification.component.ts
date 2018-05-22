@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 // action
 import { NotificationActions } from './../../actions/notification.action';
@@ -18,9 +18,10 @@ import * as _ from 'lodash';
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss']
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent implements OnInit, OnDestroy {
 
   notificationsState$: Observable<Notification>;
+  private subscription: ISubscription;
   formattedNotifications: any[];
   notificationIds: any[];
   notifications: any[];
@@ -30,7 +31,8 @@ export class NotificationComponent implements OnInit {
   lastScrollTop = 0;
   showPreloader: boolean;
   scrolling = 0;
-  scrollingLoad = 1000;
+  scrollingLoad = 251;
+  page = 0;
 
   constructor(
     private store: Store<Notification>,
@@ -40,36 +42,20 @@ export class NotificationComponent implements OnInit {
     // image path
     this.baseUrl = environment.API_IMAGE;
 
-    //this.dispatchLoadNotifications();
-
     // notification sotre
     this.notificationsState$ = this.store.select('notificationTags');
 
     // observe the store value
-    this.notificationsState$.subscribe((state) => {
+    this.subscription = this.notificationsState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         if (typeof state['recieved_notifications'] !== 'undefined') {
           this.notifications = state['recieved_notifications'];
-          
 
           // check is unread notification exits else mark all notifications as read
-          setTimeout(() => {
-            // check if unread notification is available
-            const allNotifsRead = _.every(this.notifications, ['isRead', true]);
-            if (allNotifsRead) {
-              this.alreadyReadAll = true;
-            } else {
-              this.alreadyReadAll = false;
-              this.markAllAsRead();
-            }
-          }, 1000);
 
           this.processNotifications();
         }
-        if (typeof state['marking_as_read_response'] !== 'undefined') {
-          // upadte notification as marked
-          this.updateNotifications();
-        }
+
         if (state && state['recieved_notifications_success'] === true) {
           this.showPreloader = false;
         }
@@ -77,60 +63,10 @@ export class NotificationComponent implements OnInit {
     });
   }
 
-  @HostListener('window:scroll', ['$event']) onScrollEvent($event) {
-    const scrolledValue = window.pageYOffset;
-    let scrollDirection = '';
-    if (scrolledValue > this.lastScrollTop) {
-      scrollDirection = 'down';
-    } else {
-      scrollDirection = 'up';
-    }
-    this.lastScrollTop = scrolledValue;
-
-    if (this.canScroll && (window.innerHeight + window.scrollY) >= document.body.offsetHeight && scrollDirection === 'down') {
-      // reached the bottom of the page
-      this.canScroll = false;
-      setTimeout(() => {
-        this.canScroll = true;
-      }, 1000);
-      this.dispatchLoadNotifications();
-    }
-  }
-
-  /**
-   * Redux dispatch to load notifications
-   */
-  dispatchLoadNotifications() {
-    // showing preloader
-    this.showPreloader = true;
-    // loading notifications
-    this.store.dispatch({
-      type: NotificationActions.LOAD_NOTIFICATIONS,
-      payload: null
-    });
-  }
-
-  /**
-   * Updating notification read in UI
-   */
-  updateNotifications() {
-    if (typeof this.notifications !== 'undefined'
-      && typeof this.notificationIds !== 'undefined'
-      && this.notifications.length > 0) {
-        for (let readNotifIndex = 0; readNotifIndex < this.notificationIds.length; readNotifIndex++) {
-          const readNotif = this.notificationIds[readNotifIndex];
-          for (let notifIndex = 0; notifIndex < this.notifications.length; notifIndex++) {
-            if (this.notifications[notifIndex].notificationId === this.notificationIds[readNotifIndex]) {
-              this.notifications[notifIndex].isRead = true;
-            }
-          }
-        }
-    }
-  }
-
   // message maker
   processNotifications() {
 
+    console.log('processNotifications');
     this.notifications.forEach((notif, index) => {
 
       switch (notif.notificationType) {
@@ -222,34 +158,46 @@ export class NotificationComponent implements OnInit {
     });
   }
 
-  /**
-   * Get all ids of all notifications
-   */
-  getAllNotificationIds(callback) {
-    const data = [];
-    if (typeof this.notifications !== 'undefined') {
-      this.notifications.forEach((notif, index) => {
-        if (notif.isRead === false) {
-          data.push(notif.notificationId);
-        }
-        if (index === (this.notifications.length - 1)) {
-          this.notificationIds = data;
-          callback();
-        }
-      });
-    }
-  }
 
   /**
    * Marking all notifications as read
    */
   markAllAsRead() {
-    const self = this;
-    this.getAllNotificationIds(function() {
-      self.dispatchReadNotifications();
+    this.store.dispatch({ type: NotificationActions.MARK_AS_ALL_READ });
+
+    this.store.select('notificationTags')
+    .first(notification => notification['mark_as_all_read_success'] === true )
+    .subscribe( data => {
+      this.scrolling = 0;
+      this.scrollingLoad = 251;
+      this.page = 0;
+      const payload = {
+        limit: 10,
+        page: 0
+      }
+      this.store.dispatch({ type: NotificationActions.LOAD_NOTIFICATIONS, payload: payload });
     });
   }
 
   ngOnInit() { }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  onScroll(e) {
+    console.log(e);
+    this.scrolling = e.currentScrollPosition;
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 500
+      this.page += 10
+      const data = {
+        limit: 10,
+        page: this.page
+      }
+
+      this.store.dispatch({ type: NotificationActions.LOAD_NOTIFICATIONS, payload: data });
+    }
+  }
 
 }
