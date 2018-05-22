@@ -1292,6 +1292,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       cancel_network_request: false,
       cancel_sent_request: []
     });
+
+  case ProfileActions.USER_PASSWORD_UPDATE_SUCCESS:
+  console.log('payload', payload)
+    return Object.assign({},state, {
+      pass_success : payload,
+    });
+
     default:
       return state;
   }
