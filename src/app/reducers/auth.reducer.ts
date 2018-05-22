@@ -114,12 +114,16 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_REGISTRATION_BASIC:
       return Object.assign({}, state, {
+        reg_basic_uploading_form_data: true,
+        reg_basic_uploaded_form_data: false,
         success: true,
         user_basic_reg_success: false,
       });
 
     case AuthActions.USER_REGISTRATION_BASIC_SUCCESS:
       return Object.assign({}, state, {
+        reg_basic_uploading_form_data: false,
+        reg_basic_uploaded_form_data: true,
         completed: payload,
         user_basic_reg_success: true,
         success: true,
@@ -128,6 +132,8 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_REGISTRATION_BASIC_FAILED:
       return Object.assign({}, state, {
+        reg_basic_uploading_form_data: false,
+        reg_basic_uploaded_form_data: false,
         user_basic_reg_success: false,
         success: false,
         completed: payload

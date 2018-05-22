@@ -51,14 +51,14 @@
                 </div>
 
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_right">
+            <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_right position_relative">
                 <!-- form -->
                 <div class="ops_h1 c-h3 m-b-8">Create your account</div>
                 <form [formGroup]="regFormBasic" novalidate (ngSubmit)="submitForm(regFormBasic.value)" #regform="ngForm">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <div class="c-form__group">
-                                <input class="c-form__input" formControlName="name" type="text" placeholder="Name">
+                                <input class="c-form__input" tabindex="1" formControlName="name" type="text" placeholder="Name">
                                 <span class="c-form__highlight"></span>
                                 <span class="c-form__bar"></span>
                                 <!-- <label>Name</label> -->
@@ -66,7 +66,7 @@
                                 <p class="error_alert" *ngIf="regFormBasic.controls['name'].errors?.invalidName && regform.submitted">Invalid name</p>
                             </div>
                             <div class="form_group">
-                                <input class="c-form__input" type="text" (ngModelChange)="userExistCheck($event)" formControlName="username" placeholder="Username">
+                                <input class="c-form__input" type="text" (ngModelChange)="userExistCheck($event)" tabindex="2" formControlName="username" placeholder="Username">
                                 <span class="form_highlight"></span>
                                 <!-- <label>Username</label> -->
                                 <p class="error_alert" *ngIf="regFormBasic.controls['username'].errors?.whitespace || regFormBasic.controls['username'].errors?.capitalLetters || regFormBasic.controls['username'].errors?.specialChars">Capital letters, spaces and special characters are not allowed</p>
@@ -96,7 +96,7 @@
                         </label>
                     </div>
                     <div class="c-form__group ">
-                        <input class="c-form__input d-in" type="text" formControlName="dob" [dpDayPicker]="datePickerConfig" theme="dp-material" placeholder="Date of Birth">
+                        <input class="c-form__input d-in" type="text" tabindex="3" formControlName="dob" [dpDayPicker]="datePickerConfig" theme="dp-material" placeholder="Date of Birth">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <!-- <label>Date of Birth</label> -->
@@ -106,7 +106,7 @@
                         <p class="error_alert" *ngIf="regFormBasic.controls['dob'].errors?.isOverAge">You should be below 100</p>
                     </div>
                     <div class="c-form__group">
-                        <input class="c-form__input" type="text" formControlName="email" placeholder="Email">
+                        <input class="c-form__input" type="text" tabindex="4" formControlName="email" placeholder="Email">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <!-- <label>Email</label> -->
@@ -116,7 +116,7 @@
                     </div>
                     <div class="c-form__group">
                         <span id="phone" type="tel"></span>
-                        <input class="c-form__input p-l-50-px" type="text" formControlName="phone" placeholder="Phone Number">
+                        <input class="c-form__input p-l-50-px" type="text" tabindex="5" formControlName="phone" placeholder="Phone Number">
                         <span class="c-form__highlight"></span>
                         <!-- <app-country-selector [selectorId]="choices-countries-number-update" (onCountrySelection)="saveCountry($event)"></app-country-selector> -->
                         <app-country-selector (onCountrySelection)="saveCountry($event)"></app-country-selector>
@@ -129,7 +129,7 @@
                         <!-- <button class="password-toggle pos-abs" type="button" (click)="passwordShowToggle()" title="{{ passwordShow ? 'Hide Password' : 'Show Password' }}">
                             <span class="fa {{ passwordShow ? 'fa-eye' : 'fa-eye-slash' }}"></span>
                         </button> -->
-                        <input class="c-form__input" type="password" formControlName="password" placeholder="Password">
+                        <input class="c-form__input" type="password" tabindex="6" formControlName="password" placeholder="Password">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <!-- <label>Password</label> -->
@@ -137,7 +137,7 @@
                         <p class="error_alert" *ngIf="regFormBasic.controls['password'].errors?.isWeakPassword">Password should contain atleast 5 alphanumeric characters</p>
                     </div>
                     <div class="c-form__group pass-margin">
-                        <input class="c-form__input" type="password" formControlName="confirmpassword" placeholder="Confirm Password">
+                        <input class="c-form__input" type="password" tabindex="7" formControlName="confirmpassword" placeholder="Confirm Password">
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <!-- <label>Confirm Password</label> -->
@@ -148,10 +148,15 @@
                         <p class="text-grey">
                             By clicking, I agree to the <a (click)="termsAction('show')" class="text-theme">Terms & Conditions.</a>
                         </p>
-                        <button type="submit" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#otpModal">SIGN UP</button>
+                        <button type="submit" class="btn btn-primary btn-lg pull-right" [disabled]="disableSubmitBtn">SIGN UP</button>
                     </div>
                 </form>
                 <!-- //form -->
+                <div class="position_absolute">
+                    <div *ngIf="uploadingFormData" class="preloader">
+                        <div class="sticky"><div class="loader">Loading...</div></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

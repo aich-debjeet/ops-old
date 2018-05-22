@@ -37,6 +37,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   passwordShow = false;
   country: any;
   showTerms = false;
+  uploadingFormData = false;
 
   // otp numbers
   @ViewChild('otpNum1') otpNum1: ElementRef;
@@ -58,7 +59,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   resendingOtp = false;
   imageBaseLink: string = environment.API_IMAGE;
 
-  // public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public regFormBasic: FormGroup;
   public otpForm: FormGroup;
   public newNumberForm: FormGroup;
@@ -84,6 +84,12 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     this.tagState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.regState = state;
+        if (typeof state['reg_basic_uploading_form_data'] !== 'undefined' && state['reg_basic_uploading_form_data'] === true) {
+          this.uploadingFormData = true;
+        }
+        if (typeof state['reg_basic_uploaded_form_data'] !== 'undefined' && state['reg_basic_uploaded_form_data'] === true) {
+          this.uploadingFormData = false;
+        }
       }
     });
 
@@ -119,10 +125,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   // Init Reg Form
   buildForm(): void {
     this.regFormBasic = this.fb.group({
-      name: ['', [Validators.required],
+      name: ['Abhijeet Salunkhe', [Validators.required],
         this.databaseValidator.checkForValidName.bind(this)
       ],
-      username: ['', [
+      username: ['abhijeet', [
           Validators.required,
           FormValidation.noWhitespaceValidator,
           FormValidation.usernameLengthValidator,
@@ -131,12 +137,12 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         ],
         this.databaseValidator.userNameValidation.bind(this.databaseValidator)
       ],
-      dob: ['', [
+      dob: ['18-12-1991', [
           Validators.required,
           FormValidation.validateAge
         ]
       ],
-      email: ['', [
+      email: ['abhijeet.salunkhe@aeione.com', [
           Validators.required,
           Validators.min(3),
           FormValidation.validEmail
@@ -144,14 +150,14 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
       gender: ['M', Validators.required],
-      phone: ['', [
+      phone: ['9867884320', [
           Validators.required,
           Validators.minLength(4)
         ],
         // this.databaseValidator.checkMobile.bind(this.databaseValidator)
         this.checkMobile.bind(this)
       ],
-      password: ['', [
+      password: ['admin@123', [
         Validators.required,
         FormValidation.passwordStrength.bind(this)
       ]],
@@ -199,7 +205,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
       }, 1000);
     });
     return q;
-}
+  }
 
   // focus on next otp number
   nextOtpNum(num: number) {
@@ -243,7 +249,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
       }
       this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: otpData });
       this.store.select('loginTags').take(2).subscribe(data => {
-        if (data['user_otp_success'] === true ) {
+        if (data['user_otp_success'] === true) {
           this.otpLogin();
           this.modalService.close('otpWindow');
           this.router.navigate(['/reg/addskill']);
