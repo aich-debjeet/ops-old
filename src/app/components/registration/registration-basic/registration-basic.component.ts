@@ -96,9 +96,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   // terms show/hide
   termsAction(action: string) {
     if (action === 'hide') {
-      this.showTerms = false;
+      this.modalService.close('termsPopup');
     } else {
-      this.showTerms = true;
+      this.modalService.open('termsPopup');
     }
   }
 
