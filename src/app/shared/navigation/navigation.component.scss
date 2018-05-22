@@ -728,3 +728,10 @@
     width: 100%;
     float: left;
 }
+.o-alert_scroll {
+    width: 100%;
+    float: left;
+    height: 380px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}

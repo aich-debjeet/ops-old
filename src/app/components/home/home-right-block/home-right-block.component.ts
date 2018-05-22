@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TruncatePipe } from '../../../pipes/truncate.pipe';
 
 import { ProfileActions } from '../../../actions/profile.action';
@@ -20,7 +21,8 @@ import { environment } from '../../../../environments/environment';
   // providers: [ TruncatePipe ]
 })
 
-export class HomeRightBlockComponent implements OnInit, OnDestroy {
+export class HomeRightBlockComponent implements OnInit, OnDestroy, AfterViewInit {
+  @Output() followUpdate: EventEmitter<any> = new EventEmitter<any>();
   private subscription: ISubscription;
   private profilesubscription: ISubscription;
   opportunityState$: Observable<OpportunityModel>;
@@ -40,53 +42,38 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
   scrollingLoad = 100;
 
   constructor(
-    private store: Store<ProfileModal>
+    private store: Store<ProfileModal>,
+    private router: Router,
   ) {
     this.myProfile$ = store.select('profileTags');
-    this.opportunityState$ = this.store.select('opportunityTags');
-  }
-
-  ngOnInit() {
-    this.loadProfiles();
-    // observe the opportunity state
-    this.subscription = this.opportunityState$.subscribe((state) => {
-     // check for the result of recommended opportunities
-     if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
-       this.opportunities = state.get_opportunities_data.SUCCESS;
-     }
-   });
-
-    this.profilesubscription = this.myProfile$.subscribe((event) => {
-      if (event.user_profiles_all_loaded) {
-        this.people_follow_id = event.people_follow_scroll_id
-        // console.log(this.people_follow_id)
-      }
-      if (typeof event !== 'undefined') {
+    this.profilesubscription = this.myProfile$.subscribe((profile) => {
+      if (typeof profile !== 'undefined') {
         this.userState = event;
-        if (event['user_profiles_all'] !== 'undefined') {
-          this.profiles = event.user_profiles_all;
-          // console.log(this.profiles)
+        if (profile['user_profiles_all'] !== 'undefined') {
+          this.profiles = profile.user_profiles_all;
         }
-
-        // check for user skills
-        if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['skills'] && this.userState['profile_navigation_details']['skills'].length > 0) {
-          // fetching skills in a local var
-          const skillsLoaded = this.userState['profile_navigation_details']['skills'];
-          // preparing skills as an array of string
-          skillsLoaded.forEach((skill, index) => {
-            if (skill && skill.code) {
-              this.skillCodes.push(skill.code);
-            }
-            if ((skillsLoaded.length - 1) === index) {
-              if (!this.loadedRecomOpps) {
-                this.loadRecomOpps();
-                this.loadedRecomOpps = true;
-              }
-            }
-          });
+        if (profile.user_profiles_all_loaded) {
+          this.people_follow_id = profile.people_follow_scroll_id
         }
       }
     });
+
+    this.opportunityState$ = this.store.select('opportunityTags');
+    this.subscription = this.opportunityState$.subscribe((state) => {
+      if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
+        this.opportunities = state.get_opportunities_data.SUCCESS;
+      }
+    });
+  }
+
+  ngOnInit() {
+    // this.loadProfiles();
+    // this.loadRecomOpps();
+  }
+
+  ngAfterViewInit() {
+    this.loadProfiles();
+    this.loadRecomOpps();
   }
 
   getProfileImage() {
@@ -99,7 +86,7 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
    */
   loadRecomOpps() {
     const recomSearchParams = {
-      industry: this.skillCodes,
+      // industry: this.skillCodes,
       offset: 0, // initial request
       limit: this.recordsPerPage
     }
@@ -117,6 +104,34 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
   followUser(user: any) {
     this.store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
     user.extra.isFollowing = true;
+    this.store.select('profileTags')
+      .first(state => state['profile_other_followed'] === true)
+      .subscribe( datas => {
+        this.postLoad();
+        this.loadChannels();
+      });
+  }
+
+  /**
+   * post user channel
+   */
+  postLoad() {
+    const data = {
+      limit: 10,
+      scrollId: null
+    }
+    this.store.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
+  }
+
+  /**
+   * following user channel
+   */
+  loadChannels() {
+    const body = {
+      limit: 9
+    }
+
+    this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: body });
   }
 
   /**
@@ -137,18 +152,14 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy {
   loadProfiles() {
     this.store.dispatch({ type: ProfileActions.LOAD_ALL_PROFILES, payload: {
       'isHuman' : '1' ,
-      // 'limit': 10,
       'name': {
         'scrollId': this.people_follow_id
        }
       }});
   }
   onScrol(e) {
-    //  console.log(e)
     this.scrolling = e.currentScrollPosition;
-    // console.log(this.scrolling)
     if (this.scrollingLoad <= this.scrolling) {
-      // console.log('scrolling')
       this.scrollingLoad += 100;
       this.loadProfiles();
     }

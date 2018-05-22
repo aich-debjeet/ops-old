@@ -2,34 +2,7 @@
 <div class="col-md-3 col-xs-12 p-0">
 
     <!-- communities -->
-
-    <!-- <div class="relative">
-        <div class="panel-group">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-                Users to follow
-                <!--<span><a href="">See More</a></span>-
-            </div>
-            <div class="panel-body r-body__heigth">
-            <ul class="user-list">
-                <li *ngFor="let profileItem of this.profiles" class="user-list__li">
-                    <a routerLink="/profile/u/{{ profileItem?.extra?.username }}">
-                        <div class="user-follow_img">
-                            <img *ngIf="profileItem.profileImage" class="userImage" [src]="imageBaseUrl + profileItem.profileImage" width="24px"/>
-                        </div>
-                        <div class="user-follow_text">
-                            <div class="user-follow_name">{{ profileItem?.name }}</div>
-                            <div class="user-follow_user">@{{ profileItem?.extra?.username }}</div>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-    <div class="c-card m-t-8">
+    <div class="c-card m-t-8" >
         <div class="c-text_md p-16 color-grey-dark f-w_600 text_uppercase ltr-space">People to follow</div>
         <div class="c-follow__sec" infinite-scroll (scrolled)="onScrol($event)" [scrollWindow]="false" id="ops_scrollbar">
             <div class="c-invite__block" *ngFor="let profileItem of profiles">
@@ -46,222 +19,90 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="c-invite__block">
-            <a class="c-user__avatar c-avatar--status">
-              <img src="img/avatar.png" class="c-user__image">
-            </a>
-            <a class="c-text_md c-invite--user">Annie Weaver</a>
-            <div class="c-invite--btn">
-              <button type="button" class="btn btn-default btn-sm">Follow</button>
-            </div>
-          </div>
-          <div class="c-invite__block">
-            <a class="c-user__avatar c-avatar--status">
-              <img src="img/avatar.png" class="c-user__image">
-            </a>
-            <a class="c-text_md c-invite--user">Randall Van</a>
-            <div class="c-invite--btn">
-              <button type="button" class="btn btn-default btn-sm">Follow</button>
-            </div>
-          </div>
-          <div class="c-invite__block">
-            <a class="c-user__avatar c-avatar--status">
-              <img src="img/avatar.png" class="c-user__image">
-            </a>
-            <a class="c-text_md c-invite--user">Tobias Van</a>
-            <div class="c-invite--btn">
-              <button type="button" class="btn btn-default btn-sm">Follow</button>
-            </div>
-          </div>
-          <div class="c-invite__block">
-            <a class="c-user__avatar c-avatar--status">
-              <img src="img/avatar.png" class="c-user__image">
-            </a>
-            <a class="c-text_md c-invite--user">Tobias Van</a>
-            <div class="c-invite--btn">
-              <button type="button" class="btn btn-default btn-sm">Follow</button>
-            </div>
-          </div>
-          <div class="c-invite__block">
-            <a class="c-user__avatar c-avatar--status">
-              <img src="img/avatar.png" class="c-user__image">
-            </a>
-            <a class="c-text_md c-invite--user">Tobias Van</a>
-            <div class="c-invite--btn">
-              <button type="button" class="btn btn-default btn-sm">Follow</button>
-            </div>
-          </div>
-          <div class="c-invite__block">
-            <a class="c-user__avatar c-avatar--status">
-              <img src="img/avatar.png" class="c-user__image">
-            </a>
-            <a class="c-text_md c-invite--user">Tobias Van</a>
-            <div class="c-invite--btn">
-              <button type="button" class="btn btn-default btn-sm">Follow</button>
-            </div>
-          </div> -->
-            <!-- <div class="c-follow__seeall">See All</div> -->
         </div>
     </div>
     <!-- people to follow end -->
     <br>
-    <!-- <div class="relative">
-        <div class="coming_soon_txt">Coming Soon</div>
-        <div class="panel-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    COMMUNITIES
-                    <!--<span><a href="">See More</a></span>--
-                </div>
-                <div class="panel-body blur-main">
-                    <div class="row sm_panel_body">
-                        <div class="col-md-4 col-sm-12 sm_panel_left">
-                            <figure class="avatar_community2">
-                                <img src="https://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
-                            </figure>
-                        </div>
-                        <div class="col-md-8 col-sm-12 sm_panel_right">
-                            <h3>UI Designer Club, Bangalore</h3>
-                            <button type="button" class="btn btn-xs btn-normal btn-plus">
-                                <span class="btn-label-follow">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                </span> JOIN
-                            </button>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row sm_panel_body">
-                        <div class="col-md-4 col-sm-12 sm_panel_left">
-                            <figure class="avatar_community2">
-                                <img src="https://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
-                            </figure>
-                        </div>
-                        <div class="col-md-8 col-sm-12 sm_panel_right">
-                            <h3>Color and Font Future Design</h3>
-                            <button type="button" class="btn btn-xs btn-normal btn-plus">
-                                <span class="btn-label-follow">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                </span> JOIN
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-
-    <!-- nearest event --
-    <div class="relative">
-        <div class="coming_soon_txt">Coming Soon</div>
-        <div class="panel-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Nearest Events
-                    <!--<span><a href="">See More</a></span>--
-                </div>
-                <div class="blur-main">
-                    <div class="panel-body">
-                        <div class="row sm_panel_body">
-                            <div class="col-md-12 padding_012">
-                                <figure class="avatar_near_event">
-                                    <img src="https://d33wubrfki0l68.cloudfront.net/338649e262dccbc7aa62661a21311a612e5dc06f/553cd/img/art_color.jpg" class="img-responsive">
-                                </figure>
-                                <h3 class="ops_heading">Dj Night BY DJ Khaled</h3>
-                                <p class="ops_subheading">12, Jul, 2017</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row sm_panel_body">
-                            <div class="col-md-12 padding_012">
-                                <figure class="avatar_near_event">
-                                    <img src="https://d33wubrfki0l68.cloudfront.net/338649e262dccbc7aa62661a21311a612e5dc06f/553cd/img/art_color.jpg" class="img-responsive">
-                                </figure>
-                                <h3 class="ops_heading">Dj Night BY DJ Khaled</h3>
-                                <p class="ops_subheading">12, Jul, 2017</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-
-    <!-- opportunities --
-    <div class="relative">
-        <div class="coming_soon_txt">Coming Soon</div>
-        <div class="panel-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    opportunities
-                    <!--<span><a href="">See More</a></span>--
-                </div>
-                <div class="blur-main">
-                    <div class="panel-body">
-                        <div class="row sm_panel_body">
-                            <div class="col-md-4 sm_panel_left">
-                                <figure class="avatar_community2">
-                                    <img src="https://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
-                                </figure>
-                            </div>
-                            <div class="col-md-8 sm_panel_right">
-                                <h3>Senior Art Designer</h3>
-                                <p class="ops_subheading">Flypay</p>
-                                <button type="button" class="btn btn-default btn-xs">APPLY</button>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row sm_panel_body">
-                            <div class="col-md-4 sm_panel_left">
-                                <figure class="avatar_community2">
-                                    <img src="https://d33wubrfki0l68.cloudfront.net/23233487310357c73524b8c7bfdc14ac9ef3388d/d014c/img/event.jpg" class="img-responsive">
-                                </figure>
-                            </div>
-                            <div class="col-md-8 sm_panel_right">
-                                <h3>UX/UI Designer</h3>
-                                <p class="ops_subheading">Headout</p>
-                                <button type="button" class="btn btn-default btn-xs">APPLY</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
     <div class="c-card">
         <div class="c-text_md padding_16 color-grey-dark f-w_600 text_uppercase ltr-space">Opportunities for you</div>
-        <a href="">
-            <div class="with_border_bottom m-b-16">
-            <div class="c-card__project p-l-r-16">
-                <img [src]="imageBaseUrl + 'img/svg/audition.svg'" class="c-card__project--icon"> <span class="m-l-8">Audition</span>
-            </div>
-            <div class="o-home-org-list__title">
-                <p class="c-text_lg">Project and Program Management</p>
-            </div>
-            <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">Technosoft India PVT LTD</div>
-            <div class="c-card__location p-b-16 m-b-16">
-                <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
-                <p class="c-card__location--text float_left m-l-8">Bangalore, India</p>
-            </div>
-            </div>
-        </a>
-
-        <a href="">
-            <div class="c-card__project p-l-r-16">
-                <img [src]="imageBaseUrl + 'img/svg/audition.svg'" class="c-card__project--icon"> <span class="m-l-8">Audition</span>
-            </div>
-            <div class="o-home-org-list__title">
-                <p class="c-text_lg">Project and Program Management</p>
-            </div>
-            <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">Technosoft India PVT LTD</div>
-            <div class="c-card__location p-b-16 m-b-16">
-                <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
-                <p class="c-card__location--text float_left m-l-8">Bangalore, India</p>
-            </div>
-        </a>
+        <div class="opp_center" *ngIf="opportunities && opportunities.length === 0; else opportunities_found;">
+            <p class="result-not-found">No records found!</p>
+        </div>
+        <ng-template #opportunities_found>
+            <a routerLink="/opportunity/view/{{ opportunityDetails?.id }}" *ngFor="let opportunityDetails of opportunities">
+                <div class="with_border_bottom m-b-16" *ngIf = "opportunityDetails?.opportunityType === 'audition'">
+                    <div class="c-card__project p-l-r-16">
+                        <img [src]="imageBaseUrl + 'img/svg/audition.svg'" class="c-card__project--icon"> 
+                        <span class="m-l-8">{{opportunityDetails?.opportunityType | uppercase }}</span>
+                    </div>
+                    <div class="o-home-org-list__title">
+                        <p class="c-text_lg">{{ opportunityDetails?.opportunityAudition?.title }}</p>
+                    </div>
+                    <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">{{ opportunityDetails?.opportunityAudition?.title }}</div>
+                    <div class="c-card__location p-b-16 m-b-16">
+                        <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
+                        <p class="c-card__location--text float_left m-l-8">{{ opportunityDetails?.opportunityAudition?.location .lat}}</p>
+                    </div>
+                </div>
+                <div class="with_border_bottom m-b-16" *ngIf = "opportunityDetails?.opportunityType === 'volunteer'">
+                    <div class="c-card__project p-l-r-16">
+                        <img [src]="imageBaseUrl + 'img/svg/volunteer.svg'" class="c-card__project--icon"> 
+                        <span class="m-l-8">{{opportunityDetails?.opportunityType | uppercase }}</span>
+                    </div>
+                    <div class="o-home-org-list__title">
+                        <p class="c-text_lg">{{ opportunityDetails?.opportunityVolunteer?.title }}</p>
+                    </div>
+                    <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">{{ opportunityDetails?.opportunityVolunteer?.title }}</div>
+                    <div class="c-card__location p-b-16 m-b-16">
+                        <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
+                        <p class="c-card__location--text float_left m-l-8">{{ opportunityDetails?.opportunityVolunteer?.location?.lat }}</p>
+                    </div>
+                </div>
+                <div class="with_border_bottom m-b-16" *ngIf = "opportunityDetails?.opportunityType === 'freelance'">
+                    <div class="c-card__project p-l-r-16">
+                        <img [src]="imageBaseUrl + 'img/svg/Freelance.svg'" class="c-card__project--icon"> 
+                        <span class="m-l-8">{{opportunityDetails?.opportunityType | uppercase }}</span>
+                    </div>
+                    <div class="o-home-org-list__title">
+                        <p class="c-text_lg">{{ opportunityDetails?.opportunityFreelance?.title }}</p>
+                    </div>
+                    <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">{{ opportunityDetails?.opportunityFreelance?.title }}</div>
+                    <div class="c-card__location p-b-16 m-b-16">
+                        <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
+                        <p class="c-card__location--text float_left m-l-8">{{ opportunityDetails?.opportunityFreelance?.location?.lat }}</p>
+                    </div>
+                </div>
+                <div class="with_border_bottom m-b-16" *ngIf = "opportunityDetails?.opportunityType === 'job'">
+                    <div class="c-card__project p-l-r-16">
+                        <img [src]="imageBaseUrl + 'img/svg/jobs.svg'" class="c-card__project--icon"> 
+                        <span class="m-l-8">{{opportunityDetails?.opportunityType | uppercase }}</span>
+                    </div>
+                    <div class="o-home-org-list__title">
+                        <p class="c-text_lg">{{ opportunityDetails?.opportunityJob?.role }}</p>
+                    </div>
+                    <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">{{ opportunityDetails?.organizationName }}</div>
+                    <div class="c-card__location p-b-16 m-b-16">
+                        <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
+                        <p class="c-card__location--text float_left m-l-8">{{opportunityDetails?.opportunityJob?.location?.lat}}</p>
+                    </div>
+                </div>
+                <div class="with_border_bottom m-b-16" *ngIf = "opportunityDetails?.opportunityType === 'project'">
+                    <div class="c-card__project p-l-r-16">
+                        <img [src]="imageBaseUrl + 'img/svg/Projects.svg'" class="c-card__project--icon"> 
+                        <span class="m-l-8">{{opportunityDetails?.opportunityType | uppercase }}</span>
+                    </div>
+                    <div class="o-home-org-list__title">
+                        <p class="c-text_lg">{{ opportunityDetails?.opportunityProject?.title }}</p>
+                    </div>
+                    <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">{{ opportunityDetails?.opportunityProject?.title }}</div>
+                    <div class="c-card__location p-b-16 m-b-16">
+                        <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
+                        <p class="c-card__location--text float_left m-l-8">{{opportunityDetails?.opportunityProject?.location?.lat}}</p>
+                    </div>
+                </div>
+            </a>
+        </ng-template>
     </div>
 </div>
 <!-- //right home feed -->

@@ -39,7 +39,7 @@
                         </div>
                     </div> -->
                 </div>
-                <div *ngIf="messangerList && messangerList?.length > 0" class="mess_list row">
+                <div *ngIf="messangerList && messangerList?.length > 0" class="mess_list row" id="ops_scrollbar">
                     <div *ngFor="let user of messangerList" class="row with_border_bottom with_border_top" [ngClass]="{'msg__unread': !user.isRead }">
                         <div class="c-checkbox__md2 col-md-2">
                             <label class="checkbox-inline pull-right m-t-24">
@@ -118,7 +118,12 @@
                                                 <i>{{ message?.content }}</i>
                                             </p>
                                             <div *ngIf="message.isDeleted === false" class="msg_sent_time2">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
-                                            <span title="Delete" class="del-msg" *ngIf="message.isDeleted === false" (click)="deleteMessage(message)">x</span>
+                                            <ng-template #notSending>
+                                                <span title="Delete" class="del-msg" *ngIf="message.isDeleted === false" (click)="deleteMessage(message)">x</span>
+                                            </ng-template>
+                                            <span class="sending-msg" *ngIf="message?.isSending === true; else notSending">
+                                                <img [src]="imageBaseUrl + 'img/search-preloader.gif'" class="c-form__input--lefticon">
+                                            </span>
                                         </li>
                                     </ul>
                                 </div>

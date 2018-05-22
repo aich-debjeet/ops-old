@@ -76,7 +76,7 @@ export class OpportunityService {
    * Get opportunities by filters like recommended, created opps
    */
   getOpportunities(reqParams: any) {
-    // console.log('payload', reqParams)
+     console.log('payload', reqParams)
     this.updateToken();
     // return this.api.put('/portal/job', reqParams);
     return this.api.get('/portal/opportunity/created/user/' + reqParams.offset + '/'+ reqParams.limit);

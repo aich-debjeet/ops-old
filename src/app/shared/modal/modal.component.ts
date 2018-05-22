@@ -5,7 +5,7 @@ import { ModalService } from './modal.component.service';
     selector: 'app-modal',
     styleUrls: ['./modal.component.scss'],
     template: `
-      <div [ngClass]="('modal__' + size + ' ' + (!isOpen ? 'closed' : '' ))">
+      <div id="{{ modalId }}" [ngClass]="('modal__' + size + ' ' + (!isOpen ? 'closed' : '' ))">
         <div class="ng-modal-overlay" (click)="close(true)"></div>
         <div [ngClass]="size" class="ng-modal">
           <div class="body">

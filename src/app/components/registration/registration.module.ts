@@ -4,7 +4,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './registration.component';
 import { TextMaskModule } from 'angular2-text-mask';
-import { SearchFilterPipe } from '../../pipes/search.pipe'
+import { SearchFilterPipe } from '../../pipes/search.pipe';
+import { DpDatePickerModule } from 'ng2-date-picker';
 // helper
 // import {  passwordValidator, passwordConfirmation } from '../../helpers/password.validator';
 
@@ -26,7 +27,8 @@ import { SharedModule } from '../../shared/shared.module';
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    DpDatePickerModule
   ],
   declarations: [
     RegistrationComponent,

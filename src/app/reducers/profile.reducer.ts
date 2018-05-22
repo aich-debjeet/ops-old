@@ -3,7 +3,7 @@ import { initialTag, ProfileModal, ProfileCards, UserCard} from '../models/profi
 
 import { ProfileActions } from '../actions/profile.action';
 import { OrganizationActions } from '../actions/organization.action';
-import { filter as _filter } from 'lodash';
+import * as _ from 'lodash';
 
 export interface State {
   user_channel: any,
@@ -121,7 +121,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     /* reset org created success value to false */
     case ProfileActions.ORG_REG_SUCCESS_RESET:
-      // console.log('ORG_REG_SUCCESS_RESET');
       return Object.assign({}, state, {
         org_registration_success: false
       });
@@ -300,7 +299,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get User following Media Post
      */
     case ProfileActions.LOAD_USER_FOLLOWING_POSTS:
-    if (payload.page_start === 0) {
+    if (payload.scrollId === null) {
       return Object.assign({}, state, {
         user_following_posts_loading: true,
         user_following_posts_loaded: false,
@@ -314,16 +313,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
 
   case ProfileActions.LOAD_USER_FOLLOWING_POSTS_SUCCESS:
-  // console.log(payload)
-    const followingPosts = payload.mediaResponse;
-    const following_new_post = state.user_following_posts.concat(followingPosts)
-    return Object.assign({}, state, {
-      mediaEntity: payload,
-      user_following_posts_loaded: true,
-      user_following_posts_loading: false,
-      user_following_posts: following_new_post,
-      user_following_post_scroll_id: payload.scrollId
-    });
+  const followingPosts = payload.mediaResponse;
+  const following_new_post = state.user_following_posts.concat(followingPosts)
+  return Object.assign({}, state, {
+    mediaEntity: payload,
+    user_following_posts_loaded: true,
+    user_following_posts_loading: false,
+    user_following_posts: following_new_post,
+    user_following_post_scroll_id: payload.scrollId
+  });
 
   case ProfileActions.LOAD_USER_FOLLOWING_POSTS_FAILED:
 
@@ -548,7 +546,9 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       }
 
       return Object.assign({}, state, {
-        profile_other: v
+        profile_other: v,
+        user_following_posts: state.user_following_posts.filter(post => post.ownerHandle !== payload.ownerHandle),
+        user_following_channel: state.user_following_channel.filter(channel => channel.ownerHandle !== payload.ownerHandle)
       });
 
     case ProfileActions.PROFILE_FOLLOW_SUCCESS:
@@ -559,9 +559,9 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       if (x && x.followersCount) {
         x.followersCount = state.profile_other.followersCount + 1
       }
-
       return Object.assign({}, state, {
-        profile_other: x
+        profile_other: x,
+        profile_other_followed: true,
       });
 
 
@@ -635,11 +635,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         profile_other_followed: false
       });
 
-    case ProfileActions.PROFILE_FOLLOW_SUCCESS:
-      return Object.assign({}, state, {
-        profile_other_followed: true
-      });
-
     case ProfileActions.PROFILE_FOLLOW_FAILED:
       return Object.assign({}, state, {
         profile_other_followed: false
@@ -654,7 +649,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.CHANNEL_FOLLOW_SUCCESS:
       return Object.assign({}, state, {
-        channel_followed: true
+        channel_followed: true,
+        user_following_channel: state.user_following_channel.filter(channel => channel.spotfeedId !== payload.id)
       });
 
     case ProfileActions.CHANNEL_FOLLOW_FAILED:
@@ -800,7 +796,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         user_profiles_all_loaded: false
       });
     case ProfileActions.LOAD_ALL_PROFILES_SUCCESS:
-      // console.log(payload)
       const resp = payload.profileResponse;
       const profile_list = state.user_profiles_all.concat(resp)
       return Object.assign({}, state, {
@@ -877,17 +872,16 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       default_notification: []
     });
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_SUCCESS:
-    // console.log(payload)
-    return Object.assign({}, state, {
-      default_notification: payload.settings.notificationSettings,
-      adult_Content: payload.settings.allowARC,
-      privateAccount: payload.settings.privateAccount,
-      preferences: payload.settings.homePagePreferences.preferences
-    });
+      return Object.assign({}, state, {
+        default_notification: payload.settings.notificationSettings,
+        adult_Content: payload.settings.allowARC,
+        privateAccount: payload.settings.privateAccount,
+        preferences: payload.settings.homePagePreferences.preferences
+      });
 
     case ProfileActions.DEFAULT_NOTIFICATION_SETTINGS_FAILED:
-    return Object.assign({}, state, {
-    });
+      return Object.assign({}, state, {
+      });
 
 
     /* Create Org */
@@ -1141,7 +1135,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.SENT_REQUEST_LIST_SUCCESS:
-    // console.log('payload', payload)
       return Object.assign({}, state, {
         network_sent_requests: payload,
         get_req: true,
@@ -1165,7 +1158,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
   case ProfileActions.SENT_NETWORK_REQUEST_SUCCESS:
-    // console.log(payload)
     return Object.assign({}, state, {
       network_sent_request_success: payload,
       network_request_success: true
@@ -1173,7 +1165,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
   case ProfileActions.SENT_NETWORK_REQUEST_FAILED:
-    // console.log(payload._body)
     return Object.assign({}, state, {
       // network_sent_request_success: [],
       network_sent_request_fail: payload._body,
@@ -1190,14 +1181,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
   case ProfileActions.GET_PENDING_REQUEST_LIST_SUCCESS:
-    // console.log(payload)
     return Object.assign({}, state, {
       pending_request_list: payload,
       list_loaded: true,
     });
 
   case ProfileActions.GET_PENDING_REQUEST_LIST_FAILED:
-    // console.log(payload)
     return Object.assign({}, state, {
       pending_request_list: [],
       list_loaded: false,
@@ -1213,14 +1202,12 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
   });
 
   case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_SUCCESS:
-    // console.log(payload)
     return Object.assign({}, state, {
       active_connection_list: payload,
       connection_loaded: true,
     });
 
   case ProfileActions.GET_ACTIVE_CONNECTIONS_LIST_FAILED:
-    // console.log(payload._body)
     return Object.assign({}, state, {
       active_connection_list: [],
       connection_loaded: false,
@@ -1230,7 +1217,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Accept network request
      */
   case ProfileActions.ACCEPT_NETWORK_REQUEST:
-    // console.log(payload)
     return Object.assign({}, state, {
       accepted_request: false,
       accepted_network_request: [],
@@ -1239,7 +1225,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
   case ProfileActions.ACCEPT_NETWORK_REQUEST_SUCCESS:
-    // console.log(payload)
     return Object.assign({}, state, {
       accepted_request: true,
       accepted_network_request: payload,
@@ -1256,15 +1241,13 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * decline network request
      */
   case ProfileActions.DECLINE_NETWORK_REQUEST:
-  // console.log(payload)
-  return Object.assign({}, state, {
-    declined_request: false,
-    declined_network_request: [],
-    declined_request_payload: payload,
-  });
+    return Object.assign({}, state, {
+      declined_request: false,
+      declined_network_request: [],
+      declined_request_payload: payload,
+    });
 
   case ProfileActions.DECLINE_NETWORK_REQUEST_SUCCESS:
-    // console.log(payload)
     return Object.assign({}, state, {
       declined_request: false,
       declined_network_request: [],
@@ -1281,7 +1264,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * cancel sent network request
      */
   case ProfileActions.CANCEL_NETWORK_REQUEST:
-    // console.log(payload)
     return Object.assign({}, state, {
       cancel_network_request: false,
       cancel_sent_request:[],
@@ -1289,7 +1271,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
   case ProfileActions.CANCEL_NETWORK_REQUEST_SUCCESS:
-    // console.log(payload)
     return Object.assign({}, state, {
       cancel_network_request: true,
       cancel_sent_request: payload,
@@ -1307,11 +1288,17 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
   case ProfileActions.CANCEL_NETWORK_REQUEST_FAILED:
-    // console.log(payload)
     return Object.assign({}, state, {
       cancel_network_request: false,
       cancel_sent_request: []
     });
+
+  case ProfileActions.USER_PASSWORD_UPDATE_SUCCESS:
+  console.log('payload', payload)
+    return Object.assign({},state, {
+      pass_success : payload,
+    });
+
     default:
       return state;
   }

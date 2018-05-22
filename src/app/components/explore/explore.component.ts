@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-// import { NgxCarousel } from 'ngx-carousel';
+import { ChangeDetectionStrategy, Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 // actions
 import { ExploreActions } from 'app/actions/explore.action';
@@ -18,10 +18,9 @@ import { TruncatePipe } from 'app/pipes/truncate.pipe';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { environment } from 'environments/environment.prod';
+import { environment } from 'environments/environment';
 
-import * as _ from 'lodash';
-import { allSettled } from 'q';
+
 
 @Component({
   selector: 'app-explore',
@@ -30,45 +29,27 @@ import { allSettled } from 'q';
   providers: [ TruncatePipe ],
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExploreComponent implements OnInit {
+export class ExploreComponent implements OnInit, AfterViewInit, OnDestroy {
 
   userState$: Observable<any>;
   userProfile: any;
   exploreState$: Observable<any>;
-  exploreState = initialExploreTag;
   profileSpotfeeds: any;
   mergedSpotfeeds: any;
   baseUrl: string;
   showPreloader = true;
   recordsPerPage = 8;
   pagination = [];
-
-  // public carouselOne: NgxCarousel;
+  private profileSubscription: ISubscription;
+  private exploreSubscription: ISubscription;
 
   constructor(
     private store: Store<ExploreModel>
   ) {
-
     this.baseUrl = environment.API_IMAGE;
 
-    // load user specific spotfeeds
-    this.store.dispatch({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS });
-
-    // load category wise spotfeeds
-    const params = {
-      industryType: '',
-      offset: 0,
-      limit: this.recordsPerPage
-    };
-    this.store.dispatch({ type: ExploreActions.LOAD_SPOTFEEDS, payload: params });
-
-    /**
-     * check user state
-     */
     this.userState$ = this.store.select('profileTags');
-    this.userState$.subscribe((state) => {
-      this.userProfile = state;
-
+    this.profileSubscription = this.userState$.subscribe((state) => {
       // get current profiles spotfeeds
       if (state && state.home_spotfeeds && state.home_spotfeeds.SUCCESS) {
         this.profileSpotfeeds = state.home_spotfeeds.SUCCESS;
@@ -79,37 +60,34 @@ export class ExploreComponent implements OnInit {
      * check explore state
      */
     this.exploreState$ = this.store.select('exploreTags');
-    this.exploreState$.subscribe((state) => {
-      this.exploreState = state;
-
+    this.exploreSubscription = this.exploreState$.subscribe((state) => {
       // get all spotfeeds
       if (state && state.explore_spotfeeds && state.explore_spotfeeds) {
-
-        // merge all categories here
         this.mergedSpotfeeds = state.explore_spotfeeds
       }
-
       // check if loaded
       if (state && state.searching_spotfeeds === false && state.search_complete === true) {
         this.showPreloader = false;
       }
     })
-
   }
 
-  /**
-   * Load more spotfeeds
-   */
-  dispatchLoadMore(industryType: string) {
-    const typeIndex = _.findIndex(this.pagination, { 'industryType': industryType });
-    this.pagination[typeIndex].limit = this.recordsPerPage;
-    this.pagination[typeIndex].offset += this.recordsPerPage;
+  ngAfterViewInit() {
+    const params = {
+      industryType: '',
+      offset: 0,
+      limit: this.recordsPerPage
+    };
+    this.store.dispatch({ type: ExploreActions.LOAD_SPOTFEEDS, payload: params });
 
-    this.store.dispatch({ type: ExploreActions.LOAD_SPOTFEEDS, payload: this.pagination[typeIndex] });
+    this.store.dispatch({ type: ProfileActions.LOAD_HOME_PAGE_SPOTFEEDS });
   }
 
   ngOnInit() {
   }
 
-
+  ngOnDestroy() {
+    this.profileSubscription.unsubscribe();
+    this.exploreSubscription.unsubscribe();
+  }
 }
