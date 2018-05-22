@@ -127,6 +127,10 @@ export class SettingsComponent implements OnInit {
         if (state.preferences !== 'undefined') {
           this.preferences = state.preferences;
         }
+        // if (state && state['pass_success']) {
+        //   console.log('here')
+        //   // this.pwdForm.reset();
+        // }
       }
     });
 
@@ -372,11 +376,18 @@ export class SettingsComponent implements OnInit {
         'newPassword': value.newpassword
       }
       this._store.dispatch({ type: ProfileActions.USER_PASSWORD_UPDATE, payload: body });
-      this.passwordformInit();
       this.passwordActive = false;
     }
+     this.rebuild();
   }
 
+  rebuild() {
+    this.pwdForm.patchValue({
+      'currentpassword': '',
+      'newpassword' : '' ,
+      'confirmpassword' : ''
+    });
+  }
 
   /**
    * Password Form init
@@ -492,6 +503,7 @@ export class SettingsComponent implements OnInit {
   passwordToggle() {
     if (this.passwordActive === true) {
       this.passwordActive = false;
+      this.rebuild();
     }else {
       this.passwordActive = true;
     }
