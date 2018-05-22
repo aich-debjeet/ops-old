@@ -51,7 +51,7 @@
                 </div>
 
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_right position_relative">
+            <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_right pos-rel">
                 <!-- form -->
                 <div class="ops_h1 c-h3 m-b-8">Create your account</div>
                 <form [formGroup]="regFormBasic" novalidate (ngSubmit)="submitForm(regFormBasic.value)" #regform="ngForm">
@@ -148,14 +148,14 @@
                         <p class="text-grey">
                             By clicking, I agree to the <a (click)="termsAction('show')" class="text-theme">Terms & Conditions.</a>
                         </p>
-                        <button type="submit" class="btn btn-primary btn-lg pull-right" [disabled]="disableSubmitBtn">SIGN UP</button>
+                        <button type="submit" class="btn btn-primary btn-lg pull-right" tabindex="8" [disabled]="uploadingFormData">SIGN UP</button>
                     </div>
                 </form>
                 <!-- //form -->
-                <div class="position_absolute">
-                    <div *ngIf="uploadingFormData" class="preloader">
-                        <div class="sticky"><div class="loader">Loading...</div></div>
-                    </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_right m-top--50-px">
+                <div *ngIf="uploadingFormData" class="preloader">
+                    <div class="sticky"><div class="loader">Loading...</div></div>
                 </div>
             </div>
         </div>

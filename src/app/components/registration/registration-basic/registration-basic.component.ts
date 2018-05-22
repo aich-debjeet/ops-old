@@ -11,7 +11,6 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
-import * as _ from 'lodash';
 
 // internal dependencies and helpers
 import { ModalService } from '../../../shared/modal/modal.component.service';
@@ -38,14 +37,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   country: any;
   showTerms = false;
   uploadingFormData = false;
-
-  // otp numbers
-  @ViewChild('otpNum1') otpNum1: ElementRef;
-  @ViewChild('otpNum2') otpNum2: ElementRef;
-  @ViewChild('otpNum3') otpNum3: ElementRef;
-  @ViewChild('otpNum4') otpNum4: ElementRef;
-  @ViewChild('otpNum5') otpNum5: ElementRef;
-  @ViewChild('otpNum6') otpNum6: ElementRef;
+  regState$: Observable<BasicRegTag>;
+  regState = initialBasicRegTag;
+  resendingOtp = false;
+  imageBaseLink: string = environment.API_IMAGE;
 
   datePickerConfig: IDatePickerConfig = {
     showMultipleYearsNavigation: true,
@@ -54,14 +49,17 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     locale: 'en'
   };
 
-  tagState$: Observable<BasicRegTag>;
-  regState = initialBasicRegTag;
-  resendingOtp = false;
-  imageBaseLink: string = environment.API_IMAGE;
-
-  public regFormBasic: FormGroup;
   public otpForm: FormGroup;
+  public regFormBasic: FormGroup;
   public newNumberForm: FormGroup;
+
+  // otp numbers
+  @ViewChild('otpNum1') otpNum1: ElementRef;
+  @ViewChild('otpNum2') otpNum2: ElementRef;
+  @ViewChild('otpNum3') otpNum3: ElementRef;
+  @ViewChild('otpNum4') otpNum4: ElementRef;
+  @ViewChild('otpNum5') otpNum5: ElementRef;
+  @ViewChild('otpNum6') otpNum6: ElementRef;
 
   passwordShowToggle() {
     if (this.passwordShow === true) {
@@ -78,21 +76,42 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     private router: Router,
     public modalService: ModalService,
     private authService: AuthService
-    ) {
+  ) {
 
-    this.tagState$ = store.select('loginTags');
-    this.tagState$.subscribe((state) => {
+    // store select
+    this.regState$ = store.select('loginTags');
+    // observe store
+    this.regState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.regState = state;
-        if (typeof state['reg_basic_uploading_form_data'] !== 'undefined' && state['reg_basic_uploading_form_data'] === true) {
-          this.uploadingFormData = true;
-        }
-        if (typeof state['reg_basic_uploaded_form_data'] !== 'undefined' && state['reg_basic_uploaded_form_data'] === true) {
+        if (typeof state['reg_basic_uploading_form_data'] !== 'undefined'
+          && state['reg_basic_uploading_form_data'] === false
+          && typeof state['reg_basic_uploaded_form_data'] !== 'undefined'
+          && state['reg_basic_uploaded_form_data'] === true
+        ) {
           this.uploadingFormData = false;
+        }
+        if (state['user_basic_reg_success'] === true ) {
+          if (state['user_token']) {
+            const token = {access_token: state['user_token']};
+            localStorage.setItem('currentUser', JSON.stringify(token));
+          }
+          this.modalService.open('otpWindow');
+        }
+        if (state['user_number_cng_success'] === true ) {
+          this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber);
+          this.modalService.close('otpChangeNumber');
+          this.modalService.open('otpWindow');
+        }
+        if (state['user_otp_success'] === true) {
+          this.otpLogin();
+          this.modalService.close('otpWindow');
+          this.router.navigate(['/reg/addskill']);
         }
       }
     });
 
+    // build reactive forms
     this.buildForm();
   }
 
@@ -116,13 +135,17 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
       .map(() => --this.counter);
   }
 
+  /**
+   * select username from suggestions
+   * @param selectUsername
+   */
   useThisUsername(selectUsername: string) {
     this.regFormBasic.controls['username'].setValue(selectUsername);
   }
 
   ngOnInit() { }
 
-  // Init Reg Form
+  // build all forms
   buildForm(): void {
     this.regFormBasic = this.fb.group({
       name: ['Abhijeet Salunkhe', [Validators.required],
@@ -189,6 +212,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     })
   }
 
+  /**
+   * check if number is exist on the DB
+   * @param control
+   */
   checkMobile(control: AbstractControl) {
     const q = new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -216,7 +243,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     }
   }
 
-  // User user exists
+  // user user exists
   userExistCheck(value) {
     if (value.length >= 4) {
       this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
@@ -248,16 +275,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         otp: otpValue
       }
       this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: otpData });
-      this.store.select('loginTags').take(2).subscribe(data => {
-        if (data['user_otp_success'] === true) {
-          this.otpLogin();
-          this.modalService.close('otpWindow');
-          this.router.navigate(['/reg/addskill']);
-        }
-      });
     }
   }
-
 
   otpLogin() {
     let number = null;
@@ -287,17 +306,21 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     return string.split('-').reverse().join('-');
   }
 
+  /**
+   * Resend OTP on existing number
+   */
   resendOtp() {
     this.resendingOtp = true;
     const number = this.regFormBasic.value.phone;
     this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT, payload: number });
-    this.store.select('loginTags').subscribe(data => {
-      setTimeout(() => {
-        this.resendingOtp = false;
-      }, 1500);
-    })
+    setTimeout(() => {
+      this.resendingOtp = false;
+    }, 1500);
   }
 
+  /**
+   * Resend OTP on new number
+   */
   resendOtpOnNewNumber() {
     if (this.newNumberForm.valid === true ) {
       const reqBody = {
@@ -306,28 +329,12 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         }
       }
       this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: reqBody });
-      this.store.select('loginTags').take(2).subscribe(data => {
-        if (data['user_number_cng_success'] === true ) {
-          this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
-          this.modalService.close('otpChangeNumber');
-          this.modalService.open('otpWindow');
-        }
-      })
     }
   }
 
   /**
-   * Submit new number for OTP
-   */
-  submitNewNumber(value) {
-    const form = {
-
-    }
-  }
-
-  /**
-   * Submit Form
-   * @param value
+   * submit reg form
+   * @param value: form data
    */
   submitForm(value) {
     // checking if all required fields with valid info available before submitting the form
@@ -336,7 +343,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    // form object
+    // prepare form object for the API
     const form =  {
       name: {
         firstName: value.name.trim()
@@ -361,34 +368,31 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         dateOfBirth: this.reverseDate(value.dob) + 'T05:00:00',
       }
     };
+    this.uploadingFormData = true;
     // console.log('form body', form); return;
 
     // register new user
     this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
-
-    this.store.select('loginTags').take(2).subscribe(data => {
-      if (data['user_basic_reg_success'] === true ) {
-        if (data && data['user_token']) {
-          const token = {access_token: data['user_token']};
-          localStorage.setItem('currentUser', JSON.stringify(token));
-        }
-        this.modalService.open('otpWindow');
-      }
-    });
   }
 
+  /**
+   * Switch to change number modal
+   */
   otpNotRecieved() {
     this.modalService.close('otpWindow');
     this.modalService.open('otpChangeNumber');
   }
 
+  /**
+   * Switch back to OTP modal
+   */
   backToOtp() {
     this.modalService.close('otpChangeNumber');
     this.modalService.open('otpWindow');
   }
 
   /**
-   * Save country
+   * update country
    */
   saveCountry(country: any) {
     this.country = country;
@@ -396,5 +400,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     this.regFormBasic.controls['phone'].updateValueAndValidity();
   }
 
+  /**
+   * disable observales and listeners here
+   */
   ngOnDestroy() { }
 }
