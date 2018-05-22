@@ -66,7 +66,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.LOAD_INDUSTRIES_SUCCESS:
       return Object.assign({}, state, {
-        industries: payload,
+        industries: payload['industryResponse'],
         skills_loading: false,
         skills_loaded: true
       });
@@ -79,7 +79,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.SEARCH_SKILL_SUCCESS:
       return Object.assign({}, state, {
-        industries: payload,
+        industries: payload['profileTypeResponse'],
         skills_loading: false,
         skills_loaded: true
       });

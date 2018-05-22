@@ -187,11 +187,11 @@ export class AuthService {
     }
 
     getAllIndustries() {
-      return this.api.get('/portal/industry', '');
+      return this.api.post('/portal/industry', { limit: 200 });
     }
 
     searchAllSkill(query: string) {
-      return this.api.get('/portal/tree/' + query + '/0/100');
+      return this.api.post('/portal/skills/search', { searchString: query, limit: 200 });
     }
 
     logout(value) {
