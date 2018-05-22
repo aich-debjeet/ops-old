@@ -22,6 +22,7 @@ import { CountrySelectorComponent } from '../../../shared/country-selector/count
 import { initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
 
 import { AuthActions } from '../../../actions/auth.action';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-registration-basic',
@@ -75,7 +76,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     private store: Store<BasicRegTag>,
     private databaseValidator: DatabaseValidator,
     private router: Router,
-    public modalService: ModalService
+    public modalService: ModalService,
+    private authService: AuthService
     ) {
 
     this.tagState$ = store.select('loginTags');
@@ -146,7 +148,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
           Validators.required,
           Validators.minLength(4)
         ],
-        this.databaseValidator.checkMobile.bind(this.databaseValidator)
+        // this.databaseValidator.checkMobile.bind(this.databaseValidator)
+        this.checkMobile.bind(this)
       ],
       password: ['', [
         Validators.required,
@@ -179,6 +182,24 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
       ]
     })
   }
+
+  checkMobile(control: AbstractControl) {
+    const q = new Promise((resolve, reject) => {
+      setTimeout(() => {
+          const contactDetails = {
+            contactNumber: control.value,
+            countryCode: this.country.callingCodes[0]
+          };
+          this.authService.mobileNumberCheck(contactDetails).subscribe( data => {
+            if (data.SUCCESS.code === 1) {
+              resolve({ 'isMobileUnique': true });
+            }
+            resolve(null);
+          });
+      }, 1000);
+    });
+    return q;
+}
 
   // focus on next otp number
   nextOtpNum(num: number) {
@@ -365,6 +386,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
    */
   saveCountry(country: any) {
     this.country = country;
+    // trigger phone number check
+    this.regFormBasic.controls['phone'].updateValueAndValidity();
   }
 
   ngOnDestroy() { }
