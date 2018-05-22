@@ -299,7 +299,6 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get User following Media Post
      */
     case ProfileActions.LOAD_USER_FOLLOWING_POSTS:
-    console.log(payload.scrollId);
     if (payload.scrollId === null) {
       return Object.assign({}, state, {
         user_following_posts_loading: true,
@@ -650,7 +649,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
     case ProfileActions.CHANNEL_FOLLOW_SUCCESS:
       return Object.assign({}, state, {
-        channel_followed: true
+        channel_followed: true,
+        user_following_channel: state.user_following_channel.filter(channel => channel.spotfeedId !== payload.id)
       });
 
     case ProfileActions.CHANNEL_FOLLOW_FAILED:
