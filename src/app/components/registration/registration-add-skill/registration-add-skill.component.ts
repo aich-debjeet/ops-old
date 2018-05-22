@@ -22,9 +22,9 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   skillSelectionState: any;
   selectedSkills = [];
   skills = [];
-  search: String;
-  activateSubmitBtn = false;
+  searchQuery: String;
   isSearching = false;
+  skillsSelected = false;
 
   constructor(
     fb: FormBuilder,
@@ -47,25 +47,25 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
       profession: [null, Validators.required],
       searchskills: [null, Validators.required],
     });
-    this.search = '';
+    this.searchQuery = '';
   }
 
   ngOnInit() {
-    // Load industries
+    // load initial industries
     this.industriesList();
   }
 
   ngOnDestroy() {}
 
   /**
-   * Save skills if all selected
+   * submit all selected skills
    */
   saveSkills() {
     this.store.dispatch({ type: AuthActions.USER_SUBMIT_SKILLS, payload: this.selectedSkills });
   }
 
   /**
-   * Skill Search input handler
+   * search skills
    * @param query
    */
   onSearchChange(query) {
@@ -78,7 +78,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Load List of Skills (High Level)
+   * load list of skills (High Level)
    */
   industriesList() {
     this.isSearching = true;
@@ -86,7 +86,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Find Skill from API Skill List
+   * find a specific skill within the loaded list
    * @param skillCode
    */
   findSkill(skillCode) {
@@ -96,7 +96,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Add New Skill
+   * add new skill if doesn't exist
    * @param name
    */
   addNewSkill(name: string) {
@@ -111,24 +111,26 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Handle Skill selection
+   * toggle select/deselect skill
    * @param skillCode
    */
   toggleSelectSkill(skillCode: string) {
-    // Check if skill is already selected
+    // check if skill is already selected
     const selectedSkill = _find(this.selectedSkills, function(s) {
       return s.code === skillCode;
     });
 
-    // If skill exist then remove it from selection array
+    // if skill exist then remove it from selection array
     if (selectedSkill !== undefined) {
-      // Searching for the skill in skills array
+      // searching for the skill in skills array
       const skillMeta = this.findSkill(skillCode);
-      // Removing skill from selected skills array
+
+      // removing skill from selected skills array
       this.selectedSkills = this.selectedSkills.filter(function(skill) {
         return skill.code !== skillCode;
       });
-      // Mark it not selected in UI
+
+      // mark it not selected in UI
       this.skillSelectionState.industries = this.skillSelectionState.industries.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = false;
@@ -137,7 +139,8 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
       });
 
     } else {
-      // Mark it selected in UI
+
+      // mark it selected in UI
       this.skillSelectionState.industries = this.skillSelectionState.industries.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = true;
@@ -145,10 +148,10 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
         return skill;
       });
 
-      // Searching for the skill in skills array
+      // searching for the skill in skills array
       const skillMeta = this.findSkill(skillCode);
 
-      // Adding skill to the selection array
+      // adding skill to the selection array
       this.selectedSkills.push({
         name: skillMeta.name,
         code: skillMeta.code,
@@ -157,9 +160,9 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
     }
 
     if (this.selectedSkills.length > 0) {
-      this.activateSubmitBtn = true;
+      this.skillsSelected = true;
     } else {
-      this.activateSubmitBtn = false;
+      this.skillsSelected = false;
     }
   }
 }

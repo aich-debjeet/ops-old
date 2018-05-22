@@ -1,4 +1,14 @@
-<app-navigation-logo></app-navigation-logo>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" [routerLink]="['/']"><img [src]="image_base_url + 'img/logo_black.svg'"></a>
+        </div>
+        <div class="signup_next">
+            <button [disabled]="!skillsSelected" class="btn btn-primary btn-md">CONTINUE</button>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</nav>
 
 <section class="o-sign_block">
     <div class="o-skill-selection-top">
