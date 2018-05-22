@@ -4,7 +4,7 @@
             <a class="navbar-brand" [routerLink]="['/']"><img [src]="image_base_url + 'img/logo_black.svg'"></a>
         </div>
         <div class="signup_next">
-            <button [disabled]="!skillsSelected" class="btn btn-primary btn-md">CONTINUE</button>
+            <button [disabled]="!skillsSelected || uploadingSkills" (click)="saveSkills()" class="btn btn-primary btn-md">CONTINUE</button>
         </div>
     </div>
     <!-- /.container-fluid -->

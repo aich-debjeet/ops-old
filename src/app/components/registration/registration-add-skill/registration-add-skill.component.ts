@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
@@ -25,9 +26,11 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   searchQuery: String;
   isSearching = false;
   skillsSelected = false;
+  uploadingSkills = false;
 
   constructor(
     fb: FormBuilder,
+    private router: Router,
     private store: Store<Login>
   ) {
     this.skillSelectionState$ = store.select('loginTags');
@@ -35,11 +38,16 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
       this.skillSelectionState = state;
       this.skills = this.skillSelectionState['industries'];
 
-      if (this.skillSelectionState
-        && this.skillSelectionState['skills_loading'] === false
+      if (this.skillSelectionState['skills_loading'] === false
         && this.skillSelectionState['skills_loaded'] === true
       ) {
         this.isSearching = false;
+      }
+      if (this.skillSelectionState['uploadingUserSkills'] === false
+        && this.skillSelectionState['uploadedUserSkills'] === true
+      ) {
+        this.uploadingSkills = false;
+        this.router.navigate(['/profile/user']);
       }
     });
 
@@ -61,6 +69,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
    * submit all selected skills
    */
   saveSkills() {
+    this.uploadingSkills = true;
     this.store.dispatch({ type: AuthActions.USER_SUBMIT_SKILLS, payload: this.selectedSkills });
   }
 

@@ -323,18 +323,21 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_SUBMIT_SKILLS:
       return Object.assign({}, state, {
-        userSkillsSaveSuccess: false
+        uploadingUserSkills: true,
+        uploadedUserSkills: false
       });
 
     case AuthActions.USER_SUBMIT_SKILLS_SUCCESS:
       return Object.assign({}, state, {
         userSkillsSaved: payload,
-        userSkillsSaveSuccess: true
+        uploadingUserSkills: false,
+        uploadedUserSkills: true
       });
 
     case AuthActions.USER_SUBMIT_SKILLS_FAILED:
       return Object.assign({}, state, {
-        userSkillsSaveSuccess: false
+        uploadingUserSkills: false,
+        uploadedUserSkills: true
       });
 
     case AuthActions.FP_GET_USERDATA:
