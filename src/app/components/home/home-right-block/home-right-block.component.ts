@@ -48,7 +48,6 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy, AfterViewInit
     this.myProfile$ = store.select('profileTags');
     this.profilesubscription = this.myProfile$.subscribe((profile) => {
       if (typeof profile !== 'undefined') {
-        this.userState = event;
         if (profile['user_profiles_all'] !== 'undefined') {
           this.profiles = profile.user_profiles_all;
         }
