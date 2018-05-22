@@ -148,10 +148,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   // build all forms
   buildForm(): void {
     this.regFormBasic = this.fb.group({
-      name: ['Abhijeet Salunkhe', [Validators.required],
+      name: ['', [Validators.required],
         this.databaseValidator.checkForValidName.bind(this)
       ],
-      username: ['abhijeet', [
+      username: ['', [
           Validators.required,
           FormValidation.noWhitespaceValidator,
           FormValidation.usernameLengthValidator,
@@ -160,12 +160,12 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         ],
         this.databaseValidator.userNameValidation.bind(this.databaseValidator)
       ],
-      dob: ['18-12-1991', [
+      dob: ['', [
           Validators.required,
           FormValidation.validateAge
         ]
       ],
-      email: ['abhijeet.salunkhe@aeione.com', [
+      email: ['', [
           Validators.required,
           Validators.min(3),
           FormValidation.validEmail
@@ -173,14 +173,14 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         this.databaseValidator.checkEmail.bind(this.databaseValidator)
       ],
       gender: ['M', Validators.required],
-      phone: ['9867884320', [
+      phone: ['', [
           Validators.required,
           Validators.minLength(4)
         ],
         // this.databaseValidator.checkMobile.bind(this.databaseValidator)
         this.checkMobile.bind(this)
       ],
-      password: ['admin@123', [
+      password: ['', [
         Validators.required,
         FormValidation.passwordStrength.bind(this)
       ]],
