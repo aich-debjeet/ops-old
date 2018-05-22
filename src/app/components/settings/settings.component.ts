@@ -59,6 +59,7 @@ export class SettingsComponent implements OnInit {
   resendingOtp = false;
   number: any;
   notificationOption = []
+  private dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   // commentsOption: any; // = {name: 'Comments', value: 'Comments', checked: true};
   // spotsOption: any; // = {name: 'Spots', value: 'Spots', checked: true};
   // mentionOption: any; // = {name: 'Mention', value: 'Mention', checked: true};
@@ -126,6 +127,10 @@ export class SettingsComponent implements OnInit {
         if (state.preferences !== 'undefined') {
           this.preferences = state.preferences;
         }
+        // if (state && state['pass_success']) {
+        //   console.log('here')
+        //   // this.pwdForm.reset();
+        // }
       }
     });
 
@@ -133,7 +138,9 @@ export class SettingsComponent implements OnInit {
     this.usernameForm = this._fb.group({
        'username' : ['' , [
              Validators.required,
-             Validators.minLength(4),
+             FormValidation.usernameLengthValidator,
+             FormValidation.noSpecialCharsValidator,
+             FormValidation.noCapitalLettersValidator,
              FormValidation.noWhitespaceValidator],
              this.databaseValidator.userNameValidation.bind(this.databaseValidator)
             ],
@@ -369,11 +376,18 @@ export class SettingsComponent implements OnInit {
         'newPassword': value.newpassword
       }
       this._store.dispatch({ type: ProfileActions.USER_PASSWORD_UPDATE, payload: body });
-      this.passwordformInit();
       this.passwordActive = false;
     }
+     this.rebuild();
   }
 
+  rebuild() {
+    this.pwdForm.patchValue({
+      'currentpassword': '',
+      'newpassword' : '' ,
+      'confirmpassword' : ''
+    });
+  }
 
   /**
    * Password Form init
@@ -489,6 +503,7 @@ export class SettingsComponent implements OnInit {
   passwordToggle() {
     if (this.passwordActive === true) {
       this.passwordActive = false;
+      this.rebuild();
     }else {
       this.passwordActive = true;
     }

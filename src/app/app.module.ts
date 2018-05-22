@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { TextMaskModule } from 'angular2-text-mask';
 // import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 
 // External Service
@@ -176,6 +177,7 @@ import { AboutComponent } from './components/about/about.component';
     HttpModule,
     NgxMasonryModule,
     InfiniteScrollModule,
+    TextMaskModule,
     StoreModule.provideStore(reducer),
     RouterModule.forRoot(routes),
     ToastrModule.forRoot(), // ToastrModule added
