@@ -32,8 +32,6 @@ import { AuthService } from '../../../services/auth.service';
 })
 
 export class RegistrationBasicComponent implements OnInit, OnDestroy {
-  countDown;
-  counter = 60;
   passwordShow = false;
   country: any;
   showTerms = false;
@@ -128,12 +126,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     } else {
       this.modalService.open('termsPopup');
     }
-  }
-
-  startTimer() {
-    this.countDown = Observable.timer(0, 1000)
-      .take(this.counter)
-      .map(() => --this.counter);
   }
 
   /**
