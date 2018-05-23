@@ -38,6 +38,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         success: true,
         channel_loading: true,
         channel_loaded: false,
+        channel_detail: []
       });
 
     case MediaActions.GET_CHANNEL_DETAILS_SUCCESS:
