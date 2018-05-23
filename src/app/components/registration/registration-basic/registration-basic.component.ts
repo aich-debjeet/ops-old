@@ -18,6 +18,7 @@ import { FormValidation, DatabaseValidator } from '../../../helpers/form.validat
 import { environment } from '../../../../environments/environment';
 import { CountrySelectorComponent } from '../../../shared/country-selector/country-selector.component';
 
+// models
 import { initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
 
 import { AuthActions } from '../../../actions/auth.action';
@@ -72,7 +73,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private store: Store<BasicRegTag>,
-    private databaseValidator: DatabaseValidator,
+    private asyncValidator: DatabaseValidator,
     private router: Router,
     public modalService: ModalService,
     private authService: AuthService
@@ -149,7 +150,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   buildForm(): void {
     this.regFormBasic = this.fb.group({
       name: ['', [Validators.required],
-        this.databaseValidator.checkForValidName.bind(this)
+        this.asyncValidator.checkForValidName.bind(this)
       ],
       username: ['', [
           Validators.required,
@@ -158,7 +159,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
           FormValidation.noSpecialCharsValidator,
           FormValidation.noCapitalLettersValidator
         ],
-        this.databaseValidator.userNameValidation.bind(this.databaseValidator)
+        this.asyncValidator.userNameValidation.bind(this)
       ],
       dob: ['', [
           Validators.required,
@@ -170,14 +171,14 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
           Validators.min(3),
           FormValidation.validEmail
         ],
-        this.databaseValidator.checkEmail.bind(this.databaseValidator)
+        this.asyncValidator.checkEmail.bind(this)
       ],
       gender: ['M', Validators.required],
       phone: ['', [
           Validators.required,
           Validators.minLength(4)
         ],
-        // this.databaseValidator.checkMobile.bind(this.databaseValidator)
+        // this.asyncValidator.checkMobile.bind(this)
         this.checkMobile.bind(this)
       ],
       password: ['', [
@@ -207,7 +208,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
           Validators.minLength(4),
           FormValidation.validPhone.bind(this)
         ],
-        this.databaseValidator.checkMobile.bind(this.databaseValidator)
+        this.asyncValidator.checkMobile.bind(this)
       ]
     })
   }

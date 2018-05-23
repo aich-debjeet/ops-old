@@ -18,29 +18,28 @@ export class DatabaseValidator {
         private authService: AuthService,
     ) {}
 
+    // check for valid name
+    checkForValidName(control: AbstractControl) {
+        const q = new Promise((resolve, reject) => {
+            if (!control.value.replace(/\s/g, '').length) {
+                resolve({ invalidName: true });
+            }
+            resolve(null);
+        });
+        return q;
+    }
 
-
-  // check for valid name
-  checkForValidName(control: AbstractControl) {
-    const q = new Promise((resolve, reject) => {
-        if (!control.value.replace(/\s/g, '').length) {
-            resolve({ invalidName: true });
-        }
-        resolve(null);
-    });
-    return q;
-  }
-
+    // async check if email already exist
     checkEmail(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
-        setTimeout(() => {
-            this.authService.emailUser(control.value).subscribe( data => {
-                if (data.SUCCESS.code === 1) {
-                    resolve({ 'isEmailUnique': true });
-                }
-                resolve(null);
+            setTimeout(() => {
+                this.authService.emailUser(control.value).subscribe( data => {
+                    if (data.SUCCESS.code === 3) {
+                        resolve({ 'pendingOtpVerif': true });
+                    }
+                    resolve(null);
                 });
-        }, 1000);
+            }, 1000);
         });
         return q;
     }
