@@ -109,8 +109,9 @@ export class MediaSelectorComponent implements OnInit {
   channelSaved: boolean;
   eventName: string;
   previewUrl: any[];
-  community_active: boolean = false;
-  community_id: any;
+  external_post_active: boolean = false;
+  ct_id: any;
+  post_to: any;
 
   constructor(
     private Upload: NgxfUploaderService,
@@ -132,19 +133,17 @@ export class MediaSelectorComponent implements OnInit {
       this.eventName = '';
 
       // if redriect url there
-      if (this.route.snapshot.queryParams['post_to'] === 'community') {
+      if (this.route.snapshot.queryParams['post_to'] === 'community' || this.route.snapshot.queryParams['post_to'] === 'channel') {
 
         if (this.route.snapshot.queryParams['post_to'] && this.route.snapshot.queryParams['ct_id']) {
-          this.community_active = true;
-          this.community_id = this.route.snapshot.queryParams['ct_id'];
-          console.log(true);
-          console.log(this.route.snapshot.queryParams['post_to']);
+          this.external_post_active = true;
+          this.ct_id = this.route.snapshot.queryParams['ct_id'];
+          this.post_to = this.route.snapshot.queryParams['post_to'];
           // this.redrectUrl = this.route.snapshot.queryParams['next'];
         }
       }
 
       if (this.route.snapshot.queryParams['ct_id']) {
-        console.log(this.route.snapshot.queryParams['ct_id']);
         // this.redrectUrl = this.route.snapshot.queryParams['next'];
       }
 
@@ -196,8 +195,6 @@ export class MediaSelectorComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log('Media');
-    console.log(this.uploadState);
     this.uploadState = 1;
 
     this.myProfile$.subscribe(event => {
@@ -317,9 +314,7 @@ export class MediaSelectorComponent implements OnInit {
     }).subscribe(
       (event: UploadEvent) => {
         if (event.status === UploadStatus.Uploading) {
-          // console.log(event.percent);
           this.updateProgress(files, event.percent)
-
         }else {
           // console.log('Finished ', userHandle);
           if (event.data) {
@@ -443,7 +438,7 @@ export class MediaSelectorComponent implements OnInit {
     }
   }
 
-  publishCommunity() {
+  publishPost() {
     let isReady = false;
     let userHandle = '';
     this.chosenChannel = 1;
@@ -475,21 +470,26 @@ export class MediaSelectorComponent implements OnInit {
       }
     }
 
-    if ( userHandle !== '') {
-      const resp = {
-        id: this.community_id,
-        data: {
-          mediaList: multipleMedias,
+    if (this.post_to === 'community') {
+      if ( userHandle !== '') {
+        const resp = {
+          id: this.ct_id,
+          data: {
+            mediaList: multipleMedias,
+          }
         }
-      }
-      this._store.dispatch({ type: ProfileActions.COMMUNITY_MEDIA_POST, payload: resp });
+        this._store.dispatch({ type: ProfileActions.COMMUNITY_MEDIA_POST, payload: resp });
 
-      this._store.select('profileTags')
-      .first(media => media['community_media_success'] === true)
-      .subscribe( data => {
-        this.toastr.success('Your media has been successfully posted to your channel', 'Upload');
-        this.router.navigateByUrl('/communities/' + this.community_id);
-      });
+        this._store.select('profileTags')
+        .first(media => media['community_media_success'] === true)
+        .subscribe( data => {
+          this.toastr.success('Your media has been successfully posted to your channel', 'Upload');
+          this.router.navigateByUrl('/communities/' + this.ct_id);
+        });
+      }
+    }
+    if (this.post_to === 'channel') {
+      this.postMediaToChannel(this.ct_id, multipleMedias)
     }
   }
 
