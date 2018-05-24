@@ -69,14 +69,8 @@ export class EditChannelComponent implements OnInit {
     this.mediaState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.mediaStore = state;
-        if (typeof this.mediaStore.channel_detail['isOwner'] !== 'undefined' && this.mediaStore.channel_detail['isOwner'] !== true) {
-          this.doClose(0);
-        }
         if (typeof this.mediaStore.channel_detail['industryList'] !== 'undefined') {
-          setTimeout(() => {
-            const industryArrLen = this.mediaStore.channel_detail['industryList'].length;
-            this.selectedIndustry = this.mediaStore.channel_detail['industryList'][industryArrLen - 1];
-          }, 1000);
+          this.selectedIndustry = this.mediaStore.channel_detail['industryList'][0];
           this.selectedPrivacy = this.mediaStore.channel_detail['accessSeetings'].access;
         }
       }
@@ -94,7 +88,6 @@ export class EditChannelComponent implements OnInit {
 
       // Success message
       if (this.channelSavedHere && this.channelSaved === true ) {
-        this.switchToStep(3);
         this.channelSavedHere = false;
         this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
       }
@@ -132,14 +125,13 @@ export class EditChannelComponent implements OnInit {
 
     // Watch for Changes
     this.editState$.subscribe(event => {
-
       this.editValues = event;
       const channel = event.channel_detail;
       this.userHandle = channel.ownerHandle;
       this.channelForm = this.fb.group({
         id: [channel.channelId, Validators.required ],
         title: [channel.channelName, Validators.required ],
-        type: ['', Validators.required ],
+        type: [this.selectedIndustry, Validators.required ],
         desc: [channel.description, Validators.required ],
         privacy: [this.selectedPrivacy, Validators.required ]
       });
@@ -150,7 +142,7 @@ export class EditChannelComponent implements OnInit {
   /**
    * Close
    */
-  doClose(event) {
+  doClose() {
     this.router.navigate(['.', { outlets: { media: null } }], {
       relativeTo: this.route.parent
     });
@@ -188,6 +180,7 @@ export class EditChannelComponent implements OnInit {
         channelId: this.channelId
       }
       this.store.dispatch({ type: ProfileActions.CHANNEL_UPDATE, payload: reqParams });
+      this.doClose();
     } else {
       this.toastr.warning('Please fill all required fields');
     }

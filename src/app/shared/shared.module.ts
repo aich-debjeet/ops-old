@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-
+import { ReadMoreComponent } from '../helpers/read-more.component';
 // import { MediaModule } from '../components/media/media.module';
 
 import { AuthRightBlockComponent } from './auth-right-block/auth-right-block.component';
@@ -111,6 +111,7 @@ import { CommunityCardComponent } from './community-card/community-card.componen
     ChannelSearchComponent,
     SearchChannelCardComponent,
     CommunityCardComponent,
+    ReadMoreComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -144,7 +145,8 @@ import { CommunityCardComponent } from './community-card/community-card.componen
     ModalContent,
     EventCardComponent,
     SearchChannelCardComponent,
-    CommunityCardComponent
+    CommunityCardComponent,
+    ReadMoreComponent
   ]
 })
 export class SharedModule { }
