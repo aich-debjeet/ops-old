@@ -86,29 +86,26 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_LOGIN:
       return Object.assign({}, state, {
-        success: false,
-        login_completed: false,
-        page_loading: true,
+        login_uploading_data: true,
         login_success: false,
+        login_params: payload,
         error_description: null
       });
 
     case AuthActions.USER_LOGIN_SUCCESS:
       return Object.assign({}, state, {
-        completed: payload,
-        login_completed: true,
-        success: true,
+        login_response: payload,
         login_success: true,
-        page_loading: false,
+        login_uploading_data: false,
       });
 
     case AuthActions.USER_LOGIN_FAILED:
-      const error = JSON.parse(payload._body);
+      const data = JSON.parse(payload._body);
       return Object.assign({}, state, {
-        success: false,
-        login_completed: false,
-        error_description: error.error_description,
-        page_loading: false
+        login_success: false,
+        error_description: data.error_description,
+        login_uploading_data: false,
+        login_response: data
       });
 
 

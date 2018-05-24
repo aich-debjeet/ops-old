@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { environment } from '../../../environments/environment';
+import { ModalService } from '../../shared/modal/modal.component.service';
 
 @Component({
   selector: 'app-login',
@@ -28,12 +29,23 @@ export class LoginComponent implements OnInit, OnDestroy {
   queryParam: any;
   imageBaseUrl = environment.API_IMAGE;
   private loginSub: ISubscription;
+  resendingOtp = false;
+
+  // otp numbers
+  @ViewChild('otpNum1') otpNum1: ElementRef;
+  @ViewChild('otpNum2') otpNum2: ElementRef;
+  @ViewChild('otpNum3') otpNum3: ElementRef;
+  @ViewChild('otpNum4') otpNum4: ElementRef;
+  @ViewChild('otpNum5') otpNum5: ElementRef;
+  @ViewChild('otpNum6') otpNum6: ElementRef;
+  public otpForm: FormGroup;
 
   constructor(
     fb: FormBuilder,
     private store: Store<Login>,
     private router: Router,
     public route: ActivatedRoute,
+    public modalService: ModalService
   ) {
     this.loginForm = fb.group({
       email: ['', Validators.required],
@@ -43,7 +55,71 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginState$ = store.select('loginTags');
     this.loginSub = this.loginState$.subscribe((state) => {
       this.loginState = state;
+      if (state) {
+        if (state['login_success'] === true) {
+          // org registration successful
+          if (this.redirectUrl !== undefined) {
+            this.router.navigateByUrl(this.redirectUrl);
+            return;
+          } else {
+            this.router.navigateByUrl('/home');
+            return;
+          }
+        }
+        if (state['login_response'] && state['login_response']['error_description'] && state['login_response']['error_description'] === 'OTP not validated') {
+          console.log('OTP modal');
+          this.modalService.open('otpWindow');
+        }
+      }
     });
+
+    // OTP Form Builder
+    this.otpForm = fb.group({
+      otpNum1: ['', [Validators.required]],
+      otpNum2: ['', [Validators.required]],
+      otpNum3: ['', [Validators.required]],
+      otpNum4: ['', [Validators.required]],
+      otpNum5: ['', [Validators.required]],
+      otpNum6: ['', [Validators.required]]
+    });
+  }
+
+  // focus on next otp number
+  nextOtpNum(num: number) {
+    if (num > 0 && num < 6) {
+      const nextNum = num + 1;
+      const nextOtpInput = 'otpNum' + nextNum.toString();
+      this[nextOtpInput].nativeElement.focus();
+    }
+  }
+
+  resendOtp() {
+    this.resendingOtp = true;
+    this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT });
+    this.store.select('loginTags').subscribe(data => {
+      setTimeout(() => {
+        this.resendingOtp = false;
+      }, 1500);
+    })
+  }
+
+  // OTP Validation
+  otpSubmit(value) {
+    if (this.otpForm.valid === true) {
+      const number = '9867884320';
+      // console.log('otp form data', value); return;
+      const otpValue = value.otpNum1.toString() +
+                       value.otpNum2.toString() +
+                       value.otpNum3.toString() +
+                       value.otpNum4.toString() +
+                       value.otpNum5.toString() +
+                       value.otpNum6.toString();
+      const otpData = {
+        number: number,
+        otp: otpValue
+      }
+      this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: otpData });
+    }
   }
 
   ngOnInit() {
@@ -76,18 +152,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         grant_type: 'password'
       }
       this.store.dispatch({ type: AuthActions.USER_LOGIN, payload: form});
-      // org registration successful
-      this.store.select('loginTags')
-        .first(login => login['login_success'] === true)
-        .subscribe(data => {
-          if (this.redirectUrl !== undefined) {
-            this.router.navigateByUrl(this.redirectUrl);
-            return
-          } else {
-            this.router.navigateByUrl('/home');
-            return
-          }
-        });
     }
   }
 
