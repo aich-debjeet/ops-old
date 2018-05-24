@@ -53,19 +53,18 @@ export class ChannelComponent implements OnInit {
 
   ngOnInit() {
     // this.isfollowing = this.channelData.isFollowing || false;
-    if(this.channelData === null){
-      this.isfollowing = false;
-    } else {
-      this.isfollowing = this.channelData.isFollowing;
-    }
-    this.showEdit = false;
-    this.ispin = this.channelData.isPinned || false;
-    const defaultImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
-    if ((this.channelData.ownerImage !== defaultImage) || (this.channelData.ownerImage !== '')) {
-      this.userImage = defaultImage;
-    } else {
-      this.userImage = this.image_base_url + this.channelData.ownerImage;
-    }
+    if(this.channelData){
+      this.isfollowing = this.channelData.isFollowing || false;
+      this.showEdit = false;
+      this.ispin = this.channelData.isPinned || false;
+      const defaultImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
+      if ((this.channelData.ownerImage !== defaultImage) || (this.channelData.ownerImage !== '')) {
+        this.userImage = defaultImage;
+      } else {
+        this.userImage = this.image_base_url + this.channelData.ownerImage;
+      }
+    } 
+   
   }
 
   /**
