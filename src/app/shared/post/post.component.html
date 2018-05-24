@@ -70,7 +70,11 @@
                 <img *ngIf="!following" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
                 <span class="c-links__count">{{ followingCount }}</span>
             </div>
-            <div class="c-links__comments">
+            <div  *ngIf="mediaData?.description && mediaData?.mtype === 'status' " class="c-links__comments">
+                <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
+                <span class="c-links__count">{{ commentCount }}</span>
+            </div>
+            <div  *ngIf="checkFileType(mediaData?.repopath, 'Video') || checkFileType(mediaData?.repopath, 'Audio') || checkFileType(mediaData?.repopath, 'Image')" class="c-links__comments" [routerLink]="['', { outlets: { media : ['media', mediaData?.id] } }]">
                 <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
                 <span class="c-links__count">{{ commentCount }}</span>
             </div>
