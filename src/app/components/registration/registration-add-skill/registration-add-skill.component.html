@@ -44,7 +44,10 @@
         <div class="container">
             <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12 p-0">
                 <div *ngIf="selectedSkills?.length === 0" class="c-text_md color-grey-dark text-center m-t-b-16">No skill selected</div>
-                <ul class="o-add-skill-block">
+                <div *ngIf="skills?.length === 0" class="preloader">
+                    <div class="sticky"><div class="loader">Loading...</div></div>
+                </div>
+                <ul *ngIf="skills?.length > 0" class="o-add-skill-block">
                     <li class="o-add-skill__item" *ngFor="let skill of skills">
                         <a class="o-add-skill__link" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill?.isSelected ? 'selected' : ''">
                             <span class="o-skill__list-container">

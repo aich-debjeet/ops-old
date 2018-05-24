@@ -36,7 +36,9 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
     this.skillSelectionState$ = store.select('loginTags');
     this.skillSelectionState$.subscribe((state) => {
       this.skillSelectionState = state;
-      this.skills = this.skillSelectionState['industries'];
+      if (state && state['industries']) {
+        this.skills = state['industries'];
+      }
 
       if (this.skillSelectionState['skills_loading'] === false
         && this.skillSelectionState['skills_loaded'] === true
