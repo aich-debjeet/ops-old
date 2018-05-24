@@ -422,7 +422,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get current user following channel
      */
     case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL:
-    if (payload.page_start === 0) {
+    if (payload.scrollId === '') {
       return Object.assign({}, state, {
         user_following_channels_loading: true,
         user_following_channels_loaded: false,
