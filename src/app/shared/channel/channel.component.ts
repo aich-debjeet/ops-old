@@ -22,6 +22,7 @@ export class ChannelComponent implements OnInit {
   @Input() className: string;
   @Input() channelData;
   @Input() currentUser: boolean;
+  @Input() loader: boolean = false;
   // @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() onFollow: EventEmitter<any> = new EventEmitter<any>();
   @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();
@@ -31,7 +32,7 @@ export class ChannelComponent implements OnInit {
   // Its for admin spefic edit option
   @Input() type: boolean;
   userImage: string;
-  isfollowing: boolean;
+  isfollowing: boolean = false;
   ispin: boolean;
   showEdit: boolean;
   storeState$: Observable<ProfileModal>;
@@ -51,7 +52,12 @@ export class ChannelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isfollowing = this.channelData.isFollowing || false;
+    // this.isfollowing = this.channelData.isFollowing || false;
+    if(this.channelData === null){
+      this.isfollowing = false;
+    } else {
+      this.isfollowing = this.channelData.isFollowing;
+    }
     this.showEdit = false;
     this.ispin = this.channelData.isPinned || false;
     const defaultImage = 'https://s3-us-west-2.amazonaws.com/ops.defaults/user-avatar-male.png';
