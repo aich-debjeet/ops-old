@@ -69,6 +69,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (state['login_response'] && state['login_response']['error_description'] && state['login_response']['error_description'] === 'OTP not validated') {
           this.modalService.open('otpWindow');
         }
+        if (typeof state['user_otp_success'] !== 'undefined' && state['user_otp_success'] === true) {
+          this.router.navigateByUrl('/reg/addskill');
+        }
       }
     });
 
