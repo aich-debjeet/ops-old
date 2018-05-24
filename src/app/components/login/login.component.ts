@@ -67,7 +67,6 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
         }
         if (state['login_response'] && state['login_response']['error_description'] && state['login_response']['error_description'] === 'OTP not validated') {
-          console.log('OTP modal');
           this.modalService.open('otpWindow');
         }
       }
@@ -85,12 +84,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   // focus on next otp number
-  nextOtpNum(num: number) {
-    if (num > 0 && num < 6) {
-      const nextNum = num + 1;
-      const nextOtpInput = 'otpNum' + nextNum.toString();
-      this[nextOtpInput].nativeElement.focus();
+  nextOtpNum(e: any, num: number) {
+    if (e.keyCode >= 48 && e.keyCode <= 57) {
+      if (num > 0 && num < 6) {
+        const nextNum = num + 1;
+        const nextOtpInput = 'otpNum' + nextNum.toString();
+        this[nextOtpInput].nativeElement.focus();
+      }
+      return true;
     }
+    return false;
   }
 
   resendOtp() {
