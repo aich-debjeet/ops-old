@@ -118,8 +118,7 @@
                         <span id="phone" type="tel"></span>
                         <input class="c-form__input p-l-50-px" type="text" tabindex="5" formControlName="phone" placeholder="Phone Number">
                         <span class="c-form__highlight"></span>
-                        <!-- <app-country-selector [selectorId]="choices-countries-number-update" (onCountrySelection)="saveCountry($event)"></app-country-selector> -->
-                        <app-country-selector (onCountrySelection)="saveCountry($event)"></app-country-selector>
+                        <app-country-selector [countrySelForm]="'reg'" #countrySelReg (onCountrySelection)="saveCountry($event)"></app-country-selector>
                         <span class="c-form__bar"></span>
                         <!-- <label class="p-l-50-px">Phone Number</label> -->
                         <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
@@ -592,7 +591,7 @@
                         <div class="c-form__group c-form--lg">
                             <input class="c-form__input" type="text" formControlName="newNumber">
                             <span class="c-form__highlight"></span>
-                            <!-- <app-country-selector [selectorId]="choices-countries-reg-basic" (onCountrySelection)="saveCountry($event)"></app-country-selector> -->
+                            <app-country-selector [countrySelForm]="'otp'" #countrySelOtp (onCountrySelection)="saveCountry($event)"></app-country-selector>
                             <span class="c-form__bar"></span>
                             <label>Enter New Phone Number</label>
                             <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.required && newNumFrm.submitted">Phone number is required</p>

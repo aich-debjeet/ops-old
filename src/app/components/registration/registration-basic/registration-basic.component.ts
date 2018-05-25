@@ -1,5 +1,5 @@
 // ng imports
-import { Component, OnInit, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -28,12 +28,14 @@ import { AuthService } from '../../../services/auth.service';
   selector: 'app-registration-basic',
   templateUrl: './registration-basic.component.html',
   styleUrls: ['./registration-basic.component.scss'],
-  providers: [ DatabaseValidator ]
+  providers: [ DatabaseValidator ],
 })
 
-export class RegistrationBasicComponent implements OnInit, OnDestroy {
+export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewInit {
   passwordShow = false;
-  country: any;
+  country = {
+    callingCodes: ['IN']
+  };
   showTerms = false;
   uploadingFormData = false;
   regState$: Observable<BasicRegTag>;
@@ -59,6 +61,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   @ViewChild('otpNum4') otpNum4: ElementRef;
   @ViewChild('otpNum5') otpNum5: ElementRef;
   @ViewChild('otpNum6') otpNum6: ElementRef;
+
+  @ViewChild('countrySelReg') countrySelectorReg: CountrySelectorComponent;
+  @ViewChild('countrySelOtp') countrySelectorOtp: CountrySelectorComponent;
 
   passwordShowToggle() {
     if (this.passwordShow === true) {
@@ -137,6 +142,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() { }
+
+  ngAfterViewInit() {
+    this.countrySelectorReg.initCountrySelector('country-options-reg');
+  }
 
   // build all forms
   buildForm(): void {
@@ -378,6 +387,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   otpNotRecieved() {
     this.modalService.close('otpWindow');
     this.modalService.open('otpChangeNumber');
+    // setTimeout(() => {
+      this.countrySelectorOtp.initCountrySelector('country-options-otp');
+    // }, 100);
   }
 
   /**
