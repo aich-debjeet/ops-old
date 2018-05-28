@@ -72,6 +72,7 @@ export class ProfileSliderComponent implements OnInit {
   // profileObject: ProfileCard;
   activeProfileHandle = '';
   mymodel: string; // bind this to input with ngModel
+  bioMessage = '';
   txtQueryChanged: Subject<string> = new Subject<string>();
   otherProfileHandle: String;
   otherProfileName: String;

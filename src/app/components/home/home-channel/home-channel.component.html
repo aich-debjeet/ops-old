@@ -13,6 +13,12 @@
 
 <div id="channel" class="tab-pane fade in active in m-r-8" infinite-scroll (scrolled)="onScroll($event)">
     <div class="col-md-3 p-r-16 p-l-0 m-t-b-8 m-home_channel" *ngFor="let channel of channelList; let i = index">
-        <app-channel [channelData]="channel" (onFollow)="followChannel($event)"></app-channel>
+        <app-channel [channelData]="channel" (onFollow)="followChannel($event)" [loader]="false"></app-channel>
+    </div>
+</div>
+
+<div id="channel" class="tab-pane fade in active in m-r-8" *ngIf = "channel_load">
+    <div class="col-md-3 p-r-16 p-l-0 m-t-b-8 m-home_channel" *ngFor="let number of [0,1,2,3]; let i = index">
+        <app-channel  [loader]="true"></app-channel>
     </div>
 </div>
