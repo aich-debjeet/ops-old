@@ -9,7 +9,7 @@ import { ModalService } from '../../../shared/modal/modal.component.service';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { Subject }    from 'rxjs/Subject';
+import { Subject } from 'rxjs/Subject';
 
 // helper
 import { TokenService } from '../../../helpers/token.service';
@@ -22,7 +22,7 @@ import { SharedActions } from '../../../actions/shared.action';
 
 import { ToastrService } from 'ngx-toastr';
 
-import { ProfileCard } from '../../../models/profile.model';
+import { initialProfileTag, ProfileCard } from '../../../models/profile.model';
 
 // rx
 import { Observable } from 'rxjs/Observable';
@@ -45,7 +45,7 @@ export class ProfileSliderComponent implements OnInit {
   @Input() isOtherProfile: any;
   @Input() userName: string;
   isOwner: boolean;
-  profileObject: ProfileCard;
+  profileObject: ProfileCard = initialProfileTag;
   changingImage: boolean;
   tagState$: Observable<ProfileModal>;
   skillState$: Observable<any>;
@@ -72,6 +72,7 @@ export class ProfileSliderComponent implements OnInit {
   // profileObject: ProfileCard;
   activeProfileHandle = '';
   mymodel: string; // bind this to input with ngModel
+  bioMessage = '';
   txtQueryChanged: Subject<string> = new Subject<string>();
   otherProfileHandle: String;
   otherProfileName: String;
@@ -123,6 +124,7 @@ export class ProfileSliderComponent implements OnInit {
       if (state.profile_user_info) {
         if (state.profile_user_info.isCurrentUser) {
           this.profileObject = this.loadProfile( state, 'own' );
+          console.log('this.profileObject', this.profileObject);
           this.isOwner = true;
         } else {
           if (state.profile_user_info.isClaimForGuest && state.profile_user_info.isClaimForGuest === true) {
@@ -138,7 +140,6 @@ export class ProfileSliderComponent implements OnInit {
             this.profileObject = this.loadProfile( state, 'other' );
             this.otherProfileHandle = this.profileObject.userDetails.handle;
             this.otherProfileName = this.profileObject.name;
-            
           }
           this.isOwner = false;
         }

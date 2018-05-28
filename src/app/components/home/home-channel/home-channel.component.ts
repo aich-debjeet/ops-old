@@ -47,6 +47,8 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
   scrolling = 0;
   scrollingLoad = 500;
 
+  channel_load: boolean;
+
   constructor(
     private http: Http,
     private store: Store<ProfileModal>
@@ -62,6 +64,9 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
       if (state.user_following_channels_loaded) {
         this.channelList = state.user_following_channel;
         this.channel_scroll_id = state.user_channel_scroll_id;
+      }
+      if(state['user_following_channels_loading'] !== null) {
+         this.channel_load = state['user_following_channels_loading'] 
       }
     });
 
