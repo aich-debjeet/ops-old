@@ -22,7 +22,7 @@ export class ChannelComponent implements OnInit {
   @Input() className: string;
   @Input() channelData;
   @Input() currentUser: boolean;
-  @Input() loader: boolean = false;
+  @Input() loader = false;
   // @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() onFollow: EventEmitter<any> = new EventEmitter<any>();
   @Output() onDelete: EventEmitter<any> = new EventEmitter<any>();
@@ -32,7 +32,7 @@ export class ChannelComponent implements OnInit {
   // Its for admin spefic edit option
   @Input() type: boolean;
   userImage: string;
-  isfollowing: boolean = false;
+  isfollowing = false;
   ispin: boolean;
   showEdit: boolean;
   storeState$: Observable<ProfileModal>;
@@ -47,13 +47,13 @@ export class ChannelComponent implements OnInit {
 
      this.storeState$.subscribe((state) => {
        this.userHandle = state['profile_details'].handle;
+       this.userProfile = state;
       // this.userProfile = state['profile_details'];
     });
   }
 
   ngOnInit() {
-    // this.isfollowing = this.channelData.isFollowing || false;
-    if(this.channelData){
+    if (this.channelData) {
       this.isfollowing = this.channelData.isFollowing || false;
       this.showEdit = false;
       this.ispin = this.channelData.isPinned || false;
@@ -63,8 +63,7 @@ export class ChannelComponent implements OnInit {
       } else {
         this.userImage = this.image_base_url + this.channelData.ownerImage;
       }
-    } 
-   
+    }
   }
 
   /**
@@ -100,15 +99,15 @@ export class ChannelComponent implements OnInit {
     if (this.ispin === false) {
       this.ispin = true;
       const data = {
-        'spotfeedId': spotfeedId,
-        'profileHandle': this.userHandle
+        spotfeedId: spotfeedId,
+        profileHandle: this.userHandle
       }
       this._store.dispatch({ type: ProfileActions.PIN_CHANNEL, payload: data });
-    }else {
+    } else {
       this.ispin = false;
       const data = {
-        'spotfeedId': spotfeedId,
-        'profileHandle': this.userHandle
+        spotfeedId: spotfeedId,
+        profileHandle: this.userHandle
       }
       this._store.dispatch({ type: ProfileActions.UNPIN_CHANNEL, payload: data });
     }
@@ -119,6 +118,13 @@ export class ChannelComponent implements OnInit {
    */
   deleteChannel(channelId: string) {
     this.onDelete.emit(channelId);
+  }
+
+  disableFollowForSelf(handle: string) {
+    if (this.userProfile && (this.userProfile['profile_navigation_details']['handle']) === handle) {
+      return true;
+    }
+    return false;
   }
 
 }

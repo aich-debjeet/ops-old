@@ -97,9 +97,9 @@
                     <img width="95" [src]="baseUrl + 'img/svg/upload.svg'" alt="">
                 </div>
                 <h3 class="c-h3 o-upload__head">Upload images, videos and audios</h3>
-                <p class="c-text_sm o-add-media-upload__type">You can upload jpg, png, mp4, wav , mp3, aac, wma</p>
+                <p class="c-text_sm o-add-media-upload__type">You can upload jpg, png, gif, mp3, ogg, mp4, avi, mov</p>
                 <div class="o-add-media-btn">
-                    <input type="file" class="o-add-media_upload" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.mp4" name="photo" id="upload-photo">
+                    <input type="file" class="o-add-media_upload" (ngxf-select)="uploadFileList($event)" multiple accept="image/*,.mp3,.ogg,.mp4,.avi,.mov" name="photo" id="upload-photo">
                     <div class="btn btn-primary btn-lg o-add-media__upload-btn">
                         <span class="o-media-upload-btn m-r-5"></span> Upload
                     </div>
