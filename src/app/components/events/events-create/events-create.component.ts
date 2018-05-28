@@ -241,9 +241,11 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    * @param value value of form
    */
   submitForm(value) {
+    console.log(this.eventForm.valid)
     if (this.eventForm.valid) {
       if (this.eventCoverImage === '') {
         this.imageUpload = true;
+        console.log(this.imageUpload)
         return
       }
       this.imageUpload = false;
