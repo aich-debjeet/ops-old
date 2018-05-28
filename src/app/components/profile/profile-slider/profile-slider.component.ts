@@ -124,7 +124,7 @@ export class ProfileSliderComponent implements OnInit {
       if (state.profile_user_info) {
         if (state.profile_user_info.isCurrentUser) {
           this.profileObject = this.loadProfile( state, 'own' );
-          console.log('this.profileObject', this.profileObject);
+          // console.log('this.profileObject', this.profileObject);
           this.isOwner = true;
         } else {
           if (state.profile_user_info.isClaimForGuest && state.profile_user_info.isClaimForGuest === true) {
