@@ -113,13 +113,13 @@
                                             <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">
                                         </li>
                                         <li class="list-inline-item msg_cont_block2 right-message">
-                                            <p class="ops_msg_aero2" *ngIf="message.isDeleted === false">{{ message?.content }}</p>
-                                            <p class="ops_msg_aero2" *ngIf="message.isDeleted === true">
+                                            <p class="ops_msg_aero2" *ngIf="message?.isDeleted === false">{{ message?.content }}</p>
+                                            <p class="ops_msg_aero2" *ngIf="message?.isDeleted === true">
                                                 <i>{{ message?.content }}</i>
                                             </p>
-                                            <div *ngIf="message.isDeleted === false" class="msg_sent_time2">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
+                                            <div *ngIf="message?.isDeleted === false" class="msg_sent_time2">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
                                             <ng-template #notSending>
-                                                <span title="Delete" class="del-msg" *ngIf="message.isDeleted === false" (click)="deleteMessage(message)">x</span>
+                                                <span title="Delete" class="del-msg" *ngIf="!message?.isNetworkRequest && !message?.isDeleted" (click)="deleteMessage(message)">x</span>
                                             </ng-template>
                                             <span class="sending-msg" *ngIf="message?.isSending === true; else notSending">
                                                 <img [src]="imageBaseUrl + 'img/search-preloader.gif'" class="c-form__input--lefticon">
@@ -134,10 +134,10 @@
                                             <img *ngIf="message?.profileImage !== ''" [src]="imageBaseUrl + message?.profileImage" class="img-responsive">
                                         </li>
                                         <li class="list-inline-item msg_cont_block left-message">
-                                            <p class="ops_msg_aero" *ngIf="message.isDeleted === true">
+                                            <p class="ops_msg_aero" *ngIf="message?.isDeleted === true">
                                                 <i>{{ message?.content }}</i>
                                             </p>
-                                            <p class="ops_msg_aero" *ngIf="message.isDeleted === false">
+                                            <p class="ops_msg_aero" *ngIf="message?.isDeleted === false">
                                                 {{ message?.content }}
                                                 <br>
                                                 <ng-container *ngIf="message?.isNetworkRequest">
@@ -145,8 +145,8 @@
                                                     <button (click)="networkReqAction('reject', message)" type="button" class="btn btn-default btn-sm">decline</button>
                                                 </ng-container>
                                             </p>
-                                            <div *ngIf="message.isDeleted === false" class="msg_sent_time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
-                                            <span title="Delete" class="del-msg" *ngIf="message.isDeleted === false" (click)="deleteMessage(message)">x</span>
+                                            <div *ngIf="message?.isDeleted === false" class="msg_sent_time">{{ message?.time | utcDate | date:'d MMM hh:mm a' }}</div>
+                                            <span title="Delete" class="del-msg" *ngIf="!message?.isNetworkRequest && !message?.isDeleted" (click)="deleteMessage(message)">x</span>
                                         </li>
                                     </ul>
                                 </div>
