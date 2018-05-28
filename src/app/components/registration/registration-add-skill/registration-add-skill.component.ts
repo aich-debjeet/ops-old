@@ -40,12 +40,14 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
         this.skills = state['industries'];
       }
 
-      if (this.skillSelectionState['skills_loading'] === false
+      if (typeof this.skillSelectionState['skills_loading'] !== 'undefined'
+        && this.skillSelectionState['skills_loading'] === false
         && this.skillSelectionState['skills_loaded'] === true
       ) {
         this.isSearching = false;
       }
-      if (this.skillSelectionState['uploadingUserSkills'] === false
+      if (typeof this.skillSelectionState['uploadingUserSkills'] !== 'undefined'
+        && this.skillSelectionState['uploadingUserSkills'] === false
         && this.skillSelectionState['uploadedUserSkills'] === true
       ) {
         this.uploadingSkills = false;
