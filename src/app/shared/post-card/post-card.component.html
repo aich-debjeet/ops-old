@@ -15,11 +15,17 @@
     </span>
         <div class="c-media--hover">
             <div class="">
-                <div class="c-user">
+                <div class="c-user" *ngIf="!mediaData?.isOwner">
                     <a routerLink="{{ '/profile/u/' + mediaData?.ownerUserName }}" class="c-user__avatar c-avatar--feed2">
                         <img class="c-user__image" [src]="userImage">
                     </a>
                     <a routerLink="{{ '/profile/u/' + mediaData?.ownerUserName }}" class="c-user__name2">{{ mediaData?.ownerName }}</a>
+                </div>
+                <div class="c-user" *ngIf="mediaData?.isOwner">
+                    <a routerLink="/profile" class="c-user__avatar c-avatar--feed2">
+                        <img class="c-user__image" [src]="userImage">
+                    </a>
+                    <a routerLink="/profile" class="c-user__name2">{{ mediaData?.ownerName }}</a>
                 </div>
                 <div class="dropdown" *ngIf="mediaData?.isOwner">
                     <div class="dropup" appDropdown>
