@@ -7,8 +7,7 @@
                         <app-videplayer *ngIf="item?.mediaType === 'video'" [lazyLoad]="image_base_url + item?.repoPath"></app-videplayer>
                         <app-audioplayer type="simple" *ngIf="item?.mediaType === 'audio'" [lazyLoad]="image_base_url + item?.repoPath"></app-audioplayer>
                     </div> -->
-                    <div class="c-channel__left" [lazyLoad]="image_base_url + item">
-                    </div>
+                    <div class="c-channel__left" [lazyLoad]="image_base_url + item"></div>
                 </div>
                 <div class="c-channel__sec-r">
                     <div class="c-channel__right1" *ngIf="i===1" [lazyLoad]="image_base_url + item">
@@ -20,7 +19,6 @@
                     <div class="c-channel__right1" *ngIf="i===0 && (channelData?.media)?.length === 1">
                         <div class="c-card__image"></div>
                     </div>
-
                     <div class="c-channel__right2" *ngIf="i===2" [lazyLoad]="image_base_url + item">
                     </div>
                     <!-- <div class="c-channel__right2" *ngIf="i===2 && item?.mediaType !== 'image'">
@@ -37,7 +35,6 @@
             </div>
         </div>
 
-
         <div class="c-channel__media" *ngIf="(channelData?.media)?.length === 0">
             <div class="c-channel__sec-l">
                 <div class="c-channel__left">
@@ -50,8 +47,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <div class="c-channel__name">
             <a [routerLink]="['/channel', channelData?.spotfeedId]" class="c-text_lg color-white">{{channelData?.spotfeedName | truncate:[12, '...'] }}</a>
@@ -95,8 +90,6 @@
             </div> -->
         </div>
 
-
-
         <div class="c-card__links">
             <span class="c-links__post">{{ channelData?.media?.length }} Post</span>
             <span class="c-links__post">{{ channelData?.followersCount }} Followers</span>
@@ -109,7 +102,7 @@
                         </div>
                         <p class="c-followers__count">+82</p> -->
             </div>
-            <div class="c-channel__btn2" *ngIf="!currentUser">
+            <div *ngIf="!disableFollowForSelf(channelData?.ownerHandle)" class="c-channel__btn2">
                 <a (click)="toggleFollowBtn($event)" class="btn btn-primary btn-sm pull-right">{{ isfollowing ? 'Unfollow' : 'Follow' }}</a>
             </div>
         </div>
