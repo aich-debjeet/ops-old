@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import {IDatePickerConfig} from 'ng2-date-picker';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +7,9 @@ import { NgxfUploaderService, UploadEvent, UploadStatus, FileError } from 'ngxf-
 import { DatePipe } from '@angular/common';
 import { EventValidator, FormValidation } from '../../../helpers/event.validator';
 import {Moment} from 'moment';
+
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import {} from '@types/googlemaps';
 
 
 
@@ -34,6 +37,10 @@ import * as moment from 'moment';
 })
 export class EventsCreateComponent implements OnInit, OnDestroy {
   public eventForm: FormGroup;
+  public latitude: number;
+  public longitude: number;
+  public searchControl: FormControl;
+  public zoom: number;
   tagState$: Observable<EventModal>;
   profileState$: Observable<ProfileModal>;
   today = Date.now();
@@ -48,6 +55,13 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   private sub: any;
   eventDetail: any;
   eventCover: File;
+
+    // Address --
+    address: string;
+    country: string;
+    state: string;
+    postalCode: string;
+    city: string;
 
   datePickerConfig: IDatePickerConfig = {
     firstDayOfWeek: 'mo',
@@ -74,6 +88,9 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   fileData: File;
   userHandle: any;
 
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+
   constructor(
     private fb: FormBuilder,
     private store: Store<EventModal>,
@@ -82,6 +99,8 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     private Upload: NgxfUploaderService,
     private datePipe: DatePipe,
     private eventValidator: EventValidator,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
   ) {
 
     this.tagState$ = this.store.select('eventTags');
@@ -108,6 +127,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
 
     // Form Build
     this.buildForm();
+    this.getLocationGoogle();
   }
 
   /**
@@ -198,6 +218,83 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       validators: [FormValidation.endateValidation]
     })
 
+  }
+
+  private setCurrentPosition() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 12;
+      });
+    }
+  }
+
+    /**
+   * Location find from google
+   */
+  getLocationGoogle() {
+    // set google maps defaults
+    this.zoom = 4;
+    this.latitude = 39.8282;
+    this.longitude = -98.5795;
+
+    // create search FormControl
+    this.searchControl = new FormControl();
+
+    // set current position
+    this.setCurrentPosition();
+
+    // load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+    });
+    const componentForm = {
+      street_number: 'short_name',
+      route: 'long_name',
+      locality: 'long_name',
+      administrative_area_level_1: 'long_name',
+      country: 'long_name',
+      postal_code: 'short_name'
+    };
+
+    autocomplete.addListener('place_changed', () => {
+      this.ngZone.run(() => {
+        // get the place result
+        const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+        for (let i = 0; i < place.address_components.length; i++) {
+          const addressType = place.address_components[i].types[0];
+          if (componentForm[addressType]) {
+            const val = place.address_components[i][componentForm[addressType]];
+            if ( addressType === 'country') {
+              this.country = val;
+            }
+            if ( addressType === 'postal_code') {
+              this.postalCode = val;
+            }
+            if ( addressType === 'locality') {
+              this.city = val
+            }
+            if ( addressType === 'administrative_area_level_1') {
+              this.state = val
+            }
+          }
+        }
+
+        // verify result
+        if (place.geometry === undefined || place.geometry === null) {
+          return;
+        }
+
+        // set latitude, longitude and zoom
+        this.address = place.formatted_address;
+        this.latitude = place.geometry.location.lat();
+        this.longitude = place.geometry.location.lng();
+        this.zoom = 12;
+      });
+    });
+    });
   }
 
   // this.eventValidator.datevalidation.bind(this.eventValidator)
