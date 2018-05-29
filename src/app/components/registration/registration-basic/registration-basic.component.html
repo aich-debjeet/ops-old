@@ -118,7 +118,7 @@
                         <span id="phone" type="tel"></span>
                         <input class="c-form__input p-l-50-px" type="text" tabindex="5" formControlName="phone" placeholder="Phone Number">
                         <span class="c-form__highlight"></span>
-                        <app-country-selector [countrySelForm]="'reg'" #countrySelReg (onCountrySelection)="saveCountry($event)"></app-country-selector>
+                        <app-country-selector [countrySelForm]="'reg'" #countrySelReg (onCountrySelection)="saveCountry($event, 'reg')"></app-country-selector>
                         <span class="c-form__bar"></span>
                         <!-- <label class="p-l-50-px">Phone Number</label> -->
                         <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
@@ -560,7 +560,7 @@
                             <p class="error_alert text-center" *ngIf="regState?.user_otp_failed">Invalid OTP</p>
                             <p class="error_alert text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum1'].errors?.required || otpForm.controls['otpNum2'].errors?.required || otpForm.controls['otpNum3'].errors?.required || otpForm.controls['otpNum4'].errors?.required || otpForm.controls['otpNum5'].errors?.required || otpForm.controls['otpNum6'].errors?.required)">Please enter your 6 digit OTP number</p>
                             <div class="text-center otp-dont-get">
-                                <a data-toggle="modal" (click)="otpNotRecieved()" class="color-theme">Didn't get your OTP?</a>
+                                <a (click)="otpNotRecieved()" class="color-theme">Didn't get your OTP?</a>
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary btn-lg capitalize">Validate</button>
@@ -589,9 +589,9 @@
                     <h5 class="text-center">Update your phone number</h5>
                     <form [formGroup]="newNumberForm" #newNumFrm="ngForm" (ngSubmit)="resendOtpOnNewNumber()">
                         <div class="c-form__group c-form--lg">
-                            <input class="c-form__input" type="text" formControlName="newNumber">
+                            <input class="c-form__input p-l-50-px" type="text" formControlName="newNumber">
                             <span class="c-form__highlight"></span>
-                            <app-country-selector [countrySelForm]="'otp'" #countrySelOtp (onCountrySelection)="saveCountry($event)"></app-country-selector>
+                            <app-country-selector [countrySelForm]="'otp'" #countrySelOtp (onCountrySelection)="saveCountry($event, 'otp')"></app-country-selector>
                             <span class="c-form__bar"></span>
                             <label>Enter New Phone Number</label>
                             <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.required && newNumFrm.submitted">Phone number is required</p>
@@ -600,7 +600,7 @@
                         </div>
                         <div class="text-center">
                             <button type="button" class="btn btn-default btn-lg capitalize" (click)="backToOtp()">Back</button>
-                            <button type="submit" class="btn btn-primary btn-lg capitalize" data-toggle="modal">Validate</button>
+                            <button type="submit" class="btn btn-primary btn-lg capitalize">Validate</button>
                         </div>
                     </form>
                 </div>

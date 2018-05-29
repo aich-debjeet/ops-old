@@ -31,7 +31,7 @@ export class CountrySelectorComponent implements OnInit, AfterViewInit, OnChange
 
   onSelectCountry(event) {
     this.selectedCountryId = event.trim();
-    console.log('this.selectedCountryId', event);
+    // console.log('this.selectedCountryId', event);
     this.countryIcon = 'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.8.0/flags/1x1/' + event.toLowerCase() + '.svg';
     const countryData = this.getCountry(event);
     this.onCountrySelection.emit(countryData);
@@ -138,7 +138,7 @@ export class CountrySelectorComponent implements OnInit, AfterViewInit, OnChange
           };
         }
       });
-      console.log('otp this.selectedCountryId', this.selectedCountryId);
+      // console.log('otp this.selectedCountryId', this.selectedCountryId);
       if (this.selectedCountryId.length > 0) {
         this.selector.setValueByChoice(this.selectedCountryId);
       } else {

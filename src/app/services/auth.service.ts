@@ -18,11 +18,6 @@ export class Post {
     this.content = obj['content'];
     this.img = obj['img'] || 'test';
   }
-
-  // New static method
-  static fromJSONArray(array: Array<Object>): Post[] {
-    return array.map(obj => new Post(obj));
-  }
 }
 
 @Injectable()
@@ -61,13 +56,10 @@ export class AuthService {
       this.updateAuthHeaders();
       return this.http.get(`${this.apiLink}/portal/auth/loggedUser`, { headers: this.headers })
       .map((response: Response) => {
-        
-          const user = response.json();
-          console.log(user)
-          if (user.profileId) {
-          }
-          localStorage.setItem('currentUserID', user.profileId);
-          this.router.navigate(['/profile']);
+        const user = response.json();
+        if (user.profileId) {}
+        localStorage.setItem('currentUserID', user.profileId);
+        this.router.navigate(['/profile']);
       });
     }
 
@@ -79,7 +71,6 @@ export class AuthService {
      * Search user bu user id
      */
     searchUserWithUsername(username: string) {
-      console.log('api call username', username);
       return this.api.get('/portal/auth/user/username/' + username);
     }
 
@@ -236,10 +227,9 @@ export class AuthService {
       return this.http.post(this.apiLink + '/portal/auth/resendotp', reqBody);
     }
 
-    otpChangeNumber(value: any) {
-      this.updateAuthHeaders();
-      return this.http.put(this.apiLink + '/portal/auth/user/update', value, { headers: this.headers }) // removed headers: head
-        .map((data: Response) => data.json());
+    otpChangeNumber(contactDetails: any) {
+      // return this.api.put(this.apiLink + '/portal/auth/user/update', { contact: contactDetails });
+      return this.api.put(this.apiLink + '/portal/auth/user/update', contactDetails);
     }
 
     fpCreatePass(req: any) {

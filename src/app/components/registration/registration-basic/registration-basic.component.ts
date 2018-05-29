@@ -106,22 +106,20 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
           this.modalService.open('otpWindow');
         }
         if (state['user_number_cng_success'] === true ) {
-          this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber);
-          this.modalService.close('otpChangeNumber');
-          this.modalService.open('otpWindow');
+          this.regFormBasic.controls['phone'].setValue(this.newNumberForm.controls['newNumber'].value);
+          this.backToOtp();
         }
         if (state['user_otp_success'] === true) {
-          this.otpLogin();
           this.modalService.close('otpWindow');
           this.router.navigate(['/reg/addskill']);
         }
-        if (state['reg_basic_form_data']
-          && state['reg_basic_form_data']['contact']
-          && state['reg_basic_form_data']['contact']['contactNumber']
-          && state['reg_basic_form_data']['contact']['countryCode']
-        ) {
-          this.contactNumber = state['reg_basic_form_data']['contact']['contactNumber'];
-          this.countryCode = state['reg_basic_form_data']['contact']['countryCode'];
+        if (state['reg_basic_form_data'] && state['reg_basic_form_data']['contact']) {
+          if (state['reg_basic_form_data']['contact']['contactNumber']) {
+            this.contactNumber = state['reg_basic_form_data']['contact']['contactNumber'];
+          }
+          if (state['reg_basic_form_data']['contact']['countryCode']) {
+            this.countryCode = state['reg_basic_form_data']['contact']['countryCode'];
+          }
         }
       }
     });
@@ -152,7 +150,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     this.regFormBasic.controls['username'].setValue(selectUsername);
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
+  }
 
   ngAfterViewInit() {
     this.countrySelectorReg.initCountrySelector('country-options-reg');
@@ -220,7 +220,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
           Validators.minLength(4),
           FormValidation.validPhone.bind(this)
         ],
-        this.asyncValidator.checkMobile.bind(this)
+        this.checkMobile.bind(this)
       ]
     })
   }
@@ -274,11 +274,11 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   // OTP Validation
   otpSubmit(value) {
     if (this.otpForm.valid === true) {
-      let number = null;
-      if (this.newNumberForm.value.newNumber !== undefined && this.newNumberForm.value.newNumber.length > 5) {
-        number = this.newNumberForm.value.newNumber;
+      let phoneNumber = null;
+      if (this.newNumberForm.controls['newNumber'] !== undefined && this.newNumberForm.controls['newNumber'].value.length > 5) {
+        phoneNumber = this.newNumberForm.controls['newNumber'].value;
       } else {
-        number = this.regFormBasic.value.phone;
+        phoneNumber = this.regFormBasic.value.phone;
       }
       // console.log('otp form data', value); return;
       const otpValue = value.otpNum1.toString() +
@@ -288,19 +288,11 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
                        value.otpNum5.toString() +
                        value.otpNum6.toString();
       const otpData = {
-        number: number,
+        contactNumber: phoneNumber,
+        countryCode: this.country.callingCodes[0],
         otp: otpValue
       }
       this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: otpData });
-    }
-  }
-
-  otpLogin() {
-    let number = null;
-    if (this.newNumberForm.value.newNumber !== undefined && this.newNumberForm.value.newNumber.length > 5) {
-      number = this.newNumberForm.value.newNumber;
-    } else {
-      number = this.regFormBasic.value.phone;
     }
   }
 
@@ -330,8 +322,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     this.resendingOtp = true;
     const resendOtpData = {
       contactNumber: this.contactNumber,
-      countryCode: this.countryCode
-    };
+      countryCode: this.country.callingCodes[0]
+    }
     this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT, payload: resendOtpData });
     setTimeout(() => {
       this.resendingOtp = false;
@@ -343,12 +335,11 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
    */
   resendOtpOnNewNumber() {
     if (this.newNumberForm.valid === true ) {
-      const reqBody = {
-        contact: {
-          contactNumber: this.newNumberForm.value.newNumber
-        }
+      const contactDetails = {
+        contactNumber: this.newNumberForm.controls['newNumber'].value,
+        countryCode: this.country.callingCodes[0]
       }
-      this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: reqBody });
+      this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: contactDetails });
     }
   }
 
@@ -401,9 +392,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   otpNotRecieved() {
     this.modalService.close('otpWindow');
     this.modalService.open('otpChangeNumber');
-    // setTimeout(() => {
-      this.countrySelectorOtp.initCountrySelector('country-options-otp');
-    // }, 100);
+    this.countrySelectorOtp.initCountrySelector('country-options-otp');
   }
 
   /**
@@ -417,10 +406,15 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   /**
    * update country
    */
-  saveCountry(country: any) {
+  saveCountry(country: any, frmType: string) {
     this.country = country;
+    this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
     // trigger phone number check
-    this.regFormBasic.controls['phone'].updateValueAndValidity();
+    if (frmType === 'reg') {
+      this.regFormBasic.controls['phone'].updateValueAndValidity();
+    } else if (frmType === 'otp') {
+      this.newNumberForm.controls['newNumber'].updateValueAndValidity();
+    }
   }
 
   /**
