@@ -100,10 +100,10 @@ export class MediaSelectorComponent implements OnInit {
 
   // Form Values
   mediaPrivacy: number;
+  channelPrivacy: number;
   license: string;
   isNSFW: boolean;
   channelName: String;
-  channelPrivacy: any = 0;
   channelCreatebtn: boolean = false;
   channelDesc: string;
   channelSaved: boolean;
@@ -161,6 +161,7 @@ export class MediaSelectorComponent implements OnInit {
       // Default Form Values
       this.license = 'none';
       this.mediaPrivacy = 0;
+      this.channelPrivacy = 0;
       this.isNSFW = false;
       this.channelCreatebtn = false;
       this.channelDesc = 'No Description';
@@ -362,6 +363,7 @@ export class MediaSelectorComponent implements OnInit {
     this.channelForm = this.fb.group({
       title: ['', Validators.required ],
       desc: ['', Validators.required ],
+      mediaType: ['', Validators.required ],
       privacy: [0, Validators.required ],
       type: [0, Validators.required ]
     })
@@ -385,9 +387,15 @@ export class MediaSelectorComponent implements OnInit {
    * Load Channel
    */
   loadChannel(handle: string) {
-    this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
+    const body = {
+      'limit': 30,
+      'superType': 'channel',
+      'owner': handle
+    }
+    this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: body });
   }
 
+  
 
   /**
    * Post all medias at once
@@ -555,10 +563,12 @@ export class MediaSelectorComponent implements OnInit {
    * Form Builder
    */
   createChannel(value: any) {
+    const mediaTypeList = this.channelTypeConfig(Number(value.mediaType));
     if ( this.channelForm.valid === true ) {
       const channelObj = {
         name: value.title,
         description: value.desc,
+        mediaTypes: mediaTypeList,
         superType: 'channel',
         access: Number(value.privacy),
         accessSettings : { access : Number(value.privacy) },
@@ -570,6 +580,32 @@ export class MediaSelectorComponent implements OnInit {
     }else {
       this.toastr.warning('Please fill all required fields');
     }
+  }
+
+  /**
+   * Limit Channel Media Type based on Selection
+   * @param type
+   */
+  channelTypeConfig(type) {
+    let flag;
+    switch (type) {
+      case 1:
+        flag = ['image'];
+        break;
+      case 2:
+        flag = ['audio'];
+        break;
+      case 3:
+        flag = ['video'];
+        break;
+      case 4:
+        flag = ['text'];
+        break;
+      default:
+        flag = ['image', 'video', 'audio', 'text'];
+        break;
+    }
+    return flag;
   }
 
   /**
@@ -858,6 +894,10 @@ export class MediaSelectorComponent implements OnInit {
    */
   mediaPrivacyToggle(value) {
     this.mediaPrivacy = value
+  }
+
+  channelPrivacyToggle(value) {
+    this.channelPrivacy = value
   }
 
   /**

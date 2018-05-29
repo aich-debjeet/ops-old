@@ -53,6 +53,10 @@ export class ChannelListComponent {
     this.onPostMedia.emit({});
   }
 
+  onScroll($event) {
+    console.log($event);
+  }
+
   /**
    * Create Channel
    */

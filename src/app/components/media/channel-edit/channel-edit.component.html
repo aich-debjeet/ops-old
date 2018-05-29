@@ -1,4 +1,4 @@
-<app-route-modal #channelCreate modalClass="modal-channel__create">
+<app-route-modal #channelUpdate modalClass="modal-channel__create">
     <modal-content>
         <div class="preloader" *ngIf="mediaStore?.channel_loading">
             <div class="sticky"><div class="loader">Loading...</div></div>
@@ -6,9 +6,9 @@
         <div class="modal-body p-0" *ngIf="!mediaStore?.channel_loading">
             <div class="pop-container-sm create-channel--form">
                 <div class="pop-head m-b-32">
-                    <h5 class="c-text_lg text-center">Create Channel</h5>
+                    <h5 class="c-text_lg text-center">Update Channel</h5>
                     <span class="pop-close">
-                    <a (click)="channelCreate.close()" ><img [src]="imageBaseLink + 'img/svg/ico_close-38.svg'"></a>
+                    <a (click)="channelUpdate.close()" ><img [src]="imageBaseLink + 'img/svg/ico_close-38.svg'"></a>
                 </span>
                 </div>
                 <!-- create channel head -->
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 p-0 text-right m-t-32">
-                            <button type="button" class="btn btn-default btn-md m-r-16" (click)="channelCreate.close()">Cancel</button>
+                            <button type="button" class="btn btn-default btn-md m-r-16" (click)="channelUpdate.close()">Cancel</button>
                             <button type="button" class="btn btn-primary btn-md" (click)="updateChannel(channelForm.value)">Update</button>
                         </div>
                     </form>

@@ -79,7 +79,6 @@ export class HomePostComponent implements OnInit, OnDestroy {
     }
   }
   onScroll(e) {
-    console.log(e);
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
       this.scrollingLoad += 5000
