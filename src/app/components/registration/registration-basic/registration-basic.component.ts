@@ -34,7 +34,7 @@ import { AuthService } from '../../../services/auth.service';
 export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewInit {
   passwordShow = false;
   country = {
-    callingCodes: ['IN']
+    callingCodes: ['91']
   };
   showTerms = false;
   uploadingFormData = false;
@@ -49,6 +49,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     format: 'DD-MM-YYYY',
     locale: 'en'
   };
+
+  contactNumber = '';
+  countryCode = '';
 
   public otpForm: FormGroup;
   public regFormBasic: FormGroup;
@@ -111,6 +114,14 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
           this.otpLogin();
           this.modalService.close('otpWindow');
           this.router.navigate(['/reg/addskill']);
+        }
+        if (state['reg_basic_form_data']
+          && state['reg_basic_form_data']['contact']
+          && state['reg_basic_form_data']['contact']['contactNumber']
+          && state['reg_basic_form_data']['contact']['countryCode']
+        ) {
+          this.contactNumber = state['reg_basic_form_data']['contact']['contactNumber'];
+          this.countryCode = state['reg_basic_form_data']['contact']['countryCode'];
         }
       }
     });
@@ -317,8 +328,11 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
    */
   resendOtp() {
     this.resendingOtp = true;
-    const number = this.regFormBasic.value.phone;
-    this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT, payload: number });
+    const resendOtpData = {
+      contactNumber: this.contactNumber,
+      countryCode: this.countryCode
+    };
+    this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT, payload: resendOtpData });
     setTimeout(() => {
       this.resendingOtp = false;
     }, 1500);

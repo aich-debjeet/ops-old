@@ -232,10 +232,8 @@ export class AuthService {
         });
     }
 
-    otpResend(number: any) {
-      const headers = new Headers({ 'Content-Type': 'application/json'});
-        return this.http.get(this.apiLink + '/portal/auth/resendotp/' + number)
-        .map((data: Response) => data.json());
+    otpResend(reqBody: any) {
+      return this.http.post(this.apiLink + '/portal/auth/resendotp', reqBody);
     }
 
     otpChangeNumber(value: any) {

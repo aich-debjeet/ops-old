@@ -113,6 +113,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       return Object.assign({}, state, {
         reg_basic_uploading_form_data: true,
         reg_basic_uploaded_form_data: false,
+        reg_basic_form_data: payload,
         success: true,
         user_basic_reg_success: false,
       });
