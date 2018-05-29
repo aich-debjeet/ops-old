@@ -219,8 +219,7 @@ export class AuthService {
     }
 
     regSubmitOtp(reqBody: any) {
-      return this.http.get(this.apiLink + '/portal/activate/profile/' + reqBody.number + '/' + reqBody.otp)
-        .map((data: Response) => data.json());
+      return this.http.post(this.apiLink + '/portal/activate/profile', reqBody);
     }
 
     otpLogin(value: any) {

@@ -103,7 +103,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       const data = JSON.parse(payload._body);
       return Object.assign({}, state, {
         login_success: false,
-        error_description: data.error_description,
+        error_description: JSON.parse(data.error_description),
         login_uploading_data: false,
         login_response: data
       });
@@ -394,11 +394,13 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
      */
     case AuthActions.OTP_SUBMIT:
       return Object.assign({}, state, {
-        user_otp_success: false
+        user_otp_success: false,
+        otp_submit_params: payload
       });
     case AuthActions.OTP_SUBMIT_SUCCESS:
       return Object.assign({}, state, {
-        user_otp_success: true
+        user_otp_success: true,
+        otp_submit_response: payload
       });
     case AuthActions.OTP_SUBMIT_FAILED:
       return Object.assign({}, state, {

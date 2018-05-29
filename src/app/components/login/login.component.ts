@@ -31,6 +31,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   private loginSub: ISubscription;
   resendingOtp = false;
 
+  contactNumber = '';
+  countryCode = '';
+
   // otp numbers
   @ViewChild('otpNum1') otpNum1: ElementRef;
   @ViewChild('otpNum2') otpNum2: ElementRef;
@@ -66,8 +69,19 @@ export class LoginComponent implements OnInit, OnDestroy {
             return;
           }
         }
-        if (state['login_response'] && state['login_response']['error_description'] && state['login_response']['error_description'] === 'OTP not validated') {
-          this.modalService.open('otpWindow');
+        if (state['error_description']
+        ) {
+          if (state['error_description']['contactNumber']) {
+            this.contactNumber = state['error_description']['contactNumber'];
+          }
+          if (state['error_description']['countryCode']) {
+            this.countryCode = state['error_description']['countryCode'];
+          }
+          if (state['error_description']['error_desc']
+            && state['error_description']['error_desc'] === 'OTP_NOT_VALIDATED'
+          ) {
+            this.modalService.open('otpWindow');
+          }
         }
         if (typeof state['user_otp_success'] !== 'undefined' && state['user_otp_success'] === true) {
           this.router.navigateByUrl('/reg/addskill');
@@ -111,8 +125,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   // OTP Validation
   otpSubmit(value) {
+    // if (this.otpForm.valid === true && this.countryCode.length > 0 && this.contactNumber.length > 0) {
     if (this.otpForm.valid === true) {
-      const number = '9867884320';
       // console.log('otp form data', value); return;
       const otpValue = value.otpNum1.toString() +
                        value.otpNum2.toString() +
@@ -121,7 +135,8 @@ export class LoginComponent implements OnInit, OnDestroy {
                        value.otpNum5.toString() +
                        value.otpNum6.toString();
       const otpData = {
-        number: number,
+        contactNumber: this.contactNumber,
+        countryCode: this.countryCode,
         otp: otpValue
       }
       this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: otpData });
