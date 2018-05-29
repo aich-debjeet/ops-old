@@ -331,9 +331,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   /**
-   * Resend OTP on new number
+   * Updating number
    */
-  resendOtpOnNewNumber() {
+  updateContactNumber() {
     if (this.newNumberForm.valid === true ) {
       const contactDetails = {
         contactNumber: this.newNumberForm.controls['newNumber'].value,

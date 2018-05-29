@@ -587,7 +587,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <h5 class="text-center">Update your phone number</h5>
-                    <form [formGroup]="newNumberForm" #newNumFrm="ngForm" (ngSubmit)="resendOtpOnNewNumber()">
+                    <form [formGroup]="newNumberForm" #newNumFrm="ngForm" (ngSubmit)="updateContactNumber()">
                         <div class="c-form__group c-form--lg">
                             <input class="c-form__input p-l-50-px" type="text" formControlName="newNumber">
                             <span class="c-form__highlight"></span>
