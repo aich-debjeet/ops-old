@@ -66,7 +66,7 @@
                                         <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                                             <li>
                                                 <a (click)="mediaPrivacyToggle(0)" class="c-opsdropdown__list">
-                                                    <img src="baseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
+                                                    <img [src]="baseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
                                                     <span class="c-opsdropdown--text">Public</span>
                                                 </a>
                                             </li>
@@ -151,7 +151,7 @@
 
 <section class="Select__channel" *ngIf="uploadState === 2">
     <div class="container">
-        <div class="o-add-media">
+        <div class="o-add-media" >
             <app-channel-list [userChannels]="channeList" [settingDisable]="uploadedFiles.length === 0" (onPostMedia)="postAllMedia($event)" (onSelection)="onChannelSelection($event)" (onChangeContext)="changeState($event)"></app-channel-list>
         </div>
     </div>
@@ -162,53 +162,111 @@
     <div class="container">
         <div class="o-add-media">
             <div class="o-add-media-channel-main">
-                <div class="o-create-channel">
-                    <div id="create-channel" class="o-create-channel-container">
-                        <a class="c-text_lg o-add-media-channel__link" (click)="changeState(2)">
-                            <div class="o-back-arrow">
-                                <img [src]="baseUrl + 'img/svg/back_arrow.svg'" >
-                            </div>
-                        </a>
-                        <div class="o-create-channel__heading c-text_md">Create Channel</div>
+                <div class="o-create-channel m-t-8 m-l-8 p-t-16 hidden-sm hidden-xs">
+                <div id="create-channel" class="o-create-channel-container ">
+                    <div class="col-md-12 p-0">
+                        <div class="o-add-media-channel__head m-b-16">
+                        <div class="col-md-4 col-xs-3 p-0">
+                            <a class="c-text_lg o-add-media-channel__link" (click)="changeState(2)">
+                                <div class="o-back-arrow"><img [src]="baseUrl + 'img/svg/back_arrow.svg'"></div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 col-xs-6">
+                            <div class="o-add-media-channel__head text-center">
+                            <span class="c-text_lg o-add-media-channel__link"> Create Channel</span>
+                            </div><!-- add media channel head sec end -->
+                        </div>
+                        <div class="col-md-4 col-xs-3 p-0 text-right">
+                            <!-- <p class="c-text_sm color-grey-dark">12 Media selected</p> -->
+                        </div>
+                        </div><!-- add media channel head sec end -->
+                    </div>
+                    <div class=" c-text_lg o-add-media-channel__link">
+                    </div>
+                    <div class="o-create-channel__form">
                         <form [formGroup]="channelForm" novalidate #myform="ngForm">
-                            <div class="o-create-channel__form">
-                                <div class="c-form__group m-b-16">
-                                    <input class="c-form__input" formControlName="title" type="text">
+                            <div class="col-md-12 p-0 m-b-16" >
+                                <div class="c-form__group ">
+                                    <input class="c-form__input" required="" formControlName="title" type="text">
                                     <span class="c-form__highlight"></span>
                                     <span class="c-form__bar"></span>
-                                    <label>Channel Name</label>
+                                    <label>Name of channel</label>
                                 </div>
-                                <div class="c-form__group m-b-16">
-                                    <textarea formControlName="desc" class="c-textarea__block c-textarea--style " rows="4" data-min-rows="0" placeholder="About channel"></textarea>
-                                    <span class="c-form__highlight"></span>
-                                    <span class="c-form__bar"></span>
-                                    <!-- <label>About channel</label> -->
+                            </div>
+                            <div class="col-md-12 p-0 m-b-16">
+                                <div class="c-form__group">
+                                <input class="c-form__input" required="" formControlName="desc" type="text">
+                                <span class="c-form__highlight"></span>
+                                <span class="c-form__bar"></span>
+                                <label>Description</label>
                                 </div>
-                                <div class="channel-industry__block ">
-                                    <div class="c-form__group">
-                                        <select formControlName="type" class="c-form-control p-0" id="sel1" [(ngModel)]="selectedIndustry">
-                                            <option value="" disabled="true" [selected]="!selectedIndustry">Select Industry</option>
-                                            <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
-                                        </select>
+                            </div>
+                            <div class="col-md-12 p-0 m-b-16">
+                                <div class="c-form__group o-create-channel__input">
+                                    <select formControlName="type" class="c-form-control p-l-0"  [(ngModel)]="selectedIndustry">
+                                        <option value="" disabled="true" [selected]="!selectedIndustry">Select Industry</option>
+                                        <option *ngFor="let industry of industries" [value]="industry.code" >{{ industry.name }}</option>
+                                    </select>
+                                </div>
+            
+                                <div class="o-create-channel__action">
+                                <div class="dropdown" appDropdown>   
+                                    <span class="com-head" appDropdownOpen>
+                                    <div class="o-action__ico">
+                                        <img [src]="(channelPrivacy == 0) ? baseUrl + 'img/svg/ico-public.svg' : baseUrl + 'img/svg/Ico-private.svg'">
                                     </div>
-                                </div>
-                                <div class="channel-public__block p-0">
-                                    <div class="c-form__group">
-                                        <select formControlName="privacy" class="c-form-control p-0" id="sel1">
-                                            <option value="0">Public</option>
-                                            <option value="1">Private</option>
-                                        </select>
+                                    <div class="o-action__ico-arrow">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 16 10" version="1.1">
+                                            <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+                                            <title>Path 2 Copy</title>
+                                            <desc>Created with Sketch.</desc>
+                                            <defs/>
+                                            <g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <polyline id="Path-2-Copy" stroke="#333" stroke-width="1" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"/>
+                                            </g>
+                                        </svg>
                                     </div>
+                                    </span>
+                                    <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
+                                    <li>
+                                        <a (click)="channelPrivacyToggle(0)" class="c-opsdropdown__list">
+                                        <img [src]="baseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
+                                        <span class="c-opsdropdown--text">Public</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a (click)="channelPrivacyToggle(1)" class="c-opsdropdown__list">
+                                        <img [src]="baseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
+                                        <span class="c-opsdropdown--text">Private</span>
+                                        </a>
+                                    </li>
+                                    </ul>
                                 </div>
-                                <div class="col-md-12 p-0 text-right m-t-32">
-                                    <button type="button" class="btn btn-default btn-md m-r-16" (click)="changeState(2)">Cancel</button>
-                                    <button type="button" class="btn btn-primary btn-md" (click)="createChannel(channelForm.value)">Create</button>
                                 </div>
+                            </div>
+            
+                            <div class="col-md-12 float_left p-0  m-t-b-16">
+                                <div class="c-form__group ">
+                                    <select class="c-form-control p-l-0" formControlName="mediaType" [(ngModel)]="selectedChannel">
+                                        <option value="" disabled="true" [selected]="!selectedChannel">Select Channel Type</option>
+                                        <option value="5">Any</option>
+                                        <option value="1">Image</option>
+                                        <option value="2">Audio</option>
+                                        <option value="3">Video</option>
+                                        <option value="4">Text</option>
+                                    </select>
+                                </div>
+                            </div>
+            
+                            
+                            <div class="o-create-channel__btn">
+                                <button type="button" class="btn btn-default btn-md m-r-8 float_left" (click)="changeState(2)">Cancel</button>
+                                <button class="btn btn-primary btn-md float_right" (click)="createChannel(channelForm.value)">Save</button>
                             </div>
                         </form>
                     </div>
-
                 </div>
+            </div>
             </div>
         </div>
     </div>

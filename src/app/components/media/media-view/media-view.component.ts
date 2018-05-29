@@ -73,6 +73,7 @@ export class MediaViewComponent {
       this.mediaType = this.mediaStore.media_detail.mtype;
       this.mediaId = this.mediaStore.media_detail.id;
       this.spot = this.mediaStore.media_detail.isSpotted;
+      this.comments = this.mediaStore.media_comment;
       if (state['media_edit_msg'] && this.editMsg) {
        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
        this.toastr.success('Post Edited');
@@ -84,7 +85,6 @@ export class MediaViewComponent {
 
     store.select('mediaStore').take(6).subscribe((state) => {
       this.commentCount = this.mediaStore.media_detail.commentsCount;
-      this.comments = this.mediaStore.media_comment;
       if (state['media_delete_msg'] && this.deleteMsg) {
         this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
         this.toastr.warning('Post Deleted');
@@ -126,7 +126,9 @@ export class MediaViewComponent {
     });
   }
 
-
+  navToprofile() {
+    this.router.navigate(['/profile'], { skipLocationChange: false });
+  }
   /**
    * Spot a Media
    * @param mediaId
