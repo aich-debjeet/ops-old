@@ -837,6 +837,7 @@ export class ProfileEffect {
         .catch((res) => Observable.of({ type: ProfileActions.DECLINE_NETWORK_REQUEST_FAILED, payload: res }))
       );
 
+
   constructor(
     private toastr: ToastrService,
     private actions$: Actions,

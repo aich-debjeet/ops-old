@@ -16,11 +16,7 @@
                     <a routerLink="/profile"  class="c-user__avatar c-avatar--status3">
                         <img class="c-user__image" [src]="imageLink + data?.ownerImage">
                     </a>
-<<<<<<< HEAD
-                    <a (click)="navToprofile()"  class="c-user__name">{{ data?.ownerName }}</a>
-=======
                     <a routerLink="/profile" class="c-user__name">{{ data?.ownerName }}</a>
->>>>>>> f029c198d1ec93717678d28f95879cc823cbe4f4
                     <div class="c-mediamodal__subhead">{{ data?.channelName }}
                         <span class="c-mediamodal__time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span>
                     </div>
