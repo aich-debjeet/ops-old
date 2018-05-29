@@ -12,15 +12,19 @@
         </div>
         <div class="c-mediamodal__right" id="ops_scrollbar">
             <div class="fill-white">
-                <div class="c-mediamodal__user p-16">
-                    <a class="c-user__avatar c-avatar--status3">
+                <div class="c-mediamodal__user p-16" *ngIf="data.isOwner">
+                    <a routerLink="/profile"  class="c-user__avatar c-avatar--status3">
                         <img class="c-user__image" [src]="imageLink + data?.ownerImage">
                     </a>
+<<<<<<< HEAD
                     <a (click)="navToprofile()"  class="c-user__name">{{ data?.ownerName }}</a>
+=======
+                    <a routerLink="/profile" class="c-user__name">{{ data?.ownerName }}</a>
+>>>>>>> f029c198d1ec93717678d28f95879cc823cbe4f4
                     <div class="c-mediamodal__subhead">{{ data?.channelName }}
                         <span class="c-mediamodal__time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span>
                     </div>
-                    <div class="c-mediamodal__opt dropdown c-dropdown" *ngIf="data.isOwner" appDropdown>
+                    <div class="c-mediamodal__opt dropdown c-dropdown" appDropdown>
                         <!-- <a href="">
                             <img src="/assets/img/svg/ico_private.svg">
                         </a> -->
@@ -31,6 +35,15 @@
                             <li><a (click)="onContentEdit($event)">Edit</a></li>
                             <li><a (click)="deletePost(data)">Delete</a></li>
                         </ul>
+                    </div>
+                </div>
+                <div class="c-mediamodal__user p-16" *ngIf="!data.isOwner">
+                    <a routerLink="{{ '/profile/u/' + data?.ownerUsername }}"  class="c-user__avatar c-avatar--status3">
+                        <img class="c-user__image" [src]="imageLink + data?.ownerImage">
+                    </a>
+                    <a routerLink="{{ '/profile/u/' + data?.ownerUsername }}" class="c-user__name">{{ data?.ownerName }}</a>
+                    <div class="c-mediamodal__subhead">{{ data?.channelName }}
+                        <span class="c-mediamodal__time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span>
                     </div>
                 </div>
                 <div class="c-text_sm p-16">

@@ -5464,9 +5464,9 @@ rx@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
 
-rxjs@5.0.0-beta.12:
-  version "5.0.0-beta.12"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.0.0-beta.12.tgz#cdfde2d8c4639d20ae7794bff8fddf32da7ad337"
+rxjs@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.1.0.tgz#0aa9018b7f440b505fa42bd742b6738be550e720"
   dependencies:
     symbol-observable "^1.0.1"
 
@@ -6633,15 +6633,15 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-videogular2@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/videogular2/-/videogular2-4.2.0.tgz#bca947b9207f5a6f81c30cb45c34026d60ff406d"
+videogular2@5.2.8:
+  version "5.2.8"
+  resolved "https://registry.yarnpkg.com/videogular2/-/videogular2-5.2.8.tgz#199d70bb90fe35def3ef6c2abcf41e71e0143558"
   dependencies:
     core-js "2.4.1"
     reflect-metadata "0.1.10"
-    rxjs "5.0.0-beta.12"
+    rxjs "5.1.0"
     systemjs "0.20.9"
-    zone.js "0.8.0"
+    zone.js "0.8.5"
 
 vlq@^0.2.1:
   version "0.2.2"
@@ -7046,9 +7046,9 @@ yn@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/yn/-/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"
 
-zone.js@0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.0.tgz#d5fbfd04aa91401cd848b2baa3d00643b864dfa6"
+zone.js@0.8.5:
+  version "0.8.5"
+  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.5.tgz#7906e017482cbff4c3f079c5c34305ce941f5ba2"
 
 zone.js@^0.8.14:
   version "0.8.20"

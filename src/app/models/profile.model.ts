@@ -171,14 +171,23 @@ export class ProfileCard {
     cover: string;
   };
   userHandle: string;
-  userBio: any;
-  userSkill: any;
-  userDetails: any; // All Other Datas
-  followingCount: number;
-  follwerCount: number;
-  extra: any;
-  isFollowing: boolean;
+  userBio?: any;
+  userSkill?: any;
+  userDetails?: any; // All Other Datas
+  followingCount?: number;
+  follwerCount?: number;
+  extra?: any;
+  isFollowing?: boolean;
 }
+
+export const initialProfileTag: ProfileCard = {
+  name: '',
+  image: {
+    profile: '',
+    cover: '',
+  },
+  userHandle: ''
+};
 
 export class Spotfeed {
   spotfeed_detail?: any[];

@@ -80,7 +80,7 @@ export class MediaViewComponent {
        this.doClose(event);
        this.editMsg = false;
      }
-      // console.log('Data ', this.data)
+      console.log('Data ', this.data)
     });
 
     store.select('mediaStore').take(6).subscribe((state) => {
