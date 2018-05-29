@@ -119,19 +119,16 @@ export class AuthService {
      * Check if User Exists
      * @param reqData
      */
-
     fpUserExists(reqData: any) {
       return this.api.post('/portal/auth/forgotPassword/post', reqData);
     }
 
     userExists(username: string) {
-      const path = '/portal/auth/' + username + '/username';
-      return this.api.get(path, '');
+      return this.api.get('/portal/auth/' + username + '/username');
     }
 
     emailUser(email: string) {
-      const path = '/portal/auth/' + email + '/email';
-      return this.api.get(path, '');
+      return this.api.get('/portal/auth/' + email + '/email');
     }
 
     mobileNumberCheck(contactNumber: object) {
