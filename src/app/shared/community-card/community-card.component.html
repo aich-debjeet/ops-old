@@ -9,7 +9,7 @@
         <!-- //card media (img, video & audio) -->
         <!-- card body -->
         <div class="c-card__body c-card__opportunity-head">
-            <div class="c-text__lg color-grey-darker">
+            <div class="c-text__lg color-grey-darker cursor-pointer" [routerLink]="['/communities', data?.communityId]">
                 {{ data?.title }}
             </div>
         </div>
@@ -18,7 +18,7 @@
         <div class="c-card__links p-t-0">
             <div class="c-comm__followers">
                 <div class="c-followers__img " *ngFor="let member of data?.memberList | slice:0:3; let index = index" [class.m-l--8]="index !== 0">
-                    <img class="c-user__image" [src]="imageLink + member?.profileImage">
+                    <img class="c-user__image cursor-pointer" routerLink="/profile/u/{{ member?.profileUsername }}" [src]="imageLink + member?.profileImage">
                 </div>
                 <p class="c-followers__count" *ngIf="data?.memberCount > 3"> + {{ (data?.memberCount) - 3}} member</p>
                 <a (click)="joinCommunity(data?.communityId)" class="c-card__Communities--link" *ngIf="!data?.isOwner && !data?.isMember">Join</a>
