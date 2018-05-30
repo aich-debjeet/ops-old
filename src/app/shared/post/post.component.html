@@ -43,7 +43,7 @@
         </div>
     </div>
     <div class="c-feed__img-status" *ngIf="checkFileType(mediaData?.repopath, 'Video') || checkFileType(mediaData?.repopath, 'Audio') || checkFileType(mediaData?.repopath, 'Image')">
-        {{ mediaData?.description }}
+        {{ mediaData?.description | truncate:[200, '...']}}
     </div>
     <div class="c-feed__img" *ngIf="checkFileType(mediaData?.repopath, 'Video') || checkFileType(mediaData?.repopath, 'Audio') || checkFileType(mediaData?.repopath, 'Image')">
         <!-- <img [src]="imageLink + mediaData?.thumbNail" class="img-responsive"> -->
