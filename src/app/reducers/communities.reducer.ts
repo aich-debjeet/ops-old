@@ -46,7 +46,8 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
         communityList: state.communityList ? state.communityList.filter(community => community.communityId !== payload.communityId) : [],
         communityDetails: {
           ...state.communityDetails,
-          isMember: true
+          isMember: true,
+          memberCount: state.communityDetails ? state.communityDetails.memberCount + 1 : null
         },
         community_ismember_loading: false
       });
@@ -118,7 +119,8 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
       return Object.assign({}, state, {
         communityDetails: {
           ...state.communityDetails,
-          isMember: false
+          isMember: false,
+          memberCount: state.communityDetails ? state.communityDetails.memberCount - 1 : null
         },
         community_ismember_loading: false
       });
