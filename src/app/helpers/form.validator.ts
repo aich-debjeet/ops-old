@@ -35,7 +35,7 @@ export class DatabaseValidator {
             setTimeout(() => {
                 this.authService.emailUser(control.value).subscribe( data => {
                     if (data.SUCCESS.code === 1) {
-                        resolve({ 'pendingOtpVerif': true });
+                        resolve({ 'emailAccExists': true });
                     }
                     resolve(null);
                 });

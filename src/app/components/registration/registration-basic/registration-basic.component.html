@@ -110,7 +110,7 @@
                         <span class="c-form__highlight"></span>
                         <span class="c-form__bar"></span>
                         <!-- <label>Email</label> -->
-                        <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.pendingOtpVerif">Mail account already exists</p>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.emailAccExists">Mail account already exists</p>
                         <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.email || regFormBasic.controls['email'].errors?.isInvalidEmail && regform.submitted">Email is not valid</p>
                         <p class="error_alert" *ngIf="regFormBasic.controls['email'].errors?.required && regform.submitted">Email is required</p>
                     </div>
@@ -143,7 +143,7 @@
                         <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.required && regform.submitted">Confirm password is required</p>
                         <p class="error_alert" *ngIf="regFormBasic.controls['confirmpassword'].errors?.passwordDoesNotMatch">Password does not match</p>
                     </div>
-                    <div *ngIf="regFormBasic.controls['email'].errors?.pendingOtpVerif" class="c-form__group pass-margin">
+                    <div *ngIf="regFormBasic.controls['email'].errors?.emailAccExists" class="c-form__group pass-margin">
                         <p>Already registered? <a routerLink="/login">Sign in</a></p>
                     </div>
                     <div class="signup_privacy">
