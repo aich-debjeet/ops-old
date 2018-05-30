@@ -56,6 +56,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   public otpForm: FormGroup;
   public regFormBasic: FormGroup;
   public newNumberForm: FormGroup;
+  otpOpenOnce = true;
 
   // otp numbers
   @ViewChild('otpNum1') otpNum1: ElementRef;
@@ -98,34 +99,41 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         ) {
           this.uploadingFormData = false;
         }
-        if (state['user_basic_reg_success'] === true ) {
+        if (state['user_basic_reg_success'] === true) {
           if (state['user_token']) {
             const token = {access_token: state['user_token']};
             localStorage.setItem('currentUser', JSON.stringify(token));
           }
-          this.modalService.open('otpWindow');
+          if (this.otpOpenOnce) {
+            this.modalService.open('otpWindow');
+            this.otpOpenOnce = false;
+          }
         }
-        if (state['user_number_cng_success'] === true ) {
-          this.regFormBasic.controls['phone'].setValue(this.newNumberForm.controls['newNumber'].value);
+        if (state['user_number_cng_success'] === true) {
           this.backToOtp();
         }
         if (state['user_otp_success'] === true) {
           this.modalService.close('otpWindow');
           this.router.navigate(['/reg/addskill']);
         }
-        if (state['reg_basic_form_data'] && state['reg_basic_form_data']['contact']) {
-          if (state['reg_basic_form_data']['contact']['contactNumber']) {
-            this.contactNumber = state['reg_basic_form_data']['contact']['contactNumber'];
-          }
-          if (state['reg_basic_form_data']['contact']['countryCode']) {
-            this.countryCode = state['reg_basic_form_data']['contact']['countryCode'];
-          }
-        }
       }
     });
 
     // build reactive forms
     this.buildForm();
+  }
+
+  getContactDetails(cType: string) {
+    if (this.regState['reg_basic_form_data']
+      && this.regState['reg_basic_form_data']['contact']
+    ) {
+      if (cType === 'number' && this.regState['reg_basic_form_data']['contact']['contactNumber']) {
+        return this.regState['reg_basic_form_data']['contact']['contactNumber'];
+      }
+      if (cType === 'country' && this.regState['reg_basic_form_data']['contact']['countryCode']) {
+        return this.regState['reg_basic_form_data']['contact']['countryCode'];
+      }
+    }
   }
 
   // closeing terms
@@ -321,8 +329,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   resendOtp() {
     this.resendingOtp = true;
     const resendOtpData = {
-      contactNumber: this.contactNumber,
-      countryCode: this.country.callingCodes[0]
+      contactNumber: this.getContactDetails('number'),
+      countryCode: this.getContactDetails('country')
     }
     this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT, payload: resendOtpData });
     setTimeout(() => {
@@ -334,7 +342,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
    * Updating number
    */
   updateContactNumber() {
-    if (this.newNumberForm.valid === true ) {
+    if (this.newNumberForm.valid === true) {
       const contactDetails = {
         contact: {
           contactNumber: this.newNumberForm.controls['newNumber'].value,

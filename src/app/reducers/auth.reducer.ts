@@ -115,7 +115,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         reg_basic_uploaded_form_data: false,
         reg_basic_form_data: payload,
         success: true,
-        user_basic_reg_success: false,
+        user_basic_reg_success: false
       });
 
     case AuthActions.USER_REGISTRATION_BASIC_SUCCESS:
@@ -418,16 +418,17 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       });
     case AuthActions.OTP_NUMBER_CHANGE_SUCCESS:
       if (state['reg_basic_form_data'] && state['reg_basic_form_data']['contact'] && state['reg_basic_form_data']['contact']['contactNumber']) {
-        state['reg_basic_form_data']['contact']['contactNumber'] = payload.contactNumber;
-        state['reg_basic_form_data']['contact']['countryCode'] = payload.countryCode;
+        state['reg_basic_form_data']['contact']['contactNumber'] = state['update_number_params']['contact']['contactNumber'];
+        state['reg_basic_form_data']['contact']['countryCode'] = state['update_number_params']['contact']['countryCode'];
+        state['user_number_cng_success'] = true;
         return state;
       }
       return Object.assign({}, state, {
         user_number_cng_success: true,
         reg_basic_form_data: {
           contact: {
-            contactNumber: payload.contactNumber,
-            countryCode: payload.countryCode
+            contactNumber: state['update_number_params']['contact']['contactNumber'],
+            countryCode: state['update_number_params']['contact']['countryCode']
           }
         }
       });
