@@ -33,11 +33,11 @@
                     <div class="col-md-6 p-0">
                         <p class="c-text_md o-commu__members ltr-space text_uppercase m-t-b-16">{{details?.postsCount}} <span class="color-grey-dark">Posts</span></p>
                     </div>
-                    <div class="col-md-6 p-l-0 p-r-8"   *ngIf="!details?.isOwner">
-                        <button type="button" (click)="userJoin(true)" class="btn btn-default btn-md btn-block">{{ (details?.isMember) ? 'Unjoin' : 'Join'}}</button>
+                    <div [ngClass]="{'col-md-12 p-0': !details?.isMember, 'col-md-6 p-r-0 p-l-8': details?.isMember}"  *ngIf="!details?.isOwner">
+                        <button type="button" (click)="userJoin(details?.isMember)" class="btn btn-default btn-md btn-block" [disabled]="isMemeberLoading">{{ (details?.isMember) ? 'Unjoin' : 'Join'}}</button>
                     </div>
                     <div  [ngClass]="{'col-md-12 p-0': details?.isOwner, 'col-md-6 p-r-0 p-l-8': !details?.isOwner}">
-                        <a [routerLink]="['/post/media']" [queryParams]="{post_to: 'community', ct_id: details?.communityId}" class="btn btn-primary btn-md btn-block">Add post</a>
+                        <a [routerLink]="['/post/media']" [queryParams]="{post_to: 'community', ct_id: details?.communityId}" class="btn btn-primary btn-md btn-block" *ngIf="details?.isMember">Add post</a>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
 
         <div class="col-md-6 o-community_empty" *ngIf="communityPost?.length === 0 && !postLoader">
             <div class="c-h4 color-grey">The Community is empty</div>
-            <a [routerLink]="['/post/media']" [queryParams]="{post_to: 'community', ct_id: details?.communityId}" class="btn btn-primary btn-md m-t-16">Add post</a>
+            <a *ngIf="details?.isMember" [routerLink]="['/post/media']" [queryParams]="{post_to: 'community', ct_id: details?.communityId}" class="btn btn-primary btn-md m-t-16">Add post</a>
         </div>
         <div class="col-md-6" >
             <div *ngIf="postLoader">

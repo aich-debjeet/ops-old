@@ -36,9 +36,19 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
         community_loading: true
       });
 
+    case CommunitiesActions.COMMUNITY_JOIN:
+      return Object.assign({}, state, {
+        community_ismember_loading: true
+      });
+
     case CommunitiesActions.COMMUNITY_JOIN_SUCCESS:
       return Object.assign({}, state, {
-        communityList: state.communityList.filter(community => community.communityId !== payload.communityId)
+        communityList: state.communityList ? state.communityList.filter(community => community.communityId !== payload.communityId) : [],
+        communityDetails: {
+          ...state.communityDetails,
+          isMember: true
+        },
+        community_ismember_loading: false
       });
 
     case CommunitiesActions.COMMUNITY_DETAILS_SUCCESS:
@@ -97,6 +107,20 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
     case CommunitiesActions.COMMUNITY_DELETE_SUCCESS:
       return Object.assign({}, state, {
         communnity_delete: true,
+      });
+
+    case CommunitiesActions.COMMUNITY_UNJOIN:
+      return Object.assign({}, state, {
+        community_ismember_loading: true
+      });
+
+    case CommunitiesActions.COMMUNITY_UNJOIN_SUCCESS:
+      return Object.assign({}, state, {
+        communityDetails: {
+          ...state.communityDetails,
+          isMember: false
+        },
+        community_ismember_loading: false
       });
 
     default:
