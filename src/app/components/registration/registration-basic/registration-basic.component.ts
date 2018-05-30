@@ -336,8 +336,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   updateContactNumber() {
     if (this.newNumberForm.valid === true ) {
       const contactDetails = {
-        contactNumber: this.newNumberForm.controls['newNumber'].value,
-        countryCode: this.country.callingCodes[0]
+        contact: {
+          contactNumber: this.newNumberForm.controls['newNumber'].value,
+          countryCode: this.country.callingCodes[0]
+        }
       }
       this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: contactDetails });
     }

@@ -228,8 +228,9 @@ export class AuthService {
     }
 
     otpChangeNumber(contactDetails: any) {
-      // return this.api.put(this.apiLink + '/portal/auth/user/update', { contact: contactDetails });
-      return this.api.put(this.apiLink + '/portal/auth/user/update', contactDetails);
+      // this.updateAuthHeaders();
+      // return this.http.put(this.apiLink + '/portal/auth/user/update', contactDetails, { headers: this.headers });
+      return this.api.put('/portal/auth/user/update', contactDetails);
     }
 
     fpCreatePass(req: any) {
