@@ -9,6 +9,7 @@ import FilesHelper from '../../../helpers/fileUtils';
 
 // Action
 import { MediaActions } from '../../../actions/media.action';
+import { ProfileActions } from '../../../actions/profile.action';
 import { initialMedia, Media } from '../../../models/media.model';
 
 // rx
@@ -80,7 +81,6 @@ export class MediaViewComponent {
        this.doClose(event);
        this.editMsg = false;
      }
-      console.log('Data ', this.data)
     });
 
     store.select('mediaStore').take(6).subscribe((state) => {
@@ -168,8 +168,10 @@ export class MediaViewComponent {
   sbComment(param) {
     if (param === 'Del') {
       this.commentCount--
+      this.store.dispatch({ type: ProfileActions.COMMENT_COUNT_DECREMENT, payload: this.mediaId });
     }else {
       this.commentCount++
+      this.store.dispatch({ type: ProfileActions.COMMENT_COUNT_INCREMENT, payload: this.mediaId });
     }
   }
   deletePost(data) {
