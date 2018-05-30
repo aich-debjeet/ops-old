@@ -71,6 +71,7 @@
 //     float: left;
 //     cursor: pointer;
 // }
+
 .c-links__comments{
     cursor: pointer;
 }
@@ -409,4 +410,14 @@ label {
     display: block;
     overflow: hidden;
     min-width: 100%;
+}
+
+.c-user__channel2{
+    font-size: 11px;
+    line-height: 18px;
+    color: #979797;
+    display: block;
+    margin-left: 42px;
+    clear: both;
+    cursor: pointer;
 }

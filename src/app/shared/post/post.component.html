@@ -7,22 +7,23 @@
                         <img class="c-user__image" [src]="userImage">
                     </a>
                     <a routerLink="/profile/u/{{ mediaData?.ownerUserName }}" class="c-user__name c-user--align">{{ mediaData?.ownerName }}</a>
-                    <a routerLink="/channel/{{ mediaData?.channelId }}" class="c-user__channel c-user__channel-align">{{ mediaData?.channelName }}</a>
+                    <a routerLink="/channel/{{ mediaData?.channelId }}" class="c-user__channel2 c-user__channel-align">{{ mediaData?.channelName }}</a>
                 </a>
                 <a routerLink="/profile" *ngIf = "mediaData?.isOwner">
                     <a class="c-user__avatar c-avatar--status">
                         <img class="c-user__image" [src]="userImage">
                     </a>
                     <a class="c-user__name c-user--align">{{ mediaData?.ownerName }}</a>
-                    <a class="c-user__channel c-user__channel-align">{{ mediaData?.channelName }}</a>
+                    <a class="c-user__channel2 c-user__channel-align">{{ mediaData?.channelName }}</a>
                 </a>
             </div>
         </div>
         <div class="pull-right dropdown c-dropdown" appDropdown>
             <div class="c-post__time">{{ mediaData?.createdDate | utcDate | date:'d MMM h:m a'}}</div>
             <a>
-                <img *ngIf="mediaData?.access === 1" [src]="imageLink + 'img/svg/ico_private.svg'" alt="" class="c-status__options">
-                <img *ngIf="mediaData?.access === 0" src="imageLink + 'img/svg/ico_public.svg'" alt="" class="c-status__options">
+                <img *ngIf="mediaData?.access === 1" [src]="imageLink + 'img/svg/ico_private.svg'" class="c-status__options">
+                <!-- <img *ngIf="mediaData?.access === 0" [src]="imageLink + 'img/svg/ico_public.svg'" class="c-status__options"> -->
+                <img [src]="imageLink + 'img/svg/ico_public.svg'" class="c-status__options">
             </a>
             <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen *ngIf="mediaData?.isOwner">
                     <img [src]="imageLink + 'img/svg/ico_options.svg'" class="c-status__options">
