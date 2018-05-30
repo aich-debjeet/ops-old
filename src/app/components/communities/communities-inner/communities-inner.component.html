@@ -1,6 +1,12 @@
 <app-navigation></app-navigation>
 <section class="o-community-inner-block">
-    <div class="container p-0">
+    <div *ngIf="communityLoading">
+        <div class="sticky">
+            <div class="loader">Loading...</div>
+            {{details.length }}
+        </div>
+    </div>
+    <div class="container p-0" *ngIf="!communityLoading">
         <div class="col-md-3">
             <div class="o-commu-left-block">
                 <div class="o-commu__prof-img">

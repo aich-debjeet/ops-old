@@ -52,9 +52,16 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
         community_ismember_loading: false
       });
 
+    case CommunitiesActions.COMMUNITY_DETAILS:
+      return Object.assign({}, state, {
+        community_loding: true,
+        communityDetails: []
+      });
+
     case CommunitiesActions.COMMUNITY_DETAILS_SUCCESS:
       return Object.assign({}, state, {
-        communityDetails: payload
+        communityDetails: payload,
+        community_loding: false
       });
 
     case CommunitiesActions.COMMUNITY_INVITE_PEOPLE_LIST_SUCCESS:

@@ -36,7 +36,8 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   inviteBtnActive: boolean = true;
   public communityForm: FormGroup;
   selectedIndustry = '';
-  isMemeberLoading: boolean = false
+  isMemeberLoading: boolean = false;
+  communityLoading: boolean = false;
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
@@ -74,6 +75,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
           this.list = state['communityList'];
         }
         this.isMemeberLoading = state['community_ismember_loading'];
+        this.communityLoading = state['community_loding'];
       }
     });
   }
