@@ -115,7 +115,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   resendOtp() {
     this.resendingOtp = true;
-    this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT });
+    const resendOtpData = {
+      contactNumber: this.contactNumber,
+      countryCode: this.countryCode
+    }
+    this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT, payload: resendOtpData });
     this.store.select('loginTags').subscribe(data => {
       setTimeout(() => {
         this.resendingOtp = false;
