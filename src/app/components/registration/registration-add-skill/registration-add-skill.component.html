@@ -44,7 +44,7 @@
         <div class="container">
             <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12 p-0">
                 <div *ngIf="selectedSkills?.length === 0" class="c-text_md color-grey-dark text-center m-t-b-16">No skill selected</div>
-                <div *ngIf="skills?.length === 0" class="preloader">
+                <div *ngIf="showPreloader" class="preloader">
                     <div class="sticky"><div class="loader">Loading...</div></div>
                 </div>
                 <ul *ngIf="skills?.length > 0" class="o-add-skill-block">
@@ -64,7 +64,7 @@
                             </span>
                         </a>
                     </li>
-                    <li *ngIf="skills?.length === 0">
+                    <!-- <li>
                         <a class="o-add-skill__link" (click)="addNewSkill(search)">
                             <span class="o-skill__list-container">
                                 <span class="o-skill__title">
@@ -74,7 +74,7 @@
                                 </span>
                             </span>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>

@@ -25,6 +25,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   skills = [];
   searchQuery: String;
   isSearching = false;
+  showPreloader = true;
   skillsSelected = false;
   uploadingSkills = false;
 
@@ -36,22 +37,24 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
     this.skillSelectionState$ = store.select('loginTags');
     this.skillSelectionState$.subscribe((state) => {
       this.skillSelectionState = state;
-      if (state && state['industries']) {
-        this.skills = state['industries'];
-      }
-
-      if (typeof this.skillSelectionState['skills_loading'] !== 'undefined'
-        && this.skillSelectionState['skills_loading'] === false
-        && this.skillSelectionState['skills_loaded'] === true
-      ) {
-        this.isSearching = false;
-      }
-      if (typeof this.skillSelectionState['uploadingUserSkills'] !== 'undefined'
-        && this.skillSelectionState['uploadingUserSkills'] === false
-        && this.skillSelectionState['uploadedUserSkills'] === true
-      ) {
-        this.uploadingSkills = false;
-        this.router.navigate(['/profile/user']);
+      if (state) {
+        if (state['industries']) {
+          this.skills = state['industries'];
+        }
+        if (typeof state['skills_loading'] !== 'undefined'
+          && state['skills_loading'] === false
+          && state['skills_loaded'] === true
+        ) {
+          this.isSearching = false;
+          this.showPreloader = false;
+        }
+        if (typeof state['uploadingUserSkills'] !== 'undefined'
+          && state['uploadingUserSkills'] === false
+          && state['uploadedUserSkills'] === true
+        ) {
+          this.uploadingSkills = false;
+          this.router.navigate(['/profile/user']);
+        }
       }
     });
 
