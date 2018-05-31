@@ -141,6 +141,8 @@ export class AuthActions {
   static SEARCH_USER_BY_USERNAME_SUCCESS = 'SEARCH_USER_BY_USERNAME_SUCCESS';
   static SEARCH_USER_BY_USERNAME_FAILED = 'SEARCH_USER_BY_USERNAME_FAILED';
 
+  static STORE_COUNTRY_CODE = 'STORE_COUNTRY_CODE';
+
 
    // ===================================
   //  Get all skill step3

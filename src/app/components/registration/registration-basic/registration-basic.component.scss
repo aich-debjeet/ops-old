@@ -3,490 +3,48 @@
 @import './src/assets/scss/helpers/_mixins.scss';
 @import '~sass-mq/_mq.scss';
 
-.dib {
-    display: inline-block;
-}
-
-.hide {
-    display: none;
-}
-
-.form_group {
-    margin-bottom: 12px;
-}
-
-.claim-profile-list {
-    position: absolute;
-    max-height: 120px;
-    z-index: 99;
-    width: 100%;
-    padding: 5px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    background-color: #fff;
-    border: none;
-    color: gray;
-    font-size: 15px;
-    line-height: 25px;
-    border-radius: 3px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .26);
-}
-
-.claim-profile-list li {
-    cursor: pointer;
-}
-
-.pop-close {
-    margin: 10px;
-    width: 14px;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-}
-
-
-/* ------------------ Registration step 1 thankyou -------------------------- */
-
-.mar-auto {
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        margin: auto;
-    }
-}
-
-.reg_thankyou {
-    a.btn.btn-default:hover {
-        color: white;
-    }
-    .modal-lg {
-        width: 850px;
-        @include mq($from: $mobile_sm, $until: $mobile_lg) {
-            width: 90%;
-        }
-    }
-    .modal-dialog {
-        margin: 6% auto;
-    }
-    .modal-title {
-        padding: 5% 0;
-    }
-    h3 {
-        font-weight: 800;
-        font-size: 36px;
-        color: #333333;
-        clear: both;
-        margin-top: 7%;
-        @include mq($from: $mobile_sm, $until: $mobile_lg) {
-            font-size: 27px;
-        }
-    }
-    // p {
-    //     color: #333;
-    //     margin: 5%;
-    //     font-size: 18px;
-    //     font-weight: 700;
-    // }
-    .btn {
-        margin: 4% 0 18%;
-    }
+.dp-material {
+    display: inherit;
 }
 
 .text-theme {
-    color: #ff7b84!important;
+    color: #ff7b84 !important;
 }
 
-.pointer {
-    cursor: pointer;
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
 }
 
-.text-center {
-    text-align: center;
-}
-
-.width100 {
-    width: 100%;
-}
-
-.reg-checkbox {
-    @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        display: table;
-        float: left;
-    }
-    label {
-        @include mq($from: $mobile_sm, $until: $mobile_lg) {
-            display: table-cell;
-            vertical-align: middle;
-        }
-    }
-}
-
-.reg_step1_otp {
-    .modal-lg {
-        width: 850px;
-        @include mq($from: $mobile_sm, $until: $mobile_lg) {
-            width: 90%;
-        }
-    }
-    .modal-dialog {
-        margin: 6% auto;
-    }
-    h5 {
+.o-otp_form {
+    float: left;
+    margin-left: 22px;
+    input {
         color: #333333;
-        line-height: 26px;
-        font-size: 18px;
-        font-weight: 500;
-        @include mq($from: $mobile_sm, $until: $mobile_lg) {
-            font-size: 15px;
-            padding: 0 15px;
-        }
-    }
-    a {
-        color: #ff7b84;
-        font-size: 16px;
-    }
-    form {
-        width: 70%;
-        margin: 0 auto;
-        padding: 10% 0;
-        span {
-            color: $theme_red;
-            font-size: 14px;
-            float: right;
-            margin-top: -22px;
-        }
-    }
-    .modal-title {
-        padding: 5% 0;
-    }
-    .btn {
-        margin-top: 20px;
-    }
-    p {
-        margin-top: 5%;
+        line-height: 34px;
+        text-align: center;
+        font-size: 24px;
+        border: 1px solid #DEDEDE;
+        background-color: #F8F8F8;
+        border-radius: 3px;
+        outline: none;
+        width: 44px;
+        height: 38px;
+        padding: initial;
     }
 }
 
-.ptop0 {
-    padding-top: 0 !important;
+.p-l-40-px {
+    padding-left: 40px;
 }
 
+.p-l-50-px {
+    padding-left: 50px;
+}
 
-/* --------------------- registrationi -------------------------------- */
-
-// step 1 -------------------
-// .ops_signup {
-//     background-color: #ffffff;
-//     // padding-top: 64px;
-//     height: 100vh;
-//     display: flex;
-//     justify-content: center;
-//     flex-direction: column;
-//     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-//             // background: #fff;
-//             height: auto;
-//             // display: block;
-//             margin-top: 50px;
-//         }
-//     @include mq($from: $mobile_lg, $until: $desktop_lg) {
-//         // background: #fff;
-//         // height: 100%;
-//         // display: block;
-//     }
-//     .ops_signup_left {
-//         padding: 0 48px;
-//         @include mq($from: $mobile_sm, $until: $mobile_lg) {
-//             padding:0px;
-//         }
-//         .ops_heading {
-//             margin: 16px 0;
-//         }
-//         .signup_already {
-//             margin-top: 26%;
-//             @include mq($from: $mobile_sm, $until: $mobile_lg) {
-//                 margin-top: 13%;
-//                 margin-bottom: 10%;
-//                 }
-//             @include mq($from: $mobile_lg, $until: $desktop_sm) {
-//                 margin-top: 8%;
-//                 margin-bottom: 10%;
-//             }
-//         }
-//     }
-//     .ops_signup_right {
-//         padding: 0 80px;
-//         @include mq($from: $mobile_sm, $until: $tablet) {
-//             padding:0px;
-//         }
-//         @include mq($from: $tablet, $until: $desktop) {
-//             padding: 10px 20px;
-//         }
-//         .ops_h1 {
-//             font-weight: 300;
-//             margin-bottom: 24px;
-//             line-height: 20px;
-//             font-size: 25px;
-//             @include mq($from: $mobile_sm, $until: $desktop_sm) {
-//                 text-align: center;
-//                 margin-bottom: 20px;
-//             }
-//         }
-//         .ops_radio_sm {
-//             margin-top: 16px;
-//         }
-//         .ops_radio_gender {
-//             @include mq($from: $mobile_sm, $until: $mobile_lg) {
-//                 margin: 10px 0 25px 0;
-//             }
-//         }
-//         .signup_gender {
-//             width: auto;
-//             padding-left: 0px;
-//         }
-//         .btn-primary {
-//             padding: 11px 18px;
-//         }
-//         .signup_privacy {
-//             p {
-//                 font-size: 12px;
-//                 display: inline-block;
-//                 margin-top: 12px;
-//             }
-//         }
-//     }
-// }
-// // step 2 ----------------------
-// .ops_signup2 {
-//     background-color: #f1f1f1;
-//     // padding-top: 64px;
-//     height: 88vh;
-//     display: flex;
-//     justify-content: center;
-//     flex-direction: column;
-//     .ops_signup_step2 {
-//         .step2_heading {
-//             color: #333333;
-//             font-size: 18px;
-//             font-weight: 600;
-//             line-height: 24px;
-//             text-align: center;
-//             margin: 16px 0;
-//         }
-//         .step2_txt {
-//             color: #979797;
-//             font-size: 12px;
-//             line-height: 23px;
-//             text-align: center;
-//             margin: 0 24px 24px
-//         }
-//         .step2_selection {
-//             width: 18%;
-//             float: left;
-//             margin: 0 10px;
-//             background: #f8f8f8;
-//             box-shadow: 0 0 4px 0 rgba(102, 45, 145, 0.18);
-//             background-color: #FFFFFF;
-//             border-radius: 3px;
-//         }
-//         .step2_main_heading {
-//             color: #333333;
-//             font-size: 24px;
-//             font-weight: 600;
-//             line-height: 33px;
-//         }
-//         .step2_main_heading2 {
-//             color: #979797;
-//             font-size: 14px;
-//             line-height: 19px;
-//             text-align: center;
-//             margin: 16px 0 32px;
-//         }
-//         .ops_checkbox_lg {
-//             margin: 24px 0;
-//             label {
-//                 color: #333333;
-//                 font-size: 16px;
-//                 font-weight: 600;
-//                 &:hover {
-//                     box-shadow: none;
-//                 }
-//                 span {
-//                     float: left;
-//                 }
-//                 p {
-//                     color: #333333;
-//                     font-size: 16px;
-//                     font-weight: 600;
-//                     display: inline-block;
-//                     line-height: 36px;
-//                 }
-//             }
-//         }
-//         label {
-//             text-align: center;
-//             pointer-events: auto;
-//             position: static;
-//             &:hover {
-//                 box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
-//                 border-radius: 3px;
-//             }
-//         }
-//         input[type="checkbox"] {
-//             display: none;
-//         }
-//         input[type="checkbox"]:checked+span {
-//             color: #ffffff;
-//         }
-//         input[type="checkbox"]+.reg_profile_types {
-//             display: inline-block;
-//             position: relative;
-//             -webkit-appearance: none;
-//         }
-//         input[type="checkbox"]:checked+.reg_profile_types:after {
-//             border: 2px solid #ff7b84;
-//             box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
-//             border-radius: 3px;
-//             content: " ";
-//             left: 0;
-//             top: 0;
-//             color: #000000;
-//             width: 100%;
-//             height: 100%;
-//             position: absolute;
-//             cursor: pointer;
-//         }
-//     }
-// }
-// // step 3 add skills ---------------------
-// .skills_section {
-//     // padding-top: 60px;
-//     height: 88vh;
-//     display: flex;
-//     justify-content: center;
-//     flex-direction: column;
-//     .add-your-skills {
-//         font-size: 24px;
-//         font-weight: 600;
-//         color: #333;
-//         text-align: center;
-//         margin-bottom: 40px;
-//     }
-//     .add_skill_block {
-//         list-style: none;
-//         li {
-//             list-style-type: none;
-//             float: left;
-//             a {
-//                 display: block;
-//                 .skill_list_container {
-//                     width: 170px;
-//                     height: 90px;
-//                     margin: 8px;
-//                     background: #979797;
-//                     float: left;
-//                     border-radius: 3px;
-//                     position: relative;
-//                     .skills_list_bg_img {
-//                         position: absolute;
-//                         top: 0px;
-//                         left: 0px;
-//                         width: 100%;
-//                         height: 90px;
-//                         overflow: hidden;
-//                         border-radius: 3px;
-//                         img {
-//                             width: 100%;
-//                         }
-//                     }
-//                     .skills_name {
-//                         position: absolute;
-//                         width: 100%;
-//                         height: 90px;
-//                         top: 0px;
-//                         left: 0px;
-//                         text-align: center;
-//                         display: flex;
-//                         justify-content: center;
-//                         flex-direction: column;
-//                         background-color: rgba(0, 0, 0, 0.6);
-//                         border-radius: 3px;
-//                         p {
-//                             font-size: 14px;
-//                             font-weight: 700;
-//                             color: $white;
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-//     a.selected .skills_name {
-//         background-color: rgba(255, 123, 132, 0.83)!important;
-//     }
-//     .o-search-block {
-//         padding-left: 32px;
-//         .search_container {
-//             width: 100%;
-//             .form_input {
-//                 background: none;
-//             }
-//             label {
-//                 color: #979797;
-//                 font-size: 14px;
-//             }
-//             .search_top_icon img {
-//                 width: 16px;
-//                 float: right;
-//                 margin-top: -25px;
-//             }
-//             // .form_input:focus,
-//             // .search_top_close_icon {
-//             //     display: block!important;
-//             //     outline: none;
-//             // }
-//             // .search_top_close_icon {
-//             //     display: none;
-//             //     img {
-//             //         width: 16px;
-//             //         float: right;
-//             //         margin-top: -25px;
-//             //     }
-//             // }
-//         }
-//         .selected_skill {
-//             margin: 16px 0px;
-//             .btn-tag-close {
-//                 padding: 8px 16px;
-//                 font-weight: 500;
-//                 font-size: 14px;
-//                 border-radius: 3px;
-//                 margin-right: 8px;
-//                 &:hover {
-//                     background: #FF7B84 !important;
-//                     border-color: #FF7B84 !important;
-//                     .btn-label-skill {
-//                         background: none;
-//                     }
-//                 }
-//                 .btn-label-tag {
-//                     img {
-//                         width: 11px;
-//                         margin-top: 0px;
-//                         vertical-align: middle;
-//                         margin-left: 6px;
-//                     }
-//                 }
-//             }
-//         }
-//         .selected_tags {
-//             .btn-reg_tag {
-//                 color: #333333;
-//                 font-size: 14px;
-//                 font-weight: 500;
-//                 margin-bottom: 8px;
-//                 margin-right: 8px;
-//             }
-//         }
-//     }
-// }
 .password-toggle {
     background: none;
     border: none;
@@ -509,144 +67,38 @@
     clear: both;
 }
 
-.ops_radio_sm input[type=radio]+span {
-    // border: 2px solid #c1c1c1;
-    border-radius: 50px;
-    display: inline-block;
-    float: left;
-    margin-right: 7px;
-    position: relative;
-    -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-    margin-top: 3px;
+.d-in {
+    display: inline;
 }
 
-.ops_radio_sm input[type=radio]:checked+span:after {
-    background: #ff7b84;
-    position: absolute;
-    border-radius: 50px;
-    left: -2px;
-    top: -2px;
-    width: 15px;
-    height: 15px;
-    color: #fff;
-    font-size: 12px;
+.suggestions {
+    cursor: pointer;
 }
 
-.ops_radio_sm label {
-    position: static;
-    text-align: center;
-    pointer-events: auto;
-}
-
-.ops_radio_sm input[type=radio] {
-    display: none;
-}
-
-.gender-wrapper {
-    display: inline-block;
-    margin-top: 0;
-    margin-bottom: 20px;
-    // label {
-    //   float: left;
-    // }
-}
-
-.term-condition {
-    cursor: pointer
-}
-
-.mtop0 {
-    margin-top: 0 !important;
-}
-
-// .form__phone{
-//     display: block;
-//     overflow: hidden;
-// }
-.terms_and_condition {
-    width: 900px;
-    margin: 3% auto;
-    min-height: 500px;
-    @include mq($from: $mobile_sm, $until: $tablet) {
-        width: 95%;
-    }
-    @include mq($from: $mobile_sm, $until: $desktop_sm) {
-        width: 90%;
-    }
-    .terms_txt {
-        width: 800px;
-        margin: 0px auto;
-        padding-bottom: 30px;
-        @include mq($from: $mobile_sm, $until: $desktop_sm) {
-            width: 95%;
-        }
-        h2 {
-            font-size: 16px;
-            font-weight: 700;
-            color: #333;
-        }
-        h3 {
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-        }
-        p {
-            font-size: 12px;
-            font-weight: 500;
-            color: #333;
-        }
-        .sub_head {
-            color: #979797;
-        }
-    }
-}
-
-#termsandcondition {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.db {
-    display: block;
-    overflow-y: auto;
-}
-
-
-/* --------------------- registrationi -------------------------------- */
-
-// step 1 -------------------
 .ops_signup {
     background-color: #ffffff;
-    // padding-top: 64px;
-    height: 100vh;
+    height: calc(100vh - 123px);
     display: flex;
     justify-content: center;
     flex-direction: column;
     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-        // background: #fff;
         height: auto;
-        // display: block;
-        margin-top: 0px;
-    }
-    @include mq($from: $mobile_lg, $until: $desktop_lg) {
-        // background: #fff;
-        // height: 100%;
-        // display: block;
+        margin-top: 50px;
+        margin-bottom: 100px;
     }
     .ops_signup_left {
         padding: 0 48px;
         @include mq($from: $mobile_sm, $until: $mobile_lg) {
-            padding: 0px;
+            padding:0px;
         }
-        .o-signup__illu {
+        .o-signup__illu{
             width: 100%;
         }
         .ops_heading {
             margin: 16px 0;
         }
         .signup_already {
-            margin-top: 26%;
+            margin-top: 12%;
             @include mq($from: $mobile_sm, $until: $mobile_lg) {
                 margin-top: 13%;
                 margin-bottom: 10%;
@@ -656,57 +108,63 @@
                 margin-bottom: 10%;
             }
         }
+        .ops_h1 {
+            font-weight: 500;
+            text-align: center;
+            margin-top: 24px;
+            @include mq($from: $mobile_sm, $until: $desktop_sm) {
+                text-align: center;
+                margin-bottom: 0px;
+                font-size: 18px;
+            }
+        }
     }
     .ops_signup_right {
         padding: 0 80px;
         @include mq($from: $mobile_sm, $until: $tablet) {
-            padding: 0px;
+            padding:0px;
         }
         @include mq($from: $tablet, $until: $desktop) {
             padding: 10px 20px;
         }
         .ops_h1 {
-            font-weight: 300;
-            margin-bottom: 24px;
-            line-height: 34px;
-            font-size: 24px;
+            font-weight: 500;
+            text-align: left;
+            // margin-bottom: 24px;
             @include mq($from: $mobile_sm, $until: $desktop_sm) {
                 text-align: center;
                 margin-bottom: 20px;
-                font-weight: 500;
-                line-height: 30px;
-                font-size: 16px;
             }
         }
         .c-radio__sm {
             margin-top: 16px;
-            @include mq($from: $mobile_sm, $until: $desktop_sm) {
+            @include mq($from: $mobile_sm, $until: $desktop_sm){
                 text-align: left;
                 margin-bottom: 16px;
             }
-            label {
+            label{
                 text-align: left;
             }
         }
         .signup_gender {
             width: auto;
             padding-left: 0px;
-            @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            @include mq($from: $mobile_sm, $until: $mobile_lg){
                 padding-right: 0px;
             }
         }
         .btn-primary {
             // padding: 11px 18px;
-            @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            @include mq($from: $mobile_sm, $until: $mobile_lg){
                 margin-top: 16px;
                 margin-bottom: 24px;
             }
         }
         .signup_privacy {
-            @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            @include mq($from: $mobile_sm, $until: $mobile_lg){
                 text-align: center;
             }
-            @include mq($from: $tablet, $until: $desktop_sm) {
+            @include mq($from: $tablet, $until: $desktop_sm){
                 margin-bottom: 24px;
             }
             p {
@@ -719,308 +177,109 @@
     }
 }
 
-// step 2 ----------------------
-// .ops_signup2 {
-//     background-color: #f1f1f1;
-//     // padding-top: 64px;
-//     height: 84vh;
-//     display: flex;
-//     justify-content: center;
-//     flex-direction: column;
-//     @include mq($from: $mobile_sm, $until: $mobile_lg) {
-//         height: 100%;
-//         display: block;
-//         padding-top: 24px;
-//     }
-//     @include mq($from: $tablet, $until: $desktop_sm) {
-//         height: 100%;
-//         display: block;
-//         padding-top: 24px;
-//     }
-//     .ops_signup_step2 {
-//         .step2_heading {
-//             color: #333333;
-//             font-size: 15px;
-//             font-weight: 600;
-//             line-height: 24px;
-//             text-align: center;
-//             margin: 16px 0 8px;
-//         }
-//         .step2_txt {
-//             color: #979797;
-//             font-size: 11px;
-//             line-height: 18px;
-//             text-align: center;
-//             margin: 0 16px 16px;
-//         }
-//         .step2_selection {
-//             width: 15.3%;
-//             float: left;
-//             margin: 0 7px;
-//             background: #f8f8f8;
-//             box-shadow: 0 0 4px 0 rgba(102, 45, 145, 0.18);
-//             background-color: #FFFFFF;
-//             border-radius: 3px;
-//             position: relative;
-//             &:hover .checkbox_options {
-//                 display: block;
-//                 transition: 0.25s;
-//             }
-//             @include mq($from: $mobile_sm, $until: $mobile_lg) {
-//                 width: 45%;
-//                 margin: 8px 7px;
-//             }
-//             @include mq($from: $tablet, $until: $desktop_sm) {
-//                 width: 31%;
-//                 margin: 8px 7px;
-//             }
-//             @include mq($from: $break1024) {
-//                 width: 15%;
-//                 margin: 8px 7px;
-//             }
-//         }
-//         .checkbox_options {
-//             float: right;
-//             width: 18px;
-//             display: none;
-//             right: 10px;
-//             top: 10px;
-//             position: absolute;
-//             height: 18px;
-//             text-align: center;
-//             transition: .25s;
-//         }
-//         .step2_main_heading {
-//             color: #333333;
-//             font-size: 24px;
-//             font-weight: 300;
-//             line-height: 33px;
-//         }
-//         .step2_main_heading2 {
-//             color: #747474;
-//             font-size: 13px;
-//             line-height: 19px;
-//             text-align: center;
-//             margin: 16px 0 32px;
-//             font-weight: normal;
-//         }
-//         .ops_checkbox_lg {
-//             margin: 24px 0;
-//             p {
-//                 color: #747474;
-//                 font-size: 13px;
-//                 line-height: 20px;
-//                 text-align: center;
-//                 margin-bottom: 16px;
-//             }
-//         }
-//         label {
-//             height: 290px;
-//             text-align: center;
-//             pointer-events: auto;
-//             position: static;
-//             &:hover {
-//                 box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
-//                 border-radius: 3px;
-//             }
-//             @include mq($from: $mobile_sm, $until: $mobile_lg) {
-//                 height: 290px;
-//             }
-//         }
-//         input[type="checkbox"] {
-//             display: none;
-//         }
-//         input[type="checkbox"]:checked+span {
-//             color: #ffffff;
-//         }
-//         input[type="checkbox"]+.reg_profile_types {
-//             display: inline-block;
-//             position: relative;
-//             -webkit-appearance: none;
-//             height: 290px;
-//         }
-//         input[type="checkbox"]:checked+.reg_profile_types:after {
-//             border: 2px solid #ff7b84;
-//             box-shadow: 0 1.5px 4.5px 0 rgba(0, 0, 0, 0.26);
-//             border-radius: 3px;
-//             content: " ";
-//             left: 0;
-//             top: 0;
-//             color: #000000;
-//             width: 100%;
-//             height: 100%;
-//             position: absolute;
-//             cursor: pointer;
-//         }
-//     }
-// }
-// step 3 add skills ---------------------
-.skills_section {
-    // padding-top: 60px;
-    height: 84vh;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    .add-your-skills {
-        font-size: 24px;
-        font-weight: 600;
-        color: #333;
-        text-align: center;
-        margin-bottom: 40px;
-    }
-    .add_skill_block {
-        list-style: none;
-        li {
-            list-style-type: none;
-            float: left;
-            a {
-                display: block;
-                .skill_list_container {
-                    width: 170px;
-                    height: 90px;
-                    margin: 8px;
-                    background: #979797;
-                    float: left;
-                    border-radius: 3px;
-                    position: relative;
-                    .skills_list_bg_img {
-                        position: absolute;
-                        top: 0px;
-                        left: 0px;
-                        width: 100%;
-                        height: 90px;
-                        overflow: hidden;
-                        border-radius: 3px;
-                        img {
-                            width: 100%;
-                        }
-                    }
-                    .skills_name {
-                        position: absolute;
-                        width: 100%;
-                        height: 90px;
-                        top: 0px;
-                        left: 0px;
-                        text-align: center;
-                        display: flex;
-                        justify-content: center;
-                        flex-direction: column;
-                        background-color: rgba(0, 0, 0, 0.6);
-                        border-radius: 3px;
-                        p {
-                            font-size: 14px;
-                            font-weight: 700;
-                            color: $white;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    a.selected .skills_name {
-        background-color: rgba(255, 123, 132, 0.83)!important;
-    }
-    .o-search-block {
-        padding-left: 32px;
-        .search_container {
-            width: 100%;
-            .form_input {
-                background: none;
-            }
-            label {
-                color: #979797;
-                font-size: 14px;
-            }
-            .search_top_icon img {
-                width: 16px;
-                float: right;
-                margin-top: -25px;
-            }
-            // .form_input:focus,
-            // .search_top_close_icon {
-            //     display: block!important;
-            //     outline: none;
-            // }
-            // .search_top_close_icon {
-            //     display: none;
-            //     img {
-            //         width: 16px;
-            //         float: right;
-            //         margin-top: -25px;
-            //     }
-            // }
-        }
-        .selected_skill {
-            margin: 16px 0px;
-            .btn-tag-close {
-                padding: 8px 16px;
-                font-weight: 500;
-                font-size: 14px;
-                border-radius: 3px;
-                margin-right: 8px;
-                &:hover {
-                    background: #FF7B84 !important;
-                    border-color: #FF7B84 !important;
-                    .btn-label-skill {
-                        background: none;
-                    }
-                }
-                .btn-label-tag {
-                    img {
-                        width: 11px;
-                        margin-top: 0px;
-                        vertical-align: middle;
-                        margin-left: 6px;
-                    }
-                }
-            }
-        }
-        .selected_tags {
-            .btn-reg_tag {
-                color: #333333;
-                font-size: 14px;
-                font-weight: 500;
-                margin-bottom: 8px;
-                margin-right: 8px;
-            }
-        }
+.o-sign_plat-img {
+    box-shadow: 0 7px 14px 0 rgba(102,45,145,0.16);
+    border-radius: 50px;
+    padding: 4px;
+    img {
+        margin: 0 auto;
     }
 }
 
-.c-radio__sm {
-    padding-left: 0px!important;
+/* --------------------- Registration step 1 otp -------------------------- */
+.m-r-0 {
+    margin-right: 0 !important;
 }
-
-// .c-radio__sm label{
-//     font-weight: normal!important;
-//     font-size: 15px!important;
-//     color: #333!important;
-// }
-.otp-dont-get {
+.reg_step1_otp {
+    .modal-lg {
+        width: 850px;
+        @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            width: 90%;
+        }
+        @include mq($from: $mobile_lg, $until: $desktop) {
+            width: 90%;
+        }
+    }
     a {
         font-size: 11px;
     }
+    .modal-title {
+        padding: 5% 0;
+    }
+    .btn {
+        margin-top: 20px;
+    }
+    p {
+        margin-top: 8px;
+    }
+}
+.phone_number_error {
+    color: #FF7B84 !important;
+    font-size: 16px !important;
+    line-height: 22px;
+    text-align: center;
 }
 
-.next-btn {
-    color: #fff !important;
-}
+/* ------------------ Registration step 1 thankyou -------------------------- */
 
-.reg_step2_box {
-    .img-responsive {
-        display: inline;
+.reg_thankyou {
+    .modal-lg {
+        width: 850px;
+        @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            width: 90%;
+        }
+    }
+    .modal-title {
+        padding: 5% 0;
+    }
+    h3 {
+        margin-top: 7%;
+    }
+    p {
+        color: #747474;
+        margin: 5%;
+        font-size: 15px;
+        font-weight: normal;
+    }
+    .btn {
+        margin: 4% 0 18%;
     }
 }
 
-.w-100 {
-    width: 100%;
+.modal-dialog {
+    margin: 6% auto;
+    form {
+        width: 400px;
+        margin: 0 auto;
+        padding-bottom: 10%;
+        span {
+            color: $theme_red;
+            font-size: 14px;
+            float: right;
+            margin-top: -22px;
+        }
+    }
+    h5 {
+        color: #333333;
+        line-height: 24px;
+        font-size: 15px;
+        font-weight: normal;
+        margin-top: 40px;
+    }
 }
 
-.no-p-m-errors .error_alert {
-    margin: 0;
-    padding: 0;
+.p-20-px {
+    padding: 20px;
 }
 
-.suggestions{
-    cursor: pointer;
+.pos-rel {
+    position: relative;
+}
+
+.pos-abs {
+    position: absolute;
+}
+
+.m-top--50-px {
+    margin-top: -50px;
 }
