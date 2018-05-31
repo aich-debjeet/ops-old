@@ -28,6 +28,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   showPreloader = true;
   skillsSelected = false;
   uploadingSkills = false;
+  search;
 
   constructor(
     fb: FormBuilder,

@@ -2,7 +2,7 @@
 <section class="container-fluid ops_signup ops_signin">
     <div class="container">
         <div class="row">
-            <div *ngIf="loginState.login_uploading_data" class="preloader">
+            <div *ngIf="loginState?.login_uploading_data" class="preloader">
                 <div class="sticky"><div class="loader">Loading...</div></div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 ops_signup_left">
@@ -36,7 +36,7 @@
                     <p class="c-form__validation m-t-b-8" *ngIf="loginState?.error_description?.error_desc === 'INCORRECT_CREDENTIALS'">Username or Password is incorrect</p>
                     <div class="signup_privacy">
                         <p class="text-grey"><a routerLink="/account/password_reset" class="text-theme">Forgot Password ?</a></p>
-                        <button type="button" [className]="'btn btn-primary btn-lg pull-right'" tabindex="3" [disabled]="loginState.login_uploading_data" [ngClass]="{'sending' : loginState.login_uploading_data}" [type]="'submit'" data-disable-with="...">LOG IN</button>
+                        <button type="button" [className]="'btn btn-primary btn-lg pull-right'" tabindex="3" [disabled]="loginState?.login_uploading_data" [ngClass]="{'sending' : loginState?.login_uploading_data}" [type]="'submit'" data-disable-with="...">LOG IN</button>
                     </div>
                 </form>
                 <!-- //form -->
