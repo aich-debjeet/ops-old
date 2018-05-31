@@ -38,6 +38,16 @@ export class AuthService {
       this.headers = this.api.getHeaders();
     }
 
+    /**
+     * Set temp access token for not logged in user
+     */
+    getTempAuthHeaders() {
+      const tempAccessToken = JSON.parse(localStorage.getItem('tempAccessToken'));
+      const headers = new Headers({ 'Content-Type': 'application/json'});
+      headers.append('Authorization', 'Bearer ' + tempAccessToken.access_token);
+      return headers;
+    }
+
     login(req: any) {
       return this.http.post(`${this.apiLink}/portal/auth/oauth2/token`, req)
         .map((response: Response) => {
@@ -210,7 +220,15 @@ export class AuthService {
     }
 
     regSubmitOtp(reqBody: any) {
-      return this.http.post(this.apiLink + '/portal/activate/profile', reqBody);
+      return this.http.post(this.apiLink + '/portal/activate/profile', reqBody)
+        .map((response: Response) => {
+          const data = response.json();
+          if (data && data['access_Token']) {
+            const currentUser = { access_token: data['access_Token'] }
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.removeItem('tempAccessToken');
+          }
+        });
     }
 
     otpLogin(value: any) {
@@ -228,9 +246,8 @@ export class AuthService {
     }
 
     otpChangeNumber(contactDetails: any) {
-      // this.updateAuthHeaders();
-      // return this.http.put(this.apiLink + '/portal/auth/user/update', contactDetails, { headers: this.headers });
-      return this.api.put('/portal/auth/user/update', contactDetails);
+      const head = this.getTempAuthHeaders();
+      return this.http.put(this.apiLink + '/portal/auth/user/update', contactDetails, { headers: head });
     }
 
     fpCreatePass(req: any) {

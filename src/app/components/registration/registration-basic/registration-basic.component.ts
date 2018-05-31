@@ -99,7 +99,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         if (state['user_basic_reg_success'] === true) {
           if (state['user_token']) {
             const token = {access_token: state['user_token']};
-            localStorage.setItem('currentUser', JSON.stringify(token));
+            localStorage.setItem('tempAccessToken', JSON.stringify(token));
           }
           if (this.otpOpenOnce) {
             this.modalService.open('otpWindow');
