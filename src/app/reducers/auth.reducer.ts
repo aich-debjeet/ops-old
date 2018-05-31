@@ -413,28 +413,35 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
      */
     case AuthActions.OTP_NUMBER_CHANGE:
       return Object.assign({}, state, {
+        number_update_sent: true,
+        number_update_success: false,
         user_number_cng_success: false,
         update_number_params: payload
       });
     case AuthActions.OTP_NUMBER_CHANGE_SUCCESS:
-      if (state['reg_basic_form_data'] && state['reg_basic_form_data']['contact'] && state['reg_basic_form_data']['contact']['contactNumber']) {
-        state['reg_basic_form_data']['contact']['contactNumber'] = state['update_number_params']['contact']['contactNumber'];
-        state['reg_basic_form_data']['contact']['countryCode'] = state['update_number_params']['contact']['countryCode'];
-        state['user_number_cng_success'] = true;
-        return state;
+      if (state['update_number_params']['contact']['contactNumber']) {
+        const reg_basic_form_data_updated = state['reg_basic_form_data'];
+        reg_basic_form_data_updated['contact'] = {
+          contactNumber: state['update_number_params']['contact']['contactNumber'],
+          countryCode: state['update_number_params']['contact']['countryCode']
+        }
+        return Object.assign({}, state, {
+          user_number_cng_success: true,
+          number_update_sent: false,
+          number_update_success: true,
+          reg_basic_form_data: reg_basic_form_data_updated
+        });
       }
       return Object.assign({}, state, {
         user_number_cng_success: true,
-        reg_basic_form_data: {
-          contact: {
-            contactNumber: state['update_number_params']['contact']['contactNumber'],
-            countryCode: state['update_number_params']['contact']['countryCode']
-          }
-        }
+        number_update_sent: false,
+        number_update_success: true
       });
 
     case AuthActions.OTP_NUMBER_CHANGE_FAILED:
       return Object.assign({}, state, {
+        number_update_sent: false,
+        number_update_success: false,
         user_number_cng_failed: true
       });
 

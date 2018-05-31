@@ -38,6 +38,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   };
   showTerms = false;
   uploadingFormData = false;
+  updatingNewNumber = false;
   regState$: Observable<BasicRegTag>;
   regState = initialBasicRegTag;
   resendingOtp = false;
@@ -92,11 +93,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     this.regState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.regState = state;
-        if (typeof state['reg_basic_uploading_form_data'] !== 'undefined'
-          && state['reg_basic_uploading_form_data'] === false
-          && typeof state['reg_basic_uploaded_form_data'] !== 'undefined'
-          && state['reg_basic_uploaded_form_data'] === true
-        ) {
+        if (state['reg_basic_uploading_form_data'] === false && state['reg_basic_uploaded_form_data'] === true) {
           this.uploadingFormData = false;
         }
         if (state['user_basic_reg_success'] === true) {
@@ -109,7 +106,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
             this.otpOpenOnce = false;
           }
         }
-        if (state['user_number_cng_success'] === true) {
+        if (state['number_update_sent'] === false && state['number_update_success'] === true) {
+          this.updatingNewNumber = false;
           this.backToOtp();
         }
         if (state['user_otp_success'] === true) {
@@ -196,7 +194,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
       gender: ['M', Validators.required],
       phone: ['9867884320', [
           Validators.required,
-          Validators.minLength(4)
+          Validators.minLength(4),
+          FormValidation.validPhone.bind(this)
         ],
         // this.asyncValidator.checkMobile.bind(this)
         this.checkMobile.bind(this)
@@ -343,6 +342,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
    */
   updateContactNumber() {
     if (this.newNumberForm.valid === true) {
+      this.updatingNewNumber = true;
       const contactDetails = {
         contact: {
           contactNumber: this.newNumberForm.controls['newNumber'].value,

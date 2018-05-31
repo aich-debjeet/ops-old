@@ -123,6 +123,7 @@
                         <!-- <label class="p-l-50-px">Phone Number</label> -->
                         <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
                         <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">This phone number is already registered</p>
+                        <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isInvalidPhoneNumber">Please enter valid phone number</p>
                     </div>
                     <div class="c-form__group pass-margin">
                         <!-- <button class="password-toggle pos-abs" type="button" (click)="passwordShowToggle()" title="{{ passwordShow ? 'Hide Password' : 'Show Password' }}">
@@ -595,12 +596,12 @@
                             <span class="c-form__bar"></span>
                             <label>Enter New Phone Number</label>
                             <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.required && newNumFrm.submitted">Phone number is required</p>
-                            <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.isInvalidPhoneNumber && newNumFrm.submitted">Please enter valid phone number</p>
+                            <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.isInvalidPhoneNumber">Please enter valid phone number</p>
                             <p class="error_alert" *ngIf="newNumberForm.controls['newNumber'].errors?.isMobileUnique">This phone number is already registered</p>
                         </div>
                         <div class="text-center">
                             <button type="button" class="btn btn-default btn-lg capitalize" (click)="backToOtp()">Back</button>
-                            <button type="submit" class="btn btn-primary btn-lg capitalize">Validate</button>
+                            <button type="submit" class="btn btn-primary btn-lg capitalize" [disabled]="updatingNewNumber">Validate</button>
                         </div>
                     </form>
                 </div>
