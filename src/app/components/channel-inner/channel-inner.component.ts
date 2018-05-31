@@ -45,7 +45,7 @@ export class ChannelInnerComponent implements OnInit, OnDestroy {
 
   constructor(
     private http: Http,
-    private _store: Store<Media>,
+    private _store: Store<any>,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private modalService: ModalService,
