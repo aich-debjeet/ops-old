@@ -19,7 +19,7 @@
                             </span>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                    <a (click)="communityCreateModal.open()">Edit</a>
+                                    <a (click)="communityEdit()">Edit</a>
                                 </li>
                                 <li>
                                     <a (click)="communityLeaveModal.open()">Leave</a>
@@ -115,7 +115,7 @@
 
 <app-modal-new #communityCreateModal modalClass="modal-communities__create">
     <modal-content>
-        <div class="c-text_lg text-center p-t-16">Create Community</div>
+        <div class="c-text_lg text-center p-t-16">Edit Community</div>
         <div class="p-32">
             <form [formGroup]="communityForm" novalidate (ngSubmit)="submitForm(communityForm.value)" #cmfrom="ngForm">
                 <div class="c-form__group">
@@ -143,7 +143,7 @@
                     </select>
                 </div>
                 <div class="row m-t-24">
-                    <button type="submit" class="btn btn-primary btn-md pull-right">create</button>
+                    <button type="submit" class="btn btn-primary btn-md pull-right" [disabled]="updateCommunityLoading">Save</button>
                     <button type="button" class="btn btn-default btn-md pull-right m-r-16" (click)="communityCreateModal.close()">cancel</button>
                 </div>
             </form>

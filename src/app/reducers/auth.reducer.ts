@@ -485,6 +485,18 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         fp_user_options: null
       });
 
+    case AuthActions.SEND_CONTACTUS:
+      return Object.assign({}, state, {
+        contact_send_success: false,
+        contact_sending_loading: true
+      });
+
+    case AuthActions.SEND_CONTACTUS_SUCCESS:
+      return Object.assign({}, state, {
+        contact_send_success: true,
+        contact_sending_loading: false
+      });
+
     case AuthActions.USER_LOGOUT:
       return state = undefined
 

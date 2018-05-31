@@ -83,38 +83,40 @@ export class AboutBioComponent implements OnInit, OnDestroy {
       const height = value.height === null ? 0 : value.height;
       const weight = value.weight === null ? 0 : value.weight;
       const pincode = value.pin_code === null ? '' : value.pin_code.toString();
-      const lang = value.lang === '' ? [] : value.lang.split(',');
+      const lang = value.lang.trim() === '' ? [] : value.lang.split(',').map(function(item) {
+        return item.trim();
+      });
         const form =  {
-          'email': value.email,
+          'email': value.email.trim(),
           'extras': {
-            'aboutMe': value.about_me,
+            'aboutMe': value.about_me.trim(),
             'association': {
               'languages': lang
             },
             'contact': {
               'mobile': {
-                'mobile': value.number,
+                'mobile': value.number.trim(),
                 'access': Number(value.mobilePrivacy)
               },
               'website': {
-                'website': value.website,
+                'website': value.website.trim(),
                 'access': Number(value.websitePrivacy)
               }
             }
           },
           'address': {
-            'city': value.city.charAt(0).toUpperCase() + value.city.slice(1),
-            'country': value.country,
-            'line1': value.address_one,
-            'line2': value.address_two,
+            'city': value.city.charAt(0).toUpperCase().trim() + value.city.slice(1).trim(),
+            'country': value.country.trim(),
+            'line1': value.address_one.trim(),
+            'line2': value.address_two.trim(),
             'postalCode': pincode,
           },
           'physical': {
             'height': parseFloat(height),
             'weight': parseFloat(weight),
-            'ethnicity' : value.ethnicity,
-            'complexion' : value.complexion,
-            'gender': value.gender
+            'ethnicity' : value.ethnicity.trim(),
+            'complexion' : value.complexion.trim(),
+            'gender': value.gender.trim()
           }
         }
 

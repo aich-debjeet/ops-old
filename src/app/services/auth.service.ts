@@ -288,4 +288,9 @@ export class AuthService {
       this.updateAuthHeaders();
       return this.http.get(`${this.apiLink}/portal/industry?industryType=dwc`, { headers: this.headers });
     }
+
+    // contact us email send
+    sendContact(reqData: any) {
+      return this.api.post('/portal/contactus', reqData);
+    }
 }

@@ -132,6 +132,26 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
         community_ismember_loading: false
       });
 
+    case CommunitiesActions.COMMUNITY_UPDATE:
+      return Object.assign({}, state, {
+        community_update_success: false,
+        community_update_loading: true
+      });
+
+    case CommunitiesActions.COMMUNITY_UPDATE_SUCCESS:
+      const data = payload.data;
+      return Object.assign({}, state, {
+        community_update_success: true,
+        community_update_loading: false,
+        communityDetails: {
+          ...state.communityDetails,
+          access: data.accessSettings.access,
+          brief: data.brief,
+          title: data.title,
+          industryList: [data.industryList[0]],
+        },
+      });
+
     default:
       return state;
 

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Modal } from '../../../shared/modal-new/Modal';
 
 // Action
 import { AuthActions } from '../../../actions/auth.action';
@@ -25,6 +26,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   id: any;
   industries: any[];
   tagState$: Observable<any>;
+  @ViewChild('communityCreateModal') CommunityUpdate: Modal;
   private subscription: ISubscription;
   private routerSubscription: ISubscription;
   details: any;
@@ -38,6 +40,8 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   selectedIndustry = '';
   isMemeberLoading: boolean = false;
   communityLoading: boolean = false;
+  updateCommunityLoading: boolean = false;
+  industryState$: Observable<any>;
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
@@ -48,6 +52,13 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     this.routerSubscription = this.route.params.subscribe(params => {
       this.id = params['communitiesId'];
       this.communityDetails();
+    });
+
+    this.industryState$ = store.select('loginTags');
+    this.industryState$.subscribe((state) => {
+      if (typeof state !== 'undefined') {
+        this.industries = state.industries;
+      }
     });
 
     this.tagState$ = this.store.select('communitiesTags');
@@ -76,6 +87,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         }
         this.isMemeberLoading = state['community_ismember_loading'];
         this.communityLoading = state['community_loding'];
+        this.updateCommunityLoading = state['community_update_loading'];
       }
     });
   }
@@ -105,6 +117,16 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       }
       this.store.dispatch({ type: CommunitiesActions.COMMUNITY_JOIN, payload: data });
     }
+  }
+
+  communityEdit() {
+    this.CommunityUpdate.open();
+    this.communityForm.patchValue({
+      community_name: this.details.title,
+      brief: this.details.brief,
+      access: this.details.access,
+      industry: this.details.industryList[0]
+    });
   }
 
   /**
@@ -147,7 +169,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
 
   buildForm() {
     this.communityForm = this.fb.group({
-      'community_name' : ['', [Validators.required]],
+      'community_name' : [ this.details.title, [Validators.required]],
       'brief': ['', [Validators.required]],
       'access': [0, [Validators.required]],
       'industry': ['', [Validators.required]]
@@ -155,27 +177,31 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
 
   }
 
+  /**
+   * Community Update
+   * @param value 
+   */
   submitForm(value) {
     if ( this.communityForm.valid === true ) {
       const data = {
-        title: value.community_name,
-        brief: value.brief,
-        accessSettings: {
-          access: Number(value.access)
-        },
-        industryList: [ value.industry ]
+        id: this.details.communityId,
+        body: {
+          title: value.community_name,
+          brief: value.brief,
+          accessSettings: {
+            access: Number(value.access)
+          },
+          industryList: [ value.industry ]
+        }
       }
-      this.store.dispatch({ type: CommunitiesActions.COMMUNITY_CREATE, payload: data });
+      this.store.dispatch({ type: CommunitiesActions.COMMUNITY_UPDATE, payload: data });
 
       this.store.select('communitiesTags')
-      .first(channel => channel['community_create_success'] === true)
+      .first(channel => channel['community_update_success'] === true)
       .subscribe( datas => {
-          if (datas['completed']) {
-            const id = datas['completed']['SUCCESS'].id;
-            this.toastr.success('successfully created', 'Success!');
-            this.router.navigateByUrl('/communities/' + id);
-            return
-          }
+        this.toastr.success('successfully Update', 'Success!');
+        this.CommunityUpdate.close();
+        return
       });
     }else {
       this.toastr.warning('Please fill all required fields');
