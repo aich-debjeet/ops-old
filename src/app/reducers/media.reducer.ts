@@ -180,7 +180,11 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
    */
     case MediaActions.MEDIA_POST_DELETE_SUCCESS:
       return Object.assign({}, state, {
-        media_delete_msg: payload.SUCCESS
+        media_delete_msg: payload.SUCCESS,
+        channel_detail: {
+          ...state.channel_detail,
+          spotCount: state.channel_detail ? state.channel_detail.spotCount - 1 : null
+        }
       });
   /**
    * Media_Edit

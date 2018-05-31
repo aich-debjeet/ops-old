@@ -36,6 +36,8 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   inviteBtnActive: boolean = true;
   public communityForm: FormGroup;
   selectedIndustry = '';
+  isMemeberLoading: boolean = false;
+  communityLoading: boolean = false;
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
@@ -54,7 +56,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         if (state['communityDetails']) {
           this.details = state['communityDetails'];
         }
-        if (state['communityInvitePeople']) { 
+        if (state['communityInvitePeople']) {
           this.listInvitePeople = state['communityInvitePeople'];
         }
         if (state['communityRelated']) {
@@ -72,6 +74,8 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         if (state['communityList']) {
           this.list = state['communityList'];
         }
+        this.isMemeberLoading = state['community_ismember_loading'];
+        this.communityLoading = state['community_loding'];
       }
     });
   }
@@ -96,7 +100,10 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       }
       this.store.dispatch({ type: CommunitiesActions.COMMUNITY_UNJOIN, payload: data });
     }else {
-
+      const data = {
+        communityId: this.id
+      }
+      this.store.dispatch({ type: CommunitiesActions.COMMUNITY_JOIN, payload: data });
     }
   }
 

@@ -3,7 +3,7 @@ export class Media {
   status_uploaded = false;
   status_success = false;
   status_uploading = false;
-  channel_detail?: ChanneDetails[];
+  channel_detail?: any;
   media_post_success? = false;
   user_posts: any;
   user_posts_loaded: boolean;
@@ -47,6 +47,6 @@ export const initialMedia: Media = {
 //     channel: chosenChannel.spotfeedId
 //   }
 // }]
-export class ChanneDetails {
+export class ChannelDetails {
   channelName: string
 }

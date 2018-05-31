@@ -36,14 +36,32 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
         community_loading: true
       });
 
+    case CommunitiesActions.COMMUNITY_JOIN:
+      return Object.assign({}, state, {
+        community_ismember_loading: true
+      });
+
     case CommunitiesActions.COMMUNITY_JOIN_SUCCESS:
       return Object.assign({}, state, {
-        communityList: state.communityList.filter(community => community.communityId !== payload.communityId)
+        communityList: state.communityList ? state.communityList.filter(community => community.communityId !== payload.communityId) : [],
+        communityDetails: {
+          ...state.communityDetails,
+          isMember: true,
+          memberCount: state.communityDetails ? state.communityDetails.memberCount + 1 : null
+        },
+        community_ismember_loading: false
+      });
+
+    case CommunitiesActions.COMMUNITY_DETAILS:
+      return Object.assign({}, state, {
+        community_loding: true,
+        communityDetails: []
       });
 
     case CommunitiesActions.COMMUNITY_DETAILS_SUCCESS:
       return Object.assign({}, state, {
-        communityDetails: payload
+        communityDetails: payload,
+        community_loding: false
       });
 
     case CommunitiesActions.COMMUNITY_INVITE_PEOPLE_LIST_SUCCESS:
@@ -97,6 +115,21 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
     case CommunitiesActions.COMMUNITY_DELETE_SUCCESS:
       return Object.assign({}, state, {
         communnity_delete: true,
+      });
+
+    case CommunitiesActions.COMMUNITY_UNJOIN:
+      return Object.assign({}, state, {
+        community_ismember_loading: true
+      });
+
+    case CommunitiesActions.COMMUNITY_UNJOIN_SUCCESS:
+      return Object.assign({}, state, {
+        communityDetails: {
+          ...state.communityDetails,
+          isMember: false,
+          memberCount: state.communityDetails ? state.communityDetails.memberCount - 1 : null
+        },
+        community_ismember_loading: false
       });
 
     default:
