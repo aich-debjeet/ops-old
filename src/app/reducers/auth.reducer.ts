@@ -396,6 +396,7 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.OTP_SUBMIT:
       return Object.assign({}, state, {
         user_otp_success: false,
+        user_otp_failed: false,
         otp_submit_params: payload
       });
     case AuthActions.OTP_SUBMIT_SUCCESS:
