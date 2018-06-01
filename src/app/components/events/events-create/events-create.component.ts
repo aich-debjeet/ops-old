@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import {IDatePickerConfig} from 'ng2-date-picker';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +7,9 @@ import { NgxfUploaderService, UploadEvent, UploadStatus, FileError } from 'ngxf-
 import { DatePipe } from '@angular/common';
 import { EventValidator, FormValidation } from '../../../helpers/event.validator';
 import {Moment} from 'moment';
+
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import {} from '@types/googlemaps';
 
 
 
@@ -34,12 +37,16 @@ import * as moment from 'moment';
 })
 export class EventsCreateComponent implements OnInit, OnDestroy {
   public eventForm: FormGroup;
+  public latitude: number;
+  public longitude: number;
+  public searchControl: FormControl;
+  public zoom: number;
   tagState$: Observable<EventModal>;
   profileState$: Observable<ProfileModal>;
   today = Date.now();
   industryList = initialTag ;
   image: any;
-  eventCoverImage: any;
+  eventCoverImage ='';
   minDate = new Date();
   dateExpires;
   baseUrl = environment.API_IMAGE;
@@ -48,6 +55,13 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   private sub: any;
   eventDetail: any;
   eventCover: File;
+
+    // Address --
+    address: string;
+    country: string;
+    state: string;
+    postalCode: string;
+    city: string;
 
   datePickerConfig: IDatePickerConfig = {
     firstDayOfWeek: 'mo',
@@ -74,6 +88,9 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   fileData: File;
   userHandle: any;
 
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+
   constructor(
     private fb: FormBuilder,
     private store: Store<EventModal>,
@@ -82,6 +99,8 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     private Upload: NgxfUploaderService,
     private datePipe: DatePipe,
     private eventValidator: EventValidator,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
   ) {
 
     this.tagState$ = this.store.select('eventTags');
@@ -108,6 +127,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
 
     // Form Build
     this.buildForm();
+    this.getLocationGoogle();
   }
 
   /**
@@ -183,7 +203,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       'event_industry': ['', [Validators.required]],
       'event_venue': ['', [Validators.required]],
       'event_startdate' : ['', [Validators.required, FormValidation.datevalidation]],
-      'event_enddate' : ['', [Validators.required, FormValidation.oldEndDatevalidation]],
+      'event_enddate' : ['', [Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this)]],
       'access': '0',
       'event_type': 'Free',
       'event_agenda' : this.fb.array([]),
@@ -191,13 +211,121 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       //   [this.ticketItem('')]
       // ),
       'event_brief' : ['', [Validators.required]],
-      'ts_startTime': ['', [Validators.required]],
-      'ts_endTime': ['', [Validators.required]],
+      'ts_startTime': ['', [Validators.required, FormValidation.datevalidation]],
+      'ts_endTime': ['', [Validators.required, FormValidation.oldEndDatevalidation, this.tickeSellDate.bind(this)]],
       'ts_quantity': ['', [Validators.required]]
     }, {
-      validators: [FormValidation.endateValidation]
+      // validators: [FormValidation.endateValidation]
     })
 
+  }
+
+  dateComparision(control: AbstractControl){
+    if (control.value === '') {
+      return;
+    }
+    const startDate = this.eventForm.controls['event_startdate'].value.split('-').reverse().join('-');
+    // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
+    const endData = control.value.split('-').reverse().join('-');
+    const startSelect = moment(startDate).format('YYYYMMDD');
+    const endSelect = moment(endData).format('YYYYMMDD');
+    if (endSelect < startSelect) {
+      return { endDateLess: true };
+    }
+    return null;
+
+  }
+
+  tickeSellDate(control: AbstractControl) {
+    if (control.value === '') {
+      return;
+    }
+    const startDate = this.eventForm.controls['event_startdate'].value.split('-').reverse().join('-');
+    // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
+    const endData = control.value.split('-').reverse().join('-');
+    const startSelect = moment(startDate).format('YYYYMMDD');
+    const endSelect = moment(endData).format('YYYYMMDD');
+    if (endSelect > startSelect) {
+      return { ticketsClosed: true };
+    }
+    return null;
+  }
+
+  private setCurrentPosition() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 12;
+      });
+    }
+  }
+
+    /**
+   * Location find from google
+   */
+  getLocationGoogle() {
+    // set google maps defaults
+    this.zoom = 4;
+    this.latitude = 39.8282;
+    this.longitude = -98.5795;
+
+    // create search FormControl
+    this.searchControl = new FormControl();
+
+    // set current position
+    this.setCurrentPosition();
+
+    // load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+    });
+    const componentForm = {
+      street_number: 'short_name',
+      route: 'long_name',
+      locality: 'long_name',
+      administrative_area_level_1: 'long_name',
+      country: 'long_name',
+      postal_code: 'short_name'
+    };
+
+    autocomplete.addListener('place_changed', () => {
+      this.ngZone.run(() => {
+        // get the place result
+        const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+        for (let i = 0; i < place.address_components.length; i++) {
+          const addressType = place.address_components[i].types[0];
+          if (componentForm[addressType]) {
+            const val = place.address_components[i][componentForm[addressType]];
+            if ( addressType === 'country') {
+              this.country = val;
+            }
+            if ( addressType === 'postal_code') {
+              this.postalCode = val;
+            }
+            if ( addressType === 'locality') {
+              this.city = val
+            }
+            if ( addressType === 'administrative_area_level_1') {
+              this.state = val
+            }
+          }
+        }
+
+        // verify result
+        if (place.geometry === undefined || place.geometry === null) {
+          return;
+        }
+
+        // set latitude, longitude and zoom
+        this.address = place.formatted_address;
+        this.latitude = place.geometry.location.lat();
+        this.longitude = place.geometry.location.lng();
+        this.zoom = 12;
+      });
+    });
+    });
   }
 
   // this.eventValidator.datevalidation.bind(this.eventValidator)
@@ -241,9 +369,12 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    * @param value value of form
    */
   submitForm(value) {
+    console.log(this.eventForm.valid)
+    console.log(this.eventCoverImage)
     if (this.eventForm.valid) {
       if (this.eventCoverImage === '') {
         this.imageUpload = true;
+        console.log(this.imageUpload)
         return
       }
       this.imageUpload = false;
@@ -262,6 +393,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
           event_agenda: value.event_agenda,
           extras: {
             Genre: [value.event_genres],
+            coverImage: this.eventCoverImage,
             ticket: [{
               startDate: this.reverseDate(value.ts_startTime) + 'T05:00:00',
               endDate: this.reverseDate(value.ts_endTime) + 'T05:00:00',
@@ -274,8 +406,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
           ],
           Type: {
             EntryType : value.event_type,
-          },
-          event_media: [this.eventCoverImage]
+          }
       }
 
       // Dispatch to form value to server
