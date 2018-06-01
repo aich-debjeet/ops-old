@@ -5,9 +5,11 @@
             <div class="c-card__user">
                 <div class="c-user">
                     <a class="c-user__avatar c-avatar--feed">
-                        <img class="c-user__image" src="{{ baseUrl + activeUser?.image }}">
+                        <img class="c-user__image" [src]="baseUrl + activeUser?.image">
                     </a>
                     <a class="c-user__name c-user__name--addpost">{{ activeUser?.name }}</a>
+                    <img [src]="baseUrl + 'img/svg/arrow2.svg'" class="o-addpost__arrow" *ngIf="nameActive">
+                    <span class="c-text_md color-grey-dark o-addpost__commtxt"  *ngIf="nameActive">{{ct_name}}</span>
                 </div>
             </div>
             <div class="o-add-status__txt">
@@ -22,19 +24,19 @@
                               <img src="{{ (privacy == 0) ? baseUrl + 'img/svg/ico_web.svg': baseUrl + 'img/svg/Ico-private.svg' }}">
                             </div>
                             <div class="o-action__ico-arrow">
-                              <img src="{{ baseUrl }}img/svg/ico-arrow-down.svg">
+                              <img [src]="baseUrl + 'img/svg/ico-arrow-down.svg'">
                             </div>
                           </span>
                             <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
                                 <li>
                                     <a class="c-opsdropdown__list" (click)="choosePrivacy(0)">
-                                        <img src="{{ baseUrl }}img/svg/ico-public.svg" class="c-opsdropdown--icons">
+                                        <img [src]="baseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
                                         <span class="c-opsdropdown--text">Public</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="c-opsdropdown__list" (click)="choosePrivacy(1)">
-                                        <img src="{{ baseUrl }}img/svg/Ico-private.svg" class="c-opsdropdown--icons">
+                                        <img [src]="baseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
                                         <span class="c-opsdropdown--text">Private</span>
                                     </a>
                                 </li>
@@ -57,34 +59,3 @@
         <!-- add status end -->
     </div>
 </section>
-
-<!--<div class="c-status">
-  <div *ngIf="statusSaved === true" class="message">
-    Your status has been posted successfully!
-  </div>
-  <form [formGroup]="statusForm" novalidate (ngSubmit) = "submitStatusForm(statusForm.value)" #myform="ngForm">
-    <div class="c-status__content">
-      <div class="middle_block">
-          <div class="msg_block" *ngIf="mediaStore.status_saved">
-            <p>Your status has been posted successfully!</p>
-          </div>
-          <div class="c-status__block">
-              <textarea class="form___textarea" formControlName="status" name="comment" rows="2" placeholder="Update your Status"></textarea>
-          </div>
-          <div class="c-status__block">
-            <div class="width-50 float-left">
-              <select formControlName="privacy" class="form-control" id="sel1">
-                <option value="0">Public</option>
-                <option value="1">Private</option>
-              </select>
-            </div>
-            <div class="width-50 float-right">
-              <span class="u-right">
-                <a (click)="submitStatusForm(statusForm.value)" class="btn__primary cursor-pointer">Post</a>
-              </span>
-            </div>
-          </div>
-      </div>
-    </div>
-  </form>
-</div>-->
