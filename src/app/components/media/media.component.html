@@ -4,13 +4,13 @@
     <div class="container">
         <ul class="o-AddPost-nav">
             <li class="o-AddPost__item" routerLinkActive="active">
-                <a class="o-AddPost__link c-text_md" [routerLink]="['status']">Status</a>
+                <a class="o-AddPost__link c-text_md" [routerLink]="['status']" [queryParams]="urlQuery">Status</a>
             </li>
             <li class="o-AddPost__item" routerLinkActive="active">
-                <a class="o-AddPost__link c-text_md" [routerLink]="['media']">Media</a>
+                <a class="o-AddPost__link c-text_md" [routerLink]="['media']" [queryParams]="urlQuery">Media</a>
             </li>
             <li class="o-AddPost__item" routerLinkActive="active">
-                <a class="o-AddPost__link c-text_md" [routerLink]="['blog']">Blog</a>
+                <a class="o-AddPost__link c-text_md" [routerLink]="['blog']" [queryParams]="urlQuery">Blog</a>
             </li>
         </ul>
     </div>

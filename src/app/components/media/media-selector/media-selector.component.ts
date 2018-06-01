@@ -112,6 +112,8 @@ export class MediaSelectorComponent implements OnInit {
   external_post_active: boolean = false;
   ct_id: any;
   post_to: any;
+  nameActive: boolean;
+  ct_name: any;
 
   constructor(
     private Upload: NgxfUploaderService,
@@ -143,9 +145,12 @@ export class MediaSelectorComponent implements OnInit {
         }
       }
 
-      if (this.route.snapshot.queryParams['ct_id']) {
-        // this.redrectUrl = this.route.snapshot.queryParams['next'];
-      }
+      this.route.queryParams.subscribe(params => {
+        this.ct_name = params['ct_name']
+        if (Object.keys(params).length) {
+          this.nameActive = true;
+        }
+      });
 
       this.chosenChannel = 0;
       this.uploadState = 1;

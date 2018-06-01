@@ -11,7 +11,7 @@
                         <div class="c-h3 c-h3--weight">{{channel?.channel_detail?.channelName}}</div>
                     </li>
                     <li class="list-inline-item" *ngIf="channel?.channel_detail?.isOwner">
-                        <button type="button" class="btn btn-default btn-sm" [routerLink]="['/post/media']" [queryParams]="{post_to: 'channel', ct_id: channel?.channel_detail?.channelId}">
+                        <button type="button" class="btn btn-default btn-sm" [routerLink]="['/post/media']" [queryParams]="{post_to: 'channel', ct_id: channel?.channel_detail?.channelId, ct_name: channel?.channel_detail?.channelName}">
                             Add Post
                         </button>
                     </li>
