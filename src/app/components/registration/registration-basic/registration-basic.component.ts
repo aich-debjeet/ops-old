@@ -1,61 +1,48 @@
-import { Component, OnInit, ElementRef , Inject, OnDestroy} from '@angular/core';
+// ng imports
+import { Component, OnInit, ElementRef, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { DOCUMENT } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+
+// third party dependancies
 import { IDatePickerConfig } from 'ng2-date-picker';
-
-import { ModalService } from '../../../shared/modal/modal.component.service';
 import { Store } from '@ngrx/store';
-import { Register, UserTag, initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
-import { AuthRightBlockComponent } from '../../../shared/auth-right-block/auth-right-block.component';
-import { CountrySelectorComponent } from '../../../shared/country-selector/country-selector.component';
-
-// helper
-import { passwordConfirmation } from '../../../helpers/password.validator';
-import { FormValidation, DatabaseValidator } from '../../../helpers/form.validator';
-import { TokenService } from '../../../helpers/token.service';
-import { environment } from '../../../../environments/environment';
-
-// Action
-import { AuthActions } from '../../../actions/auth.action'
-
-// rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 
-import * as _ from 'lodash';
-import { ProfileActions } from 'app/actions/profile.action';
+// internal dependencies and helpers
+import { ModalService } from '../../../shared/modal/modal.component.service';
+import { FormValidation, DatabaseValidator } from '../../../helpers/form.validator';
+import { environment } from '../../../../environments/environment';
+import { CountrySelectorComponent } from '../../../shared/country-selector/country-selector.component';
 
-export class RegValue {
-  mainTitle: string;
-  description: string;
-  loginLink: Boolean;
-  button_text: string;
-  button_link: string;
-}
+// models
+import { initialBasicRegTag, BasicRegTag } from '../../../models/auth.model';
+
+import { AuthActions } from '../../../actions/auth.action';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-registration-basic',
   templateUrl: './registration-basic.component.html',
-  providers: [DatabaseValidator, ModalService],
-  styleUrls: ['./registration-basic.component.scss']
+  styleUrls: ['./registration-basic.component.scss'],
+  providers: [ DatabaseValidator ],
 })
 
-export class RegistrationBasicComponent implements OnInit, OnDestroy {
-  countDown;
-  counter = 60;
-  isPhotoAdded: boolean;
+export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewInit {
   passwordShow = false;
-  country: any;
-  saveUsername = true;
-  routeQuery: any;
-  userSearchEnabled = true;
-  hideProfiles = false;
-  inputNameListener: any;
+  country = {
+    callingCodes: ['91']
+  };
   showTerms = false;
+  uploadingFormData = false;
+  updatingNewNumber = false;
+  regState$: Observable<BasicRegTag>;
+  regState = initialBasicRegTag;
+  resendingOtp = false;
+  imageBaseLink: string = environment.API_IMAGE;
 
   datePickerConfig: IDatePickerConfig = {
     showMultipleYearsNavigation: true,
@@ -64,21 +51,24 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     locale: 'en'
   };
 
-  tagState$: Observable<BasicRegTag>;
-  private tagStateSubscription: Subscription;
-  petTag = initialBasicRegTag;
-  Suggested: String[];
-  modals: any;
-  resendingOtp = false;
-  phone: string;
-  imageBaseLink: string = environment.API_IMAGE;
+  contactNumber = '';
+  countryCode = '';
 
-  // public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
-  public regFormBasic: FormGroup;
   public otpForm: FormGroup;
+  public regFormBasic: FormGroup;
   public newNumberForm: FormGroup;
-  redrectUrl: any;
-  dwc: boolean;
+  otpOpenOnce = true;
+
+  // otp numbers
+  @ViewChild('otpNum1') otpNum1: ElementRef;
+  @ViewChild('otpNum2') otpNum2: ElementRef;
+  @ViewChild('otpNum3') otpNum3: ElementRef;
+  @ViewChild('otpNum4') otpNum4: ElementRef;
+  @ViewChild('otpNum5') otpNum5: ElementRef;
+  @ViewChild('otpNum6') otpNum6: ElementRef;
+
+  @ViewChild('countrySelReg') countrySelectorReg: CountrySelectorComponent;
+  @ViewChild('countrySelOtp') countrySelectorOtp: CountrySelectorComponent;
 
   passwordShowToggle() {
     if (this.passwordShow === true) {
@@ -89,31 +79,59 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    @Inject(DOCUMENT) private document: Document,
     private fb: FormBuilder,
     private store: Store<BasicRegTag>,
-    private element: ElementRef,
-    private databaseValidator: DatabaseValidator,
+    private asyncValidator: DatabaseValidator,
     private router: Router,
-    private route: ActivatedRoute,
     public modalService: ModalService,
-    public tokenService: TokenService
-    ) {
+    private authService: AuthService
+  ) {
 
-    this.tagState$ = store.select('loginTags');
-    this.tagState$.subscribe((state) => {
+    // store select
+    this.regState$ = store.select('loginTags');
+    // observe store
+    this.regState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
-        this.petTag = state;
+        this.regState = state;
+        if (state['reg_basic_uploading_form_data'] === false && state['reg_basic_uploaded_form_data'] === true) {
+          this.uploadingFormData = false;
+        }
+        if (state['user_basic_reg_success'] === true) {
+          if (state['user_token']) {
+            const token = {access_token: state['user_token']};
+            localStorage.setItem('tempAccessToken', JSON.stringify(token));
+          }
+          if (this.otpOpenOnce) {
+            this.modalService.open('otpWindow');
+            this.otpOpenOnce = false;
+          }
+        }
+        if (state['number_update_sent'] === false && state['number_update_success'] === true) {
+          this.updatingNewNumber = false;
+          this.backToOtp();
+        }
+        if (state['user_otp_success'] === true) {
+          this.modalService.close('otpWindow');
+          this.router.navigate(['/reg/addskill']);
+        }
       }
     });
-    this.isPhotoAdded = false;
 
-    // if redriect url there
-    if (this.route.snapshot.queryParams) {
-      this.routeQuery = Object.assign({}, this.route.snapshot.queryParams);
-    }
-
+    // build reactive forms
     this.buildForm();
+  }
+
+  getContactDetails(cType: string) {
+    if (this.regState['reg_basic_form_data']
+      && this.regState['reg_basic_form_data']['contact']
+    ) {
+      if (cType === 'number' && this.regState['reg_basic_form_data']['contact']['contactNumber']) {
+        return this.regState['reg_basic_form_data']['contact']['contactNumber'];
+      }
+      if (cType === 'country' && this.regState['reg_basic_form_data']['contact']['countryCode']) {
+        return this.regState['reg_basic_form_data']['contact']['countryCode'];
+      }
+    }
   }
 
   // closeing terms
@@ -124,44 +142,33 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   // terms show/hide
   termsAction(action: string) {
     if (action === 'hide') {
-      this.showTerms = false;
+      this.modalService.close('termsPopup');
     } else {
-      this.showTerms = true;
+      this.modalService.open('termsPopup');
     }
   }
 
-  // showing thank you popup
-  showThankyou() {
-    this.modalService.open('thankyouModal');
-  }
-
-  startTimer() {
-    this.countDown = Observable.timer(0, 1000)
-      .take(this.counter)
-      .map(() => --this.counter);
-  }
-
+  /**
+   * select username from suggestions
+   * @param selectUsername
+   */
   useThisUsername(selectUsername: string) {
     this.regFormBasic.controls['username'].setValue(selectUsername);
   }
 
   ngOnInit() {
-    if (this.route.snapshot.queryParams['ev']) {
-      if (this.route.snapshot.queryParams['ev'] === 'dwc2017') {
-        this.dwc = true;
-        if (this.routeQuery) {
-          this.routeQuery['dwc2017'] = 'true';
-        }
-      }
-    }
-    const currentUrl = this.router.url;
+    this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
   }
 
-  // Init Reg Form
+  ngAfterViewInit() {
+    this.countrySelectorReg.initCountrySelector('country-options-reg');
+  }
+
+  // build all forms
   buildForm(): void {
     this.regFormBasic = this.fb.group({
       name: ['', [Validators.required],
-        this.databaseValidator.checkForValidName.bind(this)
+        this.asyncValidator.checkForValidName.bind(this)
       ],
       username: ['', [
           Validators.required,
@@ -170,7 +177,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
           FormValidation.noSpecialCharsValidator,
           FormValidation.noCapitalLettersValidator
         ],
-        this.databaseValidator.userNameValidation.bind(this.databaseValidator)
+        this.asyncValidator.userNameValidation.bind(this)
       ],
       dob: ['', [
           Validators.required,
@@ -179,17 +186,19 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
       ],
       email: ['', [
           Validators.required,
-          Validators.min(1),
+          Validators.min(3),
           FormValidation.validEmail
         ],
-        this.databaseValidator.checkEmail.bind(this.databaseValidator)
+        this.asyncValidator.checkEmail.bind(this)
       ],
       gender: ['M', Validators.required],
       phone: ['', [
           Validators.required,
-          Validators.minLength(4)
+          Validators.minLength(4),
+          FormValidation.validPhone.bind(this)
         ],
-        this.databaseValidator.checkMobile.bind(this.databaseValidator)
+        // this.asyncValidator.checkMobile.bind(this)
+        this.checkMobile.bind(this)
       ],
       password: ['', [
         Validators.required,
@@ -203,10 +212,12 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
 
     // OTP Form Builder
     this.otpForm = this.fb.group({
-      otpNumber: ['', [
-          FormValidation.validOtp.bind(this)
-        ],
-      ]
+      otpNum1: ['', [Validators.required]],
+      otpNum2: ['', [Validators.required]],
+      otpNum3: ['', [Validators.required]],
+      otpNum4: ['', [Validators.required]],
+      otpNum5: ['', [Validators.required]],
+      otpNum6: ['', [Validators.required]]
     })
 
     // OTP new number
@@ -216,18 +227,53 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
           Validators.minLength(4),
           FormValidation.validPhone.bind(this)
         ],
-        this.databaseValidator.checkMobile.bind(this.databaseValidator)
+        this.checkMobile.bind(this)
       ]
     })
   }
 
-  // User user exists
+  /**
+   * check if number is exist on the DB
+   * @param control
+   */
+  checkMobile(control: AbstractControl) {
+    const q = new Promise((resolve, reject) => {
+      setTimeout(() => {
+          const contactDetails = {
+            contactNumber: control.value,
+            countryCode: this.country.callingCodes[0]
+          };
+          this.authService.mobileNumberCheck(contactDetails).subscribe( data => {
+            if (data.SUCCESS.code === 1) {
+              resolve({ 'isMobileUnique': true });
+            }
+            resolve(null);
+          });
+      }, 1000);
+    });
+    return q;
+  }
+
+  // focus on next otp number
+  nextOtpNum(e: any, num: number) {
+    if (e.keyCode >= 48 && e.keyCode <= 57) {
+      if (num > 0 && num < 6) {
+        const nextNum = num + 1;
+        const nextOtpInput = 'otpNum' + nextNum.toString();
+        this[nextOtpInput].nativeElement.focus();
+      }
+      return true;
+    }
+    return false;
+  }
+
+  // user user exists
   userExistCheck(value) {
     if (value.length >= 4) {
       this.store.dispatch({ type: AuthActions.USER_EXISTS_CHECK, payload: value });
     } else {
-      if (this.petTag && this.petTag.user_unique) {
-        this.petTag.user_unique = false;
+      if (this.regState && this.regState.user_unique) {
+        this.regState.user_unique = false;
       }
     }
   }
@@ -235,35 +281,25 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
   // OTP Validation
   otpSubmit(value) {
     if (this.otpForm.valid === true) {
-      let number = null;
-      if (this.newNumberForm.value.newNumber !== undefined && this.newNumberForm.value.newNumber.length > 5) {
-        number = this.newNumberForm.value.newNumber;
+      let phoneNumber = null;
+      if (this.newNumberForm.controls['newNumber'] !== undefined && this.newNumberForm.controls['newNumber'].value.length > 5) {
+        phoneNumber = this.newNumberForm.controls['newNumber'].value;
       } else {
-        number = this.regFormBasic.value.phone;
+        phoneNumber = this.regFormBasic.value.phone;
       }
-      const send = {
-        number: number,
-        otp: value.otpNumber
+      // console.log('otp form data', value); return;
+      const otpValue = value.otpNum1.toString() +
+                       value.otpNum2.toString() +
+                       value.otpNum3.toString() +
+                       value.otpNum4.toString() +
+                       value.otpNum5.toString() +
+                       value.otpNum6.toString();
+      const otpData = {
+        contactNumber: phoneNumber,
+        countryCode: this.country.callingCodes[0],
+        otp: otpValue
       }
-      this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: send });
-      this.store.select('loginTags').take(2).subscribe(data => {
-        if (data['user_otp_success'] === true ) {
-          this.otpLogin()
-          this.modalService.close('otpWindow');
-          this.modalService.open('thankyouModal');
-        }
-      })
-      // this.otpValidate(number, value.otpNumber);
-    }
-  }
-
-
-  otpLogin() {
-    let number = null;
-    if (this.newNumberForm.value.newNumber !== undefined && this.newNumberForm.value.newNumber.length > 5) {
-      number = this.newNumberForm.value.newNumber;
-    } else {
-      number = this.regFormBasic.value.phone;
+      this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: otpData });
     }
   }
 
@@ -282,75 +318,53 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  // reg next step
-  gotoRegProfile() {
-    if (this.routeQuery) {
-      this.router.navigate(['/reg/profile'], { queryParams: this.routeQuery });
-      return
-    }else {
-      this.router.navigate(['/reg/profile']);
-      return
-    }
-  }
-
   reverseDate(string) {
     return string.split('-').reverse().join('-');
   }
 
+  /**
+   * Resend OTP on existing number
+   */
   resendOtp() {
     this.resendingOtp = true;
-    const number = this.regFormBasic.value.phone;
-    this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT, payload: number });
-    this.store.select('loginTags').subscribe(data => {
-      setTimeout(() => {
-        this.resendingOtp = false;
-      }, 1500);
-    })
+    const resendOtpData = {
+      contactNumber: this.getContactDetails('number'),
+      countryCode: this.getContactDetails('country')
+    }
+    this.store.dispatch({ type: AuthActions.OTP_RESEND_SUBMIT, payload: resendOtpData });
+    setTimeout(() => {
+      this.resendingOtp = false;
+    }, 1500);
   }
 
-  resendOtpOnNewNumber() {
-    if (this.newNumberForm.valid === true ) {
-      const reqBody = {
+  /**
+   * Updating number
+   */
+  updateContactNumber() {
+    if (this.newNumberForm.valid === true) {
+      this.updatingNewNumber = true;
+      const contactDetails = {
         contact: {
-          contactNumber: this.newNumberForm.value.newNumber
+          contactNumber: this.newNumberForm.controls['newNumber'].value,
+          countryCode: this.country.callingCodes[0]
         }
       }
-      this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: reqBody });
-      this.store.select('loginTags').take(2).subscribe(data => {
-        if (data['user_number_cng_success'] === true ) {
-          this.regFormBasic.controls['phone'].setValue(this.newNumberForm.value.newNumber)
-          this.modalService.close('otpChangeNumber');
-          this.modalService.open('otpWindow');
-        }
-      })
-    }
-  }
-
-  onSaveUsernameChanged(value: boolean) {
-    this.saveUsername = value;
-    this.routeQuery['dwc2017'] = value;
-  }
-
-  /**
-   * Submit new number for OTP
-   */
-  submitNewNumber(value) {
-    const form = {
-
+      this.store.dispatch({ type: AuthActions.OTP_NUMBER_CHANGE, payload: contactDetails });
     }
   }
 
   /**
-   * Submit Form
-   * @param value
+   * submit reg form
+   * @param value: form data
    */
   submitForm(value) {
     // checking if all required fields with valid info available before submitting the form
     if (!this.regFormBasic.valid) {
+      // console.log('invalid', this.regFormBasic);
       return false;
     }
 
-    // form object
+    // prepare form object for the API
     const form =  {
       name: {
         firstName: value.name.trim()
@@ -375,40 +389,46 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy {
         dateOfBirth: this.reverseDate(value.dob) + 'T05:00:00',
       }
     };
+    this.uploadingFormData = true;
     // console.log('form body', form); return;
 
     // register new user
     this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
-
-    this.store.select('loginTags').take(2).subscribe(data => {
-        if (data['user_basic_reg_success'] === true ) {
-          if (data && data['user_token']) {
-             const token = {access_token: data['user_token']};
-              localStorage.setItem('currentUser', JSON.stringify(token));
-          }
-          this.modalService.open('otpWindow');
-        }
-    });
-  }
-
-  otpNotRecieved() {
-    this.modalService.close('otpWindow');
-    this.modalService.open('otpChangeNumber');
   }
 
   /**
-   * Save country
+   * Switch to change number modal
    */
-  saveCountry(country: any) {
-    this.country = country;
+  otpNotRecieved() {
+    this.modalService.close('otpWindow');
+    this.modalService.open('otpChangeNumber');
+    this.countrySelectorOtp.initCountrySelector('country-options-otp');
   }
 
-  triggerHideProfiles() {
-    setTimeout(() => {
-      this.hideProfiles = true;
-    }, 500);
+  /**
+   * Switch back to OTP modal
+   */
+  backToOtp() {
+    this.modalService.close('otpChangeNumber');
+    this.modalService.open('otpWindow');
   }
-  ngOnDestroy() {
-    document.body.style.overflow = null;
+
+  /**
+   * update country
+   */
+  saveCountry(country: any, frmType: string) {
+    this.country = country;
+    this.store.dispatch({ type: AuthActions.STORE_COUNTRY_CODE, payload: this.country.callingCodes[0] });
+    // trigger phone number check
+    if (frmType === 'reg') {
+      this.regFormBasic.controls['phone'].updateValueAndValidity();
+    } else if (frmType === 'otp') {
+      this.newNumberForm.controls['newNumber'].updateValueAndValidity();
+    }
   }
+
+  /**
+   * disable observales and listeners here
+   */
+  ngOnDestroy() { }
 }

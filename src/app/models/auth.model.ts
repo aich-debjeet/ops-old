@@ -15,6 +15,8 @@ export class Login {
  otp_forget_user_success?: boolean;
  login_status_response?: any;
  login_status?: boolean;
+ login_uploading_data?: boolean;
+ user_otp_failed?: boolean;
 }
 
 export class Register {

@@ -145,6 +145,8 @@ export class AuthActions {
   static SEND_CONTACTUS_SUCCESS = 'SEND_CONTACTUS_SUCCESS';
   static SEND_CONTACTUS_FAILED = 'SEND_CONTACTUS_FAILED';
 
+  static STORE_COUNTRY_CODE = 'STORE_COUNTRY_CODE';
+
 
    // ===================================
   //  Get all skill step3
