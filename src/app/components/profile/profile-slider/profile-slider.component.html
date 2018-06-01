@@ -32,9 +32,9 @@
                     <h2 class="c-profile__username" *ngIf="!this.isOwner">{{ profileObject?.name }}
                         <a [routerLink]="['/reg/information']" [queryParams]="{ action: 'claim_profile', username: profileObject?.extra?.username }" *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-primary btn-md m-l-8">Claim</a>
                     </h2>
-                    <span class="c-profile__userhandle">{{ '@' + profileObject?.userHandle }}</span>
-                    <span class="c-profile__userprofession">{{ profileObject?.extra?.profession }}</span>
-                    <div class="o-profile__others-follow-btn">
+                    <span *ngIf="profileObject?.userHandle" class="c-profile__userhandle">{{ '@' + profileObject?.userHandle }}</span>
+                    <span *ngIf="profileObject?.extra?.profession" class="c-profile__userprofession">{{ profileObject?.extra?.profession }}</span>
+                    <div *ngIf="profileObject?.name" class="o-profile__others-follow-btn">
                         <button type="button" *ngIf="!profileObject?.extra?.isImported && !this.isOwner" (click)="userFollow(profileObject?.extra?.isFollowing, profileObject?.userDetails?.handle )" [ngClass]="(profileObject?.extra?.isFollowing) ? 'btn-following' : 'btn-primary'"
                             class="btn btn-primary btn-md">{{ (profileObject?.extra?.isFollowing)? 'Unfollow' : 'Follow'}}</button>
                         <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" (click)="networkModal.open()">Network</a>
@@ -236,10 +236,13 @@
                                 <p class="error_alert" *ngIf="profileForm.controls['name'].errors?.required && myform.submitted">Name is required</p>
                             </div>
                             <div class="form_group">
-                                <textarea class="form_input form_textarea" name="" formControlName="bio"></textarea>
-                                <span class="form_highlight"></span>
+                                <textarea class="form_input form_textarea" maxlength="220" [(ngModel)]="bioMessage" name="" formControlName="bio"></textarea>
+                                <span class="form_highlight">{{ (220) - (bioMessage?.length) }}</span>
                                 <span class="form_bar"></span>
                                 <label class="o-ng_bio-space">Bio</label>
+                                <!-- <span class="o-status-action__count">
+                                    {{ (220) - (bioMessage?.length) }}
+                                  </span> -->
                                 <p class="error_alert" *ngIf="profileForm.controls['bio'].errors?.required && myform.submitted">Bio is required</p>
                             </div>
                             <div class="form_group">

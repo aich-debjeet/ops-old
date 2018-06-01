@@ -41,7 +41,7 @@ export class PusherService {
 
   // create other user channel for sending typing notification
   createUserChannel(user: any) {
-    if (this.userChannels && this.userChannels[user.handle]) {
+    if (this.userChannels && user.handle && this.userChannels[user.handle]) {
       // console.log('channel found');
     } else {
       // console.log('channel NOT found');

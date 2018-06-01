@@ -18,11 +18,6 @@ export class Post {
     this.content = obj['content'];
     this.img = obj['img'] || 'test';
   }
-
-  // New static method
-  static fromJSONArray(array: Array<Object>): Post[] {
-    return array.map(obj => new Post(obj));
-  }
 }
 
 @Injectable()
@@ -43,6 +38,16 @@ export class AuthService {
       this.headers = this.api.getHeaders();
     }
 
+    /**
+     * Set temp access token for not logged in user
+     */
+    getTempAuthHeaders() {
+      const tempAccessToken = JSON.parse(localStorage.getItem('tempAccessToken'));
+      const headers = new Headers({ 'Content-Type': 'application/json'});
+      headers.append('Authorization', 'Bearer ' + tempAccessToken.access_token);
+      return headers;
+    }
+
     login(req: any) {
       return this.http.post(`${this.apiLink}/portal/auth/oauth2/token`, req)
         .map((response: Response) => {
@@ -61,13 +66,10 @@ export class AuthService {
       this.updateAuthHeaders();
       return this.http.get(`${this.apiLink}/portal/auth/loggedUser`, { headers: this.headers })
       .map((response: Response) => {
-        
-          const user = response.json();
-          console.log(user)
-          if (user.profileId) {
-          }
-          localStorage.setItem('currentUserID', user.profileId);
-          this.router.navigate(['/profile']);
+        const user = response.json();
+        if (user.profileId) {}
+        localStorage.setItem('currentUserID', user.profileId);
+        this.router.navigate(['/profile']);
       });
     }
 
@@ -79,7 +81,6 @@ export class AuthService {
      * Search user bu user id
      */
     searchUserWithUsername(username: string) {
-      console.log('api call username', username);
       return this.api.get('/portal/auth/user/username/' + username);
     }
 
@@ -119,24 +120,20 @@ export class AuthService {
      * Check if User Exists
      * @param reqData
      */
-
     fpUserExists(reqData: any) {
       return this.api.post('/portal/auth/forgotPassword/post', reqData);
     }
 
     userExists(username: string) {
-      const path = '/portal/auth/' + username + '/username';
-      return this.api.get(path, '');
+      return this.api.get('/portal/auth/' + username + '/username');
     }
 
     emailUser(email: string) {
-      const path = '/portal/auth/' + email + '/email';
-      return this.api.get(path, '');
+      return this.api.get('/portal/auth/' + email + '/email');
     }
 
-    mobilelUser(number: string) {
-      const path = '/portal/auth/' + number + '/contact';
-      return this.api.get(path, '');
+    mobileNumberCheck(contactNumber: object) {
+      return this.api.post('/portal/auth/validate/contact', contactNumber);
     }
     /**
      * Add a new Skill
@@ -188,11 +185,11 @@ export class AuthService {
     }
 
     getAllIndustries() {
-      return this.api.get('/portal/industry', '');
+      return this.api.post('/portal/industry', { limit: 200 });
     }
 
     searchAllSkill(query: string) {
-      return this.api.get('/portal/tree/' + query + '/0/100');
+      return this.api.post('/portal/skills/search', { searchString: query, limit: 200 });
     }
 
     logout(value) {
@@ -205,26 +202,33 @@ export class AuthService {
     }
 
     fpResetTypePhone(req: any) {
-        this.updateAuthHeaders();
-        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
+      this.updateAuthHeaders();
+      return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
         .map((data: Response) => data.json());
     }
 
     fpResetTypeEmail(req: any) {
-        this.updateAuthHeaders();
-        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
+      this.updateAuthHeaders();
+      return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
         .map((data: Response) => data.json());
     }
 
     fpSubmitOtp(req: any) {
-        this.updateAuthHeaders();
-        return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
+      this.updateAuthHeaders();
+      return this.http.post(`${this.apiLink}/portal/auth/forgotPassword/post`, req, { headers: this.headers })
         .map((data: Response) => data.json());
     }
 
-    regSubmitOtp(req: any) {
-        return this.http.get(this.apiLink + '/portal/activate/profile/' + req.number + '/' + req.otp)
-        .map((data: Response) => data.json());
+    regSubmitOtp(reqBody: any) {
+      return this.http.post(this.apiLink + '/portal/activate/profile', reqBody)
+        .map((response: Response) => {
+          const data = response.json();
+          if (data && data['access_Token']) {
+            const currentUser = { access_token: data['access_Token'] }
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.removeItem('tempAccessToken');
+          }
+        });
     }
 
     otpLogin(value: any) {
@@ -237,19 +241,13 @@ export class AuthService {
         });
     }
 
-    otpResend(number: any) {
-      const headers = new Headers({ 'Content-Type': 'application/json'});
-        return this.http.get(this.apiLink + '/portal/auth/resendotp/' + number)
-        .map((data: Response) => data.json());
+    otpResend(reqBody: any) {
+      return this.http.post(this.apiLink + '/portal/auth/resendotp', reqBody);
     }
 
-    otpChangeNumber(value: any) {
-      // const token = localStorage.getItem('access_token');
-      // const head = new Headers({ 'Content-Type': 'application/json'});
-      // head.append('Authorization', 'Bearer ' + token);
-      this.updateAuthHeaders();
-      return this.http.put(this.apiLink + '/portal/auth/user/update', value, { headers: this.headers }) // removed headers: head
-        .map((data: Response) => data.json());
+    otpChangeNumber(contactDetails: any) {
+      const head = this.getTempAuthHeaders();
+      return this.http.put(this.apiLink + '/portal/auth/user/update', contactDetails, { headers: head });
     }
 
     fpCreatePass(req: any) {
@@ -287,5 +285,10 @@ export class AuthService {
     danceIndustry() {
       this.updateAuthHeaders();
       return this.http.get(`${this.apiLink}/portal/industry?industryType=dwc`, { headers: this.headers });
+    }
+
+    // contact us email send
+    sendContact(reqData: any) {
+      return this.api.post('/portal/contactus', reqData);
     }
 }

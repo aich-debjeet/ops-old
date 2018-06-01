@@ -148,6 +148,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   notificationPopup() {
+    this.loadNotifications();
     if (this.notify) {
       this.notify = false;
     }
@@ -187,7 +188,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit() {
-    this.loadNotification();
+    // this.loadNotifications();
     this.pusherService.notificationsChannel.bind('Media_Spot', (message) => {
       // console.log(message)
       this.notify = true;
@@ -276,7 +277,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     return ;
   }
 
-  loadNotification() {
+  loadNotifications() {
     const data = {
       limit: 10,
       page: 0
@@ -382,11 +383,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
    */
   markAllAsRead() {
     this.notificationStore.dispatch({ type: NotificationActions.MARK_AS_ALL_READ });
-
     this.store.select('notificationTags')
     .first(notification => notification['mark_as_all_read_success'] === true )
     .subscribe( data => {
-      this.loadNotification();
+      this.loadNotifications();
     });
   }
 

@@ -1,26 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Http, Headers, Response } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 
-import { RegValue, ArtistFollow, RightBlockTag, initialTag, Login, artistFollowTag, Follow } from '../../../models/auth.model';
-import { SearchFilterPipe } from '../../../pipes/search.pipe'
+import { Login } from '../../../models/auth.model';
 import { environment } from './../../../../environments/environment';
 import { AuthActions } from '../../../actions/auth.action'
 
 import { find as _find } from 'lodash';
-
-export class Channel {
-  follow: boolean;
-  owner_name: string;
-  handle_name: string;
-  conver_image: string;
-  owner_image: string;
-  followers: string;
-}
 
 @Component({
   selector: 'app-registration-add-skill',
@@ -28,127 +16,111 @@ export class Channel {
   styleUrls: ['./registration-add-skill.component.scss']
 })
 
-export class RegistrationAddSkillComponent implements OnInit {
-  private apiLink: string = environment.API_ENDPOINT;
-  image_base_url: string = environment.API_IMAGE;
-
-  channelList: any;
-  is_skill_open: false;
-  tagState$: Observable<Follow>;
-  private tagStateSubscription: Subscription;
-  private headers: Headers;
-  rForm: FormGroup;
-  rightCom: RightBlockTag;
-  // @TODO cleanup unwanted vars - @muneef
-  skillSelectionPage: any;
+export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
+  image_base_url = environment.API_IMAGE;
+  skillSelectionState$: Observable<Login>;
+  searchSkillForm: FormGroup;
+  skillSelectionState: any;
   selectedSkills = [];
-  search: String;
-  activateSubmitBtn = false;
-  redrectUrl: any;
-  interest: any;
-  routeQuery: any;
+  skills = [];
+  searchQuery: String;
+  isSearching = false;
+  showPreloader = true;
+  skillsSelected = false;
+  uploadingSkills = false;
+  search;
 
-  constructor(fb: FormBuilder, private http: Http, private router: Router, private store: Store<Login>, private route: ActivatedRoute) {
-    // if redriect url there
-    if (this.route.snapshot.queryParams['next']) {
-      this.redrectUrl = this.route.snapshot.queryParams['next'];
-    }
-
-    // if redriect url there
-    if (this.route.snapshot.queryParams['dwc2017']) {
-      this.interest = this.route.snapshot.queryParams['dwc2017'];
-    }
-
-    this.tagState$ = store.select('loginTags');
-    this.tagState$.subscribe((state) => {
-      this.skillSelectionPage = state;
+  constructor(
+    fb: FormBuilder,
+    private router: Router,
+    private store: Store<Login>
+  ) {
+    this.skillSelectionState$ = store.select('loginTags');
+    this.skillSelectionState$.subscribe((state) => {
+      this.skillSelectionState = state;
+      if (state) {
+        if (state['industries']) {
+          this.skills = state['industries'];
+        }
+        if (typeof state['skills_loading'] !== 'undefined'
+          && state['skills_loading'] === false
+          && state['skills_loaded'] === true
+        ) {
+          this.isSearching = false;
+          this.showPreloader = false;
+        }
+        if (typeof state['uploadingUserSkills'] !== 'undefined'
+          && state['uploadingUserSkills'] === false
+          && state['uploadedUserSkills'] === true
+        ) {
+          this.uploadingSkills = false;
+          this.router.navigate(['/profile/user']);
+        }
+      }
     });
 
-    this.rForm = fb.group({
-      'profession' : [null, Validators.required],
-      'searchskills': [null, Validators.required],
+    this.searchSkillForm = fb.group({
+      profession: [null, Validators.required],
+      searchskills: [null, Validators.required],
     });
-
-    this.http = http;
-    this.headers = new Headers();
-    this.headers.append('Content-Type', 'application/json');
-    this.search = '';
+    this.searchQuery = '';
   }
 
   ngOnInit() {
-    // Load industries
+    // load initial industries
     this.industriesList();
   }
 
+  ngOnDestroy() {}
+
   /**
-   * Save skills if all selected
+   * submit all selected skills
    */
   saveSkills() {
+    this.uploadingSkills = true;
     this.store.dispatch({ type: AuthActions.USER_SUBMIT_SKILLS, payload: this.selectedSkills });
-
-    // After Skill Submit Check status and redrect to next page
-    this.store.select('loginTags')
-      .first(auth => auth['userSkillsSaveSuccess'] )
-      .subscribe( data => {
-        if (this.interest === 'true') {
-          this.router.navigateByUrl('/dwc/reg');
-          return
-        }
-
-        if (this.redrectUrl !== undefined) {
-          this.router.navigate([this.redrectUrl]);
-          return
-        }else {
-          this.router.navigateByUrl('/profile/user');
-          return
-        }
-
-      });
   }
 
   /**
-   * Skill Search input handler
+   * search skills
    * @param query
    */
   onSearchChange(query) {
     if (query || query !== '') {
+      this.isSearching = true;
       this.store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
+    } else {
+      this.industriesList();
     }
   }
 
   /**
-   * Load List of Skills (High Level)
+   * load list of skills (High Level)
    */
   industriesList() {
-    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES});
+    this.isSearching = true;
+    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   /**
-   * selecting category to load respective result
-   */
-  selectCategory(category) {
-    this.search = category.toLowerCase();
-  }
-
-  /**
-   * Find Skill from API Skill List
+   * find a specific skill within the loaded list
    * @param skillCode
    */
   findSkill(skillCode) {
-    return _find(this.skillSelectionPage.skills, function(s: any) {
+    return _find(this.skillSelectionState.industries, function(s: any) {
       return s.code === skillCode;
     });
   }
 
   /**
-   * Add New Skill
+   * add new skill if doesn't exist
    * @param name
    */
-  addNewSkill(name) {
+  addNewSkill(name: string) {
     if (name !== '') {
-      this.skillSelectionPage.skills.push({
-        'name': name,
-        'code': name.toUpperCase()
+      this.skillSelectionState.industries.push({
+        name: name,
+        code: name.toUpperCase()
       });
       this.toggleSelectSkill(name.toUpperCase());
       this.store.dispatch({ type: AuthActions.SAVE_SKILL, payload: name });
@@ -156,25 +128,27 @@ export class RegistrationAddSkillComponent implements OnInit {
   }
 
   /**
-   * Handle Skill selection
+   * toggle select/deselect skill
    * @param skillCode
    */
   toggleSelectSkill(skillCode: string) {
-    // Check if skill is already selected
+    // check if skill is already selected
     const selectedSkill = _find(this.selectedSkills, function(s) {
       return s.code === skillCode;
     });
 
-    // If skill exist then remove it from selection array
+    // if skill exist then remove it from selection array
     if (selectedSkill !== undefined) {
-      // Searching for the skill in skills array
+      // searching for the skill in skills array
       const skillMeta = this.findSkill(skillCode);
-      // Removing skill from selected skills array
+
+      // removing skill from selected skills array
       this.selectedSkills = this.selectedSkills.filter(function(skill) {
         return skill.code !== skillCode;
       });
-      // Mark it not selected in UI
-      this.skillSelectionPage.skills = this.skillSelectionPage.skills.filter(function(skill) {
+
+      // mark it not selected in UI
+      this.skillSelectionState.industries = this.skillSelectionState.industries.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = false;
         }
@@ -182,29 +156,30 @@ export class RegistrationAddSkillComponent implements OnInit {
       });
 
     } else {
-      // Mark it selected in UI
-      this.skillSelectionPage.skills = this.skillSelectionPage.skills.filter(function(skill) {
+
+      // mark it selected in UI
+      this.skillSelectionState.industries = this.skillSelectionState.industries.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = true;
         }
         return skill;
       });
 
-      // Searching for the skill in skills array
+      // searching for the skill in skills array
       const skillMeta = this.findSkill(skillCode);
 
-      // Adding skill to the selection array
+      // adding skill to the selection array
       this.selectedSkills.push({
-        'name': skillMeta.name,
-        'code': skillMeta.code,
-        'active': true
+        name: skillMeta.name,
+        code: skillMeta.code,
+        active: true
       });
     }
 
     if (this.selectedSkills.length > 0) {
-      this.activateSubmitBtn = true;
+      this.skillsSelected = true;
     } else {
-      this.activateSubmitBtn = false;
+      this.skillsSelected = false;
     }
   }
 }

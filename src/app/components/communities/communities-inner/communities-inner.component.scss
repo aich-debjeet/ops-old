@@ -7,6 +7,13 @@
 @import './src/assets/scss/components/_common-style.scss';
 @import './src/assets/scss/components/_cards.scss';
 
+.c-mediamodal__opt {
+    float: right;
+    position: relative;
+    img {
+        width: 13px;
+  }
+}
 .c-options--img {
     width: 10px;
     cursor: pointer;

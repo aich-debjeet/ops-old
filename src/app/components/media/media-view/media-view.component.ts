@@ -9,6 +9,7 @@ import FilesHelper from '../../../helpers/fileUtils';
 
 // Action
 import { MediaActions } from '../../../actions/media.action';
+import { ProfileActions } from '../../../actions/profile.action';
 import { initialMedia, Media } from '../../../models/media.model';
 
 // rx
@@ -73,18 +74,17 @@ export class MediaViewComponent {
       this.mediaType = this.mediaStore.media_detail.mtype;
       this.mediaId = this.mediaStore.media_detail.id;
       this.spot = this.mediaStore.media_detail.isSpotted;
+      this.comments = this.mediaStore.media_comment;
       if (state['media_edit_msg'] && this.editMsg) {
        this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
        this.toastr.success('Post Edited');
        this.doClose(event);
        this.editMsg = false;
      }
-      // console.log('Data ', this.data)
     });
 
     store.select('mediaStore').take(6).subscribe((state) => {
       this.commentCount = this.mediaStore.media_detail.commentsCount;
-      this.comments = this.mediaStore.media_comment;
       if (state['media_delete_msg'] && this.deleteMsg) {
         this.store.dispatch({ type: MediaActions.GET_CHANNEL_DETAILS, payload: this.channelId });
         this.toastr.warning('Post Deleted');
@@ -126,7 +126,9 @@ export class MediaViewComponent {
     });
   }
 
-
+  navToprofile() {
+    this.router.navigate(['/profile'], { skipLocationChange: false });
+  }
   /**
    * Spot a Media
    * @param mediaId
@@ -166,8 +168,10 @@ export class MediaViewComponent {
   sbComment(param) {
     if (param === 'Del') {
       this.commentCount--
+      this.store.dispatch({ type: ProfileActions.COMMENT_COUNT_DECREMENT, payload: this.mediaId });
     }else {
       this.commentCount++
+      this.store.dispatch({ type: ProfileActions.COMMENT_COUNT_INCREMENT, payload: this.mediaId });
     }
   }
   deletePost(data) {

@@ -34,15 +34,21 @@
     <div class="contianer">
         <div class="o-dwc-contact-block">
             <h2 class="m-b-24">Contact us</h2>
-            <form action="">
+            <form [formGroup]="contactUs" novalidate (ngSubmit)="submitForm(contactUs.value)" #cufrom="ngForm">
                 <div class="c-form__group c-form--lg m-t-8">
-                    <input class="c-form__input" required="" type="text">
+                    <input class="c-form__input" required="" formControlName="email" type="text">
                     <span class="c-form__highlight"></span>
                     <span class="c-form__bar"></span>
                     <label>Email</label>
                 </div>
-                <textarea id="" rows="6" class="o-dwc-contact__textarea" value="" placeholder="Message"></textarea>
-                <button type="button" class="btn btn-primary btn-lg float_right m-t-24">Send</button>
+                <div class="c-form__group c-form--lg m-t-8">
+                    <input class="c-form__input" required="" formControlName="subject" type="text">
+                    <span class="c-form__highlight"></span>
+                    <span class="c-form__bar"></span>
+                    <label>Subject</label>
+                </div>
+                <textarea id="" rows="6" class="o-dwc-contact__textarea" value="" formControlName="message" placeholder="Message"></textarea>
+                <button type="submit" class="btn btn-primary btn-lg float_right m-t-24" [disabled]="sendingLoading">Send</button>
             </form>
         </div>
     </div>

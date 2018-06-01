@@ -75,5 +75,9 @@ export class CommunitiesService {
     return this.api.delete(`/portal/community/delete/${id}`, '');
   }
 
+  updateCommunity(data: any) {
+    return this.api.put(`/portal/community/update/community/${data.id}`, data.body);
+  }
+
 
 }

@@ -60,64 +60,68 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.LOAD_INDUSTRIES:
       return Object.assign({}, state, {
-        success: false
+        skills_loading: true,
+        skills_loaded: false
+      });
+
+    case AuthActions.LOAD_INDUSTRIES_SUCCESS:
+      return Object.assign({}, state, {
+        industries: payload['industryResponse'],
+        skills_loading: false,
+        skills_loaded: true
       });
 
     case AuthActions.SEARCH_SKILL:
       return Object.assign({}, state, {
-        skills: [],
+        skills_loading: true,
         skills_loaded: false
       });
 
     case AuthActions.SEARCH_SKILL_SUCCESS:
       return Object.assign({}, state, {
-        skills: payload,
+        industries: payload['profileTypeResponse'],
+        skills_loading: false,
         skills_loaded: true
-      });
-
-    case AuthActions.LOAD_INDUSTRIES_SUCCESS:
-      return Object.assign({}, state, {
-        completed: payload,
-        industries: payload,
-        success: true
       });
 
     case AuthActions.USER_LOGIN:
       return Object.assign({}, state, {
-        success: false,
-        login_completed: false,
-        page_loading: true,
+        login_uploading_data: true,
         login_success: false,
+        login_params: payload,
         error_description: null
       });
 
     case AuthActions.USER_LOGIN_SUCCESS:
       return Object.assign({}, state, {
-        completed: payload,
-        login_completed: true,
-        success: true,
+        login_response: payload,
         login_success: true,
-        page_loading: false,
+        login_uploading_data: false,
       });
 
     case AuthActions.USER_LOGIN_FAILED:
-      const error = JSON.parse(payload._body);
+      const data = JSON.parse(payload._body);
       return Object.assign({}, state, {
-        success: false,
-        login_completed: false,
-        error_description: error.error_description,
-        page_loading: false
+        login_success: false,
+        error_description: JSON.parse(data.error_description),
+        login_uploading_data: false,
+        login_response: data
       });
 
 
     case AuthActions.USER_REGISTRATION_BASIC:
       return Object.assign({}, state, {
+        reg_basic_uploading_form_data: true,
+        reg_basic_uploaded_form_data: false,
+        reg_basic_form_data: payload,
         success: true,
-        user_basic_reg_success: false,
+        user_basic_reg_success: false
       });
 
     case AuthActions.USER_REGISTRATION_BASIC_SUCCESS:
       return Object.assign({}, state, {
+        reg_basic_uploading_form_data: false,
+        reg_basic_uploaded_form_data: true,
         completed: payload,
         user_basic_reg_success: true,
         success: true,
@@ -126,6 +130,8 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_REGISTRATION_BASIC_FAILED:
       return Object.assign({}, state, {
+        reg_basic_uploading_form_data: false,
+        reg_basic_uploaded_form_data: false,
         user_basic_reg_success: false,
         success: false,
         completed: payload
@@ -235,30 +241,43 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.FP_USER_EXISTS:
       return Object.assign({}, state, {
         fp_user_exists: false,
-        fp_user_input: payload.value
+        fp_user_input: payload.value,
+        fp_user_response: '',
+        fp_checking: true
       });
 
     case AuthActions.FP_USER_EXISTS_SUCCESS:
       // assign success values
       let result = [];
-      if (payload['SUCCESS']) {
-        result = payload['SUCCESS'];
-      }
-
+      if (payload['SUCCESS']) { result = payload['SUCCESS']; }
       return Object.assign({}, state, {
         fp_user_exists: false,
-        fp_user_options: result
+        fp_user_options: result,
+        fp_checking: false
       });
 
     case AuthActions.FP_USER_EXISTS_FAILED:
-      return Object.assign({}, state, {
-        fp_user_exists: true
-      });
+      const fpErrData = JSON.parse(payload._body);
+      if (fpErrData['Code'] !== undefined) {
+        // console.log('user not found'); return state;
+        return Object.assign({}, state, {
+          fp_user_exists: true,
+          fp_checking: false
+        });
+      } else {
+        // console.log('multiple users found'); return state;
+        return Object.assign({}, state, {
+          fp_user_exists: false,
+          fp_user_response: JSON.parse(fpErrData.ERROR),
+          fp_checking: false
+        });
+      }
 
     /* reset pass with phone */
     case AuthActions.FP_RESET_TYPE_PHONE:
       return Object.assign({}, state, {
-        fp_user_input: payload.value
+        fp_user_input: payload.value,
+        fb_uploading_data: true
       });
 
     case AuthActions.FP_RESET_TYPE_PHONE_SUCCESS:
@@ -266,19 +285,22 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       let resPhone = [];
       if (payload['SUCCESS']) { resPhone = payload['SUCCESS']; }
       return Object.assign({}, state, {
-        reset_phone_response: payload.value
+        reset_phone_response: payload.value,
+        fb_uploading_data: false
       });
 
     case AuthActions.FP_RESET_TYPE_PHONE_FAILED:
       return Object.assign({}, state, {
-        status: 'failed'
+        status: 'failed',
+        fb_uploading_data: false
       });
     /* reset pass with phone */
 
     /* reset pass with email */
     case AuthActions.FP_RESET_TYPE_EMAIL:
     return Object.assign({}, state, {
-      fp_user_input: payload.value
+      fp_user_input: payload.value,
+      fb_uploading_data: true
     });
 
     case AuthActions.FP_RESET_TYPE_EMAIL_SUCCESS:
@@ -286,12 +308,14 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       let resEmail = [];
       if (payload['SUCCESS']) { resEmail = payload['SUCCESS']; }
       return Object.assign({}, state, {
-        reset_email_response: payload.value
+        reset_email_response: payload.value,
+        fb_uploading_data: false
       });
 
     case AuthActions.FP_RESET_TYPE_EMAIL_FAILED:
       return Object.assign({}, state, {
-        status: 'failed'
+        status: 'failed',
+        fb_uploading_data: false
       });
     /* reset pass with email */
 
@@ -315,18 +339,21 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
 
     case AuthActions.USER_SUBMIT_SKILLS:
       return Object.assign({}, state, {
-        userSkillsSaveSuccess: false
+        uploadingUserSkills: true,
+        uploadedUserSkills: false
       });
 
     case AuthActions.USER_SUBMIT_SKILLS_SUCCESS:
       return Object.assign({}, state, {
         userSkillsSaved: payload,
-        userSkillsSaveSuccess: true
+        uploadingUserSkills: false,
+        uploadedUserSkills: true
       });
 
     case AuthActions.USER_SUBMIT_SKILLS_FAILED:
       return Object.assign({}, state, {
-        userSkillsSaveSuccess: false
+        uploadingUserSkills: false,
+        uploadedUserSkills: true
       });
 
     case AuthActions.FP_GET_USERDATA:
@@ -386,11 +413,14 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
      */
     case AuthActions.OTP_SUBMIT:
       return Object.assign({}, state, {
-        user_otp_success: false
+        user_otp_success: false,
+        user_otp_failed: false,
+        otp_submit_params: payload
       });
     case AuthActions.OTP_SUBMIT_SUCCESS:
       return Object.assign({}, state, {
-        user_otp_success: true
+        user_otp_success: true,
+        otp_submit_response: payload
       });
     case AuthActions.OTP_SUBMIT_FAILED:
       return Object.assign({}, state, {
@@ -402,14 +432,35 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
      */
     case AuthActions.OTP_NUMBER_CHANGE:
       return Object.assign({}, state, {
-        user_number_cng_success: false
+        number_update_sent: true,
+        number_update_success: false,
+        user_number_cng_success: false,
+        update_number_params: payload
       });
     case AuthActions.OTP_NUMBER_CHANGE_SUCCESS:
+      if (state['update_number_params']['contact']['contactNumber']) {
+        const reg_basic_form_data_updated = state['reg_basic_form_data'];
+        reg_basic_form_data_updated['contact'] = {
+          contactNumber: state['update_number_params']['contact']['contactNumber'],
+          countryCode: state['update_number_params']['contact']['countryCode']
+        }
+        return Object.assign({}, state, {
+          user_number_cng_success: true,
+          number_update_sent: false,
+          number_update_success: true,
+          reg_basic_form_data: reg_basic_form_data_updated
+        });
+      }
       return Object.assign({}, state, {
-        user_number_cng_success: true
+        user_number_cng_success: true,
+        number_update_sent: false,
+        number_update_success: true
       });
+
     case AuthActions.OTP_NUMBER_CHANGE_FAILED:
       return Object.assign({}, state, {
+        number_update_sent: false,
+        number_update_success: false,
         user_number_cng_failed: true
       });
 
@@ -429,11 +480,22 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         otp_forget_user_success: false
       });
 
+    case AuthActions.FP_SUBMIT_OTP:
+      return Object.assign({}, state, {
+        fb_uploading_data: true
+      });
+
+    case AuthActions.FP_SUBMIT_OTP_SUCCESS:
+      return Object.assign({}, state, {
+        fb_uploading_data: false
+      });
+
     // OTP Failed
     case AuthActions.FP_SUBMIT_OTP_FAILED:
       return Object.assign({}, state, {
-          fp_sumit_otp_failed: true
-        });
+        fp_sumit_otp_failed: true,
+        fb_uploading_data: false
+      });
 
     /**
      * checking if user is logged in and have the valid access token
@@ -483,6 +545,29 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.FP_STATE_RESET:
       return Object.assign({}, state, {
         fp_user_options: null
+      });
+
+    case AuthActions.SEND_CONTACTUS:
+      return Object.assign({}, state, {
+        contact_send_success: false,
+        contact_sending_loading: true
+      });
+
+    case AuthActions.SEND_CONTACTUS_SUCCESS:
+      return Object.assign({}, state, {
+        contact_send_success: true,
+        contact_sending_loading: false
+      });
+
+    case AuthActions.STORE_COUNTRY_CODE:
+      if (state['reg_basic_form_data'] && state['reg_basic_form_data']['contact'] && state['reg_basic_form_data']['contact']['countryCode']) {
+        state['reg_basic_form_data']['contact']['countryCode'] = payload;
+        return state;
+      }
+      return Object.assign({}, state, {
+        reg_basic_form_data: {
+          contact: { countryCode: payload }
+        }
       });
 
     case AuthActions.USER_LOGOUT:

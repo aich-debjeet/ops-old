@@ -71,16 +71,7 @@ export class ProfileService {
   /**
    * Current LoggedIn Channel profile.
    */
-  getLoggedInChannel(value: string, page: number = 1) {
-    const perPage = 30;
-    const offset = page === 1 ? 0 : page * perPage;
-    const body = {
-      'offset': offset,
-      'limit': perPage,
-      'superType': 'channel',
-      'owner': value
-    }
-
+  getLoggedInChannel(body: any) {
     return this.api.post('/portal/network/spotfeed/search', body);
   }
 
@@ -105,8 +96,8 @@ export class ProfileService {
   /**
    * Find channels of a user
    */
-  getUserChannel(handle: string) {
-    return this.getLoggedInChannel(handle);
+  getUserChannel(body: string) {
+    return this.api.post('/portal/network/spotfeed/search', body);
   }
 
 

@@ -81,3 +81,87 @@
     width: 100%;
     top: 15%;
 }
+
+/* --------------------- Registration step 1 otp -------------------------- */
+.m-r-0 {
+    margin-right: 0 !important;
+}
+.reg_step1_otp {
+    .modal-lg {
+        width: 850px;
+        @include mq($from: $mobile_sm, $until: $mobile_lg) {
+            width: 90%;
+        }
+        @include mq($from: $mobile_lg, $until: $desktop) {
+            width: 90%;
+        }
+    }
+    a {
+        font-size: 11px;
+    }
+    .modal-title {
+        padding: 5% 0;
+    }
+    .btn {
+        margin-top: 20px;
+    }
+    p {
+        margin-top: 8px;
+    }
+}
+
+.modal-dialog {
+    margin: 6% auto;
+    form {
+        width: 400px;
+        margin: 0 auto;
+        padding-bottom: 10%;
+        span {
+            color: $theme_red;
+            font-size: 14px;
+            float: right;
+            margin-top: -22px;
+        }
+    }
+    h5 {
+        color: #333333;
+        line-height: 24px;
+        font-size: 15px;
+        font-weight: normal;
+        margin-top: 40px;
+    }
+}
+
+.o-otp_form {
+    float: left;
+    margin-left: 22px;
+    input {
+        color: #333333;
+        line-height: 34px;
+        text-align: center;
+        font-size: 24px;
+        border: 1px solid #DEDEDE;
+        background-color: #F8F8F8;
+        border-radius: 3px;
+        outline: none;
+        width: 44px;
+        height: 38px;
+        padding: initial;
+    }
+}
+
+.p-l-40-px {
+    padding-left: 40px;
+}
+
+.p-l-50-px {
+    padding-left: 50px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}

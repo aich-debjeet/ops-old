@@ -1,6 +1,12 @@
 <app-navigation></app-navigation>
 <section class="o-community-inner-block">
-    <div class="container p-0">
+    <div *ngIf="communityLoading">
+        <div class="sticky">
+            <div class="loader">Loading...</div>
+            {{details.length }}
+        </div>
+    </div>
+    <div class="container p-0" *ngIf="!communityLoading">
         <div class="col-md-3">
             <div class="o-commu-left-block">
                 <div class="o-commu__prof-img">
@@ -13,7 +19,7 @@
                             </span>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                    <a (click)="communityCreateModal.open()">Edit</a>
+                                    <a (click)="communityEdit()">Edit</a>
                                 </li>
                                 <li>
                                     <a (click)="communityLeaveModal.open()">Leave</a>
@@ -33,11 +39,11 @@
                     <div class="col-md-6 p-0">
                         <p class="c-text_md o-commu__members ltr-space text_uppercase m-t-b-16">{{details?.postsCount}} <span class="color-grey-dark">Posts</span></p>
                     </div>
-                    <div class="col-md-6 p-l-0 p-r-8"   *ngIf="!details?.isOwner">
-                        <button type="button" (click)="userJoin(true)" class="btn btn-default btn-md btn-block">{{ (details?.isMember) ? 'Unjoin' : 'Join'}}</button>
+                    <div [ngClass]="{'col-md-12 p-0': !details?.isMember, 'col-md-6 p-r-0 p-l-8': details?.isMember}"  *ngIf="!details?.isOwner">
+                        <button type="button" (click)="userJoin(details?.isMember)" class="btn btn-default btn-md btn-block" [disabled]="isMemeberLoading">{{ (details?.isMember) ? 'Unjoin' : 'Join'}}</button>
                     </div>
                     <div  [ngClass]="{'col-md-12 p-0': details?.isOwner, 'col-md-6 p-r-0 p-l-8': !details?.isOwner}">
-                        <a [routerLink]="['/post/media']" [queryParams]="{post_to: 'community', ct_id: details?.communityId}" class="btn btn-primary btn-md btn-block">Add post</a>
+                        <a [routerLink]="['/post/media']" [queryParams]="{post_to: 'community', ct_id: details?.communityId, ct_name: details?.title}" class="btn btn-primary btn-md btn-block" *ngIf="details?.isMember">Add post</a>
                     </div>
                 </div>
             </div>
@@ -47,14 +53,14 @@
 
         <div class="col-md-6 o-community_empty" *ngIf="communityPost?.length === 0 && !postLoader">
             <div class="c-h4 color-grey">The Community is empty</div>
-            <a [routerLink]="['/post/media']" [queryParams]="{post_to: 'community', ct_id: details?.communityId}" class="btn btn-primary btn-md m-t-16">Add post</a>
+            <a *ngIf="details?.isMember" [routerLink]="['/post/media']" [queryParams]="{post_to: 'community', ct_id: details?.communityId, ct_name: details?.title}" class="btn btn-primary btn-md m-t-16">Add post</a>
         </div>
         <div class="col-md-6" >
             <div *ngIf="postLoader">
                 <app-post-card [loader]=true *ngFor="let number of [0,1]" ></app-post-card>
             </div>
             <div *ngFor="let media of communityPost;">
-                <app-post-card  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)"  [mediaData]="media"></app-post-card>
+                <app-post  (postDelete)="deletePost(media)" (onClick)="mediaOpenPopup(media.id)"  [mediaData]="media"></app-post>
             </div>
         </div>
         <!-- center-block end -->
@@ -109,7 +115,7 @@
 
 <app-modal-new #communityCreateModal modalClass="modal-communities__create">
     <modal-content>
-        <div class="c-text_lg text-center p-t-16">Create Community</div>
+        <div class="c-text_lg text-center p-t-16">Edit Community</div>
         <div class="p-32">
             <form [formGroup]="communityForm" novalidate (ngSubmit)="submitForm(communityForm.value)" #cmfrom="ngForm">
                 <div class="c-form__group">
@@ -137,7 +143,7 @@
                     </select>
                 </div>
                 <div class="row m-t-24">
-                    <button type="submit" class="btn btn-primary btn-md pull-right">create</button>
+                    <button type="submit" class="btn btn-primary btn-md pull-right" [disabled]="updateCommunityLoading">Save</button>
                     <button type="button" class="btn btn-default btn-md pull-right m-r-16" (click)="communityCreateModal.close()">cancel</button>
                 </div>
             </form>

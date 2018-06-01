@@ -89,7 +89,12 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
 
 
   loadChannel(handle: string) {
-    this._store.dispatch({ type: ProfileActions.LOAD_USER_CHANNEL, payload: handle });
+    const body = {
+      'limit': 30,
+      'superType': 'channel',
+      'owner': handle
+    }
+    this._store.dispatch({ type: ProfileActions.LOAD_USER_CHANNEL, payload: body});
   }
 
   /**

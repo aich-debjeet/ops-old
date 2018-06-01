@@ -342,6 +342,15 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.SEARCH_USER_BY_USERNAME_FAILED, payload: res }))
     );
 
+  @Effect()
+    sendContactus$ = this.actions$
+      .ofType(AuthActions.SEND_CONTACTUS)
+      .map(toPayload)
+      .switchMap((payload) => this.authService.sendContact(payload)
+        .map(res => ({ type: AuthActions.SEND_CONTACTUS_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: AuthActions.SEND_CONTACTUS_FAILED, payload: res }))
+      );
+
   /**
    * forget password state
    */

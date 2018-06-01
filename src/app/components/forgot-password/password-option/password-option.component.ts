@@ -27,7 +27,7 @@ export class PasswordOptionComponent implements OnDestroy {
 
   constructor(private fb: FormBuilder, private store: Store<Login>,  private router: Router) {
     this.resetForm = fb.group({
-      'typePassword': ['mail', Validators.required],
+      typePassword: ['mail', Validators.required],
     })
 
     this.tagState$ = store.select('loginTags');
@@ -49,9 +49,9 @@ export class PasswordOptionComponent implements OnDestroy {
   submitForm(value: any) {
 
     const form = {
-      'forgetPasswordtype': '',
-      'value': '',
-      'cType': 'phone'
+      forgetPasswordtype: '',
+      value: '',
+      cType: 'phone'
     }
 
     // check for the recovery type

@@ -103,6 +103,15 @@ export class CommunitiesEffect {
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_DELETE_FAILED, payload: res }))
     );
 
+  @Effect()
+  updateCommunity$ = this.actions$
+    .ofType(CommunitiesActions.COMMUNITY_UPDATE)
+    .map(toPayload)
+    .switchMap((payload) => this.communitiesService.updateCommunity(payload)
+      .map(res => ({ type: CommunitiesActions.COMMUNITY_UPDATE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_UPDATE_FAILED, payload: res }))
+    );
+
     constructor(
     private actions$: Actions,
     private communitiesService: CommunitiesService,
