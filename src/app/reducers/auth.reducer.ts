@@ -241,25 +241,37 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.FP_USER_EXISTS:
       return Object.assign({}, state, {
         fp_user_exists: false,
-        fp_user_input: payload.value
+        fp_user_input: payload.value,
+        fp_user_response: '',
+        fp_checking: true
       });
 
     case AuthActions.FP_USER_EXISTS_SUCCESS:
       // assign success values
       let result = [];
-      if (payload['SUCCESS']) {
-        result = payload['SUCCESS'];
-      }
-
+      if (payload['SUCCESS']) { result = payload['SUCCESS']; }
       return Object.assign({}, state, {
         fp_user_exists: false,
-        fp_user_options: result
+        fp_user_options: result,
+        fp_checking: false
       });
 
     case AuthActions.FP_USER_EXISTS_FAILED:
-      return Object.assign({}, state, {
-        fp_user_exists: true
-      });
+      const fpErrData = JSON.parse(payload._body);
+      if (fpErrData['Code'] !== undefined) {
+        // console.log('user not found'); return state;
+        return Object.assign({}, state, {
+          fp_user_exists: true,
+          fp_checking: false
+        });
+      } else {
+        // console.log('multiple users found'); return state;
+        return Object.assign({}, state, {
+          fp_user_exists: false,
+          fp_user_response: JSON.parse(fpErrData.ERROR),
+          fp_checking: false
+        });
+      }
 
     /* reset pass with phone */
     case AuthActions.FP_RESET_TYPE_PHONE:
