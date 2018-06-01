@@ -17,6 +17,9 @@ export class Login {
  login_status?: boolean;
  login_uploading_data?: boolean;
  user_otp_failed?: boolean;
+ fp_user_response?: any;
+ fp_checking?: boolean;
+ fb_uploading_data?: boolean;
 }
 
 export class Register {
