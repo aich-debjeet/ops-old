@@ -37,6 +37,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   postLoader: boolean;
   inviteBtnActive: boolean = true;
   public communityForm: FormGroup;
+  public communityAdminForm: FormGroup;
   selectedIndustry = '';
   isMemeberLoading: boolean = false;
   communityLoading: boolean = false;
@@ -90,6 +91,11 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         this.updateCommunityLoading = state['community_update_loading'];
       }
     });
+
+    // Member admin change form init
+    this.communityAdminForm = this.fb.group({
+      'handle': ['', [Validators.required]],
+    });
   }
 
   ngOnInit() {
@@ -127,6 +133,13 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       access: this.details.access,
       industry: this.details.industryList[0]
     });
+  }
+
+  /**
+   * submit member form
+   */
+  submitMemberAdmin(value) {
+    console.log('submitMemberAdmin', value);
   }
 
   /**

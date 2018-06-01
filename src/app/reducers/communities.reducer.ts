@@ -152,6 +152,17 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
         },
       });
 
+    case CommunitiesActions.COMMUNITY_MEMBER_LIST:
+      return Object.assign({}, state, {
+        community_member_list: []
+      });
+
+    case CommunitiesActions.COMMUNITY_MEMBER_LIST_SUCCESS:
+      return Object.assign({}, state, {
+        community_member_list: payload
+      });
+
+
     default:
       return state;
 

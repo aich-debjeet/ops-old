@@ -112,6 +112,25 @@ export class CommunitiesEffect {
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_UPDATE_FAILED, payload: res }))
     );
 
+  @Effect()
+  communityMemberList$ = this.actions$
+    .ofType(CommunitiesActions.COMMUNITY_MEMBER_LIST)
+    .map(toPayload)
+    .switchMap((payload) => this.communitiesService.updateCommunity(payload)
+      .map(res => ({ type: CommunitiesActions.COMMUNITY_MEMBER_LIST_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_MEMBER_LIST_FAILED, payload: res }))
+    );
+
+  @Effect()
+  communityAdminChange$ = this.actions$
+    .ofType(CommunitiesActions.COMMUNITY_ADMIN_CHANGE)
+    .map(toPayload)
+    .switchMap((payload) => this.communitiesService.updateCommunity(payload)
+      .map(res => ({ type: CommunitiesActions.COMMUNITY_ADMIN_CHANGE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_ADMIN_CHANGE_FAILED, payload: res }))
+    );
+
+
     constructor(
     private actions$: Actions,
     private communitiesService: CommunitiesService,
