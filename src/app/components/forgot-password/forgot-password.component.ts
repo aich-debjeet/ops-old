@@ -44,8 +44,8 @@ export class ForgotPasswordComponent implements OnInit {
     }
 
     const form = {
-      'forgetPasswordtype': 'userCheck',
-      'value': value.identity.trim()
+      forgetPasswordtype: 'userCheck',
+      value: value.identity.trim()
     }
 
     this.store.dispatch({ type: AuthActions.FP_USER_EXISTS, payload: form });

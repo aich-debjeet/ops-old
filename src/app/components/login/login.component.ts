@@ -69,8 +69,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             return;
           }
         }
-        if (state['error_description']
-        ) {
+        if (state['error_description']) {
           if (state['error_description']['contactNumber']) {
             this.contactNumber = state['error_description']['contactNumber'];
           }
