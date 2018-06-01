@@ -5,6 +5,19 @@ import { EventModal, initialTag  } from '../models/event.model';
 export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
   switch (type) {
+
+    case EventActions.BANNER_SEARCH:
+      return Object.assign({}, state, {
+        banner_success: false
+      });
+
+    case EventActions.BANNER_SEARCH_SUCCESS:
+    console.log(payload)
+      return Object.assign({}, state, {
+        bannerload: payload,
+        banner_success: true
+      });
+    
     case EventActions.EVENT_REG_SUCCESS:
       return Object.assign({}, state, {
         event_create_success: true,
@@ -17,6 +30,7 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
       });
 
     case EventActions.GET_ALL_INDUSTRY_SUCCESS:
+    console.log(payload)
       return Object.assign({}, state, {
         all_industry: payload
       });

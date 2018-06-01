@@ -4,7 +4,7 @@
   <div class="container">
     <div class="o-eventinner_left m-t-16 p-16">
       <div class="o-eventinner__imgblock">
-        <img src="{{ baseUrl + eventDetail?.event_media}}" class="o-eventinner__img">
+        <img src="{{ baseUrl + eventDetail?.extras?.coverImage}}" class="o-eventinner__img">
       </div>
       <div class="o-eventinner__cat">{{ eventDetail?.Type?.eventType }}</div>
       <div class="o-eventinner__heading">{{ eventDetail?.title }}
@@ -42,14 +42,14 @@
       </div>
     </div>
 
-    <div class="o-eventinner_right m-t-16 p-16">
+    <!-- <div class="o-eventinner_right m-t-16 p-16">
       <div class="o-eventinner__ticket">Tickets</div>
-      <div class="c-text_sm color-grey-dark m-t-b-8">Ticket selling started from {{ eventDetail?.eventTiming?.startDate | utcDate | date: 'dd, MMM'}} till {{ eventDetail?.eventTiming?.endDate | utcDate | date: 'dd, MMM'}}</div>
-      <app-events-carditem *ngFor="let ticket of eventDetail?.extras?.ticket[0]?.ticketType" [cartItem]="ticket" (countChange)="totalCountChange($event)"></app-events-carditem>
+      <div class="c-text_sm color-grey-dark m-t-b-8">Ticket selling started from {{ eventDetail?.eventTiming?.startDate | utcDate | date: 'dd, MMM'}} till {{ eventDetail?.eventTiming?.endDate | utcDate | date: 'dd, MMM'}}</div> -->
+      <!-- <app-events-carditem *ngFor="let ticket of eventDetail?.extras?.ticket[0]?.ticketType" [cartItem]="ticket" (countChange)="totalCountChange($event)"></app-events-carditem> -->
         <!--<div class="o-eventinner__ticket__total">Ticket <span class="pull-right">Total</span></div>
         <div class="o-eventinner__ticket__totalmrp">{{  totalTicket }}<span class="pull-right">Rs. {{ totalAmount }}</span></div>
         <button type="button" class="btn btn-primary btn-lg btn-block m-t-16" disabled>Buy Tickets</button>-->
-        <button type="button" (click)="attendEvent()" class="btn btn-primary btn-lg btn-block m-t-16">{{isAttend ? 'ATTENDING' : 'ATTEND'}}</button>
-    </div>
+        <!-- <button type="button" (click)="attendEvent()" class="btn btn-primary btn-lg btn-block m-t-16">{{isAttend ? 'ATTENDING' : 'ATTEND'}}</button>
+    </div> -->
   </div>
 </section>
