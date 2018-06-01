@@ -276,7 +276,8 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     /* reset pass with phone */
     case AuthActions.FP_RESET_TYPE_PHONE:
       return Object.assign({}, state, {
-        fp_user_input: payload.value
+        fp_user_input: payload.value,
+        fb_uploading_data: true
       });
 
     case AuthActions.FP_RESET_TYPE_PHONE_SUCCESS:
@@ -284,19 +285,22 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       let resPhone = [];
       if (payload['SUCCESS']) { resPhone = payload['SUCCESS']; }
       return Object.assign({}, state, {
-        reset_phone_response: payload.value
+        reset_phone_response: payload.value,
+        fb_uploading_data: false
       });
 
     case AuthActions.FP_RESET_TYPE_PHONE_FAILED:
       return Object.assign({}, state, {
-        status: 'failed'
+        status: 'failed',
+        fb_uploading_data: false
       });
     /* reset pass with phone */
 
     /* reset pass with email */
     case AuthActions.FP_RESET_TYPE_EMAIL:
     return Object.assign({}, state, {
-      fp_user_input: payload.value
+      fp_user_input: payload.value,
+      fb_uploading_data: true
     });
 
     case AuthActions.FP_RESET_TYPE_EMAIL_SUCCESS:
@@ -304,12 +308,14 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
       let resEmail = [];
       if (payload['SUCCESS']) { resEmail = payload['SUCCESS']; }
       return Object.assign({}, state, {
-        reset_email_response: payload.value
+        reset_email_response: payload.value,
+        fb_uploading_data: false
       });
 
     case AuthActions.FP_RESET_TYPE_EMAIL_FAILED:
       return Object.assign({}, state, {
-        status: 'failed'
+        status: 'failed',
+        fb_uploading_data: false
       });
     /* reset pass with email */
 
@@ -474,11 +480,22 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         otp_forget_user_success: false
       });
 
+    case AuthActions.FP_SUBMIT_OTP:
+      return Object.assign({}, state, {
+        fb_uploading_data: true
+      });
+
+    case AuthActions.FP_SUBMIT_OTP_SUCCESS:
+      return Object.assign({}, state, {
+        fb_uploading_data: false
+      });
+
     // OTP Failed
     case AuthActions.FP_SUBMIT_OTP_FAILED:
       return Object.assign({}, state, {
-          fp_sumit_otp_failed: true
-        });
+        fp_sumit_otp_failed: true,
+        fb_uploading_data: false
+      });
 
     /**
      * checking if user is logged in and have the valid access token
