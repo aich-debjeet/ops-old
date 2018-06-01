@@ -15,10 +15,10 @@
                             <div class="o-event-form-upload__container">
                                 <img *ngIf="eventCoverImage" class="event-image" src="{{ baseUrl + eventCoverImage}}">
                                 <div *ngIf="!eventCoverImage" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">Upload event image</div>
+                                
                             </div>
                         </div>
-                        <!-- <p class="c-form__validation" *ngIf="!eventCoverImage">Event Image is required
-                        </p> -->
+                        <p class="c-form__validation text-center" *ngIf="imageUpload">Event Cover is required</p>
                         <p class="c-text_sm text-center color-grey-dark o-event-upload__info">
                             We recommend using at least a 800x400px (2:1)<br>image that's no larger than 10MB.
                         </p>
@@ -157,10 +157,10 @@
                             <div class="col-md-3 p-0">
                             </div>
                             <div class="col-md-9 offset-md-3 p-0">
-                                <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.oldate">Please choose upcomming date</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.oldate">Please choose upcoming date</p>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.startdate">Please choose start date </p>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.old_even_end_date">Please choose upcoming date </p>
-                                <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.oldate">Please choose upcomming date</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['event_enddate'].errors?.endDateLess">Please choose upcoming date</p>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_startdate'].errors?.required && ecfrom.submitted">Start Date and End Date is required</p>
                             </div>
                         </div>
@@ -285,6 +285,7 @@
                                     <span class="c-form__bar"></span>
                                     <label>Start date</label>
                                 </div>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['ts_startTime'].errors?.oldate">Please choose upcoming date</p>
                             </div>
                             <div class="col-md-1">
                                 <p class="c-text_md m-t-16 text-center">to</p>
@@ -296,6 +297,8 @@
                                     <span class="c-form__bar"></span>
                                     <label>End date</label>
                                 </div>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.old_even_end_date">Please choose upcoming date</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.ticketsClosed">Please select a date prior to D-day</p>
                             </div>
                             <div class="col-md-3 p-0">
                             </div>
@@ -308,7 +311,7 @@
 
                         <div class="o-events-form__single">
                             <div class="col-md-3 p-0">
-                                <div class="c-text_md o-events-form-title">Maximum tickets allow<br>per order *</div>
+                                <div class="c-text_md o-events-form-title">Maximum tickets allowed<br>per order *</div>
                             </div>
                             <div class="col-md-5 p-0">
                                 <div class="c-form__group c-form--sm c-form--noeffect">
@@ -318,7 +321,7 @@
                                     <label>Quantity</label>
                                 </div>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['ts_quantity'].errors?.required && ecfrom.submitted">Quantity is required</p>
-                                <p class="c-form__validation" *ngIf="imageUpload">Event Cover is required</p>
+                                <!-- <p class="c-form__validation" *ngIf="imageUpload">Event Cover is required</p> -->
                             </div>
                             <!--<input type="hidden" name="coverimage" value="{{eventCoverImage}}" formControlName="event_cover">-->
                         </div>

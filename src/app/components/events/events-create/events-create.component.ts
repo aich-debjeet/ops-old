@@ -46,7 +46,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   today = Date.now();
   industryList = initialTag ;
   image: any;
-  eventCoverImage: any;
+  eventCoverImage ='';
   minDate = new Date();
   dateExpires;
   baseUrl = environment.API_IMAGE;
@@ -203,7 +203,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       'event_industry': ['', [Validators.required]],
       'event_venue': ['', [Validators.required]],
       'event_startdate' : ['', [Validators.required, FormValidation.datevalidation]],
-      'event_enddate' : ['', [Validators.required, FormValidation.oldEndDatevalidation]],
+      'event_enddate' : ['', [Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this)]],
       'access': '0',
       'event_type': 'Free',
       'event_agenda' : this.fb.array([]),
@@ -211,13 +211,44 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       //   [this.ticketItem('')]
       // ),
       'event_brief' : ['', [Validators.required]],
-      'ts_startTime': ['', [Validators.required]],
-      'ts_endTime': ['', [Validators.required]],
+      'ts_startTime': ['', [Validators.required, FormValidation.datevalidation]],
+      'ts_endTime': ['', [Validators.required, FormValidation.oldEndDatevalidation, this.tickeSellDate.bind(this)]],
       'ts_quantity': ['', [Validators.required]]
     }, {
-      validators: [FormValidation.endateValidation]
+      // validators: [FormValidation.endateValidation]
     })
 
+  }
+
+  dateComparision(control: AbstractControl){
+    if (control.value === '') {
+      return;
+    }
+    const startDate = this.eventForm.controls['event_startdate'].value.split('-').reverse().join('-');
+    // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
+    const endData = control.value.split('-').reverse().join('-');
+    const startSelect = moment(startDate).format('YYYYMMDD');
+    const endSelect = moment(endData).format('YYYYMMDD');
+    if (endSelect < startSelect) {
+      return { endDateLess: true };
+    }
+    return null;
+
+  }
+
+  tickeSellDate(control: AbstractControl) {
+    if (control.value === '') {
+      return;
+    }
+    const startDate = this.eventForm.controls['event_startdate'].value.split('-').reverse().join('-');
+    // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
+    const endData = control.value.split('-').reverse().join('-');
+    const startSelect = moment(startDate).format('YYYYMMDD');
+    const endSelect = moment(endData).format('YYYYMMDD');
+    if (endSelect > startSelect) {
+      return { ticketsClosed: true };
+    }
+    return null;
   }
 
   private setCurrentPosition() {
@@ -339,6 +370,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    */
   submitForm(value) {
     console.log(this.eventForm.valid)
+    console.log(this.eventCoverImage)
     if (this.eventForm.valid) {
       if (this.eventCoverImage === '') {
         this.imageUpload = true;
@@ -361,6 +393,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
           event_agenda: value.event_agenda,
           extras: {
             Genre: [value.event_genres],
+            coverImage: this.eventCoverImage,
             ticket: [{
               startDate: this.reverseDate(value.ts_startTime) + 'T05:00:00',
               endDate: this.reverseDate(value.ts_endTime) + 'T05:00:00',
@@ -373,8 +406,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
           ],
           Type: {
             EntryType : value.event_type,
-          },
-          event_media: [this.eventCoverImage]
+          }
       }
 
       // Dispatch to form value to server

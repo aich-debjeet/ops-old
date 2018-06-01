@@ -4,7 +4,7 @@
   <div class="container">
     <div class="o-eventinner_left m-t-16 p-16">
       <div class="o-eventinner__imgblock">
-        <img src="{{ baseUrl + eventDetail?.event_media}}" class="o-eventinner__img">
+        <img src="{{ baseUrl + eventDetail?.extras?.coverImage}}" class="o-eventinner__img">
       </div>
       <div class="o-eventinner__cat">{{ eventDetail?.Type?.eventType }}</div>
       <div class="o-eventinner__heading">{{ eventDetail?.title }}
