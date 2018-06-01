@@ -45,7 +45,9 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
   page_end = 10;
  // total_pages = 10;
   scrolling = 0;
-  scrollingLoad = 1000;
+  scrollingLoad = 500;
+
+  channel_load: boolean;
 
   constructor(
     private http: Http,
@@ -63,30 +65,24 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
         this.channelList = state.user_following_channel;
         this.channel_scroll_id = state.user_channel_scroll_id;
       }
+      if(state['user_following_channels_loading'] !== null) {
+         this.channel_load = state['user_following_channels_loading'] 
+      }
     });
 
     this.store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_PROFILE_DETAILS })
   }
 
   ngOnInit() {
-    // If there's input assign, other wise, reload channel list
-    this.subscription = this.myProfile$.subscribe(event => {
-      this.myProfileData = event;
-      let isUserReady;
-      if (event.profile_navigation_details && event.profile_navigation_details.handle) {
-        this.handle = event.profile_navigation_details.handle;
-        isUserReady = true;
-        this.loadChannels(this.handle);
-      }
-    });
+    this.loadChannels();
   }
 
   /**
    * Check and Load Channels
    */
-  loadChannels(userHandle: string) {
+  loadChannels() {
     const body = {
-      limit: 9,
+      limit: 12,
       scrollId: this.channel_scroll_id,
     }
 
@@ -109,14 +105,11 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
 
     if (this.scrollingLoad <= this.scrolling) {
       this.scrollingLoad += 500
-      // this.page_start = this.page_start + 10;
-      // this.page_end = 10;
-      this.loadChannels(this.handle);
+      this.loadChannels();
     }
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
     this.subscriptionOne.unsubscribe();
   }
 }

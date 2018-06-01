@@ -66,7 +66,7 @@
     "sass-mq": "^3.3.2",
     "sharon": "^1.6.0",
     "ts-loader": "^3.5.0",
-    "videogular2": "^4.2.0",
+    "videogular2": "5.2.8",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {

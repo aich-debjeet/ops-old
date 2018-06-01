@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // Action
 import { MediaActions } from '../../../actions/media.action';
@@ -33,6 +33,9 @@ export class StatusEditorComponent {
   privacy: any = 0;
   statusMessage = '';
   activeUser: UserCard;
+  urlQuery: any;
+  nameActive: boolean;
+  ct_name: any;
 
   profileState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
@@ -43,6 +46,7 @@ export class StatusEditorComponent {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
+    private route: ActivatedRoute,
     private store: Store<Media>
   ) {
     this.createStatusForm();
@@ -59,6 +63,14 @@ export class StatusEditorComponent {
     this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
       this.statusSaved = this.mediaStore.status_saved;
+    });
+
+    this.route.queryParams.subscribe(params => {
+      this.urlQuery = params
+      this.ct_name = params['ct_name']
+      if (Object.keys(params).length) {
+        this.nameActive = true;
+      }
     });
   }
   /**

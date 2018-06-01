@@ -422,7 +422,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get current user following channel
      */
     case ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL:
-    if (payload.page_start === 0) {
+    if (payload.scrollId === '') {
       return Object.assign({}, state, {
         user_following_channels_loading: true,
         user_following_channels_loaded: false,
@@ -1298,6 +1298,56 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     return Object.assign({},state, {
       pass_success : payload,
     });
+
+  case ProfileActions.COMMENT_COUNT_INCREMENT:
+    const home_post = state.user_following_posts.find(t => t.id === payload);
+    const home_index = state.user_following_posts.indexOf(home_post);
+    const home_count = home_post ? home_post.commentsCount + 1 : 0;
+
+    const profile_post = state.user_posts.find(t => t.id === payload);
+    const profile_index = state.user_posts.indexOf(profile_post);
+    const profile_count = profile_post ? profile_post.commentsCount + 1 : 0;
+
+      return Object.assign({}, state, {
+          user_following_posts: [
+              ...state.user_following_posts.slice(0, home_index),
+              Object.assign({}, home_post, {commentsCount: home_count }),
+              ...state.user_following_posts.slice(home_index + 1)
+          ],
+          user_posts: [
+            ...state.user_posts.slice(0, profile_index),
+            Object.assign({}, profile_post, {commentsCount: profile_count }),
+            ...state.user_posts.slice(profile_index + 1)
+          ],
+
+      })
+
+    case ProfileActions.COMMENT_COUNT_DECREMENT:
+      const home_post_de = state.user_following_posts.find(t => t.id === payload);
+      const home_index_de = state.user_following_posts.indexOf(home_post_de);
+      const home_count_de = home_post_de  ? home_post_de.commentsCount - 1 : 0;
+
+      const profile_post_de = state.user_posts.find(t => t.id === payload);
+      const profile_index_de = state.user_posts.indexOf(profile_post_de);
+      const profile_count_de = profile_post_de ? profile_post_de.commentsCount - 1 : 0;
+        return Object.assign({}, state, {
+            user_following_posts: [
+                ...state.user_following_posts.slice(0, home_index_de),
+                Object.assign({}, home_post_de , {commentsCount: home_count_de }),
+                ...state.user_following_posts.slice(home_index_de + 1)
+            ],
+            user_posts: [
+              ...state.user_posts.slice(0, profile_index_de),
+              Object.assign({}, profile_post_de, {commentsCount: profile_count_de }),
+              ...state.user_posts.slice(profile_index_de + 1)
+            ],
+
+        })
+    // }
+
+    // return Object.assign({}, state, {
+
+    // })
 
     default:
       return state;

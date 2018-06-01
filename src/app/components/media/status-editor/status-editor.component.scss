@@ -2,6 +2,16 @@
 @import './src/assets/scss/components/_dropdowns.scss';
 @import './src/assets/scss/helpers/_variables.scss';
 @import '~sass-mq/_mq.scss';
+.o-addpost__arrow {
+    width: 16px;
+    margin: 8px;
+    float: left;
+    margin-top: 3px;
+}
+.o-addpost__commtxt {
+    float: left;
+    margin-top: 1px;
+}
 // common
 .c-user--addpost {
     width: 100%;

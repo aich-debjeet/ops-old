@@ -71,6 +71,10 @@
 //     float: left;
 //     cursor: pointer;
 // }
+
+.c-links__comments{
+    cursor: pointer;
+}
 .m-t-16 {
     margin-top: 16px !important;
 }
@@ -266,7 +270,7 @@ a {
     display: inline;
     float: left;
     margin-right: 24px;
-    cursor: pointer;
+    // cursor: pointer;
 }
 
 .c-links__image {
@@ -406,4 +410,14 @@ label {
     display: block;
     overflow: hidden;
     min-width: 100%;
+}
+
+.c-user__channel2{
+    font-size: 11px;
+    line-height: 18px;
+    color: #979797;
+    display: block;
+    margin-left: 42px;
+    clear: both;
+    cursor: pointer;
 }

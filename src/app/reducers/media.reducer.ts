@@ -38,6 +38,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         success: true,
         channel_loading: true,
         channel_loaded: false,
+        channel_detail: []
       });
 
     case MediaActions.GET_CHANNEL_DETAILS_SUCCESS:
@@ -96,11 +97,41 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         // media_comment: []
       });
 
+    case MediaActions.DELETE_COMMENT_SUCCESS:
+      return Object.assign({}, state, {
+        media_comment: state.media_comment.filter(comment => comment.commentsId !== payload.id)
+      });
+
     // Media comment success
+    case MediaActions.POST_COMMENT:
+      return Object.assign({}, state, {
+        comment_post_loading: true
+      });
+
     case MediaActions.POST_COMMENT_SUCCESS:
       return Object.assign({}, state, {
-        media_post_success: true
+        media_post_success: true,
+        comment_post_loading: false,
+        media_comment: state.media_comment.concat(payload['comment'])
       });
+
+    case MediaActions.POST_COMMENT_FAILED:
+      return Object.assign({}, state, {
+        comment_post_loading: false,
+      });
+
+    case MediaActions.UPDATE_COMMENT_SUCCESS:
+      const todo = state.media_comment.find(t => t.commentsId === 'm-c6e528a4-14ca-4176-b296-a1869f5193b3');
+      const index = state.media_comment.indexOf(todo);
+      console.log('todo', todo);
+      console.log('index', index);
+      return Object.assign({}, state, {
+        media_comment: [
+            ...state.media_comment.slice(0, index),
+            Object.assign({}, todo, {comment: 'Post testing and testing'}),
+            ...state.media_comment.slice(index + 1)
+        ],
+      })
 
     /**
      * Get User Media Post
@@ -143,12 +174,17 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       return Object.assign({}, state, {
         my_media: new_media
       });
+
   /**
    * MEDIA_POST_DELETE
    */
     case MediaActions.MEDIA_POST_DELETE_SUCCESS:
       return Object.assign({}, state, {
-        media_delete_msg: payload.SUCCESS
+        media_delete_msg: payload.SUCCESS,
+        channel_detail: {
+          ...state.channel_detail,
+          spotCount: state.channel_detail ? state.channel_detail.spotCount - 1 : null
+        }
       });
   /**
    * Media_Edit

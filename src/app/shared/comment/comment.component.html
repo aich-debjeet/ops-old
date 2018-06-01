@@ -6,13 +6,13 @@
     <div class="c-post__comment p-t-0 c-mediamodal__inputfixed">
         <div class="c-post__comment--left" style="margin-top:12px;">
             <a class="c-user__avatar c-avatar--status">
-                <img class="c-user__image" src="{{ imageLink + userData?.profileImage }}">
+                <img class="c-user__image" [src]="imageLink + userData?.profileImage">
             </a>
         </div>
         <div class="c-post__comment--right c-mediamodal__input">
             <div class="c-form__group c-form--noeffect m-t-8">
                 <div>
-                    <input class="c-form__input with_border_none" type="text" type="text" [(ngModel)]="messageText" required (keyup.enter)="keyDownFunction(mediaId)">
+                    <input class="c-form__input with_border_none" type="text" type="text" [disabled]="comment_post_loading" [(ngModel)]="messageText" required (keyup.enter)="keyDownFunction(mediaId)">
                     <span class="c-form__highlight"></span>
                     <label>Write a comment...</label>
                 </div>

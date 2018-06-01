@@ -31,7 +31,7 @@
                 </div>
             </div>
             <!-- channel search end -->
-            <div id="ops_scrollbar" class="o-add-channel-container">
+            <div id="ops_scrollbar" class="o-add-channel-container" infinite-scroll (scrolled)="onScroll($event)">
                 <div class="o-channel-list-container">
                     <ul class="o-channel-block">
                         <li class="o-channel-items" *ngFor="let channel of userChannels | channelFilter : searchChannel; let i = index" (click)="chooseChannel(channel)">

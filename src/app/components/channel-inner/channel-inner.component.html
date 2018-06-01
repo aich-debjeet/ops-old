@@ -1,29 +1,29 @@
 <app-navigation></app-navigation>
 <section>
-  <div class="container channel_inner outer_header" *ngIf="(tagState$ | async).channel_detail?.channelName && !pageLoading">
+  <div class="container channel_inner outer_header" *ngIf="channel?.channel_detail?.channelName && !pageLoading">
     <!---  section  -->
     <div class="row">
             <div class="col-md-6">
-                <p *ngIf="!(tagState$ | async).channel_detail?.accessSeetings.access" class="c-text_sm text_uppercase ltr-space color-grey-dark">Public Channel</p>
-                <p *ngIf="(tagState$ | async).channel_detail?.accessSeetings.access" class="c-text_sm text_uppercase ltr-space color-grey-dark">Private Channel</p>
+                <p *ngIf="!channel?.channel_detail?.accessSeetings.access" class="c-text_sm text_uppercase ltr-space color-grey-dark">Public Channel</p>
+                <p *ngIf="channel?.channel_detail?.accessSeetings.access" class="c-text_sm text_uppercase ltr-space color-grey-dark">Private Channel</p>
                 <ul class="list-inline">
                     <li class="list-inline-item">
-                        <div class="c-h3 c-h3--weight">{{(tagState$ | async).channel_detail?.channelName}}</div>
+                        <div class="c-h3 c-h3--weight">{{channel?.channel_detail?.channelName}}</div>
                     </li>
-                    <li class="list-inline-item" *ngIf="(tagState$ | async).channel_detail?.isOwner">
-                        <button type="button" class="btn btn-default btn-sm" (click)="addPostBtnClick()" >
+                    <li class="list-inline-item" *ngIf="channel?.channel_detail?.isOwner">
+                        <button type="button" class="btn btn-default btn-sm" [routerLink]="['/post/media']" [queryParams]="{post_to: 'channel', ct_id: channel?.channel_detail?.channelId, ct_name: channel?.channel_detail?.channelName}">
                             Add Post
                         </button>
                     </li>
-                    <li class="list-inline-item" *ngIf="!(tagState$ | async).channel_detail?.isOwner">
+                    <li class="list-inline-item" *ngIf="!channel?.channel_detail?.isOwner">
                         <button type="button" (click)="followChannel(isfollowing, channel?.channel_detail?.channelId )" class="btn btn-primary btn-sm">{{ isfollowing ? 'Unfollow' : 'Follow' }}</button>
                     </li>
                     
-                    <li class="list-inline-item" *ngIf="(tagState$ | async).channel_detail?.isOwner">
+                    <li class="list-inline-item" *ngIf="channel?.channel_detail?.isOwner">
                         <div class="dropdown" appDropdown>
                             <span class="com-head" appDropdownOpen>
                                 <a (click)="pinEditFormPopup()"  >
-                                    <img class="opt-dot" src="{{ imageLink }}img/svg/ico_options.svg">
+                                    <img class="opt-dot" [src]="imageLink + 'img/svg/ico_options.svg'">
                                 </a>
                             </span>
                             <ul class="dropdown-menu c-opsdropdown--size1">
@@ -31,7 +31,7 @@
                                     <a href="#">Pin to Quick Access</a>
                                 </li>-->
                                 <li class="list-inline-item">
-                                    <a [routerLink]="['', { outlets: { media : ['channel', (tagState$ | async).channel_detail?.channelId, 'edit' ] } } ]" >Edit</a>
+                                    <a  [routerLink]="['', { outlets: { media : ['channel', channel?.channel_detail?.channelId, 'edit' ] } } ]"  >Edit</a>
                                 </li>
                             </ul>
                         </div>
@@ -39,8 +39,8 @@
                     </li>
                 </ul>
                 <div class=" spot_in_toptext c-text_md color-grey-dark m-t-16">
-                    <!--{{ (tagState$ | async).channel_detail?.description }}-->
-                    <read-more [class]="'media_channel--text'" [text]="(tagState$ | async).channel_detail?.description" [maxLength]=300 ></read-more>
+                    <!--{{ channel?.channel_detail?.description }}-->
+                    <read-more [class]="'media_channel--text'" [text]="channel?.channel_detail?.description" [maxLength]=300 ></read-more>
                 </div>
             </div>
             <div class="col-md-6">
@@ -48,15 +48,15 @@
                 <div class="col-sm-12 spot_in_icons m-b-24">
                     <div class="overlap_thumb">
                         <span class="over1_thumb" *ngFor="let contributor of contributors">
-                            <img *ngIf="contributor.profileImage" src="{{ imageLink + contributor.profileImage }}">
-                            <img *ngIf="!contributor.profileImage" src="{{ imageLink }}img/avatar.png">
+                            <img *ngIf="contributor.profileImage" [src]="imageLink + contributor.profileImage">
+                            <img *ngIf="!contributor.profileImage" [src]="imageLink + 'img/avatar.png'">
                         </span>
                     </div>
                 </div>
                 <ul class="list-inline">
                     <li class="list-inline-item pull-right">
-                        <div class="spot_in_follow c-text_sm text_uppercase ltr-space color-grey-dark"><span class="c-h3 c-h3--weight">{{ (tagState$ | async).channel_detail?.followersCount }}</span><br>Followers</div>
-                        <div class="spot_in_follow c-text_sm text_uppercase ltr-space color-grey-dark"><span class="c-h3 c-h3--weight">{{ (tagState$ | async).channel_detail?.spotCount }}</span><br>Posts</div>
+                        <div class="spot_in_follow c-text_sm text_uppercase ltr-space color-grey-dark"><span class="c-h3 c-h3--weight">{{ channel?.channel_detail?.followersCount }}</span><br>Followers</div>
+                        <div class="spot_in_follow c-text_sm text_uppercase ltr-space color-grey-dark"><span class="c-h3 c-h3--weight">{{ channel?.channel_detail?.spotCount }}</span><br>Posts</div>
                     </li>
                 </ul>
             </div>
