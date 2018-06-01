@@ -15,6 +15,17 @@ import { EventActions } from '../actions/event.action';
 @Injectable()
 export class EventEffect {
 
+  //Banner search for events
+  @Effect()
+    bannerSearch$ = this.actions$
+    .ofType(EventActions.BANNER_SEARCH)
+    .map(toPayload)
+    .switchMap((payload) => this.eventService.searchBanner()
+      .map(res => ({ type: EventActions.BANNER_SEARCH_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: EventActions.BANNER_SEARCH_FAILED, payload: res }))
+    );
+
+
   // Get Event Registration
   @Effect()
     eventregistration$ = this.actions$
