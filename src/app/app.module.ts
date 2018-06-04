@@ -91,9 +91,7 @@ import { CommunitiesService } from './services/communities.service';
 import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
 import { ProfileModule } from './components/profile/profile.module';
-import { SearchModule } from './components/search/search.module';
 import { TabComponents  } from './shared/tabs/tabset';
-import { OpportunityModule } from 'app/components/opportunity/opportunity.module';
 
 // components
 import { AppComponent } from './app.component';
@@ -204,8 +202,6 @@ import { AboutComponent } from './components/about/about.component';
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
-    SearchModule,
-    OpportunityModule,
     AgmCoreModule.forRoot({
       libraries: ['places'],
       apiKey: 'AIzaSyDHx_cyWUg9okHlTH8M_kvduvWFSV3nShc'

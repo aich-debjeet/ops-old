@@ -36,7 +36,6 @@ import { AuthGuard } from './guard/auth.guard';
 import { AuthlogoutGuard } from './guard/authlogout.guard';
 
 export const routes: Routes = [
-//  { path: '',  pathMatch: 'full', redirectTo: 'main-home'},
  { path: '', component: LogoutHomeComponent, canActivate: [AuthlogoutGuard] },
  { path: 'logout', component: LogoutComponent },
  { path: 'privacy-policy', component: PrivacyPolicyComponent },
@@ -50,7 +49,6 @@ export const routes: Routes = [
  { path: 'home', loadChildren: './components/home/home.module#HomeModule', canActivate: [AuthGuard] },
  { path: 'reset-password', component: ResetPasswordComponent },
  { path: 'profile', loadChildren: './components/profile/profile.module#ProfileModule' },
-//  { path: 'media', loadChildren: './components/media/media.module#ProfileModule' },
  { path: 'user/status/list', component: StatusListComponent, canActivate: [AuthGuard] },
  { path: 'user/media/list', loadChildren: './components/media-list/media-list.module#MediaListModule', canActivate: [AuthGuard]},
  { path: 'spotfeed/:id', component: SpotfeedComponent, canActivate: [AuthGuard] },

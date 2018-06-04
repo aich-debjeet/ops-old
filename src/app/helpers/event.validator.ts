@@ -83,8 +83,9 @@ export class FormValidation {
         // }
 
         if (endSelect < startSelect) {
+            console.log('comming')
             AC.get('event_enddate').setErrors( {oldate: true} )
-             return
+             return {oldate: true} ;
         }
         // if (startDate > ts_startDate || endData < ts_startDate ) {
         // }
