@@ -14,6 +14,20 @@ export class GeneralUtilities {
     }
 
     /**
+     * @param obj: to check the key
+     * @param args: array of location to the nested key to check ['parentNode', 'childNode']
+     */
+    checkNestedKey(obj, args) {
+        for (let i = 0; i < args.length; i++) {
+            if (!obj || !obj.hasOwnProperty(args[i])) {
+                return false;
+            }
+            obj = obj[args[i]];
+        }
+        return true;
+    }
+
+    /**
      * Prepare user profile link using the username
      * @param username string
      */

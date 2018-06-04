@@ -19,6 +19,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { remove as _remove } from 'lodash';
+import { GeneralUtilities } from '../../../../helpers/general.utils';
 
 @Component({
   selector: 'app-org-channel',
@@ -38,13 +39,18 @@ export class OrgChannelComponent implements OnInit {
     private orgStore: Store<any>,
     private localStorageService: LocalStorageService,
     private toastr: ToastrService,
-    private _store: Store<ProfileModal>
+    private _store: Store<ProfileModal>,
+    private generalUtilities: GeneralUtilities
   ) {
 
     this.orgState = this.orgStore.select('profileTags');
     this.orgState.subscribe((state) => {
       this.orgProfile = state;
-      this.channels = this.orgProfile.org_channels;
+      if (this.generalUtilities.checkNestedKey(this.orgProfile, ['org_channels', 'spotFeedResponse'])) {
+        this.channels = this.orgProfile['org_channels']['spotFeedResponse'];
+      } else {
+        this.channels = [];
+      }
     });
 
     // check if creator is user or organization
