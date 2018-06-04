@@ -22,11 +22,14 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./communities-inner.component.scss']
 })
 export class CommunitiesInnerComponent implements OnInit, OnDestroy {
+  @ViewChild('searchInput') searchInput;
+  searchString = '';
   basePath = environment.API_IMAGE;
   id: any;
   industries: any[];
   tagState$: Observable<any>;
   @ViewChild('communityCreateModal') CommunityUpdate: Modal;
+  @ViewChild('communityLeaveModal') CommuityLeaveModal: Modal;
   private subscription: ISubscription;
   private routerSubscription: ISubscription;
   details: any;
@@ -96,11 +99,19 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     this.communityAdminForm = this.fb.group({
       'handle': ['', [Validators.required]],
     });
+
   }
 
   ngOnInit() {
     this.buildForm();
     this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
+
+    // this.searchInput.valueChanges
+    // .debounceTime(500)
+    // .subscribe(() => {
+    //   // this.loadCommunity();
+    //   console.log('test');
+    // });
   }
 
   ngOnDestroy() {
@@ -133,6 +144,15 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       access: this.details.access,
       industry: this.details.industryList[0]
     });
+  }
+
+  communityLeave() {
+    const data = {
+      id: this.id,
+      text: ''
+    }
+    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_MEMBER_LIST, payload: data });
+    this.CommuityLeaveModal.open();
   }
 
   /**

@@ -9,12 +9,12 @@
                     <a routerLink="/profile/u/{{ mediaData?.ownerUserName }}" class="c-user__name c-user--align">{{ mediaData?.ownerName }}</a>
                     <a routerLink="/channel/{{ mediaData?.channelId }}" class="c-user__channel2 c-user__channel-align">{{ mediaData?.channelName }}</a>
                 </a>
-                <a routerLink="/profile" *ngIf = "mediaData?.isOwner">
-                    <a class="c-user__avatar c-avatar--status">
+                <a  *ngIf = "mediaData?.isOwner">
+                    <a routerLink="/profile" class="c-user__avatar c-avatar--status">
                         <img class="c-user__image" [src]="userImage">
                     </a>
-                    <a class="c-user__name c-user--align">{{ mediaData?.ownerName }}</a>
-                    <a class="c-user__channel2 c-user__channel-align">{{ mediaData?.channelName }}</a>
+                    <a routerLink="/profile" class="c-user__name c-user--align">{{ mediaData?.ownerName }}</a>
+                    <a routerLink="/channel/{{ mediaData?.channelId }}" class="c-user__channel2 c-user__channel-align">{{ mediaData?.channelName }}</a>
                 </a>
             </div>
         </div>

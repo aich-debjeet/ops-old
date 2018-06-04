@@ -116,7 +116,7 @@ export class CommunitiesEffect {
   communityMemberList$ = this.actions$
     .ofType(CommunitiesActions.COMMUNITY_MEMBER_LIST)
     .map(toPayload)
-    .switchMap((payload) => this.communitiesService.updateCommunity(payload)
+    .switchMap((payload) => this.communitiesService.memberListCommunity(payload)
       .map(res => ({ type: CommunitiesActions.COMMUNITY_MEMBER_LIST_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_MEMBER_LIST_FAILED, payload: res }))
     );
