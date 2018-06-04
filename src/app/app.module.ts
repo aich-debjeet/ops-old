@@ -92,8 +92,6 @@ import { SharedModule } from './shared/shared.module';
 import { MediaModule } from './components/media/media.module';
 import { ProfileModule } from './components/profile/profile.module';
 import { TabComponents  } from './shared/tabs/tabset';
-import { SearchModule } from './components/search/search.module';
-import { OpportunityModule } from 'app/components/opportunity/opportunity.module';
 
 // components
 import { AppComponent } from './app.component';
@@ -209,9 +207,7 @@ import { AboutComponent } from './components/about/about.component';
       apiKey: 'AIzaSyDHx_cyWUg9okHlTH8M_kvduvWFSV3nShc'
     }),
     NguCarouselModule,
-    LazyLoadImageModule,
-    SearchModule,
-    OpportunityModule
+    LazyLoadImageModule
   ],
   providers: [
     AuthService,

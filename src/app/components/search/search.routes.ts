@@ -14,7 +14,7 @@ import { AuthGuard } from './../../guard/auth.guard';
 
 export const SearchRoutes = [
  {
-    path: 'search',
+    path: '',
     canActivate: [AuthGuard],
     component: SearchComponent,
     // children: [
