@@ -94,7 +94,11 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
     case CommunitiesActions.COMMUNITY_INVITE_PEOPLE_SUCCESS:
       return Object.assign({}, state, {
         invite_button: true,
-        communityInvitePeople: state.communityInvitePeople.filter(community => community.profileHandle !== payload.SUCCESS)
+        communityInvitePeople: state.communityInvitePeople.filter(community => community.profileHandle !== payload.SUCCESS),
+        communityDetails: {
+          ...state.communityDetails,
+          memberCount: state.communityDetails ? state.communityDetails.memberCount + 1 : null
+        }
       });
 
     case CommunitiesActions.COMMUNITY_INVITE_PEOPLE:
