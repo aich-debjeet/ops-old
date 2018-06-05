@@ -51,5 +51,81 @@
         <button type="button" class="btn btn-primary btn-lg btn-block m-t-16" disabled>Buy Tickets</button>-->
         <!-- <button type="button" (click)="attendEvent()" class="btn btn-primary btn-lg btn-block m-t-16">{{isAttend ? 'ATTENDING' : 'ATTEND'}}</button>
     </div> -->
+    <div class="o-event-right-main">
+    <div class="o-eventinner_right p-16">
+            <div class="o-event-attending__head">
+              <span class="color-grey-darker">250</span> attending
+            </div>
+            <div id="ops_scrollbar" class="o-event-attending-block">
+              <ul class="o-event-attending__list">
+  
+                <li class="o-event-attending__info"  *ngFor= "let list of attendeeList">
+                  <div class="o-event-attending__prof-pic">
+                    <img class="c-user__image" src="{{baseUrl + list?.ownerImage}}">
+                  </div>
+                  <span class="c-text_lg m-l-8">{{list?.ownerName}}</span>
+                  <!-- <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span> -->
+                </li>
+  
+                <!-- <li class="o-event-attending__info">
+                  <div class="o-event-attending__prof-pic">
+                    <img class="c-user__image" src="assets/demo/avatar.jpg">
+                  </div>
+                  <span class="c-text_lg m-l-8">Ethel Kennedy</span>
+                  <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
+                </li>
+  
+                <li class="o-event-attending__info">
+                  <div class="o-event-attending__prof-pic">
+                    <img class="c-user__image" src="assets/demo/avatar.jpg">
+                  </div>
+                  <span class="c-text_lg m-l-8">Ethel Kennedy</span>
+                  <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
+                </li>
+  
+                <li class="o-event-attending__info">
+                  <div class="o-event-attending__prof-pic">
+                    <img class="c-user__image" src="assets/demo/avatar.jpg">
+                  </div>
+                  <span class="c-text_lg m-l-8">Ethel Kennedy</span>
+                  <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
+                </li>
+  
+                <li class="o-event-attending__info">
+                  <div class="o-event-attending__prof-pic">
+                    <img class="c-user__image" src="assets/demo/avatar.jpg">
+                  </div>
+                  <span class="c-text_lg m-l-8">Ethel Kennedy</span>
+                  <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
+                </li>
+  
+                <li class="o-event-attending__info">
+                  <div class="o-event-attending__prof-pic">
+                    <img class="c-user__image" src="assets/demo/avatar.jpg">
+                  </div>
+                  <span class="c-text_lg m-l-8">Ethel Kennedy</span>
+                  <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
+                </li>
+  
+                <li class="o-event-attending__info">
+                  <div class="o-event-attending__prof-pic">
+                    <img class="c-user__image" src="assets/demo/avatar.jpg">
+                  </div>
+                  <span class="c-text_lg m-l-8">Ethel Kennedy</span>
+                  <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
+                </li>
+  
+                <li class="o-event-attending__info">
+                  <div class="o-event-attending__prof-pic">
+                    <img class="c-user__image" src="assets/demo/avatar.jpg">
+                  </div>
+                  <span class="c-text_lg m-l-8">Ethel Kennedy</span>
+                  <span class="c-text_sm color-grey-dark m-l-8">3 Tickets</span>
+                </li> -->
+  
+              </ul>
+            </div>
+          </div>
+        </div>
   </div>
 </section>

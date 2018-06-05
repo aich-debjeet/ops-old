@@ -5,17 +5,19 @@
 
             <ngu-item NguCarouselItem class="bannerStyle" *ngFor="let banner of bannerList">
                 <div class="o-event-slider__media">
-                    <img src="{{ baseUrl + banner?.coverImage}}">
-                    <div class="o-event-slider_info-txt">
-                        <div class="o-event-slider__date">
-                            <div class="c-h2 color-theme">{{banner?.startDate | utcDate | date:'d'}}</div>
-                            <p class="c-text_sm color-theme text_uppercase ltr-space">{{banner?.startDate | utcDate | date:'MMM'}}</p>
+                    <a routerLink="{{ '/event/inner/' + banner?.id }}">
+                        <img src="{{ baseUrl + banner?.coverImage}}">
+                        <div class="o-event-slider_info-txt">
+                            <div class="o-event-slider__date">
+                                <div class="c-h2 color-theme">{{banner?.startDate | utcDate | date:'d'}}</div>
+                                <p class="c-text_sm color-theme text_uppercase ltr-space">{{banner?.startDate | utcDate | date:'MMM'}}</p>
+                            </div>
+                            <div class="o-event-slider__det-text">
+                                <h3 class="c-h3 color-white f-w_500">{{banner?.title}}</h3>
+                                <p class="c-text_md color-grey-dark">{{banner?.venue?.line1}},{{banner?.venue?.location}}</p>
+                            </div>
                         </div>
-                        <div class="o-event-slider__det-text">
-                            <h3 class="c-h3 color-white f-w_500">{{banner?.title}}</h3>
-                            <p class="c-text_md color-grey-dark">{{banner?.venue?.line1}},{{banner?.venue?.location}}</p>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </ngu-item>
 

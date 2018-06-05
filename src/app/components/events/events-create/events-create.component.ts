@@ -293,6 +293,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       this.ngZone.run(() => {
         // get the place result
         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+        console.log(place)
 
         for (let i = 0; i < place.address_components.length; i++) {
           const addressType = place.address_components[i].types[0];
@@ -408,9 +409,10 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
             EntryType : value.event_type,
           }
       }
+      console.log(data)
 
       // Dispatch to form value to server
-      this.store.dispatch({ type: EventActions.EVENT_REG, payload: data });
+      // this.store.dispatch({ type: EventActions.EVENT_REG, payload: data });
 
       this.store.select('eventTags')
         .first(regevent => regevent['event_create_success'] === true )
