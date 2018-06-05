@@ -20,7 +20,7 @@ import { SharedPipesModule } from './../../pipes/shared-pipes.module';
 // opportunity module routes
 const opportunityRoutes: Routes = [
   {
-    path: 'opportunity',
+    path: '',
     component: OpportunityComponent,
     children: [
       { path: '', redirectTo: 'search', pathMatch: 'full' },
