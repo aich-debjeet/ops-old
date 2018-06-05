@@ -29,6 +29,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
   baseUrl = environment.API_IMAGE;
   eventTag: any;
   isAttend: boolean;
+  attendeeList: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +38,8 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
     this.tagState$ = this.store.select('eventTags');
     this.tagState$.subscribe((state) => {
       this.eventDetail = state['event_detail'];
+      this.attendeeList = state['attendee_load'];
+      console.log(this.attendeeList)
     });
 
     // Event tag
@@ -66,6 +69,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
 
   loadDetail() {
     this.store.dispatch({ type: EventActions.EVENT_DETAILS_LOAD, payload: this.id });
+    this.store.dispatch({ type: EventActions.EVENT_ATTENDEE_LOAD, payload: this.id });
   }
 
   ngOnDestroy() {

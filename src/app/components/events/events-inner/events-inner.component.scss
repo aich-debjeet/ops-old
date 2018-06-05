@@ -103,11 +103,12 @@
 
 //right block
 .o-eventinner_right {
-    width: 23.5%;
+    width: 100%;
     float: left;
     background-color: #FFFFFF;
     box-shadow: 0 2px 4px 0 rgba(102, 45, 145, 0.15);
     margin-left: 16px;
+    margin-top: 16px;
     @include mq($from: $mobile_sm, $until: $tablet) {
         width: 100%;
         margin: 0px;
@@ -173,4 +174,48 @@
     font-size: 24px;
     color: #333333;
     line-height: 34px;
+}
+.o-event-attending__head{
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 18px;
+    color: #929292;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #F3F5F7;
+}
+
+.o-event-attending-block{
+    width: 100%;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+.o-event-attending__list{
+    width: 100%;
+    list-style: none;
+}
+.o-event-attending__info{
+    list-style-type: none;
+    margin-top: 16px;
+    float: left;
+    width: 100%;
+    span{
+        display: block;
+        width: 80%;
+        float: left;
+    }
+}
+.o-event-attending__prof-pic{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    float: left;
+    overflow: hidden;
+}
+.o-event-right-main{
+    width: 23.5%;
+    float: right;
+    @include mq($from: $mobile_sm, $until: $tablet){
+        width: 100%;
+    }
 }
