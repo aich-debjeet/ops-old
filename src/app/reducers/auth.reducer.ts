@@ -322,19 +322,22 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.FP_CREATE_PASS:
       return Object.assign({}, state, {
         success: false,
+        fb_uploading_data: true
       });
 
     case AuthActions.FP_CREATE_PASS_SUCCESS:
       return Object.assign({}, state, {
         fpCrPassSuccess: payload,
         fp_create_success: true,
-        success: true
+        success: true,
+        fb_uploading_data: false
       });
 
     case AuthActions.FP_CREATE_PASS_FAILED:
       return Object.assign({}, state, {
         fb_pass_create_failed: true,
-        success: false
+        success: false,
+        fb_uploading_data: false
       });
 
     case AuthActions.USER_SUBMIT_SKILLS:
@@ -469,15 +472,21 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
      */
     case AuthActions.OTP_RESEND_FORGET_USER:
       return Object.assign({}, state, {
-       otp_forget_user_success: true
+       otp_forget_user_success: true,
+       reset_link_resending: true,
+       reset_link_sent: false
       });
     case AuthActions.OTP_RESEND_FORGET_USER_SUCCESS:
       return Object.assign({}, state, {
-       otp_forget_user_success: true
+       otp_forget_user_success: true,
+       reset_link_resending: false,
+       reset_link_sent: true
       });
     case AuthActions.OTP_RESEND_FORGET_USER_FAILED:
       return Object.assign({}, state, {
-        otp_forget_user_success: false
+        otp_forget_user_success: false,
+        reset_link_resending: false,
+        reset_link_sent: false
       });
 
     case AuthActions.FP_SUBMIT_OTP:
