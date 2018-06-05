@@ -60,6 +60,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   state: string;
   postalCode: string;
   city: string;
+  event_loading: boolean = true;
 
   locPop: boolean = false;
 
@@ -81,6 +82,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
       this.eventType = state['event_type'];
       this.industryList = state['all_industry'];
       this.bannerList = state['bannerload']
+      this.event_loading = state['event_loading']
     });
     // this.store.dispatch({ type: EventActions.EVENT_LIST });
 

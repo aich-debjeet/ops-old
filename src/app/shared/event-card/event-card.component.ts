@@ -10,6 +10,7 @@ import { TruncatePipe } from '../../pipes/truncate.pipe';
 export class EventCardComponent implements OnInit {
   @Input() eventData;
   baseUrl = environment.API_IMAGE;
+  @Input() loader: boolean = false;
 
   constructor() { }
 
