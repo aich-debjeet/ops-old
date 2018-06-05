@@ -50,6 +50,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
       this.loadDetail();
