@@ -40,6 +40,11 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
         event_id: payload['SUCCESS'].id
       });
 
+    case EventActions.EVENT_DETAILS_LOAD:
+      return Object.assign({}, state, {
+        event_detail: []
+      });
+
     case EventActions.EVENT_DETAILS_LOAD_SUCCESS:
       return Object.assign({}, state, {
         event_detail: payload
