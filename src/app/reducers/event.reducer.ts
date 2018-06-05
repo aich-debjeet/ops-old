@@ -69,6 +69,7 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
 
     case EventActions.EVENT_SEARCH:
       return Object.assign({}, state, {
+        event_list: [],
         event_loading: true
       });
 

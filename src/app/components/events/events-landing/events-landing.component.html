@@ -175,10 +175,10 @@
             <div class="tab-content">
                 <div id="recommended" class="tab-pane fade  active in">
                     <div>
+                        <app-event-card *ngFor="let event of eventList" [eventData]="event"></app-event-card>
                         <div *ngIf="event_loading">
                             <app-event-card [loader]=true *ngFor="let number of [0,1,2,3,4]" ></app-event-card>
                         </div>
-                        <app-event-card *ngFor="let event of eventList" [eventData]="event"></app-event-card>
                     </div>
                     <div class="empty_message" *ngIf="eventList?.length === 0 && !event_loading">
                         <p>There is no {{filterStatus}} Event</p>
