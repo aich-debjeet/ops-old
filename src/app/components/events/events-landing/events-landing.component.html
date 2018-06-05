@@ -180,7 +180,7 @@
                             <app-event-card [loader]=true *ngFor="let number of [0,1,2,3,4]" ></app-event-card>
                         </div>
                     </div>
-                    <div class="empty_message" *ngIf="eventList?.length === 0 && !event_loading">
+                    <div class="empty_message" *ngIf="!eventList && !event_loading">
                         <p>There is no {{filterStatus}} Event</p>
                     </div>
                 </div>
