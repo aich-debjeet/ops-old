@@ -86,7 +86,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
    * @param query
    */
   onSearchChange(query) {
-    if (query || query !== '') {
+    if (query && query !== '') {
       this.isSearching = true;
       this.store.dispatch({ type: AuthActions.SEARCH_SKILL, payload: query });
     } else {
