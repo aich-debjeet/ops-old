@@ -293,6 +293,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       this.ngZone.run(() => {
         // get the place result
         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+        console.log(place)
 
         for (let i = 0; i < place.address_components.length; i++) {
           const addressType = place.address_components[i].types[0];
@@ -369,12 +370,12 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    * @param value value of form
    */
   submitForm(value) {
-    console.log(this.eventForm.valid)
-    console.log(this.eventCoverImage)
+    // console.log(this.eventForm.valid)
+    // console.log(this.eventCoverImage)
     if (this.eventForm.valid) {
       if (this.eventCoverImage === '') {
         this.imageUpload = true;
-        console.log(this.imageUpload)
+        // console.log(this.imageUpload)
         return
       }
       this.imageUpload = false;
@@ -388,7 +389,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
             endDate : this.reverseDate(value.event_enddate) + 'T05:00:00',
           },
           venue : {
-            location: value.event_venue
+            location: this.address+','+ this.latitude + ',' + this.longitude,
           },
           event_agenda: value.event_agenda,
           extras: {
@@ -408,6 +409,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
             EntryType : value.event_type,
           }
       }
+      // console.log(data)
 
       // Dispatch to form value to server
       this.store.dispatch({ type: EventActions.EVENT_REG, payload: data });
