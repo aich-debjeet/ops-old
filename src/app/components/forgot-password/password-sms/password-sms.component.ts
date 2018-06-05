@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import { Login, initialTag } from '../../../models/auth.model';
@@ -28,12 +28,11 @@ export class PasswordSmsComponent  implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private store: Store<Login>,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private router: Router
     ) {
 
     this.otpForm = fb.group({
-      'otpToSubmit': ['', Validators.required],
+      otpToSubmit: ['', Validators.required],
     })
 
     this.tagState$ = store.select('loginTags');
@@ -61,29 +60,20 @@ export class PasswordSmsComponent  implements OnInit, OnDestroy {
     if (value.otpToSubmit === '') {
       return;
     }
-
-    const form = {
-      'forgetPasswordtype': '',
-      'value': '',
-      'cType': 'phone',
-      'otp': ''
+    const formData = {
+      forgetPasswordtype: 'validateOTP',
+      value: this.forgotP.fp_user_input,
+      cType: 'phone',
+      otp: value.otpToSubmit
     }
-
-    // preparing req params
-    form.forgetPasswordtype = 'validateOTP';
-    form.cType = 'phone';
-    form.value = this.forgotP.fp_user_input;
-    form.otp = value.otpToSubmit;
-
-    this.store.dispatch({ type: AuthActions.FP_SUBMIT_OTP, payload: form });
-
+    this.store.dispatch({ type: AuthActions.FP_SUBMIT_OTP, payload: formData });
   }
 
   // Reset SMS
   resentSms() {
     const data = {
-      'value': this.forgotP.fp_user_input,
-      'cType': 'phone'
+      value: this.forgotP.fp_user_input,
+      cType: 'phone'
     }
     this.store.dispatch({ type: AuthActions.OTP_RESEND_FORGET_USER, payload: data });
   }
