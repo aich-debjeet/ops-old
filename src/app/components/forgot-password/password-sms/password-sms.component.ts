@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import { Login, initialTag } from '../../../models/auth.model';
@@ -24,16 +24,25 @@ export class PasswordSmsComponent  implements OnInit, OnDestroy {
   forgotP = initialTag;
   otpfailed: boolean;
   private subscription: ISubscription;
+  resending = false;
+  invalidOTP = false;
+
+  // otp numbers
+  @ViewChild('otpNum1') otpNum1: ElementRef;
+  @ViewChild('otpNum2') otpNum2: ElementRef;
+  @ViewChild('otpNum3') otpNum3: ElementRef;
+  @ViewChild('otpNum4') otpNum4: ElementRef;
+  @ViewChild('otpNum5') otpNum5: ElementRef;
+  @ViewChild('otpNum6') otpNum6: ElementRef;
 
   constructor(
     private fb: FormBuilder,
     private store: Store<Login>,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private router: Router
     ) {
 
     this.otpForm = fb.group({
-      'otpToSubmit': ['', Validators.required],
+      otpToSubmit: ['', Validators.required],
     })
 
     this.tagState$ = store.select('loginTags');
@@ -47,6 +56,16 @@ export class PasswordSmsComponent  implements OnInit, OnDestroy {
         this.otpfailed = state['fp_sumit_otp_failed'];
       }
     });
+
+    // OTP Form Builder
+    this.otpForm = this.fb.group({
+      otpNum1: ['', [Validators.required]],
+      otpNum2: ['', [Validators.required]],
+      otpNum3: ['', [Validators.required]],
+      otpNum4: ['', [Validators.required]],
+      otpNum5: ['', [Validators.required]],
+      otpNum6: ['', [Validators.required]]
+    })
   }
 
   ngOnInit() {
@@ -57,36 +76,56 @@ export class PasswordSmsComponent  implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  submitForm(value: any) {
-    if (value.otpToSubmit === '') {
+  otpSubmit(value: any) {
+
+    // console.log('otp form data', value); return;
+    const otpValue = value.otpNum1.toString() +
+                     value.otpNum2.toString() +
+                     value.otpNum3.toString() +
+                     value.otpNum4.toString() +
+                     value.otpNum5.toString() +
+                     value.otpNum6.toString();
+
+    if (otpValue.length !== 6) {
+      this.invalidOTP = true;
       return;
+    } else {
+      this.invalidOTP = false;
     }
 
-    const form = {
-      'forgetPasswordtype': '',
-      'value': '',
-      'cType': 'phone',
-      'otp': ''
+    const formData = {
+      forgetPasswordtype: 'validateOTP',
+      value: this.forgotP.fp_user_input,
+      cType: 'phone',
+      otp: otpValue
     }
-
-    // preparing req params
-    form.forgetPasswordtype = 'validateOTP';
-    form.cType = 'phone';
-    form.value = this.forgotP.fp_user_input;
-    form.otp = value.otpToSubmit;
-
-    this.store.dispatch({ type: AuthActions.FP_SUBMIT_OTP, payload: form });
-
+    this.store.dispatch({ type: AuthActions.FP_SUBMIT_OTP, payload: formData });
   }
 
   // Reset SMS
   resentSms() {
+    this.resending = true;
     const data = {
-      'value': this.forgotP.fp_user_input,
-      'cType': 'phone'
+      value: this.forgotP.fp_user_input,
+      cType: 'phone'
     }
     this.store.dispatch({ type: AuthActions.OTP_RESEND_FORGET_USER, payload: data });
+    setTimeout(() => {
+      this.resending = false;
+    }, 1500);
   }
 
+  // focus on next otp number
+  nextOtpNum(e: any, num: number) {
+    if (e.keyCode >= 48 && e.keyCode <= 57) {
+      if (num > 0 && num < 6) {
+        const nextNum = num + 1;
+        const nextOtpInput = 'otpNum' + nextNum.toString();
+        this[nextOtpInput].nativeElement.focus();
+      }
+      return true;
+    }
+    return false;
+  }
 
 }
