@@ -1,15 +1,15 @@
 <div class="c-event__card">
     <!-- card media (img, video & audio) -->
     <div class="c-card__event">
-        <a routerLink="{{ '/event/inner/' + eventData?.eventId }}"  data-toggle="modal" data-target="#imgModal">
-            <img src="{{ baseUrl + eventData?.eventImage }}" alt="" class="c-card__image">
+        <a [routerLink]="'/event/inner/' + eventData?.eventId" >
+            <img [src]="baseUrl + eventData?.eventImage" class="c-card__image">
         </a>
     </div>
     <!-- //card media (img, video & audio) -->
     <div class="c-card__project p-l-r-16 p-t-16">{{eventData?.eventType?.eventType }}</div>
     <!-- card body -->
     <div class="c-card__body p-t-0">
-        <div class="c-text_lg c-card__event-title">
+        <div class="c-text_lg c-card__event-title cursor-pointer" [routerLink]="'/event/inner/' + eventData?.eventId">
             {{eventData?.eventTitle | truncate:[40, '...']}}
         </div>
         <div class="c-text_md color-grey-dark m-t-8">{{ eventData?.eventStartDate | utcDate | date: 'dd, MMM'}} - {{ eventData?.eventEndDate | utcDate | date: 'dd, MMM'}}</div>
@@ -25,14 +25,11 @@
                     </div> -->
             <div class="c-links__comments">
                 <a >
-                    <img src="{{ baseUrl }}img/svg/ico_share-02.svg" class="c-links__image">
-                </a>
-                <a>
-                    <img src="{{ baseUrl }}img/svg/ico_addtochannel.svg" class="c-action__image">
+                    <img [src]="baseUrl + 'img/svg/ico_share-02.svg'" class="c-links__image">
                 </a>
             </div>
             <div class="c-links__actions">
-                <a routerLink="{{ '/event/inner/' + eventData?.eventId }}" class="c-card__opportunity--view">View</a>
+                <a [routerLink]="'/event/inner/' + eventData?.eventId" class="c-card__opportunity--view">View</a>
             </div>
         </div>
     </div>
