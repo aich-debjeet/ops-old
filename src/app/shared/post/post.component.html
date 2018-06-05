@@ -23,7 +23,7 @@
             <a>
                 <img *ngIf="mediaData?.access === 1" [src]="imageLink + 'img/svg/ico_private.svg'" class="c-status__options">
                 <!-- <img *ngIf="mediaData?.access === 0" [src]="imageLink + 'img/svg/ico_public.svg'" class="c-status__options"> -->
-                <img [src]="imageLink + 'img/svg/ico_public.svg'" class="c-status__options">
+                <img [src]="imageLink + 'img/svg/ico_public.svg'" *ngIf="mediaData?.access === 0" class="c-status__options">
             </a>
             <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen *ngIf="mediaData?.isOwner">
                     <img [src]="imageLink + 'img/svg/ico_options.svg'" class="c-status__options">
