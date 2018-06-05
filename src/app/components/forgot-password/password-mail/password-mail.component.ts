@@ -20,6 +20,7 @@ import { Login, initialTag } from '../../../models/auth.model';
 export class PasswordMailComponent {
   tagState$: Observable<Login>;
   forgotP = initialTag;
+  resending = false;
 
   constructor(
     private fb: FormBuilder,
@@ -40,10 +41,14 @@ export class PasswordMailComponent {
 
   // Reset email
   resentMail() {
+    this.resending = true;
     const data = {
       value: this.forgotP.fp_user_input,
       cType: 'email'
     }
     this.store.dispatch({ type: AuthActions.OTP_RESEND_FORGET_USER, payload: data });
+    setTimeout(() => {
+      this.resending = false;
+    }, 1500);
   }
 }

@@ -24,6 +24,7 @@ export class PasswordSmsComponent  implements OnInit, OnDestroy {
   forgotP = initialTag;
   otpfailed: boolean;
   private subscription: ISubscription;
+  resending = false;
 
   constructor(
     private fb: FormBuilder,
@@ -71,11 +72,15 @@ export class PasswordSmsComponent  implements OnInit, OnDestroy {
 
   // Reset SMS
   resentSms() {
+    this.resending = true;
     const data = {
       value: this.forgotP.fp_user_input,
       cType: 'phone'
     }
     this.store.dispatch({ type: AuthActions.OTP_RESEND_FORGET_USER, payload: data });
+    setTimeout(() => {
+      this.resending = false;
+    }, 1500);
   }
 
 
