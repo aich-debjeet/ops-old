@@ -4,21 +4,8 @@
 @import './src/assets/scss/helpers/_helpers.scss';
 @import './src/assets/scss/components/_cards.scss';
 @import './src/assets/scss/components/_dropdowns.scss';
+@import './src/assets/scss/components/_preloader.scss';
 @import '~sass-mq/_mq.scss';
-
-.c-bg__effect {
-  background: linear-gradient(to right, #F3F5F7 8%, #EAEAEA 18%, #F3F5F7 33%);
-  background-size: 200% 50px;
-  animation: preloadAnimation 2s infinite;
-}
-@keyframes preloadAnimation {
-  from {
-      background-position: -280px 0
-  }
-  to {
-      background-position: 300px 0
-  }
-}
 
 // audio card media block style -----------------------------------------
 .c-card__media {
@@ -33,7 +20,6 @@
   .c-card__opportunity {
     @extend .c-card__media;
     height: 175px;
-    @extend .c-bg__effect;
   }
   .c-card__opportunity--view {
     font-size: 13px;
@@ -162,15 +148,13 @@
     width: 100%;
     height: 18px;
     border-radius: 3px;
-    @extend .c-bg__effect;
-}
+  }
 
 .c-card__headblank2 {
     width: 60%;
     height: 18px;
     border-radius: 3px;
     margin-top: 8px;
-    @extend .c-bg__effect;
 }
 
 .cursor-pointer{
