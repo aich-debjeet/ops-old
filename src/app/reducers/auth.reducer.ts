@@ -322,19 +322,22 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.FP_CREATE_PASS:
       return Object.assign({}, state, {
         success: false,
+        fb_uploading_data: true
       });
 
     case AuthActions.FP_CREATE_PASS_SUCCESS:
       return Object.assign({}, state, {
         fpCrPassSuccess: payload,
         fp_create_success: true,
-        success: true
+        success: true,
+        fb_uploading_data: false
       });
 
     case AuthActions.FP_CREATE_PASS_FAILED:
       return Object.assign({}, state, {
         fb_pass_create_failed: true,
-        success: false
+        success: false,
+        fb_uploading_data: false
       });
 
     case AuthActions.USER_SUBMIT_SKILLS:

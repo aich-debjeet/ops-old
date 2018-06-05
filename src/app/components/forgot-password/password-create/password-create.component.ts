@@ -42,11 +42,11 @@ export class PasswordCreateComponent implements OnInit {
     this.baseUrl = environment.API_IMAGE;
 
     this.createPass = fb.group({
-      'password' : ['', [
+      password : ['', [
         Validators.required,
         FormValidation.passwordStrength.bind(this)
       ]],
-      'confirmpassword' : ['', [
+      confirmpassword: ['', [
         Validators.required,
         this.passwordMatchCheck.bind(this)
       ]]
@@ -81,7 +81,6 @@ export class PasswordCreateComponent implements OnInit {
         activationCode: this.activationCode,
         identity: this.forgotP.fp_user_input
       };
-
       this.store.dispatch({ type: AuthActions.FP_CREATE_PASS, payload: form });
     }
   }
