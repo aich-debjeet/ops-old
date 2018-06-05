@@ -22,7 +22,7 @@
                                     <a (click)="communityEdit()">Edit</a>
                                 </li>
                                 <li>
-                                    <a (click)="communityLeaveModal.open()">Leave</a>
+                                    <a (click)="communityLeave()">Leave</a>
                                 </li>
                                 <li>
                                     <a (click)="communityRemove.open()">Remove</a>
@@ -173,10 +173,10 @@
                                 </span>
                             </div>
                             <div class="o-cadminlist" id="ops_scrollbar">
-                            <form>
+                            <form [formGroup]="communityAdminForm" novalidate (ngSubmit)="submitMemberAdmin(communityAdminForm.value)" #cmafrom="ngForm">
                                 <div class="o-cadmin_block">
                                     <label>
-                                    <input type="radio" name="a">
+                                    <input type="radio" name="handle" value="b" formControlName="handle">
                                     <div class="o-cadmin_checkbox">
                                         <div class="o-cadmin_imgblock m-t-b-8">
                                             <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-cadmin_img">
@@ -186,12 +186,36 @@
                                     </div>
                                     </label>
                                 </div>
+                                <div class="o-cadmin_block">
+                                        <label>
+                                        <input type="radio" name="handle" value="a" formControlName="handle">
+                                        <div class="o-cadmin_checkbox">
+                                            <div class="o-cadmin_imgblock m-t-b-8">
+                                                <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-cadmin_img">
+                                            </div>
+                                            <p class="o-cadmin_name">John Mayer1</p>
+                                            <p class="o-cadmin_prof">Profile</p>
+                                        </div>
+                                        </label>
+                                    </div>
+                                    <div class="o-cadmin_block">
+                                            <label>
+                                            <input type="radio" name="handle" value="c" formControlName="handle">
+                                            <div class="o-cadmin_checkbox">
+                                                <div class="o-cadmin_imgblock m-t-b-8">
+                                                    <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-cadmin_img">
+                                                </div>
+                                                <p class="o-cadmin_name">John Mayer1</p>
+                                                <p class="o-cadmin_prof">Profile</p>
+                                            </div>
+                                            </label>
+                                        </div>
                             </form>
             
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default btn-sm" (click)="communityLeaveModal.close()">cancel</button>
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="nextClicked()">Done</button>
+                                <button type="submit" class="btn btn-primary btn-sm" (click)="submitMemberAdmin(communityAdminForm.value)">Done</button>
                             </div>
                         </div>
                     </div>

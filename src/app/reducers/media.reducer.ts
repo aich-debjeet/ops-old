@@ -120,19 +120,6 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
         comment_post_loading: false,
       });
 
-    case MediaActions.UPDATE_COMMENT_SUCCESS:
-      const todo = state.media_comment.find(t => t.commentsId === 'm-c6e528a4-14ca-4176-b296-a1869f5193b3');
-      const index = state.media_comment.indexOf(todo);
-      console.log('todo', todo);
-      console.log('index', index);
-      return Object.assign({}, state, {
-        media_comment: [
-            ...state.media_comment.slice(0, index),
-            Object.assign({}, todo, {comment: 'Post testing and testing'}),
-            ...state.media_comment.slice(index + 1)
-        ],
-      })
-
     /**
      * Get User Media Post
      */
