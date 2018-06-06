@@ -2,6 +2,10 @@ import { Action } from '@ngrx/store';
 
 export class EventActions {
 
+    static GET_EVENT_TYPE = 'GET_EVENT_TYPE';
+    static GET_EVENT_TYPE_SUCCESS = 'GET_EVENT_TYPE_SUCCESS';
+    static GET_EVENT_TYPE_FAILED = 'GET_EVENT_TYPE_FAILED';
+
     static BANNER_SEARCH = 'BANNER_SEARCH';
     static BANNER_SEARCH_SUCCESS = 'BANNER_SEARCH_SUCCESS';
     static BANNER_SEARCH_FAILED = 'BANNER_SEARCH_FAILED';

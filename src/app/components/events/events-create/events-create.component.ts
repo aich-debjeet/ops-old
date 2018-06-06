@@ -389,11 +389,12 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
             endDate : this.reverseDate(value.event_enddate) + 'T05:00:00',
           },
           venue : {
-            location: this.address+','+ this.latitude + ',' + this.longitude,
+            location: this.address,
+            latitude: this.latitude.toString(),
+            longitude: this.longitude.toString(),
           },
           event_agenda: value.event_agenda,
           extras: {
-            Genre: [value.event_genres],
             coverImage: this.eventCoverImage,
             ticket: [{
               startDate: this.reverseDate(value.ts_startTime) + 'T05:00:00',
@@ -406,7 +407,8 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
               value.event_industry
           ],
           Type: {
-            EntryType : value.event_type,
+            entryType : value.event_type,
+            eventType : value.event_genres
           }
       }
       // console.log(data)
