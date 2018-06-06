@@ -34,7 +34,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   weekend: any;
   carouselOne: NguCarousel;
   tagState$: Observable<EventModal>;
-  eventList = initialTag ;
+  eventList: any;
   eventType: any;
   baseUrl = environment.API_IMAGE;
   private subscription: ISubscription;
