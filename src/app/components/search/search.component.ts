@@ -33,7 +33,7 @@ import { GeneralUtilities } from '../../helpers/general.utils';
 export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('searchInput') searchInput;
-  
+
   baseUrl: string;
   isSearching = false;
   searchState$: Observable<SearchModel>;
@@ -272,8 +272,15 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.routeSub = this.route.queryParams
       .subscribe(params => {
+
+        // check if search type is available
+        if (params.type && params.type.length > 0) {
+          // giving back the search type
+          this.searchType = params.type;
+        }
+
         // check if params available
-        if (params && params.q && params.q.length > 0) {
+        if (params && typeof params.q !== 'undefined') {
 
           // giving back the search value
           this.searchString = params.q;
@@ -299,10 +306,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
           }
 
           // check if search type is available
-          if (params.type && params.type.length > 0) {
-
-            // giving back the search type
-            this.searchType = params.type;
+          if (this.searchType.length > 0) {
 
             // making a dispatch depending on the search type
             if (this.searchType === 'people') {
