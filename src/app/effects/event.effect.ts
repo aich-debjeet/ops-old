@@ -15,6 +15,26 @@ import { EventActions } from '../actions/event.action';
 @Injectable()
 export class EventEffect {
 
+  //Banner search for events
+  @Effect()
+    bannerSearch$ = this.actions$
+    .ofType(EventActions.BANNER_SEARCH)
+    .map(toPayload)
+    .switchMap((payload) => this.eventService.searchBanner()
+      .map(res => ({ type: EventActions.BANNER_SEARCH_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: EventActions.BANNER_SEARCH_FAILED, payload: res }))
+    );
+
+    //Attendee list
+    @Effect()
+     attendeeList$ = this.actions$
+     .ofType(EventActions.EVENT_ATTENDEE_LOAD)
+     .map(toPayload)
+     .switchMap((payload) => this.eventService.listOfAttendee(payload)
+        .map(res => ({ type: EventActions.EVENT_ATTENDEE_LOAD_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: EventActions.EVENT_ATTENDEE_LOAD_FAILED, payload: res }))
+      );
+
   // Get Event Registration
   @Effect()
     eventregistration$ = this.actions$

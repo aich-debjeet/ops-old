@@ -9,12 +9,12 @@
                     <a routerLink="/profile/u/{{ mediaData?.ownerUserName }}" class="c-user__name c-user--align">{{ mediaData?.ownerName }}</a>
                     <a routerLink="/channel/{{ mediaData?.channelId }}" class="c-user__channel2 c-user__channel-align">{{ mediaData?.channelName }}</a>
                 </a>
-                <a routerLink="/profile" *ngIf = "mediaData?.isOwner">
-                    <a class="c-user__avatar c-avatar--status">
+                <a  *ngIf = "mediaData?.isOwner">
+                    <a routerLink="/profile" class="c-user__avatar c-avatar--status">
                         <img class="c-user__image" [src]="userImage">
                     </a>
-                    <a class="c-user__name c-user--align">{{ mediaData?.ownerName }}</a>
-                    <a class="c-user__channel2 c-user__channel-align">{{ mediaData?.channelName }}</a>
+                    <a routerLink="/profile" class="c-user__name c-user--align">{{ mediaData?.ownerName }}</a>
+                    <a routerLink="/channel/{{ mediaData?.channelId }}" class="c-user__channel2 c-user__channel-align">{{ mediaData?.channelName }}</a>
                 </a>
             </div>
         </div>
@@ -23,7 +23,7 @@
             <a>
                 <img *ngIf="mediaData?.access === 1" [src]="imageLink + 'img/svg/ico_private.svg'" class="c-status__options">
                 <!-- <img *ngIf="mediaData?.access === 0" [src]="imageLink + 'img/svg/ico_public.svg'" class="c-status__options"> -->
-                <img [src]="imageLink + 'img/svg/ico_public.svg'" class="c-status__options">
+                <img [src]="imageLink + 'img/svg/ico_public.svg'" *ngIf="mediaData?.access === 0" class="c-status__options">
             </a>
             <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen *ngIf="mediaData?.isOwner">
                     <img [src]="imageLink + 'img/svg/ico_options.svg'" class="c-status__options">

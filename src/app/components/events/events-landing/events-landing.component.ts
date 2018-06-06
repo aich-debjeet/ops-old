@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import { NguCarousel } from '@ngu/carousel';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -17,25 +18,30 @@ import { EventActions } from '../../../actions/event.action';
 import { Observable } from 'rxjs/Observable';
 import { Subscription, ISubscription } from 'rxjs/Subscription';
 
+import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import {} from '@types/googlemaps';
+
 @Component({
   selector: 'app-events-landing',
   templateUrl: './events-landing.component.html',
   styleUrls: ['./events-landing.component.scss']
 })
 export class EventsLandingComponent implements OnInit, OnDestroy {
+  public locForm: FormGroup;
   date = new Date();
   day: any;
   tomorrow: any;
   weekend: any;
   carouselOne: NguCarousel;
   tagState$: Observable<EventModal>;
-  eventList = initialTag ;
+  eventList: any;
   eventType: any;
   baseUrl = environment.API_IMAGE;
   private subscription: ISubscription;
-
+  industryList: any;
   category: string;
   myQueryParms: any;
+  bannerList: any;
 
   filterStartDate: string;
   filterEndDate: string;
@@ -44,19 +50,44 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   filterSearchText: string;
   filterEventType: string;
 
+  public latitude: number;
+  public longitude: number;
+  // public searchControl: FormControl;
+  public zoom: number;
+      // Address --
+  address: string;
+  country: string;
+  state: string;
+  postalCode: string;
+  city: string;
+  event_loading: boolean = true;
+
+  locPop: boolean = false;
+
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<EventModal>
+    private store: Store<EventModal>,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
+    private fb: FormBuilder,
   ) {
     this.tagState$ = this.store.select('eventTags');
     this.subscription = this.tagState$.subscribe((state) => {
-      this.eventList = state['event_list'];
+      if (state['event_list']) {
+        this.eventList = state['event_list'];
+      }
       this.eventType = state['event_type'];
+      this.industryList = state['all_industry'];
+      this.bannerList = state['bannerload']
+      this.event_loading = state['event_loading']
     });
     // this.store.dispatch({ type: EventActions.EVENT_LIST });
 
-    this.store.dispatch({ type: EventActions.EVENT_TYPE_LOAD });
+    this.store.dispatch({ type: EventActions.GET_ALL_INDUSTRY });
 
     this.route
       .queryParams
@@ -64,6 +95,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
         // Defaults to 0 if no query param provided.
         if (params['status']) {
           this.filterStatus = params['status'];
+          console.log(this.filterStatus)
         }
         this.serachApi();
       });
@@ -85,6 +117,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.store.dispatch({ type: EventActions.BANNER_SEARCH});
     this.carouselOne = {
       grid: {xs: 3, sm: 3, md: 3, lg: 3, all: 0},
       slide: 1,
@@ -125,6 +158,8 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
       loop: false,
       touch: true
     }
+    this.buildForm();
+    this.getLocationGoogle();
   }
 
   ngOnDestroy() {
@@ -145,6 +180,100 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     }
 
     this.store.dispatch({ type: EventActions.EVENT_SEARCH, payload: data });
+  }
+
+  buildForm() {
+    this.locForm = this.fb.group({
+      'location': ['']
+    })
+
+  }
+
+
+      /**
+   * Location find from google
+   */
+  getLocationGoogle() {
+    // set google maps defaults
+    this.zoom = 4;
+    this.latitude = 39.8282;
+    this.longitude = -98.5795;
+
+    // create search FormControl
+    // this.searchControl = new FormControl();
+
+    // set current position
+    this.setCurrentPosition();
+
+    // load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+    });
+    const componentForm = {
+      street_number: 'short_name',
+      route: 'long_name',
+      locality: 'long_name',
+      administrative_area_level_1: 'long_name',
+      country: 'long_name',
+      postal_code: 'short_name'
+    };
+
+    autocomplete.addListener('place_changed', () => {
+      this.ngZone.run(() => {
+        // get the place result
+        const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+        for (let i = 0; i < place.address_components.length; i++) {
+          const addressType = place.address_components[i].types[0];
+          if (componentForm[addressType]) {
+            const val = place.address_components[i][componentForm[addressType]];
+            if ( addressType === 'country') {
+              this.country = val;
+            }
+            if ( addressType === 'postal_code') {
+              this.postalCode = val;
+            }
+            if ( addressType === 'locality') {
+              this.city = val
+            }
+            if ( addressType === 'administrative_area_level_1') {
+              this.state = val
+            }
+          }
+        }
+
+        // verify result
+        if (place.geometry === undefined || place.geometry === null) {
+          return;
+        }
+
+        // set latitude, longitude and zoom
+        this.address = place.formatted_address;
+        this.latitude = place.geometry.location.lat();
+        this.longitude = place.geometry.location.lng();
+        this.zoom = 12;
+      });
+    });
+    });
+  }
+
+  private setCurrentPosition() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 12;
+      });
+    }
+  }
+  openDropbox(){
+    console.log('treying to open')
+    if(this.locPop){
+      this.locPop = false;
+      console.log(this.locPop)
+    }
+    else this.locPop = true;
+    console.log(this.locPop)
   }
 
 }

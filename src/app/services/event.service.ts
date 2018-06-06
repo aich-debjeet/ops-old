@@ -18,6 +18,22 @@ export class EventService {
       this.headers = this.api.getHeaders();
     }
 
+    /**
+     * Search Banner
+     */
+
+    searchBanner(){
+      return this.api.get('/portal/event/get/eventsBanner');
+    }
+
+    /**
+     * list of attendee
+     */
+
+    listOfAttendee(id: any){
+      return this.api.get('/portal/eventAttendee/' + id + '/0/10');
+    }
+
   /**
    * Event Registration
    */

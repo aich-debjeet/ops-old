@@ -79,5 +79,9 @@ export class CommunitiesService {
     return this.api.put(`/portal/community/update/community/${data.id}`, data.body);
   }
 
+  memberListCommunity(para: any) {
+    return this.api.get(`/portal/community/members/${para.id}/0/10`, '');
+  }
+
 
 }

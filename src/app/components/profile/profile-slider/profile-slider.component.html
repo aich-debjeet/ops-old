@@ -270,7 +270,7 @@
                                     </button>
                                 </div>
                                 <div class="selected_tags">
-                                    <div *ngIf="findSkill.skills_loaded===false">
+                                    <div *ngIf="findSkill?.skills_loaded === false">
                                         <span class="loading">Loading...</span>
                                     </div>
                                     <span *ngFor="let skill of findSkill?.skills">

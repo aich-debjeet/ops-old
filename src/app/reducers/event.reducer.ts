@@ -5,10 +5,44 @@ import { EventModal, initialTag  } from '../models/event.model';
 export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
 
   switch (type) {
+
+    case EventActions.EVENT_ATTENDEE_LOAD:
+      return Object.assign({}, state, {
+        attendee_load_success: false
+      })
+
+    case EventActions.EVENT_ATTENDEE_LOAD_SUCCESS:
+    console.log(payload.SUCCESS)
+      return Object.assign({}, state, {
+        attendee_load_success: true,
+        attendee_load: payload.SUCCESS
+      })
+
+    case EventActions.BANNER_SEARCH:
+      return Object.assign({}, state, {
+        banner_success: false
+      });
+
+    case EventActions.BANNER_SEARCH_SUCCESS:
+    console.log(payload)
+      return Object.assign({}, state, {
+        bannerload: payload,
+        banner_success: true
+      });
+    
+    case EventActions.EVENT_REG:
+      return Object.assign({}, state, {
+        event_create_success: false,
+      });
     case EventActions.EVENT_REG_SUCCESS:
       return Object.assign({}, state, {
         event_create_success: true,
         event_id: payload['SUCCESS'].id
+      });
+
+    case EventActions.EVENT_DETAILS_LOAD:
+      return Object.assign({}, state, {
+        event_detail: []
       });
 
     case EventActions.EVENT_DETAILS_LOAD_SUCCESS:
@@ -17,6 +51,7 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
       });
 
     case EventActions.GET_ALL_INDUSTRY_SUCCESS:
+    console.log(payload)
       return Object.assign({}, state, {
         all_industry: payload
       });
@@ -37,9 +72,16 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
         event_list: payload['SUCCESS'],
       });
 
+    case EventActions.EVENT_SEARCH:
+      return Object.assign({}, state, {
+        event_list: [],
+        event_loading: true
+      });
+
     case EventActions.EVENT_SEARCH_SUCCESS:
       return Object.assign({}, state, {
         event_list: payload['SUCCESS'],
+        event_loading: false
       });
 
     case EventActions.EVENT_TYPE_LOAD_SUCCESS:
