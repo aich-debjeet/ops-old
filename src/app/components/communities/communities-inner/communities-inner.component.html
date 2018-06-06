@@ -166,7 +166,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="c-form__group c-form--md c-form--noeffect c-form__faded--md">
-                                <input class="c-form__input p-l-24" required="" type="text">
+                                <input class="c-form__input p-l-24" #searchInput="ngModel" [(ngModel)]="searchString" required="" type="text">
                                 <label class="p-l-16">Input with icon</label>
                                 <span>
                                     <img [src]="basePath + 'img/svg/ico_search.svg'" class="c-form__input--lefticon">

@@ -66,6 +66,8 @@ export class ProfileModal {
   searching_follower_params?: string;
   following_profiles?: any;
   follower_profiles?: any;
+  profile_scrolling_channel?: any;
+  profile_channel_total?: any;
   channel_pin_success: boolean;
   channel_pin_failed: boolean;
   channel_unpin_success: boolean;

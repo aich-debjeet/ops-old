@@ -1,26 +1,10 @@
 // All cards style ---------------------------------------------------------------------------
 @import '~sass-mq/_mq.scss';
-// background effect 
-.c-bg__effect {
-  background: linear-gradient(to right, #F3F5F7 8%, #EAEAEA 18%, #F3F5F7 33%);
-  background-size: 200% 100px;
-  animation: preloadAnimation 2s infinite;
-}
-@keyframes preloadAnimation {
-  from {
-      background-position: -280px 0
-  }
-  to {
-      background-position: 300px 0
-  }
-}
 
-// feed card (image, audio, video & article)
 .c-card--artist {
   padding: 16px;
   text-align: center;
 }
-
 .c-artist__avatar {
   border-radius: 50%;
   display: inline-block;
@@ -30,14 +14,12 @@
   box-sizing: border-box;
   background-color: #f8f8f8;
 }
-
 .c-artist__img {
   // width: 100%;
   width: 89px;
   height: 89px;
   border-radius: 50%;
 }
-
 .c-artist__name {
   color: #333333;
   font-size: 14px;
@@ -45,48 +27,40 @@
   line-height: 19px;
   text-align: center;
 }
-
 .c-artist__username {
   color: #333333;
   font-size: 12px;
   line-height: 17px;
 }
-
 .c-artist--btn {
   margin-top: 16px;
 }
-
 // audio card controller block style ----------------------------------------------------
 .c-audio__controller {
   float: left;
   width: 100%;
   padding: 16px;
 }
-
 .c-controller__heading {
   color: #333333;
   font-size: 18px;
   font-weight: 600;
   line-height: 24px;
 }
-
 .c-controller--audio {
   width: 90%;
   float: left;
 }
-
 .c-controller--align {
   padding-top: 9px;
   padding-left: 2px;
   vertical-align: middle;
 }
-
 .c-controller__bar {
   margin: 16px 0;
   background-color: #555555;
   position: relative;
 }
-
 .c-controller__bar1 {
   width: 52%;
   height: 3px;
@@ -94,14 +68,12 @@
   position: absolute;
   top: 0px;
 }
-
 .c-controller__bar2 {
   width: 33%;
   height: 3px;
   background-color: #FF7B84;
   position: inherit;
 }
-
 .c-controller__bar3 {
   width: 9px;
   height: 9px;
@@ -114,7 +86,6 @@
   border-radius: 50%;
   cursor: pointer;
 }
-
 .c-controller__bar4 {
   width: 52%;
   height: 3px;
@@ -122,16 +93,13 @@
   position: absolute;
   top: 0px;
 }
-
 .c-controller__vol {
   width: 10%;
   float: left;
 }
-
 .c-controller__icon {
   width: 15px;
 }
-
 .c-controller__timer {
   width: 90%;
   float: left;
@@ -139,7 +107,6 @@
   color: #C1C1C1;
   line-height: 17px;
 }
-
 // audio card list style --------------------------------------
 .c-list--block {
   width: 100%;
@@ -147,7 +114,6 @@
   height: 206px;
   overflow-y: scroll;
 }
-
 .c-list {
   height: 52px;
   padding: 8px;
@@ -155,17 +121,14 @@
   color: #C1C1C1;
   border: 1px solid rgba(102, 45, 145, 0.1);
 }
-
 .c-list_icon {
   vertical-align: middle;
   padding: 9px;
 }
-
 .c-list--active {
   color: #333333;
   font-weight: bold;
 }
-
 .c-video_action {
   width: 36px;
   height: 36px;
@@ -173,27 +136,22 @@
   position: relative;
   border-radius: 3px;
 }
-
 .c-video_action--img {
   width: 100%;
 }
-
 .c-video_action--icon {
   position: absolute;
   top: 10px;
   left: 12px;
   width: 12px;
 }
-
 .c-video_name {
   position: relative;
   top: -12px;
 }
-
 .c-list_time {
   margin-top: 10px;
 }
-
 // audio card media block style -----------------------------------------
 .c-card__media {
   width: 100%;
@@ -204,14 +162,11 @@
   border-top-right-radius: 3px;
   background-color: #f8f8f8;
 }
-
 .c-card__opportunity {
   @extend .c-card__media;
-  @extend .c-bg__effect;
   height: 175px;
   
 }
-
 .c-card__opportunity--view {
   font-size: 13px;
   font-weight: 600;
@@ -223,12 +178,10 @@
       color: #FC6371;
   }
 }
-
 .c-card__opportunity-head {
   height: 74px;
   overflow: hidden;
 }
-
 .c-card__opportunity__details {
   clear: both;
   margin-bottom: 16px;
@@ -236,21 +189,18 @@
   width: 100%;
   float: left;
 }
-
 .c-card__opportunity__user {
   display: flex;
   margin: 0 16px;
   padding: 8px 0; // border-top: 1px solid #F3F5F7;  
   // border-bottom: 1px solid #F3F5F7;  
 }
-
 .c-card__opportunity__username {
   font-size: 13px;
   color: #808080;
   line-height: 24px;
   margin-left: 8px;
 }
-
 .c-card__Communities--link {
   font-size: 13px;
   font-weight: 600;
@@ -265,7 +215,6 @@
       color: #FC6371;
   }
 }
-
 .c-comm__followers {
   width: 100%;
   position: relative;
@@ -273,13 +222,11 @@
   margin-top: 8px;
   float: left;
 }
-
 .c-card__image {
   width: 100%;
   vertical-align: middle;
   outline: none;
 }
-
 .c-card__icon {
   position: absolute;
   top: 0px;
@@ -290,36 +237,6 @@
   filter: drop-shadow(0px 0px 3px #222);
 }
 
-.c-card__headblank {
-  width: 100%;
-  height: 18px;
-  border-radius: 3px;
-  @extend .c-bg__effect;
-}
-
-.c-card__headblank2 {
-  width: 60%;
-  height: 18px;
-  border-radius: 3px;
-  margin-top: 8px;
-  @extend .c-bg__effect;
-}
-
-.c-card__headblank3 {
-  width: 100%;
-  height: 306px;
-  border-radius: 3px;
-  @extend .c-bg__effect;
-}
-
-.c-card__followblank {
-  width: 30%;
-  height: 10px;
-  border-radius: 3px;
-  margin-top: 8px;
-  @extend .c-bg__effect;
-}
-
 // ------------------------------------
 .c-card__media {
   &:hover {
@@ -328,7 +245,6 @@
       }
   }
 }
-
 .c-media--hover {
   width: 100%;
   height: 52px;
@@ -340,11 +256,10 @@
   bottom: 0;
   padding: 16px;
 }
-
 // ------------------------
 .c-event__card {
-  width: 217px;
-  height: auto;
+  width: 215px;
+  height: 340px;
   float: left;
   border-radius: 3px;
   box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
@@ -355,7 +270,6 @@
       width: 96%;
   }
 }
-
 .c-card__event {
   height: 111px;
   overflow: hidden;
@@ -363,7 +277,6 @@
       width: 100%;
   }
 }
-
 .c-card__event2 {
   height: 140px;
   overflow: hidden;
@@ -371,20 +284,16 @@
       width: 100%;
   }
 }
-
 .c-card__event-title {
   height: 50px;
 }
-
 .c-card__event-address {
   height: 40px;
 }
-
 // channel header block style  ----------------------------------------
 .c-channel__card {
-  width: 24%;
+  width: 100%;
   float: left;
-  margin: 5px;
   position: relative;
   @include mq($from: $mobile_sm, $until: $mobile_lg) {
       width: 100%;
@@ -393,7 +302,6 @@
       width: 48%;
   }
 }
-
 .c-channel__heading {
   color: #333333;
   font-size: 15px;
@@ -402,7 +310,6 @@
       color: #000;
   }
 }
-
 .c-channel__name {
   background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
   position: absolute;
@@ -412,29 +319,24 @@
   height: 50px;
   padding: 8px;
 }
-
 .c-channel_heading2 {
   font-size: 15px;
   line-height: 24px;
   color: #FFFFFF;
 }
-
 // channel media block style  ----------------------------------------
 .c-channel__media {
   width: 100%;
   position: relative;
 }
-
 .c-channel__sec-l {
   width: 66%;
   float: left;
 }
-
 .c-channel__sec-r {
   width: 34%;
   float: left;
 }
-
 .c-channel__left {
   width: 99%;
   height: 139px;
@@ -447,18 +349,6 @@
   background: url(https://cdn.onepagespotlight.com/new/l12.jpg);
   background-size: cover;
   background-position: inherit;
-}
-.c-channel__left-blank {
-  width: 99%;
-  height: 139px;
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-  position: relative;
-  box-sizing: border-box;
-  background-size: cover;
-  background-position: inherit;
-  @extend .c-bg__effect;
 }
 
 .c-channel__right1 {
@@ -473,18 +363,6 @@
   background: url(https://cdn.onepagespotlight.com/new/s06.jpg);
   background-size: cover;
   background-position: inherit;
-}
-.c-channel__right1-blank {
-  width: 100%;
-  height: 69px;
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-  position: relative;
-  box-sizing: border-box;
-  background-size: cover;
-  background-position: inherit;
-  @extend .c-bg__effect;
 }
 
 .c-channel__right2 {
@@ -501,19 +379,6 @@
   background-size: cover;
   background-position: inherit;
 }
-.c-channel__right2-blank {
-  width: 100%;
-  height: 68px;
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-  position: relative;
-  box-sizing: border-box;
-  margin-top: 2px;
-  background-size: cover;
-  background-position: inherit;
-  @extend .c-bg__effect;
-}
 
 // channel footer block style ------------------------------
 .c-links__post {
@@ -521,31 +386,6 @@
   font-size: 11px;
   line-height: 18px;
   margin-right: 8px;
-}
-.c-links__post-blank {
-  width: 30%;
-  float: left;
-  height: 12px;
-  border-radius: 3px;
-  margin-bottom: 8px;
-  @extend .c-bg__effect;
-}
-.c-links__post-blank2 {
-  width: 80px;
-  float: left;
-  height: 14px;
-  border-radius: 3px;
-  margin-top: 4px;
-  @extend .c-bg__effect;
-}
-
-.c-post__time-blank {
-  width: 20px;
-  float: left;
-  height: 20px;
-  border-radius: 3px;
-  margin-bottom: 8px;
-  @extend .c-bg__effect;
 }
 
 
@@ -555,7 +395,6 @@
   margin-top: 8px;
   float: left;
 }
-
 .c-followers__img {
   height: 25px;
   width: 25px;
@@ -565,22 +404,12 @@
   display: inline-block;
   background-color: #F3F5F7;
 }
-
 .c-followers__count {
   color: #929292;
   font-size: 11px;
-  line-height: 25px;
+  line-height: 28px;
   display: inline-block;
   margin-left: 8px;
-}
-.c-followers__count-blank {
-  width: 30%;
-  float: left;
-  height: 10px;
-  border-radius: 3px;
-  margin-left: 8px;
-  margin-top: 8px;
-  @extend .c-bg__effect;
 }
 
 .c-channel__btn {
@@ -590,19 +419,12 @@
   display: none;
   transition: .25s;
 }
-
 .c-channel__btn2 {
   width: 50%;
   float: left;
   margin-top: 10px;
 }
-.c-channel__btn2-blank {
-  width: 80%;
-  float: right;
-  height: 20fpx;
-  border-radius: 3px;
-  @extend .c-bg__effect;
-}
+
 // -------------------------
 .c-my__card {
    :hover {
@@ -612,7 +434,6 @@
       }
   }
 }
-
 // feed Card style ----------------------------------------------------
 .c-card {
   width: 100%;
@@ -622,18 +443,15 @@
   box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
   background-color: #ffffff;
 }
-
 .c-card--overflow {
   overflow: hidden;
 }
-
 .c-card--feed {
   width: 25%;
   height: auto;
   float: left;
   padding: 8px;
 }
-
 // feed card media block style ----------------------------
 .c-audio__media {
   width: 94%;
@@ -643,24 +461,20 @@
   position: relative;
   border-radius: 3px;
 }
-
 .c-audio__image {
   width: 100%;
 }
-
 .c-audio__icons {
   width: 100%;
   position: absolute;
   top: 110px;
   text-align: center
 }
-
 .c-audio__action {
   vertical-align: middle;
   margin: 0 16px;
   filter: drop-shadow(0px 0px 3px #222);
 }
-
 // feed card body block style ------------------------------------
 .c-card__body {
   width: 100%;
@@ -669,7 +483,6 @@
   padding: 16px;
   position: relative;
 }
-
 .c-card__heading {
   font-size: 14px;
   font-weight: 700;
@@ -683,7 +496,6 @@
       color: #333;
   }
 }
-
 .c-card__project {
   font-size: 11px;
   letter-spacing: 1px;
@@ -692,24 +504,20 @@
   color: #929292;
   text-transform: uppercase;
 }
-
 .c-card__project--icon {
   height: 24px;
   float: left;
 }
-
 .c-card__project--des {
   font-size: 20px;
   line-height: 30px;
   color: #333333;
 }
-
 .c-card__location {
   clear: both;
   margin: 0 16px;
   position: relative;
 }
-
 .c-card__location--text {
   font-size: 13px;
   line-height: 20px;
@@ -719,13 +527,11 @@
   position: absolute;
   padding-left: 8px;
 }
-
 .c-card__desc {
   font-size: 11px;
   font-weight: 600;
   color: #979797;
 }
-
 .c-card__options {
   position: absolute;
   top: 10px;
@@ -734,7 +540,6 @@
   line-height: 0px;
   width: 14px; // background: #ffffff;
 }
-
 .c-card__options2 {
   position: absolute;
   top: 4px;
@@ -743,20 +548,17 @@
   line-height: 0px;
   height: 14px; // background: #ffffff;
 }
-
 //feed card footer (links) block style --------------------------
 .c-card__links {
   width: 100%;
   float: left;
   padding: 16px; // border-top: 1px solid #EFEFEF;
 }
-
 .c-card__links2 {
   width: 100%;
   float: left;
   padding: 8px 16px; // border-top: 1px solid #EFEFEF;
 }
-
 .c-links {
   font-size: 12px;
   font-weight: 600;
@@ -764,60 +566,49 @@
   color: #333333;
   line-height: 17px;
 }
-
 .c-links__spots {
   display: inline;
   float: left;
   margin-right: 16px;
   cursor: pointer;
-  font-weight: 500;
   color: #929292;
 }
-
 .c-links__image {
   width: 24px;
   float: left;
 }
-
 .c-links__count {
   float: left;
   margin-left: 6px;
-  font-weight: 500;
   color: #929292;
-  font-size: 11px;
-  line-height: 18px;
+  font-size: 13px;
+  font-weight: 500;
   top: 4px;
   position: relative;
 }
-
 .c-links__comments {
   display: inline;
   float: left;
   margin-right: 24px;
-  // cursor: pointer;
+  cursor: pointer;
 }
-
 .c-links__actions {
   text-align: right;
 }
-
 .c-action__image {
   width: 24px;
   margin-left: 8px;
 }
-
 //feed card status block style --------------------------
 .c-user__status {
   color: #333;
   font-size: 15px;
   line-height: 24px;
 }
-
 // card user block ------------------
 .c-card__user {
   margin-top: 16px;
 }
-
 .c-user__avatar {
   display: inline-block;
   vertical-align: middle;
@@ -827,29 +618,23 @@
   cursor: pointer;
   border-radius: 50px;
   float: left;
-  @extend .c-bg__effect;
 }
-
 .c-avatar--feed {
   width: 24px;
   height: 24px;
 }
-
 .c-avatar--feed3 {
   width: 33px;
   height: 33px;
 }
-
 .c-avatar--feed2 {
   width: 24px;
   height: 24px;
   border: 1px solid #FFFFFF;
 }
-
 .c-user__image {
   width: 100%;
 }
-
 .c-user__name {
   font-size: 15px;
   line-height: 24px;
@@ -863,17 +648,6 @@
       color: #000;
   }
 }
-
-.c-user__name-blank {
-  width: 40%;
-  float: left;
-  height: 20px;
-  border-radius: 3px;
-  @extend .c-bg__effect;
-}
-
-
-
 .c-user__name2 {
   font-size: 13px;
   font-weight: 500;
@@ -887,26 +661,23 @@
       color: #fff;
   }
 }
-
 .c-user__channel {
   font-size: 11px;
   line-height: 18px;
   color: #979797;
   display: block;
-  margin-left: 32px;
+  margin-left: 48px;
   clear: both;
   cursor: pointer;
   &:hover {
       color: #979797;
   }
 }
-
 .c-user__channel2 {
   font-size: 11px;
   line-height: 18px;
   color: #979797;
   display: block;
-  margin-left: 42px;
   clear: both;
   cursor: pointer;
   &:hover {
@@ -914,21 +685,10 @@
   }
 }
 
-.c-user__channel2-blank {
-  width: 20%;
-  float: left;
-  height: 12px;
-  border-radius: 3px;
-  margin-top: 26px;
-  position: absolute;
-  left: 74px;
-  @extend .c-bg__effect;
-}
 // feed card video ------------------------
 .c-feed__video {
   width: 100%;
 }
-
 .c-feed__video-heading {
   color: #333333;
   font-size: 14px;
@@ -937,16 +697,56 @@
   padding: 16px 24px;
   clear: both;
 }
-
 .c-feed__video-status {
   color: #333333;
   font-size: 13px;
   line-height: 20px;
   padding: 16px 24px;
 }
-
 .c-feed__img {
   width: 100%;
+}
+.c-feed__img2 {
+  width: 91%;
+  margin: 0 24px;
+  position: relative;
+  img {
+      border-radius: 3px;
+  }
+}
+.c-feed__adult {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 1px;
+  background-color: rgba(0,0,0,0.4);
+  border-radius: 3px;
+  text-align: center;
+}
+.c-feed__adult-blur {
+  -webkit-filter: blur(5px);
+   filter: blur(5px);
+}
+.c-feed__adult-text {
+font-size: 15px;
+margin-top: 140px;
+color: #FFFFFF;
+}
+
+.c-feed__adult-a {
+  font-size: 11px;
+  letter-spacing: 1px;
+  line-height: 15px;
+  text-align: center;
+  text-transform: uppercase;
+  border: 1px solid #ffffff;
+  margin-top: 16px;
+  color: #ffffff;
+  display: inline-block;
+  padding: 4px 10px 2px;
+  &:hover {
+      color: #ffffff;
+  }
 }
 
 .c-feed__img-heading {
@@ -957,14 +757,12 @@
   padding: 16px 24px;
   clear: both;
 }
-
 .c-feed__img-status {
   color: #333333;
   font-size: 13px;
   line-height: 20px;
   padding: 16px 24px;
 }
-
 .c-feed__img-readmore {
   float: right;
   color: #ff7b84;
@@ -972,7 +770,6 @@
       color: red;
   }
 }
-
 // video card style ----------------------------------------------------
 .c-video__media {
   width: 94%;
@@ -982,7 +779,6 @@
   position: relative;
   border-radius: 3px;
 }
-
 .c-video__controller {
   width: 100%;
   position: absolute;
@@ -990,14 +786,10 @@
   text-align: center;
   background-color: rgba(0, 0, 0, 0.34);
 }
-
 .c-controller--video {
   width: 68%;
   float: left;
 }
-
-
-
 
 // pop up common main contianers
 // size 446
@@ -1012,7 +804,6 @@
       width: 100%;
   }
 }
-
 .pop-container-md {
   width: 564px;
   margin: 0px auto;
@@ -1025,13 +816,11 @@
   }
 }
 
-
 // for pop up head sec
 .pop-head {
   width: 100%;
   float: left;
 }
-
 // for pop up close
 .pop-close {
   margin: 10px;
@@ -1040,7 +829,6 @@
   right: 0px;
   top: 0px;
 }
-
 //featured artist card
 .c-featured__card {
   width: 12.5%;
@@ -1050,7 +838,6 @@
       margin-bottom: 8px;
   }
 }
-
 .c-featured__userblock {
   width: 118px;
   height: 118px;
@@ -1058,25 +845,21 @@
   overflow: hidden;
   margin: 0 auto;
 }
-
 .c-featured__userimg {
   width: 100%
 }
-
 .c-featured__username {
   font-size: 13px;
   line-height: 20px;
   text-align: center;
   color: #333333;
 }
-
 .c-featured__userhandle {
   font-size: 11px;
   line-height: 18px;
   text-align: center;
   color: #808080;
 }
-
 .c-status--block {
   width: 100%;
   float: left;
@@ -1084,12 +867,10 @@
   padding: 16px 24px;
   position: relative;
 }
-
 .c-avatar--status {
   width: 34px;
   height: 34px;
 }
-
 .c-avatar--status2 {
   width: 24px;
   height: 24px;
@@ -1103,10 +884,14 @@
   height: 30px;
   border-radius: 2px !important;
 }
+.c-avatar--status5 {
+  width: 25px;
+  height: 25px;
+      margin-top: 4px;
+}
 .c-user--align {
   margin-left: 16px; // margin-top: 8px;
 }
-
 //
 .col-5 {
   width: 20%;
@@ -1114,9 +899,8 @@
   position: relative;
   min-height: 1px;
 }
-
 // add channel dropdown --------
 .c-ch__drop {
   width: 240px;
 }
-// All cards style ends ----------------------------------------------------------------------
+

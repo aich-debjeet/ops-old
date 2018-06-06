@@ -80,7 +80,7 @@ export class CommunitiesService {
   }
 
   memberListCommunity(para: any) {
-    return this.api.get(`/portal/community/members/${para.id}/10/10`, '');
+    return this.api.get(`/portal/community/members/${para.id}/0/10`, '');
   }
 
 

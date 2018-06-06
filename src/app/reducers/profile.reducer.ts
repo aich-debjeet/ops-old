@@ -455,17 +455,28 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get current User channel of profile
      */
     case ProfileActions.LOAD_USER_CHANNEL:
-      return Object.assign({}, state, {
-        other_channels_loading: true,
-        other_channels_loaded: false,
-        other_channel: []
-      });
+      if (payload.scrollId) {
+        return Object.assign({}, state, {
+          other_channels_loading: true,
+          other_channels_loaded: false,
+        });
+      }else {
+        return Object.assign({}, state, {
+          other_channels_loading: true,
+          other_channels_loaded: false,
+          other_channel: [],
+          profile_channel_total: 0
+        });
+      }
 
     case ProfileActions.LOAD_USER_CHANNEL_SUCCESS:
+      const channel = payload['spotFeedResponse'];
       return Object.assign({}, state, {
-        other_channel: payload['spotFeedResponse'],
+        other_channel: state.other_channel.concat(channel) ,
         other_channels_loading: false,
-        other_channels_loaded: true
+        other_channels_loaded: true,
+        profile_scrolling_channel: payload['scrollId'],
+        profile_channel_total: payload['total']
       });
 
     case ProfileActions.LOAD_USER_CHANNEL_FAILED:

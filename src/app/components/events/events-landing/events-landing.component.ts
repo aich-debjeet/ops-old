@@ -34,7 +34,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   weekend: any;
   carouselOne: NguCarousel;
   tagState$: Observable<EventModal>;
-  eventList = initialTag ;
+  eventList: any;
   eventType: any;
   baseUrl = environment.API_IMAGE;
   private subscription: ISubscription;
@@ -60,6 +60,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   state: string;
   postalCode: string;
   city: string;
+  event_loading: boolean = true;
 
   locPop: boolean = false;
 
@@ -76,11 +77,13 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   ) {
     this.tagState$ = this.store.select('eventTags');
     this.subscription = this.tagState$.subscribe((state) => {
-      console.log(state)
-      this.eventList = state['event_list'];
+      if (state['event_list']) {
+        this.eventList = state['event_list'];
+      }
       this.eventType = state['event_type'];
       this.industryList = state['all_industry'];
       this.bannerList = state['bannerload']
+      this.event_loading = state['event_loading']
     });
     // this.store.dispatch({ type: EventActions.EVENT_LIST });
 

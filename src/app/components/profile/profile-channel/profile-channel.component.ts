@@ -36,6 +36,9 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
   router: any;
   counter: number;
   isOwner: boolean;
+  scrolling = 0;
+  scrollingLoad = 900;
+  channel_scroll_id: any = '';
   constructor(
     private http: Http,
     private _router: Router,
@@ -51,6 +54,9 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
     this.channelSubscription = this.tagState$.subscribe((state) => {
       this.profileChannel = state;
       this.channels = this.profileChannel.other_channel;
+      if (state.profile_scrolling_channel) {
+        this.channel_scroll_id = state.profile_scrolling_channel;
+      }
       // console.log(this.channels)
     });
   }
@@ -70,9 +76,10 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
       .subscribe( data => {
         if (data['profile_user_info'].isCurrentUser === true) {
           const handle = this.profileChannel.profile_navigation_details.handle;
+          this.handle = handle
           this.isOwner = true;
           this.channels = [];
-          this.loadChannel(handle);
+          this.loadChannel(true);
         }
       });
 
@@ -81,20 +88,41 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
       .subscribe( data => {
         if (data['profile_user_info'].isCurrentUser === false) {
           const handle = this.profileChannel.profile_other.handle;
+          this.handle = handle
           this.isOwner = false;
-          this.loadChannel(handle);
+          this.loadChannel(true);
         }
       });
   }
 
 
-  loadChannel(handle: string) {
-    const body = {
-      'limit': 30,
-      'superType': 'channel',
-      'owner': handle
+  loadChannel(init: boolean) {
+    let body: any;
+    if (init) {
+      body = {
+        limit: 30,
+        superType: 'channel',
+        owner: this.handle,
+      }
+    }else {
+      body = {
+        limit: 30,
+        superType: 'channel',
+        owner: this.handle,
+        scrollId: this.channel_scroll_id,
+      }
     }
     this._store.dispatch({ type: ProfileActions.LOAD_USER_CHANNEL, payload: body});
+  }
+
+  onScroll(e) {
+    console.log(e);
+    this.scrolling = e.currentScrollPosition;
+
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 500
+      this.loadChannel(false);
+    }
   }
 
   /**

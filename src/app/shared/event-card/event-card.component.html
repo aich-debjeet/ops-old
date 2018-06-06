@@ -1,4 +1,4 @@
-<div class="c-event__card">
+<div class="c-event__card" *ngIf="!loader">
     <!-- card media (img, video & audio) -->
     <div class="c-card__event">
         <a [routerLink]="'/event/inner/' + eventData?.eventId" >
@@ -34,4 +34,32 @@
         </div>
     </div>
     <!-- //card footer links -->
+</div>
+
+<div class="c-event__card" *ngIf="loader">
+    <div class="c-card__event">
+        <div class="pl_block100-3"></div>
+    </div>
+    <div class="c-card__project p-l-r-16 p-t-16"><div class="pl_block60"></div></div>
+    <div class="c-card__body p-t-0">
+        <div class="c-text_lg c-card__event-title m-t-8">
+            <div class="pl_block100"></div>
+            <div class="pl_block60"></div>
+        </div>
+        <div class="c-text_sm color-grey-dark m-t-16 c-card__event-address">
+            <div class="pl_block100"></div>
+        </div>
+    </div>
+    <div class="c-card__links p-t-0">
+        <div class="c-links">
+            <div class="c-links__comments">
+                <div class="pl_block24px m-r-8"></div>
+                <div class="pl_block24px"></div>
+            </div>
+            <div class="c-links__actions">
+                <div class="pl_block24px pl_float-right"></div>
+                <div class="pl_block24px pl_float-right"></div>
+            </div>
+        </div>
+    </div>
 </div>
