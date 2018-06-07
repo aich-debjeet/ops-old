@@ -41,6 +41,9 @@
       display: block;
     }
   }
+  .c-card__image {
+    min-height: auto;
+  }
 }
 .c-media--hover {
   width: 100%;
