@@ -102,7 +102,6 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
           this.filterStartDate = '';
           this.filterLocation = '';
           this.filterEndDate = '';
-          console.log(this.filterStatus)
         }
         this.serachApi();
       });
@@ -121,9 +120,6 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
       searchText: this.filterSearchText || '',
       eventType: this.filterEventType || '',
     }
-    // console.log(this.day)
-    // console.log(this.tomorrow)
-    // console.log(this.weekend)
   }
 
   ngOnInit() {
@@ -188,12 +184,10 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
       offset: 0,
       limit: 50,
     }
-    console.log(data)
     this.store.dispatch({ type: EventActions.EVENT_SEARCH, payload: data });
   }
 
   filter(filter: string){
-    console.log(filter)
     this.filterEventType = filter;
     if(this.filterEventType){
       this.serachApi();
@@ -201,14 +195,20 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   }
 
   filterDate(date: any){
-    console.log('here')
-    console.log('date is ', date)
     if(date){
-      let d = date.split('T');
-      console.log(d[0])
-      this.filterStartDate  = d[0]+"T00:00:00.001";
-      this.filterEndDate = d[0]+"T12:00:00.000"
-      this.serachApi();
+      if(date === this.weekend){
+        let startDate = date.split('T');
+        this.filterStartDate = startDate[0]+"T00:00:00.001";
+        let x = moment(date).add('days', 6).format();
+        let endDate = x.split('T');
+        this.filterEndDate = endDate[0]+"T12:00:00.000";
+        this.serachApi();
+      } else {
+        let d = date.split('T');
+        this.filterStartDate  = d[0]+"T00:00:00.001";
+        this.filterEndDate = d[0]+"T12:00:00.000";
+        this.serachApi();
+      }
     }
   }
 
@@ -302,13 +302,15 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     }
   }
   openDropbox(){
-    console.log('treying to open')
     if(this.locPop){
       this.locPop = false;
-      console.log(this.locPop)
+      this.locForm.reset();
     }
     else this.locPop = true;
-    console.log(this.locPop)
   }
-
+  reset() {
+    this.locForm.patchValue({
+      location:''
+  });
+  }
 }

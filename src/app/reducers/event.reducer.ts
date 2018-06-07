@@ -12,7 +12,6 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
       })
 
     case EventActions.GET_EVENT_TYPE_SUCCESS:
-    console.log(payload.SUCCESS)
       return Object.assign({}, state, {
         eventType_success: true,
         eventType_load: payload.SUCCESS
@@ -24,7 +23,6 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
       })
 
     case EventActions.EVENT_ATTENDEE_LOAD_SUCCESS:
-    console.log(payload.SUCCESS)
       return Object.assign({}, state, {
         attendee_load_success: true,
         attendee_load: payload.SUCCESS
@@ -36,7 +34,6 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
       });
 
     case EventActions.BANNER_SEARCH_SUCCESS:
-    console.log(payload)
       return Object.assign({}, state, {
         bannerload: payload,
         banner_success: true
@@ -63,7 +60,6 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
       });
 
     case EventActions.GET_ALL_INDUSTRY_SUCCESS:
-    console.log(payload)
       return Object.assign({}, state, {
         all_industry: payload
       });
