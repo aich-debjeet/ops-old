@@ -65,6 +65,16 @@ export class EventEffect {
       .catch((res) => Observable.of({ type: EventActions.GET_ALL_INDUSTRY_FAILED, payload: res }))
     );
 
+  // Get Event type
+  @Effect()
+    getEventType$ = this.actions$
+    .ofType(EventActions.GET_EVENT_TYPE)
+    .map(toPayload)
+    .switchMap((payload) => this.eventService.getEventsType()
+      .map(res => ({ type: EventActions.GET_EVENT_TYPE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: EventActions.GET_EVENT_TYPE_FAILED, payload: res }))
+    );
+
   // File Update
   @Effect()
     fileUpload$ = this.actions$
