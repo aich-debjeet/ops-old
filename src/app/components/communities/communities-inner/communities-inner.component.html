@@ -174,42 +174,18 @@
                             </div>
                             <div class="o-cadminlist" id="ops_scrollbar">
                             <form [formGroup]="communityAdminForm" novalidate (ngSubmit)="submitMemberAdmin(communityAdminForm.value)" #cmafrom="ngForm">
-                                <div class="o-cadmin_block">
+                                <div class="o-cadmin_block" *ngFor="let member of memeberList">
                                     <label>
-                                    <input type="radio" name="handle" value="b" formControlName="handle">
+                                    <input type="radio" name="handle" value="member?.handle" formControlName="handle">
                                     <div class="o-cadmin_checkbox">
                                         <div class="o-cadmin_imgblock m-t-b-8">
-                                            <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-cadmin_img">
+                                            <img [src]="basePath + member?.profileImage" class="o-cadmin_img">
                                         </div>
-                                        <p class="o-cadmin_name">John Mayer1</p>
+                                        <p class="o-cadmin_name">{{ member?.name }}</p>
                                         <p class="o-cadmin_prof">Profile</p>
                                     </div>
                                     </label>
                                 </div>
-                                <div class="o-cadmin_block">
-                                        <label>
-                                        <input type="radio" name="handle" value="a" formControlName="handle">
-                                        <div class="o-cadmin_checkbox">
-                                            <div class="o-cadmin_imgblock m-t-b-8">
-                                                <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-cadmin_img">
-                                            </div>
-                                            <p class="o-cadmin_name">John Mayer1</p>
-                                            <p class="o-cadmin_prof">Profile</p>
-                                        </div>
-                                        </label>
-                                    </div>
-                                    <div class="o-cadmin_block">
-                                            <label>
-                                            <input type="radio" name="handle" value="c" formControlName="handle">
-                                            <div class="o-cadmin_checkbox">
-                                                <div class="o-cadmin_imgblock m-t-b-8">
-                                                    <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-cadmin_img">
-                                                </div>
-                                                <p class="o-cadmin_name">John Mayer1</p>
-                                                <p class="o-cadmin_prof">Profile</p>
-                                            </div>
-                                            </label>
-                                        </div>
                             </form>
             
                             </div>

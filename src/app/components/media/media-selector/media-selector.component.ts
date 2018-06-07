@@ -183,7 +183,7 @@ export class MediaSelectorComponent implements OnInit {
       this.handle = '';
 
       this.myProfile$ = _store.select('profileTags').take(3);
-      //Subscribe to current user object
+      // Subscribe to current user object
     this.myProfile$.subscribe(event => {
       this.myProfileData = event;
       if (event.profile_navigation_details && event.profile_navigation_details.handle) {
@@ -229,16 +229,6 @@ export class MediaSelectorComponent implements OnInit {
       // Post states
       this.postSuccess = this.profileChannel.media_channel_posted;
       this.postSuccessActive = this.profileChannel.media_channel_posting;
-
-      // if new channel saved
-
-      if (this.profileChannel.channel_saved === true) {
-        this.channelSaved = true;
-        if (this.channelSaved === true) {
-          this.channelSaved = false;
-          this.changeState(2);
-        }
-      }
 
       if (state['profile_cards'].active && (this.activeUser.handle !== state['profile_cards'].active.handle)) {
         // nothing
@@ -582,6 +572,7 @@ export class MediaSelectorComponent implements OnInit {
       }
 
       this.saveChannel( channelObj );
+
     }else {
       this.toastr.warning('Please fill all required fields');
     }
@@ -649,6 +640,7 @@ export class MediaSelectorComponent implements OnInit {
       .first(profile => profile['channel_saved'] === true )
       .subscribe( data => {
         this.channelForm.reset();
+        this.changeState(2);
         this.toastr.success('successfully created channel', 'Success!');
         this.loadChannel(this.handle);
       });

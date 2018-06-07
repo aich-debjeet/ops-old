@@ -34,7 +34,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   weekend: any;
   carouselOne: NguCarousel;
   tagState$: Observable<EventModal>;
-  eventList = initialTag ;
+  eventList: any;
   eventType: any;
   eventTypeList: any;
   baseUrl = environment.API_IMAGE;
@@ -78,8 +78,9 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   ) {
     this.tagState$ = this.store.select('eventTags');
     this.subscription = this.tagState$.subscribe((state) => {
-      console.log(state)
-      this.eventList = state['event_list'];
+      if (state['event_list']) {
+        this.eventList = state['event_list'];
+      }
       this.eventType = state['event_type'];
       this.eventTypeList = state['eventType_load'];
       this.bannerList = state['bannerload']

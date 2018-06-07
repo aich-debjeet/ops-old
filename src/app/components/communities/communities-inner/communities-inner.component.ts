@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormA
 import { Router, ActivatedRoute } from '@angular/router';
 import { Modal } from '../../../shared/modal-new/Modal';
 
+
 // Action
 import { AuthActions } from '../../../actions/auth.action';
 import { CommunitiesActions } from '../../../actions/communities.action';
@@ -36,6 +37,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   list: any;
   listInvitePeople: any;
   relatedCommunity: any;
+  memeberList: any;
   communityPost: any;
   postLoader: boolean;
   inviteBtnActive: boolean = true;
@@ -89,6 +91,9 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         if (state['communityList']) {
           this.list = state['communityList'];
         }
+        if (state['community_member_list']) {
+          this.memeberList = state['community_member_list']
+        }
         this.isMemeberLoading = state['community_ismember_loading'];
         this.communityLoading = state['community_loding'];
         this.updateCommunityLoading = state['community_update_loading'];
@@ -96,10 +101,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     });
 
     // Member admin change form init
-    this.communityAdminForm = this.fb.group({
-      'handle': ['', [Validators.required]],
-    });
-
+    this.communityAdminFormInit();
   }
 
   ngOnInit() {
@@ -117,6 +119,13 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     // this.routerSubscription.unsubscribe();
+  }
+
+  // Comunity member to admin form
+  communityAdminFormInit() {
+    this.communityAdminForm = this.fb.group({
+      'handle': ['', [Validators.required]],
+    });
   }
 
   /**
@@ -159,6 +168,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
    * submit member form
    */
   submitMemberAdmin(value) {
+    this.communityAdminFormInit();
     console.log('submitMemberAdmin', value);
   }
 
