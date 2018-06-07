@@ -61,7 +61,12 @@ export class EventService {
   getAllIndustry() {
       return this.api.get('/portal/industry', '');
   }
-
+  /**
+   * Event Get Event Types
+   */
+  getEventsType() {
+    return this.api.get('/portal/eventTypes');
+  }
   /**
    * Event Get all industry
    */

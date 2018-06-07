@@ -6,6 +6,18 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
 
   switch (type) {
 
+    case EventActions.GET_EVENT_TYPE:
+      return Object.assign({}, state, {
+        eventType_load_success: false
+      })
+
+    case EventActions.GET_EVENT_TYPE_SUCCESS:
+    console.log(payload.SUCCESS)
+      return Object.assign({}, state, {
+        eventType_success: true,
+        eventType_load: payload.SUCCESS
+      })
+
     case EventActions.EVENT_ATTENDEE_LOAD:
       return Object.assign({}, state, {
         attendee_load_success: false

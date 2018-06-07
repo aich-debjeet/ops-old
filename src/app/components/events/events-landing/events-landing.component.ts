@@ -36,6 +36,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   tagState$: Observable<EventModal>;
   eventList: any;
   eventType: any;
+  eventTypeList: any;
   baseUrl = environment.API_IMAGE;
   private subscription: ISubscription;
   industryList: any;
@@ -81,13 +82,15 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
         this.eventList = state['event_list'];
       }
       this.eventType = state['event_type'];
-      this.industryList = state['all_industry'];
+      this.eventTypeList = state['eventType_load'];
       this.bannerList = state['bannerload']
       this.event_loading = state['event_loading']
     });
     // this.store.dispatch({ type: EventActions.EVENT_LIST });
 
-    this.store.dispatch({ type: EventActions.GET_ALL_INDUSTRY });
+    // this.store.dispatch({ type: EventActions.GET_ALL_INDUSTRY });
+
+    this.store.dispatch({ type: EventActions.GET_EVENT_TYPE });
 
     this.route
       .queryParams
@@ -95,6 +98,10 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
         // Defaults to 0 if no query param provided.
         if (params['status']) {
           this.filterStatus = params['status'];
+          this.filterEventType = '';
+          this.filterStartDate = '';
+          this.filterLocation = '';
+          this.filterEndDate = '';
           console.log(this.filterStatus)
         }
         this.serachApi();
@@ -103,8 +110,8 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
 
     // day
     this.day =  moment().format();
-    this.tomorrow = moment().add('days', 1);
-    this.weekend = moment().weekday(5);
+    this.tomorrow = moment().add('days', 1).format();
+    this.weekend = moment().weekday(6).format();
 
     this.myQueryParms = {
       startDate:  this.filterStartDate || '',
@@ -114,6 +121,9 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
       searchText: this.filterSearchText || '',
       eventType: this.filterEventType || '',
     }
+    // console.log(this.day)
+    // console.log(this.tomorrow)
+    // console.log(this.weekend)
   }
 
   ngOnInit() {
@@ -169,17 +179,37 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
 
   serachApi() {
     const data = {
-      startDate: '',
-      endDate: '',
-      location: '',
+      startDate: this.filterStartDate || '',
+      endDate: this.filterEndDate || '',
+      location: this.filterLocation || '',
       status: this.filterStatus || '',
       searchText: '',
-      eventType: '',
+      eventType: this.filterEventType || '',
       offset: 0,
       limit: 50,
     }
-
+    console.log(data)
     this.store.dispatch({ type: EventActions.EVENT_SEARCH, payload: data });
+  }
+
+  filter(filter: string){
+    console.log(filter)
+    this.filterEventType = filter;
+    if(this.filterEventType){
+      this.serachApi();
+    }
+  }
+
+  filterDate(date: any){
+    console.log('here')
+    console.log('date is ', date)
+    if(date){
+      let d = date.split('T');
+      console.log(d[0])
+      this.filterStartDate  = d[0]+"T00:00:00.001";
+      this.filterEndDate = d[0]+"T12:00:00.000"
+      this.serachApi();
+    }
   }
 
   buildForm() {
@@ -252,6 +282,11 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
         this.latitude = place.geometry.location.lat();
         this.longitude = place.geometry.location.lng();
         this.zoom = 12;
+
+        if(this.address !== '') {
+          this.filterLocation = this.address;
+          this.serachApi();
+        }
       });
     });
     });
