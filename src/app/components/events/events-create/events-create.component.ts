@@ -320,7 +320,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
         }
 
         // set latitude, longitude and zoom
-        this.address = place.formatted_address;
+        this.address = place.name + ','+place.formatted_address;
         this.latitude = place.geometry.location.lat();
         this.longitude = place.geometry.location.lng();
         this.zoom = 12;
