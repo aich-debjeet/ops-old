@@ -11,19 +11,14 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
 
   switch (type) {
 
-    case NotificationActions.LOAD_NOTIFICATIONS:
-      if (payload.page === 0) {
-        return Object.assign({}, state, {
-          recieved_notifications: [],
-          recieved_notifications_success: false
-        });
-      }
-
+    case NotificationActions.GET_NOTIFICATIONS:
       return Object.assign({}, state, {
-        recieved_notifications_success: false
+        requesting_notifications: true,
+        notifications_pagination: payload,
+        requesting_notifications_success: false
       });
 
-    case NotificationActions.LOAD_NOTIFICATIONS_SUCCESS:
+    case NotificationActions.GET_NOTIFICATIONS_SUCCESS:
       let updated_notifications;
       if (state && state.recieved_notifications) {
         updated_notifications = [...state.recieved_notifications, ...payload];
@@ -32,12 +27,14 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       }
       return Object.assign({}, state, {
         recieved_notifications: updated_notifications,
-        recieved_notifications_success: true
+        requesting_notifications: false,
+        requesting_notifications_success: true
       });
 
-    case NotificationActions.LOAD_NOTIFICATIONS_FAILED:
+    case NotificationActions.GET_NOTIFICATIONS_FAILED:
       return Object.assign({}, state, {
-        recieved_notifications_success: false
+        requesting_notifications: false,
+        requesting_notifications_success: false
       });
 
     case NotificationActions.MARK_AS_READ:
