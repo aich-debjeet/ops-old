@@ -12,6 +12,9 @@
 @import '~sass-mq/_mq.scss';
 @import './src/assets/scss/vendors/bootstrap/stylesheets/bootstrap/mixins/_image.scss';
 
+.cursor_pointer{
+    cursor: pointer;
+}
 .o-network__userorg {
     font-size: 11px;
     letter-spacing: 1px;
