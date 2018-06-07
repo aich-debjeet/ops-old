@@ -50,15 +50,19 @@ export class NotificationComponent implements OnInit, OnDestroy {
       if (typeof state !== 'undefined') {
         if (typeof state['recieved_notifications'] !== 'undefined') {
           this.notifications = state['recieved_notifications'];
-
           // check is unread notification exits else mark all notifications as read
-
           this.processNotifications();
         }
-
-        if (state && state['recieved_notifications_success'] === true) {
+        if (state && state['requesting_notifications'] === true) {
           this.showPreloader = false;
         }
+      } else {
+        // if notifications state undefined init with initial list of notifications
+        const reqBody = {
+          limit: 10,
+          page: 0
+        }
+        this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: reqBody });
       }
     });
   }
@@ -171,11 +175,11 @@ export class NotificationComponent implements OnInit, OnDestroy {
       this.scrolling = 0;
       this.scrollingLoad = 251;
       this.page = 0;
-      const payload = {
+      const pagination = {
         limit: 10,
         page: 0
       }
-      this.store.dispatch({ type: NotificationActions.LOAD_NOTIFICATIONS, payload: payload });
+      this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: pagination });
     });
   }
 
@@ -196,7 +200,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
         page: this.page
       }
 
-      this.store.dispatch({ type: NotificationActions.LOAD_NOTIFICATIONS, payload: data });
+      this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: data });
     }
   }
 

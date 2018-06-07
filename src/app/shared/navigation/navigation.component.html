@@ -45,15 +45,15 @@
                                     <div class="dropdown__arrow"><img [src]="imageBaseUrl + 'img/arrow.png'"></div>
                                 </div>
                                 <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications | slice:0:7" [ngClass]="{'fill_grey': !notification.isRead}">
-                                    <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                                    <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', notification?.username, 'user']">
                                         <!-- <img class="navdrop__img" [src]="imageBaseUrl + 'img/new/avatar2.png'"> -->
-                                        <img *ngIf="!notification.profileImage" [src]="imageBaseUrl + '/img/avatar.png'" class="navdrop__img">
-                                        <img *ngIf="notification.profileImage" [src]="imageBaseUrl + notification.profileImage" class="navdrop__img">
+                                        <img *ngIf="!notification?.profileImage" [src]="imageBaseUrl + '/img/avatar.png'" class="navdrop__img">
+                                        <img *ngIf="notification?.profileImage" [src]="imageBaseUrl + notification.profileImage" class="navdrop__img">
                                     </div>
                                     <div class="dropnoti__detail">
-                                        <span><a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
-                                            <span class="dropnoti__bold"> {{ notification.name }}</span>
-                                        </a>{{ notification.message }}
+                                        <span><a [routerLink]="['', 'profile', 'u', notification?.username, 'user']">
+                                            <span class="dropnoti__bold"> {{ notification?.name }}</span>
+                                        </a>{{ notification?.message }}
                                         </span>
                                     </div>
                                     <div class="dropnoti__icon">
@@ -217,15 +217,15 @@
                                     </div>
                                     <div class="dropnoti__detail">
                                         <span><a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
-                                            <span class="dropnoti__bold"> {{ notification.name }}</span>
-                                        </a>{{ notification.message }}
+                                            <span class="dropnoti__bold"> {{ notification?.name }}</span>
+                                        </a>{{ notification?.message }}
                                         </span>
                                     </div>
                                     <div class="dropnoti__icon">
                                         <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="imageBaseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
                                         <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
                                     </div>
-                                    <p class="msg__time">{{notification.createdDate |date:'short'}}</p>
+                                    <p class="msg__time">{{ notification?.createdDate | date:'short' }}</p>
                                     <!-- <div class="dropnoti__permission" *ngIf = "notification.notificationType === 'Network_Sent'">
                                         <a href="javascript:void(0)" class="color-theme">Accept</a>
                                         <a href="javascript:void(0)">Decline</a>
