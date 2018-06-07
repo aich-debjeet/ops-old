@@ -455,7 +455,9 @@ export class MediaSelectorComponent implements OnInit {
     const formData = {
       desc: this.desc,
     }
-    const chosenChannel = this.chosenChannel;
+    const channel = {
+      spotfeedId: this.ct_id
+    }
     // const chosenFile = this.editingFile;
 
     for (const nowFile of this.uploadedFiles) {
@@ -467,7 +469,7 @@ export class MediaSelectorComponent implements OnInit {
       }
       if (nowFile) {
         // Build Media Object
-        const mediaItem = this.formatMedia( nowFile, formData, chosenChannel, userHandle, this.mediaPrivacy.toString());
+        const mediaItem = this.formatMedia( nowFile, formData, channel, userHandle, this.mediaPrivacy.toString());
         const media = [ mediaItem ];
         multipleMedias.push(mediaItem);
       }
@@ -776,6 +778,9 @@ export class MediaSelectorComponent implements OnInit {
     const mediaType = this.getFileType(file.fileName);
     const postTime = this.currentTime();
     const isUploadReady = this.uploadMeta();
+
+    console.log(channel);
+    
 
     const tags = this.extractTags();
     // console.log(tags);
