@@ -69,40 +69,29 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   // message maker
   processNotifications() {
-
-    console.log('processNotifications');
     this.notifications.forEach((notif, index) => {
-
       switch (notif.notificationType) {
-
         case 'Following':
           this.notifications[index]['message'] = '@' + notif.username + ' has started following you';
           break;
-
         case 'Media_Spot':
           this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your post';
           break;
-
         case 'Media_Comments':
           this.notifications[index]['message'] = ' and ' + notif.commentsCount + ' others commented on your post';
           break;
-
         case 'Status_Spot':
           this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your status';
           break;
-
         case 'Status_Comments':
           this.notifications[index]['message'] = ' and ' + notif.commentsCount + ' others commented on your status';
           break;
-
         case 'Network_Sent':
           this.notifications[index]['message'] = ' sent you a network request';
           break;
-
         case 'Network_Accepted':
           this.notifications[index]['message'] = ' accepted your network request';
           break;
-
       }
     });
 
@@ -190,7 +179,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   onScroll(e) {
-    console.log(e);
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
       this.scrollingLoad += 500
@@ -199,7 +187,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
         limit: 10,
         page: this.page
       }
-
       this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: data });
     }
   }
