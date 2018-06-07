@@ -26,7 +26,7 @@ export class DirectoryListComponent implements OnInit, OnDestroy {
   page_start = 0;
   page_end = 20;
   scrolling = 0;
-  scrollingLoad = 1800;
+  scrollingLoad = 1400;
   baseUrl = environment.API_IMAGE;
   searchText: string;
   profileType: any = 1;
@@ -51,7 +51,7 @@ export class DirectoryListComponent implements OnInit, OnDestroy {
           this.dirList = state.dir_list;
         }
       });
-      this.loadDir();
+      this.loadDir('');
   }
 
   ngOnInit() {
@@ -59,17 +59,19 @@ export class DirectoryListComponent implements OnInit, OnDestroy {
   }
 
   updateCheckedOptions(option, event) {
+    this.scrollingLoad = 1400;
     this.selectedOption = this.options.filter(opt => opt.checked).map(opt => opt.value);
     this.page_start = 0
-    this.loadDir();
+    this.loadDir('');
   }
 
   /**
    * While Typing Search
    */
   search() {
+    this.scrollingLoad = 1400;
     this.page_start = 0
-    this.loadDir();
+    this.loadDir('');
   }
 
 
@@ -77,22 +79,23 @@ export class DirectoryListComponent implements OnInit, OnDestroy {
    * Organation and People select option
    */
   profileTypeOption(value) {
+    this.scrollingLoad = 1400;
     this.page_start = 0
-    this.loadDir();
+    this.loadDir('');
   }
 
   /**
    * Call Directory API
    */
-  loadDir() {
+  loadDir(scroll_id: any) {
     const data = {
       isHuman: String(this.profileType),
       searchText: this.searchText,
       status: this.selectedOption,
       offset: this.page_start,
       limit: 20,
-      'name': {
-        'scrollId': this.dir_scroll_id
+      name: {
+        scrollId: scroll_id
       }
     }
     this._store.dispatch({ type: ProfileActions.LOAD_DIRECTORY, payload: data });
@@ -104,10 +107,10 @@ export class DirectoryListComponent implements OnInit, OnDestroy {
   onScroll(e) {
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
-      this.scrollingLoad += 1500
+      this.scrollingLoad += 1000
       this.page_start = this.page_end + 1;
       this.page_end += 15;
-      this.loadDir();
+      this.loadDir(this.dir_scroll_id );
     }
   }
 
