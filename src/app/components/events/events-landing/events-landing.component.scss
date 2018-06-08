@@ -33,7 +33,7 @@
 .o-event-slider_info-txt {
     position: absolute;
     bottom: 0px;
-    z-index: 2;
+    // z-index: 2;
     width: 100%;
     background-color: rgba(51, 51, 51, 0.84);
     padding-bottom: 32px;
@@ -44,12 +44,14 @@
     float: left;
     padding: 16px 24px!important;
     background: #fff;
+    width: 9%;
 }
 
 .o-event-slider__det-text {
     float: left;
     margin-left: 24px;
-    margin-top: 8px;
+    // margin-top: 8px;
+    width: 50%;
 }
 
 .slick-next {
@@ -290,4 +292,7 @@
     p{
         font-size: 14px;
     }
+}
+.point {
+    cursor: pointer;
 }

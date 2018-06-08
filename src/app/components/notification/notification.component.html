@@ -7,52 +7,68 @@
             <div class="row notification_block_container">
                 <!-- left section -->
                 <div class="col-md-8 noti_block">
-                        <div class="noti_left" id="ops_scrollbar" 
-                            infinite-scroll
-                            [infiniteScrollDistance]="2"
-                            [infiniteScrollThrottle]="1000"
-                            [infiniteScrollContainer]="'#ops_scrollbar'" 
-                            (scrolled)="onScroll($event)">
-                                <ul class="noti_details">
-                                  <li class="with_border_bottom">
-                                      <ul class="list-inline">
-                                        <li class="list-inline-item header_ym">
-                                            <a href="javascript:void(0)">Notifications</a>
-                                        </li>
-                                        <li class="list-inline-item pull-right header_compose">
-                                            <a href="javascript:void(0)" (click)="markAllAsRead()">Mark all as read</a>
-                                        </li>
-                                      </ul>
-                                  </li>
-                                  <li class="with_border_bottom" *ngFor="let notification of notifications; let notifIndex = index;" [ngClass]="{'fill_grey': !notification.isRead}">
-                                      <ul class="list-inline" >
+                    <div class="noti_left" id="ops_scrollbar" 
+                        infinite-scroll
+                        [infiniteScrollDistance]="2"
+                        [infiniteScrollThrottle]="1000"
+                        [infiniteScrollContainer]="'#ops_scrollbar'" 
+                        (scrolled)="onScroll($event)">
+                        <ul class="noti_details">
+                            <li class="with_border_bottom">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item header_ym">
+                                        <a>Notifications</a>
+                                    </li>
+                                    <li class="list-inline-item pull-right header_compose">
+                                        <a *ngIf="notifications?.length > 0" (click)="markAllAsRead()">Mark all as read</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <ng-container *ngIf="notifications?.length > 0; else loadingNotifs">
+                                <li class="with_border_bottom" *ngFor="let notification of notifications; let notifIndex = index;" [ngClass]="{'fill_grey': !notification.isRead}">
+                                    <ul class="list-inline">
                                         <li class="list-inline-item float_left noti_avatar cursor-pointer" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
-                                          <img *ngIf="!notification.profileImage" [src]="baseUrl + 'img/avatar.png'" class="img-responsive">
-                                          <img *ngIf="notification.profileImage" [src]="baseUrl + notification.profileImage" class="img-responsive">
+                                            <img *ngIf="!notification.profileImage" [src]="baseUrl + 'img/avatar.png'" class="img-responsive">
+                                            <img *ngIf="notification.profileImage" [src]="baseUrl + notification.profileImage" class="img-responsive">
                                         </li>
                                         <!-- <li class="list-inline-item noti_cont cursor-pointer" (click)="openLink(notifIndex, notification.notificationId)" > -->
                                         <li class="list-inline-item noti_cont cursor-pointer" (click)="openLink(notifIndex, notification.notificationId)">
                                             <div class="head_msg_name">
-                                                    <a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                                                <a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
                                                     {{ notification.name }}
                                                 </a>
                                             </div>
                                             <div class="head_msg_short">{{ notification.message }}</div>
                                             <div class="noti_cont_footer">
-                                              <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
-                                              <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="baseUrl + 'img/svg/ico_spot.svg'" class="noti_cont_footer_img">
-                                              <span>{{ notification.createdDate | utcDate | date:'d MMM hh:mm a' }}</span>
+                                                <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="baseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
+                                                <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="baseUrl + 'img/svg/ico_spot.svg'" class="noti_cont_footer_img">
+                                                <span>{{ notification.createdDate | utcDate | date:'d MMM hh:mm a' }}</span>
                                             </div>
                                         </li>
                                         <li class="list-inline-item noti_cont_time">
-                                          <div class="msg_time">
-                                              <img [src]="baseUrl + 'img/svg/ico_lik.svg'" class="img-responsive">
-                                          </div>
+                                            <div class="msg_time">
+                                                <img [src]="baseUrl + 'img/svg/ico_lik.svg'" class="img-responsive">
+                                            </div>
                                         </li>
-                                      </ul>
-                                  </li>
-                                </ul>
-                              </div>
+                                    </ul>
+                                </li>
+                            </ng-container>
+                            <ng-template #loadingNotifs >
+                                <div *ngFor="let n of [0,1,2,3]" class="not_block2">
+                                    <div class=" pl_avatar40">
+                                    </div>
+                                    <div class="not_block2_details">
+                                        <div class="not_block2_comm float_left">
+                                            <div class="pl_username"></div>
+                                        </div>
+                                        <div class="not_block2_tim float_left">
+                                            <div class="pl_block_height12"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ul>
+                    </div>
                 </div>
                 <!-- right section -->
                 <div class="col-md-4 noti_right noti_block" id="ops_scrollbar">

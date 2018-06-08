@@ -124,19 +124,15 @@ export class ProfileSliderComponent implements OnInit {
       if (state.profile_user_info) {
         if (state.profile_user_info.isCurrentUser) {
           this.profileObject = this.loadProfile( state, 'own' );
-          // console.log('this.profileObject', this.profileObject);
           this.isOwner = true;
         } else {
           if (state.profile_user_info.isClaimForGuest && state.profile_user_info.isClaimForGuest === true) {
             // console.log('state.profile_other', state.profile_other);
             if (state.profile_other && state.profile_other.length !== 0) {
               const profile = state.profile_other;
-              // console.log(profile)
               this.profileObject = this.utils.claimProfileValueMapping(profile);
-              // console.log('claim');
             }
           } else {
-            // console.log('other');
             this.profileObject = this.loadProfile( state, 'other' );
             this.otherProfileHandle = this.profileObject.userDetails.handle;
             this.otherProfileName = this.profileObject.name;
@@ -159,8 +155,6 @@ export class ProfileSliderComponent implements OnInit {
 
     });
 
-    
-
     this.skillState$.subscribe((state) => {
       this.findSkill = state;
     });
@@ -170,13 +164,10 @@ export class ProfileSliderComponent implements OnInit {
 
     this.router = _router;
     this.txtQueryChanged
-            .debounceTime(1000) // wait 1 sec after the last event before emitting last event
-            .subscribe(model => {
-              // console.log('model', model)
-              // this.mymodel = model;
-              this.profileStore.dispatch({ type: AuthActions.SEARCH_SKILL, payload: model });
-              // Call your function which calls API or do anything you would like do after a lag of 1 sec
-             });
+      .debounceTime(1000) // wait 1 sec after the last event before emitting last event
+      .subscribe(model => {
+        this.profileStore.dispatch({ type: AuthActions.SEARCH_SKILL, payload: model });
+      });
 
 
     // this.profileStore.select('profileTags')
@@ -448,7 +439,7 @@ export class ProfileSliderComponent implements OnInit {
     // If skill exist then remove it from selection array
     if (selectedSkill !== undefined) {
       // Searching for the skill in skills array
-      if (this.findSkill.skills !== undefined) {
+      if (this.findSkill.industries !== undefined) {
         const skillMeta = this.selectedSkill(skillCode);
       }
       // Removing skill from selected skills array
@@ -457,7 +448,7 @@ export class ProfileSliderComponent implements OnInit {
       });
       // Mark it not selected in UI
       if (this.findSkill.skills !== undefined) {
-        this.findSkill.skills = this.findSkill.skills.filter(function(skill) {
+        this.findSkill.skills = this.findSkill.industries.filter(function(skill) {
           if (skill.code === skillCode) {
             skill.isSelected = false;
           }
@@ -467,7 +458,7 @@ export class ProfileSliderComponent implements OnInit {
 
     } else {
       // Mark it selected in UI
-      this.findSkill.skills = this.findSkill.skills.filter(function(skill) {
+      this.findSkill.skills = this.findSkill.industries.filter(function(skill) {
         if (skill.code === skillCode) {
           skill.isSelected = true;
         }
@@ -497,7 +488,7 @@ export class ProfileSliderComponent implements OnInit {
    * @param skillCode
    */
   selectedSkill(skillCode) {
-    return _find(this.findSkill.skills, function(s: any) {
+    return _find(this.findSkill.industries, function(s: any) {
       return s.code === skillCode;
     });
   }
@@ -528,14 +519,10 @@ export class ProfileSliderComponent implements OnInit {
 
     // get user handle
     if (this.userProfile && this.userProfile['profile_user_info'] && this.userProfile['profile_user_info']['isCurrentUser'] === true) {
-      // console.log('current user');
       this.activeProfileHandle = this.userProfile['profile_details']['handle'];
     } else {
-      // console.log('other user');
       this.activeProfileHandle = this.userProfile['profile_other']['handle'];
     }
-    // console.log('handle', activeProfileHandle);
-    // console.log('showPreloader', this.showPreloader);
     if (action === 'following') {
       this.followingModal.open();
       this.profileStore.dispatch({
@@ -625,22 +612,21 @@ export class ProfileSliderComponent implements OnInit {
     // }
     // return false;
     // if(this.networkForm.valid) {
-      if(value.request === ''){
+      if (value.request === '') {
         this.error = true;
       }
-      if(value.request === 'network'){
+      if (value.request === 'network') {
           // console.log('network')
           const data = {
             'receiver_id': this.otherProfileHandle,
-            'questionnaire':{
-                'purpose': 'Hey '+this.otherProfileName +' I want to network with you.',
+            'questionnaire': {
+                'purpose': 'Hey ' + this.otherProfileName + ' I want to network with you.',
                 'brief': '',
             }
         }
         this.profileStore.dispatch({ type: ProfileActions.SENT_NETWORK_REQUEST, payload: data });
       }
-      if(value.request === 'personalMessage'){
-          // console.log('message')
+      if (value.request === 'personalMessage') {
           if (this.networkForm.value.message === '') {
             alert('Please enter msg!');
             return false;
@@ -648,7 +634,7 @@ export class ProfileSliderComponent implements OnInit {
             const data = {
               'receiver_id': this.otherProfileHandle,
               'questionnaire': {
-                  'purpose': 'Hey '+this.otherProfileName +' I want to network with you.',
+                  'purpose': 'Hey ' + this.otherProfileName + ' I want to network with you.',
                   'brief': value.message,
               }
             };
@@ -660,14 +646,13 @@ export class ProfileSliderComponent implements OnInit {
     this.profileStore.select('profileTags')
     .first(network => network['network_request_success'] !== null)
     .subscribe( data => {
-      console.log(data);
-      if(data['network_request_success'] === true){
+      if (data['network_request_success'] === true) {
         this.toastr.success('You have successfully sent a request!');
         this.NetworktypeModal.close();
       }
-      if(data['network_request_success'] === false){
+      if (data['network_request_success'] === false) {
         this.toastr.error('You have already sent a request')
-      }     
+      }
     });
  }
 

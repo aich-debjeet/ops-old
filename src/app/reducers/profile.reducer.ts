@@ -620,6 +620,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.PROFILE_LOAD:
       return Object.assign({}, state, {
         profile_other: [],
+        other_channel: [],
+        other_channels_loading: true,
         profile_other_loading: true,
       });
 

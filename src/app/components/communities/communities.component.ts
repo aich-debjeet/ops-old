@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular
 import { environment } from '../../../environments/environment';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Modal } from '../../shared/modal-new/Modal';
 
 // Action
 import { AuthActions } from '../../actions/auth.action';
@@ -23,6 +24,7 @@ import { ToastrService } from 'ngx-toastr';
 export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('searchInput') searchInput;
+  @ViewChild('communityCreateModal') CommunityCreate: Modal;
   searchString = '';
   industries: any[];
   basePath = environment.API_IMAGE;
@@ -87,6 +89,10 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  createForm() {
+    this.buildForm();
+    this.CommunityCreate.open();
+  }
 
   loadCommunity() {
     const list = {

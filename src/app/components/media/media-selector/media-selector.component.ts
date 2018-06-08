@@ -183,7 +183,7 @@ export class MediaSelectorComponent implements OnInit {
       this.handle = '';
 
       this.myProfile$ = _store.select('profileTags').take(3);
-      //Subscribe to current user object
+      // Subscribe to current user object
     this.myProfile$.subscribe(event => {
       this.myProfileData = event;
       if (event.profile_navigation_details && event.profile_navigation_details.handle) {
@@ -229,16 +229,6 @@ export class MediaSelectorComponent implements OnInit {
       // Post states
       this.postSuccess = this.profileChannel.media_channel_posted;
       this.postSuccessActive = this.profileChannel.media_channel_posting;
-
-      // if new channel saved
-
-      if (this.profileChannel.channel_saved === true) {
-        this.channelSaved = true;
-        if (this.channelSaved === true) {
-          this.channelSaved = false;
-          this.changeState(2);
-        }
-      }
 
       if (state['profile_cards'].active && (this.activeUser.handle !== state['profile_cards'].active.handle)) {
         // nothing
@@ -456,6 +446,13 @@ export class MediaSelectorComponent implements OnInit {
     let userHandle = '';
     this.chosenChannel = 1;
 
+    if (!this.desc) {
+      this.toastr.error('Please add relevant descriptions or tags', 'Missing Description');
+      isReady = false;
+      this.changeState(1);
+      return
+    }
+
     if (this.profileChannel.profile_loaded === true ) {
       userHandle = this.profileChannel.profile_navigation_details.handle;
     }
@@ -465,19 +462,16 @@ export class MediaSelectorComponent implements OnInit {
     const formData = {
       desc: this.desc,
     }
-    const chosenChannel = this.chosenChannel;
+    const channel = {
+      spotfeedId: this.ct_id
+    }
     // const chosenFile = this.editingFile;
 
     for (const nowFile of this.uploadedFiles) {
 
-      if (!this.desc) {
-        console.log('you need a desc to continue');
-        isReady = false;
-        this.changeState(1);
-      }
       if (nowFile) {
         // Build Media Object
-        const mediaItem = this.formatMedia( nowFile, formData, chosenChannel, userHandle, this.mediaPrivacy.toString());
+        const mediaItem = this.formatMedia( nowFile, formData, channel, userHandle, this.mediaPrivacy.toString());
         const media = [ mediaItem ];
         multipleMedias.push(mediaItem);
       }
@@ -582,6 +576,7 @@ export class MediaSelectorComponent implements OnInit {
       }
 
       this.saveChannel( channelObj );
+
     }else {
       this.toastr.warning('Please fill all required fields');
     }
@@ -649,6 +644,7 @@ export class MediaSelectorComponent implements OnInit {
       .first(profile => profile['channel_saved'] === true )
       .subscribe( data => {
         this.channelForm.reset();
+        this.changeState(2);
         this.toastr.success('successfully created channel', 'Success!');
         this.loadChannel(this.handle);
       });
@@ -784,6 +780,9 @@ export class MediaSelectorComponent implements OnInit {
     const mediaType = this.getFileType(file.fileName);
     const postTime = this.currentTime();
     const isUploadReady = this.uploadMeta();
+
+    console.log(channel);
+    
 
     const tags = this.extractTags();
     // console.log(tags);

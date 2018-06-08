@@ -33,7 +33,7 @@ import { GeneralUtilities } from '../../helpers/general.utils';
 export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('searchInput') searchInput;
-  
+
   baseUrl: string;
   isSearching = false;
   searchState$: Observable<SearchModel>;
@@ -272,8 +272,15 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
     this.routeSub = this.route.queryParams
       .subscribe(params => {
+
+        // check if search type is available
+        if (params.type && params.type.length > 0) {
+          // giving back the search type
+          this.searchType = params.type;
+        }
+
         // check if params available
-        if (params && params.q && params.q.length > 0) {
+        if (params && typeof params.q !== 'undefined') {
 
           // giving back the search value
           this.searchString = params.q;
@@ -285,56 +292,57 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
             // console.log('filters', JSON.parse(decodeURIComponent(params.filters)));
           }
 
-          // check if search is global
-          if ((params.type && params.type === 'all') || !params.type) {
-            const searchAllParams = {
-              searchText: this.searchString,
-              from: 0,
-              limit: this.recordsPerPage,
-              filtersMap: this.globalFilter
-            }
-            // search all
-            this.isSearching = true;
-            this.store.dispatch({ type: SearchActions.SEARCH_ALL, payload: searchAllParams });
-          }
+          if (this.searchString && this.searchString.length > 0) {
 
-          // check if search type is available
-          if (params.type && params.type.length > 0) {
-
-            // giving back the search type
-            this.searchType = params.type;
-
-            // making a dispatch depending on the search type
-            if (this.searchType === 'people') {
-              const searchPeopleParams = {
-                isHuman: '1',
-                status: [],
-                offset: 0,
-                limit: 10,
-                searchText: this.searchString
+            // check if search is global
+            if ((params.type && params.type === 'all') || !params.type) {
+              const searchAllParams = {
+                searchText: this.searchString,
+                from: 0,
+                limit: this.recordsPerPage,
+                filtersMap: this.globalFilter
               }
+              // search all
               this.isSearching = true;
-              this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchPeopleParams });
+              this.store.dispatch({ type: SearchActions.SEARCH_ALL, payload: searchAllParams });
             }
 
-            if (this.searchType === 'channel') {
-              const searchChannelParams = {
-                offset: 0,
-                limit: 10,
-                searchText: this.searchString
-              }
-              this.isSearching = true;
-              this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchChannelParams });
-            }
+            // check if search type is available
+            if (this.searchType.length > 0) {
 
-            if (this.searchType === 'post') {
-              const searchPostParams = {
-                offset: 0,
-                limit: 10,
-                searchText: this.searchString
+              // making a dispatch depending on the search type
+              if (this.searchType === 'people') {
+                const searchPeopleParams = {
+                  isHuman: '1',
+                  status: [],
+                  offset: 0,
+                  limit: 10,
+                  searchText: this.searchString
+                }
+                this.isSearching = true;
+                this.store.dispatch({ type: SearchActions.SEARCH_PEOPLE, payload: searchPeopleParams });
               }
-              this.isSearching = true;
-              this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchPostParams });
+
+              if (this.searchType === 'channel') {
+                const searchChannelParams = {
+                  offset: 0,
+                  limit: 10,
+                  searchText: this.searchString
+                }
+                this.isSearching = true;
+                this.store.dispatch({ type: SearchActions.SEARCH_CHANNEL, payload: searchChannelParams });
+              }
+
+              if (this.searchType === 'post') {
+                const searchPostParams = {
+                  offset: 0,
+                  limit: 10,
+                  searchText: this.searchString
+                }
+                this.isSearching = true;
+                this.store.dispatch({ type: SearchActions.SEARCH_POST, payload: searchPostParams });
+              }
+
             }
 
           }

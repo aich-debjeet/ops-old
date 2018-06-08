@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <!-- <a class="m-nav__icons" href="search.html"><img src="assets/svg/ico_search.svg"></a> -->
-                        <a class="m-nav__icons" routerLink="/search"><img [src]="imageBaseUrl + 'img/svg/ico_search.svg'"></a>
+                        <a class="m-nav__icons" [routerLink]="['/search']" [queryParams]="{q:'', type:'all'}"><img [src]="imageBaseUrl + 'img/svg/ico_search.svg'"></a>
                         <div class="m-nav__dropdown dropdown" appDropdown>
                             <a class="m-nav__icons dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen (click)="notificationPopup()">
                                 <!-- <img src="assets/svg/ico_notification.svg"> -->
@@ -45,15 +45,15 @@
                                     <div class="dropdown__arrow"><img [src]="imageBaseUrl + 'img/arrow.png'"></div>
                                 </div>
                                 <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications | slice:0:7" [ngClass]="{'fill_grey': !notification.isRead}">
-                                    <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                                    <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', notification?.username, 'user']">
                                         <!-- <img class="navdrop__img" [src]="imageBaseUrl + 'img/new/avatar2.png'"> -->
-                                        <img *ngIf="!notification.profileImage" [src]="imageBaseUrl + '/img/avatar.png'" class="navdrop__img">
-                                        <img *ngIf="notification.profileImage" [src]="imageBaseUrl + notification.profileImage" class="navdrop__img">
+                                        <img *ngIf="!notification?.profileImage" [src]="imageBaseUrl + '/img/avatar.png'" class="navdrop__img">
+                                        <img *ngIf="notification?.profileImage" [src]="imageBaseUrl + notification.profileImage" class="navdrop__img">
                                     </div>
                                     <div class="dropnoti__detail">
-                                        <span><a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
-                                            <span class="dropnoti__bold"> {{ notification.name }}</span>
-                                        </a>{{ notification.message }}
+                                        <span><a [routerLink]="['', 'profile', 'u', notification?.username, 'user']">
+                                            <span class="dropnoti__bold"> {{ notification?.name }}</span>
+                                        </a>{{ notification?.message }}
                                         </span>
                                     </div>
                                     <div class="dropnoti__icon">
@@ -146,7 +146,7 @@
                                 <div routerLink="/about" class="dropdown__item p-b-8 with_border_bottom">
                                     <a>About One Page Spotlight</a>
                                 </div>
-                                <div routerLink="/logout" class="dropdown__item p-t-8">
+                                <div (click)="logoutSubmit()" class="dropdown__item p-t-8">
                                     <a>Signout</a>
                                 </div>
                             </div>
@@ -195,7 +195,7 @@
                         </div>
                     </li>
                     <li>
-                        <a routerLink="/search"><img [src]="imageBaseUrl + 'img/svg/ico_search.svg'"></a>
+                        <a [routerLink]="['/search']" [queryParams]="{q:'', type:'all'}"><img [src]="imageBaseUrl + 'img/svg/ico_search.svg'"></a>
                     </li>
                     <li class="dropdown" appDropdown>
                         <a class="dropdown-toggle" appDropdownOpen (click)="notificationPopup()">
@@ -208,30 +208,35 @@
                                 <a (click)="markAllAsRead()" class="pull-right">Mark all as read</a>
                                 <div class="dropdown__arrow"><img [src]="imageBaseUrl + 'img/arrow.png'"></div>
                             </div>
-                            <div class="o-alert_scroll" id="ops_scrollbar">
-                                <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications| slice:0:7" [ngClass]="{'msg__read': notification?.isRead, 'msg__unread': !notification?.isRead}">
-                                    <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
-                                        <!-- <img class="navdrop__img" [src]="imageBaseUrl + 'img/new/avatar2.png'"> -->
-                                        <img *ngIf="!notification.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="img-responsive">
-                                        <img *ngIf="notification.profileImage" [src]="imageBaseUrl + notification.profileImage" class="img-responsive">
+                            <ng-container *ngIf="notifications?.length > 0; else loadingNotifs">
+                                <div class="o-alert_scroll" id="ops_scrollbar">
+                                    <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications| slice:0:7" [ngClass]="{'msg__read': notification?.isRead, 'msg__unread': !notification?.isRead}">
+                                        <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                                            <!-- <img class="navdrop__img" [src]="imageBaseUrl + 'img/new/avatar2.png'"> -->
+                                            <img *ngIf="!notification.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="img-responsive">
+                                            <img *ngIf="notification.profileImage" [src]="imageBaseUrl + notification.profileImage" class="img-responsive">
+                                        </div>
+                                        <div class="dropnoti__detail">
+                                            <span><a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                                                <span class="dropnoti__bold"> {{ notification?.name }}</span>
+                                            </a>{{ notification?.message }}
+                                            </span>
+                                        </div>
+                                        <div class="dropnoti__icon">
+                                            <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="imageBaseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
+                                            <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
+                                        </div>
+                                        <p class="msg__time">{{ notification?.createdDate | utcDate | date:'short' }}</p>
+                                        <!-- <div class="dropnoti__permission" *ngIf = "notification.notificationType === 'Network_Sent'">
+                                            <a href="javascript:void(0)" class="color-theme">Accept</a>
+                                            <a href="javascript:void(0)">Decline</a>
+                                        </div> -->
                                     </div>
-                                    <div class="dropnoti__detail">
-                                        <span><a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
-                                            <span class="dropnoti__bold"> {{ notification.name }}</span>
-                                        </a>{{ notification.message }}
-                                        </span>
-                                    </div>
-                                    <div class="dropnoti__icon">
-                                        <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="imageBaseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
-                                        <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
-                                    </div>
-                                    <p class="msg__time">{{notification.createdDate |date:'short'}}</p>
-                                    <!-- <div class="dropnoti__permission" *ngIf = "notification.notificationType === 'Network_Sent'">
-                                        <a href="javascript:void(0)" class="color-theme">Accept</a>
-                                        <a href="javascript:void(0)">Decline</a>
-                                    </div> -->
                                 </div>
-                            </div>
+                            </ng-container>
+                            <ng-template #loadingNotifs >
+                                <app-placeholder-notification *ngFor="let n of [0,1]"></app-placeholder-notification>
+                            </ng-template>
                             <div class="dropdown__item p-16 msg__read">
                                 <a routerLink="/notification">
                                     <p class="dropnoti__viewall">View All </p>
@@ -298,7 +303,7 @@
                             <div routerLink="/about" class="dropdown__item p-b-16 with_border_bottom">
                                 <a>About One Page Spotlight</a>
                             </div>
-                            <div routerLink="/logout" class="dropdown__item p-t-16">
+                            <div (click)="logoutSubmit()" class="dropdown__item p-t-16">
                                 <a>Signout</a>
                             </div>
                         </div>

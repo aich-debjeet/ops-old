@@ -42,6 +42,14 @@ export class EventService {
   }
 
   /**
+   * Event Delete
+   */
+  eventDel(payload) {
+    return this.api.put('/portal/event/delete/' + payload, {})
+  }
+
+
+  /**
    * Event Get details
    */
   eventDetail(id: any) {
@@ -61,7 +69,12 @@ export class EventService {
   getAllIndustry() {
       return this.api.get('/portal/industry', '');
   }
-
+  /**
+   * Event Get Event Types
+   */
+  getEventsType() {
+    return this.api.get('/portal/eventTypes');
+  }
   /**
    * Event Get all industry
    */

@@ -15,11 +15,11 @@ export class NotificationEffect {
 
   @Effect()
   notifications$ = this.actions$
-    .ofType(NotificationActions.LOAD_NOTIFICATIONS)
+    .ofType(NotificationActions.GET_NOTIFICATIONS)
     .map(toPayload)
     .switchMap((payload) => this.apiService.getNotifications(payload)
-      .map(res => ({ type: NotificationActions.LOAD_NOTIFICATIONS_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: NotificationActions.LOAD_NOTIFICATIONS_FAILED, payload: res }))
+      .map(res => ({ type: NotificationActions.GET_NOTIFICATIONS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: NotificationActions.GET_NOTIFICATIONS_FAILED, payload: res }))
     );
 
   @Effect()

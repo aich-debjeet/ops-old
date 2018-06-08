@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { UtcDatePipe } from './../../../pipes/utcdate.pipe';
 import { environment } from './../../../../environments/environment';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 // Model
 import { EventModal, initialTag  } from '../../../models/event.model';
@@ -34,12 +36,13 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private store: Store<EventModal>,
+    private toastr: ToastrService,
+    private router: Router,
   ) {
     this.tagState$ = this.store.select('eventTags');
     this.tagState$.subscribe((state) => {
       this.eventDetail = state['event_detail'];
       this.attendeeList = state['attendee_load'];
-      console.log(this.attendeeList)
     });
 
     // Event tag
@@ -67,6 +70,16 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
     // }
   }
 
+  deleteEvent(id: string){
+    console.log(id)
+    this.store.dispatch({ type: EventActions.EVENT_DELETE, payload: id });
+    this.store.select('eventTags')
+      .first(state => state['event_del_success'] === true)
+      .subscribe( datas => {
+        this.router.navigateByUrl('/event');
+        this.toastr.success('The Event has been deleted successfully');
+      });
+  }
   loadDetail() {
     this.store.dispatch({ type: EventActions.EVENT_DETAILS_LOAD, payload: this.id });
     this.store.dispatch({ type: EventActions.EVENT_ATTENDEE_LOAD, payload: this.id });
