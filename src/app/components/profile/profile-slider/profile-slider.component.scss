@@ -135,7 +135,7 @@
 .o-profile__detail__cont {
     border-radius: 3px;
     width: 100%; // height: 136px;
-    padding: 16px;
+    padding: 4px 16px;
     background-color: $white;
     @include mq($from: $mobile_sm, $until: $desktop_sm) {
         float: left;
@@ -232,6 +232,7 @@
     font-weight: 600;
     margin-right: 16px;
     line-height: 18px;
+    float: left;
     small {
         font-size: 11px;
         font-weight: 500;
@@ -245,6 +246,7 @@
     font-weight: 500;
     text-align: left;
     color: #333333;
+    margin-bottom: 4px;
 }
 
 .o-profile__detail--text {

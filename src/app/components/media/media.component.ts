@@ -97,7 +97,6 @@ export class MediaComponent implements OnInit, AfterViewInit {
 
       this.route.queryParams.subscribe(params => {
         this.urlQuery = params
-        console.log(params); // Print the parameter to the console.
       });
 
       this.reset(); // set initial state

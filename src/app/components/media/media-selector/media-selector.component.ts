@@ -446,6 +446,13 @@ export class MediaSelectorComponent implements OnInit {
     let userHandle = '';
     this.chosenChannel = 1;
 
+    if (!this.desc) {
+      this.toastr.error('Please add relevant descriptions or tags', 'Missing Description');
+      isReady = false;
+      this.changeState(1);
+      return
+    }
+
     if (this.profileChannel.profile_loaded === true ) {
       userHandle = this.profileChannel.profile_navigation_details.handle;
     }
@@ -462,11 +469,6 @@ export class MediaSelectorComponent implements OnInit {
 
     for (const nowFile of this.uploadedFiles) {
 
-      if (!this.desc) {
-        console.log('you need a desc to continue');
-        isReady = false;
-        this.changeState(1);
-      }
       if (nowFile) {
         // Build Media Object
         const mediaItem = this.formatMedia( nowFile, formData, channel, userHandle, this.mediaPrivacy.toString());
