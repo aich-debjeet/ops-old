@@ -153,7 +153,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this.notify = false;
     }
       // this.notificationStore.dispatch({
-      //   type: NotificationActions.LOAD_NOTIFICATIONS,
+      //   type: NotificationActions.GET_NOTIFICATIONS,
       //   payload: null
       // });
       // observe the store value
@@ -282,7 +282,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       limit: 10,
       page: 0
     }
-    this.notificationStore.dispatch({ type: NotificationActions.LOAD_NOTIFICATIONS, payload: data });
+    this.notificationStore.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: data });
   }
 
   /**

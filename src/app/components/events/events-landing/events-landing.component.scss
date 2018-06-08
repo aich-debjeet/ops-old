@@ -44,12 +44,14 @@
     float: left;
     padding: 16px 24px!important;
     background: #fff;
+    width: 9%;
 }
 
 .o-event-slider__det-text {
     float: left;
     margin-left: 24px;
-    margin-top: 8px;
+    // margin-top: 8px;
+    width: 50%;
 }
 
 .slick-next {

@@ -50,55 +50,48 @@ export class NotificationComponent implements OnInit, OnDestroy {
       if (typeof state !== 'undefined') {
         if (typeof state['recieved_notifications'] !== 'undefined') {
           this.notifications = state['recieved_notifications'];
-
           // check is unread notification exits else mark all notifications as read
-
           this.processNotifications();
         }
-
-        if (state && state['recieved_notifications_success'] === true) {
+        if (state && state['requesting_notifications'] === true) {
           this.showPreloader = false;
         }
+      } else {
+        // if notifications state undefined init with initial list of notifications
+        const reqBody = {
+          limit: 10,
+          page: 0
+        }
+        this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: reqBody });
       }
     });
   }
 
   // message maker
   processNotifications() {
-
-    console.log('processNotifications');
     this.notifications.forEach((notif, index) => {
-
       switch (notif.notificationType) {
-
         case 'Following':
           this.notifications[index]['message'] = '@' + notif.username + ' has started following you';
           break;
-
         case 'Media_Spot':
           this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your post';
           break;
-
         case 'Media_Comments':
           this.notifications[index]['message'] = ' and ' + notif.commentsCount + ' others commented on your post';
           break;
-
         case 'Status_Spot':
           this.notifications[index]['message'] = ' and ' + notif.spotCount + ' others spotted your status';
           break;
-
         case 'Status_Comments':
           this.notifications[index]['message'] = ' and ' + notif.commentsCount + ' others commented on your status';
           break;
-
         case 'Network_Sent':
           this.notifications[index]['message'] = ' sent you a network request';
           break;
-
         case 'Network_Accepted':
           this.notifications[index]['message'] = ' accepted your network request';
           break;
-
       }
     });
 
@@ -171,11 +164,11 @@ export class NotificationComponent implements OnInit, OnDestroy {
       this.scrolling = 0;
       this.scrollingLoad = 251;
       this.page = 0;
-      const payload = {
+      const pagination = {
         limit: 10,
         page: 0
       }
-      this.store.dispatch({ type: NotificationActions.LOAD_NOTIFICATIONS, payload: payload });
+      this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: pagination });
     });
   }
 
@@ -186,7 +179,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   onScroll(e) {
-    console.log(e);
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingLoad <= this.scrolling) {
       this.scrollingLoad += 500
@@ -195,8 +187,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
         limit: 10,
         page: this.page
       }
-
-      this.store.dispatch({ type: NotificationActions.LOAD_NOTIFICATIONS, payload: data });
+      this.store.dispatch({ type: NotificationActions.GET_NOTIFICATIONS, payload: data });
     }
   }
 

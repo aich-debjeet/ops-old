@@ -57,6 +57,7 @@ import { EventCardComponent } from './event-card/event-card.component';
 import { ChannelSearchComponent } from './channel-search/channel-search.component';
 import { SearchChannelCardComponent } from './search-channel-card/search-channel-card.component';
 import { CommunityCardComponent } from './community-card/community-card.component';
+import { PlaceholderNotificationComponent } from './placeholder-notification/placeholder-notification.component';
 
 @NgModule({
   imports: [
@@ -111,7 +112,8 @@ import { CommunityCardComponent } from './community-card/community-card.componen
     ChannelSearchComponent,
     SearchChannelCardComponent,
     CommunityCardComponent,
-    ReadMoreComponent
+    ReadMoreComponent,
+    PlaceholderNotificationComponent
   ],
   exports: [
     OpportunityCardComponent,

@@ -9,4 +9,6 @@ export class Notification {
     isRead: boolean;
     createdDate: string;
     recieved_notifications: any[];
+    requesting_notifications: boolean;
+    requesting_notifications_success: boolean;
 }
