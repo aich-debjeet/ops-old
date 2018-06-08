@@ -1,39 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { Router, ActivatedRoute } from '@angular/router';
-import { environment } from './../../environments/environment';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
-
 import { ApiService } from '../helpers/api.service';
-import { TokenService } from '../helpers/token.service';
 
 @Injectable()
 export class OpportunityService {
-  handle: string;
-  headers: any;
-  private apiLink: string = environment.API_ENDPOINT;
 
-  constructor(
-    private http: Http,
-    private router: Router,
-    private api: ApiService,
-    private tokenService: TokenService) {
-      this.headers = this.api.getHeaders();
-      this.handle = this.api.getHandle();
-    }
-
-  updateToken() {
-    this.headers = this.api.getHeaders();
-    this.handle = this.api.getHandle();
-  }
+  constructor(private api: ApiService) { }
 
   /**
    * Create opportunity
    * @param request body
    */
   createOpportunity(reqBody: any) {
-    this.updateToken();
     return this.api.post('/portal/opportunity/create', reqBody);
   }
 
@@ -42,7 +19,6 @@ export class OpportunityService {
    * @param request body
    */
   searchOpportunities(params: any) {
-    this.updateToken();
     return this.api.get('/portal/job/' + params.query + '/search/' + params.offset + '/' + params.limit);
   }
 
@@ -51,7 +27,6 @@ export class OpportunityService {
    * @param id
    */
   getOpportunity(jobId: string) {
-    this.updateToken();
     return this.api.get('/portal/job/', jobId);
   }
 
@@ -60,7 +35,6 @@ export class OpportunityService {
    * @param job id
    */
   applyForAnOpportunity(reqBody: any) {
-    this.updateToken();
     return this.api.post('/portal/job/apply', reqBody);
   }
 
@@ -68,7 +42,6 @@ export class OpportunityService {
    * Get opportunity type count
    */
   getOpportunityTypeCount() {
-    this.updateToken();
     return this.api.get('/portal/job/allType/counts');
   }
 
@@ -76,10 +49,7 @@ export class OpportunityService {
    * Get opportunities by filters like recommended, created opps
    */
   getOpportunities(reqParams: any) {
-     console.log('payload', reqParams)
-    this.updateToken();
-    // return this.api.put('/portal/job', reqParams);
-    return this.api.get('/portal/opportunity/created/user/' + reqParams.offset + '/'+ reqParams.limit);
+    return this.api.get('/portal/opportunity/created/user/' + reqParams.offset + '/' + reqParams.limit);
   }
 
 
@@ -87,8 +57,7 @@ export class OpportunityService {
    * Get applied opportunities
    */
   getAppliedOpportunities(reqParams: any) {
-    this.updateToken();
-    return this.api.get('/portal/opportunity/applied/jobs/user/' + reqParams.offset + '/'+ reqParams.limit );
+    return this.api.get('/portal/opportunity/applied/jobs/user/' + reqParams.offset + '/' + reqParams.limit );
   }
 
   /**
