@@ -42,6 +42,14 @@ export class EventService {
   }
 
   /**
+   * Event Delete
+   */
+  eventDel(payload) {
+    return this.api.put('/portal/event/delete/' + payload, {})
+  }
+
+
+  /**
    * Event Get details
    */
   eventDetail(id: any) {
