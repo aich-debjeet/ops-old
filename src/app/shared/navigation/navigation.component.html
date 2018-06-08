@@ -146,7 +146,7 @@
                                 <div routerLink="/about" class="dropdown__item p-b-8 with_border_bottom">
                                     <a>About One Page Spotlight</a>
                                 </div>
-                                <div routerLink="/logout" class="dropdown__item p-t-8">
+                                <div (click)="logoutSubmit()" class="dropdown__item p-t-8">
                                     <a>Signout</a>
                                 </div>
                             </div>
@@ -226,7 +226,7 @@
                                             <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="imageBaseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
                                             <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
                                         </div>
-                                        <p class="msg__time">{{ notification?.createdDate | date:'short' }}</p>
+                                        <p class="msg__time">{{ notification?.createdDate | utcDate | date:'short' }}</p>
                                         <!-- <div class="dropnoti__permission" *ngIf = "notification.notificationType === 'Network_Sent'">
                                             <a href="javascript:void(0)" class="color-theme">Accept</a>
                                             <a href="javascript:void(0)">Decline</a>
@@ -303,7 +303,7 @@
                             <div routerLink="/about" class="dropdown__item p-b-16 with_border_bottom">
                                 <a>About One Page Spotlight</a>
                             </div>
-                            <div routerLink="/logout" class="dropdown__item p-t-16">
+                            <div (click)="logoutSubmit()" class="dropdown__item p-t-16">
                                 <a>Signout</a>
                             </div>
                         </div>

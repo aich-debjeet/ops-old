@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
                 return true;
             }
         }).catch(() => {
-            this.router.navigate(['/logout']);
+            this.router.navigate(['/logout'], {skipLocationChange: true });
             return Observable.of(false);
         });
     }
