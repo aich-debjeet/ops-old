@@ -94,7 +94,6 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         this.isMemeberLoading = state['community_ismember_loading'];
         this.communityLoading = state['community_loding'];
         this.updateCommunityLoading = state['community_update_loading'];
-        console.log('loading', state['post_loading']);
         this.postLoader = state['post_loading'];
       }
     });
