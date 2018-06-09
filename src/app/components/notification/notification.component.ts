@@ -97,20 +97,18 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   }
 
+
   /**
    * Open respective link
    */
-  openLink(notifIndex: any, notificationId: string) {
-    const notifDetails = this.notifications[notifIndex];
-    // redirecting to the respective link
-    switch (notifDetails.notificationType) {
-
+  openLink(notification: any) {
+    switch (notification.notificationType) {
       case 'Media_Spot':
-        this.router.navigate(['/user/status/list']);
+        this.router.navigate([{ outlets: { media : ['media', notification.media.mediaId] } } ]);
         break;
 
       case 'Media_Comments':
-        this.router.navigate(['/user/status/list']);
+        this.router.navigate([{ outlets: { media : ['media', notification.media.mediaId] } } ]);
         break;
 
       case 'Status_Spot':
@@ -124,9 +122,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
       case 'Network_Sent':
       this.router.navigate(['/profile/network']);
         break;
-
     }
-
   }
 
   /**

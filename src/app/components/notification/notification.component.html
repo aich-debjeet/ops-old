@@ -25,14 +25,14 @@
                                 </ul>
                             </li>
                             <ng-container *ngIf="notifications?.length > 0; else loadingNotifs">
-                                <li class="with_border_bottom" *ngFor="let notification of notifications; let notifIndex = index;" [ngClass]="{'fill_grey': !notification.isRead}">
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item float_left noti_avatar cursor-pointer" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
+                                <li class="with_border_bottom cursor-pointer" *ngFor="let notification of notifications; let notifIndex = index;" [ngClass]="{'fill_grey': !notification.isRead}" (click)="openLink(notification)" >
+                                    <ul class="list-inline" >
+                                        <li class="list-inline-item float_left noti_avatar" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
                                             <img *ngIf="!notification.profileImage" [src]="baseUrl + 'img/avatar.png'" class="img-responsive">
                                             <img *ngIf="notification.profileImage" [src]="baseUrl + notification.profileImage" class="img-responsive">
                                         </li>
                                         <!-- <li class="list-inline-item noti_cont cursor-pointer" (click)="openLink(notifIndex, notification.notificationId)" > -->
-                                        <li class="list-inline-item noti_cont cursor-pointer" (click)="openLink(notifIndex, notification.notificationId)">
+                                        <li class="list-inline-item noti_cont cursor-pointer" >
                                             <div class="head_msg_name">
                                                 <a [routerLink]="['', 'profile', 'u', notification.username, 'user']">
                                                     {{ notification.name }}
