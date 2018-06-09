@@ -39,7 +39,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   relatedCommunity: any;
   memeberList: any;
   communityPost: any;
-  postLoader: boolean;
+  postLoader: boolean = false;
   inviteBtnActive: boolean = true;
   public communityForm: FormGroup;
   public communityAdminForm: FormGroup;
@@ -82,9 +82,6 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         if (state['community_post']) {
           this.communityPost = state['community_post'];
         }
-        if (state['post_loader']) {
-          this.postLoader = state['post_loader'];
-        }
         if (state['invite_button']) {
           this.inviteBtnActive = state['invite_button'];
         }
@@ -97,6 +94,8 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         this.isMemeberLoading = state['community_ismember_loading'];
         this.communityLoading = state['community_loding'];
         this.updateCommunityLoading = state['community_update_loading'];
+        console.log('loading', state['post_loading']);
+        this.postLoader = state['post_loading'];
       }
     });
 
