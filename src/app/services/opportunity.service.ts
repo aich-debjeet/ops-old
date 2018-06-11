@@ -14,13 +14,13 @@ export class OpportunityService {
     return this.api.post('/portal/opportunity/create', reqBody);
   }
 
-  // /**
-  //  * Get opportunities
-  //  * @param request body
-  //  */
-  // searchOpportunities(params: any) {
-  //   return this.api.get('/portal/job/' + params.query + '/search/' + params.offset + '/' + params.limit);
-  // }
+  /**
+   * Search opportunities
+   * @param params: request body
+   */
+  searchOpportunities(params: any) {
+    return this.api.put('/portal/job', params);
+  }
 
   // /**
   //  * Get opportunity by id

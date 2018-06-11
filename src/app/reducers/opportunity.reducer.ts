@@ -8,6 +8,35 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
 
   switch (type) {
 
+    /* search opportunities */
+    case OpportunityActions.SEARCH_OPPORTUNITIES:
+      return Object.assign({}, state, {
+        searching_opportunities: true,
+        search_opportunities_params: payload,
+        search_opportunities_success: false
+      });
+
+    case OpportunityActions.SEARCH_OPPORTUNITIES_SUCCESS:
+      // update state for pagination
+      // let opportunity_payload;
+      // if (state.search_opportunities_params.offset === 0) {
+      //   opportunity_payload = payload;
+      // } else {
+      //   opportunity_payload = [...state.search_opportunities_data, ...payload];
+      // }
+      return Object.assign({}, state, {
+        searching_opportunities: false,
+        search_opportunities_data: payload,
+        search_opportunities_success: true
+      });
+
+    case OpportunityActions.SEARCH_OPPORTUNITIES_FAILED:
+      return Object.assign({}, state, {
+        searching_opportunities: false,
+        search_opportunities_success: false
+      });
+    /* search opportunities */
+
     // /* create opportunity */
     // case OpportunityActions.CREATE_OPPORTUNITY:
     //   return Object.assign({}, state, {
@@ -29,37 +58,6 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
     //     create_opportunity_success: false
     //   });
     // /* create opportunity */
-
-
-
-    // /* search opportunities */
-    // case OpportunityActions.SEARCH_OPPORTUNITIES:
-    //   return Object.assign({}, state, {
-    //     searching_opportunities: true,
-    //     search_opportunities_params: payload,
-    //     search_opportunities_success: false
-    //   });
-
-    // case OpportunityActions.SEARCH_OPPORTUNITIES_SUCCESS:
-    //   // update state for pagination
-    //   // let opportunity_payload;
-    //   // if (state.search_opportunities_params.offset === 0) {
-    //   //   opportunity_payload = payload;
-    //   // } else {
-    //   //   opportunity_payload = [...state.search_opportunities_data, ...payload];
-    //   // }
-    //   return Object.assign({}, state, {
-    //     searching_opportunities: false,
-    //     search_opportunities_data: payload,
-    //     search_opportunities_success: true
-    //   });
-
-    // case OpportunityActions.SEARCH_OPPORTUNITIES_FAILED:
-    //   return Object.assign({}, state, {
-    //     searching_opportunities: false,
-    //     search_opportunities_success: false
-    //   });
-    // /* search opportunities */
 
 
 

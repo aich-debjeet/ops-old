@@ -25,17 +25,17 @@ export class OpportunityEffect {
       .catch((res) => Observable.of({ type: OpportunityActions.CREATE_OPPORTUNITY_FAILED, payload: res }))
     );
 
-  // /**
-  //  * Search opportunities effect
-  //  */
-  // @Effect()
-  // searchOpportunities$ = this.actions$
-  //   .ofType(OpportunityActions.SEARCH_OPPORTUNITIES)
-  //   .map(toPayload)
-  //   .switchMap((payload) => this.opportunityService.searchOpportunities(payload)
-  //     .map((res) => ({ type: OpportunityActions.SEARCH_OPPORTUNITIES_SUCCESS, payload: res }))
-  //     .catch((res) => Observable.of({ type: OpportunityActions.SEARCH_OPPORTUNITIES_FAILED, payload: res }))
-  //   );
+  /**
+   * Search opportunities effect
+   */
+  @Effect()
+  searchOpportunities$ = this.actions$
+    .ofType(OpportunityActions.SEARCH_OPPORTUNITIES)
+    .map(toPayload)
+    .switchMap((payload) => this.opportunityService.searchOpportunities(payload)
+      .map((res) => ({ type: OpportunityActions.SEARCH_OPPORTUNITIES_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: OpportunityActions.SEARCH_OPPORTUNITIES_FAILED, payload: res }))
+    );
 
   // /**
   //  * Get opportunity by id effect

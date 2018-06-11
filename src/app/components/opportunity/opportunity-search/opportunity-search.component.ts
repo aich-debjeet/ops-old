@@ -18,7 +18,7 @@ import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription, ISubscription } from 'rxjs/Subscription';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // helper functions
 import { ScrollHelper } from '../../../helpers/scroll.helper';
@@ -34,14 +34,15 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   @ViewChild('searchQueryElement') searchQueryElement;
 
   // loginTagState$: Observable<any>;
-  private subscription: ISubscription;
+  private oppsSub: ISubscription;
+  routeSub: any;
   opportunityState$: any;
   opportunityState: any;
   searchString = '';
   // default search type
   searchType = 'recommended';
   // insdustryType: 'Industry';
-  // isSearching = false;
+  isSearching = false;
   opportunitiesCount = {
     Audition: '0',
     Projects: '0',
@@ -57,12 +58,13 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private scrollHelper: ScrollHelper,
     private store: Store<OpportunityModel>
   ) {
     // state listener
     this.opportunityState$ = this.store.select('opportunityTags');
-    this.subscription = this.opportunityState$.subscribe((state) => {
+    this.oppsSub = this.opportunityState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.opportunityState = state;
         // if (state && state.searching_opportunities === false) {
@@ -115,10 +117,32 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.routeSub = this.route.queryParams
+      .subscribe(params => {
+        // check if search type is available
+        if (params.type && params.type.length > 0) {
+          // giving back the search type
+          this.searchType = params.type;
+        }
+        // check if search type is available
+        if (this.searchType.length > 0) {
+          const searchOppsParams = {
+            limit: 10,
+            scrollId: '',
+            filtersMap: [],
+            searchType: this.searchType,
+            searchText: this.searchString
+          }
+          this.isSearching = true;
+          this.store.dispatch({ type: OpportunityActions.SEARCH_OPPORTUNITIES, payload: searchOppsParams });
+        }
+      });
+  }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.oppsSub.unsubscribe();
+    this.routeSub.unsubscribe();
   }
 
   ngAfterViewInit() {
@@ -146,32 +170,6 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
         this.oppsSearchGetRequest(params);
 
       });
-
-    // /**
-    //  * Observing the search input change
-    //  */
-    // this.searchInput.valueChanges
-    // .debounceTime(500)
-    // .subscribe(() => {
-
-    //   this.searchString = this.searchInput.value;
-
-    //   // search if string is available
-    //   if (this.searchString && this.searchString.length > 0) {
-    //     this.isSearching = true;
-
-    //     const searchParams = {
-    //       query: this.searchString,
-    //       offset: 0,
-    //       limit: this.recordsPerPage
-    //     }
-
-    //     // search opportunities
-    //     this.store.dispatch({ type: OpportunityActions.SEARCH_OPPORTUNITIES, payload: searchParams });
-    //   }
-
-    // });
-
   }
 
 }
