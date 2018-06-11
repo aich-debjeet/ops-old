@@ -3,7 +3,7 @@
                 
         <div class="c-card__project p-l-r-16 p-t-16">    
             <img src="{{ baseUrl }}img/svg/audition.svg" class="c-card__project--icon"> 
-            <span class="m-l-8">{{ opportunity?.opportunityAudition?.title }}</span>
+            <span class="m-l-8">{{ opportunity?.opportunityType | firstCharCaps }}</span>
         </div>
         
         <!-- card body -->

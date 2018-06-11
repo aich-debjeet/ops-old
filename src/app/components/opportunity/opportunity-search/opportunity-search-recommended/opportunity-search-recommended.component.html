@@ -1,5 +1,5 @@
 <div id="recommended" class="tab-pane">
-    <div *ngIf="opportunities && opportunities.length === 0; else opportunities_found;">
+    <div *ngIf="opportunities && opportunities?.length === 0; else opportunities_found;">
         <p class="result-not-found">No records found!</p>
     </div>
     <ng-template #opportunities_found>
