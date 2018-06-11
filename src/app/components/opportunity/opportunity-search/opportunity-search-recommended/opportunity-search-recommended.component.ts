@@ -12,6 +12,7 @@ import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
 import { forEach } from '@angular/router/src/utils/collection';
+import { GeneralUtilities } from '../../../../helpers/general.utils';
 
 @Component({
   selector: 'app-opportunity-search-recommended',
@@ -21,85 +22,36 @@ import { forEach } from '@angular/router/src/utils/collection';
 export class OpportunitySearchRecommendedComponent implements OnInit, OnDestroy {
 
   opportunityState$: Observable<OpportunityModel>;
-  userState$: Observable<Media>;
-  userState: any;
-  opportunities: any[];
-  skillCodes = [];
-  loadedRecomOpps = false;
-  private subscription: ISubscription;
-  private userSubscription: ISubscription;
-
-  /* pagination settings */
-  recordsPerPage = 10;
-  /* pagination settings */
+  opportunities = [];
+  private oppsSub: ISubscription;
 
   constructor(
     private store: Store<OpportunityModel>,
-    private mediaStore: Store<Media>
+    private mediaStore: Store<Media>,
+    private generalUtils: GeneralUtilities
   ) {
     // check for opportunity details
     this.opportunityState$ = this.store.select('opportunityTags');
-
-    // check for user details
-    this.userState$ = this.mediaStore.select('profileTags');
   }
 
   ngOnInit() {
 
     // observe the opportunity state
-    this.subscription = this.opportunityState$.subscribe((state) => {
-      // if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
-      //   this.opportunities = state.search_opportunities_data.SUCCESS;
-      // }
-
-      // // check for the result of recommended opportunities
-      // if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
-      //   this.opportunities = state.get_opportunities_data.SUCCESS;
-      // }
-    });
-
-    // observe the user state
-    this.userSubscription = this.userState$.subscribe((state) => {
-      this.userState = state;
-      // check for user skills
-      if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['skills'] && this.userState['profile_navigation_details']['skills'].length > 0) {
-        // fetching skills in a local var
-        const skillsLoaded = this.userState['profile_navigation_details']['skills'];
-        // preparing skills as an array of string
-        skillsLoaded.forEach((skill, index) => {
-          if (skill && skill.code) {
-            this.skillCodes.push(skill.code);
-          }
-          if ((skillsLoaded.length - 1) === index) {
-            if (!this.loadedRecomOpps) {
-              this.loadRecomOpps();
-            }
-          }
-        });
+    this.oppsSub = this.opportunityState$.subscribe((state) => {
+      if (typeof state !== 'undefined') {
+        if (
+          this.generalUtils.checkNestedKey(state, ['search_opportunities_result', 'opportunityResponse'])
+          && state['search_opportunities_result']['opportunityResponse'].length > 0
+        ) {
+          this.opportunities = state['search_opportunities_result']['opportunityResponse'];
+        }
       }
-
     });
 
-  }
-
-  /**
-   * load recommended opportunities
-   */
-  loadRecomOpps() {
-    // const recomSearchParams = {
-    //   // industry: this.skillCodes,
-    //   offset: 0, // initial request
-    //   limit: this.recordsPerPage
-    // }
-
-    // this.store.dispatch({
-    //   type: OpportunityActions.GET_OPPORTUNITIES,
-    //   payload: recomSearchParams
-    // });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.oppsSub.unsubscribe();
   }
 
 

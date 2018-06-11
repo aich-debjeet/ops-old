@@ -22,6 +22,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 // helper functions
 import { ScrollHelper } from '../../../helpers/scroll.helper';
+import { GeneralUtilities } from '../../../helpers/general.utils';
 
 @Component({
   selector: 'app-opportunity-search',
@@ -60,21 +61,22 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
     private router: Router,
     private route: ActivatedRoute,
     private scrollHelper: ScrollHelper,
-    private store: Store<OpportunityModel>
+    private store: Store<OpportunityModel>,
+    private generalUtils: GeneralUtilities
   ) {
     // state listener
     this.opportunityState$ = this.store.select('opportunityTags');
     this.oppsSub = this.opportunityState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.opportunityState = state;
-        // if (state && state.searching_opportunities === false) {
-        //   this.isSearching = false;
-        //   this.showPreloader = false;
-        // }
-
-        // if (state && state.get_opportunity_type_success && state.get_opportunity_type_success === true) {
-        //   this.prepareOppCount(state.get_opportunity_type_data.SUCCESS);
-        // }
+        // check for the http request response status
+        if (
+          this.generalUtils.checkNestedKey(state, ['searching_opportunities']) && state['searching_opportunities'] === false
+          && this.generalUtils.checkNestedKey(state, ['search_opportunities_success']) && state['search_opportunities_success'] === true
+        ) {
+          this.isSearching = false;
+          // this.showPreloader = false;
+        }
       }
     });
   }

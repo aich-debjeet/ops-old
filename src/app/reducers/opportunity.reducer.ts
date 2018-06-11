@@ -26,7 +26,7 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
       // }
       return Object.assign({}, state, {
         searching_opportunities: false,
-        search_opportunities_data: payload,
+        search_opportunities_result: payload.SUCCESS,
         search_opportunities_success: true
       });
 
