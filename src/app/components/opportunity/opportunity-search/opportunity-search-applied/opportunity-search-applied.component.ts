@@ -44,23 +44,23 @@ export class OpportunitySearchAppliedComponent implements OnInit, OnDestroy {
 
     // observe the opportunity state
     this.subscription = this.opportunityState$.subscribe((state) => {
-      if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
-        this.opportunities = state.search_opportunities_data.SUCCESS;
-      }
+      // if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
+      //   this.opportunities = state.search_opportunities_data.SUCCESS;
+      // }
 
-      // check for the result of applied opportunities
-      if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
-        this.opportunities = state.get_opportunities_data.SUCCESS;
-      }
+      // // check for the result of applied opportunities
+      // if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
+      //   this.opportunities = state.get_opportunities_data.SUCCESS;
+      // }
     });
 
     // observe the user state
-    this.userState$.subscribe((state) => {
-      this.userState = state;
-      if (this.userState && this.userState.profile_navigation_details && this.userState.profile_navigation_details.handle) {
-        this.loadappliedOpps();
-      }
-    });
+    // this.userState$.subscribe((state) => {
+    //   this.userState = state;
+    //   if (this.userState && this.userState.profile_navigation_details && this.userState.profile_navigation_details.handle) {
+    //     this.loadappliedOpps();
+    //   }
+    // });
 
   }
 
@@ -72,15 +72,15 @@ export class OpportunitySearchAppliedComponent implements OnInit, OnDestroy {
    * load applied opportunities
    */
   loadappliedOpps() {
-    const createdSearchParams = {
-      // postedBy: profileHandle,
-      offset: 0, // initial request
-      limit: this.recordsPerPage
-    }
-    this.store.dispatch({
-      type: OpportunityActions.GET_APPLIED_OPPORTUNITIES,
-      payload: createdSearchParams
-    });
+    // const createdSearchParams = {
+    //   // postedBy: profileHandle,
+    //   offset: 0, // initial request
+    //   limit: this.recordsPerPage
+    // }
+    // this.store.dispatch({
+    //   type: OpportunityActions.GET_APPLIED_OPPORTUNITIES,
+    //   payload: createdSearchParams
+    // });
   }
 
 }

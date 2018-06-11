@@ -45,14 +45,14 @@ export class OpportunitySearchCreatedComponent implements OnInit, OnDestroy {
 
     // observe the opportunity state
     this.subscription = this.opportunityState$.subscribe((state) => {
-      if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
-        this.opportunities = state.search_opportunities_data.SUCCESS;
-      }
+      // if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
+      //   this.opportunities = state.search_opportunities_data.SUCCESS;
+      // }
 
-      // check for the result of created opportunities
-      if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
-        this.opportunities = state.get_opportunities_data.SUCCESS;
-      }
+      // // check for the result of created opportunities
+      // if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
+      //   this.opportunities = state.get_opportunities_data.SUCCESS;
+      // }
     });
 
     // observe the user state
@@ -75,10 +75,10 @@ export class OpportunitySearchCreatedComponent implements OnInit, OnDestroy {
       offset: 0, // initial request
       limit: this.recordsPerPage
     }
-    this.store.dispatch({
-      type: OpportunityActions.GET_OPPORTUNITIES,
-      payload: createdSearchParams
-    });
+    // this.store.dispatch({
+    //   type: OpportunityActions.GET_OPPORTUNITIES,
+    //   payload: createdSearchParams
+    // });
   }
 
   ngOnDestroy() {

@@ -48,14 +48,14 @@ export class OpportunitySearchRecommendedComponent implements OnInit, OnDestroy 
 
     // observe the opportunity state
     this.subscription = this.opportunityState$.subscribe((state) => {
-      if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
-        this.opportunities = state.search_opportunities_data.SUCCESS;
-      }
+      // if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
+      //   this.opportunities = state.search_opportunities_data.SUCCESS;
+      // }
 
-      // check for the result of recommended opportunities
-      if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
-        this.opportunities = state.get_opportunities_data.SUCCESS;
-      }
+      // // check for the result of recommended opportunities
+      // if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
+      //   this.opportunities = state.get_opportunities_data.SUCCESS;
+      // }
     });
 
     // observe the user state
@@ -86,16 +86,16 @@ export class OpportunitySearchRecommendedComponent implements OnInit, OnDestroy 
    * load recommended opportunities
    */
   loadRecomOpps() {
-    const recomSearchParams = {
-      // industry: this.skillCodes,
-      offset: 0, // initial request
-      limit: this.recordsPerPage
-    }
+    // const recomSearchParams = {
+    //   // industry: this.skillCodes,
+    //   offset: 0, // initial request
+    //   limit: this.recordsPerPage
+    // }
 
-    this.store.dispatch({
-      type: OpportunityActions.GET_OPPORTUNITIES,
-      payload: recomSearchParams
-    });
+    // this.store.dispatch({
+    //   type: OpportunityActions.GET_OPPORTUNITIES,
+    //   payload: recomSearchParams
+    // });
   }
 
   ngOnDestroy() {

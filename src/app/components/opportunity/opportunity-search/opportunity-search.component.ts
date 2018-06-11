@@ -31,8 +31,8 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
 
   // loginTagState$: Observable<any>;
   private subscription: ISubscription;
-  // opportunityState$: any;
-  // opportunityState: any;
+  opportunityState$: any;
+  opportunityState: any;
   // searchString: string;
   // insdustryType: 'Industry';
   // isSearching = false;
@@ -52,21 +52,21 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   constructor(
     private store: Store<OpportunityModel>
   ) {
-    // // state listener
-    // this.opportunityState$ = this.store.select('opportunityTags');
-    // this.subscription = this.opportunityState$.subscribe((state) => {
-    //   if (typeof state !== 'undefined') {
-    //     this.opportunityState = state;
-    //     if (state && state.searching_opportunities === false) {
-    //       this.isSearching = false;
-    //       this.showPreloader = false;
-    //     }
+    // state listener
+    this.opportunityState$ = this.store.select('opportunityTags');
+    this.subscription = this.opportunityState$.subscribe((state) => {
+      if (typeof state !== 'undefined') {
+        this.opportunityState = state;
+        // if (state && state.searching_opportunities === false) {
+        //   this.isSearching = false;
+        //   this.showPreloader = false;
+        // }
 
-    //     if (state && state.get_opportunity_type_success && state.get_opportunity_type_success === true) {
-    //       this.prepareOppCount(state.get_opportunity_type_data.SUCCESS);
-    //     }
-    //   }
-    // });
+        // if (state && state.get_opportunity_type_success && state.get_opportunity_type_success === true) {
+        //   this.prepareOppCount(state.get_opportunity_type_data.SUCCESS);
+        // }
+      }
+    });
   }
 
   /**

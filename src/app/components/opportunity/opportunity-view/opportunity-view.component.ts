@@ -80,11 +80,11 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      if (params['id']) {
-        // search job with id
-        this.jobId = params['id'];
-        this.store.dispatch({ type: OpportunityActions.GET_OPPORTUNITY, payload: this.jobId });
-      }
+      // if (params['id']) {
+      //   // search job with id
+      //   this.jobId = params['id'];
+      //   this.store.dispatch({ type: OpportunityActions.GET_OPPORTUNITY, payload: this.jobId });
+      // }
     });
   }
 
@@ -96,14 +96,14 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
    * apply for job
    */
   applyForJob() {
-    const reqBody = {
-      jobId: this.jobId
-    }
+    // const reqBody = {
+    //   jobId: this.jobId
+    // }
 
-    this.store.dispatch({
-      type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY,
-      payload: reqBody
-    });
+    // this.store.dispatch({
+    //   type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY,
+    //   payload: reqBody
+    // });
   }
 
 }

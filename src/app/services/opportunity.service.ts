@@ -6,13 +6,13 @@ export class OpportunityService {
 
   constructor(private api: ApiService) { }
 
-  // /**
-  //  * Create opportunity
-  //  * @param request body
-  //  */
-  // createOpportunity(reqBody: any) {
-  //   return this.api.post('/portal/opportunity/create', reqBody);
-  // }
+  /**
+   * Create opportunity
+   * @param request body
+   */
+  createOpportunity(reqBody: any) {
+    return this.api.post('/portal/opportunity/create', reqBody);
+  }
 
   // /**
   //  * Get opportunities
@@ -60,19 +60,19 @@ export class OpportunityService {
   //   return this.api.get('/portal/opportunity/applied/jobs/user/' + reqParams.offset + '/' + reqParams.limit );
   // }
 
-  // /**
-  //  * File Uploader
-  //  */
-  // fileUpload(formValue: any) {
-  //   return this.uploadImage(formValue, formValue.handle);
-  // }
+  /**
+   * File Uploader
+   */
+  fileUpload(formValue: any) {
+    return this.uploadImage(formValue, formValue.handle);
+  }
 
-  // /**
-  //  * Upload Image to CDN
-  //  * @TODO: check why it is failing on for single file end point
-  //  */
-  // uploadImage(value: any, handle: string = '') {
-  //   return this.api.postFile('/portal/cdn/media/upload/multiple?handle=' + handle, value.image);
-  // }
+  /**
+   * Upload Image to CDN
+   * @TODO: check why it is failing on for single file end point
+   */
+  uploadImage(value: any, handle: string = '') {
+    return this.api.postFile('/portal/cdn/media/upload/multiple?handle=' + handle, value.image);
+  }
 
 }
