@@ -33,8 +33,6 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
 
   @ViewChild('searchInput') searchInput;
   @ViewChild('searchQueryElement') searchQueryElement;
-
-  // loginTagState$: Observable<any>;
   private oppsSub: ISubscription;
   routeSub: any;
   opportunityState$: any;
@@ -42,7 +40,6 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   searchString = '';
   // default search type
   searchType = 'recommended';
-  // insdustryType: 'Industry';
   isSearching = false;
   opportunitiesCount = {
     Audition: '0',
