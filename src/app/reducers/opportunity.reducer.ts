@@ -159,25 +159,25 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
 
 
     /* get opportunity type count */
-    case OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT:
-      return Object.assign({}, state, {
-        getting_opportunity_type_count: true,
-        get_opportunity_type_params: payload,
-        get_opportunity_type_success: false
-      });
+    // case OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT:
+    //   return Object.assign({}, state, {
+    //     getting_opportunity_type_count: true,
+    //     get_opportunity_type_params: payload,
+    //     get_opportunity_type_success: false
+    //   });
 
-    case OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT_SUCCESS:
-      return Object.assign({}, state, {
-        getting_opportunity_type_count: false,
-        get_opportunity_type_data: payload,
-        get_opportunity_type_success: true
-      });
+    // case OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT_SUCCESS:
+    //   return Object.assign({}, state, {
+    //     getting_opportunity_type_count: false,
+    //     get_opportunity_type_data: payload,
+    //     get_opportunity_type_success: true
+    //   });
 
-    case OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT_FAILED:
-      return Object.assign({}, state, {
-        getting_opportunity_type_count: false,
-        get_opportunity_type_success: false
-      });
+    // case OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT_FAILED:
+    //   return Object.assign({}, state, {
+    //     getting_opportunity_type_count: false,
+    //     get_opportunity_type_success: false
+    //   });
     /* get opportunity type count */
 
     case OpportunityActions.FILE_UPLOAD:

@@ -65,14 +65,14 @@ export class OpportunityEffect {
   /**
    * Get opportunity type count
    */
-  @Effect()
-  getOpportunityTypeCount$ = this.actions$
-    .ofType(OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT)
-    .map(toPayload)
-    .switchMap((payload) => this.opportunityService.getOpportunityTypeCount()
-      .map((res) => ({ type: OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT_FAILED, payload: res }))
-    );
+  // @Effect()
+  // getOpportunityTypeCount$ = this.actions$
+  //   .ofType(OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT)
+  //   .map(toPayload)
+  //   .switchMap((payload) => this.opportunityService.getOpportunityTypeCount()
+  //     .map((res) => ({ type: OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT_SUCCESS, payload: res }))
+  //     .catch((res) => Observable.of({ type: OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT_FAILED, payload: res }))
+  //   );
 
   /**
    * Get opportunities by filter i.e. recommended
