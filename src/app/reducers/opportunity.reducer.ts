@@ -17,16 +17,20 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
       });
 
     case OpportunityActions.SEARCH_OPPORTUNITIES_SUCCESS:
+      let updated_result;
       // update state for pagination
-      // let opportunity_payload;
-      // if (state.search_opportunities_params.offset === 0) {
-      //   opportunity_payload = payload;
-      // } else {
-      //   opportunity_payload = [...state.search_opportunities_data, ...payload];
-      // }
+      if (state['search_opportunities_params']['scrollId'] !== '') {
+        updated_result = state['search_opportunities_result'];
+        updated_result.opportunityResponse = [...state['search_opportunities_result']['opportunityResponse'], ...payload['SUCCESS']['opportunityResponse']];
+        // updated_result.filterList = payload['SUCCESS']['filterList'];
+        // updated_result.scrollId = payload['SUCCESS']['scrollId'];
+        // updated_result.total = payload['SUCCESS']['total'];
+      } else {
+        updated_result = payload['SUCCESS']
+      }
       return Object.assign({}, state, {
         searching_opportunities: false,
-        search_opportunities_result: payload.SUCCESS,
+        search_opportunities_result: updated_result,
         search_opportunities_success: true
       });
 

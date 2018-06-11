@@ -1,4 +1,4 @@
-<div id="recommended" class="tab-pane">
+<div id="recommended" class="tab-pane" infinite-scroll (scrolled)="onScroll($event)">
     <div *ngIf="opportunities && opportunities?.length === 0; else opportunities_found;">
         <p class="result-not-found">No records found!</p>
     </div>

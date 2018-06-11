@@ -127,7 +127,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
         // check if search type is available
         if (this.searchType.length > 0) {
           const searchOppsParams = {
-            limit: 10,
+            limit: 12,
             scrollId: '',
             filtersMap: [],
             searchType: this.searchType,

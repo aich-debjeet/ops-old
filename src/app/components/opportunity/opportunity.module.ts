@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { OpportunityComponent } from './opportunity.component';
 import { OpportunityViewComponent } from './opportunity-view/opportunity-view.component';
@@ -48,6 +49,7 @@ const opportunityRoutes: Routes = [
     NgxMasonryModule,
     SharedPipesModule,
     ReactiveFormsModule,
+    InfiniteScrollModule,
     RouterModule.forChild(opportunityRoutes)
   ],
   declarations: [

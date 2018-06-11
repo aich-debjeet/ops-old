@@ -22,8 +22,15 @@ import { GeneralUtilities } from '../../../../helpers/general.utils';
 export class OpportunitySearchRecommendedComponent implements OnInit, OnDestroy {
 
   opportunityState$: Observable<OpportunityModel>;
+  opportunityState: any;
   opportunities = [];
   private oppsSub: ISubscription;
+
+  /* scroll */
+  canScroll = true;
+  scrolling = 0;
+  scrollingLoad = 800;
+  /* scroll */
 
   constructor(
     private store: Store<OpportunityModel>,
@@ -38,6 +45,7 @@ export class OpportunitySearchRecommendedComponent implements OnInit, OnDestroy 
 
     // observe the opportunity state
     this.oppsSub = this.opportunityState$.subscribe((state) => {
+      this.opportunityState = state;
       if (typeof state !== 'undefined') {
         if (
           this.generalUtils.checkNestedKey(state, ['search_opportunities_result', 'opportunityResponse'])
@@ -54,5 +62,32 @@ export class OpportunitySearchRecommendedComponent implements OnInit, OnDestroy 
     this.oppsSub.unsubscribe();
   }
 
+  /**
+   * While Scrolling trigger next api call
+   */
+  onScroll(e) {
+    this.scrolling = e.currentScrollPosition;
+    if (this.canScroll === true && this.scrollingLoad <= this.scrolling) {
+      // this.showPreloader = true;
+      this.canScroll = false;
+      this.scrollingLoad += 500;
+      // check if it's first request
+      if (this.generalUtils.checkNestedKey(this.opportunityState, ['search_opportunities_result', 'scrollId']) && this.opportunityState['search_opportunities_result']['scrollId'] !== '') {
+        const searchOppsParams = {
+          searchType: this.opportunityState['search_opportunities_params']['searchType'],
+          searchText: this.opportunityState['search_opportunities_params']['searchText'],
+          scrollId: this.opportunityState['search_opportunities_result']['scrollId']
+        }
+        // this.isSearching = true;
+        this.store.dispatch({
+          type: OpportunityActions.SEARCH_OPPORTUNITIES,
+          payload: searchOppsParams
+        });
+      }
+      setTimeout(() => {
+        this.canScroll = true;
+      }, 1000);
+    }
+  }
 
 }
