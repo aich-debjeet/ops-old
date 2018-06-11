@@ -10,7 +10,9 @@
 @import './src/assets/scss/base/_typography.scss';
 @import '~sass-mq/_mq.scss';
 
-
+.cursor_pointer{
+    cursor: pointer;
+}
 .netowrk_block {
     .network_left {
         // margin-right: 12px;

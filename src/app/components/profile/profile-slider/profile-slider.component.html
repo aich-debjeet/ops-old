@@ -4,7 +4,7 @@
             <span class="c-timeline__imgchange" appDropdown>
                <a data-toggle="modal" data-target="#cover-upload" appDropdownOpen>
                     <div class="c-timeline__changecover">
-                        <a routerLink="/profile/about/cover_image"><img src="{{ baseUrl }}img/svg/edit_red.svg" class="c-timeline__icon"> Change cover</a>
+                        <a routerLink="/profile/about/cover_image"><img [src]="baseUrl + 'img/svg/edit_red.svg'" class="c-timeline__icon"> Change cover</a>
                     </div>
                 </a>
             </span>
@@ -18,11 +18,11 @@
             <!-- -->
             <div class="col-md-8 col-sm-12 p-0">
                 <div class="c-profile__userblock">
-                    <img *ngIf="profileObject?.image?.profile" src="{{ baseUrl + profileObject?.image?.profile }}" class="img-responsive img-circle c-profile__userimg">
-                    <img *ngIf="!profileObject?.image?.profile" src="{{ defaultImage }}" class="img-responsive img-circle c-profile__userimg">
+                    <img *ngIf="profileObject?.image?.profile" [src]="baseUrl + profileObject?.image?.profile" class="img-responsive img-circle c-profile__userimg">
+                    <img *ngIf="!profileObject?.image?.profile" [src]="defaultImage" class="img-responsive img-circle c-profile__userimg">
                     <span *ngIf="this.isOwner" class="c-profile__imgchange">
                         <a  data-toggle="modal" data-target="#profile-upload">
-                           <a routerLink="/profile/about/image"> <img src="{{ baseUrl }}img/svg/edit_red.svg" class="c-profile__imgchange--icon"></a>
+                           <a routerLink="/profile/about/image"> <img [src]="baseUrl + 'img/svg/edit_red.svg'" class="c-profile__imgchange--icon"></a>
                         </a>
                     </span>
                 </div>
@@ -41,7 +41,7 @@
                         <!-- <button *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md">Donate</button> -->
                     </div>
                     <div class="c-profile__maintags">
-                        <a routerLink="{{ '/spotfeed/' + skill?.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:5">#{{ skill?.name }}</a>
+                        <a routerLink="{{ '/spotfeed/' + skill?.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:5">{{ skill?.name }}</a>
                         <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more">More</a>
                     </div>
                 </div>
@@ -54,19 +54,19 @@
                 <div class="col-md-9 col-sm-9 col-xs-9 p-r-0">
                     <ul class="list-inline o-profile__nav">
                         <li class="list-line-item">
-                            <a class="activein" [routerLink]="['about']">About</a>
+                            <a routerLinkActive="activein" [routerLink]="['user']">Feed</a>
                         </li>
                         <li class="list-line-item">
-                            <a routerLink="/portfolio">Portfolio</a>
+                            <a routerLinkActive="activein" [routerLink]="['about']">About</a>
+                        </li>
+                        <li class="list-line-item">
+                            <a routerLinkActive="activein" routerLink="/portfolio">Portfolio</a>
                         </li>
                         <li class="list-line-item hidden-xs" *ngIf = "isOwner">
-                            <a routerLink="/planner">Planner</a>
+                            <a routerLinkActive="activein" routerLink="/planner">Planner</a>
                         </li>
                         <li class="list-line-item" *ngIf = "isOwner">
-                            <a [routerLink]="['network']">Network</a>
-                        </li>
-                        <li class="list-line-item hidden-xs">
-                            <a routerLink="/project">Project</a>
+                            <a routerLinkActive="activein" [routerLink]="['network']">Network</a>
                         </li>
                     </ul>
                 </div>
@@ -74,7 +74,7 @@
                     <ul class="list-inline o-profile__nav--icon">
                         <li class="list-line-item dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <img src="{{ baseUrl }}img/svg/ico_share.svg" class="o-profile__nav--img">
+                                <img [src]="baseUrl + 'img/svg/ico_share.svg'" class="o-profile__nav--img">
                             </a>
                             <!-- <div class="dropdown-menu dropdown-menu-right o-share__profile p-16">
                                 <div class="o-share__arrow"><img src="img/arrow.png"></div>
@@ -134,11 +134,11 @@
                         </li>
                         <li class="list-line-item" *ngIf="this.isOwner">
                             <a (click)="profileEdit()" data-toggle="modal" data-target="#edit_profile_pop">
-                                <img src="{{ baseUrl }}img/svg/ico_edit.svg" class="o-profile__nav--img">
+                                <img [src]="baseUrl + 'img/svg/ico_edit.svg'" class="o-profile__nav--img">
                             </a>
                         </li>
                         <li class="list-line-item" *ngIf="!this.isOwner">
-                            <a routerLink="/message" routerLinkActive="active"><img src="{{ baseUrl }}img/svg/ico_message.svg"></a>
+                            <a routerLink="/message" routerLinkActive="active"><img [src]="baseUrl + 'img/svg/ico_message.svg'"></a>
                         </li>
                     </ul>
                 </div>
@@ -163,12 +163,6 @@
                             </div>
                         </div>
                         <div class="row hidden-xs">
-                            <div class="o-profile__spotscore hidden-xs">
-                                Spotscore Coming Soon
-                                <span class="p-l-r-8">
-                                <img src="{{ baseUrl }}img/svg/ico_i.svg" alt="" class="o-profile__spotscore--icon">
-                            </span>
-                            </div>
                             <div class="o-profile__channelpost hidden-xs hidden-sm">
                                 <div class="o-profile__channelpost--count">{{ profileObject?.extra?.postCount }}
                                     <small>Posts</small>
@@ -182,13 +176,13 @@
                     <div class="col-md-4 col-sm-4 o-profile__detail__block with_border_right p-24">
                         <div class="o-profile__detail--heading">Bio</div>
                         <button *ngIf="profileObject?.userBio == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Bio Here</button>
-                        <p class="o-profile__detail--text">{{ profileObject?.userBio | slice:0:220}}</p>
+                        <p class="o-profile__detail--text">{{ profileObject?.userBio | slice:0:200}}</p>
                     </div>
                     <div class="col-md-4 col-sm-4 o-profile__detail__block p-24 hidden-xs">
                         <div class="o-profile__detail--heading">Interest</div>
                         <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
-                        <a routerLink="{{ '/spotfeed/' + skill?.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:5" class="c-skill__tags">#{{ skill?.name }}</a>
-                        <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more" data-toggle="modal" data-target="#tag-pop">More</a>
+                        <a [routerLink]="'/spotfeed/' + skill?.name" *ngFor="let skill of profileObject?.userSkill | slice:0:5" class="c-skill__tags">{{ skill?.name }}</a>
+                        <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more" >More</a>
                     </div>
                 </div>
             </div>
@@ -273,7 +267,7 @@
                                     <div *ngIf="findSkill?.skills_loaded === false">
                                         <span class="loading">Loading...</span>
                                     </div>
-                                    <span *ngFor="let skill of findSkill?.skills">
+                                    <span *ngFor="let skill of findSkill?.industries">
                                         <button type="button" (click)="toggleSelectSkill(skill.code)" [ngClass]="skill.isSelected?'btn btn-reg_tag-active':''" class="btn btn-tag btn-sm">
                                             {{skill?.name}}
                                         </button>
@@ -310,12 +304,12 @@
             <div class="o-tag-head">
                 <h2 class="o-tag__title">More Skills
                     <span class="pop-close" (click)="skillModal.close()">
-                  <a ><img src="{{ baseUrl }}img/svg/ico_close-38.svg" alt=""></a>
+                  <a><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
                 </span>
                 </h2>
             </div>
             <div class="o-tag-list">
-                <span *ngFor="let skill of profileObject?.userSkill" class="c-skill__tags">#{{ skill?.name }}</span>
+                <span *ngFor="let skill of profileObject?.userSkill" [routerLink]="'/spotfeed/' + skill?.name" class="c-skill__tags">{{ skill?.name }}</span>
             </div>
         </div>
     </modal-content>
@@ -327,7 +321,7 @@
             <!-- Modal content-->
             <div class="donation_container">
                 <span class="search_close">
-                    <a (click)="donatePopup()" data-dismiss="modal"><img src="{{ baseUrl }}img/svg/ico_close-38.svg" alt=""></a>
+                    <a (click)="donatePopup()" data-dismiss="modal"><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
                 </span>
 
                 <div class="donation_content">
@@ -361,7 +355,7 @@
                     <div class="c-text_lg c-text-semibold text-center">You are Networking with
                             <br><span class="color-theme">{{ profileObject?.name }}</span></div>
                     <span class="pop-close">
-                        <a href="javascript:void(0)" (click)="networkModal.close()" data-dismiss="modal"><img src="{{ baseUrl }}img/svg/ico_close-38.svg"></a>
+                        <a href="javascript:void(0)" (click)="networkModal.close()" data-dismiss="modal"><img [src]="baseUrl + 'img/svg/ico_close-38.svg'"></a>
                     </span>
                 </div>
                 <form [formGroup]="networkForm" (ngSubmit)="onFormSubmit(networkForm.value)" #netform="ngForm">
@@ -450,7 +444,7 @@
             <div class="pop-head m-b-16">
                 <h5 class="c-text_lg f-w_600">Followers <span class="f-w_500 color-grey-dark">{{ profileObject?.follwerCount }}</span></h5>
                 <span class="pop-close">
-                    <a (click)="followersModal.close()" data-dismiss="modal"><img src="{{ baseUrl }}img/svg/ico_close-38.svg" alt=""></a>
+                    <a (click)="followersModal.close()" data-dismiss="modal"><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
                 </span>
             </div>
             <!-- <div class="o-following__search">
@@ -471,7 +465,7 @@
                     <li *ngFor="let follower of followersProfiles" class="o-follow-people__list">
                         <a routerLink="{{ '/profile/u/' + follower?.extra?.username }}">
                             <div class="o-follow-people__avatar">
-                                <img src="{{ baseUrl + follower?.profileImage }}" alt="">
+                                <img [src]="baseUrl + follower?.profileImage" alt="">
                             </div>
                             <div class="o-follow-people__info">
                                 <h6 class="c-text_md">{{ follower?.name | truncate:[10, '...'] }}</h6>
@@ -505,7 +499,7 @@
             <div class="pop-head m-b-16">
                 <h5 class="c-text_lg f-w_600">Following <span class="f-w_500 color-grey-dark">{{ profileObject?.followingCount }}</span></h5>
                 <span class="pop-close">
-                    <a (click)="followingModal.close()" data-dismiss="modal"><img src="{{ baseUrl }}img/svg/ico_close-38.svg" alt=""></a>
+                    <a (click)="followingModal.close()" data-dismiss="modal"><img [src]="baseUrl + 'img/svg/ico_close-38.svg'" alt=""></a>
                 </span>
             </div>
             <!-- <div class="o-following__search">
@@ -526,7 +520,7 @@
                     <li *ngFor="let follower of followingProfiles" class="o-follow-people__list">
                         <a routerLink="{{ '/profile/u/' + follower?.extra?.username }}">
                             <div class="o-follow-people__avatar">
-                                <img src="{{ baseUrl + follower?.profileImage }}" alt="">
+                                <img [src]="baseUrl + follower?.profileImage" alt="">
                             </div>
                             <div class="o-follow-people__info">
                                 <h6 class="c-text_md">{{ follower?.name | truncate:[10, '...'] }}</h6>

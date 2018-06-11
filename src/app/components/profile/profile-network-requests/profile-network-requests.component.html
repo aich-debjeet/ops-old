@@ -7,10 +7,10 @@
       <li class="with_border_bottom list_style_none" *ngFor = "let list of requestList">
         <ul class="list-inline">
           <li class="list-inline-item float_left noti_avatar">
-            <img src="{{ imageBaseUrl + list?.owner?.profileImage }}" class="img-responsive">
+            <img [src]="imageBaseUrl + list?.owner?.profileImage" class="img-responsive cursor_pointer" [routerLink]="'/profile/u/' + list?.owner?.username">
           </li>
           <li class="list-inline-item noti_cont">
-            <span class="c-text_lg c-text-semibold">
+            <span class="c-text_lg c-text-semibold cursor_pointer" [routerLink]="'/profile/u/' + list?.owner?.username">
               {{list.owner.name}}
             </span>
             <!-- <span class="c-text_lg">

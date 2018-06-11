@@ -17,6 +17,16 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
         eventType_load: payload.SUCCESS
       })
 
+      case EventActions.EVENT_DELETE:
+      return Object.assign({}, state, {
+        event_del_success: false
+      })
+
+    case EventActions.EVENT_DELETE_SUCCESS:
+      return Object.assign({}, state, {
+        event_del_success: true,
+      })
+
     case EventActions.EVENT_ATTENDEE_LOAD:
       return Object.assign({}, state, {
         attendee_load_success: false

@@ -6,6 +6,7 @@ import { Organization } from '../../models/organization.model';
 
 import { LocalStorageService } from './../../services/local-storage.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UtcDatePipe } from './../../pipes/utcdate.pipe';
 
 // action
 import { ProfileActions } from '../../actions/profile.action';
@@ -27,7 +28,7 @@ import { PusherService } from '../../services/pusher.service';
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   // changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ ModalService ],
+  providers: [ ModalService, UtcDatePipe ],
   styleUrls: ['./navigation.component.scss']
 })
 
@@ -391,12 +392,17 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   logoutSubmit() {
-    this.router.navigate(['/']);
-    this.store.dispatch({ type: AuthActions.USER_LOGOUT, payload: ''});
+    const rr = '/'
+    this.router.navigate(['/logout'], {skipLocationChange: true });
+    // this.router.navigate(['/logout'], { replaceUrl: true });
+    // this.router.navigate(['/']);
+    // this.store.dispatch({ type: AuthActions.USER_LOGOUT, payload: ''});
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.subscriptionOne.unsubscribe();
   }
+
+
 }

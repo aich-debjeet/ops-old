@@ -10,6 +10,9 @@
 @import '~sass-mq/_mq.scss';
 @import './src/assets/scss/components/_cards.scss';
 
+.cursor_pointer{
+    cursor: pointer;
+}
 .o-network__userorg {
     font-size: 11px;
     letter-spacing: 1px;

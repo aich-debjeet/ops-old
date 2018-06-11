@@ -45,6 +45,16 @@ export class EventEffect {
       .catch((res) => Observable.of({ type: EventActions.EVENT_REG_FAILED, payload: res }))
     );
 
+  // Event Delete
+  @Effect()
+  eventDelete$ = this.actions$
+  .ofType(EventActions.EVENT_DELETE)
+  .map(toPayload)
+  .switchMap((payload) => this.eventService.eventDel(payload)
+    .map(res => ({ type: EventActions.EVENT_DELETE_SUCCESS, payload: res }))
+    .catch((res) => Observable.of({ type: EventActions.EVENT_DELETE_FAILED, payload: res }))
+  );
+
   // Get Event Details
   @Effect()
     eventDetailload$ = this.actions$
