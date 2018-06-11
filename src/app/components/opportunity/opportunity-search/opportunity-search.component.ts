@@ -18,6 +18,10 @@ import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
+
+// helper functions
+import { ScrollHelper } from '../../../helpers/scroll.helper';
 
 @Component({
   selector: 'app-opportunity-search',
@@ -33,7 +37,9 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   private subscription: ISubscription;
   opportunityState$: any;
   opportunityState: any;
-  // searchString: string;
+  searchString = '';
+  // default search type
+  searchType = 'recommended';
   // insdustryType: 'Industry';
   // isSearching = false;
   opportunitiesCount = {
@@ -50,6 +56,8 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   baseUrl = environment.API_IMAGE;
 
   constructor(
+    private router: Router,
+    private scrollHelper: ScrollHelper,
     private store: Store<OpportunityModel>
   ) {
     // state listener
@@ -67,6 +75,23 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
         // }
       }
     });
+  }
+
+  // trigger opps search action
+  oppsSearchGetRequest(queryParams: any) {
+    this.router.navigate(['/opportunity/search'], {
+      queryParams: queryParams
+    });
+    return false;
+  }
+
+  /**
+   * change the search type
+   */
+  switchSearchType(sType: string) {
+    this.searchType = sType;
+    this.scrollHelper.scrollTop();
+    this.oppsSearchGetRequest({ q: this.searchString, type: this.searchType });
   }
 
   /**
@@ -97,6 +122,30 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   }
 
   ngAfterViewInit() {
+    /**
+     * Observing the search input change
+     */
+    this.searchInput.valueChanges
+      .debounceTime(500)
+      .subscribe(() => {
+
+        // save search input ref in global var
+        this.searchString = this.searchInput.value;
+
+        if (this.searchString.length === 0) {
+          // trigger search get request
+          this.oppsSearchGetRequest({});
+        }
+
+        // preparing get query params for the search get request
+        const params = {
+          type: this.searchType
+        };
+
+        // trigger search get request
+        this.oppsSearchGetRequest(params);
+
+      });
 
     // /**
     //  * Observing the search input change

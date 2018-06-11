@@ -145,16 +145,16 @@
 		<div class="o-oppertunity-filter-sec with_border_top c-ops__tabs o-opportunity-tabs p-t-b-16">
   		<div class="col-md-6 p-0">
   			<ul class="nav nav-tabs">
-          <li routerLinkActive="active">
-              <a [routerLink]="['recommended']" class="p-l-0" data-toggle="tab" href="#recommended" aria-expanded="true">Recommended</a>
-            </li>
-          <li routerLinkActive="active">
-              <a [routerLink]="['applied']" data-toggle="tab" href="#applied" aria-expanded="false">Applied</a>
-          </li>
-          <li routerLinkActive="active">
-              <a [routerLink]="['created']" data-toggle="tab" href="#created" aria-expanded="false">Created</a>
-          </li>
-        </ul>
+				<li [ngClass]="{'active': searchType === 'recommended'}">
+					<a (click)="switchSearchType('recommended')" class="p-l-0">Recommended</a>
+				</li>
+				<li [ngClass]="{'active': searchType === 'applied'}">
+					<a (click)="switchSearchType('applied')">Applied</a>
+				</li>
+				<li [ngClass]="{'active': searchType === 'created'}">
+					<a (click)="switchSearchType('created')">Created</a>
+				</li>
+			</ul>
   		</div>
   		<div class="col-md-6 p-0">
   			<ul class="o-filter-list-block">
@@ -182,7 +182,9 @@
   		</div>
   	</div><!-- filter section end -->
 		<div class="tab-content">
-            <router-outlet></router-outlet>
+			<app-opportunity-search-recommended *ngIf="searchType === 'recommended'" ></app-opportunity-search-recommended>
+			<app-opportunity-search-applied *ngIf="searchType === 'applied'" ></app-opportunity-search-applied>
+			<app-opportunity-search-created *ngIf="searchType === 'created'" ></app-opportunity-search-created>
         </div>
 	</div>
 </section>
