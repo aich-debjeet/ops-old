@@ -19,7 +19,7 @@
     <div class="o-channel-search m-t-16">
       <div class="c-form__group fill-grey-light">
           <input class="c-form__input fpadding_l32 o-channel-input" required="" placeholder="Search" type="text">
-          <span><img src="{{ baseUrl }}ico_search.svg" class="c-form__input--lefticon"></span>
+          <span><img [src]="baseUrl + 'ico_search.svg'" class="c-form__input--lefticon"></span>
       </div>
     </div>
     <ul class="o-channel-block">
@@ -28,7 +28,7 @@
         <label for="{{ 'channel_' + i }}" class="o-channel-label">
           <span class="o-channel-content">
             <span class="o-channel-content__thumb" *ngFor="let media of channel?.media | slice:0:1">
-              <img width="32" height="32" src="{{ baseUrl + media?.repoPath}}" alt="">
+              <img width="32" height="32" [src]="baseUrl + media?.repoPath" alt="">
             </span>
             <span class="o-channel-content__thumb" *ngIf="(channel?.media).length === 0">
               <img width="32" height="32" src="" alt="">

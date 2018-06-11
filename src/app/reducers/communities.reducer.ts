@@ -55,6 +55,8 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
     case CommunitiesActions.COMMUNITY_DETAILS:
       return Object.assign({}, state, {
         community_loding: true,
+        community_post: [],
+        post_loading: true,
         communityDetails: []
       });
 
@@ -77,18 +79,18 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
     case CommunitiesActions.COMMUNITY_POST_GET:
       return Object.assign({}, state, {
         community_post: [],
-        post_loding: true
+        post_loading: true
       });
 
     case CommunitiesActions.COMMUNITY_POST_GET_SUCCESS:
       return Object.assign({}, state, {
         community_post: payload,
-        post_loding: false
+        post_loading: false
       });
 
     case CommunitiesActions.COMMUNITY_POST_GET_FAILED:
       return Object.assign({}, state, {
-        post_loding: false
+        post_loading: false
       });
 
     case CommunitiesActions.COMMUNITY_INVITE_PEOPLE_SUCCESS:
