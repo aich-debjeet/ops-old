@@ -101,7 +101,7 @@
                                     <a routerLink="/explore">Explore</a>
                                 </div>
                                 <div class="dropdown__item p-b-8 text-uppercase">
-                                    <a routerLink="/opportunity/search">Opportunity</a>
+                                    <a [routerLink]="['/opportunity/search']" [queryParams]="{q:'', type:'recommended'}">Opportunity</a>
                                 </div>
                                 <div class="dropdown__item p-b-8 text-uppercase">
                                     <a routerLink="/event">Event</a>
@@ -159,7 +159,7 @@
                 <ul class="nav navbar-nav" *ngIf="isProfileSet === true">
                     <li routerLinkActive="active"><a routerLink="/home">Home</a></li>
                     <li routerLinkActive="active"><a routerLink="/explore">Explore</a></li>
-                    <li routerLinkActive="active"><a routerLink="/opportunity/search">Opportunity</a></li>
+                    <li routerLinkActive="active"><a [routerLink]="['/opportunity/search']" [queryParams]="{q:'', type:'recommended'}">Opportunity</a></li>
                     <li routerLinkActive="active"><a routerLink="/event">Event</a></li>
                     <!-- <li routerLinkActive="active"><a routerLink="/learn">Learn</a></li>
                     <li routerLinkActive="active"><a routerLink="/resources">Resource</a></li> -->

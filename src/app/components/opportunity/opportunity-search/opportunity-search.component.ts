@@ -165,6 +165,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
 
         // preparing get query params for the search get request
         const params = {
+          q: this.searchString,
           type: this.searchType
         };
 
