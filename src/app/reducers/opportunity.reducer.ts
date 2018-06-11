@@ -8,157 +8,157 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
 
   switch (type) {
 
-    /* create opportunity */
-    case OpportunityActions.CREATE_OPPORTUNITY:
-      return Object.assign({}, state, {
-        creating_opportunity: true,
-        create_opportunity_params: payload,
-        create_opportunity_success: false
-      });
+    // /* create opportunity */
+    // case OpportunityActions.CREATE_OPPORTUNITY:
+    //   return Object.assign({}, state, {
+    //     creating_opportunity: true,
+    //     create_opportunity_params: payload,
+    //     create_opportunity_success: false
+    //   });
 
-    case OpportunityActions.CREATE_OPPORTUNITY_SUCCESS:
-      return Object.assign({}, state, {
-        creating_opportunity: false,
-        create_opportunity_data: payload,
-        create_opportunity_success: true
-      });
+    // case OpportunityActions.CREATE_OPPORTUNITY_SUCCESS:
+    //   return Object.assign({}, state, {
+    //     creating_opportunity: false,
+    //     create_opportunity_data: payload,
+    //     create_opportunity_success: true
+    //   });
 
-    case OpportunityActions.CREATE_OPPORTUNITY_FAILED:
-      return Object.assign({}, state, {
-        creating_opportunity: false,
-        create_opportunity_success: false
-      });
-    /* create opportunity */
-
-
-
-    /* search opportunities */
-    case OpportunityActions.SEARCH_OPPORTUNITIES:
-      return Object.assign({}, state, {
-        searching_opportunities: true,
-        search_opportunities_params: payload,
-        search_opportunities_success: false
-      });
-
-    case OpportunityActions.SEARCH_OPPORTUNITIES_SUCCESS:
-      // update state for pagination
-      // let opportunity_payload;
-      // if (state.search_opportunities_params.offset === 0) {
-      //   opportunity_payload = payload;
-      // } else {
-      //   opportunity_payload = [...state.search_opportunities_data, ...payload];
-      // }
-      return Object.assign({}, state, {
-        searching_opportunities: false,
-        search_opportunities_data: payload,
-        search_opportunities_success: true
-      });
-
-    case OpportunityActions.SEARCH_OPPORTUNITIES_FAILED:
-      return Object.assign({}, state, {
-        searching_opportunities: false,
-        search_opportunities_success: false
-      });
-    /* search opportunities */
+    // case OpportunityActions.CREATE_OPPORTUNITY_FAILED:
+    //   return Object.assign({}, state, {
+    //     creating_opportunity: false,
+    //     create_opportunity_success: false
+    //   });
+    // /* create opportunity */
 
 
 
-    /* get opportunity */
-    case OpportunityActions.GET_OPPORTUNITY:
-      return Object.assign({}, state, {
-        getting_opportunity: true,
-        get_opportunity_params: payload,
-        get_opportunity_success: false
-      });
+    // /* search opportunities */
+    // case OpportunityActions.SEARCH_OPPORTUNITIES:
+    //   return Object.assign({}, state, {
+    //     searching_opportunities: true,
+    //     search_opportunities_params: payload,
+    //     search_opportunities_success: false
+    //   });
 
-    case OpportunityActions.GET_OPPORTUNITY_SUCCESS:
-      return Object.assign({}, state, {
-        getting_opportunity: false,
-        get_opportunity_data: payload,
-        get_opportunity_success: true
-      });
+    // case OpportunityActions.SEARCH_OPPORTUNITIES_SUCCESS:
+    //   // update state for pagination
+    //   // let opportunity_payload;
+    //   // if (state.search_opportunities_params.offset === 0) {
+    //   //   opportunity_payload = payload;
+    //   // } else {
+    //   //   opportunity_payload = [...state.search_opportunities_data, ...payload];
+    //   // }
+    //   return Object.assign({}, state, {
+    //     searching_opportunities: false,
+    //     search_opportunities_data: payload,
+    //     search_opportunities_success: true
+    //   });
 
-    case OpportunityActions.GET_OPPORTUNITY_FAILED:
-      return Object.assign({}, state, {
-        getting_opportunity: false,
-        get_opportunity_success: false
-      });
-    /* get opportunity */
-
-
-
-    /* get opportunities by filter */
-    case OpportunityActions.GET_OPPORTUNITIES:
-      return Object.assign({}, state, {
-        getting_opportunities: true,
-        get_opportunities_params: payload,
-        get_opportunities_success: false
-      });
-
-    case OpportunityActions.GET_OPPORTUNITIES_SUCCESS:
-      return Object.assign({}, state, {
-        getting_opportunities: false,
-        get_opportunities_data: payload,
-        get_opportunities_success: true
-      });
-
-    case OpportunityActions.GET_OPPORTUNITIES_FAILED:
-      return Object.assign({}, state, {
-        getting_opportunities: false,
-        get_opportunities_success: false
-      });
-    /* get opportunities by filter */
-
-
-    /* get opportunities by filter (applied) */
-    case OpportunityActions.GET_APPLIED_OPPORTUNITIES:
-      return Object.assign({}, state, {
-        getting_opportunities: true,
-        get_opportunities_params: payload,
-        get_opportunities_success: false
-      });
-
-    case OpportunityActions.GET_APPLIED_OPPORTUNITIES_SUCCESS:
-      return Object.assign({}, state, {
-        getting_opportunities: false,
-        get_opportunities_data: payload,
-        get_opportunities_success: true
-      });
-
-    case OpportunityActions.GET_APPLIED_OPPORTUNITIES_FAILED:
-      return Object.assign({}, state, {
-        getting_opportunities: false,
-        get_opportunities_success: false
-      });
-    /* get opportunities by filter (applied) */
+    // case OpportunityActions.SEARCH_OPPORTUNITIES_FAILED:
+    //   return Object.assign({}, state, {
+    //     searching_opportunities: false,
+    //     search_opportunities_success: false
+    //   });
+    // /* search opportunities */
 
 
 
-    /* apply for an opportunity */
-    case OpportunityActions.APPLY_FOR_AN_OPPORTUNITY:
-      return Object.assign({}, state, {
-        applying_for_an_opportunity: true,
-        apply_for_an_opportunity_params: payload,
-        apply_for_an_opportunity_success: false
-      });
+    // /* get opportunity */
+    // case OpportunityActions.GET_OPPORTUNITY:
+    //   return Object.assign({}, state, {
+    //     getting_opportunity: true,
+    //     get_opportunity_params: payload,
+    //     get_opportunity_success: false
+    //   });
 
-    case OpportunityActions.APPLY_FOR_AN_OPPORTUNITY_SUCCESS:
-      return Object.assign({}, state, {
-        applying_for_an_opportunity: false,
-        apply_for_an_opportunity_data: payload,
-        apply_for_an_opportunity_success: true
-      });
+    // case OpportunityActions.GET_OPPORTUNITY_SUCCESS:
+    //   return Object.assign({}, state, {
+    //     getting_opportunity: false,
+    //     get_opportunity_data: payload,
+    //     get_opportunity_success: true
+    //   });
 
-    case OpportunityActions.APPLY_FOR_AN_OPPORTUNITY_FAILED:
-      return Object.assign({}, state, {
-        applying_for_an_opportunity: false,
-        apply_for_an_opportunity_success: false
-      });
-    /* apply for an opportunity */
+    // case OpportunityActions.GET_OPPORTUNITY_FAILED:
+    //   return Object.assign({}, state, {
+    //     getting_opportunity: false,
+    //     get_opportunity_success: false
+    //   });
+    // /* get opportunity */
 
 
 
-    /* get opportunity type count */
+    // /* get opportunities by filter */
+    // case OpportunityActions.GET_OPPORTUNITIES:
+    //   return Object.assign({}, state, {
+    //     getting_opportunities: true,
+    //     get_opportunities_params: payload,
+    //     get_opportunities_success: false
+    //   });
+
+    // case OpportunityActions.GET_OPPORTUNITIES_SUCCESS:
+    //   return Object.assign({}, state, {
+    //     getting_opportunities: false,
+    //     get_opportunities_data: payload,
+    //     get_opportunities_success: true
+    //   });
+
+    // case OpportunityActions.GET_OPPORTUNITIES_FAILED:
+    //   return Object.assign({}, state, {
+    //     getting_opportunities: false,
+    //     get_opportunities_success: false
+    //   });
+    // /* get opportunities by filter */
+
+
+    // /* get opportunities by filter (applied) */
+    // case OpportunityActions.GET_APPLIED_OPPORTUNITIES:
+    //   return Object.assign({}, state, {
+    //     getting_opportunities: true,
+    //     get_opportunities_params: payload,
+    //     get_opportunities_success: false
+    //   });
+
+    // case OpportunityActions.GET_APPLIED_OPPORTUNITIES_SUCCESS:
+    //   return Object.assign({}, state, {
+    //     getting_opportunities: false,
+    //     get_opportunities_data: payload,
+    //     get_opportunities_success: true
+    //   });
+
+    // case OpportunityActions.GET_APPLIED_OPPORTUNITIES_FAILED:
+    //   return Object.assign({}, state, {
+    //     getting_opportunities: false,
+    //     get_opportunities_success: false
+    //   });
+    // /* get opportunities by filter (applied) */
+
+
+
+    // /* apply for an opportunity */
+    // case OpportunityActions.APPLY_FOR_AN_OPPORTUNITY:
+    //   return Object.assign({}, state, {
+    //     applying_for_an_opportunity: true,
+    //     apply_for_an_opportunity_params: payload,
+    //     apply_for_an_opportunity_success: false
+    //   });
+
+    // case OpportunityActions.APPLY_FOR_AN_OPPORTUNITY_SUCCESS:
+    //   return Object.assign({}, state, {
+    //     applying_for_an_opportunity: false,
+    //     apply_for_an_opportunity_data: payload,
+    //     apply_for_an_opportunity_success: true
+    //   });
+
+    // case OpportunityActions.APPLY_FOR_AN_OPPORTUNITY_FAILED:
+    //   return Object.assign({}, state, {
+    //     applying_for_an_opportunity: false,
+    //     apply_for_an_opportunity_success: false
+    //   });
+    // /* apply for an opportunity */
+
+
+
+    // /* get opportunity type count */
     // case OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT:
     //   return Object.assign({}, state, {
     //     getting_opportunity_type_count: true,
@@ -178,25 +178,25 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
     //     getting_opportunity_type_count: false,
     //     get_opportunity_type_success: false
     //   });
-    /* get opportunity type count */
+    // /* get opportunity type count */
 
-    case OpportunityActions.FILE_UPLOAD:
-      return Object.assign({}, state, {
-        fileuploading: true,
-        fileupload_success: false
-      });
+    // case OpportunityActions.FILE_UPLOAD:
+    //   return Object.assign({}, state, {
+    //     fileuploading: true,
+    //     fileupload_success: false
+    //   });
 
-    case OpportunityActions.FILE_UPLOAD_SUCCESS:
-      return Object.assign({}, state, {
-        fileupload_response: payload['SUCCESS'],
-        fileupload_success: true
-      });
+    // case OpportunityActions.FILE_UPLOAD_SUCCESS:
+    //   return Object.assign({}, state, {
+    //     fileupload_response: payload['SUCCESS'],
+    //     fileupload_success: true
+    //   });
 
-    case OpportunityActions.FILE_UPLOAD_FAILED:
-      return Object.assign({}, state, {
-        fileuploading: false,
-        fileupload_success: false
-      });
+    // case OpportunityActions.FILE_UPLOAD_FAILED:
+    //   return Object.assign({}, state, {
+    //     fileuploading: false,
+    //     fileupload_success: false
+    //   });
 
     default:
       return state;
