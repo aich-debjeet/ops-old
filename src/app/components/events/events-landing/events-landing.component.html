@@ -160,7 +160,7 @@
                         <li>
                            <form [formGroup]="locForm" novalidate  #ecfrom="ngForm">
                                 <div class="c-form__group c-form--lg">
-                                    <input class="c-form__input" required="" placeholder="" type="text" autocorrect="off" autocapitalize="off" spellcheck="off" #search formControlName="location">
+                                    <input class="c-form__input" required="" placeholder="" type="text" autocorrect="off" autocapitalize="off" spellcheck="off" #search formControlName="location" (keyup.enter)="manualSearch(search.value)">
                                     <label>Enter your city</label>
                                 </div>
                             </form>

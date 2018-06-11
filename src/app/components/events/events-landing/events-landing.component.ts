@@ -313,4 +313,8 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
       location:''
   });
   }
+  manualSearch(value: string){
+    this.filterLocation = value;
+    this.serachApi();
+  }
 }
