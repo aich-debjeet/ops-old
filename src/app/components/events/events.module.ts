@@ -9,6 +9,7 @@ import { EventsCreateComponent } from './events-create/events-create.component';
 import { EventsInnerComponent } from './events-inner/events-inner.component';
 import { EventsLandingComponent } from './events-landing/events-landing.component';
 import { NguCarouselModule } from '@ngu/carousel';
+import { QuillModule } from 'ngx-quill';
 // import 'hammerjs';
 import { EventsCarditemComponent } from './events-carditem/events-carditem.component';
 
@@ -56,6 +57,7 @@ const routes: Routes = [
     DpDatePickerModule,
     HttpClientModule,
     NgxfUploaderModule.forRoot(),
+    QuillModule
   ],
   declarations: [
     EventsComponent,
