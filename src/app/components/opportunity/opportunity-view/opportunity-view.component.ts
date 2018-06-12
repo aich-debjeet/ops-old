@@ -88,8 +88,10 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
    */
   disableApplicationForSelf(username: string) {
     if (this.userProfile && (this.userProfile['username'] === username)) {
+      // console.log('DISABLE');
       return true;
     }
+    // console.log('ENABLE');
     return false;
   }
 
