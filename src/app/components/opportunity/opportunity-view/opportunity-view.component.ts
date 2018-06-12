@@ -51,18 +51,18 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
       // get opp data
       if (state && state.get_opportunity_data) {
         this.opportunity = state.get_opportunity_data;
-        // prepare the opps details var
-        if (this.opportunity['opportunityType']) {
-          const oppsTypeStr = 'opportunity' + this.generalUtils.capitalizeFirstLetter(this.opportunity['opportunityType']);
-          this.opportunity['opportunityDetails'] = this.opportunity[oppsTypeStr];
-          delete this.opportunity['opportunityJob'];
-          delete this.opportunity['opportunityProject'];
-          delete this.opportunity['opportunityAudition'];
-          delete this.opportunity['opportunityVolunteer'];
-          delete this.opportunity['opportunityFreelance'];
-          delete this.opportunity['opportunityInternship'];
-          console.log('this.opportunity', this.opportunity);
-        }
+        // // prepare the opps details var
+        // if (this.opportunity['opportunityType']) {
+        //   const oppsTypeStr = 'opportunity' + this.generalUtils.capitalizeFirstLetter(this.opportunity['opportunityType']);
+        //   this.opportunity['opportunityDetails'] = this.opportunity[oppsTypeStr];
+        //   delete this.opportunity['opportunityJob'];
+        //   delete this.opportunity['opportunityProject'];
+        //   delete this.opportunity['opportunityAudition'];
+        //   delete this.opportunity['opportunityVolunteer'];
+        //   delete this.opportunity['opportunityFreelance'];
+        //   delete this.opportunity['opportunityInternship'];
+        //   console.log('this.opportunity', this.opportunity);
+        // }
         this.hasApplied = state.get_opportunity_data.hasApplied;
       }
 
