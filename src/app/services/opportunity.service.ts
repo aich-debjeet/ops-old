@@ -22,13 +22,13 @@ export class OpportunityService {
     return this.api.put('/portal/job', params);
   }
 
-  // /**
-  //  * Get opportunity by id
-  //  * @param id
-  //  */
-  // getOpportunity(jobId: string) {
-  //   return this.api.get('/portal/job/', jobId);
-  // }
+  /**
+   * Get opportunity by id
+   * @param id
+   */
+  getOpportunity(jobId: string) {
+    return this.api.get('/portal/opportunity/', jobId);
+  }
 
   // /**
   //  * Apply for an opportunity

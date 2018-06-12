@@ -17,6 +17,7 @@ import { environment } from '../../../../environments/environment';
 
 import { Observable } from 'rxjs/Observable';
 import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { GeneralUtilities } from '../../../helpers/general.utils';
 
 @Component({
   selector: 'app-opportunity-view',
@@ -32,27 +33,41 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   userProfile: any;
   userState$: any;
   hasApplied: boolean;
+  routerSub: any;
 
   baseUrl = environment.API_IMAGE;
-  private subscription: ISubscription;
+  private oppsSub: ISubscription;
 
   constructor(
     private route: ActivatedRoute,
+    private generalUtils: GeneralUtilities,
     private store: Store<OpportunityModel>
   ) {
     // opportunity state listener
     this.opportunityState$ = this.store.select('opportunityTags');
-    this.subscription = this.opportunityState$.subscribe((state) => {
+    this.oppsSub = this.opportunityState$.subscribe((state) => {
       this.opportunityState = state;
 
       // get opp data
-      if (state && state.get_opportunity_data && state.get_opportunity_data.SUCCESS) {
-        this.opportunity = state.get_opportunity_data.SUCCESS;
-        this.hasApplied = state.get_opportunity_data.SUCCESS.hasApplied;
+      if (state && state.get_opportunity_data) {
+        this.opportunity = state.get_opportunity_data;
+        // prepare the opps details var
+        if (this.opportunity['opportunityType']) {
+          const oppsTypeStr = 'opportunity' + this.generalUtils.capitalizeFirstLetter(this.opportunity['opportunityType']);
+          this.opportunity['opportunityDetails'] = this.opportunity[oppsTypeStr];
+          delete this.opportunity['opportunityJob'];
+          delete this.opportunity['opportunityProject'];
+          delete this.opportunity['opportunityAudition'];
+          delete this.opportunity['opportunityVolunteer'];
+          delete this.opportunity['opportunityFreelance'];
+          delete this.opportunity['opportunityInternship'];
+          console.log('this.opportunity', this.opportunity);
+        }
+        this.hasApplied = state.get_opportunity_data.hasApplied;
       }
 
       // check if job application successful
-      if (state && state.apply_for_an_opportunity_data  && state.apply_for_an_opportunity_data.SUCCESS) {
+      if (state && state.apply_for_an_opportunity_data) {
         this.hasApplied = true;
       }
     });
@@ -79,17 +94,18 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      // if (params['id']) {
-      //   // search job with id
-      //   this.jobId = params['id'];
-      //   this.store.dispatch({ type: OpportunityActions.GET_OPPORTUNITY, payload: this.jobId });
-      // }
+    this.routerSub = this.route.params.subscribe(params => {
+      if (params['id']) {
+        // search job with id
+        this.jobId = params['id'];
+        this.store.dispatch({ type: OpportunityActions.GET_OPPORTUNITY, payload: this.jobId });
+      }
     });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.routerSub.unsubscribe();
+    this.oppsSub.unsubscribe();
   }
 
   /**

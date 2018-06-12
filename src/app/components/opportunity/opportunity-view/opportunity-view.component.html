@@ -4,7 +4,7 @@
       <div class="o-opportunity-detail">
         <div class="o-job-post__head color-grey-dark">Jobs</div>
         <div class="o-job-post__title m-t-8">
-          <h4 class="c-h4 o-job-post--title-width">{{ opportunity?.role }}</h4>
+          <h4 class="c-h4 o-job-post--title-width">{{ opportunity?.opportunityDetails?.title }}</h4>
           <div class="o-job-post__edit">
             <div class="dropdown">
               <span class="com-head" data-toggle="dropdown" aria-expanded="true">
@@ -26,8 +26,8 @@
           </div>
         </div><!-- job title end -->
         <div class="o-job-post__address m-t-8">
-          <span class="o-job-post__cmpny-name float_left c-text_lg color-grey-dark m-r-16">{{ opportunity?.postedByName }}</span>
-          <span *ngIf="opportunity?.location" class="o-job-post__cmpny-location float_left c-text_md color-grey-dark">
+          <span class="o-job-post__cmpny-name float_left c-text_lg color-grey-dark m-r-16">{{ opportunity?.ownerName }}</span>
+          <span *ngIf="opportunity?.opportunityDetails?.location" class="o-job-post__cmpny-location float_left c-text_md color-grey-dark">
             <span class="o-job-post__location-icon">
               <img src="{{ baseUrl }}img/svg/ico_location2.svg" alt="">
             </span>
@@ -35,13 +35,12 @@
         </div><!-- cmpny address end -->
         <div class="o-job-post__short-det">
           <span class="o-job-post__det c-text_md color-grey-dark m-r-24">
-            Experience Required : <span class="color-grey-darker">{{ opportunity?.experience?.experienceFrom }}-{{ opportunity?.experience?.experienceTo }} years</span>
+            Experience Required: <span class="color-grey-darker">{{ opportunity?.opportunityDetails?.experience?.from }}-{{ opportunity?.opportunityDetails?.experience?.to }} years</span>
           </span>
-          <span *ngIf="opportunity?.salary?.amount && opportunity?.salary?.currency" class="o-job-post__det c-text_md color-grey-dark m-r-24">
+          <span *ngIf="opportunity?.opportunityDetails?.salary?.amount && opportunityDetails?.salary?.currency" class="o-job-post__det c-text_md color-grey-dark m-r-24">
             Salary : <span class="color-grey-darker">
-                {{ opportunity?.salary?.amount }} {{ opportunity?.salary?.currency }} /
-                <ng-container *ngIf="opportunity?.salary?.salaryType == 'annual'; else monthly_salary">Year</ng-container>
-                <ng-template #monthly_salary>Month</ng-template>
+                {{ opportunity?.opportunityDetails?.salary?.amount_from }} - {{ opportunity?.opportunityDetails?.salary?.amount_to }} {{ opportunity?.opportunityDetails?.salary?.currency }} /
+                {{ opportunity?.opportunityDetails?.salary?.salaryType | firstCharCaps }}
             </span>
           </span>
           <span class="o-job-post__det c-text_md color-grey-dark m-r-24">
@@ -50,29 +49,17 @@
         </div><!-- job short det end -->
         <div class="o-job-post__actions m-t-b-24">
           <div class="o-job-post__apply float_left m-r-16">
-              <button type="button" class="btn btn-primary btn-md" *ngIf="!hasApplied" (click)="applyForJob()" [disabled]="disableApplicationForSelf(opportunity?.postedByUserName)" >Apply</button>
+              <button type="button" class="btn btn-primary btn-md" *ngIf="!hasApplied" (click)="applyForJob()" [disabled]="disableApplicationForSelf(opportunityDetails?.postedByUserName)" >Apply</button>
               <button type="button" class="btn btn-primary btn-md" *ngIf="hasApplied" [disabled]="hasApplied" >Applied</button>
           </div>
           <div class="o-job-post__action-icons float_left ">
-            <!-- <a href="" class="o-action-icons__link m-r-16">
-              <div class="c-links__spots m-0">
-                <img src="{{ baseUrl }}img/svg/spot_icon.svg" class="c-links__image">
-                <span class="c-links__count">705</span>
-              </div>
-            </a> -->
-            <!-- <a href="#" class="o-action-icons__link m-r-16">
-              <img width="24" src="{{ baseUrl }}img/svg/ico_addtochannel.svg">
-            </a> -->
             <a href="#" class="o-action-icons__link m-r-16">
               <img width="24" src="{{ baseUrl }}img/svg/ico_share-02.svg">
             </a>
-            <!-- <a href="#" class="o-action-icons__link m-r-16">
-              <img width="24" src="{{ baseUrl }}img/svg/bookmark.svg">
-            </a> -->
           </div><!-- action icons end -->
           <div class="o-job-post__uplod-info">
-            <span class="o-job-post__det c-text_sm color-grey-dark m-l-24">
-              <span class="ltr-space text_uppercase">Applicants: </span><span class="color-grey-darker">{{ opportunity?.ApplicantsCount }}</span>
+            <span *ngIf="opportunity?.opportunityDetails?.count?.length > 0" class="o-job-post__det c-text_sm color-grey-dark m-l-24">
+              <span class="ltr-space text_uppercase">Applicants: </span><span class="color-grey-darker">{{ opportunity?.opportunityDetails?.count }}</span>
             </span>
             <span class="o-job-post__det c-text_sm color-grey-dark m-l-24">
               <span class="ltr-space text_uppercase">Posted: </span><span class="color-grey-darker">{{ opportunity?.createdDate | utcDate | date:'d MMM hh:mm a' }}</span>
@@ -81,16 +68,17 @@
         </div><!-- job post actions end -->
         <div class="o-job-post__description with_border_top p-b-24">
           <h6 class="c-text_lg m-t-24">Description</h6>
-          <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.description"></p>
+          <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityDetails?.description"></p>
           <h6 class="c-text_lg m-t-24">Expertised in</h6>
           <p class="c-text_md color-grey-dark m-t-8">
-            <span *ngFor="let item of opportunity?.skills; let isLast=last">
+            {{ opportunity?.opportunityDetails?.skills }}
+            <!-- <span *ngFor="let item of opportunityDetails?.skills; let isLast=last">
               {{ item }}{{ isLast  ? '' : ', ' }}
-            </span>
+            </span> -->
           </p>
           <h6 class="c-text_lg m-t-24">Education</h6>
           <p class="c-text_md color-grey-dark m-t-8">
-            <span *ngFor="let item of opportunity?.qualification; let isLast=last">
+            <span *ngFor="let item of opportunityDetails?.qualification; let isLast=last">
               {{ item }}{{ isLast  ? '' : ', ' }}
             </span>
           </p>
@@ -103,7 +91,7 @@
           </ul> -->
           <div class="o-job-post__media-action">
             <div class="o-job-post__apply float_left m-r-16">
-              <button type="button" class="btn btn-primary btn-md" *ngIf="!hasApplied" (click)="applyForJob()" [disabled]="disableApplicationForSelf(opportunity?.postedByUserName)" >Apply</button>
+              <button type="button" class="btn btn-primary btn-md" *ngIf="!hasApplied" (click)="applyForJob()" [disabled]="disableApplicationForSelf(opportunityDetails?.postedByUserName)" >Apply</button>
               <button type="button" class="btn btn-primary btn-md" *ngIf="hasApplied" [disabled]="hasApplied" >Applied</button>
             </div>
             <div class="o-job-post__action-icons float_left ">
@@ -127,12 +115,12 @@
         <p class="c-text_sm ltr-space color-grey-dark">Posted By</p>
         <div class="o-opportunity-post-user-detail m-t-16">
           <div class="o-post-user__avatar">
-            <img *ngIf="!opportunity?.postedByImage" src="https://d206s58i653k1q.cloudfront.net/images/defaultMale/03eed8d4-5659-463a-8fbf-9aa71034c19a.png" class="img-responsive">
-            <img *ngIf="opportunity?.postedByImage" src="{{ baseUrl + opportunity?.postedByImage }}" alt="">
+            <img *ngIf="!opportunityDetails?.postedByImage" src="https://d206s58i653k1q.cloudfront.net/images/defaultMale/03eed8d4-5659-463a-8fbf-9aa71034c19a.png" class="img-responsive">
+            <img *ngIf="opportunity?.opportunityDetails?.postedByImage" src="{{ baseUrl + opportunityDetails?.postedByImage }}" alt="">
           </div>
           <div class="o-post-user__info">
-            <div class="o-post-user__name c-text_lg">{{ opportunity?.postedByName }}</div>
-            <div *ngIf="opportunity?.position" class="o-post-user__desigination c-text_md color-grey-dark">{{ opportunity?.position }}</div>
+            <div class="o-post-user__name c-text_lg">{{ opportunity?.opportunityDetails?.postedByName }}</div>
+            <div *ngIf="opportunity?.opportunityDetails?.position" class="o-post-user__desigination c-text_md color-grey-dark">{{ opportunity?.opportunityDetails?.position }}</div>
           </div>
         </div>
       </div>
