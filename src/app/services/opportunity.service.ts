@@ -30,13 +30,13 @@ export class OpportunityService {
     return this.api.get('/portal/opportunity/', jobId);
   }
 
-  // /**
-  //  * Apply for an opportunity
-  //  * @param job id
-  //  */
-  // applyForAnOpportunity(reqBody: any) {
-  //   return this.api.post('/portal/job/apply', reqBody);
-  // }
+  /**
+   * Apply for an opportunity
+   * @param job id
+   */
+  applyForAnOpportunity(reqBody: any) {
+    return this.api.post('/portal/job/apply', reqBody);
+  }
 
   // /**
   //  * Get opportunity type count

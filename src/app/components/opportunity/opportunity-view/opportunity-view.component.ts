@@ -114,14 +114,14 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
    * apply for job
    */
   applyForJob() {
-    // const reqBody = {
-    //   jobId: this.jobId
-    // }
+    const reqBody = {
+      jobId: this.jobId
+    }
 
-    // this.store.dispatch({
-    //   type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY,
-    //   payload: reqBody
-    // });
+    this.store.dispatch({
+      type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY,
+      payload: reqBody
+    });
   }
 
 }

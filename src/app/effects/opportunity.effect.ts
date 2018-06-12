@@ -49,18 +49,18 @@ export class OpportunityEffect {
       .catch((res) => Observable.of({ type: OpportunityActions.GET_OPPORTUNITY_FAILED, payload: res }))
     );
 
-  // /**
-  //  * Apply for the opportunity
-  //  * @params job id
-  //  */
-  // @Effect()
-  // applyForAnOpportunity$ = this.actions$
-  //   .ofType(OpportunityActions.APPLY_FOR_AN_OPPORTUNITY)
-  //   .map(toPayload)
-  //   .switchMap((payload) => this.opportunityService.applyForAnOpportunity(payload)
-  //     .map((res) => ({ type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY_SUCCESS, payload: res }))
-  //     .catch((res) => Observable.of({ type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY_FAILED, payload: res }))
-  //   );
+  /**
+   * Apply for the opportunity
+   * @params job id
+   */
+  @Effect()
+  applyForAnOpportunity$ = this.actions$
+    .ofType(OpportunityActions.APPLY_FOR_AN_OPPORTUNITY)
+    .map(toPayload)
+    .switchMap((payload) => this.opportunityService.applyForAnOpportunity(payload)
+      .map((res) => ({ type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY_FAILED, payload: res }))
+    );
 
   // /**
   //  * Get opportunity type count
