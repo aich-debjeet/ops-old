@@ -27,6 +27,7 @@ import { QuillModule } from 'ngx-quill';
 import { OrderByPipe } from './pipes/order.pipe';
 import { UniquePipe } from './pipes/unique.pipe';
 import { SearchNamePipe } from './pipes/name.pipe';
+import { SafeHtmlPipe } from './pipes/safehtml.pipe';
 // import { TruncatePipe } from './pipes/truncate.pipe';
 import { SharedPipesModule } from './pipes/shared-pipes.module';
 
@@ -162,7 +163,7 @@ import { AboutComponent } from './components/about/about.component';
     DirectoryListComponent,
     PrivacyPolicyComponent,
     TermsComponent,
-    AboutComponent
+    AboutComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ops-app'}),
