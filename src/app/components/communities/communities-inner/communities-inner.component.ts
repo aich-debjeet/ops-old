@@ -167,7 +167,6 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
    */
   submitMemberAdmin(value) {
     this.communityAdminFormInit();
-    console.log('submitMemberAdmin', value);
   }
 
   /**
