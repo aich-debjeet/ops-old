@@ -286,6 +286,7 @@
                                     <label>Start date</label>
                                 </div>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['ts_startTime'].errors?.oldate">Please choose upcoming date</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['ts_startTime'].errors?.eventClosed">Tickets has to be sold prior to the event date</p>
                             </div>
                             <div class="col-md-1">
                                 <p class="c-text_md m-t-16 text-center">to</p>
@@ -299,6 +300,7 @@
                                 </div>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.old_even_end_date">Please choose upcoming date</p>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.ticketsClosed">Please select a date prior to D-day</p>
+                                <p class="c-form__validation" *ngIf="eventForm.controls['ts_endTime'].errors?.ticketendDateLess">Please choose upcoming date</p>
                             </div>
                             <div class="col-md-3 p-0">
                             </div>

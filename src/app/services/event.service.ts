@@ -104,7 +104,7 @@ export class EventService {
    * Event search data
    */
   eventSearchData(data: any) {
-    return this.api.put( '/portal/event/advancesearch', data);
+    return this.api.post( '/portal/event/search', data);
   }
 
   /**

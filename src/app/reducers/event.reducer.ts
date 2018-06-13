@@ -98,7 +98,7 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
 
     case EventActions.EVENT_SEARCH_SUCCESS:
       return Object.assign({}, state, {
-        event_list: payload['SUCCESS'],
+        event_list: payload['eventResponse'],
         event_loading: false
       });
 

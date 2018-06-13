@@ -211,8 +211,8 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       //   [this.ticketItem('')]
       // ),
       'event_brief' : ['', [Validators.required]],
-      'ts_startTime': ['', [Validators.required, FormValidation.datevalidation]],
-      'ts_endTime': ['', [Validators.required, FormValidation.oldEndDatevalidation, this.tickeSellDate.bind(this)]],
+      'ts_startTime': ['', [Validators.required, FormValidation.datevalidation, this.tickeSellStartDate.bind(this)]],
+      'ts_endTime': ['', [Validators.required, FormValidation.oldEndDatevalidation, this.tickeSellEndDate.bind(this),this.ticketSellDateComparision.bind(this)]],
       'ts_quantity': ['', [Validators.required]]
     }, {
       // validators: [FormValidation.endateValidation]
@@ -236,7 +236,37 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
 
   }
 
-  tickeSellDate(control: AbstractControl) {
+  ticketSellDateComparision(control: AbstractControl){
+    if (control.value === '') {
+      return;
+    }
+    const startDate = this.eventForm.controls['ts_startTime'].value.split('-').reverse().join('-');
+    // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
+    const endData = control.value.split('-').reverse().join('-');
+    const startSelect = moment(startDate).format('YYYYMMDD');
+    const endSelect = moment(endData).format('YYYYMMDD');
+    if (endSelect < startSelect) {
+      return { ticketendDateLess: true };
+    }
+    return null;
+  }
+
+  tickeSellStartDate(control: AbstractControl) {
+    if (control.value === '') {
+      return;
+    }
+    const endDateEvent = this.eventForm.controls['event_enddate'].value.split('-').reverse().join('-');
+    // const startDate = AC.get('event_startdate').value.split('-').reverse().join('-');
+    const startDateTick = control.value.split('-').reverse().join('-');
+    const startTick = moment(startDateTick).format('YYYYMMDD');
+    const endEvent = moment(endDateEvent).format('YYYYMMDD');
+    if (startTick > endEvent) {
+      return { eventClosed: true };
+    }
+    return null;
+  }
+
+  tickeSellEndDate(control: AbstractControl) {
     if (control.value === '') {
       return;
     }
