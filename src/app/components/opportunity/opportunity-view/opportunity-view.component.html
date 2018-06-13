@@ -389,7 +389,7 @@
       <!-- internship -->
 
       <!-- freelance -->
-      <div class="o-opportunity-detail">
+      <div *ngIf="opportunity?.opportunityType === 'freelance'" class="o-opportunity-detail">
         <div class="o-oppo-post__head color-grey-dark">Freelance</div>
         <div class="o-oppo-post__title m-t-8">
           <h4 class="c-h4 o-oppo-post--title-width">
@@ -466,6 +466,9 @@
         </div>
       </div>
       <!-- freelance -->
+
+      <!-- volunteer -->
+      <!-- volunteer -->
 
     </div>
     <!-- left container -->
