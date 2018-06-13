@@ -388,6 +388,85 @@
       </div>
       <!-- internship -->
 
+      <!-- freelance -->
+      <div class="o-opportunity-detail">
+        <div class="o-oppo-post__head color-grey-dark">Freelance</div>
+        <div class="o-oppo-post__title m-t-8">
+          <h4 class="c-h4 o-oppo-post--title-width">
+            {{ opportunity?.opportunityFreelance?.title }}
+          </h4>
+          <div class="o-oppo-post__edit">
+            <div class="dropdown">
+              <span class="com-head" data-toggle="dropdown" aria-expanded="true">
+                <img width="16" src="{{ baseUrl }}img/svg/ico_options.svg">
+              </span>
+              <ul class="dropdown-menu c-opsdropdown--size-oppo">
+                <li>
+                  <a href="javascript:void(0)" class="o-oppo-edit__drop">
+                    <span class="">Report</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- oppo title end -->
+        <div class="o-oppo-post__address m-t-8">
+          <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark">
+            Payment: <span class="color-black"> {{ opportunity?.opportunityFreelance?.payType }}</span>
+          </span>
+          <span class="o-oppo-post__cmpny-location float_left c-text_md color-grey-dark m-l-24">
+            Engagement: <span class="color-black"> {{ opportunity?.opportunityFreelance?.engagement }}</span>
+          </span>
+        </div>
+        <div class="o-oppo-post__actions m-t-b-24">
+          <div class="o-oppo-post__action-icons float_left ">
+            <button type="button" class="btn btn-primary btn-md float_left m-r-16">Apply</button>
+            <a href="javascript:void(0)" class="o-action-icons__link m-r-16">
+              <img width="24" src="{{ baseUrl }}img/svg/ico_share-02.svg">
+            </a>
+            <a href="javascript:void(0)" class="o-action-icons__link m-r-16">
+              <img width="24" src="{{ baseUrl }}img/svg/bookmark.svg">
+            </a>
+          </div><!-- action icons end -->
+          <div class="o-oppo-post__uplod-info">
+            <span class="o-oppo-post__det c-text_sm color-grey-dark m-l-24">
+              <span class="ltr-space text_uppercase">Posted: </span><span class="color-grey-darker">
+                {{ opportunity?.createdDate | utcDate | date:'d MMM hh:mm a' }}
+              </span>
+            </span>
+          </div>
+        </div><!-- oppo post actions end -->
+        <div class="o-oppo-post__description with_border_top p-b-24">
+          <h6 class="c-text_lg m-t-24">Description</h6>
+          <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityFreelance?.description"></p>
+          <h6 class="c-text_lg m-t-24">Skills</h6>
+          <div class="row m-t-16 m-l-0">
+            <div class="col-md-12 p-0 c-text_md color-grey-dark">
+              {{ opportunity?.opportunityFreelance?.skills }}
+            </div>
+          </div>
+          <div class="o-oppo-post__description">
+          <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
+          <ul class="o-oppo-post__media-list">
+            <li class="o-oppo-post__media-item"></li>
+            <li class="o-oppo-post__media-item"></li>
+          </ul>
+          <div class="o-oppo-post__media-action">
+            <div class="o-oppo-post__action-icons float_left ">
+              <button type="button" class="btn btn-primary btn-md float_left m-r-16">Apply</button>
+              <a href="javascript:void(0)" class="o-action-icons__link m-r-16">
+                <img width="24" src="{{ baseUrl }}img/svg/ico_share-02.svg">
+              </a>
+              <a href="javascript:void(0)" class="o-action-icons__link m-r-16">
+                <img width="24" src="{{ baseUrl }}img/svg/bookmark.svg">
+              </a>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <!-- freelance -->
+
     </div>
     <!-- left container -->
 
