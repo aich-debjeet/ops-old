@@ -3,6 +3,7 @@ export class OpportunityModel {
     creating_opportunity: boolean;
     create_opportunity_params: any;
     create_opportunity_data: any;
+    create_opportunity_response: any;
     create_opportunity_success: boolean;
 
     searching_opportunities: boolean;

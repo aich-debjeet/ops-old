@@ -85,27 +85,28 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
       });
     /* apply for an opportunity */
 
-    // /* create opportunity */
-    // case OpportunityActions.CREATE_OPPORTUNITY:
-    //   return Object.assign({}, state, {
-    //     creating_opportunity: true,
-    //     create_opportunity_params: payload,
-    //     create_opportunity_success: false
-    //   });
+    /* create opportunity */
+    case OpportunityActions.CREATE_OPPORTUNITY:
+      return Object.assign({}, state, {
+        creating_opportunity: true,
+        create_opportunity_params: payload,
+        create_opportunity_response: undefined,
+        create_opportunity_success: false
+      });
 
-    // case OpportunityActions.CREATE_OPPORTUNITY_SUCCESS:
-    //   return Object.assign({}, state, {
-    //     creating_opportunity: false,
-    //     create_opportunity_data: payload,
-    //     create_opportunity_success: true
-    //   });
+    case OpportunityActions.CREATE_OPPORTUNITY_SUCCESS:
+      return Object.assign({}, state, {
+        creating_opportunity: false,
+        create_opportunity_response: payload.SUCCESS,
+        create_opportunity_success: true
+      });
 
-    // case OpportunityActions.CREATE_OPPORTUNITY_FAILED:
-    //   return Object.assign({}, state, {
-    //     creating_opportunity: false,
-    //     create_opportunity_success: false
-    //   });
-    // /* create opportunity */
+    case OpportunityActions.CREATE_OPPORTUNITY_FAILED:
+      return Object.assign({}, state, {
+        creating_opportunity: false,
+        create_opportunity_success: false
+      });
+    /* create opportunity */
 
 
 

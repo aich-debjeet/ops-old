@@ -37,7 +37,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   internshipFrm: FormGroup;
   freelanceFrm: FormGroup;
   volunteerFrm: FormGroup;
-  private subscription: ISubscription;
+  private oppSub: ISubscription;
 
   oppState: Observable<OpportunityModel>;
 
@@ -80,13 +80,16 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.createVolunteerForm();
 
     this.oppState = this.oppStore.select('opportunityTags');
-    this.subscription = this.oppState.subscribe((state) => {
-      console.log('app state', state);
-      console.log('this.uploadedFile', this.uploadedFile);
-      if (state && state['create_opportunity_data'] && state['create_opportunity_data']['SUCCESS']) {
-        if (this.oppSaved === true) {
-          this.toastr.success('Opportunity has been created successfully!');
-          this.oppSaved = false;
+    this.oppSub = this.oppState.subscribe((state) => {
+      if (state) {
+        if (state['create_opportunity_response']) {
+          console.log('IN IF', state['create_opportunity_response']);
+          if (this.oppSaved === true) {
+            this.toastr.success('Opportunity has been created successfully!');
+            this.oppSaved = false;
+          }
+        } else {
+          console.log('IN ELSE', state['create_opportunity_response']);
         }
       }
     });
@@ -103,7 +106,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.oppSub.unsubscribe();
   }
 
   ngAfterViewChecked() {
@@ -159,18 +162,18 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
    */
   createAuditionForm() {
     this.auditionFrm = this.fb.group({
-      auditionTitle: ['', [Validators.required]],
-      auditionDescription: ['', []],
+      auditionTitle: ['Audition title', [Validators.required]],
+      auditionDescription: ['Audition desc', []],
       auditionCategory: ['', []],
-      auditionDate: ['', [Validators.required]],
-      auditionLocation: ['', [Validators.required]],
+      auditionDate: ['12-10-2018', [Validators.required]],
+      auditionLocation: ['Mumbai, India', [Validators.required]],
       auditionGender: ['M', [Validators.required]],
-      auditionAgeMin: ['', [Validators.required]],
-      auditionAgeMax: ['', [Validators.required]],
-      auditionHeightFrom: ['', []],
-      auditionHeightTo: ['', []],
-      auditionWeightFrom: ['', []],
-      auditionWeightTo: ['', []]
+      auditionAgeMin: ['10', [Validators.required]],
+      auditionAgeMax: ['15', [Validators.required]],
+      auditionHeightFrom: ['150', []],
+      auditionHeightTo: ['180', []],
+      auditionWeightFrom: ['60', []],
+      auditionWeightTo: ['80', []]
     });
   }
 
@@ -208,8 +211,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
           to: String(formData.auditionWeightTo)
         },
         location: {
-          lat: this.locationDetails.lat,
-          lon: this.locationDetails.lng
+          location: formData.auditionLocation
         }
       }
     }
