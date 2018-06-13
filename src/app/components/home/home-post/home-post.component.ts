@@ -46,7 +46,6 @@ export class HomePostComponent implements OnInit, OnDestroy {
     this.posts = [];
     this.subscription = this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      console.log(state['profile_navigation_details']);
       this.userData = state['profile_navigation_details']
       if (state.user_following_posts_loaded) {
         this.posts = this.userProfile.user_following_posts;
