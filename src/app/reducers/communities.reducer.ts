@@ -168,6 +168,14 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
         community_member_list: payload
       });
 
+    case CommunitiesActions.COMMUNITY_ADMIN_CHANGE_SUCCESS:
+      return Object.assign({}, state, {
+        communityDetails: {
+          ...state.communityDetails,
+          isOwner: false,
+        },
+      });
+
 
     default:
       return state;
