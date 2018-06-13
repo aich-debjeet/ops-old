@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { OpportunityComponent } from './opportunity.component';
 import { OpportunityViewComponent } from './opportunity-view/opportunity-view.component';
@@ -46,6 +47,7 @@ const opportunityRoutes: Routes = [
     FormsModule,
     CommonModule,
     SharedModule,
+    TextMaskModule,
     NgxMasonryModule,
     SharedPipesModule,
     ReactiveFormsModule,

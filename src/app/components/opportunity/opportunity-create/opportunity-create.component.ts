@@ -29,6 +29,8 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   baseUrl = environment.API_IMAGE;
   userHandle: any;
 
+  public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
   auditionFrm: FormGroup;
   projectFrm: FormGroup;
   jobFrm: FormGroup;
@@ -162,9 +164,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       auditionCategory: ['', []],
       auditionDate: ['', [Validators.required]],
       auditionLocation: ['', [Validators.required]],
-      auditionGender: ['', [Validators.required]],
-      auditionEthnicity: ['', []],
-      auditionComplexion: ['', []],
+      auditionGender: ['M', [Validators.required]],
       auditionAgeMin: ['', [Validators.required]],
       auditionAgeMax: ['', [Validators.required]],
       auditionHeightFrom: ['', []],
@@ -198,8 +198,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
         category: formData.auditionCategory,
         auditionDate: formData.auditionDate,
         gender: formData.auditionGender,
-        ethnicity: formData.auditionEthnicity,
-        complexion: formData.auditionComplexion,
         ageLimit: String(formData.auditionAgeMax),
         height: {
           from: String(formData.auditionHeightFrom),
