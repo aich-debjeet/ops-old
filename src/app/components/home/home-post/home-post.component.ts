@@ -35,6 +35,7 @@ export class HomePostComponent implements OnInit, OnDestroy {
   scrollingLoad = 5000;
   post_scroll_id: any = '';
   imageLink: string = environment.API_IMAGE;
+  userData: any;
 
   constructor(
     private http: Http,
@@ -45,6 +46,8 @@ export class HomePostComponent implements OnInit, OnDestroy {
     this.posts = [];
     this.subscription = this.tagState$.subscribe((state) => {
       this.userProfile = state;
+      console.log(state['profile_navigation_details']);
+      this.userData = state['profile_navigation_details']
       if (state.user_following_posts_loaded) {
         this.posts = this.userProfile.user_following_posts;
         this.post_scroll_id = state.user_following_post_scroll_id
