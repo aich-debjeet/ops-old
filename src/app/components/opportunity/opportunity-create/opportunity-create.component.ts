@@ -19,6 +19,10 @@ import { GeneralUtilities } from '../../../helpers/general.utils';
 import { OpportunityActions } from 'app/actions/opportunity.action';
 import { OpportunityModel } from 'app/models/opportunity.model';
 
+// auth imports
+import { AuthActions } from 'app/actions/auth.action';
+import { ProfileModal } from 'app/models/profile.model';
+
 @Component({
   selector: 'app-opportunity-create',
   templateUrl: './opportunity-create.component.html',
@@ -38,8 +42,10 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   freelanceFrm: FormGroup;
   volunteerFrm: FormGroup;
   private oppSub: ISubscription;
+  private profSub: ISubscription;
 
   oppState: Observable<OpportunityModel>;
+  profileState: Observable<ProfileModal>;
 
   oppSaved = false;
   activeTab = 'audition';
@@ -52,12 +58,14 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     lat: '',
     lng: ''
   };
+  industryList = [];
 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
+    private profileStore: Store<ProfileModal>,
     private oppStore: Store<OpportunityModel>
   ) {
 
@@ -83,30 +91,32 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.oppSub = this.oppState.subscribe((state) => {
       if (state) {
         if (state['create_opportunity_response']) {
-          console.log('IN IF', state['create_opportunity_response']);
           if (this.oppSaved === true) {
             this.toastr.success('Opportunity has been created successfully!');
             this.oppSaved = false;
           }
-        } else {
-          console.log('IN ELSE', state['create_opportunity_response']);
         }
       }
     });
-
+    this.profileState = this.profileStore.select('loginTags');
+    this.profSub = this.profileState.subscribe((state) => {
+      if (this.generalUtils.checkNestedKey(state, ['profile_cards', 'active', 'handle'])) {
+        this.userHandle = state['profile_cards'].active.handle;
+      }
+      if (state['industries'] && state['industries'] !== 'undefined') {
+        this.industryList = state['industries'];
+      }
+      console.log('this.industryList', this.industryList);
+    });
+    this.profileStore.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   ngOnInit() {
-    // load stuffs
-    this.oppStore.select('profileTags')
-    .first(profile => profile['profile_navigation_details'].handle )
-    .subscribe( data => {
-      this.userHandle = data['profile_cards'].active.handle;
-    });
   }
 
   ngOnDestroy() {
     this.oppSub.unsubscribe();
+    this.profSub.unsubscribe();
   }
 
   ngAfterViewChecked() {

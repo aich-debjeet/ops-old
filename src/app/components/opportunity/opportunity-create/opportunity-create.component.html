@@ -118,9 +118,9 @@
                                         <div class="c-form__group m-t-0">
                                             <select formControlName="auditionCategory" class="c-form-control p-l-0">
                                                 <option value="">Select</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
+                                                <option *ngFor="let category of industryList" value="category.name">
+                                                    {{ category.name }}
+                                                </option>
                                             </select>
                                         </div>
                                         <p *ngIf="auditionFrm.controls['auditionCategory'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Please select category!</p>
