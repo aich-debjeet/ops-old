@@ -106,7 +106,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       if (state['industries'] && state['industries'] !== 'undefined') {
         this.industryList = state['industries'];
       }
-      console.log('this.industryList', this.industryList);
     });
     this.profileStore.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
@@ -172,18 +171,18 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
    */
   createAuditionForm() {
     this.auditionFrm = this.fb.group({
-      auditionTitle: ['Audition title', [Validators.required]],
-      auditionDescription: ['Audition desc', []],
+      auditionTitle: ['', [Validators.required]],
+      auditionDescription: ['', []],
       auditionCategory: ['', []],
-      auditionDate: ['12-10-2018', [Validators.required]],
-      auditionLocation: ['Mumbai, India', [Validators.required]],
-      auditionGender: ['M', [Validators.required]],
-      auditionAgeMin: ['10', [Validators.required]],
-      auditionAgeMax: ['15', [Validators.required]],
-      auditionHeightFrom: ['150', []],
-      auditionHeightTo: ['180', []],
-      auditionWeightFrom: ['60', []],
-      auditionWeightTo: ['80', []]
+      auditionDate: ['', [Validators.required]],
+      auditionLocation: ['', [Validators.required]],
+      auditionGender: ['', [Validators.required]],
+      auditionAgeMin: ['', [Validators.required]],
+      auditionAgeMax: ['', [Validators.required]],
+      auditionHeightFrom: ['', []],
+      auditionHeightTo: ['', []],
+      auditionWeightFrom: ['', []],
+      auditionWeightTo: ['', []]
     });
   }
 
