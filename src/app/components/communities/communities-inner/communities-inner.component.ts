@@ -31,6 +31,8 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   tagState$: Observable<any>;
   @ViewChild('communityCreateModal') CommunityUpdate: Modal;
   @ViewChild('communityLeaveModal') CommuityLeaveModal: Modal;
+  @ViewChild('communityLeaveConfirmModal') CommunityLeaveConfirmModal: Modal;
+
   private subscription: ISubscription;
   private routerSubscription: ISubscription;
   details: any;
@@ -159,6 +161,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       text: ''
     }
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_MEMBER_LIST, payload: data });
+    this.communityAdminFormInit();
     this.CommuityLeaveModal.open();
   }
 
@@ -166,7 +169,25 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
    * submit member form
    */
   submitMemberAdmin(value) {
-    this.communityAdminFormInit();
+    if ( this.communityAdminForm.valid === true ) {
+      this.CommuityLeaveModal.close();
+      this.CommunityLeaveConfirmModal.open();
+    }else {
+      this.toastr.warning('Please select admin');
+    }
+  }
+
+  adminLeaveSucess() {
+    const handle = this.communityAdminForm.value.handle
+    const data = {
+      memberHandle: handle,
+      communityId: this.id
+    }
+
+    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_ADMIN_CHANGE, payload: data});
+
+    this.toastr.success('successfully Update', 'Success!');
+    this.CommuityLeaveModal.close();
   }
 
   /**
