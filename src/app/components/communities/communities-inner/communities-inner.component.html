@@ -176,14 +176,14 @@
                             <form [formGroup]="communityAdminForm" novalidate (ngSubmit)="submitMemberAdmin(communityAdminForm.value)" #cmafrom="ngForm">
                                 <div class="o-cadmin_block" *ngFor="let member of memeberList">
                                     <label>
-                                    <input type="radio" name="handle" value="member?.handle" formControlName="handle">
-                                    <div class="o-cadmin_checkbox">
-                                        <div class="o-cadmin_imgblock m-t-b-8">
-                                            <img [src]="basePath + member?.profileImage" class="o-cadmin_img">
+                                        <input type="radio" name="handle" value="member?.handle" formControlName="handle">
+                                        <div class="o-cadmin_checkbox">
+                                            <div class="o-cadmin_imgblock m-t-b-8">
+                                                <img [src]="basePath + member?.profileImage" class="o-cadmin_img">
+                                            </div>
+                                            <p class="o-cadmin_name">{{ member?.name }}</p>
+                                            <p class="o-cadmin_prof">Profile</p>
                                         </div>
-                                        <p class="o-cadmin_name">{{ member?.name }}</p>
-                                        <p class="o-cadmin_prof">Profile</p>
-                                    </div>
                                     </label>
                                 </div>
                             </form>
