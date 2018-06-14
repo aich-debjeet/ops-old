@@ -248,6 +248,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.projectFrm = this.fb.group({
       projectTitle: ['', [Validators.required]],
       projectDescription: ['', []],
+      projectIndustry: ['', []],
       projectSkills: ['', []],
       projectCollaborators: ['', []],
     });
@@ -266,6 +267,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       opportunityProject: {
         title: formData.projectTitle,
         description: formData.projectDescription,
+        industry: formData.projectIndustry,
         skills: formData.projectSkills,
         addCollaborators: [formData.projectCollaborators]
       }
