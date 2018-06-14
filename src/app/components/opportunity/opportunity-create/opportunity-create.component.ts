@@ -430,6 +430,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.freelanceFrm = this.fb.group({
       freelanceTitle: ['', [Validators.required]],
       freelanceDescription: ['', []],
+      freelanceIndustry: ['', []],
       freelancePaymentMethod: ['', [Validators.required]],
       freelanceEngagement: ['', [Validators.required]],
       freelanceSkills: ['', []],
@@ -450,6 +451,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       opportunityFreelance: {
         title: formData.freelanceTitle,
         description: formData.freelanceDescription,
+        industry: formData.freelanceIndustry,
         payType: formData.freelancePaymentMethod,
         engagement: formData.freelanceEngagement,
         skills: formData.freelanceSkills,
