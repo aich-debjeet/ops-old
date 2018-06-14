@@ -30,17 +30,18 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   opportunityState: any;
   opportunity: any;
   jobId: any;
-  userProfile: any;
-  userState$: any;
+  profileState: any;
+  profileState$: any;
   hasApplied: boolean;
   routerSub: any;
 
   baseUrl = environment.API_IMAGE;
   private oppsSub: ISubscription;
+  private profileSub: ISubscription;
 
   constructor(
     private route: ActivatedRoute,
-    private generalUtils: GeneralUtilities,
+    // private generalUtils: GeneralUtilities,
     private store: Store<OpportunityModel>
   ) {
     // opportunity state listener
@@ -51,18 +52,6 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
       // get opp data
       if (state && state.get_opportunity_data) {
         this.opportunity = state.get_opportunity_data;
-        // // prepare the opps details var
-        // if (this.opportunity['opportunityType']) {
-        //   const oppsTypeStr = 'opportunity' + this.generalUtils.capitalizeFirstLetter(this.opportunity['opportunityType']);
-        //   this.opportunity['opportunityDetails'] = this.opportunity[oppsTypeStr];
-        //   delete this.opportunity['opportunityJob'];
-        //   delete this.opportunity['opportunityProject'];
-        //   delete this.opportunity['opportunityAudition'];
-        //   delete this.opportunity['opportunityVolunteer'];
-        //   delete this.opportunity['opportunityFreelance'];
-        //   delete this.opportunity['opportunityInternship'];
-        //   console.log('this.opportunity', this.opportunity);
-        // }
         this.hasApplied = state.get_opportunity_data.hasApplied;
       }
 
@@ -75,10 +64,10 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
     /**
      * check user state
      */
-    this.userState$ = this.store.select('profileTags');
-    this.userState$.subscribe((state) => {
+    this.profileState$ = this.store.select('profileTags');
+    this.profileSub = this.profileState$.subscribe((state) => {
       if (state && state.profile_navigation_details) {
-        this.userProfile = state.profile_navigation_details;
+        this.profileState = state.profile_navigation_details;
       }
     });
   }
@@ -87,7 +76,7 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
    * Disable appy for opportunity for self
    */
   disableApplicationForSelf(username: string) {
-    if (this.userProfile && (this.userProfile['username'] === username)) {
+    if (this.profileState && (this.profileState['username'] === username)) {
       // console.log('DISABLE');
       return true;
     }
@@ -106,8 +95,9 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.routerSub.unsubscribe();
     this.oppsSub.unsubscribe();
+    this.routerSub.unsubscribe();
+    this.profileSub.unsubscribe();
   }
 
   /**
@@ -117,7 +107,6 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
     const reqBody = {
       jobId: this.jobId
     }
-
     this.store.dispatch({
       type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY,
       payload: reqBody
