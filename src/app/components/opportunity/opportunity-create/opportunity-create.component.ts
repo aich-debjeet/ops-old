@@ -349,8 +349,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
           },
           duration: formData.jobDuration,
           location: {
-            lat: formData.jobLocation,
-            lon: formData.jobLocation
+            location: formData.jobLocation
           },
           includesTravel: {
             option: formData.jobTravelInclusive,
@@ -420,8 +419,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
           },
           duration: formData.internshipDuration,
           location: {
-            lat: formData.internshipLocation,
-            lon: formData.internshipLocation
+            location: formData.internshipLocation
           },
           includesTravel: {
             option: formData.internshipTravelInclusive,
@@ -530,8 +528,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
         industry: formData.volunteerIndustry,
         skills: formData.volunteerSkills,
         location: {
-          lat: formData.volunteerLocation,
-          lon: formData.volunteerLocation
+          location: formData.volunteerLocation
         },
         requirements: volunteerRequirements
       }
