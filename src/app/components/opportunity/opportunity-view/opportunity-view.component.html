@@ -374,9 +374,8 @@
           </div>
           <div class="o-oppo-post__description with_border_top">
             <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
-            <ul class="o-oppo-post__media-list">
-              <li class="o-oppo-post__media-item"></li>
-              <li class="o-oppo-post__media-item"></li>
+            <ul *ngIf="opportunity?.opportunityInternship?.attachFiles?.length > 0" class="o-oppo-post__media-list">
+              <li *ngFor="let attachment of opportunity?.opportunityInternship?.attachFiles" [ngStyle]="{'background-image': 'url('+ baseUrl + attachment +')'}" class="o-oppo-post__media-item"></li>
             </ul>
             <div class="o-oppo-post__media-action">
               <button type="button" class="btn btn-primary btn-md m-r-8 float_left">Apply</button>
@@ -462,9 +461,8 @@
           </div>
           <div class="o-oppo-post__description">
           <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
-          <ul class="o-oppo-post__media-list">
-            <li class="o-oppo-post__media-item"></li>
-            <li class="o-oppo-post__media-item"></li>
+          <ul *ngIf="opportunity?.opportunityFreelance?.attachFiles?.length > 0" class="o-oppo-post__media-list">
+            <li *ngFor="let attachment of opportunity?.opportunityFreelance?.attachFiles" [ngStyle]="{'background-image': 'url('+ baseUrl + attachment +')'}" class="o-oppo-post__media-item"></li>
           </ul>
           <div class="o-oppo-post__media-action">
             <div class="o-oppo-post__action-icons float_left ">
