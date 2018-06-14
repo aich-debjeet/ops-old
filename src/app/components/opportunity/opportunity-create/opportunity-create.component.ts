@@ -44,9 +44,11 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   volunteerFrm: FormGroup;
   private oppSub: ISubscription;
   private profSub: ISubscription;
+  private loginSub: ISubscription;
 
   oppState: Observable<OpportunityModel>;
   profileState: Observable<ProfileModal>;
+  loginState: Observable<any>;
 
   oppSaved = false;
   oppCreating = false;
@@ -62,12 +64,19 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   };
   industryList = [];
 
+  /* attachments */
+  jobAttachments = [];
+  internshipAttachments = [];
+  freelanceAttachments = [];
+  /* attachments */
+
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
     private profileStore: Store<ProfileModal>,
+    private loginStore: Store<any>,
     private oppStore: Store<OpportunityModel>,
     private router: Router
   ) {
@@ -93,6 +102,25 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.oppState = this.oppStore.select('opportunityTags');
     this.oppSub = this.oppState.subscribe((state) => {
       if (state) {
+        if (state['fileupload_response'] && state['fileupload_response'][0] && state['fileupload_response'][0].repoPath) {
+          this.uploadingFile = false;
+          this.uploadedFile = true;
+          if (this.activeTab === 'jobs') {
+            this.jobAttachments.push(state['fileupload_response'][0].repoPath);
+          }
+          if (this.activeTab === 'internship') {
+            this.internshipAttachments.push(state['fileupload_response'][0].repoPath);
+          }
+          if (this.activeTab === 'freelance') {
+            this.freelanceAttachments.push(state['fileupload_response'][0].repoPath);
+          }
+          console.log('jobAtt', this.jobAttachments);
+          console.log('intAtt', this.internshipAttachments);
+          console.log('freAtt', this.freelanceAttachments);
+        } else {
+          this.uploadingFile = false;
+          this.uploadedFile = false;
+        }
         if (state['create_opportunity_success'] && state['create_opportunity_success'] === true) {
           this.oppCreating = false;
           if (this.oppSaved === true) {
@@ -106,16 +134,22 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
         }
       }
     });
-    this.profileState = this.profileStore.select('loginTags');
+    this.profileState = this.profileStore.select('profileTags');
     this.profSub = this.profileState.subscribe((state) => {
       if (this.generalUtils.checkNestedKey(state, ['profile_cards', 'active', 'handle'])) {
-        this.userHandle = state['profile_cards'].active.handle;
+        this.userHandle = state['profile_cards']['active']['handle'];
       }
       if (state['industries'] && state['industries'] !== 'undefined') {
         this.industryList = state['industries'];
       }
     });
-    this.profileStore.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
+    this.loginState = this.loginStore.select('loginTags');
+    this.loginSub = this.loginState.subscribe((state) => {
+      if (state['industries'] && state['industries'] !== 'undefined') {
+        this.industryList = state['industries'];
+      }
+    });
+    this.loginStore.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   ngOnInit() {
@@ -124,6 +158,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   ngOnDestroy() {
     this.oppSub.unsubscribe();
     this.profSub.unsubscribe();
+    this.loginSub.unsubscribe();
   }
 
   ngAfterViewChecked() {
@@ -151,26 +186,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       handle: this.userHandle,
       image: fileObj
     };
-
     this.oppStore.dispatch({ type: OpportunityActions.FILE_UPLOAD, payload: imageData });
-
-    this.oppStore.select('opportunityTags')
-      .first(file => file['fileupload_success'] === true )
-      .subscribe( data => {
-        // console.log(data);
-        if (data && data['fileupload_response'] && data['fileupload_response'][0] && data['fileupload_response'][0].repoPath) {
-          // console.log('IN');
-          this.uploadingFile = false;
-          this.uploadedFile = true;
-          // const file = data['fileupload_response'][0].repoPath;
-          // this.uploadedFileSrc = file.substr(0, file.lastIndexOf('.')) + '_thumb_250.jpeg';
-          // console.log(this.baseUrl + this.uploadedFileSrc);
-        } else {
-          // console.log('OUT');
-          this.uploadingFile = false;
-          this.uploadedFile = false;
-        }
-      });
   }
 
   /* =================================== audition form =================================== */
@@ -340,7 +356,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
           skills: formData.jobSkills,
           qualifications: formData.jobQualifications,
           organizationName: formData.jobOrgName,
-          attachFiles: []
+          attachFiles: this.jobAttachments
       }
     };
 
@@ -411,7 +427,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
           skills: formData.internshipSkills,
           qualifications: formData.internshipQualifications,
           organizationName: formData.internshipOrgName,
-          attachFiles: []
+          attachFiles: this.internshipAttachments
       }
     };
 
@@ -455,7 +471,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
         payType: formData.freelancePaymentMethod,
         engagement: formData.freelanceEngagement,
         skills: formData.freelanceSkills,
-        attachFiles: []
+        attachFiles: this.freelanceAttachments
       }
     };
 
