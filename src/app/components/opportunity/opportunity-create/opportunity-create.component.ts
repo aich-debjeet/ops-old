@@ -105,18 +105,16 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
         if (state['fileupload_response'] && state['fileupload_response'][0] && state['fileupload_response'][0].repoPath) {
           this.uploadingFile = false;
           this.uploadedFile = true;
-          if (this.activeTab === 'jobs') {
-            this.jobAttachments.push(state['fileupload_response'][0].repoPath);
+          const attUrl = state['fileupload_response'][0].repoPath;
+          if (this.activeTab === 'jobs' && this.jobAttachments.indexOf(attUrl) === -1) {
+            this.jobAttachments.push(attUrl);
           }
-          if (this.activeTab === 'internships') {
-            this.internshipAttachments.push(state['fileupload_response'][0].repoPath);
+          if (this.activeTab === 'internships' && this.internshipAttachments.indexOf(attUrl) === -1) {
+            this.internshipAttachments.push(attUrl);
           }
-          if (this.activeTab === 'freelance') {
-            this.freelanceAttachments.push(state['fileupload_response'][0].repoPath);
+          if (this.activeTab === 'freelance' && this.freelanceAttachments.indexOf(attUrl) === -1) {
+            this.freelanceAttachments.push(attUrl);
           }
-          console.log('jobAtt', this.jobAttachments);
-          console.log('intAtt', this.internshipAttachments);
-          console.log('freAtt', this.freelanceAttachments);
         } else {
           this.uploadingFile = false;
           this.uploadedFile = false;
