@@ -314,7 +314,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
               if (this.searchType === 'people') {
                 const searchPeopleParams = {
                   isHuman: '1',
-                  status: [],
+                  status: ['active'],
                   offset: 0,
                   limit: 10,
                   searchText: this.searchString
