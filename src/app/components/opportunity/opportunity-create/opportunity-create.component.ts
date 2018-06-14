@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewChecked, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 // toastr service
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +10,7 @@ import { Store } from '@ngrx/store';
 
 // rxjs
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 
 import { environment } from '../../../../environments/environment';
 import { ScrollHelper } from '../../../helpers/scroll.helper';
@@ -48,6 +49,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   profileState: Observable<ProfileModal>;
 
   oppSaved = false;
+  oppCreating = false;
   activeTab = 'audition';
   uploadedFile = false;
   uploadingFile = false;
@@ -66,7 +68,8 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
     private profileStore: Store<ProfileModal>,
-    private oppStore: Store<OpportunityModel>
+    private oppStore: Store<OpportunityModel>,
+    private router: Router
   ) {
 
     // creating audition form
@@ -90,10 +93,15 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.oppState = this.oppStore.select('opportunityTags');
     this.oppSub = this.oppState.subscribe((state) => {
       if (state) {
-        if (state['create_opportunity_response']) {
+        if (state['create_opportunity_success'] && state['create_opportunity_success'] === true) {
+          this.oppCreating = false;
           if (this.oppSaved === true) {
             this.toastr.success('Opportunity has been created successfully!');
             this.oppSaved = false;
+          }
+          if (this.generalUtils.checkNestedKey(state, ['create_opportunity_response', 'id'])) {
+            this.router.navigateByUrl('/opportunity/view/' + state['create_opportunity_response']['id']);
+            return;
           }
         }
       }
@@ -231,7 +239,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       payload: reqBody
     });
     this.oppSaved = true;
-
+    this.oppCreating = true;
   }
   /* =================================== audition form =================================== */
 
@@ -269,6 +277,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       payload: reqBody
     });
     this.oppSaved = true;
+    this.oppCreating = true;
   }
   /* =================================== project form =================================== */
 
@@ -339,7 +348,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       payload: reqBody
     });
     this.oppSaved = true;
-
+    this.oppCreating = true;
   }
   /* =================================== job form =================================== */
 
@@ -410,7 +419,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       payload: reqBody
     });
     this.oppSaved = true;
-
+    this.oppCreating = true;
   }
   /* =================================== internship form =================================== */
 
@@ -452,7 +461,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       payload: reqBody
     });
     this.oppSaved = true;
-
+    this.oppCreating = true;
   }
   /* =================================== freelance form =================================== */
 
@@ -509,7 +518,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       payload: reqBody
     });
     this.oppSaved = true;
-
+    this.oppCreating = true;
   }
   /* =================================== volunteer form =================================== */
 
