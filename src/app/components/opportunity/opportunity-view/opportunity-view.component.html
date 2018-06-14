@@ -160,7 +160,7 @@
             </span>
             <span class="o-oppo-post__det c-text_md color-grey-dark m-r-24">
               Type: <span class="color-grey-darker">
-                {{ opportunity?.opportunityJob?.duration }}
+                {{ opportunity?.opportunityJob?.duration || '-' }}
               </span>
             </span>
           </div><!-- oppo short det end -->
@@ -336,7 +336,7 @@
             </span>
             <span class="o-oppo-post__det c-text_md color-grey-dark m-r-24">
               Type: <span class="color-grey-darker">
-                  {{ opportunity?.opportunityInternship?.duration }}
+                  {{ opportunity?.opportunityInternship?.duration || '-' }}
                 </span>
             </span>
           </div><!-- oppo short det end -->
