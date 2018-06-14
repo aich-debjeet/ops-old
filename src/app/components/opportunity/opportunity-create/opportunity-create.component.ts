@@ -108,7 +108,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
           if (this.activeTab === 'jobs') {
             this.jobAttachments.push(state['fileupload_response'][0].repoPath);
           }
-          if (this.activeTab === 'internship') {
+          if (this.activeTab === 'internships') {
             this.internshipAttachments.push(state['fileupload_response'][0].repoPath);
           }
           if (this.activeTab === 'freelance') {

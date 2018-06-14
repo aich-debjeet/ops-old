@@ -46,6 +46,7 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
       return Object.assign({}, state, {
         getting_opportunity: true,
         get_opportunity_params: payload,
+        get_opportunity_data: undefined,
         get_opportunity_success: false
       });
 
