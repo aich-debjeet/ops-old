@@ -234,7 +234,10 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
         category: formData.auditionCategory,
         auditionDate: formData.auditionDate,
         gender: formData.auditionGender,
-        ageLimit: String(formData.auditionAgeMax),
+        ageLimit: {
+          from: String(formData.auditionAgeMin),
+          to: String(formData.auditionAgeMax)
+        },
         height: {
           from: String(formData.auditionHeightFrom),
           to: String(formData.auditionHeightTo)
