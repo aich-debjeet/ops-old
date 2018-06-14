@@ -570,11 +570,12 @@
         <p class="c-text_sm ltr-space color-grey-dark">Posted By</p>
         <div class="o-opportunity-post-user-detail m-t-16">
           <div class="o-post-user__avatar">
-            <img src="https://ops-v2.netlify.com/assets/demo/avatar2.jpg" alt="">
+            <img src="{{ baseUrl + opportunity?.ownerImage }}" alt="">
           </div>
           <div class="o-post-user__info">
-            <div class="o-post-user__name c-text_lg">Ethel Kennedy</div>
-            <!-- <div class="o-post-user__desigination c-text_md color-grey-dark">Manager</div> -->
+            <div class="o-post-user__name c-text_lg">
+              {{ opportunity?.ownerName }}
+            </div>
           </div>
         </div>
       </div>
