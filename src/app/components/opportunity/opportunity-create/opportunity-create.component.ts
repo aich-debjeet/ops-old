@@ -474,6 +474,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.volunteerFrm = this.fb.group({
       volunteerTitle: ['', [Validators.required]],
       volunteerCause: ['', []],
+      volunteerIndustry: ['', []],
       volunteerLocation: ['', []],
       volunteerSkills: ['', []],
       volunteerDL: [false, []],
@@ -507,6 +508,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       opportunityVolunteer: {
         title: formData.volunteerTitle,
         cause: formData.volunteerCause,
+        industry: formData.volunteerIndustry,
         skills: formData.volunteerSkills,
         location: {
           lat: formData.volunteerLocation,

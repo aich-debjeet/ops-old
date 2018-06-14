@@ -1098,6 +1098,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="o-oppo-form__single">
+                                    <div class="col-md-3 p-0">
+                                        <div class="c-text_md o-oppo-form-title">Industry</div>
+                                    </div>
+                                    <div class="col-md-6 p-0">
+                                        <div class="c-form__group m-t-0">
+                                            <select formControlName="volunteerIndustry" class="c-form-control p-l-0">
+                                                <option value="">Select</option>
+                                                <option *ngFor="let category of industryList" value="category.name">
+                                                    {{ category.name }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- Description end -->
                                 <div class="o-oppo-form__single">
                                     <div class="col-md-3 p-0">
