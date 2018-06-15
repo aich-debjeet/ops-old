@@ -197,6 +197,14 @@
             <h6 class="c-text_lg m-t-24">Description</h6>
             <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityJob?.description"></p>
           </div>
+          <div class="o-oppo-post__description p-b-24">
+            <h6 class="c-text_lg m-t-24">Expertised in</h6>
+            <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityJob?.skills"></p>
+          </div>
+          <div class="o-oppo-post__description p-b-24">
+            <h6 class="c-text_lg m-t-24">Education</h6>
+            <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityJob?.qualifications"></p>
+          </div>
           <div class="o-oppo-post__description with_border_top">
             <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
             <ul *ngIf="opportunity?.opportunityJob?.attachFiles?.length > 0" class="o-oppo-post__media-list">
@@ -372,6 +380,14 @@
             <h6 class="c-text_lg m-t-24">Description</h6>
             <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityInternship?.description"></p>
           </div>
+          <div class="o-oppo-post__description p-b-24">
+            <h6 class="c-text_lg m-t-24">Expertised in</h6>
+            <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityInternship?.skills"></p>
+          </div>
+          <div class="o-oppo-post__description p-b-24">
+            <h6 class="c-text_lg m-t-24">Education</h6>
+            <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityInternship?.qualifications"></p>
+          </div>
           <div class="o-oppo-post__description with_border_top">
             <h6 class="c-text_lg m-t-24 m-b-16">Attachments</h6>
             <ul *ngIf="opportunity?.opportunityInternship?.attachFiles?.length > 0" class="o-oppo-post__media-list">
@@ -528,12 +544,18 @@
             </div>
           </div><!-- oppo post actions end -->
           <div class="o-oppo-post__description with_border_top p-b-24">
-            <h6 class="c-text_lg m-t-24">Description</h6>
-            <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityVolunteer?.description"></p>
+            <h6 class="c-text_lg m-t-24">Cause</h6>
+            <p class="c-text_md color-grey-dark m-t-8" [innerHTML]="opportunity?.opportunityVolunteer?.cause"></p>
             <h6 class="c-text_lg m-t-24">Skills</h6>
             <div class="row m-t-16 m-l-0">
               <div class="col-md-12 p-0 c-text_md color-grey-dark">
                 {{ opportunity?.opportunityVolunteer?.skills }}
+              </div>
+            </div>
+            <h6 class="c-text_lg m-t-24">Requirements</h6>
+            <div class="row m-t-16 m-l-0" *ngIf="opportunity?.opportunityVolunteer?.requirements">
+              <div class="col-md-12 p-0 c-text_md color-grey-dark" *ngFor="let requirement of opportunity?.opportunityVolunteer?.requirements" >
+                {{ requirement }}, 
               </div>
             </div>
           <div class="o-oppo-post__description">

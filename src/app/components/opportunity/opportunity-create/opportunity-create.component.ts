@@ -213,9 +213,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
    * @param: form data
    */
   submitAuditionForm(formData: any) {
-
-    console.log('formData', formData);
-
     // audition form validation
     if (!this.auditionFrm.valid) {
       this.scrollHelper.scrollToFirst('error');
