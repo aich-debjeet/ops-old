@@ -69,7 +69,6 @@ export class DirectoryListComponent implements OnInit, OnDestroy {
    * While Typing Search
    */
   search() {
-    this.scrollingLoad = 1400;
     this.page_start = 0
     this.loadDir('');
   }

@@ -1,41 +1,42 @@
 <div id="posts" class="tab-pane fade active in" infinite-scroll (scrolled)="onScroll($event)">
+  <div class="col-md-4 m-t-8 p-0 hidden-xs">
+    <div class="o-hf_usercard">
+      <div class="o-hf_usertimeline">
+        <img [src]="imageLink + userData?.coverImage">
+      </div>
+      <div class="o-hf_usercont">
+        <div class="o-hf_userimg">
+          <img [src]="imageLink + userData?.profileImage">
+        </div>
+        <div class="o-hf_username">
+          <div class="c-text_lg">{{ userData?.name }}</div>
+          <div class="c-text_sm color-grey-dark">@ {{ userData?.username }}</div>
+        </div>
+      </div>
+      <div class="width100 float_left m-t-b-24">
+          <div class="col-md-4 c-text_sm">Following
+            <div class="c-text_md-bold color-grey-dark">{{ userData?.followersCount }}</div>
+          </div>
+          <div class="col-md-4 c-text_sm">Followers
+          <div class="c-text_md-bold color-grey-dark">{{ userData?.followingCount }}</div>
+        </div>
+          <div class="col-md-4 c-text_sm">Post
+          <div class="c-text_md-bold color-grey-dark">{{ userData?.postCount }}</div>
+        </div>
+        </div>
+    </div>
 
-    <div class="col-md-4 fill-white m-t-8 p-0 hidden-xs">
-        <div class="o-trending-block">
-          <div class="o-trending-heading m-b-8">Trending</div>
-
-          <ul class="o-trending-list">
-            <li class="o-trending-items">
-              <a href="javascript:void(0);" class="c-text_md color-theme">#GoldenGlobes2018</a>
-              <p class="c-text_sm color-grey-dark">51.2K Posts</p>
-            </li>
-            <li class="o-trending-items">
-              <a href="javascript:void(0);" class="c-text_md color-theme">#MondayMotivation</a>
-              <p class="c-text_sm color-grey-dark">51.2K Posts</p>
-            </li>
-            <li class="o-trending-items">
-              <a href="javascript:void(0);" class="c-text_md color-theme">#fire</a>
-              <p class="c-text_sm color-grey-dark">51.2K Posts</p>
-            </li>
-            <li class="o-trending-items">
-              <a href="javascript:void(0);" class="c-text_md color-theme">#LGBT</a>
-              <p class="c-text_sm color-grey-dark">51.2K Posts</p>
-            </li>
-            <li class="o-trending-items">
-              <a href="javascript:void(0);" class="c-text_md color-theme">#MondayMotivation</a>
-              <p class="c-text_sm color-grey-dark">51.2K Posts</p>
-            </li>
-          </ul>
-
-          <div class="o-trending-heading m-t-b-8">Trending Post</div>
+    <div class="o-hf_usercard m-t-16">
+      <div class="o-trending-block">
+            <div class="o-trending-heading m-t-b-8">Trending Post</div>
             <div class="col-md-12 float_left p-0">
               <div class="c-card o-trending-post">
                 <!-- card media (img, video & audio) -->
                 <div class="c-card__media">
-                  <a href="javascript:void(0);" data-toggle="modal" data-target="#imgModal">
+                  <a href="javascript:void(0)" data-toggle="modal" data-target="#imgModal">
                     <img [src]="imageLink + 'img/s05.jpg'" class="c-card__image">
                   </a>
-                 <!--  <span>
+                  <!--  <span>
                     <img src="assets/svg/ico_image.svg" alt="" class="c-card__icon">
                   </span> -->
                   <div class="c-media--hover">
@@ -51,10 +52,10 @@
                         </span>
                         <ul class="dropdown-menu dropdown-menu-right m-r-16">
                           <li>
-                            <a href="javascript:void(0);">Edit</a>
+                            <a href="javascript:void(0)">Edit</a>
                           </li>
                           <li>
-                            <a href="javascript:void(0);">Delete</a>
+                            <a href="javascript:void(0)">Delete</a>
                           </li>
                         </ul>
                     </div>
@@ -81,11 +82,10 @@
                     </div>
                     <div class="c-links__actions">
                         <span class="c-links__add">
-                          <a href="javascript:void(0);">
+                          <a href="javascript:void(0)">
                             <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">
                           </a>
                         </span>
-                        
                     </div>
                   </div>
                 </div>
@@ -93,16 +93,16 @@
               </div>
             </div>
 
-          <div class="o-trending-heading m-t-b-8">Sponsored Post</div>
+            <div class="o-trending-heading m-t-b-8">Sponsored Post</div>
             <div class="col-md-12 float_left p-0">
               <div class="c-card o-trending-post">
                 <!-- card media (img, video & audio) -->
                 <div class="c-card__media">
-                  <a href="javascript:void(0);" data-toggle="modal" data-target="#videoModal">
-                    <img [src]="imageLink + 'img/s06.jpg'" alt="" class="c-card__image">
+                  <a href="javascript:void(0)" data-toggle="modal" data-target="#videoModal">
+                    <img [src]="imageLink + 'img/s06.jpg'" class="c-card__image">
                   </a>
                   <span>
-                    <img [src]="imageLink + 'img/svg/ico_video.svg'" alt="" class="c-card__icon">
+                    <img [src]="imageLink + 'img/svg/ico_video.svg'" class="c-card__icon">
                   </span>
                   <div class="c-media--hover">
                     <div class="">
@@ -118,10 +118,10 @@
                         </span>
                         <ul class="dropdown-menu dropdown-menu-right m-r-16">
                           <li>
-                            <a href="javascript:void(0);">Edit</a>
+                            <a href="javascript:void(0)">Edit</a>
                           </li>
                           <li>
-                            <a href="javascript:void(0);">Delete</a>
+                            <a href="javascript:void(0)">Delete</a>
                           </li>
                         </ul>
                       </div>
@@ -149,7 +149,7 @@
                     </div>
                     <div class="c-links__actions">
                       <span class="c-links__add">
-                        <a href="javascript:void(0);">
+                        <a href="javascript:void(0)">
                           <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">
                         </a>
                       </span>
@@ -160,17 +160,20 @@
               </div>
             </div>
         </div>
-      </div>
-    <div class="col-md-8 o-homefeed-posts">
-        <app-post *ngFor="let userMedia of posts; let i = index" [className]="'c-card m-t-8'" [mediaData]="userMedia"></app-post>
-        <div *ngIf="userProfile.user_following_posts_loading">
-            <app-post-card [className]="'c-card m-t-8'" [loader]=true *ngFor="let number of [0,1]" ></app-post-card>
-        </div>
-
-        <div *ngIf="!userProfile.user_following_posts_loading && posts.length < 1 && isOwner === true" class="empty__state empty__center">
-            <h4>No posts to show here</h4>
-            <p>Follow People & Channels to get updates from them here</p>
-        </div>
     </div>
+  </div>
+
+
+  <div class="col-md-8 o-homefeed-posts">
+      <app-post *ngFor="let userMedia of posts; let i = index" [className]="'c-card m-t-8'" [mediaData]="userMedia"></app-post>
+      <div *ngIf="userProfile.user_following_posts_loading">
+          <app-post-card [className]="'c-card m-t-8'" [loader]=true *ngFor="let number of [0,1]" ></app-post-card>
+      </div>
+
+      <div *ngIf="!userProfile.user_following_posts_loading && posts.length < 1 && isOwner === true" class="empty__state empty__center">
+          <h4>No posts to show here</h4>
+          <p>Follow People & Channels to get updates from them here</p>
+      </div>
+  </div>
 </div>
 

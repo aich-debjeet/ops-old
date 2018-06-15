@@ -8,6 +8,9 @@ import { DatePipe } from '@angular/common';
 import { EventValidator, FormValidation } from '../../../helpers/event.validator';
 import {Moment} from 'moment';
 
+import { QuillEditorComponent } from 'ngx-quill/src/quill-editor.component';
+import Quill from 'quill';
+
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
 
@@ -90,6 +93,14 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
+
+  // Rich Text editor toolbar
+  defaultModules = {
+    toolbar: [
+      ['bold', 'underline'],
+      ['link']
+    ]
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -370,6 +381,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    * @param value value of form
    */
   submitForm(value) {
+    console.log(value);
     // console.log(this.eventForm.valid)
     // console.log(this.eventCoverImage)
     if (this.eventForm.valid) {

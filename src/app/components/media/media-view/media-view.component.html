@@ -1,4 +1,4 @@
-<app-route-modal (onClose)="closeFunction()" modalClass="c-modal--size1">
+<app-route-modal  modalClass="c-modal--size1">
     <modal-content>
 
         <div class="c-mediamodal__left">
@@ -34,11 +34,11 @@
                     </div>
                 </div>
                 <div class="c-mediamodal__user p-16" *ngIf="!data.isOwner">
-                    <a routerLink="{{ '/profile/u/' + data?.ownerUsername }}"  class="c-user__avatar c-avatar--status3">
+                    <a [routerLink]="['/', {outlets: { primary: ['profile', 'u', data?.ownerUsername], media: null }}]"  class="c-user__avatar c-avatar--status3">
                         <img class="c-user__image" [src]="imageLink + data?.ownerImage">
                     </a>
-                    <a routerLink="{{ '/profile/u/' + data?.ownerUsername }}" class="c-user__name">{{ data?.ownerName }}</a>
-                    <div class="c-mediamodal__subhead">{{ data?.channelName }}
+                    <a [routerLink]="['/', {outlets: { primary: ['profile', 'u', data?.ownerUsername], media: null }}]" class="c-user__name">{{ data?.ownerName }}</a>
+                    <div class="c-mediamodal__subhead" [routerLink]="['/', {outlets: { primary: ['channel', data?.channelId], media: null }}]">{{ data?.channelName }}
                         <span class="c-mediamodal__time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span>
                     </div>
                 </div>
