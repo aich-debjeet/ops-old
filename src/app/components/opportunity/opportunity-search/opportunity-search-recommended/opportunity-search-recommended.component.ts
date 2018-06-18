@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { OpportunityActions } from './../../../../actions/opportunity.action';
 import { OpportunityModel } from './../../../../models/opportunity.model';
-import { Media } from './../../../../models/media.model';
 
 // rx
 import { Observable } from 'rxjs/Observable';
