@@ -15,6 +15,7 @@ import { environment } from '../../../../environments/environment';
 import { ISubscription } from 'rxjs/Subscription';
 // import { GeneralUtilities } from '../../../helpers/general.utils';
 import { ToastrService } from 'ngx-toastr';
+import { GeneralUtilities } from '../../../helpers/general.utils';
 
 @Component({
   selector: 'app-opportunity-view',
@@ -36,10 +37,12 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   baseUrl = environment.API_IMAGE;
   private oppsSub: ISubscription;
   private profileSub: ISubscription;
+  isOwnOpportunity = false;
+  showOptions = false;
 
   constructor(
     private route: ActivatedRoute,
-    // private generalUtils: GeneralUtilities,
+    private generalUtils: GeneralUtilities,
     private toastr: ToastrService,
     private store: Store<OpportunityModel>
   ) {
@@ -61,6 +64,15 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
         // check if job application successful
         if (state.apply_for_an_opportunity_data) {
           this.hasApplied = true;
+        }
+        const userHandle = localStorage.getItem('loggedInProfileHandle');
+        if (userHandle
+          && this.generalUtils.checkNestedKey(this.opportunityState, ['get_opportunity_data', 'ownerHandle'])
+          && state['get_opportunity_data']['ownerHandle'] === userHandle
+        ) {
+          this.isOwnOpportunity = true;
+        } else {
+          this.isOwnOpportunity = false;
         }
       }
     });
