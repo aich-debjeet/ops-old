@@ -73,6 +73,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
         }
         if (this.generalUtils.checkNestedKey(state, ['search_opportunities_result', 'opportunityResponse'])) {
           this.opportunities = state.search_opportunities_result.opportunityResponse;
+          this.prepareFilters(state.search_opportunities_result.filterList);
         }
       }
     });
@@ -98,22 +99,22 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   /**
    * Preparing opp counts to display
    */
-  prepareOppCount(oppTypes: any) {
-    oppTypes.forEach((oppType /*, index */ ) => {
-      if (oppType.jobType === 'Audition') {
-        this.opportunitiesCount.Audition = String(oppType.count);
-      } else if (oppType.jobType === 'Projects') {
-        this.opportunitiesCount.Projects = String(oppType.count);
-      } else if (oppType.jobType === 'Jobs') {
-        this.opportunitiesCount.Jobs = String(oppType.count);
-      } else if (oppType.jobType === 'Internship') {
-        this.opportunitiesCount.Internship = String(oppType.count);
-      } else if (oppType.jobType === 'Volunteer') {
-        this.opportunitiesCount.Volunteer = String(oppType.count);
-      } else if (oppType.jobType === 'Freelance') {
-        this.opportunitiesCount.Freelance = String(oppType.count);
+  prepareFilters(filterList: any) {
+    // for opportunity type filter
+    for (let i = 0; i < filterList.length; i++) {
+      if (filterList[i].hasOwnProperty('title') && filterList[i]['title'] === 'OPPORTUNITY_TYPE') {
+        if (filterList[i].hasOwnProperty('filters')) {
+          for (let j = 0; j < filterList[i].filters.length; j++) {
+            if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
+              const oppType = this.generalUtils.capitalizeFirstLetter(filterList[i].filters[j].name);
+              this.opportunitiesCount[oppType] = filterList[i].filters[j].count;
+            }
+          }
+        }
+        // console.log('this.opportunitiesCount', this.opportunitiesCount);
+        break;
       }
-    });
+    }
   }
 
   ngOnInit() {
