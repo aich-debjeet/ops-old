@@ -19,7 +19,7 @@
 
   	<div class="o-top-quicklink">
   		<ul class="o-quicklink-list">
-  			<li class="o-quicklink__item" (click)="selectOppTypeFilter('OPPORTUNITY_TYPE', 'audition')">
+  			<li class="o-quicklink__item" (click)="toggleOppTypeFilter('OPPORTUNITY_TYPE', 'audition')">
 				  <label>
 				  	<span class="o-quicklink__ico">
 				  		<img width="62" [src]="baseUrl + 'img/opportunities/audition.png'" alt="">
@@ -34,7 +34,7 @@
 				  	</span>
 				  </label>
   			</li><!-- audition end -->
-  			<li class="o-quicklink__item" (click)="selectOppTypeFilter('OPPORTUNITY_TYPE', 'projects')">
+  			<li class="o-quicklink__item" (click)="toggleOppTypeFilter('OPPORTUNITY_TYPE', 'projects')">
 				  <label>
 				  	<span class="o-quicklink__ico">
 				  		<img width="62" [src]="baseUrl + 'img/opportunities/projects.png'" alt="">
@@ -49,7 +49,7 @@
 				  	</span>
 				  </label>
   			</li><!-- Projects end -->
-  			<li class="o-quicklink__item" (click)="selectOppTypeFilter('OPPORTUNITY_TYPE', 'job')">
+  			<li class="o-quicklink__item" (click)="toggleOppTypeFilter('OPPORTUNITY_TYPE', 'job')">
 				  <label>
 				  	<span class="o-quicklink__ico">
 				  		<img width="62" [src]="baseUrl + 'img/opportunities/job.png'" alt="">
@@ -64,7 +64,7 @@
 				  	</span>
 				  </label>
   			</li><!-- Jobs end -->
-  			<li class="o-quicklink__item" (click)="selectOppTypeFilter('OPPORTUNITY_TYPE', 'internship')">
+  			<li class="o-quicklink__item" (click)="toggleOppTypeFilter('OPPORTUNITY_TYPE', 'internship')">
 				  <label>
 				  	<span class="o-quicklink__ico">
 				  		<img width="62" [src]="baseUrl + 'img/opportunities/internship.png'" alt="">
@@ -79,7 +79,7 @@
 				  	</span>
 				  </label>
   			</li><!-- Internship end -->
-  			<li class="o-quicklink__item" (click)="selectOppTypeFilter('OPPORTUNITY_TYPE', 'freelance')">
+  			<li class="o-quicklink__item" (click)="toggleOppTypeFilter('OPPORTUNITY_TYPE', 'freelance')">
 				  <label>
 				  	<span class="o-quicklink__ico">
 				  		<img width="62" [src]="baseUrl + 'img/opportunities/freelance.png'" alt="">
@@ -94,7 +94,7 @@
 				  	</span>
 				  </label>
   			</li><!-- Freelance end -->
-  			<li class="o-quicklink__item m-r-0" (click)="selectOppTypeFilter('OPPORTUNITY_TYPE', 'volunteer')">
+  			<li class="o-quicklink__item m-r-0" (click)="toggleOppTypeFilter('OPPORTUNITY_TYPE', 'volunteer')">
 				  <label>
 				  	<span class="o-quicklink__ico">
 				  		<img width="62" [src]="baseUrl + 'img/opportunities/volunteer.png'" alt="">

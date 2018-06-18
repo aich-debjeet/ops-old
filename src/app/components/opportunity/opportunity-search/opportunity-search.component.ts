@@ -122,14 +122,17 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   /**
    * select opportunity filter
    */
-  selectOppTypeFilter(parentNode: string, oppType: string) {
+  toggleOppTypeFilter(parentNode: string, oppType: string) {
     if (parentNode.length > 0 && oppType.length > 0) {
       const fltrObj = { key: parentNode, value: oppType };
       // check if filter contains the value already
       if (!_.find(this.globalFilter, fltrObj)) {
         this.globalFilter.push(fltrObj);
       } else {
-        return;
+        // remove
+        this.globalFilter = _.remove(this.globalFilter, (obj) => {
+          return !(obj.key === parentNode && obj.value === oppType);
+        });
       }
       const params = {
         q: this.searchString,
@@ -163,6 +166,9 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
             filtersMap: [],
             searchType: this.searchType,
             searchText: this.searchString
+          }
+          if (params.filters && params.filters.length > 0) {
+            searchOppsParams.filtersMap = this.globalFilter
           }
           this.isSearching = true;
           this.showPreloader = true;
