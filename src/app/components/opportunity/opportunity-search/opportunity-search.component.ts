@@ -158,7 +158,41 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   }
 
   /**
-   * reset search filter
+   * select opportunity industry
+   */
+  selectIndustryFilter(indValue: string) {
+    if (indValue.length > 0) {
+      const parentNode = 'INDUSTRY';
+      const indIndex = _.findIndex(this.globalFilter, (o) => o.key === parentNode);
+      if (indIndex > -1) {
+        this.globalFilter[indIndex].value = indValue;
+      } else {
+        this.globalFilter.push({ key: parentNode, value: indValue });
+      }
+      // const fltrObj = { key: parentNode, value: indValue };
+      // // check if filter contains the value already
+      // if (!_.find(this.globalFilter, fltrObj)) {
+      //   this.globalFilter.push(fltrObj);
+      // } else {
+      //   // remove
+      //   this.globalFilter = _.remove(this.globalFilter, (obj) => {
+      //     return !(obj.key === parentNode && obj.value === indValue);
+      //   });
+      // }
+      // update the industry value
+
+      const params = {
+        q: this.searchString,
+        type: this.searchType,
+        filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+      };
+      console.log(this.globalFilter);
+      this.oppsSearchGetRequest(params);
+    }
+  }
+
+  /**
+   * reset search filters
    */
   resetGlobalFilter() {
     this.globalFilter = [];
