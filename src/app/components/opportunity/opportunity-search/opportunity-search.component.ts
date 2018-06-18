@@ -20,6 +20,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 // helper functions
 import { ScrollHelper } from '../../../helpers/scroll.helper';
 import { GeneralUtilities } from '../../../helpers/general.utils';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-opportunity-search',
@@ -46,6 +47,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
     Volunteer: '0',
     Freelance: '0'
   };
+  globalFilter = [];
   showPreloader = false;
   baseUrl = environment.API_IMAGE;
   opportunities = [];
@@ -115,6 +117,34 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
         break;
       }
     }
+  }
+
+  /**
+   * select opportunity filter
+   */
+  selectOppTypeFilter(parentNode: string, oppType: string) {
+    if (parentNode.length > 0 && oppType.length > 0) {
+      const fltrObj = { key: parentNode, value: oppType };
+      // check if filter contains the value already
+      if (!_.find(this.globalFilter, fltrObj)) {
+        this.globalFilter.push(fltrObj);
+      } else {
+        return;
+      }
+      const params = {
+        q: this.searchString,
+        type: this.searchType,
+        filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+      };
+      this.oppsSearchGetRequest(params);
+    }
+  }
+
+  /**
+   * reset search filter
+   */
+  resetGlobalFilter() {
+    this.globalFilter = [];
   }
 
   ngOnInit() {

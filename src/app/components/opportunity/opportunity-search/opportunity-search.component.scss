@@ -86,6 +86,11 @@
 	list-style: none;
 	overflow: hidden;
 }
+.o-quicklink__item input {
+    cursor: pointer;
+    margin-top: 0;
+}
+
 .o-quicklink__item{
 	list-style-type: none;
 	width: 181px;
