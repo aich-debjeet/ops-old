@@ -24,7 +24,7 @@ export class OpportunitySearchCreatedComponent implements OnInit, OnDestroy {
   opportunityState$: Observable<OpportunityModel>;
   userState$: Observable<Media>;
   userState: any;
-  opportunities: any[];
+  opportunities = [];
   private oppsSub: ISubscription;
 
   /* pagination settings */

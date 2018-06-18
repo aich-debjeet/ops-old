@@ -24,7 +24,7 @@ export class OpportunitySearchAppliedComponent implements OnInit, OnDestroy {
   private oppsSub: ISubscription;
   userState$: Observable<Media>;
   userState: any;
-  opportunities: any[];
+  opportunities = [];
 
   /* pagination settings */
   recordsPerPage = 10;
