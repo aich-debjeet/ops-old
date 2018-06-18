@@ -124,20 +124,10 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
             for (let j = 0; j < filterList[i].filters.length; j++) {
               if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
                 this.industryCount.push(filterList[i].filters[j]);
-                // const indIndex = _.findIndex(this.industryCount, filterList[i].filters[j]);
-                // console.log('FIND indIndex', indIndex);
-                // this.industryCount.push(filterList[i].filters[j]);
-                // if (indIndex > -1) {
-                //   console.log('industry found UPDATE COUNT');
-                //   this.industryCount[indIndex] = filterList[i].filters[j];
-                // } else {
-                //   console.log('industry NOT found ADD NEW');
-                //   this.industryCount.push(filterList[i].filters[j]);
-                // }
               }
             }
           }
-          console.log('this.industryCount', this.industryCount);
+          // console.log('this.industryCount', this.industryCount);
         }
       }
     }
