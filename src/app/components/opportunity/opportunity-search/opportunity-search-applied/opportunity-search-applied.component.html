@@ -1,8 +1,3 @@
 <div id="applied" class="tab-pane">
-    <div *ngIf="opportunities && opportunities.length === 0; else opportunities_found;">
-        <p class="result-not-found">No records found!</p>
-    </div>
-    <ng-template #opportunities_found>
-        <app-opportunity-card *ngFor="let opportunityDetails of opportunities" [opportunity]="opportunityDetails" ></app-opportunity-card>
-    </ng-template>
+    <app-opportunity-card *ngFor="let opportunityDetails of opportunities" [opportunity]="opportunityDetails" ></app-opportunity-card>
 </div>

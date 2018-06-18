@@ -179,11 +179,21 @@
   			</ul>
   		</div>
   	</div><!-- filter section end -->
-		<div class="tab-content m-r--8 m-l--8">
-			<app-opportunity-search-recommended *ngIf="searchType === 'recommended'" ></app-opportunity-search-recommended>
-			<app-opportunity-search-applied *ngIf="searchType === 'applied'" ></app-opportunity-search-applied>
-			<app-opportunity-search-created *ngIf="searchType === 'created'" ></app-opportunity-search-created>
-        </div>
+		<div *ngIf="opportunities?.length === 0;">
+			<p class="result-not-found">No records found!</p>
+		</div>
+		<div class="tab-content m-r--8 m-l--8" *ngIf="!isSearching">
+			<app-opportunity-search-recommended *ngIf="searchType === 'recommended'"></app-opportunity-search-recommended>
+			<app-opportunity-search-applied 	*ngIf="searchType === 'applied'"></app-opportunity-search-applied>
+			<app-opportunity-search-created 	*ngIf="searchType === 'created'"></app-opportunity-search-created>
+		</div>
+		<!-- search prelaoder -->
+		<div *ngIf="showPreloader">
+			<div class="sticky">
+				<div class="loader">Loading...</div>
+			</div>
+		</div>
+		<!-- search prelaoder -->
 	</div>
 </section>
 

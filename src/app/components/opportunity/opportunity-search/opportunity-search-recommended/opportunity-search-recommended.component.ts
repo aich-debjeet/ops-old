@@ -4,14 +4,11 @@ import { OpportunityActions } from './../../../../actions/opportunity.action';
 import { OpportunityModel } from './../../../../models/opportunity.model';
 import { Media } from './../../../../models/media.model';
 
-import { environment } from './../../../../../environments/environment.prod';
-
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
-import { forEach } from '@angular/router/src/utils/collection';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
 
 @Component({
@@ -34,7 +31,6 @@ export class OpportunitySearchRecommendedComponent implements OnInit, OnDestroy 
 
   constructor(
     private store: Store<OpportunityModel>,
-    private mediaStore: Store<Media>,
     private generalUtils: GeneralUtilities
   ) {
     // check for opportunity details

@@ -49,10 +49,9 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
     Volunteer: '0',
     Freelance: '0'
   };
-
-  // recordsPerPage = 10;
-  // showPreloader = false;
+  showPreloader = false;
   baseUrl = environment.API_IMAGE;
+  opportunities = [];
 
   constructor(
     private router: Router,
@@ -72,7 +71,11 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
           && this.generalUtils.checkNestedKey(state, ['search_opportunities_success']) && state['search_opportunities_success'] === true
         ) {
           this.isSearching = false;
-          // this.showPreloader = false;
+          this.showPreloader = false;
+        }
+        if (this.generalUtils.checkNestedKey(state, ['search_opportunities_result', 'opportunityResponse'])) {
+          this.opportunities = state.search_opportunities_result.opportunityResponse;
+          console.log('this.opportunities', this.opportunities);
         }
       }
     });
@@ -134,6 +137,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
             searchText: this.searchString
           }
           this.isSearching = true;
+          this.showPreloader = true;
           this.store.dispatch({ type: OpportunityActions.SEARCH_OPPORTUNITIES, payload: searchOppsParams });
         }
       });
