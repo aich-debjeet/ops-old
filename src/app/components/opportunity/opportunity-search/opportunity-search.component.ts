@@ -47,6 +47,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
     Volunteer: '0',
     Freelance: '0'
   };
+  industryCount = [];
   globalFilter = [];
   showPreloader = false;
   baseUrl = environment.API_IMAGE;
@@ -102,19 +103,42 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
    * Preparing opp counts to display
    */
   prepareFilters(filterList: any) {
-    // for opportunity type filter
     for (let i = 0; i < filterList.length; i++) {
-      if (filterList[i].hasOwnProperty('title') && filterList[i]['title'] === 'OPPORTUNITY_TYPE') {
-        if (filterList[i].hasOwnProperty('filters')) {
-          for (let j = 0; j < filterList[i].filters.length; j++) {
-            if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
-              const oppType = this.generalUtils.capitalizeFirstLetter(filterList[i].filters[j].name);
-              this.opportunitiesCount[oppType] = filterList[i].filters[j].count;
+      if (filterList[i].hasOwnProperty('title')) {
+        // for opportunity type filter
+        if (filterList[i]['title'] === 'OPPORTUNITY_TYPE') {
+          if (filterList[i].hasOwnProperty('filters')) {
+            for (let j = 0; j < filterList[i].filters.length; j++) {
+              if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
+                const oppType = this.generalUtils.capitalizeFirstLetter(filterList[i].filters[j].name);
+                this.opportunitiesCount[oppType] = filterList[i].filters[j].count;
+              }
             }
           }
+          // console.log('this.opportunitiesCount', this.opportunitiesCount);
         }
-        // console.log('this.opportunitiesCount', this.opportunitiesCount);
-        break;
+        // for industry filter
+        if (filterList[i]['title'] === 'INDUSTRY') {
+          if (filterList[i].hasOwnProperty('filters')) {
+            this.industryCount = [];
+            for (let j = 0; j < filterList[i].filters.length; j++) {
+              if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
+                this.industryCount.push(filterList[i].filters[j]);
+                // const indIndex = _.findIndex(this.industryCount, filterList[i].filters[j]);
+                // console.log('FIND indIndex', indIndex);
+                // this.industryCount.push(filterList[i].filters[j]);
+                // if (indIndex > -1) {
+                //   console.log('industry found UPDATE COUNT');
+                //   this.industryCount[indIndex] = filterList[i].filters[j];
+                // } else {
+                //   console.log('industry NOT found ADD NEW');
+                //   this.industryCount.push(filterList[i].filters[j]);
+                // }
+              }
+            }
+          }
+          console.log('this.industryCount', this.industryCount);
+        }
       }
     }
   }
