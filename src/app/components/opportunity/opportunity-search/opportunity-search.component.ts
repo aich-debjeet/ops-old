@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 
 // actions
 import { OpportunityActions } from 'app/actions/opportunity.action';
-import { AuthActions } from 'app/actions/auth.action';
 import { environment } from '../../../../environments/environment';
 
 // store
@@ -12,12 +11,10 @@ import { Store } from '@ngrx/store';
 import { OpportunityModel } from './../../../models/opportunity.model';
 
 // services
-import { LocalStorageService } from './../../../services/local-storage.service';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 // rx
-import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 import { Router, ActivatedRoute } from '@angular/router';
 
 // helper functions
@@ -52,6 +49,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   showPreloader = false;
   baseUrl = environment.API_IMAGE;
   opportunities = [];
+  recordsPerPage = 4;
 
   constructor(
     private router: Router,
@@ -75,7 +73,6 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
         }
         if (this.generalUtils.checkNestedKey(state, ['search_opportunities_result', 'opportunityResponse'])) {
           this.opportunities = state.search_opportunities_result.opportunityResponse;
-          console.log('this.opportunities', this.opportunities);
         }
       }
     });
@@ -102,7 +99,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
    * Preparing opp counts to display
    */
   prepareOppCount(oppTypes: any) {
-    oppTypes.forEach((oppType, index) => {
+    oppTypes.forEach((oppType /*, index */ ) => {
       if (oppType.jobType === 'Audition') {
         this.opportunitiesCount.Audition = String(oppType.count);
       } else if (oppType.jobType === 'Projects') {
@@ -130,7 +127,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
         // check if search type is available
         if (this.searchType.length > 0) {
           const searchOppsParams = {
-            limit: 12,
+            limit: this.recordsPerPage,
             scrollId: '',
             filtersMap: [],
             searchType: this.searchType,
