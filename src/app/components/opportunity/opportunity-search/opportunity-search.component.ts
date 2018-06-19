@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 
 // actions
 import { OpportunityActions } from 'app/actions/opportunity.action';
-import { AuthActions } from 'app/actions/auth.action';
 import { environment } from '../../../../environments/environment';
 
 // store
@@ -12,12 +11,16 @@ import { Store } from '@ngrx/store';
 import { OpportunityModel } from './../../../models/opportunity.model';
 
 // services
-import { LocalStorageService } from './../../../services/local-storage.service';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 // rx
-import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
+import { Router, ActivatedRoute } from '@angular/router';
+
+// helper functions
+import { ScrollHelper } from '../../../helpers/scroll.helper';
+import { GeneralUtilities } from '../../../helpers/general.utils';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-opportunity-search',
@@ -28,13 +31,13 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
 
   @ViewChild('searchInput') searchInput;
   @ViewChild('searchQueryElement') searchQueryElement;
-
-  loginTagState$: Observable<any>;
-  private subscription: ISubscription;
+  private oppsSub: ISubscription;
+  routeSub: any;
   opportunityState$: any;
   opportunityState: any;
-  searchString: string;
-  insdustryType: 'Industry';
+  searchString = '';
+  // default search type
+  searchType = 'recommended';
   isSearching = false;
   opportunitiesCount = {
     Audition: '0',
@@ -44,102 +47,203 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
     Volunteer: '0',
     Freelance: '0'
   };
-  industries: any[];
-
-  recordsPerPage = 10;
+  industryCount = [];
+  globalFilter = [];
   showPreloader = false;
   baseUrl = environment.API_IMAGE;
+  opportunities = [];
+  recordsPerPage = 4;
+  insdustryType = '';
 
   constructor(
-    private store: Store<OpportunityModel>
+    private router: Router,
+    private route: ActivatedRoute,
+    private scrollHelper: ScrollHelper,
+    private store: Store<OpportunityModel>,
+    private generalUtils: GeneralUtilities
   ) {
     // state listener
     this.opportunityState$ = this.store.select('opportunityTags');
-    this.subscription = this.opportunityState$.subscribe((state) => {
+    this.oppsSub = this.opportunityState$.subscribe((state) => {
       if (typeof state !== 'undefined') {
         this.opportunityState = state;
-        if (state && state.searching_opportunities === false) {
+        // check for the http request response status
+        if (
+          this.generalUtils.checkNestedKey(state, ['searching_opportunities']) && state['searching_opportunities'] === false
+          && this.generalUtils.checkNestedKey(state, ['search_opportunities_success']) && state['search_opportunities_success'] === true
+        ) {
           this.isSearching = false;
           this.showPreloader = false;
         }
-
-        if (state && state.get_opportunity_type_success && state.get_opportunity_type_success === true) {
-          this.prepareOppCount(state.get_opportunity_type_data.SUCCESS);
+        if (this.generalUtils.checkNestedKey(state, ['search_opportunities_result', 'opportunityResponse'])) {
+          this.opportunities = state.search_opportunities_result.opportunityResponse;
+          this.prepareFilters(state.search_opportunities_result.filterList);
         }
       }
     });
+  }
 
-    // get opportunity type count
-    this.store.dispatch({ type: OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT });
-
-    /**
-     * load and watch industries
-     */
-    this.loginTagState$ = store.select('loginTags');
-    this.loginTagState$.subscribe((state) => {
-      if (typeof state !== 'undefined') {
-        this.industries = state.industries;
-      }
+  // trigger opps search action
+  oppsSearchGetRequest(queryParams: any) {
+    this.router.navigate(['/opportunity/search'], {
+      queryParams: queryParams
     });
+    return false;
+  }
 
-    // loading industry list
-    this.store.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
+  /**
+   * change the search type
+   */
+  switchSearchType(sType: string) {
+    this.searchType = sType;
+    this.scrollHelper.scrollTop();
+    this.oppsSearchGetRequest({ q: this.searchString, type: this.searchType });
   }
 
   /**
    * Preparing opp counts to display
    */
-  prepareOppCount(oppTypes: any) {
-    oppTypes.forEach((oppType, index) => {
-      if (oppType.jobType === 'Audition') {
-        this.opportunitiesCount.Audition = String(oppType.count);
-      } else if (oppType.jobType === 'Projects') {
-        this.opportunitiesCount.Projects = String(oppType.count);
-      } else if (oppType.jobType === 'Jobs') {
-        this.opportunitiesCount.Jobs = String(oppType.count);
-      } else if (oppType.jobType === 'Internship') {
-        this.opportunitiesCount.Internship = String(oppType.count);
-      } else if (oppType.jobType === 'Volunteer') {
-        this.opportunitiesCount.Volunteer = String(oppType.count);
-      } else if (oppType.jobType === 'Freelance') {
-        this.opportunitiesCount.Freelance = String(oppType.count);
+  prepareFilters(filterList: any) {
+    for (let i = 0; i < filterList.length; i++) {
+      if (filterList[i].hasOwnProperty('title')) {
+        // for opportunity type filter
+        if (filterList[i]['title'] === 'OPPORTUNITY_TYPE') {
+          if (filterList[i].hasOwnProperty('filters')) {
+            for (let j = 0; j < filterList[i].filters.length; j++) {
+              if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
+                const oppType = this.generalUtils.capitalizeFirstLetter(filterList[i].filters[j].name);
+                this.opportunitiesCount[oppType] = filterList[i].filters[j].count;
+              }
+            }
+          }
+          // console.log('this.opportunitiesCount', this.opportunitiesCount);
+        }
+        // for industry filter
+        if (filterList[i]['title'] === 'INDUSTRY') {
+          if (filterList[i].hasOwnProperty('filters')) {
+            this.industryCount = [];
+            for (let j = 0; j < filterList[i].filters.length; j++) {
+              if (filterList[i].filters[j].hasOwnProperty('name') && filterList[i].filters[j].hasOwnProperty('count')) {
+                this.industryCount.push(filterList[i].filters[j]);
+              }
+            }
+          }
+          // console.log('this.industryCount', this.industryCount);
+        }
       }
-    });
+    }
   }
 
-  ngOnInit() { }
+  /**
+   * select opportunity filter
+   */
+  toggleOppTypeFilter(parentNode: string, oppType: string) {
+    if (parentNode.length > 0 && oppType.length > 0) {
+      const fltrObj = { key: parentNode, value: oppType };
+      // check if filter contains the value already
+      if (!_.find(this.globalFilter, fltrObj)) {
+        this.globalFilter.push(fltrObj);
+      } else {
+        // remove
+        this.globalFilter = _.remove(this.globalFilter, (obj) => {
+          return !(obj.key === parentNode && obj.value === oppType);
+        });
+      }
+      const params = {
+        q: this.searchString,
+        type: this.searchType,
+        filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+      };
+      this.oppsSearchGetRequest(params);
+    }
+  }
+
+  /**
+   * select opportunity industry
+   */
+  selectIndustryFilter(indValue: string) {
+    if (indValue.length > 0) {
+      const parentNode = 'INDUSTRY';
+      const indIndex = _.findIndex(this.globalFilter, (o) => o.key === parentNode);
+      if (indIndex > -1) {
+        this.globalFilter[indIndex].value = indValue;
+      } else {
+        this.globalFilter.push({ key: parentNode, value: indValue });
+      }
+      const params = {
+        q: this.searchString,
+        type: this.searchType,
+        filters: encodeURIComponent(JSON.stringify(this.globalFilter))
+      };
+      this.oppsSearchGetRequest(params);
+    }
+  }
+
+  /**
+   * reset search filters
+   */
+  resetGlobalFilter() {
+    this.globalFilter = [];
+  }
+
+  ngOnInit() {
+    this.routeSub = this.route.queryParams
+      .subscribe(params => {
+        // check if search type is available
+        if (params.type && params.type.length > 0) {
+          // giving back the search type
+          this.searchType = params.type;
+        }
+        // check if search type is available
+        if (this.searchType.length > 0) {
+          const searchOppsParams = {
+            limit: this.recordsPerPage,
+            scrollId: '',
+            filtersMap: [],
+            searchType: this.searchType,
+            searchText: this.searchString
+          }
+          if (params.filters && params.filters.length > 0) {
+            searchOppsParams.filtersMap = this.globalFilter
+          }
+          this.isSearching = true;
+          this.showPreloader = true;
+          this.store.dispatch({ type: OpportunityActions.SEARCH_OPPORTUNITIES, payload: searchOppsParams });
+        }
+      });
+  }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.oppsSub.unsubscribe();
+    this.routeSub.unsubscribe();
   }
 
   ngAfterViewInit() {
-
     /**
      * Observing the search input change
      */
     this.searchInput.valueChanges
-    .debounceTime(500)
-    .subscribe(() => {
+      .debounceTime(500)
+      .subscribe(() => {
 
-      this.searchString = this.searchInput.value;
+        // save search input ref in global var
+        this.searchString = this.searchInput.value;
 
-      // search if string is available
-      if (this.searchString && this.searchString.length > 0) {
-        this.isSearching = true;
-
-        const searchParams = {
-          query: this.searchString,
-          offset: 0,
-          limit: this.recordsPerPage
+        if (this.searchString.length === 0) {
+          // trigger search get request
+          this.oppsSearchGetRequest({});
         }
 
-        // search opportunities
-        this.store.dispatch({ type: OpportunityActions.SEARCH_OPPORTUNITIES, payload: searchParams });
-      }
+        // preparing get query params for the search get request
+        const params = {
+          q: this.searchString,
+          type: this.searchType
+        };
 
-    });
+        // trigger search get request
+        this.oppsSearchGetRequest(params);
 
+      });
   }
 
 }

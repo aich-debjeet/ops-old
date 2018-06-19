@@ -1,196 +1,390 @@
+@import './src/assets/scss/helpers/_variables.scss';
+@import '~sass-mq/_mq.scss';
+
+.o-oppo-post-right-block {
+    width: 100%;
+    float: left;
+    padding: 16px;
+    background: #fff;
+    border-radius: 3px;
+}
+
+.o-oppo-post__oppo-title {
+    font-weight: 600;
+}
+
+.c-card__location {
+    clear: both;
+    margin: 0 16px;
+    position: relative;
+}
+
+.with_border_bottom {
+    border-bottom: solid 1px #F3F5F7;
+}
+
+.c-card__opportunity__details {
+    clear: both;
+    margin-bottom: 16px;
+    display: flex;
+    width: 100%;
+    float: left;
+}
+
+.m-t-b-50 {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
 // opportunity inner page style
-
-.c-links__image {
-  width: 24px;
-  float: left;
+.o-opportunity-inner-block {
+    width: 100%;
 }
 
-.c-links__spots {
-  display: inline;
-  float: left;
-  margin-right: 16px;
-  cursor: pointer;
-  font-weight: 500;
-  color: #929292;
+.o-oppo-inner-left {
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        padding:0px;
+    }
 }
 
-.o-action-icons__link {
-  padding: 4px 0px;
-  float: left;
+.o-opportunity-post-user-detail {
+    width: 100%;
 }
 
-.c-links__count {
-  float: left;
-  margin-left: 6px;
-  font-weight: 500;
-  color: #929292;
-  font-size: 11px;
-  line-height: 18px;
-  top: 4px;
-  position: relative;
+.o-post-user__avatar {
+    width: 60px;
+    height: 60px;
+    float: left;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+        width: 100%;
+    }
 }
 
-.o-opportunity-inner-block{
-  width: 100%;
-  padding-top: 3.5%;
+.o-post-user__info {
+    width: 70%;
+    float: left;
+    padding: 8px 0px 0px 16px;
 }
 
-.o-opportunity-post-user-detail{
-	width: 100%;
+.o-post-user__name {
+    width: 100%;
 }
-.o-post-user__avatar{
-	width: 60px;
-	height: 60px;
-	float: left;
-	border-radius: 50%;
-	overflow: hidden;
-	img{
-		width: 100%;
-	}
-}
-.o-post-user__info{
-	width: 70%;
-	float: left;
-	padding: 8px 0px 0px 16px;
-}
-.o-post-user__name{
-	width: 100%;
-}
-.o-post-user__desigination{
-	width: 100%;
+
+.o-post-user__desigination {
+    width: 100%;
 }
 
 // detail sec
+.o-opportunity-detail {
+    width: 100%;
+    background: #fff;
+    min-height: 600px;
+    padding: 16px 24px 32px 24px;
+    border-radius: 3px;
+    float: left;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        padding:15px;
+    }
+}
 
-.o-opportunity-detail{
-	width: 100%;
-	background: #fff;
-	min-height: 600px;
-	padding: 16px 24px 32px 24px;
-	border-radius: 3px;
-	float: left;
+.o-oppo-post__head {
+    width: 100%;
+    float: left;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
-.o-job-post__head{
-	width: 100%;
-	float: left;
-	font-size: 13px;
-	font-weight: 600;
-	text-transform: uppercase;
+
+.o-oppo-post__title {
+    width: 100%;
+    float: left;
 }
-.o-job-post__title{
-	width: 100%;
-	float: left;
+
+.o-oppo-post--title-width {
+    width: 90%;
+    float: left;
 }
-.o-job-post--title-width{
-	width: 90%;
-	float: left;
-}
+
 // dropdown
+.o-oppo-post__edit {
+    float: right;
+    margin-top: 8px;
+}
 
-.o-job-post__edit{
-	float: right;
-	margin-top: 8px;
+.c-opsdropdown--size-oppo {
+    max-width: 80px;
+    min-width: 80px;
+    padding: 0 16px!important;
+    border-radius: 3px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.18);
+    border: none!important;
+    left: -60px;
 }
-.c-opsdropdown--size-job{
-	max-width: 80px;
-	min-width: 80px;
-	padding :16px!important;
-	border-radius: 3px;	
-	background-color: #FFFFFF;	
-	box-shadow: 0 1px 4px 0 rgba(0,0,0,0.18);
-	border:none!important;
-	left: -60px;
-}
-.o-job-edit__drop{
-	padding:5px 0px!important;
+
+.o-oppo-edit__drop {
+    padding: 5px 0px!important;
 }
 
 // address
-
-.o-job-post__address{
-	width: 100%;
-	float: left;
-}
-.o-job-post__location-icon{
-	width: 16px;
-	height: 16px;
-	float: left;
-	margin: 3px;
+.o-oppo-post__address {
+    width: 100%;
+    float: left;
 }
 
-// job short det
-
-.o-job-post__short-det{
-	margin-top: 24px;
-	width: 100%;
-	float: left;
+.o-oppo-post__location-icon {
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin: 3px;
 }
-.o-job-post__det{
-	float: left;
+
+// oppo short det
+.o-oppo-post__short-det {
+    margin-top: 24px;
+    width: 100%;
+    float: left;
+}
+
+.o-oppo-post__det {
+    float: left;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        margin-left:0px!important;
+    }
 }
 
 // actions
+.o-oppo-post__actions {
+    width: 100%;
+    float: left;
+}
 
-.o-job-post__actions{
-	width: 100%;
-	float: left;
+.o-oppo-post__uplod-info {
+    float: right;
+    margin-top: 6px;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        float: left;
+    }
 }
-.o-job-post__uplod-info{
-	float: right;
-	margin-top: 6px;
-}
-.o-action-icons__link{
-  padding: 4px 0px;
-  float: left;
+
+.o-action-icons__link {
+    padding: 4px 0px;
+    float: left;
 }
 
 // description
-
-.o-job-post__description{
-	width: 100%;
-	float: left;
+.o-oppo-post__description {
+    width: 100%;
+    float: left;
 }
-.btn-label-icon-opportunity{
-	background: url(https://cdn.onepagespotlight.com/img/svg/add_channel_theme_color.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 15px;
-  height: 15px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-top: -1px;
+
+.btn-label-icon-opportunity {
+    background: url(https://ops-v2.netlify.com/assets/svg/add_channel_theme_color.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -1px;
 }
 
 // attachment
-
-
-.o-job-post__media-list{
-	list-style: none;
-}
-.o-job-post__media-item{
-	list-style-type: none;
-	float: left;
-	margin-right: 16px;
-	border-radius: 3px;
-	background: url(https://cdn.onepagespotlight.com/img/quick3.jpg) no-repeat;
-	background-size: cover;
-	width: 200px;
-	height: 150px;
+.o-oppo-post__media-list {
+    list-style: none;
 }
 
-.o-job-post__media-action{
-	width: 100%;
-	float: left;
-	margin-top: 24px;
+.o-oppo-post__media-item {
+    list-style-type: none;
+    float: left;
+    margin-right: 16px;
+    border-radius: 3px;
+    background: url(https://ops-v2.netlify.com/assets/demo/quick3.jpg) no-repeat;
+    background-size: cover;
+    width: 200px;
+    height: 150px;
+}
+
+.o-oppo-post__media-action {
+    width: 100%;
+    float: left;
+    margin-top: 24px;
 }
 
 // right block
-
-.o-job-post-right-block{
-	width: 100%;
-	float: left;
-	padding:16px;
-	background: #fff;
-	border-radius: 3px;
+.o-oppo-post-right-block {
+    width: 100%;
+    float: left;
+    padding: 16px;
+    background: #fff;
+    border-radius: 3px;
 }
 
+// similar oppos
+.o-oppo-post__oppo-title {
+    font-weight: 600;
+}
+
+.o-similar-oppo__location {
+    font-size: 11px;
+    line-height: 20px;
+    color: #929292;
+    display: inline;
+    top: 1px;
+    position: absolute;
+    padding-left: 8px;
+}
+
+// audition
+.o-oppo-post__info {}
+
+.o-oppo-calander {
+    width: 16px;
+    height: 16px;
+}
+
+.o-oppo-actor__ico {
+    width: 16px;
+    height: 16px;
+}
+
+// project
+.o-oppo-collaborators-single {
+    width: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+}
+
+.o-oppo-collaborators__avatar {
+    width: 48px;
+    height: 48px;
+    float: left;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+        width: 48px;
+    }
+}
+
+.o-oppo-collaborators__name {
+    float: left;
+}
+
+
+
+// applicant list
+.o-applicant-list-container {
+    width: 100%;
+    float: left;
+    background: #fff;
+    padding: 16px;
+}
+
+.o-applicant-list__heading {
+    padding-bottom: 16px;
+    // border-bottom: 1px #ccc solid;
+    width: 100%;
+    float: left;
+    .c-h3 {
+        font-weight: normal;
+    }
+}
+
+.o-applicant-list__block {
+    height: 535px;
+    width: 100%;
+    float: left;
+    overflow: hidden;
+    overflow-y: scroll;
+    margin-top: 16px;
+}
+
+.o-applicant-list__view {
+    list-style: none;
+    margin-top: 16px;
+}
+
+.o-applicant-list__items {
+    list-style-type: none;
+    margin-bottom: 16px;
+    float: left;
+    width: 100%;
+}
+
+.o-applicant-list__prof-img {
+    width: 32px;
+    height: 32px;
+    float: left;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 8px;
+    img {
+        width: 100%;
+    }
+}
+
+.o-applicant-list__name {
+    width: 83%;
+    float: left;
+    margin-top: -5px;
+    span {
+        width: 100%;
+    }
+    a {
+        display: block;
+        text-transform: uppercase;
+    }
+}
+
+
+
+// apply job pop
+.o-apply-job {
+    padding: 24px;
+}
+
+.o-apply-job-form {
+    width: 100%;
+    float: left;
+}
+
+// for upload file btn
+.o-apply-job_upload {
+    width: 140px;
+    height: 34px;
+    margin: 0px auto;
+    opacity: 0;
+    position: absolute;
+    z-index: 1;
+    cursor: pointer;
+    left: 0;
+}
+
+.o-apply-job-btn {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    margin: 0px auto;
+    cursor: pointer;
+    top: 3px;
+    @include mq($from: $mobile_sm, $until: $mobile_lg) {
+        margin-top: 16px;
+    }
+}
+
+.o-apply-job__upload-btn {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.ltr-space {
+    letter-spacing: 1px;
+}
+
+.text_uppercase {
+    text-transform: uppercase;
+}

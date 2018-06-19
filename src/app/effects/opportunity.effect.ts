@@ -50,6 +50,18 @@ export class OpportunityEffect {
     );
 
   /**
+   * delete opportunity by id
+   */
+  @Effect()
+  deleteOpportunity$ = this.actions$
+    .ofType(OpportunityActions.DELETE_OPPORTUNITY)
+    .map(toPayload)
+    .switchMap((payload) => this.opportunityService.deleteOpportunity(payload)
+      .map((res) => ({ type: OpportunityActions.DELETE_OPPORTUNITY_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: OpportunityActions.DELETE_OPPORTUNITY_FAILED, payload: res }))
+    );
+
+  /**
    * Apply for the opportunity
    * @params job id
    */
@@ -62,55 +74,55 @@ export class OpportunityEffect {
       .catch((res) => Observable.of({ type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY_FAILED, payload: res }))
     );
 
-  /**
-   * Get opportunity type count
-   */
-  @Effect()
-  getOpportunityTypeCount$ = this.actions$
-    .ofType(OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT)
-    .map(toPayload)
-    .switchMap((payload) => this.opportunityService.getOpportunityTypeCount()
-      .map((res) => ({ type: OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT_FAILED, payload: res }))
-    );
+  // /**
+  //  * Get opportunity type count
+  //  */
+  // // @Effect()
+  // // getOpportunityTypeCount$ = this.actions$
+  // //   .ofType(OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT)
+  // //   .map(toPayload)
+  // //   .switchMap((payload) => this.opportunityService.getOpportunityTypeCount()
+  // //     .map((res) => ({ type: OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT_SUCCESS, payload: res }))
+  // //     .catch((res) => Observable.of({ type: OpportunityActions.GET_OPPORTUNITY_TYPE_COUNT_FAILED, payload: res }))
+  // //   );
 
-  /**
-   * Get opportunities by filter i.e. recommended
-   */
-  @Effect()
-  getOpportunities$ = this.actions$
-    .ofType(OpportunityActions.GET_OPPORTUNITIES)
-    .map(toPayload)
-    .switchMap((payload) => this.opportunityService.getOpportunities(payload)
-      .map((res) => ({ type: OpportunityActions.GET_OPPORTUNITIES_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: OpportunityActions.GET_OPPORTUNITIES_FAILED, payload: res }))
-    );
+  // /**
+  //  * Get opportunities by filter i.e. recommended
+  //  */
+  // @Effect()
+  // getOpportunities$ = this.actions$
+  //   .ofType(OpportunityActions.GET_OPPORTUNITIES)
+  //   .map(toPayload)
+  //   .switchMap((payload) => this.opportunityService.getOpportunities(payload)
+  //     .map((res) => ({ type: OpportunityActions.GET_OPPORTUNITIES_SUCCESS, payload: res }))
+  //     .catch((res) => Observable.of({ type: OpportunityActions.GET_OPPORTUNITIES_FAILED, payload: res }))
+  //   );
 
-  /**
-   * Get opportunities by filter i.e. recommended
-   */
-  @Effect()
-  getAppliedOpportunities$ = this.actions$
-    .ofType(OpportunityActions.GET_APPLIED_OPPORTUNITIES)
-    .map(toPayload)
-    .switchMap((payload) => this.opportunityService.getAppliedOpportunities(payload)
-      .map((res) => ({ type: OpportunityActions.GET_APPLIED_OPPORTUNITIES_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: OpportunityActions.GET_APPLIED_OPPORTUNITIES_FAILED, payload: res }))
-    );
+  // /**
+  //  * Get opportunities by filter i.e. recommended
+  //  */
+  // @Effect()
+  // getAppliedOpportunities$ = this.actions$
+  //   .ofType(OpportunityActions.GET_APPLIED_OPPORTUNITIES)
+  //   .map(toPayload)
+  //   .switchMap((payload) => this.opportunityService.getAppliedOpportunities(payload)
+  //     .map((res) => ({ type: OpportunityActions.GET_APPLIED_OPPORTUNITIES_SUCCESS, payload: res }))
+  //     .catch((res) => Observable.of({ type: OpportunityActions.GET_APPLIED_OPPORTUNITIES_FAILED, payload: res }))
+  //   );
 
-   // File Upload
-   @Effect()
-   fileUpload$ = this.actions$
-   .ofType(OpportunityActions.FILE_UPLOAD)
-   .map(toPayload)
-   .switchMap((payload) => this.opportunityService.fileUpload(payload)
-     .map(res => ({ type: OpportunityActions.FILE_UPLOAD_SUCCESS, payload: res }))
-     .catch((res) => Observable.of({ type: OpportunityActions.FILE_UPLOAD_FAILED, payload: res }))
-   );
+  // File Upload
+  @Effect()
+    fileUpload$ = this.actions$
+    .ofType(OpportunityActions.FILE_UPLOAD)
+    .map(toPayload)
+    .switchMap((payload) => this.opportunityService.fileUpload(payload)
+      .map(res => ({ type: OpportunityActions.FILE_UPLOAD_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: OpportunityActions.FILE_UPLOAD_FAILED, payload: res }))
+    );
 
   constructor(
-      private actions$: Actions,
-      private opportunityService: OpportunityService
+    private actions$: Actions,
+    private opportunityService: OpportunityService
   ) {}
 
 }
