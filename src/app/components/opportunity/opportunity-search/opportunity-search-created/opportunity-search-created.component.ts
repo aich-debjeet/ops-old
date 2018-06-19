@@ -1,17 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { OpportunityActions } from './../../../../actions/opportunity.action';
 import { OpportunityModel } from './../../../../models/opportunity.model';
 import { Media } from './../../../../models/media.model';
-
-import { environment } from './../../../../../environments/environment.prod';
 
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
-import { forEach } from '@angular/router/src/utils/collection';
+import { GeneralUtilities } from '../../../../helpers/general.utils';
 
 @Component({
   selector: 'app-opportunity-search-created',
@@ -23,8 +20,8 @@ export class OpportunitySearchCreatedComponent implements OnInit, OnDestroy {
   opportunityState$: Observable<OpportunityModel>;
   userState$: Observable<Media>;
   userState: any;
-  opportunities: any[];
-  private subscription: ISubscription;
+  opportunities = [];
+  private oppsSub: ISubscription;
 
   /* pagination settings */
   recordsPerPage = 10;
@@ -32,7 +29,8 @@ export class OpportunitySearchCreatedComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<OpportunityModel>,
-    private mediaStore: Store<Media>
+    private mediaStore: Store<Media>,
+    private generalUtils: GeneralUtilities
   ) {
     // check for opportunity details
     this.opportunityState$ = this.store.select('opportunityTags');
@@ -44,14 +42,14 @@ export class OpportunitySearchCreatedComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     // observe the opportunity state
-    this.subscription = this.opportunityState$.subscribe((state) => {
-      if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
-        this.opportunities = state.search_opportunities_data.SUCCESS;
-      }
-
-      // check for the result of created opportunities
-      if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
-        this.opportunities = state.get_opportunities_data.SUCCESS;
+    this.oppsSub = this.opportunityState$.subscribe((state) => {
+      if (typeof state !== 'undefined') {
+        if (
+          this.generalUtils.checkNestedKey(state, ['search_opportunities_result', 'opportunityResponse'])
+          && state['search_opportunities_result']['opportunityResponse'].length > 0
+        ) {
+          this.opportunities = state['search_opportunities_result']['opportunityResponse'];
+        }
       }
     });
 
@@ -75,14 +73,14 @@ export class OpportunitySearchCreatedComponent implements OnInit, OnDestroy {
       offset: 0, // initial request
       limit: this.recordsPerPage
     }
-    this.store.dispatch({
-      type: OpportunityActions.GET_OPPORTUNITIES,
-      payload: createdSearchParams
-    });
+    // this.store.dispatch({
+    //   type: OpportunityActions.GET_OPPORTUNITIES,
+    //   payload: createdSearchParams
+    // });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.oppsSub.unsubscribe();
   }
 
 }

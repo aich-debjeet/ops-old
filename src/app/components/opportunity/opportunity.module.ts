@@ -2,6 +2,8 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { OpportunityComponent } from './opportunity.component';
 import { OpportunityViewComponent } from './opportunity-view/opportunity-view.component';
@@ -28,7 +30,7 @@ const opportunityRoutes: Routes = [
         path: 'search',
         component: OpportunitySearchComponent,
         children: [
-          { path: '', redirectTo: 'recommended', pathMatch: 'full' },
+          // { path: '', redirectTo: 'recommended', pathMatch: 'full' },
           { path: 'recommended', component: OpportunitySearchRecommendedComponent },
           { path: 'applied', component: OpportunitySearchAppliedComponent },
           { path: 'created', component: OpportunitySearchCreatedComponent }
@@ -45,9 +47,11 @@ const opportunityRoutes: Routes = [
     FormsModule,
     CommonModule,
     SharedModule,
+    TextMaskModule,
     NgxMasonryModule,
     SharedPipesModule,
     ReactiveFormsModule,
+    InfiniteScrollModule,
     RouterModule.forChild(opportunityRoutes)
   ],
   declarations: [
