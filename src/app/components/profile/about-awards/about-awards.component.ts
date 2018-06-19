@@ -121,6 +121,7 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
         this.profileStore.dispatch({ type: ProfileActions.ADD_USER_WORK, payload: body});
         this.toastr.success('New award has been added successfully!');
         this.modalService.close('addAwardPopup');
+        this.resetForm();
       } else {
         const body = {
           'role': value.award,
@@ -133,7 +134,9 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
         this.profileStore.dispatch({ type: ProfileActions.UPDATE_USER_WORK, payload: body});
         this.toastr.success('Your award has been updated successfully!');
         this.modalService.close('addAwardPopup');
+        this.resetForm();
       }
+      
     }
   }
 
@@ -163,6 +166,10 @@ export class AboutAwardsComponent implements OnInit, OnDestroy {
    */
   awardFormClose() {
     this.modalService.close('addAwardPopup');
+  }
+
+  resetForm(){
+    this.awardForm.reset();
   }
 
 }
