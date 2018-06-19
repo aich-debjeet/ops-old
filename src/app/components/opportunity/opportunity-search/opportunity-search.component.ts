@@ -53,6 +53,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   baseUrl = environment.API_IMAGE;
   opportunities = [];
   recordsPerPage = 4;
+  insdustryType = '';
 
   constructor(
     private router: Router,
