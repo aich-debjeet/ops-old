@@ -55,7 +55,7 @@ export const routes: Routes = [
  { path: 'directory', component: DirectoryListComponent, canActivate: [AuthGuard] },
  { path: 'notification', component: NotificationComponent, canActivate: [AuthGuard] },
  { path: 'user/message', loadChildren: './components/message/message.module#MessageModule', canActivate: [AuthGuard] },
- { path: 'portfolio', loadChildren: './components/message/message.module#MessageModule' },
+ { path: 'portfolio', loadChildren: './components/portfolio/portfolio.module#PortfolioModule' },
  { path: 'planner', component: PlannerComponent, canActivate: [AuthGuard] },
 //  { path: 'network', component: NetworkComponent, canActivate: [AuthGuard] },
  { path: 'project', component: ProjectComponent, canActivate: [AuthGuard] },
