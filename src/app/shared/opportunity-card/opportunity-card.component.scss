@@ -1,6 +1,10 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import './src/assets/scss/helpers/_helpers.scss';
 
+.c-user__image {
+    width: 100%;
+}
+
 .c-card {
     width: 100%;
     height: auto;
