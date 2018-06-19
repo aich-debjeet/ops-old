@@ -26,6 +26,13 @@ export class EventService {
       return this.api.get('/portal/event/get/eventsBanner');
     }
 
+    /** 
+     * edit events
+    */
+    eventsEdit(body: any) {
+      return this.api.put('/portal/event/update', body);
+    }
+
     /**
      * list of attendee
      */

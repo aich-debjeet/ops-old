@@ -9,6 +9,7 @@ import { EventsCreateComponent } from './events-create/events-create.component';
 import { EventsInnerComponent } from './events-inner/events-inner.component';
 import { EventsLandingComponent } from './events-landing/events-landing.component';
 import { NguCarouselModule } from '@ngu/carousel';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 // import 'hammerjs';
 import { EventsCarditemComponent } from './events-carditem/events-carditem.component';
 
@@ -23,6 +24,7 @@ import 'rxjs/add/observable/throw';
 
 
 import { NgxfUploaderModule } from 'ngxf-uploader';
+import { EventsEditComponent } from './events-edit/events-edit.component';
 
 
 const routes: Routes = [
@@ -39,8 +41,8 @@ const routes: Routes = [
     component: EventsInnerComponent
   },
   {
-    path: ':id/edit',
-    component: EventsCreateComponent
+    path: 'edit',
+    component: EventsEditComponent
   }
 
 ]
@@ -55,6 +57,7 @@ const routes: Routes = [
     NguCarouselModule,
     DpDatePickerModule,
     HttpClientModule,
+    InfiniteScrollModule,
     NgxfUploaderModule.forRoot(),
   ],
   declarations: [
@@ -62,7 +65,8 @@ const routes: Routes = [
     EventsCreateComponent,
     EventsInnerComponent,
     EventsLandingComponent,
-    EventsCarditemComponent
+    EventsCarditemComponent,
+    EventsEditComponent
   ]
 })
 export class EventsModule { }

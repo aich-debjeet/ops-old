@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, NgZone, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray, NgControl } from '@angular/forms';
 import {IDatePickerConfig} from 'ng2-date-picker';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -7,6 +7,7 @@ import { NgxfUploaderService, UploadEvent, UploadStatus, FileError } from 'ngxf-
 import { DatePipe } from '@angular/common';
 import { EventValidator, FormValidation } from '../../../helpers/event.validator';
 import {Moment} from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import {} from '@types/googlemaps';
@@ -28,14 +29,13 @@ import { environment } from './../../../../environments/environment';
 
 import * as moment from 'moment';
 
-
 @Component({
-  selector: 'app-events-create',
-  templateUrl: './events-create.component.html',
-  styleUrls: ['./events-create.component.scss'],
+  selector: 'app-events-edit',
+  templateUrl: './events-edit.component.html',
+  styleUrls: ['./events-edit.component.scss'],
   providers: [DatePipe, EventValidator]
 })
-export class EventsCreateComponent implements OnInit, OnDestroy {
+export class EventsEditComponent implements OnInit {
   public eventForm: FormGroup;
   public latitude: number;
   public longitude: number;
@@ -55,6 +55,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   private sub: any;
   eventDetail: any;
   eventCover: File;
+  textEdit = true;
 
     // Address --
     address: string;
@@ -77,7 +78,6 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     closeOnSelect: true,
     disableKeypress: 'Disabled',
     returnedValueType: 'Moment'
-
   };
 
   config: IDatePickerConfig = {
@@ -93,6 +93,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private toastr: ToastrService,
     private store: Store<EventModal>,
     private route: ActivatedRoute,
     private router: Router,
@@ -102,38 +103,34 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
   ) {
-
     this.tagState$ = this.store.select('eventTags');
     this.tagState$.subscribe((state) => {
       this.industryList = state['all_industry'];
-      this.eventDetail = state['event_detail'];
+      // this.eventDetail = state['event_detail'];
+      // console.log(this.eventDetail)
+      // this.buildForm();
     });
-
+    this.store.select('eventTags')
+    .first(state => state['event_detail'] !== 'undefined' )
+    .subscribe( data => {
+      this.eventDetail = data['event_detail']
+      console.log(this.eventDetail)
+      this.buildForm();
+      this.getLocationGoogle();
+    });
     this.store.dispatch({ type: EventActions.GET_ALL_INDUSTRY });
-  }
+   }
 
   ngOnInit() {
-    // load stuffs
+    // this.buildForm();
+    // this.getLocationGoogle();
     this.store.select('profileTags')
     .first(profile => profile['profile_navigation_details'].handle )
     .subscribe( data => {
       this.userHandle = data['profile_cards'].active.handle;
     });
 
-    this.sub = this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.store.dispatch({ type: EventActions.EVENT_DETAILS_LOAD, payload: this.id });
-    });
-
-    // Form Build
-    this.buildForm();
-    this.getLocationGoogle();
   }
-
-  /**
-   * File Change Binder
-   * @param  $event
-   */
 
   fileChangeListener($event) {
     const data = new FormData();
@@ -189,34 +186,35 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   }
 
 
-  ngOnDestroy() {
-      this.sub.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //     this.sub.unsubscribe();
+  // }
 
   /**
    * Init Form Action
    */
   buildForm() {
     this.eventForm = this.fb.group({
-      'event_name' : ['', [Validators.required]],
-      'event_genres': ['', [Validators.required]],
-      'event_industry': ['', [Validators.required]],
-      'event_venue': ['', [Validators.required]],
-      'event_startdate' : ['', [Validators.required, FormValidation.datevalidation]],
-      'event_enddate' : ['', [Validators.required, FormValidation.oldEndDatevalidation, this.dateComparision.bind(this)]],
+      'event_name' :[this.eventDetail.title,[Validators.required]],
+      'event_genres': [this.eventDetail.Type.eventType,[Validators.required]],
+      'event_industry': [this.eventDetail.industry[0],[Validators.required]],
+      'event_venue': [this.eventDetail.venue.location,[Validators.required]],
+      'event_startdate' : [this.removeTime(this.eventDetail.eventTiming.startDate), [Validators.required, FormValidation.datevalidation]],
+      'event_enddate' : [this.removeTime(this.eventDetail.eventTiming.endDate),[Validators.required, FormValidation.oldEndDatevalidation]],
       'access': '0',
       'event_type': 'Free',
       'event_agenda' : this.fb.array([]),
       // 'event_ts_type' : this.fb.array(
       //   [this.ticketItem('')]
       // ),
-      'event_brief' : ['', [Validators.required]],
-      'ts_startTime': ['', [Validators.required, FormValidation.datevalidation, this.tickeSellStartDate.bind(this)]],
-      'ts_endTime': ['', [Validators.required, FormValidation.oldEndDatevalidation, this.tickeSellEndDate.bind(this),this.ticketSellDateComparision.bind(this)]],
-      'ts_quantity': ['', [Validators.required]]
+      'event_brief' :[this.eventDetail.brief, [Validators.required]],
+      'ts_startTime': [this.removeTime(this.eventDetail.extras.ticket[0].startDate),[Validators.required, FormValidation.datevalidation]],
+      'ts_endTime': [this.removeTime(this.eventDetail.extras.ticket[0].endDate),[Validators.required, FormValidation.oldEndDatevalidation]],
+      'ts_quantity': [this.eventDetail.extras.ticket[0].maximum, [Validators.required]]
     }, {
       // validators: [FormValidation.endateValidation]
     })
+    this.eventCoverImage = this.eventDetail.extras.coverImage
 
   }
 
@@ -232,7 +230,6 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     if (endSelect < startSelect) {
       return { endDateLess: true };
     }
-    return null;
 
   }
 
@@ -323,26 +320,26 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       this.ngZone.run(() => {
         // get the place result
         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-        // console.log(place)
+        console.log(place)
 
-        for (let i = 0; i < place.address_components.length; i++) {
-          const addressType = place.address_components[i].types[0];
-          if (componentForm[addressType]) {
-            const val = place.address_components[i][componentForm[addressType]];
-            if ( addressType === 'country') {
-              this.country = val;
-            }
-            if ( addressType === 'postal_code') {
-              this.postalCode = val;
-            }
-            if ( addressType === 'locality') {
-              this.city = val
-            }
-            if ( addressType === 'administrative_area_level_1') {
-              this.state = val
-            }
-          }
-        }
+        // for (let i = 0; i < place.address_components.length; i++) {
+        //   const addressType = place.address_components[i].types[0];
+        //   if (componentForm[addressType]) {
+        //     const val = place.address_components[i][componentForm[addressType]];
+        //     if ( addressType === 'country') {
+        //       this.country = val;
+        //     }
+        //     if ( addressType === 'postal_code') {
+        //       this.postalCode = val;
+        //     }
+        //     if ( addressType === 'locality') {
+        //       this.city = val
+        //     }
+        //     if ( addressType === 'administrative_area_level_1') {
+        //       this.state = val
+        //     }
+        //   }
+        // }
 
         // verify result
         if (place.geometry === undefined || place.geometry === null) {
@@ -400,8 +397,8 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    * @param value value of form
    */
   submitForm(value) {
-    // console.log(this.eventForm.valid)
-    // console.log(this.eventCoverImage)
+    console.log(this.eventForm.valid)
+    console.log(this.eventCoverImage)
     if (this.eventForm.valid) {
       if (this.eventCoverImage === '') {
         this.imageUpload = true;
@@ -410,6 +407,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       }
       this.imageUpload = false;
       const data = {
+          id:  this.eventDetail.id,
           title : value.event_name,
           access :  Number(value.access),
           active : true,
@@ -441,16 +439,19 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
             eventType : value.event_genres
           }
       }
-      // console.log(data)
+      // const id =  this.eventDetail.id;
+      // const edit = [data, id]
+      //  console.log(edit)
 
       // Dispatch to form value to server
-      this.store.dispatch({ type: EventActions.EVENT_REG, payload: data });
+      this.store.dispatch({ type: EventActions.EVENT_EDIT, payload: data });
 
       this.store.select('eventTags')
-        .first(regevent => regevent['event_create_success'] === true )
+        .first(regevent => regevent['event_updated'] === true )
         .subscribe( reg => {
-          const id = reg['event_id'];
-          this.router.navigate(['/event/inner/' + id]);
+          // const id = reg['event_id'];
+          this.toastr.success('Event Successfully Updated');
+          this.router.navigate(['/event/inner/' +  this.eventDetail.id]);
         });
     }
   }
@@ -461,6 +462,20 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   reverseDate(string) {
     return string.split('-').reverse().join('-');
   }
-
+  removePhoto(){
+    console.log('comming')
+    
+      this.eventCoverImage = '';
+    
+  }
+  enableEdit(){
+    this.router.navigateByUrl('/event/inner/' + this.eventDetail.id);
+  }
+  removeTime(s:string){
+    let x = s.split('T')
+    console.log(s.split('T'))
+    let d = x[0];
+    console.log(d);
+    return d.split('-').reverse().join('-');
+  }
 }
-

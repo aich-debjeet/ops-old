@@ -62,8 +62,13 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   postalCode: string;
   city: string;
   event_loading: boolean = true;
-
+  scrollId: any;
   locPop: boolean = false;
+
+  sum = 10;
+  total_pages = 10;
+  scrolling = 0;
+  scrollingLoad = 1000;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -78,9 +83,10 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   ) {
     this.tagState$ = this.store.select('eventTags');
     this.subscription = this.tagState$.subscribe((state) => {
-      if (state['event_list']) {
+      if (state['event_list'] && state.event_Loaded === true) {
         this.eventList = state['event_list'];
-        console.log(this.eventList)
+        this.scrollId = state['event_scroll_id']
+        // console.log(this.eventList, this.scrollId)
       }
       this.eventType = state['event_type'];
       this.eventTypeList = state['eventType_load'];
@@ -195,14 +201,16 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     let data;
     if(this.filterEventType === '' && (this.filterStartDate === '' && this.filterEndDate === '')){
        data = {
+        scrollId: '',
         searchType: this.filterStatus,
         searchText:this.filterLocation || '',
         filtersMap:[]
       }
-      console.log(data)
+      // console.log(data)
     }
     if (this.filterEventType !== ''  && (this.filterStartDate === '' && this.filterEndDate === '')){
        data = {
+        scrollId: '',
         searchType: this.filterStatus,
         searchText:this.filterLocation || '',
         filtersMap:[
@@ -212,10 +220,11 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
           }
         ]
       }
-      console.log(data)
+      // console.log(data)
     }
     if (this.filterEventType === '' && (this.filterStartDate !== '' && this.filterEndDate !== '')){
       data = {
+        scrollId: '',
         searchType: this.filterStatus,
         searchText:this.filterLocation || '',
         filtersMap:[
@@ -229,10 +238,11 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
           }
         ]
       }
-      console.log(data)
+      // console.log(data)
     }
     if (this.filterEventType !== '' && (this.filterStartDate !== '' && this.filterEndDate !== '')){
       data = {
+        scrollId: '',
         searchType: this.filterStatus,
         searchText:this.filterLocation || '',
         filtersMap:[
@@ -250,7 +260,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
           }
         ]
       }
-      console.log(data)
+      // console.log(data)
     }
     this.store.dispatch({ type: EventActions.EVENT_SEARCH, payload: data });
   }
@@ -320,7 +330,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
       this.ngZone.run(() => {
         // get the place result
         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-console.log(place)
+// console.log(place)
         // for (let i = 0; i < place.address_components.length; i++) {
         //   const addressType = place.address_components[i].types[0];
         //   if (componentForm[addressType]) {
@@ -384,5 +394,18 @@ console.log(place)
   manualSearch(value: string){
     this.filterLocation = value;
     this.serachApi();
+  }
+  onScroll(e) {
+    // console.log(e)
+    this.scrolling = e.currentScrollPosition;
+    // console.log(this.scrolling)
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 1000
+      const data = {
+        searchType: this.filterStatus,
+        scrollId: this.scrollId,
+      }
+      this.store.dispatch({ type: EventActions.EVENT_SEARCH, payload: data });
+    }
   }
 }
