@@ -116,7 +116,6 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
 import { NotificationComponent } from './components/notification/notification.component';
-import { PortfolioComponent } from './components/portfolio/portfolio.component';
 // import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ExploreComponent } from './components/explore/explore.component';
@@ -139,8 +138,6 @@ import { AboutComponent } from './components/about/about.component';
     SpotfeedComponent,
     SpotfeedPremiumComponent,
     NotificationComponent,
-    PortfolioComponent,
-    // SearchComponent,
     SettingsComponent,
     PopularArtistsComponent,
     NearestEventsComponent,
