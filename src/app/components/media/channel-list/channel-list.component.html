@@ -31,10 +31,15 @@
                 </div>
             </div>
             <!-- channel search end -->
-            <div id="ops_scrollbar" class="o-add-channel-container" infinite-scroll (scrolled)="onScroll($event)">
+            <div id="ops_scrollbar" class="o-add-channel-container" 
+                infinite-scroll
+                [infiniteScrollDistance]="1"
+                [infiniteScrollThrottle]="100"
+                (scrolled)="onScroll()"
+                [scrollWindow]="false">
                 <div class="o-channel-list-container">
                     <ul class="o-channel-block">
-                        <li class="o-channel-items" *ngFor="let channel of userChannels | channelFilter : searchChannel; let i = index" (click)="chooseChannel(channel)">
+                        <li class="o-channel-items" *ngFor="let channel of userChannels; let i = index" (click)="chooseChannel(channel)">
                             <input class="" type="radio" name="channel" id="{{ 'channel_'+ i }}" [disabled]="settingDisable" (click)="chooseChannel(channel)" />
                             <label for="{{ 'channel_' + i }}" class="o-channel-label" (click)="chooseChannel(channel)">
                           <span class="o-channel-content">

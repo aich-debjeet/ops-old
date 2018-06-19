@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { TabComponents  } from '../../shared/tabs/tabset';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 
@@ -28,7 +28,7 @@ import * as MediumEditor from 'medium-editor';
   styleUrls: ['./media.component.scss']
 })
 
-export class MediaComponent implements OnInit, AfterViewInit {
+export class MediaComponent implements OnInit {
   statusForm: FormGroup;
   mediaForm: FormGroup;
 
@@ -37,19 +37,12 @@ export class MediaComponent implements OnInit, AfterViewInit {
   profileState$: Observable<ProfileModal>;
   mediaStore = initialMedia;
   profileStore = profileInit;
-  uploadedFiles = [];
   uploadError;
   currentStatus: number;
   uploadFieldName = 'photos';
-  files: any[];
-  showChannelList: boolean;
-  token: string;
   handle: string;
-  textVar: string;
-  placeholderVar: string;
   page_message: string;
   userChannels: any;
-  tempChannel: string;
   channelLoaded: boolean;
   urlQuery: any;
 
@@ -62,15 +55,6 @@ export class MediaComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private profStore: Store<any>,
     private store: Store<Media> ) {
-      // Vars
-      this.textVar = 'title';
-      this.placeholderVar = 'Write something';
-      // Forms
-      this.createStatusForm();
-      // this.createMediaForm();
-
-      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      this.token = currentUser.access_token; // your token
 
       // Reducer Store
       this.mediaState$ = this.store.select('mediaStore');
@@ -81,20 +65,6 @@ export class MediaComponent implements OnInit, AfterViewInit {
       this.channelLoaded = false;
       this.userHandle$ = this.store.select('profileTags');
 
-      // ## Profile
-      // -------------------------
-      // this.profileState$ = profStore.select('profileTags');
-      // this.profileState$.subscribe((state) => {
-
-      //   this.profileStore = state;
-      //   const userHandle = this.profileStore.profile_navigation_details.handle;
-
-      //   if (userHandle) {
-      //     if (this.profileStore.user_channel.length < 1) {
-      //     }
-      //   }
-      // });
-
       this.route.queryParams.subscribe(params => {
         this.urlQuery = params
       });
@@ -102,57 +72,14 @@ export class MediaComponent implements OnInit, AfterViewInit {
       this.reset(); // set initial state
     }
 
-  ngAfterViewInit() {
-  }
-
-  loadChannels(handle: string) {
-    if (handle) {
-      this.profStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: handle });
-    }
-  }
-
-  /**
-   * Show/Hide Channel Dropdown List
-   */
-  toggleChannelList() {
-    this.showChannelList = !this.showChannelList;
-  }
   /**
    * Init Media Upload state
    */
 
   reset() {
-    // this.currentStatus = this.STATUS_INITIAL;
-    this.uploadedFiles = [];
     this.uploadError = null;
   }
 
-  /**
-   * Media Uploader Form
-   */
-  submitStatusForm(value: any) {
-
-    if ( this.statusForm.valid === true ) {
-      const postStatus = {
-        owner: this.handle,
-        feed_type: 'status',
-        title: '',
-        description: value.status,
-        access: 0,
-        active: true
-      };
-
-      this.postStatus( postStatus );
-    }
-  }
-
-  /**
-   * Upload Files
-   * @param req
-   */
-  postMedia() {
-    //
-  }
 
   /**
    * Post Status
@@ -166,24 +93,6 @@ export class MediaComponent implements OnInit, AfterViewInit {
     //
   }
 
-  /**
-   * Status Form
-   */
-  createStatusForm() {
-    this.statusForm = this.fb.group({
-      status : ['', Validators.required ],
-      privacy: [ 0 ]
-    })
-  }
-
-  /**
-   * Media Form
-   */
-  createMediaForm() {
-    this.mediaForm = this.fb.group({
-      files : ['', Validators.required ]
-    })
-  }
 
   /**
    * Close

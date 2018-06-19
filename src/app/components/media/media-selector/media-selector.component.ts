@@ -112,6 +112,7 @@ export class MediaSelectorComponent implements OnInit {
   external_post_active: boolean = false;
   ct_id: any;
   post_to: any;
+  user_channel_scroll_id: any;
   nameActive: boolean;
   ct_name: any;
 
@@ -214,7 +215,7 @@ export class MediaSelectorComponent implements OnInit {
         if (event.profile_navigation_details && event.profile_navigation_details.handle) {
           this.handle = event.profile_cards.active.handle;
           isUserReady = true;
-          this.loadChannel(this.handle);
+          this.loadChannel(this.handle, null);
         }
       }
     });
@@ -234,12 +235,16 @@ export class MediaSelectorComponent implements OnInit {
         // nothing
       }
 
+      if (state && state['user_channel_scroll_id']) {
+        this.user_channel_scroll_id = state['user_channel_scroll_id']
+      }
+
       if (this.postSuccessActive === true) {
         this.postSuccessActive = false; // job done
       }
 
       if (this.profileChannel.user_channels_loaded) {
-        this.channeList = this.profileChannel.user_channel['spotFeedResponse'];
+        this.channeList = this.profileChannel.user_channel;
       }
     });
 
@@ -312,7 +317,6 @@ export class MediaSelectorComponent implements OnInit {
         if (event.status === UploadStatus.Uploading) {
           this.updateProgress(files, event.percent)
         }else {
-          // console.log('Finished ', userHandle);
           if (event.data) {
             // @TODO__URGENT Make list appendable for files
             const latestUploaded = event.data['SUCCESS'];
@@ -381,17 +385,17 @@ export class MediaSelectorComponent implements OnInit {
   /**
    * Load Channel
    */
-  loadChannel(handle: string) {
+  loadChannel(handle: string, scrolled: any) {
     const body = {
       'limit': 30,
       'superType': 'channel',
       'owner': handle,
-      'searchText': ''
+      'searchText': '',
+      'scrollId': scrolled
     }
     this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: body });
   }
 
-  
 
   /**
    * Post all medias at once
@@ -423,12 +427,10 @@ export class MediaSelectorComponent implements OnInit {
     for (const nowFile of this.uploadedFiles) {
 
       if (!this.desc) {
-        console.log('you need a desc to continue');
         isReady = false;
         this.changeState(1);
       }
 
-      // console.log(nowFile);
       if (nowFile) {
         // Build Media Object
         const mediaItem = this.formatMedia( nowFile, formData, chosenChannel, userHandle, value.privacy);
@@ -563,8 +565,6 @@ export class MediaSelectorComponent implements OnInit {
    * Form Builder
    */
   createChannel(value: any) {
-    console.log(this.channelForm);
-    console.log(value);
     const mediaTypeList = this.channelTypeConfig(Number(value.mediaType));
     if ( this.channelForm.valid === true ) {
       const channelObj = {
@@ -625,7 +625,7 @@ export class MediaSelectorComponent implements OnInit {
         // console.log('OWNER', newObj.owner);
         this.saveChannel( newObj );
         // Recollect channel details
-        this.loadChannel(this.handle);
+        this.loadChannel(this.handle, null);
       }
     }
   }
@@ -650,7 +650,7 @@ export class MediaSelectorComponent implements OnInit {
         this.changeState(2);
         this.toastr.success('successfully created channel', 'Success!');
         this.createChannelForm();
-        this.loadChannel(this.handle);
+        this.loadChannel(this.handle, null);
       });
   }
 
@@ -785,11 +785,7 @@ export class MediaSelectorComponent implements OnInit {
     const postTime = this.currentTime();
     const isUploadReady = this.uploadMeta();
 
-    console.log(channel);
-    
-
     const tags = this.extractTags();
-    // console.log(tags);
 
     const files = {
       fileName: file.fileName,
@@ -864,7 +860,6 @@ export class MediaSelectorComponent implements OnInit {
     const newArray = flatten([nowUploads, cleanedList]);
 
     this.uploadedFiles = newArray;
-    console.log(this.uploadedFiles);
   }
 
   /**
@@ -923,6 +918,21 @@ export class MediaSelectorComponent implements OnInit {
     } else {
       this.changeState(2);
     }
+  }
+
+  scrolled($event) {
+    this.loadChannel(this.handle, this.user_channel_scroll_id);
+  }
+
+  searchChannel(text) {
+    const body = {
+      'limit': 30,
+      'superType': 'channel',
+      'owner': this.handle,
+      'searchText': text,
+      'scrollId': null
+    }
+    this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: body });
   }
 
 }

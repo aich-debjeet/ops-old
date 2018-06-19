@@ -12,6 +12,8 @@ export class ChannelListComponent {
   @Output() onChangeContext: EventEmitter<any> = new EventEmitter();
   @Output() onSelection: EventEmitter<any> = new EventEmitter();
   @Output() onPostMedia: EventEmitter<any> = new EventEmitter();
+  @Output() onScrolled: EventEmitter<any> = new EventEmitter();
+  @Output() onSearch: EventEmitter<any> = new EventEmitter();
 
   baseUrl = environment.API_IMAGE;
   chosenChannel: any;
@@ -53,13 +55,14 @@ export class ChannelListComponent {
     this.onPostMedia.emit({});
   }
 
-  onScroll($event) {
-    console.log($event);
+  onScroll() {
+    this.onScrolled.emit({});
   }
 
   doSearch() {
-    console.log(this.searchChannel);
+    this.onSearch.emit(this.searchChannel);
   }
+
 
   /**
    * Create Channel

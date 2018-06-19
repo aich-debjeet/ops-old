@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { SharedModule } from '../../shared/shared.module';
 import { MediaComponent } from './media.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 // Childs
@@ -84,7 +85,8 @@ const routes: Routes = [
     FormsModule,
     TagInputModule,
     SharedPipesModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    InfiniteScrollModule
   ],
   declarations: [
     MediaComponent,
