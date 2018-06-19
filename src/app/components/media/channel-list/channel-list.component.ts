@@ -57,6 +57,10 @@ export class ChannelListComponent {
     console.log($event);
   }
 
+  doSearch() {
+    console.log(this.searchChannel);
+  }
+
   /**
    * Create Channel
    */

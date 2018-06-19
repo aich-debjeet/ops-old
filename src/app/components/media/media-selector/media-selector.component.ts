@@ -385,7 +385,8 @@ export class MediaSelectorComponent implements OnInit {
     const body = {
       'limit': 30,
       'superType': 'channel',
-      'owner': handle
+      'owner': handle,
+      'searchText': ''
     }
     this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_CHANNEL, payload: body });
   }
@@ -562,6 +563,8 @@ export class MediaSelectorComponent implements OnInit {
    * Form Builder
    */
   createChannel(value: any) {
+    console.log(this.channelForm);
+    console.log(value);
     const mediaTypeList = this.channelTypeConfig(Number(value.mediaType));
     if ( this.channelForm.valid === true ) {
       const channelObj = {
@@ -646,6 +649,7 @@ export class MediaSelectorComponent implements OnInit {
         this.channelForm.reset();
         this.changeState(2);
         this.toastr.success('successfully created channel', 'Success!');
+        this.createChannelForm();
         this.loadChannel(this.handle);
       });
   }
