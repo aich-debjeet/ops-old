@@ -31,6 +31,8 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   tagState$: Observable<any>;
   @ViewChild('communityCreateModal') CommunityUpdate: Modal;
   @ViewChild('communityLeaveModal') CommuityLeaveModal: Modal;
+  @ViewChild('communityLeaveConfirmModal') CommunityLeaveConfirmModal: Modal;
+
   private subscription: ISubscription;
   private routerSubscription: ISubscription;
   details: any;
@@ -39,7 +41,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   relatedCommunity: any;
   memeberList: any;
   communityPost: any;
-  postLoader: boolean;
+  postLoader: boolean = false;
   inviteBtnActive: boolean = true;
   public communityForm: FormGroup;
   public communityAdminForm: FormGroup;
@@ -82,9 +84,6 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         if (state['community_post']) {
           this.communityPost = state['community_post'];
         }
-        if (state['post_loader']) {
-          this.postLoader = state['post_loader'];
-        }
         if (state['invite_button']) {
           this.inviteBtnActive = state['invite_button'];
         }
@@ -97,6 +96,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         this.isMemeberLoading = state['community_ismember_loading'];
         this.communityLoading = state['community_loding'];
         this.updateCommunityLoading = state['community_update_loading'];
+        this.postLoader = state['post_loading'];
       }
     });
 
@@ -161,6 +161,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       text: ''
     }
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_MEMBER_LIST, payload: data });
+    this.communityAdminFormInit();
     this.CommuityLeaveModal.open();
   }
 
@@ -168,8 +169,25 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
    * submit member form
    */
   submitMemberAdmin(value) {
-    this.communityAdminFormInit();
-    console.log('submitMemberAdmin', value);
+    if ( this.communityAdminForm.valid === true ) {
+      this.CommuityLeaveModal.close();
+      this.CommunityLeaveConfirmModal.open();
+    }else {
+      this.toastr.warning('Please select admin');
+    }
+  }
+
+  adminLeaveSucess() {
+    const handle = this.communityAdminForm.value.handle
+    const data = {
+      memberHandle: handle,
+      communityId: this.id
+    }
+
+    this.store.dispatch({ type: CommunitiesActions.COMMUNITY_ADMIN_CHANGE, payload: data});
+
+    this.toastr.success('successfully Update', 'Success!');
+    this.CommuityLeaveModal.close();
   }
 
   /**

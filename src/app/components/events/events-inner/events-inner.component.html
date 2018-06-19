@@ -37,7 +37,7 @@
       </div>
 
       <div class="c-text_lg">Event Brief</div>
-      <div class="c-text_md color-grey-dark m-t-b-8">{{ eventDetail?.brief }}</div>
+      <div class="c-text_md color-grey-dark m-t-b-8" [innerHtml]="eventDetail?.brief | safeHtml"></div>
       
       <div *ngIf="eventDetail?.event_agenda?.length > 0">
         <div class="c-text_lg m-t-b-16">Event Agenda</div>

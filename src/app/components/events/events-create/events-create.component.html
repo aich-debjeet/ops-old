@@ -93,6 +93,8 @@
                         </div>
                         <!-- Industry end -->
 
+                    
+
 
                         <div class="o-events-form__single">
                             <div class="col-md-3 p-0">
@@ -101,6 +103,7 @@
                             <div class="col-md-9 p-0">
                                 <div class="c-form__group c-form--sm c-form--noeffect">
                                     <input class="c-form__input" required="" placeholder="" type="text" autocorrect="off" autocapitalize="off" spellcheck="off" #search formControlName="event_venue">
+                
                                     <span class="c-form__highlight"></span>
                                     <span class="c-form__bar"></span>
                                     <label>Event location</label>
@@ -113,22 +116,27 @@
                             </div>
                         </div>
                         <!-- Venue end -->
-
                         <div class="o-events-form__single">
                             <div class="col-md-3 p-0">
                                 <div class="c-text_md o-events-form-title">Event Brief *</div>
                             </div>
                             <div class="col-md-9 p-0">
                                 <div class="c-form__group c-form--sm">
-                                    <textarea rows="4" class="c-textarea__block c-textarea--style" formControlName="event_brief" placeholder="Describe your event"></textarea>
+                                    <!-- <quill-editor [style]="{height: '250px'}"></quill-editor> -->
+
+                                    <quill-editor [style]="{height: '250px'}" #event_brief [placeholder]="'Describe your event'" [modules]="defaultModules" formControlName="event_brief">
+                                        
+                                      </quill-editor>
+
                                 </div>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_brief'].errors?.required && ecfrom.submitted">Event Brief is required
                                     <span class="pull-right">
-                                      <img src="{{ baseUrl }}img/svg/stop_red.svg" class="c-form__validation--img">
+                                      <img [src]="baseUrl + 'img/svg/stop_red.svg'" class="c-form__validation--img">
                                     </span>
                                 </p>
                             </div>
                         </div>
+
                         <!-- Event Brief end -->
 
                         <div class="o-events-form__single">

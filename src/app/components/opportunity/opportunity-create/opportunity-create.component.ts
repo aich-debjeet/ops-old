@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewChecked, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 // toastr service
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +10,7 @@ import { Store } from '@ngrx/store';
 
 // rxjs
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 
 import { environment } from '../../../../environments/environment';
 import { ScrollHelper } from '../../../helpers/scroll.helper';
@@ -18,6 +19,10 @@ import { GeneralUtilities } from '../../../helpers/general.utils';
 // opportunity imports
 import { OpportunityActions } from 'app/actions/opportunity.action';
 import { OpportunityModel } from 'app/models/opportunity.model';
+
+// auth imports
+import { AuthActions } from 'app/actions/auth.action';
+import { ProfileModal } from 'app/models/profile.model';
 
 @Component({
   selector: 'app-opportunity-create',
@@ -29,17 +34,24 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   baseUrl = environment.API_IMAGE;
   userHandle: any;
 
+  public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
   auditionFrm: FormGroup;
   projectFrm: FormGroup;
   jobFrm: FormGroup;
   internshipFrm: FormGroup;
   freelanceFrm: FormGroup;
   volunteerFrm: FormGroup;
-  private subscription: ISubscription;
+  private oppSub: ISubscription;
+  private profSub: ISubscription;
+  private loginSub: ISubscription;
 
   oppState: Observable<OpportunityModel>;
+  profileState: Observable<ProfileModal>;
+  loginState: Observable<any>;
 
   oppSaved = false;
+  oppCreating = false;
   activeTab = 'audition';
   uploadedFile = false;
   uploadingFile = false;
@@ -50,13 +62,23 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     lat: '',
     lng: ''
   };
+  industryList = [];
+
+  /* attachments */
+  jobAttachments = [];
+  internshipAttachments = [];
+  freelanceAttachments = [];
+  /* attachments */
 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
-    private oppStore: Store<OpportunityModel>
+    private profileStore: Store<ProfileModal>,
+    private loginStore: Store<any>,
+    private oppStore: Store<OpportunityModel>,
+    private router: Router
   ) {
 
     // creating audition form
@@ -78,30 +100,63 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.createVolunteerForm();
 
     this.oppState = this.oppStore.select('opportunityTags');
-    this.subscription = this.oppState.subscribe((state) => {
-      console.log('app state', state);
-      console.log('this.uploadedFile', this.uploadedFile);
-      if (state && state['create_opportunity_data'] && state['create_opportunity_data']['SUCCESS']) {
-        if (this.oppSaved === true) {
-          this.toastr.success('Opportunity has been created successfully!');
-          this.oppSaved = false;
+    this.oppSub = this.oppState.subscribe((state) => {
+      if (state) {
+        if (state['fileupload_response'] && state['fileupload_response'][0] && state['fileupload_response'][0].repoPath) {
+          this.uploadingFile = false;
+          this.uploadedFile = true;
+          const attUrl = state['fileupload_response'][0].repoPath;
+          if (this.activeTab === 'jobs' && this.jobAttachments.indexOf(attUrl) === -1) {
+            this.jobAttachments.push(attUrl);
+          }
+          if (this.activeTab === 'internships' && this.internshipAttachments.indexOf(attUrl) === -1) {
+            this.internshipAttachments.push(attUrl);
+          }
+          if (this.activeTab === 'freelance' && this.freelanceAttachments.indexOf(attUrl) === -1) {
+            this.freelanceAttachments.push(attUrl);
+          }
+        } else {
+          this.uploadingFile = false;
+          this.uploadedFile = false;
+        }
+        if (state['create_opportunity_success'] && state['create_opportunity_success'] === true) {
+          this.oppCreating = false;
+          if (this.oppSaved === true) {
+            this.toastr.success('Opportunity has been created successfully!');
+            this.oppSaved = false;
+            if (this.generalUtils.checkNestedKey(state, ['create_opportunity_response', 'id'])) {
+              this.router.navigateByUrl('/opportunity/view/' + state['create_opportunity_response']['id']);
+              return;
+            }
+          }
         }
       }
     });
-
+    this.profileState = this.profileStore.select('profileTags');
+    this.profSub = this.profileState.subscribe((state) => {
+      if (this.generalUtils.checkNestedKey(state, ['profile_cards', 'active', 'handle'])) {
+        this.userHandle = state['profile_cards']['active']['handle'];
+      }
+      if (state['industries'] && state['industries'] !== 'undefined') {
+        this.industryList = state['industries'];
+      }
+    });
+    this.loginState = this.loginStore.select('loginTags');
+    this.loginSub = this.loginState.subscribe((state) => {
+      if (state['industries'] && state['industries'] !== 'undefined') {
+        this.industryList = state['industries'];
+      }
+    });
+    this.loginStore.dispatch({ type: AuthActions.LOAD_INDUSTRIES });
   }
 
   ngOnInit() {
-    // load stuffs
-    this.oppStore.select('profileTags')
-    .first(profile => profile['profile_navigation_details'].handle )
-    .subscribe( data => {
-      this.userHandle = data['profile_cards'].active.handle;
-    });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.oppSub.unsubscribe();
+    this.profSub.unsubscribe();
+    this.loginSub.unsubscribe();
   }
 
   ngAfterViewChecked() {
@@ -129,26 +184,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       handle: this.userHandle,
       image: fileObj
     };
-
     this.oppStore.dispatch({ type: OpportunityActions.FILE_UPLOAD, payload: imageData });
-
-    this.oppStore.select('opportunityTags')
-      .first(file => file['fileupload_success'] === true )
-      .subscribe( data => {
-        // console.log(data);
-        if (data && data['fileupload_response'] && data['fileupload_response'][0] && data['fileupload_response'][0].repoPath) {
-          // console.log('IN');
-          this.uploadingFile = false;
-          this.uploadedFile = true;
-          // const file = data['fileupload_response'][0].repoPath;
-          // this.uploadedFileSrc = file.substr(0, file.lastIndexOf('.')) + '_thumb_250.jpeg';
-          // console.log(this.baseUrl + this.uploadedFileSrc);
-        } else {
-          // console.log('OUT');
-          this.uploadingFile = false;
-          this.uploadedFile = false;
-        }
-      });
   }
 
   /* =================================== audition form =================================== */
@@ -163,8 +199,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       auditionDate: ['', [Validators.required]],
       auditionLocation: ['', [Validators.required]],
       auditionGender: ['', [Validators.required]],
-      auditionEthnicity: ['', []],
-      auditionComplexion: ['', []],
       auditionAgeMin: ['', [Validators.required]],
       auditionAgeMax: ['', [Validators.required]],
       auditionHeightFrom: ['', []],
@@ -179,9 +213,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
    * @param: form data
    */
   submitAuditionForm(formData: any) {
-
-    console.log('formData', formData);
-
     // audition form validation
     if (!this.auditionFrm.valid) {
       this.scrollHelper.scrollToFirst('error');
@@ -198,9 +229,10 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
         category: formData.auditionCategory,
         auditionDate: formData.auditionDate,
         gender: formData.auditionGender,
-        ethnicity: formData.auditionEthnicity,
-        complexion: formData.auditionComplexion,
-        ageLimit: String(formData.auditionAgeMax),
+        ageLimit: {
+          from: String(formData.auditionAgeMin),
+          to: String(formData.auditionAgeMax)
+        },
         height: {
           from: String(formData.auditionHeightFrom),
           to: String(formData.auditionHeightTo)
@@ -210,8 +242,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
           to: String(formData.auditionWeightTo)
         },
         location: {
-          lat: this.locationDetails.lat,
-          lon: this.locationDetails.lng
+          location: formData.auditionLocation
         }
       }
     }
@@ -222,7 +253,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       payload: reqBody
     });
     this.oppSaved = true;
-
+    this.oppCreating = true;
   }
   /* =================================== audition form =================================== */
 
@@ -231,6 +262,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.projectFrm = this.fb.group({
       projectTitle: ['', [Validators.required]],
       projectDescription: ['', []],
+      projectIndustry: ['', []],
       projectSkills: ['', []],
       projectCollaborators: ['', []],
     });
@@ -249,6 +281,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       opportunityProject: {
         title: formData.projectTitle,
         description: formData.projectDescription,
+        industry: formData.projectIndustry,
         skills: formData.projectSkills,
         addCollaborators: [formData.projectCollaborators]
       }
@@ -260,6 +293,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       payload: reqBody
     });
     this.oppSaved = true;
+    this.oppCreating = true;
   }
   /* =================================== project form =================================== */
 
@@ -310,8 +344,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
           },
           duration: formData.jobDuration,
           location: {
-            lat: formData.jobLocation,
-            lon: formData.jobLocation
+            location: formData.jobLocation
           },
           includesTravel: {
             option: formData.jobTravelInclusive,
@@ -320,7 +353,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
           skills: formData.jobSkills,
           qualifications: formData.jobQualifications,
           organizationName: formData.jobOrgName,
-          attachFiles: []
+          attachFiles: this.jobAttachments
       }
     };
 
@@ -330,7 +363,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       payload: reqBody
     });
     this.oppSaved = true;
-
+    this.oppCreating = true;
   }
   /* =================================== job form =================================== */
 
@@ -381,8 +414,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
           },
           duration: formData.internshipDuration,
           location: {
-            lat: formData.internshipLocation,
-            lon: formData.internshipLocation
+            location: formData.internshipLocation
           },
           includesTravel: {
             option: formData.internshipTravelInclusive,
@@ -391,7 +423,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
           skills: formData.internshipSkills,
           qualifications: formData.internshipQualifications,
           organizationName: formData.internshipOrgName,
-          attachFiles: []
+          attachFiles: this.internshipAttachments
       }
     };
 
@@ -401,7 +433,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       payload: reqBody
     });
     this.oppSaved = true;
-
+    this.oppCreating = true;
   }
   /* =================================== internship form =================================== */
 
@@ -410,6 +442,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.freelanceFrm = this.fb.group({
       freelanceTitle: ['', [Validators.required]],
       freelanceDescription: ['', []],
+      freelanceIndustry: ['', []],
       freelancePaymentMethod: ['', [Validators.required]],
       freelanceEngagement: ['', [Validators.required]],
       freelanceSkills: ['', []],
@@ -430,10 +463,11 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       opportunityFreelance: {
         title: formData.freelanceTitle,
         description: formData.freelanceDescription,
+        industry: formData.freelanceIndustry,
         payType: formData.freelancePaymentMethod,
         engagement: formData.freelanceEngagement,
         skills: formData.freelanceSkills,
-        attachFiles: []
+        attachFiles: this.freelanceAttachments
       }
     };
 
@@ -443,7 +477,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       payload: reqBody
     });
     this.oppSaved = true;
-
+    this.oppCreating = true;
   }
   /* =================================== freelance form =================================== */
 
@@ -452,6 +486,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.volunteerFrm = this.fb.group({
       volunteerTitle: ['', [Validators.required]],
       volunteerCause: ['', []],
+      volunteerIndustry: ['', []],
       volunteerLocation: ['', []],
       volunteerSkills: ['', []],
       volunteerDL: [false, []],
@@ -485,10 +520,10 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       opportunityVolunteer: {
         title: formData.volunteerTitle,
         cause: formData.volunteerCause,
+        industry: formData.volunteerIndustry,
         skills: formData.volunteerSkills,
         location: {
-          lat: formData.volunteerLocation,
-          lon: formData.volunteerLocation
+          location: formData.volunteerLocation
         },
         requirements: volunteerRequirements
       }
@@ -500,7 +535,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       payload: reqBody
     });
     this.oppSaved = true;
-
+    this.oppCreating = true;
   }
   /* =================================== volunteer form =================================== */
 

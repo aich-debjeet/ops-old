@@ -57,7 +57,6 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
       if (state.profile_scrolling_channel) {
         this.channel_scroll_id = state.profile_scrolling_channel;
       }
-      // console.log(this.channels)
     });
   }
 
@@ -116,7 +115,6 @@ export class ProfileChannelComponent implements OnInit, OnDestroy {
   }
 
   onScroll(e) {
-    console.log(e);
     this.scrolling = e.currentScrollPosition;
 
     if (this.scrollingLoad <= this.scrolling) {

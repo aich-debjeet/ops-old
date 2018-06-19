@@ -8,7 +8,7 @@
             <div class="c-invite__block" *ngFor="let profileItem of profiles">
                 <div *ngIf="!profileItem.extra.isFollowing">
                     <a class="c-user__avatar c-avatar--status">
-                        <img *ngIf="profileItem.profileImage" class="c-user__image" [src]="baseUrl + profileItem.profileImage" width="24px" />
+                        <img *ngIf="profileItem?.physical?.profileImages?.profileImage_medium" class="c-user__image" [src]="baseUrl + profileItem?.physical?.profileImages?.profileImage_medium" width="24px" />
                     </a>
                     <a class="c-text_md c-invite--user" routerLink="/profile/u/{{ profileItem?.extra?.username }}">{{ profileItem?.name | truncate:[10, '...']}}</a>
                     <div class="c-invite--btn">

@@ -125,7 +125,7 @@ export class CommunitiesEffect {
   communityAdminChange$ = this.actions$
     .ofType(CommunitiesActions.COMMUNITY_ADMIN_CHANGE)
     .map(toPayload)
-    .switchMap((payload) => this.communitiesService.updateCommunity(payload)
+    .switchMap((payload) => this.communitiesService.changeAdminRole(payload)
       .map(res => ({ type: CommunitiesActions.COMMUNITY_ADMIN_CHANGE_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: CommunitiesActions.COMMUNITY_ADMIN_CHANGE_FAILED, payload: res }))
     );

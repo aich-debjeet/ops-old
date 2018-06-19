@@ -5,6 +5,10 @@ export class GeneralUtilities {
 
     constructor() { }
 
+    capitalizeFirstLetter(str: string) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
     isEmpty(obj: any) {
         if (obj == null || obj === undefined || obj.length === undefined) {
             return true;

@@ -58,7 +58,7 @@
                                     </div>
                                     <div class="dropnoti__icon">
                                             <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="imageBaseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img"> 
-                                            <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
+                                            <img *ngIf="notification?.notificationType == 'Media_Spot'"  [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
                                     </div>
                                     <p class="msg__time">--</p>
                                 </div>
@@ -101,7 +101,7 @@
                                     <a routerLink="/explore">Explore</a>
                                 </div>
                                 <div class="dropdown__item p-b-8 text-uppercase">
-                                    <a routerLink="/opportunity/search">Opportunity</a>
+                                    <a [routerLink]="['/opportunity/search']" [queryParams]="{q:'', type:'recommended'}">Opportunity</a>
                                 </div>
                                 <div class="dropdown__item p-b-8 text-uppercase">
                                     <a routerLink="/event">Event</a>
@@ -159,7 +159,7 @@
                 <ul class="nav navbar-nav" *ngIf="isProfileSet === true">
                     <li routerLinkActive="active"><a routerLink="/home">Home</a></li>
                     <li routerLinkActive="active"><a routerLink="/explore">Explore</a></li>
-                    <li routerLinkActive="active"><a routerLink="/opportunity/search">Opportunity</a></li>
+                    <li routerLinkActive="active"><a [routerLink]="['/opportunity/search']" [queryParams]="{q:'', type:'recommended'}">Opportunity</a></li>
                     <li routerLinkActive="active"><a routerLink="/event">Event</a></li>
                     <!-- <li routerLinkActive="active"><a routerLink="/learn">Learn</a></li>
                     <li routerLinkActive="active"><a routerLink="/resources">Resource</a></li> -->
@@ -210,7 +210,7 @@
                             </div>
                             <ng-container *ngIf="notifications?.length > 0; else loadingNotifs">
                                 <div class="o-alert_scroll" id="ops_scrollbar">
-                                    <div class="dropdown__item p-16 msg__unread" *ngFor="let notification of notifications| slice:0:7" [ngClass]="{'msg__read': notification?.isRead, 'msg__unread': !notification?.isRead}">
+                                    <div class="dropdown__item p-16 msg__unread cursor_pointer"  *ngFor="let notification of notifications| slice:0:7" (click)="openLink(notification)" [ngClass]="{'msg__read': notification?.isRead, 'msg__unread': !notification?.isRead}">
                                         <div class="dropnoti__avatar" [routerLink]="['', 'profile', 'u', notification.username, 'user']">
                                             <!-- <img class="navdrop__img" [src]="imageBaseUrl + 'img/new/avatar2.png'"> -->
                                             <img *ngIf="!notification.profileImage" [src]="'imageBaseUrl + /img/avatar.png'" class="img-responsive">
@@ -224,7 +224,7 @@
                                         </div>
                                         <div class="dropnoti__icon">
                                             <img *ngIf="notification?.notificationType == 'Status_Comments' || notification?.notificationType == 'Media_Comments'" [src]="imageBaseUrl + 'img/svg/ico_comment.svg'" class="noti_cont_footer_img">
-                                            <img *ngIf="notification?.notificationType == 'Media_Spot'" [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
+                                            <img *ngIf="notification?.notificationType == 'Media_Spot'" class="cursor_pointer" [routerLink]="['', { outlets: { media : ['media', notification?.media?.mediaId] } } ]" [src]="imageBaseUrl + 'img/svg/spot_icon.svg'">
                                         </div>
                                         <p class="msg__time">{{ notification?.createdDate | utcDate | date:'short' }}</p>
                                         <!-- <div class="dropnoti__permission" *ngIf = "notification.notificationType === 'Network_Sent'">

@@ -114,7 +114,7 @@ export class EventsEditComponent implements OnInit {
     .first(state => state['event_detail'] !== 'undefined' )
     .subscribe( data => {
       this.eventDetail = data['event_detail']
-      console.log(this.eventDetail)
+      // console.log(this.eventDetail)
       this.buildForm();
       this.getLocationGoogle();
     });
@@ -320,7 +320,7 @@ export class EventsEditComponent implements OnInit {
       this.ngZone.run(() => {
         // get the place result
         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-        console.log(place)
+        // console.log(place)
 
         // for (let i = 0; i < place.address_components.length; i++) {
         //   const addressType = place.address_components[i].types[0];
@@ -397,8 +397,8 @@ export class EventsEditComponent implements OnInit {
    * @param value value of form
    */
   submitForm(value) {
-    console.log(this.eventForm.valid)
-    console.log(this.eventCoverImage)
+    // console.log(this.eventForm.valid)
+    // console.log(this.eventCoverImage)
     if (this.eventForm.valid) {
       if (this.eventCoverImage === '') {
         this.imageUpload = true;
@@ -463,7 +463,7 @@ export class EventsEditComponent implements OnInit {
     return string.split('-').reverse().join('-');
   }
   removePhoto(){
-    console.log('comming')
+    // console.log('comming')
     
       this.eventCoverImage = '';
     
@@ -473,9 +473,9 @@ export class EventsEditComponent implements OnInit {
   }
   removeTime(s:string){
     let x = s.split('T')
-    console.log(s.split('T'))
+    // console.log(s.split('T'))
     let d = x[0];
-    console.log(d);
+    // console.log(d);
     return d.split('-').reverse().join('-');
   }
 }

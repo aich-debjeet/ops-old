@@ -10,6 +10,8 @@ import { EventsInnerComponent } from './events-inner/events-inner.component';
 import { EventsLandingComponent } from './events-landing/events-landing.component';
 import { NguCarouselModule } from '@ngu/carousel';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { QuillModule } from 'ngx-quill';
+import { SafeHtmlPipe } from '../../pipes/safehtml.pipe';
 // import 'hammerjs';
 import { EventsCarditemComponent } from './events-carditem/events-carditem.component';
 
@@ -59,6 +61,7 @@ const routes: Routes = [
     HttpClientModule,
     InfiniteScrollModule,
     NgxfUploaderModule.forRoot(),
+    QuillModule
   ],
   declarations: [
     EventsComponent,
@@ -66,7 +69,8 @@ const routes: Routes = [
     EventsInnerComponent,
     EventsLandingComponent,
     EventsCarditemComponent,
-    EventsEditComponent
+    EventsEditComponent,
+    SafeHtmlPipe
   ]
 })
 export class EventsModule { }

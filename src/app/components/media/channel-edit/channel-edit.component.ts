@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from './../../../../environments/environment';
 import { ModalService } from '../../../shared/modal/modal.component.service';
 import { GeneralUtilities } from '../../../helpers/general.utils';
+import { Modal } from '../../../shared/modal-new/Modal';
 
 // Action
 import { MediaActions } from '../../../actions/media.action';
@@ -33,6 +34,7 @@ import * as _ from 'lodash';
 })
 
 export class EditChannelComponent implements OnInit {
+  @ViewChild('channelUpdate') channelUpdateModal: Modal;
   channelForm: FormGroup;
   mediaState$: Observable<Media>;
   editState$: Observable<any>;
@@ -180,7 +182,7 @@ export class EditChannelComponent implements OnInit {
         channelId: this.channelId
       }
       this.store.dispatch({ type: ProfileActions.CHANNEL_UPDATE, payload: reqParams });
-      this.doClose();
+      this.channelUpdateModal.close();
     } else {
       this.toastr.warning('Please fill all required fields');
     }

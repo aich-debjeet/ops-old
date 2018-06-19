@@ -83,5 +83,9 @@ export class CommunitiesService {
     return this.api.get(`/portal/community/members/${para.id}/0/10`, '');
   }
 
+  changeAdminRole(data: any) {
+    return this.api.put(`/portal/community/memberToAdmin`, data);
+  }
+
 
 }
