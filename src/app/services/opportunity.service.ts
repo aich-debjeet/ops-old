@@ -31,6 +31,13 @@ export class OpportunityService {
   }
 
   /**
+   * delete opportunity api
+   */
+  deleteOpportunity(oppId: string) {
+    return this.api.delete('/portal/opportunity/delete/' + oppId, '');
+  }
+
+  /**
    * Apply for an opportunity
    * @param job id
    */

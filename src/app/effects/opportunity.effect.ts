@@ -50,6 +50,18 @@ export class OpportunityEffect {
     );
 
   /**
+   * delete opportunity by id
+   */
+  @Effect()
+  deleteOpportunity$ = this.actions$
+    .ofType(OpportunityActions.DELETE_OPPORTUNITY)
+    .map(toPayload)
+    .switchMap((payload) => this.opportunityService.deleteOpportunity(payload)
+      .map((res) => ({ type: OpportunityActions.DELETE_OPPORTUNITY_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: OpportunityActions.DELETE_OPPORTUNITY_FAILED, payload: res }))
+    );
+
+  /**
    * Apply for the opportunity
    * @params job id
    */

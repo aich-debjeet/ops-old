@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // actions
 import { OpportunityActions } from 'app/actions/opportunity.action';
@@ -42,6 +42,7 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private generalUtils: GeneralUtilities,
     private toastr: ToastrService,
     private store: Store<OpportunityModel>
@@ -50,6 +51,7 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
     this.opportunityState$ = this.store.select('opportunityTags');
     this.oppsSub = this.opportunityState$.subscribe((state) => {
       this.opportunityState = state;
+      console.log('state', state);
       if (state) {
         // get opp data
         if (state.get_opportunity_data) {
@@ -73,6 +75,13 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
           this.isOwnOpportunity = true;
         } else {
           this.isOwnOpportunity = false;
+        }
+        // delete listener
+        if (state['delete_opp_requested'] === false && state['delete_opp_success'] === true) {
+          this.toastr.success('Opporunity deleted successfully!');
+          setTimeout(() => {
+            this.router.navigateByUrl('/opportunity');
+          }, 2000);
         }
       }
     });
@@ -128,6 +137,15 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
       type: OpportunityActions.APPLY_FOR_AN_OPPORTUNITY,
       payload: reqBody
     });
+  }
+
+  deleteOpp(oppId: string) {
+    if (oppId.length > 0) {
+      this.store.dispatch({
+        type: OpportunityActions.DELETE_OPPORTUNITY,
+        payload: oppId
+      });
+    }
   }
 
 }

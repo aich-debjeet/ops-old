@@ -13,7 +13,10 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
       return Object.assign({}, state, {
         searching_opportunities: true,
         search_opportunities_params: payload,
-        search_opportunities_success: false
+        search_opportunities_success: false,
+        delete_opp_requested: false,
+        delete_opp_success: false,
+        delete_opp_id: ''
       });
 
     case OpportunityActions.SEARCH_OPPORTUNITIES_SUCCESS:
@@ -47,7 +50,10 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
         getting_opportunity: true,
         get_opportunity_params: payload,
         get_opportunity_data: undefined,
-        get_opportunity_success: false
+        get_opportunity_success: false,
+        delete_opp_requested: false,
+        delete_opp_success: false,
+        delete_opp_id: ''
       });
 
     case OpportunityActions.GET_OPPORTUNITY_SUCCESS:
@@ -129,6 +135,28 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
         fileupload_success: false
       });
     /* create opportunity file upload */
+
+    /* delete opp by id */
+    case OpportunityActions.DELETE_OPPORTUNITY:
+      return Object.assign({}, state, {
+        delete_opp_id: payload,
+        delete_opp_requested: true,
+        delete_opp_success: false
+      });
+
+    case OpportunityActions.DELETE_OPPORTUNITY_SUCCESS:
+      return Object.assign({}, state, {
+        delete_opp_requested: false,
+        delete_opp_success: true
+      });
+
+    case OpportunityActions.DELETE_OPPORTUNITY_FAILED:
+      return Object.assign({}, state, {
+        delete_opp_requested: false,
+        delete_opp_success: false,
+        delete_opp_response: payload
+      });
+    /* delete opp by id */
 
 
 
