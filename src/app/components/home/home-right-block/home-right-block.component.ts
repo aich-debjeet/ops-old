@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, AfterViewInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { TruncatePipe } from '../../../pipes/truncate.pipe';
+import { Router } from '@angular/router';
 
 import { ProfileActions } from '../../../actions/profile.action';
 
@@ -13,6 +12,7 @@ import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { filter as _filter } from 'lodash';
 import { OpportunityActions } from '../../../actions/opportunity.action';
 import { environment } from '../../../../environments/environment';
+import { GeneralUtilities } from '../../../helpers/general.utils';
 
 @Component({
   selector: 'home-right-block',
@@ -24,7 +24,7 @@ import { environment } from '../../../../environments/environment';
 export class HomeRightBlockComponent implements OnInit, OnDestroy, AfterViewInit {
   @Output() followUpdate: EventEmitter<any> = new EventEmitter<any>();
   private subscription: ISubscription;
-  private profilesubscription: ISubscription;
+  private profileSub: ISubscription;
   opportunityState$: Observable<OpportunityModel>;
   tagState$: Observable<ProfileModal>;
   private tagStateSubscription: Subscription;
@@ -44,9 +44,10 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy, AfterViewInit
   constructor(
     private store: Store<ProfileModal>,
     private router: Router,
+    private generalUtils: GeneralUtilities
   ) {
     this.myProfile$ = store.select('profileTags');
-    this.profilesubscription = this.myProfile$.subscribe((profile) => {
+    this.profileSub = this.myProfile$.subscribe((profile) => {
       if (typeof profile !== 'undefined') {
         if (profile['user_profiles_all'] !== 'undefined') {
           this.profiles = profile.user_profiles_all;
@@ -59,8 +60,8 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy, AfterViewInit
 
     this.opportunityState$ = this.store.select('opportunityTags');
     this.subscription = this.opportunityState$.subscribe((state) => {
-      if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
-        this.opportunities = state.get_opportunities_data.SUCCESS;
+      if (this.generalUtils.checkNestedKey(state, ['search_opportunities_result', 'opportunityResponse'])) {
+        this.opportunities = state['search_opportunities_result']['opportunityResponse'];
       }
     });
   }
@@ -84,16 +85,13 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy, AfterViewInit
    * load recommended opportunities
    */
   loadRecomOpps() {
-    const recomSearchParams = {
-      // industry: this.skillCodes,
-      offset: 0, // initial request
-      limit: this.recordsPerPage
+    const recommOppParams = {
+      limit: this.recordsPerPage,
+      scrollId: '',
+      filtersMap: [],
+      searchType: 'recommended'
     }
-
-    this.store.dispatch({
-      type: OpportunityActions.GET_OPPORTUNITIES,
-      payload: recomSearchParams
-    });
+    this.store.dispatch({ type: OpportunityActions.SEARCH_OPPORTUNITIES, payload: recommOppParams });
   }
 
   /**
@@ -166,7 +164,7 @@ export class HomeRightBlockComponent implements OnInit, OnDestroy, AfterViewInit
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    this.profilesubscription.unsubscribe();
+    this.profileSub.unsubscribe();
   }
 
 }

@@ -62,8 +62,13 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   postalCode: string;
   city: string;
   event_loading: boolean = true;
-
+  scrollId: any;
   locPop: boolean = false;
+
+  sum = 10;
+  total_pages = 10;
+  scrolling = 0;
+  scrollingLoad = 1000;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -78,8 +83,10 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   ) {
     this.tagState$ = this.store.select('eventTags');
     this.subscription = this.tagState$.subscribe((state) => {
-      if (state['event_list']) {
+      if (state['event_list'] && state.event_Loaded === true) {
         this.eventList = state['event_list'];
+        this.scrollId = state['event_scroll_id']
+        // console.log(this.eventList, this.scrollId)
       }
       this.eventType = state['event_type'];
       this.eventTypeList = state['eventType_load'];
@@ -103,6 +110,13 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
           this.filterLocation = '';
           this.filterEndDate = '';
         }
+        if (!params['status']){
+          this.filterStatus = 'recommended';
+          this.filterEventType = '';
+          this.filterLocation = '';
+          this.filterStartDate = '';
+          this.filterEndDate = '';
+        }
         this.serachApi();
       });
 
@@ -112,14 +126,14 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     this.tomorrow = moment().add('days', 1).format();
     this.weekend = moment().weekday(6).format();
 
-    this.myQueryParms = {
-      startDate:  this.filterStartDate || '',
-      endDate: this.filterEndDate || '',
-      location: this.filterLocation || '',
-      status: this.filterStatus || '',
-      searchText: this.filterSearchText || '',
-      eventType: this.filterEventType || '',
-    }
+    // this.myQueryParms = {
+    //   startDate:  this.filterStartDate || '',
+    //   endDate: this.filterEndDate || '',
+    //   location: this.filterLocation || '',
+    //   status: this.filterStatus || '',
+    //   searchText: this.filterSearchText || '',
+    //   eventType: this.filterEventType || '',
+    // }
   }
 
   ngOnInit() {
@@ -174,15 +188,79 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
 
 
   serachApi() {
-    const data = {
-      startDate: this.filterStartDate || '',
-      endDate: this.filterEndDate || '',
-      location: this.filterLocation || '',
-      status: this.filterStatus || '',
-      searchText: '',
-      eventType: this.filterEventType || '',
-      offset: 0,
-      limit: 50,
+    // const data = {
+    //   startDate: this.filterStartDate || '',
+    //   endDate: this.filterEndDate || '',
+    //   location: this.filterLocation || '',
+    //   status: this.filterStatus || '',
+    //   searchText: '',
+    //   eventType: this.filterEventType || '',
+    //   offset: 0,
+    //   limit: 50,
+    // }
+    let data;
+    if(this.filterEventType === '' && (this.filterStartDate === '' && this.filterEndDate === '')){
+       data = {
+        scrollId: '',
+        searchType: this.filterStatus,
+        searchText:this.filterLocation || '',
+        filtersMap:[]
+      }
+      // console.log(data)
+    }
+    if (this.filterEventType !== ''  && (this.filterStartDate === '' && this.filterEndDate === '')){
+       data = {
+        scrollId: '',
+        searchType: this.filterStatus,
+        searchText:this.filterLocation || '',
+        filtersMap:[
+          {
+            'key': 'EVENT_TYPE',
+		        'value': this.filterEventType
+          }
+        ]
+      }
+      // console.log(data)
+    }
+    if (this.filterEventType === '' && (this.filterStartDate !== '' && this.filterEndDate !== '')){
+      data = {
+        scrollId: '',
+        searchType: this.filterStatus,
+        searchText:this.filterLocation || '',
+        filtersMap:[
+          {
+            'key': 'START_DATE',
+		        'value': this.filterStartDate
+          },
+          {
+            'key': 'END_DATE',
+		        'value': this.filterEndDate
+          }
+        ]
+      }
+      // console.log(data)
+    }
+    if (this.filterEventType !== '' && (this.filterStartDate !== '' && this.filterEndDate !== '')){
+      data = {
+        scrollId: '',
+        searchType: this.filterStatus,
+        searchText:this.filterLocation || '',
+        filtersMap:[
+          {
+            'key': 'EVENT_TYPE',
+		        'value': this.filterEventType
+          },
+          {
+            'key': 'START_DATE',
+		        'value': this.filterStartDate
+          },
+          {
+            'key': 'END_DATE',
+		        'value': this.filterEndDate
+          }
+        ]
+      }
+      // console.log(data)
     }
     this.store.dispatch({ type: EventActions.EVENT_SEARCH, payload: data });
   }
@@ -252,25 +330,25 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
       this.ngZone.run(() => {
         // get the place result
         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-        for (let i = 0; i < place.address_components.length; i++) {
-          const addressType = place.address_components[i].types[0];
-          if (componentForm[addressType]) {
-            const val = place.address_components[i][componentForm[addressType]];
-            if ( addressType === 'country') {
-              this.country = val;
-            }
-            if ( addressType === 'postal_code') {
-              this.postalCode = val;
-            }
-            if ( addressType === 'locality') {
-              this.city = val
-            }
-            if ( addressType === 'administrative_area_level_1') {
-              this.state = val
-            }
-          }
-        }
+// console.log(place)
+        // for (let i = 0; i < place.address_components.length; i++) {
+        //   const addressType = place.address_components[i].types[0];
+        //   if (componentForm[addressType]) {
+        //     const val = place.address_components[i][componentForm[addressType]];
+        //     if ( addressType === 'country') {
+        //       this.country = val;
+        //     }
+        //     if ( addressType === 'postal_code') {
+        //       this.postalCode = val;
+        //     }
+        //     if ( addressType === 'locality') {
+        //       this.city = val
+        //     }
+        //     if ( addressType === 'administrative_area_level_1') {
+        //       this.state = val
+        //     }
+        //   }
+        // }
 
         // verify result
         if (place.geometry === undefined || place.geometry === null) {
@@ -312,5 +390,22 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     this.locForm.patchValue({
       location:''
   });
+  }
+  manualSearch(value: string){
+    this.filterLocation = value;
+    this.serachApi();
+  }
+  onScroll(e) {
+    // console.log(e)
+    this.scrolling = e.currentScrollPosition;
+    // console.log(this.scrolling)
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 1000
+      const data = {
+        searchType: this.filterStatus,
+        scrollId: this.scrollId,
+      }
+      this.store.dispatch({ type: EventActions.EVENT_SEARCH, payload: data });
+    }
   }
 }

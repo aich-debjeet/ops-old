@@ -1,19 +1,19 @@
 <div class="c-event__card" *ngIf="!loader">
     <!-- card media (img, video & audio) -->
     <div class="c-card__event">
-        <a [routerLink]="'/event/inner/' + eventData?.eventId" >
-            <img [src]="baseUrl + eventData?.eventImage" class="c-card__image">
+        <a [routerLink]="'/event/inner/' + eventData?.id" >
+            <img [src]="baseUrl + eventData?.imagePath[0]" class="c-card__image">
         </a>
     </div>
     <!-- //card media (img, video & audio) -->
     <div class="c-card__project p-l-r-16 p-t-16">{{eventData?.eventType }}</div>
     <!-- card body -->
     <div class="c-card__body p-t-0">
-        <div class="c-text_lg c-card__event-title cursor-pointer" [routerLink]="'/event/inner/' + eventData?.eventId">
-            {{eventData?.eventTitle | truncate:[40, '...']}}
+        <div class="c-text_lg c-card__event-title cursor-pointer" [routerLink]="'/event/inner/' + eventData?.id">
+            {{eventData?.title | truncate:[40, '...']}}
         </div>
-        <div class="c-text_md color-grey-dark m-t-8">{{ eventData?.eventStartDate | utcDate | date: 'dd, MMM'}} - {{ eventData?.eventEndDate | utcDate | date: 'dd, MMM'}}</div>
-        <div class="c-text_sm color-grey-dark m-t-8 c-card__event-address">{{ eventData?.venue?.location | truncate:[60, '...'] }}</div>
+        <div class="c-text_md color-grey-dark m-t-8">{{ eventData?.startDate | utcDate | date: 'dd, MMM'}} - {{ eventData?.endDate | utcDate | date: 'dd, MMM'}}</div>
+        <div class="c-text_sm color-grey-dark m-t-8 c-card__event-address">{{ eventData?.venue | truncate:[60, '...'] }}</div>
     </div>
     <!-- //card body -->
     <!-- card footer links -->
@@ -29,7 +29,7 @@
                 </a>
             </div>
             <div class="c-links__actions">
-                <a [routerLink]="'/event/inner/' + eventData?.eventId" class="c-card__opportunity--view">View</a>
+                <a [routerLink]="'/event/inner/' + eventData?.id" class="c-card__opportunity--view">View</a>
             </div>
         </div>
     </div>

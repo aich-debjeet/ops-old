@@ -2,16 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { OpportunityActions } from './../../../../actions/opportunity.action';
 import { OpportunityModel } from './../../../../models/opportunity.model';
-import { Media } from './../../../../models/media.model';
-
-import { environment } from './../../../../../environments/environment.prod';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription, ISubscription } from 'rxjs/Subscription';
+import { ISubscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
-import { forEach } from '@angular/router/src/utils/collection';
+import { GeneralUtilities } from '../../../../helpers/general.utils';
 
 @Component({
   selector: 'app-opportunity-search-recommended',
@@ -21,86 +18,71 @@ import { forEach } from '@angular/router/src/utils/collection';
 export class OpportunitySearchRecommendedComponent implements OnInit, OnDestroy {
 
   opportunityState$: Observable<OpportunityModel>;
-  userState$: Observable<Media>;
-  userState: any;
-  opportunities: any[];
-  skillCodes = [];
-  loadedRecomOpps = false;
-  private subscription: ISubscription;
-  private userSubscription: ISubscription;
+  opportunityState: any;
+  opportunities = [];
+  private oppsSub: ISubscription;
 
-  /* pagination settings */
-  recordsPerPage = 10;
-  /* pagination settings */
+  /* scroll */
+  canScroll = true;
+  scrolling = 0;
+  scrollingLoad = 800;
+  /* scroll */
 
   constructor(
     private store: Store<OpportunityModel>,
-    private mediaStore: Store<Media>
+    private generalUtils: GeneralUtilities
   ) {
     // check for opportunity details
     this.opportunityState$ = this.store.select('opportunityTags');
-
-    // check for user details
-    this.userState$ = this.mediaStore.select('profileTags');
   }
 
   ngOnInit() {
 
     // observe the opportunity state
-    this.subscription = this.opportunityState$.subscribe((state) => {
-      if (state && state.search_opportunities_data && state.search_opportunities_data.SUCCESS) {
-        this.opportunities = state.search_opportunities_data.SUCCESS;
-      }
-
-      // check for the result of recommended opportunities
-      if (state && state.get_opportunities_data && state.get_opportunities_data.SUCCESS) {
-        this.opportunities = state.get_opportunities_data.SUCCESS;
+    this.oppsSub = this.opportunityState$.subscribe((state) => {
+      this.opportunityState = state;
+      if (typeof state !== 'undefined') {
+        if (
+          this.generalUtils.checkNestedKey(state, ['search_opportunities_result', 'opportunityResponse'])
+          && state['search_opportunities_result']['opportunityResponse'].length > 0
+        ) {
+          this.opportunities = state['search_opportunities_result']['opportunityResponse'];
+        }
       }
     });
 
-    // observe the user state
-    this.userSubscription = this.userState$.subscribe((state) => {
-      this.userState = state;
-      // check for user skills
-      if (this.userState && this.userState['profile_navigation_details'] && this.userState['profile_navigation_details']['skills'] && this.userState['profile_navigation_details']['skills'].length > 0) {
-        // fetching skills in a local var
-        const skillsLoaded = this.userState['profile_navigation_details']['skills'];
-        // preparing skills as an array of string
-        skillsLoaded.forEach((skill, index) => {
-          if (skill && skill.code) {
-            this.skillCodes.push(skill.code);
-          }
-          if ((skillsLoaded.length - 1) === index) {
-            if (!this.loadedRecomOpps) {
-              this.loadRecomOpps();
-            }
-          }
-        });
-      }
-
-    });
-
-  }
-
-  /**
-   * load recommended opportunities
-   */
-  loadRecomOpps() {
-    const recomSearchParams = {
-      // industry: this.skillCodes,
-      offset: 0, // initial request
-      limit: this.recordsPerPage
-    }
-
-    this.store.dispatch({
-      type: OpportunityActions.GET_OPPORTUNITIES,
-      payload: recomSearchParams
-    });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.oppsSub.unsubscribe();
   }
 
+  /**
+   * While Scrolling trigger next api call
+   */
+  onScroll(e) {
+    this.scrolling = e.currentScrollPosition;
+    if (this.canScroll === true && this.scrollingLoad <= this.scrolling) {
+      // this.showPreloader = true;
+      this.canScroll = false;
+      this.scrollingLoad += 500;
+      // check if it's first request
+      if (this.generalUtils.checkNestedKey(this.opportunityState, ['search_opportunities_result', 'scrollId']) && this.opportunityState['search_opportunities_result']['scrollId'] !== '') {
+        const searchOppsParams = {
+          searchType: this.opportunityState['search_opportunities_params']['searchType'],
+          searchText: this.opportunityState['search_opportunities_params']['searchText'],
+          scrollId: this.opportunityState['search_opportunities_result']['scrollId']
+        }
+        // this.isSearching = true;
+        this.store.dispatch({
+          type: OpportunityActions.SEARCH_OPPORTUNITIES,
+          payload: searchOppsParams
+        });
+      }
+      setTimeout(() => {
+        this.canScroll = true;
+      }, 1000);
+    }
+  }
 
 }

@@ -43,6 +43,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
     this.tagState$.subscribe((state) => {
       this.eventDetail = state['event_detail'];
       this.attendeeList = state['attendee_load'];
+      console.log(this.eventDetail)
     });
 
     // Event tag
