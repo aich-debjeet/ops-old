@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 // modules
 import { SharedModule } from '../../shared/shared.module';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 // components
 import { PortfolioComponent } from './portfolio.component';
@@ -23,6 +24,7 @@ const routes: Routes = [{
   imports: [
     CommonModule,
     SharedModule,
+    NgxMasonryModule,
     RouterModule.forChild(routes)
   ],
   declarations: [PortfolioComponent]

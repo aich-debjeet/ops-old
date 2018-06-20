@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-portfolio-media',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./portfolio-media.component.scss']
 })
 export class PortfolioMediaComponent implements OnInit {
+
+  @Input() portMediaType: string;
+  @Input() portMediaDetails: any;
 
   constructor() { }
 
