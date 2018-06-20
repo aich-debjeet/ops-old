@@ -1,0 +1,63 @@
+.c-portfolio--block {
+    position: relative;
+    padding: 8px;
+}
+
+.ops_media_icon {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 10px;
+    z-index: 4;
+}
+
+.ops_media_icon img {
+    width: 16px !important;
+    filter: drop-shadow(0px 0px 3px #222);
+}
+
+.c-portfolio__img img {
+    border-radius: 3px;
+    z-index: 2;
+}
+
+.c-port__mediatext {
+    width: 90%;
+    color: #333333;
+    font-size: 13px;
+    line-height: 20px;
+    margin: 8px 4px;
+}
+
+.c-port-opt {
+    position: absolute;
+    right: 0px;
+    bottom: 28px;
+    cursor: pointer;
+}
+
+.c-portfolio2 {
+    width: 100%;
+    float: left;
+    margin-top: 8px;
+    position: relative;
+}
+
+.c-status__options {
+    width: 14px;
+    height: 14px;
+    float: left;
+    margin-top: 9px;
+    margin-left: 8px;
+}
+
+.c-port-opt {
+    position: absolute;
+    right: 0px;
+    bottom: 28px;
+    cursor: pointer;
+}
+
+.pull-right {
+    float: right !important;
+}
