@@ -4,20 +4,21 @@
 <section>
     <div class="container p-t-50">
         <div class="row m-t-24">
-            <div class="col-md-3">
+            <div class="col-md-3 p-b-20">
                 <div class="o-port_userimg">
-                    <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-port_user--img">
+                    <img [src]="baseImageUrl + userProfile?.profileImage" class="o-port_user--img">
                 </div>
-                <div class="c-h4 text-center m-t-16">David Freeman</div>
-                <div class="width100 float_left m-16">
-                    <a href="javascript:void(0)" class="c-skill__tags2">uidesign</a>
-                    <a href="javascript:void(0)" class="c-skill__tags2">uxdesign</a>
-                    <a href="javascript:void(0)" class="c-skill__tags2">webdesign</a>
-                    <a href="javascript:void(0)" class="c-skill__tags2">illustration</a>
+                <div class="c-h4 text-center m-t-16">{{ userProfile?.name }}</div>
+                <div *ngIf="userProfile?.profileType?.length > 0" class="width100 float_left m-16">
+                    <a [routerLink]="'/spotfeed/' + skill?.name" *ngFor="let skill of userProfile?.profileType.slice(0, 5)" class="c-skill__tags2">
+                        {{ skill?.name }}
+                    </a>
                 </div>
-                <div class="c-text_sm text-center width100 float_left">Have you noticed how everybody takes it for granted a bad experience is automatically, unreservedly, unremittingly bad?</div>
-                <div class="width100 float_left">
-                    <button class="btn btn-primary btn-md btn-block m-t-16" data-toggle="modal" data-target="#addfromPost" type="button" aria-expanded="true">add work</button>
+                <div class="c-text_sm text-center width100 float_left">
+                    {{ userProfile?.summary }}
+                </div>
+                <div *ngIf="ownProfile" class="width100 float_left">
+                    <button type="button" class="btn btn-primary btn-md btn-block m-t-16" (click)="addWork()">add work</button>
                     <button type="button" class="btn btn-default btn-md btn-block m-t-8">publish</button>
                 </div>
             </div>
@@ -27,15 +28,9 @@
                         <div class="c-port__tabs">
                             <ul class="nav nav-tabs">
                                 <li class="active">
-                                    <a data-toggle="tab" href="#01" aria-expanded="true" class="p-l-0">ALL</a>
+                                    <a data-toggle="tab" class="p-l-0">ALL</a>
                                 </li>
-                                <li class="">
-                                    <a data-toggle="tab" href="#02" aria-expanded="false">BRANDING</a>
-                                </li>
-                                <li class="">
-                                    <a data-toggle="tab" href="#03" aria-expanded="false">GRAPHIC DESIGN</a>
-                                </li>
-                                <div class="c-port__setting">
+                                <div *ngIf="ownProfile" class="c-port__setting">
                                     <a data-toggle="modal" data-target="#editCat">
                                        <img src="https://ops-v2.netlify.com/assets/svg/ico_settings.svg">
                                     </a>
@@ -44,11 +39,14 @@
                             <div class="tab-content">
                                 <div id="01" class="tab-pane fade active in m-l-r-8">
                                     <div class="row">
-                                        <ngx-masonry [useImagesLoaded]="true">
+                                        <ngx-masonry *ngIf="!portfolioEmpty; else portfolioEmpty" [useImagesLoaded]="true">
                                             <ngx-masonry-item *ngFor="let media of medias" class="col-md-4 col-sm-4 c-portfolio--block">
                                                 <app-portfolio-media [portMediaDetails]="media"></app-portfolio-media>
                                             </ngx-masonry-item>
                                         </ngx-masonry>
+                                        <ng-template #portfolioEmpty>
+                                            <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is empty</h4>
+                                        </ng-template>
                                     </div>
                                 </div>
                             </div>
@@ -60,254 +58,73 @@
     </div>
 </section>
 
-
-<!-- edit category modal -->
-<div id="editCat" class="modal fade c-portdelete" role="dialog">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="c-text_lg-bold m-t--16">Edit Category</div>
-                <!-- -->
-                <div class="row c-port__cat-name" id="switchbranding">
-                  <div class="col-md-9 p-0">Branding</div>
-                  <div class="col-md-3 p-0"><a onclick="switchbranding();">Edit</a></div> 
+<!-- OTP Modal -->
+<app-modal [modalTitle]="'Add Work'" [blocking]='false' modalId='addWorkModal' size="port_add_work">
+    <!-- Modal -->
+    <div id="addfromPost" class="c-addpost_modal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                <div class="row c-port__cat-name" id="edicat-edit">
-                  <div class="col-md-10 p-0">
-                   <div class="c-form__group c-form--sm c-form--noeffect m-t--8 m-b-0">
-                       <input class="c-form__input" required="" type="text" value="Branding">
-                       <span class="c-form__highlight"></span>
-                       <span class="c-form__bar"></span>
-                       <label>Add New Category</label>
-                   </div>
-                  </div>
-                   <div class="col-md-2 p-0">
-                      <a onclick="switchbranding();">Save</a>
-                   </div>
-                </div>
-                <!-- -->
-                
-                <!-- -->
-                <div class="row c-port__cat-name" id="switchphoto">
-                  <div class="col-md-9 p-0">Photography</div>
-                  <div class="col-md-3 p-0"><a onclick="switchphoto();">Edit</a></div> 
-                </div>
-                <div class="row c-port__cat-name" id="edicat-edit2">
-                  <div class="col-md-10 p-0">
-                   <div class="c-form__group c-form--sm c-form--noeffect m-t--8 m-b-0">
-                       <input class="c-form__input" required="" type="text" value="Photography">
-                       <span class="c-form__highlight"></span>
-                       <span class="c-form__bar"></span>
-                       <label>Add New Category</label>
-                   </div>
-                  </div>
-                   <div class="col-md-2 p-0">
-                      <a onclick="switchphoto();">Save</a>
-                   </div>
-                </div>
-                <!-- -->
-                <!-- -->
-                <div class="row c-port__cat-name" id="switchdesign">
-                  <div class="col-md-9 p-0">Graphic Design</div>
-                  <div class="col-md-3 p-0"><a onclick="switchdesign();">Edit</a></div> 
-                </div>
-                <div class="row c-port__cat-name" id="edicat-edit3">
-                  <div class="col-md-10 p-0">
-                   <div class="c-form__group c-form--sm c-form--noeffect m-t--8 m-b-0">
-                       <input class="c-form__input" required="" type="text" value="Graphic Design">
-                       <span class="c-form__highlight"></span>
-                       <span class="c-form__bar"></span>
-                       <label>Add New Category</label>
-                   </div>
-                  </div>
-                   <div class="col-md-2 p-0">
-                      <a onclick="switchdesign();">Save</a>
-                   </div>
-                </div>
-                <!-- -->
-                <div class="c-form__group c-form--sm c-form--noeffect">
-                    <input class="c-form__input" required="" type="text">
-                    <span class="c-form__highlight"></span>
-                    <span class="c-form__bar"></span>
-                    <label>Add New Category</label>
-                </div>
-                <div class="m-t-24 text-right">
-                    <button type="button" class="btn btn-primary btn-sm p-l-r-16" data-dismiss="modal">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- //edit category modal -->
-
-<!-- Modal -->
-<div id="addfromPost" class="modal fade c-addpost_modal" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header p-0">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body p-b-0">
-                <div class="row with_border_bottom p-b-8">
-                    <div class="col-md-3 c-text_md-bold text-uppercase m-t-8">Choose from image</div>
-                    <div class="col-md-5">12</div>
-                    <div class="col-md-4">
-                        <div class="row">
-                            <form>
-                                <div class="col-md-9 col-xs-8">
-                                    <div class="c-form__group m-0">
-                                        <select class="c-form-control">
-                                            <option>Select Category</option>
-                                            <option>Select list 2</option>
-                                            <option>Select list 3</option>
-                                            <option>Select list 4</option>
-                                        </select>
+                <div class="modal-body p-b-0">
+                    <div class="row with_border_bottom p-b-8">
+                        <div class="col-md-3 c-text_md-bold text-uppercase m-t-8">Choose from image</div>
+                        <div class="col-md-5">12</div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <form>
+                                    <div class="col-md-9 col-xs-8">
+                                        <div class="c-form__group m-0">
+                                            <select class="c-form-control">
+                                                <option>Select Category</option>
+                                                <option>Select list 2</option>
+                                                <option>Select list 3</option>
+                                                <option>Select list 4</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3 col-xs-3">
-                                    <button type="button" class="btn btn-primary btn-md">Done</button>
-                                </div>
-                            </form>
+                                    <div class="col-md-3 col-xs-3">
+                                        <button type="button" class="btn btn-primary btn-md">Done</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row m-t-8">
-                    <div class="col-md-2">
-                        <div class="c-text_lg">All Posts</div>
-                        <div class="c-text_sm text-uppercase color-grey-dark m-t-8">channels</div>
-                        <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm m-t-8">
-                            <input class="c-form__input p-l-24" required="" type="text">
-                            <label class="p-l-16">Search Channel</label>
-                            <span>
-                      <img src="https://ops-v2.netlify.com/assets/svg/ico_search.svg" class="c-form__input--lefticon">
-                     </span>
+                    <div class="row m-t-8">
+                        <div class="col-md-2">
+                            <div class="c-text_lg">All Posts</div>
+                            <div class="c-text_sm text-uppercase color-grey-dark m-t-8">channels</div>
+                            <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm m-t-8">
+                                <input class="c-form__input p-l-24" required="" type="text">
+                                <label class="p-l-16">Search Channel</label>
+                                <span>
+                            <img src="https://ops-v2.netlify.com/assets/svg/ico_search.svg" class="c-form__input--lefticon">
+                            </span>
+                            </div>
+                            <div class="c-portscroll2" id="ops_scrollbar">
+                                <form>
+                                    <div class="c-checkbox__md">
+                                        <!-- <label *ngFor="let channel of channels" class="color-grey-darker">
+                                            <input type="checkbox" value="1" class="c-form__bar2">{{ channel.name }}
+                                        </label> -->
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="c-portscroll2" id="ops_scrollbar">
-                            <form>
-                                <div class="c-checkbox__md">
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="1" class="c-form__bar2">Bartellbury
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="2" class="c-form__bar2">West Armani
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="3" class="c-form__bar2">New Cristopherview
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="4" class="c-form__bar2">Delaneymouth
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="5" class="c-form__bar2">Katarinafurt
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="8" class="c-form__bar2">Botsfordborough
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="9" class="c-form__bar2">valvafurt
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="10" class="c-form__bar2">South Garett
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="1" class="c-form__bar2">Bartellbury
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="2" class="c-form__bar2">West Armani
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="3" class="c-form__bar2">New Cristopherview
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="4" class="c-form__bar2">Delaneymouth
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="5" class="c-form__bar2">Katarinafurt
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="6" class="c-form__bar2">Garett
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="7" class="c-form__bar2">Bartellbury
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="8" class="c-form__bar2">Botsfordborough
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="9" class="c-form__bar2">valvafurt
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="10" class="c-form__bar2">South Garett
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="1" class="c-form__bar2">Bartellbury
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="2" class="c-form__bar2">West Armani
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="3" class="c-form__bar2">New Cristopherview
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="4" class="c-form__bar2">Delaneymouth
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="5" class="c-form__bar2">Katarinafurt
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="8" class="c-form__bar2">Botsfordborough
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="9" class="c-form__bar2">valvafurt
-                                    </label>
-                                    <br>
-                                    <label class="color-grey-darker">
-                                        <input type="checkbox" value="10" class="c-form__bar2">South Garett
-                                    </label>
+                        <div class="col-md-10 c-portscroll" id="ops_scrollbar">
+                            <div class="row">
+                                <div class="col-xs-6 col-md-3 c-portfolio--block">
+                                <img src="" alt="">
                                 </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-10 c-portscroll" id="ops_scrollbar">
-                        <div class="row">
-                         <div class="col-xs-6 col-md-3 c-portfolio--block">
-                           <img src="" alt="">
-                         </div>
-                     </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- //modal -->
+    <!-- //modal -->
+</app-modal>
 
 <app-footer></app-footer>

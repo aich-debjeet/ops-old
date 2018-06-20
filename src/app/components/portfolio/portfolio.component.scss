@@ -149,7 +149,6 @@
 }
 
 .c-addpost_modal {
-    background-color: rgba(51, 51, 51, 0.95);
     .modal-lg {
         width: 1170px;
         margin-top: 54px;
@@ -293,15 +292,7 @@
     }
 }
 
-#edicat-edit {
-    display: none;
-}
-
-#edicat-edit2 {
-    display: none;
-}
-
-#edicat-edit3 {
+#edicat-edit, #edicat-edit2, #edicat-edit3 {
     display: none;
 }
 
@@ -324,4 +315,36 @@
 
 .p-t-50 {
     padding-top: 50px;
+}
+
+.c-addpost_modal .modal-lg {
+    width: 1170px;
+    margin-top: 54px;
+}
+
+.o-portfolio-empty-text {
+    width: 100%;
+    text-align: center;
+    margin-top: 20%;
+}
+
+.color-grey-dark {
+    color: #929292 !important;
+}
+
+.p-b-20 {
+    padding-bottom: 20px;
+}
+
+.c-skill__tags2 {
+    color: #747474;
+    font-size: 11px;
+    line-height: 15px;
+    float: left;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    border-radius: 3px;
+    border: 1px solid #F3F5F7;
+    display: inline;
+    cursor: pointer;
 }

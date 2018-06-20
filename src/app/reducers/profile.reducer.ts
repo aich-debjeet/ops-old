@@ -631,6 +631,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         profile_other_loaded: true,
         profile_other: payload,
         profiles: [...state.profiles, payload],
+        portfolio_user_profile: payload
       });
 
     case ProfileActions.PROFILE_LOAD_FAILED:
