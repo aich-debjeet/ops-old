@@ -64,9 +64,6 @@
     <div id="addfromPost" class="c-addpost_modal" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header p-0">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
                 <div class="modal-body p-b-0">
                     <div class="row with_border_bottom p-b-8">
                         <div class="col-md-3 c-text_md-bold text-uppercase m-t-8">Choose from image</div>
@@ -105,9 +102,9 @@
                             <div class="c-portscroll2" id="ops_scrollbar">
                                 <form>
                                     <div class="c-checkbox__md">
-                                        <!-- <label *ngFor="let channel of channels" class="color-grey-darker">
-                                            <input type="checkbox" value="1" class="c-form__bar2">{{ channel.name }}
-                                        </label> -->
+                                        <label *ngFor="let channel of channels" class="color-grey-darker">
+                                            <input type="checkbox" value="{{ channel.channelId }}" class="c-form__bar2">{{ channel.channelName }}
+                                        </label>
                                     </div>
                                 </form>
                             </div>

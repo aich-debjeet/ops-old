@@ -60,6 +60,9 @@ export class PortfolioComponent implements OnInit, OnDestroy {
             }
           }
         }
+        if (this.generalUtils.checkNestedKey(state, ['get_users_channels_result'])) {
+          this.channels = state['get_users_channels_result'];
+        }
       }
     });
   }
@@ -83,6 +86,10 @@ export class PortfolioComponent implements OnInit, OnDestroy {
    * show modal and popuplate the media
    */
   addWork() {
+    this.profileStore.dispatch({
+      type: ProfileActions.GET_USERS_CHANNELS,
+      payload: ''
+    });
     this.modalService.open('addWorkModal');
   }
 

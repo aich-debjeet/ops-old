@@ -20,6 +20,13 @@ export class ProfileService {
   }
 
   /**
+   * for: portfolio
+   */
+  getChannelsForPortfolio(query: string) {
+    return this.api.get('/portal/portfolio/channelTextSearch/0/10?searchText=' + query);
+  }
+
+  /**
    * Get followings by handle
    */
   getFollowingProfiles(params: any) {

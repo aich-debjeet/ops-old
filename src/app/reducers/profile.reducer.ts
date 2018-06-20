@@ -75,6 +75,29 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
   switch (type) {
 
+    /**
+     * for: portfolio
+     */
+    case ProfileActions.GET_USERS_CHANNELS:
+      return Object.assign({}, state, {
+        get_users_channels: true,
+        get_users_channels_success: false,
+        get_users_channels_query: payload
+      });
+
+    case ProfileActions.GET_USERS_CHANNELS_SUCCESS:
+      return Object.assign({}, state, {
+        get_users_channels: false,
+        get_users_channels_success: true,
+        get_users_channels_result: payload
+      });
+
+    case ProfileActions.GET_USERS_CHANNELS_FAILED:
+      return Object.assign({}, state, {
+        get_users_channels: false,
+        get_users_channels_success: false
+      });
+
     /* loading followings/followers */
     case ProfileActions.GET_FOLLOWING_PROFILES:
       return Object.assign({}, state, {

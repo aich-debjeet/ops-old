@@ -15,6 +15,22 @@ import { ProfileActions } from '../actions/profile.action';
 
 @Injectable()
 export class ProfileEffect {
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
+  getChannelsForPortfolio$ = this.actions$
+    .ofType(ProfileActions.GET_USERS_CHANNELS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getChannelsForPortfolio(payload)
+      .map(res => ({ type: ProfileActions.GET_USERS_CHANNELS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.GET_USERS_CHANNELS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
   /**
    * Get LoggedIn User profile
    */
