@@ -160,7 +160,7 @@
                         <li>
                            <form [formGroup]="locForm" novalidate  #ecfrom="ngForm">
                                 <div class="c-form__group c-form--lg">
-                                    <input class="c-form__input" required="" placeholder="" type="text" autocorrect="off" autocapitalize="off" spellcheck="off" #search formControlName="location">
+                                    <input class="c-form__input" required="" placeholder="" type="text" autocorrect="off" autocapitalize="off" spellcheck="off" #search formControlName="location" (keyup.enter)="manualSearch(search.value)">
                                     <label>Enter your city</label>
                                 </div>
                             </form>
@@ -171,7 +171,10 @@
         <!-- </form> -->
         <!-- location end-->
 
-        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+        <div class="col-md-12 col-sm-12 col-xs-12 p-0" infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="10"
+        (scrolled)="onScroll($event)">
             <div class="tab-content">
                 <div id="recommended" class="tab-pane fade  active in">
                     <div>
