@@ -44,9 +44,11 @@
                             <div class="tab-content">
                                 <div id="01" class="tab-pane fade active in m-l-r-8">
                                     <div class="row">
-                                        <div class="col-md-4 col-sm-4 c-portfolio--block">
-                                            <app-portfolio-media [portMediaType]="'image'" ></app-portfolio-media>
-                                        </div>
+                                        <ngx-masonry [useImagesLoaded]="true">
+                                            <ngx-masonry-item *ngFor="let media of medias" class="col-md-4 col-sm-4 c-portfolio--block">
+                                                <app-portfolio-media [portMediaDetails]="media"></app-portfolio-media>
+                                            </ngx-masonry-item>
+                                        </ngx-masonry>
                                     </div>
                                 </div>
                             </div>

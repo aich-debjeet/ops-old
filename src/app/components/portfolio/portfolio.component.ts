@@ -10,6 +10,16 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
   // router subscription
   routerSub: any;
+  medias = [{
+    type: 'image',
+    repoPath: ''
+  }, {
+    type: 'audio',
+    repoPath: ''
+  }, {
+    type: 'video',
+    repoPath: ''
+  }];
 
   constructor(
     private route: ActivatedRoute,
