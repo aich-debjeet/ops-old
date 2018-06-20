@@ -6,6 +6,18 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
 
   switch (type) {
 
+    case EventActions.EVENT_EDIT:
+      return Object.assign({}, state, {
+        event_update: [],
+        event_updated : false,
+      })
+
+    case EventActions.EVENT_EDIT_SUCCESS:
+      return Object.assign({}, state, {
+        event_update : payload,
+        event_updated: true
+      })
+
     case EventActions.GET_EVENT_TYPE:
       return Object.assign({}, state, {
         eventType_load_success: false
@@ -91,15 +103,32 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
       });
 
     case EventActions.EVENT_SEARCH:
+    // console.log(payload)
+    if(payload.scrollId === ''){
       return Object.assign({}, state, {
         event_list: [],
-        event_loading: true
       });
+    }
+    else {
+      return Object.assign({}, state, {
+        // event_list: [],
+        event_loading: true,
+        event_Loaded : false,
+      });
+    }
 
     case EventActions.EVENT_SEARCH_SUCCESS:
+    let elastic_list = [];
+    if (state && state['event_list'] && state['event_list'].length > 0){
+      elastic_list = [...state['event_list'], ...payload['eventResponse']];
+    } else {
+        elastic_list = payload['eventResponse'];
+    }
       return Object.assign({}, state, {
-        event_list: payload['SUCCESS'],
-        event_loading: false
+        event_list: elastic_list,
+        event_loading: false,
+        event_Loaded : true,
+        event_scroll_id: payload.scrollId
       });
 
     case EventActions.EVENT_TYPE_LOAD_SUCCESS:

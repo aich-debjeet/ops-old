@@ -25,6 +25,16 @@ export class EventEffect {
       .catch((res) => Observable.of({ type: EventActions.BANNER_SEARCH_FAILED, payload: res }))
     );
 
+  //Edit  for events
+  @Effect()
+  eventsEdit$ = this.actions$
+  .ofType(EventActions.EVENT_EDIT)
+  .map(toPayload)
+  .switchMap((payload) => this.eventService.eventsEdit(payload)
+    .map(res => ({ type: EventActions.EVENT_EDIT_SUCCESS, payload: res }))
+    .catch((res) => Observable.of({ type: EventActions.EVENT_EDIT_FAILED, payload: res }))
+  );
+
     //Attendee list
     @Effect()
      attendeeList$ = this.actions$

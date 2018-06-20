@@ -3,7 +3,7 @@
     <div class="container">
         <div class="o-events-form-container m-t-32 p-b-32">
             <div class="o-events-form-block p-t-32">
-                <h4 class="c-h4 text-center">Create Event</h4>
+                <h4 class="c-h4 text-center">Edit Event</h4>
                 <div class="o-events-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-24 text_uppercase ltr-space">
                     Event details
                 </div>
@@ -15,7 +15,7 @@
                             <div class="o-event-form-upload__container">
                                 <img *ngIf="eventCoverImage" class="event-image" src="{{ baseUrl + eventCoverImage}}">
                                 <div *ngIf="!eventCoverImage" class="c-text_md f-w_600 text_uppercase color-theme ltr-space">Upload event image</div>
-                                
+                                <a href= "javascript:void(0)" class="o-event-upload__close" (click)="removePhoto()"><img src="{{ baseUrl }}img/svg/ico_create-close.svg"></a>
                             </div>
                         </div>
                         <p class="c-form__validation text-center" *ngIf="imageUpload">Event Cover is required</p>
@@ -93,8 +93,6 @@
                         </div>
                         <!-- Industry end -->
 
-                    
-
 
                         <div class="o-events-form__single">
                             <div class="col-md-3 p-0">
@@ -103,7 +101,6 @@
                             <div class="col-md-9 p-0">
                                 <div class="c-form__group c-form--sm c-form--noeffect">
                                     <input class="c-form__input" required="" placeholder="" type="text" autocorrect="off" autocapitalize="off" spellcheck="off" #search formControlName="event_venue">
-                
                                     <span class="c-form__highlight"></span>
                                     <span class="c-form__bar"></span>
                                     <label>Event location</label>
@@ -116,27 +113,22 @@
                             </div>
                         </div>
                         <!-- Venue end -->
+
                         <div class="o-events-form__single">
                             <div class="col-md-3 p-0">
                                 <div class="c-text_md o-events-form-title">Event Brief *</div>
                             </div>
                             <div class="col-md-9 p-0">
                                 <div class="c-form__group c-form--sm">
-                                    <!-- <quill-editor [style]="{height: '250px'}"></quill-editor> -->
-
-                                    <quill-editor [style]="{height: '250px'}" #event_brief [placeholder]="'Describe your event'" [modules]="defaultModules" formControlName="event_brief">
-                                        
-                                      </quill-editor>
-
+                                    <textarea rows="4" class="c-textarea__block c-textarea--style" formControlName="event_brief" placeholder="Describe your event"></textarea>
                                 </div>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_brief'].errors?.required && ecfrom.submitted">Event Brief is required
                                     <span class="pull-right">
-                                      <img [src]="baseUrl + 'img/svg/stop_red.svg'" class="c-form__validation--img">
+                                      <img src="{{ baseUrl }}img/svg/stop_red.svg" class="c-form__validation--img">
                                     </span>
                                 </p>
                             </div>
                         </div>
-
                         <!-- Event Brief end -->
 
                         <div class="o-events-form__single">
@@ -341,7 +333,8 @@
                             <div class="col-md-3 p-0">
                             </div>
                             <div class="col-md-5 p-0">
-                                <button type="submit" class="btn btn-primary btn-md">Create</button>
+                                <button type="submit" class="btn btn-primary btn-md">Update</button>
+                                <button type="button" (click)="enableEdit()" class="btn btn-primary btn-md">close</button>
                             </div>
                         </div>
                         <!-- create btn end -->

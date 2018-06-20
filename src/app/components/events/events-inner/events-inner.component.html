@@ -14,7 +14,7 @@
               </span>
               <ul class="dropdown-menu dropdown-menu-right m-r-8" *ngIf = "eventDetail?.isOwner">
                   <li>
-                      <a href="javascript:void(0)">Edit</a>
+                      <a routerLink = "/event/edit">Edit</a>
                   </li>
                   <li>
                       <a (click) = "deleteEvent(eventDetail?.id)">Delete</a>
