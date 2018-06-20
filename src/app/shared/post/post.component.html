@@ -127,6 +127,7 @@
                             </a>
                             <a class="c-text_md c-invite--user">Seth Chevz4</a>
                         </div>
+
                         <share-buttons [theme]="'modern-dark'"
                         [include]="['facebook','twitter','google','email']"
                         [show]="5"
@@ -137,19 +138,19 @@
                         [image]="'https://ops-v2.netlify.com/assets/demo/new/s06.jpg'"
                         [tags]="'dsadajs'"
                         ></share-buttons>
-                        
+
                         <div class="o-share__social">
-                            <div class="o-share__social-icon p-l-0">
-                                <img src="assets/svg/googleplus.svg">
+                            <div class="o-share__social-icon p-l-0" shareButton="google" [sbDescription]="mediaData?.description | truncate:[200, '...']" [sbImage]="imageLink + mediaData?.thumbNails?.large">
+                                <img src="https://ops-v2.netlify.com/assets/svg/googleplus.svg">
                             </div>
-                            <div class="o-share__social-icon">
-                                <img src="assets/svg/twitter.svg">
+                            <div class="o-share__social-icon" shareButton="twitter" [sbDescription]="mediaData?.description | truncate:[200, '...']" [sbImage]="imageLink + mediaData?.thumbNails?.large">
+                                <img src="https://ops-v2.netlify.com/assets/svg/twitter.svg">
                             </div>
-                            <div class="o-share__social-icon">
-                                <img src="assets/svg/facebook.svg">
+                            <div class="o-share__social-icon" shareButton="facebook" [sbDescription]="mediaData?.description | truncate:[200, '...']" [sbImage]="imageLink + mediaData?.thumbNails?.large">
+                                <img src="https://ops-v2.netlify.com/assets/svg/facebook.svg">
                             </div>
-                            <div class="o-share__social-icon p-r-0">
-                                <img src="assets/svg/envelope.svg">
+                            <div class="o-share__social-icon p-r-0" shareButton="twitter" [sbDescription]="mediaData?.description | truncate:[200, '...']" [sbImage]="imageLink + mediaData?.thumbNails?.large">
+                                <img src="https://ops-v2.netlify.com/assets/svg/envelope.svg">
                             </div>
                         </div>
                     </div>
