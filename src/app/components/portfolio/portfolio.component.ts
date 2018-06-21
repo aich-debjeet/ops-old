@@ -24,19 +24,13 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   portfolioEmpty = true;
   baseImageUrl = environment.API_IMAGE;
   ownProfile: boolean;
+  requestsPerPage = 2;
+  showPreloader = false;
 
   // router subscription
   routerSub: any;
-  medias = [{
-    type: 'image',
-    repoPath: ''
-  }, {
-    type: 'audio',
-    repoPath: ''
-  }, {
-    type: 'video',
-    repoPath: ''
-  }];
+  portFolioMedia: any[];
+  medias = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -63,6 +57,9 @@ export class PortfolioComponent implements OnInit, OnDestroy {
         if (this.generalUtils.checkNestedKey(state, ['get_users_channels_result'])) {
           this.channels = state['get_users_channels_result'];
         }
+        if (this.generalUtils.checkNestedKey(state, ['get_users_channels_result'])) {
+          this.portFolioMedia = state['get_users_media_result'];
+        }
       }
     });
   }
@@ -86,10 +83,17 @@ export class PortfolioComponent implements OnInit, OnDestroy {
    * show modal and popuplate the media
    */
   addWork() {
-    this.profileStore.dispatch({
-      type: ProfileActions.GET_USERS_CHANNELS,
-      payload: ''
-    });
+    this.showPreloader = true;
+    // get media
+    const reqBody = {
+      channelList: ['u-0de6b998-a78f-4adb-8261-9a0117aac727'],
+      offset: 0,
+      limit: this.requestsPerPage
+    };
+    this.profileStore.dispatch({ type: ProfileActions.GET_USER_MEDIA, payload: reqBody });
+
+    // get channels
+    this.profileStore.dispatch({ type: ProfileActions.GET_USERS_CHANNELS, payload: '' });
     this.modalService.open('addWorkModal');
   }
 

@@ -1,8 +1,8 @@
 <!-- media type image -->
-<div *ngIf="portMediaDetails?.type == 'image'" class="c-portfolio2">
+<div *ngIf="portMediaDetails?.type == 'image' || portMediaDetails?.mediaType == 'image'" class="c-portfolio2">
   <a data-toggle="modal" data-target="#portImg">
       <figure class="c-portfolio__img">
-          <img src="https://ops-v2.netlify.com/assets/demo/photography8.jpg" class="img-responsive">
+          <img [src]="baseImageUrl + portMediaDetails?.mediaRepoPath" class="img-responsive">
           <div class="ops_media_icon"><img src="https://ops-v2.netlify.com/assets/svg/ico_media_img.svg"></div>
       </figure>
   </a>
@@ -21,10 +21,10 @@
 <!-- media type image -->
 
 <!-- media type audio -->
-<div *ngIf="portMediaDetails?.type == 'audio'" class="c-portfolio2">
+<div *ngIf="portMediaDetails?.type == 'audio' || portMediaDetails?.mediaType == 'audio'" class="c-portfolio2">
   <a data-toggle="modal" data-target="#portImg">
       <figure class="c-portfolio__img">
-          <img src="https://ops-v2.netlify.com/assets/demo/photography5.jpg" class="img-responsive">
+          <img [src]="baseImageUrl + portMediaDetails?.mediaRepoPath" class="img-responsive">
           <div class="ops_media_icon"><img src="https://ops-v2.netlify.com/assets/svg/ico_volume3.svg"></div>
       </figure>
   </a>
@@ -43,10 +43,10 @@
 <!-- media type audio -->
 
 <!-- media type video -->
-<div *ngIf="portMediaDetails?.type == 'video'" class="c-portfolio2">
+<div *ngIf="portMediaDetails?.type == 'video' || portMediaDetails?.mediaType == 'video'" class="c-portfolio2">
   <a data-toggle="modal" data-target="#portImg">
       <figure class="c-portfolio__img">
-          <img src="https://ops-v2.netlify.com/assets/demo/new/s14.jpg" class="img-responsive">
+          <img [src]="baseImageUrl + portMediaDetails?.mediaRepoPath" class="img-responsive">
           <div class="ops_media_icon"><img src="https://ops-v2.netlify.com/assets/svg/ico_video.svg"></div>
       </figure>
   </a>

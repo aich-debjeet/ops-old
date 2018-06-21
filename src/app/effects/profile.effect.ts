@@ -32,6 +32,21 @@ export class ProfileEffect {
     );
 
   /**
+   * for: portfolio
+   */
+  @Effect()
+  getMediaForPortfolio$ = this.actions$
+    .ofType(ProfileActions.GET_USER_MEDIA)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getMediaForPortfolio(payload)
+      .map(res => ({ type: ProfileActions.GET_USER_MEDIA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.GET_USER_MEDIA_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
    * Get LoggedIn User profile
    */
   @Effect()

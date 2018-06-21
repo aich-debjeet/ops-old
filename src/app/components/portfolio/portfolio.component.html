@@ -96,8 +96,8 @@
                                 <input class="c-form__input p-l-24" required="" type="text">
                                 <label class="p-l-16">Search Channel</label>
                                 <span>
-                            <img src="https://ops-v2.netlify.com/assets/svg/ico_search.svg" class="c-form__input--lefticon">
-                            </span>
+                                    <img src="https://ops-v2.netlify.com/assets/svg/ico_search.svg" class="c-form__input--lefticon">
+                                </span>
                             </div>
                             <div class="c-portscroll2" id="ops_scrollbar">
                                 <form>
@@ -110,11 +110,18 @@
                             </div>
                         </div>
                         <div class="col-md-10 c-portscroll" id="ops_scrollbar">
-                            <div class="row">
-                                <div class="col-xs-6 col-md-3 c-portfolio--block">
-                                <img src="" alt="">
-                                </div>
+                            <div *ngIf="portFolioMedia?.length > 0; else noMedia" class="row">
+                                <ngx-masonry *ngFor="let media of portFolioMedia" class="col-xs-6 col-md-3 c-portfolio--block">
+                                    <ngx-masonry-item>
+                                        <app-portfolio-media [portMediaDetails]="media"></app-portfolio-media>
+                                    </ngx-masonry-item>
+                                </ngx-masonry>
                             </div>
+                            <ng-template #noMedia class="row">
+                                <div class="col-xs-12 col-md-12 c-portfolio--block">
+                                    <p class="no-result-found">No result found!</p>
+                                </div>
+                            </ng-template>
                         </div>
                     </div>
                 </div>

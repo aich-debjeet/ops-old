@@ -27,6 +27,13 @@ export class ProfileService {
   }
 
   /**
+   * for: portfolio
+   */
+  getMediaForPortfolio(reqParams: any) {
+    return this.api.put('/portal/portfolio/getMediaByChannelList', reqParams);
+  }
+
+  /**
    * Get followings by handle
    */
   getFollowingProfiles(params: any) {
