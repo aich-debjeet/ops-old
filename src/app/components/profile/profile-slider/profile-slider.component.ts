@@ -78,6 +78,7 @@ export class ProfileSliderComponent implements OnInit {
   otherProfileName: String;
   error = false;
   showThis = false;
+  questions: any;
 
   hasFollowed: boolean;
   @ViewChild('skillModal') UsertypeModal: Modal;
@@ -106,7 +107,7 @@ export class ProfileSliderComponent implements OnInit {
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      //  console.log('state', state);
+        console.log('state', state);
       // get followers
       if (state) {
         if ((state['searching_following_profiles'] === false && state['searching_following_profiles_success'] === true) || (state['searching_follower_profiles'] === false && state['searching_follower_profiles_success'] === true)) {
@@ -283,6 +284,21 @@ export class ProfileSliderComponent implements OnInit {
       username: this.userProfile.profile_details['extra'].username,
       dob: date
     });
+  }
+
+  /** 
+   * open report modal
+  */
+  reportModalOpen(){
+    this.profileStore.dispatch({ type: ProfileActions.PROFILE_REPORT, payload: 'profile' });
+    this.profileStore.select('profileTags')
+      .first(state => state['reports'])
+      .subscribe( data => {
+        if (data['reports']) {
+          this.questions = data['reports'];
+          this.modalService.open('reportPopUp');
+        }
+      });
   }
 
   /**
