@@ -1,0 +1,82 @@
+<app-navigation></app-navigation>
+<section class="p-t-80">
+  <div class="container">
+    <div class="c-mediamodal__left">
+      <div class="c-mediamodal__left__block">
+          <figure class="c-mediamodal--img">
+              <app-videplayer [play]="'true'" *ngIf="checkFileType(data?.repopath, 'Video')" [src]="imageLink + data?.repopath"></app-videplayer>
+              <img *ngIf="checkFileType(data?.repopath, 'Image')" [src]="imageLink + data?.repopath" class="img-responsive">
+              <app-audioplayer *ngIf="checkFileType(data?.repopath, 'Audio')" [src]="imageLink + data?.repopath"></app-audioplayer>
+          </figure>
+      </div>
+    </div>
+    <div class="c-mediamodal__right" id="ops_scrollbar">
+      <div class="fill-white">
+          <div class="c-mediamodal__user p-16" *ngIf="data.isOwner">
+              <a routerLink="/profile"  class="c-user__avatar c-avatar--status3">
+                  <img class="c-user__image" [src]="imageLink + data?.ownerImage">
+              </a>
+              <a routerLink="/profile" class="c-user__name">{{ data?.ownerName }}</a>
+              <div class="c-mediamodal__subhead">{{ data?.channelName }}
+                  <span class="c-mediamodal__time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span>
+              </div>
+              <div class="c-mediamodal__opt dropdown c-dropdown" appDropdown>
+                  <!-- <a href="">
+                      <img src="/assets/img/svg/ico_private.svg">
+                  </a> -->
+                  <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+                          <img [src]="imageLink + 'img/svg/ico_options.svg'" class="c-options--img">
+                  </span>
+                  <ul class="dropdown-menu dropdown-menu-right">
+                      <li><a (click)="onContentEdit($event)">Edit</a></li>
+                      <li><a (click)="deletePost(data)">Delete</a></li>
+                  </ul>
+              </div>
+          </div>
+          <div class="c-mediamodal__user p-16" *ngIf="!data.isOwner">
+              <a [routerLink]="['/', {outlets: { primary: ['profile', 'u', data?.ownerUsername], media: null }}]"  class="c-user__avatar c-avatar--status3">
+                  <img class="c-user__image" [src]="imageLink + data?.ownerImage">
+              </a>
+              <a [routerLink]="['/', {outlets: { primary: ['profile', 'u', data?.ownerUsername], media: null }}]" class="c-user__name">{{ data?.ownerName }}</a>
+              <div class="c-mediamodal__subhead" [routerLink]="['/', {outlets: { primary: ['channel', data?.channelId], media: null }}]">{{ data?.channelName }}
+                  <span class="c-mediamodal__time">{{ data?.createdDate | utcDate | date: 'hh:mm a dd MMM, yy'}}</span>
+              </div>
+          </div>
+          <div class="c-text_sm p-16">
+              <read-more [class]="'media-popup__text'" [isEdit]="isEdit" [text]="data?.description" [maxLength]=250 (commentEdited)="onCommentEdit($event)"></read-more>
+          </div>
+          <div class="c-card__links c-float--none p-t-0">
+              <div class="c-links">
+                  <div class="c-links__spots" (click)="spotMedia(data?.id)">
+                      <img *ngIf="spot===false" [src]="imageLink + 'img/svg/spot_icon_default.svg'" class="c-links__image">
+                      <img *ngIf="spot===true" [src]="imageLink + 'img/svg/spot_icon.svg'" class="c-links__image">
+                      <span class="c-links__count">{{ spotCount }}</span>
+                  </div>
+                  <div class="c-links__comments">
+                      <img [src]="imageLink + 'img/svg/ico_comment.svg'" class="c-links__image">
+                      <span class="c-links__count">{{ comments?.length }}</span>
+                  </div>
+                  <a href="https://www.facebook.com/dialog/share?app_id=206450069899832&href=&display=popup" style="vertical-align: middle;
+                  line-height: 25px;">Share</a>
+                  <div class="c-links__actions">
+                      <span class="c-links__add">
+                          <a >
+                              <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">
+                          </a>
+                      </span>
+                      <span class="c-links__share">
+                        <a>
+                          <img [src]="imageLink + 'img/svg/ico_share-02.svg'" class="c-action__image">
+                        </a>
+                      </span>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="c-media__right--feed">
+          <app-comment [mediaId]="mediaId" [commentsType]="'media-popup'" [comments]="comments" [mediaType]="mediaType" (submitComment)="sbComment($event)"></app-comment>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

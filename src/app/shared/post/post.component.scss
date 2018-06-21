@@ -3,6 +3,16 @@
 @import './src/assets/scss/components/_dropdowns.scss';
 @import './src/assets/scss/components/_cards.scss';
 @import './src/assets/scss/components/_common-style.scss';
+
+.o-share__social {
+    border-top: 1px solid #F3F5F7;
+    padding-top: 16px;
+}
+.o-share__social-icon {
+    display: inline;
+    padding: 0 21px;
+}
+
 .o-share__profile2 {
     width: 260px;
     border: none;

@@ -41,6 +41,7 @@ export class PostComponent implements OnInit {
   userImage: string;
 
   imageLink: string = environment.API_IMAGE;
+  domainLink: string = environment.API_DOMAIN;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object, meta: Meta, title: Title,
