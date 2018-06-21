@@ -129,14 +129,13 @@
                         </div>
 
                         <share-buttons [theme]="'modern-dark'"
-                        [include]="['facebook','twitter','google','email']"
+                        [include]="['facebook']"
                         [show]="5"
                         [size]="-2"
-                        [url]="'https://twitter.com/'"
+                        [url]="'https://onepagespotlight.com/home/post(media:media/z_5a03fb55-1539-4802-ad48-3e95346525bb)'"
                         [title]="'djsk'"
                         [description]="'dsdnajs'"
-                        [image]="'https://ops-v2.netlify.com/assets/demo/new/s06.jpg'"
-                        [tags]="'dsadajs'"
+                        [image]="'imageLink + mediaData?.thumbNails?.large'"
                         ></share-buttons>
 
                         <div class="o-share__social">
@@ -146,7 +145,7 @@
                             <div class="o-share__social-icon" shareButton="twitter" [sbDescription]="mediaData?.description | truncate:[200, '...']" [sbImage]="imageLink + mediaData?.thumbNails?.large">
                                 <img src="https://ops-v2.netlify.com/assets/svg/twitter.svg">
                             </div>
-                            <div class="o-share__social-icon" shareButton="facebook" [sbDescription]="mediaData?.description | truncate:[200, '...']" [sbImage]="imageLink + mediaData?.thumbNails?.large">
+                            <div class="o-share__social-icon" [shareButton]="'facebook'" [sbUrl]="'https://onepagespotlight.com/home/post(media:media/z_5a03fb55-1539-4802-ad48-3e95346525bb)'" [sbDescription]="mediaData?.description | truncate:[200, '...']"  [sbImage]="imageLink + mediaData?.thumbNails?.large">
                                 <img src="https://ops-v2.netlify.com/assets/svg/facebook.svg">
                             </div>
                             <div class="o-share__social-icon p-r-0" shareButton="twitter" [sbDescription]="mediaData?.description | truncate:[200, '...']" [sbImage]="imageLink + mediaData?.thumbNails?.large">
