@@ -62,6 +62,21 @@ export class ProfileEffect {
     );
 
   /**
+   * for: portfolio
+   */
+  @Effect()
+  addPortfolioCategory$ = this.actions$
+    .ofType(ProfileActions.ADD_PORTFOLIO_CATEGORY)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.addPortfolioCategory(payload)
+      .map(res => ({ type: ProfileActions.ADD_PORTFOLIO_CATEGORY_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.ADD_PORTFOLIO_CATEGORY_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
    * Get LoggedIn User profile
    */
   @Effect()
