@@ -307,7 +307,7 @@
 </app-modal>
 
 <app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp' *ngIf="!this.isOwner">
-    
+    <app-report-popoup [reportQues]="questions" (onclose)= "closeReport()" ></app-report-popoup>
 </app-modal>
 <!--Skill more -->
 

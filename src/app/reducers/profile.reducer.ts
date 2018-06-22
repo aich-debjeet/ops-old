@@ -1362,8 +1362,9 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
           reports:[]
         });
         case ProfileActions.PROFILE_REPORT_SUCCESS:
+        console.log(payload)
         return Object.assign({}, state, {
-          reports: payload.Success
+          reports: payload.Success.questions
         });
         case ProfileActions.PROFILE_REPORT_FAILED:
         return Object.assign({}, state, {
