@@ -10,6 +10,7 @@ import { GeneralUtilities } from '../../helpers/general.utils';
 import { environment } from 'environments/environment';
 
 import { filter as _filter } from 'lodash';
+import { findIndex as _findIndex } from 'lodash';
 
 @Component({
   selector: 'app-portfolio',
@@ -66,17 +67,36 @@ export class PortfolioComponent implements OnInit, OnDestroy {
           if (this.userMedia) {
             for (let i = 0; i < this.userMedia.length; i++) {
               // check if media id exists in selected medias
-              if (this.selectedMedia.indexOf(this.userMedia[i]) > -1) {
+              if (this.selectedMedia.indexOf(this.userMedia[i].mediaId) > -1) {
                 this.userMedia[i].isSelected = true;
               } else {
                 this.userMedia[i].isSelected = false;
               }
             }
-            console.log('this.userMedia', this.userMedia);
+            // console.log('this.userMedia', this.userMedia);
           }
         }
       }
     });
+  }
+
+  /**
+   * mark media selected
+   */
+  mediaToggleMarkSelection(action: string, mediaId: string) {
+    // console.log('ACTION', action);
+    // console.log('BEFORE this.userMedia', this.userMedia);
+    const mdIndx = _findIndex(this.userMedia, (m) => m.mediaId === mediaId);
+    // console.log('mediaId', mediaId);
+    // console.log('mdIndx', mdIndx);
+    if (mdIndx) {
+      if (action === 'add') {
+        this.userMedia[mdIndx].isSelected = true;
+      } else {
+        this.userMedia[mdIndx].isSelected = false;
+      }
+    }
+    // console.log('AFTER this.userMedia', this.userMedia);
   }
 
   ngOnInit() {
@@ -147,14 +167,15 @@ export class PortfolioComponent implements OnInit, OnDestroy {
    */
   toggleMediaSelection(mediaId: string) {
     // const umIndx = this.userMedia.indexOf(mediaId);
-    // check if media already selected
-    // remove media if exist
+    // check if media already selected, remove media if exist
     if (this.selectedMedia.indexOf(mediaId) > -1) {
       this.selectedMedia = _filter(this.selectedMedia, (m) => m !== mediaId);
+      this.mediaToggleMarkSelection('remove', mediaId);
     } else { // add media
       this.selectedMedia.push(mediaId);
+      this.mediaToggleMarkSelection('add', mediaId);
     }
-    console.log(this.selectedMedia);
+    // console.log('this.selectedMedia', this.selectedMedia);
   }
 
 }

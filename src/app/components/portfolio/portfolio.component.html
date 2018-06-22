@@ -111,7 +111,7 @@
                         </div>
                         <div class="col-md-10 c-portscroll" id="ops_scrollbar">
                             <div *ngIf="userMedia?.length > 0; else noMedia" class="row">
-                                <ngx-masonry>
+                                <ngx-masonry [useImagesLoaded]="true">
                                     <ngx-masonry-item *ngFor="let media of userMedia" class="col-xs-6 col-md-3 c-portfolio--block" (click)="toggleMediaSelection(media?.mediaId)" >
                                         <app-portfolio-media [portMediaDetails]="media"></app-portfolio-media>
                                     </ngx-masonry-item>
