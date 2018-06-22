@@ -47,6 +47,21 @@ export class ProfileEffect {
     );
 
   /**
+   * for: portfolio
+   */
+  @Effect()
+  getPortfolioCategories$ = this.actions$
+    .ofType(ProfileActions.GET_PORTFOLIO_CATEGORIES)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getPortfolioCategories(payload)
+      .map(res => ({ type: ProfileActions.GET_PORTFOLIO_CATEGORIES_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.GET_PORTFOLIO_CATEGORIES_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
    * Get LoggedIn User profile
    */
   @Effect()

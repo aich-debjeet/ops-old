@@ -121,6 +121,29 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         get_users_media_success: false
       });
 
+    /**
+     * for: portfolio
+     */
+    case ProfileActions.GET_PORTFOLIO_CATEGORIES:
+      return Object.assign({}, state, {
+        get_portfolio_categories: true,
+        get_portfolio_categories_success: false,
+        get_portfolio_categories_query: payload
+      });
+
+    case ProfileActions.GET_PORTFOLIO_CATEGORIES_SUCCESS:
+      return Object.assign({}, state, {
+        get_portfolio_categories: false,
+        get_portfolio_categories_success: true,
+        get_portfolio_categories_result: payload.SUCCESS
+      });
+
+    case ProfileActions.GET_PORTFOLIO_CATEGORIES_FAILED:
+      return Object.assign({}, state, {
+        get_portfolio_categories: false,
+        get_portfolio_categories_success: false
+      });
+
     /* loading followings/followers */
     case ProfileActions.GET_FOLLOWING_PROFILES:
       return Object.assign({}, state, {

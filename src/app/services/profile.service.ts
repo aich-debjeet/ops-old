@@ -34,6 +34,13 @@ export class ProfileService {
   }
 
   /**
+   * for: portfolio
+   */
+  getPortfolioCategories(reqParams: any) {
+    return this.api.get('/portal/portfolio/all/categories', reqParams);
+  }
+
+  /**
    * Get followings by handle
    */
   getFollowingProfiles(params: any) {
