@@ -7,7 +7,9 @@ import { ISubscription } from 'rxjs/Subscription';
 import { ModalService } from '../../shared/modal/modal.component.service';
 import { ProfileActions } from '../../actions/profile.action';
 import { GeneralUtilities } from '../../helpers/general.utils';
-import { environment } from 'environments/environment.dev2';
+import { environment } from 'environments/environment';
+
+import { filter as _filter } from 'lodash';
 
 @Component({
   selector: 'app-portfolio',
@@ -24,12 +26,14 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   portfolioEmpty = true;
   baseImageUrl = environment.API_IMAGE;
   ownProfile: boolean;
-  requestsPerPage = 2;
+  requestsPerPage = 10;
   showPreloader = false;
 
   // router subscription
   routerSub: any;
-  portFolioMedia: any[];
+  userMedia: any[];
+  selectedMedia = [];
+  selectedChannels = [];
   medias = [];
 
   constructor(
@@ -58,7 +62,18 @@ export class PortfolioComponent implements OnInit, OnDestroy {
           this.channels = state['get_users_channels_result'];
         }
         if (this.generalUtils.checkNestedKey(state, ['get_users_channels_result'])) {
-          this.portFolioMedia = state['get_users_media_result'];
+          this.userMedia = state['get_users_media_result'];
+          if (this.userMedia) {
+            for (let i = 0; i < this.userMedia.length; i++) {
+              // check if media id exists in selected medias
+              if (this.selectedMedia.indexOf(this.userMedia[i]) > -1) {
+                this.userMedia[i].isSelected = true;
+              } else {
+                this.userMedia[i].isSelected = false;
+              }
+            }
+            console.log('this.userMedia', this.userMedia);
+          }
         }
       }
     });
@@ -86,15 +101,60 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.showPreloader = true;
     // get media
     const reqBody = {
-      channelList: ['u-0de6b998-a78f-4adb-8261-9a0117aac727'],
+      channelList: [],
       offset: 0,
       limit: this.requestsPerPage
     };
-    this.profileStore.dispatch({ type: ProfileActions.GET_USER_MEDIA, payload: reqBody });
+    this.getUserMedia(reqBody);
 
     // get channels
     this.profileStore.dispatch({ type: ProfileActions.GET_USERS_CHANNELS, payload: '' });
     this.modalService.open('addWorkModal');
+  }
+
+  /**
+   * select channel
+   */
+  toggleChannelSelection(e: any, channelId: string) {
+    if (e.target.checked && e.target.checked === true) {
+      if (this.selectedChannels.indexOf(channelId) === -1) {
+        this.selectedChannels.push(channelId);
+      }
+    } else {
+      if (this.selectedChannels.indexOf(channelId) > -1) {
+        this.selectedChannels = _filter(this.selectedChannels, (c) => c !== channelId);
+      }
+    }
+    // console.log(this.selectedChannels);
+    // get channel media
+    const reqBody = {
+      channelList: this.selectedChannels,
+      offset: 0,
+      limit: this.requestsPerPage
+    };
+    this.getUserMedia(reqBody);
+  }
+
+  /**
+   * user media get
+   */
+  getUserMedia(reqBody: any) {
+    this.profileStore.dispatch({ type: ProfileActions.GET_USER_MEDIA, payload: reqBody });
+  }
+
+  /**
+   * select/deselect media
+   */
+  toggleMediaSelection(mediaId: string) {
+    // const umIndx = this.userMedia.indexOf(mediaId);
+    // check if media already selected
+    // remove media if exist
+    if (this.selectedMedia.indexOf(mediaId) > -1) {
+      this.selectedMedia = _filter(this.selectedMedia, (m) => m !== mediaId);
+    } else { // add media
+      this.selectedMedia.push(mediaId);
+    }
+    console.log(this.selectedMedia);
   }
 
 }

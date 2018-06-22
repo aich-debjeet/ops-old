@@ -103,16 +103,16 @@
                                 <form>
                                     <div class="c-checkbox__md">
                                         <label *ngFor="let channel of channels" class="color-grey-darker">
-                                            <input type="checkbox" value="{{ channel.channelId }}" class="c-form__bar2">{{ channel.channelName }}
+                                            <input type="checkbox" (change)="toggleChannelSelection($event, channel.channelId)" value="{{ channel.channelId }}" class="c-form__bar2">{{ channel.channelName }}
                                         </label>
                                     </div>
                                 </form>
                             </div>
                         </div>
                         <div class="col-md-10 c-portscroll" id="ops_scrollbar">
-                            <div *ngIf="portFolioMedia?.length > 0; else noMedia" class="row">
-                                <ngx-masonry *ngFor="let media of portFolioMedia" class="col-xs-6 col-md-3 c-portfolio--block">
-                                    <ngx-masonry-item>
+                            <div *ngIf="userMedia?.length > 0; else noMedia" class="row">
+                                <ngx-masonry>
+                                    <ngx-masonry-item *ngFor="let media of userMedia" class="col-xs-6 col-md-3 c-portfolio--block" (click)="toggleMediaSelection(media?.mediaId)" >
                                         <app-portfolio-media [portMediaDetails]="media"></app-portfolio-media>
                                     </ngx-masonry-item>
                                 </ngx-masonry>
