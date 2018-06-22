@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { environment } from './../../../environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post-card-search',
@@ -10,10 +11,16 @@ export class PostCardSearchComponent implements OnInit {
 
   @Input() post: any;
   baseUrl: string = environment.API_IMAGE;
+  query: any;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.query = params;
+  })
   }
 
 }
