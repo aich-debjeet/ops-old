@@ -1,7 +1,10 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, Inject } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+
+import { PLATFORM_ID } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 
 import FilesHelper from '../../helpers/fileUtils';
 import { initialMedia, Media } from '../../models/media.model';
@@ -38,8 +41,10 @@ export class PostComponent implements OnInit {
   userImage: string;
 
   imageLink: string = environment.API_IMAGE;
+  domainLink: string = environment.API_DOMAIN;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object, meta: Meta, title: Title,
     private router: Router,
     private store: Store<Media>
   ) {

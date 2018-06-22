@@ -114,7 +114,7 @@ export class EventsEditComponent implements OnInit {
     .first(state => state['event_detail'] !== 'undefined' )
     .subscribe( data => {
       this.eventDetail = data['event_detail']
-      // console.log(this.eventDetail)
+      //  console.log(this.eventDetail)
       this.buildForm();
       this.getLocationGoogle();
     });
@@ -347,7 +347,7 @@ export class EventsEditComponent implements OnInit {
         }
 
         // set latitude, longitude and zoom
-        this.address = place.name + ','+place.formatted_address;
+        this.address = place.name + ', '+place.formatted_address;
         this.latitude = place.geometry.location.lat();
         this.longitude = place.geometry.location.lng();
         this.zoom = 12;
@@ -410,14 +410,16 @@ export class EventsEditComponent implements OnInit {
           id:  this.eventDetail.id,
           title : value.event_name,
           access :  Number(value.access),
-          active : true,
-          isFeatured: false,
+          attendeeCount: this.eventDetail.attendeeCount,
+          isFeatured: this.eventDetail.isFeatured,
+          creationDate: this.eventDetail.creationDate,
+          event_media: this.eventDetail.event_media,
           eventTiming: {
             startDate : this.reverseDate(value.event_startdate) + 'T05:00:00',
             endDate : this.reverseDate(value.event_enddate) + 'T05:00:00',
           },
           venue : {
-            location: this.address,
+            location: this.address || value.event_venue,
             latitude: this.latitude.toString(),
             longitude: this.longitude.toString(),
           },
@@ -427,7 +429,8 @@ export class EventsEditComponent implements OnInit {
             ticket: [{
               startDate: this.reverseDate(value.ts_startTime) + 'T05:00:00',
               endDate: this.reverseDate(value.ts_endTime) + 'T05:00:00',
-              maximum: value.ts_quantity
+              maximum: value.ts_quantity,
+              ticketId: this.eventDetail.extras.ticket[0].ticketId
             }]
           },
           brief: value.event_brief,
@@ -437,11 +440,16 @@ export class EventsEditComponent implements OnInit {
           Type: {
             entryType : value.event_type,
             eventType : value.event_genres
-          }
+          },
+          isFollowing	:	this.eventDetail.isFollowing,
+          isGoing	:	this.eventDetail.isGoing,
+          isInterested	:	this.eventDetail.isInterested,
+          isOwner	:	this.eventDetail.isOwner,
+          notGoing	:	this.eventDetail.notGoing,
       }
       // const id =  this.eventDetail.id;
       // const edit = [data, id]
-      //  console.log(edit)
+      //  console.log(data)
 
       // Dispatch to form value to server
       this.store.dispatch({ type: EventActions.EVENT_EDIT, payload: data });

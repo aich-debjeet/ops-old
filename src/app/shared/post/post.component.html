@@ -84,12 +84,66 @@
                     <a>
                         <img [src]="imageLink + 'img/svg/ico_addtochannel.svg'" class="c-action__image">
                     </a>
-                    </span>
-                <span class="c-links__share">
-                    <a>
+                </span>
+                <span class="c-links__add dropdown c-dropdown" appDropdown>
+                    <a appDropdownOpen>
                         <img [src]="imageLink + 'img/svg/ico_share-02.svg'" class="c-action__image">
                     </a>
-                    </span>
+                    <div class="dropdown-menu dropdown-menu-right o-share__profile2 p-16">
+                        <div class="c-text_md">Share this Profile</div>
+                        <!-- <div class="c-invite--search m-0">
+                            <form class="fill-grey-light">
+                                <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm">
+                                    <input class="c-form__input p-l-24" required="" type="text">
+                                    <label class="p-l-16">Input with icon</label>
+                                    <span>
+                                        <img [src]="imageLink + 'img/svg/ico_search.svg'" class="c-form__input--lefticon">
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="o-share__recent m-t-b-16">Recent Contacts</div>
+                        <div class="c-invite__block">
+                            <a class="c-user__avatar c-avatar--status">
+                                <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
+                            </a>
+                            <a class="c-text_md c-invite--user">Seth Chevz1</a>
+                        </div>
+                        <div class="c-invite__block">
+                            <a class="c-user__avatar c-avatar--status">
+                                <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
+                            </a>
+                            <a class="c-text_md c-invite--user">Seth Chevz2</a>
+                        </div>
+                        <div class="c-invite__block">
+                            <a class="c-user__avatar c-avatar--status">
+                                <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
+                            </a>
+                            <a class="c-text_md c-invite--user">Seth Chevz3</a>
+                        </div>
+                        <div class="c-invite__block">
+                            <a class="c-user__avatar c-avatar--status">
+                                <img src="https://ops-v2.netlify.com/assets/demo/new/avatar.png" class="o-share__avatar">
+                            </a>
+                            <a class="c-text_md c-invite--user">Seth Chevz4</a>
+                        </div> -->
+
+                        <div class="o-share__social">
+                            <div class="o-share__social-icon p-l-0" shareButton="google" [sbUrl]="domainLink + 'media/' + mediaData?.id">
+                                <img src="https://ops-v2.netlify.com/assets/svg/googleplus.svg">
+                            </div>
+                            <div class="o-share__social-icon" shareButton="twitter" [sbUrl]="domainLink + 'media/' + mediaData?.id">
+                                <img src="https://ops-v2.netlify.com/assets/svg/twitter.svg">
+                            </div>
+                            <div class="o-share__social-icon" [shareButton]="'facebook'" [sbUrl]="domainLink + 'media/' + mediaData?.id">
+                                <img src="https://ops-v2.netlify.com/assets/svg/facebook.svg">
+                            </div>
+                            <div class="o-share__social-icon p-r-0" shareButton="twitter" [sbUrl]="domainLink + 'media/' + mediaData?.id">
+                                <img src="https://ops-v2.netlify.com/assets/svg/envelope.svg">
+                            </div>
+                        </div>
+                    </div>
+                </span>
             </div>
         </div>
     </div>
