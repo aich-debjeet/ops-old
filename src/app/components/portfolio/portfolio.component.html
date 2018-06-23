@@ -1,6 +1,5 @@
 <app-navigation></app-navigation>
 
-<!-- portfolio.scss -->
 <section>
     <div class="container p-t-50">
         <div class="row m-t-24">
@@ -31,7 +30,7 @@
                                     <a data-toggle="tab" class="p-l-0">ALL</a>
                                 </li>
                                 <div *ngIf="ownProfile" class="c-port__setting">
-                                    <a data-toggle="modal" data-target="#editCat">
+                                    <a (click)="showCategories()" data-toggle="modal" data-target="#editCat">
                                        <img src="https://ops-v2.netlify.com/assets/svg/ico_settings.svg">
                                     </a>
                                 </div>
@@ -130,5 +129,59 @@
     </div>
     <!-- //modal -->
 </app-modal>
+
+<!-- Edit categories modal -->
+<app-modal-new #editCategoriesModal modalClass="modal-portfolio__categories">
+    <modal-content>
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="c-text_lg-bold">Edit Category</p>
+                    <!-- <button type="button" class="close" data-dismiss="modal">×</button> -->
+                </div>
+                <div class="modal-body">
+                    <div *ngIf="profileState?.get_portfolio_categories === true && profileState?.get_portfolio_categories_success === false" class="preloader">
+                        <div class="sticky"><div class="loader">Loading...</div></div>
+                    </div>
+                    <div *ngIf="portCategories && portCategories.length > 0">
+                        <div *ngFor="let category of portCategories" class="row c-port__cat-name" id="switchbranding">
+                            <div class="col-md-9 p-0">{{ category.categoryName }}</div>
+                            <div class="col-md-3 p-0"><a (click)="editCategoryName(category)">Edit</a></div> 
+                        </div>
+                    </div>
+                    <div *ngIf="portCategories && portCategories.length === 0" class="row c-port__cat-name" id="switchbranding">
+                        <div class="col-md-12 p-0">No categories found!</div>
+                    </div>
+                    <!-- <div class="row c-port__cat-name" id="edicat-edit">
+                        <div class="col-md-10 p-0">
+                        <div class="c-form__group c-form--sm c-form--noeffect m-t--8 m-b-0">
+                            <input class="c-form__input" required="" type="text" value="Branding">
+                            <span class="c-form__highlight"></span>
+                            <span class="c-form__bar"></span>
+                            <label>Add New Category</label>
+                        </div>
+                        </div>
+                        <div class="col-md-2 p-0">
+                            <a *ngIf="profileState?.create_portfolio_category === true && profileState?.create_portfolio_category_success === false">Save</a>
+                        </div>
+                    </div> -->
+                    <form [formGroup]="portAddCategoryForm" #portAddCatFrm="ngForm" (ngSubmit)="portAddCategory(portAddCategoryForm.value)">
+                        <div class="c-form__group c-form--sm c-form--noeffect">
+                            <input class="c-form__input" formControlName="categoryName" type="text" placeholder="Add New Category">
+                            <span class="c-form__highlight"></span>
+                            <span class="c-form__bar"></span>
+                            <!-- <label>Add New Category</label> -->
+                            <p class="error_alert" *ngIf="portAddCategoryForm.controls['categoryName'].errors?.required && portAddCatFrm.submitted">Please enter category name</p>
+                        </div>
+                        <div class="m-t-24 text-right">
+                            <button [disabled]="profileState?.create_portfolio_category === true && profileState?.create_portfolio_category_success === false" type="submit" class="btn btn-primary btn-sm p-l-r-16" data-dismiss="modal">ADD</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </modal-content>
+</app-modal-new>
+<!-- Edit categories modal -->
 
 <app-footer></app-footer>

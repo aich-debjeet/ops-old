@@ -149,22 +149,24 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.ADD_PORTFOLIO_CATEGORY:
       return Object.assign({}, state, {
-        get_portfolio_category: true,
-        get_portfolio_category_success: false,
-        get_portfolio_category_params: payload
+        create_portfolio_category: true,
+        create_portfolio_category_success: false,
+        create_portfolio_category_params: payload
       });
 
     case ProfileActions.ADD_PORTFOLIO_CATEGORY_SUCCESS:
+      // add new category to the existing list
       return Object.assign({}, state, {
-        get_portfolio_category: false,
-        get_portfolio_category_success: true,
-        get_portfolio_category_result: payload.SUCCESS
+        get_portfolio_categories_result: [...state['get_portfolio_categories_result'], payload['SUCCESS']],
+        create_portfolio_category: false,
+        create_portfolio_category_success: true,
+        create_portfolio_category_result: payload.SUCCESS
       });
 
     case ProfileActions.ADD_PORTFOLIO_CATEGORY_FAILED:
       return Object.assign({}, state, {
-        get_portfolio_category: false,
-        get_portfolio_category_success: false
+        create_portfolio_category: false,
+        create_portfolio_category_success: false
       });
 
     /* loading followings/followers */

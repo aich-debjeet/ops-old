@@ -44,7 +44,7 @@ export class ProfileService {
    * for: portfolio
    */
   addPortfolioCategory(reqParams: any) {
-    return this.api.post('/api/1.0/portal/portfolio/add/category', reqParams);
+    return this.api.post('/portal/portfolio/add/category', reqParams);
   }
 
   /**

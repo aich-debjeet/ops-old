@@ -1,16 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileModal } from '../../models/profile.model';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { ISubscription } from 'rxjs/Subscription';
 import { ModalService } from '../../shared/modal/modal.component.service';
+import { Modal } from '../../shared/modal-new/Modal';
 import { ProfileActions } from '../../actions/profile.action';
 import { GeneralUtilities } from '../../helpers/general.utils';
 import { environment } from 'environments/environment';
 
 import { filter as _filter } from 'lodash';
 import { findIndex as _findIndex } from 'lodash';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-portfolio',
@@ -18,6 +20,8 @@ import { findIndex as _findIndex } from 'lodash';
   styleUrls: ['./portfolio.component.scss']
 })
 export class PortfolioComponent implements OnInit, OnDestroy {
+
+  @ViewChild('editCategoriesModal') editCategoriesModal: Modal;
 
   profileState$: Observable<ProfileModal>;
   profileSub: ISubscription;
@@ -36,8 +40,11 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   selectedMedia = [];
   selectedChannels = [];
   medias = [];
+  portCategories: any[];
+  portAddCategoryForm: FormGroup;
 
   constructor(
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private profileStore: Store<ProfileModal>,
@@ -76,8 +83,38 @@ export class PortfolioComponent implements OnInit, OnDestroy {
             // console.log('this.userMedia', this.userMedia);
           }
         }
+        if (this.generalUtils.checkNestedKey(state, ['get_portfolio_categories_result'])) {
+          this.portCategories = state['get_portfolio_categories_result'];
+          console.log('this.portCategories', this.portCategories);
+          // this.portCategories = [];
+        }
       }
     });
+
+    this.portAddCategoryForm = this.fb.group({
+      categoryName: ['', Validators.required]
+    });
+  }
+
+  /**
+   * add category
+   */
+  portAddCategory(formData: any) {
+    if (this.portAddCategoryForm.valid === true) {
+      this.profileStore.dispatch({
+        type: ProfileActions.ADD_PORTFOLIO_CATEGORY,
+        payload: { name: formData.categoryName }
+      });
+    }
+  }
+
+  /**
+   * edit category
+   */
+  editCategoryName(category: any) {
+    // if () {
+    //   this.profileStore.dispatch({ type: ProfileActions.UPDATE-CATEGORY_NAME, payload:  });
+    // }
   }
 
   /**
@@ -176,6 +213,11 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       this.mediaToggleMarkSelection('add', mediaId);
     }
     // console.log('this.selectedMedia', this.selectedMedia);
+  }
+
+  showCategories() {
+    this.editCategoriesModal.open();
+    this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_CATEGORIES, payload: '' });
   }
 
 }
