@@ -38,7 +38,7 @@
     </h6>
     <p class="c-text_sm">
       <a [routerLink]="['', { outlets: { media : ['media', post?.id] } }]" [queryParams]="query">
-        {{ post?.description }}
+        {{ post?.description | truncate:[70, '...'] }}
       </a>
     </p>
   </div>
