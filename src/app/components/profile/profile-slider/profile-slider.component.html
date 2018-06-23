@@ -28,11 +28,11 @@
                 </div>
 
                 <div class="c-profile__userdetail">
-                    <h2 class="c-profile__username" *ngIf="this.isOwner">{{ profileObject?.name }}</h2>
+                    <h2 class="c-profile__username" *ngIf="this.isOwner">{{ profileObject?.name | truncate:[40, '...'] }}</h2>
                     <h2 class="c-profile__username" *ngIf="!this.isOwner">{{ profileObject?.name }}
                         <a [routerLink]="['/reg/information']" [queryParams]="{ action: 'claim_profile', username: profileObject?.extra?.username }" *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-primary btn-md m-l-8">Claim</a>
                     </h2>
-                    <span *ngIf="profileObject?.userHandle" class="c-profile__userhandle">{{ '@' + profileObject?.userHandle }} {{profileObject?.extra?.isFollowing}}</span>
+                    <span *ngIf="profileObject?.userHandle" class="c-profile__userhandle">{{ '@' + profileObject?.userHandle }}</span>
                     <span *ngIf="profileObject?.extra?.profession" class="c-profile__userprofession">{{ profileObject?.extra?.profession }}</span>
                     <div *ngIf="profileObject?.name" class="o-profile__others-follow-btn">
                         <button type="button" *ngIf="!profileObject?.extra?.isImported && !this.isOwner" (click)="userFollow(profileObject?.extra?.isFollowing, profileObject?.userDetails?.handle )" [ngClass]="(profileObject?.extra?.isFollowing) ? 'btn-following' : 'btn-primary'"
@@ -228,6 +228,7 @@
                                 <span class="form_bar"></span>
                                 <label>Name</label>
                                 <p class="error_alert" *ngIf="profileForm.controls['name'].errors?.required && myform.submitted">Name is required</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['name'].errors?.maxlength && myform.submitted">Maximum Character limit 30</p>
                             </div>
                             <div class="form_group">
                                 <textarea class="form_input form_textarea" maxlength="220" [(ngModel)]="bioMessage" name="" formControlName="bio"></textarea>

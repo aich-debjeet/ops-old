@@ -357,7 +357,7 @@ export class ProfileSliderComponent implements OnInit {
    */
   buildEditForm(): void {
     this.profileForm = this.fb.group({
-      'name' : ['' , [Validators.required]],
+      'name' : ['' , [Validators.required, Validators.maxLength(30)]],
       'bio' : '',
       'skill': '',
       'username' : ['', [Validators.required, Validators.minLength(4), FormValidation.noWhitespaceValidator], this.profileUpdateValidator.userNameValidation.bind(this.profileUpdateValidator)],

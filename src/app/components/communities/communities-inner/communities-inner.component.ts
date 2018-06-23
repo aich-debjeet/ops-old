@@ -4,6 +4,9 @@ import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormA
 import { Router, ActivatedRoute } from '@angular/router';
 import { Modal } from '../../../shared/modal-new/Modal';
 
+// pipes
+import { TruncatePipe } from 'app/pipes/truncate.pipe';
+
 
 // Action
 import { AuthActions } from '../../../actions/auth.action';
@@ -20,7 +23,8 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-communities-inner',
   templateUrl: './communities-inner.component.html',
-  styleUrls: ['./communities-inner.component.scss']
+  styleUrls: ['./communities-inner.component.scss'],
+  providers: [ TruncatePipe ]
 })
 export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput') searchInput;

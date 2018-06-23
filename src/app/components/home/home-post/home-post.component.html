@@ -9,7 +9,7 @@
           <img [src]="imageLink + userData?.profileImage">
         </div>
         <div class="o-hf_username">
-          <div class="c-text_lg cursor_pointer" routerLink="/profile/user">{{ userData?.name }}</div>
+          <div class="c-text_lg cursor_pointer" routerLink="/profile/user">{{ userData?.name  | truncate:[20, '...']}}</div>
           <div class="c-text_sm color-grey-dark">@ {{ userData?.username }}</div>
         </div>
       </div>
