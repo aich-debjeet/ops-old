@@ -551,9 +551,9 @@ export class ProfileSliderComponent implements OnInit {
    * @param user obj
    */
   followUser(user: any) {
-    this.profileObject.followingCount = this.profileObject.followingCount + 1;
+    // this.profileObject.followingCount = this.profileObject.followingCount + 1;
     this.profileStore.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
-    user.extra.isFollowing = true;
+    // user.extra.isFollowing = true;
   }
 
   /**

@@ -187,7 +187,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_ADMIN_CHANGE, payload: data});
 
     this.toastr.success('successfully Update', 'Success!');
-    this.CommuityLeaveModal.close();
+    this.CommunityLeaveConfirmModal.close();
   }
 
   /**
