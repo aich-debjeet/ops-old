@@ -40,7 +40,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   selectedMedia = [];
   selectedChannels = [];
   medias = [];
-  portCategories: any[];
+  portCategories = [];
   portAddCategoryForm: FormGroup;
 
   constructor(
@@ -88,8 +88,14 @@ export class PortfolioComponent implements OnInit, OnDestroy {
           console.log('this.portCategories', this.portCategories);
           // this.portCategories = [];
         }
+        if (state['create_portfolio_category'] === false && state['create_portfolio_category_success'] === true) {
+          // this.portAddCategoryForm.controls['categoryName'].setValue('');
+          // this.portAddCategoryForm.reset();
+        }
       }
     });
+
+    this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_CATEGORIES, payload: '' });
 
     this.portAddCategoryForm = this.fb.group({
       categoryName: ['', Validators.required]
@@ -217,7 +223,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
   showCategories() {
     this.editCategoriesModal.open();
-    this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_CATEGORIES, payload: '' });
   }
 
 }

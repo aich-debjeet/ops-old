@@ -140,16 +140,16 @@
                     <!-- <button type="button" class="close" data-dismiss="modal">×</button> -->
                 </div>
                 <div class="modal-body">
-                    <div *ngIf="profileState?.get_portfolio_categories === true && profileState?.get_portfolio_categories_success === false" class="preloader">
+                    <div *ngIf="portCategories?.length === 0 && profileState?.get_portfolio_categories === true && profileState?.get_portfolio_categories_success === false" class="preloader">
                         <div class="sticky"><div class="loader">Loading...</div></div>
                     </div>
-                    <div *ngIf="portCategories && portCategories.length > 0">
+                    <div *ngIf="portCategories?.length > 0">
                         <div *ngFor="let category of portCategories" class="row c-port__cat-name" id="switchbranding">
                             <div class="col-md-9 p-0">{{ category.categoryName }}</div>
                             <div class="col-md-3 p-0"><a (click)="editCategoryName(category)">Edit</a></div> 
                         </div>
                     </div>
-                    <div *ngIf="portCategories && portCategories.length === 0" class="row c-port__cat-name" id="switchbranding">
+                    <div *ngIf="portCategories?.length === 0 && profileState?.get_portfolio_categories === false && profileState?.get_portfolio_categories_success === true" class="row c-port__cat-name" id="switchbranding">
                         <div class="col-md-12 p-0">No categories found!</div>
                     </div>
                     <!-- <div class="row c-port__cat-name" id="edicat-edit">
