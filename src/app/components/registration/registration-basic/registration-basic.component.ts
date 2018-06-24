@@ -240,7 +240,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     const q = new Promise((resolve, reject) => {
       setTimeout(() => {
           const contactDetails = {
-            contactNumber: control.value,
+            contactNumber: control.value.trim(),
             countryCode: this.country.callingCodes[0]
           };
           this.authService.mobileNumberCheck(contactDetails).subscribe( data => {
@@ -377,7 +377,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
       isAgent: false,
       location: '',
       contact: {
-        contactNumber: value.phone.toString(),
+        contactNumber: value.phone.toString().trim(),
         countryCode: this.country.callingCodes[0]
       },
       other: {

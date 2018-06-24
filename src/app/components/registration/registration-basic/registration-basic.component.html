@@ -123,7 +123,7 @@
                         <!-- <label class="p-l-50-px">Phone Number</label> -->
                         <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.required && regform.submitted">Phone is required</p>
                         <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isMobileUnique">This phone number is already registered</p>
-                        <p class="error_alert" *ngIf="regFormBasic.controls['phone'].errors?.isInvalidPhoneNumber">Please enter valid phone number</p>
+                        <p class="error_alert" *ngIf="!regFormBasic.controls['phone'].errors?.required && regFormBasic.controls['phone'].errors?.isInvalidPhoneNumber && regform.submitted">Please enter valid phone number</p>
                     </div>
                     <div class="c-form__group pass-margin">
                         <!-- <button class="password-toggle pos-abs" type="button" (click)="passwordShowToggle()" title="{{ passwordShow ? 'Hide Password' : 'Show Password' }}">
