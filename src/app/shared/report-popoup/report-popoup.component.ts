@@ -10,6 +10,7 @@ import { ModalService } from '../../shared/modal/modal.component.service';
 })
 export class ReportPopoupComponent implements OnInit {
   @Input() reportQues;
+  @Input() reportContentId;
   @Output() onclose: EventEmitter<any> = new EventEmitter<any>();
   public repPop: FormGroup;
   profileThankYou: boolean;
@@ -20,6 +21,7 @@ export class ReportPopoupComponent implements OnInit {
     public modalService: ModalService
   ) {
 this.profileThankYou = false;
+console.log(this.reportQues)
    }
 
   ngOnInit() {
@@ -28,7 +30,8 @@ this.profileThankYou = false;
 
   buildForm(): void {
     this.repPop = this.fb.group({
-      repOption: ['', [Validators.required]]
+      repOption: ['', [Validators.required]],
+      desc: ''
     });
   }
   submitForm(value){
@@ -36,6 +39,14 @@ this.profileThankYou = false;
     // this.onclose.emit();
     this.profileThankYou = true;
     // this.modalService.open('thankYou');
+
+    const data = {
+      reportType:'profile',
+      reportContentId: this.reportContentId,
+      reason: value.repOption,
+      description: value.desc || '',
+    }
+    console.log(data)
   }
   closeThankyou(){
     this.profileThankYou = false;

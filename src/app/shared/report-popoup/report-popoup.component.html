@@ -23,7 +23,7 @@
                             <input name="repOption" type="radio" value="{{options.question}}" formControlName="repOption" (change)="onSelectionChange(options.question)"><span></span>
                             <div class="radio-text">{{options.question}}</div>
                             <div class="" *ngIf ="describe">
-                                <input class="c-form__input" id="" type="text" placeholder="Describe issue here">
+                                <input class="c-form__input" id="" type="text" formControlName="desc" placeholder="Describe issue here">
                             </div>
                         </label>
                         <!-- <label class="col-md-12">
