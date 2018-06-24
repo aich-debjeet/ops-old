@@ -21,9 +21,9 @@
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <div class="o-sign_plat-img">
-                            <img src="https://cdn.onepagespotlight.com/img/landing/teachers.png" class="img-responsive">
+                            <img src="https://cdn.onepagespotlight.com/img/landing/techies.png" class="img-responsive">
                         </div>
-                        <div class="c-text_lg text-center color-grey-dark m-t-16">Teachers</div>
+                        <div class="c-text_lg text-center color-grey-dark m-t-16">Techies</div>
                     </div>
                     <div class="col-sm-3 col-xs-6">
                         <div class="o-sign_plat-img">
@@ -541,22 +541,22 @@
                                 </div>
                             </div>
                             <div class="form_group o-otp_form">
-                                <input #otpNum1 (keypress)="nextOtpNum($event, 1)" class="form_input" type="text" maxlength="1" formControlName="otpNum1">
+                                <input #otpNum1 (keydown)="nextOtpNum($event, 1)" class="form_input" type="text" maxlength="1" formControlName="otpNum1">
                             </div>
                             <div class="form_group o-otp_form">
-                                <input #otpNum2 (keypress)="nextOtpNum($event, 2)" class="form_input" type="text" maxlength="1" formControlName="otpNum2">
+                                <input #otpNum2 (keydown)="nextOtpNum($event, 2)" class="form_input" type="text" maxlength="1" formControlName="otpNum2">
                             </div>
                             <div class="form_group o-otp_form">
-                                <input #otpNum3 (keypress)="nextOtpNum($event, 3)" class="form_input" type="text" maxlength="1" formControlName="otpNum3">
+                                <input #otpNum3 (keydown)="nextOtpNum($event, 3)" class="form_input" type="text" maxlength="1" formControlName="otpNum3">
                             </div>
                             <div class="form_group o-otp_form">
-                                <input #otpNum4 (keypress)="nextOtpNum($event, 4)" class="form_input" type="text" maxlength="1" formControlName="otpNum4">
+                                <input #otpNum4 (keydown)="nextOtpNum($event, 4)" class="form_input" type="text" maxlength="1" formControlName="otpNum4">
                             </div>
                             <div class="form_group o-otp_form">
-                                <input #otpNum5 (keypress)="nextOtpNum($event, 5)" class="form_input" type="text" maxlength="1" formControlName="otpNum5">
+                                <input #otpNum5 (keydown)="nextOtpNum($event, 5)" class="form_input" type="text" maxlength="1" formControlName="otpNum5">
                             </div>
                             <div class="form_group o-otp_form">
-                                <input #otpNum6 (keypress)="nextOtpNum($event, 6)" class="form_input" type="text" maxlength="1" formControlName="otpNum6">
+                                <input #otpNum6 (keydown)="nextOtpNum($event, 6)" class="form_input" type="text" maxlength="1" formControlName="otpNum6">
                             </div>
                             <p class="error_alert text-center" *ngIf="regState?.user_otp_failed">Invalid OTP</p>
                             <p class="error_alert text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum1'].errors?.required || otpForm.controls['otpNum2'].errors?.required || otpForm.controls['otpNum3'].errors?.required || otpForm.controls['otpNum4'].errors?.required || otpForm.controls['otpNum5'].errors?.required || otpForm.controls['otpNum6'].errors?.required)">Please enter your 6 digit OTP number</p>
