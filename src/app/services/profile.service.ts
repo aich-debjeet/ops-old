@@ -50,6 +50,13 @@ export class ProfileService {
   }
 
   /**
+   * for: portfolio
+   */
+  addMediaToCategory(reqParams: any) {
+    return this.api.put('/portal/portfolio/addMedia', reqParams);
+  }
+
+  /**
    * Get followings by handle
    */
   getFollowingProfiles(params: any) {

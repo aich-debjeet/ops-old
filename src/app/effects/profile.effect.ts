@@ -65,6 +65,21 @@ export class ProfileEffect {
    * for: portfolio
    */
   @Effect()
+  addMediaToCategory$ = this.actions$
+    .ofType(ProfileActions.ADD_MEDIA_TO_CATEGORY)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.addMediaToCategory(payload)
+      .map(res => ({ type: ProfileActions.ADD_MEDIA_TO_CATEGORY_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.ADD_MEDIA_TO_CATEGORY_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
   addPortfolioCategory$ = this.actions$
     .ofType(ProfileActions.ADD_PORTFOLIO_CATEGORY)
     .map(toPayload)

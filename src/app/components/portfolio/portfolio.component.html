@@ -78,7 +78,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-xs-3">
-                                        <button type="button" class="btn btn-primary btn-md" (click)="addMediaToPortfolio()">Done</button>
+                                        <button type="button" class="btn btn-primary btn-md" [disabled]="profileState?.add_media_to_category === true && profileState?.add_media_to_category_success === false" (click)="addMediaToPortfolio()">Done</button>
                                     </div>
                                 </form>
                                 <p *ngIf="portCategories?.length === 0 && profileState?.get_portfolio_categories === false && profileState?.get_portfolio_categories_success === true">No categories available!</p>

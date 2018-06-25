@@ -89,12 +89,15 @@ export class PortfolioComponent implements OnInit, OnDestroy {
         }
         if (this.generalUtils.checkNestedKey(state, ['get_portfolio_categories_result'])) {
           this.portCategories = state['get_portfolio_categories_result'];
-          console.log('this.portCategories', this.portCategories);
+          // console.log('this.portCategories', this.portCategories);
           // this.portCategories = [];
         }
         if (state['create_portfolio_category'] === false && state['create_portfolio_category_success'] === true) {
           // this.portAddCategoryForm.controls['categoryName'].setValue('');
           // this.portAddCategoryForm.reset();
+        }
+        if (state['add_media_to_category'] ===  false && state['add_media_to_category_success'] ===  true) {
+          this.toastr.success('Media added to the category successfully!');
         }
       }
     });
@@ -256,6 +259,10 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       reqBody.mediaList.push(mediaObj);
       if (i >= (this.selectedMedia.length - 1)) {
         // console.log('DONE', reqBody);
+        this.profileStore.dispatch({
+          type: ProfileActions.ADD_MEDIA_TO_CATEGORY,
+          payload: reqBody
+        });
       }
     }
 
