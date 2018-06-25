@@ -186,7 +186,7 @@ export class AuthService {
     }
 
     searchAllSkill(query: string) {
-      return this.api.post('/portal/skills/search', { searchString: query, limit: 200 });
+      return this.api.post('/portal/skills/search', { searchString: query, limit: 30 });
     }
 
     logout(value) {
