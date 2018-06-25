@@ -152,7 +152,7 @@ export class AuthService {
         }],
         proficiencyScale: 101.0,
         industryOrProfileType: 'profileType',
-        isApproved: true,
+        isApproved: false,
         active: true
       }
       return this.api.post('/admin/profiletype', skill);
