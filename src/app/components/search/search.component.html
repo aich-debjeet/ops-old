@@ -5,8 +5,8 @@
         <form action="">
           <input placeholder="What are you looking for?" #searchQueryElement #searchInput="ngModel" class="o-search__input" type="text" [ngModel]="searchString" [ngModelOptions]="{standalone: true}" >
           <div class="o-search__icon">
-            <img *ngIf="!isSearching" src="{{ baseUrl }}img/svg/ico_search.svg">
-            <img *ngIf="isSearching" src="{{ baseUrl }}img/search-preloader.gif">
+            <img *ngIf="!isSearching" [src]="baseUrl  + 'img/svg/ico_search.svg'">
+            <img *ngIf="isSearching" [src]="baseUrl + 'img/search-preloader.gif'">
           </div>
         </form>
       </div><!-- search end -->
@@ -26,7 +26,7 @@
           
           <!-- search message -->
           <div class="o-search-empty" *ngIf="searchString?.length === 0 && !isSearching">
-              <div class="o-search-empty__icon"><img src="{{ baseUrl }}img/svg/ico_search.svg"></div>
+              <div class="o-search-empty__icon"><img [src]="baseUrl + 'img/svg/ico_search.svg'"></div>
               <div class="o-search-empty__txt p-t-32">
                   <h3 class="c-h3 m-b-16 f-w_500">Search One Page Spotlight </h3>
                   <p class="c-text_md color-grey-dark">

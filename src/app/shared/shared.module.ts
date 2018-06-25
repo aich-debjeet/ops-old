@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { ReadMoreComponent } from '../helpers/read-more.component';
+import { ShareButtonsModule } from 'ngx-sharebuttons';
 // import { MediaModule } from '../components/media/media.module';
 
 import { AuthRightBlockComponent } from './auth-right-block/auth-right-block.component';
@@ -72,7 +73,8 @@ import { ReportPopoupComponent } from './report-popoup/report-popoup.component';
     VgOverlayPlayModule,
     VgBufferingModule,
     SharedPipesModule,
-    LazyLoadImageModule
+    LazyLoadImageModule,
+    ShareButtonsModule
   ],
   declarations: [
     // TruncatePipe,

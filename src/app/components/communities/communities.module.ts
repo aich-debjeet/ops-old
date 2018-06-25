@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CommunitiesComponent } from './communities.component';
 import { SharedModule } from '../../shared/shared.module';
 import { CommunitiesInnerComponent } from './communities-inner/communities-inner.component';
+import { SharedPipesModule } from './../../pipes/shared-pipes.module';
 
 
 const routes: Routes = [
@@ -24,11 +25,12 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SharedPipesModule
   ],
   declarations: [
     CommunitiesComponent,
-    CommunitiesInnerComponent
+    CommunitiesInnerComponent,
   ]
 })
 export class CommunitiesModule { }

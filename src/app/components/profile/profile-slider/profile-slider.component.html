@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="c-profile__userdetail">
-                    <h2 class="c-profile__username" *ngIf="this.isOwner">{{ profileObject?.name }}</h2>
+                    <h2 class="c-profile__username" *ngIf="this.isOwner">{{ profileObject?.name | truncate:[40, '...'] }}</h2>
                     <h2 class="c-profile__username" *ngIf="!this.isOwner">{{ profileObject?.name }}
                         <a [routerLink]="['/reg/information']" [queryParams]="{ action: 'claim_profile', username: profileObject?.extra?.username }" *ngIf="profileObject?.extra?.isImported" type="button" class="btn btn-primary btn-md m-l-8">Claim</a>
                     </h2>
@@ -238,6 +238,7 @@
                                 <span class="form_bar"></span>
                                 <label>Name</label>
                                 <p class="error_alert" *ngIf="profileForm.controls['name'].errors?.required && myform.submitted">Name is required</p>
+                                <p class="error_alert" *ngIf="profileForm.controls['name'].errors?.maxlength && myform.submitted">Maximum Character limit 30</p>
                             </div>
                             <div class="form_group">
                                 <textarea class="form_input form_textarea" maxlength="220" [(ngModel)]="bioMessage" name="" formControlName="bio"></textarea>

@@ -399,17 +399,24 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Get current User channel of profile
      */
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL:
+      if (payload.scrollId === null) {
+        return Object.assign({}, state, {
+          user_channel: [],
+          user_channels_loading: true,
+          user_channels_loaded: false
+        });
+      }
       return Object.assign({}, state, {
-        // success: true,
         user_channels_loading: true,
         user_channels_loaded: false
       });
 
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL_SUCCESS:
       return Object.assign({}, state, {
-        user_channel: payload,
+        user_channel: state.user_channel.concat(payload['spotFeedResponse']),
         user_channels_loaded: true,
-        user_channels_loading: false
+        user_channels_loading: false,
+        user_channel_scroll_id: payload['scrollId']
       });
 
     case ProfileActions.LOAD_CURRENT_USER_CHANNEL_FAILED:
@@ -548,30 +555,43 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Profile Follow
      */
     case ProfileActions.PROFILE_UNFOLLOW_SUCCESS:
-      const v = state.profile_other
-      if (v && v.extra && v.extra.isFollowing) {
-        v.extra.isFollowing = false
-      }
-      if (v && v.followersCount) {
-        v.followersCount = state.profile_other.followersCount - 1
-      }
-
+      const y = state.other_channel.map(item => {
+        return {
+          ...item,
+          isFollowing: false
+        }
+      })
       return Object.assign({}, state, {
-        profile_other: v,
+        profile_other: {
+          ...state.profile_other,
+          followersCount: state.profile_other.followersCount - 1,
+          extra: {
+            ...state.profile_other.extra,
+            isFollowing: false
+          }
+        },
+        other_channel: state.other_channel ? y : [],
         user_following_posts: state.user_following_posts.filter(post => post.ownerHandle !== payload.ownerHandle),
-        user_following_channel: state.user_following_channel.filter(channel => channel.ownerHandle !== payload.ownerHandle)
+        user_following_channel: state.user_following_channel.filter(channels => channels.ownerHandle !== payload.ownerHandle)
       });
 
     case ProfileActions.PROFILE_FOLLOW_SUCCESS:
-      const x = state.profile_other
-      if (x && x.extra && x.extra.isFollowing) {
-        x.extra.isFollowing = true
-      }
-      if (x && x.followersCount) {
-        x.followersCount = state.profile_other.followersCount + 1
-      }
+      const x = state.other_channel.map(item => {
+        return {
+          ...item,
+          isFollowing: true
+        }
+      })
       return Object.assign({}, state, {
-        profile_other: x,
+        profile_other: {
+          ...state.profile_other,
+          followersCount: state.profile_other.followersCount + 1,
+          extra: {
+            ...state.profile_other.extra,
+            isFollowing: true
+          }
+        },
+        other_channel: state.other_channel ? x : [],
         profile_other_followed: true,
       });
 

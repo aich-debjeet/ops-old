@@ -105,7 +105,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       if (num > 0 && num < 6) {
         const nextNum = num + 1;
         const nextOtpInput = 'otpNum' + nextNum.toString();
-        this[nextOtpInput].nativeElement.focus();
+        setTimeout(() => { this[nextOtpInput].nativeElement.focus(); }, 100);
       }
       return true;
     }

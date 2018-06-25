@@ -271,7 +271,7 @@
                                         <img *ngIf="userCards?.active?.image !== ''" class="navdrop__img" [src]="imageBaseUrl + this.userCards.active.image">
                                         <img *ngIf="userCards?.active?.image === ''" class="navdrop__img" [src]="imageBaseUrl + 'avatars/user-avatar-male.png'">
                                     </div>
-                                    <div class="navdrop__name">{{ this.userCards.active.name }}</div>
+                                    <div class="navdrop__name">{{ this.userCards.active.name | truncate:[20, '...'] }}</div>
                                     <div class="navdrop__userhandal">@{{ this.userCards.active.username }}</div>
                                 </a>
                             </div>

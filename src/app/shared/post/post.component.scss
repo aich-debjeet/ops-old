@@ -1,77 +1,32 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import './src/assets/scss/helpers/_helpers.scss';
-@import './src/assets/scss/components/_feed-card.scss';
 @import './src/assets/scss/components/_dropdowns.scss';
-// @mixin clearfix {
-//     &:after {
-//         content: "";
-//         display: table;
-//         clear: both;
-//     }
-// }
-// // post with comments block style -----------------------------------
-// .c-avatar--status {
-//     width: 34px;
-//     height: 34px;
-// }
-// .c-avatar--status2 {
-//     width: 24px;
-//     height: 24px;
-// }
-// .c-avatar--status3 {
-//     width: 40px;
-//     height: 40px;
-// }
-// .c-avatar--artist {
-//     width: 90px;
-//     height: 90px;
-// }
-// .c-user--align {
-//     margin-left: 16px; // margin-top: 8px;
-// }
-// .c-user__channel-align {
-//     margin-top: 24px;
-//     position: absolute;
-//     margin-left: 50px;
-// }
-// .c-status--block {
-//     width: 100%;
-//     float: left;
-//     clear: both;
-//     padding: 16px 24px;
-//     position: relative;
-// }
-// .c-post__time {
-//     float: left;
-//     color: #b4b4b4;
-//     font-size: 11px;
-//     line-height: 18px; // margin-right: 8px;
-//     margin-top: 8px;
-// }
-// .c-status__options {
-//     width: 14px;
-//     height: 14px;
-//     float: left;
-//     margin-top: 9px;
-//     margin-left: 8px;
-// }
-// .c-feed__img img{
-//   margin: auto
-// }
-// .c-card{
-//   margin-bottom: 15px;
-// }
-// .c-user__name {
-//     font-size: 15px;
-//     line-height: 24px;
-//     text-align: left;
-//     color: #000;
-//     margin-left: 8px;
-//     margin-top: 2px;
-//     float: left;
-//     cursor: pointer;
-// }
+@import './src/assets/scss/components/_cards.scss';
+@import './src/assets/scss/components/_common-style.scss';
 
+.o-share__social {
+    border-top: 1px solid #F3F5F7;
+    padding-top: 16px;
+}
+.o-share__social-icon {
+    display: inline;
+    padding: 0 21px;
+}
+
+.o-share__profile2 {
+    width: 260px;
+    border: none;
+    color: #808080;
+    font-size: 13px;
+    line-height: 20px;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
+    right: 0px;
+}
+
+.o-share__avatar{
+    width: 100% !important;
+}
 .c-links__comments{
     cursor: pointer;
 }
@@ -195,9 +150,6 @@ a {
     margin-left: 8px;
 }
 
-.c-dropdown .dropdown-menu {
-    min-width: auto;
-}
 
 .pull-right>.dropdown-menu {
     right: 0;
@@ -216,15 +168,6 @@ a {
     line-height: 1.428571429;
     color: #333333;
     white-space: nowrap;
-}
-
-.c-card {
-    width: 100%;
-    height: auto;
-    float: left;
-    border-radius: 3px;
-    box-shadow: 0 1px 2px 0 rgba(102, 45, 145, 0.15);
-    background-color: #ffffff;
 }
 
 .c-user__status {

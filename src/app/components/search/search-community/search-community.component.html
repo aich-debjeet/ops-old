@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 ops_community_img">
                         <figure class="avatar_community_card">
-                            <a href=""><img src="{{item.imageQuick}}"></a>
+                            <a href=""><img [src]="item.imageQuick"></a>
                         </figure>
                     </div>
                     <div class="col-md-12 col-sm-12 ops_community_cont">
@@ -14,9 +14,9 @@
                             <div class="ops_heading"><a href="">{{item.heading}}</a></div>
                         </div>
                         <div class="overlap_thumb">
-                            <span class="over1_thumb"><img src="{{item.imagethumb1}}"></span>
-                            <span class="over2_thumb"><img src="{{item.imagethumb2}}"></span>
-                            <span class="over3_thumb"><img src="{{item.imagethumb3}}"></span>
+                            <span class="over1_thumb"><img [src]="item.imagethumb1"></span>
+                            <span class="over2_thumb"><img [src]="item.imagethumb2"></span>
+                            <span class="over3_thumb"><img [src]="item.imagethumb3"></span>
                             <h5 class="overlap_thumb_text">{{item.thumbText}}</h5>
                             <button type="button" class="btn btn-default btn-xs">{{item.button}}</button>
                         </div>
