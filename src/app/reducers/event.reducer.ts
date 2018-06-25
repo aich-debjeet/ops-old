@@ -6,6 +6,24 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
 
   switch (type) {
 
+    /**
+     * event report
+    */
+    case EventActions.EVENT_REPORT:
+    // console.log(payload)
+    return Object.assign({}, state, {
+      reports:[]
+    });
+    case EventActions.EVENT_REPORT_SUCCESS:
+    // console.log(payload)
+    return Object.assign({}, state, {
+      reports: payload.Success.questions
+    });
+    case EventActions.EVENT_REPORT_FAILED:
+    return Object.assign({}, state, {
+      reports:[]
+    });
+
     case EventActions.EVENT_EDIT:
       return Object.assign({}, state, {
         event_update: [],

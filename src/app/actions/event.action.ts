@@ -2,6 +2,10 @@ import { Action } from '@ngrx/store';
 
 export class EventActions {
 
+    static EVENT_REPORT = 'EVENT_REPORT';
+    static EVENT_REPORT_SUCCESS = 'EVENT_REPORT_SUCCESS';
+    static EVENT_REPORT_FAILED = 'EVENT_REPORT_FAILED';
+
     static GET_EVENT_TYPE = 'GET_EVENT_TYPE';
     static GET_EVENT_TYPE_SUCCESS = 'GET_EVENT_TYPE_SUCCESS';
     static GET_EVENT_TYPE_FAILED = 'GET_EVENT_TYPE_FAILED';

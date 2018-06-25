@@ -12,10 +12,12 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
+import { ModalService } from '../../shared/modal/modal.component.service';
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  providers: [ DatePipe ],
+  providers: [ ModalService, DatePipe ],
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
@@ -34,20 +36,29 @@ export class PostComponent implements OnInit {
   mediaType: any;
   mediaStore = initialMedia;
   mediaState$: Observable<Media>;
+  reportId: string;
 
   userImage: string;
 
   imageLink: string = environment.API_IMAGE;
+  questions: any;
+  reportType: string;
 
   constructor(
     private router: Router,
-    private store: Store<Media>
+    private store: Store<Media>,
+    public modalService: ModalService,
   ) {
     this.dotMenuState = false;
     this.mediaState$ = store.select('mediaStore');
 
     this.mediaState$.subscribe((state) => {
       this.mediaStore = state;
+      if (state['reports']) {
+        this.questions = state['reports'];
+        this.reportType = 'post';
+        // console.log(this.questions)
+      }
     });
 
   }
@@ -65,6 +76,7 @@ export class PostComponent implements OnInit {
     this.mediaType = this.mediaData.mtype;
     this.commentCount = this.mediaData.commentsCount;
     this.comments = this.mediaData.commentsList;
+    // console.log(this.mediaId)
   }
 
   /**
@@ -120,5 +132,19 @@ export class PostComponent implements OnInit {
       this.commentCount++
     }
   }
+
+    /** 
+   * open report modal
+  */
+ reportModalOpen(id: string){
+  //  console.log(id)
+   this.reportId = id;
+  this.modalService.open('reportPopUp');
+  this.store.dispatch({ type: MediaActions.MEDIA_POST_REPORT, payload: 'post' });
+}
+closeReport(){
+  // console.log('comming')
+  this.modalService.close('reportPopUp');
+}
 
 }

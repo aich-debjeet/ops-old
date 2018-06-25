@@ -16,6 +16,7 @@ import { ISubscription } from 'rxjs/Subscription';
 // import { GeneralUtilities } from '../../../helpers/general.utils';
 import { ToastrService } from 'ngx-toastr';
 import { GeneralUtilities } from '../../../helpers/general.utils';
+import { ModalService } from '../../../shared/modal/modal.component.service';
 
 @Component({
   selector: 'app-opportunity-view',
@@ -39,21 +40,31 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
   private profileSub: ISubscription;
   isOwnOpportunity = false;
   showOptions = false;
+  reportId: string;
+  questions: any;
+  reportType: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private generalUtils: GeneralUtilities,
     private toastr: ToastrService,
+    public modalService: ModalService,
     private store: Store<OpportunityModel>
   ) {
     // opportunity state listener
     this.opportunityState$ = this.store.select('opportunityTags');
     this.oppsSub = this.opportunityState$.subscribe((state) => {
       this.opportunityState = state;
-      console.log('state', state);
+      // console.log('state', state);
       if (state) {
         // get opp data
+        if (state['reports']) {
+          this.questions = state['reports'];
+          this.reportType = 'opportunity';
+          // console.log(this.questions)
+        }
+
         if (state.get_opportunity_data) {
           this.opportunity = state.get_opportunity_data;
           this.hasApplied = state.get_opportunity_data.isApplied;
@@ -147,5 +158,17 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+  reportModalOpen(id: string){
+    // console.log(id)
+    this.reportId = id;
+   this.modalService.open('reportPopUp');
+   this.store.dispatch({ type: OpportunityActions.OPPORTUNITY_REPORT, payload: 'opportunity' });
+ }
+
+ closeReport(){
+  // console.log('comming')
+  this.modalService.close('reportPopUp');
+}
 
 }
