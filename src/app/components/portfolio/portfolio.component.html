@@ -26,12 +26,12 @@
                     <div class="col-md-12 p-0">
                         <div class="c-port__tabs">
                             <ul class="nav nav-tabs">
-                                <li class="active">
-                                    <a data-toggle="tab" class="p-l-0">ALL</a>
+                                <li [ngClass]="{'active': activeTab === 'all'}">
+                                    <a (click)="selectTab('all')" data-toggle="tab" class="p-l-0">ALL</a>
                                 </li>
                                 <ng-container *ngIf="portCategories?.length > 0">
-                                    <li *ngFor="let category of portCategories">
-                                        <a (click)="selectTab(category)">{{ category.categoryName }}</a>
+                                    <li *ngFor="let category of portCategories" [ngClass]="{'active': activeTab === category.categoryName}" class="text-uppercase">
+                                        <a (click)="selectTab(category.categoryName)">{{ category.categoryName }}</a>
                                     </li>
                                 </ng-container>
                                 <div *ngIf="ownProfile" class="c-port__setting">

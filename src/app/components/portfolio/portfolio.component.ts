@@ -45,6 +45,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   displayMedia = [];
   portCategories = [];
   portAddCategoryForm: FormGroup;
+  activeTab = 'all';
 
   constructor(
     private fb: FormBuilder,
@@ -263,6 +264,13 @@ export class PortfolioComponent implements OnInit, OnDestroy {
    */
   selectCategory(catVal: string) {
     this.selectedCategoryId = catVal;
+  }
+
+  /**
+   * select tab
+   */
+  selectTab(tabName: string) {
+    this.activeTab = tabName;
   }
 
 }

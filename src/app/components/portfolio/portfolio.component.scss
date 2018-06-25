@@ -1,6 +1,10 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import '~sass-mq/_mq.scss';
 
+ul.nav-tabs li a:hover {
+    color: #555555;
+}
+
 /* -------------------- portfolio all ---------------------*/
 .c-portfolio--block {
     position: relative;
