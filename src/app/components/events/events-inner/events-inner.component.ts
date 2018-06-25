@@ -15,6 +15,7 @@ import { EventActions } from '../../../actions/event.action';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { ModalService } from '../../../shared/modal/modal.component.service';
 
 @Component({
   selector: 'app-events-inner',
@@ -32,18 +33,27 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
   eventTag: any;
   isAttend: boolean;
   attendeeList: any;
+  reportId: string;
+  questions: any;
+  reportType: string;
 
   constructor(
     private route: ActivatedRoute,
     private store: Store<EventModal>,
     private toastr: ToastrService,
     private router: Router,
+    public modalService: ModalService,
   ) {
     this.tagState$ = this.store.select('eventTags');
     this.tagState$.subscribe((state) => {
       this.eventDetail = state['event_detail'];
       this.attendeeList = state['attendee_load'];
-      console.log(this.eventDetail)
+      // console.log(this.eventDetail)
+      if (state['reports']) {
+        this.questions = state['reports'];
+        this.reportType = 'event';
+        // console.log(this.questions)
+      }
     });
 
     // Event tag
@@ -72,7 +82,7 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
   }
 
   deleteEvent(id: string){
-    console.log(id)
+    // console.log(id)
     this.store.dispatch({ type: EventActions.EVENT_DELETE, payload: id });
     this.store.select('eventTags')
       .first(state => state['event_del_success'] === true)
@@ -111,5 +121,17 @@ export class EventsInnerComponent implements OnInit, OnDestroy {
   updateAttend(data) {
     this.store.dispatch({ type: EventActions.EVENT_ATTEND, payload: data });
   }
+
+ reportModalOpen(id: string){
+    // console.log(id)
+    this.reportId = id;
+   this.modalService.open('reportPopUp');
+   this.store.dispatch({ type: EventActions.EVENT_REPORT, payload: 'event' });
+ }
+
+ closeReport(){
+  // console.log('comming')
+  this.modalService.close('reportPopUp');
+}
 
 }

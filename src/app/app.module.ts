@@ -89,6 +89,7 @@ import { ClaimProfileService } from './services/claim-profile.service';
 import { FileService } from './services/file.service';
 import { PusherService } from './services/pusher.service';
 import { CommunitiesService } from './services/communities.service';
+import { SharedService } from './services/shared.service';
 
 // Component module
 import { SharedModule } from './shared/shared.module';
@@ -215,6 +216,7 @@ import { AboutComponent } from './components/about/about.component';
     PusherService,
     MessageService,
     AuthGuard,
+    SharedService,
     AuthlogoutGuard,
     GeneralService,
     ApiService,

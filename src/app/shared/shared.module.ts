@@ -60,6 +60,7 @@ import { SearchChannelCardComponent } from './search-channel-card/search-channel
 import { CommunityCardComponent } from './community-card/community-card.component';
 import { PlaceholderNotificationComponent } from './placeholder-notification/placeholder-notification.component';
 import { PortfolioMediaComponent } from './portfolio-media/portfolio-media.component';
+import { ReportPopoupComponent } from './report-popoup/report-popoup.component';
 
 @NgModule({
   imports: [
@@ -117,7 +118,8 @@ import { PortfolioMediaComponent } from './portfolio-media/portfolio-media.compo
     CommunityCardComponent,
     ReadMoreComponent,
     PlaceholderNotificationComponent,
-    PortfolioMediaComponent
+    PortfolioMediaComponent,
+    ReportPopoupComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -153,7 +155,8 @@ import { PortfolioMediaComponent } from './portfolio-media/portfolio-media.compo
     SearchChannelCardComponent,
     CommunityCardComponent,
     ReadMoreComponent,
-    PortfolioMediaComponent
+    PortfolioMediaComponent,
+    ReportPopoupComponent
   ]
 })
 export class SharedModule { }

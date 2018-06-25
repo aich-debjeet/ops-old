@@ -25,7 +25,7 @@
                 <!-- <img *ngIf="mediaData?.access === 0" [src]="imageLink + 'img/svg/ico_public.svg'" class="c-status__options"> -->
                 <img [src]="imageLink + 'img/svg/ico_public.svg'" *ngIf="mediaData?.access === 0" class="c-status__options">
             </a>
-            <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen *ngIf="mediaData?.isOwner">
+            <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
                     <img [src]="imageLink + 'img/svg/ico_options.svg'" class="c-status__options">
             </span>
             <ul class="dropdown-menu dropdown-menu-right" *ngIf="mediaData?.isOwner">
@@ -34,6 +34,11 @@
                 </li>
                 <li>
                     <a (click)="onContentDelete($event)">Delete</a>
+                </li>
+            </ul>
+            <ul class="dropdown-menu dropdown-menu-right" *ngIf="!mediaData?.isOwner">
+                <li>
+                    <a (click)="reportModalOpen(mediaData.id)" data-toggle="modal" data-target="#reportmodal">Report ad</a>
                 </li>
             </ul>
         </div>
@@ -149,3 +154,7 @@
     </div>
     <!-- <app-comment [mediaId]="mediaId" [comments]="comments" [mediaType]="mediaType" (submitComment)="sbComment($event)"></app-comment> -->
 </div>
+
+<app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp'>
+    <app-report-popoup [reportQues]="questions" [reportContentId]="reportId" [reportType]="reportType" (onclose)= "closeReport()" ></app-report-popoup>
+</app-modal>

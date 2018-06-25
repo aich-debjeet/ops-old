@@ -78,6 +78,8 @@ export class ProfileSliderComponent implements OnInit {
   otherProfileName: String;
   error = false;
   showThis = false;
+  questions: any;
+  reportType: string;
 
   hasFollowed: boolean;
   @ViewChild('skillModal') UsertypeModal: Modal;
@@ -106,9 +108,14 @@ export class ProfileSliderComponent implements OnInit {
 
     this.tagState$.subscribe((state) => {
       this.userProfile = state;
-      //  console.log('state', state);
+        // console.log('state', state);
       // get followers
       if (state) {
+        if (state['reports']) {
+          this.questions = state['reports'];
+          this.reportType = 'profile';
+          // console.log(this.questions)
+        }
         if ((state['searching_following_profiles'] === false && state['searching_following_profiles_success'] === true) || (state['searching_follower_profiles'] === false && state['searching_follower_profiles_success'] === true)) {
           this.showPreloader = false;
         }
@@ -283,6 +290,27 @@ export class ProfileSliderComponent implements OnInit {
       username: this.userProfile.profile_details['extra'].username,
       dob: date
     });
+  }
+
+  /** 
+   * open report modal
+  */
+  reportModalOpen(){
+    this.modalService.open('reportPopUp');
+    this.profileStore.dispatch({ type: ProfileActions.PROFILE_REPORT, payload: 'profile' });
+    // this.profileStore.select('profileTags')
+    //   .first(state => state['reports'])
+    //   .subscribe( data => {
+    //     if (data['reports']) {
+    //       this.questions = data['reports'];
+    //       console.log(this.questions)
+    //     }
+    //   });
+  }
+
+  closeReport(){
+    // console.log('comming')
+    this.modalService.close('reportPopUp');
   }
 
   /**

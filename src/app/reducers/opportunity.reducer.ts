@@ -158,6 +158,24 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
       });
     /* delete opp by id */
 
+    /**
+     * opportunity report
+    */
+   case OpportunityActions.OPPORTUNITY_REPORT:
+    // console.log(payload)
+    return Object.assign({}, state, {
+      reports:[]
+    });
+   case OpportunityActions.OPPORTUNITY_REPORT_SUCCESS:
+    // console.log(payload)
+    return Object.assign({}, state, {
+      reports: payload.Success.questions
+    });
+   case OpportunityActions.OPPORTUNITY_REPORT_FAILED:
+    return Object.assign({}, state, {
+      reports:[]
+    });
+
 
 
     // /* get opportunities by filter */

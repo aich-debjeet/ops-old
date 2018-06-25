@@ -551,4 +551,11 @@ export class ProfileService {
   declinerequest(body: any) {
     return this.api.put('/portal/network/connection/response', body);
   }
+  
+  /**
+   * get reports
+   */
+  getReports(type: string){
+    return this.api.get('/portal/report/questions/getByType/' + type)
+  }
 }

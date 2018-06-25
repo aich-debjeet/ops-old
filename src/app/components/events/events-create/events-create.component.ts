@@ -58,7 +58,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   private sub: any;
   eventDetail: any;
   eventCover: File;
-
+  eventTypeList: any;
     // Address --
     address: string;
     country: string;
@@ -118,8 +118,9 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
     this.tagState$.subscribe((state) => {
       this.industryList = state['all_industry'];
       this.eventDetail = state['event_detail'];
+      this.eventTypeList = state['eventType_load'];
     });
-
+    this.store.dispatch({ type: EventActions.GET_EVENT_TYPE });
     this.store.dispatch({ type: EventActions.GET_ALL_INDUSTRY });
   }
 
@@ -411,7 +412,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    * @param value value of form
    */
   submitForm(value) {
-    console.log(value);
+    // console.log(value);
     // console.log(this.eventForm.valid)
     // console.log(this.eventCoverImage)
     if (this.eventForm.valid) {

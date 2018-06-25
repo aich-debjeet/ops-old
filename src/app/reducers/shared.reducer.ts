@@ -45,6 +45,22 @@ export const SharedReducer: ActionReducer<any> = (state, {payload, type}: Action
       });
     /* unpinning channel */
 
+    case SharedActions.GET_REPORT_OPTIONS:
+    return Object.assign({}, state, {
+      success: true
+    });
+
+    case SharedActions.GET_REPORT_OPTIONS_SUCCESS:
+    return Object.assign({}, state, {
+      report_success: payload,
+      success: true
+    });
+
+    case SharedActions.GET_REPORT_OPTIONS_FAILED:
+    return Object.assign({}, state, {
+      success: false
+    });
+
     default:
       return state;
 

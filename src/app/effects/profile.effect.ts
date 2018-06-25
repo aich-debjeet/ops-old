@@ -928,6 +928,18 @@ export class ProfileEffect {
         .catch((res) => Observable.of({ type: ProfileActions.DECLINE_NETWORK_REQUEST_FAILED, payload: res }))
       );
 
+      /**
+       *Get Profile Report 
+       */
+      @Effect()
+      getReport$ = this.actions$
+      .ofType(ProfileActions.PROFILE_REPORT)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.getReports(payload)
+      .map(res => ({ type: ProfileActions.PROFILE_REPORT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.PROFILE_REPORT_FAILED, payload: res }))
+    );
+
 
   constructor(
     private toastr: ToastrService,
