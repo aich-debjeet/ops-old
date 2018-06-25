@@ -38,6 +38,8 @@ export class ProfileService {
    */
   getPortfolioCategories(reqParams: any) {
     return this.api.get('/portal/portfolio/all/categories', reqParams);
+    // return this.http.get(`${this.apiLink}/portal/portfolio/all/categories`, reqParams)
+    //   .map((data: Response) => data.json());
   }
 
   /**
@@ -322,7 +324,8 @@ export class ProfileService {
    * Load a user profile
    */
   loadProfileByUsername(userName: string) {
-    return this.api.get('/portal/profile/user/username/' + userName);
+    return this.http.get(`${this.apiLink}/portal/profile/user/username/` + userName)
+      .map((data: Response) => data.json());
   }
 
   /**

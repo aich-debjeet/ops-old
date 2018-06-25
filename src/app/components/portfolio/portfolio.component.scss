@@ -148,25 +148,23 @@
     color: #DF6A72;
 }
 
-.c-addpost_modal {
-    .modal-lg {
-        width: 1170px;
-        margin-top: 54px;
-        @include mq($from: $mobile_sm, $until: $tablet) {
-            width: 94%;
-        }
+.modal-lg {
+    width: 1170px;
+    margin-top: 54px;
+    @include mq($from: $mobile_sm, $until: $tablet) {
+        width: 94%;
     }
-    .modal-header {
-        border: none;
-        .close {
-            color: #fff;
-            opacity: 0.5;
-            font-weight: 300;
-            font-size: 24px;
-            top: -24px;
-            position: absolute;
-            right: 8px;
-        }
+}
+.modal-header {
+    border: none;
+    .close {
+        color: #fff;
+        opacity: 0.5;
+        font-weight: 300;
+        font-size: 24px;
+        top: -24px;
+        position: absolute;
+        right: 8px;
     }
 }
 
@@ -317,7 +315,7 @@
     padding-top: 50px;
 }
 
-.c-addpost_modal .modal-lg {
+.modal-lg {
     width: 1170px;
     margin-top: 54px;
 }
@@ -325,7 +323,8 @@
 .o-portfolio-empty-text {
     width: 100%;
     text-align: center;
-    margin-top: 20%;
+    // margin-top: 20%;
+    margin: 100px auto;
 }
 
 .color-grey-dark {

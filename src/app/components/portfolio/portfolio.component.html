@@ -17,7 +17,7 @@
                     {{ userProfile?.summary }}
                 </div>
                 <div *ngIf="ownProfile" class="width100 float_left">
-                    <button type="button" class="btn btn-primary btn-md btn-block m-t-16" (click)="addWork()">add work</button>
+                    <button type="button" class="btn btn-primary btn-md btn-block m-t-16" (click)="showMediaSelection()">add work</button>
                     <button type="button" class="btn btn-default btn-md btn-block m-t-8">publish</button>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                                 <div id="01" class="tab-pane fade active in m-l-r-8">
                                     <div class="row">
                                         <ngx-masonry *ngIf="!portfolioEmpty; else portfolioEmpty" [useImagesLoaded]="true">
-                                            <ngx-masonry-item *ngFor="let media of medias" class="col-md-4 col-sm-4 c-portfolio--block">
+                                            <ngx-masonry-item *ngFor="let media of displayMedia" class="col-md-4 col-sm-4 c-portfolio--block">
                                                 <app-portfolio-media [portMediaDetails]="media"></app-portfolio-media>
                                             </ngx-masonry-item>
                                         </ngx-masonry>
@@ -57,26 +57,23 @@
     </div>
 </section>
 
-<!-- OTP Modal -->
-<app-modal [modalTitle]="'Add Work'" [blocking]='false' modalId='addWorkModal' size="port_add_work">
-    <!-- Modal -->
-    <div id="addfromPost" class="c-addpost_modal" role="dialog">
+<!-- Portfolio media modal -->
+<app-modal-new #portMediaModal modalClass="modal-portfolio__media">
+    <modal-content>
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-body p-b-0">
+                <div class="modal-body">
                     <div class="row with_border_bottom p-b-8">
                         <div class="col-md-3 c-text_md-bold text-uppercase m-t-8">Choose from image</div>
                         <div class="col-md-5">12</div>
                         <div class="col-md-4">
                             <div class="row">
-                                <form>
+                                <form *ngIf="portCategories?.length > 0">
                                     <div class="col-md-9 col-xs-8">
                                         <div class="c-form__group m-0">
                                             <select class="c-form-control">
                                                 <option>Select Category</option>
-                                                <option>Select list 2</option>
-                                                <option>Select list 3</option>
-                                                <option>Select list 4</option>
+                                                <option *ngFor="let category of portCategories" value="">{{ category.categoryName }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -84,6 +81,7 @@
                                         <button type="button" class="btn btn-primary btn-md">Done</button>
                                     </div>
                                 </form>
+                                <p *ngIf="portCategories?.length === 0 && profileState?.get_portfolio_categories === false && profileState?.get_portfolio_categories_success === true">No categories available!</p>
                             </div>
                         </div>
                     </div>
@@ -126,9 +124,9 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- //modal -->
-</app-modal>
+    </modal-content>
+</app-modal-new>
+<!-- Portfolio media modal -->
 
 <!-- Edit categories modal -->
 <app-modal-new #editCategoriesModal modalClass="modal-portfolio__categories">

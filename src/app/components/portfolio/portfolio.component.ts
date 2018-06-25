@@ -22,6 +22,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class PortfolioComponent implements OnInit, OnDestroy {
 
   @ViewChild('editCategoriesModal') editCategoriesModal: Modal;
+  @ViewChild('portMediaModal') portMediaModal: Modal;
 
   profileState$: Observable<ProfileModal>;
   profileSub: ISubscription;
@@ -39,7 +40,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   userMedia: any[];
   selectedMedia = [];
   selectedChannels = [];
-  medias = [];
+  displayMedia = [];
   portCategories = [];
   portAddCategoryForm: FormGroup;
 
@@ -80,7 +81,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
                 this.userMedia[i].isSelected = false;
               }
             }
-            // console.log('this.userMedia', this.userMedia);
+            console.log('this.userMedia', this.userMedia);
           }
         }
         if (this.generalUtils.checkNestedKey(state, ['get_portfolio_categories_result'])) {
@@ -160,7 +161,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   /**
    * show modal and popuplate the media
    */
-  addWork() {
+  showMediaSelection() {
     this.showPreloader = true;
     // get media
     const reqBody = {
@@ -172,7 +173,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
     // get channels
     this.profileStore.dispatch({ type: ProfileActions.GET_USERS_CHANNELS, payload: '' });
-    this.modalService.open('addWorkModal');
+    this.portMediaModal.open();
   }
 
   /**
