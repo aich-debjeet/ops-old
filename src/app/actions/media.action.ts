@@ -2,6 +2,10 @@ import { Action } from '@ngrx/store';
 
 export class MediaActions {
 
+  static MEDIA_POST_REPORT = 'MEDIA_POST_REPORT';
+  static MEDIA_POST_REPORT_SUCCESS = 'MEDIA_POST_REPORT_SUCCESS';
+  static MEDIA_POST_REPORT_FAILED = 'MEDIA_POST_REPORT_FAILED';
+
   // Status
   static STATUS_SAVE = 'STATUS_SAVE';
   static STATUS_SAVE_SUCCESS = 'STATUS_SAVE_SUCCESS';

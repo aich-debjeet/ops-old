@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { SharedModule } from '../../shared/shared.module';
 import { MediaComponent } from './media.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 // Childs
@@ -31,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { UtcDatePipe } from './../../pipes/utcdate.pipe';
 import { SharedPipesModule } from './../../pipes/shared-pipes.module';
+import { MediaBlockComponent } from './media-block/media-block.component';
 
 const routes: Routes = [
   {
@@ -70,7 +72,11 @@ const routes: Routes = [
     path: 'channel/:id/edit',
     component: EditChannelComponent,
     outlet: 'media'
-  }
+  },
+  {
+    path: 'media/:id',
+    component: MediaBlockComponent
+  },
 ];
 
 @NgModule({
@@ -84,7 +90,8 @@ const routes: Routes = [
     FormsModule,
     TagInputModule,
     SharedPipesModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    InfiniteScrollModule
   ],
   declarations: [
     MediaComponent,
@@ -95,7 +102,8 @@ const routes: Routes = [
     ChannelSelectorComponent,
     CreateChannelComponent,
     EditChannelComponent,
-    ChannelListComponent
+    ChannelListComponent,
+    MediaBlockComponent
   ],
   exports: [
     MediaComponent,

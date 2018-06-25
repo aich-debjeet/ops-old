@@ -15,6 +15,7 @@ export class Media {
   media_delete_msg?: String;
   media_edit_msg?: String;
   comment_post_loading?: boolean;
+  reports: any[];
 }
 
 export const initialMedia: Media = {
@@ -28,7 +29,8 @@ export const initialMedia: Media = {
   user_posts_loading: false,
   media_detail: [],
   channel_loading: false,
-  comment_post_loading: false
+  comment_post_loading: false,
+  reports: []
 };
 
 // export class MediaFile {

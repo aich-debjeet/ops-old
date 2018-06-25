@@ -1,0 +1,144 @@
+<div class="modal-dialog modal-lg" id="report_1" *ngIf ="!profileThankYou">
+  <div class="modal-content report_container">
+      <form [formGroup]="repPop" novalidate (ngSubmit)="submitForm(repPop.value)" #repform="ngForm">
+        <div class="report_pop_head">
+            <div class="c-text_lg-bold text-center">Report</div>
+            <span class="search_close">
+              <a (click)="closeThankyou()" data-dismiss="modal"><img [src]="imageLink + 'img/svg/ico_close-38.svg'" alt=""></a>
+            </span>
+        </div>
+        <div class="report_content_sec">
+            <div class="c-text_md text-center">
+                We take reports of harm and abuse seriously. To learn more about our standards
+                <br>for member behavior. you can read our <a href="javascript:void(0)">Community Guidlines</a>.
+            </div>
+            <ul>
+                <li>
+                    <div class="c-radio__sm" *ngFor = "let options of reportQues">
+                        <label class="col-md-12" *ngIf = "options.question !== 'Other issues'">
+                            <input name="repOption" type="radio" value="{{options.question}}" formControlName="repOption" (change)="onSelectionChange(options.question)"><span></span>
+                            <div class="radio-text">{{options.question}}</div>
+                        </label>
+                        <label class="col-md-12" *ngIf = "options.question === 'Other issues'">
+                            <input name="repOption" type="radio" value="{{options.question}}" formControlName="repOption" (change)="onSelectionChange(options.question)"><span></span>
+                            <div class="radio-text">{{options.question}}</div>
+                            <div class="" *ngIf ="describe">
+                                <input class="c-form__input" id="" type="text" formControlName="desc" placeholder="Describe issue here">
+                            </div>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="report_bottom">
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-md" data-toggle="modal">Submit</button>
+            </div>
+        </div>
+      </form>
+  </div>
+</div>
+
+<div class="modal-dialog modal-lg" id="report_thank" *ngIf ="profileThankYou && reportType === 'profile'">
+    <div class="modal-content report_container">
+        <div class="report_pop_head">
+            <div class="c-text_lg-bold text-center">Report</div>
+            <span class="search_close">
+        <a (click)="closeThankyou()" data-dismiss="modal">
+            <img [src]="imageLink + 'img/svg/ico_close-38.svg'">
+        </a>
+    </span>
+        </div>
+        <div class="report_content_sec">
+            <div class="msg_report_container c-text_lg text-center">
+                <strong>Report successfull</strong>
+                <br> We will review your report and take necessary action.
+            </div>
+        </div>
+        <div class="report_bottom">
+            <div class="text-center">
+                <button type="button" class="btn btn-primary btn-md" data-dismiss="modal" (click)="closeThankyou()">
+                    Done
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-dialog modal-lg " id="report_thank4" *ngIf ="profileThankYou && reportType === 'post'">
+    <div class="modal-content report_container">
+        <div class="report_pop_head">
+            <div class="c-text_lg-bold text-center">Report</div>
+            <span class="search_close">
+        <a (click)="closeThankyou()" data-dismiss="modal">
+            <img [src]="imageLink + 'img/svg/ico_close-38.svg'">
+        </a>
+    </span>
+        </div>
+        <div class="report_content_sec">
+            <div class="msg_report_container c-text_lg text-center">
+                Thnak you for letting us know
+            </div>
+            <div class="c-text_md text-center">You will no longer be able to see the post.</div>
+        </div>
+        <div class="report_bottom">
+            <div class="text-center">
+                <button type="button" class="btn btn-primary btn-md" data-dismiss="modal" (click)="closeThankyou()">
+                    Okay
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-dialog modal-lg " id="report_thank4" *ngIf ="profileThankYou && reportType === 'event'">
+    <div class="modal-content report_container">
+        <div class="report_pop_head">
+            <div class="c-text_lg-bold text-center">Report</div>
+            <span class="search_close">
+        <a (click)="closeThankyou()" data-dismiss="modal">
+            <img [src]="imageLink + 'img/svg/ico_close-38.svg'">
+        </a>
+    </span>
+        </div>
+        <div class="report_content_sec">
+            <div class="msg_report_container c-text_lg text-center">
+                Thank you for letting us know
+            </div>
+            <div class="c-text_md text-center">We will review your report and take necessary action..</div>
+        </div>
+        <div class="report_bottom">
+            <div class="text-center">
+                <button type="button" class="btn btn-primary btn-md" data-dismiss="modal" (click)="closeThankyou()">
+                    Okay
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-dialog modal-lg " id="report_thank4" *ngIf ="profileThankYou && reportType === 'opportunity'">
+    <div class="modal-content report_container">
+        <div class="report_pop_head">
+            <div class="c-text_lg-bold text-center">Report</div>
+            <span class="search_close">
+        <a (click)="closeThankyou()" data-dismiss="modal">
+            <img [src]="imageLink + 'img/svg/ico_close-38.svg'">
+        </a>
+    </span>
+        </div>
+        <div class="report_content_sec">
+            <div class="msg_report_container c-text_lg text-center">
+                Thank you for letting us know
+            </div>
+            <div class="c-text_md text-center">We will review your report and take necessary action..</div>
+        </div>
+        <div class="report_bottom">
+            <div class="text-center">
+                <button type="button" class="btn btn-primary btn-md" data-dismiss="modal" (click)="closeThankyou()">
+                    Okay
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

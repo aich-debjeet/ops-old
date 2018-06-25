@@ -52,8 +52,8 @@
                                 <div class="c-form__group">
                                     <select class="c-form-control p-l-0" formControlName="event_genres">
                                       <option value="" disabled selected hidden>Select Genre</option>
-                                      <option value="Performance">Performance</option>
-                                      <option value="Movies">Movies</option>
+                                      <option value="{{type}}" *ngFor="let type of eventTypeList">{{type}}</option>
+                                      <!-- <option value="Movies">Movies</option>
                                       <option value="Festivals">Festivals</option>
                                       <option value="Trade Shows">Trade Shows</option>
                                       <option value="Conference or WorkShops">Conference or WorkShops</option>
@@ -61,7 +61,7 @@
                                       <option value="Concert">Concert</option>
                                       <option value="Exhibition">Exhibition</option>
                                       <option value="Film">Film</option>
-                                      <option value="Wine Tasting">Wine Tasting</option>
+                                      <option value="Wine Tasting">Wine Tasting</option> -->
                                     </select>
                                 </div>
                                 <p class="c-form__validation" *ngIf="eventForm.controls['event_genres'].errors?.required && ecfrom.submitted">Event Type is required

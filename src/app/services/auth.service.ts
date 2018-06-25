@@ -142,23 +142,20 @@ export class AuthService {
     saveSkill(skillObj) {
       // Object
       const skill = {
-        'name': skillObj,
-        'code': skillObj.toUpperCase(),
-        'industry' : [
-          {
-            'name' : 'Uncategorized',
-            'code' : 'UNCATEGORIZED',
-            'isApproved' : true,
-            'active' : true
-          }
-        ],
-        'proficiencyScale' : 101.0,
-        'industryOrProfileType' : 'profileType',
-        'isApproved' : true,
-        'active' : true
+        name: skillObj,
+        code: skillObj.replace(/ /g, '_').toUpperCase(),
+        industry: [{
+            name: 'Uncategorized',
+            code: 'UNCATEGORIZED',
+            isApproved: true,
+            active: true
+        }],
+        proficiencyScale: 101.0,
+        industryOrProfileType: 'profileType',
+        isApproved: false,
+        active: true
       }
-
-      return this.api.post('/admin/profiletype', skill );
+      return this.api.post('/admin/profiletype', skill);
     }
 
     /**
@@ -189,7 +186,7 @@ export class AuthService {
     }
 
     searchAllSkill(query: string) {
-      return this.api.post('/portal/skills/search', { searchString: query, limit: 200 });
+      return this.api.post('/portal/skills/search', { searchString: query, limit: 30 });
     }
 
     logout(value) {

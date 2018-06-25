@@ -55,32 +55,6 @@
                                 <li class="o-action-list">
                                     <a class="o-action-help" href="javascript:void(0)" title="Contains nudity, Not Suitable For Work">NSFW <span class="help_ico">?</span></a>
                                 </li>
-                                <li class="o-action-list">
-                                    <div class="dropdown margin_l_16" appDropdown>
-                                        <span class="com-head" appDropdownOpen>
-                            <div class="o-action__ico">
-                                <img [src]="(mediaPrivacy == 0) ? baseUrl + 'img/svg/public_whit.svg' : baseUrl + 'img/svg/Ico-private.svg'">
-                            </div>
-                            <div class="o-action__ico-arrow">
-                              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="10px" viewBox="0 0 16 10" version="1.1"><defs/><g id="Create" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><polyline id="Path-2-Copy" stroke="#ffffff" stroke-width="2" transform="translate(8.000000, 4.500000) rotate(-360.000000) translate(-8.000000, -4.500000) " points="1 1 8 8 15 1"/></g></svg>
-                            </div>
-                          </span>
-                                        <ul class="dropdown-menu c-opsdropdown--size1 o-action-list--space">
-                                            <li>
-                                                <a (click)="mediaPrivacyToggle(0)" class="c-opsdropdown__list">
-                                                    <img [src]="baseUrl + 'img/svg/ico-public.svg'" class="c-opsdropdown--icons">
-                                                    <span class="c-opsdropdown--text">Public</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a (click)="mediaPrivacyToggle(1)" class="c-opsdropdown__list">
-                                                    <img [src]="baseUrl + 'img/svg/Ico-private.svg'" class="c-opsdropdown--icons">
-                                                    <span class="c-opsdropdown--text">Private</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
                                 <li class="o-action-list float-right">
                                     <button type="button" *ngIf="!external_post_active" [disabled]="uploadedFiles?.length === 0 || uploadedFiles?.length !== cards?.length" class="btn btn-primary btn-md btn-inverse" (click)="formNext()">Next</button>
                                     <button type="button" *ngIf="external_post_active" [disabled]="uploadedFiles?.length === 0 || uploadedFiles?.length !== cards?.length" class="btn btn-primary btn-md btn-inverse" (click)="publishPost()">Publish</button>
@@ -153,8 +127,8 @@
 
 <section class="Select__channel" *ngIf="uploadState === 2">
     <div class="container">
-        <div class="o-add-media" >
-            <app-channel-list [userChannels]="channeList" [settingDisable]="uploadedFiles.length === 0" (onPostMedia)="postAllMedia($event)" (onSelection)="onChannelSelection($event)" (onChangeContext)="changeState($event)"></app-channel-list>
+        <div class="o-add-media">
+            <app-channel-list [userChannels]="channeList" [settingDisable]="uploadedFiles.length === 0" (onPostMedia)="postAllMedia($event)" (onSearch)="searchChannel($event)" (onScrolled)="scrolled($event)" (onSelection)="onChannelSelection($event)" (onChangeContext)="changeState($event)"></app-channel-list>
         </div>
     </div>
 </section>

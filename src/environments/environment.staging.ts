@@ -5,5 +5,6 @@ export const environment = {
   },
   production: true,
   API_ENDPOINT: 'https://stg.api.onepagespotlight.com/api/1.0',
-  API_IMAGE: 'https://cdn.onepagespotlight.com/'
+  API_IMAGE: 'https://cdn.onepagespotlight.com/',
+  API_DOMAIN: 'https://stg.onepagespotlight.com/'
 };
