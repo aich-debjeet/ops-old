@@ -140,5 +140,11 @@ export class MediaService {
   getMyMedia(body: any) {
     return this.api.put( '/portal/cdn/myMedia', body);
   }
+  /**
+   * get reports
+   */
+  getReports(type: string){
+    return this.api.get('/portal/report/questions/getByType/' + type)
+  }
 
 }

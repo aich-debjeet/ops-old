@@ -181,6 +181,23 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       media_edit_msg: payload.SUCCESS
     });
 
+/**
+ * media report
+ */
+    case MediaActions.MEDIA_POST_REPORT:
+        return Object.assign({}, state, {
+          reports:[]
+        });
+    case MediaActions.MEDIA_POST_REPORT_SUCCESS:
+        // console.log(payload)
+        return Object.assign({}, state, {
+          reports: payload.Success.questions
+        });
+    case MediaActions.MEDIA_POST_REPORT_FAILED:
+        return Object.assign({}, state, {
+          reports:[]
+        });
+
     default:
       return state;
   }

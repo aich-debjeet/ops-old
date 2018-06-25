@@ -2,6 +2,10 @@ import { Action } from '@ngrx/store';
 
 export class SharedActions {
 
+  static GET_REPORT_OPTIONS = 'GET_REPORT_OPTIONS';
+  static GET_REPORT_OPTIONS_SUCCESS = 'GET_REPORT_OPTIONS_SUCCESS';
+  static GET_REPORT_OPTIONS_FAILED = 'GET_REPORT_OPTIONS_FAILED';
+
   /* -------------------------------- PIN channel -------------------------------- */
   static PIN_CHANNEL = 'PIN_CHANNEL';
   static PIN_CHANNEL_SUCCESS = 'PIN_CHANNEL_SUCCESS';

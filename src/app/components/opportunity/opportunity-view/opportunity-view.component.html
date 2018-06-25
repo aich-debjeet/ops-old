@@ -28,7 +28,7 @@
                 </ul>
                 <ul *ngIf="!isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
                   <li>
-                    <a class="o-oppo-edit__drop">
+                    <a class="o-oppo-edit__drop" (click)="reportModalOpen(opportunity?.id)">
                       <span class="">Report</span>
                     </a>
                   </li>
@@ -154,7 +154,7 @@
                 </ul>
                 <ul *ngIf="!isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
                   <li>
-                    <a class="o-oppo-edit__drop">
+                    <a class="o-oppo-edit__drop" (click)="reportModalOpen(opportunity?.id)">
                       <span class="">Report</span>
                     </a>
                   </li>
@@ -281,7 +281,7 @@
                 </ul>
                 <ul *ngIf="!isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
                   <li>
-                    <a class="o-oppo-edit__drop">
+                    <a class="o-oppo-edit__drop" (click)="reportModalOpen(opportunity?.id)">
                       <span class="">Report</span>
                     </a>
                   </li>
@@ -361,7 +361,7 @@
                 </ul>
                 <ul *ngIf="!isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
                   <li>
-                    <a class="o-oppo-edit__drop">
+                    <a class="o-oppo-edit__drop" (click)="reportModalOpen(opportunity?.id)">
                       <span class="">Report</span>
                     </a>
                   </li>
@@ -489,7 +489,7 @@
               </ul>
               <ul *ngIf="!isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
                 <li>
-                  <a class="o-oppo-edit__drop">
+                  <a class="o-oppo-edit__drop" (click)="reportModalOpen(opportunity?.id)">
                     <span class="">Report</span>
                   </a>
                 </li>
@@ -580,7 +580,7 @@
                 </ul>
                 <ul *ngIf="!isOwnOpportunity" class="dropdown-menu c-opsdropdown--size-oppo">
                   <li>
-                    <a class="o-oppo-edit__drop">
+                    <a class="o-oppo-edit__drop" (click)="reportModalOpen(opportunity?.id)">
                       <span class="">Report</span>
                     </a>
                   </li>
@@ -721,3 +721,7 @@
     <!-- right widgets -->
   </div>
 </section>
+
+<app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp'>
+  <app-report-popoup [reportQues]="questions" [reportContentId]="reportId" [reportType]="reportType" (onclose)= "closeReport()" ></app-report-popoup>
+</app-modal>

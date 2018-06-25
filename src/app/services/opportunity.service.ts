@@ -44,6 +44,13 @@ export class OpportunityService {
   applyForAnOpportunity(reqBody: any) {
     return this.api.post('/portal/job/apply', reqBody);
   }
+  
+/**
+ * opportunity report
+ */
+  getReports(type: string){
+    return this.api.get('/portal/report/questions/getByType/' + type)
+  }
 
   // /**
   //  * Get opportunity type count
