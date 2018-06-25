@@ -30,7 +30,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   profileState: any;
   userProfile: any;
   channels = [];
-  portfolioEmpty = true;
+  // portfolioEmpty = true;
   baseImageUrl = environment.API_IMAGE;
   ownProfile: boolean;
   requestsPerPage = 10;
@@ -46,6 +46,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   portCategories = [];
   portAddCategoryForm: FormGroup;
   activeTab = 'all';
+  mediaPerPage = 20;
 
   constructor(
     private fb: FormBuilder,
@@ -91,6 +92,9 @@ export class PortfolioComponent implements OnInit, OnDestroy {
         if (this.generalUtils.checkNestedKey(state, ['get_portfolio_categories_result'])) {
           this.portCategories = state['get_portfolio_categories_result'];
         }
+        if (this.generalUtils.checkNestedKey(state, ['get_port_display_media_result'])) {
+          this.displayMedia = state['get_port_display_media_result'];
+        }
         if (state['create_portfolio_category'] === false && state['create_portfolio_category_success'] === true) {
           // this.portAddCategoryForm.controls['categoryName'].setValue('');
           // this.portAddCategoryForm.reset();
@@ -101,7 +105,15 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_CATEGORIES, payload: '' });
+    // this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_CATEGORIES, payload: '' });
+    this.profileStore.dispatch({
+      type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA,
+      payload: {
+        categoryType: 'all',
+        offset: 0,
+        limit: this.mediaPerPage
+      }
+    });
 
     this.portAddCategoryForm = this.fb.group({
       categoryName: ['', Validators.required]
@@ -269,8 +281,14 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   /**
    * select tab
    */
-  selectTab(tabName: string) {
-    this.activeTab = tabName;
+  selectTab(cat: any) {
+    this.activeTab = cat.categoryName;
+    const reqBody = {
+      categoryType: cat.categoryId,
+      offset: 0,
+      limit: this.mediaPerPage
+    };
+    this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA, payload: reqBody });
   }
 
 }

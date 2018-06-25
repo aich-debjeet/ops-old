@@ -22,6 +22,13 @@ export class ProfileService {
   /**
    * for: portfolio
    */
+  getDisplayMedia(reqParams: any) {
+    return this.api.put('/portal/portfolio/landing', reqParams);
+  }
+
+  /**
+   * for: portfolio
+   */
   getChannelsForPortfolio(query: string) {
     return this.api.get('/portal/portfolio/channelTextSearch/0/10?searchText=' + query);
   }

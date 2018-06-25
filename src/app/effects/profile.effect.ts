@@ -20,6 +20,21 @@ export class ProfileEffect {
    * for: portfolio
    */
   @Effect()
+  getDisplayMedia$ = this.actions$
+    .ofType(ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getDisplayMedia(payload)
+      .map(res => ({ type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
   getChannelsForPortfolio$ = this.actions$
     .ofType(ProfileActions.GET_USERS_CHANNELS)
     .map(toPayload)

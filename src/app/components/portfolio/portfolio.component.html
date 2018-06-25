@@ -31,7 +31,7 @@
                                 </li>
                                 <ng-container *ngIf="portCategories?.length > 0">
                                     <li *ngFor="let category of portCategories" [ngClass]="{'active': activeTab === category.categoryName}" class="text-uppercase">
-                                        <a (click)="selectTab(category.categoryName)">{{ category.categoryName }}</a>
+                                        <a (click)="selectTab(category)">{{ category.categoryName }}</a>
                                     </li>
                                 </ng-container>
                                 <div *ngIf="ownProfile" class="c-port__setting">
@@ -41,16 +41,16 @@
                                 </div>
                             </ul>
                             <div class="tab-content">
-                                <div id="01" class="tab-pane fade active in m-l-r-8">
+                                <div class="tab-pane fade active in m-l-r-8">
                                     <div class="row">
-                                        <ngx-masonry *ngIf="!portfolioEmpty; else portfolioEmpty" [useImagesLoaded]="true">
+                                        <ngx-masonry *ngIf="displayMedia?.length > 0" [useImagesLoaded]="true">
                                             <ngx-masonry-item *ngFor="let media of displayMedia" class="col-md-4 col-sm-4 c-portfolio--block">
                                                 <app-portfolio-media [portMediaDetails]="media"></app-portfolio-media>
                                             </ngx-masonry-item>
                                         </ngx-masonry>
-                                        <ng-template #portfolioEmpty>
+                                        <!-- <ng-template #portfolioEmpty>
                                             <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is empty</h4>
-                                        </ng-template>
+                                        </ng-template> -->
                                     </div>
                                 </div>
                             </div>
