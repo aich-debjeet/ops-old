@@ -29,6 +29,11 @@
                                 <li class="active">
                                     <a data-toggle="tab" class="p-l-0">ALL</a>
                                 </li>
+                                <ng-container *ngIf="portCategories?.length > 0">
+                                    <li *ngFor="let category of portCategories">
+                                        <a (click)="selectTab(category)">{{ category.categoryName }}</a>
+                                    </li>
+                                </ng-container>
                                 <div *ngIf="ownProfile" class="c-port__setting">
                                     <a (click)="showCategories()" data-toggle="modal" data-target="#editCat">
                                        <img src="https://ops-v2.netlify.com/assets/svg/ico_settings.svg">

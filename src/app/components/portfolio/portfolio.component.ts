@@ -84,13 +84,11 @@ export class PortfolioComponent implements OnInit, OnDestroy {
                 this.userMedia[i].isSelected = false;
               }
             }
-            console.log('this.userMedia', this.userMedia);
+            // console.log('this.userMedia', this.userMedia);
           }
         }
         if (this.generalUtils.checkNestedKey(state, ['get_portfolio_categories_result'])) {
           this.portCategories = state['get_portfolio_categories_result'];
-          // console.log('this.portCategories', this.portCategories);
-          // this.portCategories = [];
         }
         if (state['create_portfolio_category'] === false && state['create_portfolio_category_success'] === true) {
           // this.portAddCategoryForm.controls['categoryName'].setValue('');
@@ -134,11 +132,9 @@ export class PortfolioComponent implements OnInit, OnDestroy {
    * mark media selected
    */
   mediaToggleMarkSelection(action: string, mediaId: string) {
-    // console.log('ACTION', action);
-    // console.log('BEFORE this.userMedia', this.userMedia);
+    // console.log('ACTION: ' + action + ', BEFORE: this.userMedia', this.userMedia);
     const mdIndx = _findIndex(this.userMedia, (m) => m.mediaId === mediaId);
-    // console.log('mediaId', mediaId);
-    // console.log('mdIndx', mdIndx);
+    // console.log('mediaId' + mediaId + 'mdIndx' + mdIndx);
     if (mdIndx) {
       if (action === 'add') {
         this.userMedia[mdIndx].isSelected = true;
@@ -146,7 +142,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
         this.userMedia[mdIndx].isSelected = false;
       }
     }
-    // console.log('AFTER this.userMedia', this.userMedia);
   }
 
   ngOnInit() {
@@ -216,7 +211,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
    * select/deselect media
    */
   toggleMediaSelection(mediaId: string) {
-    // const umIndx = this.userMedia.indexOf(mediaId);
     // check if media already selected, remove media if exist
     if (this.selectedMedia.indexOf(mediaId) > -1) {
       this.selectedMedia = _filter(this.selectedMedia, (m) => m !== mediaId);
@@ -225,7 +219,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       this.selectedMedia.push(mediaId);
       this.mediaToggleMarkSelection('add', mediaId);
     }
-    console.log('this.selectedMedia', this.selectedMedia);
+    // console.log('this.selectedMedia', this.selectedMedia);
   }
 
   showCategories() {
@@ -258,11 +252,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       };
       reqBody.mediaList.push(mediaObj);
       if (i >= (this.selectedMedia.length - 1)) {
-        // console.log('DONE', reqBody);
-        this.profileStore.dispatch({
-          type: ProfileActions.ADD_MEDIA_TO_CATEGORY,
-          payload: reqBody
-        });
+        this.profileStore.dispatch({ type: ProfileActions.ADD_MEDIA_TO_CATEGORY, payload: reqBody });
       }
     }
 

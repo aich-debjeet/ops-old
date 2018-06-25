@@ -80,6 +80,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.GET_USERS_CHANNELS:
       return Object.assign({}, state, {
+        add_media_to_category: false,
+        add_media_to_category_success: false,
         get_users_channels: true,
         get_users_channels_success: false,
         get_users_channels_query: payload
@@ -103,6 +105,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.GET_USER_MEDIA:
       return Object.assign({}, state, {
+        add_media_to_category: false,
+        add_media_to_category_success: false,
         get_users_media: true,
         get_users_media_success: false,
         get_users_media_query: payload
@@ -126,6 +130,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.GET_PORTFOLIO_CATEGORIES:
       return Object.assign({}, state, {
+        add_media_to_category: false,
+        add_media_to_category_success: false,
         get_portfolio_categories: true,
         get_portfolio_categories_success: false,
         get_portfolio_categories_params: payload
@@ -149,6 +155,8 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      */
     case ProfileActions.ADD_PORTFOLIO_CATEGORY:
       return Object.assign({}, state, {
+        add_media_to_category: false,
+        add_media_to_category_success: false,
         create_portfolio_category: true,
         create_portfolio_category_success: false,
         create_portfolio_category_params: payload
