@@ -474,6 +474,9 @@ export class FormValidation {
 
     static validPhone (control: AbstractControl) {
         const phoneNumber = control.value;
+        if (phoneNumber.trim() === '' || phoneNumber.trim().length === 0) {
+            return { isInvalidPhoneNumber: true };
+        }
         if (phoneNumber.match(/[a-z][A-Z]/i)) {
             // console.log('number contains chars');
             return { isInvalidPhoneNumber: true };

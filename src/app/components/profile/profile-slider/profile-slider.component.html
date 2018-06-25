@@ -72,6 +72,16 @@
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-3 p-l-0">
                     <ul class="list-inline o-profile__nav--icon">
+                        <li class="list-line-item dropdown c-dropdown" *ngIf="!this.isOwner" appDropdown>
+                            <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
+                                <img [src]="baseUrl + 'img/svg/ico_options.svg'" class="o-profile__nav--img">
+                            </span>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li class="p-t-0 p-b-0">
+                                    <a (click)="reportModalOpen()" data-toggle="modal" data-target="#reportmodal">Report</a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="list-line-item dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                 <img [src]="baseUrl + 'img/svg/ico_share.svg'" class="o-profile__nav--img">
@@ -297,6 +307,9 @@
     </div>
 </app-modal>
 
+<app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp' *ngIf="!this.isOwner">
+    <app-report-popoup [reportQues]="questions" [reportContentId]="otherProfileHandle" [reportType]="reportType" (onclose)= "closeReport()" ></app-report-popoup>
+</app-modal>
 <!--Skill more -->
 
 <app-modal-new #skillModal modalClass="modal-cus__sm">

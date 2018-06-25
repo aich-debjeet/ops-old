@@ -194,4 +194,8 @@ export class EventService {
   dwcReg(value: any) {
       return this.api.post( '/portal/application/postApplication', value);
   }
+
+  getReports(type: string){
+    return this.api.get('/portal/report/questions/getByType/' + type)
+  }
 }

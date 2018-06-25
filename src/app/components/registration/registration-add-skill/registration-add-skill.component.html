@@ -64,18 +64,13 @@
                             </span>
                         </a>
                     </li>
-                    <!-- <li>
-                        <a class="o-add-skill__link" (click)="addNewSkill(search)">
-                            <span class="o-skill__list-container">
-                                <span class="o-skill__title">
-                                    <p class="c-text_lg f-w_600 color-white">
-                                        Add <span class="adder__name">{{ search }}?</span>
-                                    </p>
-                                </span>
-                            </span>
-                        </a>
-                    </li> -->
                 </ul>
+                <div *ngIf="skills?.length === 0 && skillSelectionState?.skills_loading === false && skillSelectionState?.skills_loaded === true" class="o-skill-more">
+                    <p class="c-text_lg m-t-24 f-w_300">Nothing found. Add "{{ search }}" as a skill</p>
+                    <button type="button" (click)="addNewSkill(search)" class="o-skill-btn-add m-t-8">{{ search }}
+                        <span class="o-add-skill-btn-ico"><img src="https://ops-v2.netlify.com/assets/svg/plus-red.svg" alt=""></span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

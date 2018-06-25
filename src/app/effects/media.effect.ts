@@ -172,6 +172,18 @@ export class MediaEffect {
         }))
       );
 
+      /**
+       *Get Media Report 
+       */
+      @Effect()
+      getReport$ = this.actions$
+      .ofType(MediaActions.MEDIA_POST_REPORT)
+      .map(toPayload)
+      .switchMap((payload) => this.mediaService.getReports(payload)
+      .map(res => ({ type: MediaActions.MEDIA_POST_REPORT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: MediaActions.MEDIA_POST_REPORT_FAILED, payload: res }))
+    );
+
   /**
    *Media post delete
    */

@@ -1,6 +1,12 @@
 @import './src/assets/scss/helpers/_variables.scss';
 @import '~sass-mq/_mq.scss';
 
+.m-t-b-24 {
+    margin-top: 24px; 
+    margin-bottom: 24px;
+    margin: auto;
+}
+
 .dp-material {
     display: inherit;
 }
@@ -75,7 +81,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .ops_signup {
     background-color: #ffffff;
-    height: calc(100vh - 123px);
+    // height: calc(100vh - 123px);
     display: flex;
     justify-content: center;
     flex-direction: column;

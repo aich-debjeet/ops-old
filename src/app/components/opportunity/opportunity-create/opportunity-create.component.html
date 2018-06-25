@@ -118,7 +118,7 @@
                                         <div class="c-form__group m-t-0">
                                             <select formControlName="auditionCategory" class="c-form-control p-l-0">
                                                 <option value="">Select</option>
-                                                <option *ngFor="let category of industryList" value="category.name">
+                                                <option *ngFor="let category of industryList" [value]="category.name">
                                                     {{ category.name }}
                                                 </option>
                                             </select>
@@ -134,7 +134,8 @@
                                     <div class="col-md-3 p-0">
                                         <div class="c-form__group m-t-0">
                                             <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                                                <input formControlName="auditionDate" class="c-form__input" type="text" [textMask]="{mask: dateMask}" placeholder="dd-mm-yyyy">
+                                                <!-- <input formControlName="auditionDate" class="c-form__input" type="text" [textMask]="{mask: dateMask}" placeholder="dd-mm-yyyy"> -->
+                                                <input formControlName="auditionDate" class="c-form__input" type="text" [dpDayPicker]="datePicketConfig" theme="dp-material" placeholder="dd-mm-yyyy">
                                                 <span class="c-form__highlight"></span>
                                                 <span class="c-form__bar"></span>
                                                 <label></label>
@@ -340,7 +341,7 @@
                                         <div class="c-form__group m-t-0">
                                             <select formControlName="projectIndustry" class="c-form-control p-l-0">
                                                 <option value="">Select</option>
-                                                <option *ngFor="let category of industryList" value="category.name">
+                                                <option *ngFor="let category of industryList" [value]="category.name">
                                                     {{ category.name }}
                                                 </option>
                                             </select>
@@ -434,7 +435,7 @@
                                         <div class="c-form__group m-t-0">
                                             <select formControlName="jobIndustry" class="c-form-control p-l-0">
                                                 <option value="">Select</option>
-                                                <option *ngFor="let category of industryList" value="category.name">
+                                                <option *ngFor="let category of industryList" [value]="category.name">
                                                     {{ category.name }}
                                                 </option>
                                             </select>
@@ -698,7 +699,7 @@
                                         <div class="c-form__group m-t-0">
                                             <select formControlName="internshipIndustry" class="c-form-control p-l-0">
                                                 <option value="">Select</option>
-                                                <option *ngFor="let category of industryList" value="category.name">
+                                                <option *ngFor="let category of industryList" [value]="category.name">
                                                     {{ category.name }}
                                                 </option>
                                             </select>
@@ -962,7 +963,7 @@
                                         <div class="c-form__group m-t-0">
                                             <select formControlName="freelanceIndustry" class="c-form-control p-l-0">
                                                 <option value="">Select</option>
-                                                <option *ngFor="let category of industryList" value="category.name">
+                                                <option *ngFor="let category of industryList" [value]="category.name">
                                                     {{ category.name }}
                                                 </option>
                                             </select>
@@ -1105,7 +1106,7 @@
                                         <div class="c-form__group m-t-0">
                                             <select formControlName="volunteerIndustry" class="c-form-control p-l-0">
                                                 <option value="">Select</option>
-                                                <option *ngFor="let category of industryList" value="category.name">
+                                                <option *ngFor="let category of industryList" [value]="category.name">
                                                     {{ category.name }}
                                                 </option>
                                             </select>

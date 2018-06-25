@@ -9,9 +9,22 @@ import 'rxjs/add/operator/switchMap';
 
 import { GeneralService } from '../services/api.service';
 import { SharedActions } from '../actions/shared.action';
+import { SharedService } from '../services/shared.service';
 
 @Injectable()
 export class SharedEffect {
+
+  @Effect()
+  getReports$ = this.actions$
+    .ofType(SharedActions.GET_REPORT_OPTIONS)
+    .map(toPayload)
+    .switchMap((payload) => this.sharedService.getReport(payload)
+      .map(res => ({ type: SharedActions.GET_REPORT_OPTIONS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: SharedActions.GET_REPORT_OPTIONS_FAILED, payload: res }))
+    );
+
+
+
   @Effect()
   pinChannel$ = this.actions$
     .ofType(SharedActions.PIN_CHANNEL)
@@ -32,6 +45,7 @@ export class SharedEffect {
 
     constructor(
     private actions$: Actions,
-    private apiService: GeneralService
+    private apiService: GeneralService,
+    private sharedService:SharedService
   ) {}
 }

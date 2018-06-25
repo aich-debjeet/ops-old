@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewChecked, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { IDatePickerConfig } from 'ng2-date-picker';
+
 // toastr service
 import { ToastrService } from 'ngx-toastr';
 
@@ -63,6 +65,13 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     lng: ''
   };
   industryList = [];
+
+  datePicketConfig: IDatePickerConfig = {
+    showMultipleYearsNavigation: true,
+    disableKeypress: true,
+    format: 'DD-MMMM-YYYY',
+    locale: 'en'
+  };
 
   /* attachments */
   jobAttachments = [];
