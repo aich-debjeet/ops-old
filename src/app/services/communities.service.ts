@@ -52,7 +52,7 @@ export class CommunitiesService {
   }
 
   invitePeopleCommunity(id: any) {
-    return this.api.get('/portal/community/peopleToInvite/0/10/' + id , '');
+    return this.api.get('/portal/community/peopleToInvite/0/10/' + id, '');
   }
 
   relatedCommunity(id: any) {

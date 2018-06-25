@@ -1,15 +1,15 @@
 <div *ngIf="artists?.length > 0" infinite-scroll (scrolled)="onScroll($event)" class="o-search-result-block m-t-16 p-b-24 m-b-50">
     <div *ngFor="let artist of artists" class="o-search-people-single">
         <div class="o-search-people__prof-pic">
-            <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="c-artist__avatar">
-                <img *ngIf="artist.profileImage; else default_profile_image" src="{{ baseUrl + artist?.profileImage }}" alt="">
+            <a [routerLink]="'/profile/u/' + artist?.extra?.username" class="c-artist__avatar">
+                <img *ngIf="artist.profileImage; else default_profile_image" [src]="baseUrl + artist?.profileImage">
                 <ng-template #default_profile_image>
-                    <img src="{{ baseUrl }}img/avatar.png" class="c-artist__img">
+                    <img [src]="baseUrl + 'img/avatar.png'" class="c-artist__img">
                 </ng-template>
             </a>
         </div>
         <div class="o-search-people__info">
-            <a routerLink="{{ '/profile/u/' + artist?.extra?.username }}" class="c-artist__avatar">
+            <a [routerLink]="'/profile/u/' + artist?.extra?.username" class="c-artist__avatar">
                 <div class="o-search-people__name width100 c-text_lg f-w_600">{{ artist?.name | truncate:[12, '...'] }}</div>
                 <div class="o-search-people__det width100 c-text_md color-grey-dark m-b-8">@{{ artist?.extra?.username }}</div>
             </a>

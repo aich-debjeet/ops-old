@@ -9,16 +9,16 @@
           <img [src]="imageLink + userData?.profileImage">
         </div>
         <div class="o-hf_username">
-          <div class="c-text_lg cursor_pointer" routerLink="/profile/user">{{ userData?.name }}</div>
+          <div class="c-text_lg cursor_pointer" routerLink="/profile/user">{{ userData?.name  | truncate:[20, '...']}}</div>
           <div class="c-text_sm color-grey-dark">@ {{ userData?.username }}</div>
         </div>
       </div>
       <div class="width100 float_left m-t-b-24">
           <div class="col-md-4 c-text_sm">Following
-            <div class="c-text_md-bold color-grey-dark">{{ userData?.followersCount }}</div>
+            <div class="c-text_md-bold color-grey-dark">{{ userData?.followingCount }}</div>
           </div>
           <div class="col-md-4 c-text_sm">Followers
-          <div class="c-text_md-bold color-grey-dark">{{ userData?.followingCount }}</div>
+          <div class="c-text_md-bold color-grey-dark">{{ userData?.followersCount }}</div>
         </div>
           <div class="col-md-4 c-text_sm">Post
           <div class="c-text_md-bold color-grey-dark">{{ userData?.postCount }}</div>

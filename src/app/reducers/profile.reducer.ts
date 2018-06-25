@@ -649,30 +649,43 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * Profile Follow
      */
     case ProfileActions.PROFILE_UNFOLLOW_SUCCESS:
-      const v = state.profile_other
-      if (v && v.extra && v.extra.isFollowing) {
-        v.extra.isFollowing = false
-      }
-      if (v && v.followersCount) {
-        v.followersCount = state.profile_other.followersCount - 1
-      }
-
+      const y = state.other_channel.map(item => {
+        return {
+          ...item,
+          isFollowing: false
+        }
+      })
       return Object.assign({}, state, {
-        profile_other: v,
+        profile_other: {
+          ...state.profile_other,
+          followersCount: state.profile_other.followersCount - 1,
+          extra: {
+            ...state.profile_other.extra,
+            isFollowing: false
+          }
+        },
+        other_channel: state.other_channel ? y : [],
         user_following_posts: state.user_following_posts.filter(post => post.ownerHandle !== payload.ownerHandle),
-        user_following_channel: state.user_following_channel.filter(channel => channel.ownerHandle !== payload.ownerHandle)
+        user_following_channel: state.user_following_channel.filter(channels => channels.ownerHandle !== payload.ownerHandle)
       });
 
     case ProfileActions.PROFILE_FOLLOW_SUCCESS:
-      const x = state.profile_other
-      if (x && x.extra && x.extra.isFollowing) {
-        x.extra.isFollowing = true
-      }
-      if (x && x.followersCount) {
-        x.followersCount = state.profile_other.followersCount + 1
-      }
+      const x = state.other_channel.map(item => {
+        return {
+          ...item,
+          isFollowing: true
+        }
+      })
       return Object.assign({}, state, {
-        profile_other: x,
+        profile_other: {
+          ...state.profile_other,
+          followersCount: state.profile_other.followersCount + 1,
+          extra: {
+            ...state.profile_other.extra,
+            isFollowing: true
+          }
+        },
+        other_channel: state.other_channel ? x : [],
         profile_other_followed: true,
       });
 

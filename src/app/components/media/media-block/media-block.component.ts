@@ -59,7 +59,8 @@ export class MediaBlockComponent implements OnInit {
   editMsg: boolean;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object, meta: Meta, title: Title,
+    private meta: Meta,
+    title: Title,
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
@@ -71,7 +72,7 @@ export class MediaBlockComponent implements OnInit {
     this.mediaState$ = store.select('mediaStore');
 
     this.mediaState$.subscribe((state) => {
-      //  console.log('state', state)
+       console.log('state', state)
       this.mediaStore = state;
       this.channelId = this.mediaStore.channel_detail['channelId']
       this.data = this.mediaStore.media_detail;
@@ -99,13 +100,19 @@ export class MediaBlockComponent implements OnInit {
     });
 
     title.setTitle('OPS - Media');
-    meta.addTags([
-      { name: 'description', content: this.data.description },
-      { name: 'og:image', content: this.imageLink + this.data.repopath },
-    ]);
-    this.metaShow = meta;
 
+    this.store.select('mediaStore')
+    .first(media => media['media_detail'].channelId)
+    .subscribe( data => {
+      console.log(data);
 
+      this.meta.updateTag({ name: 'description', content: data['media_detail'].description });
+      // meta.addTags([
+      //   { name: 'description', content: data['media_detail'].description },
+      //   { name: 'og:image', content: this.imageLink + data['media_detail'].repopath },
+      // ]);
+      // this.metaShow = meta;
+    });
     this.loadMedia();
   }
 

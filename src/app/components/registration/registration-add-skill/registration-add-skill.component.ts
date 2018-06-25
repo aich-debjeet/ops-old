@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
@@ -29,6 +29,7 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
   skillsSelected = false;
   uploadingSkills = false;
   search;
+  // newSkillAdded = false;
 
   constructor(
     fb: FormBuilder,
@@ -118,12 +119,14 @@ export class RegistrationAddSkillComponent implements OnInit, OnDestroy {
    */
   addNewSkill(name: string) {
     if (name !== '') {
+      const skillCode = name.replace(/ /g, '_').toUpperCase();
       this.skillSelectionState.industries.push({
         name: name,
-        code: name.toUpperCase()
+        code: skillCode
       });
-      this.toggleSelectSkill(name.toUpperCase());
+      this.toggleSelectSkill(skillCode);
       this.store.dispatch({ type: AuthActions.SAVE_SKILL, payload: name });
+      // this.newSkillAdded = true;
     }
   }
 

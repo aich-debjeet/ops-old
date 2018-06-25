@@ -30,7 +30,7 @@ export class SearchChannelComponent implements OnInit {
   /* scroll */
   canScroll = true;
   scrolling = 0;
-  scrollingLoad = 800;
+  scrollingLoad = 500;
   /* scroll */
 
   constructor(
@@ -72,7 +72,7 @@ export class SearchChannelComponent implements OnInit {
     if (this.canScroll === true && this.scrollingLoad <= this.scrolling) {
       this.showPreloader = true;
       this.canScroll = false;
-      this.scrollingLoad += 500;
+      this.scrollingLoad += 400;
       // check if it's first request
       if (this.searchState && this.searchState['search_channel_data'] && this.searchState['search_channel_data']['scrollId']) {
         this.store.dispatch({
