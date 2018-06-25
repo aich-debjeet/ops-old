@@ -71,14 +71,14 @@
                                 <form *ngIf="portCategories?.length > 0">
                                     <div class="col-md-9 col-xs-8">
                                         <div class="c-form__group m-0">
-                                            <select class="c-form-control">
+                                            <select class="c-form-control" (change)="selectCategory($event.target.value)">
                                                 <option>Select Category</option>
-                                                <option *ngFor="let category of portCategories" value="">{{ category.categoryName }}</option>
+                                                <option *ngFor="let category of portCategories" [value]="category.categoryId">{{ category.categoryName }}</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-3 col-xs-3">
-                                        <button type="button" class="btn btn-primary btn-md">Done</button>
+                                        <button type="button" class="btn btn-primary btn-md" (click)="addMediaToPortfolio()">Done</button>
                                     </div>
                                 </form>
                                 <p *ngIf="portCategories?.length === 0 && profileState?.get_portfolio_categories === false && profileState?.get_portfolio_categories_success === true">No categories available!</p>

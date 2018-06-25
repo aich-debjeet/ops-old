@@ -13,6 +13,7 @@ import { environment } from 'environments/environment';
 import { filter as _filter } from 'lodash';
 import { findIndex as _findIndex } from 'lodash';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-portfolio',
@@ -39,6 +40,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   routerSub: any;
   userMedia: any[];
   selectedMedia = [];
+  selectedCategoryId = '';
   selectedChannels = [];
   displayMedia = [];
   portCategories = [];
@@ -50,7 +52,8 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     private router: Router,
     private profileStore: Store<ProfileModal>,
     public modalService: ModalService,
-    private generalUtils: GeneralUtilities
+    private generalUtils: GeneralUtilities,
+    private toastr: ToastrService
   ) {
     this.profileState$ = this.profileStore.select('profileTags');
     this.profileSub = this.profileState$.subscribe((state) => {
@@ -219,11 +222,50 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       this.selectedMedia.push(mediaId);
       this.mediaToggleMarkSelection('add', mediaId);
     }
-    // console.log('this.selectedMedia', this.selectedMedia);
+    console.log('this.selectedMedia', this.selectedMedia);
   }
 
   showCategories() {
     this.editCategoriesModal.open();
+  }
+
+  /**
+   * add selected media to the portfolio
+   */
+  addMediaToPortfolio() {
+    // check if at least 1 media is selected
+    if (this.selectedMedia.length === 0) {
+      this.toastr.warning('Please select media');
+      return;
+    }
+    if (this.selectedCategoryId === '') {
+      this.toastr.warning('Please select category');
+      return;
+    }
+
+    // prepare request body for API
+    const reqBody = {
+      mediaList: []
+    };
+
+    for (let i = 0; i < this.selectedMedia.length; i++) {
+      const mediaObj = {
+        mediaId: this.selectedMedia[i],
+        categoryId: this.selectedCategoryId
+      };
+      reqBody.mediaList.push(mediaObj);
+      if (i >= (this.selectedMedia.length - 1)) {
+        // console.log('DONE', reqBody);
+      }
+    }
+
+  }
+
+  /**
+   * select category
+   */
+  selectCategory(catVal: string) {
+    this.selectedCategoryId = catVal;
   }
 
 }
