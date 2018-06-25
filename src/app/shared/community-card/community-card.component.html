@@ -3,7 +3,7 @@
         <!-- card media (img, video & audio) -->
         <div class="c-card__opportunity">
             <a [routerLink]="['/communities', data?.communityId]">
-                <img src="https://ops-v2.netlify.com/assets/demo/new/s16.jpg" alt="" class="c-card__image">
+                <img [src]="data?.coverImage ? imageLink + data?.coverImage : 'https://ops-v2.netlify.com/assets/demo/new/s16.jpg'" class="c-card__image">
             </a>
         </div>
         <!-- //card media (img, video & audio) -->
@@ -17,10 +17,10 @@
         <!-- card footer links -->
         <div class="c-card__links p-t-0">
             <div class="c-comm__followers">
-                <div class="c-followers__img " *ngFor="let member of data?.memberList | slice:0:3; let index = index" [class.m-l--8]="index !== 0">
-                    <img class="c-user__image cursor-pointer" routerLink="/profile/u/{{ member?.profileUsername }}" [src]="imageLink + member?.profileImage">
+                <div class="c-followers__img " *ngFor="let member of data?.memberImages | slice:0:3; let index = index" [class.m-l--8]="index !== 0">
+                    <img class="c-user__image cursor-pointer" routerLink="/profile/u/{{ member?.profileUsername }}" [src]="imageLink + member">
                 </div>
-                <p class="c-followers__count" *ngIf="data?.memberCount > 3"> + {{ (data?.memberCount) - 3}} member</p>
+                <p class="c-followers__count" *ngIf="data?.member_count > 3"> + {{ (data?.member_count) - 3}} member</p>
                 <a (click)="joinCommunity(data?.communityId)" class="c-card__Communities--link" *ngIf="!data?.isOwner && !data?.isMember">Join</a>
                 <a href="javascript:void(0);" class="c-card__Communities--link" *ngIf="!data?.isOwner && data?.isMember" [class.color-grey-dark]="data?.isMember">Joined</a>
             </div>
@@ -30,7 +30,7 @@
 </div>
 
 <div class="col-md-3 p-l-r-8 m-t-16" *ngIf="loader">
-    <div class="c-card">
+    <div class="c-card c-card-pre">
         <div class="c-card__opportunity c-bg__effect">
         </div>
         <div class="c-card__body c-card__opportunity-head">

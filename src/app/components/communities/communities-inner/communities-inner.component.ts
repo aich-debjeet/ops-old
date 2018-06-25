@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormArray } from '@angular/forms';
+import { NgxfUploaderService, UploadEvent, UploadStatus, FileError } from 'ngxf-uploader';
+import { TokenService } from '../../../helpers/token.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Modal } from '../../../shared/modal-new/Modal';
 
@@ -54,13 +56,23 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
   communityLoading: boolean = false;
   updateCommunityLoading: boolean = false;
   industryState$: Observable<any>;
+  fileData: File;
+  api_path = environment.API_ENDPOINT;
+  base = this.api_path + '/portal/cdn/media/upload/multiple';
+  token: any;
+  profile: any;
+  handle: any;
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
     private toastr: ToastrService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private Upload: NgxfUploaderService,
+    private api: TokenService
   ) {
+    this.token = this.api.getToken();
+
     this.routerSubscription = this.route.params.subscribe(params => {
       this.id = params['communitiesId'];
       this.communityDetails();
@@ -102,6 +114,13 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
         this.updateCommunityLoading = state['community_update_loading'];
         this.postLoader = state['post_loading'];
       }
+
+      this.profile = store.select('profileTags');
+      this.profile.subscribe(event => {
+        if (event.profile_navigation_details && event.profile_navigation_details.handle) {
+          this.handle = event.profile_navigation_details.handle;
+        }
+      });
     });
 
     // Member admin change form init
@@ -273,4 +292,60 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Multiple File Upload
+   * @param files
+   */
+  uploadFileList(file: File | FileError): void {
+    if (!(file instanceof File)) {
+      this.alertError(file);
+      return;
+    }
+
+    this.Upload.upload({
+      url: this.base,
+      headers: { Authorization: 'Bearer ' + this.token },
+      params: { handle: this.handle },
+      files: file,
+    }).subscribe(
+      (event: UploadEvent) => {
+        console.log(event);
+        if (event.data) {
+          // @TODO__URGENT Make list appendable for files
+          const latestUploaded = event.data['SUCCESS'];
+          if (latestUploaded) {
+            const data = {
+              id: this.details.communityId,
+              body: {
+                image: latestUploaded[0].repoPath
+              }
+            }
+            this.store.dispatch({ type: CommunitiesActions.COMMUNITY_UPDATE, payload: data });
+          }
+          console.log(latestUploaded);
+        }
+      },
+      (err) => {
+        console.log(err);
+        //
+      },
+      () => {
+        //
+      });
+  }
+
+  // Do something you want when file error occur.
+  alertError(msg: FileError) {
+    switch (msg) {
+      case FileError.NumError:
+        alert('Number Error');
+        break;
+      case FileError.SizeError:
+        alert('Size Error');
+        break;
+      case FileError.TypeError:
+        alert('Type Error');
+        break;
+    }
+  }
 }

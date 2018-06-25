@@ -50,6 +50,7 @@
     background: url(https://ops-v2.netlify.com/assets/demo/photography3.jpg);
     background-size: cover;
     background-position: center;
+    position: relative;
 }
 
 .o-commu__short-det {
@@ -203,5 +204,20 @@
     color: #929292;
     font-size: 11px;
     line-height: 18px;
+}
+.c-commu__imgcover {
+    background-color: #ffffff;
+    position: absolute;
+    display: inline;
+    font-size: 11px;
+    letter-spacing: 1px;
+    line-height: 15px;
+    color: #FC6371;
+    text-transform: uppercase;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    padding: 5px 8px;
+    left: 76px;
+    bottom: 4px;
 }
 // --
