@@ -5,6 +5,13 @@ export class GeneralUtilities {
 
     constructor() { }
 
+    /**
+     * Date put to reverse formate
+     */
+    reverseDate(string) {
+        return string.split('-').reverse().join('-');
+    }
+
     capitalizeFirstLetter(str: string) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }

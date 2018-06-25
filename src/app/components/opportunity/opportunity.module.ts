@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TextMaskModule } from 'angular2-text-mask';
+import { DpDatePickerModule } from 'ng2-date-picker';
 
 import { OpportunityComponent } from './opportunity.component';
 import { OpportunityViewComponent } from './opportunity-view/opportunity-view.component';
@@ -48,6 +49,7 @@ const opportunityRoutes: Routes = [
     CommonModule,
     SharedModule,
     TextMaskModule,
+    DpDatePickerModule,
     NgxMasonryModule,
     SharedPipesModule,
     ReactiveFormsModule,
