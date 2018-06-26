@@ -9,6 +9,7 @@ import { OpportunityActions } from '../../../actions/opportunity.action';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ComingSoonComponent } from '../../../shared/coming-soon/coming-soon.component';
 import { AuthActions } from '../../../actions/auth.action';
+import { ScrollHelper } from '../../../helpers/scroll.helper';
 
 @Component({
   selector: 'app-opportunity-edit',
@@ -35,6 +36,7 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   volunteerFrm: FormGroup;
 
   activeTab: string;
+  oppSaved = false;
   oppUpdating = false;
   industryList = [];
 
@@ -47,6 +49,7 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
     // public modalService: ModalService,
     private oppStore: Store<OpportunityModel>,
     private loginStore: Store<any>,
+    private scrollHelper: ScrollHelper
   ) {
     // opportunity state listener
     this.opportunityState$ = this.oppStore.select('opportunityTags');
@@ -58,6 +61,16 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
           this.activeTab = state['get_opportunity_data']['opportunityType']
           if (!this.filledAuditionFrm) {
             this.buildAuditionForm(state['get_opportunity_data']);
+            this.filledAuditionFrm = true;
+          }
+        }
+        if (state['update_opportunity_success'] && state['update_opportunity_success'] === true) {
+          this.oppUpdating = false;
+          if (this.oppSaved === true) {
+            this.toastr.success('Opportunity has been updated successfully!');
+            this.oppSaved = false;
+            this.router.navigateByUrl('/opportunity/edit/' + this.jobId);
+            return;
           }
         }
       }
@@ -81,7 +94,7 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  /* forms */
+  /* =================================== audition form =================================== */
   /**
    * Edit audition form
    */
@@ -101,7 +114,54 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
       auditionWeightTo: [data['opportunityAudition']['weight']['to'], []]
     });
   }
-  /* forms */
+
+  /**
+   * Submit form
+   * @param: form data
+   */
+  submitAuditionForm(formData: any) {
+    // audition form validation
+    if (!this.auditionFrm.valid) {
+      this.scrollHelper.scrollToFirst('error');
+      // console.log('invalid form');
+      return;
+    }
+
+    // preparing request body to submit to the api
+    const reqBody = {
+      opportunityAudition: {
+        title: formData.auditionTitle,
+        description: formData.auditionDescription,
+        category: formData.auditionCategory,
+        auditionDate: formData.auditionDate,
+        gender: formData.auditionGender,
+        ageLimit: {
+          from: String(formData.auditionAgeMin),
+          to: String(formData.auditionAgeMax)
+        },
+        height: {
+          from: String(formData.auditionHeightFrom),
+          to: String(formData.auditionHeightTo)
+        },
+        weight: {
+          from: String(formData.auditionWeightFrom),
+          to: String(formData.auditionWeightTo)
+        },
+        location: {
+          location: formData.auditionLocation
+        }
+      }
+    }
+
+    // submit audition details
+    this.oppStore.dispatch({
+      type: OpportunityActions.UPDATE_OPPORTUNITY,
+      payload: { id: this.jobId, data: reqBody }
+    });
+    this.oppSaved = true;
+    this.oppUpdating = true;
+  }
+  /* =================================== audition form =================================== */
 
   ngOnDestroy() {
     this.oppsSub.unsubscribe();

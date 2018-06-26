@@ -19,7 +19,7 @@ export class OpportunityService {
    * @param request body
    */
   updateOpportunity(reqBody: any) {
-    return this.api.post('/opportunity/update/' + reqBody.id, reqBody.data);
+    return this.api.put('/portal/opportunity/update/' + reqBody.id, reqBody.data);
   }
 
   /**
