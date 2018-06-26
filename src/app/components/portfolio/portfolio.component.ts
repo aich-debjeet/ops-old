@@ -24,6 +24,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
   @ViewChild('editCategoriesModal') editCategoriesModal: Modal;
   @ViewChild('portMediaModal') portMediaModal: Modal;
+  @ViewChild('mediaViewModal') mediaViewModal: Modal;
 
   profileState$: Observable<ProfileModal>;
   profileSub: ISubscription;
@@ -47,6 +48,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   portAddCategoryForm: FormGroup;
   activeTab = 'all';
   mediaPerPage = 20;
+  viewMedia: any;
 
   constructor(
     private fb: FormBuilder,
@@ -289,6 +291,15 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       limit: this.mediaPerPage
     };
     this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA, payload: reqBody });
+  }
+
+  /**
+   * show media popup
+   */
+  displayMediaPopup(mediaDetails: any) {
+    console.log('mediaDetails', mediaDetails);
+    this.viewMedia = mediaDetails;
+    this.mediaViewModal.open();
   }
 
 }

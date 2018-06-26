@@ -61,6 +61,7 @@ import { CommunityCardComponent } from './community-card/community-card.componen
 import { PlaceholderNotificationComponent } from './placeholder-notification/placeholder-notification.component';
 import { PortfolioMediaComponent } from './portfolio-media/portfolio-media.component';
 import { ReportPopoupComponent } from './report-popoup/report-popoup.component';
+import { PortfolioViewMediaComponent } from './portfolio-view-media/portfolio-view-media.component';
 
 @NgModule({
   imports: [
@@ -119,7 +120,8 @@ import { ReportPopoupComponent } from './report-popoup/report-popoup.component';
     ReadMoreComponent,
     PlaceholderNotificationComponent,
     PortfolioMediaComponent,
-    ReportPopoupComponent
+    ReportPopoupComponent,
+    PortfolioViewMediaComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -156,7 +158,8 @@ import { ReportPopoupComponent } from './report-popoup/report-popoup.component';
     CommunityCardComponent,
     ReadMoreComponent,
     PortfolioMediaComponent,
-    ReportPopoupComponent
+    ReportPopoupComponent,
+    PortfolioViewMediaComponent
   ]
 })
 export class SharedModule { }
