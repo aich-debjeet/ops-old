@@ -14,7 +14,7 @@
                         </div>
                 <div class="o-commu__prof-img" [style.background-image]=" details?.image ? 'url('+ basePath + details?.image+')' : 'url(https://ops-v2.netlify.com/assets/demo/new/s16.jpg)'">
                         <input type="file" name="photo" id="upload-photo" (ngxf-select)="uploadFileList($event)" accept="image/*,.svg">
-                        <a >
+                        <a *ngIf="details?.isOwner">
                                 <div class="c-commu__imgcover" >
                                    
                                     <img [src]="basePath + 'img/svg/edit_red.svg'" class="c-timeline__icon"> add cover

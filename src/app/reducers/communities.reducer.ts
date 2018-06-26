@@ -159,9 +159,10 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
         community_update_loading: false,
         communityDetails: {
           ...state.communityDetails,
-          access: data.accessSettings.access,
+          access: data.access,
           brief: data.brief,
           title: data.title,
+          image: data.image,
           industryList: [data.industryList[0]],
         },
       });
