@@ -27,7 +27,7 @@
                         <div class="c-port__tabs">
                             <ul class="nav nav-tabs">
                                 <li [ngClass]="{'active': activeTab === 'all'}">
-                                    <a (click)="selectTab('all')" data-toggle="tab" class="p-l-0">ALL</a>
+                                    <a (click)="selectTab({ categoryName: 'all', categoryId: 'all' })" data-toggle="tab" class="p-l-0">ALL</a>
                                 </li>
                                 <ng-container *ngIf="portCategories?.length > 0">
                                     <li *ngFor="let category of portCategories" [ngClass]="{'active': activeTab === category.categoryName}" class="text-uppercase">
