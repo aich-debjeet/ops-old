@@ -1,0 +1,18 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-header">
+        <button (click)="closeViewMedia()" type="button" class="close" data-dismiss="modal">×</button>
+    </div>
+  <div class="view-port-modal-content">
+      <div class="modal-body p-0">
+          <div class="col-md-7 c-portmodal__imgblock">
+              <img [src]="baseImageUrl + viewMediaDetails?.mediaRepoPath" class="c-portmodal__img">
+          </div>
+          <div class="col-md-5">
+              <div class="c-portmodal__text">{{ viewMediaDetails?.mediaDescription }}</div>
+              <div class="c-portmodal__text2">
+                  <div class="pull-right"><a href="javascript:void(0)">View on One Page Spotlight <img src="https://ops-v2.netlify.com/assets/svg/arrow.svg"></a></div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
