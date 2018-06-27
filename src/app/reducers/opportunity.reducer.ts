@@ -115,6 +115,29 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
       });
     /* create opportunity */
 
+    /* update opportunity */
+    case OpportunityActions.UPDATE_OPPORTUNITY:
+      return Object.assign({}, state, {
+        updating_opportunity: true,
+        update_opportunity_params: payload,
+        update_opportunity_response: undefined,
+        update_opportunity_success: false
+      });
+
+    case OpportunityActions.UPDATE_OPPORTUNITY_SUCCESS:
+      return Object.assign({}, state, {
+        updating_opportunity: false,
+        update_opportunity_response: payload.SUCCESS,
+        update_opportunity_success: true
+      });
+
+    case OpportunityActions.UPDATE_OPPORTUNITY_FAILED:
+      return Object.assign({}, state, {
+        updating_opportunity: false,
+        update_opportunity_success: false
+      });
+    /* update opportunity */
+
     /* create opportunity file upload */
     case OpportunityActions.FILE_UPLOAD:
       return Object.assign({}, state, {

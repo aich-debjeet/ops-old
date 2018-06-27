@@ -1,0 +1,1109 @@
+<main class="container-fulid outer_container">
+  <section class="o-opportunities-form">
+     <div class="container">
+        <div class="o-opportunities-form-container m-t-32">
+           <div class="o-opportunities-form-block p-t-32">
+              <h4 class="c-h4 with_border_bottom p-b-8">Edit Opportunity</h4>
+              <div class="c-ops__tabs">
+                 
+                 <div class="tab-content">
+
+                    <!-- audition -->
+                    <div *ngIf="activeTab == 'audition'" id="tab-audition" >
+                      <form #createAudFrm="ngForm" [formGroup]="auditionFrm" (ngSubmit)="submitAuditionForm(auditionFrm.value)">
+                          <div class="tab-pane">
+                              <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                  Audition details
+                              </div>
+                              <!-- subtitle end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Title</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="auditionTitle" class="c-form__input" type="text" placeholder="eg: Manager/Director">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>eg: Manager/Director</label> -->
+                                      </div>
+                                      <p *ngIf="auditionFrm.controls['auditionTitle'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Title is required!</p>
+                                  </div>
+                              </div>
+                              <!-- Title end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Description</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm">
+                                          <textarea formControlName="auditionDescription" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
+                                      </div>
+                                      <p *ngIf="auditionFrm.controls['auditionDescription'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Description is required!</p>
+                                  </div>
+                              </div>
+                              <!-- Description end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Category</div>
+                                  </div>
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-form__group m-t-0">
+                                          <select formControlName="auditionCategory" class="c-form-control p-l-0">
+                                              <option value="">Select</option>
+                                              <option *ngFor="let category of industryList" [value]="category.name">
+                                                  {{ category.name }}
+                                              </option>
+                                          </select>
+                                      </div>
+                                      <p *ngIf="auditionFrm.controls['auditionCategory'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Please select category!</p>
+                                  </div>
+                              </div>
+                              <!-- catagory end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Audition Date</div>
+                                  </div>
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-form__group m-t-0">
+                                          <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                              <!-- <input formControlName="auditionDate" class="c-form__input" type="text" [textMask]="{mask: dateMask}" placeholder="dd-mm-yyyy"> -->
+                                              <input formControlName="auditionDate" class="c-form__input" type="text" [dpDayPicker]="datePicketConfig" theme="dp-material" placeholder="dd-mm-yyyy">
+                                              <span class="c-form__highlight"></span>
+                                              <span class="c-form__bar"></span>
+                                              <label></label>
+                                          </div>
+                                      </div>
+                                      <p *ngIf="auditionFrm.controls['auditionDate'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Audition date is required!</p>
+                                  </div>
+                              </div>
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Location</div>
+                                  </div>
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-form__group m-t-0">
+                                          <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                              <input formControlName="auditionLocation" class="c-form__input" type="text" placeholder="eg: Locality, City, Country">
+                                              <span class="c-form__highlight"></span>
+                                              <span class="c-form__bar"></span>
+                                              <label></label>
+                                          </div>
+                                      </div>
+                                      <p *ngIf="auditionFrm.controls['auditionLocation'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Location is required!</p>
+                                  </div>
+                              </div>
+                              <!-- Audition Date end -->
+                              <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                  Candidate details
+                              </div>
+                              <!-- subtitle end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Gender</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-radio__sm m-t-8">
+                                          <label class="col-md-2 p-0">
+                                              <input value="M" formControlName="auditionGender" type="radio" class="c-form__bar2">
+                                              <span></span>
+                                              <div class="c-radio--label c-text_md color-grey-dark">Male</div>
+                                          </label>
+                                          <label class="col-md-2 p-0">
+                                              <input value="F" formControlName="auditionGender" type="radio" class="c-form__bar2">
+                                              <span></span>
+                                              <div class="c-radio--label c-text_md color-grey-dark">Female</div>
+                                          </label>
+                                          <label class="col-md-2 p-0">
+                                              <input value="O" formControlName="auditionGender" type="radio" class="c-form__bar2">
+                                              <span></span>
+                                              <div class="c-radio--label c-text_md color-grey-dark">Both</div>
+                                          </label>
+                                      </div>
+                                      <p *ngIf="auditionFrm.controls['auditionGender'].errors?.required && createAudFrm.submitted" class="c-form__validation error">This is required!</p>
+                                  </div>
+                              </div>
+                              <!-- gender end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Age Limit</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="col-md-3 p-l-0">
+                                          <div class="c-form__group m-t-0">
+                                              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                                  <input formControlName="auditionAgeMin" class="c-form__input" type="number" placeholder="Min">
+                                                  <span class="c-form__highlight"></span>
+                                                  <span class="c-form__bar"></span>
+                                                  <!-- <label>Min</label> -->
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-3 p-l-0">
+                                          <div class="c-form__group m-t-0">
+                                              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                                  <input formControlName="auditionAgeMax" class="c-form__input" type="number" placeholder="Max">
+                                                  <span class="c-form__highlight"></span>
+                                                  <span class="c-form__bar"></span>
+                                                  <!-- <label>Max</label> -->
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-2 p-0">
+                                          <p class="c-text_md color-grey-dark m-t-16">Years</p>
+                                      </div>
+                                      <p *ngIf="(auditionFrm.controls['auditionAgeMin'].errors?.required || auditionFrm.controls['auditionAgeMax'].errors?.required) && createAudFrm.submitted" class="c-form__validation error">Age limits are required!</p>
+                                  </div>
+                              </div>
+                              <!-- Age limit end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Height</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="col-md-3 p-l-0">
+                                          <div class="c-form__group m-t-0">
+                                              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                                  <input formControlName="auditionHeightFrom" class="c-form__input" type="number" placeholder="From">
+                                                  <span class="c-form__highlight"></span>
+                                                  <span class="c-form__bar"></span>
+                                                  <!-- <label>From</label> -->
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-3 p-l-0">
+                                          <div class="c-form__group m-t-0">
+                                              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                                  <input formControlName="auditionHeightTo" class="c-form__input" type="number" placeholder="To">
+                                                  <span class="c-form__highlight"></span>
+                                                  <span class="c-form__bar"></span>
+                                                  <!-- <label>To</label> -->
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-2 p-0">
+                                          <p class="c-text_md color-grey-dark m-t-16">cm</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Height end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Weight</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="col-md-3 p-l-0">
+                                          <div class="c-form__group m-t-0">
+                                              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                                  <input formControlName="auditionWeightFrom" class="c-form__input" type="number" placeholder="From">
+                                                  <span class="c-form__highlight"></span>
+                                                  <span class="c-form__bar"></span>
+                                                  <!-- <label>From</label> -->
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-3 p-l-0">
+                                          <div class="c-form__group m-t-0">
+                                              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                                  <input formControlName="auditionWeightTo" class="c-form__input" type="number" placeholder="To">
+                                                  <span class="c-form__highlight"></span>
+                                                  <span class="c-form__bar"></span>
+                                                  <!-- <label>To</label> -->
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-2 p-0">
+                                          <p class="c-text_md color-grey-dark m-t-16">Kg</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Weight end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0"></div>
+                                  <div class="col-md-9 p-0 ">
+                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
+                                  </div>
+                              </div>
+                              <!-- btn end -->
+                          </div>
+                      </form>
+                    </div>
+                    <!-- audition -->
+                    
+                    <!-- projects -->
+                    <div *ngIf="activeTab == 'project'" id="tab-projects" >
+                      <form #createProjFrm="ngForm" [formGroup]="projectFrm" (ngSubmit)="submitProjectForm(projectFrm.value)">
+                          <div id="02" class="tab-pane">
+                              <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                  Projects details
+                              </div>
+                              <!-- subtitle end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Title</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="projectTitle" class="c-form__input" type="text" placeholder="Name of your project">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>Name of your project</label> -->
+                                      </div>
+                                      <p *ngIf="projectFrm.controls['projectTitle'].errors?.required && createProjFrm.submitted" class="c-form__validation error">Title is required!</p>
+                                  </div>
+                              </div>
+                              <!-- Title end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Description</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm">
+                                          <textarea formControlName="projectDescription" class="c-textarea__block c-textarea--style" placeholder="Describe audition"></textarea>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Description end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Industry</div>
+                                  </div>
+                                  <div class="col-md-6 p-0">
+                                      <div class="c-form__group m-t-0">
+                                          <select formControlName="projectIndustry" class="c-form-control p-l-0">
+                                              <option value="">Select</option>
+                                              <option *ngFor="let category of industryList" [value]="category.name">
+                                                  {{ category.name }}
+                                              </option>
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Skills </div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="projectSkills" class="c-form__input" type="text" placeholder="Skills looking for">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>Skills looking for</label> -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Skills end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Add Collaborators</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                      <input formControlName="projectCollaborators" class="c-form__input" type="text" placeholder="Name of collaborators">
+                                      <span class="c-form__highlight"></span>
+                                      <span class="c-form__bar"></span>
+                                      <!-- <label>Name of collaborators</label> -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Add Collaborators end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                  </div>
+                                  <div class="col-md-9 p-0 ">
+                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
+                                  </div>
+                              </div>
+                              <!-- btn end -->
+                          </div>
+                      </form>
+                    </div>
+                    <!-- projects -->
+                    
+                    <!-- jobs -->
+                    <div *ngIf="activeTab == 'job'" id="tab-jobs" >
+                      <form #createJobFrm="ngForm" [formGroup]="jobFrm" (ngSubmit)="submitJobForm(jobFrm.value)">
+                          <div id="03" class="tab-pane">
+                              <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                  Jobs details
+                              </div>
+                              <!-- subtitle end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Role</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="jobRole" class="c-form__input" type="text" placeholder="eg: Manager/Director">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>eg: Manager/Director</label> -->
+                                      </div>
+                                      <p *ngIf="jobFrm.controls['jobRole'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Role is required!</p>
+                                  </div>
+                              </div>
+                              <!-- Role end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Description</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm">
+                                          <textarea formControlName="jobDescription" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Description end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Industry</div>
+                                  </div>
+                                  <div class="col-md-6 p-0">
+                                      <div class="c-form__group m-t-0">
+                                          <select formControlName="jobIndustry" class="c-form-control p-l-0">
+                                              <option value="">Select</option>
+                                              <option *ngFor="let category of industryList" [value]="category.name">
+                                                  {{ category.name }}
+                                              </option>
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Description end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Experience</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="col-md-2 p-0">
+                                          <div class="c-form__group m-t-0">
+                                              <select formControlName="jobExperienceFrom" class="c-form-control p-l-0">
+                                                  <option value="0">0</option>
+                                                  <option value="1">1</option>
+                                                  <option value="2">2</option>
+                                                  <option value="3">3</option>
+                                                  <option value="4">4</option>
+                                                  <option value="5">5</option>
+                                                  <option value="6">6</option>
+                                                  <option value="7">7</option>
+                                                  <option value="8">8</option>
+                                                  <option value="9">9</option>
+                                                  <option value="10">10</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-1">
+                                          <div class="c-text_md color-grey-dark p-8">to</div>
+                                      </div>
+                                      <div class="col-md-2 p-0">
+                                          <div class="c-form__group m-t-0">
+                                              <select formControlName="jobExperienceTo" class="c-form-control p-l-0">
+                                                  <option value="0">0</option>
+                                                  <option value="1">1</option>
+                                                  <option value="2">2</option>
+                                                  <option value="3">3</option>
+                                                  <option value="4">4</option>
+                                                  <option value="5">5</option>
+                                                  <option value="6">6</option>
+                                                  <option value="7">7</option>
+                                                  <option value="8">8</option>
+                                                  <option value="9">9</option>
+                                                  <option value="10">10</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                      <p *ngIf="(jobFrm.controls['jobExperienceFrom'].errors?.required || jobFrm.controls['jobExperienceTo'].errors?.required) && createJobFrm.submitted" class="c-form__validation error">Experience fields are required!</p>
+                                  </div>
+                              </div>
+                              <!-- Experience end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Salary</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="col-md-4 p-l-0">
+                                          <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                              <input formControlName="jobSalaryAmount" class="c-form__input" type="text" placeholder="Salary amount">
+                                              <span class="c-form__highlight"></span>
+                                              <span class="c-form__bar"></span>
+                                              <!-- <label>eg: Manager/Director</label> -->
+                                          </div>
+                                      </div>
+                                      <div class="col-md-3 ">
+                                          <div class="c-form__group m-t-0">
+                                              <select formControlName="jobSalaryDuration" class="c-form-control p-l-0">
+                                                  <option value="Annualy">Annualy</option>
+                                                  <option value="Monthly">Monthly</option>
+                                                  <option value="Contract">Contract</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-3 ">
+                                          <div class="c-form__group m-t-0">
+                                              <select formControlName="jobSalaryCurrency" class="c-form-control p-l-0">
+                                                  <option value="INR">INR</option>
+                                                  <option value="DOLLOR">DOLLOR</option>
+                                                  <option value="EURO">EURO</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Salary end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Duration</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="col-md-4 p-0">
+                                          <div class="c-form__group m-t-0">
+                                              <select formControlName="jobDuration" class="c-form-control p-l-0">
+                                                  <option value="Full time">Full time</option>
+                                                  <option value="Part time">Part time</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Duration end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Location</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="jobLocation" class="c-form__input" type="text" placeholder="Where is the opportunity">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>Where is the opportunity</label> -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Location end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Includes travel</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="col-md-2 p-0">
+                                          <div class="c-radio__sm p-t-8 float_left width100">
+                                              <label class="col-md-6 p-0 p-t-8">
+                                                  <input formControlName="jobTravelInclusive" type="radio" value="Yes" class="c-form__bar2"><span></span>yes
+                                              </label>
+                                              <label class="col-md-6 p-0 p-t-8">
+                                                  <input formControlName="jobTravelInclusive" type="radio" value="No" class="c-form__bar2"><span></span>No
+                                              </label>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-9 p-r-0">
+                                          <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                              <input formControlName="jobCountry" class="c-form__input" type="text" placeholder="Country">
+                                              <span class="c-form__highlight"></span>
+                                              <span class="c-form__bar"></span>
+                                              <!-- <label>Country</label> -->
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Location end -->
+                              <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                  Candidate details
+                              </div>
+                              <!-- subtitle end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Skills</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="jobSkills" class="c-form__input" type="text" placeholder="eg: #UIdesign #photoshop #sketch">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>eg: #UIdesign #photoshop #sketch</label> -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Skills end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Qualifications</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="jobQualifications" class="c-form__input" type="text" placeholder="eg: Graduate">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>eg: Garduate </label> -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Qualifications end -->
+                              <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                  organization details
+                              </div>
+                              <!-- subtitle end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Organization Name</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="jobOrgName" class="c-form__input" type="text" placeholder="Name of the organization/company">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>Name of the organization/company</label> -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Organization Name end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Attach files</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="o-oppo-form__file-type">
+                                          <input *ngIf="!uploadedFile" class="o-oppo-file" type="file" accept="image/*" (change)="fileSelectedAction($event)">
+                                          <p *ngIf="!uploadingFile" class="c-text_sm o-oppo-file__text">upload<br>image</p>
+                                          <img *ngIf="uploadingFile" src="{{ baseUrl }}img/search-preloader.gif" class="opp-prel-image" alt="">
+                                          <img *ngIf="uploadedFile" src="{{ uploadedFileSrc }}" class="opp-prev-image" alt="">
+                                      </div>
+                                      <div class="o-oppo-form__img-show"></div>
+                                  </div>
+                              </div>
+                              <!-- file attach end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0"></div>
+                                  <div class="col-md-9 p-0 ">
+                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
+                                  </div>
+                              </div>
+                              <!-- btn end -->
+                          </div>
+                      </form>
+                    </div>
+                    <!-- jobs -->
+
+                    <!-- internships -->
+                    <div *ngIf="activeTab == 'internship'" id="tab-internships" >
+                      <form #createInternshipFrm="ngForm" [formGroup]="internshipFrm" (ngSubmit)="submitInternshipForm(internshipFrm.value)">
+                          <div id="03" class="tab-pane">
+                              <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                  Internships details
+                              </div>
+                              <!-- subtitle end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Role</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="internshipRole" class="c-form__input" type="text" placeholder="eg: Manager/Director">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>eg: Manager/Director</label> -->
+                                      </div>
+                                      <p *ngIf="internshipFrm.controls['internshipRole'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Role is required!</p>
+                                  </div>
+                              </div>
+                              <!-- Role end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Description</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm">
+                                          <textarea formControlName="internshipDescription" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Description end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Industry</div>
+                                  </div>
+                                  <div class="col-md-6 p-0">
+                                      <div class="c-form__group m-t-0">
+                                          <select formControlName="internshipIndustry" class="c-form-control p-l-0">
+                                              <option value="">Select</option>
+                                              <option *ngFor="let category of industryList" [value]="category.name">
+                                                  {{ category.name }}
+                                              </option>
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Description end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Experience</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="col-md-2 p-0">
+                                          <div class="c-form__group m-t-0">
+                                              <select formControlName="internshipExperienceFrom" class="c-form-control p-l-0">
+                                                  <option value="0">0</option>
+                                                  <option value="1">1</option>
+                                                  <option value="2">2</option>
+                                                  <option value="3">3</option>
+                                                  <option value="4">4</option>
+                                                  <option value="5">5</option>
+                                                  <option value="6">6</option>
+                                                  <option value="7">7</option>
+                                                  <option value="8">8</option>
+                                                  <option value="9">9</option>
+                                                  <option value="10">10</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-1">
+                                          <div class="c-text_md color-grey-dark p-8">to</div>
+                                      </div>
+                                      <div class="col-md-2 p-0">
+                                          <div class="c-form__group m-t-0">
+                                              <select formControlName="internshipExperienceTo" class="c-form-control p-l-0">
+                                                  <option value="0">0</option>
+                                                  <option value="1">1</option>
+                                                  <option value="2">2</option>
+                                                  <option value="3">3</option>
+                                                  <option value="4">4</option>
+                                                  <option value="5">5</option>
+                                                  <option value="6">6</option>
+                                                  <option value="7">7</option>
+                                                  <option value="8">8</option>
+                                                  <option value="9">9</option>
+                                                  <option value="10">10</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                      <p *ngIf="(internshipFrm.controls['internshipExperienceFrom'].errors?.required || internshipFrm.controls['internshipExperienceTo'].errors?.required) && createInternshipFrm.submitted" class="c-form__validation error">Experience fields are required!</p>
+                                  </div>
+                              </div>
+                              <!-- Experience end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Salary</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="col-md-4 p-l-0">
+                                          <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                              <input formControlName="internshipSalaryAmount" class="c-form__input" type="text" placeholder="Salary amount">
+                                              <span class="c-form__highlight"></span>
+                                              <span class="c-form__bar"></span>
+                                              <!-- <label>Salary amount</label> -->
+                                          </div>
+                                      </div>
+                                      <div class="col-md-3 ">
+                                          <div class="c-form__group m-t-0">
+                                              <select formControlName="internshipSalaryDuration" class="c-form-control p-l-0">
+                                                  <option value="Annualy">Annualy</option>
+                                                  <option value="Monthly">Monthly</option>
+                                                  <option value="Contract">Contract</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-3 ">
+                                          <div class="c-form__group m-t-0">
+                                              <select formControlName="internshipSalaryCurrency" class="c-form-control p-l-0">
+                                                  <option value="INR">INR</option>
+                                                  <option value="DOLLOR">DOLLOR</option>
+                                                  <option value="EURO">EURO</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Salary end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Duration</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="col-md-4 p-0">
+                                          <div class="c-form__group m-t-0">
+                                              <select formControlName="internshipDuration" class="c-form-control p-l-0">
+                                                  <option value="Full time">Full time</option>
+                                                  <option value="Part time">Part time</option>
+                                              </select>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Duration end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Location</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="internshipLocation" class="c-form__input" type="text" placeholder="Where is the opportunity">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>Where is the opportunity</label> -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Location end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Includes travel</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="col-md-2 p-0">
+                                          <div class="c-radio__sm p-t-8 float_left width100">
+                                              <label class="col-md-6 p-0 p-t-8">
+                                                  <input formControlName="internshipTravelInclusive" type="radio" value="Yes" class="c-form__bar2"><span></span>yes
+                                              </label>
+                                              <label class="col-md-6 p-0 p-t-8">
+                                                  <input formControlName="internshipTravelInclusive" type="radio" value="No" class="c-form__bar2"><span></span>No
+                                              </label>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-9 p-r-0">
+                                          <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                              <input formControlName="internshipCountry" class="c-form__input" type="text" placeholder="Country">
+                                              <span class="c-form__highlight"></span>
+                                              <span class="c-form__bar"></span>
+                                              <!-- <label>Country</label> -->
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Location end -->
+                              <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                  Candidate details
+                              </div>
+                              <!-- subtitle end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Skills</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="internshipSkills" class="c-form__input" type="text" placeholder="eg: #UIdesign #photoshop #sketch">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>eg: #UIdesign #photoshop #sketch</label> -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Skills end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Qualifications</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="internshipQualifications" class="c-form__input" type="text" placeholder="eg: Garduate">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>eg: Garduate </label> -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Qualifications end -->
+                              <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                  organization details
+                              </div>
+                              <!-- subtitle end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Organization Name</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="internshipOrgName" class="c-form__input" type="text" placeholder="Name of the organization/company">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>Name of the organization/company</label> -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Organization Name end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Attach files</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="o-oppo-form__file-type">
+                                          <input *ngIf="!uploadedFile" class="o-oppo-file" type="file" accept="image/*" (change)="fileSelectedAction($event)">
+                                          <p *ngIf="!uploadingFile" class="c-text_sm o-oppo-file__text">upload<br>image</p>
+                                          <img *ngIf="uploadingFile" src="{{ baseUrl }}img/search-preloader.gif" class="opp-prel-image" alt="">
+                                          <img *ngIf="uploadedFile" src="{{ uploadedFileSrc }}" class="opp-prev-image" alt="">
+                                      </div>
+                                      <div class="o-oppo-form__img-show"></div>
+                                  </div>
+                              </div>
+                              <!-- file attach end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0"></div>
+                                  <div class="col-md-9 p-0 ">
+                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
+                                  </div>
+                              </div>
+                              <!-- btn end -->
+                          </div>
+                      </form>
+                    </div>
+                    <!-- internships -->
+                    
+                    <!-- freelance -->
+                    <div *ngIf="activeTab == 'freelance'" id="tab-freelance">
+                      <form #createFrlFrm="ngForm" [formGroup]="freelanceFrm" (ngSubmit)="submitFreelanceForm(freelanceFrm.value)">
+                          <div id="05" class="tab-pane">
+                              <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                  Freelance details
+                              </div>
+                              <!-- subtitle end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Title</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="freelanceTitle" class="c-form__input" type="text" placeholder="Name of your project">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>Name of your project</label> -->
+                                      </div>
+                                      <p *ngIf="freelanceFrm.controls['freelanceTitle'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">Title is required!</p>
+                                  </div>
+                              </div>
+                              <!-- Title end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Description</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm">
+                                          <textarea formControlName="freelanceDescription" class="c-textarea__block c-textarea--style" placeholder="Tell us more about your project"></textarea>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Description end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Industry</div>
+                                  </div>
+                                  <div class="col-md-6 p-0">
+                                      <div class="c-form__group m-t-0">
+                                          <select formControlName="freelanceIndustry" class="c-form-control p-l-0">
+                                              <option value="">Select</option>
+                                              <option *ngFor="let category of industryList" [value]="category.name">
+                                                  {{ category.name }}
+                                              </option>
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">How do you want to pay</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-radio__sm m-t-8">
+                                      <label class="col-md-2 p-0">
+                                          <input formControlName="freelancePaymentMethod" value="Fixed" type="radio" class="c-form__bar2" checked="">
+                                          <span></span>
+                                          <div class="c-radio--label c-text_md color-grey-dark">Fixed</div>
+                                      </label>
+                                      <label class="col-md-2 p-0">
+                                          <input formControlName="freelancePaymentMethod" value="Hourly" type="radio" class="c-form__bar2">
+                                          <span></span>
+                                          <div class="c-radio--label c-text_md color-grey-dark">Hourly</div>
+                                      </label>
+                                      </div>
+                                      <p *ngIf="freelanceFrm.controls['freelancePaymentMethod'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">This is required!</p>
+                                  </div>
+                              </div>
+                              <!-- How do you want to pay end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Engagement</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-radio__sm m-t-8">
+                                          <label class="col-md-2 p-0">
+                                              <input formControlName="freelanceEngagement" value="Remote" type="radio" class="c-form__bar2" checked="">
+                                              <span></span>
+                                              <div class="c-radio--label c-text_md color-grey-dark">Remote</div>
+                                          </label>
+                                          <label class="col-md-2 p-0">
+                                              <input formControlName="freelanceEngagement" value="Office" type="radio" class="c-form__bar2">
+                                              <span></span>
+                                              <div class="c-radio--label c-text_md color-grey-dark">Office</div>
+                                          </label>
+                                      </div>
+                                      <p *ngIf="freelanceFrm.controls['freelanceEngagement'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">This is required!</p>
+                                  </div>
+                              </div>
+                              <!-- Engagement end -->
+                              <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                  Candidate details
+                              </div>
+                              <!-- subtitle end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Skills</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="freelanceSkills" class="c-form__input" type="text" placeholder="eg: #UIdesign #photoshop #sketch">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>eg: #UIdesign #photoshop #sketch</label> -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Skills end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Attach files</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="o-oppo-form__file-type">
+                                          <input *ngIf="!uploadedFile" class="o-oppo-file" type="file" accept="image/*" (change)="fileSelectedAction($event)">
+                                          <p *ngIf="!uploadingFile" class="c-text_sm o-oppo-file__text">upload<br>image</p>
+                                          <img *ngIf="uploadingFile" src="{{ baseUrl }}img/search-preloader.gif" class="opp-prel-image" alt="">
+                                          <img *ngIf="uploadedFile" src="{{ uploadedFileSrc }}" class="opp-prev-image" alt="">
+                                      </div>
+                                      <div class="o-oppo-form__img-show"></div>
+                                  </div>
+                              </div>
+                              <!-- file attach end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                  </div>
+                                  <div class="col-md-9 p-0 ">
+                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
+                                  </div>
+                              </div>
+                              <!-- btn end -->
+                          </div>
+                      </form>
+                    </div>
+                    <!-- freelance -->
+                    
+                    <!-- volunteer -->
+                    <div *ngIf="activeTab == 'volunteer'" id="tab-volunteer">
+                      <form #createVolFrm="ngForm" [formGroup]="volunteerFrm" (ngSubmit)="submitVolunteerForm(volunteerFrm.value)">
+                          <div id="06" class="tab-pane">
+                              <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+                                  Location details
+                              </div>
+                              <!-- subtitle end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Title</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="volunteerTitle" class="c-form__input" type="text" placeholder="Name of your project">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>Name of your project</label> -->
+                                      </div>
+                                      <p *ngIf="volunteerFrm.controls['volunteerTitle'].errors?.required && createVolFrm.submitted" class="c-form__validation error">Title is required!</p>
+                                  </div>
+                              </div>
+                              <!-- Title end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">What causes does it relate to?</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="volunteerCause" class="c-form__input" type="text" placeholder="Describe the cause">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>Describe the cause</label> -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Industry</div>
+                                  </div>
+                                  <div class="col-md-6 p-0">
+                                      <div class="c-form__group m-t-0">
+                                          <select formControlName="volunteerIndustry" class="c-form-control p-l-0">
+                                              <option value="">Select</option>
+                                              <option *ngFor="let category of industryList" [value]="category.name">
+                                                  {{ category.name }}
+                                              </option>
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Description end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Skills Required </div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="volunteerSkills" class="c-form__input" type="text" placeholder="What skills are you looking for in volunteers">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>What skills are you looking for in volunteers</label> -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Skills end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Location</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="volunteerLocation" class="c-form__input" type="text" placeholder="Location of the opportunity">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>Location of the opportunity</label> -->
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Add Collaborators end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Requirements</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="o-oppo-form-check float_left m-r-16">
+                                          <label for="License"> Driver's License Needed 
+                                              <input id="License" formControlName="volunteerDL" type="checkbox">
+                                          </label>
+                                      </div>
+                                      <div class="o-oppo-form-check float_left m-r-16">
+                                          <label for="Check"> Background Check
+                                              <input id="Check" formControlName="volunteerBGC" type="checkbox">
+                                          </label>
+                                      </div>
+                                      <div class="o-oppo-form-check float_left">
+                                          <label for="Training"> Orientation or Training
+                                              <input id="Training" formControlName="volunteerORTR" type="checkbox">
+                                          </label>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- Add Collaborators end -->
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
+                                  </div>
+                                  <div class="col-md-9 p-0 ">
+                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
+                                  </div>
+                              </div>
+                              <!-- btn end -->
+                          </div>
+                      </form>
+                    </div>
+                    <!-- volunteer -->
+                    
+                 </div>
+              </div>
+           </div>
+           <!-- form block end -->
+        </div>
+     </div>
+  </section>
+</main>
