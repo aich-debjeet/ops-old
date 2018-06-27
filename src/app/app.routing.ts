@@ -10,7 +10,6 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SpotfeedComponent } from './components/spotfeed/spotfeed.component';
 import { SpotfeedPremiumComponent } from './components/spotfeed-premium/spotfeed-premium.component';
 import { NotificationComponent } from './components/notification/notification.component';
-import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { SearchComponent } from './components/search/search.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { LogoutHomeComponent } from './components/logout-home/logout-home.component';
@@ -56,7 +55,7 @@ export const routes: Routes = [
  { path: 'directory', component: DirectoryListComponent, canActivate: [AuthGuard] },
  { path: 'notification', component: NotificationComponent, canActivate: [AuthGuard] },
  { path: 'user/message', loadChildren: './components/message/message.module#MessageModule', canActivate: [AuthGuard] },
- { path: 'portfolio', component: PortfolioComponent, canActivate: [AuthGuard] },
+ { path: 'portfolio', loadChildren: './components/portfolio/portfolio.module#PortfolioModule' },
  { path: 'planner', component: PlannerComponent, canActivate: [AuthGuard] },
 //  { path: 'network', component: NetworkComponent, canActivate: [AuthGuard] },
  { path: 'project', component: ProjectComponent, canActivate: [AuthGuard] },

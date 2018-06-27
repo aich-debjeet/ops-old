@@ -59,7 +59,9 @@ import { ChannelSearchComponent } from './channel-search/channel-search.componen
 import { SearchChannelCardComponent } from './search-channel-card/search-channel-card.component';
 import { CommunityCardComponent } from './community-card/community-card.component';
 import { PlaceholderNotificationComponent } from './placeholder-notification/placeholder-notification.component';
+import { PortfolioMediaComponent } from './portfolio-media/portfolio-media.component';
 import { ReportPopoupComponent } from './report-popoup/report-popoup.component';
+import { PortfolioViewMediaComponent } from './portfolio-view-media/portfolio-view-media.component';
 
 @NgModule({
   imports: [
@@ -117,7 +119,9 @@ import { ReportPopoupComponent } from './report-popoup/report-popoup.component';
     CommunityCardComponent,
     ReadMoreComponent,
     PlaceholderNotificationComponent,
-    ReportPopoupComponent
+    PortfolioMediaComponent,
+    ReportPopoupComponent,
+    PortfolioViewMediaComponent
   ],
   exports: [
     OpportunityCardComponent,
@@ -153,7 +157,9 @@ import { ReportPopoupComponent } from './report-popoup/report-popoup.component';
     SearchChannelCardComponent,
     CommunityCardComponent,
     ReadMoreComponent,
-    ReportPopoupComponent
+    PortfolioMediaComponent,
+    ReportPopoupComponent,
+    PortfolioViewMediaComponent
   ]
 })
 export class SharedModule { }

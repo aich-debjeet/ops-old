@@ -1,0 +1,84 @@
+.c-portfolio--block {
+    position: relative;
+    padding: 8px;
+}
+
+.ops_media_icon {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 10px;
+    z-index: 4;
+}
+
+.ops_media_icon img {
+    width: 16px !important;
+    filter: drop-shadow(0px 0px 3px #222);
+}
+
+.c-portfolio__img img {
+    border-radius: 3px;
+    z-index: 2;
+}
+
+.c-port__mediatext {
+    width: 90%;
+    color: #333333;
+    font-size: 13px;
+    line-height: 20px;
+    margin: 8px 4px;
+}
+
+.c-port-opt {
+    position: absolute;
+    right: 0px;
+    bottom: 10px;
+    cursor: pointer;
+}
+
+.c-portfolio2 {
+    width: 100%;
+    float: left;
+    margin-top: 8px;
+    position: relative;
+}
+
+.c-status__options {
+    width: 14px;
+    height: 14px;
+    float: left;
+    margin-top: 9px;
+    margin-left: 8px;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.c-portactive {
+    border: 2px solid #FF7B84;
+    border-radius: 3px;
+}
+
+.pull-right > .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+.c-dropdown .dropdown-menu {
+    min-width: auto;
+}
+
+.c-dropdown .dropdown-menu > li > a {
+    padding: 4px 20px;
+}
+
+.dropdown-menu > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    color: #333333;
+    white-space: nowrap;
+}
