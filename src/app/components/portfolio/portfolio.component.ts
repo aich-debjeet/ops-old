@@ -31,6 +31,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   profileState: any;
   userProfile: any;
   channels = [];
+  filteredChannels = [];
   // portfolioEmpty = true;
   baseImageUrl = environment.API_IMAGE;
   ownProfile: boolean;
@@ -50,6 +51,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   activeTab = 'all';
   mediaPerPage = 20;
   viewMedia: any;
+  searchChannel = '';
 
   constructor(
     private fb: FormBuilder,
@@ -77,6 +79,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
         }
         if (this.generalUtils.checkNestedKey(state, ['get_users_channels_result'])) {
           this.channels = state['get_users_channels_result'];
+          this.channelAssignCopy();
         }
         if (this.generalUtils.checkNestedKey(state, ['get_users_channels_result'])) {
           this.userMedia = state['get_users_media_result'];
@@ -309,6 +312,17 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       this.disablePublishButton = false;
       this.toastr.success('Portfolio has been published successfully!');
     }, 500);
+  }
+
+  filterChannels(value) {
+    if (!value) { this.channelAssignCopy(); }
+    this.filteredChannels = Object.assign([], this.channels).filter(item => {
+      return item.channelName.toLowerCase().indexOf(value.toLowerCase()) > -1;
+    });
+  }
+
+  channelAssignCopy() {
+    this.filteredChannels = Object.assign([], this.channels);
   }
 
 }

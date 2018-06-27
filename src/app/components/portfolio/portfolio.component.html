@@ -98,7 +98,7 @@
                             <div class="c-text_lg">All Posts</div>
                             <div class="c-text_sm text-uppercase color-grey-dark m-t-8">channels</div>
                             <div class="c-form__group c-form--sm c-form--noeffect c-form__faded--sm m-t-8">
-                                <input class="c-form__input p-l-24" required="" type="text">
+                                <input class="c-form__input p-l-24" #searchChannelHandle [(ngModel)]="searchChannel" (input)="filterChannels(searchChannelHandle.value)" type="text">
                                 <label class="p-l-16">Search Channel</label>
                                 <span>
                                     <img src="https://ops-v2.netlify.com/assets/svg/ico_search.svg" class="c-form__input--lefticon">
@@ -107,7 +107,7 @@
                             <div class="c-portscroll2" id="ops_scrollbar">
                                 <form>
                                     <div class="c-checkbox__md">
-                                        <label *ngFor="let channel of channels" class="color-grey-darker">
+                                        <label *ngFor="let channel of filteredChannels" class="color-grey-darker">
                                             <input type="checkbox" (change)="toggleChannelSelection($event, channel.channelId)" value="{{ channel.channelId }}" class="c-form__bar2">{{ channel.channelName }}
                                         </label>
                                     </div>
