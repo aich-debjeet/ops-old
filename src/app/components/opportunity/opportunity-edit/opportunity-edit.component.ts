@@ -78,6 +78,9 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
             if (this.activeTab === 'internship') {
               this.buildInternshipForm(state['get_opportunity_data']);
             }
+            if (this.activeTab === 'freelance') {
+              this.buildFreelanceForm(state['get_opportunity_data']);
+            }
             this.dataAddedToForm = true;
           }
         }
@@ -356,6 +359,49 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
     this.oppUpdating = true;
   }
   /* =================================== internship form =================================== */
+
+  /* =================================== freelance form =================================== */
+  buildFreelanceForm(data: any) {
+    this.freelanceFrm = this.fb.group({
+      freelanceTitle: [data['opportunityFreelance']['title'], [Validators.required]],
+      freelanceDescription: [data['opportunityFreelance']['description'], []],
+      freelanceIndustry: [data['opportunityFreelance']['category'], []],
+      freelancePaymentMethod: [data['opportunityFreelance']['payType'], [Validators.required]],
+      freelanceEngagement: [data['opportunityFreelance']['engagement'], [Validators.required]],
+      freelanceSkills: [data['opportunityFreelance']['skills'], []],
+    });
+  }
+
+  submitFreelanceForm(formData: any) {
+    // validation check
+    if (!this.freelanceFrm.valid) {
+      this.scrollHelper.scrollToFirst('error');
+      // console.log('invalid form');
+      return;
+    }
+
+    // else prepare and submit the form
+    const reqBody = {
+      opportunityFreelance: {
+        title: formData.freelanceTitle,
+        description: formData.freelanceDescription,
+        industry: formData.freelanceIndustry,
+        payType: formData.freelancePaymentMethod,
+        engagement: formData.freelanceEngagement,
+        skills: formData.freelanceSkills,
+        attachFiles: this.freelanceAttachments
+      }
+    };
+
+    // submit freelance details
+    this.oppStore.dispatch({
+      type: OpportunityActions.UPDATE_OPPORTUNITY,
+      payload: { id: this.jobId, data: reqBody }
+    });
+    this.oppSaved = true;
+    this.oppUpdating = true;
+  }
+  /* =================================== freelance form =================================== */
 
   ngOnDestroy() {
     this.oppsSub.unsubscribe();
