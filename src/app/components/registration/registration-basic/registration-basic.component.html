@@ -248,7 +248,7 @@
                             </div>
                             <p class="error_alert text-center" *ngIf="regState?.user_otp_failed">Invalid OTP</p>
                             <p class="error_alert text-center" *ngIf="myform.submitted && (otpForm.controls['otpNum1'].errors?.required || otpForm.controls['otpNum2'].errors?.required || otpForm.controls['otpNum3'].errors?.required || otpForm.controls['otpNum4'].errors?.required || otpForm.controls['otpNum5'].errors?.required || otpForm.controls['otpNum6'].errors?.required)">Please enter your 6 digit OTP number</p>
-                            <div class="text-center otp-dont-get">
+                            <div class="text-center otp-dont-get" *ngIf="!claimActive">
                                 <a (click)="otpNotRecieved()" class="color-theme">Didn't get your OTP?</a>
                             </div>
                             <div class="text-center">

@@ -119,6 +119,15 @@ export class AuthService {
         });
     }
 
+    claimCheckOtp(req: any) {
+      return this.http.post(`${this.apiLink}/portal/auth/user/claim/validate`, req)
+        .map((response: Response) => {
+            const result = response.json();
+            localStorage.setItem('currentUser', JSON.stringify(result));
+            this.router.navigate(['/registration/select-profile']);
+        });
+    }
+
     loadArtistType() {
       return this.api.get('/portal/auth/accounttype/individual/', '');
     }

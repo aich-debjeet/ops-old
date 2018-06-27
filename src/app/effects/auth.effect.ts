@@ -149,6 +149,15 @@ export class AuthEffect {
     );
 
   @Effect()
+  claimOtpActive$ = this.actions$
+    .ofType(AuthActions.CLAIM_OTP_ACTIVE)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.claimCheckOtp(payload)
+      .map(res => ({ type: AuthActions.CLAIM_OTP_ACTIVE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.CLAIM_OTP_ACTIVE_FAILED, payload: res }))
+    );
+
+  @Effect()
   checkExistUser$ = this.actions$
     .ofType(AuthActions.USER_EXISTS_CHECK)
     .map(toPayload)

@@ -46,6 +46,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   imageBaseLink: string = environment.API_IMAGE;
   claimValue: any;
   claimData: any;
+  claimActive: boolean = false;
 
   @ViewChild('claimPopup') claimPopup: Modal;
   @ViewChild('otpPopup') otpPopup: Modal;
@@ -98,7 +99,6 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     this.regState$ = store.select('loginTags');
     // observe store
     this.regState$.subscribe((state) => {
-      console.log(state);
       if (typeof state !== 'undefined') {
         this.regState = state;
         if (state['reg_basic_uploading_form_data'] === false && state['reg_basic_uploaded_form_data'] === true) {
@@ -310,6 +310,15 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         countryCode: this.country.callingCodes[0],
         otp: otpValue
       }
+      if (this.claimActive) {
+        const data = {
+          handle: this.claimData['SUCCESS'].handle,
+          user: this.claimData['user'],
+          otp: otpValue
+        }
+        this.store.dispatch({ type: AuthActions.CLAIM_OTP_ACTIVE, payload: data });
+        return
+      }
       this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: otpData });
     }
   }
@@ -411,16 +420,15 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     .subscribe( datas => {
       this.claimValue = datas['completed']['SUCCESS'];
       this.claimData = datas['completed'];
-      console.log(datas['completed'].emailMatches);
       if (datas['completed'].emailMatches === true || datas['completed'].mobileMatches === true) {
-        console.log('success value');
         this.claimPopup.open();
+        this.claimActive = true;
       }else {
         this.otpPopup.open();
+        this.claimActive = false;
         this.otpOpenOnce = false;
       }
-        console.log(datas);
-          return
+      return
     });
   }
 
@@ -430,6 +438,17 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
       handle: this.claimData['SUCCESS'].handle
     }
     this.store.dispatch({ type: AuthActions.PROFILE_CLAIM, payload: data });
+
+    this.store.select('loginTags')
+    .first(channel => channel['completed']['SUCCESS'])
+    .subscribe( datas => {
+      this.claimValue = datas['completed']['SUCCESS'];
+      this.claimData = datas['completed'];
+      if (datas['completed'].emailMatches === true || datas['completed'].mobileMatches === true) {
+        this.otpPopup.open();
+      }
+      return
+    });
   }
 
   /**
