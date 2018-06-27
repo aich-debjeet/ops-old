@@ -11,7 +11,6 @@
                     <!-- audition -->
                     <div *ngIf="activeTab == 'audition'" id="tab-audition" >
                       <form #createAudFrm="ngForm" [formGroup]="auditionFrm" (ngSubmit)="submitAuditionForm(auditionFrm.value)">
-                          <p class="c-text_lg color-grey-dark m-t-16">Audition Motivation will almost always beat mere talent.</p>
                           <div class="tab-pane">
                               <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
                                   Audition details
@@ -232,9 +231,8 @@
                     <!-- audition -->
                     
                     <!-- projects -->
-                    <div *ngIf="activeTab == 'projects'" id="tab-projects" >
+                    <div *ngIf="activeTab == 'project'" id="tab-projects" >
                       <form #createProjFrm="ngForm" [formGroup]="projectFrm" (ngSubmit)="submitProjectForm(projectFrm.value)">
-                          <p class="c-text_lg color-grey-dark m-t-16">Projects.</p>
                           <div id="02" class="tab-pane">
                               <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
                                   Projects details
@@ -313,10 +311,7 @@
                                   <div class="col-md-3 p-0">
                                   </div>
                                   <div class="col-md-9 p-0 ">
-                                      <p class="c-text_sm color-grey-dark m-t-24">
-                                          By clicking ‘Create’, you agree to the Terms and condition and Privacy policy
-                                      </p>
-                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
+                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
                                   </div>
                               </div>
                               <!-- btn end -->
@@ -580,7 +575,7 @@
                               <div class="o-oppo-form__single">
                                   <div class="col-md-3 p-0"></div>
                                   <div class="col-md-9 p-0 ">
-                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
+                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
                                   </div>
                               </div>
                               <!-- btn end -->
@@ -844,7 +839,7 @@
                               <div class="o-oppo-form__single">
                                   <div class="col-md-3 p-0"></div>
                                   <div class="col-md-9 p-0 ">
-                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
+                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
                                   </div>
                               </div>
                               <!-- btn end -->
@@ -982,10 +977,7 @@
                                   <div class="col-md-3 p-0">
                                   </div>
                                   <div class="col-md-9 p-0 ">
-                                      <p class="c-text_sm color-grey-dark m-t-24">
-                                      By clicking ‘Create’, you agree to the Terms and condition and Privacy policy
-                                      </p>
-                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
+                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
                                   </div>
                               </div>
                               <!-- btn end -->
@@ -1102,10 +1094,7 @@
                                   <div class="col-md-3 p-0">
                                   </div>
                                   <div class="col-md-9 p-0 ">
-                                      <p class="c-text_sm color-grey-dark m-t-24">
-                                      By clicking ‘Create’, you agree to the Terms and condition and Privacy policy
-                                      </p>
-                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
+                                      <button type="submit" [disabled]="oppUpdating" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
                                   </div>
                               </div>
                               <!-- btn end -->

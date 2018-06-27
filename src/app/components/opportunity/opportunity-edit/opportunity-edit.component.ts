@@ -28,7 +28,7 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   loginSub: any;
 
   auditionFrm: FormGroup;
-  filledAuditionFrm = false;
+  dataAddedToForm = false;
   projectFrm: FormGroup;
   jobFrm: FormGroup;
   internshipFrm: FormGroup;
@@ -59,9 +59,14 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
       if (state) {
         if (state['get_opportunity_data']) {
           this.activeTab = state['get_opportunity_data']['opportunityType']
-          if (!this.filledAuditionFrm) {
-            this.buildAuditionForm(state['get_opportunity_data']);
-            this.filledAuditionFrm = true;
+          if (!this.dataAddedToForm) {
+            if (this.activeTab === 'audition') {
+              this.buildAuditionForm(state['get_opportunity_data']);
+            }
+            if (this.activeTab === 'project') {
+              this.buildProjectForm(state['get_opportunity_data']);
+            }
+            this.dataAddedToForm = true;
           }
         }
         if (state['update_opportunity_success'] && state['update_opportunity_success'] === true) {
@@ -162,6 +167,46 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
     this.oppUpdating = true;
   }
   /* =================================== audition form =================================== */
+
+  /* =================================== project form =================================== */
+  buildProjectForm(data: any) {
+    this.projectFrm = this.fb.group({
+      projectTitle: [data['opportunityProject']['title'], [Validators.required]],
+      projectDescription: [data['opportunityProject']['description'], []],
+      projectIndustry: [data['opportunityProject']['category'], []],
+      projectSkills: [data['opportunityProject']['skills'], []],
+      projectCollaborators: [data['opportunityProject']['addCollaborators'][0], []],
+    });
+  }
+
+  submitProjectForm(formData: any) {
+    // validation check
+    if (!this.projectFrm.valid) {
+      // console.log('invalid form');
+      return;
+    }
+
+    // else prepare and submit the form
+    const reqBody = {
+      opportunityType: 'project',
+      opportunityProject: {
+        title: formData.projectTitle,
+        description: formData.projectDescription,
+        industry: formData.projectIndustry,
+        skills: formData.projectSkills,
+        addCollaborators: [formData.projectCollaborators]
+      }
+    };
+
+    // submit project details
+    this.oppStore.dispatch({
+      type: OpportunityActions.UPDATE_OPPORTUNITY,
+      payload: { id: this.jobId, data: reqBody }
+    });
+    this.oppSaved = true;
+    this.oppUpdating = true;
+  }
+  /* =================================== project form =================================== */
 
   ngOnDestroy() {
     this.oppsSub.unsubscribe();
