@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { Router, ActivatedRoute, RoutesRecognized } from '@angular/router';
 import { environment } from '../../../../environments/environment';
+import { OpportunityModel } from '../../../models/opportunity.model';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -18,6 +19,7 @@ import { TabComponents  } from '../../../shared/tabs/tabset';
 import { ProfileHelper } from '../../../helpers/profile.helper';
 
 import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
+import { GeneralUtilities } from '../../../helpers/general.utils';
 
 import { every as _every } from 'lodash';
 
@@ -28,8 +30,10 @@ import { every as _every } from 'lodash';
 })
 
 export class ProfileBlockComponent implements OnInit, OnDestroy {
+  opportunityState$: Observable<OpportunityModel>;
   tagState$: Observable<ProfileModal>;
   private subscription: ISubscription;
+  private oppSub: ISubscription;
   userQuickAccess = initialTag;
   router: any;
   activeUser: string;
@@ -46,6 +50,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
   carouselOne: NguCarousel;
   openChannel: boolean;
   pinListEmpty = true;
+  opportunities: any[];
 
   constructor(
     private http: Http,
@@ -53,6 +58,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
     public route: ActivatedRoute,
     private utils: ProfileHelper,
     private profileStore: Store<ProfileModal>,
+    private generalUtils: GeneralUtilities
   ) {
     this.router = _router;
     this.userId = '';
@@ -89,6 +95,13 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
       if (state.channel_pin_success && this.channelPinSuccess) {
         this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_CHANNEL, payload: this.userHandle });
         this.channelPinSuccess = false;
+      }
+    });
+
+    this.opportunityState$ = this.profileStore.select('opportunityTags');
+    this.oppSub = this.opportunityState$.subscribe((state) => {
+      if (this.generalUtils.checkNestedKey(state, ['search_opportunities_result', 'opportunityResponse'])) {
+        this.opportunities = state['search_opportunities_result']['opportunityResponse'];
       }
     });
   }
