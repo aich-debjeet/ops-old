@@ -75,6 +75,9 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
             if (this.activeTab === 'job') {
               this.buildJobForm(state['get_opportunity_data']);
             }
+            if (this.activeTab === 'internship') {
+              this.buildInternshipForm(state['get_opportunity_data']);
+            }
             this.dataAddedToForm = true;
           }
         }
@@ -284,6 +287,75 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
     this.oppUpdating = true;
   }
   /* =================================== job form =================================== */
+
+  /* =================================== internship form =================================== */
+  buildInternshipForm(data: any) {
+    this.internshipFrm = this.fb.group({
+      internshipRole: [data['opportunityInternship']['role'], [Validators.required]],
+      internshipDescription: [data['opportunityInternship']['description'], []],
+      internshipIndustry: [data['opportunityInternship']['industry'], []],
+      internshipExperienceFrom: [data['opportunityInternship']['experience']['from'], [Validators.required]],
+      internshipExperienceTo: [data['opportunityInternship']['experience']['to'], [Validators.required]],
+      internshipSalaryAmount: [data['opportunityInternship']['salary']['amount_from'], []],
+      internshipSalaryDuration: [data['opportunityInternship']['salary']['salaryType'], []],
+      internshipSalaryCurrency: [data['opportunityInternship']['salary']['currency'], []],
+      internshipDuration: [data['opportunityInternship']['duration'], []],
+      internshipLocation: [data['opportunityInternship']['location']['location'], []],
+      internshipTravelInclusive: [data['opportunityInternship']['includesTravel']['option'], []],
+      internshipCountry: [data['opportunityInternship']['includesTravel']['country'], []],
+      internshipSkills: [data['opportunityInternship']['skills'], []],
+      internshipQualifications: [data['opportunityInternship']['qualifications'], []],
+      internshipOrgName: [data['opportunityInternship']['organizationName'], []]
+    });
+  }
+
+  submitInternshipForm(formData: any) {
+    // validation check
+    if (!this.internshipFrm.valid) {
+      this.scrollHelper.scrollToFirst('error');
+      // console.log('invalid form');
+      return;
+    }
+
+    // else prepare and submit the form
+    const reqBody = {
+      opportunityInternship: {
+        role: formData.internshipRole,
+          description: formData.internshipDescription,
+          industry: formData.internshipIndustry,
+          experience: {
+            from: formData.internshipExperienceFrom,
+            to: formData.internshipExperienceTo
+          },
+          salary: {
+            amount: Number(formData.internshipSalaryAmount),
+            salaryType: formData.internshipSalaryDuration,
+            currency: formData.internshipSalaryCurrency
+          },
+          duration: formData.internshipDuration,
+          location: {
+            location: formData.internshipLocation
+          },
+          includesTravel: {
+            option: formData.internshipTravelInclusive,
+            country: formData.internshipCountry
+          },
+          skills: formData.internshipSkills,
+          qualifications: formData.internshipQualifications,
+          organizationName: formData.internshipOrgName,
+          attachFiles: this.internshipAttachments
+      }
+    };
+
+    // submit internship details
+    this.oppStore.dispatch({
+      type: OpportunityActions.UPDATE_OPPORTUNITY,
+      payload: { id: this.jobId, data: reqBody }
+    });
+    this.oppSaved = true;
+    this.oppUpdating = true;
+  }
+  /* =================================== internship form =================================== */
 
   ngOnDestroy() {
     this.oppsSub.unsubscribe();
