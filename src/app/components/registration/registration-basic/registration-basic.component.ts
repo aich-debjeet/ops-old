@@ -45,8 +45,11 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   resendingOtp = false;
   imageBaseLink: string = environment.API_IMAGE;
   claimValue: any;
+  claimData: any;
 
   @ViewChild('claimPopup') claimPopup: Modal;
+  @ViewChild('otpPopup') otpPopup: Modal;
+  @ViewChild('termsPopup') termsPopup: Modal;
 
   datePickerConfig: IDatePickerConfig = {
     showMultipleYearsNavigation: true,
@@ -116,7 +119,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
           this.backToOtp();
         }
         if (state['user_otp_success'] === true) {
-          this.modalService.close('otpWindow');
+          this.otpPopup.close();
           this.router.navigate(['/reg/addskill']);
         }
       }
@@ -147,9 +150,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   // terms show/hide
   termsAction(action: string) {
     if (action === 'hide') {
-      this.modalService.close('termsPopup');
+      this.termsPopup.close();
     } else {
-      this.modalService.open('termsPopup');
+      this.termsPopup.open();
     }
   }
 
@@ -272,9 +275,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     return false;
   }
 
-  next(el) {
-    // el.setFocus();
-  }
+
+  
 
   // user user exists
   userExistCheck(value) {
@@ -408,12 +410,13 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     .first(channel => channel['completed']['SUCCESS'])
     .subscribe( datas => {
       this.claimValue = datas['completed']['SUCCESS'];
+      this.claimData = datas['completed'];
       console.log(datas['completed'].emailMatches);
       if (datas['completed'].emailMatches === true || datas['completed'].mobileMatches === true) {
         console.log('success value');
         this.claimPopup.open();
       }else {
-        this.modalService.open('otpWindow');
+        this.otpPopup.open();
         this.otpOpenOnce = false;
       }
         console.log(datas);
@@ -421,11 +424,19 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     });
   }
 
+  claimUser() {
+    const data = {
+      user: this.claimData['user'],
+      handle: this.claimData['SUCCESS'].handle
+    }
+    this.store.dispatch({ type: AuthActions.PROFILE_CLAIM, payload: data });
+  }
+
   /**
    * Switch to change number modal
    */
   otpNotRecieved() {
-    this.modalService.close('otpWindow');
+    this.otpPopup.close();
     this.modalService.open('otpChangeNumber');
     this.countrySelectorOtp.initCountrySelector('country-options-otp');
   }
@@ -435,7 +446,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
    */
   backToOtp() {
     this.modalService.close('otpChangeNumber');
-    this.modalService.open('otpWindow');
+    this.otpPopup.open();
   }
 
   /**

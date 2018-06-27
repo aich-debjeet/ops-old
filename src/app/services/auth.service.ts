@@ -91,6 +91,13 @@ export class AuthService {
       return this.api.put('/portal/auth/user/update/handle/' + reqBody.handle, JSON.stringify(reqBody));
     }
 
+    /**
+     * claiming user porfile
+     */
+    claimProfile(reqBody: any) {
+      return this.api.post('/portal/auth/user/claim', reqBody);
+    }
+
     registerProfile(req: any) {
       return this.api.put('/portal/auth/user/update', JSON.stringify(req) );
     }
