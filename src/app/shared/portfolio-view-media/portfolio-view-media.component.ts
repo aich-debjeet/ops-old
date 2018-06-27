@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { environment } from 'environments/environment';
+import FilesHelper from '../../helpers/fileUtils';
 
 @Component({
   selector: 'app-portfolio-view-media',
@@ -19,6 +20,10 @@ export class PortfolioViewMediaComponent implements OnInit {
 
   closeViewMedia() {
     this.closeViewMediaModal.emit();
+  }
+
+  checkFileType(fileName: string, fileType: string) {
+    return FilesHelper.fileType(fileName, fileType);
   }
 
 }
