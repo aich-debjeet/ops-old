@@ -26,6 +26,18 @@ export class OpportunityEffect {
     );
 
   /**
+   * Update opportunity effect
+   */
+  @Effect()
+  updateOpportunity$ = this.actions$
+    .ofType(OpportunityActions.UPDATE_OPPORTUNITY)
+    .map(toPayload)
+    .switchMap((payload) => this.opportunityService.updateOpportunity(payload)
+      .map((res) => ({ type: OpportunityActions.UPDATE_OPPORTUNITY_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: OpportunityActions.UPDATE_OPPORTUNITY_FAILED, payload: res }))
+    );
+
+  /**
    * Search opportunities effect
    */
   @Effect()
