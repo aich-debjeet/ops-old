@@ -13,7 +13,8 @@ export class ProfileService {
 
   constructor(
     private api: ApiService,
-    private http: Http
+    private http: Http,
+    private tokenService: TokenService
   ) {
     this.handle = this.api.getHandle();
     this.headers = this.api.getHeaders();
@@ -23,7 +24,13 @@ export class ProfileService {
    * for: portfolio
    */
   getDisplayMedia(reqParams: any) {
-    return this.api.put('/portal/portfolio/landing/' + localStorage.getItem('portfolioUserHandle'), reqParams);
+    // check if user is logged in or not
+    if (this.tokenService.getToken().length > 0) {
+      return this.api.put('/portal/portfolio/landing/' + localStorage.getItem('portfolioUserHandle'), reqParams);
+    } else {
+      return this.http.put(`${this.apiLink}/portal/portfolio/landing/` + localStorage.getItem('portfolioUserHandle'), reqParams)
+        .map((data: Response) => data.json());
+    }
   }
 
   /**

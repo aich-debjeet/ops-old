@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col-md-12 p-0">
                         <div class="c-port__tabs">
-                            <ul class="nav nav-tabs">
+                            <ul *ngIf="profileState?.portfolio_is_published === true" class="nav nav-tabs">
                                 <li [ngClass]="{'active': activeTab === 'all'}">
                                     <a (click)="selectTab({ categoryName: 'all', categoryId: 'all' })" data-toggle="tab" class="p-l-0">ALL</a>
                                 </li>
@@ -42,7 +42,7 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade active in m-l-r-8">
-                                    <div class="row">
+                                    <div *ngIf="profileState?.portfolio_is_published === true" class="row">
                                         <ngx-masonry *ngIf="displayMedia?.length > 0" [useImagesLoaded]="true">
                                             <ngx-masonry-item *ngFor="let media of displayMedia" class="col-md-4 col-sm-4 c-portfolio--block">
                                                 <app-portfolio-media (click)="displayMediaPopup(media)" [portMediaDetails]="media"></app-portfolio-media>
@@ -51,6 +51,9 @@
                                         <!-- <ng-template #portfolioEmpty>
                                             <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is empty</h4>
                                         </ng-template> -->
+                                    </div>
+                                    <div *ngIf="profileState?.portfolio_is_published === false" class="row">
+                                        <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is not published!</h4>
                                     </div>
                                 </div>
                             </div>
