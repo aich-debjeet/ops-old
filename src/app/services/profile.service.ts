@@ -427,7 +427,7 @@ export class ProfileService {
    * Update Profile Object
    */
   loadDirectory(body: any) {
-    return this.api.put('/portal/searchprofiles', body);
+    return this.api.put('/portal/directory', body);
   }
  /**
    * Get Blocked Users
