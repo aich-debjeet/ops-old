@@ -23,7 +23,8 @@ export class ProfileService {
    * for: portfolio
    */
   getDisplayMedia(reqParams: any) {
-    return this.api.put('/portal/portfolio/landing', reqParams);
+    // return this.api.put('/portal/portfolio/landing', reqParams);
+    return this.api.put('/portal/portfolio/landing/' + localStorage.getItem('portfolioUserHandle'), reqParams);
   }
 
   /**
@@ -45,8 +46,6 @@ export class ProfileService {
    */
   getPortfolioCategories(reqParams: any) {
     return this.api.get('/portal/portfolio/all/categories', reqParams);
-    // return this.http.get(`${this.apiLink}/portal/portfolio/all/categories`, reqParams)
-    //   .map((data: Response) => data.json());
   }
 
   /**
@@ -339,7 +338,10 @@ export class ProfileService {
    */
   loadProfileByUsername(userName: string) {
     return this.http.get(`${this.apiLink}/portal/profile/user/username/` + userName)
-      .map((data: Response) => data.json());
+      .map((data: Response) => {
+        localStorage.setItem('portfolioUserHandle', data.json().handle);
+        data.json()
+      });
   }
 
   /**

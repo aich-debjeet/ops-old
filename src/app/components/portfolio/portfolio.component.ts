@@ -297,7 +297,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
    * show media popup
    */
   displayMediaPopup(mediaDetails: any) {
-    console.log('mediaDetails', mediaDetails);
     this.viewMedia = mediaDetails;
     this.mediaViewModal.open();
   }
