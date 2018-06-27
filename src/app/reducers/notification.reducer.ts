@@ -23,7 +23,7 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
     console.log(payload)
     console.log(state['recieved_notifications'])
       let updated_notifications;
-      if (state.notifications_pagination.page > 0 && state.recieved_notifications) {
+      if (state.notifications_pagination.page > 0 && state['recieved_notifications'].length > 0) {
         updated_notifications = [...state.recieved_notifications, ...payload];
         console.log(updated_notifications);
       } else {
@@ -70,8 +70,9 @@ export const NotificationReducer: ActionReducer<any> = (state, {payload, type}: 
       });
 
     case NotificationActions.ADD_PUSHER_NOTIFICATIONS:
+    console.log(payload)
       let updated_push_notifications;
-      if (state && state.recieved_notifications) {
+      if (state && state['recieved_notifications'].length > 0) {
         const arr = [payload];
         updated_push_notifications = arr.concat(state.recieved_notifications)
         // updated_push_notifications = [...state.recieved_notifications, ...payload];

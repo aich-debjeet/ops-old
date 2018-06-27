@@ -45,6 +45,7 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
   scrolling = 0;
   scrollingLoad = 8000;
   isOwner: boolean;
+  profiles = [];
 
   constructor(
     private http: Http,
@@ -60,6 +61,9 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
     this.subscription = this.tagState$.subscribe((state) => {
       this.userMedia = state;
        this.posts = this.userMedia.user_posts;
+        if (state['user_profiles_all'] !== 'undefined') {
+          this.profiles = state.user_profiles_all;
+        }
     });
     // const timer = Rx.Observable.timer(5000);
 
@@ -159,5 +163,14 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
    */
   checkEmpty(obj: Object) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
+  }
+
+    /**
+   * Follow an artist
+   * @param user obj
+   */
+  followUser(user: any) {
+    this._store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
+    user.extra.isFollowing = true;
   }
 }

@@ -122,13 +122,13 @@
             <!-- tabs -->
             <div class="row m-0">
                 <div class="col-md-12 col-sm-12 p-0">
-                    <div class="home_tabs">
-                        <ul class="nav nav-tabs">
-                            <li routerLinkActive="active"><a [routerLink]="['channel']">Channel</a></li>
+                    <div class="c-ops__tabs">
+                        <ul class="nav nav-tabs m-l-8">
                             <li routerLinkActive="active"><a [routerLink]="['post']">Posts</a></li>
-                            <li routerLinkActive="active" *ngIf="isCurrentUser===true"><a [routerLink]="['spotfeed']">spotfeed</a></li>
+                            <li routerLinkActive="active"><a class="p-l-8" [routerLink]="['channel']">Channel</a></li>
+                            <!-- <li routerLinkActive="active" *ngIf="isCurrentUser===true"><a [routerLink]="['spotfeed']">spotfeed</a></li> -->
                         </ul>
-                        <div id="home_channel">
+                        <div id="home_channel" class="tab-content">
                             <router-outlet></router-outlet>
                         </div>
                     </div>

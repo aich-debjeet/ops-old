@@ -256,7 +256,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       });
     });
     this.pusherService.notificationsChannel.bind('Network_Accepted', (message) => {
-      // console.log(message)
+       console.log(message)
       this.notify = true;
       this.notificationStore.dispatch({
         type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
