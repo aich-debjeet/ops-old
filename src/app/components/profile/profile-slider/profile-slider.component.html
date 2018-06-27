@@ -380,18 +380,18 @@
                         </div>
                         <div class="c-radio__sm">
                             <label class="col-md-8 col-md-offset-2 o-network_option m-t-16">
-                                <input name="request" type="radio" class="c-form__bar2" value="network" formControlName="request">
+                                <input name="request" type="radio" class="c-form__bar2" value="network" (click)="openMsg('network')" formControlName="request">
                                 <span></span>
                                 <div class="c-radio--label">Hey {{ profileObject?.name }}, I want to network with you.</div>
                             </label>
                             <label class="col-md-8 col-md-offset-2 o-network_option m-t-16">
                                 <!-- <input id="hereShow" name="request" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request"> -->
-                                <input id="hereShow" name="request" (click)="openMsg()" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request">
+                                <input id="hereShow" name="request" (click)="openMsg('personalMessage')" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request">
                                 <span></span>
                                 <div class="c-radio--label">Personal message</div>
                                 <div *ngIf="showThis">
-                                    <input class="c-form__input" id="" type="text" formControlName="message"required placeholder="Type Message">
-                                    <p class="pull-right">200</p>
+                                    <input class="c-form__input" id="" type="text" maxlength="220" [(ngModel)]="personalMessage" formControlName="message"required placeholder="Type Message">
+                                    <p class="pull-right">{{ (220) - (personalMessage?.length) }}</p>
                                     <!-- <p *ngIf="networkForm.get('message').invalid && networkForm.get('request').invalid " class="error_alert text-center"> 
                                         Enter text
                                    </p>	 -->
