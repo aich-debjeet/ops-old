@@ -18,7 +18,7 @@
                 </div>
                 <div *ngIf="ownProfile" class="width100 float_left">
                     <button type="button" class="btn btn-primary btn-md btn-block m-t-16" (click)="showMediaSelection()">add work</button>
-                    <button type="button" class="btn btn-default btn-md btn-block m-t-8">publish</button>
+                    <button type="button" [disabled]="disablePublishButton" (click)="publishAction('true')" class="btn btn-default btn-md btn-block m-t-8">publish</button>
                 </div>
             </div>
             <div class="col-md-9 float_left">
@@ -43,7 +43,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade active in m-l-r-8">
                                     <div *ngIf="profileState?.portfolio_is_published === true" class="row">
-                                        <ngx-masonry *ngIf="displayMedia?.length > 0" [useImagesLoaded]="true">
+                                        <ngx-masonry *ngIf="displayMedia?.length > 0; else portfolioEmpty" [useImagesLoaded]="true">
                                             <ngx-masonry-item *ngFor="let media of displayMedia" class="col-md-4 col-sm-4 c-portfolio--block">
                                                 <app-portfolio-media (click)="displayMediaPopup(media)" [portMediaDetails]="media"></app-portfolio-media>
                                             </ngx-masonry-item>
@@ -80,7 +80,7 @@
                                     <div class="col-md-9 col-xs-8">
                                         <div class="c-form__group m-0">
                                             <select class="c-form-control" (change)="selectCategory($event.target.value)">
-                                                <option>Select Category</option>
+                                                <option value="">Select Category</option>
                                                 <option *ngFor="let category of portCategories" [value]="category.categoryId">{{ category.categoryName }}</option>
                                             </select>
                                         </div>
@@ -143,7 +143,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <p class="c-text_lg-bold">Edit Category</p>
-                    <!-- <button type="button" class="close" data-dismiss="modal">×</button> -->
                 </div>
                 <div class="modal-body">
                     <div *ngIf="portCategories?.length === 0 && profileState?.get_portfolio_categories === true && profileState?.get_portfolio_categories_success === false" class="preloader">
@@ -152,25 +151,14 @@
                     <div *ngIf="portCategories?.length > 0">
                         <div *ngFor="let category of portCategories" class="row c-port__cat-name" id="switchbranding">
                             <div class="col-md-9 p-0">{{ category.categoryName }}</div>
-                            <div class="col-md-3 p-0"><a (click)="editCategoryName(category)">Edit</a></div> 
+                            <div class="col-md-3 p-0">
+                                <!-- <a (click)="editCategoryName(category)">Edit</a> -->
+                            </div> 
                         </div>
                     </div>
                     <div *ngIf="portCategories?.length === 0 && profileState?.get_portfolio_categories === false && profileState?.get_portfolio_categories_success === true" class="row c-port__cat-name" id="switchbranding">
                         <div class="col-md-12 p-0">No categories found!</div>
                     </div>
-                    <!-- <div class="row c-port__cat-name" id="edicat-edit">
-                        <div class="col-md-10 p-0">
-                        <div class="c-form__group c-form--sm c-form--noeffect m-t--8 m-b-0">
-                            <input class="c-form__input" required="" type="text" value="Branding">
-                            <span class="c-form__highlight"></span>
-                            <span class="c-form__bar"></span>
-                            <label>Add New Category</label>
-                        </div>
-                        </div>
-                        <div class="col-md-2 p-0">
-                            <a *ngIf="profileState?.create_portfolio_category === true && profileState?.create_portfolio_category_success === false">Save</a>
-                        </div>
-                    </div> -->
                     <form [formGroup]="portAddCategoryForm" #portAddCatFrm="ngForm" (ngSubmit)="portAddCategory(portAddCategoryForm.value)">
                         <div class="c-form__group c-form--sm c-form--noeffect">
                             <input class="c-form__input" formControlName="categoryName" type="text" placeholder="Add New Category">

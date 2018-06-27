@@ -78,6 +78,29 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     /**
      * for: portfolio
      */
+    case ProfileActions.PORTFOLIO_PUBLISH_ACTION:
+      return Object.assign({}, state, {
+        portfolio_publish_action: true,
+        portfolio_publish_action_success: false,
+        portfolio_publish_action_query: payload
+      });
+
+    case ProfileActions.PORTFOLIO_PUBLISH_ACTION_SUCCESS:
+      return Object.assign({}, state, {
+        portfolio_publish_action: false,
+        portfolio_publish_action_success: true,
+        portfolio_publish_action_result: payload
+      });
+
+    case ProfileActions.PORTFOLIO_PUBLISH_ACTION_FAILED:
+      return Object.assign({}, state, {
+        portfolio_publish_action: false,
+        portfolio_publish_action_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
     case ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA:
       return Object.assign({}, state, {
         add_media_to_category: false,

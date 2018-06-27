@@ -20,6 +20,18 @@ export class ProfileEffect {
    * for: portfolio
    */
   @Effect()
+  portfolioPublishAction$ = this.actions$
+    .ofType(ProfileActions.PORTFOLIO_PUBLISH_ACTION)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.portfolioPublishAction(payload)
+      .map(res => ({ type: ProfileActions.PORTFOLIO_PUBLISH_ACTION_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.PORTFOLIO_PUBLISH_ACTION_FAILED, payload: res }))
+    );
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
   getDisplayMedia$ = this.actions$
     .ofType(ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA)
     .map(toPayload)

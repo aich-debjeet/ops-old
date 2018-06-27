@@ -23,6 +23,13 @@ export class ProfileService {
   /**
    * for: portfolio
    */
+  portfolioPublishAction(action: string) {
+    return this.api.get('/portal/portfolio/publish/' + action);
+  }
+
+  /**
+   * for: portfolio
+   */
   getDisplayMedia(reqParams: any) {
     // check if user is logged in or not
     if (this.tokenService.getToken().length > 0) {

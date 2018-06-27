@@ -36,6 +36,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   ownProfile: boolean;
   requestsPerPage = 10;
   showPreloader = false;
+  disablePublishButton = false;
 
   // router subscription
   routerSub: any;
@@ -299,6 +300,15 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   displayMediaPopup(mediaDetails: any) {
     this.viewMedia = mediaDetails;
     this.mediaViewModal.open();
+  }
+
+  publishAction(pubAction: string) {
+    this.disablePublishButton = true;
+    this.profileStore.dispatch({ type: ProfileActions.PORTFOLIO_PUBLISH_ACTION, payload: pubAction });
+    setTimeout(() => {
+      this.disablePublishButton = false;
+      this.toastr.success('Portfolio has been published successfully!');
+    }, 500);
   }
 
 }
