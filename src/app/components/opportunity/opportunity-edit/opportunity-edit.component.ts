@@ -81,6 +81,9 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
             if (this.activeTab === 'freelance') {
               this.buildFreelanceForm(state['get_opportunity_data']);
             }
+            if (this.activeTab === 'volunteer') {
+              this.buildVolunteerForm(state['get_opportunity_data']);
+            }
             this.dataAddedToForm = true;
           }
         }
@@ -402,6 +405,64 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
     this.oppUpdating = true;
   }
   /* =================================== freelance form =================================== */
+
+  /* =================================== volunteer form =================================== */
+  buildVolunteerForm(data: any) {
+    this.volunteerFrm = this.fb.group({
+      volunteerTitle: [data['opportunityVolunteer']['title'], [Validators.required]],
+      volunteerCause: [data['opportunityVolunteer']['cause'], []],
+      volunteerIndustry: [data['opportunityVolunteer']['category'], []],
+      volunteerLocation: [data['opportunityVolunteer']['location']['location'], []],
+      volunteerSkills: [data['opportunityVolunteer']['skills'], []],
+      volunteerDL: [data['opportunityVolunteer']['requirements'].includes('Background Check'), []],
+      volunteerBGC: [data['opportunityVolunteer']['requirements'].includes('Driver\'s License Needed'), []],
+      volunteerORTR: [data['opportunityVolunteer']['requirements'].includes('Orientation or Training'), []],
+    });
+  }
+
+  submitVolunteerForm(formData: any) {
+    // validation check
+    if (!this.volunteerFrm.valid) {
+      this.scrollHelper.scrollToFirst('error');
+      // console.log('invalid form');
+      return;
+    }
+
+    const volunteerRequirements = [];
+    if (formData.volunteerBGC && formData.volunteerBGC === true) {
+      volunteerRequirements.push('Background Check');
+    }
+    if (formData.volunteerDL && formData.volunteerDL === true) {
+      volunteerRequirements.push('Driver\'s License Needed');
+    }
+    if (formData.volunteerORTR && formData.volunteerORTR === true) {
+      volunteerRequirements.push('Orientation or Training');
+    }
+
+    // else prepare and submit the form
+    const reqBody = {
+      opportunityType: 'volunteer',
+      opportunityVolunteer: {
+        title: formData.volunteerTitle,
+        cause: formData.volunteerCause,
+        industry: formData.volunteerIndustry,
+        skills: formData.volunteerSkills,
+        location: {
+          location: formData.volunteerLocation
+        },
+        requirements: volunteerRequirements
+      }
+    };
+
+    // submit volunteer details
+    this.oppStore.dispatch({
+      type: OpportunityActions.UPDATE_OPPORTUNITY,
+      payload: { id: this.jobId, data: reqBody }
+    });
+    this.oppSaved = true;
+    this.oppUpdating = true;
+  }
+  /* =================================== volunteer form =================================== */
 
   ngOnDestroy() {
     this.oppsSub.unsubscribe();
