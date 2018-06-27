@@ -40,6 +40,12 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   oppUpdating = false;
   industryList = [];
 
+  /* attachments */
+  jobAttachments = [];
+  internshipAttachments = [];
+  freelanceAttachments = [];
+  /* attachments */
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -65,6 +71,9 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
             }
             if (this.activeTab === 'project') {
               this.buildProjectForm(state['get_opportunity_data']);
+            }
+            if (this.activeTab === 'job') {
+              this.buildJobForm(state['get_opportunity_data']);
             }
             this.dataAddedToForm = true;
           }
@@ -188,7 +197,6 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
 
     // else prepare and submit the form
     const reqBody = {
-      opportunityType: 'project',
       opportunityProject: {
         title: formData.projectTitle,
         description: formData.projectDescription,
@@ -207,6 +215,75 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
     this.oppUpdating = true;
   }
   /* =================================== project form =================================== */
+
+  /* =================================== job form =================================== */
+  buildJobForm(data: any) {
+    this.jobFrm = this.fb.group({
+      jobRole: [data['opportunityJob']['role'], [Validators.required]],
+      jobDescription: [data['opportunityJob']['description'], []],
+      jobIndustry: [data['opportunityJob']['industry'], []],
+      jobExperienceFrom: [data['opportunityJob']['experience']['from'], [Validators.required]],
+      jobExperienceTo: [data['opportunityJob']['experience']['to'], [Validators.required]],
+      jobSalaryAmount: [data['opportunityJob']['salary']['amount_from'], []],
+      jobSalaryDuration: [data['opportunityJob']['salary']['salaryType'], []],
+      jobSalaryCurrency: [data['opportunityJob']['salary']['currency'], []],
+      jobDuration: [data['opportunityJob']['duration'], []],
+      jobLocation: [data['opportunityJob']['location']['location'], []],
+      jobTravelInclusive: [data['opportunityJob']['includesTravel']['option'], []],
+      jobCountry: [data['opportunityJob']['includesTravel']['country'], []],
+      jobSkills: [data['opportunityJob']['skills'], []],
+      jobQualifications: [data['opportunityJob']['qualifications'], []],
+      jobOrgName: [data['opportunityJob']['organizationName'], []]
+    });
+  }
+
+  submitJobForm(formData: any) {
+    // validation check
+    if (!this.jobFrm.valid) {
+      this.scrollHelper.scrollToFirst('error');
+      // console.log('invalid form');
+      return;
+    }
+
+    // else prepare and submit the form
+    const reqBody = {
+      opportunityJob: {
+        role: formData.jobRole,
+          description: formData.jobDescription,
+          industry: formData.jobIndustry,
+          experience: {
+            from: formData.jobExperienceFrom,
+            to: formData.jobExperienceTo
+          },
+          salary: {
+            amount: Number(formData.jobSalaryAmount),
+            salaryType: formData.jobSalaryDuration,
+            currency: formData.jobSalaryCurrency
+          },
+          duration: formData.jobDuration,
+          location: {
+            location: formData.jobLocation
+          },
+          includesTravel: {
+            option: formData.jobTravelInclusive,
+            country: formData.jobCountry
+          },
+          skills: formData.jobSkills,
+          qualifications: formData.jobQualifications,
+          organizationName: formData.jobOrgName,
+          attachFiles: this.jobAttachments
+      }
+    };
+
+    // submit job details
+    this.oppStore.dispatch({
+      type: OpportunityActions.UPDATE_OPPORTUNITY,
+      payload: { id: this.jobId, data: reqBody }
+    });
+    this.oppSaved = true;
+    this.oppUpdating = true;
+  }
+  /* =================================== job form =================================== */
 
   ngOnDestroy() {
     this.oppsSub.unsubscribe();

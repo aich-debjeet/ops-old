@@ -321,9 +321,8 @@
                     <!-- projects -->
                     
                     <!-- jobs -->
-                    <div *ngIf="activeTab == 'jobs'" id="tab-jobs" >
+                    <div *ngIf="activeTab == 'job'" id="tab-jobs" >
                       <form #createJobFrm="ngForm" [formGroup]="jobFrm" (ngSubmit)="submitJobForm(jobFrm.value)">
-                          <p class="c-text_lg color-grey-dark m-t-16">Jobs.</p>
                           <div id="03" class="tab-pane">
                               <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
                                   Jobs details
@@ -587,7 +586,6 @@
                     <!-- internships -->
                     <div *ngIf="activeTab == 'internships'" id="tab-internships" >
                       <form #createInternshipFrm="ngForm" [formGroup]="internshipFrm" (ngSubmit)="submitInternshipForm(internshipFrm.value)">
-                          <p class="c-text_lg color-grey-dark m-t-16">Internships.</p>
                           <div id="03" class="tab-pane">
                               <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
                                   Internships details
@@ -851,7 +849,6 @@
                     <!-- freelance -->
                     <div *ngIf="activeTab == 'freelance'" id="tab-freelance">
                       <form #createFrlFrm="ngForm" [formGroup]="freelanceFrm" (ngSubmit)="submitFreelanceForm(freelanceFrm.value)">
-                          <p class="c-text_lg color-grey-dark m-t-16">Freelance.</p>
                           <div id="05" class="tab-pane">
                               <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
                                   Freelance details
@@ -989,7 +986,6 @@
                     <!-- volunteer -->
                     <div *ngIf="activeTab == 'volunteer'" id="tab-volunteer">
                       <form #createVolFrm="ngForm" [formGroup]="volunteerFrm" (ngSubmit)="submitVolunteerForm(volunteerFrm.value)">
-                          <p class="c-text_lg color-grey-dark m-t-16">Volunteer.</p>
                           <div id="06" class="tab-pane">
                               <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
                                   Location details
