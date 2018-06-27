@@ -2,6 +2,7 @@
 import { Component, OnInit, ElementRef, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Modal } from '../../../shared/modal-new/Modal';
 
 // third party dependancies
 import { IDatePickerConfig } from 'ng2-date-picker';
@@ -43,6 +44,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   regState = initialBasicRegTag;
   resendingOtp = false;
   imageBaseLink: string = environment.API_IMAGE;
+  claimValue: any;
+
+  @ViewChild('claimPopup') claimPopup: Modal;
 
   datePickerConfig: IDatePickerConfig = {
     showMultipleYearsNavigation: true,
@@ -91,6 +95,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     this.regState$ = store.select('loginTags');
     // observe store
     this.regState$.subscribe((state) => {
+      console.log(state);
       if (typeof state !== 'undefined') {
         this.regState = state;
         if (state['reg_basic_uploading_form_data'] === false && state['reg_basic_uploaded_form_data'] === true) {
@@ -102,8 +107,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
             localStorage.setItem('tempAccessToken', JSON.stringify(token));
           }
           if (this.otpOpenOnce) {
-            this.modalService.open('otpWindow');
-            this.otpOpenOnce = false;
+            // this.modalService.open('otpWindow');
+            // this.otpOpenOnce = false;
           }
         }
         if (state['number_update_sent'] === false && state['number_update_success'] === true) {
@@ -267,6 +272,10 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     return false;
   }
 
+  next(el) {
+    // el.setFocus();
+  }
+
   // user user exists
   userExistCheck(value) {
     if (value.length >= 4) {
@@ -394,6 +403,22 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
 
     // register new user
     this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
+
+    this.store.select('loginTags')
+    .first(channel => channel['completed']['SUCCESS'])
+    .subscribe( datas => {
+      this.claimValue = datas['completed']['SUCCESS'];
+      console.log(datas['completed'].emailMatches);
+      if (datas['completed'].emailMatches === true || datas['completed'].mobileMatches === true) {
+        console.log('success value');
+        this.claimPopup.open();
+      }else {
+        this.modalService.open('otpWindow');
+        this.otpOpenOnce = false;
+      }
+        console.log(datas);
+          return
+    });
   }
 
   /**
