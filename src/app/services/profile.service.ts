@@ -23,7 +23,6 @@ export class ProfileService {
    * for: portfolio
    */
   getDisplayMedia(reqParams: any) {
-    // return this.api.put('/portal/portfolio/landing', reqParams);
     return this.api.put('/portal/portfolio/landing/' + localStorage.getItem('portfolioUserHandle'), reqParams);
   }
 
@@ -340,7 +339,7 @@ export class ProfileService {
     return this.http.get(`${this.apiLink}/portal/profile/user/username/` + userName)
       .map((data: Response) => {
         localStorage.setItem('portfolioUserHandle', data.json().handle);
-        data.json()
+        return data.json()
       });
   }
 

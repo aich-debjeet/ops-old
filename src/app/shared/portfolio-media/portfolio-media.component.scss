@@ -59,3 +59,26 @@
     border: 2px solid #FF7B84;
     border-radius: 3px;
 }
+
+.pull-right > .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+.c-dropdown .dropdown-menu {
+    min-width: auto;
+}
+
+.c-dropdown .dropdown-menu > li > a {
+    padding: 4px 20px;
+}
+
+.dropdown-menu > li > a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    color: #333333;
+    white-space: nowrap;
+}

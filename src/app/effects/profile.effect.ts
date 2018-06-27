@@ -25,10 +25,7 @@ export class ProfileEffect {
     .map(toPayload)
     .switchMap((payload) => this.profileService.getDisplayMedia(payload)
       .map(res => ({ type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({
-        type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA_FAILED,
-        payload: { errorStatus: res.status }
-      }))
+      .catch((res) => Observable.of({ type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA_FAILED, payload: res }))
     );
 
   /**
