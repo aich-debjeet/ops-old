@@ -20,6 +20,18 @@ export class ProfileEffect {
    * for: portfolio
    */
   @Effect()
+  portUpdateCategoryName$ = this.actions$
+    .ofType(ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.portUpdateCategoryName(payload)
+      .map(res => ({ type: ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME_FAILED, payload: res }))
+    );
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
   portfolioPublishAction$ = this.actions$
     .ofType(ProfileActions.PORTFOLIO_PUBLISH_ACTION)
     .map(toPayload)
