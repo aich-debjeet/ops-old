@@ -45,7 +45,7 @@
                                     <div *ngIf="profileState?.portfolio_is_published === true" class="row">
                                         <ngx-masonry *ngIf="displayMedia?.length > 0; else portfolioEmpty" [useImagesLoaded]="true">
                                             <ngx-masonry-item *ngFor="let media of displayMedia" class="col-md-4 col-sm-4 c-portfolio--block">
-                                                <app-portfolio-media (displaySelectedMedia)="displayMediaPopup(media)" [portMediaDetails]="media"></app-portfolio-media>
+                                                <app-portfolio-media (removeSelectedMedia)="removeMediaFromCat($event)" (displaySelectedMedia)="displayMediaPopup($event)" [portMediaDetails]="media" [portMediaCategory]="activeTab"></app-portfolio-media>
                                             </ngx-masonry-item>
                                         </ngx-masonry>
                                         <!-- <ng-template #portfolioEmpty>

@@ -350,4 +350,9 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.filteredChannels = Object.assign([], this.channels);
   }
 
+  removeMediaFromCat(mediaId: string) {
+    console.log('remove', mediaId);
+    console.log('from category', this.activeTab);
+  }
+
 }

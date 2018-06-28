@@ -7,13 +7,13 @@
       </figure>
   </a>
   <div class="c-port__mediatext">{{ portMediaDetails?.mediaDescription }}</div>
-  <div class="pull-right dropdown c-dropdown c-port-opt" appDropdown>
+  <div *ngIf="portMediaCategory !== 'all'" class="pull-right dropdown c-dropdown c-port-opt" appDropdown>
       <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
           <img src="https://ops-v2.netlify.com/assets/svg/ico_options.svg" class="c-status__options">
       </span>
       <ul class="dropdown-menu dropdown-menu-right">
           <li>
-              <a class="dib" data-toggle="modal" data-target="#removePost">Remove Post</a>
+              <a (click)="removePost(portMediaDetails?.mediaId)" class="dib" data-toggle="modal" data-target="#removePost">Remove Post</a>
           </li>
       </ul>
   </div>
@@ -29,13 +29,13 @@
       </figure>
   </a>
   <div class="c-port__mediatext">{{ portMediaDetails?.mediaDescription }}</div>
-  <div class="pull-right dropdown c-dropdown c-port-opt" appDropdown>
+  <div *ngIf="portMediaCategory !== 'all'" class="pull-right dropdown c-dropdown c-port-opt" appDropdown>
       <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
           <img src="https://ops-v2.netlify.com/assets/svg/ico_options.svg" class="c-status__options">
       </span>
       <ul class="dropdown-menu dropdown-menu-right">
           <li>
-              <a class="dib" data-toggle="modal" data-target="#removePost">Remove Post</a>
+              <a (click)="removePost(portMediaDetails?.mediaId)" class="dib" data-toggle="modal" data-target="#removePost">Remove Post</a>
           </li>
       </ul>
   </div>
@@ -51,13 +51,13 @@
       </figure>
   </a>
   <div class="c-port__mediatext">{{ portMediaDetails?.mediaDescription }}</div>
-  <div class="pull-right dropdown c-dropdown c-port-opt" appDropdown>
+  <div *ngIf="portMediaCategory !== 'all'" class="pull-right dropdown c-dropdown c-port-opt" appDropdown>
       <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
           <img src="https://ops-v2.netlify.com/assets/svg/ico_options.svg" class="c-status__options">
       </span>
       <ul class="dropdown-menu dropdown-menu-right">
           <li>
-              <a class="dib" data-toggle="modal" data-target="#removePost">Remove Post</a>
+              <a (click)="removePost(portMediaDetails?.mediaId)" class="dib" data-toggle="modal" data-target="#removePost">Remove Post</a>
           </li>
       </ul>
   </div>
