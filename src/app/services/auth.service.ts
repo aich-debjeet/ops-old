@@ -122,8 +122,11 @@ export class AuthService {
     claimCheckOtp(req: any) {
       return this.http.post(`${this.apiLink}/portal/auth/user/claim/validate`, req)
         .map((response: Response) => {
-            const result = response.json();
-            localStorage.setItem('currentUser', JSON.stringify(result));
+            const data = response.json();
+            if (data && data['access_Token']) {
+              const currentUser = { access_token: data['access_Token'] }
+              localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            }
             this.router.navigate(['/registration/select-profile']);
         });
     }
