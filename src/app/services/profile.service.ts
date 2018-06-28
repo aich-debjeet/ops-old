@@ -23,6 +23,13 @@ export class ProfileService {
   /**
    * for: portfolio
    */
+  portRemoveMediaFromCategory(data: any) {
+    return this.api.delete('/portal/portfolio/delete/' + data.mediaId + '/' + data.categoryId, '');
+  }
+
+  /**
+   * for: portfolio
+   */
   portDeleteCategory(catId: string) {
     return this.api.delete('/portal/portfolio/delete/' + catId, '');
   }

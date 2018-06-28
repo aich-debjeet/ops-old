@@ -350,9 +350,19 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.filteredChannels = Object.assign([], this.channels);
   }
 
+  getCatIndexByName(catName: string) {
+    return _findIndex(this.portCategories, (c) => c.categoryName === catName);
+  }
+
   removeMediaFromCat(mediaId: string) {
-    console.log('remove', mediaId);
-    console.log('from category', this.activeTab);
+    const catIndex = this.getCatIndexByName(this.activeTab);
+    this.profileStore.dispatch({
+      type: ProfileActions.PORT_REMOVE_MEDIA_FROM_CAT,
+      payload: {
+        mediaId: mediaId,
+        categoryId: this.portCategories[catIndex].categoryId
+      }
+    });
   }
 
 }

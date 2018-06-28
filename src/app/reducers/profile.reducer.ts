@@ -78,6 +78,28 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     /**
      * for: portfolio
      */
+    case ProfileActions.PORT_REMOVE_MEDIA_FROM_CAT:
+      return Object.assign({}, state, {
+        port_remove_media_from_cat: true,
+        port_remove_media_from_cat_success: false,
+        get_port_display_media_result: state['get_port_display_media_result'].filter(i => i.mediaId !== payload.mediaId)
+      });
+
+    case ProfileActions.PORT_REMOVE_MEDIA_FROM_CAT_SUCCESS:
+      return Object.assign({}, state, {
+        port_remove_media_from_cat: false,
+        port_remove_media_from_cat_success: true
+      });
+
+    case ProfileActions.PORT_REMOVE_MEDIA_FROM_CAT_FAILED:
+      return Object.assign({}, state, {
+        port_remove_media_from_cat: false,
+        port_remove_media_from_cat_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
     case ProfileActions.PORTFOLIO_DELETE_CATEGORY:
       return Object.assign({}, state, {
         portfolio_delete_category: true,
