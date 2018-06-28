@@ -20,6 +20,18 @@ export class ProfileEffect {
    * for: portfolio
    */
   @Effect()
+  portDeleteCategory$ = this.actions$
+    .ofType(ProfileActions.PORTFOLIO_DELETE_CATEGORY)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.portDeleteCategory(payload)
+      .map(res => ({ type: ProfileActions.PORTFOLIO_DELETE_CATEGORY_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.PORTFOLIO_DELETE_CATEGORY_FAILED, payload: res }))
+    );
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
   portUpdateCategoryName$ = this.actions$
     .ofType(ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME)
     .map(toPayload)

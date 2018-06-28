@@ -78,6 +78,28 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     /**
      * for: portfolio
      */
+    case ProfileActions.PORTFOLIO_DELETE_CATEGORY:
+      return Object.assign({}, state, {
+        portfolio_delete_category: true,
+        portfolio_delete_category_success: false,
+        get_portfolio_categories_result: state['get_portfolio_categories_result'].filter(i => i.categoryId !== payload)
+      });
+
+    case ProfileActions.PORTFOLIO_DELETE_CATEGORY_SUCCESS:
+      return Object.assign({}, state, {
+        portfolio_delete_category: false,
+        portfolio_delete_category_success: true
+      });
+
+    case ProfileActions.PORTFOLIO_DELETE_CATEGORY_FAILED:
+      return Object.assign({}, state, {
+        portfolio_delete_category: false,
+        portfolio_delete_category_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
     case ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME:
       return Object.assign({}, state, {
         portfolio_update_category_name: true,

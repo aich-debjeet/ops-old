@@ -23,6 +23,13 @@ export class ProfileService {
   /**
    * for: portfolio
    */
+  portDeleteCategory(catId: string) {
+    return this.api.delete('/portal/portfolio/delete/' + catId, '');
+  }
+
+  /**
+   * for: portfolio
+   */
   portUpdateCategoryName(data: string) {
     return null;
     // return this.api.get('/portal/portfolio/publish/' + action);
