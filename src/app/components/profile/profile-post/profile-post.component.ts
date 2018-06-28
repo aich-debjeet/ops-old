@@ -63,11 +63,11 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
     this.subscription = this.tagState$.subscribe((state) => {
       this.userMedia = state;
        this.posts = this.userMedia.user_posts;
-        if (state['user_profiles_all'] !== 'undefined') {
-          this.profiles = state.user_profiles_all;
+        if (state['user_profiles_all_prof'] !== 'undefined') {
+          this.profiles = state.user_profiles_all_prof;
         }
-        if (state.user_profiles_all_loaded) {
-          this.people_follow_id = state.people_follow_scroll_id
+        if (state.user_profiles_all_loaded_prof) {
+          this.people_follow_id = state.people_follow_scroll_id_prof
         }
     });
     // const timer = Rx.Observable.timer(5000);
@@ -180,9 +180,38 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
   followUser(user: any) {
     this._store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
     user.extra.isFollowing = true;
+    this._store.select('profileTags')
+      .first(state => state['profile_other_followed'] === true)
+      .subscribe( datas => {
+        this.followPostLoad();
+        this.loadChannels();
+      });
   }
+  
+  /**
+   * post user channel
+   */
+  followPostLoad() {
+    const data = {
+      limit: 10,
+      scrollId: null
+    }
+    this._store.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
+  }
+
+  /**
+   * following user channel
+   */
+  loadChannels() {
+    const body = {
+      limit: 9
+    }
+
+    this._store.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_FOLLOWING_CHANNEL, payload: body });
+  }
+
   loadProfiles() {
-    this._store.dispatch({ type: ProfileActions.LOAD_ALL_PROFILES, payload: {
+    this._store.dispatch({ type: ProfileActions.LOAD_ALL_PROFILES_PROF, payload: {
       'isHuman' : '1' ,
       'name': {
         'scrollId': this.people_follow_id

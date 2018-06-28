@@ -498,6 +498,12 @@ export class ProfileService {
     return this.api.post('/portal/search/people/tofollow', body);
   }
 
+  getAllProfilesProf(body: any) {
+    // console.log(body)
+    // return this.api.get('/portal/profile/0/50', '');
+    return this.api.post('/portal/search/people/tofollow', body);
+  }
+
   /**
    * Update Profile Object
    */
