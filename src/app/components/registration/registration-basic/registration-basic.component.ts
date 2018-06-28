@@ -2,6 +2,7 @@
 import { Component, OnInit, ElementRef, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Modal } from '../../../shared/modal-new/Modal';
 
 // third party dependancies
 import { IDatePickerConfig } from 'ng2-date-picker';
@@ -43,6 +44,13 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   regState = initialBasicRegTag;
   resendingOtp = false;
   imageBaseLink: string = environment.API_IMAGE;
+  claimValue: any;
+  claimData: any;
+  claimActive: boolean = false;
+
+  @ViewChild('claimPopup') claimPopup: Modal;
+  @ViewChild('otpPopup') otpPopup: Modal;
+  @ViewChild('termsPopup') termsPopup: Modal;
 
   datePickerConfig: IDatePickerConfig = {
     showMultipleYearsNavigation: true,
@@ -102,8 +110,8 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
             localStorage.setItem('tempAccessToken', JSON.stringify(token));
           }
           if (this.otpOpenOnce) {
-            this.modalService.open('otpWindow');
-            this.otpOpenOnce = false;
+            // this.modalService.open('otpWindow');
+            // this.otpOpenOnce = false;
           }
         }
         if (state['number_update_sent'] === false && state['number_update_success'] === true) {
@@ -111,7 +119,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
           this.backToOtp();
         }
         if (state['user_otp_success'] === true) {
-          this.modalService.close('otpWindow');
+          this.otpPopup.close();
           this.router.navigate(['/reg/addskill']);
         }
       }
@@ -142,9 +150,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
   // terms show/hide
   termsAction(action: string) {
     if (action === 'hide') {
-      this.modalService.close('termsPopup');
+      this.termsPopup.close();
     } else {
-      this.modalService.open('termsPopup');
+      this.termsPopup.open();
     }
   }
 
@@ -267,6 +275,9 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
     return false;
   }
 
+
+  
+
   // user user exists
   userExistCheck(value) {
     if (value.length >= 4) {
@@ -298,6 +309,15 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
         contactNumber: phoneNumber,
         countryCode: this.country.callingCodes[0],
         otp: otpValue
+      }
+      if (this.claimActive) {
+        const data = {
+          handle: this.claimData['SUCCESS'].handle,
+          user: this.claimData['user'],
+          otp: otpValue
+        }
+        this.store.dispatch({ type: AuthActions.CLAIM_OTP_ACTIVE, payload: data });
+        return
       }
       this.store.dispatch({ type: AuthActions.OTP_SUBMIT, payload: otpData });
     }
@@ -394,13 +414,48 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
 
     // register new user
     this.store.dispatch({ type: AuthActions.USER_REGISTRATION_BASIC, payload: form });
+
+    this.store.select('loginTags')
+    .first(channel => channel['completed']['SUCCESS'])
+    .subscribe( datas => {
+      this.claimValue = datas['completed']['SUCCESS'];
+      this.claimData = datas['completed'];
+      if (datas['completed'].emailMatches === true || datas['completed'].mobileMatches === true) {
+        this.claimPopup.open();
+        this.claimActive = true;
+      }else {
+        this.otpPopup.open();
+        this.claimActive = false;
+        this.otpOpenOnce = false;
+      }
+      return
+    });
+  }
+
+  claimUser() {
+    const data = {
+      user: this.claimData['user'],
+      handle: this.claimData['SUCCESS'].handle
+    }
+    this.store.dispatch({ type: AuthActions.PROFILE_CLAIM, payload: data });
+
+    this.store.select('loginTags')
+    .first(channel => channel['completed']['SUCCESS'])
+    .subscribe( datas => {
+      this.claimValue = datas['completed']['SUCCESS'];
+      this.claimData = datas['completed'];
+      if (datas['completed'].emailMatches === true || datas['completed'].mobileMatches === true) {
+        this.otpPopup.open();
+      }
+      return
+    });
   }
 
   /**
    * Switch to change number modal
    */
   otpNotRecieved() {
-    this.modalService.close('otpWindow');
+    this.otpPopup.close();
     this.modalService.open('otpChangeNumber');
     this.countrySelectorOtp.initCountrySelector('country-options-otp');
   }
@@ -410,7 +465,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
    */
   backToOtp() {
     this.modalService.close('otpChangeNumber');
-    this.modalService.open('otpWindow');
+    this.otpPopup.open();
   }
 
   /**
