@@ -13,10 +13,66 @@ export class ProfileService {
 
   constructor(
     private api: ApiService,
-    private http: Http
+    private http: Http,
+    private tokenService: TokenService
   ) {
     this.handle = this.api.getHandle();
     this.headers = this.api.getHeaders();
+  }
+
+  /**
+   * for: portfolio
+   */
+  portfolioPublishAction(action: string) {
+    return this.api.get('/portal/portfolio/publish/' + action);
+  }
+
+  /**
+   * for: portfolio
+   */
+  getDisplayMedia(reqParams: any) {
+    // check if user is logged in or not
+    if (this.tokenService.getToken().length > 0) {
+      return this.api.put('/portal/portfolio/landing/' + localStorage.getItem('portfolioUserHandle'), reqParams);
+    } else {
+      return this.http.put(`${this.apiLink}/portal/portfolio/landing/` + localStorage.getItem('portfolioUserHandle'), reqParams)
+        .map((data: Response) => data.json());
+    }
+  }
+
+  /**
+   * for: portfolio
+   */
+  getChannelsForPortfolio(query: string) {
+    return this.api.get('/portal/portfolio/channelTextSearch/0/10?searchText=' + query);
+  }
+
+  /**
+   * for: portfolio
+   */
+  getMediaForPortfolio(reqParams: any) {
+    return this.api.put('/portal/portfolio/getMediaByChannelList', reqParams);
+  }
+
+  /**
+   * for: portfolio
+   */
+  getPortfolioCategories(reqParams: any) {
+    return this.api.get('/portal/portfolio/all/categories', reqParams);
+  }
+
+  /**
+   * for: portfolio
+   */
+  addPortfolioCategory(reqParams: any) {
+    return this.api.post('/portal/portfolio/add/category', reqParams);
+  }
+
+  /**
+   * for: portfolio
+   */
+  addMediaToCategory(reqParams: any) {
+    return this.api.put('/portal/portfolio/addMedia', reqParams);
   }
 
   /**
@@ -294,7 +350,11 @@ export class ProfileService {
    * Load a user profile
    */
   loadProfileByUsername(userName: string) {
-    return this.api.get('/portal/profile/user/username/' + userName);
+    return this.http.get(`${this.apiLink}/portal/profile/user/username/` + userName)
+      .map((data: Response) => {
+        localStorage.setItem('portfolioUserHandle', data.json().handle);
+        return data.json()
+      });
   }
 
   /**
@@ -427,7 +487,7 @@ export class ProfileService {
    * Update Profile Object
    */
   loadDirectory(body: any) {
-    return this.api.put('/portal/searchprofiles', body);
+    return this.api.put('/portal/directory', body);
   }
  /**
    * Get Blocked Users
