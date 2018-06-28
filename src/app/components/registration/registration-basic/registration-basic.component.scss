@@ -288,3 +288,38 @@ input[type=number]::-webkit-outer-spin-button {
 .m-top--50-px {
     margin-top: -50px;
 }
+
+
+// for claim profile pop
+
+.reg-claim-prof-container{
+    display: flex;
+    width: 362px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 39px;
+    margin: 39px auto;
+    flex-direction: column;
+}
+.reg-claim-prof__avatar{
+    width: 59px;
+    height: 59px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #c1c1c1;
+    margin-bottom: 8px;
+    img{
+        width: 100%;
+    }
+}
+.reg-claim-close{
+    color: #FF7B84;
+    font-size: 11px;    
+    line-height: 18px;  
+    text-align: center;
+    margin-top: 39px;
+}
+
+.reg-claim-text{
+    padding-top: 30px;
+}

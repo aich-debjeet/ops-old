@@ -91,6 +91,13 @@ export class AuthService {
       return this.api.put('/portal/auth/user/update/handle/' + reqBody.handle, JSON.stringify(reqBody));
     }
 
+    /**
+     * claiming user porfile
+     */
+    claimProfile(reqBody: any) {
+      return this.api.post('/portal/auth/user/claim', reqBody);
+    }
+
     registerProfile(req: any) {
       return this.api.put('/portal/auth/user/update', JSON.stringify(req) );
     }
@@ -108,6 +115,18 @@ export class AuthService {
         .map((response: Response) => {
             const result = response.json();
             localStorage.setItem('otpStatus', JSON.stringify(result));
+            this.router.navigate(['/registration/select-profile']);
+        });
+    }
+
+    claimCheckOtp(req: any) {
+      return this.http.post(`${this.apiLink}/portal/auth/user/claim/validate`, req)
+        .map((response: Response) => {
+            const data = response.json();
+            if (data && data['access_Token']) {
+              const currentUser = { access_token: data['access_Token'] }
+              localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            }
             this.router.navigate(['/registration/select-profile']);
         });
     }
