@@ -159,16 +159,14 @@ export class OpportunityViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  reportModalOpen(id: string){
-    // console.log(id)
+  reportModalOpen(id: string) {
     this.reportId = id;
-   this.modalService.open('reportPopUp');
-   this.store.dispatch({ type: OpportunityActions.OPPORTUNITY_REPORT, payload: 'opportunity' });
- }
+    this.modalService.open('reportPopUp');
+    this.store.dispatch({ type: OpportunityActions.OPPORTUNITY_REPORT, payload: 'opportunity' });
+  }
 
- closeReport(){
-  // console.log('comming')
-  this.modalService.close('reportPopUp');
-}
+  closeReport() {
+    this.modalService.close('reportPopUp');
+  }
 
 }

@@ -1,0 +1,65 @@
+<!-- media type image -->
+<div *ngIf="portMediaDetails?.type == 'image' || portMediaDetails?.mediaType == 'image'" [ngClass]="{'c-portactive': portMediaDetails?.isSelected === true}" class="c-portfolio2">
+  <a data-toggle="modal" data-target="#portImg">
+      <figure class="c-portfolio__img">
+          <img [src]="baseImageUrl + portMediaDetails?.media_thumbnail" class="img-responsive">
+          <div class="ops_media_icon"><img src="https://ops-v2.netlify.com/assets/svg/ico_media_img.svg"></div>
+      </figure>
+  </a>
+  <div class="c-port__mediatext">{{ portMediaDetails?.mediaDescription }}</div>
+  <div class="pull-right dropdown c-dropdown c-port-opt">
+      <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+          <img src="https://ops-v2.netlify.com/assets/svg/ico_options.svg" class="c-status__options">
+      </span>
+      <ul class="dropdown-menu dropdown-menu-right" appDropdown>
+          <li>
+              <a data-toggle="modal" data-target="#removePost" appDropdownOpen>Remove Post</a>
+          </li>
+      </ul>
+  </div>
+</div>
+<!-- media type image -->
+
+<!-- media type audio -->
+<div *ngIf="portMediaDetails?.type == 'audio' || portMediaDetails?.mediaType == 'audio'" [ngClass]="{'c-portactive': portMediaDetails?.isSelected === true}" class="c-portfolio2">
+  <a data-toggle="modal" data-target="#portImg">
+      <figure class="c-portfolio__img">
+          <img [src]="baseImageUrl + portMediaDetails?.media_thumbnail" class="img-responsive">
+          <div class="ops_media_icon"><img src="https://ops-v2.netlify.com/assets/svg/ico_volume3.svg"></div>
+      </figure>
+  </a>
+  <div class="c-port__mediatext">{{ portMediaDetails?.mediaDescription }}</div>
+  <div class="pull-right dropdown c-dropdown c-port-opt">
+      <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+          <img src="https://ops-v2.netlify.com/assets/svg/ico_options.svg" class="c-status__options">
+      </span>
+      <ul class="dropdown-menu dropdown-menu-right" appDropdown>
+          <li>
+              <a data-toggle="modal" data-target="#removePost" appDropdownOpen>Remove Post</a>
+          </li>
+      </ul>
+  </div>
+</div>
+<!-- media type audio -->
+
+<!-- media type video -->
+<div *ngIf="portMediaDetails?.type == 'video' || portMediaDetails?.mediaType == 'video'" [ngClass]="{'c-portactive': portMediaDetails?.isSelected === true}" class="c-portfolio2">
+  <a data-toggle="modal" data-target="#portImg">
+      <figure class="c-portfolio__img">
+          <img [src]="baseImageUrl + portMediaDetails?.media_thumbnail" class="img-responsive">
+          <div class="ops_media_icon"><img src="https://ops-v2.netlify.com/assets/svg/ico_video.svg"></div>
+      </figure>
+  </a>
+  <div class="c-port__mediatext">{{ portMediaDetails?.mediaDescription }}</div>
+  <div class="pull-right dropdown c-dropdown c-port-opt">
+      <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+          <img src="https://ops-v2.netlify.com/assets/svg/ico_options.svg" class="c-status__options">
+      </span>
+      <ul class="dropdown-menu dropdown-menu-right" appDropdown>
+          <li>
+              <a data-toggle="modal" data-target="#removePost" appDropdownOpen>Remove Post</a>
+          </li>
+      </ul>
+  </div>
+</div>
+<!-- media type video -->

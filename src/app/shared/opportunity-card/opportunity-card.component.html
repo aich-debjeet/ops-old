@@ -6,7 +6,8 @@
     </div>
     <div class="c-card__body">
         <div class="c-text_lg">{{ opportunity?.opportunityRole }}</div>
-        <div class="c-text_sm p-t-b-16 color-grey-dark">{{ opportunity?.organization }}</div>
+        <div *ngIf="opportunity?.organization" class="c-text_sm p-t-b-16 color-grey-dark">{{ opportunity?.organization }}</div>
+        <div *ngIf="!opportunity?.organization" class="c-text_sm p-t-b-16 color-grey-dark">&nbsp;</div>
     </div>
     <div class="c-card__location p-b-16 with_border_bottom">
         <img [src]="baseUrl + 'img/svg/ico_location2.svg'">

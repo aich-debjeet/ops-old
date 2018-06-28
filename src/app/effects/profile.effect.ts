@@ -15,6 +15,106 @@ import { ProfileActions } from '../actions/profile.action';
 
 @Injectable()
 export class ProfileEffect {
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
+  portfolioPublishAction$ = this.actions$
+    .ofType(ProfileActions.PORTFOLIO_PUBLISH_ACTION)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.portfolioPublishAction(payload)
+      .map(res => ({ type: ProfileActions.PORTFOLIO_PUBLISH_ACTION_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.PORTFOLIO_PUBLISH_ACTION_FAILED, payload: res }))
+    );
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
+  getDisplayMedia$ = this.actions$
+    .ofType(ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getDisplayMedia(payload)
+      .map(res => ({ type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA_FAILED, payload: res }))
+    );
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
+  getChannelsForPortfolio$ = this.actions$
+    .ofType(ProfileActions.GET_USERS_CHANNELS)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getChannelsForPortfolio(payload)
+      .map(res => ({ type: ProfileActions.GET_USERS_CHANNELS_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.GET_USERS_CHANNELS_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
+  getMediaForPortfolio$ = this.actions$
+    .ofType(ProfileActions.GET_USER_MEDIA)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getMediaForPortfolio(payload)
+      .map(res => ({ type: ProfileActions.GET_USER_MEDIA_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.GET_USER_MEDIA_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
+  getPortfolioCategories$ = this.actions$
+    .ofType(ProfileActions.GET_PORTFOLIO_CATEGORIES)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.getPortfolioCategories(payload)
+      .map(res => ({ type: ProfileActions.GET_PORTFOLIO_CATEGORIES_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.GET_PORTFOLIO_CATEGORIES_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
+  addMediaToCategory$ = this.actions$
+    .ofType(ProfileActions.ADD_MEDIA_TO_CATEGORY)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.addMediaToCategory(payload)
+      .map(res => ({ type: ProfileActions.ADD_MEDIA_TO_CATEGORY_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.ADD_MEDIA_TO_CATEGORY_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
+  addPortfolioCategory$ = this.actions$
+    .ofType(ProfileActions.ADD_PORTFOLIO_CATEGORY)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.addPortfolioCategory(payload)
+      .map(res => ({ type: ProfileActions.ADD_PORTFOLIO_CATEGORY_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.ADD_PORTFOLIO_CATEGORY_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
   /**
    * Get LoggedIn User profile
    */
