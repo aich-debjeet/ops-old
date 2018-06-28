@@ -149,10 +149,14 @@
                         <div class="sticky"><div class="loader">Loading...</div></div>
                     </div>
                     <div *ngIf="portCategories?.length > 0">
-                        <div *ngFor="let category of portCategories" class="row c-port__cat-name" id="switchbranding">
-                            <div class="col-md-9 p-0">{{ category.categoryName }}</div>
+                        <div *ngFor="let category of portCategories; let catIndex = index;" class="row c-port__cat-name" id="switchbranding">
+                            <div class="col-md-9 p-0">
+                                <input #newCatName class="editable-cat" type="text" [disabled]="!category?.isEditable" [value]="category.categoryName" (input)="updateCatName(newCatName.value, catIndex)">
+                            </div>
                             <div class="col-md-3 p-0">
-                                <!-- <a (click)="editCategoryName(category)">Edit</a> -->
+                                <a *ngIf="!category?.isEditable" (click)="catEditAction('enable', catIndex)">Edit</a>
+                                <a *ngIf="category?.isEditable" (click)="saveNewCatName(catIndex)">Done</a>
+                                <!-- <a *ngIf="category?.isEditable" (click)="catEditAction('disable', catIndex)">Cancel</a> -->
                             </div> 
                         </div>
                     </div>

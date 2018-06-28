@@ -97,6 +97,9 @@ export class PortfolioComponent implements OnInit, OnDestroy {
         }
         if (this.generalUtils.checkNestedKey(state, ['get_portfolio_categories_result'])) {
           this.portCategories = state['get_portfolio_categories_result'];
+          for (let i = 0; i < this.portCategories.length; i++) {
+            this.portCategories[i].isEditable = false;
+          }
         }
         if (this.generalUtils.checkNestedKey(state, ['get_port_display_media_result'])) {
           this.displayMedia = state['get_port_display_media_result'];
@@ -141,10 +144,25 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   /**
    * edit category
    */
-  editCategoryName(category: any) {
-    // if () {
-    //   this.profileStore.dispatch({ type: ProfileActions.UPDATE-CATEGORY_NAME, payload:  });
-    // }
+  catEditAction(action: string, catIndex: number) {
+    if (this.portCategories[catIndex]) {
+      if (action === 'enable') {
+        this.portCategories[catIndex].isEditable = true;
+      } else {
+        this.portCategories[catIndex].isEditable = false;
+      }
+    }
+  }
+
+  updateCatName(newName: string, catIndex: number) {
+    if (this.portCategories[catIndex]) {
+      this.portCategories[catIndex].categoryName = newName;
+    }
+    console.log('cats', this.portCategories);
+  }
+
+  saveNewCatName(catIndex: number) {
+    this.profileStore.dispatch({ type: ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME, payload: {} });
   }
 
   /**
