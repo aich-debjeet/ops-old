@@ -115,7 +115,8 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         reg_basic_uploaded_form_data: false,
         reg_basic_form_data: payload,
         success: true,
-        user_basic_reg_success: false
+        user_basic_reg_success: false,
+        completed: []
       });
 
     case AuthActions.USER_REGISTRATION_BASIC_SUCCESS:
@@ -426,6 +427,23 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
         otp_submit_response: payload
       });
     case AuthActions.OTP_SUBMIT_FAILED:
+      return Object.assign({}, state, {
+        user_otp_failed: true
+      });
+
+
+    case AuthActions.CLAIM_OTP_ACTIVE:
+      return Object.assign({}, state, {
+        user_otp_success: false,
+        user_otp_failed: false,
+        otp_submit_params: payload
+      });
+    case AuthActions.CLAIM_OTP_ACTIVE_SUCCESS:
+      return Object.assign({}, state, {
+        user_otp_success: true,
+        otp_submit_response: payload
+      });
+    case AuthActions.CLAIM_OTP_ACTIVE_FAILED:
       return Object.assign({}, state, {
         user_otp_failed: true
       });

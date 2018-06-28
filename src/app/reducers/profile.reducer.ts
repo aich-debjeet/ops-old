@@ -75,6 +75,227 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
   switch (type) {
 
+    /**
+     * for: portfolio
+     */
+    case ProfileActions.PORTFOLIO_DELETE_CATEGORY:
+      return Object.assign({}, state, {
+        portfolio_delete_category: true,
+        portfolio_delete_category_success: false,
+        get_portfolio_categories_result: state['get_portfolio_categories_result'].filter(i => i.categoryId !== payload)
+      });
+
+    case ProfileActions.PORTFOLIO_DELETE_CATEGORY_SUCCESS:
+      return Object.assign({}, state, {
+        portfolio_delete_category: false,
+        portfolio_delete_category_success: true
+      });
+
+    case ProfileActions.PORTFOLIO_DELETE_CATEGORY_FAILED:
+      return Object.assign({}, state, {
+        portfolio_delete_category: false,
+        portfolio_delete_category_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
+    case ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME:
+      return Object.assign({}, state, {
+        portfolio_update_category_name: true,
+        portfolio_update_category_name_success: false,
+        portfolio_update_category_name_query: payload
+      });
+
+    case ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME_SUCCESS:
+      return Object.assign({}, state, {
+        portfolio_update_category_name: false,
+        portfolio_update_category_name_success: true,
+        portfolio_update_category_name_result: payload
+      });
+
+    case ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME_FAILED:
+      return Object.assign({}, state, {
+        portfolio_update_category_name: false,
+        portfolio_update_category_name_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
+    case ProfileActions.PORTFOLIO_PUBLISH_ACTION:
+      return Object.assign({}, state, {
+        portfolio_publish_action: true,
+        portfolio_publish_action_success: false,
+        portfolio_publish_action_query: payload
+      });
+
+    case ProfileActions.PORTFOLIO_PUBLISH_ACTION_SUCCESS:
+      return Object.assign({}, state, {
+        portfolio_publish_action: false,
+        portfolio_publish_action_success: true,
+        portfolio_publish_action_result: payload
+      });
+
+    case ProfileActions.PORTFOLIO_PUBLISH_ACTION_FAILED:
+      return Object.assign({}, state, {
+        portfolio_publish_action: false,
+        portfolio_publish_action_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
+    case ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA:
+      return Object.assign({}, state, {
+        add_media_to_category: false,
+        add_media_to_category_success: false,
+        get_port_display_media: true,
+        get_port_display_media_success: false,
+        get_port_display_media_query: payload
+      });
+
+    case ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA_SUCCESS:
+      return Object.assign({}, state, {
+        get_port_display_media: false,
+        get_port_display_media_success: true,
+        get_port_display_media_result: payload.SUCCESS['medias'],
+        get_portfolio_categories_result: payload.SUCCESS['categories'],
+        portfolio_is_published: true
+      });
+
+    case ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA_FAILED:
+      return Object.assign({}, state, {
+        get_port_display_media: false,
+        get_port_display_media_success: false,
+        portfolio_is_published: false
+      });
+
+    /**
+     * for: portfolio
+     */
+    case ProfileActions.GET_USERS_CHANNELS:
+      return Object.assign({}, state, {
+        add_media_to_category: false,
+        add_media_to_category_success: false,
+        get_users_channels: true,
+        get_users_channels_success: false,
+        get_users_channels_query: payload
+      });
+
+    case ProfileActions.GET_USERS_CHANNELS_SUCCESS:
+      return Object.assign({}, state, {
+        get_users_channels: false,
+        get_users_channels_success: true,
+        get_users_channels_result: payload
+      });
+
+    case ProfileActions.GET_USERS_CHANNELS_FAILED:
+      return Object.assign({}, state, {
+        get_users_channels: false,
+        get_users_channels_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
+    case ProfileActions.GET_USER_MEDIA:
+      return Object.assign({}, state, {
+        add_media_to_category: false,
+        add_media_to_category_success: false,
+        get_users_media: true,
+        get_users_media_success: false,
+        get_users_media_query: payload
+      });
+
+    case ProfileActions.GET_USER_MEDIA_SUCCESS:
+      return Object.assign({}, state, {
+        get_users_media: false,
+        get_users_media_success: true,
+        get_users_media_result: payload.SUCCESS
+      });
+
+    case ProfileActions.GET_USER_MEDIA_FAILED:
+      return Object.assign({}, state, {
+        get_users_media: false,
+        get_users_media_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
+    case ProfileActions.GET_PORTFOLIO_CATEGORIES:
+      return Object.assign({}, state, {
+        add_media_to_category: false,
+        add_media_to_category_success: false,
+        get_portfolio_categories: true,
+        get_portfolio_categories_success: false,
+        get_portfolio_categories_params: payload
+      });
+
+    case ProfileActions.GET_PORTFOLIO_CATEGORIES_SUCCESS:
+      return Object.assign({}, state, {
+        get_portfolio_categories: false,
+        get_portfolio_categories_success: true,
+        get_portfolio_categories_result: payload.SUCCESS
+      });
+
+    case ProfileActions.GET_PORTFOLIO_CATEGORIES_FAILED:
+      return Object.assign({}, state, {
+        get_portfolio_categories: false,
+        get_portfolio_categories_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
+    case ProfileActions.ADD_PORTFOLIO_CATEGORY:
+      return Object.assign({}, state, {
+        add_media_to_category: false,
+        add_media_to_category_success: false,
+        create_portfolio_category: true,
+        create_portfolio_category_success: false,
+        create_portfolio_category_params: payload
+      });
+
+    case ProfileActions.ADD_PORTFOLIO_CATEGORY_SUCCESS:
+      // add new category to the existing list
+      return Object.assign({}, state, {
+        get_portfolio_categories_result: [...state['get_portfolio_categories_result'], payload['SUCCESS']],
+        create_portfolio_category: false,
+        create_portfolio_category_success: true,
+        create_portfolio_category_result: payload.SUCCESS
+      });
+
+    case ProfileActions.ADD_PORTFOLIO_CATEGORY_FAILED:
+      return Object.assign({}, state, {
+        create_portfolio_category: false,
+        create_portfolio_category_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
+    case ProfileActions.ADD_MEDIA_TO_CATEGORY:
+      return Object.assign({}, state, {
+        add_media_to_category: true,
+        add_media_to_category_success: false,
+        add_media_to_category_query: payload
+      });
+
+    case ProfileActions.ADD_MEDIA_TO_CATEGORY_SUCCESS:
+      return Object.assign({}, state, {
+        add_media_to_category: false,
+        add_media_to_category_success: true,
+        add_media_to_category_result: payload.SUCCESS
+      });
+
+    case ProfileActions.ADD_MEDIA_TO_CATEGORY_FAILED:
+      return Object.assign({}, state, {
+        add_media_to_category: false,
+        add_media_to_category_success: false
+      });
+
     /* loading followings/followers */
     case ProfileActions.GET_FOLLOWING_PROFILES:
       return Object.assign({}, state, {
@@ -651,6 +872,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         profile_other_loaded: true,
         profile_other: payload,
         profiles: [...state.profiles, payload],
+        portfolio_user_profile: payload
       });
 
     case ProfileActions.PROFILE_LOAD_FAILED:

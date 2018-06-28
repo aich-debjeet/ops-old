@@ -26,13 +26,21 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
 
     case CommunitiesActions.COMMUNITY_LIST_SUCCESS:
       return Object.assign({}, state, {
-        communityList: payload['SUCCESS'],
+        communityList: state.communityList.concat(payload['SUCCESS'].communityResponse),
+        communityTags: payload['SUCCESS'].filterList[0],
+        community_scrollId: payload['SUCCESS'].scrollId,
         community_loading: false
       });
 
     case CommunitiesActions.COMMUNITY_LIST:
+    console.log(payload);
+      if (payload.scrollId === null) {
+        return Object.assign({}, state, {
+          communityList: [],
+          community_loading: true
+        });
+      }
       return Object.assign({}, state, {
-        communityList: [],
         community_loading: true
       });
 
@@ -151,9 +159,10 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
         community_update_loading: false,
         communityDetails: {
           ...state.communityDetails,
-          access: data.accessSettings.access,
+          access: data.access,
           brief: data.brief,
           title: data.title,
+          image: data.image,
           industryList: [data.industryList[0]],
         },
       });

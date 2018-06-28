@@ -64,20 +64,8 @@
             </form>
         </div>
         <!-- search end -->
-        <div class="o-community-taglist m-t-24">
-            <span class="c-skill__tags c-skill__tags--font color-white">#web</span>
-            <span class="c-skill__tags c-skill__tags--font color-white">#entertainment</span>
-            <span class="c-skill__tags c-skill__tags--font color-white">#projects</span>
-            <span class="c-skill__tags c-skill__tags--font color-white">#uiux</span>
-            <span class="c-skill__tags c-skill__tags--font color-white">#artlovers</span>
-            <span class="c-skill__tags c-skill__tags--font color-white">#artdirection</span>
-            <span class="c-skill__tags c-skill__tags--font color-white">#art</span>
-            <span class="c-skill__tags c-skill__tags--font color-white">#branding</span>
-            <span class="c-skill__tags c-skill__tags--font color-white">#typography</span>
-            <span class="c-skill__tags c-skill__tags--font color-white">#webdesign</span>
-            <span class="c-skill__tags c-skill__tags--font color-white">#web</span>
-            <span class="c-skill__tags c-skill__tags--font color-white">#entertainment</span>
-            <span class="c-skill__tags c-skill__tags--font color-white">#projects</span>
+        <div class="o-community-taglist m-t-24" >
+            <span class="c-skill__tags c-skill__tags--font color-white" *ngFor="let tag of communityTag?.filters">{{ '#' + tag?.name }} </span>
         </div>
         <!--tag list end -->
     </div>
@@ -111,7 +99,7 @@
             </div>
         </div>
         <!-- filter section end -->
-        <div class="tab-content" style="margin-bottom: 18px">
+        <div class="tab-content" style="margin-bottom: 18px" infinite-scroll (scrolled)="onScroll($event)">
             <div id="created">
                 <app-community-card *ngFor="let communities of list" [data]="communities" [loader]="false"></app-community-card>
                 <div *ngIf="community_load">

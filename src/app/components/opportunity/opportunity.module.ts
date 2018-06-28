@@ -19,6 +19,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { NgxMasonryModule } from 'ngx-masonry';
 
 import { SharedPipesModule } from './../../pipes/shared-pipes.module';
+import { OpportunityEditComponent } from './opportunity-edit/opportunity-edit.component';
 
 // opportunity module routes
 const opportunityRoutes: Routes = [
@@ -38,7 +39,8 @@ const opportunityRoutes: Routes = [
         ]
       },
       { path: 'create', component: OpportunityCreateComponent },
-      { path: 'view/:id', component: OpportunityViewComponent, pathMatch: 'full' }
+      { path: 'view/:id', component: OpportunityViewComponent, pathMatch: 'full' },
+      { path: 'edit/:id', component: OpportunityEditComponent, pathMatch: 'full' }
     ]
   }
 ]
@@ -63,7 +65,8 @@ const opportunityRoutes: Routes = [
     OpportunitySearchRecommendedComponent,
     OpportunitySearchAppliedComponent,
     OpportunitySearchCreatedComponent,
-    OpportunityViewComponent
+    OpportunityViewComponent,
+    OpportunityEditComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

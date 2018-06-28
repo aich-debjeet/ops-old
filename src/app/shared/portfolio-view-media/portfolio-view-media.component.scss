@@ -1,0 +1,48 @@
+.modal-body {
+    display: flex;
+}
+.c-portmodal__imgblock {
+    height: 666px;
+    overflow: hidden;
+    padding: 0 24px 0 0;
+}
+.modal-lg {
+    width: 1170px;
+}
+.view-port-modal-content {
+    position: relative;
+    padding-top: 32px;
+    padding-bottom: 28px;
+}
+.c-portmodal__img {
+    width: 100%;
+}
+.c-portmodal__text {
+    font-size: 13px;
+    line-height: 20px;
+    color: #FFFFFF;
+}
+.c-portmodal__text2 {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #979797;
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 600;
+}
+.pull-right {
+    float: right !important;
+}
+.c-portmodal__text2 a {
+    color: #fff;
+}
+.modal-header {
+    border: none;
+    .close {
+        color: #fff;
+        opacity: 0.5;
+        font-weight: 300;
+        font-size: 24px;
+        margin-top: -2px;
+    }
+}

@@ -60,7 +60,7 @@
                             <a routerLinkActive="activein" [routerLink]="['about']">About</a>
                         </li>
                         <li class="list-line-item">
-                            <a routerLinkActive="activein" routerLink="/portfolio">Portfolio</a>
+                            <a routerLinkActive="activein" [routerLink]="['/portfolio/u', userProfile?.profile_navigation_details?.username]">Portfolio</a>
                         </li>
                         <li class="list-line-item hidden-xs" *ngIf = "isOwner">
                             <a routerLinkActive="activein" routerLink="/planner">Planner</a>

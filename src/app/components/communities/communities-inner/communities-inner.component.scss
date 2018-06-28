@@ -50,6 +50,7 @@
     background: url(https://ops-v2.netlify.com/assets/demo/photography3.jpg);
     background-size: cover;
     background-position: center;
+    position: relative;
 }
 
 .o-commu__short-det {
@@ -203,5 +204,54 @@
     color: #929292;
     font-size: 11px;
     line-height: 18px;
+}
+.c-commu__imgcover {
+    position: absolute;
+    display: inline;
+    padding: 5px 8px;
+    left: 76px;
+    bottom: 4px;
+    width: 47%;
+    height: 32px;
+}
+
+// for cover file btn
+.o-commu-cover-media {
+    width: 100px;
+    height: 30px;
+    margin: 0px auto;
+    opacity: 0;
+    position: absolute;
+    z-index: 1;
+    cursor: pointer;
+    margin-left: -11px;
+    margin-top: -8px;
+    cursor: pointer!important;
+    display: block !important;
+}
+
+.o-commu-cover-upload-btn {
+    background-image: url(https://cdn.onepagespotlight.com/img/svg/edit_red.svg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-left:5px;
+    cursor: pointer;
+}
+
+.o-commu-cover-media__btn {
+    position: absolute;
+    bottom: 8px;
+    left: 0px;
+    background: $color-white;
+    color: $color-theme;
+    padding:6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
 }
 // --
