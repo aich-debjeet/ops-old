@@ -58,6 +58,7 @@ export class ModalComponent implements OnInit {
   }
 
   close(checkBlocking = false): void {
+    console.log('close modal');
     this.modalService.close(this.modalId, checkBlocking);
     this.onClose.emit(false);
   }
