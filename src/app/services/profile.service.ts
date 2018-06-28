@@ -59,7 +59,7 @@ export class ProfileService {
    * for: portfolio
    */
   getChannelsForPortfolio(query: string) {
-    return this.api.get('/portal/portfolio/channelTextSearch/0/10?searchText=' + query);
+    return this.api.get('/portal/portfolio/channelTextSearch/0/1000?searchText=' + query);
   }
 
   /**
