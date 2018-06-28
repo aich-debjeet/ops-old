@@ -129,6 +129,15 @@ export class AuthEffect {
       .catch((res) => Observable.of({ type: AuthActions.USER_PROFILE_CLAIM_FAILED, payload: res }))
     );
 
+  @Effect()
+  claimProfile$ = this.actions$
+    .ofType(AuthActions.PROFILE_CLAIM)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.claimProfile(payload)
+      .map(res => ({ type: AuthActions.PROFILE_CLAIM_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.PROFILE_CLAIM_FAILED, payload: res }))
+    );
+
 
   @Effect()
   checkOtp$ = this.actions$
@@ -137,6 +146,15 @@ export class AuthEffect {
     .switchMap((payload) => this.authService.checkOtp(payload)
       .map(res => ({ type: AuthActions.OTP_CHECK_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: AuthActions.OTP_CHECK_FAILED, payload: res }))
+    );
+
+  @Effect()
+  claimOtpActive$ = this.actions$
+    .ofType(AuthActions.CLAIM_OTP_ACTIVE)
+    .map(toPayload)
+    .switchMap((payload) => this.authService.claimCheckOtp(payload)
+      .map(res => ({ type: AuthActions.CLAIM_OTP_ACTIVE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: AuthActions.CLAIM_OTP_ACTIVE_FAILED, payload: res }))
     );
 
   @Effect()

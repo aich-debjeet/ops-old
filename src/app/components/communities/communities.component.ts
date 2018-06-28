@@ -37,6 +37,10 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
   query: string;
   list: any;
   community_load: boolean;
+  communityTag: any;
+  scrolling = 0;
+  scrollingLoad = 700;
+  community_scroll_id: any = null;
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
@@ -60,6 +64,10 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
         if (state['communityList']) {
           this.list = state['communityList'];
         }
+
+        this.communityTag = state['communityTags'];
+        this.community_scroll_id = state['community_scrollId'];
+
         if (state['community_loading'] !== null) {
           this.community_load = state['community_loading'];
         }
@@ -72,12 +80,13 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
         // Defaults to 0 if no query param provided.
         if (params['status']) {
           this.status = params['status'];
-          this.loadCommunity();
+          this.scrollingLoad = 0;
+          this.loadCommunity(null);
         }
         // this.serachApi();
       });
 
-      this.loadCommunity();
+      this.loadCommunity(null);
   }
 
   ngOnInit() {
@@ -94,14 +103,11 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.CommunityCreate.open();
   }
 
-  loadCommunity() {
+  loadCommunity(scrollId: any) {
     const list = {
-      title: this.searchString,
-      status: this.status,
-      industryList: [],
-      tags: [],
-      offset: 0,
-      limit: 10
+      scrollId: scrollId,
+      searchText: this.searchString,
+      searchType: this.status,
     }
 
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_LIST, payload: list });
@@ -144,6 +150,16 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  onScroll(e) {
+    console.log(e);
+    this.scrolling = e.currentScrollPosition;
+    if (this.scrollingLoad <= this.scrolling) {
+      this.scrollingLoad += 700
+      this.loadCommunity(this.community_scroll_id)
+      // this.profileStore.dispatch({ type: ProfileActions.LOAD_USER_FOLLOWING_POSTS, payload: data });
+    }
+  }
+
   ngAfterViewInit() {
 
     /**
@@ -152,7 +168,7 @@ export class CommunitiesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchInput.valueChanges
     .debounceTime(500)
     .subscribe(() => {
-      this.loadCommunity();
+      this.loadCommunity(null);
     });
 
   }
