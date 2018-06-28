@@ -141,6 +141,13 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     }
   }
 
+  deleteCategory(catId: string) {
+    this.profileStore.dispatch({
+      type: ProfileActions.PORTFOLIO_DELETE_CATEGORY,
+      payload: catId
+    });
+  }
+
   /**
    * edit category
    */
@@ -158,7 +165,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     if (this.portCategories[catIndex]) {
       this.portCategories[catIndex].categoryName = newName;
     }
-    console.log('cats', this.portCategories);
+    // console.log('cats', this.portCategories);
   }
 
   saveNewCatName(catIndex: number) {

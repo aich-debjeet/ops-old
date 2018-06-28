@@ -154,9 +154,9 @@
                                 <input #newCatName class="editable-cat" type="text" [disabled]="!category?.isEditable" [value]="category.categoryName" (input)="updateCatName(newCatName.value, catIndex)">
                             </div>
                             <div class="col-md-3 p-0">
-                                <a *ngIf="!category?.isEditable" (click)="catEditAction('enable', catIndex)">Edit</a>
-                                <a *ngIf="category?.isEditable" (click)="saveNewCatName(catIndex)">Done</a>
-                                <!-- <a *ngIf="category?.isEditable" (click)="catEditAction('disable', catIndex)">Cancel</a> -->
+                                <a *ngIf="!category?.isEditable" (click)="deleteCategory(category.categoryId)">Delete</a>
+                                <!-- <a *ngIf="!category?.isEditable" (click)="catEditAction('enable', catIndex)">Edit</a>
+                                <a *ngIf="category?.isEditable" (click)="saveNewCatName(catIndex)">Done</a> -->
                             </div> 
                         </div>
                     </div>
