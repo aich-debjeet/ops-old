@@ -2,10 +2,10 @@
     <div class="row m-t-b-24 m-l-r-0">
         <!-- left feed -->
         <div class="col-md-3 col-sm-3 hidden-sm hidden-xs">
-            <div class="row">
+            <div class="row m-t-16">
                 <!-- calender -->
                 <div class="c-card">
-                    <div class="c-text_md padding_16 color-grey-dark f-w_600 text_uppercase ltr-space">Opportunities for you</div>
+                    <div class="c-text_md padding_16 color-grey-dark f-w_600 text_uppercase ltr-space">OPPORTUNITIES CREATED</div>
                     <div class="opp_center" *ngIf="opportunities && opportunities.length === 0; else opportunities_found;">
                         <p class="result-not-found">No records found!</p>
                     </div>
@@ -28,44 +28,38 @@
                         </a>
                     </ng-template>
                 </div>
-                <!-- attend event -->
-                <div class="col-md-12 col-sm-12 c-profile__calender p-0 m-t-16">
-                    <div class="c-profile__calender--head">
-                        Events
-                    </div>
-                    <div class="o-blur__block">
-                        <div class="row p-16">
-                            <div class="col-md-4 col-sm-12 p-l-r-16">
-                                <img src="{{ imageBaseUrl }}img/event.jpg" class="img-responsive">
-                            </div>
-                            <div class="col-md-8 col-sm-12 p-0">
-                                <div class="c-text_lg">DJ Night By DJ Sun Tiesto</div>
-                                <div class="c-text_lg">12, JUL</div>
-                                <div class="c-text_md color-grey-dark">Mohegan Sun Arena</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="o-profile_coming">Coming Soon</div>
-                </div>
-                <div class="col-md-12 col-sm-12 c-profile__calender p-0 m-t-16">
-                    <div class="c-profile__calender--head">
-                        Communities
-                    </div>
-                    <div class="o-blur__block">
-                        <div class="row p-16">
-                            <div class="col-md-4 col-sm-12 p-l-r-16">
-                                <img src="{{ imageBaseUrl }}img/event.jpg" class="img-responsive">
-                            </div>
-                            <div class="col-md-8 col-sm-12 p-0">
-                                <div class="c-text_lg">Semplice Moh - Designers </div>
-                                <div class="c-text_lg">Portfolio System</div>
-                                <div class="c-text_md color-grey-dark">23 Collaborators</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="o-profile_coming">Coming Soon</div>
-                </div>
+            </div>
 
+            <!-- attend event -->
+            <div class="row m-t-16">
+                <div class="c-card">
+                    <div class="c-card__project p-l-r-16 p-t-16">
+                        <div class="c-text_md color-grey-dark c-text-semibold">
+                            EVENTS CREATED
+                        </div>
+                    </div>
+                    <div class="p-16" *ngFor="let event of eventList">
+                        <!-- card media (img, video & audio) -->
+                        <div class="c-card__event2 float_left">
+                            <a [routerLink]="'/event/inner/' + event?.id">
+                                <img [src]="imageBaseUrl + event?.imagePath[0]" alt="" class="c-card__image">
+                            </a>
+                        </div>
+                        <!-- //card media (img, video & audio) -->
+                        <div class="c-card__project p-t-8">{{event?.eventType }}</div>
+                        <!-- card body -->
+                        <div class="c-card__body p-0">
+                            <div class="c-text_lg">
+                                    {{event?.title | truncate:[40, '...']}}
+                            </div>
+                            <div class="c-text_md color-grey-dark m-t-8 m-b-24">{{ event?.startDate | utcDate | date: 'dd, MMM'}} - {{ event?.endDate | utcDate | date: 'dd, MMM'}}</div>
+                        </div>
+                        <!-- //card body -->
+                    </div>
+                    <p class="text-center p-t-b-16">
+                        <a routerLink="/event" class="c-text_md color-theme">See All</a>
+                    </p>
+                </div>
             </div>
         </div>
         <!-- //left feed -->

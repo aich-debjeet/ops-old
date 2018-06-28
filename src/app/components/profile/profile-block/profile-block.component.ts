@@ -6,6 +6,7 @@ import { ProfileModal, initialTag } from '../../../models/profile.model';
 import { Router, ActivatedRoute, RoutesRecognized } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 import { OpportunityModel } from '../../../models/opportunity.model';
+import { EventActions } from '../../../actions/event.action';
 
 // action
 import { ProfileActions } from '../../../actions/profile.action';
@@ -20,6 +21,8 @@ import { ProfileHelper } from '../../../helpers/profile.helper';
 
 import { NguCarousel, NguCarouselStore } from '@ngu/carousel';
 import { GeneralUtilities } from '../../../helpers/general.utils';
+import { EventModal, initialTagEve  } from '../../../models/event.model';
+import { OpportunityActions } from '../../../actions/opportunity.action';
 
 import { every as _every } from 'lodash';
 
@@ -32,8 +35,10 @@ import { every as _every } from 'lodash';
 export class ProfileBlockComponent implements OnInit, OnDestroy {
   opportunityState$: Observable<OpportunityModel>;
   tagState$: Observable<ProfileModal>;
+  tgStat$: Observable<EventModal>;
   private subscription: ISubscription;
   private oppSub: ISubscription;
+  private eveSub: ISubscription;
   userQuickAccess = initialTag;
   router: any;
   activeUser: string;
@@ -51,6 +56,9 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
   openChannel: boolean;
   pinListEmpty = true;
   opportunities: any[];
+  eventList: any;
+  recordsPerPage = 2;
+  people_follow_id: any = '';
 
   constructor(
     private http: Http,
@@ -58,6 +66,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
     public route: ActivatedRoute,
     private utils: ProfileHelper,
     private profileStore: Store<ProfileModal>,
+    private _store: Store<any>,
     private generalUtils: GeneralUtilities
   ) {
     this.router = _router;
@@ -66,6 +75,7 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
 
     // Own Profile
     this.tagState$ = this.profileStore.select('profileTags');
+    this.tgStat$ = this._store.select('eventTags');
 
     this.subscription = this.tagState$.subscribe((state) => {
       this.userQuickAccess = state;
@@ -100,10 +110,20 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
 
     this.opportunityState$ = this.profileStore.select('opportunityTags');
     this.oppSub = this.opportunityState$.subscribe((state) => {
-      if (this.generalUtils.checkNestedKey(state, ['search_opportunities_result', 'opportunityResponse'])) {
+      if (this.generalUtils.checkNestedKey(state, ['search_opportunities_result', 'opportunityResponse']) && state['search_opportunities_result']['opportunityResponse'].length > 0) {
         this.opportunities = state['search_opportunities_result']['opportunityResponse'];
       }
     });
+    this.eveSub = this.tgStat$.subscribe((state) =>{
+      if (state['event_list'] && state.event_Loaded === true) {
+        this.eventList = state['event_list'];
+         console.log(this.eventList)
+      }
+    });
+    this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
+      scrollId: '',
+      searchType: 'created',
+    } });
   }
 
   ngOnInit(): void {
@@ -150,6 +170,10 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
       touch: true
     }
   }
+  ngAfterViewInit() {
+    // this.loadProfiles();
+    this.loadRecomOpps();
+  }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -179,6 +203,16 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
           this.isCurrentUser = false;
         }
       });
+  }
+
+  loadRecomOpps() {
+    const recommOppParams = {
+      limit: this.recordsPerPage,
+      scrollId: '',
+      filtersMap: [],
+      searchType: 'created'
+    }
+    this._store.dispatch({ type: OpportunityActions.SEARCH_OPPORTUNITIES, payload: recommOppParams });
   }
 
   pinChannel(spotfeedId) {

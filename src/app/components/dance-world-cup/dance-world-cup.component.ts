@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 
-import { EventModal, initialTag  } from '../../models/event.model';
+import { EventModal, initialTagEve  } from '../../models/event.model';
 import { Store } from '@ngrx/store';
 import { EventActions } from 'app/actions/event.action';
 import { NguCarousel, NguCarouselStore } from '@ngu/carousel';

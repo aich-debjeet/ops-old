@@ -46,6 +46,8 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
   scrollingLoad = 8000;
   isOwner: boolean;
   profiles = [];
+  people_follow_id: any = '';
+  scrollingPeople = 100;
 
   constructor(
     private http: Http,
@@ -64,6 +66,9 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
         if (state['user_profiles_all'] !== 'undefined') {
           this.profiles = state.user_profiles_all;
         }
+        if (state.user_profiles_all_loaded) {
+          this.people_follow_id = state.people_follow_scroll_id
+        }
     });
     // const timer = Rx.Observable.timer(5000);
 
@@ -81,6 +86,9 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userType();
+  }
+  ngAfterViewInit() {
+    this.loadProfiles();
   }
 
   ngOnDestroy() {
@@ -172,5 +180,21 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
   followUser(user: any) {
     this._store.dispatch({ type: ProfileActions.PROFILE_FOLLOW, payload: user.handle });
     user.extra.isFollowing = true;
+  }
+  loadProfiles() {
+    this._store.dispatch({ type: ProfileActions.LOAD_ALL_PROFILES, payload: {
+      'isHuman' : '1' ,
+      'name': {
+        'scrollId': this.people_follow_id
+       }
+      }});
+  }
+  onScrol(e) {
+    console.log(e)
+    this.scrolling = e.currentScrollPosition;
+    if (this.scrollingPeople <= this.scrolling) {
+      this.scrollingPeople += 100;
+      this.loadProfiles();
+    }
   }
 }
