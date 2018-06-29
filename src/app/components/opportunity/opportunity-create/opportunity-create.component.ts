@@ -203,17 +203,17 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   createAuditionForm() {
     this.auditionFrm = this.fb.group({
       auditionTitle: ['', [Validators.required]],
-      auditionDescription: ['', []],
-      auditionCategory: ['', []],
+      auditionDescription: ['', [Validators.required]],
+      auditionCategory: ['', [Validators.required]],
       auditionDate: ['', [Validators.required]],
       auditionLocation: ['', [Validators.required]],
       auditionGender: ['', [Validators.required]],
       auditionAgeMin: ['', [Validators.required]],
       auditionAgeMax: ['', [Validators.required]],
-      auditionHeightFrom: ['', []],
-      auditionHeightTo: ['', []],
-      auditionWeightFrom: ['', []],
-      auditionWeightTo: ['', []]
+      auditionHeightFrom: ['', [Validators.required]],
+      auditionHeightTo: ['', [Validators.required]],
+      auditionWeightFrom: ['', [Validators.required]],
+      auditionWeightTo: ['', [Validators.required]]
     });
   }
 
@@ -270,9 +270,10 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   createProjectForm() {
     this.projectFrm = this.fb.group({
       projectTitle: ['', [Validators.required]],
-      projectDescription: ['', []],
-      projectIndustry: ['', []],
-      projectSkills: ['', []],
+      projectDescription: ['', [Validators.required]],
+      projectIndustry: ['', [Validators.required]],
+      projectLocation: ['', [Validators.required]],
+      projectSkills: ['', [Validators.required]],
       projectCollaborators: ['', []],
     });
   }
@@ -292,7 +293,10 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
         description: formData.projectDescription,
         industry: formData.projectIndustry,
         skills: formData.projectSkills,
-        addCollaborators: [formData.projectCollaborators]
+        addCollaborators: [formData.projectCollaborators],
+        location: {
+          location: formData.projectLocation
+        }
       }
     };
 
@@ -310,20 +314,20 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   createJobForm() {
     this.jobFrm = this.fb.group({
       jobRole: ['', [Validators.required]],
-      jobDescription: ['', []],
-      jobIndustry: ['', []],
+      jobDescription: ['', [Validators.required]],
+      jobIndustry: ['', [Validators.required]],
       jobExperienceFrom: ['', [Validators.required]],
       jobExperienceTo: ['', [Validators.required]],
-      jobSalaryAmount: ['', []],
-      jobSalaryDuration: ['', []],
-      jobSalaryCurrency: ['', []],
-      jobDuration: ['', []],
-      jobLocation: ['', []],
-      jobTravelInclusive: ['', []],
-      jobCountry: ['', []],
-      jobSkills: ['', []],
-      jobQualifications: ['', []],
-      jobOrgName: ['', []]
+      jobSalaryAmount: ['', [Validators.required]],
+      jobSalaryDuration: ['', [Validators.required]],
+      jobSalaryCurrency: ['', [Validators.required]],
+      jobDuration: ['', [Validators.required]],
+      jobLocation: ['', [Validators.required]],
+      jobTravelInclusive: ['', [Validators.required]],
+      jobCountry: ['', [Validators.required]],
+      jobSkills: ['', [Validators.required]],
+      jobQualifications: ['', [Validators.required]],
+      jobOrgName: ['', [Validators.required]]
     });
   }
 
@@ -380,20 +384,20 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   createInternshipForm() {
     this.internshipFrm = this.fb.group({
       internshipRole: ['', [Validators.required]],
-      internshipDescription: ['', []],
-      internshipIndustry: ['', []],
+      internshipDescription: ['', [Validators.required]],
+      internshipIndustry: ['', [Validators.required]],
       internshipExperienceFrom: ['', [Validators.required]],
       internshipExperienceTo: ['', [Validators.required]],
-      internshipSalaryAmount: ['', []],
-      internshipSalaryDuration: ['', []],
-      internshipSalaryCurrency: ['', []],
-      internshipDuration: ['', []],
-      internshipLocation: ['', []],
-      internshipTravelInclusive: ['', []],
-      internshipCountry: ['', []],
-      internshipSkills: ['', []],
-      internshipQualifications: ['', []],
-      internshipOrgName: ['', []]
+      internshipSalaryAmount: ['', [Validators.required]],
+      internshipSalaryDuration: ['', [Validators.required]],
+      internshipSalaryCurrency: ['', [Validators.required]],
+      internshipDuration: ['', [Validators.required]],
+      internshipLocation: ['', [Validators.required]],
+      internshipTravelInclusive: ['', [Validators.required]],
+      internshipCountry: ['', [Validators.required]],
+      internshipSkills: ['', [Validators.required]],
+      internshipQualifications: ['', [Validators.required]],
+      internshipOrgName: ['', [Validators.required]]
     });
   }
 
@@ -450,11 +454,12 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   createFreelanceForm() {
     this.freelanceFrm = this.fb.group({
       freelanceTitle: ['', [Validators.required]],
-      freelanceDescription: ['', []],
-      freelanceIndustry: ['', []],
+      freelanceDescription: ['', [Validators.required]],
+      freelanceIndustry: ['', [Validators.required]],
+      freelanceLocation: ['', [Validators.required]],
       freelancePaymentMethod: ['', [Validators.required]],
       freelanceEngagement: ['', [Validators.required]],
-      freelanceSkills: ['', []],
+      freelanceSkills: ['', [Validators.required]],
     });
   }
 
@@ -476,7 +481,10 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
         payType: formData.freelancePaymentMethod,
         engagement: formData.freelanceEngagement,
         skills: formData.freelanceSkills,
-        attachFiles: this.freelanceAttachments
+        attachFiles: this.freelanceAttachments,
+        location: {
+          location: formData.freelanceLocation
+        },
       }
     };
 
@@ -494,13 +502,13 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   createVolunteerForm() {
     this.volunteerFrm = this.fb.group({
       volunteerTitle: ['', [Validators.required]],
-      volunteerCause: ['', []],
-      volunteerIndustry: ['', []],
-      volunteerLocation: ['', []],
-      volunteerSkills: ['', []],
-      volunteerDL: [false, []],
-      volunteerBGC: [false, []],
-      volunteerORTR: [false, []],
+      volunteerCause: ['', [Validators.required]],
+      volunteerIndustry: ['', [Validators.required]],
+      volunteerLocation: ['', [Validators.required]],
+      volunteerSkills: ['', [Validators.required]],
+      volunteerDL: [false, [Validators.required]],
+      volunteerBGC: [false, [Validators.required]],
+      volunteerORTR: [false, [Validators.required]],
     });
   }
 
