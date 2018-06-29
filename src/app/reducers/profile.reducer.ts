@@ -183,14 +183,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         get_port_display_media_success: true,
         get_port_display_media_result: payload.SUCCESS['medias'],
         get_portfolio_categories_result: payload.SUCCESS['categories'],
-        portfolio_is_published: true
+        // portfolio_is_published: true
       });
 
     case ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA_FAILED:
       return Object.assign({}, state, {
         get_port_display_media: false,
         get_port_display_media_success: false,
-        portfolio_is_published: false
+        // portfolio_is_published: false
       });
 
     /**
