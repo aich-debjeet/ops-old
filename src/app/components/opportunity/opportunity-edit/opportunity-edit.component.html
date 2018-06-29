@@ -901,6 +901,7 @@
                                       <div class="c-form__group m-t-0 c-form--sm">
                                           <textarea formControlName="freelanceDescription" class="c-textarea__block c-textarea--style" placeholder="Tell us more about your project"></textarea>
                                       </div>
+                                      <p *ngIf="freelanceFrm.controls['freelanceDescription'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">Description is required!</p>
                                   </div>
                               </div>
                               <!-- Description end -->
@@ -917,6 +918,7 @@
                                               </option>
                                           </select>
                                       </div>
+                                      <p *ngIf="freelanceFrm.controls['freelanceIndustry'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">Industry is required!</p>
                                   </div>
                               </div>
                               <div class="o-oppo-form__single">
@@ -976,6 +978,7 @@
                                           <span class="c-form__bar"></span>
                                           <!-- <label>eg: #UIdesign #photoshop #sketch</label> -->
                                       </div>
+                                      <p *ngIf="freelanceFrm.controls['freelanceSkills'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">Skills are required!</p>
                                   </div>
                               </div>
                               <!-- Skills end -->

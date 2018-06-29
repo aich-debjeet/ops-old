@@ -450,11 +450,11 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   createFreelanceForm() {
     this.freelanceFrm = this.fb.group({
       freelanceTitle: ['', [Validators.required]],
-      freelanceDescription: ['', []],
-      freelanceIndustry: ['', []],
+      freelanceDescription: ['', [Validators.required]],
+      freelanceIndustry: ['', [Validators.required]],
       freelancePaymentMethod: ['', [Validators.required]],
       freelanceEngagement: ['', [Validators.required]],
-      freelanceSkills: ['', []],
+      freelanceSkills: ['', [Validators.required]],
     });
   }
 

@@ -367,11 +367,11 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   buildFreelanceForm(data: any) {
     this.freelanceFrm = this.fb.group({
       freelanceTitle: [data['opportunityFreelance']['title'], [Validators.required]],
-      freelanceDescription: [data['opportunityFreelance']['description'], []],
-      freelanceIndustry: [data['opportunityFreelance']['category'], []],
+      freelanceDescription: [data['opportunityFreelance']['description'], [Validators.required]],
+      freelanceIndustry: [data['opportunityFreelance']['category'], [Validators.required]],
       freelancePaymentMethod: [data['opportunityFreelance']['payType'], [Validators.required]],
       freelanceEngagement: [data['opportunityFreelance']['engagement'], [Validators.required]],
-      freelanceSkills: [data['opportunityFreelance']['skills'], []],
+      freelanceSkills: [data['opportunityFreelance']['skills'], [Validators.required]],
     });
   }
 
