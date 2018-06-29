@@ -135,7 +135,6 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     // .debounceTime(500)
     // .subscribe(() => {
     //   // this.loadCommunity();
-    //   console.log('test');
     // });
   }
 
@@ -241,7 +240,6 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
    * Invite people to community
    */
   inviteToCommunity(handle) {
-    console.log(handle)
     const sender = {
       id: this.id,
       data: {
@@ -309,7 +307,6 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       files: file,
     }).subscribe(
       (event: UploadEvent) => {
-        console.log(event);
         if (event.data) {
           // @TODO__URGENT Make list appendable for files
           const latestUploaded = event.data['SUCCESS'];
@@ -322,11 +319,9 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
             }
             this.store.dispatch({ type: CommunitiesActions.COMMUNITY_UPDATE, payload: data });
           }
-          console.log(latestUploaded);
         }
       },
       (err) => {
-        console.log(err);
         //
       },
       () => {

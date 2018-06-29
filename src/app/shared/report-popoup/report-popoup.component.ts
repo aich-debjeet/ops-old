@@ -41,8 +41,7 @@ export class ReportPopoupComponent implements OnInit {
       desc: ''
     });
   }
-  submitForm(value){
-    console.log(value);
+  submitForm(value) {
     // this.onclose.emit();
     this.profileThankYou = true;
     // this.modalService.open('thankYou');

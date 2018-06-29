@@ -124,7 +124,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
     this.eveSub = this.tgStat$.subscribe((state) =>{
       if (state['event_list'] && state.event_Loaded === true) {
         this.eventList = state['event_list'];
-         console.log(this.eventList)
       }
     });
   }
@@ -227,7 +226,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
      this.channelPinSuccess = true;
   }
   channelList() {
-    console.log('its hre')
     if (this.openChannel) {
     this.openChannel = false;
     }

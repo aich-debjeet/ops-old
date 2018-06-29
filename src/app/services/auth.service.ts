@@ -61,7 +61,6 @@ export class AuthService {
     }
 
     validateToken() {
-      console.log('authentication purpose')
       const req = {};
       this.updateAuthHeaders();
       return this.http.get(`${this.apiLink}/portal/auth/loggedUser`, { headers: this.headers })

@@ -31,8 +31,6 @@ export class StatusListComponent implements OnInit, OnDestroy {
         this.userStatus = state['user_status_list'];
         if (state['profile_cards'] && state['profile_cards']['active'] && state['profile_cards']['active'].handle) {
           this.handle = state['profile_cards']['active'].handle;
-          console.log(this.handle);
-          // this.userList()
         }
 
       }
