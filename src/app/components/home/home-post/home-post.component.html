@@ -2,7 +2,7 @@
   <div class="col-md-4 m-t-8 p-0 hidden-xs">
     <div class="o-hf_usercard">
       <div class="o-hf_usertimeline">
-        <img [src]="imageLink + userData?.coverImage">
+        <img [src]="userData?.coverImage ? imageLink + userData?.coverImage : 'https://cdn.onepagespotlight.com/img/profile-cover.png'">
       </div>
       <div class="o-hf_usercont">
         <div class="o-hf_userimg">

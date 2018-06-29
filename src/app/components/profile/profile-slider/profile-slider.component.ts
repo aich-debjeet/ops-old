@@ -214,14 +214,13 @@ export class ProfileSliderComponent implements OnInit {
     if (profile == null) {
       return false;
     }
-
     let coverImageURL;
 
     // if (profile && profile['extra'] && profile['extra']['isImported'] === true) {
     //   coverImageURL = this.baseUrl + '/assets/img/new/s14.jpg';
     // } else
     if (!profile.image.cover || profile.image.cover === '') {
-      coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
+      coverImageURL = 'https://cdn.onepagespotlight.com/img/profile-cover.png';
     } else {
       coverImageURL = this.baseUrl + profile.image.cover;
     }
