@@ -335,7 +335,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.profileStore.dispatch({ type: ProfileActions.PORTFOLIO_PUBLISH_ACTION, payload: pubAction });
     setTimeout(() => {
       this.disablePublishButton = false;
-      this.toastr.success('Portfolio has been published successfully!');
+      this.toastr.success('Portfolio has been ' + pubAction + 'ed successfully!');
     }, 500);
   }
 
@@ -348,6 +348,21 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
   channelAssignCopy() {
     this.filteredChannels = Object.assign([], this.channels);
+  }
+
+  getCatIndexByName(catName: string) {
+    return _findIndex(this.portCategories, (c) => c.categoryName === catName);
+  }
+
+  removeMediaFromCat(mediaId: string) {
+    const catIndex = this.getCatIndexByName(this.activeTab);
+    this.profileStore.dispatch({
+      type: ProfileActions.PORT_REMOVE_MEDIA_FROM_CAT,
+      payload: {
+        mediaId: mediaId,
+        categoryId: this.portCategories[catIndex].categoryId
+      }
+    });
   }
 
 }

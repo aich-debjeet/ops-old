@@ -78,6 +78,28 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     /**
      * for: portfolio
      */
+    case ProfileActions.PORT_REMOVE_MEDIA_FROM_CAT:
+      return Object.assign({}, state, {
+        port_remove_media_from_cat: true,
+        port_remove_media_from_cat_success: false,
+        get_port_display_media_result: state['get_port_display_media_result'].filter(i => i.mediaId !== payload.mediaId)
+      });
+
+    case ProfileActions.PORT_REMOVE_MEDIA_FROM_CAT_SUCCESS:
+      return Object.assign({}, state, {
+        port_remove_media_from_cat: false,
+        port_remove_media_from_cat_success: true
+      });
+
+    case ProfileActions.PORT_REMOVE_MEDIA_FROM_CAT_FAILED:
+      return Object.assign({}, state, {
+        port_remove_media_from_cat: false,
+        port_remove_media_from_cat_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
     case ProfileActions.PORTFOLIO_DELETE_CATEGORY:
       return Object.assign({}, state, {
         portfolio_delete_category: true,
@@ -124,10 +146,19 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * for: portfolio
      */
     case ProfileActions.PORTFOLIO_PUBLISH_ACTION:
+      const new_portfolio_user_profile = state['portfolio_user_profile'];
+      if (payload === 'publish') {
+        new_portfolio_user_profile['extra']['isPublished'] = true;
+      } else {
+        new_portfolio_user_profile['extra']['isPublished'] = false;
+      }
+      console.log('payload', payload);
+      console.log('new state', new_portfolio_user_profile['extra']['isPublished']);
       return Object.assign({}, state, {
         portfolio_publish_action: true,
         portfolio_publish_action_success: false,
-        portfolio_publish_action_query: payload
+        portfolio_publish_action_query: payload,
+        portfolio_user_profile: new_portfolio_user_profile
       });
 
     case ProfileActions.PORTFOLIO_PUBLISH_ACTION_SUCCESS:
@@ -161,14 +192,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         get_port_display_media_success: true,
         get_port_display_media_result: payload.SUCCESS['medias'],
         get_portfolio_categories_result: payload.SUCCESS['categories'],
-        portfolio_is_published: true
+        // portfolio_is_published: true
       });
 
     case ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA_FAILED:
       return Object.assign({}, state, {
         get_port_display_media: false,
         get_port_display_media_success: false,
-        portfolio_is_published: false
+        // portfolio_is_published: false
       });
 
     /**
