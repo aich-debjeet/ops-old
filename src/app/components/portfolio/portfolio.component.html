@@ -46,7 +46,7 @@
                                     <div class="row">
                                         <ngx-masonry *ngIf="displayMedia?.length > 0" [useImagesLoaded]="true">
                                             <ngx-masonry-item *ngFor="let media of displayMedia" class="col-md-4 col-sm-4 c-portfolio--block">
-                                                <app-portfolio-media (removeSelectedMedia)="removeMediaFromCat($event)" (displaySelectedMedia)="displayMediaPopup($event)" [portMediaDetails]="media" [portMediaCategory]="activeTab"></app-portfolio-media>
+                                                <app-portfolio-media (removeSelectedMedia)="removeMediaFromCat($event)" (displaySelectedMedia)="displayMediaPopup($event)" [portMediaDetails]="media" [portMediaCategory]="activeTab" [isOwner]="ownProfile"></app-portfolio-media>
                                             </ngx-masonry-item>
                                         </ngx-masonry>
                                         <!-- <ng-template #portfolioEmpty>
@@ -119,7 +119,7 @@
                             <div *ngIf="userMedia?.length > 0; else noMedia" class="row">
                                 <ngx-masonry [useImagesLoaded]="true">
                                     <ngx-masonry-item *ngFor="let media of userMedia" class="col-xs-6 col-md-3 c-portfolio--block" (click)="toggleMediaSelection(media?.mediaId)" >
-                                        <app-portfolio-media [portMediaDetails]="media"></app-portfolio-media>
+                                        <app-portfolio-media [isOwner]=false [portMediaDetails]="media"></app-portfolio-media>
                                     </ngx-masonry-item>
                                 </ngx-masonry>
                             </div>
