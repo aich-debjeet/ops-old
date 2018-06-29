@@ -410,13 +410,13 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   buildVolunteerForm(data: any) {
     this.volunteerFrm = this.fb.group({
       volunteerTitle: [data['opportunityVolunteer']['title'], [Validators.required]],
-      volunteerCause: [data['opportunityVolunteer']['cause'], []],
-      volunteerIndustry: [data['opportunityVolunteer']['category'], []],
-      volunteerLocation: [data['opportunityVolunteer']['location']['location'], []],
-      volunteerSkills: [data['opportunityVolunteer']['skills'], []],
-      volunteerDL: [data['opportunityVolunteer']['requirements'].includes('Background Check'), []],
-      volunteerBGC: [data['opportunityVolunteer']['requirements'].includes('Driver\'s License Needed'), []],
-      volunteerORTR: [data['opportunityVolunteer']['requirements'].includes('Orientation or Training'), []],
+      volunteerCause: [data['opportunityVolunteer']['cause'], [Validators.required]],
+      volunteerIndustry: [data['opportunityVolunteer']['category'], [Validators.required]],
+      volunteerLocation: [data['opportunityVolunteer']['location']['location'], [Validators.required]],
+      volunteerSkills: [data['opportunityVolunteer']['skills'], [Validators.required]],
+      volunteerDL: [data['opportunityVolunteer']['requirements'].includes('Background Check'), [Validators.required]],
+      volunteerBGC: [data['opportunityVolunteer']['requirements'].includes('Driver\'s License Needed'), [Validators.required]],
+      volunteerORTR: [data['opportunityVolunteer']['requirements'].includes('Orientation or Training'), [Validators.required]],
     });
   }
 

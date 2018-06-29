@@ -1123,6 +1123,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>Describe the cause</label> -->
                                         </div>
+                                        <p *ngIf="volunteerFrm.controls['volunteerCause'].errors?.required && createVolFrm.submitted" class="c-form__validation error">This is required!</p>
                                     </div>
                                 </div>
                                 <div class="o-oppo-form__single">
@@ -1138,6 +1139,7 @@
                                                 </option>
                                             </select>
                                         </div>
+                                        <p *ngIf="volunteerFrm.controls['volunteerIndustry'].errors?.required && createVolFrm.submitted" class="c-form__validation error">Industry is required!</p>
                                     </div>
                                 </div>
                                 <!-- Description end -->
@@ -1152,6 +1154,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>What skills are you looking for in volunteers</label> -->
                                         </div>
+                                        <p *ngIf="volunteerFrm.controls['volunteerSkills'].errors?.required && createVolFrm.submitted" class="c-form__validation error">Skills are required!</p>
                                     </div>
                                 </div>
                                 <!-- Skills end -->
@@ -1166,6 +1169,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>Location of the opportunity</label> -->
                                         </div>
+                                        <p *ngIf="volunteerFrm.controls['volunteerLocation'].errors?.required && createVolFrm.submitted" class="c-form__validation error">Location is required!</p>
                                     </div>
                                 </div>
                                 <!-- Add Collaborators end -->

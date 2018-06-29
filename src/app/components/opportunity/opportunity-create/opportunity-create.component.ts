@@ -494,13 +494,13 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   createVolunteerForm() {
     this.volunteerFrm = this.fb.group({
       volunteerTitle: ['', [Validators.required]],
-      volunteerCause: ['', []],
-      volunteerIndustry: ['', []],
-      volunteerLocation: ['', []],
-      volunteerSkills: ['', []],
-      volunteerDL: [false, []],
-      volunteerBGC: [false, []],
-      volunteerORTR: [false, []],
+      volunteerCause: ['', [Validators.required]],
+      volunteerIndustry: ['', [Validators.required]],
+      volunteerLocation: ['', [Validators.required]],
+      volunteerSkills: ['', [Validators.required]],
+      volunteerDL: [false, [Validators.required]],
+      volunteerBGC: [false, [Validators.required]],
+      volunteerORTR: [false, [Validators.required]],
     });
   }
 
