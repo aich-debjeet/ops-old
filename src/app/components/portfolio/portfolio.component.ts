@@ -76,6 +76,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
               this.ownProfile = false;
             }
           }
+          console.log('ownProfile', this.ownProfile);
         }
         if (this.generalUtils.checkNestedKey(state, ['get_users_channels_result'])) {
           this.channels = state['get_users_channels_result'];
@@ -192,7 +193,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.routerSub = this.route.params.subscribe((params) => {
       // load user profile by username
       if (this.generalUtils.checkNestedKey(params, ['username'])) {
-        this.profileStore.dispatch({ type: ProfileActions.PROFILE_LOAD, payload: params['username'] });
+        this.profileStore.dispatch({ type: ProfileActions.PORTFOLIO_PROFILE_LOAD, payload: params['username'] });
       } else {
         this.router.navigateByUrl('/');
       }

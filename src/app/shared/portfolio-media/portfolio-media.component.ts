@@ -10,6 +10,7 @@ export class PortfolioMediaComponent implements OnInit {
 
   @Input() portMediaDetails: any;
   @Input() portMediaCategory: any;
+  @Input() isOwner: Boolean;
   @Output() displaySelectedMedia: EventEmitter<any> = new EventEmitter<any>();
   @Output() removeSelectedMedia: EventEmitter<any> = new EventEmitter<any>();
   baseImageUrl = environment.API_IMAGE;

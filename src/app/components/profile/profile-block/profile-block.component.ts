@@ -85,11 +85,11 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
         if (state.profile_user_info.isCurrentUser) {
           this.profileObject = this.loadProfile( state, 'own' );
           // console.log(this.profileObject)
-          this.userHandle = this.profileObject.userDetails.handle;
-          this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
-            scrollId: '',
-            searchType: 'created',
-          } });
+          // this.userHandle = this.profileObject.userDetails.handle;
+          // this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
+          //   scrollId: '',
+          //   searchType: 'created',
+          // } });
           // console.log(this.userHandle)
         } else {
           if (state.profile_user_info.isClaimForGuest && state.profile_user_info.isClaimForGuest === true) {
@@ -101,11 +101,11 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
             }
           } else {
             // console.log('other');
-            this.profileObject = this.loadProfile( state, 'other' );
-            this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
-              scrollId: '',
-              searchType: 'recommended',
-            } });
+            // this.profileObject = this.loadProfile( state, 'other' );
+            // this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
+            //   scrollId: '',
+            //   searchType: 'recommended',
+            // } });
           }
         }
       }
@@ -129,6 +129,24 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    this.profileStore.select('profileTags')
+    .first(profile => profile['profile_user_info'])
+    .subscribe( datas => {
+      if (datas['profile_user_info'].isCurrentUser) {
+        this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
+            scrollId: '',
+            searchType: 'created',
+          }});
+        return
+      }
+      this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
+        scrollId: '',
+        searchType: 'recommended',
+      } });
+    });
+
+
     this.checkProfile();
     this.carouselOne = {
       grid: {xs: 3, sm: 3, md: 5, lg: 5, all: 0},

@@ -7,7 +7,7 @@
       </figure>
   </a>
   <div class="c-port__mediatext">{{ portMediaDetails?.mediaDescription }}</div>
-  <div *ngIf="portMediaCategory !== 'all'" class="pull-right dropdown c-dropdown c-port-opt" appDropdown>
+  <div *ngIf="portMediaCategory !== 'all' && isOwner" class="pull-right dropdown c-dropdown c-port-opt" appDropdown>
       <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
           <img src="https://ops-v2.netlify.com/assets/svg/ico_options.svg" class="c-status__options">
       </span>
@@ -29,7 +29,7 @@
       </figure>
   </a>
   <div class="c-port__mediatext">{{ portMediaDetails?.mediaDescription }}</div>
-  <div *ngIf="portMediaCategory !== 'all'" class="pull-right dropdown c-dropdown c-port-opt" appDropdown>
+  <div *ngIf="portMediaCategory !== 'all' && isOwner" class="pull-right dropdown c-dropdown c-port-opt" appDropdown>
       <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
           <img src="https://ops-v2.netlify.com/assets/svg/ico_options.svg" class="c-status__options">
       </span>
@@ -51,7 +51,7 @@
       </figure>
   </a>
   <div class="c-port__mediatext">{{ portMediaDetails?.mediaDescription }}</div>
-  <div *ngIf="portMediaCategory !== 'all'" class="pull-right dropdown c-dropdown c-port-opt" appDropdown>
+  <div *ngIf="portMediaCategory !== 'all' && isOwner" class="pull-right dropdown c-dropdown c-port-opt" appDropdown>
       <span class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" appDropdownOpen>
           <img src="https://ops-v2.netlify.com/assets/svg/ico_options.svg" class="c-status__options">
       </span>

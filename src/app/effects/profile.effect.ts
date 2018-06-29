@@ -604,6 +604,18 @@ export class ProfileEffect {
     );
 
   /**
+   * Get current user channel profile
+   */
+  @Effect()
+  profLoadProfile$ = this.actions$
+    .ofType(ProfileActions.PORTFOLIO_PROFILE_LOAD)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.loadProfileByUsername(payload)
+      .map(res => ({ type: ProfileActions.PORTFOLIO_PROFILE_LOAD_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.PORTFOLIO_PROFILE_LOAD_FAILED, payload: res }))
+    );
+
+  /**
    * Get user channels
    */
   @Effect()

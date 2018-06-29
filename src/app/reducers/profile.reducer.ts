@@ -902,8 +902,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         profile_other_loading: false,
         profile_other_loaded: true,
         profile_other: payload,
-        profiles: [...state.profiles, payload],
-        portfolio_user_profile: payload
+        profiles: [...state.profiles, payload]
       });
 
     case ProfileActions.PROFILE_LOAD_FAILED:
@@ -912,6 +911,20 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         profile_other_loading: false,
         // profile_other_loaded: false
       });
+
+    /**
+     * Load a portfolio Profile
+     */
+    case ProfileActions.PORTFOLIO_PROFILE_LOAD:
+      return state;
+
+    case ProfileActions.PORTFOLIO_PROFILE_LOAD_SUCCESS:
+      return Object.assign({}, state, {
+        portfolio_user_profile: payload
+      });
+
+    case ProfileActions.PORTFOLIO_PROFILE_LOAD_FAILED:
+      return state;
 
     /**
      * Follow Profile
