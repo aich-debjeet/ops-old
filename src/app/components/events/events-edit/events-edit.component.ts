@@ -71,6 +71,14 @@ export class EventsEditComponent implements OnInit {
     showSeconds: true
   };
 
+  // Rich Text editor toolbar
+  defaultModules = {
+    toolbar: [
+      ['bold', 'underline'],
+      ['link']
+    ]
+  };
+
   private configDateTime = {
     locale: 'en',
     format: 'DD/MM/YYYY hh:mm A',
