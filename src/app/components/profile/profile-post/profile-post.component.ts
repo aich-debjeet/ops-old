@@ -219,7 +219,6 @@ export class ProfilePostComponent implements OnInit, OnDestroy {
       }});
   }
   onScrol(e) {
-    console.log(e)
     this.scrolling = e.currentScrollPosition;
     if (this.scrollingPeople <= this.scrolling) {
       this.scrollingPeople += 100;

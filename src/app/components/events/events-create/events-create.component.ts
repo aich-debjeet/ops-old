@@ -412,13 +412,9 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
    * @param value value of form
    */
   submitForm(value) {
-    // console.log(value);
-    // console.log(this.eventForm.valid)
-    // console.log(this.eventCoverImage)
     if (this.eventForm.valid) {
       if (this.eventCoverImage === '') {
         this.imageUpload = true;
-        // console.log(this.imageUpload)
         return
       }
       this.imageUpload = false;
@@ -454,7 +450,6 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
             eventType : value.event_genres
           }
       }
-      // console.log(data)
 
       // Dispatch to form value to server
       this.store.dispatch({ type: EventActions.EVENT_REG, payload: data });

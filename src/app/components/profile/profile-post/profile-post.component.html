@@ -8,6 +8,15 @@
             <div class="loader">Loading...</div>
         </div>
     </div>
+    <div *ngIf="!userMedia.user_posts_loading && posts.length < 1 && isOwner === true" class="empty__state">
+        <h4>You have no Post</h4>
+        <p>You have not added any posts, click below to create your first Post!</p>
+        <a class="btn-add" [routerLink]="['/post/media']">Post media</a>
+    </div>
+    
+    <div *ngIf="!userMedia.user_posts_loading && posts.length < 1 && isOwner === false" class="empty__state">
+        <p>User does not have any posts!</p>
+    </div>
 </div>
 <div class="col-md-4 m-t-8">
     <div class="row m-0">
@@ -33,7 +42,7 @@
     </div>
 </div>
 
-<div *ngIf="!userMedia.user_posts_loading && posts.length < 1 && isOwner === true" class="empty__state">
+<!-- <div *ngIf="!userMedia.user_posts_loading && posts.length < 1 && isOwner === true" class="empty__state">
     <h4>You have no Post</h4>
     <p>You have not added any posts, click below to create your first Post!</p>
     <a class="btn-add" [routerLink]="['/post/media']">Post media</a>
@@ -41,4 +50,4 @@
 
 <div *ngIf="!userMedia.user_posts_loading && posts.length < 1 && isOwner === false" class="empty__state">
     <p>User does not have any posts!</p>
-</div>
+</div> -->

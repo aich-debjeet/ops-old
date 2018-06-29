@@ -86,8 +86,6 @@ export class DatabaseValidator {
      */
     validAge(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
-            console.log('control.value', control.value);
-
             // check if date has entered completely
             if (control.value.indexOf('_') > -1) {
                 // console.log('incomplete');

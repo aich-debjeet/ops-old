@@ -12,7 +12,6 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
       });
 
     case CommunitiesActions.COMMUNITY_CREATE_SUCCESS:
-      console.log(payload);
       return Object.assign({}, state, {
         completed: payload,
         community_create_success: true,
@@ -33,7 +32,6 @@ export const CommunitiesReducer: ActionReducer<any> = (state, {payload, type}: A
       });
 
     case CommunitiesActions.COMMUNITY_LIST:
-    console.log(payload);
       if (payload.scrollId === null) {
         return Object.assign({}, state, {
           communityList: [],

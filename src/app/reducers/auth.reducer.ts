@@ -260,13 +260,11 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
     case AuthActions.FP_USER_EXISTS_FAILED:
       const fpErrData = JSON.parse(payload._body);
       if (fpErrData['Code'] !== undefined) {
-        // console.log('user not found'); return state;
         return Object.assign({}, state, {
           fp_user_exists: true,
           fp_checking: false
         });
       } else {
-        // console.log('multiple users found'); return state;
         return Object.assign({}, state, {
           fp_user_exists: false,
           fp_user_response: JSON.parse(fpErrData.ERROR),
@@ -528,13 +526,11 @@ export const AuthReducer: ActionReducer<any> = (state = initialTag, {payload, ty
      * checking if user is logged in and have the valid access token
      */
     case AuthActions.USER_LOGGED_IN:
-    console.log('loading')
       return Object.assign({}, state, {
         login_status: false
       });
 
     case AuthActions.USER_LOGGED_IN_SUCCESS:
-      console.log('payload')
       return Object.assign({}, state, {
         login_status_response: payload,
         login_status: true

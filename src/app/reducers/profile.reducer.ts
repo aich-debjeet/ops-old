@@ -1601,8 +1601,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
   case ProfileActions.USER_PASSWORD_UPDATE_SUCCESS:
-  console.log('payload', payload)
-    return Object.assign({},state, {
+    return Object.assign({}, state, {
       pass_success : payload,
     });
 
@@ -1653,16 +1652,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
         case ProfileActions.PROFILE_REPORT:
         return Object.assign({}, state, {
-          reports:[]
+          reports: []
         });
         case ProfileActions.PROFILE_REPORT_SUCCESS:
-        console.log(payload)
         return Object.assign({}, state, {
           reports: payload.Success.questions
         });
         case ProfileActions.PROFILE_REPORT_FAILED:
         return Object.assign({}, state, {
-          reports:[]
+          reports: []
         });
     // }
 

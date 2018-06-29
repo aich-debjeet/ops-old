@@ -10,18 +10,16 @@ export const EventReducer: ActionReducer<any> = (state = initialTagEve, {payload
      * event report
     */
     case EventActions.EVENT_REPORT:
-    // console.log(payload)
     return Object.assign({}, state, {
-      reports:[]
+      reports: []
     });
     case EventActions.EVENT_REPORT_SUCCESS:
-    // console.log(payload)
     return Object.assign({}, state, {
       reports: payload.Success.questions
     });
     case EventActions.EVENT_REPORT_FAILED:
     return Object.assign({}, state, {
-      reports:[]
+      reports: []
     });
 
     case EventActions.EVENT_EDIT:
@@ -137,16 +135,15 @@ export const EventReducer: ActionReducer<any> = (state = initialTagEve, {payload
     }
 
     case EventActions.EVENT_SEARCH_SUCCESS:
-    console.log(payload)
-    let elastic_list = [];
-    let filterList = [];
-    if (state && state['event_list'] && state['event_list'].length > 0){
-      elastic_list = [...state['event_list'], ...payload['eventResponse']];
-      filterList = [...state['event_filter'], ...payload.filterList];
-    } else {
-        elastic_list = payload['eventResponse'];
-        filterList = payload.filterList;
-    }
+      let elastic_list = [];
+      let filterList = [];
+      if (state && state['event_list'] && state['event_list'].length > 0){
+        elastic_list = [...state['event_list'], ...payload['eventResponse']];
+        filterList = [...state['event_filter'], ...payload.filterList];
+      } else {
+          elastic_list = payload['eventResponse'];
+          filterList = payload.filterList;
+      }
       return Object.assign({}, state, {
         event_filter: filterList,
         event_list: elastic_list,
