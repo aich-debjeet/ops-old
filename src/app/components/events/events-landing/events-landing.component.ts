@@ -9,7 +9,7 @@ import * as moment from 'moment';
 import { environment } from '../../../../environments/environment';
 
 // Model
-import { EventModal, initialTag  } from '../../../models/event.model';
+import { EventModal, initialTagEve  } from '../../../models/event.model';
 
 // action
 import { EventActions } from '../../../actions/event.action';
@@ -49,7 +49,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
   filterLocation: string;
   filterStatus: string;
   filterSearchText: string;
-  filterEventType: string;
+  filterEventType: any;
 
   public latitude: number;
   public longitude: number;
@@ -86,10 +86,12 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
       if (state['event_list'] && state.event_Loaded === true) {
         this.eventList = state['event_list'];
         this.scrollId = state['event_scroll_id']
+        this.eventTypeList = state['event_filter']
+        console.log(this.eventTypeList)
         // console.log(this.eventList, this.scrollId)
       }
       this.eventType = state['event_type'];
-      this.eventTypeList = state['eventType_load'];
+      // this.eventTypeList = state['eventType_load'];
       this.bannerList = state['bannerload']
       this.event_loading = state['event_loading']
     });
@@ -216,7 +218,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
         filtersMap:[
           {
             'key': 'EVENT_TYPE',
-		        'value': this.filterEventType
+		        'value': this.filterEventType.name
           }
         ]
       }
@@ -248,7 +250,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
         filtersMap:[
           {
             'key': 'EVENT_TYPE',
-		        'value': this.filterEventType
+		        'value': this.filterEventType.name
           },
           {
             'key': 'START_DATE',
@@ -265,7 +267,7 @@ export class EventsLandingComponent implements OnInit, OnDestroy {
     this.store.dispatch({ type: EventActions.EVENT_SEARCH, payload: data });
   }
 
-  filter(filter: string){
+  filter(filter: any){
     this.filterEventType = filter;
     if(this.filterEventType){
       this.serachApi();

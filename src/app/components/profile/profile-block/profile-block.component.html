@@ -2,72 +2,72 @@
     <div class="row m-t-b-24 m-l-r-0">
         <!-- left feed -->
         <div class="col-md-3 col-sm-3 hidden-sm hidden-xs">
-            <div class="row">
+            <div class="row m-t-16">
                 <!-- calender -->
-                <div class="col-md-12 col-sm-12 c-profile__calender">
-                    <div class="row c-profile__calender--head">
-                        Planner
+                <div class="c-card">
+                    <div class="c-text_md padding_16 color-grey-dark f-w_600 text_uppercase ltr-space">OPPORTUNITIES CREATED</div>
+                    <div class="opp_center" *ngIf="opportunities && opportunities.length === 0; else opportunities_found;">
+                        <p class="result-not-found">No records found!</p>
                     </div>
-                    <div class="o-blur__block">
-                        <div class="c-calender__heading">JULY, 2017</div>
-                        <ul class="list-inline c-calender__date">
-                            <li class="list-inline-item active">14</li>
-                            <li class="list-inline-item">15</li>
-                            <li class="list-inline-item">16<span class="upcoming">.</span></li>
-                            <li class="list-inline-item">17<span class="upcoming">.</span></li>
-                            <li class="list-inline-item">18</li>
-                            <li class="list-inline-item">19</li>
-                        </ul>
-                        <div class="c-calender__event">
-                            <strong>10:10 AM</strong>
-                            <br> Metting with Mike Creative Mint
-                        </div>
-                        <div class="c-calender__event">
-                            <strong>11:10 AM - 1: 30 PM</strong>
-                            <br> Metting with stebe Aovi
-                        </div>
-                        <p class="m-l-16">SEE MORE</p>
-                    </div>
-                    <div class="o-profile_coming">Coming Soon</div>
+                    <ng-template #opportunities_found>
+                        <a routerLink="/opportunity/view/{{ opportunityDetails?.opportunityId }}" *ngFor="let opportunityDetails of opportunities">
+                            <div class="with_border_bottom">
+                                <div class="c-card__project p-l-r-16">
+                                    <img [src]="imageBaseUrl + 'img/svg/audition.svg'" class="c-card__project--icon"> 
+                                    <span class="m-l-8">{{ opportunityDetails?.opportunityType | uppercase }}</span>
+                                </div>
+                                <div class="o-home-org-list__title">
+                                    <p class="c-text_lg">{{ opportunityDetails?.opportunityRole }}</p>
+                                </div>
+                                <div class="c-text_md p-l-r-16 p-t-b-8 color-grey-dark">{{ opportunityDetails?.organization }}</div>
+                                <div class="c-card__location p-b-16 m-b-16">
+                                    <img [src]="imageBaseUrl + 'img/svg/ico_location2.svg'" class="float_left">
+                                    <p class="c-card__location--text float_left m-l-8">{{ opportunityDetails?.location }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </ng-template>
                 </div>
-                <!-- attend event -->
-                <div class="col-md-12 col-sm-12 c-profile__calender p-0 m-t-16">
-                    <div class="c-profile__calender--head">
-                        Events
-                    </div>
-                    <div class="o-blur__block">
-                        <div class="row p-16">
-                            <div class="col-md-4 col-sm-12 p-l-r-16">
-                                <img src="{{ imageBaseUrl }}img/event.jpg" class="img-responsive">
-                            </div>
-                            <div class="col-md-8 col-sm-12 p-0">
-                                <div class="c-text_lg">DJ Night By DJ Sun Tiesto</div>
-                                <div class="c-text_lg">12, JUL</div>
-                                <div class="c-text_md color-grey-dark">Mohegan Sun Arena</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="o-profile_coming">Coming Soon</div>
-                </div>
-                <div class="col-md-12 col-sm-12 c-profile__calender p-0 m-t-16">
-                    <div class="c-profile__calender--head">
-                        Communities
-                    </div>
-                    <div class="o-blur__block">
-                        <div class="row p-16">
-                            <div class="col-md-4 col-sm-12 p-l-r-16">
-                                <img src="{{ imageBaseUrl }}img/event.jpg" class="img-responsive">
-                            </div>
-                            <div class="col-md-8 col-sm-12 p-0">
-                                <div class="c-text_lg">Semplice Moh - Designers </div>
-                                <div class="c-text_lg">Portfolio System</div>
-                                <div class="c-text_md color-grey-dark">23 Collaborators</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="o-profile_coming">Coming Soon</div>
-                </div>
+            </div>
 
+            <!-- attend event -->
+            <div class="row m-t-16">
+                <div class="c-card">
+                    <div class="c-card__project p-l-r-16 p-t-16">
+                        <div class="c-text_md color-grey-dark c-text-semibold" *ngIf="isCurrentUser">
+                            EVENTS CREATED
+                        </div>
+                        <div class="c-text_md color-grey-dark c-text-semibold" *ngIf="!isCurrentUser">
+                                EVENTS RECOMMENDED
+                        </div>
+                    </div>
+                    <ng-container *ngIf="eventList">
+                        <div class="empty_message" *ngIf="eventList?.length === 0">
+                            <p>There is no event</p>
+                        </div>
+                        <div class="p-16" *ngFor="let event of eventList.slice(0,2)">
+                            <!-- card media (img, video & audio) -->
+                            <div class="c-card__event2 float_left">
+                                <a [routerLink]="'/event/inner/' + event?.id">
+                                    <img [src]="imageBaseUrl + event?.imagePath[0]" alt="" class="c-card__image">
+                                </a>
+                            </div>
+                            <!-- //card media (img, video & audio) -->
+                            <div class="c-card__project p-t-8">{{event?.eventType }}</div>
+                            <!-- card body -->
+                            <div class="c-card__body p-0">
+                                <div class="c-text_lg">
+                                        {{event?.title | truncate:[40, '...']}}
+                                </div>
+                                <div class="c-text_md color-grey-dark m-t-8 m-b-24">{{ event?.startDate | utcDate | date: 'dd, MMM'}} - {{ event?.endDate | utcDate | date: 'dd, MMM'}}</div>
+                            </div>
+                            <!-- //card body -->
+                        </div>
+                    </ng-container>
+                    <p class="text-center p-t-b-16" *ngIf="eventList && eventList.length > 2">
+                        <a routerLink="/event" class="c-text_md color-theme">See All</a>
+                    </p>
+                </div>
             </div>
         </div>
         <!-- //left feed -->
@@ -122,13 +122,13 @@
             <!-- tabs -->
             <div class="row m-0">
                 <div class="col-md-12 col-sm-12 p-0">
-                    <div class="home_tabs">
-                        <ul class="nav nav-tabs">
-                            <li routerLinkActive="active"><a [routerLink]="['channel']">Channel</a></li>
+                    <div class="c-ops__tabs">
+                        <ul class="nav nav-tabs m-l-8">
                             <li routerLinkActive="active"><a [routerLink]="['post']">Posts</a></li>
-                            <li routerLinkActive="active" *ngIf="isCurrentUser===true"><a [routerLink]="['spotfeed']">spotfeed</a></li>
+                            <li routerLinkActive="active"><a class="p-l-8" [routerLink]="['channel']">Channel</a></li>
+                            <!-- <li routerLinkActive="active" *ngIf="isCurrentUser===true"><a [routerLink]="['spotfeed']">spotfeed</a></li> -->
                         </ul>
-                        <div id="home_channel">
+                        <div id="home_channel" class="tab-content">
                             <router-outlet></router-outlet>
                         </div>
                     </div>

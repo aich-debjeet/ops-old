@@ -23,6 +23,21 @@ export class ProfileService {
   /**
    * for: portfolio
    */
+  portDeleteCategory(catId: string) {
+    return this.api.delete('/portal/portfolio/delete/' + catId, '');
+  }
+
+  /**
+   * for: portfolio
+   */
+  portUpdateCategoryName(data: string) {
+    return null;
+    // return this.api.get('/portal/portfolio/publish/' + action);
+  }
+
+  /**
+   * for: portfolio
+   */
   portfolioPublishAction(action: string) {
     return this.api.get('/portal/portfolio/publish/' + action);
   }
@@ -478,6 +493,12 @@ export class ProfileService {
    * [TEMP] Get all profiles
    */
   getAllProfiles(body: any) {
+    // console.log(body)
+    // return this.api.get('/portal/profile/0/50', '');
+    return this.api.post('/portal/search/people/tofollow', body);
+  }
+
+  getAllProfilesProf(body: any) {
     // console.log(body)
     // return this.api.get('/portal/profile/0/50', '');
     return this.api.post('/portal/search/people/tofollow', body);

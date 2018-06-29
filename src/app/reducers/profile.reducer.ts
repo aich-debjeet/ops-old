@@ -78,6 +78,51 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     /**
      * for: portfolio
      */
+    case ProfileActions.PORTFOLIO_DELETE_CATEGORY:
+      return Object.assign({}, state, {
+        portfolio_delete_category: true,
+        portfolio_delete_category_success: false,
+        get_portfolio_categories_result: state['get_portfolio_categories_result'].filter(i => i.categoryId !== payload)
+      });
+
+    case ProfileActions.PORTFOLIO_DELETE_CATEGORY_SUCCESS:
+      return Object.assign({}, state, {
+        portfolio_delete_category: false,
+        portfolio_delete_category_success: true
+      });
+
+    case ProfileActions.PORTFOLIO_DELETE_CATEGORY_FAILED:
+      return Object.assign({}, state, {
+        portfolio_delete_category: false,
+        portfolio_delete_category_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
+    case ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME:
+      return Object.assign({}, state, {
+        portfolio_update_category_name: true,
+        portfolio_update_category_name_success: false,
+        portfolio_update_category_name_query: payload
+      });
+
+    case ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME_SUCCESS:
+      return Object.assign({}, state, {
+        portfolio_update_category_name: false,
+        portfolio_update_category_name_success: true,
+        portfolio_update_category_name_result: payload
+      });
+
+    case ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME_FAILED:
+      return Object.assign({}, state, {
+        portfolio_update_category_name: false,
+        portfolio_update_category_name_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
     case ProfileActions.PORTFOLIO_PUBLISH_ACTION:
       return Object.assign({}, state, {
         portfolio_publish_action: true,
@@ -1017,6 +1062,27 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_ALL_PROFILES_FAILED:
       return Object.assign({}, state, {
         user_profiles_all_loaded: false
+      });
+
+      /**
+       * load profile people to follow
+       */
+    case ProfileActions.LOAD_ALL_PROFILES_PROF:
+      return Object.assign({}, state, {
+        user_profiles_all_loaded_prof: false
+      });
+    case ProfileActions.LOAD_ALL_PROFILES_PROF_SUCCESS:
+      const respProf = payload.profileResponse;
+      const profile_list_prof = state.user_profiles_all_prof.concat(respProf)
+      return Object.assign({}, state, {
+        user_profiles_all_loaded_prof: true,
+        user_profiles_all_prof: profile_list_prof,
+        people_follow_scroll_id_prof: payload.scrollId
+      });
+
+    case ProfileActions.LOAD_ALL_PROFILES_PROF_FAILED:
+      return Object.assign({}, state, {
+        user_profiles_all_loaded_prof: false
       });
 
     /**

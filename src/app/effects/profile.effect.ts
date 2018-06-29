@@ -20,6 +20,30 @@ export class ProfileEffect {
    * for: portfolio
    */
   @Effect()
+  portDeleteCategory$ = this.actions$
+    .ofType(ProfileActions.PORTFOLIO_DELETE_CATEGORY)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.portDeleteCategory(payload)
+      .map(res => ({ type: ProfileActions.PORTFOLIO_DELETE_CATEGORY_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.PORTFOLIO_DELETE_CATEGORY_FAILED, payload: res }))
+    );
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
+  portUpdateCategoryName$ = this.actions$
+    .ofType(ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.portUpdateCategoryName(payload)
+      .map(res => ({ type: ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME_FAILED, payload: res }))
+    );
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
   portfolioPublishAction$ = this.actions$
     .ofType(ProfileActions.PORTFOLIO_PUBLISH_ACTION)
     .map(toPayload)
@@ -736,6 +760,15 @@ export class ProfileEffect {
       .map(res => ({ type: ProfileActions.LOAD_ALL_PROFILES_SUCCESS, payload: res }))
       .catch((res) => Observable.of({ type: ProfileActions.LOAD_ALL_PROFILES_FAILED, payload: res }))
     );
+
+  @Effect()
+    loadProfilesProf$ = this.actions$
+      .ofType(ProfileActions.LOAD_ALL_PROFILES_PROF)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.getAllProfilesProf(payload)
+        .map(res => ({ type: ProfileActions.LOAD_ALL_PROFILES_PROF_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.LOAD_ALL_PROFILES_PROF_FAILED, payload: res }))
+      );
 
   /**
    *  Load my Directory

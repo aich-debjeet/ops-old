@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 // Model
-import { EventModal, initialTag  } from '../../../models/event.model';
+import { EventModal, initialTagEve  } from '../../../models/event.model';
 
 // action
 import { EventActions } from '../../../actions/event.action';
