@@ -773,6 +773,15 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.LOAD_ALL_PROFILES_FAILED, payload: res }))
     );
 
+  @Effect()
+    loadProfilesProf$ = this.actions$
+      .ofType(ProfileActions.LOAD_ALL_PROFILES_PROF)
+      .map(toPayload)
+      .switchMap((payload) => this.profileService.getAllProfilesProf(payload)
+        .map(res => ({ type: ProfileActions.LOAD_ALL_PROFILES_PROF_SUCCESS, payload: res }))
+        .catch((res) => Observable.of({ type: ProfileActions.LOAD_ALL_PROFILES_PROF_FAILED, payload: res }))
+      );
+
   /**
    *  Load my Directory
    */

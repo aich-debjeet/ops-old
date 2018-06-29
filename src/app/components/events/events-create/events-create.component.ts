@@ -17,7 +17,7 @@ import {} from '@types/googlemaps';
 
 
 // Model
-import { EventModal, initialTag  } from '../../../models/event.model';
+import { EventModal, initialTagEve  } from '../../../models/event.model';
 import { ProfileModal } from '../../../models/profile.model';
 
 // action
@@ -47,7 +47,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
   tagState$: Observable<EventModal>;
   profileState$: Observable<ProfileModal>;
   today = Date.now();
-  industryList = initialTag ;
+  industryList = initialTagEve ;
   image: any;
   eventCoverImage ='';
   minDate = new Date();
@@ -335,7 +335,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
       this.ngZone.run(() => {
         // get the place result
         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-        // console.log(place)
+         console.log(place)
 
         for (let i = 0; i < place.address_components.length; i++) {
           const addressType = place.address_components[i].types[0];
@@ -362,7 +362,7 @@ export class EventsCreateComponent implements OnInit, OnDestroy {
         }
 
         // set latitude, longitude and zoom
-        this.address = place.name + ','+place.formatted_address;
+        this.address = place.name + ', '+place.formatted_address;
         this.latitude = place.geometry.location.lat();
         this.longitude = place.geometry.location.lng();
         this.zoom = 12;

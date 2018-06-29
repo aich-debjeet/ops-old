@@ -31,6 +31,7 @@ export class ProfileModal {
   dir_list_loaded: boolean;
   dir_list: any;
   people_follow_scroll_id: any;
+  people_follow_scroll_id_prof: any;
   user_following_post_scroll_id: any;
   user_posts: any;
   user_posts_loading: boolean;
@@ -52,6 +53,8 @@ export class ProfileModal {
 
   user_profiles_all_loaded: boolean;
   user_profiles_all?: any;
+  user_profiles_all_prof?: any;
+  user_profiles_all_loaded_prof: boolean;
   blockedUsers: string[];
   default_notification?: any;
   adult_Content?: boolean;
@@ -135,6 +138,7 @@ export const initialTag: ProfileModal = {
   channel_updated: false,
   profiles: [],
   people_follow_scroll_id: '',
+  people_follow_scroll_id_prof: '',
 
   // directory
   user_directory_scroll_id: '',
@@ -150,6 +154,8 @@ export const initialTag: ProfileModal = {
   // All Profiles
   user_profiles_all_loaded: false,
   user_profiles_all: [],
+  user_profiles_all_loaded_prof: false,
+  user_profiles_all_prof: [],
   // list of block users
   blockedUsers: [],
   channel_pin_success: false,

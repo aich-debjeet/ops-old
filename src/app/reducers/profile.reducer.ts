@@ -1095,6 +1095,27 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         user_profiles_all_loaded: false
       });
 
+      /**
+       * load profile people to follow
+       */
+    case ProfileActions.LOAD_ALL_PROFILES_PROF:
+      return Object.assign({}, state, {
+        user_profiles_all_loaded_prof: false
+      });
+    case ProfileActions.LOAD_ALL_PROFILES_PROF_SUCCESS:
+      const respProf = payload.profileResponse;
+      const profile_list_prof = state.user_profiles_all_prof.concat(respProf)
+      return Object.assign({}, state, {
+        user_profiles_all_loaded_prof: true,
+        user_profiles_all_prof: profile_list_prof,
+        people_follow_scroll_id_prof: payload.scrollId
+      });
+
+    case ProfileActions.LOAD_ALL_PROFILES_PROF_FAILED:
+      return Object.assign({}, state, {
+        user_profiles_all_loaded_prof: false
+      });
+
     /**
      * [TEMP] Load All directory
      */
