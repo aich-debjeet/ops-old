@@ -298,20 +298,20 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   buildInternshipForm(data: any) {
     this.internshipFrm = this.fb.group({
       internshipRole: [data['opportunityInternship']['role'], [Validators.required]],
-      internshipDescription: [data['opportunityInternship']['description'], []],
-      internshipIndustry: [data['opportunityInternship']['industry'], []],
+      internshipDescription: [data['opportunityInternship']['description'], [Validators.required]],
+      internshipIndustry: [data['opportunityInternship']['industry'], [Validators.required]],
       internshipExperienceFrom: [data['opportunityInternship']['experience']['from'], [Validators.required]],
       internshipExperienceTo: [data['opportunityInternship']['experience']['to'], [Validators.required]],
-      internshipSalaryAmount: [data['opportunityInternship']['salary']['amount_from'], []],
-      internshipSalaryDuration: [data['opportunityInternship']['salary']['salaryType'], []],
-      internshipSalaryCurrency: [data['opportunityInternship']['salary']['currency'], []],
-      internshipDuration: [data['opportunityInternship']['duration'], []],
-      internshipLocation: [data['opportunityInternship']['location']['location'], []],
-      internshipTravelInclusive: [data['opportunityInternship']['includesTravel']['option'], []],
-      internshipCountry: [data['opportunityInternship']['includesTravel']['country'], []],
-      internshipSkills: [data['opportunityInternship']['skills'], []],
-      internshipQualifications: [data['opportunityInternship']['qualifications'], []],
-      internshipOrgName: [data['opportunityInternship']['organizationName'], []]
+      internshipSalaryAmount: [data['opportunityInternship']['salary']['amount_from'], [Validators.required]],
+      internshipSalaryDuration: [data['opportunityInternship']['salary']['salaryType'], [Validators.required]],
+      internshipSalaryCurrency: [data['opportunityInternship']['salary']['currency'], [Validators.required]],
+      internshipDuration: [data['opportunityInternship']['duration'], [Validators.required]],
+      internshipLocation: [data['opportunityInternship']['location']['location'], [Validators.required]],
+      internshipTravelInclusive: [data['opportunityInternship']['includesTravel']['option'], [Validators.required]],
+      internshipCountry: [data['opportunityInternship']['includesTravel']['country'], [Validators.required]],
+      internshipSkills: [data['opportunityInternship']['skills'], [Validators.required]],
+      internshipQualifications: [data['opportunityInternship']['qualifications'], [Validators.required]],
+      internshipOrgName: [data['opportunityInternship']['organizationName'], [Validators.required]]
     });
   }
 

@@ -380,20 +380,20 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   createInternshipForm() {
     this.internshipFrm = this.fb.group({
       internshipRole: ['', [Validators.required]],
-      internshipDescription: ['', []],
-      internshipIndustry: ['', []],
+      internshipDescription: ['', [Validators.required]],
+      internshipIndustry: ['', [Validators.required]],
       internshipExperienceFrom: ['', [Validators.required]],
       internshipExperienceTo: ['', [Validators.required]],
-      internshipSalaryAmount: ['', []],
-      internshipSalaryDuration: ['', []],
-      internshipSalaryCurrency: ['', []],
-      internshipDuration: ['', []],
-      internshipLocation: ['', []],
-      internshipTravelInclusive: ['', []],
-      internshipCountry: ['', []],
-      internshipSkills: ['', []],
-      internshipQualifications: ['', []],
-      internshipOrgName: ['', []]
+      internshipSalaryAmount: ['', [Validators.required]],
+      internshipSalaryDuration: ['', [Validators.required]],
+      internshipSalaryCurrency: ['', [Validators.required]],
+      internshipDuration: ['', [Validators.required]],
+      internshipLocation: ['', [Validators.required]],
+      internshipTravelInclusive: ['', [Validators.required]],
+      internshipCountry: ['', [Validators.required]],
+      internshipSkills: ['', [Validators.required]],
+      internshipQualifications: ['', [Validators.required]],
+      internshipOrgName: ['', [Validators.required]]
     });
   }
 
