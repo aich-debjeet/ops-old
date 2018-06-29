@@ -251,6 +251,7 @@
                                         <div class="col-md-2 p-0">
                                             <p class="c-text_md color-grey-dark m-t-16">cm</p>
                                         </div>
+                                        <p *ngIf="(auditionFrm.controls['auditionHeightFrom'].errors?.required || auditionFrm.controls['auditionHeightTo'].errors?.required) && createAudFrm.submitted" class="c-form__validation error">Height is required!</p>
                                     </div>
                                 </div>
                                 <!-- Height end -->
@@ -282,6 +283,7 @@
                                         <div class="col-md-2 p-0">
                                             <p class="c-text_md color-grey-dark m-t-16">Kg</p>
                                         </div>
+                                        <p *ngIf="(auditionFrm.controls['auditionWeightFrom'].errors?.required || auditionFrm.controls['auditionWeightTo'].errors?.required) && createAudFrm.submitted" class="c-form__validation error">Weight is required!</p>
                                     </div>
                                 </div>
                                 <!-- Weight end -->
@@ -330,6 +332,7 @@
                                         <div class="c-form__group m-t-0 c-form--sm">
                                             <textarea formControlName="projectDescription" class="c-textarea__block c-textarea--style" placeholder="Describe audition"></textarea>
                                         </div>
+                                        <p *ngIf="projectFrm.controls['projectDescription'].errors?.required && createProjFrm.submitted" class="c-form__validation error">Description is required!</p>
                                     </div>
                                 </div>
                                 <!-- Description end -->
@@ -346,6 +349,21 @@
                                                 </option>
                                             </select>
                                         </div>
+                                        <p *ngIf="projectFrm.controls['projectIndustry'].errors?.required && createProjFrm.submitted" class="c-form__validation error">Industry is required!</p>
+                                    </div>
+                                </div>
+                                <div class="o-oppo-form__single">
+                                    <div class="col-md-3 p-0">
+                                        <div class="c-text_md o-oppo-form-title">Location</div>
+                                    </div>
+                                    <div class="col-md-9 p-0">
+                                        <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                            <input formControlName="projectLocation" class="c-form__input" type="text" placeholder="Location of the opportunity">
+                                            <span class="c-form__highlight"></span>
+                                            <span class="c-form__bar"></span>
+                                            <!-- <label>Location of the opportunity</label> -->
+                                        </div>
+                                        <p *ngIf="projectFrm.controls['projectLocation'].errors?.required && createProjFrm.submitted" class="c-form__validation error">Location is required!</p>
                                     </div>
                                 </div>
                                 <div class="o-oppo-form__single">
@@ -359,6 +377,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>Skills looking for</label> -->
                                         </div>
+                                        <p *ngIf="projectFrm.controls['projectSkills'].errors?.required && createProjFrm.submitted" class="c-form__validation error">Skills are required!</p>
                                     </div>
                                 </div>
                                 <!-- Skills end -->
@@ -373,6 +392,7 @@
                                         <span class="c-form__bar"></span>
                                         <!-- <label>Name of collaborators</label> -->
                                         </div>
+                                        <!-- <p *ngIf="projectFrm.controls['projectCollaborators'].errors?.required && createProjFrm.submitted" class="c-form__validation error">Project collaborators are required!</p> -->
                                     </div>
                                 </div>
                                 <!-- Add Collaborators end -->
@@ -424,6 +444,7 @@
                                         <div class="c-form__group m-t-0 c-form--sm">
                                             <textarea formControlName="jobDescription" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
                                         </div>
+                                        <p *ngIf="jobFrm.controls['jobDescription'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Description is required!</p>
                                     </div>
                                 </div>
                                 <!-- Description end -->
@@ -440,6 +461,7 @@
                                                 </option>
                                             </select>
                                         </div>
+                                        <p *ngIf="jobFrm.controls['jobIndustry'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Industry is required!</p>
                                     </div>
                                 </div>
                                 <!-- Description end -->
@@ -520,6 +542,7 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <p *ngIf="(jobFrm.controls['jobSalaryAmount'].errors?.required || jobFrm.controls['jobSalaryDuration'].errors?.required || jobFrm.controls['jobSalaryCurrency'].errors?.required) && createJobFrm.submitted" class="c-form__validation error">Salary details are required!</p>
                                     </div>
                                 </div>
                                 <!-- Salary end -->
@@ -536,6 +559,7 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <p *ngIf="jobFrm.controls['jobDuration'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Duration is required!</p>
                                     </div>
                                 </div>
                                 <!-- Duration end -->
@@ -550,6 +574,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>Where is the opportunity</label> -->
                                         </div>
+                                        <p *ngIf="jobFrm.controls['jobLocation'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Location is required!</p>
                                     </div>
                                 </div>
                                 <!-- Location end -->
@@ -576,6 +601,7 @@
                                                 <!-- <label>Country</label> -->
                                             </div>
                                         </div>
+                                        <p *ngIf="(jobFrm.controls['jobTravelInclusive'].errors?.required || jobFrm.controls['jobCountry'].errors?.required) && createJobFrm.submitted" class="c-form__validation error">This is required!</p>
                                     </div>
                                 </div>
                                 <!-- Location end -->
@@ -594,6 +620,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>eg: #UIdesign #photoshop #sketch</label> -->
                                         </div>
+                                        <p *ngIf="jobFrm.controls['jobSkills'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Skills are required!</p>
                                     </div>
                                 </div>
                                 <!-- Skills end -->
@@ -608,6 +635,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>eg: Garduate </label> -->
                                         </div>
+                                        <p *ngIf="jobFrm.controls['jobQualifications'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Qualification is required!</p>
                                     </div>
                                 </div>
                                 <!-- Qualifications end -->
@@ -626,6 +654,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>Name of the organization/company</label> -->
                                         </div>
+                                        <p *ngIf="jobFrm.controls['jobOrgName'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Organization name is required!</p>
                                     </div>
                                 </div>
                                 <!-- Organization Name end -->
@@ -688,6 +717,7 @@
                                         <div class="c-form__group m-t-0 c-form--sm">
                                             <textarea formControlName="internshipDescription" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
                                         </div>
+                                        <p *ngIf="internshipFrm.controls['internshipDescription'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Description is required!</p>
                                     </div>
                                 </div>
                                 <!-- Description end -->
@@ -704,6 +734,7 @@
                                                 </option>
                                             </select>
                                         </div>
+                                        <p *ngIf="internshipFrm.controls['internshipIndustry'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Industry is required!</p>
                                     </div>
                                 </div>
                                 <!-- Description end -->
@@ -784,6 +815,7 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <p *ngIf="(internshipFrm.controls['internshipSalaryAmount'].errors?.required || internshipFrm.controls['internshipSalaryDuration'].errors?.required || internshipFrm.controls['internshipSalaryCurrency'].errors?.required) && createInternshipFrm.submitted" class="c-form__validation error">Salary details are required!</p>
                                     </div>
                                 </div>
                                 <!-- Salary end -->
@@ -800,6 +832,7 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <p *ngIf="internshipFrm.controls['internshipDuration'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Duration is required!</p>
                                     </div>
                                 </div>
                                 <!-- Duration end -->
@@ -814,6 +847,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>Where is the opportunity</label> -->
                                         </div>
+                                        <p *ngIf="internshipFrm.controls['internshipLocation'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Location is required!</p>
                                     </div>
                                 </div>
                                 <!-- Location end -->
@@ -840,6 +874,7 @@
                                                 <!-- <label>Country</label> -->
                                             </div>
                                         </div>
+                                        <p *ngIf="(internshipFrm.controls['internshipTravelInclusive'].errors?.required || internshipFrm.controls['internshipCountry'].errors?.required) && createInternshipFrm.submitted" class="c-form__validation error">This is required!</p>
                                     </div>
                                 </div>
                                 <!-- Location end -->
@@ -858,6 +893,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>eg: #UIdesign #photoshop #sketch</label> -->
                                         </div>
+                                        <p *ngIf="internshipFrm.controls['internshipSkills'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Skills are required!</p>
                                     </div>
                                 </div>
                                 <!-- Skills end -->
@@ -872,6 +908,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>eg: Garduate </label> -->
                                         </div>
+                                        <p *ngIf="internshipFrm.controls['internshipQualifications'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Qualification is required!</p>
                                     </div>
                                 </div>
                                 <!-- Qualifications end -->
@@ -890,6 +927,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>Name of the organization/company</label> -->
                                         </div>
+                                        <p *ngIf="internshipFrm.controls['internshipOrgName'].errors?.required && createInternshipFrm.submitted" class="c-form__validation error">Organization name is required!</p>
                                     </div>
                                 </div>
                                 <!-- Organization Name end -->
@@ -952,6 +990,7 @@
                                         <div class="c-form__group m-t-0 c-form--sm">
                                             <textarea formControlName="freelanceDescription" class="c-textarea__block c-textarea--style" placeholder="Tell us more about your project"></textarea>
                                         </div>
+                                        <p *ngIf="freelanceFrm.controls['freelanceDescription'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">Description is required!</p>
                                     </div>
                                 </div>
                                 <!-- Description end -->
@@ -968,6 +1007,21 @@
                                                 </option>
                                             </select>
                                         </div>
+                                        <p *ngIf="freelanceFrm.controls['freelanceIndustry'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">Industry is required!</p>
+                                    </div>
+                                </div>
+                                <div class="o-oppo-form__single">
+                                    <div class="col-md-3 p-0">
+                                        <div class="c-text_md o-oppo-form-title">Location</div>
+                                    </div>
+                                    <div class="col-md-9 p-0">
+                                        <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                            <input formControlName="freelanceLocation" class="c-form__input" type="text" placeholder="Location of the opportunity">
+                                            <span class="c-form__highlight"></span>
+                                            <span class="c-form__bar"></span>
+                                            <!-- <label>Location of the opportunity</label> -->
+                                        </div>
+                                        <p *ngIf="freelanceFrm.controls['freelanceLocation'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">Location is required!</p>
                                     </div>
                                 </div>
                                 <div class="o-oppo-form__single">
@@ -1027,6 +1081,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>eg: #UIdesign #photoshop #sketch</label> -->
                                         </div>
+                                        <p *ngIf="freelanceFrm.controls['freelanceSkills'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">Skills are required!</p>
                                     </div>
                                 </div>
                                 <!-- Skills end -->
@@ -1096,6 +1151,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>Describe the cause</label> -->
                                         </div>
+                                        <p *ngIf="volunteerFrm.controls['volunteerCause'].errors?.required && createVolFrm.submitted" class="c-form__validation error">This is required!</p>
                                     </div>
                                 </div>
                                 <div class="o-oppo-form__single">
@@ -1111,6 +1167,7 @@
                                                 </option>
                                             </select>
                                         </div>
+                                        <p *ngIf="volunteerFrm.controls['volunteerIndustry'].errors?.required && createVolFrm.submitted" class="c-form__validation error">Industry is required!</p>
                                     </div>
                                 </div>
                                 <!-- Description end -->
@@ -1125,6 +1182,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>What skills are you looking for in volunteers</label> -->
                                         </div>
+                                        <p *ngIf="volunteerFrm.controls['volunteerSkills'].errors?.required && createVolFrm.submitted" class="c-form__validation error">Skills are required!</p>
                                     </div>
                                 </div>
                                 <!-- Skills end -->
@@ -1139,6 +1197,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>Location of the opportunity</label> -->
                                         </div>
+                                        <p *ngIf="volunteerFrm.controls['volunteerLocation'].errors?.required && createVolFrm.submitted" class="c-form__validation error">Location is required!</p>
                                     </div>
                                 </div>
                                 <!-- Add Collaborators end -->

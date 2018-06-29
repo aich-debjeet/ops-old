@@ -124,17 +124,17 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   buildAuditionForm(data: any) {
     this.auditionFrm = this.fb.group({
       auditionTitle: [data['opportunityAudition']['title'], [Validators.required]],
-      auditionDescription: [data['opportunityAudition']['description'], []],
+      auditionDescription: [data['opportunityAudition']['description'], [Validators.required]],
       auditionCategory: [data['opportunityAudition']['category'], []],
       auditionDate: [data['opportunityAudition']['auditionDate'], [Validators.required]],
       auditionLocation: [data['opportunityAudition']['location']['location'], [Validators.required]],
       auditionGender: [data['opportunityAudition']['gender'], [Validators.required]],
       auditionAgeMin: [data['opportunityAudition']['ageLimit']['from'], [Validators.required]],
       auditionAgeMax: [data['opportunityAudition']['ageLimit']['to'], [Validators.required]],
-      auditionHeightFrom: [data['opportunityAudition']['height']['from'], []],
-      auditionHeightTo: [data['opportunityAudition']['height']['to'], []],
-      auditionWeightFrom: [data['opportunityAudition']['weight']['from'], []],
-      auditionWeightTo: [data['opportunityAudition']['weight']['to'], []]
+      auditionHeightFrom: [data['opportunityAudition']['height']['from'], [Validators.required]],
+      auditionHeightTo: [data['opportunityAudition']['height']['to'], [Validators.required]],
+      auditionWeightFrom: [data['opportunityAudition']['weight']['from'], [Validators.required]],
+      auditionWeightTo: [data['opportunityAudition']['weight']['to'], [Validators.required]]
     });
   }
 
@@ -190,9 +190,10 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   buildProjectForm(data: any) {
     this.projectFrm = this.fb.group({
       projectTitle: [data['opportunityProject']['title'], [Validators.required]],
-      projectDescription: [data['opportunityProject']['description'], []],
-      projectIndustry: [data['opportunityProject']['category'], []],
-      projectSkills: [data['opportunityProject']['skills'], []],
+      projectDescription: [data['opportunityProject']['description'], [Validators.required]],
+      projectIndustry: [data['opportunityProject']['category'], [Validators.required]],
+      projectLocation: [data['opportunityProject']['location']['location'], [Validators.required]],
+      projectSkills: [data['opportunityProject']['skills'], [Validators.required]],
       projectCollaborators: [data['opportunityProject']['addCollaborators'][0], []],
     });
   }
@@ -211,7 +212,10 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
         description: formData.projectDescription,
         industry: formData.projectIndustry,
         skills: formData.projectSkills,
-        addCollaborators: [formData.projectCollaborators]
+        addCollaborators: [formData.projectCollaborators],
+        location: {
+          location: formData.projectLocation
+        }
       }
     };
 
@@ -229,20 +233,20 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   buildJobForm(data: any) {
     this.jobFrm = this.fb.group({
       jobRole: [data['opportunityJob']['role'], [Validators.required]],
-      jobDescription: [data['opportunityJob']['description'], []],
-      jobIndustry: [data['opportunityJob']['industry'], []],
+      jobDescription: [data['opportunityJob']['description'], [Validators.required]],
+      jobIndustry: [data['opportunityJob']['industry'], [Validators.required]],
       jobExperienceFrom: [data['opportunityJob']['experience']['from'], [Validators.required]],
       jobExperienceTo: [data['opportunityJob']['experience']['to'], [Validators.required]],
-      jobSalaryAmount: [data['opportunityJob']['salary']['amount_from'], []],
-      jobSalaryDuration: [data['opportunityJob']['salary']['salaryType'], []],
-      jobSalaryCurrency: [data['opportunityJob']['salary']['currency'], []],
-      jobDuration: [data['opportunityJob']['duration'], []],
-      jobLocation: [data['opportunityJob']['location']['location'], []],
-      jobTravelInclusive: [data['opportunityJob']['includesTravel']['option'], []],
-      jobCountry: [data['opportunityJob']['includesTravel']['country'], []],
-      jobSkills: [data['opportunityJob']['skills'], []],
-      jobQualifications: [data['opportunityJob']['qualifications'], []],
-      jobOrgName: [data['opportunityJob']['organizationName'], []]
+      jobSalaryAmount: [data['opportunityJob']['salary']['amount_from'], [Validators.required]],
+      jobSalaryDuration: [data['opportunityJob']['salary']['salaryType'], [Validators.required]],
+      jobSalaryCurrency: [data['opportunityJob']['salary']['currency'], [Validators.required]],
+      jobDuration: [data['opportunityJob']['duration'], [Validators.required]],
+      jobLocation: [data['opportunityJob']['location']['location'], [Validators.required]],
+      jobTravelInclusive: [data['opportunityJob']['includesTravel']['option'], [Validators.required]],
+      jobCountry: [data['opportunityJob']['includesTravel']['country'], [Validators.required]],
+      jobSkills: [data['opportunityJob']['skills'], [Validators.required]],
+      jobQualifications: [data['opportunityJob']['qualifications'], [Validators.required]],
+      jobOrgName: [data['opportunityJob']['organizationName'], [Validators.required]]
     });
   }
 
@@ -298,20 +302,20 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   buildInternshipForm(data: any) {
     this.internshipFrm = this.fb.group({
       internshipRole: [data['opportunityInternship']['role'], [Validators.required]],
-      internshipDescription: [data['opportunityInternship']['description'], []],
-      internshipIndustry: [data['opportunityInternship']['industry'], []],
+      internshipDescription: [data['opportunityInternship']['description'], [Validators.required]],
+      internshipIndustry: [data['opportunityInternship']['industry'], [Validators.required]],
       internshipExperienceFrom: [data['opportunityInternship']['experience']['from'], [Validators.required]],
       internshipExperienceTo: [data['opportunityInternship']['experience']['to'], [Validators.required]],
-      internshipSalaryAmount: [data['opportunityInternship']['salary']['amount_from'], []],
-      internshipSalaryDuration: [data['opportunityInternship']['salary']['salaryType'], []],
-      internshipSalaryCurrency: [data['opportunityInternship']['salary']['currency'], []],
-      internshipDuration: [data['opportunityInternship']['duration'], []],
-      internshipLocation: [data['opportunityInternship']['location']['location'], []],
-      internshipTravelInclusive: [data['opportunityInternship']['includesTravel']['option'], []],
-      internshipCountry: [data['opportunityInternship']['includesTravel']['country'], []],
-      internshipSkills: [data['opportunityInternship']['skills'], []],
-      internshipQualifications: [data['opportunityInternship']['qualifications'], []],
-      internshipOrgName: [data['opportunityInternship']['organizationName'], []]
+      internshipSalaryAmount: [data['opportunityInternship']['salary']['amount_from'], [Validators.required]],
+      internshipSalaryDuration: [data['opportunityInternship']['salary']['salaryType'], [Validators.required]],
+      internshipSalaryCurrency: [data['opportunityInternship']['salary']['currency'], [Validators.required]],
+      internshipDuration: [data['opportunityInternship']['duration'], [Validators.required]],
+      internshipLocation: [data['opportunityInternship']['location']['location'], [Validators.required]],
+      internshipTravelInclusive: [data['opportunityInternship']['includesTravel']['option'], [Validators.required]],
+      internshipCountry: [data['opportunityInternship']['includesTravel']['country'], [Validators.required]],
+      internshipSkills: [data['opportunityInternship']['skills'], [Validators.required]],
+      internshipQualifications: [data['opportunityInternship']['qualifications'], [Validators.required]],
+      internshipOrgName: [data['opportunityInternship']['organizationName'], [Validators.required]]
     });
   }
 
@@ -367,11 +371,12 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   buildFreelanceForm(data: any) {
     this.freelanceFrm = this.fb.group({
       freelanceTitle: [data['opportunityFreelance']['title'], [Validators.required]],
-      freelanceDescription: [data['opportunityFreelance']['description'], []],
-      freelanceIndustry: [data['opportunityFreelance']['category'], []],
+      freelanceDescription: [data['opportunityFreelance']['description'], [Validators.required]],
+      freelanceIndustry: [data['opportunityFreelance']['category'], [Validators.required]],
+      freelanceLocation: [data['opportunityFreelance']['location']['location'], [Validators.required]],
       freelancePaymentMethod: [data['opportunityFreelance']['payType'], [Validators.required]],
       freelanceEngagement: [data['opportunityFreelance']['engagement'], [Validators.required]],
-      freelanceSkills: [data['opportunityFreelance']['skills'], []],
+      freelanceSkills: [data['opportunityFreelance']['skills'], [Validators.required]],
     });
   }
 
@@ -392,7 +397,10 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
         payType: formData.freelancePaymentMethod,
         engagement: formData.freelanceEngagement,
         skills: formData.freelanceSkills,
-        attachFiles: this.freelanceAttachments
+        attachFiles: this.freelanceAttachments,
+        location: {
+          location: formData.freelanceLocation
+        },
       }
     };
 
@@ -410,13 +418,13 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   buildVolunteerForm(data: any) {
     this.volunteerFrm = this.fb.group({
       volunteerTitle: [data['opportunityVolunteer']['title'], [Validators.required]],
-      volunteerCause: [data['opportunityVolunteer']['cause'], []],
-      volunteerIndustry: [data['opportunityVolunteer']['category'], []],
-      volunteerLocation: [data['opportunityVolunteer']['location']['location'], []],
-      volunteerSkills: [data['opportunityVolunteer']['skills'], []],
-      volunteerDL: [data['opportunityVolunteer']['requirements'].includes('Background Check'), []],
-      volunteerBGC: [data['opportunityVolunteer']['requirements'].includes('Driver\'s License Needed'), []],
-      volunteerORTR: [data['opportunityVolunteer']['requirements'].includes('Orientation or Training'), []],
+      volunteerCause: [data['opportunityVolunteer']['cause'], [Validators.required]],
+      volunteerIndustry: [data['opportunityVolunteer']['category'], [Validators.required]],
+      volunteerLocation: [data['opportunityVolunteer']['location']['location'], [Validators.required]],
+      volunteerSkills: [data['opportunityVolunteer']['skills'], [Validators.required]],
+      volunteerDL: [data['opportunityVolunteer']['requirements'].includes('Background Check'), [Validators.required]],
+      volunteerBGC: [data['opportunityVolunteer']['requirements'].includes('Driver\'s License Needed'), [Validators.required]],
+      volunteerORTR: [data['opportunityVolunteer']['requirements'].includes('Orientation or Training'), [Validators.required]],
     });
   }
 
