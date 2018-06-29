@@ -18,14 +18,15 @@
                 </div>
                 <div *ngIf="ownProfile" class="width100 float_left">
                     <button type="button" class="btn btn-primary btn-md btn-block m-t-16" (click)="showMediaSelection()">add work</button>
-                    <button type="button" [disabled]="disablePublishButton" (click)="publishAction('true')" class="btn btn-default btn-md btn-block m-t-8">publish</button>
+                    <button type="button" *ngIf="ownProfile && profileState?.portfolio_user_profile?.extra?.isPublished === false" (click)="publishAction('publish')" class="btn btn-default btn-md btn-block m-t-8">publish</button>
+                    <button type="button" *ngIf="ownProfile && profileState?.portfolio_user_profile?.extra?.isPublished === true" (click)="publishAction('unpublish')" class="btn btn-default btn-md btn-block m-t-8">unpublish</button>
                 </div>
             </div>
             <div class="col-md-9 float_left">
                 <div class="row">
                     <div class="col-md-12 p-0">
                         <div class="c-port__tabs">
-                            <ul *ngIf="profileState?.portfolio_is_published === true" class="nav nav-tabs">
+                            <ul class="nav nav-tabs">
                                 <li [ngClass]="{'active': activeTab === 'all'}">
                                     <a (click)="selectTab({ categoryName: 'all', categoryId: 'all' })" data-toggle="tab" class="p-l-0">ALL</a>
                                 </li>
@@ -42,17 +43,17 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade active in m-l-r-8">
-                                    <div *ngIf="profileState?.portfolio_is_published === true" class="row">
-                                        <ngx-masonry *ngIf="displayMedia?.length > 0; else portfolioEmpty" [useImagesLoaded]="true">
+                                    <div class="row">
+                                        <ngx-masonry *ngIf="displayMedia?.length > 0" [useImagesLoaded]="true">
                                             <ngx-masonry-item *ngFor="let media of displayMedia" class="col-md-4 col-sm-4 c-portfolio--block">
-                                                <app-portfolio-media (click)="displayMediaPopup(media)" [portMediaDetails]="media"></app-portfolio-media>
+                                                <app-portfolio-media (removeSelectedMedia)="removeMediaFromCat($event)" (displaySelectedMedia)="displayMediaPopup($event)" [portMediaDetails]="media" [portMediaCategory]="activeTab"></app-portfolio-media>
                                             </ngx-masonry-item>
                                         </ngx-masonry>
                                         <!-- <ng-template #portfolioEmpty>
                                             <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is empty</h4>
                                         </ng-template> -->
                                     </div>
-                                    <div *ngIf="profileState?.portfolio_is_published === false" class="row">
+                                    <div *ngIf="!ownProfile && profileState?.portfolio_user_profile?.extra?.isPublished === false" class="row">
                                         <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is not published!</h4>
                                     </div>
                                 </div>
@@ -189,5 +190,3 @@
     </modal-content>
 </app-modal-new>
 <!-- View media modal -->
-
-<app-footer></app-footer>

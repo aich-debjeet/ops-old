@@ -23,6 +23,13 @@ export class ProfileService {
   /**
    * for: portfolio
    */
+  portRemoveMediaFromCategory(data: any) {
+    return this.api.delete('/portal/portfolio/delete/' + data.mediaId + '/' + data.categoryId, '');
+  }
+
+  /**
+   * for: portfolio
+   */
   portDeleteCategory(catId: string) {
     return this.api.delete('/portal/portfolio/delete/' + catId, '');
   }
@@ -39,7 +46,9 @@ export class ProfileService {
    * for: portfolio
    */
   portfolioPublishAction(action: string) {
-    return this.api.get('/portal/portfolio/publish/' + action);
+    let param = false;
+    if (action === 'publish') { param = true; }
+    return this.api.get('/portal/portfolio/publish/' + param);
   }
 
   /**
@@ -59,7 +68,7 @@ export class ProfileService {
    * for: portfolio
    */
   getChannelsForPortfolio(query: string) {
-    return this.api.get('/portal/portfolio/channelTextSearch/0/10?searchText=' + query);
+    return this.api.get('/portal/portfolio/channelTextSearch/0/1000?searchText=' + query);
   }
 
   /**
