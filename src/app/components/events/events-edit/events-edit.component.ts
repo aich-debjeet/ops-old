@@ -56,6 +56,7 @@ export class EventsEditComponent implements OnInit {
   eventDetail: any;
   eventCover: File;
   textEdit = true;
+  eventTypeList: any;
 
     // Address --
     address: string;
@@ -106,6 +107,7 @@ export class EventsEditComponent implements OnInit {
     this.tagState$ = this.store.select('eventTags');
     this.tagState$.subscribe((state) => {
       this.industryList = state['all_industry'];
+      this.eventTypeList = state['eventType_load'];
       // this.eventDetail = state['event_detail'];
       // console.log(this.eventDetail)
       // this.buildForm();
@@ -118,6 +120,7 @@ export class EventsEditComponent implements OnInit {
       this.buildForm();
       this.getLocationGoogle();
     });
+    this.store.dispatch({ type: EventActions.GET_EVENT_TYPE });
     this.store.dispatch({ type: EventActions.GET_ALL_INDUSTRY });
    }
 
