@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -12,7 +12,7 @@ import { ProfileHelper } from '../../helpers/profile.helper';
 
 // rx
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 import { ClaimProfileActions } from 'app/actions/claim-profile.action';
 
 @Component({
@@ -21,8 +21,9 @@ import { ClaimProfileActions } from 'app/actions/claim-profile.action';
   providers: [ ProfileHelper ],
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   tagState$: Observable<ProfileModal>;
+  private routerSubscription: ISubscription;
   private tagStateSubscription: Subscription;
   private sub: any;      // -> Subscriber
   private mode: string;
@@ -44,7 +45,7 @@ export class ProfileComponent implements OnInit {
     this.tagState$ = this.profileStore.select('profileTags');
     this.router = this.route;
     this.isCurrentUser = false;
-    this.tagState$.subscribe((state) => {
+    this.tagStateSubscription = this.tagState$.subscribe((state) => {
       this.userProfile = state;
       // console.log('state', state);
       // this.current_user_value = this.checkUserType(this.userProfile);
@@ -61,7 +62,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     window.scrollTo(0, 0);
-    this.sub = this.route.params
+    this.routerSubscription  = this.route.params
       .subscribe(params => {
         this.userName = params['id'];
         // console.log('this.userName', this.userName);
@@ -112,5 +113,10 @@ export class ProfileComponent implements OnInit {
       this.profileStore.dispatch({ type: ProfileActions.LOAD_CURRENT_USER_QUICK_ACCESS });
       this.profileStore.dispatch({ type: ProfileActions.CURRENT_PROFILE_USER, payload: userdata });
     }
+  }
+
+  ngOnDestroy() {
+    this.routerSubscription.unsubscribe();
+    this.tagStateSubscription.unsubscribe();
   }
 }
