@@ -43,7 +43,7 @@ const routes: Routes = [
     component: EventsInnerComponent
   },
   {
-    path: 'edit',
+    path: 'edit/:id',
     component: EventsEditComponent
   }
 
