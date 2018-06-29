@@ -729,9 +729,13 @@
 
 .c-profile_buttons {
     @extend .c-profile__userdetail;
-    padding-top: 5.5%;
-    left: 28%;
-    position: absolute;
+    padding-left: 2%;
+    padding-top: 11%;
+    float: left;
+    height: 150px;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex-direction: column;
 }
 
 // Profile calender
