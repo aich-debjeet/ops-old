@@ -192,6 +192,7 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
       projectTitle: [data['opportunityProject']['title'], [Validators.required]],
       projectDescription: [data['opportunityProject']['description'], [Validators.required]],
       projectIndustry: [data['opportunityProject']['category'], [Validators.required]],
+      projectLocation: [data['opportunityProject']['location']['location'], [Validators.required]],
       projectSkills: [data['opportunityProject']['skills'], [Validators.required]],
       projectCollaborators: [data['opportunityProject']['addCollaborators'][0], []],
     });
@@ -211,7 +212,10 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
         description: formData.projectDescription,
         industry: formData.projectIndustry,
         skills: formData.projectSkills,
-        addCollaborators: [formData.projectCollaborators]
+        addCollaborators: [formData.projectCollaborators],
+        location: {
+          location: formData.projectLocation
+        }
       }
     };
 

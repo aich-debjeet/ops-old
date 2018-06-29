@@ -272,6 +272,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       projectTitle: ['', [Validators.required]],
       projectDescription: ['', [Validators.required]],
       projectIndustry: ['', [Validators.required]],
+      projectLocation: ['', [Validators.required]],
       projectSkills: ['', [Validators.required]],
       projectCollaborators: ['', []],
     });
@@ -292,7 +293,10 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
         description: formData.projectDescription,
         industry: formData.projectIndustry,
         skills: formData.projectSkills,
-        addCollaborators: [formData.projectCollaborators]
+        addCollaborators: [formData.projectCollaborators],
+        location: {
+          location: formData.projectLocation
+        }
       }
     };
 
