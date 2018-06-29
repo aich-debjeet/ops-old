@@ -73,6 +73,7 @@ export class ProfileSliderComponent implements OnInit {
   activeProfileHandle = '';
   mymodel: string; // bind this to input with ngModel
   bioMessage = '';
+  personalMessage = '';
   txtQueryChanged: Subject<string> = new Subject<string>();
   otherProfileHandle: String;
   otherProfileName: String;
@@ -213,14 +214,13 @@ export class ProfileSliderComponent implements OnInit {
     if (profile == null) {
       return false;
     }
-
     let coverImageURL;
 
     // if (profile && profile['extra'] && profile['extra']['isImported'] === true) {
     //   coverImageURL = this.baseUrl + '/assets/img/new/s14.jpg';
     // } else
     if (!profile.image.cover || profile.image.cover === '') {
-      coverImageURL = 'https://www.dropbox.com/s/kskr4b3c0afc59i/default_coverImage__opt.jpg?raw=1';
+      coverImageURL = 'https://cdn.onepagespotlight.com/img/profile-cover.png';
     } else {
       coverImageURL = this.baseUrl + profile.image.cover;
     }
@@ -684,8 +684,12 @@ export class ProfileSliderComponent implements OnInit {
     });
  }
 
- openMsg() {
-    this.showThis = true;
+ openMsg(val: string) {
+  if(val === 'personalMessage'){
+   this.showThis = true;
+  } else {
+    this.showThis = false;
   }
+ }
 }
 

@@ -40,10 +40,6 @@
                         <a *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md" (click)="networkModal.open()">Network</a>
                         <!-- <button *ngIf="!profileObject?.extra?.isImported && !this.isOwner" type="button" class="btn btn-default btn-md">Donate</button> -->
                     </div>
-                    <div class="c-profile__maintags">
-                        <a routerLink="{{ '/spotfeed/' + skill?.name }}" *ngFor="let skill of profileObject?.userSkill | slice:0:5">{{ skill?.name }}</a>
-                        <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more">More</a>
-                    </div>
                 </div>
             </div>
             <div class="col-md-4"></div>
@@ -60,7 +56,7 @@
                             <a routerLinkActive="activein" [routerLink]="['about']">About</a>
                         </li>
                         <li class="list-line-item">
-                            <a routerLinkActive="activein" [routerLink]="['/portfolio/u', userProfile?.profile_navigation_details?.username]">Portfolio</a>
+                            <a routerLinkActive="activein" [routerLink]="['/portfolio/u', profileObject?.userHandle]">Portfolio</a>
                         </li>
                         <li class="list-line-item hidden-xs" *ngIf = "isOwner">
                             <a routerLinkActive="activein" routerLink="/planner">Planner</a>
@@ -191,8 +187,8 @@
                     <div class="col-md-4 col-sm-4 o-profile__detail__block p-24 hidden-xs">
                         <div class="o-profile__detail--heading">Interest</div>
                         <button *ngIf="profileObject?.userSkill == '' && this.isOwner" class="btn btn-default btn-add" (click)="profileEdit()" type="button">+ Add Skill Here</button>
-                        <a [routerLink]="'/spotfeed/' + skill?.name" *ngFor="let skill of profileObject?.userSkill | slice:0:5" class="c-skill__tags">{{ skill?.name }}</a>
-                        <a *ngIf="profileObject?.userSkill?.length > 7" (click)="skillModal.open()" class="c-skill__tags--more" >More</a>
+                        <a [routerLink]="'/spotfeed/' + skill?.name" *ngFor="let skill of profileObject?.userSkill | slice:0:4" class="c-skill__tags">{{ skill?.name }}</a>
+                        <a *ngIf="profileObject?.userSkill?.length > 4" (click)="skillModal.open()" class="c-skill__tags--more" >More</a>
                     </div>
                 </div>
             </div>
@@ -380,18 +376,18 @@
                         </div>
                         <div class="c-radio__sm">
                             <label class="col-md-8 col-md-offset-2 o-network_option m-t-16">
-                                <input name="request" type="radio" class="c-form__bar2" value="network" formControlName="request">
+                                <input name="request" type="radio" class="c-form__bar2" value="network" (click)="openMsg('network')" formControlName="request">
                                 <span></span>
                                 <div class="c-radio--label">Hey {{ profileObject?.name }}, I want to network with you.</div>
                             </label>
                             <label class="col-md-8 col-md-offset-2 o-network_option m-t-16">
                                 <!-- <input id="hereShow" name="request" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request"> -->
-                                <input id="hereShow" name="request" (click)="openMsg()" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request">
+                                <input id="hereShow" name="request" (click)="openMsg('personalMessage')" type="radio" class="c-form__bar2" value="personalMessage" formControlName="request">
                                 <span></span>
                                 <div class="c-radio--label">Personal message</div>
                                 <div *ngIf="showThis">
-                                    <input class="c-form__input" id="" type="text" formControlName="message"required placeholder="Type Message">
-                                    <p class="pull-right">200</p>
+                                    <input class="c-form__input" id="" type="text" maxlength="220" [(ngModel)]="personalMessage" formControlName="message"required placeholder="Type Message">
+                                    <p class="pull-right">{{ (220) - (personalMessage?.length) }}</p>
                                     <!-- <p *ngIf="networkForm.get('message').invalid && networkForm.get('request').invalid " class="error_alert text-center"> 
                                         Enter text
                                    </p>	 -->

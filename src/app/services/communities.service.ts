@@ -40,7 +40,7 @@ export class CommunitiesService {
   }
 
   listCommnuity(params: any) {
-    return this.api.put('/portal/community/filter/specificSearch' , params);
+    return this.api.put('/portal/community/advanceSearch' , params);
   }
 
   joinCommunity(params: any) {

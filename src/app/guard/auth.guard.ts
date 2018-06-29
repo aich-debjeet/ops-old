@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { Login, UserTag, initialTag } from '../models/auth.model';
 import { Observable } from 'rxjs/Observable';
-
-import { AuthActions } from './../actions/auth.action';
 import { AuthService } from './../services/auth.service';
 
 @Injectable()
@@ -17,6 +13,7 @@ export class AuthGuard implements CanActivate {
             const data = e.json();
             // console.log('AUTH GUARD', data);
             localStorage.setItem('loggedInProfileHandle', data['profileId']);
+            localStorage.setItem('portfolioUserHandle', data['profileId']);
             if (e) {
                 return true;
             }

@@ -65,8 +65,8 @@ export class HomeChannelComponent implements OnInit, OnDestroy {
         this.channelList = state.user_following_channel;
         this.channel_scroll_id = state.user_channel_scroll_id;
       }
-      if(state['user_following_channels_loading'] !== null) {
-         this.channel_load = state['user_following_channels_loading'] 
+      if (state['user_following_channels_loading'] !== null) {
+         this.channel_load = state['user_following_channels_loading']
       }
     });
 

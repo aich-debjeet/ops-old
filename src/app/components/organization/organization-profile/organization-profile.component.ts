@@ -92,8 +92,7 @@ export class OrganizationProfileComponent implements OnInit {
     this.sub = this.route.params
     .subscribe(params => {
       const orgParam = params['id'];
-      // console.log('checking for org params', orgParam);
-
+      
       // load org profile details if owned profile
       if (this.router.url.includes('/org/')) {
         // console.log('owned org profile');

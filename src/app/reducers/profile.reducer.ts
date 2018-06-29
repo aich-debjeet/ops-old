@@ -78,11 +78,87 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     /**
      * for: portfolio
      */
+    case ProfileActions.PORT_REMOVE_MEDIA_FROM_CAT:
+      return Object.assign({}, state, {
+        port_remove_media_from_cat: true,
+        port_remove_media_from_cat_success: false,
+        get_port_display_media_result: state['get_port_display_media_result'].filter(i => i.mediaId !== payload.mediaId)
+      });
+
+    case ProfileActions.PORT_REMOVE_MEDIA_FROM_CAT_SUCCESS:
+      return Object.assign({}, state, {
+        port_remove_media_from_cat: false,
+        port_remove_media_from_cat_success: true
+      });
+
+    case ProfileActions.PORT_REMOVE_MEDIA_FROM_CAT_FAILED:
+      return Object.assign({}, state, {
+        port_remove_media_from_cat: false,
+        port_remove_media_from_cat_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
+    case ProfileActions.PORTFOLIO_DELETE_CATEGORY:
+      return Object.assign({}, state, {
+        portfolio_delete_category: true,
+        portfolio_delete_category_success: false,
+        get_portfolio_categories_result: state['get_portfolio_categories_result'].filter(i => i.categoryId !== payload)
+      });
+
+    case ProfileActions.PORTFOLIO_DELETE_CATEGORY_SUCCESS:
+      return Object.assign({}, state, {
+        portfolio_delete_category: false,
+        portfolio_delete_category_success: true
+      });
+
+    case ProfileActions.PORTFOLIO_DELETE_CATEGORY_FAILED:
+      return Object.assign({}, state, {
+        portfolio_delete_category: false,
+        portfolio_delete_category_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
+    case ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME:
+      return Object.assign({}, state, {
+        portfolio_update_category_name: true,
+        portfolio_update_category_name_success: false,
+        portfolio_update_category_name_query: payload
+      });
+
+    case ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME_SUCCESS:
+      return Object.assign({}, state, {
+        portfolio_update_category_name: false,
+        portfolio_update_category_name_success: true,
+        portfolio_update_category_name_result: payload
+      });
+
+    case ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME_FAILED:
+      return Object.assign({}, state, {
+        portfolio_update_category_name: false,
+        portfolio_update_category_name_success: false
+      });
+
+    /**
+     * for: portfolio
+     */
     case ProfileActions.PORTFOLIO_PUBLISH_ACTION:
+      const new_portfolio_user_profile = state['portfolio_user_profile'];
+      if (payload === 'publish') {
+        new_portfolio_user_profile['extra']['isPublished'] = true;
+      } else {
+        new_portfolio_user_profile['extra']['isPublished'] = false;
+      }
+      console.log('payload', payload);
+      console.log('new state', new_portfolio_user_profile['extra']['isPublished']);
       return Object.assign({}, state, {
         portfolio_publish_action: true,
         portfolio_publish_action_success: false,
-        portfolio_publish_action_query: payload
+        portfolio_publish_action_query: payload,
+        portfolio_user_profile: new_portfolio_user_profile
       });
 
     case ProfileActions.PORTFOLIO_PUBLISH_ACTION_SUCCESS:
@@ -116,14 +192,14 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         get_port_display_media_success: true,
         get_port_display_media_result: payload.SUCCESS['medias'],
         get_portfolio_categories_result: payload.SUCCESS['categories'],
-        portfolio_is_published: true
+        // portfolio_is_published: true
       });
 
     case ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA_FAILED:
       return Object.assign({}, state, {
         get_port_display_media: false,
         get_port_display_media_success: false,
-        portfolio_is_published: false
+        // portfolio_is_published: false
       });
 
     /**
@@ -826,8 +902,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         profile_other_loading: false,
         profile_other_loaded: true,
         profile_other: payload,
-        profiles: [...state.profiles, payload],
-        portfolio_user_profile: payload
+        profiles: [...state.profiles, payload]
       });
 
     case ProfileActions.PROFILE_LOAD_FAILED:
@@ -836,6 +911,20 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
         profile_other_loading: false,
         // profile_other_loaded: false
       });
+
+    /**
+     * Load a portfolio Profile
+     */
+    case ProfileActions.PORTFOLIO_PROFILE_LOAD:
+      return state;
+
+    case ProfileActions.PORTFOLIO_PROFILE_LOAD_SUCCESS:
+      return Object.assign({}, state, {
+        portfolio_user_profile: payload
+      });
+
+    case ProfileActions.PORTFOLIO_PROFILE_LOAD_FAILED:
+      return state;
 
     /**
      * Follow Profile
@@ -1017,6 +1106,27 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     case ProfileActions.LOAD_ALL_PROFILES_FAILED:
       return Object.assign({}, state, {
         user_profiles_all_loaded: false
+      });
+
+      /**
+       * load profile people to follow
+       */
+    case ProfileActions.LOAD_ALL_PROFILES_PROF:
+      return Object.assign({}, state, {
+        user_profiles_all_loaded_prof: false
+      });
+    case ProfileActions.LOAD_ALL_PROFILES_PROF_SUCCESS:
+      const respProf = payload.profileResponse;
+      const profile_list_prof = state.user_profiles_all_prof.concat(respProf)
+      return Object.assign({}, state, {
+        user_profiles_all_loaded_prof: true,
+        user_profiles_all_prof: profile_list_prof,
+        people_follow_scroll_id_prof: payload.scrollId
+      });
+
+    case ProfileActions.LOAD_ALL_PROFILES_PROF_FAILED:
+      return Object.assign({}, state, {
+        user_profiles_all_loaded_prof: false
       });
 
     /**
@@ -1504,8 +1614,7 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     });
 
   case ProfileActions.USER_PASSWORD_UPDATE_SUCCESS:
-  console.log('payload', payload)
-    return Object.assign({},state, {
+    return Object.assign({}, state, {
       pass_success : payload,
     });
 
@@ -1556,16 +1665,15 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
 
         case ProfileActions.PROFILE_REPORT:
         return Object.assign({}, state, {
-          reports:[]
+          reports: []
         });
         case ProfileActions.PROFILE_REPORT_SUCCESS:
-        console.log(payload)
         return Object.assign({}, state, {
           reports: payload.Success.questions
         });
         case ProfileActions.PROFILE_REPORT_FAILED:
         return Object.assign({}, state, {
-          reports:[]
+          reports: []
         });
     // }
 

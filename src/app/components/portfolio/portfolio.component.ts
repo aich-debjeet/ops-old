@@ -76,6 +76,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
               this.ownProfile = false;
             }
           }
+          console.log('ownProfile', this.ownProfile);
         }
         if (this.generalUtils.checkNestedKey(state, ['get_users_channels_result'])) {
           this.channels = state['get_users_channels_result'];
@@ -97,6 +98,9 @@ export class PortfolioComponent implements OnInit, OnDestroy {
         }
         if (this.generalUtils.checkNestedKey(state, ['get_portfolio_categories_result'])) {
           this.portCategories = state['get_portfolio_categories_result'];
+          for (let i = 0; i < this.portCategories.length; i++) {
+            this.portCategories[i].isEditable = false;
+          }
         }
         if (this.generalUtils.checkNestedKey(state, ['get_port_display_media_result'])) {
           this.displayMedia = state['get_port_display_media_result'];
@@ -138,13 +142,35 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     }
   }
 
+  deleteCategory(catId: string) {
+    this.profileStore.dispatch({
+      type: ProfileActions.PORTFOLIO_DELETE_CATEGORY,
+      payload: catId
+    });
+  }
+
   /**
    * edit category
    */
-  editCategoryName(category: any) {
-    // if () {
-    //   this.profileStore.dispatch({ type: ProfileActions.UPDATE-CATEGORY_NAME, payload:  });
-    // }
+  catEditAction(action: string, catIndex: number) {
+    if (this.portCategories[catIndex]) {
+      if (action === 'enable') {
+        this.portCategories[catIndex].isEditable = true;
+      } else {
+        this.portCategories[catIndex].isEditable = false;
+      }
+    }
+  }
+
+  updateCatName(newName: string, catIndex: number) {
+    if (this.portCategories[catIndex]) {
+      this.portCategories[catIndex].categoryName = newName;
+    }
+    // console.log('cats', this.portCategories);
+  }
+
+  saveNewCatName(catIndex: number) {
+    this.profileStore.dispatch({ type: ProfileActions.PORTFOLIO_UPDATE_CATEGORY_NAME, payload: {} });
   }
 
   /**
@@ -167,7 +193,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.routerSub = this.route.params.subscribe((params) => {
       // load user profile by username
       if (this.generalUtils.checkNestedKey(params, ['username'])) {
-        this.profileStore.dispatch({ type: ProfileActions.PROFILE_LOAD, payload: params['username'] });
+        this.profileStore.dispatch({ type: ProfileActions.PORTFOLIO_PROFILE_LOAD, payload: params['username'] });
       } else {
         this.router.navigateByUrl('/');
       }
@@ -310,7 +336,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.profileStore.dispatch({ type: ProfileActions.PORTFOLIO_PUBLISH_ACTION, payload: pubAction });
     setTimeout(() => {
       this.disablePublishButton = false;
-      this.toastr.success('Portfolio has been published successfully!');
+      this.toastr.success('Portfolio has been ' + pubAction + 'ed successfully!');
     }, 500);
   }
 
@@ -323,6 +349,21 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
   channelAssignCopy() {
     this.filteredChannels = Object.assign([], this.channels);
+  }
+
+  getCatIndexByName(catName: string) {
+    return _findIndex(this.portCategories, (c) => c.categoryName === catName);
+  }
+
+  removeMediaFromCat(mediaId: string) {
+    const catIndex = this.getCatIndexByName(this.activeTab);
+    this.profileStore.dispatch({
+      type: ProfileActions.PORT_REMOVE_MEDIA_FROM_CAT,
+      payload: {
+        mediaId: mediaId,
+        categoryId: this.portCategories[catIndex].categoryId
+      }
+    });
   }
 
 }

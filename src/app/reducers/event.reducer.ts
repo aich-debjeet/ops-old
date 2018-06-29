@@ -1,8 +1,8 @@
 import { ActionReducer, Action } from '@ngrx/store';
 import { EventActions } from '../actions/event.action';
-import { EventModal, initialTag  } from '../models/event.model';
+import { EventModal, initialTagEve  } from '../models/event.model';
 
-export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, type}: Action) =>  {
+export const EventReducer: ActionReducer<any> = (state = initialTagEve, {payload, type}: Action) =>  {
 
   switch (type) {
 
@@ -10,18 +10,16 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
      * event report
     */
     case EventActions.EVENT_REPORT:
-    // console.log(payload)
     return Object.assign({}, state, {
-      reports:[]
+      reports: []
     });
     case EventActions.EVENT_REPORT_SUCCESS:
-    // console.log(payload)
     return Object.assign({}, state, {
       reports: payload.Success.questions
     });
     case EventActions.EVENT_REPORT_FAILED:
     return Object.assign({}, state, {
-      reports:[]
+      reports: []
     });
 
     case EventActions.EVENT_EDIT:
@@ -125,6 +123,7 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
     if(payload.scrollId === ''){
       return Object.assign({}, state, {
         event_list: [],
+        // event_filter: [],
       });
     }
     else {
@@ -136,13 +135,17 @@ export const EventReducer: ActionReducer<any> = (state = initialTag, {payload, t
     }
 
     case EventActions.EVENT_SEARCH_SUCCESS:
-    let elastic_list = [];
-    if (state && state['event_list'] && state['event_list'].length > 0){
-      elastic_list = [...state['event_list'], ...payload['eventResponse']];
-    } else {
-        elastic_list = payload['eventResponse'];
-    }
+      let elastic_list = [];
+      let filterList = [];
+      if (state && state['event_list'] && state['event_list'].length > 0){
+        elastic_list = [...state['event_list'], ...payload['eventResponse']];
+        filterList = [...state['event_filter'], ...payload.filterList];
+      } else {
+          elastic_list = payload['eventResponse'];
+          filterList = payload.filterList;
+      }
       return Object.assign({}, state, {
+        event_filter: filterList,
         event_list: elastic_list,
         event_loading: false,
         event_Loaded : true,

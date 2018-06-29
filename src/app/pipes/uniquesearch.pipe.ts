@@ -10,7 +10,6 @@ export class SearchUniquePipe implements PipeTransform {
     if (! query) {
         return items;
     } else {
-        console.log(items)
     return items.filter(item =>
         item[field].toLowerCase().indexOf(query.toString().toLowerCase()) !== -1
     );

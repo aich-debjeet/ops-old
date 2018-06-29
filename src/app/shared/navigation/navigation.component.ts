@@ -129,8 +129,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
         if (typeof state['recieved_notifications'] !== 'undefined') {
           let noti;
           noti = state['recieved_notifications'];
+          console.log(noti)
           this.notifications = _uniqBy(noti, noti.notificationId);
-          // console.log(this.notifications)
+          console.log(this.notifications)
           this.processNotifications();
         }
         if (typeof state['marking_as_read_response'] !== 'undefined') {
@@ -190,6 +191,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     // this.loadNotifications();
+    this.pusherService.notificationsChannel.bind('Following', (message) => {
+      // console.log(message)
+      this.notify = true;
+      this.notificationStore.dispatch({
+        type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
+        payload: JSON.parse(message)
+      });
+    });
     this.pusherService.notificationsChannel.bind('Media_Spot', (message) => {
       // console.log(message)
       this.notify = true;
@@ -247,7 +256,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       });
     });
     this.pusherService.notificationsChannel.bind('Network_Accepted', (message) => {
-      // console.log(message)
+       console.log(message)
       this.notify = true;
       this.notificationStore.dispatch({
         type: NotificationActions.ADD_PUSHER_NOTIFICATIONS,
@@ -296,6 +305,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
         break;
 
       case 'Network_Sent':
+      this.router.navigate(['/profile/network']);
+        break;
+
+      case 'Network_Accepted':
       this.router.navigate(['/profile/network']);
         break;
     }
@@ -376,6 +389,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
           this.notifications[index]['message'] = ' sent you a network request';
           break;
 
+        case 'Network_Accepted':
+          this.notifications[index]['message'] = ' accepted your network request';
+          break;
       }
 
     });

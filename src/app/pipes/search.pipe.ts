@@ -10,7 +10,6 @@ export class SearchFilterPipe implements PipeTransform {
      if (!field) {
         return items;
       } else {
-        console.log(items)
         return items
           .filter(item =>
             item.name.toLowerCase().indexOf(field.toString().toLowerCase()) !== -1

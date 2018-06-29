@@ -41,8 +41,7 @@ export class ReportPopoupComponent implements OnInit {
       desc: ''
     });
   }
-  submitForm(value){
-    console.log(value);
+  submitForm(value) {
     // this.onclose.emit();
     this.profileThankYou = true;
     // this.modalService.open('thankYou');
@@ -56,7 +55,7 @@ export class ReportPopoupComponent implements OnInit {
     // console.log(data)
     this._store.dispatch({ type: SharedActions.GET_REPORT_OPTIONS, payload: data });
   }
-  closeThankyou(){
+  closeThankyou() {
     this.profileThankYou = false;
     this.onclose.emit();
   }

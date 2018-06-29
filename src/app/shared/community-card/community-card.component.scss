@@ -7,6 +7,10 @@
 @import './src/assets/scss/components/_preloader.scss';
 @import '~sass-mq/_mq.scss';
 
+.c-card-pre{
+  height: 301px;
+}
+
 // audio card media block style -----------------------------------------
 .c-card__media {
     width: 100%;

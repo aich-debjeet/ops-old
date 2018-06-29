@@ -29,6 +29,9 @@
     height: 370px;
     background: #f8f8f8;
     overflow: hidden;
+    background: url(https://ops-v2.netlify.com/assets/demo/photography1.jpg) no-repeat;
+    background-size:cover;
+    background-position:center;
     @include mq($from: $mobile_sm, $until: $tablet) {
         height: 100%;
     }
@@ -36,6 +39,7 @@
 
 .o-eventinner__img {
     width: 100%;
+    // object-fit: cover;
 }
 
 .o-eventinner__cat {

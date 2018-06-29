@@ -52,7 +52,7 @@ export class OpportunitySearchComponent implements OnInit, AfterViewInit, OnDest
   showPreloader = false;
   baseUrl = environment.API_IMAGE;
   opportunities = [];
-  recordsPerPage = 4;
+  recordsPerPage = 8;
   insdustryType = '';
 
   constructor(

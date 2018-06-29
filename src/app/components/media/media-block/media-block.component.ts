@@ -67,12 +67,10 @@ export class MediaBlockComponent implements OnInit {
     private toastr: ToastrService,
     private store: Store<Media>
   ) {
-    // console.log(this.router.url)
     this.spot = false;
     this.mediaState$ = store.select('mediaStore');
 
     this.mediaState$.subscribe((state) => {
-       console.log('state', state)
       this.mediaStore = state;
       this.channelId = this.mediaStore.channel_detail['channelId']
       this.data = this.mediaStore.media_detail;
@@ -104,8 +102,6 @@ export class MediaBlockComponent implements OnInit {
     this.store.select('mediaStore')
     .first(media => media['media_detail'].channelId)
     .subscribe( data => {
-      console.log(data);
-
       this.meta.updateTag({ name: 'description', content: data['media_detail'].description });
       // meta.addTags([
       //   { name: 'description', content: data['media_detail'].description },
@@ -175,7 +171,6 @@ export class MediaBlockComponent implements OnInit {
    * Close
    */
   doClose(event) {
-    // console.log('event', event)
     this.router.navigate(['.', { outlets: { media: null } }], {
       relativeTo: this.route.parent
     });
@@ -195,10 +190,9 @@ export class MediaBlockComponent implements OnInit {
   }
   deletePost(data) {
     this.deleteMsg = true;
-    // console.log('data', data)
+
     if (data.id !== 'undefined') {
       const id = data.id;
-      // console.log('channelid', this.channelId)
       this.store.dispatch({ type: MediaActions.MEDIA_POST_DELETE, payload: id});
     }
   }
@@ -210,12 +204,11 @@ export class MediaBlockComponent implements OnInit {
   onCommentEdit(message) {
     this.isEdit = false;
     this.editMsg = true;
-    // console.log('comment', '+ message', message)
+
     const data = {
       'id' : this.data.id,
       'description' : message
     }
-    // console.log(data)
     this.store.dispatch({ type: MediaActions.MEDIA_EDIT, payload: data});
   }
 

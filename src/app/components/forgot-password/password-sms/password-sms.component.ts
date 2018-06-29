@@ -116,12 +116,21 @@ export class PasswordSmsComponent  implements OnInit, OnDestroy {
   }
 
   // focus on next otp number
-  nextOtpNum(e: any, num: number) {
-    if (e.keyCode >= 48 && e.keyCode <= 57) {
-      if (num > 0 && num < 6) {
-        const nextNum = num + 1;
+  nextOtpNum(e: any, pos: number) {
+    if (e.keyCode === 8) {
+      if (pos > 0 && pos < 7) {
+        const prevNum = pos - 1;
+        if (prevNum > 0) {
+          const prevOtpInput = 'otpNum' + prevNum.toString();
+          setTimeout(() => { this[prevOtpInput].nativeElement.focus(); }, 10);
+        }
+        return true;
+      }
+    } else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
+      if (pos > 0 && pos < 6) {
+        const nextNum = pos + 1;
         const nextOtpInput = 'otpNum' + nextNum.toString();
-        setTimeout(() => { this[nextOtpInput].nativeElement.focus(); }, 100);
+        setTimeout(() => { this[nextOtpInput].nativeElement.focus(); }, 10);
       }
       return true;
     }
