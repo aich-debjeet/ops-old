@@ -307,6 +307,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
       case 'Network_Sent':
       this.router.navigate(['/profile/network']);
         break;
+
+      case 'Network_Accepted':
+      this.router.navigate(['/profile/network']);
+        break;
     }
   }
 

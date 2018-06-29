@@ -3,9 +3,12 @@
 <section class="event-main">
   <div class="container">
     <div class="o-eventinner_left m-t-16 p-16">
-      <div class="o-eventinner__imgblock">
-        <img [src]="baseUrl + eventDetail?.extras?.coverImage" class="o-eventinner__img">
-      </div>
+      <!-- <div class="o-eventinner__imgblock"> -->
+        <!-- <img [src]="baseUrl + eventDetail?.extras?.coverImage" class="o-eventinner__img"> -->
+        <div class="o-eventinner__imgblock" [ngStyle]="{'background-image': 'url(' + baseUrl + eventDetail?.extras?.coverImage + ')', 'background-size': 'cover',
+                'background-position': 'center',
+                'width': '100%'}"></div>
+      <!-- </div> -->
       <div class="o-eventinner__cat">{{ eventDetail?.Type?.eventType }}</div>
       <div class="o-eventinner__heading">{{ eventDetail?.title }}
           <div class="pull-right dropdown c-dropdown" appDropdown>
