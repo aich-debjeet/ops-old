@@ -310,20 +310,20 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   createJobForm() {
     this.jobFrm = this.fb.group({
       jobRole: ['', [Validators.required]],
-      jobDescription: ['', []],
-      jobIndustry: ['', []],
+      jobDescription: ['', [Validators.required]],
+      jobIndustry: ['', [Validators.required]],
       jobExperienceFrom: ['', [Validators.required]],
       jobExperienceTo: ['', [Validators.required]],
-      jobSalaryAmount: ['', []],
-      jobSalaryDuration: ['', []],
-      jobSalaryCurrency: ['', []],
-      jobDuration: ['', []],
-      jobLocation: ['', []],
-      jobTravelInclusive: ['', []],
-      jobCountry: ['', []],
-      jobSkills: ['', []],
-      jobQualifications: ['', []],
-      jobOrgName: ['', []]
+      jobSalaryAmount: ['', [Validators.required]],
+      jobSalaryDuration: ['', [Validators.required]],
+      jobSalaryCurrency: ['', [Validators.required]],
+      jobDuration: ['', [Validators.required]],
+      jobLocation: ['', [Validators.required]],
+      jobTravelInclusive: ['', [Validators.required]],
+      jobCountry: ['', [Validators.required]],
+      jobSkills: ['', [Validators.required]],
+      jobQualifications: ['', [Validators.required]],
+      jobOrgName: ['', [Validators.required]]
     });
   }
 

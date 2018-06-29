@@ -229,20 +229,20 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   buildJobForm(data: any) {
     this.jobFrm = this.fb.group({
       jobRole: [data['opportunityJob']['role'], [Validators.required]],
-      jobDescription: [data['opportunityJob']['description'], []],
-      jobIndustry: [data['opportunityJob']['industry'], []],
+      jobDescription: [data['opportunityJob']['description'], [Validators.required]],
+      jobIndustry: [data['opportunityJob']['industry'], [Validators.required]],
       jobExperienceFrom: [data['opportunityJob']['experience']['from'], [Validators.required]],
       jobExperienceTo: [data['opportunityJob']['experience']['to'], [Validators.required]],
-      jobSalaryAmount: [data['opportunityJob']['salary']['amount_from'], []],
-      jobSalaryDuration: [data['opportunityJob']['salary']['salaryType'], []],
-      jobSalaryCurrency: [data['opportunityJob']['salary']['currency'], []],
-      jobDuration: [data['opportunityJob']['duration'], []],
-      jobLocation: [data['opportunityJob']['location']['location'], []],
-      jobTravelInclusive: [data['opportunityJob']['includesTravel']['option'], []],
-      jobCountry: [data['opportunityJob']['includesTravel']['country'], []],
-      jobSkills: [data['opportunityJob']['skills'], []],
-      jobQualifications: [data['opportunityJob']['qualifications'], []],
-      jobOrgName: [data['opportunityJob']['organizationName'], []]
+      jobSalaryAmount: [data['opportunityJob']['salary']['amount_from'], [Validators.required]],
+      jobSalaryDuration: [data['opportunityJob']['salary']['salaryType'], [Validators.required]],
+      jobSalaryCurrency: [data['opportunityJob']['salary']['currency'], [Validators.required]],
+      jobDuration: [data['opportunityJob']['duration'], [Validators.required]],
+      jobLocation: [data['opportunityJob']['location']['location'], [Validators.required]],
+      jobTravelInclusive: [data['opportunityJob']['includesTravel']['option'], [Validators.required]],
+      jobCountry: [data['opportunityJob']['includesTravel']['country'], [Validators.required]],
+      jobSkills: [data['opportunityJob']['skills'], [Validators.required]],
+      jobQualifications: [data['opportunityJob']['qualifications'], [Validators.required]],
+      jobOrgName: [data['opportunityJob']['organizationName'], [Validators.required]]
     });
   }
 
