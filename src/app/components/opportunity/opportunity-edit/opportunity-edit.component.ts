@@ -124,17 +124,17 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   buildAuditionForm(data: any) {
     this.auditionFrm = this.fb.group({
       auditionTitle: [data['opportunityAudition']['title'], [Validators.required]],
-      auditionDescription: [data['opportunityAudition']['description'], []],
+      auditionDescription: [data['opportunityAudition']['description'], [Validators.required]],
       auditionCategory: [data['opportunityAudition']['category'], []],
       auditionDate: [data['opportunityAudition']['auditionDate'], [Validators.required]],
       auditionLocation: [data['opportunityAudition']['location']['location'], [Validators.required]],
       auditionGender: [data['opportunityAudition']['gender'], [Validators.required]],
       auditionAgeMin: [data['opportunityAudition']['ageLimit']['from'], [Validators.required]],
       auditionAgeMax: [data['opportunityAudition']['ageLimit']['to'], [Validators.required]],
-      auditionHeightFrom: [data['opportunityAudition']['height']['from'], []],
-      auditionHeightTo: [data['opportunityAudition']['height']['to'], []],
-      auditionWeightFrom: [data['opportunityAudition']['weight']['from'], []],
-      auditionWeightTo: [data['opportunityAudition']['weight']['to'], []]
+      auditionHeightFrom: [data['opportunityAudition']['height']['from'], [Validators.required]],
+      auditionHeightTo: [data['opportunityAudition']['height']['to'], [Validators.required]],
+      auditionWeightFrom: [data['opportunityAudition']['weight']['from'], [Validators.required]],
+      auditionWeightTo: [data['opportunityAudition']['weight']['to'], [Validators.required]]
     });
   }
 

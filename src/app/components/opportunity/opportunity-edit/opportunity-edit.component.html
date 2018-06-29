@@ -184,6 +184,7 @@
                                       <div class="col-md-2 p-0">
                                           <p class="c-text_md color-grey-dark m-t-16">cm</p>
                                       </div>
+                                      <p *ngIf="(auditionFrm.controls['auditionHeightFrom'].errors?.required || auditionFrm.controls['auditionHeightTo'].errors?.required) && createAudFrm.submitted" class="c-form__validation error">Height is required!</p>
                                   </div>
                               </div>
                               <!-- Height end -->
@@ -215,6 +216,7 @@
                                       <div class="col-md-2 p-0">
                                           <p class="c-text_md color-grey-dark m-t-16">Kg</p>
                                       </div>
+                                      <p *ngIf="(auditionFrm.controls['auditionWeightFrom'].errors?.required || auditionFrm.controls['auditionWeightTo'].errors?.required) && createAudFrm.submitted" class="c-form__validation error">Weight is required!</p>
                                   </div>
                               </div>
                               <!-- Weight end -->

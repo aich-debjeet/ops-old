@@ -203,17 +203,17 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   createAuditionForm() {
     this.auditionFrm = this.fb.group({
       auditionTitle: ['', [Validators.required]],
-      auditionDescription: ['', []],
-      auditionCategory: ['', []],
+      auditionDescription: ['', [Validators.required]],
+      auditionCategory: ['', [Validators.required]],
       auditionDate: ['', [Validators.required]],
       auditionLocation: ['', [Validators.required]],
       auditionGender: ['', [Validators.required]],
       auditionAgeMin: ['', [Validators.required]],
       auditionAgeMax: ['', [Validators.required]],
-      auditionHeightFrom: ['', []],
-      auditionHeightTo: ['', []],
-      auditionWeightFrom: ['', []],
-      auditionWeightTo: ['', []]
+      auditionHeightFrom: ['', [Validators.required]],
+      auditionHeightTo: ['', [Validators.required]],
+      auditionWeightFrom: ['', [Validators.required]],
+      auditionWeightTo: ['', [Validators.required]]
     });
   }
 
