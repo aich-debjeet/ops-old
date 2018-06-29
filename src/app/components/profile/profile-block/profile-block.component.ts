@@ -58,7 +58,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
   opportunities: any[];
   eventList: any;
   recordsPerPage = 2;
-  people_follow_id: any = '';
 
   constructor(
     private http: Http,
@@ -87,6 +86,10 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
           this.profileObject = this.loadProfile( state, 'own' );
           // console.log(this.profileObject)
           this.userHandle = this.profileObject.userDetails.handle;
+          this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
+            scrollId: '',
+            searchType: 'created',
+          } });
           // console.log(this.userHandle)
         } else {
           if (state.profile_user_info.isClaimForGuest && state.profile_user_info.isClaimForGuest === true) {
@@ -99,6 +102,10 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
           } else {
             // console.log('other');
             this.profileObject = this.loadProfile( state, 'other' );
+            this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
+              scrollId: '',
+              searchType: 'recommended',
+            } });
           }
         }
       }
@@ -120,10 +127,6 @@ export class ProfileBlockComponent implements OnInit, OnDestroy {
          console.log(this.eventList)
       }
     });
-    this._store.dispatch({ type: EventActions.EVENT_SEARCH, payload: {
-      scrollId: '',
-      searchType: 'created',
-    } });
   }
 
   ngOnInit(): void {

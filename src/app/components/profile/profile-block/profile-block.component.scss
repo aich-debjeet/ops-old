@@ -539,3 +539,13 @@
     text-overflow: ellipsis;
     max-width: 200px;
 }
+
+.empty_message{
+    text-align: center;
+    padding: 57px 0px;
+    display: inline-block;
+    width: 100%;
+    p{
+        font-size: 14px;
+    }
+}
