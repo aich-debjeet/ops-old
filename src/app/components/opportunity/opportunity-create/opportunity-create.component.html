@@ -332,6 +332,7 @@
                                         <div class="c-form__group m-t-0 c-form--sm">
                                             <textarea formControlName="projectDescription" class="c-textarea__block c-textarea--style" placeholder="Describe audition"></textarea>
                                         </div>
+                                        <p *ngIf="projectFrm.controls['projectDescription'].errors?.required && createProjFrm.submitted" class="c-form__validation error">Description is required!</p>
                                     </div>
                                 </div>
                                 <!-- Description end -->
@@ -348,6 +349,7 @@
                                                 </option>
                                             </select>
                                         </div>
+                                        <p *ngIf="projectFrm.controls['projectIndustry'].errors?.required && createProjFrm.submitted" class="c-form__validation error">Industry is required!</p>
                                     </div>
                                 </div>
                                 <div class="o-oppo-form__single">
@@ -361,6 +363,7 @@
                                             <span class="c-form__bar"></span>
                                             <!-- <label>Skills looking for</label> -->
                                         </div>
+                                        <p *ngIf="projectFrm.controls['projectSkills'].errors?.required && createProjFrm.submitted" class="c-form__validation error">Skills are required!</p>
                                     </div>
                                 </div>
                                 <!-- Skills end -->
@@ -375,6 +378,7 @@
                                         <span class="c-form__bar"></span>
                                         <!-- <label>Name of collaborators</label> -->
                                         </div>
+                                        <!-- <p *ngIf="projectFrm.controls['projectCollaborators'].errors?.required && createProjFrm.submitted" class="c-form__validation error">Project collaborators are required!</p> -->
                                     </div>
                                 </div>
                                 <!-- Add Collaborators end -->

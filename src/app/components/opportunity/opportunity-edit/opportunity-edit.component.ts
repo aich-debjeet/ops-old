@@ -190,9 +190,9 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   buildProjectForm(data: any) {
     this.projectFrm = this.fb.group({
       projectTitle: [data['opportunityProject']['title'], [Validators.required]],
-      projectDescription: [data['opportunityProject']['description'], []],
-      projectIndustry: [data['opportunityProject']['category'], []],
-      projectSkills: [data['opportunityProject']['skills'], []],
+      projectDescription: [data['opportunityProject']['description'], [Validators.required]],
+      projectIndustry: [data['opportunityProject']['category'], [Validators.required]],
+      projectSkills: [data['opportunityProject']['skills'], [Validators.required]],
       projectCollaborators: [data['opportunityProject']['addCollaborators'][0], []],
     });
   }
