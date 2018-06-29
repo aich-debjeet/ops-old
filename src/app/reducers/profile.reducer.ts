@@ -146,10 +146,19 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
      * for: portfolio
      */
     case ProfileActions.PORTFOLIO_PUBLISH_ACTION:
+      const new_portfolio_user_profile = state['portfolio_user_profile'];
+      if (payload === 'publish') {
+        new_portfolio_user_profile['extra']['isPublished'] = true;
+      } else {
+        new_portfolio_user_profile['extra']['isPublished'] = false;
+      }
+      console.log('payload', payload);
+      console.log('new state', new_portfolio_user_profile['extra']['isPublished']);
       return Object.assign({}, state, {
         portfolio_publish_action: true,
         portfolio_publish_action_success: false,
-        portfolio_publish_action_query: payload
+        portfolio_publish_action_query: payload,
+        portfolio_user_profile: new_portfolio_user_profile
       });
 
     case ProfileActions.PORTFOLIO_PUBLISH_ACTION_SUCCESS:

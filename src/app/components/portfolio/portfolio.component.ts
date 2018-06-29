@@ -335,7 +335,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.profileStore.dispatch({ type: ProfileActions.PORTFOLIO_PUBLISH_ACTION, payload: pubAction });
     setTimeout(() => {
       this.disablePublishButton = false;
-      this.toastr.success('Portfolio has been published successfully!');
+      this.toastr.success('Portfolio has been ' + pubAction + 'ed successfully!');
     }, 500);
   }
 

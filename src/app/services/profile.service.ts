@@ -46,7 +46,9 @@ export class ProfileService {
    * for: portfolio
    */
   portfolioPublishAction(action: string) {
-    return this.api.get('/portal/portfolio/publish/' + action);
+    let param = false;
+    if (action === 'publish') { param = true; }
+    return this.api.get('/portal/portfolio/publish/' + param);
   }
 
   /**
