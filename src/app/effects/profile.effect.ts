@@ -20,6 +20,18 @@ export class ProfileEffect {
    * for: portfolio
    */
   @Effect()
+  portRemoveMediaFromCategory$ = this.actions$
+    .ofType(ProfileActions.PORT_REMOVE_MEDIA_FROM_CAT)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.portRemoveMediaFromCategory(payload)
+      .map(res => ({ type: ProfileActions.PORT_REMOVE_MEDIA_FROM_CAT_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: ProfileActions.PORT_REMOVE_MEDIA_FROM_CAT_FAILED, payload: res }))
+    );
+
+  /**
+   * for: portfolio
+   */
+  @Effect()
   portDeleteCategory$ = this.actions$
     .ofType(ProfileActions.PORTFOLIO_DELETE_CATEGORY)
     .map(toPayload)
