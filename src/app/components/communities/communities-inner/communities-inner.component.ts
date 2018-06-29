@@ -207,8 +207,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     }
 
     this.store.dispatch({ type: CommunitiesActions.COMMUNITY_ADMIN_CHANGE, payload: data});
-
-    this.toastr.success('successfully Update', 'Success!');
+    this.toastr.success('You have successfully left this community', 'Success!');
     this.CommunityLeaveConfirmModal.close();
   }
 
@@ -230,9 +229,9 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
     this.store.select('communitiesTags')
     .first(channel => channel['communnity_delete'] === true)
     .subscribe( datas => {
-          this.toastr.success('successfully Delete', 'Success!');
-          this.router.navigateByUrl('/communities');
-          return
+        this.toastr.success('Your community has been successfully deleted', 'Success!');
+        this.router.navigateByUrl('/communities');
+        return
     });
   }
 
@@ -281,7 +280,7 @@ export class CommunitiesInnerComponent implements OnInit, OnDestroy {
       this.store.select('communitiesTags')
       .first(channel => channel['community_update_success'] === true)
       .subscribe( datas => {
-        this.toastr.success('successfully Update', 'Success!');
+        this.toastr.success('Your community has been successfully updated', 'Update');
         this.CommunityUpdate.close();
         return
       });

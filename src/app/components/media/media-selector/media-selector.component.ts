@@ -493,7 +493,7 @@ export class MediaSelectorComponent implements OnInit {
         this._store.select('profileTags')
         .first(media => media['community_media_success'] === true)
         .subscribe( data => {
-          this.toastr.success('Your media has been successfully posted to your channel', 'Upload');
+          this.toastr.success('Your media has been successfully posted', 'Upload');
           this.router.navigateByUrl('/communities/' + this.ct_id);
         });
       }
