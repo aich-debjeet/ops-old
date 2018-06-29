@@ -937,6 +937,20 @@
                               </div>
                               <div class="o-oppo-form__single">
                                   <div class="col-md-3 p-0">
+                                      <div class="c-text_md o-oppo-form-title">Location</div>
+                                  </div>
+                                  <div class="col-md-9 p-0">
+                                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                                          <input formControlName="freelanceLocation" class="c-form__input" type="text" placeholder="Location of the opportunity">
+                                          <span class="c-form__highlight"></span>
+                                          <span class="c-form__bar"></span>
+                                          <!-- <label>Location of the opportunity</label> -->
+                                      </div>
+                                      <p *ngIf="freelanceFrm.controls['freelanceLocation'].errors?.required && createFrlFrm.submitted" class="c-form__validation error">Location is required!</p>
+                                  </div>
+                              </div>
+                              <div class="o-oppo-form__single">
+                                  <div class="col-md-3 p-0">
                                       <div class="c-text_md o-oppo-form-title">How do you want to pay</div>
                                   </div>
                                   <div class="col-md-9 p-0">

@@ -456,6 +456,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       freelanceTitle: ['', [Validators.required]],
       freelanceDescription: ['', [Validators.required]],
       freelanceIndustry: ['', [Validators.required]],
+      freelanceLocation: ['', [Validators.required]],
       freelancePaymentMethod: ['', [Validators.required]],
       freelanceEngagement: ['', [Validators.required]],
       freelanceSkills: ['', [Validators.required]],
@@ -480,7 +481,10 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
         payType: formData.freelancePaymentMethod,
         engagement: formData.freelanceEngagement,
         skills: formData.freelanceSkills,
-        attachFiles: this.freelanceAttachments
+        attachFiles: this.freelanceAttachments,
+        location: {
+          location: formData.freelanceLocation
+        },
       }
     };
 

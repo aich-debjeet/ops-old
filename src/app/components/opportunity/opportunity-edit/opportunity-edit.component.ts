@@ -373,6 +373,7 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
       freelanceTitle: [data['opportunityFreelance']['title'], [Validators.required]],
       freelanceDescription: [data['opportunityFreelance']['description'], [Validators.required]],
       freelanceIndustry: [data['opportunityFreelance']['category'], [Validators.required]],
+      freelanceLocation: [data['opportunityFreelance']['location']['location'], [Validators.required]],
       freelancePaymentMethod: [data['opportunityFreelance']['payType'], [Validators.required]],
       freelanceEngagement: [data['opportunityFreelance']['engagement'], [Validators.required]],
       freelanceSkills: [data['opportunityFreelance']['skills'], [Validators.required]],
@@ -396,7 +397,10 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
         payType: formData.freelancePaymentMethod,
         engagement: formData.freelanceEngagement,
         skills: formData.freelanceSkills,
-        attachFiles: this.freelanceAttachments
+        attachFiles: this.freelanceAttachments,
+        location: {
+          location: formData.freelanceLocation
+        },
       }
     };
 
