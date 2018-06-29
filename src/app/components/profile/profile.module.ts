@@ -48,7 +48,7 @@ const childRoutes = [
     path: 'user',
     component: ProfileBlockComponent,
     children: [
-      { path: '',  redirectTo: 'channel'},
+      { path: '',  redirectTo: 'post'},
       { path: 'channel', component: ProfileChannelComponent },
       { path: 'post', component: ProfilePostComponent },
       { path: 'spotfeed', component: ProfileSpotfeedComponent }

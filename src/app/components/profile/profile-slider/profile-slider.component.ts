@@ -73,6 +73,7 @@ export class ProfileSliderComponent implements OnInit {
   activeProfileHandle = '';
   mymodel: string; // bind this to input with ngModel
   bioMessage = '';
+  personalMessage = '';
   txtQueryChanged: Subject<string> = new Subject<string>();
   otherProfileHandle: String;
   otherProfileName: String;
@@ -684,8 +685,12 @@ export class ProfileSliderComponent implements OnInit {
     });
  }
 
- openMsg() {
-    this.showThis = true;
+ openMsg(val: string) {
+  if(val === 'personalMessage'){
+   this.showThis = true;
+  } else {
+    this.showThis = false;
   }
+ }
 }
 

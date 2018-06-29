@@ -141,7 +141,12 @@
         <!-- event tab end -->
 
         <div class="o-event-sort-link hidden-xs">
-            <a class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a" *ngFor="let type of eventTypeList" (click)="filter(type)">{{ type}}</a>
+            <!-- <div *ngFor="let type of eventTypeList?.filters"> -->
+                <ng-container *ngIf="eventTypeList?.length > 0"> 
+                    <a class="c-text_md f-w_600 text_uppercase color-grey-dark o-event-sort__a" *ngFor="let type of eventTypeList[0]?.filters" (click)="filter(type)">{{ type.name }}</a> 
+                </ng-container>
+            <!-- </div> -->
+            
         </div>
         <!-- <form [formGroup]="locForm" #ecfrom="ngForm"> -->
             <div class="o-select-loc float_right">

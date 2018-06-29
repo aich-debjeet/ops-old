@@ -15,7 +15,7 @@ import {} from '@types/googlemaps';
 
 
 // Model
-import { EventModal, initialTag  } from '../../../models/event.model';
+import { EventModal, initialTagEve  } from '../../../models/event.model';
 import { ProfileModal } from '../../../models/profile.model';
 
 // action
@@ -44,7 +44,7 @@ export class EventsEditComponent implements OnInit {
   tagState$: Observable<EventModal>;
   profileState$: Observable<ProfileModal>;
   today = Date.now();
-  industryList = initialTag ;
+  industryList = initialTagEve ;
   image: any;
   eventCoverImage ='';
   minDate = new Date();
