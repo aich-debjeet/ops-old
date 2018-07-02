@@ -80,7 +80,7 @@
                                 <form *ngIf="portCategories?.length > 0">
                                     <div class="col-md-9 col-xs-8">
                                         <div class="c-form__group m-0">
-                                            <select class="c-form-control" (change)="selectCategory($event.target.value)">
+                                            <select class="c-form-control" [(ngModel)]="selectedCategoryId" [ngModelOptions]="{standalone: true}" (change)="selectCategory($event.target.value)">
                                                 <option value="">Select Category</option>
                                                 <option *ngFor="let category of portCategories" [value]="category.categoryId">{{ category.categoryName }}</option>
                                             </select>

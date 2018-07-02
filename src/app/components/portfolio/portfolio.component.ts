@@ -110,6 +110,13 @@ export class PortfolioComponent implements OnInit, OnDestroy {
           // this.portAddCategoryForm.reset();
         }
         if (state['add_media_to_category'] ===  false && state['add_media_to_category_success'] ===  true) {
+          // close add media modal
+          this.portMediaModal.close();
+          // swithc to the tab
+          const catIndx = _findIndex(this.portCategories, (c) => c.categoryId === this.selectedCategoryId);
+          this.selectTab(this.portCategories[catIndx]);
+          // reset add media
+          this.resetAddMedia();
           this.toastr.success('Media added to the category successfully!');
         }
       }
@@ -301,6 +308,13 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       }
     }
 
+  }
+
+  resetAddMedia() {
+    this.selectedCategoryId = '';
+    this.displayMedia = [];
+    this.selectedMedia = [];
+    this.selectedChannels = [];
   }
 
   /**
