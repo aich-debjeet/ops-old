@@ -25,7 +25,7 @@ import {Subject} from 'rxjs/Subject';
 })
 export class ProfilePostComponent implements OnInit, OnDestroy {
   componentDestroyed$: Subject<boolean> = new Subject();
-
+  baseUrl = environment.API_IMAGE;
   tagState$: Observable<ProfileModal>;
   mediaState$: Observable<Media>;
   private subscription: ISubscription;
