@@ -86,3 +86,8 @@
     color: #333333;
     white-space: nowrap;
 }
+
+.img-responsive, .dib {
+    max-width: none;
+    width: 100%;
+}

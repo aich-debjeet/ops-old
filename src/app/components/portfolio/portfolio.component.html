@@ -127,18 +127,21 @@
                             [infiniteScrollThrottle]="1000"
                             [scrollWindow]="false"
                             (scrolled)="portMediaModalScroll($event)">
-                            <div *ngIf="userMedia?.length > 0; else noMedia" class="row">
+                            <div *ngIf="userMedia?.length > 0;" class="row">
                                 <ngx-masonry [useImagesLoaded]="true">
                                     <ngx-masonry-item *ngFor="let media of userMedia" class="col-xs-6 col-md-3 c-portfolio--block" (click)="toggleMediaSelection(media?.mediaId)" >
                                         <app-portfolio-media [isOwner]=false [portMediaDetails]="media"></app-portfolio-media>
                                     </ngx-masonry-item>
                                 </ngx-masonry>
                             </div>
-                            <ng-template #noMedia class="row">
+                            <ng-container *ngIf="profileState?.get_users_media === false && profileState?.get_users_media_success === true && userMedia?.length === 0;" class="row">
                                 <div class="col-xs-12 col-md-12 c-portfolio--block">
-                                    <p class="no-result-found">No result found!</p>
+                                    <p class="no-result-found">No media found!</p>
                                 </div>
-                            </ng-template>
+                            </ng-container>
+                            <!-- <div *ngIf="userMedia?.length === 0 && profileState?.get_users_media === true && profileState?.get_users_media_success === false" class="preloader">
+                                <div class="sticky"><div class="loader">Loading...</div></div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
