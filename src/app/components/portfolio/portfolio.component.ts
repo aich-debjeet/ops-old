@@ -438,13 +438,20 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   }
 
   tabMediaScroll(e) {
+    console.log('tabMediaScroll', this.activeTab);
     this.tabMediaScrolling = e.currentScrollPosition;
     if (this.tabMediaScrollingLoad <= this.tabMediaScrolling) {
       this.tabMediaScrollingLoad += 500;
       this.tabMediaPage += this.recordsPerPage;
-      const catIndex = this.getCatIndexByName(this.activeTab);
+      let reqCat;
+      if (this.activeTab === 'all') {
+        reqCat = 'all';
+      } else {
+        const catIndex = this.getCatIndexByName(this.activeTab);
+        reqCat = this.portCategories[catIndex].categoryId
+      }
       const reqBody = {
-        categoryType: this.portCategories[catIndex].categoryId,
+        categoryType: reqCat,
         offset: this.tabMediaPage,
         limit: this.recordsPerPage
       };
