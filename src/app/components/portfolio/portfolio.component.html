@@ -18,7 +18,7 @@
                 </div>
                 <div *ngIf="ownProfile" class="width100 float_left">
                     <button type="button" class="btn btn-primary btn-md btn-block m-t-16" (click)="showMediaSelection()">add work</button>
-                    <button type="button" *ngIf="ownProfile && !isEmptyPortfolio && profileState?.portfolio_user_profile?.extra?.isPublished === false" (click)="publishAction('publish')" class="btn btn-default btn-md btn-block m-t-8">publish</button>
+                    <button type="button" *ngIf="ownProfile && displayMedia?.length > 0 && profileState?.portfolio_user_profile?.extra?.isPublished === false" (click)="publishAction('publish')" class="btn btn-default btn-md btn-block m-t-8">publish</button>
                     <button type="button" *ngIf="ownProfile && profileState?.portfolio_user_profile?.extra?.isPublished === true" (click)="publishAction('unpublish')" class="btn btn-default btn-md btn-block m-t-8">unpublish</button>
                 </div>
             </div>
