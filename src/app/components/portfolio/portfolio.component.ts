@@ -60,6 +60,11 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   addMediaModalScrollingLoad = 251;
   addMediaModalPage = 0;
 
+  // tab media scroll
+  tabMediaScrolling = 0;
+  tabMediaScrollingLoad = 251;
+  tabMediaPage = 0;
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -283,6 +288,13 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * tab media get
+   */
+  getTabMedia(reqBody: any) {
+    this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA, payload: reqBody });
+  }
+
+  /**
    * select/deselect media
    */
   toggleMediaSelection(mediaId: string) {
@@ -357,7 +369,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       offset: 0,
       limit: this.mediaPerPage
     };
-    this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA, payload: reqBody });
+    this.getTabMedia(reqBody);
   }
 
   /**
@@ -422,6 +434,21 @@ export class PortfolioComponent implements OnInit, OnDestroy {
         offset: this.addMediaModalPage
       }
       this.getUserMedia(reqBody);
+    }
+  }
+
+  tabMediaScroll(e) {
+    this.tabMediaScrolling = e.currentScrollPosition;
+    if (this.tabMediaScrollingLoad <= this.tabMediaScrolling) {
+      this.tabMediaScrollingLoad += 500;
+      this.tabMediaPage += this.recordsPerPage;
+      const catIndex = this.getCatIndexByName(this.activeTab);
+      const reqBody = {
+        categoryType: this.portCategories[catIndex].categoryId,
+        offset: this.tabMediaPage,
+        limit: this.recordsPerPage
+      };
+      this.getTabMedia(reqBody);
     }
   }
 

@@ -43,7 +43,11 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade active in m-l-r-8">
-                                    <div class="row">
+                                    <div class="row"
+                                        infiniteScroll
+                                        [infiniteScrollDistance]="2"
+                                        [infiniteScrollThrottle]="1000"
+                                        (scrolled)="tabMediaScroll($event)">
                                         <ngx-masonry *ngIf="displayMedia?.length > 0" [useImagesLoaded]="true">
                                             <ngx-masonry-item *ngFor="let media of displayMedia" class="col-md-4 col-sm-4 c-portfolio--block">
                                                 <app-portfolio-media (removeSelectedMedia)="removeMediaFromCat($event)" (displaySelectedMedia)="displayMediaPopup($event)" [portMediaDetails]="media" [portMediaCategory]="activeTab" [isOwner]="ownProfile"></app-portfolio-media>
