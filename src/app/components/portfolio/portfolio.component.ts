@@ -35,7 +35,9 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   // portfolioEmpty = true;
   baseImageUrl = environment.API_IMAGE;
   ownProfile: boolean;
-  requestsPerPage = 10;
+  isEmptyPortfolio: boolean;
+  isEmptyCategory: boolean;
+  recordsPerPage = 20;
   showPreloader = false;
   disablePublishButton = false;
 
@@ -53,6 +55,16 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   viewMedia: any;
   searchChannel = '';
 
+  // add media scroll
+  addMediaModalScrolling = 0;
+  addMediaModalScrollingLoad = 251;
+  addMediaModalPage = 0;
+
+  // tab media scroll
+  tabMediaScrolling = 0;
+  tabMediaScrollingLoad = 251;
+  tabMediaPage = 0;
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -66,6 +78,23 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.profileSub = this.profileState$.subscribe((state) => {
       this.profileState = state;
       if (state) {
+        if (state['get_port_display_media'] === false && state['get_port_display_media_success'] === true
+          && state['get_port_display_media_result'] && state['get_port_display_media_result'].length === 0
+        ) {
+          if (this.activeTab === 'all') {
+            this.isEmptyPortfolio = true;
+          } else {
+            this.isEmptyCategory = true;
+          }
+        } else {
+          if (this.activeTab === 'all') {
+            this.isEmptyPortfolio = false;
+          } else {
+            this.isEmptyCategory = false;
+          }
+        }
+        // console.log('isEmptyPortfolio', this.isEmptyPortfolio);
+        // console.log('isEmptyCategory', this.isEmptyCategory);
         if (this.generalUtils.checkNestedKey(state, ['portfolio_user_profile'])) {
           this.userProfile = state['portfolio_user_profile'];
           const loggedInProfileHandle = localStorage.getItem('loggedInProfileHandle');
@@ -76,7 +105,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
               this.ownProfile = false;
             }
           }
-          console.log('ownProfile', this.ownProfile);
         }
         if (this.generalUtils.checkNestedKey(state, ['get_users_channels_result'])) {
           this.channels = state['get_users_channels_result'];
@@ -110,6 +138,13 @@ export class PortfolioComponent implements OnInit, OnDestroy {
           // this.portAddCategoryForm.reset();
         }
         if (state['add_media_to_category'] ===  false && state['add_media_to_category_success'] ===  true) {
+          // close add media modal
+          this.portMediaModal.close();
+          // swithc to the tab
+          const catIndx = _findIndex(this.portCategories, (c) => c.categoryId === this.selectedCategoryId);
+          this.selectTab(this.portCategories[catIndx]);
+          // reset add media
+          this.resetAddMedia();
           this.toastr.success('Media added to the category successfully!');
         }
       }
@@ -213,7 +248,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     const reqBody = {
       channelList: [],
       offset: 0,
-      limit: this.requestsPerPage
+      limit: this.recordsPerPage
     };
     this.getUserMedia(reqBody);
 
@@ -240,7 +275,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     const reqBody = {
       channelList: this.selectedChannels,
       offset: 0,
-      limit: this.requestsPerPage
+      limit: this.recordsPerPage
     };
     this.getUserMedia(reqBody);
   }
@@ -250,6 +285,13 @@ export class PortfolioComponent implements OnInit, OnDestroy {
    */
   getUserMedia(reqBody: any) {
     this.profileStore.dispatch({ type: ProfileActions.GET_USER_MEDIA, payload: reqBody });
+  }
+
+  /**
+   * tab media get
+   */
+  getTabMedia(reqBody: any) {
+    this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA, payload: reqBody });
   }
 
   /**
@@ -303,6 +345,13 @@ export class PortfolioComponent implements OnInit, OnDestroy {
 
   }
 
+  resetAddMedia() {
+    this.selectedCategoryId = '';
+    this.displayMedia = [];
+    this.selectedMedia = [];
+    this.selectedChannels = [];
+  }
+
   /**
    * select category
    */
@@ -320,7 +369,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       offset: 0,
       limit: this.mediaPerPage
     };
-    this.profileStore.dispatch({ type: ProfileActions.GET_PORTFOLIO_DISPLAY_MEDIA, payload: reqBody });
+    this.getTabMedia(reqBody);
   }
 
   /**
@@ -364,6 +413,43 @@ export class PortfolioComponent implements OnInit, OnDestroy {
         categoryId: this.portCategories[catIndex].categoryId
       }
     });
+  }
+
+  /**
+   * close add media to portfolio modal
+   */
+  closePortAddMediaModal() {
+    this.portMediaModal.close();
+    this.resetAddMedia();
+  }
+
+  portMediaModalScroll(e) {
+    this.addMediaModalScrolling = e.currentScrollPosition;
+    if (this.addMediaModalScrollingLoad <= this.addMediaModalScrolling) {
+      this.addMediaModalScrollingLoad += 500;
+      this.addMediaModalPage += this.recordsPerPage;
+      const reqBody = {
+        channelList: this.selectedChannels,
+        limit: this.recordsPerPage,
+        offset: this.addMediaModalPage
+      }
+      this.getUserMedia(reqBody);
+    }
+  }
+
+  tabMediaScroll(e) {
+    this.tabMediaScrolling = e.currentScrollPosition;
+    if (this.tabMediaScrollingLoad <= this.tabMediaScrolling) {
+      this.tabMediaScrollingLoad += 500;
+      this.tabMediaPage += this.recordsPerPage;
+      const catIndex = this.getCatIndexByName(this.activeTab);
+      const reqBody = {
+        categoryType: this.portCategories[catIndex].categoryId,
+        offset: this.tabMediaPage,
+        limit: this.recordsPerPage
+      };
+      this.getTabMedia(reqBody);
+    }
   }
 
 }
