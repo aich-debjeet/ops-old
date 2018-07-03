@@ -18,7 +18,7 @@
                 </div>
                 <div *ngIf="ownProfile" class="width100 float_left">
                     <button type="button" class="btn btn-primary btn-md btn-block m-t-16" (click)="showMediaSelection()">add work</button>
-                    <button type="button" *ngIf="ownProfile && profileState?.portfolio_user_profile?.extra?.isPublished === false" (click)="publishAction('publish')" class="btn btn-default btn-md btn-block m-t-8">publish</button>
+                    <button type="button" *ngIf="ownProfile && !isEmptyPortfolio && profileState?.portfolio_user_profile?.extra?.isPublished === false" (click)="publishAction('publish')" class="btn btn-default btn-md btn-block m-t-8">publish</button>
                     <button type="button" *ngIf="ownProfile && profileState?.portfolio_user_profile?.extra?.isPublished === true" (click)="publishAction('unpublish')" class="btn btn-default btn-md btn-block m-t-8">unpublish</button>
                 </div>
             </div>
@@ -49,9 +49,12 @@
                                                 <app-portfolio-media (removeSelectedMedia)="removeMediaFromCat($event)" (displaySelectedMedia)="displayMediaPopup($event)" [portMediaDetails]="media" [portMediaCategory]="activeTab" [isOwner]="ownProfile"></app-portfolio-media>
                                             </ngx-masonry-item>
                                         </ngx-masonry>
-                                        <!-- <ng-template #portfolioEmpty>
+                                        <ng-container *ngIf="activeTab === 'all' && isEmptyPortfolio">
                                             <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is empty</h4>
-                                        </ng-template> -->
+                                        </ng-container>
+                                        <ng-container *ngIf="activeTab !== 'all' && isEmptyCategory">
+                                            <h4 class="o-portfolio-empty-text color-grey-dark">This category is empty</h4>
+                                        </ng-container>
                                     </div>
                                     <div *ngIf="!ownProfile && profileState?.portfolio_user_profile?.extra?.isPublished === false" class="row">
                                         <h4 class="o-portfolio-empty-text color-grey-dark">Portfolio is not published!</h4>
@@ -72,7 +75,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header p-0">
-                    <button type="button" class="close" data-dismiss="modal" (click)="portMediaModal.close()">×</button>
+                    <button type="button" class="close" data-dismiss="modal" (click)="closePortAddMediaModal()">×</button>
                 </div>
                 <div class="modal-body">
                     <div class="row with_border_bottom p-b-8">

@@ -35,6 +35,8 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   // portfolioEmpty = true;
   baseImageUrl = environment.API_IMAGE;
   ownProfile: boolean;
+  isEmptyPortfolio: boolean;
+  isEmptyCategory: boolean;
   requestsPerPage = 10;
   showPreloader = false;
   disablePublishButton = false;
@@ -66,6 +68,23 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     this.profileSub = this.profileState$.subscribe((state) => {
       this.profileState = state;
       if (state) {
+        if (state['get_port_display_media'] === false && state['get_port_display_media_success'] === true
+          && state['get_port_display_media_result'] && state['get_port_display_media_result'].length === 0
+        ) {
+          if (this.activeTab === 'all') {
+            this.isEmptyPortfolio = true;
+          } else {
+            this.isEmptyCategory = true;
+          }
+        } else {
+          if (this.activeTab === 'all') {
+            this.isEmptyPortfolio = false;
+          } else {
+            this.isEmptyCategory = false;
+          }
+        }
+        // console.log('isEmptyPortfolio', this.isEmptyPortfolio);
+        // console.log('isEmptyCategory', this.isEmptyCategory);
         if (this.generalUtils.checkNestedKey(state, ['portfolio_user_profile'])) {
           this.userProfile = state['portfolio_user_profile'];
           const loggedInProfileHandle = localStorage.getItem('loggedInProfileHandle');
@@ -76,7 +95,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
               this.ownProfile = false;
             }
           }
-          console.log('ownProfile', this.ownProfile);
         }
         if (this.generalUtils.checkNestedKey(state, ['get_users_channels_result'])) {
           this.channels = state['get_users_channels_result'];
@@ -378,6 +396,14 @@ export class PortfolioComponent implements OnInit, OnDestroy {
         categoryId: this.portCategories[catIndex].categoryId
       }
     });
+  }
+
+  /**
+   * close add media to portfolio modal
+   */
+  closePortAddMediaModal() {
+    this.portMediaModal.close();
+    this.resetAddMedia();
   }
 
 }
