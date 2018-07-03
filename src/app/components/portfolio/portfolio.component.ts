@@ -37,7 +37,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   ownProfile: boolean;
   isEmptyPortfolio: boolean;
   isEmptyCategory: boolean;
-  requestsPerPage = 10;
+  recordsPerPage = 20;
   showPreloader = false;
   disablePublishButton = false;
 
@@ -54,6 +54,11 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   mediaPerPage = 20;
   viewMedia: any;
   searchChannel = '';
+
+  // add media scroll
+  addMediaModalScrolling = 0;
+  addMediaModalScrollingLoad = 251;
+  addMediaModalPage = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -238,7 +243,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     const reqBody = {
       channelList: [],
       offset: 0,
-      limit: this.requestsPerPage
+      limit: this.recordsPerPage
     };
     this.getUserMedia(reqBody);
 
@@ -265,7 +270,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     const reqBody = {
       channelList: this.selectedChannels,
       offset: 0,
-      limit: this.requestsPerPage
+      limit: this.recordsPerPage
     };
     this.getUserMedia(reqBody);
   }
@@ -404,6 +409,20 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   closePortAddMediaModal() {
     this.portMediaModal.close();
     this.resetAddMedia();
+  }
+
+  portMediaModalScroll(e) {
+    this.addMediaModalScrolling = e.currentScrollPosition;
+    if (this.addMediaModalScrollingLoad <= this.addMediaModalScrolling) {
+      this.addMediaModalScrollingLoad += 500;
+      this.addMediaModalPage += this.recordsPerPage;
+      const reqBody = {
+        channelList: this.selectedChannels,
+        limit: this.recordsPerPage,
+        offset: this.addMediaModalPage
+      }
+      this.getUserMedia(reqBody);
+    }
   }
 
 }

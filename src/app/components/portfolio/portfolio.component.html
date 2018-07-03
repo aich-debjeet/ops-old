@@ -121,7 +121,12 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-md-10 c-portscroll" id="ops_scrollbar">
+                        <div class="col-md-10 c-portscroll" id="ops_scrollbar"
+                            infiniteScroll
+                            [infiniteScrollDistance]="2"
+                            [infiniteScrollThrottle]="1000"
+                            [scrollWindow]="false"
+                            (scrolled)="portMediaModalScroll($event)">
                             <div *ngIf="userMedia?.length > 0; else noMedia" class="row">
                                 <ngx-masonry [useImagesLoaded]="true">
                                     <ngx-masonry-item *ngFor="let media of userMedia" class="col-xs-6 col-md-3 c-portfolio--block" (click)="toggleMediaSelection(media?.mediaId)" >

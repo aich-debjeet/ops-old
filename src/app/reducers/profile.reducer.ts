@@ -240,10 +240,17 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
       });
 
     case ProfileActions.GET_USER_MEDIA_SUCCESS:
+      let new_user_media;
+      if (state['get_users_media_query']['offset'] === 0) {
+        new_user_media = payload.SUCCESS;
+      } else {
+        new_user_media = [...state['get_users_media_result'], ...payload.SUCCESS];
+      }
+      // check if pagination query
       return Object.assign({}, state, {
         get_users_media: false,
         get_users_media_success: true,
-        get_users_media_result: payload.SUCCESS
+        get_users_media_result: new_user_media
       });
 
     case ProfileActions.GET_USER_MEDIA_FAILED:
