@@ -95,9 +95,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     private router: Router
   ) {
 
-    // creating freelance form
-    this.createFreelanceForm();
-
     // creating vulunteer form
     this.createVolunteerForm();
 
@@ -204,54 +201,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.oppSaved = true;
     this.oppCreating = true;
   }
-
-  /* =================================== freelance form =================================== */
-  createFreelanceForm() {
-    this.freelanceFrm = this.fb.group({
-      freelanceTitle: ['', [Validators.required]],
-      freelanceDescription: ['', [Validators.required]],
-      freelanceIndustry: ['', [Validators.required]],
-      freelanceLocation: ['', [Validators.required]],
-      freelancePaymentMethod: ['', [Validators.required]],
-      freelanceEngagement: ['', [Validators.required]],
-      freelanceSkills: ['', [Validators.required]],
-    });
-  }
-
-  submitFreelanceForm(formData: any) {
-    // validation check
-    if (!this.freelanceFrm.valid) {
-      this.scrollHelper.scrollToFirst('error');
-      // console.log('invalid form');
-      return;
-    }
-
-    // else prepare and submit the form
-    const reqBody = {
-      opportunityType: 'freelance',
-      opportunityFreelance: {
-        title: formData.freelanceTitle,
-        description: formData.freelanceDescription,
-        industry: formData.freelanceIndustry,
-        payType: formData.freelancePaymentMethod,
-        engagement: formData.freelanceEngagement,
-        skills: formData.freelanceSkills,
-        attachFiles: this.freelanceAttachments,
-        location: {
-          location: formData.freelanceLocation
-        },
-      }
-    };
-
-    // submit freelance details
-    this.oppStore.dispatch({
-      type: OpportunityActions.CREATE_OPPORTUNITY,
-      payload: reqBody
-    });
-    this.oppSaved = true;
-    this.oppCreating = true;
-  }
-  /* =================================== freelance form =================================== */
 
   /* =================================== volunteer form =================================== */
   createVolunteerForm() {
