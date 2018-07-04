@@ -112,7 +112,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       return Object.assign({}, state, {
         media_post_success: true,
         comment_post_loading: false,
-        media_comment: state.media_comment.concat(payload['comment'])
+        media_comment: state.media_comment ? state.media_comment.concat(payload['comment']) : []
       });
 
     case MediaActions.POST_COMMENT_FAILED:

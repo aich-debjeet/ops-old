@@ -3,6 +3,7 @@ import { initialMedia, Media } from '../../models/media.model';
 import { environment } from './../../../environments/environment';
 
 import { MediaActions } from '../../actions/media.action';
+import { ProfileActions } from '../../actions/profile.action';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -17,6 +18,7 @@ export class CommentComponent implements OnInit {
   @Input() mediaId: string;
   @Input() mediaType: string;
   @Input() comments: any;
+  @Input() commentCount: any;
   @Input() commentsType = 'media-list'; // media-list or media-popup
   userState$: Observable<Media>;
   mediaState$: Observable<Media>;
@@ -71,31 +73,23 @@ export class CommentComponent implements OnInit {
       }
       this.store.dispatch({ type: MediaActions.POST_COMMENT, payload: send});
       this.submitComment.emit();
-      // this.addNewComment();
+      this.addNewComment();
       this.messageText = null;
     }
   }
 
   addNewComment() {
     const commentCount = this.comments.length
-    this.comments.push({
+    const commentData = {
       comment: this.messageText,
       isOwner: true,
       ownerImage: this.userData.profileImage,
       ownerName: this.userData.name,
-      createdDate: +new Date()
-    })
-    this.loadMedia();
+      createdDate: +new Date(),
+      postId: this.mediaId
+    }
 
-    this.store.select('mediaStore')
-      .first(commentsData => commentsData['media_comment'].length > commentCount )
-      .subscribe( data => {
-        console.log('working');
-        const comments = data['media_comment'];
-        if (comments.length > 0) {
-          this.comments = comments
-        }
-      });
+    this.store.dispatch({ type: ProfileActions.COMMENT_POST_LIST, payload: commentData });
   }
 
   deleteBacend(comment) {

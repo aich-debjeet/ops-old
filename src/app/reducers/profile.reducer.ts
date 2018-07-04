@@ -1617,6 +1617,29 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     return Object.assign({}, state, {
       pass_success : payload,
     });
+  
+  case ProfileActions.COMMENT_POST_LIST:
+    const home_post_List = state.user_following_posts.find(t => t.id === payload.postId);
+    const home_list_index = state.user_following_posts.indexOf(home_post_List);
+
+    console.log('Post_list', home_post_List);
+    console.log('List_index', home_list_index);
+
+
+      return Object.assign({}, state, {
+          user_following_posts: [
+              ...state.user_following_posts.slice(0, home_list_index),
+              Object.assign({}, home_post_List, {
+                commentsList: [
+                payload,
+                ...home_post_List.commentsList
+                ],
+                commentsCount: home_post_List.commentsCount + 1
+              }),
+              ...state.user_following_posts.slice(home_list_index + 1)
+          ]
+
+      });
 
   case ProfileActions.COMMENT_COUNT_INCREMENT:
     const home_post = state.user_following_posts.find(t => t.id === payload);

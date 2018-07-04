@@ -1,9 +1,9 @@
 <div *ngIf="commentsType === 'media-popup'">
-    <div *ngIf="comments.length > 0">
+    <div *ngIf="comments?.length > 0">
         <app-comment-list *ngFor="let comment of comments; let i = index" [commentsListType]="'media-popup'" [commentData]="comment" (commentDelete)="onCommentDelete(comment, $event)" (commentEdited)="onCommentEdit(comment, $event)"></app-comment-list>
     </div>
     <div *ngIf="comments.length == 0" class="c-post__comment__blank">Be the first one to comment</div>
-    <div class="c-post__comment p-t-0 c-mediamodal__inputfixed">
+    <div class="c-post__comment p-t-0 c-mediamodal__inputfixed c-post__bottom-fixed">
         <div class="c-post__comment--left" style="margin-top:12px;">
             <a class="c-user__avatar c-avatar--status">
                 <img class="c-user__image" [src]="imageLink + userData?.profileImage">
@@ -23,21 +23,21 @@
 </div>
 
 
-<div *ngIf="commentsType === 'media-list'">
+<div *ngIf="commentsType === 'media-list'"> 
     <app-comment-list *ngFor="let comment of comments; let i = index" [commentData]="comment" (commentDelete)="onCommentDelete(comment, $event)" (commentEdited)="onCommentEdit(comment, $event)"></app-comment-list>
-
-    <div class="c-post__comment p-t-0">
+    <div class="c-post_viewmore2"  *ngIf="commentCount > 3"><a (click)="loadMedia()">View more comments</a></div>
+    <div class="c-post__comment p-t-0 with_border_top">
         <div class="c-post__comment--left m-t-16">
-            <a class="c-user__avatar c-avatar--status2">
-                <img class="c-user__image" src="{{ imageLink + userData?.profileImage }}">
+            <a class="c-user__avatar c-avatar--status5">
+                <img class="c-user__image" [src]="imageLink + userData?.profileImage">
             </a>
         </div>
-        <div class="c-post__comment--right c-mediamodal__input p-l-0 p-t-8">
-            <div class="c-form__group c-form--noeffect m-b-0">
+        <div class="c-post__comment--right p-l-0">
+            <div class="c-form__group c-form--noeffect m-b-8">
                 <div>
-                    <input class="c-form__input with_border_none" type="text" [(ngModel)]="messageText" required (keyup.enter)="keyDownFunction(mediaId)">
+                    <input class="c-form__input with_border_none c-post_extraspace"  type="text" [disabled]="comment_post_loading" [(ngModel)]="messageText" required (keyup.enter)="keyDownFunction(mediaId)">
                     <span class="c-form__highlight"></span>
-                    <label>Write a comment...</label>
+                    <label class="m-t--8">Write a comment...</label>
                 </div>
             </div>
         </div>

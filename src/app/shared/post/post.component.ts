@@ -40,6 +40,9 @@ export class PostComponent implements OnInit {
   mediaStore = initialMedia;
   mediaState$: Observable<Media>;
   reportId: string;
+  userState$: Observable<any>;
+  messageText: string;
+  comment_post_loading: any;
 
   userImage: string;
 
@@ -64,6 +67,12 @@ export class PostComponent implements OnInit {
         this.reportType = 'post';
         // console.log(this.questions)
       }
+
+      this.comment_post_loading = state.comment_post_loading;
+    });
+    this.userState$ = store.select('profileTags');
+    this.userState$.subscribe((state) => {
+      this.userData = state['profile_navigation_details'];
     });
 
   }
@@ -131,6 +140,7 @@ export class PostComponent implements OnInit {
    * Submit Comment
    */
   sbComment(param) {
+    console.log(this.commentCount);
     if (param === 'Del') {
       this.commentCount--
     }else {
@@ -138,7 +148,7 @@ export class PostComponent implements OnInit {
     }
   }
 
-    /** 
+  /**
    * open report modal
   */
  reportModalOpen(id: string){
@@ -151,5 +161,21 @@ closeReport(){
   // console.log('comming')
   this.modalService.close('reportPopUp');
 }
+
+/**
+   * Submit Comment
+   */
+  keyDownFunction(mediaId: string) {
+    if (this.messageText !== null || this.messageText !== '') {
+      const send = {
+        'content': this.messageText,
+        'commentType': this.mediaType,
+        'parent': mediaId
+      }
+      this.store.dispatch({ type: MediaActions.POST_COMMENT, payload: send});
+      // this.addNewComment();
+      this.messageText = null;
+    }
+  }
 
 }
