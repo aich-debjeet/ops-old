@@ -25,6 +25,7 @@ import { OpportunityProjectComponent } from './forms/opportunity-project/opportu
 import { OpportunityJobComponent } from './forms/opportunity-job/opportunity-job.component';
 import { OpportunityInternshipComponent } from './forms/opportunity-internship/opportunity-internship.component';
 import { OpportunityFreelanceComponent } from './forms/opportunity-freelance/opportunity-freelance.component';
+import { OpportunityVolunteerComponent } from './forms/opportunity-volunteer/opportunity-volunteer.component';
 
 // opportunity module routes
 const opportunityRoutes: Routes = [
@@ -76,7 +77,8 @@ const opportunityRoutes: Routes = [
     OpportunityProjectComponent,
     OpportunityJobComponent,
     OpportunityInternshipComponent,
-    OpportunityFreelanceComponent
+    OpportunityFreelanceComponent,
+    OpportunityVolunteerComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

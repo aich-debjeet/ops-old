@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewChecked, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { IDatePickerConfig } from 'ng2-date-picker';
@@ -38,12 +37,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
 
   public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
-  auditionFrm: FormGroup;
-  projectFrm: FormGroup;
-  jobFrm: FormGroup;
-  internshipFrm: FormGroup;
-  freelanceFrm: FormGroup;
-  volunteerFrm: FormGroup;
   private oppSub: ISubscription;
   private profSub: ISubscription;
   private loginSub: ISubscription;
@@ -85,7 +78,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   };
 
   constructor(
-    private fb: FormBuilder,
     private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
@@ -94,9 +86,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     private oppStore: Store<OpportunityModel>,
     private router: Router
   ) {
-
-    // creating vulunteer form
-    this.createVolunteerForm();
 
     this.oppState = this.oppStore.select('opportunityTags');
     this.oppSub = this.oppState.subscribe((state) => {
@@ -201,63 +190,5 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.oppSaved = true;
     this.oppCreating = true;
   }
-
-  /* =================================== volunteer form =================================== */
-  createVolunteerForm() {
-    this.volunteerFrm = this.fb.group({
-      volunteerTitle: ['', [Validators.required]],
-      volunteerCause: ['', [Validators.required]],
-      volunteerIndustry: ['', [Validators.required]],
-      volunteerLocation: ['', [Validators.required]],
-      volunteerSkills: ['', [Validators.required]],
-      volunteerDL: [false, [Validators.required]],
-      volunteerBGC: [false, [Validators.required]],
-      volunteerORTR: [false, [Validators.required]],
-    });
-  }
-
-  submitVolunteerForm(formData: any) {
-    // validation check
-    if (!this.volunteerFrm.valid) {
-      this.scrollHelper.scrollToFirst('error');
-      // console.log('invalid form');
-      return;
-    }
-
-    const volunteerRequirements = [];
-    if (formData.volunteerBGC && formData.volunteerBGC === true) {
-      volunteerRequirements.push('Background Check');
-    }
-    if (formData.volunteerDL && formData.volunteerDL === true) {
-      volunteerRequirements.push('Driver\'s License Needed');
-    }
-    if (formData.volunteerORTR && formData.volunteerORTR === true) {
-      volunteerRequirements.push('Orientation or Training');
-    }
-
-    // else prepare and submit the form
-    const reqBody = {
-      opportunityType: 'volunteer',
-      opportunityVolunteer: {
-        title: formData.volunteerTitle,
-        cause: formData.volunteerCause,
-        industry: formData.volunteerIndustry,
-        skills: formData.volunteerSkills,
-        location: {
-          location: formData.volunteerLocation
-        },
-        requirements: volunteerRequirements
-      }
-    };
-
-    // submit volunteer details
-    this.oppStore.dispatch({
-      type: OpportunityActions.CREATE_OPPORTUNITY,
-      payload: reqBody
-    });
-    this.oppSaved = true;
-    this.oppCreating = true;
-  }
-  /* =================================== volunteer form =================================== */
 
 }

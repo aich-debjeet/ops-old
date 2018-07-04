@@ -1,15 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GeneralUtilities } from '../../../helpers/general.utils';
+// import { GeneralUtilities } from '../../../helpers/general.utils';
 import { ToastrService } from 'ngx-toastr';
-import { ModalService } from '../../../shared/modal/modal.component.service';
 import { OpportunityModel } from '../../../models/opportunity.model';
 import { Store } from '@ngrx/store';
 import { OpportunityActions } from '../../../actions/opportunity.action';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ComingSoonComponent } from '../../../shared/coming-soon/coming-soon.component';
 import { AuthActions } from '../../../actions/auth.action';
-import { ScrollHelper } from '../../../helpers/scroll.helper';
 
 @Component({
   selector: 'app-opportunity-edit',
@@ -27,13 +23,7 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   oppsSub: any;
   loginSub: any;
 
-  auditionFrm: FormGroup;
   dataAddedToForm = false;
-  projectFrm: FormGroup;
-  jobFrm: FormGroup;
-  internshipFrm: FormGroup;
-  freelanceFrm: FormGroup;
-  volunteerFrm: FormGroup;
   formData: any;
 
   activeTab: string;
@@ -48,15 +38,12 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   /* attachments */
 
   constructor(
-    private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private generalUtils: GeneralUtilities,
+    // private generalUtils: GeneralUtilities,
     private toastr: ToastrService,
-    // public modalService: ModalService,
     private oppStore: Store<OpportunityModel>,
-    private loginStore: Store<any>,
-    private scrollHelper: ScrollHelper
+    private loginStore: Store<any>
   ) {
     // opportunity state listener
     this.opportunityState$ = this.oppStore.select('opportunityTags');
@@ -71,9 +58,6 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
               formType: 'edit',
               data: state['get_opportunity_data'],
             };
-            if (this.activeTab === 'volunteer') {
-              this.buildVolunteerForm(state['get_opportunity_data']);
-            }
             this.dataAddedToForm = true;
           }
         }
@@ -115,64 +99,6 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
       payload: { id: this.jobId, data: formData }
     });
   }
-
-  /* =================================== volunteer form =================================== */
-  buildVolunteerForm(data: any) {
-    this.volunteerFrm = this.fb.group({
-      volunteerTitle: [data['opportunityVolunteer']['title'], [Validators.required]],
-      volunteerCause: [data['opportunityVolunteer']['cause'], [Validators.required]],
-      volunteerIndustry: [data['opportunityVolunteer']['category'], [Validators.required]],
-      volunteerLocation: [data['opportunityVolunteer']['location']['location'], [Validators.required]],
-      volunteerSkills: [data['opportunityVolunteer']['skills'], [Validators.required]],
-      volunteerDL: [data['opportunityVolunteer']['requirements'].includes('Background Check'), [Validators.required]],
-      volunteerBGC: [data['opportunityVolunteer']['requirements'].includes('Driver\'s License Needed'), [Validators.required]],
-      volunteerORTR: [data['opportunityVolunteer']['requirements'].includes('Orientation or Training'), [Validators.required]],
-    });
-  }
-
-  submitVolunteerForm(formData: any) {
-    // validation check
-    if (!this.volunteerFrm.valid) {
-      this.scrollHelper.scrollToFirst('error');
-      // console.log('invalid form');
-      return;
-    }
-
-    const volunteerRequirements = [];
-    if (formData.volunteerBGC && formData.volunteerBGC === true) {
-      volunteerRequirements.push('Background Check');
-    }
-    if (formData.volunteerDL && formData.volunteerDL === true) {
-      volunteerRequirements.push('Driver\'s License Needed');
-    }
-    if (formData.volunteerORTR && formData.volunteerORTR === true) {
-      volunteerRequirements.push('Orientation or Training');
-    }
-
-    // else prepare and submit the form
-    const reqBody = {
-      opportunityType: 'volunteer',
-      opportunityVolunteer: {
-        title: formData.volunteerTitle,
-        cause: formData.volunteerCause,
-        industry: formData.volunteerIndustry,
-        skills: formData.volunteerSkills,
-        location: {
-          location: formData.volunteerLocation
-        },
-        requirements: volunteerRequirements
-      }
-    };
-
-    // submit volunteer details
-    this.oppStore.dispatch({
-      type: OpportunityActions.UPDATE_OPPORTUNITY,
-      payload: { id: this.jobId, data: reqBody }
-    });
-    this.oppSaved = true;
-    this.oppUpdating = true;
-  }
-  /* =================================== volunteer form =================================== */
 
   ngOnDestroy() {
     this.oppsSub.unsubscribe();
