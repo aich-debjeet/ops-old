@@ -162,18 +162,6 @@ export class MediaViewComponent {
     });
   }
 
-   /**
-   * Submit Comment
-   */
-  sbComment(param) {
-    if (param === 'Del') {
-      this.commentCount--
-      this.store.dispatch({ type: ProfileActions.COMMENT_COUNT_DECREMENT, payload: this.mediaId });
-    }else {
-      this.commentCount++
-      this.store.dispatch({ type: ProfileActions.COMMENT_COUNT_INCREMENT, payload: this.mediaId });
-    }
-  }
   deletePost(data) {
     this.deleteMsg = true;
     // console.log('data', data)

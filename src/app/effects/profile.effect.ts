@@ -1006,6 +1006,21 @@ export class ProfileEffect {
       .catch((res) => Observable.of({ type: ProfileActions.PROFILE_REPORT_FAILED, payload: res }))
     );
 
+  /**
+   * Media Comment ALL
+   */
+  @Effect()
+  commentMore$ = this.actions$
+    .ofType(ProfileActions.COMMENT_MORE)
+    .map(toPayload)
+    .switchMap((payload) => this.profileService.fetchMediaComment(payload)
+      .map(res => ({ type: ProfileActions.COMMENT_MORE_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({
+        type: ProfileActions.COMMENT_MORE_FAILED,
+        payload: { errorStatus: res.status }
+      }))
+    );
+
 
   constructor(
     private toastr: ToastrService,
