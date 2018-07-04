@@ -72,10 +72,12 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
                 formType: 'edit',
                 data: state['get_opportunity_data'],
               };
-              // this.buildAuditionForm(state['get_opportunity_data']);
             }
             if (this.activeTab === 'project') {
-              this.buildProjectForm(state['get_opportunity_data']);
+              this.formData = {
+                formType: 'edit',
+                data: state['get_opportunity_data'],
+              };
             }
             if (this.activeTab === 'job') {
               this.buildJobForm(state['get_opportunity_data']);
@@ -130,49 +132,6 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
       payload: { id: this.jobId, data: formData }
     });
   }
-
-  /* =================================== project form =================================== */
-  buildProjectForm(data: any) {
-    this.projectFrm = this.fb.group({
-      projectTitle: [data['opportunityProject']['title'], [Validators.required]],
-      projectDescription: [data['opportunityProject']['description'], [Validators.required]],
-      projectIndustry: [data['opportunityProject']['category'], [Validators.required]],
-      projectLocation: [data['opportunityProject']['location']['location'], [Validators.required]],
-      projectSkills: [data['opportunityProject']['skills'], [Validators.required]],
-      projectCollaborators: [data['opportunityProject']['addCollaborators'][0], []],
-    });
-  }
-
-  submitProjectForm(formData: any) {
-    // validation check
-    if (!this.projectFrm.valid) {
-      // console.log('invalid form');
-      return;
-    }
-
-    // else prepare and submit the form
-    const reqBody = {
-      opportunityProject: {
-        title: formData.projectTitle,
-        description: formData.projectDescription,
-        industry: formData.projectIndustry,
-        skills: formData.projectSkills,
-        addCollaborators: [formData.projectCollaborators],
-        location: {
-          location: formData.projectLocation
-        }
-      }
-    };
-
-    // submit project details
-    this.oppStore.dispatch({
-      type: OpportunityActions.UPDATE_OPPORTUNITY,
-      payload: { id: this.jobId, data: reqBody }
-    });
-    this.oppSaved = true;
-    this.oppUpdating = true;
-  }
-  /* =================================== project form =================================== */
 
   /* =================================== job form =================================== */
   buildJobForm(data: any) {
