@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // modules
 import { SharedModule } from '../../shared/shared.module';
 import { NgxMasonryModule } from 'ngx-masonry';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // components
 import { PortfolioComponent } from './portfolio.component';
@@ -27,6 +28,7 @@ const routes: Routes = [{
     SharedModule,
     NgxMasonryModule,
     FormsModule,
+    InfiniteScrollModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
