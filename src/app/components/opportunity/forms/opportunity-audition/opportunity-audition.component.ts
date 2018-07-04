@@ -1,8 +1,6 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ScrollHelper } from '../../../../helpers/scroll.helper';
-import { OpportunityActions } from '../../../../actions/opportunity.action';
-import { OpportunityModel } from '../../../../models/opportunity.model';
 import { Store } from '@ngrx/store';
 import { ProfileModal } from '../../../../models/profile.model';
 import { Observable } from 'rxjs/Observable';
