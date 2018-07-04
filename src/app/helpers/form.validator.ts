@@ -66,7 +66,7 @@ export class DatabaseValidator {
     userNameValidation(control: AbstractControl) {
         const q = new Promise((resolve, reject) => {
             // check current email for user
-            if (control.value.length >= 4) {
+            if (control.value.length >= 3) {
                 setTimeout(() => {
                     this.authService.userExists(control.value).subscribe( data => {
                         if (data.code === 0) {
