@@ -1,27 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ScrollHelper } from '../../../../helpers/scroll.helper';
 import { OpportunityActions } from '../../../../actions/opportunity.action';
 import { OpportunityModel } from '../../../../models/opportunity.model';
 import { Store } from '@ngrx/store';
+import { ProfileModal } from '../../../../models/profile.model';
+import { Observable } from 'rxjs/Observable';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-opportunity-audition',
   templateUrl: './opportunity-audition.component.html',
   styleUrls: ['./../opportunity-forms.scss']
 })
-export class OpportunityAuditionComponent implements OnInit {
+export class OpportunityAuditionComponent implements OnInit, OnDestroy {
   auditionFrm: FormGroup;
+  loginState: Observable<ProfileModal>;
+  private loginSub: ISubscription;
+  industryList = [];
+  oppCreating = false;
+  @Output() formSubmitted: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private fb: FormBuilder,
     private scrollHelper: ScrollHelper,
-    private oppStore: Store<OpportunityModel>
+    private oppStore: Store<OpportunityModel>,
+    private loginStore: Store<any>
   ) {
     this.buildAuditionForm();
   }
 
   ngOnInit() {
+    this.loginState = this.loginStore.select('loginTags');
+    this.loginSub = this.loginState.subscribe((state) => {
+      if (state['industries'] && state['industries'] !== 'undefined') {
+        this.industryList = state['industries'];
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.loginSub.unsubscribe();
   }
 
   /**
@@ -52,7 +71,6 @@ export class OpportunityAuditionComponent implements OnInit {
     // audition form validation
     if (!this.auditionFrm.valid) {
       this.scrollHelper.scrollToFirst('error');
-      // console.log('invalid form');
       return;
     }
 
@@ -88,8 +106,8 @@ export class OpportunityAuditionComponent implements OnInit {
       type: OpportunityActions.CREATE_OPPORTUNITY,
       payload: reqBody
     });
-    // this.oppSaved = true;
-    // this.oppCreating = true;
+    this.oppCreating = true;
+    this.formSubmitted.emit();
   }
 
 }

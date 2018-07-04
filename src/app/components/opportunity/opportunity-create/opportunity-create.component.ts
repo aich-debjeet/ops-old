@@ -165,6 +165,11 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.loginSub.unsubscribe();
   }
 
+  uploadingFormData(oppType: string) {
+    this.oppSaved = true;
+    this.oppCreating = true;
+  }
+
   ngAfterViewChecked() {
     this.scrollHelper.doScroll();
   }
@@ -191,6 +196,11 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
       image: fileObj
     };
     this.oppStore.dispatch({ type: OpportunityActions.FILE_UPLOAD, payload: imageData });
+  }
+
+  creatingOpp() {
+    this.oppSaved = true;
+    this.oppCreating = true;
   }
 
   /* =================================== project form =================================== */
