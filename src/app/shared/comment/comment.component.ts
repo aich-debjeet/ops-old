@@ -3,6 +3,7 @@ import { initialMedia, Media } from '../../models/media.model';
 import { environment } from './../../../environments/environment';
 
 import { MediaActions } from '../../actions/media.action';
+import { ProfileActions } from '../../actions/profile.action';
 // rx
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -17,17 +18,19 @@ export class CommentComponent implements OnInit {
   @Input() mediaId: string;
   @Input() mediaType: string;
   @Input() comments: any;
+  @Input() commentCount: any;
   @Input() commentsType = 'media-list'; // media-list or media-popup
   userState$: Observable<Media>;
   mediaState$: Observable<Media>;
   mediaStore = initialMedia;
   userData: any;
-  messageText: string;
+  messageText: string = '';
   @Output() submitComment: EventEmitter<any> = new EventEmitter<any>();
   @Output() deleteComment: EventEmitter<any> = new EventEmitter<any>();
   @Output() updateComment: EventEmitter<any> = new EventEmitter<any>();
   imageLink: string = environment.API_IMAGE;
   comment_post_loading: boolean = false;
+  moreComment: boolean = true
 
   constructor(
     private store: Store<Media>
@@ -52,18 +55,20 @@ export class CommentComponent implements OnInit {
    * Load Comments
    */
   loadMedia() {
+    this.moreComment = false;
     const send = {
       'media_id': this.mediaId,
       'commentType': this.mediaType
     }
-    this.store.dispatch({ type: MediaActions.MEDIA_COMMENT_FETCH, payload: send });
+    this.store.dispatch({ type: ProfileActions.COMMENT_MORE, payload: send });
+    return
   }
 
   /**
    * Submit Comment
    */
   keyDownFunction(mediaId: string) {
-    if (this.messageText !== null || this.messageText !== '') {
+    if (this.messageText.trim().length !== 0) {
       const send = {
         'content': this.messageText,
         'commentType': this.mediaType,
@@ -71,49 +76,40 @@ export class CommentComponent implements OnInit {
       }
       this.store.dispatch({ type: MediaActions.POST_COMMENT, payload: send});
       this.submitComment.emit();
-      // this.addNewComment();
-      this.messageText = null;
+      this.addNewComment();
+      this.messageText = '';
+      return
     }
   }
 
   addNewComment() {
-    const commentCount = this.comments.length
-    this.comments.push({
+    this.store.dispatch({ type: ProfileActions.COMMENT_COUNT_INCREMENT, payload: this.mediaId });
+    const commentData = {
       comment: this.messageText,
       isOwner: true,
       ownerImage: this.userData.profileImage,
       ownerName: this.userData.name,
-      createdDate: +new Date()
-    })
-    this.loadMedia();
+      createdDate: +new Date(),
+      postId: this.mediaId
+    }
 
-    this.store.select('mediaStore')
-      .first(commentsData => commentsData['media_comment'].length > commentCount )
-      .subscribe( data => {
-        console.log('working');
-        const comments = data['media_comment'];
-        if (comments.length > 0) {
-          this.comments = comments
-        }
-      });
+    this.store.dispatch({ type: ProfileActions.COMMENT_POST_LIST, payload: commentData });
   }
 
   deleteBacend(comment) {
-    const index: number = this.comments.indexOf(comment);
-    if (index !== -1) {
-      this.comments.splice(index, 1);
-      const send = {
-        'id': comment.commentsId,
-        'commentType': this.mediaType,
-        'parent': this.mediaId
-      }
-      this.store.dispatch({ type: MediaActions.DELETE_COMMENT, payload: send});
+    const send = {
+      'id': comment.commentsId,
+      'commentType': this.mediaType,
+      'parent': this.mediaId
     }
+    this.store.dispatch({ type: MediaActions.DELETE_COMMENT, payload: send});
+    this.store.dispatch({ type: ProfileActions.COMMENT_POST_DELETE, payload: send});
   }
 
   onCommentDelete(comment) {
-    this.submitComment.emit('Del');
     this.deleteBacend(comment);
+    this.store.dispatch({ type: ProfileActions.COMMENT_COUNT_DECREMENT, payload: this.mediaId });
+    return
   }
 
   onCommentEdit(comment, message) {

@@ -99,7 +99,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
 
     case MediaActions.DELETE_COMMENT_SUCCESS:
       return Object.assign({}, state, {
-        media_comment: state.media_comment.filter(comment => comment.commentsId !== payload.id)
+        media_comment: state.media_comment ? state.media_comment.filter(comment => comment.commentsId !== payload.id) : []
       });
 
     // Media comment success
@@ -112,7 +112,7 @@ export const MediaReducer: ActionReducer<any> = (state = initialMedia, {payload,
       return Object.assign({}, state, {
         media_post_success: true,
         comment_post_loading: false,
-        media_comment: state.media_comment.concat(payload['comment'])
+        media_comment: state.media_comment ? state.media_comment.concat(payload['comment']) : []
       });
 
     case MediaActions.POST_COMMENT_FAILED:
