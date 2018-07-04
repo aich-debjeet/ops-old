@@ -10,7 +10,7 @@
 
                     <!-- audition -->
                     <div *ngIf="activeTab == 'audition'" id="tab-audition" >
-                        <app-opportunity-audition (formSubmitted)="uploadingFormData('audition');" [oppDetails]="formData"></app-opportunity-audition>
+                        <app-opportunity-audition (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-audition>
                     </div>
                     <!-- audition -->
                     

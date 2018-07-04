@@ -122,74 +122,14 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  /* =================================== audition form =================================== */
-  /**
-   * Edit audition form
-   */
-  buildAuditionForm(data: any) {
-    this.auditionFrm = this.fb.group({
-      auditionTitle: [data['opportunityAudition']['title'], [Validators.required]],
-      auditionDescription: [data['opportunityAudition']['description'], [Validators.required]],
-      auditionCategory: [data['opportunityAudition']['category'], []],
-      auditionDate: [data['opportunityAudition']['auditionDate'], [Validators.required]],
-      auditionLocation: [data['opportunityAudition']['location']['location'], [Validators.required]],
-      auditionGender: [data['opportunityAudition']['gender'], [Validators.required]],
-      auditionAgeMin: [data['opportunityAudition']['ageLimit']['from'], [Validators.required]],
-      auditionAgeMax: [data['opportunityAudition']['ageLimit']['to'], [Validators.required]],
-      auditionHeightFrom: [data['opportunityAudition']['height']['from'], [Validators.required]],
-      auditionHeightTo: [data['opportunityAudition']['height']['to'], [Validators.required]],
-      auditionWeightFrom: [data['opportunityAudition']['weight']['from'], [Validators.required]],
-      auditionWeightTo: [data['opportunityAudition']['weight']['to'], [Validators.required]]
-    });
-  }
-
-  /**
-   * Submit form
-   * @param: form data
-   */
-  submitAuditionForm(formData: any) {
-    // audition form validation
-    if (!this.auditionFrm.valid) {
-      this.scrollHelper.scrollToFirst('error');
-      // console.log('invalid form');
-      return;
-    }
-
-    // preparing request body to submit to the api
-    const reqBody = {
-      opportunityAudition: {
-        title: formData.auditionTitle,
-        description: formData.auditionDescription,
-        category: formData.auditionCategory,
-        auditionDate: formData.auditionDate,
-        gender: formData.auditionGender,
-        ageLimit: {
-          from: String(formData.auditionAgeMin),
-          to: String(formData.auditionAgeMax)
-        },
-        height: {
-          from: String(formData.auditionHeightFrom),
-          to: String(formData.auditionHeightTo)
-        },
-        weight: {
-          from: String(formData.auditionWeightFrom),
-          to: String(formData.auditionWeightTo)
-        },
-        location: {
-          location: formData.auditionLocation
-        }
-      }
-    }
-
-    // submit audition details
-    this.oppStore.dispatch({
-      type: OpportunityActions.UPDATE_OPPORTUNITY,
-      payload: { id: this.jobId, data: reqBody }
-    });
+  submitFormData(formData: string) {
     this.oppSaved = true;
     this.oppUpdating = true;
+    this.oppStore.dispatch({
+      type: OpportunityActions.UPDATE_OPPORTUNITY,
+      payload: { id: this.jobId, data: formData }
+    });
   }
-  /* =================================== audition form =================================== */
 
   /* =================================== project form =================================== */
   buildProjectForm(data: any) {

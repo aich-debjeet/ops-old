@@ -170,9 +170,15 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.loginSub.unsubscribe();
   }
 
-  uploadingFormData(oppType: string) {
+  submitFormData(formData: string) {
     this.oppSaved = true;
     this.oppCreating = true;
+
+    // submit opportunity
+    this.oppStore.dispatch({
+      type: OpportunityActions.CREATE_OPPORTUNITY,
+      payload: formData
+    });
   }
 
   ngAfterViewChecked() {

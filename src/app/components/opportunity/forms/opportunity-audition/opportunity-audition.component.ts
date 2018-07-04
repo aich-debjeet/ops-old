@@ -19,7 +19,7 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
   loginState: Observable<ProfileModal>;
   private loginSub: ISubscription;
   industryList = [];
-  oppCreating = false;
+  oppSubmitting = false;
   _oppDetails: any;
   @Output() formSubmitted: EventEmitter<any> = new EventEmitter<any>();
   @Input('oppDetails') set setOppFormData(value) {
@@ -35,7 +35,6 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
-    private oppStore: Store<OpportunityModel>,
     private loginStore: Store<any>
   ) {
     // this.buildAuditionForm();
@@ -111,14 +110,8 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
         }
       }
     }
-
-    // submit audition details
-    this.oppStore.dispatch({
-      type: OpportunityActions.CREATE_OPPORTUNITY,
-      payload: reqBody
-    });
-    this.oppCreating = true;
-    this.formSubmitted.emit();
+    this.oppSubmitting = true;
+    this.formSubmitted.emit(reqBody);
   }
 
 }
