@@ -20,6 +20,7 @@ import { NgxMasonryModule } from 'ngx-masonry';
 
 import { SharedPipesModule } from './../../pipes/shared-pipes.module';
 import { OpportunityEditComponent } from './opportunity-edit/opportunity-edit.component';
+import { OpportunityAuditionComponent } from './forms/opportunity-audition/opportunity-audition.component';
 
 // opportunity module routes
 const opportunityRoutes: Routes = [
@@ -66,7 +67,8 @@ const opportunityRoutes: Routes = [
     OpportunitySearchAppliedComponent,
     OpportunitySearchCreatedComponent,
     OpportunityViewComponent,
-    OpportunityEditComponent
+    OpportunityEditComponent,
+    OpportunityAuditionComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
