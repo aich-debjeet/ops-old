@@ -1617,29 +1617,88 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     return Object.assign({}, state, {
       pass_success : payload,
     });
-  
+
+  case ProfileActions.COMMENT_MORE_SUCCESS:
+    const home_post_comment = state.user_following_posts.find(t => t.id === payload[0].postId);
+    const home_list_comment_index = state.user_following_posts.indexOf(home_post_comment);
+
+    const profile_post_comment = state.user_following_posts.find(t => t.id === payload[0].postId);
+    const profile_list_comment_index = state.user_following_posts.indexOf(profile_post_comment);
+
+      return Object.assign({}, state, {
+          user_following_posts: [
+              ...state.user_following_posts.slice(0, home_list_comment_index),
+              Object.assign({}, home_post_comment, {
+                commentsList: payload
+              }),
+              ...state.user_following_posts.slice(home_list_comment_index + 1)
+          ]
+      });
+
+    case ProfileActions.COMMENT_POST_DELETE:
+      const home_post_delete = state.user_following_posts.find(t => t.id === payload.parent);
+      const home_list_delete_index = state.user_following_posts.indexOf(home_post_delete);
+
+      const profile_post_delete_List = state.user_posts.find(t => t.id === payload.parent);
+      const profile_list_delete_index = state.user_posts.indexOf(profile_post_delete_List);
+
+      if (home_post_delete) {
+        return Object.assign({}, state, {
+            user_following_posts: [
+                ...state.user_following_posts.slice(0, home_list_delete_index),
+                Object.assign({}, home_post_delete, {commentsList: home_post_delete.commentsList.filter(comment => comment.commentsId !== payload.id) }),
+                ...state.user_following_posts.slice(home_list_delete_index + 1)
+            ],
+        });
+      }
+      if (profile_post_delete_List) {
+        return Object.assign({}, state, {
+          user_posts: [
+            ...state.user_following_posts.slice(0, profile_list_delete_index),
+            Object.assign({}, profile_post_delete_List, {commentsList: profile_post_delete_List.commentsList.filter(comment => comment.commentsId !== payload.id) }),
+            ...state.user_following_posts.slice(profile_list_delete_index + 1)
+          ],
+        });
+      }
+      return state;
+
   case ProfileActions.COMMENT_POST_LIST:
     const home_post_List = state.user_following_posts.find(t => t.id === payload.postId);
     const home_list_index = state.user_following_posts.indexOf(home_post_List);
 
-    console.log('Post_list', home_post_List);
-    console.log('List_index', home_list_index);
+    const profile_post_List = state.user_posts.find(t => t.id === payload.postId);
+    const profile_list_index = state.user_posts.indexOf(profile_post_List);
 
-
+    if (home_post_List) {
       return Object.assign({}, state, {
-          user_following_posts: [
-              ...state.user_following_posts.slice(0, home_list_index),
-              Object.assign({}, home_post_List, {
-                commentsList: [
-                payload,
-                ...home_post_List.commentsList
-                ],
-                commentsCount: home_post_List.commentsCount + 1
-              }),
-              ...state.user_following_posts.slice(home_list_index + 1)
-          ]
+        user_following_posts: [
+          ...state.user_following_posts.slice(0, home_list_index),
+          Object.assign({}, home_post_List, {
+            commentsList: [
+            payload,
+            ...home_post_List.commentsList
+            ],
+          }),
+          ...state.user_following_posts.slice(home_list_index + 1)
+        ]
+      });
+    }
+    if (profile_post_List) {
+      return Object.assign({}, state, {
+        user_posts: [
+          ...state.user_posts.slice(0, profile_list_index),
+          Object.assign({}, profile_post_List, {
+            commentsList: [
+            payload,
+            ...profile_post_List.commentsList
+            ],
+          }),
+          ...state.user_posts.slice(profile_list_index + 1)
+        ]
 
       });
+    }
+    return state;
 
   case ProfileActions.COMMENT_COUNT_INCREMENT:
     const home_post = state.user_following_posts.find(t => t.id === payload);
@@ -1651,16 +1710,16 @@ export const ProfileReducer: ActionReducer<any> = (state = initialTag, {payload,
     const profile_count = profile_post ? profile_post.commentsCount + 1 : 0;
 
       return Object.assign({}, state, {
-          user_following_posts: [
-              ...state.user_following_posts.slice(0, home_index),
-              Object.assign({}, home_post, {commentsCount: home_count }),
-              ...state.user_following_posts.slice(home_index + 1)
-          ],
-          user_posts: [
-            ...state.user_posts.slice(0, profile_index),
-            Object.assign({}, profile_post, {commentsCount: profile_count }),
-            ...state.user_posts.slice(profile_index + 1)
-          ],
+        user_following_posts: [
+          ...state.user_following_posts.slice(0, home_index),
+          Object.assign({}, home_post, {commentsCount: home_count }),
+          ...state.user_following_posts.slice(home_index + 1)
+        ],
+        user_posts: [
+          ...state.user_posts.slice(0, profile_index),
+          Object.assign({}, profile_post, {commentsCount: profile_count }),
+          ...state.user_posts.slice(profile_index + 1)
+        ],
 
       })
 

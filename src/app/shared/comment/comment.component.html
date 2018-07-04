@@ -25,7 +25,7 @@
 
 <div *ngIf="commentsType === 'media-list'"> 
     <app-comment-list *ngFor="let comment of comments; let i = index" [commentData]="comment" (commentDelete)="onCommentDelete(comment, $event)" (commentEdited)="onCommentEdit(comment, $event)"></app-comment-list>
-    <div class="c-post_viewmore2"  *ngIf="commentCount > 3"><a (click)="loadMedia()">View more comments</a></div>
+    <div class="c-post_viewmore2"  *ngIf="commentCount > 3 && moreComment"><a (click)="loadMedia()">View more comments</a></div>
     <div class="c-post__comment p-t-0 with_border_top">
         <div class="c-post__comment--left m-t-16">
             <a class="c-user__avatar c-avatar--status5">

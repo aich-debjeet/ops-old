@@ -137,32 +137,20 @@ export class PostComponent implements OnInit {
   }
 
   /**
-   * Submit Comment
-   */
-  sbComment(param) {
-    console.log(this.commentCount);
-    if (param === 'Del') {
-      this.commentCount--
-    }else {
-      this.commentCount++
-    }
+   * open report modal
+  */
+  reportModalOpen(id: string) {
+    this.reportId = id;
+    this.modalService.open('reportPopUp');
+    this.store.dispatch({ type: MediaActions.MEDIA_POST_REPORT, payload: 'post' });
+  }
+
+  closeReport() {
+    // console.log('comming')
+    this.modalService.close('reportPopUp');
   }
 
   /**
-   * open report modal
-  */
- reportModalOpen(id: string){
-  //  console.log(id)
-   this.reportId = id;
-  this.modalService.open('reportPopUp');
-  this.store.dispatch({ type: MediaActions.MEDIA_POST_REPORT, payload: 'post' });
-}
-closeReport(){
-  // console.log('comming')
-  this.modalService.close('reportPopUp');
-}
-
-/**
    * Submit Comment
    */
   keyDownFunction(mediaId: string) {
