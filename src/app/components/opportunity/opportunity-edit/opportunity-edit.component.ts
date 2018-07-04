@@ -34,6 +34,7 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
   internshipFrm: FormGroup;
   freelanceFrm: FormGroup;
   volunteerFrm: FormGroup;
+  formData: any;
 
   activeTab: string;
   oppSaved = false;
@@ -67,7 +68,11 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
           this.activeTab = state['get_opportunity_data']['opportunityType']
           if (!this.dataAddedToForm) {
             if (this.activeTab === 'audition') {
-              this.buildAuditionForm(state['get_opportunity_data']);
+              this.formData = {
+                formType: 'edit',
+                data: state['get_opportunity_data'],
+              };
+              // this.buildAuditionForm(state['get_opportunity_data']);
             }
             if (this.activeTab === 'project') {
               this.buildProjectForm(state['get_opportunity_data']);

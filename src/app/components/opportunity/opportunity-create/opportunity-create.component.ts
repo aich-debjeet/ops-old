@@ -79,6 +79,11 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   freelanceAttachments = [];
   /* attachments */
 
+  formData = {
+    formType: 'create',
+    data: {}
+  };
+
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,

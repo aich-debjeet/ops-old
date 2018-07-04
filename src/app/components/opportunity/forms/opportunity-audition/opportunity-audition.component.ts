@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ScrollHelper } from '../../../../helpers/scroll.helper';
 import { OpportunityActions } from '../../../../actions/opportunity.action';
@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { ProfileModal } from '../../../../models/profile.model';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
+import { GeneralUtilities } from '../../../../helpers/general.utils';
 
 @Component({
   selector: 'app-opportunity-audition',
@@ -19,15 +20,25 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
   private loginSub: ISubscription;
   industryList = [];
   oppCreating = false;
+  _oppDetails: any;
   @Output() formSubmitted: EventEmitter<any> = new EventEmitter<any>();
+  @Input('oppDetails') set setOppFormData(value) {
+    this._oppDetails = value;
+    if (this._oppDetails.formType === 'edit') {
+      this.buildAuditionForm(this._oppDetails.data);
+    } else {
+      this.buildAuditionForm(null);
+    }
+  };
 
   constructor(
     private fb: FormBuilder,
     private scrollHelper: ScrollHelper,
+    private generalUtils: GeneralUtilities,
     private oppStore: Store<OpportunityModel>,
     private loginStore: Store<any>
   ) {
-    this.buildAuditionForm();
+    // this.buildAuditionForm();
   }
 
   ngOnInit() {
@@ -46,20 +57,20 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
   /**
    * Creating the reactive form for audition
    */
-  buildAuditionForm() {
+  buildAuditionForm(data: any) {
     this.auditionFrm = this.fb.group({
-      auditionTitle: ['', [Validators.required]],
-      auditionDescription: ['', [Validators.required]],
-      auditionCategory: ['', [Validators.required]],
-      auditionDate: ['', [Validators.required]],
-      auditionLocation: ['', [Validators.required]],
-      auditionGender: ['', [Validators.required]],
-      auditionAgeMin: ['', [Validators.required]],
-      auditionAgeMax: ['', [Validators.required]],
-      auditionHeightFrom: ['', [Validators.required]],
-      auditionHeightTo: ['', [Validators.required]],
-      auditionWeightFrom: ['', [Validators.required]],
-      auditionWeightTo: ['', [Validators.required]]
+      auditionTitle: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'title']) ? data['opportunityAudition']['title'] : '', [Validators.required]],
+      auditionDescription: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'description']) ? data['opportunityAudition']['description'] : '', [Validators.required]],
+      auditionCategory: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'category']) ? data['opportunityAudition']['category'] : '', []],
+      auditionDate: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'auditionDate']) ? data['opportunityAudition']['auditionDate'] : '', [Validators.required]],
+      auditionLocation: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'location', 'location']) ? data['opportunityAudition']['location']['location'] : '', [Validators.required]],
+      auditionGender: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'gender']) ? data['opportunityAudition']['gender'] : '', [Validators.required]],
+      auditionAgeMin: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'ageLimit', 'from']) ? data['opportunityAudition']['ageLimit']['from'] : '', [Validators.required]],
+      auditionAgeMax: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'ageLimit', 'to']) ? data['opportunityAudition']['ageLimit']['to'] : '', [Validators.required]],
+      auditionHeightFrom: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'height', 'from']) ? data['opportunityAudition']['height']['from'] : '', [Validators.required]],
+      auditionHeightTo: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'height', 'to']) ? data['opportunityAudition']['height']['to'] : '', [Validators.required]],
+      auditionWeightFrom: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'weight', 'from']) ? data['opportunityAudition']['weight']['from'] : '', [Validators.required]],
+      auditionWeightTo: [this.generalUtils.checkNestedKey(data, ['opportunityAudition', 'weight', 'to']) ? data['opportunityAudition']['weight']['to'] : '', [Validators.required]]
     });
   }
 
