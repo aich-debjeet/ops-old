@@ -67,21 +67,10 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
         if (state['get_opportunity_data']) {
           this.activeTab = state['get_opportunity_data']['opportunityType']
           if (!this.dataAddedToForm) {
-            if (this.activeTab === 'audition') {
-              this.formData = {
-                formType: 'edit',
-                data: state['get_opportunity_data'],
-              };
-            }
-            if (this.activeTab === 'project') {
-              this.formData = {
-                formType: 'edit',
-                data: state['get_opportunity_data'],
-              };
-            }
-            if (this.activeTab === 'job') {
-              this.buildJobForm(state['get_opportunity_data']);
-            }
+            this.formData = {
+              formType: 'edit',
+              data: state['get_opportunity_data'],
+            };
             if (this.activeTab === 'internship') {
               this.buildInternshipForm(state['get_opportunity_data']);
             }
@@ -132,75 +121,6 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
       payload: { id: this.jobId, data: formData }
     });
   }
-
-  /* =================================== job form =================================== */
-  buildJobForm(data: any) {
-    this.jobFrm = this.fb.group({
-      jobRole: [data['opportunityJob']['role'], [Validators.required]],
-      jobDescription: [data['opportunityJob']['description'], [Validators.required]],
-      jobIndustry: [data['opportunityJob']['industry'], [Validators.required]],
-      jobExperienceFrom: [data['opportunityJob']['experience']['from'], [Validators.required]],
-      jobExperienceTo: [data['opportunityJob']['experience']['to'], [Validators.required]],
-      jobSalaryAmount: [data['opportunityJob']['salary']['amount_from'], [Validators.required]],
-      jobSalaryDuration: [data['opportunityJob']['salary']['salaryType'], [Validators.required]],
-      jobSalaryCurrency: [data['opportunityJob']['salary']['currency'], [Validators.required]],
-      jobDuration: [data['opportunityJob']['duration'], [Validators.required]],
-      jobLocation: [data['opportunityJob']['location']['location'], [Validators.required]],
-      jobTravelInclusive: [data['opportunityJob']['includesTravel']['option'], [Validators.required]],
-      jobCountry: [data['opportunityJob']['includesTravel']['country'], [Validators.required]],
-      jobSkills: [data['opportunityJob']['skills'], [Validators.required]],
-      jobQualifications: [data['opportunityJob']['qualifications'], [Validators.required]],
-      jobOrgName: [data['opportunityJob']['organizationName'], [Validators.required]]
-    });
-  }
-
-  submitJobForm(formData: any) {
-    // validation check
-    if (!this.jobFrm.valid) {
-      this.scrollHelper.scrollToFirst('error');
-      // console.log('invalid form');
-      return;
-    }
-
-    // else prepare and submit the form
-    const reqBody = {
-      opportunityJob: {
-        role: formData.jobRole,
-          description: formData.jobDescription,
-          industry: formData.jobIndustry,
-          experience: {
-            from: formData.jobExperienceFrom,
-            to: formData.jobExperienceTo
-          },
-          salary: {
-            amount: Number(formData.jobSalaryAmount),
-            salaryType: formData.jobSalaryDuration,
-            currency: formData.jobSalaryCurrency
-          },
-          duration: formData.jobDuration,
-          location: {
-            location: formData.jobLocation
-          },
-          includesTravel: {
-            option: formData.jobTravelInclusive,
-            country: formData.jobCountry
-          },
-          skills: formData.jobSkills,
-          qualifications: formData.jobQualifications,
-          organizationName: formData.jobOrgName,
-          attachFiles: this.jobAttachments
-      }
-    };
-
-    // submit job details
-    this.oppStore.dispatch({
-      type: OpportunityActions.UPDATE_OPPORTUNITY,
-      payload: { id: this.jobId, data: reqBody }
-    });
-    this.oppSaved = true;
-    this.oppUpdating = true;
-  }
-  /* =================================== job form =================================== */
 
   /* =================================== internship form =================================== */
   buildInternshipForm(data: any) {

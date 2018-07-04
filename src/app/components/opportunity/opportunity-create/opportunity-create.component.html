@@ -29,8 +29,8 @@
                             </div>
                          </a>
                       </li>
-                      <li [ngClass]="{'active': activeTab == 'jobs'}" class="o-oppo-form-tab__item">
-                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('jobs')" aria-expanded="false">
+                      <li [ngClass]="{'active': activeTab == 'job'}" class="o-oppo-form-tab__item">
+                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('job')" aria-expanded="false">
                             <div class="o-oppo-form-tab-block">
                                <span class="o-oppo-tab__icon">
                                <img src="{{ baseUrl }}img/opportunities/job.png" alt="">
@@ -39,8 +39,8 @@
                             </div>
                          </a>
                       </li>
-                      <li [ngClass]="{'active': activeTab == 'internships'}" class="o-oppo-form-tab__item">
-                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('internships')" aria-expanded="false">
+                      <li [ngClass]="{'active': activeTab == 'internship'}" class="o-oppo-form-tab__item">
+                         <a class="o-oppo-tab-link p-0" (click)="switchTabTo('internship')" aria-expanded="false">
                             <div class="o-oppo-form-tab-block">
                                <span class="o-oppo-tab__icon">
                                <img src="{{ baseUrl }}img/opportunities/internship.png" alt="">
@@ -87,280 +87,13 @@
                       <!-- project -->
                       
                       <!-- jobs -->
-                      <div *ngIf="activeTab == 'jobs'" id="tab-jobs" >
-                        <form #createJobFrm="ngForm" [formGroup]="jobFrm" (ngSubmit)="submitJobForm(jobFrm.value)">
-                            <p class="c-text_lg color-grey-dark m-t-16">Jobs.</p>
-                            <div id="03" class="tab-pane">
-                                <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
-                                    Jobs details
-                                </div>
-                                <!-- subtitle end -->
-                                <div class="o-oppo-form__single">
-                                    <div class="col-md-3 p-0">
-                                        <div class="c-text_md o-oppo-form-title">Role</div>
-                                    </div>
-                                    <div class="col-md-9 p-0">
-                                        <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                                            <input formControlName="jobRole" class="c-form__input" type="text" placeholder="eg: Manager/Director">
-                                            <span class="c-form__highlight"></span>
-                                            <span class="c-form__bar"></span>
-                                            <!-- <label>eg: Manager/Director</label> -->
-                                        </div>
-                                        <p *ngIf="jobFrm.controls['jobRole'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Role is required!</p>
-                                    </div>
-                                </div>
-                                <!-- Role end -->
-                                <div class="o-oppo-form__single">
-                                    <div class="col-md-3 p-0">
-                                        <div class="c-text_md o-oppo-form-title">Description</div>
-                                    </div>
-                                    <div class="col-md-9 p-0">
-                                        <div class="c-form__group m-t-0 c-form--sm">
-                                            <textarea formControlName="jobDescription" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
-                                        </div>
-                                        <p *ngIf="jobFrm.controls['jobDescription'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Description is required!</p>
-                                    </div>
-                                </div>
-                                <!-- Description end -->
-                                <div class="o-oppo-form__single">
-                                    <div class="col-md-3 p-0">
-                                        <div class="c-text_md o-oppo-form-title">Industry</div>
-                                    </div>
-                                    <div class="col-md-6 p-0">
-                                        <div class="c-form__group m-t-0">
-                                            <select formControlName="jobIndustry" class="c-form-control p-l-0">
-                                                <option value="">Select</option>
-                                                <option *ngFor="let category of industryList" [value]="category.name">
-                                                    {{ category.name }}
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <p *ngIf="jobFrm.controls['jobIndustry'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Industry is required!</p>
-                                    </div>
-                                </div>
-                                <!-- Description end -->
-                                <div class="o-oppo-form__single">
-                                    <div class="col-md-3 p-0">
-                                        <div class="c-text_md o-oppo-form-title">Experience</div>
-                                    </div>
-                                    <div class="col-md-9 p-0">
-                                        <div class="col-md-2 p-0">
-                                            <div class="c-form__group m-t-0">
-                                                <select formControlName="jobExperienceFrom" class="c-form-control p-l-0">
-                                                    <option value="0">0</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <div class="c-text_md color-grey-dark p-8">to</div>
-                                        </div>
-                                        <div class="col-md-2 p-0">
-                                            <div class="c-form__group m-t-0">
-                                                <select formControlName="jobExperienceTo" class="c-form-control p-l-0">
-                                                    <option value="0">0</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <p *ngIf="(jobFrm.controls['jobExperienceFrom'].errors?.required || jobFrm.controls['jobExperienceTo'].errors?.required) && createJobFrm.submitted" class="c-form__validation error">Experience fields are required!</p>
-                                    </div>
-                                </div>
-                                <!-- Experience end -->
-                                <div class="o-oppo-form__single">
-                                    <div class="col-md-3 p-0">
-                                        <div class="c-text_md o-oppo-form-title">Salary</div>
-                                    </div>
-                                    <div class="col-md-9 p-0">
-                                        <div class="col-md-4 p-l-0">
-                                            <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                                                <input formControlName="jobSalaryAmount" class="c-form__input" type="text" placeholder="Salary amount">
-                                                <span class="c-form__highlight"></span>
-                                                <span class="c-form__bar"></span>
-                                                <!-- <label>eg: Manager/Director</label> -->
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 ">
-                                            <div class="c-form__group m-t-0">
-                                                <select formControlName="jobSalaryDuration" class="c-form-control p-l-0">
-                                                    <option value="Annualy">Annualy</option>
-                                                    <option value="Monthly">Monthly</option>
-                                                    <option value="Contract">Contract</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 ">
-                                            <div class="c-form__group m-t-0">
-                                                <select formControlName="jobSalaryCurrency" class="c-form-control p-l-0">
-                                                    <option value="INR">INR</option>
-                                                    <option value="DOLLOR">DOLLOR</option>
-                                                    <option value="EURO">EURO</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <p *ngIf="(jobFrm.controls['jobSalaryAmount'].errors?.required || jobFrm.controls['jobSalaryDuration'].errors?.required || jobFrm.controls['jobSalaryCurrency'].errors?.required) && createJobFrm.submitted" class="c-form__validation error">Salary details are required!</p>
-                                    </div>
-                                </div>
-                                <!-- Salary end -->
-                                <div class="o-oppo-form__single">
-                                    <div class="col-md-3 p-0">
-                                        <div class="c-text_md o-oppo-form-title">Duration</div>
-                                    </div>
-                                    <div class="col-md-9 p-0">
-                                        <div class="col-md-4 p-0">
-                                            <div class="c-form__group m-t-0">
-                                                <select formControlName="jobDuration" class="c-form-control p-l-0">
-                                                    <option value="Full time">Full time</option>
-                                                    <option value="Part time">Part time</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <p *ngIf="jobFrm.controls['jobDuration'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Duration is required!</p>
-                                    </div>
-                                </div>
-                                <!-- Duration end -->
-                                <div class="o-oppo-form__single">
-                                    <div class="col-md-3 p-0">
-                                        <div class="c-text_md o-oppo-form-title">Location</div>
-                                    </div>
-                                    <div class="col-md-9 p-0">
-                                        <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                                            <input formControlName="jobLocation" class="c-form__input" type="text" placeholder="Where is the opportunity">
-                                            <span class="c-form__highlight"></span>
-                                            <span class="c-form__bar"></span>
-                                            <!-- <label>Where is the opportunity</label> -->
-                                        </div>
-                                        <p *ngIf="jobFrm.controls['jobLocation'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Location is required!</p>
-                                    </div>
-                                </div>
-                                <!-- Location end -->
-                                <div class="o-oppo-form__single">
-                                    <div class="col-md-3 p-0">
-                                        <div class="c-text_md o-oppo-form-title">Includes travel</div>
-                                    </div>
-                                    <div class="col-md-9 p-0">
-                                        <div class="col-md-2 p-0">
-                                            <div class="c-radio__sm p-t-8 float_left width100">
-                                                <label class="col-md-6 p-0 p-t-8">
-                                                    <input formControlName="jobTravelInclusive" type="radio" value="Yes" class="c-form__bar2"><span></span>yes
-                                                </label>
-                                                <label class="col-md-6 p-0 p-t-8">
-                                                    <input formControlName="jobTravelInclusive" type="radio" value="No" class="c-form__bar2"><span></span>No
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-9 p-r-0">
-                                            <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                                                <input formControlName="jobCountry" class="c-form__input" type="text" placeholder="Country">
-                                                <span class="c-form__highlight"></span>
-                                                <span class="c-form__bar"></span>
-                                                <!-- <label>Country</label> -->
-                                            </div>
-                                        </div>
-                                        <p *ngIf="(jobFrm.controls['jobTravelInclusive'].errors?.required || jobFrm.controls['jobCountry'].errors?.required) && createJobFrm.submitted" class="c-form__validation error">This is required!</p>
-                                    </div>
-                                </div>
-                                <!-- Location end -->
-                                <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
-                                    Candidate details
-                                </div>
-                                <!-- subtitle end -->
-                                <div class="o-oppo-form__single">
-                                    <div class="col-md-3 p-0">
-                                        <div class="c-text_md o-oppo-form-title">Skills</div>
-                                    </div>
-                                    <div class="col-md-9 p-0">
-                                        <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                                            <input formControlName="jobSkills" class="c-form__input" type="text" placeholder="eg: #UIdesign #photoshop #sketch">
-                                            <span class="c-form__highlight"></span>
-                                            <span class="c-form__bar"></span>
-                                            <!-- <label>eg: #UIdesign #photoshop #sketch</label> -->
-                                        </div>
-                                        <p *ngIf="jobFrm.controls['jobSkills'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Skills are required!</p>
-                                    </div>
-                                </div>
-                                <!-- Skills end -->
-                                <div class="o-oppo-form__single">
-                                    <div class="col-md-3 p-0">
-                                        <div class="c-text_md o-oppo-form-title">Qualifications</div>
-                                    </div>
-                                    <div class="col-md-9 p-0">
-                                        <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                                            <input formControlName="jobQualifications" class="c-form__input" type="text" placeholder="eg: Graduate">
-                                            <span class="c-form__highlight"></span>
-                                            <span class="c-form__bar"></span>
-                                            <!-- <label>eg: Garduate </label> -->
-                                        </div>
-                                        <p *ngIf="jobFrm.controls['jobQualifications'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Qualification is required!</p>
-                                    </div>
-                                </div>
-                                <!-- Qualifications end -->
-                                <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
-                                    organization details
-                                </div>
-                                <!-- subtitle end -->
-                                <div class="o-oppo-form__single">
-                                    <div class="col-md-3 p-0">
-                                        <div class="c-text_md o-oppo-form-title">Organization Name</div>
-                                    </div>
-                                    <div class="col-md-9 p-0">
-                                        <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
-                                            <input formControlName="jobOrgName" class="c-form__input" type="text" placeholder="Name of the organization/company">
-                                            <span class="c-form__highlight"></span>
-                                            <span class="c-form__bar"></span>
-                                            <!-- <label>Name of the organization/company</label> -->
-                                        </div>
-                                        <p *ngIf="jobFrm.controls['jobOrgName'].errors?.required && createJobFrm.submitted" class="c-form__validation error">Organization name is required!</p>
-                                    </div>
-                                </div>
-                                <!-- Organization Name end -->
-                                <div class="o-oppo-form__single">
-                                    <div class="col-md-3 p-0">
-                                        <div class="c-text_md o-oppo-form-title">Attach files</div>
-                                    </div>
-                                    <div class="col-md-9 p-0">
-                                        <div class="o-oppo-form__file-type">
-                                            <input *ngIf="!uploadedFile" class="o-oppo-file" type="file" accept="image/*" (change)="fileSelectedAction($event)">
-                                            <p *ngIf="!uploadingFile" class="c-text_sm o-oppo-file__text">upload<br>image</p>
-                                            <img *ngIf="uploadingFile" src="{{ baseUrl }}img/search-preloader.gif" class="opp-prel-image" alt="">
-                                            <img *ngIf="uploadedFile" src="{{ uploadedFileSrc }}" class="opp-prev-image" alt="">
-                                        </div>
-                                        <div class="o-oppo-form__img-show"></div>
-                                    </div>
-                                </div>
-                                <!-- file attach end -->
-                                <div class="o-oppo-form__single">
-                                    <div class="col-md-3 p-0"></div>
-                                    <div class="col-md-9 p-0 ">
-                                        <button type="submit" [disabled]="oppCreating" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
-                                    </div>
-                                </div>
-                                <!-- btn end -->
-                            </div>
-                        </form>
+                      <div *ngIf="activeTab == 'job'" id="tab-jobs" >
+                        <app-opportunity-job (formSubmitted)="submitFormData($event);" [oppDetails]="formData"></app-opportunity-job>
                       </div>
                       <!-- jobs -->
 
                       <!-- internships -->
-                      <div *ngIf="activeTab == 'internships'" id="tab-internships" >
+                      <div *ngIf="activeTab == 'internship'" id="tab-internships" >
                         <form #createInternshipFrm="ngForm" [formGroup]="internshipFrm" (ngSubmit)="submitInternshipForm(internshipFrm.value)">
                             <p class="c-text_lg color-grey-dark m-t-16">Internships.</p>
                             <div id="03" class="tab-pane">

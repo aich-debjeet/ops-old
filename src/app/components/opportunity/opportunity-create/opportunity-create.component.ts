@@ -95,12 +95,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     private router: Router
   ) {
 
-    // creating project form
-    this.createProjectForm();
-
-    // creating job form
-    this.createJobForm();
-
     // creating internship form
     this.createInternshipForm();
 
@@ -117,10 +111,10 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
           this.uploadingFile = false;
           this.uploadedFile = true;
           const attUrl = state['fileupload_response'][0].repoPath;
-          if (this.activeTab === 'jobs' && this.jobAttachments.indexOf(attUrl) === -1) {
+          if (this.activeTab === 'job' && this.jobAttachments.indexOf(attUrl) === -1) {
             this.jobAttachments.push(attUrl);
           }
-          if (this.activeTab === 'internships' && this.internshipAttachments.indexOf(attUrl) === -1) {
+          if (this.activeTab === 'internship' && this.internshipAttachments.indexOf(attUrl) === -1) {
             this.internshipAttachments.push(attUrl);
           }
           if (this.activeTab === 'freelance' && this.freelanceAttachments.indexOf(attUrl) === -1) {
@@ -213,120 +207,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.oppSaved = true;
     this.oppCreating = true;
   }
-
-  /* =================================== project form =================================== */
-  createProjectForm() {
-    this.projectFrm = this.fb.group({
-      projectTitle: ['', [Validators.required]],
-      projectDescription: ['', [Validators.required]],
-      projectIndustry: ['', [Validators.required]],
-      projectLocation: ['', [Validators.required]],
-      projectSkills: ['', [Validators.required]],
-      projectCollaborators: ['', []],
-    });
-  }
-
-  submitProjectForm(formData: any) {
-    // validation check
-    if (!this.projectFrm.valid) {
-      // console.log('invalid form');
-      return;
-    }
-
-    // else prepare and submit the form
-    const reqBody = {
-      opportunityType: 'project',
-      opportunityProject: {
-        title: formData.projectTitle,
-        description: formData.projectDescription,
-        industry: formData.projectIndustry,
-        skills: formData.projectSkills,
-        addCollaborators: [formData.projectCollaborators],
-        location: {
-          location: formData.projectLocation
-        }
-      }
-    };
-
-    // submit project details
-    this.oppStore.dispatch({
-      type: OpportunityActions.CREATE_OPPORTUNITY,
-      payload: reqBody
-    });
-    this.oppSaved = true;
-    this.oppCreating = true;
-  }
-  /* =================================== project form =================================== */
-
-  /* =================================== job form =================================== */
-  createJobForm() {
-    this.jobFrm = this.fb.group({
-      jobRole: ['', [Validators.required]],
-      jobDescription: ['', [Validators.required]],
-      jobIndustry: ['', [Validators.required]],
-      jobExperienceFrom: ['', [Validators.required]],
-      jobExperienceTo: ['', [Validators.required]],
-      jobSalaryAmount: ['', [Validators.required]],
-      jobSalaryDuration: ['', [Validators.required]],
-      jobSalaryCurrency: ['', [Validators.required]],
-      jobDuration: ['', [Validators.required]],
-      jobLocation: ['', [Validators.required]],
-      jobTravelInclusive: ['', [Validators.required]],
-      jobCountry: ['', [Validators.required]],
-      jobSkills: ['', [Validators.required]],
-      jobQualifications: ['', [Validators.required]],
-      jobOrgName: ['', [Validators.required]]
-    });
-  }
-
-  submitJobForm(formData: any) {
-    // validation check
-    if (!this.jobFrm.valid) {
-      this.scrollHelper.scrollToFirst('error');
-      // console.log('invalid form');
-      return;
-    }
-
-    // else prepare and submit the form
-    const reqBody = {
-      opportunityType: 'job',
-      opportunityJob: {
-        role: formData.jobRole,
-          description: formData.jobDescription,
-          industry: formData.jobIndustry,
-          experience: {
-            from: formData.jobExperienceFrom,
-            to: formData.jobExperienceTo
-          },
-          salary: {
-            amount: Number(formData.jobSalaryAmount),
-            salaryType: formData.jobSalaryDuration,
-            currency: formData.jobSalaryCurrency
-          },
-          duration: formData.jobDuration,
-          location: {
-            location: formData.jobLocation
-          },
-          includesTravel: {
-            option: formData.jobTravelInclusive,
-            country: formData.jobCountry
-          },
-          skills: formData.jobSkills,
-          qualifications: formData.jobQualifications,
-          organizationName: formData.jobOrgName,
-          attachFiles: this.jobAttachments
-      }
-    };
-
-    // submit job details
-    this.oppStore.dispatch({
-      type: OpportunityActions.CREATE_OPPORTUNITY,
-      payload: reqBody
-    });
-    this.oppSaved = true;
-    this.oppCreating = true;
-  }
-  /* =================================== job form =================================== */
 
   /* =================================== internship form =================================== */
   createInternshipForm() {
