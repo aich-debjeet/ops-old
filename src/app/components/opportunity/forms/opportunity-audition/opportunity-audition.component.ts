@@ -6,6 +6,7 @@ import { ProfileModal } from '../../../../models/profile.model';
 import { Observable } from 'rxjs/Observable';
 import { ISubscription } from 'rxjs/Subscription';
 import { GeneralUtilities } from '../../../../helpers/general.utils';
+import { IDatePickerConfig } from 'ng2-date-picker';
 
 @Component({
   selector: 'app-opportunity-audition',
@@ -27,6 +28,12 @@ export class OpportunityAuditionComponent implements OnInit, OnDestroy {
     } else {
       this.buildAuditionForm(null);
     }
+  };
+  datePicketConfig: IDatePickerConfig = {
+    showMultipleYearsNavigation: true,
+    disableKeypress: true,
+    format: 'DD-MMMM-YYYY',
+    locale: 'en'
   };
 
   constructor(
