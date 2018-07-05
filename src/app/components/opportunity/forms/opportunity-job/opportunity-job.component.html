@@ -248,12 +248,14 @@
           </div>
           <div class="col-md-9 p-0">
               <div class="o-oppo-form__file-type">
-                  <input *ngIf="!uploadedFile" class="o-oppo-file" type="file" accept="image/*" (change)="fileSelectedAction($event)">
+                  <input *ngIf="!uploadedFile" class="o-oppo-file" type="file" accept="image/*" (change)="fileSelectedAction($event)" multiple>
                   <p *ngIf="!uploadingFile" class="c-text_sm o-oppo-file__text">upload<br>image</p>
                   <img *ngIf="uploadingFile" src="{{ baseUrl }}img/search-preloader.gif" class="opp-prel-image" alt="">
                   <img *ngIf="uploadedFile" src="{{ uploadedFileSrc }}" class="opp-prev-image" alt="">
               </div>
-              <div class="o-oppo-form__img-show"></div>
+              <div *ngFor="let fileName of jobAttachments" class="o-oppo-form__img-show">
+                <img src="{{ baseUrl + fileName }}" alt="">
+              </div>
           </div>
       </div>
       <!-- file attach end -->
@@ -261,8 +263,8 @@
         <div class="col-md-3 p-0"></div>
         <div class="col-md-9 p-0">
             <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking ‘Create’, you agree to the Terms and condition and Privacy policy</p>
-            <button *ngIf="_oppDetails?.formType === 'create'" type="submit" [disabled]="oppSubmitting" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
-            <button *ngIf="_oppDetails?.formType === 'edit'" type="submit" [disabled]="oppSubmitting" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
+            <button *ngIf="_oppDetails?.formType === 'create'" type="submit" [disabled]="oppSubmitting || uploadingFile" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
+            <button *ngIf="_oppDetails?.formType === 'edit'" type="submit" [disabled]="oppSubmitting || uploadingFile" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
         </div>
       </div>
       <!-- btn end -->

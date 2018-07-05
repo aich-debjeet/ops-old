@@ -44,7 +44,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
 
   oppSaved = false;
   oppCreating = false;
-  activeTab = 'freelance';
+  activeTab = 'job';
   uploadedFile = false;
   uploadingFile = false;
   uploadedFileSrc = 'https://cdn.onepagespotlight.com/img/default/opp-thumb.png';

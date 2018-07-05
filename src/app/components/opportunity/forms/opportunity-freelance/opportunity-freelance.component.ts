@@ -43,7 +43,7 @@ export class OpportunityFreelanceComponent implements OnInit, OnDestroy {
   freelanceAttachments = [];
   uploadingFile = false;
   uploadedFile = false;
-  baseUrl = environment.API_IMAGE
+  baseUrl = environment.API_IMAGE;
 
   constructor(
     private fb: FormBuilder,
