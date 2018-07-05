@@ -1,0 +1,222 @@
+<form #createAudFrm="ngForm" [formGroup]="auditionFrm" (ngSubmit)="submitAuditionForm(auditionFrm.value)">
+  <p class="c-text_lg color-grey-dark m-t-16">Audition Motivation will almost always beat mere talent.</p>
+  <div class="tab-pane">
+      <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+          Audition details
+      </div>
+      <!-- subtitle end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Title</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                  <input formControlName="auditionTitle" class="c-form__input" type="text" placeholder="eg: Manager/Director">
+                  <span class="c-form__highlight"></span>
+                  <span class="c-form__bar"></span>
+                  <!-- <label>eg: Manager/Director</label> -->
+              </div>
+              <p *ngIf="auditionFrm.controls['auditionTitle'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Title is required!</p>
+          </div>
+      </div>
+      <!-- Title end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Description</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="c-form__group m-t-0 c-form--sm">
+                  <textarea formControlName="auditionDescription" class="c-textarea__block c-textarea--style" placeholder="Describe about opportunity"></textarea>
+              </div>
+              <p *ngIf="auditionFrm.controls['auditionDescription'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Description is required!</p>
+          </div>
+      </div>
+      <!-- Description end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Category</div>
+          </div>
+          <div class="col-md-3 p-0">
+              <div class="c-form__group m-t-0">
+                  <select formControlName="auditionCategory" class="c-form-control p-l-0">
+                      <option value="">Select</option>
+                      <option *ngFor="let category of industryList" [value]="category.name">
+                          {{ category.name }}
+                      </option>
+                  </select>
+              </div>
+              <p *ngIf="auditionFrm.controls['auditionCategory'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Please select category!</p>
+          </div>
+      </div>
+      <!-- catagory end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Audition Date</div>
+          </div>
+          <div class="col-md-3 p-0">
+              <div class="c-form__group m-t-0">
+                  <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                      <!-- <input formControlName="auditionDate" class="c-form__input" type="text" [textMask]="{mask: dateMask}" placeholder="dd-mm-yyyy"> -->
+                      <input formControlName="auditionDate" class="c-form__input" type="text" [dpDayPicker]="datePicketConfig" theme="dp-material" placeholder="dd-mm-yyyy">
+                      <span class="c-form__highlight"></span>
+                      <span class="c-form__bar"></span>
+                      <label></label>
+                  </div>
+              </div>
+              <p *ngIf="auditionFrm.controls['auditionDate'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Audition date is required!</p>
+          </div>
+      </div>
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Location</div>
+          </div>
+          <div class="col-md-3 p-0">
+              <div class="c-form__group m-t-0">
+                  <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                      <input formControlName="auditionLocation" class="c-form__input" type="text" placeholder="eg: Locality, City, Country">
+                      <span class="c-form__highlight"></span>
+                      <span class="c-form__bar"></span>
+                      <label></label>
+                  </div>
+              </div>
+              <p *ngIf="auditionFrm.controls['auditionLocation'].errors?.required && createAudFrm.submitted" class="c-form__validation error">Location is required!</p>
+          </div>
+      </div>
+      <!-- Audition Date end -->
+      <div class="o-oppo-form__subtitle c-text_sm color-grey-dark p-b-8 m-t-b-32 text_uppercase ltr-space">
+          Candidate details
+      </div>
+      <!-- subtitle end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Gender</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="c-radio__sm m-t-8">
+                  <label class="col-md-2 p-0">
+                      <input value="M" formControlName="auditionGender" type="radio" class="c-form__bar2">
+                      <span></span>
+                      <div class="c-radio--label c-text_md color-grey-dark">Male</div>
+                  </label>
+                  <label class="col-md-2 p-0">
+                      <input value="F" formControlName="auditionGender" type="radio" class="c-form__bar2">
+                      <span></span>
+                      <div class="c-radio--label c-text_md color-grey-dark">Female</div>
+                  </label>
+                  <label class="col-md-2 p-0">
+                      <input value="O" formControlName="auditionGender" type="radio" class="c-form__bar2">
+                      <span></span>
+                      <div class="c-radio--label c-text_md color-grey-dark">Both</div>
+                  </label>
+              </div>
+              <p *ngIf="auditionFrm.controls['auditionGender'].errors?.required && createAudFrm.submitted" class="c-form__validation error">This is required!</p>
+          </div>
+      </div>
+      <!-- gender end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Age Limit</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="col-md-3 p-l-0">
+                  <div class="c-form__group m-t-0">
+                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                          <input formControlName="auditionAgeMin" class="c-form__input" type="number" placeholder="Min">
+                          <span class="c-form__highlight"></span>
+                          <span class="c-form__bar"></span>
+                          <!-- <label>Min</label> -->
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-3 p-l-0">
+                  <div class="c-form__group m-t-0">
+                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                          <input formControlName="auditionAgeMax" class="c-form__input" type="number" placeholder="Max">
+                          <span class="c-form__highlight"></span>
+                          <span class="c-form__bar"></span>
+                          <!-- <label>Max</label> -->
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-2 p-0">
+                  <p class="c-text_md color-grey-dark m-t-16">Years</p>
+              </div>
+              <p *ngIf="(auditionFrm.controls['auditionAgeMin'].errors?.required || auditionFrm.controls['auditionAgeMax'].errors?.required) && createAudFrm.submitted" class="c-form__validation error">Age limits are required!</p>
+          </div>
+      </div>
+      <!-- Age limit end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Height</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="col-md-3 p-l-0">
+                  <div class="c-form__group m-t-0">
+                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                          <input formControlName="auditionHeightFrom" class="c-form__input" type="number" placeholder="From">
+                          <span class="c-form__highlight"></span>
+                          <span class="c-form__bar"></span>
+                          <!-- <label>From</label> -->
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-3 p-l-0">
+                  <div class="c-form__group m-t-0">
+                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                          <input formControlName="auditionHeightTo" class="c-form__input" type="number" placeholder="To">
+                          <span class="c-form__highlight"></span>
+                          <span class="c-form__bar"></span>
+                          <!-- <label>To</label> -->
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-2 p-0">
+                  <p class="c-text_md color-grey-dark m-t-16">cm</p>
+              </div>
+              <p *ngIf="(auditionFrm.controls['auditionHeightFrom'].errors?.required || auditionFrm.controls['auditionHeightTo'].errors?.required) && createAudFrm.submitted" class="c-form__validation error">Height is required!</p>
+          </div>
+      </div>
+      <!-- Height end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0">
+              <div class="c-text_md o-oppo-form-title">Weight</div>
+          </div>
+          <div class="col-md-9 p-0">
+              <div class="col-md-3 p-l-0">
+                  <div class="c-form__group m-t-0">
+                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                          <input formControlName="auditionWeightFrom" class="c-form__input" type="number" placeholder="From">
+                          <span class="c-form__highlight"></span>
+                          <span class="c-form__bar"></span>
+                          <!-- <label>From</label> -->
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-3 p-l-0">
+                  <div class="c-form__group m-t-0">
+                      <div class="c-form__group m-t-0 c-form--sm c-form--noeffect">
+                          <input formControlName="auditionWeightTo" class="c-form__input" type="number" placeholder="To">
+                          <span class="c-form__highlight"></span>
+                          <span class="c-form__bar"></span>
+                          <!-- <label>To</label> -->
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-2 p-0">
+                  <p class="c-text_md color-grey-dark m-t-16">Kg</p>
+              </div>
+              <p *ngIf="(auditionFrm.controls['auditionWeightFrom'].errors?.required || auditionFrm.controls['auditionWeightTo'].errors?.required) && createAudFrm.submitted" class="c-form__validation error">Weight is required!</p>
+          </div>
+      </div>
+      <!-- Weight end -->
+      <div class="o-oppo-form__single">
+          <div class="col-md-3 p-0"></div>
+          <div class="col-md-9 p-0">
+              <p *ngIf="_oppDetails?.formType === 'create'" class="c-text_sm color-grey-dark m-t-24">By clicking ‘Create’, you agree to the Terms and condition and Privacy policy</p>
+              <button *ngIf="_oppDetails?.formType === 'create'" type="submit" [disabled]="oppSubmitting" class="btn btn-primary btn-md m-t-16 m-b-16">Create</button>
+              <button *ngIf="_oppDetails?.formType === 'edit'" type="submit" [disabled]="oppSubmitting" class="btn btn-primary btn-md m-t-16 m-b-16">Update</button>
+          </div>
+      </div>
+      <!-- btn end -->
+  </div>
+</form>

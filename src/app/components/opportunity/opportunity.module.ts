@@ -20,6 +20,12 @@ import { NgxMasonryModule } from 'ngx-masonry';
 
 import { SharedPipesModule } from './../../pipes/shared-pipes.module';
 import { OpportunityEditComponent } from './opportunity-edit/opportunity-edit.component';
+import { OpportunityAuditionComponent } from './forms/opportunity-audition/opportunity-audition.component';
+import { OpportunityProjectComponent } from './forms/opportunity-project/opportunity-project.component';
+import { OpportunityJobComponent } from './forms/opportunity-job/opportunity-job.component';
+import { OpportunityInternshipComponent } from './forms/opportunity-internship/opportunity-internship.component';
+import { OpportunityFreelanceComponent } from './forms/opportunity-freelance/opportunity-freelance.component';
+import { OpportunityVolunteerComponent } from './forms/opportunity-volunteer/opportunity-volunteer.component';
 
 // opportunity module routes
 const opportunityRoutes: Routes = [
@@ -66,7 +72,13 @@ const opportunityRoutes: Routes = [
     OpportunitySearchAppliedComponent,
     OpportunitySearchCreatedComponent,
     OpportunityViewComponent,
-    OpportunityEditComponent
+    OpportunityEditComponent,
+    OpportunityAuditionComponent,
+    OpportunityProjectComponent,
+    OpportunityJobComponent,
+    OpportunityInternshipComponent,
+    OpportunityFreelanceComponent,
+    OpportunityVolunteerComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
