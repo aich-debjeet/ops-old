@@ -23,7 +23,6 @@ import { OpportunityModel } from 'app/models/opportunity.model';
 
 // auth imports
 import { AuthActions } from 'app/actions/auth.action';
-import { ProfileModal } from 'app/models/profile.model';
 
 @Component({
   selector: 'app-opportunity-create',
@@ -42,12 +41,11 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   private loginSub: ISubscription;
 
   oppState: Observable<OpportunityModel>;
-  profileState: Observable<ProfileModal>;
   loginState: Observable<any>;
 
   oppSaved = false;
   oppCreating = false;
-  activeTab = 'audition';
+  activeTab = 'freelance';
   uploadedFile = false;
   uploadingFile = false;
   uploadedFileSrc = 'https://cdn.onepagespotlight.com/img/default/opp-thumb.png';
@@ -74,6 +72,7 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
 
   formData = {
     formType: 'create',
+    userHandle: '',
     data: {}
   };
 
@@ -81,7 +80,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     private toastr: ToastrService,
     private scrollHelper: ScrollHelper,
     private generalUtils: GeneralUtilities,
-    private profileStore: Store<ProfileModal>,
     private loginStore: Store<any>,
     private oppStore: Store<OpportunityModel>,
     private router: Router
@@ -90,23 +88,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
     this.oppState = this.oppStore.select('opportunityTags');
     this.oppSub = this.oppState.subscribe((state) => {
       if (state) {
-        if (state['fileupload_response'] && state['fileupload_response'][0] && state['fileupload_response'][0].repoPath) {
-          this.uploadingFile = false;
-          this.uploadedFile = true;
-          const attUrl = state['fileupload_response'][0].repoPath;
-          if (this.activeTab === 'job' && this.jobAttachments.indexOf(attUrl) === -1) {
-            this.jobAttachments.push(attUrl);
-          }
-          if (this.activeTab === 'internship' && this.internshipAttachments.indexOf(attUrl) === -1) {
-            this.internshipAttachments.push(attUrl);
-          }
-          if (this.activeTab === 'freelance' && this.freelanceAttachments.indexOf(attUrl) === -1) {
-            this.freelanceAttachments.push(attUrl);
-          }
-        } else {
-          this.uploadingFile = false;
-          this.uploadedFile = false;
-        }
         if (state['create_opportunity_success'] && state['create_opportunity_success'] === true) {
           this.oppCreating = false;
           if (this.oppSaved === true) {
@@ -120,15 +101,8 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
         }
       }
     });
-    this.profileState = this.profileStore.select('profileTags');
-    this.profSub = this.profileState.subscribe((state) => {
-      if (this.generalUtils.checkNestedKey(state, ['profile_cards', 'active', 'handle'])) {
-        this.userHandle = state['profile_cards']['active']['handle'];
-      }
-      if (state['industries'] && state['industries'] !== 'undefined') {
-        this.industryList = state['industries'];
-      }
-    });
+    this.userHandle = localStorage.getItem('loggedInProfileHandle');
+    this.formData.userHandle = this.userHandle;
     this.loginState = this.loginStore.select('loginTags');
     this.loginSub = this.loginState.subscribe((state) => {
       if (state['industries'] && state['industries'] !== 'undefined') {
@@ -166,24 +140,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   switchTabTo(tabId: string) {
     this.oppSaved = false;
     this.activeTab = tabId;
-  }
-
-  fileSelectedAction($event) {
-    const imgObj = this.generalUtils.fileChangeListener($event);
-    this.uploadImage(imgObj);
-    this.uploadingFile = true;
-    this.uploadedFile = false;
-  }
-
-  /**
-   * Upload image
-   */
-  uploadImage(fileObj) {
-    const imageData = {
-      handle: this.userHandle,
-      image: fileObj
-    };
-    this.oppStore.dispatch({ type: OpportunityActions.FILE_UPLOAD, payload: imageData });
   }
 
   creatingOpp() {

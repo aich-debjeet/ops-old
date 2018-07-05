@@ -57,6 +57,7 @@ export class OpportunityEditComponent implements OnInit, OnDestroy {
             this.formData = {
               formType: 'edit',
               data: state['get_opportunity_data'],
+              userHandle: localStorage.getItem('loggedInProfileHandle')
             };
             this.dataAddedToForm = true;
           }
