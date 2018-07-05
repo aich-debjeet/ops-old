@@ -37,7 +37,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
   public dateMask = [/\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
   private oppSub: ISubscription;
-  private profSub: ISubscription;
   private loginSub: ISubscription;
 
   oppState: Observable<OpportunityModel>;
@@ -117,7 +116,6 @@ export class OpportunityCreateComponent implements OnInit, AfterViewChecked, OnD
 
   ngOnDestroy() {
     this.oppSub.unsubscribe();
-    this.profSub.unsubscribe();
     this.loginSub.unsubscribe();
   }
 
