@@ -31,6 +31,8 @@
                 </div>
             </div>
             <!-- channel search end -->
+            
+
             <div id="ops_scrollbar" class="o-add-channel-container" 
                 infinite-scroll
                 [infiniteScrollDistance]="1"
@@ -38,6 +40,10 @@
                 (scrolled)="onScroll()"
                 [scrollWindow]="false">
                 <div class="o-channel-list-container">
+                    <div class="channel_empty" *ngIf="userChannels?.length === 0">
+                        <p>You have not added any channels, click below to create your first Channel!</p>
+                        <button class="btn btn-primary btn-md m-t-16" (click)="changeFrame(3)">Create channel</button>
+                    </div>
                     <ul class="o-channel-block">
                         <li class="o-channel-items" *ngFor="let channel of userChannels; let i = index" (click)="chooseChannel(channel)">
                             <input class="" type="radio" name="channel" id="{{ 'channel_'+ i }}" [disabled]="settingDisable" (click)="chooseChannel(channel)" />
