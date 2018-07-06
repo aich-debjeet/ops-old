@@ -139,20 +139,20 @@ export const OpportunityReducer: ActionReducer<any> = (state, {payload, type}: A
     /* update opportunity */
 
     /* create opportunity file upload */
-    case OpportunityActions.FILE_UPLOAD:
+    case OpportunityActions.OPPORTUNITY_FILE_UPLOAD:
       return Object.assign({}, state, {
         fileuploading: true,
         fileupload_success: false
       });
 
-    case OpportunityActions.FILE_UPLOAD_SUCCESS:
+    case OpportunityActions.OPPORTUNITY_FILE_UPLOAD_SUCCESS:
       return Object.assign({}, state, {
         fileuploading: false,
         fileupload_success: true,
         fileupload_response: payload['SUCCESS']
       });
 
-    case OpportunityActions.FILE_UPLOAD_FAILED:
+    case OpportunityActions.OPPORTUNITY_FILE_UPLOAD_FAILED:
       return Object.assign({}, state, {
         fileuploading: false,
         fileupload_success: false

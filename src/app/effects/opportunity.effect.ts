@@ -137,11 +137,11 @@ export class OpportunityEffect {
   // File Upload
   @Effect()
     fileUpload$ = this.actions$
-    .ofType(OpportunityActions.FILE_UPLOAD)
+    .ofType(OpportunityActions.OPPORTUNITY_FILE_UPLOAD)
     .map(toPayload)
     .switchMap((payload) => this.opportunityService.fileUpload(payload)
-      .map(res => ({ type: OpportunityActions.FILE_UPLOAD_SUCCESS, payload: res }))
-      .catch((res) => Observable.of({ type: OpportunityActions.FILE_UPLOAD_FAILED, payload: res }))
+      .map(res => ({ type: OpportunityActions.OPPORTUNITY_FILE_UPLOAD_SUCCESS, payload: res }))
+      .catch((res) => Observable.of({ type: OpportunityActions.OPPORTUNITY_FILE_UPLOAD_FAILED, payload: res }))
     );
 
   constructor(

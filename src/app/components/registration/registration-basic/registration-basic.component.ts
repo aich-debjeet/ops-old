@@ -185,7 +185,7 @@ export class RegistrationBasicComponent implements OnInit, OnDestroy, AfterViewI
           FormValidation.noSpecialCharsValidator,
           FormValidation.noCapitalLettersValidator
         ],
-        this.asyncValidator.userNameValidation.bind(this)
+        // this.asyncValidator.userNameValidation.bind(this)
       ],
       dob: ['', [
           Validators.required,

@@ -152,7 +152,7 @@
             </div>
         </div>
     </div>
-    <!-- <app-comment [mediaId]="mediaId" [comments]="comments" [mediaType]="mediaType" (submitComment)="sbComment($event)"></app-comment> -->
+    <app-comment [mediaId]="mediaId" [commentsType]="'media-list'" [comments]="comments" [mediaType]="mediaType"  [commentCount]="commentCount"></app-comment>
 </div>
 
 <app-modal [modalTitle]="''" [blocking]='false' modalId='reportPopUp'>

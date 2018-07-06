@@ -88,6 +88,23 @@ export class GeneralUtilities {
         return null;
     }
 
+    attachMultipleFiles($event) {
+        const allFiles = $event.target.files;
+        if (allFiles.length > 0) {
+            const data = new FormData();
+            for (let i = 0; i < allFiles.length; i++) {
+                const randm = Math.random().toString(36).slice(2);
+                const fileName = 'opp_' + randm + '.' + 'jpg';
+                const file = allFiles[i];
+                data.append('file[]', file, fileName );
+                if (i >= (allFiles.length - 1)) {
+                    return data;
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      * Returns true if key is not a key in object or object[key] has
      * value undefined. If key is a dot-delimited string of key names,
